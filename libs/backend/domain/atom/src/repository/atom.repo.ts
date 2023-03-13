@@ -17,6 +17,14 @@ import {
 export class AtomRepository extends AbstractRepository<IAtom> {
   private Atom = Repository.instance.Atom
 
+  async all() {
+    return await (
+      await this.Atom
+    ).find({
+      selectionSet: atomSelectionSet,
+    })
+  }
+
   async find(where: BaseTypeUniqueWhere = {}) {
     return (
       await (

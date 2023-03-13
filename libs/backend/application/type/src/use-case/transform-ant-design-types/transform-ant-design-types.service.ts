@@ -59,6 +59,7 @@ export class TransformAntDesignTypesService extends IUseCase<
           key: value,
           value: value,
         })),
+        id: v4(),
         name: EnumType.getCompositeName(atom, { key: field.property }),
         owner,
       })
@@ -68,6 +69,7 @@ export class TransformAntDesignTypesService extends IUseCase<
 
     if (isReactNodeType(field.type)) {
       return ReactNodeType.init({
+        id: v4(),
         owner,
       })
     }
@@ -76,6 +78,7 @@ export class TransformAntDesignTypesService extends IUseCase<
       const primitiveKind = AntDesignTypeMapper.mapPrimitiveType(field.type)
 
       return PrimitiveType.init({
+        id: v4(),
         owner,
         primitiveKind,
       })
@@ -84,6 +87,7 @@ export class TransformAntDesignTypesService extends IUseCase<
     if (isRenderPropsType(field.type)) {
       return RenderPropsType.init({
         __typename: ITypeKind.RenderPropsType,
+        id: v4(),
         owner,
       })
     }
@@ -91,6 +95,7 @@ export class TransformAntDesignTypesService extends IUseCase<
     if (isActionType(field.type)) {
       return ActionType.init({
         __typename: ITypeKind.ActionType,
+        id: v4(),
         owner,
       })
     }
@@ -99,6 +104,7 @@ export class TransformAntDesignTypesService extends IUseCase<
       return InterfaceType.init({
         __typename: ITypeKind.InterfaceType,
         fields: [],
+        id: v4(),
         name: InterfaceType.getApiName(atom, { key: field.property }),
         owner,
       })
@@ -131,6 +137,7 @@ export class TransformAntDesignTypesService extends IUseCase<
 
       const unionType = UnionType.init({
         __typename: ITypeKind.UnionType,
+        id: v4(),
         name: UnionType.compositeName(atom, { key: field.property }),
         owner,
         // These need to exist already

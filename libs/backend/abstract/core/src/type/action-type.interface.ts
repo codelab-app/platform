@@ -23,9 +23,9 @@ export type IActionTypeExport = z.infer<typeof ActionTypeExportSchema>
 /**
  * Create
  */
-const CreateActionTypeSchema = ActionTypeSchema.pick({
-  __typename: true,
-  owner: true,
+const CreateActionTypeSchema = ActionTypeSchema.omit({
+  kind: true,
+  name: true,
 })
 
 export type ICreateActionType = z.infer<typeof CreateActionTypeSchema>

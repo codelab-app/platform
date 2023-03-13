@@ -4,7 +4,6 @@ import type {
   IReactNodeType,
 } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { v4 } from 'uuid'
 import { BaseType } from './base-type.model'
 
 export class ReactNodeType extends BaseType implements IReactNodeType {
@@ -22,22 +21,13 @@ export class ReactNodeType extends BaseType implements IReactNodeType {
     super({ __typename: ITypeKind.ReactNodeType, id, kind, name, owner })
   }
 
-  static init({ owner }: ICreateReactNodeType) {
+  static init({ id, owner }: ICreateReactNodeType) {
     return new ReactNodeType({
       __typename: ITypeKind.ReactNodeType,
-      id: v4(),
+      id,
       kind: ITypeKind.ReactNodeType,
       name: ITypeKind.ReactNodeType,
       owner,
     })
   }
-  // static seedData(user: IUserRef): IReactNodeType {
-  //   return new ReactNodeType({
-  //     id: v4(),
-  //     __typename: ITypeKind.ReactNodeType,
-  //     kind: ITypeKind.ReactNodeType,
-  //     name: ITypeKind.ReactNodeType,
-  //     owner: user,
-  //   })
-  // }
 }

@@ -15,11 +15,12 @@ export class ArrayTypeFactory extends ITypeFactory<
   repository = new ArrayTypeRepository()
 
   async _create(
-    { owner, name }: ICreateArrayType,
+    { id, owner, name }: ICreateArrayType,
     where: BaseTypeUniqueWhereCallback<IArrayType>,
   ) {
     const arrayType = ArrayType.init({
       __typename: ITypeKind.ArrayType,
+      id,
       name,
       owner,
     })

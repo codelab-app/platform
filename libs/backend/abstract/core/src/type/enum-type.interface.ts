@@ -33,13 +33,8 @@ export type IEnumTypeExport = z.infer<typeof EnumTypeExportSchema>
 /**
  * Create
  */
-const CreateEnumTypeSchema = EnumTypeSchema.pick({
-  __typename: true,
-
-  allowedValues: true,
-  // id: true,
-  name: true,
-  owner: true,
+const CreateEnumTypeSchema = EnumTypeSchema.omit({
+  kind: true,
 })
 
 export type ICreateEnumType = z.infer<typeof CreateEnumTypeSchema>

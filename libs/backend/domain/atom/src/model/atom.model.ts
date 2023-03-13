@@ -1,9 +1,9 @@
 import type { IAtom } from '@codelab/backend/abstract/core'
-import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
+import type { IAtomDTO, IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { IAtomType } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 
-export class Atom implements IAtom {
+export class Atom implements IAtomDTO {
   icon?: string | null | undefined
 
   id: string

@@ -14,8 +14,8 @@ let user: IUser
 beforeAll(async () => {
   user = await setupUser({
     AdminService,
-    UserRepository,
     User,
+    UserRepository,
   })
 })
 
@@ -30,19 +30,19 @@ describe('Import data', () => {
       path.resolve('./libs/shared/data/seed/src/export'),
     ).execute(user)
 
-    const atoms = await atomRepository.find()
+    const atoms = await atomRepository.all()
 
     expect(atoms).toEqual(
       expect.arrayContaining([
-        {
+        expect.objectContaining({
           name: IAtomType.AntDesignAffix,
-        },
-        {
+        }),
+        expect.objectContaining({
           name: IAtomType.AntDesignAlert,
-        },
-        {
+        }),
+        expect.objectContaining({
           name: IAtomType.AntDesignAnchor,
-        },
+        }),
       ]),
     )
   })

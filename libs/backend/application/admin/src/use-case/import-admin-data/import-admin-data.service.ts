@@ -45,16 +45,18 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
      */
     await this.importSystemTypes(owner)
 
+    await this.importAdminTypes(owner)
+
     await this.importApis(owner)
 
     // await this.importTags(owner)
 
-    const apis = await this.interfaceTypeRepository.all()
-    console.log(apis)
+    // const apis = await this.interfaceTypeRepository.all()
+    // console.log(apis)
 
     await this.importFields(owner)
 
-    // await this.importAtoms(owner)
+    await this.importAtoms(owner)
   }
 
   private async importSystemTypes(owner: IAuth0Owner) {
@@ -63,6 +65,12 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
     ) as Array<ITypeExport>
 
     for await (const type of types) {
+      await TypeFactory.create({ ...type, owner })
+    }
+  }
+
+  private async importAdminTypes(owner: IAuth0Owner) {
+    for await (const type of this.getMergedData().types) {
       await TypeFactory.create({ ...type, owner })
     }
   }
