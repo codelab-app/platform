@@ -1,8 +1,13 @@
-import type { ICreateAppData } from '@codelab/frontend/abstract/core'
+import type {
+  IAuth0Owner,
+  ICreateAppData,
+} from '@codelab/frontend/abstract/core'
 import { v4 } from 'uuid'
 
-export const createAppData: ICreateAppData = {
+export const createAppData: (owner: IAuth0Owner) => ICreateAppData = (
+  owner,
+) => ({
   id: v4(),
   name: 'Demo App',
-  owner: { auth0Id: v4() },
-}
+  owner,
+})

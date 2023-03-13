@@ -1,9 +1,9 @@
-import type { IAtom } from '@codelab/backend/abstract/core'
 import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   atomSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
+import type { IAtomDTO } from '@codelab/frontend/abstract/core'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import {
   connectAuth0Owner,
@@ -14,7 +14,7 @@ import {
   whereNodeIds,
 } from '@codelab/shared/domain/mapper'
 
-export class AtomRepository extends AbstractRepository<IAtom> {
+export class AtomRepository extends AbstractRepository<IAtomDTO> {
   private Atom = Repository.instance.Atom
 
   async all() {
@@ -39,7 +39,7 @@ export class AtomRepository extends AbstractRepository<IAtom> {
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _add(atoms: Array<IAtom>) {
+  protected async _add(atoms: Array<IAtomDTO>) {
     return (
       await (
         await this.Atom
@@ -52,7 +52,7 @@ export class AtomRepository extends AbstractRepository<IAtom> {
             ),
             api: connectNodeId(api.id),
             owner: connectAuth0Owner(owner),
-            tags: connectNodeIds(tags.map((tag) => tag.id)),
+            tags: connectNodeIds(tags?.map((tag) => tag.id)),
           }),
         ),
       })
@@ -60,7 +60,7 @@ export class AtomRepository extends AbstractRepository<IAtom> {
   }
 
   protected async _update(
-    { allowedChildren = [], api, owner, tags, ...atom }: IAtom,
+    { allowedChildren = [], api, owner, tags, ...atom }: IAtomDTO,
     where: BaseTypeUniqueWhere,
   ) {
     return (
@@ -73,7 +73,7 @@ export class AtomRepository extends AbstractRepository<IAtom> {
             allowedChildren.map((child) => child.id),
           ),
           api: reconnectNodeId(api.id),
-          tags: reconnectNodeIds(tags.map((tag) => tag.id)),
+          tags: reconnectNodeIds(tags?.map((tag) => tag.id)),
         },
         where,
       })

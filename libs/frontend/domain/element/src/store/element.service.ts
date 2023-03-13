@@ -41,7 +41,7 @@ import {
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import type { UpdateElementsMutationVariables } from '../graphql/element.endpoints.graphql.gen'
-import { ElementRepository } from '../services/element.repository'
+import { ElementRepository } from '../services/element.repo'
 import { makeAutoIncrementedName } from '../utils'
 import {
   getRenderTypeApi,

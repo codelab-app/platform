@@ -1,10 +1,10 @@
 import type {
-  IAtom,
   ICreateUnionType,
   IField,
   IOwner,
   IUnionType,
 } from '@codelab/backend/abstract/core'
+import type { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
@@ -39,7 +39,10 @@ export class UnionType extends BaseType implements IUnionType {
     })
   }
 
-  static compositeName(atom: Pick<IAtom, 'name'>, field: Pick<IField, 'key'>) {
+  static compositeName(
+    atom: Pick<IAtomDTO, 'name'>,
+    field: Pick<IField, 'key'>,
+  ) {
     return `${atom.name} ${compoundCaseToTitleCase(field.key)} Union API`
   }
 }

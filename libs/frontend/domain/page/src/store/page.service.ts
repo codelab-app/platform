@@ -30,7 +30,7 @@ import { v4 } from 'uuid'
 import { PageFactory } from '../services'
 import { pageApi } from './page.api'
 import { Page } from './page.model'
-import { PageRepository } from './page.repository'
+import { PageRepository } from './page.repo'
 import { PageModalService } from './page-modal.service'
 
 @model('@codelab/PageService')

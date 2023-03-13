@@ -1,6 +1,5 @@
 import type {
   AntDesignField,
-  IAtom,
   IOwner,
   IType,
 } from '@codelab/backend/abstract/core'
@@ -18,6 +17,7 @@ import {
   UnionType,
   UnionTypeRepository,
 } from '@codelab/backend/domain/type'
+import type { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 import { AntDesignTypeMapper } from '../../mapper'
@@ -34,7 +34,7 @@ import {
 
 interface Request {
   field: Pick<AntDesignField, 'type' | 'property'>
-  atom: IAtom
+  atom: IAtomDTO
   owner: IOwner
 }
 

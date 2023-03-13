@@ -1,8 +1,8 @@
-import type { IAtomExport } from '@codelab/backend/abstract/core'
 import {
   atomSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
+import type { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 
 interface ExportAtomsProps {
@@ -11,7 +11,7 @@ interface ExportAtomsProps {
 
 export const exportAtoms = async (
   props: ExportAtomsProps = {},
-): Promise<Array<IAtomExport>> => {
+): Promise<Array<IAtomDTO>> => {
   const Atom = await Repository.instance.Atom
 
   return (

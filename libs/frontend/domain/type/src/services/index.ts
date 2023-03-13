@@ -1,1 +1,1 @@
-export * from './type.repository'
+export * from './type.repo'
