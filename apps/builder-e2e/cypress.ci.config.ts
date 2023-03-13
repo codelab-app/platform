@@ -10,23 +10,16 @@ const cypressJsonConfig: Cypress.ConfigOptions = {
   fileServerFolder: '.',
   fixturesFolder: './src/fixtures',
   pageLoadTimeout: 15000,
-  // Old Cypress.io project ID but too expensive
-  // projectId: '86p5h3',
-  // New currents.dev alternative
+  // Cypress Cloud
   projectId: '9hfoow',
-
   responseTimeout: 15000,
-
   // numTestsKeptInMemory: 1,
   retries: {
     openMode: 0,
     runMode: 1,
   },
-
   screenshotsFolder: './src/screenshots',
-
   video: true,
-
   videosFolder: './src/videos',
   viewportHeight: 960,
   viewportWidth: 1280,

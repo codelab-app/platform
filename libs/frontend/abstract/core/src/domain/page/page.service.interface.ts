@@ -17,7 +17,7 @@ import type {
   IUpdatePageData,
 } from './page.dto.interface'
 import type { IPage } from './page.model.interface'
-import type { IPageRepository } from './page.repository.interface'
+import type { IPageRepository } from './page.repo.interface'
 
 export interface IPageFactory {
   addSystemPages(app: Pick<IApp, 'id' | 'owner'>): Array<IPage>

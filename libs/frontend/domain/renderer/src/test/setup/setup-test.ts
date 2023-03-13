@@ -14,6 +14,7 @@ import {
   Element,
   ElementService,
   ElementTree,
+  elementTreeRef,
 } from '@codelab/frontend/domain/element'
 import { pageRef } from '@codelab/frontend/domain/page'
 import { Prop, propRef, PropService } from '@codelab/frontend/domain/prop'
@@ -195,6 +196,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     data.renderer = new Renderer({
       appStore: storeRef(data.store),
       debugMode: false,
+      elementTree: elementTreeRef(new ElementTree({})),
       rendererType: RendererType.PageBuilder,
       renderPipe: renderPipeFactory([PassThroughRenderPipe, ...pipes]),
     })

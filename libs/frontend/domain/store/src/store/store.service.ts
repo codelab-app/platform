@@ -22,7 +22,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { StoreRepository } from '../services/store.repository'
+import { StoreRepository } from '../services/store.repo'
 import { getActionService } from './action.service'
 import { actionRef, Store } from './models'
 import { StoreModalService } from './store-modal.service'

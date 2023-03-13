@@ -32,7 +32,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { ComponentRepository } from '../services/component.repository'
+import { ComponentRepository } from '../services/component.repo'
 import { componentApi } from './component.api'
 import { Component } from './component.model'
 import { ComponentModalService } from './component-modal.service'

@@ -1,6 +1,5 @@
 import type {
   AntDesignField,
-  IAtom,
   IField,
   IOwner,
   IType,
@@ -17,6 +16,7 @@ import {
   InterfaceTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
+import type { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { v4 } from 'uuid'
@@ -33,7 +33,7 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
 
   private reactDataFolder = `${process.cwd()}/data/react/`
 
-  private readonly atoms: { [atomName: string]: IAtom }
+  private readonly atoms: { [atomName: string]: IAtomDTO }
 
   fieldRepository: FieldRepository = new FieldRepository()
 
@@ -45,7 +45,7 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
   /**
    * @param atoms Created from hard coded atoms data
    */
-  private constructor(atoms: Array<IAtom>, private readonly owner: IOwner) {
+  private constructor(atoms: Array<IAtomDTO>, private readonly owner: IOwner) {
     super()
     this.atoms = atoms
       .map((atom) => ({
@@ -99,7 +99,7 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
   }
 
   private async transformFields(
-    atom: IAtom,
+    atom: IAtomDTO,
     atomFields: Array<AntDesignField>,
   ) {
     return await atomFields.reduce<Promise<Array<IField>>>(

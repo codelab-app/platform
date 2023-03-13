@@ -47,7 +47,7 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { AppRepository } from '../services/app.repository'
+import { AppRepository } from '../services/app.repo'
 import { App } from './app.model'
 import { AppModalService } from './app-modal.service'
 

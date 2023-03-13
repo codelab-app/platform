@@ -1,4 +1,6 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import { AppService } from '@codelab/frontend/domain/app'
+import { createAppData } from '@codelab/frontend/shared/data'
 import { createAppInput } from '../support/database/app'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 import { pageName, updatedPageName } from './apps/app.data'
@@ -7,14 +9,15 @@ describe('Pages CRUD', () => {
   before(() => {
     cy.resetDatabase()
     loginSession()
+
     cy.getCurrentOwner()
-      .then((owner) => {
-        return cy.createApp(createAppInput(owner))
+      .then(async (owner) => {
+        return Promise.resolve(cy.createApp(createAppInput(owner)))
       })
       .then((apps) => {
         const app = apps[0]
 
-        cy.visit(`/apps/${app?.id}/pages`)
+        cy.visit(`/apps/${app.id}/pages`)
         cy.getSpinner().should('not.exist')
       })
   })

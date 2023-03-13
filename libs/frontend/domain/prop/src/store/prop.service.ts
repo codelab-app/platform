@@ -19,7 +19,7 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { Prop } from './prop.model'
-import { PropRepository } from './prop.repository'
+import { PropRepository } from './prop.repo'
 
 @model('@codelab/PropService')
 export class PropService
