@@ -28,7 +28,7 @@ export interface BaseTypesOptions {
 
 export interface ITypeService
   extends ICRUDService<IType, ICreateTypeData, IUpdateTypeData>,
-    IQueryService<IType, BaseTypeWhere, BaseTypeOptions>,
+    Omit<IQueryService<IType, BaseTypeWhere, BaseTypeOptions>, 'getAll'>,
     ICRUDModalService<Ref<IType>, { type: Maybe<IType> }> {
   count: number
   selectedIds: ArraySet<string>
@@ -39,7 +39,8 @@ export interface ITypeService
   addInterface(data: ICreateTypeData): IInterfaceType
   getAllWithDescendants(ids: Array<string>): Promise<Array<IType>>
   getBaseTypes(options: BaseTypesOptions): Promise<Array<string>>
-  getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>
+  getInterface(id: IInterfaceTypeRef): Promise<IInterfaceType>
+  getAll(ids?: Array<string>): Promise<Array<IType>>
   loadFields(types: GetTypesQuery['interfaceTypes']): void
   loadTypes(types: GetTypesQuery): Array<IType>
   loadTypesByChunks(types: GetTypesQuery): void

@@ -9,6 +9,7 @@ import {
   createTypeApi,
   deleteTypeApi,
   getAllTypes,
+  getTypeApi,
   updateTypeApi,
 } from '../store'
 
@@ -38,6 +39,32 @@ export class TypeRepository extends Model({}) implements ITypeRepository {
     const types = yield* _await(getAllTypes(ids))
 
     return types
+  })
+
+  @modelFlow
+  findDescendants = _async(function* (
+    this: TypeRepository,
+    parentIds: Array<string>,
+  ) {
+    const { arrayTypes, interfaceTypes, unionTypes } = yield* _await(
+      getTypeApi.GetDescendants({ ids: parentIds }),
+    )
+
+    const allDescendantIdsWithoutParents = [
+      ...arrayTypes,
+      ...unionTypes,
+      ...interfaceTypes,
+    ]
+      .reduce<Array<string>>(
+        (descendantIds, { descendantTypesIds }) => [
+          ...descendantIds,
+          ...descendantTypesIds.flat(),
+        ],
+        [],
+      )
+      .filter((id) => !parentIds.includes(id))
+
+    return yield* _await(getAllTypes(allDescendantIdsWithoutParents))
   })
 
   @modelFlow

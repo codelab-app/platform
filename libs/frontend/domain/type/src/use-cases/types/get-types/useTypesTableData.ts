@@ -10,24 +10,15 @@ export const useTypesTableData = (typeService: ITypeService) => {
   ) => {
     const baseTypeIds = await typeService.getBaseTypes(options)
 
-    return await typeService.getAll({ id_IN: baseTypeIds })
+    return await typeService.getAll(baseTypeIds)
   }
 
-  const [
-    { loading: isLoadingAllTypes, value: fetchedBaseTypes },
-    getBaseTypes,
-  ] = useAsyncFn(setupCurrentPageTypes)
-
-  const [{ loading: isLoadingTypeDescendants }, getTypeDescendants] =
-    useAsyncFn(async (id: string) => {
-      await typeService.getAllWithDescendants([id])
-    })
+  const [{ loading: isLoadingAllTypes, value: fetchedTypes }, getTypes] =
+    useAsyncFn(setupCurrentPageTypes)
 
   return {
-    fetchedBaseTypes,
-    getBaseTypes,
-    getTypeDescendants,
+    fetchedTypes,
+    getTypes,
     isLoadingAllTypes,
-    isLoadingTypeDescendants,
   }
 }

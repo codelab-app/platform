@@ -25,7 +25,7 @@ export const useGetCurrentInterfaceWithFields = (typeService: ITypeService) => {
   const { error, loading } = useAsync(
     () =>
       // We need the whole graph, not just the interface, because we need to reference all the field types
-      typeService.getInterfaceAndDescendants(interfaceId),
+      typeService.getInterface(interfaceId),
     [interfaceId],
   )
 

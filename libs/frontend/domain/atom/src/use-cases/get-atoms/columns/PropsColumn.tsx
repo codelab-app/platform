@@ -14,11 +14,10 @@ import type { PropsColumnProps } from './types'
 
 export const PropsColumn = observer<PropsColumnProps>(
   ({ atom, fieldService, typeService }) => {
-    const [{ loading, value: interfaceType }, getInterfaceAndDescendants] =
-      useAsyncFn(
-        () => typeService.getInterfaceAndDescendants(atom.apiId),
-        [atom.apiId],
-      )
+    const [{ loading, value: interfaceType }, getInterface] = useAsyncFn(
+      () => typeService.getInterface(atom.apiId),
+      [atom.apiId],
+    )
 
     const onEdit = (field: IField<IType>) => {
       fieldService.updateModal.open(fieldRef(field.id))
@@ -85,7 +84,7 @@ export const PropsColumn = observer<PropsColumnProps>(
           ) : (
             <Button
               onClick={() => {
-                void getInterfaceAndDescendants()
+                void getInterface()
               }}
             >
               Edit API
