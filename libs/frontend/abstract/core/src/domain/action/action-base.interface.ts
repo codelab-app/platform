@@ -4,12 +4,11 @@ import type { IProp } from '../prop'
 import type { IStore } from '../store'
 
 export interface IActionBase {
-  createRunner(state: IProp): (...args: Array<unknown>) => unknown
   id: IActionRef
   name: string
   store: Ref<IStore>
-
   type: IActionKind
+  createRunner(state: IProp): (...args: Array<unknown>) => unknown
 }
 
 export type IActionRef = string

@@ -12,15 +12,15 @@ import type { IElement } from './element.model.interface'
  */
 export interface IElementTree {
   _root: Nullable<Ref<IElement>>
+  elements: Array<IElement>
+  id: string
+  name: string
+  root: Maybe<IElement>
   addElements(elements: Array<IElement>): IElementTree
   descendants(subRoot: Ref<IElement>): Array<IElement>
   element(id: string): Maybe<IElement>
-  elements: Array<IElement>
   getPathFromRoot(pageNode: IPageNodeRef): Array<IElement>
-  id: string
-  name: string
   removeElements(elements: Array<IElement>): IElementTree
-  root: Maybe<IElement>
 }
 
 export interface IElementTreeService {

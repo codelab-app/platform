@@ -19991,71 +19991,45 @@ export type RenderPropsTypeFragment = {
 
 type Type_ActionType_Fragment = {
   __typename?: 'ActionType'
-} & BaseType_ActionType_Fragment &
-  ActionTypeFragment
+} & ActionTypeFragment
 
-type Type_AppType_Fragment = {
-  __typename?: 'AppType'
-} & BaseType_AppType_Fragment &
-  AppTypeFragment
+type Type_AppType_Fragment = { __typename?: 'AppType' } & AppTypeFragment
 
-type Type_ArrayType_Fragment = {
-  __typename?: 'ArrayType'
-} & BaseType_ArrayType_Fragment &
-  ArrayTypeFragment
+type Type_ArrayType_Fragment = { __typename?: 'ArrayType' } & ArrayTypeFragment
 
-type Type_BaseType_Fragment = {
-  __typename?: 'BaseType'
-} & BaseType_BaseType_Fragment
+type Type_BaseType_Fragment = { __typename?: 'BaseType' }
 
 type Type_CodeMirrorType_Fragment = {
   __typename?: 'CodeMirrorType'
-} & BaseType_CodeMirrorType_Fragment &
-  CodeMirrorTypeFragment
+} & CodeMirrorTypeFragment
 
 type Type_ElementType_Fragment = {
   __typename?: 'ElementType'
-} & BaseType_ElementType_Fragment &
-  ElementTypeFragment
+} & ElementTypeFragment
 
-type Type_EnumType_Fragment = {
-  __typename?: 'EnumType'
-} & BaseType_EnumType_Fragment &
-  EnumTypeFragment
+type Type_EnumType_Fragment = { __typename?: 'EnumType' } & EnumTypeFragment
 
 type Type_InterfaceType_Fragment = {
   __typename?: 'InterfaceType'
-} & BaseType_InterfaceType_Fragment &
-  InterfaceTypeFragment
+} & InterfaceTypeFragment
 
 type Type_LambdaType_Fragment = {
   __typename?: 'LambdaType'
-} & BaseType_LambdaType_Fragment &
-  LambdaTypeFragment
+} & LambdaTypeFragment
 
-type Type_PageType_Fragment = {
-  __typename?: 'PageType'
-} & BaseType_PageType_Fragment &
-  PageTypeFragment
+type Type_PageType_Fragment = { __typename?: 'PageType' } & PageTypeFragment
 
 type Type_PrimitiveType_Fragment = {
   __typename?: 'PrimitiveType'
-} & BaseType_PrimitiveType_Fragment &
-  PrimitiveTypeFragment
+} & PrimitiveTypeFragment
 
-type Type_ReactNodeType_Fragment = {
-  __typename?: 'ReactNodeType'
-} & BaseType_ReactNodeType_Fragment
+type Type_ReactNodeType_Fragment = { __typename?: 'ReactNodeType' }
 
 type Type_RenderPropsType_Fragment = {
   __typename?: 'RenderPropsType'
-} & BaseType_RenderPropsType_Fragment &
-  RenderPropsTypeFragment
+} & RenderPropsTypeFragment
 
-type Type_UnionType_Fragment = {
-  __typename?: 'UnionType'
-} & BaseType_UnionType_Fragment &
-  UnionTypeFragment
+type Type_UnionType_Fragment = { __typename?: 'UnionType' } & UnionTypeFragment
 
 export type TypeFragment =
   | Type_ActionType_Fragment

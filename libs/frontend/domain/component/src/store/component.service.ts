@@ -9,15 +9,17 @@ import {
   getElementService,
   IBuilderDataNode,
   IComponentDTO,
+  ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
-import { getTypeService } from '@codelab/frontend/domain/type'
+import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
   ComponentUpdateInput,
   ComponentWhere,
   RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
@@ -32,6 +34,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { ComponentRepository } from '../services/component.repo'
 import { componentApi } from './component.api'
 import { Component } from './component.model'
@@ -102,7 +105,7 @@ export class ComponentService
     rootElement,
   }: IComponentDTO) {
     if (props) {
-      this.propService.add(props)
+      this.propService.add({ ...props, data: '{}' })
     }
 
     const component = Component.create({
@@ -176,16 +179,36 @@ export class ComponentService
     this: ComponentService,
     createComponentData: ICreateComponentData,
   ) {
-    const component = this.add(createComponentData)
+    const props = this.propService.add({ data: '{}', id: v4() })
+
+    const rootElement = this.elementService.add({
+      ...createComponentData.rootElement,
+      name: ROOT_ELEMENT_NAME,
+      props,
+    })
+
+    const api = this.typeService.addInterface({
+      ...createComponentData.api,
+      kind: ITypeKind.InterfaceType,
+      name: InterfaceType.createName(`${createComponentData.name}`),
+      owner: createComponentData.owner,
+    })
+
+    const component = this.add({
+      ...createComponentData,
+      api,
+      props: { id: v4() },
+      rootElement,
+    })
 
     this.components.set(component.id, component)
 
     const newComponent = yield* _await(this.componentRepository.add(component))
 
-    const { hydratedElements, rootElement } =
+    const { hydratedElements, rootElement: loadedRootElement } =
       this.elementService.loadComponentTree(newComponent)
 
-    component.initTree(rootElement, hydratedElements)
+    component.initTree(loadedRootElement, hydratedElements)
 
     return component
   })
