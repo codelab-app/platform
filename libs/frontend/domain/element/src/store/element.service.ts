@@ -25,6 +25,7 @@ import { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
+import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
 import {
   _async,
@@ -177,7 +178,6 @@ export class ElementService
 
     const element = this.add({
       ...data,
-      parent,
       props: elementProps,
     })
 
@@ -273,11 +273,11 @@ export class ElementService
     const element = this.element(elementId)
 
     const affectedNodeIds = [
-      element.prevSibling?.maybeCurrent?.id,
-      element.nextSibling?.maybeCurrent?.id,
+      element.prevSibling?.current.id,
+      element.nextSibling?.current.id,
     ]
 
-    if (element.parent?.maybeCurrent?.firstChild?.id === element.id) {
+    if (element.parent?.current.firstChild?.id === element.id) {
       affectedNodeIds.push(element.parent.current.id)
     }
 
@@ -312,14 +312,6 @@ export class ElementService
           element.id,
         )
 
-        yield* _await(
-          Promise.all(
-            oldConnectedNodeIds.map((id) =>
-              this.elementRepository.updateNodes(this.element(id)),
-            ),
-          ),
-        )
-
         const newConnectedNodeIds = this.attachElementAsNextSibling({
           element,
           targetElement,
@@ -327,7 +319,7 @@ export class ElementService
 
         yield* _await(
           Promise.all(
-            newConnectedNodeIds.map((id) =>
+            uniq([...newConnectedNodeIds, ...oldConnectedNodeIds]).map((id) =>
               this.elementRepository.updateNodes(this.element(id)),
             ),
           ),
@@ -352,14 +344,6 @@ export class ElementService
           element.id,
         )
 
-        yield* _await(
-          Promise.all(
-            oldConnectedNodeIds.map((id) =>
-              this.elementRepository.updateNodes(this.element(id)),
-            ),
-          ),
-        )
-
         const newConnectedNodeIds = this.attachElementAsFirstChild({
           element,
           parentElement,
@@ -367,7 +351,7 @@ export class ElementService
 
         yield* _await(
           Promise.all(
-            newConnectedNodeIds.map((id) =>
+            uniq([...newConnectedNodeIds, ...oldConnectedNodeIds]).map((id) =>
               this.elementRepository.updateNodes(this.element(id)),
             ),
           ),
@@ -464,14 +448,6 @@ export class ElementService
     const element = this.element(existingElement.id)
     const targetElement = this.element(existingTargetElement.id)
     const affectedNodeIds: Array<string> = []
-
-    // Attach to parent
-    if (
-      targetElement.parent &&
-      targetElement.parent.id !== element.parent?.id
-    ) {
-      element.addParent(targetElement.parent.current)
-    }
 
     if (targetElement.nextSibling) {
       element.attachAsPrevSibling(targetElement.nextSibling.current)

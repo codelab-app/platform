@@ -96,8 +96,10 @@ export interface IElement extends ICacheService<IElementDTO, IElement> {
   clone(cloneIndex: number): IElement
   connectPrevToNextSibling(): void
   deleteFromGuiCss(propNames: Array<string>): void
+  detachAsFirstChild(): void
   detachFromParent(): void
   executePropTransformJs(props: IPropData): IPropData
+  setName(name: string): void
   setNextSibling(nextSibling: Ref<IElement>): void
   setOrderInParent(order: number | null): void
   setParent(parent: Ref<IElement>): void

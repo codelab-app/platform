@@ -411,9 +411,7 @@ export class Element
       preRenderAction: reconnectNodeId(this.preRenderAction?.id),
       prevSibling: reconnectNodeId(this.prevSibling?.id),
       props: {
-        update: {
-          node: { data: JSON.stringify(this.props.maybeCurrent?.data ?? {}) },
-        },
+        update: { node: { data: JSON.stringify(this.props.current.data) } },
       },
       renderAtomType,
       renderComponentType,
@@ -477,14 +475,14 @@ export class Element
    */
   @modelAction
   connectPrevToNextSibling() {
-    if (this.nextSibling?.isValid) {
-      this.nextSibling.current.prevSibling = this.prevSibling?.isValid
+    if (this.nextSibling) {
+      this.nextSibling.current.prevSibling = this.prevSibling
         ? elementRef(this.prevSibling.current)
         : null
     }
 
-    if (this.prevSibling?.isValid) {
-      this.prevSibling.current.nextSibling = this.nextSibling?.isValid
+    if (this.prevSibling) {
+      this.prevSibling.current.nextSibling = this.nextSibling
         ? elementRef(this.nextSibling.current)
         : null
     }
@@ -509,22 +507,22 @@ export class Element
     /**
      * Connect nextSibling to the parent
      */
-    if (this.parent.current.firstChild?.id === this.id) {
+    if (this.nextSibling) {
       // Connect parent to nextSibling
-      this.parent.current.firstChild = this.nextSibling?.isValid
-        ? elementRef(this.nextSibling.current)
-        : null
+      this.parent.current.firstChild = elementRef(this.nextSibling.current)
 
       // Connect nextSibling to parent
-      this.nextSibling?.maybeCurrent?.setParent(elementRef(this.parent.id))
+      this.nextSibling.current.setParent(elementRef(this.parent.id))
+    } else {
+      this.parent.current.firstChild = null
     }
 
     this.parent = null
   }
 
   @modelAction
-  addParent(parentElement: IElement) {
-    this.parent = elementRef(parentElement)
+  detachAsFirstChild() {
+    this.parent = null
   }
 
   /**
@@ -542,7 +540,8 @@ export class Element
    */
   @modelAction
   attachToParentAsFirstChild(parentElement: IElement) {
-    this.addParent(parentElement)
+    parentElement.firstChild?.current.detachAsFirstChild()
+    this.parent = elementRef(parentElement)
     parentElement.firstChild = elementRef(this.id)
   }
 
