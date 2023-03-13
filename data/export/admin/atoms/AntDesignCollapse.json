@@ -1,0 +1,286 @@
+{
+  "atom": {
+    "id": "0a007bb7-1db8-41f5-aee7-de8b0729c32b",
+    "name": "AntDesignCollapse",
+    "type": "AntDesignCollapse",
+    "api": {
+      "id": "1efe4f9a-9c06-44b7-899c-ce57a93bab7f",
+      "name": "AntDesignCollapse API"
+    },
+    "icon": "Collapse",
+    "tags": [
+      {
+        "id": "ddd2ede6-0fcd-45f4-ac22-30bad5f4dfb1",
+        "name": "Collapse"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "1efe4f9a-9c06-44b7-899c-ce57a93bab7f",
+    "kind": "InterfaceType",
+    "name": "AntDesignCollapse API",
+    "fields": [
+      {
+        "id": "dd686e19-246c-4583-82ea-f833de8108ce",
+        "key": "accordion",
+        "name": "Accordion",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "1efe4f9a-9c06-44b7-899c-ce57a93bab7f"
+        }
+      },
+      {
+        "id": "c0218b10-06c5-41a5-b018-73e08ff70e56",
+        "key": "activeKey",
+        "name": "Active Key",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "438cccfd-162a-4e38-bec7-8cf6cf17e813",
+          "kind": "EnumType",
+          "name": "AntDesignCollapse Active Key Enum"
+        },
+        "api": {
+          "id": "1efe4f9a-9c06-44b7-899c-ce57a93bab7f"
+        }
+      },
+      {
+        "id": "616cf618-49e0-4a20-a9f8-b8d0f75eb641",
+        "key": "bordered",
+        "name": "Bordered",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "1efe4f9a-9c06-44b7-899c-ce57a93bab7f"
+        }
+      },
+      {
+        "id": "290b64c3-36f7-4a3b-8cfa-c13ec43cb734",
+        "key": "collapsible",
+        "name": "Collapsible",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "d0e0cd36-3874-44fd-bad5-c5eea7e5f72e",
+          "kind": "EnumType",
+          "name": "AntDesignCollapse Collapsible Enum"
+        },
+        "api": {
+          "id": "1efe4f9a-9c06-44b7-899c-ce57a93bab7f"
+        }
+      },
+      {
+        "id": "f59683c0-5739-401e-9572-e53c05798e6e",
+        "key": "defaultActiveKey",
+        "name": "Default Active Key",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "2fb75559-7725-47c3-a6d6-7f7e526ca6aa",
+          "kind": "EnumType",
+          "name": "AntDesignCollapse Default Active Key Enum"
+        },
+        "api": {
+          "id": "1efe4f9a-9c06-44b7-899c-ce57a93bab7f"
+        }
+      },
+      {
+        "id": "56f2fbe7-2d7a-4d14-af56-1e569e206430",
+        "key": "destroyInactivePanel",
+        "name": "Destroy Inactive Panel",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "1efe4f9a-9c06-44b7-899c-ce57a93bab7f"
+        }
+      },
+      {
+        "id": "38b4dbe6-7fdb-41f6-bc2a-73a6660ef068",
+        "key": "expandIcon",
+        "name": "Expand Icon",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "1efe4f9a-9c06-44b7-899c-ce57a93bab7f"
+        }
+      },
+      {
+        "id": "31ce8d4d-984e-4b6a-a74e-676853fb0f6b",
+        "key": "expandIconPosition",
+        "name": "Expand Icon Position",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "0534c768-03d8-468d-9834-8149ccbdde04",
+          "kind": "EnumType",
+          "name": "AntDesignCollapse Expand Icon Position Enum"
+        },
+        "api": {
+          "id": "1efe4f9a-9c06-44b7-899c-ce57a93bab7f"
+        }
+      },
+      {
+        "id": "bc7ee180-5028-4812-9808-38cfd017f1ff",
+        "key": "ghost",
+        "name": "Ghost",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "1efe4f9a-9c06-44b7-899c-ce57a93bab7f"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "438cccfd-162a-4e38-bec7-8cf6cf17e813",
+      "kind": "EnumType",
+      "name": "AntDesignCollapse Active Key Enum",
+      "allowedValues": [
+        {
+          "id": "2a7fe938-61bb-4ad2-b999-65f7f1efce18",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "14cfc79d-9c38-49ea-8091-016bdfdb05a2",
+          "key": "string\nnumber[]",
+          "value": "string\nnumber[]"
+        },
+        {
+          "id": "07d17fcd-eebd-4dae-a649-3c72a6f4af10",
+          "key": "string[]",
+          "value": "string[]"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "d0e0cd36-3874-44fd-bad5-c5eea7e5f72e",
+      "kind": "EnumType",
+      "name": "AntDesignCollapse Collapsible Enum",
+      "allowedValues": [
+        {
+          "id": "912460a5-dfe8-473e-b237-176ba89c53c6",
+          "key": "disabled",
+          "value": "disabled"
+        },
+        {
+          "id": "75ea8e5e-f092-423c-99e2-75a9190f6fe8",
+          "key": "header",
+          "value": "header"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "2fb75559-7725-47c3-a6d6-7f7e526ca6aa",
+      "kind": "EnumType",
+      "name": "AntDesignCollapse Default Active Key Enum",
+      "allowedValues": [
+        {
+          "id": "04e843e0-5173-44e2-be24-ffb279165005",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "697f48df-852c-4f3f-b455-6179feb4915c",
+          "key": "string\nnumber[]",
+          "value": "string\nnumber[]"
+        },
+        {
+          "id": "c2f54d21-a15a-41a6-8d0d-639ebe11f1ed",
+          "key": "string[]",
+          "value": "string[]"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "0534c768-03d8-468d-9834-8149ccbdde04",
+      "kind": "EnumType",
+      "name": "AntDesignCollapse Expand Icon Position Enum",
+      "allowedValues": [
+        {
+          "id": "7a0f5455-6c33-43ac-85d5-a6bcbd7890fe",
+          "key": "end",
+          "value": "end"
+        },
+        {
+          "id": "cda81407-afdf-4d04-8725-aa293f36e948",
+          "key": "start",
+          "value": "start"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "id": "ddd2ede6-0fcd-45f4-ac22-30bad5f4dfb1",
+      "name": "Collapse",
+      "parent": {
+        "id": "45c2df38-1b04-40f4-b9c3-e505d1a3c432",
+        "name": "Data Display"
+      },
+      "children": [
+        {
+          "id": "351a631a-766a-488c-9ae8-cafca2624270",
+          "name": "Collapse.Panel"
+        }
+      ]
+    }
+  ]
+}

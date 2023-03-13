@@ -1,0 +1,42 @@
+[
+  {
+    "__typename": "PrimitiveType",
+    "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+    "kind": "PrimitiveType",
+    "name": "Boolean",
+    "primitiveKind": "Boolean"
+  },
+  {
+    "__typename": "PrimitiveType",
+    "id": "8ce874e3-9f39-44fc-b811-7b2412ff2b15",
+    "kind": "PrimitiveType",
+    "name": "Integer",
+    "primitiveKind": "Integer"
+  },
+  {
+    "__typename": "PrimitiveType",
+    "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+    "kind": "PrimitiveType",
+    "name": "Number",
+    "primitiveKind": "Number"
+  },
+  {
+    "__typename": "PrimitiveType",
+    "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+    "kind": "PrimitiveType",
+    "name": "String",
+    "primitiveKind": "String"
+  },
+  {
+    "__typename": "RenderPropsType",
+    "id": "981ba55e-f174-4752-90bf-b8c19e812d78",
+    "kind": "RenderPropsType",
+    "name": "RenderPropsType"
+  },
+  {
+    "__typename": "ReactNodeType",
+    "id": "9749a183-0f27-41af-916f-31af9dbea011",
+    "kind": "ReactNodeType",
+    "name": "ReactNodeType"
+  }
+]

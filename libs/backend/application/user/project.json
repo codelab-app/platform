@@ -1,0 +1,16 @@
+{
+  "name": "backend-application-user",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/backend/application/user/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/backend/application/user/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:backend"]
+}

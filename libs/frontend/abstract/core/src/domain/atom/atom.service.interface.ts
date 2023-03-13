@@ -33,5 +33,6 @@ export interface IAtomService
   atomRepository: IAtomRepository
   delete(ids: Array<string>): Promise<number>
   setSelectedIds(arraySet: ArraySet<string>): void
+  export(): void
   add(atomDTO: IAtomDTO): IAtom
 }

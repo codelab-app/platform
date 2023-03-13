@@ -2,6 +2,7 @@ import {
   ApiOutlined,
   DeploymentUnitOutlined,
   TagOutlined,
+  UserOutlined,
 } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/abstract/types'
 import type { MenuProps } from 'antd'
@@ -26,9 +27,9 @@ export const adminMenuItems: MenuProps['items'] = [
     key: PageType.Tag,
     label: <Link href={PageType.Tag}>Tags</Link>,
   },
-  // {
-  //   icon: <UserOutlined data-testid="admin-tab-trigger" title="Admin" />,
-  //   key: PageType.Admin,
-  //   label: <Link href={PageType.Admin}>Admin</Link>,
-  // },
+  {
+    icon: <UserOutlined title="Admin" />,
+    key: PageType.Admin,
+    label: <Link href={PageType.Admin}>Admin</Link>,
+  },
 ]

@@ -1,0 +1,471 @@
+{
+  "atom": {
+    "id": "6b3c4efe-f53b-4d6e-9c09-f4b5c9954989",
+    "name": "AntDesignForm",
+    "type": "AntDesignForm",
+    "api": {
+      "id": "85ac7f7c-2e9b-41ff-8bdc-5a1ab9fbf1fc",
+      "name": "AntDesignForm API"
+    },
+    "icon": "Form",
+    "tags": [
+      {
+        "id": "5d7a02cc-a249-48ac-bdc9-ab90f3f21aff",
+        "name": "Form"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "85ac7f7c-2e9b-41ff-8bdc-5a1ab9fbf1fc",
+    "kind": "InterfaceType",
+    "name": "AntDesignForm API",
+    "fields": [
+      {
+        "id": "e965c866-cd1b-48c6-90bd-2a3f69302f3b",
+        "key": "colon",
+        "name": "Colon",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "85ac7f7c-2e9b-41ff-8bdc-5a1ab9fbf1fc"
+        }
+      },
+      {
+        "id": "4697afa3-b933-4bc9-bc38-ec2ed8713c19",
+        "key": "component",
+        "name": "Component",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "b0c645f0-28d3-48a7-a131-7dcb4e0a4af7",
+          "kind": "EnumType",
+          "name": "AntDesignForm Component Enum"
+        },
+        "api": {
+          "id": "85ac7f7c-2e9b-41ff-8bdc-5a1ab9fbf1fc"
+        }
+      },
+      {
+        "id": "3cf73e79-87c4-48d1-bd8d-e31443073006",
+        "key": "disabled",
+        "name": "Disabled",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "85ac7f7c-2e9b-41ff-8bdc-5a1ab9fbf1fc"
+        }
+      },
+      {
+        "id": "aa890ff9-f9ee-4c00-96fb-510fcf306fbe",
+        "key": "labelAlign",
+        "name": "Label Align",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "2c703f1b-74e9-4451-8b72-89318ba19621",
+          "kind": "EnumType",
+          "name": "AntDesignForm Label Align Enum"
+        },
+        "api": {
+          "id": "85ac7f7c-2e9b-41ff-8bdc-5a1ab9fbf1fc"
+        }
+      },
+      {
+        "id": "53c3cf41-7ce1-4b97-8933-523b4081288b",
+        "key": "labelWrap",
+        "name": "Label Wrap",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "85ac7f7c-2e9b-41ff-8bdc-5a1ab9fbf1fc"
+        }
+      },
+      {
+        "id": "274901f0-fefa-4123-96a5-7ead0d59a4ae",
+        "key": "layout",
+        "name": "Layout",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "b6be3ec2-7375-47ba-a786-0daa3ab0a6aa",
+          "kind": "EnumType",
+          "name": "AntDesignForm Layout Enum"
+        },
+        "api": {
+          "id": "85ac7f7c-2e9b-41ff-8bdc-5a1ab9fbf1fc"
+        }
+      },
+      {
+        "id": "eb70bf93-49e5-460c-a758-0bd90096c4c3",
+        "key": "name",
+        "name": "Name",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "85ac7f7c-2e9b-41ff-8bdc-5a1ab9fbf1fc"
+        }
+      },
+      {
+        "id": "e8b3d856-cc52-4dfb-a8c6-b5353f30594f",
+        "key": "onFieldsChange",
+        "name": "On Fields Change",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "85ac7f7c-2e9b-41ff-8bdc-5a1ab9fbf1fc"
+        }
+      },
+      {
+        "id": "f5ce7244-ca8c-4b2a-b295-ef306733691f",
+        "key": "onFinish",
+        "name": "On Finish",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "85ac7f7c-2e9b-41ff-8bdc-5a1ab9fbf1fc"
+        }
+      },
+      {
+        "id": "2244e5f8-cb44-4975-896c-9be08923c449",
+        "key": "onFinishFailed",
+        "name": "On Finish Failed",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "85ac7f7c-2e9b-41ff-8bdc-5a1ab9fbf1fc"
+        }
+      },
+      {
+        "id": "77717f54-b0fa-44a4-8207-c3b3b3174432",
+        "key": "onValuesChange",
+        "name": "On Values Change",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "85ac7f7c-2e9b-41ff-8bdc-5a1ab9fbf1fc"
+        }
+      },
+      {
+        "id": "98c90b12-3512-449f-b100-44fe77fa0fee",
+        "key": "preserve",
+        "name": "Preserve",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "85ac7f7c-2e9b-41ff-8bdc-5a1ab9fbf1fc"
+        }
+      },
+      {
+        "id": "b00aaaae-a750-483b-9fce-6b8dd80d6a3f",
+        "key": "requiredMark",
+        "name": "Required Mark",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "e056fd01-8e60-4d84-b150-d0c87ae32573",
+          "kind": "EnumType",
+          "name": "AntDesignForm Required Mark Enum"
+        },
+        "api": {
+          "id": "85ac7f7c-2e9b-41ff-8bdc-5a1ab9fbf1fc"
+        }
+      },
+      {
+        "id": "78faca77-9d2f-4041-8f31-a9d687b7815c",
+        "key": "scrollToFirstError",
+        "name": "Scroll To First Error",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "7ca30881-b3b4-4aac-ab1b-9e345d001fd9",
+          "kind": "EnumType",
+          "name": "AntDesignForm Scroll To First Error Enum"
+        },
+        "api": {
+          "id": "85ac7f7c-2e9b-41ff-8bdc-5a1ab9fbf1fc"
+        }
+      },
+      {
+        "id": "9c08f163-9cba-44ca-9429-7083bf194b0a",
+        "key": "size",
+        "name": "Size",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "4c2a5455-341b-48e0-81f1-3e7c8d280da0",
+          "kind": "EnumType",
+          "name": "AntDesignForm Size Enum"
+        },
+        "api": {
+          "id": "85ac7f7c-2e9b-41ff-8bdc-5a1ab9fbf1fc"
+        }
+      },
+      {
+        "id": "e80874b3-07b6-4b55-bc65-4cab9b76f668",
+        "key": "validateTrigger",
+        "name": "Validate Trigger",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "7794dbf3-6b31-483a-a1a8-5f7847b6ffd2",
+          "kind": "EnumType",
+          "name": "AntDesignForm Validate Trigger Enum"
+        },
+        "api": {
+          "id": "85ac7f7c-2e9b-41ff-8bdc-5a1ab9fbf1fc"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "b0c645f0-28d3-48a7-a131-7dcb4e0a4af7",
+      "kind": "EnumType",
+      "name": "AntDesignForm Component Enum",
+      "allowedValues": [
+        {
+          "id": "77898001-1414-4792-9dbe-eacc72ab8389",
+          "key": "ComponentType",
+          "value": "ComponentType"
+        },
+        {
+          "id": "86ee1d01-979e-4b3c-81a9-51c7c294c805",
+          "key": "false",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "2c703f1b-74e9-4451-8b72-89318ba19621",
+      "kind": "EnumType",
+      "name": "AntDesignForm Label Align Enum",
+      "allowedValues": [
+        {
+          "id": "dd197f14-c297-48dc-af6f-3be98e7093b4",
+          "key": "left",
+          "value": "left"
+        },
+        {
+          "id": "be556ba3-8054-4a96-8e71-c784097218df",
+          "key": "right",
+          "value": "right"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "b6be3ec2-7375-47ba-a786-0daa3ab0a6aa",
+      "kind": "EnumType",
+      "name": "AntDesignForm Layout Enum",
+      "allowedValues": [
+        {
+          "id": "3b61f041-592c-48f0-94f9-8830d058cc30",
+          "key": "horizontal",
+          "value": "horizontal"
+        },
+        {
+          "id": "91020781-829e-4eb0-a0ab-bb055bee3662",
+          "key": "inline",
+          "value": "inline"
+        },
+        {
+          "id": "5c90920b-61c4-47e5-9c7e-561f62ac9fee",
+          "key": "vertical",
+          "value": "vertical"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "e056fd01-8e60-4d84-b150-d0c87ae32573",
+      "kind": "EnumType",
+      "name": "AntDesignForm Required Mark Enum",
+      "allowedValues": [
+        {
+          "id": "d5270141-ab0a-4d20-8ebc-078025717394",
+          "key": "boolean",
+          "value": "boolean"
+        },
+        {
+          "id": "52d80082-cab4-40b8-9f4a-812310d1db97",
+          "key": "optional",
+          "value": "optional"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "7ca30881-b3b4-4aac-ab1b-9e345d001fd9",
+      "kind": "EnumType",
+      "name": "AntDesignForm Scroll To First Error Enum",
+      "allowedValues": [
+        {
+          "id": "ff2405b7-9db8-466d-b11b-b2ef7068147e",
+          "key": "boolean",
+          "value": "boolean"
+        },
+        {
+          "id": "3f72dd91-80ba-4677-948c-7905dbd7123a",
+          "key": "Options",
+          "value": "Options"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "4c2a5455-341b-48e0-81f1-3e7c8d280da0",
+      "kind": "EnumType",
+      "name": "AntDesignForm Size Enum",
+      "allowedValues": [
+        {
+          "id": "8bd6144e-3784-4370-8c57-6f965fb23449",
+          "key": "large",
+          "value": "large"
+        },
+        {
+          "id": "2c237c2f-8141-4868-9523-866724eea628",
+          "key": "middle",
+          "value": "middle"
+        },
+        {
+          "id": "a23d036c-7487-473c-8a27-802bd1a600d6",
+          "key": "small",
+          "value": "small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "7794dbf3-6b31-483a-a1a8-5f7847b6ffd2",
+      "kind": "EnumType",
+      "name": "AntDesignForm Validate Trigger Enum",
+      "allowedValues": [
+        {
+          "id": "3492746e-73d1-46bf-9b83-3edb9c4dbb4b",
+          "key": "string",
+          "value": "string"
+        },
+        {
+          "id": "d21b9b5c-b2fa-4b03-858b-1e2cc0e923e9",
+          "key": "string[]",
+          "value": "string[]"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "id": "5d7a02cc-a249-48ac-bdc9-ab90f3f21aff",
+      "name": "Form",
+      "parent": {
+        "id": "c350f653-57f8-4167-8b2a-e6c376f30ef1",
+        "name": "Data Entry"
+      },
+      "children": [
+        {
+          "id": "936fc52f-1d6b-46ee-b5ce-945dcbe98f7e",
+          "name": "Form.ErrorList"
+        },
+        {
+          "id": "2f660eca-f1d0-4b6d-9bc8-a9980957248f",
+          "name": "Form.Provider"
+        },
+        {
+          "id": "a77617cf-8d95-424e-b131-370749385fcf",
+          "name": "Form.List"
+        },
+        {
+          "id": "58bcf196-5272-4b3a-97cf-1a0d3e8edc7e",
+          "name": "Form.Item"
+        }
+      ]
+    }
+  ]
+}

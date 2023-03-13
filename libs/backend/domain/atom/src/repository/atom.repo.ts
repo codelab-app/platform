@@ -6,6 +6,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import {
+  connectAuth0Owner,
   connectNodeId,
   connectNodeIds,
   reconnectNodeId,
@@ -16,7 +17,15 @@ import {
 export class AtomRepository extends AbstractRepository<IAtom> {
   private Atom = Repository.instance.Atom
 
-  async find(where: BaseTypeUniqueWhere) {
+  async all() {
+    return await (
+      await this.Atom
+    ).find({
+      selectionSet: atomSelectionSet,
+    })
+  }
+
+  async find(where: BaseTypeUniqueWhere = {}) {
     return (
       await (
         await this.Atom
@@ -35,20 +44,23 @@ export class AtomRepository extends AbstractRepository<IAtom> {
       await (
         await this.Atom
       ).create({
-        input: atoms.map(({ tags, api, allowedChildren = [], ...atom }) => ({
-          ...atom,
-          allowedChildren: connectNodeIds(
-            allowedChildren.map((child) => child.id),
-          ),
-          api: connectNodeId(api.id),
-          tags: connectNodeIds(tags.map((tag) => tag.id)),
-        })),
+        input: atoms.map(
+          ({ tags, api, allowedChildren = [], owner, ...atom }) => ({
+            ...atom,
+            allowedChildren: connectNodeIds(
+              allowedChildren.map((child) => child.id),
+            ),
+            api: connectNodeId(api.id),
+            owner: connectAuth0Owner(owner),
+            tags: connectNodeIds(tags.map((tag) => tag.id)),
+          }),
+        ),
       })
     ).atoms
   }
 
   protected async _update(
-    { tags, api, allowedChildren = [], ...atom }: IAtom,
+    { tags, api, allowedChildren = [], owner, ...atom }: IAtom,
     where: BaseTypeUniqueWhere,
   ) {
     return (

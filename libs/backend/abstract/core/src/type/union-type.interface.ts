@@ -26,11 +26,8 @@ export type IUnionTypeExport = z.infer<typeof UnionTypeExportSchema>
 /**
  * Create
  */
-const CreateUnionTypeSchema = UnionTypeSchema.pick({
-  __typename: true,
-  name: true,
-  owner: true,
-  typesOfUnionType: true,
+const CreateUnionTypeSchema = UnionTypeSchema.omit({
+  kind: true,
 })
 
 export type ICreateUnionType = z.infer<typeof CreateUnionTypeSchema>

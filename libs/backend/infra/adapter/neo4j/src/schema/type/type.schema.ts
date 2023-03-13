@@ -269,6 +269,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: EnumType)
     name: String!
     owner: User!
+    field: Field @relationship(type: "FIELD_TYPE", direction: IN)
     allowedValues: [EnumTypeValue!]!
       @relationship(
         type: "ALLOWED_VALUE",

@@ -1,0 +1,1033 @@
+{
+  "atom": {
+    "id": "955345bb-3e2b-4786-bda8-f85798cfd841",
+    "name": "AntDesignSelect",
+    "type": "AntDesignSelect",
+    "api": {
+      "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7",
+      "name": "AntDesignSelect API"
+    },
+    "icon": "Select",
+    "tags": [
+      {
+        "id": "0931d7e4-8638-4ad4-b46b-f7a12292cf3d",
+        "name": "Select"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7",
+    "kind": "InterfaceType",
+    "name": "AntDesignSelect API",
+    "fields": [
+      {
+        "id": "b2a14a6f-cb21-4495-a13e-b6f95a85e687",
+        "key": "allowClear",
+        "name": "Allow Clear",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "d5a69ac6-74bd-4f4a-ab96-5366dad82097",
+        "key": "autoClearSearchValue",
+        "name": "Auto Clear Search Value",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "41666d46-f5f3-4f50-a6a3-590617d25aad",
+        "key": "autoFocus",
+        "name": "Auto Focus",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "435513c4-d10d-4fa1-8a6e-0e38d7c13859",
+        "key": "bordered",
+        "name": "Bordered",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "8a28b5d6-5ce1-485e-87aa-45891f3789e4",
+        "key": "clearIcon",
+        "name": "Clear Icon",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "9bdfaed2-5dc6-4af1-a347-e0a36468e81e",
+        "key": "defaultActiveFirstOption",
+        "name": "Default Active First Option",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "94877ecd-767a-48c9-8d96-ee39a4175a50",
+        "key": "defaultOpen",
+        "name": "Default Open",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "650a0ff9-d909-4dfe-9db4-a8116168cccb",
+        "key": "defaultValue",
+        "name": "Default Value",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "45e636ec-f2ba-465b-949e-7e0ef4c2c36c",
+          "kind": "EnumType",
+          "name": "AntDesignSelect Default Value Enum"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "89c23b43-4c75-40ae-a185-bd8b8300c4e8",
+        "key": "disabled",
+        "name": "Disabled",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "34fdd8fa-607f-408b-8cd1-5e86d072265d",
+        "key": "dropdownMatchSelectWidth",
+        "name": "Dropdown Match Select Width",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "5a23d2bf-8c24-4cdb-998d-68e65b95004f",
+          "kind": "EnumType",
+          "name": "AntDesignSelect Dropdown Match Select Width Enum"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "c0de1eab-184a-4be5-8082-1d23ed1a9827",
+        "key": "dropdownRender",
+        "name": "Dropdown Render",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "4fd606ee-31b6-4dbe-8f78-ef402a901d83",
+        "key": "filterOption",
+        "name": "Filter Option",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "45c97e7e-f226-4a94-bbe0-60fb053aaa33",
+          "kind": "EnumType",
+          "name": "AntDesignSelect Filter Option Enum"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "9e3c06e5-10e3-4a09-99a2-530472885a91",
+        "key": "filterSort",
+        "name": "Filter Sort",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "d81055c0-16a6-4687-84c6-f2f9fc0af499",
+        "key": "getPopupContainer",
+        "name": "Get Popup Container",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "7e9e3ca9-7616-4dd6-82f0-4831e382d61b",
+        "key": "labelInValue",
+        "name": "Label In Value",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "abf53527-c89d-486f-9241-2f9d70d57d46",
+        "key": "listHeight",
+        "name": "List Height",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "4d07169f-6ac2-48a7-aa8c-25db74c09678",
+        "key": "loading",
+        "name": "Loading",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "c994470a-811d-40ca-b439-bb255dfa245f",
+        "key": "maxTagCount",
+        "name": "Max Tag Count",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "2371ec7f-65bd-446c-a8dc-e2042e7d8f0f",
+          "kind": "EnumType",
+          "name": "AntDesignSelect Max Tag Count Enum"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "750bdfcb-6665-4406-8b0d-07ad4ebe34b7",
+        "key": "maxTagPlaceholder",
+        "name": "Max Tag Placeholder",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "3b3f7185-1353-4535-9cb3-e3a41ddbfd56",
+          "kind": "EnumType",
+          "name": "AntDesignSelect Max Tag Placeholder Enum"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "1366ef8f-a1ea-41b2-b16d-b36ce34ae73e",
+        "key": "maxTagTextLength",
+        "name": "Max Tag Text Length",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "5f253b6b-f314-4355-8ea2-02db79e46a08",
+        "key": "menuItemSelectedIcon",
+        "name": "Menu Item Selected Icon",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "027d85f2-b961-44cd-943e-24aca661881c",
+        "key": "mode",
+        "name": "Mode",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "691d0e7a-d237-481a-bb1f-c12aa00e7e08",
+          "kind": "EnumType",
+          "name": "AntDesignSelect Mode Enum"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "30a1b2f3-c3ce-4a9a-82fa-663ceda618ad",
+        "key": "notFoundContent",
+        "name": "Not Found Content",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "56c71239-1ab7-4707-aa4b-37bff3323d9c",
+        "key": "onChange",
+        "name": "On Change",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "6bcf334d-b6f7-4f77-b99a-52670abbadfb",
+          "kind": "EnumType",
+          "name": "AntDesignSelect On Change Enum"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "996f9e0f-65d9-4634-9601-556bb5abb47f",
+        "key": "onDeselect",
+        "name": "On Deselect",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "474b11fd-7c78-4307-bb2b-8ef9a07fa270",
+          "kind": "EnumType",
+          "name": "AntDesignSelect On Deselect Enum"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "53c9b6d4-a03d-4700-9647-4c01583a273e",
+        "key": "onDropdownVisibleChange",
+        "name": "On Dropdown Visible Change",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "5b0019dd-313b-4e70-99d4-c3f268e5bbbb",
+        "key": "onSearch",
+        "name": "On Search",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "c22d63ca-8ec0-4118-9790-2a5f9ffc636e",
+        "key": "onSelect",
+        "name": "On Select",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "9ae25c44-f10f-4147-a532-65ea61beeccb",
+          "kind": "EnumType",
+          "name": "AntDesignSelect On Select Enum"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "e773b170-792b-432d-9b2a-32f6ebec4a5f",
+        "key": "open",
+        "name": "Open",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "19df3d8a-0f83-4ccb-b982-335319122539",
+        "key": "optionFilterProp",
+        "name": "Option Filter Prop",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "36b33757-1b4f-49a8-b677-d11670d97630",
+        "key": "optionLabelProp",
+        "name": "Option Label Prop",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "feffa61b-785e-4f56-a084-6f13c1e56f44",
+        "key": "placeholder",
+        "name": "Placeholder",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "dd4933da-5e23-4fd2-b7bd-4d50afd0568e",
+        "key": "popupClassName",
+        "name": "Popup Class Name",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "bc175632-aab5-4a5a-8fba-efdf42e8235e",
+        "key": "removeIcon",
+        "name": "Remove Icon",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "f92fe59b-0710-4b49-b20b-754a60377345",
+        "key": "searchValue",
+        "name": "Search Value",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "b9889b33-2450-4b28-bcb0-de06c7a1f5b5",
+        "key": "showArrow",
+        "name": "Show Arrow",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "a5c6e6db-f9f2-48d4-9585-f86288e86340",
+        "key": "showSearch",
+        "name": "Show Search",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "1a145db1-6a40-47a4-a73d-ed0ccb73c7ca",
+        "key": "size",
+        "name": "Size",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "85ef60b4-5a47-4787-91f6-04b81e9b4196",
+          "kind": "EnumType",
+          "name": "AntDesignSelect Size Enum"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "bf635064-e4c4-4cde-8079-a9537dc3facf",
+        "key": "status",
+        "name": "Status",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "a0a78023-f1d6-464f-8c4a-6a91f8f67161",
+          "kind": "EnumType",
+          "name": "AntDesignSelect Status Enum"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "31cefadf-47d0-42e8-a14e-17a84910e9f6",
+        "key": "suffixIcon",
+        "name": "Suffix Icon",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "d88c8638-de1d-4a4f-8dad-a200fab056c6",
+        "key": "tagRender",
+        "name": "Tag Render",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "e68ea23a-b8c4-4e7a-b4f7-02f88140a376",
+        "key": "value",
+        "name": "Value",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "26b24771-1ccd-4f09-8b16-baa95a4cc7b5",
+          "kind": "EnumType",
+          "name": "AntDesignSelect Value Enum"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      },
+      {
+        "id": "bd117df6-2225-4683-b03a-f6372a7e7c4c",
+        "key": "virtual",
+        "name": "Virtual",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "f0cdd6e5-0b7e-4b5d-9958-c4b434e1fdf7"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "45e636ec-f2ba-465b-949e-7e0ef4c2c36c",
+      "kind": "EnumType",
+      "name": "AntDesignSelect Default Value Enum",
+      "allowedValues": [
+        {
+          "id": "7531b1f2-4028-4e7a-908f-403927ca1991",
+          "key": "LabeledValue[]",
+          "value": "LabeledValue[]"
+        },
+        {
+          "id": "e922e039-8008-4832-b4b3-e6fc55e8094d",
+          "key": "number[]\nLabeledValue",
+          "value": "number[]\nLabeledValue"
+        },
+        {
+          "id": "278ffa5c-9083-4f9e-93e7-95db5244956b",
+          "key": "string",
+          "value": "string"
+        },
+        {
+          "id": "e4158752-ac69-4aa6-931b-9664f4cd33d7",
+          "key": "string[]\nnumber",
+          "value": "string[]\nnumber"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "5a23d2bf-8c24-4cdb-998d-68e65b95004f",
+      "kind": "EnumType",
+      "name": "AntDesignSelect Dropdown Match Select Width Enum",
+      "allowedValues": [
+        {
+          "id": "ece1bf42-b831-478a-9538-3bb6e89f140d",
+          "key": "boolean",
+          "value": "boolean"
+        },
+        {
+          "id": "b738b4f9-5d0f-48c1-b9a6-49ec8792121e",
+          "key": "number",
+          "value": "number"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "45c97e7e-f226-4a94-bbe0-60fb053aaa33",
+      "kind": "EnumType",
+      "name": "AntDesignSelect Filter Option Enum",
+      "allowedValues": [
+        {
+          "id": "5aa7d608-27a6-4794-8ea0-f75ceb090f5b",
+          "key": "boolean",
+          "value": "boolean"
+        },
+        {
+          "id": "b04d05d0-1c56-4eca-9b1b-591d5a3553c8",
+          "key": "function(inputValue, option)",
+          "value": "function(inputValue, option)"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "2371ec7f-65bd-446c-a8dc-e2042e7d8f0f",
+      "kind": "EnumType",
+      "name": "AntDesignSelect Max Tag Count Enum",
+      "allowedValues": [
+        {
+          "id": "d5e1b688-85f2-403e-a7cd-cb318b195106",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "7886854d-5c43-4333-b4ed-2502626870fa",
+          "key": "responsive",
+          "value": "responsive"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "3b3f7185-1353-4535-9cb3-e3a41ddbfd56",
+      "kind": "EnumType",
+      "name": "AntDesignSelect Max Tag Placeholder Enum",
+      "allowedValues": [
+        {
+          "id": "503979aa-248e-44fc-b149-e386d19e29d4",
+          "key": "function(omittedValues)",
+          "value": "function(omittedValues)"
+        },
+        {
+          "id": "5ae4b108-abef-4717-8fff-1c4f153e6c15",
+          "key": "ReactNode",
+          "value": "ReactNode"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "691d0e7a-d237-481a-bb1f-c12aa00e7e08",
+      "kind": "EnumType",
+      "name": "AntDesignSelect Mode Enum",
+      "allowedValues": [
+        {
+          "id": "cce0578c-2a82-4013-93ad-b20882bcd920",
+          "key": "multiple",
+          "value": "multiple"
+        },
+        {
+          "id": "5c316b80-87ee-4cf5-a060-7a1ae14bd1cf",
+          "key": "tags",
+          "value": "tags"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "6bcf334d-b6f7-4f77-b99a-52670abbadfb",
+      "kind": "EnumType",
+      "name": "AntDesignSelect On Change Enum",
+      "allowedValues": [
+        {
+          "id": "67bec1bb-e828-43e5-8811-13ee37eb76cd",
+          "key": "Array<Option>)",
+          "value": "Array<Option>)"
+        },
+        {
+          "id": "32deb93e-51c9-4005-aa8d-aaf539807668",
+          "key": "function(value, option:Option",
+          "value": "function(value, option:Option"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "474b11fd-7c78-4307-bb2b-8ef9a07fa270",
+      "kind": "EnumType",
+      "name": "AntDesignSelect On Deselect Enum",
+      "allowedValues": [
+        {
+          "id": "8f3c67bd-3590-4f9c-9518-74d066494665",
+          "key": "function(string",
+          "value": "function(string"
+        },
+        {
+          "id": "2a8d6b00-f2a8-4042-9317-29970d0ac6a5",
+          "key": "LabeledValue)",
+          "value": "LabeledValue)"
+        },
+        {
+          "id": "6a61757d-c5ae-464b-b06a-b1e5392b53f9",
+          "key": "number",
+          "value": "number"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "9ae25c44-f10f-4147-a532-65ea61beeccb",
+      "kind": "EnumType",
+      "name": "AntDesignSelect On Select Enum",
+      "allowedValues": [
+        {
+          "id": "07037028-e8a8-4708-b8fd-2ca1cf80fd53",
+          "key": "function(string",
+          "value": "function(string"
+        },
+        {
+          "id": "64f7f320-a7d3-44d5-8484-6cc993fe5e7b",
+          "key": "LabeledValue, option: Option)",
+          "value": "LabeledValue, option: Option)"
+        },
+        {
+          "id": "082dabf8-0bce-4fda-b3ba-463fa04bb769",
+          "key": "number",
+          "value": "number"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "85ef60b4-5a47-4787-91f6-04b81e9b4196",
+      "kind": "EnumType",
+      "name": "AntDesignSelect Size Enum",
+      "allowedValues": [
+        {
+          "id": "21252dea-0d13-47e3-8031-4ad9246e5310",
+          "key": "large",
+          "value": "large"
+        },
+        {
+          "id": "86f991be-19f1-4ef2-80d2-f349bfb8a32e",
+          "key": "middle",
+          "value": "middle"
+        },
+        {
+          "id": "f6fd84bf-6cd8-401e-89bf-e5203a01dbaf",
+          "key": "small",
+          "value": "small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "a0a78023-f1d6-464f-8c4a-6a91f8f67161",
+      "kind": "EnumType",
+      "name": "AntDesignSelect Status Enum",
+      "allowedValues": [
+        {
+          "id": "0fda62dc-bb9f-4efe-a0e2-c083c791f29c",
+          "key": "error",
+          "value": "error"
+        },
+        {
+          "id": "0ba13ea3-01f1-4ca6-87a5-86451b3a09d2",
+          "key": "warning",
+          "value": "warning"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "26b24771-1ccd-4f09-8b16-baa95a4cc7b5",
+      "kind": "EnumType",
+      "name": "AntDesignSelect Value Enum",
+      "allowedValues": [
+        {
+          "id": "283546ed-5f34-42f8-8243-6389081a9619",
+          "key": "LabeledValue[]",
+          "value": "LabeledValue[]"
+        },
+        {
+          "id": "57ca905a-1f77-422d-b919-e8a12d62422d",
+          "key": "number[]\nLabeledValue",
+          "value": "number[]\nLabeledValue"
+        },
+        {
+          "id": "0a8fbb4e-d6a6-484e-ae0f-bb716f97944e",
+          "key": "string",
+          "value": "string"
+        },
+        {
+          "id": "8bc60d0f-3ec3-494b-8bd8-3f1905fc2829",
+          "key": "string[]\nnumber",
+          "value": "string[]\nnumber"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "id": "0931d7e4-8638-4ad4-b46b-f7a12292cf3d",
+      "name": "Select",
+      "parent": {
+        "id": "c350f653-57f8-4167-8b2a-e6c376f30ef1",
+        "name": "Data Entry"
+      },
+      "children": [
+        {
+          "id": "2e444b8f-5066-4620-b401-526caaeabc8a",
+          "name": "Select.Option"
+        }
+      ]
+    }
+  ]
+}

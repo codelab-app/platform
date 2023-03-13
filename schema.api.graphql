@@ -9104,6 +9104,22 @@ type EnumType implements IBaseType {
     sort: [EnumTypeAllowedValuesConnectionSort!]
     where: EnumTypeAllowedValuesConnectionWhere
   ): EnumTypeAllowedValuesConnection!
+  field(
+    directed: Boolean = true
+    options: FieldOptions
+    where: FieldWhere
+  ): Field
+  fieldAggregate(
+    directed: Boolean = true
+    where: FieldWhere
+  ): EnumTypeFieldFieldAggregationSelection
+  fieldConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [EnumTypeFieldConnectionSort!]
+    where: EnumTypeFieldConnectionWhere
+  ): EnumTypeFieldConnection!
   id: ID!
   kind: TypeKind!
   name: String!
@@ -9241,6 +9257,7 @@ input EnumTypeAllowedValuesUpdateFieldInput {
 
 input EnumTypeConnectInput {
   allowedValues: [EnumTypeAllowedValuesConnectFieldInput!]
+  field: EnumTypeFieldConnectFieldInput
   owner: IBaseTypeOwnerConnectFieldInput
 }
 
@@ -9258,6 +9275,7 @@ input EnumTypeConnectWhere {
 
 input EnumTypeCreateInput {
   allowedValues: EnumTypeAllowedValuesFieldInput
+  field: EnumTypeFieldFieldInput
   id: ID!
   kind: TypeKind! = EnumType
   name: String!
@@ -9266,11 +9284,13 @@ input EnumTypeCreateInput {
 
 input EnumTypeDeleteInput {
   allowedValues: [EnumTypeAllowedValuesDeleteFieldInput!]
+  field: EnumTypeFieldDeleteFieldInput
   owner: IBaseTypeOwnerDeleteFieldInput
 }
 
 input EnumTypeDisconnectInput {
   allowedValues: [EnumTypeAllowedValuesDisconnectFieldInput!]
+  field: EnumTypeFieldDisconnectFieldInput
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
@@ -9288,6 +9308,177 @@ type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   key: StringAggregateSelectionNonNullable!
   value: StringAggregateSelectionNonNullable!
+}
+
+input EnumTypeFieldAggregateInput {
+  AND: [EnumTypeFieldAggregateInput!]
+  NOT: EnumTypeFieldAggregateInput
+  OR: [EnumTypeFieldAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: EnumTypeFieldNodeAggregationWhereInput
+}
+
+input EnumTypeFieldConnectFieldInput {
+  connect: FieldConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
+  where: FieldConnectWhere
+}
+
+type EnumTypeFieldConnection {
+  edges: [EnumTypeFieldRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input EnumTypeFieldConnectionSort {
+  node: FieldSort
+}
+
+input EnumTypeFieldConnectionWhere {
+  AND: [EnumTypeFieldConnectionWhere!]
+  NOT: EnumTypeFieldConnectionWhere
+  OR: [EnumTypeFieldConnectionWhere!]
+  node: FieldWhere
+}
+
+input EnumTypeFieldCreateFieldInput {
+  node: FieldCreateInput!
+}
+
+input EnumTypeFieldDeleteFieldInput {
+  delete: FieldDeleteInput
+  where: EnumTypeFieldConnectionWhere
+}
+
+input EnumTypeFieldDisconnectFieldInput {
+  disconnect: FieldDisconnectInput
+  where: EnumTypeFieldConnectionWhere
+}
+
+type EnumTypeFieldFieldAggregationSelection {
+  count: Int!
+  node: EnumTypeFieldFieldNodeAggregateSelection
+}
+
+input EnumTypeFieldFieldInput {
+  connect: EnumTypeFieldConnectFieldInput
+  create: EnumTypeFieldCreateFieldInput
+}
+
+type EnumTypeFieldFieldNodeAggregateSelection {
+  defaultValues: StringAggregateSelectionNullable!
+  description: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  key: StringAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  validationRules: StringAggregateSelectionNullable!
+}
+
+input EnumTypeFieldNodeAggregationWhereInput {
+  AND: [EnumTypeFieldNodeAggregationWhereInput!]
+  NOT: EnumTypeFieldNodeAggregationWhereInput
+  OR: [EnumTypeFieldNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_LENGTH_EQUAL: Float
+  defaultValues_AVERAGE_LENGTH_GT: Float
+  defaultValues_AVERAGE_LENGTH_GTE: Float
+  defaultValues_AVERAGE_LENGTH_LT: Float
+  defaultValues_AVERAGE_LENGTH_LTE: Float
+  defaultValues_LONGEST_LENGTH_EQUAL: Int
+  defaultValues_LONGEST_LENGTH_GT: Int
+  defaultValues_LONGEST_LENGTH_GTE: Int
+  defaultValues_LONGEST_LENGTH_LT: Int
+  defaultValues_LONGEST_LENGTH_LTE: Int
+  defaultValues_SHORTEST_LENGTH_EQUAL: Int
+  defaultValues_SHORTEST_LENGTH_GT: Int
+  defaultValues_SHORTEST_LENGTH_GTE: Int
+  defaultValues_SHORTEST_LENGTH_LT: Int
+  defaultValues_SHORTEST_LENGTH_LTE: Int
+  description_AVERAGE_LENGTH_EQUAL: Float
+  description_AVERAGE_LENGTH_GT: Float
+  description_AVERAGE_LENGTH_GTE: Float
+  description_AVERAGE_LENGTH_LT: Float
+  description_AVERAGE_LENGTH_LTE: Float
+  description_LONGEST_LENGTH_EQUAL: Int
+  description_LONGEST_LENGTH_GT: Int
+  description_LONGEST_LENGTH_GTE: Int
+  description_LONGEST_LENGTH_LT: Int
+  description_LONGEST_LENGTH_LTE: Int
+  description_SHORTEST_LENGTH_EQUAL: Int
+  description_SHORTEST_LENGTH_GT: Int
+  description_SHORTEST_LENGTH_GTE: Int
+  description_SHORTEST_LENGTH_LT: Int
+  description_SHORTEST_LENGTH_LTE: Int
+  key_AVERAGE_LENGTH_EQUAL: Float
+  key_AVERAGE_LENGTH_GT: Float
+  key_AVERAGE_LENGTH_GTE: Float
+  key_AVERAGE_LENGTH_LT: Float
+  key_AVERAGE_LENGTH_LTE: Float
+  key_LONGEST_LENGTH_EQUAL: Int
+  key_LONGEST_LENGTH_GT: Int
+  key_LONGEST_LENGTH_GTE: Int
+  key_LONGEST_LENGTH_LT: Int
+  key_LONGEST_LENGTH_LTE: Int
+  key_SHORTEST_LENGTH_EQUAL: Int
+  key_SHORTEST_LENGTH_GT: Int
+  key_SHORTEST_LENGTH_GTE: Int
+  key_SHORTEST_LENGTH_LT: Int
+  key_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  validationRules_AVERAGE_LENGTH_EQUAL: Float
+  validationRules_AVERAGE_LENGTH_GT: Float
+  validationRules_AVERAGE_LENGTH_GTE: Float
+  validationRules_AVERAGE_LENGTH_LT: Float
+  validationRules_AVERAGE_LENGTH_LTE: Float
+  validationRules_LONGEST_LENGTH_EQUAL: Int
+  validationRules_LONGEST_LENGTH_GT: Int
+  validationRules_LONGEST_LENGTH_GTE: Int
+  validationRules_LONGEST_LENGTH_LT: Int
+  validationRules_LONGEST_LENGTH_LTE: Int
+  validationRules_SHORTEST_LENGTH_EQUAL: Int
+  validationRules_SHORTEST_LENGTH_GT: Int
+  validationRules_SHORTEST_LENGTH_GTE: Int
+  validationRules_SHORTEST_LENGTH_LT: Int
+  validationRules_SHORTEST_LENGTH_LTE: Int
+}
+
+type EnumTypeFieldRelationship {
+  cursor: String!
+  node: Field!
+}
+
+input EnumTypeFieldUpdateConnectionInput {
+  node: FieldUpdateInput
+}
+
+input EnumTypeFieldUpdateFieldInput {
+  connect: EnumTypeFieldConnectFieldInput
+  create: EnumTypeFieldCreateFieldInput
+  delete: EnumTypeFieldDeleteFieldInput
+  disconnect: EnumTypeFieldDisconnectFieldInput
+  update: EnumTypeFieldUpdateConnectionInput
+  where: EnumTypeFieldConnectionWhere
 }
 
 input EnumTypeOnCreateInput {
@@ -9371,6 +9562,7 @@ input EnumTypeOwnerNodeAggregationWhereInput {
 
 input EnumTypeRelationInput {
   allowedValues: [EnumTypeAllowedValuesCreateFieldInput!]
+  field: EnumTypeFieldCreateFieldInput
   owner: IBaseTypeOwnerCreateFieldInput
 }
 
@@ -9389,6 +9581,7 @@ input EnumTypeUniqueWhere {
 
 input EnumTypeUpdateInput {
   allowedValues: [EnumTypeAllowedValuesUpdateFieldInput!]
+  field: EnumTypeFieldUpdateFieldInput
   id: ID
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
@@ -9695,6 +9888,11 @@ input EnumTypeWhere {
   Return EnumTypes where some of the related EnumTypeValues match this filter
   """
   allowedValues_SOME: EnumTypeValueWhere
+  field: FieldWhere
+  fieldAggregate: EnumTypeFieldAggregateInput
+  fieldConnection: EnumTypeFieldConnectionWhere
+  fieldConnection_NOT: EnumTypeFieldConnectionWhere
+  field_NOT: FieldWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -15152,6 +15350,22 @@ type StringAggregateSelectionNullable {
 }
 
 type Tag {
+  atoms(
+    directed: Boolean = true
+    options: AtomOptions
+    where: AtomWhere
+  ): [Atom!]!
+  atomsAggregate(
+    directed: Boolean = true
+    where: AtomWhere
+  ): TagAtomAtomsAggregationSelection
+  atomsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [TagAtomsConnectionSort!]
+    where: TagAtomsConnectionWhere
+  ): TagAtomsConnection!
   children(
     directed: Boolean = true
     options: TagOptions
@@ -15202,6 +15416,140 @@ type TagAggregateSelection {
   count: Int!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
+}
+
+type TagAtomAtomsAggregationSelection {
+  count: Int!
+  node: TagAtomAtomsNodeAggregateSelection
+}
+
+type TagAtomAtomsNodeAggregateSelection {
+  icon: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input TagAtomsAggregateInput {
+  AND: [TagAtomsAggregateInput!]
+  NOT: TagAtomsAggregateInput
+  OR: [TagAtomsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: TagAtomsNodeAggregationWhereInput
+}
+
+input TagAtomsConnectFieldInput {
+  connect: [AtomConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
+  where: AtomConnectWhere
+}
+
+input TagAtomsConnectOrCreateFieldInput {
+  onCreate: TagAtomsConnectOrCreateFieldInputOnCreate!
+  where: AtomConnectOrCreateWhere!
+}
+
+input TagAtomsConnectOrCreateFieldInputOnCreate {
+  node: AtomOnCreateInput!
+}
+
+type TagAtomsConnection {
+  edges: [TagAtomsRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input TagAtomsConnectionSort {
+  node: AtomSort
+}
+
+input TagAtomsConnectionWhere {
+  AND: [TagAtomsConnectionWhere!]
+  NOT: TagAtomsConnectionWhere
+  OR: [TagAtomsConnectionWhere!]
+  node: AtomWhere
+}
+
+input TagAtomsCreateFieldInput {
+  node: AtomCreateInput!
+}
+
+input TagAtomsDeleteFieldInput {
+  delete: AtomDeleteInput
+  where: TagAtomsConnectionWhere
+}
+
+input TagAtomsDisconnectFieldInput {
+  disconnect: AtomDisconnectInput
+  where: TagAtomsConnectionWhere
+}
+
+input TagAtomsFieldInput {
+  connect: [TagAtomsConnectFieldInput!]
+  connectOrCreate: [TagAtomsConnectOrCreateFieldInput!]
+  create: [TagAtomsCreateFieldInput!]
+}
+
+input TagAtomsNodeAggregationWhereInput {
+  AND: [TagAtomsNodeAggregationWhereInput!]
+  NOT: TagAtomsNodeAggregationWhereInput
+  OR: [TagAtomsNodeAggregationWhereInput!]
+  icon_AVERAGE_LENGTH_EQUAL: Float
+  icon_AVERAGE_LENGTH_GT: Float
+  icon_AVERAGE_LENGTH_GTE: Float
+  icon_AVERAGE_LENGTH_LT: Float
+  icon_AVERAGE_LENGTH_LTE: Float
+  icon_LONGEST_LENGTH_EQUAL: Int
+  icon_LONGEST_LENGTH_GT: Int
+  icon_LONGEST_LENGTH_GTE: Int
+  icon_LONGEST_LENGTH_LT: Int
+  icon_LONGEST_LENGTH_LTE: Int
+  icon_SHORTEST_LENGTH_EQUAL: Int
+  icon_SHORTEST_LENGTH_GT: Int
+  icon_SHORTEST_LENGTH_GTE: Int
+  icon_SHORTEST_LENGTH_LT: Int
+  icon_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+}
+
+type TagAtomsRelationship {
+  cursor: String!
+  node: Atom!
+}
+
+input TagAtomsUpdateConnectionInput {
+  node: AtomUpdateInput
+}
+
+input TagAtomsUpdateFieldInput {
+  connect: [TagAtomsConnectFieldInput!]
+  connectOrCreate: [TagAtomsConnectOrCreateFieldInput!]
+  create: [TagAtomsCreateFieldInput!]
+  delete: [TagAtomsDeleteFieldInput!]
+  disconnect: [TagAtomsDisconnectFieldInput!]
+  update: TagAtomsUpdateConnectionInput
+  where: TagAtomsConnectionWhere
 }
 
 input TagChildrenAggregateInput {
@@ -15313,12 +15661,14 @@ input TagChildrenUpdateFieldInput {
 }
 
 input TagConnectInput {
+  atoms: [TagAtomsConnectFieldInput!]
   children: [TagChildrenConnectFieldInput!]
   owner: TagOwnerConnectFieldInput
   parent: TagParentConnectFieldInput
 }
 
 input TagConnectOrCreateInput {
+  atoms: [TagAtomsConnectOrCreateFieldInput!]
   children: [TagChildrenConnectOrCreateFieldInput!]
   owner: TagOwnerConnectOrCreateFieldInput
   parent: TagParentConnectOrCreateFieldInput
@@ -15333,6 +15683,7 @@ input TagConnectWhere {
 }
 
 input TagCreateInput {
+  atoms: TagAtomsFieldInput
   children: TagChildrenFieldInput
   id: ID!
   name: String!
@@ -15341,12 +15692,14 @@ input TagCreateInput {
 }
 
 input TagDeleteInput {
+  atoms: [TagAtomsDeleteFieldInput!]
   children: [TagChildrenDeleteFieldInput!]
   owner: TagOwnerDeleteFieldInput
   parent: TagParentDeleteFieldInput
 }
 
 input TagDisconnectInput {
+  atoms: [TagAtomsDisconnectFieldInput!]
   children: [TagChildrenDisconnectFieldInput!]
   owner: TagOwnerDisconnectFieldInput
   parent: TagParentDisconnectFieldInput
@@ -15619,6 +15972,7 @@ input TagParentUpdateFieldInput {
 }
 
 input TagRelationInput {
+  atoms: [TagAtomsCreateFieldInput!]
   children: [TagChildrenCreateFieldInput!]
   owner: TagOwnerCreateFieldInput
   parent: TagParentCreateFieldInput
@@ -15659,6 +16013,7 @@ input TagUniqueWhere {
 }
 
 input TagUpdateInput {
+  atoms: [TagAtomsUpdateFieldInput!]
   children: [TagChildrenUpdateFieldInput!]
   id: ID
   name: String
@@ -15682,6 +16037,47 @@ input TagWhere {
   AND: [TagWhere!]
   NOT: TagWhere
   OR: [TagWhere!]
+  atomsAggregate: TagAtomsAggregateInput
+
+  """
+  Return Tags where all of the related TagAtomsConnections match this filter
+  """
+  atomsConnection_ALL: TagAtomsConnectionWhere
+
+  """
+  Return Tags where none of the related TagAtomsConnections match this filter
+  """
+  atomsConnection_NONE: TagAtomsConnectionWhere
+
+  """
+  Return Tags where one of the related TagAtomsConnections match this filter
+  """
+  atomsConnection_SINGLE: TagAtomsConnectionWhere
+
+  """
+  Return Tags where some of the related TagAtomsConnections match this filter
+  """
+  atomsConnection_SOME: TagAtomsConnectionWhere
+
+  """
+  Return Tags where all of the related Atoms match this filter
+  """
+  atoms_ALL: AtomWhere
+
+  """
+  Return Tags where none of the related Atoms match this filter
+  """
+  atoms_NONE: AtomWhere
+
+  """
+  Return Tags where one of the related Atoms match this filter
+  """
+  atoms_SINGLE: AtomWhere
+
+  """
+  Return Tags where some of the related Atoms match this filter
+  """
+  atoms_SOME: AtomWhere
   childrenAggregate: TagChildrenAggregateInput
 
   """
@@ -17117,6 +17513,22 @@ type User {
     sort: [UserAppsConnectionSort!]
     where: UserAppsConnectionWhere
   ): UserAppsConnection!
+  atoms(
+    directed: Boolean = true
+    options: AtomOptions
+    where: AtomWhere
+  ): [Atom!]!
+  atomsAggregate(
+    directed: Boolean = true
+    where: AtomWhere
+  ): UserAtomAtomsAggregationSelection
+  atomsConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [UserAtomsConnectionSort!]
+    where: UserAtomsConnectionWhere
+  ): UserAtomsConnection!
   auth0Id: String!
   components(
     directed: Boolean = true
@@ -17310,6 +17722,140 @@ input UserAppsUpdateFieldInput {
   where: UserAppsConnectionWhere
 }
 
+type UserAtomAtomsAggregationSelection {
+  count: Int!
+  node: UserAtomAtomsNodeAggregateSelection
+}
+
+type UserAtomAtomsNodeAggregateSelection {
+  icon: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input UserAtomsAggregateInput {
+  AND: [UserAtomsAggregateInput!]
+  NOT: UserAtomsAggregateInput
+  OR: [UserAtomsAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: UserAtomsNodeAggregationWhereInput
+}
+
+input UserAtomsConnectFieldInput {
+  connect: [AtomConnectInput!]
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
+  where: AtomConnectWhere
+}
+
+input UserAtomsConnectOrCreateFieldInput {
+  onCreate: UserAtomsConnectOrCreateFieldInputOnCreate!
+  where: AtomConnectOrCreateWhere!
+}
+
+input UserAtomsConnectOrCreateFieldInputOnCreate {
+  node: AtomOnCreateInput!
+}
+
+type UserAtomsConnection {
+  edges: [UserAtomsRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input UserAtomsConnectionSort {
+  node: AtomSort
+}
+
+input UserAtomsConnectionWhere {
+  AND: [UserAtomsConnectionWhere!]
+  NOT: UserAtomsConnectionWhere
+  OR: [UserAtomsConnectionWhere!]
+  node: AtomWhere
+}
+
+input UserAtomsCreateFieldInput {
+  node: AtomCreateInput!
+}
+
+input UserAtomsDeleteFieldInput {
+  delete: AtomDeleteInput
+  where: UserAtomsConnectionWhere
+}
+
+input UserAtomsDisconnectFieldInput {
+  disconnect: AtomDisconnectInput
+  where: UserAtomsConnectionWhere
+}
+
+input UserAtomsFieldInput {
+  connect: [UserAtomsConnectFieldInput!]
+  connectOrCreate: [UserAtomsConnectOrCreateFieldInput!]
+  create: [UserAtomsCreateFieldInput!]
+}
+
+input UserAtomsNodeAggregationWhereInput {
+  AND: [UserAtomsNodeAggregationWhereInput!]
+  NOT: UserAtomsNodeAggregationWhereInput
+  OR: [UserAtomsNodeAggregationWhereInput!]
+  icon_AVERAGE_LENGTH_EQUAL: Float
+  icon_AVERAGE_LENGTH_GT: Float
+  icon_AVERAGE_LENGTH_GTE: Float
+  icon_AVERAGE_LENGTH_LT: Float
+  icon_AVERAGE_LENGTH_LTE: Float
+  icon_LONGEST_LENGTH_EQUAL: Int
+  icon_LONGEST_LENGTH_GT: Int
+  icon_LONGEST_LENGTH_GTE: Int
+  icon_LONGEST_LENGTH_LT: Int
+  icon_LONGEST_LENGTH_LTE: Int
+  icon_SHORTEST_LENGTH_EQUAL: Int
+  icon_SHORTEST_LENGTH_GT: Int
+  icon_SHORTEST_LENGTH_GTE: Int
+  icon_SHORTEST_LENGTH_LT: Int
+  icon_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+}
+
+type UserAtomsRelationship {
+  cursor: String!
+  node: Atom!
+}
+
+input UserAtomsUpdateConnectionInput {
+  node: AtomUpdateInput
+}
+
+input UserAtomsUpdateFieldInput {
+  connect: [UserAtomsConnectFieldInput!]
+  connectOrCreate: [UserAtomsConnectOrCreateFieldInput!]
+  create: [UserAtomsCreateFieldInput!]
+  delete: [UserAtomsDeleteFieldInput!]
+  disconnect: [UserAtomsDisconnectFieldInput!]
+  update: UserAtomsUpdateConnectionInput
+  where: UserAtomsConnectionWhere
+}
+
 type UserBaseTypeTypesAggregationSelection {
   count: Int!
   node: UserBaseTypeTypesNodeAggregateSelection
@@ -17440,6 +17986,7 @@ input UserComponentsUpdateFieldInput {
 
 input UserConnectInput {
   apps: [UserAppsConnectFieldInput!]
+  atoms: [UserAtomsConnectFieldInput!]
   components: [UserComponentsConnectFieldInput!]
   elements: [UserElementsConnectFieldInput!]
   tags: [UserTagsConnectFieldInput!]
@@ -17456,6 +18003,7 @@ input UserConnectWhere {
 
 input UserCreateInput {
   apps: UserAppsFieldInput
+  atoms: UserAtomsFieldInput
   auth0Id: String!
   components: UserComponentsFieldInput
   elements: UserElementsFieldInput
@@ -17469,6 +18017,7 @@ input UserCreateInput {
 
 input UserDeleteInput {
   apps: [UserAppsDeleteFieldInput!]
+  atoms: [UserAtomsDeleteFieldInput!]
   components: [UserComponentsDeleteFieldInput!]
   elements: [UserElementsDeleteFieldInput!]
   tags: [UserTagsDeleteFieldInput!]
@@ -17477,6 +18026,7 @@ input UserDeleteInput {
 
 input UserDisconnectInput {
   apps: [UserAppsDisconnectFieldInput!]
+  atoms: [UserAtomsDisconnectFieldInput!]
   components: [UserComponentsDisconnectFieldInput!]
   elements: [UserElementsDisconnectFieldInput!]
   tags: [UserTagsDisconnectFieldInput!]
@@ -17948,6 +18498,7 @@ input UserUniqueWhere {
 
 input UserUpdateInput {
   apps: [UserAppsUpdateFieldInput!]
+  atoms: [UserAtomsUpdateFieldInput!]
   auth0Id: String
   components: [UserComponentsUpdateFieldInput!]
   elements: [UserElementsUpdateFieldInput!]
@@ -18004,6 +18555,47 @@ input UserWhere {
   Return Users where some of the related Apps match this filter
   """
   apps_SOME: AppWhere
+  atomsAggregate: UserAtomsAggregateInput
+
+  """
+  Return Users where all of the related UserAtomsConnections match this filter
+  """
+  atomsConnection_ALL: UserAtomsConnectionWhere
+
+  """
+  Return Users where none of the related UserAtomsConnections match this filter
+  """
+  atomsConnection_NONE: UserAtomsConnectionWhere
+
+  """
+  Return Users where one of the related UserAtomsConnections match this filter
+  """
+  atomsConnection_SINGLE: UserAtomsConnectionWhere
+
+  """
+  Return Users where some of the related UserAtomsConnections match this filter
+  """
+  atomsConnection_SOME: UserAtomsConnectionWhere
+
+  """
+  Return Users where all of the related Atoms match this filter
+  """
+  atoms_ALL: AtomWhere
+
+  """
+  Return Users where none of the related Atoms match this filter
+  """
+  atoms_NONE: AtomWhere
+
+  """
+  Return Users where one of the related Atoms match this filter
+  """
+  atoms_SINGLE: AtomWhere
+
+  """
+  Return Users where some of the related Atoms match this filter
+  """
+  atoms_SOME: AtomWhere
   auth0Id: String
   auth0Id_CONTAINS: String
   auth0Id_ENDS_WITH: String

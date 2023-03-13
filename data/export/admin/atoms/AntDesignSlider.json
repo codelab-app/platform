@@ -1,0 +1,63 @@
+{
+  "atom": {
+    "id": "17f0d178-895a-4632-9c57-6e86ff23766d",
+    "name": "AntDesignSlider",
+    "type": "AntDesignSlider",
+    "api": {
+      "id": "dc0666cc-244c-41c0-90c0-d7177538359c",
+      "name": "AntDesignSlider API"
+    },
+    "icon": "Slider",
+    "tags": [
+      {
+        "id": "4489a840-cceb-4aeb-966f-6d132154602a",
+        "name": "Slider"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "dc0666cc-244c-41c0-90c0-d7177538359c",
+    "kind": "InterfaceType",
+    "name": "AntDesignSlider API",
+    "fields": [
+      {
+        "id": "4936a907-b6d6-4171-beaa-4d7e8a32892e",
+        "key": "draggableTrack",
+        "name": "Draggable Track",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "dc0666cc-244c-41c0-90c0-d7177538359c"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
+  "tags": [
+    {
+      "id": "4489a840-cceb-4aeb-966f-6d132154602a",
+      "name": "Slider",
+      "parent": {
+        "id": "c350f653-57f8-4167-8b2a-e6c376f30ef1",
+        "name": "Data Entry"
+      },
+      "children": []
+    }
+  ]
+}

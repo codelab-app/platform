@@ -8,7 +8,6 @@ import type {
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
-import { v4 } from 'uuid'
 import { BaseType } from './base-type.model'
 
 export class UnionType extends BaseType implements IUnionType {
@@ -29,10 +28,10 @@ export class UnionType extends BaseType implements IUnionType {
     this.typesOfUnionType = typesOfUnionType
   }
 
-  static init({ owner, name, typesOfUnionType }: ICreateUnionType) {
+  static init({ id, owner, name, typesOfUnionType }: ICreateUnionType) {
     return new UnionType({
       __typename: ITypeKind.UnionType,
-      id: v4(),
+      id,
       kind: ITypeKind.UnionType,
       name,
       owner,

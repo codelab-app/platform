@@ -19,7 +19,7 @@ export class InterfaceTypeRepository extends AbstractRepository<IInterfaceType> 
     })
   }
 
-  async find(where: BaseTypeUniqueWhere) {
+  async find(where: BaseTypeUniqueWhere = {}) {
     return (
       await (
         await this.InterfaceType
@@ -57,7 +57,7 @@ export class InterfaceTypeRepository extends AbstractRepository<IInterfaceType> 
    * Scenario: Say a field was deleted, then we run a seeder, we would have to create for the deleted field
    */
   protected async _update(
-    { __typename, fields, owner, ...data }: IInterfaceType,
+    { id, __typename, fields, owner, ...data }: IInterfaceType,
     where: BaseTypeUniqueWhere,
   ) {
     return (

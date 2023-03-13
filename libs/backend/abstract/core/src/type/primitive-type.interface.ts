@@ -24,11 +24,9 @@ export type IPrimitiveTypeExport = z.infer<typeof PrimitiveTypeExportSchema>
 /**
  * Create
  */
-const CreatePrimitiveTypeSchema = PrimitiveTypeSchema.pick({
-  // id: true,
-  __typename: true,
-  owner: true,
-  primitiveKind: true,
+const CreatePrimitiveTypeSchema = PrimitiveTypeSchema.omit({
+  kind: true,
+  name: true,
 })
 
 export type ICreatePrimitiveType = z.infer<typeof CreatePrimitiveTypeSchema>

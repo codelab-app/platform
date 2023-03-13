@@ -90,7 +90,7 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
       for await (const field of fields) {
         await this.fieldRepository.save(field, {
           api: {
-            name: atom.api.name,
+            id: atom.api.id,
           },
           key: field.key,
         })
@@ -110,7 +110,7 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
         let existingField: IField | undefined = await this.fieldRepository.find(
           {
             api: {
-              name: atom.api.name,
+              id: atom.api.id,
             },
             key: field.property,
           },
@@ -141,8 +141,7 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
            * We need to upsert here by specifying where as name
            */
           const type = await TypeFactory.create(
-            fieldTypeDTO,
-            this.owner,
+            { ...fieldTypeDTO, owner: this.owner },
             (typeData: IType) => ({ name: typeData.name }),
           )
 

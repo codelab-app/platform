@@ -1,0 +1,182 @@
+{
+  "atom": {
+    "id": "5f0dff9e-10c3-48a3-9dde-9fc2b1831978",
+    "name": "AntDesignModal",
+    "type": "AntDesignModal",
+    "api": {
+      "id": "1ae6d374-ad0f-40b7-85c2-5648809830c3",
+      "name": "AntDesignModal API"
+    },
+    "icon": "Modal",
+    "tags": [
+      {
+        "id": "296ae177-5460-4377-a7d2-5426f4c7baf7",
+        "name": "Modal"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "1ae6d374-ad0f-40b7-85c2-5648809830c3",
+    "kind": "InterfaceType",
+    "name": "AntDesignModal API",
+    "fields": [
+      {
+        "id": "0561dd45-efb4-481c-b9fc-682d0ab55f13",
+        "key": "cancelText",
+        "name": "Cancel Text",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "1ae6d374-ad0f-40b7-85c2-5648809830c3"
+        }
+      },
+      {
+        "id": "ce162b91-b94b-4299-b452-fc703925b76f",
+        "key": "centered",
+        "name": "Centered",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "1ae6d374-ad0f-40b7-85c2-5648809830c3"
+        }
+      },
+      {
+        "id": "4090f461-dcc8-41a8-ac6e-9508de3cde76",
+        "key": "closable",
+        "name": "Closable",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "1ae6d374-ad0f-40b7-85c2-5648809830c3"
+        }
+      },
+      {
+        "id": "f244efb8-5142-4752-a6d6-3a9c0368e5a4",
+        "key": "destroyOnClose",
+        "name": "Destroy On Close",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "1ae6d374-ad0f-40b7-85c2-5648809830c3"
+        }
+      },
+      {
+        "id": "da24a07b-8009-4bbc-948e-c6266f04edf4",
+        "key": "okText",
+        "name": "Ok Text",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "1ae6d374-ad0f-40b7-85c2-5648809830c3"
+        }
+      },
+      {
+        "id": "1ebe9ee4-397e-40b4-8562-359a79f27f6b",
+        "key": "okType",
+        "name": "Ok Type",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "1ae6d374-ad0f-40b7-85c2-5648809830c3"
+        }
+      },
+      {
+        "id": "a73c3a67-218e-4128-a40a-5159757fa463",
+        "key": "title",
+        "name": "Title",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "1ae6d374-ad0f-40b7-85c2-5648809830c3"
+        }
+      },
+      {
+        "id": "70e35832-30d1-4d2d-a041-1652ead620ba",
+        "key": "visible",
+        "name": "Visible",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "1ae6d374-ad0f-40b7-85c2-5648809830c3"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
+  "tags": [
+    {
+      "id": "296ae177-5460-4377-a7d2-5426f4c7baf7",
+      "name": "Modal",
+      "parent": {
+        "id": "53a7cb8c-1631-4555-bead-4b63efbef861",
+        "name": "Feedback"
+      },
+      "children": []
+    }
+  ]
+}

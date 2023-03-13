@@ -15,11 +15,12 @@ export class ActionTypeFactory extends ITypeFactory<
   repository: ActionTypeRepository = new ActionTypeRepository()
 
   async _create(
-    { owner }: ICreateActionType,
+    { owner, id }: ICreateActionType,
     where: BaseTypeUniqueWhereCallback<IActionType>,
   ) {
     const actionType = ActionType.init({
       __typename: ITypeKind.ActionType,
+      id,
       owner,
     })
 
