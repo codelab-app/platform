@@ -1,5 +1,5 @@
 import type {
-  IAnyType,
+  IType,
   IFieldRecord,
   IFieldService,
   IInterfaceType,
@@ -22,10 +22,10 @@ import { getValidationRuleTagsArray } from '../../../fields/get-fields/validatio
 import { TypeDetailsTable } from '../../index'
 
 export interface FieldsTableProps {
+  fieldService: IFieldService
+  hideActions?: boolean
   interfaceType: IInterfaceType
   isLoading: boolean
-  hideActions?: boolean
-  fieldService: IFieldService
   typeService: ITypeService
 }
 
@@ -57,7 +57,7 @@ export const FieldsTable = observer<FieldsTableProps>(
         dataIndex: 'type',
         key: 'type',
         onHeaderCell: headerCellProps,
-        render: (type: IAnyType) => (
+        render: (type: IType) => (
           <Space>
             {type.name}
             <ListItemEditButton
@@ -71,7 +71,7 @@ export const FieldsTable = observer<FieldsTableProps>(
         dataIndex: 'type',
         key: 'type',
         onHeaderCell: headerCellProps,
-        render: (type: IAnyType) => <Space>{type.kind}</Space>,
+        render: (type: IType) => <Space>{type.kind}</Space>,
         title: 'Kind',
       },
       {

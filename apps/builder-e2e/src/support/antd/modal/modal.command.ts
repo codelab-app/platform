@@ -14,8 +14,8 @@ export const getModalBody = (options?: CommonOptions) =>
 export const getModalAction = (
   label: Label,
   options?:
-    | (Partial<Cypress.Loggable> & { log: boolean })
     | CommonOptions
+    | (Partial<Cypress.Loggable> & { log: boolean })
     | undefined,
 ) =>
   getModal(options)
@@ -33,7 +33,7 @@ export const getModalConfirmButtons = (options?: CommonOptions) =>
 
 export const getModalConfirmAction = (
   label: Label,
-  options?: Partial<Cypress.Loggable> | CommonOptions,
+  options?: CommonOptions | Partial<Cypress.Loggable>,
 ) => getModalConfirmButtons(options).contains('button', label, options)
 
 export const getModalConfirmCancel = (options?: CommonOptions) =>

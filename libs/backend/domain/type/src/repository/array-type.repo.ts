@@ -4,39 +4,46 @@ import {
   exportArrayTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
+import type { IArrayTypeDTO } from '@codelab/frontend/abstract/core'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
-import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
 
-export class ArrayTypeRepository extends AbstractRepository<IArrayType> {
+export class ArrayTypeRepository extends AbstractRepository<
+  IArrayTypeDTO,
+  OGM_TYPES.ArrayType,
+  OGM_TYPES.ArrayTypeWhere
+> {
   private ArrayType = Repository.instance.ArrayType
 
-  async find(where: BaseTypeUniqueWhere) {
-    return (
-      await (
-        await this.ArrayType
-      ).find({
-        selectionSet: exportArrayTypeSelectionSet,
-        where,
-      })
-    )[0]
+  async find(where: OGM_TYPES.ArrayTypeWhere) {
+    return await (
+      await this.ArrayType
+    ).find({
+      selectionSet: exportArrayTypeSelectionSet,
+      where,
+    })
   }
 
-  protected async _add(primitiveTypes: Array<IArrayType>) {
+  protected async _add(primitiveTypes: Array<IArrayTypeDTO>) {
     return (
       await (
         await this.ArrayType
       ).create({
-        input: primitiveTypes.map(({ __typename, owner, ...type }) => ({
-          ...type,
-          owner: connectAuth0Owner(owner),
-        })),
+        input: primitiveTypes.map(
+          ({ __typename, itemType, owner, ...type }) => ({
+            ...type,
+            // itemType: connectNodeId(itemType.id),
+            owner: connectAuth0Owner(owner),
+          }),
+        ),
       })
     ).arrayTypes
   }
 
   protected async _update(
-    { __typename, owner, ...primitiveType }: IArrayType,
-    where: BaseTypeUniqueWhere,
+    { __typename, itemType, owner, ...primitiveType }: IArrayTypeDTO,
+    where: OGM_TYPES.ArrayTypeWhere,
   ) {
     return (
       await (

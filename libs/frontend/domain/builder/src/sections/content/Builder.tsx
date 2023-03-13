@@ -24,19 +24,19 @@ import { useBuilderHotkeys, useBuilderHoverHandlers } from '../../hooks'
 import { useBuilderResize } from '../../hooks/useBuilderResize'
 import { useBuilderRootClickHandler } from '../../hooks/useBuilderRootClickHandler'
 
-type BuilderProps = {
-  elementTree: IElementTree
-} & Pick<
+type BuilderProps = Pick<
   IBuilderService,
-  | 'setHoveredNode'
-  | 'currentDragData'
-  | 'selectedNode'
-  | 'setSelectedNode'
   | 'currentBuilderWidth'
+  | 'currentDragData'
   | 'selectedBuilderWidth'
+  | 'selectedNode'
   | 'setCurrentBuilderWidth'
+  | 'setHoveredNode'
+  | 'setSelectedNode'
 > &
   Pick<IElementService, 'deleteModal'> & {
+    elementTree: IElementTree
+  } & {
     rendererProps: RendererRoot
   }
 /**

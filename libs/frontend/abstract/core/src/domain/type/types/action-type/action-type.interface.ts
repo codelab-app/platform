@@ -5,6 +5,6 @@ import type { IActionTypeDTO } from './action-type.dto.interface'
 /**
  * Allows choosing an action from the list of actions.
  */
-export interface IAnyActionType extends IBaseType<IActionTypeDTO> {
+export interface IActionType extends IBaseType<IActionTypeDTO> {
   kind: ITypeKind.ActionType
 }

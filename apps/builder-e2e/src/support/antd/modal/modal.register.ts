@@ -25,29 +25,29 @@ import {
 } from './modal.command'
 
 export interface AntModalCommands {
+  cancelModalConfirm: typeof cancelModalConfirm
+  closeModal: typeof closeModal
+  confirmModalConfirm: typeof confirmModalConfirm
+  expectModalActions: typeof expectModalActions
+  expectModalConfirmActions: typeof expectModalConfirmActions
+  expectModalConfirmText: typeof expectModalConfirmText
+  expectModalConfirmTitle: typeof expectModalConfirmTitle
+  expectModalText: typeof expectModalText
+  expectModalTitle: typeof expectModalTitle
+  expectModalToClose: typeof expectModalToClose
+  expectModalToOpen: typeof expectModalToOpen
   getModal: typeof getModal
-  getModalTitle: typeof getModalTitle
-  getModalBody: typeof getModalBody
   getModalAction: typeof getModalAction
-  getModalConfirmTitle: typeof getModalConfirmTitle
+  getModalBody: typeof getModalBody
+  getModalConfirmAction: typeof getModalConfirmAction
   getModalConfirmBody: typeof getModalConfirmBody
   getModalConfirmButtons: typeof getModalConfirmButtons
-  getModalConfirmAction: typeof getModalConfirmAction
   getModalConfirmCancel: typeof getModalConfirmCancel
   getModalConfirmOk: typeof getModalConfirmOk
-  expectModalTitle: typeof expectModalTitle
-  expectModalText: typeof expectModalText
-  expectModalActions: typeof expectModalActions
-  expectModalConfirmTitle: typeof expectModalConfirmTitle
-  expectModalConfirmText: typeof expectModalConfirmText
-  expectModalConfirmActions: typeof expectModalConfirmActions
-  expectModalToOpen: typeof expectModalToOpen
-  expectModalToClose: typeof expectModalToClose
-  closeModal: typeof closeModal
+  getModalConfirmTitle: typeof getModalConfirmTitle
+  getModalTitle: typeof getModalTitle
   resolveModal: typeof resolveModal
   resolveModalConfirm: typeof resolveModalConfirm
-  confirmModalConfirm: typeof confirmModalConfirm
-  cancelModalConfirm: typeof cancelModalConfirm
 }
 
 export const antModalCommands: Array<CypressCommand> = [

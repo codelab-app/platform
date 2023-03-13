@@ -23,7 +23,7 @@ export class SeedAntDesignApiService extends IUseCase<IOwner, void> {
    */
   async _execute(owner: IOwner) {
     const existingInterfaceTypes = new Map(
-      (await this.interfaceTypeRepository.all()).map((interfaceType) => [
+      (await this.interfaceTypeRepository.find()).map((interfaceType) => [
         interfaceType.name,
         interfaceType,
       ]),

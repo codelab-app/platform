@@ -2599,13 +2599,14 @@ type ArrayType implements IBaseType & WithDescendants {
   id: ID!
   itemType(
     directed: Boolean = true
-    options: QueryOptions
-    where: AnyTypeWhere
-  ): AnyType!
+    options: IBaseTypeOptions
+    where: IBaseTypeWhere
+  ): IBaseType!
   itemTypeConnection(
     after: String
     directed: Boolean = true
     first: Int
+    sort: [ArrayTypeItemTypeConnectionSort!]
     where: ArrayTypeItemTypeConnectionWhere
   ): ArrayTypeItemTypeConnection!
   kind: TypeKind!
@@ -2631,12 +2632,11 @@ type ArrayTypeAggregateSelection {
 }
 
 input ArrayTypeConnectInput {
-  itemType: ArrayTypeItemTypeConnectInput
+  itemType: ArrayTypeItemTypeConnectFieldInput
   owner: IBaseTypeOwnerConnectFieldInput
 }
 
 input ArrayTypeConnectOrCreateInput {
-  itemType: ArrayTypeItemTypeConnectOrCreateInput
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
@@ -2650,19 +2650,19 @@ input ArrayTypeConnectWhere {
 
 input ArrayTypeCreateInput {
   id: ID!
-  itemType: ArrayTypeItemTypeCreateInput
+  itemType: ArrayTypeItemTypeFieldInput
   kind: TypeKind! = ArrayType
   name: String!
   owner: IBaseTypeOwnerFieldInput
 }
 
 input ArrayTypeDeleteInput {
-  itemType: ArrayTypeItemTypeDeleteInput
+  itemType: ArrayTypeItemTypeDeleteFieldInput
   owner: IBaseTypeOwnerDeleteFieldInput
 }
 
 input ArrayTypeDisconnectInput {
-  itemType: ArrayTypeItemTypeDisconnectInput
+  itemType: ArrayTypeItemTypeDisconnectFieldInput
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
@@ -2671,256 +2671,9 @@ type ArrayTypeEdge {
   node: ArrayType!
 }
 
-input ArrayTypeItemTypeActionTypeConnectFieldInput {
-  connect: ActionTypeConnectInput
-  where: ActionTypeConnectWhere
-}
-
-input ArrayTypeItemTypeActionTypeConnectOrCreateFieldInput {
-  onCreate: ArrayTypeItemTypeActionTypeConnectOrCreateFieldInputOnCreate!
-  where: ActionTypeConnectOrCreateWhere!
-}
-
-input ArrayTypeItemTypeActionTypeConnectOrCreateFieldInputOnCreate {
-  node: ActionTypeOnCreateInput!
-}
-
-input ArrayTypeItemTypeActionTypeConnectionWhere {
-  AND: [ArrayTypeItemTypeActionTypeConnectionWhere!]
-  NOT: ArrayTypeItemTypeActionTypeConnectionWhere
-  OR: [ArrayTypeItemTypeActionTypeConnectionWhere!]
-  node: ActionTypeWhere
-}
-
-input ArrayTypeItemTypeActionTypeCreateFieldInput {
-  node: ActionTypeCreateInput!
-}
-
-input ArrayTypeItemTypeActionTypeDeleteFieldInput {
-  delete: ActionTypeDeleteInput
-  where: ArrayTypeItemTypeActionTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeActionTypeDisconnectFieldInput {
-  disconnect: ActionTypeDisconnectInput
-  where: ArrayTypeItemTypeActionTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeActionTypeFieldInput {
-  connect: ArrayTypeItemTypeActionTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeActionTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeActionTypeCreateFieldInput
-}
-
-input ArrayTypeItemTypeActionTypeUpdateConnectionInput {
-  node: ActionTypeUpdateInput
-}
-
-input ArrayTypeItemTypeActionTypeUpdateFieldInput {
-  connect: ArrayTypeItemTypeActionTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeActionTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeActionTypeCreateFieldInput
-  delete: ArrayTypeItemTypeActionTypeDeleteFieldInput
-  disconnect: ArrayTypeItemTypeActionTypeDisconnectFieldInput
-  update: ArrayTypeItemTypeActionTypeUpdateConnectionInput
-  where: ArrayTypeItemTypeActionTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeAppTypeConnectFieldInput {
-  connect: AppTypeConnectInput
-  where: AppTypeConnectWhere
-}
-
-input ArrayTypeItemTypeAppTypeConnectOrCreateFieldInput {
-  onCreate: ArrayTypeItemTypeAppTypeConnectOrCreateFieldInputOnCreate!
-  where: AppTypeConnectOrCreateWhere!
-}
-
-input ArrayTypeItemTypeAppTypeConnectOrCreateFieldInputOnCreate {
-  node: AppTypeOnCreateInput!
-}
-
-input ArrayTypeItemTypeAppTypeConnectionWhere {
-  AND: [ArrayTypeItemTypeAppTypeConnectionWhere!]
-  NOT: ArrayTypeItemTypeAppTypeConnectionWhere
-  OR: [ArrayTypeItemTypeAppTypeConnectionWhere!]
-  node: AppTypeWhere
-}
-
-input ArrayTypeItemTypeAppTypeCreateFieldInput {
-  node: AppTypeCreateInput!
-}
-
-input ArrayTypeItemTypeAppTypeDeleteFieldInput {
-  delete: AppTypeDeleteInput
-  where: ArrayTypeItemTypeAppTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeAppTypeDisconnectFieldInput {
-  disconnect: AppTypeDisconnectInput
-  where: ArrayTypeItemTypeAppTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeAppTypeFieldInput {
-  connect: ArrayTypeItemTypeAppTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeAppTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeAppTypeCreateFieldInput
-}
-
-input ArrayTypeItemTypeAppTypeUpdateConnectionInput {
-  node: AppTypeUpdateInput
-}
-
-input ArrayTypeItemTypeAppTypeUpdateFieldInput {
-  connect: ArrayTypeItemTypeAppTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeAppTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeAppTypeCreateFieldInput
-  delete: ArrayTypeItemTypeAppTypeDeleteFieldInput
-  disconnect: ArrayTypeItemTypeAppTypeDisconnectFieldInput
-  update: ArrayTypeItemTypeAppTypeUpdateConnectionInput
-  where: ArrayTypeItemTypeAppTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeArrayTypeConnectFieldInput {
-  connect: ArrayTypeConnectInput
-  where: ArrayTypeConnectWhere
-}
-
-input ArrayTypeItemTypeArrayTypeConnectOrCreateFieldInput {
-  onCreate: ArrayTypeItemTypeArrayTypeConnectOrCreateFieldInputOnCreate!
-  where: ArrayTypeConnectOrCreateWhere!
-}
-
-input ArrayTypeItemTypeArrayTypeConnectOrCreateFieldInputOnCreate {
-  node: ArrayTypeOnCreateInput!
-}
-
-input ArrayTypeItemTypeArrayTypeConnectionWhere {
-  AND: [ArrayTypeItemTypeArrayTypeConnectionWhere!]
-  NOT: ArrayTypeItemTypeArrayTypeConnectionWhere
-  OR: [ArrayTypeItemTypeArrayTypeConnectionWhere!]
-  node: ArrayTypeWhere
-}
-
-input ArrayTypeItemTypeArrayTypeCreateFieldInput {
-  node: ArrayTypeCreateInput!
-}
-
-input ArrayTypeItemTypeArrayTypeDeleteFieldInput {
-  delete: ArrayTypeDeleteInput
-  where: ArrayTypeItemTypeArrayTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeArrayTypeDisconnectFieldInput {
-  disconnect: ArrayTypeDisconnectInput
-  where: ArrayTypeItemTypeArrayTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeArrayTypeFieldInput {
-  connect: ArrayTypeItemTypeArrayTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeArrayTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeArrayTypeCreateFieldInput
-}
-
-input ArrayTypeItemTypeArrayTypeUpdateConnectionInput {
-  node: ArrayTypeUpdateInput
-}
-
-input ArrayTypeItemTypeArrayTypeUpdateFieldInput {
-  connect: ArrayTypeItemTypeArrayTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeArrayTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeArrayTypeCreateFieldInput
-  delete: ArrayTypeItemTypeArrayTypeDeleteFieldInput
-  disconnect: ArrayTypeItemTypeArrayTypeDisconnectFieldInput
-  update: ArrayTypeItemTypeArrayTypeUpdateConnectionInput
-  where: ArrayTypeItemTypeArrayTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeCodeMirrorTypeConnectFieldInput {
-  connect: CodeMirrorTypeConnectInput
-  where: CodeMirrorTypeConnectWhere
-}
-
-input ArrayTypeItemTypeCodeMirrorTypeConnectOrCreateFieldInput {
-  onCreate: ArrayTypeItemTypeCodeMirrorTypeConnectOrCreateFieldInputOnCreate!
-  where: CodeMirrorTypeConnectOrCreateWhere!
-}
-
-input ArrayTypeItemTypeCodeMirrorTypeConnectOrCreateFieldInputOnCreate {
-  node: CodeMirrorTypeOnCreateInput!
-}
-
-input ArrayTypeItemTypeCodeMirrorTypeConnectionWhere {
-  AND: [ArrayTypeItemTypeCodeMirrorTypeConnectionWhere!]
-  NOT: ArrayTypeItemTypeCodeMirrorTypeConnectionWhere
-  OR: [ArrayTypeItemTypeCodeMirrorTypeConnectionWhere!]
-  node: CodeMirrorTypeWhere
-}
-
-input ArrayTypeItemTypeCodeMirrorTypeCreateFieldInput {
-  node: CodeMirrorTypeCreateInput!
-}
-
-input ArrayTypeItemTypeCodeMirrorTypeDeleteFieldInput {
-  delete: CodeMirrorTypeDeleteInput
-  where: ArrayTypeItemTypeCodeMirrorTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeCodeMirrorTypeDisconnectFieldInput {
-  disconnect: CodeMirrorTypeDisconnectInput
-  where: ArrayTypeItemTypeCodeMirrorTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeCodeMirrorTypeFieldInput {
-  connect: ArrayTypeItemTypeCodeMirrorTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeCodeMirrorTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeCodeMirrorTypeCreateFieldInput
-}
-
-input ArrayTypeItemTypeCodeMirrorTypeUpdateConnectionInput {
-  node: CodeMirrorTypeUpdateInput
-}
-
-input ArrayTypeItemTypeCodeMirrorTypeUpdateFieldInput {
-  connect: ArrayTypeItemTypeCodeMirrorTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeCodeMirrorTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeCodeMirrorTypeCreateFieldInput
-  delete: ArrayTypeItemTypeCodeMirrorTypeDeleteFieldInput
-  disconnect: ArrayTypeItemTypeCodeMirrorTypeDisconnectFieldInput
-  update: ArrayTypeItemTypeCodeMirrorTypeUpdateConnectionInput
-  where: ArrayTypeItemTypeCodeMirrorTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeConnectInput {
-  ActionType: ArrayTypeItemTypeActionTypeConnectFieldInput
-  AppType: ArrayTypeItemTypeAppTypeConnectFieldInput
-  ArrayType: ArrayTypeItemTypeArrayTypeConnectFieldInput
-  CodeMirrorType: ArrayTypeItemTypeCodeMirrorTypeConnectFieldInput
-  ElementType: ArrayTypeItemTypeElementTypeConnectFieldInput
-  EnumType: ArrayTypeItemTypeEnumTypeConnectFieldInput
-  InterfaceType: ArrayTypeItemTypeInterfaceTypeConnectFieldInput
-  LambdaType: ArrayTypeItemTypeLambdaTypeConnectFieldInput
-  PageType: ArrayTypeItemTypePageTypeConnectFieldInput
-  PrimitiveType: ArrayTypeItemTypePrimitiveTypeConnectFieldInput
-  ReactNodeType: ArrayTypeItemTypeReactNodeTypeConnectFieldInput
-  RenderPropsType: ArrayTypeItemTypeRenderPropsTypeConnectFieldInput
-  UnionType: ArrayTypeItemTypeUnionTypeConnectFieldInput
-}
-
-input ArrayTypeItemTypeConnectOrCreateInput {
-  ActionType: ArrayTypeItemTypeActionTypeConnectOrCreateFieldInput
-  AppType: ArrayTypeItemTypeAppTypeConnectOrCreateFieldInput
-  ArrayType: ArrayTypeItemTypeArrayTypeConnectOrCreateFieldInput
-  CodeMirrorType: ArrayTypeItemTypeCodeMirrorTypeConnectOrCreateFieldInput
-  ElementType: ArrayTypeItemTypeElementTypeConnectOrCreateFieldInput
-  EnumType: ArrayTypeItemTypeEnumTypeConnectOrCreateFieldInput
-  InterfaceType: ArrayTypeItemTypeInterfaceTypeConnectOrCreateFieldInput
-  LambdaType: ArrayTypeItemTypeLambdaTypeConnectOrCreateFieldInput
-  PageType: ArrayTypeItemTypePageTypeConnectOrCreateFieldInput
-  PrimitiveType: ArrayTypeItemTypePrimitiveTypeConnectOrCreateFieldInput
-  ReactNodeType: ArrayTypeItemTypeReactNodeTypeConnectOrCreateFieldInput
-  RenderPropsType: ArrayTypeItemTypeRenderPropsTypeConnectOrCreateFieldInput
-  UnionType: ArrayTypeItemTypeUnionTypeConnectOrCreateFieldInput
+input ArrayTypeItemTypeConnectFieldInput {
+  connect: IBaseTypeConnectInput
+  where: IBaseTypeConnectWhere
 }
 
 type ArrayTypeItemTypeConnection {
@@ -2929,600 +2682,52 @@ type ArrayTypeItemTypeConnection {
   totalCount: Int!
 }
 
+input ArrayTypeItemTypeConnectionSort {
+  node: IBaseTypeSort
+}
+
 input ArrayTypeItemTypeConnectionWhere {
-  ActionType: ArrayTypeItemTypeActionTypeConnectionWhere
-  AppType: ArrayTypeItemTypeAppTypeConnectionWhere
-  ArrayType: ArrayTypeItemTypeArrayTypeConnectionWhere
-  CodeMirrorType: ArrayTypeItemTypeCodeMirrorTypeConnectionWhere
-  ElementType: ArrayTypeItemTypeElementTypeConnectionWhere
-  EnumType: ArrayTypeItemTypeEnumTypeConnectionWhere
-  InterfaceType: ArrayTypeItemTypeInterfaceTypeConnectionWhere
-  LambdaType: ArrayTypeItemTypeLambdaTypeConnectionWhere
-  PageType: ArrayTypeItemTypePageTypeConnectionWhere
-  PrimitiveType: ArrayTypeItemTypePrimitiveTypeConnectionWhere
-  ReactNodeType: ArrayTypeItemTypeReactNodeTypeConnectionWhere
-  RenderPropsType: ArrayTypeItemTypeRenderPropsTypeConnectionWhere
-  UnionType: ArrayTypeItemTypeUnionTypeConnectionWhere
+  AND: [ArrayTypeItemTypeConnectionWhere!]
+  NOT: ArrayTypeItemTypeConnectionWhere
+  OR: [ArrayTypeItemTypeConnectionWhere!]
+  node: IBaseTypeWhere
 }
 
 input ArrayTypeItemTypeCreateFieldInput {
-  ActionType: [ArrayTypeItemTypeActionTypeCreateFieldInput!]
-  AppType: [ArrayTypeItemTypeAppTypeCreateFieldInput!]
-  ArrayType: [ArrayTypeItemTypeArrayTypeCreateFieldInput!]
-  CodeMirrorType: [ArrayTypeItemTypeCodeMirrorTypeCreateFieldInput!]
-  ElementType: [ArrayTypeItemTypeElementTypeCreateFieldInput!]
-  EnumType: [ArrayTypeItemTypeEnumTypeCreateFieldInput!]
-  InterfaceType: [ArrayTypeItemTypeInterfaceTypeCreateFieldInput!]
-  LambdaType: [ArrayTypeItemTypeLambdaTypeCreateFieldInput!]
-  PageType: [ArrayTypeItemTypePageTypeCreateFieldInput!]
-  PrimitiveType: [ArrayTypeItemTypePrimitiveTypeCreateFieldInput!]
-  ReactNodeType: [ArrayTypeItemTypeReactNodeTypeCreateFieldInput!]
-  RenderPropsType: [ArrayTypeItemTypeRenderPropsTypeCreateFieldInput!]
-  UnionType: [ArrayTypeItemTypeUnionTypeCreateFieldInput!]
+  node: IBaseTypeCreateInput!
 }
 
-input ArrayTypeItemTypeCreateInput {
-  ActionType: ArrayTypeItemTypeActionTypeFieldInput
-  AppType: ArrayTypeItemTypeAppTypeFieldInput
-  ArrayType: ArrayTypeItemTypeArrayTypeFieldInput
-  CodeMirrorType: ArrayTypeItemTypeCodeMirrorTypeFieldInput
-  ElementType: ArrayTypeItemTypeElementTypeFieldInput
-  EnumType: ArrayTypeItemTypeEnumTypeFieldInput
-  InterfaceType: ArrayTypeItemTypeInterfaceTypeFieldInput
-  LambdaType: ArrayTypeItemTypeLambdaTypeFieldInput
-  PageType: ArrayTypeItemTypePageTypeFieldInput
-  PrimitiveType: ArrayTypeItemTypePrimitiveTypeFieldInput
-  ReactNodeType: ArrayTypeItemTypeReactNodeTypeFieldInput
-  RenderPropsType: ArrayTypeItemTypeRenderPropsTypeFieldInput
-  UnionType: ArrayTypeItemTypeUnionTypeFieldInput
+input ArrayTypeItemTypeDeleteFieldInput {
+  delete: IBaseTypeDeleteInput
+  where: ArrayTypeItemTypeConnectionWhere
 }
 
-input ArrayTypeItemTypeDeleteInput {
-  ActionType: ArrayTypeItemTypeActionTypeDeleteFieldInput
-  AppType: ArrayTypeItemTypeAppTypeDeleteFieldInput
-  ArrayType: ArrayTypeItemTypeArrayTypeDeleteFieldInput
-  CodeMirrorType: ArrayTypeItemTypeCodeMirrorTypeDeleteFieldInput
-  ElementType: ArrayTypeItemTypeElementTypeDeleteFieldInput
-  EnumType: ArrayTypeItemTypeEnumTypeDeleteFieldInput
-  InterfaceType: ArrayTypeItemTypeInterfaceTypeDeleteFieldInput
-  LambdaType: ArrayTypeItemTypeLambdaTypeDeleteFieldInput
-  PageType: ArrayTypeItemTypePageTypeDeleteFieldInput
-  PrimitiveType: ArrayTypeItemTypePrimitiveTypeDeleteFieldInput
-  ReactNodeType: ArrayTypeItemTypeReactNodeTypeDeleteFieldInput
-  RenderPropsType: ArrayTypeItemTypeRenderPropsTypeDeleteFieldInput
-  UnionType: ArrayTypeItemTypeUnionTypeDeleteFieldInput
+input ArrayTypeItemTypeDisconnectFieldInput {
+  disconnect: IBaseTypeDisconnectInput
+  where: ArrayTypeItemTypeConnectionWhere
 }
 
-input ArrayTypeItemTypeDisconnectInput {
-  ActionType: ArrayTypeItemTypeActionTypeDisconnectFieldInput
-  AppType: ArrayTypeItemTypeAppTypeDisconnectFieldInput
-  ArrayType: ArrayTypeItemTypeArrayTypeDisconnectFieldInput
-  CodeMirrorType: ArrayTypeItemTypeCodeMirrorTypeDisconnectFieldInput
-  ElementType: ArrayTypeItemTypeElementTypeDisconnectFieldInput
-  EnumType: ArrayTypeItemTypeEnumTypeDisconnectFieldInput
-  InterfaceType: ArrayTypeItemTypeInterfaceTypeDisconnectFieldInput
-  LambdaType: ArrayTypeItemTypeLambdaTypeDisconnectFieldInput
-  PageType: ArrayTypeItemTypePageTypeDisconnectFieldInput
-  PrimitiveType: ArrayTypeItemTypePrimitiveTypeDisconnectFieldInput
-  ReactNodeType: ArrayTypeItemTypeReactNodeTypeDisconnectFieldInput
-  RenderPropsType: ArrayTypeItemTypeRenderPropsTypeDisconnectFieldInput
-  UnionType: ArrayTypeItemTypeUnionTypeDisconnectFieldInput
-}
-
-input ArrayTypeItemTypeElementTypeConnectFieldInput {
-  connect: ElementTypeConnectInput
-  where: ElementTypeConnectWhere
-}
-
-input ArrayTypeItemTypeElementTypeConnectOrCreateFieldInput {
-  onCreate: ArrayTypeItemTypeElementTypeConnectOrCreateFieldInputOnCreate!
-  where: ElementTypeConnectOrCreateWhere!
-}
-
-input ArrayTypeItemTypeElementTypeConnectOrCreateFieldInputOnCreate {
-  node: ElementTypeOnCreateInput!
-}
-
-input ArrayTypeItemTypeElementTypeConnectionWhere {
-  AND: [ArrayTypeItemTypeElementTypeConnectionWhere!]
-  NOT: ArrayTypeItemTypeElementTypeConnectionWhere
-  OR: [ArrayTypeItemTypeElementTypeConnectionWhere!]
-  node: ElementTypeWhere
-}
-
-input ArrayTypeItemTypeElementTypeCreateFieldInput {
-  node: ElementTypeCreateInput!
-}
-
-input ArrayTypeItemTypeElementTypeDeleteFieldInput {
-  delete: ElementTypeDeleteInput
-  where: ArrayTypeItemTypeElementTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeElementTypeDisconnectFieldInput {
-  disconnect: ElementTypeDisconnectInput
-  where: ArrayTypeItemTypeElementTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeElementTypeFieldInput {
-  connect: ArrayTypeItemTypeElementTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeElementTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeElementTypeCreateFieldInput
-}
-
-input ArrayTypeItemTypeElementTypeUpdateConnectionInput {
-  node: ElementTypeUpdateInput
-}
-
-input ArrayTypeItemTypeElementTypeUpdateFieldInput {
-  connect: ArrayTypeItemTypeElementTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeElementTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeElementTypeCreateFieldInput
-  delete: ArrayTypeItemTypeElementTypeDeleteFieldInput
-  disconnect: ArrayTypeItemTypeElementTypeDisconnectFieldInput
-  update: ArrayTypeItemTypeElementTypeUpdateConnectionInput
-  where: ArrayTypeItemTypeElementTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeEnumTypeConnectFieldInput {
-  connect: EnumTypeConnectInput
-  where: EnumTypeConnectWhere
-}
-
-input ArrayTypeItemTypeEnumTypeConnectOrCreateFieldInput {
-  onCreate: ArrayTypeItemTypeEnumTypeConnectOrCreateFieldInputOnCreate!
-  where: EnumTypeConnectOrCreateWhere!
-}
-
-input ArrayTypeItemTypeEnumTypeConnectOrCreateFieldInputOnCreate {
-  node: EnumTypeOnCreateInput!
-}
-
-input ArrayTypeItemTypeEnumTypeConnectionWhere {
-  AND: [ArrayTypeItemTypeEnumTypeConnectionWhere!]
-  NOT: ArrayTypeItemTypeEnumTypeConnectionWhere
-  OR: [ArrayTypeItemTypeEnumTypeConnectionWhere!]
-  node: EnumTypeWhere
-}
-
-input ArrayTypeItemTypeEnumTypeCreateFieldInput {
-  node: EnumTypeCreateInput!
-}
-
-input ArrayTypeItemTypeEnumTypeDeleteFieldInput {
-  delete: EnumTypeDeleteInput
-  where: ArrayTypeItemTypeEnumTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeEnumTypeDisconnectFieldInput {
-  disconnect: EnumTypeDisconnectInput
-  where: ArrayTypeItemTypeEnumTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeEnumTypeFieldInput {
-  connect: ArrayTypeItemTypeEnumTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeEnumTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeEnumTypeCreateFieldInput
-}
-
-input ArrayTypeItemTypeEnumTypeUpdateConnectionInput {
-  node: EnumTypeUpdateInput
-}
-
-input ArrayTypeItemTypeEnumTypeUpdateFieldInput {
-  connect: ArrayTypeItemTypeEnumTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeEnumTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeEnumTypeCreateFieldInput
-  delete: ArrayTypeItemTypeEnumTypeDeleteFieldInput
-  disconnect: ArrayTypeItemTypeEnumTypeDisconnectFieldInput
-  update: ArrayTypeItemTypeEnumTypeUpdateConnectionInput
-  where: ArrayTypeItemTypeEnumTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeInterfaceTypeConnectFieldInput {
-  connect: InterfaceTypeConnectInput
-  where: InterfaceTypeConnectWhere
-}
-
-input ArrayTypeItemTypeInterfaceTypeConnectOrCreateFieldInput {
-  onCreate: ArrayTypeItemTypeInterfaceTypeConnectOrCreateFieldInputOnCreate!
-  where: InterfaceTypeConnectOrCreateWhere!
-}
-
-input ArrayTypeItemTypeInterfaceTypeConnectOrCreateFieldInputOnCreate {
-  node: InterfaceTypeOnCreateInput!
-}
-
-input ArrayTypeItemTypeInterfaceTypeConnectionWhere {
-  AND: [ArrayTypeItemTypeInterfaceTypeConnectionWhere!]
-  NOT: ArrayTypeItemTypeInterfaceTypeConnectionWhere
-  OR: [ArrayTypeItemTypeInterfaceTypeConnectionWhere!]
-  node: InterfaceTypeWhere
-}
-
-input ArrayTypeItemTypeInterfaceTypeCreateFieldInput {
-  node: InterfaceTypeCreateInput!
-}
-
-input ArrayTypeItemTypeInterfaceTypeDeleteFieldInput {
-  delete: InterfaceTypeDeleteInput
-  where: ArrayTypeItemTypeInterfaceTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeInterfaceTypeDisconnectFieldInput {
-  disconnect: InterfaceTypeDisconnectInput
-  where: ArrayTypeItemTypeInterfaceTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeInterfaceTypeFieldInput {
-  connect: ArrayTypeItemTypeInterfaceTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeInterfaceTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeInterfaceTypeCreateFieldInput
-}
-
-input ArrayTypeItemTypeInterfaceTypeUpdateConnectionInput {
-  node: InterfaceTypeUpdateInput
-}
-
-input ArrayTypeItemTypeInterfaceTypeUpdateFieldInput {
-  connect: ArrayTypeItemTypeInterfaceTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeInterfaceTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeInterfaceTypeCreateFieldInput
-  delete: ArrayTypeItemTypeInterfaceTypeDeleteFieldInput
-  disconnect: ArrayTypeItemTypeInterfaceTypeDisconnectFieldInput
-  update: ArrayTypeItemTypeInterfaceTypeUpdateConnectionInput
-  where: ArrayTypeItemTypeInterfaceTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeLambdaTypeConnectFieldInput {
-  connect: LambdaTypeConnectInput
-  where: LambdaTypeConnectWhere
-}
-
-input ArrayTypeItemTypeLambdaTypeConnectOrCreateFieldInput {
-  onCreate: ArrayTypeItemTypeLambdaTypeConnectOrCreateFieldInputOnCreate!
-  where: LambdaTypeConnectOrCreateWhere!
-}
-
-input ArrayTypeItemTypeLambdaTypeConnectOrCreateFieldInputOnCreate {
-  node: LambdaTypeOnCreateInput!
-}
-
-input ArrayTypeItemTypeLambdaTypeConnectionWhere {
-  AND: [ArrayTypeItemTypeLambdaTypeConnectionWhere!]
-  NOT: ArrayTypeItemTypeLambdaTypeConnectionWhere
-  OR: [ArrayTypeItemTypeLambdaTypeConnectionWhere!]
-  node: LambdaTypeWhere
-}
-
-input ArrayTypeItemTypeLambdaTypeCreateFieldInput {
-  node: LambdaTypeCreateInput!
-}
-
-input ArrayTypeItemTypeLambdaTypeDeleteFieldInput {
-  delete: LambdaTypeDeleteInput
-  where: ArrayTypeItemTypeLambdaTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeLambdaTypeDisconnectFieldInput {
-  disconnect: LambdaTypeDisconnectInput
-  where: ArrayTypeItemTypeLambdaTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeLambdaTypeFieldInput {
-  connect: ArrayTypeItemTypeLambdaTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeLambdaTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeLambdaTypeCreateFieldInput
-}
-
-input ArrayTypeItemTypeLambdaTypeUpdateConnectionInput {
-  node: LambdaTypeUpdateInput
-}
-
-input ArrayTypeItemTypeLambdaTypeUpdateFieldInput {
-  connect: ArrayTypeItemTypeLambdaTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeLambdaTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeLambdaTypeCreateFieldInput
-  delete: ArrayTypeItemTypeLambdaTypeDeleteFieldInput
-  disconnect: ArrayTypeItemTypeLambdaTypeDisconnectFieldInput
-  update: ArrayTypeItemTypeLambdaTypeUpdateConnectionInput
-  where: ArrayTypeItemTypeLambdaTypeConnectionWhere
-}
-
-input ArrayTypeItemTypePageTypeConnectFieldInput {
-  connect: PageTypeConnectInput
-  where: PageTypeConnectWhere
-}
-
-input ArrayTypeItemTypePageTypeConnectOrCreateFieldInput {
-  onCreate: ArrayTypeItemTypePageTypeConnectOrCreateFieldInputOnCreate!
-  where: PageTypeConnectOrCreateWhere!
-}
-
-input ArrayTypeItemTypePageTypeConnectOrCreateFieldInputOnCreate {
-  node: PageTypeOnCreateInput!
-}
-
-input ArrayTypeItemTypePageTypeConnectionWhere {
-  AND: [ArrayTypeItemTypePageTypeConnectionWhere!]
-  NOT: ArrayTypeItemTypePageTypeConnectionWhere
-  OR: [ArrayTypeItemTypePageTypeConnectionWhere!]
-  node: PageTypeWhere
-}
-
-input ArrayTypeItemTypePageTypeCreateFieldInput {
-  node: PageTypeCreateInput!
-}
-
-input ArrayTypeItemTypePageTypeDeleteFieldInput {
-  delete: PageTypeDeleteInput
-  where: ArrayTypeItemTypePageTypeConnectionWhere
-}
-
-input ArrayTypeItemTypePageTypeDisconnectFieldInput {
-  disconnect: PageTypeDisconnectInput
-  where: ArrayTypeItemTypePageTypeConnectionWhere
-}
-
-input ArrayTypeItemTypePageTypeFieldInput {
-  connect: ArrayTypeItemTypePageTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypePageTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypePageTypeCreateFieldInput
-}
-
-input ArrayTypeItemTypePageTypeUpdateConnectionInput {
-  node: PageTypeUpdateInput
-}
-
-input ArrayTypeItemTypePageTypeUpdateFieldInput {
-  connect: ArrayTypeItemTypePageTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypePageTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypePageTypeCreateFieldInput
-  delete: ArrayTypeItemTypePageTypeDeleteFieldInput
-  disconnect: ArrayTypeItemTypePageTypeDisconnectFieldInput
-  update: ArrayTypeItemTypePageTypeUpdateConnectionInput
-  where: ArrayTypeItemTypePageTypeConnectionWhere
-}
-
-input ArrayTypeItemTypePrimitiveTypeConnectFieldInput {
-  connect: PrimitiveTypeConnectInput
-  where: PrimitiveTypeConnectWhere
-}
-
-input ArrayTypeItemTypePrimitiveTypeConnectOrCreateFieldInput {
-  onCreate: ArrayTypeItemTypePrimitiveTypeConnectOrCreateFieldInputOnCreate!
-  where: PrimitiveTypeConnectOrCreateWhere!
-}
-
-input ArrayTypeItemTypePrimitiveTypeConnectOrCreateFieldInputOnCreate {
-  node: PrimitiveTypeOnCreateInput!
-}
-
-input ArrayTypeItemTypePrimitiveTypeConnectionWhere {
-  AND: [ArrayTypeItemTypePrimitiveTypeConnectionWhere!]
-  NOT: ArrayTypeItemTypePrimitiveTypeConnectionWhere
-  OR: [ArrayTypeItemTypePrimitiveTypeConnectionWhere!]
-  node: PrimitiveTypeWhere
-}
-
-input ArrayTypeItemTypePrimitiveTypeCreateFieldInput {
-  node: PrimitiveTypeCreateInput!
-}
-
-input ArrayTypeItemTypePrimitiveTypeDeleteFieldInput {
-  delete: PrimitiveTypeDeleteInput
-  where: ArrayTypeItemTypePrimitiveTypeConnectionWhere
-}
-
-input ArrayTypeItemTypePrimitiveTypeDisconnectFieldInput {
-  disconnect: PrimitiveTypeDisconnectInput
-  where: ArrayTypeItemTypePrimitiveTypeConnectionWhere
-}
-
-input ArrayTypeItemTypePrimitiveTypeFieldInput {
-  connect: ArrayTypeItemTypePrimitiveTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypePrimitiveTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypePrimitiveTypeCreateFieldInput
-}
-
-input ArrayTypeItemTypePrimitiveTypeUpdateConnectionInput {
-  node: PrimitiveTypeUpdateInput
-}
-
-input ArrayTypeItemTypePrimitiveTypeUpdateFieldInput {
-  connect: ArrayTypeItemTypePrimitiveTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypePrimitiveTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypePrimitiveTypeCreateFieldInput
-  delete: ArrayTypeItemTypePrimitiveTypeDeleteFieldInput
-  disconnect: ArrayTypeItemTypePrimitiveTypeDisconnectFieldInput
-  update: ArrayTypeItemTypePrimitiveTypeUpdateConnectionInput
-  where: ArrayTypeItemTypePrimitiveTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeReactNodeTypeConnectFieldInput {
-  connect: ReactNodeTypeConnectInput
-  where: ReactNodeTypeConnectWhere
-}
-
-input ArrayTypeItemTypeReactNodeTypeConnectOrCreateFieldInput {
-  onCreate: ArrayTypeItemTypeReactNodeTypeConnectOrCreateFieldInputOnCreate!
-  where: ReactNodeTypeConnectOrCreateWhere!
-}
-
-input ArrayTypeItemTypeReactNodeTypeConnectOrCreateFieldInputOnCreate {
-  node: ReactNodeTypeOnCreateInput!
-}
-
-input ArrayTypeItemTypeReactNodeTypeConnectionWhere {
-  AND: [ArrayTypeItemTypeReactNodeTypeConnectionWhere!]
-  NOT: ArrayTypeItemTypeReactNodeTypeConnectionWhere
-  OR: [ArrayTypeItemTypeReactNodeTypeConnectionWhere!]
-  node: ReactNodeTypeWhere
-}
-
-input ArrayTypeItemTypeReactNodeTypeCreateFieldInput {
-  node: ReactNodeTypeCreateInput!
-}
-
-input ArrayTypeItemTypeReactNodeTypeDeleteFieldInput {
-  delete: ReactNodeTypeDeleteInput
-  where: ArrayTypeItemTypeReactNodeTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeReactNodeTypeDisconnectFieldInput {
-  disconnect: ReactNodeTypeDisconnectInput
-  where: ArrayTypeItemTypeReactNodeTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeReactNodeTypeFieldInput {
-  connect: ArrayTypeItemTypeReactNodeTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeReactNodeTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeReactNodeTypeCreateFieldInput
-}
-
-input ArrayTypeItemTypeReactNodeTypeUpdateConnectionInput {
-  node: ReactNodeTypeUpdateInput
-}
-
-input ArrayTypeItemTypeReactNodeTypeUpdateFieldInput {
-  connect: ArrayTypeItemTypeReactNodeTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeReactNodeTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeReactNodeTypeCreateFieldInput
-  delete: ArrayTypeItemTypeReactNodeTypeDeleteFieldInput
-  disconnect: ArrayTypeItemTypeReactNodeTypeDisconnectFieldInput
-  update: ArrayTypeItemTypeReactNodeTypeUpdateConnectionInput
-  where: ArrayTypeItemTypeReactNodeTypeConnectionWhere
+input ArrayTypeItemTypeFieldInput {
+  connect: ArrayTypeItemTypeConnectFieldInput
+  create: ArrayTypeItemTypeCreateFieldInput
 }
 
 type ArrayTypeItemTypeRelationship {
   cursor: String!
-  node: AnyType!
+  node: IBaseType!
 }
 
-input ArrayTypeItemTypeRenderPropsTypeConnectFieldInput {
-  connect: RenderPropsTypeConnectInput
-  where: RenderPropsTypeConnectWhere
+input ArrayTypeItemTypeUpdateConnectionInput {
+  node: IBaseTypeUpdateInput
 }
 
-input ArrayTypeItemTypeRenderPropsTypeConnectOrCreateFieldInput {
-  onCreate: ArrayTypeItemTypeRenderPropsTypeConnectOrCreateFieldInputOnCreate!
-  where: RenderPropsTypeConnectOrCreateWhere!
-}
-
-input ArrayTypeItemTypeRenderPropsTypeConnectOrCreateFieldInputOnCreate {
-  node: RenderPropsTypeOnCreateInput!
-}
-
-input ArrayTypeItemTypeRenderPropsTypeConnectionWhere {
-  AND: [ArrayTypeItemTypeRenderPropsTypeConnectionWhere!]
-  NOT: ArrayTypeItemTypeRenderPropsTypeConnectionWhere
-  OR: [ArrayTypeItemTypeRenderPropsTypeConnectionWhere!]
-  node: RenderPropsTypeWhere
-}
-
-input ArrayTypeItemTypeRenderPropsTypeCreateFieldInput {
-  node: RenderPropsTypeCreateInput!
-}
-
-input ArrayTypeItemTypeRenderPropsTypeDeleteFieldInput {
-  delete: RenderPropsTypeDeleteInput
-  where: ArrayTypeItemTypeRenderPropsTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeRenderPropsTypeDisconnectFieldInput {
-  disconnect: RenderPropsTypeDisconnectInput
-  where: ArrayTypeItemTypeRenderPropsTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeRenderPropsTypeFieldInput {
-  connect: ArrayTypeItemTypeRenderPropsTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeRenderPropsTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeRenderPropsTypeCreateFieldInput
-}
-
-input ArrayTypeItemTypeRenderPropsTypeUpdateConnectionInput {
-  node: RenderPropsTypeUpdateInput
-}
-
-input ArrayTypeItemTypeRenderPropsTypeUpdateFieldInput {
-  connect: ArrayTypeItemTypeRenderPropsTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeRenderPropsTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeRenderPropsTypeCreateFieldInput
-  delete: ArrayTypeItemTypeRenderPropsTypeDeleteFieldInput
-  disconnect: ArrayTypeItemTypeRenderPropsTypeDisconnectFieldInput
-  update: ArrayTypeItemTypeRenderPropsTypeUpdateConnectionInput
-  where: ArrayTypeItemTypeRenderPropsTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeUnionTypeConnectFieldInput {
-  connect: UnionTypeConnectInput
-  where: UnionTypeConnectWhere
-}
-
-input ArrayTypeItemTypeUnionTypeConnectOrCreateFieldInput {
-  onCreate: ArrayTypeItemTypeUnionTypeConnectOrCreateFieldInputOnCreate!
-  where: UnionTypeConnectOrCreateWhere!
-}
-
-input ArrayTypeItemTypeUnionTypeConnectOrCreateFieldInputOnCreate {
-  node: UnionTypeOnCreateInput!
-}
-
-input ArrayTypeItemTypeUnionTypeConnectionWhere {
-  AND: [ArrayTypeItemTypeUnionTypeConnectionWhere!]
-  NOT: ArrayTypeItemTypeUnionTypeConnectionWhere
-  OR: [ArrayTypeItemTypeUnionTypeConnectionWhere!]
-  node: UnionTypeWhere
-}
-
-input ArrayTypeItemTypeUnionTypeCreateFieldInput {
-  node: UnionTypeCreateInput!
-}
-
-input ArrayTypeItemTypeUnionTypeDeleteFieldInput {
-  delete: UnionTypeDeleteInput
-  where: ArrayTypeItemTypeUnionTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeUnionTypeDisconnectFieldInput {
-  disconnect: UnionTypeDisconnectInput
-  where: ArrayTypeItemTypeUnionTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeUnionTypeFieldInput {
-  connect: ArrayTypeItemTypeUnionTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeUnionTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeUnionTypeCreateFieldInput
-}
-
-input ArrayTypeItemTypeUnionTypeUpdateConnectionInput {
-  node: UnionTypeUpdateInput
-}
-
-input ArrayTypeItemTypeUnionTypeUpdateFieldInput {
-  connect: ArrayTypeItemTypeUnionTypeConnectFieldInput
-  connectOrCreate: ArrayTypeItemTypeUnionTypeConnectOrCreateFieldInput
-  create: ArrayTypeItemTypeUnionTypeCreateFieldInput
-  delete: ArrayTypeItemTypeUnionTypeDeleteFieldInput
-  disconnect: ArrayTypeItemTypeUnionTypeDisconnectFieldInput
-  update: ArrayTypeItemTypeUnionTypeUpdateConnectionInput
-  where: ArrayTypeItemTypeUnionTypeConnectionWhere
-}
-
-input ArrayTypeItemTypeUpdateInput {
-  ActionType: ArrayTypeItemTypeActionTypeUpdateFieldInput
-  AppType: ArrayTypeItemTypeAppTypeUpdateFieldInput
-  ArrayType: ArrayTypeItemTypeArrayTypeUpdateFieldInput
-  CodeMirrorType: ArrayTypeItemTypeCodeMirrorTypeUpdateFieldInput
-  ElementType: ArrayTypeItemTypeElementTypeUpdateFieldInput
-  EnumType: ArrayTypeItemTypeEnumTypeUpdateFieldInput
-  InterfaceType: ArrayTypeItemTypeInterfaceTypeUpdateFieldInput
-  LambdaType: ArrayTypeItemTypeLambdaTypeUpdateFieldInput
-  PageType: ArrayTypeItemTypePageTypeUpdateFieldInput
-  PrimitiveType: ArrayTypeItemTypePrimitiveTypeUpdateFieldInput
-  ReactNodeType: ArrayTypeItemTypeReactNodeTypeUpdateFieldInput
-  RenderPropsType: ArrayTypeItemTypeRenderPropsTypeUpdateFieldInput
-  UnionType: ArrayTypeItemTypeUnionTypeUpdateFieldInput
+input ArrayTypeItemTypeUpdateFieldInput {
+  connect: ArrayTypeItemTypeConnectFieldInput
+  create: ArrayTypeItemTypeCreateFieldInput
+  delete: ArrayTypeItemTypeDeleteFieldInput
+  disconnect: ArrayTypeItemTypeDisconnectFieldInput
+  update: ArrayTypeItemTypeUpdateConnectionInput
+  where: ArrayTypeItemTypeConnectionWhere
 }
 
 input ArrayTypeOnCreateInput {
@@ -3624,7 +2829,7 @@ input ArrayTypeUniqueWhere {
 
 input ArrayTypeUpdateInput {
   id: ID
-  itemType: ArrayTypeItemTypeUpdateInput
+  itemType: ArrayTypeItemTypeUpdateFieldInput
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
 }

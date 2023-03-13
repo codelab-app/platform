@@ -36,7 +36,7 @@ export const aliasGraphQLOperation = (
 export const DefaultGraphQLRequestID = 'GraphqlRequest'
 
 export const graphqlRequest = (
-  body: string | Record<string, any>,
+  body: Record<string, any> | string,
   alias = DefaultGraphQLRequestID,
   config?: any,
 ) =>
@@ -50,8 +50,8 @@ export const graphqlRequest = (
     .as(alias)
 
 export interface CypressGraphQLHelpersCommands {
-  interceptGraphQL: typeof interceptGraphQL
   graphqlRequest: typeof graphqlRequest
+  interceptGraphQL: typeof interceptGraphQL
   waitForApiCalls: typeof waitForApiCalls
 }
 

@@ -61,8 +61,8 @@ export const makeActionUpdateInput = ({
   successActionId,
   type,
 }: IUpdateActionData): {
-  where: IAnyActionWhere
   update: IUpdateActionInput
+  where: IAnyActionWhere
 } => {
   return {
     update: {

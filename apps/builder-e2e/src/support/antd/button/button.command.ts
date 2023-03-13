@@ -3,18 +3,18 @@ import { wrapSubject } from '../../deprecated/utils'
 import type { Label } from '../types'
 
 interface ButtonSelector {
-  label?: Label
   icon?: string
+  label?: Label
 }
 
 export const getButton = (
   subject: any,
   { icon, label }: ButtonSelector,
   options?: Partial<
-    Cypress.Loggable &
-      Cypress.Timeoutable &
-      Cypress.CaseMatchable &
-      Cypress.Shadow
+    Cypress.CaseMatchable &
+      Cypress.Loggable &
+      Cypress.Shadow &
+      Cypress.Timeoutable
   >,
 ): CypressElement => {
   // Cypress.log({

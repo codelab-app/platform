@@ -12,7 +12,7 @@ import {
 export const updateDomains: IFieldResolver<
   unknown,
   Context,
-  { where: OGM_TYPES.DomainWhere; update: OGM_TYPES.DomainUpdateInput },
+  { update: OGM_TYPES.DomainUpdateInput; where: OGM_TYPES.DomainWhere },
   Promise<OGM_TYPES.UpdateDomainsMutationResponse>
 > = async (_, args, { req }) => {
   const { update, where } = args

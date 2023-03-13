@@ -9,7 +9,7 @@ import { SelectField } from 'uniforms-antd'
 
 export type SelectActionProps = Pick<
   UniformSelectFieldProps,
-  'label' | 'name' | 'error'
+  'error' | 'label' | 'name'
 >
 
 export const SelectAction = (fieldProps: SelectActionProps) => {

@@ -1,5 +1,3 @@
-import { IRole } from '@codelab/shared/abstract/core'
-import { EntitySchema } from '@codelab/shared/abstract/types'
 import { z } from 'zod'
 
 /**
@@ -15,18 +13,18 @@ export const OwnerFieldSchema = z.object({
 
 export type IOwner = z.infer<typeof OwnerSchema>
 
-export const UserSchema = OwnerSchema.extend({
-  email: z.string(),
-  id: z.string(),
-  roles: z.array(z.nativeEnum(IRole)).optional().nullable(),
-  username: z.string(),
-})
+// export const UserSchema = OwnerSchema.extend({
+//   email: z.string(),
+//   id: z.string(),
+//   roles: z.array(z.nativeEnum(IRole)).optional().nullable(),
+//   username: z.string(),
+// })
 
-export type IUser = z.infer<typeof UserSchema>
+// export type IUser = z.infer<typeof UserSchema>
 
-export const UserExportSchema = EntitySchema.extend({
-  roles: z.array(z.nativeEnum(IRole)).optional().nullable(),
-  username: z.string(),
-})
+// export const UserExportSchema = EntitySchema.extend({
+//   roles: z.array(z.nativeEnum(IRole)).optional().nullable(),
+//   username: z.string(),
+// })
 
-export type IUserExport = z.infer<typeof UserSchema>
+// export type IUserExport = z.infer<typeof UserSchema>

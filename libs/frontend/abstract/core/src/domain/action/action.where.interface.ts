@@ -1,5 +1,5 @@
 import type * as cg from '@codelab/shared/abstract/codegen'
 
-export type IAnyActionWhere = cg.CodeActionWhere & cg.ApiActionWhere
+export type IAnyActionWhere = cg.ApiActionWhere & cg.CodeActionWhere
 
-export type IAllActionsOptions = cg.CodeActionOptions & cg.ApiActionOptions
+export type IAllActionsOptions = cg.ApiActionOptions & cg.CodeActionOptions

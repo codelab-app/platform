@@ -28,13 +28,13 @@ import { useAsync } from 'react-use'
 import tw from 'twin.macro'
 // import { BuilderSizeBreakpoints, mainContentWidthBreakPoint } from './constants'
 
-export type MenuItemProps = {
+export type MenuItemProps = ItemType & {
   hide?: boolean
-} & ItemType
+}
 
 export const PageDetailHeader = observer<{
-  pageService: IPageService
   builderService?: IBuilderService
+  pageService: IPageService
 }>(({ builderService, pageService }) => {
   const router = useRouter()
   const currentAppId = useCurrentAppId()

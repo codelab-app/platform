@@ -11,20 +11,20 @@ import type { IElement } from './element.model.interface'
  * https://mobx-keystone.js.org/computed-trees
  */
 export interface IElementTree {
-  id: string
-  name: string
   _root: Nullable<Ref<IElement>>
-  root: Maybe<IElement>
+  addElements(elements: Array<IElement>): IElementTree
+  descendants(subRoot: Ref<IElement>): Array<IElement>
+  element(id: string): Maybe<IElement>
   elements: Array<IElement>
   getPathFromRoot(pageNode: IPageNodeRef): Array<IElement>
-  element(id: string): Maybe<IElement>
-  addElements(elements: Array<IElement>): IElementTree
+  id: string
+  name: string
   removeElements(elements: Array<IElement>): IElementTree
-  descendants(subRoot: Ref<IElement>): Array<IElement>
+  root: Maybe<IElement>
 }
 
 export interface IElementTreeService {
   elementTree: IElementTree
-  setElementTree(elementTree: IElementTree): void
   initTree(rootElement: IElement, elements: Array<IElement>): IElementTree
+  setElementTree(elementTree: IElementTree): void
 }

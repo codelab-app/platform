@@ -8,10 +8,10 @@ import { CodeMirrorInput } from './CodeMirrorInput'
 import { getDefaultExtensions } from './setup'
 
 export interface CodeMirrorEditorProps extends CodeMirrorInputProps {
-  language?: ICodeMirrorLanguage
-  defaultSource?: CompletionSource
-  defaultOptions?: Array<Completion>
   customOptions?: Array<Completion>
+  defaultOptions?: Array<Completion>
+  defaultSource?: CompletionSource
+  language?: ICodeMirrorLanguage
   overrideExtensions?: boolean
 }
 

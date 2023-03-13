@@ -11,7 +11,7 @@ export const connectNodeIds = (ids: Array<string> | undefined = []) => ({
   connect: ids.map((id) => whereNodeId(id)),
 })
 
-export const connectNode = (key: string, value: string | undefined | null) =>
+export const connectNode = (key: string, value: string | null | undefined) =>
   value
     ? {
         connect: whereNode(key, value),

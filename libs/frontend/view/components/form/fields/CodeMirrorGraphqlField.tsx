@@ -14,7 +14,7 @@ import { CodeMirrorEditor, graphqlExtensionFactory } from '../../codeMirror'
 import type { MainPropsOnChange, Value } from './CodeMirrorField'
 
 export interface ICodeMirrorGraphqlProps<T> {
-  getUrl: (context: Context<T>) => string
+  getUrl(context: Context<T>): string
 }
 
 export type CodeMirrorGraphqlProps<T> = Omit<

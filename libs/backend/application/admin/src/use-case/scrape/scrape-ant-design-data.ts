@@ -3,12 +3,12 @@ import { parse } from 'json2csv'
 import puppeteer from 'puppeteer'
 
 export interface AntdDesignApi {
-  property: string
-  description: string
-  type: string
   default: string
-  version: string
+  description: string
   isEnum: boolean
+  property: string
+  type: string
+  version: string
 }
 
 interface ComponentData {

@@ -2,7 +2,7 @@ import type { IPropData } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 
-export const makeAllTypes = (input: IPropData) =>
+export const makeAllTypes = (input?: IPropData) =>
   Object.values(ITypeKind)
     .map((kind) => ({ [kind]: input }))
     .reduce((all, current) => ({ ...all, ...current }), {})

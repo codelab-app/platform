@@ -7,32 +7,32 @@ import type {
   IRestActionConfig,
 } from './actions'
 
-export type IApiActionConfig = IRestActionConfig | IGraphQLActionConfig
+export type IApiActionConfig = IGraphQLActionConfig | IRestActionConfig
 
 /**
  * Base
  */
 export interface IBaseActionData {
-  id: string
-  name: string
-  storeId: string
-  type: IActionKind
   code?: string
-  resourceId?: string
   /**
    * config here is form object and not Action.config which is an IProp instance
    */
   config?: IApiActionConfig
-  successActionId?: string
   errorActionId?: string
+  id: string
+  name: string
+  resourceId?: string
+  storeId: string
+  successActionId?: string
+  type: IActionKind
 }
 
 export interface IBaseActionDTO {
   __typename: `${IActionKind.ApiAction}` | `${IActionKind.CodeAction}`
   id: string
   name: string
-  type: IActionKind
   store: IEntity
+  type: IActionKind
 }
 
 /**

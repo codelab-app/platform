@@ -10,8 +10,8 @@ import React from 'react'
 import { GetStateItem } from './GetStateItem'
 
 export interface GetStateTreeProps {
-  store?: IStore
   fieldService: IFieldService
+  store?: IStore
 }
 
 export const GetStateList = observer<GetStateTreeProps>(

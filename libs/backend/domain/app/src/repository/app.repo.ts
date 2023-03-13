@@ -8,17 +8,77 @@ import {
 } from '@codelab/backend/domain/element'
 import { getPageData } from '@codelab/backend/domain/page'
 import {
+  appSelectionSet,
   pageSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
+import type { IAppDTO, IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
+import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
+import {
+  connectAuth0Owner,
+  connectNodeId,
+  connectNodeIds,
+  reconnectNodeId,
+  reconnectNodeIds,
+} from '@codelab/shared/domain/mapper'
 import { cLog, createUniqueName } from '@codelab/shared/utils'
 import omit from 'lodash/omit'
 import { validate } from './validate'
 
-// export class AppRepository extends AbstractRepository<IApp> {}
+export class AppRepository extends AbstractRepository<
+  IAppDTO,
+  OGM_TYPES.App,
+  OGM_TYPES.AppWhere
+> {
+  private App = Repository.instance.App
+
+  async find(where: OGM_TYPES.AppWhere = {}) {
+    return await (
+      await this.App
+    ).find({
+      selectionSet: appSelectionSet,
+      where,
+    })
+  }
+
+  /**
+   * We only deal with connecting/disconnecting relationships, actual items should exist already
+   */
+  protected async _add(apps: Array<IAppDTO>) {
+    return (
+      await (
+        await this.App
+      ).create({
+        input: apps.map(({ id, name, owner, pages, store }) => ({
+          _compoundName: createUniqueName(name, owner.auth0Id),
+          id,
+          owner: connectAuth0Owner(owner),
+          pages: connectNodeIds(pages?.map((page) => page.id)),
+          store: connectNodeId(store.id),
+        })),
+      })
+    ).apps
+  }
+
+  protected async _update(
+    { id, name, owner, pages, store }: IAppDTO,
+    where: OGM_TYPES.AppWhere,
+  ) {
+    return (
+      await (
+        await this.App
+      ).update({
+        update: {
+          _compoundName: createUniqueName(name, owner.auth0Id),
+          pages: reconnectNodeIds(pages?.map((page) => page.id)),
+          store: reconnectNodeId(store.id),
+        },
+        where,
+      })
+    ).apps[0]
+  }
+}
 
 export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
   cLog(omit(app, ['pages']))

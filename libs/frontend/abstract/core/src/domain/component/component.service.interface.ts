@@ -23,16 +23,13 @@ export interface IComponentService
   extends ICRUDService<IComponent, ICreateComponentData, IUpdateComponentData>,
     IQueryService<IComponent, ComponentWhere, ComponentOptions>,
     ICRUDModalService<Ref<IComponent>, { component: Maybe<IComponent> }> {
-  components: ObjectMap<IComponent>
   clonedComponents: ObjectMap<IComponent>
-  componentList: Array<IComponent>
   componentAntdNode: IBuilderDataNode
-  component(id: string): Maybe<IComponent>
+  componentList: Array<IComponent>
+  components: ObjectMap<IComponent>
+
   add(componentDTO: IComponentDTO): IComponent
-  patchComponent(
-    component: IComponent,
-    input: ComponentUpdateInput,
-  ): Promise<IComponent>
+  component(id: string): Maybe<IComponent>
   /**
 term: Rendered. Everything with these terms requires to load dependencies of elementTree to be functional:
 component
@@ -42,4 +39,8 @@ component
   loadRenderedComponentsTree(
     renderedComponentFragments: Array<RenderedComponentFragment>,
   ): void
+  patchComponent(
+    component: IComponent,
+    input: ComponentUpdateInput,
+  ): Promise<IComponent>
 }

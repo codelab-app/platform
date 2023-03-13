@@ -11,9 +11,9 @@ import { FieldsTable } from './FieldsTable'
 import { UnionTypeTable } from './UnionTypeTable'
 
 interface TypeDetailsTableProps {
+  fieldService: IFieldService
   typeId: string
   typeService: ITypeService
-  fieldService: IFieldService
 }
 
 export const TypeDetailsTable = ({

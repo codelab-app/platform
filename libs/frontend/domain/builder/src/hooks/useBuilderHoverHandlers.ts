@@ -5,7 +5,7 @@ import { useCallback } from 'react'
 
 type UseBuilderHoverHandlersProps = Pick<
   IBuilderService,
-  'setHoveredNode' | 'currentDragData'
+  'currentDragData' | 'setHoveredNode'
 >
 
 /**

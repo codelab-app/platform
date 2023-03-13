@@ -13,15 +13,15 @@ import type { IInterfaceTypeDTO } from './interface-type.dto.interface'
  * @property fields {@link IField[]} - Fields of the object type
  */
 export interface IInterfaceType extends IBaseType<IInterfaceTypeDTO> {
-  kind: ITypeKind.InterfaceType
-  fields: Array<IField>
   defaultValues: IPropData
+  fields: Array<IField>
+  kind: ITypeKind.InterfaceType
 
-  field(id: string): Maybe<IField>
   deleteField(field: IField): void
-  writeFieldCache(fields: Array<FieldFragment>): void
+  field(id: string): Maybe<IField>
   load(fields: Array<FieldFragment>): void
   toCreateInput(): InterfaceTypeCreateInput
+  writeFieldCache(fields: Array<FieldFragment>): void
 }
 
 export type IInterfaceTypeRef = string

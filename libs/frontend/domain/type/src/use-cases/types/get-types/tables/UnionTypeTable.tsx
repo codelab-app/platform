@@ -15,10 +15,10 @@ import { CreateFieldButton } from '../../../fields'
 import { TypeDetailsTable } from './TypeDetailsTable'
 
 interface UnionTypeTableProps {
-  unionType: IUnionType
-  typeService: ITypeService
   fieldService: IFieldService
   isLoading: boolean
+  typeService: ITypeService
+  unionType: IUnionType
 }
 
 export const UnionTypeTable = observer<UnionTypeTableProps>(

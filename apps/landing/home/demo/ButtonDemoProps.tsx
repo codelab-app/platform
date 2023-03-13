@@ -11,8 +11,8 @@ import tw from 'twin.macro'
 
 interface DemoCardProps {
   block: boolean
-  type: ButtonProps['type']
   icon: string
+  type: ButtonProps['type']
 }
 
 export const demoCardPropState = atom<DemoCardProps>({

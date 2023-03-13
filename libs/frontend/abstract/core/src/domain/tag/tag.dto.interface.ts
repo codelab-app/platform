@@ -10,10 +10,10 @@ export interface ICreateTagData extends IOwnerSchema {
 export type IUpdateTagData = Omit<ICreateTagData, 'owner'>
 
 export interface ITagDTO extends IOwnerSchema {
+  children: Array<IEntity>
+  descendants: Array<IEntity>
   id: string
   isRoot?: boolean | null
   name: string
   parent?: Nullable<IEntity>
-  children: Array<IEntity>
-  descendants: Array<IEntity>
 }

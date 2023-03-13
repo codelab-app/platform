@@ -15,7 +15,7 @@ export const dynamicLoader = (loadingFn: () => LoaderComponent<any>) =>
       const Component = 'default' in result ? result.default : result
 
       return React.forwardRef(
-        (props: { forwardedRef: RefObject<unknown> } & unknown, ref) =>
+        (props: unknown & { forwardedRef: RefObject<unknown> }, ref) =>
           React.createElement(Component, { ...props, ref: props.forwardedRef }),
       )
     },

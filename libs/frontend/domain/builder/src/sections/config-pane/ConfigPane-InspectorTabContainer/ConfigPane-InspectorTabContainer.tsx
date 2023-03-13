@@ -44,15 +44,16 @@ import { TAB_NAMES } from './data'
 export interface MetaPaneBuilderProps {
   elementTree: Maybe<IElementTree>
   renderService?: Maybe<IRenderer>
-  UpdateElementContent: (props: {
+
+  UpdateElementContent(props: {
     node: IPageNodeRef
     trackPromises: UseTrackLoadingPromises
-  }) => React.ReactElement | null
+  }): React.ReactElement | null
 }
 
 interface TooltipIconProps {
-  title: string
   icon: ReactNode
+  title: string
 }
 
 const TooltipIcon = ({ icon, title }: TooltipIconProps) => {

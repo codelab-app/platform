@@ -49,9 +49,9 @@ type StoreHeaderProps = PropsWithChildren<{
 }>
 
 interface BuilderMainPaneProps {
+  appStore?: IStore
   pageId: string
   storeId: string
-  appStore?: IStore
 }
 
 export const StoreHeader = ({ children, extra }: StoreHeaderProps) => (

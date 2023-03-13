@@ -11,9 +11,9 @@ import type { IApiActionDTO } from './api-action.dto.interface'
 export interface IApiAction
   extends IActionBase,
     ICacheService<IApiActionDTO, IApiAction> {
-  type: IActionKind.ApiAction
-  resource: Ref<IResource>
   config: Ref<IProp>
-  successAction?: Nullish<Ref<IAction>>
   errorAction?: Nullish<Ref<IAction>>
+  resource: Ref<IResource>
+  successAction?: Nullish<Ref<IAction>>
+  type: IActionKind.ApiAction
 }

@@ -20,9 +20,9 @@ import React, { useState } from 'react'
 import { pageRef } from '../../store'
 
 export interface GetPagesItemProps {
+  domains?: Array<IDomain>
   page: IPage
   pageService: IPageService
-  domains?: Array<IDomain>
 }
 
 export const GetPagesItem = observer<GetPagesItemProps>(

@@ -6,27 +6,27 @@ import type { IElement, IElementService } from '../element'
 import type { IPropData, IPropDataByElementId } from '../prop'
 
 export enum RendererTab {
-  Page = 'Page',
   Component = 'Component',
+  Page = 'Page',
 }
 
 /**
  * This is the intermediate output from rendering a single Element
  */
 export interface IRenderOutput {
+  atomType?: IAtomType
   /** This is the element which this RenderOutput was rendered from */
   element: IElement
-  atomType?: IAtomType
-  props?: IPropData
   /** Any props that should get passed to descendants of this element, mapped by id */
   globalProps?: IPropDataByElementId
+  props?: IPropData
 }
 
 export interface IBaseRenderPipe {
+  componentService: IComponentService
+  elementService: IElementService
   id: string
   renderer: IRenderer
-  elementService: IElementService
-  componentService: IComponentService
 }
 
 export interface IRenderPipe extends IBaseRenderPipe {

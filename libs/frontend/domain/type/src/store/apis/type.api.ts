@@ -134,11 +134,11 @@ const _updateApi = getUpdateSdk(client)
 type UpdateTypesRecord = Record<
   ITypeKind,
   (vars: {
-    where: ITypeWhere
-    update?: IUpdateTypeInput
+    connect?: IconnectNodeInput
     delete?: IDeleteTypeInput
     disconnect?: IDisconnectNodeInput
-    connect?: IconnectNodeInput
+    update?: IUpdateTypeInput
+    where: ITypeWhere
   }) => Promise<Array<ITypeDTO>>
 >
 
@@ -182,7 +182,7 @@ type DeleteTypesRecord = Record<
   ITypeKind,
   (vars: {
     where: ITypeWhere
-  }) => Promise<{ relationshipsDeleted: number; nodesDeleted: number }>
+  }) => Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
 >
 
 export const deleteTypeApi: DeleteTypesRecord = {

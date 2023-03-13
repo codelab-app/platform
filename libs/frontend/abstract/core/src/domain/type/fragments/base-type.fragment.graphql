@@ -4,8 +4,7 @@ fragment BaseType on IBaseType {
   kind
   id
   owner {
-    id
-    auth0Id
+    ...Owner
   }
   name
 }

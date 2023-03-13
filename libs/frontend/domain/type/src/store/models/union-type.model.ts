@@ -1,4 +1,4 @@
-import type { IAnyType, IUnionType } from '@codelab/frontend/abstract/core'
+import type { IType, IUnionType } from '@codelab/frontend/abstract/core'
 import { ITypeDTO, IUnionTypeDTO } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { makeAllTypes } from '@codelab/shared/domain/mapper'
@@ -32,7 +32,7 @@ const create = ({ id, kind, name, owner, typesOfUnionType }: IUnionTypeDTO) => {
 @model('@codelab/UnionType')
 export class UnionType
   extends ExtendedModel(createBaseType(ITypeKind.UnionType), {
-    typesOfUnionType: prop<Array<Ref<IAnyType>>>(() => []),
+    typesOfUnionType: prop<Array<Ref<IType>>>(() => []),
   })
   implements IUnionType
 {
@@ -91,7 +91,7 @@ export class UnionType
   }
 }
 
-export const typeRef = rootRef<IAnyType>('@codelab/TypeRef', {
+export const typeRef = rootRef<IType>('@codelab/TypeRef', {
   onResolvedValueChange: (ref, newType, oldType) => {
     if (oldType && !newType) {
       detach(ref)

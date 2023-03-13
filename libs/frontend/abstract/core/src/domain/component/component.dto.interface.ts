@@ -3,19 +3,19 @@ import type { IEntity } from '@codelab/shared/abstract/types'
 import type { IOwnerSchema } from '../user'
 
 export interface IComponentDTO extends IOwnerSchema {
+  api: IEntity
+  childrenContainerElement: IEntity
   id: string
   name: string
-  rootElement: IEntity
-  api: IEntity
   props?: IEntity | null
-  childrenContainerElement: IEntity
+  rootElement: IEntity
 }
 
 export type ICreateComponentData = IComponentDTO & IOwnerSchema
 
 export type IUpdateComponentData = Pick<
   ICreateComponentData,
-  'id' | 'name' | 'childrenContainerElement'
+  'childrenContainerElement' | 'id' | 'name'
 >
 
 export type IComponentExport = OGM_TYPES.Component

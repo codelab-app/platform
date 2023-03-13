@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import type { IAnyActionType } from '@codelab/frontend/abstract/core'
+import type { IActionType } from '@codelab/frontend/abstract/core'
 import { ToggleExpressionField } from '@codelab/frontend/view/components'
 import { SelectAction } from '../fields'
 import type { UiPropertiesFn } from '../types'
@@ -10,7 +10,7 @@ const ACTION_TEMPLATE = `{{
   }.bind(this)
 }}`
 
-export const actionTypeUiProperties: UiPropertiesFn<IAnyActionType> = () => {
+export const actionTypeUiProperties: UiPropertiesFn<IActionType> = () => {
   return {
     oneOf: [{ typeof: 'string' }, { typeof: 'function' }],
     uniforms: {

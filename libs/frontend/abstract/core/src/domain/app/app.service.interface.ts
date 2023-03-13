@@ -25,15 +25,16 @@ export interface IAppService
     IQueryService<IApp, AppWhere, AppOptions>,
     ICRUDModalService<Ref<IApp>, { app: Maybe<IApp> }> {
   apps: ObjectMap<IApp>
-  appsList: Array<IApp>
   appsJson: IPropData
+  appsList: Array<IApp>
   buildModal: IEntityModalService<Ref<IApp>, { app: IApp }>
+
   add(appDto: IAppDTO): IApp
   app(id: string): Maybe<IApp>
-  loadPages(data: IPageBuilderAppProps): IBuilderApp
   getRenderedPageAndCommonAppData(
     appId: string,
     pageId: string,
     initialData?: GetRenderedPageAndCommonAppDataQuery,
   ): Promise<IApp | undefined>
+  loadPages(data: IPageBuilderAppProps): IBuilderApp
 }

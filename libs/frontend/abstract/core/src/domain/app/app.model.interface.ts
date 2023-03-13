@@ -15,29 +15,29 @@ import type { IAppDTO } from './app.dto.interface'
 export interface IApp extends ICacheService<IAppDTO, IApp>, IOwnerSchema {
   id: IAppRef
   name: string
+  pageRootElements: Array<Ref<IElement>>
+  pages: Array<Ref<IPage>>
+  /**
+   * The `_app.tsx` equivalent of pages
+   */
+  providerPage: IPage
   slug: string
   /**
    * We use ref on something that possible could not exist
    */
   store: Ref<IStore>
-  pages: Array<Ref<IPage>>
   toJson: IPropData
-  pageRootElements: Array<Ref<IElement>>
-  /**
-   * The `_app.tsx` equivalent of pages
-   */
-  providerPage: IPage
 
   page(id: string): IPage
   toCreateInput(): AppCreateInput
-  toUpdateInput(): AppUpdateInput
   toDeleteInput(): AppDeleteInput
+  toUpdateInput(): AppUpdateInput
 }
 
 export interface IBuilderApp {
-  pageElementTree: IElementTree
   app: IApp
   page: IPage
+  pageElementTree: IElementTree
 }
 
 export type IAppRef = string

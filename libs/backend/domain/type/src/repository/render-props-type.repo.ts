@@ -4,24 +4,28 @@ import {
   exportRenderPropsTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
+import type { IRenderPropsTypeDTO } from '@codelab/frontend/abstract/core'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 
-export class RenderPropsTypeRepository extends AbstractRepository<IRenderPropsType> {
+export class RenderPropsTypeRepository extends AbstractRepository<
+  IRenderPropsTypeDTO,
+  OGM_TYPES.RenderPropsType,
+  OGM_TYPES.RenderPropsTypeWhere
+> {
   private RenderPropsType = Repository.instance.RenderPropsType
 
-  async find(where: BaseTypeUniqueWhere) {
-    return (
-      await (
-        await this.RenderPropsType
-      ).find({
-        selectionSet: exportRenderPropsTypeSelectionSet,
-        where,
-      })
-    )[0]
+  async find(where: OGM_TYPES.RenderPropsTypeWhere) {
+    return await (
+      await this.RenderPropsType
+    ).find({
+      selectionSet: exportRenderPropsTypeSelectionSet,
+      where,
+    })
   }
 
-  protected async _add(renderPropsTypes: Array<IRenderPropsType>) {
+  protected async _add(renderPropsTypes: Array<IRenderPropsTypeDTO>) {
     return (
       await (
         await this.RenderPropsType
@@ -37,8 +41,8 @@ export class RenderPropsTypeRepository extends AbstractRepository<IRenderPropsTy
   }
 
   protected async _update(
-    { __typename, owner, ...renderPropsType }: IRenderPropsType,
-    where: BaseTypeUniqueWhere,
+    { __typename, owner, ...renderPropsType }: IRenderPropsTypeDTO,
+    where: OGM_TYPES.RenderPropsTypeWhere,
   ) {
     return (
       await (

@@ -14,7 +14,7 @@ export interface IStoreService
     IQueryService<IStore, StoreWhere, StoreOptions>,
     ICRUDModalService<Ref<IStore>, { store: Maybe<IStore> }> {
   stores: ObjectMap<IStore>
-  store(id: string): Maybe<IStore>
-  // add(appDTO: IAppDTO): IStore
+
   add(storeDTO: IStoreDTO): IStore
+  store(id: string): Maybe<IStore>
 }

@@ -11,13 +11,13 @@ import tw from 'twin.macro'
 import type { ComponentContextMenuProps } from '../ComponentContextMenu'
 import type { ElementContextMenuProps } from '../ElementContextMenu'
 
-export type BuilderTreeItemOverlayProps = {
-  setContextMenuNodeId: (id: Nullable<string>) => void
-  contextMenuProps: ElementContextMenuProps | ComponentContextMenuProps
+export type BuilderTreeItemOverlayProps = Pick<IBuilderDataNode, 'node'> & {
   ContextMenu:
-    | JSXElementConstructor<ElementContextMenuProps>
     | JSXElementConstructor<ComponentContextMenuProps>
-} & Pick<IBuilderDataNode, 'node'>
+    | JSXElementConstructor<ElementContextMenuProps>
+  contextMenuProps: ComponentContextMenuProps | ElementContextMenuProps
+  setContextMenuNodeId(id: Nullable<string>): void
+}
 
 export const BuilderTreeItemOverlay = observer<BuilderTreeItemOverlayProps>(
   ({ ContextMenu, contextMenuProps, node, setContextMenuNodeId }) => {

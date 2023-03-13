@@ -6,9 +6,9 @@ import type { CypressHelpersCommands } from './helpers'
 import type { CypressNextjsAuth0Commands } from './nextjs-auth0/nextjs-auth0.register'
 
 export interface CypressCommand {
+  fn: any
   name: keyof Cypress.Chainable<any>
   options?: Cypress.CommandOptions & { prevSubject: false }
-  fn: any
 }
 
 /**

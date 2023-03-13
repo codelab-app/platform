@@ -6,8 +6,8 @@ import React from 'react'
 import tw from 'twin.macro'
 
 interface FeatureCardProps {
-  icon: IconDefinition
   description: string
+  icon: IconDefinition
   title: string
 }
 

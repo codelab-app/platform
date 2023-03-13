@@ -11,7 +11,7 @@ import type {
   IUpdateFieldData,
 } from '../field.dto.interface'
 import type { FieldFragment } from '../fragments'
-import type { IAnyType, IInterfaceType } from '../types'
+import type { IInterfaceType, IType } from '../types'
 import type { IField } from './field.interface'
 
 export interface IFieldService
@@ -23,13 +23,14 @@ export interface IFieldService
       ICRUDModalService<Ref<IField>, { field: Maybe<IField> }>,
       'createModal'
     > {
-  fields: ObjectMap<IField>
   createModal: IEntityModalService<
     Ref<IInterfaceType>,
     { interface: Maybe<IInterfaceType> }
   >
-  delete(ids: Array<string>): Promise<number>
-  getField(id: string): Maybe<IField<IAnyType>>
-  load(fields: Array<FieldFragment>): void
+  fields: ObjectMap<IField>
+
   add(fieldDTO: IFieldDTO): IField
+  delete(ids: Array<string>): Promise<number>
+  getField(id: string): Maybe<IField<IType>>
+  load(fields: Array<FieldFragment>): void
 }

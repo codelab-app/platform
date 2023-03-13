@@ -7,10 +7,10 @@ import React, { useEffect } from 'react'
 import type { BaseBuilderProps } from './BaseBuilder'
 
 interface BuilderComponentProps {
-  componentId: string
-  appStore: IStore
   // Pass in BaseBuilder so we don't have to initialize props again
   BaseBuilder: JSXElementConstructor<BaseBuilderProps>
+  appStore: IStore
+  componentId: string
 }
 
 /**

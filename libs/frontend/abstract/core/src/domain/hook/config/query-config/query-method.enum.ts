@@ -1,12 +1,12 @@
 export enum QueryMethod {
-  Get = 'Get',
   Delete = 'Delete',
+  Get = 'Get',
   Head = 'Head',
-  Options = 'Options',
-  Post = 'Post',
-  Put = 'Put',
-  Patch = 'Patch',
-  Purge = 'Purge',
   Link = 'Link',
+  Options = 'Options',
+  Patch = 'Patch',
+  Post = 'Post',
+  Purge = 'Purge',
+  Put = 'Put',
   Unlink = 'Unlink',
 }

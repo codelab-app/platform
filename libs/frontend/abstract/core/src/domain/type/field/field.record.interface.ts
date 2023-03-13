@@ -3,19 +3,19 @@ import type { ITypeRecord } from '../type.record.interface'
 
 export interface ValidationRuleTag {
   key: string
-  value: string | number | boolean
+  value: boolean | number | string
 }
 
 export interface IFieldRecord {
-  id: string
-  name: Nullish<string>
+  dependentTypes: Array<ITypeRecord>
   description: Nullish<string>
+  id: string
   key: string
+  name: Nullish<string>
   type?: {
     id: string
     kind: string
     name: string
   }
   validationRules?: Array<ValidationRuleTag>
-  dependentTypes: Array<ITypeRecord>
 }

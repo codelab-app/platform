@@ -1,11 +1,13 @@
 import type {
   IEnumType,
   IEnumTypeDTO,
+  IEnumTypeValue,
   IEnumTypeValueDTO,
 } from '@codelab/frontend/abstract/core'
 import { ITypeDTO } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
+import type { Ref } from 'mobx-keystone'
 import {
   ExtendedModel,
   idProp,
@@ -16,31 +18,15 @@ import {
 } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
-
-const hydrateEnumValue = (fragment: IEnumTypeValueDTO) =>
-  new EnumTypeValue({
-    ...fragment,
-    key: fragment.key,
-  })
-
-@model('@codelab/EnumTypeValue')
-export class EnumTypeValue extends Model({
-  id: idProp,
-  key: prop<string>(),
-  value: prop<string>(),
-}) {
-  get label() {
-    return this.key
-  }
-
-  public static hydrate = hydrateEnumValue
-}
+import { enumTypeValueRef } from './enum-type-value.model'
 
 const create = ({ allowedValues, id, kind, name, owner }: IEnumTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.EnumType)
 
   return new EnumType({
-    allowedValues: allowedValues.map(EnumTypeValue.hydrate),
+    allowedValues: allowedValues.map((allowedValue) =>
+      enumTypeValueRef(allowedValue.id),
+    ),
     id,
     kind,
     name,
@@ -51,7 +37,7 @@ const create = ({ allowedValues, id, kind, name, owner }: IEnumTypeDTO) => {
 @model('@codelab/EnumType')
 export class EnumType
   extends ExtendedModel(createBaseType(ITypeKind.EnumType), {
-    allowedValues: prop<Array<EnumTypeValue>>(() => []),
+    allowedValues: prop<Array<Ref<IEnumTypeValue>>>(() => []),
   })
   implements IEnumType
 {
@@ -63,7 +49,9 @@ export class EnumType
       throw new Error('Incorrect EnumType')
     }
 
-    this.allowedValues = fragment.allowedValues.map(EnumTypeValue.hydrate)
+    this.allowedValues = fragment.allowedValues.map((allowedValue) =>
+      enumTypeValueRef(allowedValue.id),
+    )
 
     return this
   }
@@ -73,7 +61,11 @@ export class EnumType
       ...super.toCreateInput(),
       allowedValues: {
         create: this.allowedValues.map((value) => ({
-          node: { id: value.id, key: value.key, value: value.value },
+          node: {
+            id: value.id,
+            key: value.current.key,
+            value: value.current.value,
+          },
         })),
       },
     }
@@ -99,7 +91,11 @@ export class EnumType
         allowedValues: [
           {
             create: this.allowedValues.map((value) => ({
-              node: { id: value.id, key: value.key, value: value.value },
+              node: {
+                id: value.id,
+                key: value.current.key,
+                value: value.current.value,
+              },
             })),
           },
         ],

@@ -12,15 +12,15 @@ export interface AntDesignFieldsByFile {
  * The data format of the CSV row itself
  */
 export interface AntDesignField {
-  property: string
+  default: string
   description: string
+  isEnum: boolean
+  property: string
   /**
    * The type is the most important, we parse this into our type schema
    */
   type: string
-  default: string
   version: string
-  isEnum: boolean
 }
 
 /**

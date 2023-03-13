@@ -26,13 +26,13 @@ import type { IElementTree } from './element-tree.interface.model'
  * Used for modal input
  */
 export interface CreateElementData {
-  selectedElement?: Maybe<Ref<IElement>>
   elementTree: Ref<IElementTree>
+  selectedElement?: Maybe<Ref<IElement>>
 }
 
 export interface CreateElementProperties {
-  parentElement: IElement
   elementTree: IElementTree
+  parentElement: IElement
 }
 
 export interface UpdateElementProperties {
@@ -49,33 +49,14 @@ export interface IElementService
       ICRUDModalService<Ref<IElement>, { element?: IElement }>,
       'createModal'
     > {
-  createModal: IEntityModalService<CreateElementData, CreateElementProperties>
-  updateModal: IEntityModalService<Ref<IElement>, UpdateElementProperties>
-  elements: ObjectMap<IElement>
-  elementNames: Array<string>
   clonedElements: ObjectMap<IElement>
+  createModal: IEntityModalService<CreateElementData, CreateElementProperties>
+  elementNames: Array<string>
   elementRepository: IElementRepository
+  elements: ObjectMap<IElement>
+  updateModal: IEntityModalService<Ref<IElement>, UpdateElementProperties>
 
-  // moveElement(
-  //   targetElementId: IElementRef,
-  //   moveData: MoveData,
-  // ): Promise<IElement>
-  createElementAsFirstChild(data: ICreateElementData): Promise<IElement>
-  createElementAsNextSibling(data: ICreateElementData): Promise<IElement>
-  moveElementToAnotherTree(props: {
-    element: IEntity
-    targetElement: IEntity
-    dropPosition: number
-  }): Promise<void>
-  moveElementAsFirstChild(props: {
-    element: IEntity
-    parentElement: IEntity
-  }): Promise<void>
   add(elementDTO: IElementDTO): IElement
-  moveElementAsNextSibling(props: {
-    element: IEntity
-    targetElement: IEntity
-  }): Promise<void>
   cloneElement(
     target: IElement,
     targetParent: IElement,
@@ -84,12 +65,31 @@ export interface IElementService
     element: IElement,
     owner: IAuth0Owner,
   ): Promise<Maybe<IElement>>
-  element(id: string): IElement
-  maybeElement(id: Maybe<string>): Maybe<IElement>
+  // moveElement(
+  //   targetElementId: IElementRef,
+  //   moveData: MoveData,
+  // ): Promise<IElement>
+  createElementAsFirstChild(data: ICreateElementData): Promise<IElement>
+  createElementAsNextSibling(data: ICreateElementData): Promise<IElement>
   delete(subRoot: IEntity): Promise<void>
-  patchElement(element: IElement, input: ElementUpdateInput): Promise<IElement>
+  element(id: string): IElement
   loadComponentTree(component: RenderedComponentFragment): {
-    rootElement: IElement
     hydratedElements: Array<IElement>
+    rootElement: IElement
   }
+  maybeElement(id: Maybe<string>): Maybe<IElement>
+  moveElementAsFirstChild(props: {
+    element: IEntity
+    parentElement: IEntity
+  }): Promise<void>
+  moveElementAsNextSibling(props: {
+    element: IEntity
+    targetElement: IEntity
+  }): Promise<void>
+  moveElementToAnotherTree(props: {
+    dropPosition: number
+    element: IEntity
+    targetElement: IEntity
+  }): Promise<void>
+  patchElement(element: IElement, input: ElementUpdateInput): Promise<IElement>
 }

@@ -1,3 +1,6 @@
-import type { ReactNodeTypeFragment } from '../../fragments'
+import type { ITypeKind } from '@codelab/shared/abstract/core'
+import type { IBaseTypeDTO } from '../base-type'
 
-export type IReactNodeTypeDTO = ReactNodeTypeFragment
+export interface IReactNodeTypeDTO extends IBaseTypeDTO {
+  __typename: `${ITypeKind.ReactNodeType}`
+}

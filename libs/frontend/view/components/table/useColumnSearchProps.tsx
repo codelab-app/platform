@@ -6,14 +6,14 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 interface ColumnSearchProps<RecordType extends object> {
   dataIndex: keyof RecordType
-  onSearch?: (searchText: string) => void
+  onSearch?(searchText: string): void
 }
 
 export const useColumnSearchProps = <RecordType extends object>({
   dataIndex,
   onSearch,
 }: ColumnSearchProps<RecordType>) => {
-  const searchInputRef = useRef<null | InputRef>(null)
+  const searchInputRef = useRef<InputRef | null>(null)
   const [searchText, setSearchText] = useState('')
 
   const handleSearch = useCallback(() => {

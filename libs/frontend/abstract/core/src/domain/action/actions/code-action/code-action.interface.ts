@@ -6,6 +6,6 @@ import type { ICodeActionDTO } from './code-action.dto.interface'
 export interface ICodeAction
   extends IActionBase,
     ICacheService<ICodeActionDTO, ICodeAction> {
-  type: IActionKind.CodeAction
   code: string
+  type: IActionKind.CodeAction
 }

@@ -11,8 +11,9 @@ export interface IBaseType<DTO extends IBaseTypeDTO>
   extends ICacheService<DTO, IBaseType<DTO>>,
     IOwnerSchema {
   id: string
-  name: string
   kind: ITypeKind
+  name: string
+
   toCreateInput(): ICreateTypeInput
   toUpdateInput(): IUpdateTypeArgs
   // toDeleteInput(): IDeleteTypeInput

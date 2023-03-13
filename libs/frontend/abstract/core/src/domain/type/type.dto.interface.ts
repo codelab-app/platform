@@ -10,6 +10,7 @@ import type {
   IAppTypeDTO,
   IArrayTypeDTO,
   ICodeMirrorTypeDTO,
+  ICreateEnumTypeData,
   IElementTypeDTO,
   IEnumTypeDTO,
   IEnumTypeValue,
@@ -27,19 +28,17 @@ import type {
  *
  * For the backend, we'll create a type for each sub-type.
  */
-export interface IAllTypeData {
-  id: string
-  name: string
-  kind: ITypeKind
-  primitiveKind?: IPrimitiveTypeKind
-  elementKind?: IElementTypeKind
-  language?: ICodeMirrorLanguage
-  allowedValues?: Array<IEnumTypeValue>
-  unionTypeIds?: Array<string>
+export interface ICreateTypeData extends IOwnerSchema {
+  allowedValues?: Array<ICreateEnumTypeData>
   arrayTypeId?: string
+  elementKind?: IElementTypeKind
+  id: string
+  kind: ITypeKind
+  language?: ICodeMirrorLanguage
+  name: string
+  primitiveKind?: IPrimitiveTypeKind
+  unionTypeIds?: Array<string>
 }
-
-export interface ICreateTypeData extends IAllTypeData, IOwnerSchema {}
 
 export type IUpdateTypeData = ICreateTypeData
 

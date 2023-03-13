@@ -6,7 +6,7 @@ import { componentRef } from '../component'
 import type { IElement } from '../element'
 import { elementRef } from '../element'
 
-export type IPageNodeRef = Ref<IElement> | Ref<IComponent>
+export type IPageNodeRef = Ref<IComponent> | Ref<IElement>
 
 export type IPageNode = IElement | IComponent
 

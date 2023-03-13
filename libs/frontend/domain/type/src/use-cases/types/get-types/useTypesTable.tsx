@@ -1,5 +1,5 @@
 import type {
-  IAnyType,
+  IType,
   IFieldService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
@@ -23,9 +23,9 @@ import React, { useCallback, useState } from 'react'
 import { ActionColumn } from './columns'
 
 interface UseTypesTableParams {
-  typeService: ITypeService
   fieldService: IFieldService
   isLoadingTypeDependencies: boolean
+  typeService: ITypeService
 }
 
 export const useTypesTable = ({
@@ -51,7 +51,7 @@ export const useTypesTable = ({
     [],
   )
 
-  const nameColumnSearchProps = useColumnSearchProps<IAnyType>({
+  const nameColumnSearchProps = useColumnSearchProps<IType>({
     dataIndex: 'name',
     onSearch: (value) => {
       const where = {
@@ -64,7 +64,7 @@ export const useTypesTable = ({
     },
   })
 
-  const columns: ColumnsType<IAnyType> = [
+  const columns: ColumnsType<IType> = [
     {
       dataIndex: 'name',
       key: 'name',
@@ -100,8 +100,8 @@ export const useTypesTable = ({
     },
   ]
 
-  const rowSelection: TableRowSelection<IAnyType> = {
-    onChange: (_: Array<React.Key>, selectedRows: Array<IAnyType>) => {
+  const rowSelection: TableRowSelection<IType> = {
+    onChange: (_: Array<React.Key>, selectedRows: Array<IType>) => {
       typeService.setSelectedIds(arraySet(selectedRows.map(({ id }) => id)))
     },
     type: 'checkbox',

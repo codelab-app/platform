@@ -24,7 +24,7 @@ import {
 
 export const baseTypesFactory = (type: BaseTypeFragment) => {
   // this is just a fallback
-  // except __typename, all fallback properties should be refetched later
+  // except __typename, all fallback properties should be re-fetched later
   switch (type.kind) {
     case ITypeKind.AppType:
       return AppType.create({
@@ -94,7 +94,6 @@ export const baseTypesFactory = (type: BaseTypeFragment) => {
       return ArrayType.create({
         ...type,
         __typename: 'ArrayType',
-        itemType: { id: '', name: '' },
       })
 
     case TypeKind.InterfaceType:

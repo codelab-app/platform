@@ -1,5 +1,11 @@
 import type { IRole } from '@codelab/shared/abstract/core'
-import type { UserFragment } from './user.fragment.graphql.gen'
+import type { IEntity } from '@codelab/shared/abstract/types'
 
-// TODO: temporarily cast user.roles to role[], because types generated in api is string[] because using roles[] makes the insertUser broken
-export type IUserDTO = UserFragment & { roles: Array<IRole> }
+export interface IUserDTO {
+  apps?: Array<IEntity>
+  auth0Id: string
+  email: string
+  id: string
+  roles: Array<IRole>
+  username: string
+}

@@ -21,7 +21,7 @@ import { AllowedChildrenColumn } from './columns/AllowedChildrenColumn'
 import type { AtomRecord } from './columns/types'
 
 const onLibraryFilter = (
-  value: string | number | boolean,
+  value: boolean | number | string,
   atom: AtomRecord,
 ): boolean => {
   const list = [atom.name, atom.type].map((item) => item.toLowerCase())
@@ -36,8 +36,8 @@ export const useAtomTable = ({
   typeService,
 }: {
   atomService: IAtomService
-  typeService: ITypeService
   fieldService: IFieldService
+  typeService: ITypeService
 }) => {
   const [atomWhere, setAtomWhere] = useState<Maybe<AtomWhere>>(undefined)
 

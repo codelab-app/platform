@@ -4,7 +4,7 @@ import { wrapSubject } from './utils'
 
 export const getOptionItem = (
   subject: any,
-  text: string | RegExp,
+  text: RegExp | string,
 ): CypressElement =>
   wrapSubject(subject)
     .get(domClasses.dropdown)

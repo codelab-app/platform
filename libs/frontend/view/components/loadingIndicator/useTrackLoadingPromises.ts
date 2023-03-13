@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
 
 export interface LoadingData {
-  isLoading: boolean
   error: unknown
+  isLoading: boolean
 }
 
 export interface UseTrackLoadingPromises extends LoadingData {
-  trackPromise: (promise: Promise<unknown>) => void
+  trackPromise(promise: Promise<unknown>): void
 }
 
 /**

@@ -21,7 +21,7 @@ export const appData: IAppDTO = {
   store: storeData,
 }
 
-export const pageData: Pick<IPageDTO, 'id' | 'name' | 'app'> = {
+export const pageData: Pick<IPageDTO, 'app' | 'id' | 'name'> = {
   app: appData,
   id: v4(),
   name: 'Home',

@@ -9,12 +9,12 @@ import {
 } from './drawer.command'
 
 export interface AntDrawerCommands {
-  getDrawer: typeof getDrawer
-  getDrawerTitle: typeof getDrawerTitle
   closeDrawer: typeof closeDrawer
   expectDrawerTitle: typeof expectDrawerTitle
-  expectDrawerToOpen: typeof expectDrawerToOpen
   expectDrawerToClose: typeof expectDrawerToClose
+  expectDrawerToOpen: typeof expectDrawerToOpen
+  getDrawer: typeof getDrawer
+  getDrawerTitle: typeof getDrawerTitle
 }
 
 export const antDrawerCommands: Array<CypressCommand> = [

@@ -1,4 +1,4 @@
-import type { IAnyType, ITypeOf } from '@codelab/frontend/abstract/core'
+import type { IType, ITypeOf } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { UiPropertiesContext, UiPropertiesFn } from '../types'
 import { actionTypeUiProperties } from './actionTypeUiProperties'
@@ -35,10 +35,7 @@ const uiPropertiesContainer: UniformsPropertiesContainer = {
   [ITypeKind.ArrayType]: arrayTypeUiProperties,
 }
 
-export const getUiProperties = (
-  type: IAnyType,
-  context?: UiPropertiesContext,
-) => {
+export const getUiProperties = (type: IType, context?: UiPropertiesContext) => {
   const fn: UiPropertiesFn | undefined = uiPropertiesContainer[type.kind] as
     | UiPropertiesFn
     | undefined

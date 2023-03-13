@@ -1,9 +1,9 @@
 import puppeteer from 'puppeteer'
 
 export interface HtmlApi {
+  description: string
   // The name of the tag
   name: string
-  description: string
 }
 
 // interface HtmlAttributeList = {}

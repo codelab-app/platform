@@ -4,24 +4,28 @@ import {
   exportReactNodeTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
+import type { IReactNodeTypeDTO } from '@codelab/frontend/abstract/core'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 
-export class ReactNodeTypeRepository extends AbstractRepository<IReactNodeType> {
+export class ReactNodeTypeRepository extends AbstractRepository<
+  IReactNodeTypeDTO,
+  OGM_TYPES.ReactNodeType,
+  OGM_TYPES.ReactNodeTypeWhere
+> {
   private ReactNodeType = Repository.instance.ReactNodeType
 
-  async find(where: BaseTypeUniqueWhere) {
-    return (
-      await (
-        await this.ReactNodeType
-      ).find({
-        selectionSet: exportReactNodeTypeSelectionSet,
-        where,
-      })
-    )[0]
+  async find(where: OGM_TYPES.ReactNodeTypeWhere) {
+    return await (
+      await this.ReactNodeType
+    ).find({
+      selectionSet: exportReactNodeTypeSelectionSet,
+      where,
+    })
   }
 
-  protected async _add(reactNodeTypes: Array<IReactNodeType>) {
+  protected async _add(reactNodeTypes: Array<IReactNodeTypeDTO>) {
     return (
       await (
         await this.ReactNodeType
@@ -37,8 +41,8 @@ export class ReactNodeTypeRepository extends AbstractRepository<IReactNodeType> 
   }
 
   protected async _update(
-    { __typename, id, owner, ...reactNodeType }: IReactNodeType,
-    where: BaseTypeUniqueWhere,
+    { __typename, id, owner, ...reactNodeType }: IReactNodeTypeDTO,
+    where: OGM_TYPES.ReactNodeTypeWhere,
   ) {
     return (
       await (

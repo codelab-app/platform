@@ -1,6 +1,6 @@
 export type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T
 
-export type MaybePromise<T> = T | Promise<T>
+export type MaybePromise<T> = Promise<T> | T
 
 /**
  * Match the promise behavior of TOut with TIn

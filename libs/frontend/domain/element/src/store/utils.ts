@@ -9,7 +9,7 @@ import type { Ref } from 'mobx-keystone'
 
 export const getRenderType = (
   renderType: IElementDTO['renderType'],
-): Ref<IComponent> | Ref<IAtom> | null => {
+): Ref<IAtom> | Ref<IComponent> | null => {
   if (renderType?.kind === IRenderTypeKind.Atom) {
     return atomRef(renderType.id)
   }

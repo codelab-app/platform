@@ -7,13 +7,13 @@ import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { BaseTypeUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
 
-export type UpsertFieldProps = {
+export type UpsertFieldProps = FieldRelationshipProps & {
   input: OGM_TYPES.FieldCreateInput
-} & FieldRelationshipProps
+}
 
 interface FieldRelationshipProps {
-  interfaceTypeId: string
   fieldTypeId: string
+  interfaceTypeId: string
 }
 
 export const fieldRepository = {

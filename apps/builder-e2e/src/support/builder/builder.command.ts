@@ -2,8 +2,8 @@ import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { FIELD_TYPE } from '../antd/form'
 
 interface ElementData {
-  name: string
   atom?: string
+  name: string
   parentElement: string
 }
 

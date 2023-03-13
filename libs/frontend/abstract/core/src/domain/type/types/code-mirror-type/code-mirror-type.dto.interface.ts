@@ -1,3 +1,8 @@
-import type { CodeMirrorTypeFragment } from '../../fragments'
+import type { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import type { ITypeKind } from '@codelab/shared/abstract/core'
+import type { IBaseTypeDTO } from '../base-type'
 
-export type ICodeMirrorTypeDTO = CodeMirrorTypeFragment
+export interface ICodeMirrorTypeDTO extends IBaseTypeDTO {
+  __typename: `${ITypeKind.CodeMirrorType}`
+  language: CodeMirrorLanguage
+}
