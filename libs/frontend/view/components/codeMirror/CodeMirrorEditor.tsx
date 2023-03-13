@@ -48,9 +48,9 @@ const getLanguageExtension = async (language?: ICodeMirrorLanguage) => {
 
 export const CodeMirrorEditor = observer((props: CodeMirrorEditorProps) => {
   const {
-    language,
-    extensions = [],
     expandable = true,
+    extensions = [],
+    language,
     overrideExtensions = false,
   } = props
 

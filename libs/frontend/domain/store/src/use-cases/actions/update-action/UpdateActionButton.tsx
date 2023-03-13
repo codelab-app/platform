@@ -11,7 +11,7 @@ type UpdateActionButtonProps = UpdateButtonProps & {
 }
 
 export const UpdateActionButton = observer<UpdateActionButtonProps>(
-  ({ id, disabled, actionService }) => (
+  ({ actionService, disabled, id }) => (
     <Button
       disabled={disabled}
       ghost

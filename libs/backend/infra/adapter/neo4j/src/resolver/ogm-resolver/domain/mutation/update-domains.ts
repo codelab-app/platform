@@ -15,7 +15,7 @@ export const updateDomains: IFieldResolver<
   { where: OGM_TYPES.DomainWhere; update: OGM_TYPES.DomainUpdateInput },
   Promise<OGM_TYPES.UpdateDomainsMutationResponse>
 > = async (_, args, { req }) => {
-  const { where, update } = args
+  const { update, where } = args
   const { name } = update
   // await validateDomainAuth(req, String(id))
   const Domain = await Repository.instance.Domain

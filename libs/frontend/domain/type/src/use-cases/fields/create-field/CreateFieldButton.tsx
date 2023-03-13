@@ -14,7 +14,7 @@ export interface CreateFieldButtonProps {
 }
 
 export const CreateFieldButton = observer<CreateFieldButtonProps>(
-  ({ interfaceId, fieldService }) => {
+  ({ fieldService, interfaceId }) => {
     return interfaceId ? (
       <Button
         css={tw`flex justify-center items-center`}

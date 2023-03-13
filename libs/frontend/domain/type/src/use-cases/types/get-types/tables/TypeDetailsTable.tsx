@@ -17,13 +17,13 @@ interface TypeDetailsTableProps {
 }
 
 export const TypeDetailsTable = ({
-  typeId,
   fieldService,
+  typeId,
   typeService,
 }: TypeDetailsTableProps) => {
   const {
-    loading,
     error,
+    loading,
     value: type,
   } = useAsync(() => typeService.getOne(typeId))
 

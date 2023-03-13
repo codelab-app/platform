@@ -57,7 +57,7 @@ export class InterfaceTypeRepository extends AbstractRepository<IInterfaceType> 
    * Scenario: Say a field was deleted, then we run a seeder, we would have to create for the deleted field
    */
   protected async _update(
-    { id, __typename, fields, owner, ...data }: IInterfaceType,
+    { __typename, fields, id, owner, ...data }: IInterfaceType,
     where: BaseTypeUniqueWhere,
   ) {
     return (

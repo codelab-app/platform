@@ -6,9 +6,9 @@ import tw from 'twin.macro'
 /**
  */
 const ItemTitle = ({
-  node,
-  className,
   children,
+  className,
+  node,
 }: PropsWithChildren<{ className?: string; node: DataNode }>) => {
   const treeNodeRef = useRef<HTMLDivElement | null>(null)
 

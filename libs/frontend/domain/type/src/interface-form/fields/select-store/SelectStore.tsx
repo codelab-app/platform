@@ -9,11 +9,11 @@ export type SelectStoreProps = UniformSelectFieldProps & {
   where: StoreWhere
 }
 
-export const SelectStore = ({ name, error, where }: SelectStoreProps) => {
+export const SelectStore = ({ error, name, where }: SelectStoreProps) => {
   const {
-    value,
-    loading,
     error: queryError,
+    loading,
+    value,
   } = useAsync(() => interfaceFormApi.InterfaceForm_GetStores({ where }), [])
 
   const options =

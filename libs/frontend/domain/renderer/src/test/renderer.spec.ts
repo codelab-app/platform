@@ -52,7 +52,7 @@ describe('Renderer', () => {
   })
 
   it('should render component instance', () => {
-    const { props, atomType } = data.renderer.renderIntermediateElement(
+    const { atomType, props } = data.renderer.renderIntermediateElement(
       data.componentInstanceElementToRender,
       {},
     ) as IRenderOutput

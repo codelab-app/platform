@@ -10,16 +10,16 @@ import { DashboardTemplateExplorerPane } from './DashboardTemplate-ExplorerPane'
 import ResizeHandle from './ResizeHandle'
 import type { DashboardTemplateProps } from './types'
 
-const { Sider, Header: AntDesignHeader } = Layout
+const { Header: AntDesignHeader, Sider } = Layout
 
 const DashboardTemplate = observer(
   ({
     children,
-    Header,
-    ExplorerPane,
-    sidebarNavigation,
     ConfigPane,
     contentStyles,
+    ExplorerPane,
+    Header,
+    sidebarNavigation,
   }: React.PropsWithChildren<DashboardTemplateProps>) => {
     return (
       <Layout css={tw`max-h-full min-h-full`}>

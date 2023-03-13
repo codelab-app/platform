@@ -31,13 +31,13 @@ import {
 } from 'mobx-keystone'
 
 const create = ({
+  api,
+  childrenContainerElement,
   id,
   name,
-  props,
-  api,
   owner,
+  props,
   rootElement,
-  childrenContainerElement,
 }: IComponentDTO) => {
   return new Component({
     api: typeRef<IInterfaceType>(api.id),
@@ -76,13 +76,13 @@ export class Component
 
   @modelAction
   writeCache({
+    api,
+    childrenContainerElement,
     id,
     name,
-    props,
-    api,
     owner,
+    props,
     rootElement,
-    childrenContainerElement,
   }: Partial<IComponentDTO>) {
     const apiRef = api?.id ? typeRef<IInterfaceType>(api.id) : this.api
 

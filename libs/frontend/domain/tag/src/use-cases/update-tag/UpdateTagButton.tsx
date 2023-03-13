@@ -9,7 +9,7 @@ export const UpdateTagButton = observer<
   {
     tagService: ITagService
   } & UpdateButtonProps
->(({ id, disabled, tagService }) => {
+>(({ disabled, id, tagService }) => {
   const onClick = () => {
     if (!id) {
       throw new Error('Tag ID is not valid')

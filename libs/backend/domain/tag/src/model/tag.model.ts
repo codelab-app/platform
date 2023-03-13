@@ -12,7 +12,7 @@ export class Tag implements ITag {
 
   parent: ITagPreview | null
 
-  constructor({ id, name, children = [], parent = null, owner }: ITag) {
+  constructor({ children = [], id, name, owner, parent = null }: ITag) {
     this.id = id
     this.name = name
     this.children = children

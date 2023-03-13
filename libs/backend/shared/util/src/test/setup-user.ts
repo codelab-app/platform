@@ -13,17 +13,17 @@ interface SetupUserProps {
 
 export const setupUser = async ({
   AdminService,
-  UserRepository,
   User,
+  UserRepository,
 }: SetupUserProps) => {
   const userRepository = new UserRepository()
 
   const user = new User({
-    id: v4(),
     auth0Id: v4(),
     email: 'admin@codelab.app',
-    username: 'Codelab',
+    id: v4(),
     roles: [IRole.Admin],
+    username: 'Codelab',
   })
 
   await new AdminService().reset()

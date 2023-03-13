@@ -24,8 +24,8 @@ interface OverlayToolbarProps {
  */
 export const OverlayToolbar = ({
   children: content,
-  overlayElement,
   containerProps: { className: containerClassName, style: containerStyle } = {},
+  overlayElement,
   toolbarProps: { style: toolbarStyle, ...toolbarProps } = {},
 }: OverlayToolbarProps) => {
   const element = Object.hasOwnProperty.call(overlayElement, 'current')

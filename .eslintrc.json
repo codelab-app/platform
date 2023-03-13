@@ -16,7 +16,8 @@
     "lodash",
     "prefer-arrow",
     // https://github.com/gajus/eslint-plugin-canonical#no-unused-exports
-    "canonical"
+    "canonical",
+    "sort-destructure-keys"
   ],
   "parser": "@typescript-eslint/parser",
   "env": {
@@ -54,6 +55,10 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
+        "sort-destructure-keys/sort-destructure-keys": [
+          "error",
+          { "caseSensitive": false }
+        ],
         "canonical/destructuring-property-newline": "off",
         "canonical/import-specifier-newline": "off",
         "canonical/id-match": "off",

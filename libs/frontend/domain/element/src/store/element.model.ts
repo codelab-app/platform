@@ -54,23 +54,23 @@ import { getRenderType } from './utils'
 type TransformFn = (props: IPropData) => IPropData
 
 const create = ({
+  customCss,
+  firstChild,
+  guiCss,
   id,
   name,
-  customCss,
-  guiCss,
-  renderType,
-  parentComponent,
-  props,
+  nextSibling,
   page,
-  propTransformationJs,
-  renderIfExpression,
+  parent,
+  parentComponent,
   postRenderAction,
   preRenderAction,
-  renderForEachPropKey,
-  parent,
-  nextSibling,
   prevSibling,
-  firstChild,
+  props,
+  propTransformationJs,
+  renderForEachPropKey,
+  renderIfExpression,
+  renderType,
 }: IElementDTO) => {
   const elementRenderType = getRenderType(renderType)
 
@@ -700,22 +700,22 @@ export class Element
   @modelAction
   @modelAction
   writeCache({
+    customCss,
+    firstChild,
+    guiCss,
     id,
     name,
-    customCss,
-    guiCss,
+    nextSibling,
+    parent,
     parentComponent,
-    renderType,
-    props,
-    propTransformationJs,
-    renderIfExpression,
     postRenderAction,
     preRenderAction,
-    renderForEachPropKey,
-    parent,
-    nextSibling,
     prevSibling,
-    firstChild,
+    props,
+    propTransformationJs,
+    renderForEachPropKey,
+    renderIfExpression,
+    renderType,
   }: Partial<IElementDTO>) {
     const elementRenderType = getRenderType(renderType)
 

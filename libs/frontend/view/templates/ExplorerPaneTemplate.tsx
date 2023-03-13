@@ -47,10 +47,10 @@ const StyledContainer = styled.div`
 
 export const ExplorerPaneTemplate = ({
   children,
-  header,
-  title,
   containerProps,
+  header,
   headerProps,
+  title,
 }: MainPaneTemplateProps) => {
   return (
     <StyledContainer

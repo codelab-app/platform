@@ -34,11 +34,11 @@ const eventSafeStringify = (event: any) => {
  * @deprecated Saving it for an example of how to integrate custom components
  */
 export const State = ({
-  eventKey,
-  propKey,
-  identifier,
-  setterLambda,
   children,
+  eventKey,
+  identifier,
+  propKey,
+  setterLambda,
   ...props
 }: React.PropsWithChildren<StateProps> & Record<string, any>) => {
   const [state, setState] = useRecoilState(stateAtomFamily(identifier))

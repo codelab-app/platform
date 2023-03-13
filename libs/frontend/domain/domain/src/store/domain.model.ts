@@ -15,7 +15,7 @@ import {
   rootRef,
 } from 'mobx-keystone'
 
-const create = ({ id, name, app, domainConfig, projectDomain }: IDomainDTO) => {
+const create = ({ app, domainConfig, id, name, projectDomain }: IDomainDTO) => {
   return new Domain({
     app,
     domainConfig,
@@ -58,11 +58,11 @@ export class Domain
 
   @modelAction
   public writeCache({
+    app,
+    domainConfig,
     id,
     name,
-    domainConfig,
     projectDomain,
-    app,
   }: Partial<IDomainDTO>) {
     this.name = name ?? this.name
     this.domainConfig = domainConfig ?? this.domainConfig

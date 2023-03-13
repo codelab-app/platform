@@ -6,7 +6,7 @@ export const arrayTypeUiProperties: UiPropertiesFn<IArrayType> = () => {
   return {
     uniforms: {
       component: ToggleExpressionField({
-        onToggle: (showExpression, { value, onChange }, lastValue) => {
+        onToggle: (showExpression, { onChange, value }, lastValue) => {
           if (showExpression) {
             onChange(lastValue ?? `{{${JSON.stringify(value ?? [])}}}`)
           } else {

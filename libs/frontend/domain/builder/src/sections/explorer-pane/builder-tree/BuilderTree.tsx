@@ -35,16 +35,16 @@ interface BuilderTreeProps {
 export const BuilderTree = observer<BuilderTreeProps>(
   ({
     className,
-    treeData,
     elementTree,
-    setActiveTree,
-    setExpandedNodeIds,
     expandedNodeIds,
     selectTreeNode,
+    setActiveTree,
+    setExpandedNodeIds,
+    treeData,
   }) => {
-    const { elementService, builderService, componentService } = useStore()
+    const { builderService, componentService, elementService } = useStore()
     const selectedNode = builderService.selectedNode
-    const { isMoving, handleDrop } = useElementTreeDrop(elementService)
+    const { handleDrop, isMoving } = useElementTreeDrop(elementService)
 
     const selectComponentNode = (node: IPageNode) => {
       selectTreeNode(node)
@@ -89,7 +89,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
         onExpand={(expandedKeys) => {
           return setExpandedNodeIds(expandedKeys as Array<string>)
         }}
-        onMouseEnter={({ node, event }) => {
+        onMouseEnter={({ event, node }) => {
           // Selectable by default, unless it's not
           if (has(node, 'selectable') && !node.selectable) {
             const target = event.target as Element

@@ -9,7 +9,7 @@ interface ConfigGuideTabProps {
   domain: IDomain
 }
 
-export const ConfigGuide = ({ type, domain }: ConfigGuideTabProps) => {
+export const ConfigGuide = ({ domain, type }: ConfigGuideTabProps) => {
   const items = [
     {
       children: <ARecordTabContent />,

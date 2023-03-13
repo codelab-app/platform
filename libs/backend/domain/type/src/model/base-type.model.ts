@@ -12,7 +12,7 @@ export abstract class BaseType implements IBaseType {
 
   owner: IOwner
 
-  constructor({ id, name, kind, __typename, owner }: IBaseType) {
+  constructor({ __typename, id, kind, name, owner }: IBaseType) {
     this.id = id
     this.name = name
     this.kind = kind

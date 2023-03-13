@@ -94,19 +94,19 @@ export const getAllTypes = async (
   ids?: Array<string>,
 ): Promise<Array<UnboxArray<GetTypesQuery[keyof GetTypesQuery]>>> => {
   const {
-    primitiveTypes,
+    actionTypes,
+    appTypes,
     arrayTypes,
-    unionTypes,
-    interfaceTypes,
+    codeMirrorTypes,
     elementTypes,
-    renderPropsTypes,
-    reactNodeTypes,
     enumTypes,
+    interfaceTypes,
     lambdaTypes,
     pageTypes,
-    appTypes,
-    actionTypes,
-    codeMirrorTypes,
+    primitiveTypes,
+    reactNodeTypes,
+    renderPropsTypes,
+    unionTypes,
   } = await getTypeApi.GetTypes({ ids })
 
   return [

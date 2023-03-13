@@ -22,10 +22,10 @@ export class PrimitiveType extends BaseType implements IPrimitiveType {
 
   private constructor({
     id,
-    name,
     kind,
-    primitiveKind,
+    name,
     owner,
+    primitiveKind,
   }: IPrimitiveType) {
     super({ __typename: ITypeKind.PrimitiveType, id, kind, name, owner })
     this.primitiveKind = primitiveKind

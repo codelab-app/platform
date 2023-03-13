@@ -11,7 +11,7 @@ type DeleteActionButtonProps = DeleteButtonProps & {
 }
 
 export const DeleteActionButton = observer<DeleteActionButtonProps>(
-  ({ disabled, ids, actionService }) => (
+  ({ actionService, disabled, ids }) => (
     <Button
       danger
       disabled={disabled}

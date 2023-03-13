@@ -11,18 +11,18 @@ import type { InterfaceFormProps } from './types'
  */
 export const InterfaceForm = observer(
   <TData, TResponse = unknown>({
-    interfaceType,
+    autosave,
     children,
-    model,
-    onSubmit,
     initialSchema,
+    interfaceType,
+    model,
     onChange,
+    onSubmit,
     onSubmitError,
     onSubmitSuccess,
-    submitRef,
     setIsLoading,
-    autosave,
     submitField,
+    submitRef,
   }: React.PropsWithChildren<InterfaceFormProps<TData, TResponse>>) => {
     const formSchema = useMemo(() => {
       const typeTreeSchema = schemaTransformer.transform(interfaceType)

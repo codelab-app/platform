@@ -25,7 +25,7 @@ import {
 export const UpdateFieldModal = observer<{
   typeService: ITypeService
   fieldService: IFieldService
-}>(({ typeService, fieldService }) => {
+}>(({ fieldService, typeService }) => {
   const closeModal = () => fieldService.updateModal.close()
   const field = fieldService.updateModal.field
 

@@ -20,8 +20,8 @@ interface TestimonialItemProps {
 
 export const TestimonialItem = ({
   review,
-  stakeholder,
   role,
+  stakeholder,
 }: TestimonialItemProps) => {
   const initials = (words: string) =>
     voca(words)

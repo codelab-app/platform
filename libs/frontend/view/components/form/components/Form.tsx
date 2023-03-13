@@ -15,18 +15,18 @@ import { useFormContext } from '../providers'
 
 export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
   const Form = <TData, TResponse = unknown>({
-    cssString,
-    submitRef,
-    onSubmitSuccess = [],
-    onSubmitError = [],
     autosave = false,
-    schema,
-    onSubmit = (model: TData) => Promise.resolve(),
     children,
+    cssString,
     model,
-    onChangeModel,
     onChange,
+    onChangeModel,
+    onSubmit = (_model: TData) => Promise.resolve(),
+    onSubmitError = [],
+    onSubmitSuccess = [],
+    schema,
     submitField,
+    submitRef,
   }: React.PropsWithChildren<FormProps<TData, TResponse>>): ReactElement => {
     const context = useFormContext()
 

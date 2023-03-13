@@ -5,7 +5,7 @@ import { useAsync } from 'react-use'
 export const useCurrentApp = (appService: IAppService) => {
   const appId = useCurrentAppId()
 
-  const { loading, value, error } = useAsync(
+  const { error, loading, value } = useAsync(
     (id: string) => appService.getOne(id),
     [appId],
   )

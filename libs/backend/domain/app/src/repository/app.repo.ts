@@ -24,7 +24,7 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
   const { pages } = app
   await validate(pages)
 
-  for (const { elements, components } of pages) {
+  for (const { components, elements } of pages) {
     for (const element of elements) {
       await importElementInitial(element, owner)
     }
@@ -39,7 +39,7 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
     }
   }
 
-  const pagesData = app.pages.map(({ elements, components, ...props }) => ({
+  const pagesData = app.pages.map(({ components, elements, ...props }) => ({
     ...props,
   }))
 
@@ -132,8 +132,8 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
 
   const pagesData = await Promise.all(
     pages.map(async (page) => {
-      const { elements, components } = await getPageData(page)
-      const { id, name, kind, rootElement, pageContentContainer } = page
+      const { components, elements } = await getPageData(page)
+      const { id, kind, name, pageContentContainer, rootElement } = page
 
       return {
         components,

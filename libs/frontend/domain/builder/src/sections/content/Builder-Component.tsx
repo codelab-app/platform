@@ -17,8 +17,8 @@ interface BuilderComponentProps {
  * Since the component builder tree changes based on which component id is active, we move the component id dependency to a wrapper we create for the main Builder
  */
 export const BuilderComponent = observer<BuilderComponentProps>(
-  ({ componentId, appStore, BaseBuilder }) => {
-    const { componentService, builderService, builderRenderService } =
+  ({ appStore, BaseBuilder, componentId }) => {
+    const { builderRenderService, builderService, componentService } =
       useStore()
 
     const activeComponentTree = builderService.activeElementTree

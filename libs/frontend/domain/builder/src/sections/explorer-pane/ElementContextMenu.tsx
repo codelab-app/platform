@@ -36,14 +36,14 @@ export type ElementContextMenuProps = {
  */
 export const ElementContextMenu = observer<ElementContextMenuProps>(
   ({
-    element,
-    onClick,
-    onBlur,
-    createModal,
-    deleteModal,
     cloneElement,
     convertElementToComponent,
+    createModal,
+    deleteModal,
+    element,
     elementTree,
+    onBlur,
+    onClick,
   }) => {
     const { builderService, componentService } = useStore()
     const { user } = useUser()

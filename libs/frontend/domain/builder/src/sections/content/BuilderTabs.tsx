@@ -19,7 +19,7 @@ export interface BuilderTabsProps {
 }
 
 export const BuilderTabs = observer<BuilderTabsProps>(
-  ({ error, isLoading, app, page, renderer }) => {
+  ({ app, error, isLoading, page, renderer }) => {
     const { builderService } = useStore()
     const elementTree = page?.elementTree
     const appStore = app?.store.current

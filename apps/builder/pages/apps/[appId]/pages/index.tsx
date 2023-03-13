@@ -34,7 +34,7 @@ export default Pages
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 Pages.Layout = observer((page) => {
-  const { pageService, domainService, userService } = useStore()
+  const { domainService, pageService, userService } = useStore()
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 

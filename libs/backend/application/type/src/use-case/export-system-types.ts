@@ -17,10 +17,10 @@ export const exportSystemTypes = async (): Promise<Array<ITypeExport>> => {
   const PrimitiveType = await Repository.instance.PrimitiveType
 
   const primitiveTypes = await PrimitiveType.find({
-    selectionSet: exportPrimitiveTypeSelectionSet,
     options: {
       sort: [{ name: OGM_TYPES.SortDirection.Asc }],
     },
+    selectionSet: exportPrimitiveTypeSelectionSet,
   })
 
   /**
@@ -30,10 +30,10 @@ export const exportSystemTypes = async (): Promise<Array<ITypeExport>> => {
 
   // Only 1 here
   const reactNodeTypes = await ReactNodeType.find({
-    selectionSet: exportReactNodeTypeSelectionSet,
     options: {
       sort: [{ name: OGM_TYPES.SortDirection.Asc }],
     },
+    selectionSet: exportReactNodeTypeSelectionSet,
   })
 
   /**
@@ -43,10 +43,10 @@ export const exportSystemTypes = async (): Promise<Array<ITypeExport>> => {
 
   // Only 1 here
   const renderPropsTypes = await RenderPropsType.find({
-    selectionSet: exportRenderPropsTypeSelectionSet,
     options: {
       sort: [{ name: OGM_TYPES.SortDirection.Asc }],
     },
+    selectionSet: exportRenderPropsTypeSelectionSet,
   })
 
   /**

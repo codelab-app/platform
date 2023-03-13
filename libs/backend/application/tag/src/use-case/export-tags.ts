@@ -14,11 +14,11 @@ export const exportTags = async (props: ExportTagsProps = {}) => {
   return (
     (
       await Tag.find({
-        where: props.where,
-        selectionSet: tagSelectionSet,
         options: {
           sort: [{ name: OGM_TYPES.SortDirection.Asc }],
         },
+        selectionSet: tagSelectionSet,
+        where: props.where,
       })
     )
       // Sort children values

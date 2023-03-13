@@ -8,7 +8,7 @@ type ModalInterfaceFormProps = React.PropsWithChildren<
 >
 
 export const ModalInterfaceForm = (props: ModalInterfaceFormProps) => {
-  const { submitRef, setIsLoading } = useContext(ModalForm.ModalFormContext)
+  const { setIsLoading, submitRef } = useContext(ModalForm.ModalFormContext)
 
   return (
     <InterfaceForm

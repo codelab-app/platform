@@ -32,7 +32,7 @@ const dropIndicatorRender = (dropPosition: 0 | 1) => {
 // the dnd position is changed, it causes massive lag
 export const BuilderDropHandler = observer<
   PropsWithChildren<BuilderDropHandlerProps>
->(({ element, children }) => {
+>(({ children, element }) => {
   const droppableId = useMemo(
     () => BuilderDropId.ElementTree + element.id,
     [element],
@@ -54,7 +54,7 @@ export const BuilderDropHandler = observer<
     }
   }, [element, dropPosition])
 
-  const { setNodeRef, isOver } = useCreateElementDroppable(
+  const { isOver, setNodeRef } = useCreateElementDroppable(
     { id: droppableId },
     createElementInput,
   )

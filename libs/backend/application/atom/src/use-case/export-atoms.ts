@@ -17,11 +17,11 @@ export const exportAtoms = async (
   return (
     (
       await Atom.find({
-        where: props.where,
-        selectionSet: atomSelectionSet,
         options: {
           sort: [{ name: OGM_TYPES.SortDirection.Asc }],
         },
+        selectionSet: atomSelectionSet,
+        where: props.where,
       })
     )
       // Sort nested properties, since we can't do this with OGM

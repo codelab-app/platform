@@ -9,7 +9,7 @@ export const CreateDomainButton = observer<
   PropsWithChildren<{
     domainService: IDomainService
   }>
->(({ domainService, children }) => {
+>(({ children, domainService }) => {
   const icon = !children && <PlusOutlined />
 
   const onClick = () => {

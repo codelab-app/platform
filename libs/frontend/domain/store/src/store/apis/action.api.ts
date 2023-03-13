@@ -59,7 +59,7 @@ type DeleteActionsRecord = Record<
 export const getActionsByStore = async (
   storeId: Maybe<string>,
 ): GetActionsReturnType => {
-  const { codeActions, apiActions } = await getActionApi.GetActions({ storeId })
+  const { apiActions, codeActions } = await getActionApi.GetActions({ storeId })
 
   return [...codeActions, ...apiActions]
 }

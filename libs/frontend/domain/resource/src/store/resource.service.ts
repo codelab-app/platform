@@ -77,7 +77,7 @@ export class ResourceService
   @transaction
   create = _async(function* (
     this: ResourceService,
-    { id, type, name, config: configData, owner }: ICreateResourceData,
+    { config: configData, id, name, owner, type }: ICreateResourceData,
   ) {
     const config = this.propService.add({
       data: JSON.stringify(configData),
@@ -135,7 +135,7 @@ export class ResourceService
   }
 
   @modelAction
-  add({ id, name, config, type, owner }: IResourceDTO) {
+  add({ config, id, name, owner, type }: IResourceDTO) {
     const resource = Resource.create({
       config,
       id,

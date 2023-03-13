@@ -6,7 +6,7 @@ import type { PropsWithChildren } from 'react'
 import React from 'react'
 
 export const DisplayIfKind = observer(
-  ({ kind, children }: PropsWithChildren<{ kind: ITypeKind }>) => (
+  ({ children, kind }: PropsWithChildren<{ kind: ITypeKind }>) => (
     <DisplayIfField<ICreateTypeData>
       condition={(context) => context.model.kind === kind}
     >

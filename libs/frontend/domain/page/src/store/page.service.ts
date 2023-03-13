@@ -81,7 +81,7 @@ export class PageService
   @transaction
   update = _async(function* (
     this: PageService,
-    { id, name, app, pageContentContainer }: IUpdatePageData,
+    { app, id, name, pageContentContainer }: IUpdatePageData,
   ) {
     const page = this.pages.get(id)!
 
@@ -116,7 +116,7 @@ export class PageService
   @transaction
   create = _async(function* (
     this: PageService,
-    { id, name, app }: ICreatePageData,
+    { app, id, name }: ICreatePageData,
   ) {
     const rootElementProps = this.propService.add({
       data: '{}',

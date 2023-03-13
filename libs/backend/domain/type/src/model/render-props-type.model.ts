@@ -17,11 +17,11 @@ export class RenderPropsType extends BaseType implements IRenderPropsType {
 
   declare owner: IOwner
 
-  private constructor({ id, name, kind, owner }: IRenderPropsType) {
+  private constructor({ id, kind, name, owner }: IRenderPropsType) {
     super({ __typename: ITypeKind.RenderPropsType, id, kind, name, owner })
   }
 
-  static init({ owner, id }: ICreateRenderPropsType) {
+  static init({ id, owner }: ICreateRenderPropsType) {
     return new RenderPropsType({
       __typename: ITypeKind.RenderPropsType,
       id,

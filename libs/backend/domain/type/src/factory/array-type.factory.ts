@@ -15,7 +15,7 @@ export class ArrayTypeFactory extends ITypeFactory<
   repository = new ArrayTypeRepository()
 
   async _create(
-    { id, owner, name }: ICreateArrayType,
+    { id, name, owner }: ICreateArrayType,
     where: BaseTypeUniqueWhereCallback<IArrayType>,
   ) {
     const arrayType = ArrayType.init({

@@ -21,7 +21,7 @@ export const BuilderContext = observer<
     builderService: IBuilderService
     elementTree: Maybe<IElementTree>
   }>
->(({ children, elementService, builderService, elementTree }) => {
+>(({ builderService, children, elementService, elementTree }) => {
   const { onDragEnd, onDragStart, sensors } = useBuilderDnd(
     builderService,
     elementService,

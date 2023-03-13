@@ -53,7 +53,7 @@ export class StoreService
   }
 
   @modelAction
-  add({ id, name, api, actions }: IStoreDTO) {
+  add({ actions, api, id, name }: IStoreDTO) {
     const store = new Store({
       actions: actions?.map((action) => actionRef(action.id)),
       api: typeRef(api.id) as Ref<IInterfaceType>,
@@ -108,7 +108,7 @@ export class StoreService
   @transaction
   update = _async(function* (
     this: StoreService,
-    { name, id }: IUpdateStoreData,
+    { id, name }: IUpdateStoreData,
   ) {
     const store = this.stores.get(id)!
 

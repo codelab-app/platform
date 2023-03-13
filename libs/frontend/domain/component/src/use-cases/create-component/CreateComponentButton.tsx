@@ -10,7 +10,7 @@ export type CreateComponentButtonProps = {
 } & React.ComponentProps<typeof Button>
 
 export const CreateComponentButton = observer<CreateComponentButtonProps>(
-  ({ componentService, className, title }) => {
+  ({ className, componentService, title }) => {
     return (
       <Button
         className={className}

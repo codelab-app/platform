@@ -28,8 +28,8 @@ interface MetaPaneProps {
 }
 
 export const ConfigPane = observer<MetaPaneProps>(
-  ({ renderService, elementTree }) => {
-    const { builderService, elementService, componentService } = useStore()
+  ({ elementTree, renderService }) => {
+    const { builderService, componentService, elementService } = useStore()
     const selectedNode = builderService.selectedNode
 
     const tabItems: TabsProps['items'] = [

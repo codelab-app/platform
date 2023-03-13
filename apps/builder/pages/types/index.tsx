@@ -52,7 +52,7 @@ const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
     query: { page, pageSize },
   } = useRouter()
 
-  const { userService, typeService, fieldService } = useStore()
+  const { fieldService, typeService, userService } = useStore()
 
   return (
     <>

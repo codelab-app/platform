@@ -13,8 +13,8 @@ import { interfaceTypeParser } from './parser/interface-type-parser'
  * Same file because interface has nested types that need resolution
  */
 export const upsertInterfaceFieldType: FieldTypeRef = async ({
-  field,
   atom,
+  field,
   userId,
 }) => {
   console.log('InterfaceTypeForApi', field, atom)

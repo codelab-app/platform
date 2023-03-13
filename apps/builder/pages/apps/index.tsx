@@ -54,8 +54,8 @@ const AppsPageHeader = observer(() => {
 })
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
-  const { userService, appService, domainService } = useStore()
-  const { loading, error, value } = useAsync(() => appService.getAll(), [])
+  const { appService, domainService, userService } = useStore()
+  const { error, loading, value } = useAsync(() => appService.getAll(), [])
   const { value: domains } = useAsync(() => domainService.getAll(), [])
 
   useEffect(() => {

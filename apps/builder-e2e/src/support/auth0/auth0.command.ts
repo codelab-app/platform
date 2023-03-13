@@ -33,14 +33,14 @@ export const loginByAuth0Api = () => {
       const claims = jwt_decode<any>(body.id_token)
 
       const {
-        nickname,
-        name,
-        picture,
-        updated_at,
         email,
         email_verified,
-        sub,
         exp,
+        name,
+        nickname,
+        picture,
+        sub,
+        updated_at,
       } = claims
 
       const item = {

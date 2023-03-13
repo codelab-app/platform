@@ -60,8 +60,8 @@ import { mapPrimitiveType } from '../mapper/ant-design-primitive-map'
  * @param values the is array of types for union (currently we filtered it to primitive types only)
  */
 export const upsertUnionFieldType: FieldTypeRef = async ({
-  field,
   atom,
+  field,
   userId,
 }) => {
   logger.info('Get Union Type', field.type)

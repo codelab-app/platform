@@ -17,7 +17,7 @@ export type ComponentContextMenuProps = ContextMenuProps &
   }
 
 export const ComponentContextMenu = observer<ComponentContextMenuProps>(
-  ({ deleteModal, onBlur, onClick, component }) => {
+  ({ component, deleteModal, onBlur, onClick }) => {
     const onDelete = () => {
       return deleteModal.open(componentRef(component.id))
     }

@@ -147,10 +147,10 @@ export const expectSelectPlaceholder =
 
 export const expectFormFieldValue = ({
   label,
-  type = FIELD_TYPE.INPUT,
-  value,
   placeholder,
   scrollIntoView = true,
+  type = FIELD_TYPE.INPUT,
+  value,
   ...options
 }: FormFieldValueOptions & CommonOptions) => {
   const shouldExpectValue = Boolean(
@@ -270,8 +270,8 @@ export const expectFormFields = (
     | Array<FormFieldValueOrErrorOptions>
     | Record<string, FormFieldValueOrErrorOptions>,
   {
-    values,
     errors,
+    values,
     ...options
   }: (
     | {
@@ -286,7 +286,7 @@ export const expectFormFields = (
     CommonOptions = {},
 ) => {
   const mergedFields = mergeFields(fields, { error: errors, value: values })
-  forEach(mergedFields, ({ value, placeholder, error, ...fieldSelector }) => {
+  forEach(mergedFields, ({ error, placeholder, value, ...fieldSelector }) => {
     if (!isUndefined(value) || !isUndefined(placeholder)) {
       expectFormFieldValue({ ...options, placeholder, value, ...fieldSelector })
     }

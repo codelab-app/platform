@@ -49,9 +49,9 @@ const clampSet = (
 }
 
 export const useBuilderResize = ({
-  width,
   selectedWidth,
   setCurrentBuilderWidth,
+  width,
 }: UseBuilderDragInput): UseBuilderResize => {
   const [isDragging, setIsDragging] = useState(false)
   const mWidth = useMotionValue(width?.default ?? 0)

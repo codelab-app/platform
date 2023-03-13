@@ -71,10 +71,10 @@ export class TypeService
   @transaction
   getBaseTypes = _async(function* (
     this: TypeService,
-    { offset, limit, where },
+    { limit, offset, where },
   ) {
     const {
-      baseTypes: { totalCount, items },
+      baseTypes: { items, totalCount },
     } = yield* _await(
       getTypeApi.GetBaseTypes({
         options: {
@@ -267,7 +267,7 @@ export class TypeService
     this: TypeService,
     ids: Array<string> = [],
   ) {
-    const { arrayTypes, unionTypes, interfaceTypes } = yield* _await(
+    const { arrayTypes, interfaceTypes, unionTypes } = yield* _await(
       getTypeApi.GetDescendants({ ids }),
     )
 

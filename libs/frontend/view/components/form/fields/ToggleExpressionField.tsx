@@ -73,8 +73,8 @@ const getBaseControl = (fieldProps: CodeMirrorConnectFieldProps) => {
 }
 
 const ToggleExpression = ({
-  mainProps,
   fieldProps,
+  mainProps,
 }: ToggleExpressionFieldProps) => {
   const { allowExpressions, appStore } = useFormContext()
 

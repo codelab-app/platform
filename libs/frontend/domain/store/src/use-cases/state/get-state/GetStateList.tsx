@@ -15,7 +15,7 @@ export interface GetStateTreeProps {
 }
 
 export const GetStateList = observer<GetStateTreeProps>(
-  ({ store, fieldService }) => {
+  ({ fieldService, store }) => {
     const api = store?.api.current as Maybe<IInterfaceType>
 
     return (

@@ -13,7 +13,7 @@ import React from 'react'
 
 const Index = (props: AppPagePageProps) => {
   const store = useStore()
-  const { pageId, appId, renderingData } = props
+  const { appId, pageId, renderingData } = props
 
   const { value } = useRenderedPage({
     appId,
@@ -23,7 +23,7 @@ const Index = (props: AppPagePageProps) => {
     renderService: store.appRenderService,
   })
 
-  const { renderer, page } = value ?? {}
+  const { page, renderer } = value ?? {}
 
   return (
     <>

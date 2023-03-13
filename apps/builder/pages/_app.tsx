@@ -21,7 +21,7 @@ import { GlobalStyles } from 'twin.macro'
 import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
 import { slickCssFix } from '../src/styles/slick/Slick'
 
-const App = ({ pageProps, Component }: IAppProps<IPageProps>) => {
+const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
   const store = useMemo(() => initializeStore(pageProps), [])
 
   const { Layout = ({ children }: PropsWithChildren) => <>{children}</> } =

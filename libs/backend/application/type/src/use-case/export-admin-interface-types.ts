@@ -22,16 +22,17 @@ export const exportAdminInterfaceTypes = async (): Promise<
   const InterfaceType = await Repository.instance.InterfaceType
 
   const interfaceTypes = await InterfaceType.find({
+    options: {
+      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+    },
+
+    selectionSet: exportInterfaceTypeSelectionSet,
     // Where it is assigned to atom
     where: {
       apiOfAtomsAggregate: {
         count_GTE: 0,
       },
     },
-    options: {
-      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
-    },
-    selectionSet: exportInterfaceTypeSelectionSet,
   })
 
   /**

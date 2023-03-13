@@ -13,7 +13,7 @@ import { GetPagesItem } from './GetPagesItem'
 export const GetPagesList = observer<{
   pageService: IPageService
   domainService: IDomainService
-}>(({ pageService, domainService }) => {
+}>(({ domainService, pageService }) => {
   const appId = useCurrentAppId()
 
   const { loading } = useAsync(

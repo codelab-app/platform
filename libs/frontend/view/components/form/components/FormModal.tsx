@@ -10,11 +10,11 @@ import React, { useRef } from 'react'
 export const FormModal = <
   TData extends Record<string, unknown> = Record<string, unknown>,
 >({
-  okButtonProps,
-  onOk,
-  onCancel,
-  okText,
   children,
+  okButtonProps,
+  okText,
+  onCancel,
+  onOk,
   open,
 }: PropsWithChildren<FormModalProps<TData>>) => {
   // This is the controller that will do the form submission, create by the modal and passed down to the form

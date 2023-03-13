@@ -55,7 +55,7 @@ interface TooltipIconProps {
   icon: ReactNode
 }
 
-const TooltipIcon = ({ title, icon }: TooltipIconProps) => {
+const TooltipIcon = ({ icon, title }: TooltipIconProps) => {
   return (
     <Tooltip
       css={css`
@@ -71,7 +71,7 @@ const TooltipIcon = ({ title, icon }: TooltipIconProps) => {
 }
 
 export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
-  ({ UpdateElementContent, elementTree, renderService }) => {
+  ({ elementTree, renderService, UpdateElementContent }) => {
     const { builderService, elementService, pageService } = useStore()
     const selectedNode = builderService.selectedNode
     const trackPromises = useTrackLoadingPromises()
