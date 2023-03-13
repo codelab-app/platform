@@ -1,6 +1,6 @@
 /// <reference types='jest'/>
 
-import type { IAnyType } from '@codelab/frontend/abstract/core'
+import type { IType } from '@codelab/frontend/abstract/core'
 import {
   componentRef,
   CUSTOM_TEXT_PROP_KEY,
@@ -185,7 +185,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     })
 
     const typeService = new TypeService({
-      types: objectMap<IAnyType>([
+      types: objectMap<IType>([
         [data.primitiveType.id, data.primitiveType],
         [data.renderPropsType.id, data.renderPropsType],
         [data.reactNodeType.id, data.reactNodeType],

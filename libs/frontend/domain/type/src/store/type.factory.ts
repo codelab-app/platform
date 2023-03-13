@@ -1,8 +1,8 @@
 import type {
-  IAnyType,
   IArrayTypeDTO,
   ICreateTypeData,
   IInterfaceTypeDTO,
+  IType,
   ITypeDTO,
   IUnionTypeDTO,
   IUpdateTypeData,
@@ -26,7 +26,7 @@ import {
 } from './models'
 
 export class TypeFactory {
-  static create(typeDTO: ITypeDTO): IAnyType {
+  static create(typeDTO: ITypeDTO): IType {
     switch (typeDTO.__typename) {
       case ITypeKind.AppType:
         return AppType.create(typeDTO)
@@ -72,7 +72,7 @@ export class TypeFactory {
     }
   }
 
-  static writeCache(typeDTO: ITypeDTO, model: IAnyType): IAnyType {
+  static writeCache(typeDTO: ITypeDTO, model: IType): IType {
     switch (typeDTO.__typename) {
       case ITypeKind.AppType:
         model.kind === ITypeKind.AppType && model.writeCache(typeDTO)
