@@ -1,43 +1,49 @@
-import type { IUser } from '@codelab/backend/abstract/core'
 import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   Repository,
   userSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
+import type { IUserDTO } from '@codelab/frontend/abstract/core'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { UserWhere } from '@codelab/shared/abstract/types'
 
-export class UserRepository extends AbstractRepository<IUser> {
+export class UserRepository extends AbstractRepository<
+  IUserDTO,
+  OGM_TYPES.User,
+  OGM_TYPES.UserWhere
+> {
   private User = Repository.instance.User
 
   async find(where: UserWhere) {
-    return (
-      await (
-        await this.User
-      ).find({
-        selectionSet: userSelectionSet,
-        where,
-      })
-    )[0]
+    return await (
+      await this.User
+    ).find({
+      selectionSet: userSelectionSet,
+      where,
+    })
   }
 
-  protected async _add(users: Array<IUser>) {
+  protected async _add(users: Array<IUserDTO>) {
     return (
       await (
         await this.User
       ).create({
-        input: users.map((user) => ({
+        input: users.map(({ apps, ...user }) => ({
           ...user,
         })),
       })
     ).users
   }
 
-  protected async _update({ id, ...user }: IUser, where: UserWhere) {
+  protected async _update({ apps, id, ...user }: IUserDTO, where: UserWhere) {
     return (
       await (
         await this.User
       ).update({
-        update: user,
+        update: {
+          ...user,
+          // apps: apps.map((app) => connectNodeId(app.id)),
+        },
         where,
       })
     ).users[0]

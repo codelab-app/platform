@@ -11,14 +11,14 @@ import type { IInterfaceType } from '../type'
 import type { IStoreDTO } from './store.dto.interface'
 
 export interface IStore extends ICacheService<IStoreDTO, IStore> {
+  actions: Array<Ref<IAction>>
+  api: Ref<IInterfaceType>
   id: string
   name: string
-  api: Ref<IInterfaceType>
-  actions: Array<Ref<IAction>>
   state: IProp
   toCreateInput(): StoreCreateInput
-  toUpdateInput(): StoreUpdateInput
   toDeleteInput(): StoreDeleteInput
+  toUpdateInput(): StoreUpdateInput
 }
 
 export type IStoreRef = string

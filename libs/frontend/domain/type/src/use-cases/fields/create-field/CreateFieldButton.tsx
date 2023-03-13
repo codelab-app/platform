@@ -9,8 +9,8 @@ import type { InterfaceType } from '../../../store'
 import { typeRef } from '../../../store'
 
 export interface CreateFieldButtonProps {
-  interfaceId?: string
   fieldService: IFieldService
+  interfaceId?: string
 }
 
 export const CreateFieldButton = observer<CreateFieldButtonProps>(

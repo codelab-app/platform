@@ -9,28 +9,28 @@ import type {
 import type { IAtomType } from '@codelab/shared/abstract/core'
 
 export interface AtomLibrary {
-  name: string
   color: string
+  name: string
 }
 
 export interface AtomRecord {
-  id: string
-  name: string
-  type: IAtomType
-  tags: Array<ITag>
-  apiId: IInterfaceTypeRef
-  library: AtomLibrary
   allowedChildren: Array<Pick<IAtomDTO, 'id' | 'name'>>
+  apiId: IInterfaceTypeRef
+  id: string
+  library: AtomLibrary
+  name: string
+  tags: Array<ITag>
+  type: IAtomType
 }
 
-export type ActionColumnProps = {
+export type ActionColumnProps = AtomRecordProps & {
   atomService: IAtomService
-} & AtomRecordProps
+}
 
-export type PropsColumnProps = {
+export type PropsColumnProps = AtomRecordProps & {
   fieldService: IFieldService
   typeService: ITypeService
-} & AtomRecordProps
+}
 
 /**
  * Passed as 2nd argument in table render function, shared across columns

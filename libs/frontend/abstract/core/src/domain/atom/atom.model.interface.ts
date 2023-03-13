@@ -20,11 +20,11 @@ export interface IAtom extends ICacheService<IAtomDTO, IAtom>, IOwnerSchema {
    */
   allowedChildren: Array<Ref<IAtom>>
   api: Ref<IInterfaceType>
+  icon?: string | null
   id: string
   name: string
   tags: Array<Ref<ITag>>
   type: IAtomType
-  icon?: string | null
 
   toCreateInput(): AtomCreateInput
   toUpdateInput(): AtomUpdateInput

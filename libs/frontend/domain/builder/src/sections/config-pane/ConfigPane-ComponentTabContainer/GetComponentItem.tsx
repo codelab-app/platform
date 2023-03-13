@@ -52,8 +52,8 @@ export const DraggableGetComponentItem = ({
 }
 
 interface GetComponentItemProps {
-  component: Pick<IBuilderComponent, 'icon' | 'name'>
   className?: string
+  component: Pick<IBuilderComponent, 'icon' | 'name'>
 }
 
 export const GetComponentItem = ({

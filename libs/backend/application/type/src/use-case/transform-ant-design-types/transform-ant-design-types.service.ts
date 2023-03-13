@@ -33,8 +33,8 @@ import {
 } from '../../parser'
 
 interface Request {
-  field: Pick<AntDesignField, 'type' | 'property'>
   atom: IAtomDTO
+  field: Pick<AntDesignField, 'property' | 'type'>
   owner: IOwner
 }
 

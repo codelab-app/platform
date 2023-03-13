@@ -27,15 +27,13 @@ export interface IPageService
   extends ICRUDService<IPage, ICreatePageData, IUpdatePageData>,
     IQueryService<IPage, PageWhere, PageOptions>,
     ICRUDModalService<Ref<IPage>, { page: Maybe<IPage> }> {
+  pageFactory: IPageFactory
+  pageRepository: IPageRepository
   pages: ObjectMap<IPage>
   pagesList: Array<IPage>
 
-  pageRepository: IPageRepository
-  pageFactory: IPageFactory
-
+  add(pageDTO: IPageDTO): IPage
+  getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>
   page(id: string): Maybe<IPage>
   pagesByApp(appId: string): Array<IPage>
-  getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>
-
-  add(pageDTO: IPageDTO): IPage
 }

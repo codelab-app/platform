@@ -2,7 +2,7 @@ import { chooseSelectDropdownOption } from '../form/form.commands'
 import { logAndMute } from '../utils'
 
 export const selectPageSize = (
-  size: string | number,
+  size: number | string,
   options?: Partial<Cypress.Loggable>,
 ) => {
   const opts = logAndMute('selectPageSize', size.toString(), options)
@@ -11,7 +11,7 @@ export const selectPageSize = (
 }
 
 export const selectPage = (
-  page: string | number,
+  page: number | string,
   options?: Partial<Cypress.Loggable>,
 ) => {
   const opts = logAndMute('selectPage', page.toString(), options)

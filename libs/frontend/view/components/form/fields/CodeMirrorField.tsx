@@ -7,7 +7,7 @@ import { wrapField } from 'uniforms-antd'
 import type { CodeMirrorEditorProps } from '../../codeMirror'
 import { CodeMirrorEditor } from '../../codeMirror'
 
-export type Value = string | number | boolean | undefined
+export type Value = boolean | number | string | undefined
 
 export type MainPropsOnChange = (
   value: Value,

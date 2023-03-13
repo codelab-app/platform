@@ -1,3 +1,6 @@
-import type { PageTypeFragment } from '../../fragments'
+import type { ITypeKind } from '@codelab/shared/abstract/core'
+import type { IBaseTypeDTO } from '../base-type'
 
-export type IPageTypeDTO = PageTypeFragment
+export interface IPageTypeDTO extends IBaseTypeDTO {
+  __typename: `${ITypeKind.PageType}`
+}

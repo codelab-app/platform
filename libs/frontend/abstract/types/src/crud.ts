@@ -1,9 +1,9 @@
 export interface DeleteButtonProps<TEntity = unknown> {
-  ids: Array<string>
-  entity?: TEntity
   disabled?: boolean
+  entity?: TEntity
+  ids: Array<string>
 }
 export interface UpdateButtonProps {
-  id: string
   disabled?: boolean
+  id: string
 }

@@ -6,6 +6,11 @@ import type { IBuilderService } from './builder.service.interface'
 import type { IRenderer, RendererType } from './renderer.model.interface'
 
 export interface RendererProps {
+  appStore: IStore
+  /**
+   * This is the elementTree we are rendering, could be a page tree or a component tree
+   */
+  elementTree: IElementTree
   // Renderer id, could be page id or component id etc
   id: string
   /**
@@ -14,16 +19,12 @@ export interface RendererProps {
    * But if we render a component, we don't need it
    */
   providerTree?: Nullable<IElementTree>
-  appStore: IStore
-  /**
-   * This is the elementTree we are rendering, could be a page tree or a component tree
-   */
-  elementTree: IElementTree
   rendererType: RendererType
   setSelectedNode?: IBuilderService['setSelectedNode']
 }
 
 export interface IRenderService {
   renderers: ObjectMap<IRenderer>
+
   addRenderer(props: RendererProps): Promise<IRenderer>
 }

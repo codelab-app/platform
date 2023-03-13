@@ -50,7 +50,7 @@ export class SeedAtomsService extends IUseCase<IOwner, void> {
    */
   async createAtomsData(owner: IOwner): Promise<Array<IAtomDTO>> {
     const existingInterfaceTypes = new Map(
-      (await this.interfaceTypeRepository.all()).map((interfaceType) => [
+      (await this.interfaceTypeRepository.find()).map((interfaceType) => [
         interfaceType.name,
         interfaceType,
       ]),
@@ -68,7 +68,7 @@ export class SeedAtomsService extends IUseCase<IOwner, void> {
           : InterfaceType.createFromAtomName(atomType, owner)
 
         // Get tags by name, they always match up
-        const existingTag = await this.tagRepository.find({
+        const existingTag = await this.tagRepository.findOne({
           name: atomData?.tag ?? '',
         })
 

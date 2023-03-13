@@ -17,7 +17,7 @@ export const getNotification = (
 export const getNotificationTitle = ({
   text,
   ...options
-}: { text?: Label } & CommonOptions = {}) =>
+}: CommonOptions & { text?: Label } = {}) =>
   find(
     '.ant-notification-notice:visible .ant-notification-notice-message',
     text,
@@ -27,7 +27,7 @@ export const getNotificationTitle = ({
 export const getNotificationBody = ({
   text,
   ...options
-}: { text?: Label } & CommonOptions = {}) =>
+}: CommonOptions & { text?: Label } = {}) =>
   find(
     '.ant-notification-notice:visible .ant-notification-notice-description',
     text,
@@ -38,7 +38,7 @@ export const expectNotification = ({
   body,
   title,
   ...options
-}: { title?: Label; body?: Label } & CommonOptions = {}) => {
+}: CommonOptions & { body?: Label; title?: Label } = {}) => {
   const opts = logAndMute(
     'expectNotification',
     JSON.stringify(pickBy({ body, title }, Boolean)),

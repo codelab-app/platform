@@ -16,36 +16,34 @@ import type {
   ITypeDTO,
   IUpdateTypeData,
 } from './type.dto.interface'
-import type { IAnyType, IInterfaceType, IInterfaceTypeRef } from './types'
+import type { IType, IInterfaceType, IInterfaceTypeRef } from './types'
 
 export interface BaseTypesOptions {
-  offset?: number
   limit?: number
+  offset?: number
   where?: {
     name: string
   }
 }
 
 export interface ITypeService
-  extends ICRUDService<IAnyType, ICreateTypeData, IUpdateTypeData>,
-    IQueryService<IAnyType, BaseTypeWhere, BaseTypeOptions>,
-    ICRUDModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }> {
-  types: ObjectMap<IAnyType>
-  typesList: Array<IAnyType>
-  selectedIds: ArraySet<string>
+  extends ICRUDService<IType, ICreateTypeData, IUpdateTypeData>,
+    IQueryService<IType, BaseTypeWhere, BaseTypeOptions>,
+    ICRUDModalService<Ref<IType>, { type: Maybe<IType> }> {
   count: number
+  selectedIds: ArraySet<string>
+  types: ObjectMap<IType>
+  typesList: Array<IType>
 
+  add(type: ITypeDTO): IType
+  addInterface(data: ICreateTypeData): IInterfaceType
+  getAllWithDescendants(ids: Array<string>): Promise<Array<IType>>
   getBaseTypes(options: BaseTypesOptions): Promise<Array<string>>
   getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>
-  type(id: string): Maybe<IAnyType>
+  loadFields(types: GetTypesQuery['interfaceTypes']): void
+  loadTypes(types: GetTypesQuery): Array<IType>
+  loadTypesByChunks(types: GetTypesQuery): void
   primitiveKind(id: string): Nullable<IPrimitiveTypeKind>
   setSelectedIds(ids: ArraySet<string>): void
-  getAllWithDescendants(ids: Array<string>): Promise<Array<IAnyType>>
-  loadTypes(types: GetTypesQuery): Array<IAnyType>
-  loadFields(types: GetTypesQuery['interfaceTypes']): void
-  loadTypesByChunks(types: GetTypesQuery): void
-  // add(data: ICreateTypeDTO): IAnyType
-  // create(data: ICreateTypeDTO): IAnyType
-  addInterface(data: ICreateTypeData): IInterfaceType
-  add(type: ITypeDTO): IAnyType
+  type(id: string): Maybe<IType>
 }

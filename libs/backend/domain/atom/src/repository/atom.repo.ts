@@ -4,6 +4,7 @@ import {
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { IAtomDTO } from '@codelab/frontend/abstract/core'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import {
   connectAuth0Owner,
@@ -14,26 +15,20 @@ import {
   whereNodeIds,
 } from '@codelab/shared/domain/mapper'
 
-export class AtomRepository extends AbstractRepository<IAtomDTO> {
+export class AtomRepository extends AbstractRepository<
+  IAtomDTO,
+  OGM_TYPES.Atom,
+  OGM_TYPES.AtomWhere
+> {
   private Atom = Repository.instance.Atom
 
-  async all() {
+  async find(where: OGM_TYPES.AtomWhere) {
     return await (
       await this.Atom
     ).find({
       selectionSet: atomSelectionSet,
+      where,
     })
-  }
-
-  async find(where: BaseTypeUniqueWhere = {}) {
-    return (
-      await (
-        await this.Atom
-      ).find({
-        selectionSet: atomSelectionSet,
-        where,
-      })
-    )[0]
   }
 
   /**
@@ -61,7 +56,7 @@ export class AtomRepository extends AbstractRepository<IAtomDTO> {
 
   protected async _update(
     { allowedChildren = [], api, owner, tags, ...atom }: IAtomDTO,
-    where: BaseTypeUniqueWhere,
+    where: OGM_TYPES.AtomWhere,
   ) {
     return (
       await (

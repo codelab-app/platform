@@ -10,13 +10,13 @@ import {
 } from './dropdown.command'
 
 export interface AntDropdownCommands {
+  closeDropdown: typeof closeDropdown
+  expectDropdownToClose: typeof expectDropdownToClose
+  expectDropdownToOpen: typeof expectDropdownToOpen
   getDropdown: typeof getDropdown
   getDropdownItem: typeof getDropdownItem
-  selectDropdownItem: typeof selectDropdownItem
   openDropdown: typeof openDropdown
-  closeDropdown: typeof closeDropdown
-  expectDropdownToOpen: typeof expectDropdownToOpen
-  expectDropdownToClose: typeof expectDropdownToClose
+  selectDropdownItem: typeof selectDropdownItem
 }
 
 export const antDropdownCommands: Array<CypressCommand> = [

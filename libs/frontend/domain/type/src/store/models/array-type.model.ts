@@ -1,6 +1,7 @@
-import type { IAnyType, IArrayType } from '@codelab/frontend/abstract/core'
+import type { IArrayType, IType } from '@codelab/frontend/abstract/core'
 import { IArrayTypeDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { connectNodeId, makeAllTypes } from '@codelab/shared/domain/mapper'
 import merge from 'lodash/merge'
 import type { Ref } from 'mobx-keystone'
@@ -19,30 +20,30 @@ const create = ({
   assertIsTypeKind(kind, ITypeKind.ArrayType)
 
   return new ArrayType({
-    id: id,
-    itemType: typeRef(itemType.id),
-    kind: kind,
-    name: name,
-    owner: owner,
+    id,
+    itemType: itemType ? typeRef(itemType.id) : null,
+    kind,
+    name,
+    owner,
   })
 }
 
 @model('@codelab/ArrayType')
 export class ArrayType
   extends ExtendedModel(createBaseType(ITypeKind.ArrayType), {
-    itemType: prop<Ref<IAnyType>>(),
+    itemType: prop<Nullable<Ref<IType>>>(null),
   })
   implements IArrayType
 {
   @modelAction
-  add(fragment: ITypeDTO) {
-    updateBaseTypeCache(this, fragment)
+  add(typeDTO: ITypeDTO) {
+    updateBaseTypeCache(this, typeDTO)
 
-    if (fragment.__typename !== ITypeKind.ArrayType) {
+    if (typeDTO.__typename !== ITypeKind.ArrayType) {
       throw new Error('Invalid ArrayType')
     }
 
-    this.itemType = typeRef(fragment.itemType.id)
+    this.itemType = typeDTO.itemType ? typeRef(typeDTO.itemType.id) : null
 
     return this
   }
@@ -57,7 +58,7 @@ export class ArrayType
   toCreateInput() {
     return {
       ...super.toCreateInput(),
-      itemType: makeAllTypes(connectNodeId(this.itemType.id)),
+      itemType: makeAllTypes(connectNodeId(this.itemType?.id)),
     }
   }
 
@@ -65,11 +66,11 @@ export class ArrayType
     return merge(super.toUpdateInput(), {
       disconnect: {
         itemType: makeAllTypes({
-          where: { node: { id_NOT: this.itemType.id } },
+          where: { node: { id_NOT: this.itemType?.id } },
         }),
       },
       update: {
-        itemType: makeAllTypes(connectNodeId(this.itemType.id)),
+        itemType: makeAllTypes(connectNodeId(this.itemType?.id)),
       },
     })
   }

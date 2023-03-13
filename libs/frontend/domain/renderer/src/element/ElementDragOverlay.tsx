@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const ElementDragOverlay = (
-  children: React.ReactElement | Array<React.ReactElement>,
+  children: Array<React.ReactElement> | React.ReactElement,
 ) => {
   return React.createElement('div', {
     children,

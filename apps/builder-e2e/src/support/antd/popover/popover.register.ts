@@ -3,8 +3,8 @@ import { getPopover, hidePopover, showPopover } from './popover.command'
 
 export interface AntPopoverCommands {
   getPopover: typeof getPopover
-  showPopover: typeof showPopover
   hidePopover: typeof hidePopover
+  showPopover: typeof showPopover
 }
 
 export const antPopoverCommands: Array<CypressCommand> = [

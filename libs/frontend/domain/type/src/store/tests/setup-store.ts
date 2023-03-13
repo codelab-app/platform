@@ -1,4 +1,4 @@
-import type { IAnyType } from '@codelab/frontend/abstract/core'
+import type { IType } from '@codelab/frontend/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { objectMap } from 'mobx-keystone'
@@ -90,7 +90,7 @@ export const rootStore = new TestRootStore({
     ]),
   }),
   typeService: new TypeService({
-    types: objectMap<IAnyType>([
+    types: objectMap<IType>([
       [unionType.id, unionType],
       [interfaceWithUnionField.id, interfaceWithUnionField],
       [intType.id, intType],

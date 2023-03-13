@@ -16,8 +16,8 @@ import {
 } from '../use-cases'
 
 export const ExplorerPanePage = observer<{
-  pageService: IPageService
   domainService: IDomainService
+  pageService: IPageService
   userService: IUserService
 }>(({ domainService, pageService, userService }) => {
   const router = useRouter()

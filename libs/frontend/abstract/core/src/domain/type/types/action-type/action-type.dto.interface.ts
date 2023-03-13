@@ -1,3 +1,6 @@
-import type { ActionTypeFragment } from '../../fragments'
+import type { ITypeKind } from '@codelab/shared/abstract/core'
+import type { IBaseTypeDTO } from '../base-type'
 
-export type IActionTypeDTO = ActionTypeFragment
+export interface IActionTypeDTO extends IBaseTypeDTO {
+  __typename: `${ITypeKind.ActionType}`
+}

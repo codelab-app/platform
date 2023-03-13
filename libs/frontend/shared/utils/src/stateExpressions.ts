@@ -75,11 +75,12 @@ export const getByExpression = (key: string, context: IPropData) => {
 interface ExpressionTransformer {
   initialized: boolean
   transform: Nullable<(code: string) => { code: string | null }>
-  init: () => Promise<void>
-  transpileAndEvaluateExpression: (
+
+  init(): Promise<void>
+  transpileAndEvaluateExpression(
     expression: string,
     evaluationContext: IPropData,
-  ) => unknown
+  ): unknown
 }
 
 export const expressionTransformer: ExpressionTransformer = {
@@ -108,7 +109,7 @@ export const expressionTransformer: ExpressionTransformer = {
     try {
       const wrappedExpression = `(function getResult() {
             const { React } = this
-      
+
             return ${stripStateExpression(expression)}
           }).call(this)`
 

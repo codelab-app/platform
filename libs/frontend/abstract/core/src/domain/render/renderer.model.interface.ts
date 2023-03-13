@@ -10,6 +10,7 @@ export interface IBaseRenderer {
    * - page, component etc
    */
   renderers: ObjectMap<IRenderer>
+
   initRenderer(
     id: string,
     pageTree: IElementTree,

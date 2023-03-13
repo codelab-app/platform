@@ -2,8 +2,8 @@ import * as env from 'env-var'
 
 interface EnvLanding {
   mailchimp: {
-    list_id: string
     api_key: string
+    list_id: string
     server_prefix: string
   }
 }

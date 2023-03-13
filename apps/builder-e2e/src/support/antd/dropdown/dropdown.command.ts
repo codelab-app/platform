@@ -10,8 +10,8 @@ export const getDropdown = (
 export const getDropdownItem = (
   label: Label,
   options?:
-    | Partial<Cypress.Loggable>
-    | Partial<Cypress.Loggable & Cypress.Timeoutable>,
+    | Partial<Cypress.Loggable & Cypress.Timeoutable>
+    | Partial<Cypress.Loggable>,
 ) => getDropdown(options).contains('.ant-dropdown-menu-item', label, options)
 
 export const selectDropdownItem = (

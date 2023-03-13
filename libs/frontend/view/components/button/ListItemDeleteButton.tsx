@@ -5,7 +5,7 @@ import { ListItemButton } from './ListItemButton'
 
 export type ListItemDeleteButtonProps = Omit<
   ListItemButtonProps,
-  'icon' | 'danger'
+  'danger' | 'icon'
 >
 
 export const ListItemDeleteButton = (props: ListItemDeleteButtonProps) => {

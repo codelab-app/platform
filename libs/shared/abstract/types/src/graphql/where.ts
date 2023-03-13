@@ -1,16 +1,16 @@
 export type BaseUniqueWhere =
   | {
-      id: string
+      [key: string]: unknown
     }
   | {
-      [key: string]: unknown
+      id: string
     }
 
 export type BaseTypeUniqueWhere =
+  | BaseUniqueWhere
   | {
       name: string
     }
-  | BaseUniqueWhere
 
 export type UserWhere =
   | BaseUniqueWhere

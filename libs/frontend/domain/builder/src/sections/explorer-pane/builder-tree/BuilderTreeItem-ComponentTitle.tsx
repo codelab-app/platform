@@ -11,9 +11,9 @@ import React from 'react'
 import tw from 'twin.macro'
 
 interface BuilderTreeItemComponentTitleProps {
+  builderService: IBuilderService
   component: IComponent
   elementService: IElementService
-  builderService: IBuilderService
 }
 
 export const BuilderTreeItemComponentTitle = observer(

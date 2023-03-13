@@ -146,7 +146,7 @@ export const typeSchema = gql`
     name: String!
     owner: User!
     descendantTypesIds: [ID!]!
-    itemType: AnyType!
+    itemType: IBaseType!
       @relationship(
         type: "ARRAY_ITEM_TYPE",
         direction: OUT,

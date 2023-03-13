@@ -6,9 +6,9 @@ import React, { useEffect, useMemo } from 'react'
 import { Builder } from './Builder'
 
 export interface BaseBuilderProps {
+  builderTabsWidth?: number
   elementTree: IElementTree
   renderer: IRenderer
-  builderTabsWidth?: number
 }
 
 export const BaseBuilder = observer<BaseBuilderProps>(

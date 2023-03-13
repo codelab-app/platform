@@ -4,4 +4,4 @@ export type IStoreExport = Omit<OGM_TYPES.Store, 'actions'> & {
   actions: Array<IActionExport>
 }
 
-export type IActionExport = OGM_TYPES.CodeAction | OGM_TYPES.ApiAction
+export type IActionExport = OGM_TYPES.ApiAction | OGM_TYPES.CodeAction

@@ -6,10 +6,10 @@ import React from 'react'
 import tw from 'twin.macro'
 
 export interface ITutorialsItem {
-  image: string
-  title: string
   description: string
+  image: string
   tags: Array<string>
+  title: string
 }
 
 export interface TutorialsBodyProps {

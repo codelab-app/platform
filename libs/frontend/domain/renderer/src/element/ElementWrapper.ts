@@ -21,13 +21,13 @@ import {
 } from './wrapper.utils'
 
 export interface ElementWrapperProps {
-  renderService: IRenderer
   element: IElement
   /**
    * Props passed in from outside the component
    */
   extraProps?: IPropData
   postAction?: Nullish<() => unknown>
+  renderService: IRenderer
 }
 
 /**

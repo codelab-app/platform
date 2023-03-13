@@ -2,8 +2,8 @@ import { NextSeo } from 'next-seo'
 import React from 'react'
 
 interface SeoHeadProps {
-  title: string
   description: string
+  title: string
 }
 
 export const SeoHead = ({ description, title }: SeoHeadProps) => (

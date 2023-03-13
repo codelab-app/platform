@@ -5,7 +5,7 @@ import tw from 'twin.macro'
 import { z } from 'zod'
 
 interface EmailModalProps extends Omit<ModalProps, 'onOk'> {
-  onOk: (email: string) => void
+  onOk(email: string): void
 }
 
 export const EmailModal = ({ onCancel, onOk, open }: EmailModalProps) => {

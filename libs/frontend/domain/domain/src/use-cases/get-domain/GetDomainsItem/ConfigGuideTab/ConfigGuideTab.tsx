@@ -5,8 +5,8 @@ import tw from 'twin.macro'
 import { ARecordTabContent } from './TabContent/ARecord'
 
 interface ConfigGuideTabProps {
-  type: 'ARecord' | 'CName'
   domain: IDomain
+  type: 'ARecord' | 'CName'
 }
 
 export const ConfigGuide = ({ domain, type }: ConfigGuideTabProps) => {

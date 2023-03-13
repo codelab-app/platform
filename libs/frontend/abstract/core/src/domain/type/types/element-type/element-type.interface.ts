@@ -18,6 +18,6 @@ import type { IElementTypeDTO } from './element-type.dto.interface'
  *
  */
 export interface IElementType extends IBaseType<IElementTypeDTO> {
-  kind: ITypeKind.ElementType
   elementKind: IElementTypeKind
+  kind: ITypeKind.ElementType
 }

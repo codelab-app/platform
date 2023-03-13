@@ -8,45 +8,40 @@ import type { Callback } from '../utils'
 
 export type VoidCallback<TInput> = ArrayOrSingle<Callback<TInput, void>>
 
-export type FormProps<TData, TResponse = unknown> = {
-  cssString?: CSSInterpolation
-  /**
-   * Called after a successful submit
-   */
-  onSubmitSuccess?: VoidCallback<TResponse>
-
-  /**
-   * Called after a failed submit, the input is unknown error
-   */
-  onSubmitError?: VoidCallback<unknown>
-
-  /**
-   * Don't use `DeepPartial` even Uniform uses it
-   */
-  onSubmit: (model: TData) => Promise<TResponse | void>
-
-  /**
-   * Schema used for form generation.
-   *
-   * If you pass a schema object a default {@see Ajv} validator is created from it.
-   *
-   * Pass a Bridge to to customize the process of creating a bridge from a schema (custom validations, dynamic schema, etc)
-   *  Pass either schema or bridge
-   */
-  schema: JSONSchemaType<TData> | Bridge
-} & SubmitRef &
-  /**
-   * By limiting the interface surface area, we can more easily understand behavior by requiring the least features to complete our use cases
-   */
-  // We require the model since update & delete requires them
-  Pick<AutoFormProps<TData>, 'model'> &
-  // Then these are additional options
-  Partial<
-    Pick<
-      AutoFormProps<TData>,
-      'autosave' | 'onChange' | 'onChangeModel' | 'submitField'
-    >
+export type FormProps<TData, TResponse = unknown> = Partial<
+  Pick<
+    AutoFormProps<TData>,
+    'autosave' | 'onChange' | 'onChangeModel' | 'submitField'
   >
+> &
+  Pick<AutoFormProps<TData>, 'model'> &
+  SubmitRef & {
+    cssString?: CSSInterpolation
+    /**
+     * Don't use `DeepPartial` even Uniform uses it
+     */
+    onSubmit(model: TData): Promise<TResponse | void>
+
+    /**
+     * Called after a failed submit, the input is unknown error
+     */
+    onSubmitError?: VoidCallback<unknown>
+
+    /**
+     * Called after a successful submit
+     */
+    onSubmitSuccess?: VoidCallback<TResponse>
+
+    /**
+     * Schema used for form generation.
+     *
+     * If you pass a schema object a default {@see Ajv} validator is created from it.
+     *
+     * Pass a Bridge to to customize the process of creating a bridge from a schema (custom validations, dynamic schema, etc)
+     *  Pass either schema or bridge
+     */
+    schema: Bridge | JSONSchemaType<TData>
+  }
 
 /**
  * Use this to be able to hide the submit button and get a controller, which can trigger form submit.
@@ -61,5 +56,5 @@ export interface SubmitRef {
 
 /** This object is used to control form submission imperatively */
 export interface SubmitController {
-  submit: () => void
+  submit(): void
 }

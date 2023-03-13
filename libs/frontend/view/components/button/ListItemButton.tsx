@@ -2,10 +2,11 @@ import type { ButtonProps } from 'antd/lib/button/button'
 import Button from 'antd/lib/button/button'
 import React from 'react'
 
-export type ListItemButtonProps = Required<
-  Pick<ButtonProps, 'icon' | 'onClick'>
+export type ListItemButtonProps = Pick<
+  ButtonProps,
+  'children' | 'danger' | 'disabled' | 'loading' | 'title'
 > &
-  Pick<ButtonProps, 'danger' | 'title' | 'children' | 'loading' | 'disabled'>
+  Required<Pick<ButtonProps, 'icon' | 'onClick'>>
 
 export const ListItemButton = ({
   danger,

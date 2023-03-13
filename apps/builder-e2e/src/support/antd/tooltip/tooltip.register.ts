@@ -2,8 +2,8 @@ import type { CypressCommand } from '../../types'
 import { expectTooltip, getTooltip, shouldHaveTooltip } from './tooltip.command'
 
 export interface AntTooltipCommands {
-  getTooltip: typeof getTooltip
   expectTooltip: typeof expectTooltip
+  getTooltip: typeof getTooltip
   shouldHaveTooltip: typeof shouldHaveTooltip
 }
 

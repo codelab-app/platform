@@ -2,13 +2,14 @@
 
 import type { IAdminService } from '@codelab/backend/domain/admin'
 import type { IUserModel, IUserRepository } from '@codelab/backend/domain/user'
+import type { IUserDTO } from '@codelab/frontend/abstract/core'
 import { IRole } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 interface SetupUserProps {
   AdminService: IAdminService
-  UserRepository: IUserRepository
   User: IUserModel
+  UserRepository: IUserRepository
 }
 
 export const setupUser = async ({
@@ -30,7 +31,7 @@ export const setupUser = async ({
 
   await userRepository.save(user)
 
-  const savedUser = await userRepository.find({ email: user.email })
+  const savedUser = await userRepository.findOne({ email: user.email })
 
   expect(savedUser?.username).toEqual('Codelab')
 

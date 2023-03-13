@@ -8,7 +8,7 @@ import { interfaceFormApi } from '../../../store'
 
 export type SelectComponentProps = Pick<
   UniformSelectFieldProps,
-  'name' | 'label' | 'error'
+  'error' | 'label' | 'name'
 >
 
 export const SelectComponent = (fieldProps: SelectComponentProps) => {

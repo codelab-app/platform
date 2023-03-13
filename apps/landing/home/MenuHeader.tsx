@@ -15,9 +15,9 @@ import { RegisterUserButton } from './auth/RegisterUserButton'
 import { SignOutUserButton } from './auth/SignOutUserButton'
 
 export enum PageType {
-  Home = '/',
-  Features = '/features',
   Docs = '/docs',
+  Features = '/features',
+  Home = '/',
   Pricing = '/pricing',
   Tutorials = '/tutorials',
 }

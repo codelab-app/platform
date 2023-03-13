@@ -3,6 +3,7 @@ import type {
   TypeFragment,
 } from '@codelab/shared/abstract/codegen'
 import type { IRepository } from '../../service'
-import type { IAnyType } from './types'
+import type { ITypeDTO } from './type.dto.interface'
+import type { IType } from './types'
 
-export type ITypeRepository = IRepository<IAnyType, TypeFragment, BaseTypeWhere>
+export type ITypeRepository = IRepository<IType, ITypeDTO, BaseTypeWhere>

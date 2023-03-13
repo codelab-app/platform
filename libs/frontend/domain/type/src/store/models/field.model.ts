@@ -1,5 +1,5 @@
 import type {
-  IAnyType,
+  IType,
   IField,
   IFieldDefaultValue,
   IInterfaceType,
@@ -53,7 +53,7 @@ export class Field
     id: idProp,
     key: prop<string>(),
     name: prop<Nullish<string>>(),
-    type: prop<Ref<IAnyType>>(),
+    type: prop<Ref<IType>>(),
     validationRules: prop<Nullish<IValidationRules>>(),
   }))
   implements IField
@@ -101,9 +101,6 @@ export class Field
   }
 }
 
-// toString(options?: { withData?: boolean }) {
-//   return `\n{ ${this.key}: ${this.type.current.toString()} }`
-// }
 export const fieldRef = rootRef<IField>('@codelab/FieldRef', {
   onResolvedValueChange: (ref, newType, oldType) => {
     if (oldType && !newType) {

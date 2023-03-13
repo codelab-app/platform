@@ -44,14 +44,14 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
           ? typeToUpdate.allowedValues.map((val) => ({
               // Convert allowedValues from mobx models to simple objects
               // otherwise uniform won't be able to update current values
-              id: val.id,
-              key: val.key,
-              value: val.value,
+              id: val.current.id,
+              key: val.current.key,
+              value: val.current.value,
             }))
           : undefined,
       arrayTypeId:
         typeToUpdate?.kind === ITypeKind.ArrayType
-          ? typeToUpdate.itemType.id
+          ? typeToUpdate.itemType?.id
           : undefined,
       elementKind:
         typeToUpdate?.kind === ITypeKind.ElementType

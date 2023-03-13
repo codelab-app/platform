@@ -17,8 +17,8 @@ import { useBuilderDnd } from './useBuilderDnd'
  */
 export const BuilderContext = observer<
   PropsWithChildren<{
-    elementService: IElementService
     builderService: IBuilderService
+    elementService: IElementService
     elementTree: Maybe<IElementTree>
   }>
 >(({ builderService, children, elementService, elementTree }) => {

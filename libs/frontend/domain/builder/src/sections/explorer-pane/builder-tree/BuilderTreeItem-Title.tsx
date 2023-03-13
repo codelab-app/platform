@@ -20,10 +20,10 @@ import { BuilderTreeItemOverlay } from './BuilderTreeItem-Overlay'
 import { ItemTitleStyle } from './ItemTitleStyle'
 
 interface BuilderTreeItemTitleProps {
-  node: IPageNode | null
+  componentContextMenuProps: Omit<ComponentContextMenuProps, 'component'>
   data: DataNode
   elementContextMenuProps: Omit<ElementContextMenuProps, 'element'>
-  componentContextMenuProps: Omit<ComponentContextMenuProps, 'component'>
+  node: IPageNode | null
 }
 
 export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(

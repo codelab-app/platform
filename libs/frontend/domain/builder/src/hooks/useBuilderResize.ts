@@ -6,28 +6,28 @@ import type { MotionProps, MotionValue, PanInfo } from 'framer-motion'
 import { useMotionValue } from 'framer-motion'
 import { useCallback, useEffect, useState } from 'react'
 
-type UseBuilderDragInput = {
-  width?: BuilderWidth
+type UseBuilderDragInput = Pick<IBuilderService, 'setCurrentBuilderWidth'> & {
   selectedWidth: BuilderWidth
-} & Pick<IBuilderService, 'setCurrentBuilderWidth'>
+  width?: BuilderWidth
+}
 
 export type DragHandleProps = Pick<
   MotionProps,
-  | 'onDragEnd'
-  | 'onDragStart'
-  | 'onDrag'
-  | 'style'
   | 'drag'
+  | 'dragConstraints'
   | 'dragElastic'
   | 'dragMomentum'
-  | 'dragConstraints'
+  | 'onDrag'
+  | 'onDragEnd'
+  | 'onDragStart'
+  | 'style'
 >
 
 export interface UseBuilderResize {
-  isDragging: boolean
-  xDragHandleProps: DragHandleProps
   containerProps: Pick<MotionProps, 'style'>
+  isDragging: boolean
   width: MotionValue<number>
+  xDragHandleProps: DragHandleProps
 }
 
 const clampSet = (
@@ -57,7 +57,7 @@ export const useBuilderResize = ({
   const mWidth = useMotionValue(width?.default ?? 0)
 
   const handleXDrag = useCallback(
-    (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    (event: MouseEvent | PointerEvent | TouchEvent, info: PanInfo) => {
       clampSet(mWidth, info.delta.x, selectedWidth)
 
       const roundedWidth = Math.round(mWidth.get())

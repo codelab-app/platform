@@ -3,26 +3,26 @@ import type { IElementExport } from './element.interface'
 import type { IStoreExport } from './store.interface'
 
 export type IAppExport = Pick<OGM_TYPES.App, 'id' | 'name' | 'slug'> & {
+  domains: Array<IDomainExport>
   pages: Array<IPageExport>
   store: IStoreExport
-  domains: Array<IDomainExport>
 }
 
 export type IPageExport = Pick<
   OGM_TYPES.Page,
-  'id' | 'name' | 'kind' | 'pageContentContainer'
+  'id' | 'kind' | 'name' | 'pageContentContainer'
 > & {
-  rootElement: Pick<IElementExport, 'id' | 'name'>
-  elements: Array<OGM_TYPES.Element>
   components: Array<OGM_TYPES.Component>
+  elements: Array<OGM_TYPES.Element>
+  rootElement: Pick<IElementExport, 'id' | 'name'>
 }
 
 export interface IDomainExport {
-  id: string
-  name: string
   app: {
     id: string
   }
+  id: string
+  name: string
 }
 
 export interface ExportAppData {

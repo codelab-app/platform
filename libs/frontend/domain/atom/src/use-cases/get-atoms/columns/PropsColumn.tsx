@@ -1,6 +1,6 @@
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons'
 import type {
-  IAnyType,
+  IType,
   IField,
   IInterfaceType,
 } from '@codelab/frontend/abstract/core'
@@ -20,11 +20,11 @@ export const PropsColumn = observer<PropsColumnProps>(
         [atom.apiId],
       )
 
-    const onEdit = (field: IField<IAnyType>) => {
+    const onEdit = (field: IField<IType>) => {
       fieldService.updateModal.open(fieldRef(field.id))
     }
 
-    const onDelete = (field: IField<IAnyType>) => {
+    const onDelete = (field: IField<IType>) => {
       fieldService.deleteModal.open(fieldRef(field.id))
     }
 

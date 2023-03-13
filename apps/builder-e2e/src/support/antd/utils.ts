@@ -57,7 +57,7 @@ export const triggerAliased =
   ) =>
   (
     options?: Partial<
-      Cypress.TriggerOptions & Cypress.ObjectLike & DocumentEventMap[K]
+      Cypress.ObjectLike & Cypress.TriggerOptions & DocumentEventMap[K]
     >,
   ) =>
   ($el: JQuery) => {

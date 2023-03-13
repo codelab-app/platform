@@ -5,7 +5,7 @@ import type { AsyncState } from 'react-use/lib/useAsyncFn'
 
 export const extractErrorMessage = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  error: AsyncState<unknown> | string | ApolloError | Error | undefined | any,
+  error: ApolloError | AsyncState<unknown> | Error | any | string | undefined,
 ): string => {
   if (!error) {
     return ''

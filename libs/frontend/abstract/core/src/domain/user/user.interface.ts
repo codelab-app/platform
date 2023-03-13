@@ -3,11 +3,11 @@ import type { Ref } from 'mobx-keystone'
 import type { IApp } from '../app'
 
 export interface IUser {
-  id: string
-  auth0Id: string
-  username: string
-  roles: Array<IRole>
   apps: Array<Ref<IApp>>
+  auth0Id: string
+  id: string
+  roles: Array<IRole>
+  username: string
 
   setId(id: string): void
 }

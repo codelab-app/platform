@@ -5,8 +5,8 @@ import type { IBaseActionDTO } from '../../action.dto.interface'
 export interface IApiActionDTO extends IBaseActionDTO {
   // Used as discriminator
   __typename: `${IActionKind.ApiAction}`
-  successAction?: Nullable<IBaseActionDTO>
+  config: IEntity
   errorAction?: Nullable<IBaseActionDTO>
   resource: IEntity
-  config: IEntity
+  successAction?: Nullable<IBaseActionDTO>
 }

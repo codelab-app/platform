@@ -5,7 +5,7 @@ import type {
   IUpdateTypeData,
 } from '@codelab/frontend/abstract/core'
 import {
-  IAnyType,
+  IType,
   ICreateTypeData,
   ITypeDTO,
 } from '@codelab/frontend/abstract/core'
@@ -58,7 +58,7 @@ export class TypeService
     /**
      * This holds all types
      */
-    types: prop(() => objectMap<IAnyType>()),
+    types: prop(() => objectMap<IType>()),
 
     updateModal: prop(() => new TypeModalService({})),
   })
@@ -182,7 +182,7 @@ export class TypeService
   }
 
   @modelAction
-  addTypeLocal(type: IAnyType) {
+  addTypeLocal(type: IType) {
     this.types.set(type.id, type)
   }
 
@@ -331,7 +331,7 @@ export class TypeService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: TypeService, type: IAnyType) {
+  delete = _async(function* (this: TypeService, type: IType) {
     const { id } = type
     this.types.delete(id)
 

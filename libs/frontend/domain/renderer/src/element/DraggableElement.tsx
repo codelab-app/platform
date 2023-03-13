@@ -13,9 +13,9 @@ import { ElementDragOverlay } from './ElementDragOverlay'
 
 export interface DraggableElementProps {
   element: IElement
-  makeRenderedElements: (
+  makeRenderedElements(
     props?: IPropData,
-  ) => React.ReactElement | Array<React.ReactElement>
+  ): Array<React.ReactElement> | React.ReactElement
 }
 
 export const DraggableElement = ({

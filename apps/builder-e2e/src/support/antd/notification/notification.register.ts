@@ -7,10 +7,10 @@ import {
 } from './notification.command'
 
 export interface AntNotificationCommands {
-  getNotification: typeof getNotification
-  getNotificationTitle: typeof getNotificationTitle
-  getNotificationBody: typeof getNotificationBody
   expectNotification: typeof expectNotification
+  getNotification: typeof getNotification
+  getNotificationBody: typeof getNotificationBody
+  getNotificationTitle: typeof getNotificationTitle
 }
 
 export const antNotificationCommands: Array<CypressCommand> = [

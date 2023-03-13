@@ -11,15 +11,15 @@ export interface RenderType {
 }
 
 export interface ICreateElementData {
+  customCss?: Nullable<string>
+  guiCss?: Nullable<string>
   id: string
   name: string
   parentElement?: Nullable<IEntity>
-  preRenderAction?: Nullable<IEntity>
   postRenderAction?: Nullable<IEntity>
-  customCss?: Nullable<string>
-  guiCss?: Nullable<string>
-  props?: Nullable<Pick<IPropDTO, 'data'>>
+  preRenderAction?: Nullable<IEntity>
   prevSibling?: Nullable<IEntity>
+  props?: Nullable<Pick<IPropDTO, 'data'>>
   /**
    * We should connect to `atom` or `component` in future
    */
@@ -28,18 +28,18 @@ export interface ICreateElementData {
 
 export type IUpdateElementData = Pick<
   ICreateElementData,
-  | 'id'
-  | 'name'
-  | 'renderType'
-  | 'preRenderAction'
-  | 'postRenderAction'
   | 'customCss'
   | 'guiCss'
+  | 'id'
+  | 'name'
+  | 'postRenderAction'
+  | 'preRenderAction'
   | 'props'
+  | 'renderType'
 > & {
+  propTransformationJs?: Nullish<string>
   renderForEachPropKey?: Nullable<string>
   renderIfExpression?: Nullable<string>
-  propTransformationJs?: Nullish<string>
 }
 
 /**
@@ -48,36 +48,36 @@ export type IUpdateElementData = Pick<
 export type IUpdateBaseElementData = Pick<
   IUpdateElementData,
   | 'id'
-  | 'renderType'
   | 'name'
-  | 'renderIfExpression'
-  | 'renderForEachPropKey'
-  | 'preRenderAction'
   | 'postRenderAction'
+  | 'preRenderAction'
+  | 'renderForEachPropKey'
+  | 'renderIfExpression'
+  | 'renderType'
 >
 
 /**
  * This is the graphql fragment equivalent, used for hydrating object
  */
 export interface IElementDTO {
-  id: string
-  name: string
   // slug: string
   customCss?: Nullable<string>
+  firstChild?: IEntity | null
   guiCss?: Nullable<string>
-  renderForEachPropKey?: Nullable<string>
-  renderIfExpression?: Nullable<string>
-  preRenderAction?: IEntity | null
-  postRenderAction?: IEntity | null
-  propTransformationJs?: Nullable<string>
+  id: string
+  name: string
+  nextSibling?: IEntity | null
   page?: IEntity | null
-  renderType?: Nullable<RenderType>
+  parent?: IEntity | null
+  parentComponent?: IEntity | null
+  postRenderAction?: IEntity | null
+  preRenderAction?: IEntity | null
   // renderComponentType?: IComponentDTO | null
   // renderAtomType?: IAtomDTO | null
   prevSibling?: IEntity | null
-  nextSibling?: IEntity | null
-  parentComponent?: IEntity | null
-  parent?: IEntity | null
-  firstChild?: IEntity | null
+  propTransformationJs?: Nullable<string>
   props: IEntity
+  renderForEachPropKey?: Nullable<string>
+  renderIfExpression?: Nullable<string>
+  renderType?: Nullable<RenderType>
 }

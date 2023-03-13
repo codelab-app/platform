@@ -18,18 +18,18 @@ import React from 'react'
 import tw from 'twin.macro'
 
 export interface ContextMenuProps {
-  onClick?: () => unknown
-  onBlur?: () => unknown
+  onBlur?(): unknown
+  onClick?(): unknown
 }
 
-export type ElementContextMenuProps = {
-  element: IElement
-  elementTree: IElementTree | null
-} & ContextMenuProps &
+export type ElementContextMenuProps = ContextMenuProps &
   Pick<
     IElementService,
-    'createModal' | 'deleteModal' | 'cloneElement' | 'convertElementToComponent'
-  >
+    'cloneElement' | 'convertElementToComponent' | 'createModal' | 'deleteModal'
+  > & {
+    element: IElement
+    elementTree: IElementTree | null
+  }
 
 /**
  * The right-click menu in the element tree

@@ -19,11 +19,11 @@ export interface IDomainService
       'getAll' | 'getOne'
     >,
     ICRUDModalService<Ref<IDomain>, { domain: Maybe<IDomain> }> {
-  domains: ObjectMap<IDomain>
-  domainsList: Array<IDomain>
   createModal: ICRUDModalService<
     Ref<IDomain>,
     { domain: Maybe<string> }
   >['createModal']
+  domains: ObjectMap<IDomain>
+  domainsList: Array<IDomain>
   getAll(where?: DomainWhere): Promise<Array<IDomain>>
 }

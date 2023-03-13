@@ -2,21 +2,21 @@ import type { IPageKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 
 export interface IPageDTO {
+  // slug: string
+  app: IEntity
+  descendentElements?: Array<IEntity>
   id: string
   kind: IPageKind
   name: string
-  // slug: string
-  app: IEntity
-  rootElement: IEntity
-  descendentElements?: Array<IEntity>
   // getServerSideProps?: Nullish<string>
   // The container element of the page
   pageContentContainer?: Nullish<IEntity>
+  rootElement: IEntity
 }
 
-export type ICreatePageData = Pick<IPageDTO, 'id' | 'name' | 'app'>
+export type ICreatePageData = Pick<IPageDTO, 'app' | 'id' | 'name'>
 
 export type IUpdatePageData = Pick<
   IPageDTO,
-  'id' | 'name' | 'pageContentContainer' | 'app'
+  'app' | 'id' | 'name' | 'pageContentContainer'
 >

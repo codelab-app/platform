@@ -10,7 +10,6 @@ export const importApp = async (
   const response = await fetch('/api/import/app', {
     body: appData,
     method: 'POST',
-    method: 'POST',
   })
 
   if (response.status === 200) {

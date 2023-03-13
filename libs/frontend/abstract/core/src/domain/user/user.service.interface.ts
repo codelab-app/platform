@@ -3,8 +3,9 @@ import type { ObjectMap } from 'mobx-keystone'
 import type { IUser } from './user.interface'
 
 export interface IUserService {
-  users: ObjectMap<IUser>
-  user: Nullable<IUser>
   auth0Id: string
+  user: Nullable<IUser>
+  users: ObjectMap<IUser>
+
   setUser(user: Nullable<IUser>): void
 }

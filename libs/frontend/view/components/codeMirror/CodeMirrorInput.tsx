@@ -13,13 +13,14 @@ import { containerStyles, editorStyles, ExpandButton } from './styles'
 
 export interface CodeMirrorInputProps
   extends Omit<ReactCodeMirrorProps, 'title'> {
-  value?: string
-  onChange: (value: string) => void
-  onSave?: (value: string) => void
   expandable?: boolean
-  singleLine?: boolean
   overrideStyles?: SerializedStyles
+  singleLine?: boolean
   title?: Nullish<string>
+  value?: string
+
+  onChange(value: string): void
+  onSave?(value: string): void
 }
 
 export const CodeMirrorInput = ({

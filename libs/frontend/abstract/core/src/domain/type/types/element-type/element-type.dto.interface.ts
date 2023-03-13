@@ -1,3 +1,8 @@
-import type { ElementTypeFragment } from '../../fragments'
+import type { ElementTypeKind } from '@codelab/shared/abstract/codegen'
+import { ITypeKind } from '@codelab/shared/abstract/core'
+import type { IBaseTypeDTO } from '../base-type'
 
-export type IElementTypeDTO = ElementTypeFragment
+export interface IElementTypeDTO extends IBaseTypeDTO {
+  __typename: `${ITypeKind.ElementType}`
+  elementKind: ElementTypeKind
+}

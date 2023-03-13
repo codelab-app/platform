@@ -2,8 +2,8 @@
 let cachedUsername: string
 
 interface LoginCredentials {
-  username?: string
   password?: string
+  username?: string
 }
 
 export const loginSession = () => {

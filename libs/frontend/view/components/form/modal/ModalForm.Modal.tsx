@@ -9,13 +9,13 @@ import { ModalFormContext } from './ModalForm.Context'
 
 export type ModalProps = Pick<
   AntModalProps,
-  | 'okButtonProps'
   | 'cancelButtonProps'
-  | 'onOk'
+  | 'className'
+  | 'okButtonProps'
   | 'okText'
   | 'onCancel'
+  | 'onOk'
   | 'open'
-  | 'className'
   | 'title'
 >
 

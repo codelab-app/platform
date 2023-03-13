@@ -34,18 +34,18 @@ type GetActionsReturnType = Promise<
 type CreateActions = Record<
   IActionKind,
   (
-    input: ICreateActionInput | Array<ICreateActionInput>,
+    input: Array<ICreateActionInput> | ICreateActionInput,
   ) => Promise<Array<ActionFragment>>
 >
 
 type UpdateActionsRecord = Record<
   IActionKind,
   (vars: {
-    where: IAnyActionWhere
-    update: IUpdateActionInput
+    connect?: IConnectActionInput
     delete?: IDeleteActionInput
     disconnect?: IDisconnectActionInput
-    connect?: IConnectActionInput
+    update: IUpdateActionInput
+    where: IAnyActionWhere
   }) => Promise<Array<ActionFragment>>
 >
 
@@ -53,7 +53,7 @@ type DeleteActionsRecord = Record<
   IActionKind,
   (vars: {
     where: IAnyActionWhere
-  }) => Promise<{ relationshipsDeleted: number; nodesDeleted: number }>
+  }) => Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
 >
 
 export const getActionsByStore = async (

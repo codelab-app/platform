@@ -9,26 +9,26 @@ import type { ITypeExport } from './type/type.interface'
  * This is the final complete data that is passed into our import function
  */
 export interface ExportedAdminData {
-  atoms: Array<IAtomDTO>
-  // Import api separately
-  types: Array<ITypeExport>
   apis: Array<IInterfaceTypeExport>
+  atoms: Array<IAtomDTO>
   // resources: Array<IResourceExport>
   tags: Array<ITag>
+  // Import api separately
+  types: Array<ITypeExport>
 }
 
 export interface ExportedUserData {
   apps: Array<IAppExport>
-  types: Array<ITypeExport>
   resources: Array<IResourceExport>
+  types: Array<ITypeExport>
 }
 
 /**
  * This is the single file that we export. We'll read all the single files and aggregate them into `IAdminData`
  */
 export interface ExportedAtom {
-  atom: IAtomDTO
   api: IInterfaceTypeExport
+  atom: IAtomDTO
   types: Array<ITypeExport>
 }
 

@@ -12,7 +12,7 @@ import {
   InterfaceTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
+import type { IAuth0Owner, ITagDTO } from '@codelab/frontend/abstract/core'
 import fs from 'fs'
 import path from 'path'
 import { DataPaths } from '../../data-paths'
@@ -49,7 +49,7 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
 
     await this.importApis(owner)
 
-    // await this.importTags(owner)
+    await this.importTags(owner)
 
     // const apis = await this.interfaceTypeRepository.all()
     // console.log(apis)
@@ -92,7 +92,7 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
   private async importTags(owner: IAuth0Owner) {
     const tags = JSON.parse(
       fs.readFileSync(this.dataPaths.TAGS_FILE_PATH, 'utf8'),
-    ) as Array<ITag>
+    ) as Array<ITagDTO>
 
     for await (const tag of tags) {
       await this.tagRepository.save({ ...tag, owner })

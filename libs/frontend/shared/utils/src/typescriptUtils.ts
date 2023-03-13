@@ -5,7 +5,7 @@ export type DeepNonNullable<T> = {
 }
 
 export const isNotNull = <T extends Record<string, unknown>>(
-  input: null | T,
+  input: T | null,
 ): input is T => {
   return input !== null
 }

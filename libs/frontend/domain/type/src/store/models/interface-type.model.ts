@@ -11,6 +11,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import type { InterfaceTypeCreateInput } from '@codelab/shared/abstract/codegen'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -107,10 +108,10 @@ export class InterfaceType
   }
 
   @modelAction
-  writeFieldCache(fields: Array<IFieldDTO>) {
+  writeFieldCache(fields: Array<IEntity>) {
     for (const field of fields) {
-      const fieldModel = this.fieldService.add(field)
-      this._fields.set(fieldModel.id, fieldRef(fieldModel))
+      // const fieldModel = this.fieldService.add(field)
+      this._fields.set(field.id, fieldRef(field.id))
     }
   }
 

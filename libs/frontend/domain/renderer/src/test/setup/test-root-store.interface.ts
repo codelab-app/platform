@@ -13,31 +13,34 @@ import type {
   IStore,
 } from '@codelab/frontend/abstract/core'
 
-export type ITestRootStore = {
+export type ITestRootStore = Pick<
+  IRootStore,
+  'atomService' | 'componentService' | 'elementService'
+> & {
+  pageElementTree: IElementTree
   /**
    * We only use a single renderer for testing
    */
   renderer: IRenderer
-  pageElementTree: IElementTree
-} & Pick<IRootStore, 'atomService' | 'elementService' | 'componentService'>
+}
 
 export interface TestServices {
-  rootStore: ITestRootStore
-  renderer: IRenderer
-  componentToRender: IComponent
-  componentRootElementProps: IProp
-  componentRootElement: IElement
-  elementToRenderProps: IProp
-  elementToRender: IElement
-  elementToRender02Props: IProp
-  elementToRender02: IElement
-  componentInstanceElementToRenderProps: IProp
   componentInstanceElementToRender: IElement
-  renderPropsType: IRenderPropsType
-  reactNodeType: IReactNodeType
-  primitiveType: IPrimitiveType
-  emptyInterface: IInterfaceType
+  componentInstanceElementToRenderProps: IProp
+  componentRootElement: IElement
+  componentRootElementProps: IProp
+  componentToRender: IComponent
   divAtom: IAtom
-  textAtom: IAtom
+  elementToRender: IElement
+  elementToRender02: IElement
+  elementToRender02Props: IProp
+  elementToRenderProps: IProp
+  emptyInterface: IInterfaceType
+  primitiveType: IPrimitiveType
+  reactNodeType: IReactNodeType
+  renderPropsType: IRenderPropsType
+  renderer: IRenderer
+  rootStore: ITestRootStore
   store: IStore
+  textAtom: IAtom
 }

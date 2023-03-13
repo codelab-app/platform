@@ -2,7 +2,7 @@ import type {
   FieldFragment,
   PrimitiveTypeKind,
 } from '@codelab/shared/abstract/codegen'
-import type { Nullish } from '@codelab/shared/abstract/types'
+import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import type { IFieldDefaultValue, IFieldRef } from './field'
 import type { IInterfaceTypeRef, ITypeRef } from './types'
 
@@ -11,16 +11,16 @@ export enum GeneralValidationRules {
 }
 
 export enum StringValidationRules {
-  MinLength = 'minLength',
   MaxLength = 'maxLength',
+  MinLength = 'minLength',
   Pattern = 'pattern',
 }
 
 export enum NumberValidationRules {
-  Maximum = 'maximum',
-  Minimum = 'minimum',
   ExclusiveMaximum = 'exclusiveMaximum',
   ExclusiveMinimum = 'exclusiveMinimum',
+  Maximum = 'maximum',
+  Minimum = 'minimum',
   MultipleOf = 'multipleOf',
 }
 
@@ -29,37 +29,37 @@ export interface IGeneralValidationRules {
 }
 
 export interface IStringValidationRules {
-  [StringValidationRules.MinLength]?: Nullish<number>
   [StringValidationRules.MaxLength]?: Nullish<number>
+  [StringValidationRules.MinLength]?: Nullish<number>
   [StringValidationRules.Pattern]?: Nullish<string>
 }
 
 export interface INumberValidationRules {
-  [NumberValidationRules.Minimum]?: Nullish<number>
-  [NumberValidationRules.Maximum]?: Nullish<number>
-  [NumberValidationRules.ExclusiveMinimum]?: Nullish<number>
   [NumberValidationRules.ExclusiveMaximum]?: Nullish<number>
+  [NumberValidationRules.ExclusiveMinimum]?: Nullish<number>
+  [NumberValidationRules.Maximum]?: Nullish<number>
+  [NumberValidationRules.Minimum]?: Nullish<number>
   [NumberValidationRules.MultipleOf]?: Nullish<number>
 }
 
 export interface IValidationRules {
-  general?: Nullish<IGeneralValidationRules>
-  [PrimitiveTypeKind.String]?: Nullish<IStringValidationRules>
-  [PrimitiveTypeKind.Number]?: Nullish<INumberValidationRules>
   [PrimitiveTypeKind.Integer]?: Nullish<INumberValidationRules>
+  [PrimitiveTypeKind.Number]?: Nullish<INumberValidationRules>
+  [PrimitiveTypeKind.String]?: Nullish<IStringValidationRules>
+  general?: Nullish<IGeneralValidationRules>
 }
 
 export interface ICreateFieldData {
-  id: IFieldRef
-  key: string
-  name?: Nullish<string>
+  defaultValues?: Nullish<IFieldDefaultValue>
   description?: Nullish<string>
-  validationRules?: Nullish<IValidationRules>
   // Type of field specified by a type id
   // TODO: Refactor fieldType to take in `{ id: string }`
   fieldType: ITypeRef
+  id: IFieldRef
   interfaceTypeId: IInterfaceTypeRef
-  defaultValues?: Nullish<IFieldDefaultValue>
+  key: string
+  name?: Nullish<string>
+  validationRules?: Nullish<IValidationRules>
 }
 
 export type IUpdateFieldData = ICreateFieldData
@@ -67,4 +67,13 @@ export type IUpdateFieldData = ICreateFieldData
 /**
  * Props imply as input for something, in this case a model
  */
-export type IFieldDTO = FieldFragment
+export interface IFieldDTO {
+  api: IEntity
+  defaultValues?: string | null
+  description?: string | null
+  fieldType: IEntity
+  id: string
+  key: string
+  name?: string | null
+  validationRules?: string | null
+}

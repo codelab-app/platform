@@ -13,7 +13,7 @@ export interface RenderedComponentProps {
 }
 
 export const GridLayout = React.memo(
-  ({ children, ...restProps }: ResponsiveProps & RenderedComponentProps) => {
+  ({ children, ...restProps }: RenderedComponentProps & ResponsiveProps) => {
     const elementId = restProps[DATA_ELEMENT_ID]
     const { elementService } = useStore()
 

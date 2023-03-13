@@ -20,13 +20,14 @@ import {
 } from './disableNodeHoverEffects'
 
 interface BuilderTreeProps {
-  treeData: IBuilderDataNode | undefined
   className?: string
   elementTree: IElementTree | null
   expandedNodeIds: Array<string>
-  setActiveTree: () => void
-  setExpandedNodeIds: (ids: Array<string>) => void
+  treeData: IBuilderDataNode | undefined
+
   selectTreeNode(node: Nullable<IPageNode>): void
+  setActiveTree(): void
+  setExpandedNodeIds(ids: Array<string>): void
 }
 
 /**

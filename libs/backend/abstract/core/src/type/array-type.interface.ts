@@ -1,4 +1,5 @@
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { EntitySchema } from '@codelab/shared/abstract/types'
 import { z } from 'zod'
 import { BaseTypeSchema } from './type.interface'
 
@@ -7,6 +8,7 @@ import { BaseTypeSchema } from './type.interface'
  */
 const ArrayTypeSchema = BaseTypeSchema.extend({
   __typename: z.literal(`${ITypeKind.ArrayType}`).optional(),
+  itemType: EntitySchema.optional(),
 })
 
 export type IArrayType = z.infer<typeof ArrayTypeSchema>

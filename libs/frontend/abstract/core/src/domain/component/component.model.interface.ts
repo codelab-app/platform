@@ -11,23 +11,24 @@ export interface IComponent
   extends IElementTreeService,
     ICacheService<IComponentDTO, IComponent>,
     IOwnerSchema {
-  id: string
-  name: string
-  rootElement: Ref<IElement>
-  childrenContainerElement: Ref<IElement>
   api: Ref<IInterfaceType>
-  props?: Nullable<Ref<IProp>>
+  childrenContainerElement: Ref<IElement>
+  id: string
   instanceElement: Nullable<Ref<IElement>>
+  name: string
+  props?: Nullable<Ref<IProp>>
+  rootElement: Ref<IElement>
   /**
    * to render a component we create a duplicate for each instance
    * keeps track of source component in case this is a duplicate
    */
   sourceComponent?: Nullable<IEntity>
-  setSourceComponent: (entity: IEntity) => void
-  setInstanceElement: (elementRef: Ref<IElement>) => void
-  setChildrenContainerElement: (element: Ref<IElement>) => void
-  setProps(props: Nullable<Ref<IProp>>): void
+
   clone(instanceId: string): IComponent
+  setChildrenContainerElement(element: Ref<IElement>): void
+  setInstanceElement(elementRef: Ref<IElement>): void
+  setProps(props: Nullable<Ref<IProp>>): void
+  setSourceComponent(entity: IEntity): void
 }
 
 export type IComponentRef = string
