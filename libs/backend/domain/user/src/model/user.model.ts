@@ -15,7 +15,7 @@ export class User implements IUser {
 
   roles: Array<IRole> | null
 
-  constructor({ id, auth0Id, email, roles = [], username }: IUser) {
+  constructor({ auth0Id, email, id, roles = [], username }: IUser) {
     this.id = id
     this.auth0Id = auth0Id
     this.email = email
@@ -23,7 +23,7 @@ export class User implements IUser {
     this.username = username
   }
 
-  static fromSession({ sub, email, nickname, ...session }: Auth0SessionUser) {
+  static fromSession({ email, nickname, sub, ...session }: Auth0SessionUser) {
     const auth0Id = sub
     const roles = session[JWT_CLAIMS].roles
 

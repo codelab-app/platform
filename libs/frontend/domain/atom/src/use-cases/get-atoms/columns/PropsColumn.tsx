@@ -14,7 +14,7 @@ import type { PropsColumnProps } from './types'
 
 export const PropsColumn = observer<PropsColumnProps>(
   ({ atom, fieldService, typeService }) => {
-    const [{ value: interfaceType, loading }, getInterfaceAndDescendants] =
+    const [{ loading, value: interfaceType }, getInterfaceAndDescendants] =
       useAsyncFn(
         () => typeService.getInterfaceAndDescendants(atom.apiId),
         [atom.apiId],

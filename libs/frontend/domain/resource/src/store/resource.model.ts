@@ -22,7 +22,7 @@ import {
   rootRef,
 } from 'mobx-keystone'
 
-const create = ({ id, name, type, config, owner }: IResourceDTO) =>
+const create = ({ config, id, name, owner, type }: IResourceDTO) =>
   new Resource({
     config: propRef(config.id),
     id,
@@ -69,7 +69,7 @@ export class Resource
   }
 
   @modelAction
-  writeCache({ name, config, type }: Partial<IResourceDTO>) {
+  writeCache({ config, name, type }: Partial<IResourceDTO>) {
     this.name = name ?? this.name
     this.type = type ?? this.type
     this.config = config?.id ? propRef(config.id) : this.config

@@ -9,7 +9,7 @@ export const enumTypeUiProperties: UiPropertiesFn<IEnumType> = (
     enum: type.allowedValues.map((allowedValue) => allowedValue.value),
     uniforms: {
       component: ToggleExpressionField({
-        onToggle: (showExpression, { value, field, onChange }, lastValue) => {
+        onToggle: (showExpression, { field, onChange, value }, lastValue) => {
           if (showExpression) {
             onChange(lastValue ?? `{{'${value ?? field.default ?? ''}'}}`)
           } else {
@@ -19,7 +19,7 @@ export const enumTypeUiProperties: UiPropertiesFn<IEnumType> = (
       }),
       getPopupContainer: (triggerNode: Element) => triggerNode.parentElement,
       optionFilterProp: 'label',
-      options: type.allowedValues.map(({ value, key }) => ({
+      options: type.allowedValues.map(({ key, value }) => ({
         label: key,
         value: value,
       })),

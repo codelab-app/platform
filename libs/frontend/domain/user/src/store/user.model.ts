@@ -4,7 +4,7 @@ import type { IRole } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 
-const create = ({ id, username, auth0Id, roles, apps }: IUserDTO) => {
+const create = ({ apps, auth0Id, id, roles, username }: IUserDTO) => {
   return new User({
     apps: apps.map((app) => appRef(app.id)),
     auth0Id,

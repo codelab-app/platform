@@ -58,7 +58,7 @@ export class App
    * For cache writing, we don't write dto for nested models. We only write the ref. The top most use case calling function is responsible for properly hydrating the data.
    */
   @modelAction
-  writeCache({ id, name, store, pages }: Partial<IAppDTO>) {
+  writeCache({ id, name, pages, store }: Partial<IAppDTO>) {
     this.id = id ?? this.id
     this.name = name ?? this.name
     this.store = store ? storeRef(store.id) : this.store

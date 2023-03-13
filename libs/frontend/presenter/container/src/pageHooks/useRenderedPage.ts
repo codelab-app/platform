@@ -43,10 +43,10 @@ const requiredPageKinds: Array<IPageKind> = [
  */
 export const useRenderedPage = ({
   appId,
-  pageId,
-  renderService,
   initialData,
+  pageId,
   rendererType,
+  renderService,
 }: RenderedPageProps) => {
   const { appService } = useStore()
   const router = useRouter()
@@ -112,7 +112,7 @@ export const useRenderedPage = ({
     }
   }, [pageId])
 
-  const { loading, error, value } = currentPageData
+  const { error, loading, value } = currentPageData
 
   return {
     error,

@@ -13,8 +13,8 @@ let user: IUser
 beforeAll(async () => {
   user = await setupUser({
     AdminService,
-    UserRepository,
     User,
+    UserRepository,
   })
 })
 

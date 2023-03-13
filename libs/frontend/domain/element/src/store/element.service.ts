@@ -545,9 +545,9 @@ export class ElementService
       function* (
         this: ElementService,
         {
+          dropPosition,
           element: { id: elementId },
           targetElement: { id: targetElementId },
-          dropPosition,
         }: Parameters<IElementService['moveElementToAnotherTree']>[0],
       ) {
         const targetElement = this.element(targetElementId)
@@ -752,7 +752,7 @@ export class ElementService
           throw new Error("Can't convert root element")
         }
 
-        const { name, parent: parentElement, prevSibling, label } = element
+        const { label, name, parent: parentElement, prevSibling } = element
 
         // 1. detach the element from the element tree
         yield* _await(this.detachElementFromElementTree(element.id))

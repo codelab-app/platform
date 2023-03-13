@@ -28,7 +28,7 @@ import {
   rootRef,
 } from 'mobx-keystone'
 
-const create = ({ id, name, api }: IStoreDTO) => {
+const create = ({ api, id, name }: IStoreDTO) => {
   new Store({
     api: typeRef(api.id) as Ref<IInterfaceType>,
     id,
@@ -52,7 +52,7 @@ export class Store
   implements IStore
 {
   @modelAction
-  writeCache({ id, name, api }: Partial<IStoreDTO>) {
+  writeCache({ api, id, name }: Partial<IStoreDTO>) {
     this.id = id ? id : this.id
     this.name = name ? name : this.name
     this.api = api ? (typeRef(api.id) as Ref<IInterfaceType>) : this.api

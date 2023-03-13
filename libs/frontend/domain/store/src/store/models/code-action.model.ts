@@ -28,7 +28,7 @@ export class CodeAction
   }
 
   @modelAction
-  writeCache({ name, store, type, code }: Partial<ICodeActionDTO>) {
+  writeCache({ code, name, store, type }: Partial<ICodeActionDTO>) {
     this.name = name ?? this.name
     this.store = store ? storeRef(store.id) : this.store
     this.code = code ?? this.code

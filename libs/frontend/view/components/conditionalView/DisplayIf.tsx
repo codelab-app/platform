@@ -7,8 +7,8 @@ export interface DisplayIfProps {
 }
 
 export const DisplayIf = ({
-  condition,
   children,
+  condition,
   fallback,
 }: DisplayIfProps) => {
   return <>{condition ? <>{children}</> : fallback ?? <></>}</>

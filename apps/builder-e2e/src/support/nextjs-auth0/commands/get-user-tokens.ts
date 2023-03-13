@@ -6,7 +6,7 @@ const defaultCredentials = {
 }
 
 export const getUserTokens = (credentials = defaultCredentials) => {
-  const { username, password } = credentials
+  const { password, username } = credentials
 
   return new Cypress.Promise((resolve, reject) => {
     auth.client.loginWithDefaultDirectory(

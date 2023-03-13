@@ -14,7 +14,7 @@ export const createDomains: IFieldResolver<
 > = async (_, args, { req }) => {
   console.log(args)
 
-  const { id, app, name } = args.input[0]!
+  const { app, id, name } = args.input[0]!
   const res = await vercelApis.domain.addDomain(name)
 
   if (res.status === 409) {

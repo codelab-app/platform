@@ -15,7 +15,7 @@ export class ReactNodeTypeFactory extends ITypeFactory<
   repository: ReactNodeTypeRepository = new ReactNodeTypeRepository()
 
   async _create(
-    { owner, id }: ICreateReactNodeType,
+    { id, owner }: ICreateReactNodeType,
     where: BaseTypeUniqueWhereCallback<IReactNodeType>,
   ) {
     const reactNodeType = ReactNodeType.init({

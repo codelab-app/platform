@@ -21,11 +21,11 @@ export interface TypeSelectProps {
 }
 
 const defaultCreateTypeOptions: CreateTypeOptions = (types) =>
-  types?.map(({ name, id }) => ({ label: name, value: id })) ?? []
+  types?.map(({ id, name }) => ({ label: name, value: id })) ?? []
 
 export const TypeSelect = observer<TypeSelectProps>(
-  ({ name, label, createTypeOptions }) => {
-    const { value, error, loading } = useAsync(() => getAllTypes(), [])
+  ({ createTypeOptions, label, name }) => {
+    const { error, loading, value } = useAsync(() => getAllTypes(), [])
 
     const typeOptions = createTypeOptions
       ? createTypeOptions(value)

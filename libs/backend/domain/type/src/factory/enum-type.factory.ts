@@ -9,7 +9,7 @@ export class EnumTypeFactory extends ITypeFactory<ICreateEnumType, IEnumType> {
   repository: EnumTypeRepository = new EnumTypeRepository()
 
   async _create(
-    { name, owner, allowedValues, id }: ICreateEnumType,
+    { allowedValues, id, name, owner }: ICreateEnumType,
     where: BaseTypeUniqueWhereCallback<IEnumType>,
   ) {
     const enumType = EnumType.init({

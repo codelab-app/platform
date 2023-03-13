@@ -9,7 +9,7 @@ interface ButtonSelector {
 
 export const getButton = (
   subject: any,
-  { label, icon }: ButtonSelector,
+  { icon, label }: ButtonSelector,
   options?: Partial<
     Cypress.Loggable &
       Cypress.Timeoutable &

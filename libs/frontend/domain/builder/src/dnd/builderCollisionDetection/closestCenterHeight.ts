@@ -26,8 +26,8 @@ const sortCollisionsAsc = (
  */
 export const closestCenterHeight: CollisionDetection = ({
   collisionRect,
-  droppableRects,
   droppableContainers,
+  droppableRects,
 }) => {
   const centerCollisionRect = centerYOfRectangle(collisionRect)
   const collisions: Array<CollisionDescriptor> = []

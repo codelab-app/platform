@@ -1,9 +1,6 @@
-import type { ICreateType, IOwner, IType } from '@codelab/backend/abstract/core'
+import type { ICreateType, IType } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type {
-  BaseTypeUniqueWhereCallback,
-  DistributiveOmit,
-} from '@codelab/shared/abstract/types'
+import type { BaseTypeUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import { ActionTypeFactory } from './action-type.factory'
 import { ArrayTypeFactory } from './array-type.factory'
 import { EnumTypeFactory } from './enum-type.factory'

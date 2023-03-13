@@ -199,7 +199,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
         `${Tasks.Commitlint} [edit]`,
         'Commitlint projects',
         (argv) => argv,
-        ({ stage, edit }) => {
+        ({ edit, stage }) => {
           if (stage === Stage.Test) {
             execCommand(`npx --no-install commitlint --edit ${edit}`)
           }

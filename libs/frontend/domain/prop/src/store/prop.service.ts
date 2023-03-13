@@ -35,7 +35,7 @@ export class PropService
   }
 
   @modelAction
-  add({ id, data }: IPropDTO) {
+  add({ data, id }: IPropDTO) {
     const props = Prop.create({ data, id })
 
     this.props.set(props.id, props)
@@ -47,7 +47,7 @@ export class PropService
   @transaction
   create = _async(function* (
     this: PropService,
-    { id, data, api }: ICreatePropData,
+    { api, data, id }: ICreatePropData,
   ) {
     const props = Prop.create({ api, data, id })
 
@@ -68,7 +68,7 @@ export class PropService
 
   @modelFlow
   @transaction
-  update = _async(function* (this: PropService, { id, data }: IUpdatePropData) {
+  update = _async(function* (this: PropService, { data, id }: IUpdatePropData) {
     const props = this.props.get(id)!
 
     props.writeCache({ data })

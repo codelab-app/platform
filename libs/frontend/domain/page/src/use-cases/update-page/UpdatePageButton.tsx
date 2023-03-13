@@ -11,7 +11,7 @@ export interface UpdatePageButtonProps extends UpdateButtonProps {
 }
 
 export const UpdatePageButton = observer(
-  ({ id, pages, disabled }: UpdatePageButtonProps) => {
+  ({ disabled, id, pages }: UpdatePageButtonProps) => {
     return (
       <Button
         disabled={disabled}

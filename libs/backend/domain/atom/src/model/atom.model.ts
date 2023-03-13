@@ -21,14 +21,14 @@ export class Atom implements IAtomDTO {
   owner: IAuth0Owner
 
   constructor({
+    allowedChildren = [],
+    api,
+    icon,
     id,
     name,
-    icon,
-    type,
-    api,
-    tags,
-    allowedChildren = [],
     owner,
+    tags,
+    type,
   }: IAtom) {
     this.id = id
     this.name = name

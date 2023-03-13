@@ -35,8 +35,8 @@ export const getNotificationBody = ({
   )
 
 export const expectNotification = ({
-  title,
   body,
+  title,
   ...options
 }: { title?: Label; body?: Label } & CommonOptions = {}) => {
   const opts = logAndMute(

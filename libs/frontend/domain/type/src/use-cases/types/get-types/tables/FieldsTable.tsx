@@ -32,7 +32,7 @@ export interface FieldsTableProps {
 const headerCellProps = () => ({ style: tw`font-semibold text-gray-900` })
 
 export const FieldsTable = observer<FieldsTableProps>(
-  ({ interfaceType, fieldService, isLoading, hideActions, typeService }) => {
+  ({ fieldService, hideActions, interfaceType, isLoading, typeService }) => {
     const columns: Array<ColumnProps<IFieldRecord>> = [
       {
         dataIndex: 'name',

@@ -27,14 +27,14 @@ import { atomRef } from './atom.ref'
 import { customTextInjectionWhiteList } from './custom-text-injection-whitelist'
 
 const create = ({
-  id,
-  icon,
-  name,
-  type,
-  owner,
-  api,
-  tags,
   allowedChildren,
+  api,
+  icon,
+  id,
+  name,
+  owner,
+  tags,
+  type,
 }: IAtomDTO) => {
   return new Atom({
     allowedChildren: allowedChildren?.map((child) => atomRef(child.id)),
@@ -76,13 +76,13 @@ export class Atom
 
   @modelAction
   writeCache({
+    allowedChildren = [],
+    api,
+    icon,
     id,
     name,
-    type,
-    icon,
     tags = [],
-    api,
-    allowedChildren = [],
+    type,
   }: Partial<IAtomDTO>) {
     this.name = name ?? this.name
     this.type = type ?? this.type

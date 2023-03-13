@@ -15,19 +15,19 @@ import { ModalFormContext } from './ModalForm.Context'
  * But using without `DeepPartial` causes some casting down the line
  */
 export const Form = <TData, TResponse = unknown>({
-  onSubmitSuccess = [],
-  onSubmitError = [],
   autosave = false,
-  schema,
-  onSubmit = (model: unknown) => Promise.resolve(),
   children,
   model,
-  onChangeModel,
   onChange,
+  onChangeModel,
+  onSubmit = (_model: unknown) => Promise.resolve(),
+  onSubmitError = [],
+  onSubmitSuccess = [],
+  schema,
 }: React.PropsWithChildren<
   Omit<FormProps<TData, TResponse>, 'submitRef'>
 >): ReactElement => {
-  const { submitRef, setIsLoading } = useContext(ModalFormContext)
+  const { setIsLoading, submitRef } = useContext(ModalFormContext)
 
   const [bridge, setBridge] = useState(
     schema instanceof Bridge ? schema : createBridge(schema),

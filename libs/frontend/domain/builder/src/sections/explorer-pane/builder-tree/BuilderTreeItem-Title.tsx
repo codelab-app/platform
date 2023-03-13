@@ -27,8 +27,8 @@ interface BuilderTreeItemTitleProps {
 }
 
 export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
-  ({ node, data, elementContextMenuProps, componentContextMenuProps }) => {
-    const { elementService, builderService } = useStore()
+  ({ componentContextMenuProps, data, elementContextMenuProps, node }) => {
+    const { builderService, elementService } = useStore()
 
     const [contextMenuItemId, setContextMenuNodeId] =
       useState<Nullable<string>>(null)

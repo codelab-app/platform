@@ -23,7 +23,7 @@ export const ImportUpload = ({ fetchFn }: ImportUploadProps) => {
     customRequest: async (options) => {
       setIsLoading(true)
 
-      const { onSuccess, onError, file, onProgress } = options
+      const { file, onError, onProgress, onSuccess } = options
       const text = await (file as RcFile).text()
 
       await fetchFn(text)

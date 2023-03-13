@@ -6,7 +6,7 @@ interface SeoHeadProps {
   description: string
 }
 
-export const SeoHead = ({ title, description }: SeoHeadProps) => (
+export const SeoHead = ({ description, title }: SeoHeadProps) => (
   <NextSeo
     description={description}
     openGraph={{ description: description, title }}

@@ -32,8 +32,8 @@ const onLibraryFilter = (
 
 export const useAtomTable = ({
   atomService,
-  typeService,
   fieldService,
+  typeService,
 }: {
   atomService: IAtomService
   typeService: ITypeService

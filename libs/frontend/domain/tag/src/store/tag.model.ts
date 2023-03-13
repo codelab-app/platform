@@ -26,11 +26,11 @@ import {
 } from 'mobx-keystone'
 
 const create = ({
-  id,
-  name,
-  isRoot,
   children,
   descendants,
+  id,
+  isRoot,
+  name,
   owner,
 }: ITagDTO) => {
   return new Tag({
@@ -64,7 +64,7 @@ export class Tag
   static create = create
 
   @modelAction
-  writeCache({ name, isRoot, descendants, children, owner }: Partial<ITagDTO>) {
+  writeCache({ children, descendants, isRoot, name, owner }: Partial<ITagDTO>) {
     this.name = name ?? this.name
     this.children = children?.map((child) => tagRef(child.id)) ?? this.children
     this.descendants =

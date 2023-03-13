@@ -23,11 +23,11 @@ import Head from 'next/head'
 import React, { useEffect, useMemo } from 'react'
 
 const PageBuilder: CodelabPage = observer(() => {
-  const { elementService, builderService, builderRenderService } = useStore()
+  const { builderRenderService, builderService, elementService } = useStore()
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
-  const { value, error, loading } = useRenderedPage({
+  const { error, loading, value } = useRenderedPage({
     appId,
     pageId,
     rendererType: RendererType.PageBuilder,
@@ -69,7 +69,7 @@ const PageBuilder: CodelabPage = observer(() => {
 export const getServerSideProps = auth0Instance.withPageAuthRequired({})
 
 PageBuilder.Layout = observer((page) => {
-  const { elementService, builderService, builderRenderService, pageService } =
+  const { builderRenderService, builderService, elementService, pageService } =
     useStore()
 
   const appId = useCurrentAppId()

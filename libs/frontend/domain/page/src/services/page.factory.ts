@@ -68,8 +68,8 @@ export class PageFactory extends Model({}) implements IPageFactory {
 
   @modelAction
   private addDefaultPage({
-    kind,
     app,
+    kind,
     name,
   }: Pick<IPage, 'app' | 'kind' | 'name'>) {
     const rootElementProps = this.propService.add({

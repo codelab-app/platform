@@ -4,11 +4,11 @@ import { SelectField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 import type { SelectAtomProps } from '../types'
 
-export const SelectAtomTypeHook = ({ name, error }: SelectAtomProps) => {
+export const SelectAtomTypeHook = ({ error, name }: SelectAtomProps) => {
   const {
-    value,
-    loading,
     error: queryError,
+    loading,
+    value,
   } = useAsync(
     () =>
       interfaceFormApi.InterfaceForm_GetAtoms({

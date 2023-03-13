@@ -7,8 +7,8 @@ export interface DisplayIfFieldProps<T> {
 }
 
 export const DisplayIfField = <T,>({
-  condition,
   children,
+  condition,
 }: React.PropsWithChildren<DisplayIfFieldProps<T>>) => {
   const uniforms = useForm<T>()
 

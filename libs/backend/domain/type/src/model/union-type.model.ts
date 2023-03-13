@@ -23,12 +23,12 @@ export class UnionType extends BaseType implements IUnionType {
 
   typesOfUnionType: Array<IEntity>
 
-  private constructor({ id, name, kind, owner, typesOfUnionType }: IUnionType) {
+  private constructor({ id, kind, name, owner, typesOfUnionType }: IUnionType) {
     super({ __typename: ITypeKind.UnionType, id, kind, name, owner })
     this.typesOfUnionType = typesOfUnionType
   }
 
-  static init({ id, owner, name, typesOfUnionType }: ICreateUnionType) {
+  static init({ id, name, owner, typesOfUnionType }: ICreateUnionType) {
     return new UnionType({
       __typename: ITypeKind.UnionType,
       id,

@@ -9,10 +9,10 @@ export type ListItemButtonProps = Required<
 
 export const ListItemButton = ({
   danger,
-  icon,
-  onClick,
   disabled = false,
+  icon,
   loading = false,
+  onClick,
 }: ListItemButtonProps) => {
   return (
     <Button

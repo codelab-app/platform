@@ -19,7 +19,7 @@ export const ExplorerPanePage = observer<{
   pageService: IPageService
   domainService: IDomainService
   userService: IUserService
-}>(({ pageService, domainService, userService }) => {
+}>(({ domainService, pageService, userService }) => {
   const router = useRouter()
 
   const headerProps = {

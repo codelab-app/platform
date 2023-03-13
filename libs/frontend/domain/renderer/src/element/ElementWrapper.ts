@@ -36,7 +36,7 @@ export interface ElementWrapperProps {
  * It is in this wrapper that the children are rendered
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
-  ({ renderService, element, extraProps = {}, postAction, ...rest }) => {
+  ({ element, extraProps = {}, postAction, renderService, ...rest }) => {
     // const globalPropsContext = useContext(GlobalPropsContext)
     // const globalProps = globalPropsContext[element.id]    const state = renderService.appStore.current.state
     const store = renderService.appStore.current

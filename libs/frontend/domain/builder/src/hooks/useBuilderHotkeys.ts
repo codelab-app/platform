@@ -20,9 +20,9 @@ type UseBuilderHotkeysProps = Pick<
  * - Esc -> de-selects element
  */
 export const useBuilderHotkeys = ({
+  deleteModal,
   selectedNode,
   setSelectedNode,
-  deleteModal,
 }: UseBuilderHotkeysProps) => {
   useHotkeys(
     'del,backspace',

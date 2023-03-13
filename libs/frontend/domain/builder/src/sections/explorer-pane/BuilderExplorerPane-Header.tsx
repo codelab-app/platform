@@ -18,10 +18,10 @@ interface BuilderMainPaneHeaderProps {
 
 export const BuilderExplorerPaneHeader = observer(
   ({
-    root,
-    elementService,
     builderService,
+    elementService,
     elementTree,
+    root,
   }: BuilderMainPaneHeaderProps) => {
     if (!root || !elementTree) {
       return null

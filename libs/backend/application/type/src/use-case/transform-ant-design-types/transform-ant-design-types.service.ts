@@ -48,7 +48,7 @@ export class TransformAntDesignTypesService extends IUseCase<
 
   unionTypeRepository = new UnionTypeRepository()
 
-  protected async _execute({ field, atom, owner }: Request) {
+  protected async _execute({ atom, field, owner }: Request) {
     if (isEnumType(field.type)) {
       const values = parseSeparators(field)
 

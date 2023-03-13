@@ -60,14 +60,14 @@ export class FieldService
   create = _async(function* (
     this: FieldService,
     {
+      defaultValues,
       description,
+      fieldType,
       id,
+      interfaceTypeId,
       key,
       name,
-      defaultValues,
-      fieldType,
       validationRules,
-      interfaceTypeId,
     }: ICreateFieldData,
   ) {
     const {
@@ -103,12 +103,12 @@ export class FieldService
   update = _async(function* (
     this: FieldService,
     {
-      fieldType,
+      defaultValues,
       description,
+      fieldType,
       id,
       key,
       name,
-      defaultValues,
       validationRules,
     }: ICreateFieldData,
   ) {

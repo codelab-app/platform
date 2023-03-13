@@ -57,8 +57,8 @@ interface GetComponentItemProps {
 }
 
 export const GetComponentItem = ({
-  component,
   className = '',
+  component,
 }: GetComponentItemProps) => (
   <Card
     className={className}

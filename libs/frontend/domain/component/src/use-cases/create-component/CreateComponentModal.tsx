@@ -15,10 +15,10 @@ import { createComponentSchema } from './create-component.schema'
 export const CreateComponentModal = observer(() => {
   const {
     componentService,
-    typeService,
-    userService,
     elementService,
     propService,
+    typeService,
+    userService,
   } = useStore()
 
   const user = userService.user

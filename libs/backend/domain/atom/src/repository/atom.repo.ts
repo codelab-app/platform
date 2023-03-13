@@ -45,7 +45,7 @@ export class AtomRepository extends AbstractRepository<IAtom> {
         await this.Atom
       ).create({
         input: atoms.map(
-          ({ tags, api, allowedChildren = [], owner, ...atom }) => ({
+          ({ allowedChildren = [], api, owner, tags, ...atom }) => ({
             ...atom,
             allowedChildren: connectNodeIds(
               allowedChildren.map((child) => child.id),
@@ -60,7 +60,7 @@ export class AtomRepository extends AbstractRepository<IAtom> {
   }
 
   protected async _update(
-    { tags, api, allowedChildren = [], owner, ...atom }: IAtom,
+    { allowedChildren = [], api, owner, tags, ...atom }: IAtom,
     where: BaseTypeUniqueWhere,
   ) {
     return (

@@ -7,7 +7,7 @@ import { PropsForm } from './PropsForm'
 type ModalPropsFormProps = React.PropsWithChildren<PropsFormProps>
 
 export const ModalPropsForm = observer((props: ModalPropsFormProps) => {
-  const { submitRef, setIsLoading } = useContext(ModalForm.ModalFormContext)
+  const { setIsLoading, submitRef } = useContext(ModalForm.ModalFormContext)
 
   return (
     <PropsForm

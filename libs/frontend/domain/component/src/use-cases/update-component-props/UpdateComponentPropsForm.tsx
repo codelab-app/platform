@@ -18,11 +18,11 @@ export interface UpdateComponentPropsFormProps {
 
 export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
   ({ component, trackPromises }) => {
-    const { typeService, componentService } = useStore()
+    const { componentService, typeService } = useStore()
     const { trackPromise } = trackPromises ?? {}
     const apiId = component.api.id
 
-    const { value: interfaceType, loading } = useAsync(
+    const { loading, value: interfaceType } = useAsync(
       () => typeService.getInterfaceAndDescendants(apiId),
       [apiId],
     )

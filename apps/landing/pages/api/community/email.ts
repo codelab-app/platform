@@ -8,7 +8,7 @@ const schema = z.object({
 })
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { list_id, api_key, server_prefix } = EnvLanding().mailchimp
+  const { api_key, list_id, server_prefix } = EnvLanding().mailchimp
 
   try {
     const { email } = schema.parse(req.body)

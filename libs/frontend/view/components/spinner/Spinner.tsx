@@ -6,5 +6,5 @@ export interface SpinnerProps {
   children?: React.ReactNode
 }
 
-export const Spinner = ({ isLoading, children }: SpinnerProps) =>
+export const Spinner = ({ children, isLoading }: SpinnerProps) =>
   isLoading ? <Spin /> : <>{children}</>

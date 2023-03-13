@@ -80,7 +80,7 @@ export class ComponentService
     renderedComponentFragments.forEach((component) => {
       const componentModel = this.add(component)
 
-      const { rootElement, hydratedElements } =
+      const { hydratedElements, rootElement } =
         this.elementService.loadComponentTree(component)
 
       componentModel.initTree(rootElement, hydratedElements)
@@ -93,13 +93,13 @@ export class ComponentService
 
   @modelAction
   add({
-    id,
     api,
+    childrenContainerElement,
+    id,
     name,
-    rootElement,
     owner,
     props,
-    childrenContainerElement,
+    rootElement,
   }: IComponentDTO) {
     if (props) {
       this.propService.add(props)
@@ -182,7 +182,7 @@ export class ComponentService
 
     const newComponent = yield* _await(this.componentRepository.add(component))
 
-    const { rootElement, hydratedElements } =
+    const { hydratedElements, rootElement } =
       this.elementService.loadComponentTree(newComponent)
 
     component.initTree(rootElement, hydratedElements)
@@ -194,7 +194,7 @@ export class ComponentService
   @transaction
   update = _async(function* (
     this: ComponentService,
-    { id, name, childrenContainerElement }: IUpdateComponentData,
+    { childrenContainerElement, id, name }: IUpdateComponentData,
   ) {
     const component = this.components.get(id)!
 

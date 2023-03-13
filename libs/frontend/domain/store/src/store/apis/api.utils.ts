@@ -52,14 +52,14 @@ export const makeActionCreateInput = (
 }
 
 export const makeActionUpdateInput = ({
-  id,
-  name,
-  type,
-  resourceId,
+  code,
   config,
   errorActionId,
+  id,
+  name,
+  resourceId,
   successActionId,
-  code,
+  type,
 }: IUpdateActionData): {
   where: IAnyActionWhere
   update: IUpdateActionInput

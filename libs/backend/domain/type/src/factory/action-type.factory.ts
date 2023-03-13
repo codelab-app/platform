@@ -15,7 +15,7 @@ export class ActionTypeFactory extends ITypeFactory<
   repository: ActionTypeRepository = new ActionTypeRepository()
 
   async _create(
-    { owner, id }: ICreateActionType,
+    { id, owner }: ICreateActionType,
     where: BaseTypeUniqueWhereCallback<IActionType>,
   ) {
     const actionType = ActionType.init({

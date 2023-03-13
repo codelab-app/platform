@@ -25,7 +25,7 @@ const PropsInspectorTab = observer(
     const [editedProps, setEditedProps] = React.useState(initialProps)
     const [isValidProps, setIsValidProps] = React.useState(true)
 
-    const { save, lastRenderedPropsString, isLoading } = usePropsInspector(
+    const { isLoading, lastRenderedPropsString, save } = usePropsInspector(
       node,
       renderer,
       editedProps,

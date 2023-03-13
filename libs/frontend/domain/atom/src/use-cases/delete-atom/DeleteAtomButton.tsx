@@ -9,7 +9,7 @@ import { atomRef } from '../../store'
 export type DeleteAtomButton = DeleteButtonProps & { atomService: IAtomService }
 
 export const DeleteAtomButton = observer<DeleteAtomButton>(
-  ({ disabled, ids, atomService }) => {
+  ({ atomService, disabled, ids }) => {
     return (
       <Button
         danger

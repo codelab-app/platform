@@ -20,21 +20,21 @@ export const GetTypesTable = observer<{
   fieldService: IFieldService
   page?: number
   pageSize?: number
-}>(({ typeService, fieldService, page, pageSize }) => {
+}>(({ fieldService, page, pageSize, typeService }) => {
   const { typesList } = typeService
   const router = useRouter()
   const curPage = page ?? DEFAULT_CUR_PAGE
   const curPageSize = pageSize ?? DEFAULT_PAGE_SIZE
 
   const {
-    isLoadingAllTypes,
-    getBaseTypes,
     fetchedBaseTypes,
-    isLoadingTypeDescendants,
+    getBaseTypes,
     getTypeDescendants,
+    isLoadingAllTypes,
+    isLoadingTypeDescendants,
   } = useTypesTableData(typeService)
 
-  const { columns, rowSelection, pagination } = useTypesTable({
+  const { columns, pagination, rowSelection } = useTypesTable({
     fieldService,
     isLoadingTypeDependencies: isLoadingAllTypes,
     typeService,

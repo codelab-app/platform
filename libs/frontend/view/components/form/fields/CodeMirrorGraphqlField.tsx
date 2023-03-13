@@ -40,7 +40,7 @@ export const CodeMirrorGraphqlField = <T,>(
       const form = useForm<T>()
       const url = baseProps.getUrl(form)
 
-      const { value: graphqlExtension, loading } = useAsync(
+      const { loading, value: graphqlExtension } = useAsync(
         () => graphqlExtensionFactory(url),
         [],
       )

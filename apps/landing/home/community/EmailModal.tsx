@@ -8,7 +8,7 @@ interface EmailModalProps extends Omit<ModalProps, 'onOk'> {
   onOk: (email: string) => void
 }
 
-export const EmailModal = ({ open, onOk, onCancel }: EmailModalProps) => {
+export const EmailModal = ({ onCancel, onOk, open }: EmailModalProps) => {
   const [email, setEmail] = useState('')
   const { success: isValid } = z.string().email().safeParse(email)
 

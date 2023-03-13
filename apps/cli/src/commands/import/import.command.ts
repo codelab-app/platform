@@ -19,7 +19,6 @@ import {
 } from '../../shared/path-args'
 import { selectUserPrompt } from '../../shared/prompts/selectUser'
 import { Stage } from '../../shared/utils/stage'
-import { importSeedData } from './import-seed-data'
 
 type ImportProps = ExportProps & {
   email?: string
@@ -52,9 +51,9 @@ export const importCommand: CommandModule<ImportProps, ImportProps> = {
   handler: async ({
     email,
     seedDataPath,
-    userDataPath,
     skipSeedData,
     skipUserData,
+    userDataPath,
   }) => {
     const User = await Repository.instance.User
 

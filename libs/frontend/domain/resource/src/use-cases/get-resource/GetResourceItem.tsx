@@ -16,7 +16,7 @@ interface GetResourceItemProps {
 
 export const GetResourcesItem = observer<GetResourceItemProps>(
   // eslint-disable-next-line react/jsx-no-useless-fragment
-  ({ resourceService, resource }) => (
+  ({ resource, resourceService }) => (
     <Card
       extra={
         <ItemDropdown resource={resource} resourceService={resourceService} />

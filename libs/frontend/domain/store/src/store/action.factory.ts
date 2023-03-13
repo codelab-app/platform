@@ -33,8 +33,8 @@ export class ActionFactory extends Model({}) implements IActionFactory {
 
   @modelAction
   private fromApiActionFragment({
-    successAction,
     errorAction,
+    successAction,
     ...apiActionFragment
   }: ApiActionFragment): IApiActionDTO {
     return {

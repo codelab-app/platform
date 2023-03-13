@@ -140,11 +140,11 @@ export class ApiAction
 
   @modelAction
   writeCache({
-    resource,
     config,
     errorAction,
-    successAction,
+    resource,
     store,
+    successAction,
   }: Partial<IApiActionDTO>) {
     this.resource = resource ? resourceRef(resource.id) : this.resource
     this.config = config ? propRef<IProp>(config.id) : this.config

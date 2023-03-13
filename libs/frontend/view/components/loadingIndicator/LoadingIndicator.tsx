@@ -13,11 +13,11 @@ interface LoadIndicatorProps extends LoadingData {
 }
 
 export const LoadingIndicator = ({
-  isLoading,
   error,
-  renderNotLoading,
-  renderLoading,
+  isLoading,
   renderErrored,
+  renderLoading,
+  renderNotLoading,
   style: styleProp,
 }: LoadIndicatorProps) => {
   const elementStyle = isFunction(styleProp)

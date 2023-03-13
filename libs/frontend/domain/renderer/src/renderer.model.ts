@@ -73,10 +73,10 @@ import { mapOutput } from './utils/renderOutputUtils'
  */
 
 const init = async ({
-  providerTree,
-  elementTree,
-  rendererType,
   appStore,
+  elementTree,
+  providerTree,
+  rendererType,
   setSelectedNode,
 }: RendererProps) => {
   /**

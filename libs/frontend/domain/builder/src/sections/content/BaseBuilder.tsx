@@ -12,7 +12,7 @@ export interface BaseBuilderProps {
 }
 
 export const BaseBuilder = observer<BaseBuilderProps>(
-  ({ elementTree, renderer, builderTabsWidth }) => {
+  ({ builderTabsWidth, elementTree, renderer }) => {
     const { builderService, elementService } = useStore()
 
     const rendererProps = useMemo(

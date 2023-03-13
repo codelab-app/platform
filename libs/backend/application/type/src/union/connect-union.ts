@@ -15,8 +15,8 @@ import { parseSeparators } from '../parser'
  * The function will create a union type, then connect to Primitive Type
  * */
 export const connectUnionType: FieldTypeRef = async ({
-  field,
   atom,
+  field,
   userId,
 }) => {
   const UnionType = await Repository.instance.UnionType

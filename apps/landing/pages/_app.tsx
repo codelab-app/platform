@@ -23,7 +23,7 @@ import { useHotjar } from '../hooks/useHotjar'
  * Pass { snapshot: getSnapshot(store) } as props from any getServerSideProps to pre-populate the store
  */
 
-const App = ({ pageProps, Component }: IAppProps) => {
+const App = ({ Component, pageProps }: IAppProps) => {
   const { Layout = ({ children }: PropsWithChildren) => <>{children}</> } =
     Component as CodelabPage
 

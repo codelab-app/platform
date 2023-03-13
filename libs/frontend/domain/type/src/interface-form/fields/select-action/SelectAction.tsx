@@ -13,7 +13,7 @@ export type SelectActionProps = Pick<
 >
 
 export const SelectAction = (fieldProps: SelectActionProps) => {
-  const { storeService, appService } = useStore()
+  const { appService, storeService } = useStore()
   const appId = useCurrentAppId()
   const app = appService.app(appId)
   const appStore = app && storeService.store(app.store.id)

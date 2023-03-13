@@ -40,9 +40,9 @@ export const DraggableElement = ({
 
   // Create a droppable for the element
   const {
-    setNodeRef: droppableNodeRefSetter,
     isOver,
     over,
+    setNodeRef: droppableNodeRefSetter,
   } = useDroppable({ id: element.id })
 
   useEffect(() => {
