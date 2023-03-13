@@ -22,7 +22,6 @@ export interface IAtomService
   // Select dropdown for atoms need to load all atoms from the db
   // but this is a heavy operation, this flag allows to call it only once
   allAtomsLoaded: boolean
-  delete(ids: Array<string>): Promise<number>
   atoms: ObjectMap<IAtom>
   count: number
   atomsList: Array<IAtom>
@@ -31,7 +30,8 @@ export interface IAtomService
     { atoms: Array<IAtom> }
   >
   selectedIds: ArraySet<string>
+  atomRepository: IAtomRepository
+  delete(ids: Array<string>): Promise<number>
   setSelectedIds(arraySet: ArraySet<string>): void
   add(atomDTO: IAtomDTO): IAtom
-  atomRepository: IAtomRepository
 }

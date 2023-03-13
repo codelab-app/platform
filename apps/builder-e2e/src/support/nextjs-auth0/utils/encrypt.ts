@@ -11,8 +11,8 @@ const deriveKey = (secret: string) =>
   hkdf(secret, BYTE_LENGTH, { info: ENCRYPTION_INFO, ...options })
 
 interface EncryptData {
-  secret: string
   [key: string]: unknown
+  secret: string
 }
 
 export const encrypt = (arg: EncryptData) => {

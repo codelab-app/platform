@@ -12,12 +12,6 @@ import type { IOwnerSchema } from '../user'
 import type { IAtomDTO, IRenderAtomDTO } from './atom.dto.interface'
 
 export interface IAtom extends ICacheService<IAtomDTO, IAtom>, IOwnerSchema {
-  id: string
-  name: string
-  icon?: string | null
-  type: IAtomType
-  tags: Array<Ref<ITag>>
-  api: Ref<IInterfaceType>
   allowCustomTextInjection: boolean
   /**
    * We don't need Ref here, only need id to filter the select options. Making it Ref requires dependency resolution that makes it more difficult.
@@ -25,6 +19,12 @@ export interface IAtom extends ICacheService<IAtomDTO, IAtom>, IOwnerSchema {
    * We store preview data here so we can more easily display the tags in the atoms table
    */
   allowedChildren: Array<Ref<IAtom>>
+  api: Ref<IInterfaceType>
+  id: string
+  name: string
+  tags: Array<Ref<ITag>>
+  type: IAtomType
+  icon?: string | null
 
   toCreateInput(): AtomCreateInput
   toUpdateInput(): AtomUpdateInput

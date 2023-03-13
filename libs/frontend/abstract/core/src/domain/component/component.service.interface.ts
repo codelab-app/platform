@@ -26,8 +26,8 @@ export interface IComponentService
   components: ObjectMap<IComponent>
   clonedComponents: ObjectMap<IComponent>
   componentList: Array<IComponent>
-  component(id: string): Maybe<IComponent>
   componentAntdNode: IBuilderDataNode
+  component(id: string): Maybe<IComponent>
   add(componentDTO: IComponentDTO): IComponent
   patchComponent(
     component: IComponent,

@@ -24,19 +24,13 @@ export interface IAppService
   extends ICRUDService<IApp, ICreateAppData, IUpdateAppData>,
     IQueryService<IApp, AppWhere, AppOptions>,
     ICRUDModalService<Ref<IApp>, { app: Maybe<IApp> }> {
-  /**
-   * Properties
-   */
-  // createSubmit(appDto: ICreateAppData): Promise<IApp>
-  add(appDto: IAppDTO): IApp
   apps: ObjectMap<IApp>
-  app(id: string): Maybe<IApp>
   appsList: Array<IApp>
-  // create(appDTO: ICreateAppDTO): IApp
   appsJson: IPropData
-  loadPages(data: IPageBuilderAppProps): IBuilderApp
   buildModal: IEntityModalService<Ref<IApp>, { app: IApp }>
-
+  add(appDto: IAppDTO): IApp
+  app(id: string): Maybe<IApp>
+  loadPages(data: IPageBuilderAppProps): IBuilderApp
   getRenderedPageAndCommonAppData(
     appId: string,
     pageId: string,
