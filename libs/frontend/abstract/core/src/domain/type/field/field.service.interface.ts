@@ -23,13 +23,13 @@ export interface IFieldService
       ICRUDModalService<Ref<IField>, { field: Maybe<IField> }>,
       'createModal'
     > {
-  delete(ids: Array<string>): Promise<number>
+  fields: ObjectMap<IField>
   createModal: IEntityModalService<
     Ref<IInterfaceType>,
     { interface: Maybe<IInterfaceType> }
   >
+  delete(ids: Array<string>): Promise<number>
   getField(id: string): Maybe<IField<IAnyType>>
   load(fields: Array<FieldFragment>): void
-  fields: ObjectMap<IField>
   add(fieldDTO: IFieldDTO): IField
 }

@@ -14,9 +14,10 @@ import type { IInterfaceTypeDTO } from './interface-type.dto.interface'
  */
 export interface IInterfaceType extends IBaseType<IInterfaceTypeDTO> {
   kind: ITypeKind.InterfaceType
-  field(id: string): Maybe<IField>
   fields: Array<IField>
   defaultValues: IPropData
+
+  field(id: string): Maybe<IField>
   deleteField(field: IField): void
   writeFieldCache(fields: Array<FieldFragment>): void
   load(fields: Array<FieldFragment>): void

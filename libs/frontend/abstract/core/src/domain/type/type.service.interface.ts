@@ -30,19 +30,20 @@ export interface ITypeService
   extends ICRUDService<IAnyType, ICreateTypeData, IUpdateTypeData>,
     IQueryService<IAnyType, BaseTypeWhere, BaseTypeOptions>,
     ICRUDModalService<Ref<IAnyType>, { type: Maybe<IAnyType> }> {
-  getBaseTypes(options: BaseTypesOptions): Promise<Array<string>>
-  getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>
   types: ObjectMap<IAnyType>
-  type(id: string): Maybe<IAnyType>
-  primitiveKind(id: string): Nullable<IPrimitiveTypeKind>
   typesList: Array<IAnyType>
   selectedIds: ArraySet<string>
+  count: number
+
+  getBaseTypes(options: BaseTypesOptions): Promise<Array<string>>
+  getInterfaceAndDescendants(id: IInterfaceTypeRef): Promise<IInterfaceType>
+  type(id: string): Maybe<IAnyType>
+  primitiveKind(id: string): Nullable<IPrimitiveTypeKind>
   setSelectedIds(ids: ArraySet<string>): void
   getAllWithDescendants(ids: Array<string>): Promise<Array<IAnyType>>
   loadTypes(types: GetTypesQuery): Array<IAnyType>
   loadFields(types: GetTypesQuery['interfaceTypes']): void
   loadTypesByChunks(types: GetTypesQuery): void
-  count: number
   // add(data: ICreateTypeDTO): IAnyType
   // create(data: ICreateTypeDTO): IAnyType
   addInterface(data: ICreateTypeData): IInterfaceType

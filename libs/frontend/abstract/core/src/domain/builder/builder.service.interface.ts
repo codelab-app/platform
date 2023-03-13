@@ -6,12 +6,10 @@ import type { IElement, IElementTree } from '../element'
 import type { IPageNodeRef } from '../page'
 import type { RendererTab } from '../render'
 import type { BuilderDragData, BuilderWidth } from './builder.interface'
-
 // TBC: | IComponent
 export type IBuilderComponent = IAtom & {
   // tag: Ref<ITag>
 }
-
 export interface IBuilderService {
   /**
    * Tells us which tree we are selecting in the main pane
@@ -31,28 +29,23 @@ export interface IBuilderService {
   builderContainerWidth: number
   currentDragData: Nullable<Frozen<BuilderDragData>>
   activeElementTree: Maybe<IElementTree>
-
   expandedPageElementTreeNodeIds: Array<string>
-  setExpandedPageElementTreeNodeIds(expandedNodeIds: Array<string>): void
-  selectComponentNode(node: Nullable<IComponent>): void
-
   expandedComponentTreeNodeIds: Array<string>
-  setExpandedComponentTreeNodeIds(expandedNodeIds: Array<string>): void
-  selectElementNode(node: Nullable<IElement>): void
   /**
    * Computed from selectedNode, the selected node may or may not be a component, and there may be no selected node
    */
   activeComponent: Nullable<Ref<IComponent>>
   componentTagNames: Array<string>
   componentsGroupedByCategory: Record<string, Array<IBuilderComponent>>
-
-  // set SelectedTreeNode(node: IBuilderDataNode | null): void
+  setExpandedPageElementTreeNodeIds(expandedNodeIds: Array<string>): void
+  selectComponentNode(node: Nullable<IComponent>): void
+  setExpandedComponentTreeNodeIds(expandedNodeIds: Array<string>): void
+  selectElementNode(node: Nullable<IElement>): void
   setHoveredNode(element: Nullable<IPageNodeRef>): void
   setSelectedNode(node: Nullable<IPageNodeRef>): void
   setCurrentBuilderWidth(width: Nullable<BuilderWidth>): void
   setSelectedBuilderWidth(width: Nullable<BuilderWidth>): void
   setBuilderContainerWidth(width: number): void
-
   setActiveTree(tab: RendererTab): void
   setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void
 }

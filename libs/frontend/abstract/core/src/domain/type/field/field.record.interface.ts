@@ -13,8 +13,8 @@ export interface IFieldRecord {
   key: string
   type?: {
     id: string
-    name: string
     kind: string
+    name: string
   }
   validationRules?: Array<ValidationRuleTag>
   dependentTypes: Array<ITypeRecord>

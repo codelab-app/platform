@@ -4,11 +4,12 @@ import type { IApp } from '../app'
 
 export interface IUser {
   id: string
-  setId(id: string): void
   auth0Id: string
   username: string
   roles: Array<IRole>
   apps: Array<Ref<IApp>>
+
+  setId(id: string): void
 }
 
 export interface IOwnerSchema {

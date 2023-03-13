@@ -23,10 +23,10 @@ interface BuilderTreeProps {
   treeData: IBuilderDataNode | undefined
   className?: string
   elementTree: IElementTree | null
+  expandedNodeIds: Array<string>
   setActiveTree: () => void
   setExpandedNodeIds: (ids: Array<string>) => void
   selectTreeNode(node: Nullable<IPageNode>): void
-  expandedNodeIds: Array<string>
 }
 
 /**
