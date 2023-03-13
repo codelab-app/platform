@@ -6,6 +6,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   IType,
+  IBaseTypeDTO,
   ICreateTypeData,
   ITypeDTO,
 } from '@codelab/frontend/abstract/core'
@@ -30,8 +31,6 @@ import {
 } from 'mobx-keystone'
 import { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
 import { TypeRepository } from '../services'
-import { getTypeApi } from './apis/type.api'
-import { baseTypesFactory } from './base-types.factory'
 import { getFieldService } from './field.service.context'
 import { InterfaceType } from './models'
 import { TypeFactory } from './type.factory'
@@ -66,30 +65,18 @@ export class TypeService
    */
   @modelFlow
   @transaction
-  getBaseTypes = _async(function* (
-    this: TypeService,
-    { limit, offset, where },
-  ) {
-    const {
-      baseTypes: { items, totalCount },
-    } = yield* _await(
-      getTypeApi.GetBaseTypes({
-        options: {
-          limit,
-          offset,
-          where,
-        },
-      }),
+  getBaseTypes = _async(function* (this: TypeService, options) {
+    const { items, totalCount } = yield* _await(
+      this.typeRepository.findBaseTypes(options),
     )
 
     this.count = totalCount
 
-    return items.map((type) => {
-      const typeModel = baseTypesFactory(type)
-      this.types.set(type.id, typeModel)
-
-      return typeModel.id
-    })
+    return items
+      .map((baseTypeFragment) => this.addBaseType(baseTypeFragment))
+      .sort((typeA, typeB) =>
+        typeA.name.toLowerCase() < typeB.name.toLowerCase() ? -1 : 1,
+      )
   })
 
   @computed
@@ -195,6 +182,14 @@ export class TypeService
     ) {
       type.writeFieldCache(typeDTO.fields)
     }
+
+    return type
+  }
+
+  @modelAction
+  addBaseType(baseTypeDTO: IBaseTypeDTO) {
+    const type = TypeFactory.createBaseType(baseTypeDTO)
+    this.types.set(type.id, type)
 
     return type
   }

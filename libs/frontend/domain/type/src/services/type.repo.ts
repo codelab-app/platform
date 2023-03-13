@@ -1,4 +1,5 @@
 import type {
+  BaseTypesOptions,
   IType,
   ITypeDTO,
   ITypeRepository,
@@ -65,6 +66,29 @@ export class TypeRepository extends Model({}) implements ITypeRepository {
       .filter((id) => !parentIds.includes(id))
 
     return yield* _await(getAllTypes(allDescendantIdsWithoutParents))
+  })
+
+  @modelFlow
+  findBaseTypes = _async(function* (
+    this: TypeRepository,
+    { limit, offset, where }: BaseTypesOptions,
+  ) {
+    const {
+      baseTypes: { items, totalCount },
+    } = yield* _await(
+      getTypeApi.GetBaseTypes({
+        options: {
+          limit,
+          offset,
+          where,
+        },
+      }),
+    )
+
+    return {
+      items,
+      totalCount,
+    }
   })
 
   @modelFlow

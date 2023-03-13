@@ -18,13 +18,8 @@ import type {
 } from './type.dto.interface'
 import type { IType, IInterfaceType, IInterfaceTypeRef } from './types'
 
-export interface BaseTypesOptions {
-  limit?: number
-  offset?: number
-  where?: {
-    name: string
-  }
-}
+
+import type { BaseTypesOptions } from './type.repo.interface'
 
 export interface ITypeService
   extends ICRUDService<IType, ICreateTypeData, IUpdateTypeData>,
@@ -35,10 +30,9 @@ export interface ITypeService
   types: ObjectMap<IType>
   typesList: Array<IType>
 
+  getBaseTypes(options: BaseTypesOptions): Promise<Array<IType>>
   add(type: ITypeDTO): IType
   addInterface(data: ICreateTypeData): IInterfaceType
-  getAllWithDescendants(ids: Array<string>): Promise<Array<IType>>
-  getBaseTypes(options: BaseTypesOptions): Promise<Array<string>>
   getInterface(id: IInterfaceTypeRef): Promise<IInterfaceType>
   getAll(ids?: Array<string>): Promise<Array<IType>>
   loadFields(types: GetTypesQuery['interfaceTypes']): void

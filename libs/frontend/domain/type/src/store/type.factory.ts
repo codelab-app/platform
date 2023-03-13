@@ -1,5 +1,7 @@
 import type {
+  IAnyType,
   IArrayTypeDTO,
+  IBaseTypeDTO,
   ICreateTypeData,
   IInterfaceTypeDTO,
   ITypeDTO,
@@ -25,7 +27,7 @@ import {
 } from './models'
 
 export class TypeFactory {
-  static create(typeDTO: ITypeDTO) {
+  static create(typeDTO: ITypeDTO): IAnyType {
     switch (typeDTO.__typename) {
       case ITypeKind.AppType:
         return AppType.create(typeDTO)
@@ -69,6 +71,13 @@ export class TypeFactory {
       default:
         throw new Error(`Unknown type kind: ${typeDTO.kind}`)
     }
+  }
+
+  static createBaseType(baseTypeDTO: IBaseTypeDTO) {
+    return TypeFactory.create({
+      ...baseTypeDTO,
+      __typename: baseTypeDTO.kind,
+    } as ITypeDTO)
   }
 
   static mapDataToDTO(data: ICreateTypeData | IUpdateTypeData): ITypeDTO {

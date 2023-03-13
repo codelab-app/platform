@@ -35,7 +35,6 @@ export const UpdateTypeModal = observer<{ typeService: ITypeService }>(
       await validateNonRecursive(typeToUpdate?.id, data)
 
       await typeService.update(data)
-      void typeService.getBaseTypes({}).then(() => undefined)
     }
 
     const model = {

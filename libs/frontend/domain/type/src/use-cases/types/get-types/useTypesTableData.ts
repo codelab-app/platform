@@ -3,22 +3,23 @@ import { useAsyncFn } from 'react-use'
 
 export const useTypesTableData = (typeService: ITypeService) => {
   /**
-   * Get the base types of the current page and load the fields and write to cache
+   * Get the base types of the current page
    */
-  const setupCurrentPageTypes = async (
-    options: Parameters<typeof typeService.getBaseTypes>[0],
-  ) => {
-    const baseTypeIds = await typeService.getBaseTypes(options)
-
-    return await typeService.getAll(baseTypeIds)
-  }
-
   const [{ loading: isLoadingAllTypes, value: fetchedTypes }, getTypes] =
-    useAsyncFn(setupCurrentPageTypes)
+    useAsyncFn(typeService.getBaseTypes)
+
+  /**
+   * Load full details of the types
+   */
+  const [{ loading: loadingFullType }, getFullType] = useAsyncFn(
+    typeService.getAll,
+  )
 
   return {
     fetchedTypes,
+    getFullType,
     getTypes,
     isLoadingAllTypes,
+    loadingFullType,
   }
 }

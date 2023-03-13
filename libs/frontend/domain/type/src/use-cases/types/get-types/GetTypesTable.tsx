@@ -26,8 +26,13 @@ export const GetTypesTable = observer<{
   const curPage = page ?? DEFAULT_CUR_PAGE
   const curPageSize = pageSize ?? DEFAULT_PAGE_SIZE
 
-  const { fetchedTypes, getTypes, isLoadingAllTypes } =
-    useTypesTableData(typeService)
+  const {
+    fetchedTypes,
+    getFullType,
+    getTypes,
+    isLoadingAllTypes,
+    loadingFullType,
+  } = useTypesTableData(typeService)
 
   const { columns, pagination, rowSelection } = useTypesTable({
     fieldService,
@@ -87,6 +92,11 @@ export const GetTypesTable = observer<{
               typeService={typeService}
             />
           ),
+        onExpand: (expanded, record) => {
+          if (expanded) {
+            void getFullType([record.id])
+          }
+        },
       }}
       loading={isLoadingAllTypes}
       pagination={{
