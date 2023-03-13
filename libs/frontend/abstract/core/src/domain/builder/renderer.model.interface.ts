@@ -13,13 +13,13 @@ export const enum RendererType {
   Preview = 'preview',
 }
 export interface IRenderer {
-  renderRoot(): ReactElement | null
   providerTree: Nullable<Ref<IElementTree>>
   elementTree: Ref<IElementTree>
   appStore: Ref<IStore>
   debugMode: boolean
   rendererType: RendererType
   state: IProp
+  renderRoot(): ReactElement | null
   renderIntermediateElement(
     element: IElement,
     extraProps?: IPropData,

@@ -20,22 +20,20 @@ export interface ITagService
   extends Omit<ICRUDService<ITag, ICreateTagData, IUpdateTagData>, 'delete'>,
     Omit<IQueryService<ITag, TagWhere, TagOptions>, 'getOne'>,
     Omit<ICRUDModalService<Ref<ITag>, { tag: Maybe<ITag> }>, 'deleteModal'> {
-  /**
-   * Properties
-   */
-  delete(ids: Array<string>): Promise<number>
   deleteManyModal: IEntityModalService<Array<Ref<ITag>>, { tags: Array<ITag> }>
   // updateModal: IEntityModalService<Ref<ITag>, { tag?: ITag }>
   tags: ObjectMap<ITag>
   tagsList: Array<ITag>
-  loadTagTree(): void
-  tag(id: string): Maybe<ITag>
   tagsSelectOptions: Array<LabeledValue>
   selectedOption: LabeledValue
+  checkedTags: Array<Ref<ITag>>
+  treeService: ITagTreeService
+
+  delete(ids: Array<string>): Promise<number>
+  loadTagTree(): void
+  tag(id: string): Maybe<ITag>
   deleteCheckedTags(): void
   setSelectedTag(tag: Nullish<Ref<ITag>>): void
   setCheckedTags(tags: Array<Ref<ITag>>): void
-  checkedTags: Array<Ref<ITag>>
-  treeService: ITagTreeService
   add(tagDTO: ITagDTO): ITag
 }

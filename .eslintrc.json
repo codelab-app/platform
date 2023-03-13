@@ -410,6 +410,14 @@
             ]
           }
         ],
+        "@typescript-eslint/padding-line-between-statements": [
+          "error",
+          {
+            "blankLine": "always",
+            "prev": "*",
+            "next": ["interface", "type"]
+          }
+        ],
         "padding-line-between-statements": [
           "error",
           {
@@ -486,6 +494,25 @@
       "rules": {
         "curly": "error",
         "prefer-arrow/prefer-arrow-functions": "error",
+        "@typescript-eslint/member-ordering": [
+          "error",
+          {
+            "default": {
+              // "optionalityOrder": "required-first",
+              // "order": "alphabetically"
+            },
+            "interfaces": {
+              "memberTypes": ["signature", "constructor", "field", "method"]
+              // "optionalityOrder": "required-first",
+              // "order": "alphabetically"
+            }
+            // "interfaces": {
+            //   "memberTypes": ["field", "method"],
+            //   "optionalityOrder": "required-first",
+            //   "order": "alphabetically"
+            // }
+          }
+        ],
         "@typescript-eslint/no-floating-promises": "error",
         "@typescript-eslint/consistent-type-definitions": "error",
         "@typescript-eslint/consistent-type-assertions": "error",

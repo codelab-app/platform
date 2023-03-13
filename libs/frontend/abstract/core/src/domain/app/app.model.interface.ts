@@ -22,13 +22,13 @@ export interface IApp extends ICacheService<IAppDTO, IApp>, IOwnerSchema {
   store: Ref<IStore>
   pages: Array<Ref<IPage>>
   toJson: IPropData
-  page(id: string): IPage
   pageRootElements: Array<Ref<IElement>>
   /**
    * The `_app.tsx` equivalent of pages
    */
   providerPage: IPage
 
+  page(id: string): IPage
   toCreateInput(): AppCreateInput
   toUpdateInput(): AppUpdateInput
   toDeleteInput(): AppDeleteInput

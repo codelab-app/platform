@@ -1,4 +1,5 @@
 type ErrorCallback = (reason: string) => void
+
 type SuccessCallback = () => void
 
 const importApp = async (
