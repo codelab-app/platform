@@ -40,24 +40,23 @@ export const exportAdminTypes = async (
 
   const enumTypes = (
     await EnumType.find({
-      where: props.apiId
-        ? {
-            fieldConnection: {
-              node: {
-                apiConnection: {
-                  node: {
-                    id: props.apiId,
-                  },
-                },
-              },
-            },
-          }
-        : undefined,
-      selectionSet: exportEnumTypeSelectionSet,
       options: {
         sort: [{ name: OGM_TYPES.SortDirection.Asc }],
       },
       selectionSet: exportEnumTypeSelectionSet,
+      // where: props.apiId
+      //   ? {
+      //       fieldConnection: {
+      //         node: {
+      //           apiConnection: {
+      //             node: {
+      //               id: props.apiId,
+      //             },
+      //           },
+      //         },
+      //       },
+      //     }
+      //   : undefined,
     })
   ).map((type) => ({
     ...type,

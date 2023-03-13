@@ -1,6 +1,6 @@
-import type { IUserRef } from '@codelab/backend/abstract/core'
 import { SeedDataService } from '@codelab/backend/application/admin'
 import { UserRepository } from '@codelab/backend/domain/user'
+import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import inquirer from 'inquirer'
 import type { CommandModule } from 'yargs'
 import { getStageOptions, loadStageMiddleware } from '../../shared/command'
@@ -34,7 +34,7 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
       throw new Error('User not found!')
     }
 
-    const user: IOwner = { auth0Id: selectedAuth0Id }
+    const user: IAuth0Owner = { auth0Id: selectedAuth0Id }
 
     await new SeedDataService().execute(user)
 

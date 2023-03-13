@@ -2802,14 +2802,11 @@ export type Atom = WithOwner & {
   tagsAggregate?: Maybe<AtomTagTagsAggregationSelection>
   api: InterfaceType
   apiAggregate?: Maybe<AtomInterfaceTypeApiAggregationSelection>
-  owner: User
-  ownerAggregate?: Maybe<AtomUserOwnerAggregationSelection>
   allowedChildren: Array<Atom>
   allowedChildrenAggregate?: Maybe<AtomAtomAllowedChildrenAggregationSelection>
   ownerConnection: WithOwnerOwnerConnection
   tagsConnection: AtomTagsConnection
   apiConnection: AtomApiConnection
-  ownerConnection: AtomOwnerConnection
   allowedChildrenConnection: AtomAllowedChildrenConnection
 }
 
@@ -2846,17 +2843,6 @@ export type AtomApiAggregateArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
 }
 
-export type AtomOwnerArgs = {
-  where?: InputMaybe<UserWhere>
-  options?: InputMaybe<UserOptions>
-  directed?: InputMaybe<Scalars['Boolean']>
-}
-
-export type AtomOwnerAggregateArgs = {
-  where?: InputMaybe<UserWhere>
-  directed?: InputMaybe<Scalars['Boolean']>
-}
-
 export type AtomAllowedChildrenArgs = {
   where?: InputMaybe<AtomWhere>
   options?: InputMaybe<AtomOptions>
@@ -2890,14 +2876,6 @@ export type AtomApiConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   sort?: InputMaybe<Array<AtomApiConnectionSort>>
-}
-
-export type AtomOwnerConnectionArgs = {
-  where?: InputMaybe<AtomOwnerConnectionWhere>
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  sort?: InputMaybe<Array<AtomOwnerConnectionSort>>
 }
 
 export type AtomAllowedChildrenConnectionArgs = {
@@ -2971,19 +2949,6 @@ export type AtomInterfaceTypeApiNodeAggregateSelection = {
   __typename?: 'AtomInterfaceTypeApiNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
-}
-
-export type AtomOwnerConnection = {
-  __typename?: 'AtomOwnerConnection'
-  edges: Array<AtomOwnerRelationship>
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-}
-
-export type AtomOwnerRelationship = {
-  __typename?: 'AtomOwnerRelationship'
-  cursor: Scalars['String']
-  node: User
 }
 
 export type AtomsConnection = {
@@ -11937,7 +11902,6 @@ export type AtomConnectInput = {
   owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   tags?: InputMaybe<Array<AtomTagsConnectFieldInput>>
   api?: InputMaybe<AtomApiConnectFieldInput>
-  owner?: InputMaybe<AtomOwnerConnectFieldInput>
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenConnectFieldInput>>
 }
 
@@ -11945,7 +11909,6 @@ export type AtomConnectOrCreateInput = {
   owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   tags?: InputMaybe<Array<AtomTagsConnectOrCreateFieldInput>>
   api?: InputMaybe<AtomApiConnectOrCreateFieldInput>
-  owner?: InputMaybe<AtomOwnerConnectOrCreateFieldInput>
   allowedChildren?: InputMaybe<
     Array<AtomAllowedChildrenConnectOrCreateFieldInput>
   >
@@ -11967,7 +11930,6 @@ export type AtomCreateInput = {
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   tags?: InputMaybe<AtomTagsFieldInput>
   api?: InputMaybe<AtomApiFieldInput>
-  owner?: InputMaybe<AtomOwnerFieldInput>
   allowedChildren?: InputMaybe<AtomAllowedChildrenFieldInput>
 }
 
@@ -11975,7 +11937,6 @@ export type AtomDeleteInput = {
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   tags?: InputMaybe<Array<AtomTagsDeleteFieldInput>>
   api?: InputMaybe<AtomApiDeleteFieldInput>
-  owner?: InputMaybe<AtomOwnerDeleteFieldInput>
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenDeleteFieldInput>>
 }
 
@@ -11983,7 +11944,6 @@ export type AtomDisconnectInput = {
   owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   tags?: InputMaybe<Array<AtomTagsDisconnectFieldInput>>
   api?: InputMaybe<AtomApiDisconnectFieldInput>
-  owner?: InputMaybe<AtomOwnerDisconnectFieldInput>
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenDisconnectFieldInput>>
 }
 
@@ -12011,55 +11971,6 @@ export type AtomOwnerAggregateInput = {
   OR?: InputMaybe<Array<AtomOwnerAggregateInput>>
   NOT?: InputMaybe<AtomOwnerAggregateInput>
   node?: InputMaybe<AtomOwnerNodeAggregationWhereInput>
-}
-
-export type AtomOwnerConnectFieldInput = {
-  where?: InputMaybe<UserConnectWhere>
-  connect?: InputMaybe<UserConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
-  overwrite?: Scalars['Boolean']
-}
-
-export type AtomOwnerConnectionSort = {
-  node?: InputMaybe<UserSort>
-}
-
-export type AtomOwnerConnectionWhere = {
-  AND?: InputMaybe<Array<AtomOwnerConnectionWhere>>
-  OR?: InputMaybe<Array<AtomOwnerConnectionWhere>>
-  NOT?: InputMaybe<AtomOwnerConnectionWhere>
-  node?: InputMaybe<UserWhere>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  node_NOT?: InputMaybe<UserWhere>
-}
-
-export type AtomOwnerConnectOrCreateFieldInput = {
-  where: UserConnectOrCreateWhere
-  onCreate: AtomOwnerConnectOrCreateFieldInputOnCreate
-}
-
-export type AtomOwnerConnectOrCreateFieldInputOnCreate = {
-  node: UserOnCreateInput
-}
-
-export type AtomOwnerCreateFieldInput = {
-  node: UserCreateInput
-}
-
-export type AtomOwnerDeleteFieldInput = {
-  where?: InputMaybe<AtomOwnerConnectionWhere>
-  delete?: InputMaybe<UserDeleteInput>
-}
-
-export type AtomOwnerDisconnectFieldInput = {
-  where?: InputMaybe<AtomOwnerConnectionWhere>
-  disconnect?: InputMaybe<UserDisconnectInput>
-}
-
-export type AtomOwnerFieldInput = {
-  create?: InputMaybe<AtomOwnerCreateFieldInput>
-  connect?: InputMaybe<AtomOwnerConnectFieldInput>
-  connectOrCreate?: InputMaybe<AtomOwnerConnectOrCreateFieldInput>
 }
 
 export type AtomOwnerNodeAggregationWhereInput = {
@@ -12235,25 +12146,10 @@ export type AtomOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
-export type AtomOwnerUpdateConnectionInput = {
-  node?: InputMaybe<UserUpdateInput>
-}
-
-export type AtomOwnerUpdateFieldInput = {
-  where?: InputMaybe<AtomOwnerConnectionWhere>
-  update?: InputMaybe<AtomOwnerUpdateConnectionInput>
-  connect?: InputMaybe<AtomOwnerConnectFieldInput>
-  disconnect?: InputMaybe<AtomOwnerDisconnectFieldInput>
-  create?: InputMaybe<AtomOwnerCreateFieldInput>
-  delete?: InputMaybe<AtomOwnerDeleteFieldInput>
-  connectOrCreate?: InputMaybe<AtomOwnerConnectOrCreateFieldInput>
-}
-
 export type AtomRelationInput = {
   owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   tags?: InputMaybe<Array<AtomTagsCreateFieldInput>>
   api?: InputMaybe<AtomApiCreateFieldInput>
-  owner?: InputMaybe<AtomOwnerCreateFieldInput>
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenCreateFieldInput>>
 }
 
@@ -12417,7 +12313,6 @@ export type AtomUpdateInput = {
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   tags?: InputMaybe<Array<AtomTagsUpdateFieldInput>>
   api?: InputMaybe<AtomApiUpdateFieldInput>
-  owner?: InputMaybe<AtomOwnerUpdateFieldInput>
   allowedChildren?: InputMaybe<Array<AtomAllowedChildrenUpdateFieldInput>>
 }
 
@@ -12498,11 +12393,6 @@ export type AtomWhere = {
   api?: InputMaybe<InterfaceTypeWhere>
   api_NOT?: InputMaybe<InterfaceTypeWhere>
   apiAggregate?: InputMaybe<AtomApiAggregateInput>
-  /** @deprecated Use `owner_SOME` instead. */
-  owner?: InputMaybe<UserWhere>
-  /** @deprecated Use `owner_NONE` instead. */
-  owner_NOT?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<AtomOwnerAggregateInput>
   /** @deprecated Use `allowedChildren_SOME` instead. */
   allowedChildren?: InputMaybe<AtomWhere>
   /** @deprecated Use `allowedChildren_NONE` instead. */
@@ -12532,9 +12422,6 @@ export type AtomWhere = {
   tagsConnection_SOME?: InputMaybe<AtomTagsConnectionWhere>
   apiConnection?: InputMaybe<AtomApiConnectionWhere>
   apiConnection_NOT?: InputMaybe<AtomApiConnectionWhere>
-  ownerConnection?: InputMaybe<AtomOwnerConnectionWhere>
-  /** @deprecated Use `ownerConnection_NONE` instead. */
-  ownerConnection_NOT?: InputMaybe<AtomOwnerConnectionWhere>
   /** @deprecated Use `allowedChildrenConnection_SOME` instead. */
   allowedChildrenConnection?: InputMaybe<AtomAllowedChildrenConnectionWhere>
   /** @deprecated Use `allowedChildrenConnection_NONE` instead. */
@@ -19696,9 +19583,7 @@ export type EnumTypeWhere = {
   owner?: InputMaybe<UserWhere>
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<EnumTypeOwnerAggregateInput>
-  /** @deprecated Use `field_SOME` instead. */
   field?: InputMaybe<FieldWhere>
-  /** @deprecated Use `field_NONE` instead. */
   field_NOT?: InputMaybe<FieldWhere>
   fieldAggregate?: InputMaybe<EnumTypeFieldAggregateInput>
   /** @deprecated Use `allowedValues_SOME` instead. */
@@ -19717,7 +19602,6 @@ export type EnumTypeWhere = {
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
   fieldConnection?: InputMaybe<EnumTypeFieldConnectionWhere>
-  /** @deprecated Use `fieldConnection_NONE` instead. */
   fieldConnection_NOT?: InputMaybe<EnumTypeFieldConnectionWhere>
   /** @deprecated Use `allowedValuesConnection_SOME` instead. */
   allowedValuesConnection?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
@@ -26810,9 +26694,13 @@ export type TagWhere = {
   atomsConnection?: InputMaybe<TagAtomsConnectionWhere>
   /** @deprecated Use `atomsConnection_NONE` instead. */
   atomsConnection_NOT?: InputMaybe<TagAtomsConnectionWhere>
+  /** Return Tags where all of the related TagAtomsConnections match this filter */
   atomsConnection_ALL?: InputMaybe<TagAtomsConnectionWhere>
+  /** Return Tags where none of the related TagAtomsConnections match this filter */
   atomsConnection_NONE?: InputMaybe<TagAtomsConnectionWhere>
+  /** Return Tags where one of the related TagAtomsConnections match this filter */
   atomsConnection_SINGLE?: InputMaybe<TagAtomsConnectionWhere>
+  /** Return Tags where some of the related TagAtomsConnections match this filter */
   atomsConnection_SOME?: InputMaybe<TagAtomsConnectionWhere>
 }
 
@@ -29880,9 +29768,13 @@ export type UserWhere = {
   atomsConnection?: InputMaybe<UserAtomsConnectionWhere>
   /** @deprecated Use `atomsConnection_NONE` instead. */
   atomsConnection_NOT?: InputMaybe<UserAtomsConnectionWhere>
+  /** Return Users where all of the related UserAtomsConnections match this filter */
   atomsConnection_ALL?: InputMaybe<UserAtomsConnectionWhere>
+  /** Return Users where none of the related UserAtomsConnections match this filter */
   atomsConnection_NONE?: InputMaybe<UserAtomsConnectionWhere>
+  /** Return Users where one of the related UserAtomsConnections match this filter */
   atomsConnection_SINGLE?: InputMaybe<UserAtomsConnectionWhere>
+  /** Return Users where some of the related UserAtomsConnections match this filter */
   atomsConnection_SOME?: InputMaybe<UserAtomsConnectionWhere>
   /** @deprecated Use `tagsConnection_SOME` instead. */
   tagsConnection?: InputMaybe<UserTagsConnectionWhere>

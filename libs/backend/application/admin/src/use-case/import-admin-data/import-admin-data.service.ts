@@ -3,7 +3,6 @@ import type {
   ExportedAtom,
   ITag,
   ITypeExport,
-  IUserRef,
 } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import { AtomRepository } from '@codelab/backend/domain/atom'
@@ -13,15 +12,15 @@ import {
   InterfaceTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
+import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import fs from 'fs'
-import merge from 'lodash/merge'
 import path from 'path'
 import { DataPaths } from '../../data-paths'
 
 /**
  * During `save`, we'll want to replace the owner with the current
  */
-export class ImportAdminDataService extends IUseCase<IUserRef, void> {
+export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
   tagRepository = new TagRepository()
 
   atomRepository = new AtomRepository()
@@ -40,7 +39,7 @@ export class ImportAdminDataService extends IUseCase<IUserRef, void> {
     this.dataPaths = new DataPaths(DATA_EXPORT_PATH)
   }
 
-  protected async _execute(owner: IUserRef) {
+  protected async _execute(owner: IAuth0Owner) {
     /**
      * Type must be seeded first, so atom can reference it
      */
@@ -58,7 +57,7 @@ export class ImportAdminDataService extends IUseCase<IUserRef, void> {
     // await this.importAtoms(owner)
   }
 
-  private async importSystemTypes(owner: IUserRef) {
+  private async importSystemTypes(owner: IAuth0Owner) {
     const types = JSON.parse(
       fs.readFileSync(this.dataPaths.SYSTEM_TYPES_FILE_PATH, 'utf8'),
     ) as Array<ITypeExport>
@@ -68,13 +67,13 @@ export class ImportAdminDataService extends IUseCase<IUserRef, void> {
     }
   }
 
-  private async importAtoms(owner: IUserRef) {
+  private async importAtoms(owner: IAuth0Owner) {
     for await (const atom of this.getMergedData().atoms) {
       await this.atomRepository.save({ ...atom, owner })
     }
   }
 
-  private async importFields(owner: IUserRef) {
+  private async importFields(owner: IAuth0Owner) {
     const fields = this.getMergedData().apis.flatMap((api) => api.fields)
 
     for await (const field of fields) {
@@ -82,7 +81,7 @@ export class ImportAdminDataService extends IUseCase<IUserRef, void> {
     }
   }
 
-  private async importTags(owner: IUserRef) {
+  private async importTags(owner: IAuth0Owner) {
     const tags = JSON.parse(
       fs.readFileSync(this.dataPaths.TAGS_FILE_PATH, 'utf8'),
     ) as Array<ITag>
@@ -92,7 +91,7 @@ export class ImportAdminDataService extends IUseCase<IUserRef, void> {
     }
   }
 
-  private async importApis(owner: IUserRef) {
+  private async importApis(owner: IAuth0Owner) {
     for await (const api of this.getMergedData().apis) {
       await TypeFactory.create({ ...api, owner })
     }
@@ -121,7 +120,7 @@ export class ImportAdminDataService extends IUseCase<IUserRef, void> {
 
         return acc
       },
-      { atoms: [], apis: [], types: [] } as Omit<ExportedAdminData, 'tags'>,
+      { apis: [], atoms: [], types: [] } as Omit<ExportedAdminData, 'tags'>,
     )
   }
 }

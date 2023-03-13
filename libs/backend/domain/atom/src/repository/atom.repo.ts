@@ -6,9 +6,9 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import {
+  connectAuth0Owner,
   connectNodeId,
   connectNodeIds,
-  connectOwner,
   reconnectNodeId,
   reconnectNodeIds,
   whereNodeIds,
@@ -39,12 +39,12 @@ export class AtomRepository extends AbstractRepository<IAtom> {
         input: atoms.map(
           ({ tags, api, allowedChildren = [], owner, ...atom }) => ({
             ...atom,
-            owner: connectOwner(owner.auth0Id),
-            tags: connectNodeIds(tags.map((tag) => tag.id)),
-            api: connectNodeId(api.id),
             allowedChildren: connectNodeIds(
               allowedChildren.map((child) => child.id),
             ),
+            api: connectNodeId(api.id),
+            owner: connectAuth0Owner(owner),
+            tags: connectNodeIds(tags.map((tag) => tag.id)),
           }),
         ),
       })

@@ -3,7 +3,7 @@ import { EntitySchema } from '@codelab/shared/abstract/types'
 import type { Assign } from 'utility-types'
 import { z } from 'zod'
 import type { ExistingData } from './seed'
-import { OwnerSchema, UserRefSchema } from './user.interface'
+import { OwnerSchema } from './user.interface'
 
 // export interface IAtomExport {
 //   icon?: string | null
@@ -48,12 +48,6 @@ export interface ImportAtoms {
 }
 
 export const AtomSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  icon: z.string().optional().nullable(),
-  type: z.nativeEnum(IAtomType),
-  api: EntitySchema,
-  tags: z.array(EntitySchema),
   allowedChildren: z
     .array(
       z.object({
@@ -61,7 +55,13 @@ export const AtomSchema = z.object({
       }),
     )
     .optional(),
-  owner: UserRefSchema,
+  api: EntitySchema,
+  icon: z.string().optional().nullable(),
+  id: z.string(),
+  name: z.string(),
+  owner: OwnerSchema,
+  tags: z.array(EntitySchema),
+  type: z.nativeEnum(IAtomType),
 })
 
 export const AtomExportSchema = AtomSchema.merge(

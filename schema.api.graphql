@@ -3719,9 +3719,9 @@ type Atom implements WithOwner {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [AtomOwnerConnectionSort!]
-    where: AtomOwnerConnectionWhere
-  ): AtomOwnerConnection!
+    sort: [WithOwnerOwnerConnectionSort!]
+    where: WithOwnerOwnerConnectionWhere
+  ): WithOwnerOwnerConnection!
   tags(directed: Boolean = true, options: TagOptions, where: TagWhere): [Tag!]!
   tagsAggregate(
     directed: Boolean = true
@@ -3989,14 +3989,14 @@ type AtomAtomAllowedChildrenNodeAggregateSelection {
 input AtomConnectInput {
   allowedChildren: [AtomAllowedChildrenConnectFieldInput!]
   api: AtomApiConnectFieldInput
-  owner: AtomOwnerConnectFieldInput
+  owner: WithOwnerOwnerConnectFieldInput
   tags: [AtomTagsConnectFieldInput!]
 }
 
 input AtomConnectOrCreateInput {
   allowedChildren: [AtomAllowedChildrenConnectOrCreateFieldInput!]
   api: AtomApiConnectOrCreateFieldInput
-  owner: AtomOwnerConnectOrCreateFieldInput
+  owner: WithOwnerOwnerConnectOrCreateFieldInput
   tags: [AtomTagsConnectOrCreateFieldInput!]
 }
 
@@ -4014,7 +4014,7 @@ input AtomCreateInput {
   icon: String
   id: ID!
   name: String!
-  owner: AtomOwnerFieldInput
+  owner: WithOwnerOwnerFieldInput
   tags: AtomTagsFieldInput
   type: AtomType!
 }
@@ -4022,14 +4022,14 @@ input AtomCreateInput {
 input AtomDeleteInput {
   allowedChildren: [AtomAllowedChildrenDeleteFieldInput!]
   api: AtomApiDeleteFieldInput
-  owner: AtomOwnerDeleteFieldInput
+  owner: WithOwnerOwnerDeleteFieldInput
   tags: [AtomTagsDeleteFieldInput!]
 }
 
 input AtomDisconnectInput {
   allowedChildren: [AtomAllowedChildrenDisconnectFieldInput!]
   api: AtomApiDisconnectFieldInput
-  owner: AtomOwnerDisconnectFieldInput
+  owner: WithOwnerOwnerDisconnectFieldInput
   tags: [AtomTagsDisconnectFieldInput!]
 }
 
@@ -4075,62 +4075,6 @@ input AtomOwnerAggregateInput {
   count_LT: Int
   count_LTE: Int
   node: AtomOwnerNodeAggregationWhereInput
-}
-
-input AtomOwnerConnectFieldInput {
-  connect: UserConnectInput
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
-  """
-  overwrite: Boolean! = true
-  where: UserConnectWhere
-}
-
-input AtomOwnerConnectOrCreateFieldInput {
-  onCreate: AtomOwnerConnectOrCreateFieldInputOnCreate!
-  where: UserConnectOrCreateWhere!
-}
-
-input AtomOwnerConnectOrCreateFieldInputOnCreate {
-  node: UserOnCreateInput!
-}
-
-type AtomOwnerConnection {
-  edges: [AtomOwnerRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input AtomOwnerConnectionSort {
-  node: UserSort
-}
-
-input AtomOwnerConnectionWhere {
-  AND: [AtomOwnerConnectionWhere!]
-  NOT: AtomOwnerConnectionWhere
-  OR: [AtomOwnerConnectionWhere!]
-  node: UserWhere
-}
-
-input AtomOwnerCreateFieldInput {
-  node: UserCreateInput!
-}
-
-input AtomOwnerDeleteFieldInput {
-  delete: UserDeleteInput
-  where: AtomOwnerConnectionWhere
-}
-
-input AtomOwnerDisconnectFieldInput {
-  disconnect: UserDisconnectInput
-  where: AtomOwnerConnectionWhere
-}
-
-input AtomOwnerFieldInput {
-  connect: AtomOwnerConnectFieldInput
-  connectOrCreate: AtomOwnerConnectOrCreateFieldInput
-  create: AtomOwnerCreateFieldInput
 }
 
 input AtomOwnerNodeAggregationWhereInput {
@@ -4184,29 +4128,10 @@ input AtomOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
-type AtomOwnerRelationship {
-  cursor: String!
-  node: User!
-}
-
-input AtomOwnerUpdateConnectionInput {
-  node: UserUpdateInput
-}
-
-input AtomOwnerUpdateFieldInput {
-  connect: AtomOwnerConnectFieldInput
-  connectOrCreate: AtomOwnerConnectOrCreateFieldInput
-  create: AtomOwnerCreateFieldInput
-  delete: AtomOwnerDeleteFieldInput
-  disconnect: AtomOwnerDisconnectFieldInput
-  update: AtomOwnerUpdateConnectionInput
-  where: AtomOwnerConnectionWhere
-}
-
 input AtomRelationInput {
   allowedChildren: [AtomAllowedChildrenCreateFieldInput!]
   api: AtomApiCreateFieldInput
-  owner: AtomOwnerCreateFieldInput
+  owner: WithOwnerOwnerCreateFieldInput
   tags: [AtomTagsCreateFieldInput!]
 }
 
@@ -4727,7 +4652,7 @@ input AtomUpdateInput {
   icon: String
   id: ID
   name: String
-  owner: AtomOwnerUpdateFieldInput
+  owner: WithOwnerOwnerUpdateFieldInput
   tags: [AtomTagsUpdateFieldInput!]
   type: AtomType
 }
@@ -4812,8 +4737,11 @@ input AtomWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  owner: UserWhere
   ownerAggregate: AtomOwnerAggregateInput
-  ownerConnection: AtomOwnerConnectionWhere
+  ownerConnection: WithOwnerOwnerConnectionWhere
+  ownerConnection_NOT: WithOwnerOwnerConnectionWhere
+  owner_NOT: UserWhere
   tagsAggregate: AtomTagsAggregateInput
 
   """
@@ -9960,8 +9888,11 @@ input EnumTypeWhere {
   Return EnumTypes where some of the related EnumTypeValues match this filter
   """
   allowedValues_SOME: EnumTypeValueWhere
+  field: FieldWhere
   fieldAggregate: EnumTypeFieldAggregateInput
   fieldConnection: EnumTypeFieldConnectionWhere
+  fieldConnection_NOT: EnumTypeFieldConnectionWhere
+  field_NOT: FieldWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -16107,9 +16038,25 @@ input TagWhere {
   NOT: TagWhere
   OR: [TagWhere!]
   atomsAggregate: TagAtomsAggregateInput
+
+  """
+  Return Tags where all of the related TagAtomsConnections match this filter
+  """
   atomsConnection_ALL: TagAtomsConnectionWhere
+
+  """
+  Return Tags where none of the related TagAtomsConnections match this filter
+  """
   atomsConnection_NONE: TagAtomsConnectionWhere
+
+  """
+  Return Tags where one of the related TagAtomsConnections match this filter
+  """
   atomsConnection_SINGLE: TagAtomsConnectionWhere
+
+  """
+  Return Tags where some of the related TagAtomsConnections match this filter
+  """
   atomsConnection_SOME: TagAtomsConnectionWhere
 
   """
@@ -18609,9 +18556,25 @@ input UserWhere {
   """
   apps_SOME: AppWhere
   atomsAggregate: UserAtomsAggregateInput
+
+  """
+  Return Users where all of the related UserAtomsConnections match this filter
+  """
   atomsConnection_ALL: UserAtomsConnectionWhere
+
+  """
+  Return Users where none of the related UserAtomsConnections match this filter
+  """
   atomsConnection_NONE: UserAtomsConnectionWhere
+
+  """
+  Return Users where one of the related UserAtomsConnections match this filter
+  """
   atomsConnection_SINGLE: UserAtomsConnectionWhere
+
+  """
+  Return Users where some of the related UserAtomsConnections match this filter
+  """
   atomsConnection_SOME: UserAtomsConnectionWhere
 
   """
