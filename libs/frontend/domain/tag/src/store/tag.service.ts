@@ -22,7 +22,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { TagRepository } from '../services/tag.repository'
+import { TagRepository } from '../services/tag.repo'
 import { Tag, tagRef } from './tag.model'
 import { TagModalService, TagsModalService } from './tag-modal.service'
 import { TagTreeService } from './tag-tree.service'

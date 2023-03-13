@@ -11,7 +11,7 @@ export const createPageInput = (
 ): PageCreateInput => {
   const pageId = v4()
   const rootId = v4()
-  const name = `Test Page ${v4()}`
+  const name = `Test Page`
 
   return merge(
     {

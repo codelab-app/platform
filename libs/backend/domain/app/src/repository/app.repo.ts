@@ -1,4 +1,5 @@
 import type { ExportAppData, IAppExport } from '@codelab/backend/abstract/core'
+import { AbstractRepository } from '@codelab/backend/abstract/types'
 import { exportActions, importActions } from '@codelab/backend/domain/action'
 import { createComponent } from '@codelab/backend/domain/component'
 import {
@@ -16,6 +17,8 @@ import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
 import { cLog, createUniqueName } from '@codelab/shared/utils'
 import omit from 'lodash/omit'
 import { validate } from './validate'
+
+// export class AppRepository extends AbstractRepository<IApp> {}
 
 export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
   cLog(omit(app, ['pages']))

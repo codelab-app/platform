@@ -1,11 +1,11 @@
 import type {
-  IAtom,
   ICreateEnumType,
   IEnumType,
   IEnumTypeValue,
   IField,
   IOwner,
 } from '@codelab/backend/abstract/core'
+import type { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { BaseType } from './base-type.model'
@@ -40,7 +40,7 @@ export class EnumType extends BaseType implements IEnumType {
   }
 
   static getCompositeName(
-    atom: Pick<IAtom, 'name'>,
+    atom: Pick<IAtomDTO, 'name'>,
     field: Pick<IField, 'key'>,
   ) {
     return `${atom.name} ${compoundCaseToTitleCase(field.key)} Enum`

@@ -1,12 +1,12 @@
-import type { ImportAtoms } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import { AtomRepository } from '@codelab/backend/domain/atom'
+import type { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { logSection } from '@codelab/shared/utils'
 
-export class ImportAtomsService extends IUseCase<ImportAtoms, void> {
+export class ImportAtomsService extends IUseCase<Array<IAtomDTO>, void> {
   atomRepository: AtomRepository = new AtomRepository()
 
-  async _execute({ atoms = [] }: ImportAtoms) {
+  async _execute(atoms: Array<IAtomDTO>) {
     logSection('Importing Atoms')
 
     /**

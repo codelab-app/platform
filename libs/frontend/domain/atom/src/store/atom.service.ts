@@ -28,7 +28,7 @@ import {
 import { v4 } from 'uuid'
 import { atomApi } from './atom.api'
 import { Atom } from './atom.model'
-import { AtomRepository } from './atom.repository'
+import { AtomRepository } from './atom.repo'
 import { AtomModalService, AtomsModalService } from './atom-modal.service'
 
 @model('@codelab/AtomService')

@@ -22,7 +22,7 @@ import {
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { Resource } from './resource.model'
-import { ResourceRepository } from './resource.repository'
+import { ResourceRepository } from './resource.repo'
 import { ResourceModalService } from './resource-modal.service'
 
 @model('@codelab/ResourceService')

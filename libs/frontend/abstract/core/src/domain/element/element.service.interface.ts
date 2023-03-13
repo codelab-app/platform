@@ -19,7 +19,7 @@ import type {
   IUpdateElementData,
 } from './element.dto.interface'
 import type { IElement } from './element.model.interface'
-import type { IElementRepository } from './element.repository.interface'
+import type { IElementRepository } from './element.repo.interface'
 import type { IElementTree } from './element-tree.interface.model'
 
 /**

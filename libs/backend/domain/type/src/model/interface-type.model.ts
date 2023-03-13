@@ -1,10 +1,10 @@
 import type {
-  IAtom,
   ICreateInterfaceType,
   IField,
   IInterfaceType,
   IOwner,
 } from '@codelab/backend/abstract/core'
+import type { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 import { BaseType } from './base-type.model'
@@ -28,7 +28,7 @@ export class InterfaceType extends BaseType implements IInterfaceType {
   }
 
   static getApiName(
-    { name }: Pick<IAtom, 'name'>,
+    { name }: Pick<IAtomDTO, 'name'>,
     field?: Pick<IField, 'key'>,
   ) {
     return field?.key ? `${name} ${field.key} API` : `${name} API`
