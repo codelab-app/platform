@@ -6,7 +6,7 @@ export const enumTypeUiProperties: UiPropertiesFn<IEnumType> = (
   type: IEnumType,
 ) => {
   return {
-    enum: type.allowedValues.map((allowedValue) => allowedValue.value),
+    enum: type.allowedValues.map((allowedValue) => allowedValue.current.value),
     uniforms: {
       component: ToggleExpressionField({
         onToggle: (showExpression, { field, onChange, value }, lastValue) => {
@@ -19,9 +19,9 @@ export const enumTypeUiProperties: UiPropertiesFn<IEnumType> = (
       }),
       getPopupContainer: (triggerNode: Element) => triggerNode.parentElement,
       optionFilterProp: 'label',
-      options: type.allowedValues.map(({ key, value }) => ({
-        label: key,
-        value: value,
+      options: type.allowedValues.map((allowedValue) => ({
+        label: allowedValue.current.key,
+        value: allowedValue.current.value,
       })),
       showSearch: true,
     },

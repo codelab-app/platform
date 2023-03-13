@@ -10,19 +10,18 @@ import type { IInterfaceType } from '../type'
 import type { IPropDTO } from './prop.dto.interface'
 
 export interface IProp extends ICacheService<IPropDTO, IProp> {
-  id: string
-  data: Frozen<Nullable<IPropData>>
   api?: Nullable<Ref<IInterfaceType>>
+  data: Frozen<Nullable<IPropData>>
+  id: string
   jsonString: string
   values: IPropData
 
-  set(key: string, value: object | string): void
-  setSilently(key: string, value: object): void
-  setMany(data: IPropData): void
+  clone(): IProp
   delete(key: string): void
   get(key: string): unknown
-  clone(): IProp
-
+  set(key: string, value: object | string): void
+  setMany(data: IPropData): void
+  setSilently(key: string, value: object): void
   toCreateInput(): PropCreateInput
   toUpdateInput(): PropUpdateInput
 }

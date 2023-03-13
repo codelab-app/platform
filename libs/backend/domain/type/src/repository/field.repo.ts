@@ -4,6 +4,8 @@ import {
   fieldSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
+import type { IFieldDTO } from '@codelab/frontend/abstract/core'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 
@@ -19,26 +21,20 @@ export type FieldWhere = BaseTypeUniqueWhere & {
   key: string
 }
 
-export class FieldRepository extends AbstractRepository<IField> {
+export class FieldRepository extends AbstractRepository<
+  IFieldDTO,
+  OGM_TYPES.Field,
+  OGM_TYPES.FieldWhere
+> {
   private Field = Repository.instance.Field
 
-  async all() {
+  async find(where: FieldWhere) {
     return await (
       await this.Field
     ).find({
       selectionSet: fieldSelectionSet,
+      where,
     })
-  }
-
-  async find(where: FieldWhere) {
-    return (
-      await (
-        await this.Field
-      ).find({
-        selectionSet: fieldSelectionSet,
-        where,
-      })
-    )[0]
   }
 
   protected async _add(fields: Array<IField>) {

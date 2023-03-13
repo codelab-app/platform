@@ -11,8 +11,8 @@ import {
 } from './matchers'
 
 interface UnionTypeArgs {
-  field: Pick<AntDesignField, 'property' | 'type'>
   atom: IAtomDTO
+  field: Pick<AntDesignField, 'property' | 'type'>
   userId: string
 }
 

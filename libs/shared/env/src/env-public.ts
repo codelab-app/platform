@@ -2,19 +2,19 @@
  * This is for the vars that are exposed to the browser
  */
 interface EnvPublic {
-  intercom: {
-    app_id: string
+  googleAnalytics: {
+    id: string
   }
   hotjar: {
     id: number
     version: number
   }
-  googleAnalytics: {
-    id: string
+  intercom: {
+    app_id: string
   }
   supabase: {
-    url: string
     key: string
+    url: string
   }
 }
 

@@ -15,15 +15,15 @@ export enum HttpResponseType {
   Blob = 'blob',
   Document = 'document',
   Json = 'json',
-  Text = 'text',
   Stream = 'stream',
+  Text = 'text',
 }
 
 export interface IRestActionConfig {
   body?: Nullable<string>
+  headers?: Nullable<string>
   method: HttpMethod
   queryParams?: Nullable<string>
-  headers?: Nullable<string>
-  urlSegment: string
   responseType: HttpResponseType
+  urlSegment: string
 }

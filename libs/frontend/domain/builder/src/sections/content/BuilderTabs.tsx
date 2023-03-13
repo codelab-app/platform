@@ -11,11 +11,11 @@ import { BaseBuilder } from './BaseBuilder'
 import { BuilderComponent } from './Builder-Component'
 
 export interface BuilderTabsProps {
+  app: Maybe<IApp>
   error: Nullish<string>
   isLoading: boolean
-  renderer: Maybe<IRenderer>
-  app: Maybe<IApp>
   page: Maybe<IPage>
+  renderer: Maybe<IRenderer>
 }
 
 export const BuilderTabs = observer<BuilderTabsProps>(

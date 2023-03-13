@@ -6,9 +6,9 @@ import type {
 import { createContext, useContext } from 'react'
 
 export interface FormContextValue {
-  autocomplete?: IPropData
-  appStore?: IStore
   allowExpressions?: boolean
+  appStore?: IStore
+  autocomplete?: IPropData
   elementTree?: IElementTree
 }
 

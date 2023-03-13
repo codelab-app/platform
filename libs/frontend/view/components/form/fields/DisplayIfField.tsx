@@ -3,7 +3,7 @@ import type { Context } from 'uniforms'
 import { useForm } from 'uniforms'
 
 export interface DisplayIfFieldProps<T> {
-  condition: (context: Context<T>) => boolean
+  condition(context: Context<T>): boolean
 }
 
 export const DisplayIfField = <T,>({

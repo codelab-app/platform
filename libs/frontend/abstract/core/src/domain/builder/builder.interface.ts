@@ -7,10 +7,10 @@ export interface MoveData {
 }
 
 export interface BuilderDragData {
-  type: BuilderDndType
   createElementInput?: ICreateElementData
-  name?: string
   icon?: string
+  name?: string
+  type: BuilderDndType
 }
 
 export interface BuilderDropData {
@@ -18,16 +18,16 @@ export interface BuilderDropData {
 }
 
 export interface BuilderWidth {
-  min: number
-  max: number
   default: number
+  max: number
+  min: number
 }
 
 export const enum BuilderWidthBreakPoints {
+  Desktop = 'desktop',
   Mobile = 'mobile',
   MobileVertical = 'mobile-vertical',
   TabletHorizontal = 'tablet-horizontal',
-  Desktop = 'desktop',
 }
 
 export enum BuilderDndType {
@@ -36,8 +36,8 @@ export enum BuilderDndType {
 }
 
 export enum DragPosition {
-  Before = 'Before',
   After = 'After',
+  Before = 'Before',
   Inside = 'Inside',
 }
 

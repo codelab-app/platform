@@ -7,10 +7,10 @@ import { NullRenderPipe } from './nullRenderPipe'
 import type { PassThroughRenderPipe } from './passThroughRenderPipe'
 
 export type RenderPipeClass =
-  | typeof LoopingRenderPipe
-  | typeof ConditionalRenderPipe
-  | typeof ComponentRenderPipe
   | typeof AtomRenderPipe
+  | typeof ComponentRenderPipe
+  | typeof ConditionalRenderPipe
+  | typeof LoopingRenderPipe
   | typeof PassThroughRenderPipe
 
 // define pipes in order of execution, we reverse is to that it matches the order of calling next

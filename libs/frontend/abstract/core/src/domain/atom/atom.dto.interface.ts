@@ -5,27 +5,27 @@ import type { RenderAtomFragment } from './atom.fragment.graphql.gen'
 import type { IAtomRef } from './atom.model.interface'
 
 export interface ICreateAtomData extends IOwnerSchema {
-  id: string
-  name: string
-  type: IAtomType
-  tags?: Array<IEntity>
   // Used for interface
-
   // Allow for connection to existing interface
   // api: IEntity
   allowedChildren?: Array<IAtomRef>
+  id: string
+  name: string
+  tags?: Array<IEntity>
+
+  type: IAtomType
 }
 
 export type IUpdateAtomData = Omit<ICreateAtomData, 'owner'>
 
 export interface IAtomDTO extends IOwnerSchema {
+  allowedChildren?: Array<IEntity>
+  api: IEntity
+  icon?: string | null
   id: string
   name: string
-  type: IAtomType
-  icon?: string | null
   tags?: Array<IEntity>
-  api: IEntity
-  allowedChildren?: Array<IEntity>
+  type: IAtomType
 }
 
 export type IRenderAtomDTO = RenderAtomFragment

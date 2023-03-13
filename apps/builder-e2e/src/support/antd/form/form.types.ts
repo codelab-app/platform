@@ -7,25 +7,25 @@ import type {
 } from './form.commands'
 
 type FieldType =
-  | 'input'
-  | 'number'
-  | 'select'
-  | 'multiselect'
-  | 'tags'
-  | 'radio'
-  | 'date'
   | 'codeMirror'
+  | 'date'
+  | 'input'
+  | 'multiselect'
+  | 'number'
+  | 'radio'
+  | 'select'
+  | 'tags'
   | 'toggle'
 
 export enum FIELD_TYPE {
-  INPUT = 'input',
-  NUMBER_INPUT = 'number',
-  SELECT = 'select',
-  MULTISELECT = 'multiselect',
-  TAGS = 'tags',
-  RADIO = 'radio',
-  DATE = 'date',
   CODE_MIRROR = 'codeMirror',
+  DATE = 'date',
+  INPUT = 'input',
+  MULTISELECT = 'multiselect',
+  NUMBER_INPUT = 'number',
+  RADIO = 'radio',
+  SELECT = 'select',
+  TAGS = 'tags',
   TOGGLE = 'toggle',
 }
 
@@ -36,9 +36,9 @@ export interface FormFieldOptions {
 export type FormInputOptions = FormFieldOptions & { type?: FieldType }
 
 export type FormFieldValueOptions = FormInputOptions & {
-  value: string | number | Array<string> | boolean
   placeholder?: string
   scrollIntoView?: boolean
+  value: Array<string> | boolean | number | string
 }
 
 export type ExpectFormFieldValueArgs = Parameters<typeof expectFormFieldValue>
@@ -46,12 +46,12 @@ export type ExpectFormFieldValueArgs = Parameters<typeof expectFormFieldValue>
 export type ExpectFormFieldErrorArgs = Parameters<typeof expectFormFieldError>
 
 export type FormFieldValueOrErrorOptions = Partial<
-  { error?: string } & FormFieldValueOptions
+  FormFieldValueOptions & { error?: string }
 >
 
 export type ExpectFormFieldsArgs = Parameters<typeof expectFormFields>
 
-export type ScrollPosition = 'top' | 'bottom' | number
+export type ScrollPosition = number | 'bottom' | 'top'
 
 export type SetFormFieldValueArgs = Parameters<typeof setFormFieldValue>
 

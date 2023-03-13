@@ -1,7 +1,7 @@
 /* eslint-disable no-inline-comments */
 import type { Ref } from 'mobx-keystone'
 
-export type UnboxNullableRef<Entity extends object | Array<object> = never> =
+export type UnboxNullableRef<Entity extends Array<object> | object = never> =
   // If entity is an array
   | (Entity extends Array<infer U>
       ? U extends object

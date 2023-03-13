@@ -25,8 +25,8 @@ import {
 } from './field-utils'
 
 export interface CreateFieldModalProps {
-  typeService: ITypeService
   fieldService: IFieldService
+  typeService: ITypeService
 }
 
 export const CreateFieldModal = observer<CreateFieldModalProps>(

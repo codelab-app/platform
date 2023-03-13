@@ -1,5 +1,5 @@
 import type {
-  IAnyType,
+  IType,
   ITypeDTO,
   ITypeRepository,
 } from '@codelab/frontend/abstract/core'
@@ -15,7 +15,7 @@ import {
 @model('@codelab/TypeRepository')
 export class TypeRepository extends Model({}) implements ITypeRepository {
   @modelFlow
-  add = _async(function* (this: TypeRepository, type: IAnyType) {
+  add = _async(function* (this: TypeRepository, type: IType) {
     const createdType: Array<ITypeDTO> = yield* _await(
       createTypeApi[type.kind]([type.toCreateInput()]),
     )
@@ -24,7 +24,7 @@ export class TypeRepository extends Model({}) implements ITypeRepository {
   })
 
   @modelFlow
-  update = _async(function* (this: TypeRepository, type: IAnyType) {
+  update = _async(function* (this: TypeRepository, type: IType) {
     const updatedType = (yield* _await(
       updateTypeApi[type.kind](type.toUpdateInput()),
     ))[0]
@@ -41,7 +41,7 @@ export class TypeRepository extends Model({}) implements ITypeRepository {
   })
 
   @modelFlow
-  delete = _async(function* (this: TypeRepository, types: Array<IAnyType>) {
+  delete = _async(function* (this: TypeRepository, types: Array<IType>) {
     const results = yield* _await(
       Promise.all(
         types.map((type) =>

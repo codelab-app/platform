@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import tw from 'twin.macro'
 import { EmailModal } from './EmailModal'
 
-type NotificationType = 'success' | 'error'
+type NotificationType = 'error' | 'success'
 
 export const JoinCommunity = () => {
   const [showEmailModal, setShowEmailModal] = useState(false)

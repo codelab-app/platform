@@ -28,33 +28,32 @@ import {
 } from './table.command'
 
 export interface AntTableCommands {
-  getTable: typeof getTable
-  getTableHeader: typeof getTableHeader
-  getTableRowSelectionHeader: typeof getTableRowSelectionHeader
-  getTableColumnHeaders: typeof getTableColumnHeaders
-  getTableColumnHeader: typeof getTableColumnHeader
-  getTableColumnSorter: typeof getTableColumnSorter
-  getTableFiltersDropdownToggle: typeof getTable
-  getTableScrollContainer: typeof getTableScrollContainer
-  getTableBody: typeof getTableBody
-  getTableRows: typeof getTableRows
-  getTableRow: typeof getTableRow
-  getTableRowSelectionCell: typeof getTableRowSelectionCell
-  getTableCell: typeof getTableCell
-  getTableLoadingIndicator: typeof getTableLoadingIndicator
-  waitForTableToLoad: typeof waitForTableToLoad
   expectTableColumnCount: typeof expectTableColumnCount
   expectTableColumnHeaders: typeof expectTableColumnHeaders
   expectTableRowCount: typeof expectTableRowCount
   expectTableRows: typeof expectTableRows
   expectTableSortedBy: typeof expectTableSortedBy
-  sortTableBy: typeof sortTableBy
   filterTableBy: typeof filterTableBy
-  toggleRowSelection: typeof toggleRowSelection
-  toggleBulkRowSelection: typeof toggleBulkRowSelection
-
+  getTable: typeof getTable
+  getTableBody: typeof getTableBody
+  getTableCell: typeof getTableCell
+  getTableColumnHeader: typeof getTableColumnHeader
+  getTableColumnHeaders: typeof getTableColumnHeaders
+  getTableColumnSorter: typeof getTableColumnSorter
+  getTableFiltersDropdownToggle: typeof getTable
+  getTableHeader: typeof getTableHeader
+  getTableLoadingIndicator: typeof getTableLoadingIndicator
+  getTableRow: typeof getTableRow
+  getTableRowSelectionCell: typeof getTableRowSelectionCell
+  getTableRowSelectionHeader: typeof getTableRowSelectionHeader
+  getTableRows: typeof getTableRows
+  getTableScrollContainer: typeof getTableScrollContainer
   // custom
   searchTableRow: typeof searchTableRow
+  sortTableBy: typeof sortTableBy
+  toggleBulkRowSelection: typeof toggleBulkRowSelection
+  toggleRowSelection: typeof toggleRowSelection
+  waitForTableToLoad: typeof waitForTableToLoad
 }
 
 export const antTableCommands: Array<CypressCommand> = [

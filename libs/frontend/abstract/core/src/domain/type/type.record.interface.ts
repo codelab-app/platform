@@ -2,14 +2,14 @@ import type { ITypeKind } from '@codelab/shared/abstract/core'
 
 export interface ITypeRecord {
   id: string
-  name: string
   kind: ITypeKind
+  name: string
 }
 
 export interface IUnionTypeRecord {
   id: string
-  name: string
   kind: string
+  name: string
 }
 
 export interface IEnumTypeRecord {

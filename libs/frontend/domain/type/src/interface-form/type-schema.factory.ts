@@ -1,6 +1,5 @@
 import type {
-  IAnyActionType,
-  IAnyType,
+  IActionType,
   IAppType,
   IArrayType,
   ICodeMirrorType,
@@ -13,6 +12,7 @@ import type {
   IPrimitiveType,
   IReactNodeType,
   IRenderPropsType,
+  IType,
   IUnionType,
 } from '@codelab/frontend/abstract/core'
 import { fieldDescription } from '@codelab/frontend/view/components'
@@ -24,14 +24,11 @@ import type { JSONSchema7 } from 'json-schema'
 import type { UiPropertiesContext } from './types'
 import { getUiProperties } from './ui-properties'
 
-export type JsonSchema = JSONSchema7 & { uniforms?: object; label?: string }
+export type JsonSchema = JSONSchema7 & { label?: string; uniforms?: object }
 
 export interface TransformTypeOptions {
   /** Use this to add data to the property definitions for specific types  */
-  extraProperties?: (
-    type: IAnyType,
-    context?: UiPropertiesContext,
-  ) => JsonSchema
+  extraProperties?(type: IType, context?: UiPropertiesContext): JsonSchema
 }
 
 // I'm not sure what the difference is, but I'm keeping it like it is for now
@@ -48,7 +45,7 @@ export const primitives = {
 export class TypeSchemaFactory {
   constructor(private readonly options?: TransformTypeOptions) {}
 
-  transform(type: IAnyType, context?: UiPropertiesContext) {
+  transform(type: IType, context?: UiPropertiesContext) {
     switch (type.kind) {
       case ITypeKind.AppType:
         return this.fromAppType(type)
@@ -84,7 +81,9 @@ export class TypeSchemaFactory {
 
     return {
       ...extra,
-      items: this.transform(type.itemType.current),
+      items: type.itemType?.isValid
+        ? this.transform(type.itemType.current)
+        : {},
       type: 'array',
     }
   }
@@ -160,10 +159,7 @@ export class TypeSchemaFactory {
     return this.simpleReferenceType(type)
   }
 
-  fromActionType(
-    type: IAnyActionType,
-    context?: UiPropertiesContext,
-  ): JsonSchema {
+  fromActionType(type: IActionType, context?: UiPropertiesContext): JsonSchema {
     return this.transformTypedValueType(type, context)
   }
 
@@ -256,7 +252,7 @@ export class TypeSchemaFactory {
    * Produces a 'string' type
    */
   private simpleReferenceType(
-    type: IAnyType,
+    type: IType,
     context?: UiPropertiesContext,
   ): JsonSchema {
     const extra = this.getExtraProperties(type, context)
@@ -294,7 +290,7 @@ export class TypeSchemaFactory {
    * Produces a {@link TypedValue} shaped schema
    */
   private transformTypedValueType(
-    type: IReactNodeType | IRenderPropsType | IAnyActionType,
+    type: IActionType | IReactNodeType | IRenderPropsType,
     context?: UiPropertiesContext,
   ): JsonSchema {
     const extra = this.getExtraProperties(type)
@@ -309,7 +305,7 @@ export class TypeSchemaFactory {
     return { label: '', properties, type: 'object', uniforms: nullUniforms }
   }
 
-  private getExtraProperties(type: IAnyType, context?: UiPropertiesContext) {
+  private getExtraProperties(type: IType, context?: UiPropertiesContext) {
     return this.options?.extraProperties?.(type, context) || undefined
   }
 }

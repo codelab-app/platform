@@ -14,15 +14,12 @@ export interface IRepository<
   ModelFragment,
   Where extends { id?: string | null },
 > {
-  find(where: Where): Promise<Array<ModelFragment>>
-  findOne?(where: Where): Promise<ModelFragment | undefined>
-
   add(model: Model): Promise<ModelFragment | undefined>
   addMany?(models: Array<Model>): Promise<Array<ModelFragment>>
 
-  update(model: Model, where: Where): Promise<ModelFragment | undefined>
   delete(models: Array<Model>): Promise<number>
+  find(where: Where): Promise<Array<ModelFragment>>
 
-  // delete(models: Array<Model>): Promise<number>
-  // deleteMany?(ids: Array<string>): Promise<number>
+  findOne?(where: Where): Promise<ModelFragment | undefined>
+  update(model: Model, where: Where): Promise<ModelFragment | undefined>
 }

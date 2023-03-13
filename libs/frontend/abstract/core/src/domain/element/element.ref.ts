@@ -16,7 +16,7 @@ export const elementRef = rootRef<IElement>('@codelab/ElementRef', {
  * Used for determining which node type is in the page tree
  */
 export const isElementRef = (
-  node: Ref<IElement> | Ref<IComponent> | null,
+  node: Ref<IComponent> | Ref<IElement> | null,
 ): node is Ref<IElement> => {
   return !isNil(node) && isRefOfType(node, elementRef)
 }

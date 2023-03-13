@@ -12,19 +12,19 @@ export interface IPage
     IElementTreeService,
     ICacheService<IPageDTO, IPage> {
   app: IEntity
-  name: string
-  slug: string
-  toJson: IPropData
-  rootElement: Ref<IElement>
   descendentElements: Array<Ref<IElement>>
   // Helper getter to get all elements
   elements: Array<IElement>
+  kind: IPageKind
+  name: string
   // getServerSideProps: Nullish<string>
   /**
    * A pointer to tell us where to render from app
    */
   pageContentContainer?: Nullish<Ref<IElement>>
-  kind: IPageKind
+  rootElement: Ref<IElement>
+  slug: string
+  toJson: IPropData
 
   toCreateInput(): PageCreateInput
 }

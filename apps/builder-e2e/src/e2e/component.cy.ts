@@ -19,8 +19,8 @@ const COMPONENT_CHILD_TEXT = `text {{this.${COMPONENT_PROP_NAME}}}`
 const COMPONENT_INSTANCE_TEXT = 'Instance Text'
 
 interface ComponentChildData {
-  name: string
   atom: string
+  name: string
 }
 
 const componentChildren: Array<ComponentChildData> = [

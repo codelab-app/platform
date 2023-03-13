@@ -19,11 +19,12 @@ const DEFAULT_CUR_PAGE = 1
 
 interface AtomsTableProps {
   atomService: IAtomService
-  typeService: ITypeService
   fieldService: IFieldService
-  getAtomLibrary: (atomType: string) => AtomLibrary
   page?: number
   pageSize?: number
+  typeService: ITypeService
+
+  getAtomLibrary(atomType: string): AtomLibrary
 }
 
 export const AtomsTable = observer<AtomsTableProps>(

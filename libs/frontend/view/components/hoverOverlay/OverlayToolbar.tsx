@@ -10,11 +10,11 @@ interface OverlayToolbarProps {
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
   >
+  overlayElement: HTMLElement | React.RefObject<HTMLElement>
   toolbarProps?: React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
   >
-  overlayElement: HTMLElement | React.RefObject<HTMLElement>
 }
 
 /**

@@ -23,8 +23,8 @@ import {
 } from '../create-field'
 
 export const UpdateFieldModal = observer<{
-  typeService: ITypeService
   fieldService: IFieldService
+  typeService: ITypeService
 }>(({ fieldService, typeService }) => {
   const closeModal = () => fieldService.updateModal.close()
   const field = fieldService.updateModal.field

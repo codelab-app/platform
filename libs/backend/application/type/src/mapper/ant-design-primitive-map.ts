@@ -28,7 +28,7 @@ export class AntDesignTypeMapper {
   }
 
   static mapType = (
-    field: Pick<AntDesignField, 'type' | 'property'>,
+    field: Pick<AntDesignField, 'property' | 'type'>,
   ): DistributivePick<IType, 'kind'> | null => {
     if (isEnumType(field.type)) {
       return { kind: ITypeKind.EnumType }

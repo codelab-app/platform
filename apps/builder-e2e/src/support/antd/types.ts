@@ -18,10 +18,10 @@ import type { AntTableCommands } from './table'
 import type { AntTooltipCommands } from './tooltip'
 import type { AntTreeCommands } from './tree'
 
-export type Label = string | number | RegExp
+export type Label = RegExp | number | string
 
 export type CommonOptions = Partial<
-  Cypress.Loggable & Cypress.Timeoutable & Cypress.Shadow
+  Cypress.Loggable & Cypress.Shadow & Cypress.Timeoutable
 >
 
 declare global {

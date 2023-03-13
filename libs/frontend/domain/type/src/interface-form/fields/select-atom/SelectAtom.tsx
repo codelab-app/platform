@@ -8,7 +8,7 @@ import { SelectField } from 'uniforms-antd'
 
 export type SelectAtomProps = Pick<
   UniformSelectFieldProps,
-  'label' | 'name' | 'error'
+  'error' | 'label' | 'name'
 > & {
   /**
    * Used for atom validation

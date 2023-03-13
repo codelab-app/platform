@@ -1,21 +1,21 @@
 import type * as cg from '@codelab/shared/abstract/codegen'
 
 export type ICreateActionInput =
-  | cg.CodeActionCreateInput
   | cg.ApiActionCreateInput
+  | cg.CodeActionCreateInput
 
 export type IUpdateActionInput =
-  | cg.CodeActionUpdateInput
   | cg.ApiActionUpdateInput
+  | cg.CodeActionUpdateInput
 
 export type IConnectActionInput =
-  | cg.CodeActionConnectInput
   | cg.ApiActionConnectInput
+  | cg.CodeActionConnectInput
 
 export type IDisconnectActionInput =
-  | cg.CodeActionDisconnectInput
   | cg.ApiActionDisconnectInput
+  | cg.CodeActionDisconnectInput
 
 export type IDeleteActionInput =
-  | cg.CodeActionDeleteInput
   | cg.ApiActionDeleteInput
+  | cg.CodeActionDeleteInput

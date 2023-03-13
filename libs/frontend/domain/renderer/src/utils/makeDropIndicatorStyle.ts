@@ -1,6 +1,6 @@
 import { DragPosition } from '@codelab/frontend/abstract/core'
 
-type Style = Record<string, string | number>
+type Style = Record<string, number | string>
 
 /**
  * creates a style object that can be used to add styling to the droppable element

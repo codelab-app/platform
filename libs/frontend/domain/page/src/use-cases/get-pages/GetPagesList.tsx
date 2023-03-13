@@ -11,8 +11,8 @@ import { useAsync } from 'react-use'
 import { GetPagesItem } from './GetPagesItem'
 
 export const GetPagesList = observer<{
-  pageService: IPageService
   domainService: IDomainService
+  pageService: IPageService
 }>(({ domainService, pageService }) => {
   const appId = useCurrentAppId()
 

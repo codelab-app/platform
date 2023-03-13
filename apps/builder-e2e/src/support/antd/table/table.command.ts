@@ -32,7 +32,7 @@ export const getTableColumnHeaders = (options?: CommonOptions) => {
 }
 
 export const getTableColumnHeader = (
-  columnIdxOrLabel: number | Label,
+  columnIdxOrLabel: Label | number,
   options?: CommonOptions,
 ) => {
   return isNumber(columnIdxOrLabel)
@@ -41,11 +41,11 @@ export const getTableColumnHeader = (
 }
 
 export const getTableColumnSorter = (
-  columnIdxOrLabel: number | Label,
+  columnIdxOrLabel: Label | number,
   {
     sortOrder = SORT_ORDER.ASCENDING,
     ...options
-  }: SortOptions & CommonOptions = {},
+  }: CommonOptions & SortOptions = {},
 ) => {
   return getTableColumnHeader(columnIdxOrLabel, options).find(
     `.ant-table-column-sorter-${
@@ -56,7 +56,7 @@ export const getTableColumnSorter = (
 }
 
 export const getTableFiltersDropdownToggle = (
-  columnIdxOrLabel: number | Label,
+  columnIdxOrLabel: Label | number,
   options?: CommonOptions,
 ) => {
   return getTableColumnHeader(columnIdxOrLabel, options).find(
@@ -198,8 +198,8 @@ export const expectTableRows = (
 }
 
 export const expectTableSortedBy = (
-  columnIdxOrLabel: number | Label,
-  options: SortOptions & CommonOptions = {},
+  columnIdxOrLabel: Label | number,
+  options: CommonOptions & SortOptions = {},
 ) => {
   const shouldNotBeSorted = isNil(columnIdxOrLabel)
 
@@ -228,7 +228,7 @@ export const expectTableSortedBy = (
  * removes the sorting. This const has  = to be used in a similar fashion.
  */
 export const sortTableBy = (
-  columnIdxOrLabel: number | Label,
+  columnIdxOrLabel: Label | number,
   options?: CommonOptions,
 ) => {
   const opts = logAndMute('sortTableBy', columnIdxOrLabel.toString(), options)
@@ -238,7 +238,7 @@ export const sortTableBy = (
 }
 
 export const filterTableBy = (
-  columnIdxOrLabel: number | Label,
+  columnIdxOrLabel: Label | number,
   values: Array<Label>,
   options?: CommonOptions,
 ) => {

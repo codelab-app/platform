@@ -14,8 +14,8 @@ const { Text } = Typography
 
 interface TestimonialItemProps {
   review: string
-  stakeholder: string
   role: string
+  stakeholder: string
 }
 
 export const TestimonialItem = ({

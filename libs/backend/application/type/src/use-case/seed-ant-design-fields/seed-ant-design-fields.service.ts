@@ -16,7 +16,7 @@ import {
   InterfaceTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import type { IAtomDTO } from '@codelab/frontend/abstract/core'
+import type { IAtomDTO, IFieldDTO } from '@codelab/frontend/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { v4 } from 'uuid'
@@ -102,19 +102,18 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
     atom: IAtomDTO,
     atomFields: Array<AntDesignField>,
   ) {
-    return await atomFields.reduce<Promise<Array<IField>>>(
+    return await atomFields.reduce<Promise<Array<IFieldDTO>>>(
       async (accFields, field) => {
         /**
          * Get the existing atom first, these should have already been seeded at this point
          */
-        let existingField: IField | undefined = await this.fieldRepository.find(
-          {
+        let existingField: IField | undefined =
+          await this.fieldRepository.findOne({
             api: {
               id: atom.api.id,
             },
             key: field.property,
-          },
-        )
+          })
 
         /**
          * If field doesn't exist try to create it here
@@ -140,10 +139,14 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
           /**
            * We need to upsert here by specifying where as name
            */
-          const type = await TypeFactory.create(
-            { ...fieldTypeDTO, owner: this.owner },
-            (typeData: IType) => ({ name: typeData.name }),
-          )
+          const type = await TypeFactory.create({
+            ...fieldTypeDTO,
+            owner: this.owner,
+          })
+
+          if (!type) {
+            return [...(await accFields)]
+          }
 
           existingField = Field.init({
             api: { id: atom.api.id },
@@ -155,11 +158,8 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
              * If doesn't exist like union or interface we'll need to create it
              */
             fieldType: type,
-
             id: v4(),
-
             key: field.property,
-
             name: compoundCaseToTitleCase(field.property),
           })
         }

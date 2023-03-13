@@ -4,25 +4,33 @@ import {
   exportEnumTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
+import type { IEnumTypeDTO } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
-import { connectAuth0Owner, whereNodeId } from '@codelab/shared/domain/mapper'
+import {
+  connectAuth0Owner,
+  connectNodeIds,
+  reconnectNodeIds,
+  whereNodeId,
+} from '@codelab/shared/domain/mapper'
 
-export class EnumTypeRepository extends AbstractRepository<IEnumType> {
+export class EnumTypeRepository extends AbstractRepository<
+  IEnumTypeDTO,
+  OGM_TYPES.EnumType,
+  OGM_TYPES.EnumTypeWhere
+> {
   private EnumType = Repository.instance.EnumType
 
-  async find(where: BaseTypeUniqueWhere) {
-    return (
-      await (
-        await this.EnumType
-      ).find({
-        selectionSet: exportEnumTypeSelectionSet,
-        where,
-      })
-    )[0]
+  async find(where: OGM_TYPES.EnumTypeWhere) {
+    return await (
+      await this.EnumType
+    ).find({
+      selectionSet: exportEnumTypeSelectionSet,
+      where,
+    })
   }
 
-  protected async _add(enumTypes: Array<IEnumType>) {
+  protected async _add(enumTypes: Array<IEnumTypeDTO>) {
     return (
       await (
         await this.EnumType
@@ -30,7 +38,10 @@ export class EnumTypeRepository extends AbstractRepository<IEnumType> {
         input: enumTypes.map(
           ({ __typename, allowedValues, owner, ...enumType }) => ({
             ...enumType,
-            allowedValues: this.mapCreateEnumTypeValues(allowedValues),
+            allowedValues: connectNodeIds(
+              allowedValues.map((value) => value.id),
+            ),
+            // allowedValues: this.mapCreateEnumTypeValues(allowedValues),
             owner: connectAuth0Owner(owner),
           }),
         ),
@@ -39,8 +50,8 @@ export class EnumTypeRepository extends AbstractRepository<IEnumType> {
   }
 
   protected async _update(
-    { __typename, allowedValues, owner, ...enumType }: IEnumType,
-    where: BaseTypeUniqueWhere,
+    { __typename, allowedValues, owner, ...enumType }: IEnumTypeDTO,
+    where: OGM_TYPES.EnumTypeWhere,
   ) {
     return (
       await (
@@ -48,7 +59,10 @@ export class EnumTypeRepository extends AbstractRepository<IEnumType> {
       ).update({
         update: {
           ...enumType,
-          allowedValues: this.mapUpdateEnumTypeValues(allowedValues),
+          allowedValues: reconnectNodeIds(
+            allowedValues.map((value) => value.id),
+          ),
+          // allowedValues: this.mapUpdateEnumTypeValues(allowedValues),
           owner: connectAuth0Owner(owner),
         },
         where,

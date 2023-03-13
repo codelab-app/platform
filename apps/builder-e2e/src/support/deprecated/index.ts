@@ -11,13 +11,13 @@ import type { OmitFirstArg } from './types'
 const options = { prevSubject: 'optional' }
 
 export interface CypressSelectorsCommands {
-  getOpenedModal: OmitFirstArg<typeof getOpenedModal>
-  findByButtonText: OmitFirstArg<typeof findByButtonText>
   findButtonByItemText: OmitFirstArg<typeof findButtonByItemText>
+  findByButtonText: OmitFirstArg<typeof findByButtonText>
   findElementByText: OmitFirstArg<typeof findElementByText>
-  selectOptionItem: OmitFirstArg<typeof selectOptionItem>
+  getOpenedModal: OmitFirstArg<typeof getOpenedModal>
   getOptionItem: OmitFirstArg<typeof getOptionItem>
   getSpinner: OmitFirstArg<typeof getSpinner>
+  selectOptionItem: OmitFirstArg<typeof selectOptionItem>
 }
 
 export const selectorCommands: Array<CypressCommand> = [

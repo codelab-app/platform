@@ -11,8 +11,8 @@ import {
 } from './utils'
 
 export interface UseElementTreeDropProps {
-  elementTree: Nullable<IElementTree>
   elementService: IElementService
+  elementTree: Nullable<IElementTree>
 }
 
 /**

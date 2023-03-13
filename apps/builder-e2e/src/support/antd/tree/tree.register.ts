@@ -8,11 +8,11 @@ import {
 } from './tree.command'
 
 export interface AntTreeCommands {
-  toggleTreeNodeSwitcher: typeof toggleTreeNodeSwitcher
-  getTreeNode: typeof getTreeNode
   getTree: typeof getTree
-  toggleTreeNodeChk: typeof toggleTreeNodeChk
+  getTreeNode: typeof getTreeNode
   getTreeNodes: typeof getTreeNodes
+  toggleTreeNodeChk: typeof toggleTreeNodeChk
+  toggleTreeNodeSwitcher: typeof toggleTreeNodeSwitcher
 }
 
 export const antTreeCommands: Array<CypressCommand> = [

@@ -7,9 +7,6 @@ import React from 'react'
 import tw, { GlobalStyles } from 'twin.macro'
 
 export type MainPaneTemplateProps = React.PropsWithChildren<{
-  title: React.ReactNode
-  // For buttons
-  header?: ReactJSXElement
   containerProps?: Pick<
     React.DetailedHTMLProps<
       React.HTMLAttributes<HTMLDivElement>,
@@ -17,7 +14,10 @@ export type MainPaneTemplateProps = React.PropsWithChildren<{
     >,
     'onClick'
   >
+  // For buttons
+  header?: ReactJSXElement
   headerProps?: Pick<PageHeaderProps, 'onBack'>
+  title: React.ReactNode
 }>
 
 const StyledContainer = styled.div`

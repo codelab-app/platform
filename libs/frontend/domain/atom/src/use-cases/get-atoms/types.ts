@@ -1,3 +1,3 @@
 export interface TableHeaderButtonProps {
-  exportData: () => void
+  exportData(): void
 }

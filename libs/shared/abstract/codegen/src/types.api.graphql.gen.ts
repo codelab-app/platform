@@ -2662,7 +2662,7 @@ export type ArrayType = IBaseType &
     __typename?: 'ArrayType'
     descendantTypesIds: Array<Scalars['ID']>
     id: Scalars['ID']
-    itemType: AnyType
+    itemType: IBaseType
     itemTypeConnection: ArrayTypeItemTypeConnection
     kind: TypeKind
     name: Scalars['String']
@@ -2677,8 +2677,8 @@ export type ArrayType = IBaseType &
  */
 export type ArrayTypeItemTypeArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<QueryOptions>
-  where?: InputMaybe<AnyTypeWhere>
+  options?: InputMaybe<IBaseTypeOptions>
+  where?: InputMaybe<IBaseTypeWhere>
 }
 
 /**
@@ -2689,6 +2689,7 @@ export type ArrayTypeItemTypeConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<ArrayTypeItemTypeConnectionSort>>
   where?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
 }
 
@@ -2731,12 +2732,11 @@ export type ArrayTypeAggregateSelection = {
 }
 
 export type ArrayTypeConnectInput = {
-  itemType?: InputMaybe<ArrayTypeItemTypeConnectInput>
+  itemType?: InputMaybe<ArrayTypeItemTypeConnectFieldInput>
   owner?: InputMaybe<IBaseTypeOwnerConnectFieldInput>
 }
 
 export type ArrayTypeConnectOrCreateInput = {
-  itemType?: InputMaybe<ArrayTypeItemTypeConnectOrCreateInput>
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
 }
 
@@ -2750,19 +2750,19 @@ export type ArrayTypeConnectWhere = {
 
 export type ArrayTypeCreateInput = {
   id: Scalars['ID']
-  itemType?: InputMaybe<ArrayTypeItemTypeCreateInput>
+  itemType?: InputMaybe<ArrayTypeItemTypeFieldInput>
   kind?: TypeKind
   name: Scalars['String']
   owner?: InputMaybe<IBaseTypeOwnerFieldInput>
 }
 
 export type ArrayTypeDeleteInput = {
-  itemType?: InputMaybe<ArrayTypeItemTypeDeleteInput>
+  itemType?: InputMaybe<ArrayTypeItemTypeDeleteFieldInput>
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
 }
 
 export type ArrayTypeDisconnectInput = {
-  itemType?: InputMaybe<ArrayTypeItemTypeDisconnectInput>
+  itemType?: InputMaybe<ArrayTypeItemTypeDisconnectFieldInput>
   owner?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
 }
 
@@ -2772,256 +2772,9 @@ export type ArrayTypeEdge = {
   node: ArrayType
 }
 
-export type ArrayTypeItemTypeActionTypeConnectFieldInput = {
-  connect?: InputMaybe<ActionTypeConnectInput>
-  where?: InputMaybe<ActionTypeConnectWhere>
-}
-
-export type ArrayTypeItemTypeActionTypeConnectOrCreateFieldInput = {
-  onCreate: ArrayTypeItemTypeActionTypeConnectOrCreateFieldInputOnCreate
-  where: ActionTypeConnectOrCreateWhere
-}
-
-export type ArrayTypeItemTypeActionTypeConnectOrCreateFieldInputOnCreate = {
-  node: ActionTypeOnCreateInput
-}
-
-export type ArrayTypeItemTypeActionTypeConnectionWhere = {
-  AND?: InputMaybe<Array<ArrayTypeItemTypeActionTypeConnectionWhere>>
-  NOT?: InputMaybe<ArrayTypeItemTypeActionTypeConnectionWhere>
-  OR?: InputMaybe<Array<ArrayTypeItemTypeActionTypeConnectionWhere>>
-  node?: InputMaybe<ActionTypeWhere>
-}
-
-export type ArrayTypeItemTypeActionTypeCreateFieldInput = {
-  node: ActionTypeCreateInput
-}
-
-export type ArrayTypeItemTypeActionTypeDeleteFieldInput = {
-  delete?: InputMaybe<ActionTypeDeleteInput>
-  where?: InputMaybe<ArrayTypeItemTypeActionTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeActionTypeDisconnectFieldInput = {
-  disconnect?: InputMaybe<ActionTypeDisconnectInput>
-  where?: InputMaybe<ArrayTypeItemTypeActionTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeActionTypeFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeActionTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeActionTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeActionTypeCreateFieldInput>
-}
-
-export type ArrayTypeItemTypeActionTypeUpdateConnectionInput = {
-  node?: InputMaybe<ActionTypeUpdateInput>
-}
-
-export type ArrayTypeItemTypeActionTypeUpdateFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeActionTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeActionTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeActionTypeCreateFieldInput>
-  delete?: InputMaybe<ArrayTypeItemTypeActionTypeDeleteFieldInput>
-  disconnect?: InputMaybe<ArrayTypeItemTypeActionTypeDisconnectFieldInput>
-  update?: InputMaybe<ArrayTypeItemTypeActionTypeUpdateConnectionInput>
-  where?: InputMaybe<ArrayTypeItemTypeActionTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeAppTypeConnectFieldInput = {
-  connect?: InputMaybe<AppTypeConnectInput>
-  where?: InputMaybe<AppTypeConnectWhere>
-}
-
-export type ArrayTypeItemTypeAppTypeConnectOrCreateFieldInput = {
-  onCreate: ArrayTypeItemTypeAppTypeConnectOrCreateFieldInputOnCreate
-  where: AppTypeConnectOrCreateWhere
-}
-
-export type ArrayTypeItemTypeAppTypeConnectOrCreateFieldInputOnCreate = {
-  node: AppTypeOnCreateInput
-}
-
-export type ArrayTypeItemTypeAppTypeConnectionWhere = {
-  AND?: InputMaybe<Array<ArrayTypeItemTypeAppTypeConnectionWhere>>
-  NOT?: InputMaybe<ArrayTypeItemTypeAppTypeConnectionWhere>
-  OR?: InputMaybe<Array<ArrayTypeItemTypeAppTypeConnectionWhere>>
-  node?: InputMaybe<AppTypeWhere>
-}
-
-export type ArrayTypeItemTypeAppTypeCreateFieldInput = {
-  node: AppTypeCreateInput
-}
-
-export type ArrayTypeItemTypeAppTypeDeleteFieldInput = {
-  delete?: InputMaybe<AppTypeDeleteInput>
-  where?: InputMaybe<ArrayTypeItemTypeAppTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeAppTypeDisconnectFieldInput = {
-  disconnect?: InputMaybe<AppTypeDisconnectInput>
-  where?: InputMaybe<ArrayTypeItemTypeAppTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeAppTypeFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeAppTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeAppTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeAppTypeCreateFieldInput>
-}
-
-export type ArrayTypeItemTypeAppTypeUpdateConnectionInput = {
-  node?: InputMaybe<AppTypeUpdateInput>
-}
-
-export type ArrayTypeItemTypeAppTypeUpdateFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeAppTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeAppTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeAppTypeCreateFieldInput>
-  delete?: InputMaybe<ArrayTypeItemTypeAppTypeDeleteFieldInput>
-  disconnect?: InputMaybe<ArrayTypeItemTypeAppTypeDisconnectFieldInput>
-  update?: InputMaybe<ArrayTypeItemTypeAppTypeUpdateConnectionInput>
-  where?: InputMaybe<ArrayTypeItemTypeAppTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeArrayTypeConnectFieldInput = {
-  connect?: InputMaybe<ArrayTypeConnectInput>
-  where?: InputMaybe<ArrayTypeConnectWhere>
-}
-
-export type ArrayTypeItemTypeArrayTypeConnectOrCreateFieldInput = {
-  onCreate: ArrayTypeItemTypeArrayTypeConnectOrCreateFieldInputOnCreate
-  where: ArrayTypeConnectOrCreateWhere
-}
-
-export type ArrayTypeItemTypeArrayTypeConnectOrCreateFieldInputOnCreate = {
-  node: ArrayTypeOnCreateInput
-}
-
-export type ArrayTypeItemTypeArrayTypeConnectionWhere = {
-  AND?: InputMaybe<Array<ArrayTypeItemTypeArrayTypeConnectionWhere>>
-  NOT?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectionWhere>
-  OR?: InputMaybe<Array<ArrayTypeItemTypeArrayTypeConnectionWhere>>
-  node?: InputMaybe<ArrayTypeWhere>
-}
-
-export type ArrayTypeItemTypeArrayTypeCreateFieldInput = {
-  node: ArrayTypeCreateInput
-}
-
-export type ArrayTypeItemTypeArrayTypeDeleteFieldInput = {
-  delete?: InputMaybe<ArrayTypeDeleteInput>
-  where?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeArrayTypeDisconnectFieldInput = {
-  disconnect?: InputMaybe<ArrayTypeDisconnectInput>
-  where?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeArrayTypeFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeArrayTypeCreateFieldInput>
-}
-
-export type ArrayTypeItemTypeArrayTypeUpdateConnectionInput = {
-  node?: InputMaybe<ArrayTypeUpdateInput>
-}
-
-export type ArrayTypeItemTypeArrayTypeUpdateFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeArrayTypeCreateFieldInput>
-  delete?: InputMaybe<ArrayTypeItemTypeArrayTypeDeleteFieldInput>
-  disconnect?: InputMaybe<ArrayTypeItemTypeArrayTypeDisconnectFieldInput>
-  update?: InputMaybe<ArrayTypeItemTypeArrayTypeUpdateConnectionInput>
-  where?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeCodeMirrorTypeConnectFieldInput = {
-  connect?: InputMaybe<CodeMirrorTypeConnectInput>
-  where?: InputMaybe<CodeMirrorTypeConnectWhere>
-}
-
-export type ArrayTypeItemTypeCodeMirrorTypeConnectOrCreateFieldInput = {
-  onCreate: ArrayTypeItemTypeCodeMirrorTypeConnectOrCreateFieldInputOnCreate
-  where: CodeMirrorTypeConnectOrCreateWhere
-}
-
-export type ArrayTypeItemTypeCodeMirrorTypeConnectOrCreateFieldInputOnCreate = {
-  node: CodeMirrorTypeOnCreateInput
-}
-
-export type ArrayTypeItemTypeCodeMirrorTypeConnectionWhere = {
-  AND?: InputMaybe<Array<ArrayTypeItemTypeCodeMirrorTypeConnectionWhere>>
-  NOT?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectionWhere>
-  OR?: InputMaybe<Array<ArrayTypeItemTypeCodeMirrorTypeConnectionWhere>>
-  node?: InputMaybe<CodeMirrorTypeWhere>
-}
-
-export type ArrayTypeItemTypeCodeMirrorTypeCreateFieldInput = {
-  node: CodeMirrorTypeCreateInput
-}
-
-export type ArrayTypeItemTypeCodeMirrorTypeDeleteFieldInput = {
-  delete?: InputMaybe<CodeMirrorTypeDeleteInput>
-  where?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeCodeMirrorTypeDisconnectFieldInput = {
-  disconnect?: InputMaybe<CodeMirrorTypeDisconnectInput>
-  where?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeCodeMirrorTypeFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeCreateFieldInput>
-}
-
-export type ArrayTypeItemTypeCodeMirrorTypeUpdateConnectionInput = {
-  node?: InputMaybe<CodeMirrorTypeUpdateInput>
-}
-
-export type ArrayTypeItemTypeCodeMirrorTypeUpdateFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeCreateFieldInput>
-  delete?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeDeleteFieldInput>
-  disconnect?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeDisconnectFieldInput>
-  update?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeUpdateConnectionInput>
-  where?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeConnectInput = {
-  ActionType?: InputMaybe<ArrayTypeItemTypeActionTypeConnectFieldInput>
-  AppType?: InputMaybe<ArrayTypeItemTypeAppTypeConnectFieldInput>
-  ArrayType?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectFieldInput>
-  CodeMirrorType?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectFieldInput>
-  ElementType?: InputMaybe<ArrayTypeItemTypeElementTypeConnectFieldInput>
-  EnumType?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectFieldInput>
-  InterfaceType?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectFieldInput>
-  LambdaType?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectFieldInput>
-  PageType?: InputMaybe<ArrayTypeItemTypePageTypeConnectFieldInput>
-  PrimitiveType?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectFieldInput>
-  ReactNodeType?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectFieldInput>
-  RenderPropsType?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectFieldInput>
-  UnionType?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectFieldInput>
-}
-
-export type ArrayTypeItemTypeConnectOrCreateInput = {
-  ActionType?: InputMaybe<ArrayTypeItemTypeActionTypeConnectOrCreateFieldInput>
-  AppType?: InputMaybe<ArrayTypeItemTypeAppTypeConnectOrCreateFieldInput>
-  ArrayType?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectOrCreateFieldInput>
-  CodeMirrorType?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectOrCreateFieldInput>
-  ElementType?: InputMaybe<ArrayTypeItemTypeElementTypeConnectOrCreateFieldInput>
-  EnumType?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectOrCreateFieldInput>
-  InterfaceType?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectOrCreateFieldInput>
-  LambdaType?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectOrCreateFieldInput>
-  PageType?: InputMaybe<ArrayTypeItemTypePageTypeConnectOrCreateFieldInput>
-  PrimitiveType?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectOrCreateFieldInput>
-  ReactNodeType?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectOrCreateFieldInput>
-  RenderPropsType?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectOrCreateFieldInput>
-  UnionType?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectOrCreateFieldInput>
+export type ArrayTypeItemTypeConnectFieldInput = {
+  connect?: InputMaybe<IBaseTypeConnectInput>
+  where?: InputMaybe<IBaseTypeConnectWhere>
 }
 
 export type ArrayTypeItemTypeConnection = {
@@ -3031,612 +2784,53 @@ export type ArrayTypeItemTypeConnection = {
   totalCount: Scalars['Int']
 }
 
+export type ArrayTypeItemTypeConnectionSort = {
+  node?: InputMaybe<IBaseTypeSort>
+}
+
 export type ArrayTypeItemTypeConnectionWhere = {
-  ActionType?: InputMaybe<ArrayTypeItemTypeActionTypeConnectionWhere>
-  AppType?: InputMaybe<ArrayTypeItemTypeAppTypeConnectionWhere>
-  ArrayType?: InputMaybe<ArrayTypeItemTypeArrayTypeConnectionWhere>
-  CodeMirrorType?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeConnectionWhere>
-  ElementType?: InputMaybe<ArrayTypeItemTypeElementTypeConnectionWhere>
-  EnumType?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectionWhere>
-  InterfaceType?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectionWhere>
-  LambdaType?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectionWhere>
-  PageType?: InputMaybe<ArrayTypeItemTypePageTypeConnectionWhere>
-  PrimitiveType?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectionWhere>
-  ReactNodeType?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectionWhere>
-  RenderPropsType?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectionWhere>
-  UnionType?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectionWhere>
+  AND?: InputMaybe<Array<ArrayTypeItemTypeConnectionWhere>>
+  NOT?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
+  OR?: InputMaybe<Array<ArrayTypeItemTypeConnectionWhere>>
+  node?: InputMaybe<IBaseTypeWhere>
 }
 
 export type ArrayTypeItemTypeCreateFieldInput = {
-  ActionType?: InputMaybe<Array<ArrayTypeItemTypeActionTypeCreateFieldInput>>
-  AppType?: InputMaybe<Array<ArrayTypeItemTypeAppTypeCreateFieldInput>>
-  ArrayType?: InputMaybe<Array<ArrayTypeItemTypeArrayTypeCreateFieldInput>>
-  CodeMirrorType?: InputMaybe<
-    Array<ArrayTypeItemTypeCodeMirrorTypeCreateFieldInput>
-  >
-  ElementType?: InputMaybe<Array<ArrayTypeItemTypeElementTypeCreateFieldInput>>
-  EnumType?: InputMaybe<Array<ArrayTypeItemTypeEnumTypeCreateFieldInput>>
-  InterfaceType?: InputMaybe<
-    Array<ArrayTypeItemTypeInterfaceTypeCreateFieldInput>
-  >
-  LambdaType?: InputMaybe<Array<ArrayTypeItemTypeLambdaTypeCreateFieldInput>>
-  PageType?: InputMaybe<Array<ArrayTypeItemTypePageTypeCreateFieldInput>>
-  PrimitiveType?: InputMaybe<
-    Array<ArrayTypeItemTypePrimitiveTypeCreateFieldInput>
-  >
-  ReactNodeType?: InputMaybe<
-    Array<ArrayTypeItemTypeReactNodeTypeCreateFieldInput>
-  >
-  RenderPropsType?: InputMaybe<
-    Array<ArrayTypeItemTypeRenderPropsTypeCreateFieldInput>
-  >
-  UnionType?: InputMaybe<Array<ArrayTypeItemTypeUnionTypeCreateFieldInput>>
+  node: IBaseTypeCreateInput
 }
 
-export type ArrayTypeItemTypeCreateInput = {
-  ActionType?: InputMaybe<ArrayTypeItemTypeActionTypeFieldInput>
-  AppType?: InputMaybe<ArrayTypeItemTypeAppTypeFieldInput>
-  ArrayType?: InputMaybe<ArrayTypeItemTypeArrayTypeFieldInput>
-  CodeMirrorType?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeFieldInput>
-  ElementType?: InputMaybe<ArrayTypeItemTypeElementTypeFieldInput>
-  EnumType?: InputMaybe<ArrayTypeItemTypeEnumTypeFieldInput>
-  InterfaceType?: InputMaybe<ArrayTypeItemTypeInterfaceTypeFieldInput>
-  LambdaType?: InputMaybe<ArrayTypeItemTypeLambdaTypeFieldInput>
-  PageType?: InputMaybe<ArrayTypeItemTypePageTypeFieldInput>
-  PrimitiveType?: InputMaybe<ArrayTypeItemTypePrimitiveTypeFieldInput>
-  ReactNodeType?: InputMaybe<ArrayTypeItemTypeReactNodeTypeFieldInput>
-  RenderPropsType?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeFieldInput>
-  UnionType?: InputMaybe<ArrayTypeItemTypeUnionTypeFieldInput>
+export type ArrayTypeItemTypeDeleteFieldInput = {
+  delete?: InputMaybe<IBaseTypeDeleteInput>
+  where?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
 }
 
-export type ArrayTypeItemTypeDeleteInput = {
-  ActionType?: InputMaybe<ArrayTypeItemTypeActionTypeDeleteFieldInput>
-  AppType?: InputMaybe<ArrayTypeItemTypeAppTypeDeleteFieldInput>
-  ArrayType?: InputMaybe<ArrayTypeItemTypeArrayTypeDeleteFieldInput>
-  CodeMirrorType?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeDeleteFieldInput>
-  ElementType?: InputMaybe<ArrayTypeItemTypeElementTypeDeleteFieldInput>
-  EnumType?: InputMaybe<ArrayTypeItemTypeEnumTypeDeleteFieldInput>
-  InterfaceType?: InputMaybe<ArrayTypeItemTypeInterfaceTypeDeleteFieldInput>
-  LambdaType?: InputMaybe<ArrayTypeItemTypeLambdaTypeDeleteFieldInput>
-  PageType?: InputMaybe<ArrayTypeItemTypePageTypeDeleteFieldInput>
-  PrimitiveType?: InputMaybe<ArrayTypeItemTypePrimitiveTypeDeleteFieldInput>
-  ReactNodeType?: InputMaybe<ArrayTypeItemTypeReactNodeTypeDeleteFieldInput>
-  RenderPropsType?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeDeleteFieldInput>
-  UnionType?: InputMaybe<ArrayTypeItemTypeUnionTypeDeleteFieldInput>
+export type ArrayTypeItemTypeDisconnectFieldInput = {
+  disconnect?: InputMaybe<IBaseTypeDisconnectInput>
+  where?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
 }
 
-export type ArrayTypeItemTypeDisconnectInput = {
-  ActionType?: InputMaybe<ArrayTypeItemTypeActionTypeDisconnectFieldInput>
-  AppType?: InputMaybe<ArrayTypeItemTypeAppTypeDisconnectFieldInput>
-  ArrayType?: InputMaybe<ArrayTypeItemTypeArrayTypeDisconnectFieldInput>
-  CodeMirrorType?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeDisconnectFieldInput>
-  ElementType?: InputMaybe<ArrayTypeItemTypeElementTypeDisconnectFieldInput>
-  EnumType?: InputMaybe<ArrayTypeItemTypeEnumTypeDisconnectFieldInput>
-  InterfaceType?: InputMaybe<ArrayTypeItemTypeInterfaceTypeDisconnectFieldInput>
-  LambdaType?: InputMaybe<ArrayTypeItemTypeLambdaTypeDisconnectFieldInput>
-  PageType?: InputMaybe<ArrayTypeItemTypePageTypeDisconnectFieldInput>
-  PrimitiveType?: InputMaybe<ArrayTypeItemTypePrimitiveTypeDisconnectFieldInput>
-  ReactNodeType?: InputMaybe<ArrayTypeItemTypeReactNodeTypeDisconnectFieldInput>
-  RenderPropsType?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeDisconnectFieldInput>
-  UnionType?: InputMaybe<ArrayTypeItemTypeUnionTypeDisconnectFieldInput>
-}
-
-export type ArrayTypeItemTypeElementTypeConnectFieldInput = {
-  connect?: InputMaybe<ElementTypeConnectInput>
-  where?: InputMaybe<ElementTypeConnectWhere>
-}
-
-export type ArrayTypeItemTypeElementTypeConnectOrCreateFieldInput = {
-  onCreate: ArrayTypeItemTypeElementTypeConnectOrCreateFieldInputOnCreate
-  where: ElementTypeConnectOrCreateWhere
-}
-
-export type ArrayTypeItemTypeElementTypeConnectOrCreateFieldInputOnCreate = {
-  node: ElementTypeOnCreateInput
-}
-
-export type ArrayTypeItemTypeElementTypeConnectionWhere = {
-  AND?: InputMaybe<Array<ArrayTypeItemTypeElementTypeConnectionWhere>>
-  NOT?: InputMaybe<ArrayTypeItemTypeElementTypeConnectionWhere>
-  OR?: InputMaybe<Array<ArrayTypeItemTypeElementTypeConnectionWhere>>
-  node?: InputMaybe<ElementTypeWhere>
-}
-
-export type ArrayTypeItemTypeElementTypeCreateFieldInput = {
-  node: ElementTypeCreateInput
-}
-
-export type ArrayTypeItemTypeElementTypeDeleteFieldInput = {
-  delete?: InputMaybe<ElementTypeDeleteInput>
-  where?: InputMaybe<ArrayTypeItemTypeElementTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeElementTypeDisconnectFieldInput = {
-  disconnect?: InputMaybe<ElementTypeDisconnectInput>
-  where?: InputMaybe<ArrayTypeItemTypeElementTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeElementTypeFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeElementTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeElementTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeElementTypeCreateFieldInput>
-}
-
-export type ArrayTypeItemTypeElementTypeUpdateConnectionInput = {
-  node?: InputMaybe<ElementTypeUpdateInput>
-}
-
-export type ArrayTypeItemTypeElementTypeUpdateFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeElementTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeElementTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeElementTypeCreateFieldInput>
-  delete?: InputMaybe<ArrayTypeItemTypeElementTypeDeleteFieldInput>
-  disconnect?: InputMaybe<ArrayTypeItemTypeElementTypeDisconnectFieldInput>
-  update?: InputMaybe<ArrayTypeItemTypeElementTypeUpdateConnectionInput>
-  where?: InputMaybe<ArrayTypeItemTypeElementTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeEnumTypeConnectFieldInput = {
-  connect?: InputMaybe<EnumTypeConnectInput>
-  where?: InputMaybe<EnumTypeConnectWhere>
-}
-
-export type ArrayTypeItemTypeEnumTypeConnectOrCreateFieldInput = {
-  onCreate: ArrayTypeItemTypeEnumTypeConnectOrCreateFieldInputOnCreate
-  where: EnumTypeConnectOrCreateWhere
-}
-
-export type ArrayTypeItemTypeEnumTypeConnectOrCreateFieldInputOnCreate = {
-  node: EnumTypeOnCreateInput
-}
-
-export type ArrayTypeItemTypeEnumTypeConnectionWhere = {
-  AND?: InputMaybe<Array<ArrayTypeItemTypeEnumTypeConnectionWhere>>
-  NOT?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectionWhere>
-  OR?: InputMaybe<Array<ArrayTypeItemTypeEnumTypeConnectionWhere>>
-  node?: InputMaybe<EnumTypeWhere>
-}
-
-export type ArrayTypeItemTypeEnumTypeCreateFieldInput = {
-  node: EnumTypeCreateInput
-}
-
-export type ArrayTypeItemTypeEnumTypeDeleteFieldInput = {
-  delete?: InputMaybe<EnumTypeDeleteInput>
-  where?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeEnumTypeDisconnectFieldInput = {
-  disconnect?: InputMaybe<EnumTypeDisconnectInput>
-  where?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeEnumTypeFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeEnumTypeCreateFieldInput>
-}
-
-export type ArrayTypeItemTypeEnumTypeUpdateConnectionInput = {
-  node?: InputMaybe<EnumTypeUpdateInput>
-}
-
-export type ArrayTypeItemTypeEnumTypeUpdateFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeEnumTypeCreateFieldInput>
-  delete?: InputMaybe<ArrayTypeItemTypeEnumTypeDeleteFieldInput>
-  disconnect?: InputMaybe<ArrayTypeItemTypeEnumTypeDisconnectFieldInput>
-  update?: InputMaybe<ArrayTypeItemTypeEnumTypeUpdateConnectionInput>
-  where?: InputMaybe<ArrayTypeItemTypeEnumTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeInterfaceTypeConnectFieldInput = {
-  connect?: InputMaybe<InterfaceTypeConnectInput>
-  where?: InputMaybe<InterfaceTypeConnectWhere>
-}
-
-export type ArrayTypeItemTypeInterfaceTypeConnectOrCreateFieldInput = {
-  onCreate: ArrayTypeItemTypeInterfaceTypeConnectOrCreateFieldInputOnCreate
-  where: InterfaceTypeConnectOrCreateWhere
-}
-
-export type ArrayTypeItemTypeInterfaceTypeConnectOrCreateFieldInputOnCreate = {
-  node: InterfaceTypeOnCreateInput
-}
-
-export type ArrayTypeItemTypeInterfaceTypeConnectionWhere = {
-  AND?: InputMaybe<Array<ArrayTypeItemTypeInterfaceTypeConnectionWhere>>
-  NOT?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectionWhere>
-  OR?: InputMaybe<Array<ArrayTypeItemTypeInterfaceTypeConnectionWhere>>
-  node?: InputMaybe<InterfaceTypeWhere>
-}
-
-export type ArrayTypeItemTypeInterfaceTypeCreateFieldInput = {
-  node: InterfaceTypeCreateInput
-}
-
-export type ArrayTypeItemTypeInterfaceTypeDeleteFieldInput = {
-  delete?: InputMaybe<InterfaceTypeDeleteInput>
-  where?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeInterfaceTypeDisconnectFieldInput = {
-  disconnect?: InputMaybe<InterfaceTypeDisconnectInput>
-  where?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeInterfaceTypeFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeInterfaceTypeCreateFieldInput>
-}
-
-export type ArrayTypeItemTypeInterfaceTypeUpdateConnectionInput = {
-  node?: InputMaybe<InterfaceTypeUpdateInput>
-}
-
-export type ArrayTypeItemTypeInterfaceTypeUpdateFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeInterfaceTypeCreateFieldInput>
-  delete?: InputMaybe<ArrayTypeItemTypeInterfaceTypeDeleteFieldInput>
-  disconnect?: InputMaybe<ArrayTypeItemTypeInterfaceTypeDisconnectFieldInput>
-  update?: InputMaybe<ArrayTypeItemTypeInterfaceTypeUpdateConnectionInput>
-  where?: InputMaybe<ArrayTypeItemTypeInterfaceTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeLambdaTypeConnectFieldInput = {
-  connect?: InputMaybe<LambdaTypeConnectInput>
-  where?: InputMaybe<LambdaTypeConnectWhere>
-}
-
-export type ArrayTypeItemTypeLambdaTypeConnectOrCreateFieldInput = {
-  onCreate: ArrayTypeItemTypeLambdaTypeConnectOrCreateFieldInputOnCreate
-  where: LambdaTypeConnectOrCreateWhere
-}
-
-export type ArrayTypeItemTypeLambdaTypeConnectOrCreateFieldInputOnCreate = {
-  node: LambdaTypeOnCreateInput
-}
-
-export type ArrayTypeItemTypeLambdaTypeConnectionWhere = {
-  AND?: InputMaybe<Array<ArrayTypeItemTypeLambdaTypeConnectionWhere>>
-  NOT?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectionWhere>
-  OR?: InputMaybe<Array<ArrayTypeItemTypeLambdaTypeConnectionWhere>>
-  node?: InputMaybe<LambdaTypeWhere>
-}
-
-export type ArrayTypeItemTypeLambdaTypeCreateFieldInput = {
-  node: LambdaTypeCreateInput
-}
-
-export type ArrayTypeItemTypeLambdaTypeDeleteFieldInput = {
-  delete?: InputMaybe<LambdaTypeDeleteInput>
-  where?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeLambdaTypeDisconnectFieldInput = {
-  disconnect?: InputMaybe<LambdaTypeDisconnectInput>
-  where?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeLambdaTypeFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeLambdaTypeCreateFieldInput>
-}
-
-export type ArrayTypeItemTypeLambdaTypeUpdateConnectionInput = {
-  node?: InputMaybe<LambdaTypeUpdateInput>
-}
-
-export type ArrayTypeItemTypeLambdaTypeUpdateFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeLambdaTypeCreateFieldInput>
-  delete?: InputMaybe<ArrayTypeItemTypeLambdaTypeDeleteFieldInput>
-  disconnect?: InputMaybe<ArrayTypeItemTypeLambdaTypeDisconnectFieldInput>
-  update?: InputMaybe<ArrayTypeItemTypeLambdaTypeUpdateConnectionInput>
-  where?: InputMaybe<ArrayTypeItemTypeLambdaTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypePageTypeConnectFieldInput = {
-  connect?: InputMaybe<PageTypeConnectInput>
-  where?: InputMaybe<PageTypeConnectWhere>
-}
-
-export type ArrayTypeItemTypePageTypeConnectOrCreateFieldInput = {
-  onCreate: ArrayTypeItemTypePageTypeConnectOrCreateFieldInputOnCreate
-  where: PageTypeConnectOrCreateWhere
-}
-
-export type ArrayTypeItemTypePageTypeConnectOrCreateFieldInputOnCreate = {
-  node: PageTypeOnCreateInput
-}
-
-export type ArrayTypeItemTypePageTypeConnectionWhere = {
-  AND?: InputMaybe<Array<ArrayTypeItemTypePageTypeConnectionWhere>>
-  NOT?: InputMaybe<ArrayTypeItemTypePageTypeConnectionWhere>
-  OR?: InputMaybe<Array<ArrayTypeItemTypePageTypeConnectionWhere>>
-  node?: InputMaybe<PageTypeWhere>
-}
-
-export type ArrayTypeItemTypePageTypeCreateFieldInput = {
-  node: PageTypeCreateInput
-}
-
-export type ArrayTypeItemTypePageTypeDeleteFieldInput = {
-  delete?: InputMaybe<PageTypeDeleteInput>
-  where?: InputMaybe<ArrayTypeItemTypePageTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypePageTypeDisconnectFieldInput = {
-  disconnect?: InputMaybe<PageTypeDisconnectInput>
-  where?: InputMaybe<ArrayTypeItemTypePageTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypePageTypeFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypePageTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypePageTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypePageTypeCreateFieldInput>
-}
-
-export type ArrayTypeItemTypePageTypeUpdateConnectionInput = {
-  node?: InputMaybe<PageTypeUpdateInput>
-}
-
-export type ArrayTypeItemTypePageTypeUpdateFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypePageTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypePageTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypePageTypeCreateFieldInput>
-  delete?: InputMaybe<ArrayTypeItemTypePageTypeDeleteFieldInput>
-  disconnect?: InputMaybe<ArrayTypeItemTypePageTypeDisconnectFieldInput>
-  update?: InputMaybe<ArrayTypeItemTypePageTypeUpdateConnectionInput>
-  where?: InputMaybe<ArrayTypeItemTypePageTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypePrimitiveTypeConnectFieldInput = {
-  connect?: InputMaybe<PrimitiveTypeConnectInput>
-  where?: InputMaybe<PrimitiveTypeConnectWhere>
-}
-
-export type ArrayTypeItemTypePrimitiveTypeConnectOrCreateFieldInput = {
-  onCreate: ArrayTypeItemTypePrimitiveTypeConnectOrCreateFieldInputOnCreate
-  where: PrimitiveTypeConnectOrCreateWhere
-}
-
-export type ArrayTypeItemTypePrimitiveTypeConnectOrCreateFieldInputOnCreate = {
-  node: PrimitiveTypeOnCreateInput
-}
-
-export type ArrayTypeItemTypePrimitiveTypeConnectionWhere = {
-  AND?: InputMaybe<Array<ArrayTypeItemTypePrimitiveTypeConnectionWhere>>
-  NOT?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectionWhere>
-  OR?: InputMaybe<Array<ArrayTypeItemTypePrimitiveTypeConnectionWhere>>
-  node?: InputMaybe<PrimitiveTypeWhere>
-}
-
-export type ArrayTypeItemTypePrimitiveTypeCreateFieldInput = {
-  node: PrimitiveTypeCreateInput
-}
-
-export type ArrayTypeItemTypePrimitiveTypeDeleteFieldInput = {
-  delete?: InputMaybe<PrimitiveTypeDeleteInput>
-  where?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypePrimitiveTypeDisconnectFieldInput = {
-  disconnect?: InputMaybe<PrimitiveTypeDisconnectInput>
-  where?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypePrimitiveTypeFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypePrimitiveTypeCreateFieldInput>
-}
-
-export type ArrayTypeItemTypePrimitiveTypeUpdateConnectionInput = {
-  node?: InputMaybe<PrimitiveTypeUpdateInput>
-}
-
-export type ArrayTypeItemTypePrimitiveTypeUpdateFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypePrimitiveTypeCreateFieldInput>
-  delete?: InputMaybe<ArrayTypeItemTypePrimitiveTypeDeleteFieldInput>
-  disconnect?: InputMaybe<ArrayTypeItemTypePrimitiveTypeDisconnectFieldInput>
-  update?: InputMaybe<ArrayTypeItemTypePrimitiveTypeUpdateConnectionInput>
-  where?: InputMaybe<ArrayTypeItemTypePrimitiveTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeReactNodeTypeConnectFieldInput = {
-  connect?: InputMaybe<ReactNodeTypeConnectInput>
-  where?: InputMaybe<ReactNodeTypeConnectWhere>
-}
-
-export type ArrayTypeItemTypeReactNodeTypeConnectOrCreateFieldInput = {
-  onCreate: ArrayTypeItemTypeReactNodeTypeConnectOrCreateFieldInputOnCreate
-  where: ReactNodeTypeConnectOrCreateWhere
-}
-
-export type ArrayTypeItemTypeReactNodeTypeConnectOrCreateFieldInputOnCreate = {
-  node: ReactNodeTypeOnCreateInput
-}
-
-export type ArrayTypeItemTypeReactNodeTypeConnectionWhere = {
-  AND?: InputMaybe<Array<ArrayTypeItemTypeReactNodeTypeConnectionWhere>>
-  NOT?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectionWhere>
-  OR?: InputMaybe<Array<ArrayTypeItemTypeReactNodeTypeConnectionWhere>>
-  node?: InputMaybe<ReactNodeTypeWhere>
-}
-
-export type ArrayTypeItemTypeReactNodeTypeCreateFieldInput = {
-  node: ReactNodeTypeCreateInput
-}
-
-export type ArrayTypeItemTypeReactNodeTypeDeleteFieldInput = {
-  delete?: InputMaybe<ReactNodeTypeDeleteInput>
-  where?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeReactNodeTypeDisconnectFieldInput = {
-  disconnect?: InputMaybe<ReactNodeTypeDisconnectInput>
-  where?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeReactNodeTypeFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeReactNodeTypeCreateFieldInput>
-}
-
-export type ArrayTypeItemTypeReactNodeTypeUpdateConnectionInput = {
-  node?: InputMaybe<ReactNodeTypeUpdateInput>
-}
-
-export type ArrayTypeItemTypeReactNodeTypeUpdateFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeReactNodeTypeCreateFieldInput>
-  delete?: InputMaybe<ArrayTypeItemTypeReactNodeTypeDeleteFieldInput>
-  disconnect?: InputMaybe<ArrayTypeItemTypeReactNodeTypeDisconnectFieldInput>
-  update?: InputMaybe<ArrayTypeItemTypeReactNodeTypeUpdateConnectionInput>
-  where?: InputMaybe<ArrayTypeItemTypeReactNodeTypeConnectionWhere>
+export type ArrayTypeItemTypeFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeConnectFieldInput>
+  create?: InputMaybe<ArrayTypeItemTypeCreateFieldInput>
 }
 
 export type ArrayTypeItemTypeRelationship = {
   __typename?: 'ArrayTypeItemTypeRelationship'
   cursor: Scalars['String']
-  node: AnyType
+  node: IBaseType
 }
 
-export type ArrayTypeItemTypeRenderPropsTypeConnectFieldInput = {
-  connect?: InputMaybe<RenderPropsTypeConnectInput>
-  where?: InputMaybe<RenderPropsTypeConnectWhere>
+export type ArrayTypeItemTypeUpdateConnectionInput = {
+  node?: InputMaybe<IBaseTypeUpdateInput>
 }
 
-export type ArrayTypeItemTypeRenderPropsTypeConnectOrCreateFieldInput = {
-  onCreate: ArrayTypeItemTypeRenderPropsTypeConnectOrCreateFieldInputOnCreate
-  where: RenderPropsTypeConnectOrCreateWhere
-}
-
-export type ArrayTypeItemTypeRenderPropsTypeConnectOrCreateFieldInputOnCreate =
-  {
-    node: RenderPropsTypeOnCreateInput
-  }
-
-export type ArrayTypeItemTypeRenderPropsTypeConnectionWhere = {
-  AND?: InputMaybe<Array<ArrayTypeItemTypeRenderPropsTypeConnectionWhere>>
-  NOT?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectionWhere>
-  OR?: InputMaybe<Array<ArrayTypeItemTypeRenderPropsTypeConnectionWhere>>
-  node?: InputMaybe<RenderPropsTypeWhere>
-}
-
-export type ArrayTypeItemTypeRenderPropsTypeCreateFieldInput = {
-  node: RenderPropsTypeCreateInput
-}
-
-export type ArrayTypeItemTypeRenderPropsTypeDeleteFieldInput = {
-  delete?: InputMaybe<RenderPropsTypeDeleteInput>
-  where?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeRenderPropsTypeDisconnectFieldInput = {
-  disconnect?: InputMaybe<RenderPropsTypeDisconnectInput>
-  where?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeRenderPropsTypeFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeCreateFieldInput>
-}
-
-export type ArrayTypeItemTypeRenderPropsTypeUpdateConnectionInput = {
-  node?: InputMaybe<RenderPropsTypeUpdateInput>
-}
-
-export type ArrayTypeItemTypeRenderPropsTypeUpdateFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeCreateFieldInput>
-  delete?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeDeleteFieldInput>
-  disconnect?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeDisconnectFieldInput>
-  update?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeUpdateConnectionInput>
-  where?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeUnionTypeConnectFieldInput = {
-  connect?: InputMaybe<UnionTypeConnectInput>
-  where?: InputMaybe<UnionTypeConnectWhere>
-}
-
-export type ArrayTypeItemTypeUnionTypeConnectOrCreateFieldInput = {
-  onCreate: ArrayTypeItemTypeUnionTypeConnectOrCreateFieldInputOnCreate
-  where: UnionTypeConnectOrCreateWhere
-}
-
-export type ArrayTypeItemTypeUnionTypeConnectOrCreateFieldInputOnCreate = {
-  node: UnionTypeOnCreateInput
-}
-
-export type ArrayTypeItemTypeUnionTypeConnectionWhere = {
-  AND?: InputMaybe<Array<ArrayTypeItemTypeUnionTypeConnectionWhere>>
-  NOT?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectionWhere>
-  OR?: InputMaybe<Array<ArrayTypeItemTypeUnionTypeConnectionWhere>>
-  node?: InputMaybe<UnionTypeWhere>
-}
-
-export type ArrayTypeItemTypeUnionTypeCreateFieldInput = {
-  node: UnionTypeCreateInput
-}
-
-export type ArrayTypeItemTypeUnionTypeDeleteFieldInput = {
-  delete?: InputMaybe<UnionTypeDeleteInput>
-  where?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeUnionTypeDisconnectFieldInput = {
-  disconnect?: InputMaybe<UnionTypeDisconnectInput>
-  where?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeUnionTypeFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeUnionTypeCreateFieldInput>
-}
-
-export type ArrayTypeItemTypeUnionTypeUpdateConnectionInput = {
-  node?: InputMaybe<UnionTypeUpdateInput>
-}
-
-export type ArrayTypeItemTypeUnionTypeUpdateFieldInput = {
-  connect?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ArrayTypeItemTypeUnionTypeCreateFieldInput>
-  delete?: InputMaybe<ArrayTypeItemTypeUnionTypeDeleteFieldInput>
-  disconnect?: InputMaybe<ArrayTypeItemTypeUnionTypeDisconnectFieldInput>
-  update?: InputMaybe<ArrayTypeItemTypeUnionTypeUpdateConnectionInput>
-  where?: InputMaybe<ArrayTypeItemTypeUnionTypeConnectionWhere>
-}
-
-export type ArrayTypeItemTypeUpdateInput = {
-  ActionType?: InputMaybe<ArrayTypeItemTypeActionTypeUpdateFieldInput>
-  AppType?: InputMaybe<ArrayTypeItemTypeAppTypeUpdateFieldInput>
-  ArrayType?: InputMaybe<ArrayTypeItemTypeArrayTypeUpdateFieldInput>
-  CodeMirrorType?: InputMaybe<ArrayTypeItemTypeCodeMirrorTypeUpdateFieldInput>
-  ElementType?: InputMaybe<ArrayTypeItemTypeElementTypeUpdateFieldInput>
-  EnumType?: InputMaybe<ArrayTypeItemTypeEnumTypeUpdateFieldInput>
-  InterfaceType?: InputMaybe<ArrayTypeItemTypeInterfaceTypeUpdateFieldInput>
-  LambdaType?: InputMaybe<ArrayTypeItemTypeLambdaTypeUpdateFieldInput>
-  PageType?: InputMaybe<ArrayTypeItemTypePageTypeUpdateFieldInput>
-  PrimitiveType?: InputMaybe<ArrayTypeItemTypePrimitiveTypeUpdateFieldInput>
-  ReactNodeType?: InputMaybe<ArrayTypeItemTypeReactNodeTypeUpdateFieldInput>
-  RenderPropsType?: InputMaybe<ArrayTypeItemTypeRenderPropsTypeUpdateFieldInput>
-  UnionType?: InputMaybe<ArrayTypeItemTypeUnionTypeUpdateFieldInput>
+export type ArrayTypeItemTypeUpdateFieldInput = {
+  connect?: InputMaybe<ArrayTypeItemTypeConnectFieldInput>
+  create?: InputMaybe<ArrayTypeItemTypeCreateFieldInput>
+  delete?: InputMaybe<ArrayTypeItemTypeDeleteFieldInput>
+  disconnect?: InputMaybe<ArrayTypeItemTypeDisconnectFieldInput>
+  update?: InputMaybe<ArrayTypeItemTypeUpdateConnectionInput>
+  where?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
 }
 
 export type ArrayTypeOnCreateInput = {
@@ -3733,7 +2927,7 @@ export type ArrayTypeUniqueWhere = {
 
 export type ArrayTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']>
-  itemType?: InputMaybe<ArrayTypeItemTypeUpdateInput>
+  itemType?: InputMaybe<ArrayTypeItemTypeUpdateFieldInput>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
@@ -20575,6 +19769,7 @@ export type ArrayTypeFragment = {
     | { __typename?: 'ActionType'; id: string; name: string }
     | { __typename?: 'AppType'; id: string; name: string }
     | { __typename?: 'ArrayType'; id: string; name: string }
+    | { __typename?: 'BaseType'; id: string; name: string }
     | { __typename?: 'CodeMirrorType'; id: string; name: string }
     | { __typename?: 'ElementType'; id: string; name: string }
     | { __typename?: 'EnumType'; id: string; name: string }
@@ -20592,7 +19787,7 @@ type BaseType_ActionType_Fragment = {
   kind: TypeKind
   id: string
   name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  owner: { __typename?: 'User' } & OwnerFragment
 }
 
 type BaseType_AppType_Fragment = {
@@ -20600,7 +19795,7 @@ type BaseType_AppType_Fragment = {
   kind: TypeKind
   id: string
   name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  owner: { __typename?: 'User' } & OwnerFragment
 }
 
 type BaseType_ArrayType_Fragment = {
@@ -20608,7 +19803,7 @@ type BaseType_ArrayType_Fragment = {
   kind: TypeKind
   id: string
   name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  owner: { __typename?: 'User' } & OwnerFragment
 }
 
 type BaseType_BaseType_Fragment = {
@@ -20616,7 +19811,7 @@ type BaseType_BaseType_Fragment = {
   kind: TypeKind
   id: string
   name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  owner: { __typename?: 'User' } & OwnerFragment
 }
 
 type BaseType_CodeMirrorType_Fragment = {
@@ -20624,7 +19819,7 @@ type BaseType_CodeMirrorType_Fragment = {
   kind: TypeKind
   id: string
   name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  owner: { __typename?: 'User' } & OwnerFragment
 }
 
 type BaseType_ElementType_Fragment = {
@@ -20632,7 +19827,7 @@ type BaseType_ElementType_Fragment = {
   kind: TypeKind
   id: string
   name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  owner: { __typename?: 'User' } & OwnerFragment
 }
 
 type BaseType_EnumType_Fragment = {
@@ -20640,7 +19835,7 @@ type BaseType_EnumType_Fragment = {
   kind: TypeKind
   id: string
   name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  owner: { __typename?: 'User' } & OwnerFragment
 }
 
 type BaseType_InterfaceType_Fragment = {
@@ -20648,7 +19843,7 @@ type BaseType_InterfaceType_Fragment = {
   kind: TypeKind
   id: string
   name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  owner: { __typename?: 'User' } & OwnerFragment
 }
 
 type BaseType_LambdaType_Fragment = {
@@ -20656,7 +19851,7 @@ type BaseType_LambdaType_Fragment = {
   kind: TypeKind
   id: string
   name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  owner: { __typename?: 'User' } & OwnerFragment
 }
 
 type BaseType_PageType_Fragment = {
@@ -20664,7 +19859,7 @@ type BaseType_PageType_Fragment = {
   kind: TypeKind
   id: string
   name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  owner: { __typename?: 'User' } & OwnerFragment
 }
 
 type BaseType_PrimitiveType_Fragment = {
@@ -20672,7 +19867,7 @@ type BaseType_PrimitiveType_Fragment = {
   kind: TypeKind
   id: string
   name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  owner: { __typename?: 'User' } & OwnerFragment
 }
 
 type BaseType_ReactNodeType_Fragment = {
@@ -20680,7 +19875,7 @@ type BaseType_ReactNodeType_Fragment = {
   kind: TypeKind
   id: string
   name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  owner: { __typename?: 'User' } & OwnerFragment
 }
 
 type BaseType_RenderPropsType_Fragment = {
@@ -20688,7 +19883,7 @@ type BaseType_RenderPropsType_Fragment = {
   kind: TypeKind
   id: string
   name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  owner: { __typename?: 'User' } & OwnerFragment
 }
 
 type BaseType_UnionType_Fragment = {
@@ -20696,7 +19891,7 @@ type BaseType_UnionType_Fragment = {
   kind: TypeKind
   id: string
   name: string
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
+  owner: { __typename?: 'User' } & OwnerFragment
 }
 
 export type BaseTypeFragment =

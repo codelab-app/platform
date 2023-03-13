@@ -15,9 +15,9 @@ export type CreateTypeOptions = (
 ) => Array<Option>
 
 export interface TypeSelectProps {
-  name: string
-  label: string
   createTypeOptions?: CreateTypeOptions
+  label: string
+  name: string
 }
 
 const defaultCreateTypeOptions: CreateTypeOptions = (types) =>

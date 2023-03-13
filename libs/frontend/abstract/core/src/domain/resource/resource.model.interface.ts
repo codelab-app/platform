@@ -12,10 +12,11 @@ import type { IResourceDTO } from './resource.dto.interface'
 export interface IResource
   extends ICacheService<IResourceDTO, IResource>,
     IOwnerSchema {
+  config: Ref<IProp>
   id: string
   name: string
-  config: Ref<IProp>
   type: IResourceType
+
   toCreateInput(): ResourceCreateInput
   toUpdateInput(): ResourceUpdateInput
 }

@@ -6,23 +6,23 @@ import * as env from 'env-var'
  */
 
 interface EnvBuilder {
-  neo4j: {
-    uri: string
-    user: string
-    password: string
-  }
   auth0: {
+    // cypress_password?: string
+    base_url: string
+    client_id: string
+    client_secret: string
+    cypress_username?: string
     issuer_base_url: string
     /**
      * This is required for `initAuth0`, it loads it behind the scenes
      */
     // audience: string
     secret: string
-    client_id: string
-    client_secret: string
-    cypress_username?: string
-    // cypress_password?: string
-    base_url: string
+  }
+  neo4j: {
+    password: string
+    uri: string
+    user: string
   }
   next: {
     enableAPILogging?: boolean

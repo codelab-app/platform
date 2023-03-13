@@ -8,13 +8,13 @@ interface Position {
 }
 
 interface Size {
-  w: number
   h: number
+  w: number
 }
 
 interface ElementLayout {
-  size: Nullable<Size>
   relativeMousePosition: Nullable<Position>
+  size: Nullable<Size>
 }
 
 /**

@@ -23,7 +23,7 @@ export type ITag = z.infer<typeof TagSchema>
  * This is keyed by name
  */
 export interface TagNodeData {
+  children: Array<TagNodeData>
   name: string
   parent: string | null
-  children: Array<TagNodeData>
 }

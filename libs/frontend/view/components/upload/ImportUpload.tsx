@@ -6,7 +6,7 @@ import type { UploadProgressEvent } from 'rc-upload/es/interface'
 import React, { useState } from 'react'
 
 export interface ImportUploadProps {
-  fetchFn: (data: unknown) => Promise<unknown>
+  fetchFn(data: unknown): Promise<unknown>
 }
 
 export const ImportUpload = ({ fetchFn }: ImportUploadProps) => {

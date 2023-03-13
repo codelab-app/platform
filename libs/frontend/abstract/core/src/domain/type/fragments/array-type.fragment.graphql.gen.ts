@@ -35,6 +35,7 @@ export type ArrayTypeFragment = {
     | { id: string; name: string }
     | { id: string; name: string }
     | { id: string; name: string }
+    | { id: string; name: string }
 } & BaseType_ArrayType_Fragment
 
 export const ArrayTypeFragmentDoc = gql`

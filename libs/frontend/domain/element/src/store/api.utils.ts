@@ -35,9 +35,9 @@ export const makeUpdateElementInput = (
 })
 
 type GetRenderTypeApi = (props: {
-  renderType: RenderType | null
   atomService: IAtomService
   componentService: IComponentService
+  renderType: RenderType | null
 }) => Ref<IInterfaceType> | undefined
 
 /**

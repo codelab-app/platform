@@ -11,6 +11,11 @@ import { useStore } from '../providers'
 
 interface RenderedPageProps {
   appId: string
+  /**
+   * for production we prebuild pages with all required information
+   * so if this object exists - use it as a source of truth instead of making a request
+   */
+  initialData?: GetRenderedPageAndCommonAppDataQuery
   pageId: string
   /**
    * builder uses builderRenderService while preview uses appRenderService
@@ -20,11 +25,6 @@ interface RenderedPageProps {
    * indicates whether the hook is used inside builder page or preview page
    */
   rendererType: RendererType
-  /**
-   * for production we prebuild pages with all required information
-   * so if this object exists - use it as a source of truth instead of making a request
-   */
-  initialData?: GetRenderedPageAndCommonAppDataQuery
 }
 
 const defaultErrorPages: Map<IPageKind, PageType> = new Map([

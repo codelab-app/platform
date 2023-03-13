@@ -15,36 +15,36 @@ export interface CypressDatabaseCommands {
   /** app model */
   createApp: typeof createApp
 
-  /** admin model */
-  resetDatabase: typeof resetDatabase
-  createUser: typeof createUser
+  /** element model */
+  createAtom: typeof createAtom
   // importAdminData: typeof importAdminData
   // exportAdminData: typeof exportAdminData
-
   /** component model */
   createComponent: typeof createComponent
 
-  /** element model */
-  updateElement: typeof updateElement
   createElement: typeof createElement
-
-  /** element model */
-  createAtom: typeof createAtom
 
   /** type model */
   createField: typeof createField
-  createType: typeof createType
-
-  /** tag model */
-  createTag: typeof createTag
-
-  getCurrentOwner: typeof getCurrentOwner
+  /** resource model */
+  createResource: typeof createResource
 
   /** store model */
   createStore: typeof createStore
 
-  /** resource model */
-  createResource: typeof createResource
+  /** tag model */
+  createTag: typeof createTag
+  createType: typeof createType
+
+  createUser: typeof createUser
+
+  getCurrentOwner: typeof getCurrentOwner
+
+  /** admin model */
+  resetDatabase: typeof resetDatabase
+
+  /** element model */
+  updateElement: typeof updateElement
 }
 
 export const databaseCommands: Array<CypressCommand> = [

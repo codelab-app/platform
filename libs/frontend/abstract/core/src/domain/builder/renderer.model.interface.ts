@@ -8,31 +8,32 @@ import type { IRenderOutput } from '../render'
 import type { IStore } from '../store'
 
 export const enum RendererType {
-  PageBuilder = 'page-builder',
   ComponentBuilder = 'component-builder',
+  PageBuilder = 'page-builder',
   Preview = 'preview',
 }
 export interface IRenderer {
-  providerTree: Nullable<Ref<IElementTree>>
-  elementTree: Ref<IElementTree>
   appStore: Ref<IStore>
   debugMode: boolean
+  elementTree: Ref<IElementTree>
+  providerTree: Nullable<Ref<IElementTree>>
   rendererType: RendererType
   state: IProp
-  renderRoot(): ReactElement | null
-  renderIntermediateElement(
-    element: IElement,
-    extraProps?: IPropData,
-  ): ArrayOrSingle<IRenderOutput>
-  logRendered(element: IElement, rendered: ArrayOrSingle<IRenderOutput>): void
-  renderChildren(input: {
-    parentOutput: IRenderOutput
-  }): ArrayOrSingle<ReactNode>
-  runPreAction(element: IElement): void
+
   getPostAction(element: IElement): Nullish<() => unknown>
-  renderElement(element: IElement, extraProps?: IPropData): ReactElement
   initForce(
     elementTree: IElementTree,
     providerTree?: Nullable<IElementTree>,
   ): void
+  logRendered(element: IElement, rendered: ArrayOrSingle<IRenderOutput>): void
+  renderChildren(input: {
+    parentOutput: IRenderOutput
+  }): ArrayOrSingle<ReactNode>
+  renderElement(element: IElement, extraProps?: IPropData): ReactElement
+  renderIntermediateElement(
+    element: IElement,
+    extraProps?: IPropData,
+  ): ArrayOrSingle<IRenderOutput>
+  renderRoot(): ReactElement | null
+  runPreAction(element: IElement): void
 }

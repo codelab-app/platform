@@ -1,9 +1,9 @@
 import React from 'react'
 
 export interface DisplayIfProps {
+  children: React.ReactNode
   condition: boolean
   fallback?: React.ReactNode
-  children: React.ReactNode
 }
 
 export const DisplayIf = ({

@@ -8,16 +8,16 @@ import { SelectField } from 'uniforms-antd'
 import type { SelectFieldProps } from 'uniforms-antd/cjs/SelectField'
 
 export interface SelectElementOption {
+  childrenIds?: Array<string>
   label: string
   value: string
-  childrenIds?: Array<string>
 }
 
 export type SelectElementProps = UniformSelectFieldProps & {
-  kind: IElementTypeKind
   allElementOptions?: Array<SelectElementOption>
-  targetElementId?: string
   disableWhenOneOpt?: boolean
+  kind: IElementTypeKind
+  targetElementId?: string
 }
 
 export const SelectElement = ({

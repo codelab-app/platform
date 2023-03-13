@@ -1,5 +1,5 @@
 export enum PersistenceType {
-  NotPersisted = 'NotPersisted',
   LocalStorage = 'LocalStorage',
+  NotPersisted = 'NotPersisted',
   SessionStorage = 'SessionStorage',
 }

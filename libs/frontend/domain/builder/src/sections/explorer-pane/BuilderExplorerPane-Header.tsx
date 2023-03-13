@@ -10,8 +10,8 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 
 interface BuilderMainPaneHeaderProps {
-  elementService: IElementService
   builderService: IBuilderService
+  elementService: IElementService
   elementTree: Maybe<IElementTree>
   root: Nullable<IElement>
 }

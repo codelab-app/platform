@@ -4,13 +4,13 @@ import type {
   IOwner,
   IUnionType,
 } from '@codelab/backend/abstract/core'
-import type { IAtomDTO } from '@codelab/frontend/abstract/core'
+import type { IAtomDTO, IUnionTypeDTO } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { BaseType } from './base-type.model'
 
-export class UnionType extends BaseType implements IUnionType {
+export class UnionType extends BaseType implements IUnionTypeDTO {
   declare id: string
 
   declare name: string

@@ -4,35 +4,30 @@ import {
   exportUnionTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
+import type { IUnionTypeDTO } from '@codelab/frontend/abstract/core'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import {
   connectAuth0Owner,
   connectNodeIds,
 } from '@codelab/shared/domain/mapper'
 
-export class UnionTypeRepository extends AbstractRepository<IUnionType> {
+export class UnionTypeRepository extends AbstractRepository<
+  IUnionTypeDTO,
+  OGM_TYPES.UnionType,
+  OGM_TYPES.UnionTypeWhere
+> {
   private UnionType = Repository.instance.UnionType
 
-  async find(where: BaseTypeUniqueWhere) {
-    return (
-      await (
-        await this.UnionType
-      ).find({
-        selectionSet: exportUnionTypeSelectionSet,
-        where,
-      })
-    )[0]
+  async find(where: OGM_TYPES.UnionTypeWhere) {
+    return await (
+      await this.UnionType
+    ).find({
+      selectionSet: exportUnionTypeSelectionSet,
+      where,
+    })
   }
 
-  // async save(unionType: IUnionType, where?: BaseTypeUniqueWhere) {
-  //   if (await this.exists(unionType, where)) {
-  //     return this.update(unionType, this.getWhere(unionType, where))
-  //   }
-
-  //   return (await this.add([unionType]))[0]
-  // }
-
-  protected async _add(unionTypes: Array<IUnionType>) {
+  protected async _add(unionTypes: Array<IUnionTypeDTO>) {
     return (
       await (
         await this.UnionType
@@ -56,8 +51,8 @@ export class UnionTypeRepository extends AbstractRepository<IUnionType> {
   }
 
   protected async _update(
-    { __typename, owner, typesOfUnionType, ...unionType }: IUnionType,
-    where: BaseTypeUniqueWhere,
+    { __typename, owner, typesOfUnionType, ...unionType }: IUnionTypeDTO,
+    where: OGM_TYPES.UnionTypeWhere,
   ) {
     return (
       await (

@@ -4,24 +4,28 @@ import {
   exportPrimitiveTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
+import type { IPrimitiveTypeDTO } from '@codelab/frontend/abstract/core'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 
-export class PrimitiveTypeRepository extends AbstractRepository<IPrimitiveType> {
+export class PrimitiveTypeRepository extends AbstractRepository<
+  IPrimitiveTypeDTO,
+  OGM_TYPES.PrimitiveType,
+  OGM_TYPES.PrimitiveTypeWhere
+> {
   private PrimitiveType = Repository.instance.PrimitiveType
 
-  async find(where: BaseTypeUniqueWhere) {
-    return (
-      await (
-        await this.PrimitiveType
-      ).find({
-        selectionSet: exportPrimitiveTypeSelectionSet,
-        where,
-      })
-    )[0]
+  async find(where: OGM_TYPES.PrimitiveTypeWhere) {
+    return await (
+      await this.PrimitiveType
+    ).find({
+      selectionSet: exportPrimitiveTypeSelectionSet,
+      where,
+    })
   }
 
-  protected async _add(primitiveTypes: Array<IPrimitiveType>) {
+  protected async _add(primitiveTypes: Array<IPrimitiveTypeDTO>) {
     return (
       await (
         await this.PrimitiveType
@@ -35,7 +39,7 @@ export class PrimitiveTypeRepository extends AbstractRepository<IPrimitiveType> 
   }
 
   protected async _update(
-    { __typename, id, owner, ...primitiveType }: IPrimitiveType,
+    { __typename, id, owner, ...primitiveType }: IPrimitiveTypeDTO,
     where: BaseTypeUniqueWhere,
   ) {
     return (

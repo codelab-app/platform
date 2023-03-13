@@ -1,3 +1,4 @@
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { EntitySchema } from '@codelab/shared/abstract/types'
 import { z } from 'zod'
@@ -95,24 +96,24 @@ export type IBaseType = z.infer<typeof BaseTypeSchema>
 
 // Uses OGM types
 export type ITypeExport =
-  | IPrimitiveTypeExport
+  | IActionTypeExport
+  | IArrayTypeExport
   | IEnumTypeExport
   | IInterfaceTypeExport
+  | IPrimitiveTypeExport
   | IReactNodeTypeExport
   | IRenderPropsTypeExport
-  | IActionTypeExport
   | IUnionTypeExport
-  | IArrayTypeExport
 
 export type IType =
-  | IPrimitiveType
+  | IActionType
+  | IArrayType
   | IEnumType
   | IInterfaceType
+  | IPrimitiveType
   | IReactNodeType
   | IRenderPropsType
-  | IActionType
   | IUnionType
-  | IArrayType
 
 /**
  * `__typename` is optional in OGM models, we initially require `__typename` in create type, but this disables an `IType` model from becoming create data itself.
@@ -122,11 +123,21 @@ export type IType =
  * Create data is a subset of `IType`, some arguments are always the same in the input, so we hardcode those in the model itself.
  */
 export type ICreateType =
-  | ICreatePrimitiveType
+  | ICreateActionType
+  | ICreateArrayType
   | ICreateEnumType
   | ICreateInterfaceType
+  | ICreatePrimitiveType
   | ICreateReactNodeType
   | ICreateRenderPropsType
-  | ICreateActionType
   | ICreateUnionType
-  | ICreateArrayType
+
+export type ITypeWhere =
+  | OGM_TYPES.ActionTypeWhere
+  | OGM_TYPES.ArrayTypeWhere
+  | OGM_TYPES.EnumTypeWhere
+  | OGM_TYPES.InterfaceTypeWhere
+  | OGM_TYPES.PrimitiveTypeWhere
+  | OGM_TYPES.ReactNodeType
+  | OGM_TYPES.RenderPropsType
+  | OGM_TYPES.UnionType

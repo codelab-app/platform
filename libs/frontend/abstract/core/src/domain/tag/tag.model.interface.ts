@@ -9,12 +9,12 @@ import type { IAuth0Owner } from '../user'
 import type { ITagDTO } from './tag.dto.interface'
 
 export interface ITag extends ICacheService<ITagDTO, ITag> {
+  antdNode: DataNode
+  children: Array<Ref<ITag>>
+  descendants: Array<Ref<ITag>>
   id: string
   isRoot: boolean
   name: string
-  children: Array<Ref<ITag>>
-  descendants: Array<Ref<ITag>>
-  antdNode: DataNode
   owner: IAuth0Owner
 
   toCreateInput(): TagCreateInput

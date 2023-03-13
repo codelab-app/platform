@@ -1,5 +1,5 @@
 import type {
-  IAnyType,
+  IType,
   IFieldService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
@@ -16,10 +16,10 @@ const DEFAULT_PAGE_SIZE = 25
 const DEFAULT_CUR_PAGE = 1
 
 export const GetTypesTable = observer<{
-  typeService: ITypeService
   fieldService: IFieldService
   page?: number
   pageSize?: number
+  typeService: ITypeService
 }>(({ fieldService, page, pageSize, typeService }) => {
   const { typesList } = typeService
   const router = useRouter()
@@ -75,7 +75,7 @@ export const GetTypesTable = observer<{
   )
 
   return (
-    <Table<IAnyType>
+    <Table<IType>
       columns={columns}
       dataSource={typesList.slice(
         curPageDataStartIndex >= 0 ? curPageDataStartIndex : 0,

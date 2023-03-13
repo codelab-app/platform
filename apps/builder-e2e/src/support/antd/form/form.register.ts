@@ -31,32 +31,32 @@ import {
 import PrevSubject = Cypress.PrevSubject
 
 export interface AntFormCommands {
-  getFormFieldLabel: OmitFirstArg<typeof getFormFieldLabel>
-  getFormField: typeof getFormField
-  getFormInput: OmitFirstArg<typeof getFormInput>
-  expectSelectValue: typeof expectSelectValue
-  expectMultiSelectValue: typeof expectMultiSelectValue
-  expectSelectPlaceholder: typeof expectSelectPlaceholder
-  expectFormFieldValue: typeof expectFormFieldValue
-  expectFormFieldError: typeof expectFormFieldError
-  expectFormFields: typeof expectFormFields
-  expectFormFieldsFn: typeof expectFormFieldsFn
-  getSelectDropdown: typeof getSelectDropdown
-  scrollSelectDropdown: typeof scrollSelectDropdown
   chooseSelectDropdownOption: typeof chooseSelectDropdownOption
-  expectSelectDropdownToClose: typeof expectSelectDropdownToClose
-  setInputValue: OmitFirstArg<typeof setInputValue>
-  setSelectValue: typeof setSelectValue
   clearMultiselect: typeof clearMultiselect
   closeMultiselectOptions: typeof closeMultiselectOptions
-  setMultiselectValue: typeof setMultiselectValue
-  setTagsValue: typeof setTagsValue
-  setRadioValue: typeof setRadioValue
+  expectFormFieldError: typeof expectFormFieldError
+  expectFormFieldValue: typeof expectFormFieldValue
+  expectFormFields: typeof expectFormFields
+  expectFormFieldsFn: typeof expectFormFieldsFn
+  expectMultiSelectValue: typeof expectMultiSelectValue
+  expectSelectDropdownToClose: typeof expectSelectDropdownToClose
+  expectSelectPlaceholder: typeof expectSelectPlaceholder
+  expectSelectValue: typeof expectSelectValue
+  getFormField: typeof getFormField
+  getFormFieldLabel: OmitFirstArg<typeof getFormFieldLabel>
+  getFormInput: OmitFirstArg<typeof getFormInput>
+  getSelectDropdown: typeof getSelectDropdown
+  scrollSelectDropdown: typeof scrollSelectDropdown
   setDatePickerValue: typeof setDatePickerValue
   setFormFieldValue: OmitFirstArg<typeof setFormFieldValue>
   setFormFieldValueFn: typeof setFormFieldValueFn
   setFormFieldValues: typeof setFormFieldValues
   setFormFieldValuesFn: typeof setFormFieldValuesFn
+  setInputValue: OmitFirstArg<typeof setInputValue>
+  setMultiselectValue: typeof setMultiselectValue
+  setRadioValue: typeof setRadioValue
+  setSelectValue: typeof setSelectValue
+  setTagsValue: typeof setTagsValue
 }
 
 export const antFormCommands: Array<CypressCommand> = [

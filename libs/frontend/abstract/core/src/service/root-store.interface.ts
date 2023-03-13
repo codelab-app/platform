@@ -23,28 +23,28 @@ import type {
  * Initial data to be injected into store
  */
 export interface RootStoreData {
-  user?: IUserDTO
-  servicesFromSnapshot?: unknown
   init?: boolean
+  servicesFromSnapshot?: unknown
+  user?: IUserDTO
 }
 
 export interface IRootStore {
-  userService: IUserService
-  appService: IAppService
-  pageService: IPageService
-  typeService: ITypeService
-  fieldService: IFieldService
-  atomService: IAtomService
-  tagService: ITagService
-  adminService: IAdminService
-  propService: IPropService
-  componentService: IComponentService
   actionService: IActionService
-  storeService: IStoreService
+  adminService: IAdminService
   appRenderService: IRenderService
+  appService: IAppService
+  atomService: IAtomService
   builderRenderService: IRenderService
-  elementService: IElementService
   builderService: IBuilderService
-  resourceService: IResourceService
+  componentService: IComponentService
   domainService: IDomainService
+  elementService: IElementService
+  fieldService: IFieldService
+  pageService: IPageService
+  propService: IPropService
+  resourceService: IResourceService
+  storeService: IStoreService
+  tagService: ITagService
+  typeService: ITypeService
+  userService: IUserService
 }

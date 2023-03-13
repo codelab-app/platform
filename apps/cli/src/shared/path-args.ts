@@ -7,9 +7,9 @@ import { Stage } from './utils/stage'
 
 export interface ExportProps {
   seedDataPath?: string
-  userDataPath?: string
-  skipUserData?: boolean
   skipSeedData?: boolean
+  skipUserData?: boolean
+  userDataPath?: string
 }
 
 export const seedDataPathOption: { [key: string]: Options } = {

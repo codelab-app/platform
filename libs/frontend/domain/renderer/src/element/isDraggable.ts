@@ -5,9 +5,9 @@ import type {
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
 
 export interface IsDraggableProps {
-  isBuilder: boolean
   element: IElement
   globalPropsContext: IPropDataByElementId
+  isBuilder: boolean
 }
 
 /**

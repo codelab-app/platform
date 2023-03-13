@@ -27,7 +27,7 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
     const userRepository = new UserRepository()
 
     const selectedAuth0Id = email
-      ? (await userRepository.find({ email }))?.auth0Id
+      ? (await userRepository.findOne({ email }))?.auth0Id
       : (await inquirer.prompt([await selectUserPrompt()])).selectedAuth0Id
 
     if (!selectedAuth0Id) {

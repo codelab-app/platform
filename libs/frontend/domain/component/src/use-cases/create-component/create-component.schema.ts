@@ -8,7 +8,7 @@ import type { JSONSchemaType } from 'ajv'
 
 export type CreateComponentSchema = Omit<
   ICreateComponentData,
-  'rootElement' | 'props' | 'api'
+  'api' | 'props' | 'rootElement'
 >
 
 export const createComponentSchema: JSONSchemaType<CreateComponentSchema> = {

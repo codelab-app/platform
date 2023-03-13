@@ -18,24 +18,22 @@ import { WrappedListField } from './WrappedListField'
 
 type InnerProps = Omit<AutoCompleteProps, 'onChange' | 'onSelect'>
 
-type Value = string | number | boolean | undefined | Array<unknown>
+type Value = Array<unknown> | boolean | number | string | undefined
 
 interface CodeMirrorFieldProps {
-  onToggle?: (
+  getBaseControl?(fieldProps: CodeMirrorConnectFieldProps): EmotionJSX.Element
+  onToggle?(
     value: boolean,
     props: CodeMirrorConnectFieldProps,
     lastValue?: Value,
-  ) => void
-  getBaseControl?: (
-    fieldProps: CodeMirrorConnectFieldProps,
-  ) => EmotionJSX.Element
+  ): void
 }
 
 type CodeMirrorConnectFieldProps = FieldProps<Value, InnerProps>
 
 interface ToggleExpressionFieldProps {
-  mainProps: CodeMirrorFieldProps
   fieldProps: CodeMirrorConnectFieldProps
+  mainProps: CodeMirrorFieldProps
 }
 
 const getBaseControl = (fieldProps: CodeMirrorConnectFieldProps) => {

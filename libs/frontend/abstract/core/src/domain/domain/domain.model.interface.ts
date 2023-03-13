@@ -10,12 +10,12 @@ import type { ICacheService } from '../../service'
 import type { IDomainDTO } from './domain.dto.interface'
 
 export interface IDomain extends ICacheService<IDomainDTO, IDomain> {
-  id: string
-  name: string
   app: IEntity
   domainConfig: Maybe<VercelDomainConfig>
+  id: string
+  name: string
   projectDomain: Maybe<VercelProjectDomain>
   toCreateInput(): DomainCreateInput
-  toUpdateInput(): DomainUpdateInput
   toDeleteInput(): DomainDeleteInput
+  toUpdateInput(): DomainUpdateInput
 }

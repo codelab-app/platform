@@ -6,8 +6,8 @@ import { useAsync } from 'react-use'
 import { GetActionItem } from './GetActionItem'
 
 export const GetActionsList = observer<{
-  store?: IStore
   actionService: IActionService
+  store?: IStore
 }>(({ actionService, store }) => {
   const { loading } = useAsync(
     async () => (storeId: string) => actionService.getAll(storeId),

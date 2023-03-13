@@ -11,8 +11,8 @@ import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
 
 export interface UseDndDropHandler {
-  handleCreateElement: (event: DragEndEvent) => Promise<void>
-  handleMoveElement: (event: DragEndEvent) => Promise<void>
+  handleCreateElement(event: DragEndEvent): Promise<void>
+  handleMoveElement(event: DragEndEvent): Promise<void>
 }
 
 export const useDndDropHandler = (

@@ -2,7 +2,7 @@ import { absoluteRoot } from '@hon2a/cypress-without'
 
 export const getTooltip = (
   text: string,
-  options?: Partial<Cypress.Loggable & Cypress.Timeoutable & Cypress.Shadow>,
+  options?: Partial<Cypress.Loggable & Cypress.Shadow & Cypress.Timeoutable>,
 ) =>
   text
     ? absoluteRoot().contains('.ant-tooltip:visible', text, options)
@@ -11,7 +11,7 @@ export const getTooltip = (
 export const expectTooltip = (
   text: string,
   options:
-    | Partial<Cypress.Loggable & Cypress.Timeoutable & Cypress.Shadow>
+    | Partial<Cypress.Loggable & Cypress.Shadow & Cypress.Timeoutable>
     | undefined,
 ) => getTooltip(text, options).should('exist')
 

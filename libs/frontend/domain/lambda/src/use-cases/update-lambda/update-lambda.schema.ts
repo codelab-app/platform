@@ -2,9 +2,9 @@ import { nonEmptyString } from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
 
 export interface UpdateLambdaData {
+  body: string
   id: string
   name: string
-  body: string
 }
 
 export const updateLambdaSchema: JSONSchemaType<UpdateLambdaData> = {

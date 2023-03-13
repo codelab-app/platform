@@ -1,6 +1,7 @@
 import type { IOwner, ITag, TagNodeData } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import { TagRepository } from '@codelab/backend/domain/tag'
+import type { ITagDTO } from '@codelab/frontend/abstract/core'
 import { v4 } from 'uuid'
 import { createTagTreeData, flattenTagTree } from './tag-input.factory'
 
@@ -20,9 +21,9 @@ export class SeedTagsService extends IUseCase<IOwner, void> {
   /**
    * Here we want to flatten the hierarchical data
    */
-  private async createTagsData(owner: IOwner): Promise<Array<ITag>> {
+  private async createTagsData(owner: IOwner): Promise<Array<ITagDTO>> {
     const existingTags = new Map(
-      (await this.tagRepository.all()).map((tag) => [tag.name, tag]),
+      (await this.tagRepository.find()).map((tag) => [tag.name, tag]),
     )
 
     const tagData: Array<TagNodeData & { id: string }> = await Promise.all(
@@ -53,6 +54,7 @@ export class SeedTagsService extends IUseCase<IOwner, void> {
             name: childTag.name,
           }
         }),
+        descendants: [],
         id: tag.id,
         name: tag.name,
         owner,
