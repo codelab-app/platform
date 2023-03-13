@@ -9,9 +9,9 @@ interface FancyboxProps {
 }
 
 export const Fancybox = ({
+  children,
   delegate = '[data-fancybox]',
   options = {},
-  children,
 }: FancyboxProps) => {
   useEffect(() => {
     NativeFancybox.bind(delegate, {

@@ -48,8 +48,8 @@ export class ExportAdminDataService extends IUseCase<void, void> {
         saveFormattedFile(
           path.resolve(this.dataPaths.ATOMS_PATH, `${atom.name}.json`),
           {
-            atom,
             api: type,
+            atom,
             types,
           },
         )

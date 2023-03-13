@@ -29,17 +29,17 @@ export interface PropsFormProps
  */
 export const PropsForm = observer<PropsFormProps>(
   ({
+    autosave,
+    cssString,
+    initialSchema,
     interfaceType,
     model,
     onSubmit,
-    autosave,
-    initialSchema,
-    setIsLoading,
-    submitRef,
     onSubmitError,
-    cssString,
     onSubmitSuccess,
+    setIsLoading,
     submitField,
+    submitRef,
   }) => {
     if (!interfaceType) {
       return null

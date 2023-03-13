@@ -33,7 +33,7 @@ export const useColumnSearchProps = <RecordType extends object>({
   }, [searchText, onSearch, handleSearch])
 
   return {
-    filterDropdown: ({ setSelectedKeys, confirm, clearFilters }) => (
+    filterDropdown: ({ clearFilters, confirm, setSelectedKeys }) => (
       <div style={{ padding: 8 }}>
         <Input
           onChange={(error) => {

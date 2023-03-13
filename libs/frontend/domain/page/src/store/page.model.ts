@@ -12,13 +12,13 @@ import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
 import slugify from 'voca/slugify'
 
 const create = ({
-  id,
-  name,
   app,
-  kind,
-  rootElement,
-  pageContentContainer,
   descendentElements,
+  id,
+  kind,
+  name,
+  pageContentContainer,
+  rootElement,
 }: IPageDTO): IPage => {
   return new Page({
     app: { id: app.id },
@@ -125,10 +125,10 @@ export class Page
   @modelAction
   writeCache({
     app,
-    name,
-    rootElement,
-    pageContentContainer,
     kind,
+    name,
+    pageContentContainer,
+    rootElement,
   }: Partial<IPageDTO>) {
     this.name = name ? name : this.name
     this.rootElement = rootElement

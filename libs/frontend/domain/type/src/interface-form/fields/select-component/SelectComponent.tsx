@@ -15,9 +15,9 @@ export const SelectComponent = (fieldProps: SelectComponentProps) => {
   const { builderService } = useStore()
 
   const {
-    value,
-    loading,
     error: queryError,
+    loading,
+    value,
   } = useAsync(() => interfaceFormApi.InterfaceForm_GetComponents(), [])
 
   // remove the components that refer the current component to avoid creating circular references

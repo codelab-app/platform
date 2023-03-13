@@ -15,7 +15,7 @@ export class InterfaceTypeFactory extends ITypeFactory<
   repository: InterfaceTypeRepository = new InterfaceTypeRepository()
 
   async _create(
-    { owner, name, fields, id }: ICreateInterfaceType,
+    { fields, id, name, owner }: ICreateInterfaceType,
     where: BaseTypeUniqueWhereCallback<IInterfaceType>,
   ) {
     const interfaceType = InterfaceType.init({

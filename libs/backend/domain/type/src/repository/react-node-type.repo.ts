@@ -37,7 +37,7 @@ export class ReactNodeTypeRepository extends AbstractRepository<IReactNodeType> 
   }
 
   protected async _update(
-    { id, __typename, owner, ...reactNodeType }: IReactNodeType,
+    { __typename, id, owner, ...reactNodeType }: IReactNodeType,
     where: BaseTypeUniqueWhere,
   ) {
     return (

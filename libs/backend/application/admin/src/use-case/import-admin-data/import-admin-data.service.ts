@@ -118,7 +118,7 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
           'utf8',
         )
 
-        const { atom, api, types } = JSON.parse(
+        const { api, atom, types } = JSON.parse(
           content.toString(),
         ) as ExportedAtom
 

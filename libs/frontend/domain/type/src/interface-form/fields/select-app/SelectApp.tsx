@@ -4,11 +4,11 @@ import { useAsync } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
-export const SelectApp = ({ name, error }: UniformSelectFieldProps) => {
+export const SelectApp = ({ error, name }: UniformSelectFieldProps) => {
   const {
-    value,
-    loading,
     error: queryError,
+    loading,
+    value,
   } = useAsync(() => interfaceFormApi.InterfaceForm_GetApps(), [])
 
   const appOptions =

@@ -7,14 +7,14 @@ import { interfaceFormApi } from '../../../store'
 
 export type SelectPageProps = UniformSelectFieldProps
 
-export const SelectPage = ({ name, error }: SelectPageProps) => {
+export const SelectPage = ({ error, name }: SelectPageProps) => {
   const router = useRouter()
   const appId = router.query.appId
 
   const {
-    value,
-    loading,
     error: queryError,
+    loading,
+    value,
   } = useAsync(
     () =>
       interfaceFormApi.InterfaceForm_GetPages({

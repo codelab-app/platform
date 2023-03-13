@@ -15,7 +15,7 @@ export class RenderPropsTypeFactory extends ITypeFactory<
   repository: RenderPropsTypeRepository = new RenderPropsTypeRepository()
 
   async _create(
-    { owner, id }: ICreateRenderPropsType,
+    { id, owner }: ICreateRenderPropsType,
     where: BaseTypeUniqueWhereCallback<IRenderPropsType>,
   ) {
     const renderPropsType = RenderPropsType.init({

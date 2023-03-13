@@ -29,11 +29,11 @@ interface AtomsTableProps {
 export const AtomsTable = observer<AtomsTableProps>(
   ({
     atomService,
-    typeService,
     fieldService,
     getAtomLibrary,
     page,
     pageSize,
+    typeService,
   }) => {
     const { atomsList } = atomService
 
@@ -46,10 +46,10 @@ export const AtomsTable = observer<AtomsTableProps>(
     const curPage = page ?? DEFAULT_CUR_PAGE
     const curPageSize = pageSize ?? DEFAULT_PAGE_SIZE
 
-    const { columns, rowSelection, pagination, atomWhere, atomOptions } =
+    const { atomOptions, atomWhere, columns, pagination, rowSelection } =
       useAtomTable({ atomService, fieldService, typeService })
 
-    const { value: latestFetchedAtoms, loading } = useAsync(async () => {
+    const { loading, value: latestFetchedAtoms } = useAsync(async () => {
       return await atomService.getAll(atomWhere, atomOptions)
     }, [atomWhere, atomOptions])
 

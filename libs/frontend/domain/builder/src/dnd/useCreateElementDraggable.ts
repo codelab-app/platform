@@ -15,9 +15,9 @@ export interface UseCreateElementDraggableProps {
 }
 
 export const useCreateElementDraggable = ({
-  id,
-  createElementInput,
   component,
+  createElementInput,
+  id,
   overlayRenderer,
   type,
 }: UseCreateElementDraggableProps) => {

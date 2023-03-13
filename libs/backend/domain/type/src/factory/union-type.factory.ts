@@ -15,7 +15,7 @@ export class UnionTypeFactory extends ITypeFactory<
   repository = new UnionTypeRepository()
 
   async _create(
-    { id, owner, name }: ICreateUnionType,
+    { id, name, owner }: ICreateUnionType,
     where: BaseTypeUniqueWhereCallback<IUnionType>,
   ) {
     const renderPropsType = UnionType.init({

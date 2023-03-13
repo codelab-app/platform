@@ -23,12 +23,12 @@ export interface CodeMirrorInputProps
 }
 
 export const CodeMirrorInput = ({
-  value = '',
+  expandable,
   onChange,
   onSave,
-  expandable,
-  title,
   overrideStyles,
+  title,
+  value = '',
   ...props
 }: CodeMirrorInputProps) => {
   const editor = useRef<HTMLDivElement | null>(null)

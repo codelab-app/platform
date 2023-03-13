@@ -17,11 +17,11 @@ export class ArrayType extends BaseType implements IArrayType {
 
   declare owner: IOwner
 
-  private constructor({ id, name, kind, owner }: IArrayType) {
+  private constructor({ id, kind, name, owner }: IArrayType) {
     super({ __typename: ITypeKind.ArrayType, id, kind, name, owner })
   }
 
-  static init({ owner, name, id }: ICreateArrayType) {
+  static init({ id, name, owner }: ICreateArrayType) {
     return new ArrayType({
       id,
       kind: ITypeKind.ArrayType,

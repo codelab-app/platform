@@ -44,9 +44,9 @@ type GetRenderTypeApi = (props: {
  * We can't access model using id with Ref (since ref is not attached to root tree), so need service to access it
  */
 export const getRenderTypeApi: GetRenderTypeApi = ({
-  renderType,
   atomService,
   componentService,
+  renderType,
 }) => {
   // When creating a new element, we need the interface type fields
   // and we use it to create a props with default values for the created element

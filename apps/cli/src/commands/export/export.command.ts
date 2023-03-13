@@ -37,9 +37,9 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
   command: 'export',
   describe: 'Export user data',
   handler: async ({
+    seedDataPath,
     skipSeedData,
     skipUserData,
-    seedDataPath,
     userDataPath,
   }) => {
     const App = await Repository.instance.App
@@ -84,7 +84,7 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
     }
 
     if (!shouldSkipUserData) {
-      const { selectedUserId, selectedApp } = await inquirer.prompt([
+      const { selectedApp, selectedUserId } = await inquirer.prompt([
         await selectUserPrompt(),
         {
           choices: apps.map((app) => ({

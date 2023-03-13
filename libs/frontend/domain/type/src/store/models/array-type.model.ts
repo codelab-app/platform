@@ -11,10 +11,10 @@ import { typeRef } from './union-type.model'
 
 const create = ({
   id,
+  itemType,
   kind,
   name,
   owner,
-  itemType,
 }: IArrayTypeDTO): ArrayType => {
   assertIsTypeKind(kind, ITypeKind.ArrayType)
 

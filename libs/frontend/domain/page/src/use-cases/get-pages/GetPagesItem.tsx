@@ -26,7 +26,7 @@ export interface GetPagesItemProps {
 }
 
 export const GetPagesItem = observer<GetPagesItemProps>(
-  ({ page, pageService, domains }) => {
+  ({ domains, page, pageService }) => {
     const router = useRouter()
 
     const href = {

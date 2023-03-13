@@ -22,7 +22,7 @@ export type SelectAtomProps = Pick<
 export const useGetAllAtoms = () => {
   const { atomService } = useStore()
 
-  const { value, loading, error } = useAsync(async () => {
+  const { error, loading, value } = useAsync(async () => {
     return atomService.allAtomsLoaded
       ? atomService.atomsList
       : await atomService.getAll()
@@ -36,9 +36,9 @@ export const useGetAllAtoms = () => {
   return { atomOptions, error, loading }
 }
 
-export const SelectAtom = ({ label, name, error, parent }: SelectAtomProps) => {
+export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
   const allowedChildrenIds = parent?.allowedChildren.map((child) => child.id)
-  const { atomOptions, loading, error: queryError } = useGetAllAtoms()
+  const { atomOptions, error: queryError, loading } = useGetAllAtoms()
 
   /**
    * Sort for now before data is added

@@ -47,11 +47,11 @@ const DomainsPageHeader = observer(() => {
 })
 
 const DomainsPage: CodelabPage<DashboardTemplateProps> = (props) => {
-  const { userService, domainService, appService } = useStore()
+  const { appService, domainService, userService } = useStore()
   const appId = useCurrentAppId()
   const { app } = useCurrentApp(appService)
 
-  const { value, loading } = useAsync(
+  const { loading, value } = useAsync(
     () => domainService.getAll({ appConnection: { node: { id: appId } } }),
     [],
   )

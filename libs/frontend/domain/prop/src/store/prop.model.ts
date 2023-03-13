@@ -36,7 +36,7 @@ import { mergeDeepRight } from 'ramda'
 import { v4 } from 'uuid'
 import { getPropService } from './prop.service'
 
-const create = ({ id, data = '{}', api }: IPropDTO) => {
+const create = ({ api, data = '{}', id }: IPropDTO) => {
   return new Prop({
     api: api ? typeRef<IInterfaceType>(api.id) : null,
     data: frozen(JSON.parse(data)),
@@ -58,7 +58,7 @@ export class Prop
   static create = create
 
   @modelAction
-  writeCache({ id, data, api }: Partial<IPropDTO>) {
+  writeCache({ api, data, id }: Partial<IPropDTO>) {
     this.id = id ?? this.id
     this.data = data ? frozen(JSON.parse(data)) : this.data
     this.api = api ? typeRef<IInterfaceType>(api.id) : this.api

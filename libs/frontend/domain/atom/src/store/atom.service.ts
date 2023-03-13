@@ -50,7 +50,7 @@ export class AtomService
   @transaction
   update = _async(function* (
     this: AtomService,
-    { id, name, type, tags = [], allowedChildren = [] }: IUpdateAtomData,
+    { allowedChildren = [], id, name, tags = [], type }: IUpdateAtomData,
   ) {
     const atom = this.atoms.get(id)
 
@@ -82,7 +82,7 @@ export class AtomService
   }
 
   @modelAction
-  add = ({ api, id, name, type, owner }: IAtomDTO) => {
+  add = ({ api, id, name, owner, type }: IAtomDTO) => {
     // const tagRefs = tags?.map((tag) => tagRef(tag.id))
     const apiRef = typeRef<IInterfaceType>(api.id)
     const atom = Atom.create({ api: apiRef, id, name, owner, tags: [], type })
@@ -131,7 +131,7 @@ export class AtomService
   @transaction
   create = _async(function* (
     this: AtomService,
-    { id, name, type, tags = [], owner }: ICreateAtomData,
+    { id, name, owner, tags = [], type }: ICreateAtomData,
   ) {
     const interfaceType = this.typeService.addInterface({
       id: v4(),

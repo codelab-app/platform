@@ -21,18 +21,18 @@ export type SelectElementProps = UniformSelectFieldProps & {
 }
 
 export const SelectElement = ({
-  targetElementId,
   allElementOptions,
-  name,
-  kind,
   disableWhenOneOpt = false,
+  kind,
+  name,
+  targetElementId,
   ...props
 }: SelectElementProps) => {
   const { elementTree } = useFormContext()
   let elements: Array<SelectElementOption>
 
   allElementOptions ??=
-    elementTree?.elements.map(({ id, label, children }) => ({
+    elementTree?.elements.map(({ children, id, label }) => ({
       childrenIds: children.map((child) => child.id),
       label: label,
       value: id,

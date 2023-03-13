@@ -47,7 +47,7 @@ export class Field implements IField {
     return `${apiName}-${fieldKey}`
   }
 
-  static init({ id, key, fieldType, api }: ICreateField) {
+  static init({ api, fieldType, id, key }: ICreateField) {
     return new Field({
       api,
       fieldType,

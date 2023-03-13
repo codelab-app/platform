@@ -62,17 +62,17 @@ export const StoreHeader = ({ children, extra }: StoreHeaderProps) => (
 )
 
 export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
-  ({ pageId, storeId, appStore }) => {
+  ({ appStore, pageId, storeId }) => {
     const {
-      builderService,
-      elementService,
-      componentService,
       actionService,
-      userService,
       builderRenderService,
+      builderService,
+      componentService,
+      elementService,
       fieldService,
-      typeService,
       resourceService,
+      typeService,
+      userService,
     } = useStore()
 
     const pageBuilderRenderer = builderRenderService.renderers.get(pageId)

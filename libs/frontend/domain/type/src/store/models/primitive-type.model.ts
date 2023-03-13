@@ -11,8 +11,8 @@ const create = ({
   id,
   kind,
   name,
-  primitiveKind,
   owner,
+  primitiveKind,
 }: IPrimitiveTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.PrimitiveType)
 

@@ -7,7 +7,7 @@ import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 
-const create = ({ id, kind, name, elementKind, owner }: IElementTypeDTO) => {
+const create = ({ elementKind, id, kind, name, owner }: IElementTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.ElementType)
 
   return new ElementType({

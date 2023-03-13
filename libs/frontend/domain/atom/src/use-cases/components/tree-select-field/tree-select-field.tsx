@@ -10,8 +10,8 @@ const { SHOW_PARENT } = TreeSelect
 
 const TreeSelectComponent = ({
   label,
-  treeData,
   onChange,
+  treeData,
   value = [],
 }: CustomTreeSelectProps) => {
   const [tagIds, setTagIds] = useState(value)

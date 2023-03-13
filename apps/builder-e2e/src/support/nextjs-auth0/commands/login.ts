@@ -29,8 +29,8 @@ export const loginSession = () => {
 }
 
 export const login = ({
-  username = Cypress.env('auth0Username'),
   password = Cypress.env('auth0Password'),
+  username = Cypress.env('auth0Username'),
 }: LoginCredentials = {}) => {
   /* https://github.com/auth0/nextjs-auth0/blob/master/src/handlers/login.ts#L70 */
 

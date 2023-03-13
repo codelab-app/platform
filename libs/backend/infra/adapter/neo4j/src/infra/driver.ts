@@ -12,7 +12,7 @@ const defaultOptions = () => ({
 let driver: Driver
 
 export const getDriver = () => {
-  const { uri, username, password } = defaultOptions()
+  const { password, uri, username } = defaultOptions()
 
   return (driver ??= neo4j.driver(uri, neo4j.auth.basic(username, password)))
 }

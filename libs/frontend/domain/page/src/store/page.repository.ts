@@ -11,7 +11,7 @@ export class PageRepository extends Model({}) implements IPageRepository {
   @modelFlow
   add = _async(function* (
     this: PageRepository,
-    { id, name, app, rootElement }: IPage,
+    { app, id, name, rootElement }: IPage,
   ) {
     const {
       createPages: { pages },
@@ -37,7 +37,7 @@ export class PageRepository extends Model({}) implements IPageRepository {
   @modelFlow
   update = _async(function* (
     this: PageRepository,
-    { name, id, app, pageContentContainer }: IPage,
+    { app, id, name, pageContentContainer }: IPage,
   ) {
     const {
       updatePages: { pages },

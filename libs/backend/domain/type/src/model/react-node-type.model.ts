@@ -17,7 +17,7 @@ export class ReactNodeType extends BaseType implements IReactNodeType {
 
   declare owner: IOwner
 
-  private constructor({ id, name, kind, owner }: IReactNodeType) {
+  private constructor({ id, kind, name, owner }: IReactNodeType) {
     super({ __typename: ITypeKind.ReactNodeType, id, kind, name, owner })
   }
 

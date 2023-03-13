@@ -84,10 +84,10 @@ interface Options {
 }
 
 export const getDefaultExtensions = async ({
-  singleLine,
-  languageSource,
-  languageOptions,
   customOptions,
+  languageOptions,
+  languageSource,
+  singleLine,
 }: Options) => [
   await basicSetup(singleLine),
   autocompletion({

@@ -23,12 +23,12 @@ export class EnumType extends BaseType implements IEnumType {
 
   allowedValues: Array<IEnumTypeValue>
 
-  private constructor({ id, name, kind, allowedValues, owner }: IEnumType) {
+  private constructor({ allowedValues, id, kind, name, owner }: IEnumType) {
     super({ __typename: ITypeKind.EnumType, id, kind, name, owner })
     this.allowedValues = allowedValues
   }
 
-  static init({ id, name, owner, allowedValues }: ICreateEnumType) {
+  static init({ allowedValues, id, name, owner }: ICreateEnumType) {
     return new EnumType({
       __typename: ITypeKind.EnumType,
       allowedValues,

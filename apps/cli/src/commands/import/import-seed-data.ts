@@ -10,7 +10,7 @@ export const importSeedData = async (
 ) => {
   const json = fs.readFileSync(seedFilePath, 'utf8')
 
-  const { atoms, types, tags } = JSON.parse(json) as Omit<
+  const { atoms, tags, types } = JSON.parse(json) as Omit<
     ExportedAdminData,
     'app'
   >

@@ -56,7 +56,7 @@ export class TagRepository extends AbstractRepository<ITag> {
   }
 
   protected async _update(
-    { parent, children, owner, ...tag }: ITag,
+    { children, owner, parent, ...tag }: ITag,
     where: BaseTypeUniqueWhere,
   ) {
     // Get existing tag so we know what to connect/disconnect

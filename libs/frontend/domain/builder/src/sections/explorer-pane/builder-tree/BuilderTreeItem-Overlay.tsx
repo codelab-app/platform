@@ -20,7 +20,7 @@ export type BuilderTreeItemOverlayProps = {
 } & Pick<IBuilderDataNode, 'node'>
 
 export const BuilderTreeItemOverlay = observer<BuilderTreeItemOverlayProps>(
-  ({ node, setContextMenuNodeId, contextMenuProps, ContextMenu }) => {
+  ({ ContextMenu, contextMenuProps, node, setContextMenuNodeId }) => {
     const closeMenu = () => setContextMenuNodeId(null)
 
     const onClick = (event: React.MouseEvent) => {

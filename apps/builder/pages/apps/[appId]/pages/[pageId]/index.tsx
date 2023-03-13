@@ -22,7 +22,7 @@ const PageRenderer: CodelabPage<IPageProps> = observer(() => {
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
-  const { value, error, loading } = useRenderedPage({
+  const { error, loading, value } = useRenderedPage({
     appId,
     pageId,
     rendererType: RendererType.Preview,

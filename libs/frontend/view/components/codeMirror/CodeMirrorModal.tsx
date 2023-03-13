@@ -20,13 +20,13 @@ export interface CodeMirrorModalProps {
 }
 
 export const CodeMirrorModal = ({
-  visible,
   closeModal,
-  value,
-  setupFactory: codeMirrorSetupFactory,
   onChange,
   onSave,
+  setupFactory: codeMirrorSetupFactory,
   title,
+  value,
+  visible,
 }: CodeMirrorModalProps) => {
   const editor = useRef<HTMLDivElement | null>(null)
   const [internalValue, setInternalValue] = useState(value)

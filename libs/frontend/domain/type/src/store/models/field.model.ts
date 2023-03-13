@@ -20,14 +20,14 @@ import {
 import { typeRef } from './union-type.model'
 
 const create = ({
+  api,
+  defaultValues,
+  description,
+  fieldType,
   id,
   key,
   name,
-  description,
-  fieldType,
-  api,
   validationRules,
-  defaultValues,
 }: IFieldDTO) => {
   return new Field({
     api: typeRef(api.id) as Ref<IInterfaceType>,
@@ -77,13 +77,13 @@ export class Field
 
   @modelAction
   writeCache({
-    id,
-    name,
-    description,
-    key,
-    validationRules,
-    fieldType,
     defaultValues,
+    description,
+    fieldType,
+    id,
+    key,
+    name,
+    validationRules,
   }: Partial<IFieldDTO>) {
     this.id = id ?? this.id
     this.name = name ?? this.name

@@ -15,7 +15,7 @@ import {
 import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 
-const create = ({ id, kind, name, typesOfUnionType, owner }: IUnionTypeDTO) => {
+const create = ({ id, kind, name, owner, typesOfUnionType }: IUnionTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.UnionType)
 
   return new UnionType({

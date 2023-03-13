@@ -1,4 +1,5 @@
 type ErrorCallback = (reason: string) => void
+
 type SuccessCallback = () => void
 
 export const importData = async (
@@ -7,8 +8,8 @@ export const importData = async (
   onSuccess: SuccessCallback,
 ) => {
   const response = await fetch('/api/import/admin', {
-    method: 'POST',
     body: adminData,
+    method: 'POST',
   })
 
   if (response.status === 200) {

@@ -6,7 +6,7 @@ import React from 'react'
 
 export const ResetDataButton = observer<{ adminService: IAdminService }>(
   ({ adminService }) => {
-    const { onSuccess, onError } = useNotify(
+    const { onError, onSuccess } = useNotify(
       { title: 'Data has been reset successfully' },
       { title: 'Failed to reset Data' },
     )

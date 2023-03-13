@@ -35,7 +35,7 @@ export type MenuItemProps = {
 export const PageDetailHeader = observer<{
   pageService: IPageService
   builderService?: IBuilderService
-}>(({ pageService, builderService }) => {
+}>(({ builderService, pageService }) => {
   const router = useRouter()
   const currentAppId = useCurrentAppId()
   const pageId = useCurrentPageId()

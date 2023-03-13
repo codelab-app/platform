@@ -8,8 +8,8 @@ export const importApp = async (
   onSuccess: SuccessCallback,
 ) => {
   const response = await fetch('/api/import/app', {
-    method: 'POST',
     body: appData,
+    method: 'POST',
     method: 'POST',
   })
 

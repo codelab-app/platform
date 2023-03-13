@@ -28,7 +28,7 @@ const checkLeftBracket = (context: CompletionContext): boolean => {
 }
 
 export const completionSource: CompletionExtension = (input) => {
-  const { languageOptions = [], languageSource, customOptions = [] } = input
+  const { customOptions = [], languageOptions = [], languageSource } = input
 
   return (context) => {
     const word = context.matchBefore(WORD_BEFORE_DOT_REGEX)

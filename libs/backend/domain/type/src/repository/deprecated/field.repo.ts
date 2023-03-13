@@ -18,7 +18,7 @@ interface FieldRelationshipProps {
 
 export const fieldRepository = {
   upsertField: async (
-    { input, fieldTypeId, interfaceTypeId }: UpsertFieldProps,
+    { fieldTypeId, input, interfaceTypeId }: UpsertFieldProps,
     where: BaseTypeUniqueWhereCallback<
       OGM_TYPES.FieldCreateInput,
       OGM_TYPES.FieldWhere

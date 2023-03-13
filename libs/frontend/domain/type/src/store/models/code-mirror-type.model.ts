@@ -10,8 +10,8 @@ import { createBaseType } from './base-type.model'
 const create = ({
   id,
   kind,
-  name,
   language,
+  name,
   owner,
 }: ICodeMirrorTypeDTO): CodeMirrorType => {
   assertIsTypeKind(kind, ITypeKind.CodeMirrorType)

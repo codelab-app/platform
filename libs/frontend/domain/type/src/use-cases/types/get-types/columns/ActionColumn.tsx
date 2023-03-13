@@ -21,7 +21,7 @@ interface ActionColumnProps {
 }
 
 export const ActionColumn = observer<ActionColumnProps>(
-  ({ type, typeService, fieldService }) => {
+  ({ fieldService, type, typeService }) => {
     return (
       <Space size="middle">
         {type.kind === ITypeKind.InterfaceType ? (

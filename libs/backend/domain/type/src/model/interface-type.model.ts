@@ -22,7 +22,7 @@ export class InterfaceType extends BaseType implements IInterfaceType {
 
   fields: Array<IField>
 
-  private constructor({ id, name, kind, fields, owner }: IInterfaceType) {
+  private constructor({ fields, id, kind, name, owner }: IInterfaceType) {
     super({ __typename: ITypeKind.InterfaceType, id, kind, name, owner })
     this.fields = fields
   }
@@ -34,7 +34,7 @@ export class InterfaceType extends BaseType implements IInterfaceType {
     return field?.key ? `${name} ${field.key} API` : `${name} API`
   }
 
-  static init({ id, owner, name, fields }: ICreateInterfaceType) {
+  static init({ fields, id, name, owner }: ICreateInterfaceType) {
     return new InterfaceType({
       __typename: ITypeKind.InterfaceType,
       fields,

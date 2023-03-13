@@ -23,7 +23,7 @@ export const notify = <TEvent>(
   options: NotificationOptions<TEvent>,
   event: Maybe<TEvent> = undefined,
 ) => {
-  const { content, type, title } = { ...defaultOptions, ...options }
+  const { content, title, type } = { ...defaultOptions, ...options }
   let titleString = ''
   let contentString = ''
 
