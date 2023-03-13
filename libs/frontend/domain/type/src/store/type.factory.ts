@@ -1,7 +1,6 @@
 import type {
   IAnyType,
   IArrayTypeDTO,
-  IBaseTypeDTO,
   ICreateTypeData,
   IInterfaceTypeDTO,
   ITypeDTO,
@@ -73,11 +72,76 @@ export class TypeFactory {
     }
   }
 
-  static createBaseType(baseTypeDTO: IBaseTypeDTO) {
-    return TypeFactory.create({
-      ...baseTypeDTO,
-      __typename: baseTypeDTO.kind,
-    } as ITypeDTO)
+  static writeCache(typeDTO: ITypeDTO, model: IAnyType): IAnyType {
+    switch (typeDTO.__typename) {
+      case ITypeKind.AppType:
+        model.kind === ITypeKind.AppType && model.writeCache(typeDTO)
+
+        return model
+
+      case ITypeKind.ActionType:
+        model.kind === ITypeKind.ActionType && model.writeCache(typeDTO)
+
+        return model
+
+      case ITypeKind.ElementType:
+        model.kind === ITypeKind.ElementType && model.writeCache(typeDTO)
+
+        return model
+
+      case ITypeKind.EnumType:
+        model.kind === ITypeKind.EnumType && model.writeCache(typeDTO)
+
+        return model
+
+      case ITypeKind.LambdaType:
+        model.kind === ITypeKind.LambdaType && model.writeCache(typeDTO)
+
+        return model
+
+      case ITypeKind.CodeMirrorType:
+        model.kind === ITypeKind.CodeMirrorType && model.writeCache(typeDTO)
+
+        return model
+
+      case ITypeKind.PageType:
+        model.kind === ITypeKind.PageType && model.writeCache(typeDTO)
+
+        return model
+
+      case ITypeKind.PrimitiveType:
+        model.kind === ITypeKind.PrimitiveType && model.writeCache(typeDTO)
+
+        return model
+
+      case ITypeKind.ReactNodeType:
+        model.kind === ITypeKind.ReactNodeType && model.writeCache(typeDTO)
+
+        return model
+
+      case ITypeKind.RenderPropsType:
+        model.kind === ITypeKind.RenderPropsType && model.writeCache(typeDTO)
+
+        return model
+
+      case ITypeKind.ArrayType:
+        model.kind === ITypeKind.ArrayType && model.writeCache(typeDTO)
+
+        return model
+
+      case TypeKind.InterfaceType:
+        model.kind === TypeKind.InterfaceType && model.writeCache(typeDTO)
+
+        return model
+
+      case TypeKind.UnionType:
+        model.kind === TypeKind.UnionType && model.writeCache(typeDTO)
+
+        return model
+
+      default:
+        throw new Error(`Unknown type kind: ${typeDTO.kind}`)
+    }
   }
 
   static mapDataToDTO(data: ICreateTypeData | IUpdateTypeData): ITypeDTO {

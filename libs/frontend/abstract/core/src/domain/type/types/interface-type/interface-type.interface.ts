@@ -1,6 +1,6 @@
 import type { InterfaceTypeCreateInput } from '@codelab/shared/abstract/codegen'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { IPropData } from '../../../prop'
 import type { IField } from '../../field'
 import type { FieldFragment } from '../../fragments'
@@ -21,7 +21,7 @@ export interface IInterfaceType extends IBaseType<IInterfaceTypeDTO> {
   field(id: string): Maybe<IField>
   load(fields: Array<FieldFragment>): void
   toCreateInput(): InterfaceTypeCreateInput
-  writeFieldCache(fields: Array<FieldFragment>): void
+  writeFieldCache(fields: Array<IEntity>): void
 }
 
 export type IInterfaceTypeRef = string

@@ -6,7 +6,6 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   IType,
-  IBaseTypeDTO,
   ICreateTypeData,
   ITypeDTO,
 } from '@codelab/frontend/abstract/core'
@@ -72,11 +71,10 @@ export class TypeService
 
     this.count = totalCount
 
-    return items
-      .map((baseTypeFragment) => this.addBaseType(baseTypeFragment))
-      .sort((typeA, typeB) =>
-        typeA.name.toLowerCase() < typeB.name.toLowerCase() ? -1 : 1,
-      )
+    const typeIds = items.map(({ id }) => id)
+    const types = yield* _await(this.getAll(typeIds))
+
+    return types
   })
 
   @computed
@@ -172,24 +170,21 @@ export class TypeService
 
   @modelAction
   add(typeDTO: ITypeDTO) {
-    const type = TypeFactory.create(typeDTO)
-    this.types.set(type.id, type)
+    let type = this.types.get(typeDTO.id)
+
+    type = type
+      ? TypeFactory.writeCache(typeDTO, type)
+      : TypeFactory.create(typeDTO)
+
+    this.types.set(type!.id, type!)
 
     // Write cache to the fields
     if (
-      type.kind === ITypeKind.InterfaceType &&
+      type!.kind === ITypeKind.InterfaceType &&
       typeDTO.__typename === 'InterfaceType'
     ) {
       type.writeFieldCache(typeDTO.fields)
     }
-
-    return type
-  }
-
-  @modelAction
-  addBaseType(baseTypeDTO: IBaseTypeDTO) {
-    const type = TypeFactory.createBaseType(baseTypeDTO)
-    this.types.set(type.id, type)
 
     return type
   }
