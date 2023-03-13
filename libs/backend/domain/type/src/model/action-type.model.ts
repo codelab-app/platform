@@ -4,7 +4,6 @@ import type {
   IOwner,
 } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { v4 } from 'uuid'
 import { BaseType } from './base-type.model'
 
 export class ActionType extends BaseType implements IActionType {
@@ -22,10 +21,10 @@ export class ActionType extends BaseType implements IActionType {
     super({ __typename: ITypeKind.ActionType, id, kind, name, owner })
   }
 
-  static init({ owner }: ICreateActionType) {
+  static init({ owner, id }: ICreateActionType) {
     return new ActionType({
       __typename: ITypeKind.ActionType,
-      id: v4(),
+      id,
       kind: ITypeKind.ActionType,
       name: ITypeKind.ActionType,
       owner,

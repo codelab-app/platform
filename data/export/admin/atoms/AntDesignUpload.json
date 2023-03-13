@@ -1,0 +1,221 @@
+{
+  "atom": {
+    "id": "3612efeb-fc33-48a8-b174-4f3db953a466",
+    "name": "AntDesignUpload",
+    "type": "AntDesignUpload",
+    "api": {
+      "id": "81cc190c-97b3-43d5-b71d-11181a79b13e",
+      "name": "AntDesignUpload API"
+    },
+    "icon": "Upload",
+    "tags": [
+      {
+        "id": "3569f03c-1e02-42eb-aff2-2e3d6fab48f0",
+        "name": "Upload"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "81cc190c-97b3-43d5-b71d-11181a79b13e",
+    "kind": "InterfaceType",
+    "name": "AntDesignUpload API",
+    "fields": [
+      {
+        "id": "cd9f7682-feeb-4304-9306-392a6e1b7614",
+        "key": "crossOrigin",
+        "name": "Cross Origin",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "69509bfe-b5c7-4710-81f9-a72594c3c76c",
+          "kind": "EnumType",
+          "name": "AntDesignUpload Cross Origin Enum"
+        },
+        "api": {
+          "id": "81cc190c-97b3-43d5-b71d-11181a79b13e"
+        }
+      },
+      {
+        "id": "0a460a8a-f100-499c-9f17-623abf58c142",
+        "key": "name",
+        "name": "Name",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "81cc190c-97b3-43d5-b71d-11181a79b13e"
+        }
+      },
+      {
+        "id": "26f9f21d-8c5c-416f-a174-32c39258717d",
+        "key": "percent",
+        "name": "Percent",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "81cc190c-97b3-43d5-b71d-11181a79b13e"
+        }
+      },
+      {
+        "id": "778edd7b-2929-48d9-afe0-402dc651d093",
+        "key": "status",
+        "name": "Status",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "3f58ecbd-6ed4-472d-9165-40df39967c5b",
+          "kind": "EnumType",
+          "name": "AntDesignUpload Status Enum"
+        },
+        "api": {
+          "id": "81cc190c-97b3-43d5-b71d-11181a79b13e"
+        }
+      },
+      {
+        "id": "bc6db727-902d-4148-af72-8fcd6c565de1",
+        "key": "thumbUrl",
+        "name": "Thumb Url",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "81cc190c-97b3-43d5-b71d-11181a79b13e"
+        }
+      },
+      {
+        "id": "232d86d7-5815-4a67-abbf-cdbf3d252c09",
+        "key": "uid",
+        "name": "Uid",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "81cc190c-97b3-43d5-b71d-11181a79b13e"
+        }
+      },
+      {
+        "id": "8772ff61-664b-4443-a110-6404a13a58d2",
+        "key": "url",
+        "name": "Url",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "81cc190c-97b3-43d5-b71d-11181a79b13e"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "69509bfe-b5c7-4710-81f9-a72594c3c76c",
+      "kind": "EnumType",
+      "name": "AntDesignUpload Cross Origin Enum",
+      "allowedValues": [
+        {
+          "id": "94c3c335-6ab1-42d1-997a-84706fc57265",
+          "key": "",
+          "value": ""
+        },
+        {
+          "id": "2161814b-a77e-4376-8be1-12d5d9dcae4a",
+          "key": "anonymous",
+          "value": "anonymous"
+        },
+        {
+          "id": "0ef9dedd-5e2a-436b-8ee0-bb99880943ea",
+          "key": "use-credentials",
+          "value": "use-credentials"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "3f58ecbd-6ed4-472d-9165-40df39967c5b",
+      "kind": "EnumType",
+      "name": "AntDesignUpload Status Enum",
+      "allowedValues": [
+        {
+          "id": "55c1f62f-32fa-4f04-91cc-d11121528824",
+          "key": "done",
+          "value": "done"
+        },
+        {
+          "id": "5407b3a6-9c92-4f46-8ee7-0c7be7211833",
+          "key": "error",
+          "value": "error"
+        },
+        {
+          "id": "9ab050c6-0d23-4409-a83d-694114b3b5e1",
+          "key": "removed",
+          "value": "removed"
+        },
+        {
+          "id": "203ff083-b3f9-463a-9f60-a86d75c1a83d",
+          "key": "success",
+          "value": "success"
+        },
+        {
+          "id": "57597511-aa61-4243-a8a9-2ca7179911b8",
+          "key": "uploading",
+          "value": "uploading"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "id": "3569f03c-1e02-42eb-aff2-2e3d6fab48f0",
+      "name": "Upload",
+      "parent": {
+        "id": "c350f653-57f8-4167-8b2a-e6c376f30ef1",
+        "name": "Data Entry"
+      },
+      "children": []
+    }
+  ]
+}

@@ -1,0 +1,245 @@
+{
+  "atom": {
+    "id": "4131bc4a-434d-4a03-85d0-e914d76c4ecb",
+    "name": "AntDesignDatePicker",
+    "type": "AntDesignDatePicker",
+    "api": {
+      "id": "0ac1097e-6dd8-45f6-8cde-026a0016a7db",
+      "name": "AntDesignDatePicker API"
+    },
+    "icon": "DatePicker",
+    "tags": [
+      {
+        "id": "92fc37ba-3538-417b-8055-ad034e9b6916",
+        "name": "DatePicker"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "0ac1097e-6dd8-45f6-8cde-026a0016a7db",
+    "kind": "InterfaceType",
+    "name": "AntDesignDatePicker API",
+    "fields": [
+      {
+        "id": "042a3952-3f75-4a02-94f8-47071b963110",
+        "key": "disabledTime",
+        "name": "Disabled Time",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0ac1097e-6dd8-45f6-8cde-026a0016a7db"
+        }
+      },
+      {
+        "id": "5d8c347a-747c-4c19-b291-b8034f635c16",
+        "key": "format",
+        "name": "Format",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "8b89e5c1-e6a2-44e7-8dc0-acea576aabfb",
+          "kind": "EnumType",
+          "name": "AntDesignDatePicker Format Enum"
+        },
+        "api": {
+          "id": "0ac1097e-6dd8-45f6-8cde-026a0016a7db"
+        }
+      },
+      {
+        "id": "f6789a39-7841-49ac-b754-28b8a182da17",
+        "key": "onChange",
+        "name": "On Change",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0ac1097e-6dd8-45f6-8cde-026a0016a7db"
+        }
+      },
+      {
+        "id": "ec82d178-9837-44e6-9e0c-35770e86991f",
+        "key": "onOk",
+        "name": "On Ok",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0ac1097e-6dd8-45f6-8cde-026a0016a7db"
+        }
+      },
+      {
+        "id": "d14b5fb8-92af-45d2-a0e9-1d05befad4ed",
+        "key": "onPanelChange",
+        "name": "On Panel Change",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "0ac1097e-6dd8-45f6-8cde-026a0016a7db"
+        }
+      },
+      {
+        "id": "ca5e1857-5778-4250-8d28-ba41229921fd",
+        "key": "renderExtraFooter",
+        "name": "Render Extra Footer",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "0ac1097e-6dd8-45f6-8cde-026a0016a7db"
+        }
+      },
+      {
+        "id": "4681a55c-c95d-4191-a405-8a577f7b421f",
+        "key": "showNow",
+        "name": "Show Now",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "0ac1097e-6dd8-45f6-8cde-026a0016a7db"
+        }
+      },
+      {
+        "id": "4e7ea5f0-52cc-4740-b32d-6238248018ec",
+        "key": "showTime",
+        "name": "Show Time",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "497d72dd-e16e-42a9-9c96-3c363e3e46a8",
+          "kind": "EnumType",
+          "name": "AntDesignDatePicker Show Time Enum"
+        },
+        "api": {
+          "id": "0ac1097e-6dd8-45f6-8cde-026a0016a7db"
+        }
+      },
+      {
+        "id": "0babba4d-2a98-4fd2-953b-09803328fef3",
+        "key": "showToday",
+        "name": "Show Today",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "0ac1097e-6dd8-45f6-8cde-026a0016a7db"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "8b89e5c1-e6a2-44e7-8dc0-acea576aabfb",
+      "kind": "EnumType",
+      "name": "AntDesignDatePicker Format Enum",
+      "allowedValues": [
+        {
+          "id": "a685bf95-2086-4593-be9a-231f268dde8d",
+          "key": "(string",
+          "value": "(string"
+        },
+        {
+          "id": "e29fe8d9-2df0-4cd7-8831-4e7b446ca17f",
+          "key": "(value: moment) => string",
+          "value": "(value: moment) => string"
+        },
+        {
+          "id": "d2d6184c-fbe3-42ef-9a0d-3759553bf0a7",
+          "key": "(value: moment) => string)[]",
+          "value": "(value: moment) => string)[]"
+        },
+        {
+          "id": "df904cc9-5405-4d61-88a3-d051c4564d68",
+          "key": "string",
+          "value": "string"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "497d72dd-e16e-42a9-9c96-3c363e3e46a8",
+      "kind": "EnumType",
+      "name": "AntDesignDatePicker Show Time Enum",
+      "allowedValues": [
+        {
+          "id": "0bb46022-e75b-47e4-adc0-ffd48eb72ed7",
+          "key": "boolean",
+          "value": "boolean"
+        },
+        {
+          "id": "c3676df4-8b68-4059-a736-43cc495b9067",
+          "key": "object",
+          "value": "object"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "id": "92fc37ba-3538-417b-8055-ad034e9b6916",
+      "name": "DatePicker",
+      "parent": {
+        "id": "c350f653-57f8-4167-8b2a-e6c376f30ef1",
+        "name": "Data Entry"
+      },
+      "children": []
+    }
+  ]
+}

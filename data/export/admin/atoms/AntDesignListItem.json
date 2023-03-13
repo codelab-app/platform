@@ -1,0 +1,85 @@
+{
+  "atom": {
+    "id": "2d7287d9-a8a7-4505-9c2f-29bc562183fd",
+    "name": "AntDesignListItem",
+    "type": "AntDesignListItem",
+    "api": {
+      "id": "2be3682e-91d9-48a2-9f82-9ea2f947d2b9",
+      "name": "AntDesignListItem API"
+    },
+    "icon": "List",
+    "tags": [
+      {
+        "id": "5428368a-221a-4e94-94ea-909f51c1f27c",
+        "name": "List.Item"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "2be3682e-91d9-48a2-9f82-9ea2f947d2b9",
+    "kind": "InterfaceType",
+    "name": "AntDesignListItem API",
+    "fields": [
+      {
+        "id": "9936efb4-7e49-45d8-aefe-ded5ad1906ea",
+        "key": "actions",
+        "name": "Actions",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "2be3682e-91d9-48a2-9f82-9ea2f947d2b9"
+        }
+      },
+      {
+        "id": "544de1fc-b873-4a66-80d1-ddd8b782f48a",
+        "key": "extra",
+        "name": "Extra",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "2be3682e-91d9-48a2-9f82-9ea2f947d2b9"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
+  "tags": [
+    {
+      "id": "5428368a-221a-4e94-94ea-909f51c1f27c",
+      "name": "List.Item",
+      "parent": {
+        "id": "a3721c3c-0d4b-4c3f-8700-6c32bca5adce",
+        "name": "List"
+      },
+      "children": [
+        {
+          "id": "ca41d993-4fd3-4012-b093-1782a2b5bdd7",
+          "name": "List.Item.Meta"
+        }
+      ]
+    }
+  ]
+}

@@ -1,30 +1,21 @@
+import type { IUser } from '@codelab/backend/abstract/core'
 import { AdminService } from '@codelab/backend/domain/admin'
 import { User, UserRepository } from '@codelab/backend/domain/user'
 import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
-import { IRole } from '@codelab/shared/abstract/core'
+import { setupUser } from '@codelab/backend/shared/util'
 import { v4 } from 'uuid'
 import { Tag } from '../model'
 import { TagRepository } from './tag.repo'
 
 const tagRepository = new TagRepository()
-const userRepository = new UserRepository()
-
-const user = new User({
-  auth0Id: v4(),
-  email: 'admin@codelab.app',
-  id: v4(),
-  roles: [IRole.Admin],
-  username: 'Codelab',
-})
+let user: IUser
 
 beforeAll(async () => {
-  await new AdminService().reset()
-
-  await userRepository.save(user)
-
-  const savedUser = await userRepository.find({ email: user.email })
-
-  expect(savedUser?.username).toEqual('Codelab')
+  user = await setupUser({
+    AdminService,
+    UserRepository,
+    User,
+  })
 })
 
 afterAll(async () => {

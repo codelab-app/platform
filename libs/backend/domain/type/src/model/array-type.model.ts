@@ -4,7 +4,6 @@ import type {
   IOwner,
 } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { v4 } from 'uuid'
 import { BaseType } from './base-type.model'
 
 export class ArrayType extends BaseType implements IArrayType {
@@ -22,9 +21,9 @@ export class ArrayType extends BaseType implements IArrayType {
     super({ __typename: ITypeKind.ArrayType, id, kind, name, owner })
   }
 
-  static init({ owner, name }: ICreateArrayType) {
+  static init({ owner, name, id }: ICreateArrayType) {
     return new ArrayType({
-      id: v4(),
+      id,
       kind: ITypeKind.ArrayType,
       name,
       owner,

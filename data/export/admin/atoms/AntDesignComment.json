@@ -1,0 +1,148 @@
+{
+  "atom": {
+    "id": "71d27a72-a9cf-4390-b24e-c06f643be920",
+    "name": "AntDesignComment",
+    "type": "AntDesignComment",
+    "api": {
+      "id": "3ed904e3-880f-48d1-b4d7-6ac6b812b25f",
+      "name": "AntDesignComment API"
+    },
+    "icon": "Comment",
+    "tags": [
+      {
+        "id": "120eec75-5e57-4b1d-a55e-33cc2166591a",
+        "name": "Comment"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "3ed904e3-880f-48d1-b4d7-6ac6b812b25f",
+    "kind": "InterfaceType",
+    "name": "AntDesignComment API",
+    "fields": [
+      {
+        "id": "e1b4402a-6cd6-46f6-a7d6-699fc490c7f9",
+        "key": "actions",
+        "name": "Actions",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "3ed904e3-880f-48d1-b4d7-6ac6b812b25f"
+        }
+      },
+      {
+        "id": "993e7209-1988-4798-b103-c4d3c09b7c9b",
+        "key": "author",
+        "name": "Author",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "3ed904e3-880f-48d1-b4d7-6ac6b812b25f"
+        }
+      },
+      {
+        "id": "9492c23e-0ab2-4383-ab65-7bcb935f542c",
+        "key": "avatar",
+        "name": "Avatar",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "3ed904e3-880f-48d1-b4d7-6ac6b812b25f"
+        }
+      },
+      {
+        "id": "f46c9d0e-4b20-45c6-ba03-9228210beb0a",
+        "key": "children",
+        "name": "Children",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "3ed904e3-880f-48d1-b4d7-6ac6b812b25f"
+        }
+      },
+      {
+        "id": "5c5b1457-c296-41eb-bd65-43d991eca716",
+        "key": "content",
+        "name": "Content",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "3ed904e3-880f-48d1-b4d7-6ac6b812b25f"
+        }
+      },
+      {
+        "id": "33813edf-08bb-4b17-9cce-42d6d792b031",
+        "key": "datetime",
+        "name": "Datetime",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "3ed904e3-880f-48d1-b4d7-6ac6b812b25f"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
+  "tags": [
+    {
+      "id": "120eec75-5e57-4b1d-a55e-33cc2166591a",
+      "name": "Comment",
+      "parent": {
+        "id": "45c2df38-1b04-40f4-b9c3-e505d1a3c432",
+        "name": "Data Display"
+      },
+      "children": []
+    }
+  ]
+}

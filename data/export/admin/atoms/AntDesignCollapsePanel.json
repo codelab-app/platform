@@ -1,0 +1,184 @@
+{
+  "atom": {
+    "id": "27748f46-d131-4662-969c-e013c69d7b66",
+    "name": "AntDesignCollapsePanel",
+    "type": "AntDesignCollapsePanel",
+    "api": {
+      "id": "382c04a5-3fab-46b2-bd96-730061aaa02b",
+      "name": "AntDesignCollapsePanel API"
+    },
+    "icon": "Collapse",
+    "tags": [
+      {
+        "id": "351a631a-766a-488c-9ae8-cafca2624270",
+        "name": "Collapse.Panel"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "382c04a5-3fab-46b2-bd96-730061aaa02b",
+    "kind": "InterfaceType",
+    "name": "AntDesignCollapsePanel API",
+    "fields": [
+      {
+        "id": "f20f7453-7a9e-452e-b543-d75737718a94",
+        "key": "collapsible",
+        "name": "Collapsible",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "97148a60-0d45-4fd9-acf4-b8f786ab4205",
+          "kind": "EnumType",
+          "name": "AntDesignCollapsePanel Collapsible Enum"
+        },
+        "api": {
+          "id": "382c04a5-3fab-46b2-bd96-730061aaa02b"
+        }
+      },
+      {
+        "id": "82eb416d-7bc9-4f6b-b4fb-290d6802aaec",
+        "key": "extra",
+        "name": "Extra",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "382c04a5-3fab-46b2-bd96-730061aaa02b"
+        }
+      },
+      {
+        "id": "bdfa12ea-79f1-4b75-8af4-d53641b677e2",
+        "key": "forceRender",
+        "name": "Force Render",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "382c04a5-3fab-46b2-bd96-730061aaa02b"
+        }
+      },
+      {
+        "id": "3b1de6d4-7ad9-4e6d-a7a2-69d8ddff2bf1",
+        "key": "header",
+        "name": "Header",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "382c04a5-3fab-46b2-bd96-730061aaa02b"
+        }
+      },
+      {
+        "id": "a1713d82-a5f4-4cc9-92ef-ab856ad6db90",
+        "key": "key",
+        "name": "Key",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "9a880643-0be2-43ad-ab64-8a6f6afc6e58",
+          "kind": "EnumType",
+          "name": "AntDesignCollapsePanel Key Enum"
+        },
+        "api": {
+          "id": "382c04a5-3fab-46b2-bd96-730061aaa02b"
+        }
+      },
+      {
+        "id": "6b4fecf6-3c16-4ed5-b851-8daed4828ce8",
+        "key": "showArrow",
+        "name": "Show Arrow",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "382c04a5-3fab-46b2-bd96-730061aaa02b"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "97148a60-0d45-4fd9-acf4-b8f786ab4205",
+      "kind": "EnumType",
+      "name": "AntDesignCollapsePanel Collapsible Enum",
+      "allowedValues": [
+        {
+          "id": "893554d4-b7d6-4c22-92b7-106360511b8b",
+          "key": "disabled",
+          "value": "disabled"
+        },
+        {
+          "id": "e095309a-a891-4445-9fac-c9acc2dbf8f2",
+          "key": "header",
+          "value": "header"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "9a880643-0be2-43ad-ab64-8a6f6afc6e58",
+      "kind": "EnumType",
+      "name": "AntDesignCollapsePanel Key Enum",
+      "allowedValues": [
+        {
+          "id": "ba4a65fd-aff2-4a90-99ca-fde1e07690d7",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "b0a9d1e0-d2f6-4319-9922-510ff014a949",
+          "key": "string",
+          "value": "string"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "id": "351a631a-766a-488c-9ae8-cafca2624270",
+      "name": "Collapse.Panel",
+      "parent": {
+        "id": "ddd2ede6-0fcd-45f4-ac22-30bad5f4dfb1",
+        "name": "Collapse"
+      },
+      "children": []
+    }
+  ]
+}

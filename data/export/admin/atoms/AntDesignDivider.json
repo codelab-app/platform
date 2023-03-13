@@ -1,0 +1,224 @@
+{
+  "atom": {
+    "id": "1ec78dab-f8ce-4ee0-a4b3-07f38b59be0c",
+    "name": "AntDesignDivider",
+    "type": "AntDesignDivider",
+    "api": {
+      "id": "0439319b-7f50-41da-b67f-ea390fead445",
+      "name": "AntDesignDivider API"
+    },
+    "icon": "Divider",
+    "tags": [
+      {
+        "id": "360a0a63-ede0-46e7-9143-28d1a2046449",
+        "name": "Divider"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "0439319b-7f50-41da-b67f-ea390fead445",
+    "kind": "InterfaceType",
+    "name": "AntDesignDivider API",
+    "fields": [
+      {
+        "id": "ae283e8a-f9e5-49ee-bf55-6a247d3a0a46",
+        "key": "children",
+        "name": "Children",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "0439319b-7f50-41da-b67f-ea390fead445"
+        }
+      },
+      {
+        "id": "7c704639-b15e-41dd-8c3b-fe5668f76182",
+        "key": "className",
+        "name": "Class Name",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "0439319b-7f50-41da-b67f-ea390fead445"
+        }
+      },
+      {
+        "id": "1f877b2d-3200-43f7-8ebe-c1ee36222fc7",
+        "key": "dashed",
+        "name": "Dashed",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "0439319b-7f50-41da-b67f-ea390fead445"
+        }
+      },
+      {
+        "id": "8061a2e6-6c99-41f0-9c24-f41a6003e65e",
+        "key": "orientation",
+        "name": "Orientation",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "880245d4-b59f-47b2-a166-aa93d261f96d",
+          "kind": "EnumType",
+          "name": "AntDesignDivider Orientation Enum"
+        },
+        "api": {
+          "id": "0439319b-7f50-41da-b67f-ea390fead445"
+        }
+      },
+      {
+        "id": "59b29db8-26aa-4621-8d5c-284816dd83de",
+        "key": "orientationMargin",
+        "name": "Orientation Margin",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "33ab4502-95a2-4f1c-a660-e74adf1a8d97",
+          "kind": "EnumType",
+          "name": "AntDesignDivider Orientation Margin Enum"
+        },
+        "api": {
+          "id": "0439319b-7f50-41da-b67f-ea390fead445"
+        }
+      },
+      {
+        "id": "071ce599-ab85-4a2c-8f4a-7d58e90d8522",
+        "key": "plain",
+        "name": "Plain",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "0439319b-7f50-41da-b67f-ea390fead445"
+        }
+      },
+      {
+        "id": "db5d3ad3-7699-4ecf-ac58-e493fd70c11f",
+        "key": "type",
+        "name": "Type",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "bf04f138-1ad0-406a-aae4-f9fdf19364de",
+          "kind": "EnumType",
+          "name": "AntDesignDivider Type Enum"
+        },
+        "api": {
+          "id": "0439319b-7f50-41da-b67f-ea390fead445"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "880245d4-b59f-47b2-a166-aa93d261f96d",
+      "kind": "EnumType",
+      "name": "AntDesignDivider Orientation Enum",
+      "allowedValues": [
+        {
+          "id": "5a985d74-3c55-400d-9f24-ec1a0b0fddc0",
+          "key": "center",
+          "value": "center"
+        },
+        {
+          "id": "ef6ddeb7-8907-4b65-9f22-be07805c27a0",
+          "key": "left",
+          "value": "left"
+        },
+        {
+          "id": "2a8611cc-8035-48ed-b9ae-570813437c0f",
+          "key": "right",
+          "value": "right"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "33ab4502-95a2-4f1c-a660-e74adf1a8d97",
+      "kind": "EnumType",
+      "name": "AntDesignDivider Orientation Margin Enum",
+      "allowedValues": [
+        {
+          "id": "61d92c2f-5b14-464e-99bf-ae478f34ae2f",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "983e4ff0-d8a7-4097-93d0-eb60f6d18fba",
+          "key": "string",
+          "value": "string"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "bf04f138-1ad0-406a-aae4-f9fdf19364de",
+      "kind": "EnumType",
+      "name": "AntDesignDivider Type Enum",
+      "allowedValues": [
+        {
+          "id": "bc26911b-8287-4f20-a8c0-ba0155c3c49a",
+          "key": "horizontal",
+          "value": "horizontal"
+        },
+        {
+          "id": "a56b54bb-29dc-4e76-bd4a-ec555d0ba01f",
+          "key": "vertical",
+          "value": "vertical"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "id": "360a0a63-ede0-46e7-9143-28d1a2046449",
+      "name": "Divider",
+      "parent": {
+        "id": "ef48808b-ce14-4674-9e97-baf238a468ed",
+        "name": "Layout"
+      },
+      "children": []
+    }
+  ]
+}

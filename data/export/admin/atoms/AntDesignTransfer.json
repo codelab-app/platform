@@ -1,0 +1,45 @@
+{
+  "atom": {
+    "id": "d55091b4-fcc5-423e-bb10-3f2dc3575ea0",
+    "name": "AntDesignTransfer",
+    "type": "AntDesignTransfer",
+    "api": {
+      "id": "169c7166-9cac-45bc-8b0c-05897889256a",
+      "name": "AntDesignTransfer API"
+    },
+    "icon": "Transfer",
+    "tags": [
+      {
+        "id": "7e2e296c-ad5a-4ec9-9fe9-a855f7797c14",
+        "name": "Transfer"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "169c7166-9cac-45bc-8b0c-05897889256a",
+    "kind": "InterfaceType",
+    "name": "AntDesignTransfer API",
+    "fields": []
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
+  "tags": [
+    {
+      "id": "7e2e296c-ad5a-4ec9-9fe9-a855f7797c14",
+      "name": "Transfer",
+      "parent": {
+        "id": "c350f653-57f8-4167-8b2a-e6c376f30ef1",
+        "name": "Data Entry"
+      },
+      "children": []
+    }
+  ]
+}

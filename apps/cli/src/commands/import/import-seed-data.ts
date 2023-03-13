@@ -1,4 +1,7 @@
-import type { ExistingData, ExportedData } from '@codelab/backend/abstract/core'
+import type {
+  ExistingData,
+  ExportedAdminData,
+} from '@codelab/backend/abstract/core'
 import fs from 'fs'
 
 export const importSeedData = async (
@@ -6,7 +9,11 @@ export const importSeedData = async (
   seedFilePath: string,
 ) => {
   const json = fs.readFileSync(seedFilePath, 'utf8')
-  const { atoms, types, tags } = JSON.parse(json) as Omit<ExportedData, 'app'>
+
+  const { atoms, types, tags } = JSON.parse(json) as Omit<
+    ExportedAdminData,
+    'app'
+  >
 
   const mappedAtoms = atoms.map((atom) => {
     return {

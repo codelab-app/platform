@@ -23,9 +23,9 @@ export type IReactNodeTypeExport = z.infer<typeof ReactNodeTypeExportSchema>
 /**
  * Create
  */
-const CreateReactNodeTypeSchema = ReactNodeTypeSchema.pick({
-  __typename: true,
-  owner: true,
+const CreateReactNodeTypeSchema = ReactNodeTypeSchema.omit({
+  kind: true,
+  name: true,
 })
 
 export type ICreateReactNodeType = z.infer<typeof CreateReactNodeTypeSchema>

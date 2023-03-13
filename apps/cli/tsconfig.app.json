@@ -18,15 +18,5 @@
     "useDefineForClassFields": true
   },
   "exclude": ["**/*.spec.ts", "jest.config.ts"],
-  "include": [
-    "**/*.ts",
-    "../../libs/backend/application/atom/src/use-case/import-atoms/import-atoms.service.ts",
-    "../../libs/backend/application/type/src/use-case/seed-ant-design-fields/seed-ant-design-fields.service.ts",
-    "../../libs/backend/application/type/src/use-case/seed-ant-design-fields/parse-and-import-fields.ts",
-    "../../libs/backend/data/src/export/export-apps.ts",
-    "../../libs/backend/data/src/export/export-resources.ts",
-    "../../libs/backend/data/src/import/import-user-data.ts",
-    "../../libs/backend/data/src/import/import-apps.ts",
-    "../../libs/backend/data/src/import/import-domains.ts"
-  ]
+  "include": ["**/*.ts"]
 }

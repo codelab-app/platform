@@ -5,7 +5,6 @@ import type {
 } from '@codelab/backend/abstract/core'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { v4 } from 'uuid'
 import { BaseType } from './base-type.model'
 
 export class PrimitiveType extends BaseType implements IPrimitiveType {
@@ -32,10 +31,10 @@ export class PrimitiveType extends BaseType implements IPrimitiveType {
     this.primitiveKind = primitiveKind
   }
 
-  static init({ owner, primitiveKind }: ICreatePrimitiveType) {
+  static init({ id, owner, primitiveKind }: ICreatePrimitiveType) {
     return new PrimitiveType({
       __typename: ITypeKind.PrimitiveType,
-      id: v4(),
+      id,
       kind: ITypeKind.PrimitiveType,
       name: primitiveKind,
       owner,

@@ -1,5 +1,5 @@
+import { scrapeAntDesignData } from '@codelab/backend/application/admin'
 import type { CommandModule } from 'yargs'
-import { scrapeAntDesignData } from '../../use-cases/scrape'
 
 export const scrapeAntdCommand: CommandModule<unknown, unknown> = {
   command: 'antd',

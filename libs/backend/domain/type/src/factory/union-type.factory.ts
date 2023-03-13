@@ -15,11 +15,12 @@ export class UnionTypeFactory extends ITypeFactory<
   repository = new UnionTypeRepository()
 
   async _create(
-    { owner, name }: ICreateUnionType,
+    { id, owner, name }: ICreateUnionType,
     where: BaseTypeUniqueWhereCallback<IUnionType>,
   ) {
     const renderPropsType = UnionType.init({
       __typename: ITypeKind.UnionType,
+      id,
       name,
       owner,
       typesOfUnionType: [],

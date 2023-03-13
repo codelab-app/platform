@@ -1,0 +1,16 @@
+{
+  "name": "backend-application-domain",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/backend/application/domain/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/backend/application/domain/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:backend"]
+}

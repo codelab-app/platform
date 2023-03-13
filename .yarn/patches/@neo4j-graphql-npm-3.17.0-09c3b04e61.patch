@@ -1,0 +1,13 @@
+diff --git a/dist/schema-model/generate-model.js b/dist/schema-model/generate-model.js
+index d9b415c1445533197e47d971275e7dcb9f2256f2..0168de3587f3b6424e2a999d2de678e932ce99bc 100644
+--- a/dist/schema-model/generate-model.js
++++ b/dist/schema-model/generate-model.js
+@@ -112,7 +112,7 @@ function createFieldAnnotations(directives) {
+ }
+ function parseCypherAnnotation(directive) {
+     const { statement } = parseArguments(directive);
+-    if (!statement || typeof statement !== "string") {
++    if (statement === null || statement === undefined || typeof statement !== "string") {
+         throw new Error("@cypher statement required");
+     }
+     return new CypherAnnotation_1.CypherAnnotation({

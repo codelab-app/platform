@@ -1,0 +1,102 @@
+{
+  "atom": {
+    "id": "e5bb13e2-1471-4940-875e-4fbccb43bc10",
+    "name": "AntDesignLayout",
+    "type": "AntDesignLayout",
+    "api": {
+      "id": "b5dac28d-f698-4ba9-8b80-87b0ba6ec125",
+      "name": "AntDesignLayout API"
+    },
+    "icon": "Layout",
+    "tags": [
+      {
+        "id": "ef48808b-ce14-4674-9e97-baf238a468ed",
+        "name": "Layout"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "b5dac28d-f698-4ba9-8b80-87b0ba6ec125",
+    "kind": "InterfaceType",
+    "name": "AntDesignLayout API",
+    "fields": [
+      {
+        "id": "d794a2ce-4be9-4e04-a718-c4f1cd5e2f23",
+        "key": "className",
+        "name": "Class Name",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "b5dac28d-f698-4ba9-8b80-87b0ba6ec125"
+        }
+      },
+      {
+        "id": "adb18e51-d9ac-4cec-848e-3b503b7db432",
+        "key": "hasSider",
+        "name": "Has Sider",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "b5dac28d-f698-4ba9-8b80-87b0ba6ec125"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
+  "tags": [
+    {
+      "id": "ef48808b-ce14-4674-9e97-baf238a468ed",
+      "name": "Layout",
+      "parent": null,
+      "children": [
+        {
+          "id": "0b561a3d-457c-4ad9-9726-cd2ae78c1ea6",
+          "name": "Row"
+        },
+        {
+          "id": "502753bf-a762-4cb5-b0aa-b40037a6825e",
+          "name": "Grid"
+        },
+        {
+          "id": "4ea773ed-a375-44ec-8766-3e686caef3c2",
+          "name": "Space"
+        },
+        {
+          "id": "e6b4a6f1-4d62-4094-9dc7-149983b344fa",
+          "name": "Layout.Sider"
+        },
+        {
+          "id": "360a0a63-ede0-46e7-9143-28d1a2046449",
+          "name": "Divider"
+        },
+        {
+          "id": "e5d66ff3-1317-4664-be90-7d73ce079ec7",
+          "name": "Col"
+        }
+      ]
+    }
+  ]
+}
