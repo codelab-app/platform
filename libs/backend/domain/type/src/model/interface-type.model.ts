@@ -34,11 +34,11 @@ export class InterfaceType extends BaseType implements IInterfaceType {
     return field?.key ? `${name} ${field.key} API` : `${name} API`
   }
 
-  static init({ owner, name, fields }: ICreateInterfaceType) {
+  static init({ id, owner, name, fields }: ICreateInterfaceType) {
     return new InterfaceType({
       __typename: ITypeKind.InterfaceType,
       fields,
-      id: v4(),
+      id,
       kind: ITypeKind.InterfaceType,
       name,
       owner,

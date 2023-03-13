@@ -1,0 +1,297 @@
+{
+  "atom": {
+    "id": "a42811a8-269f-4e66-a417-d8368d039ff0",
+    "name": "AntDesignDropdown",
+    "type": "AntDesignDropdown",
+    "api": {
+      "id": "050ec6d4-ef91-4173-8ab1-8ca014f99b2f",
+      "name": "AntDesignDropdown API"
+    },
+    "icon": "Dropdown",
+    "tags": [
+      {
+        "id": "a72c9943-dacb-4d87-8401-ad92af8455b6",
+        "name": "Dropdown"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "050ec6d4-ef91-4173-8ab1-8ca014f99b2f",
+    "kind": "InterfaceType",
+    "name": "AntDesignDropdown API",
+    "fields": [
+      {
+        "id": "7363ca33-09dd-495c-b007-a587e603bcbd",
+        "key": "arrow",
+        "name": "Arrow",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "0db24f50-1d56-404e-8cff-1124b4bfd96d",
+          "kind": "EnumType",
+          "name": "AntDesignDropdown Arrow Enum"
+        },
+        "api": {
+          "id": "050ec6d4-ef91-4173-8ab1-8ca014f99b2f"
+        }
+      },
+      {
+        "id": "d96c7535-bf57-4f8d-9578-112d4da905c5",
+        "key": "autoFocus",
+        "name": "Auto Focus",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "050ec6d4-ef91-4173-8ab1-8ca014f99b2f"
+        }
+      },
+      {
+        "id": "43448886-efa3-4e9f-944d-54aa67e2b861",
+        "key": "destroyPopupOnHide",
+        "name": "Destroy Popup On Hide",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "050ec6d4-ef91-4173-8ab1-8ca014f99b2f"
+        }
+      },
+      {
+        "id": "b523703d-98f8-4118-89a6-5d3821a53336",
+        "key": "disabled",
+        "name": "Disabled",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "050ec6d4-ef91-4173-8ab1-8ca014f99b2f"
+        }
+      },
+      {
+        "id": "ddc18656-c4dd-4957-9fd4-e11f58e09c65",
+        "key": "getPopupContainer",
+        "name": "Get Popup Container",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "050ec6d4-ef91-4173-8ab1-8ca014f99b2f"
+        }
+      },
+      {
+        "id": "53aff950-4692-45cb-a32d-bf6beae58449",
+        "key": "onOpenChange",
+        "name": "On Open Change",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "050ec6d4-ef91-4173-8ab1-8ca014f99b2f"
+        }
+      },
+      {
+        "id": "d5e98b09-de99-4cc2-afec-cd98ad4cf27e",
+        "key": "open",
+        "name": "Open",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "050ec6d4-ef91-4173-8ab1-8ca014f99b2f"
+        }
+      },
+      {
+        "id": "741a2b6c-922d-4e91-bcba-6c24e8a2381b",
+        "key": "overlay",
+        "name": "Overlay",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "de354642-4206-4224-8e36-7d4be913c95c",
+          "kind": "EnumType",
+          "name": "AntDesignDropdown Overlay Enum"
+        },
+        "api": {
+          "id": "050ec6d4-ef91-4173-8ab1-8ca014f99b2f"
+        }
+      },
+      {
+        "id": "4d037c8a-bcab-45e4-801f-242309d4d456",
+        "key": "overlayClassName",
+        "name": "Overlay Class Name",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "050ec6d4-ef91-4173-8ab1-8ca014f99b2f"
+        }
+      },
+      {
+        "id": "46561c10-17dd-48e8-ab52-cc8eddc281b2",
+        "key": "placement",
+        "name": "Placement",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "050ec6d4-ef91-4173-8ab1-8ca014f99b2f"
+        }
+      },
+      {
+        "id": "162e46c7-9ca6-46eb-8411-32b732e3e169",
+        "key": "trigger",
+        "name": "Trigger",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "49d3451c-eac2-4b36-912f-6091efb2b3c9",
+          "kind": "EnumType",
+          "name": "AntDesignDropdown Trigger Enum"
+        },
+        "api": {
+          "id": "050ec6d4-ef91-4173-8ab1-8ca014f99b2f"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "0db24f50-1d56-404e-8cff-1124b4bfd96d",
+      "kind": "EnumType",
+      "name": "AntDesignDropdown Arrow Enum",
+      "allowedValues": [
+        {
+          "id": "40149c0a-e911-40fe-a1ef-6be4c2d540f0",
+          "key": "{ pointAtCenter: boolean }",
+          "value": "{ pointAtCenter: boolean }"
+        },
+        {
+          "id": "e143b07d-8068-4d71-a931-a333ca7d36ef",
+          "key": "boolean",
+          "value": "boolean"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "de354642-4206-4224-8e36-7d4be913c95c",
+      "kind": "EnumType",
+      "name": "AntDesignDropdown Overlay Enum",
+      "allowedValues": [
+        {
+          "id": "b89717bd-f4e1-4f2b-8693-f58950ceb92e",
+          "key": "() => Menu",
+          "value": "() => Menu"
+        },
+        {
+          "id": "4be37b35-c2e9-47ef-9782-544d59c6a01a",
+          "key": "Menu",
+          "value": "Menu"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "49d3451c-eac2-4b36-912f-6091efb2b3c9",
+      "kind": "EnumType",
+      "name": "AntDesignDropdown Trigger Enum",
+      "allowedValues": [
+        {
+          "id": "7e9a6c1c-a117-4821-9301-df2516c3e5a2",
+          "key": "Array<click",
+          "value": "Array<click"
+        },
+        {
+          "id": "a963b29a-2492-40d3-8c11-0d96819c22d8",
+          "key": "contextMenu>",
+          "value": "contextMenu>"
+        },
+        {
+          "id": "d52b6ee7-bf2e-40d3-9856-b87e078daae8",
+          "key": "hover",
+          "value": "hover"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "id": "a72c9943-dacb-4d87-8401-ad92af8455b6",
+      "name": "Dropdown",
+      "parent": {
+        "id": "1bf9fc94-4b9d-4210-b6b1-0b6183c607b4",
+        "name": "Navigation"
+      },
+      "children": [
+        {
+          "id": "ee950b65-99a9-4717-8cfb-18bb694b1307",
+          "name": "Dropdown.Button"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,335 @@
+{
+  "atom": {
+    "id": "39b0b027-1c74-412c-9f05-2b8a3be21842",
+    "name": "AntDesignTooltip",
+    "type": "AntDesignTooltip",
+    "api": {
+      "id": "ea981f1c-a07e-4f18-9a68-81eb7703919d",
+      "name": "AntDesignTooltip API"
+    },
+    "icon": "Tooltip",
+    "tags": [
+      {
+        "id": "a74879ae-19ee-4038-ad41-5504dd0ca8da",
+        "name": "Tooltip"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "ea981f1c-a07e-4f18-9a68-81eb7703919d",
+    "kind": "InterfaceType",
+    "name": "AntDesignTooltip API",
+    "fields": [
+      {
+        "id": "6e218aff-d3ec-45db-9998-7969e2a9ee18",
+        "key": "arrowPointAtCenter",
+        "name": "Arrow Point At Center",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "ea981f1c-a07e-4f18-9a68-81eb7703919d"
+        }
+      },
+      {
+        "id": "0c5f426a-d658-4584-8d14-8fff3f717ae6",
+        "key": "autoAdjustOverflow",
+        "name": "Auto Adjust Overflow",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "ea981f1c-a07e-4f18-9a68-81eb7703919d"
+        }
+      },
+      {
+        "id": "650edf63-be87-4822-a638-9a2fd3ae0fb7",
+        "key": "color",
+        "name": "Color",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "ea981f1c-a07e-4f18-9a68-81eb7703919d"
+        }
+      },
+      {
+        "id": "1b163b21-98dc-4c91-a8de-64aaa7c02a4b",
+        "key": "defaultOpen",
+        "name": "Default Open",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "ea981f1c-a07e-4f18-9a68-81eb7703919d"
+        }
+      },
+      {
+        "id": "893d2e71-e4a5-4366-aca6-f964ae796f0a",
+        "key": "destroyTooltipOnHide",
+        "name": "Destroy Tooltip On Hide",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "91f64176-aaf5-4ebe-824e-5c0f37f4d2a4",
+          "kind": "EnumType",
+          "name": "AntDesignTooltip Destroy Tooltip On Hide Enum"
+        },
+        "api": {
+          "id": "ea981f1c-a07e-4f18-9a68-81eb7703919d"
+        }
+      },
+      {
+        "id": "ed75c229-0dd2-456e-96f9-df2876d5c732",
+        "key": "getPopupContainer",
+        "name": "Get Popup Container",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "ea981f1c-a07e-4f18-9a68-81eb7703919d"
+        }
+      },
+      {
+        "id": "d3152f73-bfc9-4c8d-8fc8-1bf1c01e6d8c",
+        "key": "mouseEnterDelay",
+        "name": "Mouse Enter Delay",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "ea981f1c-a07e-4f18-9a68-81eb7703919d"
+        }
+      },
+      {
+        "id": "89ad5604-c5fd-444a-85de-e2a24807b962",
+        "key": "mouseLeaveDelay",
+        "name": "Mouse Leave Delay",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "ea981f1c-a07e-4f18-9a68-81eb7703919d"
+        }
+      },
+      {
+        "id": "f731ca58-5b75-4978-be0f-67ab7448345a",
+        "key": "onOpenChange",
+        "name": "On Open Change",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "ea981f1c-a07e-4f18-9a68-81eb7703919d"
+        }
+      },
+      {
+        "id": "826d7415-cecc-489f-85b4-b9b62c556546",
+        "key": "open",
+        "name": "Open",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "ea981f1c-a07e-4f18-9a68-81eb7703919d"
+        }
+      },
+      {
+        "id": "f714a338-c7b4-44d8-b07b-ab1699f28218",
+        "key": "overlayClassName",
+        "name": "Overlay Class Name",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "ea981f1c-a07e-4f18-9a68-81eb7703919d"
+        }
+      },
+      {
+        "id": "b619603e-d167-4385-831b-c6bb6e36b0f1",
+        "key": "placement",
+        "name": "Placement",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "ea981f1c-a07e-4f18-9a68-81eb7703919d"
+        }
+      },
+      {
+        "id": "d3abcdb7-adaf-4536-8ef4-88bd5e04bad8",
+        "key": "trigger",
+        "name": "Trigger",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "68e1254b-230f-4e47-8cfb-9a53381e9f7e",
+          "kind": "EnumType",
+          "name": "AntDesignTooltip Trigger Enum"
+        },
+        "api": {
+          "id": "ea981f1c-a07e-4f18-9a68-81eb7703919d"
+        }
+      },
+      {
+        "id": "9435233d-ef63-4cb6-889e-aad07d6477d5",
+        "key": "zIndex",
+        "name": "Z Index",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "ea981f1c-a07e-4f18-9a68-81eb7703919d"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "91f64176-aaf5-4ebe-824e-5c0f37f4d2a4",
+      "kind": "EnumType",
+      "name": "AntDesignTooltip Destroy Tooltip On Hide Enum",
+      "allowedValues": [
+        {
+          "id": "9726aa3d-704d-41f7-bee4-9813929af807",
+          "key": "{ keepParent?: boolean }",
+          "value": "{ keepParent?: boolean }"
+        },
+        {
+          "id": "7d28b7dc-9926-4186-a5f6-43b16b1c827b",
+          "key": "boolean",
+          "value": "boolean"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "68e1254b-230f-4e47-8cfb-9a53381e9f7e",
+      "kind": "EnumType",
+      "name": "AntDesignTooltip Trigger Enum",
+      "allowedValues": [
+        {
+          "id": "e187f89c-036c-4ca6-a84f-d54e61e61388",
+          "key": "Array<string>",
+          "value": "Array<string>"
+        },
+        {
+          "id": "4fd49547-e221-49d3-a620-304173c1b17a",
+          "key": "click",
+          "value": "click"
+        },
+        {
+          "id": "678e120f-f319-4a4f-a872-6bb42f59c679",
+          "key": "contextMenu",
+          "value": "contextMenu"
+        },
+        {
+          "id": "97fb18a0-dafb-4e13-a07c-8b9175c93699",
+          "key": "focus",
+          "value": "focus"
+        },
+        {
+          "id": "4cc28101-bcef-4ebc-af28-329ef7f4651a",
+          "key": "hover",
+          "value": "hover"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "id": "a74879ae-19ee-4038-ad41-5504dd0ca8da",
+      "name": "Tooltip",
+      "parent": {
+        "id": "45c2df38-1b04-40f4-b9c3-e505d1a3c432",
+        "name": "Data Display"
+      },
+      "children": []
+    }
+  ]
+}

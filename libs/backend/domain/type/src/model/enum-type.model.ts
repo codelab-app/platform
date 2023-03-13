@@ -8,7 +8,6 @@ import type {
 } from '@codelab/backend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
-import { v4 } from 'uuid'
 import { BaseType } from './base-type.model'
 
 export class EnumType extends BaseType implements IEnumType {
@@ -29,11 +28,11 @@ export class EnumType extends BaseType implements IEnumType {
     this.allowedValues = allowedValues
   }
 
-  static init({ name, owner, allowedValues }: ICreateEnumType) {
+  static init({ id, name, owner, allowedValues }: ICreateEnumType) {
     return new EnumType({
       __typename: ITypeKind.EnumType,
       allowedValues,
-      id: v4(),
+      id,
       kind: ITypeKind.EnumType,
       name,
       owner,

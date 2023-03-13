@@ -1,0 +1,160 @@
+{
+  "atom": {
+    "id": "75477fb3-f9f7-4af5-aabc-5df49049fc43",
+    "name": "AntDesignTimeline",
+    "type": "AntDesignTimeline",
+    "api": {
+      "id": "62727d6e-8f5c-4146-a3ba-181296b9d7c4",
+      "name": "AntDesignTimeline API"
+    },
+    "icon": "Timeline",
+    "tags": [
+      {
+        "id": "007edb02-59d8-4349-a1ca-f42e3e7204b6",
+        "name": "Timeline"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "62727d6e-8f5c-4146-a3ba-181296b9d7c4",
+    "kind": "InterfaceType",
+    "name": "AntDesignTimeline API",
+    "fields": [
+      {
+        "id": "8aa1580b-738d-4bcc-af82-e4766e1284d7",
+        "key": "mode",
+        "name": "Mode",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "c25f64b5-05c7-4d63-8802-52970f51415c",
+          "kind": "EnumType",
+          "name": "AntDesignTimeline Mode Enum"
+        },
+        "api": {
+          "id": "62727d6e-8f5c-4146-a3ba-181296b9d7c4"
+        }
+      },
+      {
+        "id": "7f03d2d0-a2dd-4e0a-8a79-455b78ab12ad",
+        "key": "pending",
+        "name": "Pending",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "f1768b33-58e8-4488-85a1-79c266c23306",
+          "kind": "EnumType",
+          "name": "AntDesignTimeline Pending Enum"
+        },
+        "api": {
+          "id": "62727d6e-8f5c-4146-a3ba-181296b9d7c4"
+        }
+      },
+      {
+        "id": "4555fddb-643e-4de4-8910-b5c653d5d638",
+        "key": "pendingDot",
+        "name": "Pending Dot",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "62727d6e-8f5c-4146-a3ba-181296b9d7c4"
+        }
+      },
+      {
+        "id": "cb685d64-9710-4d46-a2cd-e369dd75e230",
+        "key": "reverse",
+        "name": "Reverse",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "62727d6e-8f5c-4146-a3ba-181296b9d7c4"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "c25f64b5-05c7-4d63-8802-52970f51415c",
+      "kind": "EnumType",
+      "name": "AntDesignTimeline Mode Enum",
+      "allowedValues": [
+        {
+          "id": "1c62a963-8203-48ce-8afb-bcb8f3eb8769",
+          "key": "alternate",
+          "value": "alternate"
+        },
+        {
+          "id": "99f26d3b-f97a-45d4-b6f2-3869d621e20b",
+          "key": "left",
+          "value": "left"
+        },
+        {
+          "id": "be41137d-43d0-4be5-a075-b8ff511725d7",
+          "key": "right",
+          "value": "right"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "f1768b33-58e8-4488-85a1-79c266c23306",
+      "kind": "EnumType",
+      "name": "AntDesignTimeline Pending Enum",
+      "allowedValues": [
+        {
+          "id": "68109112-418e-404a-8ebd-ba9cc5656530",
+          "key": "boolean",
+          "value": "boolean"
+        },
+        {
+          "id": "1361ade0-32ff-4800-8f98-09549b4e808c",
+          "key": "ReactNode",
+          "value": "ReactNode"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "id": "007edb02-59d8-4349-a1ca-f42e3e7204b6",
+      "name": "Timeline",
+      "parent": {
+        "id": "45c2df38-1b04-40f4-b9c3-e505d1a3c432",
+        "name": "Data Display"
+      },
+      "children": [
+        {
+          "id": "b8a9b4ae-5611-4209-988c-412bbd1b9459",
+          "name": "Timeline.Item"
+        }
+      ]
+    }
+  ]
+}

@@ -24,3 +24,5 @@ export class AdminService {
     }
   }
 }
+
+export type IAdminService = typeof AdminService

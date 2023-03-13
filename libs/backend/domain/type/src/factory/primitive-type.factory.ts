@@ -18,11 +18,12 @@ export class PrimitiveTypeFactory extends ITypeFactory<
   repository: PrimitiveTypeRepository = new PrimitiveTypeRepository()
 
   async _create(
-    { owner, primitiveKind }: ICreatePrimitiveType,
+    { id, owner, primitiveKind }: ICreatePrimitiveType,
     where: BaseTypeUniqueWhereCallback<IPrimitiveType>,
   ) {
     const primitiveType = PrimitiveType.init({
       __typename: ITypeKind.PrimitiveType,
+      id,
       owner,
       primitiveKind,
     })

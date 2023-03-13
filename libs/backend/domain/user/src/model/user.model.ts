@@ -38,3 +38,5 @@ export class User implements IUser {
     })
   }
 }
+
+export type IUserModel = typeof User

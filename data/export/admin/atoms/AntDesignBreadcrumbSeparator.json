@@ -1,0 +1,45 @@
+{
+  "atom": {
+    "id": "c93606ae-e66a-44ce-9327-7760d8ce108f",
+    "name": "AntDesignBreadcrumbSeparator",
+    "type": "AntDesignBreadcrumbSeparator",
+    "api": {
+      "id": "a9b243dc-863b-4d50-8783-2f4c7f0b994f",
+      "name": "AntDesignBreadcrumbSeparator API"
+    },
+    "icon": "Breadcrumb",
+    "tags": [
+      {
+        "id": "d045d55a-1b28-4580-a74a-28f952c0d708",
+        "name": "Breadcrumb.Separator"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "a9b243dc-863b-4d50-8783-2f4c7f0b994f",
+    "kind": "InterfaceType",
+    "name": "AntDesignBreadcrumbSeparator API",
+    "fields": []
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
+  "tags": [
+    {
+      "id": "d045d55a-1b28-4580-a74a-28f952c0d708",
+      "name": "Breadcrumb.Separator",
+      "parent": {
+        "id": "fe37a6ba-d9d8-4ccf-b479-5504192e19f6",
+        "name": "Breadcrumb"
+      },
+      "children": []
+    }
+  ]
+}

@@ -43,7 +43,7 @@ describe('Admin', () => {
     /**
      * Importing from file should result in the same data as seed
      */
-    it.skip('should import Ant Design data', () => {
+    it('should import Ant Design data', () => {
       cy.logout()
       cy.resetDatabase()
       loginSession()
@@ -54,7 +54,7 @@ describe('Admin', () => {
       })
     })
 
-    it.skip('should import data twice without changing the database', () => {
+    it('should import data twice without changing the database', () => {
       importData()
 
       return exportAndAssert(createSeedDataPath(3)).then((payload) => {

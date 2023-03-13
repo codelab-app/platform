@@ -1,12 +1,9 @@
-import type {
-  IAtom,
-  IInterfaceType,
-  ITag,
-} from '@codelab/backend/abstract/core'
+import type { IAtom } from '@codelab/backend/abstract/core'
+import type { IAtomDTO, IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { IAtomType } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 
-export class Atom implements IAtom {
+export class Atom implements IAtomDTO {
   icon?: string | null | undefined
 
   id: string
@@ -15,11 +12,13 @@ export class Atom implements IAtom {
 
   type: IAtomType
 
-  api: IInterfaceType
+  api: IEntity
 
-  tags: Array<ITag>
+  tags: Array<IEntity>
 
   allowedChildren: Array<IEntity>
+
+  owner: IAuth0Owner
 
   constructor({
     id,
@@ -29,6 +28,7 @@ export class Atom implements IAtom {
     api,
     tags,
     allowedChildren = [],
+    owner,
   }: IAtom) {
     this.id = id
     this.name = name
@@ -37,5 +37,6 @@ export class Atom implements IAtom {
     this.api = api
     this.tags = tags
     this.allowedChildren = allowedChildren
+    this.owner = owner
   }
 }

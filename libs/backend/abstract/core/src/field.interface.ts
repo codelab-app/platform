@@ -34,6 +34,7 @@ export const FieldSchema = z.object({
   id: z.string(),
   key: z.string(),
   name: z.string().optional().nullable(),
+  validationRules: z.string().optional().nullable(),
 })
 
 export type IField = z.infer<typeof FieldSchema>
@@ -45,7 +46,6 @@ export const FieldExportSchema = FieldSchema.extend({
   api: EntitySchema,
   fieldType: z.object({
     id: z.string(),
-    name: z.string(),
   }),
 })
 

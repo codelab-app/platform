@@ -1,0 +1,331 @@
+{
+  "atom": {
+    "id": "e58df770-d608-4e86-9e6a-2ef7d00015ee",
+    "name": "AntDesignAvatar",
+    "type": "AntDesignAvatar",
+    "api": {
+      "id": "7f9798ea-a8b1-48a3-9771-15d3ceff25bf",
+      "name": "AntDesignAvatar API"
+    },
+    "icon": "Avatar",
+    "tags": [
+      {
+        "id": "2d15c4b6-e068-4500-a725-cfd53cac3b4e",
+        "name": "Avatar"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "7f9798ea-a8b1-48a3-9771-15d3ceff25bf",
+    "kind": "InterfaceType",
+    "name": "AntDesignAvatar API",
+    "fields": [
+      {
+        "id": "3165c750-d58f-4caf-98e6-a8619293c5f4",
+        "key": "alt",
+        "name": "Alt",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "7f9798ea-a8b1-48a3-9771-15d3ceff25bf"
+        }
+      },
+      {
+        "id": "91856ab7-1415-4ea2-829d-ad4b518490b6",
+        "key": "crossOrigin",
+        "name": "Cross Origin",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "e9945b5d-0cb3-401c-803a-647a7e1c42b1",
+          "kind": "EnumType",
+          "name": "AntDesignAvatar Cross Origin Enum"
+        },
+        "api": {
+          "id": "7f9798ea-a8b1-48a3-9771-15d3ceff25bf"
+        }
+      },
+      {
+        "id": "7aff3735-16ac-46ea-a65e-6cf12a395a88",
+        "key": "draggable",
+        "name": "Draggable",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "8c8b76e2-ea3f-4fa3-89c3-35ccc163fbcf",
+          "kind": "EnumType",
+          "name": "AntDesignAvatar Draggable Enum"
+        },
+        "api": {
+          "id": "7f9798ea-a8b1-48a3-9771-15d3ceff25bf"
+        }
+      },
+      {
+        "id": "33476ffb-b353-44ae-8829-0b7a2aeab531",
+        "key": "gap",
+        "name": "Gap",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "7f9798ea-a8b1-48a3-9771-15d3ceff25bf"
+        }
+      },
+      {
+        "id": "8c478a1d-c5be-4e8f-a22e-2d33d82c3b9e",
+        "key": "icon",
+        "name": "Icon",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "7f9798ea-a8b1-48a3-9771-15d3ceff25bf"
+        }
+      },
+      {
+        "id": "0de96788-6f30-4b02-b4d7-28e60acc8885",
+        "key": "onError",
+        "name": "On Error",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "7f9798ea-a8b1-48a3-9771-15d3ceff25bf"
+        }
+      },
+      {
+        "id": "2cfe9361-2a38-43a7-94e0-9ec2c83f7443",
+        "key": "shape",
+        "name": "Shape",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "823f185a-7a27-47e5-a234-50b8727f1284",
+          "kind": "EnumType",
+          "name": "AntDesignAvatar Shape Enum"
+        },
+        "api": {
+          "id": "7f9798ea-a8b1-48a3-9771-15d3ceff25bf"
+        }
+      },
+      {
+        "id": "f56af30e-cfa8-4e3b-ace6-061be849f939",
+        "key": "size",
+        "name": "Size",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "ac9f6d73-021d-42d7-b1cb-6ef736ec99c0",
+          "kind": "EnumType",
+          "name": "AntDesignAvatar Size Enum"
+        },
+        "api": {
+          "id": "7f9798ea-a8b1-48a3-9771-15d3ceff25bf"
+        }
+      },
+      {
+        "id": "1fb2bc20-a634-41a4-9840-d5cbfeef4df1",
+        "key": "src",
+        "name": "Src",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "4f46765f-c0bd-4419-9c62-5c8251b7f3e3",
+          "kind": "EnumType",
+          "name": "AntDesignAvatar Src Enum"
+        },
+        "api": {
+          "id": "7f9798ea-a8b1-48a3-9771-15d3ceff25bf"
+        }
+      },
+      {
+        "id": "618c7be7-9abd-4d48-b7c7-fd8d869e76cb",
+        "key": "srcSet",
+        "name": "Src Set",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "7f9798ea-a8b1-48a3-9771-15d3ceff25bf"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "e9945b5d-0cb3-401c-803a-647a7e1c42b1",
+      "kind": "EnumType",
+      "name": "AntDesignAvatar Cross Origin Enum",
+      "allowedValues": [
+        {
+          "id": "603186fe-fac2-4e3c-bab2-55ddf369e1ce",
+          "key": "",
+          "value": ""
+        },
+        {
+          "id": "4aaf5784-881a-4bf0-acf3-69c960fff4fb",
+          "key": "anonymous",
+          "value": "anonymous"
+        },
+        {
+          "id": "04c62c6f-b1c8-4936-ba59-d123b5b42f9d",
+          "key": "use-credentials",
+          "value": "use-credentials"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "8c8b76e2-ea3f-4fa3-89c3-35ccc163fbcf",
+      "kind": "EnumType",
+      "name": "AntDesignAvatar Draggable Enum",
+      "allowedValues": [
+        {
+          "id": "ce63583f-cf9c-4ce3-8926-7b8bd3ca6ae5",
+          "key": "boolean",
+          "value": "boolean"
+        },
+        {
+          "id": "87fe5a3b-a010-4b1c-8f2c-c2133088601f",
+          "key": "false",
+          "value": "false"
+        },
+        {
+          "id": "167b1114-abe7-451a-8106-dce025b9b78d",
+          "key": "true",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "823f185a-7a27-47e5-a234-50b8727f1284",
+      "kind": "EnumType",
+      "name": "AntDesignAvatar Shape Enum",
+      "allowedValues": [
+        {
+          "id": "3b8f6a7e-e405-47bb-b920-adecda605ef7",
+          "key": "circle",
+          "value": "circle"
+        },
+        {
+          "id": "5823b6dd-546d-486b-8d0e-48c8c98c8295",
+          "key": "square",
+          "value": "square"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "ac9f6d73-021d-42d7-b1cb-6ef736ec99c0",
+      "kind": "EnumType",
+      "name": "AntDesignAvatar Size Enum",
+      "allowedValues": [
+        {
+          "id": "baa4e6f2-6c2d-4826-a898-ae92dbb2ef11",
+          "key": "{ xs: number, sm: number, ...}",
+          "value": "{ xs: number, sm: number, ...}"
+        },
+        {
+          "id": "78bef59a-b59a-4ef5-9ef6-a40ecd8d0a51",
+          "key": "default",
+          "value": "default"
+        },
+        {
+          "id": "8f16b844-00db-4d52-bd3d-890a665e8bea",
+          "key": "large",
+          "value": "large"
+        },
+        {
+          "id": "c5743fad-d60c-4f1c-a607-105439b27e8e",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "a14fbe6f-6cdc-4091-b682-5014d79115d6",
+          "key": "small",
+          "value": "small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "4f46765f-c0bd-4419-9c62-5c8251b7f3e3",
+      "kind": "EnumType",
+      "name": "AntDesignAvatar Src Enum",
+      "allowedValues": [
+        {
+          "id": "ba08d8ef-9ead-4257-acc9-584b75a9faad",
+          "key": "ReactNode",
+          "value": "ReactNode"
+        },
+        {
+          "id": "98b297d5-7256-49cb-b379-37bdd41e1b40",
+          "key": "string",
+          "value": "string"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "id": "2d15c4b6-e068-4500-a725-cfd53cac3b4e",
+      "name": "Avatar",
+      "parent": {
+        "id": "45c2df38-1b04-40f4-b9c3-e505d1a3c432",
+        "name": "Data Display"
+      },
+      "children": []
+    }
+  ]
+}

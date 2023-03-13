@@ -1,0 +1,247 @@
+{
+  "atom": {
+    "id": "c59750f1-4f3c-4298-a219-97b2debc4511",
+    "name": "AntDesignRadioGroup",
+    "type": "AntDesignRadioGroup",
+    "api": {
+      "id": "ee5cefd1-c4c3-4546-b5a6-a8884f6d2282",
+      "name": "AntDesignRadioGroup API"
+    },
+    "icon": "Radio",
+    "tags": [
+      {
+        "id": "9e70269a-ed02-4461-a107-7b90d7490f3d",
+        "name": "Radio.Group"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "ee5cefd1-c4c3-4546-b5a6-a8884f6d2282",
+    "kind": "InterfaceType",
+    "name": "AntDesignRadioGroup API",
+    "fields": [
+      {
+        "id": "1673c888-f530-48e9-9c3d-1c9f8af7d91d",
+        "key": "buttonStyle",
+        "name": "Button Style",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "1cc06d20-54b0-4880-baf0-e4bb07275b24",
+          "kind": "EnumType",
+          "name": "AntDesignRadioGroup Button Style Enum"
+        },
+        "api": {
+          "id": "ee5cefd1-c4c3-4546-b5a6-a8884f6d2282"
+        }
+      },
+      {
+        "id": "4ab05cf2-aebd-430d-941e-81e26160d570",
+        "key": "disabled",
+        "name": "Disabled",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "ee5cefd1-c4c3-4546-b5a6-a8884f6d2282"
+        }
+      },
+      {
+        "id": "caedbda9-8c5b-4015-ba23-4b75c504c1fc",
+        "key": "name",
+        "name": "Name",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "ee5cefd1-c4c3-4546-b5a6-a8884f6d2282"
+        }
+      },
+      {
+        "id": "bd4c878f-16df-4778-a766-4e6797f130bf",
+        "key": "onChange",
+        "name": "On Change",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "ee5cefd1-c4c3-4546-b5a6-a8884f6d2282"
+        }
+      },
+      {
+        "id": "84dccead-518f-4c11-9e86-3bf61043c6e6",
+        "key": "optionType",
+        "name": "Option Type",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "9c7a4d8d-4705-4015-adc2-d64dcadd775c",
+          "kind": "EnumType",
+          "name": "AntDesignRadioGroup Option Type Enum"
+        },
+        "api": {
+          "id": "ee5cefd1-c4c3-4546-b5a6-a8884f6d2282"
+        }
+      },
+      {
+        "id": "f864fa26-a52a-4838-b6ce-950258aba2c6",
+        "key": "options",
+        "name": "Options",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "ea8404c5-8c04-409e-a644-e955e8c06a8b",
+          "kind": "EnumType",
+          "name": "AntDesignRadioGroup Options Enum"
+        },
+        "api": {
+          "id": "ee5cefd1-c4c3-4546-b5a6-a8884f6d2282"
+        }
+      },
+      {
+        "id": "990f3c54-32b0-405f-8d5a-a5c14eb9a8f2",
+        "key": "size",
+        "name": "Size",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "4518934e-d079-4d0c-82e1-6fc8a4add910",
+          "kind": "EnumType",
+          "name": "AntDesignRadioGroup Size Enum"
+        },
+        "api": {
+          "id": "ee5cefd1-c4c3-4546-b5a6-a8884f6d2282"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "1cc06d20-54b0-4880-baf0-e4bb07275b24",
+      "kind": "EnumType",
+      "name": "AntDesignRadioGroup Button Style Enum",
+      "allowedValues": [
+        {
+          "id": "4dcd1f4c-b4ca-4e68-8ca5-9dc0240e1c1a",
+          "key": "outline",
+          "value": "outline"
+        },
+        {
+          "id": "f241de7b-8ac4-4312-acdc-7dd4e416575d",
+          "key": "solid",
+          "value": "solid"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "9c7a4d8d-4705-4015-adc2-d64dcadd775c",
+      "kind": "EnumType",
+      "name": "AntDesignRadioGroup Option Type Enum",
+      "allowedValues": [
+        {
+          "id": "eadb8610-9f87-4cd7-9540-d19492f94587",
+          "key": "button",
+          "value": "button"
+        },
+        {
+          "id": "ca6c257d-2570-46d6-a5bb-613f6c67e1a3",
+          "key": "default",
+          "value": "default"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "ea8404c5-8c04-409e-a644-e955e8c06a8b",
+      "kind": "EnumType",
+      "name": "AntDesignRadioGroup Options Enum",
+      "allowedValues": [
+        {
+          "id": "98058bde-b78d-4dd9-aacf-7034ec08edea",
+          "key": "Array<{ label: string value: string disabled?: boolean }>",
+          "value": "Array<{ label: string value: string disabled?: boolean }>"
+        },
+        {
+          "id": "98279bec-024e-465f-a5f7-c42d75faea2a",
+          "key": "number[]",
+          "value": "number[]"
+        },
+        {
+          "id": "96032703-6e90-40fd-a681-5da4dbd0e312",
+          "key": "string[]",
+          "value": "string[]"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "4518934e-d079-4d0c-82e1-6fc8a4add910",
+      "kind": "EnumType",
+      "name": "AntDesignRadioGroup Size Enum",
+      "allowedValues": [
+        {
+          "id": "64b9c28f-28cd-4d03-b247-4673fb0ec89c",
+          "key": "large",
+          "value": "large"
+        },
+        {
+          "id": "132dc95e-b6d8-4843-a6c4-5c948ccca81c",
+          "key": "middle",
+          "value": "middle"
+        },
+        {
+          "id": "e59933e7-3cde-4f18-b01f-20ed610bec52",
+          "key": "small",
+          "value": "small"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "id": "9e70269a-ed02-4461-a107-7b90d7490f3d",
+      "name": "Radio.Group",
+      "parent": {
+        "id": "cd7758fc-f36e-4288-bac8-17b269246d84",
+        "name": "Radio"
+      },
+      "children": []
+    }
+  ]
+}

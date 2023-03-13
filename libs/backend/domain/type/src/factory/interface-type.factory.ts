@@ -15,12 +15,13 @@ export class InterfaceTypeFactory extends ITypeFactory<
   repository: InterfaceTypeRepository = new InterfaceTypeRepository()
 
   async _create(
-    { owner, name, fields }: ICreateInterfaceType,
+    { owner, name, fields, id }: ICreateInterfaceType,
     where: BaseTypeUniqueWhereCallback<IInterfaceType>,
   ) {
     const interfaceType = InterfaceType.init({
       __typename: ITypeKind.InterfaceType,
       fields,
+      id,
       name,
       owner,
     })

@@ -1,0 +1,412 @@
+{
+  "atom": {
+    "id": "95c1a6d1-7953-4be2-808f-3eb928969ecb",
+    "name": "AntDesignInput",
+    "type": "AntDesignInput",
+    "api": {
+      "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3",
+      "name": "AntDesignInput API"
+    },
+    "icon": "Input",
+    "tags": [
+      {
+        "id": "779c2466-bf19-4dac-93a6-d7a659c23b5f",
+        "name": "Input"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3",
+    "kind": "InterfaceType",
+    "name": "AntDesignInput API",
+    "fields": [
+      {
+        "id": "63d77591-9222-4888-a6b9-f407152d67ad",
+        "key": "addonAfter",
+        "name": "Addon After",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3"
+        }
+      },
+      {
+        "id": "f499ece9-fd4d-4c99-9d96-2b30a8de9014",
+        "key": "addonBefore",
+        "name": "Addon Before",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3"
+        }
+      },
+      {
+        "id": "d4bf2e30-debe-494a-bb19-0e655f8374d9",
+        "key": "allowClear",
+        "name": "Allow Clear",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "9982e6ba-de88-449e-84a4-3a658ad9ffc5",
+          "kind": "EnumType",
+          "name": "AntDesignInput Allow Clear Enum"
+        },
+        "api": {
+          "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3"
+        }
+      },
+      {
+        "id": "f3cb4ccb-78dd-46ed-80a1-a9f01d0950d3",
+        "key": "bordered",
+        "name": "Bordered",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3"
+        }
+      },
+      {
+        "id": "2f18ea73-2a69-4a86-9ef8-b22b4e016bc4",
+        "key": "defaultValue",
+        "name": "Default Value",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3"
+        }
+      },
+      {
+        "id": "fad73bc4-af3d-42c2-a147-25334bad4de9",
+        "key": "disabled",
+        "name": "Disabled",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3"
+        }
+      },
+      {
+        "id": "e978ab18-8dc4-4ec8-8f34-1523fb407499",
+        "key": "id",
+        "name": "Id",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3"
+        }
+      },
+      {
+        "id": "c3919cc1-f0cc-4e52-a947-1f21fa0aa77c",
+        "key": "maxLength",
+        "name": "Max Length",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3"
+        }
+      },
+      {
+        "id": "319e2a26-9d05-42a6-9456-3a154f996d55",
+        "key": "onChange",
+        "name": "On Change",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3"
+        }
+      },
+      {
+        "id": "4a062758-c25f-40ff-9a50-1d21f1df0b58",
+        "key": "onPressEnter",
+        "name": "On Press Enter",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3"
+        }
+      },
+      {
+        "id": "04cf1d39-8401-4435-b4a7-f3174d20f049",
+        "key": "prefix",
+        "name": "Prefix",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3"
+        }
+      },
+      {
+        "id": "2ebc8236-3ac4-4012-9e1b-4a92e1a2ebda",
+        "key": "showCount",
+        "name": "Show Count",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "28af2a10-439f-40de-a908-4e517fa226fc",
+          "kind": "EnumType",
+          "name": "AntDesignInput Show Count Enum"
+        },
+        "api": {
+          "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3"
+        }
+      },
+      {
+        "id": "493afea9-7ea3-41b9-802f-868d0f318d7d",
+        "key": "size",
+        "name": "Size",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "522bcb3c-5b4e-46fe-81fb-83739af77d7d",
+          "kind": "EnumType",
+          "name": "AntDesignInput Size Enum"
+        },
+        "api": {
+          "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3"
+        }
+      },
+      {
+        "id": "ae2541fe-c1a0-4123-96ad-739c06b05ed6",
+        "key": "status",
+        "name": "Status",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "24825172-131c-4075-a958-08e6ca9eae83",
+          "kind": "EnumType",
+          "name": "AntDesignInput Status Enum"
+        },
+        "api": {
+          "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3"
+        }
+      },
+      {
+        "id": "be1d6c62-47e7-43f5-96df-a18b9de8d84f",
+        "key": "suffix",
+        "name": "Suffix",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3"
+        }
+      },
+      {
+        "id": "ac3711bd-258e-4ccc-bcbe-d19b794d340f",
+        "key": "type",
+        "name": "Type",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3"
+        }
+      },
+      {
+        "id": "b38ec7db-f14a-4fe9-ad7c-cd75ed1b60c8",
+        "key": "value",
+        "name": "Value",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "c41d4c35-82a0-457f-bec8-9206aaf652e3"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "9982e6ba-de88-449e-84a4-3a658ad9ffc5",
+      "kind": "EnumType",
+      "name": "AntDesignInput Allow Clear Enum",
+      "allowedValues": [
+        {
+          "id": "8a1309e1-34f5-4217-b46a-fc5f27211768",
+          "key": "{ clearIcon: ReactNode }",
+          "value": "{ clearIcon: ReactNode }"
+        },
+        {
+          "id": "bb54f07a-fca2-415e-8fb3-d09321e7d5cb",
+          "key": "boolean",
+          "value": "boolean"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "28af2a10-439f-40de-a908-4e517fa226fc",
+      "kind": "EnumType",
+      "name": "AntDesignInput Show Count Enum",
+      "allowedValues": [
+        {
+          "id": "ffe5b3d7-6512-449a-9a23-aed2f2d80619",
+          "key": "{ formatter: (info: { value: string, count: number, maxLength?: number }) => ReactNode }",
+          "value": "{ formatter: (info: { value: string, count: number, maxLength?: number }) => ReactNode }"
+        },
+        {
+          "id": "ae10c430-861a-4f03-bfdc-d4ab1ca69b75",
+          "key": "boolean",
+          "value": "boolean"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "522bcb3c-5b4e-46fe-81fb-83739af77d7d",
+      "kind": "EnumType",
+      "name": "AntDesignInput Size Enum",
+      "allowedValues": [
+        {
+          "id": "6da5c4a9-d955-4eb9-9821-40e928077c90",
+          "key": "large",
+          "value": "large"
+        },
+        {
+          "id": "a8330ceb-d4d1-486e-903f-f44083ee3efd",
+          "key": "middle",
+          "value": "middle"
+        },
+        {
+          "id": "001124ce-871c-432e-adb7-2b8859dce895",
+          "key": "small",
+          "value": "small"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "24825172-131c-4075-a958-08e6ca9eae83",
+      "kind": "EnumType",
+      "name": "AntDesignInput Status Enum",
+      "allowedValues": [
+        {
+          "id": "11d8cece-41c5-4642-89f8-ce662e4472c1",
+          "key": "error",
+          "value": "error"
+        },
+        {
+          "id": "6f23229c-c1b9-4850-b83a-223be97738f6",
+          "key": "warning",
+          "value": "warning"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "id": "779c2466-bf19-4dac-93a6-d7a659c23b5f",
+      "name": "Input",
+      "parent": {
+        "id": "c350f653-57f8-4167-8b2a-e6c376f30ef1",
+        "name": "Data Entry"
+      },
+      "children": []
+    }
+  ]
+}

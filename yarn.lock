@@ -6683,7 +6683,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@neo4j/graphql@npm:3.17.0, @neo4j/graphql@npm:^3.17.0":
+"@neo4j/graphql@npm:3.17.0":
   version: 3.17.0
   resolution: "@neo4j/graphql@npm:3.17.0"
   dependencies:
@@ -6707,6 +6707,33 @@ __metadata:
     graphql: ^16.0.0
     neo4j-driver: ^4.1.0 || ^5.0.0
   checksum: 1ce68817b33f906d2607fbd48ab4076727c3eca772055aa7db26e86eb12e875c7d6ac4b9c0d078023832a207c5fd78e4003120bd83a02e0db43def2d0f544de0
+  languageName: node
+  linkType: hard
+
+"@neo4j/graphql@patch:@neo4j/graphql@npm%3A3.17.0#./.yarn/patches/@neo4j-graphql-npm-3.17.0-09c3b04e61.patch::locator=codelab%40workspace%3A.":
+  version: 3.17.0
+  resolution: "@neo4j/graphql@patch:@neo4j/graphql@npm%3A3.17.0#./.yarn/patches/@neo4j-graphql-npm-3.17.0-09c3b04e61.patch::version=3.17.0&hash=bd87ac&locator=codelab%40workspace%3A."
+  dependencies:
+    "@apollo/subgraph": ^2.2.3
+    "@graphql-tools/merge": ^8.3.3
+    "@graphql-tools/resolvers-composition": ^6.5.3
+    "@graphql-tools/schema": 9.0.16
+    "@graphql-tools/utils": ^9.0.0
+    "@neo4j/cypher-builder": ~0.2.1
+    camelcase: ^6.3.0
+    debug: ^4.3.4
+    deep-equal: ^2.0.5
+    dot-prop: ^6.0.1
+    graphql-compose: ^9.0.8
+    graphql-parse-resolve-info: ^4.12.3
+    graphql-relay: ^0.10.0
+    pluralize: ^8.0.0
+    semver: ^7.3.7
+    uuid: ^9.0.0
+  peerDependencies:
+    graphql: ^16.0.0
+    neo4j-driver: ^4.1.0 || ^5.0.0
+  checksum: d37b43243d4ee4ec7cde68abbdccef73f1b05055fa68a6c2b021eedf533d9fe363abe82792fa74d421bfafcef7b0327a941856abae52c90aa833065e8f66fddf
   languageName: node
   linkType: hard
 

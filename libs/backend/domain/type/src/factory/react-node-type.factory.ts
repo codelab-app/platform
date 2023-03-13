@@ -15,11 +15,12 @@ export class ReactNodeTypeFactory extends ITypeFactory<
   repository: ReactNodeTypeRepository = new ReactNodeTypeRepository()
 
   async _create(
-    { owner }: ICreateReactNodeType,
+    { owner, id }: ICreateReactNodeType,
     where: BaseTypeUniqueWhereCallback<IReactNodeType>,
   ) {
     const reactNodeType = ReactNodeType.init({
       __typename: ITypeKind.ReactNodeType,
+      id,
       owner,
     })
 

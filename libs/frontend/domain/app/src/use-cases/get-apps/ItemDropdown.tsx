@@ -84,7 +84,7 @@ export const ItemDropdown = observer<ItemMenuProps>(
         icon: <ExportOutlined style={menuItemIconStyle} />,
         key: 'export',
         label: (
-          <Link href={`/api/export?appId=${app.id}`}>
+          <Link href={`/api/export/app?id=${app.id}`}>
             <span>Export</span>
           </Link>
         ),

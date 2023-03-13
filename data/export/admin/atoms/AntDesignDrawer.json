@@ -1,0 +1,553 @@
+{
+  "atom": {
+    "id": "420de611-69f5-4cf4-af7f-58ba2b073b45",
+    "name": "AntDesignDrawer",
+    "type": "AntDesignDrawer",
+    "api": {
+      "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe",
+      "name": "AntDesignDrawer API"
+    },
+    "icon": "Drawer",
+    "tags": [
+      {
+        "id": "4ba390fe-f88f-4016-aca2-20d14ffc52ca",
+        "name": "Drawer"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe",
+    "kind": "InterfaceType",
+    "name": "AntDesignDrawer API",
+    "fields": [
+      {
+        "id": "74c60ca3-a12e-492a-aab9-a7bf03a89dba",
+        "key": "afterOpenChange",
+        "name": "After Open Change",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "6b7f32af-5da7-459b-83e4-14d8dea87413",
+        "key": "autoFocus",
+        "name": "Auto Focus",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "928f0ce4-10d0-43f8-9cba-00485c987df3",
+        "key": "className",
+        "name": "Class Name",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "735fda01-4e43-493e-9a29-1e2f1d012fb0",
+        "key": "closable",
+        "name": "Closable",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "cf0d5511-1835-4309-8bd0-3c7404599059",
+        "key": "closeIcon",
+        "name": "Close Icon",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "860b91fd-efce-4fc1-9c81-141d3980bd62",
+        "key": "destroyOnClose",
+        "name": "Destroy On Close",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "b5166507-d65d-40b7-a79b-1cc989da4135",
+        "key": "extra",
+        "name": "Extra",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "6d51d6a0-f749-4175-923f-7bebe8091f4f",
+        "key": "footer",
+        "name": "Footer",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "16001891-0dd3-4379-85e1-7167d15f9961",
+        "key": "forceRender",
+        "name": "Force Render",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "bf0edc67-781a-4f1c-8139-165dd557b186",
+        "key": "getContainer",
+        "name": "Get Container",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "dec97c95-7697-4d92-a26a-9e9d14da02ef",
+          "kind": "EnumType",
+          "name": "AntDesignDrawer Get Container Enum"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "611ef04a-4c03-4a5e-9177-e2e3654649e4",
+        "key": "height",
+        "name": "Height",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "dae1062d-168c-4d51-84eb-6acede396f5e",
+          "kind": "EnumType",
+          "name": "AntDesignDrawer Height Enum"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "44838735-9222-47d2-9204-977efbdda9ad",
+        "key": "keyboard",
+        "name": "Keyboard",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "4f9665ec-b300-426a-a4c7-e4e4e42433af",
+        "key": "mask",
+        "name": "Mask",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "552540eb-7103-4a22-a639-6a3397f836b6",
+        "key": "maskClosable",
+        "name": "Mask Closable",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "1d379bdb-8feb-497a-be55-ff1c22431998",
+        "key": "onClose",
+        "name": "On Close",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "57d7e1c7-ff46-46c5-abc5-f91ea2aafd56",
+        "key": "open",
+        "name": "Open",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "874c4204-5a25-4350-b89f-87118fe189f5",
+        "key": "placement",
+        "name": "Placement",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "d08a62a3-287e-4a3d-8825-a35d2656f438",
+          "kind": "EnumType",
+          "name": "AntDesignDrawer Placement Enum"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "1620db5e-fd9b-4be8-b437-f5c98a522ca5",
+        "key": "push",
+        "name": "Push",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "aff026d5-6047-4a57-81cf-3d38e6fde13e",
+          "kind": "EnumType",
+          "name": "AntDesignDrawer Push Enum"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "c88966e9-7337-4379-bf20-afe88ee50b63",
+        "key": "size",
+        "name": "Size",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "a8217b48-7a93-4cb7-8208-a4eab7db9f8d",
+          "kind": "EnumType",
+          "name": "AntDesignDrawer Size Enum"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "9171a19f-4715-4c73-a87c-c2bc7e4fc184",
+        "key": "title",
+        "name": "Title",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "1a7563da-ed13-448a-bfa2-7a752acff305",
+        "key": "width",
+        "name": "Width",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "446bb0cb-8a18-4cf5-94ca-e23370a47fdd",
+          "kind": "EnumType",
+          "name": "AntDesignDrawer Width Enum"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      },
+      {
+        "id": "e3682589-77e5-4435-9bb5-f3693e3bc901",
+        "key": "zIndex",
+        "name": "Z Index",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "5383f33f-c0c6-4a2b-8600-4d8226bad7fe"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "dec97c95-7697-4d92-a26a-9e9d14da02ef",
+      "kind": "EnumType",
+      "name": "AntDesignDrawer Get Container Enum",
+      "allowedValues": [
+        {
+          "id": "75c57bf6-ed52-40de-a9af-ccab0ba1dbfc",
+          "key": "() => HTMLElement",
+          "value": "() => HTMLElement"
+        },
+        {
+          "id": "407f3ef8-e085-42a8-9e62-b6d5d975be39",
+          "key": "false",
+          "value": "false"
+        },
+        {
+          "id": "cf5d983f-f26e-4169-9660-97b26fc9c1d7",
+          "key": "HTMLElement",
+          "value": "HTMLElement"
+        },
+        {
+          "id": "32cb6f17-10bb-44bd-882a-f304ad810c51",
+          "key": "Selectors",
+          "value": "Selectors"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "dae1062d-168c-4d51-84eb-6acede396f5e",
+      "kind": "EnumType",
+      "name": "AntDesignDrawer Height Enum",
+      "allowedValues": [
+        {
+          "id": "d11da6dd-9318-4c42-9725-d9668aefa13d",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "c3703fb9-60a8-4d97-8eca-1797cd3d41e1",
+          "key": "string",
+          "value": "string"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "d08a62a3-287e-4a3d-8825-a35d2656f438",
+      "kind": "EnumType",
+      "name": "AntDesignDrawer Placement Enum",
+      "allowedValues": [
+        {
+          "id": "e0a5cae8-783a-47f7-a6a5-e53987741998",
+          "key": "bottom",
+          "value": "bottom"
+        },
+        {
+          "id": "ca200f11-b8ed-46a4-8e91-31e94f327a91",
+          "key": "left",
+          "value": "left"
+        },
+        {
+          "id": "4e6f50dd-5eb2-46e1-aaca-4c29205083d7",
+          "key": "right",
+          "value": "right"
+        },
+        {
+          "id": "8468dd27-a695-450e-aa0e-d453d6f03ee1",
+          "key": "top",
+          "value": "top"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "aff026d5-6047-4a57-81cf-3d38e6fde13e",
+      "kind": "EnumType",
+      "name": "AntDesignDrawer Push Enum",
+      "allowedValues": [
+        {
+          "id": "30fe0086-43a7-4e27-abd2-e208af73a7a7",
+          "key": "{ distance: string",
+          "value": "{ distance: string"
+        },
+        {
+          "id": "21db89b2-2c0f-4d4c-a0cc-12c4adde8610",
+          "key": "boolean",
+          "value": "boolean"
+        },
+        {
+          "id": "9cffd6fa-e88f-4748-9fdb-10fbe6aa2c06",
+          "key": "number }",
+          "value": "number }"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "a8217b48-7a93-4cb7-8208-a4eab7db9f8d",
+      "kind": "EnumType",
+      "name": "AntDesignDrawer Size Enum",
+      "allowedValues": [
+        {
+          "id": "591be175-3868-461a-99cc-fdd30139d195",
+          "key": "default",
+          "value": "default"
+        },
+        {
+          "id": "94749e46-9ac9-4d6e-bfd4-cfeae8613b8b",
+          "key": "large",
+          "value": "large"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "446bb0cb-8a18-4cf5-94ca-e23370a47fdd",
+      "kind": "EnumType",
+      "name": "AntDesignDrawer Width Enum",
+      "allowedValues": [
+        {
+          "id": "6014fe3f-0b41-440f-9949-abb73e0272fd",
+          "key": "number",
+          "value": "number"
+        },
+        {
+          "id": "470ea15e-dff5-45a0-bf8d-1c85d2d12274",
+          "key": "string",
+          "value": "string"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "id": "4ba390fe-f88f-4016-aca2-20d14ffc52ca",
+      "name": "Drawer",
+      "parent": {
+        "id": "53a7cb8c-1631-4555-bead-4b63efbef861",
+        "name": "Feedback"
+      },
+      "children": []
+    }
+  ]
+}

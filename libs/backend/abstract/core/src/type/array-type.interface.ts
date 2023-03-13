@@ -23,10 +23,8 @@ export type IArrayTypeExport = z.infer<typeof ArrayTypeExportSchema>
 /**
  * Create
  */
-const CreateArrayTypeSchema = ArrayTypeSchema.pick({
-  __typename: true,
-  name: true,
-  owner: true,
+const CreateArrayTypeSchema = ArrayTypeSchema.omit({
+  kind: true,
 })
 
 export type ICreateArrayType = z.infer<typeof CreateArrayTypeSchema>

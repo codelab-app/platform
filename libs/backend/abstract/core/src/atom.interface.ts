@@ -3,8 +3,7 @@ import { EntitySchema } from '@codelab/shared/abstract/types'
 import type { Assign } from 'utility-types'
 import { z } from 'zod'
 import type { ExistingData } from './seed'
-import { TagSchema } from './tag.interface'
-import { InterfaceTypeSchema } from './type'
+import { OwnerSchema } from './user.interface'
 
 // export interface IAtomExport {
 //   icon?: string | null
@@ -56,11 +55,12 @@ export const AtomSchema = z.object({
       }),
     )
     .optional(),
-  api: InterfaceTypeSchema,
+  api: EntitySchema,
   icon: z.string().optional().nullable(),
   id: z.string(),
   name: z.string(),
-  tags: z.array(TagSchema),
+  owner: OwnerSchema,
+  tags: z.array(EntitySchema),
   type: z.nativeEnum(IAtomType),
 })
 

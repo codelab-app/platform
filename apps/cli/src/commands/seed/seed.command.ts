@@ -1,12 +1,6 @@
-import type { IOwner } from '@codelab/backend/abstract/core'
-import { SeedAtomsService } from '@codelab/backend/application/atom'
-import { SeedTagsService } from '@codelab/backend/application/tag'
-import {
-  SeedAntDesignApiService,
-  SeedAntDesignFieldsService,
-  SeedSystemTypeService,
-} from '@codelab/backend/application/type'
+import { SeedDataService } from '@codelab/backend/application/admin'
 import { UserRepository } from '@codelab/backend/domain/user'
+import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import inquirer from 'inquirer'
 import type { CommandModule } from 'yargs'
 import { getStageOptions, loadStageMiddleware } from '../../shared/command'
@@ -40,17 +34,9 @@ export const seedCommand: CommandModule<ParseProps, ParseProps> = {
       throw new Error('User not found!')
     }
 
-    const user: IOwner = { auth0Id: selectedAuth0Id }
+    const user: IAuth0Owner = { auth0Id: selectedAuth0Id }
 
-    await new SeedSystemTypeService().execute(user)
-
-    await new SeedAntDesignApiService().execute(user)
-
-    await new SeedTagsService().execute(user)
-
-    await new SeedAtomsService().execute(user)
-
-    await (await SeedAntDesignFieldsService.init(user)).execute()
+    await new SeedDataService().execute(user)
 
     return process.exit(0)
   },

@@ -1,0 +1,132 @@
+{
+  "atom": {
+    "id": "f6fa7adb-ca95-4fec-a304-b36e2867b544",
+    "name": "AntDesignBreadcrumbItem",
+    "type": "AntDesignBreadcrumbItem",
+    "api": {
+      "id": "52c3fbd6-b8bc-4c9d-af05-b3ad6501d7c0",
+      "name": "AntDesignBreadcrumbItem API"
+    },
+    "icon": "Breadcrumb",
+    "tags": [
+      {
+        "id": "ddcdb7a3-573a-4a72-9a59-aba21c91223e",
+        "name": "Breadcrumb.Item"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "52c3fbd6-b8bc-4c9d-af05-b3ad6501d7c0",
+    "kind": "InterfaceType",
+    "name": "AntDesignBreadcrumbItem API",
+    "fields": [
+      {
+        "id": "96d6bcc2-6617-4087-b1bd-e66859f3212b",
+        "key": "className",
+        "name": "Class Name",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "52c3fbd6-b8bc-4c9d-af05-b3ad6501d7c0"
+        }
+      },
+      {
+        "id": "8478c04f-fbd7-46b3-946e-f3ad925c4b7d",
+        "key": "href",
+        "name": "Href",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "52c3fbd6-b8bc-4c9d-af05-b3ad6501d7c0"
+        }
+      },
+      {
+        "id": "a558023c-f6d6-4166-8a2e-b8f8c7e54729",
+        "key": "onClick",
+        "name": "On Click",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "52c3fbd6-b8bc-4c9d-af05-b3ad6501d7c0"
+        }
+      },
+      {
+        "id": "26799e50-a6ab-4e3f-b342-0d062c9c7a68",
+        "key": "overlay",
+        "name": "Overlay",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "115e5a69-b791-4853-a335-07a53cf48feb",
+          "kind": "EnumType",
+          "name": "AntDesignBreadcrumbItem Overlay Enum"
+        },
+        "api": {
+          "id": "52c3fbd6-b8bc-4c9d-af05-b3ad6501d7c0"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "115e5a69-b791-4853-a335-07a53cf48feb",
+      "kind": "EnumType",
+      "name": "AntDesignBreadcrumbItem Overlay Enum",
+      "allowedValues": [
+        {
+          "id": "218ef469-e617-44a6-ab02-7c4bc1f44df4",
+          "key": "() => Menu",
+          "value": "() => Menu"
+        },
+        {
+          "id": "5d15cc86-ad74-4a03-8e91-84c1ed6632a5",
+          "key": "Menu",
+          "value": "Menu"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "id": "ddcdb7a3-573a-4a72-9a59-aba21c91223e",
+      "name": "Breadcrumb.Item",
+      "parent": {
+        "id": "fe37a6ba-d9d8-4ccf-b479-5504192e19f6",
+        "name": "Breadcrumb"
+      },
+      "children": []
+    }
+  ]
+}

@@ -23,9 +23,9 @@ export type IRenderPropsTypeExport = z.infer<typeof RenderPropsTypeExportSchema>
 /**
  * Create
  */
-const CreateRenderPropsTypeSchema = RenderPropsTypeSchema.pick({
-  __typename: true,
-  owner: true,
+const CreateRenderPropsTypeSchema = RenderPropsTypeSchema.omit({
+  kind: true,
+  name: true,
 })
 
 export type ICreateRenderPropsType = z.infer<typeof CreateRenderPropsTypeSchema>

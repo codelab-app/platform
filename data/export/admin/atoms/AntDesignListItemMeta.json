@@ -1,0 +1,97 @@
+{
+  "atom": {
+    "id": "1f410838-ad7b-4a47-a25a-629e9289dbfb",
+    "name": "AntDesignListItemMeta",
+    "type": "AntDesignListItemMeta",
+    "api": {
+      "id": "096ee763-4cc7-4e49-bce9-357e07c48fd3",
+      "name": "AntDesignListItemMeta API"
+    },
+    "icon": "List",
+    "tags": [
+      {
+        "id": "ca41d993-4fd3-4012-b093-1782a2b5bdd7",
+        "name": "List.Item.Meta"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "096ee763-4cc7-4e49-bce9-357e07c48fd3",
+    "kind": "InterfaceType",
+    "name": "AntDesignListItemMeta API",
+    "fields": [
+      {
+        "id": "ed440c01-4b0b-44bb-a2b4-88708791e64a",
+        "key": "avatar",
+        "name": "Avatar",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "096ee763-4cc7-4e49-bce9-357e07c48fd3"
+        }
+      },
+      {
+        "id": "be218437-e575-4c7a-8c05-8b8ee2c8fd30",
+        "key": "description",
+        "name": "Description",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "096ee763-4cc7-4e49-bce9-357e07c48fd3"
+        }
+      },
+      {
+        "id": "5d3a11dc-596e-4b85-8e28-6b9d6f86d127",
+        "key": "title",
+        "name": "Title",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "096ee763-4cc7-4e49-bce9-357e07c48fd3"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
+  "tags": [
+    {
+      "id": "ca41d993-4fd3-4012-b093-1782a2b5bdd7",
+      "name": "List.Item.Meta",
+      "parent": {
+        "id": "5428368a-221a-4e94-94ea-909f51c1f27c",
+        "name": "List.Item"
+      },
+      "children": []
+    }
+  ]
+}

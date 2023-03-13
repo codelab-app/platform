@@ -1,0 +1,174 @@
+{
+  "atom": {
+    "id": "248175df-71f8-4818-ae45-87ff92b82120",
+    "name": "AntDesignResult",
+    "type": "AntDesignResult",
+    "api": {
+      "id": "365d3166-cff4-44c4-9196-c2795827d4b0",
+      "name": "AntDesignResult API"
+    },
+    "icon": "Result",
+    "tags": [
+      {
+        "id": "475f86ae-d479-4e9b-838f-99d400da7b8d",
+        "name": "Result"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "365d3166-cff4-44c4-9196-c2795827d4b0",
+    "kind": "InterfaceType",
+    "name": "AntDesignResult API",
+    "fields": [
+      {
+        "id": "28f39f8d-c700-47ce-b9ff-8486eb76dc41",
+        "key": "extra",
+        "name": "Extra",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "365d3166-cff4-44c4-9196-c2795827d4b0"
+        }
+      },
+      {
+        "id": "f8671c58-8f2d-45c1-b4cf-e3fc583432e3",
+        "key": "icon",
+        "name": "Icon",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "365d3166-cff4-44c4-9196-c2795827d4b0"
+        }
+      },
+      {
+        "id": "5477b0c1-137c-45c7-be7c-b38a78cd19a6",
+        "key": "status",
+        "name": "Status",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "69f15c46-6cd0-43bd-aab3-9644e281aa38",
+          "kind": "EnumType",
+          "name": "AntDesignResult Status Enum"
+        },
+        "api": {
+          "id": "365d3166-cff4-44c4-9196-c2795827d4b0"
+        }
+      },
+      {
+        "id": "93eb596d-522e-4042-abc8-1bae295c56bc",
+        "key": "subTitle",
+        "name": "Sub Title",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "365d3166-cff4-44c4-9196-c2795827d4b0"
+        }
+      },
+      {
+        "id": "d9820ac6-8295-489c-a291-af0a52eb01f4",
+        "key": "title",
+        "name": "Title",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "365d3166-cff4-44c4-9196-c2795827d4b0"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "69f15c46-6cd0-43bd-aab3-9644e281aa38",
+      "kind": "EnumType",
+      "name": "AntDesignResult Status Enum",
+      "allowedValues": [
+        {
+          "id": "18e28b5a-6b1d-4611-bbe4-4daf1aa10af4",
+          "key": "403",
+          "value": "403"
+        },
+        {
+          "id": "7e90aa4f-28cd-4941-8519-d8c7ab13c625",
+          "key": "404",
+          "value": "404"
+        },
+        {
+          "id": "eff20cc0-700d-482a-8326-e182b56fd2b7",
+          "key": "500",
+          "value": "500"
+        },
+        {
+          "id": "1c6b630d-faf3-4456-a9ce-bdc07a643089",
+          "key": "error",
+          "value": "error"
+        },
+        {
+          "id": "c30be1c0-000d-4b84-80b1-0a01505f236b",
+          "key": "info",
+          "value": "info"
+        },
+        {
+          "id": "529902f0-5fbc-4141-9417-a2aa4d230e9d",
+          "key": "success",
+          "value": "success"
+        },
+        {
+          "id": "68487f80-da1f-43cb-8dfe-a02436fda842",
+          "key": "warning",
+          "value": "warning"
+        }
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "id": "475f86ae-d479-4e9b-838f-99d400da7b8d",
+      "name": "Result",
+      "parent": {
+        "id": "53a7cb8c-1631-4555-bead-4b63efbef861",
+        "name": "Feedback"
+      },
+      "children": []
+    }
+  ]
+}

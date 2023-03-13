@@ -9,12 +9,13 @@ export class EnumTypeFactory extends ITypeFactory<ICreateEnumType, IEnumType> {
   repository: EnumTypeRepository = new EnumTypeRepository()
 
   async _create(
-    { name, owner, allowedValues }: ICreateEnumType,
+    { name, owner, allowedValues, id }: ICreateEnumType,
     where: BaseTypeUniqueWhereCallback<IEnumType>,
   ) {
     const enumType = EnumType.init({
       __typename: ITypeKind.EnumType,
       allowedValues,
+      id,
       name,
       owner,
     })

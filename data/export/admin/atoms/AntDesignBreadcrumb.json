@@ -1,0 +1,89 @@
+{
+  "atom": {
+    "id": "e600b499-f246-484c-b176-c68701c7be3b",
+    "name": "AntDesignBreadcrumb",
+    "type": "AntDesignBreadcrumb",
+    "api": {
+      "id": "af1993c7-dc4b-4c67-a77c-9b247af8c00a",
+      "name": "AntDesignBreadcrumb API"
+    },
+    "icon": "Breadcrumb",
+    "tags": [
+      {
+        "id": "fe37a6ba-d9d8-4ccf-b479-5504192e19f6",
+        "name": "Breadcrumb"
+      }
+    ],
+    "allowedChildren": []
+  },
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "af1993c7-dc4b-4c67-a77c-9b247af8c00a",
+    "kind": "InterfaceType",
+    "name": "AntDesignBreadcrumb API",
+    "fields": [
+      {
+        "id": "ba3dac59-90b2-43c5-ae80-9487edc71671",
+        "key": "itemRender",
+        "name": "Item Render",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "af1993c7-dc4b-4c67-a77c-9b247af8c00a"
+        }
+      },
+      {
+        "id": "5dcb39ea-620c-4e3c-a4fa-bbf9cb9ddf8c",
+        "key": "separator",
+        "name": "Separator",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "9749a183-0f27-41af-916f-31af9dbea011",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "af1993c7-dc4b-4c67-a77c-9b247af8c00a"
+        }
+      }
+    ]
+  },
+  "types": [
+    {
+      "__typename": "ActionType",
+      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ],
+  "tags": [
+    {
+      "id": "fe37a6ba-d9d8-4ccf-b479-5504192e19f6",
+      "name": "Breadcrumb",
+      "parent": {
+        "id": "1bf9fc94-4b9d-4210-b6b1-0b6183c607b4",
+        "name": "Navigation"
+      },
+      "children": [
+        {
+          "id": "d045d55a-1b28-4580-a74a-28f952c0d708",
+          "name": "Breadcrumb.Separator"
+        },
+        {
+          "id": "ddcdb7a3-573a-4a72-9a59-aba21c91223e",
+          "name": "Breadcrumb.Item"
+        }
+      ]
+    }
+  ]
+}
