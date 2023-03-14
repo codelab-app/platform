@@ -1,6 +1,5 @@
 import type {
   ElementOptions,
-  ElementUpdateInput,
   ElementWhere,
   RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
@@ -91,5 +90,4 @@ export interface IElementService
     element: IEntity
     targetElement: IEntity
   }): Promise<void>
-  patchElement(element: IElement, input: ElementUpdateInput): Promise<IElement>
 }

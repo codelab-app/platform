@@ -6,21 +6,11 @@ import type {
   IInterfaceType,
   RenderType,
 } from '@codelab/frontend/abstract/core'
-import {
-  IRenderTypeKind,
-  isComponentInstance,
-} from '@codelab/frontend/abstract/core'
-import { isAtomInstance } from '@codelab/frontend/domain/atom'
-import type {
-  ElementCreateInput,
-  ElementUpdateInput,
-} from '@codelab/shared/abstract/codegen'
+import { IRenderTypeKind } from '@codelab/frontend/abstract/core'
+import type { ElementUpdateInput } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import { connectNodeId } from '@codelab/shared/domain/mapper'
-import { createUniqueName } from '@codelab/shared/utils'
 import type { Ref } from 'mobx-keystone'
 import { isNil } from 'ramda'
-import { v4 } from 'uuid'
 
 //
 // Utilities for transforming the form inputs to api inputs
@@ -63,32 +53,6 @@ export const getRenderTypeApi: GetRenderTypeApi = ({
   }
 
   return renderTypeApi
-}
-
-export const makeDuplicateInput = (
-  element: IElement,
-  duplicate_name: string,
-): ElementCreateInput => {
-  const props: ElementCreateInput['props'] = {
-    create: { node: { data: element.props.current.jsonString, id: v4() } },
-  }
-
-  return {
-    customCss: element.customCss,
-    guiCss: element.guiCss,
-    id: v4(),
-    name: createUniqueName(duplicate_name, element.baseId),
-    props,
-    propTransformationJs: element.propTransformationJs,
-    renderAtomType: isAtomInstance(element.renderType)
-      ? connectNodeId(element.renderType.id)
-      : null,
-    renderComponentType: isComponentInstance(element.renderType)
-      ? connectNodeId(element.renderType.id)
-      : null,
-    renderForEachPropKey: element.renderForEachPropKey,
-    renderIfExpression: element.renderIfExpression,
-  }
 }
 
 /**
