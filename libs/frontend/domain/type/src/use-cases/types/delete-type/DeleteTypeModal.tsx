@@ -40,8 +40,6 @@ export const DeleteTypeModal = observer<{ typeService: ITypeService }>(
        *
        * void = execute typeService.queryGetTypesTableTypes, close modal, and not wait until it finished
        */
-
-      void typeService.getBaseTypes({}).then(() => undefined)
     }
 
     return (
