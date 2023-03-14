@@ -10,8 +10,8 @@ export interface UseCreateElementDraggableProps {
   component?: Pick<IBuilderComponent, 'icon' | 'name'>
   createElementInput?: Omit<ICreateElementData, 'id'>
   id: IElementRef
-  overlayRenderer?(): JSX.Element
   type?: BuilderDndType
+  overlayRenderer?(): JSX.Element
 }
 
 export const useCreateElementDraggable = ({

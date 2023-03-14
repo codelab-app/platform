@@ -1,7 +1,7 @@
 import type {
-  IType,
   IInterfaceType,
   IPropData,
+  IType,
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'

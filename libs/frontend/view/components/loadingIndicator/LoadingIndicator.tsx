@@ -6,10 +6,10 @@ import React from 'react'
 import type { LoadingData } from './useTrackLoadingPromises'
 
 interface LoadIndicatorProps extends LoadingData {
+  style?: CSSProperties | ((state: LoadingData) => CSSProperties)
   renderErrored?(error: unknown): React.ReactElement
   renderLoading?(): React.ReactElement
   renderNotLoading?(): React.ReactElement
-  style?: CSSProperties | ((state: LoadingData) => CSSProperties)
 }
 
 export const LoadingIndicator = ({

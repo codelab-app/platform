@@ -8,7 +8,7 @@ import { elementRef } from '../element'
 
 export type IPageNodeRef = Ref<IComponent> | Ref<IElement>
 
-export type IPageNode = IElement | IComponent
+export type IPageNode = IComponent | IElement
 
 /**
  * Used for determining the type of a page node

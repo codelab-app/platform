@@ -1,8 +1,8 @@
 import type {
-  IType,
   IField,
   IFieldDefaultValue,
   IInterfaceType,
+  IType,
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
 import { IFieldDTO } from '@codelab/frontend/abstract/core'

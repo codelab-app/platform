@@ -9,15 +9,26 @@ type CreateRootElement = (
 ) => ComponentCreateInput['rootElement']
 
 export const mapCreateInput = ({
+  api,
   id = v4(),
   name,
   owner,
+  props,
   rootElement,
 }: IComponent): ComponentCreateInput => {
   const newRootElement = { id: v4() }
 
-  const props: ComponentCreateInput['props'] = {
-    create: { node: { data: JSON.stringify({}), id: v4() } },
+  const componentProps: ComponentCreateInput['props'] = {
+    create: { node: { data: JSON.stringify({}), id: props?.id ?? v4() } },
+  }
+
+  const rootElementProps: ComponentCreateInput['props'] = {
+    create: {
+      node: {
+        data: JSON.stringify({}),
+        id: rootElement.maybeCurrent?.props.id ?? v4(),
+      },
+    },
   }
 
   const createRootElement: CreateRootElement = (element: IEntity) => ({
@@ -25,7 +36,7 @@ export const mapCreateInput = ({
       node: {
         id: element.id,
         name,
-        props,
+        props: rootElementProps,
       },
     },
   })
@@ -33,10 +44,10 @@ export const mapCreateInput = ({
   const connectRootElement: CreateRootElement = (element: IEntity) =>
     connectNodeId(element.id)
 
-  const api: ComponentCreateInput['api'] = {
+  const createApi: ComponentCreateInput['api'] = {
     create: {
       node: {
-        id: v4(),
+        id: api.id,
         name: `${name} API`,
         owner: connectAuth0Owner(owner),
       },
@@ -44,17 +55,15 @@ export const mapCreateInput = ({
   }
 
   return {
-    api,
-    childrenContainerElement: rootElement.maybeCurrent
-      ? connectRootElement(rootElement.current)
-      : connectRootElement(newRootElement),
+    api: createApi,
+    childrenContainerElement: connectRootElement(
+      rootElement.maybeCurrent ?? newRootElement,
+    ),
     id,
     name,
     owner: connectAuth0Owner(owner),
-    props,
-    rootElement: rootElement.maybeCurrent
-      ? connectRootElement(rootElement.current)
-      : createRootElement(newRootElement),
+    props: componentProps,
+    rootElement: createRootElement(rootElement.maybeCurrent ?? newRootElement),
   }
 }
 

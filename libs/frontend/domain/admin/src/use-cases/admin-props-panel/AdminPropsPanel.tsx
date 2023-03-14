@@ -1,7 +1,7 @@
 import type {
-  IType,
   IField,
   IInterfaceType,
+  IType,
 } from '@codelab/frontend/abstract/core'
 import { isAdmin } from '@codelab/frontend/abstract/core'
 import { fieldRef, typeRef } from '@codelab/frontend/domain/type'

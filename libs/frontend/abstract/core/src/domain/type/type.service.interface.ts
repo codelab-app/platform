@@ -16,7 +16,7 @@ import type {
   ITypeDTO,
   IUpdateTypeData,
 } from './type.dto.interface'
-import type { IType, IInterfaceType, IInterfaceTypeRef } from './types'
+import type { IInterfaceType, IInterfaceTypeRef, IType } from './types'
 
 
 import type { BaseTypesOptions } from './type.repo.interface'

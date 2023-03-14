@@ -1,8 +1,8 @@
 import type {
-  IType,
   IFieldRecord,
   IFieldService,
   IInterfaceType,
+  IType,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import {
