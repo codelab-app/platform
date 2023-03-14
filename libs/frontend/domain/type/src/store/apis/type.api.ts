@@ -1,5 +1,5 @@
 import type {
-  IconnectNodeInput,
+  IConnectNodeInput,
   ICreateTypeInput,
   IDeleteTypeInput,
   IDisconnectNodeInput,
@@ -13,6 +13,7 @@ import type {
   ElementTypeCreateInput,
   PrimitiveTypeCreateInput,
   ReactNodeTypeCreateInput,
+  TypeFragment,
 } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { UnboxArray } from '@codelab/shared/abstract/types'
@@ -36,7 +37,7 @@ const _createApi = getCreateSdk(client)
 
 type CreateTypesRecord = Record<
   ITypeKind,
-  (input: Array<ICreateTypeInput>) => Promise<Array<ITypeDTO>>
+  (input: Array<ICreateTypeInput>) => Promise<Array<TypeFragment>>
 >
 
 export const createTypeApi: CreateTypesRecord = {
@@ -134,12 +135,12 @@ const _updateApi = getUpdateSdk(client)
 type UpdateTypesRecord = Record<
   ITypeKind,
   (vars: {
-    connect?: IconnectNodeInput
+    connect?: IConnectNodeInput
     delete?: IDeleteTypeInput
     disconnect?: IDisconnectNodeInput
     update?: IUpdateTypeInput
     where: ITypeWhere
-  }) => Promise<Array<ITypeDTO>>
+  }) => Promise<Array<TypeFragment>>
 >
 
 export const updateTypeApi: UpdateTypesRecord = {

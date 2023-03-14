@@ -22,20 +22,20 @@ import { gql } from 'graphql-tag'
 import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
 export type ArrayTypeFragment = {
   itemType:
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
-    | { id: string; name: string }
+    | { id: string; name: string; kind: Types.TypeKind }
+    | { id: string; name: string; kind: Types.TypeKind }
+    | { id: string; name: string; kind: Types.TypeKind }
+    | { id: string; name: string; kind: Types.TypeKind }
+    | { id: string; name: string; kind: Types.TypeKind }
+    | { id: string; name: string; kind: Types.TypeKind }
+    | { id: string; name: string; kind: Types.TypeKind }
+    | { id: string; name: string; kind: Types.TypeKind }
+    | { id: string; name: string; kind: Types.TypeKind }
+    | { id: string; name: string; kind: Types.TypeKind }
+    | { id: string; name: string; kind: Types.TypeKind }
+    | { id: string; name: string; kind: Types.TypeKind }
+    | { id: string; name: string; kind: Types.TypeKind }
+    | { id: string; name: string; kind: Types.TypeKind }
 } & BaseType_ArrayType_Fragment
 
 export const ArrayTypeFragmentDoc = gql`
@@ -45,6 +45,7 @@ export const ArrayTypeFragmentDoc = gql`
       ... on IBaseType {
         id
         name
+        kind
       }
     }
   }

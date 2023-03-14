@@ -4,6 +4,7 @@ fragment ArrayType on ArrayType {
     ... on IBaseType {
       id
       name
+      kind
     }
   }
 }
