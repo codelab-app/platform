@@ -573,8 +573,21 @@
       "rules": {}
     }
     // {
+    //   "files": ["*.ts"],
+    //   "processor": "@graphql-eslint/graphql"
+    // },
+    // {
     //   "files": ["*.graphql"],
-    //   "extends": "plugin:@graphql-eslint/schema-recommended"
+    //   // "parser": "@graphql-eslint/eslint-plugin",
+    //   // "plugins": ["@graphql-eslint"],
+    //   "extends": ["plugin:@graphql-eslint/schema-all"],
+    //   // "parserOptions": {
+    //   //   "operations": "{apps,libs}/**/*.graphql",
+    //   //   "schema": "./schema.graphql"
+    //   // },
+    //   "rules": {
+    //     "@graphql-eslint/known-type-names": "error"
+    //   }
     // }
   ]
 }
