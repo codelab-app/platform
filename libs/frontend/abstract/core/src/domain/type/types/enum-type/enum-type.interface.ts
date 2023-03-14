@@ -1,3 +1,9 @@
+import type {
+  ElementTypeCreateInput,
+  ElementTypeUpdateInput,
+  EnumTypeCreateInput,
+  EnumTypeUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import type { IBaseType } from '../base-type'
@@ -20,4 +26,7 @@ export interface IEnumTypeValue {
 export interface IEnumType extends IBaseType<IEnumTypeDTO> {
   allowedValues: Array<Ref<IEnumTypeValue>>
   kind: ITypeKind.EnumType
+
+  toCreateInput(): EnumTypeCreateInput
+  toUpdateInput(): EnumTypeUpdateInput
 }

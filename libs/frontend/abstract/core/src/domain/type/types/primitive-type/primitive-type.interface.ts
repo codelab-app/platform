@@ -1,4 +1,8 @@
 import type {
+  PrimitiveTypeCreateInput,
+  PrimitiveTypeUpdateInput,
+} from '@codelab/shared/abstract/codegen'
+import type {
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
@@ -14,4 +18,7 @@ import type { IPrimitiveTypeDTO } from './primitive-type.dto.interface'
 export interface IPrimitiveType extends IBaseType<IPrimitiveTypeDTO> {
   kind: ITypeKind.PrimitiveType
   primitiveKind: IPrimitiveTypeKind
+
+  toCreateInput(): PrimitiveTypeCreateInput
+  toUpdateInput(): PrimitiveTypeUpdateInput
 }

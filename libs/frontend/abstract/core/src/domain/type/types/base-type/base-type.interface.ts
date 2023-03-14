@@ -4,6 +4,7 @@ import type { IOwnerSchema } from '../../../user'
 import type {
   ICreateTypeInput,
   IUpdateTypeArgs,
+  IUpdateTypeInput,
 } from '../../type.input.interface'
 import type { IBaseTypeDTO } from './base-type.dto.interface'
 
@@ -15,6 +16,6 @@ export interface IBaseType<DTO extends IBaseTypeDTO>
   name: string
 
   toCreateInput(): ICreateTypeInput
-  toUpdateInput(): IUpdateTypeArgs
+  toUpdateInput(): IUpdateTypeInput
   // toDeleteInput(): IDeleteTypeInput
 }

@@ -11,6 +11,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { FieldFragment } from '@codelab/shared/abstract/codegen'
+import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
@@ -178,14 +179,6 @@ export class TypeService
 
     this.types.set(type!.id, type!)
 
-    // Write cache to the fields
-    if (
-      type!.kind === ITypeKind.InterfaceType &&
-      typeDTO.__typename === 'InterfaceType'
-    ) {
-      type.writeFieldCache(typeDTO.fields)
-    }
-
     return type
   }
 
@@ -234,8 +227,19 @@ export class TypeService
       this.typeRepository.findDescendants(parentIds),
     )
 
+    const allFragments = [...typeFragments, ...descendantTypeFragments]
+
+    // initialize fields
+    allFragments.forEach((typeFragment) => {
+      if (typeFragment.__typename === TypeKind.InterfaceType) {
+        typeFragment.fields.forEach((fieldFragment) => {
+          this.fieldService.add(fieldFragment)
+        })
+      }
+    })
+
     return (
-      [...typeFragments, ...descendantTypeFragments]
+      allFragments
         .map((typeFragment) => {
           return this.add(typeFragment)
         })

@@ -19766,20 +19766,30 @@ export type AppTypeFragment = {
 export type ArrayTypeFragment = {
   __typename?: 'ArrayType'
   itemType:
-    | { __typename?: 'ActionType'; id: string; name: string }
-    | { __typename?: 'AppType'; id: string; name: string }
-    | { __typename?: 'ArrayType'; id: string; name: string }
-    | { __typename?: 'BaseType'; id: string; name: string }
-    | { __typename?: 'CodeMirrorType'; id: string; name: string }
-    | { __typename?: 'ElementType'; id: string; name: string }
-    | { __typename?: 'EnumType'; id: string; name: string }
-    | { __typename?: 'InterfaceType'; id: string; name: string }
-    | { __typename?: 'LambdaType'; id: string; name: string }
-    | { __typename?: 'PageType'; id: string; name: string }
-    | { __typename?: 'PrimitiveType'; id: string; name: string }
-    | { __typename?: 'ReactNodeType'; id: string; name: string }
-    | { __typename?: 'RenderPropsType'; id: string; name: string }
-    | { __typename?: 'UnionType'; id: string; name: string }
+    | { __typename?: 'ActionType'; id: string; name: string; kind: TypeKind }
+    | { __typename?: 'AppType'; id: string; name: string; kind: TypeKind }
+    | { __typename?: 'ArrayType'; id: string; name: string; kind: TypeKind }
+    | { __typename?: 'BaseType'; id: string; name: string; kind: TypeKind }
+    | {
+        __typename?: 'CodeMirrorType'
+        id: string
+        name: string
+        kind: TypeKind
+      }
+    | { __typename?: 'ElementType'; id: string; name: string; kind: TypeKind }
+    | { __typename?: 'EnumType'; id: string; name: string; kind: TypeKind }
+    | { __typename?: 'InterfaceType'; id: string; name: string; kind: TypeKind }
+    | { __typename?: 'LambdaType'; id: string; name: string; kind: TypeKind }
+    | { __typename?: 'PageType'; id: string; name: string; kind: TypeKind }
+    | { __typename?: 'PrimitiveType'; id: string; name: string; kind: TypeKind }
+    | { __typename?: 'ReactNodeType'; id: string; name: string; kind: TypeKind }
+    | {
+        __typename?: 'RenderPropsType'
+        id: string
+        name: string
+        kind: TypeKind
+      }
+    | { __typename?: 'UnionType'; id: string; name: string; kind: TypeKind }
 } & BaseType_ArrayType_Fragment
 
 type BaseType_ActionType_Fragment = {

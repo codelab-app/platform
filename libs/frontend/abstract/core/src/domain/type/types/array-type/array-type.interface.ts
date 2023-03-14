@@ -1,3 +1,7 @@
+import type {
+  ArrayTypeCreateInput,
+  ArrayTypeUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import type { IBaseType } from '../base-type'
@@ -12,4 +16,7 @@ import type { IArrayTypeDTO } from './array-type.dto.interface'
 export interface IArrayType extends IBaseType<IArrayTypeDTO> {
   itemType?: Ref<IType> | null
   kind: ITypeKind.ArrayType
+
+  toCreateInput(): ArrayTypeCreateInput
+  toUpdateInput(): ArrayTypeUpdateInput
 }

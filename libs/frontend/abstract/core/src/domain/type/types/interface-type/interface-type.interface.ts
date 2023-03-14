@@ -1,4 +1,7 @@
-import type { InterfaceTypeCreateInput } from '@codelab/shared/abstract/codegen'
+import type {
+  InterfaceTypeCreateInput,
+  InterfaceTypeUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { IPropData } from '../../../prop'
@@ -21,6 +24,7 @@ export interface IInterfaceType extends IBaseType<IInterfaceTypeDTO> {
   field(id: string): Maybe<IField>
   load(fields: Array<FieldFragment>): void
   toCreateInput(): InterfaceTypeCreateInput
+  toUpdateInput(): InterfaceTypeUpdateInput
   writeFieldCache(fields: Array<IEntity>): void
 }
 
