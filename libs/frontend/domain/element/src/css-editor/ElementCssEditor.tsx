@@ -22,8 +22,8 @@ const { Panel } = Collapse
 
 export interface ElementCssEditorInternalProps {
   element: IElement
-  trackPromises?: UseTrackLoadingPromises
   elementService: IElementService
+  trackPromises?: UseTrackLoadingPromises
 }
 
 /*
@@ -33,7 +33,7 @@ export interface ElementCssEditorInternalProps {
   */
 
 export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
-  ({ element, trackPromises, elementService }) => {
+  ({ element, elementService, trackPromises }) => {
     const { trackPromise } = trackPromises ?? {}
 
     const [guiCssObj, setGuiCssObj] = useState<CssMap>(
@@ -58,8 +58,9 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
 
     const updateCustomCss = useCallback(
       (newCustomCss: string) => {
-        const promise = elementService.patchElement(element, {
+        const promise = elementService.update({
           customCss: newCustomCss,
+          id: element.id,
         })
 
         return trackPromise?.(promise) ?? promise
@@ -94,8 +95,9 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
 
     const updateGuiCss = useCallback(
       (newGuiCss: string) => {
-        const promise = elementService.patchElement(element, {
+        const promise = elementService.update({
           guiCss: newGuiCss,
+          id: element.id,
         })
 
         return trackPromise?.(promise) ?? promise

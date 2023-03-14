@@ -69,7 +69,7 @@ export const usePropsInspector = (
   renderer: IRenderer,
   editedProps: IPropData,
 ) => {
-  const { componentService, elementService } = useStore()
+  const { propService } = useStore()
   const [isLoading, setIsLoading] = useState(false)
   const validate = getNodePropsValidateFn(node)
   const lastRenderedProps = getNodeProps(node, renderer, editedProps)
@@ -82,13 +82,10 @@ export const usePropsInspector = (
       setIsLoading(true)
       validate(data)
 
-      if (isElementPageNodeRef(node)) {
-        await elementService.patchElement(node.current, {
-          props: { update: { node: { data: jsonData } } },
-        })
-      } else {
-        await componentService.patchComponent(node.current, {
-          props: { update: { node: { data: jsonData } } },
+      if (node.current.props) {
+        await propService.update({
+          data: jsonData,
+          id: node.current.props.id,
         })
       }
 
