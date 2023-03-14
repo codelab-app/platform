@@ -38,7 +38,6 @@ export const CreateTypeModal = observer<{
      * if modal is opened -> bug: modal input values are cleared
      * void = execute typeService.queryGetTypesTableTypes, close modal, and not wait until it finishes
      */
-    void typeService.getBaseTypes({}).then(() => undefined)
   }
 
   return (

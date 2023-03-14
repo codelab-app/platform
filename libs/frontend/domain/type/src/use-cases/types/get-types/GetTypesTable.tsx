@@ -27,11 +27,11 @@ export const GetTypesTable = observer<{
   const curPageSize = pageSize ?? DEFAULT_PAGE_SIZE
 
   const {
-    fetchedBaseTypes,
-    getBaseTypes,
-    getTypeDescendants,
+    fetchedTypes,
+    getFullType,
+    getTypes,
     isLoadingAllTypes,
-    isLoadingTypeDescendants,
+    loadingFullType,
   } = useTypesTableData(typeService)
 
   const { columns, pagination, rowSelection } = useTypesTable({
@@ -64,14 +64,14 @@ export const GetTypesTable = observer<{
 
   useEffect(() => {
     const offset = (curPage - 1) * curPageSize
-    void getBaseTypes({
+    void getTypes({
       limit: curPageSize,
       offset,
     })
-  }, [curPage, curPageSize, getBaseTypes])
+  }, [curPage, curPageSize, getTypes])
 
   const curPageDataStartIndex = typesList.findIndex(
-    (type) => type.id === fetchedBaseTypes?.[0]?.id,
+    (type) => type.id === fetchedTypes?.[0]?.id,
   )
 
   return (
@@ -83,7 +83,7 @@ export const GetTypesTable = observer<{
       )}
       expandable={{
         expandedRowRender: (type) =>
-          isLoadingAllTypes || isLoadingTypeDescendants ? (
+          isLoadingAllTypes ? (
             <Spin />
           ) : (
             <TypeDetailsTable
@@ -92,9 +92,9 @@ export const GetTypesTable = observer<{
               typeService={typeService}
             />
           ),
-        onExpand: async (expanded, record) => {
+        onExpand: (expanded, record) => {
           if (expanded) {
-            await getTypeDescendants(record.id)
+            void getFullType([record.id])
           }
         },
       }}

@@ -10,10 +10,7 @@ import {
   ITypeDTO,
 } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import type {
-  BaseTypeWhere,
-  FieldFragment,
-} from '@codelab/shared/abstract/codegen'
+import type { FieldFragment } from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
@@ -33,8 +30,6 @@ import {
 } from 'mobx-keystone'
 import { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
 import { TypeRepository } from '../services'
-import { getTypeApi } from './apis/type.api'
-import { baseTypesFactory } from './base-types.factory'
 import { getFieldService } from './field.service.context'
 import { InterfaceType } from './models'
 import { TypeFactory } from './type.factory'
@@ -69,30 +64,17 @@ export class TypeService
    */
   @modelFlow
   @transaction
-  getBaseTypes = _async(function* (
-    this: TypeService,
-    { limit, offset, where },
-  ) {
-    const {
-      baseTypes: { items, totalCount },
-    } = yield* _await(
-      getTypeApi.GetBaseTypes({
-        options: {
-          limit,
-          offset,
-          where,
-        },
-      }),
+  getBaseTypes = _async(function* (this: TypeService, options) {
+    const { items, totalCount } = yield* _await(
+      this.typeRepository.findBaseTypes(options),
     )
 
     this.count = totalCount
 
-    return items.map((type) => {
-      const typeModel = baseTypesFactory(type)
-      this.types.set(type.id, typeModel)
+    const typeIds = items.map(({ id }) => id)
+    const types = yield* _await(this.getAll(typeIds))
 
-      return typeModel.id
-    })
+    return types
   })
 
   @computed
@@ -188,12 +170,17 @@ export class TypeService
 
   @modelAction
   add(typeDTO: ITypeDTO) {
-    const type = TypeFactory.create(typeDTO)
-    this.types.set(type.id, type)
+    let type = this.types.get(typeDTO.id)
+
+    type = type
+      ? TypeFactory.writeCache(typeDTO, type)
+      : TypeFactory.create(typeDTO)
+
+    this.types.set(type!.id, type!)
 
     // Write cache to the fields
     if (
-      type.kind === ITypeKind.InterfaceType &&
+      type!.kind === ITypeKind.InterfaceType &&
       typeDTO.__typename === 'InterfaceType'
     ) {
       type.writeFieldCache(typeDTO.fields)
@@ -228,16 +215,32 @@ export class TypeService
     return type
   })
 
+  /**
+   * fetches the types with the given ids
+   * while loading all their descendant types
+   * @returns only the types having their id in ids
+   */
   @modelFlow
   @transaction
-  getAll = _async(function* (this: TypeService, where?: BaseTypeWhere) {
-    const typeFragments = yield* _await(this.typeRepository.find(where || {}))
+  getAll = _async(function* (this: TypeService, ids: Array<string>) {
+    const typeFragments = yield* _await(
+      this.typeRepository.find({ id_IN: ids }),
+    )
+
+    const parentIds = typeFragments.map((typeFragment) => typeFragment.id)
+
+    // load the descendants of the requested types
+    const descendantTypeFragments = yield* _await(
+      this.typeRepository.findDescendants(parentIds),
+    )
 
     return (
-      typeFragments
+      [...typeFragments, ...descendantTypeFragments]
         .map((typeFragment) => {
           return this.add(typeFragment)
         })
+        // return only the requested types
+        .filter((type) => ids.includes(type.id))
         // Sort the most recently fetched types
         .sort((typeA, typeB) =>
           typeA.name.toLowerCase() < typeB.name.toLowerCase() ? -1 : 1,
@@ -256,55 +259,22 @@ export class TypeService
       return this.types.get(id)
     }
 
-    const all = yield* _await(this.getAll({ id_IN: [id] }))
+    const all = yield* _await(this.getAll([id]))
 
     return all[0]
   })
 
-  @modelFlow
-  @transaction
-  getAllWithDescendants = _async(function* (
-    this: TypeService,
-    ids: Array<string> = [],
-  ) {
-    const { arrayTypes, interfaceTypes, unionTypes } = yield* _await(
-      getTypeApi.GetDescendants({ ids }),
-    )
-
-    const allDescendantIds = [
-      ...arrayTypes,
-      ...unionTypes,
-      ...interfaceTypes,
-    ].reduce<Array<string>>(
-      (descendantIds, { descendantTypesIds }) => [
-        ...descendantIds,
-        ...descendantTypesIds.flat(),
-      ],
-      [],
-    )
-
-    // remove duplicates
-    const allIds = [...new Set([...ids, ...allDescendantIds])]
-
-    return yield* _await(this.getAll({ id_IN: allIds }))
-  })
-
   /**
-   * A wrapper around getAllWithDescendants with some type checking
+   * A wrapper around getAll with some type checking.
+   * Gets the interface while loading its descendant types
    */
   @modelFlow
   @transaction
-  getInterfaceAndDescendants = _async(function* (
+  getInterface = _async(function* (
     this: TypeService,
     interfaceTypeId: IInterfaceTypeRef,
   ) {
-    const interfaceWithDescendants = yield* _await(
-      this.getAllWithDescendants([interfaceTypeId]),
-    )
-
-    const interfaceType = interfaceWithDescendants.find(
-      ({ id }) => id === interfaceTypeId,
-    )
+    const [interfaceType] = yield* _await(this.getAll([interfaceTypeId]))
 
     if (!interfaceType) {
       throw new Error('Type not found')
@@ -317,8 +287,6 @@ export class TypeService
     return interfaceType
   })
 
-  /*
-   */
   @modelFlow
   @transaction
   create = _async(function* (this: TypeService, data: ICreateTypeData) {
