@@ -20023,7 +20023,9 @@ type Type_PrimitiveType_Fragment = {
   __typename?: 'PrimitiveType'
 } & PrimitiveTypeFragment
 
-type Type_ReactNodeType_Fragment = { __typename?: 'ReactNodeType' }
+type Type_ReactNodeType_Fragment = {
+  __typename?: 'ReactNodeType'
+} & ReactNodeTypeFragment
 
 type Type_RenderPropsType_Fragment = {
   __typename?: 'RenderPropsType'

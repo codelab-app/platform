@@ -8,6 +8,7 @@ import { PrimitiveTypeFragment } from './primitive-type.fragment.graphql.gen'
 import { ElementTypeFragment } from './element-type.fragment.graphql.gen'
 import { LambdaTypeFragment } from './lambda-type.fragment.graphql.gen'
 import { RenderPropsTypeFragment } from './render-props.fragment.graphql.gen'
+import { ReactNodeTypeFragment } from './react-node-type.fragment.graphql.gen'
 import { CodeMirrorTypeFragment } from './code-mirror-type.fragment.graphql.gen'
 import { PageTypeFragment } from './page-type.fragment.graphql.gen'
 import { AppTypeFragment } from './app-type.fragment.graphql.gen'
@@ -23,6 +24,7 @@ import { PrimitiveTypeFragmentDoc } from './primitive-type.fragment.graphql.gen'
 import { ElementTypeFragmentDoc } from './element-type.fragment.graphql.gen'
 import { LambdaTypeFragmentDoc } from './lambda-type.fragment.graphql.gen'
 import { RenderPropsTypeFragmentDoc } from './render-props.fragment.graphql.gen'
+import { ReactNodeTypeFragmentDoc } from './react-node-type.fragment.graphql.gen'
 import { CodeMirrorTypeFragmentDoc } from './code-mirror-type.fragment.graphql.gen'
 import { PageTypeFragmentDoc } from './page-type.fragment.graphql.gen'
 import { AppTypeFragmentDoc } from './app-type.fragment.graphql.gen'
@@ -49,7 +51,7 @@ export type Type_PageType_Fragment = PageTypeFragment
 
 export type Type_PrimitiveType_Fragment = PrimitiveTypeFragment
 
-export type Type_ReactNodeType_Fragment = {}
+export type Type_ReactNodeType_Fragment = ReactNodeTypeFragment
 
 export type Type_RenderPropsType_Fragment = RenderPropsTypeFragment
 
@@ -81,6 +83,7 @@ export const TypeFragmentDoc = gql`
     ...ElementType
     ...LambdaType
     ...RenderPropsType
+    ...ReactNodeType
     ...CodeMirrorType
     ...PageType
     ...AppType
@@ -94,6 +97,7 @@ export const TypeFragmentDoc = gql`
   ${ElementTypeFragmentDoc}
   ${LambdaTypeFragmentDoc}
   ${RenderPropsTypeFragmentDoc}
+  ${ReactNodeTypeFragmentDoc}
   ${CodeMirrorTypeFragmentDoc}
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}

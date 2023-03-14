@@ -8,6 +8,7 @@ fragment Type on IBaseType {
   ...ElementType
   ...LambdaType
   ...RenderPropsType
+  ...ReactNodeType
   ...CodeMirrorType
   ...PageType
   ...AppType
