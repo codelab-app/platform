@@ -2417,6 +2417,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/plugin-syntax-import-assertions@npm:7.20.0":
+  version: 7.20.0
+  resolution: "@babel/plugin-syntax-import-assertions@npm:7.20.0"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.19.0
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 6a86220e0aae40164cd3ffaf80e7c076a1be02a8f3480455dddbae05fda8140f429290027604df7a11b3f3f124866e8a6d69dbfa1dda61ee7377b920ad144d5b
+  languageName: node
+  linkType: hard
+
 "@babel/plugin-syntax-import-assertions@npm:^7.17.12":
   version: 7.17.12
   resolution: "@babel/plugin-syntax-import-assertions@npm:7.17.12"
@@ -4939,23 +4950,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-eslint/eslint-plugin@npm:3.10.3":
-  version: 3.10.3
-  resolution: "@graphql-eslint/eslint-plugin@npm:3.10.3"
+"@graphql-eslint/eslint-plugin@npm:^3.16.1":
+  version: 3.16.1
+  resolution: "@graphql-eslint/eslint-plugin@npm:3.16.1"
   dependencies:
-    "@babel/code-frame": ^7.16.7
-    "@graphql-tools/code-file-loader": ^7.2.14
-    "@graphql-tools/graphql-tag-pluck": ^7.2.6
-    "@graphql-tools/utils": ^8.6.9
+    "@babel/code-frame": ^7.18.6
+    "@graphql-tools/code-file-loader": ^7.3.6
+    "@graphql-tools/graphql-tag-pluck": ^7.3.6
+    "@graphql-tools/utils": ^9.0.0
     chalk: ^4.1.2
     debug: ^4.3.4
-    fast-glob: ^3.2.11
-    graphql-config: ^4.3.0
+    fast-glob: ^3.2.12
+    graphql-config: ^4.4.0
     graphql-depth-limit: ^1.1.0
     lodash.lowercase: ^4.3.0
+    tslib: ^2.4.1
   peerDependencies:
     graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
-  checksum: ac9d2c1c32e6f8e215551201ff6595efe70cddc4f9bef3654f6a11f408673989dfb84daefe4666a5ec285519bf10c97ca822946c9c758aff05ccc1609280e620
+  checksum: 2fc64c05b12ca9d8ca082f0c236fb0e14a696a12c9e532c4157acae6239b18e0ea2cd49634d26b31cce2705888c4c9cdc480fa67f75f1fc8c1c3f9a0ab4e5795
   languageName: node
   linkType: hard
 
@@ -4987,7 +4999,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-tools/code-file-loader@npm:^7.0.6, @graphql-tools/code-file-loader@npm:^7.2.14":
+"@graphql-tools/code-file-loader@npm:^7.0.6":
   version: 7.2.17
   resolution: "@graphql-tools/code-file-loader@npm:7.2.17"
   dependencies:
@@ -4999,6 +5011,21 @@ __metadata:
   peerDependencies:
     graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
   checksum: 6c73ae1906727bee0429e20b129c4bd3ce872ed0757d14592732ad4da937a1793560b579085e66d19968eb5463e0bd2026bcc959f6c912c5c37988f7035d02e7
+  languageName: node
+  linkType: hard
+
+"@graphql-tools/code-file-loader@npm:^7.3.6":
+  version: 7.3.21
+  resolution: "@graphql-tools/code-file-loader@npm:7.3.21"
+  dependencies:
+    "@graphql-tools/graphql-tag-pluck": 7.5.0
+    "@graphql-tools/utils": 9.2.1
+    globby: ^11.0.3
+    tslib: ^2.4.0
+    unixify: ^1.0.0
+  peerDependencies:
+    graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+  checksum: 5d0d0a70bac673b4925a65f2283e3fcc5c093d2466a144cc577cb515d3de92ca2458d92842e02fe82a95d57d30ce6d2998b8ee5674393f7cd3df52f69671d565
   languageName: node
   linkType: hard
 
@@ -5065,7 +5092,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-tools/graphql-tag-pluck@npm:7.2.9, @graphql-tools/graphql-tag-pluck@npm:^7.2.6":
+"@graphql-tools/graphql-tag-pluck@npm:7.2.9":
   version: 7.2.9
   resolution: "@graphql-tools/graphql-tag-pluck@npm:7.2.9"
   dependencies:
@@ -5077,6 +5104,22 @@ __metadata:
   peerDependencies:
     graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
   checksum: 6bddb9b776cf1352df9c526c160a80c5d2e96f914697031558e4a79e7c1b4e543948ab954f97d675206e758148db0d04aa57e5be8a063139a1f4158eabcc68b2
+  languageName: node
+  linkType: hard
+
+"@graphql-tools/graphql-tag-pluck@npm:7.5.0, @graphql-tools/graphql-tag-pluck@npm:^7.3.6":
+  version: 7.5.0
+  resolution: "@graphql-tools/graphql-tag-pluck@npm:7.5.0"
+  dependencies:
+    "@babel/parser": ^7.16.8
+    "@babel/plugin-syntax-import-assertions": 7.20.0
+    "@babel/traverse": ^7.16.8
+    "@babel/types": ^7.16.8
+    "@graphql-tools/utils": 9.2.1
+    tslib: ^2.4.0
+  peerDependencies:
+    graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+  checksum: 47edaacdeafc4a464f8a51e047cafbb82a9a2700536a5b075eb4afad43c80b513a7b0ac4ad49a1e8a74b566ed7dfd677ebb0d0a967fe1e2ee66408cd5d4f294b
   languageName: node
   linkType: hard
 
@@ -5375,7 +5418,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-tools/utils@npm:8.6.12, @graphql-tools/utils@npm:^8.1.1, @graphql-tools/utils@npm:^8.3.0, @graphql-tools/utils@npm:^8.5.2, @graphql-tools/utils@npm:^8.6.5, @graphql-tools/utils@npm:^8.6.9":
+"@graphql-tools/utils@npm:8.6.12, @graphql-tools/utils@npm:^8.1.1, @graphql-tools/utils@npm:^8.3.0, @graphql-tools/utils@npm:^8.5.2, @graphql-tools/utils@npm:^8.6.5":
   version: 8.6.12
   resolution: "@graphql-tools/utils@npm:8.6.12"
   dependencies:
@@ -13988,7 +14031,7 @@ __metadata:
     "@graphql-codegen/typescript-document-nodes": 2.2.11
     "@graphql-codegen/typescript-graphql-request": 4.4.8
     "@graphql-codegen/typescript-operations": 2.4.0
-    "@graphql-eslint/eslint-plugin": 3.10.3
+    "@graphql-eslint/eslint-plugin": ^3.16.1
     "@graphql-tools/merge": 8.2.11
     "@graphql-tools/utils": 8.12.0
     "@hon2a/cypress-without": 1.1.8
@@ -14976,6 +15019,18 @@ __metadata:
     path-type: ^4.0.0
     yaml: ^1.10.0
   checksum: 4be63e7117955fd88333d7460e4c466a90f556df6ef34efd59034d2463484e339666c41f02b523d574a797ec61f4a91918c5b89a316db2ea2f834e0d2d09465b
+  languageName: node
+  linkType: hard
+
+"cosmiconfig@npm:8.0.0":
+  version: 8.0.0
+  resolution: "cosmiconfig@npm:8.0.0"
+  dependencies:
+    import-fresh: ^3.2.1
+    js-yaml: ^4.1.0
+    parse-json: ^5.0.0
+    path-type: ^4.0.0
+  checksum: ff4cdf89ac1ae52e7520816622c21a9e04380d04b82d653f5139ec581aa4f7f29e096d46770bc76c4a63c225367e88a1dfa233ea791669a35101f5f9b972c7d1
   languageName: node
   linkType: hard
 
@@ -19773,7 +19828,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-config@npm:^4.1.0, graphql-config@npm:^4.3.0":
+"graphql-config@npm:^4.1.0":
   version: 4.3.1
   resolution: "graphql-config@npm:4.3.1"
   dependencies:
@@ -19791,6 +19846,31 @@ __metadata:
   peerDependencies:
     graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
   checksum: 29c22fafaaf3889572d168b399f3f54194750269f832b241883f82011c40923b5eb9f8c24f9f1214b716f74726a061372af583b499a70299a71c5b3b53b42281
+  languageName: node
+  linkType: hard
+
+"graphql-config@npm:^4.4.0":
+  version: 4.5.0
+  resolution: "graphql-config@npm:4.5.0"
+  dependencies:
+    "@graphql-tools/graphql-file-loader": ^7.3.7
+    "@graphql-tools/json-file-loader": ^7.3.7
+    "@graphql-tools/load": ^7.5.5
+    "@graphql-tools/merge": ^8.2.6
+    "@graphql-tools/url-loader": ^7.9.7
+    "@graphql-tools/utils": ^9.0.0
+    cosmiconfig: 8.0.0
+    jiti: 1.17.1
+    minimatch: 4.2.3
+    string-env-interpolation: 1.0.1
+    tslib: ^2.4.0
+  peerDependencies:
+    cosmiconfig-toml-loader: ^1.0.0
+    graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+  peerDependenciesMeta:
+    cosmiconfig-toml-loader:
+      optional: true
+  checksum: 8ab1a3ce3534598ddac2df213b6af2eecd9ebcca2268d39cc3e87a6e55749483389a6df222e9e0acd638dd2479378a5c8e8d90f980e6a54e700c4c4ae3522123
   languageName: node
   linkType: hard
 
@@ -23067,6 +23147,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jiti@npm:1.17.1":
+  version: 1.17.1
+  resolution: "jiti@npm:1.17.1"
+  bin:
+    jiti: bin/jiti.js
+  checksum: 56c6d8488e7e9cc6ee66a0f0d5e18db6669cb12b2e93364f393442289a9bc75a8e8c796249f59015e01c3ebdf9478e2ca8b76c30e29072c678ee00d39de757c7
+  languageName: node
+  linkType: hard
+
 "joi@npm:^17.6.0":
   version: 17.6.0
   resolution: "joi@npm:17.6.0"
@@ -24977,6 +25066,15 @@ __metadata:
   dependencies:
     brace-expansion: ^1.1.7
   checksum: 2b1514e3d0f29a549912f0db7ae7b82c5cab4a8f2dd0369f1c6451a325b3f12b2cf473c95873b6157bb8df183d6cf6db82ff03614b6adaaf1d7e055beccdfd01
+  languageName: node
+  linkType: hard
+
+"minimatch@npm:4.2.3":
+  version: 4.2.3
+  resolution: "minimatch@npm:4.2.3"
+  dependencies:
+    brace-expansion: ^1.1.7
+  checksum: 3392388e3ef7de7ae9a3a48d48a27a323934452f4af81b925dfbe85ce2dc07da855e3dbcc69229888be4e5118f6c0b79847d30f3e7c0e0017b25e423c11c0409
   languageName: node
   linkType: hard
 

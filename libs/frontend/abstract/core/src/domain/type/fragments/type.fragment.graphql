@@ -1,5 +1,4 @@
 fragment Type on IBaseType {
-  # ...BaseType
   ...ArrayType
   ...UnionType
   ...EnumType

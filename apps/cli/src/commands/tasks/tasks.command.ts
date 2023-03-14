@@ -142,7 +142,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
                   return (
                     _matches ||
                     filename.includes('.gen.ts') ||
-                    filename === 'schema.api.graphql'
+                    filename === 'schema.graphql'
                   )
                 },
                 false,

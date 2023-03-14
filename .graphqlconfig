@@ -2,7 +2,7 @@
   "name": "Codelab API",
   "projects": {
     "v1": {
-      "schemaPath": "schema.api.graphql",
+      "schemaPath": "schema.graphql",
       "includes": [
         "**/*.graphql"
       ],
