@@ -1,6 +1,5 @@
 import type {
   ComponentOptions,
-  ComponentUpdateInput,
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -39,8 +38,4 @@ component
   loadRenderedComponentsTree(
     renderedComponentFragments: Array<RenderedComponentFragment>,
   ): void
-  patchComponent(
-    component: IComponent,
-    input: ComponentUpdateInput,
-  ): Promise<IComponent>
 }

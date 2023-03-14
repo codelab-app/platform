@@ -8,8 +8,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 export interface UpdateElementPropTransformationFormProp {
   element: IElement
-  trackPromises?: UseTrackLoadingPromises
   elementService: IElementService
+  trackPromises?: UseTrackLoadingPromises
 }
 
 const defaultFn = `// Write a transformer function, you get the input props as parameter
@@ -38,7 +38,8 @@ export const UpdateElementPropTransformationForm =
             return
           }
 
-          const promise = elementService.patchElement(element, {
+          const promise = elementService.update({
+            id: element.id,
             propTransformationJs: newValue,
           })
 

@@ -15,12 +15,10 @@ import { getPropService } from '@codelab/frontend/domain/prop'
 import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
-  ComponentUpdateInput,
   ComponentWhere,
   RenderedComponentFragment,
 } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   _async,
@@ -36,7 +34,6 @@ import {
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { ComponentRepository } from '../services/component.repo'
-import { componentApi } from './component.api'
 import { Component } from './component.model'
 import { ComponentModalService } from './component-modal.service'
 
@@ -240,41 +237,6 @@ export class ComponentService
 
     return component!
   })
-
-  @modelFlow
-  @transaction
-  public patchComponent = _async(function* (
-    this: ComponentService,
-    entity: IEntity,
-    input: ComponentUpdateInput,
-  ) {
-    // TODO: use the repository
-    const {
-      updateComponents: { components },
-    } = yield* _await(
-      componentApi.UpdateComponents({
-        update: input,
-        where: { id: entity.id },
-      }),
-    )
-
-    return components.map((component) => this.add(component))[0]!
-  })
-
-  // @modelAction
-  // add(componentFragment: IComponentDTO) {
-  //   let componentModel = this.component(componentFragment.id)
-
-  //   if (componentModel) {
-  //     componentModel.add(componentFragment)
-  //     this.writeClonesCache(componentFragment)
-  //   } else {
-  //     componentModel = Component.hydrate(componentFragment)
-  //     this.components.set(componentModel.id, componentModel)
-  //   }
-
-  //   return componentModel
-  // }
 
   @modelAction
   writeClonesCache(componentFragment: IComponentDTO) {

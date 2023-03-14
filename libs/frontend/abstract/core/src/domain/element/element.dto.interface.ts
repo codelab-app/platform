@@ -26,21 +26,22 @@ export interface ICreateElementData {
   renderType?: Nullable<RenderType>
 }
 
-export type IUpdateElementData = Pick<
-  ICreateElementData,
-  | 'customCss'
-  | 'guiCss'
-  | 'id'
-  | 'name'
-  | 'postRenderAction'
-  | 'preRenderAction'
-  | 'props'
-  | 'renderType'
-> & {
-  propTransformationJs?: Nullish<string>
-  renderForEachPropKey?: Nullable<string>
-  renderIfExpression?: Nullable<string>
-}
+export type IUpdateElementData = Partial<
+  Pick<
+    ICreateElementData,
+    | 'customCss'
+    | 'guiCss'
+    | 'name'
+    | 'postRenderAction'
+    | 'preRenderAction'
+    | 'renderType'
+  >
+> &
+  Pick<ICreateElementData, 'id'> & {
+    propTransformationJs?: Nullish<string>
+    renderForEachPropKey?: Nullable<string>
+    renderIfExpression?: Nullable<string>
+  }
 
 /**
  * Some properties have their own forms, the base form only uses a subset of fields
