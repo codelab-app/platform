@@ -5,7 +5,7 @@ export const updateBaseTypeCache = (
   /**
    * We don't allow changing some properties after creation
    */
-  { id, kind, name, owner }: Partial<IBaseTypeDTO>,
+  { id, kind, name, owner }: Partial<Omit<IBaseTypeDTO, '__typename'>>,
 ) => {
   // self.id = type.id
   self.name = name ?? self.name

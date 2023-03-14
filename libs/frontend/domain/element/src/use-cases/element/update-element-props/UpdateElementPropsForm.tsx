@@ -43,13 +43,13 @@ const withCustomTextSchema: JSONSchemaType<{
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({ element, trackPromises }) => {
-    const { typeService, elementService, propService } = useStore()
+    const { elementService, propService, typeService } = useStore()
     const { trackPromise } = trackPromises ?? {}
     const currentElement = element.current
     const apiId = currentElement.renderType?.current.api.id
 
-    const { value: interfaceType, loading } = useAsync(
-      () => typeService.getInterfaceAndDescendants(apiId!),
+    const { loading, value: interfaceType } = useAsync(
+      () => typeService.getInterface(apiId!),
       [apiId],
     )
 
