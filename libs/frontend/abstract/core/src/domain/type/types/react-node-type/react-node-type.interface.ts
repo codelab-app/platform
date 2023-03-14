@@ -1,3 +1,7 @@
+import type {
+  ReactNodeTypeCreateInput,
+  ReactNodeTypeUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IBaseType } from '../base-type'
 import type { IReactNodeTypeDTO } from './react-node-type.dto.interface'
@@ -15,4 +19,7 @@ import type { IReactNodeTypeDTO } from './react-node-type.dto.interface'
  */
 export interface IReactNodeType extends IBaseType<IReactNodeTypeDTO> {
   kind: ITypeKind.ReactNodeType
+
+  toCreateInput(): ReactNodeTypeCreateInput
+  toUpdateInput(): ReactNodeTypeUpdateInput
 }

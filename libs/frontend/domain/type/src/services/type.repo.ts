@@ -18,17 +18,22 @@ import {
 export class TypeRepository extends Model({}) implements ITypeRepository {
   @modelFlow
   add = _async(function* (this: TypeRepository, type: IType) {
-    const createdType: Array<ITypeDTO> = yield* _await(
+    const createdTypes = yield* _await(
       createTypeApi[type.kind]([type.toCreateInput()]),
     )
 
-    return createdType[0]
+    return createdTypes[0]
   })
 
   @modelFlow
   update = _async(function* (this: TypeRepository, type: IType) {
     const updatedType = (yield* _await(
-      updateTypeApi[type.kind](type.toUpdateInput()),
+      updateTypeApi[type.kind]({
+        update: type.toUpdateInput(),
+        where: {
+          id: type.id,
+        },
+      }),
     ))[0]
 
     return updatedType!

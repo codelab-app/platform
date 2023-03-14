@@ -11,6 +11,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     ...idSchema,
     name: {
       autoFocus: true,
+      nullable: true,
       type: 'string',
       ...titleCaseValidation,
     },
@@ -63,7 +64,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
       type: 'object',
     },
   },
-  required: ['name'],
+  required: [],
   title: 'Update Element Input',
   type: 'object',
 } as const

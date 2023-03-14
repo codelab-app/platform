@@ -1,3 +1,7 @@
+import type {
+  AppTypeCreateInput,
+  AppTypeUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IBaseType } from '../base-type'
 import type { IAppTypeDTO } from './app-type.dto.interface'
@@ -7,4 +11,7 @@ import type { IAppTypeDTO } from './app-type.dto.interface'
  */
 export interface IAppType extends IBaseType<IAppTypeDTO> {
   kind: ITypeKind.AppType
+
+  toCreateInput(): AppTypeCreateInput
+  toUpdateInput(): AppTypeUpdateInput
 }
