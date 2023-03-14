@@ -61,12 +61,12 @@ describe('Tag repository.', () => {
     let savedChildTag = await tagRepository.find({ id: childTag.id })
 
     // Parent
-    expect(savedParentTag?.name).toEqual(parentTagName)
-    expect(savedParentTag?.children[0]?.name).toEqual(childTagName)
+    expect(savedParentTag.name).toEqual(parentTagName)
+    expect(savedParentTag.children[0]?.name).toEqual(childTagName)
 
     // Child
-    expect(savedChildTag?.name).toEqual(childTagName)
-    expect(savedChildTag?.parent?.name).toEqual(parentTagName)
+    expect(savedChildTag.name).toEqual(childTagName)
+    expect(savedChildTag.parent?.name).toEqual(parentTagName)
 
     // Run again to check for the e2e error on second seed
     await tagRepository.save(parentTag)
@@ -76,12 +76,12 @@ describe('Tag repository.', () => {
     savedChildTag = await tagRepository.find({ id: childTag.id })
 
     // Parent
-    expect(savedParentTag?.name).toEqual(parentTagName)
-    expect(savedParentTag?.children[0]?.name).toEqual(childTagName)
+    expect(savedParentTag.name).toEqual(parentTagName)
+    expect(savedParentTag.children[0]?.name).toEqual(childTagName)
 
     // Child
-    expect(savedChildTag?.name).toEqual(childTagName)
-    expect(savedChildTag?.parent?.name).toEqual(parentTagName)
+    expect(savedChildTag.name).toEqual(childTagName)
+    expect(savedChildTag.parent?.name).toEqual(parentTagName)
 
     /**
      * Then update relationship

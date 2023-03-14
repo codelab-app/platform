@@ -1,6 +1,6 @@
 import type {
-  IType,
   IFieldService,
+  IType,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import { useColumnSearchProps } from '@codelab/frontend/view/components'

@@ -1,6 +1,6 @@
 import type {
-  IType,
   IFieldService,
+  IType,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'

@@ -5,8 +5,8 @@ import type {
   IUpdateTypeData,
 } from '@codelab/frontend/abstract/core'
 import {
-  IType,
   ICreateTypeData,
+  IType,
   ITypeDTO,
 } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'

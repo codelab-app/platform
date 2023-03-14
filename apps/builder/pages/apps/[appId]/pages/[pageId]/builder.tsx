@@ -38,7 +38,7 @@ const PageBuilder: CodelabPage = observer(() => {
     /**
      * Select root element for current page
      */
-    if (value?.page) {
+    if (value?.page.rootElement) {
       const pageRootElement = elementService.maybeElement(
         value.page.rootElement.id,
       )

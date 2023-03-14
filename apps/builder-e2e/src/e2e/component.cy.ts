@@ -42,12 +42,14 @@ describe('Component CRUD', () => {
               kind: ITypeKind.PrimitiveType,
               name: IPrimitiveTypeKind.String,
               owner: connectAuth0Owner(owner),
+              primitiveKind: IPrimitiveTypeKind.String,
             },
           },
           ITypeKind.PrimitiveType,
         )
         cy.createAtom([
           {
+            allowedChildren: [],
             api: {
               create: {
                 node: {
@@ -62,6 +64,7 @@ describe('Component CRUD', () => {
             type: IAtomType.AntDesignSpace,
           },
           {
+            allowedChildren: [],
             api: {
               create: {
                 node: {
