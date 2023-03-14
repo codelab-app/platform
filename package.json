@@ -175,7 +175,7 @@
     "@graphql-codegen/typescript-document-nodes": "2.2.11",
     "@graphql-codegen/typescript-graphql-request": "4.4.8",
     "@graphql-codegen/typescript-operations": "2.4.0",
-    "@graphql-eslint/eslint-plugin": "3.10.3",
+    "@graphql-eslint/eslint-plugin": "^3.16.1",
     "@hon2a/cypress-without": "1.1.8",
     "@ls-lint/ls-lint": "1.11.0",
     "@nrwl/cli": "15.8.5",
