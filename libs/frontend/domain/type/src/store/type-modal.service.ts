@@ -1,6 +1,6 @@
 import type {
-  IType,
   IEntityModalService,
+  IType,
 } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { Maybe } from '@codelab/shared/abstract/types'
