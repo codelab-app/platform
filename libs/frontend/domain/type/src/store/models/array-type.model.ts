@@ -2,7 +2,7 @@ import type { IArrayType, IType } from '@codelab/frontend/abstract/core'
 import { IArrayTypeDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { connectNodeId, makeAllTypes } from '@codelab/shared/domain/mapper'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 import merge from 'lodash/merge'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -52,25 +52,29 @@ export class ArrayType
   writeCache(arrayTypeDTO: IArrayTypeDTO) {
     updateBaseTypeCache(this, arrayTypeDTO)
 
+    this.itemType = arrayTypeDTO.itemType
+      ? typeRef(arrayTypeDTO.itemType.id)
+      : null
+
     return this
   }
 
   toCreateInput() {
     return {
       ...super.toCreateInput(),
-      itemType: makeAllTypes(connectNodeId(this.itemType?.id)),
+      itemType: connectNodeId(this.itemType?.id),
     }
   }
 
   toUpdateInput() {
     return merge(super.toUpdateInput(), {
       disconnect: {
-        itemType: makeAllTypes({
+        itemType: {
           where: { node: { id_NOT: this.itemType?.id } },
-        }),
+        },
       },
       update: {
-        itemType: makeAllTypes(connectNodeId(this.itemType?.id)),
+        itemType: connectNodeId(this.itemType?.id),
       },
     })
   }
