@@ -1,7 +1,6 @@
 import type {
   ElementCreateInput,
   ElementUpdateInput,
-  UpdateElementsMutationVariables,
 } from '@codelab/shared/abstract/codegen'
 import type {
   IEntity,
@@ -90,28 +89,16 @@ export interface IElement extends ICacheService<IElementDTO, IElement> {
    */
   sourceElement: Nullable<IEntity>
 
-  addParent(parentElement: IElement): () => void
   appendToGuiCss(css: CssMap): void
-  attachAsNextSibling(sibling: Ref<IElement>): () => void
-  attachAsPrevSibling(sibling: IElement): () => void
-  attachToParentAsFirstChild(parentElement: IElement): () => void
+  attachAsNextSibling(sibling: IElement): void
+  attachAsPrevSibling(sibling: IElement): void
+  attachToParentAsFirstChild(parentElement: IElement): void
   clone(cloneIndex: number): IElement
-  connectPrevToNextSibling(): () => void
+  connectPrevToNextSibling(): void
   deleteFromGuiCss(propNames: Array<string>): void
-  detachFromParent(): () => void
+  detachAsFirstChild(): void
+  detachFromParent(): void
   executePropTransformJs(props: IPropData): IPropData
-  makeAttachAsNextSiblingInput(
-    siblingId: string,
-  ): UpdateElementsMutationVariables
-  makeAttachAsPrevSiblingInput(
-    siblingId: string,
-  ): UpdateElementsMutationVariables
-  makeAttachToParentAsFirstChildInput(
-    parentElement: IElement,
-  ): UpdateElementsMutationVariables
-  makeDetachFromNextSiblingInput(): UpdateElementsMutationVariables | null
-  makeDetachFromParentInput(): UpdateElementsMutationVariables | null
-  makeDetachFromPrevSiblingInput(): UpdateElementsMutationVariables | null
   setName(name: string): void
   setNextSibling(nextSibling: Ref<IElement>): void
   setOrderInParent(order: number | null): void

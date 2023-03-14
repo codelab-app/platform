@@ -21,17 +21,17 @@ import {
 
 export interface MoveElementFormProps {
   element: IElement
-  trackPromises?: UseTrackLoadingPromises
   elementService: IElementService
   /**
    * The element tree is specific to which view we're looking at (i.e. Page, Component)
    */
   elementTree: IElementTree
+  trackPromises?: UseTrackLoadingPromises
 }
 
 /** Not intended to be used in a modal */
 export const MoveElementForm = observer<MoveElementFormProps>(
-  ({ element, elementService, trackPromises, elementTree }) => {
+  ({ element, elementService, elementTree, trackPromises }) => {
     // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
     const { current: model } = useRef({
       parentElement: { id: element.parent?.id },
@@ -45,8 +45,8 @@ export const MoveElementForm = observer<MoveElementFormProps>(
 
     const onSubmit = ({ parentElement, prevSibling }: MoveData) => {
       const {
-        prevSibling: currentPrevSibling,
         parentElement: currentParentElement,
+        prevSibling: currentPrevSibling,
       } = model
 
       if (
