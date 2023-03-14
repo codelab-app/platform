@@ -13,5 +13,4 @@ fragment Type on IBaseType {
   ...PageType
   ...AppType
   ...ActionType
-  ...ReactNodeType
 }

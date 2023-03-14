@@ -1,7 +1,7 @@
 import type * as cg from '@codelab/shared/abstract/codegen'
 
 export interface IUpdateTypeArgs {
-  connect?: IconnectNodeInput
+  connect?: IConnectNodeInput
   delete?: IDeleteTypeInput
   disconnect?: IDisconnectNodeInput
   update: IUpdateTypeInput
@@ -56,7 +56,7 @@ export type IUpdateTypeInput =
  * Connect
  */
 
-export type IconnectNodeInput =
+export type IConnectNodeInput =
   | cg.AppTypeConnectInput
   | cg.ArrayTypeConnectInput
   | cg.CodeMirrorTypeConnectInput
