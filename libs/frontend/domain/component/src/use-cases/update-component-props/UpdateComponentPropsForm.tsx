@@ -18,7 +18,7 @@ export interface UpdateComponentPropsFormProps {
 
 export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
   ({ component, trackPromises }) => {
-    const { componentService, typeService } = useStore()
+    const { propService, typeService } = useStore()
     const { trackPromise } = trackPromises ?? {}
     const apiId = component.api.id
 
@@ -27,17 +27,16 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
       [apiId],
     )
 
-    const onSubmit = (data: IPropData) => {
+    const onSubmit = async (data: IPropData) => {
+      if (!component.props) {
+        return
+      }
+
       const filteredData = filterEmptyStrings(data)
 
-      const promise = componentService.patchComponent(component, {
-        props: {
-          update: {
-            node: {
-              data: JSON.stringify(filteredData),
-            },
-          },
-        },
+      const promise = propService.update({
+        data: JSON.stringify(filteredData),
+        id: component.props.id,
       })
 
       return trackPromise?.(promise) ?? promise

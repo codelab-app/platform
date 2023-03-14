@@ -15,7 +15,7 @@ export interface RenderedComponentProps {
 export const GridLayout = React.memo(
   ({ children, ...restProps }: RenderedComponentProps & ResponsiveProps) => {
     const elementId = restProps[DATA_ELEMENT_ID]
-    const { elementService } = useStore()
+    const { elementService, propService } = useStore()
 
     const rglChildren = useMemo(() => {
       return React.Children.map(children, (child) => {
@@ -86,17 +86,10 @@ export const GridLayout = React.memo(
 
       const element = elementService.element(elementId)
 
-      elementService
-        .patchElement(element, {
-          props: {
-            update: {
-              node: {
-                data: JSON.stringify(newProps),
-              },
-            },
-          },
-        })
-        .catch(() => undefined)
+      void propService.update({
+        data: JSON.stringify(newProps),
+        id: element.props.id,
+      })
     }
 
     return (
