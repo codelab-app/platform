@@ -13,6 +13,7 @@ import { CodeMirrorTypeFragment } from './code-mirror-type.fragment.graphql.gen'
 import { PageTypeFragment } from './page-type.fragment.graphql.gen'
 import { AppTypeFragment } from './app-type.fragment.graphql.gen'
 import { ActionTypeFragment } from './action-type.fragment.graphql.gen'
+import { ReactNodeTypeFragment } from './react-node-type.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
@@ -29,6 +30,7 @@ import { CodeMirrorTypeFragmentDoc } from './code-mirror-type.fragment.graphql.g
 import { PageTypeFragmentDoc } from './page-type.fragment.graphql.gen'
 import { AppTypeFragmentDoc } from './app-type.fragment.graphql.gen'
 import { ActionTypeFragmentDoc } from './action-type.fragment.graphql.gen'
+import { ReactNodeTypeFragmentDoc } from './react-node-type.fragment.graphql.gen'
 export type Type_ActionType_Fragment = ActionTypeFragment
 
 export type Type_AppType_Fragment = AppTypeFragment
@@ -88,6 +90,7 @@ export const TypeFragmentDoc = gql`
     ...PageType
     ...AppType
     ...ActionType
+    ...ReactNodeType
   }
   ${ArrayTypeFragmentDoc}
   ${UnionTypeFragmentDoc}
@@ -102,6 +105,7 @@ export const TypeFragmentDoc = gql`
   ${PageTypeFragmentDoc}
   ${AppTypeFragmentDoc}
   ${ActionTypeFragmentDoc}
+  ${ReactNodeTypeFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

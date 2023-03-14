@@ -4,10 +4,7 @@ import type {
   IInterfaceType,
   IOwner,
 } from '@codelab/backend/abstract/core'
-import type {
-  IAtomDTO,
-  IInterfaceTypeDTO,
-} from '@codelab/frontend/abstract/core'
+import type { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 import { BaseType } from './base-type.model'

@@ -110,7 +110,6 @@ export class InterfaceType
   @modelAction
   writeFieldCache(fields: Array<IEntity>) {
     for (const field of fields) {
-      // const fieldModel = this.fieldService.add(field)
       this._fields.set(field.id, fieldRef(field.id))
     }
   }
