@@ -179,14 +179,6 @@ export class TypeService
 
     this.types.set(type!.id, type!)
 
-    // Write cache to the fields
-    if (
-      type!.kind === ITypeKind.InterfaceType &&
-      typeDTO.__typename === 'InterfaceType'
-    ) {
-      type.writeFieldCache(typeDTO.fields)
-    }
-
     return type
   }
 

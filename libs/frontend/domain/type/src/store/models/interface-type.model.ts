@@ -30,6 +30,7 @@ import { createBaseType } from './base-type.model'
 import { fieldRef } from './field.model'
 
 const create = ({
+  fields,
   id,
   kind,
   name,
@@ -43,6 +44,8 @@ const create = ({
     name,
     owner,
   })
+
+  interfaceType.writeFieldCache(fields)
 
   return interfaceType
 }
@@ -140,6 +143,8 @@ export class InterfaceType
   @modelAction
   writeCache(interfaceTypeDTO: IInterfaceTypeDTO) {
     updateBaseTypeCache(this, interfaceTypeDTO)
+
+    this.writeFieldCache(interfaceTypeDTO.fields)
 
     return this
   }
