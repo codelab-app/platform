@@ -44,7 +44,7 @@ export class SeedAntDesignApiService extends IUseCase<IOwner, void> {
           interfaceType.id = existingInterfaceType.id
         }
 
-        await this.interfaceTypeRepository.save(interfaceType)
+        await this.interfaceTypeRepository.save({ ...interfaceType, owner })
       }),
     )
   }
