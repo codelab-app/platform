@@ -129,10 +129,6 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
               owner: this.owner,
             })
 
-          if (field.property === 'getCurrentAnchor') {
-            console.log('getCurrentAnchor', fieldTypeDTO)
-          }
-
           /**
            * If field type can't be transformed by our parser, then we skip it by returning the accumulator
            */

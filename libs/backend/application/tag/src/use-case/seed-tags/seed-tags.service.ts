@@ -13,7 +13,8 @@ export class SeedTagsService extends IUseCase<IOwner, void> {
 
     await Promise.all(
       tags.map(
-        async (tag) => await this.tagRepository.save(tag, { name: tag.name }),
+        async (tag) =>
+          await this.tagRepository.save({ ...tag, owner }, { name: tag.name }),
       ),
     )
   }

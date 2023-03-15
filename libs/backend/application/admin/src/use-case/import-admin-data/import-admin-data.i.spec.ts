@@ -11,6 +11,8 @@ import { ImportAdminDataService } from './import-admin-data.service'
 const atomRepository = new AtomRepository()
 let user: IUserDTO
 
+jest.setTimeout(60000)
+
 beforeAll(async () => {
   user = await setupNewUser({
     AdminService,
