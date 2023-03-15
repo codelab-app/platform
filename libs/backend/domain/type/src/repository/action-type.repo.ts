@@ -1,4 +1,3 @@
-import type { IActionType } from '@codelab/backend/abstract/core'
 import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportActionTypeSelectionSet,
@@ -6,7 +5,6 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { IActionTypeDTO } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 
 export class ActionTypeRepository extends AbstractRepository<
@@ -39,7 +37,7 @@ export class ActionTypeRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { __typename, owner, ...actionType }: IActionTypeDTO,
+    { __typename, id, owner, ...actionType }: IActionTypeDTO,
     where: OGM_TYPES.ActionTypeWhere,
   ) {
     return (

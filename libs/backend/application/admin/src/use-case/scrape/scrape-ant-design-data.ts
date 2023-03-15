@@ -180,7 +180,6 @@ export const scrapeAntDesignData = async () => {
               ? undefined
               : name.replace('/', '_')
 
-          console.log(csv)
           fs.writeFileSync(
             `${process.cwd()}/data/antd/${componentPage}${
               componentName ? '--' + componentName : ''

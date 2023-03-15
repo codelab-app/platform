@@ -1,4 +1,3 @@
-import type { ITag } from '@codelab/backend/abstract/core'
 import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   Repository,
@@ -6,7 +5,6 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { ITagDTO } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import {
   connectAuth0Owner,
   connectNodeId,
@@ -38,7 +36,7 @@ export class TagRepository extends AbstractRepository<
       await (
         await this.Tag
       ).create({
-        input: tags.map(({ owner, ...tag }) => ({
+        input: tags.map(({ descendants, owner, ...tag }) => ({
           ...tag,
           children: connectNodeIds(tag.children.map((child) => child.id)),
           owner: connectAuth0Owner(owner),
@@ -49,7 +47,7 @@ export class TagRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { children, owner, parent, ...tag }: ITagDTO,
+    { children, descendants, owner, parent, ...tag }: ITagDTO,
     where: OGM_TYPES.TagWhere,
   ) {
     // Get existing tag so we know what to connect/disconnect

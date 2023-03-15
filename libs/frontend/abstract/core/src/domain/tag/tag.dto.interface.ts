@@ -11,7 +11,8 @@ export type IUpdateTagData = Omit<ICreateTagData, 'owner'>
 
 export interface ITagDTO extends IOwnerSchema {
   children: Array<IEntity>
-  descendants: Array<IEntity>
+  // This is computed property
+  descendants?: Array<IEntity>
   id: string
   isRoot?: boolean | null
   name: string

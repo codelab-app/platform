@@ -1,4 +1,4 @@
-import type { IOwner, ITag, ITagPreview } from '@codelab/backend/abstract/core'
+import type { IOwner, ITag } from '@codelab/backend/abstract/core'
 import type { ITagDTO } from '@codelab/frontend/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { detach, rootRef } from 'mobx-keystone'
@@ -18,7 +18,7 @@ export class Tag implements ITagDTO {
 
   constructor({
     children = [],
-    descendants,
+    descendants = [],
     id,
     name,
     owner,

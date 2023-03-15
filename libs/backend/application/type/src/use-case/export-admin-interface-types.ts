@@ -25,7 +25,6 @@ export const exportAdminInterfaceTypes = async (): Promise<
     options: {
       sort: [{ name: OGM_TYPES.SortDirection.Asc }],
     },
-
     selectionSet: exportInterfaceTypeSelectionSet,
     // Where it is assigned to atom
     where: {

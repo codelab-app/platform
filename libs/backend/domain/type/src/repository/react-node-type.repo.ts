@@ -1,4 +1,3 @@
-import type { IReactNodeType } from '@codelab/backend/abstract/core'
 import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportReactNodeTypeSelectionSet,
@@ -6,7 +5,6 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { IReactNodeTypeDTO } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 
 export class ReactNodeTypeRepository extends AbstractRepository<
@@ -41,14 +39,14 @@ export class ReactNodeTypeRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { __typename, id, owner, ...reactNodeType }: IReactNodeTypeDTO,
+    { __typename, id, name, owner }: IReactNodeTypeDTO,
     where: OGM_TYPES.ReactNodeTypeWhere,
   ) {
     return (
       await (
         await this.ReactNodeType
       ).update({
-        update: reactNodeType,
+        update: { name },
         where,
       })
     ).reactNodeTypes[0]

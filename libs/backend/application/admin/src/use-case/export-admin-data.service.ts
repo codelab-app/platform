@@ -29,8 +29,6 @@ export class ExportAdminDataService extends IUseCase<void, void> {
     await this.saveSystemTypesFile()
     await this.saveAtomsFile()
     await this.saveTagsFile()
-
-    return
   }
 
   private async saveAtomsFile() {
