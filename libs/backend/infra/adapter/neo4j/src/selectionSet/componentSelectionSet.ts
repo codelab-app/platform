@@ -1,3 +1,5 @@
+import { interfaceTypeSelectionSet } from './typeSelectionSet'
+
 export const componentSelectionSet = `{
   id
   name
@@ -9,10 +11,8 @@ export const componentSelectionSet = `{
     id
     auth0Id
   }
-  api {
-    id
-    name
-  }
+  api
+    ${interfaceTypeSelectionSet}
   childrenContainerElement {
     id
   }

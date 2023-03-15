@@ -1,4 +1,5 @@
 import type { IEntity } from '@codelab/shared/abstract/types'
+import type { RenderedComponentFragment } from '../component/component-render.fragment.graphql.gen'
 import type { IOwnerSchema } from '../user'
 import type { PageBuilderAppFragment } from './app.fragment.graphql.gen'
 
@@ -18,5 +19,6 @@ export type IUpdateAppData = Pick<IAppDTO, 'id' | 'name'>
  */
 export interface IPageBuilderAppProps {
   appData: PageBuilderAppFragment
+  components: Array<RenderedComponentFragment>
   pageId: string
 }
