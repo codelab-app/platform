@@ -16,7 +16,6 @@ import {
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
-import type { ElementWhere } from '@codelab/shared/abstract/codegen'
 import {
   RenderedComponentFragment,
   RenderTypeKind,
@@ -100,27 +99,6 @@ export class ElementService
     return getPropService(this)
   }
 
-  @modelFlow
-  @transaction
-  getAll = _async(function* (this: ElementService, where: ElementWhere) {
-    const elements = yield* _await(this.elementRepository.find(where))
-
-    return elements.map((element) => this.add(element))
-  })
-
-  @modelAction
-  loadComponentTree(component: RenderedComponentFragment) {
-    const elements = [
-      component.rootElement,
-      ...component.rootElement.descendantElements,
-    ]
-
-    const hydratedElements = elements.map((element) => this.add(element))
-    const rootElement = this.element(component.rootElement.id)
-
-    return { hydratedElements, rootElement }
-  }
-
   @modelAction
   add = (elementDTO: IElementDTO): IElement => {
     const element = Element.create(elementDTO)
@@ -159,22 +137,6 @@ export class ElementService
     return element
   })
 
-  @modelAction
-  element(id: string) {
-    const element = this.maybeElement(id)
-
-    if (!element) {
-      throw new Error('Missing element')
-    }
-
-    return element
-  }
-
-  @modelAction
-  maybeElement(id: string) {
-    return this.elements.get(id) || this.clonedElements.get(id)
-  }
-
   @modelFlow
   @transaction
   update = _async(function* (
@@ -191,6 +153,70 @@ export class ElementService
 
     return element
   })
+
+  /**
+   * Need to take care of reconnecting parent/sibling nodes
+   */
+  @modelFlow
+  @transaction
+  delete = _async(function* (this: ElementService, subRoot: IEntity) {
+    console.debug('deleteElementSubgraph', subRoot)
+
+    const subRootElement = this.element(subRoot.id)
+    const affectedNodeIds = this.detachElementFromElementTree(subRootElement.id)
+
+    const allElementsToDelete = [
+      subRootElement,
+      ...subRootElement.descendantElements,
+    ]
+
+    this.elements.delete(subRootElement.id)
+    allElementsToDelete.reverse().forEach((element) => {
+      this.removeClones(element.id)
+      this.elements.delete(element.id)
+    })
+
+    yield* _await(
+      Promise.all(
+        affectedNodeIds.map((id) =>
+          this.elementRepository.updateNodes(this.element(id)),
+        ),
+      ),
+    )
+
+    yield* _await(this.elementRepository.delete(allElementsToDelete))
+
+    return
+  })
+
+  @modelAction
+  element(id: string) {
+    const element = this.maybeElement(id)
+
+    if (!element) {
+      throw new Error('Missing element')
+    }
+
+    return element
+  }
+
+  @modelAction
+  maybeElement(id: string) {
+    return this.elements.get(id) || this.clonedElements.get(id)
+  }
+
+  @modelAction
+  loadComponentTree(component: RenderedComponentFragment) {
+    const elements = [
+      component.rootElement,
+      ...component.rootElement.descendantElements,
+    ]
+
+    const hydratedElements = elements.map((element) => this.add(element))
+    const rootElement = this.element(component.rootElement.id)
+
+    return { hydratedElements, rootElement }
+  }
 
   /**
    * Detaches element from an element tree. Will perform 3 conditional checks to see which specific detach to call
@@ -520,46 +546,6 @@ export class ElementService
       ...element.descendantElements,
     ])
   })
-
-  /**
-   * Need to take care of reconnecting parent/sibling nodes
-   */
-  @modelFlow
-  @transaction
-  delete = _async(function* (this: ElementService, subRoot: IEntity) {
-    console.debug('deleteElementSubgraph', subRoot)
-
-    const subRootElement = this.element(subRoot.id)
-    const affectedNodeIds = this.detachElementFromElementTree(subRootElement.id)
-
-    const allElementsToDelete = [
-      subRootElement,
-      ...subRootElement.descendantElements,
-    ]
-
-    this.elements.delete(subRootElement.id)
-    allElementsToDelete.reverse().forEach((element) => {
-      this.removeClones(element.id)
-      this.elements.delete(element.id)
-    })
-
-    yield* _await(
-      Promise.all(
-        affectedNodeIds.map((id) =>
-          this.elementRepository.updateNodes(this.element(id)),
-        ),
-      ),
-    )
-
-    yield* _await(this.elementRepository.delete(allElementsToDelete))
-
-    return
-  })
-
-  @computed
-  get elementNames() {
-    return [...this.elements.values()].map((element) => element.name)
-  }
 
   private async recursiveDuplicate(element: IElement, parentElement: IElement) {
     const duplicateName = makeAutoIncrementedName(

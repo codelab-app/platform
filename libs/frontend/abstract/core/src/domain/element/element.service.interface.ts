@@ -1,15 +1,10 @@
-import type {
-  ElementOptions,
-  ElementWhere,
-  RenderedComponentFragment,
-} from '@codelab/shared/abstract/codegen'
+import type { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICRUDModalService,
   ICRUDService,
   IEntityModalService,
-  IQueryService,
 } from '../../service'
 import type { IAuth0Owner } from '../user'
 import type {
@@ -43,14 +38,12 @@ export interface IElementService
       ICRUDService<IElement, ICreateElementData, IUpdateElementData>,
       'delete'
     >,
-    Omit<IQueryService<IElement, ElementWhere, ElementOptions>, 'getOne'>,
     Omit<
       ICRUDModalService<Ref<IElement>, { element?: IElement }>,
       'createModal'
     > {
   clonedElements: ObjectMap<IElement>
   createModal: IEntityModalService<CreateElementData, CreateElementProperties>
-  elementNames: Array<string>
   elementRepository: IElementRepository
   elements: ObjectMap<IElement>
   updateModal: IEntityModalService<Ref<IElement>, UpdateElementProperties>
