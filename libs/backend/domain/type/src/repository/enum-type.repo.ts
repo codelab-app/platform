@@ -1,4 +1,4 @@
-import type { IEnumType, IEnumTypeValue } from '@codelab/backend/abstract/core'
+import type { IEnumTypeValue } from '@codelab/backend/abstract/core'
 import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportEnumTypeSelectionSet,
@@ -6,7 +6,6 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { IEnumTypeDTO } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import {
   connectAuth0Owner,
   connectNodeIds,
@@ -50,7 +49,7 @@ export class EnumTypeRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { __typename, allowedValues, owner, ...enumType }: IEnumTypeDTO,
+    { __typename, allowedValues, id, name, owner, ...enumType }: IEnumTypeDTO,
     where: OGM_TYPES.EnumTypeWhere,
   ) {
     return (
@@ -58,12 +57,10 @@ export class EnumTypeRepository extends AbstractRepository<
         await this.EnumType
       ).update({
         update: {
-          ...enumType,
           allowedValues: reconnectNodeIds(
             allowedValues.map((value) => value.id),
           ),
-          // allowedValues: this.mapUpdateEnumTypeValues(allowedValues),
-          owner: connectAuth0Owner(owner),
+          name,
         },
         where,
       })

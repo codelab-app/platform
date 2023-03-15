@@ -2,7 +2,6 @@
 
 import type { IAdminService } from '@codelab/backend/domain/admin'
 import type { IUserModel, IUserRepository } from '@codelab/backend/domain/user'
-import type { IUserDTO } from '@codelab/frontend/abstract/core'
 import { IRole } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
@@ -12,7 +11,7 @@ interface SetupUserProps {
   UserRepository: IUserRepository
 }
 
-export const setupUser = async ({
+export const setupNewUser = async ({
   AdminService,
   User,
   UserRepository,

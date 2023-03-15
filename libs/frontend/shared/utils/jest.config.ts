@@ -1,7 +1,6 @@
 /* eslint-disable */
 module.exports = {
   displayName: 'frontend-shared-utils',
-
   globals: {},
   transform: {
     '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nrwl/react/babel'] }],

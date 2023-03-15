@@ -2,7 +2,6 @@ import type {
   AntDesignField,
   IField,
   IOwner,
-  IType,
 } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import {
@@ -89,6 +88,7 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
 
       for await (const field of fields) {
         await this.fieldRepository.save(field, {
+          // Save by composite key
           api: {
             id: atom.api.id,
           },
@@ -129,6 +129,10 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
               owner: this.owner,
             })
 
+          if (field.property === 'getCurrentAnchor') {
+            console.log('getCurrentAnchor', fieldTypeDTO)
+          }
+
           /**
            * If field type can't be transformed by our parser, then we skip it by returning the accumulator
            */
@@ -139,13 +143,17 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
           /**
            * We need to upsert here by specifying where as name
            */
-          const type = await TypeFactory.create({
-            ...fieldTypeDTO,
-            owner: this.owner,
-          })
+          const type = await TypeFactory.create(
+            {
+              ...fieldTypeDTO,
+              owner: this.owner,
+            },
+            { name: fieldTypeDTO.name },
+          )
 
           if (!type) {
-            return [...(await accFields)]
+            throw new Error('Error creating type')
+            // return [...(await accFields)]
           }
 
           existingField = Field.init({

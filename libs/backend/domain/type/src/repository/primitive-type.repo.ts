@@ -1,4 +1,3 @@
-import type { IPrimitiveType } from '@codelab/backend/abstract/core'
 import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportPrimitiveTypeSelectionSet,
@@ -39,14 +38,17 @@ export class PrimitiveTypeRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { __typename, id, owner, ...primitiveType }: IPrimitiveTypeDTO,
+    { __typename, id, name, owner, primitiveKind }: IPrimitiveTypeDTO,
     where: BaseTypeUniqueWhere,
   ) {
     return (
       await (
         await this.PrimitiveType
       ).update({
-        update: primitiveType,
+        update: {
+          name,
+          primitiveKind,
+        },
         where,
       })
     ).primitiveTypes[0]
