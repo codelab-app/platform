@@ -2,21 +2,11 @@ import type {
   IEnumType,
   IEnumTypeDTO,
   IEnumTypeValue,
-  IEnumTypeValueDTO,
 } from '@codelab/frontend/abstract/core'
-import { ITypeDTO } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import type { Ref } from 'mobx-keystone'
-import {
-  ExtendedModel,
-  idProp,
-  Model,
-  model,
-  modelAction,
-  prop,
-} from 'mobx-keystone'
-import { updateBaseTypeCache } from '../base-type'
+import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
 import { enumTypeValueRef } from './enum-type-value.model'
 
@@ -42,16 +32,13 @@ export class EnumType
   implements IEnumType
 {
   @modelAction
-  add(fragment: ITypeDTO) {
-    updateBaseTypeCache(this, fragment)
+  writeCache(enumTypeDTO: Partial<IEnumTypeDTO>) {
+    super.writeCache(enumTypeDTO)
 
-    if (fragment.__typename !== ITypeKind.EnumType) {
-      throw new Error('Incorrect EnumType')
-    }
-
-    this.allowedValues = fragment.allowedValues.map((allowedValue) =>
-      enumTypeValueRef(allowedValue.id),
-    )
+    this.allowedValues =
+      enumTypeDTO.allowedValues?.map((allowedValue) =>
+        enumTypeValueRef(allowedValue.id),
+      ) ?? this.allowedValues
 
     return this
   }

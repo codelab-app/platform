@@ -1,5 +1,8 @@
-import type { IAuth0Owner, IBaseType } from '@codelab/frontend/abstract/core'
-import { IBaseTypeDTO } from '@codelab/frontend/abstract/core'
+import type {
+  IAuth0Owner,
+  IBaseType,
+  IBaseTypeDTO,
+} from '@codelab/frontend/abstract/core'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
@@ -17,14 +20,8 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
     implements IBaseType<IBaseTypeDTO>
   {
     @modelAction
-    add(fragment: IBaseTypeDTO) {
-      updateBaseTypeCache(this, fragment)
-
-      return this
-    }
-
-    @modelAction
     writeCache(baseTypeDTO: Partial<IBaseTypeDTO>) {
+      console.log('writeCache', baseTypeDTO)
       updateBaseTypeCache(this, baseTypeDTO)
 
       return this

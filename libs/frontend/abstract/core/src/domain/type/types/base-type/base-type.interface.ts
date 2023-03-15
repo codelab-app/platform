@@ -3,7 +3,6 @@ import type { ICacheService } from '../../../../service'
 import type { IOwnerSchema } from '../../../user'
 import type {
   ICreateTypeInput,
-  IUpdateTypeArgs,
   IUpdateTypeInput,
 } from '../../type.input.interface'
 import type { IBaseTypeDTO } from './base-type.dto.interface'

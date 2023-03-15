@@ -1,5 +1,8 @@
-import type { IType, IUnionType } from '@codelab/frontend/abstract/core'
-import { ITypeDTO, IUnionTypeDTO } from '@codelab/frontend/abstract/core'
+import type {
+  IType,
+  IUnionType,
+  IUnionTypeDTO,
+} from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { makeAllTypes } from '@codelab/shared/domain/mapper'
 import merge from 'lodash/merge'
@@ -12,7 +15,6 @@ import {
   prop,
   rootRef,
 } from 'mobx-keystone'
-import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 
 const create = ({ id, kind, name, owner, typesOfUnionType }: IUnionTypeDTO) => {
@@ -37,25 +39,13 @@ export class UnionType
   implements IUnionType
 {
   @modelAction
-  add(fragment: ITypeDTO) {
-    updateBaseTypeCache(this, fragment)
+  writeCache(unionTypeDTO: Partial<IUnionTypeDTO>) {
+    super.writeCache(unionTypeDTO)
 
-    if (fragment.__typename !== ITypeKind.UnionType) {
-      throw new Error('Invalid UnionType')
-    }
-
-    this.typesOfUnionType = fragment.typesOfUnionType.map((typeOfUnionType) =>
-      typeRef(typeOfUnionType.id),
-    )
-
-    return this
-  }
-
-  public static create = create
-
-  @modelAction
-  writeCache(unionTypeDTO: IUnionTypeDTO) {
-    updateBaseTypeCache(this, unionTypeDTO)
+    this.typesOfUnionType =
+      unionTypeDTO.typesOfUnionType?.map((typeOfUnionType) =>
+        typeRef(typeOfUnionType.id),
+      ) ?? this.typesOfUnionType
 
     return this
   }
@@ -89,6 +79,8 @@ export class UnionType
       },
     })
   }
+
+  public static create = create
 }
 
 export const typeRef = rootRef<IType>('@codelab/TypeRef', {
