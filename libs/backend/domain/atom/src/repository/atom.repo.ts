@@ -5,7 +5,6 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { IAtomDTO } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import {
   connectAuth0Owner,
   connectNodeId,
@@ -22,7 +21,7 @@ export class AtomRepository extends AbstractRepository<
 > {
   private Atom = Repository.instance.Atom
 
-  async find(where: OGM_TYPES.AtomWhere) {
+  async find(where: OGM_TYPES.AtomWhere = {}) {
     return await (
       await this.Atom
     ).find({

@@ -1,17 +1,17 @@
-import type { IUser } from '@codelab/backend/abstract/core'
 import { AdminService } from '@codelab/backend/domain/admin'
 import { User, UserRepository } from '@codelab/backend/domain/user'
 import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
-import { setupUser } from '@codelab/backend/shared/util'
+import { setupNewUser } from '@codelab/backend/shared/util'
+import type { IUserDTO } from '@codelab/frontend/abstract/core'
 import { v4 } from 'uuid'
 import { Tag } from '../model'
 import { TagRepository } from './tag.repo'
 
 const tagRepository = new TagRepository()
-let user: IUser
+let user: IUserDTO
 
 beforeAll(async () => {
-  user = await setupUser({
+  user = await setupNewUser({
     AdminService,
     User,
     UserRepository,
@@ -36,7 +36,6 @@ describe('Tag repository.', () => {
       children: [
         {
           id: childTagId,
-          name: childTagName,
         },
       ],
       id: parentTagId,
@@ -57,31 +56,31 @@ describe('Tag repository.', () => {
      */
     await tagRepository.add([parentTag, childTag])
 
-    let savedParentTag = await tagRepository.find({ id: parentTag.id })
-    let savedChildTag = await tagRepository.find({ id: childTag.id })
+    let savedParentTag = await tagRepository.findOne({ id: parentTag.id })
+    let savedChildTag = await tagRepository.findOne({ id: childTag.id })
 
     // Parent
-    expect(savedParentTag.name).toEqual(parentTagName)
-    expect(savedParentTag.children[0]?.name).toEqual(childTagName)
+    expect(savedParentTag?.name).toEqual(parentTagName)
+    expect(savedParentTag?.children[0]?.name).toEqual(childTagName)
 
     // Child
-    expect(savedChildTag.name).toEqual(childTagName)
-    expect(savedChildTag.parent?.name).toEqual(parentTagName)
+    expect(savedChildTag?.name).toEqual(childTagName)
+    expect(savedChildTag?.parent?.name).toEqual(parentTagName)
 
     // Run again to check for the e2e error on second seed
     await tagRepository.save(parentTag)
     await tagRepository.save(childTag)
 
-    savedParentTag = await tagRepository.find({ id: parentTag.id })
-    savedChildTag = await tagRepository.find({ id: childTag.id })
+    savedParentTag = await tagRepository.findOne({ id: parentTag.id })
+    savedChildTag = await tagRepository.findOne({ id: childTag.id })
 
     // Parent
-    expect(savedParentTag.name).toEqual(parentTagName)
-    expect(savedParentTag.children[0]?.name).toEqual(childTagName)
+    expect(savedParentTag?.name).toEqual(parentTagName)
+    expect(savedParentTag?.children[0]?.name).toEqual(childTagName)
 
     // Child
-    expect(savedChildTag.name).toEqual(childTagName)
-    expect(savedChildTag.parent?.name).toEqual(parentTagName)
+    expect(savedChildTag?.name).toEqual(childTagName)
+    expect(savedChildTag?.parent?.name).toEqual(parentTagName)
 
     /**
      * Then update relationship

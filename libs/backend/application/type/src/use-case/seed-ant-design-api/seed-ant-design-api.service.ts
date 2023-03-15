@@ -31,7 +31,7 @@ export class SeedAntDesignApiService extends IUseCase<IOwner, void> {
 
     await Promise.all(
       ObjectTyped.keys(atomsData).map(async (name) => {
-        // Want to get atom api ID by atom name
+        // Want to get atom api y atom name
         const interfaceType = InterfaceType.createFromAtomName(name, owner)
 
         // Search existing interface type
@@ -44,9 +44,7 @@ export class SeedAntDesignApiService extends IUseCase<IOwner, void> {
           interfaceType.id = existingInterfaceType.id
         }
 
-        await this.interfaceTypeRepository.save(interfaceType, {
-          name: interfaceType.name,
-        })
+        await this.interfaceTypeRepository.save(interfaceType)
       }),
     )
   }

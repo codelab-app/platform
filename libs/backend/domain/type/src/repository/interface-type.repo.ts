@@ -1,4 +1,3 @@
-import type { IField, IInterfaceType } from '@codelab/backend/abstract/core'
 import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   interfaceTypeSelectionSet,
@@ -9,7 +8,6 @@ import type {
   IInterfaceTypeDTO,
 } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import {
   connectAuth0Owner,
   connectNodeId,
@@ -60,7 +58,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
    * Scenario: Say a field was deleted, then we run a seeder, we would have to create for the deleted field
    */
   protected async _update(
-    { __typename, fields, id, owner, ...data }: IInterfaceTypeDTO,
+    { __typename, fields, id, name, owner, ...data }: IInterfaceTypeDTO,
     where: OGM_TYPES.InterfaceTypeWhere,
   ) {
     return (
@@ -68,7 +66,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
         await this.InterfaceType
       ).update({
         update: {
-          ...data,
+          name,
           // fields: this.mapUpdateFields(fields),
         },
         where,

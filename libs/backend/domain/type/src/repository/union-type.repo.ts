@@ -1,4 +1,3 @@
-import type { IUnionType } from '@codelab/backend/abstract/core'
 import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportUnionTypeSelectionSet,
@@ -51,7 +50,7 @@ export class UnionTypeRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { __typename, owner, typesOfUnionType, ...unionType }: IUnionTypeDTO,
+    { __typename, id, kind, name, owner, typesOfUnionType }: IUnionTypeDTO,
     where: OGM_TYPES.UnionTypeWhere,
   ) {
     return (
@@ -59,7 +58,8 @@ export class UnionTypeRepository extends AbstractRepository<
         await this.UnionType
       ).update({
         update: {
-          ...unionType,
+          id,
+          name,
           typesOfUnionType: {
             ArrayType: [connectNodeIds([])],
             EnumType: [connectNodeIds([])],
