@@ -120,56 +120,6 @@ export class ComponentService
     return component
   }
 
-  @computed
-  get componentAntdNode(): IBuilderDataNode {
-    return {
-      children: [...this.components.values()].map((component) => {
-        const elementTree = component.elementTree
-        const dataNode = elementTree.root?.antdNode
-
-        return {
-          children: [dataNode].filter((data): data is IBuilderDataNode =>
-            Boolean(data),
-          ),
-          key: component.id,
-          node: component,
-          rootKey: elementTree.root?.id ?? null,
-          // This should bring up a meta pane for editing the component
-          selectable: true,
-          title: component.name,
-        }
-      }),
-      key: COMPONENT_TREE_CONTAINER,
-      // Container shouldn't have any type
-      node: null,
-      rootKey: null,
-      selectable: false,
-      title: 'Components',
-    }
-  }
-
-  @modelFlow
-  @transaction
-  getAll = _async(function* (this: ComponentService, where: ComponentWhere) {
-    const components = yield* _await(this.componentRepository.find(where))
-
-    return components
-      .map((component) => this.add(component))
-      .filter((component): component is Component => Boolean(component))
-  })
-
-  @modelFlow
-  @transaction
-  getOne = _async(function* (this: ComponentService, id: string) {
-    if (this.components.has(id)) {
-      return this.components.get(id)
-    }
-
-    const all = yield* _await(this.getAll({ id }))
-
-    return all[0]
-  })
-
   @modelFlow
   @transaction
   create = _async(function* (
@@ -236,6 +186,56 @@ export class ComponentService
     yield* _await(this.componentRepository.delete([component]))
 
     return component!
+  })
+
+  @computed
+  get componentAntdNode(): IBuilderDataNode {
+    return {
+      children: [...this.components.values()].map((component) => {
+        const elementTree = component.elementTree
+        const dataNode = elementTree.root?.antdNode
+
+        return {
+          children: [dataNode].filter((data): data is IBuilderDataNode =>
+            Boolean(data),
+          ),
+          key: component.id,
+          node: component,
+          rootKey: elementTree.root?.id ?? null,
+          // This should bring up a meta pane for editing the component
+          selectable: true,
+          title: component.name,
+        }
+      }),
+      key: COMPONENT_TREE_CONTAINER,
+      // Container shouldn't have any type
+      node: null,
+      rootKey: null,
+      selectable: false,
+      title: 'Components',
+    }
+  }
+
+  @modelFlow
+  @transaction
+  getAll = _async(function* (this: ComponentService, where: ComponentWhere) {
+    const components = yield* _await(this.componentRepository.find(where))
+
+    return components
+      .map((component) => this.add(component))
+      .filter((component): component is Component => Boolean(component))
+  })
+
+  @modelFlow
+  @transaction
+  getOne = _async(function* (this: ComponentService, id: string) {
+    if (this.components.has(id)) {
+      return this.components.get(id)
+    }
+
+    const all = yield* _await(this.getAll({ id }))
+
+    return all[0]
   })
 
   @modelAction

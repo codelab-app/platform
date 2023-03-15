@@ -3,7 +3,6 @@ import type {
   IElementRepository,
 } from '@codelab/frontend/abstract/core'
 import type { ElementWhere } from '@codelab/shared/abstract/codegen'
-import pick from 'lodash/pick'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { elementApi } from '../store'
 
@@ -39,13 +38,11 @@ export class ElementRepository extends Model({}) implements IElementRepository {
   // This seems to be faster when there are fewer fields attached when updating
   @modelFlow
   updateNodes = _async(function* (this: ElementRepository, element: IElement) {
-    const nodeFields = ['firstChild', 'nextSibling', 'parent', 'prevSibling']
-
     const {
       updateElements: { elements },
     } = yield* _await(
       elementApi.UpdateElements({
-        update: pick(element.toUpdateInput.bind(element)(), nodeFields),
+        update: element.toUpdateNodesInput(),
         where: { id: element.id },
       }),
     )

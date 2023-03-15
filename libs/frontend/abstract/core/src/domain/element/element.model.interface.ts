@@ -62,7 +62,6 @@ export interface IElement extends ICacheService<IElementDTO, IElement> {
   id: string
   isRoot: boolean
   label: string
-  leftHandDescendants: Array<IElement>
   name: string
   nextSibling?: Nullable<Ref<IElement>>
   owner: Nullable<IAuth0Owner>
@@ -116,6 +115,10 @@ export interface IElement extends ICacheService<IElementDTO, IElement> {
   // getDescendantRefs: Array<Ref<IElement>>
   toCreateInput(): ElementCreateInput
   toUpdateInput(): ElementUpdateInput
+  toUpdateNodesInput(): Pick<
+    ElementUpdateInput,
+    'firstChild' | 'nextSibling' | 'parent' | 'prevSibling'
+  >
 }
 
 export type IElementRef = string

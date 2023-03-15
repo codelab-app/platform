@@ -277,18 +277,6 @@ export class Element
     return descendants
   }
 
-  /** All descendants that are the first child of their parent */
-  @computed
-  get leftHandDescendants(): Array<IElement> {
-    const firstChild = this.children[0]
-
-    if (!firstChild) {
-      return []
-    }
-
-    return [firstChild, ...firstChild.leftHandDescendants]
-  }
-
   @computed
   get label() {
     return (
@@ -402,14 +390,10 @@ export class Element
 
     return {
       customCss: this.customCss,
-      firstChild: reconnectNodeId(this.firstChild?.id),
       guiCss: this.guiCss,
       name: this.name,
-      nextSibling: reconnectNodeId(this.nextSibling?.id),
-      parent: reconnectNodeId(this.parent?.id),
       postRenderAction: reconnectNodeId(this.postRenderAction?.id),
       preRenderAction: reconnectNodeId(this.preRenderAction?.id),
-      prevSibling: reconnectNodeId(this.prevSibling?.id),
       props: {
         update: { node: { data: JSON.stringify(this.props.current.data) } },
       },
@@ -421,6 +405,19 @@ export class Element
   }
 
   @modelAction
+  toUpdateNodesInput(): Pick<
+    ElementUpdateInput,
+    'firstChild' | 'nextSibling' | 'parent' | 'prevSibling'
+  > {
+    return {
+      firstChild: reconnectNodeId(this.firstChild?.id),
+      nextSibling: reconnectNodeId(this.nextSibling?.id),
+      parent: reconnectNodeId(this.parent?.id),
+      prevSibling: reconnectNodeId(this.prevSibling?.id),
+    }
+  }
+
+  @modelAction
   clone(cloneIndex: number) {
     const clonedElement: IElement = clone<IElement>(this, {
       generateNewIds: true,
@@ -428,14 +425,6 @@ export class Element
 
     clonedElement.setName(`${this.name} ${cloneIndex}`)
     clonedElement.setSourceElement(elementRef(this.id))
-
-    // if (this.atom) {
-    //   clonedElement.setAtom(atomRef(this.atom.id))
-    // }
-
-    // if (this.props) {
-    //   clonedElement.setProps(this.props.clone())
-    // }
 
     // store elements in elementService
     this.elementService.clonedElements.set(clonedElement.id, clonedElement)

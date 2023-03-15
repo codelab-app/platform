@@ -33,6 +33,7 @@ import type {
   GetRenderedPageAndCommonAppDataQuery,
 } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import flatMap from 'lodash/flatMap'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import {
@@ -126,38 +127,46 @@ export class AppService
    * - Hydrate element
    */
   @modelAction
-  loadPages = ({ appData, pageId }: IPageBuilderAppProps) => {
+  loadPages = ({ appData, components, pageId }: IPageBuilderAppProps) => {
     const app = this.add(appData)
 
+    const allElements = [
+      ...flatMap(appData.pages, ({ rootElement }) => [
+        rootElement,
+        ...rootElement.descendantElements,
+      ]),
+      ...flatMap(components, ({ rootElement }) => [
+        rootElement,
+        ...rootElement.descendantElements,
+      ]),
+    ]
+
+    allElements.forEach((elementData) => {
+      this.propService.add(elementData.props)
+
+      /**
+       * Element comes with `component` or `atom` data that we need to load as well
+       */
+      if (elementData.renderAtomType?.id) {
+        this.typeService.addInterface(elementData.renderAtomType.api)
+
+        elementData.renderAtomType.tags.forEach((tag) =>
+          this.tagService.add(tag),
+        )
+
+        this.atomService.add(elementData.renderAtomType)
+      }
+
+      if (elementData.renderComponentType?.id) {
+        this.typeService.addInterface(elementData.renderComponentType.api)
+
+        this.componentService.add(elementData.renderComponentType)
+      }
+
+      this.elementService.add(elementData)
+    })
+
     appData.pages.forEach((pageData) => {
-      ;[
-        pageData.rootElement,
-        ...pageData.rootElement.descendantElements,
-      ].forEach((elementData) => {
-        this.propService.add(elementData.props)
-
-        /**
-         * Element comes with `component` or `atom` data that we need to load as well
-         */
-        if (elementData.renderAtomType?.id) {
-          this.typeService.addInterface(elementData.renderAtomType.api)
-
-          elementData.renderAtomType.tags.forEach((tag) =>
-            this.tagService.add(tag),
-          )
-
-          this.atomService.add(elementData.renderAtomType)
-        }
-
-        if (elementData.renderComponentType?.id) {
-          this.typeService.addInterface(elementData.renderComponentType.api)
-
-          this.componentService.add(elementData.renderComponentType)
-        }
-
-        this.elementService.add(elementData)
-      })
-
       this.pageService.add({
         ...pageData,
         descendentElements: pageData.rootElement.descendantElements,
@@ -297,7 +306,7 @@ export class AppService
     /**
      * Load app, pages, elements
      */
-    const { app } = this.loadPages({ appData, pageId })
+    const { app } = this.loadPages({ appData, components, pageId })
 
     /**
      * Need to load pages and store before hand
