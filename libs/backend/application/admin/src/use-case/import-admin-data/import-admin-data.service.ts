@@ -12,6 +12,7 @@ import {
   InterfaceTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
+import { saveFormattedFile } from '@codelab/backend/shared/util'
 import type { IAuth0Owner, ITagDTO } from '@codelab/frontend/abstract/core'
 import fs from 'fs'
 import path from 'path'
@@ -51,9 +52,6 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
 
     await this.importTags(owner)
 
-    // const apis = await this.interfaceTypeRepository.all()
-    // console.log(apis)
-
     await this.importFields(owner)
 
     await this.importAtoms(owner)
@@ -70,6 +68,10 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
   }
 
   private async importAdminTypes(owner: IAuth0Owner) {
+    // const types = this.getMergedData().types
+
+    // saveFormattedFile(path.resolve('./data/types.json'), types)
+
     for await (const type of this.getMergedData().types) {
       await TypeFactory.create({ ...type, owner })
     }
@@ -109,7 +111,9 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
    * Extract all the api's from atom file
    */
   private getMergedData(): Omit<ExportedAdminData, 'tags'> {
-    const filenames = fs.readdirSync(this.dataPaths.ATOMS_PATH)
+    const filenames = fs
+      .readdirSync(this.dataPaths.ATOMS_PATH)
+      .filter((filename) => path.extname(filename) === '.json')
 
     return filenames.reduce(
       (acc, filename) => {

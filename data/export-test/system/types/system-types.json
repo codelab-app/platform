@@ -1,41 +1,41 @@
 [
   {
     "__typename": "PrimitiveType",
-    "id": "869a38c4-1cd3-48ce-a705-140d0ad9da56",
+    "id": "ef51b840-9182-4f76-b3f1-2106df961ca9",
     "kind": "PrimitiveType",
     "name": "Boolean",
     "primitiveKind": "Boolean"
   },
   {
     "__typename": "PrimitiveType",
-    "id": "4e4b2656-c891-4f27-836b-94a517d15839",
+    "id": "7324e61c-5a9d-4b03-a56b-d25fee0cdbae",
     "kind": "PrimitiveType",
     "name": "Integer",
     "primitiveKind": "Integer"
   },
   {
     "__typename": "PrimitiveType",
-    "id": "e5c41065-7a3a-4435-a1a3-cddf8020b593",
+    "id": "6ba699a2-8cda-4cce-a8c5-fe2704132a03",
     "kind": "PrimitiveType",
     "name": "Number",
     "primitiveKind": "Number"
   },
   {
     "__typename": "PrimitiveType",
-    "id": "ee020c29-f762-40ac-95d7-07c2dba13232",
+    "id": "34956a6e-08ac-4bbf-8704-be1e83413f65",
     "kind": "PrimitiveType",
     "name": "String",
     "primitiveKind": "String"
   },
   {
     "__typename": "RenderPropsType",
-    "id": "f0862f73-1b35-4b8b-833b-58555c5302a7",
+    "id": "e88e1ba7-c404-4239-942e-2de66decf4e8",
     "kind": "RenderPropsType",
     "name": "RenderPropsType"
   },
   {
     "__typename": "ReactNodeType",
-    "id": "43cd1490-c638-49f0-b109-7f6af668aef3",
+    "id": "2858532f-9afe-4085-a311-11ef9f98fe76",
     "kind": "ReactNodeType",
     "name": "ReactNodeType"
   }
