@@ -48,18 +48,12 @@ export const importCommand: CommandModule<ImportProps, ImportProps> = {
    *
    * @param file File for the user data
    */
-  handler: async ({
-    email,
-    seedDataPath,
-    skipSeedData,
-    skipUserData,
-    userDataPath,
-  }) => {
+  handler: async ({ email, seedDataPath, skipSeedData, skipUserData }) => {
     const User = await Repository.instance.User
 
     const selectedUserId = email
-      ? (await User.find({ where: { email } }))[0]?.id
-      : (await inquirer.prompt([await selectUserPrompt()])).selectedUserId
+      ? (await User.find({ where: { email } }))[0]?.auth0Id
+      : (await inquirer.prompt([await selectUserPrompt()])).selectedAuth0Id
 
     const shouldSkipSeedData: boolean =
       skipSeedData !== undefined

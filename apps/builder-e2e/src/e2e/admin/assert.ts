@@ -9,15 +9,10 @@ const TIMEOUT = 180000
 
 export const seedData = () => {
   cy.log('yarn cli seed')
-    .exec('yarn cli data seed --stage test --email cypress@codelab.app', {
-      failOnNonZeroExit: false,
-      timeout: TIMEOUT,
-    })
-    /**
-     * Currently cannot catch errors from exec failing
-     *
-     * https://github.com/cypress-io/cypress/issues/5094
-     */
+    .exec(
+      `yarn cli data import --skipUserData true --skipSeedData false --email cypress@codelab.app`,
+      { timeout: TIMEOUT },
+    )
     .then((res) => {
       cy.log(`${res.code}`)
       cy.log(res.stdout)

@@ -7,6 +7,7 @@ import {
   useRenderedPage,
   useStore,
 } from '@codelab/frontend/presenter/container'
+import { useMountEffect } from '@react-hookz/web'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import React from 'react'
@@ -15,13 +16,17 @@ const Index = (props: AppPagePageProps) => {
   const store = useStore()
   const { renderingData } = props
 
-  const [{ result: value }] = useRenderedPage({
+  const [{ result }, actions] = useRenderedPage({
+    // appId,
     initialData: renderingData,
+    // pageId,
     rendererType: RendererType.Preview,
     renderService: store.appRenderService,
   })
 
-  const { page, renderer } = value ?? {}
+  useMountEffect(actions.execute)
+
+  const { page, renderer } = result ?? {}
 
   return (
     <>
