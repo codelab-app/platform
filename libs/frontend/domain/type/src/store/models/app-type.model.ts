@@ -1,8 +1,6 @@
-import type { IAppType } from '@codelab/frontend/abstract/core'
-import { IAppTypeDTO } from '@codelab/frontend/abstract/core'
+import type { IAppType, IAppTypeDTO } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { ExtendedModel, model, modelAction } from 'mobx-keystone'
-import { updateBaseTypeCache } from '../base-type'
+import { ExtendedModel, model } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
 
 const create = ({ id, kind, name, owner }: IAppTypeDTO): AppType => {
@@ -21,12 +19,5 @@ export class AppType
   extends ExtendedModel(createBaseType(ITypeKind.AppType), {})
   implements IAppType
 {
-  @modelAction
-  writeCache(appTypeDTO: IAppTypeDTO) {
-    updateBaseTypeCache(this, appTypeDTO)
-
-    return this
-  }
-
   public static create = create
 }

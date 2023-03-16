@@ -23,6 +23,21 @@ type ITypeWhere =
   | cg.RenderPropsTypeWhere
   | cg.UnionTypeWhere
 
+export type IUpdateTypeVars =
+  | cg.UpdateActionTypesMutationVariables
+  | cg.UpdateAppTypesMutationVariables
+  | cg.UpdateArrayTypesMutationVariables
+  | cg.UpdateCodeMirrorTypesMutationVariables
+  | cg.UpdateElementTypesMutationVariables
+  | cg.UpdateEnumTypesMutationVariables
+  | cg.UpdateInterfaceTypesMutationVariables
+  | cg.UpdateLambdaTypesMutationVariables
+  | cg.UpdatePageTypesMutationVariables
+  | cg.UpdatePrimitiveTypesMutationVariables
+  | cg.UpdateReactNodeTypesMutationVariables
+  | cg.UpdateRenderPropsTypesMutationVariables
+  | cg.UpdateUnionTypesMutationVariables
+
 export type ICreateTypeInput =
   | cg.ActionTypeCreateInput
   | cg.AppTypeCreateInput

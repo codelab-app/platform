@@ -1,10 +1,11 @@
-import type { ICodeMirrorType } from '@codelab/frontend/abstract/core'
-import { ICodeMirrorTypeDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
+import type {
+  ICodeMirrorType,
+  ICodeMirrorTypeDTO,
+} from '@codelab/frontend/abstract/core'
 import type { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 
 const create = ({
@@ -33,21 +34,10 @@ export class CodeMirrorType
   implements ICodeMirrorType
 {
   @modelAction
-  add(fragment: ITypeDTO) {
-    updateBaseTypeCache(this, fragment)
+  writeCache(codeMirrorTypeDTO: Partial<ICodeMirrorTypeDTO>) {
+    super.writeCache(codeMirrorTypeDTO)
 
-    if (fragment.__typename !== ITypeKind.CodeMirrorType) {
-      throw new Error('Invalid CodeMirrorType')
-    }
-
-    this.language = fragment.language
-
-    return this
-  }
-
-  @modelAction
-  writeCache(codeMirrorTypeDTO: ICodeMirrorTypeDTO) {
-    updateBaseTypeCache(this, codeMirrorTypeDTO)
+    this.language = codeMirrorTypeDTO.language ?? this.language
 
     return this
   }

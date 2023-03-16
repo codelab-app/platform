@@ -1,6 +1,6 @@
 import type {
   ElementTypeCreateInput,
-  ElementTypeUpdateInput,
+  UpdateElementTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
 import type { IElementTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { IBaseType } from '../base-type'
@@ -26,5 +26,5 @@ export interface IElementType extends IBaseType<IElementTypeDTO> {
   kind: ITypeKind.ElementType
 
   toCreateInput(): ElementTypeCreateInput
-  toUpdateInput(): ElementTypeUpdateInput
+  toUpdateInput(): UpdateElementTypesMutationVariables
 }

@@ -1,6 +1,6 @@
 import type {
   UnionTypeCreateInput,
-  UnionTypeUpdateInput,
+  UpdateUnionTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
@@ -13,5 +13,5 @@ export interface IUnionType extends IBaseType<IUnionTypeDTO> {
   typesOfUnionType: Array<Ref<IType>>
 
   toCreateInput(): UnionTypeCreateInput
-  toUpdateInput(): UnionTypeUpdateInput
+  toUpdateInput(): UpdateUnionTypesMutationVariables
 }
