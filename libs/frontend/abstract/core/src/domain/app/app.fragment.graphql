@@ -27,6 +27,9 @@ fragment App on App {
   store {
     id
   }
+  domains {
+    ...Domain
+  }
 }
 
 fragment PageBuilderApp on App {

@@ -26,13 +26,8 @@ export const GetTypesTable = observer<{
   const curPage = page ?? DEFAULT_CUR_PAGE
   const curPageSize = pageSize ?? DEFAULT_PAGE_SIZE
 
-  const {
-    fetchedTypes,
-    getFullType,
-    getTypes,
-    isLoadingAllTypes,
-    loadingFullType,
-  } = useTypesTableData(typeService)
+  const { fetchedTypes, getFullType, getTypes, isLoadingAllTypes } =
+    useTypesTableData(typeService)
 
   const { columns, pagination, rowSelection } = useTypesTable({
     fieldService,
@@ -64,7 +59,7 @@ export const GetTypesTable = observer<{
 
   useEffect(() => {
     const offset = (curPage - 1) * curPageSize
-    void getTypes({
+    void getTypes.execute({
       limit: curPageSize,
       offset,
     })
@@ -94,7 +89,7 @@ export const GetTypesTable = observer<{
           ),
         onExpand: (expanded, record) => {
           if (expanded) {
-            void getFullType([record.id])
+            void getFullType.execute([record.id])
           }
         },
       }}

@@ -21,10 +21,10 @@ export interface IRenderer {
   state: IProp
 
   getPostAction(element: IElement): Nullish<() => unknown>
-  initForce(
-    elementTree: IElementTree,
-    providerTree?: Nullable<IElementTree>,
-  ): void
+  // initForce(
+  //   elementTree: IElementTree,
+  //   providerTree?: Nullable<IElementTree>,
+  // ): void
   logRendered(element: IElement, rendered: ArrayOrSingle<IRenderOutput>): void
   renderChildren(input: {
     parentOutput: IRenderOutput

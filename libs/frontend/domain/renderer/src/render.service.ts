@@ -28,17 +28,19 @@ export class RenderService
   @modelFlow
   @transaction
   addRenderer = _async(function* (this: RenderService, props: RendererProps) {
+    console.log(props)
+
     const existing = this.renderers.get(props.id)
 
     if (!existing) {
-      const renderer = yield* _await(Renderer.init(props))
+      const renderer = yield* _await(Renderer.create(props))
 
       this.renderers.set(props.id, renderer)
 
       return renderer
     }
 
-    existing.initForce(props.elementTree, props.providerTree)
+    // existing.initForce(props.elementTree, props.providerTree)
 
     return existing
   })

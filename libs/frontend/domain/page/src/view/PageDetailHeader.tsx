@@ -19,12 +19,12 @@ import {
   useCurrentAppId,
   useCurrentPageId,
 } from '@codelab/frontend/presenter/container'
+import { useAsync } from '@react-hookz/web'
 import { InputNumber, Menu, Space } from 'antd'
 import type { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import React, { useCallback, useState } from 'react'
-import { useAsync } from 'react-use'
+import React, { useCallback, useEffect, useState } from 'react'
 import tw from 'twin.macro'
 // import { BuilderSizeBreakpoints, mainContentWidthBreakPoint } from './constants'
 
@@ -37,15 +37,18 @@ export const PageDetailHeader = observer<{
   pageService: IPageService
 }>(({ builderService, pageService }) => {
   const router = useRouter()
-  const currentAppId = useCurrentAppId()
+  const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
-  const { loading } = useAsync(
-    () => pageService.getAll({ appConnection: { node: { id: currentAppId } } }),
-    [currentAppId],
+  const [{ status }, getPages] = useAsync(() =>
+    pageService.getAll({ appConnection: { node: { id: appId } } }),
   )
 
-  const pagesList = pageService.pagesByApp(currentAppId)
+  useEffect(() => {
+    void getPages.execute()
+  }, [appId])
+
+  const pagesList = pageService.pagesByApp(appId)
   const currentPage = pagesList.find((page) => page.id === pageId)
   const isBuilder = router.pathname === PageType.PageBuilder
 

@@ -1,5 +1,6 @@
 import type {
   IElement,
+  IElementTree,
   IPropData,
   IRenderer,
   IRenderOutput,
@@ -9,7 +10,6 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   CUSTOM_TEXT_PROP_KEY,
-  IElementTree,
   RendererType,
 } from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/domain/atom'
@@ -22,7 +22,7 @@ import {
   replaceStateInProps,
 } from '@codelab/frontend/shared/utils'
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { Nullable } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
 import { computed } from 'mobx'
@@ -72,7 +72,7 @@ import { mapOutput } from './utils/renderOutputUtils'
  * For example - we use the renderContext from ./renderContext inside the pipes to get the renderer model itself and its tree.
  */
 
-const init = async ({
+const create = async ({
   appStore,
   elementTree,
   providerTree,
@@ -149,11 +149,11 @@ export class Renderer
   })
   implements IRenderer
 {
-  @modelAction
-  initForce(elementTree: IElementTree, providerTree?: Nullable<IElementTree>) {
-    this.elementTree = elementTreeRef(elementTree)
-    this.providerTree = providerTree ? elementTreeRef(providerTree) : null
-  }
+  // @modelAction
+  // initForce(elementTree: IElementTree, providerTree?: Nullable<IElementTree>) {
+  //   this.elementTree = elementTreeRef(elementTree)
+  //   this.providerTree = providerTree ? elementTreeRef(providerTree) : null
+  // }
 
   renderRoot() {
     const root = this.elementTree.maybeCurrent?.root
@@ -465,7 +465,7 @@ export class Renderer
     return getTypeService(this).type(typeId)?.kind
   }
 
-  static init = init
+  static create = create
 }
 
 export const renderServiceRef = rootRef<IRenderer>(

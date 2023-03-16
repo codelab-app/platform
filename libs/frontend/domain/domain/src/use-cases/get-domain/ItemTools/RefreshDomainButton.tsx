@@ -4,10 +4,10 @@ import {
   useCurrentAppId,
   useStore,
 } from '@codelab/frontend/presenter/container'
+import { useAsync } from '@react-hookz/web'
 import { Button, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
-import { useAsync } from 'react-use'
+import React, { useEffect } from 'react'
 
 interface RefreshDomainButtonProps {
   domain: IDomain
@@ -18,21 +18,18 @@ export const RefreshDomainButton = observer(
     const { domainService } = useStore()
     const appId = useCurrentAppId()
 
-    const { loading, value } = useAsync(async () => {
-      return {
-        refreshDomain: () =>
-          domainService.getAll({
-            appConnection: { node: { id: appId } },
-            id: domain.id,
-          }),
-      }
-    }, [appId])
+    const [{ status }, getAllDomains] = useAsync(async () =>
+      domainService.getAll({
+        appConnection: { node: { id: appId } },
+        id: domain.id,
+      }),
+    )
 
     return (
       <Tooltip title="Refresh">
         <Button
-          icon={<SyncOutlined spin={loading} />}
-          onClick={value?.refreshDomain}
+          icon={<SyncOutlined spin={status === 'loading'} />}
+          onClick={() => getAllDomains.execute()}
           shape="circle"
           type="text"
         />

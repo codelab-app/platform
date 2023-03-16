@@ -1,24 +1,20 @@
+import { useAsync, useMountEffect } from '@react-hookz/web'
 import React from 'react'
-import { useAsync } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 import type { SelectAtomProps } from '../types'
 
 export const SelectAtomTypeHook = ({ error, name }: SelectAtomProps) => {
-  const {
-    error: queryError,
-    loading,
-    value,
-  } = useAsync(
-    () =>
-      interfaceFormApi.InterfaceForm_GetAtoms({
-        where: { name_CONTAINS: 'Hook' },
-      }),
-    [],
+  const [{ error: queryError, result, status }, getAtoms] = useAsync(() =>
+    interfaceFormApi.InterfaceForm_GetAtoms({
+      where: { name_CONTAINS: 'Hook' },
+    }),
   )
 
+  useMountEffect(getAtoms.execute)
+
   const componentOptions =
-    value?.atoms.map((atom) => ({
+    result?.atoms.map((atom) => ({
       label: atom.name,
       value: atom.id,
     })) ?? []
@@ -26,7 +22,7 @@ export const SelectAtomTypeHook = ({ error, name }: SelectAtomProps) => {
   return (
     <SelectField
       error={error || queryError}
-      loading={loading}
+      loading={status === 'loading'}
       name={name}
       optionFilterProp="label"
       options={componentOptions}

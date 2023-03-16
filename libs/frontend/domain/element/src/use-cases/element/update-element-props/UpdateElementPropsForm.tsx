@@ -10,12 +10,12 @@ import { useStore } from '@codelab/frontend/presenter/container'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { ReactQuillField, Spinner } from '@codelab/frontend/view/components'
 import { filterEmptyStrings, mergeProps } from '@codelab/shared/utils'
+import { useAsync } from '@react-hookz/web'
 import type { JSONSchemaType } from 'ajv'
 import { Col, Row } from 'antd'
 import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
-import { useAsync } from 'react-use'
+import React, { useEffect } from 'react'
 import tw from 'twin.macro'
 
 export interface UpdateElementPropsFormProps {
@@ -48,10 +48,13 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     const currentElement = element.current
     const apiId = currentElement.renderType?.current.api.id
 
-    const { loading, value: interfaceType } = useAsync(
-      () => typeService.getInterface(apiId!),
-      [apiId],
+    const [{ result: interfaceType, status }, getInterface] = useAsync(() =>
+      typeService.getInterface(apiId!),
     )
+
+    useEffect(() => {
+      void getInterface.execute()
+    }, [apiId])
 
     const onSubmit = (data: IPropData) => {
       const filteredData = filterEmptyStrings(data)
@@ -84,7 +87,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     )
 
     return (
-      <Spinner isLoading={loading}>
+      <Spinner isLoading={status === 'loading'}>
         {interfaceType && (
           <Row css={tw`mb-5`} gutter={[0, 16]}>
             <Col span={24}>

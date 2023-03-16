@@ -20,20 +20,22 @@ import {
   sidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
+import { useAsync, useMountEffect } from '@react-hookz/web'
 import { PageHeader } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
-import { useAsync } from 'react-use'
 
 const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const { tagService, userService } = useStore()
 
-  const { loading } = useAsync(() => {
+  const [{ status }, loadTagTree] = useAsync(() => {
     tagService.loadTagTree()
 
     return Promise.resolve()
-  }, [])
+  })
+
+  useMountEffect(loadTagTree.execute)
 
   return (
     <>
@@ -46,7 +48,7 @@ const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <DeleteTagsModal tagService={tagService} />
 
       <ContentSection>
-        <GetTagsTable loading={loading} tagService={tagService} />
+        <GetTagsTable loading={status === 'loading'} tagService={tagService} />
       </ContentSection>
     </>
   )

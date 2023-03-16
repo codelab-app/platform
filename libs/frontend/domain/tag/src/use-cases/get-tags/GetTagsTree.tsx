@@ -1,11 +1,11 @@
 import type { ITagService } from '@codelab/frontend/abstract/core'
 import type { CheckedKeys } from '@codelab/frontend/abstract/types'
 import { Spinner } from '@codelab/frontend/view/components'
+import { useAsync } from '@react-hookz/web'
 import type { TreeProps } from 'antd'
 import { Tree } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useAsync } from 'react-use'
 import { tagRef } from '../../store'
 
 export const GetTagsTree = observer<{ tagService: ITagService }>(
@@ -23,17 +23,17 @@ export const GetTagsTree = observer<{ tagService: ITagService }>(
       )
     }
 
-    const { loading } = useAsync(() => tagService.getAll(), [])
+    const [{ status }] = useAsync(() => tagService.getAll())
 
     return (
-      <Spinner isLoading={loading}>
+      <Spinner isLoading={status === 'loading'}>
         <Tree
           checkStrictly
           checkable
           checkedKeys={tagService.checkedTags.map(
             (checkedTag) => checkedTag.id,
           )}
-          disabled={loading}
+          disabled={status === 'loading'}
           onCheck={onCheck}
           onSelect={onSelect}
           treeData={tagService.treeService.antdTreeData}

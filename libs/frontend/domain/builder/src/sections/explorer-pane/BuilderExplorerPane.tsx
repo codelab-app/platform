@@ -80,6 +80,8 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
     const pageTree = pageBuilderRenderer?.elementTree.maybeCurrent
     const componentId = builderService.activeComponent?.id
 
+    console.log(pageBuilderRenderer?.elementTree)
+
     const componentTree = componentId
       ? builderRenderService.renderers.get(componentId)?.elementTree.current
       : null

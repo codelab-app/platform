@@ -19574,6 +19574,7 @@ export type AppFragment = {
   owner: { __typename?: 'User' } & OwnerFragment
   pages: Array<{ __typename?: 'Page' } & PageFragment>
   store: { __typename?: 'Store'; id: string }
+  domains: Array<{ __typename?: 'Domain' } & DomainFragment>
 }
 
 export type PageBuilderAppFragment = {
