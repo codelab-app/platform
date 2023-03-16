@@ -9,9 +9,15 @@ import type { IAppTypeDTO } from './app-type.dto.interface'
 /**
  * Allows choosing an app from the list of apps.
  */
-export interface IAppType extends IBaseType<IAppTypeDTO> {
+export interface IAppType
+  extends Omit<
+    IBaseType<
+      IAppTypeDTO,
+      AppTypeCreateInput,
+      UpdateAppTypesMutationVariables,
+      void
+    >,
+    'toDeleteInput'
+  > {
   kind: ITypeKind.AppType
-
-  toCreateInput(): AppTypeCreateInput
-  toUpdateInput(): UpdateAppTypesMutationVariables
 }
