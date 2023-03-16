@@ -17,9 +17,7 @@ const Index = (props: AppPagePageProps) => {
   const { renderingData } = props
 
   const [{ result }, actions] = useRenderedPage({
-    // appId,
     initialData: renderingData,
-    // pageId,
     rendererType: RendererType.Preview,
     renderService: store.appRenderService,
   })
