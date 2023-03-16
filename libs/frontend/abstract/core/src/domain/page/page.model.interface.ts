@@ -4,11 +4,13 @@ import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IElement, IElementTreeService } from '../element'
+import type { IModel } from '../model.interface'
 import type { IPropData } from '../prop'
 import type { IPageDTO } from './page.dto.interface'
 
 export interface IPage
-  extends IEntity,
+  extends Pick<IModel<PageCreateInput, void, void>, 'toCreateInput'>,
+    IEntity,
     IElementTreeService,
     ICacheService<IPageDTO, IPage> {
   app: IEntity
@@ -25,6 +27,4 @@ export interface IPage
   rootElement: Ref<IElement>
   slug: string
   toJson: IPropData
-
-  toCreateInput(): PageCreateInput
 }

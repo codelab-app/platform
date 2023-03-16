@@ -15,9 +15,15 @@ import type { IRenderPropsTypeDTO } from './render-props-type.dto.interface'
  * - ReactNodeType: Component select box, results it `ReactNode` value
  * - ElementType: Current tree element select box, results it `ReactNode` value
  */
-export interface IRenderPropsType extends IBaseType<IRenderPropsTypeDTO> {
+export interface IRenderPropsType
+  extends Omit<
+    IBaseType<
+      IRenderPropsTypeDTO,
+      RenderPropsTypeCreateInput,
+      UpdateRenderPropsTypesMutationVariables,
+      void
+    >,
+    'toDeleteInput'
+  > {
   kind: ITypeKind.RenderPropsType
-
-  toCreateInput(): RenderPropsTypeCreateInput
-  toUpdateInput(): UpdateRenderPropsTypesMutationVariables
 }

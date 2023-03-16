@@ -6,10 +6,13 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Frozen, Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IElement } from '../element'
+import type { IModel } from '../model.interface'
 import type { IInterfaceType } from '../type'
 import type { IPropDTO } from './prop.dto.interface'
 
-export interface IProp extends ICacheService<IPropDTO, IProp> {
+export interface IProp
+  extends Omit<IModel<PropCreateInput, PropUpdateInput, void>, 'toDeleteInput'>,
+    ICacheService<IPropDTO, IProp> {
   api?: Nullable<Ref<IInterfaceType>>
   data: Frozen<Nullable<IPropData>>
   id: string
@@ -22,8 +25,6 @@ export interface IProp extends ICacheService<IPropDTO, IProp> {
   set(key: string, value: object | string): void
   setMany(data: IPropData): void
   setSilently(key: string, value: object): void
-  toCreateInput(): PropCreateInput
-  toUpdateInput(): PropUpdateInput
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

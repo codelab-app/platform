@@ -15,10 +15,16 @@ import type { IPrimitiveTypeDTO } from './primitive-type.dto.interface'
  *
  * @property {PrimitiveTypeKind} primitiveKind - concrete primitive kind
  */
-export interface IPrimitiveType extends IBaseType<IPrimitiveTypeDTO> {
+export interface IPrimitiveType
+  extends Omit<
+    IBaseType<
+      IPrimitiveTypeDTO,
+      PrimitiveTypeCreateInput,
+      UpdatePrimitiveTypesMutationVariables,
+      void
+    >,
+    'toDeleteInput'
+  > {
   kind: ITypeKind.PrimitiveType
   primitiveKind: IPrimitiveTypeKind
-
-  toCreateInput(): PrimitiveTypeCreateInput
-  toUpdateInput(): UpdatePrimitiveTypesMutationVariables
 }

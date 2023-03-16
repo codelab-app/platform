@@ -13,10 +13,16 @@ import type { IArrayTypeDTO } from './array-type.dto.interface'
  *
  * @property itemType - reference to the type of items in the array
  */
-export interface IArrayType extends IBaseType<IArrayTypeDTO> {
+export interface IArrayType
+  extends Omit<
+    IBaseType<
+      IArrayTypeDTO,
+      ArrayTypeCreateInput,
+      UpdateArrayTypesMutationVariables,
+      void
+    >,
+    'toDeleteInput'
+  > {
   itemType?: Ref<IType> | null
   kind: ITypeKind.ArrayType
-
-  toCreateInput(): ArrayTypeCreateInput
-  toUpdateInput(): UpdateArrayTypesMutationVariables
 }
