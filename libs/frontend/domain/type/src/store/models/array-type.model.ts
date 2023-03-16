@@ -1,12 +1,14 @@
-import type { IArrayType, IType } from '@codelab/frontend/abstract/core'
-import { IArrayTypeDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
+import type {
+  IArrayType,
+  IArrayTypeDTO,
+  IType,
+} from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
 import merge from 'lodash/merge'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 import { typeRef } from './union-type.model'
 
@@ -36,21 +38,8 @@ export class ArrayType
   implements IArrayType
 {
   @modelAction
-  add(typeDTO: ITypeDTO) {
-    updateBaseTypeCache(this, typeDTO)
-
-    if (typeDTO.__typename !== ITypeKind.ArrayType) {
-      throw new Error('Invalid ArrayType')
-    }
-
-    this.itemType = typeDTO.itemType ? typeRef(typeDTO.itemType.id) : null
-
-    return this
-  }
-
-  @modelAction
-  writeCache(arrayTypeDTO: IArrayTypeDTO) {
-    updateBaseTypeCache(this, arrayTypeDTO)
+  writeCache(arrayTypeDTO: Partial<IArrayTypeDTO>) {
+    super.writeCache(arrayTypeDTO)
 
     this.itemType = arrayTypeDTO.itemType
       ? typeRef(arrayTypeDTO.itemType.id)
@@ -68,14 +57,24 @@ export class ArrayType
 
   toUpdateInput() {
     return merge(super.toUpdateInput(), {
-      disconnect: {
-        itemType: {
-          where: { node: { id_NOT: this.itemType?.id } },
-        },
-      },
-      update: {
-        itemType: connectNodeId(this.itemType?.id),
-      },
+      disconnect: this.itemType?.id
+        ? {
+            itemType: {
+              where: {
+                NOT: {
+                  node: {
+                    id: this.itemType.id,
+                  },
+                },
+              },
+            },
+          }
+        : undefined,
+      update: this.itemType?.id
+        ? {
+            itemType: connectNodeId(this.itemType.id),
+          }
+        : undefined,
     })
   }
 

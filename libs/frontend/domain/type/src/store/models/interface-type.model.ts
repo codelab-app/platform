@@ -7,7 +7,6 @@ import {
   IField,
   IInterfaceTypeDTO,
   IPropData,
-  ITypeDTO,
 } from '@codelab/frontend/abstract/core'
 import type { InterfaceTypeCreateInput } from '@codelab/shared/abstract/codegen'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
@@ -24,7 +23,6 @@ import {
   prop,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { updateBaseTypeCache } from '../base-type'
 import { getFieldService } from '../field.service.context'
 import { createBaseType } from './base-type.model'
 import { fieldRef } from './field.model'
@@ -118,36 +116,15 @@ export class InterfaceType
   }
 
   @modelAction
-  add(fragment: ITypeDTO) {
-    if (fragment.__typename !== ITypeKind.InterfaceType) {
-      throw new Error('Invalid InterfaceType')
-    }
-
-    updateBaseTypeCache(this, fragment)
-
-    this.writeFieldCache(fragment.fields)
-
-    // const newFieldsKeySet = new Set(this.fields.map((f) => f.key))
-    //
-    // for (const [key, field] of this.fields) {
-    //   if (!newFieldsKeySet.has(key)) {
-    //     this.fields.delete(field.id)
-    //   }
-    // }
-
-    return this
-  }
-
-  static createName = createName
-
-  @modelAction
   writeCache(interfaceTypeDTO: IInterfaceTypeDTO) {
-    updateBaseTypeCache(this, interfaceTypeDTO)
+    super.writeCache(interfaceTypeDTO)
 
     this.writeFieldCache(interfaceTypeDTO.fields)
 
     return this
   }
+
+  static createName = createName
 
   static create = create
 

@@ -1,11 +1,7 @@
 import type {
-  IConnectNodeInput,
   ICreateTypeInput,
-  IDeleteTypeInput,
-  IDisconnectNodeInput,
-  ITypeDTO,
   ITypeWhere,
-  IUpdateTypeInput,
+  IUpdateTypeVars,
 } from '@codelab/frontend/abstract/core'
 import { client } from '@codelab/frontend/model/infra/graphql'
 import type {
@@ -134,13 +130,7 @@ const _updateApi = getUpdateSdk(client)
 
 type UpdateTypesRecord = Record<
   ITypeKind,
-  (vars: {
-    connect?: IConnectNodeInput
-    delete?: IDeleteTypeInput
-    disconnect?: IDisconnectNodeInput
-    update?: IUpdateTypeInput
-    where: ITypeWhere
-  }) => Promise<Array<TypeFragment>>
+  (vars: IUpdateTypeVars) => Promise<Array<TypeFragment>>
 >
 
 export const updateTypeApi: UpdateTypesRecord = {
@@ -170,8 +160,6 @@ export const updateTypeApi: UpdateTypesRecord = {
     _updateApi.UpdateCodeMirrorTypes(vars).then(({ types }) => types.types),
   [ITypeKind.PageType]: (vars) =>
     _updateApi.UpdatePageTypes(vars).then(({ types }) => types.types),
-  [ITypeKind.AppType]: (vars) =>
-    _updateApi.UpdateAppTypes(vars).then(({ types }) => types.types),
 }
 
 //

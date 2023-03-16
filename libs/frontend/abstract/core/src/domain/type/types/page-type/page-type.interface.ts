@@ -1,6 +1,6 @@
 import type {
   PageTypeCreateInput,
-  PageTypeUpdateInput,
+  UpdatePageTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IBaseType } from '../base-type'
@@ -13,5 +13,5 @@ export interface IPageType extends IBaseType<IPageTypeDTO> {
   kind: ITypeKind.PageType
 
   toCreateInput(): PageTypeCreateInput
-  toUpdateInput(): PageTypeUpdateInput
+  toUpdateInput(): UpdatePageTypesMutationVariables
 }

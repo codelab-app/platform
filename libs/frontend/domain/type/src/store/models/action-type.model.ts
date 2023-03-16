@@ -3,7 +3,7 @@ import type {
   IActionTypeDTO,
 } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
-import { ExtendedModel, model, modelAction } from 'mobx-keystone'
+import { ExtendedModel, model } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
 
 const create = ({ id, kind, name, owner }: IActionTypeDTO) => {
@@ -18,9 +18,4 @@ export class ActionType
   implements IActionType
 {
   static create = create
-
-  @modelAction
-  writeCache({ id }: Partial<IActionTypeDTO>) {
-    return this
-  }
 }
