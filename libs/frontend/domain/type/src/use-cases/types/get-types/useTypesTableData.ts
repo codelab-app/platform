@@ -1,17 +1,17 @@
 import type { ITypeService } from '@codelab/frontend/abstract/core'
-import { useAsyncFn } from 'react-use'
+import { useAsync } from '@react-hookz/web'
 
 export const useTypesTableData = (typeService: ITypeService) => {
   /**
    * Get the base types of the current page
    */
-  const [{ loading: isLoadingAllTypes, value: fetchedTypes }, getTypes] =
-    useAsyncFn(typeService.getBaseTypes)
+  const [{ result: fetchedTypes, status: loadingAllTypesStatus }, getTypes] =
+    useAsync(typeService.getBaseTypes)
 
   /**
    * Load full details of the types
    */
-  const [{ loading: loadingFullType }, getFullType] = useAsyncFn(
+  const [{ status: loadingFullTypeStatus }, getFullType] = useAsync(
     typeService.getAll,
   )
 
@@ -19,7 +19,7 @@ export const useTypesTableData = (typeService: ITypeService) => {
     fetchedTypes,
     getFullType,
     getTypes,
-    isLoadingAllTypes,
-    loadingFullType,
+    isLoadingAllTypes: loadingAllTypesStatus === 'loading',
+    loadingFullType: loadingFullTypeStatus === 'loading',
   }
 }

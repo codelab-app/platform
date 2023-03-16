@@ -3,9 +3,9 @@ import type {
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { useAsync, useMountEffect } from '@react-hookz/web'
 import { Spin } from 'antd'
 import React from 'react'
-import { useAsync } from 'react-use'
 import { EnumTypeTable } from './EnumTypeTable'
 import { FieldsTable } from './FieldsTable'
 import { UnionTypeTable } from './UnionTypeTable'
@@ -21,15 +21,11 @@ export const TypeDetailsTable = ({
   typeId,
   typeService,
 }: TypeDetailsTableProps) => {
-  const {
-    error,
-    loading,
-    value: type,
-  } = useAsync(() => typeService.getOne(typeId))
+  const [{ error, result: type, status }, getOne] = useAsync(() =>
+    typeService.getOne(typeId),
+  )
 
-  if (loading) {
-    return <Spin />
-  }
+  useMountEffect(getOne.execute)
 
   if (error) {
     return <div>Error</div>
@@ -39,13 +35,13 @@ export const TypeDetailsTable = ({
     <FieldsTable
       fieldService={fieldService}
       interfaceType={type}
-      isLoading={loading}
+      isLoading={status === 'loading'}
       typeService={typeService}
     />
   ) : type?.kind === ITypeKind.UnionType ? (
     <UnionTypeTable
       fieldService={fieldService}
-      isLoading={loading}
+      isLoading={status === 'loading'}
       typeService={typeService}
       unionType={type}
     />

@@ -2,9 +2,11 @@ import type {
   IApp,
   IAppDTO,
   IAuth0Owner,
+  IDomain,
   IPage,
   IStore,
 } from '@codelab/frontend/abstract/core'
+import { domainRef } from '@codelab/frontend/domain/domain'
 import { pageRef } from '@codelab/frontend/domain/page'
 import { deleteStoreInput, storeRef } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
@@ -22,8 +24,9 @@ import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import slugify from 'voca/slugify'
 
-const create = ({ id, name, owner, pages, store }: IAppDTO) => {
+const create = ({ domains, id, name, owner, pages, store }: IAppDTO) => {
   const app = new App({
+    domains: domains?.map((domain) => domainRef(domain.id)),
     id,
     name,
     owner,
@@ -37,6 +40,7 @@ const create = ({ id, name, owner, pages, store }: IAppDTO) => {
 @model('@codelab/App')
 export class App
   extends Model({
+    domains: prop<Array<Ref<IDomain>>>(() => []),
     id: idProp,
     name: prop<string>().withSetter(),
     owner: prop<IAuth0Owner>(),
@@ -58,11 +62,14 @@ export class App
    * For cache writing, we don't write dto for nested models. We only write the ref. The top most use case calling function is responsible for properly hydrating the data.
    */
   @modelAction
-  writeCache({ id, name, pages, store }: Partial<IAppDTO>) {
+  writeCache({ domains, id, name, pages, store }: Partial<IAppDTO>) {
     this.id = id ?? this.id
     this.name = name ?? this.name
     this.store = store ? storeRef(store.id) : this.store
     this.pages = pages ? pages.map((page) => pageRef(page.id)) : this.pages
+    this.domains = domains
+      ? domains.map((domain) => domainRef(domain.id))
+      : this.domains
 
     return this
   }

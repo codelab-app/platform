@@ -2,40 +2,34 @@ import type {
   IDomainService,
   IPageService,
 } from '@codelab/frontend/abstract/core'
-import { useCurrentAppId } from '@codelab/frontend/presenter/container'
+import {
+  useCurrentAppId,
+  useStore,
+} from '@codelab/frontend/presenter/container'
 import { Spinner } from '@codelab/frontend/view/components'
+import { useAsync, useMountEffect } from '@react-hookz/web'
 import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useAsync } from 'react-use'
 import { GetPagesItem } from './GetPagesItem'
 
-export const GetPagesList = observer<{
-  domainService: IDomainService
-  pageService: IPageService
-}>(({ domainService, pageService }) => {
+export const GetPagesList = observer(() => {
+  const { appService, pageService } = useStore()
   const appId = useCurrentAppId()
 
-  const { loading } = useAsync(
-    () => pageService.getAll({ appConnection: { node: { id: appId } } }),
-    [appId],
+  const [{ result: app, status }, loadApp] = useAsync(() =>
+    appService.loadAppWithNestedPreviews({ id: appId }),
   )
 
-  const { value: domains } = useAsync(
-    () => domainService.getAll({ appConnection: { node: { id: appId } } }),
-    [appId],
-  )
-
-  // pageService.pagesList doesn't filter by app
-  const pagesList = pageService.pagesByApp(appId)
+  useMountEffect(loadApp.execute)
 
   return (
-    <Spinner isLoading={loading}>
+    <Spinner isLoading={status === 'loading'}>
       <List
-        dataSource={pagesList}
+        dataSource={app?.pages.map((page) => page.current)}
         renderItem={(page) => (
           <GetPagesItem
-            domains={domains}
+            domains={app?.domains.map((domain) => domain.current)}
             key={page.id}
             page={page}
             pageService={pageService}

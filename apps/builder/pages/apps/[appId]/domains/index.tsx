@@ -19,12 +19,12 @@ import {
   sidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
+import { useAsync, useMountEffect } from '@react-hookz/web'
 import { PageHeader, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { useAsync } from 'react-use'
 
 const DomainsPageHeader = observer(() => {
   const { domainService } = useStore()
@@ -49,12 +49,12 @@ const DomainsPageHeader = observer(() => {
 const DomainsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   const { appService, domainService, userService } = useStore()
   const appId = useCurrentAppId()
-  const { app } = useCurrentApp(appService)
 
-  const { loading, value } = useAsync(
-    () => domainService.getAll({ appConnection: { node: { id: appId } } }),
-    [],
+  const [{ error, result: app, status }, getApp] = useAsync(() =>
+    appService.getOne(appId),
   )
+
+  useMountEffect(getApp.execute)
 
   return (
     <>
@@ -73,8 +73,11 @@ const DomainsPage: CodelabPage<DashboardTemplateProps> = (props) => {
       />
 
       <ContentSection>
-        {loading && <Spin />}
-        {!loading && <GetDomainsList domainService={domainService} />}
+        {status === 'loading' ? (
+          <Spin />
+        ) : (
+          <GetDomainsList domainService={domainService} />
+        )}
       </ContentSection>
     </>
   )

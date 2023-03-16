@@ -6,17 +6,16 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { fieldRef, typeRef } from '@codelab/frontend/domain/type'
 import { Spinner } from '@codelab/frontend/view/components'
+import { useAsync, useMountEffect } from '@react-hookz/web'
 import { Button, Col, Dropdown, Menu, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { useAsyncFn } from 'react-use'
 import type { PropsColumnProps } from './types'
 
 export const PropsColumn = observer<PropsColumnProps>(
   ({ atom, fieldService, typeService }) => {
-    const [{ loading, value: interfaceType }, getInterface] = useAsyncFn(
-      () => typeService.getInterface(atom.apiId),
-      [atom.apiId],
+    const [{ result: interfaceType, status }, getInterface] = useAsync(() =>
+      typeService.getInterface(atom.apiId),
     )
 
     const onEdit = (field: IField<IType>) => {
@@ -28,8 +27,8 @@ export const PropsColumn = observer<PropsColumnProps>(
     }
 
     useEffect(() => {
-      console.log('the interface has been updated!')
-    }, [interfaceType])
+      void getInterface.execute()
+    }, [atom.apiId])
 
     const editMenuItems = interfaceType?.fields.map((field) => {
       return {
@@ -49,7 +48,7 @@ export const PropsColumn = observer<PropsColumnProps>(
 
     return (
       <Row gutter={[16, 16]} justify="center">
-        <Spinner isLoading={loading}>
+        <Spinner isLoading={status === 'loading'}>
           {interfaceType ? (
             <>
               <Col>
@@ -84,7 +83,7 @@ export const PropsColumn = observer<PropsColumnProps>(
           ) : (
             <Button
               onClick={() => {
-                void getInterface()
+                void getInterface.execute()
               }}
             >
               Edit API

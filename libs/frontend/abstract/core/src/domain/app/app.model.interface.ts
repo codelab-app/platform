@@ -5,6 +5,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
+import type { IDomain } from '../domain'
 import type { IElement, IElementTree } from '../element'
 import type { IPage } from '../page'
 import type { IPropData } from '../prop'
@@ -13,6 +14,7 @@ import type { IOwnerSchema } from '../user'
 import type { IAppDTO } from './app.dto.interface'
 
 export interface IApp extends ICacheService<IAppDTO, IApp>, IOwnerSchema {
+  domains: Array<Ref<IDomain>>
   id: IAppRef
   name: string
   pageRootElements: Array<Ref<IElement>>

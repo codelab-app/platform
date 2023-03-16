@@ -5,11 +5,11 @@ import type {
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
+import { useAsync } from '@react-hookz/web'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect } from 'react'
-import { useAsync } from 'react-use'
 import { atomRef } from '../../store'
 import type { AtomLibrary, AtomRecord } from './columns'
 import { useAtomTable } from './useAtomTable'
@@ -50,9 +50,9 @@ export const AtomsTable = observer<AtomsTableProps>(
     const { atomOptions, atomWhere, columns, pagination, rowSelection } =
       useAtomTable({ atomService, fieldService, typeService })
 
-    const { loading, value: latestFetchedAtoms } = useAsync(async () => {
-      return await atomService.getAll(atomWhere, atomOptions)
-    }, [atomWhere, atomOptions])
+    const [{ result: latestFetchedAtoms, status }, getAllAtoms] = useAsync(() =>
+      atomService.getAll(atomWhere, atomOptions),
+    )
 
     const handlePageChange = useCallback(
       (newPage: number, newPageSize: number) => {
@@ -74,6 +74,8 @@ export const AtomsTable = observer<AtomsTableProps>(
       if (curPage && pageSize) {
         pagination.onChange?.(curPage, pageSize)
       }
+
+      void getAllAtoms.execute()
     }, [curPage, pageSize, pagination])
 
     const curPageDataStartIndex = atomsList.findIndex(
@@ -103,7 +105,7 @@ export const AtomsTable = observer<AtomsTableProps>(
       <Table
         columns={columns}
         dataSource={atomsData}
-        loading={loading}
+        loading={status === 'loading'}
         pagination={{
           ...pagination,
           current: curPage,
