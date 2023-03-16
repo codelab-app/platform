@@ -1,6 +1,6 @@
 import type {
   ArrayTypeCreateInput,
-  ArrayTypeUpdateInput,
+  UpdateArrayTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
@@ -18,5 +18,5 @@ export interface IArrayType extends IBaseType<IArrayTypeDTO> {
   kind: ITypeKind.ArrayType
 
   toCreateInput(): ArrayTypeCreateInput
-  toUpdateInput(): ArrayTypeUpdateInput
+  toUpdateInput(): UpdateArrayTypesMutationVariables
 }

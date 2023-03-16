@@ -38,7 +38,10 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
 
     toUpdateInput() {
       return {
-        name: this.name,
+        update: {
+          name: this.name,
+        },
+        where: { id: this.id },
       }
     }
 

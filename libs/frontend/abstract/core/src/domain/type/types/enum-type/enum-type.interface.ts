@@ -1,8 +1,6 @@
 import type {
-  ElementTypeCreateInput,
-  ElementTypeUpdateInput,
   EnumTypeCreateInput,
-  EnumTypeUpdateInput,
+  UpdateEnumTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
@@ -28,5 +26,5 @@ export interface IEnumType extends IBaseType<IEnumTypeDTO> {
   kind: ITypeKind.EnumType
 
   toCreateInput(): EnumTypeCreateInput
-  toUpdateInput(): EnumTypeUpdateInput
+  toUpdateInput(): UpdateEnumTypesMutationVariables
 }

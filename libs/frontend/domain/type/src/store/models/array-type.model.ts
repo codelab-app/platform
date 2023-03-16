@@ -57,14 +57,24 @@ export class ArrayType
 
   toUpdateInput() {
     return merge(super.toUpdateInput(), {
-      disconnect: {
-        itemType: {
-          where: { node: { id_NOT: this.itemType?.id } },
-        },
-      },
-      update: {
-        itemType: connectNodeId(this.itemType?.id),
-      },
+      disconnect: this.itemType?.id
+        ? {
+            itemType: {
+              where: {
+                NOT: {
+                  node: {
+                    id: this.itemType.id,
+                  },
+                },
+              },
+            },
+          }
+        : undefined,
+      update: this.itemType?.id
+        ? {
+            itemType: connectNodeId(this.itemType.id),
+          }
+        : undefined,
     })
   }
 

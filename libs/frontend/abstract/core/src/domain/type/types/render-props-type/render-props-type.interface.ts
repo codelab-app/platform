@@ -1,8 +1,7 @@
 import type {
   RenderPropsTypeCreateInput,
-  RenderPropsTypeUpdateInput,
+  UpdateRenderPropsTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
-import { ArrayTypeCreateInput } from '@codelab/shared/abstract/codegen'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IBaseType } from '../base-type'
 import type { IRenderPropsTypeDTO } from './render-props-type.dto.interface'
@@ -20,5 +19,5 @@ export interface IRenderPropsType extends IBaseType<IRenderPropsTypeDTO> {
   kind: ITypeKind.RenderPropsType
 
   toCreateInput(): RenderPropsTypeCreateInput
-  toUpdateInput(): RenderPropsTypeUpdateInput
+  toUpdateInput(): UpdateRenderPropsTypesMutationVariables
 }
