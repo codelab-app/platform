@@ -15,7 +15,16 @@ import type { IInterfaceTypeDTO } from './interface-type.dto.interface'
  *
  * @property fields {@link IField[]} - Fields of the object type
  */
-export interface IInterfaceType extends IBaseType<IInterfaceTypeDTO> {
+export interface IInterfaceType
+  extends Omit<
+    IBaseType<
+      IInterfaceTypeDTO,
+      InterfaceTypeCreateInput,
+      UpdateInterfaceTypesMutationVariables,
+      void
+    >,
+    'toDeleteInput'
+  > {
   defaultValues: IPropData
   fields: Array<IField>
   kind: ITypeKind.InterfaceType
@@ -23,8 +32,6 @@ export interface IInterfaceType extends IBaseType<IInterfaceTypeDTO> {
   deleteField(field: IField): void
   field(id: string): Maybe<IField>
   load(fields: Array<FieldFragment>): void
-  toCreateInput(): InterfaceTypeCreateInput
-  toUpdateInput(): UpdateInterfaceTypesMutationVariables
   writeFieldCache(fields: Array<IEntity>): void
 }
 

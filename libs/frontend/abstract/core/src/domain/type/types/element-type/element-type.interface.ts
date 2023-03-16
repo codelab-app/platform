@@ -21,10 +21,16 @@ import type { IElementTypeDTO } from './element-type.dto.interface'
  * @property {ElementTypeKind} elementKind Allows scoping the type of element to only descendants, children or all elements
  *
  */
-export interface IElementType extends IBaseType<IElementTypeDTO> {
+export interface IElementType
+  extends Omit<
+    IBaseType<
+      IElementTypeDTO,
+      ElementTypeCreateInput,
+      UpdateElementTypesMutationVariables,
+      void
+    >,
+    'toDeleteInput'
+  > {
   elementKind: IElementTypeKind
   kind: ITypeKind.ElementType
-
-  toCreateInput(): ElementTypeCreateInput
-  toUpdateInput(): UpdateElementTypesMutationVariables
 }
