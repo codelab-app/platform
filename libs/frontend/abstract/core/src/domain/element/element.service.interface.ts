@@ -20,6 +20,11 @@ import type { IElementTree } from './element-tree.interface.model'
  * Used for modal input
  */
 export interface CreateElementData {
+  elementOptions: Array<{
+    childrenIds?: Array<string>
+    label: string
+    value: string
+  }>
   elementTree: Ref<IElementTree>
   selectedElement?: Maybe<Ref<IElement>>
 }
