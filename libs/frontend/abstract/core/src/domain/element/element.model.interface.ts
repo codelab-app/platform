@@ -13,6 +13,7 @@ import type { ICacheService } from '../../service'
 import type { IBuilderDataNode } from '../../ui'
 import type { IComponent } from '../component'
 import type { IHook } from '../hook'
+import type { IModel } from '../model.interface'
 import type { IProp, IPropData } from '../prop'
 import type { IAuth0Owner } from '../user'
 import type { IElementDTO } from './element.dto.interface'
@@ -43,7 +44,12 @@ export interface RenderingMetadata {
   error: Nullish<RenderingError>
 }
 
-export interface IElement extends ICacheService<IElementDTO, IElement> {
+export interface IElement
+  extends Omit<
+      IModel<ElementCreateInput, ElementUpdateInput, void>,
+      'toDeleteInput'
+    >,
+    ICacheService<IElementDTO, IElement> {
   __metadataProps: IPropData
   ancestorError: Nullish<RenderingError>
   antdNode: IBuilderDataNode
@@ -113,8 +119,6 @@ export interface IElement extends ICacheService<IElementDTO, IElement> {
   setSourceElement(element: Ref<IElement>): void
   // setRenderComponentType(componentRef: Ref<IComponent>): void
   // getDescendantRefs: Array<Ref<IElement>>
-  toCreateInput(): ElementCreateInput
-  toUpdateInput(): ElementUpdateInput
   toUpdateNodesInput(): Pick<
     ElementUpdateInput,
     'firstChild' | 'nextSibling' | 'parent' | 'prevSibling'
