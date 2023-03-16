@@ -1,4 +1,6 @@
 import { EllipsisOutlined } from '@ant-design/icons'
+import { useUser } from '@auth0/nextjs-auth0'
+import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   BuildAppModal,
@@ -21,12 +23,12 @@ import {
   sidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
+import { useAsync, useMountEffect } from '@react-hookz/web'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown, Menu, PageHeader, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { useEffect } from 'react'
-import { useAsync } from 'react-use'
 
 const items: MenuProps['items'] = [
   {
@@ -55,15 +57,22 @@ const AppsPageHeader = observer(() => {
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   const { appService, domainService, userService } = useStore()
-  const { error, loading, value } = useAsync(() => appService.getAll(), [])
-  const { value: domains } = useAsync(() => domainService.getAll(), [])
+  const { user } = useUser()
 
-  useEffect(() => {
+  const [{ error, result: app, status }, loadApp] = useAsync(
+    (owner: IAuth0Owner) => appService.loadAppWithNestedPreviews({ owner }),
+  )
+
+  useMountEffect(() => {
+    if (user?.sub) {
+      return loadApp.execute({ auth0Id: user.sub })
+    }
+
     // Only call this once on dev mode
     if (process.env.NEXT_PUBLIC_BUILDER_HOST?.includes('127.0.0.1')) {
       void fetch('/api/upsert-user')
     }
-  }, [])
+  })
 
   return (
     <>
@@ -77,8 +86,16 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
       <DeleteAppModal appService={appService} />
 
       <ContentSection>
-        {loading && <Spin />}
-        {!loading && <GetAppsList appService={appService} domains={domains} />}
+        <>
+          {status === 'loading' ? (
+            <Spin />
+          ) : (
+            <GetAppsList
+              appService={appService}
+              domains={app?.domains.map((domain) => domain.current)}
+            />
+          )}
+        </>
       </ContentSection>
     </>
   )

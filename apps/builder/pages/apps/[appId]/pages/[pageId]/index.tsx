@@ -12,6 +12,7 @@ import {
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
+import { useMountEffect } from '@react-hookz/web'
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
@@ -19,12 +20,8 @@ import React from 'react'
 
 const PageRenderer: CodelabPage<IPageProps> = observer(() => {
   const { appRenderService } = useStore()
-  const appId = useCurrentAppId()
-  const pageId = useCurrentPageId()
 
-  const { error, loading, value } = useRenderedPage({
-    appId,
-    pageId,
+  const [{ error, result, status }, actions] = useRenderedPage({
     rendererType: RendererType.Preview,
     renderService: appRenderService,
   })
@@ -35,15 +32,19 @@ const PageRenderer: CodelabPage<IPageProps> = observer(() => {
   //   }
   // }, [loading])
 
+  useMountEffect(actions.execute)
+
   return (
     <>
       <Head>
-        <title>{value?.page.name}</title>
+        <title>{result?.page.name}</title>
       </Head>
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
-      {loading && <Spin />}
-      {!loading && value?.elementTree && (
-        <Renderer renderRoot={value.renderer.renderRoot.bind(value.renderer)} />
+      {status === 'loading' && <Spin />}
+      {status === 'success' && result?.elementTree && (
+        <Renderer
+          renderRoot={result.renderer.renderRoot.bind(result.renderer)}
+        />
       )}
     </>
   )

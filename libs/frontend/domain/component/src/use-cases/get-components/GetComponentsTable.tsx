@@ -1,10 +1,10 @@
 import type { IComponentService } from '@codelab/frontend/abstract/core'
 import { Spinner } from '@codelab/frontend/view/components'
+import { useAsync, useMountEffect } from '@react-hookz/web'
 import type { TableColumnProps } from 'antd'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useAsync } from 'react-use'
 import tw from 'twin.macro'
 import { ActionColumn } from './columns/ActionColumn'
 import { NameColumn } from './columns/NameColumn'
@@ -14,11 +14,11 @@ import type { ComponentColumnData } from './columns/types'
 export const GetComponentsTable = observer<{
   componentService: IComponentService
 }>(({ componentService }) => {
-  const { loading, value } = useAsync(async () => {
-    await componentService.getAll()
+  const [{ result: components, status }, getAll] = useAsync(async () => {
+    return componentService.getAll()
+  })
 
-    return componentService.components
-  }, [])
+  useMountEffect(getAll.execute)
 
   const headerCellProps = () => ({
     style: tw`font-semibold text-gray-900`,
@@ -57,7 +57,7 @@ export const GetComponentsTable = observer<{
   ]
 
   const dataSource: Array<ComponentColumnData> = [
-    ...(value ? value.values() : []),
+    ...(components ? components.values() : []),
   ].map((component) => ({
     apiId: component.api.id,
     id: component.id,
@@ -65,7 +65,7 @@ export const GetComponentsTable = observer<{
   }))
 
   return (
-    <Spinner isLoading={loading}>
+    <Spinner isLoading={status === 'loading'}>
       <Table
         columns={getComponentsTableColumns}
         dataSource={dataSource}

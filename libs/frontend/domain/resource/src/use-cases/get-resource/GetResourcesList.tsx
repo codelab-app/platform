@@ -1,10 +1,10 @@
 import type { IResourceService } from '@codelab/frontend/abstract/core'
 import { DisplayIf, Spinner } from '@codelab/frontend/view/components'
 import { threeGridCol } from '@codelab/frontend/view/style'
+import { useAsync, useMountEffect } from '@react-hookz/web'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { useAsync } from 'react-use'
 import { CreateResourceButton } from '../create-resource'
 import { GetResourcesItem } from './GetResourceItem'
 
@@ -17,11 +17,13 @@ const buttonContainerStyle: React.CSSProperties = {
 
 export const GetResourcesList = observer<{ resourceService: IResourceService }>(
   ({ resourceService }) => {
-    const { loading } = useAsync(() => resourceService.getAll(), [])
+    const [{ status }, getResources] = useAsync(() => resourceService.getAll())
     const resourceList = resourceService.resourceList
 
+    useMountEffect(getResources.execute)
+
     return (
-      <Spinner isLoading={loading}>
+      <Spinner isLoading={status === 'loading'}>
         <DisplayIf condition={!resourceList.length}>
           <Empty description="No resources found" imageStyle={{ height: 60 }}>
             <div style={buttonContainerStyle}>

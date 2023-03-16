@@ -5,6 +5,7 @@ import {
   PageFragment,
   BuilderPageFragment,
 } from '../page/page.fragment.graphql.gen'
+import { DomainFragment } from '../domain/domain.fragment.graphql.gen'
 import { StoreFragment } from '../store/store.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
@@ -14,6 +15,7 @@ import {
   PageFragmentDoc,
   BuilderPageFragmentDoc,
 } from '../page/page.fragment.graphql.gen'
+import { DomainFragmentDoc } from '../domain/domain.fragment.graphql.gen'
 import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
 export type AppPreviewFragment = {
   id: string
@@ -31,6 +33,7 @@ export type AppFragment = {
   owner: OwnerFragment
   pages: Array<PageFragment>
   store: { id: string }
+  domains: Array<DomainFragment>
 }
 
 export type PageBuilderAppFragment = {
@@ -74,9 +77,13 @@ export const AppFragmentDoc = gql`
     store {
       id
     }
+    domains {
+      ...Domain
+    }
   }
   ${OwnerFragmentDoc}
   ${PageFragmentDoc}
+  ${DomainFragmentDoc}
 `
 export const PageBuilderAppFragmentDoc = gql`
   fragment PageBuilderApp on App {

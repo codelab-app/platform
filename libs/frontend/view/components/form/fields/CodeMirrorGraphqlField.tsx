@@ -3,10 +3,10 @@ import { history } from '@codemirror/commands'
 import { bracketMatching, syntaxHighlighting } from '@codemirror/language'
 import { oneDark, oneDarkHighlightStyle } from '@codemirror/theme-one-dark'
 import { lineNumbers } from '@codemirror/view'
+import { useAsync, useMountEffect } from '@react-hookz/web'
 import { Form, Spin } from 'antd'
 import type { Ref } from 'react'
 import React from 'react'
-import { useAsync } from 'react-use'
 import type { Context, FieldProps } from 'uniforms'
 import { connectField, useForm } from 'uniforms'
 import type { CodeMirrorEditorProps } from '../../codeMirror'
@@ -40,10 +40,11 @@ export const CodeMirrorGraphqlField = <T,>(
       const form = useForm<T>()
       const url = baseProps.getUrl(form)
 
-      const { loading, value: graphqlExtension } = useAsync(
-        () => graphqlExtensionFactory(url),
-        [],
+      const [{ result: graphqlExtension, status }, factory] = useAsync(() =>
+        graphqlExtensionFactory(url),
       )
+
+      useMountEffect(factory.execute)
 
       const extension = [
         bracketMatching(),
@@ -58,8 +59,9 @@ export const CodeMirrorGraphqlField = <T,>(
 
       return (
         <Form.Item label={baseProps.label ?? ''}>
-          {loading && <Spin />}
-          {!loading && (
+          {status === 'loading' ? (
+            <Spin />
+          ) : (
             <CodeMirrorEditor
               height="150px"
               // eslint-disable-next-line react/jsx-props-no-spreading

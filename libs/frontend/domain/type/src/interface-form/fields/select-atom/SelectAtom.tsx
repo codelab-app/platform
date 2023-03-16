@@ -2,8 +2,8 @@ import type { IAtom } from '@codelab/frontend/abstract/core'
 import { filterNotHookType } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presenter/container'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+import { useAsync, useMountEffect } from '@react-hookz/web'
 import React from 'react'
-import { useAsync } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 
 export type SelectAtomProps = Pick<
@@ -22,23 +22,23 @@ export type SelectAtomProps = Pick<
 export const useGetAllAtoms = () => {
   const { atomService } = useStore()
 
-  const { error, loading, value } = useAsync(async () => {
+  const [{ error, result, status }, getAtoms] = useAsync(async () => {
     return atomService.allAtomsLoaded
       ? atomService.atomsList
       : await atomService.getAll()
-  }, [])
+  })
 
   const atomOptions =
-    value
+    result
       ?.filter(({ type }) => filterNotHookType(type))
       .map((atom) => ({ label: atom.name, value: atom.id })) ?? []
 
-  return { atomOptions, error, loading }
+  return { atomOptions, error, getAtoms, loading: status === 'loading' }
 }
 
 export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
   const allowedChildrenIds = parent?.allowedChildren.map((child) => child.id)
-  const { atomOptions, error: queryError, loading } = useGetAllAtoms()
+  const { atomOptions, error: queryError, getAtoms, loading } = useGetAllAtoms()
 
   /**
    * Sort for now before data is added
@@ -46,6 +46,8 @@ export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
   const filteredOptions = atomOptions.sort(({ value }) =>
     allowedChildrenIds?.includes(value) ? -1 : 1,
   )
+
+  useMountEffect(getAtoms.execute)
 
   return (
     <SelectField

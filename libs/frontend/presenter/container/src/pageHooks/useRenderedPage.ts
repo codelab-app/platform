@@ -5,18 +5,17 @@ import type {
 import { PageType } from '@codelab/frontend/abstract/types'
 import type { GetRenderedPageAndCommonAppDataQuery } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
+import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/router'
-import { useAsync } from 'react-use'
 import { useStore } from '../providers'
+import { useCurrentAppId, useCurrentPageId } from '../routerHooks'
 
 interface RenderedPageProps {
-  appId: string
   /**
    * for production we prebuild pages with all required information
    * so if this object exists - use it as a source of truth instead of making a request
    */
   initialData?: GetRenderedPageAndCommonAppDataQuery
-  pageId: string
   /**
    * builder uses builderRenderService while preview uses appRenderService
    */
@@ -27,28 +26,30 @@ interface RenderedPageProps {
   rendererType: RendererType
 }
 
-const defaultErrorPages: Map<IPageKind, PageType> = new Map([
-  [IPageKind.InternalServerError, PageType.Page500],
-  [IPageKind.NotFound, PageType.Page404],
-])
+// const defaultErrorPages: Map<IPageKind, PageType> = new Map([
+//   [IPageKind.InternalServerError, PageType.Page500],
+//   [IPageKind.NotFound, PageType.Page404],
+// ])
 
-const requiredPageKinds: Array<IPageKind> = [
-  IPageKind.NotFound,
-  IPageKind.Provider,
-  IPageKind.InternalServerError,
-]
+// const requiredPageKinds: Array<IPageKind> = [
+//   IPageKind.NotFound,
+//   IPageKind.Provider,
+//   IPageKind.InternalServerError,
+// ]
 
 /**
  * Fetch related data for rendering page, and load them into store
  */
 export const useRenderedPage = ({
-  appId,
   initialData,
-  pageId,
   rendererType,
   renderService,
 }: RenderedPageProps) => {
-  const { appService } = useStore()
+  const { appService, builderService, elementService } = useStore()
+  const appId = useCurrentAppId()
+  const pageId = useCurrentPageId()
+  console.log('useRenderedPage', pageId)
+
   const router = useRouter()
 
   // const redirectToErrorPage = async (
@@ -68,7 +69,7 @@ export const useRenderedPage = ({
   //   )
   // }
 
-  const currentPageData = useAsync(async () => {
+  return useAsync(async () => {
     const app = await appService.getRenderedPageAndCommonAppData(
       appId,
       pageId,
@@ -82,6 +83,12 @@ export const useRenderedPage = ({
     }
 
     const page = app.page(pageId)
+    const pageRootElement = elementService.maybeElement(page.rootElement.id)
+
+    if (pageRootElement) {
+      builderService.selectElementNode(pageRootElement)
+    }
+
     const appStore = app.store.current
     const elementTree = page.elementTree
 
@@ -110,13 +117,5 @@ export const useRenderedPage = ({
       page,
       renderer,
     }
-  }, [pageId])
-
-  const { error, loading, value } = currentPageData
-
-  return {
-    error,
-    loading,
-    value,
-  }
+  })
 }

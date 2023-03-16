@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useStore } from '@codelab/frontend/presenter/container'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+import { useAsync, useMountEffect } from '@react-hookz/web'
 import React from 'react'
-import { useAsync } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
@@ -14,15 +14,13 @@ export type SelectComponentProps = Pick<
 export const SelectComponent = (fieldProps: SelectComponentProps) => {
   const { builderService } = useStore()
 
-  const {
-    error: queryError,
-    loading,
-    value,
-  } = useAsync(() => interfaceFormApi.InterfaceForm_GetComponents(), [])
+  const [{ error: queryError, result, status }, getComponents] = useAsync(() =>
+    interfaceFormApi.InterfaceForm_GetComponents(),
+  )
 
   // remove the components that refer the current component to avoid creating circular references
   // including itself
-  const filteredComponents = value?.components.filter(
+  const filteredComponents = result?.components.filter(
     (component) =>
       component.descendantComponentIds.indexOf(
         builderService.activeComponent?.id ?? '',
@@ -35,12 +33,14 @@ export const SelectComponent = (fieldProps: SelectComponentProps) => {
       value: component.id,
     })) ?? []
 
+  useMountEffect(getComponents.execute)
+
   return (
     <SelectField
       {...fieldProps}
       error={fieldProps.error || queryError}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
-      loading={loading}
+      loading={status === 'loading'}
       optionFilterProp="label"
       options={componentOptions}
       showSearch

@@ -18,49 +18,33 @@ import {
   sidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
+import { useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { useEffect, useMemo } from 'react'
 
 const PageBuilder: CodelabPage = observer(() => {
-  const { builderRenderService, builderService, elementService } = useStore()
-  const appId = useCurrentAppId()
-  const pageId = useCurrentPageId()
+  const { builderRenderService } = useStore()
 
-  const { error, loading, value } = useRenderedPage({
-    appId,
-    pageId,
+  const [{ error, result, status }, actions] = useRenderedPage({
     rendererType: RendererType.PageBuilder,
     renderService: builderRenderService,
   })
 
-  useEffect(() => {
-    /**
-     * Select root element for current page
-     */
-    if (value?.page.rootElement) {
-      const pageRootElement = elementService.maybeElement(
-        value.page.rootElement.id,
-      )
-
-      if (pageRootElement) {
-        builderService.selectElementNode(pageRootElement)
-      }
-    }
-  }, [value?.page])
+  useMountEffect(actions.execute)
 
   return (
     <>
       <Head>
-        <title>{value?.page.name} | Builder | Codelab</title>
+        <title>{result?.page.name} | Builder | Codelab</title>
       </Head>
 
       <BuilderTabs
-        app={value?.app}
+        app={result?.app}
         error={error?.message}
-        isLoading={loading}
-        page={value?.page}
-        renderer={value?.renderer}
+        isLoading={status === 'loading'}
+        page={result?.page}
+        renderer={result?.renderer}
       />
     </>
   )

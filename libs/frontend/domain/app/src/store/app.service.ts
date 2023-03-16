@@ -184,6 +184,26 @@ export class AppService
     }
   }
 
+  /**
+   * For nested properties, only show the preview
+   */
+  @modelFlow
+  loadAppWithNestedPreviews = _async(function* (
+    this: AppService,
+    where: AppWhere,
+  ) {
+    if (!where.id) {
+      throw new Error('Missing appId')
+    }
+
+    const appData = (yield* _await(this.appRepository.find(where)))[0]!
+    const app = this.add(appData)
+
+    appData.pages.forEach((page) => this.pageService.add(page))
+
+    return app
+  })
+
   @computed
   get appsList() {
     return [...this.apps.values()]

@@ -1,7 +1,7 @@
 import type { StoreWhere } from '@codelab/shared/abstract/codegen'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+import { useAsync, useMountEffect } from '@react-hookz/web'
 import React from 'react'
-import { useAsync } from 'react-use'
 import { SelectField } from 'uniforms-antd'
 import { interfaceFormApi } from '../../../store'
 
@@ -10,20 +10,21 @@ export type SelectStoreProps = UniformSelectFieldProps & {
 }
 
 export const SelectStore = ({ error, name, where }: SelectStoreProps) => {
-  const {
-    error: queryError,
-    loading,
-    value,
-  } = useAsync(() => interfaceFormApi.InterfaceForm_GetStores({ where }), [])
+  const [{ error: queryError, result, status }, getStores] = useAsync(() =>
+    interfaceFormApi.InterfaceForm_GetStores({ where }),
+  )
 
   const options =
-    value?.stores.map((store) => ({ label: store.name, value: store.id })) ?? []
+    result?.stores.map((store) => ({ label: store.name, value: store.id })) ??
+    []
+
+  useMountEffect(getStores.execute)
 
   return (
     <SelectField
       error={error || queryError}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
-      loading={loading}
+      loading={status === 'loading'}
       name={name}
       optionFilterProp="label"
       options={options}

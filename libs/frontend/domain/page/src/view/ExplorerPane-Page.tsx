@@ -16,10 +16,9 @@ import {
 } from '../use-cases'
 
 export const ExplorerPanePage = observer<{
-  domainService: IDomainService
   pageService: IPageService
   userService: IUserService
-}>(({ domainService, pageService, userService }) => {
+}>(({ pageService, userService }) => {
   const router = useRouter()
 
   const headerProps = {
@@ -32,7 +31,7 @@ export const ExplorerPanePage = observer<{
       headerProps={headerProps}
       title="Pages"
     >
-      <GetPagesList domainService={domainService} pageService={pageService} />
+      <GetPagesList />
       <CreatePageModal pageService={pageService} userService={userService} />
       <UpdatePageModal pageService={pageService} />
       <DeletePageModal pageService={pageService} />
