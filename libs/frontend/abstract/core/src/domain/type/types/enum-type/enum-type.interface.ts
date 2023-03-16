@@ -3,7 +3,6 @@ import type {
   UpdateEnumTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
-import type { Ref } from 'mobx-keystone'
 import type { IBaseType } from '../base-type'
 import type { IEnumTypeDTO } from './enum-type.dto.interface'
 
@@ -22,7 +21,7 @@ export interface IEnumTypeValue {
  * @property {IEnumTypeValue[]} allowedValues - The list of allowed values.
  */
 export interface IEnumType extends IBaseType<IEnumTypeDTO> {
-  allowedValues: Array<Ref<IEnumTypeValue>>
+  allowedValues: Array<IEnumTypeValue>
   kind: ITypeKind.EnumType
 
   toCreateInput(): EnumTypeCreateInput

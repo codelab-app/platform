@@ -5,17 +5,16 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
-import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
-import { enumTypeValueRef } from './enum-type-value.model'
+import { EnumTypeValue } from './enum-type-value.model'
 
 const create = ({ allowedValues, id, kind, name, owner }: IEnumTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.EnumType)
 
   return new EnumType({
     allowedValues: allowedValues.map((allowedValue) =>
-      enumTypeValueRef(allowedValue.id),
+      EnumTypeValue.create(allowedValue),
     ),
     id,
     kind,
@@ -27,7 +26,7 @@ const create = ({ allowedValues, id, kind, name, owner }: IEnumTypeDTO) => {
 @model('@codelab/EnumType')
 export class EnumType
   extends ExtendedModel(createBaseType(ITypeKind.EnumType), {
-    allowedValues: prop<Array<Ref<IEnumTypeValue>>>(() => []),
+    allowedValues: prop<Array<IEnumTypeValue>>(() => []),
   })
   implements IEnumType
 {
@@ -35,10 +34,11 @@ export class EnumType
   writeCache(enumTypeDTO: Partial<IEnumTypeDTO>) {
     super.writeCache(enumTypeDTO)
 
-    this.allowedValues =
-      enumTypeDTO.allowedValues?.map((allowedValue) =>
-        enumTypeValueRef(allowedValue.id),
-      ) ?? this.allowedValues
+    this.allowedValues = enumTypeDTO.allowedValues
+      ? enumTypeDTO.allowedValues.map((allowedValue) =>
+          EnumTypeValue.create(allowedValue),
+        )
+      : this.allowedValues
 
     return this
   }
@@ -50,8 +50,8 @@ export class EnumType
         create: this.allowedValues.map((value) => ({
           node: {
             id: value.id,
-            key: value.current.key,
-            value: value.current.value,
+            key: value.key,
+            value: value.value,
           },
         })),
       },
@@ -80,8 +80,8 @@ export class EnumType
             create: this.allowedValues.map((value) => ({
               node: {
                 id: value.id,
-                key: value.current.key,
-                value: value.current.value,
+                key: value.key,
+                value: value.value,
               },
             })),
           },
