@@ -30,7 +30,7 @@ export const BuilderExplorerPaneHeader = observer(
     return (
       <CreateElementButton
         createModal={elementService.createModal}
-        elementTreeId={elementTree.id}
+        elementTree={elementTree}
         key={0}
         selectedElementId={builderService.selectedNode?.id}
         title="Element"

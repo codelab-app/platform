@@ -16,18 +16,18 @@ import { v4 } from 'uuid'
 import { AutoComputedElementNameField } from '../../../components/auto-computed-element-name'
 import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
-import { mapElementOption } from '../../../utils'
 import { createElementSchema } from './create-element.schema'
 
 interface CreateElementModalProps {
   elementService: IElementService
-  userService: IUserService
   storeId: string
+  userService: IUserService
 }
 
 export const CreateElementModal = observer<CreateElementModalProps>(
   ({ elementService, userService }) => {
-    const { parentElement, elementTree } = elementService.createModal
+    const { elementTree, metadata, parentElement } = elementService.createModal
+    const elementOptions = metadata?.elementOptions
 
     if (!parentElement || !elementTree) {
       return null
@@ -63,12 +63,6 @@ export const CreateElementModal = observer<CreateElementModalProps>(
       renderType: null,
     }
 
-    const selectParentElementOptions =
-      elementTree.elements.map(mapElementOption)
-
-    const selectChildrenElementOptions =
-      elementTree.elements.map(mapElementOption)
-
     return (
       <ModalForm.Modal
         okText="Create"
@@ -101,14 +95,14 @@ export const CreateElementModal = observer<CreateElementModalProps>(
               <SelectAnyElement
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 {...props}
-                allElementOptions={selectParentElementOptions}
+                allElementOptions={elementOptions}
               />
             )}
             help={`only elements from \`${elementTree.name}\` are visible in this list`}
             name="parentElement.id"
           />
           <SelectLinkElement
-            allElementOptions={selectChildrenElementOptions}
+            allElementOptions={elementOptions}
             name="prevSibling.id"
             required={false}
           />
