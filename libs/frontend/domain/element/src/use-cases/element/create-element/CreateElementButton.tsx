@@ -1,20 +1,24 @@
 import { PlusOutlined } from '@ant-design/icons'
-import type { IElementService } from '@codelab/frontend/abstract/core'
+import type {
+  IElementService,
+  IElementTree,
+} from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { elementTreeRef } from '../../../store'
+import { mapElementOption } from '../../../utils'
 
-export type CreateElementButtonProps = {
-  selectedElementId: Maybe<string>
-  elementTreeId: string
-} & Pick<IElementService, 'createModal'> &
-  React.ComponentProps<typeof Button>
+export type CreateElementButtonProps = Pick<IElementService, 'createModal'> &
+  React.ComponentProps<typeof Button> & {
+    selectedElementId: Maybe<string>
+    elementTree: IElementTree
+  }
 
 export const CreateElementButton = observer<CreateElementButtonProps>(
-  ({ selectedElementId, elementTreeId, createModal, type, title }) => {
+  ({ createModal, elementTree, selectedElementId, title, type }) => {
     const selectedElement = selectedElementId
       ? elementRef(selectedElementId)
       : undefined
@@ -27,7 +31,8 @@ export const CreateElementButton = observer<CreateElementButtonProps>(
           event.preventDefault()
 
           return createModal.open({
-            elementTree: elementTreeRef(elementTreeId),
+            elementOptions: elementTree.elements.map(mapElementOption),
+            elementTree: elementTreeRef(elementTree.id),
             selectedElement,
           })
         }}
