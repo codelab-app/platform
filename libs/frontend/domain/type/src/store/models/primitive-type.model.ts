@@ -1,10 +1,11 @@
-import type { IPrimitiveType } from '@codelab/frontend/abstract/core'
-import { IPrimitiveTypeDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
+import type {
+  IPrimitiveType,
+  IPrimitiveTypeDTO,
+} from '@codelab/frontend/abstract/core'
 import type { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { updateBaseTypeCache } from '../base-type'
 import { createBaseType } from './base-type.model'
 
 const create = ({
@@ -33,21 +34,10 @@ export class PrimitiveType
   implements IPrimitiveType
 {
   @modelAction
-  add(fragment: ITypeDTO) {
-    updateBaseTypeCache(this, fragment)
+  writeCache(primitiveTypeDTO: Partial<IPrimitiveTypeDTO>) {
+    super.writeCache(primitiveTypeDTO)
 
-    if (fragment.__typename !== ITypeKind.PrimitiveType) {
-      throw new Error('PrimitiveType')
-    }
-
-    this.primitiveKind = fragment.primitiveKind
-
-    return this
-  }
-
-  @modelAction
-  writeCache(primitiveTypeDTO: IPrimitiveTypeDTO) {
-    updateBaseTypeCache(this, primitiveTypeDTO)
+    this.primitiveKind = primitiveTypeDTO.primitiveKind ?? this.primitiveKind
 
     return this
   }

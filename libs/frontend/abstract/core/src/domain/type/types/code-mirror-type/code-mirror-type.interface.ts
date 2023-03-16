@@ -1,7 +1,7 @@
 import type {
   CodeMirrorLanguage,
   CodeMirrorTypeCreateInput,
-  CodeMirrorTypeUpdateInput,
+  UpdateCodeMirrorTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IBaseType } from '../base-type'
@@ -12,5 +12,5 @@ export interface ICodeMirrorType extends IBaseType<ICodeMirrorTypeDTO> {
   language: CodeMirrorLanguage
 
   toCreateInput(): CodeMirrorTypeCreateInput
-  toUpdateInput(): CodeMirrorTypeUpdateInput
+  toUpdateInput(): UpdateCodeMirrorTypesMutationVariables
 }

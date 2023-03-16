@@ -1,6 +1,6 @@
 import type {
   LambdaTypeCreateInput,
-  LambdaTypeUpdateInput,
+  UpdateLambdaTypesMutationVariables,
 } from '@codelab/shared/abstract/codegen'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IBaseType } from '../base-type'
@@ -13,5 +13,5 @@ export interface ILambdaType extends IBaseType<ILambdaTypeDTO> {
   kind: ITypeKind.LambdaType
 
   toCreateInput(): LambdaTypeCreateInput
-  toUpdateInput(): LambdaTypeUpdateInput
+  toUpdateInput(): UpdateLambdaTypesMutationVariables
 }

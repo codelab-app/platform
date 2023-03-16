@@ -1,7 +1,6 @@
 import type {
   BaseTypesOptions,
   IType,
-  ITypeDTO,
   ITypeRepository,
 } from '@codelab/frontend/abstract/core'
 import type { BaseTypeWhere } from '@codelab/shared/abstract/codegen'
@@ -28,12 +27,7 @@ export class TypeRepository extends Model({}) implements ITypeRepository {
   @modelFlow
   update = _async(function* (this: TypeRepository, type: IType) {
     const updatedType = (yield* _await(
-      updateTypeApi[type.kind]({
-        update: type.toUpdateInput(),
-        where: {
-          id: type.id,
-        },
-      }),
+      updateTypeApi[type.kind](type.toUpdateInput()),
     ))[0]
 
     return updatedType!
