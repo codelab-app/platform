@@ -12,20 +12,13 @@ import {
   sidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
-import { useAsync, useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 
 const Pages: CodelabPage<DashboardTemplateProps> = observer(() => {
   const { appService } = useStore()
-  const appId = useCurrentAppId()
-
-  const [{ error, result: app, status }, actions] = useAsync(() =>
-    appService.loadAppWithNestedPreviews({ id: appId }),
-  )
-
-  useMountEffect(actions.execute)
+  const [{ result: app }] = useCurrentApp(appService)
 
   return (
     <>

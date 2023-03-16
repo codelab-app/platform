@@ -28,7 +28,7 @@ import type { MenuProps } from 'antd'
 import { Button, Dropdown, Menu, PageHeader, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 const items: MenuProps['items'] = [
   {
@@ -59,13 +59,20 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   const { appService, domainService, userService } = useStore()
   const { user } = useUser()
 
-  const [{ error, result: app, status }, loadApp] = useAsync(
-    (owner: IAuth0Owner) => appService.loadAppWithNestedPreviews({ owner }),
+  const [{ status }, loadApps] = useAsync((owner: IAuth0Owner) =>
+    appService.getAll({ owner }),
+  )
+
+  const [{ result: domains }, loadDomains] = useAsync(() =>
+    domainService.getAll(),
   )
 
   useMountEffect(() => {
     if (user?.sub) {
-      return loadApp.execute({ auth0Id: user.sub })
+      void loadApps.execute({ auth0Id: user.sub })
+      void loadDomains.execute()
+
+      return
     }
 
     // Only call this once on dev mode
@@ -90,10 +97,7 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
           {status === 'loading' ? (
             <Spin />
           ) : (
-            <GetAppsList
-              appService={appService}
-              domains={app?.domains.map((domain) => domain.current)}
-            />
+            <GetAppsList appService={appService} domains={domains} />
           )}
         </>
       </ContentSection>
