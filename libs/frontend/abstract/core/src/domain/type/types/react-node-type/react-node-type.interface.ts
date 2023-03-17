@@ -18,14 +18,10 @@ import type { IReactNodeTypeDTO } from './react-node-type.dto.interface'
  * - ElementType: Current tree element select box, results it `ReactNode` value
  */
 export interface IReactNodeType
-  extends Omit<
-    IBaseType<
-      IReactNodeTypeDTO,
-      ReactNodeTypeCreateInput,
-      UpdateReactNodeTypesMutationVariables,
-      void
-    >,
-    'toDeleteInput'
+  extends IBaseType<
+    IReactNodeTypeDTO,
+    ReactNodeTypeCreateInput,
+    UpdateReactNodeTypesMutationVariables
   > {
   kind: ITypeKind.ReactNodeType
 }

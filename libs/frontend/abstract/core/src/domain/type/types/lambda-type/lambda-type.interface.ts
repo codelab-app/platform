@@ -10,14 +10,10 @@ import type { ILambdaTypeDTO } from './lambda-type.dto.interface'
  * Allows picking a lambda
  */
 export interface ILambdaType
-  extends Omit<
-    IBaseType<
-      ILambdaTypeDTO,
-      LambdaTypeCreateInput,
-      UpdateLambdaTypesMutationVariables,
-      void
-    >,
-    'toDeleteInput'
+  extends IBaseType<
+    ILambdaTypeDTO,
+    LambdaTypeCreateInput,
+    UpdateLambdaTypesMutationVariables
   > {
   kind: ITypeKind.LambdaType
 }

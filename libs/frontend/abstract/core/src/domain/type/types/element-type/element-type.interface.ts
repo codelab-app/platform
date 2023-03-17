@@ -22,14 +22,10 @@ import type { IElementTypeDTO } from './element-type.dto.interface'
  *
  */
 export interface IElementType
-  extends Omit<
-    IBaseType<
-      IElementTypeDTO,
-      ElementTypeCreateInput,
-      UpdateElementTypesMutationVariables,
-      void
-    >,
-    'toDeleteInput'
+  extends IBaseType<
+    IElementTypeDTO,
+    ElementTypeCreateInput,
+    UpdateElementTypesMutationVariables
   > {
   elementKind: IElementTypeKind
   kind: ITypeKind.ElementType

@@ -2,6 +2,8 @@ import type {
   IAuth0Owner,
   IBaseType,
   IBaseTypeDTO,
+  ICreateTypeInput,
+  IUpdateTypeVars,
 } from '@codelab/frontend/abstract/core'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
@@ -17,11 +19,10 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
       name: prop<string>(),
       owner: prop<IAuth0Owner>().withSetter(),
     })
-    implements IBaseType<IBaseTypeDTO>
+    implements IBaseType<IBaseTypeDTO, ICreateTypeInput, IUpdateTypeVars>
   {
     @modelAction
     writeCache(baseTypeDTO: Partial<IBaseTypeDTO>) {
-      console.log('writeCache', baseTypeDTO)
       updateBaseTypeCache(this, baseTypeDTO)
 
       return this
