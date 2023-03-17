@@ -5053,11 +5053,14 @@ export type InterfaceType = IBaseType &
     kind: TypeKind
     owner: User
     ownerAggregate?: Maybe<InterfaceTypeUserOwnerAggregationSelection>
+    field?: Maybe<Field>
+    fieldAggregate?: Maybe<InterfaceTypeFieldFieldAggregationSelection>
     apiOfAtoms: Array<Atom>
     apiOfAtomsAggregate?: Maybe<InterfaceTypeAtomApiOfAtomsAggregationSelection>
     fields: Array<Field>
     fieldsAggregate?: Maybe<InterfaceTypeFieldFieldsAggregationSelection>
     ownerConnection: IBaseTypeOwnerConnection
+    fieldConnection: InterfaceTypeFieldConnection
     apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnection
     fieldsConnection: InterfaceTypeFieldsConnection
   }
@@ -5072,6 +5075,19 @@ export type InterfaceTypeOwnerArgs = {
 /** Represents an object type with multiple fields */
 export type InterfaceTypeOwnerAggregateArgs = {
   where?: InputMaybe<UserWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+/** Represents an object type with multiple fields */
+export type InterfaceTypeFieldArgs = {
+  where?: InputMaybe<FieldWhere>
+  options?: InputMaybe<FieldOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+/** Represents an object type with multiple fields */
+export type InterfaceTypeFieldAggregateArgs = {
+  where?: InputMaybe<FieldWhere>
   directed?: InputMaybe<Scalars['Boolean']>
 }
 
@@ -5108,6 +5124,15 @@ export type InterfaceTypeOwnerConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   sort?: InputMaybe<Array<IBaseTypeOwnerConnectionSort>>
+}
+
+/** Represents an object type with multiple fields */
+export type InterfaceTypeFieldConnectionArgs = {
+  where?: InputMaybe<InterfaceTypeFieldConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<InterfaceTypeFieldConnectionSort>>
 }
 
 /** Represents an object type with multiple fields */
@@ -5167,6 +5192,29 @@ export type InterfaceTypeEdge = {
   node: InterfaceType
 }
 
+export type InterfaceTypeFieldConnection = {
+  __typename?: 'InterfaceTypeFieldConnection'
+  edges: Array<InterfaceTypeFieldRelationship>
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+}
+
+export type InterfaceTypeFieldFieldAggregationSelection = {
+  __typename?: 'InterfaceTypeFieldFieldAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<InterfaceTypeFieldFieldNodeAggregateSelection>
+}
+
+export type InterfaceTypeFieldFieldNodeAggregateSelection = {
+  __typename?: 'InterfaceTypeFieldFieldNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  key: StringAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  description: StringAggregateSelectionNullable
+  validationRules: StringAggregateSelectionNullable
+  defaultValues: StringAggregateSelectionNullable
+}
+
 export type InterfaceTypeFieldFieldsAggregationSelection = {
   __typename?: 'InterfaceTypeFieldFieldsAggregationSelection'
   count: Scalars['Int']
@@ -5181,6 +5229,12 @@ export type InterfaceTypeFieldFieldsNodeAggregateSelection = {
   description: StringAggregateSelectionNullable
   validationRules: StringAggregateSelectionNullable
   defaultValues: StringAggregateSelectionNullable
+}
+
+export type InterfaceTypeFieldRelationship = {
+  __typename?: 'InterfaceTypeFieldRelationship'
+  cursor: Scalars['String']
+  node: Field
 }
 
 export type InterfaceTypeFieldsConnection = {
@@ -20462,6 +20516,7 @@ export type InterfaceTypeApiOfAtomsUpdateFieldInput = {
 
 export type InterfaceTypeConnectInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectFieldInput>
+  field?: InputMaybe<InterfaceTypeFieldConnectFieldInput>
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
 }
@@ -20486,20 +20541,357 @@ export type InterfaceTypeCreateInput = {
   name: Scalars['String']
   kind?: TypeKind
   owner?: InputMaybe<IBaseTypeOwnerFieldInput>
+  field?: InputMaybe<InterfaceTypeFieldFieldInput>
   apiOfAtoms?: InputMaybe<InterfaceTypeApiOfAtomsFieldInput>
   fields?: InputMaybe<InterfaceTypeFieldsFieldInput>
 }
 
 export type InterfaceTypeDeleteInput = {
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
+  field?: InputMaybe<InterfaceTypeFieldDeleteFieldInput>
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDeleteFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsDeleteFieldInput>>
 }
 
 export type InterfaceTypeDisconnectInput = {
   owner?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
+  field?: InputMaybe<InterfaceTypeFieldDisconnectFieldInput>
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>
+}
+
+export type InterfaceTypeFieldAggregateInput = {
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<InterfaceTypeFieldAggregateInput>>
+  OR?: InputMaybe<Array<InterfaceTypeFieldAggregateInput>>
+  NOT?: InputMaybe<InterfaceTypeFieldAggregateInput>
+  node?: InputMaybe<InterfaceTypeFieldNodeAggregationWhereInput>
+}
+
+export type InterfaceTypeFieldConnectFieldInput = {
+  where?: InputMaybe<FieldConnectWhere>
+  connect?: InputMaybe<FieldConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
+}
+
+export type InterfaceTypeFieldConnectionSort = {
+  node?: InputMaybe<FieldSort>
+}
+
+export type InterfaceTypeFieldConnectionWhere = {
+  AND?: InputMaybe<Array<InterfaceTypeFieldConnectionWhere>>
+  OR?: InputMaybe<Array<InterfaceTypeFieldConnectionWhere>>
+  NOT?: InputMaybe<InterfaceTypeFieldConnectionWhere>
+  node?: InputMaybe<FieldWhere>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  node_NOT?: InputMaybe<FieldWhere>
+}
+
+export type InterfaceTypeFieldCreateFieldInput = {
+  node: FieldCreateInput
+}
+
+export type InterfaceTypeFieldDeleteFieldInput = {
+  where?: InputMaybe<InterfaceTypeFieldConnectionWhere>
+  delete?: InputMaybe<FieldDeleteInput>
+}
+
+export type InterfaceTypeFieldDisconnectFieldInput = {
+  where?: InputMaybe<InterfaceTypeFieldConnectionWhere>
+  disconnect?: InputMaybe<FieldDisconnectInput>
+}
+
+export type InterfaceTypeFieldFieldInput = {
+  create?: InputMaybe<InterfaceTypeFieldCreateFieldInput>
+  connect?: InputMaybe<InterfaceTypeFieldConnectFieldInput>
+}
+
+export type InterfaceTypeFieldNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<InterfaceTypeFieldNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<InterfaceTypeFieldNodeAggregationWhereInput>>
+  NOT?: InputMaybe<InterfaceTypeFieldNodeAggregationWhereInput>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  key_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  key_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  key_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  key_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  key_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  key_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  key_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  key_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  key_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  key_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  key_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  key_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  key_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  key_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  key_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  key_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  key_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  key_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  key_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  key_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  key_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  key_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  key_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  key_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  key_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  key_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  key_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  key_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  description_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  description_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  description_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  description_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  description_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  description_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  description_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  description_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  description_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  description_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  description_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  description_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  description_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  description_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  description_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  description_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  description_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  description_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  description_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  description_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  description_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  description_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  description_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  description_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  description_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  description_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  description_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  description_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  description_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  description_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  validationRules_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  validationRules_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  validationRules_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  validationRules_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  validationRules_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  validationRules_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  validationRules_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  validationRules_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  validationRules_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  validationRules_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  validationRules_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  validationRules_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  validationRules_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  validationRules_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  validationRules_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  validationRules_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  validationRules_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  validationRules_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  validationRules_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  validationRules_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  validationRules_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  validationRules_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  validationRules_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  validationRules_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  validationRules_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  validationRules_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  validationRules_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  validationRules_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  validationRules_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  validationRules_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  defaultValues_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  defaultValues_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  defaultValues_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  defaultValues_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  defaultValues_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  defaultValues_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  defaultValues_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  defaultValues_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  defaultValues_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  defaultValues_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  defaultValues_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  defaultValues_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  defaultValues_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  defaultValues_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  defaultValues_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  defaultValues_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  defaultValues_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  defaultValues_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  defaultValues_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  defaultValues_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  defaultValues_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  defaultValues_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  defaultValues_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  defaultValues_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  defaultValues_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  defaultValues_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  defaultValues_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  defaultValues_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  defaultValues_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  defaultValues_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type InterfaceTypeFieldsAggregateInput = {
@@ -20849,6 +21241,19 @@ export type InterfaceTypeFieldsUpdateFieldInput = {
   delete?: InputMaybe<Array<InterfaceTypeFieldsDeleteFieldInput>>
 }
 
+export type InterfaceTypeFieldUpdateConnectionInput = {
+  node?: InputMaybe<FieldUpdateInput>
+}
+
+export type InterfaceTypeFieldUpdateFieldInput = {
+  where?: InputMaybe<InterfaceTypeFieldConnectionWhere>
+  update?: InputMaybe<InterfaceTypeFieldUpdateConnectionInput>
+  connect?: InputMaybe<InterfaceTypeFieldConnectFieldInput>
+  disconnect?: InputMaybe<InterfaceTypeFieldDisconnectFieldInput>
+  create?: InputMaybe<InterfaceTypeFieldCreateFieldInput>
+  delete?: InputMaybe<InterfaceTypeFieldDeleteFieldInput>
+}
+
 export type InterfaceTypeOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
@@ -21049,6 +21454,7 @@ export type InterfaceTypeOwnerNodeAggregationWhereInput = {
 
 export type InterfaceTypeRelationInput = {
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
+  field?: InputMaybe<InterfaceTypeFieldCreateFieldInput>
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
 }
@@ -21069,6 +21475,7 @@ export type InterfaceTypeUpdateInput = {
   name?: InputMaybe<Scalars['String']>
   kind?: InputMaybe<TypeKind>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
+  field?: InputMaybe<InterfaceTypeFieldUpdateFieldInput>
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
 }
@@ -21118,6 +21525,9 @@ export type InterfaceTypeWhere = {
   owner?: InputMaybe<UserWhere>
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<InterfaceTypeOwnerAggregateInput>
+  field?: InputMaybe<FieldWhere>
+  field_NOT?: InputMaybe<FieldWhere>
+  fieldAggregate?: InputMaybe<InterfaceTypeFieldAggregateInput>
   /** @deprecated Use `apiOfAtoms_SOME` instead. */
   apiOfAtoms?: InputMaybe<AtomWhere>
   /** @deprecated Use `apiOfAtoms_NONE` instead. */
@@ -21146,6 +21556,8 @@ export type InterfaceTypeWhere = {
   fields_SOME?: InputMaybe<FieldWhere>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  fieldConnection?: InputMaybe<InterfaceTypeFieldConnectionWhere>
+  fieldConnection_NOT?: InputMaybe<InterfaceTypeFieldConnectionWhere>
   /** @deprecated Use `apiOfAtomsConnection_SOME` instead. */
   apiOfAtomsConnection?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
   /** @deprecated Use `apiOfAtomsConnection_NONE` instead. */

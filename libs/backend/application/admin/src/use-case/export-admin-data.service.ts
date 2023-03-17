@@ -2,8 +2,8 @@ import { IUseCase } from '@codelab/backend/abstract/types'
 import { exportAtoms } from '@codelab/backend/application/atom'
 import { exportTags } from '@codelab/backend/application/tag'
 import {
-  exportAdminInterfaceTypes,
   exportAdminTypes,
+  exportAtomApis,
   exportSystemTypes,
 } from '@codelab/backend/application/type'
 import { saveFormattedFile } from '@codelab/backend/shared/util'
@@ -33,7 +33,7 @@ export class ExportAdminDataService extends IUseCase<void, void> {
 
   private async saveAtomsFile() {
     const atoms = await exportAtoms()
-    const apis = await exportAdminInterfaceTypes()
+    const apis = await exportAtomApis()
 
     await Promise.all(
       atoms.map(async (atom) => {

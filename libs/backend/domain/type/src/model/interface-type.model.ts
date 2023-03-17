@@ -7,6 +7,7 @@ import type {
 import type { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
+import { capitalize } from 'voca'
 import { BaseType } from './base-type.model'
 
 export class InterfaceType extends BaseType implements IInterfaceType {
@@ -31,7 +32,7 @@ export class InterfaceType extends BaseType implements IInterfaceType {
     { name }: Pick<IAtomDTO, 'name'>,
     field?: Pick<IField, 'key'>,
   ) {
-    return field?.key ? `${name} ${field.key} API` : `${name} API`
+    return field?.key ? `${name} ${capitalize(field.key)} API` : `${name} API`
   }
 
   static init({ fields, id, name, owner }: ICreateInterfaceType) {

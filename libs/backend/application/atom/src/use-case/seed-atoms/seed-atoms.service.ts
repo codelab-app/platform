@@ -10,6 +10,7 @@ import type { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
+import type { AtomSeedData } from './atom'
 import { atomsData } from './atom'
 
 export class SeedAtomsService extends IUseCase<IOwner, void> {
@@ -19,6 +20,15 @@ export class SeedAtomsService extends IUseCase<IOwner, void> {
     new InterfaceTypeRepository()
 
   tagRepository: TagRepository = new TagRepository()
+
+  /**
+   * Allow subset to be seeded for testing
+   */
+  constructor(
+    private readonly data: Partial<Record<IAtomType, AtomSeedData>> = atomsData,
+  ) {
+    super()
+  }
 
   async _execute(owner: IOwner) {
     const atoms = await this.createAtomsData(owner)
@@ -57,7 +67,7 @@ export class SeedAtomsService extends IUseCase<IOwner, void> {
     )
 
     return await Promise.all(
-      ObjectTyped.entries(atomsData).map(async ([atomType, atomData]) => {
+      ObjectTyped.entries(this.data).map(async ([atomType, atomData]) => {
         // Search api by name
         const existingApi = existingInterfaceTypes.get(
           InterfaceType.getApiName({ name: atomType }),

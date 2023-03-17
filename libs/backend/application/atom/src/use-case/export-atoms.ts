@@ -28,8 +28,12 @@ export const exportAtoms = async (
       .map((atom) => ({
         ...atom,
         allowedChildren: atom.allowedChildren.sort((a, b) =>
-          a.id.localeCompare(b.id),
+          a.name.localeCompare(b.name),
         ),
+        tags: atom.tags.map((tag) => ({
+          ...tag,
+          children: tag.children.sort((a, b) => a.name.localeCompare(b.name)),
+        })),
       }))
   )
 }

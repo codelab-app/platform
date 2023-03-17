@@ -1,6 +1,5 @@
 export * from './action-type.repo'
 export * from './array-type.repo'
-export * from './deprecated'
 export * from './enum-type.repo'
 export * from './field.repo'
 export * from './interface-type.repo'
