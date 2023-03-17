@@ -6,7 +6,6 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { getElementService, IFieldDTO } from '@codelab/frontend/abstract/core'
 import type { FieldFragment } from '@codelab/shared/abstract/codegen'
-import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import {
   _async,
@@ -20,7 +19,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { fieldApi } from './apis/field.api'
+import { FieldRepository } from '../services/field.repo'
 import {
   CreateFieldModalService,
   FieldModalService,
@@ -33,6 +32,7 @@ export class FieldService
   extends Model({
     createModal: prop(() => new CreateFieldModalService({})),
     deleteModal: prop(() => new FieldModalService({})),
+    fieldRepository: prop(() => new FieldRepository({})),
     fields: prop(() => objectMap<IField>()),
     id: idProp,
     updateModal: prop(() => new FieldModalService({})),
@@ -59,98 +59,40 @@ export class FieldService
   @transaction
   create = _async(function* (
     this: FieldService,
-    {
-      defaultValues,
-      description,
-      fieldType,
-      id,
-      interfaceTypeId,
-      key,
-      name,
-      validationRules,
-    }: ICreateFieldData,
+    createFieldData: ICreateFieldData,
   ) {
-    const {
-      createFields: {
-        fields: [field],
-      },
-    } = yield* _await(
-      fieldApi.CreateFields({
-        input: {
-          api: connectNodeId(interfaceTypeId),
-          defaultValues: JSON.stringify(defaultValues),
-          description,
-          fieldType: connectNodeId(fieldType),
-          id,
-          key,
-          name,
-          validationRules: JSON.stringify(validationRules),
-        },
-      }),
-    )
+    const field = this.add(FieldService.mapDataToDTO(createFieldData))
+    const interfaceType = this.typeService.type(field.api.id) as IInterfaceType
 
-    const interfaceType = this.typeService.type(
-      interfaceTypeId,
-    ) as IInterfaceType
+    interfaceType.writeFieldCache([field])
 
-    interfaceType.writeFieldCache([field!])
+    yield* _await(this.fieldRepository.add(field))
 
-    return this.add(field!)
+    return field
   })
 
   @modelFlow
   @transaction
   update = _async(function* (
     this: FieldService,
-    {
-      defaultValues,
-      description,
-      fieldType,
-      id,
-      key,
-      name,
-      validationRules,
-    }: ICreateFieldData,
+    updateFieldData: ICreateFieldData,
   ) {
-    const {
-      updateFields: {
-        fields: [field],
-      },
-    } = yield* _await(
-      fieldApi.UpdateFields({
-        update: {
-          defaultValues: JSON.stringify(defaultValues),
-          description: description,
-          fieldType: reconnectNodeId(fieldType),
-          id: id,
-          key: key,
-          name: name,
-          validationRules: JSON.stringify(validationRules),
-        },
-        where: {
-          id,
-        },
-      }),
-    )
+    const field = this.getField(updateFieldData.id)!
 
-    return this.add(field!)
+    field.writeCache(FieldService.mapDataToDTO(updateFieldData))
+
+    yield* _await(this.fieldRepository.update(field))
+
+    return field
   })
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: FieldService, ids: Array<string>) {
+  delete = _async(function* (this: FieldService, fields: Array<IField>) {
     // const input = { where: { id: fieldId }, interfaceId }
-    ids.forEach((id) => this.fields.delete(id))
+    fields.forEach((field) => this.fields.delete(field.id))
 
-    const {
-      deleteFields: { nodesDeleted },
-    } = yield* _await(
-      fieldApi.DeleteFields({
-        where: {
-          id_IN: ids,
-        },
-      }),
-    )
+    const nodesDeleted = yield* _await(this.fieldRepository.delete(fields))
 
     return nodesDeleted
 
@@ -182,5 +124,19 @@ export class FieldService
     this.fields.set(field.id, field)
 
     return field
+  }
+
+  private static mapDataToDTO(fieldData: ICreateFieldData) {
+    return {
+      ...fieldData,
+      api: { id: fieldData.interfaceTypeId },
+      defaultValues: fieldData.defaultValues
+        ? JSON.stringify(fieldData.defaultValues)
+        : null,
+      fieldType: { id: fieldData.fieldType },
+      validationRules: fieldData.validationRules
+        ? JSON.stringify(fieldData.validationRules)
+        : null,
+    }
   }
 }
