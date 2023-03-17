@@ -15,7 +15,7 @@ import type {
 import debounce from 'lodash/debounce'
 import isEqual from 'lodash/isEqual'
 import { arraySet } from 'mobx-keystone'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
 import { AllowedChildrenColumn } from './columns/AllowedChildrenColumn'
 import type { AtomRecord } from './columns/types'
@@ -138,24 +138,27 @@ export const useAtomTable = ({
     type: 'checkbox',
   }
 
-  const pagination: TablePaginationConfig = {
-    defaultPageSize: 25,
-    onChange: async (page: number, pageSize: number) => {
-      const options = {
-        limit: pageSize,
-        offset: (page - 1) * pageSize,
-      }
-
-      if (!isEqual(options, atomOptions)) {
-        debouncedSetAtomOptions({
+  const pagination: TablePaginationConfig = useMemo(
+    () => ({
+      defaultPageSize: 25,
+      onChange: async (page: number, pageSize: number) => {
+        const options = {
           limit: pageSize,
           offset: (page - 1) * pageSize,
-        })
-      }
-    },
-    position: ['bottomCenter'],
-    total: atomService.count,
-  }
+        }
+
+        if (!isEqual(options, atomOptions)) {
+          debouncedSetAtomOptions({
+            limit: pageSize,
+            offset: (page - 1) * pageSize,
+          })
+        }
+      },
+      position: ['bottomCenter'],
+      total: atomService.count,
+    }),
+    [],
+  )
 
   return { atomOptions, atomWhere, columns, pagination, rowSelection }
 }
