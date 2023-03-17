@@ -1,7 +1,4 @@
-import type {
-  FieldFragment,
-  PrimitiveTypeKind,
-} from '@codelab/shared/abstract/codegen'
+import type { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import type { IFieldDefaultValue, IFieldRef } from './field'
 import type { IInterfaceTypeRef, ITypeRef } from './types'

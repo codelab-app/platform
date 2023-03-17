@@ -7,6 +7,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { IFieldDTO } from '@codelab/frontend/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
+import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import type { Ref } from 'mobx-keystone'
 import {
   detach,
@@ -98,6 +99,31 @@ export class Field
       : this.defaultValues
 
     return this
+  }
+
+  toCreateInput() {
+    return {
+      api: connectNodeId(this.api.id),
+      defaultValues: JSON.stringify(this.defaultValues),
+      description: this.description,
+      fieldType: connectNodeId(this.type.id),
+      id: this.id,
+      key: this.key,
+      name: this.name,
+      validationRules: JSON.stringify(this.validationRules),
+    }
+  }
+
+  toUpdateInput() {
+    return {
+      defaultValues: JSON.stringify(this.defaultValues),
+      description: this.description,
+      fieldType: reconnectNodeId(this.type.id),
+      id: this.id,
+      key: this.key,
+      name: this.name,
+      validationRules: JSON.stringify(this.validationRules),
+    }
   }
 }
 
