@@ -3,13 +3,16 @@ import { AtomRepository } from '@codelab/backend/domain/atom'
 import { FieldRepository } from '@codelab/backend/domain/type'
 import { User, UserRepository } from '@codelab/backend/domain/user'
 import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
-import { setupNewUser } from '@codelab/backend/shared/util'
-import type { IUserDTO } from '@codelab/frontend/abstract/core'
+import { saveFormattedFile, setupNewUser } from '@codelab/backend/shared/util'
+import type { ITag, ITagDTO, IUserDTO } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
+import { AntdTag, antdTagTree } from '@codelab/shared/data/seed'
+import difference from 'lodash/difference'
 import path from 'path'
 import { ExportAdminDataService } from '../export-admin-data.service'
 import { ImportAdminDataService } from '../import-admin-data/import-admin-data.service'
 import { SeedDataService } from './seed-data.service'
+import { exportAndAssert, importData, seedData } from './seed-data-spec.helper'
 
 let user: IUserDTO
 const atomRepository = new AtomRepository()
@@ -29,38 +32,53 @@ afterAll(async () => {
   await driver.close()
 })
 
-describe('Seed data', () => {
-  it('can seed data', async () => {
-    await new SeedDataService().execute(user)
+describe('Seed, import, & export data', () => {
+  let initialPayload = {}
 
-    await new ExportAdminDataService(
-      path.resolve('./data/export-test'),
-    ).execute()
+  it('can seed Ant Design CSV data', async () => {
+    await seedData(user)
 
+    const exportPath = path.resolve('./tmp/data/export')
+    const payload = await exportAndAssert(exportPath)
+
+    initialPayload = payload
+  })
+
+  it('should be able to seed twice without changing the database', async () => {
+    await seedData(user)
+
+    const exportPath = path.resolve('./tmp/data/export-1')
+    const payload = await exportAndAssert(exportPath)
+
+    expect(payload).toEqual(initialPayload)
+  })
+
+  const importPath = path.resolve('./tmp/data/export')
+
+  /**
+   * Importing from file should result in the same data as seed
+   */
+  it('should import Ant Design data', async () => {
     user = await setupNewUser({
       AdminService,
       User,
       UserRepository,
     })
 
-    await new ImportAdminDataService(
-      path.resolve('./data/export-test'),
-    ).execute(user)
+    const exportPath = path.resolve('./tmp/data/export-2')
+    await importData(user, importPath)
 
-    // const atoms = await atomRepository.find()
+    const payload = await exportAndAssert(exportPath)
 
-    // expect(atoms).toEqual(
-    //   expect.arrayContaining([
-    //     expect.objectContaining({
-    //       name: IAtomType.AntDesignAffix,
-    //     }),
-    //     expect.objectContaining({
-    //       name: IAtomType.AntDesignAlert,
-    //     }),
-    //     expect.objectContaining({
-    //       name: IAtomType.AntDesignAnchor,
-    //     }),
-    //   ]),
-    // )
+    expect(payload).toEqual(initialPayload)
+  })
+
+  it('should import data twice without changing the database', async () => {
+    await importData(user, importPath)
+
+    const exportPath = path.resolve('./tmp/data/export-3')
+    const payload = await exportAndAssert(exportPath)
+
+    expect(payload).toEqual(initialPayload)
   })
 })

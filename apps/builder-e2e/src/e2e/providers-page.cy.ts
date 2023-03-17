@@ -88,9 +88,10 @@ describe('_app page', () => {
   })
 
   it('should set config provider element as a container for child pages', () => {
-    cy.get(`.ant-tabs [aria-label="file"]`).click()
+    cy.get(`.ant-tabs .ant-tabs-nav-operations`).click()
+    cy.get(`.ant-tabs .ant-tabs-nav-operations [aria-label="file"]`).click()
     cy.get('.ant-tabs-tabpane-active form').setFormFieldValue({
-      label: 'Page container element id',
+      label: 'Id',
       type: FIELD_TYPE.SELECT,
       value: CONFIG_PROVIDER_NAME,
     })

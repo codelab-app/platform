@@ -48,18 +48,12 @@ export const importCommand: CommandModule<ImportProps, ImportProps> = {
    *
    * @param file File for the user data
    */
-  handler: async ({
-    email,
-    seedDataPath,
-    skipSeedData,
-    skipUserData,
-    userDataPath,
-  }) => {
+  handler: async ({ email, seedDataPath, skipSeedData, skipUserData }) => {
     const User = await Repository.instance.User
 
-    const selectedUserId = email
-      ? (await User.find({ where: { email } }))[0]?.id
-      : (await inquirer.prompt([await selectUserPrompt()])).selectedUserId
+    const selectedAuth0Id = email
+      ? (await User.find({ where: { email } }))[0]?.auth0Id
+      : (await inquirer.prompt([await selectUserPrompt()])).selectedAuth0Id
 
     const shouldSkipSeedData: boolean =
       skipSeedData !== undefined
@@ -93,7 +87,7 @@ export const importCommand: CommandModule<ImportProps, ImportProps> = {
      * Seed atoms & types for the project
      */
     if (!shouldSkipSeedData) {
-      await new ImportAdminDataService().execute({ auth0Id: selectedUserId })
+      await new ImportAdminDataService().execute({ auth0Id: selectedAuth0Id })
     }
 
     // If we specified a file for import
@@ -117,7 +111,7 @@ export const importCommand: CommandModule<ImportProps, ImportProps> = {
       )
 
       const userData = JSON.parse(json) as ExportedUserData
-      await importUserData(userData, selectedUserId)
+      await importUserData(userData, { auth0Id: selectedAuth0Id })
     }
 
     yargs.exit(0, null!)

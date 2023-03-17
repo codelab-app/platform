@@ -47,7 +47,7 @@ export class TagRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { children, descendants, owner, parent, ...tag }: ITagDTO,
+    { children, descendants, id, owner, parent, ...tag }: ITagDTO,
     where: OGM_TYPES.TagWhere,
   ) {
     // Get existing tag so we know what to connect/disconnect

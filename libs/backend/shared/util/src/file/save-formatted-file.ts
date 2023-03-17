@@ -9,5 +9,6 @@ export const saveFormattedFile = (outputFilePath: string, data: object) => {
   const json = JSON.stringify(data, null, 2)
   const exportPath = path.resolve('./', outputFilePath)
 
+  fs.mkdirSync(path.dirname(exportPath), { recursive: true })
   fs.writeFileSync(exportPath, json)
 }

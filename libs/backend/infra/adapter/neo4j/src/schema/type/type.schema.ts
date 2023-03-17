@@ -76,6 +76,7 @@ export const typeSchema = gql`
     id: ID! @id(autogenerate: false)
     kind: TypeKind! @readonly
     name: String!
+    # fields: [Field!]! @relationship(type: "FIELD_TYPE", direction: OUT)
     # we don't need an @auth here, because the User's @auth already declares rules for connect/disconnect
     owner: User!
       @relationship(
@@ -185,6 +186,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: InterfaceType)
     name: String!
     owner: User!
+    field: Field @relationship(type: "FIELD_TYPE", direction: IN)
     descendantTypesIds: [ID!]!
     # List of atoms that have this interface as their api type
     apiOfAtoms: [Atom!]!
@@ -269,6 +271,7 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: EnumType)
     name: String!
     owner: User!
+    # Allows reverse lookup and get all api's enums
     field: Field @relationship(type: "FIELD_TYPE", direction: IN)
     allowedValues: [EnumTypeValue!]!
       @relationship(

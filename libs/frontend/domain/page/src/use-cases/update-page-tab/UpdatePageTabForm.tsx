@@ -28,7 +28,8 @@ export const UpdatePageTabForm = observer<{ pageService: IPageService }>(
     }
 
     const model = {
-      appId: page.app.id,
+      app: page.app,
+      id: page.id,
       name: page.name,
       pageContentContainer: pageContentContainer?.maybeCurrent?.id
         ? { id: pageContentContainer.maybeCurrent.id }
