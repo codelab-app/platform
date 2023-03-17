@@ -64,7 +64,9 @@ export class FieldService
     const field = this.add(FieldService.mapDataToDTO(createFieldData))
     const interfaceType = this.typeService.type(field.api.id) as IInterfaceType
 
-    interfaceType.writeFieldCache([field])
+    interfaceType.writeCache({
+      fields: [{ id: field.id }],
+    })
 
     yield* _await(this.fieldRepository.add(field))
 
