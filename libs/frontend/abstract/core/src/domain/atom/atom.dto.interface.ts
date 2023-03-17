@@ -12,7 +12,6 @@ export interface ICreateAtomData extends IOwnerSchema {
   id: string
   name: string
   tags?: Array<IEntity>
-
   type: IAtomType
 }
 

@@ -1,5 +1,4 @@
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { useCurrentApp } from '@codelab/frontend/domain/app'
 import { ExplorerPanePage } from '@codelab/frontend/domain/page'
 import {
   useCurrentAppId,
