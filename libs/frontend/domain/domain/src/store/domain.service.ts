@@ -102,7 +102,7 @@ export class DomainService
 
     yield* _await(this.domainRepository.delete([domain]))
 
-    return domain!
+    return domain
   })
 
   @modelFlow

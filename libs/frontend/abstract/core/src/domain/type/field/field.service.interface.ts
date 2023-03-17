@@ -30,7 +30,7 @@ export interface IFieldService
   fields: ObjectMap<IField>
 
   add(fieldDTO: IFieldDTO): IField
-  delete(ids: Array<string>): Promise<number>
+  delete(fields: Array<IField>): Promise<number>
   getField(id: string): Maybe<IField<IType>>
   load(fields: Array<FieldFragment>): void
 }
