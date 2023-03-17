@@ -54,7 +54,7 @@ export class AtomRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { allowedChildren = [], api, owner, tags, ...atom }: IAtomDTO,
+    { allowedChildren = [], api, id, owner, tags, ...atom }: IAtomDTO,
     where: OGM_TYPES.AtomWhere,
   ) {
     return (

@@ -1,11 +1,13 @@
 import type { IOwner } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
+import type { AtomSeedData } from '@codelab/backend/application/atom'
 import { atomsData } from '@codelab/backend/application/atom'
 import {
   InterfaceType,
   InterfaceTypeRepository,
   PrimitiveTypeRepository,
 } from '@codelab/backend/domain/type'
+import type { IAtomType } from '@codelab/shared/abstract/core'
 import { ObjectTyped } from 'object-typed'
 
 /**
@@ -19,6 +21,15 @@ export class SeedAntDesignApiService extends IUseCase<IOwner, void> {
     new InterfaceTypeRepository()
 
   /**
+   * Allow subset to be seeded for testing
+   */
+  constructor(
+    private readonly data: Partial<Record<IAtomType, AtomSeedData>> = atomsData,
+  ) {
+    super()
+  }
+
+  /**
    * Create empty interfaces from Ant Design atom name
    */
   async _execute(owner: IOwner) {
@@ -30,7 +41,7 @@ export class SeedAntDesignApiService extends IUseCase<IOwner, void> {
     )
 
     await Promise.all(
-      ObjectTyped.keys(atomsData).map(async (name) => {
+      ObjectTyped.keys(this.data).map(async (name) => {
         // Want to get atom api y atom name
         const interfaceType = InterfaceType.createFromAtomName(name, owner)
 

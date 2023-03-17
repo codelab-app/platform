@@ -32,12 +32,15 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
 
   dataPaths: DataPaths
 
+  exportedAdminData: ExportedAdminData
+
   constructor(
     // Allow base directory override for testing purpose
     DATA_EXPORT_PATH = path.resolve('./data/export'),
   ) {
     super()
     this.dataPaths = new DataPaths(DATA_EXPORT_PATH)
+    this.exportedAdminData = this.getMergedData
   }
 
   protected async _execute(owner: IAuth0Owner) {
@@ -55,6 +58,12 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
     await this.importFields(owner)
 
     await this.importAtoms(owner)
+
+    const fields = (await this.fieldRepository.find()).filter(
+      (field) => !field.fieldType.id,
+    )
+
+    console.log('AllFields', fields)
   }
 
   private async importSystemTypes(owner: IAuth0Owner) {
@@ -68,23 +77,19 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
   }
 
   private async importAdminTypes(owner: IAuth0Owner) {
-    // const types = this.getMergedData().types
-
-    // saveFormattedFile(path.resolve('./data/types.json'), types)
-
-    for await (const type of this.getMergedData().types) {
+    for await (const type of this.exportedAdminData.types) {
       await TypeFactory.create({ ...type, owner })
     }
   }
 
   private async importAtoms(owner: IAuth0Owner) {
-    for await (const atom of this.getMergedData().atoms) {
+    for await (const atom of this.exportedAdminData.atoms) {
       await this.atomRepository.save({ ...atom, owner })
     }
   }
 
   private async importFields(owner: IAuth0Owner) {
-    const fields = this.getMergedData().apis.flatMap((api) => api.fields)
+    const fields = this.exportedAdminData.apis.flatMap((api) => api.fields)
 
     for await (const field of fields) {
       await this.fieldRepository.save(field)
@@ -92,17 +97,13 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
   }
 
   private async importTags(owner: IAuth0Owner) {
-    const tags = JSON.parse(
-      fs.readFileSync(this.dataPaths.TAGS_FILE_PATH, 'utf8'),
-    ) as Array<ITagDTO>
-
-    for await (const tag of tags) {
+    for await (const tag of this.exportedAdminData.tags) {
       await this.tagRepository.save({ ...tag, owner })
     }
   }
 
   private async importApis(owner: IAuth0Owner) {
-    for await (const api of this.getMergedData().apis) {
+    for await (const api of this.exportedAdminData.apis) {
       await TypeFactory.create({ ...api, owner })
     }
   }
@@ -110,10 +111,15 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
   /**
    * Extract all the api's from atom file
    */
-  private getMergedData(): Omit<ExportedAdminData, 'tags'> {
+  get getMergedData(): ExportedAdminData {
     const filenames = fs
       .readdirSync(this.dataPaths.ATOMS_PATH)
       .filter((filename) => path.extname(filename) === '.json')
+
+    // Tag data is all in single file
+    const tags = JSON.parse(
+      fs.readFileSync(this.dataPaths.TAGS_FILE_PATH, 'utf8'),
+    ) as Array<ITag>
 
     return filenames.reduce(
       (acc, filename) => {
@@ -132,7 +138,7 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
 
         return acc
       },
-      { apis: [], atoms: [], types: [] } as Omit<ExportedAdminData, 'tags'>,
+      { apis: [], atoms: [], tags, types: [] } as ExportedAdminData,
     )
   }
 }

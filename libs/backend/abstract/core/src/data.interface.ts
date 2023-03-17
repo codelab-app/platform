@@ -1,4 +1,4 @@
-import type { IAtomDTO } from '@codelab/frontend/abstract/core'
+import type { IAtomDTO, ITagDTO } from '@codelab/frontend/abstract/core'
 import type { IAppExport } from './app.interface'
 import type { IResourceExport } from './resource.interface'
 import type { ITag } from './tag.interface'
@@ -12,7 +12,7 @@ export interface ExportedAdminData {
   apis: Array<IInterfaceTypeExport>
   atoms: Array<IAtomDTO>
   // resources: Array<IResourceExport>
-  tags: Array<ITag>
+  tags: Array<ITagDTO>
   // Import api separately
   types: Array<ITypeExport>
 }

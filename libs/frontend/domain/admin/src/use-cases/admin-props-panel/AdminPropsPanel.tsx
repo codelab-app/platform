@@ -29,7 +29,7 @@ export const AdminPropsPanel = observer<{ interfaceType: IInterfaceType }>(
     const editMenuItems = interfaceType.fields.map((field) => {
       return {
         key: field.key,
-        label: field.name,
+        label: field.name ?? field.key,
         onClick: () => onEdit(field),
       }
     })
@@ -37,7 +37,7 @@ export const AdminPropsPanel = observer<{ interfaceType: IInterfaceType }>(
     const deleteMenuItems = interfaceType.fields.map((field) => {
       return {
         key: field.key,
-        label: field.name,
+        label: field.name ?? field.key,
         onClick: () => onDelete(field),
       }
     })

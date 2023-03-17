@@ -1,5 +1,6 @@
 import type { ITypeExport } from '@codelab/backend/abstract/core'
 import {
+  exportActionTypeSelectionSet,
   exportPrimitiveTypeSelectionSet,
   exportReactNodeTypeSelectionSet,
   exportRenderPropsTypeSelectionSet,
@@ -50,6 +51,18 @@ export const exportSystemTypes = async (): Promise<Array<ITypeExport>> => {
   })
 
   /**
+   * ActionType
+   */
+  const ActionType = await Repository.instance.ActionType
+
+  const actionTypes = await ActionType.find({
+    options: {
+      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+    },
+    selectionSet: exportActionTypeSelectionSet,
+  })
+
+  /**
    * Here we create the interface dependency tree order
    *
    * Further to the front are closer to the leaf.
@@ -58,5 +71,6 @@ export const exportSystemTypes = async (): Promise<Array<ITypeExport>> => {
     ...primitiveTypes,
     ...renderPropsTypes,
     ...reactNodeTypes,
+    ...actionTypes,
   ] as Array<ITypeExport>
 }

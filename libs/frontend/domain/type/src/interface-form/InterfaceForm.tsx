@@ -28,7 +28,7 @@ export const InterfaceForm = observer(
       const typeTreeSchema = schemaTransformer.transform(interfaceType)
 
       return mergeDeepRight(initialSchema ?? {}, typeTreeSchema)
-    }, [interfaceType, initialSchema])
+    }, [interfaceType, interfaceType.fields, initialSchema])
 
     return (
       <Form

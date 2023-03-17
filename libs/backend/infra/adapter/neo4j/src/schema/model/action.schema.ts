@@ -18,7 +18,7 @@ export const actionSchema = gql`
     name: String!
     type: ActionKind! @readonly
     store: Store! @relationship(type: "STORE_ACTION", direction: IN)
-    element: Element! @relationship(type: "ELEMENT_ACTION", direction: OUT)
+    element: Element @relationship(type: "ELEMENT_ACTION", direction: OUT)
   }
 
   type CodeAction implements ActionBase {
