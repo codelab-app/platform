@@ -16,14 +16,10 @@ import type { IInterfaceTypeDTO } from './interface-type.dto.interface'
  * @property fields {@link IField[]} - Fields of the object type
  */
 export interface IInterfaceType
-  extends Omit<
-    IBaseType<
-      IInterfaceTypeDTO,
-      InterfaceTypeCreateInput,
-      UpdateInterfaceTypesMutationVariables,
-      void
-    >,
-    'toDeleteInput'
+  extends IBaseType<
+    IInterfaceTypeDTO,
+    InterfaceTypeCreateInput,
+    UpdateInterfaceTypesMutationVariables
   > {
   defaultValues: IPropData
   fields: Array<IField>

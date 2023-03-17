@@ -10,14 +10,10 @@ import type { IPageTypeDTO } from './page-type.dto.interface'
  * Allows picking an existing page from the list of pages.
  */
 export interface IPageType
-  extends Omit<
-    IBaseType<
-      IPageTypeDTO,
-      PageTypeCreateInput,
-      UpdatePageTypesMutationVariables,
-      void
-    >,
-    'toDeleteInput'
+  extends IBaseType<
+    IPageTypeDTO,
+    PageTypeCreateInput,
+    UpdatePageTypesMutationVariables
   > {
   kind: ITypeKind.PageType
 }

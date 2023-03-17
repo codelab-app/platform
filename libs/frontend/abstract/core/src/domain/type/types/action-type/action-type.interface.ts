@@ -10,14 +10,10 @@ import type { IActionTypeDTO } from './action-type.dto.interface'
  * Allows choosing an action from the list of actions.
  */
 export interface IActionType
-  extends Omit<
-    IBaseType<
-      IActionTypeDTO,
-      ActionTypeCreateInput,
-      UpdateActionTypesMutationVariables,
-      void
-    >,
-    'toDeleteInput'
+  extends IBaseType<
+    IActionTypeDTO,
+    ActionTypeCreateInput,
+    UpdateActionTypesMutationVariables
   > {
   kind: ITypeKind.ActionType
 }
