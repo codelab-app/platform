@@ -24,7 +24,7 @@ export const exportTags = async (props: ExportTagsProps = {}) => {
       // Sort children values
       .map((tag) => ({
         ...tag,
-        children: tag.children.sort((a, b) => a.id.localeCompare(b.id)),
+        children: tag.children.sort((a, b) => a.name.localeCompare(b.name)),
       }))
   )
 }

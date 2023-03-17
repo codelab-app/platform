@@ -27,8 +27,8 @@ export const EnumTypeTable = observer<EnumTypeTableProps>(({ enumType }) => {
 
   const dataSource = enumType.allowedValues.map((value) => ({
     id: value.id,
-    key: value.current.key,
-    value: value.current.value,
+    key: value.key,
+    value: value.value,
   }))
 
   return <Table columns={columns} dataSource={dataSource} pagination={false} />

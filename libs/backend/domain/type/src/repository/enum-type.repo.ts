@@ -37,10 +37,10 @@ export class EnumTypeRepository extends AbstractRepository<
         input: enumTypes.map(
           ({ __typename, allowedValues, owner, ...enumType }) => ({
             ...enumType,
-            allowedValues: connectNodeIds(
-              allowedValues.map((value) => value.id),
-            ),
-            // allowedValues: this.mapCreateEnumTypeValues(allowedValues),
+            // allowedValues: connectNodeIds(
+            //   allowedValues.map((value) => value.id),
+            // ),
+            allowedValues: this.mapCreateEnumTypeValues(allowedValues),
             owner: connectAuth0Owner(owner),
           }),
         ),
@@ -57,9 +57,10 @@ export class EnumTypeRepository extends AbstractRepository<
         await this.EnumType
       ).update({
         update: {
-          allowedValues: reconnectNodeIds(
-            allowedValues.map((value) => value.id),
-          ),
+          // allowedValues: reconnectNodeIds(
+          //   allowedValues.map((value) => value.id),
+          // ),
+          allowedValues: this.mapUpdateEnumTypeValues(allowedValues),
           name,
         },
         where,
@@ -82,8 +83,8 @@ export class EnumTypeRepository extends AbstractRepository<
   private mapUpdateEnumTypeValues(
     enumTypeValues: Array<IEnumTypeValue>,
   ): Array<OGM_TYPES.EnumTypeAllowedValuesUpdateFieldInput> {
-    return enumTypeValues.map((enumTypeValue) => ({
-      ...whereNodeId(enumTypeValue.id),
+    return enumTypeValues.map(({ id, ...enumTypeValue }) => ({
+      ...whereNodeId(id),
       update: {
         node: enumTypeValue,
       },

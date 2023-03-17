@@ -32,6 +32,8 @@ export const setupNewUser = async ({
 
   const savedUser = await userRepository.findOne({ email: user.email })
 
+  console.log('SavedUser', savedUser)
+
   expect(savedUser?.username).toEqual('Codelab')
 
   return user

@@ -43,7 +43,7 @@ export class FieldRepository extends AbstractRepository<
    * Scenario: Say a field was deleted, then we run a seeder, we would have to create for the deleted field
    */
   protected async _update(
-    { api, fieldType, ...field }: IFieldDTO,
+    { api, fieldType, id, ...field }: IFieldDTO,
     where: OGM_TYPES.FieldWhere,
   ) {
     return (

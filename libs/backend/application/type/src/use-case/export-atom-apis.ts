@@ -11,7 +11,7 @@ import { sortInterfaceTypesFields } from '../mapper/sort'
  *
  * We export api separately since those can be it's own file
  */
-export const exportAdminInterfaceTypes = async (): Promise<
+export const exportAtomApis = async (): Promise<
   Array<IInterfaceTypeExport>
 > => {
   /**

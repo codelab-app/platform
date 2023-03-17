@@ -17,10 +17,13 @@ import {
 } from '@codelab/backend/domain/type'
 import type { IAtomDTO, IFieldDTO } from '@codelab/frontend/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
+import isNil from 'lodash/isNil'
 import merge from 'lodash/merge'
 import { v4 } from 'uuid'
 import { TransformAntDesignTypesService } from '../transform-ant-design-types/transform-ant-design-types.service'
 import { readCsvFiles } from './read-csv-files'
+
+let counter = 0
 
 /**
  * Here we want to parse the CSV files from Ant Design and seed it as atoms
@@ -107,7 +110,7 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
         /**
          * Get the existing atom first, these should have already been seeded at this point
          */
-        let existingField: IField | undefined =
+        let existingField: IFieldDTO | undefined =
           await this.fieldRepository.findOne({
             api: {
               id: atom.api.id,
@@ -139,6 +142,7 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
           /**
            * We need to upsert here by specifying where as name
            */
+
           const type = await TypeFactory.create(
             {
               ...fieldTypeDTO,
@@ -152,7 +156,7 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
             // return [...(await accFields)]
           }
 
-          existingField = Field.init({
+          existingField = Field.create({
             api: { id: atom.api.id },
             defaultValues: null,
             description: field.description,
