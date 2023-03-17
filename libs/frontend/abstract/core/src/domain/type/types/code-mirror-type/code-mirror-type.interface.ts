@@ -8,14 +8,10 @@ import type { IBaseType } from '../base-type'
 import type { ICodeMirrorTypeDTO } from './code-mirror-type.dto.interface'
 
 export interface ICodeMirrorType
-  extends Omit<
-    IBaseType<
-      ICodeMirrorTypeDTO,
-      CodeMirrorTypeCreateInput,
-      UpdateCodeMirrorTypesMutationVariables,
-      void
-    >,
-    'toDeleteInput'
+  extends IBaseType<
+    ICodeMirrorTypeDTO,
+    CodeMirrorTypeCreateInput,
+    UpdateCodeMirrorTypesMutationVariables
   > {
   kind: ITypeKind.CodeMirrorType
   language: CodeMirrorLanguage

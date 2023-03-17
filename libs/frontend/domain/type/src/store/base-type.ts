@@ -1,7 +1,12 @@
-import type { IBaseType, IBaseTypeDTO } from '@codelab/frontend/abstract/core'
+import type {
+  IBaseType,
+  IBaseTypeDTO,
+  ICreateTypeInput,
+  IUpdateTypeVars,
+} from '@codelab/frontend/abstract/core'
 
 export const updateBaseTypeCache = (
-  self: IBaseType<IBaseTypeDTO>,
+  self: IBaseType<IBaseTypeDTO, ICreateTypeInput, IUpdateTypeVars>,
   /**
    * We don't allow changing some properties after creation
    */

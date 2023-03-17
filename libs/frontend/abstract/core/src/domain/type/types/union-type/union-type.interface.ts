@@ -9,14 +9,10 @@ import type { IType } from '../type.interface'
 import type { IUnionTypeDTO } from './union-type.dto.interface'
 
 export interface IUnionType
-  extends Omit<
-    IBaseType<
-      IUnionTypeDTO,
-      UnionTypeCreateInput,
-      UpdateUnionTypesMutationVariables,
-      void
-    >,
-    'toDeleteInput'
+  extends IBaseType<
+    IUnionTypeDTO,
+    UnionTypeCreateInput,
+    UpdateUnionTypesMutationVariables
   > {
   kind: ITypeKind.UnionType
   typesOfUnionType: Array<Ref<IType>>
