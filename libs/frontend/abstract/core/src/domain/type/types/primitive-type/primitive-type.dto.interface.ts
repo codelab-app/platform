@@ -1,7 +1,4 @@
-import type {
-  OGM_TYPES,
-  PrimitiveTypeKind,
-} from '@codelab/shared/abstract/codegen'
+import type { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IBaseTypeDTO } from '../base-type'
 
