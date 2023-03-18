@@ -192,10 +192,6 @@ export class AppService
     this: AppService,
     where: AppWhere,
   ) {
-    if (!where.id) {
-      throw new Error('Missing appId')
-    }
-
     const appData = (yield* _await(this.appRepository.find(where)))[0]!
     const app = this.add(appData)
 

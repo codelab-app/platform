@@ -59,8 +59,8 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   const { appService, domainService, userService } = useStore()
   const { user } = useUser()
 
-  const [{ error, result: app, status }, loadApp] = useAsync(
-    (owner: IAuth0Owner) => appService.loadAppWithNestedPreviews({ owner }),
+  const [{ result: app, status }, loadApp] = useAsync((owner: IAuth0Owner) =>
+    appService.loadAppWithNestedPreviews({ owner }),
   )
 
   useMountEffect(() => {
@@ -87,16 +87,14 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
       <DeleteAppModal appService={appService} />
 
       <ContentSection>
-        <>
-          {status === 'loading' ? (
-            <Spin />
-          ) : (
-            <GetAppsList
-              appService={appService}
-              domains={app?.domains.map((domain) => domain.current)}
-            />
-          )}
-        </>
+        {status === 'loading' ? (
+          <Spin />
+        ) : (
+          <GetAppsList
+            appService={appService}
+            domains={app?.domains.map((domain) => domain.current)}
+          />
+        )}
       </ContentSection>
     </>
   )
