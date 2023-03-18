@@ -17,4 +17,7 @@ fragment Component on Component {
   childrenContainerElement {
     id
   }
+  store {
+    ...Store
+  }
 }

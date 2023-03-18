@@ -30,6 +30,7 @@ import { StoreModalService } from './store-modal.service'
 @model('@codelab/StoreService')
 export class StoreService
   extends Model({
+    clonedStores: prop(() => objectMap<IStore>()),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new StoreModalService({})),
     storeRepository: prop(() => new StoreRepository({})),
@@ -39,7 +40,7 @@ export class StoreService
   implements IStoreService
 {
   store(id: string) {
-    return this.stores.get(id)
+    return this.stores.get(id) || this.clonedStores.get(id)
   }
 
   @computed
@@ -95,8 +96,8 @@ export class StoreService
 
   @modelFlow
   @transaction
-  create = _async(function* (this: StoreService, storeData: ICreateStoreData) {
-    const store = this.add(storeData)
+  create = _async(function* (this: StoreService, data: ICreateStoreData) {
+    const store = this.add(data)
 
     yield* _await(this.storeRepository.add(store))
 
@@ -105,13 +106,10 @@ export class StoreService
 
   @modelFlow
   @transaction
-  update = _async(function* (
-    this: StoreService,
-    { id, name }: IUpdateStoreData,
-  ) {
-    const store = this.stores.get(id)!
+  update = _async(function* (this: StoreService, data: IUpdateStoreData) {
+    const store = this.stores.get(data.id)!
 
-    store.writeCache({ name })
+    store.writeCache({ name: data.name })
 
     yield* _await(this.storeRepository.update(store))
 

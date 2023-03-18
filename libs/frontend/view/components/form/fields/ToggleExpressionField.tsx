@@ -121,10 +121,7 @@ const ToggleExpression = ({
       <div>
         {showExpressionEditor && appStore ? (
           <CodeMirrorEditor
-            customOptions={createAutoCompleteOptions(
-              appStore.state.values,
-              'this',
-            )}
+            customOptions={createAutoCompleteOptions({}, 'this')}
             language={ICodeMirrorLanguage.Javascript}
             overrideStyles={css`
               display: block;

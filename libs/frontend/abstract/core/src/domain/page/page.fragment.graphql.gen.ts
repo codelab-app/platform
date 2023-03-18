@@ -2,11 +2,13 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import { ElementFragment } from '../element/element.fragment.graphql.gen'
 import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
+import { StoreFragment } from '../store/store.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { ElementFragmentDoc } from '../element/element.fragment.graphql.gen'
 import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
+import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
 export type PageFragment = {
   id: string
   name: string
@@ -15,6 +17,7 @@ export type PageFragment = {
   app: { id: string }
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   pageContentContainer?: { id: string } | null
+  store: StoreFragment
 }
 
 export type BuilderPageFragment = {
@@ -24,6 +27,7 @@ export type BuilderPageFragment = {
   kind: Types.PageKind
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   app: { id: string; owner: OwnerFragment }
+  store: StoreFragment
   pageContentContainer?: { id: string } | null
 }
 
@@ -44,9 +48,13 @@ export const PageFragmentDoc = gql`
     pageContentContainer {
       id
     }
+    store {
+      ...Store
+    }
     kind
   }
   ${ElementFragmentDoc}
+  ${StoreFragmentDoc}
 `
 export const BuilderPageFragmentDoc = gql`
   fragment BuilderPage on Page {
@@ -65,6 +73,9 @@ export const BuilderPageFragmentDoc = gql`
         ...Owner
       }
     }
+    store {
+      ...Store
+    }
     pageContentContainer {
       id
     }
@@ -72,6 +83,7 @@ export const BuilderPageFragmentDoc = gql`
   }
   ${ElementFragmentDoc}
   ${OwnerFragmentDoc}
+  ${StoreFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

@@ -23,6 +23,7 @@ import type { Axios, Method } from 'axios'
 import axios from 'axios'
 import { GraphQLClient } from 'graphql-request'
 import merge from 'lodash/merge'
+import set from 'lodash/set'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -119,49 +120,43 @@ export class ApiAction
     return axios.create({ baseURL: url, headers: tryParse(headers) })
   }
 
-  @modelAction
-  createRunner(state: IProp) {
-    const runner = (...args: Array<unknown>) => {
-      const successAction = this.successAction?.current
-      const errorAction = this.errorAction?.current
-      const resource = this.resource.current
+  createRunner() {
+    const name = this.name
+    const successAction = this.successAction?.current
+    const errorAction = this.errorAction?.current
+    const resource = this.resource.current
+
+    const config = this.store.current.replaceStateInProps(
+      this.config.current.values,
+    )
+
+    const graphQLClient = this._graphqlClient
+    const restClient = this._restClient
+
+    return (...args: Array<unknown>) => {
       const overrideConfig = args[0] as IPropData
-
-      const config = replaceStateInProps(
-        this.config.current.values,
-        this.store.current.state.values,
-      )
-
-      state.set(this.name, { response: null })
-      state.set(this.name, { error: null })
 
       const fetchPromise =
         resource.type === IResourceType.GraphQL
           ? graphqlFetch(
-              this._graphqlClient,
+              graphQLClient,
               config as IGraphQLActionConfig,
               overrideConfig,
             )
-          : restFetch(
-              this._restClient,
-              config as IRestActionConfig,
-              overrideConfig,
-            )
+          : restFetch(restClient, config as IRestActionConfig, overrideConfig)
 
       return fetchPromise
         .then((response) => {
-          state.set(this.name, { response })
+          set(this, name, { response })
 
-          return successAction?.createRunner(state)(...args)
+          return successAction?.createRunner()(...args)
         })
         .catch((error) => {
-          state.set(this.name, { error: JSON.stringify(error) })
+          set(this, name, { error: JSON.stringify(error) })
 
-          return errorAction?.createRunner(state)(...args)
+          return errorAction?.createRunner()(...args)
         })
     }
-
-    return runner.bind(this)
   }
 
   @modelAction

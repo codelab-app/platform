@@ -1,7 +1,7 @@
 import type { IActionExport } from '@codelab/backend/abstract/core'
 import {
-  codeActionSelectionSet,
   exportApiActionSelectionSet,
+  exportCodeActionSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
@@ -93,7 +93,7 @@ export const exportActions = async (
   const ApiAction = await Repository.instance.ApiAction
 
   const codeActions = await CodeAction.find({
-    selectionSet: codeActionSelectionSet,
+    selectionSet: exportCodeActionSelectionSet,
     where: { store: { id: storeId } },
   })
 

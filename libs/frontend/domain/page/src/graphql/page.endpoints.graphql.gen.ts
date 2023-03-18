@@ -4,8 +4,8 @@ import {
   PageFragment,
   BuilderPageFragment,
 } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
-import { PageBuilderAppFragment } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { ResourceFragment } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
+import { PageBuilderAppFragment } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { RenderedComponentFragment } from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 import {
   Type_ActionType_Fragment,
@@ -30,8 +30,8 @@ import {
   PageFragmentDoc,
   BuilderPageFragmentDoc,
 } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
-import { PageBuilderAppFragmentDoc } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { ResourceFragmentDoc } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
+import { PageBuilderAppFragmentDoc } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { RenderedComponentFragmentDoc } from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 import { TypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 export type CreatePagesMutationVariables = Types.Exact<{

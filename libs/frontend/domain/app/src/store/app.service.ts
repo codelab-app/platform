@@ -175,6 +175,7 @@ export class AppService
     })
 
     appData.pages.forEach((pageData) => {
+      this.storeService.add(pageData.store)
       this.pageService.add(pageData)
     })
 
@@ -344,16 +345,6 @@ export class AppService
 
     const actions = this.actionService.load(actionsDTO)
     const storeApi = this.typeService.addInterface(appData.store.api)
-
-    // hydrate store after types and resources
-    const appStore = this.storeService.add({
-      actions,
-      api: storeApi,
-      id: appData.store.id,
-      name: appData.store.name,
-    })
-
-    appStore.state.setMany(app.toJson)
 
     return app
   })

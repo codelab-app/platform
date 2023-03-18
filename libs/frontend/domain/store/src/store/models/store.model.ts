@@ -2,12 +2,10 @@ import type {
   IAction,
   IAppDTO,
   IInterfaceType,
-  IProp,
   IStore,
   IStoreDTO,
 } from '@codelab/frontend/abstract/core'
 import { IPropData } from '@codelab/frontend/abstract/core'
-import { Prop } from '@codelab/frontend/domain/prop'
 import { typeRef } from '@codelab/frontend/domain/type'
 import { getByExpression } from '@codelab/frontend/shared/utils'
 import type {
@@ -17,6 +15,8 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import { mapDeep } from '@codelab/shared/utils'
 import isString from 'lodash/isString'
+import merge from 'lodash/merge'
+import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
   detach,
@@ -27,6 +27,8 @@ import {
   prop,
   rootRef,
 } from 'mobx-keystone'
+import { types } from 'mobx-state-tree'
+import { actionRef } from './action.ref'
 
 const create = ({ api, id, name }: IStoreDTO) => {
   new Store({
@@ -47,17 +49,39 @@ export class Store
     api: prop<Ref<IInterfaceType>>().withSetter(),
     id: idProp,
     name: prop<string>(),
-    state: prop<IProp>(() => new Prop({})),
   }))
   implements IStore
 {
   @modelAction
-  writeCache({ api, id, name }: Partial<IStoreDTO>) {
+  writeCache({ actions, api, id, name }: Partial<IStoreDTO>) {
     this.id = id ? id : this.id
     this.name = name ? name : this.name
     this.api = api ? (typeRef(api.id) as Ref<IInterfaceType>) : this.api
+    this.actions = actions
+      ? actions.map((action) => actionRef(action.id))
+      : this.actions
 
     return this
+  }
+
+  @computed
+  get state() {
+    const storeModel = types
+      .model(this.name, this.api.current.defaultValues)
+      .actions((store) =>
+        this.actions
+          .map((action) => ({
+            [action.current.name]: action.current.createRunner().bind(store),
+          }))
+          .reduce(merge, {}),
+      )
+
+    return storeModel.create()
+  }
+
+  @computed
+  get jsonString() {
+    return JSON.stringify(this.state)
   }
 
   @modelAction

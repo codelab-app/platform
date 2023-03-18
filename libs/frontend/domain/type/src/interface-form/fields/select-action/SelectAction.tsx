@@ -1,8 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import {
-  useCurrentAppId,
-  useStore,
-} from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presenter/container'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
@@ -13,23 +10,18 @@ export type SelectActionProps = Pick<
 >
 
 export const SelectAction = (fieldProps: SelectActionProps) => {
-  const { appService, storeService } = useStore()
-  const appId = useCurrentAppId()
-  const app = appService.app(appId)
-  const appStore = app && storeService.store(app.store.id)
-  const storeActions = appStore?.actions
+  const { storeService } = useStore()
 
-  const actionOptions = (storeActions ?? []).map((action) => ({
-    label: action.current.name,
-    value: action.id,
-  }))
+  const actions = [...storeService.stores.values()]
+    .flatMap((store) => store.actions)
+    .map((action) => ({ label: action.current.name, value: action.current.id }))
 
   return (
     <SelectField
       {...fieldProps}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
       optionFilterProp="label"
-      options={actionOptions}
+      options={actions}
       showSearch
     />
   )

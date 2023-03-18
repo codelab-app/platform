@@ -13,6 +13,7 @@ export interface IStoreService
   extends ICRUDService<IStore, IStoreDTO, IUpdateStoreData>,
     IQueryService<IStore, StoreWhere, StoreOptions>,
     ICRUDModalService<Ref<IStore>, { store: Maybe<IStore> }> {
+  clonedStores: ObjectMap<IStore>
   stores: ObjectMap<IStore>
 
   add(storeDTO: IStoreDTO): IStore

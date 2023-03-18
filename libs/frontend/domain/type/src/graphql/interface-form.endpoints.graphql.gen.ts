@@ -89,19 +89,11 @@ export const InterfaceForm_GetAtomsDocument = gql`
 `
 export const InterfaceForm_GetActionsDocument = gql`
   query InterfaceForm_GetActions($appId: ID) {
-    codeActions(
-      where: {
-        storeConnection: { node: { appConnection: { node: { id: $appId } } } }
-      }
-    ) {
+    codeActions {
       id
       name
     }
-    apiActions(
-      where: {
-        storeConnection: { node: { appConnection: { node: { id: $appId } } } }
-      }
-    ) {
+    apiActions {
       id
       name
     }
