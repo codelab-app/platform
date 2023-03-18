@@ -29,7 +29,6 @@ export interface IApiActionData extends IBaseActionData {
   name: string
   resourceId: string
   successActionId?: string
-  type: IActionKind
 }
 
 export interface ICodeActionData extends IBaseActionData {
