@@ -3,7 +3,7 @@ interface ActionBase {
     directed: Boolean = true
     options: ElementOptions
     where: ElementWhere
-  ): Element!
+  ): Element
   elementConnection(
     after: String
     directed: Boolean = true

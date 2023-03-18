@@ -19,7 +19,7 @@ export type Scalars = {
 }
 
 export type ActionBase = {
-  element: Element
+  element?: Maybe<Element>
   elementConnection: ActionBaseElementConnection
   id: Scalars['ID']
   name: Scalars['String']
