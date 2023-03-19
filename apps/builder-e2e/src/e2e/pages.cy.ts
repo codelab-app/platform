@@ -1,6 +1,4 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { AppService } from '@codelab/frontend/domain/app'
-import { createAppData } from '@codelab/frontend/shared/data'
 import { createAppInput } from '../support/database/app'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 import { pageName, updatedPageName } from './apps/app.data'
@@ -39,7 +37,7 @@ describe('Pages CRUD', () => {
     it('should have accessible page link on sidebar', () => {
       cy.findByText(pageName).click()
       cy.getSpinner().should('not.exist')
-      cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 }).should('be.visible')
+      cy.findByText(ROOT_ELEMENT_NAME).should('be.visible')
       cy.go('back')
     })
   })

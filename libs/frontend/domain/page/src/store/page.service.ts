@@ -145,6 +145,9 @@ export class PageService
 
     this.pages.set(page.id, page)
 
+    /**
+     * Add page to current app
+     */
     const appModel = this.appService.apps.get(app.id)
     appModel?.writeCache({ pages: [...appModel.pages, page] })
 
