@@ -21,7 +21,7 @@ import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 
 const PageBuilder: CodelabPage = observer(() => {
   const { builderRenderService } = useStore()
@@ -52,7 +52,7 @@ const PageBuilder: CodelabPage = observer(() => {
 
 export const getServerSideProps = auth0Instance.withPageAuthRequired({})
 
-PageBuilder.Layout = observer((page) => {
+PageBuilder.Layout = observer(({ children }) => {
   const { builderRenderService, builderService, elementService, pageService } =
     useStore()
 
@@ -113,7 +113,7 @@ PageBuilder.Layout = observer((page) => {
         headerHeight={48}
         sidebarNavigation={sidebarNavigation({ appId, pageId })}
       >
-        {page.children}
+        {children()}
       </DashboardTemplate>
     </BuilderContext>
   )

@@ -108,7 +108,7 @@ export default AppsPage
  */
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
-AppsPage.Layout = (page) => {
+AppsPage.Layout = ({ children }) => {
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
@@ -117,7 +117,7 @@ AppsPage.Layout = (page) => {
       Header={AppsPageHeader}
       sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
-      {page.children}
+      {children()}
     </DashboardTemplate>
   )
 }

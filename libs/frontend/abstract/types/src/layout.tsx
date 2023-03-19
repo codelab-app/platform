@@ -1,16 +1,24 @@
 import type { NextPage } from 'next'
-import type { JSXElementConstructor, PropsWithChildren } from 'react'
-
-export type CodelabPage<P = unknown, IP = P> = NextPage<P, IP> & PageProps
+import type { JSXElementConstructor } from 'react'
+import type { PropsWithRenderChildren } from './children'
 
 /**
- * These are the props a page requires. We don't pass any props into these components
+ * @typeparam {P} Props
+ * @typeparam {IP} Initial props
+ * @typeparam {RCP} Render children props
+ *
  */
-export interface PageProps {
+export type CodelabPage<P = unknown, IP = P, RCP = unknown> = NextPage<P, IP> &
+  PageProps<P, RCP>
+
+/**
+ * These are the props a page requires. The children accepts a props as argument so we can pass data.
+ */
+export interface PageProps<Props, ChildrenProps> {
   // getLayout?: (
   //   page: NextComponentType<NextPageContext, any, P>,
   // ) => JSX.Element | JSXElementConstructor<any>
-  Layout?: JSXElementConstructor<PropsWithChildren<unknown>>
+  Layout?: JSXElementConstructor<PropsWithRenderChildren<Props, ChildrenProps>>
 }
 
 /**

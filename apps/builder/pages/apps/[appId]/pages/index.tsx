@@ -1,5 +1,13 @@
+import type { IApp } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { ExplorerPanePage } from '@codelab/frontend/domain/page'
+import { PageType } from '@codelab/frontend/abstract/types'
+import {
+  CreatePageButton,
+  CreatePageModal,
+  DeletePageModal,
+  PageList,
+  UpdatePageModal,
+} from '@codelab/frontend/domain/page'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -8,30 +16,29 @@ import {
 import type { DashboardTemplateProps } from '@codelab/frontend/view/templates'
 import {
   DashboardTemplate,
+  ExplorerPaneTemplate,
   sidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
-import { useAsync, useMountEffect } from '@react-hookz/web'
+import { useAsync } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
 
-const Pages: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const { appService } = useStore()
-  const appId = useCurrentAppId()
+interface PagesProps {
+  app?: IApp
+}
 
-  const [{ error, result: app, status }, actions] = useAsync(() =>
-    appService.loadAppWithNestedPreviews({ id: appId }),
-  )
-
-  useMountEffect(actions.execute)
-
+const Pages: CodelabPage<
+  DashboardTemplateProps<PagesProps>,
+  unknown,
+  PagesProps
+> = observer(({ app }) => {
   return (
-    <>
-      <Head>
-        <title>{app?.name ? `${app.name} | ` : ''} Pages | Codelab</title>
-      </Head>
-    </>
+    <Head>
+      <title>{app?.name ? `${app.name} | ` : ''} Pages | Codelab</title>
+    </Head>
   )
 })
 
@@ -39,19 +46,48 @@ export default Pages
 
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
-Pages.Layout = observer((page) => {
+Pages.Layout = observer(({ children }) => {
   const { pageService, userService } = useStore()
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
+  const { appService } = useStore()
+
+  const [{ error, result: app, status }, actions] = useAsync(() =>
+    appService.loadAppWithNestedPreviews({ id: appId }),
+  )
+
+  useEffect(() => {
+    void actions.execute()
+  }, [])
 
   return (
     <DashboardTemplate
-      ExplorerPane={() => (
-        <ExplorerPanePage pageService={pageService} userService={userService} />
-      )}
+      ExplorerPane={() => {
+        const router = useRouter()
+
+        const headerProps = {
+          onBack: () => router.push({ pathname: PageType.AppList }),
+        }
+
+        return (
+          <ExplorerPaneTemplate
+            header={<CreatePageButton key={0} pageService={pageService} />}
+            headerProps={headerProps}
+            title="Pages"
+          >
+            <PageList app={app} loading={status === 'loading'} />
+            <CreatePageModal
+              pageService={pageService}
+              userService={userService}
+            />
+            <UpdatePageModal pageService={pageService} />
+            <DeletePageModal pageService={pageService} />
+          </ExplorerPaneTemplate>
+        )
+      }}
       sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
-      {page.children}
+      {children({ app })}
     </DashboardTemplate>
   )
 })

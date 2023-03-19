@@ -1,4 +1,4 @@
-// import '../src/wdyr'
+import '../src/wdyr'
 import '../src/styles/antd-theme.less'
 import 'react-quill/dist/quill.snow.css'
 // This stylesheet is used to override some of the default Quill editor's styles.
@@ -15,7 +15,6 @@ import { css, Global } from '@emotion/react'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { ConfigProvider } from 'antd'
-import type { PropsWithChildren } from 'react'
 import React, { useMemo } from 'react'
 import { GlobalStyles } from 'twin.macro'
 import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
@@ -24,7 +23,7 @@ import { slickCssFix } from '../src/styles/slick/Slick'
 const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
   const store = useMemo(() => initializeStore(pageProps), [])
 
-  const { Layout = ({ children }: PropsWithChildren) => <>{children}</> } =
+  const { Layout = ({ children }) => <>{children}</> } =
     Component as CodelabPage<unknown>
 
   return (
@@ -45,10 +44,12 @@ const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
               ]}
             />
             <Layout>
-              <Component
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...pageProps}
-              />
+              {(props) => (
+                <Component
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...pageProps}
+                />
+              )}
             </Layout>
           </ConfigProvider>
         </LocalizationProvider>

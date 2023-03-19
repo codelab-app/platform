@@ -1,8 +1,10 @@
+import type { ReactNode } from 'react'
+
 /**
  * Children as a function
  */
-export type RenderChildren<P> = (props: P) => JSX.Element
+export type RenderChildren<P> = (props?: P) => ReactNode | undefined
 
-export type PropsWithRenderChildren<P, T> = (
-  props: P & { children: RenderChildren<T> },
-) => unknown
+export type PropsWithRenderChildren<P, T> = P & {
+  children: RenderChildren<T>
+}

@@ -4,8 +4,6 @@ import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { PageDetailHeader } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
 import {
-  useCurrentAppId,
-  useCurrentPageId,
   useRenderedPage,
   useStore,
 } from '@codelab/frontend/presenter/container'
@@ -54,7 +52,7 @@ export default PageRenderer
 
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
-PageRenderer.Layout = observer((page) => {
+PageRenderer.Layout = observer(({ children }) => {
   const { pageService } = useStore()
 
   return (
@@ -64,7 +62,7 @@ PageRenderer.Layout = observer((page) => {
       ))}
       headerHeight={48}
     >
-      {page.children}
+      {children()}
     </DashboardTemplate>
   )
 })

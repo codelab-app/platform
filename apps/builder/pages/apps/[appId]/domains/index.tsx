@@ -86,7 +86,7 @@ export default DomainsPage
 
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
-DomainsPage.Layout = (page) => {
+DomainsPage.Layout = ({ children }) => {
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
@@ -95,7 +95,7 @@ DomainsPage.Layout = (page) => {
       Header={DomainsPageHeader}
       sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
-      {page.children}
+      {children()}
     </DashboardTemplate>
   )
 }

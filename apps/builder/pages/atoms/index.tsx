@@ -129,7 +129,7 @@ export default AtomsPage
 
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
-AtomsPage.Layout = (page) => {
+AtomsPage.Layout = ({ children }) => {
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
@@ -146,7 +146,7 @@ AtomsPage.Layout = (page) => {
         secondaryItems: adminMenuItems,
       }}
     >
-      {page.children}
+      {children()}
     </DashboardTemplate>
   )
 }

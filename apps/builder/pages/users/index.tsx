@@ -50,4 +50,6 @@ export default UsersPage
 
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
-UsersPage.Layout = DashboardTemplate
+UsersPage.Layout = ({ children }) => {
+  return <DashboardTemplate>{children()}</DashboardTemplate>
+}
