@@ -67,7 +67,7 @@ const TagPageHeader = observer(() => {
 
 export default TagPage
 
-TagPage.Layout = observer((page) => {
+TagPage.Layout = observer(({ children }) => {
   const { tagService } = useStore()
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
@@ -78,7 +78,7 @@ TagPage.Layout = observer((page) => {
       Header={TagPageHeader}
       sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
-      {page.children}
+      {children()}
     </DashboardTemplate>
   )
 })

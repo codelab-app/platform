@@ -5,7 +5,8 @@
       {
         "preset-react": {
           "runtime": "automatic",
-          "importSource": "@emotion/react"
+          "development": true,
+          "importSource": "@welldone-software/why-did-you-render"
         }
       }
     ],
