@@ -63,14 +63,9 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
     appService.loadAppsWithNestedPreviews({ owner }),
   )
 
-  const [{ result: domains }, loadDomains] = useAsync(() =>
-    domainService.getAll(),
-  )
-
   useMountEffect(() => {
     if (user?.sub) {
       void loadApp.execute({ auth0Id: user.sub })
-      void loadDomains.execute()
 
       return
     }
@@ -97,7 +92,7 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
         {status === 'loading' ? (
           <Spin />
         ) : (
-          <GetAppsList appService={appService} domains={domains} />
+          <GetAppsList appService={appService} />
         )}
       </ContentSection>
     </>
