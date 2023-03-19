@@ -4,7 +4,6 @@ import type {
   IDomain,
 } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { isNonNullable } from '@codelab/shared/utils'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
@@ -20,11 +19,7 @@ export interface GetAppsItemProps {
 
 export const GetAppsItem = observer<GetAppsItemProps>(({ app, appService }) => {
   const href = { pathname: PageType.PageList, query: { appId: app.id } }
-
-  const appDomains = app.domains
-    .map((domain) => domain.maybeCurrent)
-    .filter(isNonNullable)
-
+  const appDomains = app.domains.map((domain) => domain.current)
   const Title = <Link href={href}>{app.name}</Link>
 
   const Dropdown = (

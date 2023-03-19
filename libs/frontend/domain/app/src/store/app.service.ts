@@ -193,13 +193,14 @@ export class AppService
     where: AppWhere,
   ) {
     const appsData = yield* _await(this.appRepository.find(where))
-    const apps = appsData.map((appData) => this.add(appData))
 
-    appsData.forEach((appData) => {
+    const apps = appsData.map((appData) => {
       appData.pages.forEach((pageData) => {
         this.elementService.add(pageData.rootElement)
         this.pageService.add(pageData)
       })
+
+      return this.add(appData)
     })
 
     return apps
