@@ -1,17 +1,10 @@
 import { AdminService } from '@codelab/backend/domain/admin'
 import { AtomRepository } from '@codelab/backend/domain/atom'
-import { FieldRepository } from '@codelab/backend/domain/type'
 import { User, UserRepository } from '@codelab/backend/domain/user'
 import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
-import { saveFormattedFile, setupNewUser } from '@codelab/backend/shared/util'
-import type { ITag, ITagDTO, IUserDTO } from '@codelab/frontend/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
-import { AntdTag, antdTagTree } from '@codelab/shared/data/seed'
-import difference from 'lodash/difference'
+import { setupNewUser } from '@codelab/backend/shared/util'
+import type { IUserDTO } from '@codelab/frontend/abstract/core'
 import path from 'path'
-import { ExportAdminDataService } from '../export-admin-data.service'
-import { ImportAdminDataService } from '../import-admin-data/import-admin-data.service'
-import { SeedDataService } from './seed-data.service'
 import { exportAndAssert, importData, seedData } from './seed-data-spec.helper'
 
 let user: IUserDTO
@@ -36,6 +29,8 @@ describe('Seed, import, & export data', () => {
   let initialPayload = {}
 
   it('can seed Ant Design CSV data', async () => {
+    console.log(user)
+
     await seedData(user)
 
     const exportPath = path.resolve('./tmp/data/export')

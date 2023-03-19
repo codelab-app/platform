@@ -1,4 +1,4 @@
-import type { IOwner, ITag, TagNodeData } from '@codelab/backend/abstract/core'
+import type { IOwner, TagNodeData } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import { TagRepository } from '@codelab/backend/domain/tag'
 import type { ITagDTO } from '@codelab/frontend/abstract/core'
@@ -11,10 +11,25 @@ export class SeedTagsService extends IUseCase<IOwner, void> {
   async _execute(owner: IOwner) {
     const tags = await this.createTagsData(owner)
 
+    /**
+     * Omit parent and children since they need to be created first
+     */
     await Promise.all(
       tags.map(
-        async (tag) =>
-          await this.tagRepository.save({ ...tag, owner }, { name: tag.name }),
+        async ({ children, parent, ...tag }) =>
+          await this.tagRepository.save(
+            { ...tag, children: [], owner },
+            { name: tag.name },
+          ),
+      ),
+    )
+
+    /**
+     * set parent and children after all tags are created
+     */
+    await Promise.all(
+      tags.map(
+        async (tag) => await this.tagRepository.save(tag, { name: tag.name }),
       ),
     )
   }
