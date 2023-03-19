@@ -3,8 +3,6 @@ import type {
   IUserDTO,
   IUserService,
 } from '@codelab/frontend/abstract/core'
-import { getAppService } from '@codelab/frontend/domain/app'
-import { getPageService } from '@codelab/frontend/domain/page'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type { Nullable, UserWhere } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
@@ -71,16 +69,6 @@ export class UserService
   @computed
   get auth0Id() {
     return throwIfUndefined(this.user?.auth0Id)
-  }
-
-  @computed
-  private get appService() {
-    return getAppService(this)
-  }
-
-  @computed
-  private get pageService() {
-    return getPageService(this)
   }
 
   @modelFlow

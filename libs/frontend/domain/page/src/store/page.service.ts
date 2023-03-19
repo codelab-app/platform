@@ -7,6 +7,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   elementRef,
+  getAppService,
   getElementService,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
@@ -53,6 +54,11 @@ export class PageService
   getRenderedPage = _async(function* (this: PageService, pageId: string) {
     return yield* _await(pageApi.GetRenderedPage({ pageId }))
   })
+
+  @computed
+  private get appService() {
+    return getAppService(this)
+  }
 
   @computed
   private get elementService() {
@@ -138,6 +144,9 @@ export class PageService
     })
 
     this.pages.set(page.id, page)
+
+    const appModel = this.appService.apps.get(app.id)
+    appModel?.writeCache({ pages: [...appModel.pages, page] })
 
     yield* _await(this.pageRepository.add(page))
 

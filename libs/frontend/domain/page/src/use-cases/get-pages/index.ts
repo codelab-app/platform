@@ -1,1 +1,1 @@
-export * from './GetPagesList'
+export * from './PageList'

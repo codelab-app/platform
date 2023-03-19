@@ -63,7 +63,7 @@ export default ResourcesPage
 
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
-ResourcesPage.Layout = observer((resource) => {
+ResourcesPage.Layout = observer(({ children }) => {
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
@@ -72,7 +72,7 @@ ResourcesPage.Layout = observer((resource) => {
       Header={ResourcesPageHeader}
       sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
-      {resource.children}
+      {children()}
     </DashboardTemplate>
   )
 })

@@ -40,7 +40,7 @@ export default AdminPage
 
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
-AdminPage.Layout = (page) => {
+AdminPage.Layout = ({ children }) => {
   const AdminHeader = () => <PageHeader ghost={false} title="Admin" />
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
@@ -50,7 +50,7 @@ AdminPage.Layout = (page) => {
       Header={AdminHeader}
       sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
-      {page.children}
+      {children()}
     </DashboardTemplate>
   )
 }

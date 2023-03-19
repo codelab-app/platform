@@ -82,7 +82,7 @@ export default TypesPage
 
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
-TypesPage.Layout = observer((page) => {
+TypesPage.Layout = observer(({ children }) => {
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
@@ -91,7 +91,7 @@ TypesPage.Layout = observer((page) => {
       Header={Header}
       sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
-      {page.children}
+      {children()}
     </DashboardTemplate>
   )
 })

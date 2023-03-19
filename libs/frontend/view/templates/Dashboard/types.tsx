@@ -1,7 +1,7 @@
 import type { MenuProps } from 'antd'
 import type { JSXElementConstructor } from 'react'
 
-export interface DashboardTemplateProps {
+export type DashboardTemplateProps<T = unknown> = T & {
   /**
    * The right panel used for configuration element settings
    */

@@ -1,11 +1,11 @@
 /**
- * Implementation of camelCaseToTitleCase & pascalCaseToTitleCase are the same, so we give them a common name
+ * Implementation of camelCaseToTitleCase & PascalCaseToTitleCase are the same, so we give them a common name
  * @param input
  */
 export const compoundCaseToTitleCase = (input: string) =>
   input
     // insert a space before all caps
-    .replace(/(?<=\S)([A-Z])/g, (str) => ` ${str}`)
+    .replace(/(?:\S)([A-Z])/g, (str) => ` ${str}`)
     // uppercase the first character
     .replace(/^./, (str) => str.toUpperCase())
     .trim()

@@ -195,7 +195,10 @@ export class AppService
     const appData = (yield* _await(this.appRepository.find(where)))[0]!
     const app = this.add(appData)
 
-    appData.pages.forEach((page) => this.pageService.add(page))
+    appData.pages.forEach((page) => {
+      this.elementService.add(page.rootElement)
+      this.pageService.add(page)
+    })
 
     return app
   })

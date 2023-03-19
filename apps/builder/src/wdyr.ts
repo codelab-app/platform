@@ -2,6 +2,11 @@
 
 import React from 'react'
 
+/**
+ * Not supported by Mobx
+ *
+ * https://github.com/welldone-software/why-did-you-render/issues/162
+ */
 if (process.env.NODE_ENV === 'development') {
   if (typeof window !== 'undefined') {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -10,13 +15,11 @@ if (process.env.NODE_ENV === 'development') {
     whyDidYouRender(React, {
       // logOwnerReasons: true,
       collapseGroups: true,
-
       // include: [/.*/],
       /**
        * Ant Design Tabs component causes multiple re-renders to show up as OperationNode.
        */
       exclude: [/OperationNode/],
-
       trackAllPureComponents: true,
       // trackHooks: true,
     })
