@@ -7,15 +7,9 @@ import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { makeAllTypes } from '@codelab/shared/domain/mapper'
 import merge from 'lodash/merge'
 import type { Ref } from 'mobx-keystone'
-import {
-  detach,
-  ExtendedModel,
-  model,
-  modelAction,
-  prop,
-  rootRef,
-} from 'mobx-keystone'
+import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
+import { typeRef } from './type.ref'
 
 const create = ({ id, kind, name, owner, typesOfUnionType }: IUnionTypeDTO) => {
   assertIsTypeKind(kind, ITypeKind.UnionType)
@@ -82,11 +76,3 @@ export class UnionType
 
   public static create = create
 }
-
-export const typeRef = rootRef<IType>('@codelab/TypeRef', {
-  onResolvedValueChange: (ref, newType, oldType) => {
-    if (oldType && !newType) {
-      detach(ref)
-    }
-  },
-})

@@ -17,8 +17,6 @@ import {
 export class TypeRepository extends Model({}) implements ITypeRepository {
   @modelFlow
   add = _async(function* (this: TypeRepository, type: IType) {
-    console.log(type.toCreateInput())
-
     const createdTypes = yield* _await(
       createTypeApi[type.kind]([type.toCreateInput()]),
     )

@@ -6,18 +6,22 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 interface ColumnSearchProps<RecordType extends object> {
   dataIndex: keyof RecordType
+  text?: string | null
   onSearch?(searchText: string): void
 }
 
 export const useColumnSearchProps = <RecordType extends object>({
   dataIndex,
   onSearch,
+  text = null,
 }: ColumnSearchProps<RecordType>) => {
   const searchInputRef = useRef<InputRef | null>(null)
-  const [searchText, setSearchText] = useState('')
+  const [searchText, setSearchText] = useState<string | null>(text)
 
   const handleSearch = useCallback(() => {
-    onSearch?.(searchText)
+    if (searchText) {
+      onSearch?.(searchText)
+    }
   }, [searchText, onSearch])
 
   const handleReset = (clearFilters: Maybe<() => void>) => {
@@ -25,12 +29,21 @@ export const useColumnSearchProps = <RecordType extends object>({
       clearFilters()
     }
 
-    setSearchText('')
+    setSearchText(null)
   }
 
   useEffect(() => {
     handleSearch()
-  }, [searchText, onSearch, handleSearch])
+  }, [searchText])
+
+  useEffect(() => {
+    // Only set if not set
+    if (!searchText) {
+      setSearchText(text)
+    }
+  }, [text])
+
+  console.log(text, searchText)
 
   return {
     filterDropdown: ({ clearFilters, confirm, setSelectedKeys }) => (
@@ -50,7 +63,7 @@ export const useColumnSearchProps = <RecordType extends object>({
             searchInputRef.current = node
           }}
           style={{ display: 'block', marginBottom: 8 }}
-          value={searchText}
+          value={searchText ?? ''}
         />
         <Space>
           {/* <Button */}

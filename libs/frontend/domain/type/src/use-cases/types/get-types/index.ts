@@ -1,3 +1,3 @@
 export * from './getInterfaceHooks'
-export * from './GetTypesTable'
 export * from './tables/TypeDetailsTable'
+export * from './TypesTable'

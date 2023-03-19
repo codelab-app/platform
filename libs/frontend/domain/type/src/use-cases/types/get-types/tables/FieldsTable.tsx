@@ -179,11 +179,7 @@ export const FieldsTable = observer<FieldsTableProps>(
         expandable={{
           expandedRowRender: (record) => {
             return record.type ? (
-              <TypeDetailsTable
-                fieldService={fieldService}
-                typeId={record.type.id}
-                typeService={typeService}
-              />
+              <TypeDetailsTable typeId={record.type.id} />
             ) : null
           },
           indentSize: 0,
