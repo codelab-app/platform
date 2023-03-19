@@ -28,7 +28,7 @@ import type { MenuProps } from 'antd'
 import { Button, Dropdown, Menu, PageHeader, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 const items: MenuProps['items'] = [
   {
@@ -59,16 +59,17 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   const { appService, domainService, userService } = useStore()
   const { user } = useUser()
 
-  const [{ error, result: app, status }, loadApp] = useAsync(
-    (owner: IAuth0Owner) => appService.loadAppWithNestedPreviews({ owner }),
+  const [{ result: app, status }, loadApp] = useAsync((owner: IAuth0Owner) =>
+    appService.loadAppWithNestedPreviews({ owner }),
   )
 
   useMountEffect(() => {
     if (user?.sub) {
-      return loadApp.execute({ auth0Id: user.sub })
+      void loadApp.execute({ auth0Id: user.sub })
     }
 
-    // Only call this once on dev mode
+    // in development need to execute this each time page is loaded,
+    // since useUser always returns valid Auth0 user even when it does not exist in neo4j db yet
     if (process.env.NEXT_PUBLIC_BUILDER_HOST?.includes('127.0.0.1')) {
       void fetch('/api/upsert-user')
     }
@@ -86,16 +87,14 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
       <DeleteAppModal appService={appService} />
 
       <ContentSection>
-        <>
-          {status === 'loading' ? (
-            <Spin />
-          ) : (
-            <GetAppsList
-              appService={appService}
-              domains={app?.domains.map((domain) => domain.current)}
-            />
-          )}
-        </>
+        {status === 'loading' ? (
+          <Spin />
+        ) : (
+          <GetAppsList
+            appService={appService}
+            domains={app?.domains.map((domain) => domain.current)}
+          />
+        )}
       </ContentSection>
     </>
   )

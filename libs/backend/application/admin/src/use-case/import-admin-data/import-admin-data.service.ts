@@ -12,8 +12,7 @@ import {
   InterfaceTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import { saveFormattedFile } from '@codelab/backend/shared/util'
-import type { IAuth0Owner, ITagDTO } from '@codelab/frontend/abstract/core'
+import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import fs from 'fs'
 import path from 'path'
 import { DataPaths } from '../../data-paths'

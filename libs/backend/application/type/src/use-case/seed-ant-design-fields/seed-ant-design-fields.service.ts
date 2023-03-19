@@ -1,8 +1,4 @@
-import type {
-  AntDesignField,
-  IField,
-  IOwner,
-} from '@codelab/backend/abstract/core'
+import type { AntDesignField, IOwner } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import {
   atomTypeKeyByFileName,
@@ -17,13 +13,10 @@ import {
 } from '@codelab/backend/domain/type'
 import type { IAtomDTO, IFieldDTO } from '@codelab/frontend/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
-import isNil from 'lodash/isNil'
 import merge from 'lodash/merge'
 import { v4 } from 'uuid'
 import { TransformAntDesignTypesService } from '../transform-ant-design-types/transform-ant-design-types.service'
 import { readCsvFiles } from './read-csv-files'
-
-let counter = 0
 
 /**
  * Here we want to parse the CSV files from Ant Design and seed it as atoms
