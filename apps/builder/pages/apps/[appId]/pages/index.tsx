@@ -20,11 +20,11 @@ import {
   sidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
-import { useAsync } from '@react-hookz/web'
+import { useAsync, useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 interface PagesProps {
   app?: IApp
@@ -52,13 +52,11 @@ Pages.Layout = observer(({ children }) => {
   const pageId = useCurrentPageId()
   const { appService } = useStore()
 
-  const [{ error, result: app, status }, actions] = useAsync(() =>
-    appService.loadAppWithNestedPreviews({ id: appId }),
+  const [{ result: apps, status }, actions] = useAsync(() =>
+    appService.loadAppsWithNestedPreviews({ id: appId }),
   )
 
-  useEffect(() => {
-    void actions.execute()
-  }, [])
+  useMountEffect(actions.execute)
 
   return (
     <DashboardTemplate
@@ -75,7 +73,7 @@ Pages.Layout = observer(({ children }) => {
             headerProps={headerProps}
             title="Pages"
           >
-            <PageList app={app} loading={status === 'loading'} />
+            <PageList app={apps?.[0]} loading={status === 'loading'} />
             <CreatePageModal
               pageService={pageService}
               userService={userService}
@@ -87,7 +85,7 @@ Pages.Layout = observer(({ children }) => {
       }}
       sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
-      {children({ app })}
+      {children({ app: apps?.[0] })}
     </DashboardTemplate>
   )
 })

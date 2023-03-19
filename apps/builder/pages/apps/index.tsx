@@ -59,13 +59,20 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   const { appService, domainService, userService } = useStore()
   const { user } = useUser()
 
-  const [{ result: app, status }, loadApp] = useAsync((owner: IAuth0Owner) =>
-    appService.loadAppWithNestedPreviews({ owner }),
+  const [{ status }, loadApp] = useAsync((owner: IAuth0Owner) =>
+    appService.loadAppsWithNestedPreviews({ owner }),
+  )
+
+  const [{ result: domains }, loadDomains] = useAsync(() =>
+    domainService.getAll(),
   )
 
   useMountEffect(() => {
     if (user?.sub) {
       void loadApp.execute({ auth0Id: user.sub })
+      void loadDomains.execute()
+
+      return
     }
 
     // in development need to execute this each time page is loaded,
@@ -90,10 +97,7 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
         {status === 'loading' ? (
           <Spin />
         ) : (
-          <GetAppsList
-            appService={appService}
-            domains={app?.domains.map((domain) => domain.current)}
-          />
+          <GetAppsList appService={appService} domains={domains} />
         )}
       </ContentSection>
     </>
