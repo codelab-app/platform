@@ -34,9 +34,9 @@ module.exports = withPlugins(
     // This approach requires importing less file into _app.tsx, which creates a large bundle size
     [
       withLess,
-      // {
-      //   lessLoaderOptions: {},
-      // },
+      {
+        lessLoaderOptions: {},
+      },
     ],
     withBundleAnalyzer,
     withRawCypherFiles,
@@ -48,6 +48,6 @@ module.exports = withPlugins(
       // css: true,
     },
     nx: { svgr: true },
-    reactStrictMode: false,
+    // reactStrictMode: false,
   }),
 )
