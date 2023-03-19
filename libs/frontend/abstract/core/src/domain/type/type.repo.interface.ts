@@ -1,18 +1,13 @@
 import type {
   BaseTypeWhere,
+  GetBaseTypesOptions,
   TypeFragment,
 } from '@codelab/shared/abstract/codegen'
 import type { IRepository } from '../../service'
 import type { BaseType_BaseType_Fragment } from './fragments/base-type.fragment.graphql.gen'
 import type { IType } from './types'
 
-export interface BaseTypesOptions {
-  limit?: number
-  offset?: number
-  where?: {
-    name: string
-  }
-}
+export type BaseTypesOptions = GetBaseTypesOptions
 
 export type ITypeRepository = IRepository<
   IType,

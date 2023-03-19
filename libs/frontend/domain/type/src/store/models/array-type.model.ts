@@ -10,7 +10,7 @@ import merge from 'lodash/merge'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
-import { typeRef } from './union-type.model'
+import { typeRef } from './type.ref'
 
 const create = ({
   id,

@@ -18,7 +18,7 @@ import {
   prop,
   rootRef,
 } from 'mobx-keystone'
-import { typeRef } from './union-type.model'
+import { typeRef } from './type.ref'
 
 const create = ({
   api,

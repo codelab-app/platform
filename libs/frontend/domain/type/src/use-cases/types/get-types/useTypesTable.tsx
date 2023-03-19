@@ -1,67 +1,79 @@
-import type {
-  IFieldService,
-  IType,
-  ITypeService,
-} from '@codelab/frontend/abstract/core'
+import type { IType } from '@codelab/frontend/abstract/core'
+import { PageType } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
-import type {
-  BaseTypeOptions,
-  BaseTypeWhere,
-} from '@codelab/shared/abstract/codegen'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import { useAsync } from '@react-hookz/web'
 import { Skeleton } from 'antd'
 import type { ColumnsType } from 'antd/lib/table'
-import type {
-  TablePaginationConfig,
-  TableRowSelection,
-} from 'antd/lib/table/interface'
-import debounce from 'lodash/debounce'
-import isEqual from 'lodash/isEqual'
+import type { TableRowSelection } from 'antd/lib/table/interface'
+import isEmpty from 'lodash/isEmpty'
+import throttle from 'lodash/throttle'
 import { arraySet } from 'mobx-keystone'
-import React, { useCallback, useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
 import { ActionColumn } from './columns'
 
-interface UseTypesTableParams {
-  fieldService: IFieldService
-  isLoadingTypeDependencies: boolean
-  typeService: ITypeService
+interface UseTypesTableProps {
+  page?: number
+  pageSize?: number
+  searchName?: string
 }
 
 export const useTypesTable = ({
-  fieldService,
-  isLoadingTypeDependencies,
-  typeService,
-}: UseTypesTableParams) => {
-  const [baseTypeWhere, setBaseTypeWhere] =
-    useState<Maybe<BaseTypeWhere>>(undefined)
+  page,
+  pageSize,
+  searchName,
+}: UseTypesTableProps) => {
+  const router = useRouter()
+  const { fieldService, typeService } = useStore()
 
-  const [baseTypeOptions, setBaseTypeOptions] = useState<BaseTypeOptions>({
-    limit: 25,
-    offset: 0,
+  const [{ result, status }, getPaginatedTypes] = useAsync(() => {
+    return typeService.pagination.getPaginatedTypes()
   })
 
-  const debouncedSetBaseTypeWhere = useCallback(
-    debounce((value: Maybe<BaseTypeWhere>) => setBaseTypeWhere(value), 1000),
-    [],
-  )
+  const isLoadingTypes = status === 'loading'
 
-  const debouncedSetBaseTypeOptions = useCallback(
-    debounce((value: BaseTypeOptions) => setBaseTypeOptions(value), 1000),
-    [],
-  )
+  useEffect(() => {
+    if (pageSize) {
+      typeService.pagination.setPageSize(pageSize)
+    }
+
+    if (page) {
+      typeService.pagination.setCurrentPage(page)
+    }
+
+    if (searchName && !isEmpty(searchName)) {
+      typeService.pagination.setSearch({ name: searchName })
+    }
+
+    void throttle(() => getPaginatedTypes.execute(), 500)()
+  }, [pageSize, page, searchName])
+
+  const handlePageChange = (newPage: number, newPageSize: number) => {
+    void router.push({
+      pathname: PageType.Type,
+      query: {
+        page: newPage,
+        pageSize: newPageSize,
+        searchName: typeService.pagination.search.name,
+      },
+    })
+  }
 
   const nameColumnSearchProps = useColumnSearchProps<IType>({
     dataIndex: 'name',
     onSearch: (value) => {
-      const where = {
-        name: value,
-      }
-
-      if (!isEqual(where, baseTypeWhere)) {
-        debouncedSetBaseTypeWhere(where)
-      }
+      void router.push({
+        pathname: PageType.Type,
+        query: {
+          page: typeService.pagination.currentPage,
+          pageSize: typeService.pagination.pageSize,
+          searchName: value,
+        },
+      })
     },
+    text: typeService.pagination.search.name,
   })
 
   const columns: ColumnsType<IType> = [
@@ -77,13 +89,13 @@ export const useTypesTable = ({
       key: 'kind',
       onHeaderCell: headerCellProps,
       title: 'Kind',
-      ...useColumnSearchProps({ dataIndex: 'kind' }),
+      // ...useColumnSearchProps({ dataIndex: 'kind' }),
     },
     {
       key: 'action',
       onHeaderCell: headerCellProps,
       render: (record) => {
-        if (isLoadingTypeDependencies) {
+        if (isLoadingTypes) {
           return <Skeleton paragraph={false} />
         }
 
@@ -107,30 +119,10 @@ export const useTypesTable = ({
     type: 'checkbox',
   }
 
-  const pagination: TablePaginationConfig = {
-    defaultPageSize: 25,
-    onChange: async (page: number, pageSize: number) => {
-      const options = {
-        limit: pageSize,
-        offset: (page - 1) * pageSize,
-      }
-
-      if (!isEqual(options, baseTypeOptions)) {
-        debouncedSetBaseTypeOptions({
-          limit: pageSize,
-          offset: (page - 1) * pageSize,
-        })
-      }
-    },
-    position: ['bottomCenter'],
-    total: typeService.count,
-  }
-
   return {
-    baseTypeOptions,
-    baseTypeWhere,
     columns,
-    pagination,
+    handlePageChange,
+    isLoadingTypes,
     rowSelection,
   }
 }

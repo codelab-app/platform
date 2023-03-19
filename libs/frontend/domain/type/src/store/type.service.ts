@@ -1,14 +1,11 @@
 import type {
   IInterfaceType,
   IInterfaceTypeRef,
+  ITypeDTO,
   ITypeService,
   IUpdateTypeData,
 } from '@codelab/frontend/abstract/core'
-import {
-  ICreateTypeData,
-  IType,
-  ITypeDTO,
-} from '@codelab/frontend/abstract/core'
+import { ICreateTypeData, IType } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { FieldFragment } from '@codelab/shared/abstract/codegen'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
@@ -35,49 +32,28 @@ import { getFieldService } from './field.service.context'
 import { InterfaceType } from './models'
 import { TypeFactory } from './type.factory'
 import { TypeModalService } from './type-modal.service'
+import { TypePaginationService } from './type-pagination.service'
 
 @model('@codelab/TypeService')
 export class TypeService
   extends Model({
-    count: prop(() => 0),
-
     createModal: prop(() => new ModalService({})),
-
+    /**
+     * Used to show current paginated types
+     */
     deleteModal: prop(() => new TypeModalService({})),
-
     id: idProp,
-
+    pagination: prop(() => new TypePaginationService({})),
     selectedIds: prop(() => arraySet<string>()).withSetter(),
-
     typeRepository: prop(() => new TypeRepository({})),
-
     /**
      * This holds all types
      */
     types: prop(() => objectMap<IType>()),
-
     updateModal: prop(() => new TypeModalService({})),
   })
   implements ITypeService
 {
-  /**
-   * `page` & `pageSize` are optional
-   */
-  @modelFlow
-  @transaction
-  getBaseTypes = _async(function* (this: TypeService, options) {
-    const { items, totalCount } = yield* _await(
-      this.typeRepository.findBaseTypes(options),
-    )
-
-    this.count = totalCount
-
-    const typeIds = items.map(({ id }) => id)
-    const types = yield* _await(this.getAll(typeIds))
-
-    return types
-  })
-
   @computed
   private get fieldService() {
     return getFieldService(this)
@@ -158,14 +134,10 @@ export class TypeService
   }
 
   @modelAction
-  add(typeDTO: ITypeDTO) {
-    let type = this.types.get(typeDTO.id)
+  add = (typeDTO: ITypeDTO) => {
+    const type = TypeFactory.create(typeDTO)
 
-    type = type
-      ? TypeFactory.writeCache(typeDTO, type)
-      : TypeFactory.create(typeDTO)
-
-    this.types.set(type!.id, type!)
+    this.types.set(type.id, type)
 
     return type
   }
@@ -192,6 +164,9 @@ export class TypeService
     const type = this.types.get(data.id)!
     const typeDTO = TypeFactory.mapDataToDTO(data)
     TypeFactory.writeCache(typeDTO, type)
+
+    console.log(this.pagination.data)
+    console.log(Array.from(this.pagination.data.values()))
 
     yield* _await(this.typeRepository.update(type))
 
@@ -285,6 +260,8 @@ export class TypeService
   @transaction
   create = _async(function* (this: TypeService, data: ICreateTypeData) {
     const type = this.add(TypeFactory.mapDataToDTO(data))
+
+    this.types.set(type.id, type)
 
     yield* _await(this.typeRepository.add(type))
 

@@ -66,13 +66,7 @@ export const UnionTypeTable = observer<UnionTypeTableProps>(
         dataSource={dataSource}
         expandable={{
           expandedRowRender: (record) => {
-            return record.id ? (
-              <TypeDetailsTable
-                fieldService={fieldService}
-                typeId={record.id}
-                typeService={typeService}
-              />
-            ) : null
+            return record.id ? <TypeDetailsTable typeId={record.id} /> : null
           },
         }}
         loading={isLoading}
