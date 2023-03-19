@@ -93,18 +93,6 @@ export class TypeService
     )
   }
 
-  // @modelAction
-  // create(data: ICreateTypeDTO) {
-  //   const interfaceType = new InterfaceType({
-  //     name: data.name,
-  //     owner: data.owner,
-  //   })
-
-  //   this.types.set(interfaceType.id, interfaceType)
-
-  //   return interfaceType
-  // }
-
   @modelAction
   addInterface(data: ICreateTypeData) {
     const interfaceType = new InterfaceType({
@@ -201,7 +189,9 @@ export class TypeService
   @modelFlow
   @transaction
   update = _async(function* (this: TypeService, data: IUpdateTypeData) {
-    const type = this.add(TypeFactory.mapDataToDTO(data))
+    const type = this.types.get(data.id)!
+    const typeDTO = TypeFactory.mapDataToDTO(data)
+    TypeFactory.writeCache(typeDTO, type)
 
     yield* _await(this.typeRepository.update(type))
 
