@@ -119,7 +119,7 @@ export class Component
         clonedElement.setRenderType(componentRef(componentClone.id))
       }
 
-      if (element.id === clonedComponent.childrenContainerElement.id) {
+      if (element.id === this.childrenContainerElement.maybeCurrent?.id) {
         clonedComponent.setChildrenContainerElement(
           elementRef(clonedElement.id),
         )
@@ -135,12 +135,31 @@ export class Component
       ? elementMap.get(this.elementTree.root.id)
       : null
 
+    elements.forEach((element) => {
+      const { firstChild, nextSibling, parent, prevSibling } = element
+      const parentId = parent && elementMap.get(parent.current.id)
+      const firstChildId = firstChild && elementMap.get(firstChild.current.id)
+
+      const nextSiblingId =
+        nextSibling && elementMap.get(nextSibling.current.id)
+
+      const prevSiblingId =
+        prevSibling && elementMap.get(prevSibling.current.id)
+
+      parentId && element.setParent(elementRef(parentId))
+      firstChildId && element.setFirstChild(elementRef(firstChildId))
+      nextSiblingId && element.setNextSibling(elementRef(nextSiblingId))
+      prevSiblingId && element.setPrevSibling(elementRef(prevSiblingId))
+    })
+
     const rootElement = elements.find((element) => element.id === rootElementId)
     rootElement?.setParentComponent(componentRef(clonedComponent.id))
 
     if (!rootElement) {
       throw new Error('rootElement not found')
     }
+
+    clonedComponent.setRootElement(elementRef(rootElement.id))
 
     return ElementTree.init(rootElement, elements)
   }
