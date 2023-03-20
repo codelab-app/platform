@@ -1,6 +1,5 @@
 import type { ITypeExport } from '@codelab/backend/abstract/core'
 import {
-  exportActionTypeSelectionSet,
   exportEnumTypeSelectionSet,
   exportInterfaceTypeSelectionSet,
   fieldSelectionSet,
@@ -66,26 +65,54 @@ export const exportAdminTypes = async (
     },
     selectionSet: exportInterfaceTypeSelectionSet,
     // Where it is assigned to atom API
+    // search for nested apis three levels deep
     where: {
-      AND: [
-        // Get all enum types referenced by current API
+      OR: [
         {
-          fieldsConnection: {
+          fieldConnection: {
             node: {
-              apiConnection: {
-                node: {
-                  id: props.apiId,
+              api: {
+                id: props.apiId,
+              },
+            },
+          },
+        },
+        {
+          fieldConnection: {
+            node: {
+              api: {
+                fieldConnection: {
+                  node: {
+                    api: {
+                      id: props.apiId,
+                    },
+                  },
                 },
               },
             },
           },
         },
-        // Exclude itself
-        // {
-        //   NOT: {
-        //     id: props.apiId,
-        //   },
-        // },
+        {
+          fieldConnection: {
+            node: {
+              api: {
+                fieldConnection: {
+                  node: {
+                    api: {
+                      fieldConnection: {
+                        node: {
+                          api: {
+                            id: props.apiId,
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
       ],
     },
   })
