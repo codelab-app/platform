@@ -61,6 +61,7 @@ describe('Component CRUD', () => {
             },
             id: v4(),
             name: IAtomType.AntDesignSpace,
+            owner: connectAuth0Owner(owner),
             type: IAtomType.AntDesignSpace,
           },
           {
@@ -76,6 +77,7 @@ describe('Component CRUD', () => {
             },
             id: v4(),
             name: IAtomType.AntDesignTypographyText,
+            owner: connectAuth0Owner(owner),
             type: IAtomType.AntDesignTypographyText,
           },
         ])
@@ -149,7 +151,7 @@ describe('Component CRUD', () => {
        * More Info: https://docs.cypress.io/guides/references/migration-guide#-should
        * */
       cy.wrap(componentChildren)
-        .each((child: ComponentChildData) => {
+        .each((child: ComponentChildData, index) => {
           cy.contains(/Add child/).click({ force: true })
 
           cy.getModal().setFormFieldValue({
@@ -171,6 +173,11 @@ describe('Component CRUD', () => {
             .getModalAction(/Create/)
             .click()
           cy.getModal().should('not.exist', { timeout: 10000 })
+
+          if (index === 0) {
+            cy.get('.ant-tree-switcher.ant-tree-switcher_close').click()
+          }
+
           cy.get(`[title="${child.name}"]`).click({ force: true })
         })
         .then(() => {
