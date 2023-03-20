@@ -34,7 +34,6 @@ export const elementSelectionSet = `{
   }
   props
     ${propSelectionSet}
-  }
   renderForEachPropKey
   renderIfExpression
   propTransformationJs
