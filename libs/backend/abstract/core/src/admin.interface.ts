@@ -1,3 +1,11 @@
+import type {
+  IAtomDTO,
+  IFieldDTO,
+  IInterfaceTypeDTO,
+  ITagDTO,
+  ITypeDTO,
+} from '@codelab/frontend/abstract/core'
+
 /**
  * When we export data, we should keep a file for each atom, this way it makes it easier to look at diff.
  *
@@ -9,3 +17,16 @@
  *
  * We should also export system types such as primitive to a single file, since these are unchanged.
  */
+
+/**
+ * This is the final complete data that is passed into our import function
+ */
+export interface IAdminDataExport {
+  apis: Array<IInterfaceTypeDTO>
+  atoms: Array<IAtomDTO>
+  fields: Array<IFieldDTO>
+  // resources: Array<IResourceExport>
+  tags: Array<ITagDTO>
+  // Import api separately
+  types: Array<ITypeDTO>
+}

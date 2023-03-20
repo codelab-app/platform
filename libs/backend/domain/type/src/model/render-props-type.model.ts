@@ -1,12 +1,11 @@
 import type {
-  ICreateRenderPropsType,
-  IOwner,
-  IRenderPropsType,
-} from '@codelab/backend/abstract/core'
+  IAuth0Owner,
+  IRenderPropsTypeDTO,
+} from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { BaseType } from './base-type.model'
 
-export class RenderPropsType extends BaseType implements IRenderPropsType {
+export class RenderPropsType extends BaseType implements IRenderPropsTypeDTO {
   declare id: string
 
   declare name: string
@@ -15,15 +14,10 @@ export class RenderPropsType extends BaseType implements IRenderPropsType {
 
   declare __typename: `${ITypeKind.RenderPropsType}`
 
-  declare owner: IOwner
+  declare owner: IAuth0Owner
 
-  private constructor({ id, kind, name, owner }: IRenderPropsType) {
-    super({ __typename: ITypeKind.RenderPropsType, id, kind, name, owner })
-  }
-
-  static init({ id, owner }: ICreateRenderPropsType) {
-    return new RenderPropsType({
-      __typename: ITypeKind.RenderPropsType,
+  constructor({ id, owner }: IRenderPropsTypeDTO) {
+    super({
       id,
       kind: ITypeKind.RenderPropsType,
       name: ITypeKind.RenderPropsType,

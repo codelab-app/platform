@@ -1,36 +1,30 @@
-import type { IAtomExport } from '@codelab/backend/abstract/core'
+import type { IAtomDTO, IAuth0Owner } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { getApiName } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 
-type CreateAtoms = (
-  atomIds?: [string, string],
-  interfaceIds?: [string, string],
-) => Array<IAtomExport>
-
-export const createAtomsData: CreateAtoms = (
-  [buttonId, textId] = [v4(), v4()],
-  [buttonInterfaceId, textInterfaceId] = [v4(), v4()],
-) => [
+export const createAtomsData = (owner: IAuth0Owner): Array<IAtomDTO> => [
   {
     allowedChildren: [],
     api: {
-      id: buttonInterfaceId,
-      name: getApiName(IAtomType.AntDesignButton),
+      id: v4(),
+      // name: getApiName(IAtomType.AntDesignButton),
     },
-    id: buttonId,
+    id: v4(),
     name: IAtomType.AntDesignButton,
+    owner,
     tags: [],
     type: IAtomType.AntDesignButton,
   },
   {
     allowedChildren: [],
     api: {
-      id: textInterfaceId,
-      name: getApiName(IAtomType.AntDesignTypographyText),
+      id: v4(),
+      // name: getApiName(IAtomType.AntDesignTypographyText),
     },
-    id: textId,
+    id: v4(),
     name: IAtomType.AntDesignTypographyText,
+    owner,
     tags: [],
     type: IAtomType.AntDesignTypographyText,
   },
@@ -38,10 +32,11 @@ export const createAtomsData: CreateAtoms = (
     allowedChildren: [],
     api: {
       id: v4(),
-      name: getApiName(IAtomType.AntDesignGridCol),
+      // name: getApiName(IAtomType.AntDesignGridCol),
     },
     id: v4(),
     name: IAtomType.AntDesignGridCol,
+    owner,
     tags: [],
     type: IAtomType.AntDesignGridCol,
   },
@@ -49,10 +44,11 @@ export const createAtomsData: CreateAtoms = (
     allowedChildren: [],
     api: {
       id: v4(),
-      name: getApiName(IAtomType.AntDesignGridRow),
+      // name: getApiName(IAtomType.AntDesignGridRow),
     },
     id: v4(),
     name: IAtomType.AntDesignGridRow,
+    owner,
     tags: [],
     type: IAtomType.AntDesignGridRow,
   },

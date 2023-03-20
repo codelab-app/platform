@@ -333,7 +333,11 @@
               // "type": ["concrete", "abstract"]
               {
                 "sourceTag": "type:abstract",
-                "onlyDependOnLibsWithTags": ["type:abstract", "scope:codegen"]
+                "onlyDependOnLibsWithTags": [
+                  "type:abstract",
+                  "scope:codegen",
+                  "scope:shared"
+                ]
               },
               // {
               //   "sourceTag": "scope:backend",

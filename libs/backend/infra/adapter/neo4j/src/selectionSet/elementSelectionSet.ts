@@ -1,5 +1,6 @@
 import { atomSelectionSet } from './atomSelectionSet'
 import { componentSelectionSet } from './componentSelectionSet'
+import { propSelectionSet } from './propSelectionSet'
 
 /**
  * `__typename` needed for renderType to resolve
@@ -31,9 +32,8 @@ export const elementSelectionSet = `{
   firstChild {
     id
   }
-  props {
-    id
-    data
+  props
+    ${propSelectionSet}
   }
   renderForEachPropKey
   renderIfExpression

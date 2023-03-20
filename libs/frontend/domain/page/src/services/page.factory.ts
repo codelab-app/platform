@@ -1,13 +1,10 @@
 import type { IApp, IPage, IPageFactory } from '@codelab/frontend/abstract/core'
 import {
-  APP_PAGE_NAME,
   getElementService,
-  INTERNAL_SERVER_ERROR_PAGE_NAME,
-  NOT_FOUND_PAGE_NAME,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
-import { IPageKind } from '@codelab/shared/abstract/core'
+import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction } from 'mobx-keystone'
 import { v4 } from 'uuid'
@@ -44,7 +41,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
     return this.addDefaultPage({
       app,
       kind: IPageKind.Provider,
-      name: APP_PAGE_NAME,
+      name: IPageKindName.Provider,
     })
   }
 
@@ -53,7 +50,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
     return this.addDefaultPage({
       app,
       kind: IPageKind.NotFound,
-      name: NOT_FOUND_PAGE_NAME,
+      name: IPageKindName.NotFound,
     })
   }
 
@@ -62,7 +59,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
     return this.addDefaultPage({
       app,
       kind: IPageKind.InternalServerError,
-      name: INTERNAL_SERVER_ERROR_PAGE_NAME,
+      name: IPageKindName.InternalServerError,
     })
   }
 

@@ -1989,7 +1989,7 @@ export type AnyType =
 
 export type ActionBase = {
   store: Store
-  element: Element
+  element?: Maybe<Element>
   storeConnection: ActionBaseStoreConnection
   elementConnection: ActionBaseElementConnection
   id: Scalars['ID']

@@ -1,4 +1,4 @@
-import type { AntDesignField, IOwner } from '@codelab/backend/abstract/core'
+import type { AntDesignField } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import {
   atomTypeKeyByFileName,
@@ -11,7 +11,11 @@ import {
   InterfaceTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import type { IAtomDTO, IFieldDTO } from '@codelab/frontend/abstract/core'
+import type {
+  IAtomDTO,
+  IAuth0Owner,
+  IFieldDTO,
+} from '@codelab/frontend/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { v4 } from 'uuid'
@@ -40,7 +44,10 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
   /**
    * @param atoms Created from hard coded atoms data
    */
-  private constructor(atoms: Array<IAtomDTO>, private readonly owner: IOwner) {
+  private constructor(
+    atoms: Array<IAtomDTO>,
+    private readonly owner: IAuth0Owner,
+  ) {
     super()
     this.atoms = atoms
       .map((atom) => ({
@@ -49,7 +56,7 @@ export class SeedAntDesignFieldsService extends IUseCase<void, void> {
       .reduce(merge, {})
   }
 
-  static async init(owner: IOwner) {
+  static async init(owner: IAuth0Owner) {
     const atoms = await new SeedAtomsService().createAtomsData(owner)
 
     return new SeedAntDesignFieldsService(atoms, owner)

@@ -1,8 +1,6 @@
 import type {
-  ExportedAdminData,
-  ExportedAtom,
-  ITag,
-  ITypeExport,
+  IAdminDataExport,
+  IAtomExport,
 } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import { AtomRepository } from '@codelab/backend/domain/atom'
@@ -12,7 +10,11 @@ import {
   InterfaceTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
+import type {
+  IAuth0Owner,
+  ITagDTO,
+  ITypeDTO,
+} from '@codelab/frontend/abstract/core'
 import fs from 'fs'
 import path from 'path'
 import { DataPaths } from '../../data-paths'
@@ -31,7 +33,7 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
 
   dataPaths: DataPaths
 
-  exportedAdminData: ExportedAdminData
+  exportedAdminData: IAdminDataExport
 
   constructor(
     // Allow base directory override for testing purpose
@@ -68,7 +70,7 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
   private async importSystemTypes(owner: IAuth0Owner) {
     const types = JSON.parse(
       fs.readFileSync(this.dataPaths.SYSTEM_TYPES_FILE_PATH, 'utf8'),
-    ) as Array<ITypeExport>
+    ) as Array<ITypeDTO>
 
     for await (const type of types) {
       await TypeFactory.create({ ...type, owner })
@@ -88,7 +90,7 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
   }
 
   private async importFields(owner: IAuth0Owner) {
-    const fields = this.exportedAdminData.apis.flatMap((api) => api.fields)
+    const fields = this.exportedAdminData.fields
 
     for await (const field of fields) {
       await this.fieldRepository.save(field)
@@ -110,7 +112,7 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
   /**
    * Extract all the api's from atom file
    */
-  get getMergedData(): ExportedAdminData {
+  get getMergedData(): IAdminDataExport {
     const filenames = fs
       .readdirSync(this.dataPaths.ATOMS_PATH)
       .filter((filename) => path.extname(filename) === '.json')
@@ -118,7 +120,7 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
     // Tag data is all in single file
     const tags = JSON.parse(
       fs.readFileSync(this.dataPaths.TAGS_FILE_PATH, 'utf8'),
-    ) as Array<ITag>
+    ) as Array<ITagDTO>
 
     return filenames.reduce(
       (acc, filename) => {
@@ -127,17 +129,18 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
           'utf8',
         )
 
-        const { api, atom, types } = JSON.parse(
+        const { api, atom, fields, types } = JSON.parse(
           content.toString(),
-        ) as ExportedAtom
+        ) as IAtomExport
 
         acc.atoms.push(atom)
         acc.apis.push(api)
         acc.types.push(...types)
+        acc.fields.push(...(fields ?? []))
 
         return acc
       },
-      { apis: [], atoms: [], tags, types: [] } as ExportedAdminData,
+      { apis: [], atoms: [], fields: [], tags, types: [] } as IAdminDataExport,
     )
   }
 }

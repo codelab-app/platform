@@ -1,12 +1,11 @@
 import type {
-  ICreateReactNodeType,
-  IOwner,
-  IReactNodeType,
-} from '@codelab/backend/abstract/core'
+  IAuth0Owner,
+  IReactNodeTypeDTO,
+} from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { BaseType } from './base-type.model'
 
-export class ReactNodeType extends BaseType implements IReactNodeType {
+export class ReactNodeType extends BaseType implements IReactNodeTypeDTO {
   declare id: string
 
   declare name: string
@@ -15,15 +14,10 @@ export class ReactNodeType extends BaseType implements IReactNodeType {
 
   declare __typename: `${ITypeKind.ReactNodeType}`
 
-  declare owner: IOwner
+  declare owner: IAuth0Owner
 
-  private constructor({ id, kind, name, owner }: IReactNodeType) {
-    super({ __typename: ITypeKind.ReactNodeType, id, kind, name, owner })
-  }
-
-  static init({ id, owner }: ICreateReactNodeType) {
-    return new ReactNodeType({
-      __typename: ITypeKind.ReactNodeType,
+  constructor({ id, owner }: IReactNodeTypeDTO) {
+    super({
       id,
       kind: ITypeKind.ReactNodeType,
       name: ITypeKind.ReactNodeType,
