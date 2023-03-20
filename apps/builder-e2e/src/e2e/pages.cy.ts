@@ -1,4 +1,7 @@
-import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import {
+  APP_PAGE_NAME,
+  ROOT_ELEMENT_NAME,
+} from '@codelab/frontend/abstract/core'
 import { createAppInput } from '../support/database/app'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 import { pageName, updatedPageName } from './apps/app.data'
@@ -17,6 +20,7 @@ describe('Pages CRUD', () => {
 
         cy.visit(`/apps/${app.id}/pages`)
         cy.getSpinner().should('not.exist')
+        cy.findAllByText(APP_PAGE_NAME).should('exist')
       })
   })
 
