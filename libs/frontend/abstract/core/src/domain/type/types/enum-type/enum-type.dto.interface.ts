@@ -3,7 +3,7 @@ import type { EnumTypeValueFragment } from '../../fragments'
 import type { IBaseTypeDTO } from '../base-type'
 
 export interface IEnumTypeDTO extends IBaseTypeDTO {
-  __typename: `${ITypeKind.EnumType}`
+  __typename?: `${ITypeKind.EnumType}`
   allowedValues: Array<ICreateEnumTypeData>
 }
 

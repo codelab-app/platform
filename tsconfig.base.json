@@ -44,6 +44,9 @@
       "@codelab/backend/application/domain": [
         "libs/backend/application/domain/src/index.ts"
       ],
+      "@codelab/backend/application/domain/prop": [
+        "libs/backend/application/domain/prop/src/index.ts"
+      ],
       "@codelab/backend/application/field": [
         "libs/backend/application/field/src/index.ts"
       ],
@@ -80,8 +83,12 @@
         "libs/backend/domain/element/src/index.ts"
       ],
       "@codelab/backend/domain/page": ["libs/backend/domain/page/src/index.ts"],
+      "@codelab/backend/domain/prop": ["libs/backend/domain/prop/src/index.ts"],
       "@codelab/backend/domain/resource": [
         "libs/backend/domain/resource/src/index.ts"
+      ],
+      "@codelab/backend/domain/store": [
+        "libs/backend/domain/store/src/index.ts"
       ],
       "@codelab/backend/domain/tag": ["libs/backend/domain/tag/src/index.ts"],
       "@codelab/backend/domain/type": ["libs/backend/domain/type/src/index.ts"],

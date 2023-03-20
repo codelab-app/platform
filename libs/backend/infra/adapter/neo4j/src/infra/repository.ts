@@ -32,6 +32,8 @@ export class Repository implements INeo4jRepository {
 
   private element: OGM_TYPES.ElementModel | undefined
 
+  private prop: OGM_TYPES.PropModel | undefined
+
   private component: OGM_TYPES.ComponentModel | undefined
 
   private tag: OGM_TYPES.TagModel | undefined
@@ -161,6 +163,11 @@ export class Repository implements INeo4jRepository {
         this.element,
         'Element',
       )))()
+  }
+
+  get Prop() {
+    return (async () =>
+      (this.prop ??= await this.getOgmInstance<'Prop'>(this.prop, 'Prop')))()
   }
 
   get Component() {

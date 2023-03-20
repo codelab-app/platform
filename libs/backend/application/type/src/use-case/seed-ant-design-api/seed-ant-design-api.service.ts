@@ -1,4 +1,3 @@
-import type { IOwner } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import type { AtomSeedData } from '@codelab/backend/application/atom'
 import { atomsData } from '@codelab/backend/application/atom'
@@ -7,13 +6,14 @@ import {
   InterfaceTypeRepository,
   PrimitiveTypeRepository,
 } from '@codelab/backend/domain/type'
+import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { IAtomType } from '@codelab/shared/abstract/core'
 import { ObjectTyped } from 'object-typed'
 
 /**
  * Seed both interface types and fields
  */
-export class SeedAntDesignApiService extends IUseCase<IOwner, void> {
+export class SeedAntDesignApiService extends IUseCase<IAuth0Owner, void> {
   primitiveTypeRepository: PrimitiveTypeRepository =
     new PrimitiveTypeRepository()
 
@@ -32,7 +32,7 @@ export class SeedAntDesignApiService extends IUseCase<IOwner, void> {
   /**
    * Create empty interfaces from Ant Design atom name
    */
-  async _execute(owner: IOwner) {
+  async _execute(owner: IAuth0Owner) {
     const existingInterfaceTypes = new Map(
       (await this.interfaceTypeRepository.find()).map((interfaceType) => [
         interfaceType.name,

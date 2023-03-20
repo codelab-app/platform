@@ -14,7 +14,7 @@ const exportApp: NextApiHandler = async (req, res) => {
     const { id } = req.query
 
     const exportedApp = await exportUserData({
-      appIds: [String(id)],
+      id: String(id),
     })
 
     const appName = exportedApp.apps[0]?.name

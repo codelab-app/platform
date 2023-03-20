@@ -1,11 +1,10 @@
 import type { IAppDTO, IAuth0Owner } from '@codelab/frontend/abstract/core'
-import {
-  APP_PAGE_NAME,
-  INTERNAL_SERVER_ERROR_PAGE_NAME,
-  NOT_FOUND_PAGE_NAME,
-} from '@codelab/frontend/abstract/core'
 import type { AppCreateInput } from '@codelab/shared/abstract/codegen'
-import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  IPageKind,
+  IPageKindName,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { createUniqueName } from '@codelab/shared/utils'
 import { print } from 'graphql'
@@ -22,23 +21,23 @@ export const createAppInput = (owner: IAuth0Owner): AppCreateInput => {
     owner: connectAuth0Owner(owner),
     pages: {
       create: [
-        // create provider page
+        // create system pages
         {
           node: createPageInput(appId, {
-            _compoundName: createUniqueName(APP_PAGE_NAME, appId),
+            _compoundName: createUniqueName(IPageKindName.Provider, appId),
             kind: IPageKind.Provider,
           }),
         },
         {
           node: createPageInput(appId, {
-            _compoundName: createUniqueName(NOT_FOUND_PAGE_NAME, appId),
+            _compoundName: createUniqueName(IPageKindName.NotFound, appId),
             kind: IPageKind.NotFound,
           }),
         },
         {
           node: createPageInput(appId, {
             _compoundName: createUniqueName(
-              INTERNAL_SERVER_ERROR_PAGE_NAME,
+              IPageKindName.InternalServerError,
               appId,
             ),
             kind: IPageKind.InternalServerError,

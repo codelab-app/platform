@@ -1,8 +1,4 @@
-import type {
-  AntDesignField,
-  IOwner,
-  IType,
-} from '@codelab/backend/abstract/core'
+import type { AntDesignField } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import {
   ActionType,
@@ -17,7 +13,11 @@ import {
   UnionType,
   UnionTypeRepository,
 } from '@codelab/backend/domain/type'
-import type { IAtomDTO } from '@codelab/frontend/abstract/core'
+import type {
+  IAtomDTO,
+  IAuth0Owner,
+  ITypeDTO,
+} from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 import { AntDesignTypeMapper } from '../../mapper'
@@ -31,16 +31,17 @@ import {
   isUnionType,
   parseSeparators,
 } from '../../parser'
+import { systemTypesData } from '../seed-system-type/system-types.data'
 
 interface Request {
   atom: IAtomDTO
   field: Pick<AntDesignField, 'property' | 'type'>
-  owner: IOwner
+  owner: IAuth0Owner
 }
 
 export class TransformAntDesignTypesService extends IUseCase<
   Request,
-  IType | undefined
+  ITypeDTO | undefined
 > {
   reactNodeTypeRepository = new ReactNodeTypeRepository()
 
@@ -52,14 +53,14 @@ export class TransformAntDesignTypesService extends IUseCase<
     if (isEnumType(field.type)) {
       const values = parseSeparators(field)
 
-      const enumType = EnumType.init({
-        __typename: ITypeKind.EnumType,
+      const enumType = new EnumType({
         allowedValues: values.map((value) => ({
           id: v4(),
           key: value,
           value: value,
         })),
         id: v4(),
+        kind: ITypeKind.EnumType,
         name: EnumType.getCompositeName(atom, { key: field.property }),
         owner,
       })
@@ -68,43 +69,35 @@ export class TransformAntDesignTypesService extends IUseCase<
     }
 
     if (isReactNodeType(field.type)) {
-      return ReactNodeType.init({
-        id: v4(),
-        owner,
-      })
+      const reactNodeType = systemTypesData(owner)[ITypeKind.ReactNodeType]
+
+      return new ReactNodeType(reactNodeType)
     }
 
     if (isPrimitiveType(field.type)) {
       const primitiveKind = AntDesignTypeMapper.mapPrimitiveType(field.type)
+      const primitiveType = systemTypesData(owner)[primitiveKind]
 
-      return PrimitiveType.init({
-        id: v4(),
-        owner,
-        primitiveKind,
-      })
+      return new PrimitiveType(primitiveType)
     }
 
     if (isRenderPropsType(field.type)) {
-      return RenderPropsType.init({
-        __typename: ITypeKind.RenderPropsType,
-        id: v4(),
-        owner,
-      })
+      const renderPropsType = systemTypesData(owner)[ITypeKind.RenderPropsType]
+
+      return new RenderPropsType(renderPropsType)
     }
 
     if (isActionType(field.type)) {
-      return ActionType.init({
-        __typename: ITypeKind.ActionType,
-        id: v4(),
-        owner,
-      })
+      const actionType = systemTypesData(owner)[ITypeKind.ActionType]
+
+      return new ActionType(actionType)
     }
 
     if (isInterfaceType(field.type)) {
-      return InterfaceType.init({
-        __typename: ITypeKind.InterfaceType,
+      return new InterfaceType({
         fields: [],
         id: v4(),
+        kind: ITypeKind.InterfaceType,
         name: InterfaceType.getApiName(atom, { key: field.property }),
         owner,
       })
@@ -124,7 +117,7 @@ export class TransformAntDesignTypesService extends IUseCase<
             })
           }),
         )
-      ).filter((typeOfUnionType): typeOfUnionType is IType =>
+      ).filter((typeOfUnionType): typeOfUnionType is ITypeDTO =>
         Boolean(typeOfUnionType),
       )
 
@@ -135,9 +128,9 @@ export class TransformAntDesignTypesService extends IUseCase<
         }),
       )
 
-      const unionType = UnionType.init({
-        __typename: ITypeKind.UnionType,
+      const unionType = new UnionType({
         id: v4(),
+        kind: ITypeKind.UnionType,
         name: UnionType.compositeName(atom, { key: field.property }),
         owner,
         // These need to exist already

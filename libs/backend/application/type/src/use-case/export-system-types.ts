@@ -11,7 +11,7 @@ import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 /**
  * These are required system types that other types reference
  */
-export const exportSystemTypes = async (): Promise<Array<ITypeExport>> => {
+export const exportSystemTypes = async (): Promise<ITypeExport> => {
   /**
    * Export all primitive types
    */
@@ -67,10 +67,13 @@ export const exportSystemTypes = async (): Promise<Array<ITypeExport>> => {
    *
    * Further to the front are closer to the leaf.
    */
-  return [
-    ...primitiveTypes,
-    ...renderPropsTypes,
-    ...reactNodeTypes,
-    ...actionTypes,
-  ] as Array<ITypeExport>
+  return {
+    fields: [],
+    types: [
+      ...primitiveTypes,
+      ...renderPropsTypes,
+      ...reactNodeTypes,
+      ...actionTypes,
+    ],
+  } as ITypeExport
 }

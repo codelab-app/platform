@@ -1,45 +1,94 @@
-import type { ICreateType } from '@codelab/backend/abstract/core'
+import type { IAuth0Owner, ITypeDTO } from '@codelab/frontend/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import type { DistributiveMerge } from '@codelab/shared/utils'
 import type { DistributiveOmit } from '@emotion/react'
+import type { Overwrite } from 'utility-types'
 import { v4 } from 'uuid'
 
-export const systemTypesData: Array<DistributiveOmit<ICreateType, 'owner'>> = [
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// type WithRequiredKey<T, K extends keyof T> = T extends object
+//   ? Overwrite<T, Required<Pick<T, K>>>
+//   : never
+
+// type SystemTypes = Record<
+//   | Exclude<
+//       ITypeKind,
+//       | ITypeKind.AppType
+//       | ITypeKind.ArrayType
+//       | ITypeKind.CodeMirrorType
+//       | ITypeKind.ElementType
+//       | ITypeKind.EnumType
+//       | ITypeKind.InterfaceType
+//       | ITypeKind.LambdaType
+//       | ITypeKind.PageType
+//       | ITypeKind.PrimitiveType
+//       | ITypeKind.UnionType
+//     >
+//   | IPrimitiveTypeKind,
+//   WithRequiredKey<ITypeDTO, '__typename'>
+// >
+
+/**
+ * Difficult to type this function, we just let it infer
+ */
+export const systemTypesData = (owner: IAuth0Owner) => ({
   /**
    * PrimitiveTypes
    */
-  {
-    __typename: ITypeKind.PrimitiveType,
+  [IPrimitiveTypeKind.String]: {
+    __typename: `${ITypeKind.PrimitiveType}`,
     id: v4(),
+    kind: ITypeKind.PrimitiveType,
+    name: ITypeKind.PrimitiveType,
+    owner,
     primitiveKind: IPrimitiveTypeKind.String,
-  },
-  {
-    __typename: ITypeKind.PrimitiveType,
+  } as const,
+  [IPrimitiveTypeKind.Boolean]: {
+    __typename: `${ITypeKind.PrimitiveType}`,
     id: v4(),
+    kind: ITypeKind.PrimitiveType,
+    name: ITypeKind.PrimitiveType,
+    owner,
     primitiveKind: IPrimitiveTypeKind.Boolean,
-  },
-  {
-    __typename: ITypeKind.PrimitiveType,
+  } as const,
+  [IPrimitiveTypeKind.Number]: {
+    __typename: `${ITypeKind.PrimitiveType}`,
     id: v4(),
+    kind: ITypeKind.PrimitiveType,
+    name: ITypeKind.PrimitiveType,
+    owner,
     primitiveKind: IPrimitiveTypeKind.Number,
-  },
-  {
-    __typename: ITypeKind.PrimitiveType,
+  } as const,
+  [IPrimitiveTypeKind.Integer]: {
+    __typename: `${ITypeKind.PrimitiveType}`,
     id: v4(),
+    kind: ITypeKind.PrimitiveType,
+    name: ITypeKind.PrimitiveType,
+    owner,
     primitiveKind: IPrimitiveTypeKind.Integer,
-  },
+  } as const,
   /**
    * Other types
    */
-  {
-    __typename: ITypeKind.ReactNodeType,
+  [ITypeKind.ReactNodeType]: {
+    __typename: `${ITypeKind.ReactNodeType}`,
     id: v4(),
-  },
-  {
-    __typename: ITypeKind.RenderPropsType,
+    kind: ITypeKind.ReactNodeType,
+    name: ITypeKind.ReactNodeType,
+    owner,
+  } as const,
+  [ITypeKind.RenderPropsType]: {
+    __typename: `${ITypeKind.RenderPropsType}`,
     id: v4(),
-  },
-  {
-    __typename: ITypeKind.ActionType,
+    kind: ITypeKind.RenderPropsType,
+    name: ITypeKind.RenderPropsType,
+    owner,
+  } as const,
+  [ITypeKind.ActionType]: {
+    __typename: `${ITypeKind.ActionType}`,
     id: v4(),
-  },
-]
+    kind: ITypeKind.ActionType,
+    name: ITypeKind.ActionType,
+    owner,
+  } as const,
+})

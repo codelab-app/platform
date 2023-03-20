@@ -1,22 +1,22 @@
-import type { IOwner } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import {
   InterfaceTypeRepository,
   PrimitiveTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
+import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import { systemTypesData } from './system-types.data'
 
-export class SeedSystemTypeService extends IUseCase<IOwner, void> {
+export class SeedSystemTypeService extends IUseCase<IAuth0Owner, void> {
   primitiveTypeRepository: PrimitiveTypeRepository =
     new PrimitiveTypeRepository()
 
   interfaceTypeRepository: InterfaceTypeRepository =
     new InterfaceTypeRepository()
 
-  async _execute(owner: IOwner) {
+  async _execute(owner: IAuth0Owner) {
     await Promise.all(
-      systemTypesData.map(
+      Object.values(systemTypesData).map(
         async (systemTypeData) =>
           await TypeFactory.create({ ...systemTypeData, owner }),
       ),

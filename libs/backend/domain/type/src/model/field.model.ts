@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import type { ICreateField, IField } from '@codelab/backend/abstract/core'
+import type { IFieldDTO } from '@codelab/frontend/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 
-export class Field implements IField {
+export class Field implements IFieldDTO {
   readonly api: { id: string }
 
   readonly defaultValues: string | null
@@ -29,7 +28,7 @@ export class Field implements IField {
     key,
     name = null,
     validationRules = null,
-  }: IField) {
+  }: IFieldDTO) {
     this.api = { id: api.id }
     this.defaultValues = defaultValues
     this.description = description
@@ -47,7 +46,7 @@ export class Field implements IField {
     return `${apiName}-${fieldKey}`
   }
 
-  static create({ api, fieldType, id, key }: ICreateField) {
+  static create({ api, fieldType, id, key }: IFieldDTO) {
     return new Field({
       api,
       fieldType,

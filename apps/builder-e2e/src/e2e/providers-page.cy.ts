@@ -1,12 +1,9 @@
-import {
-  APP_PAGE_NAME,
-  ROOT_ELEMENT_NAME,
-} from '@codelab/frontend/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import slugify from 'voca/slugify'
 import { FIELD_TYPE } from '../support/antd/form'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
-import { seedData } from './admin/assert'
+// import { seedData } from './admin/assert'
 import { appName, pageName } from './apps/app.data'
 
 const CONFIG_PROVIDER_NAME = 'Config Provider'
@@ -45,7 +42,7 @@ describe('_app page', () => {
   before(() => {
     cy.resetDatabase()
     loginSession()
-    seedData()
+    // seedData()
   })
 
   it('should create _app page when app is created', () => {
@@ -59,11 +56,11 @@ describe('_app page', () => {
     cy.getModal().should('not.exist')
 
     cy.findByText(appName).click()
-    cy.findByText(APP_PAGE_NAME).should('exist')
+    cy.findByText(IPageKindName.Provider).should('exist')
   })
 
   it('should be able to add config provider atom to the _app page', () => {
-    openPageByName(APP_PAGE_NAME)
+    openPageByName(IPageKindName.Provider)
 
     cy.getSider()
       .find('.ant-page-header-heading')
@@ -135,7 +132,7 @@ describe('_app page', () => {
   })
 
   it('should be able to toggle "Component Disabled" AntDesignConfigProvider prop on _app page', () => {
-    openPageByHeaderMenu(APP_PAGE_NAME)
+    openPageByHeaderMenu(IPageKindName.Provider)
 
     cy.findByText(CONFIG_PROVIDER_NAME).click()
 

@@ -1,11 +1,10 @@
+import type { IType, ITypeWhere } from '@codelab/backend/abstract/core'
 import type {
-  ICreateType,
-  IType,
-  ITypeWhere,
-} from '@codelab/backend/abstract/core'
+  IPrimitiveTypeDTO,
+  ITypeDTO,
+} from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import type { BaseTypeUniqueWhereCallback } from '@codelab/shared/abstract/types'
 import {
   ActionType,
   EnumType,
@@ -27,19 +26,27 @@ import {
   UnionTypeRepository,
 } from '../repository'
 
+/**
+ * Used for dynamic data when we don't know what type we are creating
+ */
 export class TypeFactory {
   static async create(
-    { id, owner, ...type }: ICreateType,
+    { id, owner, ...type }: ITypeDTO,
     where?: ITypeWhere,
   ): Promise<IType | undefined> {
+    if (!type.__typename) {
+      throw new Error('__typename must be provided')
+    }
+
     /**
      * Type narrow using discriminated union
      */
     switch (type.__typename) {
       case ITypeKind.PrimitiveType: {
-        const primitiveType = PrimitiveType.init({
-          __typename: ITypeKind.PrimitiveType,
+        const primitiveType = new PrimitiveType({
           id,
+          kind: ITypeKind.PrimitiveType,
+          name: ITypeKind.PrimitiveType,
           owner,
           primitiveKind: type.primitiveKind,
         })
@@ -51,10 +58,10 @@ export class TypeFactory {
       }
 
       case ITypeKind.EnumType: {
-        const enumType = EnumType.init({
-          __typename: ITypeKind.EnumType,
+        const enumType = new EnumType({
           allowedValues: type.allowedValues,
           id,
+          kind: ITypeKind.EnumType,
           name: type.name,
           owner,
         })
@@ -66,10 +73,10 @@ export class TypeFactory {
       }
 
       case ITypeKind.InterfaceType: {
-        const interfaceType = InterfaceType.init({
-          __typename: ITypeKind.InterfaceType,
+        const interfaceType = new InterfaceType({
           fields: type.fields,
           id,
+          kind: ITypeKind.InterfaceType,
           name: type.name,
           owner,
         })
@@ -81,9 +88,10 @@ export class TypeFactory {
       }
 
       case ITypeKind.ReactNodeType: {
-        const reactNodeType = ReactNodeType.init({
-          __typename: ITypeKind.ReactNodeType,
+        const reactNodeType = new ReactNodeType({
           id,
+          kind: ITypeKind.ReactNodeType,
+          name: ITypeKind.ReactNodeType,
           owner,
         })
 
@@ -94,9 +102,10 @@ export class TypeFactory {
       }
 
       case ITypeKind.RenderPropsType: {
-        const renderPropsType = RenderPropsType.init({
-          __typename: ITypeKind.RenderPropsType,
+        const renderPropsType = new RenderPropsType({
           id,
+          kind: ITypeKind.RenderPropsType,
+          name: ITypeKind.RenderPropsType,
           owner,
         })
 
@@ -107,9 +116,10 @@ export class TypeFactory {
       }
 
       case ITypeKind.ActionType: {
-        const actionType = ActionType.init({
-          __typename: ITypeKind.ActionType,
+        const actionType = new ActionType({
           id,
+          kind: ITypeKind.ActionType,
+          name: ITypeKind.ActionType,
           owner,
         })
 
@@ -120,9 +130,9 @@ export class TypeFactory {
       }
 
       case ITypeKind.UnionType: {
-        const unionType = UnionType.init({
-          __typename: ITypeKind.UnionType,
+        const unionType = new UnionType({
           id,
+          kind: ITypeKind.UnionType,
           name: type.name,
           owner,
           typesOfUnionType: [],
@@ -135,9 +145,9 @@ export class TypeFactory {
       }
 
       case ITypeKind.ArrayType: {
-        const arrayType = ArrayType.init({
-          __typename: ITypeKind.ArrayType,
+        const arrayType = new ArrayType({
           id,
+          kind: ITypeKind.ArrayType,
           name: type.name,
           owner,
         })
