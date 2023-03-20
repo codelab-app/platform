@@ -1,5 +1,9 @@
-import { tagSelectionSet } from './tagSelectionSet'
-import { interfaceTypeSelectionSet } from './typeSelectionSet'
+import { exportTagSelectionSet, tagSelectionSet } from './tagSelectionSet'
+import {
+  exportInterfaceTypeSelectionSet,
+  interfaceTypeSelectionSet,
+} from './typeSelectionSet'
+import { ownerFieldSelectionSet } from './userSelectionSet'
 
 export const atomSelectionSet = `{
   id
@@ -8,11 +12,28 @@ export const atomSelectionSet = `{
   api
     ${interfaceTypeSelectionSet}
   icon
-  owner {
-    auth0Id
-  }
+
+  ${ownerFieldSelectionSet}
+
   tags
     ${tagSelectionSet}
+  allowedChildren {
+    id
+    name
+    type
+  }
+}`
+
+export const exportAtomSelectionSet = `{
+  id
+  name
+  type
+  api
+    ${exportInterfaceTypeSelectionSet}
+  icon
+
+  tags
+    ${exportTagSelectionSet}
   allowedChildren {
     id
     name
