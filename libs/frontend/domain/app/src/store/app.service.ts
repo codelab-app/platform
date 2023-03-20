@@ -188,19 +188,22 @@ export class AppService
    * For nested properties, only show the preview
    */
   @modelFlow
-  loadAppWithNestedPreviews = _async(function* (
+  loadAppsWithNestedPreviews = _async(function* (
     this: AppService,
     where: AppWhere,
   ) {
-    const appData = (yield* _await(this.appRepository.find(where)))[0]!
-    const app = this.add(appData)
+    const appsData = yield* _await(this.appRepository.find(where))
 
-    appData.pages.forEach((page) => {
-      this.elementService.add(page.rootElement)
-      this.pageService.add(page)
+    const apps = appsData.map((appData) => {
+      appData.pages.forEach((pageData) => {
+        this.elementService.add(pageData.rootElement)
+        this.pageService.add(pageData)
+      })
+
+      return this.add(appData)
     })
 
-    return app
+    return apps
   })
 
   @computed
