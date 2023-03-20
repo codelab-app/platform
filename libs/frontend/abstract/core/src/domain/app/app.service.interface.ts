@@ -36,6 +36,6 @@ export interface IAppService
     pageId: string,
     initialData?: GetRenderedPageAndCommonAppDataQuery,
   ): Promise<IApp | undefined>
-  loadAppWithNestedPreviews(where: AppWhere): Promise<IApp>
+  loadAppsWithNestedPreviews(where: AppWhere): Promise<Array<IApp>>
   loadPages(data: IPageBuilderAppProps): IBuilderApp
 }

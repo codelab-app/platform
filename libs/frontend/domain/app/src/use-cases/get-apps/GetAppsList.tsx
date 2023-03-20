@@ -1,4 +1,4 @@
-import type { IAppService, IDomain } from '@codelab/frontend/abstract/core'
+import type { IAppService } from '@codelab/frontend/abstract/core'
 import { DisplayIf, ErrorBoundary } from '@codelab/frontend/view/components'
 import { padding, threeGridCol } from '@codelab/frontend/view/style'
 import { Col, Empty, Row } from 'antd'
@@ -13,8 +13,7 @@ const emptyImageStyle: React.CSSProperties = {
 
 export const GetAppsList = observer<{
   appService: IAppService
-  domains?: Array<IDomain>
-}>(({ appService, domains }) => {
+}>(({ appService }) => {
   const appList = appService.appsList
 
   return (
@@ -29,7 +28,7 @@ export const GetAppsList = observer<{
         {appList.map((app) => (
           // eslint-disable-next-line react/jsx-props-no-spreading
           <Col key={app.id} {...threeGridCol}>
-            <GetAppsItem app={app} appService={appService} domains={domains} />
+            <GetAppsItem app={app} appService={appService} />
           </Col>
         ))}
       </Row>
