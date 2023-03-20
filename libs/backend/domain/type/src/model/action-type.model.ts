@@ -1,9 +1,7 @@
 import type {
-  IActionType,
-  ICreateActionType,
-  IOwner,
-} from '@codelab/backend/abstract/core'
-import type { IActionTypeDTO } from '@codelab/frontend/abstract/core'
+  IActionTypeDTO,
+  IAuth0Owner,
+} from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { BaseType } from './base-type.model'
 
@@ -16,19 +14,9 @@ export class ActionType extends BaseType implements IActionTypeDTO {
 
   declare __typename: `${ITypeKind.ActionType}`
 
-  declare owner: IOwner
+  declare owner: IAuth0Owner
 
-  private constructor({ id, kind, name, owner }: IActionType) {
-    super({ __typename: ITypeKind.ActionType, id, kind, name, owner })
-  }
-
-  static init({ id, owner }: ICreateActionType) {
-    return new ActionType({
-      __typename: ITypeKind.ActionType,
-      id,
-      kind: ITypeKind.ActionType,
-      name: ITypeKind.ActionType,
-      owner,
-    })
+  constructor({ id, owner }: IActionTypeDTO) {
+    super({ id, kind: ITypeKind.ActionType, name: ITypeKind.ActionType, owner })
   }
 }

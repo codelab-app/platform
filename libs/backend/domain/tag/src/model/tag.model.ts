@@ -1,5 +1,8 @@
-import type { IOwner, ITag } from '@codelab/backend/abstract/core'
-import type { ITagDTO } from '@codelab/frontend/abstract/core'
+import type {
+  IAuth0Owner,
+  ITag,
+  ITagDTO,
+} from '@codelab/frontend/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { detach, rootRef } from 'mobx-keystone'
 
@@ -8,7 +11,7 @@ export class Tag implements ITagDTO {
 
   declare name: string
 
-  owner: IOwner
+  owner: IAuth0Owner
 
   children: Array<IEntity>
 
@@ -32,11 +35,3 @@ export class Tag implements ITagDTO {
     this.descendants = descendants
   }
 }
-
-export const tagRef = rootRef<ITag>('@codelab/TagRef', {
-  onResolvedValueChange: (ref, newTag, oldTag) => {
-    if (oldTag && !newTag) {
-      detach(ref)
-    }
-  },
-})

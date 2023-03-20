@@ -1,4 +1,3 @@
-import type { IOwner } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { TagRepository } from '@codelab/backend/domain/tag'
@@ -6,14 +5,14 @@ import {
   InterfaceType,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
-import type { IAtomDTO } from '@codelab/frontend/abstract/core'
+import type { IAtomDTO, IAuth0Owner } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
 import type { AtomSeedData } from './atom'
 import { atomsData } from './atom'
 
-export class SeedAtomsService extends IUseCase<IOwner, void> {
+export class SeedAtomsService extends IUseCase<IAuth0Owner, void> {
   atomRepository: AtomRepository = new AtomRepository()
 
   interfaceTypeRepository: InterfaceTypeRepository =
@@ -30,7 +29,7 @@ export class SeedAtomsService extends IUseCase<IOwner, void> {
     super()
   }
 
-  async _execute(owner: IOwner) {
+  async _execute(owner: IAuth0Owner) {
     const atoms = await this.createAtomsData(owner)
 
     /**
@@ -58,7 +57,7 @@ export class SeedAtomsService extends IUseCase<IOwner, void> {
   /**
    * Assume all tags have already been created
    */
-  async createAtomsData(owner: IOwner): Promise<Array<IAtomDTO>> {
+  async createAtomsData(owner: IAuth0Owner): Promise<Array<IAtomDTO>> {
     const existingInterfaceTypes = new Map(
       (await this.interfaceTypeRepository.find()).map((interfaceType) => [
         interfaceType.name,

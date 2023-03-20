@@ -1,44 +1,32 @@
 import type {
-  ICreatePrimitiveType,
-  IOwner,
-  IPrimitiveType,
-} from '@codelab/backend/abstract/core'
+  IAuth0Owner,
+  IPrimitiveTypeDTO,
+} from '@codelab/frontend/abstract/core'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { BaseType } from './base-type.model'
 
-export class PrimitiveType extends BaseType implements IPrimitiveType {
+export class PrimitiveType extends BaseType implements IPrimitiveTypeDTO {
   declare id: string
 
   declare name: string
 
   declare kind: ITypeKind.PrimitiveType
 
-  declare __typename: `${ITypeKind.PrimitiveType}`
+  __typename: `${ITypeKind.PrimitiveType}` = ITypeKind.PrimitiveType
 
-  declare owner: IOwner
+  declare owner: IAuth0Owner
 
   primitiveKind: IPrimitiveTypeKind
 
-  private constructor({
-    id,
-    kind,
-    name,
-    owner,
-    primitiveKind,
-  }: IPrimitiveType) {
-    super({ __typename: ITypeKind.PrimitiveType, id, kind, name, owner })
-    this.primitiveKind = primitiveKind
-  }
-
-  static init({ id, owner, primitiveKind }: ICreatePrimitiveType) {
-    return new PrimitiveType({
-      __typename: ITypeKind.PrimitiveType,
+  constructor({ id, owner, primitiveKind }: IPrimitiveTypeDTO) {
+    super({
       id,
       kind: ITypeKind.PrimitiveType,
-      name: primitiveKind,
+      name: ITypeKind.PrimitiveType,
       owner,
-      primitiveKind,
     })
+
+    this.primitiveKind = primitiveKind
   }
 }

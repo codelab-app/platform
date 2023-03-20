@@ -84,7 +84,7 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
     }
 
     if (!shouldSkipUserData) {
-      const { selectedApp, selectedAuth0Id } = await inquirer.prompt([
+      const { selectedAppId, selectedAuth0Id } = await inquirer.prompt([
         await selectUserPrompt(),
         {
           choices: apps.map((app) => ({
@@ -98,7 +98,7 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
       ])
 
       const exportedUserData = await exportUserData({
-        appIds: [selectedApp],
+        id: selectedAppId,
       })
 
       await saveFormattedFile(

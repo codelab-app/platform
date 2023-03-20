@@ -1,4 +1,5 @@
-import type { AntDesignField, IType } from '@codelab/backend/abstract/core'
+import type { AntDesignField } from '@codelab/backend/abstract/core'
+import type { ITypeDTO } from '@codelab/frontend/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { DistributivePick } from '@codelab/shared/abstract/types'
 import {
@@ -29,7 +30,7 @@ export class AntDesignTypeMapper {
 
   static mapType = (
     field: Pick<AntDesignField, 'property' | 'type'>,
-  ): DistributivePick<IType, 'kind'> | null => {
+  ): DistributivePick<ITypeDTO, 'kind'> | null => {
     if (isEnumType(field.type)) {
       return { kind: ITypeKind.EnumType }
     }

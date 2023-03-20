@@ -1,4 +1,4 @@
-import type { ExportedUserData } from '@codelab/backend/abstract/core'
+import type { IUserDataExport } from '@codelab/backend/abstract/core'
 import { ImportAdminDataService } from '@codelab/backend/application/admin'
 import { importUserData } from '@codelab/backend/application/user'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
@@ -110,7 +110,7 @@ export const importCommand: CommandModule<ImportProps, ImportProps> = {
         'utf8',
       )
 
-      const userData = JSON.parse(json) as ExportedUserData
+      const userData = JSON.parse(json) as IUserDataExport
       await importUserData(userData, { auth0Id: selectedAuth0Id })
     }
 

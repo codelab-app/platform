@@ -3,6 +3,7 @@ import {
   exportActionTypeSelectionSet,
   exportEnumTypeSelectionSet,
   exportInterfaceTypeSelectionSet,
+  fieldSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
@@ -21,7 +22,7 @@ interface ExportAdminTypesProps {
  */
 export const exportAdminTypes = async (
   props: ExportAdminTypesProps = {},
-): Promise<Array<ITypeExport>> => {
+): Promise<ITypeExport> => {
   /**
    * Enum
    */
@@ -90,9 +91,31 @@ export const exportAdminTypes = async (
   })
 
   /**
+   * Get all fields related to interface type
+   */
+  const Field = await Repository.instance.Field
+
+  const fields = await Field.find({
+    options: {
+      sort: [{ key: OGM_TYPES.SortDirection.Asc }],
+    },
+    selectionSet: fieldSelectionSet,
+    where: {
+      apiConnection: {
+        node: {
+          id_IN: interfaceTypes.map((api) => api.id),
+        },
+      },
+    },
+  })
+
+  /**
    * Here we create the interface dependency tree order
    *
    * Further to the front are closer to the leaf.
    */
-  return [...enumTypes, ...interfaceTypes] as Array<ITypeExport>
+  return {
+    fields,
+    types: [...enumTypes, ...interfaceTypes],
+  }
 }

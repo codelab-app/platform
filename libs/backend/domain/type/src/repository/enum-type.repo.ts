@@ -1,10 +1,12 @@
-import type { IEnumTypeValue } from '@codelab/backend/abstract/core'
 import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportEnumTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { IEnumTypeDTO } from '@codelab/frontend/abstract/core'
+import type {
+  IEnumTypeDTO,
+  IEnumTypeValueDTO,
+} from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import {
   connectAuth0Owner,
@@ -69,7 +71,7 @@ export class EnumTypeRepository extends AbstractRepository<
   }
 
   private mapCreateEnumTypeValues(
-    enumTypeValues: Array<IEnumTypeValue>,
+    enumTypeValues: Array<IEnumTypeValueDTO>,
   ): OGM_TYPES.EnumTypeAllowedValuesFieldInput {
     return {
       create: enumTypeValues.map((enumTypeValue) => ({
@@ -81,7 +83,7 @@ export class EnumTypeRepository extends AbstractRepository<
   }
 
   private mapUpdateEnumTypeValues(
-    enumTypeValues: Array<IEnumTypeValue>,
+    enumTypeValues: Array<IEnumTypeValueDTO>,
   ): Array<OGM_TYPES.EnumTypeAllowedValuesUpdateFieldInput> {
     return enumTypeValues.map(({ id, ...enumTypeValue }) => ({
       ...whereNodeId(id),

@@ -1,23 +1,20 @@
-import type { IBaseType, IOwner } from '@codelab/backend/abstract/core'
+import type { IAuth0Owner, IBaseTypeDTO } from '@codelab/frontend/abstract/core'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 
-export abstract class BaseType implements IBaseType {
+export abstract class BaseType implements IBaseTypeDTO {
   id: string
 
   name: string
 
   kind: ITypeKind
 
-  __typename?: `${ITypeKind}`
+  owner: IAuth0Owner
 
-  owner: IOwner
-
-  constructor({ __typename, id, kind, name, owner }: IBaseType) {
+  constructor({ id, kind, name, owner }: IBaseTypeDTO) {
     this.id = id
     this.name = name
     this.kind = kind
     this.owner = owner
-    this.__typename = __typename
   }
 
   assertCreateFailed<Model>(data: Array<Model>) {
