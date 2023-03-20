@@ -111,14 +111,31 @@ export class BuilderService
     const pathResult = this.activeElementTree?.getPathFromRoot(selectedNode)
     const expandedSet = new Set(alreadyExpandedNodeIds)
 
-    // go through each node of the path and keep track of all nodes that need to get expanded
-    const toExpand = pathResult
-      ?.filter((el) => !expandedSet.has(el.id))
-      .map((el) => {
-        return el.id
-      })
+    return pathResult?.filter((el) => !expandedSet.has(el)) ?? []
+  }
 
-    return toExpand ?? []
+  @modelAction
+  updateExpandedNodes = () => {
+    if (!this.selectedNode) {
+      return
+    }
+
+    const newNodesToExpand = this.findNodesToExpand(
+      this.selectedNode,
+      this.expandedComponentTreeNodeIds,
+    )
+
+    if (this.activeTree === RendererTab.Page) {
+      this.expandedPageElementTreeNodeIds = [
+        ...this.expandedPageElementTreeNodeIds,
+        ...newNodesToExpand,
+      ]
+    } else {
+      this.expandedComponentTreeNodeIds = [
+        ...this.expandedComponentTreeNodeIds,
+        ...newNodesToExpand,
+      ]
+    }
   }
 
   @modelAction
@@ -128,14 +145,7 @@ export class BuilderService
     }
 
     this.selectedNode = componentRef(node)
-
-    this.expandedComponentTreeNodeIds = [
-      ...this.expandedComponentTreeNodeIds,
-      ...this.findNodesToExpand(
-        this.selectedNode,
-        this.expandedComponentTreeNodeIds,
-      ),
-    ]
+    this.updateExpandedNodes()
   }
 
   @modelAction
@@ -145,14 +155,7 @@ export class BuilderService
     }
 
     this.selectedNode = elementRef(node)
-
-    this.expandedPageElementTreeNodeIds = [
-      ...this.expandedPageElementTreeNodeIds,
-      ...this.findNodesToExpand(
-        this.selectedNode,
-        this.expandedPageElementTreeNodeIds,
-      ),
-    ]
+    this.updateExpandedNodes()
   }
 
   // @modelAction

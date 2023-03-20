@@ -3,6 +3,7 @@ import type {
   IElementService,
   IUserService,
 } from '@codelab/frontend/abstract/core'
+import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { SelectAction, SelectAnyElement } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
@@ -63,6 +64,10 @@ export const CreateElementModal = observer<CreateElementModalProps>(
       renderType: null,
     }
 
+    const parentAtom = isAtomInstance(parentElement.renderType)
+      ? parentElement.renderType.maybeCurrent
+      : undefined
+
     return (
       <ModalForm.Modal
         okText="Create"
@@ -106,10 +111,7 @@ export const CreateElementModal = observer<CreateElementModalProps>(
             name="prevSibling.id"
             required={false}
           />
-          <RenderTypeCompositeField
-            name="renderType"
-            parent={parentElement.renderType?.maybeCurrent}
-          />
+          <RenderTypeCompositeField name="renderType" parent={parentAtom} />
           <AutoField
             component={SelectAction}
             name="preRenderAction.id"

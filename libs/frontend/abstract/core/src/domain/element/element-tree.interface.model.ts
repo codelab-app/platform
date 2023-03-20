@@ -19,7 +19,7 @@ export interface IElementTree {
   addElements(elements: Array<IElement>): IElementTree
   descendants(subRoot: Ref<IElement>): Array<IElement>
   element(id: string): Maybe<IElement>
-  getPathFromRoot(pageNode: IPageNodeRef): Array<IElement>
+  getPathFromRoot(pageNode: IPageNodeRef): Array<string>
   removeElements(elements: Array<IElement>): IElementTree
 }
 
