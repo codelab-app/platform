@@ -21,7 +21,12 @@ export const CreateComponentModal = observer(() => {
     const rootElement = { id: v4() }
     const api = { id: v4() }
 
-    return componentService.create({ ...componentData, api, rootElement })
+    return componentService.create({
+      ...componentData,
+      api,
+      childrenContainerElement: rootElement,
+      rootElement,
+    })
   }
 
   const closeModal = () => componentService.createModal.close()
