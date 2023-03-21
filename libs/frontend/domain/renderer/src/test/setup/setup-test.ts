@@ -251,7 +251,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       ElementTree.init(data.componentRootElement, [data.componentRootElement]),
     )
 
-    data.renderer.initForce(data.rootStore.pageElementTree)
+    // data.renderer.initForce(data.rootStore.pageElementTree)
   })
 
   afterEach(() => {
