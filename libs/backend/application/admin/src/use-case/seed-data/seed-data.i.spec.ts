@@ -29,8 +29,6 @@ describe('Seed, import, & export data', () => {
   let initialPayload = {}
 
   it('can seed Ant Design CSV data', async () => {
-    console.log(user)
-
     await seedData(user)
 
     const exportPath = path.resolve('./tmp/data/export')

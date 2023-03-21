@@ -16,3 +16,16 @@ export const tagSelectionSet = `{
   }
   ${ownerFieldSelectionSet}
 }`
+
+export const exportTagSelectionSet = `{
+  id
+  name
+  parent {
+    id
+    name
+  }
+  children {
+    id
+    name
+  }
+}`
