@@ -187,7 +187,16 @@ export class BuilderService
 
       return [...elementRefs.values()].reduce((prev, node) => {
         const component = findParent(node, (parent) => {
-          return (parent as AnyModel)[modelTypeKey] === '@codelab/Component'
+          // could be any model so we have to typecast here just for checking if it has `sourceComponent` field
+          // and we want to get the original component model without the `sourceComponent`
+          const parentModel = parent as AnyModel & {
+            sourceComponent?: IComponent['sourceComponent']
+          }
+
+          return (
+            parentModel[modelTypeKey] === '@codelab/Component' &&
+            !parentModel.sourceComponent
+          )
         })
 
         return component ? component : prev
