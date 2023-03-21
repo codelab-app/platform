@@ -1,6 +1,7 @@
 import type {
   IAdminDataExport,
   IAtomExport,
+  ITypeExport,
 } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import { AtomRepository } from '@codelab/backend/domain/atom'
@@ -10,11 +11,7 @@ import {
   InterfaceTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import type {
-  IAuth0Owner,
-  ITagDTO,
-  ITypeDTO,
-} from '@codelab/frontend/abstract/core'
+import type { IAuth0Owner, ITagDTO } from '@codelab/frontend/abstract/core'
 import fs from 'fs'
 import path from 'path'
 import { DataPaths } from '../../data-paths'
@@ -68,9 +65,9 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
   }
 
   private async importSystemTypes(owner: IAuth0Owner) {
-    const types = JSON.parse(
+    const { fields = [], types } = JSON.parse(
       fs.readFileSync(this.dataPaths.SYSTEM_TYPES_FILE_PATH, 'utf8'),
-    ) as Array<ITypeDTO>
+    ) as ITypeExport
 
     for await (const type of types) {
       await TypeFactory.create({ ...type, owner })
