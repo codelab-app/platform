@@ -30,6 +30,26 @@ import { actionRef } from './action.ref'
 import { createBaseAction } from './base-action.model'
 import { storeRef } from './store.model'
 
+const create = ({
+  config,
+  errorAction,
+  id,
+  name,
+  resource,
+  store,
+  successAction,
+}: IApiActionDTO) =>
+  new ApiAction({
+    config: propRef(config.id),
+    errorAction: errorAction?.id ? actionRef(errorAction.id) : null,
+    id,
+    name,
+    resource: resourceRef(resource.id),
+    store: storeRef(store.id),
+    successAction: successAction?.id ? actionRef(successAction.id) : null,
+    type: IActionKind.ApiAction,
+  })
+
 const restFetch = (
   client: Axios,
   config: IRestActionConfig,
@@ -148,10 +168,11 @@ export class ApiAction
   writeCache({
     config,
     errorAction,
+    name,
     resource,
-    store,
     successAction,
   }: Partial<IApiActionDTO>) {
+    this.name = name ?? this.name
     this.resource = resource ? resourceRef(resource.id) : this.resource
     this.config = config ? propRef<IProp>(config.id) : this.config
     this.errorAction = errorAction
@@ -160,7 +181,6 @@ export class ApiAction
     this.successAction = successAction
       ? actionRef(successAction.id)
       : this.successAction
-    this.store = store ? storeRef(store.id) : this.store
 
     return this
   }
@@ -202,7 +222,6 @@ export class ApiAction
       },
       name: this.name,
       resource: connectNodeId(this.resource.id),
-      store: connectNodeId(this.store.id),
       successAction: {
         ApiAction: connectNodeId(this.successAction?.id),
         CodeAction: connectNodeId(this.successAction?.id),
@@ -216,4 +235,6 @@ export class ApiAction
       config: { where: {} },
     }
   }
+
+  static create = create
 }

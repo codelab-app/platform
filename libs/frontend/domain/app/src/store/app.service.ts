@@ -330,13 +330,6 @@ export class AppService
      */
     const { app } = this.loadPages({ appData, components, pageId })
 
-    /**
-     * Need to load pages and store before hand
-     */
-    this.storeService.add(appData.store)
-
-    const storeApi = this.typeService.addInterface(appData.store.api)
-
     // load types by chucks so UI is not blocked
     this.typeService.loadTypesByChunks(types)
 
@@ -346,11 +339,16 @@ export class AppService
     // write cache for resources
     this.resourceService.load(resources)
 
+    const actionsDTO = appData.store.actions.map((action) =>
+      this.actionService.actionFactory.fromActionFragment(action),
+    )
+
+    const actions = this.actionService.load(actionsDTO)
+    const storeApi = this.typeService.addInterface(appData.store.api)
+
     // hydrate store after types and resources
     const appStore = this.storeService.add({
-      actions: appData.store.actions.map((action) =>
-        this.actionService.actionFactory.fromActionFragment(action),
-      ),
+      actions,
       api: storeApi,
       id: appData.store.id,
       name: appData.store.name,

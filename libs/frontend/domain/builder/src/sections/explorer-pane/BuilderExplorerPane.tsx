@@ -274,11 +274,8 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
           typeService={typeService}
         />
         <DeleteFieldModal fieldService={fieldService} />
-        <CreateActionModal
-          actionService={actionService}
-          resourceService={resourceService}
-          store={appStore}
-        />
+
+        <CreateActionModal store={appStore} />
         <UpdateActionModal
           actionService={actionService}
           resourceService={resourceService}

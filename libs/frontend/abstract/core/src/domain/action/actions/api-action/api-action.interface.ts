@@ -10,7 +10,7 @@ import type { ICacheService } from '../../../../service'
 import type { IProp } from '../../../prop'
 import type { IResource } from '../../../resource'
 import type { IAction } from '../../action.interface'
-import type { IBaseAction } from '../../action-base.interface'
+import type { IBaseAction } from '../../base-action.interface'
 import type { IApiActionDTO } from './api-action.dto.interface'
 
 export interface IApiAction
@@ -23,6 +23,6 @@ export interface IApiAction
   type: IActionKind.ApiAction
 
   toCreateInput(): ApiActionCreateInput
-  toUpdateInput(): ApiActionUpdateInput
   toDeleteInput(): ApiActionDeleteInput
+  toUpdateInput(): ApiActionUpdateInput
 }

@@ -79,12 +79,6 @@ export class Prop
     }
   }
 
-  toUpdateInput(): PropUpdateInput {
-    return {
-      data: JSON.stringify(this.data.data ?? {}),
-    }
-  }
-
   @computed
   private get propService() {
     return getPropService(this)

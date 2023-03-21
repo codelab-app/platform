@@ -3,36 +3,75 @@ import type {
   IActionRepository,
   IActionWhere,
 } from '@codelab/frontend/abstract/core'
+import { IActionKind } from '@codelab/shared/abstract/core'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
-import { getActionApi } from '../store'
+import {
+  createActionApi,
+  deleteActionApi,
+  getActionApi,
+  updateActionApi,
+} from '../store'
 
 @model('@codelab/ActionRepository')
 export class ActionRepository extends Model({}) implements IActionRepository {
   @modelFlow
   add = _async(function* (this: ActionRepository, action: IAction) {
-    const {
-      createActions: { actions },
-    } = yield* _await(
-      actionApi.CreateActions({
-        input: [action.toCreateInput()],
-      }),
-    )
+    switch (action.type) {
+      case IActionKind.CodeAction: {
+        const {
+          createCodeActions: { codeActions },
+        } = yield* _await(
+          createActionApi.CreateCodeActions({
+            input: action.toCreateInput(),
+          }),
+        )
 
-    return actions[0]!
+        return codeActions[0]
+      }
+
+      case IActionKind.ApiAction: {
+        const {
+          createApiActions: { apiActions },
+        } = yield* _await(
+          createActionApi.CreateApiActions({
+            input: action.toCreateInput(),
+          }),
+        )
+
+        return apiActions[0]
+      }
+    }
   })
 
   @modelFlow
   update = _async(function* (this: ActionRepository, action: IAction) {
-    const {
-      updateActions: { actions },
-    } = yield* _await(
-      actionApi.UpdateActions({
-        update: action.toUpdateInput(),
-        where: { id: action.id },
-      }),
-    )
+    switch (action.type) {
+      case IActionKind.CodeAction: {
+        const {
+          updateCodeActions: { codeActions },
+        } = yield* _await(
+          updateActionApi.UpdateCodeActions({
+            update: action.toUpdateInput(),
+            where: { id: action.id },
+          }),
+        )
 
-    return actions[0]!
+        return codeActions[0]
+      }
+
+      case IActionKind.ApiAction: {
+        const {
+          updateApiActions: { apiActions },
+        } = yield* _await(
+          updateActionApi.UpdateApiActions({
+            update: action.toUpdateInput(),
+            where: { id: action.id },
+          }),
+        )
+
+        return apiActions[0]
+      }
+    }
   })
 
   @modelFlow
@@ -48,16 +87,33 @@ export class ActionRepository extends Model({}) implements IActionRepository {
   })
 
   @modelFlow
-  delete = _async(function* (this: ActionRepository, actions: Array<IAction>) {
-    const {
-      deleteActions: { nodesDeleted },
-    } = yield* _await(
-      actionApi.DeleteActions({
-        delete: actions[0]?.toDeleteInput(),
-        where: { id_IN: actions.map((action) => action.id) },
-      }),
-    )
+  delete = _async(function* (this: ActionRepository, action: IAction) {
+    switch (action.type) {
+      case IActionKind.CodeAction: {
+        const {
+          deleteCodeActions: { nodesDeleted },
+        } = yield* _await(
+          deleteActionApi.DeleteCodeActions({
+            delete: action.toDeleteInput(),
+            where: { id: action.id },
+          }),
+        )
 
-    return nodesDeleted
+        return nodesDeleted
+      }
+
+      case IActionKind.ApiAction: {
+        const {
+          deleteApiActions: { nodesDeleted },
+        } = yield* _await(
+          deleteActionApi.DeleteApiActions({
+            delete: action.toDeleteInput(),
+            where: { id: action.id },
+          }),
+        )
+
+        return nodesDeleted
+      }
+    }
   })
 }

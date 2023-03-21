@@ -24,14 +24,12 @@ export interface IActionFactory {
 
 export interface IActionService
   extends ICRUDService<IAction, ICreateActionData, IUpdateActionData>,
-    Omit<IQueryService<IAction, IActionWhere, ApiActionOptions>, 'getAll'>,
+    IQueryService<IAction, IActionWhere, ApiActionOptions>,
     ICRUDModalService<Ref<IAction>, { action: Maybe<IAction> }> {
   actionFactory: IActionFactory
   actionsList: Array<IAction>
 
   action(id: string): Maybe<IAction>
   add(action: IBaseActionDTO): IAction
-  // Replace due to union interface neo4j issue
-  getAll(storeId?: string): Promise<Array<IAction>>
-  setSelectedActions(actions: Array<Ref<IAction>>): void
+  load(actions: Array<IActionDTO>): Array<IAction>
 }

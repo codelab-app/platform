@@ -26,7 +26,7 @@ export const actionSchema = gql`
     name: String!
     type: ActionKind! @default(value: CodeAction)
     store: Store!
-    element: Element!
+    element: Element
 
     """
     Code to run when action is triggered
@@ -39,7 +39,7 @@ export const actionSchema = gql`
     name: String!
     type: ActionKind! @default(value: ApiAction)
     store: Store!
-    element: Element!
+    element: Element
 
     """
     Response handlers

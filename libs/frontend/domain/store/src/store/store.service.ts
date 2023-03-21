@@ -23,7 +23,7 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { StoreRepository } from '../services/store.repo'
-import { getActionService } from './action.service'
+import { getActionService } from './action.service.context'
 import { actionRef, Store } from './models'
 import { StoreModalService } from './store-modal.service'
 
@@ -72,15 +72,14 @@ export class StoreService
     const stores = yield* _await(this.storeRepository.find(where))
 
     return stores.map((store) => {
-      for (const action of store.actions) {
-        /**
-         * attach action to mobx tree before calling actionRef
-         */
-        const actionDTO =
-          this.actionService.actionFactory.fromActionFragment(action)
-
-        this.actionService.add(actionDTO)
-      }
+      /**
+       * attach action to mobx tree before calling actionRef
+       */
+      this.actionService.load(
+        store.actions.map((action) =>
+          this.actionService.actionFactory.fromActionFragment(action),
+        ),
+      )
 
       return this.add(store)
     })

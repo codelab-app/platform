@@ -14,6 +14,15 @@ import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseAction } from './base-action.model'
 import { storeRef } from './store.model'
 
+const create = ({ code, id, name, store }: ICodeActionDTO) =>
+  new CodeAction({
+    code,
+    id,
+    name,
+    store: storeRef(store.id),
+    type: IActionKind.CodeAction,
+  })
+
 @model('@codelab/CodeAction')
 export class CodeAction
   extends ExtendedModel(createBaseAction(IActionKind.CodeAction), {
@@ -34,9 +43,8 @@ export class CodeAction
   }
 
   @modelAction
-  writeCache({ code, name, store, type }: Partial<ICodeActionDTO>) {
+  writeCache({ code, name }: Partial<ICodeActionDTO>) {
     this.name = name ?? this.name
-    this.store = store ? storeRef(store.id) : this.store
     this.code = code ?? this.code
 
     return this
@@ -49,6 +57,7 @@ export class CodeAction
       id: this.id,
       name: this.name,
       store: connectNodeId(this.store.id),
+      type: IActionKind.CodeAction,
     }
   }
 
@@ -64,4 +73,6 @@ export class CodeAction
   toDeleteInput(): CodeActionDeleteInput {
     return {}
   }
+
+  static create = create
 }
