@@ -1,11 +1,7 @@
-import type {
-  IActionService,
-  ICreateActionData,
-  IResourceService,
-  IStore,
-} from '@codelab/frontend/abstract/core'
+import type { ICreateActionData, IStore } from '@codelab/frontend/abstract/core'
 import { HttpMethod } from '@codelab/frontend/abstract/core'
 import { SelectAction, SelectResource } from '@codelab/frontend/domain/type'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
 import { ResourceType } from '@codelab/shared/abstract/codegen'
@@ -14,6 +10,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import { v4 } from 'uuid'
 import { createActionSchema } from './create-action.schema'
 
 const defaultCodeAction = `function run() {
@@ -21,32 +18,42 @@ const defaultCodeAction = `function run() {
     // this.count += 2;
 }`
 
-export const CreateActionModal = observer<{
-  actionService: IActionService
-  resourceService: IResourceService
-  store?: IStore
-}>(({ actionService, resourceService, store }) => {
-  const closeModal = () => actionService.createModal.close()
+export const CreateActionModal = observer<{ store?: IStore }>(({ store }) => {
+  const { actionService, resourceService } = useStore()
 
-  const onSubmit = (data: ICreateActionData) => {
-    return actionService.create(data)
+  const onSubmit = (actionDTO: ICreateActionData) => {
+    console.log('submit', actionDTO)
+
+    return actionService.create(actionDTO)
   }
 
-  const onSubmitError = createNotificationHandler({
-    title: 'Error while creating action',
-  })
+  const closeModal = () => actionService.createModal.close()
 
-  const getResourceType = (context: Context<ICreateActionData>) =>
-    context.model.resourceId
-      ? resourceService.resource(context.model.resourceId)?.type
+  const getResourceType = ({ model }: Context<ICreateActionData>) =>
+    model.resourceId ? resourceService.resource(model.resourceId)?.type : null
+
+  const getResourceApiUrl = ({ model }: Context<ICreateActionData>) =>
+    model.resourceId
+      ? resourceService.resource(model.resourceId)?.config.current.get('url')
       : null
 
-  const getResourceApiUrl = (context: Context<ICreateActionData>) =>
-    context.model.resourceId
-      ? resourceService
-          .resource(context.model.resourceId)
-          ?.config.current.get('url')
-      : null
+  const model = {
+    code: defaultCodeAction,
+    config: {
+      data: {
+        body: '{}',
+        headers: '{}',
+        method: HttpMethod.GET,
+        query: '',
+        queryParams: '{}',
+        urlSegment: '',
+        variables: '{}',
+      },
+      id: v4(),
+    },
+    id: v4(),
+    storeId: store?.id,
+  }
 
   return (
     <ModalForm.Modal
@@ -55,21 +62,11 @@ export const CreateActionModal = observer<{
       open={actionService.createModal.isOpen}
     >
       <ModalForm.Form<ICreateActionData>
-        model={{
-          code: defaultCodeAction,
-          config: {
-            body: '{}',
-            headers: '{}',
-            method: HttpMethod.GET,
-            query: '',
-            queryParams: '{}',
-            urlSegment: '',
-            variables: '{}',
-          },
-          storeId: store?.id,
-        }}
+        model={model}
         onSubmit={onSubmit}
-        onSubmitError={onSubmitError}
+        onSubmitError={createNotificationHandler({
+          title: 'Error while creating action',
+        })}
         onSubmitSuccess={closeModal}
         schema={createActionSchema}
       >
@@ -105,9 +102,9 @@ export const CreateActionModal = observer<{
               getResourceType(context) === ResourceType.GraphQL
             }
           >
-            <AutoField getUrl={getResourceApiUrl} name="config.query" />
-            <AutoField name="config.variables" />
-            <AutoField name="config.headers" />
+            <AutoField getUrl={getResourceApiUrl} name="config.data.query" />
+            <AutoField name="config.data.variables" />
+            <AutoField name="config.data.headers" />
           </DisplayIfField>
 
           {/** Rest Config Form */}
@@ -116,12 +113,12 @@ export const CreateActionModal = observer<{
               getResourceType(context) === ResourceType.Rest
             }
           >
-            <AutoField name="config.urlSegment" />
-            <AutoField name="config.method" />
-            <AutoField name="config.body" />
-            <AutoField name="config.queryParams" />
-            <AutoField name="config.headers" />
-            <AutoField name="config.responseType" />
+            <AutoField name="config.data.urlSegment" />
+            <AutoField name="config.data.method" />
+            <AutoField name="config.data.body" />
+            <AutoField name="config.data.queryParams" />
+            <AutoField name="config.data.headers" />
+            <AutoField name="config.data.responseType" />
           </DisplayIfField>
         </DisplayIfField>
       </ModalForm.Form>

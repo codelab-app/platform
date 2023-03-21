@@ -9,12 +9,12 @@ import React from 'react'
 import { ResourceIcon } from '../../view'
 import { ItemDropdown } from './ItemDropdown'
 
-interface GetResourceItemProps {
+interface ResourceItemProps {
   resource: IResource
   resourceService: IResourceService
 }
 
-export const GetResourcesItem = observer<GetResourceItemProps>(
+export const ResourcesItem = observer<ResourceItemProps>(
   // eslint-disable-next-line react/jsx-no-useless-fragment
   ({ resource, resourceService }) => (
     <Card
@@ -23,8 +23,7 @@ export const GetResourcesItem = observer<GetResourceItemProps>(
       }
       title={
         <>
-          <ResourceIcon type={resource.type} />{' '}
-          <span>{capitalize(resource.name)}</span>
+          <ResourceIcon type={resource.type} /> <span>{resource.name}</span>
         </>
       }
     />

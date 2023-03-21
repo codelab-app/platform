@@ -1,4 +1,5 @@
 import type { IEntity } from '@codelab/shared/abstract/types'
+import type { ArrayOrSingle } from 'ts-essentials'
 
 /**
  * We have a repository for the frontend and the backend. The frontend repository should handle nested creates and updates. Since frontend API calls are more costly, we want to be able to update a graph of data in a single call
@@ -17,7 +18,7 @@ export interface IRepository<
   add(model: Model): Promise<ModelFragment | undefined>
   addMany?(models: Array<Model>): Promise<Array<ModelFragment>>
 
-  delete(models: Array<Model>): Promise<number>
+  delete(models: ArrayOrSingle<Model>): Promise<number>
   find(where: Where): Promise<Array<ModelFragment>>
 
   findOne?(where: Where): Promise<ModelFragment | undefined>

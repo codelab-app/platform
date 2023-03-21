@@ -131,7 +131,14 @@ export class ResourceService
 
   @modelAction
   load(resources: Array<IResourceDTO>) {
-    resources.forEach((resource) => this.add(resource))
+    resources.forEach((resource) => {
+      /**
+       * attach resource config to mobx tree before calling propRef
+       */
+      this.propService.add(resource.config)
+
+      this.add(resource)
+    })
   }
 
   @modelAction

@@ -16,7 +16,6 @@ export const createActionSchema: JSONSchemaType<ICreateActionData> = {
   properties: {
     ...idSchema,
     code: {
-      nullable: true,
       type: 'string',
       uniforms: {
         component: CodeMirrorField({
@@ -26,64 +25,70 @@ export const createActionSchema: JSONSchemaType<ICreateActionData> = {
     },
     config: {
       label: '',
-      nullable: true,
       properties: {
-        body: {
-          nullable: true,
-          type: 'string',
-          uniforms: {
-            component: CodeMirrorField({
-              language: CodeMirrorLanguage.Json,
-            }),
+        ...idSchema,
+        data: {
+          type: 'object',
+          properties: {
+            body: {
+              nullable: true,
+              type: 'string',
+              uniforms: {
+                component: CodeMirrorField({
+                  language: CodeMirrorLanguage.Json,
+                }),
+              },
+            },
+            headers: {
+              nullable: true,
+              type: 'string',
+              uniforms: {
+                component: CodeMirrorField({
+                  language: CodeMirrorLanguage.Json,
+                }),
+              },
+            },
+            method: {
+              enum: keys(HttpMethod) as Array<HttpMethod>,
+              showSearch: true,
+              type: 'string',
+            },
+            query: {
+              // nullable: true,
+              type: 'string',
+              uniforms: {
+                component: CodeMirrorGraphqlField({}),
+              },
+            },
+            queryParams: {
+              nullable: true,
+              type: 'string',
+              uniforms: {
+                component: CodeMirrorField({
+                  language: CodeMirrorLanguage.Json,
+                }),
+              },
+            },
+            responseType: {
+              enum: Object.values(HttpResponseType),
+              showSearch: true,
+              type: 'string',
+            },
+            urlSegment: {
+              nullable: true,
+              type: 'string',
+            },
+            variables: {
+              nullable: true,
+              type: 'string',
+              uniforms: {
+                component: CodeMirrorField({
+                  language: CodeMirrorLanguage.Json,
+                }),
+              },
+            },
           },
-        },
-        headers: {
-          nullable: true,
-          type: 'string',
-          uniforms: {
-            component: CodeMirrorField({
-              language: CodeMirrorLanguage.Json,
-            }),
-          },
-        },
-        method: {
-          enum: keys(HttpMethod) as Array<HttpMethod>,
-          showSearch: true,
-          type: 'string',
-        },
-        query: {
-          // nullable: true,
-          type: 'string',
-          uniforms: {
-            component: CodeMirrorGraphqlField({}),
-          },
-        },
-        queryParams: {
-          nullable: true,
-          type: 'string',
-          uniforms: {
-            component: CodeMirrorField({
-              language: CodeMirrorLanguage.Json,
-            }),
-          },
-        },
-        responseType: {
-          enum: Object.values(HttpResponseType),
-          showSearch: true,
-          type: 'string',
-        },
-        urlSegment: {
-          nullable: true,
-          type: 'string',
-        },
-        variables: {
-          nullable: true,
-          type: 'string',
-          uniforms: {
-            component: CodeMirrorField({
-              language: CodeMirrorLanguage.Json,
-            }),
-          },
+          required: [],
         },
       },
       required: [],
@@ -100,7 +105,6 @@ export const createActionSchema: JSONSchemaType<ICreateActionData> = {
     },
     resourceId: {
       label: 'Resource',
-      nullable: true,
       type: 'string',
     },
     storeId: {

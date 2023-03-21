@@ -16,7 +16,7 @@ import type {
   IUpdateActionData,
 } from './action.dto.interface'
 import type { IAction } from './action.interface'
-import type { IAnyActionWhere } from './action.where.interface'
+import type { IActionWhere } from './action.where.interface'
 
 export interface IActionFactory {
   fromActionFragment(fragment: ActionFragment): IActionDTO
@@ -24,14 +24,12 @@ export interface IActionFactory {
 
 export interface IActionService
   extends ICRUDService<IAction, ICreateActionData, IUpdateActionData>,
-    Omit<IQueryService<IAction, IAnyActionWhere, ApiActionOptions>, 'getAll'>,
+    IQueryService<IAction, IActionWhere, ApiActionOptions>,
     ICRUDModalService<Ref<IAction>, { action: Maybe<IAction> }> {
   actionFactory: IActionFactory
   actionsList: Array<IAction>
 
   action(id: string): Maybe<IAction>
   add(action: IBaseActionDTO): IAction
-  // Replace due to union interface neo4j issue
-  getAll(storeId?: string): Promise<Array<IAction>>
-  setSelectedActions(actions: Array<Ref<IAction>>): void
+  load(actions: Array<IActionDTO>): Array<IAction>
 }
