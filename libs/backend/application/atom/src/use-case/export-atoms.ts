@@ -1,5 +1,5 @@
 import {
-  atomSelectionSet,
+  exportAtomSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { IAtomDTO } from '@codelab/frontend/abstract/core'
@@ -20,7 +20,7 @@ export const exportAtoms = async (
         options: {
           sort: [{ name: OGM_TYPES.SortDirection.Asc }],
         },
-        selectionSet: atomSelectionSet,
+        selectionSet: exportAtomSelectionSet,
         where: props.where,
       })
     )

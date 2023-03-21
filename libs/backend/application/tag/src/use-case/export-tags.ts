@@ -1,6 +1,6 @@
 import {
+  exportTagSelectionSet,
   Repository,
-  tagSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 
@@ -17,7 +17,7 @@ export const exportTags = async (props: ExportTagsProps = {}) => {
         options: {
           sort: [{ name: OGM_TYPES.SortDirection.Asc }],
         },
-        selectionSet: tagSelectionSet,
+        selectionSet: exportTagSelectionSet,
         where: props.where,
       })
     )
