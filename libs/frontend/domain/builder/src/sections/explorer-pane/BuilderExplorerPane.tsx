@@ -76,11 +76,11 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
     } = useStore()
 
     const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
+    console.log(pageBuilderRenderer, pageBuilderRenderer?.elementTree)
+
     const root = pageBuilderRenderer?.elementTree.maybeCurrent?.root
     const pageTree = pageBuilderRenderer?.elementTree.maybeCurrent
     const componentId = builderService.activeComponent?.id
-
-    console.log(pageBuilderRenderer?.elementTree)
 
     const componentTree = componentId
       ? builderRenderService.renderers.get(componentId)?.elementTree.current
@@ -274,15 +274,9 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
           typeService={typeService}
         />
         <DeleteFieldModal fieldService={fieldService} />
-        <CreateActionModal
-          actionService={actionService}
-          resourceService={resourceService}
-          store={appStore}
-        />
-        <UpdateActionModal
-          actionService={actionService}
-          resourceService={resourceService}
-        />
+
+        <CreateActionModal store={appStore} />
+        <UpdateActionModal />
         <DeleteActionsModal actionService={actionService} />
       </>
     )

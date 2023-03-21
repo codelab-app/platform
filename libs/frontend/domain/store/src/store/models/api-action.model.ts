@@ -11,8 +11,14 @@ import { IProp } from '@codelab/frontend/abstract/core'
 import { propRef } from '@codelab/frontend/domain/prop'
 import { resourceRef } from '@codelab/frontend/domain/resource'
 import { replaceStateInProps, tryParse } from '@codelab/frontend/shared/utils'
+import {
+  ApiActionCreateInput,
+  ApiActionDeleteInput,
+  ApiActionUpdateInput,
+} from '@codelab/shared/abstract/codegen'
 import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 import type { Axios, Method } from 'axios'
 import axios from 'axios'
 import { GraphQLClient } from 'graphql-request'
@@ -23,6 +29,26 @@ import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { actionRef } from './action.ref'
 import { createBaseAction } from './base-action.model'
 import { storeRef } from './store.model'
+
+const create = ({
+  config,
+  errorAction,
+  id,
+  name,
+  resource,
+  store,
+  successAction,
+}: IApiActionDTO) =>
+  new ApiAction({
+    config: propRef(config.id),
+    errorAction: errorAction?.id ? actionRef(errorAction.id) : null,
+    id,
+    name,
+    resource: resourceRef(resource.id),
+    store: storeRef(store.id),
+    successAction: successAction?.id ? actionRef(successAction.id) : null,
+    type: IActionKind.ApiAction,
+  })
 
 const restFetch = (
   client: Axios,
@@ -142,10 +168,11 @@ export class ApiAction
   writeCache({
     config,
     errorAction,
+    name,
     resource,
-    store,
     successAction,
   }: Partial<IApiActionDTO>) {
+    this.name = name ?? this.name
     this.resource = resource ? resourceRef(resource.id) : this.resource
     this.config = config ? propRef<IProp>(config.id) : this.config
     this.errorAction = errorAction
@@ -154,8 +181,60 @@ export class ApiAction
     this.successAction = successAction
       ? actionRef(successAction.id)
       : this.successAction
-    this.store = store ? storeRef(store.id) : this.store
 
     return this
   }
+
+  @modelAction
+  toCreateInput(): ApiActionCreateInput {
+    return {
+      config: {
+        create: {
+          node: this.config.current.toCreateInput(),
+        },
+      },
+      errorAction: {
+        ApiAction: connectNodeId(this.errorAction?.id),
+        CodeAction: connectNodeId(this.errorAction?.id),
+      },
+      id: this.id,
+      name: this.name,
+      resource: connectNodeId(this.resource.id),
+      store: connectNodeId(this.store.id),
+      successAction: {
+        ApiAction: connectNodeId(this.successAction?.id),
+        CodeAction: connectNodeId(this.successAction?.id),
+      },
+    }
+  }
+
+  @modelAction
+  toUpdateInput(): ApiActionUpdateInput {
+    return {
+      config: {
+        update: {
+          node: this.config.current.toUpdateInput(),
+        },
+      },
+      errorAction: {
+        ApiAction: connectNodeId(this.errorAction?.id),
+        CodeAction: connectNodeId(this.errorAction?.id),
+      },
+      name: this.name,
+      resource: connectNodeId(this.resource.id),
+      successAction: {
+        ApiAction: connectNodeId(this.successAction?.id),
+        CodeAction: connectNodeId(this.successAction?.id),
+      },
+    }
+  }
+
+  @modelAction
+  toDeleteInput(): ApiActionDeleteInput {
+    return {
+      config: { where: {} },
+    }
+  }
+
+  static create = create
 }

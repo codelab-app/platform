@@ -5,6 +5,7 @@ import {
   CreatePageButton,
   CreatePageModal,
   DeletePageModal,
+  ExplorerPanePage,
   PageList,
   UpdatePageModal,
 } from '@codelab/frontend/domain/page'
@@ -60,29 +61,7 @@ Pages.Layout = observer(({ children }) => {
 
   return (
     <DashboardTemplate
-      ExplorerPane={() => {
-        const router = useRouter()
-
-        const headerProps = {
-          onBack: () => router.push({ pathname: PageType.AppList }),
-        }
-
-        return (
-          <ExplorerPaneTemplate
-            header={<CreatePageButton key={0} pageService={pageService} />}
-            headerProps={headerProps}
-            title="Pages"
-          >
-            <PageList app={apps?.[0]} loading={status === 'loading'} />
-            <CreatePageModal
-              pageService={pageService}
-              userService={userService}
-            />
-            <UpdatePageModal pageService={pageService} />
-            <DeletePageModal pageService={pageService} />
-          </ExplorerPaneTemplate>
-        )
-      }}
+      ExplorerPane={ExplorerPanePage}
       sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
       {children({ app: apps?.[0] })}

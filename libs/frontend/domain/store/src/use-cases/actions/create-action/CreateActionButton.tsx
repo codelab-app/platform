@@ -15,6 +15,8 @@ export const CreateActionButton = observer<{ actionService: IActionService }>(
         actionService.createModal.open()
       }}
       size="small"
-    />
+    >
+      Action
+    </Button>
   ),
 )

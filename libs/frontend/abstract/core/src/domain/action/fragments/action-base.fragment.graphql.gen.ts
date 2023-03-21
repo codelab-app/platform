@@ -3,7 +3,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-export type ActionBase_ApiAction_Fragment = {
+export type BaseAction_ApiAction_Fragment = {
   __typename: 'ApiAction'
   id: string
   name: string
@@ -11,7 +11,7 @@ export type ActionBase_ApiAction_Fragment = {
   store: { id: string; name: string }
 }
 
-export type ActionBase_CodeAction_Fragment = {
+export type BaseAction_CodeAction_Fragment = {
   __typename: 'CodeAction'
   id: string
   name: string
@@ -19,12 +19,12 @@ export type ActionBase_CodeAction_Fragment = {
   store: { id: string; name: string }
 }
 
-export type ActionBaseFragment =
-  | ActionBase_ApiAction_Fragment
-  | ActionBase_CodeAction_Fragment
+export type BaseActionFragment =
+  | BaseAction_ApiAction_Fragment
+  | BaseAction_CodeAction_Fragment
 
-export const ActionBaseFragmentDoc = gql`
-  fragment ActionBase on ActionBase {
+export const BaseActionFragmentDoc = gql`
+  fragment BaseAction on BaseAction {
     __typename
     id
     name

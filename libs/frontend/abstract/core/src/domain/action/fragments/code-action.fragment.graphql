@@ -1,4 +1,4 @@
 fragment CodeAction on CodeAction {
-  ...ActionBase
+  ...BaseAction
   code
 }

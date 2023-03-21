@@ -1,431 +1,3 @@
-interface ActionBase {
-  element(
-    directed: Boolean = true
-    options: ElementOptions
-    where: ElementWhere
-  ): Element
-  elementConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [ActionBaseElementConnectionSort!]
-    where: ActionBaseElementConnectionWhere
-  ): ActionBaseElementConnection!
-  id: ID!
-  name: String!
-  store(
-    directed: Boolean = true
-    options: StoreOptions
-    where: StoreWhere
-  ): Store!
-  storeConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [ActionBaseStoreConnectionSort!]
-    where: ActionBaseStoreConnectionWhere
-  ): ActionBaseStoreConnection!
-  type: ActionKind!
-}
-
-input ActionBaseConnectInput {
-  _on: ActionBaseImplementationsConnectInput
-  element: ActionBaseElementConnectFieldInput
-  store: ActionBaseStoreConnectFieldInput
-}
-
-input ActionBaseConnectWhere {
-  node: ActionBaseWhere!
-}
-
-input ActionBaseCreateInput {
-  ApiAction: ApiActionCreateInput
-  CodeAction: CodeActionCreateInput
-}
-
-input ActionBaseDeleteInput {
-  _on: ActionBaseImplementationsDeleteInput
-  element: ActionBaseElementDeleteFieldInput
-  store: ActionBaseStoreDeleteFieldInput
-}
-
-input ActionBaseDisconnectInput {
-  _on: ActionBaseImplementationsDisconnectInput
-  element: ActionBaseElementDisconnectFieldInput
-  store: ActionBaseStoreDisconnectFieldInput
-}
-
-input ActionBaseElementAggregateInput {
-  AND: [ActionBaseElementAggregateInput!]
-  NOT: ActionBaseElementAggregateInput
-  OR: [ActionBaseElementAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ActionBaseElementNodeAggregationWhereInput
-}
-
-input ActionBaseElementConnectFieldInput {
-  connect: ElementConnectInput
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
-  """
-  overwrite: Boolean! = true
-  where: ElementConnectWhere
-}
-
-input ActionBaseElementConnectOrCreateFieldInput {
-  onCreate: ActionBaseElementConnectOrCreateFieldInputOnCreate!
-  where: ElementConnectOrCreateWhere!
-}
-
-input ActionBaseElementConnectOrCreateFieldInputOnCreate {
-  node: ElementOnCreateInput!
-}
-
-type ActionBaseElementConnection {
-  edges: [ActionBaseElementRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ActionBaseElementConnectionSort {
-  node: ElementSort
-}
-
-input ActionBaseElementConnectionWhere {
-  AND: [ActionBaseElementConnectionWhere!]
-  NOT: ActionBaseElementConnectionWhere
-  OR: [ActionBaseElementConnectionWhere!]
-  node: ElementWhere
-}
-
-input ActionBaseElementCreateFieldInput {
-  node: ElementCreateInput!
-}
-
-input ActionBaseElementDeleteFieldInput {
-  delete: ElementDeleteInput
-  where: ActionBaseElementConnectionWhere
-}
-
-input ActionBaseElementDisconnectFieldInput {
-  disconnect: ElementDisconnectInput
-  where: ActionBaseElementConnectionWhere
-}
-
-input ActionBaseElementFieldInput {
-  connect: ActionBaseElementConnectFieldInput
-  connectOrCreate: ActionBaseElementConnectOrCreateFieldInput
-  create: ActionBaseElementCreateFieldInput
-}
-
-input ActionBaseElementNodeAggregationWhereInput {
-  AND: [ActionBaseElementNodeAggregationWhereInput!]
-  NOT: ActionBaseElementNodeAggregationWhereInput
-  OR: [ActionBaseElementNodeAggregationWhereInput!]
-  customCss_AVERAGE_LENGTH_EQUAL: Float
-  customCss_AVERAGE_LENGTH_GT: Float
-  customCss_AVERAGE_LENGTH_GTE: Float
-  customCss_AVERAGE_LENGTH_LT: Float
-  customCss_AVERAGE_LENGTH_LTE: Float
-  customCss_LONGEST_LENGTH_EQUAL: Int
-  customCss_LONGEST_LENGTH_GT: Int
-  customCss_LONGEST_LENGTH_GTE: Int
-  customCss_LONGEST_LENGTH_LT: Int
-  customCss_LONGEST_LENGTH_LTE: Int
-  customCss_SHORTEST_LENGTH_EQUAL: Int
-  customCss_SHORTEST_LENGTH_GT: Int
-  customCss_SHORTEST_LENGTH_GTE: Int
-  customCss_SHORTEST_LENGTH_LT: Int
-  customCss_SHORTEST_LENGTH_LTE: Int
-  guiCss_AVERAGE_LENGTH_EQUAL: Float
-  guiCss_AVERAGE_LENGTH_GT: Float
-  guiCss_AVERAGE_LENGTH_GTE: Float
-  guiCss_AVERAGE_LENGTH_LT: Float
-  guiCss_AVERAGE_LENGTH_LTE: Float
-  guiCss_LONGEST_LENGTH_EQUAL: Int
-  guiCss_LONGEST_LENGTH_GT: Int
-  guiCss_LONGEST_LENGTH_GTE: Int
-  guiCss_LONGEST_LENGTH_LT: Int
-  guiCss_LONGEST_LENGTH_LTE: Int
-  guiCss_SHORTEST_LENGTH_EQUAL: Int
-  guiCss_SHORTEST_LENGTH_GT: Int
-  guiCss_SHORTEST_LENGTH_GTE: Int
-  guiCss_SHORTEST_LENGTH_LT: Int
-  guiCss_SHORTEST_LENGTH_LTE: Int
-  name_AVERAGE_LENGTH_EQUAL: Float
-  name_AVERAGE_LENGTH_GT: Float
-  name_AVERAGE_LENGTH_GTE: Float
-  name_AVERAGE_LENGTH_LT: Float
-  name_AVERAGE_LENGTH_LTE: Float
-  name_LONGEST_LENGTH_EQUAL: Int
-  name_LONGEST_LENGTH_GT: Int
-  name_LONGEST_LENGTH_GTE: Int
-  name_LONGEST_LENGTH_LT: Int
-  name_LONGEST_LENGTH_LTE: Int
-  name_SHORTEST_LENGTH_EQUAL: Int
-  name_SHORTEST_LENGTH_GT: Int
-  name_SHORTEST_LENGTH_GTE: Int
-  name_SHORTEST_LENGTH_LT: Int
-  name_SHORTEST_LENGTH_LTE: Int
-  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
-  propTransformationJs_AVERAGE_LENGTH_GT: Float
-  propTransformationJs_AVERAGE_LENGTH_GTE: Float
-  propTransformationJs_AVERAGE_LENGTH_LT: Float
-  propTransformationJs_AVERAGE_LENGTH_LTE: Float
-  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
-  propTransformationJs_LONGEST_LENGTH_GT: Int
-  propTransformationJs_LONGEST_LENGTH_GTE: Int
-  propTransformationJs_LONGEST_LENGTH_LT: Int
-  propTransformationJs_LONGEST_LENGTH_LTE: Int
-  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
-  propTransformationJs_SHORTEST_LENGTH_GT: Int
-  propTransformationJs_SHORTEST_LENGTH_GTE: Int
-  propTransformationJs_SHORTEST_LENGTH_LT: Int
-  propTransformationJs_SHORTEST_LENGTH_LTE: Int
-  renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
-  renderForEachPropKey_AVERAGE_LENGTH_GT: Float
-  renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
-  renderForEachPropKey_AVERAGE_LENGTH_LT: Float
-  renderForEachPropKey_AVERAGE_LENGTH_LTE: Float
-  renderForEachPropKey_LONGEST_LENGTH_EQUAL: Int
-  renderForEachPropKey_LONGEST_LENGTH_GT: Int
-  renderForEachPropKey_LONGEST_LENGTH_GTE: Int
-  renderForEachPropKey_LONGEST_LENGTH_LT: Int
-  renderForEachPropKey_LONGEST_LENGTH_LTE: Int
-  renderForEachPropKey_SHORTEST_LENGTH_EQUAL: Int
-  renderForEachPropKey_SHORTEST_LENGTH_GT: Int
-  renderForEachPropKey_SHORTEST_LENGTH_GTE: Int
-  renderForEachPropKey_SHORTEST_LENGTH_LT: Int
-  renderForEachPropKey_SHORTEST_LENGTH_LTE: Int
-  renderIfExpression_AVERAGE_LENGTH_EQUAL: Float
-  renderIfExpression_AVERAGE_LENGTH_GT: Float
-  renderIfExpression_AVERAGE_LENGTH_GTE: Float
-  renderIfExpression_AVERAGE_LENGTH_LT: Float
-  renderIfExpression_AVERAGE_LENGTH_LTE: Float
-  renderIfExpression_LONGEST_LENGTH_EQUAL: Int
-  renderIfExpression_LONGEST_LENGTH_GT: Int
-  renderIfExpression_LONGEST_LENGTH_GTE: Int
-  renderIfExpression_LONGEST_LENGTH_LT: Int
-  renderIfExpression_LONGEST_LENGTH_LTE: Int
-  renderIfExpression_SHORTEST_LENGTH_EQUAL: Int
-  renderIfExpression_SHORTEST_LENGTH_GT: Int
-  renderIfExpression_SHORTEST_LENGTH_GTE: Int
-  renderIfExpression_SHORTEST_LENGTH_LT: Int
-  renderIfExpression_SHORTEST_LENGTH_LTE: Int
-}
-
-type ActionBaseElementRelationship {
-  cursor: String!
-  node: Element!
-}
-
-input ActionBaseElementUpdateConnectionInput {
-  node: ElementUpdateInput
-}
-
-input ActionBaseElementUpdateFieldInput {
-  connect: ActionBaseElementConnectFieldInput
-  connectOrCreate: ActionBaseElementConnectOrCreateFieldInput
-  create: ActionBaseElementCreateFieldInput
-  delete: ActionBaseElementDeleteFieldInput
-  disconnect: ActionBaseElementDisconnectFieldInput
-  update: ActionBaseElementUpdateConnectionInput
-  where: ActionBaseElementConnectionWhere
-}
-
-input ActionBaseImplementationsConnectInput {
-  ApiAction: [ApiActionConnectInput!]
-  CodeAction: [CodeActionConnectInput!]
-}
-
-input ActionBaseImplementationsDeleteInput {
-  ApiAction: [ApiActionDeleteInput!]
-  CodeAction: [CodeActionDeleteInput!]
-}
-
-input ActionBaseImplementationsDisconnectInput {
-  ApiAction: [ApiActionDisconnectInput!]
-  CodeAction: [CodeActionDisconnectInput!]
-}
-
-input ActionBaseImplementationsUpdateInput {
-  ApiAction: ApiActionUpdateInput
-  CodeAction: CodeActionUpdateInput
-}
-
-input ActionBaseImplementationsWhere {
-  ApiAction: ApiActionWhere
-  CodeAction: CodeActionWhere
-}
-
-input ActionBaseOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more ActionBaseSort objects to sort ActionBases by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [ActionBaseSort]
-}
-
-"""
-Fields to sort ActionBases by. The order in which sorts are applied is not guaranteed when specifying many fields in one ActionBaseSort object.
-"""
-input ActionBaseSort {
-  id: SortDirection
-  name: SortDirection
-  type: SortDirection
-}
-
-input ActionBaseStoreAggregateInput {
-  AND: [ActionBaseStoreAggregateInput!]
-  NOT: ActionBaseStoreAggregateInput
-  OR: [ActionBaseStoreAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ActionBaseStoreNodeAggregationWhereInput
-}
-
-input ActionBaseStoreConnectFieldInput {
-  connect: StoreConnectInput
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
-  """
-  overwrite: Boolean! = true
-  where: StoreConnectWhere
-}
-
-input ActionBaseStoreConnectOrCreateFieldInput {
-  onCreate: ActionBaseStoreConnectOrCreateFieldInputOnCreate!
-  where: StoreConnectOrCreateWhere!
-}
-
-input ActionBaseStoreConnectOrCreateFieldInputOnCreate {
-  node: StoreOnCreateInput!
-}
-
-type ActionBaseStoreConnection {
-  edges: [ActionBaseStoreRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ActionBaseStoreConnectionSort {
-  node: StoreSort
-}
-
-input ActionBaseStoreConnectionWhere {
-  AND: [ActionBaseStoreConnectionWhere!]
-  NOT: ActionBaseStoreConnectionWhere
-  OR: [ActionBaseStoreConnectionWhere!]
-  node: StoreWhere
-}
-
-input ActionBaseStoreCreateFieldInput {
-  node: StoreCreateInput!
-}
-
-input ActionBaseStoreDeleteFieldInput {
-  delete: StoreDeleteInput
-  where: ActionBaseStoreConnectionWhere
-}
-
-input ActionBaseStoreDisconnectFieldInput {
-  disconnect: StoreDisconnectInput
-  where: ActionBaseStoreConnectionWhere
-}
-
-input ActionBaseStoreFieldInput {
-  connect: ActionBaseStoreConnectFieldInput
-  connectOrCreate: ActionBaseStoreConnectOrCreateFieldInput
-  create: ActionBaseStoreCreateFieldInput
-}
-
-input ActionBaseStoreNodeAggregationWhereInput {
-  AND: [ActionBaseStoreNodeAggregationWhereInput!]
-  NOT: ActionBaseStoreNodeAggregationWhereInput
-  OR: [ActionBaseStoreNodeAggregationWhereInput!]
-  name_AVERAGE_LENGTH_EQUAL: Float
-  name_AVERAGE_LENGTH_GT: Float
-  name_AVERAGE_LENGTH_GTE: Float
-  name_AVERAGE_LENGTH_LT: Float
-  name_AVERAGE_LENGTH_LTE: Float
-  name_LONGEST_LENGTH_EQUAL: Int
-  name_LONGEST_LENGTH_GT: Int
-  name_LONGEST_LENGTH_GTE: Int
-  name_LONGEST_LENGTH_LT: Int
-  name_LONGEST_LENGTH_LTE: Int
-  name_SHORTEST_LENGTH_EQUAL: Int
-  name_SHORTEST_LENGTH_GT: Int
-  name_SHORTEST_LENGTH_GTE: Int
-  name_SHORTEST_LENGTH_LT: Int
-  name_SHORTEST_LENGTH_LTE: Int
-}
-
-type ActionBaseStoreRelationship {
-  cursor: String!
-  node: Store!
-}
-
-input ActionBaseStoreUpdateConnectionInput {
-  node: StoreUpdateInput
-}
-
-input ActionBaseStoreUpdateFieldInput {
-  connect: ActionBaseStoreConnectFieldInput
-  connectOrCreate: ActionBaseStoreConnectOrCreateFieldInput
-  create: ActionBaseStoreCreateFieldInput
-  delete: ActionBaseStoreDeleteFieldInput
-  disconnect: ActionBaseStoreDisconnectFieldInput
-  update: ActionBaseStoreUpdateConnectionInput
-  where: ActionBaseStoreConnectionWhere
-}
-
-input ActionBaseUpdateInput {
-  _on: ActionBaseImplementationsUpdateInput
-  element: ActionBaseElementUpdateFieldInput
-  id: ID
-  name: String
-  store: ActionBaseStoreUpdateFieldInput
-}
-
-input ActionBaseWhere {
-  _on: ActionBaseImplementationsWhere
-  element: ElementWhere
-  elementAggregate: ActionBaseElementAggregateInput
-  elementConnection: ActionBaseElementConnectionWhere
-  elementConnection_NOT: ActionBaseElementConnectionWhere
-  element_NOT: ElementWhere
-  id: ID
-  id_CONTAINS: ID
-  id_ENDS_WITH: ID
-  id_IN: [ID!]
-  id_MATCHES: String
-  id_STARTS_WITH: ID
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String!]
-  name_MATCHES: String
-  name_STARTS_WITH: String
-  store: StoreWhere
-  storeAggregate: ActionBaseStoreAggregateInput
-  storeConnection: ActionBaseStoreConnectionWhere
-  storeConnection_NOT: ActionBaseStoreConnectionWhere
-  store_NOT: StoreWhere
-  type: ActionKind
-  type_IN: [ActionKind!]
-}
-
 enum ActionKind {
   """
   Action responsible for fetching data from a resource
@@ -684,7 +256,7 @@ input AnyTypeWhere {
   UnionType: UnionTypeWhere
 }
 
-type ApiAction implements ActionBase {
+type ApiAction implements BaseAction {
   config(
     directed: Boolean = true
     options: PropOptions
@@ -705,7 +277,7 @@ type ApiAction implements ActionBase {
     directed: Boolean = true
     options: ElementOptions
     where: ElementWhere
-  ): Element!
+  ): Element
   elementAggregate(
     directed: Boolean = true
     where: ElementWhere
@@ -714,9 +286,9 @@ type ApiAction implements ActionBase {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [ActionBaseElementConnectionSort!]
-    where: ActionBaseElementConnectionWhere
-  ): ActionBaseElementConnection!
+    sort: [BaseActionElementConnectionSort!]
+    where: BaseActionElementConnectionWhere
+  ): BaseActionElementConnection!
   errorAction(
     directed: Boolean = true
     options: QueryOptions
@@ -763,9 +335,9 @@ type ApiAction implements ActionBase {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [ActionBaseStoreConnectionSort!]
-    where: ActionBaseStoreConnectionWhere
-  ): ActionBaseStoreConnection!
+    sort: [BaseActionStoreConnectionSort!]
+    where: BaseActionStoreConnectionWhere
+  ): BaseActionStoreConnection!
 
   """
   Response handlers
@@ -896,19 +468,19 @@ input ApiActionConfigUpdateFieldInput {
 
 input ApiActionConnectInput {
   config: ApiActionConfigConnectFieldInput
-  element: ActionBaseElementConnectFieldInput
+  element: BaseActionElementConnectFieldInput
   errorAction: ApiActionErrorActionConnectInput
   resource: ApiActionResourceConnectFieldInput
-  store: ActionBaseStoreConnectFieldInput
+  store: BaseActionStoreConnectFieldInput
   successAction: ApiActionSuccessActionConnectInput
 }
 
 input ApiActionConnectOrCreateInput {
   config: ApiActionConfigConnectOrCreateFieldInput
-  element: ActionBaseElementConnectOrCreateFieldInput
+  element: BaseActionElementConnectOrCreateFieldInput
   errorAction: ApiActionErrorActionConnectOrCreateInput
   resource: ApiActionResourceConnectOrCreateFieldInput
-  store: ActionBaseStoreConnectOrCreateFieldInput
+  store: BaseActionStoreConnectOrCreateFieldInput
   successAction: ApiActionSuccessActionConnectOrCreateInput
 }
 
@@ -922,31 +494,31 @@ input ApiActionConnectWhere {
 
 input ApiActionCreateInput {
   config: ApiActionConfigFieldInput
-  element: ActionBaseElementFieldInput
+  element: BaseActionElementFieldInput
   errorAction: ApiActionErrorActionCreateInput
   id: ID!
   name: String!
   resource: ApiActionResourceFieldInput
-  store: ActionBaseStoreFieldInput
+  store: BaseActionStoreFieldInput
   successAction: ApiActionSuccessActionCreateInput
   type: ActionKind! = ApiAction
 }
 
 input ApiActionDeleteInput {
   config: ApiActionConfigDeleteFieldInput
-  element: ActionBaseElementDeleteFieldInput
+  element: BaseActionElementDeleteFieldInput
   errorAction: ApiActionErrorActionDeleteInput
   resource: ApiActionResourceDeleteFieldInput
-  store: ActionBaseStoreDeleteFieldInput
+  store: BaseActionStoreDeleteFieldInput
   successAction: ApiActionSuccessActionDeleteInput
 }
 
 input ApiActionDisconnectInput {
   config: ApiActionConfigDisconnectFieldInput
-  element: ActionBaseElementDisconnectFieldInput
+  element: BaseActionElementDisconnectFieldInput
   errorAction: ApiActionErrorActionDisconnectInput
   resource: ApiActionResourceDisconnectFieldInput
-  store: ActionBaseStoreDisconnectFieldInput
+  store: BaseActionStoreDisconnectFieldInput
   successAction: ApiActionSuccessActionDisconnectInput
 }
 
@@ -1267,10 +839,10 @@ type ApiActionPropConfigNodeAggregateSelection {
 
 input ApiActionRelationInput {
   config: ApiActionConfigCreateFieldInput
-  element: ActionBaseElementCreateFieldInput
+  element: BaseActionElementCreateFieldInput
   errorAction: ApiActionErrorActionCreateFieldInput
   resource: ApiActionResourceCreateFieldInput
-  store: ActionBaseStoreCreateFieldInput
+  store: BaseActionStoreCreateFieldInput
   successAction: ApiActionSuccessActionCreateFieldInput
 }
 
@@ -1611,12 +1183,12 @@ input ApiActionUniqueWhere {
 
 input ApiActionUpdateInput {
   config: ApiActionConfigUpdateFieldInput
-  element: ActionBaseElementUpdateFieldInput
+  element: BaseActionElementUpdateFieldInput
   errorAction: ApiActionErrorActionUpdateInput
   id: ID
   name: String
   resource: ApiActionResourceUpdateFieldInput
-  store: ActionBaseStoreUpdateFieldInput
+  store: BaseActionStoreUpdateFieldInput
   successAction: ApiActionSuccessActionUpdateInput
 }
 
@@ -1631,8 +1203,8 @@ input ApiActionWhere {
   config_NOT: PropWhere
   element: ElementWhere
   elementAggregate: ApiActionElementAggregateInput
-  elementConnection: ActionBaseElementConnectionWhere
-  elementConnection_NOT: ActionBaseElementConnectionWhere
+  elementConnection: BaseActionElementConnectionWhere
+  elementConnection_NOT: BaseActionElementConnectionWhere
   element_NOT: ElementWhere
   errorActionConnection: ApiActionErrorActionConnectionWhere
   errorActionConnection_NOT: ApiActionErrorActionConnectionWhere
@@ -1655,8 +1227,8 @@ input ApiActionWhere {
   resource_NOT: ResourceWhere
   store: StoreWhere
   storeAggregate: ApiActionStoreAggregateInput
-  storeConnection: ActionBaseStoreConnectionWhere
-  storeConnection_NOT: ActionBaseStoreConnectionWhere
+  storeConnection: BaseActionStoreConnectionWhere
+  storeConnection_NOT: BaseActionStoreConnectionWhere
   store_NOT: StoreWhere
   successActionConnection: ApiActionSuccessActionConnectionWhere
   successActionConnection_NOT: ApiActionSuccessActionConnectionWhere
@@ -3998,6 +3570,434 @@ type AtomsConnection {
   totalCount: Int!
 }
 
+interface BaseAction {
+  element(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element
+  elementConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [BaseActionElementConnectionSort!]
+    where: BaseActionElementConnectionWhere
+  ): BaseActionElementConnection!
+  id: ID!
+  name: String!
+  store(
+    directed: Boolean = true
+    options: StoreOptions
+    where: StoreWhere
+  ): Store!
+  storeConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [BaseActionStoreConnectionSort!]
+    where: BaseActionStoreConnectionWhere
+  ): BaseActionStoreConnection!
+  type: ActionKind!
+}
+
+input BaseActionConnectInput {
+  _on: BaseActionImplementationsConnectInput
+  element: BaseActionElementConnectFieldInput
+  store: BaseActionStoreConnectFieldInput
+}
+
+input BaseActionConnectWhere {
+  node: BaseActionWhere!
+}
+
+input BaseActionCreateInput {
+  ApiAction: ApiActionCreateInput
+  CodeAction: CodeActionCreateInput
+}
+
+input BaseActionDeleteInput {
+  _on: BaseActionImplementationsDeleteInput
+  element: BaseActionElementDeleteFieldInput
+  store: BaseActionStoreDeleteFieldInput
+}
+
+input BaseActionDisconnectInput {
+  _on: BaseActionImplementationsDisconnectInput
+  element: BaseActionElementDisconnectFieldInput
+  store: BaseActionStoreDisconnectFieldInput
+}
+
+input BaseActionElementAggregateInput {
+  AND: [BaseActionElementAggregateInput!]
+  NOT: BaseActionElementAggregateInput
+  OR: [BaseActionElementAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: BaseActionElementNodeAggregationWhereInput
+}
+
+input BaseActionElementConnectFieldInput {
+  connect: ElementConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
+  where: ElementConnectWhere
+}
+
+input BaseActionElementConnectOrCreateFieldInput {
+  onCreate: BaseActionElementConnectOrCreateFieldInputOnCreate!
+  where: ElementConnectOrCreateWhere!
+}
+
+input BaseActionElementConnectOrCreateFieldInputOnCreate {
+  node: ElementOnCreateInput!
+}
+
+type BaseActionElementConnection {
+  edges: [BaseActionElementRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input BaseActionElementConnectionSort {
+  node: ElementSort
+}
+
+input BaseActionElementConnectionWhere {
+  AND: [BaseActionElementConnectionWhere!]
+  NOT: BaseActionElementConnectionWhere
+  OR: [BaseActionElementConnectionWhere!]
+  node: ElementWhere
+}
+
+input BaseActionElementCreateFieldInput {
+  node: ElementCreateInput!
+}
+
+input BaseActionElementDeleteFieldInput {
+  delete: ElementDeleteInput
+  where: BaseActionElementConnectionWhere
+}
+
+input BaseActionElementDisconnectFieldInput {
+  disconnect: ElementDisconnectInput
+  where: BaseActionElementConnectionWhere
+}
+
+input BaseActionElementFieldInput {
+  connect: BaseActionElementConnectFieldInput
+  connectOrCreate: BaseActionElementConnectOrCreateFieldInput
+  create: BaseActionElementCreateFieldInput
+}
+
+input BaseActionElementNodeAggregationWhereInput {
+  AND: [BaseActionElementNodeAggregationWhereInput!]
+  NOT: BaseActionElementNodeAggregationWhereInput
+  OR: [BaseActionElementNodeAggregationWhereInput!]
+  customCss_AVERAGE_LENGTH_EQUAL: Float
+  customCss_AVERAGE_LENGTH_GT: Float
+  customCss_AVERAGE_LENGTH_GTE: Float
+  customCss_AVERAGE_LENGTH_LT: Float
+  customCss_AVERAGE_LENGTH_LTE: Float
+  customCss_LONGEST_LENGTH_EQUAL: Int
+  customCss_LONGEST_LENGTH_GT: Int
+  customCss_LONGEST_LENGTH_GTE: Int
+  customCss_LONGEST_LENGTH_LT: Int
+  customCss_LONGEST_LENGTH_LTE: Int
+  customCss_SHORTEST_LENGTH_EQUAL: Int
+  customCss_SHORTEST_LENGTH_GT: Int
+  customCss_SHORTEST_LENGTH_GTE: Int
+  customCss_SHORTEST_LENGTH_LT: Int
+  customCss_SHORTEST_LENGTH_LTE: Int
+  guiCss_AVERAGE_LENGTH_EQUAL: Float
+  guiCss_AVERAGE_LENGTH_GT: Float
+  guiCss_AVERAGE_LENGTH_GTE: Float
+  guiCss_AVERAGE_LENGTH_LT: Float
+  guiCss_AVERAGE_LENGTH_LTE: Float
+  guiCss_LONGEST_LENGTH_EQUAL: Int
+  guiCss_LONGEST_LENGTH_GT: Int
+  guiCss_LONGEST_LENGTH_GTE: Int
+  guiCss_LONGEST_LENGTH_LT: Int
+  guiCss_LONGEST_LENGTH_LTE: Int
+  guiCss_SHORTEST_LENGTH_EQUAL: Int
+  guiCss_SHORTEST_LENGTH_GT: Int
+  guiCss_SHORTEST_LENGTH_GTE: Int
+  guiCss_SHORTEST_LENGTH_LT: Int
+  guiCss_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
+  propTransformationJs_AVERAGE_LENGTH_GT: Float
+  propTransformationJs_AVERAGE_LENGTH_GTE: Float
+  propTransformationJs_AVERAGE_LENGTH_LT: Float
+  propTransformationJs_AVERAGE_LENGTH_LTE: Float
+  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
+  propTransformationJs_LONGEST_LENGTH_GT: Int
+  propTransformationJs_LONGEST_LENGTH_GTE: Int
+  propTransformationJs_LONGEST_LENGTH_LT: Int
+  propTransformationJs_LONGEST_LENGTH_LTE: Int
+  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
+  propTransformationJs_SHORTEST_LENGTH_GT: Int
+  propTransformationJs_SHORTEST_LENGTH_GTE: Int
+  propTransformationJs_SHORTEST_LENGTH_LT: Int
+  propTransformationJs_SHORTEST_LENGTH_LTE: Int
+  renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LTE: Float
+  renderForEachPropKey_LONGEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_LONGEST_LENGTH_GT: Int
+  renderForEachPropKey_LONGEST_LENGTH_GTE: Int
+  renderForEachPropKey_LONGEST_LENGTH_LT: Int
+  renderForEachPropKey_LONGEST_LENGTH_LTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LTE: Int
+  renderIfExpression_AVERAGE_LENGTH_EQUAL: Float
+  renderIfExpression_AVERAGE_LENGTH_GT: Float
+  renderIfExpression_AVERAGE_LENGTH_GTE: Float
+  renderIfExpression_AVERAGE_LENGTH_LT: Float
+  renderIfExpression_AVERAGE_LENGTH_LTE: Float
+  renderIfExpression_LONGEST_LENGTH_EQUAL: Int
+  renderIfExpression_LONGEST_LENGTH_GT: Int
+  renderIfExpression_LONGEST_LENGTH_GTE: Int
+  renderIfExpression_LONGEST_LENGTH_LT: Int
+  renderIfExpression_LONGEST_LENGTH_LTE: Int
+  renderIfExpression_SHORTEST_LENGTH_EQUAL: Int
+  renderIfExpression_SHORTEST_LENGTH_GT: Int
+  renderIfExpression_SHORTEST_LENGTH_GTE: Int
+  renderIfExpression_SHORTEST_LENGTH_LT: Int
+  renderIfExpression_SHORTEST_LENGTH_LTE: Int
+}
+
+type BaseActionElementRelationship {
+  cursor: String!
+  node: Element!
+}
+
+input BaseActionElementUpdateConnectionInput {
+  node: ElementUpdateInput
+}
+
+input BaseActionElementUpdateFieldInput {
+  connect: BaseActionElementConnectFieldInput
+  connectOrCreate: BaseActionElementConnectOrCreateFieldInput
+  create: BaseActionElementCreateFieldInput
+  delete: BaseActionElementDeleteFieldInput
+  disconnect: BaseActionElementDisconnectFieldInput
+  update: BaseActionElementUpdateConnectionInput
+  where: BaseActionElementConnectionWhere
+}
+
+input BaseActionImplementationsConnectInput {
+  ApiAction: [ApiActionConnectInput!]
+  CodeAction: [CodeActionConnectInput!]
+}
+
+input BaseActionImplementationsDeleteInput {
+  ApiAction: [ApiActionDeleteInput!]
+  CodeAction: [CodeActionDeleteInput!]
+}
+
+input BaseActionImplementationsDisconnectInput {
+  ApiAction: [ApiActionDisconnectInput!]
+  CodeAction: [CodeActionDisconnectInput!]
+}
+
+input BaseActionImplementationsUpdateInput {
+  ApiAction: ApiActionUpdateInput
+  CodeAction: CodeActionUpdateInput
+}
+
+input BaseActionImplementationsWhere {
+  ApiAction: ApiActionWhere
+  CodeAction: CodeActionWhere
+}
+
+input BaseActionOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more BaseActionSort objects to sort BaseActions by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [BaseActionSort]
+}
+
+"""
+Fields to sort BaseActions by. The order in which sorts are applied is not guaranteed when specifying many fields in one BaseActionSort object.
+"""
+input BaseActionSort {
+  id: SortDirection
+  name: SortDirection
+  type: SortDirection
+}
+
+input BaseActionStoreAggregateInput {
+  AND: [BaseActionStoreAggregateInput!]
+  NOT: BaseActionStoreAggregateInput
+  OR: [BaseActionStoreAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: BaseActionStoreNodeAggregationWhereInput
+}
+
+input BaseActionStoreConnectFieldInput {
+  connect: StoreConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
+  where: StoreConnectWhere
+}
+
+input BaseActionStoreConnectOrCreateFieldInput {
+  onCreate: BaseActionStoreConnectOrCreateFieldInputOnCreate!
+  where: StoreConnectOrCreateWhere!
+}
+
+input BaseActionStoreConnectOrCreateFieldInputOnCreate {
+  node: StoreOnCreateInput!
+}
+
+type BaseActionStoreConnection {
+  edges: [BaseActionStoreRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input BaseActionStoreConnectionSort {
+  node: StoreSort
+}
+
+input BaseActionStoreConnectionWhere {
+  AND: [BaseActionStoreConnectionWhere!]
+  NOT: BaseActionStoreConnectionWhere
+  OR: [BaseActionStoreConnectionWhere!]
+  node: StoreWhere
+}
+
+input BaseActionStoreCreateFieldInput {
+  node: StoreCreateInput!
+}
+
+input BaseActionStoreDeleteFieldInput {
+  delete: StoreDeleteInput
+  where: BaseActionStoreConnectionWhere
+}
+
+input BaseActionStoreDisconnectFieldInput {
+  disconnect: StoreDisconnectInput
+  where: BaseActionStoreConnectionWhere
+}
+
+input BaseActionStoreFieldInput {
+  connect: BaseActionStoreConnectFieldInput
+  connectOrCreate: BaseActionStoreConnectOrCreateFieldInput
+  create: BaseActionStoreCreateFieldInput
+}
+
+input BaseActionStoreNodeAggregationWhereInput {
+  AND: [BaseActionStoreNodeAggregationWhereInput!]
+  NOT: BaseActionStoreNodeAggregationWhereInput
+  OR: [BaseActionStoreNodeAggregationWhereInput!]
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+}
+
+type BaseActionStoreRelationship {
+  cursor: String!
+  node: Store!
+}
+
+input BaseActionStoreUpdateConnectionInput {
+  node: StoreUpdateInput
+}
+
+input BaseActionStoreUpdateFieldInput {
+  connect: BaseActionStoreConnectFieldInput
+  connectOrCreate: BaseActionStoreConnectOrCreateFieldInput
+  create: BaseActionStoreCreateFieldInput
+  delete: BaseActionStoreDeleteFieldInput
+  disconnect: BaseActionStoreDisconnectFieldInput
+  update: BaseActionStoreUpdateConnectionInput
+  where: BaseActionStoreConnectionWhere
+}
+
+input BaseActionUpdateInput {
+  _on: BaseActionImplementationsUpdateInput
+  element: BaseActionElementUpdateFieldInput
+  id: ID
+  name: String
+  store: BaseActionStoreUpdateFieldInput
+}
+
+input BaseActionWhere {
+  _on: BaseActionImplementationsWhere
+  element: ElementWhere
+  elementAggregate: BaseActionElementAggregateInput
+  elementConnection: BaseActionElementConnectionWhere
+  elementConnection_NOT: BaseActionElementConnectionWhere
+  element_NOT: ElementWhere
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_MATCHES: String
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String!]
+  name_MATCHES: String
+  name_STARTS_WITH: String
+  store: StoreWhere
+  storeAggregate: BaseActionStoreAggregateInput
+  storeConnection: BaseActionStoreConnectionWhere
+  storeConnection_NOT: BaseActionStoreConnectionWhere
+  store_NOT: StoreWhere
+  type: ActionKind
+  type_IN: [ActionKind!]
+}
+
 type BaseType implements IBaseType {
   id: ID!
   kind: TypeKind!
@@ -4183,7 +4183,7 @@ input BaseTypesWhere {
   name: String
 }
 
-type CodeAction implements ActionBase {
+type CodeAction implements BaseAction {
   """
   Code to run when action is triggered
   """
@@ -4192,7 +4192,7 @@ type CodeAction implements ActionBase {
     directed: Boolean = true
     options: ElementOptions
     where: ElementWhere
-  ): Element!
+  ): Element
   elementAggregate(
     directed: Boolean = true
     where: ElementWhere
@@ -4201,9 +4201,9 @@ type CodeAction implements ActionBase {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [ActionBaseElementConnectionSort!]
-    where: ActionBaseElementConnectionWhere
-  ): ActionBaseElementConnection!
+    sort: [BaseActionElementConnectionSort!]
+    where: BaseActionElementConnectionWhere
+  ): BaseActionElementConnection!
   id: ID!
   name: String!
   store(
@@ -4219,9 +4219,9 @@ type CodeAction implements ActionBase {
     after: String
     directed: Boolean = true
     first: Int
-    sort: [ActionBaseStoreConnectionSort!]
-    where: ActionBaseStoreConnectionWhere
-  ): ActionBaseStoreConnection!
+    sort: [BaseActionStoreConnectionSort!]
+    where: BaseActionStoreConnectionWhere
+  ): BaseActionStoreConnection!
   type: ActionKind!
 }
 
@@ -4233,13 +4233,13 @@ type CodeActionAggregateSelection {
 }
 
 input CodeActionConnectInput {
-  element: ActionBaseElementConnectFieldInput
-  store: ActionBaseStoreConnectFieldInput
+  element: BaseActionElementConnectFieldInput
+  store: BaseActionStoreConnectFieldInput
 }
 
 input CodeActionConnectOrCreateInput {
-  element: ActionBaseElementConnectOrCreateFieldInput
-  store: ActionBaseStoreConnectOrCreateFieldInput
+  element: BaseActionElementConnectOrCreateFieldInput
+  store: BaseActionStoreConnectOrCreateFieldInput
 }
 
 input CodeActionConnectOrCreateWhere {
@@ -4252,21 +4252,21 @@ input CodeActionConnectWhere {
 
 input CodeActionCreateInput {
   code: String!
-  element: ActionBaseElementFieldInput
+  element: BaseActionElementFieldInput
   id: ID!
   name: String!
-  store: ActionBaseStoreFieldInput
+  store: BaseActionStoreFieldInput
   type: ActionKind! = CodeAction
 }
 
 input CodeActionDeleteInput {
-  element: ActionBaseElementDeleteFieldInput
-  store: ActionBaseStoreDeleteFieldInput
+  element: BaseActionElementDeleteFieldInput
+  store: BaseActionStoreDeleteFieldInput
 }
 
 input CodeActionDisconnectInput {
-  element: ActionBaseElementDisconnectFieldInput
-  store: ActionBaseStoreDisconnectFieldInput
+  element: BaseActionElementDisconnectFieldInput
+  store: BaseActionStoreDisconnectFieldInput
 }
 
 type CodeActionEdge {
@@ -4415,8 +4415,8 @@ input CodeActionOptions {
 }
 
 input CodeActionRelationInput {
-  element: ActionBaseElementCreateFieldInput
-  store: ActionBaseStoreCreateFieldInput
+  element: BaseActionElementCreateFieldInput
+  store: BaseActionStoreCreateFieldInput
 }
 
 """
@@ -4478,10 +4478,10 @@ input CodeActionUniqueWhere {
 
 input CodeActionUpdateInput {
   code: String
-  element: ActionBaseElementUpdateFieldInput
+  element: BaseActionElementUpdateFieldInput
   id: ID
   name: String
-  store: ActionBaseStoreUpdateFieldInput
+  store: BaseActionStoreUpdateFieldInput
 }
 
 input CodeActionWhere {
@@ -4496,8 +4496,8 @@ input CodeActionWhere {
   code_STARTS_WITH: String
   element: ElementWhere
   elementAggregate: CodeActionElementAggregateInput
-  elementConnection: ActionBaseElementConnectionWhere
-  elementConnection_NOT: ActionBaseElementConnectionWhere
+  elementConnection: BaseActionElementConnectionWhere
+  elementConnection_NOT: BaseActionElementConnectionWhere
   element_NOT: ElementWhere
   id: ID
   id_CONTAINS: ID
@@ -4513,8 +4513,8 @@ input CodeActionWhere {
   name_STARTS_WITH: String
   store: StoreWhere
   storeAggregate: CodeActionStoreAggregateInput
-  storeConnection: ActionBaseStoreConnectionWhere
-  storeConnection_NOT: ActionBaseStoreConnectionWhere
+  storeConnection: BaseActionStoreConnectionWhere
+  storeConnection_NOT: BaseActionStoreConnectionWhere
   store_NOT: StoreWhere
   type: ActionKind
   type_IN: [ActionKind!]
@@ -6181,9 +6181,9 @@ type Element {
   ): ElementParentConnection!
   postRenderAction(
     directed: Boolean = true
-    options: ActionBaseOptions
-    where: ActionBaseWhere
-  ): ActionBase
+    options: BaseActionOptions
+    where: BaseActionWhere
+  ): BaseAction
   postRenderActionConnection(
     after: String
     directed: Boolean = true
@@ -6193,9 +6193,9 @@ type Element {
   ): ElementPostRenderActionConnection!
   preRenderAction(
     directed: Boolean = true
-    options: ActionBaseOptions
-    where: ActionBaseWhere
-  ): ActionBase
+    options: BaseActionOptions
+    where: BaseActionWhere
+  ): BaseAction
   preRenderActionConnection(
     after: String
     directed: Boolean = true
@@ -7255,8 +7255,8 @@ input ElementParentUpdateFieldInput {
 }
 
 input ElementPostRenderActionConnectFieldInput {
-  connect: ActionBaseConnectInput
-  where: ActionBaseConnectWhere
+  connect: BaseActionConnectInput
+  where: BaseActionConnectWhere
 }
 
 type ElementPostRenderActionConnection {
@@ -7266,27 +7266,27 @@ type ElementPostRenderActionConnection {
 }
 
 input ElementPostRenderActionConnectionSort {
-  node: ActionBaseSort
+  node: BaseActionSort
 }
 
 input ElementPostRenderActionConnectionWhere {
   AND: [ElementPostRenderActionConnectionWhere!]
   NOT: ElementPostRenderActionConnectionWhere
   OR: [ElementPostRenderActionConnectionWhere!]
-  node: ActionBaseWhere
+  node: BaseActionWhere
 }
 
 input ElementPostRenderActionCreateFieldInput {
-  node: ActionBaseCreateInput!
+  node: BaseActionCreateInput!
 }
 
 input ElementPostRenderActionDeleteFieldInput {
-  delete: ActionBaseDeleteInput
+  delete: BaseActionDeleteInput
   where: ElementPostRenderActionConnectionWhere
 }
 
 input ElementPostRenderActionDisconnectFieldInput {
-  disconnect: ActionBaseDisconnectInput
+  disconnect: BaseActionDisconnectInput
   where: ElementPostRenderActionConnectionWhere
 }
 
@@ -7297,11 +7297,11 @@ input ElementPostRenderActionFieldInput {
 
 type ElementPostRenderActionRelationship {
   cursor: String!
-  node: ActionBase!
+  node: BaseAction!
 }
 
 input ElementPostRenderActionUpdateConnectionInput {
-  node: ActionBaseUpdateInput
+  node: BaseActionUpdateInput
 }
 
 input ElementPostRenderActionUpdateFieldInput {
@@ -7314,8 +7314,8 @@ input ElementPostRenderActionUpdateFieldInput {
 }
 
 input ElementPreRenderActionConnectFieldInput {
-  connect: ActionBaseConnectInput
-  where: ActionBaseConnectWhere
+  connect: BaseActionConnectInput
+  where: BaseActionConnectWhere
 }
 
 type ElementPreRenderActionConnection {
@@ -7325,27 +7325,27 @@ type ElementPreRenderActionConnection {
 }
 
 input ElementPreRenderActionConnectionSort {
-  node: ActionBaseSort
+  node: BaseActionSort
 }
 
 input ElementPreRenderActionConnectionWhere {
   AND: [ElementPreRenderActionConnectionWhere!]
   NOT: ElementPreRenderActionConnectionWhere
   OR: [ElementPreRenderActionConnectionWhere!]
-  node: ActionBaseWhere
+  node: BaseActionWhere
 }
 
 input ElementPreRenderActionCreateFieldInput {
-  node: ActionBaseCreateInput!
+  node: BaseActionCreateInput!
 }
 
 input ElementPreRenderActionDeleteFieldInput {
-  delete: ActionBaseDeleteInput
+  delete: BaseActionDeleteInput
   where: ElementPreRenderActionConnectionWhere
 }
 
 input ElementPreRenderActionDisconnectFieldInput {
-  disconnect: ActionBaseDisconnectInput
+  disconnect: BaseActionDisconnectInput
   where: ElementPreRenderActionConnectionWhere
 }
 
@@ -7356,11 +7356,11 @@ input ElementPreRenderActionFieldInput {
 
 type ElementPreRenderActionRelationship {
   cursor: String!
-  node: ActionBase!
+  node: BaseAction!
 }
 
 input ElementPreRenderActionUpdateConnectionInput {
-  node: ActionBaseUpdateInput
+  node: BaseActionUpdateInput
 }
 
 input ElementPreRenderActionUpdateFieldInput {

@@ -1,10 +1,6 @@
-import type {
-  IActionService,
-  IResourceService,
-  IRestActionConfig,
-  IUpdateActionData,
-} from '@codelab/frontend/abstract/core'
+import type { IUpdateActionData } from '@codelab/frontend/abstract/core'
 import { SelectAction, SelectResource } from '@codelab/frontend/domain/type'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
 import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
@@ -14,10 +10,8 @@ import type { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { updateActionSchema } from './update-action.schema'
 
-export const UpdateActionModal = observer<{
-  actionService: IActionService
-  resourceService: IResourceService
-}>(({ actionService, resourceService }) => {
+export const UpdateActionModal = observer(() => {
+  const { actionService, resourceService } = useStore()
   const closeModal = () => actionService.updateModal.close()
   const updateAction = actionService.updateModal.action
 
@@ -29,38 +23,29 @@ export const UpdateActionModal = observer<{
     title: 'Error while updating action',
   })
 
-  const model = {
-    code:
-      updateAction?.type === IActionKind.CodeAction
-        ? updateAction.code
-        : undefined,
-
-    // TODO: Remove casting
-    config:
-      updateAction?.type === IActionKind.ApiAction
-        ? (updateAction.config.current.values as IRestActionConfig)
-        : undefined,
-
-    errorActionId:
-      updateAction?.type === IActionKind.ApiAction
-        ? updateAction.errorAction?.id
-        : undefined,
-
+  const baseModel = {
     id: updateAction?.id,
-
     name: updateAction?.name,
-    resourceId:
-      updateAction?.type === IActionKind.ApiAction
-        ? updateAction.resource.id
-        : undefined,
     storeId: updateAction?.store.current.id,
-    successActionId:
-      updateAction?.type === IActionKind.ApiAction
-        ? updateAction.successAction?.id
-        : undefined,
-
     type: updateAction?.type,
   }
+
+  const model =
+    updateAction?.type === IActionKind.ApiAction
+      ? {
+          config: {
+            data: updateAction.config.current.values,
+            id: updateAction.config.id,
+          },
+          ...baseModel,
+          errorActionId: updateAction.errorAction?.id,
+          resourceId: updateAction.resource.id,
+          successActionId: updateAction.successAction?.id,
+        }
+      : {
+          ...baseModel,
+          code: updateAction?.code,
+        }
 
   const getResourceType = (context: Context<IUpdateActionData>) =>
     context.model.resourceId
@@ -119,9 +104,9 @@ export const UpdateActionModal = observer<{
               getResourceType(context) === IResourceType.GraphQL
             }
           >
-            <AutoField getUrl={getResourceApiUrl} name="config.query" />
-            <AutoField name="config.variables" />
-            <AutoField name="config.headers" />
+            <AutoField getUrl={getResourceApiUrl} name="config.data.query" />
+            <AutoField name="config.data.variables" />
+            <AutoField name="config.data.headers" />
           </DisplayIfField>
 
           {/** Rest Config Form */}
@@ -130,12 +115,12 @@ export const UpdateActionModal = observer<{
               getResourceType(context) === IResourceType.Rest
             }
           >
-            <AutoField name="config.urlSegment" />
-            <AutoField name="config.method" />
-            <AutoField name="config.body" />
-            <AutoField name="config.queryParams" />
-            <AutoField name="config.headers" />
-            <AutoField name="config.responseType" />
+            <AutoField name="config.data.urlSegment" />
+            <AutoField name="config.data.method" />
+            <AutoField name="config.data.body" />
+            <AutoField name="config.data.queryParams" />
+            <AutoField name="config.data.headers" />
+            <AutoField name="config.data.responseType" />
           </DisplayIfField>
         </DisplayIfField>
       </ModalForm.Form>

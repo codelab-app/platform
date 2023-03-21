@@ -9,7 +9,8 @@ import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { ActionFragmentDoc } from '../../../../abstract/core/src/domain/action/fragments/action.fragment.graphql.gen'
 export type GetActionsQueryVariables = Types.Exact<{
-  storeId?: Types.InputMaybe<Types.Scalars['ID']>
+  codeActionWhere?: Types.InputMaybe<Types.CodeActionWhere>
+  apiActionWhere?: Types.InputMaybe<Types.ApiActionWhere>
 }>
 
 export type GetActionsQuery = {
@@ -18,11 +19,14 @@ export type GetActionsQuery = {
 }
 
 export const GetActionsDocument = gql`
-  query GetActions($storeId: ID) {
-    codeActions(where: { storeConnection: { node: { id: $storeId } } }) {
+  query GetActions(
+    $codeActionWhere: CodeActionWhere
+    $apiActionWhere: ApiActionWhere
+  ) {
+    codeActions(where: $codeActionWhere) {
       ...Action
     }
-    apiActions(where: { storeConnection: { node: { id: $storeId } } }) {
+    apiActions(where: $apiActionWhere) {
       ...Action
     }
   }

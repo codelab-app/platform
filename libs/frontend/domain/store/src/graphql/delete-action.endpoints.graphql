@@ -1,12 +1,18 @@
-mutation DeleteCodeActions($where: CodeActionWhere!) {
-  deleteCodeActions(where: $where) {
+mutation DeleteCodeActions(
+  $where: CodeActionWhere!
+  $delete: CodeActionDeleteInput
+) {
+  deleteCodeActions(where: $where, delete: $delete) {
     nodesDeleted
     relationshipsDeleted
   }
 }
 
-mutation DeleteApiActions($where: ApiActionWhere!) {
-  deleteApiActions(where: $where) {
+mutation DeleteApiActions(
+  $where: ApiActionWhere!
+  $delete: ApiActionDeleteInput
+) {
+  deleteApiActions(where: $where, delete: $delete) {
     nodesDeleted
     relationshipsDeleted
   }
