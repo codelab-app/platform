@@ -55,8 +55,9 @@ export const exportEnumTypeSelectionSet = `{
 
 export const exportInterfaceTypeSelectionSet = `{
   ${exportBaseTypeSelection}
-  fields
-    ${fieldSelectionSet}
+  fields {
+    id
+  }
 }`
 
 export const exportUnionTypeSelectionSet = `{

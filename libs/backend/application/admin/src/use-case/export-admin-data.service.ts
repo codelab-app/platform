@@ -7,6 +7,7 @@ import {
   exportSystemTypes,
 } from '@codelab/backend/application/type'
 import { saveFormattedFile } from '@codelab/backend/shared/util'
+import filter from 'lodash/filter'
 import find from 'lodash/find'
 import path from 'path'
 import { DataPaths } from '../data-paths'
@@ -40,14 +41,19 @@ export class ExportAdminDataService extends IUseCase<void, void> {
         /**
          * Get the interface by id
          */
-        const type = find(apis, { id: atom.api.id })
-        const types = await exportAdminTypes({ apiId: atom.api.id })
+        const api = find(apis.types, { id: atom.api.id })
+        const apiFields = filter(apis.fields, { api: { id: atom.api.id } })
+
+        const { fields = [], types } = await exportAdminTypes({
+          apiId: atom.api.id,
+        })
 
         saveFormattedFile(
           path.resolve(this.dataPaths.ATOMS_PATH, `${atom.name}.json`),
           {
-            api: type,
+            api,
             atom,
+            fields: [...apiFields, ...fields],
             types,
           },
         )

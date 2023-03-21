@@ -1,8 +1,5 @@
 import type { IFieldDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
-import { IReactNodeTypeDTO } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import type { ITypeKind } from '@codelab/shared/abstract/core'
-import type { DistributiveMerge } from '@codelab/shared/utils'
 
 export type TypeRef = {
   existingId: string
