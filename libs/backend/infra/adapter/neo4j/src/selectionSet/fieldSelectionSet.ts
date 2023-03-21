@@ -15,3 +15,21 @@ export const fieldSelectionSet = `{
     id
   }
 }`
+
+export const exportFieldSelectionSet = `{
+  id
+  key
+  name
+  description
+  validationRules
+  defaultValues
+  fieldType {
+    __typename
+    id
+    kind
+    name
+  }
+  api {
+    id
+  }
+}`

@@ -1,8 +1,9 @@
+import type { ITypeExport } from '@codelab/backend/abstract/core'
 import {
+  exportFieldSelectionSet,
   exportInterfaceTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { IInterfaceTypeDTO } from '@codelab/frontend/abstract/core'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { sortInterfaceTypesFields } from '../mapper/sort'
 
@@ -11,7 +12,7 @@ import { sortInterfaceTypesFields } from '../mapper/sort'
  *
  * We export api separately since those can be it's own file
  */
-export const exportAtomApis = async (): Promise<Array<IInterfaceTypeDTO>> => {
+export const exportAtomApis = async (): Promise<ITypeExport> => {
   /**
    * Get all interfaces that are connected to atoms, here we don't do dependent types since Ant Design atoms don't have them (at least I haven't seen any)
    *
@@ -33,11 +34,27 @@ export const exportAtomApis = async (): Promise<Array<IInterfaceTypeDTO>> => {
   })
 
   /**
+   * Get all fields related to interface type
+   */
+  const Field = await Repository.instance.Field
+
+  const fields = await Field.find({
+    options: {
+      sort: [{ key: OGM_TYPES.SortDirection.Asc }],
+    },
+    selectionSet: exportFieldSelectionSet,
+    where: {
+      api: {
+        id_IN: interfaceTypes.map((api) => api.id),
+      },
+    },
+  })
+
+  /**
    * Here we create the interface dependency tree order
    *
    * Further to the front are closer to the leaf.
    */
-  return [
-    ...sortInterfaceTypesFields(interfaceTypes),
-  ] as Array<IInterfaceTypeDTO>
+
+  return { fields, types: sortInterfaceTypesFields(interfaceTypes) }
 }
