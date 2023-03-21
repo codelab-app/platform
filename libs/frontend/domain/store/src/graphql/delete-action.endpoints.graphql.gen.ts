@@ -5,6 +5,7 @@ import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 export type DeleteCodeActionsMutationVariables = Types.Exact<{
   where: Types.CodeActionWhere
+  delete?: Types.InputMaybe<Types.CodeActionDeleteInput>
 }>
 
 export type DeleteCodeActionsMutation = {
@@ -13,6 +14,7 @@ export type DeleteCodeActionsMutation = {
 
 export type DeleteApiActionsMutationVariables = Types.Exact<{
   where: Types.ApiActionWhere
+  delete?: Types.InputMaybe<Types.ApiActionDeleteInput>
 }>
 
 export type DeleteApiActionsMutation = {
@@ -20,16 +22,22 @@ export type DeleteApiActionsMutation = {
 }
 
 export const DeleteCodeActionsDocument = gql`
-  mutation DeleteCodeActions($where: CodeActionWhere!) {
-    deleteCodeActions(where: $where) {
+  mutation DeleteCodeActions(
+    $where: CodeActionWhere!
+    $delete: CodeActionDeleteInput
+  ) {
+    deleteCodeActions(where: $where, delete: $delete) {
       nodesDeleted
       relationshipsDeleted
     }
   }
 `
 export const DeleteApiActionsDocument = gql`
-  mutation DeleteApiActions($where: ApiActionWhere!) {
-    deleteApiActions(where: $where) {
+  mutation DeleteApiActions(
+    $where: ApiActionWhere!
+    $delete: ApiActionDeleteInput
+  ) {
+    deleteApiActions(where: $where, delete: $delete) {
       nodesDeleted
       relationshipsDeleted
     }

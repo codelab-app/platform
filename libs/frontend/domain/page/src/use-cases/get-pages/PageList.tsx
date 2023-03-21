@@ -1,19 +1,22 @@
 import type { IApp } from '@codelab/frontend/abstract/core'
+import {
+  useCurrentAppId,
+  useStore,
+} from '@codelab/frontend/presenter/container'
 import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { GetPagesItem } from './GetPagesItem'
 
-interface PageListProps {
-  app?: IApp
-  loading: boolean
-}
+export const PageList = observer(() => {
+  const appId = useCurrentAppId()
+  const { appService } = useStore()
+  const app = appService.apps.get(appId)
 
-export const PageList = observer<PageListProps>(({ app, loading }) => {
   return (
     <List
       dataSource={app?.pages.map((page) => page.current)}
-      loading={loading}
+      loading={!app}
       renderItem={(page) => (
         <GetPagesItem
           domains={app?.domains.map((domain) => domain.current)}

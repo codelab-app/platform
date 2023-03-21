@@ -3,7 +3,7 @@ import {
   CreateResourceButton,
   CreateResourceModal,
   DeleteResourceModal,
-  GetResourcesList,
+  ResourcesList,
   UpdateResourceModal,
 } from '@codelab/frontend/domain/resource'
 import {
@@ -53,7 +53,7 @@ const ResourcesPage: CodelabPage<DashboardTemplateProps> = () => {
         <UpdateResourceModal resourceService={store.resourceService} />
         <DeleteResourceModal resourceService={store.resourceService} />
 
-        <GetResourcesList resourceService={store.resourceService} />
+        <ResourcesList resourceService={store.resourceService} />
       </ContentSection>
     </>
   )

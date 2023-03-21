@@ -1,5 +1,5 @@
-fragment Action on ActionBase {
-  ...ActionBase
+fragment Action on BaseAction {
+  ...BaseAction
   ... on CodeAction {
     ...CodeAction
   }

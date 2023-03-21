@@ -1,8 +1,11 @@
-query GetActions($storeId: ID) {
-  codeActions(where: { storeConnection: { node: { id: $storeId } } }) {
+query GetActions(
+  $codeActionWhere: CodeActionWhere
+  $apiActionWhere: ApiActionWhere
+) {
+  codeActions(where: $codeActionWhere) {
     ...Action
   }
-  apiActions(where: { storeConnection: { node: { id: $storeId } } }) {
+  apiActions(where: $apiActionWhere) {
     ...Action
   }
 }

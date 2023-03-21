@@ -13,18 +13,28 @@ export type IApiActionConfig = IGraphQLActionConfig | IRestActionConfig
  * Base
  */
 export interface IBaseActionData {
-  code?: string
-  /**
-   * config here is form object and not Action.config which is an IProp instance
-   */
-  config?: IApiActionConfig
+  id: string
+  name: string
+  storeId: string
+  type: IActionKind
+}
+
+export interface IApiActionData extends IBaseActionData {
+  config: {
+    id: string
+    data: IApiActionConfig
+  }
   errorActionId?: string
   id: string
   name: string
-  resourceId?: string
+  resourceId: string
   storeId: string
   successActionId?: string
   type: IActionKind
+}
+
+export interface ICodeActionData extends IBaseActionData {
+  code: string
 }
 
 export interface IBaseActionDTO {
@@ -32,7 +42,6 @@ export interface IBaseActionDTO {
   id: string
   name: string
   store: IEntity
-  type: IActionKind
 }
 
 /**
@@ -41,6 +50,6 @@ export interface IBaseActionDTO {
 
 export type IActionDTO = IApiActionDTO | ICodeActionDTO
 
-export type ICreateActionData = IBaseActionData
+export type ICreateActionData = IApiActionData & ICodeActionData
 
-export type IUpdateActionData = IBaseActionData
+export type IUpdateActionData = ICreateActionData

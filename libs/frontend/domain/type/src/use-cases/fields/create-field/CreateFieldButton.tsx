@@ -26,7 +26,9 @@ export const CreateFieldButton = observer<CreateFieldButtonProps>(
           )
         }}
         size="small"
-      />
+      >
+        Field
+      </Button>
     ) : null
   },
 )

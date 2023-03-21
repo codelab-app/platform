@@ -1,23 +1,23 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import {
-  ActionBase_ApiAction_Fragment,
-  ActionBase_CodeAction_Fragment,
+  BaseAction_ApiAction_Fragment,
+  BaseAction_CodeAction_Fragment,
 } from './action-base.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { ActionBaseFragmentDoc } from './action-base.fragment.graphql.gen'
+import { BaseActionFragmentDoc } from './action-base.fragment.graphql.gen'
 export type CodeActionFragment = {
   code: string
-} & ActionBase_CodeAction_Fragment
+} & BaseAction_CodeAction_Fragment
 
 export const CodeActionFragmentDoc = gql`
   fragment CodeAction on CodeAction {
-    ...ActionBase
+    ...BaseAction
     code
   }
-  ${ActionBaseFragmentDoc}
+  ${BaseActionFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

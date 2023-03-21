@@ -42,9 +42,9 @@ export const elementSchema = gql`
     renderForEachPropKey: String
     renderIfExpression: String
 
-    preRenderAction: ActionBase
+    preRenderAction: BaseAction
       @relationship(type: "ELEMENT_ACTION", direction: OUT)
-    postRenderAction: ActionBase
+    postRenderAction: BaseAction
       @relationship(type: "ELEMENT_ACTION", direction: OUT)
 
     # Type of element to render, could be either a component or atom
