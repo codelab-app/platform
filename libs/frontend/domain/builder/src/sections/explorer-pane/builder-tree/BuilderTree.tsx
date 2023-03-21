@@ -47,10 +47,6 @@ export const BuilderTree = observer<BuilderTreeProps>(
     const selectedNode = builderService.selectedNode
     const { handleDrop, isMoving } = useElementTreeDrop(elementService)
 
-    const selectComponentNode = (node: IPageNode) => {
-      selectTreeNode(node)
-    }
-
     const componentContextMenuProps = useMemo(
       () => ({
         deleteModal: componentService.deleteModal,

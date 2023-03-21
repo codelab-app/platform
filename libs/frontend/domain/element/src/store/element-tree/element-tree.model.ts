@@ -154,17 +154,17 @@ export class ElementTree
     return this
   }
 
-  getPathFromRoot(selectedElement: IPageNodeRef): Array<IElement> {
+  getPathFromRoot(selectedElement: IPageNodeRef): Array<string> {
     const path = []
 
     if (!isElementPageNodeRef(selectedElement)) {
-      return []
+      return [selectedElement.current.id]
     }
 
     let currentElement = selectedElement.maybeCurrent
 
     while (currentElement) {
-      path.push(currentElement)
+      path.push(currentElement.id)
       currentElement = currentElement.parent?.current
     }
 

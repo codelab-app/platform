@@ -38,7 +38,7 @@ export class ComponentRepository
       componentApi.UpdateComponents({
         update: {
           childrenContainerElement: reconnectNodeId(
-            childrenContainerElement.id,
+            childrenContainerElement.current.id,
           ),
           name,
         },

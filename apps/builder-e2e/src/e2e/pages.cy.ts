@@ -1,5 +1,6 @@
 import type { IAppDTO } from '@codelab/frontend/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import { IPageKindName } from '@codelab/shared/abstract/core'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 import { pageName, updatedPageName } from './apps/app.data'
 
@@ -19,6 +20,7 @@ describe('Pages CRUD', () => {
 
         cy.visit(`/apps/${app.id}/pages`)
         cy.getSpinner().should('not.exist')
+        cy.findAllByText(IPageKindName.Provider).should('exist')
       })
   })
 
