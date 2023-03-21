@@ -5,6 +5,6 @@ export const sortInterfaceTypesFields = (
 ) => {
   return interfaceTypes.map((interfaceType) => ({
     ...interfaceType,
-    fields: interfaceType.fields.sort((a, b) => (a.key > b.key ? 1 : -1)),
+    fields: interfaceType.fields.sort((a, b) => (a.id > b.id ? 1 : -1)),
   }))
 }

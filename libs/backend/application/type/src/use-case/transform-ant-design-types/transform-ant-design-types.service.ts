@@ -1,13 +1,9 @@
 import type { AntDesignField } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import {
-  ActionType,
   EnumType,
   InterfaceType,
-  PrimitiveType,
-  ReactNodeType,
   ReactNodeTypeRepository,
-  RenderPropsType,
   RenderPropsTypeRepository,
   TypeFactory,
   UnionType,
@@ -16,7 +12,10 @@ import {
 import type {
   IAtomDTO,
   IAuth0Owner,
+  IEnumTypeDTO,
+  IInterfaceTypeDTO,
   ITypeDTO,
+  IUnionTypeDTO,
 } from '@codelab/frontend/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
@@ -53,7 +52,8 @@ export class TransformAntDesignTypesService extends IUseCase<
     if (isEnumType(field.type)) {
       const values = parseSeparators(field)
 
-      const enumType = new EnumType({
+      const enumType: IEnumTypeDTO = {
+        __typename: ITypeKind.EnumType,
         allowedValues: values.map((value) => ({
           id: v4(),
           key: value,
@@ -63,44 +63,40 @@ export class TransformAntDesignTypesService extends IUseCase<
         kind: ITypeKind.EnumType,
         name: EnumType.getCompositeName(atom, { key: field.property }),
         owner,
-      })
+      }
 
       return enumType
     }
 
     if (isReactNodeType(field.type)) {
-      const reactNodeType = systemTypesData(owner)[ITypeKind.ReactNodeType]
+      return systemTypesData(owner)[ITypeKind.ReactNodeType]
+    }
 
-      return new ReactNodeType(reactNodeType)
+    if (isRenderPropsType(field.type)) {
+      return systemTypesData(owner)[ITypeKind.RenderPropsType]
+    }
+
+    if (isActionType(field.type)) {
+      return systemTypesData(owner)[ITypeKind.ActionType]
     }
 
     if (isPrimitiveType(field.type)) {
       const primitiveKind = AntDesignTypeMapper.mapPrimitiveType(field.type)
-      const primitiveType = systemTypesData(owner)[primitiveKind]
 
-      return new PrimitiveType(primitiveType)
-    }
-
-    if (isRenderPropsType(field.type)) {
-      const renderPropsType = systemTypesData(owner)[ITypeKind.RenderPropsType]
-
-      return new RenderPropsType(renderPropsType)
-    }
-
-    if (isActionType(field.type)) {
-      const actionType = systemTypesData(owner)[ITypeKind.ActionType]
-
-      return new ActionType(actionType)
+      return systemTypesData(owner)[primitiveKind]
     }
 
     if (isInterfaceType(field.type)) {
-      return new InterfaceType({
+      const interfaceTypeDTO: IInterfaceTypeDTO = {
+        __typename: ITypeKind.InterfaceType,
         fields: [],
         id: v4(),
         kind: ITypeKind.InterfaceType,
         name: InterfaceType.getApiName(atom, { key: field.property }),
         owner,
-      })
+      }
+
+      return interfaceTypeDTO
     }
 
     if (isUnionType(field.type)) {
@@ -128,14 +124,15 @@ export class TransformAntDesignTypesService extends IUseCase<
         }),
       )
 
-      const unionType = new UnionType({
+      const unionType: IUnionTypeDTO = {
+        __typename: ITypeKind.UnionType,
         id: v4(),
         kind: ITypeKind.UnionType,
         name: UnionType.compositeName(atom, { key: field.property }),
         owner,
         // These need to exist already
         typesOfUnionType: mappedTypesOfUnionType,
-      })
+      }
 
       return unionType
     }
