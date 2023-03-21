@@ -27,15 +27,7 @@ import { mapDeep, mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import {
-  detach,
-  idProp,
-  Model,
-  model,
-  modelAction,
-  prop,
-  rootRef,
-} from 'mobx-keystone'
+import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 import { createTransformer } from 'mobx-utils'
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
@@ -328,7 +320,7 @@ export class Renderer
       componentApi?.defaultValues,
       component?.props?.current.values,
       componentInstance?.props.current.values,
-      element.props.maybeCurrent?.values,
+      element.props.current.values,
       extraProps,
     )
 
@@ -354,26 +346,37 @@ export class Renderer
    * Renders the elements children, createTransformer memoizes the function
    */
   renderChildren = createTransformer(
-    ({ parentOutput }): ArrayOrSingle<ReactNode> => {
+    ({
+      extraProps,
+      parentOutput,
+    }: Parameters<
+      IRenderer['renderChildren']
+    >[0]): ArrayOrSingle<ReactNode> => {
       const children = [
         ...parentOutput.element.children,
         ...this.getComponentInstanceChildren(parentOutput.element),
       ]
 
+      // This will pass down the props from the component instance to the descendants
+      const componentInstanceProps = {
+        ...parentOutput.element.parentComponent?.current.instanceElement
+          ?.current.props.current.values,
+        ...extraProps,
+      }
+
       const renderedChildren = children.map((child) =>
-        this.renderElement(child),
+        this.renderElement(child, componentInstanceProps),
       )
 
-      const hasChildren = Array.isArray(renderedChildren)
-        ? renderedChildren.length > 0
-        : Boolean(renderedChildren)
+      const hasChildren = renderedChildren.length > 0
 
       if (!hasChildren) {
         // Inject text, but only if we have no regular children
         const injectedText = parentOutput.props?.[CUSTOM_TEXT_PROP_KEY]
 
         const shouldInjectText =
-          parentOutput.element.renderType?.current.allowCustomTextInjection
+          isAtomInstance(parentOutput.element.renderType) &&
+          parentOutput.element.renderType.current.allowCustomTextInjection
 
         if (shouldInjectText && injectedText) {
           return makeCustomTextContainer(injectedText)

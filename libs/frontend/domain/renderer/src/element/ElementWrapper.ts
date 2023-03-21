@@ -72,7 +72,10 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         element,
         mergeProps(renderOutput.props, store.state.values),
       )
-        ? renderService.renderChildren({ parentOutput: renderOutput })
+        ? renderService.renderChildren({
+            extraProps,
+            parentOutput: renderOutput,
+          })
         : undefined
 
       if (renderOutput.props) {

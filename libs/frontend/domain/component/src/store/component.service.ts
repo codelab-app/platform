@@ -148,8 +148,6 @@ export class ComponentService
       rootElement,
     })
 
-    this.components.set(component.id, component)
-
     const newComponent = yield* _await(this.componentRepository.add(component))
 
     const { hydratedElements, rootElement: loadedRootElement } =
@@ -172,7 +170,7 @@ export class ComponentService
 
     yield* _await(this.componentRepository.update(component))
 
-    return component!
+    return component
   })
 
   @modelFlow

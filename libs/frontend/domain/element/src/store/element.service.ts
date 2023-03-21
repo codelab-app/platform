@@ -2,6 +2,7 @@ import type {
   IAuth0Owner,
   ICreateElementData,
   IElement,
+  IElementDTO,
   IElementService,
   IUpdateElementData,
   RenderType,
@@ -9,7 +10,6 @@ import type {
 import {
   getBuilderService,
   getComponentService,
-  IElementDTO,
   IRenderTypeKind,
   isComponentInstance,
 } from '@codelab/frontend/abstract/core'
@@ -733,24 +733,6 @@ export class ElementService
       }),
     )
   })
-
-  @modelAction
-  writeClonesCache(elementFragment: IElementDTO) {
-    return [...this.clonedElements.values()]
-      .filter((element) => element.sourceElement?.id === elementFragment.id)
-      .map((element) =>
-        Element.create({
-          ...elementFragment,
-          // keep the cloned element's id
-          id: element.id,
-          parentComponent: element.parentComponent
-            ? ({
-                id: element.parentComponent.current.id,
-              } as IElementDTO['parentComponent'])
-            : undefined,
-        }),
-      )
-  }
 
   @modelAction
   removeClones(elementId: string) {
