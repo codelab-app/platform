@@ -22,7 +22,10 @@ export const UpdateComponentForm = observer<UpdateComponentFormProps>(
     const elementTree = component.elementTree
 
     const model = {
-      childrenContainerElement: component.childrenContainerElement,
+      childrenContainerElement: {
+        id: component.childrenContainerElement.current.id,
+      },
+      id: component.id,
       name: component.name,
     }
 

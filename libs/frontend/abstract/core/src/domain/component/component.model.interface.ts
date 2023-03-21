@@ -28,6 +28,7 @@ export interface IComponent
   setChildrenContainerElement(element: Ref<IElement>): void
   setInstanceElement(elementRef: Ref<IElement>): void
   setProps(props: Nullable<Ref<IProp>>): void
+  setRootElement(elementRef: Ref<IElement>): void
   setSourceComponent(entity: IEntity): void
 }
 

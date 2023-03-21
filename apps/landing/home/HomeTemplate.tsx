@@ -1,5 +1,5 @@
 import { useMobileOrTabletMediaQuery } from '@codelab/frontend/shared/style'
-import type { PropsWithChildren } from 'react'
+import type { PropsWithChildren, ReactElement } from 'react'
 import React from 'react'
 import { useRecoilValue } from 'recoil'
 import tw from 'twin.macro'
@@ -9,7 +9,9 @@ import { CodelabMenuContainer } from './menu/MenuContainer'
 import { menuState } from './menu/menuState'
 import { MenuMobile } from './menu/MobileMenu'
 
-export type HomeTemplateProps = React.PropsWithChildren
+export interface HomeTemplateProps {
+  children(): ReactElement
+}
 
 const Header = ({ children }: PropsWithChildren) => {
   return <header>{children}</header>
@@ -43,7 +45,7 @@ const HomeTemplate = ({ children }: HomeTemplateProps) => {
           <>{isMobileOrTablet ? <MenuMobile /> : <MenuDesktop />}</>
         </CodelabMenuContainer>
       </Header>
-      <Content>{children}</Content>
+      <Content>{children()}</Content>
       <Footer></Footer>
     </Layout>
   )

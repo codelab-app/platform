@@ -49,7 +49,6 @@ describe('Component CRUD', () => {
         )
         cy.createAtom([
           {
-            allowedChildren: [],
             api: {
               create: {
                 node: {
@@ -61,10 +60,10 @@ describe('Component CRUD', () => {
             },
             id: v4(),
             name: IAtomType.AntDesignSpace,
+            owner: connectAuth0Owner(owner),
             type: IAtomType.AntDesignSpace,
           },
           {
-            allowedChildren: [],
             api: {
               create: {
                 node: {
@@ -76,6 +75,7 @@ describe('Component CRUD', () => {
             },
             id: v4(),
             name: IAtomType.AntDesignTypographyText,
+            owner: connectAuth0Owner(owner),
             type: IAtomType.AntDesignTypographyText,
           },
         ])
@@ -133,8 +133,6 @@ describe('Component CRUD', () => {
     })
 
     it('should be able to add elements to the component', () => {
-      cy.get('.ant-tree-switcher.ant-tree-switcher_close').click()
-
       cy.get(`.ant-tree-node-content-wrapper[title="${COMPONENT_NAME}"]`)
         .eq(1)
         .click({ force: true })

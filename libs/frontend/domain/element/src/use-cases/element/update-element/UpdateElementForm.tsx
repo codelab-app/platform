@@ -35,9 +35,9 @@ import { updateElementSchema } from './update-element.schema'
 
 export interface UpdateElementFormProps {
   element: IElement
-  trackPromises?: UseTrackLoadingPromises
   elementService: IElementService
   renderer?: IRenderer
+  trackPromises?: UseTrackLoadingPromises
 }
 
 const makeCurrentModel = (element: IElement) => {
@@ -70,7 +70,7 @@ const makeCurrentModel = (element: IElement) => {
 
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
-  ({ elementService, element, trackPromises, renderer }) => {
+  ({ element, elementService, renderer, trackPromises }) => {
     const { trackPromise } = trackPromises ?? {}
     const model = makeCurrentModel(element)
 
@@ -120,7 +120,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         })}
         schema={updateElementSchema}
       >
-        {element.id}
         <AutoComputedElementNameField label="Name" name="name" />
         <AutoFields
           omitFields={[

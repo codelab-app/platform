@@ -66,8 +66,6 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   useMountEffect(() => {
     if (user?.sub) {
       void loadApp.execute({ auth0Id: user.sub })
-
-      return
     }
 
     // in development need to execute this each time page is loaded,
