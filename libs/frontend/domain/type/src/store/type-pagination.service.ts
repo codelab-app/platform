@@ -40,9 +40,7 @@ export class TypePaginationService
    */
   @computed
   get types() {
-    return Array.from(this.data.values()).map(
-      (type) => getSnapshot(type.current) as IType,
-    )
+    return Array.from(this.data.values()).map((type) => type.current as IType)
   }
 
   @computed

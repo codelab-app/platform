@@ -13,7 +13,7 @@ interface BuilderMainPaneHeaderProps {
   builderService: IBuilderService
   elementService: IElementService
   elementTree: Maybe<IElementTree>
-  root: Nullable<IElement>
+  root: Maybe<IElement>
 }
 
 export const BuilderExplorerPaneHeader = observer(

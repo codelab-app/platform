@@ -19,7 +19,7 @@ export interface IBuilderService {
   /**
    * Tells us which tree we are selecting in the main pane
    */
-  activeTree: RendererTab
+  activeTab: RendererTab
   builderContainerWidth: number
   componentTagNames: Array<string>
   componentsGroupedByCategory: Record<string, Array<IBuilderComponent>>
@@ -39,7 +39,7 @@ export interface IBuilderService {
 
   selectComponentNode(node: Nullable<IComponent>): void
   selectElementNode(node: Nullable<IElement>): void
-  setActiveTree(tab: RendererTab): void
+  setActiveTab(tab: RendererTab): void
   setBuilderContainerWidth(width: number): void
   setCurrentBuilderWidth(width: Nullable<BuilderWidth>): void
   setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void

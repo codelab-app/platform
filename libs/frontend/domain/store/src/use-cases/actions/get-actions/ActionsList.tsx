@@ -3,14 +3,14 @@ import { useAsync } from '@react-hookz/web'
 import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { GetActionItem } from './GetActionItem'
+import { ActionItem } from './ActionItem'
 
-export const GetActionsList = observer<{
+export const ActionsList = observer<{
   actionService: IActionService
   store?: IStore
 }>(({ actionService, store }) => {
   const [{ status }, getActions] = useAsync(async (storeId: string) =>
-    actionService.getAll(storeId),
+    actionService.getAll({ storeConnection: { node: { id: storeId } } }),
   )
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export const GetActionsList = observer<{
       dataSource={actions}
       loading={status === 'loading' || !store}
       renderItem={(action) => (
-        <GetActionItem
+        <ActionItem
           action={action}
           actionService={actionService}
           key={action.id}

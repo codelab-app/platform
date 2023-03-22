@@ -36,7 +36,7 @@ import {
 @model('@codelab/BuilderService')
 export class BuilderService
   extends Model({
-    activeTree: prop<RendererTab>(RendererTab.Page).withSetter(),
+    activeTab: prop<RendererTab>(RendererTab.Page).withSetter(),
     builderContainerWidth: prop<number>(0).withSetter(),
     currentBuilderWidth: prop<BuilderWidth>(
       () => defaultBuilderWidthBreakPoints.desktop,
@@ -125,7 +125,7 @@ export class BuilderService
       this.expandedComponentTreeNodeIds,
     )
 
-    if (this.activeTree === RendererTab.Page) {
+    if (this.activeTab === RendererTab.Page) {
       this.expandedPageElementTreeNodeIds = [
         ...this.expandedPageElementTreeNodeIds,
         ...newNodesToExpand,
@@ -155,6 +155,7 @@ export class BuilderService
     }
 
     this.selectedNode = elementRef(node)
+
     this.updateExpandedNodes()
   }
 
@@ -217,7 +218,7 @@ export class BuilderService
      * If we're selecting the component
      */
     if (isComponentPageNodeRef(selectedNode)) {
-      return selectedNode.current.elementTree
+      return selectedNode.current
     }
 
     /**
@@ -227,7 +228,9 @@ export class BuilderService
       /**
        * Given the node, we want the reference that belongs to an ElementTree.
        */
-      return Element.getElementTree(selectedNode.current)
+      const elementTree = Element.getElementTree(selectedNode.current)
+
+      return elementTree
     }
 
     return undefined

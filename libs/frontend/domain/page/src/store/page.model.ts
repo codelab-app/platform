@@ -1,6 +1,6 @@
 import type { IElement, IPage, IPageDTO } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/abstract/core'
-import { ElementTreeService } from '@codelab/frontend/domain/element'
+import { ElementTree } from '@codelab/frontend/domain/element'
 import type { PageCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IPageKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
@@ -8,12 +8,20 @@ import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { createUniqueName } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import { ExtendedModel, idProp, model, modelAction, prop } from 'mobx-keystone'
+import {
+  computedTree,
+  ExtendedModel,
+  idProp,
+  Model,
+  model,
+  modelAction,
+  objectMap,
+  prop,
+} from 'mobx-keystone'
 import slugify from 'voca/slugify'
 
 const create = ({
   app,
-  descendentElements,
   id,
   kind,
   name,
@@ -22,9 +30,6 @@ const create = ({
 }: IPageDTO): IPage => {
   return new Page({
     app: { id: app.id },
-    descendentElements: descendentElements?.map((element) =>
-      elementRef(element.id),
-    ),
     id,
     kind,
     name,
@@ -35,63 +40,19 @@ const create = ({
   })
 }
 
-// const getPageServerSideProps = async (context: IPropData) => {
-//   const id = context.params?.pageId as string
-
-//   const {
-//     pages: [page],
-//   } = await pageApi.GetPages({ where: { id } })
-
-//   if (!page || !page.getServerSideProps) {
-//     return { props: {} }
-//   }
-
-//   const {
-//     props = {},
-//     notFound = false,
-//     redirect = undefined,
-//   } = await eval(`(${page.getServerSideProps})`)(context)
-
-//   return {
-//     notFound,
-//     props: {
-//       getServerSidePropsData: props,
-//     },
-//     redirect,
-//   }
-// }
-
 @model('@codelab/Page')
 export class Page
-  extends ExtendedModel(ElementTreeService, {
+  extends ExtendedModel(ElementTree, {
     app: prop<IEntity>(),
-    /**
-     * Descendants of the rootElement, does not contain rootElement itself
-     */
-    descendentElements: prop<Array<Ref<IElement>>>(() => []),
-    // getServerSideProps: prop<Nullish<string>>(),
-    id: idProp,
     kind: prop<IPageKind>(),
     name: prop<string>().withSetter(),
     pageContentContainer: prop<Maybe<Ref<IElement>>>(),
-    rootElement: prop<Ref<IElement>>(),
   })
   implements IPage
 {
   @computed
   get slug() {
     return slugify(this.name)
-  }
-
-  /**
-   * Helper method to get all elements
-   */
-  @computed
-  get elements() {
-    return [
-      this.rootElement.current,
-      ...this.descendentElements.map((element) => element.current),
-    ]
   }
 
   @computed

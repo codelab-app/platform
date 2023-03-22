@@ -15,10 +15,10 @@ import {
   DeleteElementModal,
 } from '@codelab/frontend/domain/element'
 import {
+  ActionsList,
   CreateActionButton,
   CreateActionModal,
   DeleteActionsModal,
-  GetActionsList,
   GetStateList,
   UpdateActionModal,
 } from '@codelab/frontend/domain/store'
@@ -70,15 +70,12 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
       componentService,
       elementService,
       fieldService,
-      resourceService,
       typeService,
       userService,
     } = useStore()
 
     const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
-    console.log(pageBuilderRenderer, pageBuilderRenderer?.elementTree)
-
-    const root = pageBuilderRenderer?.elementTree.maybeCurrent?.root
+    const root = pageBuilderRenderer?.elementTree.maybeCurrent?.rootElement
     const pageTree = pageBuilderRenderer?.elementTree.maybeCurrent
     const componentId = builderService.activeComponent?.id
 
@@ -86,7 +83,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
       ? builderRenderService.renderers.get(componentId)?.elementTree.current
       : null
 
-    const antdTree = root?.antdNode
+    const antdTree = root?.current.antdNode
     const componentsAntdTree = componentService.componentAntdNode
     const isPageTree = antdTree && pageTree
 
@@ -127,7 +124,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
                 builderService={builderService}
                 elementService={elementService}
                 elementTree={pageTree}
-                root={root ?? null}
+                root={root?.maybeCurrent}
               />
             }
             key={root?.id ?? 'main-pane-builder'}
@@ -142,7 +139,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
                 expandedNodeIds={builderService.expandedPageElementTreeNodeIds}
                 selectTreeNode={selectTreeNode}
                 setActiveTree={() =>
-                  builderService.setActiveTree(RendererTab.Page)
+                  builderService.setActiveTab(RendererTab.Page)
                 }
                 setExpandedNodeIds={builderService.setExpandedPageElementTreeNodeIds.bind(
                   builderService,
@@ -169,7 +166,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
                 expandedNodeIds={builderService.expandedComponentTreeNodeIds}
                 selectTreeNode={selectTreeNode}
                 setActiveTree={() =>
-                  builderService.setActiveTree(RendererTab.Component)
+                  builderService.setActiveTab(RendererTab.Component)
                 }
                 setExpandedNodeIds={builderService.setExpandedComponentTreeNodeIds.bind(
                   builderService,
@@ -209,10 +206,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
                 }
                 key="2"
               >
-                <GetActionsList
-                  actionService={actionService}
-                  store={appStore}
-                />
+                <ActionsList actionService={actionService} store={appStore} />
               </Panel>
             </Collapse>
             <StoreHeader>Store Inspector</StoreHeader>

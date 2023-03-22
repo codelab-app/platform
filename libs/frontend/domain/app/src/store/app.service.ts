@@ -167,20 +167,14 @@ export class AppService
     })
 
     appData.pages.forEach((pageData) => {
-      this.pageService.add({
-        ...pageData,
-        descendentElements: pageData.rootElement.descendantElements,
-      })
+      this.pageService.add(pageData)
     })
 
     const page = app.page(pageId)
-    const rootElement = this.elementService.element(page.rootElement.id)
-    const pageElementTree = page.initTree(rootElement, page.elements)
 
     return {
       app,
       page,
-      pageElementTree,
     }
   }
 
@@ -332,9 +326,6 @@ export class AppService
 
     // load types by chucks so UI is not blocked
     this.typeService.loadTypesByChunks(types)
-
-    // load components trees
-    this.componentService.loadRenderedComponentsTree(components)
 
     // write cache for resources
     this.resourceService.load(resources)
