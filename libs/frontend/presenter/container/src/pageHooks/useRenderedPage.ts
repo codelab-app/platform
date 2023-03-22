@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import { useStore } from '../providers'
 import { useCurrentAppId, useCurrentPageId } from '../routerHooks'
 
-interface RenderedPageProps {
+export interface RenderedPageProps {
   /**
    * for production we prebuild pages with all required information
    * so if this object exists - use it as a source of truth instead of making a request
@@ -48,8 +48,6 @@ export const useRenderedPage = ({
   const { appService, builderService, elementService } = useStore()
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
-  console.log('useRenderedPage', pageId)
-
   const router = useRouter()
 
   // const redirectToErrorPage = async (

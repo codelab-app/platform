@@ -76,8 +76,6 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
     } = useStore()
 
     const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
-    console.log(pageBuilderRenderer, pageBuilderRenderer?.elementTree)
-
     const root = pageBuilderRenderer?.elementTree.maybeCurrent?.root
     const pageTree = pageBuilderRenderer?.elementTree.maybeCurrent
     const componentId = builderService.activeComponent?.id

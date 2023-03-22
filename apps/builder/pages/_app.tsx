@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 // import '../src/wdyr'
 import '../src/styles/antd-theme.less'
 import 'react-quill/dist/quill.snow.css'
@@ -24,7 +25,7 @@ const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
   const store = useMemo(() => initializeStore(pageProps), [])
 
   const { Layout = ({ children }) => <>{children}</> } =
-    Component as CodelabPage<unknown>
+    Component as CodelabPage<object, object, object>
 
   return (
     <StoreProvider value={store}>
@@ -44,12 +45,7 @@ const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
               ]}
             />
             <Layout>
-              {(props) => (
-                <Component
-                  // eslint-disable-next-line react/jsx-props-no-spreading
-                  {...pageProps}
-                />
-              )}
+              {(props) => <Component {...pageProps} {...props} />}
             </Layout>
           </ConfigProvider>
         </LocalizationProvider>
