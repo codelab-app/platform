@@ -16,7 +16,6 @@ import type {
   IUpdateComponentData,
 } from './component.dto.interface'
 import type { IComponent } from './component.model.interface'
-import type { RenderedComponentFragment } from './component-render.fragment.graphql.gen'
 
 export interface IComponentService
   extends ICRUDService<IComponent, ICreateComponentData, IUpdateComponentData>,
@@ -28,14 +27,6 @@ export interface IComponentService
   components: ObjectMap<IComponent>
 
   add(componentDTO: IComponentDTO): IComponent
-  component(id: string): Maybe<IComponent>
-  /**
-term: Rendered. Everything with these terms requires to load dependencies of elementTree to be functional:
-component
-  rootElement
-    descendantElements
-   */
-  // loadRenderedComponentsTree(
-  //   renderedComponentFragments: Array<RenderedComponentFragment>,
-  // ): void
+  component(id: string): IComponent
+  maybeComponent(id: Maybe<string>): Maybe<IComponent>
 }
