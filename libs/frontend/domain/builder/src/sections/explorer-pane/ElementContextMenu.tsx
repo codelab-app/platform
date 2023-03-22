@@ -72,10 +72,6 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
       if (!user?.sub || !element.parent) {
         return
       }
-
-      elementTree?.addElements(
-        await cloneElement(element, element.parent.current),
-      )
     }
 
     const onConvert = async () => {
@@ -83,13 +79,9 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
         return
       }
 
-      const createdElement = await convertElementToComponent(element, {
+      await convertElementToComponent(element, {
         auth0Id: user.sub,
       })
-
-      if (createdElement) {
-        elementTree?.addElements([createdElement])
-      }
     }
 
     const onEditComponent = () => {
@@ -97,7 +89,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
         return
       }
 
-      builderService.setActiveTree(RendererTab.Component)
+      builderService.setActiveTab(RendererTab.Component)
 
       const component = componentService.components.get(element.renderType.id)
 

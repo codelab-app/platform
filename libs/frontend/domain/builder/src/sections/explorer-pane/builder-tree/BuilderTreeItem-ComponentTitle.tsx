@@ -31,7 +31,7 @@ export const BuilderTreeItemComponentTitle = observer(
         <Col css={tw`px-2`}>
           <CreateElementButton
             createModal={elementService.createModal}
-            elementTree={component.elementTree}
+            elementTree={component}
             key={0}
             selectedElementId={selectedNodeId || component.rootElement.id}
             type="text"

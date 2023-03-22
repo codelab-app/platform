@@ -53,14 +53,10 @@ export const useDndDropHandler = (
       ),
     }
 
-    let newElement: Nullable<IElement> = null
-
     // create the new element after the target element
     if (dragPosition === DragPosition.After && createElementDTO.prevSibling) {
       createElementDTO.prevSibling.id = targetElement.id
-      newElement = await elementService.createElementAsNextSibling(
-        createElementDTO,
-      )
+      await elementService.createElementAsNextSibling(createElementDTO)
     }
 
     // create the new element before the target element
@@ -68,31 +64,21 @@ export const useDndDropHandler = (
       // if theres an element before the target, create the new element next to that
       if (targetElement.prevSibling && createElementDTO.prevSibling) {
         createElementDTO.prevSibling.id = targetElement.prevSibling.id
-        newElement = await elementService.createElementAsNextSibling(
-          createElementDTO,
-        )
+        await elementService.createElementAsNextSibling(createElementDTO)
       }
 
       // if theres no element before the target, create the new element
       // as the first child of the target's parent element
       if (!targetElement.prevSibling && targetElement.parent?.id) {
         createElementDTO.parentElement = targetElement.parent
-        newElement = await elementService.createElementAsFirstChild(
-          createElementDTO,
-        )
+        await elementService.createElementAsFirstChild(createElementDTO)
       }
     }
 
     // create the new element inside the target element as a first child
     if (dragPosition === DragPosition.Inside) {
       createElementDTO.parentElement = targetElement
-      newElement = await elementService.createElementAsFirstChild(
-        createElementDTO,
-      )
-    }
-
-    if (newElement) {
-      elementTree.addElements([newElement])
+      await elementService.createElementAsFirstChild(createElementDTO)
     }
   }
 

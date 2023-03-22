@@ -35,7 +35,7 @@ component
   rootElement
     descendantElements
    */
-  loadRenderedComponentsTree(
-    renderedComponentFragments: Array<RenderedComponentFragment>,
-  ): void
+  // loadRenderedComponentsTree(
+  //   renderedComponentFragments: Array<RenderedComponentFragment>,
+  // ): void
 }

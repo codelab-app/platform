@@ -21,7 +21,6 @@ export interface BuilderTabsProps {
 export const BuilderTabs = observer<BuilderTabsProps>(
   ({ app, error, isLoading, page, renderer }) => {
     const { builderService } = useStore()
-    const elementTree = page?.elementTree
     const appStore = app?.store.current
 
     const tabItems = [
@@ -40,7 +39,7 @@ export const BuilderTabs = observer<BuilderTabsProps>(
         {error && <Alert message={extractErrorMessage(error)} type="error" />}
         <Header style={{ background: 'rgba(0,0,0,0)', marginBottom: '5px' }}>
           <Tabs
-            activeKey={builderService.activeTree}
+            activeKey={builderService.activeTab}
             defaultActiveKey={RendererTab.Page}
             items={tabItems}
             onChange={(key) => console.log(key)}
@@ -49,9 +48,9 @@ export const BuilderTabs = observer<BuilderTabsProps>(
         </Header>
         {isLoading && <Spin />}
         <Content>
-          {builderService.activeTree === RendererTab.Page ? (
-            elementTree && renderer ? (
-              <BaseBuilder elementTree={elementTree} renderer={renderer} />
+          {builderService.activeTab === RendererTab.Page ? (
+            page && renderer ? (
+              <BaseBuilder elementTree={page} renderer={renderer} />
             ) : null
           ) : builderService.activeComponent && appStore ? (
             <BuilderComponent

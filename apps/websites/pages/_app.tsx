@@ -15,7 +15,6 @@ const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
   return (
     <StoreProvider value={store}>
       <GlobalStyles />
-
       <Component
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...pageProps}

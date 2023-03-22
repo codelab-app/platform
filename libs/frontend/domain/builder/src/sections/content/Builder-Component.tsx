@@ -31,11 +31,9 @@ export const BuilderComponent = observer<BuilderComponentProps>(
           throw new Error('Component not found')
         }
 
-        const componentTree = component.elementTree
-
         await builderRenderService.addRenderer({
           appStore,
-          elementTree: componentTree,
+          elementTree: component,
           id: componentId,
           providerTree: null,
           rendererType: RendererType.ComponentBuilder,

@@ -169,9 +169,14 @@ export class PageService
 
   @modelAction
   add = (pageDTO: IPageDTO) => {
-    const page = Page.create(pageDTO)
+    let page = this.pages.get(pageDTO.id)
 
-    this.pages.set(page.id, page)
+    if (page) {
+      page.writeCache(pageDTO)
+    } else {
+      page = Page.create(pageDTO)
+      this.pages.set(page.id, page)
+    }
 
     return page
   }

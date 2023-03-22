@@ -12,21 +12,21 @@ import {
   IComponent,
   isComponentInstance,
 } from '@codelab/frontend/abstract/core'
-import {
-  ElementTree,
-  ElementTreeService,
-} from '@codelab/frontend/domain/element'
+import { ElementTree } from '@codelab/frontend/domain/element'
 import { propRef } from '@codelab/frontend/domain/prop'
 import { typeRef } from '@codelab/frontend/domain/type'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
   clone,
   ExtendedModel,
   idProp,
+  Model,
   model,
   modelAction,
+  objectMap,
   prop,
 } from 'mobx-keystone'
 
@@ -42,8 +42,6 @@ const create = ({
   return new Component({
     api: typeRef<IInterfaceType>(api.id),
     childrenContainerElement: elementRef(childrenContainerElement.id),
-    // TODO: Remove this, added now to satisfy interface only
-    elementTree: new ElementTree({}),
     id,
     instanceElement: null,
     name,
@@ -55,17 +53,14 @@ const create = ({
 
 @model('@codelab/Component')
 export class Component
-  extends ExtendedModel(ElementTreeService, {
+  extends ExtendedModel(ElementTree, {
     api: prop<Ref<IInterfaceType>>(),
     childrenContainerElement: prop<Ref<IElement>>().withSetter(),
-    id: idProp,
     // element which this component is attached to.
     instanceElement: prop<Nullable<Ref<IElement>>>(null).withSetter(),
     name: prop<string>().withSetter(),
     owner: prop<IAuth0Owner>(),
     props: prop<Nullable<Ref<IProp>>>(null).withSetter(),
-    // this isn't a Ref, because it will cause a circular dep.
-    rootElement: prop<Ref<IElement>>().withSetter(),
     // if this is a duplicate, trace source component id else null
     sourceComponent: prop<Nullable<IEntity>>(null).withSetter(),
   })
@@ -103,11 +98,11 @@ export class Component
 
   @modelAction
   private cloneTree(clonedComponent: IComponent, cloneIndex: number) {
-    console.debug('ElementTreeService.cloneTree', this.elementTree.elements)
+    console.debug('ElementTreeService.cloneTree', this.elements)
 
     const elementMap: Map<string, string> = new Map()
 
-    const elements = this.elementTree.elements.map((element) => {
+    const elements = this.elements.map((element) => {
       const clonedElement = element.clone(cloneIndex)
 
       // don't move it to element model to avoid dependency issues
@@ -131,8 +126,8 @@ export class Component
       return clonedElement
     })
 
-    const rootElementId = this.elementTree.root?.id
-      ? elementMap.get(this.elementTree.root.id)
+    const rootElementId = this.rootElement.id
+      ? elementMap.get(this.rootElement.id)
       : null
 
     elements.forEach((element) => {
@@ -160,8 +155,6 @@ export class Component
     }
 
     clonedComponent.setRootElement(elementRef(rootElement.id))
-
-    return ElementTree.init(rootElement, elements)
   }
 
   /**
@@ -181,12 +174,11 @@ export class Component
     )
 
     const clonedComponent: IComponent = clone<IComponent>(this)
-    const clonedTree = this.cloneTree(clonedComponent, clonesList.length)
+    this.cloneTree(clonedComponent, clonesList.length)
 
     clonedComponent.setProps(
       this.props ? propRef(this.props.current.clone()) : null,
     )
-    clonedComponent.setElementTree(clonedTree)
     clonedComponent.setSourceComponent({ id: this.id })
     clonedComponent.setInstanceElement(elementRef(instanceId))
 

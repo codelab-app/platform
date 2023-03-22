@@ -4,7 +4,6 @@ import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 export interface IPageDTO {
   // slug: string
   app: IEntity
-  descendentElements?: Array<IEntity>
   id: string
   kind: IPageKind
   name: string
