@@ -92,6 +92,9 @@ export const AtomsTable = observer<AtomsTableProps>(
         id: atom.id,
         library: getAtomLibrary(atom.type),
         name: atom.name,
+        requiredParents: atom.requiredParents.map(
+          (children) => children.current,
+        ),
         suggestedChildren: atom.suggestedChildren.map(
           (children) => children.current,
         ),

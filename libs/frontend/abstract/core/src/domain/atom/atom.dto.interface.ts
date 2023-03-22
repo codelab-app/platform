@@ -10,6 +10,7 @@ export interface ICreateAtomData extends IOwnerSchema {
   // api: IEntity
   id: string
   name: string
+  requiredParents?: Array<IAtomRef>
   suggestedChildren?: Array<IAtomRef>
   tags?: Array<IEntity>
   type: IAtomType
@@ -22,6 +23,7 @@ export interface IAtomDTO extends IOwnerSchema {
   icon?: string | null
   id: string
   name: string
+  requiredParents?: Array<IEntity>
   suggestedChildren?: Array<IEntity>
   tags?: Array<IEntity>
   type: IAtomType

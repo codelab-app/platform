@@ -2562,6 +2562,9 @@ export type Atom = WithOwner & {
   owner: User
   ownerAggregate?: Maybe<AtomUserOwnerAggregationSelection>
   ownerConnection: WithOwnerOwnerConnection
+  requiredParents: Array<Atom>
+  requiredParentsAggregate?: Maybe<AtomAtomRequiredParentsAggregationSelection>
+  requiredParentsConnection: AtomRequiredParentsConnection
   suggestedChildren: Array<Atom>
   suggestedChildrenAggregate?: Maybe<AtomAtomSuggestedChildrenAggregationSelection>
   suggestedChildrenConnection: AtomSuggestedChildrenConnection
@@ -2607,6 +2610,25 @@ export type AtomOwnerConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<WithOwnerOwnerConnectionSort>>
   where?: InputMaybe<WithOwnerOwnerConnectionWhere>
+}
+
+export type AtomRequiredParentsArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<AtomOptions>
+  where?: InputMaybe<AtomWhere>
+}
+
+export type AtomRequiredParentsAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<AtomWhere>
+}
+
+export type AtomRequiredParentsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<AtomRequiredParentsConnectionSort>>
+  where?: InputMaybe<AtomRequiredParentsConnectionWhere>
 }
 
 export type AtomSuggestedChildrenArgs = {
@@ -2762,6 +2784,19 @@ export type AtomApiUpdateFieldInput = {
   where?: InputMaybe<AtomApiConnectionWhere>
 }
 
+export type AtomAtomRequiredParentsAggregationSelection = {
+  __typename?: 'AtomAtomRequiredParentsAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<AtomAtomRequiredParentsNodeAggregateSelection>
+}
+
+export type AtomAtomRequiredParentsNodeAggregateSelection = {
+  __typename?: 'AtomAtomRequiredParentsNodeAggregateSelection'
+  icon: StringAggregateSelectionNullable
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
 export type AtomAtomSuggestedChildrenAggregationSelection = {
   __typename?: 'AtomAtomSuggestedChildrenAggregationSelection'
   count: Scalars['Int']
@@ -2778,6 +2813,7 @@ export type AtomAtomSuggestedChildrenNodeAggregateSelection = {
 export type AtomConnectInput = {
   api?: InputMaybe<AtomApiConnectFieldInput>
   owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
+  requiredParents?: InputMaybe<Array<AtomRequiredParentsConnectFieldInput>>
   suggestedChildren?: InputMaybe<Array<AtomSuggestedChildrenConnectFieldInput>>
   tags?: InputMaybe<Array<AtomTagsConnectFieldInput>>
 }
@@ -2785,6 +2821,9 @@ export type AtomConnectInput = {
 export type AtomConnectOrCreateInput = {
   api?: InputMaybe<AtomApiConnectOrCreateFieldInput>
   owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
+  requiredParents?: InputMaybe<
+    Array<AtomRequiredParentsConnectOrCreateFieldInput>
+  >
   suggestedChildren?: InputMaybe<
     Array<AtomSuggestedChildrenConnectOrCreateFieldInput>
   >
@@ -2805,6 +2844,7 @@ export type AtomCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
+  requiredParents?: InputMaybe<AtomRequiredParentsFieldInput>
   suggestedChildren?: InputMaybe<AtomSuggestedChildrenFieldInput>
   tags?: InputMaybe<AtomTagsFieldInput>
   type: AtomType
@@ -2813,6 +2853,7 @@ export type AtomCreateInput = {
 export type AtomDeleteInput = {
   api?: InputMaybe<AtomApiDeleteFieldInput>
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
+  requiredParents?: InputMaybe<Array<AtomRequiredParentsDeleteFieldInput>>
   suggestedChildren?: InputMaybe<Array<AtomSuggestedChildrenDeleteFieldInput>>
   tags?: InputMaybe<Array<AtomTagsDeleteFieldInput>>
 }
@@ -2820,6 +2861,7 @@ export type AtomDeleteInput = {
 export type AtomDisconnectInput = {
   api?: InputMaybe<AtomApiDisconnectFieldInput>
   owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
+  requiredParents?: InputMaybe<Array<AtomRequiredParentsDisconnectFieldInput>>
   suggestedChildren?: InputMaybe<
     Array<AtomSuggestedChildrenDisconnectFieldInput>
   >
@@ -2924,8 +2966,135 @@ export type AtomOwnerNodeAggregationWhereInput = {
 export type AtomRelationInput = {
   api?: InputMaybe<AtomApiCreateFieldInput>
   owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
+  requiredParents?: InputMaybe<Array<AtomRequiredParentsCreateFieldInput>>
   suggestedChildren?: InputMaybe<Array<AtomSuggestedChildrenCreateFieldInput>>
   tags?: InputMaybe<Array<AtomTagsCreateFieldInput>>
+}
+
+export type AtomRequiredParentsAggregateInput = {
+  AND?: InputMaybe<Array<AtomRequiredParentsAggregateInput>>
+  NOT?: InputMaybe<AtomRequiredParentsAggregateInput>
+  OR?: InputMaybe<Array<AtomRequiredParentsAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<AtomRequiredParentsNodeAggregationWhereInput>
+}
+
+export type AtomRequiredParentsConnectFieldInput = {
+  connect?: InputMaybe<Array<AtomConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
+  where?: InputMaybe<AtomConnectWhere>
+}
+
+export type AtomRequiredParentsConnectOrCreateFieldInput = {
+  onCreate: AtomRequiredParentsConnectOrCreateFieldInputOnCreate
+  where: AtomConnectOrCreateWhere
+}
+
+export type AtomRequiredParentsConnectOrCreateFieldInputOnCreate = {
+  node: AtomOnCreateInput
+}
+
+export type AtomRequiredParentsConnection = {
+  __typename?: 'AtomRequiredParentsConnection'
+  edges: Array<AtomRequiredParentsRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type AtomRequiredParentsConnectionSort = {
+  node?: InputMaybe<AtomSort>
+}
+
+export type AtomRequiredParentsConnectionWhere = {
+  AND?: InputMaybe<Array<AtomRequiredParentsConnectionWhere>>
+  NOT?: InputMaybe<AtomRequiredParentsConnectionWhere>
+  OR?: InputMaybe<Array<AtomRequiredParentsConnectionWhere>>
+  node?: InputMaybe<AtomWhere>
+}
+
+export type AtomRequiredParentsCreateFieldInput = {
+  node: AtomCreateInput
+}
+
+export type AtomRequiredParentsDeleteFieldInput = {
+  delete?: InputMaybe<AtomDeleteInput>
+  where?: InputMaybe<AtomRequiredParentsConnectionWhere>
+}
+
+export type AtomRequiredParentsDisconnectFieldInput = {
+  disconnect?: InputMaybe<AtomDisconnectInput>
+  where?: InputMaybe<AtomRequiredParentsConnectionWhere>
+}
+
+export type AtomRequiredParentsFieldInput = {
+  connect?: InputMaybe<Array<AtomRequiredParentsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<AtomRequiredParentsConnectOrCreateFieldInput>
+  >
+  create?: InputMaybe<Array<AtomRequiredParentsCreateFieldInput>>
+}
+
+export type AtomRequiredParentsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AtomRequiredParentsNodeAggregationWhereInput>>
+  NOT?: InputMaybe<AtomRequiredParentsNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<AtomRequiredParentsNodeAggregationWhereInput>>
+  icon_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  icon_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type AtomRequiredParentsRelationship = {
+  __typename?: 'AtomRequiredParentsRelationship'
+  cursor: Scalars['String']
+  node: Atom
+}
+
+export type AtomRequiredParentsUpdateConnectionInput = {
+  node?: InputMaybe<AtomUpdateInput>
+}
+
+export type AtomRequiredParentsUpdateFieldInput = {
+  connect?: InputMaybe<Array<AtomRequiredParentsConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<AtomRequiredParentsConnectOrCreateFieldInput>
+  >
+  create?: InputMaybe<Array<AtomRequiredParentsCreateFieldInput>>
+  delete?: InputMaybe<Array<AtomRequiredParentsDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<AtomRequiredParentsDisconnectFieldInput>>
+  update?: InputMaybe<AtomRequiredParentsUpdateConnectionInput>
+  where?: InputMaybe<AtomRequiredParentsConnectionWhere>
 }
 
 /** Fields to sort Atoms by. The order in which sorts are applied is not guaranteed when specifying many fields in one AtomSort object. */
@@ -3570,6 +3739,7 @@ export type AtomUpdateInput = {
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
+  requiredParents?: InputMaybe<Array<AtomRequiredParentsUpdateFieldInput>>
   suggestedChildren?: InputMaybe<Array<AtomSuggestedChildrenUpdateFieldInput>>
   tags?: InputMaybe<Array<AtomTagsUpdateFieldInput>>
   type?: InputMaybe<AtomType>
@@ -3621,6 +3791,23 @@ export type AtomWhere = {
   ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
   ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
   owner_NOT?: InputMaybe<UserWhere>
+  requiredParentsAggregate?: InputMaybe<AtomRequiredParentsAggregateInput>
+  /** Return Atoms where all of the related AtomRequiredParentsConnections match this filter */
+  requiredParentsConnection_ALL?: InputMaybe<AtomRequiredParentsConnectionWhere>
+  /** Return Atoms where none of the related AtomRequiredParentsConnections match this filter */
+  requiredParentsConnection_NONE?: InputMaybe<AtomRequiredParentsConnectionWhere>
+  /** Return Atoms where one of the related AtomRequiredParentsConnections match this filter */
+  requiredParentsConnection_SINGLE?: InputMaybe<AtomRequiredParentsConnectionWhere>
+  /** Return Atoms where some of the related AtomRequiredParentsConnections match this filter */
+  requiredParentsConnection_SOME?: InputMaybe<AtomRequiredParentsConnectionWhere>
+  /** Return Atoms where all of the related Atoms match this filter */
+  requiredParents_ALL?: InputMaybe<AtomWhere>
+  /** Return Atoms where none of the related Atoms match this filter */
+  requiredParents_NONE?: InputMaybe<AtomWhere>
+  /** Return Atoms where one of the related Atoms match this filter */
+  requiredParents_SINGLE?: InputMaybe<AtomWhere>
+  /** Return Atoms where some of the related Atoms match this filter */
+  requiredParents_SOME?: InputMaybe<AtomWhere>
   suggestedChildrenAggregate?: InputMaybe<AtomSuggestedChildrenAggregateInput>
   /** Return Atoms where all of the related AtomSuggestedChildrenConnections match this filter */
   suggestedChildrenConnection_ALL?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
@@ -19807,6 +19994,12 @@ export type AtomFragment = {
   tags: Array<{ __typename?: 'Tag' } & TagFragment>
   api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
   suggestedChildren: Array<{
+    __typename?: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+  }>
+  requiredParents: Array<{
     __typename?: 'Atom'
     id: string
     name: string

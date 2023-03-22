@@ -26,6 +26,7 @@ export interface IAtom
   icon?: string | null
   id: string
   name: string
+  requiredParents: Array<Ref<IAtom>>
   suggestedChildren: Array<Ref<IAtom>>
   tags: Array<Ref<ITag>>
   type: IAtomType

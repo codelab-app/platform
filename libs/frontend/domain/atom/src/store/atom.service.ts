@@ -50,12 +50,20 @@ export class AtomService
   @transaction
   update = _async(function* (
     this: AtomService,
-    { id, name, suggestedChildren = [], tags = [], type }: IUpdateAtomData,
+    {
+      id,
+      name,
+      requiredParents = [],
+      suggestedChildren = [],
+      tags = [],
+      type,
+    }: IUpdateAtomData,
   ) {
     const atom = this.atoms.get(id)
 
     atom?.writeCache({
       name,
+      requiredParents: requiredParents.map((child) => ({ id: child })),
       suggestedChildren: suggestedChildren.map((child) => ({ id: child })),
       tags,
       type,
@@ -82,10 +90,28 @@ export class AtomService
   }
 
   @modelAction
-  add = ({ api, id, name, owner, type }: IAtomDTO) => {
+  add = ({
+    api,
+    id,
+    name,
+    owner,
+    requiredParents,
+    suggestedChildren,
+    type,
+  }: IAtomDTO) => {
     // const tagRefs = tags?.map((tag) => tagRef(tag.id))
     const apiRef = typeRef<IInterfaceType>(api.id)
-    const atom = Atom.create({ api: apiRef, id, name, owner, tags: [], type })
+
+    const atom = Atom.create({
+      api: apiRef,
+      id,
+      name,
+      owner,
+      requiredParents,
+      suggestedChildren,
+      tags: [],
+      type,
+    })
 
     this.atoms.set(atom.id, atom)
 

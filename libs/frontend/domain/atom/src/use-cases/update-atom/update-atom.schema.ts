@@ -46,6 +46,14 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
       showSearch: true,
       type: 'string',
     },
+    requiredParents: {
+      items: {
+        type: 'string',
+      },
+      nullable: true,
+      showSearch: true,
+      type: 'array',
+    },
   },
   required: ['name', 'type'],
   title: 'Update Atom Input',

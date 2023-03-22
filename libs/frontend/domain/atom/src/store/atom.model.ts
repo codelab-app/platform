@@ -32,6 +32,7 @@ const create = ({
   id,
   name,
   owner,
+  requiredParents,
   suggestedChildren,
   tags,
   type,
@@ -42,6 +43,7 @@ const create = ({
     id,
     name,
     owner,
+    requiredParents: requiredParents?.map((child) => atomRef(child.id)),
     suggestedChildren: suggestedChildren?.map((child) => atomRef(child.id)),
     tags: tags?.map((tag) => tagRef(tag.id)),
     type,
@@ -56,6 +58,7 @@ export class Atom
     id: idProp,
     name: prop<string>(),
     owner: prop<IAuth0Owner>(),
+    requiredParents: prop<Array<Ref<IAtom>>>(() => []),
     suggestedChildren: prop<Array<Ref<IAtom>>>(() => []),
     tags: prop<Array<Ref<ITag>>>(() => []),
     type: prop<IAtomType>(),
@@ -80,6 +83,7 @@ export class Atom
     icon,
     id,
     name,
+    requiredParents = [],
     suggestedChildren = [],
     tags = [],
     type,
@@ -90,6 +94,7 @@ export class Atom
     this.tags = tags.map((tag) => tagRef(tag.id))
     this.icon = icon ?? this.icon
     this.suggestedChildren = suggestedChildren.map((child) => atomRef(child.id))
+    this.requiredParents = requiredParents.map((child) => atomRef(child.id))
 
     return this
   }
@@ -122,6 +127,12 @@ export class Atom
       id: this.id,
       name: this.name,
       owner: connectAuth0Owner(this.owner),
+      requiredParents: reconnectNodeIds(
+        this.requiredParents.map((parent) => parent.current.id),
+      ),
+      suggestedChildren: reconnectNodeIds(
+        this.suggestedChildren.map((child) => child.current.id),
+      ),
       tags: reconnectNodeIds(this.tags.map((tag) => tag.current.id)),
       type: this.type,
     }

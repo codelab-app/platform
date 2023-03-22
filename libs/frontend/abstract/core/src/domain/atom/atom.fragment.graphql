@@ -17,6 +17,11 @@ fragment Atom on Atom {
     name
     type
   }
+  requiredParents {
+    id
+    name
+    type
+  }
 }
 
 fragment RenderAtom on Atom {

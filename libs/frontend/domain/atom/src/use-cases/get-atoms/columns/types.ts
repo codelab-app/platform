@@ -18,6 +18,7 @@ export interface AtomRecord {
   id: string
   library: AtomLibrary
   name: string
+  requiredParents: Array<Pick<IAtomDTO, 'id' | 'name'>>
   suggestedChildren: Array<Pick<IAtomDTO, 'id' | 'name'>>
   tags: Array<ITag>
   type: IAtomType

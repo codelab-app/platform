@@ -15,6 +15,8 @@ export class Atom implements IAtomDTO {
 
   tags: Array<IEntity>
 
+  requiredParents: Array<IEntity>
+
   suggestedChildren: Array<IEntity>
 
   owner: IAuth0Owner
@@ -25,6 +27,7 @@ export class Atom implements IAtomDTO {
     id,
     name,
     owner,
+    requiredParents = [],
     suggestedChildren = [],
     tags = [],
     type,
@@ -35,6 +38,7 @@ export class Atom implements IAtomDTO {
     this.type = type
     this.api = api
     this.tags = tags
+    this.requiredParents = requiredParents
     this.suggestedChildren = suggestedChildren
     this.owner = owner
   }

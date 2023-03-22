@@ -29,6 +29,7 @@ export const UpdateAtomModal = observer<{
   const model = {
     id: atom?.id,
     name: atom?.name,
+    requiredParents: atom?.requiredParents.map((child) => child.id),
     suggestedChildren: atom?.suggestedChildren.map(
       (suggestedChild) => suggestedChild.id,
     ),
@@ -51,7 +52,9 @@ export const UpdateAtomModal = observer<{
         onSubmitSuccess={closeModal}
         schema={updateAtomSchema}
       >
-        <AutoFields omitFields={['tags', 'suggestedChildren']} />
+        <AutoFields
+          omitFields={['tags', 'suggestedChildren', 'requiredParents']}
+        />
         <SelectField
           label="Connect Tag"
           mode="multiple"
@@ -61,6 +64,7 @@ export const UpdateAtomModal = observer<{
           showSearch={true}
         />
         <SelectAtom label="Suggested Children" name="suggestedChildren" />
+        <SelectAtom label="Required Parents" name="requiredParents" />
         {/* <SelectField */}
         {/*  label="Allowed Children" */}
         {/*  mode="multiple" */}

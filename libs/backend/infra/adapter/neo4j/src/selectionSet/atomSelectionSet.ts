@@ -19,6 +19,11 @@ export const atomSelectionSet = `{
     name
     type
   }
+  requiredParents {
+    id
+    name
+    type
+  }
 }`
 
 export const exportAtomSelectionSet = `{
@@ -33,6 +38,11 @@ export const exportAtomSelectionSet = `{
   tags
     ${exportTagSelectionSet}
   suggestedChildren {
+    id
+    name
+    type
+  }
+  requiredParents {
     id
     name
     type
