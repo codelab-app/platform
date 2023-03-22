@@ -148,7 +148,7 @@ export class Renderer
   // }
 
   renderRoot() {
-    const root = this.elementTree.maybeCurrent?.root
+    const root = this.elementTree.maybeCurrent?.rootElement.current
 
     if (!root) {
       console.warn('Renderer: No root element found')
@@ -170,7 +170,7 @@ export class Renderer
    * Takes the provider tree and wrap it around our root element
    */
   private renderWithProviders(rootElement: ReactElement) {
-    const providerRoot = this.providerTree?.current.root
+    const providerRoot = this.providerTree?.current.rootElement.current
 
     if (!providerRoot) {
       return rootElement

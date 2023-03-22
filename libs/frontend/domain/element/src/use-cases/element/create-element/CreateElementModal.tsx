@@ -41,9 +41,6 @@ export const CreateElementModal = observer<CreateElementModalProps>(
         ? elementService.createElementAsNextSibling(data)
         : elementService.createElementAsFirstChild(data))
 
-      // Build tree for page
-      elementTree.addElements([element])
-
       return Promise.resolve([element])
     }
 

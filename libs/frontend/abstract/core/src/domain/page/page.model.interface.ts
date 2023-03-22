@@ -3,7 +3,7 @@ import type { IPageKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
-import type { IElement, IElementTreeService } from '../element'
+import type { IElement, IElementTree, IElementTreeService } from '../element'
 import type { IModel } from '../model.interface'
 import type { IPropData } from '../prop'
 import type { IPageDTO } from './page.dto.interface'
@@ -11,10 +11,10 @@ import type { IPageDTO } from './page.dto.interface'
 export interface IPage
   extends Pick<IModel<PageCreateInput, void, void>, 'toCreateInput'>,
     IEntity,
-    IElementTreeService,
-    ICacheService<IPageDTO, IPage> {
+    ICacheService<IPageDTO, IPage>,
+    IElementTree {
   app: IEntity
-  descendentElements: Array<Ref<IElement>>
+  // elementTree: IElementTree
   // Helper getter to get all elements
   elements: Array<IElement>
   kind: IPageKind

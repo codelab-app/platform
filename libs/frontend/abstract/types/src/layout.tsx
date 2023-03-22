@@ -15,9 +15,6 @@ export type CodelabPage<P = unknown, IP = P, RCP = unknown> = NextPage<P, IP> &
  * These are the props a page requires. The children accepts a props as argument so we can pass data.
  */
 export interface PageProps<Props, ChildrenProps> {
-  // getLayout?: (
-  //   page: NextComponentType<NextPageContext, any, P>,
-  // ) => JSX.Element | JSXElementConstructor<any>
   Layout?: JSXElementConstructor<PropsWithRenderChildren<Props, ChildrenProps>>
 }
 

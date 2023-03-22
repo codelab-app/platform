@@ -4,6 +4,8 @@ import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { PageDetailHeader } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
 import {
+  useCurrentAppId,
+  useCurrentPageId,
   useRenderedPage,
   useStore,
 } from '@codelab/frontend/presenter/container'
@@ -14,10 +16,11 @@ import { useMountEffect } from '@react-hookz/web'
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const PageRenderer: CodelabPage<IPageProps> = observer(() => {
   const { appRenderService } = useStore()
+  const pageId = useCurrentPageId()
 
   const [{ error, result, status }, actions] = useRenderedPage({
     rendererType: RendererType.Preview,

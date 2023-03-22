@@ -9,12 +9,12 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { actionRef } from '../../../store'
 
-export interface GetActionItemProps {
+export interface ActionItemProps {
   action: IAction
   actionService: IActionService
 }
 
-export const GetActionItem = observer<GetActionItemProps>(
+export const ActionItem = observer<ActionItemProps>(
   ({ action, actionService }) => {
     const onClickDelete = () =>
       actionService.deleteModal.open(actionRef(action.id))

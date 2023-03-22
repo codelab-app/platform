@@ -19,8 +19,6 @@ interface UpdateComponentFormProps {
  */
 export const UpdateComponentForm = observer<UpdateComponentFormProps>(
   ({ component, componentService }) => {
-    const elementTree = component.elementTree
-
     const model = {
       childrenContainerElement: {
         id: component.childrenContainerElement.current.id,
@@ -33,7 +31,7 @@ export const UpdateComponentForm = observer<UpdateComponentFormProps>(
       componentService.update(componentData)
 
     return (
-      <FormContextProvider value={{ elementTree }}>
+      <FormContextProvider value={{ elementTree: component }}>
         <Form<IUpdateComponentData>
           autosave
           model={model}
