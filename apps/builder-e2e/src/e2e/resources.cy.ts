@@ -1,6 +1,7 @@
 import { ResourceType } from '@codelab/shared/abstract/codegen'
 import { FIELD_TYPE } from '../support/antd/form'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
+import { stopOnFirstError } from '../support/stopOnFirstError'
 import {
   resourceName,
   resourcesUrl,
@@ -14,6 +15,8 @@ describe('Resource CRUD', () => {
     cy.visit('/resources')
     cy.getSpinner().should('not.exist')
   })
+
+  afterEach(stopOnFirstError)
 
   describe('create', () => {
     it('should be able to create resource', () => {

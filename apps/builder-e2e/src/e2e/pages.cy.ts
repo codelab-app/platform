@@ -2,6 +2,7 @@ import type { IAppDTO } from '@codelab/frontend/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
+import { stopOnFirstError } from '../support/stopOnFirstError'
 import { pageName, updatedPageName } from './apps/app.data'
 
 describe('Pages CRUD', () => {
@@ -23,6 +24,8 @@ describe('Pages CRUD', () => {
         cy.findAllByText(IPageKindName.Provider).should('exist')
       })
   })
+
+  afterEach(stopOnFirstError)
 
   describe('create', () => {
     it('should be able to create page', () => {

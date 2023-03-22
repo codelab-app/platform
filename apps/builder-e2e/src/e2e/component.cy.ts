@@ -8,6 +8,7 @@ import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { createAppInput } from '../support/database/app'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
+import { stopOnFirstError } from '../support/stopOnFirstError'
 
 const COMPONENT_NAME = 'New Component'
 const COMPONENT_INSTANCE_NAME = 'Component Instance'
@@ -91,6 +92,8 @@ describe('Component CRUD', () => {
         cy.getSpinner().should('not.exist')
       })
   })
+
+  afterEach(stopOnFirstError)
 
   describe('Add component', () => {
     it('should be able to add a new component', () => {
