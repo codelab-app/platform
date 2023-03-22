@@ -132,19 +132,26 @@ export class Component
 
     elements.forEach((element) => {
       const { firstChild, nextSibling, parent, prevSibling } = element
-      const parentId = parent && elementMap.get(parent.current.id)
-      const firstChildId = firstChild && elementMap.get(firstChild.current.id)
 
-      const nextSiblingId =
-        nextSibling && elementMap.get(nextSibling.current.id)
+      if (parent) {
+        const parentId = elementMap.get(parent.current.id)
+        element.setParent(elementRef(parentId!))
+      }
 
-      const prevSiblingId =
-        prevSibling && elementMap.get(prevSibling.current.id)
+      if (firstChild) {
+        const firstChildId = elementMap.get(firstChild.current.id)
+        element.setParent(elementRef(firstChildId!))
+      }
 
-      parentId && element.setParent(elementRef(parentId))
-      firstChildId && element.setFirstChild(elementRef(firstChildId))
-      nextSiblingId && element.setNextSibling(elementRef(nextSiblingId))
-      prevSiblingId && element.setPrevSibling(elementRef(prevSiblingId))
+      if (nextSibling) {
+        const nextSiblingId = elementMap.get(nextSibling.current.id)
+        element.setParent(elementRef(nextSiblingId!))
+      }
+
+      if (prevSibling) {
+        const prevSiblingId = elementMap.get(prevSibling.current.id)
+        element.setPrevSibling(elementRef(prevSiblingId!))
+      }
     })
 
     const rootElement = elements.find((element) => element.id === rootElementId)

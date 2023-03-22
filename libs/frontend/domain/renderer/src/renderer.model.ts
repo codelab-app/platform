@@ -193,7 +193,7 @@ export class Renderer
           renderRecursive(childElement),
         )
 
-        if (element.id === pageContentContainer?.id) {
+        if (element.id === pageContentContainer?.maybeCurrent?.id) {
           children.push(rootElement)
         }
 

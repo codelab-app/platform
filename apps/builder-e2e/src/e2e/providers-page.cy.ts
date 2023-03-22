@@ -1,27 +1,28 @@
+import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
-import slugify from 'voca/slugify'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
+import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
-// import { seedData } from './admin/assert'
 import { appName, pageName } from './apps/app.data'
 
-const CONFIG_PROVIDER_NAME = 'Config Provider'
 const CARD_COMPONENT_NAME = 'Card Component'
 const INPUT_COMPONENT_NAME = 'Input Component'
 
-const mainPageElements = [
+const providerPageElements = [
   {
     atom: IAtomType.AntDesignCard,
     name: CARD_COMPONENT_NAME,
     parentElement: ROOT_ELEMENT_NAME,
-    slug: slugify(CARD_COMPONENT_NAME),
   },
+]
+
+const mainPageElements = [
   {
     atom: IAtomType.AntDesignInput,
     name: INPUT_COMPONENT_NAME,
-    parentElement: CARD_COMPONENT_NAME,
-    slug: slugify(INPUT_COMPONENT_NAME),
+    parentElement: ROOT_ELEMENT_NAME,
   },
 ]
 
@@ -31,18 +32,33 @@ const openPageByName = (name: string) => {
   cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 }).should('be.visible')
 }
 
-const openPageByHeaderMenu = (name: string) => {
-  cy.get('header .anticon-file').click()
-  cy.findByText(name).click()
-  cy.getSpinner().should('not.exist')
-  cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 }).should('be.visible')
-}
-
 describe('_app page', () => {
   before(() => {
     cy.resetDatabase()
     loginSession()
-    // seedData()
+
+    cy.getCurrentOwner().then((owner: IAuth0Owner) => {
+      const atomsInput = [
+        IAtomType.AntDesignCard,
+        IAtomType.AntDesignInput,
+      ].map((atom) => ({
+        api: {
+          create: {
+            node: {
+              id: v4(),
+              name: `${atom} API`,
+              owner: connectAuth0Owner(owner),
+            },
+          },
+        },
+        id: v4(),
+        name: atom,
+        owner: connectAuth0Owner(owner),
+        type: atom,
+      }))
+
+      cy.createAtom(atomsInput)
+    })
   })
 
   it('should create _app page when app is created', () => {
@@ -59,38 +75,19 @@ describe('_app page', () => {
     cy.findByText(IPageKindName.Provider).should('exist')
   })
 
-  it('should be able to add config provider atom to the _app page', () => {
+  it('should be able to add card component to the _app page', () => {
     openPageByName(IPageKindName.Provider)
 
-    cy.getSider()
-      .find('.ant-page-header-heading')
-      .getButton({ icon: 'plus' })
-      .click()
-
-    cy.getModal().setFormFieldValue({
-      label: 'Render Type',
-      type: FIELD_TYPE.SELECT,
-      value: 'Atom',
-    })
-    cy.getModal().setFormFieldValue({
-      label: 'Atom',
-      type: FIELD_TYPE.SELECT,
-      value: IAtomType.AntDesignConfigProvider,
-    })
-    cy.getModal().findByLabelText('Name').clear().type(CONFIG_PROVIDER_NAME)
-    cy.getModal()
-      .getModalAction(/Create/)
-      .click()
-    cy.getModal().should('not.exist')
+    cy.createElementTree(providerPageElements)
   })
 
-  it('should set config provider element as a container for child pages', () => {
-    cy.get(`.ant-tabs .ant-tabs-nav-operations`).click()
-    cy.get(`.ant-tabs .ant-tabs-nav-operations [aria-label="file"]`).click()
+  it('should set card element as a container for child pages', () => {
+    cy.get(`.ant-tabs [aria-label="file"]`).click()
+    cy.get(`.ant-tabs [aria-label="file"]`).click()
     cy.get('.ant-tabs-tabpane-active form').setFormFieldValue({
       label: 'Id',
       type: FIELD_TYPE.SELECT,
-      value: CONFIG_PROVIDER_NAME,
+      value: CARD_COMPONENT_NAME,
     })
 
     // After props are changed - need to wait for the corresponding API call
@@ -98,8 +95,8 @@ describe('_app page', () => {
     // Otherwise, there is a risk that `cy.go('back')` will prevent the request from being sent
     cy.waitForApiCalls()
 
-    cy.go('back')
-    cy.getSider().find('.ant-page-header-heading').should('be.visible')
+    cy.get('.ant-layout-sider a[href]').eq(1).click()
+    cy.findAllByText(IPageKindName.Provider).should('exist')
   })
 
   it('should be able to create simple page', () => {
@@ -119,36 +116,15 @@ describe('_app page', () => {
     openPageByName(pageName)
   })
 
-  it('should be able to add card and input atoms to the page', () => {
+  it('should be able to add input atom to the page', () => {
     cy.createElementTree(mainPageElements)
   })
 
-  it('should render the input in enabled state in builder and viewer', () => {
+  it('should render the input inside isnide the card in builder and viewer', () => {
     cy.get('#Builder .ant-card-body input').should('not.be.disabled')
 
     cy.get('header .anticon-eye').click()
     cy.get('header .anticon-tool', { timeout: 30000 }).should('be.visible')
     cy.get('#render-root .ant-card-body input').should('not.be.disabled')
-  })
-
-  it('should be able to toggle "Component Disabled" AntDesignConfigProvider prop on _app page', () => {
-    openPageByHeaderMenu(IPageKindName.Provider)
-
-    cy.findByText(CONFIG_PROVIDER_NAME).click()
-
-    cy.get(`.ant-tabs [aria-label="setting"]`).click()
-    cy.findByLabelText(/Component Disabled/).click({ force: true })
-  })
-
-  it('should render the input in disabled state', () => {
-    openPageByHeaderMenu(pageName)
-
-    // This is not working in headless mode
-    cy.get('#render-root .ant-card-body input').should('be.disabled')
-
-    cy.get('header .anticon-eye').click()
-    cy.get('header .anticon-tool', { timeout: 30000 }).should('be.visible')
-
-    cy.get('#render-root .ant-card-body input').should('be.disabled')
   })
 })

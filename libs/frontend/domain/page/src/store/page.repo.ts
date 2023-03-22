@@ -46,7 +46,9 @@ export class PageRepository extends Model({}) implements IPageRepository {
         update: {
           _compoundName: createUniqueName(name, app.id),
           app: connectNodeId(app.id),
-          pageContentContainer: reconnectNodeId(pageContentContainer?.id),
+          pageContentContainer: reconnectNodeId(
+            pageContentContainer?.current.id,
+          ),
         },
         where: { id },
       }),
