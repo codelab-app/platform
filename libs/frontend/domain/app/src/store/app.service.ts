@@ -32,7 +32,6 @@ import type {
   AppWhere,
   GetRenderedPageAndCommonAppDataQuery,
 } from '@codelab/shared/abstract/codegen'
-import { PageKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import flatMap from 'lodash/flatMap'
 import merge from 'lodash/merge'
@@ -172,18 +171,6 @@ export class AppService
     })
 
     const page = app.page(pageId)
-
-    const providerPageId = appData.pages.find(
-      (_page) => _page.kind === PageKind.Provider,
-    )?.id
-
-    const providerPage = app.page(providerPageId!)
-
-    const providerPageRoot = this.elementService.element(
-      providerPage.rootElement.id,
-    )
-
-    providerPage.initTree(providerPageRoot, providerPage.elements)
 
     return {
       app,

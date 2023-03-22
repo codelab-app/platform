@@ -1,7 +1,7 @@
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
-import type { IElement, IElementTree, IElementTreeService } from '../element'
+import type { IElement, IElementTree } from '../element'
 import type { IProp } from '../prop'
 import type { IInterfaceType } from '../type'
 import type { IOwnerSchema } from '../user'
