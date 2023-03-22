@@ -27,22 +27,22 @@ import { atomRef } from './atom.ref'
 import { customTextInjectionWhiteList } from './custom-text-injection-whitelist'
 
 const create = ({
-  allowedChildren,
   api,
   icon,
   id,
   name,
   owner,
+  suggestedChildren,
   tags,
   type,
 }: IAtomDTO) => {
   return new Atom({
-    allowedChildren: allowedChildren?.map((child) => atomRef(child.id)),
     api: typeRef<IInterfaceType>(api.id),
     icon,
     id,
     name,
     owner,
+    suggestedChildren: suggestedChildren?.map((child) => atomRef(child.id)),
     tags: tags?.map((tag) => tagRef(tag.id)),
     type,
   })
@@ -51,12 +51,12 @@ const create = ({
 @model('@codelab/Atom')
 export class Atom
   extends Model({
-    allowedChildren: prop<Array<Ref<IAtom>>>(() => []),
     api: prop<Ref<IInterfaceType>>(),
     icon: prop<string | null | undefined>(null),
     id: idProp,
     name: prop<string>(),
     owner: prop<IAuth0Owner>(),
+    suggestedChildren: prop<Array<Ref<IAtom>>>(() => []),
     tags: prop<Array<Ref<ITag>>>(() => []),
     type: prop<IAtomType>(),
   })
@@ -76,11 +76,11 @@ export class Atom
 
   @modelAction
   writeCache({
-    allowedChildren = [],
     api,
     icon,
     id,
     name,
+    suggestedChildren = [],
     tags = [],
     type,
   }: Partial<IAtomDTO>) {
@@ -89,7 +89,7 @@ export class Atom
     this.api = api?.id ? typeRef<IInterfaceType>(api.id) : this.api
     this.tags = tags.map((tag) => tagRef(tag.id))
     this.icon = icon ?? this.icon
-    this.allowedChildren = allowedChildren.map((child) => atomRef(child.id))
+    this.suggestedChildren = suggestedChildren.map((child) => atomRef(child.id))
 
     return this
   }

@@ -2553,9 +2553,6 @@ export type ArrayTypesConnection = {
 
 export type Atom = WithOwner & {
   __typename?: 'Atom'
-  allowedChildren: Array<Atom>
-  allowedChildrenAggregate?: Maybe<AtomAtomAllowedChildrenAggregationSelection>
-  allowedChildrenConnection: AtomAllowedChildrenConnection
   api: InterfaceType
   apiAggregate?: Maybe<AtomInterfaceTypeApiAggregationSelection>
   apiConnection: AtomApiConnection
@@ -2565,29 +2562,13 @@ export type Atom = WithOwner & {
   owner: User
   ownerAggregate?: Maybe<AtomUserOwnerAggregationSelection>
   ownerConnection: WithOwnerOwnerConnection
+  suggestedChildren: Array<Atom>
+  suggestedChildrenAggregate?: Maybe<AtomAtomSuggestedChildrenAggregationSelection>
+  suggestedChildrenConnection: AtomSuggestedChildrenConnection
   tags: Array<Tag>
   tagsAggregate?: Maybe<AtomTagTagsAggregationSelection>
   tagsConnection: AtomTagsConnection
   type: AtomType
-}
-
-export type AtomAllowedChildrenArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<AtomOptions>
-  where?: InputMaybe<AtomWhere>
-}
-
-export type AtomAllowedChildrenAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  where?: InputMaybe<AtomWhere>
-}
-
-export type AtomAllowedChildrenConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<AtomAllowedChildrenConnectionSort>>
-  where?: InputMaybe<AtomAllowedChildrenConnectionWhere>
 }
 
 export type AtomApiArgs = {
@@ -2628,6 +2609,25 @@ export type AtomOwnerConnectionArgs = {
   where?: InputMaybe<WithOwnerOwnerConnectionWhere>
 }
 
+export type AtomSuggestedChildrenArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<AtomOptions>
+  where?: InputMaybe<AtomWhere>
+}
+
+export type AtomSuggestedChildrenAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<AtomWhere>
+}
+
+export type AtomSuggestedChildrenConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<AtomSuggestedChildrenConnectionSort>>
+  where?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
+}
+
 export type AtomTagsArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   options?: InputMaybe<TagOptions>
@@ -2653,132 +2653,6 @@ export type AtomAggregateSelection = {
   icon: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
-}
-
-export type AtomAllowedChildrenAggregateInput = {
-  AND?: InputMaybe<Array<AtomAllowedChildrenAggregateInput>>
-  NOT?: InputMaybe<AtomAllowedChildrenAggregateInput>
-  OR?: InputMaybe<Array<AtomAllowedChildrenAggregateInput>>
-  count?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<AtomAllowedChildrenNodeAggregationWhereInput>
-}
-
-export type AtomAllowedChildrenConnectFieldInput = {
-  connect?: InputMaybe<Array<AtomConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
-  overwrite?: Scalars['Boolean']
-  where?: InputMaybe<AtomConnectWhere>
-}
-
-export type AtomAllowedChildrenConnectOrCreateFieldInput = {
-  onCreate: AtomAllowedChildrenConnectOrCreateFieldInputOnCreate
-  where: AtomConnectOrCreateWhere
-}
-
-export type AtomAllowedChildrenConnectOrCreateFieldInputOnCreate = {
-  node: AtomOnCreateInput
-}
-
-export type AtomAllowedChildrenConnection = {
-  __typename?: 'AtomAllowedChildrenConnection'
-  edges: Array<AtomAllowedChildrenRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
-export type AtomAllowedChildrenConnectionSort = {
-  node?: InputMaybe<AtomSort>
-}
-
-export type AtomAllowedChildrenConnectionWhere = {
-  AND?: InputMaybe<Array<AtomAllowedChildrenConnectionWhere>>
-  NOT?: InputMaybe<AtomAllowedChildrenConnectionWhere>
-  OR?: InputMaybe<Array<AtomAllowedChildrenConnectionWhere>>
-  node?: InputMaybe<AtomWhere>
-}
-
-export type AtomAllowedChildrenCreateFieldInput = {
-  node: AtomCreateInput
-}
-
-export type AtomAllowedChildrenDeleteFieldInput = {
-  delete?: InputMaybe<AtomDeleteInput>
-  where?: InputMaybe<AtomAllowedChildrenConnectionWhere>
-}
-
-export type AtomAllowedChildrenDisconnectFieldInput = {
-  disconnect?: InputMaybe<AtomDisconnectInput>
-  where?: InputMaybe<AtomAllowedChildrenConnectionWhere>
-}
-
-export type AtomAllowedChildrenFieldInput = {
-  connect?: InputMaybe<Array<AtomAllowedChildrenConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<AtomAllowedChildrenConnectOrCreateFieldInput>
-  >
-  create?: InputMaybe<Array<AtomAllowedChildrenCreateFieldInput>>
-}
-
-export type AtomAllowedChildrenNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<AtomAllowedChildrenNodeAggregationWhereInput>>
-  NOT?: InputMaybe<AtomAllowedChildrenNodeAggregationWhereInput>
-  OR?: InputMaybe<Array<AtomAllowedChildrenNodeAggregationWhereInput>>
-  icon_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  icon_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  icon_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  icon_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  icon_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  icon_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  icon_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  icon_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  icon_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  icon_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  icon_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  icon_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  icon_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  icon_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  icon_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-}
-
-export type AtomAllowedChildrenRelationship = {
-  __typename?: 'AtomAllowedChildrenRelationship'
-  cursor: Scalars['String']
-  node: Atom
-}
-
-export type AtomAllowedChildrenUpdateConnectionInput = {
-  node?: InputMaybe<AtomUpdateInput>
-}
-
-export type AtomAllowedChildrenUpdateFieldInput = {
-  connect?: InputMaybe<Array<AtomAllowedChildrenConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<AtomAllowedChildrenConnectOrCreateFieldInput>
-  >
-  create?: InputMaybe<Array<AtomAllowedChildrenCreateFieldInput>>
-  delete?: InputMaybe<Array<AtomAllowedChildrenDeleteFieldInput>>
-  disconnect?: InputMaybe<Array<AtomAllowedChildrenDisconnectFieldInput>>
-  update?: InputMaybe<AtomAllowedChildrenUpdateConnectionInput>
-  where?: InputMaybe<AtomAllowedChildrenConnectionWhere>
 }
 
 export type AtomApiAggregateInput = {
@@ -2888,32 +2762,32 @@ export type AtomApiUpdateFieldInput = {
   where?: InputMaybe<AtomApiConnectionWhere>
 }
 
-export type AtomAtomAllowedChildrenAggregationSelection = {
-  __typename?: 'AtomAtomAllowedChildrenAggregationSelection'
+export type AtomAtomSuggestedChildrenAggregationSelection = {
+  __typename?: 'AtomAtomSuggestedChildrenAggregationSelection'
   count: Scalars['Int']
-  node?: Maybe<AtomAtomAllowedChildrenNodeAggregateSelection>
+  node?: Maybe<AtomAtomSuggestedChildrenNodeAggregateSelection>
 }
 
-export type AtomAtomAllowedChildrenNodeAggregateSelection = {
-  __typename?: 'AtomAtomAllowedChildrenNodeAggregateSelection'
+export type AtomAtomSuggestedChildrenNodeAggregateSelection = {
+  __typename?: 'AtomAtomSuggestedChildrenNodeAggregateSelection'
   icon: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
 export type AtomConnectInput = {
-  allowedChildren?: InputMaybe<Array<AtomAllowedChildrenConnectFieldInput>>
   api?: InputMaybe<AtomApiConnectFieldInput>
   owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
+  suggestedChildren?: InputMaybe<Array<AtomSuggestedChildrenConnectFieldInput>>
   tags?: InputMaybe<Array<AtomTagsConnectFieldInput>>
 }
 
 export type AtomConnectOrCreateInput = {
-  allowedChildren?: InputMaybe<
-    Array<AtomAllowedChildrenConnectOrCreateFieldInput>
-  >
   api?: InputMaybe<AtomApiConnectOrCreateFieldInput>
   owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
+  suggestedChildren?: InputMaybe<
+    Array<AtomSuggestedChildrenConnectOrCreateFieldInput>
+  >
   tags?: InputMaybe<Array<AtomTagsConnectOrCreateFieldInput>>
 }
 
@@ -2926,27 +2800,29 @@ export type AtomConnectWhere = {
 }
 
 export type AtomCreateInput = {
-  allowedChildren?: InputMaybe<AtomAllowedChildrenFieldInput>
   api?: InputMaybe<AtomApiFieldInput>
   icon?: InputMaybe<Scalars['String']>
   id: Scalars['ID']
   name: Scalars['String']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
+  suggestedChildren?: InputMaybe<AtomSuggestedChildrenFieldInput>
   tags?: InputMaybe<AtomTagsFieldInput>
   type: AtomType
 }
 
 export type AtomDeleteInput = {
-  allowedChildren?: InputMaybe<Array<AtomAllowedChildrenDeleteFieldInput>>
   api?: InputMaybe<AtomApiDeleteFieldInput>
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
+  suggestedChildren?: InputMaybe<Array<AtomSuggestedChildrenDeleteFieldInput>>
   tags?: InputMaybe<Array<AtomTagsDeleteFieldInput>>
 }
 
 export type AtomDisconnectInput = {
-  allowedChildren?: InputMaybe<Array<AtomAllowedChildrenDisconnectFieldInput>>
   api?: InputMaybe<AtomApiDisconnectFieldInput>
   owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
+  suggestedChildren?: InputMaybe<
+    Array<AtomSuggestedChildrenDisconnectFieldInput>
+  >
   tags?: InputMaybe<Array<AtomTagsDisconnectFieldInput>>
 }
 
@@ -3046,9 +2922,9 @@ export type AtomOwnerNodeAggregationWhereInput = {
 }
 
 export type AtomRelationInput = {
-  allowedChildren?: InputMaybe<Array<AtomAllowedChildrenCreateFieldInput>>
   api?: InputMaybe<AtomApiCreateFieldInput>
   owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
+  suggestedChildren?: InputMaybe<Array<AtomSuggestedChildrenCreateFieldInput>>
   tags?: InputMaybe<Array<AtomTagsCreateFieldInput>>
 }
 
@@ -3058,6 +2934,132 @@ export type AtomSort = {
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
   type?: InputMaybe<SortDirection>
+}
+
+export type AtomSuggestedChildrenAggregateInput = {
+  AND?: InputMaybe<Array<AtomSuggestedChildrenAggregateInput>>
+  NOT?: InputMaybe<AtomSuggestedChildrenAggregateInput>
+  OR?: InputMaybe<Array<AtomSuggestedChildrenAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<AtomSuggestedChildrenNodeAggregationWhereInput>
+}
+
+export type AtomSuggestedChildrenConnectFieldInput = {
+  connect?: InputMaybe<Array<AtomConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
+  where?: InputMaybe<AtomConnectWhere>
+}
+
+export type AtomSuggestedChildrenConnectOrCreateFieldInput = {
+  onCreate: AtomSuggestedChildrenConnectOrCreateFieldInputOnCreate
+  where: AtomConnectOrCreateWhere
+}
+
+export type AtomSuggestedChildrenConnectOrCreateFieldInputOnCreate = {
+  node: AtomOnCreateInput
+}
+
+export type AtomSuggestedChildrenConnection = {
+  __typename?: 'AtomSuggestedChildrenConnection'
+  edges: Array<AtomSuggestedChildrenRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type AtomSuggestedChildrenConnectionSort = {
+  node?: InputMaybe<AtomSort>
+}
+
+export type AtomSuggestedChildrenConnectionWhere = {
+  AND?: InputMaybe<Array<AtomSuggestedChildrenConnectionWhere>>
+  NOT?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
+  OR?: InputMaybe<Array<AtomSuggestedChildrenConnectionWhere>>
+  node?: InputMaybe<AtomWhere>
+}
+
+export type AtomSuggestedChildrenCreateFieldInput = {
+  node: AtomCreateInput
+}
+
+export type AtomSuggestedChildrenDeleteFieldInput = {
+  delete?: InputMaybe<AtomDeleteInput>
+  where?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
+}
+
+export type AtomSuggestedChildrenDisconnectFieldInput = {
+  disconnect?: InputMaybe<AtomDisconnectInput>
+  where?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
+}
+
+export type AtomSuggestedChildrenFieldInput = {
+  connect?: InputMaybe<Array<AtomSuggestedChildrenConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<AtomSuggestedChildrenConnectOrCreateFieldInput>
+  >
+  create?: InputMaybe<Array<AtomSuggestedChildrenCreateFieldInput>>
+}
+
+export type AtomSuggestedChildrenNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AtomSuggestedChildrenNodeAggregationWhereInput>>
+  NOT?: InputMaybe<AtomSuggestedChildrenNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<AtomSuggestedChildrenNodeAggregationWhereInput>>
+  icon_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  icon_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  icon_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  icon_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  icon_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type AtomSuggestedChildrenRelationship = {
+  __typename?: 'AtomSuggestedChildrenRelationship'
+  cursor: Scalars['String']
+  node: Atom
+}
+
+export type AtomSuggestedChildrenUpdateConnectionInput = {
+  node?: InputMaybe<AtomUpdateInput>
+}
+
+export type AtomSuggestedChildrenUpdateFieldInput = {
+  connect?: InputMaybe<Array<AtomSuggestedChildrenConnectFieldInput>>
+  connectOrCreate?: InputMaybe<
+    Array<AtomSuggestedChildrenConnectOrCreateFieldInput>
+  >
+  create?: InputMaybe<Array<AtomSuggestedChildrenCreateFieldInput>>
+  delete?: InputMaybe<Array<AtomSuggestedChildrenDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<AtomSuggestedChildrenDisconnectFieldInput>>
+  update?: InputMaybe<AtomSuggestedChildrenUpdateConnectionInput>
+  where?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
 }
 
 export type AtomTagTagsAggregationSelection = {
@@ -3563,12 +3565,12 @@ export type AtomUniqueWhere = {
 }
 
 export type AtomUpdateInput = {
-  allowedChildren?: InputMaybe<Array<AtomAllowedChildrenUpdateFieldInput>>
   api?: InputMaybe<AtomApiUpdateFieldInput>
   icon?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
+  suggestedChildren?: InputMaybe<Array<AtomSuggestedChildrenUpdateFieldInput>>
   tags?: InputMaybe<Array<AtomTagsUpdateFieldInput>>
   type?: InputMaybe<AtomType>
 }
@@ -3591,23 +3593,6 @@ export type AtomWhere = {
   AND?: InputMaybe<Array<AtomWhere>>
   NOT?: InputMaybe<AtomWhere>
   OR?: InputMaybe<Array<AtomWhere>>
-  allowedChildrenAggregate?: InputMaybe<AtomAllowedChildrenAggregateInput>
-  /** Return Atoms where all of the related AtomAllowedChildrenConnections match this filter */
-  allowedChildrenConnection_ALL?: InputMaybe<AtomAllowedChildrenConnectionWhere>
-  /** Return Atoms where none of the related AtomAllowedChildrenConnections match this filter */
-  allowedChildrenConnection_NONE?: InputMaybe<AtomAllowedChildrenConnectionWhere>
-  /** Return Atoms where one of the related AtomAllowedChildrenConnections match this filter */
-  allowedChildrenConnection_SINGLE?: InputMaybe<AtomAllowedChildrenConnectionWhere>
-  /** Return Atoms where some of the related AtomAllowedChildrenConnections match this filter */
-  allowedChildrenConnection_SOME?: InputMaybe<AtomAllowedChildrenConnectionWhere>
-  /** Return Atoms where all of the related Atoms match this filter */
-  allowedChildren_ALL?: InputMaybe<AtomWhere>
-  /** Return Atoms where none of the related Atoms match this filter */
-  allowedChildren_NONE?: InputMaybe<AtomWhere>
-  /** Return Atoms where one of the related Atoms match this filter */
-  allowedChildren_SINGLE?: InputMaybe<AtomWhere>
-  /** Return Atoms where some of the related Atoms match this filter */
-  allowedChildren_SOME?: InputMaybe<AtomWhere>
   api?: InputMaybe<InterfaceTypeWhere>
   apiAggregate?: InputMaybe<AtomApiAggregateInput>
   apiConnection?: InputMaybe<AtomApiConnectionWhere>
@@ -3636,6 +3621,23 @@ export type AtomWhere = {
   ownerConnection?: InputMaybe<WithOwnerOwnerConnectionWhere>
   ownerConnection_NOT?: InputMaybe<WithOwnerOwnerConnectionWhere>
   owner_NOT?: InputMaybe<UserWhere>
+  suggestedChildrenAggregate?: InputMaybe<AtomSuggestedChildrenAggregateInput>
+  /** Return Atoms where all of the related AtomSuggestedChildrenConnections match this filter */
+  suggestedChildrenConnection_ALL?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
+  /** Return Atoms where none of the related AtomSuggestedChildrenConnections match this filter */
+  suggestedChildrenConnection_NONE?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
+  /** Return Atoms where one of the related AtomSuggestedChildrenConnections match this filter */
+  suggestedChildrenConnection_SINGLE?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
+  /** Return Atoms where some of the related AtomSuggestedChildrenConnections match this filter */
+  suggestedChildrenConnection_SOME?: InputMaybe<AtomSuggestedChildrenConnectionWhere>
+  /** Return Atoms where all of the related Atoms match this filter */
+  suggestedChildren_ALL?: InputMaybe<AtomWhere>
+  /** Return Atoms where none of the related Atoms match this filter */
+  suggestedChildren_NONE?: InputMaybe<AtomWhere>
+  /** Return Atoms where one of the related Atoms match this filter */
+  suggestedChildren_SINGLE?: InputMaybe<AtomWhere>
+  /** Return Atoms where some of the related Atoms match this filter */
+  suggestedChildren_SOME?: InputMaybe<AtomWhere>
   tagsAggregate?: InputMaybe<AtomTagsAggregateInput>
   /** Return Atoms where all of the related AtomTagsConnections match this filter */
   tagsConnection_ALL?: InputMaybe<AtomTagsConnectionWhere>
@@ -19804,7 +19806,7 @@ export type AtomFragment = {
   owner: { __typename?: 'User' } & OwnerFragment
   tags: Array<{ __typename?: 'Tag' } & TagFragment>
   api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
-  allowedChildren: Array<{
+  suggestedChildren: Array<{
     __typename?: 'Atom'
     id: string
     name: string

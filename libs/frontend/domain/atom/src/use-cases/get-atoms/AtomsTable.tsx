@@ -88,13 +88,13 @@ export const AtomsTable = observer<AtomsTableProps>(
         (curPageDataStartIndex >= 0 ? curPageDataStartIndex : 0) + curPageSize,
       )
       .map((atom) => ({
-        allowedChildren: atom.allowedChildren.map(
-          (children) => children.current,
-        ),
         apiId: atom.api.id,
         id: atom.id,
         library: getAtomLibrary(atom.type),
         name: atom.name,
+        suggestedChildren: atom.suggestedChildren.map(
+          (children) => children.current,
+        ),
         tags: atom.tags
           .map((tag) => tag.maybeCurrent)
           .filter(Boolean) as Array<ITag>,

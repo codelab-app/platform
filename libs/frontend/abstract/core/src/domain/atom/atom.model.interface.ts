@@ -22,11 +22,11 @@ export interface IAtom
    *
    * We store preview data here so we can more easily display the tags in the atoms table
    */
-  allowedChildren: Array<Ref<IAtom>>
   api: Ref<IInterfaceType>
   icon?: string | null
   id: string
   name: string
+  suggestedChildren: Array<Ref<IAtom>>
   tags: Array<Ref<ITag>>
   type: IAtomType
 }

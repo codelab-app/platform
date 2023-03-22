@@ -12,7 +12,7 @@ fragment Atom on Atom {
   api {
     ...InterfaceType
   }
-  allowedChildren {
+  suggestedChildren {
     id
     name
     type

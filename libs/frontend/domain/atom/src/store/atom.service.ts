@@ -50,13 +50,13 @@ export class AtomService
   @transaction
   update = _async(function* (
     this: AtomService,
-    { allowedChildren = [], id, name, tags = [], type }: IUpdateAtomData,
+    { id, name, suggestedChildren = [], tags = [], type }: IUpdateAtomData,
   ) {
     const atom = this.atoms.get(id)
 
     atom?.writeCache({
-      allowedChildren: allowedChildren.map((child) => ({ id: child })),
       name,
+      suggestedChildren: suggestedChildren.map((child) => ({ id: child })),
       tags,
       type,
     })

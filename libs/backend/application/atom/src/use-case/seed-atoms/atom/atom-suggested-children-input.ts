@@ -6,11 +6,11 @@ import type { AtomSeedData } from './atom-seed-data.interface'
  * @param newData Existing data for getting references
  * @param atomData
  */
-export const createAllowedChildren =
-  (atomData: Pick<AtomSeedData, 'allowedChildren'> | undefined) =>
+export const createSuggestedChildren =
+  (atomData: Pick<AtomSeedData, 'suggestedChildren'> | undefined) =>
   (newData: ExistingData) => {
     return (
-      atomData?.allowedChildren?.map((child) => {
+      atomData?.suggestedChildren?.map((child) => {
         // Get the id of the existing atom by name
         const allowedAtom = newData.atoms[child]?.id
 

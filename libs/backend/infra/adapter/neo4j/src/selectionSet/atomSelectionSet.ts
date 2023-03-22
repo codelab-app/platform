@@ -14,7 +14,7 @@ export const atomSelectionSet = `{
 
   tags
     ${tagSelectionSet}
-  allowedChildren {
+  suggestedChildren {
     id
     name
     type
@@ -32,7 +32,7 @@ export const exportAtomSelectionSet = `{
 
   tags
     ${exportTagSelectionSet}
-  allowedChildren {
+  suggestedChildren {
     id
     name
     type

@@ -17,7 +17,7 @@ export type AtomFragment = {
   owner: OwnerFragment
   tags: Array<TagFragment>
   api: InterfaceTypeFragment
-  allowedChildren: Array<{ id: string; name: string; type: Types.AtomType }>
+  suggestedChildren: Array<{ id: string; name: string; type: Types.AtomType }>
 }
 
 export type RenderAtomFragment = {
@@ -42,7 +42,7 @@ export const AtomFragmentDoc = gql`
     api {
       ...InterfaceType
     }
-    allowedChildren {
+    suggestedChildren {
       id
       name
       type

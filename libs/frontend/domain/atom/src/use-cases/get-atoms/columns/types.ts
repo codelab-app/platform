@@ -14,11 +14,11 @@ export interface AtomLibrary {
 }
 
 export interface AtomRecord {
-  allowedChildren: Array<Pick<IAtomDTO, 'id' | 'name'>>
   apiId: IInterfaceTypeRef
   id: string
   library: AtomLibrary
   name: string
+  suggestedChildren: Array<Pick<IAtomDTO, 'id' | 'name'>>
   tags: Array<ITag>
   type: IAtomType
 }
