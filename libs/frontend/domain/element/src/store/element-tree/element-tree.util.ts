@@ -1,11 +1,7 @@
-import type {
-  IElement,
-  IElementTree,
-  IPage,
-} from '@codelab/frontend/abstract/core'
+import type { IElement, IElementTree } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { AnyModel, Ref } from 'mobx-keystone'
+import type { AnyModel } from 'mobx-keystone'
 import { findParent, getRefsResolvingTo, modelTypeKey } from 'mobx-keystone'
 
 /**
