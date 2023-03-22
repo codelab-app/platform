@@ -17,18 +17,8 @@ import { propRef } from '@codelab/frontend/domain/prop'
 import { typeRef } from '@codelab/frontend/domain/type'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
-import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import {
-  clone,
-  ExtendedModel,
-  idProp,
-  Model,
-  model,
-  modelAction,
-  objectMap,
-  prop,
-} from 'mobx-keystone'
+import { clone, ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
 const create = ({
   api,

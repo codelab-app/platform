@@ -36,9 +36,14 @@ export class PropService
 
   @modelAction
   add({ data, id }: IPropDTO) {
-    const props = Prop.create({ data, id })
+    let props = this.prop(id)
 
-    this.props.set(props.id, props)
+    if (props) {
+      props.writeCache({ data })
+    } else {
+      props = Prop.create({ data, id })
+      this.props.set(props.id, props)
+    }
 
     return props
   }
