@@ -22,16 +22,8 @@ import { COMPONENT_TAG_NAME } from '@codelab/shared/data/seed'
 import { isNonNullable } from '@codelab/shared/utils'
 import groupBy from 'lodash/groupBy'
 import { computed } from 'mobx'
-import type { AnyModel, Frozen } from 'mobx-keystone'
-import {
-  findParent,
-  getRefsResolvingTo,
-  Model,
-  model,
-  modelAction,
-  modelTypeKey,
-  prop,
-} from 'mobx-keystone'
+import type { Frozen } from 'mobx-keystone'
+import { Model, model, modelAction, prop } from 'mobx-keystone'
 
 @model('@codelab/BuilderService')
 export class BuilderService
@@ -159,16 +151,6 @@ export class BuilderService
     this.updateExpandedNodes()
   }
 
-  // @modelAction
-  // setSelectedTreeNode(node: IBuilderDataNode) {
-  //   this._selectedNode = elementRef(node.key.toString())
-  //
-  //   // If this is the component container
-  //   if (node.type === COMPONENT_NODE_TYPE) {
-  //     this._selectedNode = componentRef(node.key.toString())
-  //   }
-  // }
-
   /**
    * When we select an element within a component tree, we need to know which component we're in. This allows us to find the component and return it
    */
@@ -180,28 +162,8 @@ export class BuilderService
       return selectedNode
     }
 
-    /**
-     * If it's an element, we need to check whether this element is part of a Component
-     */
     if (isElementPageNodeRef(selectedNode)) {
-      const elementRefs = getRefsResolvingTo(selectedNode.current, elementRef)
-
-      return [...elementRefs.values()].reduce((prev, node) => {
-        const component = findParent(node, (parent) => {
-          // could be any model so we have to typecast here just for checking if it has `sourceComponent` field
-          // and we want to get the original component model without the `sourceComponent`
-          const parentModel = parent as AnyModel & {
-            sourceComponent?: IComponent['sourceComponent']
-          }
-
-          return (
-            parentModel[modelTypeKey] === '@codelab/Component' &&
-            !parentModel.sourceComponent
-          )
-        })
-
-        return component ? component : prev
-      }, null)
+      return selectedNode.current.rootElement.parentComponent ?? null
     }
 
     return null

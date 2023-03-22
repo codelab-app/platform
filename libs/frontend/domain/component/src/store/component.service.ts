@@ -14,10 +14,7 @@ import {
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import type {
-  ComponentWhere,
-  RenderedComponentFragment,
-} from '@codelab/shared/abstract/codegen'
+import type { ComponentWhere } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
@@ -73,35 +70,37 @@ export class ComponentService
     return [...this.components.values()]
   }
 
+  @modelAction
   component(id: string) {
+    const component = this.maybeComponent(id)
+
+    if (!component) {
+      throw new Error('Missing component')
+    }
+
+    return component
+  }
+
+  @modelAction
+  maybeComponent(id: string) {
     return this.components.get(id) || this.clonedComponents.get(id)
   }
 
   @modelAction
-  add({
-    api,
-    childrenContainerElement,
-    id,
-    name,
-    owner,
-    props,
-    rootElement,
-  }: IComponentDTO) {
-    if (props) {
-      this.propService.add({ ...props, data: '{}' })
+  add(componentDTO: IComponentDTO) {
+    let component = this.maybeComponent(componentDTO.id)
+
+    if (componentDTO.props) {
+      this.propService.add({ ...componentDTO.props, data: '{}' })
     }
 
-    const component = Component.create({
-      api,
-      childrenContainerElement,
-      id,
-      name,
-      owner,
-      props,
-      rootElement,
-    })
+    if (component) {
+      component.writeCache(componentDTO)
+    } else {
+      component = Component.create(componentDTO)
 
-    this.components.set(component.id, component)
+      this.components.set(component.id, component)
+    }
 
     return component
   }
@@ -145,7 +144,7 @@ export class ComponentService
     this: ComponentService,
     { childrenContainerElement, id, name }: IUpdateComponentData,
   ) {
-    const component = this.components.get(id)!
+    const component = this.component(id)
 
     component.writeCache({ childrenContainerElement, name })
 
@@ -164,7 +163,7 @@ export class ComponentService
 
     yield* _await(this.componentRepository.delete([component]))
 
-    return component!
+    return component
   })
 
   @computed

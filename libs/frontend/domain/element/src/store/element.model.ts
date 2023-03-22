@@ -137,6 +137,10 @@ export class Element
 
   @computed
   get rootElement(): IElement {
+    if (this.parentComponent) {
+      return this
+    }
+
     return this.closestParent ? this.closestParent.rootElement : this
   }
 
@@ -198,7 +202,7 @@ export class Element
    * `nextSibling` has no `parent`, but has a `closestParent` of `parentA`
    */
   @computed
-  private get closestParent(): IElement | undefined {
+  private get closestParent(): IElement | null {
     const parent = this.parent
 
     if (parent) {
@@ -220,7 +224,7 @@ export class Element
       traveledNode = traveledNode.prevSibling?.current
     }
 
-    return
+    return null
   }
 
   @modelAction

@@ -101,9 +101,15 @@ export class ElementService
 
   @modelAction
   add = (elementDTO: IElementDTO): IElement => {
-    const element = Element.create(elementDTO)
+    let element = this.maybeElement(elementDTO.id)
 
-    this.elements.set(element.id, element)
+    if (element) {
+      element.writeCache(elementDTO)
+    } else {
+      element = Element.create(elementDTO)
+
+      this.elements.set(element.id, element)
+    }
 
     return element
   }
@@ -143,7 +149,7 @@ export class ElementService
     this: ElementService,
     { id, ...elementData }: IUpdateElementData,
   ) {
-    const element = this.elements.get(id)!
+    const element = this.element(id)
 
     element.writeCache({
       ...elementData,
@@ -482,10 +488,6 @@ export class ElementService
 
       const component = this.componentService.component(elementId)
 
-      if (!component) {
-        return
-      }
-
       const componentInstanceCounter = existingInstances?.length
         ? ` ${existingInstances.length}`
         : ''
@@ -649,7 +651,7 @@ export class ElementService
       throw new Error("Can't convert root element")
     }
 
-    const { label, name, parent: parentElement, prevSibling } = element
+    const { name, parent: parentElement, prevSibling } = element
     // 1. detach the element from the element tree
     const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
 

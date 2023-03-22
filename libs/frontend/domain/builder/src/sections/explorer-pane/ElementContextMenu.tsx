@@ -1,15 +1,12 @@
 import { useUser } from '@auth0/nextjs-auth0'
-import type {
-  IElement,
-  IElementService,
-  IElementTree,
-} from '@codelab/frontend/abstract/core'
+import type { IElement, IElementService } from '@codelab/frontend/abstract/core'
 import {
   elementRef,
   isComponentInstance,
   RendererTab,
 } from '@codelab/frontend/abstract/core'
 import {
+  Element,
   elementTreeRef,
   mapElementOption,
 } from '@codelab/frontend/domain/element'
@@ -31,7 +28,6 @@ export type ElementContextMenuProps = ContextMenuProps &
     'cloneElement' | 'convertElementToComponent' | 'createModal' | 'deleteModal'
   > & {
     element: IElement
-    elementTree: IElementTree | null
   }
 
 /**
@@ -39,12 +35,10 @@ export type ElementContextMenuProps = ContextMenuProps &
  */
 export const ElementContextMenu = observer<ElementContextMenuProps>(
   ({
-    cloneElement,
     convertElementToComponent,
     createModal,
     deleteModal,
     element,
-    elementTree,
     onBlur,
     onClick,
   }) => {
@@ -53,9 +47,13 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     const componentInstance = isComponentInstance(element.renderType)
 
     const onAddChild = () => {
+      const elementTree = Element.getElementTree(element)
+
       if (!elementTree) {
         return
       }
+
+      builderService.selectElementNode(element)
 
       return createModal.open({
         elementOptions: elementTree.elements.map(mapElementOption),

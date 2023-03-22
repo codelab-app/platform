@@ -157,10 +157,13 @@ export class AppService
         this.atomService.add(elementData.renderAtomType)
       }
 
-      if (elementData.renderComponentType?.id) {
-        this.typeService.addInterface(elementData.renderComponentType.api)
+      if (elementData.renderComponentType || elementData.parentComponent) {
+        const component = (elementData.renderComponentType ??
+          elementData.parentComponent)!
 
-        this.componentService.add(elementData.renderComponentType)
+        this.typeService.addInterface(component.api)
+
+        this.componentService.add(component)
       }
 
       this.elementService.add(elementData)
