@@ -1,14 +1,14 @@
 import type {
   BuilderDragData,
   BuilderDropData,
-  IElement,
   IElementService,
   IElementTree,
 } from '@codelab/frontend/abstract/core'
 import { DragPosition } from '@codelab/frontend/abstract/core'
 import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
+import { useRequiredParentValidator } from '../hooks'
 
 export interface UseDndDropHandler {
   handleCreateElement(event: DragEndEvent): Promise<void>
@@ -19,6 +19,9 @@ export const useDndDropHandler = (
   elementService: IElementService,
   elementTree: Maybe<IElementTree>,
 ): UseDndDropHandler => {
+  const { validateCreate, validateRequiredParent } =
+    useRequiredParentValidator()
+
   const handleCreateElement = async (event: DragEndEvent) => {
     const targetElementId = event.over?.id.toString()
     const data = event.active.data.current as Maybe<BuilderDragData>
@@ -51,6 +54,15 @@ export const useDndDropHandler = (
         elementTree.elements.map((element) => element.name),
         createElementInput.name,
       ),
+    }
+
+    const parentId =
+      dragPosition === DragPosition.Inside
+        ? targetElement.id
+        : targetElement.parent?.id
+
+    if (!validateCreate(createElementDTO.renderType?.id, parentId)) {
+      return
     }
 
     // create the new element after the target element
@@ -96,6 +108,15 @@ export const useDndDropHandler = (
     if (!dragPosition) {
       console.error('Drag position is required')
 
+      return
+    }
+
+    const parentId =
+      dragPosition === DragPosition.Inside
+        ? targetElement.id
+        : targetElement.parent?.id
+
+    if (!validateRequiredParent(draggedElement.id, parentId)) {
       return
     }
 
