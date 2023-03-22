@@ -20,16 +20,13 @@ export interface IProp
   values: IPropData
 
   clone(): IProp
-  toCreateInput(): PropCreateInput
-  toUpdateInput(): PropUpdateInput
-  set(key: string, value: object | string): void
-  setSilently(key: string, value: object): void
-  setMany(data: IPropData): void
   delete(key: string): void
   get(key: string): unknown
   set(key: string, value: object | string): void
   setMany(data: IPropData): void
   setSilently(key: string, value: object): void
+  toCreateInput(): PropCreateInput
+  toUpdateInput(): PropUpdateInput
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

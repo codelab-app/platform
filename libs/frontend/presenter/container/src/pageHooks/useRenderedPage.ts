@@ -26,17 +26,6 @@ export interface RenderedPageProps {
   rendererType: RendererType
 }
 
-// const defaultErrorPages: Map<IPageKind, PageType> = new Map([
-//   [IPageKind.InternalServerError, PageType.Page500],
-//   [IPageKind.NotFound, PageType.Page404],
-// ])
-
-// const requiredPageKinds: Array<IPageKind> = [
-//   IPageKind.NotFound,
-//   IPageKind.Provider,
-//   IPageKind.InternalServerError,
-// ]
-
 /**
  * Fetch related data for rendering page, and load them into store
  */
@@ -49,23 +38,6 @@ export const useRenderedPage = ({
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
   const router = useRouter()
-
-  // const redirectToErrorPage = async (
-  //   kind: IPageKind,
-  //   app: Maybe<PageBuilderAppFragment>,
-  // ) => {
-  //   const errorPage = app?.pages.find((page) => page.kind === kind)
-
-  //   if (errorPage?.id === pageId) {
-  //     return
-  //   }
-
-  //   await router.push(
-  //     errorPage
-  //       ? { query: { ...router.query, pageId: errorPage.id } }
-  //       : { pathname: defaultErrorPages.get(kind), query: router.query },
-  //   )
-  // }
 
   return useAsync(async () => {
     const app = await appService.getRenderedPageAndCommonAppData(
@@ -88,30 +60,19 @@ export const useRenderedPage = ({
     }
 
     const appStore = app.store.current
-    const elementTree = page.elementTree
 
-    /**
-     * hot-reload makes commonPagesData contains invalid values, read from mobx store.
-     */
-    // const appStore = storeService.stores.get(app.store.id)
-
-    // if (!appStore) {
-    //   await redirectToErrorPage(IPageKind.InternalServerError, app)
-
-    //   return null
-    // }
     const renderer = await renderService.addRenderer({
       appStore,
-      elementTree,
+      elementTree: page,
       id: page.id,
-      providerTree: app.providerPage.elementTree,
+      providerTree: app.providerPage,
       rendererType,
     })
 
     return {
       app,
       appStore,
-      elementTree,
+      elementTree: page,
       page,
       renderer,
     }

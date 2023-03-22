@@ -26,6 +26,9 @@ interface BuilderTreeProps {
   treeData: IBuilderDataNode | undefined
 
   selectTreeNode(node: Nullable<IPageNode>): void
+  /**
+   * Whether
+   */
   setActiveTree(): void
   setExpandedNodeIds(ids: Array<string>): void
 }
@@ -99,7 +102,6 @@ export const BuilderTree = observer<BuilderTreeProps>(
         }}
         onMouseLeave={() => builderService.setHoveredNode(null)}
         onSelect={([id], { nativeEvent, node }) => {
-          console.log(id, node)
           nativeEvent.stopPropagation()
 
           setActiveTree()

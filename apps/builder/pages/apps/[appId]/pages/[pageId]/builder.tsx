@@ -67,12 +67,14 @@ PageBuilder.Layout = observer(({ children }) => {
 
   const ConfigPaneComponent = observer(() => {
     return (
-      <ConfigPane
-        // The element tree changes depending on whether a page or a component is selected
-        elementTree={activeElementTree}
-        key={activeElementTree?.root?.id}
-        renderService={pageBuilderRenderer}
-      />
+      <Spinner isLoading={status !== 'success'}>
+        <ConfigPane
+          // The element tree changes depending on whether a page or a component is selected
+          elementTree={activeElementTree}
+          key={activeElementTree?.rootElement.id}
+          renderService={pageBuilderRenderer}
+        />
+      </Spinner>
     )
   })
 

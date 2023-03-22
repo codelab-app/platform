@@ -265,6 +265,11 @@ export class Element
     return parent.ancestorError
   }
 
+  /**
+   * We could fetch descendantElements for each element, but that would require too much GraphQL data, instead we can compute it from children.
+   *
+   * We reserve descendantElements for rootElements only
+   */
   @computed
   get descendantElements(): Array<IElement> {
     const descendants: Array<IElement> = []
@@ -304,7 +309,8 @@ export class Element
       children: this.children.map((child) => child.antdNode),
       key: this.id,
       node: this,
-      rootKey: getElementTree(this)?._root?.id ?? null,
+      // TODO: since there are many refs, it might resolve to the wrong elementTree
+      rootKey: Element.getElementTree(this)?.rootElement.id ?? null,
       title: this.label,
     }
   }
@@ -630,7 +636,6 @@ export class Element
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-  // public static hydrate = hydrate
 
-  public static getElementTree = getElementTree
+  static getElementTree = getElementTree
 }

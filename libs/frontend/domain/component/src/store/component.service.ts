@@ -73,20 +73,6 @@ export class ComponentService
     return [...this.components.values()]
   }
 
-  @modelAction
-  loadRenderedComponentsTree(
-    renderedComponentFragments: Array<RenderedComponentFragment>,
-  ) {
-    renderedComponentFragments.forEach((component) => {
-      const componentModel = this.add(component)
-
-      const { hydratedElements, rootElement } =
-        this.elementService.loadComponentTree(component)
-
-      componentModel.initTree(rootElement, hydratedElements)
-    })
-  }
-
   component(id: string) {
     return this.components.get(id) || this.clonedComponents.get(id)
   }
@@ -148,12 +134,7 @@ export class ComponentService
       rootElement,
     })
 
-    const newComponent = yield* _await(this.componentRepository.add(component))
-
-    const { hydratedElements, rootElement: loadedRootElement } =
-      this.elementService.loadComponentTree(newComponent)
-
-    component.initTree(loadedRootElement, hydratedElements)
+    yield* _await(this.componentRepository.add(component))
 
     return component
   })
@@ -190,8 +171,7 @@ export class ComponentService
   get componentAntdNode(): IBuilderDataNode {
     return {
       children: [...this.components.values()].map((component) => {
-        const elementTree = component.elementTree
-        const dataNode = elementTree.root?.antdNode
+        const dataNode = component.rootElement.current.antdNode
 
         return {
           children: [dataNode].filter((data): data is IBuilderDataNode =>
@@ -199,7 +179,7 @@ export class ComponentService
           ),
           key: component.id,
           node: component,
-          rootKey: elementTree.root?.id ?? null,
+          rootKey: component.rootElement.id,
           // This should bring up a meta pane for editing the component
           selectable: true,
           title: component.name,
@@ -243,7 +223,7 @@ export class ComponentService
         (component) => component.sourceComponent?.id === componentFragment.id,
       )
       .map((component) => {
-        const clonedChildrenContainer = component.elementTree.elements.find(
+        const clonedChildrenContainer = component.elements.find(
           ({ sourceElement }) =>
             sourceElement?.id === componentFragment.childrenContainerElement.id,
         )

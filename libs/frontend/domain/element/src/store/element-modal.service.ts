@@ -37,7 +37,7 @@ export class CreateElementModalService
       return selectedElement
     }
 
-    return elementTree.root
+    return elementTree.rootElement.maybeCurrent
   }
 
   @computed

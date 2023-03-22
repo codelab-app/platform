@@ -535,16 +535,6 @@ export class ElementService
         ),
       ),
     )
-
-    Element.getElementTree(element)?.removeElements([
-      element,
-      ...element.descendantElements,
-    ])
-
-    Element.getElementTree(targetElement)?.addElements([
-      element,
-      ...element.descendantElements,
-    ])
   })
 
   private async recursiveDuplicate(element: IElement, parentElement: IElement) {

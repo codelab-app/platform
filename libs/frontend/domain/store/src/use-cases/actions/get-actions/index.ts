@@ -1,1 +1,1 @@
-export * from './GetActionsList'
+export * from './ActionsList'

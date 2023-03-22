@@ -56,13 +56,6 @@ export const Builder = observer<BuilderProps>(
     setHoveredNode,
     setSelectedNode,
   }) => {
-    console.log(elementTree)
-
-    // to render the body of the app, the root is required
-    if (!elementTree.root) {
-      return null
-    }
-
     const { handleMouseLeave, handleMouseOver } = useBuilderHoverHandlers({
       currentDragData,
       setHoveredNode,
@@ -75,7 +68,7 @@ export const Builder = observer<BuilderProps>(
     })
 
     const { isOver, over, setNodeRef } = useDroppable({
-      id: elementTree.root.id,
+      id: elementTree.rootElement.id,
     })
 
     useBuilderHotkeys({
