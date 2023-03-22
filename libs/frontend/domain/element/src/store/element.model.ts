@@ -137,6 +137,7 @@ export class Element
 
   @computed
   get rootElement(): IElement {
+    // This stops the traversing when the current element is the element container for a component
     if (this.parentComponent) {
       return this
     }
