@@ -47,8 +47,7 @@ export class PrimitiveTypeRepository extends AbstractRepository<
         await this.PrimitiveType
       ).update({
         selectionSet: `{ primitiveTypes ${exportPrimitiveTypeSelectionSet} }`,
-        // Disallow updates
-        update: {},
+        update: { name },
         where,
       })
     ).primitiveTypes[0]
