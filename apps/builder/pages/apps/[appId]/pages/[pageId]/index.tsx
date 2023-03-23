@@ -4,8 +4,6 @@ import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { PageDetailHeader } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
 import {
-  useCurrentAppId,
-  useCurrentPageId,
   useRenderedPage,
   useStore,
 } from '@codelab/frontend/presenter/container'
@@ -16,22 +14,15 @@ import { useMountEffect } from '@react-hookz/web'
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 const PageRenderer: CodelabPage<IPageProps> = observer(() => {
   const { appRenderService } = useStore()
-  const pageId = useCurrentPageId()
 
   const [{ error, result, status }, actions] = useRenderedPage({
     rendererType: RendererType.Preview,
     renderService: appRenderService,
   })
-
-  // useEffect(() => {
-  //   if (value?.appStore && getServerSidePropsData) {
-  //     value.appStore.state.setMany(getServerSidePropsData)
-  //   }
-  // }, [loading])
 
   useMountEffect(actions.execute)
 
@@ -56,12 +47,10 @@ export default PageRenderer
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 PageRenderer.Layout = observer(({ children }) => {
-  const { pageService } = useStore()
-
   return (
     <DashboardTemplate
       Header={observer(() => (
-        <PageDetailHeader pageService={pageService} />
+        <PageDetailHeader />
       ))}
       headerHeight={48}
     >

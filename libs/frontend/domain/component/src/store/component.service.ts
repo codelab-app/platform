@@ -9,7 +9,6 @@ import {
   getElementService,
   IBuilderDataNode,
   IComponentDTO,
-  ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
@@ -115,14 +114,17 @@ export class ComponentService
 
     const rootElement = this.elementService.add({
       ...createComponentData.rootElement,
-      name: ROOT_ELEMENT_NAME,
+      name: createComponentData.name,
+      parentComponent: {
+        id: createComponentData.id,
+      },
       props,
     })
 
     const api = this.typeService.addInterface({
       ...createComponentData.api,
       kind: ITypeKind.InterfaceType,
-      name: InterfaceType.createName(`${createComponentData.name}`),
+      name: InterfaceType.createName(createComponentData.name),
       owner: createComponentData.owner,
     })
 

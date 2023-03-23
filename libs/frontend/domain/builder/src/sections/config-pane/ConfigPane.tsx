@@ -1,5 +1,5 @@
 import { CodeSandboxOutlined, EditOutlined } from '@ant-design/icons'
-import type { IElementTree, IRenderer } from '@codelab/frontend/abstract/core'
+import type { IRenderer } from '@codelab/frontend/abstract/core'
 import {
   isComponentPageNodeRef,
   isElementPageNodeRef,
@@ -23,96 +23,94 @@ import { ConfigPaneInspectorTabContainer } from './ConfigPane-InspectorTabContai
 import { TabContainer } from './ConfigPane-InspectorTabContainer/ConfigPane-InspectorTabContainerStyle'
 
 interface MetaPaneProps {
-  elementTree: Maybe<IElementTree>
   renderService: Maybe<IRenderer>
 }
 
-export const ConfigPane = observer<MetaPaneProps>(
-  ({ elementTree, renderService }) => {
-    const { builderService, componentService, elementService } = useStore()
-    const selectedNode = builderService.selectedNode
+export const ConfigPane = observer<MetaPaneProps>(({ renderService }) => {
+  const { builderService, componentService, elementService } = useStore()
+  const selectedNode = builderService.selectedNode
+  const elementTree = builderService.activeElementTree
 
-    const tabItems: TabsProps['items'] = [
-      {
-        children: (
-          <ConfigPaneInspectorTabContainer
-            UpdateElementContent={observer(({ node, trackPromises }) => {
-              if (!elementTree) {
-                return <Spin />
-              }
+  const tabItems: TabsProps['items'] = [
+    {
+      children: (
+        <ConfigPaneInspectorTabContainer
+          UpdateElementContent={observer(({ node, trackPromises }) => {
+            if (!elementTree) {
+              return <Spin />
+            }
 
-              // The builder tree nodes could be a component as well, in which case we would show the form for components
-              return (
-                <>
-                  {isElementPageNodeRef(node) ? (
-                    <>
-                      <UpdateElementForm
-                        element={node.current}
-                        elementService={elementService}
-                        key={node.id + '_update_form'}
-                        renderer={renderService}
-                        trackPromises={trackPromises}
-                      />
-                      <MoveElementForm
-                        element={node.current}
-                        elementService={elementService}
-                        elementTree={elementTree}
-                        key={node.id + '_move_form'}
-                        trackPromises={trackPromises}
-                      />
-                      <DeleteElementButton
-                        css={tw`my-3`}
-                        disabled={node.current.isRoot}
-                        element={node.current}
-                        elementService={elementService}
-                      />
-                    </>
-                  ) : null}
-
-                  {isComponentPageNodeRef(node) ? (
-                    <UpdateComponentForm
-                      component={node.current}
-                      componentService={componentService}
+            // The builder tree nodes could be a component as well, in which case we would show the form for components
+            return (
+              <>
+                {isElementPageNodeRef(node) ? (
+                  <>
+                    <UpdateElementForm
+                      element={node.current}
+                      elementService={elementService}
+                      key={node.id + '_update_form'}
+                      renderer={renderService}
+                      trackPromises={trackPromises}
                     />
-                  ) : null}
-                </>
-              )
-            })}
-            elementTree={elementTree}
-            renderService={renderService}
-          />
-        ),
-        key: 'inspector',
-        label: (
-          <div>
-            <EditOutlined />
-            Inspector
-          </div>
-        ),
-      },
-      {
-        children: <ConfigPaneComponentTabContainer />,
-        key: 'component-tab',
-        label: (
-          <div>
-            <CodeSandboxOutlined />
-            Component
-          </div>
-        ),
-      },
-    ]
+                    <MoveElementForm
+                      element={node.current}
+                      elementService={elementService}
+                      elementTree={elementTree}
+                      key={node.id + '_move_form'}
+                      trackPromises={trackPromises}
+                    />
+                    <DeleteElementButton
+                      css={tw`my-3`}
+                      disabled={node.current.isRoot}
+                      element={node.current}
+                      elementService={elementService}
+                    />
+                  </>
+                ) : null}
 
-    return (
-      <TabContainer>
-        <Tabs
-          defaultActiveKey={selectedNode?.id + '_tab2'}
-          items={tabItems}
-          renderTabBar={renderStickyTabBar}
-          size="small"
+                {isComponentPageNodeRef(node) ? (
+                  <UpdateComponentForm
+                    component={node.current}
+                    componentService={componentService}
+                  />
+                ) : null}
+              </>
+            )
+          })}
+          elementTree={elementTree}
+          renderService={renderService}
         />
-      </TabContainer>
-    )
-  },
-)
+      ),
+      key: 'inspector',
+      label: (
+        <div>
+          <EditOutlined />
+          Inspector
+        </div>
+      ),
+    },
+    {
+      children: <ConfigPaneComponentTabContainer />,
+      key: 'component-tab',
+      label: (
+        <div>
+          <CodeSandboxOutlined />
+          Component
+        </div>
+      ),
+    },
+  ]
+
+  return (
+    <TabContainer>
+      <Tabs
+        defaultActiveKey={selectedNode?.id + '_tab2'}
+        items={tabItems}
+        renderTabBar={renderStickyTabBar}
+        size="small"
+      />
+    </TabContainer>
+  )
+})
 
 ConfigPane.displayName = 'MetaPane'

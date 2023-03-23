@@ -314,8 +314,7 @@ export class Element
       children: this.children.map((child) => child.antdNode),
       key: this.id,
       node: this,
-      // TODO: since there are many refs, it might resolve to the wrong elementTree
-      rootKey: Element.getElementTree(this)?.rootElement.id ?? null,
+      rootKey: Element.getElementTree(this).rootElement.id,
       title: this.label,
     }
   }
@@ -575,16 +574,6 @@ export class Element
     sibling.nextSibling = elementRef(this.id)
     this.prevSibling = elementRef(sibling.id)
   }
-
-  /**
-   * An element may have a ref that belongs to an element tree. We want to get all descendants of that ref
-   */
-  // @computed
-  // get getDescendantRefs(): Array<IElement> {
-  //   const elementTree = Element.getElementTree(this)
-
-  //   return elementTree?.descendants(this) ?? []
-  // }
 
   @modelAction
   @modelAction

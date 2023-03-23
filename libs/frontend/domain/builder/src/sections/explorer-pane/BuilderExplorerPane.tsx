@@ -51,7 +51,6 @@ type StoreHeaderProps = PropsWithChildren<{
 interface BuilderMainPaneProps {
   appStore?: IStore
   pageId: string
-  storeId: string
 }
 
 export const StoreHeader = ({ children, extra }: StoreHeaderProps) => (
@@ -62,7 +61,7 @@ export const StoreHeader = ({ children, extra }: StoreHeaderProps) => (
 )
 
 export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
-  ({ appStore, pageId, storeId }) => {
+  ({ appStore, pageId }) => {
     const {
       actionService,
       builderRenderService,
@@ -70,19 +69,11 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
       componentService,
       elementService,
       fieldService,
-      typeService,
-      userService,
     } = useStore()
 
     const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
     const root = pageBuilderRenderer?.elementTree.maybeCurrent?.rootElement
     const pageTree = pageBuilderRenderer?.elementTree.maybeCurrent
-    const componentId = builderService.activeComponent?.id
-
-    const componentTree = componentId
-      ? builderRenderService.renderers.get(componentId)?.elementTree.current
-      : null
-
     const antdTree = root?.current.antdNode
     const componentsAntdTree = componentService.componentAntdNode
     const isPageTree = antdTree && pageTree
@@ -135,7 +126,6 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
             {isPageTree && (
               <BuilderTree
                 className="page-builder"
-                elementTree={pageTree}
                 expandedNodeIds={builderService.expandedPageElementTreeNodeIds}
                 selectTreeNode={selectTreeNode}
                 setActiveTab={() =>
@@ -162,7 +152,6 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
 
             {antdTree && (
               <BuilderTree
-                elementTree={componentTree ?? null}
                 expandedNodeIds={builderService.expandedComponentTreeNodeIds}
                 selectTreeNode={selectTreeNode}
                 setActiveTab={() =>
@@ -248,26 +237,13 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
           renderTabBar={renderStickyTabBar}
           size="small"
         />
-        <CreateElementModal
-          elementService={elementService}
-          storeId={storeId}
-          userService={userService}
-        />
+        <CreateElementModal />
         <CreateComponentModal />
-        <DeleteComponentModal componentService={componentService} />
-        <DeleteElementModal
-          builderService={builderService}
-          elementService={elementService}
-        />
-        <CreateFieldModal
-          fieldService={fieldService}
-          typeService={typeService}
-        />
-        <UpdateFieldModal
-          fieldService={fieldService}
-          typeService={typeService}
-        />
-        <DeleteFieldModal fieldService={fieldService} />
+        <DeleteComponentModal />
+        <DeleteElementModal />
+        <CreateFieldModal />
+        <UpdateFieldModal />
+        <DeleteFieldModal />
 
         <CreateActionModal store={appStore} />
         <UpdateActionModal />

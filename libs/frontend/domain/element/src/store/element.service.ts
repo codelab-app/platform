@@ -482,13 +482,13 @@ export class ElementService
     if (!element) {
       const elementTree = Element.getElementTree(targetElement)
 
-      const existingInstances = elementTree?.elements.filter(
+      const existingInstances = elementTree.elements.filter(
         ({ renderType }) => renderType?.id === elementId,
       )
 
       const component = this.componentService.component(elementId)
 
-      const componentInstanceCounter = existingInstances?.length
+      const componentInstanceCounter = existingInstances.length
         ? ` ${existingInstances.length}`
         : ''
 
