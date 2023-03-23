@@ -13,7 +13,7 @@ import { updateActionSchema } from './update-action.schema'
 export const UpdateActionModal = observer(() => {
   const { actionService, resourceService } = useStore()
   const closeModal = () => actionService.updateModal.close()
-  const updateAction = actionService.updateModal.action
+  const actionToUpdate = actionService.updateModal.action
 
   const onSubmit = (actionDTO: IUpdateActionData) => {
     return actionService.update(actionDTO)
@@ -24,27 +24,27 @@ export const UpdateActionModal = observer(() => {
   })
 
   const baseModel = {
-    id: updateAction?.id,
-    name: updateAction?.name,
-    storeId: updateAction?.store.current.id,
-    type: updateAction?.type,
+    id: actionToUpdate?.id,
+    name: actionToUpdate?.name,
+    storeId: actionToUpdate?.store.current.id,
+    type: actionToUpdate?.type,
   }
 
   const model =
-    updateAction?.type === IActionKind.ApiAction
+    actionToUpdate?.type === IActionKind.ApiAction
       ? {
           config: {
-            data: updateAction.config.current.values,
-            id: updateAction.config.id,
+            data: actionToUpdate.config.current.values,
+            id: actionToUpdate.config.id,
           },
           ...baseModel,
-          errorActionId: updateAction.errorAction?.id,
-          resourceId: updateAction.resource.id,
-          successActionId: updateAction.successAction?.id,
+          errorActionId: actionToUpdate.errorAction?.id,
+          resourceId: actionToUpdate.resource.id,
+          successActionId: actionToUpdate.successAction?.id,
         }
       : {
           ...baseModel,
-          code: updateAction?.code,
+          code: actionToUpdate?.code,
         }
 
   const getResourceType = (context: Context<IUpdateActionData>) =>
@@ -72,57 +72,47 @@ export const UpdateActionModal = observer(() => {
         onSubmitSuccess={closeModal}
         schema={updateActionSchema}
       >
-        <AutoFields
-          omitFields={[
-            'code',
-            'resourceId',
-            'config',
-            'successActionId',
-            'errorActionId',
-            'actionsIds',
-          ]}
-        />
+        <AutoFields fields={['name']} />
 
-        {/** Code Action */}
-        <DisplayIfField<IUpdateActionData>
-          condition={(context) => context.model.type === IActionKind.CodeAction}
-        >
-          <AutoField label="Action code" name="code" />
-        </DisplayIfField>
+        {actionToUpdate?.type === IActionKind.CodeAction && (
+          <AutoField name="code" />
+        )}
 
-        {/** Api Action */}
-        <DisplayIfField<IUpdateActionData>
-          condition={(context) => context.model.type === IActionKind.ApiAction}
-        >
-          <SelectResource name="resourceId" resourceService={resourceService} />
-          <AutoField component={SelectAction} name="successActionId" />
-          <AutoField component={SelectAction} name="errorActionId" />
+        {actionToUpdate?.type === IActionKind.ApiAction && (
+          <>
+            <SelectResource
+              name="resourceId"
+              resourceService={resourceService}
+            />
+            <AutoField component={SelectAction} name="successActionId" />
+            <AutoField component={SelectAction} name="errorActionId" />
 
-          {/** GraphQL Config Form */}
-          <DisplayIfField<IUpdateActionData>
-            condition={(context) =>
-              getResourceType(context) === IResourceType.GraphQL
-            }
-          >
-            <AutoField getUrl={getResourceApiUrl} name="config.data.query" />
-            <AutoField name="config.data.variables" />
-            <AutoField name="config.data.headers" />
-          </DisplayIfField>
+            {/** GraphQL Config Form */}
+            <DisplayIfField<IUpdateActionData>
+              condition={(context) =>
+                getResourceType(context) === IResourceType.GraphQL
+              }
+            >
+              <AutoField getUrl={getResourceApiUrl} name="config.data.query" />
+              <AutoField name="config.data.variables" />
+              <AutoField name="config.data.headers" />
+            </DisplayIfField>
 
-          {/** Rest Config Form */}
-          <DisplayIfField<IUpdateActionData>
-            condition={(context) =>
-              getResourceType(context) === IResourceType.Rest
-            }
-          >
-            <AutoField name="config.data.urlSegment" />
-            <AutoField name="config.data.method" />
-            <AutoField name="config.data.body" />
-            <AutoField name="config.data.queryParams" />
-            <AutoField name="config.data.headers" />
-            <AutoField name="config.data.responseType" />
-          </DisplayIfField>
-        </DisplayIfField>
+            {/** Rest Config Form */}
+            <DisplayIfField<IUpdateActionData>
+              condition={(context) =>
+                getResourceType(context) === IResourceType.Rest
+              }
+            >
+              <AutoField name="config.data.urlSegment" />
+              <AutoField name="config.data.method" />
+              <AutoField name="config.data.body" />
+              <AutoField name="config.data.queryParams" />
+              <AutoField name="config.data.headers" />
+              <AutoField name="config.data.responseType" />
+            </DisplayIfField>
+          </>
+        )}
       </ModalForm.Form>
     </ModalForm.Modal>
   )
