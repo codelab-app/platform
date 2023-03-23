@@ -28,7 +28,6 @@ export interface IApiActionData extends IBaseActionData {
   id: string
   name: string
   resourceId: string
-  storeId: string
   successActionId?: string
   type: IActionKind
 }

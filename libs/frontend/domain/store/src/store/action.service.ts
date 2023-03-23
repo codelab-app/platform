@@ -74,35 +74,6 @@ export class ActionService
 
   @modelFlow
   @transaction
-  update = _async(function* (
-    this: ActionService,
-    actionData: IUpdateActionData,
-  ) {
-    if (actionData.type === IActionKind.ApiAction) {
-      /**
-       *
-       * Create or Replace if already exist
-       */
-      this.propService.add({
-        data: JSON.stringify(actionData.config.data),
-        id: actionData.config.id,
-      })
-    }
-
-    const actionDTO = this.actionFactory.fromActionData(actionData)
-    /**
-     *
-     * Replace instead of writing cache because we may need to change from CodeAction to ApiAction and vice versa
-     */
-    const action = this.add(actionDTO)
-
-    yield* _await(this.actionRepository.update(action))
-
-    return action
-  })
-
-  @modelFlow
-  @transaction
   getAll = _async(function* (this: ActionService, where: IActionWhere) {
     const actionFragments = yield* _await(this.actionRepository.find(where))
 
@@ -138,20 +109,36 @@ export class ActionService
 
   @modelFlow
   @transaction
-  create = _async(function* (
-    this: ActionService,
-    actionData: ICreateActionData,
-  ) {
-    const action = this.add(this.actionFactory.fromActionData(actionData))
+  create = _async(function* (this: ActionService, data: ICreateActionData) {
+    const action = this.add(ActionFactory.mapDataToDTO(data))
 
-    if (actionData.type === IActionKind.ApiAction) {
+    if (data.type === IActionKind.ApiAction) {
       this.propService.add({
-        data: JSON.stringify(actionData.config.data),
-        id: actionData.config.id,
+        data: JSON.stringify(data.config.data),
+        id: data.config.id,
       })
     }
 
     yield* _await(this.actionRepository.add(action))
+
+    return action
+  })
+
+  @modelFlow
+  @transaction
+  update = _async(function* (this: ActionService, data: IUpdateActionData) {
+    const action = this.actions.get(data.id)!
+    const actionDTO = ActionFactory.mapDataToDTO(data)
+
+    if (action.type === IActionKind.ApiAction) {
+      action.config.current.writeCache({
+        data: JSON.stringify(data.config.data),
+      })
+    }
+
+    ActionFactory.writeCache(actionDTO, action)
+
+    yield* _await(this.actionRepository.update(action))
 
     return action
   })
