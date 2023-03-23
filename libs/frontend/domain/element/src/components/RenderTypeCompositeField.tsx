@@ -1,4 +1,8 @@
-import type { IAtom, ICreateElementData } from '@codelab/frontend/abstract/core'
+import type {
+  IAtom,
+  IComponent,
+  ICreateElementData,
+} from '@codelab/frontend/abstract/core'
 import { IRenderTypeKind } from '@codelab/frontend/abstract/core'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/domain/type'
 import { DisplayIfField } from '@codelab/frontend/view/components'
@@ -9,9 +13,11 @@ import { SelectField } from 'uniforms-antd'
 const RenderTypeFields = ({
   error,
   onChange,
-  parent,
+  parentAtom,
+  parentComponent,
 }: GuaranteedProps<Partial<ICreateElementData['renderType']>> & {
-  parent?: IAtom
+  parentAtom?: IAtom
+  parentComponent?: IComponent
 }) => (
   <section>
     <SelectField
@@ -42,14 +48,19 @@ const RenderTypeFields = ({
        * AutoField renders sub-component frequently, so SelectField of SelectAtom component flicks
        * No need AutoField here
        */}
-      <SelectAtom error={error} label="Atom" name="id" parent={parent} />
+      <SelectAtom error={error} label="Atom" name="id" parent={parentAtom} />
     </DisplayIfField>
     <DisplayIfField<ICreateElementData>
       condition={(context) =>
         context.model.renderType?.kind === IRenderTypeKind.Component
       }
     >
-      <SelectComponent error={error} label="Component" name="id" />
+      <SelectComponent
+        error={error}
+        label="Component"
+        name="id"
+        parent={parentComponent}
+      />
     </DisplayIfField>
   </section>
 )

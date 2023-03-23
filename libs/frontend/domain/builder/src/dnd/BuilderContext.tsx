@@ -1,10 +1,5 @@
-import type {
-  IBuilderService,
-  IElementService,
-  IElementTree,
-} from '@codelab/frontend/abstract/core'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import { useStore } from '@codelab/frontend/presenter/container'
 import type { Active, DragStartEvent } from '@dnd-kit/core'
 import { DndContext, DragOverlay, pointerWithin } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
@@ -15,17 +10,13 @@ import { useBuilderDnd } from './useBuilderDnd'
 /**
  * Provides the DnD context for the builder
  */
-export const BuilderContext = observer<
-  PropsWithChildren<{
-    builderService: IBuilderService
-    elementService: IElementService
-    elementTree: Maybe<IElementTree>
-  }>
->(({ builderService, children, elementService, elementTree }) => {
+export const BuilderContext = observer<PropsWithChildren>(({ children }) => {
+  const { builderService, elementService } = useStore()
+
   const { onDragEnd, onDragStart, sensors } = useBuilderDnd(
     builderService,
     elementService,
-    elementTree,
+    builderService.activeElementTree,
   )
 
   const [draggedElement, setDraggedElement] = React.useState<Active | null>(

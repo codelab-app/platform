@@ -1,13 +1,14 @@
 import type {
   IBuilderDataNode,
-  IElementTree,
+  IElement,
   IPageNode,
 } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presenter/container'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Tree as AntdTree } from 'antd'
 import has from 'lodash/has'
+import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
 import React, { useMemo } from 'react'
 import { useElementTreeDrop } from '../../../hooks'
@@ -21,7 +22,6 @@ import {
 
 interface BuilderTreeProps {
   className?: string
-  elementTree: IElementTree | null
   expandedNodeIds: Array<string>
   treeData: IBuilderDataNode | undefined
 
@@ -39,7 +39,6 @@ interface BuilderTreeProps {
 export const BuilderTree = observer<BuilderTreeProps>(
   ({
     className,
-    elementTree,
     expandedNodeIds,
     selectTreeNode,
     setActiveTab,
@@ -64,9 +63,8 @@ export const BuilderTree = observer<BuilderTreeProps>(
           elementService.convertElementToComponent.bind(elementService),
         createModal: elementService.createModal,
         deleteModal: elementService.deleteModal,
-        elementTree,
       }),
-      [elementTree, elementService],
+      [elementService],
     )
 
     return (
@@ -114,14 +112,32 @@ export const BuilderTree = observer<BuilderTreeProps>(
         }}
         selectedKeys={selectedNode ? [selectedNode.id] : []}
         titleRender={(data) => {
-          return (
-            <BuilderTreeItemTitle
-              componentContextMenuProps={componentContextMenuProps}
-              data={data}
-              elementContextMenuProps={elementContextMenuProps}
-              node={data.node}
-            />
+          // It seems when a treeData is updated after deleting an element, this function
+          // will still run with the deleted element even if that element does not exist
+          // anymore on the treeData prop
+
+          // root node in the treeData is the "Body" or the "Components"
+          const rootNode = treeData?.node as Maybe<IElement>
+          const descendantElements = rootNode?.descendantElements ?? []
+
+          const nodeExists = descendantElements.some(
+            ({ id }) => id === data.key,
           )
+
+          const isRoot = rootNode?.id === data.key || isNil(rootNode)
+
+          if (nodeExists || isRoot) {
+            return (
+              <BuilderTreeItemTitle
+                componentContextMenuProps={componentContextMenuProps}
+                data={data}
+                elementContextMenuProps={elementContextMenuProps}
+                node={data.node}
+              />
+            )
+          }
+
+          return
         }}
         treeData={treeData ? [treeData] : []}
       />
