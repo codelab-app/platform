@@ -69,13 +69,10 @@ export const exportAdminTypes = async (
       // Where it is assigned to atom API
       // search for nested apis three levels deep
       where: {
-        fieldConnection: {
-          node: {
-            api: {
-              id: props.apiId,
-            },
-          },
-        },
+        OR: [
+          { field: { api: { id: props.apiId } } },
+          { field: { api: { field: { api: { id: props.apiId } } } } },
+        ],
       },
     }),
   )
