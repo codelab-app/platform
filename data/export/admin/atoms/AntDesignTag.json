@@ -1,131 +1,134 @@
 {
-  "atom": {
-    "id": "03102afd-2113-4313-89fc-c9e26b62f785",
-    "name": "AntDesignTag",
-    "type": "AntDesignTag",
-    "api": {
-      "id": "7af647f5-a306-42fb-a2cd-8c3567177fa7",
-      "name": "AntDesignTag API"
-    },
-    "icon": "Tag",
-    "tags": [
-      {
-        "id": "9f9bf97a-2b9b-492f-9750-095b682bf703",
-        "name": "Tag"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "7af647f5-a306-42fb-a2cd-8c3567177fa7",
+    "id": "f4ba4ccd-ea7a-414c-89fd-ae5295fc07bf",
     "kind": "InterfaceType",
     "name": "AntDesignTag API",
     "fields": [
       {
-        "id": "356f26c1-8ca0-465b-8723-d020203aa5ca",
-        "key": "closable",
-        "name": "Closable",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "7af647f5-a306-42fb-a2cd-8c3567177fa7"
-        }
+        "id": "5dae7a18-0e96-474d-90ac-4737cccbe91a"
       },
       {
-        "id": "2fa97433-cf5a-4b97-b0f3-9a07e5d5710e",
-        "key": "closeIcon",
-        "name": "Close Icon",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "7af647f5-a306-42fb-a2cd-8c3567177fa7"
-        }
+        "id": "a3c4d18d-eb86-4924-a0dd-45281013cfe8"
       },
       {
-        "id": "146653e8-4493-419f-81f3-4cd38978b976",
-        "key": "color",
-        "name": "Color",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "api": {
-          "id": "7af647f5-a306-42fb-a2cd-8c3567177fa7"
-        }
+        "id": "a8e8bea2-24d6-49e2-8388-d45924363580"
       },
       {
-        "id": "122d22f6-83a0-4c9c-bf3e-22e7d638c8cc",
-        "key": "icon",
-        "name": "Icon",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "7af647f5-a306-42fb-a2cd-8c3567177fa7"
-        }
+        "id": "b771805f-e086-4845-8052-7f8e69085fef"
       },
       {
-        "id": "1f1a5d1b-a22b-44d5-a690-26981adaa73d",
-        "key": "onClose",
-        "name": "On Close",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ActionType",
-          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-          "kind": "ActionType",
-          "name": "ActionType"
-        },
-        "api": {
-          "id": "7af647f5-a306-42fb-a2cd-8c3567177fa7"
-        }
+        "id": "fbb1d0a1-2522-4767-9de3-3e70d53296b2"
       }
     ]
   },
-  "types": [
+  "atom": {
+    "id": "5538885f-2b1f-471f-a72b-7d9568d55921",
+    "name": "AntDesignTag",
+    "type": "AntDesignTag",
+    "api": {
+      "id": "f4ba4ccd-ea7a-414c-89fd-ae5295fc07bf"
+    },
+    "icon": "Tag",
+    "tags": [
+      {
+        "id": "119c12a8-5510-40a8-a5cf-09f27d995e74",
+        "name": "Tag",
+        "parent": {
+          "id": "7765f016-04de-4cf7-9ab5-c7920cad0531",
+          "name": "Data Display"
+        },
+        "children": []
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [
     {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
+      "id": "fbb1d0a1-2522-4767-9de3-3e70d53296b2",
+      "key": "closable",
+      "name": "Closable",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "f4ba4ccd-ea7a-414c-89fd-ae5295fc07bf"
+      }
+    },
+    {
+      "id": "b771805f-e086-4845-8052-7f8e69085fef",
+      "key": "closeIcon",
+      "name": "Close Icon",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "f4ba4ccd-ea7a-414c-89fd-ae5295fc07bf"
+      }
+    },
+    {
+      "id": "a8e8bea2-24d6-49e2-8388-d45924363580",
+      "key": "color",
+      "name": "Color",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "f4ba4ccd-ea7a-414c-89fd-ae5295fc07bf"
+      }
+    },
+    {
+      "id": "5dae7a18-0e96-474d-90ac-4737cccbe91a",
+      "key": "icon",
+      "name": "Icon",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "f4ba4ccd-ea7a-414c-89fd-ae5295fc07bf"
+      }
+    },
+    {
+      "id": "a3c4d18d-eb86-4924-a0dd-45281013cfe8",
+      "key": "onClose",
+      "name": "On Close",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ActionType",
+        "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+        "kind": "ActionType",
+        "name": "ActionType"
+      },
+      "api": {
+        "id": "f4ba4ccd-ea7a-414c-89fd-ae5295fc07bf"
+      }
     }
   ],
-  "tags": [
-    {
-      "id": "9f9bf97a-2b9b-492f-9750-095b682bf703",
-      "name": "Tag",
-      "parent": {
-        "id": "45c2df38-1b04-40f4-b9c3-e505d1a3c432",
-        "name": "Data Display"
-      },
-      "children": []
-    }
-  ]
+  "types": []
 }

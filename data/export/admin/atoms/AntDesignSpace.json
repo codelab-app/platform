@@ -1,144 +1,159 @@
 {
-  "atom": {
-    "id": "bc2264fb-7acc-479c-b03f-4eed791d20ad",
-    "name": "AntDesignSpace",
-    "type": "AntDesignSpace",
-    "api": {
-      "id": "533bcb7f-ecd1-4249-945b-b4f2f7242b84",
-      "name": "AntDesignSpace API"
-    },
-    "icon": "Space",
-    "tags": [
-      {
-        "id": "4ea773ed-a375-44ec-8766-3e686caef3c2",
-        "name": "Space"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "533bcb7f-ecd1-4249-945b-b4f2f7242b84",
+    "id": "acb61314-5cf0-414d-bb14-8d1843f449f7",
     "kind": "InterfaceType",
     "name": "AntDesignSpace API",
     "fields": [
       {
-        "id": "0f696c9b-80eb-49fa-8124-e207ffa48557",
-        "key": "align",
-        "name": "Align",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "74a4a35f-b3f3-44be-8403-7dc13326a77e",
-          "kind": "EnumType",
-          "name": "AntDesignSpace Align Enum"
-        },
-        "api": {
-          "id": "533bcb7f-ecd1-4249-945b-b4f2f7242b84"
-        }
+        "id": "1cbbf830-ee31-4eff-90ea-4de0aff4eb91"
       },
       {
-        "id": "120b71e9-dadd-4135-ab46-6a5186730183",
-        "key": "direction",
-        "name": "Direction",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "a3a772b6-bcaa-4516-a085-718785828ebe",
-          "kind": "EnumType",
-          "name": "AntDesignSpace Direction Enum"
-        },
-        "api": {
-          "id": "533bcb7f-ecd1-4249-945b-b4f2f7242b84"
-        }
+        "id": "9302413a-486d-4e73-a2ae-7c123bf5f937"
       },
       {
-        "id": "2f2b0474-55b5-4a80-a4d9-75c878eb5713",
-        "key": "size",
-        "name": "Size",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "383d2e0c-a934-4fba-9606-24df58315c24",
-          "kind": "EnumType",
-          "name": "AntDesignSpace Size Enum"
-        },
-        "api": {
-          "id": "533bcb7f-ecd1-4249-945b-b4f2f7242b84"
-        }
+        "id": "9afc689e-e02a-439c-abe2-83103826c444"
       },
       {
-        "id": "a7397bf0-a32c-431d-a250-031138cda4ac",
-        "key": "split",
-        "name": "Split",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "533bcb7f-ecd1-4249-945b-b4f2f7242b84"
-        }
+        "id": "a649adb3-965d-4498-9dcb-899197755242"
       },
       {
-        "id": "59088af3-418e-4a06-a26f-908216efe8c1",
-        "key": "wrap",
-        "name": "Wrap",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "533bcb7f-ecd1-4249-945b-b4f2f7242b84"
-        }
+        "id": "d04bd470-bd15-4911-83e2-dd9e6e8370fb"
       }
     ]
   },
-  "types": [
+  "atom": {
+    "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
+    "name": "AntDesignSpace",
+    "type": "AntDesignSpace",
+    "api": {
+      "id": "acb61314-5cf0-414d-bb14-8d1843f449f7"
+    },
+    "icon": "Space",
+    "tags": [
+      {
+        "id": "892978e2-7061-4a88-82f4-fd64e78cf4f9",
+        "name": "Space",
+        "parent": {
+          "id": "7dbf9407-3e93-4b8e-8722-edd8baa894ab",
+          "name": "Layout"
+        },
+        "children": []
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [
     {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
+      "id": "a649adb3-965d-4498-9dcb-899197755242",
+      "key": "align",
+      "name": "Align",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "acb99724-7352-48fe-a1e8-31b2f15fcde7",
+        "kind": "EnumType",
+        "name": "AntDesignSpace Align Enum"
+      },
+      "api": {
+        "id": "acb61314-5cf0-414d-bb14-8d1843f449f7"
+      }
     },
     {
+      "id": "1cbbf830-ee31-4eff-90ea-4de0aff4eb91",
+      "key": "direction",
+      "name": "Direction",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "ff93e46d-b404-4d93-bb1d-6a844a8d532d",
+        "kind": "EnumType",
+        "name": "AntDesignSpace Direction Enum"
+      },
+      "api": {
+        "id": "acb61314-5cf0-414d-bb14-8d1843f449f7"
+      }
+    },
+    {
+      "id": "d04bd470-bd15-4911-83e2-dd9e6e8370fb",
+      "key": "size",
+      "name": "Size",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "f0aa6d46-a3d5-4829-a02b-51185b604ef5",
+        "kind": "EnumType",
+        "name": "AntDesignSpace Size Enum"
+      },
+      "api": {
+        "id": "acb61314-5cf0-414d-bb14-8d1843f449f7"
+      }
+    },
+    {
+      "id": "9302413a-486d-4e73-a2ae-7c123bf5f937",
+      "key": "split",
+      "name": "Split",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "acb61314-5cf0-414d-bb14-8d1843f449f7"
+      }
+    },
+    {
+      "id": "9afc689e-e02a-439c-abe2-83103826c444",
+      "key": "wrap",
+      "name": "Wrap",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "acb61314-5cf0-414d-bb14-8d1843f449f7"
+      }
+    }
+  ],
+  "types": [
+    {
       "__typename": "EnumType",
-      "id": "74a4a35f-b3f3-44be-8403-7dc13326a77e",
+      "id": "acb99724-7352-48fe-a1e8-31b2f15fcde7",
       "kind": "EnumType",
       "name": "AntDesignSpace Align Enum",
       "allowedValues": [
         {
-          "id": "1a488c95-6347-4f81-8323-cdde63a6485f",
+          "id": "5a59d673-91ef-4dd9-9382-cd8400da6b0b",
           "key": "baseline",
           "value": "baseline"
         },
         {
-          "id": "5f728a74-3f2c-40e6-9bcb-1c85a728b653",
+          "id": "e276b21e-b2fc-405e-bae2-9a5d87f215c1",
           "key": "center",
           "value": "center"
         },
         {
-          "id": "f0b872d2-4a57-43d3-af43-e1a7c4b38853",
+          "id": "edb27cfe-6697-4fca-8ec5-d5103c475ffb",
           "key": "end",
           "value": "end"
         },
         {
-          "id": "40563922-2a9e-4869-8ab5-caf734d42bd5",
+          "id": "d3a5ea06-a27b-48ba-97d9-cb0016e3bab2",
           "key": "start",
           "value": "start"
         }
@@ -146,17 +161,17 @@
     },
     {
       "__typename": "EnumType",
-      "id": "a3a772b6-bcaa-4516-a085-718785828ebe",
+      "id": "ff93e46d-b404-4d93-bb1d-6a844a8d532d",
       "kind": "EnumType",
       "name": "AntDesignSpace Direction Enum",
       "allowedValues": [
         {
-          "id": "17b62448-ae04-436d-9f69-7f21caa72726",
+          "id": "0f200ee0-43aa-41bd-8b11-05d8e68e0b26",
           "key": "horizontal",
           "value": "horizontal"
         },
         {
-          "id": "49bb709f-e8c0-4496-9516-958e342a1919",
+          "id": "e1cb1a85-2515-467a-8e13-5b9c2767281a",
           "key": "vertical",
           "value": "vertical"
         }
@@ -164,32 +179,21 @@
     },
     {
       "__typename": "EnumType",
-      "id": "383d2e0c-a934-4fba-9606-24df58315c24",
+      "id": "f0aa6d46-a3d5-4829-a02b-51185b604ef5",
       "kind": "EnumType",
       "name": "AntDesignSpace Size Enum",
       "allowedValues": [
         {
-          "id": "e5404e32-0280-4b9a-9c0d-47e1b9bcd66f",
+          "id": "4b3f3134-86ae-4fd1-a7eb-a9586db25012",
           "key": "Size",
           "value": "Size"
         },
         {
-          "id": "119deedf-02bb-4040-a6f9-f39551b23ec7",
+          "id": "4dc82a8d-fb08-4c20-9f6b-993c03162178",
           "key": "Size[]",
           "value": "Size[]"
         }
       ]
-    }
-  ],
-  "tags": [
-    {
-      "id": "4ea773ed-a375-44ec-8766-3e686caef3c2",
-      "name": "Space",
-      "parent": {
-        "id": "ef48808b-ce14-4674-9e97-baf238a468ed",
-        "name": "Layout"
-      },
-      "children": []
     }
   ]
 }

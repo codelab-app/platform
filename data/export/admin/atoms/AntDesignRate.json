@@ -1,45 +1,32 @@
 {
-  "atom": {
-    "id": "cfdff9de-7df4-47ac-a187-240acf76b8b9",
-    "name": "AntDesignRate",
-    "type": "AntDesignRate",
-    "api": {
-      "id": "9cfbdee6-ca25-4ab5-b953-f1bb6a711d5d",
-      "name": "AntDesignRate API"
-    },
-    "icon": "Rate",
-    "tags": [
-      {
-        "id": "28239a43-0574-41fb-a59d-421dae873374",
-        "name": "Rate"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "9cfbdee6-ca25-4ab5-b953-f1bb6a711d5d",
+    "id": "47250e07-adcf-4e44-8528-93d903799b06",
     "kind": "InterfaceType",
     "name": "AntDesignRate API",
     "fields": []
   },
-  "types": [
-    {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
-    }
-  ],
-  "tags": [
-    {
-      "id": "28239a43-0574-41fb-a59d-421dae873374",
-      "name": "Rate",
-      "parent": {
-        "id": "c350f653-57f8-4167-8b2a-e6c376f30ef1",
-        "name": "Data Entry"
-      },
-      "children": []
-    }
-  ]
+  "atom": {
+    "id": "bd05ca0b-36c0-43c7-95c5-e56578f842ce",
+    "name": "AntDesignRate",
+    "type": "AntDesignRate",
+    "api": {
+      "id": "47250e07-adcf-4e44-8528-93d903799b06"
+    },
+    "icon": "Rate",
+    "tags": [
+      {
+        "id": "6966c0d3-fbaa-452c-a7ba-1149ffb9aa73",
+        "name": "Rate",
+        "parent": {
+          "id": "79e9ccd1-a5fa-44b9-b728-16e3c79365c8",
+          "name": "Data Entry"
+        },
+        "children": []
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [],
+  "types": []
 }

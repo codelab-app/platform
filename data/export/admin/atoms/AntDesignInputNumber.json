@@ -1,45 +1,32 @@
 {
-  "atom": {
-    "id": "6c80cf6d-ba5f-4c65-9983-e8c59cb4b51d",
-    "name": "AntDesignInputNumber",
-    "type": "AntDesignInputNumber",
-    "api": {
-      "id": "f4a23443-2213-44f2-a626-584be3980dc4",
-      "name": "AntDesignInputNumber API"
-    },
-    "icon": "InputNumber",
-    "tags": [
-      {
-        "id": "a37f4e19-6afe-409f-a033-973334f51879",
-        "name": "InputNumber"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "f4a23443-2213-44f2-a626-584be3980dc4",
+    "id": "ba48453e-cd8a-4e49-80e0-0972933ceca8",
     "kind": "InterfaceType",
     "name": "AntDesignInputNumber API",
     "fields": []
   },
-  "types": [
-    {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
-    }
-  ],
-  "tags": [
-    {
-      "id": "a37f4e19-6afe-409f-a033-973334f51879",
-      "name": "InputNumber",
-      "parent": {
-        "id": "c350f653-57f8-4167-8b2a-e6c376f30ef1",
-        "name": "Data Entry"
-      },
-      "children": []
-    }
-  ]
+  "atom": {
+    "id": "4a938130-6b46-442b-8b3e-b77aba219dc7",
+    "name": "AntDesignInputNumber",
+    "type": "AntDesignInputNumber",
+    "api": {
+      "id": "ba48453e-cd8a-4e49-80e0-0972933ceca8"
+    },
+    "icon": "InputNumber",
+    "tags": [
+      {
+        "id": "68f3a3f3-785e-4c6d-a705-849a8a2f81ff",
+        "name": "InputNumber",
+        "parent": {
+          "id": "79e9ccd1-a5fa-44b9-b728-16e3c79365c8",
+          "name": "Data Entry"
+        },
+        "children": []
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [],
+  "types": []
 }

@@ -42,10 +42,6 @@ export class TransformAntDesignTypesService extends IUseCase<
   Request,
   ITypeDTO | undefined
 > {
-  reactNodeTypeRepository = new ReactNodeTypeRepository()
-
-  renderPropsTypeRepository = new RenderPropsTypeRepository()
-
   unionTypeRepository = new UnionTypeRepository()
 
   protected async _execute({ atom, field, owner }: Request) {

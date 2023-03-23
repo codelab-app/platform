@@ -1,321 +1,369 @@
 {
-  "atom": {
-    "id": "1c45b9c6-85f5-4790-b6fb-fccba9e758ad",
-    "name": "AntDesignTable",
-    "type": "AntDesignTable",
-    "api": {
-      "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e",
-      "name": "AntDesignTable API"
-    },
-    "icon": "Table",
-    "tags": [
-      {
-        "id": "8a54e22c-688b-4709-9c6e-c95507c74363",
-        "name": "Table"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e",
+    "id": "6eea62a1-f9bf-4b57-951c-442f30e52e22",
     "kind": "InterfaceType",
     "name": "AntDesignTable API",
     "fields": [
       {
-        "id": "5bac472b-bccd-4a7a-9202-945b9286682a",
-        "key": "bordered",
-        "name": "Bordered",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e"
-        }
+        "id": "1112ce71-68f5-4641-b401-43a933ad09df"
       },
       {
-        "id": "c58ce39d-4e84-4a8a-9be1-75df0b753711",
-        "key": "footer",
-        "name": "Footer",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ActionType",
-          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-          "kind": "ActionType",
-          "name": "ActionType"
-        },
-        "api": {
-          "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e"
-        }
+        "id": "1507fe1f-5d5e-476b-b5b0-5d3574a28f7e"
       },
       {
-        "id": "34ef4c95-2969-490a-8000-795bd78af1e6",
-        "key": "getPopupContainer",
-        "name": "Get Popup Container",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e"
-        }
+        "id": "1c14ddb9-9243-4e0c-92d5-cbaae72e6d6d"
       },
       {
-        "id": "f63a3999-f6ac-4d1c-9914-ba3ff6bcb55e",
-        "key": "loading",
-        "name": "Loading",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "81279661-1b97-4534-a856-2f88882f576c",
-          "kind": "EnumType",
-          "name": "AntDesignTable Loading Enum"
-        },
-        "api": {
-          "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e"
-        }
+        "id": "1d26d56e-daa7-4a89-83bf-a9c6f7317bc5"
       },
       {
-        "id": "c38f89be-c5d0-44b0-a735-322bff82c82a",
-        "key": "onChange",
-        "name": "On Change",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "f63a46af-c508-4d1e-bc1d-141f5f4ef74e",
-          "kind": "EnumType",
-          "name": "AntDesignTable On Change Enum"
-        },
-        "api": {
-          "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e"
-        }
+        "id": "22ac486e-ea0a-4a4d-8e7b-d9810b988b6a"
       },
       {
-        "id": "1699ed27-9d95-47d7-b630-e4bb92108260",
-        "key": "onHeaderRow",
-        "name": "On Header Row",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ActionType",
-          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-          "kind": "ActionType",
-          "name": "ActionType"
-        },
-        "api": {
-          "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e"
-        }
+        "id": "2cccb98b-358c-4539-a8a6-19fb995e128d"
       },
       {
-        "id": "68ae6e5f-fa25-4e6d-a506-dc255cd14fb5",
-        "key": "onRow",
-        "name": "On Row",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ActionType",
-          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-          "kind": "ActionType",
-          "name": "ActionType"
-        },
-        "api": {
-          "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e"
-        }
+        "id": "36566619-769d-47b3-8347-2c4827fd28f2"
       },
       {
-        "id": "567c71b5-a210-4358-9f98-4ace4c2c22bf",
-        "key": "rowClassName",
-        "name": "Row Class Name",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ActionType",
-          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-          "kind": "ActionType",
-          "name": "ActionType"
-        },
-        "api": {
-          "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e"
-        }
+        "id": "64457450-24eb-4ff3-a3fc-1f77974984b0"
       },
       {
-        "id": "c64c9b94-2825-4cab-abd9-84fd0c1e81aa",
-        "key": "rowKey",
-        "name": "Row Key",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "0db62bd6-12d2-4941-bea1-8217d50f511b",
-          "kind": "EnumType",
-          "name": "AntDesignTable Row Key Enum"
-        },
-        "api": {
-          "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e"
-        }
+        "id": "6e8a782e-6263-40c5-a8c4-50b135ba9d4b"
       },
       {
-        "id": "48f8daa0-c63e-4a3a-a24c-ad71a3c75fcc",
-        "key": "showHeader",
-        "name": "Show Header",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e"
-        }
+        "id": "6f810201-2ec8-442c-bf29-c8998b69367c"
       },
       {
-        "id": "084c5b87-eb46-4f75-809c-28772b1fcbf3",
-        "key": "showSorterTooltip",
-        "name": "Show Sorter Tooltip",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "aab073c2-5c05-4278-a4e6-42ef3818a529",
-          "kind": "EnumType",
-          "name": "AntDesignTable Show Sorter Tooltip Enum"
-        },
-        "api": {
-          "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e"
-        }
+        "id": "7a581bc3-abde-4173-976b-4d55a34aca0a"
       },
       {
-        "id": "b6859ded-8576-4729-9ffa-ddcb76e227f6",
-        "key": "size",
-        "name": "Size",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "c8646e2c-9c5b-42b3-b363-eecc2f825513",
-          "kind": "EnumType",
-          "name": "AntDesignTable Size Enum"
-        },
-        "api": {
-          "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e"
-        }
+        "id": "89f839bc-4301-4339-8f9b-e33b1395f2bb"
       },
       {
-        "id": "752697c3-b9d9-4896-8696-fcb2c2174e73",
-        "key": "sticky",
-        "name": "Sticky",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "9316be34-3ded-4d35-ae6f-95e1906eaa71",
-          "kind": "EnumType",
-          "name": "AntDesignTable Sticky Enum"
-        },
-        "api": {
-          "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e"
-        }
+        "id": "bda3dfad-b00a-4393-a256-f9ccc1051537"
       },
       {
-        "id": "88b76c13-c104-48d4-851f-7e6367da73a2",
-        "key": "summary",
-        "name": "Summary",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e"
-        }
+        "id": "d13c5d7a-7a41-4f28-b173-69d2b961b16d"
       },
       {
-        "id": "5aa6b2d7-bf34-4673-b050-cad49c9b94ff",
-        "key": "tableLayout",
-        "name": "Table Layout",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "23089ab3-6d5e-4ebc-9da5-3e1249ee4226",
-          "kind": "EnumType",
-          "name": "AntDesignTable Table Layout Enum"
-        },
-        "api": {
-          "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e"
-        }
+        "id": "dfa22772-fd3a-4df8-865a-0b1ed4c63ffc"
       },
       {
-        "id": "4daf024f-72aa-4545-a952-1b016a036fd7",
-        "key": "title",
-        "name": "Title",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ActionType",
-          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-          "kind": "ActionType",
-          "name": "ActionType"
-        },
-        "api": {
-          "id": "4a0d6540-7869-4dcf-aced-89cdcbc8994e"
-        }
+        "id": "e700fcc5-2761-4e64-8baf-eadcaad4b362"
       }
     ]
   },
-  "types": [
+  "atom": {
+    "id": "694ca90d-dbd9-4285-944c-fe04706773a7",
+    "name": "AntDesignTable",
+    "type": "AntDesignTable",
+    "api": {
+      "id": "6eea62a1-f9bf-4b57-951c-442f30e52e22"
+    },
+    "icon": "Table",
+    "tags": [
+      {
+        "id": "59027c92-a875-47d7-a72a-d0d57d0cee24",
+        "name": "Table",
+        "parent": {
+          "id": "7765f016-04de-4cf7-9ab5-c7920cad0531",
+          "name": "Data Display"
+        },
+        "children": []
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [
     {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
+      "id": "89f839bc-4301-4339-8f9b-e33b1395f2bb",
+      "key": "bordered",
+      "name": "Bordered",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "6eea62a1-f9bf-4b57-951c-442f30e52e22"
+      }
     },
     {
+      "id": "7a581bc3-abde-4173-976b-4d55a34aca0a",
+      "key": "footer",
+      "name": "Footer",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ActionType",
+        "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+        "kind": "ActionType",
+        "name": "ActionType"
+      },
+      "api": {
+        "id": "6eea62a1-f9bf-4b57-951c-442f30e52e22"
+      }
+    },
+    {
+      "id": "64457450-24eb-4ff3-a3fc-1f77974984b0",
+      "key": "getPopupContainer",
+      "name": "Get Popup Container",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "6eea62a1-f9bf-4b57-951c-442f30e52e22"
+      }
+    },
+    {
+      "id": "6f810201-2ec8-442c-bf29-c8998b69367c",
+      "key": "loading",
+      "name": "Loading",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "e7bebe12-ceac-4030-b9a5-bd9d5bcc01af",
+        "kind": "EnumType",
+        "name": "AntDesignTable Loading Enum"
+      },
+      "api": {
+        "id": "6eea62a1-f9bf-4b57-951c-442f30e52e22"
+      }
+    },
+    {
+      "id": "e700fcc5-2761-4e64-8baf-eadcaad4b362",
+      "key": "onChange",
+      "name": "On Change",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "e90a4871-7ae7-44e4-a352-9a9b43fb0ed5",
+        "kind": "EnumType",
+        "name": "AntDesignTable On Change Enum"
+      },
+      "api": {
+        "id": "6eea62a1-f9bf-4b57-951c-442f30e52e22"
+      }
+    },
+    {
+      "id": "bda3dfad-b00a-4393-a256-f9ccc1051537",
+      "key": "onHeaderRow",
+      "name": "On Header Row",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ActionType",
+        "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+        "kind": "ActionType",
+        "name": "ActionType"
+      },
+      "api": {
+        "id": "6eea62a1-f9bf-4b57-951c-442f30e52e22"
+      }
+    },
+    {
+      "id": "6e8a782e-6263-40c5-a8c4-50b135ba9d4b",
+      "key": "onRow",
+      "name": "On Row",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ActionType",
+        "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+        "kind": "ActionType",
+        "name": "ActionType"
+      },
+      "api": {
+        "id": "6eea62a1-f9bf-4b57-951c-442f30e52e22"
+      }
+    },
+    {
+      "id": "36566619-769d-47b3-8347-2c4827fd28f2",
+      "key": "rowClassName",
+      "name": "Row Class Name",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ActionType",
+        "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+        "kind": "ActionType",
+        "name": "ActionType"
+      },
+      "api": {
+        "id": "6eea62a1-f9bf-4b57-951c-442f30e52e22"
+      }
+    },
+    {
+      "id": "1507fe1f-5d5e-476b-b5b0-5d3574a28f7e",
+      "key": "rowKey",
+      "name": "Row Key",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "5e3bdf42-0a8c-457a-a6b1-2a53574e1c21",
+        "kind": "EnumType",
+        "name": "AntDesignTable Row Key Enum"
+      },
+      "api": {
+        "id": "6eea62a1-f9bf-4b57-951c-442f30e52e22"
+      }
+    },
+    {
+      "id": "1112ce71-68f5-4641-b401-43a933ad09df",
+      "key": "showHeader",
+      "name": "Show Header",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "6eea62a1-f9bf-4b57-951c-442f30e52e22"
+      }
+    },
+    {
+      "id": "dfa22772-fd3a-4df8-865a-0b1ed4c63ffc",
+      "key": "showSorterTooltip",
+      "name": "Show Sorter Tooltip",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "900507f3-3690-499d-abef-abef75f84cdb",
+        "kind": "EnumType",
+        "name": "AntDesignTable Show Sorter Tooltip Enum"
+      },
+      "api": {
+        "id": "6eea62a1-f9bf-4b57-951c-442f30e52e22"
+      }
+    },
+    {
+      "id": "22ac486e-ea0a-4a4d-8e7b-d9810b988b6a",
+      "key": "size",
+      "name": "Size",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "a81816bd-a17c-499d-8edc-812bc4aca21f",
+        "kind": "EnumType",
+        "name": "AntDesignTable Size Enum"
+      },
+      "api": {
+        "id": "6eea62a1-f9bf-4b57-951c-442f30e52e22"
+      }
+    },
+    {
+      "id": "2cccb98b-358c-4539-a8a6-19fb995e128d",
+      "key": "sticky",
+      "name": "Sticky",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "4229976b-0e7b-48f1-8e41-ebf0e49624c3",
+        "kind": "EnumType",
+        "name": "AntDesignTable Sticky Enum"
+      },
+      "api": {
+        "id": "6eea62a1-f9bf-4b57-951c-442f30e52e22"
+      }
+    },
+    {
+      "id": "d13c5d7a-7a41-4f28-b173-69d2b961b16d",
+      "key": "summary",
+      "name": "Summary",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "6eea62a1-f9bf-4b57-951c-442f30e52e22"
+      }
+    },
+    {
+      "id": "1c14ddb9-9243-4e0c-92d5-cbaae72e6d6d",
+      "key": "tableLayout",
+      "name": "Table Layout",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "83541c4f-8654-498a-8861-49e34e8d1b9d",
+        "kind": "EnumType",
+        "name": "AntDesignTable Table Layout Enum"
+      },
+      "api": {
+        "id": "6eea62a1-f9bf-4b57-951c-442f30e52e22"
+      }
+    },
+    {
+      "id": "1d26d56e-daa7-4a89-83bf-a9c6f7317bc5",
+      "key": "title",
+      "name": "Title",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ActionType",
+        "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+        "kind": "ActionType",
+        "name": "ActionType"
+      },
+      "api": {
+        "id": "6eea62a1-f9bf-4b57-951c-442f30e52e22"
+      }
+    }
+  ],
+  "types": [
+    {
       "__typename": "EnumType",
-      "id": "81279661-1b97-4534-a856-2f88882f576c",
+      "id": "e7bebe12-ceac-4030-b9a5-bd9d5bcc01af",
       "kind": "EnumType",
       "name": "AntDesignTable Loading Enum",
       "allowedValues": [
         {
-          "id": "475232fa-39a1-4218-bdef-dce5cbff6d4e",
+          "id": "60e92068-578b-44dd-b8e2-66f4c180261b",
           "key": "boolean",
           "value": "boolean"
         },
         {
-          "id": "6b58dccb-7286-4766-a39d-5426698ee762",
+          "id": "73c10a0a-625f-4af6-b37e-687346e409fb",
           "key": "Spin Props",
           "value": "Spin Props"
         }
@@ -323,22 +371,22 @@
     },
     {
       "__typename": "EnumType",
-      "id": "f63a46af-c508-4d1e-bc1d-141f5f4ef74e",
+      "id": "e90a4871-7ae7-44e4-a352-9a9b43fb0ed5",
       "kind": "EnumType",
       "name": "AntDesignTable On Change Enum",
       "allowedValues": [
         {
-          "id": "60cbd85c-1d46-4682-8b0b-c0f31f73b9dc",
+          "id": "a9a8d795-51db-4d8d-bcdd-53084d0789ba",
           "key": "filter })",
           "value": "filter })"
         },
         {
-          "id": "7342c9b5-446e-46b7-8aa3-7f164d5cc31e",
+          "id": "9feb2a83-7064-46df-bc95-2969ce4703e9",
           "key": "function(pagination, filters, sorter, extra: { currentDataSource: [], action: paginate",
           "value": "function(pagination, filters, sorter, extra: { currentDataSource: [], action: paginate"
         },
         {
-          "id": "7e6baeef-e502-414f-9151-5017b82c7c99",
+          "id": "4bc86e6e-a52b-4d1b-bf00-3c253c1a88d9",
           "key": "sort",
           "value": "sort"
         }
@@ -346,17 +394,17 @@
     },
     {
       "__typename": "EnumType",
-      "id": "0db62bd6-12d2-4941-bea1-8217d50f511b",
+      "id": "5e3bdf42-0a8c-457a-a6b1-2a53574e1c21",
       "kind": "EnumType",
       "name": "AntDesignTable Row Key Enum",
       "allowedValues": [
         {
-          "id": "1474d63d-6947-457c-b808-d152d89e9f55",
+          "id": "396b35ff-f11a-41ff-9a07-4b2353ac4bfa",
           "key": "function(record): string",
           "value": "function(record): string"
         },
         {
-          "id": "b308fa8a-ca92-44bc-9676-40c051f6e8ec",
+          "id": "6e818a6f-771d-48d7-a973-7984c02df6ae",
           "key": "string",
           "value": "string"
         }
@@ -364,17 +412,17 @@
     },
     {
       "__typename": "EnumType",
-      "id": "aab073c2-5c05-4278-a4e6-42ef3818a529",
+      "id": "900507f3-3690-499d-abef-abef75f84cdb",
       "kind": "EnumType",
       "name": "AntDesignTable Show Sorter Tooltip Enum",
       "allowedValues": [
         {
-          "id": "7feb599b-0ca9-4e2a-a25f-6c20f6f75256",
+          "id": "bceb6599-66d8-4dda-ac67-0b3ba689824f",
           "key": "boolean",
           "value": "boolean"
         },
         {
-          "id": "633f80ba-b369-440e-9531-b18b85b1055e",
+          "id": "cbd264e9-af84-47b4-936c-c2ed9c128fb3",
           "key": "Tooltip props",
           "value": "Tooltip props"
         }
@@ -382,22 +430,22 @@
     },
     {
       "__typename": "EnumType",
-      "id": "c8646e2c-9c5b-42b3-b363-eecc2f825513",
+      "id": "a81816bd-a17c-499d-8edc-812bc4aca21f",
       "kind": "EnumType",
       "name": "AntDesignTable Size Enum",
       "allowedValues": [
         {
-          "id": "83194039-56a5-441d-a29d-adda972681fe",
+          "id": "e2e7e2d8-8d9f-4919-bdb6-2e52b721cd80",
           "key": "default",
           "value": "default"
         },
         {
-          "id": "7a24cef8-7917-42a2-99a0-cab98e19789b",
+          "id": "d0c4224e-b6db-4ce1-9ff2-2cd3fbd7dcb7",
           "key": "middle",
           "value": "middle"
         },
         {
-          "id": "2b12b3a8-c31f-44c1-839b-fa6ea9b56ddf",
+          "id": "d6427836-a5b7-43a1-bf96-8b89a8f4b681",
           "key": "small",
           "value": "small"
         }
@@ -405,17 +453,17 @@
     },
     {
       "__typename": "EnumType",
-      "id": "9316be34-3ded-4d35-ae6f-95e1906eaa71",
+      "id": "4229976b-0e7b-48f1-8e41-ebf0e49624c3",
       "kind": "EnumType",
       "name": "AntDesignTable Sticky Enum",
       "allowedValues": [
         {
-          "id": "f3461f61-f757-4145-a289-5c7fff61e6fe",
+          "id": "0a9a5d99-075e-4dad-9dd2-0397f207f663",
           "key": "{offsetHeader?: number, offsetScroll?: number, getContainer?: () => HTMLElement}",
           "value": "{offsetHeader?: number, offsetScroll?: number, getContainer?: () => HTMLElement}"
         },
         {
-          "id": "183bd578-7ed0-446b-a3d4-fe522407b054",
+          "id": "d6ba8ef9-45b0-4b66-811a-3d49cae4bd91",
           "key": "boolean",
           "value": "boolean"
         }
@@ -423,37 +471,26 @@
     },
     {
       "__typename": "EnumType",
-      "id": "23089ab3-6d5e-4ebc-9da5-3e1249ee4226",
+      "id": "83541c4f-8654-498a-8861-49e34e8d1b9d",
       "kind": "EnumType",
       "name": "AntDesignTable Table Layout Enum",
       "allowedValues": [
         {
-          "id": "a9a3eb50-8d42-432a-a7c6-6bbde7913ebb",
+          "id": "eb9de3c1-c51b-4512-835b-cab7171280d8",
           "key": "-",
           "value": "-"
         },
         {
-          "id": "1cdc0500-aeb2-4a23-b64a-2e61ae6ebf0c",
+          "id": "1e378a45-cf2f-435e-95f2-05fd9d4e536a",
           "key": "auto",
           "value": "auto"
         },
         {
-          "id": "d13a698c-11f8-4cb9-a3b3-f2cc7f035a47",
+          "id": "a6dcc256-ab0d-4826-9e96-205fa5d9db5b",
           "key": "fixed",
           "value": "fixed"
         }
       ]
-    }
-  ],
-  "tags": [
-    {
-      "id": "8a54e22c-688b-4709-9c6e-c95507c74363",
-      "name": "Table",
-      "parent": {
-        "id": "45c2df38-1b04-40f4-b9c3-e505d1a3c432",
-        "name": "Data Display"
-      },
-      "children": []
     }
   ]
 }

@@ -39,13 +39,11 @@ export class EnumTypeRepository extends AbstractRepository<
         input: enumTypes.map(
           ({ __typename, allowedValues, owner, ...enumType }) => ({
             ...enumType,
-            // allowedValues: connectNodeIds(
-            //   allowedValues.map((value) => value.id),
-            // ),
             allowedValues: this.mapCreateEnumTypeValues(allowedValues),
             owner: connectAuth0Owner(owner),
           }),
         ),
+        selectionSet: `{ enumTypes ${exportEnumTypeSelectionSet} }`,
       })
     ).enumTypes
   }
@@ -58,10 +56,8 @@ export class EnumTypeRepository extends AbstractRepository<
       await (
         await this.EnumType
       ).update({
+        selectionSet: `{ enumTypes ${exportEnumTypeSelectionSet} }`,
         update: {
-          // allowedValues: reconnectNodeIds(
-          //   allowedValues.map((value) => value.id),
-          // ),
           allowedValues: this.mapUpdateEnumTypeValues(allowedValues),
           name,
         },

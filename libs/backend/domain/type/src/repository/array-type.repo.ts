@@ -39,6 +39,7 @@ export class ArrayTypeRepository extends AbstractRepository<
             owner: connectAuth0Owner(owner),
           }),
         ),
+        selectionSet: `{ arrayTypes ${exportArrayTypeSelectionSet} }`,
       })
     ).arrayTypes
   }
@@ -51,6 +52,7 @@ export class ArrayTypeRepository extends AbstractRepository<
       await (
         await this.ArrayType
       ).update({
+        selectionSet: `{ arrayTypes ${exportArrayTypeSelectionSet} }`,
         update: {
           itemType: reconnectNodeId(itemType?.id),
           name,

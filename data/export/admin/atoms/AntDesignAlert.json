@@ -1,80 +1,74 @@
 {
-  "atom": {
-    "id": "404c41ce-2522-4e4d-83be-9f5286809476",
-    "name": "AntDesignAlert",
-    "type": "AntDesignAlert",
-    "api": {
-      "id": "daebe9b2-eb88-4b46-bfe8-aec808e615ba",
-      "name": "AntDesignAlert API"
-    },
-    "icon": "Alert",
-    "tags": [
-      {
-        "id": "8e9f7093-04d7-432f-8127-297ff4a33b3d",
-        "name": "Alert"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "daebe9b2-eb88-4b46-bfe8-aec808e615ba",
+    "id": "3b792021-dd81-41b4-b2c6-816ba6e8a7fc",
     "kind": "InterfaceType",
     "name": "AntDesignAlert API",
     "fields": [
       {
-        "id": "4e99eb7f-607e-494b-9c89-7e4d44cb462d",
-        "key": "description",
-        "name": "Description",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "daebe9b2-eb88-4b46-bfe8-aec808e615ba"
-        }
+        "id": "0d3fa018-230d-4798-93c2-605cdd58cf74"
       },
       {
-        "id": "1d1da825-a482-4a2b-b58d-8f5e7ecfe8bd",
-        "key": "message",
-        "name": "Message",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "daebe9b2-eb88-4b46-bfe8-aec808e615ba"
-        }
+        "id": "5d5d533c-bea0-4f45-8c96-1c0028425344"
       }
     ]
   },
-  "types": [
+  "atom": {
+    "id": "7f4e79d6-8d1f-46e7-9e72-fd8affbf5b64",
+    "name": "AntDesignAlert",
+    "type": "AntDesignAlert",
+    "api": {
+      "id": "3b792021-dd81-41b4-b2c6-816ba6e8a7fc"
+    },
+    "icon": "Alert",
+    "tags": [
+      {
+        "id": "4720688a-a1b3-4cc2-b6af-9b3b64e7ea94",
+        "name": "Alert",
+        "parent": {
+          "id": "15329905-a687-4f75-939c-1cec559e9ba4",
+          "name": "Feedback"
+        },
+        "children": []
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [
     {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
+      "id": "0d3fa018-230d-4798-93c2-605cdd58cf74",
+      "key": "description",
+      "name": "Description",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "3b792021-dd81-41b4-b2c6-816ba6e8a7fc"
+      }
+    },
+    {
+      "id": "5d5d533c-bea0-4f45-8c96-1c0028425344",
+      "key": "message",
+      "name": "Message",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "3b792021-dd81-41b4-b2c6-816ba6e8a7fc"
+      }
     }
   ],
-  "tags": [
-    {
-      "id": "8e9f7093-04d7-432f-8127-297ff4a33b3d",
-      "name": "Alert",
-      "parent": {
-        "id": "53a7cb8c-1631-4555-bead-4b63efbef861",
-        "name": "Feedback"
-      },
-      "children": []
-    }
-  ]
+  "types": []
 }

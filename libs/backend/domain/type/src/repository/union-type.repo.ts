@@ -45,6 +45,7 @@ export class UnionTypeRepository extends AbstractRepository<
             },
           }),
         ),
+        selectionSet: `{ unionTypes ${exportUnionTypeSelectionSet} }`,
       })
     ).unionTypes
   }
@@ -57,6 +58,7 @@ export class UnionTypeRepository extends AbstractRepository<
       await (
         await this.UnionType
       ).update({
+        selectionSet: `{ unionTypes ${exportUnionTypeSelectionSet} }`,
         update: {
           id,
           name,
