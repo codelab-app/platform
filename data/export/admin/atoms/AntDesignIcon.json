@@ -1,97 +1,94 @@
 {
-  "atom": {
-    "id": "11d5459a-6f77-4785-b30f-e734b66127a2",
-    "name": "AntDesignIcon",
-    "type": "AntDesignIcon",
-    "api": {
-      "id": "a43f06da-fcd5-4462-ad84-a83bfcad5ddd",
-      "name": "AntDesignIcon API"
-    },
-    "icon": "Icon",
-    "tags": [
-      {
-        "id": "784eb643-c182-44a3-a598-af8355642a84",
-        "name": "Icon"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "a43f06da-fcd5-4462-ad84-a83bfcad5ddd",
+    "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4",
     "kind": "InterfaceType",
     "name": "AntDesignIcon API",
     "fields": [
       {
-        "id": "2dff9875-56e7-4154-a149-3606e392913b",
-        "key": "className",
-        "name": "Class Name",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "api": {
-          "id": "a43f06da-fcd5-4462-ad84-a83bfcad5ddd"
-        }
+        "id": "14a18b7c-85c4-4c11-a5e3-aa80283deb14"
       },
       {
-        "id": "a05561ce-f5a7-4317-9f83-c0bc49e10f78",
-        "key": "rotate",
-        "name": "Rotate",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
-          "kind": "PrimitiveType",
-          "name": "Number"
-        },
-        "api": {
-          "id": "a43f06da-fcd5-4462-ad84-a83bfcad5ddd"
-        }
+        "id": "5f34a1f4-38e2-4bfe-a43e-f46901792a7b"
       },
       {
-        "id": "05b8efbb-e23c-48fe-906e-37fcc23c851c",
-        "key": "spin",
-        "name": "Spin",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "a43f06da-fcd5-4462-ad84-a83bfcad5ddd"
-        }
+        "id": "de6b3607-bfbe-41d3-9ad0-5e2d4a12450e"
       }
     ]
   },
-  "types": [
+  "atom": {
+    "id": "7244a1cf-3ec7-43fb-a9b0-2d5f99b92f69",
+    "name": "AntDesignIcon",
+    "type": "AntDesignIcon",
+    "api": {
+      "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
+    },
+    "icon": "Icon",
+    "tags": [
+      {
+        "id": "e7848328-f5c2-47fe-a470-464a7e4d8259",
+        "name": "Icon",
+        "parent": {
+          "id": "69b1a56f-70b4-4a6e-a399-0c1a79b59146",
+          "name": "General"
+        },
+        "children": []
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [
     {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
+      "id": "14a18b7c-85c4-4c11-a5e3-aa80283deb14",
+      "key": "className",
+      "name": "Class Name",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
+      }
+    },
+    {
+      "id": "5f34a1f4-38e2-4bfe-a43e-f46901792a7b",
+      "key": "rotate",
+      "name": "Rotate",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+        "kind": "PrimitiveType",
+        "name": "Number"
+      },
+      "api": {
+        "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
+      }
+    },
+    {
+      "id": "de6b3607-bfbe-41d3-9ad0-5e2d4a12450e",
+      "key": "spin",
+      "name": "Spin",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
+      }
     }
   ],
-  "tags": [
-    {
-      "id": "784eb643-c182-44a3-a598-af8355642a84",
-      "name": "Icon",
-      "parent": {
-        "id": "7934beb9-ee9f-43bd-bacb-464f0a5b79d2",
-        "name": "General"
-      },
-      "children": []
-    }
-  ]
+  "types": []
 }

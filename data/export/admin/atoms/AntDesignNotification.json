@@ -1,45 +1,32 @@
 {
-  "atom": {
-    "id": "f50135cf-ad44-4755-9f48-92fbad1f4b09",
-    "name": "AntDesignNotification",
-    "type": "AntDesignNotification",
-    "api": {
-      "id": "cf128ff4-f52e-4f96-be84-856e34a83c32",
-      "name": "AntDesignNotification API"
-    },
-    "icon": "Notification",
-    "tags": [
-      {
-        "id": "6166d041-98b3-4556-8914-e53f4f223f7b",
-        "name": "Notification"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "cf128ff4-f52e-4f96-be84-856e34a83c32",
+    "id": "bd9932c8-c015-4002-9df8-ad43b3b79bd3",
     "kind": "InterfaceType",
     "name": "AntDesignNotification API",
     "fields": []
   },
-  "types": [
-    {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
-    }
-  ],
-  "tags": [
-    {
-      "id": "6166d041-98b3-4556-8914-e53f4f223f7b",
-      "name": "Notification",
-      "parent": {
-        "id": "53a7cb8c-1631-4555-bead-4b63efbef861",
-        "name": "Feedback"
-      },
-      "children": []
-    }
-  ]
+  "atom": {
+    "id": "27b2ff87-ea42-4bc4-951e-2e55916bdb8e",
+    "name": "AntDesignNotification",
+    "type": "AntDesignNotification",
+    "api": {
+      "id": "bd9932c8-c015-4002-9df8-ad43b3b79bd3"
+    },
+    "icon": "Notification",
+    "tags": [
+      {
+        "id": "444fa118-cd80-496b-8ad4-1e1ca916db68",
+        "name": "Notification",
+        "parent": {
+          "id": "15329905-a687-4f75-939c-1cec559e9ba4",
+          "name": "Feedback"
+        },
+        "children": []
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [],
+  "types": []
 }

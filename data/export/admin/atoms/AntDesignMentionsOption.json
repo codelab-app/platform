@@ -1,80 +1,74 @@
 {
-  "atom": {
-    "id": "373ebafd-9fa9-4189-9434-09b1affd73e5",
-    "name": "AntDesignMentionsOption",
-    "type": "AntDesignMentionsOption",
-    "api": {
-      "id": "8e1ec67b-8741-414a-bdde-19fdf5fcd1da",
-      "name": "AntDesignMentionsOption API"
-    },
-    "icon": "Mentions",
-    "tags": [
-      {
-        "id": "6f9944a0-e6c3-4cb3-9423-cf407dad0bd5",
-        "name": "Mentions.Option"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "8e1ec67b-8741-414a-bdde-19fdf5fcd1da",
+    "id": "eea515d6-4fbe-42cc-8946-63ccd1553999",
     "kind": "InterfaceType",
     "name": "AntDesignMentionsOption API",
     "fields": [
       {
-        "id": "d235b63a-028a-4467-ad29-c7d514c41070",
-        "key": "children",
-        "name": "Children",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "8e1ec67b-8741-414a-bdde-19fdf5fcd1da"
-        }
+        "id": "69c4c923-48d6-49d1-b7a4-1e3c210b2294"
       },
       {
-        "id": "d08b3c10-253c-49a7-a453-ea45d8934751",
-        "key": "value",
-        "name": "Value",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "api": {
-          "id": "8e1ec67b-8741-414a-bdde-19fdf5fcd1da"
-        }
+        "id": "b23fc773-f869-428a-9b1c-61d503d40f92"
       }
     ]
   },
-  "types": [
+  "atom": {
+    "id": "5462d72c-c31b-49e8-8ed9-5beb8e5790b6",
+    "name": "AntDesignMentionsOption",
+    "type": "AntDesignMentionsOption",
+    "api": {
+      "id": "eea515d6-4fbe-42cc-8946-63ccd1553999"
+    },
+    "icon": "Mentions",
+    "tags": [
+      {
+        "id": "35e6db28-21ee-4e77-8493-eb65ee672bdf",
+        "name": "Mentions.Option",
+        "parent": {
+          "id": "0e9969cb-f7ac-426c-a67c-e766c5b65c92",
+          "name": "Mentions"
+        },
+        "children": []
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [
     {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
+      "id": "69c4c923-48d6-49d1-b7a4-1e3c210b2294",
+      "key": "children",
+      "name": "Children",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "eea515d6-4fbe-42cc-8946-63ccd1553999"
+      }
+    },
+    {
+      "id": "b23fc773-f869-428a-9b1c-61d503d40f92",
+      "key": "value",
+      "name": "Value",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "eea515d6-4fbe-42cc-8946-63ccd1553999"
+      }
     }
   ],
-  "tags": [
-    {
-      "id": "6f9944a0-e6c3-4cb3-9423-cf407dad0bd5",
-      "name": "Mentions.Option",
-      "parent": {
-        "id": "b39527b5-0ee4-47a3-a9f7-8a7dd30837a9",
-        "name": "Mentions"
-      },
-      "children": []
-    }
-  ]
+  "types": []
 }

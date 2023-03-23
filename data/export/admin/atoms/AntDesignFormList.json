@@ -1,45 +1,32 @@
 {
-  "atom": {
-    "id": "27ad152f-5fb8-4f2c-a4cd-c23387f65945",
-    "name": "AntDesignFormList",
-    "type": "AntDesignFormList",
-    "api": {
-      "id": "9f3828ab-b75f-4395-bd6c-2574f64287f4",
-      "name": "AntDesignFormList API"
-    },
-    "icon": "Form",
-    "tags": [
-      {
-        "id": "a77617cf-8d95-424e-b131-370749385fcf",
-        "name": "Form.List"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "9f3828ab-b75f-4395-bd6c-2574f64287f4",
+    "id": "de749d18-fdea-4228-a6b6-87592483402b",
     "kind": "InterfaceType",
     "name": "AntDesignFormList API",
     "fields": []
   },
-  "types": [
-    {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
-    }
-  ],
-  "tags": [
-    {
-      "id": "a77617cf-8d95-424e-b131-370749385fcf",
-      "name": "Form.List",
-      "parent": {
-        "id": "5d7a02cc-a249-48ac-bdc9-ab90f3f21aff",
-        "name": "Form"
-      },
-      "children": []
-    }
-  ]
+  "atom": {
+    "id": "3c093418-6d0c-413c-9d7b-f4539da97176",
+    "name": "AntDesignFormList",
+    "type": "AntDesignFormList",
+    "api": {
+      "id": "de749d18-fdea-4228-a6b6-87592483402b"
+    },
+    "icon": "Form",
+    "tags": [
+      {
+        "id": "bd7d8272-4ddb-43ad-bc93-919838c55c3b",
+        "name": "Form.List",
+        "parent": {
+          "id": "0750e154-7c8c-4f84-9501-ba0aafc960a4",
+          "name": "Form"
+        },
+        "children": []
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [],
+  "types": []
 }

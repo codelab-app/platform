@@ -1,63 +1,54 @@
 {
-  "atom": {
-    "id": "17f0d178-895a-4632-9c57-6e86ff23766d",
-    "name": "AntDesignSlider",
-    "type": "AntDesignSlider",
-    "api": {
-      "id": "dc0666cc-244c-41c0-90c0-d7177538359c",
-      "name": "AntDesignSlider API"
-    },
-    "icon": "Slider",
-    "tags": [
-      {
-        "id": "4489a840-cceb-4aeb-966f-6d132154602a",
-        "name": "Slider"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "dc0666cc-244c-41c0-90c0-d7177538359c",
+    "id": "3bd46d1a-475f-4c02-a6e2-d95d020f50d3",
     "kind": "InterfaceType",
     "name": "AntDesignSlider API",
     "fields": [
       {
-        "id": "4936a907-b6d6-4171-beaa-4d7e8a32892e",
-        "key": "draggableTrack",
-        "name": "Draggable Track",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "dc0666cc-244c-41c0-90c0-d7177538359c"
-        }
+        "id": "0aece0a9-b40f-47ed-a5d7-0214b800774f"
       }
     ]
   },
-  "types": [
+  "atom": {
+    "id": "6daf0b25-2bdb-4367-9bdb-65cd3f33a669",
+    "name": "AntDesignSlider",
+    "type": "AntDesignSlider",
+    "api": {
+      "id": "3bd46d1a-475f-4c02-a6e2-d95d020f50d3"
+    },
+    "icon": "Slider",
+    "tags": [
+      {
+        "id": "55a724de-7ddf-4ebb-ba24-54b16469de79",
+        "name": "Slider",
+        "parent": {
+          "id": "79e9ccd1-a5fa-44b9-b728-16e3c79365c8",
+          "name": "Data Entry"
+        },
+        "children": []
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [
     {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
+      "id": "0aece0a9-b40f-47ed-a5d7-0214b800774f",
+      "key": "draggableTrack",
+      "name": "Draggable Track",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "3bd46d1a-475f-4c02-a6e2-d95d020f50d3"
+      }
     }
   ],
-  "tags": [
-    {
-      "id": "4489a840-cceb-4aeb-966f-6d132154602a",
-      "name": "Slider",
-      "parent": {
-        "id": "c350f653-57f8-4167-8b2a-e6c376f30ef1",
-        "name": "Data Entry"
-      },
-      "children": []
-    }
-  ]
+  "types": []
 }

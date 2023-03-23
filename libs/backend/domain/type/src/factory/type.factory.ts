@@ -1,4 +1,5 @@
 import type { IType, ITypeWhere } from '@codelab/backend/abstract/core'
+import { exportActionTypeSelectionSet } from '@codelab/backend/infra/adapter/neo4j'
 import type {
   IPrimitiveTypeDTO,
   ITypeDTO,
@@ -31,7 +32,7 @@ import {
  */
 export class TypeFactory {
   static async create(
-    { id, owner, ...type }: ITypeDTO,
+    type: ITypeDTO,
     where?: ITypeWhere,
   ): Promise<IType | undefined> {
     if (!type.__typename) {
@@ -43,13 +44,7 @@ export class TypeFactory {
      */
     switch (type.__typename) {
       case ITypeKind.PrimitiveType: {
-        const primitiveType = new PrimitiveType({
-          id,
-          kind: ITypeKind.PrimitiveType,
-          name: ITypeKind.PrimitiveType,
-          owner,
-          primitiveKind: type.primitiveKind,
-        })
+        const primitiveType = new PrimitiveType(type)
 
         return await new PrimitiveTypeRepository().save(
           primitiveType,
@@ -58,13 +53,7 @@ export class TypeFactory {
       }
 
       case ITypeKind.EnumType: {
-        const enumType = new EnumType({
-          allowedValues: type.allowedValues,
-          id,
-          kind: ITypeKind.EnumType,
-          name: type.name,
-          owner,
-        })
+        const enumType = new EnumType(type)
 
         return await new EnumTypeRepository().save(
           enumType,
@@ -73,13 +62,7 @@ export class TypeFactory {
       }
 
       case ITypeKind.InterfaceType: {
-        const interfaceType = new InterfaceType({
-          fields: type.fields,
-          id,
-          kind: ITypeKind.InterfaceType,
-          name: type.name,
-          owner,
-        })
+        const interfaceType = new InterfaceType(type)
 
         return await new InterfaceTypeRepository().save(
           interfaceType,
@@ -88,12 +71,7 @@ export class TypeFactory {
       }
 
       case ITypeKind.ReactNodeType: {
-        const reactNodeType = new ReactNodeType({
-          id,
-          kind: ITypeKind.ReactNodeType,
-          name: ITypeKind.ReactNodeType,
-          owner,
-        })
+        const reactNodeType = new ReactNodeType(type)
 
         return await new ReactNodeTypeRepository().save(
           reactNodeType,
@@ -102,12 +80,7 @@ export class TypeFactory {
       }
 
       case ITypeKind.RenderPropsType: {
-        const renderPropsType = new RenderPropsType({
-          id,
-          kind: ITypeKind.RenderPropsType,
-          name: ITypeKind.RenderPropsType,
-          owner,
-        })
+        const renderPropsType = new RenderPropsType(type)
 
         return await new RenderPropsTypeRepository().save(
           renderPropsType,
@@ -116,12 +89,7 @@ export class TypeFactory {
       }
 
       case ITypeKind.ActionType: {
-        const actionType = new ActionType({
-          id,
-          kind: ITypeKind.ActionType,
-          name: ITypeKind.ActionType,
-          owner,
-        })
+        const actionType = new ActionType(type)
 
         return await new ActionTypeRepository().save(
           actionType,
@@ -130,13 +98,7 @@ export class TypeFactory {
       }
 
       case ITypeKind.UnionType: {
-        const unionType = new UnionType({
-          id,
-          kind: ITypeKind.UnionType,
-          name: type.name,
-          owner,
-          typesOfUnionType: [],
-        })
+        const unionType = new UnionType(type)
 
         return await new UnionTypeRepository().save(
           unionType,
@@ -145,12 +107,7 @@ export class TypeFactory {
       }
 
       case ITypeKind.ArrayType: {
-        const arrayType = new ArrayType({
-          id,
-          kind: ITypeKind.ArrayType,
-          name: type.name,
-          owner,
-        })
+        const arrayType = new ArrayType(type)
 
         return await new ArrayTypeRepository().save(
           arrayType,

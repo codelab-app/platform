@@ -1,119 +1,119 @@
 {
-  "atom": {
-    "id": "020006f3-ea5e-4f22-a679-f67e3f7f5754",
-    "name": "AntDesignRadio",
-    "type": "AntDesignRadio",
-    "api": {
-      "id": "e1c94ac5-54f6-44c7-ac25-c5fd229a6d29",
-      "name": "AntDesignRadio API"
-    },
-    "icon": "Radio",
-    "tags": [
-      {
-        "id": "cd7758fc-f36e-4288-bac8-17b269246d84",
-        "name": "Radio"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "e1c94ac5-54f6-44c7-ac25-c5fd229a6d29",
+    "id": "8d3b5ebf-58eb-4af1-b80e-1c7eaeb795e1",
     "kind": "InterfaceType",
     "name": "AntDesignRadio API",
     "fields": [
       {
-        "id": "dfbcf8dd-0ef0-43be-a81e-f49b906057b4",
-        "key": "autoFocus",
-        "name": "Auto Focus",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "e1c94ac5-54f6-44c7-ac25-c5fd229a6d29"
-        }
+        "id": "38d7316b-27a3-4c71-a57e-40d988ab78b2"
       },
       {
-        "id": "948d0f0d-14ec-4abc-a40b-2f916b940343",
-        "key": "checked",
-        "name": "Checked",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "e1c94ac5-54f6-44c7-ac25-c5fd229a6d29"
-        }
+        "id": "3f399ce8-3452-4e46-9b2c-e00c47fb3f4b"
       },
       {
-        "id": "6edb4064-a1a8-46e2-b0cf-1611b14ace98",
-        "key": "defaultChecked",
-        "name": "Default Checked",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "e1c94ac5-54f6-44c7-ac25-c5fd229a6d29"
-        }
+        "id": "959d890b-784b-4680-b0ff-0b3bbe549b34"
       },
       {
-        "id": "aad34b62-3dbe-4e41-ba05-723226ea9773",
-        "key": "disabled",
-        "name": "Disabled",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "e1c94ac5-54f6-44c7-ac25-c5fd229a6d29"
-        }
+        "id": "ea5031fa-1e82-4002-a178-dc27cc3732f5"
       }
     ]
   },
-  "types": [
+  "atom": {
+    "id": "1cdc9450-f484-42c0-9023-f45aa292177f",
+    "name": "AntDesignRadio",
+    "type": "AntDesignRadio",
+    "api": {
+      "id": "8d3b5ebf-58eb-4af1-b80e-1c7eaeb795e1"
+    },
+    "icon": "Radio",
+    "tags": [
+      {
+        "id": "979779f0-236d-45c0-a165-83fcd7e2a35a",
+        "name": "Radio",
+        "parent": {
+          "id": "79e9ccd1-a5fa-44b9-b728-16e3c79365c8",
+          "name": "Data Entry"
+        },
+        "children": [
+          {
+            "id": "f22443ff-e508-49d4-b6ca-c8ed576f3049",
+            "name": "Radio.Group"
+          }
+        ]
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [
     {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
+      "id": "38d7316b-27a3-4c71-a57e-40d988ab78b2",
+      "key": "autoFocus",
+      "name": "Auto Focus",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "8d3b5ebf-58eb-4af1-b80e-1c7eaeb795e1"
+      }
+    },
+    {
+      "id": "3f399ce8-3452-4e46-9b2c-e00c47fb3f4b",
+      "key": "checked",
+      "name": "Checked",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "8d3b5ebf-58eb-4af1-b80e-1c7eaeb795e1"
+      }
+    },
+    {
+      "id": "959d890b-784b-4680-b0ff-0b3bbe549b34",
+      "key": "defaultChecked",
+      "name": "Default Checked",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "8d3b5ebf-58eb-4af1-b80e-1c7eaeb795e1"
+      }
+    },
+    {
+      "id": "ea5031fa-1e82-4002-a178-dc27cc3732f5",
+      "key": "disabled",
+      "name": "Disabled",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "8d3b5ebf-58eb-4af1-b80e-1c7eaeb795e1"
+      }
     }
   ],
-  "tags": [
-    {
-      "id": "cd7758fc-f36e-4288-bac8-17b269246d84",
-      "name": "Radio",
-      "parent": {
-        "id": "c350f653-57f8-4167-8b2a-e6c376f30ef1",
-        "name": "Data Entry"
-      },
-      "children": [
-        {
-          "id": "9e70269a-ed02-4461-a107-7b90d7490f3d",
-          "name": "Radio.Group"
-        }
-      ]
-    }
-  ]
+  "types": []
 }

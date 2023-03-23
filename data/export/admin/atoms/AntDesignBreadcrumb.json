@@ -1,89 +1,83 @@
 {
-  "atom": {
-    "id": "e600b499-f246-484c-b176-c68701c7be3b",
-    "name": "AntDesignBreadcrumb",
-    "type": "AntDesignBreadcrumb",
-    "api": {
-      "id": "af1993c7-dc4b-4c67-a77c-9b247af8c00a",
-      "name": "AntDesignBreadcrumb API"
-    },
-    "icon": "Breadcrumb",
-    "tags": [
-      {
-        "id": "fe37a6ba-d9d8-4ccf-b479-5504192e19f6",
-        "name": "Breadcrumb"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "af1993c7-dc4b-4c67-a77c-9b247af8c00a",
+    "id": "8562d529-43b0-4927-96d3-56f1264e6a50",
     "kind": "InterfaceType",
     "name": "AntDesignBreadcrumb API",
     "fields": [
       {
-        "id": "ba3dac59-90b2-43c5-ae80-9487edc71671",
-        "key": "itemRender",
-        "name": "Item Render",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "af1993c7-dc4b-4c67-a77c-9b247af8c00a"
-        }
+        "id": "0e324a05-53ec-4a70-a0b8-bdacd1ca09cf"
       },
       {
-        "id": "5dcb39ea-620c-4e3c-a4fa-bbf9cb9ddf8c",
-        "key": "separator",
-        "name": "Separator",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "af1993c7-dc4b-4c67-a77c-9b247af8c00a"
-        }
+        "id": "c66758f5-47c1-4f92-90be-10130ac6022c"
       }
     ]
   },
-  "types": [
+  "atom": {
+    "id": "e2dbdd86-3bb7-4312-921c-4295d777f0bc",
+    "name": "AntDesignBreadcrumb",
+    "type": "AntDesignBreadcrumb",
+    "api": {
+      "id": "8562d529-43b0-4927-96d3-56f1264e6a50"
+    },
+    "icon": "Breadcrumb",
+    "tags": [
+      {
+        "id": "8f749d38-8c70-4fcb-bb69-dd87b49c039b",
+        "name": "Breadcrumb",
+        "parent": {
+          "id": "7c2474e2-f8ab-4cd2-98b7-252a0c8f3c8f",
+          "name": "Navigation"
+        },
+        "children": [
+          {
+            "id": "88502b9c-6350-4a13-845f-f56f9e1a0b76",
+            "name": "Breadcrumb.Item"
+          },
+          {
+            "id": "00210182-7fe7-465e-89ef-4a70dcf51ae3",
+            "name": "Breadcrumb.Separator"
+          }
+        ]
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [
     {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
+      "id": "0e324a05-53ec-4a70-a0b8-bdacd1ca09cf",
+      "key": "itemRender",
+      "name": "Item Render",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "8562d529-43b0-4927-96d3-56f1264e6a50"
+      }
+    },
+    {
+      "id": "c66758f5-47c1-4f92-90be-10130ac6022c",
+      "key": "separator",
+      "name": "Separator",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "8562d529-43b0-4927-96d3-56f1264e6a50"
+      }
     }
   ],
-  "tags": [
-    {
-      "id": "fe37a6ba-d9d8-4ccf-b479-5504192e19f6",
-      "name": "Breadcrumb",
-      "parent": {
-        "id": "1bf9fc94-4b9d-4210-b6b1-0b6183c607b4",
-        "name": "Navigation"
-      },
-      "children": [
-        {
-          "id": "d045d55a-1b28-4580-a74a-28f952c0d708",
-          "name": "Breadcrumb.Separator"
-        },
-        {
-          "id": "ddcdb7a3-573a-4a72-9a59-aba21c91223e",
-          "name": "Breadcrumb.Item"
-        }
-      ]
-    }
-  ]
+  "types": []
 }

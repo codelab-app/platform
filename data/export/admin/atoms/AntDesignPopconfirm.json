@@ -1,217 +1,233 @@
 {
-  "atom": {
-    "id": "8f4cab7d-7ab6-4a26-acb0-8202e5e72dc6",
-    "name": "AntDesignPopconfirm",
-    "type": "AntDesignPopconfirm",
-    "api": {
-      "id": "7885453b-1ca3-4899-9f3a-4c045db4b043",
-      "name": "AntDesignPopconfirm API"
-    },
-    "icon": "Popconfirm",
-    "tags": [
-      {
-        "id": "b3f626b8-26db-4301-8142-c3b5e73d888b",
-        "name": "Popconfirm"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "7885453b-1ca3-4899-9f3a-4c045db4b043",
+    "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5",
     "kind": "InterfaceType",
     "name": "AntDesignPopconfirm API",
     "fields": [
       {
-        "id": "5436e56d-295b-4a39-81e3-25b9890748c8",
-        "key": "cancelText",
-        "name": "Cancel Text",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "api": {
-          "id": "7885453b-1ca3-4899-9f3a-4c045db4b043"
-        }
+        "id": "077d729c-ce5b-42ec-95a6-dccdda93034c"
       },
       {
-        "id": "94c6e984-a990-439b-972e-0065d6412f33",
-        "key": "disabled",
-        "name": "Disabled",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "7885453b-1ca3-4899-9f3a-4c045db4b043"
-        }
+        "id": "0be76646-5f9e-4179-85b1-f7a2f20d44c4"
       },
       {
-        "id": "f3e560e9-4cc7-42d7-81b1-07111efba620",
-        "key": "icon",
-        "name": "Icon",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "7885453b-1ca3-4899-9f3a-4c045db4b043"
-        }
+        "id": "3b311d6b-b39c-4c4d-ad98-9a97a246ff42"
       },
       {
-        "id": "9e785d15-d685-4e34-891f-20f0a235800e",
-        "key": "okText",
-        "name": "Ok Text",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "api": {
-          "id": "7885453b-1ca3-4899-9f3a-4c045db4b043"
-        }
+        "id": "43e5e9c8-7e1f-478c-a4a6-c08bb0da8bdd"
       },
       {
-        "id": "95c1f391-a1d9-4735-8697-70cb11402ad7",
-        "key": "okType",
-        "name": "Ok Type",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "api": {
-          "id": "7885453b-1ca3-4899-9f3a-4c045db4b043"
-        }
+        "id": "7654cb45-6e79-44d5-9287-0e6a76beffda"
       },
       {
-        "id": "70e1ace7-1e48-4910-81d1-db07902d073d",
-        "key": "onCancel",
-        "name": "On Cancel",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ActionType",
-          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-          "kind": "ActionType",
-          "name": "ActionType"
-        },
-        "api": {
-          "id": "7885453b-1ca3-4899-9f3a-4c045db4b043"
-        }
+        "id": "9bdceea6-6c90-4c4b-b930-2e6a6521ea70"
       },
       {
-        "id": "9cff5cc4-8e10-4dec-8f64-feb7fa327a33",
-        "key": "onConfirm",
-        "name": "On Confirm",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ActionType",
-          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-          "kind": "ActionType",
-          "name": "ActionType"
-        },
-        "api": {
-          "id": "7885453b-1ca3-4899-9f3a-4c045db4b043"
-        }
+        "id": "bec36ed2-1027-4046-812c-0196990fc22e"
       },
       {
-        "id": "d7f883e9-9349-4f27-a85c-b19e9e75fb70",
-        "key": "showCancel",
-        "name": "Show Cancel",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "7885453b-1ca3-4899-9f3a-4c045db4b043"
-        }
+        "id": "d22af9ca-d26b-4029-a33c-0f4102f0f52b"
       },
       {
-        "id": "ad172129-f407-48a4-8a00-7b7513161dca",
-        "key": "title",
-        "name": "Title",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "f0a0b350-a4d8-4716-84dc-148ddb3fb695",
-          "kind": "EnumType",
-          "name": "AntDesignPopconfirm Title Enum"
-        },
-        "api": {
-          "id": "7885453b-1ca3-4899-9f3a-4c045db4b043"
-        }
+        "id": "e8f80b49-b9b3-4d4d-9b2d-27d0124fa736"
       }
     ]
   },
-  "types": [
+  "atom": {
+    "id": "44482590-d873-4832-87da-d65760ddfeae",
+    "name": "AntDesignPopconfirm",
+    "type": "AntDesignPopconfirm",
+    "api": {
+      "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+    },
+    "icon": "Popconfirm",
+    "tags": [
+      {
+        "id": "1f2dd657-723b-4538-b727-dae50ec48652",
+        "name": "Popconfirm",
+        "parent": {
+          "id": "15329905-a687-4f75-939c-1cec559e9ba4",
+          "name": "Feedback"
+        },
+        "children": []
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [
     {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
+      "id": "7654cb45-6e79-44d5-9287-0e6a76beffda",
+      "key": "cancelText",
+      "name": "Cancel Text",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+      }
     },
     {
+      "id": "9bdceea6-6c90-4c4b-b930-2e6a6521ea70",
+      "key": "disabled",
+      "name": "Disabled",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+      }
+    },
+    {
+      "id": "077d729c-ce5b-42ec-95a6-dccdda93034c",
+      "key": "icon",
+      "name": "Icon",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+      }
+    },
+    {
+      "id": "e8f80b49-b9b3-4d4d-9b2d-27d0124fa736",
+      "key": "okText",
+      "name": "Ok Text",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+      }
+    },
+    {
+      "id": "bec36ed2-1027-4046-812c-0196990fc22e",
+      "key": "okType",
+      "name": "Ok Type",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+      }
+    },
+    {
+      "id": "3b311d6b-b39c-4c4d-ad98-9a97a246ff42",
+      "key": "onCancel",
+      "name": "On Cancel",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ActionType",
+        "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+        "kind": "ActionType",
+        "name": "ActionType"
+      },
+      "api": {
+        "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+      }
+    },
+    {
+      "id": "43e5e9c8-7e1f-478c-a4a6-c08bb0da8bdd",
+      "key": "onConfirm",
+      "name": "On Confirm",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ActionType",
+        "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+        "kind": "ActionType",
+        "name": "ActionType"
+      },
+      "api": {
+        "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+      }
+    },
+    {
+      "id": "d22af9ca-d26b-4029-a33c-0f4102f0f52b",
+      "key": "showCancel",
+      "name": "Show Cancel",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+      }
+    },
+    {
+      "id": "0be76646-5f9e-4179-85b1-f7a2f20d44c4",
+      "key": "title",
+      "name": "Title",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "ec68e029-5793-4c58-a2be-b804f238a080",
+        "kind": "EnumType",
+        "name": "AntDesignPopconfirm Title Enum"
+      },
+      "api": {
+        "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5"
+      }
+    }
+  ],
+  "types": [
+    {
       "__typename": "EnumType",
-      "id": "f0a0b350-a4d8-4716-84dc-148ddb3fb695",
+      "id": "ec68e029-5793-4c58-a2be-b804f238a080",
       "kind": "EnumType",
       "name": "AntDesignPopconfirm Title Enum",
       "allowedValues": [
         {
-          "id": "a7813a00-fc8b-4496-b1e9-d8a4c3e288dc",
+          "id": "3d4b0ef3-6bdf-4ef1-9258-35a26d88c959",
           "key": "() => ReactNode",
           "value": "() => ReactNode"
         },
         {
-          "id": "64c53826-cd3d-40db-b622-23e4e5114d04",
+          "id": "39b3d972-fdb2-46d2-a6b9-b1ebcabb17a7",
           "key": "ReactNode",
           "value": "ReactNode"
         }
       ]
-    }
-  ],
-  "tags": [
-    {
-      "id": "b3f626b8-26db-4301-8142-c3b5e73d888b",
-      "name": "Popconfirm",
-      "parent": {
-        "id": "53a7cb8c-1631-4555-bead-4b63efbef861",
-        "name": "Feedback"
-      },
-      "children": []
     }
   ]
 }

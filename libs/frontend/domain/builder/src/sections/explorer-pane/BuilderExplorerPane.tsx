@@ -138,7 +138,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
                 elementTree={pageTree}
                 expandedNodeIds={builderService.expandedPageElementTreeNodeIds}
                 selectTreeNode={selectTreeNode}
-                setActiveTree={() =>
+                setActiveTab={() =>
                   builderService.setActiveTab(RendererTab.Page)
                 }
                 setExpandedNodeIds={builderService.setExpandedPageElementTreeNodeIds.bind(
@@ -165,7 +165,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
                 elementTree={componentTree ?? null}
                 expandedNodeIds={builderService.expandedComponentTreeNodeIds}
                 selectTreeNode={selectTreeNode}
-                setActiveTree={() =>
+                setActiveTab={() =>
                   builderService.setActiveTab(RendererTab.Component)
                 }
                 setExpandedNodeIds={builderService.setExpandedComponentTreeNodeIds.bind(

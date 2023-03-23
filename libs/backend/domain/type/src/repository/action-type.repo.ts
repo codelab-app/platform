@@ -32,6 +32,7 @@ export class ActionTypeRepository extends AbstractRepository<
           ...actionType,
           owner: connectAuth0Owner(owner),
         })),
+        selectionSet: `{ actionTypes ${exportActionTypeSelectionSet} }`,
       })
     ).actionTypes
   }
@@ -44,7 +45,9 @@ export class ActionTypeRepository extends AbstractRepository<
       await (
         await this.ActionType
       ).update({
-        update: actionType,
+        selectionSet: `{ actionTypes ${exportActionTypeSelectionSet} }`,
+        // Disallow updates
+        update: {},
         where,
       })
     ).actionTypes[0]

@@ -1,102 +1,96 @@
 {
-  "atom": {
-    "id": "e5bb13e2-1471-4940-875e-4fbccb43bc10",
-    "name": "AntDesignLayout",
-    "type": "AntDesignLayout",
-    "api": {
-      "id": "b5dac28d-f698-4ba9-8b80-87b0ba6ec125",
-      "name": "AntDesignLayout API"
-    },
-    "icon": "Layout",
-    "tags": [
-      {
-        "id": "ef48808b-ce14-4674-9e97-baf238a468ed",
-        "name": "Layout"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "b5dac28d-f698-4ba9-8b80-87b0ba6ec125",
+    "id": "9b6ab3bf-d516-4fd3-a4b8-23a8c343ec08",
     "kind": "InterfaceType",
     "name": "AntDesignLayout API",
     "fields": [
       {
-        "id": "d794a2ce-4be9-4e04-a718-c4f1cd5e2f23",
-        "key": "className",
-        "name": "Class Name",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "api": {
-          "id": "b5dac28d-f698-4ba9-8b80-87b0ba6ec125"
-        }
+        "id": "03295a22-d1d0-43a2-b8de-f6c2c87ab08d"
       },
       {
-        "id": "adb18e51-d9ac-4cec-848e-3b503b7db432",
-        "key": "hasSider",
-        "name": "Has Sider",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "b5dac28d-f698-4ba9-8b80-87b0ba6ec125"
-        }
+        "id": "a4ad297c-28a5-489c-9f3c-340b3771dd63"
       }
     ]
   },
-  "types": [
+  "atom": {
+    "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612",
+    "name": "AntDesignLayout",
+    "type": "AntDesignLayout",
+    "api": {
+      "id": "9b6ab3bf-d516-4fd3-a4b8-23a8c343ec08"
+    },
+    "icon": "Layout",
+    "tags": [
+      {
+        "id": "7dbf9407-3e93-4b8e-8722-edd8baa894ab",
+        "name": "Layout",
+        "parent": null,
+        "children": [
+          {
+            "id": "0866f0f3-dcd1-4f8f-9bf7-5526fb3359c3",
+            "name": "Col"
+          },
+          {
+            "id": "3d0fab4f-9781-4513-b269-dd44a550e5b1",
+            "name": "Divider"
+          },
+          {
+            "id": "266fd2ce-a966-41f3-84bf-08a9bb1aa034",
+            "name": "Grid"
+          },
+          {
+            "id": "df88b553-283b-4fda-8659-9618f9a3e851",
+            "name": "Layout.Sider"
+          },
+          {
+            "id": "f7fda474-5f34-49cf-ae96-8cef5fcf76cc",
+            "name": "Row"
+          },
+          {
+            "id": "892978e2-7061-4a88-82f4-fd64e78cf4f9",
+            "name": "Space"
+          }
+        ]
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [
     {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
+      "id": "03295a22-d1d0-43a2-b8de-f6c2c87ab08d",
+      "key": "className",
+      "name": "Class Name",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "9b6ab3bf-d516-4fd3-a4b8-23a8c343ec08"
+      }
+    },
+    {
+      "id": "a4ad297c-28a5-489c-9f3c-340b3771dd63",
+      "key": "hasSider",
+      "name": "Has Sider",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "9b6ab3bf-d516-4fd3-a4b8-23a8c343ec08"
+      }
     }
   ],
-  "tags": [
-    {
-      "id": "ef48808b-ce14-4674-9e97-baf238a468ed",
-      "name": "Layout",
-      "parent": null,
-      "children": [
-        {
-          "id": "0b561a3d-457c-4ad9-9726-cd2ae78c1ea6",
-          "name": "Row"
-        },
-        {
-          "id": "502753bf-a762-4cb5-b0aa-b40037a6825e",
-          "name": "Grid"
-        },
-        {
-          "id": "4ea773ed-a375-44ec-8766-3e686caef3c2",
-          "name": "Space"
-        },
-        {
-          "id": "e6b4a6f1-4d62-4094-9dc7-149983b344fa",
-          "name": "Layout.Sider"
-        },
-        {
-          "id": "360a0a63-ede0-46e7-9143-28d1a2046449",
-          "name": "Divider"
-        },
-        {
-          "id": "e5d66ff3-1317-4664-be90-7d73ce079ec7",
-          "name": "Col"
-        }
-      ]
-    }
-  ]
+  "types": []
 }

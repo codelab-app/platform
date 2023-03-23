@@ -34,6 +34,7 @@ export class RenderPropsTypeRepository extends AbstractRepository<
             owner: connectAuth0Owner(owner),
           }),
         ),
+        selectionSet: `{ renderPropsTypes ${exportRenderPropsTypeSelectionSet} }`,
       })
     ).renderPropsTypes
   }
@@ -46,9 +47,9 @@ export class RenderPropsTypeRepository extends AbstractRepository<
       await (
         await this.RenderPropsType
       ).update({
-        update: {
-          name,
-        },
+        selectionSet: `{ renderPropsTypes ${exportRenderPropsTypeSelectionSet} }`,
+        // Disallow updates
+        update: {},
         where,
       })
     ).renderPropsTypes[0]

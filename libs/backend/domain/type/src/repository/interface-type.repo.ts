@@ -48,6 +48,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
             owner: connectAuth0Owner(owner),
           }),
         ),
+        selectionSet: `{ interfaceTypes ${interfaceTypeSelectionSet} }`,
       })
     ).interfaceTypes
   }
@@ -65,6 +66,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
       await (
         await this.InterfaceType
       ).update({
+        selectionSet: `{ interfaceTypes ${interfaceTypeSelectionSet} }`,
         update: {
           name,
           // fields: this.mapUpdateFields(fields),
