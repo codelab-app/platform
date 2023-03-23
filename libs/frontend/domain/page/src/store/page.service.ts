@@ -132,6 +132,7 @@ export class PageService
     const rootElement = this.elementService.add({
       id: v4(),
       name: ROOT_ELEMENT_NAME,
+      page: { id },
       props: rootElementProps,
     })
 
