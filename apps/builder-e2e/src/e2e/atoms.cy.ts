@@ -1,7 +1,6 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '../support/antd/form'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
-import { stopOnFirstError } from '../support/stopOnFirstError'
 
 const atomName = 'Button'
 const atomType = IAtomType.AntDesignButton
@@ -13,8 +12,6 @@ describe('Atoms CRUD', () => {
     loginSession()
     cy.visit('/atoms')
   })
-
-  afterEach(stopOnFirstError)
 
   describe('create', () => {
     it('should be able to create atom', () => {

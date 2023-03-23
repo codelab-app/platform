@@ -1,5 +1,4 @@
 import { loginSession } from '../support/nextjs-auth0/commands/login'
-import { stopOnFirstError } from '../support/stopOnFirstError'
 import { appName, updatedAppName } from './apps/app.data'
 
 describe('Apps CRUD', () => {
@@ -7,8 +6,6 @@ describe('Apps CRUD', () => {
     cy.resetDatabase()
     loginSession()
   })
-
-  afterEach(stopOnFirstError)
 
   describe('create', () => {
     it('should be able to create app', () => {

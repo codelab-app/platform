@@ -20,6 +20,7 @@ import '@testing-library/cypress/add-commands'
 // import '@hon2a/cypress-antd/lib/register'
 import './commands'
 import './antd/register'
+import { stopOnFirstError } from './stopOnFirstError'
 // import installLogsCollector from 'cypress-terminal-report/src/installLogsCollector'
 
 // Cypress.on('uncaught:exception', (err) => {
@@ -49,3 +50,5 @@ import './antd/register'
 // if (Env().e2e.enableLogging) {
 //   installLogsCollector()
 // }
+
+afterEach(stopOnFirstError)

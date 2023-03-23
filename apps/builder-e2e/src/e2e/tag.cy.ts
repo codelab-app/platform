@@ -2,7 +2,6 @@ import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 import { createData, deleteData, updateData } from '../data/tag'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
-import { stopOnFirstError } from '../support/stopOnFirstError'
 
 describe('Tag CRUD', () => {
   before(() => {
@@ -84,8 +83,6 @@ describe('Tag CRUD', () => {
         cy.visit('/tags')
       })
   })
-
-  afterEach(stopOnFirstError)
 
   describe('create', () => {
     const testCreate = (name: string, parentName?: string) => {

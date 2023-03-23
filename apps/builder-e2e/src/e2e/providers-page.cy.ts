@@ -5,7 +5,6 @@ import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
-import { stopOnFirstError } from '../support/stopOnFirstError'
 import { appName, pageName } from './apps/app.data'
 
 const CARD_COMPONENT_NAME = 'Card Component'
@@ -61,8 +60,6 @@ describe('_app page', () => {
       cy.createAtom(atomsInput)
     })
   })
-
-  afterEach(stopOnFirstError)
 
   it('should create _app page when app is created', () => {
     cy.findAllByText(appName, { exact: true, timeout: 0 }).should('not.exist')

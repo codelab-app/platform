@@ -7,7 +7,6 @@ import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { createAppInput } from '../support/database/app'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
-import { stopOnFirstError } from '../support/stopOnFirstError'
 
 const ELEMENT_CONTAINER = 'Container'
 const ELEMENT_ROW = 'Row'
@@ -97,8 +96,6 @@ describe('Elements CRUD', () => {
           .click({ force: true })
       })
   })
-
-  afterEach(stopOnFirstError)
 
   describe('create', () => {
     it('should be able to create elements', () => {
