@@ -6,6 +6,7 @@ import {
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { sortInterfaceTypesFields } from '../mapper/sort'
 
 /**
@@ -23,11 +24,13 @@ interface ExportAdminTypesProps {
 export const exportAdminTypes = async (
   props: ExportAdminTypesProps = {},
 ): Promise<ITypeExport> => {
+  const EnumType = await Repository.instance.EnumType
+  const InterfaceType = await Repository.instance.InterfaceType
+  const Field = await Repository.instance.Field
+
   /**
    * Enum
    */
-  const EnumType = await Repository.instance.EnumType
-
   const enumTypes = (
     await EnumType.find({
       options: {
@@ -58,21 +61,56 @@ export const exportAdminTypes = async (
   /**
    * Get dependent types of top level atom API
    */
-  const InterfaceType = await Repository.instance.InterfaceType
-
-  const interfaceTypes = sortInterfaceTypesFields(
+  const firstLevelInterfaceTypes = sortInterfaceTypesFields(
     await InterfaceType.find({
       options: {
         sort: [{ name: OGM_TYPES.SortDirection.Asc }],
       },
       selectionSet: exportInterfaceTypeSelectionSet,
-      // Where it is assigned to atom API
-      // search for nested apis three levels deep
       where: {
         OR: [
-          { field: { api: { id: props.apiId } } },
-          { field: { api: { field: { api: { id: props.apiId } } } } },
+          // Find api 1 level deep
+          {
+            fieldConnection: {
+              node: { apiConnection: { node: { id: props.apiId } } },
+            },
+          },
+          // Find api 2 levels deep
+          // This is too slow
+          // {
+          //   fieldConnection: {
+          //     node: {
+          //       apiConnection: {
+          //         node: {
+          //           fieldConnection: {
+          //             node: { apiConnection: { node: { id: props.apiId } } },
+          //           },
+          //         },
+          //       },
+          //     },
+          //   },
+          // },
         ],
+      },
+    }),
+  )
+
+  const secondLevelInterfaceTypes = sortInterfaceTypesFields(
+    await InterfaceType.find({
+      options: {
+        sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+      },
+      selectionSet: exportInterfaceTypeSelectionSet,
+      where: {
+        fieldConnection: {
+          node: {
+            apiConnection: {
+              node: {
+                id_IN: firstLevelInterfaceTypes.map((api) => api.id),
+              },
+            },
+          },
+        },
       },
     }),
   )
@@ -80,8 +118,6 @@ export const exportAdminTypes = async (
   /**
    * Get all fields related to interface type
    */
-  const Field = await Repository.instance.Field
-
   const fields = await Field.find({
     options: {
       sort: [{ key: OGM_TYPES.SortDirection.Asc }],
@@ -89,7 +125,9 @@ export const exportAdminTypes = async (
     selectionSet: exportFieldSelectionSet,
     where: {
       api: {
-        id_IN: interfaceTypes.map((api) => api.id),
+        id_IN: [...firstLevelInterfaceTypes, ...secondLevelInterfaceTypes].map(
+          (api) => api.id,
+        ),
       },
     },
   })
@@ -101,6 +139,10 @@ export const exportAdminTypes = async (
    */
   return {
     fields,
-    types: [...enumTypes, ...interfaceTypes],
+    types: [
+      ...enumTypes,
+      ...firstLevelInterfaceTypes,
+      ...secondLevelInterfaceTypes,
+    ],
   }
 }

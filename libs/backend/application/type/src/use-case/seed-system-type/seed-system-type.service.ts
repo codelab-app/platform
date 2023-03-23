@@ -18,7 +18,10 @@ export class SeedSystemTypeService extends IUseCase<IAuth0Owner, void> {
     await Promise.all(
       Object.values(systemTypesData(owner)).map(
         async (systemTypeData) =>
-          await TypeFactory.create({ ...systemTypeData, owner }),
+          await TypeFactory.create(
+            { ...systemTypeData, owner },
+            { name: systemTypeData.name },
+          ),
       ),
     )
   }

@@ -38,7 +38,7 @@ export class ActionTypeRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { __typename, id, owner, ...actionType }: IActionTypeDTO,
+    { __typename, id, name, owner, ...actionType }: IActionTypeDTO,
     where: OGM_TYPES.ActionTypeWhere,
   ) {
     return (
@@ -46,8 +46,7 @@ export class ActionTypeRepository extends AbstractRepository<
         await this.ActionType
       ).update({
         selectionSet: `{ actionTypes ${exportActionTypeSelectionSet} }`,
-        // Disallow updates
-        update: {},
+        update: { name },
         where,
       })
     ).actionTypes[0]
