@@ -6,10 +6,6 @@ import {
   TabletOutlined,
   ToolOutlined,
 } from '@ant-design/icons'
-import type {
-  IBuilderService,
-  IPageService,
-} from '@codelab/frontend/abstract/core'
 import {
   BuilderWidthBreakPoints,
   defaultBuilderWidthBreakPoints,
@@ -18,6 +14,7 @@ import { PageType } from '@codelab/frontend/abstract/types'
 import {
   useCurrentAppId,
   useCurrentPageId,
+  useStore,
 } from '@codelab/frontend/presenter/container'
 import { useAsync } from '@react-hookz/web'
 import { InputNumber, Menu, Space } from 'antd'
@@ -26,23 +23,20 @@ import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
 import tw from 'twin.macro'
-// import { BuilderSizeBreakpoints, mainContentWidthBreakPoint } from './constants'
 
 export type MenuItemProps = ItemType & {
   hide?: boolean
 }
 
-export const PageDetailHeader = observer<{
-  builderService?: IBuilderService
-  pageService: IPageService
-}>(({ builderService, pageService }) => {
+export const PageDetailHeader = observer(() => {
+  const { builderService, pageService } = useStore()
   const router = useRouter()
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
-  const [{ status }, getPages] = useAsync(() =>
+  const getPages = useAsync(() =>
     pageService.getAll({ appConnection: { node: { id: appId } } }),
-  )
+  )[1]
 
   useEffect(() => {
     void getPages.execute()
@@ -66,7 +60,7 @@ export const PageDetailHeader = observer<{
   const handleBreakpointSelected = useCallback(
     (breakpoint: BuilderWidthBreakPoints) => {
       setSelectedWidthBreakpoint(breakpoint)
-      builderService?.setSelectedBuilderWidth(
+      builderService.setSelectedBuilderWidth(
         defaultBuilderWidthBreakPoints[breakpoint],
       )
     },
@@ -142,16 +136,16 @@ export const PageDetailHeader = observer<{
         <Space direction="horizontal" size="small">
           <InputNumber
             controls={false}
-            max={builderService?.selectedBuilderWidth.max}
-            min={builderService?.selectedBuilderWidth.min}
+            max={builderService.selectedBuilderWidth.max}
+            min={builderService.selectedBuilderWidth.min}
             onChange={(value) =>
-              builderService?.setSelectedBuilderWidth({
+              builderService.setSelectedBuilderWidth({
                 ...builderService.selectedBuilderWidth,
                 default: Number(value),
               })
             }
             size="small"
-            value={builderService?.currentBuilderWidth.default ?? ''}
+            value={builderService.currentBuilderWidth.default}
           />
           <span>px</span>
         </Space>

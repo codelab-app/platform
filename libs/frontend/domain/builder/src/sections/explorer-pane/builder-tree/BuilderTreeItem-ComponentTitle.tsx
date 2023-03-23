@@ -23,7 +23,10 @@ export const BuilderTreeItemComponentTitle = observer(
     elementService,
   }: BuilderTreeItemComponentTitleProps) => {
     const { selectedNode } = builderService
-    const selectedNodeId = isElementPageNodeRef(selectedNode) && selectedNode.id
+
+    const selectedNodeId = isElementPageNodeRef(selectedNode)
+      ? selectedNode.id
+      : undefined
 
     return (
       <Row justify="space-between">
@@ -33,7 +36,7 @@ export const BuilderTreeItemComponentTitle = observer(
             createModal={elementService.createModal}
             elementTree={component}
             key={0}
-            selectedElementId={selectedNodeId || component.rootElement.id}
+            selectedElementId={selectedNodeId}
             type="text"
           />
         </Col>
