@@ -73,9 +73,12 @@ export class PageFactory extends Model({}) implements IPageFactory {
       id: v4(),
     })
 
+    const pageId = v4()
+
     const rootElement = this.elementService.add({
       id: v4(),
       name: ROOT_ELEMENT_NAME,
+      page: { id: pageId },
       props: rootElementProps,
     })
 
@@ -84,7 +87,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
 
     return this.pageService.add({
       app,
-      id: v4(),
+      id: pageId,
       kind,
       name,
       pageContentContainer,
