@@ -35,6 +35,7 @@ import type {
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import flatMap from 'lodash/flatMap'
 import merge from 'lodash/merge'
+import sortBy from 'lodash/sortBy'
 import { computed } from 'mobx'
 import {
   _async,
@@ -130,12 +131,16 @@ export class AppService
   loadPages = ({ appData, components, pageId }: IPageBuilderAppProps) => {
     const app = this.add(appData)
 
+    // Sorting the components here so that they will be sorted when referenced in the
+    // explorer builder tree, or in other areas
+    // Would be nice if this can be sorted in the backend instead
     const allElements = [
+      ...flatMap(sortBy(components, 'name'), ({ rootElement }) => rootElement),
+      ...flatMap(
+        components,
+        ({ rootElement }) => rootElement.descendantElements,
+      ),
       ...flatMap(appData.pages, ({ rootElement }) => [
-        rootElement,
-        ...rootElement.descendantElements,
-      ]),
-      ...flatMap(components, ({ rootElement }) => [
         rootElement,
         ...rootElement.descendantElements,
       ]),

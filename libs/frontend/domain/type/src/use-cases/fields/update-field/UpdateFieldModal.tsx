@@ -1,8 +1,5 @@
-import type {
-  IFieldService,
-  ITypeService,
-  IUpdateFieldData,
-} from '@codelab/frontend/abstract/core'
+import type { IUpdateFieldData } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { DisplayIfField, ModalForm } from '@codelab/frontend/view/components'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
@@ -22,10 +19,8 @@ import {
   isString,
 } from '../create-field'
 
-export const UpdateFieldModal = observer<{
-  fieldService: IFieldService
-  typeService: ITypeService
-}>(({ fieldService, typeService }) => {
+export const UpdateFieldModal = observer(() => {
+  const { fieldService, typeService } = useStore()
   const closeModal = () => fieldService.updateModal.close()
   const field = fieldService.updateModal.field
 

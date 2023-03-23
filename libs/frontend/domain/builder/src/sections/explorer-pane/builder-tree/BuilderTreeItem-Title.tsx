@@ -3,6 +3,7 @@ import {
   isComponentPageNode,
   isElementPageNode,
 } from '@codelab/frontend/abstract/core'
+import { Element } from '@codelab/frontend/domain/element'
 import { useStore } from '@codelab/frontend/presenter/container'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'
@@ -22,7 +23,10 @@ import { ItemTitleStyle } from './ItemTitleStyle'
 interface BuilderTreeItemTitleProps {
   componentContextMenuProps: Omit<ComponentContextMenuProps, 'component'>
   data: DataNode
-  elementContextMenuProps: Omit<ElementContextMenuProps, 'element'>
+  elementContextMenuProps: Omit<
+    ElementContextMenuProps,
+    'element' | 'elementTree'
+  >
   node: IPageNode | null
 }
 
@@ -51,6 +55,7 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
                   contextMenuProps={{
                     ...elementContextMenuProps,
                     element,
+                    elementTree: Element.getElementTree(element),
                   }}
                   node={node}
                   setContextMenuNodeId={setContextMenuNodeId}

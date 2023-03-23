@@ -1,13 +1,12 @@
-import type { IComponentService } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 
-export const DeleteComponentModal = observer<{
-  componentService: IComponentService
-}>(({ componentService }) => {
+export const DeleteComponentModal = observer(() => {
+  const { componentService } = useStore()
   const closeModal = () => componentService.deleteModal.close()
   const component = componentService.deleteModal.component
 

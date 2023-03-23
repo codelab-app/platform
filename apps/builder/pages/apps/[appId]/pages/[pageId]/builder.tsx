@@ -8,7 +8,6 @@ import {
   ConfigPane,
 } from '@codelab/frontend/domain/builder'
 import { PageDetailHeader } from '@codelab/frontend/domain/page'
-import type { RenderedPageProps } from '@codelab/frontend/presenter/container'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -24,7 +23,7 @@ import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 
 const PageBuilder: CodelabPage<BuilderTabsProps> = observer(
   ({ app, error, isLoading, page, renderer }) => {
@@ -49,8 +48,7 @@ const PageBuilder: CodelabPage<BuilderTabsProps> = observer(
 export const getServerSideProps = auth0Instance.withPageAuthRequired({})
 
 PageBuilder.Layout = observer(({ children }) => {
-  const { builderRenderService, builderService, elementService, pageService } =
-    useStore()
+  const { builderRenderService } = useStore()
 
   const [{ error, result, status }, actions] = useRenderedPage({
     rendererType: RendererType.PageBuilder,
@@ -62,51 +60,29 @@ PageBuilder.Layout = observer(({ children }) => {
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
   const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
-  const activeElementTree = builderService.activeElementTree
   const contentStyles = useMemo(() => ({ paddingTop: '0rem' }), [])
 
-  const ConfigPaneComponent = observer(() => {
-    return (
-      <Spinner isLoading={status !== 'success'}>
-        <ConfigPane
-          // The element tree changes depending on whether a page or a component is selected
-          elementTree={activeElementTree}
-          key={activeElementTree?.rootElement.id}
-          renderService={pageBuilderRenderer}
-        />
-      </Spinner>
-    )
-  })
+  const ConfigPaneComponent = () => (
+    <Spinner isLoading={status !== 'success'}>
+      <ConfigPane renderService={pageBuilderRenderer} />
+    </Spinner>
+  )
 
-  const ExplorerPaneComponent = observer(() => {
-    return (
-      <Spinner isLoading={status !== 'success'}>
-        <BuilderExplorerPane
-          appStore={pageBuilderRenderer?.appStore.current}
-          pageId={pageId}
-          storeId={pageBuilderRenderer?.appStore.id as string}
-        />
-      </Spinner>
-    )
-  })
-
-  const HeaderComponent = observer(() => (
-    <PageDetailHeader
-      builderService={builderService}
-      pageService={pageService}
-    />
-  ))
+  const ExplorerPaneComponent = () => (
+    <Spinner isLoading={status !== 'success'}>
+      <BuilderExplorerPane
+        appStore={pageBuilderRenderer?.appStore.current}
+        pageId={pageId}
+      />
+    </Spinner>
+  )
 
   return (
-    <BuilderContext
-      builderService={builderService}
-      elementService={elementService}
-      elementTree={activeElementTree}
-    >
+    <BuilderContext>
       <DashboardTemplate
         ConfigPane={ConfigPaneComponent}
         ExplorerPane={ExplorerPaneComponent}
-        Header={HeaderComponent}
+        Header={PageDetailHeader}
         contentStyles={contentStyles}
         headerHeight={48}
         sidebarNavigation={sidebarNavigation({ appId, pageId })}
