@@ -1,202 +1,229 @@
 {
-  "atom": {
-    "id": "d9295b5e-a5ff-40a6-844f-5950be72c191",
-    "name": "AntDesignBadge",
-    "type": "AntDesignBadge",
-    "api": {
-      "id": "3d01c527-fa01-4ae0-8a0e-46911489cfa5",
-      "name": "AntDesignBadge API"
-    },
-    "icon": "Badge",
-    "tags": [
-      {
-        "id": "7098bd3a-fef6-428b-bca2-34e712665a94",
-        "name": "Badge"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "3d01c527-fa01-4ae0-8a0e-46911489cfa5",
+    "id": "735a218b-2ae3-48ed-b598-d6c6cc835bef",
     "kind": "InterfaceType",
     "name": "AntDesignBadge API",
     "fields": [
       {
-        "id": "da170e75-2477-4876-830f-ae22fe2942fb",
-        "key": "color",
-        "name": "Color",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "api": {
-          "id": "3d01c527-fa01-4ae0-8a0e-46911489cfa5"
-        }
+        "id": "15d7ce52-65fc-4663-b7da-872d8cbf6c74"
       },
       {
-        "id": "3c01b9ed-d95b-4a73-a152-9ff676df309e",
-        "key": "count",
-        "name": "Count",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "3d01c527-fa01-4ae0-8a0e-46911489cfa5"
-        }
+        "id": "3d4d7637-12f5-4452-aee1-d70ec934e4f5"
       },
       {
-        "id": "85037ef0-1dc3-443a-b92f-d403dd2251cf",
-        "key": "dot",
-        "name": "Dot",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "3d01c527-fa01-4ae0-8a0e-46911489cfa5"
-        }
+        "id": "6881e964-dd76-4f10-b7e9-094d9c037c07"
       },
       {
-        "id": "5ac2dec5-1b69-4d23-8250-a632936e9f63",
-        "key": "overflowCount",
-        "name": "Overflow Count",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
-          "kind": "PrimitiveType",
-          "name": "Number"
-        },
-        "api": {
-          "id": "3d01c527-fa01-4ae0-8a0e-46911489cfa5"
-        }
+        "id": "6928d17d-94b5-4351-978a-a6c8d27e8c7d"
       },
       {
-        "id": "b058060a-935e-48ce-b850-250afb80f362",
-        "key": "showZero",
-        "name": "Show Zero",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "3d01c527-fa01-4ae0-8a0e-46911489cfa5"
-        }
+        "id": "8cdb13d9-1d82-426c-bce6-a890c36a0bb8"
       },
       {
-        "id": "08fe98b6-9be5-4b6d-8cde-ec3d1512f54c",
-        "key": "size",
-        "name": "Size",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "bbff876f-3e78-4471-ae81-1adef612abea",
-          "kind": "EnumType",
-          "name": "AntDesignBadge Size Enum"
-        },
-        "api": {
-          "id": "3d01c527-fa01-4ae0-8a0e-46911489cfa5"
-        }
+        "id": "97d17932-1ccc-4550-aee0-0b05ed242e49"
       },
       {
-        "id": "f2a37480-8932-4635-af13-c422d1fe8167",
-        "key": "status",
-        "name": "Status",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "f4096e2d-6290-4634-a478-208cb08adbe0",
-          "kind": "EnumType",
-          "name": "AntDesignBadge Status Enum"
-        },
-        "api": {
-          "id": "3d01c527-fa01-4ae0-8a0e-46911489cfa5"
-        }
+        "id": "add452d3-1900-4b73-b1d3-f1c36d45dd36"
       },
       {
-        "id": "87d5bdf8-01b1-46ae-b584-156c5996d8cc",
-        "key": "text",
-        "name": "Text",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "3d01c527-fa01-4ae0-8a0e-46911489cfa5"
-        }
+        "id": "c1df9fd1-631c-4a0b-b20e-c6dcda40a41a"
       },
       {
-        "id": "c45bc98e-dc9e-4b2f-95da-04f78956ab3b",
-        "key": "title",
-        "name": "Title",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "api": {
-          "id": "3d01c527-fa01-4ae0-8a0e-46911489cfa5"
-        }
+        "id": "d522bd2f-5ae0-4be7-af08-a9f28b9bacf9"
       }
     ]
   },
-  "types": [
+  "atom": {
+    "id": "f9c8570f-f3f1-4b79-8b26-2de0f5fa6d76",
+    "name": "AntDesignBadge",
+    "type": "AntDesignBadge",
+    "api": {
+      "id": "735a218b-2ae3-48ed-b598-d6c6cc835bef"
+    },
+    "icon": "Badge",
+    "tags": [
+      {
+        "id": "61071b68-922e-486d-8e4d-a29fe1c07976",
+        "name": "Badge",
+        "parent": {
+          "id": "7765f016-04de-4cf7-9ab5-c7920cad0531",
+          "name": "Data Display"
+        },
+        "children": []
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [
     {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
+      "id": "15d7ce52-65fc-4663-b7da-872d8cbf6c74",
+      "key": "color",
+      "name": "Color",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "735a218b-2ae3-48ed-b598-d6c6cc835bef"
+      }
     },
     {
+      "id": "3d4d7637-12f5-4452-aee1-d70ec934e4f5",
+      "key": "count",
+      "name": "Count",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "735a218b-2ae3-48ed-b598-d6c6cc835bef"
+      }
+    },
+    {
+      "id": "6881e964-dd76-4f10-b7e9-094d9c037c07",
+      "key": "dot",
+      "name": "Dot",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "735a218b-2ae3-48ed-b598-d6c6cc835bef"
+      }
+    },
+    {
+      "id": "c1df9fd1-631c-4a0b-b20e-c6dcda40a41a",
+      "key": "overflowCount",
+      "name": "Overflow Count",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+        "kind": "PrimitiveType",
+        "name": "Number"
+      },
+      "api": {
+        "id": "735a218b-2ae3-48ed-b598-d6c6cc835bef"
+      }
+    },
+    {
+      "id": "8cdb13d9-1d82-426c-bce6-a890c36a0bb8",
+      "key": "showZero",
+      "name": "Show Zero",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "735a218b-2ae3-48ed-b598-d6c6cc835bef"
+      }
+    },
+    {
+      "id": "6928d17d-94b5-4351-978a-a6c8d27e8c7d",
+      "key": "size",
+      "name": "Size",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "56ad500d-9bbe-48a7-9962-7fcff349bc1c",
+        "kind": "EnumType",
+        "name": "AntDesignBadge Size Enum"
+      },
+      "api": {
+        "id": "735a218b-2ae3-48ed-b598-d6c6cc835bef"
+      }
+    },
+    {
+      "id": "add452d3-1900-4b73-b1d3-f1c36d45dd36",
+      "key": "status",
+      "name": "Status",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "c2e6657a-05cb-490b-a52c-174bd9020080",
+        "kind": "EnumType",
+        "name": "AntDesignBadge Status Enum"
+      },
+      "api": {
+        "id": "735a218b-2ae3-48ed-b598-d6c6cc835bef"
+      }
+    },
+    {
+      "id": "97d17932-1ccc-4550-aee0-0b05ed242e49",
+      "key": "text",
+      "name": "Text",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "735a218b-2ae3-48ed-b598-d6c6cc835bef"
+      }
+    },
+    {
+      "id": "d522bd2f-5ae0-4be7-af08-a9f28b9bacf9",
+      "key": "title",
+      "name": "Title",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "735a218b-2ae3-48ed-b598-d6c6cc835bef"
+      }
+    }
+  ],
+  "types": [
+    {
       "__typename": "EnumType",
-      "id": "bbff876f-3e78-4471-ae81-1adef612abea",
+      "id": "56ad500d-9bbe-48a7-9962-7fcff349bc1c",
       "kind": "EnumType",
       "name": "AntDesignBadge Size Enum",
       "allowedValues": [
         {
-          "id": "4e67b195-c37d-40ec-bbb7-0a16e587a6f8",
+          "id": "3d35408a-f668-40f1-bc8c-12f6e03ab16e",
           "key": "default",
           "value": "default"
         },
         {
-          "id": "9206a9c6-3fa7-4cad-b272-105c937901ec",
+          "id": "5d78ff6e-a427-40b8-9f0c-2b64ed3e6bf3",
           "key": "small",
           "value": "small"
         }
@@ -204,47 +231,36 @@
     },
     {
       "__typename": "EnumType",
-      "id": "f4096e2d-6290-4634-a478-208cb08adbe0",
+      "id": "c2e6657a-05cb-490b-a52c-174bd9020080",
       "kind": "EnumType",
       "name": "AntDesignBadge Status Enum",
       "allowedValues": [
         {
-          "id": "a0448173-553f-4673-a716-1f8d4a118217",
+          "id": "1e1ece8f-4a37-455f-a41e-12925d534da5",
           "key": "default",
           "value": "default"
         },
         {
-          "id": "40aa6d61-50a0-4c3c-ba24-34588b1ed297",
+          "id": "9a77b8d2-cccd-49ef-9cc5-4ee031516013",
           "key": "error",
           "value": "error"
         },
         {
-          "id": "0f9b1cd8-323a-48ec-9f35-d687c2832583",
+          "id": "fb1fa4c8-9075-4d40-b33d-11a7ddaef3b7",
           "key": "processing",
           "value": "processing"
         },
         {
-          "id": "e0da4407-7bf9-40aa-b364-263b24b7cd45",
+          "id": "6077b395-3a7b-47ad-8561-eb9c50743901",
           "key": "success",
           "value": "success"
         },
         {
-          "id": "9dcf3bb1-4b54-4f11-837d-d61ca801023b",
+          "id": "0aefef50-6045-4d7b-8ac2-c639f1e166b7",
           "key": "warning",
           "value": "warning"
         }
       ]
-    }
-  ],
-  "tags": [
-    {
-      "id": "7098bd3a-fef6-428b-bca2-34e712665a94",
-      "name": "Badge",
-      "parent": {
-        "id": "45c2df38-1b04-40f4-b9c3-e505d1a3c432",
-        "name": "Data Display"
-      },
-      "children": []
     }
   ]
 }

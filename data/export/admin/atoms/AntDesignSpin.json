@@ -1,131 +1,134 @@
 {
-  "atom": {
-    "id": "245c2f56-4ebd-4819-9271-7a3ffe389bee",
-    "name": "AntDesignSpin",
-    "type": "AntDesignSpin",
-    "api": {
-      "id": "844cc227-a77b-422d-aba2-bea2110bc5e6",
-      "name": "AntDesignSpin API"
-    },
-    "icon": "Spin",
-    "tags": [
-      {
-        "id": "f4bf73cb-0c53-414b-945f-f729a03a9f3b",
-        "name": "Spin"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "844cc227-a77b-422d-aba2-bea2110bc5e6",
+    "id": "289272f7-edaf-409d-90df-770f82e32281",
     "kind": "InterfaceType",
     "name": "AntDesignSpin API",
     "fields": [
       {
-        "id": "eba84ddc-fa79-466b-ab28-3cb3505e2561",
-        "key": "indicator",
-        "name": "Indicator",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "844cc227-a77b-422d-aba2-bea2110bc5e6"
-        }
+        "id": "1cdd77da-d877-45da-8908-78cf0fe9ef78"
       },
       {
-        "id": "4c053b4c-7ec0-4e70-98e5-f5d7e8e380ab",
-        "key": "size",
-        "name": "Size",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "api": {
-          "id": "844cc227-a77b-422d-aba2-bea2110bc5e6"
-        }
+        "id": "675d5c36-d2a4-4b3f-af65-bafac3de335a"
       },
       {
-        "id": "93237b01-f780-457e-a465-5efc1209eed1",
-        "key": "spinning",
-        "name": "Spinning",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "844cc227-a77b-422d-aba2-bea2110bc5e6"
-        }
+        "id": "72d362f7-ee96-4a04-96b4-92946856de1a"
       },
       {
-        "id": "46568e1f-3694-42b0-8951-907b78259e9e",
-        "key": "tip",
-        "name": "Tip",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "844cc227-a77b-422d-aba2-bea2110bc5e6"
-        }
+        "id": "76674572-f3f1-4bae-acb6-827dff37d2f0"
       },
       {
-        "id": "245dd3e2-004b-48f7-94b1-57d7a7dedb7c",
-        "key": "wrapperClassName",
-        "name": "Wrapper Class Name",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "api": {
-          "id": "844cc227-a77b-422d-aba2-bea2110bc5e6"
-        }
+        "id": "7be6305a-d7eb-4807-a704-edc78cf0986a"
       }
     ]
   },
-  "types": [
+  "atom": {
+    "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
+    "name": "AntDesignSpin",
+    "type": "AntDesignSpin",
+    "api": {
+      "id": "289272f7-edaf-409d-90df-770f82e32281"
+    },
+    "icon": "Spin",
+    "tags": [
+      {
+        "id": "f1d5507f-f8a5-499e-b411-9d7a115d0c2a",
+        "name": "Spin",
+        "parent": {
+          "id": "15329905-a687-4f75-939c-1cec559e9ba4",
+          "name": "Feedback"
+        },
+        "children": []
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [
     {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
+      "id": "675d5c36-d2a4-4b3f-af65-bafac3de335a",
+      "key": "indicator",
+      "name": "Indicator",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "289272f7-edaf-409d-90df-770f82e32281"
+      }
+    },
+    {
+      "id": "72d362f7-ee96-4a04-96b4-92946856de1a",
+      "key": "size",
+      "name": "Size",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "289272f7-edaf-409d-90df-770f82e32281"
+      }
+    },
+    {
+      "id": "76674572-f3f1-4bae-acb6-827dff37d2f0",
+      "key": "spinning",
+      "name": "Spinning",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "289272f7-edaf-409d-90df-770f82e32281"
+      }
+    },
+    {
+      "id": "1cdd77da-d877-45da-8908-78cf0fe9ef78",
+      "key": "tip",
+      "name": "Tip",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "289272f7-edaf-409d-90df-770f82e32281"
+      }
+    },
+    {
+      "id": "7be6305a-d7eb-4807-a704-edc78cf0986a",
+      "key": "wrapperClassName",
+      "name": "Wrapper Class Name",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "289272f7-edaf-409d-90df-770f82e32281"
+      }
     }
   ],
-  "tags": [
-    {
-      "id": "f4bf73cb-0c53-414b-945f-f729a03a9f3b",
-      "name": "Spin",
-      "parent": {
-        "id": "53a7cb8c-1631-4555-bead-4b63efbef861",
-        "name": "Feedback"
-      },
-      "children": []
-    }
-  ]
+  "types": []
 }

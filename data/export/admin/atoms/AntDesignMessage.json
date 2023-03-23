@@ -1,45 +1,32 @@
 {
-  "atom": {
-    "id": "8e6e4407-2449-433e-9c56-a52cb30c4c5e",
-    "name": "AntDesignMessage",
-    "type": "AntDesignMessage",
-    "api": {
-      "id": "0a128370-8c98-40f5-81b7-069b1363cec8",
-      "name": "AntDesignMessage API"
-    },
-    "icon": "Message",
-    "tags": [
-      {
-        "id": "061871e0-7d5b-4396-8f8c-372c0593a71c",
-        "name": "Message"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "0a128370-8c98-40f5-81b7-069b1363cec8",
+    "id": "1dcc8d52-3879-4a3d-a4b0-4ce1456b47bf",
     "kind": "InterfaceType",
     "name": "AntDesignMessage API",
     "fields": []
   },
-  "types": [
-    {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
-    }
-  ],
-  "tags": [
-    {
-      "id": "061871e0-7d5b-4396-8f8c-372c0593a71c",
-      "name": "Message",
-      "parent": {
-        "id": "53a7cb8c-1631-4555-bead-4b63efbef861",
-        "name": "Feedback"
-      },
-      "children": []
-    }
-  ]
+  "atom": {
+    "id": "f7c9e900-5c6c-4673-bc47-f4e5df7ee80a",
+    "name": "AntDesignMessage",
+    "type": "AntDesignMessage",
+    "api": {
+      "id": "1dcc8d52-3879-4a3d-a4b0-4ce1456b47bf"
+    },
+    "icon": "Message",
+    "tags": [
+      {
+        "id": "f202957d-80bd-40e2-beef-03b9c4578b11",
+        "name": "Message",
+        "parent": {
+          "id": "15329905-a687-4f75-939c-1cec559e9ba4",
+          "name": "Feedback"
+        },
+        "children": []
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [],
+  "types": []
 }

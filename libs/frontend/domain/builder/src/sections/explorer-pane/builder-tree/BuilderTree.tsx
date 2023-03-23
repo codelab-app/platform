@@ -27,9 +27,9 @@ interface BuilderTreeProps {
 
   selectTreeNode(node: Nullable<IPageNode>): void
   /**
-   * Whether
+   * Page/Component builder tab
    */
-  setActiveTree(): void
+  setActiveTab(): void
   setExpandedNodeIds(ids: Array<string>): void
 }
 
@@ -42,7 +42,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
     elementTree,
     expandedNodeIds,
     selectTreeNode,
-    setActiveTree,
+    setActiveTab,
     setExpandedNodeIds,
     treeData,
   }) => {
@@ -104,7 +104,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
         onSelect={([id], { nativeEvent, node }) => {
           nativeEvent.stopPropagation()
 
-          setActiveTree()
+          setActiveTab()
 
           if (!id) {
             return

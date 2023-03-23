@@ -1,97 +1,94 @@
 {
-  "atom": {
-    "id": "6d071bf9-8153-4b1b-905a-ab98eddded21",
-    "name": "AntDesignBackTop",
-    "type": "AntDesignBackTop",
-    "api": {
-      "id": "ca611568-f23c-4510-a163-810e147f456d",
-      "name": "AntDesignBackTop API"
-    },
-    "icon": "BackTop",
-    "tags": [
-      {
-        "id": "76e1075b-2060-4a5b-935e-4e4852923d79",
-        "name": "BackTop"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "ca611568-f23c-4510-a163-810e147f456d",
+    "id": "122f1ef8-96c8-4338-8c7c-012f5f83de8a",
     "kind": "InterfaceType",
     "name": "AntDesignBackTop API",
     "fields": [
       {
-        "id": "e149df95-750b-4a04-b4a6-57cd6692302c",
-        "key": "duration",
-        "name": "Duration",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
-          "kind": "PrimitiveType",
-          "name": "Number"
-        },
-        "api": {
-          "id": "ca611568-f23c-4510-a163-810e147f456d"
-        }
+        "id": "099bb04f-28ce-4b0c-8904-865dd3c0702e"
       },
       {
-        "id": "c29ced99-7044-46a7-8a2b-24c8bcddc4e7",
-        "key": "target",
-        "name": "Target",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "ca611568-f23c-4510-a163-810e147f456d"
-        }
+        "id": "22f25dff-0d51-4a96-8c40-c64afc5d4c74"
       },
       {
-        "id": "582223a5-5727-4735-8207-e0e6e9454d97",
-        "key": "visibilityHeight",
-        "name": "Visibility Height",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
-          "kind": "PrimitiveType",
-          "name": "Number"
-        },
-        "api": {
-          "id": "ca611568-f23c-4510-a163-810e147f456d"
-        }
+        "id": "5feadb4f-d8cd-4728-86ba-5d877ab68027"
       }
     ]
   },
-  "types": [
+  "atom": {
+    "id": "1c2bdcb6-2e1c-4509-8478-46660aeb6905",
+    "name": "AntDesignBackTop",
+    "type": "AntDesignBackTop",
+    "api": {
+      "id": "122f1ef8-96c8-4338-8c7c-012f5f83de8a"
+    },
+    "icon": "BackTop",
+    "tags": [
+      {
+        "id": "49214355-5eb3-4dc5-b7e2-a15f6a278ded",
+        "name": "BackTop",
+        "parent": {
+          "id": "407ec15d-9af7-4520-90e9-ce22bc80b698",
+          "name": "Other"
+        },
+        "children": []
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [
     {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
+      "id": "5feadb4f-d8cd-4728-86ba-5d877ab68027",
+      "key": "duration",
+      "name": "Duration",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+        "kind": "PrimitiveType",
+        "name": "Number"
+      },
+      "api": {
+        "id": "122f1ef8-96c8-4338-8c7c-012f5f83de8a"
+      }
+    },
+    {
+      "id": "099bb04f-28ce-4b0c-8904-865dd3c0702e",
+      "key": "target",
+      "name": "Target",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "122f1ef8-96c8-4338-8c7c-012f5f83de8a"
+      }
+    },
+    {
+      "id": "22f25dff-0d51-4a96-8c40-c64afc5d4c74",
+      "key": "visibilityHeight",
+      "name": "Visibility Height",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+        "kind": "PrimitiveType",
+        "name": "Number"
+      },
+      "api": {
+        "id": "122f1ef8-96c8-4338-8c7c-012f5f83de8a"
+      }
     }
   ],
-  "tags": [
-    {
-      "id": "76e1075b-2060-4a5b-935e-4e4852923d79",
-      "name": "BackTop",
-      "parent": {
-        "id": "a5da1c1f-5dc3-4247-87e2-17bc13fd81ed",
-        "name": "Other"
-      },
-      "children": []
-    }
-  ]
+  "types": []
 }

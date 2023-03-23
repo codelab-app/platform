@@ -19,11 +19,11 @@ export class PrimitiveType extends BaseType implements IPrimitiveTypeDTO {
 
   primitiveKind: IPrimitiveTypeKind
 
-  constructor({ id, owner, primitiveKind }: IPrimitiveTypeDTO) {
+  constructor({ id, name, owner, primitiveKind }: IPrimitiveTypeDTO) {
     super({
       id,
       kind: ITypeKind.PrimitiveType,
-      name: ITypeKind.PrimitiveType,
+      name,
       owner,
     })
 

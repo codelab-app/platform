@@ -1,42 +1,51 @@
-[
-  {
-    "__typename": "PrimitiveType",
-    "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-    "kind": "PrimitiveType",
-    "name": "Boolean",
-    "primitiveKind": "Boolean"
-  },
-  {
-    "__typename": "PrimitiveType",
-    "id": "8ce874e3-9f39-44fc-b811-7b2412ff2b15",
-    "kind": "PrimitiveType",
-    "name": "Integer",
-    "primitiveKind": "Integer"
-  },
-  {
-    "__typename": "PrimitiveType",
-    "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
-    "kind": "PrimitiveType",
-    "name": "Number",
-    "primitiveKind": "Number"
-  },
-  {
-    "__typename": "PrimitiveType",
-    "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
-    "kind": "PrimitiveType",
-    "name": "String",
-    "primitiveKind": "String"
-  },
-  {
-    "__typename": "RenderPropsType",
-    "id": "981ba55e-f174-4752-90bf-b8c19e812d78",
-    "kind": "RenderPropsType",
-    "name": "RenderPropsType"
-  },
-  {
-    "__typename": "ReactNodeType",
-    "id": "9749a183-0f27-41af-916f-31af9dbea011",
-    "kind": "ReactNodeType",
-    "name": "ReactNodeType"
-  }
-]
+{
+  "fields": [],
+  "types": [
+    {
+      "__typename": "PrimitiveType",
+      "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+      "kind": "PrimitiveType",
+      "name": "Boolean",
+      "primitiveKind": "Boolean"
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+      "kind": "PrimitiveType",
+      "name": "Integer",
+      "primitiveKind": "Integer"
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+      "kind": "PrimitiveType",
+      "name": "Number",
+      "primitiveKind": "Number"
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+      "kind": "PrimitiveType",
+      "name": "String",
+      "primitiveKind": "String"
+    },
+    {
+      "__typename": "RenderPropsType",
+      "id": "9e8326a2-4c44-4adc-b3f0-68e9098718e4",
+      "kind": "RenderPropsType",
+      "name": "RenderPropsType"
+    },
+    {
+      "__typename": "ReactNodeType",
+      "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+      "kind": "ReactNodeType",
+      "name": "ReactNodeType"
+    },
+    {
+      "__typename": "ActionType",
+      "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+      "kind": "ActionType",
+      "name": "ActionType"
+    }
+  ]
+}

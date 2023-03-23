@@ -33,6 +33,7 @@ export class PrimitiveTypeRepository extends AbstractRepository<
           ...type,
           owner: connectAuth0Owner(owner),
         })),
+        selectionSet: `{ primitiveTypes ${exportPrimitiveTypeSelectionSet} }`,
       })
     ).primitiveTypes
   }
@@ -45,10 +46,9 @@ export class PrimitiveTypeRepository extends AbstractRepository<
       await (
         await this.PrimitiveType
       ).update({
-        update: {
-          name,
-          primitiveKind,
-        },
+        selectionSet: `{ primitiveTypes ${exportPrimitiveTypeSelectionSet} }`,
+        // Disallow updates
+        update: {},
         where,
       })
     ).primitiveTypes[0]

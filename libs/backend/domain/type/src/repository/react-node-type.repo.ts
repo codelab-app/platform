@@ -34,6 +34,7 @@ export class ReactNodeTypeRepository extends AbstractRepository<
             owner: connectAuth0Owner(owner),
           }),
         ),
+        selectionSet: `{ reactNodeTypes ${exportReactNodeTypeSelectionSet} }`,
       })
     ).reactNodeTypes
   }
@@ -46,7 +47,9 @@ export class ReactNodeTypeRepository extends AbstractRepository<
       await (
         await this.ReactNodeType
       ).update({
-        update: { name },
+        selectionSet: `{ reactNodeTypes ${exportReactNodeTypeSelectionSet} }`,
+        // Disallow updates
+        update: {},
         where,
       })
     ).reactNodeTypes[0]

@@ -1,151 +1,169 @@
 {
-  "atom": {
-    "id": "294e6307-c6ea-4de7-8b0d-a43272d593ed",
-    "name": "AntDesignSkeleton",
-    "type": "AntDesignSkeleton",
-    "api": {
-      "id": "77244aa0-773a-477b-9703-fa4d1a3a289e",
-      "name": "AntDesignSkeleton API"
-    },
-    "icon": "Skeleton",
-    "tags": [
-      {
-        "id": "886ac5c2-dc9a-4c28-a6c4-5fa43777e424",
-        "name": "Skeleton"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "77244aa0-773a-477b-9703-fa4d1a3a289e",
+    "id": "d62ab39e-7549-41e2-a780-3b57eaff4330",
     "kind": "InterfaceType",
     "name": "AntDesignSkeleton API",
     "fields": [
       {
-        "id": "dd62dba0-c04c-4f53-b1b8-af98ae3bc381",
-        "key": "active",
-        "name": "Active",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "77244aa0-773a-477b-9703-fa4d1a3a289e"
-        }
+        "id": "412747d0-653a-41da-8fe5-8dde979e6387"
       },
       {
-        "id": "807e1987-c7fc-46bd-8613-2ba9b8dcf099",
-        "key": "avatar",
-        "name": "Avatar",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "dd40b545-66a6-4174-8051-304e4b7c017a",
-          "kind": "EnumType",
-          "name": "AntDesignSkeleton Avatar Enum"
-        },
-        "api": {
-          "id": "77244aa0-773a-477b-9703-fa4d1a3a289e"
-        }
+        "id": "6e7585ce-1044-43f9-adbe-01c5741c8e35"
       },
       {
-        "id": "7c7ecf96-4842-4230-a302-f84624562217",
-        "key": "loading",
-        "name": "Loading",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "77244aa0-773a-477b-9703-fa4d1a3a289e"
-        }
+        "id": "708cae36-4ce2-4be4-ba36-78288f296854"
       },
       {
-        "id": "64387f69-3ee5-44fd-b15f-ea7834f53651",
-        "key": "paragraph",
-        "name": "Paragraph",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "1a416793-c270-411c-9554-997ae2c93a52",
-          "kind": "EnumType",
-          "name": "AntDesignSkeleton Paragraph Enum"
-        },
-        "api": {
-          "id": "77244aa0-773a-477b-9703-fa4d1a3a289e"
-        }
+        "id": "934f7f93-5836-487e-ae88-12af4c85367b"
       },
       {
-        "id": "188b52c4-905b-471a-815b-f17fd6585474",
-        "key": "round",
-        "name": "Round",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "77244aa0-773a-477b-9703-fa4d1a3a289e"
-        }
+        "id": "ae6913a2-5b2f-450e-aab8-988e15957bcc"
       },
       {
-        "id": "551f122c-ee7c-4a84-a8a2-f043c46ac0a8",
-        "key": "title",
-        "name": "Title",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "879f3eb0-8587-4488-a552-232b5f7804ce",
-          "kind": "EnumType",
-          "name": "AntDesignSkeleton Title Enum"
-        },
-        "api": {
-          "id": "77244aa0-773a-477b-9703-fa4d1a3a289e"
-        }
+        "id": "bcf05baf-70bf-4c9a-bec2-f9759896b4bd"
       }
     ]
   },
-  "types": [
+  "atom": {
+    "id": "1621b0ea-e3d0-48b8-8e12-820e60e91d11",
+    "name": "AntDesignSkeleton",
+    "type": "AntDesignSkeleton",
+    "api": {
+      "id": "d62ab39e-7549-41e2-a780-3b57eaff4330"
+    },
+    "icon": "Skeleton",
+    "tags": [
+      {
+        "id": "945bc2e9-54e7-422d-acb8-75237dd944ad",
+        "name": "Skeleton",
+        "parent": {
+          "id": "15329905-a687-4f75-939c-1cec559e9ba4",
+          "name": "Feedback"
+        },
+        "children": []
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [
     {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
+      "id": "ae6913a2-5b2f-450e-aab8-988e15957bcc",
+      "key": "active",
+      "name": "Active",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "d62ab39e-7549-41e2-a780-3b57eaff4330"
+      }
     },
     {
+      "id": "708cae36-4ce2-4be4-ba36-78288f296854",
+      "key": "avatar",
+      "name": "Avatar",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "cce7f225-1791-4604-aee9-0ea00ae58fd3",
+        "kind": "EnumType",
+        "name": "AntDesignSkeleton Avatar Enum"
+      },
+      "api": {
+        "id": "d62ab39e-7549-41e2-a780-3b57eaff4330"
+      }
+    },
+    {
+      "id": "934f7f93-5836-487e-ae88-12af4c85367b",
+      "key": "loading",
+      "name": "Loading",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "d62ab39e-7549-41e2-a780-3b57eaff4330"
+      }
+    },
+    {
+      "id": "6e7585ce-1044-43f9-adbe-01c5741c8e35",
+      "key": "paragraph",
+      "name": "Paragraph",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "c0daec9b-675d-4e4b-8d96-31b047eb53c7",
+        "kind": "EnumType",
+        "name": "AntDesignSkeleton Paragraph Enum"
+      },
+      "api": {
+        "id": "d62ab39e-7549-41e2-a780-3b57eaff4330"
+      }
+    },
+    {
+      "id": "412747d0-653a-41da-8fe5-8dde979e6387",
+      "key": "round",
+      "name": "Round",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "d62ab39e-7549-41e2-a780-3b57eaff4330"
+      }
+    },
+    {
+      "id": "bcf05baf-70bf-4c9a-bec2-f9759896b4bd",
+      "key": "title",
+      "name": "Title",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "c7b69f06-c7e1-4262-a87b-c0bcbaab5f9a",
+        "kind": "EnumType",
+        "name": "AntDesignSkeleton Title Enum"
+      },
+      "api": {
+        "id": "d62ab39e-7549-41e2-a780-3b57eaff4330"
+      }
+    }
+  ],
+  "types": [
+    {
       "__typename": "EnumType",
-      "id": "dd40b545-66a6-4174-8051-304e4b7c017a",
+      "id": "cce7f225-1791-4604-aee9-0ea00ae58fd3",
       "kind": "EnumType",
       "name": "AntDesignSkeleton Avatar Enum",
       "allowedValues": [
         {
-          "id": "2c3ed95a-d309-45fb-a2df-c003fa1a7c8f",
+          "id": "5a59cae4-a1a7-4cc2-a47a-6dadaf032cf2",
           "key": "boolean",
           "value": "boolean"
         },
         {
-          "id": "6585a220-3262-44c5-b73f-5f2475b032ca",
+          "id": "44273bd2-2b7b-4905-af25-cbbec0327052",
           "key": "SkeletonAvatarProps",
           "value": "SkeletonAvatarProps"
         }
@@ -153,17 +171,17 @@
     },
     {
       "__typename": "EnumType",
-      "id": "1a416793-c270-411c-9554-997ae2c93a52",
+      "id": "c0daec9b-675d-4e4b-8d96-31b047eb53c7",
       "kind": "EnumType",
       "name": "AntDesignSkeleton Paragraph Enum",
       "allowedValues": [
         {
-          "id": "64c37b16-9247-4622-8ed9-401d64836aee",
+          "id": "fa9ff4e9-07c9-4cd5-ac30-aafbd96367c9",
           "key": "boolean",
           "value": "boolean"
         },
         {
-          "id": "46670642-d172-4ba1-be1f-9f3328f1181b",
+          "id": "27a2a37b-bb65-4b26-9dde-0518c0c49bde",
           "key": "SkeletonParagraphProps",
           "value": "SkeletonParagraphProps"
         }
@@ -171,32 +189,21 @@
     },
     {
       "__typename": "EnumType",
-      "id": "879f3eb0-8587-4488-a552-232b5f7804ce",
+      "id": "c7b69f06-c7e1-4262-a87b-c0bcbaab5f9a",
       "kind": "EnumType",
       "name": "AntDesignSkeleton Title Enum",
       "allowedValues": [
         {
-          "id": "acee16f2-36d1-4a29-84d7-a4f580083d89",
+          "id": "040e39e2-2636-49ba-9537-4ba8dff35c19",
           "key": "boolean",
           "value": "boolean"
         },
         {
-          "id": "d977e45b-9b47-43ca-a347-1e213767d788",
+          "id": "35097211-640f-433f-92c8-f98a82bb2bc2",
           "key": "SkeletonTitleProps",
           "value": "SkeletonTitleProps"
         }
       ]
-    }
-  ],
-  "tags": [
-    {
-      "id": "886ac5c2-dc9a-4c28-a6c4-5fa43777e424",
-      "name": "Skeleton",
-      "parent": {
-        "id": "53a7cb8c-1631-4555-bead-4b63efbef861",
-        "name": "Feedback"
-      },
-      "children": []
     }
   ]
 }

@@ -1,148 +1,154 @@
 {
-  "atom": {
-    "id": "c5cba464-915b-47f7-aec4-e4a8bb22ccff",
-    "name": "AntDesignStepsStep",
-    "type": "AntDesignStepsStep",
-    "api": {
-      "id": "20a710b8-35cb-4881-99e5-db7b4d722a3f",
-      "name": "AntDesignStepsStep API"
-    },
-    "icon": "Steps",
-    "tags": [
-      {
-        "id": "7939efbe-0474-4ddc-9e32-5bd73578f22a",
-        "name": "Steps.Step"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "20a710b8-35cb-4881-99e5-db7b4d722a3f",
+    "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f",
     "kind": "InterfaceType",
     "name": "AntDesignStepsStep API",
     "fields": [
       {
-        "id": "f69c49a6-c0f2-4c57-9470-4b92cb57f4ee",
-        "key": "description",
-        "name": "Description",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "20a710b8-35cb-4881-99e5-db7b4d722a3f"
-        }
+        "id": "11d6b440-b533-4f8c-a77f-aaf6a18ff63e"
       },
       {
-        "id": "bc171e7b-242c-43af-b984-a501950f10ef",
-        "key": "disabled",
-        "name": "Disabled",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "20a710b8-35cb-4881-99e5-db7b4d722a3f"
-        }
+        "id": "23f7a6c9-0613-49b4-9a2a-cfaf5de7d183"
       },
       {
-        "id": "13e5d191-4d9e-446c-9731-8d5b23adce54",
-        "key": "icon",
-        "name": "Icon",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "20a710b8-35cb-4881-99e5-db7b4d722a3f"
-        }
+        "id": "4c4860c6-e5c1-43dc-a734-e6b7b6f4f8c8"
       },
       {
-        "id": "0492027a-8734-41ef-b547-ffd21b9219f7",
-        "key": "status",
-        "name": "Status",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "api": {
-          "id": "20a710b8-35cb-4881-99e5-db7b4d722a3f"
-        }
+        "id": "53588781-5767-49c0-908f-820a4029fc1d"
       },
       {
-        "id": "d9539c19-c91a-4f24-bcd4-291e4fcfff3a",
-        "key": "subTitle",
-        "name": "Sub Title",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "20a710b8-35cb-4881-99e5-db7b4d722a3f"
-        }
+        "id": "7770da9e-e245-47b7-9682-4fa2ee6ff17e"
       },
       {
-        "id": "bfe3689e-9183-49f3-a1c7-fe590c9d27b4",
-        "key": "title",
-        "name": "Title",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "20a710b8-35cb-4881-99e5-db7b4d722a3f"
-        }
+        "id": "eab13dff-d1da-4bee-bfee-fbd273debfb7"
       }
     ]
   },
-  "types": [
+  "atom": {
+    "id": "534b5f3e-a726-457c-b27c-b353bf88b1a3",
+    "name": "AntDesignStepsStep",
+    "type": "AntDesignStepsStep",
+    "api": {
+      "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f"
+    },
+    "icon": "Steps",
+    "tags": [
+      {
+        "id": "075edb93-9b21-4494-92de-e510043bcf71",
+        "name": "Steps.Step",
+        "parent": {
+          "id": "b53e39d1-e88c-476b-b302-903704a9091b",
+          "name": "Steps"
+        },
+        "children": []
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [
     {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
+      "id": "23f7a6c9-0613-49b4-9a2a-cfaf5de7d183",
+      "key": "description",
+      "name": "Description",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f"
+      }
+    },
+    {
+      "id": "4c4860c6-e5c1-43dc-a734-e6b7b6f4f8c8",
+      "key": "disabled",
+      "name": "Disabled",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f"
+      }
+    },
+    {
+      "id": "11d6b440-b533-4f8c-a77f-aaf6a18ff63e",
+      "key": "icon",
+      "name": "Icon",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f"
+      }
+    },
+    {
+      "id": "7770da9e-e245-47b7-9682-4fa2ee6ff17e",
+      "key": "status",
+      "name": "Status",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f"
+      }
+    },
+    {
+      "id": "eab13dff-d1da-4bee-bfee-fbd273debfb7",
+      "key": "subTitle",
+      "name": "Sub Title",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f"
+      }
+    },
+    {
+      "id": "53588781-5767-49c0-908f-820a4029fc1d",
+      "key": "title",
+      "name": "Title",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "9fd2169b-20fa-47e0-8744-d264b3f7e19f"
+      }
     }
   ],
-  "tags": [
-    {
-      "id": "7939efbe-0474-4ddc-9e32-5bd73578f22a",
-      "name": "Steps.Step",
-      "parent": {
-        "id": "98c5eb65-6360-42bf-a683-9cd3ddfe6822",
-        "name": "Steps"
-      },
-      "children": []
-    }
-  ]
+  "types": []
 }

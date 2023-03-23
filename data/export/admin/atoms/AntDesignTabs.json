@@ -1,355 +1,414 @@
 {
-  "atom": {
-    "id": "f4b98ff6-6194-4c60-91c6-58ec4e6930fd",
-    "name": "AntDesignTabs",
-    "type": "AntDesignTabs",
-    "api": {
-      "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f",
-      "name": "AntDesignTabs API"
-    },
-    "icon": "Tabs",
-    "tags": [
-      {
-        "id": "cf64b1e7-5963-4de1-8004-be0d914359a0",
-        "name": "Tabs"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f",
+    "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4",
     "kind": "InterfaceType",
     "name": "AntDesignTabs API",
     "fields": [
       {
-        "id": "4a7f1258-8433-4f75-8461-c9ccd97a2961",
-        "key": "activeKey",
-        "name": "Active Key",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "api": {
-          "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f"
-        }
+        "id": "0361bc45-74c7-4036-9a85-10e54f7bb61b"
       },
       {
-        "id": "5d5b7c58-a3ee-42e0-8129-3a2286a036c0",
-        "key": "addIcon",
-        "name": "Add Icon",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f"
-        }
+        "id": "0c8d7d1a-62e5-4813-8c43-cf4e8b19272c"
       },
       {
-        "id": "6231b18f-7405-428c-8ec6-d781fa4c25f5",
-        "key": "animated",
-        "name": "Animated",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "706df226-eb72-425f-8b9b-107dd9acbd14",
-          "kind": "EnumType",
-          "name": "AntDesignTabs Animated Enum"
-        },
-        "api": {
-          "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f"
-        }
+        "id": "29d81fc3-ecdd-4e2f-abe3-464c6ef9ecf8"
       },
       {
-        "id": "4a40479e-e40a-46f6-8712-5c56aa4a0fb5",
-        "key": "centered",
-        "name": "Centered",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f"
-        }
+        "id": "67c6647d-343f-402f-a79a-61395b9a7a51"
       },
       {
-        "id": "85ecad6d-5cae-47ba-926a-dde36721d9c7",
-        "key": "defaultActiveKey",
-        "name": "Default Active Key",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "api": {
-          "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f"
-        }
+        "id": "7f93c433-c99a-44a3-bd97-0d21921d7db3"
       },
       {
-        "id": "b896e506-b97e-4f5f-b482-2b7bb4656298",
-        "key": "destroyInactiveTabPane",
-        "name": "Destroy Inactive Tab Pane",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f"
-        }
+        "id": "85ea016e-73da-4f11-882f-8ec8beb7a0a7"
       },
       {
-        "id": "a14f8657-ce44-4b63-bea6-37de629d7be1",
-        "key": "hideAdd",
-        "name": "Hide Add",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "b668a619-1348-42d7-aacc-7c1f2805d20f",
-          "kind": "PrimitiveType",
-          "name": "Boolean"
-        },
-        "api": {
-          "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f"
-        }
+        "id": "86150cef-f246-46bb-a75f-bdabe62d67d4"
       },
       {
-        "id": "2a667457-e193-4e28-8298-e21f60e298cb",
-        "key": "moreIcon",
-        "name": "More Icon",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ReactNodeType",
-          "id": "9749a183-0f27-41af-916f-31af9dbea011",
-          "kind": "ReactNodeType",
-          "name": "ReactNodeType"
-        },
-        "api": {
-          "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f"
-        }
+        "id": "89f702cc-7017-4301-8066-641b0e25b8bc"
       },
       {
-        "id": "2ac09896-ef99-4e38-abd4-7a7ee9793940",
-        "key": "onChange",
-        "name": "On Change",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ActionType",
-          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-          "kind": "ActionType",
-          "name": "ActionType"
-        },
-        "api": {
-          "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f"
-        }
+        "id": "92b4db0d-27dd-47b7-bf50-4d8beaffed04"
       },
       {
-        "id": "d718e79d-14a7-409d-8a8d-8ad26750820b",
-        "key": "onTabClick",
-        "name": "On Tab Click",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ActionType",
-          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-          "kind": "ActionType",
-          "name": "ActionType"
-        },
-        "api": {
-          "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f"
-        }
+        "id": "9a16baff-4a64-4008-9fe0-7bfe435f3f4b"
       },
       {
-        "id": "f4872b11-8c6b-4f3c-97fc-7689d29b1242",
-        "key": "onTabScroll",
-        "name": "On Tab Scroll",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "5eb8624a-b276-4ce2-a6f4-3e97318d46c9",
-          "kind": "EnumType",
-          "name": "AntDesignTabs On Tab Scroll Enum"
-        },
-        "api": {
-          "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f"
-        }
+        "id": "b1224100-5d88-4c8f-8c45-bb42068a456d"
       },
       {
-        "id": "9c8c041b-7821-446d-b9a4-fa778b9db8b6",
-        "key": "popupClassName",
-        "name": "Popup Class Name",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "bbf3da11-b989-4893-91a7-24e433bf811b",
-          "kind": "PrimitiveType",
-          "name": "String"
-        },
-        "api": {
-          "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f"
-        }
+        "id": "b6c2c7c3-3b1d-4a4f-a068-5a6a9fd7b94e"
       },
       {
-        "id": "5b4eede2-460a-43ff-a3c5-3afd9f827730",
-        "key": "renderTabBar",
-        "name": "Render Tab Bar",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "ActionType",
-          "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-          "kind": "ActionType",
-          "name": "ActionType"
-        },
-        "api": {
-          "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f"
-        }
+        "id": "b6e18792-f5e5-4b9b-9a79-1c0ecf082aa2"
       },
       {
-        "id": "a04f04da-450d-40bc-a00b-b32278e592ac",
-        "key": "size",
-        "name": "Size",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "62229e6b-228a-47f4-a6fc-c2c461202731",
-          "kind": "EnumType",
-          "name": "AntDesignTabs Size Enum"
-        },
-        "api": {
-          "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f"
-        }
+        "id": "d22cfade-3bb3-45d2-b8da-7e8b3bc5943f"
       },
       {
-        "id": "b471d441-f17e-47e3-9df9-852ea97bbc3e",
-        "key": "tabBarExtraContent",
-        "name": "Tab Bar Extra Content",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "c7688aba-5b6a-4886-9e23-72fccb7546ff",
-          "kind": "EnumType",
-          "name": "AntDesignTabs Tab Bar Extra Content Enum"
-        },
-        "api": {
-          "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f"
-        }
+        "id": "d629ba9d-77db-418b-8bde-99083931646a"
       },
       {
-        "id": "b1c2790c-982c-495f-b1cd-3f266e0052ba",
-        "key": "tabBarGutter",
-        "name": "Tab Bar Gutter",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "PrimitiveType",
-          "id": "967addd6-2312-4b9c-8f00-9de5b1e06c9b",
-          "kind": "PrimitiveType",
-          "name": "Number"
-        },
-        "api": {
-          "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f"
-        }
+        "id": "e4698093-924b-40be-84aa-f113842da947"
       },
       {
-        "id": "c1952081-3503-435b-919b-1f077562eaad",
-        "key": "tabPosition",
-        "name": "Tab Position",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "bdb31858-3a10-40d4-a3bc-dbeceb04ef8a",
-          "kind": "EnumType",
-          "name": "AntDesignTabs Tab Position Enum"
-        },
-        "api": {
-          "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f"
-        }
+        "id": "e6f225e5-6d30-4387-a0a2-d57549a3c207"
       },
       {
-        "id": "a2c75825-0455-465f-b5e7-e0a9c5008c88",
-        "key": "type",
-        "name": "Type",
-        "description": null,
-        "validationRules": null,
-        "defaultValues": null,
-        "fieldType": {
-          "__typename": "EnumType",
-          "id": "3168bbff-b23e-463b-88ca-1998ea917bbf",
-          "kind": "EnumType",
-          "name": "AntDesignTabs Type Enum"
-        },
-        "api": {
-          "id": "8311c17f-734a-4a4c-bdbb-302dbabf214f"
-        }
+        "id": "fbe5cba9-bbf7-4122-b140-48b35f2eef8b"
       }
     ]
   },
-  "types": [
+  "atom": {
+    "id": "3095ac6e-5038-4cc0-b82d-58f9224e0862",
+    "name": "AntDesignTabs",
+    "type": "AntDesignTabs",
+    "api": {
+      "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+    },
+    "icon": "Tabs",
+    "tags": [
+      {
+        "id": "a0ebc197-c21b-4498-a440-c46683d22e50",
+        "name": "Tabs",
+        "parent": {
+          "id": "7765f016-04de-4cf7-9ab5-c7920cad0531",
+          "name": "Data Display"
+        },
+        "children": [
+          {
+            "id": "789ca17a-e1ce-4439-a8ad-a5c72455e61a",
+            "name": "Tabs.TabPane"
+          }
+        ]
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [
     {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
+      "id": "fbe5cba9-bbf7-4122-b140-48b35f2eef8b",
+      "key": "activeKey",
+      "name": "Active Key",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+      }
     },
     {
+      "id": "92b4db0d-27dd-47b7-bf50-4d8beaffed04",
+      "key": "addIcon",
+      "name": "Add Icon",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+      }
+    },
+    {
+      "id": "e6f225e5-6d30-4387-a0a2-d57549a3c207",
+      "key": "animated",
+      "name": "Animated",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "2cc44933-e832-49e8-8db3-4707c5b8dca6",
+        "kind": "EnumType",
+        "name": "AntDesignTabs Animated Enum"
+      },
+      "api": {
+        "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+      }
+    },
+    {
+      "id": "86150cef-f246-46bb-a75f-bdabe62d67d4",
+      "key": "centered",
+      "name": "Centered",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+      }
+    },
+    {
+      "id": "0361bc45-74c7-4036-9a85-10e54f7bb61b",
+      "key": "defaultActiveKey",
+      "name": "Default Active Key",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+      }
+    },
+    {
+      "id": "b6e18792-f5e5-4b9b-9a79-1c0ecf082aa2",
+      "key": "destroyInactiveTabPane",
+      "name": "Destroy Inactive Tab Pane",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+      }
+    },
+    {
+      "id": "7f93c433-c99a-44a3-bd97-0d21921d7db3",
+      "key": "hideAdd",
+      "name": "Hide Add",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+      }
+    },
+    {
+      "id": "d629ba9d-77db-418b-8bde-99083931646a",
+      "key": "moreIcon",
+      "name": "More Icon",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+      }
+    },
+    {
+      "id": "b6c2c7c3-3b1d-4a4f-a068-5a6a9fd7b94e",
+      "key": "onChange",
+      "name": "On Change",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ActionType",
+        "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+        "kind": "ActionType",
+        "name": "ActionType"
+      },
+      "api": {
+        "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+      }
+    },
+    {
+      "id": "89f702cc-7017-4301-8066-641b0e25b8bc",
+      "key": "onTabClick",
+      "name": "On Tab Click",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ActionType",
+        "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+        "kind": "ActionType",
+        "name": "ActionType"
+      },
+      "api": {
+        "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+      }
+    },
+    {
+      "id": "b1224100-5d88-4c8f-8c45-bb42068a456d",
+      "key": "onTabScroll",
+      "name": "On Tab Scroll",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "0601d061-8a24-4671-8b30-413b84a8d1e2",
+        "kind": "EnumType",
+        "name": "AntDesignTabs On Tab Scroll Enum"
+      },
+      "api": {
+        "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+      }
+    },
+    {
+      "id": "67c6647d-343f-402f-a79a-61395b9a7a51",
+      "key": "popupClassName",
+      "name": "Popup Class Name",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+      }
+    },
+    {
+      "id": "e4698093-924b-40be-84aa-f113842da947",
+      "key": "renderTabBar",
+      "name": "Render Tab Bar",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "ActionType",
+        "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+        "kind": "ActionType",
+        "name": "ActionType"
+      },
+      "api": {
+        "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+      }
+    },
+    {
+      "id": "9a16baff-4a64-4008-9fe0-7bfe435f3f4b",
+      "key": "size",
+      "name": "Size",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "0b02aad4-4d62-41ed-82a6-6d79cc1d3ddd",
+        "kind": "EnumType",
+        "name": "AntDesignTabs Size Enum"
+      },
+      "api": {
+        "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+      }
+    },
+    {
+      "id": "d22cfade-3bb3-45d2-b8da-7e8b3bc5943f",
+      "key": "tabBarExtraContent",
+      "name": "Tab Bar Extra Content",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "5fae7785-8ca3-4f21-bb70-3a89a069adc3",
+        "kind": "EnumType",
+        "name": "AntDesignTabs Tab Bar Extra Content Enum"
+      },
+      "api": {
+        "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+      }
+    },
+    {
+      "id": "29d81fc3-ecdd-4e2f-abe3-464c6ef9ecf8",
+      "key": "tabBarGutter",
+      "name": "Tab Bar Gutter",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+        "kind": "PrimitiveType",
+        "name": "Number"
+      },
+      "api": {
+        "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+      }
+    },
+    {
+      "id": "0c8d7d1a-62e5-4813-8c43-cf4e8b19272c",
+      "key": "tabPosition",
+      "name": "Tab Position",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "d6b80b56-1bdf-4a51-b83c-587f1ba7b611",
+        "kind": "EnumType",
+        "name": "AntDesignTabs Tab Position Enum"
+      },
+      "api": {
+        "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+      }
+    },
+    {
+      "id": "85ea016e-73da-4f11-882f-8ec8beb7a0a7",
+      "key": "type",
+      "name": "Type",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "d03759aa-c3fa-4fdf-84e9-87df1f1013bc",
+        "kind": "EnumType",
+        "name": "AntDesignTabs Type Enum"
+      },
+      "api": {
+        "id": "c491e688-e471-44c9-a52a-e78e4ee9a3f4"
+      }
+    }
+  ],
+  "types": [
+    {
       "__typename": "EnumType",
-      "id": "706df226-eb72-425f-8b9b-107dd9acbd14",
+      "id": "2cc44933-e832-49e8-8db3-4707c5b8dca6",
       "kind": "EnumType",
       "name": "AntDesignTabs Animated Enum",
       "allowedValues": [
         {
-          "id": "6adb99b2-eda4-4507-be5e-9a847d08ef66",
+          "id": "0613e2c5-5016-4aad-93d7-1da5a16d2a99",
           "key": "{ inkBar: boolean, tabPane: boolean }",
           "value": "{ inkBar: boolean, tabPane: boolean }"
         },
         {
-          "id": "8fd62aeb-820b-43fc-9bf1-70c23d3cdacc",
+          "id": "73ec08b4-81d0-4e2e-9cd7-0b6319a0dd97",
           "key": "boolean",
           "value": "boolean"
         }
@@ -357,27 +416,27 @@
     },
     {
       "__typename": "EnumType",
-      "id": "5eb8624a-b276-4ce2-a6f4-3e97318d46c9",
+      "id": "0601d061-8a24-4671-8b30-413b84a8d1e2",
       "kind": "EnumType",
       "name": "AntDesignTabs On Tab Scroll Enum",
       "allowedValues": [
         {
-          "id": "23c98fb2-9fdc-4e89-a079-6cbd5e46cad7",
+          "id": "d02a96ac-35d4-4867-9767-215c050d9472",
           "key": "bottom })",
           "value": "bottom })"
         },
         {
-          "id": "bd177b71-46c5-4f77-b66f-36f008a96379",
+          "id": "1b8ab6c0-044f-44b2-8f3c-1b4100682adf",
           "key": "function({ direction: left",
           "value": "function({ direction: left"
         },
         {
-          "id": "6c9493aa-fa89-47cc-8cc9-ff39b81e810b",
+          "id": "42078950-b470-4270-8bca-771da1416395",
           "key": "right",
           "value": "right"
         },
         {
-          "id": "8831adf8-a43c-4eb7-8eb5-79743bee06e7",
+          "id": "f5c31bcf-959b-44e9-aff6-f16ca8e11405",
           "key": "top",
           "value": "top"
         }
@@ -385,22 +444,22 @@
     },
     {
       "__typename": "EnumType",
-      "id": "62229e6b-228a-47f4-a6fc-c2c461202731",
+      "id": "0b02aad4-4d62-41ed-82a6-6d79cc1d3ddd",
       "kind": "EnumType",
       "name": "AntDesignTabs Size Enum",
       "allowedValues": [
         {
-          "id": "4c882acf-e69d-4932-8cca-b596d31284c8",
+          "id": "a4418785-d4fb-4ddf-b84b-f497cb93e531",
           "key": "large",
           "value": "large"
         },
         {
-          "id": "83e22f65-92d4-4ce7-9fae-e5bb7dfa0b1a",
+          "id": "7b75feba-c143-4173-9b67-e15e5aa91e07",
           "key": "middle",
           "value": "middle"
         },
         {
-          "id": "0e8a1176-757c-4594-b05d-09e1adaafe1d",
+          "id": "f113eb78-651f-4245-b8e1-2e377b94ceff",
           "key": "small",
           "value": "small"
         }
@@ -408,17 +467,17 @@
     },
     {
       "__typename": "EnumType",
-      "id": "c7688aba-5b6a-4886-9e23-72fccb7546ff",
+      "id": "5fae7785-8ca3-4f21-bb70-3a89a069adc3",
       "kind": "EnumType",
       "name": "AntDesignTabs Tab Bar Extra Content Enum",
       "allowedValues": [
         {
-          "id": "df5bb207-81ca-43de-bfe4-8bb651890a5d",
+          "id": "73d45667-94af-4887-8c4d-43e4481f783c",
           "key": "{left?: ReactNode, right?: ReactNode}",
           "value": "{left?: ReactNode, right?: ReactNode}"
         },
         {
-          "id": "89d75c8c-b6c8-473d-9645-37e9c45791e7",
+          "id": "ad6debda-25f2-427e-8550-304968880c87",
           "key": "ReactNode",
           "value": "ReactNode"
         }
@@ -426,22 +485,22 @@
     },
     {
       "__typename": "EnumType",
-      "id": "bdb31858-3a10-40d4-a3bc-dbeceb04ef8a",
+      "id": "d6b80b56-1bdf-4a51-b83c-587f1ba7b611",
       "kind": "EnumType",
       "name": "AntDesignTabs Tab Position Enum",
       "allowedValues": [
         {
-          "id": "a7d001d3-7be8-424e-b103-84cc17ad738d",
+          "id": "a613631e-6404-43a6-908d-8f714ef10b56",
           "key": "bottom \\",
           "value": "bottom \\"
         },
         {
-          "id": "627081bb-4f7b-4692-b2d8-576db61eb2d1",
+          "id": "f5b9d75b-9340-450a-9bdb-d038443fdd18",
           "key": "right",
           "value": "right"
         },
         {
-          "id": "c568b8a1-e354-476b-b5d9-5d61563a2117",
+          "id": "a7d3926f-c40e-4c6d-a825-80ba67aa6dc5",
           "key": "top",
           "value": "top"
         }
@@ -449,40 +508,24 @@
     },
     {
       "__typename": "EnumType",
-      "id": "3168bbff-b23e-463b-88ca-1998ea917bbf",
+      "id": "d03759aa-c3fa-4fdf-84e9-87df1f1013bc",
       "kind": "EnumType",
       "name": "AntDesignTabs Type Enum",
       "allowedValues": [
         {
-          "id": "ada77633-4a00-455e-82a4-b64e9680f983",
+          "id": "7ff3fe4d-7e51-4c47-a74e-b8a6f8989821",
           "key": "card",
           "value": "card"
         },
         {
-          "id": "f84ea1f6-0ee9-4669-95af-dd9979026517",
+          "id": "067e2839-1fef-4f4b-853e-278a0c48c21f",
           "key": "editable-card",
           "value": "editable-card"
         },
         {
-          "id": "6ec2bbdc-2a9e-4f1b-8ff8-7a0695548072",
+          "id": "00347792-28db-46c1-adbe-6ec1dcb2fb02",
           "key": "line",
           "value": "line"
-        }
-      ]
-    }
-  ],
-  "tags": [
-    {
-      "id": "cf64b1e7-5963-4de1-8004-be0d914359a0",
-      "name": "Tabs",
-      "parent": {
-        "id": "45c2df38-1b04-40f4-b9c3-e505d1a3c432",
-        "name": "Data Display"
-      },
-      "children": [
-        {
-          "id": "ffd3d79c-c84b-4131-9f79-9d8d79a48718",
-          "name": "Tabs.TabPane"
         }
       ]
     }

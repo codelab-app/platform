@@ -1,50 +1,37 @@
 {
-  "atom": {
-    "id": "7319c75f-1c2c-42b7-8dff-7bb98306a4c1",
-    "name": "AntDesignCheckbox",
-    "type": "AntDesignCheckbox",
-    "api": {
-      "id": "fa3575a5-3edb-413b-aec4-27abbedacaaf",
-      "name": "AntDesignCheckbox API"
-    },
-    "icon": "Checkbox",
-    "tags": [
-      {
-        "id": "bb4db413-e096-4ddd-b21b-6f4587e855fb",
-        "name": "Checkbox"
-      }
-    ],
-    "allowedChildren": []
-  },
   "api": {
     "__typename": "InterfaceType",
-    "id": "fa3575a5-3edb-413b-aec4-27abbedacaaf",
+    "id": "39e6fe1f-343e-48fd-a013-5aeb42275188",
     "kind": "InterfaceType",
     "name": "AntDesignCheckbox API",
     "fields": []
   },
-  "types": [
-    {
-      "__typename": "ActionType",
-      "id": "17b88d37-7e40-4d16-9417-a102ce1129ac",
-      "kind": "ActionType",
-      "name": "ActionType"
-    }
-  ],
-  "tags": [
-    {
-      "id": "bb4db413-e096-4ddd-b21b-6f4587e855fb",
-      "name": "Checkbox",
-      "parent": {
-        "id": "c350f653-57f8-4167-8b2a-e6c376f30ef1",
-        "name": "Data Entry"
-      },
-      "children": [
-        {
-          "id": "13ab0981-5aa1-4ca8-b63d-85a2a7be7947",
-          "name": "Checkbox.Group"
-        }
-      ]
-    }
-  ]
+  "atom": {
+    "id": "d96072b3-3a11-46b2-9fd2-3691a3cf8f7b",
+    "name": "AntDesignCheckbox",
+    "type": "AntDesignCheckbox",
+    "api": {
+      "id": "39e6fe1f-343e-48fd-a013-5aeb42275188"
+    },
+    "icon": "Checkbox",
+    "tags": [
+      {
+        "id": "50a8cf8c-069c-4a2d-af44-ec5a7c30b947",
+        "name": "Checkbox",
+        "parent": {
+          "id": "79e9ccd1-a5fa-44b9-b728-16e3c79365c8",
+          "name": "Data Entry"
+        },
+        "children": [
+          {
+            "id": "00cf82e3-6c79-4f7f-9cd8-63d7d6cf136f",
+            "name": "Checkbox.Group"
+          }
+        ]
+      }
+    ],
+    "allowedChildren": []
+  },
+  "fields": [],
+  "types": []
 }
