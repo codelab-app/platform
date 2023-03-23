@@ -1,11 +1,13 @@
-import type { IActionFactory } from '@codelab/frontend/abstract/core'
+import type {
+  IAction,
+  IActionFactory,
+  ICreateActionData,
+  IUpdateActionData,
+} from '@codelab/frontend/abstract/core'
 import {
   IActionDTO,
-  IApiActionData,
   IApiActionDTO,
-  ICodeActionData,
   ICodeActionDTO,
-  ICreateActionData,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import {
@@ -65,58 +67,48 @@ export class ActionFactory extends Model({}) implements IActionFactory {
     return codeAction
   }
 
-  @modelAction
-  fromActionData(data: ICreateActionData): IActionDTO {
+  static writeCache(actionDTO: IActionDTO, action: IAction): IAction {
+    switch (actionDTO.__typename) {
+      case IActionKind.CodeAction:
+        action.type === IActionKind.CodeAction && action.writeCache(actionDTO)
+
+        return action
+
+      case IActionKind.ApiAction:
+        if (action.type === IActionKind.ApiAction) {
+          action.writeCache(actionDTO)
+        }
+
+        return action
+
+      default:
+        throw new Error(`Unknown action type : ${actionDTO.__typename}`)
+    }
+  }
+
+  static mapDataToDTO(data: ICreateActionData | IUpdateActionData): IActionDTO {
     switch (data.type) {
-      case IActionKind.ApiAction: {
-        return this.fromApiActionData(data)
-      }
+      case IActionKind.CodeAction:
+        return {
+          ...data,
+          __typename: IActionKind.CodeAction,
+          store: { id: data.storeId },
+        }
 
-      case IActionKind.CodeAction: {
-        return this.fromCodeActionData(data)
-      }
-
-      default: {
-        throw new Error('Unknown action found')
-      }
-    }
-  }
-
-  @modelAction
-  private fromApiActionData({
-    config: configData,
-    errorActionId,
-    id,
-    name,
-    resourceId,
-    storeId,
-    successActionId,
-  }: IApiActionData): IApiActionDTO {
-    return {
-      __typename: IActionKind.ApiAction,
-      config: { id: configData.id },
-      errorAction: errorActionId ? { id: errorActionId } : undefined,
-      id: id,
-      name: name,
-      resource: { id: resourceId },
-      store: { id: storeId },
-      successAction: successActionId ? { id: successActionId } : undefined,
-    }
-  }
-
-  @modelAction
-  private fromCodeActionData({
-    code,
-    id,
-    name,
-    storeId,
-  }: ICodeActionData): ICodeActionDTO {
-    return {
-      __typename: IActionKind.CodeAction,
-      code,
-      id: id,
-      name: name,
-      store: { id: storeId },
+      case IActionKind.ApiAction:
+        return {
+          ...data,
+          __typename: IActionKind.ApiAction,
+          config: { id: data.config.id },
+          errorAction: data.errorActionId
+            ? { id: data.errorActionId }
+            : undefined,
+          resource: { id: data.resourceId },
+          store: { id: data.storeId },
+          successAction: data.successActionId
+            ? { id: data.successActionId }
+            : undefined,
+        }
     }
   }
 }

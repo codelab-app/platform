@@ -271,7 +271,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
 
         <CreateActionModal store={appStore} />
         <UpdateActionModal />
-        <DeleteActionsModal actionService={actionService} />
+        <DeleteActionsModal />
       </>
     )
   },
