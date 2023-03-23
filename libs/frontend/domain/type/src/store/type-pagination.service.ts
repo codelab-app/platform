@@ -37,10 +37,14 @@ export class TypePaginationService
    * Ref doesn't change even if source changes
    *
    * https://github.com/xaviergonz/mobx-keystone/issues/390#issuecomment-1039640677
+   *
+   * getSnapshot is used to make UI rerender once type properties are changed
    */
   @computed
   get types() {
-    return Array.from(this.data.values()).map((type) => type.current as IType)
+    return Array.from(this.data.values()).map(
+      (type) => getSnapshot(type.current) as IType,
+    )
   }
 
   @computed
