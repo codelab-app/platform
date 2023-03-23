@@ -8,7 +8,6 @@ import path from 'path'
 import { exportAndAssert, importData, seedData } from './seed-data-spec.helper'
 
 let user: IUserDTO
-const atomRepository = new AtomRepository()
 
 jest.setTimeout(150000)
 

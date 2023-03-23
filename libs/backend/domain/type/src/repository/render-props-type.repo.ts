@@ -48,8 +48,7 @@ export class RenderPropsTypeRepository extends AbstractRepository<
         await this.RenderPropsType
       ).update({
         selectionSet: `{ renderPropsTypes ${exportRenderPropsTypeSelectionSet} }`,
-        // Disallow updates
-        update: {},
+        update: { name },
         where,
       })
     ).renderPropsTypes[0]

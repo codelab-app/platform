@@ -48,8 +48,7 @@ export class ReactNodeTypeRepository extends AbstractRepository<
         await this.ReactNodeType
       ).update({
         selectionSet: `{ reactNodeTypes ${exportReactNodeTypeSelectionSet} }`,
-        // Disallow updates
-        update: {},
+        update: { name },
         where,
       })
     ).reactNodeTypes[0]
