@@ -78,11 +78,30 @@ const createApp: NextApiHandler = async (req, res) => {
     ])
 
     /**
+     * Create store
+     */
+    const storeApi = new InterfaceType(storeApiData(owner))
+    await interfaceTypeRepository.add([storeApi])
+
+    const store = new Store(storeData({ id: storeApi.id }))
+    await storeRepository.add([store])
+
+    /**
+     * Create app
+     */
+    const app = new App(appData(owner, { id: store.id }))
+
+    await appRepository.add([app])
+
+    /**
      * Create pages
      */
-    const providerPage = new Page(providerPageData(owner))
-    const notFoundPage = new Page(notFoundPageData(owner))
-    const internalServerErrorPage = new Page(internalServerErrorPageData(owner))
+    const providerPage = new Page(providerPageData({ id: app.id }))
+    const notFoundPage = new Page(notFoundPageData({ id: app.id }))
+
+    const internalServerErrorPage = new Page(
+      internalServerErrorPageData({ id: app.id }),
+    )
 
     await pageRepository.add([
       providerPage,
@@ -91,19 +110,13 @@ const createApp: NextApiHandler = async (req, res) => {
     ])
 
     /**
-     * Create store
+     * Attach the pages to the app
      */
-    const storeApi = new InterfaceType(storeApiData(owner))
-    await interfaceTypeRepository.add([storeApi])
+    app.pages = [providerPage, internalServerErrorPage, notFoundPage].map(
+      (page) => ({ id: page.id }),
+    )
 
-    const store = new Store(storeData)
-    await storeRepository.add([store])
-
-    /**
-     * Create app
-     */
-    const app = new App(appData(owner))
-    await appRepository.add([app])
+    await appRepository.update(app, { id: app.id })
 
     return res.send(app)
   } catch (err) {

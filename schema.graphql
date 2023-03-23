@@ -14183,7 +14183,7 @@ type Store {
     sort: [StoreApiConnectionSort!]
     where: StoreApiConnectionWhere
   ): StoreApiConnection!
-  app(directed: Boolean = true, options: AppOptions, where: AppWhere): App!
+  app(directed: Boolean = true, options: AppOptions, where: AppWhere): App
   appAggregate(
     directed: Boolean = true
     where: AppWhere
