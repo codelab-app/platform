@@ -1,11 +1,7 @@
+import type { IAppDTO } from '@codelab/frontend/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { createAtomsData } from '@codelab/shared/data/test'
-import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
-import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
-import { createAppInput } from '../support/database/app'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 const ELEMENT_CONTAINER = 'Container'
@@ -60,32 +56,14 @@ describe('Elements CRUD', () => {
     loginSession()
     cy.getCurrentOwner()
       .then((owner) => {
-        const atomsInput: Array<AtomCreateInput> = createAtomsData().map(
-          (atom) => ({
-            api: {
-              create: {
-                node: {
-                  id: v4(),
-                  name: `${atom.name} API`,
-                  owner: connectAuth0Owner(owner),
-                },
-              },
-            },
-            id: v4(),
-            name: atom.name,
-            owner: connectAuth0Owner(owner),
-            type: atom.type,
-          }),
-        )
-
-        cy.createAtom(atomsInput)
-
-        return cy.createApp(createAppInput(owner))
+        return cy.request('/api/cypress/atom').then(() => {
+          return cy.request<IAppDTO>('/api/cypress/app')
+        })
       })
       .then((apps) => {
-        const app = apps[0]
-        const pageId = app?.pages?.[0]?.id
-        cy.visit(`/apps/${app?.id}/pages/${pageId}/builder`)
+        const app = apps.body
+        const pageId = app.pages?.[0]?.id
+        cy.visit(`/apps/${app.id}/pages/${pageId}/builder`)
         cy.getSpinner().should('not.exist')
 
         // select root now so we can update its child later

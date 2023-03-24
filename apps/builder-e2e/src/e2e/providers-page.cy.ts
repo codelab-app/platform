@@ -1,8 +1,6 @@
 import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
-import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
-import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 import { appName, pageName } from './apps/app.data'
@@ -38,26 +36,7 @@ describe('_app page', () => {
     loginSession()
 
     cy.getCurrentOwner().then((owner: IAuth0Owner) => {
-      const atomsInput = [
-        IAtomType.AntDesignCard,
-        IAtomType.AntDesignInput,
-      ].map((atom) => ({
-        api: {
-          create: {
-            node: {
-              id: v4(),
-              name: `${atom} API`,
-              owner: connectAuth0Owner(owner),
-            },
-          },
-        },
-        id: v4(),
-        name: atom,
-        owner: connectAuth0Owner(owner),
-        type: atom,
-      }))
-
-      cy.createAtom(atomsInput)
+      cy.request('/api/cypress/atom')
     })
   })
 
