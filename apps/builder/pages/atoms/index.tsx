@@ -87,23 +87,14 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
         tagService={store.tagService}
       />
       <DeleteAtomsModal atomService={store.atomService} />
-      <CreateFieldModal
-        fieldService={store.fieldService}
-        typeService={store.typeService}
-      />
-      <UpdateFieldModal
-        fieldService={store.fieldService}
-        typeService={store.typeService}
-      />
-      <DeleteFieldModal fieldService={store.fieldService} />
+      <CreateFieldModal />
+      <UpdateFieldModal />
+      <DeleteFieldModal />
       <ContentSection>
         <AtomsTable
-          atomService={store.atomService}
-          fieldService={store.fieldService}
           getAtomLibrary={getAtomLibrary}
           page={page ? parseInt(page as string) : undefined}
           pageSize={pageSize ? parseInt(pageSize as string) : undefined}
-          typeService={store.typeService}
         />
       </ContentSection>
     </>
