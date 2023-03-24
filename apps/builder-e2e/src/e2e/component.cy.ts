@@ -1,11 +1,5 @@
 import type { IAppDTO } from '@codelab/frontend/abstract/core'
-import {
-  IAtomType,
-  IPrimitiveTypeKind,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
-import { v4 } from 'uuid'
+import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '../support/antd/form'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 
@@ -35,18 +29,7 @@ describe('Component CRUD', () => {
     loginSession()
     cy.getCurrentOwner()
       .then((owner) => {
-        cy.createType(
-          {
-            PrimitiveType: {
-              id: v4(),
-              kind: ITypeKind.PrimitiveType,
-              name: IPrimitiveTypeKind.String,
-              owner: connectAuth0Owner(owner),
-              primitiveKind: IPrimitiveTypeKind.String,
-            },
-          },
-          ITypeKind.PrimitiveType,
-        )
+        cy.request('/api/cypress/type')
 
         return cy.request('/api/cypress/atom').then(() => {
           return cy.request<IAppDTO>('/api/cypress/app')
