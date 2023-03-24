@@ -5,10 +5,12 @@ import type {
   IElementTree,
 } from '@codelab/frontend/abstract/core'
 import { DragPosition } from '@codelab/frontend/abstract/core'
-import { makeAutoIncrementedName } from '@codelab/frontend/domain/element'
+import {
+  makeAutoIncrementedName,
+  useRequiredParentValidator,
+} from '@codelab/frontend/domain/element'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { DragEndEvent } from '@dnd-kit/core'
-import { useRequiredParentValidator } from '../hooks'
 
 export interface UseDndDropHandler {
   handleCreateElement(event: DragEndEvent): Promise<void>
@@ -19,7 +21,7 @@ export const useDndDropHandler = (
   elementService: IElementService,
   elementTree: Maybe<IElementTree>,
 ): UseDndDropHandler => {
-  const { validateCreate, validateRequiredParent } =
+  const { validateParentForCreate, validateParentForMove } =
     useRequiredParentValidator()
 
   const handleCreateElement = async (event: DragEndEvent) => {
@@ -61,7 +63,7 @@ export const useDndDropHandler = (
         ? targetElement.id
         : targetElement.parent?.id
 
-    if (!validateCreate(createElementDTO.renderType?.id, parentId)) {
+    if (!validateParentForCreate(createElementDTO.renderType?.id, parentId)) {
       return
     }
 
@@ -116,7 +118,7 @@ export const useDndDropHandler = (
         ? targetElement.id
         : targetElement.parent?.id
 
-    if (!validateRequiredParent(draggedElement.id, parentId)) {
+    if (!validateParentForMove(draggedElement.id, parentId)) {
       return
     }
 

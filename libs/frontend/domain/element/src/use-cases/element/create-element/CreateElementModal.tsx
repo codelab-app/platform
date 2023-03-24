@@ -14,12 +14,14 @@ import { v4 } from 'uuid'
 import { AutoComputedElementNameField } from '../../../components/auto-computed-element-name'
 import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
+import { useRequiredParentValidator } from '../../../utils'
 import { createElementSchema } from './create-element.schema'
 
 export const CreateElementModal = observer(() => {
   const { elementService, userService } = useStore()
   const { elementTree, metadata, parentElement } = elementService.createModal
   const elementOptions = metadata?.elementOptions
+  const { validateParentForCreate } = useRequiredParentValidator()
 
   if (!parentElement || !elementTree) {
     return null
@@ -27,6 +29,15 @@ export const CreateElementModal = observer(() => {
 
   const onSubmit = async (data: ICreateElementData) => {
     const { prevSibling } = data
+
+    const isValidParent = validateParentForCreate(
+      data.renderType?.id,
+      data.parentElement?.id,
+    )
+
+    if (!isValidParent) {
+      return Promise.reject()
+    }
 
     const element = await (prevSibling
       ? elementService.createElementAsNextSibling(data)

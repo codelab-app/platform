@@ -3,9 +3,9 @@ import type {
   IElementService,
   IElementTree,
 } from '@codelab/frontend/abstract/core'
+import { useRequiredParentValidator } from '@codelab/frontend/domain/element'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { TreeProps } from 'antd/lib/tree'
-import { useRequiredParentValidator } from '../useRequiredParentValidator'
 import {
   shouldMoveElementAsFirstChild,
   shouldMoveElementAsNextSibling,
@@ -21,7 +21,7 @@ export interface UseElementTreeDropProps {
  * This can be optimized by batching data changes in the API
  */
 export const useElementTreeDrop = (elementService: IElementService) => {
-  const { validateRequiredParent } = useRequiredParentValidator()
+  const { validateParentForMove } = useRequiredParentValidator()
 
   const handleDrop: TreeProps<IBuilderDataNode>['onDrop'] = async (info) => {
     const dragElement = { id: info.dragNode.key.toString() }
@@ -47,7 +47,7 @@ export const useElementTreeDrop = (elementService: IElementService) => {
       return
     }
 
-    if (!validateRequiredParent(dragElement.id, dropElement.id)) {
+    if (!validateParentForMove(dragElement.id, dropElement.id)) {
       return
     }
 
