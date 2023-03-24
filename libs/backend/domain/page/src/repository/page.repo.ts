@@ -4,15 +4,9 @@ import {
   pageSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { IAppDTO, IPageDTO } from '@codelab/frontend/abstract/core'
+import type { IPageDTO } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import {
-  connectAuth0Owner,
-  connectNodeId,
-  connectNodeIds,
-  reconnectNodeId,
-  reconnectNodeIds,
-} from '@codelab/shared/domain/mapper'
+import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { createUniqueName, uuidRegex } from '@codelab/shared/utils'
 import flatMap from 'lodash/flatMap'
 import flatten from 'lodash/flatten'
@@ -44,6 +38,7 @@ export class PageRepository extends AbstractRepository<
         input: pages.map(
           ({ app, id, kind, name, pageContentContainer, rootElement }) => ({
             _compoundName: createUniqueName(name, app.id),
+            app: connectNodeId(app.id),
             id,
             kind,
             pageContentContainer: connectNodeId(pageContentContainer?.id),
@@ -64,6 +59,7 @@ export class PageRepository extends AbstractRepository<
       ).update({
         update: {
           _compoundName: createUniqueName(name, app.id),
+          app: reconnectNodeId(app.id),
           pageContentContainer: reconnectNodeId(pageContentContainer?.id),
           rootElement: reconnectNodeId(rootElement.id),
         },
