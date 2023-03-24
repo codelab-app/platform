@@ -9087,6 +9087,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/adm-zip@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "@types/adm-zip@npm:0.5.0"
+  dependencies:
+    "@types/node": "*"
+  checksum: 11dd013584e47d431bdf7c115b73cd3162c1a1eca0fbb911f691c9734e904cfe4a01ac1d2d3cbf76d0a952e01fcce8a01fd6fb1c150675a29d740a7fb15325b2
+  languageName: node
+  linkType: hard
+
 "@types/aria-query@npm:^4.2.0":
   version: 4.2.2
   resolution: "@types/aria-query@npm:4.2.2"
@@ -10022,6 +10031,16 @@ __metadata:
   version: 1.0.8
   resolution: "@types/tapable@npm:1.0.8"
   checksum: b4b754dd0822c407b8f29ef6b766490721c276880f9e976d92ee2b3ef915f11a05a2442ae36c8978bcd872ad6bc833b0a2c4d267f2d611590668a366bad50652
+  languageName: node
+  linkType: hard
+
+"@types/tar@npm:^6.1.4":
+  version: 6.1.4
+  resolution: "@types/tar@npm:6.1.4"
+  dependencies:
+    "@types/node": "*"
+    minipass: ^4.0.0
+  checksum: 48a1f6b8665ed03f37f74966cfe991a33d6e85cee28aaa6ef42c7ca8448cdbc1e2ca96b473b6b53f1d7bd91423ae0dcfe54a295607d7ac4b4cbb9dbf167df7fa
   languageName: node
   linkType: hard
 
@@ -11193,6 +11212,13 @@ __metadata:
   version: 1.2.0
   resolution: "address@npm:1.2.0"
   checksum: 2ef3aa9d23bbe0f9f2745a634b16f3a2f2b18c43146c0913c7b26c8be410e20d59b8c3808d0bb7fe94d50fc2448b4b91e65dd9f33deb4aed53c14f0dedc3ddd8
+  languageName: node
+  linkType: hard
+
+"adm-zip@npm:^0.5.10":
+  version: 0.5.10
+  resolution: "adm-zip@npm:0.5.10"
+  checksum: 07ed91cf6423bf5dca4ee63977bc7635e91b8d21829c00829d48dce4c6932e1b19e6cfcbe44f1931c956e68795ae97183fc775913883fa48ce88a1ac11fb2034
   languageName: node
   linkType: hard
 
@@ -14144,6 +14170,7 @@ __metadata:
     "@testing-library/react": 13.4.0
     "@testing-library/react-hooks": 8.0.1
     "@testing-library/user-event": 14.2.0
+    "@types/adm-zip": ^0.5.0
     "@types/auth0": 2.35.6
     "@types/auth0-js": ^9.14.7
     "@types/buble": ^0.20.1
@@ -14172,6 +14199,7 @@ __metadata:
     "@types/react-syntax-highlighter": 15.5.4
     "@types/scroll-into-view": ^1.16.0
     "@types/stringify-object": 4.0.1
+    "@types/tar": ^6.1.4
     "@types/testing-library__cypress": 5.0.9
     "@types/testing-library__jest-dom": 5.14.2
     "@types/uuid": 8.3.4
@@ -14183,6 +14211,7 @@ __metadata:
     "@typescript-eslint/parser": 5.54.1
     "@uiw/react-codemirror": 4.11.6
     "@welldone-software/why-did-you-render": 7.0.1
+    adm-zip: ^0.5.10
     ajv: 8.12.0
     ajv-formats: 2.1.1
     ajv-keywords: ^5.1.0
@@ -14275,6 +14304,7 @@ __metadata:
     local-cypress: ^1.2.6
     lodash: 4.17.21
     madge: 5.0.1
+    memfs: ^3.4.13
     micro: 9.4.1
     mobx: 6.6.0
     mobx-keystone: 1.2.0
@@ -14324,6 +14354,7 @@ __metadata:
     scroll-into-view: ^1.16.2
     stringify-object: 4.0.1
     tailwindcss: 3.1.8
+    tar: ^6.1.13
     ts-essentials: 9.1.2
     ts-jest: 29.0.5
     ts-json-schema-generator: ^1.2.0
@@ -14335,6 +14366,7 @@ __metadata:
     uniforms: 3.10.2
     uniforms-antd: 3.10.2
     uniforms-bridge-json-schema: 3.10.2
+    unionfs: ^4.4.0
     use-resize-observer: 8.0.0
     utility-types: 3.10.0
     uuid: 8.3.2
@@ -14343,6 +14375,7 @@ __metadata:
     why-is-node-running: 2.2.2
     winston: ^3.8.2
     yargs: 17.5.1
+    zlib: ^1.0.5
     zod: 3.20.2
   languageName: unknown
   linkType: soft
@@ -19153,7 +19186,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-monkey@npm:1.0.3, fs-monkey@npm:^1.0.3":
+"fs-monkey@npm:1.0.3, fs-monkey@npm:^1.0.0, fs-monkey@npm:^1.0.3":
   version: 1.0.3
   resolution: "fs-monkey@npm:1.0.3"
   checksum: cf50804833f9b88a476911ae911fe50f61a98d986df52f890bd97e7262796d023698cb2309fa9b74fdd8974f04315b648748a0a8ee059e7d5257b293bfc409c0
@@ -24831,6 +24864,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"memfs@npm:^3.4.13":
+  version: 3.4.13
+  resolution: "memfs@npm:3.4.13"
+  dependencies:
+    fs-monkey: ^1.0.3
+  checksum: 3f9717d6f060919d53f211acb6096a0ea2f566a8cbcc4ef7e1f2561e31e33dc456053fdf951c90a49c8ec55402de7f01b006b81683ab7bd4bdbbd8c9b9cdae5f
+  languageName: node
+  linkType: hard
+
 "memoizerific@npm:^1.11.3":
   version: 1.11.3
   resolution: "memoizerific@npm:1.11.3"
@@ -25246,6 +25288,13 @@ __metadata:
   dependencies:
     yallist: ^4.0.0
   checksum: 57a04041413a3531a65062452cb5175f93383ef245d6f4a2961d34386eb9aa8ac11ac7f16f791f5e8bbaf1dfb1ef01596870c88e8822215db57aa591a5bb0a77
+  languageName: node
+  linkType: hard
+
+"minipass@npm:^4.0.0":
+  version: 4.2.5
+  resolution: "minipass@npm:4.2.5"
+  checksum: 4f9c19af23a5d4a9e7156feefc9110634b178a8cff8f8271af16ec5ebf7e221725a97429952c856f5b17b30c2065ebd24c81722d90c93d2122611d75b952b48f
   languageName: node
   linkType: hard
 
@@ -32659,6 +32708,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tar@npm:^6.1.13":
+  version: 6.1.13
+  resolution: "tar@npm:6.1.13"
+  dependencies:
+    chownr: ^2.0.0
+    fs-minipass: ^2.0.0
+    minipass: ^4.0.0
+    minizlib: ^2.1.1
+    mkdirp: ^1.0.3
+    yallist: ^4.0.0
+  checksum: 8a278bed123aa9f53549b256a36b719e317c8b96fe86a63406f3c62887f78267cea9b22dc6f7007009738509800d4a4dccc444abd71d762287c90f35b002eb1c
+  languageName: node
+  linkType: hard
+
 "telejson@npm:^6.0.8":
   version: 6.0.8
   resolution: "telejson@npm:6.0.8"
@@ -33948,6 +34011,15 @@ __metadata:
   dependencies:
     qs: ^6.4.0
   checksum: 021530d02363fb7470ce45d4cb06ae28a97d5a245666e6d0fca6bab0673bea8c7988e7d2f8046acfbab120908cedcb099ca216b357d4483bcd96518b39101be0
+  languageName: node
+  linkType: hard
+
+"unionfs@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "unionfs@npm:4.4.0"
+  dependencies:
+    fs-monkey: ^1.0.0
+  checksum: fe1d88256dd070a50ed01539f2e69020b5b7aa419c03eae86de31a13f680d618fc9a0c061e9493ca6b06b1bf7337388a07bc01ed156d04d787731982ec86efcb
   languageName: node
   linkType: hard
 
@@ -35587,6 +35659,13 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: f77b3d8d00310def622123df93d4ee654fc6a0096182af8bd60679ddcdfb3474c56c6c7190817c84a2785648cdee9d721c0154eb45698c62176c322fb46fc700
+  languageName: node
+  linkType: hard
+
+"zlib@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "zlib@npm:1.0.5"
+  checksum: 5ef5693a1deb70f65845424f5ecce1ee956e50320aa438126759fd28ec8a25ae876acb3b179b4f5050427e7e0dfcd9e45bdae23f055b2d732bc2fe1dbe4da169
   languageName: node
   linkType: hard
 

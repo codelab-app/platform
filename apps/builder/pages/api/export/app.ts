@@ -19,10 +19,10 @@ const exportApp: NextApiHandler = async (req, res) => {
 
     const appName = exportedApp.apps[0]?.name
     const userName = session.user.name
-    const fileName = `${userName}-${appName}.json`
+    const filename = `${userName}-${appName}.json`
 
     res.setHeader('Content-Type', 'application/json')
-    res.setHeader('Content-Disposition', `attachment; filename=${fileName}`)
+    res.setHeader('Content-Disposition', `attachment; filename=${filename}`)
     res.write(JSON.stringify(exportedApp), 'utf-8')
 
     return res.end()

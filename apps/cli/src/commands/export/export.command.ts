@@ -80,7 +80,7 @@ export const exportCommand: CommandModule<ExportProps, ExportProps> = {
     }
 
     if (!shouldSkipSeedData) {
-      const exportedSeedData = await new ExportAdminDataService().execute()
+      ;(await new ExportAdminDataService().execute()).saveAsFiles()
     }
 
     if (!shouldSkipUserData) {
