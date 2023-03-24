@@ -6,6 +6,7 @@ import { v4 } from 'uuid'
  * IPageKind.Provider
  */
 export const providerElementPropsData: IPropDTO = {
+  data: '{}',
   id: v4(),
 }
 
@@ -19,6 +20,7 @@ export const providerElementData: IElementDTO = {
  * IPageKind.NotFound
  */
 export const notFoundElementPropsData: IPropDTO = {
+  data: '{}',
   id: v4(),
 }
 
@@ -32,6 +34,7 @@ export const notFoundElementData: IElementDTO = {
  * IPageKind.InternalServerError
  */
 export const internalServerErrorPropsData: IPropDTO = {
+  data: '{}',
   id: v4(),
 }
 

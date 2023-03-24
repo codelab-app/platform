@@ -15292,7 +15292,7 @@ export type Store = {
   api: InterfaceType
   apiAggregate?: Maybe<StoreInterfaceTypeApiAggregationSelection>
   apiConnection: StoreApiConnection
-  app: App
+  app?: Maybe<App>
   appAggregate?: Maybe<StoreAppAppAggregationSelection>
   appConnection: StoreAppConnection
   id: Scalars['ID']

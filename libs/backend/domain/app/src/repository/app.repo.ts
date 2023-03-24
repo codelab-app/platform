@@ -14,7 +14,6 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { IAppDTO, IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import {
   connectAuth0Owner,
   connectNodeId,
@@ -71,7 +70,26 @@ export class AppRepository extends AbstractRepository<
       ).update({
         update: {
           _compoundName: createUniqueName(name, owner.auth0Id),
-          pages: reconnectNodeIds(pages?.map((page) => page.id)),
+          pages: reconnectNodeIds(pages?.map((page) => page.id))?.map(
+            (input) => ({
+              ...input,
+              // overriding disconnect from reconnectNodeIds because it disconnects everythin
+              // including the pages connected in previous items of the input array. This causes
+              // the transaction to register only the last page being connected in the input array
+              // TODO: Check it it's the case for other places using reconnectNodeIds and if so update it.
+              disconnect: [
+                {
+                  where: {
+                    NOT: {
+                      node: {
+                        id_IN: pages?.map((page) => page.id),
+                      },
+                    },
+                  },
+                },
+              ],
+            }),
+          ),
           store: reconnectNodeId(store.id),
         },
         where,
