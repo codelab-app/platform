@@ -7,6 +7,7 @@ import {
   exportAtomApis,
   exportSystemTypes,
 } from '@codelab/backend/application/type'
+import { saveFormattedFile } from '@codelab/backend/shared/util'
 import type { IInterfaceTypeDTO } from '@codelab/frontend/abstract/core'
 import filter from 'lodash/filter'
 import find from 'lodash/find'
@@ -16,14 +17,20 @@ import { DataPaths } from '../data-paths'
 /**
  * This service should save the files as well, since admin data is all located in the same location
  */
-export class ExportAdminDataService extends IUseCase<void, IAdminDataExport> {
+export class ExportAdminDataService extends IUseCase<
+  void,
+  ExportAdminDataService
+> {
   dataPaths: DataPaths
+
+  private declare exportData: IAdminDataExport
 
   constructor(
     // Allow base directory override for testing purpose
     DATA_EXPORT_PATH = path.resolve('./data/export'),
   ) {
     super()
+    console.log(DATA_EXPORT_PATH)
     this.dataPaths = new DataPaths(DATA_EXPORT_PATH)
   }
 
@@ -32,11 +39,49 @@ export class ExportAdminDataService extends IUseCase<void, IAdminDataExport> {
     const atoms = await this.extractAtomsData()
     const tags = await exportTags()
 
-    return {
+    const exportData = {
       atoms,
       systemTypes,
       tags,
     }
+
+    this.exportData = exportData
+
+    return this
+  }
+
+  getData() {
+    return {
+      atoms: this.exportData.atoms,
+      systemTypes: this.exportData.systemTypes,
+      tags: this.exportData.tags,
+    }
+  }
+
+  /**
+   * Allows us to save to filesystem if we choose to
+   *
+   * (await new ExportAdminDataService().execute()).save()
+   */
+  saveAsFiles() {
+    for (const { api, atom, fields, types } of this.exportData.atoms) {
+      saveFormattedFile(
+        path.resolve(this.dataPaths.ATOMS_PATH, `${atom.name}.json`),
+        {
+          api,
+          atom,
+          fields,
+          types,
+        },
+      )
+    }
+
+    saveFormattedFile(this.dataPaths.TAGS_FILE_PATH, this.exportData.tags)
+
+    saveFormattedFile(
+      this.dataPaths.SYSTEM_TYPES_FILE_PATH,
+      this.exportData.systemTypes,
+    )
   }
 
   private async extractAtomsData() {

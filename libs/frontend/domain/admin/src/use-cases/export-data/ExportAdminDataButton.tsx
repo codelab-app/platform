@@ -11,7 +11,27 @@ export const ExportAdminDataButton = observer(() => {
     <Button
       icon={<ImportOutlined />}
       onClick={() =>
-        adminService.export().then(() => message.success('Export success!'))
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        adminService.export().then(async (res: any) => {
+          const blob = await res.blob()
+
+          // https://stackoverflow.com/questions/50570900/js-fetch-not-getting-headers-on-response
+          const filename = res.headers
+            .get('content-disposition')
+            .split('filename=')[1]
+            .split('.')[0]
+
+          const url = URL.createObjectURL(blob)
+          const a = document.createElement('a')
+          a.href = url
+          a.download = filename
+          a.target = '_blank'
+          a.click()
+
+          URL.revokeObjectURL(url)
+
+          return message.success('Export success!')
+        })
       }
     >
       Export Data
