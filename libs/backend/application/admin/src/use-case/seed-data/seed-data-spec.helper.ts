@@ -16,7 +16,7 @@ export const exportAndAssert = async (exportPath: string) => {
 
   const importService = await new ImportAdminDataService(exportPath)
   const payload = importService.exportedAdminData
-  const { atoms, tags, types } = payload
+  const { atoms, systemTypes, tags } = payload
   /**
    * Assert all atoms have been created
    */

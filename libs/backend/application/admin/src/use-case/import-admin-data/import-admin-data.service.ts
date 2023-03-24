@@ -1,7 +1,7 @@
 import type {
   IAdminDataExport,
   IAtomExport,
-  ITypeExport,
+  ITypesExport,
 } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import { AtomRepository } from '@codelab/backend/domain/atom'
@@ -43,66 +43,48 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
 
   protected async _execute(owner: IAuth0Owner) {
     /**
-     * Type must be seeded first, so atom can reference it
+     * System types must be seeded first, so other types can reference it
      */
     await this.importSystemTypes(owner)
 
-    await this.importAdminTypes(owner)
-
-    await this.importApis(owner)
-
     await this.importTags(owner)
 
-    await this.importFields(owner)
-
     await this.importAtoms(owner)
-
-    const fields = (await this.fieldRepository.find()).filter(
-      (field) => !field.fieldType.id,
-    )
-
-    console.log('AllFields', fields)
   }
 
   private async importSystemTypes(owner: IAuth0Owner) {
-    const { fields = [], types } = JSON.parse(
+    const { types } = JSON.parse(
       fs.readFileSync(this.dataPaths.SYSTEM_TYPES_FILE_PATH, 'utf8'),
-    ) as ITypeExport
+    ) as ITypesExport
 
     for await (const type of types) {
       await TypeFactory.create({ ...type, owner })
     }
   }
 
-  private async importAdminTypes(owner: IAuth0Owner) {
-    for await (const type of this.exportedAdminData.types) {
-      await TypeFactory.create({ ...type, owner })
-    }
-  }
-
   private async importAtoms(owner: IAuth0Owner) {
-    for await (const atom of this.exportedAdminData.atoms) {
+    for await (const { api, atom, fields, types } of this.exportedAdminData
+      .atoms) {
+      // Create types first so they can be referenced
+      for await (const type of types) {
+        await TypeFactory.create({ ...type, owner })
+      }
+
+      // Then api's
+      await TypeFactory.create({ ...api, owner })
+
+      // Finally fields
+      for await (const field of fields) {
+        await this.fieldRepository.save(field)
+      }
+
       await this.atomRepository.save({ ...atom, owner })
-    }
-  }
-
-  private async importFields(owner: IAuth0Owner) {
-    const fields = this.exportedAdminData.fields
-
-    for await (const field of fields) {
-      await this.fieldRepository.save(field)
     }
   }
 
   private async importTags(owner: IAuth0Owner) {
     for await (const tag of this.exportedAdminData.tags) {
       await this.tagRepository.save({ ...tag, owner })
-    }
-  }
-
-  private async importApis(owner: IAuth0Owner) {
-    for await (const api of this.exportedAdminData.apis) {
-      await TypeFactory.create({ ...api, owner })
     }
   }
 
@@ -119,25 +101,24 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
       fs.readFileSync(this.dataPaths.TAGS_FILE_PATH, 'utf8'),
     ) as Array<ITagDTO>
 
+    const systemTypes = JSON.parse(
+      fs.readFileSync(this.dataPaths.SYSTEM_TYPES_FILE_PATH, 'utf8'),
+    ) as ITypesExport
+
     return filenames.reduce(
-      (acc, filename) => {
+      (adminData, filename) => {
         const content = fs.readFileSync(
           `${this.dataPaths.ATOMS_PATH}/${filename}`,
           'utf8',
         )
 
-        const { api, atom, fields, types } = JSON.parse(
-          content.toString(),
-        ) as IAtomExport
+        const atomExport = JSON.parse(content.toString()) as IAtomExport
 
-        acc.atoms.push(atom)
-        acc.apis.push(api)
-        acc.types.push(...types)
-        acc.fields.push(...(fields ?? []))
+        adminData.atoms.push(atomExport)
 
-        return acc
+        return adminData
       },
-      { apis: [], atoms: [], fields: [], tags, types: [] } as IAdminDataExport,
+      { atoms: [] as Array<IAtomExport>, systemTypes, tags },
     )
   }
 }

@@ -1,4 +1,4 @@
-import type { ITypeExport } from '@codelab/backend/abstract/core'
+import type { ITypesExport } from '@codelab/backend/abstract/core'
 import {
   exportActionTypeSelectionSet,
   exportPrimitiveTypeSelectionSet,
@@ -11,7 +11,7 @@ import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 /**
  * These are required system types that other types reference
  */
-export const exportSystemTypes = async (): Promise<ITypeExport> => {
+export const exportSystemTypes = async (): Promise<ITypesExport> => {
   /**
    * Export all primitive types
    */
@@ -75,5 +75,5 @@ export const exportSystemTypes = async (): Promise<ITypeExport> => {
       ...reactNodeTypes,
       ...actionTypes,
     ],
-  } as ITypeExport
+  } as ITypesExport
 }

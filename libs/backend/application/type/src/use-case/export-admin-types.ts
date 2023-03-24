@@ -1,4 +1,4 @@
-import type { ITypeExport } from '@codelab/backend/abstract/core'
+import type { ITypesExport } from '@codelab/backend/abstract/core'
 import {
   exportEnumTypeSelectionSet,
   exportFieldSelectionSet,
@@ -6,7 +6,6 @@ import {
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { ITypeKind } from '@codelab/shared/abstract/core'
 import { sortInterfaceTypesFields } from '../mapper/sort'
 
 /**
@@ -23,7 +22,7 @@ interface ExportAdminTypesProps {
  */
 export const exportAdminTypes = async (
   props: ExportAdminTypesProps = {},
-): Promise<ITypeExport> => {
+): Promise<ITypesExport> => {
   const EnumType = await Repository.instance.EnumType
   const InterfaceType = await Repository.instance.InterfaceType
   const Field = await Repository.instance.Field

@@ -1,4 +1,4 @@
-import type { ITypeExport } from '@codelab/backend/abstract/core'
+import type { ITypesExport } from '@codelab/backend/abstract/core'
 import {
   exportInterfaceTypeSelectionSet,
   getDriver,
@@ -13,7 +13,7 @@ interface Descendant {
   kind: ITypeKind
 }
 
-export const exportUserTypes = async (): Promise<ITypeExport> => {
+export const exportUserTypes = async (): Promise<ITypesExport> => {
   /**
    * Export types
    */
@@ -73,6 +73,7 @@ export const exportUserTypes = async (): Promise<ITypeExport> => {
 
   // TODO: Need to fix type here
   return {
+    fields: [],
     types: [...orderedInterfaceTypes],
-  } as ITypeExport
+  } as ITypesExport
 }

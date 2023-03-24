@@ -25,7 +25,7 @@ export type IType =
   | OGM_TYPES.RenderPropsType
   | OGM_TYPES.UnionType
 
-export interface ITypeExport {
-  fields?: Array<IFieldDTO>
+export interface ITypesExport {
+  fields: Array<IFieldDTO>
   types: Array<ITypeDTO>
 }

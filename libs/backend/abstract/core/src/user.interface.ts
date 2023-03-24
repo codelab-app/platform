@@ -1,8 +1,8 @@
 import type { IAppExport } from './app.interface'
 import type { IResourceExport } from './resource.interface'
-import type { ITypeExport } from './type'
+import type { ITypesExport } from './type'
 
-export type IUserDataExport = ITypeExport & {
+export type IUserDataExport = ITypesExport & {
   apps: Array<IAppExport>
   resources: Array<IResourceExport>
 }

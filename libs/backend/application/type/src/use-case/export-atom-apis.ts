@@ -1,4 +1,4 @@
-import type { ITypeExport } from '@codelab/backend/abstract/core'
+import type { ITypesExport } from '@codelab/backend/abstract/core'
 import {
   exportFieldSelectionSet,
   exportInterfaceTypeSelectionSet,
@@ -12,7 +12,7 @@ import { sortInterfaceTypesFields } from '../mapper/sort'
  *
  * We export api separately since those can be it's own file
  */
-export const exportAtomApis = async (): Promise<ITypeExport> => {
+export const exportAtomApis = async (): Promise<ITypesExport> => {
   /**
    * Get all interfaces that are connected to atoms, here we don't do dependent types since Ant Design atoms don't have them (at least I haven't seen any)
    *
