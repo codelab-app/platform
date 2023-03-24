@@ -1,4 +1,9 @@
-import { createData, deleteData, updateData } from '@codelab/shared/data/test'
+import {
+  CreateData,
+  DeleteTableData,
+  DeleteTreeData,
+  UpdateData,
+} from '@codelab/shared/data/test'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 describe('Tag CRUD', () => {
@@ -27,16 +32,16 @@ describe('Tag CRUD', () => {
     }
 
     it('should be able to create a tag', () => {
-      cy.createTagByUI(createData.tag_0!.name)
-      testCreate(createData.tag_0!.name)
+      cy.createTagByUI(CreateData.tag_0)
+      testCreate(CreateData.tag_0)
     })
 
     it('should be able to create a tag with parent', () => {
       cy.createTagByUI(
-        createData.tag_0_0!.name,
-        // createData.parentTagName1
+        CreateData.tag_0_0,
+        // CreateData.parentTagName1
       )
-      testCreate(createData.tag_0_0!.name, createData.tag_0!.name)
+      testCreate(CreateData.tag_0_0, CreateData.tag_0)
     })
   })
 
@@ -44,43 +49,39 @@ describe('Tag CRUD', () => {
     it('should be able to update tag name using edit button in the table', () => {
       cy.searchTableRow({
         header: 'Name',
-        row: new RegExp(`^${updateData.tag_0!.name}$`),
+        row: new RegExp(`^${UpdateData.tag_0}$`),
       })
         .getButton({ icon: 'edit' })
         .click()
       cy.getModal()
         .findByLabelText('Name')
-        .should('have.value', updateData.tag_0!.name)
+        .should('have.value', UpdateData.tag_0)
       cy.getModal()
         .findByLabelText('Name')
         .clear()
-        .type(updateData.updated_tag_0!.name)
+        .type(UpdateData.updated_tag_0)
       cy.getModal()
         .getModalAction(/Update Tag/)
         .click()
 
       cy.getModal().should('not.exist')
 
-      cy.getTable().findByText(updateData.tag_0!.name).should('not.exist')
-      cy.getTable().findByText(updateData.updated_tag_0!.name).should('exist')
+      cy.getTable().findByText(UpdateData.tag_0).should('not.exist')
+      cy.getTable().findByText(UpdateData.updated_tag_0).should('exist')
     })
   })
 
   describe('delete', () => {
     describe('table', () => {
       it('should be able to delete a tag with parent', () => {
-        cy.getTable()
-          .findAllByText(deleteData.table!.tag_0_0!.name)
-          .should('exist')
-        cy.deleteTagInTableByUI(deleteData.table!.tag_0!.name)
+        cy.getTable().findAllByText(DeleteTableData.tag_0_0).should('exist')
+        cy.deleteTagInTableByUI(DeleteTableData.tag_0)
 
-        cy.getTable()
-          .findAllByText(deleteData.table!.tag_0_0!.name)
-          .should('not.exist')
+        cy.getTable().findAllByText(DeleteTableData.tag_0_0).should('not.exist')
       })
 
       it('should be able to delete a tag', () => {
-        cy.deleteTagInTableByUI(deleteData.table!.tag_0_1!.name)
+        cy.deleteTagInTableByUI(DeleteTableData.tag_0_1)
       })
     })
 
@@ -97,21 +98,21 @@ describe('Tag CRUD', () => {
       }
 
       it('should be able to delete a tag inside its parent', () => {
-        cy.toggleTreeNodeSwitcher(deleteData.tree!.tag_0!.name)
-        cy.getTreeNode(deleteData.tree!.tag_0_0!.name).should('exist')
-        deleteTagNodeInTree(deleteData.tree!.tag_0_0!.name)
+        cy.toggleTreeNodeSwitcher(DeleteTreeData.tag_0)
+        cy.getTreeNode(DeleteTreeData.tag_0_0).should('exist')
+        deleteTagNodeInTree(DeleteTreeData.tag_0_0)
       })
 
       it('should be able to delete a tag', () => {
-        deleteTagNodeInTree(deleteData.tree!.tag_0!.name)
+        deleteTagNodeInTree(DeleteTreeData.tag_0)
       })
 
       it('should be able to delete a tag with parent', () => {
-        cy.toggleTreeNodeSwitcher(deleteData.tree!.tag_1!.name)
-        cy.getTreeNode(deleteData.tree!.tag_1!.name).should('exist')
-        cy.getTreeNode(deleteData.tree!.tag_1_0!.name).should('exist')
-        deleteTagNodeInTree(deleteData.tree!.tag_1!.name)
-        cy.getTreeNode(deleteData.tree!.tag_1_0!.name).should('not.exist')
+        cy.toggleTreeNodeSwitcher(DeleteTreeData.tag_1)
+        cy.getTreeNode(DeleteTreeData.tag_1).should('exist')
+        cy.getTreeNode(DeleteTreeData.tag_1_0).should('exist')
+        deleteTagNodeInTree(DeleteTreeData.tag_1)
+        cy.getTreeNode(DeleteTreeData.tag_1_0).should('not.exist')
       })
     })
   })
