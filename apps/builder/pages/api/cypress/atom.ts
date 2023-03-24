@@ -4,10 +4,8 @@ import {
   InterfaceType,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
-import type { IInterfaceTypeDTO } from '@codelab/frontend/abstract/core'
-import { ITypeKind } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
-import { createAtomsData } from '@codelab/shared/data/test'
+import { createAtomsApiData, createAtomsData } from '@codelab/shared/data/test'
 import type { NextApiHandler } from 'next'
 
 const atomRepository = new AtomRepository()
@@ -26,21 +24,20 @@ const createAtoms: NextApiHandler = async (req, res) => {
 
     const owner = { auth0Id: session.user.sub }
     const atomsData = createAtomsData(owner)
+    const apiData = createAtomsApiData(atomsData)
 
-    const apiData: Array<IInterfaceTypeDTO> = atomsData.map((atom) => ({
-      fields: [],
-      id: atom.api.id,
-      kind: ITypeKind.InterfaceType,
-      name: `${atom.name} API`,
-      owner,
-    }))
-
+    /**
+     * Create the api for the atoms
+     */
     const apis = apiData.map((api) => {
       return new InterfaceType(api)
     })
 
     await interfaceTypeRepository.add(apis)
 
+    /**
+     * Create the atoms
+     */
     const atoms = atomsData.map((atomData) => {
       return new Atom(atomData)
     })

@@ -1,5 +1,9 @@
-import type { IAtomDTO, IAuth0Owner } from '@codelab/frontend/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import type {
+  IAtomDTO,
+  IAuth0Owner,
+  IInterfaceTypeDTO,
+} from '@codelab/frontend/abstract/core'
+import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 const atomTypes = [
@@ -23,4 +27,15 @@ export const createAtomsData = (owner: IAuth0Owner): Array<IAtomDTO> =>
     owner,
     tags: [],
     type: atomType,
+  }))
+
+export const createAtomsApiData = (
+  atomsData: Array<IAtomDTO>,
+): Array<IInterfaceTypeDTO> =>
+  atomsData.map((atom) => ({
+    fields: [],
+    id: atom.api.id,
+    kind: ITypeKind.InterfaceType,
+    name: `${atom.name} API`,
+    owner: atom.owner,
   }))
