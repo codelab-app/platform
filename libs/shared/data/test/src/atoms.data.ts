@@ -1,6 +1,5 @@
 import type { IAtomDTO, IAuth0Owner } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { getApiName } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 
 export const createAtomsData = (owner: IAuth0Owner): Array<IAtomDTO> => [
@@ -51,5 +50,16 @@ export const createAtomsData = (owner: IAuth0Owner): Array<IAtomDTO> => [
     owner,
     tags: [],
     type: IAtomType.AntDesignGridRow,
+  },
+  {
+    allowedChildren: [],
+    api: {
+      id: v4(),
+    },
+    id: v4(),
+    name: IAtomType.AntDesignSpace,
+    owner,
+    tags: [],
+    type: IAtomType.AntDesignSpace,
   },
 ]

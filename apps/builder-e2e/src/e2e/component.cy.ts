@@ -1,3 +1,4 @@
+import type { IAppDTO } from '@codelab/frontend/abstract/core'
 import {
   IAtomType,
   IPrimitiveTypeKind,
@@ -6,7 +7,6 @@ import {
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
-import { createAppInput } from '../support/database/app'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 const COMPONENT_NAME = 'New Component'
@@ -47,47 +47,17 @@ describe('Component CRUD', () => {
           },
           ITypeKind.PrimitiveType,
         )
-        cy.createAtom([
-          {
-            api: {
-              create: {
-                node: {
-                  id: v4(),
-                  name: `${IAtomType.AntDesignSpace} API`,
-                  owner: connectAuth0Owner(owner),
-                },
-              },
-            },
-            id: v4(),
-            name: IAtomType.AntDesignSpace,
-            owner: connectAuth0Owner(owner),
-            type: IAtomType.AntDesignSpace,
-          },
-          {
-            api: {
-              create: {
-                node: {
-                  id: v4(),
-                  name: `${IAtomType.AntDesignTypographyText} API`,
-                  owner: connectAuth0Owner(owner),
-                },
-              },
-            },
-            id: v4(),
-            name: IAtomType.AntDesignTypographyText,
-            owner: connectAuth0Owner(owner),
-            type: IAtomType.AntDesignTypographyText,
-          },
-        ])
 
-        return cy.createApp(createAppInput(owner))
+        return cy.request('/api/cypress/atom').then(() => {
+          return cy.request<IAppDTO>('/api/cypress/app')
+        })
       })
       .then((apps) => {
         testApp = apps
 
-        const app = apps[0]
-        const pageId = app?.pages?.[0]?.id
-        cy.visit(`/apps/${app?.id}/pages/${pageId}/builder`)
+        const app = apps.body
+        const pageId = app.pages?.[0]?.id
+        cy.visit(`/apps/${app.id}/pages/${pageId}/builder`)
         cy.getSpinner().should('not.exist')
       })
   })
