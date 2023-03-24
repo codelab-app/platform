@@ -2,64 +2,25 @@ import type { IAtomDTO, IAuth0Owner } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
-export const createAtomsData = (owner: IAuth0Owner): Array<IAtomDTO> => [
-  {
-    allowedChildren: [],
-    api: {
-      id: v4(),
-      // name: getApiName(IAtomType.AntDesignButton),
-    },
-    id: v4(),
-    name: IAtomType.AntDesignButton,
-    owner,
-    tags: [],
-    type: IAtomType.AntDesignButton,
-  },
-  {
-    allowedChildren: [],
-    api: {
-      id: v4(),
-      // name: getApiName(IAtomType.AntDesignTypographyText),
-    },
-    id: v4(),
-    name: IAtomType.AntDesignTypographyText,
-    owner,
-    tags: [],
-    type: IAtomType.AntDesignTypographyText,
-  },
-  {
-    allowedChildren: [],
-    api: {
-      id: v4(),
-      // name: getApiName(IAtomType.AntDesignGridCol),
-    },
-    id: v4(),
-    name: IAtomType.AntDesignGridCol,
-    owner,
-    tags: [],
-    type: IAtomType.AntDesignGridCol,
-  },
-  {
-    allowedChildren: [],
-    api: {
-      id: v4(),
-      // name: getApiName(IAtomType.AntDesignGridRow),
-    },
-    id: v4(),
-    name: IAtomType.AntDesignGridRow,
-    owner,
-    tags: [],
-    type: IAtomType.AntDesignGridRow,
-  },
-  {
-    allowedChildren: [],
-    api: {
-      id: v4(),
-    },
-    id: v4(),
-    name: IAtomType.AntDesignSpace,
-    owner,
-    tags: [],
-    type: IAtomType.AntDesignSpace,
-  },
+const atomTypes = [
+  IAtomType.AntDesignButton,
+  IAtomType.AntDesignTypographyText,
+  IAtomType.AntDesignGridCol,
+  IAtomType.AntDesignGridRow,
+  IAtomType.AntDesignSpace,
+  IAtomType.AntDesignCard,
+  IAtomType.AntDesignInput,
 ]
+
+export const createAtomsData = (owner: IAuth0Owner): Array<IAtomDTO> =>
+  atomTypes.map((atomType) => ({
+    allowedChildren: [],
+    api: {
+      id: v4(),
+    },
+    id: v4(),
+    name: atomType,
+    owner,
+    tags: [],
+    type: atomType,
+  }))
