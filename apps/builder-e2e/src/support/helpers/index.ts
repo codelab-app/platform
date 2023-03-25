@@ -5,3 +5,4 @@ import { graphQLCommands } from './graphql.commands'
 export type CypressHelpersCommands = CypressGraphQLHelpersCommands
 
 export const helpersCommands: Array<CypressCommand> = [...graphQLCommands]
+export * from './assertions'

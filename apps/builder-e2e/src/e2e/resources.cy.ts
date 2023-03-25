@@ -1,5 +1,6 @@
 import { ResourceType } from '@codelab/shared/abstract/codegen'
 import { FIELD_TYPE } from '../support/antd/form'
+import { assertTwice } from '../support/helpers'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 import {
   resourceName,
@@ -35,7 +36,8 @@ describe('Resource CRUD', () => {
         .click()
 
       cy.getModal().should('not.exist')
-      cy.findByText(resourceName).should('exist')
+
+      assertTwice(() => cy.findByText(resourceName).should('exist'))
     })
   })
 
@@ -60,8 +62,10 @@ describe('Resource CRUD', () => {
 
       cy.getModal().should('not.exist')
 
-      cy.findByText(resourceName).should('not.exist')
-      cy.findByText(updatedResourceName).should('exist')
+      assertTwice(() => {
+        cy.findByText(resourceName).should('not.exist')
+        cy.findByText(updatedResourceName).should('exist')
+      })
     })
   })
 
@@ -80,6 +84,10 @@ describe('Resource CRUD', () => {
       cy.getModal().should('not.exist')
 
       cy.findAllByText(updatedResourceName).should('not.exist')
+
+      assertTwice(() =>
+        cy.findAllByText(updatedResourceName).should('not.exist'),
+      )
     })
   })
 })
