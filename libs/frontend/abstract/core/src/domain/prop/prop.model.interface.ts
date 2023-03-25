@@ -22,7 +22,7 @@ export interface IProp
   clone(): IProp
   delete(key: string): void
   get(key: string): unknown
-  set(key: string, value: object | string): void
+  set(key: string, value: boolean | object | string): void
   setMany(data: IPropData): void
   setSilently(key: string, value: object): void
   toCreateInput(): PropCreateInput

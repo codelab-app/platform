@@ -1,4 +1,3 @@
-import type { IApp } from '@codelab/frontend/abstract/core'
 import {
   useCurrentAppId,
   useStore,

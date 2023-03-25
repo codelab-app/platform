@@ -1,9 +1,8 @@
-import type {
-  IDomainService,
-  IUpdateDomainData,
-  IUserService,
-} from '@codelab/frontend/abstract/core'
-import { useCurrentAppId } from '@codelab/frontend/presenter/container'
+import type { IUpdateDomainData } from '@codelab/frontend/abstract/core'
+import {
+  useCurrentAppId,
+  useStore,
+} from '@codelab/frontend/presenter/container'
 import { useNotify } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
@@ -12,10 +11,8 @@ import { AutoFields } from 'uniforms-antd'
 import { handleDomainExistError } from '../../errors'
 import { updateDomainSchema } from './updateDomain.schema'
 
-export const UpdateDomainModal = observer<{
-  domainService: IDomainService
-  userService: IUserService
-}>(({ domainService, userService }) => {
+export const UpdateDomainModal = observer(() => {
+  const { domainService } = useStore()
   const domain = domainService.updateModal.domain
   const isOpen = domainService.updateModal.isOpen
   const currentAppId = useCurrentAppId()

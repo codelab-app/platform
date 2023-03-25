@@ -8,12 +8,7 @@ import type {
   IEnumTypeValueDTO,
 } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import {
-  connectAuth0Owner,
-  connectNodeIds,
-  reconnectNodeIds,
-  whereNodeId,
-} from '@codelab/shared/domain/mapper'
+import { connectAuth0Owner, whereNodeId } from '@codelab/shared/domain/mapper'
 
 export class EnumTypeRepository extends AbstractRepository<
   IEnumTypeDTO,

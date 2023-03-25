@@ -16,11 +16,11 @@ describe('Pages CRUD', () => {
       .then((res) => {
         const app = res.body
 
-        console.log(app)
-
         cy.visit(`/apps/${app.id}/pages`)
         cy.getSpinner().should('not.exist')
         cy.findAllByText(IPageKindName.Provider).should('exist')
+        cy.findAllByText(IPageKindName.NotFound).should('exist')
+        cy.findAllByText(IPageKindName.InternalServerError).should('exist')
       })
   })
 

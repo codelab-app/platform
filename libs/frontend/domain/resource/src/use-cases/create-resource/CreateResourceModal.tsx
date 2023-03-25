@@ -1,8 +1,5 @@
-import type {
-  ICreateResourceData,
-  IResourceService,
-  IUserService,
-} from '@codelab/frontend/abstract/core'
+import type { ICreateResourceData } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
@@ -11,10 +8,9 @@ import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createResourceSchema } from './create-resource.schema'
 
-export const CreateResourceModal = observer<{
-  resourceService: IResourceService
-  userService: IUserService
-}>(({ resourceService, userService }) => {
+export const CreateResourceModal = observer(() => {
+  const { resourceService, userService } = useStore()
+
   const onSubmit = (resourceDTO: ICreateResourceData) => {
     console.log('submit', resourceDTO)
 

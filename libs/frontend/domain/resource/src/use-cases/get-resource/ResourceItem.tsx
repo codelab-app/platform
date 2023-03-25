@@ -1,9 +1,6 @@
-import type {
-  IResource,
-  IResourceService,
-} from '@codelab/frontend/abstract/core'
+import type { IResource } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { Card } from 'antd'
-import capitalize from 'lodash/capitalize'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ResourceIcon } from '../../view'
@@ -11,12 +8,12 @@ import { ItemDropdown } from './ItemDropdown'
 
 interface ResourceItemProps {
   resource: IResource
-  resourceService: IResourceService
 }
 
-export const ResourcesItem = observer<ResourceItemProps>(
-  // eslint-disable-next-line react/jsx-no-useless-fragment
-  ({ resource, resourceService }) => (
+export const ResourcesItem = observer<ResourceItemProps>(({ resource }) => {
+  const { resourceService } = useStore()
+
+  return (
     <Card
       extra={
         <ItemDropdown resource={resource} resourceService={resourceService} />
@@ -27,5 +24,5 @@ export const ResourcesItem = observer<ResourceItemProps>(
         </>
       }
     />
-  ),
-)
+  )
+})

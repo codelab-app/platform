@@ -1,8 +1,5 @@
-import type {
-  ICreateTagData,
-  ITagService,
-  IUserService,
-} from '@codelab/frontend/abstract/core'
+import type { ICreateTagData } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
@@ -11,10 +8,9 @@ import { AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createTagSchema } from './create.tag.schema'
 
-export const CreateTagModal = observer<{
-  tagService: ITagService
-  userService: IUserService
-}>(({ tagService, userService }) => {
+export const CreateTagModal = observer(() => {
+  const { tagService, userService } = useStore()
+
   const onSubmit = (input: ICreateTagData) => {
     return tagService.create(input)
   }

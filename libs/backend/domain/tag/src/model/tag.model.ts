@@ -1,10 +1,5 @@
-import type {
-  IAuth0Owner,
-  ITag,
-  ITagDTO,
-} from '@codelab/frontend/abstract/core'
+import type { IAuth0Owner, ITagDTO } from '@codelab/frontend/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import { detach, rootRef } from 'mobx-keystone'
 
 export class Tag implements ITagDTO {
   declare id: string

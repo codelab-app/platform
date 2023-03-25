@@ -1,5 +1,4 @@
 import { AdminService } from '@codelab/backend/domain/admin'
-import { AtomRepository } from '@codelab/backend/domain/atom'
 import { User, UserRepository } from '@codelab/backend/domain/user'
 import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
 import { setupNewUser } from '@codelab/backend/shared/util'

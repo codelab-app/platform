@@ -1,15 +1,14 @@
 import { ImportOutlined } from '@ant-design/icons'
-import type { IAppService } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { useNotify } from '@codelab/frontend/shared/utils'
 import { Button } from 'antd'
+import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
 import { importApp } from './import-app.api'
 
-export const ImportAppDialog = ({
-  appService,
-}: {
-  appService: IAppService
-}) => {
+export const ImportAppDialog = observer(() => {
+  const { appService } = useStore()
+
   const { onError } = useNotify(
     { title: 'App imported successfully' },
     { title: 'Failed to import app' },
@@ -43,4 +42,4 @@ export const ImportAppDialog = ({
       />
     </>
   )
-}
+})

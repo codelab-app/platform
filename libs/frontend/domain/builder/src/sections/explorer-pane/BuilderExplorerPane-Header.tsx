@@ -5,7 +5,7 @@ import type {
   IElementTree,
 } from '@codelab/frontend/abstract/core'
 import { CreateElementButton } from '@codelab/frontend/domain/element'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 

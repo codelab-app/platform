@@ -1,6 +1,8 @@
-import type { IResourceService } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { useCurrentResourceId } from '@codelab/frontend/presenter/container'
+import {
+  useCurrentResourceId,
+  useStore,
+} from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
@@ -8,9 +10,8 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 
-export const DeleteResourceModal = observer<{
-  resourceService: IResourceService
-}>(({ resourceService }) => {
+export const DeleteResourceModal = observer(() => {
+  const { resourceService } = useStore()
   const router = useRouter()
   const resourceId = useCurrentResourceId()
   const resource = resourceService.deleteModal.resource

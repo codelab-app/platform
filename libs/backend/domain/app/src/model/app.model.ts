@@ -1,8 +1,4 @@
-import type {
-  IApp,
-  IAppDTO,
-  IAuth0Owner,
-} from '@codelab/frontend/abstract/core'
+import type { IAppDTO, IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 
 export class App implements IAppDTO {

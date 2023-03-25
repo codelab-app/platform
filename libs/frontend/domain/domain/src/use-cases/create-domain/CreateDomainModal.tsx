@@ -1,9 +1,8 @@
-import type {
-  ICreateDomainData,
-  IDomainService,
-  IUserService,
-} from '@codelab/frontend/abstract/core'
-import { useCurrentAppId } from '@codelab/frontend/presenter/container'
+import type { ICreateDomainData } from '@codelab/frontend/abstract/core'
+import {
+  useCurrentAppId,
+  useStore,
+} from '@codelab/frontend/presenter/container'
 import { useNotify } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
@@ -13,10 +12,8 @@ import { v4 } from 'uuid'
 import { handleDomainExistError } from '../../errors'
 import { createDomainSchema } from './createDomain.schema'
 
-export const CreateDomainModal = observer<{
-  domainService: IDomainService
-  userService: IUserService
-}>(({ domainService, userService }) => {
+export const CreateDomainModal = observer(() => {
+  const { domainService, userService } = useStore()
   const currentAppId = useCurrentAppId()
 
   const model = {

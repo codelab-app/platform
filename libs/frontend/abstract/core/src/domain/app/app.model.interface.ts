@@ -6,7 +6,7 @@ import type {
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IDomain } from '../domain'
-import type { IElement, IElementTree } from '../element'
+import type { IElement } from '../element'
 import type { IModel } from '../model.interface'
 import type { IPage } from '../page'
 import type { IPropData } from '../prop'

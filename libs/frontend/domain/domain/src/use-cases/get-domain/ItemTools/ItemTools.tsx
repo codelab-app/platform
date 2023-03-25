@@ -1,5 +1,6 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import type { IDomain, IDomainService } from '@codelab/frontend/abstract/core'
+import type { IDomain } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -8,11 +9,12 @@ import { RefreshDomainButton } from './RefreshDomainButton'
 
 export interface ItemToolsProps {
   domain: IDomain
-  domainService: IDomainService
 }
 
 export const ItemTools = observer<ItemToolsProps>(
-  ({ domain, domainService }: ItemToolsProps) => {
+  ({ domain }: ItemToolsProps) => {
+    const { domainService } = useStore()
+
     const onEditClick = () => {
       domainService.updateModal.open(domainRef(String(domain.id)))
     }
