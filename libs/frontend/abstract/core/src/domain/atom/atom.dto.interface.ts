@@ -8,9 +8,10 @@ export interface ICreateAtomData extends IOwnerSchema {
   // Used for interface
   // Allow for connection to existing interface
   // api: IEntity
-  allowedChildren?: Array<IAtomRef>
   id: string
   name: string
+  requiredParents?: Array<IAtomRef>
+  suggestedChildren?: Array<IAtomRef>
   tags?: Array<IEntity>
   type: IAtomType
 }
@@ -18,11 +19,12 @@ export interface ICreateAtomData extends IOwnerSchema {
 export type IUpdateAtomData = Omit<ICreateAtomData, 'owner'>
 
 export interface IAtomDTO extends IOwnerSchema {
-  allowedChildren?: Array<IEntity>
   api: IEntity
   icon?: string | null
   id: string
   name: string
+  requiredParents?: Array<IEntity>
+  suggestedChildren?: Array<IEntity>
   tags?: Array<IEntity>
   type: IAtomType
 }

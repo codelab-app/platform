@@ -37,14 +37,17 @@ export const useGetAllAtoms = () => {
 }
 
 export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
-  const allowedChildrenIds = parent?.allowedChildren.map((child) => child.id)
+  const suggestedChildrenIds = parent?.suggestedChildren.map(
+    (child) => child.id,
+  )
+
   const { atomOptions, error: queryError, getAtoms, loading } = useGetAllAtoms()
 
   /**
    * Sort for now before data is added
    */
   const filteredOptions = atomOptions.sort(({ value }) =>
-    allowedChildrenIds?.includes(value) ? -1 : 1,
+    suggestedChildrenIds?.includes(value) ? -1 : 1,
   )
 
   useMountEffect(getAtoms.execute)

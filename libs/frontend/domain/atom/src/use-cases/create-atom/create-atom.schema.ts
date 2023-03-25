@@ -10,7 +10,7 @@ import type { JSONSchemaType } from 'ajv'
 
 export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
   properties: {
-    allowedChildren: {
+    suggestedChildren: {
       items: {
         type: 'string',
       },
@@ -50,6 +50,14 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
       enum: Object.values(IAtomType).filter(filterNotHookType),
       showSearch: true,
       type: 'string',
+    },
+    requiredParents: {
+      items: {
+        type: 'string',
+      },
+      nullable: true,
+      showSearch: true,
+      type: 'array',
     },
   },
   required: ['name', 'type', 'owner'],
