@@ -6,10 +6,6 @@ import { setupTestForRenderer } from './setup/setup-test'
 describe('ConditionalRenderPipe', () => {
   const data = setupTestForRenderer([ConditionalRenderPipe])
 
-  const atomType = isAtomInstance(data.elementToRender.renderType)
-    ? data.elementToRender.renderType.current.type
-    : null
-
   beforeEach(() => {
     data.elementToRender.setRenderIfExpression('{{this.shouldRender}}')
   })
@@ -21,6 +17,10 @@ describe('ConditionalRenderPipe', () => {
       data.elementToRender,
       {},
     )
+
+    const atomType = isAtomInstance(data.elementToRender.renderType)
+      ? data.elementToRender.renderType.current.type
+      : null
 
     expect(output).toEqual({
       atomType,
@@ -55,6 +55,10 @@ describe('ConditionalRenderPipe', () => {
       data.elementToRender,
       initialProps,
     )
+
+    const atomType = isAtomInstance(data.elementToRender.renderType)
+      ? data.elementToRender.renderType.current.type
+      : null
 
     expect(output).toEqual({
       atomType,

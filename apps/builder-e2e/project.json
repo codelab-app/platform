@@ -4,17 +4,6 @@
   "sourceRoot": "apps/builder-e2e/src",
   "projectType": "application",
   "targets": {
-    "currents": {
-      "executor": "@currents/nx:currents",
-      "options": {
-        "cypressExecutor": "e2e"
-      },
-      "configurations": {
-        "ci": {},
-        "test": {},
-        "dev": {}
-      }
-    },
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
@@ -36,11 +25,12 @@
         "test": {
           "cypressConfig": "apps/builder-e2e/cypress.test.config.ts",
           "devServerTarget": "builder-e2e:serve:test",
-          "record": false
+          "record": true
         },
         "dev": {
           "cypressConfig": "apps/builder-e2e/cypress.test.config.ts",
           "devServerTarget": "builder-e2e:serve:dev",
+          "record": true,
           "watch": true,
           "exit": false
         }

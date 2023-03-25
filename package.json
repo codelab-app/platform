@@ -11,7 +11,7 @@
   "scripts": {
     "setup": "./scripts/yarn/setup.sh",
     "postinstall": "./scripts/yarn/postinstall.sh && husky install",
-    "e2e": "env-cmd -f .env.test nx e2e builder-e2e -c dev",
+    "e2e": "yarn cli tasks e2e --stage dev",
     "cli": "node dist/apps/cli/main.js",
     "docker:up": "scripts/docker/up.sh",
     "tunnel": "ngrok http --region=us --hostname=api.codelab-dev.ngrok.io 127.0.0.1:3000",

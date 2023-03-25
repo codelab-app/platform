@@ -165,9 +165,6 @@ export class TypeService
     const typeDTO = TypeFactory.mapDataToDTO(data)
     TypeFactory.writeCache(typeDTO, type)
 
-    console.log(this.pagination.data)
-    console.log(Array.from(this.pagination.data.values()))
-
     yield* _await(this.typeRepository.update(type))
 
     return type
