@@ -1,9 +1,5 @@
 import type { IType, ITypeWhere } from '@codelab/backend/abstract/core'
-import { exportActionTypeSelectionSet } from '@codelab/backend/infra/adapter/neo4j'
-import type {
-  IPrimitiveTypeDTO,
-  ITypeDTO,
-} from '@codelab/frontend/abstract/core'
+import type { ITypeDTO } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import {

@@ -1,7 +1,5 @@
-import type {
-  IAppService,
-  IUpdateAppData,
-} from '@codelab/frontend/abstract/core'
+import type { IUpdateAppData } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
@@ -9,9 +7,8 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updateAppSchema } from './update-app.schema'
 
-export const UpdateAppModal = observer<{
-  appService: IAppService
-}>(({ appService }) => {
+export const UpdateAppModal = observer(() => {
+  const { appService } = useStore()
   const app = appService.updateModal.app
 
   const model = {

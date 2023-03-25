@@ -1,4 +1,4 @@
-import type { IDomainService } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { DisplayIf, ErrorBoundary } from '@codelab/frontend/view/components'
 import { padding, threeGridCol } from '@codelab/frontend/view/style'
 import { Col, Empty, Row } from 'antd'
@@ -11,30 +11,27 @@ const emptyImageStyle: React.CSSProperties = {
   height: 60,
 }
 
-export const GetDomainsList = observer<{ domainService: IDomainService }>(
-  ({ domainService }) => {
-    const domainsList = domainService.domainsList
-    const hasDomain = domainsList.length > 0
+export const GetDomainsList = observer(() => {
+  const { domainService } = useStore()
+  const domainsList = domainService.domainsList
+  const hasDomain = domainsList.length > 0
 
-    return (
-      <ErrorBoundary>
-        <DisplayIf condition={!hasDomain}>
-          <Empty description="No domain found" imageStyle={emptyImageStyle}>
-            <CreateDomainButton domainService={domainService}>
-              Create Now
-            </CreateDomainButton>
-          </Empty>
-        </DisplayIf>
+  return (
+    <ErrorBoundary>
+      <DisplayIf condition={!hasDomain}>
+        <Empty description="No domain found" imageStyle={emptyImageStyle}>
+          <CreateDomainButton>Create Now</CreateDomainButton>
+        </Empty>
+      </DisplayIf>
 
-        <Row gutter={[padding.sm, padding.sm]}>
-          {domainsList.map((domain) => (
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            <Col key={domain.name} {...threeGridCol}>
-              <GetDomainItem domain={domain} domainService={domainService} />
-            </Col>
-          ))}
-        </Row>
-      </ErrorBoundary>
-    )
-  },
-)
+      <Row gutter={[padding.sm, padding.sm]}>
+        {domainsList.map((domain) => (
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          <Col key={domain.name} {...threeGridCol}>
+            <GetDomainItem domain={domain} />
+          </Col>
+        ))}
+      </Row>
+    </ErrorBoundary>
+  )
+})

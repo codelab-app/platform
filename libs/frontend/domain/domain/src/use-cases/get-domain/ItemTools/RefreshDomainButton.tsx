@@ -7,7 +7,7 @@ import {
 import { useAsync } from '@react-hookz/web'
 import { Button, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 interface RefreshDomainButtonProps {
   domain: IDomain

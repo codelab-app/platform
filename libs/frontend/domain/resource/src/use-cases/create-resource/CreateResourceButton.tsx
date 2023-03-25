@@ -1,5 +1,5 @@
 import { PlusOutlined } from '@ant-design/icons'
-import type { IResourceService } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { IResourceType } from '@codelab/shared/abstract/core'
 import { Button, Dropdown, Menu } from 'antd'
 import type { ItemType } from 'antd/lib/menu/hooks/useItems'
@@ -8,9 +8,9 @@ import React from 'react'
 import tw from 'twin.macro'
 import { ResourceIcon } from '../../view'
 
-export const CreateResourceButton = observer<{
-  resourceService: IResourceService
-}>(({ resourceService }) => {
+export const CreateResourceButton = observer(() => {
+  const { resourceService } = useStore()
+
   const menuItems: Array<ItemType> = [
     {
       children: [

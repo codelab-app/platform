@@ -43,7 +43,6 @@ import React, { useCallback, useMemo } from 'react'
 import tw from 'twin.macro'
 
 const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const store = useStore()
   const htmlAtomsKeys = useMemo(() => Object.keys(htmlAtoms), [])
   const muiAtomsKeys = useMemo(() => Object.keys(muiAtoms), [])
   const antdAtomsKeys = useMemo(() => Object.keys(antdAtoms), [])
@@ -77,16 +76,9 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
         <title>Atoms | Codelab</title>
       </Head>
 
-      <CreateAtomModal
-        atomService={store.atomService}
-        tagService={store.tagService}
-        userService={store.userService}
-      />
-      <UpdateAtomModal
-        atomService={store.atomService}
-        tagService={store.tagService}
-      />
-      <DeleteAtomsModal atomService={store.atomService} />
+      <CreateAtomModal />
+      <UpdateAtomModal />
+      <DeleteAtomsModal />
       <CreateFieldModal />
       <UpdateFieldModal />
       <DeleteFieldModal />
@@ -109,7 +101,7 @@ const Header = () => {
       css={tw`flex flex-row items-center justify-center gap-2`}
       key="export_import"
     >
-      <CreateAtomButton atomService={store.atomService} key="create" />
+      <CreateAtomButton key="create" />
     </div>,
   ]
 

@@ -2,7 +2,6 @@ import type {
   IAtom,
   IComponent,
   IElement,
-  IElementTree,
   IInterfaceType,
   IPrimitiveType,
   IProp,
@@ -17,7 +16,6 @@ export type ITestRootStore = Pick<
   IRootStore,
   'atomService' | 'componentService' | 'elementService'
 > & {
-  pageElementTree: IElementTree
   /**
    * We only use a single renderer for testing
    */

@@ -108,7 +108,7 @@ export class Prop
   }
 
   @modelAction
-  set(key: string, value: object | string) {
+  set(key: string, value: boolean | object | string) {
     const obj = set({}, key, value)
 
     this.data = frozen(mergeDeepRight(this.data.data ?? {}, obj))

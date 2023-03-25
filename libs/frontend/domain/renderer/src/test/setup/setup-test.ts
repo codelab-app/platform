@@ -13,7 +13,6 @@ import { Component, ComponentService } from '@codelab/frontend/domain/component'
 import {
   Element,
   ElementService,
-  ElementTree,
   elementTreeRef,
 } from '@codelab/frontend/domain/element'
 import { pageRef } from '@codelab/frontend/domain/page'
@@ -196,7 +195,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     data.renderer = new Renderer({
       appStore: storeRef(data.store),
       debugMode: false,
-      elementTree: elementTreeRef(new ElementTree({})),
+      elementTree: elementTreeRef(data.componentToRender),
       rendererType: RendererType.PageBuilder,
       renderPipe: renderPipeFactory([PassThroughRenderPipe, ...pipes]),
     })
@@ -226,9 +225,6 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
         ]),
       }),
       fieldService: new FieldService({}),
-      pageElementTree: ElementTree.init(data.componentRootElement, [
-        data.componentRootElement,
-      ]),
       propService: new PropService({
         props: objectMap([
           [data.elementToRenderProps.id, data.elementToRenderProps],
@@ -246,12 +242,6 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       }),
       typeService,
     })
-
-    data.componentToRender.setElementTree(
-      ElementTree.init(data.componentRootElement, [data.componentRootElement]),
-    )
-
-    // data.renderer.initForce(data.rootStore.pageElementTree)
   })
 
   afterEach(() => {

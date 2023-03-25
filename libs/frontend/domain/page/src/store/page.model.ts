@@ -8,16 +8,7 @@ import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { createUniqueName } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import {
-  computedTree,
-  ExtendedModel,
-  idProp,
-  Model,
-  model,
-  modelAction,
-  objectMap,
-  prop,
-} from 'mobx-keystone'
+import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import slugify from 'voca/slugify'
 
 const create = ({

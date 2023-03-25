@@ -3,8 +3,6 @@ import { IUseCase } from '@codelab/backend/abstract/types'
 import {
   EnumType,
   InterfaceType,
-  ReactNodeTypeRepository,
-  RenderPropsTypeRepository,
   TypeFactory,
   UnionType,
   UnionTypeRepository,

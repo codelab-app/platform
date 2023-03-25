@@ -1,7 +1,5 @@
-import type {
-  IResourceService,
-  IUpdateResourceData,
-} from '@codelab/frontend/abstract/core'
+import type { IUpdateResourceData } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
@@ -9,9 +7,8 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updateResourceSchema } from './update-resource.schema'
 
-export const UpdateResourceModal = observer<{
-  resourceService: IResourceService
-}>(({ resourceService }) => {
+export const UpdateResourceModal = observer(() => {
+  const { resourceService } = useStore()
   const resource = resourceService.updateModal.resource
 
   const model = {

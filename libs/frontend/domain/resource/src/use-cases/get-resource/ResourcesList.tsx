@@ -1,4 +1,3 @@
-import type { IResourceService } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { DisplayIf, Spinner } from '@codelab/frontend/view/components'
 import { threeGridCol } from '@codelab/frontend/view/style'
@@ -28,7 +27,7 @@ export const ResourcesList = observer(() => {
       <DisplayIf condition={!resourceList.length}>
         <Empty description="No resources found" imageStyle={{ height: 60 }}>
           <div style={buttonContainerStyle}>
-            <CreateResourceButton resourceService={resourceService} />
+            <CreateResourceButton />
           </div>
         </Empty>
       </DisplayIf>
@@ -37,10 +36,7 @@ export const ResourcesList = observer(() => {
         {resourceList.map((resource) => (
           // eslint-disable-next-line react/jsx-props-no-spreading
           <Col key={resource.id} {...threeGridCol}>
-            <ResourcesItem
-              resource={resource}
-              resourceService={resourceService}
-            />
+            <ResourcesItem resource={resource} />
           </Col>
         ))}
       </Row>

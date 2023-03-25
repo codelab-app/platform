@@ -26,12 +26,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 
 const DomainsPageHeader = observer(() => {
-  const { domainService } = useStore()
-
-  const pageHeaderButtons = [
-    <CreateDomainButton domainService={domainService} key={0} />,
-  ]
-
+  const pageHeaderButtons = [<CreateDomainButton key={0} />]
   const router = useRouter()
   const onBack = () => router.push('/apps')
 
@@ -46,7 +41,7 @@ const DomainsPageHeader = observer(() => {
 })
 
 const DomainsPage: CodelabPage<DashboardTemplateProps> = (props) => {
-  const { appService, domainService, userService } = useStore()
+  const { appService, domainService } = useStore()
   const appId = useCurrentAppId()
 
   const [{ error, result: app, status }, getApp] = useAsync(() =>
@@ -61,22 +56,12 @@ const DomainsPage: CodelabPage<DashboardTemplateProps> = (props) => {
         <title>{app?.name ? `${app.name} | ` : ''} Domains | Codelab</title>
       </Head>
 
-      <CreateDomainModal
-        domainService={domainService}
-        userService={userService}
-      />
-      <DeleteDomainModal domainService={domainService} />
-      <UpdateDomainModal
-        domainService={domainService}
-        userService={userService}
-      />
+      <CreateDomainModal />
+      <DeleteDomainModal />
+      <UpdateDomainModal />
 
       <ContentSection>
-        {status === 'loading' ? (
-          <Spin />
-        ) : (
-          <GetDomainsList domainService={domainService} />
-        )}
+        {status === 'loading' ? <Spin /> : <GetDomainsList />}
       </ContentSection>
     </>
   )

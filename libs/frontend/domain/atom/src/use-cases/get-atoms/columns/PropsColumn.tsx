@@ -6,7 +6,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { fieldRef, typeRef } from '@codelab/frontend/domain/type'
 import { Spinner } from '@codelab/frontend/view/components'
-import { useAsync, useMountEffect } from '@react-hookz/web'
+import { useAsync } from '@react-hookz/web'
 import { Button, Col, Dropdown, Menu, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'

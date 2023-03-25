@@ -1,18 +1,13 @@
-import type {
-  IAppService,
-  IDomainService,
-} from '@codelab/frontend/abstract/core'
 import { regeneratePages } from '@codelab/frontend/domain/domain'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 
-export const BuildAppModal = observer<{
-  appService: IAppService
-  domainService: IDomainService
-}>(({ appService, domainService }) => {
+export const BuildAppModal = observer(() => {
+  const { appService, domainService } = useStore()
   const app = appService.buildModal.app
 
   const onSubmit = async () => {

@@ -1,8 +1,5 @@
-import type {
-  ICreateTypeData,
-  ITypeService,
-  IUserService,
-} from '@codelab/frontend/abstract/core'
+import type { ICreateTypeData } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -16,10 +13,8 @@ import { typeRef } from '../../../store'
 import { createTypeSchema } from './create-type.schema'
 import { DisplayIfKind } from './DisplayIfKind'
 
-export const CreateTypeModal = observer<{
-  typeService: ITypeService
-  userService: IUserService
-}>(({ typeService, userService }) => {
+export const CreateTypeModal = observer(() => {
+  const { typeService, userService } = useStore()
   const closeModal = () => typeService.createModal.close()
   const user = userService.user
 

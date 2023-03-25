@@ -43,12 +43,12 @@ const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
         <title>Tags | Codelab</title>
       </Head>
 
-      <CreateTagModal tagService={tagService} userService={userService} />
-      <UpdateTagModal tagService={tagService} />
-      <DeleteTagsModal tagService={tagService} />
+      <CreateTagModal />
+      <UpdateTagModal />
+      <DeleteTagsModal />
 
       <ContentSection>
-        <GetTagsTable loading={status === 'loading'} tagService={tagService} />
+        <GetTagsTable loading={status === 'loading'} />
       </ContentSection>
     </>
   )
@@ -68,13 +68,12 @@ const TagPageHeader = observer(() => {
 export default TagPage
 
 TagPage.Layout = observer(({ children }) => {
-  const { tagService } = useStore()
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
   return (
     <DashboardTemplate
-      ExplorerPane={() => <GetTagsTree tagService={tagService} />}
+      ExplorerPane={() => <GetTagsTree />}
       Header={TagPageHeader}
       sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >

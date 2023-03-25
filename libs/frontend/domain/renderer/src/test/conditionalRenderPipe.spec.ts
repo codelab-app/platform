@@ -1,9 +1,14 @@
 import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
+import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { ConditionalRenderPipe } from '../renderPipes/conditionalRenderPipe'
 import { setupTestForRenderer } from './setup/setup-test'
 
 describe('ConditionalRenderPipe', () => {
   const data = setupTestForRenderer([ConditionalRenderPipe])
+
+  const atomType = isAtomInstance(data.elementToRender.renderType)
+    ? data.elementToRender.renderType.current.type
+    : null
 
   beforeEach(() => {
     data.elementToRender.setRenderIfExpression('{{this.shouldRender}}')
@@ -18,7 +23,7 @@ describe('ConditionalRenderPipe', () => {
     )
 
     expect(output).toEqual({
-      atomType: data.elementToRender.renderType?.current.type,
+      atomType,
       element: data.elementToRender,
       props: expect.objectContaining({
         [DATA_ELEMENT_ID]: data.elementToRender.id,
@@ -52,7 +57,7 @@ describe('ConditionalRenderPipe', () => {
     )
 
     expect(output).toEqual({
-      atomType: data.elementToRender.renderType?.current.type,
+      atomType,
       element: data.elementToRender,
       props: expect.objectContaining({
         [DATA_ELEMENT_ID]: data.elementToRender.id,

@@ -42,11 +42,9 @@ const items: MenuProps['items'] = [
 ]
 
 const AppsPageHeader = observer(() => {
-  const { appService } = useStore()
-
   const pageHeaderElements = [
-    <ImportAppDialog appService={appService} key={0} />,
-    <CreateAppButton appService={appService} key={1} />,
+    <ImportAppDialog key={0} />,
+    <CreateAppButton key={1} />,
     <Dropdown key={2} overlay={<Menu items={items} />} trigger={['click']}>
       <Button icon={<EllipsisOutlined />} />
     </Dropdown>,
@@ -56,7 +54,7 @@ const AppsPageHeader = observer(() => {
 })
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
-  const { appService, domainService, userService } = useStore()
+  const { appService } = useStore()
   const { user } = useUser()
 
   const [{ status }, loadApp] = useAsync((owner: IAuth0Owner) =>
@@ -81,17 +79,13 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
         <title>Apps | Codelab</title>
       </Head>
 
-      <BuildAppModal appService={appService} domainService={domainService} />
-      <CreateAppModal appService={appService} userService={userService} />
-      <UpdateAppModal appService={appService} />
-      <DeleteAppModal appService={appService} />
+      <BuildAppModal />
+      <CreateAppModal />
+      <UpdateAppModal />
+      <DeleteAppModal />
 
       <ContentSection>
-        {status === 'loading' ? (
-          <Spin />
-        ) : (
-          <GetAppsList appService={appService} />
-        )}
+        {status === 'loading' ? <Spin /> : <GetAppsList />}
       </ContentSection>
     </>
   )

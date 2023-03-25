@@ -1,24 +1,23 @@
 import { PlusOutlined } from '@ant-design/icons'
-import type { IDomainService } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
 import React from 'react'
 
-export const CreateDomainButton = observer<
-  PropsWithChildren<{
-    domainService: IDomainService
-  }>
->(({ children, domainService }) => {
-  const icon = !children && <PlusOutlined />
+export const CreateDomainButton = observer<PropsWithChildren>(
+  ({ children }) => {
+    const { domainService } = useStore()
+    const icon = !children && <PlusOutlined />
 
-  const onClick = () => {
-    domainService.createModal.open()
-  }
+    const onClick = () => {
+      domainService.createModal.open()
+    }
 
-  return (
-    <Button icon={icon} onClick={onClick} type="primary">
-      {children ?? 'Create Domain'}
-    </Button>
-  )
-})
+    return (
+      <Button icon={icon} onClick={onClick} type="primary">
+        {children ?? 'Create Domain'}
+      </Button>
+    )
+  },
+)

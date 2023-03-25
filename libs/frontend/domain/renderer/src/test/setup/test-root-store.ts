@@ -32,7 +32,6 @@ export class TestRootStore
     componentService: prop<IComponentService>(),
     elementService: prop<IElementService>(),
     fieldService: prop<IFieldService>(),
-    pageElementTree: prop<IElementTree>(),
     propService: prop<IPropService>(),
     renderer: prop<IRenderer>(),
     storeService: prop<IStoreService>(),

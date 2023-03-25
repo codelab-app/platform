@@ -28,9 +28,7 @@ const ResourcesPageHeader = observer(() => {
 
   return (
     <PageHeader
-      extra={[
-        <CreateResourceButton key={0} resourceService={resourceService} />,
-      ]}
+      extra={[<CreateResourceButton key={0} />]}
       ghost={false}
       title="Resources"
     />
@@ -46,12 +44,9 @@ const ResourcesPage: CodelabPage<DashboardTemplateProps> = () => {
         <title>Resources | Codelab</title>
       </Head>
       <ContentSection>
-        <CreateResourceModal
-          resourceService={store.resourceService}
-          userService={store.userService}
-        />
-        <UpdateResourceModal resourceService={store.resourceService} />
-        <DeleteResourceModal resourceService={store.resourceService} />
+        <CreateResourceModal />
+        <UpdateResourceModal />
+        <DeleteResourceModal />
 
         <ResourcesList />
       </ContentSection>

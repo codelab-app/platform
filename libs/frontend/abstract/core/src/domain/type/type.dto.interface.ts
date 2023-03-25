@@ -13,7 +13,6 @@ import type {
   ICreateEnumTypeData,
   IElementTypeDTO,
   IEnumTypeDTO,
-  IEnumTypeValue,
   IInterfaceTypeDTO,
   ILambdaTypeDTO,
   IPageTypeDTO,

@@ -47,20 +47,18 @@ const Header = observer(() => {
 })
 
 const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const { fieldService, typeService, userService } = useStore()
-
   return (
     <>
       <Head>
         <title>Types | Codelab</title>
       </Head>
 
-      <CreateFieldModal fieldService={fieldService} typeService={typeService} />
-      <UpdateFieldModal fieldService={fieldService} typeService={typeService} />
-      <DeleteFieldModal fieldService={fieldService} />
-      <CreateTypeModal typeService={typeService} userService={userService} />
-      <DeleteTypeModal typeService={typeService} />
-      <UpdateTypeModal typeService={typeService} />
+      <CreateFieldModal />
+      <UpdateFieldModal />
+      <DeleteFieldModal />
+      <CreateTypeModal />
+      <DeleteTypeModal />
+      <UpdateTypeModal />
       <ContentSection>
         <TypesTable />
       </ContentSection>

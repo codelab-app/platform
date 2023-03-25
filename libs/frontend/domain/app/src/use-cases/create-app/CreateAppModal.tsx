@@ -1,8 +1,5 @@
-import type {
-  IAppService,
-  ICreateAppData,
-  IUserService,
-} from '@codelab/frontend/abstract/core'
+import type { ICreateAppData } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
@@ -11,10 +8,9 @@ import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createAppSchema } from './create-app.schema'
 
-export const CreateAppModal = observer<{
-  appService: IAppService
-  userService: IUserService
-}>(({ appService, userService }) => {
+export const CreateAppModal = observer(() => {
+  const { appService, userService } = useStore()
+
   const onSubmit = (appDTO: ICreateAppData) => {
     return appService.create(appDTO)
   }

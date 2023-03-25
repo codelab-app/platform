@@ -1,4 +1,4 @@
-import type { IDomainService } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
@@ -6,9 +6,8 @@ import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 
-export const DeleteDomainModal = observer<{
-  domainService: IDomainService
-}>(({ domainService }) => {
+export const DeleteDomainModal = observer(() => {
+  const { domainService } = useStore()
   const closeModal = () => domainService.deleteModal.close()
   const domain = domainService.deleteModal.domain
 
