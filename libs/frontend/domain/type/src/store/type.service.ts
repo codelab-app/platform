@@ -261,8 +261,6 @@ export class TypeService
   create = _async(function* (this: TypeService, data: ICreateTypeData) {
     const type = this.add(TypeFactory.mapDataToDTO(data))
 
-    this.types.set(type.id, type)
-
     yield* _await(this.typeRepository.add(type))
 
     return type
