@@ -1,5 +1,6 @@
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '../support/antd/form'
+import { assertTwice } from '../support/helpers'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 const atomName = 'Button'
@@ -34,7 +35,7 @@ describe('Atoms CRUD', () => {
         .click()
       cy.getModal().should('not.exist')
 
-      cy.findByText(atomName).should('exist')
+      assertTwice(() => cy.findByText(atomName).should('exist'))
     })
   })
 
@@ -57,8 +58,10 @@ describe('Atoms CRUD', () => {
         .click()
       cy.getModal().should('not.exist')
 
-      cy.findByText(atomName).should('not.exist')
-      cy.findByText(updatedAtomName).should('exist')
+      assertTwice(() => {
+        cy.findByText(atomName).should('not.exist')
+        cy.findByText(updatedAtomName).should('exist')
+      })
     })
   })
 
@@ -77,7 +80,7 @@ describe('Atoms CRUD', () => {
         .click()
       cy.getModal().should('not.exist')
 
-      cy.findAllByText(updatedAtomName).should('not.exist')
+      assertTwice(() => cy.findAllByText(updatedAtomName).should('not.exist'))
     })
   })
 })
