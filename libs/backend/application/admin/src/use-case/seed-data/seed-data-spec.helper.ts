@@ -12,18 +12,18 @@ export const importData = ({ auth0Id }: IUserDTO, exportPath: string) =>
   })
 
 export const exportAndAssert = async (exportPath: string) => {
-  await new ExportAdminDataService(exportPath).execute()
+  const payload = (
+    await new ExportAdminDataService(exportPath).execute()
+  ).getData()
 
-  const importService = await new ImportAdminDataService(exportPath)
-  const payload = importService.exportedAdminData
-  const { atoms, systemTypes, tags } = payload
+  const { atoms } = payload
   /**
    * Assert all atoms have been created
    */
   const allAtomNames = Object.values(IAtomType)
 
   const assignedTags = atoms.reduce<Array<ITagDTO>>(
-    (atomTags, atom) => [
+    (atomTags, { atom }) => [
       ...(atom.tags ?? []).filter((tag): tag is ITagDTO => Boolean(tag)),
       ...atomTags,
     ],
@@ -31,7 +31,7 @@ export const exportAndAssert = async (exportPath: string) => {
   )
 
   const assignedTagNames = assignedTags.map((tag) => tag.name)
-  const createdAtomNames = atoms.map((atom) => atom.name)
+  const createdAtomNames = atoms.map(({ atom }) => atom.name)
 
   expect(allAtomNames).toEqual(expect.arrayContaining(createdAtomNames))
 

@@ -60,14 +60,6 @@ export const UpdateAtomModal = observer(() => {
         />
         <SelectAtom label="Suggested Children" name="suggestedChildren" />
         <SelectAtom label="Required Parents" name="requiredParents" />
-        {/* <SelectField */}
-        {/*  label="Allowed Children" */}
-        {/*  mode="multiple" */}
-        {/*  name="allowedChildren" */}
-        {/*  optionFilterProp="label" */}
-        {/*  options={tagListOption} */}
-        {/*  showSearch={true} */}
-        {/*/ > */}
       </ModalForm.Form>
     </ModalForm.Modal>
   )

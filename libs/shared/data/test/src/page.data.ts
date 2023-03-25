@@ -28,6 +28,6 @@ export const internalServerErrorPageData = (app: IEntity): IPageDTO => ({
   app,
   id: v4(),
   kind: IPageKind.InternalServerError,
-  name: IPageKind.InternalServerError,
+  name: IPageKindName.InternalServerError,
   rootElement: internalServerErrorElementData,
 })

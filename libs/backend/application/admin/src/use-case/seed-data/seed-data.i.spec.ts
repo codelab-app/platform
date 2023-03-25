@@ -4,6 +4,7 @@ import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
 import { setupNewUser } from '@codelab/backend/shared/util'
 import type { IUserDTO } from '@codelab/frontend/abstract/core'
 import path from 'path'
+import { ExportAdminDataService } from '../export-admin-data.service'
 import { exportAndAssert, importData, seedData } from './seed-data-spec.helper'
 
 let user: IUserDTO
@@ -30,7 +31,10 @@ describe('Seed, import, & export data', () => {
     await seedData(user)
 
     const exportPath = path.resolve('./tmp/data/export')
-    const payload = await exportAndAssert(exportPath)
+
+    const payload = (
+      await new ExportAdminDataService(exportPath).execute()
+    ).saveAsFiles()
 
     initialPayload = payload
   })

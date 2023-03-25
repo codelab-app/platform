@@ -1,5 +1,6 @@
 import type { IRenderOutput } from '@codelab/frontend/abstract/core'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
+import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { ComponentRenderPipe } from '../renderPipes/componentRenderPipe'
 import { setupTestForRenderer } from './setup/setup-test'
 
@@ -67,6 +68,12 @@ describe('Renderer', () => {
       ...data.componentInstanceElementToRender.props.current.values,
     })
 
-    expect(atomType).toBe(data.componentRootElement.renderType?.current.type)
+    const componentAtomType = isAtomInstance(
+      data.componentRootElement.renderType,
+    )
+      ? data.componentRootElement.renderType.current.type
+      : null
+
+    expect(atomType).toBe(componentAtomType)
   })
 })

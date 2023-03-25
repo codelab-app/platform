@@ -6108,7 +6108,7 @@ export type Store = {
   __typename?: 'Store'
   id: Scalars['ID']
   name: Scalars['String']
-  app: App
+  app?: Maybe<App>
   appAggregate?: Maybe<StoreAppAppAggregationSelection>
   api: InterfaceType
   apiAggregate?: Maybe<StoreInterfaceTypeApiAggregationSelection>

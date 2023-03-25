@@ -29,18 +29,4 @@ fragment RenderAtom on Atom {
   id
   name
   type
-  # owner {
-  #   ...Owner
-  # }
-  # tags {
-  #   ...TagPreview
-  # }
-  # api {
-  #   ...InterfaceType
-  # }
-  # allowedChildren {
-  #   id
-  #   name
-  #   type
-  # }
 }

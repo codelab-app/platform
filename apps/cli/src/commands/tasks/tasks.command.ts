@@ -166,10 +166,12 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
             execCommand(`${NX_TEST} run builder-e2e:e2e:test --verbose`)
           }
 
+          if (stage === Stage.Dev) {
+            execCommand(`${NX_TEST} e2e builder-e2e -c dev`)
+          }
+
           if (stage === Stage.CI) {
-            // Currents getting error
             execCommand(`npx nx run builder-e2e:e2e:ci --verbose`)
-            // execCommand(`npx nx run builder-e2e:currents:ci --verbose`)
           }
         },
       )

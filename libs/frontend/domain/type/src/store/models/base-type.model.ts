@@ -8,10 +8,9 @@ import type {
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import { updateBaseTypeCache } from '../base-type'
 
 export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
-  @model(`@codelab/BaseType/${typeKind}`)
+  @model('@codelab/BaseType')
   class BaseType
     extends Model({
       id: idProp,
@@ -22,8 +21,10 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
     implements IBaseType<IBaseTypeDTO, ICreateTypeInput, IUpdateTypeVars>
   {
     @modelAction
-    writeCache(baseTypeDTO: Partial<IBaseTypeDTO>) {
-      updateBaseTypeCache(this, baseTypeDTO)
+    writeCache({ name }: Partial<IBaseTypeDTO>) {
+      this.name = name ?? this.name
+
+      console.log(this.name)
 
       return this
     }

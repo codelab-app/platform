@@ -30,7 +30,6 @@ export class ExportAdminDataService extends IUseCase<
     DATA_EXPORT_PATH = path.resolve('./data/export'),
   ) {
     super()
-    console.log(DATA_EXPORT_PATH)
     this.dataPaths = new DataPaths(DATA_EXPORT_PATH)
   }
 
@@ -82,6 +81,8 @@ export class ExportAdminDataService extends IUseCase<
       this.dataPaths.SYSTEM_TYPES_FILE_PATH,
       this.exportData.systemTypes,
     )
+
+    return this.getData()
   }
 
   private async extractAtomsData() {

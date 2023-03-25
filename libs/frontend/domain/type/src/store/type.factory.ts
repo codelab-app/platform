@@ -164,7 +164,6 @@ export class TypeFactory {
           __typename: data.kind,
           itemType: {
             id: data.arrayTypeId as string,
-            name: '',
           },
         } as IArrayTypeDTO
 
@@ -174,7 +173,6 @@ export class TypeFactory {
           __typename: data.kind,
           typesOfUnionType: data.unionTypeIds?.map((id) => ({
             id,
-            name: '',
           })),
         } as IUnionTypeDTO
 
