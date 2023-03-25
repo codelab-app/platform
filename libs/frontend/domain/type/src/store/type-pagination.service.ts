@@ -4,7 +4,6 @@ import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
-  getSnapshot,
   Model,
   model,
   modelFlow,
@@ -73,7 +72,6 @@ export class TypePaginationService
     this.data.clear()
 
     types.forEach((type) => {
-      this.typeService.types.set(type.id, type)
       this.data.set(type.id, typeRef(type))
     })
 
