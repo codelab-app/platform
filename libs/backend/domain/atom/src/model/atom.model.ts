@@ -15,17 +15,20 @@ export class Atom implements IAtomDTO {
 
   tags: Array<IEntity>
 
-  allowedChildren: Array<IEntity>
+  requiredParents: Array<IEntity>
+
+  suggestedChildren: Array<IEntity>
 
   owner: IAuth0Owner
 
   constructor({
-    allowedChildren = [],
     api,
     icon,
     id,
     name,
     owner,
+    requiredParents = [],
+    suggestedChildren = [],
     tags = [],
     type,
   }: IAtomDTO) {
@@ -35,7 +38,8 @@ export class Atom implements IAtomDTO {
     this.type = type
     this.api = api
     this.tags = tags
-    this.allowedChildren = allowedChildren
+    this.requiredParents = requiredParents
+    this.suggestedChildren = suggestedChildren
     this.owner = owner
   }
 }

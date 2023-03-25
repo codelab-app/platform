@@ -191,7 +191,7 @@
                 },
                 "icon": null,
                 "tags": [],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": null,
               "prevSibling": null,
@@ -229,7 +229,7 @@
                     "name": "Form.Item"
                   }
                 ],
-                "allowedChildren": [
+                "suggestedChildren": [
                   {
                     "id": "267b5d7d-d403-4597-8b6b-b66442fed135",
                     "name": "AntDesignRadioGroup",
@@ -295,7 +295,7 @@
                     "name": "Form.Item"
                   }
                 ],
-                "allowedChildren": [
+                "suggestedChildren": [
                   {
                     "id": "267b5d7d-d403-4597-8b6b-b66442fed135",
                     "name": "AntDesignRadioGroup",
@@ -359,7 +359,7 @@
                     "name": "Button"
                   }
                 ],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": {
                 "id": "34e1510f-fb83-4da9-84a7-f72d506fab7c"
@@ -397,7 +397,7 @@
                 },
                 "icon": null,
                 "tags": [],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": {
                 "id": "2a7d39cf-b8f6-41c3-9252-9f1d1ba3086a"
@@ -440,7 +440,7 @@
                     "name": "Form.Item"
                   }
                 ],
-                "allowedChildren": [
+                "suggestedChildren": [
                   {
                     "id": "267b5d7d-d403-4597-8b6b-b66442fed135",
                     "name": "AntDesignRadioGroup",
@@ -504,7 +504,7 @@
                     "name": "Input"
                   }
                 ],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": {
                 "id": "682b24f7-378d-4495-b6ec-1755147fb69d"
@@ -545,7 +545,7 @@
                     "name": "Form"
                   }
                 ],
-                "allowedChildren": [
+                "suggestedChildren": [
                   {
                     "id": "7ffb9a4e-7681-4c21-a918-7a0e94c0580e",
                     "name": "AntDesignFormItem",
@@ -594,7 +594,7 @@
                     "name": "Form.Item"
                   }
                 ],
-                "allowedChildren": [
+                "suggestedChildren": [
                   {
                     "id": "267b5d7d-d403-4597-8b6b-b66442fed135",
                     "name": "AntDesignRadioGroup",
@@ -660,7 +660,7 @@
                     "name": "Checkbox"
                   }
                 ],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": {
                 "id": "e46d33d4-328d-4527-bdb2-37b8c6720e53"
@@ -701,7 +701,7 @@
                     "name": "Input"
                   }
                 ],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": {
                 "id": "fd4611e0-c3a4-4040-9309-ac03f8da8ecc"
@@ -742,7 +742,7 @@
                     "name": "Form.Item"
                   }
                 ],
-                "allowedChildren": [
+                "suggestedChildren": [
                   {
                     "id": "267b5d7d-d403-4597-8b6b-b66442fed135",
                     "name": "AntDesignRadioGroup",
@@ -808,7 +808,7 @@
                     "name": "Button"
                   }
                 ],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": null,
               "prevSibling": {
@@ -849,7 +849,7 @@
                     "name": "Button"
                   }
                 ],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": {
                 "id": "04ab7c6c-9396-4cf7-844a-162a89ce6d13"
@@ -887,7 +887,7 @@
                 },
                 "icon": null,
                 "tags": [],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": null,
               "prevSibling": {
@@ -930,7 +930,7 @@
                     "name": "Checkbox"
                   }
                 ],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": {
                 "id": "097144a7-96c3-4aff-a8f2-90c2159030d5"
@@ -971,7 +971,7 @@
                     "name": "Input"
                   }
                 ],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": {
                 "id": "6554f5cc-82f3-4d51-96fc-fac31bf6500b"
@@ -1012,7 +1012,7 @@
                     "name": "Table"
                   }
                 ],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": null,
               "prevSibling": {
@@ -1055,7 +1055,7 @@
                     "name": "Button"
                   }
                 ],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": null,
               "prevSibling": {
@@ -1098,7 +1098,7 @@
                     "name": "Form"
                   }
                 ],
-                "allowedChildren": [
+                "suggestedChildren": [
                   {
                     "id": "7ffb9a4e-7681-4c21-a918-7a0e94c0580e",
                     "name": "AntDesignFormItem",
@@ -1147,7 +1147,7 @@
                     "name": "Input"
                   }
                 ],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": {
                 "id": "eafc049f-bec0-40fb-ad4e-2b32d28832a9"
@@ -1188,7 +1188,7 @@
                     "name": "Form.Item"
                   }
                 ],
-                "allowedChildren": [
+                "suggestedChildren": [
                   {
                     "id": "267b5d7d-d403-4597-8b6b-b66442fed135",
                     "name": "AntDesignRadioGroup",
@@ -1249,7 +1249,7 @@
                 },
                 "icon": null,
                 "tags": [],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": {
                 "id": "4aa6bbfd-5a67-46af-b6d4-90dae3ba8f5b"
@@ -1285,7 +1285,7 @@
                 },
                 "icon": null,
                 "tags": [],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": null,
               "prevSibling": {
@@ -1328,7 +1328,7 @@
                     "name": "Button"
                   }
                 ],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": null,
               "prevSibling": {
@@ -1364,7 +1364,7 @@
                 },
                 "icon": null,
                 "tags": [],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": null,
               "prevSibling": {
@@ -1407,7 +1407,7 @@
                     "name": "Modal"
                   }
                 ],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": null,
               "prevSibling": {
@@ -1452,7 +1452,7 @@
                     "name": "Modal"
                   }
                 ],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": null,
               "prevSibling": {
@@ -1492,7 +1492,7 @@
                 },
                 "icon": null,
                 "tags": [],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": null,
               "prevSibling": {
@@ -1532,7 +1532,7 @@
                 },
                 "icon": null,
                 "tags": [],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": {
                 "id": "d881bd3c-9e4d-4d4d-9f22-20022e67a49b"
@@ -1577,7 +1577,7 @@
                     "name": "Modal"
                   }
                 ],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": null,
               "prevSibling": {
@@ -1630,7 +1630,7 @@
                 },
                 "icon": null,
                 "tags": [],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": null,
               "prevSibling": null,
@@ -1671,7 +1671,7 @@
                     "name": "Button"
                   }
                 ],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": {
                 "id": "0d1be7a2-45b0-40ad-a648-c8e3a3396d30"
@@ -1714,7 +1714,7 @@
                     "name": "Button"
                   }
                 ],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": null,
               "prevSibling": {
@@ -1770,7 +1770,7 @@
                     "name": "Checkbox"
                   }
                 ],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": null,
               "prevSibling": null,
@@ -1909,7 +1909,7 @@
                 },
                 "icon": null,
                 "tags": [],
-                "allowedChildren": []
+                "suggestedChildren": []
               },
               "parent": {
                 "id": "7b1c52d3-dcc6-4a28-88ad-90897be853d2"

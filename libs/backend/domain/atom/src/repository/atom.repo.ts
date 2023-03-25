@@ -39,13 +39,23 @@ export class AtomRepository extends AbstractRepository<
         await this.Atom
       ).create({
         input: atoms.map(
-          ({ allowedChildren = [], api, owner, tags, ...atom }) => ({
+          ({
+            api,
+            owner,
+            requiredParents = [],
+            suggestedChildren = [],
+            tags,
+            ...atom
+          }) => ({
             ...atom,
-            allowedChildren: connectNodeIds(
-              allowedChildren.map((child) => child.id),
-            ),
             api: connectNodeId(api.id),
             owner: connectAuth0Owner(owner),
+            requiredParents: connectNodeIds(
+              requiredParents.map((parent) => parent.id),
+            ),
+            suggestedChildren: connectNodeIds(
+              suggestedChildren.map((child) => child.id),
+            ),
             tags: connectNodeIds(tags?.map((tag) => tag.id)),
           }),
         ),
@@ -54,7 +64,15 @@ export class AtomRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { allowedChildren = [], api, id, owner, tags, ...atom }: IAtomDTO,
+    {
+      api,
+      id,
+      owner,
+      requiredParents = [],
+      suggestedChildren = [],
+      tags,
+      ...atom
+    }: IAtomDTO,
     where: OGM_TYPES.AtomWhere,
   ) {
     return (
@@ -63,10 +81,13 @@ export class AtomRepository extends AbstractRepository<
       ).update({
         update: {
           ...atom,
-          allowedChildren: whereNodeIds(
-            allowedChildren.map((child) => child.id),
-          ),
           api: reconnectNodeId(api.id),
+          requiredParents: whereNodeIds(
+            requiredParents.map((parent) => parent.id),
+          ),
+          suggestedChildren: whereNodeIds(
+            suggestedChildren.map((child) => child.id),
+          ),
           tags: reconnectNodeIds(tags?.map((tag) => tag.id)),
         },
         where,

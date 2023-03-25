@@ -27,22 +27,24 @@ import { atomRef } from './atom.ref'
 import { customTextInjectionWhiteList } from './custom-text-injection-whitelist'
 
 const create = ({
-  allowedChildren,
   api,
   icon,
   id,
   name,
   owner,
+  requiredParents,
+  suggestedChildren,
   tags,
   type,
 }: IAtomDTO) => {
   return new Atom({
-    allowedChildren: allowedChildren?.map((child) => atomRef(child.id)),
     api: typeRef<IInterfaceType>(api.id),
     icon,
     id,
     name,
     owner,
+    requiredParents: requiredParents?.map((child) => atomRef(child.id)),
+    suggestedChildren: suggestedChildren?.map((child) => atomRef(child.id)),
     tags: tags?.map((tag) => tagRef(tag.id)),
     type,
   })
@@ -51,12 +53,13 @@ const create = ({
 @model('@codelab/Atom')
 export class Atom
   extends Model({
-    allowedChildren: prop<Array<Ref<IAtom>>>(() => []),
     api: prop<Ref<IInterfaceType>>(),
     icon: prop<string | null | undefined>(null),
     id: idProp,
     name: prop<string>(),
     owner: prop<IAuth0Owner>(),
+    requiredParents: prop<Array<Ref<IAtom>>>(() => []),
+    suggestedChildren: prop<Array<Ref<IAtom>>>(() => []),
     tags: prop<Array<Ref<ITag>>>(() => []),
     type: prop<IAtomType>(),
   })
@@ -76,11 +79,12 @@ export class Atom
 
   @modelAction
   writeCache({
-    allowedChildren = [],
     api,
     icon,
     id,
     name,
+    requiredParents = [],
+    suggestedChildren = [],
     tags = [],
     type,
   }: Partial<IAtomDTO>) {
@@ -89,7 +93,8 @@ export class Atom
     this.api = api?.id ? typeRef<IInterfaceType>(api.id) : this.api
     this.tags = tags.map((tag) => tagRef(tag.id))
     this.icon = icon ?? this.icon
-    this.allowedChildren = allowedChildren.map((child) => atomRef(child.id))
+    this.suggestedChildren = suggestedChildren.map((child) => atomRef(child.id))
+    this.requiredParents = requiredParents.map((child) => atomRef(child.id))
 
     return this
   }
@@ -122,6 +127,12 @@ export class Atom
       id: this.id,
       name: this.name,
       owner: connectAuth0Owner(this.owner),
+      requiredParents: reconnectNodeIds(
+        this.requiredParents.map((parent) => parent.current.id),
+      ),
+      suggestedChildren: reconnectNodeIds(
+        this.suggestedChildren.map((child) => child.current.id),
+      ),
       tags: reconnectNodeIds(this.tags.map((tag) => tag.current.id)),
       type: this.type,
     }

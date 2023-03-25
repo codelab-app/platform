@@ -18,13 +18,14 @@ const atomTypes = [
 
 export const createAtomsData = (owner: IAuth0Owner): Array<IAtomDTO> =>
   atomTypes.map((atomType) => ({
-    allowedChildren: [],
     api: {
       id: v4(),
     },
     id: v4(),
     name: atomType,
     owner,
+    requiredParents: [],
+    suggestedChildren: [],
     tags: [],
     type: atomType,
   }))

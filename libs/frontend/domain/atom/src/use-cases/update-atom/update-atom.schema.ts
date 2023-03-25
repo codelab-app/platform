@@ -6,7 +6,7 @@ import type { JSONSchemaType } from 'ajv'
 
 export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
   properties: {
-    allowedChildren: {
+    suggestedChildren: {
       items: {
         type: 'string',
       },
@@ -45,6 +45,14 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
       enum: Object.values(IAtomType).filter(filterNotHookType),
       showSearch: true,
       type: 'string',
+    },
+    requiredParents: {
+      items: {
+        type: 'string',
+      },
+      nullable: true,
+      showSearch: true,
+      type: 'array',
     },
   },
   required: ['name', 'type'],
