@@ -2,6 +2,7 @@ import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '../support/antd/form'
+import { assertTwice } from '../support/helpers'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 import { appName, pageName } from './apps/app.data'
 
@@ -27,7 +28,10 @@ const mainPageElements = [
 const openPageByName = (name: string) => {
   cy.findByText(name).click()
   cy.getSpinner().should('not.exist')
-  cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 }).should('be.visible')
+
+  assertTwice(() =>
+    cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 }).should('be.visible'),
+  )
 }
 
 describe('_app page', () => {
@@ -51,7 +55,8 @@ describe('_app page', () => {
     cy.getModal().should('not.exist')
 
     cy.findByText(appName).click()
-    cy.findByText(IPageKindName.Provider).should('exist')
+
+    assertTwice(() => cy.findByText(IPageKindName.Provider).should('exist'))
   })
 
   it('should be able to add card component to the _app page', () => {
@@ -75,7 +80,8 @@ describe('_app page', () => {
     cy.waitForApiCalls()
 
     cy.get('.ant-layout-sider a[href]').eq(1).click()
-    cy.findAllByText(IPageKindName.Provider).should('exist')
+
+    assertTwice(() => cy.findAllByText(IPageKindName.Provider).should('exist'))
   })
 
   it('should be able to create simple page', () => {
