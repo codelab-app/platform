@@ -1,10 +1,26 @@
-import type { IApp, IPage, IPageFactory } from '@codelab/frontend/abstract/core'
+import type {
+  IApp,
+  IInterfaceType,
+  IPageFactory,
+} from '@codelab/frontend/abstract/core'
 import {
   getElementService,
+  IAuth0Owner,
+  ISystemPageDTO,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
-import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
+import { getStoreService, Store } from '@codelab/frontend/domain/store'
+import {
+  getTypeService,
+  InterfaceType,
+  typeRef,
+} from '@codelab/frontend/domain/type'
+import {
+  IPageKind,
+  IPageKindName,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import { Model, model, modelAction } from 'mobx-keystone'
 import { v4 } from 'uuid'
@@ -27,53 +43,75 @@ export class PageFactory extends Model({}) implements IPageFactory {
     return getElementService(this)
   }
 
+  @computed
+  private get typeService() {
+    return getTypeService(this)
+  }
+
+  @computed
+  private get storeService() {
+    return getStoreService(this)
+  }
+
   @modelAction
-  addSystemPages(app: Pick<IApp, 'id'>) {
+  addSystemPages(app: Pick<IApp, 'id' | 'owner'>) {
     return [
-      this.addProviderPage(app),
-      this.addNotFoundPage(app),
-      this.addInternalServerErrorPage(app),
+      this.addProviderPage(app.id, app.owner),
+      this.addNotFoundPage(app.id, app.owner),
+      this.addInternalServerErrorPage(app.id, app.owner),
     ]
   }
 
   @modelAction
-  private addProviderPage(app: Pick<IApp, 'id'>) {
+  private addProviderPage(appId: string, owner: IAuth0Owner) {
     return this.addDefaultPage({
-      app,
+      app: { id: appId },
       kind: IPageKind.Provider,
       name: IPageKindName.Provider,
+      owner,
     })
   }
 
   @modelAction
-  private addNotFoundPage(app: Pick<IApp, 'id'>) {
+  private addNotFoundPage(appId: string, owner: IAuth0Owner) {
     return this.addDefaultPage({
-      app,
+      app: { id: appId },
       kind: IPageKind.NotFound,
       name: IPageKindName.NotFound,
+      owner,
     })
   }
 
   @modelAction
-  private addInternalServerErrorPage(app: Pick<IApp, 'id'>) {
+  private addInternalServerErrorPage(appId: string, owner: IAuth0Owner) {
     return this.addDefaultPage({
-      app,
+      app: { id: appId },
       kind: IPageKind.InternalServerError,
       name: IPageKindName.InternalServerError,
+      owner,
     })
   }
 
   @modelAction
-  private addDefaultPage({
-    app,
-    kind,
-    name,
-  }: Pick<IPage, 'app' | 'kind' | 'name'>) {
+  private addDefaultPage({ app, kind, name, owner }: ISystemPageDTO) {
     const rootElementProps = this.propService.add({
       id: v4(),
     })
 
     const pageId = v4()
+
+    const interfaceType = this.typeService.addInterface({
+      id: v4(),
+      kind: ITypeKind.InterfaceType,
+      name: InterfaceType.createName(`${name} Store`),
+      owner,
+    })
+
+    const store = this.storeService.add({
+      api: typeRef<IInterfaceType>(interfaceType.id),
+      id: v4(),
+      name: Store.createName({ name }),
+    })
 
     const rootElement = this.elementService.add({
       id: v4(),
@@ -92,6 +130,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
       name,
       pageContentContainer,
       rootElement,
+      store,
     })
   }
 }

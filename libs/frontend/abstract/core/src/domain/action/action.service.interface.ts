@@ -31,5 +31,5 @@ export interface IActionService
 
   action(id: string): Maybe<IAction>
   add(action: IBaseActionDTO): IAction
-  load(actions: Array<IActionDTO>): Array<IAction>
+  load(actions: Array<ActionFragment>): Array<IAction>
 }

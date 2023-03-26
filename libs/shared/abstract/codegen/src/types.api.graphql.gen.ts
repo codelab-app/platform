@@ -1323,9 +1323,6 @@ export type App = WithOwner & {
   pagesAggregate?: Maybe<AppPagePagesAggregationSelection>
   pagesConnection: AppPagesConnection
   slug: Scalars['String']
-  store: Store
-  storeAggregate?: Maybe<AppStoreStoreAggregationSelection>
-  storeConnection: AppStoreConnection
 }
 
 export type AppDomainsArgs = {
@@ -1385,25 +1382,6 @@ export type AppPagesConnectionArgs = {
   where?: InputMaybe<AppPagesConnectionWhere>
 }
 
-export type AppStoreArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  options?: InputMaybe<StoreOptions>
-  where?: InputMaybe<StoreWhere>
-}
-
-export type AppStoreAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']>
-  where?: InputMaybe<StoreWhere>
-}
-
-export type AppStoreConnectionArgs = {
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<AppStoreConnectionSort>>
-  where?: InputMaybe<AppStoreConnectionWhere>
-}
-
 export type AppAggregateSelection = {
   __typename?: 'AppAggregateSelection'
   _compoundName: StringAggregateSelectionNonNullable
@@ -1415,14 +1393,12 @@ export type AppConnectInput = {
   domains?: InputMaybe<Array<AppDomainsConnectFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   pages?: InputMaybe<Array<AppPagesConnectFieldInput>>
-  store?: InputMaybe<AppStoreConnectFieldInput>
 }
 
 export type AppConnectOrCreateInput = {
   domains?: InputMaybe<Array<AppDomainsConnectOrCreateFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   pages?: InputMaybe<Array<AppPagesConnectOrCreateFieldInput>>
-  store?: InputMaybe<AppStoreConnectOrCreateFieldInput>
 }
 
 export type AppConnectOrCreateWhere = {
@@ -1439,21 +1415,18 @@ export type AppCreateInput = {
   id: Scalars['ID']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   pages?: InputMaybe<AppPagesFieldInput>
-  store?: InputMaybe<AppStoreFieldInput>
 }
 
 export type AppDeleteInput = {
   domains?: InputMaybe<Array<AppDomainsDeleteFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   pages?: InputMaybe<Array<AppPagesDeleteFieldInput>>
-  store?: InputMaybe<AppStoreDeleteFieldInput>
 }
 
 export type AppDisconnectInput = {
   domains?: InputMaybe<Array<AppDomainsDisconnectFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   pages?: InputMaybe<Array<AppPagesDisconnectFieldInput>>
-  store?: InputMaybe<AppStoreDisconnectFieldInput>
 }
 
 export type AppDomainDomainsAggregationSelection = {
@@ -1779,132 +1752,12 @@ export type AppRelationInput = {
   domains?: InputMaybe<Array<AppDomainsCreateFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   pages?: InputMaybe<Array<AppPagesCreateFieldInput>>
-  store?: InputMaybe<AppStoreCreateFieldInput>
 }
 
 /** Fields to sort Apps by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppSort object. */
 export type AppSort = {
   _compoundName?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
-}
-
-export type AppStoreAggregateInput = {
-  AND?: InputMaybe<Array<AppStoreAggregateInput>>
-  NOT?: InputMaybe<AppStoreAggregateInput>
-  OR?: InputMaybe<Array<AppStoreAggregateInput>>
-  count?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<AppStoreNodeAggregationWhereInput>
-}
-
-export type AppStoreConnectFieldInput = {
-  connect?: InputMaybe<StoreConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
-  overwrite?: Scalars['Boolean']
-  where?: InputMaybe<StoreConnectWhere>
-}
-
-export type AppStoreConnectOrCreateFieldInput = {
-  onCreate: AppStoreConnectOrCreateFieldInputOnCreate
-  where: StoreConnectOrCreateWhere
-}
-
-export type AppStoreConnectOrCreateFieldInputOnCreate = {
-  node: StoreOnCreateInput
-}
-
-export type AppStoreConnection = {
-  __typename?: 'AppStoreConnection'
-  edges: Array<AppStoreRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
-export type AppStoreConnectionSort = {
-  node?: InputMaybe<StoreSort>
-}
-
-export type AppStoreConnectionWhere = {
-  AND?: InputMaybe<Array<AppStoreConnectionWhere>>
-  NOT?: InputMaybe<AppStoreConnectionWhere>
-  OR?: InputMaybe<Array<AppStoreConnectionWhere>>
-  node?: InputMaybe<StoreWhere>
-}
-
-export type AppStoreCreateFieldInput = {
-  node: StoreCreateInput
-}
-
-export type AppStoreDeleteFieldInput = {
-  delete?: InputMaybe<StoreDeleteInput>
-  where?: InputMaybe<AppStoreConnectionWhere>
-}
-
-export type AppStoreDisconnectFieldInput = {
-  disconnect?: InputMaybe<StoreDisconnectInput>
-  where?: InputMaybe<AppStoreConnectionWhere>
-}
-
-export type AppStoreFieldInput = {
-  connect?: InputMaybe<AppStoreConnectFieldInput>
-  connectOrCreate?: InputMaybe<AppStoreConnectOrCreateFieldInput>
-  create?: InputMaybe<AppStoreCreateFieldInput>
-}
-
-export type AppStoreNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<AppStoreNodeAggregationWhereInput>>
-  NOT?: InputMaybe<AppStoreNodeAggregationWhereInput>
-  OR?: InputMaybe<Array<AppStoreNodeAggregationWhereInput>>
-  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-}
-
-export type AppStoreRelationship = {
-  __typename?: 'AppStoreRelationship'
-  cursor: Scalars['String']
-  node: Store
-}
-
-export type AppStoreStoreAggregationSelection = {
-  __typename?: 'AppStoreStoreAggregationSelection'
-  count: Scalars['Int']
-  node?: Maybe<AppStoreStoreNodeAggregateSelection>
-}
-
-export type AppStoreStoreNodeAggregateSelection = {
-  __typename?: 'AppStoreStoreNodeAggregateSelection'
-  id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNonNullable
-}
-
-export type AppStoreUpdateConnectionInput = {
-  node?: InputMaybe<StoreUpdateInput>
-}
-
-export type AppStoreUpdateFieldInput = {
-  connect?: InputMaybe<AppStoreConnectFieldInput>
-  connectOrCreate?: InputMaybe<AppStoreConnectOrCreateFieldInput>
-  create?: InputMaybe<AppStoreCreateFieldInput>
-  delete?: InputMaybe<AppStoreDeleteFieldInput>
-  disconnect?: InputMaybe<AppStoreDisconnectFieldInput>
-  update?: InputMaybe<AppStoreUpdateConnectionInput>
-  where?: InputMaybe<AppStoreConnectionWhere>
 }
 
 /** Allows picking a app from the list of apps */
@@ -2138,7 +1991,6 @@ export type AppUpdateInput = {
   id?: InputMaybe<Scalars['ID']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>
-  store?: InputMaybe<AppStoreUpdateFieldInput>
 }
 
 export type AppUserOwnerAggregationSelection = {
@@ -2210,11 +2062,6 @@ export type AppWhere = {
   pages_SINGLE?: InputMaybe<PageWhere>
   /** Return Apps where some of the related Pages match this filter */
   pages_SOME?: InputMaybe<PageWhere>
-  store?: InputMaybe<StoreWhere>
-  storeAggregate?: InputMaybe<AppStoreAggregateInput>
-  storeConnection?: InputMaybe<AppStoreConnectionWhere>
-  storeConnection_NOT?: InputMaybe<AppStoreConnectionWhere>
-  store_NOT?: InputMaybe<StoreWhere>
 }
 
 export type AppsConnection = {

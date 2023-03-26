@@ -45,12 +45,14 @@ export class ActionFactory extends Model({}) implements IActionFactory {
 
   @modelAction
   private fromApiActionFragment({
+    config,
     errorAction,
     successAction,
     ...apiActionFragment
   }: ApiActionFragment): IApiActionDTO {
     return {
       ...apiActionFragment,
+      config: this.propService.add(config),
       errorAction: errorAction
         ? this.fromActionFragment(errorAction as ActionFragment)
         : undefined,

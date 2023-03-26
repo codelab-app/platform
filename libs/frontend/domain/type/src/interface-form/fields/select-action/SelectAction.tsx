@@ -10,11 +10,12 @@ export type SelectActionProps = Pick<
 >
 
 export const SelectAction = (fieldProps: SelectActionProps) => {
-  const { storeService } = useStore()
+  const { actionService } = useStore()
 
-  const actions = [...storeService.stores.values()]
-    .flatMap((store) => store.actions)
-    .map((action) => ({ label: action.current.name, value: action.current.id }))
+  const actions = actionService.actionsList.map((action) => ({
+    label: action.name,
+    value: action.id,
+  }))
 
   return (
     <SelectField

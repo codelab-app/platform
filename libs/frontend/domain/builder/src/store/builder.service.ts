@@ -15,7 +15,6 @@ import {
   RendererTab,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
-import { Element } from '@codelab/frontend/domain/element'
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { Nullable } from '@codelab/shared/abstract/types'
 import { COMPONENT_TAG_NAME } from '@codelab/shared/data/seed'
@@ -163,7 +162,7 @@ export class BuilderService
     }
 
     if (isElementPageNodeRef(selectedNode)) {
-      return selectedNode.current.rootElement.parentComponent ?? null
+      return selectedNode.current.component ?? null
     }
 
     return null
@@ -190,7 +189,7 @@ export class BuilderService
       /**
        * Given the node, we want the reference that belongs to an ElementTree.
        */
-      const elementTree = Element.getElementTree(selectedNode.current)
+      const elementTree = selectedNode.current.closestContainerNode
 
       return elementTree
     }

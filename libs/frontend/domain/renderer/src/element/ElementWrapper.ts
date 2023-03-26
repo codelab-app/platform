@@ -6,7 +6,7 @@ import type {
 import { RendererType } from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
@@ -26,7 +26,6 @@ export interface ElementWrapperProps {
    * Props passed in from outside the component
    */
   extraProps?: IPropData
-  postAction?: Nullish<() => unknown>
   renderService: IRenderer
 }
 
@@ -36,21 +35,19 @@ export interface ElementWrapperProps {
  * It is in this wrapper that the children are rendered
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
-  ({ element, extraProps = {}, postAction, renderService, ...rest }) => {
+  ({ element, extraProps = {}, renderService, ...rest }) => {
     // const globalPropsContext = useContext(GlobalPropsContext)
     // const globalProps = globalPropsContext[element.id]    const state = renderService.appStore.current.state
-    const store = renderService.appStore.current
 
     const onRefChange = useCallback((node: Nullable<HTMLElement>) => {
       if (node !== null) {
-        store.state.setSilently(element.id, node)
-        // store.state.setSilently(element.slug, node)
+        // FIXME:
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
-      postAction?.()
+      // FIXME:
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -68,9 +65,10 @@ export const ElementWrapper = observer<ElementWrapperProps>(
      * and will return the React Elements with the attached additional props
      */
     const renderOutputWithProps = mapOutput(renderOutputs, (renderOutput) => {
+      // FIXME:
       const children = shouldRenderElement(
         element,
-        mergeProps(renderOutput.props, store.state.values),
+        mergeProps(renderOutput.props, {}),
       )
         ? renderService.renderChildren({
             extraProps,
@@ -110,7 +108,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     }
 
     const isInsideAComponent = Boolean(element.rootElement.parentComponent)
-    const isComponentRootElement = element.parentComponent && isInsideAComponent
+    const isComponentRootElement = element.component && isInsideAComponent
 
     // we only apply dnd to the root element of a component or elements not inside a component
     const isDraggable =

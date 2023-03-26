@@ -20,11 +20,6 @@ export interface IStore
   jsonString: string
   name: string
   state: IPropData
-  clone(): IStore
-
-  toCreateInput(): StoreCreateInput
-  toDeleteInput(): StoreDeleteInput
-  toUpdateInput(): StoreUpdateInput
 }
 
 export type IStoreRef = string

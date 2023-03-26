@@ -2,7 +2,6 @@ import type {
   IApp,
   IAppService,
   ICreateAppData,
-  IInterfaceType,
   IPageBuilderAppProps,
   IUpdateAppData,
 } from '@codelab/frontend/abstract/core'
@@ -18,21 +17,14 @@ import { getResourceService } from '@codelab/frontend/domain/resource'
 import {
   getActionService,
   getStoreService,
-  Store,
-  storeRef,
 } from '@codelab/frontend/domain/store'
 import { getTagService } from '@codelab/frontend/domain/tag'
-import {
-  getTypeService,
-  InterfaceType,
-  typeRef,
-} from '@codelab/frontend/domain/type'
+import { getTypeService } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
   AppWhere,
   GetRenderedPageAndCommonAppDataQuery,
 } from '@codelab/shared/abstract/codegen'
-import { ITypeKind } from '@codelab/shared/abstract/core'
 import flatMap from 'lodash/flatMap'
 import merge from 'lodash/merge'
 import sortBy from 'lodash/sortBy'
@@ -48,7 +40,6 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { v4 } from 'uuid'
 import { AppRepository } from '../services/app.repo'
 import { App } from './app.model'
 import { AppModalService } from './app-modal.service'
@@ -247,13 +238,12 @@ export class AppService
   })
 
   @modelAction
-  add({ id, name, owner, pages, store }: IAppDTO) {
+  add({ id, name, owner, pages }: IAppDTO) {
     const app = App.create({
       id,
       name,
       owner,
       pages: pages?.map((page) => pageRef(page.id)),
-      store: storeRef(store.id),
     })
 
     this.apps.set(app.id, app)
@@ -267,19 +257,6 @@ export class AppService
     this: AppService,
     { id, name, owner }: ICreateAppData,
   ) {
-    const interfaceType = this.typeService.addInterface({
-      id: v4(),
-      kind: ITypeKind.InterfaceType,
-      name: InterfaceType.createName(`${name} Store`),
-      owner: owner,
-    })
-
-    const store = this.storeService.add({
-      api: typeRef<IInterfaceType>(interfaceType.id),
-      id: v4(),
-      name: Store.createName({ name }),
-    })
-
     const pages = this.pageService.pageFactory.addSystemPages({ id, owner })
 
     const app = this.add({
@@ -287,7 +264,6 @@ export class AppService
       name,
       owner,
       pages,
-      store,
     })
 
     yield* _await(this.appRepository.add(app))
@@ -333,18 +309,16 @@ export class AppService
      */
     const { app } = this.loadPages({ appData, components, pageId })
 
-    // load types by chucks so UI is not blocked
-    this.typeService.loadTypesByChunks(types)
+    this.typeService.loadTypes(types)
 
     // write cache for resources
     this.resourceService.load(resources)
 
-    const actionsDTO = appData.store.actions.map((action) =>
-      this.actionService.actionFactory.fromActionFragment(action),
+    const stores = [...appData.pages, ...components].map(
+      (pageOrComponent) => pageOrComponent.store,
     )
 
-    const actions = this.actionService.load(actionsDTO)
-    const storeApi = this.typeService.addInterface(appData.store.api)
+    this.storeService.load(stores)
 
     return app
   })

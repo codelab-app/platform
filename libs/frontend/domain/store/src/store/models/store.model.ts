@@ -15,7 +15,6 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import { mapDeep } from '@codelab/shared/utils'
 import isString from 'lodash/isString'
-import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -27,7 +26,6 @@ import {
   prop,
   rootRef,
 } from 'mobx-keystone'
-import { types } from 'mobx-state-tree'
 import { actionRef } from './action.ref'
 
 const create = ({ api, id, name }: IStoreDTO) => {
@@ -62,21 +60,6 @@ export class Store
       : this.actions
 
     return this
-  }
-
-  @computed
-  get state() {
-    const storeModel = types
-      .model(this.name, this.api.current.defaultValues)
-      .actions((store) =>
-        this.actions
-          .map((action) => ({
-            [action.current.name]: action.current.createRunner().bind(store),
-          }))
-          .reduce(merge, {}),
-      )
-
-    return storeModel.create()
   }
 
   @computed

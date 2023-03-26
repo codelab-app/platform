@@ -9,7 +9,6 @@ export const appSchema = gql`
     name: String! @customResolver(requires: ["id", "_compoundName"])
     slug: String! @customResolver(requires: ["id", "_compoundName"])
     pages: [Page!]! @relationship(type: "PAGES", direction: OUT)
-    store: Store! @relationship(type: "STORE_OF_APP", direction: IN)
     domains: [Domain!]! @relationship(type: "APP_DOMAIN", direction: IN)
   }
 

@@ -9,6 +9,7 @@ import { IActionDTO } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
+import type { ActionFragment } from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -77,26 +78,14 @@ export class ActionService
   getAll = _async(function* (this: ActionService, where: IActionWhere) {
     const actionFragments = yield* _await(this.actionRepository.find(where))
 
-    return actionFragments.map((actionFragment) => {
-      const action = this.actionFactory.fromActionFragment(actionFragment)
-
-      if (action.__typename === IActionKind.ApiAction) {
-        this.propService.add(action.config)
-      }
-
-      return this.add(action)
-    })
+    return this.load(actionFragments)
   })
 
   @modelAction
-  load(actions: Array<IActionDTO>) {
-    return actions.map((action) => {
-      if (action.__typename === IActionKind.ApiAction) {
-        this.propService.add(action.config)
-      }
-
-      return this.add(action)
-    })
+  load(actions: Array<ActionFragment>) {
+    return actions.map((action) =>
+      this.add(this.actionFactory.fromActionFragment(action)),
+    )
   }
 
   @modelFlow

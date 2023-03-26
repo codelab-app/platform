@@ -1,13 +1,3 @@
-import type {
-  IElement,
-  IElementTree,
-  IPageNodeRef,
-} from '@codelab/frontend/abstract/core'
-import {
-  getComponentService,
-  getElementService,
-  isElementPageNodeRef,
-} from '@codelab/frontend/abstract/core'
 import { computed } from 'mobx'
 import {
   idProp,
@@ -19,6 +9,11 @@ import {
   walkTree,
   WalkTreeMode,
 } from 'mobx-keystone'
+import type { IPageNodeRef } from '../../page'
+import { isElementPageNodeRef } from '../../page'
+import type { IElement } from '../element.model.interface'
+import { getElementService } from '../element.service.context'
+import type { IElementTree } from '../element-tree.interface.model'
 
 /**
  * ElementTree is a mobx store that holds the tree of elements.
@@ -35,11 +30,6 @@ export class ElementTree
   })
   implements IElementTree
 {
-  @computed
-  get componentService() {
-    return getComponentService(this)
-  }
-
   /**
    * All elements within the tree
    */
@@ -49,12 +39,6 @@ export class ElementTree
       this.rootElement.current,
       ...this.rootElement.current.descendantElements,
     ]
-  }
-
-  getName() {
-    const parentComponent = this.rootElement.current.parentComponent?.current
-
-    return parentComponent ? parentComponent.name : 'Page'
   }
 
   @computed

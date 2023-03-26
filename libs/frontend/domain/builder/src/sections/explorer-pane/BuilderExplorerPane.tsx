@@ -1,5 +1,5 @@
 import { ApartmentOutlined, DatabaseOutlined } from '@ant-design/icons'
-import type { IPageNode, IStore } from '@codelab/frontend/abstract/core'
+import type { IPageNode } from '@codelab/frontend/abstract/core'
 import {
   isComponentPageNode,
   isElementPageNode,
@@ -49,7 +49,6 @@ type StoreHeaderProps = PropsWithChildren<{
 }>
 
 interface BuilderMainPaneProps {
-  appStore?: IStore
   pageId: string
 }
 
@@ -61,7 +60,7 @@ export const StoreHeader = ({ children, extra }: StoreHeaderProps) => (
 )
 
 export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
-  ({ appStore, pageId }) => {
+  ({ pageId }) => {
     const {
       actionService,
       builderRenderService,
@@ -69,25 +68,17 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
       componentService,
       elementService,
       fieldService,
+      pageService,
     } = useStore()
 
+    const page = pageService.pages.get(pageId)
     const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
-    const root = pageBuilderRenderer?.elementTree.maybeCurrent?.rootElement
     const pageTree = pageBuilderRenderer?.elementTree.maybeCurrent
+    const root = pageTree?.rootElement
     const antdTree = root?.current.antdNode
     const componentsAntdTree = componentService.componentAntdNode
     const isPageTree = antdTree && pageTree
-
-    const createStateFieldButton = (
-      <CreateFieldButton
-        fieldService={fieldService}
-        interfaceId={appStore?.api.current.id}
-      />
-    )
-
-    const createActionButton = (
-      <CreateActionButton actionService={actionService} />
-    )
+    const store = page?.store.current
 
     const selectTreeNode = (node: IPageNode) => {
       if (isComponentPageNode(node)) {
@@ -179,23 +170,34 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
             <Collapse css={tw`w-full mb-2`} defaultActiveKey={['1']} ghost>
               <Panel
                 header={
-                  <StoreHeader extra={createStateFieldButton}>
+                  <StoreHeader
+                    extra={
+                      <CreateFieldButton
+                        fieldService={fieldService}
+                        interfaceId={store?.api.id}
+                      />
+                    }
+                  >
                     State
                   </StoreHeader>
                 }
                 key="1"
               >
-                <GetStateList fieldService={fieldService} store={appStore} />
+                <GetStateList fieldService={fieldService} store={store} />
               </Panel>
 
               <Divider />
               <Panel
                 header={
-                  <StoreHeader extra={createActionButton}>Actions</StoreHeader>
+                  <StoreHeader
+                    extra={<CreateActionButton actionService={actionService} />}
+                  >
+                    Actions
+                  </StoreHeader>
                 }
                 key="2"
               >
-                <ActionsList actionService={actionService} store={appStore} />
+                <ActionsList actionService={actionService} store={store} />
               </Panel>
             </Collapse>
             <StoreHeader>Store Inspector</StoreHeader>
@@ -207,7 +209,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
               `}
               singleLine={false}
               title="Current props"
-              value={appStore?.state.jsonString}
+              value={store?.jsonString}
             />
           </>
         ),
@@ -245,7 +247,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
         <UpdateFieldModal />
         <DeleteFieldModal />
 
-        <CreateActionModal store={appStore} />
+        <CreateActionModal store={store} />
         <UpdateActionModal />
         <DeleteActionsModal />
       </>

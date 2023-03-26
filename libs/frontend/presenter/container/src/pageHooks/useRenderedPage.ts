@@ -58,10 +58,7 @@ export const useRenderedPage = ({
       builderService.selectElementNode(pageRootElement)
     }
 
-    const appStore = app.store.current
-
     const renderer = await renderService.addRenderer({
-      appStore,
       elementTree: page,
       id: page.id,
       providerTree: app.providerPage,
@@ -70,7 +67,6 @@ export const useRenderedPage = ({
 
     return {
       app,
-      appStore,
       elementTree: page,
       page,
       renderer,

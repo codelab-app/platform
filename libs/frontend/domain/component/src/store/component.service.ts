@@ -114,10 +114,10 @@ export class ComponentService
 
     const rootElement = this.elementService.add({
       ...createComponentData.rootElement,
-      name: createComponentData.name,
-      parentComponent: {
+      component: {
         id: createComponentData.id,
       },
+      name: createComponentData.name,
       props,
     })
 

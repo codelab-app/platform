@@ -1,5 +1,6 @@
 import type {
   ICreatePageData,
+  IInterfaceType,
   IPage,
   IPageDTO,
   IPageService,
@@ -12,9 +13,15 @@ import {
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
+import { getStoreService, Store } from '@codelab/frontend/domain/store'
+import {
+  getTypeService,
+  InterfaceType,
+  typeRef,
+} from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
-import { IPageKind } from '@codelab/shared/abstract/core'
+import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -71,6 +78,16 @@ export class PageService
   }
 
   @computed
+  private get typeService() {
+    return getTypeService(this)
+  }
+
+  @computed
+  private get storeService() {
+    return getStoreService(this)
+  }
+
+  @computed
   get pagesList() {
     return [...this.pages.values()]
   }
@@ -122,7 +139,7 @@ export class PageService
   @transaction
   create = _async(function* (
     this: PageService,
-    { app, id, name }: ICreatePageData,
+    { app, id, name, owner }: ICreatePageData,
   ) {
     const rootElementProps = this.propService.add({
       data: '{}',
@@ -136,12 +153,26 @@ export class PageService
       props: rootElementProps,
     })
 
+    const interfaceType = this.typeService.addInterface({
+      id: v4(),
+      kind: ITypeKind.InterfaceType,
+      name: InterfaceType.createName(`${name} Store`),
+      owner: owner,
+    })
+
+    const store = this.storeService.add({
+      api: typeRef<IInterfaceType>(interfaceType.id),
+      id: v4(),
+      name: Store.createName({ name }),
+    })
+
     const page = this.add({
       app,
       id,
       kind: IPageKind.Regular,
       name,
       rootElement: elementRef(rootElement.id),
+      store,
     })
 
     this.pages.set(page.id, page)

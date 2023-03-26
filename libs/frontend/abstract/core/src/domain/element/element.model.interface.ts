@@ -14,7 +14,9 @@ import type { IBuilderDataNode } from '../../ui'
 import type { IComponent } from '../component'
 import type { IHook } from '../hook'
 import type { IModel } from '../model.interface'
+import type { IPage } from '../page'
 import type { IProp, IPropData } from '../prop'
+import type { IStore } from '../store'
 import type { IAuth0Owner } from '../user'
 import type { IElementDTO } from './element.dto.interface'
 import type { IElementRenderType } from './render-type'
@@ -54,11 +56,13 @@ export interface IElement
   ancestorError: Nullish<RenderingError>
   antdNode: IBuilderDataNode
   atomName: string
-  /**
-   * id of component or page's tree that element belong to
-   */
-  baseId: string
   children: Array<IElement>
+  // the closest container node that element belongs to
+  closestContainerNode: IComponent | IPage
+  // the closest rootElement of node (page/component) that element belongs to
+  closestRootElement: IElement
+  // component that this element belongs to
+  component?: Nullable<Ref<IComponent>>
   customCss?: Nullable<string>
   // This is a computed property, so we can use model instead of ref
   descendantElements: Array<IElement>
@@ -71,10 +75,9 @@ export interface IElement
   name: string
   nextSibling?: Nullable<Ref<IElement>>
   owner: Nullable<IAuth0Owner>
+  // page that this element belongs to
+  page: Nullable<Ref<IPage>>
   parent?: Nullable<Ref<IElement>>
-  parentComponent?: Nullable<Ref<IComponent>>
-  postRenderAction?: Nullish<IEntity>
-  preRenderAction?: Nullish<IEntity>
   prevSibling?: Nullable<Ref<IElement>>
   propTransformationJs: Nullable<string>
   props: Ref<IProp>
@@ -85,14 +88,12 @@ export interface IElement
   // renderComponentType: Nullable<Ref<IComponent>>
   renderingMetadata: Nullable<RenderingMetadata>
   /**
-   * the tree's root element
-   */
-  rootElement: IElement
-  /**
    * to render a component we create a duplicate for each element
    * keeps track of source element in case this is a duplicate
    */
   sourceElement: Nullable<IEntity>
+  // store attached to closestContainerNode
+  store: IStore
 
   appendToGuiCss(css: CssMap): void
   attachAsNextSibling(sibling: IElement): void
@@ -109,7 +110,6 @@ export interface IElement
   setNextSibling(nextSibling: Ref<IElement>): void
   setOrderInParent(order: number | null): void
   setParent(parent: Ref<IElement>): void
-  setParentComponent(componentRef: Ref<IComponent>): void
   setPrevSibling(prevSibling: Ref<IElement>): void
   setPropTransformationJs(props: string): void
   setProps(props: Nullable<Ref<IProp>>): void

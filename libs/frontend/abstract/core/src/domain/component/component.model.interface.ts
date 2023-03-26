@@ -3,6 +3,7 @@ import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IElement, IElementTree } from '../element'
 import type { IProp } from '../prop'
+import type { IStore } from '../store'
 import type { IInterfaceType } from '../type'
 import type { IOwnerSchema } from '../user'
 import type { IComponentDTO } from './component.dto.interface'
@@ -21,6 +22,7 @@ export interface IComponent
    * keeps track of source component in case this is a duplicate
    */
   sourceComponent?: Nullable<IEntity>
+  store: Ref<IStore>
 
   clone(instanceId: string): IComponent
   setChildrenContainerElement(element: Ref<IElement>): void

@@ -6,9 +6,12 @@ import type {
   IUpdateStoreData,
 } from '@codelab/frontend/abstract/core'
 import { IStoreDTO } from '@codelab/frontend/abstract/core'
-import { typeRef } from '@codelab/frontend/domain/type'
+import { getTypeService, typeRef } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import type { StoreWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  StoreFragment,
+  StoreWhere,
+} from '@codelab/shared/abstract/codegen'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -39,8 +42,14 @@ export class StoreService
   })
   implements IStoreService
 {
-  store(id: string) {
-    return this.stores.get(id) || this.clonedStores.get(id)
+  @computed
+  get actionService() {
+    return getActionService(this)
+  }
+
+  @computed
+  get typeService() {
+    return getTypeService(this)
   }
 
   @computed
@@ -48,9 +57,8 @@ export class StoreService
     return [...this.stores.values()]
   }
 
-  @computed
-  get actionService() {
-    return getActionService(this)
+  store(id: string) {
+    return this.stores.get(id) || this.clonedStores.get(id)
   }
 
   @modelAction
@@ -67,23 +75,22 @@ export class StoreService
     return store
   }
 
+  @modelAction
+  load(stores: Array<StoreFragment>) {
+    this.actionService.load(stores.flatMap((store) => store.actions))
+    this.typeService.loadTypes({
+      interfaceTypes: stores.map((store) => store.api),
+    })
+
+    return stores.map((store) => this.add(store))
+  }
+
   @modelFlow
   @transaction
   getAll = _async(function* (this: StoreService, where: StoreWhere) {
     const stores = yield* _await(this.storeRepository.find(where))
 
-    return stores.map((store) => {
-      /**
-       * attach action to mobx tree before calling actionRef
-       */
-      this.actionService.load(
-        store.actions.map((action) =>
-          this.actionService.actionFactory.fromActionFragment(action),
-        ),
-      )
-
-      return this.add(store)
-    })
+    return this.load(stores)
   })
 
   @modelFlow

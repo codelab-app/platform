@@ -1,12 +1,10 @@
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap } from 'mobx-keystone'
 import type { IElementTree } from '../element'
-import type { IStore } from '../store'
 import type { IBuilderService } from './builder.service.interface'
 import type { IRenderer, RendererType } from './renderer.model.interface'
 
 export interface RendererProps {
-  appStore: IStore
   /**
    * This is the elementTree we are rendering, could be a page tree or a component tree
    */

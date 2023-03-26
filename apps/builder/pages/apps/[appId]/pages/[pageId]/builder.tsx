@@ -70,10 +70,7 @@ PageBuilder.Layout = observer(({ children }) => {
 
   const ExplorerPaneComponent = () => (
     <Spinner isLoading={status !== 'success'}>
-      <BuilderExplorerPane
-        appStore={pageBuilderRenderer?.appStore.current}
-        pageId={pageId}
-      />
+      <BuilderExplorerPane pageId={pageId} />
     </Spinner>
   )
 
