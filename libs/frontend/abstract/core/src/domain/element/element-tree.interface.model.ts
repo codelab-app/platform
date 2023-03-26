@@ -15,11 +15,11 @@ import type { IElement } from './element.model.interface'
 export interface IElementTree {
   elements: Array<IElement>
   id: string
-  name: string
   rootElement: Ref<IElement>
 
   descendants(subRoot: Ref<IElement>): Array<IElement>
   element(id: string): Maybe<IElement>
+  getName(): string
   getPathFromRoot(pageNode: IPageNodeRef): Array<string>
   setRootElement(elementRef: Ref<IElement>): void
 }

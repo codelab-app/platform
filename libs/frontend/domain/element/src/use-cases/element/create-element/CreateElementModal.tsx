@@ -104,7 +104,7 @@ export const CreateElementModal = observer(() => {
               allElementOptions={elementOptions}
             />
           )}
-          help={`only elements from \`${elementTree.name}\` are visible in this list`}
+          help={`only elements from \`${elementTree.getName()}\` are visible in this list`}
           name="parentElement.id"
         />
         <SelectLinkElement

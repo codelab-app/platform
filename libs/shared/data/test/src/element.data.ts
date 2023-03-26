@@ -1,5 +1,5 @@
 import type { IElementDTO, IPropDTO } from '@codelab/frontend/abstract/core'
-import { IPageKindName } from '@codelab/shared/abstract/core'
+import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { v4 } from 'uuid'
 
 /**
@@ -12,7 +12,7 @@ export const providerElementPropsData: IPropDTO = {
 
 export const providerElementData: IElementDTO = {
   id: v4(),
-  name: IPageKindName.Provider,
+  name: ROOT_ELEMENT_NAME,
   props: providerElementPropsData,
 }
 
@@ -26,7 +26,7 @@ export const notFoundElementPropsData: IPropDTO = {
 
 export const notFoundElementData: IElementDTO = {
   id: v4(),
-  name: IPageKindName.NotFound,
+  name: ROOT_ELEMENT_NAME,
   props: notFoundElementPropsData,
 }
 
@@ -40,6 +40,6 @@ export const internalServerErrorPropsData: IPropDTO = {
 
 export const internalServerErrorElementData: IElementDTO = {
   id: v4(),
-  name: IPageKindName.InternalServerError,
+  name: ROOT_ELEMENT_NAME,
   props: internalServerErrorPropsData,
 }

@@ -9,7 +9,6 @@ import type {
 import { domainRef } from '@codelab/frontend/domain/domain'
 import { pageRef } from '@codelab/frontend/domain/page'
 import { deleteStoreInput, storeRef } from '@codelab/frontend/domain/store'
-import { getTypeService } from '@codelab/frontend/domain/type'
 import type {
   AppCreateInput,
   AppDeleteInput,
@@ -101,11 +100,6 @@ export class App
         pages: this.pages.map((page) => page.current.toJson).reduce(merge, {}),
       },
     }
-  }
-
-  @computed
-  private get typeService() {
-    return getTypeService(this)
   }
 
   @modelAction

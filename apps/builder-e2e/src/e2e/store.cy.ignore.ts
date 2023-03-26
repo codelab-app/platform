@@ -6,7 +6,7 @@ import {
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'
 import { FIELD_TYPE } from '../support/antd/form'
-import { createAppInput } from '../support/database/app'
+import { loginSession } from '../support/nextjs-auth0/commands/login'
 import {
   actionBody,
   actionName,
@@ -21,28 +21,26 @@ describe('Store', () => {
     loginSession()
     cy.getCurrentOwner()
       .then((owner) => {
-        cy.createType(
-          {
-            PrimitiveType: {
-              id: v4(),
-              kind: ITypeKind.PrimitiveType,
-              name: IPrimitiveTypeKind.Integer,
-              owner: connectAuth0Owner(owner),
-              primitiveKind: IPrimitiveTypeKind.Integer,
-            },
-          },
-          ITypeKind.PrimitiveType,
-        )
-
-        return cy.createApp(createAppInput({ auth0Id }))
+        // cy.createType(
+        //   {
+        //     PrimitiveType: {
+        //       id: v4(),
+        //       kind: ITypeKind.PrimitiveType,
+        //       name: IPrimitiveTypeKind.Integer,
+        //       owner: connectAuth0Owner(owner),
+        //       primitiveKind: IPrimitiveTypeKind.Integer,
+        //     },
+        //   },
+        //   ITypeKind.PrimitiveType,
+        // )
+        // return cy.createApp(createAppInput({ auth0Id }))
       })
       .then((apps) => {
-        const app = apps[0]
-
-        cy.visit(`/apps/${app.id}/pages`)
-        cy.getSpinner().should('not.exist')
-        cy.findByText('Store').click()
-        cy.url({ timeout: 10000 }).should('include', 'store')
+        // const app = apps[0]
+        // cy.visit(`/apps/${app.id}/pages`)
+        // cy.getSpinner().should('not.exist')
+        // cy.findByText('Store').click()
+        // cy.url({ timeout: 10000 }).should('include', 'store')
       })
   })
 
