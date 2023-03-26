@@ -1,6 +1,7 @@
 import type { IAppDTO } from '@codelab/frontend/abstract/core'
 import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '../support/antd/form'
+import { assertTwice } from '../support/helpers'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 const COMPONENT_NAME = 'New Component'
@@ -58,7 +59,8 @@ describe('Component CRUD', () => {
         .parent()
         .find('.ant-tree-switcher_close')
         .click()
-      cy.findByText(COMPONENT_NAME).should('exist')
+
+      assertTwice(() => cy.findByText(COMPONENT_NAME).should('exist'))
     })
 
     it('should be able to define property on component', () => {
@@ -82,7 +84,8 @@ describe('Component CRUD', () => {
       cy.getModal()
         .getModalAction(/Create/)
         .click()
-      cy.getModal().should('not.exist', { timeout: 10000 })
+
+      assertTwice(() => cy.getModal().should('not.exist', { timeout: 10000 }))
     })
 
     it('should be able to add elements to the component', () => {
@@ -131,7 +134,9 @@ describe('Component CRUD', () => {
             { parseSpecialCharSequences: false },
           )
 
-          cy.get('#Builder').findByText('text null').should('exist')
+          assertTwice(() =>
+            cy.get('#Builder').findByText('text null').should('exist'),
+          )
         })
     })
 
@@ -218,10 +223,12 @@ describe('Component CRUD', () => {
         COMPONENT_INSTANCE_TEXT,
       )
 
-      cy.get('#Builder')
-        .findByText(`text ${COMPONENT_PROP_VALUE}`)
-        .should('exist')
-      cy.get('#Builder').findByText(COMPONENT_INSTANCE_TEXT).should('exist')
+      assertTwice(() => {
+        cy.get('#Builder')
+          .findByText(`text ${COMPONENT_PROP_VALUE}`)
+          .should('exist')
+        cy.get('#Builder').findByText(COMPONENT_INSTANCE_TEXT).should('exist')
+      })
     })
   })
 })
