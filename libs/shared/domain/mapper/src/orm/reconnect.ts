@@ -14,8 +14,10 @@ export const reconnectNode = (key: string, id: string | null | undefined) => ({
   ...disconnectAll(),
 })
 
-export const reconnectNodeIds = (ids: Array<string> | undefined) =>
-  ids?.map((id) => ({
+export const reconnectNodeIds = (ids: Array<string> | undefined) => {
+  const connects = ids?.map((id) => ({
     ...connectNodeIds([id]),
-    ...disconnectManyAll(),
   }))
+
+  return [disconnectManyAll(), ...(connects ?? [])]
+}
