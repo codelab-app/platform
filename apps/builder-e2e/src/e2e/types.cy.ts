@@ -197,14 +197,21 @@ describe('Types CRUD', () => {
 
       cy.getSpinner().should('not.exist')
 
-      assertTwice(() =>
-        cy
-          .searchTableRow({
-            header: 'Key',
-            row: fieldName,
-            table: cy.get('.ant-table-expanded-row'),
-          })
-          .should('exist'),
+      assertTwice(
+        () =>
+          cy
+            .searchTableRow({
+              header: 'Key',
+              row: fieldName,
+              table: cy.get('.ant-table-expanded-row'),
+            })
+            .should('exist'),
+        () =>
+          cy
+            .findByText(interfaceTypeName)
+            .closest('.ant-table-row')
+            .find('.ant-table-row-expand-icon')
+            .click(),
       )
 
       cy.searchTableRow({
@@ -247,9 +254,9 @@ describe('Types CRUD', () => {
       cy.getModal()
         .getModalAction(/Update/)
         .click()
+      cy.getModal().should('not.exist')
 
       assertTwice(() => {
-        cy.getModal().should('not.exist')
         cy.findByText(arrayTypeName).should('not.exist')
         cy.findByText(updatedArrayTypeName).should('exist')
       })
