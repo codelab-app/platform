@@ -1,9 +1,10 @@
 import type { IType, ITypePagination } from '@codelab/frontend/abstract/core'
 import { computed } from 'mobx'
-import { getSnapshot, Ref } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
+  getSnapshot,
   Model,
   model,
   modelFlow,
@@ -39,9 +40,9 @@ export class TypePaginationService
    */
   @computed
   get types() {
-    return Array.from(this.data.values()).map(
-      (type) => getSnapshot(type.current) as IType,
-    )
+    return Array.from(this.data.values()).map((type) =>
+      getSnapshot(type.current),
+    ) as Array<IType>
   }
 
   @computed
