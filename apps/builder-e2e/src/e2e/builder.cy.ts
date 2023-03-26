@@ -2,6 +2,7 @@ import type { IAppDTO } from '@codelab/frontend/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '../support/antd/form'
+import { assertTwice } from '../support/helpers'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 const ELEMENT_CONTAINER = 'Container'
@@ -118,7 +119,8 @@ describe('Elements CRUD', () => {
     it(`should be able to update element`, () => {
       cy.findByText(ELEMENT_CONTAINER).click()
       cy.findByLabelText('Name').clear().type(updatedElementName)
-      cy.findByText(updatedElementName).should('exist')
+
+      assertTwice(() => cy.findByText(updatedElementName).should('exist'))
     })
   })
 
@@ -133,7 +135,7 @@ describe('Elements CRUD', () => {
         .click()
       cy.getModal().should('not.exist')
 
-      cy.findByText(updatedElementName).should('not.exist')
+      assertTwice(() => cy.findByText(updatedElementName).should('not.exist'))
     })
   })
 })
