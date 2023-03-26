@@ -1,5 +1,6 @@
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '../support/antd/form'
+import { assertTwice } from '../support/helpers'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 // Primitive Type use case
@@ -62,9 +63,9 @@ describe('Types CRUD', () => {
       cy.getModal()
         .getModalAction(/Create/)
         .click()
-
       cy.getModal().should('not.exist')
-      cy.findByText(primitiveTypeName).should('exist')
+
+      assertTwice(() => cy.findByText(primitiveTypeName).should('exist'))
     })
 
     it('should be able to create enum', () => {
@@ -94,7 +95,7 @@ describe('Types CRUD', () => {
 
       cy.getModal().should('not.exist')
 
-      cy.findByText(primitiveTypeName).should('exist')
+      assertTwice(() => cy.findByText(primitiveTypeName).should('exist'))
     })
 
     it('should be able to create array', () => {
@@ -120,9 +121,9 @@ describe('Types CRUD', () => {
       cy.getModal()
         .getModalAction(/Create/)
         .click()
-
       cy.getModal().should('not.exist')
-      cy.findByText(primitiveTypeName).should('exist')
+
+      assertTwice(() => cy.findByText(primitiveTypeName).should('exist'))
     })
 
     it('should be able to create interface', () => {
@@ -146,9 +147,9 @@ describe('Types CRUD', () => {
       cy.getModal()
         .getModalAction(/Create/)
         .click()
-
       cy.getModal().should('not.exist')
-      cy.findByText(interfaceTypeName).should('exist')
+
+      assertTwice(() => cy.findByText(interfaceTypeName).should('exist'))
     })
 
     it('should be able to add fields', () => {
@@ -196,11 +197,15 @@ describe('Types CRUD', () => {
 
       cy.getSpinner().should('not.exist')
 
-      cy.searchTableRow({
-        header: 'Key',
-        row: fieldName,
-        table: cy.get('.ant-table-expanded-row'),
-      }).should('exist')
+      assertTwice(() =>
+        cy
+          .searchTableRow({
+            header: 'Key',
+            row: fieldName,
+            table: cy.get('.ant-table-expanded-row'),
+          })
+          .should('exist'),
+      )
 
       cy.searchTableRow({
         header: 'Kind',
@@ -243,9 +248,11 @@ describe('Types CRUD', () => {
         .getModalAction(/Update/)
         .click()
 
-      cy.getModal().should('not.exist')
-      cy.findByText(arrayTypeName).should('not.exist')
-      cy.findByText(updatedArrayTypeName).should('exist')
+      assertTwice(() => {
+        cy.getModal().should('not.exist')
+        cy.findByText(arrayTypeName).should('not.exist')
+        cy.findByText(updatedArrayTypeName).should('exist')
+      })
     })
   })
 
@@ -267,7 +274,7 @@ describe('Types CRUD', () => {
         .click()
       cy.getModal().should('not.exist')
 
-      cy.findAllByText(interfaceTypeName).should('not.exist')
+      assertTwice(() => cy.findAllByText(interfaceTypeName).should('not.exist'))
     })
 
     it('should be able to delete array', () => {
@@ -286,7 +293,9 @@ describe('Types CRUD', () => {
         .click()
       cy.getModal().should('not.exist')
 
-      cy.findAllByText(updatedArrayTypeName).should('not.exist')
+      assertTwice(() =>
+        cy.findAllByText(updatedArrayTypeName).should('not.exist'),
+      )
     })
 
     it('should be able to delete enum', () => {
@@ -305,7 +314,7 @@ describe('Types CRUD', () => {
         .click()
       cy.getModal().should('not.exist')
 
-      cy.findAllByText(enumTypeName).should('not.exist')
+      assertTwice(() => cy.findAllByText(enumTypeName).should('not.exist'))
     })
 
     it('should be able to delete primitive', () => {
@@ -324,7 +333,7 @@ describe('Types CRUD', () => {
         .click()
       cy.getModal().should('not.exist')
 
-      cy.findAllByText(primitiveTypeName).should('not.exist')
+      assertTwice(() => cy.findAllByText(primitiveTypeName).should('not.exist'))
     })
   })
 })
