@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 
-const Page404: CodelabPage = observer(() => {
+const Page404: CodelabPage = () => {
   return (
     <>
       <Head>
@@ -13,7 +13,7 @@ const Page404: CodelabPage = observer(() => {
       <h1>404 - Page not found</h1>
     </>
   )
-})
+}
 
 export default Page404
 
