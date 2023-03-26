@@ -3,7 +3,7 @@
 #
 # We build `dist` with CI first before building our image, installing NPM here is require due to some packages that require native bindings.
 #
-FROM node:14.18.0-alpine AS build
+FROM node:16.16.0-alpine AS build
 
 RUN apk add bash make nasm autoconf automake libtool dpkg pkgconfig libpng libpng-dev g++
 
@@ -18,7 +18,7 @@ RUN yarn --immutable
 #
 # (2) Prod
 #
-FROM node:14.18.0-alpine AS prod
+FROM node:16.16.0-alpine AS prod
 
 RUN apk add curl
 

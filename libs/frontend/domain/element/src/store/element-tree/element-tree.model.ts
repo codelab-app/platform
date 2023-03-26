@@ -51,8 +51,7 @@ export class ElementTree
     ]
   }
 
-  @computed
-  get name() {
+  getName() {
     const parentComponent = this.rootElement.current.parentComponent?.current
 
     return parentComponent ? parentComponent.name : 'Page'
