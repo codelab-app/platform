@@ -4,6 +4,7 @@ import {
   DeleteTreeData,
   UpdateData,
 } from '@codelab/shared/data/test'
+import { assertTwice } from '../support/helpers'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 describe('Tag CRUD', () => {
@@ -22,13 +23,15 @@ describe('Tag CRUD', () => {
 
   describe('create', () => {
     const testCreate = (name: string, parentName?: string) => {
-      cy.getTable().findByText(name).should('exist')
+      assertTwice(() => {
+        cy.getTable().findByText(name).should('exist')
 
-      if (parentName) {
-        cy.toggleTreeNodeSwitcher(parentName)
-      }
+        if (parentName) {
+          cy.toggleTreeNodeSwitcher(parentName)
+        }
 
-      cy.getTree().findByText(name).should('exist')
+        cy.getTree().findByText(name).should('exist')
+      })
     }
 
     it('should be able to create a tag', () => {
@@ -66,8 +69,10 @@ describe('Tag CRUD', () => {
 
       cy.getModal().should('not.exist')
 
-      cy.getTable().findByText(UpdateData.tag_0).should('not.exist')
-      cy.getTable().findByText(UpdateData.updated_tag_0).should('exist')
+      assertTwice(() => {
+        cy.getTable().findByText(UpdateData.tag_0).should('not.exist')
+        cy.getTable().findByText(UpdateData.updated_tag_0).should('exist')
+      })
     })
   })
 
@@ -77,7 +82,12 @@ describe('Tag CRUD', () => {
         cy.getTable().findAllByText(DeleteTableData.tag_0_0).should('exist')
         cy.deleteTagInTableByUI(DeleteTableData.tag_0)
 
-        cy.getTable().findAllByText(DeleteTableData.tag_0_0).should('not.exist')
+        assertTwice(() =>
+          cy
+            .getTable()
+            .findAllByText(DeleteTableData.tag_0_0)
+            .should('not.exist'),
+        )
       })
 
       it('should be able to delete a tag', () => {
@@ -94,7 +104,8 @@ describe('Tag CRUD', () => {
           .getModalAction(/Delete Tags/)
           .click()
         cy.getModal().should('not.exist')
-        cy.getTreeNode(tagName).should('not.exist')
+
+        assertTwice(() => cy.getTreeNode(tagName).should('not.exist'))
       }
 
       it('should be able to delete a tag inside its parent', () => {
@@ -111,8 +122,11 @@ describe('Tag CRUD', () => {
         cy.toggleTreeNodeSwitcher(DeleteTreeData.tag_1)
         cy.getTreeNode(DeleteTreeData.tag_1).should('exist')
         cy.getTreeNode(DeleteTreeData.tag_1_0).should('exist')
+
         deleteTagNodeInTree(DeleteTreeData.tag_1)
-        cy.getTreeNode(DeleteTreeData.tag_1_0).should('not.exist')
+        assertTwice(() =>
+          cy.getTreeNode(DeleteTreeData.tag_1_0).should('not.exist'),
+        )
       })
     })
   })
