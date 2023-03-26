@@ -1,3 +1,4 @@
+import { assertTwice } from '../support/helpers'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 import { appName, updatedAppName } from './apps/app.data'
 
@@ -22,7 +23,7 @@ describe('Apps CRUD', () => {
 
       cy.getModal().should('not.exist')
 
-      cy.findByText(appName).should('exist')
+      assertTwice(() => cy.findByText(appName).should('exist'))
     })
   })
 
@@ -40,8 +41,10 @@ describe('Apps CRUD', () => {
 
       cy.getModal().should('not.exist')
 
-      cy.findByText(appName).should('not.exist')
-      cy.findByText(updatedAppName).should('exist')
+      assertTwice(() => {
+        cy.findByText(appName).should('not.exist')
+        cy.findByText(updatedAppName).should('exist')
+      })
     })
   })
 
@@ -63,7 +66,7 @@ describe('Apps CRUD', () => {
 
       cy.getModal().should('not.exist')
 
-      cy.findAllByText(updatedAppName).should('not.exist')
+      assertTwice(() => cy.findAllByText(updatedAppName).should('not.exist'))
     })
   })
 })
