@@ -1,6 +1,7 @@
 import type { IAppDTO } from '@codelab/frontend/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
+import { assertTwice } from '../support/helpers'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 import { pageName, updatedPageName } from './apps/app.data'
 
@@ -62,8 +63,10 @@ describe('Pages CRUD', () => {
         .click()
       cy.getModal().should('not.exist')
 
-      cy.findByText(pageName).should('not.exist')
-      cy.findByText(updatedPageName).should('exist')
+      assertTwice(() => {
+        cy.findByText(pageName).should('not.exist')
+        cy.findByText(updatedPageName).should('exist')
+      })
     })
   })
 
@@ -81,7 +84,7 @@ describe('Pages CRUD', () => {
         .click()
       cy.getModal().should('not.exist')
 
-      cy.findAllByText(updatedPageName).should('not.exist')
+      assertTwice(() => cy.findAllByText(updatedPageName).should('not.exist'))
     })
   })
 })
