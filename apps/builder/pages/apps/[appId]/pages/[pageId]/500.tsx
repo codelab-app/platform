@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 
-const Page500: CodelabPage = observer(() => {
+const Page500: CodelabPage = () => {
   return (
     <>
       <Head>
@@ -13,7 +13,7 @@ const Page500: CodelabPage = observer(() => {
       <h1>500 - Internal Server Error</h1>
     </>
   )
-})
+}
 
 export default Page500
 

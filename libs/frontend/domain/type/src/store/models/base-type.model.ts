@@ -10,7 +10,7 @@ import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
 export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
-  @model('@codelab/BaseType')
+  @model(`@codelab/BaseType${typeKind}`)
   class BaseType
     extends Model({
       id: idProp,
@@ -23,8 +23,6 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
     @modelAction
     writeCache({ name }: Partial<IBaseTypeDTO>) {
       this.name = name ?? this.name
-
-      console.log(this.name)
 
       return this
     }
