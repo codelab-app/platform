@@ -16,7 +16,7 @@ export const updateTagSchema: JSONSchemaType<IUpdateTagData> = {
           type: 'string',
         },
       },
-      required: ['id'],
+      required: [],
       type: 'object',
     },
   },

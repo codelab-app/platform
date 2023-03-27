@@ -20,7 +20,7 @@ export const createTagSchema: JSONSchemaType<ICreateTagData> = {
           type: 'string',
         },
       },
-      required: ['id'],
+      required: [],
       type: 'object',
     },
     ...ownerSchema,
