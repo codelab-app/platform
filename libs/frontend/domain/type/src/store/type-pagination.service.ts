@@ -41,6 +41,10 @@ export class TypePaginationService
   @computed
   get types() {
     return Array.from(this.data.values()).map(
+      // During vercel deployment using `getSnapshot` causes TS to crash with the following error:
+      // "Type error: Type instantiation is excessively deep and possibly infinite."
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       (type) => getSnapshot(type.current) as IType,
     )
   }
