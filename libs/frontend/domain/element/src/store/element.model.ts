@@ -39,8 +39,15 @@ import { compoundCaseToTitleCase, mergeProps } from '@codelab/shared/utils'
 import attempt from 'lodash/attempt'
 import isError from 'lodash/isError'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
-import { clone, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
+import {
+  clone,
+  idProp,
+  Model,
+  model,
+  modelAction,
+  prop,
+  Ref,
+} from 'mobx-keystone'
 import { getRenderType } from './utils'
 
 type TransformFn = (props: IPropData) => IPropData
@@ -260,6 +267,11 @@ export class Element
     })
 
     this.guiCss = JSON.stringify(curGuiCss)
+  }
+
+  @modelAction
+  setComponent(component: Ref<IComponent>) {
+    this._component = component
   }
 
   @modelAction

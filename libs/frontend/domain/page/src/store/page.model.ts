@@ -118,7 +118,7 @@ export class Page
     rootElement,
     store,
   }: Partial<IPageDTO>) {
-    this.name = name ? name : this.name
+    this.name = name ?? this.name
     this.rootElement = rootElement
       ? elementRef(rootElement.id)
       : this.rootElement

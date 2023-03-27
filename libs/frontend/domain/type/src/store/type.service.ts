@@ -105,7 +105,6 @@ export class TypeService
   @modelAction
   loadTypes = (types: Partial<GetTypesQuery>) => {
     const flatTypes = Object.values(types).flat()
-
     this.fieldService.load(
       (types.interfaceTypes || []).flatMap((fragment) => fragment.fields),
     )
@@ -114,9 +113,9 @@ export class TypeService
       TypeFactory.create(fragment),
     )
 
-    this.types = objectMap(
-      loadedTypes.map((typeModel) => [typeModel.id, typeModel]),
-    )
+    for (const type of loadedTypes) {
+      this.types.set(type.id, type)
+    }
 
     return loadedTypes
   }

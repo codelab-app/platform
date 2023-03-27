@@ -114,9 +114,13 @@ export class FieldService
 
   @modelAction
   load(fields: Array<FieldFragment>) {
-    const hydratedFields = fields.map((fragment) => Field.create(fragment))
+    const loadedFields = fields.map((fragment) => Field.create(fragment))
 
-    this.fields = objectMap(hydratedFields.map((field) => [field.id, field]))
+    for (const field of loadedFields) {
+      this.fields.set(field.id, field)
+    }
+
+    return loadedFields
   }
 
   @modelAction

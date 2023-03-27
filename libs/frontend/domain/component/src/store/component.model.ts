@@ -4,16 +4,18 @@ import type {
   IElement,
   IInterfaceType,
   IProp,
+  IStore,
 } from '@codelab/frontend/abstract/core'
 import {
   componentRef,
   elementRef,
+  ElementTree,
   getComponentService,
   IComponent,
   isComponentInstance,
 } from '@codelab/frontend/abstract/core'
-import { ElementTree } from '@codelab/frontend/domain/element'
 import { propRef } from '@codelab/frontend/domain/prop'
+import { storeRef } from '@codelab/frontend/domain/store'
 import { typeRef } from '@codelab/frontend/domain/type'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
@@ -28,6 +30,7 @@ const create = ({
   owner,
   props,
   rootElement,
+  store,
 }: IComponentDTO) => {
   return new Component({
     api: typeRef<IInterfaceType>(api.id),
@@ -38,6 +41,7 @@ const create = ({
     owner,
     props: props?.id ? propRef(props.id) : null,
     rootElement: elementRef(rootElement.id),
+    store: storeRef(store.id),
   })
 }
 
@@ -53,6 +57,8 @@ export class Component
     props: prop<Nullable<Ref<IProp>>>(null).withSetter(),
     // if this is a duplicate, trace source component id else null
     sourceComponent: prop<Nullable<IEntity>>(null).withSetter(),
+
+    store: prop<Ref<IStore>>(),
   })
   implements IComponent
 {
@@ -145,7 +151,7 @@ export class Component
     })
 
     const rootElement = elements.find((element) => element.id === rootElementId)
-    rootElement?.setParentComponent(componentRef(clonedComponent.id))
+    rootElement?.setComponent(componentRef(clonedComponent.id))
 
     if (!rootElement) {
       throw new Error('rootElement not found')

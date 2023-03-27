@@ -107,7 +107,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       return renderOutputWithProps(moreProps)
     }
 
-    const isInsideAComponent = Boolean(element.rootElement.parentComponent)
+    const isInsideAComponent = Boolean(element.component)
     const isComponentRootElement = element.component && isInsideAComponent
 
     // we only apply dnd to the root element of a component or elements not inside a component

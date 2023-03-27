@@ -9,6 +9,7 @@ export interface IComponentDTO extends IOwnerSchema {
   name: string
   props?: IEntity | null
   rootElement: IEntity
+  store: IEntity
 }
 
 export type ICreateComponentData = IComponentDTO & IOwnerSchema

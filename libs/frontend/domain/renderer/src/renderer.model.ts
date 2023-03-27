@@ -9,10 +9,10 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   CUSTOM_TEXT_PROP_KEY,
+  elementTreeRef,
   RendererType,
 } from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/domain/atom'
-import { elementTreeRef } from '@codelab/frontend/domain/element'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import {
   expressionTransformer,
