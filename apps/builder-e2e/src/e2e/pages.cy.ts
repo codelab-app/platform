@@ -21,8 +21,7 @@ describe('Pages CRUD', () => {
         cy.getSpinner().should('not.exist')
         cy.findAllByText(IPageKindName.Provider).should('exist')
         cy.findAllByText(IPageKindName.NotFound).should('exist')
-        // TODO: update app page name from InternalServerError and use IPageKindName instead
-        cy.findAllByText('InternalServerError').should('exist')
+        cy.findAllByText(IPageKindName.InternalServerError).should('exist')
       })
   })
 
