@@ -23,7 +23,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
           type: 'string',
         },
       },
-      required: ['id'],
+      required: [],
       type: 'object',
     },
     preRenderAction: {
@@ -34,7 +34,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
           type: 'string',
         },
       },
-      required: ['id'],
+      required: [],
       type: 'object',
     },
     renderForEachPropKey: {
