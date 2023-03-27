@@ -36,9 +36,6 @@ export interface ElementWrapperProps {
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
   ({ element, extraProps = {}, renderService, ...rest }) => {
-    // const globalPropsContext = useContext(GlobalPropsContext)
-    // const globalProps = globalPropsContext[element.id]    const state = renderService.appStore.current.state
-
     const onRefChange = useCallback((node: Nullable<HTMLElement>) => {
       if (node !== null) {
         // FIXME:

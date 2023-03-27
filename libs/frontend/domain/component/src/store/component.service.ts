@@ -2,16 +2,22 @@ import type {
   IComponent,
   IComponentService,
   ICreateComponentData,
-  IUpdateComponentData,
+  IInterfaceType,
 } from '@codelab/frontend/abstract/core'
 import {
   COMPONENT_TREE_CONTAINER,
   getElementService,
   IBuilderDataNode,
   IComponentDTO,
+  IUpdateComponentData,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
-import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
+import { getStoreService, Store } from '@codelab/frontend/domain/store'
+import {
+  getTypeService,
+  InterfaceType,
+  typeRef,
+} from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { ComponentWhere } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -65,41 +71,20 @@ export class ComponentService
   }
 
   @computed
+  get storeService() {
+    return getStoreService(this)
+  }
+
+  @computed
   get componentList() {
     return [...this.components.values()]
   }
 
   @modelAction
-  component(id: string) {
-    const component = this.maybeComponent(id)
-
-    if (!component) {
-      throw new Error('Missing component')
-    }
-
-    return component
-  }
-
-  @modelAction
-  maybeComponent(id: string) {
-    return this.components.get(id) || this.clonedComponents.get(id)
-  }
-
-  @modelAction
   add(componentDTO: IComponentDTO) {
-    let component = this.maybeComponent(componentDTO.id)
+    const component = Component.create(componentDTO)
 
-    if (componentDTO.props) {
-      this.propService.add({ ...componentDTO.props, data: '{}' })
-    }
-
-    if (component) {
-      component.writeCache(componentDTO)
-    } else {
-      component = Component.create(componentDTO)
-
-      this.components.set(component.id, component)
-    }
+    this.components.set(component.id, component)
 
     return component
   }
@@ -108,31 +93,50 @@ export class ComponentService
   @transaction
   create = _async(function* (
     this: ComponentService,
-    createComponentData: ICreateComponentData,
+    { name, owner, ...data }: ICreateComponentData,
   ) {
-    const props = this.propService.add({ data: '{}', id: v4() })
+    const storeApi = this.typeService.addInterface({
+      id: v4(),
+      kind: ITypeKind.InterfaceType,
+      name: InterfaceType.createName(`${name} Store`),
+      owner: owner,
+    })
+
+    const store = this.storeService.add({
+      api: typeRef<IInterfaceType>(storeApi.id),
+      id: v4(),
+      name: Store.createName({ name }),
+    })
+
+    const rootElementProps = this.propService.add({ data: '{}', id: v4() })
 
     const rootElement = this.elementService.add({
-      ...createComponentData.rootElement,
-      component: {
-        id: createComponentData.id,
-      },
-      name: createComponentData.name,
-      props,
+      ...data.rootElement,
+      component: { id: data.id },
+      name,
+      props: rootElementProps,
     })
 
     const api = this.typeService.addInterface({
-      ...createComponentData.api,
+      ...data.api,
       kind: ITypeKind.InterfaceType,
-      name: InterfaceType.createName(createComponentData.name),
-      owner: createComponentData.owner,
+      name: InterfaceType.createName(name),
+      owner,
+    })
+
+    const componentProps = this.propService.add({
+      data: '{}',
+      id: v4(),
     })
 
     const component = this.add({
-      ...createComponentData,
+      ...data,
       api,
-      props: { id: v4() },
+      name,
+      owner,
+      props: componentProps,
       rootElement,
+      store,
     })
 
     yield* _await(this.componentRepository.add(component))
@@ -146,9 +150,10 @@ export class ComponentService
     this: ComponentService,
     { childrenContainerElement, id, name }: IUpdateComponentData,
   ) {
-    const component = this.component(id)
+    const component = this.components.get(id)!
 
     component.writeCache({ childrenContainerElement, name })
+    this.writeCloneCache({ childrenContainerElement, id, name })
 
     yield* _await(this.componentRepository.update(component))
 
@@ -218,29 +223,28 @@ export class ComponentService
   })
 
   @modelAction
-  writeClonesCache(componentFragment: IComponentDTO) {
+  private writeCloneCache({
+    childrenContainerElement,
+    id,
+    name,
+  }: IUpdateComponentData) {
     return [...this.clonedComponents.values()]
-      .filter(
-        (component) => component.sourceComponent?.id === componentFragment.id,
-      )
-      .map((component) => {
-        const clonedChildrenContainer = component.elements.find(
+      .filter((componentClone) => componentClone.sourceComponent?.id === id)
+      .map((clone) => {
+        const containerClone = clone.elements.find(
           ({ sourceElement }) =>
-            sourceElement?.id === componentFragment.childrenContainerElement.id,
+            sourceElement?.id === childrenContainerElement.id,
         )
 
-        const childrenContainerElement =
-          clonedChildrenContainer ?? componentFragment.childrenContainerElement
-
-        return this.add({
-          ...componentFragment,
-          childrenContainerElement,
+        return clone.writeCache({
+          childrenContainerElement: containerClone,
+          name,
         })
       })
   }
 
   @modelAction
-  removeClones(componentId: string) {
+  private removeClones(componentId: string) {
     return [...this.clonedComponents.entries()]
       .filter(([_, component]) => component.sourceComponent?.id === componentId)
       .forEach(([elementId]) => this.clonedComponents.delete(elementId))

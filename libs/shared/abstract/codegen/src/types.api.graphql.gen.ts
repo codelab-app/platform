@@ -4928,7 +4928,7 @@ export type Component = WithOwner & {
   owner: User
   ownerAggregate?: Maybe<ComponentUserOwnerAggregationSelection>
   ownerConnection: WithOwnerOwnerConnection
-  props?: Maybe<Prop>
+  props: Prop
   propsAggregate?: Maybe<ComponentPropPropsAggregationSelection>
   propsConnection: ComponentPropsConnection
   rootElement: Element
@@ -20027,7 +20027,7 @@ export type ComponentFragment = {
   rootElement: { __typename?: 'Element'; id: string; name: string }
   owner: { __typename?: 'User' } & OwnerFragment
   api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
-  props?: ({ __typename?: 'Prop' } & PropFragment) | null
+  props: { __typename?: 'Prop' } & PropFragment
   childrenContainerElement: { __typename?: 'Element'; id: string }
   store: { __typename?: 'Store' } & StoreFragment
 }

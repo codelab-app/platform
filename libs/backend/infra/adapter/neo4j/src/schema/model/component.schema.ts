@@ -11,7 +11,7 @@ export const componentSchema = gql`
 
     store: Store! @relationship(type: "STORE_OF_COMPONENT", direction: IN)
     
-    props: Prop @relationship(type: "PROPS_OF_COMPONENT", direction: OUT)
+    props: Prop! @relationship(type: "PROPS_OF_COMPONENT", direction: OUT)
     # This is the element inside the component that is going to be
     # the container for component instance children
     childrenContainerElement: Element! @relationship(type: "CHILDREN_CONTAINER_ELEMENT", direction: OUT)

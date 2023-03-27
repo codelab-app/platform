@@ -5,7 +5,6 @@ import type {
 import type { ComponentWhere } from '@codelab/shared/abstract/codegen'
 import { reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
-import { mapCreateInput } from '../store'
 import { componentApi } from '../store/component.api'
 
 @model('@codelab/ComponentRepository')
@@ -15,14 +14,10 @@ export class ComponentRepository
 {
   @modelFlow
   add = _async(function* (this: ComponentRepository, component: IComponent) {
-    const input = mapCreateInput(component)
-
     const {
       createComponents: { components },
     } = yield* _await(
-      componentApi.CreateComponents({
-        input,
-      }),
+      componentApi.CreateComponents({ input: component.toCreateInput() }),
     )
 
     return components[0]!

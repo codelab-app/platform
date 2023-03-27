@@ -27,6 +27,4 @@ export interface IComponentService
   components: ObjectMap<IComponent>
 
   add(componentDTO: IComponentDTO): IComponent
-  component(id: string): IComponent
-  maybeComponent(id: Maybe<string>): Maybe<IComponent>
 }

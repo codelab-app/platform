@@ -2,7 +2,6 @@ import type {
   ICodeAction,
   ICodeActionDTO,
 } from '@codelab/frontend/abstract/core'
-import { IProp } from '@codelab/frontend/abstract/core'
 import {
   CodeActionCreateInput,
   CodeActionDeleteInput,

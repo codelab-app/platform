@@ -17,7 +17,7 @@ export type ComponentFragment = {
   rootElement: { id: string; name: string }
   owner: OwnerFragment
   api: InterfaceTypeFragment
-  props?: PropFragment | null
+  props: PropFragment
   childrenContainerElement: { id: string }
   store: StoreFragment
 }

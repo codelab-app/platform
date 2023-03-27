@@ -63,8 +63,9 @@ export const createValidator = (schema: Schema, context?: FormContextValue) => {
   const validator = ajv.compile(schema)
 
   return (model: Record<string, unknown>) => {
+    // FIXME:
     const modelToValidate = context?.allowExpressions
-      ? replaceStateInProps(model, context.appStore?.state.values)
+      ? replaceStateInProps(model, {})
       : model
 
     validator(modelToValidate)

@@ -39,8 +39,8 @@ export const evaluateExpression = (
 export const replaceStateInProps = (
   props: IPropData,
   context: IPropData = {},
-) => {
-  props = mapDeep(
+) =>
+  mapDeep(
     props,
     // value mapper
     (value, key) => (isString(value) ? getByExpression(value, context) : value),
@@ -48,9 +48,6 @@ export const replaceStateInProps = (
     (value, key) =>
       (isString(key) ? getByExpression(key, context) : key) as string,
   )
-
-  return props
-}
 
 export const getByExpression = (key: string, context: IPropData) => {
   if (!hasStateExpression(key)) {

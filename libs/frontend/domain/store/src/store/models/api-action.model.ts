@@ -97,7 +97,8 @@ export class ApiAction
 {
   @modelAction
   private replaceStateInConfig(config: IProp) {
-    return replaceStateInProps(config.values, this.store.current.state.values)
+    // FIXME:
+    return replaceStateInProps(config.values, {})
   }
 
   @computed
@@ -125,11 +126,8 @@ export class ApiAction
     const successAction = this.successAction?.current
     const errorAction = this.errorAction?.current
     const resource = this.resource.current
-
-    const config = this.store.current.replaceStateInProps(
-      this.config.current.values,
-    )
-
+    // FIXME:
+    const config = replaceStateInProps(this.config.current.values, {})
     const graphQLClient = this._graphqlClient
     const restClient = this._restClient
 

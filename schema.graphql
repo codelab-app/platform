@@ -4850,7 +4850,7 @@ type Component implements WithOwner {
     sort: [WithOwnerOwnerConnectionSort!]
     where: WithOwnerOwnerConnectionWhere
   ): WithOwnerOwnerConnection!
-  props(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop
+  props(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop!
   propsAggregate(
     directed: Boolean = true
     where: PropWhere

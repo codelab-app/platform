@@ -2385,13 +2385,10 @@ export type App = WithOwner & {
   ownerAggregate?: Maybe<AppUserOwnerAggregationSelection>
   pages: Array<Page>
   pagesAggregate?: Maybe<AppPagePagesAggregationSelection>
-  store: Store
-  storeAggregate?: Maybe<AppStoreStoreAggregationSelection>
   domains: Array<Domain>
   domainsAggregate?: Maybe<AppDomainDomainsAggregationSelection>
   ownerConnection: WithOwnerOwnerConnection
   pagesConnection: AppPagesConnection
-  storeConnection: AppStoreConnection
   domainsConnection: AppDomainsConnection
 }
 
@@ -2414,17 +2411,6 @@ export type AppPagesArgs = {
 
 export type AppPagesAggregateArgs = {
   where?: InputMaybe<PageWhere>
-  directed?: InputMaybe<Scalars['Boolean']>
-}
-
-export type AppStoreArgs = {
-  where?: InputMaybe<StoreWhere>
-  options?: InputMaybe<StoreOptions>
-  directed?: InputMaybe<Scalars['Boolean']>
-}
-
-export type AppStoreAggregateArgs = {
-  where?: InputMaybe<StoreWhere>
   directed?: InputMaybe<Scalars['Boolean']>
 }
 
@@ -2453,14 +2439,6 @@ export type AppPagesConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   sort?: InputMaybe<Array<AppPagesConnectionSort>>
-}
-
-export type AppStoreConnectionArgs = {
-  where?: InputMaybe<AppStoreConnectionWhere>
-  first?: InputMaybe<Scalars['Int']>
-  after?: InputMaybe<Scalars['String']>
-  directed?: InputMaybe<Scalars['Boolean']>
-  sort?: InputMaybe<Array<AppStoreConnectionSort>>
 }
 
 export type AppDomainsConnectionArgs = {
@@ -2539,31 +2517,6 @@ export type AppsConnection = {
   totalCount: Scalars['Int']
   pageInfo: PageInfo
   edges: Array<AppEdge>
-}
-
-export type AppStoreConnection = {
-  __typename?: 'AppStoreConnection'
-  edges: Array<AppStoreRelationship>
-  totalCount: Scalars['Int']
-  pageInfo: PageInfo
-}
-
-export type AppStoreRelationship = {
-  __typename?: 'AppStoreRelationship'
-  cursor: Scalars['String']
-  node: Store
-}
-
-export type AppStoreStoreAggregationSelection = {
-  __typename?: 'AppStoreStoreAggregationSelection'
-  count: Scalars['Int']
-  node?: Maybe<AppStoreStoreNodeAggregateSelection>
-}
-
-export type AppStoreStoreNodeAggregateSelection = {
-  __typename?: 'AppStoreStoreNodeAggregateSelection'
-  id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNonNullable
 }
 
 /** Allows picking a app from the list of apps */
@@ -6202,8 +6155,6 @@ export type Store = {
   __typename?: 'Store'
   id: Scalars['ID']
   name: Scalars['String']
-  app?: Maybe<App>
-  appAggregate?: Maybe<StoreAppAppAggregationSelection>
   api: InterfaceType
   apiAggregate?: Maybe<StoreInterfaceTypeApiAggregationSelection>
   actions: Array<AnyAction>
@@ -8770,14 +8721,12 @@ export type ApiActionWhere = {
 export type AppConnectInput = {
   owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   pages?: InputMaybe<Array<AppPagesConnectFieldInput>>
-  store?: InputMaybe<AppStoreConnectFieldInput>
   domains?: InputMaybe<Array<AppDomainsConnectFieldInput>>
 }
 
 export type AppConnectOrCreateInput = {
   owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   pages?: InputMaybe<Array<AppPagesConnectOrCreateFieldInput>>
-  store?: InputMaybe<AppStoreConnectOrCreateFieldInput>
   domains?: InputMaybe<Array<AppDomainsConnectOrCreateFieldInput>>
 }
 
@@ -8794,21 +8743,18 @@ export type AppCreateInput = {
   _compoundName: Scalars['String']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   pages?: InputMaybe<AppPagesFieldInput>
-  store?: InputMaybe<AppStoreFieldInput>
   domains?: InputMaybe<AppDomainsFieldInput>
 }
 
 export type AppDeleteInput = {
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   pages?: InputMaybe<Array<AppPagesDeleteFieldInput>>
-  store?: InputMaybe<AppStoreDeleteFieldInput>
   domains?: InputMaybe<Array<AppDomainsDeleteFieldInput>>
 }
 
 export type AppDisconnectInput = {
   owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   pages?: InputMaybe<Array<AppPagesDisconnectFieldInput>>
-  store?: InputMaybe<AppStoreDisconnectFieldInput>
   domains?: InputMaybe<Array<AppDomainsDisconnectFieldInput>>
 }
 
@@ -9288,7 +9234,6 @@ export type AppPagesUpdateFieldInput = {
 export type AppRelationInput = {
   owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   pages?: InputMaybe<Array<AppPagesCreateFieldInput>>
-  store?: InputMaybe<AppStoreCreateFieldInput>
   domains?: InputMaybe<Array<AppDomainsCreateFieldInput>>
 }
 
@@ -9296,144 +9241,6 @@ export type AppRelationInput = {
 export type AppSort = {
   id?: InputMaybe<SortDirection>
   _compoundName?: InputMaybe<SortDirection>
-}
-
-export type AppStoreAggregateInput = {
-  count?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  AND?: InputMaybe<Array<AppStoreAggregateInput>>
-  OR?: InputMaybe<Array<AppStoreAggregateInput>>
-  NOT?: InputMaybe<AppStoreAggregateInput>
-  node?: InputMaybe<AppStoreNodeAggregationWhereInput>
-}
-
-export type AppStoreConnectFieldInput = {
-  where?: InputMaybe<StoreConnectWhere>
-  connect?: InputMaybe<StoreConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
-  overwrite?: Scalars['Boolean']
-}
-
-export type AppStoreConnectionSort = {
-  node?: InputMaybe<StoreSort>
-}
-
-export type AppStoreConnectionWhere = {
-  AND?: InputMaybe<Array<AppStoreConnectionWhere>>
-  OR?: InputMaybe<Array<AppStoreConnectionWhere>>
-  NOT?: InputMaybe<AppStoreConnectionWhere>
-  node?: InputMaybe<StoreWhere>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  node_NOT?: InputMaybe<StoreWhere>
-}
-
-export type AppStoreConnectOrCreateFieldInput = {
-  where: StoreConnectOrCreateWhere
-  onCreate: AppStoreConnectOrCreateFieldInputOnCreate
-}
-
-export type AppStoreConnectOrCreateFieldInputOnCreate = {
-  node: StoreOnCreateInput
-}
-
-export type AppStoreCreateFieldInput = {
-  node: StoreCreateInput
-}
-
-export type AppStoreDeleteFieldInput = {
-  where?: InputMaybe<AppStoreConnectionWhere>
-  delete?: InputMaybe<StoreDeleteInput>
-}
-
-export type AppStoreDisconnectFieldInput = {
-  where?: InputMaybe<AppStoreConnectionWhere>
-  disconnect?: InputMaybe<StoreDisconnectInput>
-}
-
-export type AppStoreFieldInput = {
-  create?: InputMaybe<AppStoreCreateFieldInput>
-  connect?: InputMaybe<AppStoreConnectFieldInput>
-  connectOrCreate?: InputMaybe<AppStoreConnectOrCreateFieldInput>
-}
-
-export type AppStoreNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<AppStoreNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<AppStoreNodeAggregationWhereInput>>
-  NOT?: InputMaybe<AppStoreNodeAggregationWhereInput>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  id_EQUAL?: InputMaybe<Scalars['ID']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  name_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  name_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  name_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  name_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  name_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-}
-
-export type AppStoreUpdateConnectionInput = {
-  node?: InputMaybe<StoreUpdateInput>
-}
-
-export type AppStoreUpdateFieldInput = {
-  where?: InputMaybe<AppStoreConnectionWhere>
-  update?: InputMaybe<AppStoreUpdateConnectionInput>
-  connect?: InputMaybe<AppStoreConnectFieldInput>
-  disconnect?: InputMaybe<AppStoreDisconnectFieldInput>
-  create?: InputMaybe<AppStoreCreateFieldInput>
-  delete?: InputMaybe<AppStoreDeleteFieldInput>
-  connectOrCreate?: InputMaybe<AppStoreConnectOrCreateFieldInput>
 }
 
 export type AppTypeConnectInput = {
@@ -9746,7 +9553,6 @@ export type AppUpdateInput = {
   _compoundName?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>
-  store?: InputMaybe<AppStoreUpdateFieldInput>
   domains?: InputMaybe<Array<AppDomainsUpdateFieldInput>>
 }
 
@@ -9802,9 +9608,6 @@ export type AppWhere = {
   pages_SINGLE?: InputMaybe<PageWhere>
   /** Return Apps where some of the related Pages match this filter */
   pages_SOME?: InputMaybe<PageWhere>
-  store?: InputMaybe<StoreWhere>
-  store_NOT?: InputMaybe<StoreWhere>
-  storeAggregate?: InputMaybe<AppStoreAggregateInput>
   /** @deprecated Use `domains_SOME` instead. */
   domains?: InputMaybe<DomainWhere>
   /** @deprecated Use `domains_NONE` instead. */
@@ -9832,8 +9635,6 @@ export type AppWhere = {
   pagesConnection_SINGLE?: InputMaybe<AppPagesConnectionWhere>
   /** Return Apps where some of the related AppPagesConnections match this filter */
   pagesConnection_SOME?: InputMaybe<AppPagesConnectionWhere>
-  storeConnection?: InputMaybe<AppStoreConnectionWhere>
-  storeConnection_NOT?: InputMaybe<AppStoreConnectionWhere>
   /** @deprecated Use `domainsConnection_SOME` instead. */
   domainsConnection?: InputMaybe<AppDomainsConnectionWhere>
   /** @deprecated Use `domainsConnection_NONE` instead. */
@@ -11989,8 +11790,6 @@ export type BaseActionWhere = {
   elementConnection?: InputMaybe<BaseActionElementConnectionWhere>
   elementConnection_NOT?: InputMaybe<BaseActionElementConnectionWhere>
 }
-
-
 
 export type BaseTypeConnectInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectFieldInput>

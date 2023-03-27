@@ -5,16 +5,12 @@ import type {
   IStore,
   IStoreDTO,
 } from '@codelab/frontend/abstract/core'
-import { IPropData } from '@codelab/frontend/abstract/core'
 import { typeRef } from '@codelab/frontend/domain/type'
-import { getByExpression } from '@codelab/frontend/shared/utils'
 import type {
   StoreCreateInput,
   StoreDeleteInput,
   StoreUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import { mapDeep } from '@codelab/shared/utils'
-import isString from 'lodash/isString'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -64,25 +60,12 @@ export class Store
 
   @computed
   get jsonString() {
-    return JSON.stringify(this.state)
+    return ''
   }
 
-  @modelAction
-  public replaceStateInProps(
-    props: IPropData,
-    context: IPropData = this.state.values,
-  ) {
-    props = mapDeep(
-      props,
-      // value mapper
-      (value, key) =>
-        isString(value) ? getByExpression(value, context) : value,
-      // key mapper
-      (value, key) =>
-        (isString(key) ? getByExpression(key, context) : key) as string,
-    )
-
-    return props
+  @computed
+  get state() {
+    return {}
   }
 
   static create = create
