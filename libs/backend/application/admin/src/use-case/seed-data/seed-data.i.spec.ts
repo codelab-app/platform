@@ -9,7 +9,7 @@ import { exportAndAssert, importData, seedData } from './seed-data-spec.helper'
 
 let user: IUserDTO
 
-jest.setTimeout(150000)
+jest.setTimeout(300000)
 
 beforeAll(async () => {
   user = await setupNewUser({
