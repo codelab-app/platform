@@ -99,6 +99,7 @@ describe('Component CRUD', () => {
     it('should be able to add elements to the component', () => {
       cy.get(`.ant-tree-treenode-switcher-close > .ant-tree-switcher`).click()
       cy.get(`.ant-tree-treenode-switcher-close > .ant-tree-switcher`).click()
+      cy.get(`.ant-tree-treenode-switcher-close > .ant-tree-switcher`).click()
 
       cy.get(`.ant-tree-node-content-wrapper[title="${COMPONENT_NAME}"]`)
         .eq(1)
@@ -164,7 +165,7 @@ describe('Component CRUD', () => {
     it('should be able to create an instance of the component', () => {
       // this one fails
 
-      cy.get(`[title="_app"]`).click({ force: true })
+      cy.get(`[title="Body"]`).click({ force: true })
 
       cy.getSider()
         .find('.ant-page-header-heading')
