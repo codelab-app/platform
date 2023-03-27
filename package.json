@@ -108,7 +108,7 @@
     "micro": "9.4.1",
     "mobx": "6.9.0",
     "mobx-keystone": "1.4.1",
-    "mobx-react-lite": "3.4.0",
+    "mobx-react-lite": "3.4.3",
     "mobx-utils": "6.0.6",
     "morphext": "2.4.7",
     "neo4j-driver": "5.6.0",
