@@ -126,6 +126,7 @@ describe('Elements CRUD', () => {
 
   describe('delete', () => {
     it(`should be able to delete element sub tree`, () => {
+      cy.findByText(updatedElementName).click()
       cy.findByText(updatedElementName).rightclick()
       cy.contains(/Delete/).click({ force: true })
       cy.getSpinner().should('not.exist')
