@@ -1,56 +1,27 @@
 import type { IPage, IPageRepository } from '@codelab/frontend/abstract/core'
 import type { AppWhere } from '@codelab/shared/abstract/codegen'
-import { IPageKind } from '@codelab/shared/abstract/core'
-import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
-import { createUniqueName } from '@codelab/shared/utils'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { pageApi } from './page.api'
 
 @model('@codelab/PageRepository')
 export class PageRepository extends Model({}) implements IPageRepository {
   @modelFlow
-  add = _async(function* (
-    this: PageRepository,
-    { app, id, name, rootElement }: IPage,
-  ) {
+  add = _async(function* (this: PageRepository, page: IPage) {
     const {
       createPages: { pages },
-    } = yield* _await(
-      pageApi.CreatePages({
-        input: {
-          _compoundName: createUniqueName(name, app.id),
-          app: connectNodeId(app.id),
-          id,
-          kind: IPageKind.Regular,
-          rootElement: {
-            create: {
-              node: rootElement.current.toCreateInput(),
-            },
-          },
-        },
-      }),
-    )
+    } = yield* _await(pageApi.CreatePages({ input: page.toCreateInput() }))
 
     return pages[0]!
   })
 
   @modelFlow
-  update = _async(function* (
-    this: PageRepository,
-    { app, id, name, pageContentContainer }: IPage,
-  ) {
+  update = _async(function* (this: PageRepository, page: IPage) {
     const {
       updatePages: { pages },
     } = yield* _await(
       pageApi.UpdatePages({
-        update: {
-          _compoundName: createUniqueName(name, app.id),
-          app: connectNodeId(app.id),
-          pageContentContainer: reconnectNodeId(
-            pageContentContainer?.current.id,
-          ),
-        },
-        where: { id },
+        update: page.toUpdateInput(),
+        where: { id: page.id },
       }),
     )
 
@@ -70,10 +41,7 @@ export class PageRepository extends Model({}) implements IPageRepository {
       deletePages: { nodesDeleted },
     } = yield* _await(
       pageApi.DeletePages({
-        delete: {
-          pageContentContainer: { delete: {}, where: {} },
-          rootElement: {},
-        },
+        delete: pages[0]?.toDeleteInput(),
         where: { id_IN: pages.map((page) => page.id) },
       }),
     )

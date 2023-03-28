@@ -1,13 +1,14 @@
 import type {
-  IInterfaceType,
   IInterfaceTypeRef,
-  ITypeDTO,
   ITypeService,
   IUpdateTypeData,
 } from '@codelab/frontend/abstract/core'
-import { ICreateTypeData, IType } from '@codelab/frontend/abstract/core'
+import {
+  ICreateTypeData,
+  IType,
+  ITypeDTO,
+} from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import type { FieldFragment } from '@codelab/shared/abstract/codegen'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -26,7 +27,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
+import type { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
 import { TypeRepository } from '../services'
 import { getFieldService } from './field.service.context'
 import { InterfaceType } from './models'
@@ -102,30 +103,21 @@ export class TypeService
    * Caches all types into mobx
    */
   @modelAction
-  loadTypes = (types: GetTypesQuery) => {
+  loadTypes = (types: Partial<GetTypesQuery>) => {
     const flatTypes = Object.values(types).flat()
+    this.fieldService.load(
+      (types.interfaceTypes || []).flatMap((fragment) => fragment.fields),
+    )
 
     const loadedTypes = flatTypes.map((fragment) =>
       TypeFactory.create(fragment),
     )
 
-    this.types = objectMap(
-      loadedTypes.map((typeModel) => [typeModel.id, typeModel]),
-    )
+    for (const type of loadedTypes) {
+      this.types.set(type.id, type)
+    }
 
     return loadedTypes
-  }
-
-  @modelAction
-  loadFields = (types: GetTypesQuery['interfaceTypes']) => {
-    const flatTypes = Object.values(types).flat()
-    const fields: Array<FieldFragment> = []
-
-    flatTypes.forEach((fragment) => {
-      fields.push(...fragment.fields)
-    })
-
-    this.fieldService.load(fields)
   }
 
   @modelAction
@@ -134,28 +126,12 @@ export class TypeService
   }
 
   @modelAction
-  add = (typeDTO: ITypeDTO) => {
+  add(typeDTO: ITypeDTO) {
     const type = TypeFactory.create(typeDTO)
 
     this.types.set(type.id, type)
 
     return type
-  }
-
-  @modelAction
-  loadTypesByChunks(this: TypeService, types: GetTypesQuery) {
-    // type loading is quiet a heavy operation which takes up to 500ms of blocking time.
-    // split types loading into many chunks and queue each of them as a macrotask.
-    // this will unblock UI and allow other js to execute between them, which makes UI much more responsive.
-    this.loadFields(types.interfaceTypes)
-
-    this.loadTypes(types)
-
-    Object.values(types.interfaceTypes).map((type) => {
-      const typeModel = this.type(type.id) as IInterfaceType
-
-      typeModel.load(type.fields)
-    })
   }
 
   @modelFlow

@@ -4,19 +4,23 @@ import type {
   IElement,
   IInterfaceType,
   IProp,
+  IStore,
 } from '@codelab/frontend/abstract/core'
 import {
   componentRef,
   elementRef,
+  ElementTree,
   getComponentService,
   IComponent,
   isComponentInstance,
 } from '@codelab/frontend/abstract/core'
-import { ElementTree } from '@codelab/frontend/domain/element'
 import { propRef } from '@codelab/frontend/domain/prop'
+import { storeRef } from '@codelab/frontend/domain/store'
 import { typeRef } from '@codelab/frontend/domain/type'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
+import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
 import type { Ref } from 'mobx-keystone'
 import { clone, ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
@@ -28,6 +32,7 @@ const create = ({
   owner,
   props,
   rootElement,
+  store,
 }: IComponentDTO) => {
   return new Component({
     api: typeRef<IInterfaceType>(api.id),
@@ -36,8 +41,9 @@ const create = ({
     instanceElement: null,
     name,
     owner,
-    props: props?.id ? propRef(props.id) : null,
+    props: propRef(props.id),
     rootElement: elementRef(rootElement.id),
+    store: storeRef(store.id),
   })
 }
 
@@ -50,9 +56,11 @@ export class Component
     instanceElement: prop<Nullable<Ref<IElement>>>(null).withSetter(),
     name: prop<string>().withSetter(),
     owner: prop<IAuth0Owner>(),
-    props: prop<Nullable<Ref<IProp>>>(null).withSetter(),
+    props: prop<Ref<IProp>>().withSetter(),
     // if this is a duplicate, trace source component id else null
     sourceComponent: prop<Nullable<IEntity>>(null).withSetter(),
+
+    store: prop<Ref<IStore>>(),
   })
   implements IComponent
 {
@@ -145,7 +153,7 @@ export class Component
     })
 
     const rootElement = elements.find((element) => element.id === rootElementId)
-    rootElement?.setParentComponent(componentRef(clonedComponent.id))
+    rootElement?.setComponent(componentRef(clonedComponent.id))
 
     if (!rootElement) {
       throw new Error('rootElement not found')
@@ -173,14 +181,28 @@ export class Component
     const clonedComponent: IComponent = clone<IComponent>(this)
     this.cloneTree(clonedComponent, clonesList.length)
 
-    clonedComponent.setProps(
-      this.props ? propRef(this.props.current.clone()) : null,
-    )
+    clonedComponent.setProps(propRef(this.props.current.clone()))
     clonedComponent.setSourceComponent({ id: this.id })
     clonedComponent.setInstanceElement(elementRef(instanceId))
 
     componentService.clonedComponents.set(instanceId, clonedComponent)
 
     return clonedComponent
+  }
+
+  @modelAction
+  toCreateInput(): ComponentCreateInput {
+    return {
+      api: { create: { node: this.api.current.toCreateInput() } },
+      childrenContainerElement: connectNodeId(this.rootElement.id),
+      id: this.id,
+      name: this.name,
+      owner: connectAuth0Owner(this.owner),
+      props: { create: { node: this.props.current.toCreateInput() } },
+      rootElement: {
+        create: { node: this.rootElement.current.toCreateInput() },
+      },
+      store: { create: { node: this.store.current.toCreateInput() } },
+    }
   }
 }

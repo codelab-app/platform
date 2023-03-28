@@ -3,7 +3,6 @@ import {
   isComponentPageNode,
   isElementPageNode,
 } from '@codelab/frontend/abstract/core'
-import { Element } from '@codelab/frontend/domain/element'
 import { useStore } from '@codelab/frontend/presenter/container'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'
@@ -55,7 +54,6 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
                   contextMenuProps={{
                     ...elementContextMenuProps,
                     element,
-                    elementTree: Element.getElementTree(element),
                   }}
                   node={node}
                   setContextMenuNodeId={setContextMenuNodeId}

@@ -13,27 +13,22 @@ export const CreateComponentModal = observer(() => {
   const { componentService, userService } = useStore()
   const user = userService.user
 
-  const handleSubmit = (componentData: CreateComponentSchema) => {
+  const onSubmit = (componentData: CreateComponentSchema) => {
     if (!user) {
       return Promise.reject()
     }
 
     const rootElement = { id: v4() }
-    const api = { id: v4() }
 
     return componentService.create({
       ...componentData,
-      api,
+      api: { id: v4() },
       childrenContainerElement: rootElement,
       rootElement,
     })
   }
 
   const closeModal = () => componentService.createModal.close()
-
-  const onSubmitError = createNotificationHandler({
-    title: 'Error while creating component',
-  })
 
   return (
     <ModalForm.Modal
@@ -50,8 +45,10 @@ export const CreateComponentModal = observer(() => {
           id: v4(),
           owner: { auth0Id: user?.auth0Id },
         }}
-        onSubmit={handleSubmit}
-        onSubmitError={onSubmitError}
+        onSubmit={onSubmit}
+        onSubmitError={createNotificationHandler({
+          title: 'Error while creating component',
+        })}
         onSubmitSuccess={closeModal}
         schema={createComponentSchema}
       >

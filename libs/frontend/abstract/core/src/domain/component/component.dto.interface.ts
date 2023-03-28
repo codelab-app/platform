@@ -7,8 +7,9 @@ export interface IComponentDTO extends IOwnerSchema {
   childrenContainerElement: IEntity
   id: string
   name: string
-  props?: IEntity | null
+  props: IEntity
   rootElement: IEntity
+  store: IEntity
 }
 
 export type ICreateComponentData = IComponentDTO & IOwnerSchema

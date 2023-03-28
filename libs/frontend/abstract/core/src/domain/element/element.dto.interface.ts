@@ -62,6 +62,7 @@ export type IUpdateBaseElementData = Pick<
  */
 export interface IElementDTO {
   // slug: string
+  component?: IEntity | null
   customCss?: Nullable<string>
   firstChild?: IEntity | null
   guiCss?: Nullable<string>
@@ -70,7 +71,6 @@ export interface IElementDTO {
   nextSibling?: IEntity | null
   page?: IEntity | null
   parent?: IEntity | null
-  parentComponent?: IEntity | null
   postRenderAction?: IEntity | null
   preRenderAction?: IEntity | null
   // renderComponentType?: IComponentDTO | null

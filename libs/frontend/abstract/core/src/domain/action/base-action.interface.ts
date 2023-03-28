@@ -11,7 +11,7 @@ export interface IBaseAction {
   name: string
   store: Ref<IStore>
   type: IActionKind
-  createRunner(state: IProp): (...args: Array<unknown>) => unknown
+  createRunner(): (...args: Array<unknown>) => unknown
 }
 
 export type IActionRef = string

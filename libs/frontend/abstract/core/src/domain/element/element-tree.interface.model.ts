@@ -19,7 +19,6 @@ export interface IElementTree {
 
   descendants(subRoot: Ref<IElement>): Array<IElement>
   element(id: string): Maybe<IElement>
-  getName(): string
   getPathFromRoot(pageNode: IPageNodeRef): Array<string>
   setRootElement(elementRef: Ref<IElement>): void
 }

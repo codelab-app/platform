@@ -52,9 +52,7 @@ export interface ITypeService
   addInterface(data: ICreateTypeData): IInterfaceType
   getAll(ids?: Array<string>): Promise<Array<IType>>
   getInterface(id: IInterfaceTypeRef): Promise<IInterfaceType>
-  loadFields(types: GetTypesQuery['interfaceTypes']): void
-  loadTypes(types: GetTypesQuery): Array<IType>
-  loadTypesByChunks(types: GetTypesQuery): void
+  loadTypes(types: Partial<GetTypesQuery>): Array<IType>
   primitiveKind(id: string): Nullable<IPrimitiveTypeKind>
   setSelectedIds(ids: ArraySet<string>): void
   type(id: string): Maybe<IType>

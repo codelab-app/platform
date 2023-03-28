@@ -10,7 +10,6 @@ import type { IElement } from '../element'
 import type { IModel } from '../model.interface'
 import type { IPage } from '../page'
 import type { IPropData } from '../prop'
-import type { IStore } from '../store'
 import type { IOwnerSchema } from '../user'
 import type { IAppDTO } from './app.dto.interface'
 
@@ -28,10 +27,6 @@ export interface IApp
    */
   providerPage: IPage
   slug: string
-  /**
-   * We use ref on something that possible could not exist
-   */
-  store: Ref<IStore>
   toJson: IPropData
 
   page(id: string): IPage

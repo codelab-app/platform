@@ -4,11 +4,9 @@ import type {
   IAuth0Owner,
   IDomain,
   IPage,
-  IStore,
 } from '@codelab/frontend/abstract/core'
 import { domainRef } from '@codelab/frontend/domain/domain'
 import { pageRef } from '@codelab/frontend/domain/page'
-import { deleteStoreInput, storeRef } from '@codelab/frontend/domain/store'
 import type {
   AppCreateInput,
   AppDeleteInput,
@@ -23,14 +21,13 @@ import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import slugify from 'voca/slugify'
 
-const create = ({ domains, id, name, owner, pages, store }: IAppDTO) => {
+const create = ({ domains, id, name, owner, pages }: IAppDTO) => {
   const app = new App({
     domains: domains?.map((domain) => domainRef(domain.id)),
     id,
     name,
     owner,
     pages: pages?.map((page) => pageRef(page.id)),
-    store: storeRef(store.id),
   })
 
   return app
@@ -45,7 +42,6 @@ export class App
     owner: prop<IAuth0Owner>(),
     pages: prop<Array<Ref<IPage>>>(() => []),
     // slug: prop<string>().withSetter(),
-    store: prop<Ref<IStore>>(),
   })
   implements IApp
 {
@@ -61,10 +57,9 @@ export class App
    * For cache writing, we don't write dto for nested models. We only write the ref. The top most use case calling function is responsible for properly hydrating the data.
    */
   @modelAction
-  writeCache({ domains, id, name, pages, store }: Partial<IAppDTO>) {
+  writeCache({ domains, id, name, pages }: Partial<IAppDTO>) {
     this.id = id ?? this.id
     this.name = name ?? this.name
-    this.store = store ? storeRef(store.id) : this.store
     this.pages = pages ? pages.map((page) => pageRef(page.id)) : this.pages
     this.domains = domains
       ? domains.map((domain) => domainRef(domain.id))
@@ -125,11 +120,6 @@ export class App
           node: page.current.toCreateInput(),
         })),
       },
-      store: {
-        create: {
-          node: this.store.current.toCreateInput(),
-        },
-      },
     }
   }
 
@@ -147,10 +137,6 @@ export class App
           where: {},
         },
       ],
-      store: {
-        delete: deleteStoreInput,
-        where: {},
-      },
     }
   }
 }

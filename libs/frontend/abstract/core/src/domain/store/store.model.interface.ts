@@ -7,7 +7,7 @@ import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IAction } from '../action'
 import type { IModel } from '../model.interface'
-import type { IProp } from '../prop'
+import type { IPropData } from '../prop'
 import type { IInterfaceType } from '../type'
 import type { IStoreDTO } from './store.dto.interface'
 
@@ -17,8 +17,9 @@ export interface IStore
   actions: Array<Ref<IAction>>
   api: Ref<IInterfaceType>
   id: string
+  jsonString: string
   name: string
-  state: IProp
+  state: IPropData
 }
 
 export type IStoreRef = string

@@ -18,7 +18,7 @@ export class Element implements IElementDTO {
 
   parent?: IEntity | null | undefined
 
-  parentComponent?: IEntity | null | undefined
+  component?: IEntity | null | undefined
 
   postRenderAction?: IEntity | null | undefined
 

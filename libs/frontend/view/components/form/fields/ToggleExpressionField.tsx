@@ -74,7 +74,7 @@ const ToggleExpression = ({
   fieldProps,
   mainProps,
 }: ToggleExpressionFieldProps) => {
-  const { allowExpressions, appStore } = useFormContext()
+  const { allowExpressions } = useFormContext()
 
   // Will show blank if undefined instead of "undefined" string
   const value = !isNil(fieldProps.value ?? fieldProps.field?.default)
@@ -119,12 +119,9 @@ const ToggleExpression = ({
       </Space>
 
       <div>
-        {showExpressionEditor && appStore ? (
+        {showExpressionEditor ? (
           <CodeMirrorEditor
-            customOptions={createAutoCompleteOptions(
-              appStore.state.values,
-              'this',
-            )}
+            customOptions={createAutoCompleteOptions({}, 'this')}
             language={ICodeMirrorLanguage.Javascript}
             overrideStyles={css`
               display: block;

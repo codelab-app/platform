@@ -5,6 +5,7 @@ import type {
   IElementDTO,
   IElementRenderType,
   IHook,
+  IPage,
   IProp,
   IPropData,
   RenderingError,
@@ -21,14 +22,14 @@ import {
   isComponentInstance,
 } from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/domain/atom'
+import { pageRef } from '@codelab/frontend/domain/page'
 import { getPropService, propRef } from '@codelab/frontend/domain/prop'
-import { actionRef } from '@codelab/frontend/domain/store'
 import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
-import { Maybe, Nullish } from '@codelab/shared/abstract/types'
+import type { IEntity } from '@codelab/shared/abstract/types'
+import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
   disconnectNodeId,
@@ -38,14 +39,21 @@ import { compoundCaseToTitleCase, mergeProps } from '@codelab/shared/utils'
 import attempt from 'lodash/attempt'
 import isError from 'lodash/isError'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
-import { clone, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import { getElementTree } from './element-tree/element-tree.util'
+import {
+  clone,
+  idProp,
+  Model,
+  model,
+  modelAction,
+  prop,
+  Ref,
+} from 'mobx-keystone'
 import { getRenderType } from './utils'
 
 type TransformFn = (props: IPropData) => IPropData
 
 const create = ({
+  component,
   customCss,
   firstChild,
   guiCss,
@@ -54,9 +62,6 @@ const create = ({
   nextSibling,
   page,
   parent,
-  parentComponent,
-  postRenderAction,
-  preRenderAction,
   prevSibling,
   props,
   propTransformationJs,
@@ -67,18 +72,17 @@ const create = ({
   const elementRenderType = getRenderType(renderType)
 
   return new Element({
+    _component: component ? componentRef(component.id) : null,
+    _page: page ? pageRef(page.id) : null,
     customCss,
     firstChild: firstChild?.id ? elementRef(firstChild.id) : undefined,
     guiCss,
     id,
     name,
     nextSibling: nextSibling?.id ? elementRef(nextSibling.id) : undefined,
-    page,
+
     // parent of first child
     parent: parent?.id ? elementRef(parent.id) : undefined,
-    parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
-    postRenderAction,
-    preRenderAction,
     prevSibling: prevSibling?.id ? elementRef(prevSibling.id) : undefined,
     props: propRef(props.id),
     propTransformationJs,
@@ -92,26 +96,34 @@ const create = ({
 @model('@codelab/Element')
 export class Element
   extends Model({
-    // slug: prop<string>().withSetter(),
+    // component which has this element as rootElement
+    _component: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
+
+    // page which has this element as rootElement
+    _page: prop<Nullable<Ref<IPage>>>(null),
+
     customCss: prop<Nullable<string>>(null).withSetter(),
+
     firstChild: prop<Nullable<Ref<IElement>>>(null).withSetter(),
+
     guiCss: prop<Nullable<string>>(null),
+
     // Marks the element as an instance of a specific component
     // renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
+
     id: idProp.withSetter(),
+
     name: prop<string>().withSetter(),
+
     nextSibling: prop<Nullable<Ref<IElement>>>(null).withSetter(),
+
     orderInParent: prop<Nullable<number>>(null).withSetter(),
+
     owner: prop<Nullable<IAuth0Owner>>(null),
-    // page which has this element as rootElement
-    page: prop<Nullable<IEntity>>(null),
+
     // Data used for tree initializing, before our Element model is ready
     parent: prop<Nullable<Ref<IElement>>>(null).withSetter(),
-    // component which has this element as rootElement
-    parentComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
-    postRenderAction: prop<Nullish<IEntity>>(null),
-    preRenderAction: prop<Nullish<IEntity>>(null),
     prevSibling: prop<Nullable<Ref<IElement>>>(null).withSetter(),
     props: prop<Ref<IProp>>().withSetter(),
     propTransformationJs: prop<Nullable<string>>(null).withSetter(),
@@ -136,28 +148,37 @@ export class Element
   }
 
   @computed
-  get rootElement(): IElement {
-    // This stops the traversing when the current element is the element container for a component
-    if (this.parentComponent) {
-      return this
-    }
-
-    return this.closestParent ? this.closestParent.rootElement : this
+  get closestRootElement(): IElement {
+    return this.closestParent
+      ? this.closestParent.closestRootElement
+      : (this as IElement)
   }
 
   @computed
-  get baseId() {
-    if (this.closestParent) {
-      return this.closestParent.baseId
+  get component(): Nullable<Ref<IComponent>> {
+    return this.closestParent?.component ?? this._component
+  }
+
+  @computed
+  get page(): Nullable<Ref<IPage>> {
+    return this.closestParent?.page ?? this._page
+  }
+
+  @computed
+  get closestContainerNode(): IComponent | IPage {
+    const closestNode =
+      this.closestRootElement.page || this.closestRootElement.component
+
+    if (!closestNode) {
+      throw new Error('Element has no node attached to')
     }
 
-    const baseId = this.page?.id || this.parentComponent?.id
+    return closestNode.current
+  }
 
-    if (!baseId) {
-      throw new Error('Element has no baseId')
-    }
-
-    return baseId
+  @computed
+  get store() {
+    return this.closestContainerNode.store.current
   }
 
   @computed
@@ -249,6 +270,11 @@ export class Element
   }
 
   @modelAction
+  setComponent(component: Ref<IComponent>) {
+    this._component = component
+  }
+
+  @modelAction
   setRenderingError(error: Nullish<RenderingError>) {
     this.renderingMetadata = {
       error,
@@ -295,7 +321,7 @@ export class Element
       (isAtomInstance(this.renderType)
         ? compoundCaseToTitleCase((this.renderType.current as IAtom).type)
         : undefined) ||
-      this.parentComponent?.current.name ||
+      this.component?.current.name ||
       ''
     )
   }
@@ -314,7 +340,7 @@ export class Element
       children: this.children.map((child) => child.antdNode),
       key: this.id,
       node: this,
-      rootKey: Element.getElementTree(this).rootElement.id,
+      rootKey: this.closestRootElement.id,
       title: this.label,
     }
   }
@@ -374,8 +400,6 @@ export class Element
     return {
       id: this.id,
       name: this.name,
-      postRenderAction: connectNodeId(this.postRenderAction?.id),
-      preRenderAction: connectNodeId(this.preRenderAction?.id),
       props: {
         create: {
           node: this.props.current.toCreateInput(),
@@ -402,8 +426,6 @@ export class Element
       customCss: this.customCss,
       guiCss: this.guiCss,
       name: this.name,
-      postRenderAction: reconnectNodeId(this.postRenderAction?.id),
-      preRenderAction: reconnectNodeId(this.preRenderAction?.id),
       props: {
         update: { node: { data: JSON.stringify(this.props.current.data) } },
       },
@@ -578,6 +600,7 @@ export class Element
   @modelAction
   @modelAction
   writeCache({
+    component,
     customCss,
     firstChild,
     guiCss,
@@ -585,9 +608,6 @@ export class Element
     name,
     nextSibling,
     parent,
-    parentComponent,
-    postRenderAction,
-    preRenderAction,
     prevSibling,
     props,
     propTransformationJs,
@@ -605,12 +625,6 @@ export class Element
     this.renderIfExpression = renderIfExpression ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null
     this.renderType = elementRenderType ?? this.renderType
-    this.preRenderAction = preRenderAction
-      ? actionRef(preRenderAction.id)
-      : this.preRenderAction
-    this.postRenderAction = postRenderAction
-      ? actionRef(postRenderAction.id)
-      : this.postRenderAction
     this.props = props?.id ? propRef(props.id) : this.props
     this.parent = parent?.id ? elementRef(parent.id) : this.parent
     this.nextSibling = nextSibling?.id
@@ -622,14 +636,8 @@ export class Element
     this.firstChild = firstChild?.id
       ? elementRef(firstChild.id)
       : this.firstChild
-    this.parentComponent = parentComponent
-      ? componentRef(parentComponent.id)
-      : null
+    this._component = component ? componentRef(component.id) : null
 
     return this
   }
-
-  // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
-
-  static getElementTree = getElementTree
 }

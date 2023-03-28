@@ -21,7 +21,7 @@ export interface BuilderTabsProps {
 export const BuilderTabs = observer<BuilderTabsProps>(
   ({ app, error, isLoading, page, renderer }) => {
     const { builderService } = useStore()
-    const appStore = app?.store.current
+    const store = page?.store.current
 
     const tabItems = [
       {
@@ -52,10 +52,10 @@ export const BuilderTabs = observer<BuilderTabsProps>(
             page && renderer ? (
               <BaseBuilder elementTree={page} renderer={renderer} />
             ) : null
-          ) : builderService.activeComponent && appStore ? (
+          ) : builderService.activeComponent && store ? (
             <BuilderComponent
               BaseBuilder={BaseBuilder}
-              appStore={appStore}
+              appStore={store}
               componentId={builderService.activeComponent.id}
             />
           ) : null}

@@ -19,11 +19,11 @@ import { createElementSchema } from './create-element.schema'
 
 export const CreateElementModal = observer(() => {
   const { elementService, userService } = useStore()
-  const { elementTree, metadata, parentElement } = elementService.createModal
+  const { metadata, parentElement } = elementService.createModal
   const elementOptions = metadata?.elementOptions
   const { validateParentForCreate } = useRequiredParentValidator()
 
-  if (!parentElement || !elementTree) {
+  if (!parentElement) {
     return null
   }
 
@@ -67,7 +67,7 @@ export const CreateElementModal = observer(() => {
     ? parentElement.renderType.current
     : undefined
 
-  const parentComponent = parentElement.rootElement.parentComponent?.current
+  const parentComponent = parentElement.component?.current
 
   return (
     <ModalForm.Modal
@@ -104,7 +104,7 @@ export const CreateElementModal = observer(() => {
               allElementOptions={elementOptions}
             />
           )}
-          help={`only elements from \`${elementTree.getName()}\` are visible in this list`}
+          help={`only elements from \`${parentElement.closestContainerNode.name}\` are visible in this list`}
           name="parentElement.id"
         />
         <SelectLinkElement

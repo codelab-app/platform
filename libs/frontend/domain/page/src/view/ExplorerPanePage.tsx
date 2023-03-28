@@ -27,9 +27,9 @@ export const ExplorerPanePage = observer(() => {
       title="Pages"
     >
       <PageList />
-      <CreatePageModal pageService={pageService} userService={userService} />
-      <UpdatePageModal pageService={pageService} />
-      <DeletePageModal pageService={pageService} />
+      <CreatePageModal />
+      <UpdatePageModal />
+      <DeletePageModal />
     </ExplorerPaneTemplate>
   )
 })

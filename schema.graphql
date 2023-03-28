@@ -1291,22 +1291,6 @@ type App implements WithOwner {
     where: AppPagesConnectionWhere
   ): AppPagesConnection!
   slug: String!
-  store(
-    directed: Boolean = true
-    options: StoreOptions
-    where: StoreWhere
-  ): Store!
-  storeAggregate(
-    directed: Boolean = true
-    where: StoreWhere
-  ): AppStoreStoreAggregationSelection
-  storeConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [AppStoreConnectionSort!]
-    where: AppStoreConnectionWhere
-  ): AppStoreConnection!
 }
 
 type AppAggregateSelection {
@@ -1319,14 +1303,12 @@ input AppConnectInput {
   domains: [AppDomainsConnectFieldInput!]
   owner: WithOwnerOwnerConnectFieldInput
   pages: [AppPagesConnectFieldInput!]
-  store: AppStoreConnectFieldInput
 }
 
 input AppConnectOrCreateInput {
   domains: [AppDomainsConnectOrCreateFieldInput!]
   owner: WithOwnerOwnerConnectOrCreateFieldInput
   pages: [AppPagesConnectOrCreateFieldInput!]
-  store: AppStoreConnectOrCreateFieldInput
 }
 
 input AppConnectOrCreateWhere {
@@ -1343,21 +1325,18 @@ input AppCreateInput {
   id: ID!
   owner: WithOwnerOwnerFieldInput
   pages: AppPagesFieldInput
-  store: AppStoreFieldInput
 }
 
 input AppDeleteInput {
   domains: [AppDomainsDeleteFieldInput!]
   owner: WithOwnerOwnerDeleteFieldInput
   pages: [AppPagesDeleteFieldInput!]
-  store: AppStoreDeleteFieldInput
 }
 
 input AppDisconnectInput {
   domains: [AppDomainsDisconnectFieldInput!]
   owner: WithOwnerOwnerDisconnectFieldInput
   pages: [AppPagesDisconnectFieldInput!]
-  store: AppStoreDisconnectFieldInput
 }
 
 type AppDomainDomainsAggregationSelection {
@@ -1683,7 +1662,6 @@ input AppRelationInput {
   domains: [AppDomainsCreateFieldInput!]
   owner: WithOwnerOwnerCreateFieldInput
   pages: [AppPagesCreateFieldInput!]
-  store: AppStoreCreateFieldInput
 }
 
 """
@@ -1692,124 +1670,6 @@ Fields to sort Apps by. The order in which sorts are applied is not guaranteed w
 input AppSort {
   _compoundName: SortDirection
   id: SortDirection
-}
-
-input AppStoreAggregateInput {
-  AND: [AppStoreAggregateInput!]
-  NOT: AppStoreAggregateInput
-  OR: [AppStoreAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: AppStoreNodeAggregationWhereInput
-}
-
-input AppStoreConnectFieldInput {
-  connect: StoreConnectInput
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
-  """
-  overwrite: Boolean! = true
-  where: StoreConnectWhere
-}
-
-input AppStoreConnectOrCreateFieldInput {
-  onCreate: AppStoreConnectOrCreateFieldInputOnCreate!
-  where: StoreConnectOrCreateWhere!
-}
-
-input AppStoreConnectOrCreateFieldInputOnCreate {
-  node: StoreOnCreateInput!
-}
-
-type AppStoreConnection {
-  edges: [AppStoreRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input AppStoreConnectionSort {
-  node: StoreSort
-}
-
-input AppStoreConnectionWhere {
-  AND: [AppStoreConnectionWhere!]
-  NOT: AppStoreConnectionWhere
-  OR: [AppStoreConnectionWhere!]
-  node: StoreWhere
-}
-
-input AppStoreCreateFieldInput {
-  node: StoreCreateInput!
-}
-
-input AppStoreDeleteFieldInput {
-  delete: StoreDeleteInput
-  where: AppStoreConnectionWhere
-}
-
-input AppStoreDisconnectFieldInput {
-  disconnect: StoreDisconnectInput
-  where: AppStoreConnectionWhere
-}
-
-input AppStoreFieldInput {
-  connect: AppStoreConnectFieldInput
-  connectOrCreate: AppStoreConnectOrCreateFieldInput
-  create: AppStoreCreateFieldInput
-}
-
-input AppStoreNodeAggregationWhereInput {
-  AND: [AppStoreNodeAggregationWhereInput!]
-  NOT: AppStoreNodeAggregationWhereInput
-  OR: [AppStoreNodeAggregationWhereInput!]
-  name_AVERAGE_LENGTH_EQUAL: Float
-  name_AVERAGE_LENGTH_GT: Float
-  name_AVERAGE_LENGTH_GTE: Float
-  name_AVERAGE_LENGTH_LT: Float
-  name_AVERAGE_LENGTH_LTE: Float
-  name_LONGEST_LENGTH_EQUAL: Int
-  name_LONGEST_LENGTH_GT: Int
-  name_LONGEST_LENGTH_GTE: Int
-  name_LONGEST_LENGTH_LT: Int
-  name_LONGEST_LENGTH_LTE: Int
-  name_SHORTEST_LENGTH_EQUAL: Int
-  name_SHORTEST_LENGTH_GT: Int
-  name_SHORTEST_LENGTH_GTE: Int
-  name_SHORTEST_LENGTH_LT: Int
-  name_SHORTEST_LENGTH_LTE: Int
-}
-
-type AppStoreRelationship {
-  cursor: String!
-  node: Store!
-}
-
-type AppStoreStoreAggregationSelection {
-  count: Int!
-  node: AppStoreStoreNodeAggregateSelection
-}
-
-type AppStoreStoreNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
-input AppStoreUpdateConnectionInput {
-  node: StoreUpdateInput
-}
-
-input AppStoreUpdateFieldInput {
-  connect: AppStoreConnectFieldInput
-  connectOrCreate: AppStoreConnectOrCreateFieldInput
-  create: AppStoreCreateFieldInput
-  delete: AppStoreDeleteFieldInput
-  disconnect: AppStoreDisconnectFieldInput
-  update: AppStoreUpdateConnectionInput
-  where: AppStoreConnectionWhere
 }
 
 """
@@ -2031,7 +1891,6 @@ input AppUpdateInput {
   id: ID
   owner: WithOwnerOwnerUpdateFieldInput
   pages: [AppPagesUpdateFieldInput!]
-  store: AppStoreUpdateFieldInput
 }
 
 type AppUserOwnerAggregationSelection {
@@ -2149,11 +2008,6 @@ input AppWhere {
   Return Apps where some of the related Pages match this filter
   """
   pages_SOME: PageWhere
-  store: StoreWhere
-  storeAggregate: AppStoreAggregateInput
-  storeConnection: AppStoreConnectionWhere
-  storeConnection_NOT: AppStoreConnectionWhere
-  store_NOT: StoreWhere
 }
 
 type AppsConnection {
@@ -4996,7 +4850,7 @@ type Component implements WithOwner {
     sort: [WithOwnerOwnerConnectionSort!]
     where: WithOwnerOwnerConnectionWhere
   ): WithOwnerOwnerConnection!
-  props(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop
+  props(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop!
   propsAggregate(
     directed: Boolean = true
     where: PropWhere
@@ -5024,6 +4878,22 @@ type Component implements WithOwner {
     sort: [ComponentRootElementConnectionSort!]
     where: ComponentRootElementConnectionWhere
   ): ComponentRootElementConnection!
+  store(
+    directed: Boolean = true
+    options: StoreOptions
+    where: StoreWhere
+  ): Store!
+  storeAggregate(
+    directed: Boolean = true
+    where: StoreWhere
+  ): ComponentStoreStoreAggregationSelection
+  storeConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ComponentStoreConnectionSort!]
+    where: ComponentStoreConnectionWhere
+  ): ComponentStoreConnection!
 }
 
 type ComponentAggregateSelection {
@@ -5329,6 +5199,7 @@ input ComponentConnectInput {
   owner: WithOwnerOwnerConnectFieldInput
   props: ComponentPropsConnectFieldInput
   rootElement: ComponentRootElementConnectFieldInput
+  store: ComponentStoreConnectFieldInput
 }
 
 input ComponentConnectOrCreateInput {
@@ -5337,6 +5208,7 @@ input ComponentConnectOrCreateInput {
   owner: WithOwnerOwnerConnectOrCreateFieldInput
   props: ComponentPropsConnectOrCreateFieldInput
   rootElement: ComponentRootElementConnectOrCreateFieldInput
+  store: ComponentStoreConnectOrCreateFieldInput
 }
 
 input ComponentConnectOrCreateWhere {
@@ -5355,6 +5227,7 @@ input ComponentCreateInput {
   owner: WithOwnerOwnerFieldInput
   props: ComponentPropsFieldInput
   rootElement: ComponentRootElementFieldInput
+  store: ComponentStoreFieldInput
 }
 
 input ComponentDeleteInput {
@@ -5363,6 +5236,7 @@ input ComponentDeleteInput {
   owner: WithOwnerOwnerDeleteFieldInput
   props: ComponentPropsDeleteFieldInput
   rootElement: ComponentRootElementDeleteFieldInput
+  store: ComponentStoreDeleteFieldInput
 }
 
 input ComponentDisconnectInput {
@@ -5371,6 +5245,7 @@ input ComponentDisconnectInput {
   owner: WithOwnerOwnerDisconnectFieldInput
   props: ComponentPropsDisconnectFieldInput
   rootElement: ComponentRootElementDisconnectFieldInput
+  store: ComponentStoreDisconnectFieldInput
 }
 
 type ComponentEdge {
@@ -5616,6 +5491,7 @@ input ComponentRelationInput {
   owner: WithOwnerOwnerCreateFieldInput
   props: ComponentPropsCreateFieldInput
   rootElement: ComponentRootElementCreateFieldInput
+  store: ComponentStoreCreateFieldInput
 }
 
 input ComponentRootElementAggregateInput {
@@ -5809,6 +5685,124 @@ input ComponentSort {
   name: SortDirection
 }
 
+input ComponentStoreAggregateInput {
+  AND: [ComponentStoreAggregateInput!]
+  NOT: ComponentStoreAggregateInput
+  OR: [ComponentStoreAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ComponentStoreNodeAggregationWhereInput
+}
+
+input ComponentStoreConnectFieldInput {
+  connect: StoreConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
+  where: StoreConnectWhere
+}
+
+input ComponentStoreConnectOrCreateFieldInput {
+  onCreate: ComponentStoreConnectOrCreateFieldInputOnCreate!
+  where: StoreConnectOrCreateWhere!
+}
+
+input ComponentStoreConnectOrCreateFieldInputOnCreate {
+  node: StoreOnCreateInput!
+}
+
+type ComponentStoreConnection {
+  edges: [ComponentStoreRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ComponentStoreConnectionSort {
+  node: StoreSort
+}
+
+input ComponentStoreConnectionWhere {
+  AND: [ComponentStoreConnectionWhere!]
+  NOT: ComponentStoreConnectionWhere
+  OR: [ComponentStoreConnectionWhere!]
+  node: StoreWhere
+}
+
+input ComponentStoreCreateFieldInput {
+  node: StoreCreateInput!
+}
+
+input ComponentStoreDeleteFieldInput {
+  delete: StoreDeleteInput
+  where: ComponentStoreConnectionWhere
+}
+
+input ComponentStoreDisconnectFieldInput {
+  disconnect: StoreDisconnectInput
+  where: ComponentStoreConnectionWhere
+}
+
+input ComponentStoreFieldInput {
+  connect: ComponentStoreConnectFieldInput
+  connectOrCreate: ComponentStoreConnectOrCreateFieldInput
+  create: ComponentStoreCreateFieldInput
+}
+
+input ComponentStoreNodeAggregationWhereInput {
+  AND: [ComponentStoreNodeAggregationWhereInput!]
+  NOT: ComponentStoreNodeAggregationWhereInput
+  OR: [ComponentStoreNodeAggregationWhereInput!]
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+}
+
+type ComponentStoreRelationship {
+  cursor: String!
+  node: Store!
+}
+
+type ComponentStoreStoreAggregationSelection {
+  count: Int!
+  node: ComponentStoreStoreNodeAggregateSelection
+}
+
+type ComponentStoreStoreNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input ComponentStoreUpdateConnectionInput {
+  node: StoreUpdateInput
+}
+
+input ComponentStoreUpdateFieldInput {
+  connect: ComponentStoreConnectFieldInput
+  connectOrCreate: ComponentStoreConnectOrCreateFieldInput
+  create: ComponentStoreCreateFieldInput
+  delete: ComponentStoreDeleteFieldInput
+  disconnect: ComponentStoreDisconnectFieldInput
+  update: ComponentStoreUpdateConnectionInput
+  where: ComponentStoreConnectionWhere
+}
+
 input ComponentUniqueWhere {
   id: ID
 }
@@ -5821,6 +5815,7 @@ input ComponentUpdateInput {
   owner: WithOwnerOwnerUpdateFieldInput
   props: ComponentPropsUpdateFieldInput
   rootElement: ComponentRootElementUpdateFieldInput
+  store: ComponentStoreUpdateFieldInput
 }
 
 type ComponentUserOwnerAggregationSelection {
@@ -5876,6 +5871,11 @@ input ComponentWhere {
   rootElementConnection: ComponentRootElementConnectionWhere
   rootElementConnection_NOT: ComponentRootElementConnectionWhere
   rootElement_NOT: ElementWhere
+  store: StoreWhere
+  storeAggregate: ComponentStoreAggregateInput
+  storeConnection: ComponentStoreConnectionWhere
+  storeConnection_NOT: ComponentStoreConnectionWhere
+  store_NOT: StoreWhere
 }
 
 type ComponentsConnection {
@@ -12030,6 +12030,22 @@ type Page {
     where: PageRootElementConnectionWhere
   ): PageRootElementConnection!
   slug: String!
+  store(
+    directed: Boolean = true
+    options: StoreOptions
+    where: StoreWhere
+  ): Store!
+  storeAggregate(
+    directed: Boolean = true
+    where: StoreWhere
+  ): PageStoreStoreAggregationSelection
+  storeConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [PageStoreConnectionSort!]
+    where: PageStoreConnectionWhere
+  ): PageStoreConnection!
 }
 
 type PageAggregateSelection {
@@ -12160,12 +12176,14 @@ input PageConnectInput {
   app: PageAppConnectFieldInput
   pageContentContainer: PagePageContentContainerConnectFieldInput
   rootElement: PageRootElementConnectFieldInput
+  store: PageStoreConnectFieldInput
 }
 
 input PageConnectOrCreateInput {
   app: PageAppConnectOrCreateFieldInput
   pageContentContainer: PagePageContentContainerConnectOrCreateFieldInput
   rootElement: PageRootElementConnectOrCreateFieldInput
+  store: PageStoreConnectOrCreateFieldInput
 }
 
 input PageConnectOrCreateWhere {
@@ -12183,18 +12201,21 @@ input PageCreateInput {
   kind: PageKind!
   pageContentContainer: PagePageContentContainerFieldInput
   rootElement: PageRootElementFieldInput
+  store: PageStoreFieldInput
 }
 
 input PageDeleteInput {
   app: PageAppDeleteFieldInput
   pageContentContainer: PagePageContentContainerDeleteFieldInput
   rootElement: PageRootElementDeleteFieldInput
+  store: PageStoreDeleteFieldInput
 }
 
 input PageDisconnectInput {
   app: PageAppDisconnectFieldInput
   pageContentContainer: PagePageContentContainerDisconnectFieldInput
   rootElement: PageRootElementDisconnectFieldInput
+  store: PageStoreDisconnectFieldInput
 }
 
 type PageEdge {
@@ -12452,6 +12473,7 @@ input PageRelationInput {
   app: PageAppCreateFieldInput
   pageContentContainer: PagePageContentContainerCreateFieldInput
   rootElement: PageRootElementCreateFieldInput
+  store: PageStoreCreateFieldInput
 }
 
 input PageRootElementAggregateInput {
@@ -12644,6 +12666,124 @@ input PageSort {
   _compoundName: SortDirection
   id: SortDirection
   kind: SortDirection
+}
+
+input PageStoreAggregateInput {
+  AND: [PageStoreAggregateInput!]
+  NOT: PageStoreAggregateInput
+  OR: [PageStoreAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: PageStoreNodeAggregationWhereInput
+}
+
+input PageStoreConnectFieldInput {
+  connect: StoreConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
+  where: StoreConnectWhere
+}
+
+input PageStoreConnectOrCreateFieldInput {
+  onCreate: PageStoreConnectOrCreateFieldInputOnCreate!
+  where: StoreConnectOrCreateWhere!
+}
+
+input PageStoreConnectOrCreateFieldInputOnCreate {
+  node: StoreOnCreateInput!
+}
+
+type PageStoreConnection {
+  edges: [PageStoreRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input PageStoreConnectionSort {
+  node: StoreSort
+}
+
+input PageStoreConnectionWhere {
+  AND: [PageStoreConnectionWhere!]
+  NOT: PageStoreConnectionWhere
+  OR: [PageStoreConnectionWhere!]
+  node: StoreWhere
+}
+
+input PageStoreCreateFieldInput {
+  node: StoreCreateInput!
+}
+
+input PageStoreDeleteFieldInput {
+  delete: StoreDeleteInput
+  where: PageStoreConnectionWhere
+}
+
+input PageStoreDisconnectFieldInput {
+  disconnect: StoreDisconnectInput
+  where: PageStoreConnectionWhere
+}
+
+input PageStoreFieldInput {
+  connect: PageStoreConnectFieldInput
+  connectOrCreate: PageStoreConnectOrCreateFieldInput
+  create: PageStoreCreateFieldInput
+}
+
+input PageStoreNodeAggregationWhereInput {
+  AND: [PageStoreNodeAggregationWhereInput!]
+  NOT: PageStoreNodeAggregationWhereInput
+  OR: [PageStoreNodeAggregationWhereInput!]
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+}
+
+type PageStoreRelationship {
+  cursor: String!
+  node: Store!
+}
+
+type PageStoreStoreAggregationSelection {
+  count: Int!
+  node: PageStoreStoreNodeAggregateSelection
+}
+
+type PageStoreStoreNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input PageStoreUpdateConnectionInput {
+  node: StoreUpdateInput
+}
+
+input PageStoreUpdateFieldInput {
+  connect: PageStoreConnectFieldInput
+  connectOrCreate: PageStoreConnectOrCreateFieldInput
+  create: PageStoreCreateFieldInput
+  delete: PageStoreDeleteFieldInput
+  disconnect: PageStoreDisconnectFieldInput
+  update: PageStoreUpdateConnectionInput
+  where: PageStoreConnectionWhere
 }
 
 """
@@ -12866,6 +13006,7 @@ input PageUpdateInput {
   kind: PageKind
   pageContentContainer: PagePageContentContainerUpdateFieldInput
   rootElement: PageRootElementUpdateFieldInput
+  store: PageStoreUpdateFieldInput
 }
 
 input PageWhere {
@@ -12901,6 +13042,11 @@ input PageWhere {
   rootElementConnection: PageRootElementConnectionWhere
   rootElementConnection_NOT: PageRootElementConnectionWhere
   rootElement_NOT: ElementWhere
+  store: StoreWhere
+  storeAggregate: PageStoreAggregateInput
+  storeConnection: PageStoreConnectionWhere
+  storeConnection_NOT: PageStoreConnectionWhere
+  store_NOT: StoreWhere
 }
 
 type PagesConnection {
@@ -14381,18 +14527,6 @@ type Store {
     sort: [StoreApiConnectionSort!]
     where: StoreApiConnectionWhere
   ): StoreApiConnection!
-  app(directed: Boolean = true, options: AppOptions, where: AppWhere): App
-  appAggregate(
-    directed: Boolean = true
-    where: AppWhere
-  ): StoreAppAppAggregationSelection
-  appConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [StoreAppConnectionSort!]
-    where: StoreAppConnectionWhere
-  ): StoreAppConnection!
   id: ID!
   name: String!
 }
@@ -14672,134 +14806,14 @@ input StoreApiUpdateFieldInput {
   where: StoreApiConnectionWhere
 }
 
-input StoreAppAggregateInput {
-  AND: [StoreAppAggregateInput!]
-  NOT: StoreAppAggregateInput
-  OR: [StoreAppAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: StoreAppNodeAggregationWhereInput
-}
-
-type StoreAppAppAggregationSelection {
-  count: Int!
-  node: StoreAppAppNodeAggregateSelection
-}
-
-type StoreAppAppNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-}
-
-input StoreAppConnectFieldInput {
-  connect: AppConnectInput
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
-  """
-  overwrite: Boolean! = true
-  where: AppConnectWhere
-}
-
-input StoreAppConnectOrCreateFieldInput {
-  onCreate: StoreAppConnectOrCreateFieldInputOnCreate!
-  where: AppConnectOrCreateWhere!
-}
-
-input StoreAppConnectOrCreateFieldInputOnCreate {
-  node: AppOnCreateInput!
-}
-
-type StoreAppConnection {
-  edges: [StoreAppRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input StoreAppConnectionSort {
-  node: AppSort
-}
-
-input StoreAppConnectionWhere {
-  AND: [StoreAppConnectionWhere!]
-  NOT: StoreAppConnectionWhere
-  OR: [StoreAppConnectionWhere!]
-  node: AppWhere
-}
-
-input StoreAppCreateFieldInput {
-  node: AppCreateInput!
-}
-
-input StoreAppDeleteFieldInput {
-  delete: AppDeleteInput
-  where: StoreAppConnectionWhere
-}
-
-input StoreAppDisconnectFieldInput {
-  disconnect: AppDisconnectInput
-  where: StoreAppConnectionWhere
-}
-
-input StoreAppFieldInput {
-  connect: StoreAppConnectFieldInput
-  connectOrCreate: StoreAppConnectOrCreateFieldInput
-  create: StoreAppCreateFieldInput
-}
-
-input StoreAppNodeAggregationWhereInput {
-  AND: [StoreAppNodeAggregationWhereInput!]
-  NOT: StoreAppNodeAggregationWhereInput
-  OR: [StoreAppNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
-}
-
-type StoreAppRelationship {
-  cursor: String!
-  node: App!
-}
-
-input StoreAppUpdateConnectionInput {
-  node: AppUpdateInput
-}
-
-input StoreAppUpdateFieldInput {
-  connect: StoreAppConnectFieldInput
-  connectOrCreate: StoreAppConnectOrCreateFieldInput
-  create: StoreAppCreateFieldInput
-  delete: StoreAppDeleteFieldInput
-  disconnect: StoreAppDisconnectFieldInput
-  update: StoreAppUpdateConnectionInput
-  where: StoreAppConnectionWhere
-}
-
 input StoreConnectInput {
   actions: StoreActionsConnectInput
   api: StoreApiConnectFieldInput
-  app: StoreAppConnectFieldInput
 }
 
 input StoreConnectOrCreateInput {
   actions: StoreActionsConnectOrCreateInput
   api: StoreApiConnectOrCreateFieldInput
-  app: StoreAppConnectOrCreateFieldInput
 }
 
 input StoreConnectOrCreateWhere {
@@ -14813,7 +14827,6 @@ input StoreConnectWhere {
 input StoreCreateInput {
   actions: StoreActionsCreateInput
   api: StoreApiFieldInput
-  app: StoreAppFieldInput
   id: ID!
   name: String!
 }
@@ -14821,13 +14834,11 @@ input StoreCreateInput {
 input StoreDeleteInput {
   actions: StoreActionsDeleteInput
   api: StoreApiDeleteFieldInput
-  app: StoreAppDeleteFieldInput
 }
 
 input StoreDisconnectInput {
   actions: StoreActionsDisconnectInput
   api: StoreApiDisconnectFieldInput
-  app: StoreAppDisconnectFieldInput
 }
 
 type StoreEdge {
@@ -14863,7 +14874,6 @@ input StoreOptions {
 input StoreRelationInput {
   actions: StoreActionsCreateFieldInput
   api: StoreApiCreateFieldInput
-  app: StoreAppCreateFieldInput
 }
 
 """
@@ -14881,7 +14891,6 @@ input StoreUniqueWhere {
 input StoreUpdateInput {
   actions: StoreActionsUpdateInput
   api: StoreApiUpdateFieldInput
-  app: StoreAppUpdateFieldInput
   id: ID
   name: String
 }
@@ -14915,11 +14924,6 @@ input StoreWhere {
   apiConnection: StoreApiConnectionWhere
   apiConnection_NOT: StoreApiConnectionWhere
   api_NOT: InterfaceTypeWhere
-  app: AppWhere
-  appAggregate: StoreAppAggregateInput
-  appConnection: StoreAppConnectionWhere
-  appConnection_NOT: StoreAppConnectionWhere
-  app_NOT: AppWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID

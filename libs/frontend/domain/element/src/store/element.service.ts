@@ -480,7 +480,7 @@ export class ElementService
     let element = this.maybeElement(elementId)
 
     if (!element) {
-      const elementTree = Element.getElementTree(targetElement)
+      const elementTree = targetElement.closestContainerNode
 
       const existingInstances = elementTree.elements.filter(
         ({ renderType }) => renderType?.id === elementId,
@@ -556,7 +556,7 @@ export class ElementService
       customCss: element.customCss,
       guiCss: element.guiCss,
       id: v4(),
-      name: createUniqueName(duplicateName, element.baseId),
+      name: createUniqueName(duplicateName, element.closestContainerNode.id),
       props,
       propTransformationJs: element.propTransformationJs,
       renderForEachPropKey: element.renderForEachPropKey,

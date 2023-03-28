@@ -95,10 +95,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         ? mergeProps(renderOutput.map((output) => output.props))
         : renderOutput.props
 
-      const propsAndState = mergeProps(
-        props,
-        renderer?.appStore.current.state.values,
-      )
+      // FIXME:
+      const propsAndState = mergeProps(props, {})
 
       return omit(propsAndState, ['key', DATA_ELEMENT_ID, DATA_COMPONENT_ID])
     }, [element])

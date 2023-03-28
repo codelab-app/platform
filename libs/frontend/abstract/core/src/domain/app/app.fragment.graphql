@@ -8,10 +8,6 @@ fragment AppPreview on App {
   pages {
     id
   }
-  store {
-    id
-    name
-  }
 }
 
 fragment App on App {
@@ -23,9 +19,6 @@ fragment App on App {
   }
   pages {
     ...Page
-  }
-  store {
-    id
   }
   domains {
     ...Domain
@@ -50,8 +43,5 @@ fragment PageBuilderApp on App {
     }
   ) {
     ...BuilderPage
-  }
-  store {
-    ...Store
   }
 }

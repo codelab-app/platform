@@ -39,11 +39,6 @@ export class CreateElementModalService
 
     return elementTree.rootElement.maybeCurrent
   }
-
-  @computed
-  get elementTree() {
-    return this.metadata?.elementTree.current
-  }
 }
 
 @model('@codelab/UpdateElementModalService')

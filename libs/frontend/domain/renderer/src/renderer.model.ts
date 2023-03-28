@@ -5,17 +5,14 @@ import type {
   IRenderer,
   IRenderOutput,
   IRenderPipe,
-  IStore,
   RendererProps,
 } from '@codelab/frontend/abstract/core'
 import {
   CUSTOM_TEXT_PROP_KEY,
+  elementTreeRef,
   RendererType,
 } from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/domain/atom'
-import { elementTreeRef } from '@codelab/frontend/domain/element'
-import { getPageService } from '@codelab/frontend/domain/page'
-import { getActionService, storeRef } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import {
   expressionTransformer,
@@ -25,7 +22,6 @@ import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
-import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 import { createTransformer } from 'mobx-utils'
@@ -65,7 +61,6 @@ import { mapOutput } from './utils/renderOutputUtils'
  */
 
 const create = async ({
-  appStore,
   elementTree,
   providerTree,
   rendererType,
@@ -97,7 +92,7 @@ const create = async ({
   await expressionTransformer.init()
 
   return new Renderer({
-    appStore: storeRef(appStore),
+    //  appStore: storeRef(appStore),
     elementTree: elementTreeRef(elementTree),
     providerTree: providerTree ? elementTreeRef(providerTree) : null,
     rendererType,
@@ -107,10 +102,6 @@ const create = async ({
 @model('@codelab/Renderer')
 export class Renderer
   extends Model({
-    /**
-     * Store attached to app, needed to access its actions
-     */
-    appStore: prop<Ref<IStore>>(),
     /**
      * Will log the render output and render pipe info to the console
      */
@@ -157,11 +148,9 @@ export class Renderer
     }
 
     const rootElement = this.renderElement(root)
-    const pageService = getPageService(this)
-    const { kind } = pageService.page(root.baseId) ?? {}
 
     // do not self-wrap with providers page if the current page is _app
-    return kind === IPageKind.Regular
+    return root.page?.current.kind === IPageKind.Regular
       ? this.renderWithProviders(rootElement)
       : rootElement
   }
@@ -176,9 +165,7 @@ export class Renderer
       return rootElement
     }
 
-    const pageService = getPageService(this)
-    const providerPageId = providerRoot.baseId
-    const { pageContentContainer } = pageService.page(providerPageId) ?? {}
+    const pageContentContainer = providerRoot.page?.current.pageContentContainer
 
     const renderRecursive = (
       element: IElement,
@@ -221,45 +208,6 @@ export class Renderer
       : result
   }
 
-  runPreAction = (element: IElement) => {
-    if (!element.preRenderAction) {
-      return
-    }
-
-    const actionService = getActionService(this)
-    const action = actionService.action(element.preRenderAction.id)
-
-    if (!action) {
-      console.warn(`Pre render action not found for element ${element.label}`)
-
-      return () => undefined
-    }
-
-    return this.state.values[action.name].run()
-  }
-
-  getPostAction = (element: IElement) => {
-    if (!element.postRenderAction) {
-      return null
-    }
-
-    const actionService = getActionService(this)
-    const action = actionService.action(element.postRenderAction.id)
-
-    if (!action) {
-      console.warn(`Post render action not found for element ${element.label}`)
-
-      return () => undefined
-    }
-
-    return this.state.values[action.name].run
-  }
-
-  @computed
-  get state() {
-    return this.appStore.current.state
-  }
-
   /*
   computePropsForComponentElements(element: IElement) {
     const component = (element.renderComponentType ?? element.parentComponent)
@@ -289,13 +237,10 @@ export class Renderer
    * Renders a single Element using the provided RenderAdapter
    */
   renderElement = (element: IElement, extraProps?: IPropData): ReactElement => {
-    this.runPreAction(element)
-
     const wrapperProps: ElementWrapperProps & { key: string } = {
       element,
       extraProps,
       key: `element-wrapper-${element.id}`,
-      postAction: this.getPostAction(element),
       renderService: this,
     }
 
@@ -311,7 +256,7 @@ export class Renderer
     element: IElement,
     extraProps?: IPropData,
   ): ArrayOrSingle<IRenderOutput> => {
-    const component = element.rootElement.parentComponent?.current
+    const component = element.component?.current
     const componentInstance = component?.instanceElement?.current
     const componentApi = component?.api.maybeCurrent
 
@@ -330,7 +275,7 @@ export class Renderer
   }
 
   getComponentInstanceChildren(element: IElement) {
-    const parentComponent = element.rootElement.parentComponent?.current
+    const parentComponent = element.component?.current
 
     const isContainer =
       element.id === parentComponent?.childrenContainerElement.id
@@ -359,8 +304,8 @@ export class Renderer
 
       // This will pass down the props from the component instance to the descendants
       const componentInstanceProps = {
-        ...parentOutput.element.parentComponent?.current.instanceElement
-          ?.current.props.current.values,
+        ...parentOutput.element.component?.current.instanceElement?.current
+          .props.current.values,
         ...extraProps,
       }
 
@@ -414,10 +359,11 @@ export class Renderer
     props = this.applyPropTypeTransformers(props)
     props = element.executePropTransformJs(props)
 
+    // FIXME:
     const context =
       this.rendererType === RendererType.ComponentBuilder
         ? props
-        : mergeProps(this.state.values, props)
+        : mergeProps(element.store.state, props)
 
     props = replaceStateInProps(props, context)
 

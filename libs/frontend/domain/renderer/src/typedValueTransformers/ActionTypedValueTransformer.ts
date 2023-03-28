@@ -1,4 +1,5 @@
 import type { TypedValue } from '@codelab/frontend/abstract/core'
+import { getActionService } from '@codelab/frontend/domain/store'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import isString from 'lodash/isString'
 import { ExtendedModel, model } from 'mobx-keystone'
@@ -29,32 +30,24 @@ export class ActionTypedValueTransformer
   }
 
   canHandleValue(value: TypedValue<unknown>): boolean {
-    return (
-      isString(value.value) &&
-      Boolean(
-        this.renderer.appStore.current.actions.find(
-          (action) => action.id === value.value,
-        ),
-      )
+    const actionService = getActionService(this)
+
+    const referencedAction = actionService.actionsList.find(
+      (action) => action.id === value.value,
     )
+
+    return isString(value.value) && Boolean(referencedAction)
   }
 
   public transform(props: TypedValue<unknown>) {
-    const actionId = props.value
+    const actionService = getActionService(this)
 
-    if (!isString(actionId)) {
-      return props
-    }
-
-    const action = this.renderer.appStore.current.actions.find(
-      ({ id }) => id === actionId,
+    const referencedAction = actionService.actionsList.find(
+      (action) => action.id === props.value,
     )
 
-    if (!action) {
-      // this shouldn't happen, we check in canHandleValue
-      return props
-    }
+    const state = referencedAction?.store.current.state
 
-    return action.current.createRunner(this.renderer.appStore.current.state)
+    return referencedAction && state ? state[referencedAction.name] : () => null
   }
 }

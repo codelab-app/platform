@@ -8,7 +8,10 @@ export const componentSchema = gql`
     rootElement: Element! @relationship(type: "COMPONENT_ROOT", direction: OUT)
     api: InterfaceType! @relationship(type: "COMPONENT_API", direction: OUT)
     owner: User!
-    props: Prop @relationship(type: "PROPS_OF_COMPONENT", direction: OUT)
+
+    store: Store! @relationship(type: "STORE_OF_COMPONENT", direction: IN)
+    
+    props: Prop! @relationship(type: "PROPS_OF_COMPONENT", direction: OUT)
     # This is the element inside the component that is going to be
     # the container for component instance children
     childrenContainerElement: Element! @relationship(type: "CHILDREN_CONTAINER_ELEMENT", direction: OUT)

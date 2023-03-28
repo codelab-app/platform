@@ -81,9 +81,11 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
       return <Spin />
     }
 
-    const autocomplete = renderService?.state
+    // FIXME:
+    // const autocomplete = renderService?.state
+    const autocomplete = {}
     const allowExpressions = true
-    const appStore = renderService?.appStore.current
+    //  const appStore = renderService?.appStore.current
 
     const tabItems = [
       {
@@ -107,7 +109,6 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
               <FormContextProvider
                 value={{
                   allowExpressions,
-                  appStore,
                   autocomplete,
                   elementTree,
                 }}
@@ -188,7 +189,6 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
           <FormContextProvider
             value={{
               allowExpressions,
-              appStore,
               autocomplete,
               elementTree,
             }}

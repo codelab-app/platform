@@ -5,16 +5,14 @@ import {
   componentRef,
   CUSTOM_TEXT_PROP_KEY,
   elementRef,
+  ElementTree,
+  elementTreeRef,
   RendererType,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { Atom, atomRef, AtomService } from '@codelab/frontend/domain/atom'
 import { Component, ComponentService } from '@codelab/frontend/domain/component'
-import {
-  Element,
-  ElementService,
-  elementTreeRef,
-} from '@codelab/frontend/domain/element'
+import { Element, ElementService } from '@codelab/frontend/domain/element'
 import { pageRef } from '@codelab/frontend/domain/page'
 import { Prop, propRef, PropService } from '@codelab/frontend/domain/prop'
 import {
@@ -114,6 +112,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       name: 'My Component',
       owner,
       rootElement: elementRef(compRootElementId),
+      store: storeRef(data.store.id),
     })
 
     data.componentRootElementProps = new Prop({
@@ -125,11 +124,11 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     })
 
     data.componentRootElement = new Element({
+      _component: componentRef(data.componentToRender.id),
       customCss: '',
       guiCss: '',
       id: compRootElementId,
       name: '01',
-      parentComponent: componentRef(data.componentToRender.id),
       props: propRef(data.componentRootElementProps.id),
       renderType: atomRef(data.textAtom.id),
     })
@@ -147,11 +146,11 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     })
 
     data.elementToRender = new Element({
+      _page: pageRef(pageId),
       customCss: '',
       guiCss: '',
       id: v4(),
       name: ROOT_ELEMENT_NAME,
-      page: pageRef(pageId),
       props: propRef(data.elementToRenderProps.id),
       propTransformationJs: `
     // Write a transformer function, you get the input props as parameter
@@ -193,7 +192,6 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     })
 
     data.renderer = new Renderer({
-      appStore: storeRef(data.store),
       debugMode: false,
       elementTree: elementTreeRef(data.componentToRender),
       rendererType: RendererType.PageBuilder,
@@ -225,6 +223,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
         ]),
       }),
       fieldService: new FieldService({}),
+      pageElementTree: data.componentToRender,
       propService: new PropService({
         props: objectMap([
           [data.elementToRenderProps.id, data.elementToRenderProps],

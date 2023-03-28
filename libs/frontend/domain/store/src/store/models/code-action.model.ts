@@ -2,7 +2,6 @@ import type {
   ICodeAction,
   ICodeActionDTO,
 } from '@codelab/frontend/abstract/core'
-import { IProp } from '@codelab/frontend/abstract/core'
 import {
   CodeActionCreateInput,
   CodeActionDeleteInput,
@@ -31,10 +30,10 @@ export class CodeAction
   implements ICodeAction
 {
   @modelAction
-  createRunner(state: IProp) {
+  createRunner() {
     try {
       // eslint-disable-next-line no-eval
-      return eval(`(${this.code})`).bind(state)
+      return eval(`(${this.code})`)
     } catch (error) {
       console.log(error)
 

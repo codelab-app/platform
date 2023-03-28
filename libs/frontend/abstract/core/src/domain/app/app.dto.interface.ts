@@ -8,7 +8,6 @@ export interface IAppDTO extends IOwnerSchema {
   id: string
   name: string
   pages?: Array<IEntity>
-  store: IEntity
 }
 
 export type ICreateAppData = Pick<IAppDTO, 'id' | 'name' | 'owner'>
