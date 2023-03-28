@@ -1,11 +1,12 @@
+import { IPageKindName } from '@codelab/shared/abstract/core'
 import {
-  APP_PAGE_NAME,
-  INTERNAL_SERVER_ERROR_PAGE_NAME,
-  NOT_FOUND_PAGE_NAME,
-} from '@codelab/frontend/abstract/core'
-import { Store } from '@codelab/frontend/domain/store'
-import { InterfaceType } from '@codelab/frontend/domain/type'
-import { appData } from '@codelab/shared/data/test'
+  appData,
+  internalServerErrorPageData,
+  notFoundPageData,
+  providerPageData,
+  storeApiData,
+  storeData,
+} from '@codelab/shared/data/test'
 import { getSnapshot, unregisterRootStore } from 'mobx-keystone'
 import { TestRootStore } from '../test/testRootStore'
 
@@ -19,40 +20,49 @@ afterAll(() => {
   unregisterRootStore(rootStore)
 })
 
-describe.skip('AppService', () => {
-  // it('should add an app to the local store', () => {
-  //   //
-  // })
-
+describe('AppService', () => {
   it('should add an app to the database', () => {
-    const app = rootStore.appService.add(appData)
+    const owner = { auth0Id: 'test' }
+    const api = storeApiData(owner)
+    const store = storeData(api)
+    const data = appData(owner, store)
+
+    const pages = [
+      providerPageData(data),
+      notFoundPageData(data),
+      internalServerErrorPageData(data),
+    ]
+
+    rootStore.storeService.add(store)
+    rootStore.typeService.add(api)
+    pages.forEach(rootStore.pageService.add)
+
+    const app = rootStore.appService.add({ ...data, pages })
 
     // App
-    expect(app.id).toBe(appData.id)
-    expect(app.owner).toEqual(appData.owner)
-    expect(app.name).toBe(appData.name)
+    expect(app.id).toBe(data.id)
+    expect(app.owner).toEqual(data.owner)
+    expect(app.name).toBe(data.name)
 
     // Page
     expect(app.pages.map((page) => getSnapshot(page.current))).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          name: APP_PAGE_NAME,
+          name: IPageKindName.Provider,
         }),
         expect.objectContaining({
-          name: NOT_FOUND_PAGE_NAME,
+          name: IPageKindName.NotFound,
         }),
         expect.objectContaining({
-          name: INTERNAL_SERVER_ERROR_PAGE_NAME,
+          name: IPageKindName.InternalServerError,
         }),
       ]),
     )
 
     // Store
-    expect(app.store.current.name).toBe(Store.createName(appData))
+    expect(app.store.current.name).toBe(store.name)
 
     // API
-    expect(app.store.current.api.current.name).toBe(
-      InterfaceType.createName(`${app.name} Store`),
-    )
+    expect(app.store.current.api.current.name).toBe(api.name)
   })
 })
