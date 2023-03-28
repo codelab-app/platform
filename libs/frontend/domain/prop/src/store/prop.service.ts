@@ -35,13 +35,13 @@ export class PropService
   }
 
   @modelAction
-  add({ data, id }: IPropDTO) {
+  add({ api, data, id }: IPropDTO) {
     let props = this.prop(id)
 
     if (props) {
-      props.writeCache({ data })
+      props.writeCache({ api, data })
     } else {
-      props = Prop.create({ data, id })
+      props = Prop.create({ api, data, id })
       this.props.set(props.id, props)
     }
 
@@ -54,7 +54,7 @@ export class PropService
     this: PropService,
     { api, data, id }: ICreatePropData,
   ) {
-    const props = Prop.create({ api, data, id })
+    const props = this.add({ api, data, id })
 
     yield* _await(this.propRepository.add(props))
 
