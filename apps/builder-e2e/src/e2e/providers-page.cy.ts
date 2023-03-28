@@ -1,7 +1,6 @@
 import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
-import { FIELD_TYPE } from '../support/antd/form'
 import { assertTwice } from '../support/helpers'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 import { appName, pageName } from './apps/app.data'
@@ -30,7 +29,9 @@ const openPageByName = (name: string) => {
   cy.getSpinner().should('not.exist')
 
   assertTwice(() =>
-    cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 }).should('be.visible'),
+    cy
+      .get(`[title="${ROOT_ELEMENT_NAME}"]`, { timeout: 30000 })
+      .should('be.visible'),
   )
 }
 
@@ -68,11 +69,12 @@ describe('_app page', () => {
   it('should set card element as a container for child pages', () => {
     cy.get(`.ant-tabs [aria-label="file"]`).click()
     cy.get(`.ant-tabs [aria-label="file"]`).click()
-    cy.get('.ant-tabs-tabpane-active form').setFormFieldValue({
-      label: 'Id',
-      type: FIELD_TYPE.SELECT,
-      value: CARD_COMPONENT_NAME,
-    })
+    cy.get('.ant-tabs-tabpane-active form')
+      .find('.ant-select-selection-item')
+      .click()
+    cy.get('.ant-tabs-tabpane-active form')
+      .find('[title="Card Component"]')
+      .click()
 
     // After props are changed - need to wait for the corresponding API call
     // which is sent to the server in order to save this change to the database.
@@ -93,7 +95,7 @@ describe('_app page', () => {
 
     cy.getModal().should('be.visible').findByLabelText('Name').type(pageName)
     cy.getModal()
-      .getModalAction(/Create Page/)
+      .getModalAction(/Create/)
       .click()
     cy.getSpinner().should('not.exist')
     cy.getModal().should('not.exist')
