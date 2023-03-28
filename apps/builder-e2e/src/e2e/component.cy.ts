@@ -145,8 +145,29 @@ describe('Component CRUD', () => {
             { parseSpecialCharSequences: false },
           )
 
-          // TODO: add reload test
-          cy.get('#Builder').findByText('text null').should('exist')
+          assertTwice(
+            () => cy.get('#Builder').findByText('text null').should('exist'),
+            () => {
+              // waiting 200ms as a workaround for a race problem in chromium browsers
+              cy.get(
+                `.ant-tree-treenode-switcher-close > .ant-tree-switcher`,
+              ).click()
+              // eslint-disable-next-line cypress/no-unnecessary-waiting
+              cy.wait(200)
+              cy.get(
+                `.ant-tree-treenode-switcher-close > .ant-tree-switcher`,
+              ).click()
+              // eslint-disable-next-line cypress/no-unnecessary-waiting
+              cy.wait(200)
+              cy.get(
+                `.ant-tree-treenode-switcher-close > .ant-tree-switcher`,
+              ).click()
+
+              cy.get(`[title="${COMPONENT_CHILD_TYPOGRAPHY}"]`).click({
+                force: true,
+              })
+            },
+          )
         })
     })
 
