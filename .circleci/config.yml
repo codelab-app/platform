@@ -302,6 +302,8 @@ jobs:
       - run:
           name: 'Run Integration Tests'
           command: yarn cli tasks int --stage ci
+          # seed-data.i.spec.ts is running multiple seed/import/export commands which take more than default 10m timeout
+          no_output_timeout: 20m
 
   e2e:
     <<: *executor-params
