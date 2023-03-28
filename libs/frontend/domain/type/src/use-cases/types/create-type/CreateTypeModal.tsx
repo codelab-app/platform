@@ -1,10 +1,10 @@
-import type { ICreateTypeData } from '@codelab/frontend/abstract/core'
+import type { ICreateTypeData, IType } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
@@ -15,8 +15,9 @@ import { DisplayIfKind } from './DisplayIfKind'
 
 export const CreateTypeModal = observer(() => {
   const { typeService, userService } = useStore()
+  const [typesList, setTypesList] = useState<Array<IType>>([])
+  const isOpen = typeService.createModal.isOpen
   const closeModal = () => typeService.createModal.close()
-  const user = userService.user
 
   const onSubmit = async (data: ICreateTypeData) => {
     const input = {
@@ -29,28 +30,31 @@ export const CreateTypeModal = observer(() => {
 
     const type = await typeService.create(input)
     await typeService.pagination.data.set(type.id, typeRef(type))
-
-    /**
-     * typeService.create writes into cache
-     * if modal is opened -> bug: modal input values are cleared
-     * void = execute typeService.queryGetTypesTableTypes, close modal, and not wait until it finishes
-     */
   }
+
+  /**
+   * get typesList only when modal is opened (or closed).
+   * Otherwise, if typeService.typesList is directly accessed
+   * it will cause the entire component to rerender on submit
+   * even before submit has finalized because we update local
+   * cache first.
+   */
+  useEffect(() => {
+    setTypesList(typeService.typesList)
+  }, [typeService, isOpen])
 
   return (
     <ModalForm.Modal
       className="create-type-modal"
       okText="Create"
       onCancel={closeModal}
-      open={typeService.createModal.isOpen}
+      open={isOpen}
       title={<span css={tw`font-semibold`}>Create type</span>}
     >
       <ModalForm.Form<ICreateTypeData>
         model={{
           id: v4(),
-          owner: {
-            auth0Id: user?.auth0Id,
-          },
+          owner: { auth0Id: userService.user?.auth0Id },
         }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
@@ -71,7 +75,7 @@ export const CreateTypeModal = observer(() => {
           <AutoField
             createTypeOptions={typeSelectOptions}
             name="unionTypeIds"
-            types={typeService.typesList}
+            types={typesList}
           />
         </DisplayIfKind>
         {/* <ListField name="unionTypes" />; */}
