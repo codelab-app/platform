@@ -50,7 +50,11 @@ Pages.Layout = observer(({ children }) => {
 
   return (
     <DashboardTemplate
-      ExplorerPane={() => <ExplorerPanePage loading={status === 'loading'} />}
+      ExplorerPane={() => (
+        <ExplorerPanePage
+          loading={status === 'loading' || status === 'not-executed'}
+        />
+      )}
       sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
       {children({ app: apps?.[0] })}
