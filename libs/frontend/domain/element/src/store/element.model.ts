@@ -426,9 +426,6 @@ export class Element
       customCss: this.customCss,
       guiCss: this.guiCss,
       name: this.name,
-      props: {
-        update: { node: { data: JSON.stringify(this.props.current.data) } },
-      },
       renderAtomType,
       renderComponentType,
       renderForEachPropKey: this.renderForEachPropKey,
