@@ -1,10 +1,10 @@
-import type { ICreateTypeData, IType } from '@codelab/frontend/abstract/core'
+import type { ICreateTypeData } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import tw from 'twin.macro'
 import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
@@ -15,7 +15,6 @@ import { DisplayIfKind } from './DisplayIfKind'
 
 export const CreateTypeModal = observer(() => {
   const { typeService, userService } = useStore()
-  const [typesList, setTypesList] = useState<Array<IType>>([])
   const isOpen = typeService.createModal.isOpen
   const closeModal = () => typeService.createModal.close()
 
@@ -31,17 +30,6 @@ export const CreateTypeModal = observer(() => {
     const type = await typeService.create(input)
     await typeService.pagination.data.set(type.id, typeRef(type))
   }
-
-  /**
-   * get typesList only when modal is opened (or closed).
-   * Otherwise, if typeService.typesList is directly accessed
-   * it will cause the entire component to rerender on submit
-   * even before submit has finalized because we update local
-   * cache first.
-   */
-  useEffect(() => {
-    setTypesList(typeService.typesList)
-  }, [typeService, isOpen])
 
   return (
     <ModalForm.Modal
@@ -75,7 +63,6 @@ export const CreateTypeModal = observer(() => {
           <AutoField
             createTypeOptions={typeSelectOptions}
             name="unionTypeIds"
-            types={typesList}
           />
         </DisplayIfKind>
         {/* <ListField name="unionTypes" />; */}
