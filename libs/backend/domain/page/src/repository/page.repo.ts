@@ -36,13 +36,22 @@ export class PageRepository extends AbstractRepository<
         await this.Page
       ).create({
         input: pages.map(
-          ({ app, id, kind, name, pageContentContainer, rootElement }) => ({
+          ({
+            app,
+            id,
+            kind,
+            name,
+            pageContentContainer,
+            rootElement,
+            store,
+          }) => ({
             _compoundName: createUniqueName(name, app.id),
             app: connectNodeId(app.id),
             id,
             kind,
             pageContentContainer: connectNodeId(pageContentContainer?.id),
             rootElement: connectNodeId(rootElement.id),
+            store: connectNodeId(store.id),
           }),
         ),
       })
