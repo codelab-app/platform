@@ -14,11 +14,7 @@ import React, { useCallback, useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { shouldRenderElement } from '../utils'
 import { mapOutput } from '../utils/renderOutputUtils'
-import {
-  extractValidProps,
-  getReactComponent,
-  makeDraggableElement,
-} from './wrapper.utils'
+import { extractValidProps, getReactComponent } from './wrapper.utils'
 
 export interface ElementWrapperProps {
   element: IElement
@@ -56,12 +52,10 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
     renderService.logRendered(element, renderOutputs)
 
-    // Use mapOutput because the output may be array or a single item
-    /**
-     * Generates an ArrayOrSingle of functions that accepts additional props
-     * and will return the React Elements with the attached additional props
-     */
-    const renderOutputWithProps = mapOutput(renderOutputs, (renderOutput) => {
+    // TODO: re-work on implementation for the draggable elements and allowable children on the droppable elements.
+    // Render the elements normally for now since the DnD is currently not properly working and
+    // causing unnecessary re-renders when hovering over the builder screen section
+    const renderedElement = mapOutput(renderOutputs, (renderOutput) => {
       // FIXME:
       const children = shouldRenderElement(
         element,
@@ -88,34 +82,8 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       const ReactComponent = getReactComponent(renderOutput)
       const extractedProps = extractValidProps(ReactComponent, renderOutput)
 
-      return (props?: IPropData) =>
-        /**
-         * rest makes ElementWrapper pass-through
-         */
-        jsx(ReactComponent, mergeProps(extractedProps, rest, props), children)
+      return jsx(ReactComponent, mergeProps(extractedProps, rest), children)
     })
-
-    // to be used for dnd to be able to add necessary props later
-    const makeRenderedElements = (moreProps?: IPropData) => {
-      if (Array.isArray(renderOutputWithProps)) {
-        return renderOutputWithProps.map((fn) => fn(moreProps))
-      }
-
-      return renderOutputWithProps(moreProps)
-    }
-
-    const isInsideAComponent = Boolean(element.component)
-    const isComponentRootElement = element.component && isInsideAComponent
-
-    // we only apply dnd to the root element of a component or elements not inside a component
-    const isDraggable =
-      renderService.rendererType === RendererType.PageBuilder &&
-      (isComponentRootElement || !isInsideAComponent)
-
-    // we need to include additional props from dnd so we need to render the element there
-    const WrappedElement = isDraggable
-      ? makeDraggableElement({ element, makeRenderedElements })
-      : makeRenderedElements()
 
     return React.createElement(
       ErrorBoundary,
@@ -129,7 +97,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         },
         resetKeys: [renderOutputs],
       },
-      WrappedElement,
+      renderedElement,
     )
   },
 )

@@ -1,16 +1,11 @@
-import type { IPropData, IRenderOutput } from '@codelab/frontend/abstract/core'
+import type { IRenderOutput } from '@codelab/frontend/abstract/core'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { pick } from 'ramda'
 import type { ReactElement } from 'react'
 import React, { Fragment } from 'react'
 import { getAtom } from '../atoms'
 import type { DraggableElementProps } from './DraggableElement'
 import { DraggableElementWrapper } from './DraggableElementWrapper'
-
-const getComponentProp = (props: IPropData = {}) => {
-  return pick([DATA_COMPONENT_ID], props)
-}
 
 /**
  * Fragments can only have the `key` prop
