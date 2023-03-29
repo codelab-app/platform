@@ -14,7 +14,6 @@ export const UpdateAppModal = observer(() => {
   const model = {
     id: app?.id,
     name: app?.name,
-    storeId: app?.store.id,
   }
 
   const onSubmit = (appDTO: IUpdateAppData) => appService.update(appDTO)

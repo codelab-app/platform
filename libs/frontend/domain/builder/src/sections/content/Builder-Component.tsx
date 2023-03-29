@@ -32,7 +32,6 @@ export const BuilderComponent = observer<BuilderComponentProps>(
         }
 
         await builderRenderService.addRenderer({
-          appStore,
           elementTree: component,
           id: componentId,
           providerTree: null,

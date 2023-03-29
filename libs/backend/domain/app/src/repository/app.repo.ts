@@ -49,19 +49,18 @@ export class AppRepository extends AbstractRepository<
       await (
         await this.App
       ).create({
-        input: apps.map(({ id, name, owner, pages, store }) => ({
+        input: apps.map(({ id, name, owner, pages }) => ({
           _compoundName: createUniqueName(name, owner.auth0Id),
           id,
           owner: connectAuth0Owner(owner),
           pages: connectNodeIds(pages?.map((page) => page.id)),
-          store: connectNodeId(store.id),
         })),
       })
     ).apps
   }
 
   protected async _update(
-    { name, owner, pages, store }: IAppDTO,
+    { name, owner, pages }: IAppDTO,
     where: OGM_TYPES.AppWhere,
   ) {
     return (
@@ -90,7 +89,6 @@ export class AppRepository extends AbstractRepository<
               ],
             }),
           ),
-          store: reconnectNodeId(store.id),
         },
         where,
       })
@@ -137,7 +135,6 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
     await App.delete({
       delete: {
         pages: [{ where: {} }],
-        store: { where: {} },
       },
       where: {
         id: app.id,
@@ -168,33 +165,13 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
             },
           })),
         },
-        store: {
-          create: {
-            node: {
-              // api: connectNodeId(app.store.api.id),
-              api: {
-                create: {
-                  node: {
-                    id: app.store.api.id,
-                    name: `${app.store.name} API`,
-                    owner: connectAuth0Owner(owner),
-                  },
-                },
-              },
-
-              id: app.store.id,
-
-              name: app.store.name,
-            },
-          },
-        },
       },
     ],
   })
 
   console.log('Creating actions...')
 
-  await importActions(app.store.actions, app.store.id)
+  // await importActions(app.store.actions, app.store.id)
 
   return importedApp
 }
@@ -204,7 +181,6 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
  */
 export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
   const Page = await Repository.instance.Page
-  const actions = await exportActions(app.store.id)
 
   const pages = await Page.find({
     selectionSet: pageSelectionSet,
@@ -235,7 +211,6 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
     app: {
       ...app,
       pages: pagesData,
-      store: { ...app.store, actions },
     },
   }
 }

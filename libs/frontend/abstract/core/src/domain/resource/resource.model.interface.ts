@@ -17,6 +17,7 @@ export interface IResource
     >,
     ICacheService<IResourceDTO, IResource>,
     IOwnerSchema {
+  // TODO: should add typing to prop
   config: Ref<IProp>
   id: string
   name: string

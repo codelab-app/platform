@@ -60,8 +60,8 @@ const makeCurrentModel = (element: IElement) => {
   return {
     id: element.id,
     name: element.name,
-    postRenderAction: element.postRenderAction,
-    preRenderAction: element.preRenderAction,
+    // postRenderAction: element.postRenderAction,
+    // preRenderAction: element.preRenderAction,
     renderForEachPropKey: element.renderForEachPropKey,
     renderIfExpression: element.renderIfExpression,
     renderType,

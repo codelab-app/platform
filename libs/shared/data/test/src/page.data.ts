@@ -8,26 +8,32 @@ import {
   providerElementData,
 } from './element.data'
 
-export const providerPageData = (app: IEntity): IPageDTO => ({
+export const providerPageData = (app: IEntity, store: IEntity): IPageDTO => ({
   app,
   id: v4(),
   kind: IPageKind.Provider,
   name: IPageKindName.Provider,
   rootElement: providerElementData,
+  store,
 })
 
-export const notFoundPageData = (app: IEntity): IPageDTO => ({
+export const notFoundPageData = (app: IEntity, store: IEntity): IPageDTO => ({
   app,
   id: v4(),
   kind: IPageKind.NotFound,
   name: IPageKindName.NotFound,
   rootElement: notFoundElementData,
+  store,
 })
 
-export const internalServerErrorPageData = (app: IEntity): IPageDTO => ({
+export const internalServerErrorPageData = (
+  app: IEntity,
+  store: IEntity,
+): IPageDTO => ({
   app,
   id: v4(),
   kind: IPageKind.InternalServerError,
   name: IPageKindName.InternalServerError,
   rootElement: internalServerErrorElementData,
+  store,
 })

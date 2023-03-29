@@ -10,15 +10,13 @@ export class App implements IAppDTO {
 
   pages?: Array<IEntity> | undefined
 
-  store: { id: string }
-
   owner: IAuth0Owner
 
-  constructor({ domains, id, name, owner, pages, store }: IAppDTO) {
+  constructor({ domains, id, name, owner, pages }: IAppDTO) {
     this.id = id
     this.name = name
     this.owner = owner
     this.domains = domains
-    this.store = store
+    this.pages = pages
   }
 }

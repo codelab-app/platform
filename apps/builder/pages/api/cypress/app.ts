@@ -8,6 +8,7 @@ import {
   InterfaceType,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
+import { IPageKindName } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import {
   appData,
@@ -80,27 +81,42 @@ const createApp: NextApiHandler = async (req, res) => {
     /**
      * Create store
      */
-    const storeApi = new InterfaceType(storeApiData(owner))
-    await interfaceTypeRepository.add([storeApi])
+    // const storeApi = new InterfaceType(storeApiData(owner))
+    // await interfaceTypeRepository.add([storeApi])
 
-    const store = new Store(storeData({ id: storeApi.id }))
-    await storeRepository.add([store])
+    // const store = new Store(storeData({ id: storeApi.id }))
+    // await storeRepository.add([store])
 
     /**
      * Create app
      */
-    const app = new App(appData(owner, { id: store.id }))
+    const app = new App(appData(owner))
 
     await appRepository.add([app])
 
     /**
      * Create pages
      */
-    const providerPage = new Page(providerPageData({ id: app.id }))
-    const notFoundPage = new Page(notFoundPageData({ id: app.id }))
+
+    const providerPageStore = Store.create(owner, IPageKindName.Provider)
+
+    const providerPage = new Page(
+      providerPageData({ id: app.id }, providerPageStore),
+    )
+
+    const notFoundPageStore = Store.create(owner, IPageKindName.NotFound)
+
+    const notFoundPage = new Page(
+      notFoundPageData({ id: app.id }, notFoundPageStore),
+    )
+
+    const internalServerErrorPageStore = Store.create(
+      owner,
+      IPageKindName.InternalServerError,
+    )
 
     const internalServerErrorPage = new Page(
-      internalServerErrorPageData({ id: app.id }),
+      internalServerErrorPageData({ id: app.id }, internalServerErrorPageStore),
     )
 
     await pageRepository.add([

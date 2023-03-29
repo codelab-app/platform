@@ -486,7 +486,11 @@ export class ElementService
         ({ renderType }) => renderType?.id === elementId,
       )
 
-      const component = this.componentService.component(elementId)
+      const component = this.componentService.components.get(elementId)
+
+      if (!component) {
+        throw new Error('Missing component')
+      }
 
       const componentInstanceCounter = existingInstances.length
         ? ` ${existingInstances.length}`

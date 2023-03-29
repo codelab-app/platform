@@ -1,4 +1,4 @@
-import type { IPageDTO } from '@codelab/frontend/abstract/core'
+import type { IPageDTO, IStore } from '@codelab/frontend/abstract/core'
 import type { PageKind } from '@codelab/shared/abstract/codegen'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 
@@ -17,6 +17,8 @@ export class Page implements IPageDTO {
 
   rootElement: IEntity
 
+  store: IEntity
+
   constructor({
     app,
     // descendentElements,
@@ -25,6 +27,7 @@ export class Page implements IPageDTO {
     name,
     pageContentContainer,
     rootElement,
+    store,
   }: IPageDTO) {
     this.id = id
     this.app = app
@@ -33,5 +36,6 @@ export class Page implements IPageDTO {
     this.name = name
     this.pageContentContainer = pageContentContainer
     this.rootElement = rootElement
+    this.store = store
   }
 }

@@ -6,7 +6,7 @@ import type { IStoreExport } from './store.interface'
 export type IAppExport = Pick<OGM_TYPES.App, 'id' | 'name' | 'slug'> & {
   domains: Array<IDomainExport>
   pages: Array<IPageExport>
-  store: IStoreExport
+  // store: IStoreExport
 }
 
 export interface ExportAppData {

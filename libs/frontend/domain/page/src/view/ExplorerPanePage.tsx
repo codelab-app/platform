@@ -16,7 +16,6 @@ import {
 export const ExplorerPanePage = observer(
   ({ loading }: { loading: boolean }) => {
     const router = useRouter()
-    const { pageService, userService } = useStore()
 
     const headerProps = {
       onBack: () => router.push({ pathname: PageType.AppList }),
@@ -24,15 +23,15 @@ export const ExplorerPanePage = observer(
 
     return (
       <ExplorerPaneTemplate
-        header={<CreatePageButton key={0} pageService={pageService} />}
+        header={<CreatePageButton key={0} />}
         headerProps={headerProps}
         title="Pages"
       >
         {loading ? <Spin /> : <PageList />}
 
-        <CreatePageModal pageService={pageService} userService={userService} />
-        <UpdatePageModal pageService={pageService} />
-        <DeletePageModal pageService={pageService} />
+        <CreatePageModal />
+        <UpdatePageModal />
+        <DeletePageModal />
       </ExplorerPaneTemplate>
     )
   },

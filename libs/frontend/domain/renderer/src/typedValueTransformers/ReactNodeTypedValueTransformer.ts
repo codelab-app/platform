@@ -52,7 +52,7 @@ export class ReactNodeTypedValueTransformer
 
   public transform(value: TypedValue<string>) {
     if (hasStateExpression(value.value)) {
-      const { values } = this.renderer.appStore.current.state
+      // const { values } = this.renderer.appStore.current.state
 
       const atoms = {
         ...htmlAtoms,
@@ -62,7 +62,11 @@ export class ReactNodeTypedValueTransformer
         ...reactAtoms,
       }
 
-      const evaluationContext = { atoms, React, ...values }
+      const evaluationContext = {
+        atoms,
+        React,
+        // ...values
+      }
 
       const transpiledValue =
         expressionTransformer.transpileAndEvaluateExpression(

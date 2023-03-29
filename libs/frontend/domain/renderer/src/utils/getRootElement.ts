@@ -18,7 +18,7 @@ export const getRootElement = (
     return null
   }
 
-  const component = id ? componentService.component(id) : undefined
+  const component = componentService.components.get(id)
 
   if (!component) {
     return null

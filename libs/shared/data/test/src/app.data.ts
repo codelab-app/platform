@@ -24,11 +24,10 @@ export const storeData = (api: IEntity): IStoreDTO => ({
   name: 'Test Store',
 })
 
-export const appData = (owner: IAuth0Owner, store: IEntity): IAppDTO => ({
+export const appData = (owner: IAuth0Owner): IAppDTO => ({
   id: v4(),
   name: 'Codelab App',
   owner,
-  store,
 })
 
 export const buttonElementData: Pick<ICreateElementData, 'id' | 'name'> = {

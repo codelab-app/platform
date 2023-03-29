@@ -2,6 +2,7 @@ import type {
   IAction,
   IApiAction,
   IApiActionDTO,
+  IBaseResourceConfigData,
   IGraphQLActionConfig,
   IPropData,
   IResource,
@@ -103,7 +104,9 @@ export class ApiAction
 
   @computed
   get _resourceConfig() {
-    return this.replaceStateInConfig(this.resource.current.config.current)
+    return this.replaceStateInConfig(
+      this.resource.current.config.current,
+    ) as IBaseResourceConfigData
   }
 
   @computed

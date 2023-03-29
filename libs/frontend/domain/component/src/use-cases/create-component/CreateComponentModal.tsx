@@ -1,6 +1,10 @@
+import type { IInterfaceType } from '@codelab/frontend/abstract/core'
+import { Store } from '@codelab/frontend/domain/store'
+import { InterfaceType, typeRef } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -10,7 +14,9 @@ import type { CreateComponentSchema } from './create-component.schema'
 import { createComponentSchema } from './create-component.schema'
 
 export const CreateComponentModal = observer(() => {
-  const { componentService, userService } = useStore()
+  const { componentService, storeService, typeService, userService } =
+    useStore()
+
   const user = userService.user
 
   const onSubmit = (componentData: CreateComponentSchema) => {
