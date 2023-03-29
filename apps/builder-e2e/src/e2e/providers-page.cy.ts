@@ -75,7 +75,9 @@ describe('_app page', () => {
     cy.waitForApiCalls()
 
     cy.get('.ant-layout-sider a[href]').eq(1).click()
-    cy.findAllByText(IPageKindName.Provider).should('exist')
+
+    cy.getSpinner().should('not.exist')
+    cy.findAllByText(IPageKindName.Provider).should('be.visible')
   })
 
   it('should be able to create simple page', () => {

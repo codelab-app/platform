@@ -6,7 +6,10 @@ import type {
   IStoreService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
-import { elementServiceContext } from '@codelab/frontend/abstract/core'
+import {
+  appServiceContext,
+  elementServiceContext,
+} from '@codelab/frontend/abstract/core'
 import { ElementService } from '@codelab/frontend/domain/element'
 import { PageService, pageServiceContext } from '@codelab/frontend/domain/page'
 import {
@@ -17,7 +20,7 @@ import {
 } from '@codelab/frontend/domain/store'
 import { TypeService, typeServiceContext } from '@codelab/frontend/domain/type'
 import { Model, model, prop, registerRootStore } from 'mobx-keystone'
-import { AppService, appServiceContext } from '../store'
+import { AppService } from '../store'
 
 @model('@codelab/TestRootStore')
 export class TestRootStore extends Model({

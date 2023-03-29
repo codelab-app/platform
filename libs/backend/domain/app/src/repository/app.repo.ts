@@ -61,7 +61,7 @@ export class AppRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { id, name, owner, pages, store }: IAppDTO,
+    { name, owner, pages, store }: IAppDTO,
     where: OGM_TYPES.AppWhere,
   ) {
     return (
@@ -70,7 +70,7 @@ export class AppRepository extends AbstractRepository<
       ).update({
         update: {
           _compoundName: createUniqueName(name, owner.auth0Id),
-          pages: reconnectNodeIds(pages?.map((page) => page.id))?.map(
+          pages: reconnectNodeIds(pages?.map((page) => page.id)).map(
             (input) => ({
               ...input,
               // overriding disconnect from reconnectNodeIds because it disconnects everythin

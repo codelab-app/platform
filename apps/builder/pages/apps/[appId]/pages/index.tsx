@@ -38,7 +38,6 @@ export default Pages
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 Pages.Layout = observer(({ children }) => {
-  const { pageService, userService } = useStore()
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
   const { appService } = useStore()
@@ -51,7 +50,11 @@ Pages.Layout = observer(({ children }) => {
 
   return (
     <DashboardTemplate
-      ExplorerPane={ExplorerPanePage}
+      ExplorerPane={() => (
+        <ExplorerPanePage
+          loading={status === 'loading' || status === 'not-executed'}
+        />
+      )}
       sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
       {children({ app: apps?.[0] })}
