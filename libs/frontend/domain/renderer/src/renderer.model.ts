@@ -263,7 +263,7 @@ export class Renderer
     let props = mergeProps(
       element.__metadataProps,
       componentApi?.defaultValues,
-      component?.props?.current.values,
+      component?.props.current.values,
       componentInstance?.props.current.values,
       element.props.current.values,
       extraProps,

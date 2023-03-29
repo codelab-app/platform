@@ -31,10 +31,6 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
     }, [apiId])
 
     const onSubmit = async (data: IPropData) => {
-      if (!component.props) {
-        return
-      }
-
       const filteredData = filterEmptyStrings(data)
 
       const promise = propService.update({
@@ -49,7 +45,7 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
     // so that the value of `defaultValues` wont show when the field is cleared
     const propsModel = mergeProps(
       getDefaultComponentFieldProps(component),
-      component.props?.current.values,
+      component.props.current.values,
     )
 
     return (

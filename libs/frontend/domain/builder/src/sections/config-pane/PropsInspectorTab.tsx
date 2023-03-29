@@ -20,7 +20,7 @@ export interface ElementPropsSectionProps {
 
 const PropsInspectorTab = observer(
   ({ node, renderer }: ElementPropsSectionProps) => {
-    const initialProps = node.current.props?.current.values ?? {}
+    const initialProps = node.current.props.current.values
     const initialEditorValue = propSafeStringify(initialProps)
     const [editedProps, setEditedProps] = React.useState(initialProps)
     const [isValidProps, setIsValidProps] = React.useState(true)

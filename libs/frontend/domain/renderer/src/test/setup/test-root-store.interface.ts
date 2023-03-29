@@ -28,6 +28,7 @@ export interface TestServices {
   componentRootElement: IElement
   componentRootElementProps: IProp
   componentToRender: IComponent
+  componentToRenderProps: IProp
   divAtom: IAtom
   elementToRender: IElement
   elementToRender02: IElement

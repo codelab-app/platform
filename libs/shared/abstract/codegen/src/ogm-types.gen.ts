@@ -3246,7 +3246,7 @@ export type Component = WithOwner & {
   ownerAggregate?: Maybe<ComponentUserOwnerAggregationSelection>
   store: Store
   storeAggregate?: Maybe<ComponentStoreStoreAggregationSelection>
-  props?: Maybe<Prop>
+  props: Prop
   propsAggregate?: Maybe<ComponentPropPropsAggregationSelection>
   childrenContainerElement: Element
   childrenContainerElementAggregate?: Maybe<ComponentElementChildrenContainerElementAggregationSelection>

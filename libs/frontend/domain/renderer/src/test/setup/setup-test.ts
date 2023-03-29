@@ -104,6 +104,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     })
 
     const compRootElementId = v4()
+    const componentProps = new Prop({ id: v4() })
 
     data.componentToRender = new Component({
       api: typeRef(data.emptyInterface),
@@ -111,6 +112,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       id: v4(),
       name: 'My Component',
       owner,
+      props: propRef(componentProps),
       rootElement: elementRef(compRootElementId),
       store: storeRef(data.store.id),
     })

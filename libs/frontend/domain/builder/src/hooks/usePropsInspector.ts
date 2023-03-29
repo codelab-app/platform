@@ -34,7 +34,7 @@ const getNodeProps = (
   // `editedProps` can be merged directly since it is in component builder only
   return mergeProps(
     defaultProps,
-    node.current.props?.current.values,
+    node.current.props.current.values,
     editedProps,
   )
 }
@@ -82,12 +82,10 @@ export const usePropsInspector = (
       setIsLoading(true)
       validate(data)
 
-      if (node.current.props) {
-        await propService.update({
-          data: jsonData,
-          id: node.current.props.id,
-        })
-      }
+      await propService.update({
+        data: jsonData,
+        id: node.current.props.id,
+      })
 
       notify({
         title: `${
