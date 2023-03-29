@@ -5,7 +5,6 @@ import {
   componentRef,
   CUSTOM_TEXT_PROP_KEY,
   elementRef,
-  ElementTree,
   elementTreeRef,
   RendererType,
   ROOT_ELEMENT_NAME,
@@ -178,6 +177,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     })
 
     data.componentInstanceElementToRender = new Element({
+      _component: componentRef(data.componentToRender.id),
       id: v4(),
       name: '01',
       props: propRef(data.componentInstanceElementToRenderProps.id),

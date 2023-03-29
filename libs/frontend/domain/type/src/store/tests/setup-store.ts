@@ -70,10 +70,7 @@ const unionField = new Field({
 })
 
 export const interfaceWithUnionField = new InterfaceType({
-  _fields: objectMap([
-    [stringField.id, fieldRef(stringField)],
-    [unionField.id, fieldRef(unionField)],
-  ]),
+  _fields: [fieldRef(stringField), fieldRef(unionField)],
   id: v4(),
   kind: ITypeKind.InterfaceType,
   name: 'Interface with union field',

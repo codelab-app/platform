@@ -25,12 +25,12 @@ describe('AppService', () => {
     const owner = { auth0Id: 'test' }
     const api = storeApiData(owner)
     const store = storeData(api)
-    const data = appData(owner, store)
+    const data = appData(owner)
 
     const pages = [
-      providerPageData(data),
-      notFoundPageData(data),
-      internalServerErrorPageData(data),
+      providerPageData(data, store),
+      notFoundPageData(data, store),
+      internalServerErrorPageData(data, store),
     ]
 
     rootStore.storeService.add(store)
