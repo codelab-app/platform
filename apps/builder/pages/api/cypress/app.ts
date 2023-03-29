@@ -4,10 +4,8 @@ import { Element, ElementRepository } from '@codelab/backend/domain/element'
 import { Page, PageRepository } from '@codelab/backend/domain/page'
 import { Prop, PropRepository } from '@codelab/backend/domain/prop'
 import { Store, StoreRepository } from '@codelab/backend/domain/store'
-import {
-  InterfaceType,
-  InterfaceTypeRepository,
-} from '@codelab/backend/domain/type'
+import type { InterfaceType } from '@codelab/backend/domain/type'
+import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import {
@@ -21,8 +19,6 @@ import {
   providerElementData,
   providerElementPropsData,
   providerPageData,
-  storeApiData,
-  storeData,
 } from '@codelab/shared/data/test'
 import type { NextApiHandler } from 'next'
 
@@ -99,20 +95,31 @@ const createApp: NextApiHandler = async (req, res) => {
      */
 
     const providerPageStore = Store.create(owner, IPageKindName.Provider)
+    const notFoundPageStore = Store.create(owner, IPageKindName.NotFound)
+
+    const internalServerErrorPageStore = Store.create(
+      owner,
+      IPageKindName.InternalServerError,
+    )
+
+    await interfaceTypeRepository.add([
+      providerPageStore.api as InterfaceType,
+      notFoundPageStore.api as InterfaceType,
+      internalServerErrorPageStore.api as InterfaceType,
+    ])
+
+    await storeRepository.add([
+      providerPageStore,
+      notFoundPageStore,
+      internalServerErrorPageStore,
+    ])
 
     const providerPage = new Page(
       providerPageData({ id: app.id }, providerPageStore),
     )
 
-    const notFoundPageStore = Store.create(owner, IPageKindName.NotFound)
-
     const notFoundPage = new Page(
       notFoundPageData({ id: app.id }, notFoundPageStore),
-    )
-
-    const internalServerErrorPageStore = Store.create(
-      owner,
-      IPageKindName.InternalServerError,
     )
 
     const internalServerErrorPage = new Page(
@@ -124,15 +131,6 @@ const createApp: NextApiHandler = async (req, res) => {
       notFoundPage,
       internalServerErrorPage,
     ])
-
-    /**
-     * Attach the pages to the app
-     */
-    app.pages = [providerPage, internalServerErrorPage, notFoundPage].map(
-      (page) => ({ id: page.id }),
-    )
-
-    await appRepository.update(app, { id: app.id })
 
     return res.send(app)
   } catch (err) {
