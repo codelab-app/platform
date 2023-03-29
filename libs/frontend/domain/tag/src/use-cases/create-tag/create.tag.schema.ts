@@ -5,6 +5,7 @@ import {
   ownerSchema,
 } from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
+import { TagSelect } from '../../shared'
 
 export const createTagSchema: JSONSchemaType<ICreateTagData> = {
   properties: {
@@ -18,6 +19,7 @@ export const createTagSchema: JSONSchemaType<ICreateTagData> = {
       properties: {
         id: {
           type: 'string',
+          uniforms: { component: TagSelect },
         },
       },
       required: [],

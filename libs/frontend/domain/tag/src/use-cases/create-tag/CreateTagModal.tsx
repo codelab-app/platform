@@ -4,27 +4,23 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { AutoFields, SelectField } from 'uniforms-antd'
+import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createTagSchema } from './create.tag.schema'
 
 export const CreateTagModal = observer(() => {
   const { tagService, userService } = useStore()
+  const isOpen = tagService.createModal.isOpen
 
   const onSubmit = (input: ICreateTagData) => {
     return tagService.create(input)
   }
 
-  const options = tagService.tagsSelectOptions
   const defaultOption = tagService.selectedOption
   const closeModal = () => tagService.createModal.close()
 
   return (
-    <ModalForm.Modal
-      okText="Create Tag"
-      onCancel={closeModal}
-      open={tagService.createModal.isOpen}
-    >
+    <ModalForm.Modal okText="Create Tag" onCancel={closeModal} open={isOpen}>
       <ModalForm.Form
         model={{
           id: v4(),
@@ -40,13 +36,7 @@ export const CreateTagModal = observer(() => {
       >
         <AutoFields omitFields={['parent']} />
         {/* <DisplayIfNotRoot> */}
-        <SelectField
-          label="Parent Tag"
-          name="parent.id"
-          optionFilterProp="label"
-          options={options}
-          showSearch
-        />
+        <AutoField label="Parent Tag" name="parent.id" />
         {/* </DisplayIfNotRoot> */}
       </ModalForm.Form>
     </ModalForm.Modal>

@@ -65,7 +65,7 @@ export class TypeService
     // loading sub types messes up the order of the next page
     // we need to sort here to make sure the types on the
     // table are always sorted alphabetically
-    return [...this.types.values()].sort((typeA, typeB) =>
+    return Array.from(this.types.values()).sort((typeA, typeB) =>
       typeA.name.toLowerCase() < typeB.name.toLowerCase() ? -1 : 1,
     )
   }

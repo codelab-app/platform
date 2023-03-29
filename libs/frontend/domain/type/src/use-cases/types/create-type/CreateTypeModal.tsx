@@ -15,8 +15,8 @@ import { DisplayIfKind } from './DisplayIfKind'
 
 export const CreateTypeModal = observer(() => {
   const { typeService, userService } = useStore()
+  const isOpen = typeService.createModal.isOpen
   const closeModal = () => typeService.createModal.close()
-  const user = userService.user
 
   const onSubmit = async (data: ICreateTypeData) => {
     const input = {
@@ -29,12 +29,6 @@ export const CreateTypeModal = observer(() => {
 
     const type = await typeService.create(input)
     await typeService.pagination.data.set(type.id, typeRef(type))
-
-    /**
-     * typeService.create writes into cache
-     * if modal is opened -> bug: modal input values are cleared
-     * void = execute typeService.queryGetTypesTableTypes, close modal, and not wait until it finishes
-     */
   }
 
   return (
@@ -42,15 +36,13 @@ export const CreateTypeModal = observer(() => {
       className="create-type-modal"
       okText="Create"
       onCancel={closeModal}
-      open={typeService.createModal.isOpen}
+      open={isOpen}
       title={<span css={tw`font-semibold`}>Create type</span>}
     >
       <ModalForm.Form<ICreateTypeData>
         model={{
           id: v4(),
-          owner: {
-            auth0Id: user?.auth0Id,
-          },
+          owner: { auth0Id: userService.user?.auth0Id },
         }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
@@ -71,7 +63,6 @@ export const CreateTypeModal = observer(() => {
           <AutoField
             createTypeOptions={typeSelectOptions}
             name="unionTypeIds"
-            types={typeService.typesList}
           />
         </DisplayIfKind>
         {/* <ListField name="unionTypes" />; */}
