@@ -67,7 +67,7 @@ export const CreateElementModal = observer(() => {
     ? parentElement.renderType.current
     : undefined
 
-  const parentComponent = parentElement.component?.current
+  const parentComponent = parentElement.parentComponent?.current
 
   return (
     <ModalForm.Modal

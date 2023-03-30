@@ -138,12 +138,12 @@ export class Component
 
       if (firstChild) {
         const firstChildId = elementMap.get(firstChild.current.id)
-        element.setParent(elementRef(firstChildId!))
+        element.setFirstChild(elementRef(firstChildId!))
       }
 
       if (nextSibling) {
         const nextSiblingId = elementMap.get(nextSibling.current.id)
-        element.setParent(elementRef(nextSiblingId!))
+        element.setNextSibling(elementRef(nextSiblingId!))
       }
 
       if (prevSibling) {
@@ -153,7 +153,7 @@ export class Component
     })
 
     const rootElement = elements.find((element) => element.id === rootElementId)
-    rootElement?.setComponent(componentRef(clonedComponent.id))
+    rootElement?.setParentComponent(componentRef(clonedComponent.id))
 
     if (!rootElement) {
       throw new Error('rootElement not found')

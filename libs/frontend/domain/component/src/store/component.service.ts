@@ -112,8 +112,8 @@ export class ComponentService
 
     const rootElement = this.elementService.add({
       ...data.rootElement,
-      component: { id: data.id },
       name,
+      parentComponent: { id: data.id },
       props: rootElementProps,
     })
 

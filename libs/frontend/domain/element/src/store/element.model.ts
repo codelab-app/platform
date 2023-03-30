@@ -53,7 +53,6 @@ import { getRenderType } from './utils'
 type TransformFn = (props: IPropData) => IPropData
 
 const create = ({
-  component,
   customCss,
   firstChild,
   guiCss,
@@ -62,6 +61,7 @@ const create = ({
   nextSibling,
   page,
   parent,
+  parentComponent,
   prevSibling,
   props,
   propTransformationJs,
@@ -72,8 +72,8 @@ const create = ({
   const elementRenderType = getRenderType(renderType)
 
   return new Element({
-    _component: component ? componentRef(component.id) : null,
     _page: page ? pageRef(page.id) : null,
+    _parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
     customCss,
     firstChild: firstChild?.id ? elementRef(firstChild.id) : undefined,
     guiCss,
@@ -96,11 +96,11 @@ const create = ({
 @model('@codelab/Element')
 export class Element
   extends Model({
-    // component which has this element as rootElement
-    _component: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
-
     // page which has this element as rootElement
     _page: prop<Nullable<Ref<IPage>>>(null),
+
+    // component which has this element as rootElement
+    _parentComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
 
     customCss: prop<Nullable<string>>(null).withSetter(),
 
@@ -155,8 +155,8 @@ export class Element
   }
 
   @computed
-  get component(): Nullable<Ref<IComponent>> {
-    return this.closestParent?.component ?? this._component
+  get parentComponent(): Nullable<Ref<IComponent>> {
+    return this.closestParent?.parentComponent ?? this._parentComponent
   }
 
   @computed
@@ -166,8 +166,7 @@ export class Element
 
   @computed
   get closestContainerNode(): IComponent | IPage {
-    const closestNode =
-      this.closestRootElement.page || this.closestRootElement.component
+    const closestNode = this.page || this.parentComponent
 
     if (!closestNode) {
       throw new Error('Element has no node attached to')
@@ -270,8 +269,8 @@ export class Element
   }
 
   @modelAction
-  setComponent(component: Ref<IComponent>) {
-    this._component = component
+  setParentComponent(component: Ref<IComponent>) {
+    this._parentComponent = component
   }
 
   @modelAction
@@ -321,7 +320,7 @@ export class Element
       (isAtomInstance(this.renderType)
         ? compoundCaseToTitleCase((this.renderType.current as IAtom).type)
         : undefined) ||
-      this.component?.current.name ||
+      this.parentComponent?.current.name ||
       ''
     )
   }
@@ -597,7 +596,6 @@ export class Element
   @modelAction
   @modelAction
   writeCache({
-    component,
     customCss,
     firstChild,
     guiCss,
@@ -605,6 +603,7 @@ export class Element
     name,
     nextSibling,
     parent,
+    parentComponent,
     prevSibling,
     props,
     propTransformationJs,
@@ -633,7 +632,9 @@ export class Element
     this.firstChild = firstChild?.id
       ? elementRef(firstChild.id)
       : this.firstChild
-    this._component = component ? componentRef(component.id) : null
+    this._parentComponent = parentComponent
+      ? componentRef(parentComponent.id)
+      : null
 
     return this
   }

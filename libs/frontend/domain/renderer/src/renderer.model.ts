@@ -132,12 +132,6 @@ export class Renderer
   })
   implements IRenderer
 {
-  // @modelAction
-  // initForce(elementTree: IElementTree, providerTree?: Nullable<IElementTree>) {
-  //   this.elementTree = elementTreeRef(elementTree)
-  //   this.providerTree = providerTree ? elementTreeRef(providerTree) : null
-  // }
-
   renderRoot() {
     const root = this.elementTree.maybeCurrent?.rootElement.current
 
@@ -208,31 +202,6 @@ export class Renderer
       : result
   }
 
-  /*
-  computePropsForComponentElements(element: IElement) {
-    const component = (element.renderComponentType ?? element.parentComponent)
-      ?.maybeCurrent
-
-    const componentProps = element.parentComponent
-      ? component?.props?.values
-      : element.props?.values
-
-    if (!component || !componentProps) {
-      return
-    }
-
-
-    const props = this.processPropsForRender(
-      {
-        ...componentProps,
-        ...propsForCurrentElement,
-        [COMPONENT_INSTANCE_ID]: element.id,
-      },
-      element,
-    )
-  }
-  */
-
   /**
    * Renders a single Element using the provided RenderAdapter
    */
@@ -256,7 +225,7 @@ export class Renderer
     element: IElement,
     extraProps?: IPropData,
   ): ArrayOrSingle<IRenderOutput> => {
-    const component = element.component?.current
+    const component = element.parentComponent?.current
     const componentInstance = component?.instanceElement?.current
     const componentApi = component?.api.maybeCurrent
 
@@ -275,7 +244,7 @@ export class Renderer
   }
 
   getComponentInstanceChildren(element: IElement) {
-    const parentComponent = element.component?.current
+    const parentComponent = element.parentComponent?.current
 
     const isContainer =
       element.id === parentComponent?.childrenContainerElement.id
@@ -304,8 +273,8 @@ export class Renderer
 
       // This will pass down the props from the component instance to the descendants
       const componentInstanceProps = {
-        ...parentOutput.element.component?.current.instanceElement?.current
-          .props.current.values,
+        ...parentOutput.element.parentComponent?.current.instanceElement
+          ?.current.props.current.values,
         ...extraProps,
       }
 
