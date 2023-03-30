@@ -109,6 +109,7 @@ export interface IElement
   setName(name: string): void
   setNextSibling(nextSibling: Ref<IElement>): void
   setOrderInParent(order: number | null): void
+  setPage(component: Ref<IPage>): void
   setParent(parent: Ref<IElement>): void
   setParentComponent(component: Ref<IComponent>): void
   setPrevSibling(prevSibling: Ref<IElement>): void

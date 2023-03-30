@@ -13,7 +13,7 @@ describe('ConditionalRenderPipe', () => {
   it('should render normally if no expression is set', async () => {
     data.elementToRender.setRenderIfExpression(undefined)
 
-    const output = data.renderer.renderIntermediateElement(
+    const output = data.rootStore.renderer.renderIntermediateElement(
       data.elementToRender,
       {},
     )
@@ -32,9 +32,9 @@ describe('ConditionalRenderPipe', () => {
   })
 
   it('should stop rendering by returning an empty output', async () => {
-    data.renderer.appStore.current.state.set('shouldRender', false)
+    data.store.state.set('shouldRender', false)
 
-    const output = data.renderer.renderIntermediateElement(
+    const output = data.rootStore.renderer.renderIntermediateElement(
       data.elementToRender,
       {},
     )
@@ -45,13 +45,13 @@ describe('ConditionalRenderPipe', () => {
   })
 
   it('should continue rendering', async () => {
-    data.renderer.appStore.current.state.set('shouldRender', true)
+    data.store.state.set('shouldRender', true)
 
     const initialProps = {
       prop01: 'prop01',
     }
 
-    const output = data.renderer.renderIntermediateElement(
+    const output = data.rootStore.renderer.renderIntermediateElement(
       data.elementToRender,
       initialProps,
     )

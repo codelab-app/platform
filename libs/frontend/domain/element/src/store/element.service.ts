@@ -129,7 +129,7 @@ export class ElementService
       })
 
     const elementProps = this.propService.add({
-      data: makeDefaultProps(renderTypeApi?.current),
+      data: data.props?.data ?? makeDefaultProps(renderTypeApi?.current),
       id: v4(),
     })
 

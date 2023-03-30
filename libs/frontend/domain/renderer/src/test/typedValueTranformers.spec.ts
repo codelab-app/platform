@@ -7,7 +7,7 @@ describe('RenderService', () => {
   const data = setupTestForRenderer()
 
   it('should apply typed value transformers', () => {
-    const { props } = data.renderer.renderIntermediateElement(
+    const { props } = data.rootStore.renderer.renderIntermediateElement(
       data.elementToRender,
     ) as IRenderOutput
 
@@ -24,7 +24,7 @@ describe('RenderService', () => {
       } as TypedValue<string>,
     }
 
-    const { props } = data.renderer.renderIntermediateElement(
+    const { props } = data.rootStore.renderer.renderIntermediateElement(
       data.elementToRender,
       extraProps,
     ) as IRenderOutput
@@ -33,9 +33,9 @@ describe('RenderService', () => {
 
     expect(
       await findByText(
-        data.componentRootElement.props.maybeCurrent
+        data.componentToRender.rootElement.current.props.maybeCurrent
           ?.get(CUSTOM_TEXT_PROP_KEY)
-          .toString() ?? '',
+          ?.toString() ?? '',
       ),
     ).toBeInTheDocument()
   })
@@ -48,7 +48,7 @@ describe('RenderService', () => {
       } as TypedValue<string>,
     }
 
-    const { props } = data.renderer.renderIntermediateElement(
+    const { props } = data.rootStore.renderer.renderIntermediateElement(
       data.elementToRender,
       extraProps,
     ) as IRenderOutput
@@ -57,9 +57,9 @@ describe('RenderService', () => {
 
     expect(
       await findByText(
-        data.componentRootElement.props.maybeCurrent
+        data.componentToRender.rootElement.current.props.maybeCurrent
           ?.get(CUSTOM_TEXT_PROP_KEY)
-          .toString() ?? '',
+          ?.toString() ?? '',
       ),
     ).toBeInTheDocument()
   })
@@ -72,7 +72,7 @@ describe('RenderService', () => {
       } as TypedValue<string>,
     }
 
-    const { props } = data.renderer.renderIntermediateElement(
+    const { props } = data.rootStore.renderer.renderIntermediateElement(
       data.elementToRender,
       extraProps,
     ) as IRenderOutput

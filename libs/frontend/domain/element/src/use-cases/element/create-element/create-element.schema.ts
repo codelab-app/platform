@@ -6,7 +6,9 @@ import {
 } from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
 
-export const createElementSchema: JSONSchemaType<ICreateElementData> = {
+export const createElementSchema: JSONSchemaType<
+  Omit<ICreateElementData, 'page' | 'parentComponent' | 'propTransformationJs'>
+> = {
   properties: {
     ...idSchema,
     customCss: {

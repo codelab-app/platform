@@ -2,9 +2,11 @@ import type {
   IAction,
   IAppDTO,
   IInterfaceType,
+  IProp,
   IStore,
   IStoreDTO,
 } from '@codelab/frontend/abstract/core'
+import { Prop } from '@codelab/frontend/domain/prop'
 import { typeRef } from '@codelab/frontend/domain/type'
 import type {
   StoreCreateInput,
@@ -43,6 +45,7 @@ export class Store
     api: prop<Ref<IInterfaceType>>().withSetter(),
     id: idProp,
     name: prop<string>(),
+    state: prop<IProp>(() => new Prop({})),
   }))
   implements IStore
 {
@@ -61,11 +64,6 @@ export class Store
   @computed
   get jsonString() {
     return ''
-  }
-
-  @computed
-  get state() {
-    return {}
   }
 
   static create = create

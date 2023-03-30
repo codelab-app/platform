@@ -15,10 +15,13 @@ export interface ICreateElementData {
   guiCss?: Nullable<string>
   id: string
   name: string
+  page?: Nullable<IEntity>
+  parentComponent?: Nullable<IEntity>
   parentElement?: Nullable<IEntity>
   postRenderAction?: Nullable<IEntity>
   preRenderAction?: Nullable<IEntity>
   prevSibling?: Nullable<IEntity>
+  propTransformationJs?: Nullable<string>
   props?: Nullable<Pick<IPropDTO, 'data'>>
   /**
    * We should connect to `atom` or `component` in future
