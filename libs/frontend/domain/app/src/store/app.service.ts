@@ -122,6 +122,10 @@ export class AppService
   loadPages = ({ appData, components, pageId }: IPageBuilderAppProps) => {
     const app = this.add(appData)
 
+    components.forEach((componentData) => {
+      this.propService.add(componentData.props)
+    })
+
     // Sorting the components here so that they will be sorted when referenced in the
     // explorer builder tree, or in other areas
     // Would be nice if this can be sorted in the backend instead

@@ -18,10 +18,12 @@ const edgeSelectionProperties = `
 
 export const apiActionSelectionSet = `
   ${baseActionSelectionSet}
-  successAction 
+  successAction {
     ${edgeSelectionProperties}
-  errorAction 
+  }
+  errorAction {
     ${edgeSelectionProperties}
+  }
   resource {
     id
   }
@@ -31,19 +33,19 @@ export const apiActionSelectionSet = `
   }
 `
 
-export const codeActionSelectionSet = `{
+export const codeActionSelectionSet = `
   ${baseActionSelectionSet}
   code
-}`
+`
 
 export const actionSelectionSet = `
   {
     ... on CodeAction {
         ${codeActionSelectionSet}
-      }
+    }
     ... on ApiAction {
         ${apiActionSelectionSet}
-      }
+    }
   }
 `
 
