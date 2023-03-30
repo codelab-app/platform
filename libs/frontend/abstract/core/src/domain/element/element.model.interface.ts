@@ -61,8 +61,6 @@ export interface IElement
   closestContainerNode: IComponent | IPage
   // the closest rootElement of node (page/component) that element belongs to
   closestRootElement: IElement
-  // component that this element belongs to
-  component?: Nullable<Ref<IComponent>>
   customCss?: Nullable<string>
   // This is a computed property, so we can use model instead of ref
   descendantElements: Array<IElement>
@@ -78,6 +76,8 @@ export interface IElement
   // page that this element belongs to
   page: Nullable<Ref<IPage>>
   parent?: Nullable<Ref<IElement>>
+  // component that this element belongs to
+  parentComponent?: Nullable<Ref<IComponent>>
   prevSibling?: Nullable<Ref<IElement>>
   propTransformationJs: Nullable<string>
   props: Ref<IProp>
@@ -105,12 +105,12 @@ export interface IElement
   detachAsFirstChild(): void
   detachFromParent(): void
   executePropTransformJs(props: IPropData): IPropData
-  setComponent(component: Ref<IComponent>): void
   setFirstChild(firstChild: Ref<IElement>): void
   setName(name: string): void
   setNextSibling(nextSibling: Ref<IElement>): void
   setOrderInParent(order: number | null): void
   setParent(parent: Ref<IElement>): void
+  setParentComponent(component: Ref<IComponent>): void
   setPrevSibling(prevSibling: Ref<IElement>): void
   setPropTransformationJs(props: string): void
   setProps(props: Nullable<Ref<IProp>>): void

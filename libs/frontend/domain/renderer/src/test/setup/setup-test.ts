@@ -125,7 +125,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     })
 
     data.componentRootElement = new Element({
-      _component: componentRef(data.componentToRender.id),
+      _parentComponent: componentRef(data.componentToRender.id),
       customCss: '',
       guiCss: '',
       id: compRootElementId,
@@ -177,7 +177,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     })
 
     data.componentInstanceElementToRender = new Element({
-      _component: componentRef(data.componentToRender.id),
+      _parentComponent: componentRef(data.componentToRender.id),
       id: v4(),
       name: '01',
       props: propRef(data.componentInstanceElementToRenderProps.id),

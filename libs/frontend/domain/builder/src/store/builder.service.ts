@@ -162,7 +162,7 @@ export class BuilderService
     }
 
     if (isElementPageNodeRef(selectedNode)) {
-      return selectedNode.current.component ?? null
+      return selectedNode.current.parentComponent ?? null
     }
 
     return null
