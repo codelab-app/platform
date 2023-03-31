@@ -59,10 +59,9 @@ describe('AppService', () => {
       ]),
     )
 
-    // Store
-    expect(app.store.current.name).toBe(store.name)
-
-    // API
-    expect(app.store.current.api.current.name).toBe(api.name)
+    app.pages.map((page) => {
+      expect(page.current.store.current.name).toBe(store.name)
+      expect(page.current.store.current.api.current.name).toBe(api.name)
+    })
   })
 })

@@ -274,6 +274,11 @@ export class Element
   }
 
   @modelAction
+  setPage(page: Ref<IPage>) {
+    this._page = page
+  }
+
+  @modelAction
   setRenderingError(error: Nullish<RenderingError>) {
     this.renderingMetadata = {
       error,

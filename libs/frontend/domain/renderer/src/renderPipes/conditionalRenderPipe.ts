@@ -5,6 +5,7 @@ import type {
   IRenderPipe,
 } from '@codelab/frontend/abstract/core'
 import { getByExpression } from '@codelab/frontend/shared/utils'
+import { mergeProps } from '@codelab/shared/utils'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../abstract/RenderOutput'
@@ -19,8 +20,8 @@ export class ConditionalRenderPipe
   implements IRenderPipe
 {
   render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
-    // const appStore = this.renderer.appStore.current
-    const context = {}
+    const store = element.closestContainerNode.store.current
+    const context = mergeProps(props, store.state['values'])
 
     if (shouldRenderElement(element, context)) {
       return this.next.render(element, props)
