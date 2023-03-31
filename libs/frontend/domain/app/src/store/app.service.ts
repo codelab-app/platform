@@ -11,6 +11,7 @@ import {
   IAppDTO,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
+import { getDomainService } from '@codelab/frontend/domain/domain'
 import { getPageService, pageApi, pageRef } from '@codelab/frontend/domain/page'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getResourceService } from '@codelab/frontend/domain/resource'
@@ -104,6 +105,11 @@ export class AppService
   @computed
   private get propService() {
     return getPropService(this)
+  }
+
+  @computed
+  private get domainService() {
+    return getDomainService(this)
   }
 
   @computed
@@ -242,8 +248,11 @@ export class AppService
   })
 
   @modelAction
-  add({ id, name, owner, pages }: IAppDTO) {
+  add({ domains, id, name, owner, pages }: IAppDTO) {
+    domains?.forEach((domain) => this.domainService.add(domain))
+
     const app = App.create({
+      domains,
       id,
       name,
       owner,

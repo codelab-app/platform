@@ -1,10 +1,11 @@
 import type { IEntity } from '@codelab/shared/abstract/types'
 import type { RenderedComponentFragment } from '../component/component-render.fragment.graphql.gen'
+import type { IDomainDTO } from '../domain'
 import type { IOwnerSchema } from '../user'
 import type { PageBuilderAppFragment } from './app.fragment.graphql.gen'
 
 export interface IAppDTO extends IOwnerSchema {
-  domains?: Array<IEntity>
+  domains?: Array<IDomainDTO>
   id: string
   name: string
   pages?: Array<IEntity>
