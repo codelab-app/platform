@@ -1,13 +1,6 @@
 import type { AppWhere } from '@codelab/shared/abstract/codegen'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import type { IRepository } from '../../service'
-import type {
-  AppFragment,
-  AppPreviewFragment,
-} from './app.fragment.graphql.gen'
 import type { IApp } from './app.model.interface'
 
-export type IAppRepository = IRepository<
-  IApp,
-  AppFragment | AppPreviewFragment,
-  AppWhere
->
+export type IAppRepository = IRepository<IApp, IEntity, AppWhere>
