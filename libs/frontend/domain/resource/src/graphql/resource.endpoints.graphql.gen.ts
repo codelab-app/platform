@@ -17,7 +17,7 @@ export type CreateResourcesMutationVariables = Types.Exact<{
 }>
 
 export type CreateResourcesMutation = {
-  createResources: { resources: Array<ResourceFragment> }
+  createResources: { resources: Array<{ id: string }> }
 }
 
 export type UpdateResourceMutationVariables = Types.Exact<{
@@ -26,7 +26,7 @@ export type UpdateResourceMutationVariables = Types.Exact<{
 }>
 
 export type UpdateResourceMutation = {
-  updateResources: { resources: Array<ResourceFragment> }
+  updateResources: { resources: Array<{ id: string }> }
 }
 
 export type DeleteResourcesMutationVariables = Types.Exact<{
@@ -49,21 +49,19 @@ export const CreateResourcesDocument = gql`
   mutation CreateResources($input: [ResourceCreateInput!]!) {
     createResources(input: $input) {
       resources {
-        ...Resource
+        id
       }
     }
   }
-  ${ResourceFragmentDoc}
 `
 export const UpdateResourceDocument = gql`
   mutation UpdateResource($where: ResourceWhere, $update: ResourceUpdateInput) {
     updateResources(update: $update, where: $where) {
       resources {
-        ...Resource
+        id
       }
     }
   }
-  ${ResourceFragmentDoc}
 `
 export const DeleteResourcesDocument = gql`
   mutation DeleteResources($where: ResourceWhere) {

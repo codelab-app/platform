@@ -20512,7 +20512,7 @@ export type CreateAppsMutation = {
   __typename?: 'Mutation'
   createApps: {
     __typename?: 'CreateAppsMutationResponse'
-    apps: Array<{ __typename?: 'App' } & AppPreviewFragment>
+    apps: Array<{ __typename?: 'App'; id: string }>
   }
 }
 
@@ -20525,7 +20525,7 @@ export type UpdateAppsMutation = {
   __typename?: 'Mutation'
   updateApps: {
     __typename?: 'UpdateAppsMutationResponse'
-    apps: Array<{ __typename?: 'App' } & AppPreviewFragment>
+    apps: Array<{ __typename?: 'App'; id: string }>
   }
 }
 
@@ -20562,7 +20562,7 @@ export type CreateAtomsMutation = {
       nodesCreated: number
       relationshipsCreated: number
     }
-    atoms: Array<{ __typename?: 'Atom' } & AtomFragment>
+    atoms: Array<{ __typename?: 'Atom'; id: string }>
   }
 }
 
@@ -20599,7 +20599,7 @@ export type UpdateAtomsMutation = {
   __typename?: 'Mutation'
   updateAtoms: {
     __typename?: 'UpdateAtomsMutationResponse'
-    atoms: Array<{ __typename?: 'Atom' } & AtomFragment>
+    atoms: Array<{ __typename?: 'Atom'; id: string }>
   }
 }
 
@@ -20611,7 +20611,7 @@ export type CreateComponentsMutation = {
   __typename?: 'Mutation'
   createComponents: {
     __typename?: 'CreateComponentsMutationResponse'
-    components: Array<{ __typename?: 'Component' } & RenderedComponentFragment>
+    components: Array<{ __typename?: 'Component'; id: string }>
   }
 }
 
@@ -20634,7 +20634,7 @@ export type UpdateComponentsMutation = {
   __typename?: 'Mutation'
   updateComponents: {
     __typename?: 'UpdateComponentsMutationResponse'
-    components: Array<{ __typename?: 'Component' } & ComponentFragment>
+    components: Array<{ __typename?: 'Component'; id: string }>
   }
 }
 
@@ -20666,7 +20666,7 @@ export type CreateDomainsMutation = {
   __typename?: 'Mutation'
   createDomains: {
     __typename?: 'CreateDomainsMutationResponse'
-    domains: Array<{ __typename?: 'Domain' } & DomainFragment>
+    domains: Array<{ __typename?: 'Domain'; id: string }>
   }
 }
 
@@ -20679,7 +20679,7 @@ export type UpdateDomainsMutation = {
   __typename?: 'Mutation'
   updateDomains: {
     __typename?: 'UpdateDomainsMutationResponse'
-    domains: Array<{ __typename?: 'Domain' } & DomainFragment>
+    domains: Array<{ __typename?: 'Domain'; id: string }>
   }
 }
 
@@ -20700,7 +20700,7 @@ export type CreateElementsMutation = {
   __typename?: 'Mutation'
   createElements: {
     __typename?: 'CreateElementsMutationResponse'
-    elements: Array<{ __typename?: 'Element' } & ElementFragment>
+    elements: Array<{ __typename?: 'Element'; id: string }>
   }
 }
 
@@ -20723,20 +20723,7 @@ export type UpdateElementsMutation = {
   __typename?: 'Mutation'
   updateElements: {
     __typename?: 'UpdateElementsMutationResponse'
-    elements: Array<{ __typename?: 'Element' } & ElementFragment>
-  }
-}
-
-export type MoveElementsMutationVariables = Exact<{
-  where?: InputMaybe<ElementWhere>
-  update?: InputMaybe<ElementUpdateInput>
-}>
-
-export type MoveElementsMutation = {
-  __typename?: 'Mutation'
-  updateElements: {
-    __typename?: 'UpdateElementsMutationResponse'
-    elements: Array<{ __typename?: 'Element' } & ElementFragment>
+    elements: Array<{ __typename?: 'Element'; id: string }>
   }
 }
 
@@ -20779,7 +20766,7 @@ export type CreatePagesMutation = {
   __typename?: 'Mutation'
   createPages: {
     __typename?: 'CreatePagesMutationResponse'
-    pages: Array<{ __typename?: 'Page' } & PageFragment>
+    pages: Array<{ __typename?: 'Page'; id: string }>
   }
 }
 
@@ -20802,7 +20789,7 @@ export type UpdatePagesMutation = {
   __typename?: 'Mutation'
   updatePages: {
     __typename?: 'UpdatePagesMutationResponse'
-    pages: Array<{ __typename?: 'Page' } & PageFragment>
+    pages: Array<{ __typename?: 'Page'; id: string }>
   }
 }
 
@@ -20871,7 +20858,7 @@ export type CreatePropsMutation = {
   __typename?: 'Mutation'
   createProps: {
     __typename?: 'CreatePropsMutationResponse'
-    props: Array<{ __typename?: 'Prop' } & PropFragment>
+    props: Array<{ __typename?: 'Prop'; id: string }>
   }
 }
 
@@ -20884,7 +20871,7 @@ export type UpdatePropsMutation = {
   __typename?: 'Mutation'
   updateProps: {
     __typename?: 'UpdatePropsMutationResponse'
-    props: Array<{ __typename?: 'Prop' } & PropFragment>
+    props: Array<{ __typename?: 'Prop'; id: string }>
   }
 }
 
@@ -20925,7 +20912,7 @@ export type CreateResourcesMutation = {
   __typename?: 'Mutation'
   createResources: {
     __typename?: 'CreateResourcesMutationResponse'
-    resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
+    resources: Array<{ __typename?: 'Resource'; id: string }>
   }
 }
 
@@ -20938,7 +20925,7 @@ export type UpdateResourceMutation = {
   __typename?: 'Mutation'
   updateResources: {
     __typename?: 'UpdateResourcesMutationResponse'
-    resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
+    resources: Array<{ __typename?: 'Resource'; id: string }>
   }
 }
 
@@ -20959,9 +20946,7 @@ export type CreateCodeActionsMutation = {
   __typename?: 'Mutation'
   createCodeActions: {
     __typename?: 'CreateCodeActionsMutationResponse'
-    codeActions: Array<
-      { __typename?: 'CodeAction' } & Action_CodeAction_Fragment
-    >
+    codeActions: Array<{ __typename?: 'CodeAction'; id: string }>
   }
 }
 
@@ -20973,7 +20958,7 @@ export type CreateApiActionsMutation = {
   __typename?: 'Mutation'
   createApiActions: {
     __typename?: 'CreateApiActionsMutationResponse'
-    apiActions: Array<{ __typename?: 'ApiAction' } & Action_ApiAction_Fragment>
+    apiActions: Array<{ __typename?: 'ApiAction'; id: string }>
   }
 }
 
@@ -21029,7 +21014,7 @@ export type CreateStoresMutation = {
       nodesCreated: number
       relationshipsCreated: number
     }
-    stores: Array<{ __typename?: 'Store' } & StoreFragment>
+    stores: Array<{ __typename?: 'Store'; id: string }>
   }
 }
 
@@ -21062,7 +21047,7 @@ export type UpdateStoresMutation = {
   __typename?: 'Mutation'
   updateStores: {
     __typename?: 'UpdateStoresMutationResponse'
-    stores: Array<{ __typename?: 'Store' } & StoreFragment>
+    stores: Array<{ __typename?: 'Store'; id: string }>
   }
 }
 
@@ -21079,9 +21064,7 @@ export type UpdateCodeActionsMutation = {
   __typename?: 'Mutation'
   updateCodeActions: {
     __typename?: 'UpdateCodeActionsMutationResponse'
-    codeActions: Array<
-      { __typename?: 'CodeAction' } & Action_CodeAction_Fragment
-    >
+    codeActions: Array<{ __typename?: 'CodeAction'; id: string }>
   }
 }
 
@@ -21098,7 +21081,7 @@ export type UpdateApiActionsMutation = {
   __typename?: 'Mutation'
   updateApiActions: {
     __typename?: 'UpdateApiActionsMutationResponse'
-    apiActions: Array<{ __typename?: 'ApiAction' } & Action_ApiAction_Fragment>
+    apiActions: Array<{ __typename?: 'ApiAction'; id: string }>
   }
 }
 
@@ -21110,7 +21093,7 @@ export type CreateTagsMutation = {
   __typename?: 'Mutation'
   createTags: {
     __typename?: 'CreateTagsMutationResponse'
-    tags: Array<{ __typename?: 'Tag' } & TagFragment>
+    tags: Array<{ __typename?: 'Tag'; id: string }>
   }
 }
 
@@ -21123,7 +21106,7 @@ export type UpdateTagsMutation = {
   __typename?: 'Mutation'
   updateTags: {
     __typename?: 'UpdateTagsMutationResponse'
-    tags: Array<{ __typename?: 'Tag' } & TagFragment>
+    tags: Array<{ __typename?: 'Tag'; id: string }>
   }
 }
 

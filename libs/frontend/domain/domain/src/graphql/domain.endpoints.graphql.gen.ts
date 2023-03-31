@@ -17,7 +17,7 @@ export type CreateDomainsMutationVariables = Types.Exact<{
 }>
 
 export type CreateDomainsMutation = {
-  createDomains: { domains: Array<DomainFragment> }
+  createDomains: { domains: Array<{ id: string }> }
 }
 
 export type UpdateDomainsMutationVariables = Types.Exact<{
@@ -26,7 +26,7 @@ export type UpdateDomainsMutationVariables = Types.Exact<{
 }>
 
 export type UpdateDomainsMutation = {
-  updateDomains: { domains: Array<DomainFragment> }
+  updateDomains: { domains: Array<{ id: string }> }
 }
 
 export type DeleteDomainsMutationVariables = Types.Exact<{
@@ -47,21 +47,19 @@ export const CreateDomainsDocument = gql`
   mutation CreateDomains($input: [DomainCreateInput!]!) {
     createDomains(input: $input) {
       domains {
-        ...Domain
+        id
       }
     }
   }
-  ${DomainFragmentDoc}
 `
 export const UpdateDomainsDocument = gql`
   mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {
     updateDomains(where: $where, update: $update) {
       domains {
-        ...Domain
+        id
       }
     }
   }
-  ${DomainFragmentDoc}
 `
 export const DeleteDomainsDocument = gql`
   mutation DeleteDomains($where: DomainWhere!) {

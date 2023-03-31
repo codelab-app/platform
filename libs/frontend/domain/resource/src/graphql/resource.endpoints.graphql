@@ -7,7 +7,7 @@ query GetResources($options: ResourceOptions, $where: ResourceWhere) {
 mutation CreateResources($input: [ResourceCreateInput!]!) {
   createResources(input: $input) {
     resources {
-      ...Resource
+      id
     }
   }
 }
@@ -15,7 +15,7 @@ mutation CreateResources($input: [ResourceCreateInput!]!) {
 mutation UpdateResource($where: ResourceWhere, $update: ResourceUpdateInput) {
   updateResources(update: $update, where: $where) {
     resources {
-      ...Resource
+      id
     }
   }
 }

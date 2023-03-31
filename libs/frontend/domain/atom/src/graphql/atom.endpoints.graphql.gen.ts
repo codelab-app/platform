@@ -12,7 +12,7 @@ export type CreateAtomsMutationVariables = Types.Exact<{
 export type CreateAtomsMutation = {
   createAtoms: {
     info: { nodesCreated: number; relationshipsCreated: number }
-    atoms: Array<AtomFragment>
+    atoms: Array<{ id: string }>
   }
 }
 
@@ -40,7 +40,7 @@ export type UpdateAtomsMutationVariables = Types.Exact<{
 }>
 
 export type UpdateAtomsMutation = {
-  updateAtoms: { atoms: Array<AtomFragment> }
+  updateAtoms: { atoms: Array<{ id: string }> }
 }
 
 export const CreateAtomsDocument = gql`
@@ -51,11 +51,10 @@ export const CreateAtomsDocument = gql`
         relationshipsCreated
       }
       atoms {
-        ...Atom
+        id
       }
     }
   }
-  ${AtomFragmentDoc}
 `
 export const DeleteAtomsDocument = gql`
   mutation DeleteAtoms($where: AtomWhere!) {
@@ -80,11 +79,10 @@ export const UpdateAtomsDocument = gql`
   mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
     updateAtoms(update: $update, where: $where) {
       atoms {
-        ...Atom
+        id
       }
     }
   }
-  ${AtomFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
