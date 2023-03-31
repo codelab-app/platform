@@ -1,18 +1,16 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { RenderedComponentFragment } from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 import { ComponentFragment } from '../../../../abstract/core/src/domain/component/component.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { RenderedComponentFragmentDoc } from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 import { ComponentFragmentDoc } from '../../../../abstract/core/src/domain/component/component.fragment.graphql.gen'
 export type CreateComponentsMutationVariables = Types.Exact<{
   input: Array<Types.ComponentCreateInput> | Types.ComponentCreateInput
 }>
 
 export type CreateComponentsMutation = {
-  createComponents: { components: Array<RenderedComponentFragment> }
+  createComponents: { components: Array<{ id: string }> }
 }
 
 export type DeleteComponentsMutationVariables = Types.Exact<{
@@ -30,7 +28,7 @@ export type UpdateComponentsMutationVariables = Types.Exact<{
 }>
 
 export type UpdateComponentsMutation = {
-  updateComponents: { components: Array<ComponentFragment> }
+  updateComponents: { components: Array<{ id: string }> }
 }
 
 export type GetComponentsQueryVariables = Types.Exact<{
@@ -44,11 +42,10 @@ export const CreateComponentsDocument = gql`
   mutation CreateComponents($input: [ComponentCreateInput!]!) {
     createComponents(input: $input) {
       components {
-        ...RenderedComponent
+        id
       }
     }
   }
-  ${RenderedComponentFragmentDoc}
 `
 export const DeleteComponentsDocument = gql`
   mutation DeleteComponents(
@@ -67,11 +64,10 @@ export const UpdateComponentsDocument = gql`
   ) {
     updateComponents(where: $where, update: $update) {
       components {
-        ...Component
+        id
       }
     }
   }
-  ${ComponentFragmentDoc}
 `
 export const GetComponentsDocument = gql`
   query GetComponents($options: ComponentOptions, $where: ComponentWhere) {

@@ -12,7 +12,7 @@ export type CreateStoresMutationVariables = Types.Exact<{
 export type CreateStoresMutation = {
   createStores: {
     info: { nodesCreated: number; relationshipsCreated: number }
-    stores: Array<StoreFragment>
+    stores: Array<{ id: string }>
   }
 }
 
@@ -36,7 +36,7 @@ export type UpdateStoresMutationVariables = Types.Exact<{
 }>
 
 export type UpdateStoresMutation = {
-  updateStores: { stores: Array<StoreFragment> }
+  updateStores: { stores: Array<{ id: string }> }
 }
 
 export const CreateStoresDocument = gql`
@@ -47,11 +47,10 @@ export const CreateStoresDocument = gql`
         relationshipsCreated
       }
       stores {
-        ...Store
+        id
       }
     }
   }
-  ${StoreFragmentDoc}
 `
 export const DeleteStoresDocument = gql`
   mutation DeleteStores($where: StoreWhere, $delete: StoreDeleteInput) {
@@ -72,11 +71,10 @@ export const UpdateStoresDocument = gql`
   mutation UpdateStores($where: StoreWhere, $update: StoreUpdateInput) {
     updateStores(update: $update, where: $where) {
       stores {
-        ...Store
+        id
       }
     }
   }
-  ${StoreFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

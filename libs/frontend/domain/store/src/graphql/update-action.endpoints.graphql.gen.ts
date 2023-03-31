@@ -1,13 +1,8 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import {
-  Action_ApiAction_Fragment,
-  Action_CodeAction_Fragment,
-} from '../../../../abstract/core/src/domain/action/fragments/action.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { ActionFragmentDoc } from '../../../../abstract/core/src/domain/action/fragments/action.fragment.graphql.gen'
 export type UpdateCodeActionsMutationVariables = Types.Exact<{
   connect?: Types.InputMaybe<Types.CodeActionConnectInput>
   create?: Types.InputMaybe<Types.CodeActionRelationInput>
@@ -18,7 +13,7 @@ export type UpdateCodeActionsMutationVariables = Types.Exact<{
 }>
 
 export type UpdateCodeActionsMutation = {
-  updateCodeActions: { codeActions: Array<Action_CodeAction_Fragment> }
+  updateCodeActions: { codeActions: Array<{ id: string }> }
 }
 
 export type UpdateApiActionsMutationVariables = Types.Exact<{
@@ -31,7 +26,7 @@ export type UpdateApiActionsMutationVariables = Types.Exact<{
 }>
 
 export type UpdateApiActionsMutation = {
-  updateApiActions: { apiActions: Array<Action_ApiAction_Fragment> }
+  updateApiActions: { apiActions: Array<{ id: string }> }
 }
 
 export const UpdateCodeActionsDocument = gql`
@@ -52,11 +47,10 @@ export const UpdateCodeActionsDocument = gql`
       disconnect: $disconnect
     ) {
       codeActions {
-        ...Action
+        id
       }
     }
   }
-  ${ActionFragmentDoc}
 `
 export const UpdateApiActionsDocument = gql`
   mutation UpdateApiActions(
@@ -76,11 +70,10 @@ export const UpdateApiActionsDocument = gql`
       disconnect: $disconnect
     ) {
       apiActions {
-        ...Action
+        id
       }
     }
   }
-  ${ActionFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

@@ -7,7 +7,7 @@ query GetDomains($options: DomainOptions, $where: DomainWhere) {
 mutation CreateDomains($input: [DomainCreateInput!]!) {
   createDomains(input: $input) {
     domains {
-      ...Domain
+      id
     }
   }
 }
@@ -15,7 +15,7 @@ mutation CreateDomains($input: [DomainCreateInput!]!) {
 mutation UpdateDomains($where: DomainWhere!, $update: DomainUpdateInput!) {
   updateDomains(where: $where, update: $update) {
     domains {
-      ...Domain
+      id
     }
   }
 }

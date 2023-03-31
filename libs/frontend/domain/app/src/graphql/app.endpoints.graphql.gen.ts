@@ -1,32 +1,22 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import {
-  AppPreviewFragment,
-  AppFragment,
-} from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+import { AppFragment } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import {
-  AppPreviewFragmentDoc,
-  AppFragmentDoc,
-} from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+import { AppFragmentDoc } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 export type CreateAppsMutationVariables = Types.Exact<{
   input: Array<Types.AppCreateInput> | Types.AppCreateInput
 }>
 
-export type CreateAppsMutation = {
-  createApps: { apps: Array<AppPreviewFragment> }
-}
+export type CreateAppsMutation = { createApps: { apps: Array<{ id: string }> } }
 
 export type UpdateAppsMutationVariables = Types.Exact<{
   where: Types.AppWhere
   update: Types.AppUpdateInput
 }>
 
-export type UpdateAppsMutation = {
-  updateApps: { apps: Array<AppPreviewFragment> }
-}
+export type UpdateAppsMutation = { updateApps: { apps: Array<{ id: string }> } }
 
 export type DeleteAppsMutationVariables = Types.Exact<{
   where: Types.AppWhere
@@ -46,21 +36,19 @@ export const CreateAppsDocument = gql`
   mutation CreateApps($input: [AppCreateInput!]!) {
     createApps(input: $input) {
       apps {
-        ...AppPreview
+        id
       }
     }
   }
-  ${AppPreviewFragmentDoc}
 `
 export const UpdateAppsDocument = gql`
   mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
     updateApps(where: $where, update: $update) {
       apps {
-        ...AppPreview
+        id
       }
     }
   }
-  ${AppPreviewFragmentDoc}
 `
 export const DeleteAppsDocument = gql`
   mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {

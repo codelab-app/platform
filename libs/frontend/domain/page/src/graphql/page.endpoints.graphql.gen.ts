@@ -39,7 +39,7 @@ export type CreatePagesMutationVariables = Types.Exact<{
 }>
 
 export type CreatePagesMutation = {
-  createPages: { pages: Array<PageFragment> }
+  createPages: { pages: Array<{ id: string }> }
 }
 
 export type DeletePagesMutationVariables = Types.Exact<{
@@ -55,7 +55,7 @@ export type UpdatePagesMutationVariables = Types.Exact<{
 }>
 
 export type UpdatePagesMutation = {
-  updatePages: { pages: Array<PageFragment> }
+  updatePages: { pages: Array<{ id: string }> }
 }
 
 export type GetPagesQueryVariables = Types.Exact<{
@@ -100,11 +100,10 @@ export const CreatePagesDocument = gql`
   mutation CreatePages($input: [PageCreateInput!]!) {
     createPages(input: $input) {
       pages {
-        ...Page
+        id
       }
     }
   }
-  ${PageFragmentDoc}
 `
 export const DeletePagesDocument = gql`
   mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {
@@ -117,11 +116,10 @@ export const UpdatePagesDocument = gql`
   mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {
     updatePages(where: $where, update: $update) {
       pages {
-        ...Page
+        id
       }
     }
   }
-  ${PageFragmentDoc}
 `
 export const GetPagesDocument = gql`
   query GetPages($options: PageOptions, $where: PageWhere) {

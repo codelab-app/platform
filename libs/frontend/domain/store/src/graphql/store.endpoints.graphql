@@ -5,7 +5,7 @@ mutation CreateStores($input: [StoreCreateInput!]!) {
       relationshipsCreated
     }
     stores {
-      ...Store
+      id
     }
   }
 }
@@ -25,7 +25,7 @@ query GetStores($where: StoreWhere, $options: StoreOptions) {
 mutation UpdateStores($where: StoreWhere, $update: StoreUpdateInput) {
   updateStores(update: $update, where: $where) {
     stores {
-      ...Store
+      id
     }
   }
 }

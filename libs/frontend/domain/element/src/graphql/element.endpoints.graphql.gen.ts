@@ -10,7 +10,7 @@ export type CreateElementsMutationVariables = Types.Exact<{
 }>
 
 export type CreateElementsMutation = {
-  createElements: { elements: Array<ElementFragment> }
+  createElements: { elements: Array<{ id: string }> }
 }
 
 export type DeleteElementsMutationVariables = Types.Exact<{
@@ -28,16 +28,7 @@ export type UpdateElementsMutationVariables = Types.Exact<{
 }>
 
 export type UpdateElementsMutation = {
-  updateElements: { elements: Array<ElementFragment> }
-}
-
-export type MoveElementsMutationVariables = Types.Exact<{
-  where?: Types.InputMaybe<Types.ElementWhere>
-  update?: Types.InputMaybe<Types.ElementUpdateInput>
-}>
-
-export type MoveElementsMutation = {
-  updateElements: { elements: Array<ElementFragment> }
+  updateElements: { elements: Array<{ id: string }> }
 }
 
 export type GetElementsQueryVariables = Types.Exact<{
@@ -51,11 +42,10 @@ export const CreateElementsDocument = gql`
   mutation CreateElements($input: [ElementCreateInput!]!) {
     createElements(input: $input) {
       elements {
-        ...Element
+        id
       }
     }
   }
-  ${ElementFragmentDoc}
 `
 export const DeleteElementsDocument = gql`
   mutation DeleteElements($where: ElementWhere!, $delete: ElementDeleteInput) {
@@ -68,21 +58,10 @@ export const UpdateElementsDocument = gql`
   mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {
     updateElements(where: $where, update: $update) {
       elements {
-        ...Element
+        id
       }
     }
   }
-  ${ElementFragmentDoc}
-`
-export const MoveElementsDocument = gql`
-  mutation MoveElements($where: ElementWhere, $update: ElementUpdateInput) {
-    updateElements(where: $where, update: $update) {
-      elements {
-        ...Element
-      }
-    }
-  }
-  ${ElementFragmentDoc}
 `
 export const GetElementsDocument = gql`
   query GetElements($options: ElementOptions, $where: ElementWhere) {
@@ -152,21 +131,6 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'UpdateElements',
-        'mutation',
-      )
-    },
-    MoveElements(
-      variables?: MoveElementsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<MoveElementsMutation> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<MoveElementsMutation>(
-            MoveElementsDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
-        'MoveElements',
         'mutation',
       )
     },

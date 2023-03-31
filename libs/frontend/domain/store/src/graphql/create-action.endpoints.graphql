@@ -1,7 +1,7 @@
 mutation CreateCodeActions($input: [CodeActionCreateInput!]!) {
   createCodeActions(input: $input) {
     codeActions {
-      ...Action
+      id
     }
   }
 }
@@ -9,7 +9,7 @@ mutation CreateCodeActions($input: [CodeActionCreateInput!]!) {
 mutation CreateApiActions($input: [ApiActionCreateInput!]!) {
   createApiActions(input: $input) {
     apiActions {
-      ...Action
+      id
     }
   }
 }

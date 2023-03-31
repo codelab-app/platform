@@ -1,7 +1,7 @@
 mutation CreateApps($input: [AppCreateInput!]!) {
   createApps(input: $input) {
     apps {
-      ...AppPreview
+      id
     }
   }
 }
@@ -9,7 +9,7 @@ mutation CreateApps($input: [AppCreateInput!]!) {
 mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
   updateApps(where: $where, update: $update) {
     apps {
-      ...AppPreview
+      id
     }
   }
 }

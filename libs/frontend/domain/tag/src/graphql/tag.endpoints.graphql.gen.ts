@@ -9,14 +9,14 @@ export type CreateTagsMutationVariables = Types.Exact<{
   input: Array<Types.TagCreateInput> | Types.TagCreateInput
 }>
 
-export type CreateTagsMutation = { createTags: { tags: Array<TagFragment> } }
+export type CreateTagsMutation = { createTags: { tags: Array<{ id: string }> } }
 
 export type UpdateTagsMutationVariables = Types.Exact<{
   where: Types.TagWhere
   update: Types.TagUpdateInput
 }>
 
-export type UpdateTagsMutation = { updateTags: { tags: Array<TagFragment> } }
+export type UpdateTagsMutation = { updateTags: { tags: Array<{ id: string }> } }
 
 export type DeleteTagsMutationVariables = Types.Exact<{
   where: Types.TagWhere
@@ -35,21 +35,19 @@ export const CreateTagsDocument = gql`
   mutation CreateTags($input: [TagCreateInput!]!) {
     createTags(input: $input) {
       tags {
-        ...Tag
+        id
       }
     }
   }
-  ${TagFragmentDoc}
 `
 export const UpdateTagsDocument = gql`
   mutation UpdateTags($where: TagWhere!, $update: TagUpdateInput!) {
     updateTags(where: $where, update: $update) {
       tags {
-        ...Tag
+        id
       }
     }
   }
-  ${TagFragmentDoc}
 `
 export const DeleteTagsDocument = gql`
   mutation DeleteTags($where: TagWhere!) {

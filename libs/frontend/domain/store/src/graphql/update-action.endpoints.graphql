@@ -15,7 +15,7 @@ mutation UpdateCodeActions(
     disconnect: $disconnect
   ) {
     codeActions {
-      ...Action
+      id
     }
   }
 }
@@ -37,7 +37,7 @@ mutation UpdateApiActions(
     disconnect: $disconnect
   ) {
     apiActions {
-      ...Action
+      id
     }
   }
 }

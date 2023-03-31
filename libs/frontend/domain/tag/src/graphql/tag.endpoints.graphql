@@ -1,7 +1,7 @@
 mutation CreateTags($input: [TagCreateInput!]!) {
   createTags(input: $input) {
     tags {
-      ...Tag
+      id
     }
   }
 }
@@ -9,7 +9,7 @@ mutation CreateTags($input: [TagCreateInput!]!) {
 mutation UpdateTags($where: TagWhere!, $update: TagUpdateInput!) {
   updateTags(where: $where, update: $update) {
     tags {
-      ...Tag
+      id
     }
   }
 }
