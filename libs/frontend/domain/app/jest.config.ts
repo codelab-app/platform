@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'frontend-domain-renderer',
+  displayName: 'frontend-domain-app',
   preset: '../../../../jest.preset.js',
   // globals: {
   //   'ts-jest': {
@@ -16,5 +16,5 @@ export default {
       'jest-transform-stub',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../../coverage/libs/frontend/domain/renderer',
+  coverageDirectory: '../../../../coverage/libs/frontend/domain/app',
 }
