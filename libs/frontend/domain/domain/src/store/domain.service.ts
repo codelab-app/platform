@@ -19,6 +19,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { vercelApis } from '../../../vercel/src'
 import { DomainRepository } from '../services'
 import { Domain } from './domain.model'
 import { DomainModalService } from './domain-modal.service'
@@ -101,6 +102,7 @@ export class DomainService
     this.domains.delete(id)
 
     yield* _await(this.domainRepository.delete([domain]))
+    yield* _await(vercelApis.deleteDomain(domain.name))
 
     return domain
   })
