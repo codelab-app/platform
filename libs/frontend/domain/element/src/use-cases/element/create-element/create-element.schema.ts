@@ -68,9 +68,11 @@ export const createElementSchema: JSONSchemaType<
       type: 'object',
     },
     props: {
+      label: '',
       nullable: true,
       properties: {
         data: {
+          label: 'Props Data',
           nullable: true,
           type: 'string',
         },

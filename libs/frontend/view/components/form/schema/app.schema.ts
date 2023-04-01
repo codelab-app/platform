@@ -4,8 +4,10 @@ import { showFieldOnDev } from './showFieldOnDev'
 
 export const appSchema: PropertiesSchema<IAppSchema> = {
   app: {
+    label: '',
     properties: {
       id: {
+        label: 'App',
         disabled: true,
         type: 'string',
       },
