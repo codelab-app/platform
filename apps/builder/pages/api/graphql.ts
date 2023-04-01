@@ -124,8 +124,11 @@ const handler: NextApiHandler = async (req, res) => {
       Object.assign(req, { user: session.user })
     }
 
-    const accessToken = (await auth0Instance.getAccessToken(req, res))
-      .accessToken
+    const accessToken = (
+      await auth0Instance.getAccessToken(req, res, {
+        scopes: EnvBuilder().auth0.scopes,
+      })
+    ).accessToken
 
     /**
      * Instead of appending headers to the frontend GraphQL client, we could access session here in serverless then append at the middleware level

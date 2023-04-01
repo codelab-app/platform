@@ -13,6 +13,7 @@ interface EnvBuilder {
     client_secret: string
     cypress_username?: string
     issuer_base_url: string
+    scopes: Array<string>
     /**
      * This is required for `initAuth0`, it loads it behind the scenes
      */
@@ -57,6 +58,8 @@ export const EnvBuilder = (): EnvBuilder => {
         cypress_username: env.get('AUTH0_CYPRESS_USERNAME').asString(),
 
         issuer_base_url: env.get('AUTH0_ISSUER_BASE_URL').required().asString(),
+
+        scopes: env.get('AUTH0_SCOPE').required().asString().split(','),
 
         // audience: env.get('AUTH0_AUDIENCE').required().asString(),
         secret: env.get('AUTH0_SECRET').required().asString(),
