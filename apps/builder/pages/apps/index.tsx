@@ -23,12 +23,12 @@ import {
   sidebarNavigation,
 } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
-import { useAsync, useMountEffect } from '@react-hookz/web'
+import { useAsync } from '@react-hookz/web'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown, Menu, PageHeader, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const items: MenuProps['items'] = [
   {
@@ -61,17 +61,17 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
     appService.loadAppsWithNestedPreviews({ owner }),
   )
 
-  useMountEffect(() => {
+  useEffect(() => {
     if (user?.sub) {
       void loadApp.execute({ auth0Id: user.sub })
     }
 
     // in development need to execute this each time page is loaded,
     // since useUser always returns valid Auth0 user even when it does not exist in neo4j db yet
-    if (process.env.NEXT_PUBLIC_BUILDER_HOST?.includes('127.0.0.1')) {
+    if (user && process.env.NEXT_PUBLIC_BUILDER_HOST?.includes('127.0.0.1')) {
       void fetch('/api/upsert-user')
     }
-  })
+  }, [user?.sub])
 
   return (
     <>
@@ -85,7 +85,11 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
       <DeleteAppModal />
 
       <ContentSection>
-        {status === 'loading' ? <Spin /> : <GetAppsList />}
+        {status === 'loading' || status === 'not-executed' ? (
+          <Spin />
+        ) : (
+          <GetAppsList />
+        )}
       </ContentSection>
     </>
   )
