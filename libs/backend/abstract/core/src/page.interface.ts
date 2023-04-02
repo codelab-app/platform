@@ -3,7 +3,7 @@ import type { IElementExport } from './element.interface'
 
 export type IPageExport = Pick<
   OGM_TYPES.Page,
-  'id' | 'kind' | 'name' | 'pageContentContainer'
+  'id' | 'kind' | 'name' | 'pageContentContainer' | 'url'
 > & {
   components: Array<OGM_TYPES.Component>
   elements: Array<OGM_TYPES.Element>

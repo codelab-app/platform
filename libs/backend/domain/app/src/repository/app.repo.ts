@@ -1,6 +1,5 @@
 import type { ExportAppData, IAppExport } from '@codelab/backend/abstract/core'
 import { AbstractRepository } from '@codelab/backend/abstract/types'
-import { exportActions, importActions } from '@codelab/backend/domain/action'
 import { createComponent } from '@codelab/backend/domain/component'
 import {
   importElementInitial,
@@ -18,7 +17,6 @@ import {
   connectAuth0Owner,
   connectNodeId,
   connectNodeIds,
-  reconnectNodeId,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
 import { cLog, createUniqueName } from '@codelab/shared/utils'
@@ -162,6 +160,7 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
                 ? connectNodeId(page.pageContentContainer.id)
                 : undefined,
               rootElement: connectNodeId(page.rootElement.id),
+              url: page.url,
             },
           })),
         },
@@ -190,7 +189,7 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
   const pagesData = await Promise.all(
     pages.map(async (page) => {
       const { components, elements } = await getPageData(page)
-      const { id, kind, name, pageContentContainer, rootElement } = page
+      const { id, kind, name, pageContentContainer, rootElement, url } = page
 
       return {
         components,
@@ -202,6 +201,7 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
           id: rootElement.id,
           name: rootElement.name,
         },
+        url,
         ...(pageContentContainer ? { pageContentContainer } : {}),
       }
     }),
