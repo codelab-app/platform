@@ -24,7 +24,6 @@ export interface IPage
   elements: Array<IElement>
   kind: IPageKind
   name: string
-  // getServerSideProps: Nullish<string>
   /**
    * A pointer to tell us where to render from app
    */
@@ -33,4 +32,5 @@ export interface IPage
   slug: string
   store: Ref<IStore>
   toJson: IPropData
+  url: string
 }

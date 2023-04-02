@@ -1,6 +1,10 @@
 import type { IUpdatePageData } from '@codelab/frontend/abstract/core'
 import { getSelectElementComponent } from '@codelab/frontend/domain/type'
-import { appSchema, idSchema } from '@codelab/frontend/view/components'
+import {
+  appSchema,
+  idSchema,
+  pageUrlSchema,
+} from '@codelab/frontend/view/components'
 import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
@@ -27,6 +31,7 @@ export const schema = (kind: IPageKind): JSONSchemaType<IUpdatePageData> =>
         required: ['id'],
         type: 'object',
       },
+      ...pageUrlSchema,
     },
     required: ['name', 'app'],
     type: 'object',

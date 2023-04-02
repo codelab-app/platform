@@ -11,4 +11,5 @@ export const pageSelectionSet = `{
     id
     name
   }
+  url
 }`

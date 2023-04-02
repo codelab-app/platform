@@ -12,6 +12,7 @@ export type PageFragment = {
   name: string
   slug: string
   kind: Types.PageKind
+  url: string
   app: { id: string }
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   pageContentContainer?: { id: string } | null
@@ -23,6 +24,7 @@ export type BuilderPageFragment = {
   name: string
   slug: string
   kind: Types.PageKind
+  url: string
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
   app: { id: string }
   store: StoreFragment
@@ -50,6 +52,7 @@ export const PageFragmentDoc = gql`
       ...Store
     }
     kind
+    url
   }
   ${ElementFragmentDoc}
   ${StoreFragmentDoc}
@@ -75,6 +78,7 @@ export const BuilderPageFragmentDoc = gql`
       id
     }
     kind
+    url
   }
   ${ElementFragmentDoc}
   ${StoreFragmentDoc}

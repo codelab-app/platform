@@ -1639,6 +1639,7 @@ export type AppPagePagesNodeAggregateSelection = {
   __typename?: 'AppPagePagesNodeAggregateSelection'
   _compoundName: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
+  url: StringAggregateSelectionNonNullable
 }
 
 export type AppPagesAggregateInput = {
@@ -1726,6 +1727,21 @@ export type AppPagesNodeAggregationWhereInput = {
   _compoundName_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   _compoundName_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  url_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  url_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  url_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  url_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  url_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  url_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  url_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  url_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  url_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  url_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  url_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  url_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  url_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  url_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  url_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type AppPagesRelationship = {
@@ -7637,6 +7653,21 @@ export type ElementPageNodeAggregationWhereInput = {
   _compoundName_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   _compoundName_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  url_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  url_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  url_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  url_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  url_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  url_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  url_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  url_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  url_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  url_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  url_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  url_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  url_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  url_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  url_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementPagePageAggregationSelection = {
@@ -7649,6 +7680,7 @@ export type ElementPagePageNodeAggregateSelection = {
   __typename?: 'ElementPagePageNodeAggregateSelection'
   _compoundName: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
+  url: StringAggregateSelectionNonNullable
 }
 
 export type ElementPageRelationship = {
@@ -12890,6 +12922,7 @@ export type Page = {
   store: Store
   storeAggregate?: Maybe<PageStoreStoreAggregationSelection>
   storeConnection: PageStoreConnection
+  url: Scalars['String']
 }
 
 export type PageAppArgs = {
@@ -12973,6 +13006,7 @@ export type PageAggregateSelection = {
   _compoundName: StringAggregateSelectionNonNullable
   count: Scalars['Int']
   id: IdAggregateSelectionNonNullable
+  url: StringAggregateSelectionNonNullable
 }
 
 export type PageAppAggregateInput = {
@@ -13124,6 +13158,7 @@ export type PageCreateInput = {
   pageContentContainer?: InputMaybe<PagePageContentContainerFieldInput>
   rootElement?: InputMaybe<PageRootElementFieldInput>
   store?: InputMaybe<PageStoreFieldInput>
+  url: Scalars['String']
 }
 
 export type PageDeleteInput = {
@@ -13200,6 +13235,7 @@ export type PageOnCreateInput = {
   _compoundName: Scalars['String']
   id: Scalars['ID']
   kind: PageKind
+  url: Scalars['String']
 }
 
 export type PageOptions = {
@@ -13585,6 +13621,7 @@ export type PageSort = {
   _compoundName?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
   kind?: InputMaybe<SortDirection>
+  url?: InputMaybe<SortDirection>
 }
 
 export type PageStoreAggregateInput = {
@@ -13939,6 +13976,7 @@ export type PageUpdateInput = {
   pageContentContainer?: InputMaybe<PagePageContentContainerUpdateFieldInput>
   rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
   store?: InputMaybe<PageStoreUpdateFieldInput>
+  url?: InputMaybe<Scalars['String']>
 }
 
 export type PageWhere = {
@@ -13979,6 +14017,12 @@ export type PageWhere = {
   storeConnection?: InputMaybe<PageStoreConnectionWhere>
   storeConnection_NOT?: InputMaybe<PageStoreConnectionWhere>
   store_NOT?: InputMaybe<StoreWhere>
+  url?: InputMaybe<Scalars['String']>
+  url_CONTAINS?: InputMaybe<Scalars['String']>
+  url_ENDS_WITH?: InputMaybe<Scalars['String']>
+  url_IN?: InputMaybe<Array<Scalars['String']>>
+  url_MATCHES?: InputMaybe<Scalars['String']>
+  url_STARTS_WITH?: InputMaybe<Scalars['String']>
 }
 
 export type PagesConnection = {
@@ -20306,6 +20350,7 @@ export type PageFragment = {
   name: string
   slug: string
   kind: PageKind
+  url: string
   app: { __typename?: 'App'; id: string }
   rootElement: {
     __typename?: 'Element'
@@ -20321,6 +20366,7 @@ export type BuilderPageFragment = {
   name: string
   slug: string
   kind: PageKind
+  url: string
   rootElement: {
     __typename?: 'Element'
     descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>

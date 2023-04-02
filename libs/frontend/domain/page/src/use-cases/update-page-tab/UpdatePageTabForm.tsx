@@ -27,6 +27,10 @@ export const UpdatePageTabForm = observer<{ pageService: IPageService }>(
       omitFields.push('pageContentContainer')
     }
 
+    if (kind !== IPageKind.Regular) {
+      omitFields.push('url')
+    }
+
     const model = {
       app: page.app,
       id: page.id,
@@ -34,6 +38,7 @@ export const UpdatePageTabForm = observer<{ pageService: IPageService }>(
       pageContentContainer: pageContentContainer?.maybeCurrent?.id
         ? { id: pageContentContainer.maybeCurrent.id }
         : null,
+      url: page.url,
     }
 
     return (

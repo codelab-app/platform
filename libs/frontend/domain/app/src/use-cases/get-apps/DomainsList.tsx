@@ -34,7 +34,7 @@ export const DomainsList = ({ domains }: DomainListProps) => {
         )
 
         return (
-          <div css={tw`text-sm flex items-center justify-between`}>
+          <div css={tw`text-sm flex items-center justify-between`} key={name}>
             <Link href={`https://${name}`}>
               <span>
                 {name} <LinkOutlined />

@@ -11,13 +11,11 @@ import {
   IAppDTO,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
-import { getPageService, pageApi, pageRef } from '@codelab/frontend/domain/page'
+import { getDomainService } from '@codelab/frontend/domain/domain'
+import { getPageService, pageApi } from '@codelab/frontend/domain/page'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getResourceService } from '@codelab/frontend/domain/resource'
-import {
-  getActionService,
-  getStoreService,
-} from '@codelab/frontend/domain/store'
+import { getStoreService } from '@codelab/frontend/domain/store'
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
@@ -77,8 +75,8 @@ export class AppService
   }
 
   @computed
-  private get actionService() {
-    return getActionService(this)
+  private get domainService() {
+    return getDomainService(this)
   }
 
   @computed
@@ -191,6 +189,10 @@ export class AppService
         this.pageService.add(pageData)
       })
 
+      appData.domains.forEach((domain) => {
+        this.domainService.add(domain)
+      })
+
       return this.add(appData)
     })
 
@@ -235,12 +237,13 @@ export class AppService
   })
 
   @modelAction
-  add({ id, name, owner, pages }: IAppDTO) {
+  add({ domains, id, name, owner, pages }: IAppDTO) {
     const app = App.create({
+      domains,
       id,
       name,
       owner,
-      pages: pages?.map((page) => pageRef(page.id)),
+      pages,
     })
 
     this.apps.set(app.id, app)

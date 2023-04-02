@@ -15,6 +15,7 @@ export const providerPageData = (app: IEntity, store: IEntity): IPageDTO => ({
   name: IPageKindName.Provider,
   rootElement: providerElementData,
   store,
+  url: IPageKindName.Provider,
 })
 
 export const notFoundPageData = (app: IEntity, store: IEntity): IPageDTO => ({
@@ -24,6 +25,7 @@ export const notFoundPageData = (app: IEntity, store: IEntity): IPageDTO => ({
   name: IPageKindName.NotFound,
   rootElement: notFoundElementData,
   store,
+  url: IPageKindName.NotFound,
 })
 
 export const internalServerErrorPageData = (
@@ -36,4 +38,5 @@ export const internalServerErrorPageData = (
   name: IPageKindName.InternalServerError,
   rootElement: internalServerErrorElementData,
   store,
+  url: IPageKindName.InternalServerError,
 })

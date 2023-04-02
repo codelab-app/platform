@@ -28,6 +28,7 @@ const create = ({
   pageContentContainer,
   rootElement,
   store,
+  url,
 }: IPageDTO) => {
   return new Page({
     app: { id: app.id },
@@ -39,6 +40,7 @@ const create = ({
       : undefined,
     rootElement: elementRef(rootElement.id),
     store: storeRef(store.id),
+    url,
   })
 }
 
@@ -50,6 +52,7 @@ export class Page
     name: prop<string>().withSetter(),
     pageContentContainer: prop<Maybe<Ref<IElement>>>(),
     store: prop<Ref<IStore>>(),
+    url: prop<string>(),
   })
   implements IPage
 {
@@ -89,6 +92,7 @@ export class Page
           node: this.store.current.toCreateInput(),
         },
       },
+      url: this.url,
     }
   }
 
@@ -99,6 +103,7 @@ export class Page
       pageContentContainer: reconnectNodeId(
         this.pageContentContainer?.current.id,
       ),
+      url: this.url,
     }
   }
 
@@ -117,6 +122,7 @@ export class Page
     pageContentContainer,
     rootElement,
     store,
+    url,
   }: Partial<IPageDTO>) {
     this.name = name ?? this.name
     this.rootElement = rootElement
@@ -128,6 +134,7 @@ export class Page
       : this.pageContentContainer
     this.kind = kind ? kind : this.kind
     this.store = store ? storeRef(store.id) : this.store
+    this.url = url ?? ''
 
     return this
   }

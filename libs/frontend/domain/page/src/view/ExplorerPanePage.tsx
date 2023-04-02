@@ -1,5 +1,4 @@
 import { PageType } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/presenter/container'
 import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
 import { Spin } from 'antd'
 import { observer } from 'mobx-react-lite'

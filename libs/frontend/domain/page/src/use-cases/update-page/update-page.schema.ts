@@ -3,6 +3,7 @@ import {
   appSchema,
   idSchema,
   nonEmptyString,
+  pageUrlSchema,
   titleCaseValidation,
 } from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
@@ -18,6 +19,7 @@ export const updatePageSchema: JSONSchemaType<UpdatePageSchema> = {
       ...nonEmptyString,
       ...titleCaseValidation,
     },
+    ...pageUrlSchema,
   },
   required: ['name', 'app'],
   title: 'Update Page Input',

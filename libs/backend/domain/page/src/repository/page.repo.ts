@@ -44,6 +44,7 @@ export class PageRepository extends AbstractRepository<
             pageContentContainer,
             rootElement,
             store,
+            url,
           }) => ({
             _compoundName: createUniqueName(name, app.id),
             app: connectNodeId(app.id),
@@ -52,6 +53,7 @@ export class PageRepository extends AbstractRepository<
             pageContentContainer: connectNodeId(pageContentContainer?.id),
             rootElement: connectNodeId(rootElement.id),
             store: connectNodeId(store.id),
+            url,
           }),
         ),
       })
@@ -59,7 +61,7 @@ export class PageRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { app, id, kind, name, pageContentContainer, rootElement }: IPageDTO,
+    { app, name, pageContentContainer, rootElement, url }: IPageDTO,
     where: OGM_TYPES.PageWhere,
   ) {
     return (
@@ -71,6 +73,7 @@ export class PageRepository extends AbstractRepository<
           app: reconnectNodeId(app.id),
           pageContentContainer: reconnectNodeId(pageContentContainer?.id),
           rootElement: reconnectNodeId(rootElement.id),
+          url,
         },
         where,
       })

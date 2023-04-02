@@ -26,6 +26,8 @@ export const pageSchema = gql`
     pageContentContainer: Element
       @relationship(type: "CHILD_PAGE_CONTAINER_ELEMENT", direction: OUT)
     kind: PageKind!
+    # when the app will be deployed - the page will be available on this URL
+    url: String!
   }
 
   extend type Page

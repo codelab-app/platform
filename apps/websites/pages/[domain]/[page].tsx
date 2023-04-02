@@ -62,7 +62,8 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
 
   const store = initializeStore({})
   const { appService } = store
-  const { domain, page: pageSlug } = context.params
+  const { domain, page } = context.params
+  const pageUrl = page ? `/${page}` : '/'
 
   const [app] = await appService.getAll({
     domains_SOME: { name_IN: [String(domain)] },
@@ -72,21 +73,23 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
     throw new Error(`No apps found for "${domain}" domain`)
   }
 
-  const page = app.pages.find((appPage) => appPage.current.slug === pageSlug)
+  const foundPage = app.pages.find(
+    (appPage) => appPage.current.url === `/${pageUrl}`,
+  )
 
-  if (!page) {
-    throw new Error(`Page ${pageSlug} on "${domain}" domain Not found`)
+  if (!foundPage) {
+    throw new Error(`Page with ${pageUrl} URL for "${domain}" domain Not found`)
   }
 
   const renderingData = await pageApi.GetRenderedPageAndCommonAppData({
     appId: app.id,
-    pageId: page.id,
+    pageId: foundPage.id,
   })
 
   return {
     props: {
       appId: app.id,
-      pageId: page.id,
+      pageId: foundPage.id,
       renderingData,
     },
   }

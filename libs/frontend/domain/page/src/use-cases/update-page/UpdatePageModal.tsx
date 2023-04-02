@@ -18,6 +18,7 @@ export const UpdatePageModal = observer(() => {
     app: pageToUpdate?.app,
     id: pageToUpdate?.id,
     name: pageToUpdate?.name,
+    url: pageToUpdate?.url,
   }
 
   return (

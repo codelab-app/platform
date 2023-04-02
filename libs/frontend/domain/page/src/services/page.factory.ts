@@ -69,6 +69,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
       kind: IPageKind.Provider,
       name: IPageKindName.Provider,
       owner,
+      url: `/${IPageKindName.Provider}`,
     })
   }
 
@@ -79,6 +80,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
       kind: IPageKind.NotFound,
       name: IPageKindName.NotFound,
       owner,
+      url: `/${IPageKindName.NotFound}`,
     })
   }
 
@@ -89,11 +91,12 @@ export class PageFactory extends Model({}) implements IPageFactory {
       kind: IPageKind.InternalServerError,
       name: IPageKindName.InternalServerError,
       owner,
+      url: `/${IPageKindName.InternalServerError}`,
     })
   }
 
   @modelAction
-  private addDefaultPage({ app, kind, name, owner }: ISystemPageDTO) {
+  private addDefaultPage({ app, kind, name, owner, url }: ISystemPageDTO) {
     const rootElementProps = this.propService.add({
       id: v4(),
     })
@@ -131,6 +134,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
       pageContentContainer,
       rootElement,
       store,
+      url,
     })
   }
 }

@@ -18,6 +18,7 @@ fragment Page on Page {
     ...Store
   }
   kind
+  url
 }
 
 fragment BuilderPage on Page {
@@ -40,4 +41,5 @@ fragment BuilderPage on Page {
     id
   }
   kind
+  url
 }

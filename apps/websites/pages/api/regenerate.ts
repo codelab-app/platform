@@ -24,7 +24,7 @@ const regenerate: NextApiHandler = async (req, res) => {
     const failedPages: Array<string> = []
 
     const revalidationPromises = pages.map(async (pageSlug) => {
-      const path = `/${domain}/${pageSlug}`
+      const path = `/${domain}${pageSlug}`
 
       try {
         await res.revalidate(path)
