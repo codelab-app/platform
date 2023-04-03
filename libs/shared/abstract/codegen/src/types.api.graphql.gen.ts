@@ -21354,7 +21354,7 @@ export type CreatePrimitiveTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'CreatePrimitiveTypesMutationResponse'
-    types: Array<{ __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment>
+    types: Array<{ __typename?: 'PrimitiveType'; id: string }>
   }
 }
 
@@ -21366,7 +21366,7 @@ export type CreateArrayTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'CreateArrayTypesMutationResponse'
-    types: Array<{ __typename?: 'ArrayType' } & Type_ArrayType_Fragment>
+    types: Array<{ __typename?: 'ArrayType'; id: string }>
   }
 }
 
@@ -21378,7 +21378,7 @@ export type CreateUnionTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'CreateUnionTypesMutationResponse'
-    types: Array<{ __typename?: 'UnionType' } & Type_UnionType_Fragment>
+    types: Array<{ __typename?: 'UnionType'; id: string }>
   }
 }
 
@@ -21390,7 +21390,7 @@ export type CreateInterfaceTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'CreateInterfaceTypesMutationResponse'
-    types: Array<{ __typename?: 'InterfaceType' } & Type_InterfaceType_Fragment>
+    types: Array<{ __typename?: 'InterfaceType'; id: string }>
   }
 }
 
@@ -21402,7 +21402,7 @@ export type CreateElementTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'CreateElementTypesMutationResponse'
-    types: Array<{ __typename?: 'ElementType' } & Type_ElementType_Fragment>
+    types: Array<{ __typename?: 'ElementType'; id: string }>
   }
 }
 
@@ -21414,9 +21414,7 @@ export type CreateRenderPropsTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'CreateRenderPropsTypesMutationResponse'
-    types: Array<
-      { __typename?: 'RenderPropsType' } & Type_RenderPropsType_Fragment
-    >
+    types: Array<{ __typename?: 'RenderPropsType'; id: string }>
   }
 }
 
@@ -21428,7 +21426,7 @@ export type CreateReactNodeTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'CreateReactNodeTypesMutationResponse'
-    types: Array<{ __typename?: 'ReactNodeType' } & Type_ReactNodeType_Fragment>
+    types: Array<{ __typename?: 'ReactNodeType'; id: string }>
   }
 }
 
@@ -21440,7 +21438,7 @@ export type CreateEnumTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'CreateEnumTypesMutationResponse'
-    types: Array<{ __typename?: 'EnumType' } & Type_EnumType_Fragment>
+    types: Array<{ __typename?: 'EnumType'; id: string }>
   }
 }
 
@@ -21452,7 +21450,7 @@ export type CreateLambdaTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'CreateLambdaTypesMutationResponse'
-    types: Array<{ __typename?: 'LambdaType' } & Type_LambdaType_Fragment>
+    types: Array<{ __typename?: 'LambdaType'; id: string }>
   }
 }
 
@@ -21464,7 +21462,7 @@ export type CreatePageTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'CreatePageTypesMutationResponse'
-    types: Array<{ __typename?: 'PageType' } & Type_PageType_Fragment>
+    types: Array<{ __typename?: 'PageType'; id: string }>
   }
 }
 
@@ -21476,7 +21474,7 @@ export type CreateAppTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'CreateAppTypesMutationResponse'
-    types: Array<{ __typename?: 'AppType' } & Type_AppType_Fragment>
+    types: Array<{ __typename?: 'AppType'; id: string }>
   }
 }
 
@@ -21488,7 +21486,7 @@ export type CreateActionTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'CreateActionTypesMutationResponse'
-    types: Array<{ __typename?: 'ActionType' } & Type_ActionType_Fragment>
+    types: Array<{ __typename?: 'ActionType'; id: string }>
   }
 }
 
@@ -21500,9 +21498,7 @@ export type CreateCodeMirrorTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'CreateCodeMirrorTypesMutationResponse'
-    types: Array<
-      { __typename?: 'CodeMirrorType' } & Type_CodeMirrorType_Fragment
-    >
+    types: Array<{ __typename?: 'CodeMirrorType'; id: string }>
   }
 }
 
@@ -21697,7 +21693,7 @@ export type CreateFieldsMutation = {
   __typename?: 'Mutation'
   createFields: {
     __typename?: 'CreateFieldsMutationResponse'
-    fields: Array<{ __typename?: 'Field' } & FieldFragment>
+    fields: Array<{ __typename?: 'Field'; id: string }>
   }
 }
 
@@ -21710,7 +21706,7 @@ export type UpdateFieldsMutation = {
   __typename?: 'Mutation'
   updateFields: {
     __typename?: 'UpdateFieldsMutationResponse'
-    fields: Array<{ __typename?: 'Field' } & FieldFragment>
+    fields: Array<{ __typename?: 'Field'; id: string }>
   }
 }
 
@@ -22037,7 +22033,7 @@ export type UpdatePrimitiveTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'UpdatePrimitiveTypesMutationResponse'
-    types: Array<{ __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment>
+    types: Array<{ __typename?: 'PrimitiveType'; id: string }>
   }
 }
 
@@ -22054,7 +22050,7 @@ export type UpdateArrayTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'UpdateArrayTypesMutationResponse'
-    types: Array<{ __typename?: 'ArrayType' } & Type_ArrayType_Fragment>
+    types: Array<{ __typename?: 'ArrayType'; id: string }>
   }
 }
 
@@ -22071,7 +22067,7 @@ export type UpdateUnionTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'UpdateUnionTypesMutationResponse'
-    types: Array<{ __typename?: 'UnionType' } & Type_UnionType_Fragment>
+    types: Array<{ __typename?: 'UnionType'; id: string }>
   }
 }
 
@@ -22088,7 +22084,7 @@ export type UpdateInterfaceTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'UpdateInterfaceTypesMutationResponse'
-    types: Array<{ __typename?: 'InterfaceType' } & Type_InterfaceType_Fragment>
+    types: Array<{ __typename?: 'InterfaceType'; id: string }>
   }
 }
 
@@ -22105,7 +22101,7 @@ export type UpdateReactNodeTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'UpdateReactNodeTypesMutationResponse'
-    types: Array<{ __typename?: 'ReactNodeType' } & Type_ReactNodeType_Fragment>
+    types: Array<{ __typename?: 'ReactNodeType'; id: string }>
   }
 }
 
@@ -22122,7 +22118,7 @@ export type UpdateElementTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'UpdateElementTypesMutationResponse'
-    types: Array<{ __typename?: 'ElementType' } & Type_ElementType_Fragment>
+    types: Array<{ __typename?: 'ElementType'; id: string }>
   }
 }
 
@@ -22139,9 +22135,7 @@ export type UpdateRenderPropsTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'UpdateRenderPropsTypesMutationResponse'
-    types: Array<
-      { __typename?: 'RenderPropsType' } & Type_RenderPropsType_Fragment
-    >
+    types: Array<{ __typename?: 'RenderPropsType'; id: string }>
   }
 }
 
@@ -22158,7 +22152,7 @@ export type UpdateEnumTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'UpdateEnumTypesMutationResponse'
-    types: Array<{ __typename?: 'EnumType' } & Type_EnumType_Fragment>
+    types: Array<{ __typename?: 'EnumType'; id: string }>
   }
 }
 
@@ -22175,7 +22169,7 @@ export type UpdateLambdaTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'UpdateLambdaTypesMutationResponse'
-    types: Array<{ __typename?: 'LambdaType' } & Type_LambdaType_Fragment>
+    types: Array<{ __typename?: 'LambdaType'; id: string }>
   }
 }
 
@@ -22192,7 +22186,7 @@ export type UpdatePageTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'UpdatePageTypesMutationResponse'
-    types: Array<{ __typename?: 'PageType' } & Type_PageType_Fragment>
+    types: Array<{ __typename?: 'PageType'; id: string }>
   }
 }
 
@@ -22209,7 +22203,7 @@ export type UpdateAppTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'UpdateAppTypesMutationResponse'
-    types: Array<{ __typename?: 'AppType' } & Type_AppType_Fragment>
+    types: Array<{ __typename?: 'AppType'; id: string }>
   }
 }
 
@@ -22226,7 +22220,7 @@ export type UpdateActionTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'UpdateActionTypesMutationResponse'
-    types: Array<{ __typename?: 'ActionType' } & Type_ActionType_Fragment>
+    types: Array<{ __typename?: 'ActionType'; id: string }>
   }
 }
 
@@ -22243,9 +22237,7 @@ export type UpdateCodeMirrorTypesMutation = {
   __typename?: 'Mutation'
   types: {
     __typename?: 'UpdateCodeMirrorTypesMutationResponse'
-    types: Array<
-      { __typename?: 'CodeMirrorType' } & Type_CodeMirrorType_Fragment
-    >
+    types: Array<{ __typename?: 'CodeMirrorType'; id: string }>
   }
 }
 

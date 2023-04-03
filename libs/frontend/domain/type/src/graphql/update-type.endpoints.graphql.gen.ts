@@ -1,25 +1,8 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import {
-  Type_ActionType_Fragment,
-  Type_AppType_Fragment,
-  Type_ArrayType_Fragment,
-  Type_BaseType_Fragment,
-  Type_CodeMirrorType_Fragment,
-  Type_ElementType_Fragment,
-  Type_EnumType_Fragment,
-  Type_InterfaceType_Fragment,
-  Type_LambdaType_Fragment,
-  Type_PageType_Fragment,
-  Type_PrimitiveType_Fragment,
-  Type_ReactNodeType_Fragment,
-  Type_RenderPropsType_Fragment,
-  Type_UnionType_Fragment,
-} from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { TypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 export type UpdatePrimitiveTypesMutationVariables = Types.Exact<{
   connect?: Types.InputMaybe<Types.PrimitiveTypeConnectInput>
   create?: Types.InputMaybe<Types.PrimitiveTypeRelationInput>
@@ -30,7 +13,7 @@ export type UpdatePrimitiveTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdatePrimitiveTypesMutation = {
-  types: { types: Array<Type_PrimitiveType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type UpdateArrayTypesMutationVariables = Types.Exact<{
@@ -43,7 +26,7 @@ export type UpdateArrayTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateArrayTypesMutation = {
-  types: { types: Array<Type_ArrayType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type UpdateUnionTypesMutationVariables = Types.Exact<{
@@ -56,7 +39,7 @@ export type UpdateUnionTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateUnionTypesMutation = {
-  types: { types: Array<Type_UnionType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type UpdateInterfaceTypesMutationVariables = Types.Exact<{
@@ -69,7 +52,7 @@ export type UpdateInterfaceTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateInterfaceTypesMutation = {
-  types: { types: Array<Type_InterfaceType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type UpdateReactNodeTypesMutationVariables = Types.Exact<{
@@ -82,7 +65,7 @@ export type UpdateReactNodeTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateReactNodeTypesMutation = {
-  types: { types: Array<Type_ReactNodeType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type UpdateElementTypesMutationVariables = Types.Exact<{
@@ -95,7 +78,7 @@ export type UpdateElementTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateElementTypesMutation = {
-  types: { types: Array<Type_ElementType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type UpdateRenderPropsTypesMutationVariables = Types.Exact<{
@@ -108,7 +91,7 @@ export type UpdateRenderPropsTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateRenderPropsTypesMutation = {
-  types: { types: Array<Type_RenderPropsType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type UpdateEnumTypesMutationVariables = Types.Exact<{
@@ -121,7 +104,7 @@ export type UpdateEnumTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateEnumTypesMutation = {
-  types: { types: Array<Type_EnumType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type UpdateLambdaTypesMutationVariables = Types.Exact<{
@@ -134,7 +117,7 @@ export type UpdateLambdaTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateLambdaTypesMutation = {
-  types: { types: Array<Type_LambdaType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type UpdatePageTypesMutationVariables = Types.Exact<{
@@ -147,7 +130,7 @@ export type UpdatePageTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdatePageTypesMutation = {
-  types: { types: Array<Type_PageType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type UpdateAppTypesMutationVariables = Types.Exact<{
@@ -159,9 +142,7 @@ export type UpdateAppTypesMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.AppTypeWhere>
 }>
 
-export type UpdateAppTypesMutation = {
-  types: { types: Array<Type_AppType_Fragment> }
-}
+export type UpdateAppTypesMutation = { types: { types: Array<{ id: string }> } }
 
 export type UpdateActionTypesMutationVariables = Types.Exact<{
   connect?: Types.InputMaybe<Types.ActionTypeConnectInput>
@@ -173,7 +154,7 @@ export type UpdateActionTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateActionTypesMutation = {
-  types: { types: Array<Type_ActionType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type UpdateCodeMirrorTypesMutationVariables = Types.Exact<{
@@ -186,7 +167,7 @@ export type UpdateCodeMirrorTypesMutationVariables = Types.Exact<{
 }>
 
 export type UpdateCodeMirrorTypesMutation = {
-  types: { types: Array<Type_CodeMirrorType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export const UpdatePrimitiveTypesDocument = gql`
@@ -207,11 +188,10 @@ export const UpdatePrimitiveTypesDocument = gql`
       where: $where
     ) {
       types: primitiveTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const UpdateArrayTypesDocument = gql`
   mutation UpdateArrayTypes(
@@ -231,11 +211,10 @@ export const UpdateArrayTypesDocument = gql`
       where: $where
     ) {
       types: arrayTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const UpdateUnionTypesDocument = gql`
   mutation UpdateUnionTypes(
@@ -255,11 +234,10 @@ export const UpdateUnionTypesDocument = gql`
       where: $where
     ) {
       types: unionTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const UpdateInterfaceTypesDocument = gql`
   mutation UpdateInterfaceTypes(
@@ -279,11 +257,10 @@ export const UpdateInterfaceTypesDocument = gql`
       where: $where
     ) {
       types: interfaceTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const UpdateReactNodeTypesDocument = gql`
   mutation UpdateReactNodeTypes(
@@ -303,11 +280,10 @@ export const UpdateReactNodeTypesDocument = gql`
       where: $where
     ) {
       types: reactNodeTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const UpdateElementTypesDocument = gql`
   mutation UpdateElementTypes(
@@ -327,11 +303,10 @@ export const UpdateElementTypesDocument = gql`
       where: $where
     ) {
       types: elementTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const UpdateRenderPropsTypesDocument = gql`
   mutation UpdateRenderPropsTypes(
@@ -351,11 +326,10 @@ export const UpdateRenderPropsTypesDocument = gql`
       where: $where
     ) {
       types: renderPropsTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const UpdateEnumTypesDocument = gql`
   mutation UpdateEnumTypes(
@@ -375,11 +349,10 @@ export const UpdateEnumTypesDocument = gql`
       where: $where
     ) {
       types: enumTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const UpdateLambdaTypesDocument = gql`
   mutation UpdateLambdaTypes(
@@ -399,11 +372,10 @@ export const UpdateLambdaTypesDocument = gql`
       where: $where
     ) {
       types: lambdaTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const UpdatePageTypesDocument = gql`
   mutation UpdatePageTypes(
@@ -423,11 +395,10 @@ export const UpdatePageTypesDocument = gql`
       where: $where
     ) {
       types: pageTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const UpdateAppTypesDocument = gql`
   mutation UpdateAppTypes(
@@ -447,11 +418,10 @@ export const UpdateAppTypesDocument = gql`
       where: $where
     ) {
       types: appTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const UpdateActionTypesDocument = gql`
   mutation UpdateActionTypes(
@@ -471,11 +441,10 @@ export const UpdateActionTypesDocument = gql`
       where: $where
     ) {
       types: actionTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const UpdateCodeMirrorTypesDocument = gql`
   mutation UpdateCodeMirrorTypes(
@@ -495,11 +464,10 @@ export const UpdateCodeMirrorTypesDocument = gql`
       where: $where
     ) {
       types: codeMirrorTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

@@ -1,31 +1,14 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import {
-  Type_ActionType_Fragment,
-  Type_AppType_Fragment,
-  Type_ArrayType_Fragment,
-  Type_BaseType_Fragment,
-  Type_CodeMirrorType_Fragment,
-  Type_ElementType_Fragment,
-  Type_EnumType_Fragment,
-  Type_InterfaceType_Fragment,
-  Type_LambdaType_Fragment,
-  Type_PageType_Fragment,
-  Type_PrimitiveType_Fragment,
-  Type_ReactNodeType_Fragment,
-  Type_RenderPropsType_Fragment,
-  Type_UnionType_Fragment,
-} from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { TypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 export type CreatePrimitiveTypesMutationVariables = Types.Exact<{
   input: Array<Types.PrimitiveTypeCreateInput> | Types.PrimitiveTypeCreateInput
 }>
 
 export type CreatePrimitiveTypesMutation = {
-  types: { types: Array<Type_PrimitiveType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type CreateArrayTypesMutationVariables = Types.Exact<{
@@ -33,7 +16,7 @@ export type CreateArrayTypesMutationVariables = Types.Exact<{
 }>
 
 export type CreateArrayTypesMutation = {
-  types: { types: Array<Type_ArrayType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type CreateUnionTypesMutationVariables = Types.Exact<{
@@ -41,7 +24,7 @@ export type CreateUnionTypesMutationVariables = Types.Exact<{
 }>
 
 export type CreateUnionTypesMutation = {
-  types: { types: Array<Type_UnionType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type CreateInterfaceTypesMutationVariables = Types.Exact<{
@@ -49,7 +32,7 @@ export type CreateInterfaceTypesMutationVariables = Types.Exact<{
 }>
 
 export type CreateInterfaceTypesMutation = {
-  types: { types: Array<Type_InterfaceType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type CreateElementTypesMutationVariables = Types.Exact<{
@@ -57,7 +40,7 @@ export type CreateElementTypesMutationVariables = Types.Exact<{
 }>
 
 export type CreateElementTypesMutation = {
-  types: { types: Array<Type_ElementType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type CreateRenderPropsTypesMutationVariables = Types.Exact<{
@@ -67,7 +50,7 @@ export type CreateRenderPropsTypesMutationVariables = Types.Exact<{
 }>
 
 export type CreateRenderPropsTypesMutation = {
-  types: { types: Array<Type_RenderPropsType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type CreateReactNodeTypesMutationVariables = Types.Exact<{
@@ -75,7 +58,7 @@ export type CreateReactNodeTypesMutationVariables = Types.Exact<{
 }>
 
 export type CreateReactNodeTypesMutation = {
-  types: { types: Array<Type_ReactNodeType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type CreateEnumTypesMutationVariables = Types.Exact<{
@@ -83,7 +66,7 @@ export type CreateEnumTypesMutationVariables = Types.Exact<{
 }>
 
 export type CreateEnumTypesMutation = {
-  types: { types: Array<Type_EnumType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type CreateLambdaTypesMutationVariables = Types.Exact<{
@@ -91,7 +74,7 @@ export type CreateLambdaTypesMutationVariables = Types.Exact<{
 }>
 
 export type CreateLambdaTypesMutation = {
-  types: { types: Array<Type_LambdaType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type CreatePageTypesMutationVariables = Types.Exact<{
@@ -99,23 +82,21 @@ export type CreatePageTypesMutationVariables = Types.Exact<{
 }>
 
 export type CreatePageTypesMutation = {
-  types: { types: Array<Type_PageType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type CreateAppTypesMutationVariables = Types.Exact<{
   input: Array<Types.AppTypeCreateInput> | Types.AppTypeCreateInput
 }>
 
-export type CreateAppTypesMutation = {
-  types: { types: Array<Type_AppType_Fragment> }
-}
+export type CreateAppTypesMutation = { types: { types: Array<{ id: string }> } }
 
 export type CreateActionTypesMutationVariables = Types.Exact<{
   input: Array<Types.ActionTypeCreateInput> | Types.ActionTypeCreateInput
 }>
 
 export type CreateActionTypesMutation = {
-  types: { types: Array<Type_ActionType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export type CreateCodeMirrorTypesMutationVariables = Types.Exact<{
@@ -125,138 +106,125 @@ export type CreateCodeMirrorTypesMutationVariables = Types.Exact<{
 }>
 
 export type CreateCodeMirrorTypesMutation = {
-  types: { types: Array<Type_CodeMirrorType_Fragment> }
+  types: { types: Array<{ id: string }> }
 }
 
 export const CreatePrimitiveTypesDocument = gql`
   mutation CreatePrimitiveTypes($input: [PrimitiveTypeCreateInput!]!) {
     types: createPrimitiveTypes(input: $input) {
       types: primitiveTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const CreateArrayTypesDocument = gql`
   mutation CreateArrayTypes($input: [ArrayTypeCreateInput!]!) {
     types: createArrayTypes(input: $input) {
       types: arrayTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const CreateUnionTypesDocument = gql`
   mutation CreateUnionTypes($input: [UnionTypeCreateInput!]!) {
     types: createUnionTypes(input: $input) {
       types: unionTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const CreateInterfaceTypesDocument = gql`
   mutation CreateInterfaceTypes($input: [InterfaceTypeCreateInput!]!) {
     types: createInterfaceTypes(input: $input) {
       types: interfaceTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const CreateElementTypesDocument = gql`
   mutation CreateElementTypes($input: [ElementTypeCreateInput!]!) {
     types: createElementTypes(input: $input) {
       types: elementTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const CreateRenderPropsTypesDocument = gql`
   mutation CreateRenderPropsTypes($input: [RenderPropsTypeCreateInput!]!) {
     types: createRenderPropsTypes(input: $input) {
       types: renderPropsTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const CreateReactNodeTypesDocument = gql`
   mutation CreateReactNodeTypes($input: [ReactNodeTypeCreateInput!]!) {
     types: createReactNodeTypes(input: $input) {
       types: reactNodeTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const CreateEnumTypesDocument = gql`
   mutation CreateEnumTypes($input: [EnumTypeCreateInput!]!) {
     types: createEnumTypes(input: $input) {
       types: enumTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const CreateLambdaTypesDocument = gql`
   mutation CreateLambdaTypes($input: [LambdaTypeCreateInput!]!) {
     types: createLambdaTypes(input: $input) {
       types: lambdaTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const CreatePageTypesDocument = gql`
   mutation CreatePageTypes($input: [PageTypeCreateInput!]!) {
     types: createPageTypes(input: $input) {
       types: pageTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const CreateAppTypesDocument = gql`
   mutation CreateAppTypes($input: [AppTypeCreateInput!]!) {
     types: createAppTypes(input: $input) {
       types: appTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const CreateActionTypesDocument = gql`
   mutation CreateActionTypes($input: [ActionTypeCreateInput!]!) {
     types: createActionTypes(input: $input) {
       types: actionTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 export const CreateCodeMirrorTypesDocument = gql`
   mutation CreateCodeMirrorTypes($input: [CodeMirrorTypeCreateInput!]!) {
     types: createCodeMirrorTypes(input: $input) {
       types: codeMirrorTypes {
-        ...Type
+        id
       }
     }
   }
-  ${TypeFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

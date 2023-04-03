@@ -15,7 +15,7 @@ mutation UpdatePrimitiveTypes(
     where: $where
   ) {
     types: primitiveTypes {
-      ...Type
+      id
     }
   }
 }
@@ -37,7 +37,7 @@ mutation UpdateArrayTypes(
     where: $where
   ) {
     types: arrayTypes {
-      ...Type
+      id
     }
   }
 }
@@ -59,7 +59,7 @@ mutation UpdateUnionTypes(
     where: $where
   ) {
     types: unionTypes {
-      ...Type
+      id
     }
   }
 }
@@ -81,7 +81,7 @@ mutation UpdateInterfaceTypes(
     where: $where
   ) {
     types: interfaceTypes {
-      ...Type
+      id
     }
   }
 }
@@ -103,7 +103,7 @@ mutation UpdateReactNodeTypes(
     where: $where
   ) {
     types: reactNodeTypes {
-      ...Type
+      id
     }
   }
 }
@@ -124,7 +124,7 @@ mutation UpdateElementTypes(
     where: $where
   ) {
     types: elementTypes {
-      ...Type
+      id
     }
   }
 }
@@ -146,7 +146,7 @@ mutation UpdateRenderPropsTypes(
     where: $where
   ) {
     types: renderPropsTypes {
-      ...Type
+      id
     }
   }
 }
@@ -168,7 +168,7 @@ mutation UpdateEnumTypes(
     where: $where
   ) {
     types: enumTypes {
-      ...Type
+      id
     }
   }
 }
@@ -190,7 +190,7 @@ mutation UpdateLambdaTypes(
     where: $where
   ) {
     types: lambdaTypes {
-      ...Type
+      id
     }
   }
 }
@@ -212,7 +212,7 @@ mutation UpdatePageTypes(
     where: $where
   ) {
     types: pageTypes {
-      ...Type
+      id
     }
   }
 }
@@ -234,7 +234,7 @@ mutation UpdateAppTypes(
     where: $where
   ) {
     types: appTypes {
-      ...Type
+      id
     }
   }
 }
@@ -255,7 +255,7 @@ mutation UpdateActionTypes(
     where: $where
   ) {
     types: actionTypes {
-      ...Type
+      id
     }
   }
 }
@@ -277,7 +277,7 @@ mutation UpdateCodeMirrorTypes(
     where: $where
   ) {
     types: codeMirrorTypes {
-      ...Type
+      id
     }
   }
 }
