@@ -639,7 +639,7 @@ export class Element
       : this.firstChild
     this._parentComponent = parentComponent
       ? componentRef(parentComponent.id)
-      : null
+      : this._parentComponent
 
     return this
   }
