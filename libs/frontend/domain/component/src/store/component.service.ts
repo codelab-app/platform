@@ -163,11 +163,14 @@ export class ComponentService
   @modelFlow
   @transaction
   delete = _async(function* (this: ComponentService, component: IComponent) {
-    const { id } = component
+    const { id, rootElement, store } = component
+    const storeCurrent = store.current
 
     this.components.delete(id)
     this.removeClones(id)
 
+    yield* _await(this.storeService.delete(storeCurrent))
+    yield* _await(this.elementService.delete({ id: rootElement.id }))
     yield* _await(this.componentRepository.delete([component]))
 
     return component
