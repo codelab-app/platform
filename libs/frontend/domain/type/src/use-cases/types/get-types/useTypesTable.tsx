@@ -1,34 +1,24 @@
 import type { IType } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/presenter/container'
+import { extractTableQueries } from '@codelab/frontend/shared/utils'
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
 import { useAsync } from '@react-hookz/web'
 import { Skeleton } from 'antd'
 import type { ColumnsType } from 'antd/lib/table'
 import type { TableRowSelection } from 'antd/lib/table/interface'
-import isEmpty from 'lodash/isEmpty'
-import throttle from 'lodash/throttle'
 import { arraySet } from 'mobx-keystone'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { ActionColumn } from './columns'
 
-interface UseTypesTableProps {
-  page?: number
-  pageSize?: number
-  searchName?: string
-}
-
-export const useTypesTable = ({
-  page,
-  pageSize,
-  searchName,
-}: UseTypesTableProps) => {
+export const useTypesTable = () => {
   const router = useRouter()
+  const { page, pageSize, searchName } = extractTableQueries(router)
   const { fieldService, typeService } = useStore()
 
-  const [{ result, status }, getPaginatedTypes] = useAsync(() => {
+  const [{ result: currentData, status }, getPaginatedTypes] = useAsync(() => {
     return typeService.pagination.getPaginatedTypes()
   })
 
@@ -43,11 +33,9 @@ export const useTypesTable = ({
       typeService.pagination.setCurrentPage(page)
     }
 
-    if (searchName && !isEmpty(searchName)) {
-      typeService.pagination.setSearch({ name: searchName })
-    }
+    typeService.pagination.setSearch({ name: searchName })
 
-    void throttle(() => getPaginatedTypes.execute(), 500)()
+    void getPaginatedTypes.execute()
   }, [pageSize, page, searchName])
 
   const handlePageChange = (newPage: number, newPageSize: number) => {
@@ -67,13 +55,13 @@ export const useTypesTable = ({
       void router.push({
         pathname: PageType.Type,
         query: {
-          page: typeService.pagination.currentPage,
-          pageSize: typeService.pagination.pageSize,
+          page,
+          pageSize,
           searchName: value,
         },
       })
     },
-    text: typeService.pagination.search.name,
+    text: searchName,
   })
 
   const columns: ColumnsType<IType> = [
@@ -89,7 +77,6 @@ export const useTypesTable = ({
       key: 'kind',
       onHeaderCell: headerCellProps,
       title: 'Kind',
-      // ...useColumnSearchProps({ dataIndex: 'kind' }),
     },
     {
       key: 'action',
@@ -121,6 +108,7 @@ export const useTypesTable = ({
 
   return {
     columns,
+    currentData,
     handlePageChange,
     isLoadingTypes,
     rowSelection,

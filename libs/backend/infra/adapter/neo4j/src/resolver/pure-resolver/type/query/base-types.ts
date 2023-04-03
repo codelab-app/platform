@@ -23,7 +23,8 @@ export const baseTypes: IFieldResolver<
 
     const { records: getTypesRecords } = await txn.run(getBaseTypes, {
       limit: int(limit),
-      name: where.name,
+      // this makes the search case insensitive and work like `CONTAINS`
+      name: `(?i).*${where.name}.*`,
       skip: int(offset),
     })
 

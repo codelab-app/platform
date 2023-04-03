@@ -1,21 +1,17 @@
-import type {
-  IAtomService,
-  IFieldService,
-  ITypeService,
-} from '@codelab/frontend/abstract/core'
+import { PageType } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/presenter/container'
+import { extractTableQueries } from '@codelab/frontend/shared/utils'
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
-import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
-import type { Maybe } from '@codelab/shared/abstract/types'
+import { useAsync } from '@react-hookz/web'
 import type {
   ColumnType,
   TablePaginationConfig,
   TableRowSelection,
 } from 'antd/lib/table/interface'
-import debounce from 'lodash/debounce'
-import isEqual from 'lodash/isEqual'
 import { arraySet } from 'mobx-keystone'
-import React, { useCallback, useMemo, useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
 import { ActionColumn, LibraryColumn, PropsColumn, TagsColumn } from './columns'
 import { RequiredParentsColumn } from './columns/RequiredParentsColumn'
 import { SuggestedChildrenColumn } from './columns/SuggestedChildrenColumn'
@@ -31,49 +27,53 @@ const onLibraryFilter = (
   return list.some((item) => item.startsWith(search))
 }
 
-export const useAtomTable = ({
-  atomService,
-  fieldService,
-  typeService,
-}: {
-  atomService: IAtomService
-  fieldService: IFieldService
-  typeService: ITypeService
-}) => {
-  const [atomWhere, setAtomWhere] = useState<Maybe<AtomWhere>>(undefined)
+const DEFAULT_PAGE_SIZE = 25
 
-  const [atomOptions, setAtomOptions] = useState<AtomOptions>({
-    limit: 25,
-    offset: 0,
+export const useAtomTable = () => {
+  const router = useRouter()
+  const { page, pageSize, searchName } = extractTableQueries(router)
+  const { atomService, fieldService } = useStore()
+
+  const [{ result: currentData, status }, getAllAtoms] = useAsync(() => {
+    const where = { name_MATCHES: `(?i).*${searchName ?? ''}.*` }
+
+    const options = {
+      limit: pageSize ?? DEFAULT_PAGE_SIZE,
+      offset: ((page ?? 1) - 1) * (pageSize ?? DEFAULT_PAGE_SIZE),
+    }
+
+    return atomService.getAll(where, options)
   })
 
-  const debouncedSetAtomWhere = useCallback(
-    debounce((value: Maybe<AtomWhere>) => setAtomWhere(value), 1000),
-    [],
-  )
+  const handlePageChange = (newPage: number, newPageSize: number) => {
+    void router.push({
+      pathname: PageType.Atom,
+      query: {
+        page: newPage,
+        pageSize: newPageSize,
+        searchName,
+      },
+    })
+  }
 
-  const debouncedSetAtomOptions = useCallback(
-    debounce((value: AtomOptions) => setAtomOptions(value), 1000),
-    [],
-  )
+  useEffect(() => {
+    void getAllAtoms.execute()
+  }, [pageSize, page, searchName])
 
   const nameColumnSearchProps = useColumnSearchProps<AtomRecord>({
     dataIndex: 'name',
     onSearch: (value) => {
-      const where = {
-        name_MATCHES: `(?i).*${value}.*`,
-      }
-
-      if (!isEqual(where, atomWhere)) {
-        debouncedSetAtomWhere(where)
-      }
+      void router.push({
+        pathname: PageType.Atom,
+        query: {
+          page,
+          pageSize,
+          searchName: value,
+        },
+      })
     },
+    text: searchName,
   })
-
-  // const { data } = useGetTagGraphsQuery()
-  // const tagTree = useTagTree(data?.tagGraphs)
-  // const tagTreeData = tagTree.getAntdTrees()
-  // const filterTreeData = makeFilterData(tagTreeData)
 
   const columns: Array<ColumnType<AtomRecord>> = [
     {
@@ -121,11 +121,7 @@ export const useAtomTable = ({
       key: 'props',
       onHeaderCell: headerCellProps,
       render: (_, atom) => (
-        <PropsColumn
-          atom={atom}
-          fieldService={fieldService}
-          typeService={typeService}
-        />
+        <PropsColumn atom={atom} fieldService={fieldService} />
       ),
       title: 'Props API',
       width: 300,
@@ -148,27 +144,14 @@ export const useAtomTable = ({
     type: 'checkbox',
   }
 
-  const pagination: TablePaginationConfig = useMemo(
-    () => ({
-      defaultPageSize: 25,
-      onChange: async (page: number, pageSize: number) => {
-        const options = {
-          limit: pageSize,
-          offset: (page - 1) * pageSize,
-        }
+  const pagination: TablePaginationConfig = {
+    current: page,
+    defaultPageSize: DEFAULT_PAGE_SIZE,
+    onChange: handlePageChange,
+    pageSize,
+    position: ['bottomCenter'],
+    total: atomService.count,
+  }
 
-        if (!isEqual(options, atomOptions)) {
-          debouncedSetAtomOptions({
-            limit: pageSize,
-            offset: (page - 1) * pageSize,
-          })
-        }
-      },
-      position: ['bottomCenter'],
-      total: atomService.count,
-    }),
-    [],
-  )
-
-  return { atomOptions, atomWhere, columns, pagination, rowSelection }
+  return { columns, currentData, pagination, rowSelection, status }
 }

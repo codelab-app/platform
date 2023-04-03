@@ -2,7 +2,6 @@ import type { IType } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { Spin, Table } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
 import React from 'react'
 import { TypeDetailsTable } from './tables/TypeDetailsTable'
 import { useTypesTable } from './useTypesTable'
@@ -11,24 +10,20 @@ export const TypesTable = observer(() => {
   const { typeService } = useStore()
 
   const {
-    query: { page, pageSize, searchName },
-  } = useRouter()
-
-  const { columns, handlePageChange, isLoadingTypes, rowSelection } =
-    useTypesTable({
-      page: page ? parseInt(page.toString()) : undefined,
-      pageSize: pageSize ? parseInt(pageSize.toString()) : undefined,
-      searchName: searchName ? searchName.toString() : undefined,
-    })
+    columns,
+    currentData,
+    handlePageChange,
+    isLoadingTypes,
+    rowSelection,
+  } = useTypesTable()
 
   return (
     <Table<IType>
       columns={columns}
-      dataSource={typeService.pagination.types}
+      dataSource={currentData}
       expandable={{
         expandedRowRender: (type) =>
           isLoadingTypes ? <Spin /> : <TypeDetailsTable typeId={type.id} />,
-        // onExpand: (expanded, record) => {},
       }}
       loading={isLoadingTypes}
       pagination={{

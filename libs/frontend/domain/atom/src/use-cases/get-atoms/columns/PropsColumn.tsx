@@ -5,19 +5,13 @@ import type {
   IType,
 } from '@codelab/frontend/abstract/core'
 import { fieldRef, typeRef } from '@codelab/frontend/domain/type'
-import { Spinner } from '@codelab/frontend/view/components'
-import { useAsync } from '@react-hookz/web'
 import { Button, Col, Dropdown, Menu, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
+import React from 'react'
 import type { PropsColumnProps } from './types'
 
 export const PropsColumn = observer<PropsColumnProps>(
-  ({ atom, fieldService, typeService }) => {
-    const [{ result: interfaceType, status }, getInterface] = useAsync(() =>
-      typeService.getInterface(atom.apiId),
-    )
-
+  ({ atom, fieldService }) => {
     const onEdit = (field: IField<IType>) => {
       fieldService.updateModal.open(fieldRef(field.id))
     }
@@ -26,11 +20,7 @@ export const PropsColumn = observer<PropsColumnProps>(
       fieldService.deleteModal.open(fieldRef(field.id))
     }
 
-    useEffect(() => {
-      void getInterface.execute()
-    }, [atom.apiId])
-
-    const editMenuItems = interfaceType?.fields.map((field) => {
+    const editMenuItems = atom.api.fields.map((field) => {
       return {
         key: field.key,
         label: field.name,
@@ -38,7 +28,7 @@ export const PropsColumn = observer<PropsColumnProps>(
       }
     })
 
-    const deleteMenuItems = interfaceType?.fields.map((field) => {
+    const deleteMenuItems = atom.api.fields.map((field) => {
       return {
         key: field.key,
         label: field.name,
@@ -48,48 +38,34 @@ export const PropsColumn = observer<PropsColumnProps>(
 
     return (
       <Row gutter={[16, 16]} justify="center">
-        <Spinner isLoading={status === 'loading'}>
-          {interfaceType ? (
-            <>
-              <Col>
-                <Button
-                  onClick={() =>
-                    fieldService.createModal.open(
-                      typeRef<IInterfaceType>(interfaceType.id),
-                    )
-                  }
-                >
-                  <PlusOutlined />
-                </Button>
-              </Col>
-              {Boolean(interfaceType.fields.length) && (
-                <>
-                  <Col>
-                    <Dropdown.Button overlay={<Menu items={editMenuItems} />}>
-                      <EditOutlined />
-                    </Dropdown.Button>
-                  </Col>
-                  <Col>
-                    <Dropdown.Button
-                      danger
-                      overlay={<Menu items={deleteMenuItems} />}
-                    >
-                      <DeleteOutlined />
-                    </Dropdown.Button>
-                  </Col>
-                </>
-              )}
-            </>
-          ) : (
-            <Button
-              onClick={() => {
-                void getInterface.execute()
-              }}
-            >
-              Edit API
-            </Button>
-          )}
-        </Spinner>
+        <Col>
+          <Button
+            onClick={() =>
+              fieldService.createModal.open(
+                typeRef<IInterfaceType>(atom.api.id),
+              )
+            }
+          >
+            <PlusOutlined />
+          </Button>
+        </Col>
+        {Boolean(atom.api.fields.length) && (
+          <>
+            <Col>
+              <Dropdown.Button overlay={<Menu items={editMenuItems} />}>
+                <EditOutlined />
+              </Dropdown.Button>
+            </Col>
+            <Col>
+              <Dropdown.Button
+                danger
+                overlay={<Menu items={deleteMenuItems} />}
+              >
+                <DeleteOutlined />
+              </Dropdown.Button>
+            </Col>
+          </>
+        )}
       </Row>
     )
   },

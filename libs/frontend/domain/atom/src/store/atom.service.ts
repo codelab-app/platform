@@ -135,7 +135,11 @@ export class AtomService
 
     this.count = atomsAggregate.count
 
-    return atoms.map((atom) => this.add(atom))
+    return atoms.map((atom) => {
+      this.typeService.loadTypes({ interfaceTypes: [atom.api] })
+
+      return this.add(atom)
+    })
   })
 
   @modelFlow

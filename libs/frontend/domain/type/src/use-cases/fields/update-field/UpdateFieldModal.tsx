@@ -24,6 +24,8 @@ export const UpdateFieldModal = observer(() => {
   const closeModal = () => fieldService.updateModal.close()
   const field = fieldService.updateModal.field
 
+  console.log('field', field)
+
   const onSubmit = (input: IUpdateFieldData) => {
     if (!field) {
       throw new Error('Updated field is not set')
