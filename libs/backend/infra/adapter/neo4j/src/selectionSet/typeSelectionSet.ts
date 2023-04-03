@@ -41,6 +41,7 @@ export const exportArrayTypeSelectionSet = `{
   ${exportBaseTypeSelection}
   itemType {
     id
+    kind
   }
 }`
 

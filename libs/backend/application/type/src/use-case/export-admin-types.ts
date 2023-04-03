@@ -1,5 +1,6 @@
 import type { ITypesExport } from '@codelab/backend/abstract/core'
 import {
+  exportArrayTypeSelectionSet,
   exportEnumTypeSelectionSet,
   exportFieldSelectionSet,
   exportInterfaceTypeSelectionSet,
@@ -26,6 +27,46 @@ export const exportAdminTypes = async (
   const EnumType = await Repository.instance.EnumType
   const InterfaceType = await Repository.instance.InterfaceType
   const Field = await Repository.instance.Field
+  const Array = await Repository.instance.ArrayType
+
+  /**
+   * Array
+   */
+  const arrayTypes = await Array.find({
+    options: {
+      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+    },
+    selectionSet: exportArrayTypeSelectionSet,
+    where: {
+      fieldConnection: {
+        node: {
+          apiConnection: {
+            node: {
+              id: props.apiId,
+            },
+          },
+        },
+      },
+    },
+  })
+
+  /**
+   * Find interface types of the array types' items
+   */
+  const arrayInterfaceItemTypes = await InterfaceType.find({
+    options: {
+      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+    },
+    selectionSet: exportInterfaceTypeSelectionSet,
+    where: {
+      id_IN: arrayTypes
+        .filter(
+          (arrayType) =>
+            arrayType.itemType.kind === OGM_TYPES.TypeKind.InterfaceType,
+        )
+        .map((arrayType) => arrayType.itemType.id),
+    },
+  })
 
   /**
    * Enum
@@ -124,9 +165,11 @@ export const exportAdminTypes = async (
     selectionSet: exportFieldSelectionSet,
     where: {
       api: {
-        id_IN: [...firstLevelInterfaceTypes, ...secondLevelInterfaceTypes].map(
-          (api) => api.id,
-        ),
+        id_IN: [
+          ...firstLevelInterfaceTypes,
+          ...secondLevelInterfaceTypes,
+          ...arrayInterfaceItemTypes,
+        ].map((api) => api.id),
       },
     },
   })
@@ -142,6 +185,8 @@ export const exportAdminTypes = async (
       ...enumTypes,
       ...firstLevelInterfaceTypes,
       ...secondLevelInterfaceTypes,
+      ...arrayInterfaceItemTypes,
+      ...arrayTypes,
     ],
   }
 }

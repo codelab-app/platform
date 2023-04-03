@@ -2079,6 +2079,9 @@ export type ArrayType = IBaseType &
   WithDescendants & {
     __typename?: 'ArrayType'
     descendantTypesIds: Array<Scalars['ID']>
+    field?: Maybe<Field>
+    fieldAggregate?: Maybe<ArrayTypeFieldFieldAggregationSelection>
+    fieldConnection: ArrayTypeFieldConnection
     id: Scalars['ID']
     itemType: IBaseType
     itemTypeConnection: ArrayTypeItemTypeConnection
@@ -2088,6 +2091,37 @@ export type ArrayType = IBaseType &
     ownerAggregate?: Maybe<ArrayTypeUserOwnerAggregationSelection>
     ownerConnection: IBaseTypeOwnerConnection
   }
+
+/**
+ * ArrayType Allows defining a variable number of items of a given type.
+ * Contains a reference to another type which is the array item type.
+ */
+export type ArrayTypeFieldArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<FieldOptions>
+  where?: InputMaybe<FieldWhere>
+}
+
+/**
+ * ArrayType Allows defining a variable number of items of a given type.
+ * Contains a reference to another type which is the array item type.
+ */
+export type ArrayTypeFieldAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<FieldWhere>
+}
+
+/**
+ * ArrayType Allows defining a variable number of items of a given type.
+ * Contains a reference to another type which is the array item type.
+ */
+export type ArrayTypeFieldConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<ArrayTypeFieldConnectionSort>>
+  where?: InputMaybe<ArrayTypeFieldConnectionWhere>
+}
 
 /**
  * ArrayType Allows defining a variable number of items of a given type.
@@ -2150,6 +2184,7 @@ export type ArrayTypeAggregateSelection = {
 }
 
 export type ArrayTypeConnectInput = {
+  field?: InputMaybe<ArrayTypeFieldConnectFieldInput>
   itemType?: InputMaybe<ArrayTypeItemTypeConnectFieldInput>
   owner?: InputMaybe<IBaseTypeOwnerConnectFieldInput>
 }
@@ -2167,6 +2202,7 @@ export type ArrayTypeConnectWhere = {
 }
 
 export type ArrayTypeCreateInput = {
+  field?: InputMaybe<ArrayTypeFieldFieldInput>
   id: Scalars['ID']
   itemType?: InputMaybe<ArrayTypeItemTypeFieldInput>
   kind?: TypeKind
@@ -2175,11 +2211,13 @@ export type ArrayTypeCreateInput = {
 }
 
 export type ArrayTypeDeleteInput = {
+  field?: InputMaybe<ArrayTypeFieldDeleteFieldInput>
   itemType?: InputMaybe<ArrayTypeItemTypeDeleteFieldInput>
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
 }
 
 export type ArrayTypeDisconnectInput = {
+  field?: InputMaybe<ArrayTypeFieldDisconnectFieldInput>
   itemType?: InputMaybe<ArrayTypeItemTypeDisconnectFieldInput>
   owner?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
 }
@@ -2188,6 +2226,178 @@ export type ArrayTypeEdge = {
   __typename?: 'ArrayTypeEdge'
   cursor: Scalars['String']
   node: ArrayType
+}
+
+export type ArrayTypeFieldAggregateInput = {
+  AND?: InputMaybe<Array<ArrayTypeFieldAggregateInput>>
+  NOT?: InputMaybe<ArrayTypeFieldAggregateInput>
+  OR?: InputMaybe<Array<ArrayTypeFieldAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<ArrayTypeFieldNodeAggregationWhereInput>
+}
+
+export type ArrayTypeFieldConnectFieldInput = {
+  connect?: InputMaybe<FieldConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
+  where?: InputMaybe<FieldConnectWhere>
+}
+
+export type ArrayTypeFieldConnection = {
+  __typename?: 'ArrayTypeFieldConnection'
+  edges: Array<ArrayTypeFieldRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type ArrayTypeFieldConnectionSort = {
+  node?: InputMaybe<FieldSort>
+}
+
+export type ArrayTypeFieldConnectionWhere = {
+  AND?: InputMaybe<Array<ArrayTypeFieldConnectionWhere>>
+  NOT?: InputMaybe<ArrayTypeFieldConnectionWhere>
+  OR?: InputMaybe<Array<ArrayTypeFieldConnectionWhere>>
+  node?: InputMaybe<FieldWhere>
+}
+
+export type ArrayTypeFieldCreateFieldInput = {
+  node: FieldCreateInput
+}
+
+export type ArrayTypeFieldDeleteFieldInput = {
+  delete?: InputMaybe<FieldDeleteInput>
+  where?: InputMaybe<ArrayTypeFieldConnectionWhere>
+}
+
+export type ArrayTypeFieldDisconnectFieldInput = {
+  disconnect?: InputMaybe<FieldDisconnectInput>
+  where?: InputMaybe<ArrayTypeFieldConnectionWhere>
+}
+
+export type ArrayTypeFieldFieldAggregationSelection = {
+  __typename?: 'ArrayTypeFieldFieldAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<ArrayTypeFieldFieldNodeAggregateSelection>
+}
+
+export type ArrayTypeFieldFieldInput = {
+  connect?: InputMaybe<ArrayTypeFieldConnectFieldInput>
+  create?: InputMaybe<ArrayTypeFieldCreateFieldInput>
+}
+
+export type ArrayTypeFieldFieldNodeAggregateSelection = {
+  __typename?: 'ArrayTypeFieldFieldNodeAggregateSelection'
+  defaultValues: StringAggregateSelectionNullable
+  description: StringAggregateSelectionNullable
+  id: IdAggregateSelectionNonNullable
+  key: StringAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  validationRules: StringAggregateSelectionNullable
+}
+
+export type ArrayTypeFieldNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ArrayTypeFieldNodeAggregationWhereInput>>
+  NOT?: InputMaybe<ArrayTypeFieldNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<ArrayTypeFieldNodeAggregationWhereInput>>
+  defaultValues_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  defaultValues_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  defaultValues_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  defaultValues_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  defaultValues_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  defaultValues_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  defaultValues_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  defaultValues_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  defaultValues_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  defaultValues_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  description_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  description_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  description_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  description_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  description_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  description_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  description_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  description_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  description_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  description_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  key_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  key_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  key_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  key_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  key_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  validationRules_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  validationRules_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  validationRules_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  validationRules_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  validationRules_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  validationRules_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  validationRules_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  validationRules_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  validationRules_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  validationRules_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type ArrayTypeFieldRelationship = {
+  __typename?: 'ArrayTypeFieldRelationship'
+  cursor: Scalars['String']
+  node: Field
+}
+
+export type ArrayTypeFieldUpdateConnectionInput = {
+  node?: InputMaybe<FieldUpdateInput>
+}
+
+export type ArrayTypeFieldUpdateFieldInput = {
+  connect?: InputMaybe<ArrayTypeFieldConnectFieldInput>
+  create?: InputMaybe<ArrayTypeFieldCreateFieldInput>
+  delete?: InputMaybe<ArrayTypeFieldDeleteFieldInput>
+  disconnect?: InputMaybe<ArrayTypeFieldDisconnectFieldInput>
+  update?: InputMaybe<ArrayTypeFieldUpdateConnectionInput>
+  where?: InputMaybe<ArrayTypeFieldConnectionWhere>
 }
 
 export type ArrayTypeItemTypeConnectFieldInput = {
@@ -2328,6 +2538,7 @@ export type ArrayTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type ArrayTypeRelationInput = {
+  field?: InputMaybe<ArrayTypeFieldCreateFieldInput>
   itemType?: InputMaybe<ArrayTypeItemTypeCreateFieldInput>
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
 }
@@ -2344,6 +2555,7 @@ export type ArrayTypeUniqueWhere = {
 }
 
 export type ArrayTypeUpdateInput = {
+  field?: InputMaybe<ArrayTypeFieldUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']>
   itemType?: InputMaybe<ArrayTypeItemTypeUpdateFieldInput>
   name?: InputMaybe<Scalars['String']>
@@ -2368,6 +2580,11 @@ export type ArrayTypeWhere = {
   AND?: InputMaybe<Array<ArrayTypeWhere>>
   NOT?: InputMaybe<ArrayTypeWhere>
   OR?: InputMaybe<Array<ArrayTypeWhere>>
+  field?: InputMaybe<FieldWhere>
+  fieldAggregate?: InputMaybe<ArrayTypeFieldAggregateInput>
+  fieldConnection?: InputMaybe<ArrayTypeFieldConnectionWhere>
+  fieldConnection_NOT?: InputMaybe<ArrayTypeFieldConnectionWhere>
+  field_NOT?: InputMaybe<FieldWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>

@@ -2022,6 +2022,22 @@ Contains a reference to another type which is the array item type.
 """
 type ArrayType implements IBaseType & WithDescendants {
   descendantTypesIds: [ID!]!
+  field(
+    directed: Boolean = true
+    options: FieldOptions
+    where: FieldWhere
+  ): Field
+  fieldAggregate(
+    directed: Boolean = true
+    where: FieldWhere
+  ): ArrayTypeFieldFieldAggregationSelection
+  fieldConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ArrayTypeFieldConnectionSort!]
+    where: ArrayTypeFieldConnectionWhere
+  ): ArrayTypeFieldConnection!
   id: ID!
   itemType(
     directed: Boolean = true
@@ -2058,6 +2074,7 @@ type ArrayTypeAggregateSelection {
 }
 
 input ArrayTypeConnectInput {
+  field: ArrayTypeFieldConnectFieldInput
   itemType: ArrayTypeItemTypeConnectFieldInput
   owner: IBaseTypeOwnerConnectFieldInput
 }
@@ -2075,6 +2092,7 @@ input ArrayTypeConnectWhere {
 }
 
 input ArrayTypeCreateInput {
+  field: ArrayTypeFieldFieldInput
   id: ID!
   itemType: ArrayTypeItemTypeFieldInput
   kind: TypeKind! = ArrayType
@@ -2083,11 +2101,13 @@ input ArrayTypeCreateInput {
 }
 
 input ArrayTypeDeleteInput {
+  field: ArrayTypeFieldDeleteFieldInput
   itemType: ArrayTypeItemTypeDeleteFieldInput
   owner: IBaseTypeOwnerDeleteFieldInput
 }
 
 input ArrayTypeDisconnectInput {
+  field: ArrayTypeFieldDisconnectFieldInput
   itemType: ArrayTypeItemTypeDisconnectFieldInput
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
@@ -2095,6 +2115,177 @@ input ArrayTypeDisconnectInput {
 type ArrayTypeEdge {
   cursor: String!
   node: ArrayType!
+}
+
+input ArrayTypeFieldAggregateInput {
+  AND: [ArrayTypeFieldAggregateInput!]
+  NOT: ArrayTypeFieldAggregateInput
+  OR: [ArrayTypeFieldAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ArrayTypeFieldNodeAggregationWhereInput
+}
+
+input ArrayTypeFieldConnectFieldInput {
+  connect: FieldConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
+  where: FieldConnectWhere
+}
+
+type ArrayTypeFieldConnection {
+  edges: [ArrayTypeFieldRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ArrayTypeFieldConnectionSort {
+  node: FieldSort
+}
+
+input ArrayTypeFieldConnectionWhere {
+  AND: [ArrayTypeFieldConnectionWhere!]
+  NOT: ArrayTypeFieldConnectionWhere
+  OR: [ArrayTypeFieldConnectionWhere!]
+  node: FieldWhere
+}
+
+input ArrayTypeFieldCreateFieldInput {
+  node: FieldCreateInput!
+}
+
+input ArrayTypeFieldDeleteFieldInput {
+  delete: FieldDeleteInput
+  where: ArrayTypeFieldConnectionWhere
+}
+
+input ArrayTypeFieldDisconnectFieldInput {
+  disconnect: FieldDisconnectInput
+  where: ArrayTypeFieldConnectionWhere
+}
+
+type ArrayTypeFieldFieldAggregationSelection {
+  count: Int!
+  node: ArrayTypeFieldFieldNodeAggregateSelection
+}
+
+input ArrayTypeFieldFieldInput {
+  connect: ArrayTypeFieldConnectFieldInput
+  create: ArrayTypeFieldCreateFieldInput
+}
+
+type ArrayTypeFieldFieldNodeAggregateSelection {
+  defaultValues: StringAggregateSelectionNullable!
+  description: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  key: StringAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  validationRules: StringAggregateSelectionNullable!
+}
+
+input ArrayTypeFieldNodeAggregationWhereInput {
+  AND: [ArrayTypeFieldNodeAggregationWhereInput!]
+  NOT: ArrayTypeFieldNodeAggregationWhereInput
+  OR: [ArrayTypeFieldNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_LENGTH_EQUAL: Float
+  defaultValues_AVERAGE_LENGTH_GT: Float
+  defaultValues_AVERAGE_LENGTH_GTE: Float
+  defaultValues_AVERAGE_LENGTH_LT: Float
+  defaultValues_AVERAGE_LENGTH_LTE: Float
+  defaultValues_LONGEST_LENGTH_EQUAL: Int
+  defaultValues_LONGEST_LENGTH_GT: Int
+  defaultValues_LONGEST_LENGTH_GTE: Int
+  defaultValues_LONGEST_LENGTH_LT: Int
+  defaultValues_LONGEST_LENGTH_LTE: Int
+  defaultValues_SHORTEST_LENGTH_EQUAL: Int
+  defaultValues_SHORTEST_LENGTH_GT: Int
+  defaultValues_SHORTEST_LENGTH_GTE: Int
+  defaultValues_SHORTEST_LENGTH_LT: Int
+  defaultValues_SHORTEST_LENGTH_LTE: Int
+  description_AVERAGE_LENGTH_EQUAL: Float
+  description_AVERAGE_LENGTH_GT: Float
+  description_AVERAGE_LENGTH_GTE: Float
+  description_AVERAGE_LENGTH_LT: Float
+  description_AVERAGE_LENGTH_LTE: Float
+  description_LONGEST_LENGTH_EQUAL: Int
+  description_LONGEST_LENGTH_GT: Int
+  description_LONGEST_LENGTH_GTE: Int
+  description_LONGEST_LENGTH_LT: Int
+  description_LONGEST_LENGTH_LTE: Int
+  description_SHORTEST_LENGTH_EQUAL: Int
+  description_SHORTEST_LENGTH_GT: Int
+  description_SHORTEST_LENGTH_GTE: Int
+  description_SHORTEST_LENGTH_LT: Int
+  description_SHORTEST_LENGTH_LTE: Int
+  key_AVERAGE_LENGTH_EQUAL: Float
+  key_AVERAGE_LENGTH_GT: Float
+  key_AVERAGE_LENGTH_GTE: Float
+  key_AVERAGE_LENGTH_LT: Float
+  key_AVERAGE_LENGTH_LTE: Float
+  key_LONGEST_LENGTH_EQUAL: Int
+  key_LONGEST_LENGTH_GT: Int
+  key_LONGEST_LENGTH_GTE: Int
+  key_LONGEST_LENGTH_LT: Int
+  key_LONGEST_LENGTH_LTE: Int
+  key_SHORTEST_LENGTH_EQUAL: Int
+  key_SHORTEST_LENGTH_GT: Int
+  key_SHORTEST_LENGTH_GTE: Int
+  key_SHORTEST_LENGTH_LT: Int
+  key_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  validationRules_AVERAGE_LENGTH_EQUAL: Float
+  validationRules_AVERAGE_LENGTH_GT: Float
+  validationRules_AVERAGE_LENGTH_GTE: Float
+  validationRules_AVERAGE_LENGTH_LT: Float
+  validationRules_AVERAGE_LENGTH_LTE: Float
+  validationRules_LONGEST_LENGTH_EQUAL: Int
+  validationRules_LONGEST_LENGTH_GT: Int
+  validationRules_LONGEST_LENGTH_GTE: Int
+  validationRules_LONGEST_LENGTH_LT: Int
+  validationRules_LONGEST_LENGTH_LTE: Int
+  validationRules_SHORTEST_LENGTH_EQUAL: Int
+  validationRules_SHORTEST_LENGTH_GT: Int
+  validationRules_SHORTEST_LENGTH_GTE: Int
+  validationRules_SHORTEST_LENGTH_LT: Int
+  validationRules_SHORTEST_LENGTH_LTE: Int
+}
+
+type ArrayTypeFieldRelationship {
+  cursor: String!
+  node: Field!
+}
+
+input ArrayTypeFieldUpdateConnectionInput {
+  node: FieldUpdateInput
+}
+
+input ArrayTypeFieldUpdateFieldInput {
+  connect: ArrayTypeFieldConnectFieldInput
+  create: ArrayTypeFieldCreateFieldInput
+  delete: ArrayTypeFieldDeleteFieldInput
+  disconnect: ArrayTypeFieldDisconnectFieldInput
+  update: ArrayTypeFieldUpdateConnectionInput
+  where: ArrayTypeFieldConnectionWhere
 }
 
 input ArrayTypeItemTypeConnectFieldInput {
@@ -2236,6 +2427,7 @@ input ArrayTypeOwnerNodeAggregationWhereInput {
 }
 
 input ArrayTypeRelationInput {
+  field: ArrayTypeFieldCreateFieldInput
   itemType: ArrayTypeItemTypeCreateFieldInput
   owner: IBaseTypeOwnerCreateFieldInput
 }
@@ -2254,6 +2446,7 @@ input ArrayTypeUniqueWhere {
 }
 
 input ArrayTypeUpdateInput {
+  field: ArrayTypeFieldUpdateFieldInput
   id: ID
   itemType: ArrayTypeItemTypeUpdateFieldInput
   name: String
@@ -2276,6 +2469,11 @@ input ArrayTypeWhere {
   AND: [ArrayTypeWhere!]
   NOT: ArrayTypeWhere
   OR: [ArrayTypeWhere!]
+  field: FieldWhere
+  fieldAggregate: ArrayTypeFieldAggregateInput
+  fieldConnection: ArrayTypeFieldConnectionWhere
+  fieldConnection_NOT: ArrayTypeFieldConnectionWhere
+  field_NOT: FieldWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
