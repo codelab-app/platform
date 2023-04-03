@@ -5,6 +5,9 @@ import { EnvBuilder } from '@codelab/shared/env'
  * For Vercel preview, the URL provided as NEXT_PUBLIC_VERCEL_URL https://vercel.com/docs/concepts/projects/environment-variables doesn't have the correct format. It's missing `https`
  */
 export const auth0Instance = initAuth0({
+  authorizationParams: {
+    scope: EnvBuilder().auth0.scope,
+  },
   baseURL: EnvBuilder().auth0.base_url,
   clientID: EnvBuilder().auth0.client_id,
   clientSecret: EnvBuilder().auth0.client_secret,
