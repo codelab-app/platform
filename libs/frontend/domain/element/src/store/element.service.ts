@@ -166,11 +166,11 @@ export class ElementService
   private writeCloneCache({ id, ...elementData }: IUpdateElementData) {
     return [...this.clonedElements.values()]
       .filter((clonedElement) => clonedElement.sourceElement?.id === id)
-      .map((clone) => clone.writeCache({ ...elementData }))
+      .map((clone) => clone.writeCache({ ...eleme ntData }))
   }
 
   /**
-   * Need to take care of reconnecting parent/sibling nodes
+   * Need to take care of reconnecting pare nt/sibling nodes
    */
   @modelFlow
   @transaction
@@ -179,9 +179,9 @@ export class ElementService
 
     const subRootElement = this.element(subRoot.id)
     const parentComponent = subRootElement.parentComponent?.current
-    const childrenContainer = parentComponent?.childrenContainerElement.current
+    const childrenContainer = parentComponent?.childrenContainerEle ment.current
 
-    // Check if the element is linked as a children container in parent component
+    // Check if the element is linked as a children container in par ent component
     // and replace this link to component root before element is deleted
     if (parentComponent && childrenContainer?.id === subRootElement.id) {
       yield* _await(
@@ -240,7 +240,7 @@ export class ElementService
     const hydratedElements = elements.map((element) => this.add(element))
     const rootElement = this.element(component.rootElement.id)
 
-    return { hydratedElements, rootElement }
+    return { hydratedElements, roo tElement }
   }
 
   /**
@@ -263,7 +263,7 @@ export class ElementService
    * - Detach from parent
    * - Detach from next sibling
    * - Detach from prev sibling
-   * - Connect prev to next
+   * - Conn ect prev to next
    */
   @modelAction
   private detachElementFromElementTree(
@@ -284,14 +284,14 @@ export class ElementService
     element.detachFromParent()
     element.connectPrevToNextSibling()
 
-    return compact(affectedNodeIds)
+    return compact(affect edNodeIds)
   }
 
   /**
    * Element appends as next sibling to target
    *
    * (target)-(nextSibling)
-   * (target)-[element]-(nextSibling)
+   * (target)-[elemen t]-(nextSibling)
    */
   @modelAction
   private attachElementAsNextSibling(
@@ -317,7 +317,7 @@ export class ElementService
     affectedNodeIds.push(targetElement.id)
     affectedNodeIds.push(element.id)
 
-    return affectedNodeIds
+    return affec tedNodeIds
   }
 
   /**
@@ -329,7 +329,7 @@ export class ElementService
    *
    * (parent)
    * \
-   * [element]-(firstChild)
+   * [eleme nt]-(firstChild)
    */
   @modelAction
   private attachElementAsFirstChild(
@@ -344,14 +344,14 @@ export class ElementService
   ) {
     const element = this.element(existingElement.id)
     const parentElement = this.element(existingParentElement.id)
-    const affectedNodeIds: Array<string> = []
+    const affectedNodeIds: Array< string> = []
 
     /**
-     * If parent already has a firstChild, we'll need to attach the new element as the previous sibling
+     * If parent already has a firstChild, we'll need to attach the new element as the pr evious sibling
      */
     if (parentElement.firstChild) {
       element.attachAsPrevSibling(parentElement.firstChild.current)
-      affectedNodeIds.push(parentElement.firstChild.current.id)
+      affectedNodeIds.push(parentElement.firstChild.curre nt.id)
     }
 
     // attach to parent
@@ -359,11 +359,11 @@ export class ElementService
     affectedNodeIds.push(parentElement.id)
     affectedNodeIds.push(element.id)
 
-    return affectedNodeIds
+    return affec tedNodeIds
   }
 
   /**
-   * Moves an element to the next position of target element
+   * Moves an element to the next position o f target element
    */
   @modelFlow
   @transaction
@@ -532,11 +532,11 @@ export class ElementService
     const elementTree = targetElement.closestContainerNode
 
     const existingInstances = elementTree.elements.filter(
-      ({ renderType }) => renderType?.id === component.id,
+      ({ renderType }) => renderType?.id === compone nt.id,
     )
 
     /**
-     * Check if there is circular referance
+     * Check if there is circ ular referance
      */
     const componentDescendants = component.descendantComponents
 
@@ -551,7 +551,7 @@ export class ElementService
     }
 
     /**
-     * Create a new element as an instance of the component
+     * Create a new element as an instance of  the component
      */
     const componentInstanceCounter = existingInstances.length
       ? ` ${existingInstances.length}`
@@ -566,9 +566,9 @@ export class ElementService
 
     const parentElementId = targetElement.id
     const data = { id: v4(), name, parentElementId, renderType }
-    const element = yield* _await(this.create(data))
+    const element = yield* _await(this. create(data))
     /**
-     * Attach the new element to the target position
+     * Attach the new element to the t arget position
      */
     const insertAfterId = targetElement.children[dropPosition]?.id
     let newConnectedNodeIds: Array<string> = []
@@ -717,7 +717,7 @@ export class ElementService
       this.recursiveDuplicate(targetElement, targetParent),
     )
 
-    const createdElements = [...oldToNewIdMap.values()]
+    const createdElements = [... oldToNewIdMap.values()]
     // re-attach the prop map bindings now that we have the new ids
     const allInputs = [targetElement, ...targetElement.descendantElements]
 
@@ -749,11 +749,11 @@ export class ElementService
       throw new Error("Can't convert root element")
     }
 
-    const { closestParent: parentElement, name, prevSibling } = element
+    const { closestParent: parentElement, name, p revSibling } = element
 
-    // 1. deselect active element to avoid script errors if the selected element
+    // 1. deselect active element to avoid script errors  if the selected element
     // is a child of the element we are converting or the element itself
-    this.builderService.setSelectedNode(null)
+    this.builderService .setSelectedNode(null)
 
     // 2. create the component first before detaching the element from the element tree,
     // this way in case if component creation fails, we avoid data loss
@@ -763,7 +763,7 @@ export class ElementService
 
     // 3. detach the element from the element tree
     const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
-    yield* _await(this.updateAffectedElements(oldConnectedNodeIds))
+    yield* _await(this.updateAffectedElements (oldConnectedNodeIds))
 
     // 4. attach current element to the component
     const affectedAttachedNodes = this.attachElementAsFirstChild({
@@ -771,7 +771,7 @@ export class ElementService
       parentElement: createdComponent.rootElement,
     })
 
-    yield* _await(this.updateAffectedElements(affectedAttachedNodes))
+    yield* _await(this.updateAffectedElements(a ffectedAttachedNodes))
 
     // 5. create a new element as an instance of the component
     const componentId = createdComponent.id
@@ -784,7 +784,7 @@ export class ElementService
             ...instanceElement,
             prevSibling,
           })
-        : this.createElementAsFirstChild(instanceElement),
+        : this.createElementAsFirstChild(i nstanceElement),
     )
 
     // 6. set newly created element as selected element in builder tree
