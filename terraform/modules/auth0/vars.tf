@@ -6,8 +6,6 @@ variable "next_public_builder_host" {
 locals {
   # This has correct protocol added
   builder_url = startswith(var.next_public_builder_host, "127.0.0.1") ? "http://${var.next_public_builder_host}" : "https://${var.next_public_builder_host}"
-  # Used for upserting
-  builder_proxy_url = startswith(var.next_public_builder_host, "127.0.0.1") ? "https://api.codelab-dev.ngrok.io" : "https://${var.next_public_builder_host}"
 }
 
 variable "auth0_issuer_base_url" {
@@ -39,3 +37,10 @@ variable "auth0_cypress_password" {
   type        = string
   description = "Cypress user for Auth0, used in e2e testing"
 }
+
+variable "auth0_secret" {
+  type        = string
+  description = "Auth0 secret for creating JWT tokens"
+}
+
+

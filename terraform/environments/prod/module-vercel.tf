@@ -12,7 +12,7 @@ module "vercel-builder" {
   depends_on = [module.auth0]
 
   next_public_builder_host = var.NEXT_PUBLIC_BUILDER_HOST
-  next_public_landing_host = var.NEXT_PUBLIC_LANDING_HOST
+  # next_public_landing_host = var.NEXT_PUBLIC_LANDING_HOST
 
   auth0_issuer_base_url   = var.AUTH0_ISSUER_BASE_URL
   auth0_domain            = var.AUTH0_DOMAIN
@@ -22,8 +22,8 @@ module "vercel-builder" {
   auth0_cypress_password  = var.AUTH0_CYPRESS_PASSWORD
   auth0_secret            = var.AUTH0_SECRET
 
-  auth0_client_id     = module.auth0.web_client.id
-  auth0_client_secret = module.auth0.web_client.client_secret
+  auth0_web_client_id     = module.auth0.web_client.id
+  auth0_web_client_secret = module.auth0.web_client.client_secret
 
   neo4j_password = var.NEO4J_PASSWORD
   neo4j_uri      = var.NEO4J_URI
@@ -32,6 +32,34 @@ module "vercel-builder" {
   vercel_api_token          = var.VERCEL_API_TOKEN
   vercel_team_id            = var.VERCEL_TEAM_ID
   vercel_builder_project_id = var.VERCEL_BUILDER_PROJECT_ID
+}
+
+module "vercel-websites" {
+  source = "../../modules/vercel-websites"
+
+  depends_on = [module.auth0]
+
+  next_public_builder_host = var.NEXT_PUBLIC_BUILDER_HOST
+  # next_public_landing_host = var.NEXT_PUBLIC_LANDING_HOST
+
+  auth0_issuer_base_url   = var.AUTH0_ISSUER_BASE_URL
+  auth0_domain            = var.AUTH0_DOMAIN
+  auth0_m2m_client_id     = var.AUTH0_M2M_CLIENT_ID
+  auth0_m2m_client_secret = var.AUTH0_M2M_CLIENT_SECRET
+  auth0_cypress_username  = var.AUTH0_CYPRESS_USERNAME
+  auth0_cypress_password  = var.AUTH0_CYPRESS_PASSWORD
+  auth0_secret            = var.AUTH0_SECRET
+
+  auth0_web_client_id     = module.auth0.web_client.id
+  auth0_web_client_secret = module.auth0.web_client.client_secret
+
+  neo4j_password = var.NEO4J_PASSWORD
+  neo4j_uri      = var.NEO4J_URI
+  neo4j_user     = var.NEO4J_USER
+
+  vercel_api_token          = var.VERCEL_API_TOKEN
+  vercel_team_id            = var.VERCEL_TEAM_ID
+  # vercel_builder_project_id = var.VERCEL_BUILDER_PROJECT_ID
 }
 
 module "vercel-landing" {
@@ -51,32 +79,4 @@ module "vercel-landing" {
 
   next_public_supabase_url = var.NEXT_PUBLIC_SUPABASE_URL
   next_public_supabase_key = var.NEXT_PUBLIC_SUPABASE_KEY
-}
-
-module "vercel-websites" {
-  source = "../../modules/vercel-websites"
-
-  depends_on = [module.auth0]
-
-  next_public_builder_host = var.NEXT_PUBLIC_BUILDER_HOST
-  next_public_landing_host = var.NEXT_PUBLIC_LANDING_HOST
-
-  auth0_issuer_base_url   = var.AUTH0_ISSUER_BASE_URL
-  auth0_domain            = var.AUTH0_DOMAIN
-  auth0_m2m_client_id     = var.AUTH0_M2M_CLIENT_ID
-  auth0_m2m_client_secret = var.AUTH0_M2M_CLIENT_SECRET
-  auth0_cypress_username  = var.AUTH0_CYPRESS_USERNAME
-  auth0_cypress_password  = var.AUTH0_CYPRESS_PASSWORD
-  auth0_secret            = var.AUTH0_SECRET
-
-  auth0_client_id     = module.auth0.web_client.id
-  auth0_client_secret = module.auth0.web_client.client_secret
-
-  neo4j_password = var.NEO4J_PASSWORD
-  neo4j_uri      = var.NEO4J_URI
-  neo4j_user     = var.NEO4J_USER
-
-  vercel_api_token          = var.VERCEL_API_TOKEN
-  vercel_team_id            = var.VERCEL_TEAM_ID
-  vercel_builder_project_id = var.VERCEL_BUILDER_PROJECT_ID
 }

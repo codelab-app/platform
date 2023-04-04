@@ -17,7 +17,6 @@ cd terraform
 terraform fmt
 ```
 
-
 ## Notes
 
 Modules usually don't declare their own providers. The providers are either inherited from the calling root module or passed in.

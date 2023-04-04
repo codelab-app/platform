@@ -8,4 +8,5 @@ module "auth0" {
   auth0_m2m_client_secret  = var.AUTH0_M2M_CLIENT_SECRET
   auth0_cypress_username   = var.AUTH0_CYPRESS_USERNAME
   auth0_cypress_password   = var.AUTH0_CYPRESS_PASSWORD
+  auth0_secret = var.AUTH0_SECRET
 }

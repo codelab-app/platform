@@ -19,14 +19,14 @@ resource "circleci_environment_variable" "NEXT_PUBLIC_BUILDER_HOST" {
 
 resource "circleci_environment_variable" "AUTH0_CLIENT_ID" {
   name         = "AUTH0_CLIENT_ID"
-  value        = var.auth0_client_id
+  value        = var.auth0_web_client_id
   project      = local.project_name
   organization = local.organization
 }
 
 resource "circleci_environment_variable" "AUTH0_CLIENT_SECRET" {
   name         = "AUTH0_CLIENT_SECRET"
-  value        = var.auth0_client_secret
+  value        = var.auth0_web_client_secret
   project      = local.project_name
   organization = local.organization
 }

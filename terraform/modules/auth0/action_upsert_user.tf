@@ -43,7 +43,7 @@ exports.onExecutePostLogin = async (event, api) => {
   /**
    * Initialize client
    */
-  const url = '${local.builder_proxy_url}'
+  const url = '${local.builder_url}'
   const endpoint = new URL('api/graphql', url)
 
   const graphQLClient = new GraphQLClient(endpoint.toString(), {
@@ -101,6 +101,6 @@ exports.onExecutePostLogin = async (event, api) => {
 
   dependencies {
     name    = "uuid"
-    version = "8.3.2"
+    version = "9.0.0"
   }
 }
