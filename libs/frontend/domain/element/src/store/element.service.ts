@@ -132,7 +132,7 @@ export class ElementService
       })
 
     const elementProps = this.propService.add({
-      data: makeDefaultProps(renderTypeApi?.current),
+      data: data.props?.data ?? makeDefaultProps(renderTypeApi?.current),
       id: v4(),
     })
 
@@ -663,9 +663,9 @@ export class ElementService
         : null,
     }
 
-    const elementModel = this.add(cloneElementDto)
+    const elementCloneModel = this.add(cloneElementDto)
 
-    await this.elementRepository.add(elementModel)
+    await this.elementRepository.add(elementCloneModel)
 
     const elementCloneModel = this.add(cloneElementDto)
 

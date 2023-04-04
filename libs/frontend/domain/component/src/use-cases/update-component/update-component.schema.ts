@@ -15,6 +15,7 @@ export const updateComponentSchema: JSONSchemaType<IUpdateComponentData> = {
   properties: {
     ...idSchema,
     childrenContainerElement: {
+      label: '',
       properties: {
         id: {
           label: 'Container for component children',
