@@ -17,6 +17,7 @@ import type {
   IUpdateComponentData,
 } from './component.dto.interface'
 import type { IComponent } from './component.model.interface'
+import type { IComponentRepository } from './component.repo.interface'
 
 export interface IComponentService
   extends ICRUDService<IComponent, ICreateComponentData, IUpdateComponentData>,
@@ -26,6 +27,7 @@ export interface IComponentService
   clonedComponents: ObjectMap<IComponent>
   componentAntdNode: IBuilderDataNode
   componentList: Array<IComponent>
+  componentRepository: IComponentRepository
   components: ObjectMap<IComponent>
 
   add(componentDTO: IComponentDTO): IComponent

@@ -61,7 +61,7 @@ describe('_app page', () => {
     cy.get(`.ant-tabs [aria-label="file"]`).click()
     cy.get(`.ant-tabs [aria-label="file"]`).click()
     cy.get('.ant-tabs-tabpane-active form').setFormFieldValue({
-      label: 'Id',
+      label: 'Page Content Container',
       type: FIELD_TYPE.SELECT,
       value: CARD_COMPONENT_NAME,
     })
