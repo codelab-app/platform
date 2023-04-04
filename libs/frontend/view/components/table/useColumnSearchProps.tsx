@@ -2,7 +2,6 @@ import { SearchOutlined } from '@ant-design/icons'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { InputRef, TableColumnProps } from 'antd'
 import { Button, Input, Space } from 'antd'
-import debounce from 'lodash/debounce'
 import React, { useEffect, useRef, useState } from 'react'
 
 interface ColumnSearchProps<RecordType extends object> {
@@ -19,21 +18,13 @@ export const useColumnSearchProps = <RecordType extends object>({
   const searchInputRef = useRef<InputRef | null>(null)
   const [searchText, setSearchText] = useState(text)
 
-  const debouncedSearch = React.useRef(
-    onSearch
-      ? debounce<typeof onSearch>((value) => {
-          onSearch(value)
-        }, 500)
-      : undefined,
-  ).current
-
   const handleReset = (clearFilters: Maybe<() => void>) => {
     clearFilters?.()
     setSearchText('')
   }
 
   useEffect(() => {
-    debouncedSearch?.(searchText)
+    onSearch?.(searchText)
   }, [searchText])
 
   return {
@@ -47,7 +38,7 @@ export const useColumnSearchProps = <RecordType extends object>({
           }}
           onPressEnter={() => {
             confirm({ closeDropdown: false })
-            debouncedSearch?.(searchText)
+            onSearch?.(searchText)
           }}
           placeholder={`Search ${dataIndex.toString()}`}
           ref={(node) => {

@@ -9,13 +9,11 @@ export const extractTableQueries = (router: NextRouter) => {
     ? parseInt(router.query.pageSize.toString())
     : undefined
 
-  const searchName = router.query.searchName
-    ? router.query.searchName.toString()
-    : undefined
+  const name = router.query.name ? router.query.name.toString() : undefined
 
   return {
+    name,
     page,
     pageSize,
-    searchName,
   }
 }

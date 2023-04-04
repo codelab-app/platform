@@ -9,6 +9,7 @@ import type { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICRUDModalService,
   ICRUDService,
+  IPaginationService,
   IQueryService,
 } from '../../service'
 import type {
@@ -19,30 +20,11 @@ import type {
 import type { ITypeRepository } from './type.repo.interface'
 import type { IInterfaceType, IInterfaceTypeRef, IType } from './types'
 
-interface TypeWhere {
-  name: string | undefined
-}
-
-export interface ITypePagination {
-  currentPage: number
-  data: ObjectMap<Ref<IType>>
-  offset: number
-  pageSize: number
-  search: TypeWhere
-  total: number | undefined
-  types: Array<IType>
-
-  getPaginatedTypes(): Promise<Array<IType>>
-  setCurrentPage(page: number): void
-  setPageSize(size: number): void
-  setSearch(where: TypeWhere): void
-}
-
 export interface ITypeService
   extends ICRUDService<IType, ICreateTypeData, IUpdateTypeData>,
     Omit<IQueryService<IType, BaseTypeWhere, BaseTypeOptions>, 'getAll'>,
     ICRUDModalService<Ref<IType>, { type: Maybe<IType> }> {
-  pagination: ITypePagination
+  paginationService: IPaginationService<IType, { name?: string }>
   selectedIds: ArraySet<string>
   typeRepository: ITypeRepository
   types: ObjectMap<IType>

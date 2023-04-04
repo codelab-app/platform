@@ -8,7 +8,7 @@ import {
   IType,
   ITypeDTO,
 } from '@codelab/frontend/abstract/core'
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService, PaginationService } from '@codelab/frontend/shared/utils'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -33,7 +33,6 @@ import { getFieldService } from './field.service.context'
 import { InterfaceType } from './models'
 import { TypeFactory } from './type.factory'
 import { TypeModalService } from './type-modal.service'
-import { TypePaginationService } from './type-pagination.service'
 
 @model('@codelab/TypeService')
 export class TypeService
@@ -44,7 +43,9 @@ export class TypeService
      */
     deleteModal: prop(() => new TypeModalService({})),
     id: idProp,
-    pagination: prop(() => new TypePaginationService({})),
+    paginationService: prop(
+      () => new PaginationService<IType, { name?: string }>({}),
+    ),
     selectedIds: prop(() => arraySet<string>()).withSetter(),
     typeRepository: prop(() => new TypeRepository({})),
     /**
@@ -58,6 +59,26 @@ export class TypeService
   @computed
   private get fieldService() {
     return getFieldService(this)
+  }
+
+  onAttachedToRootStore() {
+    this.paginationService.setGetDataFn(async (page, pageSize, filter) => {
+      const { items: baseTypes, totalCount: totalItems } =
+        await this.typeRepository.findBaseTypes({
+          limit: pageSize,
+          offset: (page - 1) * pageSize,
+          where: filter,
+        })
+
+      const typeIds = baseTypes.map(({ id }) => id)
+      const items = await this.getAll(typeIds)
+
+      items.forEach((type) => {
+        this.types.set(type.id, type)
+      })
+
+      return { items, totalItems }
+    })
   }
 
   @computed
