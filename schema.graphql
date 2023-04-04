@@ -5033,7 +5033,6 @@ type Component implements WithOwner {
     sort: [ComponentChildrenContainerElementConnectionSort!]
     where: ComponentChildrenContainerElementConnectionWhere
   ): ComponentChildrenContainerElementConnection!
-  descendantComponentIds: [ID!]!
   id: ID!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!

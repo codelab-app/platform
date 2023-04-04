@@ -5139,7 +5139,6 @@ export type Component = WithOwner & {
   childrenContainerElement: Element
   childrenContainerElementAggregate?: Maybe<ComponentElementChildrenContainerElementAggregationSelection>
   childrenContainerElementConnection: ComponentChildrenContainerElementConnection
-  descendantComponentIds: Array<Scalars['ID']>
   id: Scalars['ID']
   name: Scalars['String']
   owner: User
@@ -21974,21 +21973,6 @@ export type InterfaceForm_GetResourceQueryVariables = Exact<{
 export type InterfaceForm_GetResourceQuery = {
   __typename?: 'Query'
   resources: Array<{ __typename?: 'Resource'; id: string; name: string }>
-}
-
-export type InterfaceForm_GetComponentsQueryVariables = Exact<{
-  options?: InputMaybe<ComponentOptions>
-  where?: InputMaybe<ComponentWhere>
-}>
-
-export type InterfaceForm_GetComponentsQuery = {
-  __typename?: 'Query'
-  components: Array<{
-    __typename?: 'Component'
-    id: string
-    name: string
-    descendantComponentIds: Array<string>
-  }>
 }
 
 export type InterfaceForm_GetPagesQueryVariables = Exact<{

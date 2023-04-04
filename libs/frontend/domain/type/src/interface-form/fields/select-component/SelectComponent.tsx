@@ -1,11 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import type { IComponent } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
-import { useAsync, useMountEffect } from '@react-hookz/web'
 import sortBy from 'lodash/sortBy'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
-import { interfaceFormApi } from '../../../store'
 
 export type SelectComponentProps = Pick<
   UniformSelectFieldProps,
@@ -19,31 +18,33 @@ export const SelectComponent = ({
   parent,
   ...fieldProps
 }: SelectComponentProps) => {
-  const [{ error: queryError, result, status }, getComponents] = useAsync(() =>
-    interfaceFormApi.InterfaceForm_GetComponents(),
-  )
+  const { componentService } = useStore()
+  const allComponents = sortBy(componentService.componentList, 'name')
 
   // remove the components that refer the current component to avoid creating circular references
   // including itself
-  // would be nice if this can be sorted on the backend
-  const filteredComponents = sortBy(result?.components ?? [], 'name').filter(
-    (component) =>
-      component.descendantComponentIds.indexOf(parent?.id ?? '') === -1,
-  )
+  const filteredComponents = allComponents.filter((component) => {
+    if (component.id === parent?.id) {
+      return false
+    }
+
+    const descendants = component.rootElement.current.descendantElements
+
+    return !descendants.some(
+      ({ renderType }) => renderType?.maybeCurrent?.id === parent?.id,
+    )
+  })
 
   const componentOptions = filteredComponents.map((component) => ({
     label: component.name,
     value: component.id,
   }))
 
-  useMountEffect(getComponents.execute)
-
   return (
     <SelectField
       {...fieldProps}
-      error={fieldProps.error || queryError}
+      error={fieldProps.error}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
-      loading={status === 'loading'}
       optionFilterProp="label"
       options={componentOptions}
       showSearch

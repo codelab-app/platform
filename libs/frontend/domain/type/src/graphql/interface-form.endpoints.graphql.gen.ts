@@ -48,19 +48,6 @@ export type InterfaceForm_GetResourceQuery = {
   resources: Array<{ id: string; name: string }>
 }
 
-export type InterfaceForm_GetComponentsQueryVariables = Types.Exact<{
-  options?: Types.InputMaybe<Types.ComponentOptions>
-  where?: Types.InputMaybe<Types.ComponentWhere>
-}>
-
-export type InterfaceForm_GetComponentsQuery = {
-  components: Array<{
-    id: string
-    name: string
-    descendantComponentIds: Array<string>
-  }>
-}
-
 export type InterfaceForm_GetPagesQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.PageOptions>
   where?: Types.InputMaybe<Types.PageWhere>
@@ -115,18 +102,6 @@ export const InterfaceForm_GetResourceDocument = gql`
     resources(options: $options, where: $where) {
       id
       name
-    }
-  }
-`
-export const InterfaceForm_GetComponentsDocument = gql`
-  query InterfaceForm_GetComponents(
-    $options: ComponentOptions
-    $where: ComponentWhere
-  ) {
-    components(options: $options, where: $where) {
-      id
-      name
-      descendantComponentIds
     }
   }
 `
@@ -228,21 +203,6 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'InterfaceForm_GetResource',
-        'query',
-      )
-    },
-    InterfaceForm_GetComponents(
-      variables?: InterfaceForm_GetComponentsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<InterfaceForm_GetComponentsQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<InterfaceForm_GetComponentsQuery>(
-            InterfaceForm_GetComponentsDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
-        'InterfaceForm_GetComponents',
         'query',
       )
     },

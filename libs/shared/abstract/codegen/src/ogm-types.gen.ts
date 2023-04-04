@@ -3300,7 +3300,6 @@ export type Component = WithOwner & {
   __typename?: 'Component'
   id: Scalars['ID']
   name: Scalars['String']
-  descendantComponentIds: Array<Scalars['ID']>
   rootElement: Element
   rootElementAggregate?: Maybe<ComponentElementRootElementAggregationSelection>
   api: InterfaceType

@@ -1,5 +1,4 @@
 import { gql } from 'apollo-server-micro'
-import { getDescendantComponentIds } from '../../cypher'
 
 export const componentSchema = gql`
   type Component implements WithOwner {
@@ -10,35 +9,29 @@ export const componentSchema = gql`
     owner: User!
 
     store: Store! @relationship(type: "STORE_OF_COMPONENT", direction: IN)
-    
+
     props: Prop! @relationship(type: "PROPS_OF_COMPONENT", direction: OUT)
     # This is the element inside the component that is going to be
     # the container for component instance children
-    childrenContainerElement: Element! @relationship(type: "CHILDREN_CONTAINER_ELEMENT", direction: OUT)
-    # This is used to prevent components from referencing each other in a
-    # circular way. In another words, if component A references component B,
-    # component B cannot reference component A because that would cause
-    # infinite recursion in the renderer.
-    # Note: A component referencing another component means the first component
-    # has an element that is an instance of the second component.
-    descendantComponentIds: [ID!]! @cypher(statement: """${getDescendantComponentIds}""")
+    childrenContainerElement: Element!
+      @relationship(type: "CHILDREN_CONTAINER_ELEMENT", direction: OUT)
   }
 
   extend type Component
-  @auth(
-    rules: [
-      { operations: [CONNECT, DISCONNECT], roles: ["Admin", "User"] }
-      {
-        operations: [UPDATE, CREATE, DELETE]
-        roles: ["User"]
-        where: { owner: { auth0Id: "$jwt.sub" } }
-        bind: { owner: { auth0Id: "$jwt.sub" } }
-      }
-      {
-        operations: [UPDATE, CREATE, DELETE]
-        roles: ["Admin"]
-        bind: { owner: { auth0Id: "$jwt.sub" } }
-      }
-    ]
-  )
+    @auth(
+      rules: [
+        { operations: [CONNECT, DISCONNECT], roles: ["Admin", "User"] }
+        {
+          operations: [UPDATE, CREATE, DELETE]
+          roles: ["User"]
+          where: { owner: { auth0Id: "$jwt.sub" } }
+          bind: { owner: { auth0Id: "$jwt.sub" } }
+        }
+        {
+          operations: [UPDATE, CREATE, DELETE]
+          roles: ["Admin"]
+          bind: { owner: { auth0Id: "$jwt.sub" } }
+        }
+      ]
+    )
 `
