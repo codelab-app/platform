@@ -799,6 +799,9 @@ export class ElementService
     })
 
     // 2. create the component with predefined root element
+    // TODO: create a separate use case in componentService
+    // because a new rootElement is getting created here (we may use createOrConnect)
+    // also to avoid complex typing and conditions
     const createdComponent = yield* _await(
       this.componentService.create({
         api,
