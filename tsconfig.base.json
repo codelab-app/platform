@@ -110,6 +110,9 @@
       "@codelab/frontend/domain/admin": [
         "libs/frontend/domain/admin/src/index.ts"
       ],
+      "@codelab/frontend/domain/vercel": [
+        "libs/frontend/domain/vercel/src/index.ts"
+      ],
       "@codelab/frontend/domain/app": ["libs/frontend/domain/app/src/index.ts"],
       "@codelab/frontend/domain/atom": [
         "libs/frontend/domain/atom/src/index.ts"

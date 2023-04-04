@@ -5,6 +5,7 @@ import type {
   IDomainService,
   IUpdateDomainData,
 } from '@codelab/frontend/abstract/core'
+import { VercelService } from '@codelab/frontend/domain/vercel'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { DomainWhere } from '@codelab/shared/abstract/codegen'
 import { computed } from 'mobx'
@@ -19,7 +20,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
-import { vercelApis } from '../../../vercel/src'
+// import { vercelApis } from '../../../vercel/src'
 import { DomainRepository } from '../services'
 import { Domain } from './domain.model'
 import { DomainModalService } from './domain-modal.service'
@@ -32,6 +33,7 @@ export class DomainService
     domainRepository: prop(() => new DomainRepository({})),
     domains: prop(() => objectMap<Domain>()),
     updateModal: prop(() => new DomainModalService({})),
+    vercelService: prop(() => new VercelService({})),
   })
   implements IDomainService
 {
@@ -102,7 +104,7 @@ export class DomainService
     this.domains.delete(id)
 
     yield* _await(this.domainRepository.delete([domain]))
-    yield* _await(vercelApis.deleteDomain(domain.name))
+    yield* _await(this.vercelService.delete(domain.name))
 
     return domain
   })

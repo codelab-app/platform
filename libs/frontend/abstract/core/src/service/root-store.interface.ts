@@ -17,6 +17,7 @@ import type {
   ITypeService,
   IUserDTO,
   IUserService,
+  IVercelService,
 } from '../domain'
 
 /**
@@ -47,4 +48,5 @@ export interface IRootStore {
   tagService: ITagService
   typeService: ITypeService
   userService: IUserService
+  vercelService: IVercelService
 }
