@@ -65,7 +65,8 @@
         "children": []
       }
     ],
-    "suggestedChildren": []
+    "suggestedChildren": [],
+    "requiredParents": []
   },
   "fields": [
     {

@@ -58,7 +58,8 @@
         ]
       }
     ],
-    "suggestedChildren": []
+    "suggestedChildren": [],
+    "requiredParents": []
   },
   "fields": [
     {

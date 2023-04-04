@@ -67,7 +67,8 @@
         ]
       }
     ],
-    "suggestedChildren": []
+    "suggestedChildren": [],
+    "requiredParents": []
   },
   "fields": [
     {

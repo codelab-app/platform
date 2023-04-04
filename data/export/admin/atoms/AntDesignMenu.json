@@ -12,6 +12,9 @@
         "id": "4308a60e-8fad-4a8f-8ab9-48e2008714d1"
       },
       {
+        "id": "435cacb5-c21a-43d4-9736-3aae49898881"
+      },
+      {
         "id": "481d0c41-2d86-400e-9d0f-38c33d8c585d"
       },
       {
@@ -74,7 +77,8 @@
         "children": []
       }
     ],
-    "suggestedChildren": []
+    "suggestedChildren": [],
+    "requiredParents": []
   },
   "fields": [
     {
@@ -140,6 +144,23 @@
         "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
         "kind": "PrimitiveType",
         "name": "Number"
+      },
+      "api": {
+        "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+      }
+    },
+    {
+      "id": "435cacb5-c21a-43d4-9736-3aae49898881",
+      "key": "items",
+      "name": "Items",
+      "description": null,
+      "validationRules": "{\"general\":{\"nullable\":true}}",
+      "defaultValues": "null",
+      "fieldType": {
+        "__typename": "ArrayType",
+        "id": "61e9178f-9a23-4fc0-bb0b-d8264431f254",
+        "kind": "ArrayType",
+        "name": "AntDesignMenuItemTypeArray"
       },
       "api": {
         "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
@@ -348,6 +369,57 @@
       "api": {
         "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
       }
+    },
+    {
+      "id": "2b9265ef-1f26-478c-a225-419408ce0fa4",
+      "key": "icon",
+      "name": "Icon",
+      "description": null,
+      "validationRules": "{\"general\":{\"nullable\":true}}",
+      "defaultValues": "null",
+      "fieldType": {
+        "__typename": "RenderPropsType",
+        "id": "9e8326a2-4c44-4adc-b3f0-68e9098718e4",
+        "kind": "RenderPropsType",
+        "name": "RenderPropsType"
+      },
+      "api": {
+        "id": "8baae515-020d-422e-a1bc-340c20490dd2"
+      }
+    },
+    {
+      "id": "915200d2-ea99-4216-9ba8-673d239d1007",
+      "key": "key",
+      "name": "Key",
+      "description": null,
+      "validationRules": "{\"general\":{\"nullable\":false}}",
+      "defaultValues": "\"new-item\"",
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "8baae515-020d-422e-a1bc-340c20490dd2"
+      }
+    },
+    {
+      "id": "cf910edd-2c9f-4094-ab98-a6f185e71bb1",
+      "key": "label",
+      "name": "Label",
+      "description": null,
+      "validationRules": "{\"general\":{\"nullable\":false}}",
+      "defaultValues": "\"New Item\"",
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "8baae515-020d-422e-a1bc-340c20490dd2"
+      }
     }
   ],
   "types": [
@@ -427,6 +499,33 @@
           "value": "hover"
         }
       ]
+    },
+    {
+      "__typename": "InterfaceType",
+      "id": "8baae515-020d-422e-a1bc-340c20490dd2",
+      "kind": "InterfaceType",
+      "name": "AntDesignMenuItemType",
+      "fields": [
+        {
+          "id": "915200d2-ea99-4216-9ba8-673d239d1007"
+        },
+        {
+          "id": "cf910edd-2c9f-4094-ab98-a6f185e71bb1"
+        },
+        {
+          "id": "2b9265ef-1f26-478c-a225-419408ce0fa4"
+        }
+      ]
+    },
+    {
+      "__typename": "ArrayType",
+      "id": "61e9178f-9a23-4fc0-bb0b-d8264431f254",
+      "kind": "ArrayType",
+      "name": "AntDesignMenuItemTypeArray",
+      "itemType": {
+        "id": "8baae515-020d-422e-a1bc-340c20490dd2",
+        "kind": "InterfaceType"
+      }
     }
   ]
 }
