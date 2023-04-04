@@ -216,6 +216,15 @@ export class TypeService
     this: TypeService,
     interfaceTypeId: IInterfaceTypeRef,
   ) {
+    const interfaceFromStore = this.type(interfaceTypeId)
+
+    if (
+      interfaceFromStore &&
+      interfaceFromStore.kind === ITypeKind.InterfaceType
+    ) {
+      return interfaceFromStore
+    }
+
     const [interfaceType] = yield* _await(this.getAll([interfaceTypeId]))
 
     if (!interfaceType) {
