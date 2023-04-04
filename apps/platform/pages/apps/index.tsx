@@ -24,7 +24,7 @@ import {
 } from '@codelab/frontend/presentation/view'
 import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
-import { useAsync, useMountEffect } from '@react-hookz/web'
+import { useAsync } from '@react-hookz/web'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -70,7 +70,7 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
     appService.loadAppsWithNestedPreviews({ owner }),
   )
 
-  useMountEffect(() => {
+  useEffect(() => {
     if (user?.sub) {
       void loadApp.execute({ auth0Id: user.sub })
     }
@@ -80,7 +80,7 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
     if (user && process.env.NEXT_PUBLIC_PLATFORM_HOST?.includes('127.0.0.1')) {
       void fetch('/api/upsert-user')
     }
-  })
+  }, [user?.sub])
 
   return (
     <>
@@ -94,7 +94,11 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
       <DeleteAppModal />
 
       <ContentSection>
-        {status === 'loading' ? <Spin /> : <GetAppsList />}
+        {status === 'loading' || status === 'not-executed' ? (
+          <Spin />
+        ) : (
+          <GetAppsList />
+        )}{' '}
       </ContentSection>
     </>
   )

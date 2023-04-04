@@ -1,16 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import {
-  AppPreviewFragment,
-  AppFragment,
-} from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+import { AppFragment } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import {
-  AppPreviewFragmentDoc,
-  AppFragmentDoc,
-} from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+import { AppFragmentDoc } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 export type CreateAppsMutationVariables = Types.Exact<{
   input: Array<Types.AppCreateInput> | Types.AppCreateInput
 }>

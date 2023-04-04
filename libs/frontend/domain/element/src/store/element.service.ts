@@ -644,7 +644,7 @@ export class ElementService
       id: v4(),
     })
 
-    const elementClone = this.add({
+    const cloneElementDto = {
       customCss: element.customCss,
       guiCss: element.guiCss,
       id: v4(),
@@ -661,7 +661,11 @@ export class ElementService
               : RenderTypeKind.Atom,
           }
         : null,
-    })
+    }
+
+    const elementModel = this.add(cloneElementDto)
+
+    await this.elementRepository.add(elementModel)
 
     const elementCloneModel = this.add(cloneElementDto)
 

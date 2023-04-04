@@ -113,31 +113,6 @@ export class Renderer
       : this.renderElement(root)
   }
 
-  /*
-  computePropsForComponentElements(element: IElement) {
-    const component = (element.renderComponentType ?? element.parentComponent)
-      ?.maybeCurrent
-
-    const componentProps = element.parentComponent
-      ? component?.props?.values
-      : element.props?.values
-
-    if (!component || !componentProps) {
-      return
-    }
-
-
-    const props = this.processPropsForRender(
-      {
-        ...componentProps,
-        ...propsForCurrentElement,
-        [COMPONENT_INSTANCE_ID]: element.id,
-      },
-      element,
-    )
-  }
-  */
-
   /**
    * Renders a single Element using the provided RenderAdapter
    */

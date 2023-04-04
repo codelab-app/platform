@@ -70,16 +70,14 @@ const stubServiceRepositories = (rootStore: ITestRootStore) => {
 export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
   const data: TestServices = {} as TestServices
 
-  beforeEach(() => {
+  beforeEach(async () => {
     const owner = { auth0Id: v4() }
     const pageId = v4()
-    data.emptyInterface = new InterfaceType({
-      name: 'Empty interface',
-      owner,
-    })
+    const compRootElementId = v4()
+    const emptyInterface = new InterfaceType({ name: 'Empty interface', owner })
 
     data.store = new Store({
-      api: typeRef(data.emptyInterface),
+      api: typeRef(emptyInterface),
       component: null,
       name: 'Store',
       page: null,
@@ -224,9 +222,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       id: v4(),
       name: 'My Component',
       owner,
-      props: propRef(componentProps),
-      rootElement: elementRef(compRootElementId),
-      store: storeRef(data.store.id),
+      primitiveKind: PrimitiveTypeKind.Integer,
     })
 
     data.componentRootElementProps = new Prop({
@@ -339,44 +335,120 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       actionService: new ActionService({}),
       atomService: new AtomService({
         atoms: objectMap([
-          [data.divAtom.id, data.divAtom],
-          [data.textAtom.id, data.textAtom],
+          [divAtom.id, divAtom],
+          [textAtom.id, textAtom],
         ]),
       }),
-      componentService: new ComponentService({
-        components: objectMap([
-          [data.componentToRender.id, data.componentToRender],
-        ]),
-      }),
-      elementService: new ElementService({
-        elements: objectMap([
-          [data.elementToRender.id, data.elementToRender],
-          [data.elementToRender02.id, data.elementToRender02],
-          [
-            data.componentInstanceElementToRender.id,
-            data.componentInstanceElementToRender,
-          ],
-          [data.componentRootElement.id, data.componentRootElement],
-        ]),
-      }),
+      componentService: new ComponentService({}),
+      elementService: new ElementService({}),
       fieldService: new FieldService({}),
-      propService: new PropService({
-        props: objectMap([
-          [data.elementToRenderProps.id, data.elementToRenderProps],
-          [data.elementToRender02.id, data.elementToRender02Props],
-          [data.componentRootElementProps.id, data.componentRootElementProps],
-          [
-            data.componentInstanceElementToRenderProps.id,
-            data.componentInstanceElementToRenderProps,
-          ],
+      pageService: new PageService({}),
+      propService: new PropService({}),
+      renderer: data.renderer,
+      storeService: new StoreService({}),
+      tagService: new TagService({}),
+      typeService: new TypeService({
+        types: objectMap<IType>([
+          [primitiveType.id, primitiveType],
+          [data.renderPropsType.id, data.renderPropsType],
+          [data.reactNodeType.id, data.reactNodeType],
+          [emptyInterface.id, emptyInterface],
         ]),
       }),
-      renderer: data.renderer,
-      storeService: new StoreService({
-        stores: objectMap([[data.store.id, data.store]]),
-      }),
-      typeService,
     })
+
+    stubServiceRepositories(data.rootStore)
+
+    const elementToRenderProps = {
+      data: JSON.stringify({
+        prop01: 'prop01Value',
+        prop02: 'prop02Value',
+        prop03: {
+          type: primitiveType.id,
+          value: 'prop03Value',
+        },
+      }),
+    }
+
+    data.elementToRender = await data.rootStore.elementService.create({
+      id: v4(),
+      name: ROOT_ELEMENT_NAME,
+      page: { id: pageId },
+      props: elementToRenderProps,
+      propTransformationJs: `
+        // Write a transformer function, you get the input props as parameter
+        // All returned props will get merged with the original ones
+        function transform(props) {
+          return Object.keys(props)
+            .map((x)=> ({
+              [\`$\{x}-edited\`] : props[x]
+            }))
+            .reduce((total,current) =>
+              ({...total,...current}),
+              {}
+            )
+          }
+      `,
+      renderType: { id: divAtom.id, kind: IRenderTypeKind.Atom },
+    })
+
+    data.store = await data.rootStore.storeService.create({
+      api: typeRef(emptyInterface),
+      id: v4(),
+      name: 'Store',
+    })
+
+    data.rootStore.pageService.add({
+      app: { id: v4() },
+      id: pageId,
+      kind: IPageKind.Regular,
+      name: 'page',
+      rootElement: elementRef(data.elementToRender),
+      store: data.store,
+      url: '/page',
+    })
+
+    const componentRootElementProps = await data.rootStore.propService.create({
+      data: JSON.stringify({
+        componentProp: 'original',
+        [CUSTOM_TEXT_PROP_KEY]: "I'm a component",
+      }),
+      id: v4(),
+    })
+
+    data.componentToRender = await data.rootStore.componentService.create({
+      api: typeRef(emptyInterface),
+      childrenContainerElement: { id: compRootElementId },
+      id: v4(),
+      name: 'My Component',
+      owner,
+      rootElement: { id: compRootElementId },
+    })
+    data.componentToRender.rootElement.current.setRenderType(atomRef(textAtom))
+    data.componentToRender.rootElement.current.setProps(
+      propRef(componentRootElementProps),
+    )
+
+    data.componentInstanceElementToRender =
+      await data.rootStore.elementService.create({
+        id: v4(),
+        name: '01',
+        parentComponent: data.componentToRender,
+        props: { data: JSON.stringify({ componentProp: 'instance' }) },
+        renderType: {
+          id: data.componentToRender.id,
+          kind: IRenderTypeKind.Component,
+        },
+      })
+
+    const renderer = new Renderer({
+      debugMode: false,
+      elementTree: elementTreeRef(data.componentToRender),
+      rendererType: RendererType.PageBuilder,
+      renderPipe: renderPipeFactory([PassThroughRenderPipe, ...pipes]),
+    })
+
+    data.rootStore.setRenderer(renderer)
   })
 
   afterEach(() => {
@@ -384,8 +456,4 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
   })
 
   return data
-}
-
-function stubServiceRepositories(rootStore: ITestRootStore) {
-  throw new Error('Function not implemented.')
 }
