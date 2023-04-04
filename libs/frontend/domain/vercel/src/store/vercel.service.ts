@@ -7,7 +7,7 @@ export class VercelService extends Model({}) implements IVercelService {
   @modelFlow
   create = _async(function* (this: VercelService, name: string) {
     return yield* _await(
-      fetch(`api/vercel/${projectApiUrl}/domains?${teamIdParam}`, {
+      fetch(`/api/vercel/${projectApiUrl}/domains?${teamIdParam}`, {
         method: 'POST',
         body: JSON.stringify({ name }),
       }),
@@ -17,7 +17,7 @@ export class VercelService extends Model({}) implements IVercelService {
   @modelFlow
   update = _async(function* (this: VercelService, name: string) {
     return yield* _await(
-      fetch(`api/vercel/${projectApiUrl()}/domains?${teamIdParam}`, {
+      fetch(`/api/vercel/${projectApiUrl()}/domains?${teamIdParam}`, {
         method: 'PATCH',
         body: JSON.stringify({ name }),
       }),
@@ -27,8 +27,8 @@ export class VercelService extends Model({}) implements IVercelService {
   @modelFlow
   delete = _async(function* (this: VercelService, name: string) {
     return yield* _await(
-      fetch(`api/vercel/${projectApiUrl()}/domains/${name}?${teamIdParam}`, {
-        method: 'GET',
+      fetch(`/api/vercel/${projectApiUrl()}/domains/${name}?${teamIdParam}`, {
+        method: 'DELETE',
       }),
     )
   })

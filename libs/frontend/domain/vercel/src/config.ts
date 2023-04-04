@@ -1,13 +1,8 @@
 export const apiUrl = 'https://api.vercel.com'
 
-export const baseHeaders = {
-  Authorization: `Bearer ${process.env.VERCEL_API_TOKEN}`,
-  'Content-Type': 'application/json',
-}
-
 export const projectApiUrl = (apiVer = '9') =>
-  `${apiUrl}/v${apiVer}/projects/${process.env.VERCEL_PROJECT_ID}`
+  `${apiUrl}/v${apiVer}/projects/prj_sJ0pobuk9ZQ8Xx9QLC7aIAjICAzC`
 
 export const domainApiUrl = (apiVer = '6') => `${apiUrl}/v${apiVer}/domains`
 
-export const teamIdParam = `teamId=${process.env.VERCEL_TEAM_ID}`
+export const teamIdParam = `teamId=team_8nZqpPb3wnhR3D9nHByQNGbr`
