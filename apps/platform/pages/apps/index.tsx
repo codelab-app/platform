@@ -98,7 +98,7 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
           <Spin />
         ) : (
           <GetAppsList />
-        )}{' '}
+        )}
       </ContentSection>
     </>
   )
