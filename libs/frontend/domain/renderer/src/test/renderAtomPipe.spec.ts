@@ -8,7 +8,6 @@ describe('RenderAtomPipe', () => {
 
   it('should render element atom', async () => {
     const text = 'a text to render'
-    data.elementToRender.setRenderType(atomRef(data.textAtom.id))
     data.elementToRender.props.current.set(CUSTOM_TEXT_PROP_KEY, text)
 
     const output = data.rootStore.renderer.renderElement(data.elementToRender)

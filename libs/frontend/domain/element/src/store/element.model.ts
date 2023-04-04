@@ -99,7 +99,7 @@ export class Element
     _page: prop<Nullable<Ref<IPage>>>(null),
 
     // component which has this element as rootElement
-    _parentComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
+    _parentComponent: prop<Nullable<Ref<IComponent>>>(null),
 
     customCss: prop<Nullable<string>>(null).withSetter(),
 
@@ -270,6 +270,11 @@ export class Element
   @modelAction
   setParentComponent(component: Ref<IComponent>) {
     this._parentComponent = component
+  }
+
+  @modelAction
+  setPage(page: Ref<IPage>) {
+    this._page = page
   }
 
   @modelAction

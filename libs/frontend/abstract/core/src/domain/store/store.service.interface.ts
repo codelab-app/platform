@@ -20,6 +20,7 @@ export interface IStoreService
     IQueryService<IStore, StoreWhere, StoreOptions>,
     ICRUDModalService<Ref<IStore>, { store: Maybe<IStore> }> {
   clonedStores: ObjectMap<IStore>
+  storeRepository: IStoreRepository
   stores: ObjectMap<IStore>
 
   add(storeDTO: IStoreDTO): IStore

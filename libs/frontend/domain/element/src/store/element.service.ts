@@ -678,7 +678,7 @@ export class ElementService
       id: v4(),
     })
 
-    const elementClone = this.add({
+    const cloneElementDto = {
       customCss: element.customCss,
       guiCss: element.guiCss,
       id: v4(),
@@ -695,10 +695,12 @@ export class ElementService
               : RenderTypeKind.Atom,
           }
         : null,
-    })
+    }
 
-    const createdElement = await this.elementRepository.add(elementClone)
-    const elementModel = this.add(createdElement)
+    const elementModel = this.add(cloneElementDto)
+
+    await this.elementRepository.add(elementModel)
+
     const lastChild = parentElement.children[parentElement.children.length - 1]
     let affectedNodeIds: Array<string> = []
 

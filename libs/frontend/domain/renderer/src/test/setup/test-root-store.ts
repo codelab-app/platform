@@ -4,10 +4,12 @@ import type {
   IComponentService,
   IElementService,
   IFieldService,
+  IPageService,
   IPropService,
   IRenderer,
   IRenderService,
   IStoreService,
+  ITagService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -16,6 +18,7 @@ import {
   elementServiceContext,
 } from '@codelab/frontend/abstract/core'
 import { atomServiceContext } from '@codelab/frontend/domain/atom'
+import { pageServiceContext } from '@codelab/frontend/domain/page'
 import { propServiceContext } from '@codelab/frontend/domain/prop'
 import {
   actionServiceContext,
@@ -37,9 +40,11 @@ export class TestRootStore
     componentService: prop<IComponentService>(),
     elementService: prop<IElementService>(),
     fieldService: prop<IFieldService>(),
+    pageService: prop<IPageService>(),
     propService: prop<IPropService>(),
-    renderer: prop<IRenderer>(),
+    renderer: prop<IRenderer>().withSetter(),
     storeService: prop<IStoreService>(),
+    tagService: prop<ITagService>(),
     typeService: prop<ITypeService>(),
   })
   implements ITestRootStore
