@@ -155,12 +155,12 @@ export class Element
 
   @computed
   get parentComponent(): Nullable<Ref<IComponent>> {
-    return this.closestParent?.parentComponent || this._parentComponent
+    return this.closestParent?.parentComponent ?? this._parentComponent
   }
 
   @computed
   get page(): Nullable<Ref<IPage>> {
-    return this.closestParent?.page || this._page
+    return this.closestParent?.page ?? this._page
   }
 
   @computed

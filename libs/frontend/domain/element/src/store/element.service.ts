@@ -131,7 +131,7 @@ export class ElementService
       })
 
     const elementProps = this.propService.add({
-      data: makeDefaultProps(renderTypeApi?.current),
+      data: data.props?.data ?? makeDefaultProps(renderTypeApi?.current),
       id: v4(),
     })
 
@@ -697,21 +697,21 @@ export class ElementService
         : null,
     }
 
-    const elementModel = this.add(cloneElementDto)
+    const elementCloneModel = this.add(cloneElementDto)
 
-    await this.elementRepository.add(elementModel)
+    await this.elementRepository.add(elementCloneModel)
 
     const lastChild = parentElement.children[parentElement.children.length - 1]
     let affectedNodeIds: Array<string> = []
 
     if (!lastChild) {
       affectedNodeIds = this.attachElementAsFirstChild({
-        element: elementModel,
+        element: elementCloneModel,
         parentElement,
       })
     } else {
       affectedNodeIds = this.attachElementAsNextSibling({
-        element: elementModel,
+        element: elementCloneModel,
         targetElement: lastChild,
       })
     }
@@ -724,13 +724,13 @@ export class ElementService
 
     const children = await Promise.all(
       element.children.map((child) =>
-        this.recursiveDuplicate(child, elementModel),
+        this.recursiveDuplicate(child, elementCloneModel),
       ),
     )
 
     const oldToNewIdMap: Map<string, IElement> = children.reduce(
       (acc, curElementModel) => new Map([...acc, ...curElementModel]),
-      new Map([[element.id, elementModel]]),
+      new Map([[element.id, elementCloneModel]]),
     )
 
     return oldToNewIdMap
