@@ -5,6 +5,7 @@ import type {
   IStoreService,
   IUpdateStoreData,
 } from '@codelab/frontend/abstract/core'
+import { componentRef, pageRef } from '@codelab/frontend/abstract/core'
 import { getTypeService, typeRef } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
@@ -62,12 +63,14 @@ export class StoreService
   }
 
   @modelAction
-  add = ({ actions, api, id, name }: IStoreDTO) => {
+  add = ({ actions, api, component, id, name, page }: IStoreDTO) => {
     const store = new Store({
       actions: actions?.map((action) => actionRef(action.id)),
       api: typeRef(api.id) as Ref<IInterfaceType>,
+      component: component ? componentRef(component.id) : null,
       id,
       name,
+      page: page ? pageRef(page.id) : null,
     })
 
     this.stores.set(store.id, store)

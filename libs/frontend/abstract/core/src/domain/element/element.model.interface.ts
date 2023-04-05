@@ -93,7 +93,7 @@ export interface IElement
    */
   sourceElement: Nullable<IEntity>
   // store attached to closestContainerNode
-  store: IStore
+  store: Ref<IStore>
 
   appendToGuiCss(css: CssMap): void
   attachAsNextSibling(sibling: IElement): void

@@ -6,6 +6,7 @@ import type {
   IPage,
   IProp,
   IPropData,
+  IStore,
   RenderingError,
   RenderingMetadata,
 } from '@codelab/frontend/abstract/core'
@@ -175,8 +176,8 @@ export class Element
   }
 
   @computed
-  get store() {
-    return this.closestContainerNode.store.current
+  get store(): Ref<IStore> {
+    return this.closestContainerNode.store
   }
 
   @computed
