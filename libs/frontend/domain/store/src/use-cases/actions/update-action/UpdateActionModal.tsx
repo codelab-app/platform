@@ -84,6 +84,7 @@ export const UpdateActionModal = observer(() => {
               name="resourceId"
               resourceService={resourceService}
             />
+            {/** TODO: Exclude current action */}
             <AutoField component={SelectAction} name="successActionId" />
             <AutoField component={SelectAction} name="errorActionId" />
 

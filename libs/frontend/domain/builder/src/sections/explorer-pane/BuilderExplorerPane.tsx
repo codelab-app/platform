@@ -73,19 +73,16 @@ export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
       builderService,
       componentService,
       elementService,
-      fieldService,
-      pageService,
     } = useStore()
 
     const pageId = useCurrentPageId()
-    const page = pageService.pages.get(pageId)
     const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
     const pageTree = pageBuilderRenderer?.elementTree.maybeCurrent
     const root = !isLoading ? pageTree?.rootElement : undefined
     const antdTree = root?.current.antdNode
     const componentsAntdTree = componentService.componentAntdNode
     const isPageTree = antdTree && pageTree
-    const store = page?.store.maybeCurrent
+    const store = builderService.selectedNode?.current.store.current
 
     const selectTreeNode = (node: IPageNode) => {
       if (isComponentPageNode(node)) {
@@ -168,25 +165,20 @@ export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
         ),
       },
       {
-        children: (
+        children: store ? (
           <SkeletonWrapper isLoading={isLoading}>
             <Collapse css={tw`w-full mb-2`} defaultActiveKey={['1']} ghost>
               <Panel
                 header={
                   <StoreHeader
-                    extra={
-                      <CreateFieldButton
-                        fieldService={fieldService}
-                        interfaceId={store?.api.id}
-                      />
-                    }
+                    extra={<CreateFieldButton interfaceId={store.api.id} />}
                   >
                     State
                   </StoreHeader>
                 }
-                key="1"
+                key="store-state"
               >
-                <GetStateList fieldService={fieldService} store={store} />
+                <GetStateList store={store} />
               </Panel>
 
               <Divider />
@@ -198,9 +190,9 @@ export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
                     Actions
                   </StoreHeader>
                 }
-                key="2"
+                key="store-actions"
               >
-                <ActionsList actionService={actionService} store={store} />
+                <ActionsList store={store} />
               </Panel>
             </Collapse>
             <StoreHeader>Store Inspector</StoreHeader>
@@ -212,10 +204,10 @@ export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
               `}
               singleLine={false}
               title="Current props"
-              value={store?.jsonString}
+              value={store.jsonString}
             />
           </SkeletonWrapper>
-        ),
+        ) : null,
         key: 'store',
         label: (
           <div>
