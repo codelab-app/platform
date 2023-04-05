@@ -1,4 +1,5 @@
 import fs from 'fs'
+import { EOL } from 'os'
 import * as path from 'path'
 
 export const saveFormattedFile = (outputFilePath: string, data: object) => {
@@ -11,4 +12,5 @@ export const saveFormattedFile = (outputFilePath: string, data: object) => {
 
   fs.mkdirSync(path.dirname(exportPath), { recursive: true })
   fs.writeFileSync(exportPath, json)
+  fs.appendFileSync(exportPath, EOL, 'utf8')
 }
