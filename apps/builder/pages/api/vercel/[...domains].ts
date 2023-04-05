@@ -20,9 +20,9 @@ export const deleteDomain: NextApiHandler = async (req, res) => {
     const vercelUrl = new URL(maybeVercelUrl.data)
 
     const vercelRes = await fetch(vercelUrl, {
-      body: JSON.stringify(req.body),
       headers: baseHeaders,
       method: req.method,
+      ...(req.body && { body: req.body }),
     })
 
     return res.status(vercelRes.status).send(vercelRes.body)

@@ -89,6 +89,7 @@ export class DomainService
       projectDomain: undefined,
     })
 
+    yield* _await(this.vercelService.create(domain.name))
     yield* _await(this.domainRepository.add(domain))
 
     // Fetching again to get the backend-generated
