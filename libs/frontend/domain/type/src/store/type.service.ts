@@ -13,6 +13,8 @@ import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
+import compact from 'lodash/compact'
+import sortBy from 'lodash/sortBy'
 import { computed } from 'mobx'
 import {
   _async,
@@ -37,6 +39,7 @@ import { TypeModalService } from './type-modal.service'
 @model('@codelab/TypeService')
 export class TypeService
   extends Model({
+    allTypesLoaded: prop(() => false),
     createModal: prop(() => new ModalService({})),
     /**
      * Used to show current paginated types
@@ -62,7 +65,7 @@ export class TypeService
   }
 
   onAttachedToRootStore() {
-    this.paginationService.setGetDataFn(async (page, pageSize, filter) => {
+    this.paginationService.getDataFn = async (page, pageSize, filter) => {
       const { items: baseTypes, totalCount: totalItems } =
         await this.typeRepository.findBaseTypes({
           limit: pageSize,
@@ -73,12 +76,8 @@ export class TypeService
       const typeIds = baseTypes.map(({ id }) => id)
       const items = await this.getAll(typeIds)
 
-      items.forEach((type) => {
-        this.types.set(type.id, type)
-      })
-
       return { items, totalItems }
-    })
+    }
   }
 
   @computed
@@ -174,41 +173,69 @@ export class TypeService
    */
   @modelFlow
   @transaction
-  getAll = _async(function* (this: TypeService, ids: Array<string>) {
-    const typeFragments = yield* _await(
-      this.typeRepository.find({ id_IN: ids }),
-    )
-
-    const parentIds = typeFragments.map((typeFragment) => typeFragment.id)
-
-    // load the descendants of the requested types
-    const descendantTypeFragments = yield* _await(
-      this.typeRepository.findDescendants(parentIds),
-    )
-
-    const allFragments = [...typeFragments, ...descendantTypeFragments]
-
-    // initialize fields
-    allFragments.forEach((typeFragment) => {
-      if (typeFragment.__typename === TypeKind.InterfaceType) {
-        typeFragment.fields.forEach((fieldFragment) => {
-          this.fieldService.add(fieldFragment)
-        })
+  getAll = _async(function* (this: TypeService, ids?: Array<string>) {
+    // If `getAll` is called without `ids`, all types should be cached already
+    // New created types should be added to the cache so it should be included in the list
+    if (this.allTypesLoaded) {
+      if (!ids) {
+        return this.typesList
       }
-    })
 
-    return (
-      allFragments
-        .map((typeFragment) => {
-          return this.add(typeFragment)
-        })
-        // return only the requested types
-        .filter((type) => ids.includes(type.id))
-        // Sort the most recently fetched types
-        .sort((typeA, typeB) =>
-          typeA.name.toLowerCase() < typeB.name.toLowerCase() ? -1 : 1,
-        )
-    )
+      const storedTypes = compact(ids.map((id) => this.types.get(id)))
+
+      if (storedTypes.length !== ids.length) {
+        throw new Error('Some types are not found.')
+      }
+
+      return storedTypes
+    }
+
+    const existingTypes = compact(ids?.map((id) => this.types.get(id)) ?? [])
+    const newIds = ids?.filter((id) => !this.types.has(id))
+    let newTypes: Array<IType> = []
+
+    // Undefined `ids` should get to this point one time only
+    // We also dont need to include types already in the cache
+    if (newIds?.length || !ids) {
+      const typeFragments = yield* _await(
+        this.typeRepository.find({ id_IN: newIds }),
+      )
+
+      const parentIds = typeFragments.map((typeFragment) => typeFragment.id)
+
+      // load the descendants of the requested types
+      const descendantTypeFragments = yield* _await(
+        this.typeRepository.findDescendants(parentIds),
+      )
+
+      const newFragments = [...typeFragments, ...descendantTypeFragments]
+
+      // initialize fields
+      newTypes = compact(
+        newFragments.map((typeFragment) => {
+          if (typeFragment.__typename === TypeKind.InterfaceType) {
+            typeFragment.fields.forEach((fieldFragment) => {
+              this.fieldService.add(fieldFragment)
+            })
+          }
+
+          const newType = this.add(typeFragment)
+
+          return newIds?.includes(typeFragment.id) ? newType : undefined
+        }),
+      )
+    }
+
+    const allTypes = [...existingTypes, ...newTypes]
+    const result = sortBy(allTypes, ({ name }) => name.toLowerCase())
+
+    // This means all types has been fetched and stored in the cache
+    // so there is no need to run the whole function anymore
+    if (!ids) {
+      this.allTypesLoaded = true
+    }
+
+    return result
   })
 
   getType(id: string) {

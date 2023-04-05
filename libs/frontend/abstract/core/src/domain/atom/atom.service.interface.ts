@@ -5,6 +5,7 @@ import type {
   ICRUDModalService,
   ICRUDService,
   IEntityModalService,
+  IPaginationService,
   IQueryService,
 } from '../../service'
 import type {
@@ -30,6 +31,7 @@ export interface IAtomService
     Array<Ref<IAtom>>,
     { atoms: Array<IAtom> }
   >
+  paginationService: IPaginationService<IAtom, { name?: string }>
   selectedIds: ArraySet<string>
 
   add(atomDTO: IAtomDTO): IAtom

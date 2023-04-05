@@ -1,18 +1,15 @@
-import type { UnboxArray } from '@codelab/shared/abstract/types'
+import type { IType } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { useAsync, useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
-import type { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
-import { getAllTypes } from '../store'
 
 interface Option {
   label: string
   value: string
 }
-export type CreateTypeOptions = (
-  types?: Array<UnboxArray<GetTypesQuery[keyof GetTypesQuery]>>,
-) => Array<Option>
+export type CreateTypeOptions = (types?: Array<IType>) => Array<Option>
 
 export interface TypeSelectProps {
   createTypeOptions?: CreateTypeOptions
@@ -25,7 +22,11 @@ const defaultCreateTypeOptions: CreateTypeOptions = (types) =>
 
 export const TypeSelect = observer<TypeSelectProps>(
   ({ createTypeOptions, label, name }) => {
-    const [{ error, result, status }, getTypes] = useAsync(() => getAllTypes())
+    const { typeService } = useStore()
+
+    const [{ error, result, status }, getTypes] = useAsync(() =>
+      typeService.getAll(),
+    )
 
     const typeOptions = createTypeOptions
       ? createTypeOptions(result)

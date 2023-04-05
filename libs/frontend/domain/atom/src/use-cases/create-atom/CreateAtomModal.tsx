@@ -6,14 +6,18 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { atomRef } from '../../store'
 import { createAtomSchema } from './create-atom.schema'
 
 export const CreateAtomModal = observer(() => {
   const { atomService, tagService, userService } = useStore()
   const closeModal = () => atomService.createModal.close()
 
-  const onSubmit = (data: ICreateAtomData) => {
-    return atomService.create(data)
+  const onSubmit = async (data: ICreateAtomData) => {
+    const atom = await atomService.create(data)
+    atomService.paginationService.dataRefs.set(atom.id, atomRef(atom))
+
+    return atom
   }
 
   const onSubmitError = createNotificationHandler({

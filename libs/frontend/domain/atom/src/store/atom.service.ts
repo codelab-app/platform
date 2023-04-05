@@ -8,7 +8,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { getTypeService, typeRef } from '@codelab/frontend/domain/type'
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { ModalService, PaginationService } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
@@ -41,11 +41,28 @@ export class AtomService
     createModal: prop(() => new ModalService({})),
     deleteManyModal: prop(() => new AtomsModalService({})),
     id: idProp,
+    paginationService: prop(
+      () => new PaginationService<IAtom, { name?: string }>({}),
+    ),
     selectedIds: prop(() => arraySet<string>()).withSetter(),
     updateModal: prop(() => new AtomModalService({})),
   })
   implements IAtomService
 {
+  onAttachedToRootStore() {
+    this.paginationService.getDataFn = async (page, pageSize, filter) => {
+      const items = await this.getAll(
+        { name_MATCHES: `(?i).*${filter.name ?? ''}.*` },
+        {
+          limit: pageSize,
+          offset: (page - 1) * pageSize,
+        },
+      )
+
+      return { items, totalItems: this.count }
+    }
+  }
+
   @modelFlow
   @transaction
   update = _async(function* (

@@ -1,8 +1,9 @@
 import type {
   Filterables,
   IPaginationService,
-  SupportedModel,
+  SupportedPaginationModel,
 } from '@codelab/frontend/abstract/core'
+import sortBy from 'lodash/sortBy'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {
@@ -11,7 +12,6 @@ import {
   detach,
   Model,
   model,
-  modelAction,
   modelFlow,
   objectMap,
   prop,
@@ -20,11 +20,11 @@ import {
 
 @model('@codelab/PaginationService')
 export class PaginationService<
-    T1 extends SupportedModel,
+    T1 extends SupportedPaginationModel,
     U1 extends Filterables | void = void,
   >
   extends Model(<
-    T2 extends SupportedModel,
+    T2 extends SupportedPaginationModel,
     U2 extends Filterables | void = void,
   >() => ({
     data: prop(() => [] as Array<T2>),
@@ -37,14 +37,8 @@ export class PaginationService<
   }))<T1, U1>
   implements IPaginationService<T1, U1>
 {
-  ref = rootRef<T1>('@codelab/PaginationServiceRef', {
-    onResolvedValueChange: (ref, newType, oldType) => {
-      if (oldType && !newType) {
-        detach(ref)
-      }
-    },
-  })
-
+  // This can't be passed as props when creating a PaginationService instance so this
+  // has to be initialized in the `onAttachedToRootStore` of the service using this
   getDataFn = async (page: number, pageSize: number, filter: U1) => ({
     items: [] as Array<T1>,
     totalItems: 0,
@@ -52,7 +46,9 @@ export class PaginationService<
 
   @computed
   get data() {
-    return Array.from(this.dataRefs.values()).map((ref) => ref.current)
+    return sortBy(Array.from(this.dataRefs.values()), (ref) =>
+      ref.current.name.toLowerCase(),
+    ).map((ref) => ref.current)
   }
 
   @modelFlow
@@ -68,22 +64,19 @@ export class PaginationService<
     this.dataRefs.clear()
 
     items.forEach((type) => {
-      this.dataRefs.set(type.id, this.ref(type.id))
+      this.dataRefs.set(type.id, paginationServiceRef(type.id) as Ref<T1>)
     })
 
     this.isLoading = false
 
     return items
   })
-
-  @modelAction
-  public setGetDataFn(
-    fn: (
-      page: number,
-      pageSize: number,
-      filter: U1,
-    ) => Promise<{ items: Array<T1>; totalItems: number }>,
-  ) {
-    this.getDataFn = fn
-  }
 }
+
+const paginationServiceRef = rootRef('@codelab/PaginationServiceRef', {
+  onResolvedValueChange: (ref, newComponent, oldComponent) => {
+    if (oldComponent && !newComponent) {
+      detach(ref)
+    }
+  },
+})
