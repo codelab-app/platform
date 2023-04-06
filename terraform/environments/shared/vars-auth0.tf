@@ -26,7 +26,3 @@ variable "AUTH0_CYPRESS_PASSWORD" {
   type = string
 }
 
-# Not used on some env (test), but add here for easier grouping
-variable "AUTH0_SECRET" {
-  type = string
-}

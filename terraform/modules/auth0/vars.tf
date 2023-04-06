@@ -38,9 +38,4 @@ variable "auth0_cypress_password" {
   description = "Cypress user for Auth0, used in e2e testing"
 }
 
-variable "auth0_secret" {
-  type        = string
-  description = "Auth0 secret for creating JWT tokens"
-}
-
 
