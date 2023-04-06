@@ -26,7 +26,7 @@ resource "auth0_client" "web_client" {
   }
 
   refresh_token {
-    rotation_type   = "rotating"
+    rotation_type   = "non-rotating"
     expiration_type = "expiring"
     # token_lifetime               = var.token_lifetime
     infinite_idle_token_lifetime = false
