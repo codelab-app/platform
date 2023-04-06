@@ -94,9 +94,7 @@ export class Field
     this.validationRules = validationRules
       ? JSON.parse(validationRules || '{}')
       : this.validationRules
-    this.defaultValues = defaultValues
-      ? JSON.parse(defaultValues)
-      : this.defaultValues
+    this.defaultValues = defaultValues ? JSON.parse(defaultValues) : null
 
     return this
   }
