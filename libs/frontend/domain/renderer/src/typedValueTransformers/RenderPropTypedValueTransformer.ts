@@ -1,19 +1,11 @@
-import type { IElement, TypedValue } from '@codelab/frontend/abstract/core'
+import type { TypedValue } from '@codelab/frontend/abstract/core'
 import {
   expressionTransformer,
   hasStateExpression,
 } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
-import React from 'react'
 import type { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
-import {
-  antdAtoms,
-  codelabAtoms,
-  htmlAtoms,
-  muiAtoms,
-  reactAtoms,
-} from '../atoms/atoms'
 import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
 import { getRootElement } from '../utils/getRootElement'
 
@@ -41,54 +33,25 @@ export class RenderPropTypedValueTransformer
   }
 
   canHandleValue(value: TypedValue<unknown>): boolean {
-    return (
-      typeof value.value === 'string' &&
-      (Boolean(
-        getRootElement(value, this.componentService, this.elementService),
-      ) ||
-        hasStateExpression(value.value))
-    )
+    const isComponentId = Boolean(getRootElement(value, this.componentService))
+    const isComponentExpression = hasStateExpression(value.value)
+
+    // either when it is a componentId or a component expression
+    return isComponentId || isComponentExpression
   }
 
   public transform(value: TypedValue<string>) {
     if (hasStateExpression(value.value)) {
-      // const { values } = this.renderer.appStore.current.state
-
-      const atoms = {
-        ...htmlAtoms,
-        ...codelabAtoms,
-        ...antdAtoms,
-        ...muiAtoms,
-        ...reactAtoms,
-      }
-
-      const evaluationContext = {
-        atoms,
-        React,
-        // ...values
-      }
-
-      return expressionTransformer.transpileAndEvaluateExpression(
-        value.value,
-        evaluationContext,
-      )
+      return expressionTransformer.transpileAndEvaluateExpression(value.value)
     }
 
-    const rootElement = getRootElement(
-      value,
-      this.componentService,
-      this.elementService,
-    )
+    const rootElement = getRootElement(value, this.componentService)
 
     if (!rootElement) {
       return value
     }
 
-    return this.makeRenderProp(rootElement)
-  }
-
-  private makeRenderProp(element: IElement) {
     return (renderPropArgs: Array<unknown>) =>
-      this.renderer.renderElement(element, renderPropArgs)
+      this.renderer.renderElement(rootElement, renderPropArgs)
   }
 }

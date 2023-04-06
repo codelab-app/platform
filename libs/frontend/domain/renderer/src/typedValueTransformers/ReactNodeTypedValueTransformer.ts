@@ -5,15 +5,7 @@ import {
 } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
-import React from 'react'
 import type { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
-import {
-  antdAtoms,
-  codelabAtoms,
-  htmlAtoms,
-  muiAtoms,
-  reactAtoms,
-} from '../atoms'
 import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
 import { getRootElement } from '../utils/getRootElement'
 
@@ -41,54 +33,25 @@ export class ReactNodeTypedValueTransformer
   }
 
   canHandleValue(value: TypedValue<unknown>): boolean {
-    return (
-      typeof value.value === 'string' &&
-      (Boolean(
-        getRootElement(value, this.componentService, this.elementService),
-      ) ||
-        hasStateExpression(value.value))
-    )
+    const isComponentId = Boolean(getRootElement(value, this.componentService))
+    const isComponentExpression = hasStateExpression(value.value)
+
+    // either when it is a componentId or a component expression
+    return isComponentId || isComponentExpression
   }
 
-  public transform(
-    value: TypedValue<string>,
-    _: ITypeKind,
-    context: IPropData,
-  ) {
+  public transform(value: TypedValue<string>) {
+    // value is a custom JS component
     if (hasStateExpression(value.value)) {
-      // const { values } = this.renderer.appStore.current.state
-
-      const atoms = {
-        ...htmlAtoms,
-        ...codelabAtoms,
-        ...antdAtoms,
-        ...muiAtoms,
-        ...reactAtoms,
-      }
-
-      const evaluationContext = {
-        atoms,
-        React,
-        ...context,
-        // ...values
-      }
-
       const transpiledValue =
-        expressionTransformer.transpileAndEvaluateExpression(
-          value.value,
-          evaluationContext,
-        )
+        expressionTransformer.transpileAndEvaluateExpression(value.value)
 
       return typeof transpiledValue === 'function'
-        ? transpiledValue.call(evaluationContext)
+        ? transpiledValue.call(expressionTransformer.context)
         : transpiledValue
     }
 
-    const rootElement = getRootElement(
-      value,
-      this.componentService,
-      this.elementService,
-    )
+    const rootElement = getRootElement(value, this.componentService)
 
     if (!rootElement) {
       return value
