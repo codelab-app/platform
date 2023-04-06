@@ -101,6 +101,7 @@
     "jquery": "3.6.0",
     "json2csv": "5.0.7",
     "lodash": "4.17.21",
+    "micro": "^10.0.1",
     "mobx": "6.9.0",
     "mobx-keystone": "1.4.1",
     "mobx-react-lite": "3.4.3",
