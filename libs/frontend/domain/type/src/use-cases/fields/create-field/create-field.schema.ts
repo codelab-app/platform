@@ -138,11 +138,7 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldData> = {
     required: ['id', 'key', 'fieldType', 'defaultValues'],
     properties: {
       defaultValues: {
-        anyOf: [
-          {
-            $ref: 'customTypes#/definitions/fieldDefaultValues',
-          },
-        ],
+        $ref: 'customTypes#/definitions/fieldDefaultValues',
       },
     },
   },
