@@ -16,7 +16,7 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldData> = {
           general: {
             properties: {
               // Using enum, we can check if it matches the current value in the form
-              [GeneralValidationRules.Nullable]: { enum: [false] },
+              [GeneralValidationRules.Nullable]: { const: false },
             },
           },
         },
@@ -28,7 +28,7 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldData> = {
     defaultValues: {
       // by using ref, this can support array or object type that
       // has items or properties of any possible default value type
-      $ref: 'customTypes#/definitions/fieldDefaultValues',
+      $ref: 'customTypes#/definitions/fieldDefaultValuesOrNullableFieldDefaultValues',
     },
     description: { nullable: true, type: 'string' },
     /**
@@ -134,7 +134,18 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldData> = {
   },
   // This is overridden if the field is not nullable, which will require a value for `defaultValues`
   required: ['id', 'key', 'fieldType'],
-  then: { required: ['id', 'key', 'fieldType', 'defaultValues'] },
+  then: {
+    required: ['id', 'key', 'fieldType', 'defaultValues'],
+    properties: {
+      defaultValues: {
+        anyOf: [
+          {
+            $ref: 'customTypes#/definitions/fieldDefaultValues',
+          },
+        ],
+      },
+    },
+  },
   title: 'Create Field Input',
   type: 'object',
 }

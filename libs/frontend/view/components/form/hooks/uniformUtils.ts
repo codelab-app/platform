@@ -30,29 +30,47 @@ ajv.addSchema({
   definitions: {
     // this allows validation on array or object type that references itself
     fieldDefaultValues: {
-      oneOf: [
+      anyOf: [
         {
-          nullable: true,
           type: 'string',
         },
         {
           type: 'boolean',
         },
         {
-          nullable: true,
           type: ['number', 'integer'],
         },
         {
           items: { $ref: '#/definitions/fieldDefaultValues' },
-          nullable: true,
           type: 'array',
         },
         {
-          nullable: true,
           patternProperties: {
             '^.*$': { $ref: '#/definitions/fieldDefaultValues' },
           },
           type: 'object',
+        },
+      ],
+    },
+    // Adding these definitions here to avoid type errors because
+    // JSONSchemaType does not support unions although json schema does
+    fieldDefaultValuesOrNullableFieldDefaultValues: {
+      anyOf: [
+        {
+          $ref: '#/definitions/fieldDefaultValues',
+        },
+        {
+          $ref: '#/definitions/nullableFieldDefaultValues',
+        },
+      ],
+    },
+    nullableFieldDefaultValues: {
+      anyOf: [
+        {
+          $ref: '#/definitions/fieldDefaultValues',
+        },
+        {
+          type: 'null',
         },
       ],
     },
