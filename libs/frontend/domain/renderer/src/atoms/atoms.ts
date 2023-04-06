@@ -8,7 +8,7 @@ import { reactAtoms, reactPropsCustomizer } from './react'
 import type { AtomCustomizer } from './types'
 
 // Add new atom records here
-const allAtoms: IAtomRendererRecord = {
+export const allAtoms: IAtomRendererRecord = {
   ...htmlAtoms,
   ...codelabAtoms,
   ...antdAtoms,

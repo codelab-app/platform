@@ -29,6 +29,7 @@ import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 import type { ITypedValueTransformer } from './abstract/ITypedValueTransformer'
+import { allAtoms } from './atoms'
 import type { ElementWrapperProps } from './element/ElementWrapper'
 import { ElementWrapper } from './element/ElementWrapper'
 import { makeCustomTextContainer } from './element/wrapper.utils'
@@ -97,7 +98,7 @@ export class Renderer
   implements IRenderer
 {
   onAttachedToRootStore() {
-    void expressionTransformer.init()
+    void expressionTransformer.init({ atoms: allAtoms, React })
   }
 
   renderRoot() {

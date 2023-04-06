@@ -8,7 +8,7 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep } from '@codelab/shared/utils'
 import isString from 'lodash/isString'
 
-export const hasStateExpression = (str: string): boolean =>
+export const hasStateExpression = (str: unknown): boolean =>
   isString(str) &&
   str.includes(STATE_PATH_TEMPLATE_START) &&
   str.includes(STATE_PATH_TEMPLATE_END)
@@ -70,18 +70,17 @@ export const getByExpression = (key: string, context: IPropData) => {
 }
 
 interface ExpressionTransformer {
+  context: object
   initialized: boolean
   transform: Nullable<(code: string) => { code: string | null }>
 
-  init(): Promise<void>
-  transpileAndEvaluateExpression(
-    expression: string,
-    evaluationContext: IPropData,
-  ): unknown
+  init(context: object): Promise<void>
+  transpileAndEvaluateExpression(expression: string): unknown
 }
 
 export const expressionTransformer: ExpressionTransformer = {
-  init: async function () {
+  context: {},
+  init: async function (context: object) {
     if (this.initialized) {
       return
     }
@@ -89,14 +88,12 @@ export const expressionTransformer: ExpressionTransformer = {
     const { transform } = await import('buble')
 
     this.transform = transform
+    this.context = context
     this.initialized = true
   },
   initialized: false,
   transform: null,
-  transpileAndEvaluateExpression: function (
-    expression: string,
-    evaluationContext: IPropData,
-  ) {
+  transpileAndEvaluateExpression: function (expression: string) {
     if (!this.transform) {
       throw new Error(
         'BabelExpressionsTranspiler needs to be initialized first. Make sure to call "init" first.',
@@ -113,7 +110,7 @@ export const expressionTransformer: ExpressionTransformer = {
       const { code } = this.transform(wrappedExpression)
 
       // eslint-disable-next-line no-new-func
-      return new Function('return ' + (code ?? '')).call(evaluationContext)
+      return new Function('return ' + (code ?? '')).call(this.context)
     } catch (error) {
       console.log(error)
 
