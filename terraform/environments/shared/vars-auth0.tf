@@ -1,4 +1,4 @@
-variable "NEXT_PUBLIC_BUILDER_HOST" {
+variable "NEXT_PUBLIC_PLATFORM_HOST" {
   type = string
 }
 
@@ -26,6 +26,7 @@ variable "AUTH0_CYPRESS_PASSWORD" {
   type = string
 }
 
+# Not used on some env (test), but add here for easier grouping
 variable "AUTH0_SECRET" {
   type = string
 }

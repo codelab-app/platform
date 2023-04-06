@@ -21,7 +21,3 @@ variable "SLACK_DEFAULT_CHANNEL" {
 variable "TERRAFORM_TOKEN" {
   type = string
 }
-
-variable "AUTH0_SECRET" {
-  type = string
-}

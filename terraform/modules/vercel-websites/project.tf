@@ -20,8 +20,8 @@ resource "vercel_project" "websites" {
   environment = [
     {
       target = ["production", "preview"]
-      key    = "NEXT_PUBLIC_BUILDER_HOST"
-      value  = var.next_public_builder_host
+      key    = "NEXT_PUBLIC_PLATFORM_HOST"
+      value  = var.next_public_platform_host
     },
     # Auth0
     {

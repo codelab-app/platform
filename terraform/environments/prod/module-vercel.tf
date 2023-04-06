@@ -6,12 +6,12 @@ provider "vercel" {
   team = var.VERCEL_TEAM_ID
 }
 
-module "vercel-builder" {
-  source = "../../modules/vercel-builder"
+module "vercel-platform" {
+  source = "../../modules/vercel-platform"
 
   depends_on = [module.auth0]
 
-  next_public_builder_host = var.NEXT_PUBLIC_BUILDER_HOST
+  next_public_platform_host = var.NEXT_PUBLIC_PLATFORM_HOST
   # next_public_landing_host = var.NEXT_PUBLIC_LANDING_HOST
 
   auth0_issuer_base_url   = var.AUTH0_ISSUER_BASE_URL
@@ -39,7 +39,7 @@ module "vercel-websites" {
 
   depends_on = [module.auth0]
 
-  next_public_builder_host = var.NEXT_PUBLIC_BUILDER_HOST
+  next_public_platform_host = var.NEXT_PUBLIC_PLATFORM_HOST
   # next_public_landing_host = var.NEXT_PUBLIC_LANDING_HOST
 
   auth0_issuer_base_url   = var.AUTH0_ISSUER_BASE_URL

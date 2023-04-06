@@ -6,13 +6,13 @@ provider "circleci" {
 }
 
 locals {
-  project_name = "builder"
+  project_name = "platform"
   organization = "codelab-app"
 }
 
-resource "circleci_environment_variable" "NEXT_PUBLIC_BUILDER_HOST" {
-  name         = "NEXT_PUBLIC_BUILDER_HOST"
-  value        = var.next_public_builder_host
+resource "circleci_environment_variable" "NEXT_PUBLIC_PLATFORM_HOST" {
+  name         = "NEXT_PUBLIC_PLATFORM_HOST"
+  value        = var.next_public_platform_host
   project      = local.project_name
   organization = local.organization
 }

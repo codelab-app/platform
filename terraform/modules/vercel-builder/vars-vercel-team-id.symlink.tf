@@ -1,1 +1,0 @@
-../vercel/vars-team-id.tf

@@ -1,0 +1,88 @@
+{
+  "name": "platform-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/platform-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/platform-e2e/cypress.ci.config.ts",
+        "tsConfig": "./tsconfig.base.json",
+        "baseUrl": "http://127.0.0.1:3001",
+        "browser": "electron",
+        "testingType": "e2e"
+      },
+      "configurations": {
+        "ci": {
+          "baseUrl": "http://127.0.0.1:3000",
+          "cypressConfig": "apps/platform-e2e/cypress.ci.config.ts",
+          "devServerTarget": "platform-e2e:serve:ci",
+          "record": true,
+          "parallel": true,
+          "verbose": true
+        },
+        "test": {
+          "cypressConfig": "apps/platform-e2e/cypress.test.config.ts",
+          "devServerTarget": "platform-e2e:serve:test",
+          "record": true
+        },
+        "dev": {
+          "cypressConfig": "apps/platform-e2e/cypress.test.config.ts",
+          "devServerTarget": "platform-e2e:serve:dev",
+          "record": true,
+          "watch": true,
+          "exit": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": true,
+        "readyWhen": "READY"
+      },
+      "configurations": {
+        "dev": {
+          "commands": [
+            {
+              "command": "nx serve-test platform -c dev"
+            },
+            {
+              "command": "npx wait-on --interval 1000 --delay 5000 'http://127.0.0.1:3001' && echo 'READY'"
+            }
+          ]
+        },
+        "test": {
+          "commands": [
+            {
+              "command": "npx wait-on --interval 1000 --delay 3000 'http://127.0.0.1:3001' && echo 'READY'"
+            },
+            {
+              "command": "nx serve-test platform -c test"
+            }
+          ]
+        },
+        "ci": {
+          "commands": [
+            {
+              "command": "npx wait-on --interval 1000 --delay 3000 'http://127.0.0.1:3000' && echo 'READY'"
+            },
+            {
+              "command": "nx serve-test platform -c ci"
+            }
+          ]
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/platform-e2e/**/*.{js,ts}"]
+      },
+      "outputs": ["{options.outputFile}"]
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["platform"]
+}

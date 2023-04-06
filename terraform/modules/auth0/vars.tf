@@ -1,11 +1,11 @@
-variable "next_public_builder_host" {
+variable "next_public_platform_host" {
   type        = string
   description = "Domain of our project"
 }
 
 locals {
   # This has correct protocol added
-  builder_url = startswith(var.next_public_builder_host, "127.0.0.1") ? "http://${var.next_public_builder_host}" : "https://${var.next_public_builder_host}"
+  builder_url = startswith(var.next_public_platform_host, "127.0.0.1") ? "http://${var.next_public_platform_host}" : "https://${var.next_public_platform_host}"
 }
 
 variable "auth0_issuer_base_url" {

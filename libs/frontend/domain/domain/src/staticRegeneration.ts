@@ -1,4 +1,4 @@
-const baseUrl = process.env['NEXT_PUBLIC_BUILDER_HOST']
+const baseUrl = process.env['NEXT_PUBLIC_PLATFORM_HOST']
 
 // makes a call to the builder backend where session is checked
 // and request will be redirected to appropriate user domain

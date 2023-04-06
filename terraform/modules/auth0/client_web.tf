@@ -15,7 +15,8 @@ resource "auth0_client" "web_client" {
   allowed_origins = [
     "${local.builder_url}",
   "https://*.vercel.app"]
-  grant_types = ["authorization_code", "implicit", "password", "refresh_token", "client_credentials"]
+  grant_types = ["authorization_code", "implicit", "password", "refresh_token"]
+  token_endpoint_auth_method = "${terraform.workspace}" == "prod" ? "client_secret_post" : "none"
 
   jwt_configuration {
     # lifetime_in_seconds = var.jwt_lifetime_in_seconds

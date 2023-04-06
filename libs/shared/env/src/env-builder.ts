@@ -32,7 +32,7 @@ interface EnvBuilder {
 export const EnvBuilder = (): EnvBuilder => {
   const auth0baseUrl = isVercelPreview
     ? env.get('VERCEL_URL').required().asString()
-    : env.get('NEXT_PUBLIC_BUILDER_HOST').required().asString()
+    : env.get('NEXT_PUBLIC_PLATFORM_HOST').required().asString()
 
   const isDev = auth0baseUrl.startsWith('127.0.0.1')
   const protocol = isDev ? 'http' : 'https'

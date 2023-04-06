@@ -221,14 +221,14 @@ jobs:
       - run:
           name: 'Build CI'
           # Can't use `yarn cli` doesn't exist yet
-          command: npx nx run-many --target=build --projects=builder,cli,landing,websites --parallel=4 --verbose -c ci
+          command: npx nx run-many --target=build --projects=platform,cli,landing,websites --parallel=4 --verbose -c ci
       - save_cache:
           name: 'Save Cache'
           key: dep-cache-bust-{{ checksum "yarn.lock" }}
           paths:
             - ~/.yarn
             - ~/.cache
-            - ~/project/dist/apps/builder/.next/cache
+            - ~/project/dist/apps/platform/.next/cache
             - ~/project/dist/apps/landing/.next/cache
             - ~/project/dist/apps/websites/.next/cache
             - ~/project/node_modules
@@ -327,13 +327,13 @@ jobs:
           name: 'Run E2E Tests'
           command: yarn cli tasks e2e --stage ci
       - store_artifacts:
-          path: ~/project/apps/builder-e2e/src/videos
+          path: ~/project/apps/platform-e2e/src/videos
           destination: cypress/videos
       - store_artifacts:
-          path: ~/project/apps/builder-e2e/src/screenshots
+          path: ~/project/apps/platform-e2e/src/screenshots
           destination: cypress/screenshots
       - store_artifacts:
-          path: ~/project/apps/builder-e2e/src/data
+          path: ~/project/apps/platform-e2e/src/data
           destination: cypress/data
 
   plan:

@@ -21,6 +21,7 @@
     "test": "nx run-many --all --target=test --parallel=3",
     "lint-backup": "nx workspace-lint && nx run-many --all --target=lint --parallel=5",
     "lint": "nx run-many --all --target=lint --parallel=5",
+    "format": "npx prettier --write \"./**/*.{graphql,yaml,json}\"",
     "nx": "nx",
     "update": "nx migrate @nrwl/workspace",
     "dep-graph": "nx dep-graph --watch",

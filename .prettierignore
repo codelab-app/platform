@@ -1,8 +1,7 @@
 node_modules
 dist
 yarn-error.log
+.terraform
 yarn.lock
 .yarn
 tmp
-seed-data-2.test.json
-seed-data.test.json

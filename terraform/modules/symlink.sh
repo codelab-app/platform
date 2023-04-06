@@ -8,12 +8,12 @@ rm ./**/*.symlink.tf
 ln -s ../auth0/vars.tf ./circleci/vars-auth0.symlink.tf
 ln -s ../auth0-output/vars.tf ./circleci/vars-auth0-output.symlink.tf
 
-# Vercel Builder
-ln -s ../vercel/vars-team-id.tf ./vercel-builder/vars-vercel-team-id.symlink.tf
-ln -s ../vercel/vars-api-token.tf ./vercel-builder/vars-vercel-api-token.symlink.tf
-ln -s ../auth0/vars.tf ./vercel-builder/vars-auth0.symlink.tf
-ln -s ../auth0-output/vars.tf ./vercel-builder/vars-auth0-output.symlink.tf
-ln -s ../neo4j/vars.tf ./vercel-builder/vars-neo4j.symlink.tf
+# Vercel Platform
+ln -s ../vercel/vars-team-id.tf ./vercel-platform/vars-vercel-team-id.symlink.tf
+ln -s ../vercel/vars-api-token.tf ./vercel-platform/vars-vercel-api-token.symlink.tf
+ln -s ../auth0/vars.tf ./vercel-platform/vars-auth0.symlink.tf
+ln -s ../auth0-output/vars.tf ./vercel-platform/vars-auth0-output.symlink.tf
+ln -s ../neo4j/vars.tf ./vercel-platform/vars-neo4j.symlink.tf
 
 # # Vercel Landing
 ln -s ../hotjar/vars.tf ./vercel-landing/vars-hotjar.symlink.tf

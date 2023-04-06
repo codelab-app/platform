@@ -1,0 +1,31 @@
+{
+  "extends": ["plugin:cypress/recommended", "../../.eslintrc.json"],
+  "plugins": [],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parserOptions": {
+        "project": ["apps/platform-e2e/tsconfig(.*)?.json"]
+      },
+      "rules": {
+        "import/no-unresolved": "error",
+        "import/named": "error",
+        "jest/valid-expect": "off",
+        "@nrwl/nx/enforce-module-boundaries": "off",
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    },
+    {
+      "files": ["*.spec*.ts"],
+      "rules": {}
+    },
+    {
+      "files": ["src/plugins/index.js"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off",
+        "no-undef": "off"
+      }
+    }
+  ]
+}

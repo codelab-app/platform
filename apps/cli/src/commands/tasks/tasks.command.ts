@@ -40,11 +40,11 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           if (stage === Stage.Test) {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
-            execCommand(`${NX_TEST} build builder -c test`)
+            execCommand(`${NX_TEST} build platform -c test`)
           }
 
           if (stage === Stage.CI) {
-            execCommand(`nx build builder -c ci`)
+            execCommand(`nx build platform -c ci`)
           }
         },
       )
@@ -56,7 +56,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           if (stage === Stage.Test) {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
-            // execCommand(`${NX_TEST} build builder -c test`)
+            // execCommand(`${NX_TEST} build platform -c test`)
             execCommand(
               `${NX_TEST} affected --target=test --testPathPattern="[^i].spec.ts" --memoryLimit=8192 --color`,
             )
@@ -105,7 +105,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           }
 
           if (stage === Stage.CI) {
-            const startServer = `nx serve-test builder -c ci`
+            const startServer = `nx serve-test platform -c ci`
             const runSpecs = `npx wait-on 'http://127.0.0.1:3000' && yarn graphql-codegen && exit 0`
 
             const runSpecsChildProcess = spawn(runSpecs, {
@@ -163,15 +163,15 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
         (argv) => argv,
         ({ stage }) => {
           if (stage === Stage.Test) {
-            execCommand(`${NX_TEST} run builder-e2e:e2e:test --verbose`)
+            execCommand(`${NX_TEST} run platform-e2e:e2e:test --verbose`)
           }
 
           if (stage === Stage.Dev) {
-            execCommand(`${NX_TEST} e2e builder-e2e -c dev`)
+            execCommand(`${NX_TEST} e2e platform-e2e -c dev`)
           }
 
           if (stage === Stage.CI) {
-            execCommand(`npx nx run builder-e2e:e2e:ci --verbose`)
+            execCommand(`npx nx run platform-e2e:e2e:ci --verbose`)
           }
         },
       )
@@ -187,9 +187,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
 
           if (stage === Stage.CI) {
             execCommand(`npx nx affected --target=lint --parallel=4`)
-            execCommand(
-              `npx prettier --check "./**/*.{graphql,yaml,json}" "./*.json"`,
-            )
+            execCommand(`npx prettier --check "./**/*.{graphql,yaml,json}"`)
             // execCommand(
             //   `yarn madge --circular apps libs --extensions ts,tsx,js,jsx`,
             // )

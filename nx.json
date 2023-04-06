@@ -15,7 +15,7 @@
       }
     }
   },
-  "defaultProject": "builder",
+  "defaultProject": "platform",
   "generators": {
     "@nrwl/workspace": {
       "library": {
