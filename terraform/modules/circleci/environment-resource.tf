@@ -52,6 +52,13 @@ resource "circleci_environment_variable" "AUTH0_ISSUER_BASE_URL" {
   organization = local.organization
 }
 
+resource "circleci_environment_variable" "AUTH0_AUDIENCE" {
+  name         = "AUTH0_AUDIENCE"
+  value        = "${var.auth0_issuer_base_url}api/v2/"
+  project      = local.project_name
+  organization = local.organization
+}
+
 resource "circleci_environment_variable" "AUTH0_SECRET" {
   name         = "AUTH0_SECRET"
   value        = var.auth0_secret
