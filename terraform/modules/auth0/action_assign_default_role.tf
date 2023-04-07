@@ -6,6 +6,11 @@ resource "auth0_action" "assign_default_role" {
     version = "v3"
   }
 
+  dependencies {
+    name    = "auth0"
+    version = "2.27.0"
+  }
+
   runtime = "node16"
   code    = <<-EOT
     /**
