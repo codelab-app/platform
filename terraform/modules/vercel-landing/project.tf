@@ -8,7 +8,7 @@ resource "vercel_project" "landing" {
     repo = "codelab-app/platform"
   }
 
-  ignore_command   = "git diff --quiet HEAD^ HEAD ./"
+  ignore_command   = "npx nx-ignore landing"
   build_command    = "./scripts/vercel/landing/build.sh"
   output_directory = "dist/apps/landing/.next"
   install_command  = "./scripts/vercel/landing/install.sh"
