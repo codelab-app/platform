@@ -68,7 +68,7 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
 
     // in development need to execute this each time page is loaded,
     // since useUser always returns valid Auth0 user even when it does not exist in neo4j db yet
-    if (process.env.NEXT_PUBLIC_PLATFORM_HOST?.includes('127.0.0.1')) {
+    if (user && process.env.NEXT_PUBLIC_PLATFORM_HOST?.includes('127.0.0.1')) {
       void fetch('/api/upsert-user')
     }
   }, [user?.sub])
