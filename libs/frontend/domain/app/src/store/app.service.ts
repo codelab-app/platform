@@ -12,7 +12,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getDomainService } from '@codelab/frontend/domain/domain'
-import { getPageService, pageApi } from '@codelab/frontend/domain/page'
+import { getPageService, pageApi, pageRef } from '@codelab/frontend/domain/page'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getResourceService } from '@codelab/frontend/domain/resource'
 import { getStoreService } from '@codelab/frontend/domain/store'
@@ -21,6 +21,7 @@ import { getTypeService } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
   AppWhere,
+  BuilderPageFragment,
   GetRenderedPageAndCommonAppDataQuery,
 } from '@codelab/shared/abstract/codegen'
 import flatMap from 'lodash/flatMap'
@@ -117,9 +118,7 @@ export class AppService
    * - Hydrate element
    */
   @modelAction
-  loadPages = ({ appData, components, pageId }: IPageBuilderAppProps) => {
-    const app = this.add(appData)
-
+  loadPages = ({ components = [], pages }: IPageBuilderAppProps) => {
     components.forEach((componentData) => {
       this.propService.add(componentData.props)
       this.componentService.add(componentData)
@@ -135,7 +134,7 @@ export class AppService
         components,
         ({ rootElement }) => rootElement.descendantElements,
       ),
-      ...flatMap(appData.pages, ({ rootElement }) => [
+      ...flatMap(pages, ({ rootElement }) => [
         rootElement,
         ...rootElement.descendantElements,
       ]),
@@ -160,17 +159,10 @@ export class AppService
       this.elementService.add(elementData)
     })
 
-    appData.pages.forEach((pageData) => {
+    pages.forEach((pageData) => {
       this.storeService.add(pageData.store)
       this.pageService.add(pageData)
     })
-
-    const page = app.page(pageId)
-
-    return {
-      app,
-      page,
-    }
   }
 
   /**
@@ -311,7 +303,7 @@ export class AppService
     /**
      * Load app, pages, elements
      */
-    const { app } = this.loadPages({ appData, components, pageId })
+    this.loadPages({ components, pages: appData.pages })
 
     this.typeService.loadTypes(types)
 
@@ -324,7 +316,44 @@ export class AppService
 
     this.storeService.load(stores)
 
-    return app
+    return this.add(appData)
+  })
+
+  /**
+    This function fetches all the pages that were not loaded yet for specified app.
+    This will populate dropdown menu in builder header with all valid pages,
+    as well as make page switching instant
+   */
+  @modelFlow
+  @transaction
+  lazyGetRemainingPages = _async(function* (this: AppService, appId: string) {
+    const app = this.app(appId)
+
+    if (!app) {
+      return
+    }
+
+    const loadedPagesIds = app.pages
+      .map((page) => page.current.id)
+      .map((id) => ({ NOT: { id } }))
+
+    const pages = (yield* _await(
+      this.pageService.pageRepository.find({
+        AND: [{ appConnection: { node: { id: appId } } }, ...loadedPagesIds],
+      }),
+    )) as Array<BuilderPageFragment>
+
+    this.loadPages({ pages })
+
+    pages.forEach(({ id }) => {
+      const pageExistsInApp = app.pages.find(
+        (appPage) => appPage.current.id === id,
+      )
+
+      if (!pageExistsInApp) {
+        app.pages.push(pageRef(id))
+      }
+    })
   })
 
   @modelFlow

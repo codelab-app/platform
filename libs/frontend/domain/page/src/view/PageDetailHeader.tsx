@@ -16,12 +16,11 @@ import {
   useCurrentPageId,
   useStore,
 } from '@codelab/frontend/presenter/container'
-import { useAsync } from '@react-hookz/web'
 import { InputNumber, Menu, Space } from 'antd'
 import type { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import tw from 'twin.macro'
 
 export type MenuItemProps = ItemType & {
@@ -33,15 +32,6 @@ export const PageDetailHeader = observer(() => {
   const router = useRouter()
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
-
-  const getPages = useAsync(() =>
-    pageService.getAll({ appConnection: { node: { id: appId } } }),
-  )[1]
-
-  useEffect(() => {
-    void getPages.execute()
-  }, [appId])
-
   const pagesList = pageService.pagesByApp(appId)
   const currentPage = pagesList.find((page) => page.id === pageId)
   const isBuilder = router.pathname === PageType.PageBuilder

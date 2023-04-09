@@ -18,7 +18,7 @@ import type {
   IPageBuilderAppProps,
   IUpdateAppData,
 } from './app.dto.interface'
-import type { IApp, IBuilderApp } from './app.model.interface'
+import type { IApp } from './app.model.interface'
 
 export interface IAppService
   extends ICRUDService<IApp, ICreateAppData, IUpdateAppData>,
@@ -36,6 +36,7 @@ export interface IAppService
     pageId: string,
     initialData?: GetRenderedPageAndCommonAppDataQuery,
   ): Promise<IApp | undefined>
+  lazyGetRemainingPages(appId: string): Promise<void>
   loadAppsWithNestedPreviews(where: AppWhere): Promise<Array<IApp>>
-  loadPages(data: IPageBuilderAppProps): IBuilderApp
+  loadPages(data: IPageBuilderAppProps): void
 }

@@ -1,4 +1,4 @@
-import type { IApp, IPage, IRenderer } from '@codelab/frontend/abstract/core'
+import type { IPage, IRenderer } from '@codelab/frontend/abstract/core'
 import { RendererTab } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
@@ -11,7 +11,6 @@ import { BaseBuilder } from './BaseBuilder'
 import { BuilderComponent } from './Builder-Component'
 
 export interface BuilderTabsProps {
-  app: Maybe<IApp>
   error: Nullish<string>
   isLoading: boolean
   page: Maybe<IPage>
@@ -19,7 +18,7 @@ export interface BuilderTabsProps {
 }
 
 export const BuilderTabs = observer<BuilderTabsProps>(
-  ({ app, error, isLoading, page, renderer }) => {
+  ({ error, isLoading, page, renderer }) => {
     const { builderService } = useStore()
     const store = page?.store.current
 

@@ -11,6 +11,7 @@ import { PageDetailHeader } from '@codelab/frontend/domain/page'
 import {
   useCurrentAppId,
   useCurrentPageId,
+  useRemainingPages,
   useRenderedPage,
   useStore,
 } from '@codelab/frontend/presenter/container'
@@ -26,7 +27,7 @@ import Head from 'next/head'
 import React, { useMemo } from 'react'
 
 const PageBuilder: CodelabPage<BuilderTabsProps> = observer(
-  ({ app, error, isLoading, page, renderer }) => {
+  ({ error, isLoading, page, renderer }) => {
     return (
       <>
         <Head>
@@ -34,7 +35,6 @@ const PageBuilder: CodelabPage<BuilderTabsProps> = observer(
         </Head>
 
         <BuilderTabs
-          app={app}
           error={error}
           isLoading={isLoading}
           page={page}
@@ -50,26 +50,33 @@ export const getServerSideProps = auth0Instance.withPageAuthRequired({})
 PageBuilder.Layout = observer(({ children }) => {
   const { builderRenderService } = useStore()
 
-  const [{ error, result, status }, actions] = useRenderedPage({
+  const [{ error, status }, loadCurrentPage] = useRenderedPage({
     rendererType: RendererType.PageBuilder,
     renderService: builderRenderService,
   })
 
-  useMountEffect(actions.execute)
+  const [, lazilyLoadRemainingPages] = useRemainingPages()
 
+  useMountEffect(async () => {
+    await loadCurrentPage.execute()
+    await lazilyLoadRemainingPages.execute()
+  })
+
+  const isLoading = status !== 'success'
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
-  const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
+  const renderer = builderRenderService.renderers.get(pageId)
+  const page = renderer?.elementTree.current
   const contentStyles = useMemo(() => ({ paddingTop: '0rem' }), [])
 
   const ConfigPaneComponent = () => (
-    <Spinner isLoading={status !== 'success'}>
-      <ConfigPane renderService={pageBuilderRenderer} />
+    <Spinner isLoading={isLoading}>
+      <ConfigPane renderService={renderer} />
     </Spinner>
   )
 
   const ExplorerPaneComponent = () => (
-    <Spinner isLoading={status !== 'success'}>
+    <Spinner isLoading={isLoading}>
       <BuilderExplorerPane pageId={pageId} />
     </Spinner>
   )
@@ -84,13 +91,7 @@ PageBuilder.Layout = observer(({ children }) => {
         headerHeight={48}
         sidebarNavigation={sidebarNavigation({ appId, pageId })}
       >
-        {children({
-          app: result?.app,
-          error,
-          isLoading: status !== 'success',
-          page: result?.page,
-          renderer: result?.renderer,
-        })}
+        {children({ error, isLoading, page, renderer })}
       </DashboardTemplate>
     </BuilderContext>
   )
