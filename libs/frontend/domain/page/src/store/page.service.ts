@@ -191,9 +191,13 @@ export class PageService
   @modelFlow
   @transaction
   delete = _async(function* (this: PageService, page: IPage) {
-    const { id } = page
+    const { id, rootElement, store } = page
+    const storeCurrent = store.current
+
     this.pages.delete(id)
 
+    yield* _await(this.storeService.delete(storeCurrent))
+    yield* _await(this.elementService.delete({ id: rootElement.id }))
     yield* _await(this.pageRepository.delete([page]))
 
     return page!
