@@ -32,9 +32,6 @@ fragment BuilderPage on Page {
   }
   app {
     id
-    owner {
-      ...Owner
-    }
   }
   store {
     ...Store

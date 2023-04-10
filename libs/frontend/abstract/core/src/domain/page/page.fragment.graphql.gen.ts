@@ -1,13 +1,11 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { ElementFragment } from '../element/element.fragment.graphql.gen'
-import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import { StoreFragment } from '../store/store.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { ElementFragmentDoc } from '../element/element.fragment.graphql.gen'
-import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
 export type PageFragment = {
   id: string
@@ -26,7 +24,7 @@ export type BuilderPageFragment = {
   slug: string
   kind: Types.PageKind
   rootElement: { descendantElements: Array<ElementFragment> } & ElementFragment
-  app: { id: string; owner: OwnerFragment }
+  app: { id: string }
   store: StoreFragment
   pageContentContainer?: { id: string } | null
 }
@@ -69,9 +67,6 @@ export const BuilderPageFragmentDoc = gql`
     }
     app {
       id
-      owner {
-        ...Owner
-      }
     }
     store {
       ...Store
@@ -82,7 +77,6 @@ export const BuilderPageFragmentDoc = gql`
     kind
   }
   ${ElementFragmentDoc}
-  ${OwnerFragmentDoc}
   ${StoreFragmentDoc}
 `
 

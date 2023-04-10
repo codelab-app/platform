@@ -124,6 +124,8 @@ export class AppService
 
     components.forEach((componentData) => {
       this.propService.add(componentData.props)
+      this.componentService.add(componentData)
+      this.typeService.addInterface(componentData.api)
     })
 
     // Sorting the components here so that they will be sorted when referenced in the
@@ -155,15 +157,6 @@ export class AppService
         )
 
         this.atomService.add(elementData.renderAtomType)
-      }
-
-      if (elementData.renderComponentType || elementData.parentComponent) {
-        const component = (elementData.renderComponentType ??
-          elementData.parentComponent)!
-
-        this.typeService.addInterface(component.api)
-
-        this.componentService.add(component)
       }
 
       this.elementService.add(elementData)

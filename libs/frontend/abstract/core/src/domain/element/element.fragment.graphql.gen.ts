@@ -1,14 +1,12 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { ComponentFragment } from '../component/component.fragment.graphql.gen'
-import { PropFragment } from '../prop/prop.fragment.graphql.gen'
 import { AtomFragment } from '../atom/atom.fragment.graphql.gen'
+import { PropFragment } from '../prop/prop.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { ComponentFragmentDoc } from '../component/component.fragment.graphql.gen'
-import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
 import { AtomFragmentDoc } from '../atom/atom.fragment.graphql.gen'
+import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
 export type ElementFragment = {
   __typename: 'Element'
   id: string
@@ -19,12 +17,12 @@ export type ElementFragment = {
   renderIfExpression?: string | null
   propTransformationJs?: string | null
   page?: { id: string } | null
-  renderComponentType?: ComponentFragment | null
+  renderComponentType?: { id: string } | null
   renderAtomType?: AtomFragment | null
   renderType?: { id: string; kind: Types.RenderTypeKind } | null
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
-  parentComponent?: ComponentFragment | null
+  parentComponent?: { id: string } | null
   parent?: { id: string } | null
   firstChild?: { id: string } | null
   props: PropFragment
@@ -43,7 +41,7 @@ export const ElementFragmentDoc = gql`
       id
     }
     renderComponentType {
-      ...Component
+      id
     }
     renderAtomType {
       ...Atom
@@ -59,7 +57,7 @@ export const ElementFragmentDoc = gql`
       id
     }
     parentComponent {
-      ...Component
+      id
     }
     parent {
       id
@@ -80,7 +78,6 @@ export const ElementFragmentDoc = gql`
     }
     propTransformationJs
   }
-  ${ComponentFragmentDoc}
   ${AtomFragmentDoc}
   ${PropFragmentDoc}
 `

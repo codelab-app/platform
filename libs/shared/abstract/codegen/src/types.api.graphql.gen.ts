@@ -20267,9 +20267,7 @@ export type ElementFragment = {
   renderIfExpression?: string | null
   propTransformationJs?: string | null
   page?: { __typename?: 'Page'; id: string } | null
-  renderComponentType?:
-    | ({ __typename?: 'Component' } & ComponentFragment)
-    | null
+  renderComponentType?: { __typename?: 'Component'; id: string } | null
   renderAtomType?: ({ __typename?: 'Atom' } & AtomFragment) | null
   renderType?: {
     __typename?: 'RenderType'
@@ -20278,7 +20276,7 @@ export type ElementFragment = {
   } | null
   prevSibling?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null
-  parentComponent?: ({ __typename?: 'Component' } & ComponentFragment) | null
+  parentComponent?: { __typename?: 'Component'; id: string } | null
   parent?: { __typename?: 'Element'; id: string } | null
   firstChild?: { __typename?: 'Element'; id: string } | null
   props: { __typename?: 'Prop' } & PropFragment
@@ -20327,11 +20325,7 @@ export type BuilderPageFragment = {
     __typename?: 'Element'
     descendantElements: Array<{ __typename?: 'Element' } & ElementFragment>
   } & ElementFragment
-  app: {
-    __typename?: 'App'
-    id: string
-    owner: { __typename?: 'User' } & OwnerFragment
-  }
+  app: { __typename?: 'App'; id: string }
   store: { __typename?: 'Store' } & StoreFragment
   pageContentContainer?: { __typename?: 'Element'; id: string } | null
 }
