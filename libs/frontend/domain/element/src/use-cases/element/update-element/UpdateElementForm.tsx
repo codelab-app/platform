@@ -14,6 +14,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { SelectAction } from '@codelab/frontend/domain/type'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import {
@@ -71,8 +72,10 @@ const makeCurrentModel = (element: IElement) => {
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
   ({ element, elementService, renderer, trackPromises }) => {
+    const { builderService } = useStore()
     const { trackPromise } = trackPromises ?? {}
     const model = makeCurrentModel(element)
+    const parentComponent = builderService.activeComponent?.current
 
     const onSubmit = (data: IUpdateElementData) => {
       const promise = elementService.update(data)
@@ -133,7 +136,10 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             'name',
           ]}
         />
-        <RenderTypeCompositeField name="renderType" />
+        <RenderTypeCompositeField
+          name="renderType"
+          parentComponent={parentComponent}
+        />
         <AutoField
           component={CodeMirrorField({
             customOptions: createAutoCompleteOptions(propsData, 'this'),

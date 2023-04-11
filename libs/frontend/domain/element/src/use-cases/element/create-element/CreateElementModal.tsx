@@ -18,7 +18,7 @@ import { useRequiredParentValidator } from '../../../utils'
 import { createElementSchema } from './create-element.schema'
 
 export const CreateElementModal = observer(() => {
-  const { elementService, userService } = useStore()
+  const { builderService, elementService, userService } = useStore()
   const { metadata, parentElement } = elementService.createModal
   const elementOptions = metadata?.elementOptions
   const { validateParentForCreate } = useRequiredParentValidator()
@@ -67,7 +67,7 @@ export const CreateElementModal = observer(() => {
     ? parentElement.renderType.current
     : undefined
 
-  const parentComponent = parentElement.parentComponent?.current
+  const parentComponent = builderService.activeComponent?.current
 
   return (
     <ModalForm.Modal

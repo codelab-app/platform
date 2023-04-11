@@ -30,8 +30,11 @@ export const SelectComponent = ({
 
     const descendants = component.rootElement.current.descendantElements
 
-    return !descendants.some(
-      ({ renderType }) => renderType?.maybeCurrent?.id === parent?.id,
+    return (
+      !parent?.id ||
+      !descendants.some(
+        ({ renderType }) => renderType?.maybeCurrent?.id === parent.id,
+      )
     )
   })
 
