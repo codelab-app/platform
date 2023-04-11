@@ -4,6 +4,7 @@ import {
   hasStateExpression,
 } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import merge from 'lodash/merge'
 import { ExtendedModel, model } from 'mobx-keystone'
 import type { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
 import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
@@ -51,7 +52,11 @@ export class RenderPropTypedValueTransformer
       return value
     }
 
-    return (renderPropArgs: Array<unknown>) =>
-      this.renderer.renderElement(rootElement, renderPropArgs)
+    // spread is required to access all args not just the first one
+    return (...renderPropArgs: Array<object>) => {
+      console.log(renderPropArgs.reduce(merge, {}))
+
+      return this.renderer.renderElement(rootElement, renderPropArgs)
+    }
   }
 }
