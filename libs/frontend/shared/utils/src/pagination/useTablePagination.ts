@@ -44,12 +44,6 @@ export const useTablePagination = <
         newPage?: number
         newPageSize?: number
       }) => {
-        console.log('newFilter', newFilter.name)
-        console.log(
-          'service.paginationService.filter',
-          service.paginationService.filter.name,
-        )
-
         const goBackToFirstPage =
           newPageSize !== service.paginationService.pageSize ||
           !isMatch(newFilter, service.paginationService.filter)

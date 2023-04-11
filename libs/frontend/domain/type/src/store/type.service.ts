@@ -19,7 +19,6 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
-  arraySet,
   idProp,
   Model,
   model,
@@ -49,7 +48,6 @@ export class TypeService
     paginationService: prop(
       () => new PaginationService<IType, { name?: string }>({}),
     ),
-    selectedIds: prop(() => arraySet<string>()).withSetter(),
     typeRepository: prop(() => new TypeRepository({})),
     /**
      * This holds all types
@@ -147,6 +145,12 @@ export class TypeService
 
   @modelAction
   add(typeDTO: ITypeDTO) {
+    const existingType = this.types.get(typeDTO.id)
+
+    if (existingType) {
+      return existingType
+    }
+
     const type = TypeFactory.create(typeDTO)
 
     this.types.set(type.id, type)
@@ -204,13 +208,14 @@ export class TypeService
       const parentIds = typeFragments.map((typeFragment) => typeFragment.id)
 
       // load the descendants of the requested types
-      const descendantTypeFragments = yield* _await(
-        this.typeRepository.findDescendants(parentIds),
-      )
+      // we dont need to get the descendants if all types are requested i.e. no `ids` provided
+      const descendantTypeFragments = ids
+        ? yield* _await(this.typeRepository.findDescendants(parentIds))
+        : []
 
       const newFragments = [...typeFragments, ...descendantTypeFragments]
 
-      // initialize fields
+      // dont include descendant types and return only requested types unless all is requested i.e. no `ids`
       newTypes = compact(
         newFragments.map((typeFragment) => {
           if (typeFragment.__typename === TypeKind.InterfaceType) {
@@ -221,7 +226,7 @@ export class TypeService
 
           const newType = this.add(typeFragment)
 
-          return newIds?.includes(typeFragment.id) ? newType : undefined
+          return newIds?.includes(typeFragment.id) || !ids ? newType : undefined
         }),
       )
     }

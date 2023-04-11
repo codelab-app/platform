@@ -1,12 +1,11 @@
-import type { IType } from '@codelab/frontend/abstract/core'
+import type { IType, ITypeRecord } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { useTablePagination } from '@codelab/frontend/shared/utils'
 import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
 import { Skeleton, Spin, Table } from 'antd'
-import type { ColumnsType, TableRowSelection } from 'antd/lib/table/interface'
-import { arraySet } from 'mobx-keystone'
+import type { ColumnsType } from 'antd/lib/table/interface'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ActionColumn } from './columns'
@@ -22,14 +21,14 @@ export const TypesTable = observer(() => {
       service: typeService,
     })
 
-  const nameColumnSearchProps = useColumnSearchProps<IType>({
+  const nameColumnSearchProps = useColumnSearchProps<ITypeRecord>({
     dataIndex: 'name',
     onSearch: (name) =>
       handleChange({ newFilter: { name: name || undefined } }),
     text: filter.name,
   })
 
-  const columns: ColumnsType<IType> = [
+  const columns: ColumnsType<ITypeRecord> = [
     {
       dataIndex: 'name',
       key: 'name',
@@ -64,17 +63,16 @@ export const TypesTable = observer(() => {
     },
   ]
 
-  const rowSelection: TableRowSelection<IType> = {
-    onChange: (_: Array<React.Key>, selectedRows: Array<IType>) => {
-      typeService.setSelectedIds(arraySet(selectedRows.map(({ id }) => id)))
-    },
-    type: 'checkbox',
-  }
+  const dataSource: Array<ITypeRecord> = data.map(({ id, kind, name }) => ({
+    id,
+    kind,
+    name,
+  }))
 
   return (
-    <Table<IType>
+    <Table<ITypeRecord>
       columns={columns}
-      dataSource={data}
+      dataSource={dataSource}
       expandable={{
         expandedRowRender: (type) =>
           isLoading ? <Spin /> : <TypeDetailsTable typeId={type.id} />,
@@ -82,7 +80,6 @@ export const TypesTable = observer(() => {
       loading={isLoading}
       pagination={pagination}
       rowKey={(type) => type.id}
-      rowSelection={rowSelection}
       scroll={{ x: 'max-content', y: '80vh' }}
       size="small"
     />

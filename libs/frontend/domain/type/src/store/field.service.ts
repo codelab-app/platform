@@ -125,6 +125,12 @@ export class FieldService
 
   @modelAction
   add(fieldDTO: IFieldDTO) {
+    const existingField = this.fields.get(fieldDTO.id)
+
+    if (existingField) {
+      return existingField
+    }
+
     const field = Field.create(fieldDTO)
 
     this.fields.set(field.id, field)

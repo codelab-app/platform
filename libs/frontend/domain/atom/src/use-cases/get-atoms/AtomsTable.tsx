@@ -6,8 +6,6 @@ import { useColumnSearchProps } from '@codelab/frontend/view/components'
 import { headerCellProps } from '@codelab/frontend/view/style'
 import { Table } from 'antd'
 import type { ColumnType } from 'antd/lib/table'
-import type { TableRowSelection } from 'antd/lib/table/interface'
-import { arraySet } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import {
@@ -120,14 +118,7 @@ export const AtomsTable = observer<AtomsTableProps>(({ getAtomLibrary }) => {
     },
   ]
 
-  const rowSelection: TableRowSelection<AtomRecord> = {
-    onChange: (_: Array<React.Key>, selectedRows: Array<AtomRecord>) => {
-      atomService.setSelectedIds(arraySet(selectedRows.map(({ id }) => id)))
-    },
-    type: 'checkbox',
-  }
-
-  const atomsData: Array<AtomRecord> | undefined = data.map((atom) => ({
+  const dataSource: Array<AtomRecord> | undefined = data.map((atom) => ({
     api: atom.api.current,
     id: atom.id,
     library: getAtomLibrary(atom.type),
@@ -143,13 +134,12 @@ export const AtomsTable = observer<AtomsTableProps>(({ getAtomLibrary }) => {
   }))
 
   return (
-    <Table
+    <Table<AtomRecord>
       columns={columns}
-      dataSource={atomsData}
+      dataSource={dataSource}
       loading={isLoading}
       pagination={pagination}
       rowKey={(atom) => atom.id}
-      rowSelection={rowSelection}
       scroll={{ y: '80vh' }}
       size="small"
     />

@@ -15,7 +15,6 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
-  arraySet,
   idProp,
   Model,
   model,
@@ -44,7 +43,6 @@ export class AtomService
     paginationService: prop(
       () => new PaginationService<IAtom, { name?: string }>({}),
     ),
-    selectedIds: prop(() => arraySet<string>()).withSetter(),
     updateModal: prop(() => new AtomModalService({})),
   })
   implements IAtomService
