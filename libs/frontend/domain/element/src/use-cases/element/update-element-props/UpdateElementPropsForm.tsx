@@ -86,9 +86,6 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       currentElement.props.current.values,
     )
 
-    console.log('propsModel', propsModel)
-    console.log('currentElement', currentElement)
-
     return (
       <Spinner isLoading={status === 'loading'}>
         {interfaceType && (

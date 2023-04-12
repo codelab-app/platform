@@ -11,7 +11,7 @@ export type VoidCallback<TInput> = ArrayOrSingle<Callback<TInput, void>>
 export type FormProps<TData, TResponse = unknown> = Partial<
   Pick<
     AutoFormProps<TData>,
-    'autosave' | 'onChange' | 'onChangeModel' | 'submitField'
+    'autosave' | 'modelTransform' | 'onChange' | 'onChangeModel' | 'submitField'
   >
 > &
   Pick<AutoFormProps<TData>, 'model'> &

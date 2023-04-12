@@ -19,6 +19,7 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
     children,
     cssString,
     model,
+    modelTransform,
     onChange,
     onChangeModel,
     onSubmit = (_model: TData) => Promise.resolve(),
@@ -62,6 +63,7 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
           autosave={autosave}
           autosaveDelay={500}
           model={autosave ? modelRef.current : model}
+          modelTransform={modelTransform}
           onChange={onChange}
           onChangeModel={onChangeModel}
           onSubmit={(formData) => {

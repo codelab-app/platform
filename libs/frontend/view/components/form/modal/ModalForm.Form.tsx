@@ -18,6 +18,7 @@ export const Form = <TData, TResponse = unknown>({
   autosave = false,
   children,
   model,
+  modelTransform,
   onChange,
   onChangeModel,
   onSubmit = (_model: unknown) => Promise.resolve(),
@@ -42,6 +43,7 @@ export const Form = <TData, TResponse = unknown>({
       autosave={autosave}
       autosaveDelay={500}
       model={model}
+      modelTransform={modelTransform}
       onChange={onChange}
       onChangeModel={onChangeModel}
       onSubmit={handleFormSubmit<TData, TResponse>(

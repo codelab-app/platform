@@ -56,16 +56,26 @@ export const SelectDefaultValue = ({
   )
 
   let defaultValues = context.model.defaultValues
+  const currentFieldType = React.useRef(fieldType.value)
 
-  if (isNil(defaultValues) || fieldType.changed) {
+  if (
+    isNil(defaultValues) ||
+    (fieldType.changed && currentFieldType.current !== fieldType.value)
+  ) {
+    currentFieldType.current = fieldType.value
+
     if (type?.kind === ITypeKind.ArrayType) {
       defaultValues = []
+      // Sets initial value of `defaultValues` in the parent form model
+      context.onChange('defaultValues', defaultValues)
     }
 
     if (type?.kind === ITypeKind.UnionType) {
       defaultValues = {
         type: type.typesOfUnionType[0]?.id,
       }
+      // Sets initial value of `defaultValues` in the parent form model
+      context.onChange('defaultValues', defaultValues)
     }
   }
 

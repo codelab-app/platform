@@ -57,6 +57,26 @@ export const UpdateFieldModal = observer(() => {
           name: field?.name,
           validationRules: field?.validationRules,
         }}
+        modelTransform={(mode, model) => {
+          // This automatically sets the `defaultValue` to be nullable for types
+          // where we dont set a default value like ReactNodeType, InterfaceType
+          if (
+            mode === 'form' &&
+            model.fieldType &&
+            !canSetDefaultValue(typeService, model.fieldType)
+          ) {
+            return {
+              ...model,
+              validationRules: {
+                general: {
+                  nullable: true,
+                },
+              },
+            }
+          }
+
+          return model
+        }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
           title: 'Error while updating field',
