@@ -8,7 +8,7 @@ import {
 } from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
 
-export const createPageSchema: JSONSchemaType<Omit<ICreatePageData, 'url'>> = {
+export const createPageSchema: JSONSchemaType<ICreatePageData> = {
   properties: {
     ...idSchema,
     ...ownerSchema,
@@ -17,6 +17,11 @@ export const createPageSchema: JSONSchemaType<Omit<ICreatePageData, 'url'>> = {
       autoFocus: true,
       ...nonEmptyString,
       ...titleCaseValidation,
+    },
+    url: {
+      type: 'string',
+      label: 'Deployed Page URL',
+      help: 'Leave blank to autogenerate value',
     },
   },
   required: ['name'],

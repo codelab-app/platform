@@ -141,7 +141,7 @@ export class PageService
   @transaction
   create = _async(function* (
     this: PageService,
-    { app, id, name, owner }: ICreatePageData,
+    { app, id, name, owner, url }: ICreatePageData,
   ) {
     const rootElementProps = this.propService.add({
       data: '{}',
@@ -175,7 +175,9 @@ export class PageService
       name,
       rootElement: elementRef(rootElement.id),
       store,
-      url: `/${slugify(name)}`,
+      // for new pages we allow user to omit url, in this case we autogenerate it
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      url: url ?? `/${slugify(name)}`,
     })
 
     this.pages.set(page.id, page)
