@@ -4,8 +4,10 @@ import {
   exportEnumTypeSelectionSet,
   exportFieldSelectionSet,
   exportInterfaceTypeSelectionSet,
+  exportUnionTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
+import type { IFieldDTO } from '@codelab/frontend/abstract/core'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { sortInterfaceTypesFields } from '../mapper/sort'
 
@@ -13,6 +15,7 @@ import { sortInterfaceTypesFields } from '../mapper/sort'
  * Allows us to get only types for an api
  */
 interface ExportAdminTypesProps {
+  apiFields?: Array<IFieldDTO>
   apiId?: string
 }
 
@@ -28,6 +31,20 @@ export const exportAdminTypes = async (
   const InterfaceType = await Repository.instance.InterfaceType
   const Field = await Repository.instance.Field
   const Array = await Repository.instance.ArrayType
+  const UnionType = await Repository.instance.UnionType
+
+  /**
+   * UnionTypes
+   */
+  const unionTypes = await UnionType.find({
+    options: {
+      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+    },
+    selectionSet: exportUnionTypeSelectionSet,
+    where: {
+      id_IN: props.apiFields?.map((field) => field.fieldType.id),
+    },
+  })
 
   /**
    * Array
@@ -187,6 +204,7 @@ export const exportAdminTypes = async (
       ...secondLevelInterfaceTypes,
       ...arrayInterfaceItemTypes,
       ...arrayTypes,
+      ...unionTypes,
     ],
   }
 }

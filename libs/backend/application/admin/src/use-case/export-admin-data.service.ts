@@ -101,6 +101,7 @@ export class ExportAdminDataService extends IUseCase<
         const apiFields = filter(apis.fields, { api: { id: atom.api.id } })
 
         const { fields = [], types } = await exportAdminTypes({
+          apiFields,
           apiId: atom.api.id,
         })
 

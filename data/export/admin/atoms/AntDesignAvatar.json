@@ -201,13 +201,13 @@
       "key": "src",
       "name": "Src",
       "description": null,
-      "validationRules": null,
-      "defaultValues": null,
+      "validationRules": "{}",
+      "defaultValues": "{\"type\":\"3a0d0fc6-c51e-4f05-85b4-cde709fe5625\"}",
       "fieldType": {
-        "__typename": "EnumType",
-        "id": "e5d234f7-9ac2-47cb-9a1c-60e8c75bd16e",
-        "kind": "EnumType",
-        "name": "AntDesignAvatar Src Enum"
+        "__typename": "UnionType",
+        "id": "e1489c1e-c897-400b-8806-d22320a01bf7",
+        "kind": "UnionType",
+        "name": "AntDesignAvatar Src Union"
       },
       "api": {
         "id": "b97d5258-936f-4396-81d4-c3acefe05cd1"
@@ -330,20 +330,26 @@
       ]
     },
     {
-      "__typename": "EnumType",
-      "id": "e5d234f7-9ac2-47cb-9a1c-60e8c75bd16e",
-      "kind": "EnumType",
-      "name": "AntDesignAvatar Src Enum",
-      "allowedValues": [
+      "__typename": "UnionType",
+      "id": "e1489c1e-c897-400b-8806-d22320a01bf7",
+      "kind": "UnionType",
+      "name": "AntDesignAvatar Src Union",
+      "descendantTypesIds": [
+        "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+      ],
+      "typesOfUnionType": [
         {
-          "id": "e9e6470d-64ac-49c9-9ddf-2744e4f1b831",
-          "key": "ReactNode",
-          "value": "ReactNode"
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
         },
         {
-          "id": "2fd3fd9d-fb90-4f31-9f45-26a1254516e4",
-          "key": "string",
-          "value": "string"
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
         }
       ]
     }

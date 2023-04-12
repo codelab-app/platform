@@ -64,6 +64,11 @@ export const exportInterfaceTypeSelectionSet = `{
 export const exportUnionTypeSelectionSet = `{
   ${exportBaseTypeSelection}
   descendantTypesIds
+  typesOfUnionType {
+    ... on IBaseType {
+      ${exportBaseTypeSelection}
+    }
+  }
 }`
 
 export const interfaceTypeSelectionSet = `{

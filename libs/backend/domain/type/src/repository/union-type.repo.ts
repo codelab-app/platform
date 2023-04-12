@@ -32,18 +32,22 @@ export class UnionTypeRepository extends AbstractRepository<
         await this.UnionType
       ).create({
         input: unionTypes.map(
-          ({ __typename, owner, typesOfUnionType, ...type }) => ({
-            ...type,
-            owner: connectAuth0Owner(owner),
-            typesOfUnionType: {
-              ArrayType: connectNodeIds([]),
-              EnumType: connectNodeIds([]),
-              InterfaceType: connectNodeIds([]),
-              PrimitiveType: connectNodeIds([]),
-              ReactNodeType: connectNodeIds([]),
-              RenderPropsType: connectNodeIds([]),
-            },
-          }),
+          ({ __typename, owner, typesOfUnionType, ...type }) => {
+            const connectIds = typesOfUnionType.map(({ id }) => id)
+
+            return {
+              ...type,
+              owner: connectAuth0Owner(owner),
+              typesOfUnionType: {
+                ArrayType: connectNodeIds(connectIds),
+                EnumType: connectNodeIds(connectIds),
+                InterfaceType: connectNodeIds(connectIds),
+                PrimitiveType: connectNodeIds(connectIds),
+                ReactNodeType: connectNodeIds(connectIds),
+                RenderPropsType: connectNodeIds(connectIds),
+              },
+            }
+          },
         ),
         selectionSet: `{ unionTypes ${exportUnionTypeSelectionSet} }`,
       })
@@ -51,9 +55,11 @@ export class UnionTypeRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { __typename, id, kind, name, owner, typesOfUnionType }: IUnionTypeDTO,
+    { id, name, typesOfUnionType }: IUnionTypeDTO,
     where: OGM_TYPES.UnionTypeWhere,
   ) {
+    const connectIds = typesOfUnionType.map(({ id: typeId }) => typeId)
+
     return (
       await (
         await this.UnionType
@@ -63,12 +69,12 @@ export class UnionTypeRepository extends AbstractRepository<
           id,
           name,
           typesOfUnionType: {
-            ArrayType: [connectNodeIds([])],
-            EnumType: [connectNodeIds([])],
-            InterfaceType: [connectNodeIds([])],
-            PrimitiveType: [connectNodeIds([])],
-            ReactNodeType: [connectNodeIds([])],
-            RenderPropsType: [connectNodeIds([])],
+            ArrayType: [connectNodeIds(connectIds)],
+            EnumType: [connectNodeIds(connectIds)],
+            InterfaceType: [connectNodeIds(connectIds)],
+            PrimitiveType: [connectNodeIds(connectIds)],
+            ReactNodeType: [connectNodeIds(connectIds)],
+            RenderPropsType: [connectNodeIds(connectIds)],
           },
         },
         where,
