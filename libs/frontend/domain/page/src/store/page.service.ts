@@ -19,6 +19,7 @@ import {
   InterfaceType,
   typeRef,
 } from '@codelab/frontend/domain/type'
+import { getUserService } from '@codelab/frontend/domain/user'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
@@ -89,6 +90,11 @@ export class PageService
   }
 
   @computed
+  private get userService() {
+    return getUserService(this)
+  }
+
+  @computed
   get pagesList() {
     return [...this.pages.values()]
   }
@@ -155,10 +161,16 @@ export class PageService
       props: rootElementProps,
     })
 
+    const appModel = this.appService.apps.get(app.id)
+    const { auth0Id, user } = this.userService
+    const userName = user?.username ?? auth0Id
+
     const interfaceType = this.typeService.addInterface({
       id: v4(),
       kind: ITypeKind.InterfaceType,
-      name: InterfaceType.createName(`${name} Store`),
+      name: InterfaceType.createName(
+        `${appModel?.name}(${userName}) ${name} Store`,
+      ),
       owner: owner,
     })
 
@@ -185,7 +197,6 @@ export class PageService
     /**
      * Add page to current app
      */
-    const appModel = this.appService.apps.get(app.id)
     appModel?.writeCache({ pages: [...appModel.pages, page] })
 
     yield* _await(this.pageRepository.add(page))

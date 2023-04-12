@@ -19,8 +19,10 @@ import type {
 import type { IPage } from './page.model.interface'
 import type { IPageRepository } from './page.repo.interface'
 
+export type IPageAppFragment = Pick<IApp, 'id' | 'name' | 'owner'>
+
 export interface IPageFactory {
-  addSystemPages(app: Pick<IApp, 'id' | 'owner'>): Array<IPage>
+  addSystemPages(app: IPageAppFragment): Array<IPage>
 }
 
 export interface IPageService

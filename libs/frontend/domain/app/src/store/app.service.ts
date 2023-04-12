@@ -257,7 +257,11 @@ export class AppService
     this: AppService,
     { id, name, owner }: ICreateAppData,
   ) {
-    const pages = this.pageService.pageFactory.addSystemPages({ id, owner })
+    const pages = this.pageService.pageFactory.addSystemPages({
+      id,
+      name,
+      owner,
+    })
 
     const app = this.add({
       id,

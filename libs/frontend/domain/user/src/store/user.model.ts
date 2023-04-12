@@ -1,12 +1,12 @@
-import type { IApp, IUser, IUserDTO } from '@codelab/frontend/abstract/core'
-import { appRef } from '@codelab/frontend/domain/app'
+import type { IUser, IUserDTO } from '@codelab/frontend/abstract/core'
+// import { appRef } from '@codelab/frontend/domain/app'
 import type { IRole } from '@codelab/shared/abstract/core'
-import type { Ref } from 'mobx-keystone'
+// import type { Ref } from 'mobx-keystone'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 
 const create = ({ apps, auth0Id, id, roles, username }: IUserDTO) => {
   return new User({
-    apps: apps?.map((app) => appRef(app.id)),
+    // apps: apps?.map((app) => appRef(app.id)),
     auth0Id,
     id,
     roles,
@@ -22,7 +22,7 @@ const create = ({ apps, auth0Id, id, roles, username }: IUserDTO) => {
 @model('@codelab/User')
 export class User
   extends Model({
-    apps: prop<Array<Ref<IApp>>>(() => []),
+    // apps: prop<Array<Ref<IApp>>>(() => []),
     auth0Id: prop<string>(),
     // We use auth0Id as the id here
     id: idProp.withSetter(),
