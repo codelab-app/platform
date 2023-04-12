@@ -1,0 +1,7 @@
+fragment Config on Config {
+  id
+  name
+  app {
+    id
+  }
+}

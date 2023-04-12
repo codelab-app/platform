@@ -1244,6 +1244,22 @@ type ApiActionsConnection {
 
 type App implements WithOwner {
   _compoundName: String!
+  config(
+    directed: Boolean = true
+    options: ConfigOptions
+    where: ConfigWhere
+  ): Config!
+  configAggregate(
+    directed: Boolean = true
+    where: ConfigWhere
+  ): AppConfigConfigAggregationSelection
+  configConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [AppConfigConnectionSort!]
+    where: AppConfigConnectionWhere
+  ): AppConfigConnection!
   domains(
     directed: Boolean = true
     options: DomainOptions
@@ -1299,13 +1315,133 @@ type AppAggregateSelection {
   id: IDAggregateSelectionNonNullable!
 }
 
+input AppConfigAggregateInput {
+  AND: [AppConfigAggregateInput!]
+  NOT: AppConfigAggregateInput
+  OR: [AppConfigAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: AppConfigNodeAggregationWhereInput
+}
+
+type AppConfigConfigAggregationSelection {
+  count: Int!
+  node: AppConfigConfigNodeAggregateSelection
+}
+
+type AppConfigConfigNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input AppConfigConnectFieldInput {
+  connect: ConfigConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
+  where: ConfigConnectWhere
+}
+
+input AppConfigConnectOrCreateFieldInput {
+  onCreate: AppConfigConnectOrCreateFieldInputOnCreate!
+  where: ConfigConnectOrCreateWhere!
+}
+
+input AppConfigConnectOrCreateFieldInputOnCreate {
+  node: ConfigOnCreateInput!
+}
+
+type AppConfigConnection {
+  edges: [AppConfigRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input AppConfigConnectionSort {
+  node: ConfigSort
+}
+
+input AppConfigConnectionWhere {
+  AND: [AppConfigConnectionWhere!]
+  NOT: AppConfigConnectionWhere
+  OR: [AppConfigConnectionWhere!]
+  node: ConfigWhere
+}
+
+input AppConfigCreateFieldInput {
+  node: ConfigCreateInput!
+}
+
+input AppConfigDeleteFieldInput {
+  delete: ConfigDeleteInput
+  where: AppConfigConnectionWhere
+}
+
+input AppConfigDisconnectFieldInput {
+  disconnect: ConfigDisconnectInput
+  where: AppConfigConnectionWhere
+}
+
+input AppConfigFieldInput {
+  connect: AppConfigConnectFieldInput
+  connectOrCreate: AppConfigConnectOrCreateFieldInput
+  create: AppConfigCreateFieldInput
+}
+
+input AppConfigNodeAggregationWhereInput {
+  AND: [AppConfigNodeAggregationWhereInput!]
+  NOT: AppConfigNodeAggregationWhereInput
+  OR: [AppConfigNodeAggregationWhereInput!]
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+}
+
+type AppConfigRelationship {
+  cursor: String!
+  node: Config!
+}
+
+input AppConfigUpdateConnectionInput {
+  node: ConfigUpdateInput
+}
+
+input AppConfigUpdateFieldInput {
+  connect: AppConfigConnectFieldInput
+  connectOrCreate: AppConfigConnectOrCreateFieldInput
+  create: AppConfigCreateFieldInput
+  delete: AppConfigDeleteFieldInput
+  disconnect: AppConfigDisconnectFieldInput
+  update: AppConfigUpdateConnectionInput
+  where: AppConfigConnectionWhere
+}
+
 input AppConnectInput {
+  config: AppConfigConnectFieldInput
   domains: [AppDomainsConnectFieldInput!]
   owner: WithOwnerOwnerConnectFieldInput
   pages: [AppPagesConnectFieldInput!]
 }
 
 input AppConnectOrCreateInput {
+  config: AppConfigConnectOrCreateFieldInput
   domains: [AppDomainsConnectOrCreateFieldInput!]
   owner: WithOwnerOwnerConnectOrCreateFieldInput
   pages: [AppPagesConnectOrCreateFieldInput!]
@@ -1321,6 +1457,7 @@ input AppConnectWhere {
 
 input AppCreateInput {
   _compoundName: String!
+  config: AppConfigFieldInput
   domains: AppDomainsFieldInput
   id: ID!
   owner: WithOwnerOwnerFieldInput
@@ -1328,12 +1465,14 @@ input AppCreateInput {
 }
 
 input AppDeleteInput {
+  config: AppConfigDeleteFieldInput
   domains: [AppDomainsDeleteFieldInput!]
   owner: WithOwnerOwnerDeleteFieldInput
   pages: [AppPagesDeleteFieldInput!]
 }
 
 input AppDisconnectInput {
+  config: AppConfigDisconnectFieldInput
   domains: [AppDomainsDisconnectFieldInput!]
   owner: WithOwnerOwnerDisconnectFieldInput
   pages: [AppPagesDisconnectFieldInput!]
@@ -1675,6 +1814,7 @@ input AppPagesUpdateFieldInput {
 }
 
 input AppRelationInput {
+  config: AppConfigCreateFieldInput
   domains: [AppDomainsCreateFieldInput!]
   owner: WithOwnerOwnerCreateFieldInput
   pages: [AppPagesCreateFieldInput!]
@@ -1903,6 +2043,7 @@ input AppUniqueWhere {
 
 input AppUpdateInput {
   _compoundName: String
+  config: AppConfigUpdateFieldInput
   domains: [AppDomainsUpdateFieldInput!]
   id: ID
   owner: WithOwnerOwnerUpdateFieldInput
@@ -1931,6 +2072,11 @@ input AppWhere {
   _compoundName_IN: [String!]
   _compoundName_MATCHES: String
   _compoundName_STARTS_WITH: String
+  config: ConfigWhere
+  configAggregate: AppConfigAggregateInput
+  configConnection: AppConfigConnectionWhere
+  configConnection_NOT: AppConfigConnectionWhere
+  config_NOT: ConfigWhere
   domainsAggregate: AppDomainsAggregateInput
 
   """
@@ -6097,6 +6243,248 @@ type ComponentsConnection {
   totalCount: Int!
 }
 
+type Config {
+  app(directed: Boolean = true, options: AppOptions, where: AppWhere): App!
+  appAggregate(
+    directed: Boolean = true
+    where: AppWhere
+  ): ConfigAppAppAggregationSelection
+  appConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ConfigAppConnectionSort!]
+    where: ConfigAppConnectionWhere
+  ): ConfigAppConnection!
+  id: ID!
+  name: String!
+}
+
+type ConfigAggregateSelection {
+  count: Int!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input ConfigAppAggregateInput {
+  AND: [ConfigAppAggregateInput!]
+  NOT: ConfigAppAggregateInput
+  OR: [ConfigAppAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ConfigAppNodeAggregationWhereInput
+}
+
+type ConfigAppAppAggregationSelection {
+  count: Int!
+  node: ConfigAppAppNodeAggregateSelection
+}
+
+type ConfigAppAppNodeAggregateSelection {
+  _compoundName: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+}
+
+input ConfigAppConnectFieldInput {
+  connect: AppConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
+  where: AppConnectWhere
+}
+
+input ConfigAppConnectOrCreateFieldInput {
+  onCreate: ConfigAppConnectOrCreateFieldInputOnCreate!
+  where: AppConnectOrCreateWhere!
+}
+
+input ConfigAppConnectOrCreateFieldInputOnCreate {
+  node: AppOnCreateInput!
+}
+
+type ConfigAppConnection {
+  edges: [ConfigAppRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ConfigAppConnectionSort {
+  node: AppSort
+}
+
+input ConfigAppConnectionWhere {
+  AND: [ConfigAppConnectionWhere!]
+  NOT: ConfigAppConnectionWhere
+  OR: [ConfigAppConnectionWhere!]
+  node: AppWhere
+}
+
+input ConfigAppCreateFieldInput {
+  node: AppCreateInput!
+}
+
+input ConfigAppDeleteFieldInput {
+  delete: AppDeleteInput
+  where: ConfigAppConnectionWhere
+}
+
+input ConfigAppDisconnectFieldInput {
+  disconnect: AppDisconnectInput
+  where: ConfigAppConnectionWhere
+}
+
+input ConfigAppFieldInput {
+  connect: ConfigAppConnectFieldInput
+  connectOrCreate: ConfigAppConnectOrCreateFieldInput
+  create: ConfigAppCreateFieldInput
+}
+
+input ConfigAppNodeAggregationWhereInput {
+  AND: [ConfigAppNodeAggregationWhereInput!]
+  NOT: ConfigAppNodeAggregationWhereInput
+  OR: [ConfigAppNodeAggregationWhereInput!]
+  _compoundName_AVERAGE_LENGTH_EQUAL: Float
+  _compoundName_AVERAGE_LENGTH_GT: Float
+  _compoundName_AVERAGE_LENGTH_GTE: Float
+  _compoundName_AVERAGE_LENGTH_LT: Float
+  _compoundName_AVERAGE_LENGTH_LTE: Float
+  _compoundName_LONGEST_LENGTH_EQUAL: Int
+  _compoundName_LONGEST_LENGTH_GT: Int
+  _compoundName_LONGEST_LENGTH_GTE: Int
+  _compoundName_LONGEST_LENGTH_LT: Int
+  _compoundName_LONGEST_LENGTH_LTE: Int
+  _compoundName_SHORTEST_LENGTH_EQUAL: Int
+  _compoundName_SHORTEST_LENGTH_GT: Int
+  _compoundName_SHORTEST_LENGTH_GTE: Int
+  _compoundName_SHORTEST_LENGTH_LT: Int
+  _compoundName_SHORTEST_LENGTH_LTE: Int
+}
+
+type ConfigAppRelationship {
+  cursor: String!
+  node: App!
+}
+
+input ConfigAppUpdateConnectionInput {
+  node: AppUpdateInput
+}
+
+input ConfigAppUpdateFieldInput {
+  connect: ConfigAppConnectFieldInput
+  connectOrCreate: ConfigAppConnectOrCreateFieldInput
+  create: ConfigAppCreateFieldInput
+  delete: ConfigAppDeleteFieldInput
+  disconnect: ConfigAppDisconnectFieldInput
+  update: ConfigAppUpdateConnectionInput
+  where: ConfigAppConnectionWhere
+}
+
+input ConfigConnectInput {
+  app: ConfigAppConnectFieldInput
+}
+
+input ConfigConnectOrCreateInput {
+  app: ConfigAppConnectOrCreateFieldInput
+}
+
+input ConfigConnectOrCreateWhere {
+  node: ConfigUniqueWhere!
+}
+
+input ConfigConnectWhere {
+  node: ConfigWhere!
+}
+
+input ConfigCreateInput {
+  app: ConfigAppFieldInput
+  id: ID!
+  name: String!
+}
+
+input ConfigDeleteInput {
+  app: ConfigAppDeleteFieldInput
+}
+
+input ConfigDisconnectInput {
+  app: ConfigAppDisconnectFieldInput
+}
+
+type ConfigEdge {
+  cursor: String!
+  node: Config!
+}
+
+input ConfigOnCreateInput {
+  id: ID!
+  name: String!
+}
+
+input ConfigOptions {
+  limit: Int
+  offset: Int
+
+  """
+  Specify one or more ConfigSort objects to sort Configs by. The sorts will be applied in the order in which they are arranged in the array.
+  """
+  sort: [ConfigSort!]
+}
+
+input ConfigRelationInput {
+  app: ConfigAppCreateFieldInput
+}
+
+"""
+Fields to sort Configs by. The order in which sorts are applied is not guaranteed when specifying many fields in one ConfigSort object.
+"""
+input ConfigSort {
+  id: SortDirection
+  name: SortDirection
+}
+
+input ConfigUniqueWhere {
+  id: ID
+}
+
+input ConfigUpdateInput {
+  app: ConfigAppUpdateFieldInput
+  id: ID
+  name: String
+}
+
+input ConfigWhere {
+  AND: [ConfigWhere!]
+  NOT: ConfigWhere
+  OR: [ConfigWhere!]
+  app: AppWhere
+  appAggregate: ConfigAppAggregateInput
+  appConnection: ConfigAppConnectionWhere
+  appConnection_NOT: ConfigAppConnectionWhere
+  app_NOT: AppWhere
+  id: ID
+  id_CONTAINS: ID
+  id_ENDS_WITH: ID
+  id_IN: [ID!]
+  id_MATCHES: String
+  id_STARTS_WITH: ID
+  name: String
+  name_CONTAINS: String
+  name_ENDS_WITH: String
+  name_IN: [String!]
+  name_MATCHES: String
+  name_STARTS_WITH: String
+}
+
+type ConfigsConnection {
+  edges: [ConfigEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type CreateActionTypesMutationResponse {
   actionTypes: [ActionType!]!
   info: CreateInfo!
@@ -6139,6 +6527,11 @@ type CreateCodeMirrorTypesMutationResponse {
 
 type CreateComponentsMutationResponse {
   components: [Component!]!
+  info: CreateInfo!
+}
+
+type CreateConfigsMutationResponse {
+  configs: [Config!]!
   info: CreateInfo!
 }
 
@@ -11821,6 +12214,7 @@ type Mutation {
   createComponents(
     input: [ComponentCreateInput!]!
   ): CreateComponentsMutationResponse!
+  createConfigs(input: [ConfigCreateInput!]!): CreateConfigsMutationResponse!
   createDomains(input: [DomainCreateInput!]!): CreateDomainsMutationResponse!
   createElementTypes(
     input: [ElementTypeCreateInput!]!
@@ -11896,6 +12290,7 @@ type Mutation {
     delete: ComponentDeleteInput
     where: ComponentWhere
   ): DeleteInfo!
+  deleteConfigs(delete: ConfigDeleteInput, where: ConfigWhere): DeleteInfo!
   deleteDomains(delete: DomainDeleteInput, where: DomainWhere): DeleteInfo!
   deleteElementTypes(
     delete: ElementTypeDeleteInput
@@ -12033,6 +12428,15 @@ type Mutation {
     update: ComponentUpdateInput
     where: ComponentWhere
   ): UpdateComponentsMutationResponse!
+  updateConfigs(
+    connect: ConfigConnectInput
+    connectOrCreate: ConfigConnectOrCreateInput
+    create: ConfigRelationInput
+    delete: ConfigDeleteInput
+    disconnect: ConfigDisconnectInput
+    update: ConfigUpdateInput
+    where: ConfigWhere
+  ): UpdateConfigsMutationResponse!
   updateDomains(
     connect: DomainConnectInput
     connectOrCreate: DomainConnectOrCreateInput
@@ -13690,6 +14094,14 @@ type Query {
     sort: [ComponentSort]
     where: ComponentWhere
   ): ComponentsConnection!
+  configs(options: ConfigOptions, where: ConfigWhere): [Config!]!
+  configsAggregate(where: ConfigWhere): ConfigAggregateSelection!
+  configsConnection(
+    after: String
+    first: Int
+    sort: [ConfigSort]
+    where: ConfigWhere
+  ): ConfigsConnection!
   domains(options: DomainOptions, where: DomainWhere): [Domain!]!
   domainsAggregate(where: DomainWhere): DomainAggregateSelection!
   domainsConnection(
@@ -17230,6 +17642,11 @@ type UpdateCodeMirrorTypesMutationResponse {
 
 type UpdateComponentsMutationResponse {
   components: [Component!]!
+  info: UpdateInfo!
+}
+
+type UpdateConfigsMutationResponse {
+  configs: [Config!]!
   info: UpdateInfo!
 }
 

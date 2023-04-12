@@ -1311,6 +1311,9 @@ export type ApiActionsConnection = {
 export type App = WithOwner & {
   __typename?: 'App'
   _compoundName: Scalars['String']
+  config: Config
+  configAggregate?: Maybe<AppConfigConfigAggregationSelection>
+  configConnection: AppConfigConnection
   domains: Array<Domain>
   domainsAggregate?: Maybe<AppDomainDomainsAggregationSelection>
   domainsConnection: AppDomainsConnection
@@ -1323,6 +1326,25 @@ export type App = WithOwner & {
   pagesAggregate?: Maybe<AppPagePagesAggregationSelection>
   pagesConnection: AppPagesConnection
   slug: Scalars['String']
+}
+
+export type AppConfigArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<ConfigOptions>
+  where?: InputMaybe<ConfigWhere>
+}
+
+export type AppConfigAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<ConfigWhere>
+}
+
+export type AppConfigConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<AppConfigConnectionSort>>
+  where?: InputMaybe<AppConfigConnectionWhere>
 }
 
 export type AppDomainsArgs = {
@@ -1389,13 +1411,134 @@ export type AppAggregateSelection = {
   id: IdAggregateSelectionNonNullable
 }
 
+export type AppConfigAggregateInput = {
+  AND?: InputMaybe<Array<AppConfigAggregateInput>>
+  NOT?: InputMaybe<AppConfigAggregateInput>
+  OR?: InputMaybe<Array<AppConfigAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<AppConfigNodeAggregationWhereInput>
+}
+
+export type AppConfigConfigAggregationSelection = {
+  __typename?: 'AppConfigConfigAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<AppConfigConfigNodeAggregateSelection>
+}
+
+export type AppConfigConfigNodeAggregateSelection = {
+  __typename?: 'AppConfigConfigNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type AppConfigConnectFieldInput = {
+  connect?: InputMaybe<ConfigConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
+  where?: InputMaybe<ConfigConnectWhere>
+}
+
+export type AppConfigConnectOrCreateFieldInput = {
+  onCreate: AppConfigConnectOrCreateFieldInputOnCreate
+  where: ConfigConnectOrCreateWhere
+}
+
+export type AppConfigConnectOrCreateFieldInputOnCreate = {
+  node: ConfigOnCreateInput
+}
+
+export type AppConfigConnection = {
+  __typename?: 'AppConfigConnection'
+  edges: Array<AppConfigRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type AppConfigConnectionSort = {
+  node?: InputMaybe<ConfigSort>
+}
+
+export type AppConfigConnectionWhere = {
+  AND?: InputMaybe<Array<AppConfigConnectionWhere>>
+  NOT?: InputMaybe<AppConfigConnectionWhere>
+  OR?: InputMaybe<Array<AppConfigConnectionWhere>>
+  node?: InputMaybe<ConfigWhere>
+}
+
+export type AppConfigCreateFieldInput = {
+  node: ConfigCreateInput
+}
+
+export type AppConfigDeleteFieldInput = {
+  delete?: InputMaybe<ConfigDeleteInput>
+  where?: InputMaybe<AppConfigConnectionWhere>
+}
+
+export type AppConfigDisconnectFieldInput = {
+  disconnect?: InputMaybe<ConfigDisconnectInput>
+  where?: InputMaybe<AppConfigConnectionWhere>
+}
+
+export type AppConfigFieldInput = {
+  connect?: InputMaybe<AppConfigConnectFieldInput>
+  connectOrCreate?: InputMaybe<AppConfigConnectOrCreateFieldInput>
+  create?: InputMaybe<AppConfigCreateFieldInput>
+}
+
+export type AppConfigNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<AppConfigNodeAggregationWhereInput>>
+  NOT?: InputMaybe<AppConfigNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<AppConfigNodeAggregationWhereInput>>
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type AppConfigRelationship = {
+  __typename?: 'AppConfigRelationship'
+  cursor: Scalars['String']
+  node: Config
+}
+
+export type AppConfigUpdateConnectionInput = {
+  node?: InputMaybe<ConfigUpdateInput>
+}
+
+export type AppConfigUpdateFieldInput = {
+  connect?: InputMaybe<AppConfigConnectFieldInput>
+  connectOrCreate?: InputMaybe<AppConfigConnectOrCreateFieldInput>
+  create?: InputMaybe<AppConfigCreateFieldInput>
+  delete?: InputMaybe<AppConfigDeleteFieldInput>
+  disconnect?: InputMaybe<AppConfigDisconnectFieldInput>
+  update?: InputMaybe<AppConfigUpdateConnectionInput>
+  where?: InputMaybe<AppConfigConnectionWhere>
+}
+
 export type AppConnectInput = {
+  config?: InputMaybe<AppConfigConnectFieldInput>
   domains?: InputMaybe<Array<AppDomainsConnectFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerConnectFieldInput>
   pages?: InputMaybe<Array<AppPagesConnectFieldInput>>
 }
 
 export type AppConnectOrCreateInput = {
+  config?: InputMaybe<AppConfigConnectOrCreateFieldInput>
   domains?: InputMaybe<Array<AppDomainsConnectOrCreateFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   pages?: InputMaybe<Array<AppPagesConnectOrCreateFieldInput>>
@@ -1411,6 +1554,7 @@ export type AppConnectWhere = {
 
 export type AppCreateInput = {
   _compoundName: Scalars['String']
+  config?: InputMaybe<AppConfigFieldInput>
   domains?: InputMaybe<AppDomainsFieldInput>
   id: Scalars['ID']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
@@ -1418,12 +1562,14 @@ export type AppCreateInput = {
 }
 
 export type AppDeleteInput = {
+  config?: InputMaybe<AppConfigDeleteFieldInput>
   domains?: InputMaybe<Array<AppDomainsDeleteFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerDeleteFieldInput>
   pages?: InputMaybe<Array<AppPagesDeleteFieldInput>>
 }
 
 export type AppDisconnectInput = {
+  config?: InputMaybe<AppConfigDisconnectFieldInput>
   domains?: InputMaybe<Array<AppDomainsDisconnectFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerDisconnectFieldInput>
   pages?: InputMaybe<Array<AppPagesDisconnectFieldInput>>
@@ -1765,6 +1911,7 @@ export type AppPagesUpdateFieldInput = {
 }
 
 export type AppRelationInput = {
+  config?: InputMaybe<AppConfigCreateFieldInput>
   domains?: InputMaybe<Array<AppDomainsCreateFieldInput>>
   owner?: InputMaybe<WithOwnerOwnerCreateFieldInput>
   pages?: InputMaybe<Array<AppPagesCreateFieldInput>>
@@ -2003,6 +2150,7 @@ export type AppUniqueWhere = {
 
 export type AppUpdateInput = {
   _compoundName?: InputMaybe<Scalars['String']>
+  config?: InputMaybe<AppConfigUpdateFieldInput>
   domains?: InputMaybe<Array<AppDomainsUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
@@ -2033,6 +2181,11 @@ export type AppWhere = {
   _compoundName_IN?: InputMaybe<Array<Scalars['String']>>
   _compoundName_MATCHES?: InputMaybe<Scalars['String']>
   _compoundName_STARTS_WITH?: InputMaybe<Scalars['String']>
+  config?: InputMaybe<ConfigWhere>
+  configAggregate?: InputMaybe<AppConfigAggregateInput>
+  configConnection?: InputMaybe<AppConfigConnectionWhere>
+  configConnection_NOT?: InputMaybe<AppConfigConnectionWhere>
+  config_NOT?: InputMaybe<ConfigWhere>
   domainsAggregate?: InputMaybe<AppDomainsAggregateInput>
   /** Return Apps where all of the related AppDomainsConnections match this filter */
   domainsConnection_ALL?: InputMaybe<AppDomainsConnectionWhere>
@@ -6284,6 +6437,258 @@ export type ComponentsConnection = {
   totalCount: Scalars['Int']
 }
 
+export type Config = {
+  __typename?: 'Config'
+  app: App
+  appAggregate?: Maybe<ConfigAppAppAggregationSelection>
+  appConnection: ConfigAppConnection
+  id: Scalars['ID']
+  name: Scalars['String']
+}
+
+export type ConfigAppArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<AppOptions>
+  where?: InputMaybe<AppWhere>
+}
+
+export type ConfigAppAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<AppWhere>
+}
+
+export type ConfigAppConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<ConfigAppConnectionSort>>
+  where?: InputMaybe<ConfigAppConnectionWhere>
+}
+
+export type ConfigAggregateSelection = {
+  __typename?: 'ConfigAggregateSelection'
+  count: Scalars['Int']
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+}
+
+export type ConfigAppAggregateInput = {
+  AND?: InputMaybe<Array<ConfigAppAggregateInput>>
+  NOT?: InputMaybe<ConfigAppAggregateInput>
+  OR?: InputMaybe<Array<ConfigAppAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<ConfigAppNodeAggregationWhereInput>
+}
+
+export type ConfigAppAppAggregationSelection = {
+  __typename?: 'ConfigAppAppAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<ConfigAppAppNodeAggregateSelection>
+}
+
+export type ConfigAppAppNodeAggregateSelection = {
+  __typename?: 'ConfigAppAppNodeAggregateSelection'
+  _compoundName: StringAggregateSelectionNonNullable
+  id: IdAggregateSelectionNonNullable
+}
+
+export type ConfigAppConnectFieldInput = {
+  connect?: InputMaybe<AppConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
+  where?: InputMaybe<AppConnectWhere>
+}
+
+export type ConfigAppConnectOrCreateFieldInput = {
+  onCreate: ConfigAppConnectOrCreateFieldInputOnCreate
+  where: AppConnectOrCreateWhere
+}
+
+export type ConfigAppConnectOrCreateFieldInputOnCreate = {
+  node: AppOnCreateInput
+}
+
+export type ConfigAppConnection = {
+  __typename?: 'ConfigAppConnection'
+  edges: Array<ConfigAppRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type ConfigAppConnectionSort = {
+  node?: InputMaybe<AppSort>
+}
+
+export type ConfigAppConnectionWhere = {
+  AND?: InputMaybe<Array<ConfigAppConnectionWhere>>
+  NOT?: InputMaybe<ConfigAppConnectionWhere>
+  OR?: InputMaybe<Array<ConfigAppConnectionWhere>>
+  node?: InputMaybe<AppWhere>
+}
+
+export type ConfigAppCreateFieldInput = {
+  node: AppCreateInput
+}
+
+export type ConfigAppDeleteFieldInput = {
+  delete?: InputMaybe<AppDeleteInput>
+  where?: InputMaybe<ConfigAppConnectionWhere>
+}
+
+export type ConfigAppDisconnectFieldInput = {
+  disconnect?: InputMaybe<AppDisconnectInput>
+  where?: InputMaybe<ConfigAppConnectionWhere>
+}
+
+export type ConfigAppFieldInput = {
+  connect?: InputMaybe<ConfigAppConnectFieldInput>
+  connectOrCreate?: InputMaybe<ConfigAppConnectOrCreateFieldInput>
+  create?: InputMaybe<ConfigAppCreateFieldInput>
+}
+
+export type ConfigAppNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ConfigAppNodeAggregationWhereInput>>
+  NOT?: InputMaybe<ConfigAppNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<ConfigAppNodeAggregationWhereInput>>
+  _compoundName_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  _compoundName_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  _compoundName_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  _compoundName_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  _compoundName_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  _compoundName_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  _compoundName_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  _compoundName_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  _compoundName_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  _compoundName_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  _compoundName_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  _compoundName_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  _compoundName_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type ConfigAppRelationship = {
+  __typename?: 'ConfigAppRelationship'
+  cursor: Scalars['String']
+  node: App
+}
+
+export type ConfigAppUpdateConnectionInput = {
+  node?: InputMaybe<AppUpdateInput>
+}
+
+export type ConfigAppUpdateFieldInput = {
+  connect?: InputMaybe<ConfigAppConnectFieldInput>
+  connectOrCreate?: InputMaybe<ConfigAppConnectOrCreateFieldInput>
+  create?: InputMaybe<ConfigAppCreateFieldInput>
+  delete?: InputMaybe<ConfigAppDeleteFieldInput>
+  disconnect?: InputMaybe<ConfigAppDisconnectFieldInput>
+  update?: InputMaybe<ConfigAppUpdateConnectionInput>
+  where?: InputMaybe<ConfigAppConnectionWhere>
+}
+
+export type ConfigConnectInput = {
+  app?: InputMaybe<ConfigAppConnectFieldInput>
+}
+
+export type ConfigConnectOrCreateInput = {
+  app?: InputMaybe<ConfigAppConnectOrCreateFieldInput>
+}
+
+export type ConfigConnectOrCreateWhere = {
+  node: ConfigUniqueWhere
+}
+
+export type ConfigConnectWhere = {
+  node: ConfigWhere
+}
+
+export type ConfigCreateInput = {
+  app?: InputMaybe<ConfigAppFieldInput>
+  id: Scalars['ID']
+  name: Scalars['String']
+}
+
+export type ConfigDeleteInput = {
+  app?: InputMaybe<ConfigAppDeleteFieldInput>
+}
+
+export type ConfigDisconnectInput = {
+  app?: InputMaybe<ConfigAppDisconnectFieldInput>
+}
+
+export type ConfigEdge = {
+  __typename?: 'ConfigEdge'
+  cursor: Scalars['String']
+  node: Config
+}
+
+export type ConfigOnCreateInput = {
+  id: Scalars['ID']
+  name: Scalars['String']
+}
+
+export type ConfigOptions = {
+  limit?: InputMaybe<Scalars['Int']>
+  offset?: InputMaybe<Scalars['Int']>
+  /** Specify one or more ConfigSort objects to sort Configs by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<ConfigSort>>
+}
+
+export type ConfigRelationInput = {
+  app?: InputMaybe<ConfigAppCreateFieldInput>
+}
+
+/** Fields to sort Configs by. The order in which sorts are applied is not guaranteed when specifying many fields in one ConfigSort object. */
+export type ConfigSort = {
+  id?: InputMaybe<SortDirection>
+  name?: InputMaybe<SortDirection>
+}
+
+export type ConfigUniqueWhere = {
+  id?: InputMaybe<Scalars['ID']>
+}
+
+export type ConfigUpdateInput = {
+  app?: InputMaybe<ConfigAppUpdateFieldInput>
+  id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+}
+
+export type ConfigWhere = {
+  AND?: InputMaybe<Array<ConfigWhere>>
+  NOT?: InputMaybe<ConfigWhere>
+  OR?: InputMaybe<Array<ConfigWhere>>
+  app?: InputMaybe<AppWhere>
+  appAggregate?: InputMaybe<ConfigAppAggregateInput>
+  appConnection?: InputMaybe<ConfigAppConnectionWhere>
+  appConnection_NOT?: InputMaybe<ConfigAppConnectionWhere>
+  app_NOT?: InputMaybe<AppWhere>
+  id?: InputMaybe<Scalars['ID']>
+  id_CONTAINS?: InputMaybe<Scalars['ID']>
+  id_ENDS_WITH?: InputMaybe<Scalars['ID']>
+  id_IN?: InputMaybe<Array<Scalars['ID']>>
+  id_MATCHES?: InputMaybe<Scalars['String']>
+  id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
+  name_CONTAINS?: InputMaybe<Scalars['String']>
+  name_ENDS_WITH?: InputMaybe<Scalars['String']>
+  name_IN?: InputMaybe<Array<Scalars['String']>>
+  name_MATCHES?: InputMaybe<Scalars['String']>
+  name_STARTS_WITH?: InputMaybe<Scalars['String']>
+}
+
+export type ConfigsConnection = {
+  __typename?: 'ConfigsConnection'
+  edges: Array<ConfigEdge>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
 export type CreateActionTypesMutationResponse = {
   __typename?: 'CreateActionTypesMutationResponse'
   actionTypes: Array<ActionType>
@@ -6335,6 +6740,12 @@ export type CreateCodeMirrorTypesMutationResponse = {
 export type CreateComponentsMutationResponse = {
   __typename?: 'CreateComponentsMutationResponse'
   components: Array<Component>
+  info: CreateInfo
+}
+
+export type CreateConfigsMutationResponse = {
+  __typename?: 'CreateConfigsMutationResponse'
+  configs: Array<Config>
   info: CreateInfo
 }
 
@@ -12256,6 +12667,7 @@ export type Mutation = {
   createCodeActions: CreateCodeActionsMutationResponse
   createCodeMirrorTypes: CreateCodeMirrorTypesMutationResponse
   createComponents: CreateComponentsMutationResponse
+  createConfigs: CreateConfigsMutationResponse
   createDomains: CreateDomainsMutationResponse
   createElementTypes: CreateElementTypesMutationResponse
   createElements: CreateElementsMutationResponse
@@ -12287,6 +12699,7 @@ export type Mutation = {
   deleteCodeActions: DeleteInfo
   deleteCodeMirrorTypes: DeleteInfo
   deleteComponents: DeleteInfo
+  deleteConfigs: DeleteInfo
   deleteDomains: DeleteInfo
   deleteElementTypes: DeleteInfo
   deleteElements: DeleteInfo
@@ -12319,6 +12732,7 @@ export type Mutation = {
   updateCodeActions: UpdateCodeActionsMutationResponse
   updateCodeMirrorTypes: UpdateCodeMirrorTypesMutationResponse
   updateComponents: UpdateComponentsMutationResponse
+  updateConfigs: UpdateConfigsMutationResponse
   updateDomains: UpdateDomainsMutationResponse
   updateElementTypes: UpdateElementTypesMutationResponse
   updateElements: UpdateElementsMutationResponse
@@ -12376,6 +12790,10 @@ export type MutationCreateCodeMirrorTypesArgs = {
 
 export type MutationCreateComponentsArgs = {
   input: Array<ComponentCreateInput>
+}
+
+export type MutationCreateConfigsArgs = {
+  input: Array<ConfigCreateInput>
 }
 
 export type MutationCreateDomainsArgs = {
@@ -12509,6 +12927,11 @@ export type MutationDeleteCodeMirrorTypesArgs = {
 export type MutationDeleteComponentsArgs = {
   delete?: InputMaybe<ComponentDeleteInput>
   where?: InputMaybe<ComponentWhere>
+}
+
+export type MutationDeleteConfigsArgs = {
+  delete?: InputMaybe<ConfigDeleteInput>
+  where?: InputMaybe<ConfigWhere>
 }
 
 export type MutationDeleteDomainsArgs = {
@@ -12706,6 +13129,16 @@ export type MutationUpdateComponentsArgs = {
   disconnect?: InputMaybe<ComponentDisconnectInput>
   update?: InputMaybe<ComponentUpdateInput>
   where?: InputMaybe<ComponentWhere>
+}
+
+export type MutationUpdateConfigsArgs = {
+  connect?: InputMaybe<ConfigConnectInput>
+  connectOrCreate?: InputMaybe<ConfigConnectOrCreateInput>
+  create?: InputMaybe<ConfigRelationInput>
+  delete?: InputMaybe<ConfigDeleteInput>
+  disconnect?: InputMaybe<ConfigDisconnectInput>
+  update?: InputMaybe<ConfigUpdateInput>
+  where?: InputMaybe<ConfigWhere>
 }
 
 export type MutationUpdateDomainsArgs = {
@@ -14382,6 +14815,9 @@ export type Query = {
   components: Array<Component>
   componentsAggregate: ComponentAggregateSelection
   componentsConnection: ComponentsConnection
+  configs: Array<Config>
+  configsAggregate: ConfigAggregateSelection
+  configsConnection: ConfigsConnection
   domains: Array<Domain>
   domainsAggregate: DomainAggregateSelection
   domainsConnection: DomainsConnection
@@ -14603,6 +15039,22 @@ export type QueryComponentsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InputMaybe<ComponentSort>>>
   where?: InputMaybe<ComponentWhere>
+}
+
+export type QueryConfigsArgs = {
+  options?: InputMaybe<ConfigOptions>
+  where?: InputMaybe<ConfigWhere>
+}
+
+export type QueryConfigsAggregateArgs = {
+  where?: InputMaybe<ConfigWhere>
+}
+
+export type QueryConfigsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<InputMaybe<ConfigSort>>>
+  where?: InputMaybe<ConfigWhere>
 }
 
 export type QueryDomainsArgs = {
@@ -18733,6 +19185,12 @@ export type UpdateComponentsMutationResponse = {
   info: UpdateInfo
 }
 
+export type UpdateConfigsMutationResponse = {
+  __typename?: 'UpdateConfigsMutationResponse'
+  configs: Array<Config>
+  info: UpdateInfo
+}
+
 export type UpdateDomainsMutationResponse = {
   __typename?: 'UpdateDomainsMutationResponse'
   domains: Array<Domain>
@@ -20290,6 +20748,13 @@ export type ComponentFragment = {
   props: { __typename?: 'Prop' } & PropFragment
   childrenContainerElement: { __typename?: 'Element'; id: string }
   store: { __typename?: 'Store' } & StoreFragment
+}
+
+export type ConfigFragment = {
+  __typename?: 'Config'
+  id: string
+  name: string
+  app: { __typename?: 'App'; id: string }
 }
 
 export type DomainFragment = {

@@ -6,6 +6,7 @@ import { adminSchema } from './model/admin.schema'
 import { appSchema } from './model/app.schema'
 import { atomSchema } from './model/atom.schema'
 import { componentSchema } from './model/component.schema'
+import { configSchema } from './model/config.schema'
 import { domainSchema } from './model/domain.schema'
 import { elementSchema } from './model/element.schema'
 import { hookSchema } from './model/hook.schema'
@@ -37,4 +38,5 @@ export const typeDefs = print(gql`
   ${actionSchema}
   ${resourceSchema}
   ${domainSchema}
+  ${configSchema}
 `)
