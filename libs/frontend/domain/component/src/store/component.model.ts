@@ -21,6 +21,7 @@ import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
+import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { clone, ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 
@@ -204,5 +205,31 @@ export class Component
       },
       store: { create: { node: this.store.current.toCreateInput() } },
     }
+  }
+
+  /**
+   * Finds all the components that are referenced by all the
+   * children of this component as well as the children of
+   * any of these found components recursively
+   */
+  @computed
+  get descendantComponents() {
+    const descendants = new Set<IComponent>()
+
+    this.elements.forEach((element) => {
+      if (isComponentInstance(element.renderType)) {
+        const component = element.renderType.current
+
+        // Add the component as it was referenced by this element
+        descendants.add(component)
+
+        // Now start at this component and get its descendants
+        component.descendantComponents.forEach((descendantComponent) => {
+          descendants.add(descendantComponent)
+        })
+      }
+    })
+
+    return Array.from(descendants)
   }
 }

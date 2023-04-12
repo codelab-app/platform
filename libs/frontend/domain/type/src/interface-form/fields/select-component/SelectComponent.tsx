@@ -28,14 +28,9 @@ export const SelectComponent = ({
       return false
     }
 
-    const descendants = component.rootElement.current.descendantElements
+    const descendants = component.descendantComponents
 
-    return (
-      !parent?.id ||
-      !descendants.some(
-        ({ renderType }) => renderType?.maybeCurrent?.id === parent.id,
-      )
-    )
+    return !parent?.id || !descendants.some(({ id }) => id === parent.id)
   })
 
   const componentOptions = filteredComponents.map((component) => ({

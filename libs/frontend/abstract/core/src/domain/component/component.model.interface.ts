@@ -15,6 +15,7 @@ export interface IComponent
     IElementTree {
   api: Ref<IInterfaceType>
   childrenContainerElement: Ref<IElement>
+  descendantComponents: Array<IComponent>
   instanceElement: Nullable<Ref<IElement>>
   name: string
   props: Ref<IProp>
