@@ -9448,10 +9448,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mailchimp__mailchimp_marketing@npm:^3.0.6":
-  version: 3.0.6
-  resolution: "@types/mailchimp__mailchimp_marketing@npm:3.0.6"
-  checksum: fc325a2532af8e24472d28bf7f12680a3e9275f0246f92277fc5a9212fc033045c548a4d93ed3ee2d5510ecd593471ccc77cf0b2a9c19114331a36d07d53075d
+"@types/mailchimp__mailchimp_marketing@npm:^3.0.8":
+  version: 3.0.8
+  resolution: "@types/mailchimp__mailchimp_marketing@npm:3.0.8"
+  checksum: 0359b7f22eb54bcd1d0ad56322146455f27633b8235ad72f192cba1a2197ab96ce1389c117b24cabb67730c7c80a3bbbdb34c6309bcfefc1bbc21d9c5bff6a44
   languageName: node
   linkType: hard
 
@@ -14000,7 +14000,7 @@ __metadata:
     "@types/json2csv": 5.0.3
     "@types/jwt-decode": 3.1.0
     "@types/lodash": 4.14.186
-    "@types/mailchimp__mailchimp_marketing": ^3.0.6
+    "@types/mailchimp__mailchimp_marketing": ^3.0.8
     "@types/node": 18.11.18
     "@types/prettier": 2.4.4
     "@types/ramda": 0.27.64
