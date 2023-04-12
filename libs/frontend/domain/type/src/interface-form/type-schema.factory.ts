@@ -68,7 +68,7 @@ export class TypeSchemaFactory {
       case ITypeKind.EnumType:
         return this.fromEnumType(type)
       case ITypeKind.UnionType:
-        return this.fromUnionType(type)
+        return this.fromUnionType(type, context)
       case ITypeKind.InterfaceType:
         return this.fromInterfaceType(type)
       case ITypeKind.ArrayType:
@@ -96,7 +96,9 @@ export class TypeSchemaFactory {
         fieldName: field.name,
         validationRules: field.validationRules ?? undefined,
       }),
-      ...field.validationRules?.general,
+      ...(field.type.current.kind !== ITypeKind.UnionType
+        ? field.validationRules?.general
+        : undefined),
     })
 
     const makeFieldProperties = (
@@ -125,7 +127,7 @@ export class TypeSchemaFactory {
     }
   }
 
-  fromUnionType(type: IUnionType): JsonSchema {
+  fromUnionType(type: IUnionType, context?: UiPropertiesContext): JsonSchema {
     // This is the extra for the union type. Not to be confused with the extra for the value type
     const extra = this.getExtraProperties(type)
     const label: string | undefined = extra?.label
@@ -146,7 +148,7 @@ export class TypeSchemaFactory {
         return {
           label: '',
           properties,
-
+          ...context?.validationRules?.general,
           type: 'object',
           // We use this as label of the select field item
           typeName: innerType.current.name,

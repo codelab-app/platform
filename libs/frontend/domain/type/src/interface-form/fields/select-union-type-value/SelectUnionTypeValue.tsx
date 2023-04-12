@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { IFieldDefaultValue } from '@codelab/frontend/abstract/core'
 import { usePrevious } from '@codelab/frontend/shared/utils'
 import { Form } from '@codelab/frontend/view/components'
 import { css } from '@emotion/react'
 import { Form as AntdForm } from 'antd'
+import isNil from 'lodash/isNil'
 import React, { useEffect } from 'react'
 import tw from 'twin.macro'
 import { useField } from 'uniforms'
@@ -10,7 +12,10 @@ import { AutoField, SelectField } from 'uniforms-antd'
 
 export interface SelectUnionTypeValueProps {
   name: string
-  value: any
+  value: {
+    type: string
+    value?: IFieldDefaultValue
+  }
 }
 
 const makeSelectOptions = (oneOf: Array<any>) => {
@@ -49,7 +54,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
     throw new Error('SelectUnionTypeValue must be used with a oneOf field')
   }
 
-  const { type: selectedTypeId } = (fieldProps.value as any) ?? {}
+  const { type: selectedTypeId } = fieldProps.value
   const selectOptions = makeSelectOptions(oneOf)
 
   const valueSchema = {
@@ -62,7 +67,10 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
 
   const previousSelectedTypeId = usePrevious(selectedTypeId)
   useEffect(() => {
-    if (previousSelectedTypeId !== selectedTypeId) {
+    if (
+      !isNil(previousSelectedTypeId) &&
+      previousSelectedTypeId !== selectedTypeId
+    ) {
       context.onChange(valueFieldName, undefined)
     }
   }, [

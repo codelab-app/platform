@@ -45,9 +45,11 @@ export const isInteger: FieldCondition = (typeService, fieldType) =>
       typeService.primitiveKind(fieldType) === IPrimitiveTypeKind.Integer,
   )
 
-export const isInterfaceType: FieldCondition = (typeService, fieldType) =>
+export const canSetDefaultValue: FieldCondition = (typeService, fieldType) =>
   Boolean(
-    fieldType && typeService.type(fieldType)?.kind === ITypeKind.InterfaceType,
+    fieldType &&
+      typeService.type(fieldType)?.kind !== ITypeKind.InterfaceType &&
+      typeService.type(fieldType)?.kind !== ITypeKind.ReactNodeType,
   )
 
 export const isFloat: FieldCondition = (typeService, fieldType) =>

@@ -12,11 +12,11 @@ import { SelectDefaultValue } from '../../../interface-form'
 import { TypeSelect } from '../../../shared'
 import { createFieldSchema } from './create-field.schema'
 import {
+  canSetDefaultValue,
   filterValidationRules,
   isBoolean,
   isFloat,
   isInteger,
-  isInterfaceType,
   isPrimitive,
   isString,
 } from './field-utils'
@@ -71,7 +71,8 @@ export const CreateFieldModal = observer(() => {
         <TypeSelect label="Type" name="fieldType" />
         <DisplayIfField<ICreateFieldData>
           condition={({ model }) =>
-            Boolean(model.fieldType) && !isBoolean(typeService, model.fieldType)
+            !isBoolean(typeService, model.fieldType) &&
+            canSetDefaultValue(typeService, model.fieldType)
           }
         >
           <AutoFields fields={['validationRules.general']} />
@@ -103,7 +104,7 @@ export const CreateFieldModal = observer(() => {
         </DisplayIfField>
         <DisplayIfField<ICreateFieldData>
           condition={({ model }) =>
-            !isInterfaceType(typeService, model.fieldType)
+            canSetDefaultValue(typeService, model.fieldType)
           }
         >
           <SelectDefaultValue typeService={typeService} />

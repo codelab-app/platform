@@ -55,10 +55,19 @@ export const SelectDefaultValue = ({
     [type?.id, isRequired],
   )
 
-  const defaultValues =
-    !context.model.defaultValues && type?.kind === ITypeKind.ArrayType
-      ? []
-      : context.model.defaultValues
+  let defaultValues = context.model.defaultValues
+
+  if (isNil(defaultValues) || fieldType.changed) {
+    if (type?.kind === ITypeKind.ArrayType) {
+      defaultValues = []
+    }
+
+    if (type?.kind === ITypeKind.UnionType) {
+      defaultValues = {
+        type: type.typesOfUnionType[0]?.id,
+      }
+    }
+  }
 
   const hasError =
     context.submitted && isRequired && isNil(context.model.defaultValues)
@@ -67,6 +76,9 @@ export const SelectDefaultValue = ({
   // Simple approach for now is to just display the error message for the `defaultValues` below it
   return (
     <Form
+      // key is needed here to re-create this form with a
+      // new model and schema when the field type is changed
+      key={`${fieldType.value}-default-values`}
       model={{ defaultValues }}
       onChange={(key, value) => {
         const formattedValue = value === '' ? undefined : value
