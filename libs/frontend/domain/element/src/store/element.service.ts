@@ -1,5 +1,6 @@
 import type {
   IAuth0Owner,
+  IComponent,
   ICreateElementData,
   IElement,
   IElementDTO,
@@ -466,59 +467,17 @@ export class ElementService
     return element
   })
 
-  @modelFlow
-  @transaction
-  moveElementToAnotherTree = _async(function* (
-    this: ElementService,
-    {
-      dropPosition,
-      element: { id: elementId },
-      targetElement: { id: targetElementId },
-    }: Parameters<IElementService['moveElementToAnotherTree']>[0],
-  ) {
-    const targetElement = this.element(targetElementId)
-    let element = this.maybeElement(elementId)
-
-    if (!element) {
-      const elementTree = targetElement.closestContainerNode
-
-      const existingInstances = elementTree.elements.filter(
-        ({ renderType }) => renderType?.id === elementId,
-      )
-
-      const component = this.componentService.components.get(elementId)
-
-      if (!component) {
-        throw new Error('Missing component')
-      }
-
-      const componentInstanceCounter = existingInstances.length
-        ? ` ${existingInstances.length}`
-        : ''
-
-      const name = `${component.name}${componentInstanceCounter}`
-
-      const renderType: RenderType = {
-        id: component.id,
-        kind: IRenderTypeKind.Component,
-      }
-
-      const parentElementId = targetElement.id
-      const data = { id: v4(), name, parentElementId, renderType }
-
-      element = yield* _await(this.create(data))
-    } else {
-      const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
-
-      yield* _await(
-        Promise.all(
-          oldConnectedNodeIds.map((id) =>
-            this.elementRepository.updateNodes(this.element(id)),
-          ),
-        ),
-      )
-    }
-
+  @modelAction
+  moveElementToAnotherTree = ({
+    dropPosition,
+    element,
+    targetElement,
+  }: {
+    dropPosition: number
+    element: IElement
+    targetElement: IElement
+  }) => {
+    const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
     const insertAfterId = targetElement.children[dropPosition]?.id
     let newConnectedNodeIds: Array<string> = []
 
@@ -534,9 +493,112 @@ export class ElementService
       })
     }
 
+    const affectedNodeIds = [...oldConnectedNodeIds, ...newConnectedNodeIds]
+
+    return affectedNodeIds
+  }
+
+  @modelFlow
+  @transaction
+  moveComponentToAnotherTree = _async(function* (
+    this: ElementService,
+    {
+      component,
+      dropPosition,
+      targetElement,
+    }: {
+      dropPosition: number
+      component: IComponent
+      targetElement: IElement
+    },
+  ) {
+    const elementTree = targetElement.closestContainerNode
+
+    const existingInstances = elementTree.elements.filter(
+      ({ renderType }) => renderType?.id === component.id,
+    )
+
+    /**
+     * Create a new element as an instance of the component
+     */
+    const componentInstanceCounter = existingInstances.length
+      ? ` ${existingInstances.length}`
+      : ''
+
+    const name = `${component.name}${componentInstanceCounter}`
+
+    const renderType: RenderType = {
+      id: component.id,
+      kind: IRenderTypeKind.Component,
+    }
+
+    const parentElementId = targetElement.id
+    const data = { id: v4(), name, parentElementId, renderType }
+    const element = yield* _await(this.create(data))
+    /**
+     * Attach the new element to the target position
+     */
+    const insertAfterId = targetElement.children[dropPosition]?.id
+    let newConnectedNodeIds: Array<string> = []
+
+    if (!insertAfterId || dropPosition === 0) {
+      newConnectedNodeIds = this.attachElementAsFirstChild({
+        element,
+        parentElement: targetElement,
+      })
+    } else {
+      newConnectedNodeIds = this.attachElementAsNextSibling({
+        element,
+        targetElement: { id: insertAfterId },
+      })
+    }
+
+    return newConnectedNodeIds
+  })
+
+  @modelFlow
+  @transaction
+  moveObjectToAnotherTree = _async(function* (
+    this: ElementService,
+    {
+      dropPosition,
+      object: { id: objectId },
+      targetElement: { id: targetElementId },
+    }: Parameters<IElementService['moveObjectToAnotherTree']>[0],
+  ) {
+    const targetElement = this.element(targetElementId)
+    const element = this.maybeElement(objectId)
+    const affectedNodeIds: Array<string> = []
+
+    if (!element) {
+      const component = this.componentService.components.get(objectId)
+
+      if (!component) {
+        throw new Error('Missing component')
+      }
+
+      affectedNodeIds.push(
+        ...(yield* _await(
+          this.moveComponentToAnotherTree({
+            component,
+            dropPosition,
+            targetElement,
+          }),
+        )),
+      )
+    } else {
+      affectedNodeIds.push(
+        ...this.moveElementToAnotherTree({
+          dropPosition,
+          element,
+          targetElement,
+        }),
+      )
+    }
+
     yield* _await(
       Promise.all(
-        newConnectedNodeIds.map((id) =>
+        affectedNodeIds.map((id) =>
           this.elementRepository.updateNodes(this.element(id)),
         ),
       ),

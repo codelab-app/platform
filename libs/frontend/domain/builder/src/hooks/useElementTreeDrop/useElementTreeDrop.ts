@@ -38,9 +38,9 @@ export const useElementTreeDrop = (elementService: IElementService) => {
         return
       }
 
-      void elementService.moveElementToAnotherTree({
+      void elementService.moveObjectToAnotherTree({
         dropPosition: info.dropPosition,
-        element: dragElement,
+        object: dragElement,
         targetElement: dropElement,
       })
 
