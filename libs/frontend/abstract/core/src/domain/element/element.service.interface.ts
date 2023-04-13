@@ -83,9 +83,11 @@ export interface IElementService
     element: IEntity
     targetElement: IEntity
   }): Promise<void>
+  /**
+   * @param props.object an element or a component
+   */
   moveObjectToAnotherTree(props: {
     dropPosition: number
-    // an element or a component
     object: IEntity
     targetElement: IEntity
   }): Promise<void>
