@@ -4,6 +4,7 @@ import {
   builderServiceContext,
   componentServiceContext,
   elementServiceContext,
+  userServiceContext,
 } from '@codelab/frontend/abstract/core'
 import { AdminService } from '@codelab/frontend/domain/admin'
 import { AppService } from '@codelab/frontend/domain/app'
@@ -35,7 +36,7 @@ import {
   TypeService,
   typeServiceContext,
 } from '@codelab/frontend/domain/type'
-import { UserService, userServiceContext } from '@codelab/frontend/domain/user'
+import { UserService } from '@codelab/frontend/domain/user'
 import { Model, model, prop } from 'mobx-keystone'
 
 export const createRootStore = ({ user }: RootStoreData) => {

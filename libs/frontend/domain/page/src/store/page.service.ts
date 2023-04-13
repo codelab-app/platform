@@ -10,6 +10,7 @@ import {
   elementRef,
   getAppService,
   getElementService,
+  getUserService,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
@@ -19,7 +20,6 @@ import {
   InterfaceType,
   typeRef,
 } from '@codelab/frontend/domain/type'
-import { getUserService } from '@codelab/frontend/domain/user'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'

@@ -14,14 +14,11 @@ export interface IPageDTO {
   url: string
 }
 
-export type ISystemPageDTO = IOwnerSchema &
-  Pick<IPageDTO, 'app' | 'kind' | 'name' | 'url'>
-
 /**
  * IOwnerSchema is required for store api
  */
 export type ICreatePageData = IOwnerSchema &
-  Pick<IPageDTO, 'app' | 'id' | 'name' | 'url'>
+  Pick<IPageDTO, 'app' | 'id' | 'kind' | 'name' | 'url'>
 
 export type IUpdatePageData = Pick<
   IPageDTO,
