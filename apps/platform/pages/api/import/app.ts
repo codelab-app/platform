@@ -13,8 +13,9 @@ const importApp: NextApiHandler = async (req, res) => {
     }
 
     const data = JSON.parse(req.body) as IUserDataExport
+    const owner = { auth0Id: session.user.sub }
 
-    await importUserData(data, session.user.sub)
+    await importUserData(data, owner)
 
     return res.status(200).send(true)
   } catch (err) {
