@@ -83,7 +83,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
 
           if (stage === Stage.CI) {
             execCommand(
-              'npx nx affected --target=test --testPathPattern="[i].spec.ts" --color --parallel=3 --verbose',
+              'npx nx affected --target=test --testPathPattern="[i].spec.ts" --color --parallel=4 --verbose',
             )
           }
         },
