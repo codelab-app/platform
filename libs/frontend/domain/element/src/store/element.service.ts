@@ -15,6 +15,7 @@ import {
   isComponentInstance,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
+import { Component } from '@codelab/frontend/domain/component'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
 import {
@@ -517,6 +518,21 @@ export class ElementService
     const existingInstances = elementTree.elements.filter(
       ({ renderType }) => renderType?.id === component.id,
     )
+
+    /**
+     * Check if there is circular referance
+     */
+    const componentDescendants = component.descendantComponents
+
+    if (
+      elementTree instanceof Component &&
+      componentDescendants.includes(elementTree)
+    ) {
+      throw new Error(
+        `Cannot move ${component.name} into ${targetElement.name} because of a circular reference between ${component.name} and ${elementTree.name}
+        `,
+      )
+    }
 
     /**
      * Create a new element as an instance of the component
