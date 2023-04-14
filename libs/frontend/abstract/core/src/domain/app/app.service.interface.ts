@@ -2,6 +2,7 @@ import type {
   AppOptions,
   AppWhere,
   GetRenderedPageAndCommonAppDataQuery,
+  PageWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
@@ -31,12 +32,12 @@ export interface IAppService
 
   add(appDto: IAppDTO): IApp
   app(id: string): Maybe<IApp>
+  getAppPages(appId: string, where: PageWhere): Promise<void>
   getRenderedPageAndCommonAppData(
     appId: string,
     pageId: string,
     initialData?: GetRenderedPageAndCommonAppDataQuery,
   ): Promise<IApp | undefined>
-  lazyGetRemainingPages(appId: string): Promise<void>
   loadAppsWithNestedPreviews(where: AppWhere): Promise<Array<IApp>>
   loadPages(data: IPageBuilderAppProps): void
 }

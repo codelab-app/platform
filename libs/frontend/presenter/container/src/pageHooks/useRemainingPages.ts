@@ -12,7 +12,13 @@ export const useRemainingPages = () => {
   const app = appService.app(appId)!
 
   return useAsync(async () => {
-    await appService.lazyGetRemainingPages(appId)
+    const notAlreadyLoadedPages = app.pages
+      .map((page) => page.current.id)
+      .map((id) => ({ NOT: { id } }))
+
+    await appService.getAppPages(appId, {
+      AND: notAlreadyLoadedPages,
+    })
 
     await Promise.all([
       app.pages.map(async (pageRef) => {

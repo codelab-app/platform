@@ -23,6 +23,7 @@ import type {
   AppWhere,
   BuilderPageFragment,
   GetRenderedPageAndCommonAppDataQuery,
+  PageWhere,
 } from '@codelab/shared/abstract/codegen'
 import flatMap from 'lodash/flatMap'
 import merge from 'lodash/merge'
@@ -319,39 +320,29 @@ export class AppService
     return this.add(appData)
   })
 
-  /**
-    This function fetches all the pages that were not loaded yet for specified app.
-    This will populate dropdown menu in builder header with all valid pages,
-    as well as make page switching instant
-   */
   @modelFlow
   @transaction
-  lazyGetRemainingPages = _async(function* (this: AppService, appId: string) {
-    const app = this.app(appId)
-
-    if (!app) {
-      return
-    }
-
-    const loadedPagesIds = app.pages
-      .map((page) => page.current.id)
-      .map((id) => ({ NOT: { id } }))
-
+  getAppPages = _async(function* (
+    this: AppService,
+    appId: string,
+    where: PageWhere,
+  ) {
     const pages = (yield* _await(
       this.pageService.pageRepository.find({
-        AND: [{ appConnection: { node: { id: appId } } }, ...loadedPagesIds],
+        AND: [{ appConnection: { node: { id: appId } } }, where],
       }),
     )) as Array<BuilderPageFragment>
 
     this.loadPages({ pages })
 
+    const app = this.app(appId)
     pages.forEach(({ id }) => {
-      const pageExistsInApp = app.pages.find(
+      const pageExistsInApp = app?.pages.find(
         (appPage) => appPage.current.id === id,
       )
 
       if (!pageExistsInApp) {
-        app.pages.push(pageRef(id))
+        app?.pages.push(pageRef(id))
       }
     })
   })
