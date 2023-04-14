@@ -6,18 +6,13 @@ import {
   ownerSchema,
   titleCaseValidation,
 } from '@codelab/frontend/view/components'
-import { IPageKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
-export const createPageSchema: JSONSchemaType<ICreatePageData> = {
+export const createPageSchema: JSONSchemaType<Omit<ICreatePageData, 'kind'>> = {
   properties: {
     ...idSchema,
     ...ownerSchema,
     ...appSchema,
-    kind: {
-      type: 'string',
-      value: IPageKind.Regular,
-    },
     name: {
       autoFocus: true,
       ...nonEmptyString,
