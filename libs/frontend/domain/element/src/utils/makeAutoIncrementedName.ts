@@ -8,7 +8,7 @@ export const makeAutoIncrementedName = (
   currentElementName: string,
   isDuplicate = false,
 ) => {
-  const nameRoot = `${currentElementName}${isDuplicate ? ' duplicate' : ''}`
+  const nameRoot = `${currentElementName}${isDuplicate ? ' Duplicate' : ''}`
 
   if (!allElementNames.includes(nameRoot)) {
     return nameRoot
