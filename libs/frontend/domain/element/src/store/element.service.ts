@@ -574,13 +574,13 @@ export class ElementService
 
   @modelFlow
   @transaction
-  moveObjectToAnotherTree = _async(function* (
+  moveNodeToAnotherTree = _async(function* (
     this: ElementService,
     {
       dropPosition,
       object: { id: objectId },
       targetElement: { id: targetElementId },
-    }: Parameters<IElementService['moveObjectToAnotherTree']>[0],
+    }: Parameters<IElementService['moveNodeToAnotherTree']>[0],
   ) {
     const targetElement = this.element(targetElementId)
     const element = this.maybeElement(objectId)
