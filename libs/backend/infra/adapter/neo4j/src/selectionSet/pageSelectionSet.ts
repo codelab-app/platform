@@ -1,4 +1,9 @@
+import { storeSelectionSet } from './storeSelectionSet'
+
 export const pageSelectionSet = `{
+  app {
+    id
+  }
   id
   name
   slug
@@ -10,6 +15,9 @@ export const pageSelectionSet = `{
   pageContentContainer {
     id
     name
+  }
+  store {
+    ${storeSelectionSet}
   }
   url
 }`
