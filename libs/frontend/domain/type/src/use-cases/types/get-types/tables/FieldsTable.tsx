@@ -1,4 +1,5 @@
 import type {
+  IField,
   IFieldRecord,
   IFieldService,
   IInterfaceType,
@@ -10,11 +11,14 @@ import {
   ListItemEditButton,
 } from '@codelab/frontend/view/components'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { faArrowsUpDownLeftRight } from '@fortawesome/pro-light-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Divider, Space, Table, Tag } from 'antd'
 import type { ColumnProps } from 'antd/lib/table/Column'
 import isNil from 'lodash/isNil'
 import { Observer, observer } from 'mobx-react-lite'
 import React from 'react'
+import ReactDragListView from 'react-drag-listview'
 import tw from 'twin.macro'
 import { fieldRef, typeRef } from '../../../../store'
 import { CreateFieldButton } from '../../../fields/create-field'
@@ -34,6 +38,15 @@ const headerCellProps = () => ({ style: tw`font-semibold text-gray-900` })
 export const FieldsTable = observer<FieldsTableProps>(
   ({ fieldService, hideActions, interfaceType, isLoading, typeService }) => {
     const columns: Array<ColumnProps<IFieldRecord>> = [
+      {
+        key: '',
+        render: (text, record, index) => (
+          <span className="drag-handle">
+            <FontAwesomeIcon icon={faArrowsUpDownLeftRight} size="lg" />
+          </span>
+        ),
+        title: '',
+      },
       {
         dataIndex: 'name',
         key: 'name',
@@ -150,14 +163,33 @@ export const FieldsTable = observer<FieldsTableProps>(
       },
     ]
 
-    const dataSource: Array<IFieldRecord> = interfaceType.fields.map(
-      (field) => {
+    const compareNodes = (node1: IField, node2: IField) => {
+      if (node1.nextSibling === null) {
+        return 1
+      } else if (node2.nextSibling === null) {
+        return -1
+      } else if (node1.prevSibling === null) {
+        return -1
+      } else if (node2.prevSibling === null) {
+        return 1
+      } else if (node1.nextSibling?.id === node2.id) {
+        return -1
+      } else {
+        return -1
+      }
+    }
+
+    const dataSource: Array<IFieldRecord> = interfaceType.fields
+      .sort(compareNodes)
+      .map((field) => {
         return {
           dependentTypes: [],
           description: field.description || '',
           id: field.id,
           key: field.key,
           name: field.name || '',
+          nextSibling: field.nextSibling,
+          prevSibling: field.prevSibling,
           type: {
             id: field.type.maybeCurrent?.id ?? '',
             kind: field.type.maybeCurrent?.kind ?? '',
@@ -165,30 +197,54 @@ export const FieldsTable = observer<FieldsTableProps>(
           },
           validationRules: getValidationRuleTagsArray(field.validationRules),
         }
-      },
-    )
+      })
+
+    const onDragEnd = async (fromIndex: number, toIndex: number) => {
+      if (fromIndex === toIndex) {
+        return
+      }
+
+      if (fromIndex < toIndex && toIndex !== 0) {
+        await fieldService.moveFieldAsNextSibling({
+          field: { id: dataSource[fromIndex]?.id as string },
+          targetField: { id: dataSource[toIndex]?.id as string },
+        })
+      } else if (toIndex === 0) {
+        await fieldService.moveFieldAsNextSibling({
+          field: { id: dataSource[toIndex]?.id as string },
+          targetField: { id: dataSource[fromIndex]?.id as string },
+        })
+      } else if (fromIndex > toIndex && toIndex !== 0) {
+        await fieldService.moveFieldAsNextSibling({
+          field: { id: dataSource[fromIndex]?.id as string },
+          targetField: { id: dataSource[toIndex - 1]?.id as string },
+        })
+      }
+    }
 
     return (
-      <Table
-        columns={
-          hideActions
-            ? columns.filter((column) => column.key !== 'action')
-            : columns
-        }
-        dataSource={dataSource}
-        expandable={{
-          expandedRowRender: (record) => {
-            return record.type ? (
-              <TypeDetailsTable typeId={record.type.id} />
-            ) : null
-          },
-          indentSize: 0,
-        }}
-        loading={isLoading}
-        pagination={{ disabled: false, hideOnSinglePage: true, pageSize: 25 }}
-        rowKey={({ key }) => key}
-        size="small"
-      />
+      <ReactDragListView handleSelector="span" onDragEnd={onDragEnd}>
+        <Table
+          columns={
+            hideActions
+              ? columns.filter((column) => column.key !== 'action')
+              : columns
+          }
+          dataSource={dataSource}
+          expandable={{
+            expandedRowRender: (record) => {
+              return record.type ? (
+                <TypeDetailsTable typeId={record.type.id} />
+              ) : null
+            },
+            indentSize: 0,
+          }}
+          loading={isLoading}
+          pagination={{ disabled: false, hideOnSinglePage: true, pageSize: 25 }}
+          rowKey={({ key }) => key}
+          size="small"
+        />
+      </ReactDragListView>
     )
   },
 )

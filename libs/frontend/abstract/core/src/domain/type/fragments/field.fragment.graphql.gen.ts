@@ -10,6 +10,8 @@ export type FieldFragment = {
   description?: string | null
   validationRules?: string | null
   defaultValues?: string | null
+  prevSibling?: { id: string } | null
+  nextSibling?: { id: string } | null
   fieldType:
     | {
         __typename: 'ActionType'
@@ -85,6 +87,12 @@ export const FieldFragmentDoc = gql`
     name
     description
     validationRules
+    prevSibling {
+      id
+    }
+    nextSibling {
+      id
+    }
     fieldType {
       ... on IBaseType {
         __typename

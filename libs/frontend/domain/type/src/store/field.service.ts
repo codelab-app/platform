@@ -6,6 +6,9 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { getElementService, IFieldDTO } from '@codelab/frontend/abstract/core'
 import type { FieldFragment } from '@codelab/shared/abstract/codegen'
+import type { IEntity } from '@codelab/shared/abstract/types'
+import compact from 'lodash/compact'
+import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
 import {
   _async,
@@ -51,6 +54,17 @@ export class FieldService
 
   getField(id: string) {
     return this.fields.get(id)
+  }
+
+  @modelAction
+  field(id: string) {
+    const element = this.getField(id)
+
+    if (!element) {
+      throw new Error('Missing element')
+    }
+
+    return element
   }
 
   // The field actions are here because if I put them in InterfaceType
@@ -137,6 +151,132 @@ export class FieldService
 
     return field
   }
+
+  @modelAction
+  private attatchFieldAsNextSibling(
+    this: FieldService,
+    {
+      field: existingField,
+      targetField: existingTargetField,
+    }: {
+      field: IEntity
+      targetField: IEntity
+    },
+  ) {
+    const field = this.field(existingField.id)
+    const targetField = this.field(existingTargetField.id)
+    const affectedNodeIds: Array<string> = []
+
+    if (targetField.nextSibling) {
+      field.attachAsPrevSibling(targetField.nextSibling.current)
+      affectedNodeIds.push(targetField.nextSibling.current.id)
+    }
+
+    field.attachAsNextSibling(targetField)
+    affectedNodeIds.push(targetField.id)
+    affectedNodeIds.push(field.id)
+
+    return affectedNodeIds
+  }
+
+  @modelAction
+  private attatchFieldAsPrevSibling(
+    this: FieldService,
+    {
+      field: existingField,
+      targetField: existingTargetField,
+    }: {
+      field: IEntity
+      targetField: IEntity
+    },
+  ) {
+    const field = this.field(existingField.id)
+    const targetField = this.field(existingTargetField.id)
+    const affectedNodeIds: Array<string> = []
+
+    if (targetField.prevSibling) {
+      field.attachAsNextSibling(targetField.prevSibling.current)
+      affectedNodeIds.push(targetField.prevSibling.current.id)
+    }
+
+    field.attachAsPrevSibling(targetField)
+    affectedNodeIds.push(targetField.id)
+    affectedNodeIds.push(field.id)
+
+    return affectedNodeIds
+  }
+
+  @modelAction
+  private detachFieldFromFieldTree(this: FieldService, fieldId: string) {
+    const field = this.field(fieldId)
+    const affedtedNodeIds = [field.prevSibling?.id, field.nextSibling?.id]
+
+    field.connectPrevToNextSibling()
+
+    return compact(affedtedNodeIds)
+  }
+
+  @modelFlow
+  @transaction
+  moveFieldAsNextSibling = _async(function* (
+    this: FieldService,
+    {
+      field,
+      targetField,
+    }: Parameters<IFieldService['moveFieldAsNextSibling']>[0],
+  ) {
+    const target = this.getField(targetField.id)
+
+    if (target?.nextSibling?.getRefId() === field.id) {
+      return
+    }
+
+    const oldConnectedNodeIds = this.detachFieldFromFieldTree(field.id)
+
+    const newConnectedNodeIds = this.attatchFieldAsNextSibling({
+      field,
+      targetField,
+    })
+
+    yield* _await(
+      Promise.all(
+        uniq([...newConnectedNodeIds, ...oldConnectedNodeIds]).map((id) =>
+          this.fieldRepository.updateNodes(this.field(id)),
+        ),
+      ),
+    )
+  })
+
+  @modelFlow
+  @transaction
+  moveFieldAsPrevSibling = _async(function* (
+    this: FieldService,
+    {
+      field,
+      targetField,
+    }: Parameters<IFieldService['moveFieldAsPrevSibling']>[0],
+  ) {
+    const target = this.getField(targetField.id)
+
+    if (target?.nextSibling?.getRefId() === field.id) {
+      return
+    }
+
+    const oldConnectedNodeIds = this.detachFieldFromFieldTree(field.id)
+
+    const newConnectedNodeIds = this.attatchFieldAsPrevSibling({
+      field,
+      targetField,
+    })
+
+    yield* _await(
+      Promise.all(
+        uniq([...newConnectedNodeIds, ...oldConnectedNodeIds]).map((id) =>
+          this.fieldRepository.updateNodes(this.field(id)),
+        ),
+      ),
+    )
+  })
 
   private static mapDataToDTO(fieldData: ICreateFieldData) {
     return {

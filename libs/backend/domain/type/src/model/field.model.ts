@@ -19,6 +19,10 @@ export class Field implements IFieldDTO {
 
   readonly validationRules: string | null
 
+  nextSibling?: IEntity | null | undefined
+
+  prevSibling?: IEntity | null | undefined
+
   constructor({
     api,
     defaultValues = null,
@@ -27,6 +31,8 @@ export class Field implements IFieldDTO {
     id,
     key,
     name = null,
+    nextSibling = null,
+    prevSibling = null,
     validationRules = null,
   }: IFieldDTO) {
     this.api = { id: api.id }
@@ -37,6 +43,8 @@ export class Field implements IFieldDTO {
     this.key = key
     this.name = name
     this.validationRules = validationRules
+    this.nextSibling = nextSibling
+    this.prevSibling = prevSibling
   }
 
   /**

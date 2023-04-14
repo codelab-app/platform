@@ -31,8 +31,16 @@ export interface IField<T extends IType = IType>
    * Allows default to null
    */
   name: Nullish<string>
+  nextSibling?: Nullish<Ref<IField>>
+  prevSibling?: Nullish<Ref<IField>>
   type: Ref<T>
   validationRules: Nullish<IValidationRules>
+  attachAsNextSibling(sibling: IField): void
+  attachAsPrevSibling(sibling: IField): void
+  changePrev(sibling: IField): void
+  connectPrevToNextSibling(): void
+  detachPrevSibling(): void
+  toUpdateNodesInput(): Pick<FieldUpdateInput, 'nextSibling' | 'prevSibling'>
 }
 
 export type IFieldRef = string

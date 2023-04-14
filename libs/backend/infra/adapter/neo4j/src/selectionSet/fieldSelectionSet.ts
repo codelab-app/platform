@@ -5,6 +5,12 @@ export const fieldSelectionSet = `{
   description
   validationRules
   defaultValues
+  prevSibling {
+    id
+  }
+  nextSibling {
+    id
+  }
   fieldType {
     __typename
     id

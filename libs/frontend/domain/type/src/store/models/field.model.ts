@@ -1,11 +1,11 @@
 import type {
-  IField,
   IFieldDefaultValue,
   IInterfaceType,
   IType,
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
-import { IFieldDTO } from '@codelab/frontend/abstract/core'
+import { IField, IFieldDTO } from '@codelab/frontend/abstract/core'
+import type { FieldUpdateInput } from '@codelab/shared/abstract/codegen'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import type { Ref } from 'mobx-keystone'
@@ -28,6 +28,8 @@ const create = ({
   id,
   key,
   name,
+  nextSibling,
+  prevSibling,
   validationRules,
 }: IFieldDTO) => {
   return new Field({
@@ -37,6 +39,8 @@ const create = ({
     id,
     key,
     name,
+    nextSibling: nextSibling?.id ? fieldRef(nextSibling.id) : undefined,
+    prevSibling: prevSibling?.id ? fieldRef(prevSibling.id) : undefined,
     type: typeRef(fieldType.id),
     validationRules: JSON.parse(validationRules || '{}'),
   })
@@ -46,14 +50,14 @@ const create = ({
 export class Field
   extends Model(() => ({
     api: prop<Ref<IInterfaceType>>(),
-
     defaultValues: prop<Nullish<IFieldDefaultValue>>(null),
-
     description: prop<Nullish<string>>(),
     // this is a 'local' id, we don't use it in the backend. It's generated from the interfaceId + the key
     id: idProp,
     key: prop<string>(),
     name: prop<Nullish<string>>(),
+    nextSibling: prop<Nullish<Ref<IField>>>(null).withSetter(),
+    prevSibling: prop<Nullish<Ref<IField>>>(null).withSetter(),
     type: prop<Ref<IType>>(),
     validationRules: prop<Nullish<IValidationRules>>(),
   }))
@@ -77,6 +81,50 @@ export class Field
   static create = create
 
   @modelAction
+  attachAsPrevSibling(sibling: IField) {
+    sibling.prevSibling = fieldRef(this)
+    this.nextSibling = fieldRef(sibling.id)
+  }
+
+  @modelAction
+  attachAsNextSibling(sibling: IField) {
+    sibling.nextSibling = fieldRef(this)
+    this.prevSibling = fieldRef(sibling)
+  }
+
+  @modelAction
+  changePrev(sibling: IField) {
+    sibling.prevSibling = null
+  }
+
+  @modelAction
+  connectPrevToNextSibling(): void {
+    if (this.nextSibling) {
+      this.nextSibling.current.prevSibling = this.prevSibling
+        ? fieldRef(this.prevSibling.current)
+        : null
+    }
+
+    if (this.prevSibling) {
+      this.prevSibling.current.nextSibling = this.nextSibling
+        ? fieldRef(this.nextSibling.current)
+        : null
+    }
+
+    this.nextSibling = null
+    this.prevSibling = null
+  }
+
+  @modelAction
+  detachPrevSibling() {
+    if (!this.prevSibling) {
+      return
+    }
+
+    this.prevSibling = null
+  }
+
+  @modelAction
   writeCache({
     defaultValues,
     description,
@@ -84,6 +132,8 @@ export class Field
     id,
     key,
     name,
+    nextSibling,
+    prevSibling,
     validationRules,
   }: Partial<IFieldDTO>) {
     this.id = id ?? this.id
@@ -94,7 +144,15 @@ export class Field
     this.validationRules = validationRules
       ? JSON.parse(validationRules || '{}')
       : this.validationRules
-    this.defaultValues = defaultValues ? JSON.parse(defaultValues) : null
+    this.defaultValues = defaultValues
+      ? JSON.parse(defaultValues)
+      : this.defaultValues
+    this.nextSibling = nextSibling?.id
+      ? fieldRef(nextSibling.id)
+      : this.nextSibling
+    this.prevSibling = prevSibling?.id
+      ? fieldRef(prevSibling.id)
+      : this.prevSibling
 
     return this
   }
@@ -121,6 +179,14 @@ export class Field
       key: this.key,
       name: this.name,
       validationRules: JSON.stringify(this.validationRules),
+    }
+  }
+
+  @modelAction
+  toUpdateNodesInput(): Pick<FieldUpdateInput, 'nextSibling' | 'prevSibling'> {
+    return {
+      nextSibling: reconnectNodeId(this.nextSibling?.id),
+      prevSibling: reconnectNodeId(this.prevSibling?.id),
     }
   }
 }

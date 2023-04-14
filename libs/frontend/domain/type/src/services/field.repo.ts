@@ -38,6 +38,20 @@ export class FieldRepository extends Model({}) implements IFieldRepository {
   })
 
   @modelFlow
+  updateNodes = _async(function* (this: FieldRepository, field: IField) {
+    const {
+      updateFields: { fields },
+    } = yield* _await(
+      fieldApi.UpdateFields({
+        update: field.toUpdateNodesInput(),
+        where: { id: field.id },
+      }),
+    )
+
+    return fields[0]
+  })
+
+  @modelFlow
   delete = _async(function* (this: FieldRepository, fields: Array<IField>) {
     const {
       deleteFields: { nodesDeleted },

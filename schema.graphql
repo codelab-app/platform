@@ -9586,6 +9586,38 @@ type Field {
   id: ID!
   key: String!
   name: String
+  nextSibling(
+    directed: Boolean = true
+    options: FieldOptions
+    where: FieldWhere
+  ): Field
+  nextSiblingAggregate(
+    directed: Boolean = true
+    where: FieldWhere
+  ): FieldFieldNextSiblingAggregationSelection
+  nextSiblingConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [FieldNextSiblingConnectionSort!]
+    where: FieldNextSiblingConnectionWhere
+  ): FieldNextSiblingConnection!
+  prevSibling(
+    directed: Boolean = true
+    options: FieldOptions
+    where: FieldWhere
+  ): Field
+  prevSiblingAggregate(
+    directed: Boolean = true
+    where: FieldWhere
+  ): FieldFieldPrevSiblingAggregationSelection
+  prevSiblingConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [FieldPrevSiblingConnectionSort!]
+    where: FieldPrevSiblingConnectionWhere
+  ): FieldPrevSiblingConnection!
   validationRules: String
 }
 
@@ -9710,6 +9742,8 @@ input FieldApiUpdateFieldInput {
 input FieldConnectInput {
   api: FieldApiConnectFieldInput
   fieldType: FieldFieldTypeConnectFieldInput
+  nextSibling: FieldNextSiblingConnectFieldInput
+  prevSibling: FieldPrevSiblingConnectFieldInput
 }
 
 input FieldConnectOrCreateInput {
@@ -9728,22 +9762,56 @@ input FieldCreateInput {
   id: ID!
   key: String!
   name: String
+  nextSibling: FieldNextSiblingFieldInput
+  prevSibling: FieldPrevSiblingFieldInput
   validationRules: String
 }
 
 input FieldDeleteInput {
   api: FieldApiDeleteFieldInput
   fieldType: FieldFieldTypeDeleteFieldInput
+  nextSibling: FieldNextSiblingDeleteFieldInput
+  prevSibling: FieldPrevSiblingDeleteFieldInput
 }
 
 input FieldDisconnectInput {
   api: FieldApiDisconnectFieldInput
   fieldType: FieldFieldTypeDisconnectFieldInput
+  nextSibling: FieldNextSiblingDisconnectFieldInput
+  prevSibling: FieldPrevSiblingDisconnectFieldInput
 }
 
 type FieldEdge {
   cursor: String!
   node: Field!
+}
+
+type FieldFieldNextSiblingAggregationSelection {
+  count: Int!
+  node: FieldFieldNextSiblingNodeAggregateSelection
+}
+
+type FieldFieldNextSiblingNodeAggregateSelection {
+  defaultValues: StringAggregateSelectionNullable!
+  description: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  key: StringAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  validationRules: StringAggregateSelectionNullable!
+}
+
+type FieldFieldPrevSiblingAggregationSelection {
+  count: Int!
+  node: FieldFieldPrevSiblingNodeAggregateSelection
+}
+
+type FieldFieldPrevSiblingNodeAggregateSelection {
+  defaultValues: StringAggregateSelectionNullable!
+  description: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  key: StringAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNullable!
+  validationRules: StringAggregateSelectionNullable!
 }
 
 input FieldFieldTypeConnectFieldInput {
@@ -9815,6 +9883,163 @@ type FieldInterfaceTypeApiNodeAggregateSelection {
   name: StringAggregateSelectionNonNullable!
 }
 
+input FieldNextSiblingAggregateInput {
+  AND: [FieldNextSiblingAggregateInput!]
+  NOT: FieldNextSiblingAggregateInput
+  OR: [FieldNextSiblingAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: FieldNextSiblingNodeAggregationWhereInput
+}
+
+input FieldNextSiblingConnectFieldInput {
+  connect: FieldConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
+  where: FieldConnectWhere
+}
+
+type FieldNextSiblingConnection {
+  edges: [FieldNextSiblingRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input FieldNextSiblingConnectionSort {
+  node: FieldSort
+}
+
+input FieldNextSiblingConnectionWhere {
+  AND: [FieldNextSiblingConnectionWhere!]
+  NOT: FieldNextSiblingConnectionWhere
+  OR: [FieldNextSiblingConnectionWhere!]
+  node: FieldWhere
+}
+
+input FieldNextSiblingCreateFieldInput {
+  node: FieldCreateInput!
+}
+
+input FieldNextSiblingDeleteFieldInput {
+  delete: FieldDeleteInput
+  where: FieldNextSiblingConnectionWhere
+}
+
+input FieldNextSiblingDisconnectFieldInput {
+  disconnect: FieldDisconnectInput
+  where: FieldNextSiblingConnectionWhere
+}
+
+input FieldNextSiblingFieldInput {
+  connect: FieldNextSiblingConnectFieldInput
+  create: FieldNextSiblingCreateFieldInput
+}
+
+input FieldNextSiblingNodeAggregationWhereInput {
+  AND: [FieldNextSiblingNodeAggregationWhereInput!]
+  NOT: FieldNextSiblingNodeAggregationWhereInput
+  OR: [FieldNextSiblingNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_LENGTH_EQUAL: Float
+  defaultValues_AVERAGE_LENGTH_GT: Float
+  defaultValues_AVERAGE_LENGTH_GTE: Float
+  defaultValues_AVERAGE_LENGTH_LT: Float
+  defaultValues_AVERAGE_LENGTH_LTE: Float
+  defaultValues_LONGEST_LENGTH_EQUAL: Int
+  defaultValues_LONGEST_LENGTH_GT: Int
+  defaultValues_LONGEST_LENGTH_GTE: Int
+  defaultValues_LONGEST_LENGTH_LT: Int
+  defaultValues_LONGEST_LENGTH_LTE: Int
+  defaultValues_SHORTEST_LENGTH_EQUAL: Int
+  defaultValues_SHORTEST_LENGTH_GT: Int
+  defaultValues_SHORTEST_LENGTH_GTE: Int
+  defaultValues_SHORTEST_LENGTH_LT: Int
+  defaultValues_SHORTEST_LENGTH_LTE: Int
+  description_AVERAGE_LENGTH_EQUAL: Float
+  description_AVERAGE_LENGTH_GT: Float
+  description_AVERAGE_LENGTH_GTE: Float
+  description_AVERAGE_LENGTH_LT: Float
+  description_AVERAGE_LENGTH_LTE: Float
+  description_LONGEST_LENGTH_EQUAL: Int
+  description_LONGEST_LENGTH_GT: Int
+  description_LONGEST_LENGTH_GTE: Int
+  description_LONGEST_LENGTH_LT: Int
+  description_LONGEST_LENGTH_LTE: Int
+  description_SHORTEST_LENGTH_EQUAL: Int
+  description_SHORTEST_LENGTH_GT: Int
+  description_SHORTEST_LENGTH_GTE: Int
+  description_SHORTEST_LENGTH_LT: Int
+  description_SHORTEST_LENGTH_LTE: Int
+  key_AVERAGE_LENGTH_EQUAL: Float
+  key_AVERAGE_LENGTH_GT: Float
+  key_AVERAGE_LENGTH_GTE: Float
+  key_AVERAGE_LENGTH_LT: Float
+  key_AVERAGE_LENGTH_LTE: Float
+  key_LONGEST_LENGTH_EQUAL: Int
+  key_LONGEST_LENGTH_GT: Int
+  key_LONGEST_LENGTH_GTE: Int
+  key_LONGEST_LENGTH_LT: Int
+  key_LONGEST_LENGTH_LTE: Int
+  key_SHORTEST_LENGTH_EQUAL: Int
+  key_SHORTEST_LENGTH_GT: Int
+  key_SHORTEST_LENGTH_GTE: Int
+  key_SHORTEST_LENGTH_LT: Int
+  key_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  validationRules_AVERAGE_LENGTH_EQUAL: Float
+  validationRules_AVERAGE_LENGTH_GT: Float
+  validationRules_AVERAGE_LENGTH_GTE: Float
+  validationRules_AVERAGE_LENGTH_LT: Float
+  validationRules_AVERAGE_LENGTH_LTE: Float
+  validationRules_LONGEST_LENGTH_EQUAL: Int
+  validationRules_LONGEST_LENGTH_GT: Int
+  validationRules_LONGEST_LENGTH_GTE: Int
+  validationRules_LONGEST_LENGTH_LT: Int
+  validationRules_LONGEST_LENGTH_LTE: Int
+  validationRules_SHORTEST_LENGTH_EQUAL: Int
+  validationRules_SHORTEST_LENGTH_GT: Int
+  validationRules_SHORTEST_LENGTH_GTE: Int
+  validationRules_SHORTEST_LENGTH_LT: Int
+  validationRules_SHORTEST_LENGTH_LTE: Int
+}
+
+type FieldNextSiblingRelationship {
+  cursor: String!
+  node: Field!
+}
+
+input FieldNextSiblingUpdateConnectionInput {
+  node: FieldUpdateInput
+}
+
+input FieldNextSiblingUpdateFieldInput {
+  connect: FieldNextSiblingConnectFieldInput
+  create: FieldNextSiblingCreateFieldInput
+  delete: FieldNextSiblingDeleteFieldInput
+  disconnect: FieldNextSiblingDisconnectFieldInput
+  update: FieldNextSiblingUpdateConnectionInput
+  where: FieldNextSiblingConnectionWhere
+}
+
 input FieldOptions {
   limit: Int
   offset: Int
@@ -9825,9 +10050,168 @@ input FieldOptions {
   sort: [FieldSort!]
 }
 
+input FieldPrevSiblingAggregateInput {
+  AND: [FieldPrevSiblingAggregateInput!]
+  NOT: FieldPrevSiblingAggregateInput
+  OR: [FieldPrevSiblingAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: FieldPrevSiblingNodeAggregationWhereInput
+}
+
+input FieldPrevSiblingConnectFieldInput {
+  connect: FieldConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
+  where: FieldConnectWhere
+}
+
+type FieldPrevSiblingConnection {
+  edges: [FieldPrevSiblingRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input FieldPrevSiblingConnectionSort {
+  node: FieldSort
+}
+
+input FieldPrevSiblingConnectionWhere {
+  AND: [FieldPrevSiblingConnectionWhere!]
+  NOT: FieldPrevSiblingConnectionWhere
+  OR: [FieldPrevSiblingConnectionWhere!]
+  node: FieldWhere
+}
+
+input FieldPrevSiblingCreateFieldInput {
+  node: FieldCreateInput!
+}
+
+input FieldPrevSiblingDeleteFieldInput {
+  delete: FieldDeleteInput
+  where: FieldPrevSiblingConnectionWhere
+}
+
+input FieldPrevSiblingDisconnectFieldInput {
+  disconnect: FieldDisconnectInput
+  where: FieldPrevSiblingConnectionWhere
+}
+
+input FieldPrevSiblingFieldInput {
+  connect: FieldPrevSiblingConnectFieldInput
+  create: FieldPrevSiblingCreateFieldInput
+}
+
+input FieldPrevSiblingNodeAggregationWhereInput {
+  AND: [FieldPrevSiblingNodeAggregationWhereInput!]
+  NOT: FieldPrevSiblingNodeAggregationWhereInput
+  OR: [FieldPrevSiblingNodeAggregationWhereInput!]
+  defaultValues_AVERAGE_LENGTH_EQUAL: Float
+  defaultValues_AVERAGE_LENGTH_GT: Float
+  defaultValues_AVERAGE_LENGTH_GTE: Float
+  defaultValues_AVERAGE_LENGTH_LT: Float
+  defaultValues_AVERAGE_LENGTH_LTE: Float
+  defaultValues_LONGEST_LENGTH_EQUAL: Int
+  defaultValues_LONGEST_LENGTH_GT: Int
+  defaultValues_LONGEST_LENGTH_GTE: Int
+  defaultValues_LONGEST_LENGTH_LT: Int
+  defaultValues_LONGEST_LENGTH_LTE: Int
+  defaultValues_SHORTEST_LENGTH_EQUAL: Int
+  defaultValues_SHORTEST_LENGTH_GT: Int
+  defaultValues_SHORTEST_LENGTH_GTE: Int
+  defaultValues_SHORTEST_LENGTH_LT: Int
+  defaultValues_SHORTEST_LENGTH_LTE: Int
+  description_AVERAGE_LENGTH_EQUAL: Float
+  description_AVERAGE_LENGTH_GT: Float
+  description_AVERAGE_LENGTH_GTE: Float
+  description_AVERAGE_LENGTH_LT: Float
+  description_AVERAGE_LENGTH_LTE: Float
+  description_LONGEST_LENGTH_EQUAL: Int
+  description_LONGEST_LENGTH_GT: Int
+  description_LONGEST_LENGTH_GTE: Int
+  description_LONGEST_LENGTH_LT: Int
+  description_LONGEST_LENGTH_LTE: Int
+  description_SHORTEST_LENGTH_EQUAL: Int
+  description_SHORTEST_LENGTH_GT: Int
+  description_SHORTEST_LENGTH_GTE: Int
+  description_SHORTEST_LENGTH_LT: Int
+  description_SHORTEST_LENGTH_LTE: Int
+  key_AVERAGE_LENGTH_EQUAL: Float
+  key_AVERAGE_LENGTH_GT: Float
+  key_AVERAGE_LENGTH_GTE: Float
+  key_AVERAGE_LENGTH_LT: Float
+  key_AVERAGE_LENGTH_LTE: Float
+  key_LONGEST_LENGTH_EQUAL: Int
+  key_LONGEST_LENGTH_GT: Int
+  key_LONGEST_LENGTH_GTE: Int
+  key_LONGEST_LENGTH_LT: Int
+  key_LONGEST_LENGTH_LTE: Int
+  key_SHORTEST_LENGTH_EQUAL: Int
+  key_SHORTEST_LENGTH_GT: Int
+  key_SHORTEST_LENGTH_GTE: Int
+  key_SHORTEST_LENGTH_LT: Int
+  key_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  validationRules_AVERAGE_LENGTH_EQUAL: Float
+  validationRules_AVERAGE_LENGTH_GT: Float
+  validationRules_AVERAGE_LENGTH_GTE: Float
+  validationRules_AVERAGE_LENGTH_LT: Float
+  validationRules_AVERAGE_LENGTH_LTE: Float
+  validationRules_LONGEST_LENGTH_EQUAL: Int
+  validationRules_LONGEST_LENGTH_GT: Int
+  validationRules_LONGEST_LENGTH_GTE: Int
+  validationRules_LONGEST_LENGTH_LT: Int
+  validationRules_LONGEST_LENGTH_LTE: Int
+  validationRules_SHORTEST_LENGTH_EQUAL: Int
+  validationRules_SHORTEST_LENGTH_GT: Int
+  validationRules_SHORTEST_LENGTH_GTE: Int
+  validationRules_SHORTEST_LENGTH_LT: Int
+  validationRules_SHORTEST_LENGTH_LTE: Int
+}
+
+type FieldPrevSiblingRelationship {
+  cursor: String!
+  node: Field!
+}
+
+input FieldPrevSiblingUpdateConnectionInput {
+  node: FieldUpdateInput
+}
+
+input FieldPrevSiblingUpdateFieldInput {
+  connect: FieldPrevSiblingConnectFieldInput
+  create: FieldPrevSiblingCreateFieldInput
+  delete: FieldPrevSiblingDeleteFieldInput
+  disconnect: FieldPrevSiblingDisconnectFieldInput
+  update: FieldPrevSiblingUpdateConnectionInput
+  where: FieldPrevSiblingConnectionWhere
+}
+
 input FieldRelationInput {
   api: FieldApiCreateFieldInput
   fieldType: FieldFieldTypeCreateFieldInput
+  nextSibling: FieldNextSiblingCreateFieldInput
+  prevSibling: FieldPrevSiblingCreateFieldInput
 }
 
 """
@@ -9850,6 +10234,8 @@ input FieldUpdateInput {
   id: ID
   key: String
   name: String
+  nextSibling: FieldNextSiblingUpdateFieldInput
+  prevSibling: FieldPrevSiblingUpdateFieldInput
   validationRules: String
 }
 
@@ -9894,6 +10280,16 @@ input FieldWhere {
   name_IN: [String]
   name_MATCHES: String
   name_STARTS_WITH: String
+  nextSibling: FieldWhere
+  nextSiblingAggregate: FieldNextSiblingAggregateInput
+  nextSiblingConnection: FieldNextSiblingConnectionWhere
+  nextSiblingConnection_NOT: FieldNextSiblingConnectionWhere
+  nextSibling_NOT: FieldWhere
+  prevSibling: FieldWhere
+  prevSiblingAggregate: FieldPrevSiblingAggregateInput
+  prevSiblingConnection: FieldPrevSiblingConnectionWhere
+  prevSiblingConnection_NOT: FieldPrevSiblingConnectionWhere
+  prevSibling_NOT: FieldWhere
   validationRules: String
   validationRules_CONTAINS: String
   validationRules_ENDS_WITH: String

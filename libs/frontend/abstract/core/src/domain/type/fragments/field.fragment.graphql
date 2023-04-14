@@ -4,6 +4,12 @@ fragment Field on Field {
   name
   description
   validationRules
+  prevSibling {
+    id
+  }
+  nextSibling {
+    id
+  }
   fieldType {
     ... on IBaseType {
       __typename

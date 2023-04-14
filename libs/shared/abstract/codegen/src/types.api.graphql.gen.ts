@@ -9968,6 +9968,12 @@ export type Field = {
   id: Scalars['ID']
   key: Scalars['String']
   name?: Maybe<Scalars['String']>
+  nextSibling?: Maybe<Field>
+  nextSiblingAggregate?: Maybe<FieldFieldNextSiblingAggregationSelection>
+  nextSiblingConnection: FieldNextSiblingConnection
+  prevSibling?: Maybe<Field>
+  prevSiblingAggregate?: Maybe<FieldFieldPrevSiblingAggregationSelection>
+  prevSiblingConnection: FieldPrevSiblingConnection
   validationRules?: Maybe<Scalars['String']>
 }
 
@@ -10002,6 +10008,44 @@ export type FieldFieldTypeConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<FieldFieldTypeConnectionSort>>
   where?: InputMaybe<FieldFieldTypeConnectionWhere>
+}
+
+export type FieldNextSiblingArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<FieldOptions>
+  where?: InputMaybe<FieldWhere>
+}
+
+export type FieldNextSiblingAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<FieldWhere>
+}
+
+export type FieldNextSiblingConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<FieldNextSiblingConnectionSort>>
+  where?: InputMaybe<FieldNextSiblingConnectionWhere>
+}
+
+export type FieldPrevSiblingArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  options?: InputMaybe<FieldOptions>
+  where?: InputMaybe<FieldWhere>
+}
+
+export type FieldPrevSiblingAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']>
+  where?: InputMaybe<FieldWhere>
+}
+
+export type FieldPrevSiblingConnectionArgs = {
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  first?: InputMaybe<Scalars['Int']>
+  sort?: InputMaybe<Array<FieldPrevSiblingConnectionSort>>
+  where?: InputMaybe<FieldPrevSiblingConnectionWhere>
 }
 
 export type FieldAggregateSelection = {
@@ -10125,6 +10169,8 @@ export type FieldApiUpdateFieldInput = {
 export type FieldConnectInput = {
   api?: InputMaybe<FieldApiConnectFieldInput>
   fieldType?: InputMaybe<FieldFieldTypeConnectFieldInput>
+  nextSibling?: InputMaybe<FieldNextSiblingConnectFieldInput>
+  prevSibling?: InputMaybe<FieldPrevSiblingConnectFieldInput>
 }
 
 export type FieldConnectOrCreateInput = {
@@ -10143,23 +10189,61 @@ export type FieldCreateInput = {
   id: Scalars['ID']
   key: Scalars['String']
   name?: InputMaybe<Scalars['String']>
+  nextSibling?: InputMaybe<FieldNextSiblingFieldInput>
+  prevSibling?: InputMaybe<FieldPrevSiblingFieldInput>
   validationRules?: InputMaybe<Scalars['String']>
 }
 
 export type FieldDeleteInput = {
   api?: InputMaybe<FieldApiDeleteFieldInput>
   fieldType?: InputMaybe<FieldFieldTypeDeleteFieldInput>
+  nextSibling?: InputMaybe<FieldNextSiblingDeleteFieldInput>
+  prevSibling?: InputMaybe<FieldPrevSiblingDeleteFieldInput>
 }
 
 export type FieldDisconnectInput = {
   api?: InputMaybe<FieldApiDisconnectFieldInput>
   fieldType?: InputMaybe<FieldFieldTypeDisconnectFieldInput>
+  nextSibling?: InputMaybe<FieldNextSiblingDisconnectFieldInput>
+  prevSibling?: InputMaybe<FieldPrevSiblingDisconnectFieldInput>
 }
 
 export type FieldEdge = {
   __typename?: 'FieldEdge'
   cursor: Scalars['String']
   node: Field
+}
+
+export type FieldFieldNextSiblingAggregationSelection = {
+  __typename?: 'FieldFieldNextSiblingAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<FieldFieldNextSiblingNodeAggregateSelection>
+}
+
+export type FieldFieldNextSiblingNodeAggregateSelection = {
+  __typename?: 'FieldFieldNextSiblingNodeAggregateSelection'
+  defaultValues: StringAggregateSelectionNullable
+  description: StringAggregateSelectionNullable
+  id: IdAggregateSelectionNonNullable
+  key: StringAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  validationRules: StringAggregateSelectionNullable
+}
+
+export type FieldFieldPrevSiblingAggregationSelection = {
+  __typename?: 'FieldFieldPrevSiblingAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<FieldFieldPrevSiblingNodeAggregateSelection>
+}
+
+export type FieldFieldPrevSiblingNodeAggregateSelection = {
+  __typename?: 'FieldFieldPrevSiblingNodeAggregateSelection'
+  defaultValues: StringAggregateSelectionNullable
+  description: StringAggregateSelectionNullable
+  id: IdAggregateSelectionNonNullable
+  key: StringAggregateSelectionNonNullable
+  name: StringAggregateSelectionNullable
+  validationRules: StringAggregateSelectionNullable
 }
 
 export type FieldFieldTypeConnectFieldInput = {
@@ -10235,6 +10319,162 @@ export type FieldInterfaceTypeApiNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
 }
 
+export type FieldNextSiblingAggregateInput = {
+  AND?: InputMaybe<Array<FieldNextSiblingAggregateInput>>
+  NOT?: InputMaybe<FieldNextSiblingAggregateInput>
+  OR?: InputMaybe<Array<FieldNextSiblingAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<FieldNextSiblingNodeAggregationWhereInput>
+}
+
+export type FieldNextSiblingConnectFieldInput = {
+  connect?: InputMaybe<FieldConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
+  where?: InputMaybe<FieldConnectWhere>
+}
+
+export type FieldNextSiblingConnection = {
+  __typename?: 'FieldNextSiblingConnection'
+  edges: Array<FieldNextSiblingRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type FieldNextSiblingConnectionSort = {
+  node?: InputMaybe<FieldSort>
+}
+
+export type FieldNextSiblingConnectionWhere = {
+  AND?: InputMaybe<Array<FieldNextSiblingConnectionWhere>>
+  NOT?: InputMaybe<FieldNextSiblingConnectionWhere>
+  OR?: InputMaybe<Array<FieldNextSiblingConnectionWhere>>
+  node?: InputMaybe<FieldWhere>
+}
+
+export type FieldNextSiblingCreateFieldInput = {
+  node: FieldCreateInput
+}
+
+export type FieldNextSiblingDeleteFieldInput = {
+  delete?: InputMaybe<FieldDeleteInput>
+  where?: InputMaybe<FieldNextSiblingConnectionWhere>
+}
+
+export type FieldNextSiblingDisconnectFieldInput = {
+  disconnect?: InputMaybe<FieldDisconnectInput>
+  where?: InputMaybe<FieldNextSiblingConnectionWhere>
+}
+
+export type FieldNextSiblingFieldInput = {
+  connect?: InputMaybe<FieldNextSiblingConnectFieldInput>
+  create?: InputMaybe<FieldNextSiblingCreateFieldInput>
+}
+
+export type FieldNextSiblingNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<FieldNextSiblingNodeAggregationWhereInput>>
+  NOT?: InputMaybe<FieldNextSiblingNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<FieldNextSiblingNodeAggregationWhereInput>>
+  defaultValues_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  defaultValues_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  defaultValues_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  defaultValues_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  defaultValues_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  defaultValues_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  defaultValues_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  defaultValues_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  defaultValues_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  defaultValues_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  description_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  description_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  description_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  description_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  description_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  description_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  description_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  description_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  description_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  description_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  key_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  key_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  key_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  key_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  key_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  validationRules_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  validationRules_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  validationRules_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  validationRules_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  validationRules_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  validationRules_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  validationRules_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  validationRules_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  validationRules_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  validationRules_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type FieldNextSiblingRelationship = {
+  __typename?: 'FieldNextSiblingRelationship'
+  cursor: Scalars['String']
+  node: Field
+}
+
+export type FieldNextSiblingUpdateConnectionInput = {
+  node?: InputMaybe<FieldUpdateInput>
+}
+
+export type FieldNextSiblingUpdateFieldInput = {
+  connect?: InputMaybe<FieldNextSiblingConnectFieldInput>
+  create?: InputMaybe<FieldNextSiblingCreateFieldInput>
+  delete?: InputMaybe<FieldNextSiblingDeleteFieldInput>
+  disconnect?: InputMaybe<FieldNextSiblingDisconnectFieldInput>
+  update?: InputMaybe<FieldNextSiblingUpdateConnectionInput>
+  where?: InputMaybe<FieldNextSiblingConnectionWhere>
+}
+
 export type FieldOptions = {
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
@@ -10242,9 +10482,167 @@ export type FieldOptions = {
   sort?: InputMaybe<Array<FieldSort>>
 }
 
+export type FieldPrevSiblingAggregateInput = {
+  AND?: InputMaybe<Array<FieldPrevSiblingAggregateInput>>
+  NOT?: InputMaybe<FieldPrevSiblingAggregateInput>
+  OR?: InputMaybe<Array<FieldPrevSiblingAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<FieldPrevSiblingNodeAggregationWhereInput>
+}
+
+export type FieldPrevSiblingConnectFieldInput = {
+  connect?: InputMaybe<FieldConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
+  where?: InputMaybe<FieldConnectWhere>
+}
+
+export type FieldPrevSiblingConnection = {
+  __typename?: 'FieldPrevSiblingConnection'
+  edges: Array<FieldPrevSiblingRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type FieldPrevSiblingConnectionSort = {
+  node?: InputMaybe<FieldSort>
+}
+
+export type FieldPrevSiblingConnectionWhere = {
+  AND?: InputMaybe<Array<FieldPrevSiblingConnectionWhere>>
+  NOT?: InputMaybe<FieldPrevSiblingConnectionWhere>
+  OR?: InputMaybe<Array<FieldPrevSiblingConnectionWhere>>
+  node?: InputMaybe<FieldWhere>
+}
+
+export type FieldPrevSiblingCreateFieldInput = {
+  node: FieldCreateInput
+}
+
+export type FieldPrevSiblingDeleteFieldInput = {
+  delete?: InputMaybe<FieldDeleteInput>
+  where?: InputMaybe<FieldPrevSiblingConnectionWhere>
+}
+
+export type FieldPrevSiblingDisconnectFieldInput = {
+  disconnect?: InputMaybe<FieldDisconnectInput>
+  where?: InputMaybe<FieldPrevSiblingConnectionWhere>
+}
+
+export type FieldPrevSiblingFieldInput = {
+  connect?: InputMaybe<FieldPrevSiblingConnectFieldInput>
+  create?: InputMaybe<FieldPrevSiblingCreateFieldInput>
+}
+
+export type FieldPrevSiblingNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<FieldPrevSiblingNodeAggregationWhereInput>>
+  NOT?: InputMaybe<FieldPrevSiblingNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<FieldPrevSiblingNodeAggregationWhereInput>>
+  defaultValues_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  defaultValues_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  defaultValues_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  defaultValues_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  defaultValues_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  defaultValues_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  defaultValues_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  defaultValues_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  defaultValues_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  defaultValues_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  defaultValues_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  description_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  description_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  description_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  description_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  description_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  description_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  description_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  description_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  description_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  description_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  key_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  key_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  key_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  key_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  key_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  key_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  key_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  key_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  validationRules_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  validationRules_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  validationRules_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  validationRules_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  validationRules_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  validationRules_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  validationRules_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  validationRules_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  validationRules_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  validationRules_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  validationRules_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type FieldPrevSiblingRelationship = {
+  __typename?: 'FieldPrevSiblingRelationship'
+  cursor: Scalars['String']
+  node: Field
+}
+
+export type FieldPrevSiblingUpdateConnectionInput = {
+  node?: InputMaybe<FieldUpdateInput>
+}
+
+export type FieldPrevSiblingUpdateFieldInput = {
+  connect?: InputMaybe<FieldPrevSiblingConnectFieldInput>
+  create?: InputMaybe<FieldPrevSiblingCreateFieldInput>
+  delete?: InputMaybe<FieldPrevSiblingDeleteFieldInput>
+  disconnect?: InputMaybe<FieldPrevSiblingDisconnectFieldInput>
+  update?: InputMaybe<FieldPrevSiblingUpdateConnectionInput>
+  where?: InputMaybe<FieldPrevSiblingConnectionWhere>
+}
+
 export type FieldRelationInput = {
   api?: InputMaybe<FieldApiCreateFieldInput>
   fieldType?: InputMaybe<FieldFieldTypeCreateFieldInput>
+  nextSibling?: InputMaybe<FieldNextSiblingCreateFieldInput>
+  prevSibling?: InputMaybe<FieldPrevSiblingCreateFieldInput>
 }
 
 /** Fields to sort Fields by. The order in which sorts are applied is not guaranteed when specifying many fields in one FieldSort object. */
@@ -10265,6 +10663,8 @@ export type FieldUpdateInput = {
   id?: InputMaybe<Scalars['ID']>
   key?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
+  nextSibling?: InputMaybe<FieldNextSiblingUpdateFieldInput>
+  prevSibling?: InputMaybe<FieldPrevSiblingUpdateFieldInput>
   validationRules?: InputMaybe<Scalars['String']>
 }
 
@@ -10309,6 +10709,16 @@ export type FieldWhere = {
   name_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   name_MATCHES?: InputMaybe<Scalars['String']>
   name_STARTS_WITH?: InputMaybe<Scalars['String']>
+  nextSibling?: InputMaybe<FieldWhere>
+  nextSiblingAggregate?: InputMaybe<FieldNextSiblingAggregateInput>
+  nextSiblingConnection?: InputMaybe<FieldNextSiblingConnectionWhere>
+  nextSiblingConnection_NOT?: InputMaybe<FieldNextSiblingConnectionWhere>
+  nextSibling_NOT?: InputMaybe<FieldWhere>
+  prevSibling?: InputMaybe<FieldWhere>
+  prevSiblingAggregate?: InputMaybe<FieldPrevSiblingAggregateInput>
+  prevSiblingConnection?: InputMaybe<FieldPrevSiblingConnectionWhere>
+  prevSiblingConnection_NOT?: InputMaybe<FieldPrevSiblingConnectionWhere>
+  prevSibling_NOT?: InputMaybe<FieldWhere>
   validationRules?: InputMaybe<Scalars['String']>
   validationRules_CONTAINS?: InputMaybe<Scalars['String']>
   validationRules_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -20610,6 +21020,8 @@ export type FieldFragment = {
   description?: string | null
   validationRules?: string | null
   defaultValues?: string | null
+  prevSibling?: { __typename?: 'Field'; id: string } | null
+  nextSibling?: { __typename?: 'Field'; id: string } | null
   fieldType:
     | { __typename: 'ActionType'; id: string; kind: TypeKind; name: string }
     | { __typename: 'AppType'; id: string; kind: TypeKind; name: string }

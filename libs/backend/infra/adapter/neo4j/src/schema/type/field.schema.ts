@@ -5,6 +5,8 @@ export const fieldSchema = gql`
     id: ID!
     key: String!
     name: String
+    nextSibling: Field @relationship(type: "FIELD_NEXT_SIBLING", direction: IN)
+    prevSibling: Field @relationship(type: "FIELD_PREV_SIBLING", direction: OUT)
     description: String
     validationRules: String
     defaultValues: String

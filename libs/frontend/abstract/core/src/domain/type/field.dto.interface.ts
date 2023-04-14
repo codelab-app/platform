@@ -56,11 +56,12 @@ export interface ICreateFieldData {
   interfaceTypeId: IInterfaceTypeRef
   key: string
   name?: Nullish<string>
+  nextSibling?: Nullish<IEntity>
+  prevSibling?: Nullish<IEntity>
   validationRules?: Nullish<IValidationRules>
 }
 
 export type IUpdateFieldData = ICreateFieldData
-
 /**
  * Props imply as input for something, in this case a model
  */
@@ -72,5 +73,7 @@ export interface IFieldDTO {
   id: string
   key: string
   name?: string | null
+  nextSibling?: IEntity | null
+  prevSibling?: IEntity | null
   validationRules?: string | null
 }

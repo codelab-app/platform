@@ -1,4 +1,4 @@
-import type { Maybe } from '@codelab/shared/abstract/types'
+import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICRUDModalService,
@@ -28,9 +28,16 @@ export interface IFieldService
     { interface: Maybe<IInterfaceType> }
   >
   fields: ObjectMap<IField>
-
   add(fieldDTO: IFieldDTO): IField
   delete(fields: Array<IField>): Promise<number>
   getField(id: string): Maybe<IField<IType>>
   load(fields: Array<FieldFragment>): void
+  moveFieldAsNextSibling(props: {
+    field: IEntity
+    targetField: IEntity
+  }): Promise<void>
+  moveFieldAsPrevSibling(props: {
+    field: IEntity
+    targetField: IEntity
+  }): Promise<void>
 }
