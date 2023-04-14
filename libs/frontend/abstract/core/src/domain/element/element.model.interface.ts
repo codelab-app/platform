@@ -59,6 +59,7 @@ export interface IElement
   children: Array<IElement>
   // the closest container node that element belongs to
   closestContainerNode: IComponent | IPage
+  closestParent: IElement | null
   // the closest rootElement of node (page/component) that element belongs to
   closestRootElement: IElement
   customCss?: Nullable<string>

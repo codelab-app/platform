@@ -32,6 +32,7 @@ export type ElementContextMenuProps = ContextMenuProps &
  */
 export const ElementContextMenu = observer<ElementContextMenuProps>(
   ({
+    cloneElement,
     convertElementToComponent,
     createModal,
     deleteModal,
@@ -57,9 +58,11 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     }
 
     const onDuplicate = async () => {
-      if (!user?.sub || !element.parent) {
+      if (!user?.sub || !element.closestParent) {
         return
       }
+
+      return cloneElement(element, element.closestParent)
     }
 
     const onConvert = async () => {

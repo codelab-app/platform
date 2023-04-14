@@ -223,7 +223,7 @@ export class Element
    * `nextSibling` has no `parent`, but has a `closestParent` of `parentA`
    */
   @computed
-  private get closestParent(): IElement | null {
+  get closestParent(): IElement | null {
     const parent = this.parent
 
     if (parent) {
