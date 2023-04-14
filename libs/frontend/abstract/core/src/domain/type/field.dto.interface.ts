@@ -56,8 +56,6 @@ export interface ICreateFieldData {
   interfaceTypeId: IInterfaceTypeRef
   key: string
   name?: Nullish<string>
-  nextSibling?: Nullish<IEntity>
-  prevSibling?: Nullish<IEntity>
   validationRules?: Nullish<IValidationRules>
 }
 
