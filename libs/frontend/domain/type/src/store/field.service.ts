@@ -153,7 +153,7 @@ export class FieldService
   }
 
   @modelAction
-  private attatchFieldAsNextSibling(
+  private attachFieldAsNextSibling(
     this: FieldService,
     {
       field: existingField,
@@ -180,7 +180,7 @@ export class FieldService
   }
 
   @modelAction
-  private attatchFieldAsPrevSibling(
+  private attachFieldAsPrevSibling(
     this: FieldService,
     {
       field: existingField,
@@ -209,11 +209,11 @@ export class FieldService
   @modelAction
   private detachFieldFromFieldTree(this: FieldService, fieldId: string) {
     const field = this.field(fieldId)
-    const affedtedNodeIds = [field.prevSibling?.id, field.nextSibling?.id]
+    const affectedNodeIds = [field.prevSibling?.id, field.nextSibling?.id]
 
     field.connectPrevToNextSibling()
 
-    return compact(affedtedNodeIds)
+    return compact(affectedNodeIds)
   }
 
   @modelFlow
@@ -233,7 +233,7 @@ export class FieldService
 
     const oldConnectedNodeIds = this.detachFieldFromFieldTree(field.id)
 
-    const newConnectedNodeIds = this.attatchFieldAsNextSibling({
+    const newConnectedNodeIds = this.attachFieldAsNextSibling({
       field,
       targetField,
     })
@@ -264,7 +264,7 @@ export class FieldService
 
     const oldConnectedNodeIds = this.detachFieldFromFieldTree(field.id)
 
-    const newConnectedNodeIds = this.attatchFieldAsPrevSibling({
+    const newConnectedNodeIds = this.attachFieldAsPrevSibling({
       field,
       targetField,
     })
