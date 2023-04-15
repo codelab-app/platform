@@ -1,4 +1,5 @@
 import { AbstractRepository } from '@codelab/backend/abstract/types'
+import { getElementWithDescendants } from '@codelab/backend/domain/element'
 import {
   componentSelectionSet,
   pageSelectionSet,
@@ -9,7 +10,6 @@ import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { createUniqueName, uuidRegex } from '@codelab/shared/utils'
 import flatMap from 'lodash/flatMap'
-import flatten from 'lodash/flatten'
 
 export class PageRepository extends AbstractRepository<
   IPageDTO,
@@ -83,7 +83,7 @@ export class PageRepository extends AbstractRepository<
 
 export const getPageData = async (page: OGM_TYPES.Page) => {
   const Component = await Repository.instance.Component
-  const elements = [page.rootElement, ...page.rootElement.descendantElements]
+  const elements = await getElementWithDescendants(page.rootElement.id)
 
   const componentIds = flatMap(elements, (element) => [
     element.parentComponent?.id,
@@ -96,13 +96,11 @@ export const getPageData = async (page: OGM_TYPES.Page) => {
     where: { id_IN: componentIds },
   })
 
-  const componentElements = components.map((component) => [
-    component.rootElement,
-    ...component.rootElement.descendantElements,
-  ])
+  for (const { rootElement } of components) {
+    const componentDescendants = await getElementWithDescendants(rootElement.id)
 
-  return {
-    components,
-    elements: [...elements, ...flatten(componentElements)],
+    elements.push(...componentDescendants)
   }
+
+  return { components, elements }
 }

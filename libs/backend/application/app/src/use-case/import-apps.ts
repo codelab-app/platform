@@ -13,7 +13,7 @@ export const importApps = async (
   for (const app of apps) {
     const importedApp = await createApp(app, owner)
 
-    logTask('Imported App', importedApp?.name)
+    logTask('Imported App', importedApp.name)
 
     for await (const domain of app.domains) {
       await importDomains(domain)

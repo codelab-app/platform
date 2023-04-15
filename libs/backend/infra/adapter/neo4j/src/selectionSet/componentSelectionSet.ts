@@ -1,6 +1,7 @@
 import { propSelectionSet } from './propSelectionSet'
 import { storeSelectionSet } from './storeSelectionSet'
 import { interfaceTypeSelectionSet } from './typeSelectionSet'
+import { ownerFieldSelectionSet } from './userSelectionSet'
 
 export const componentSelectionSet = `{
   id
@@ -9,10 +10,7 @@ export const componentSelectionSet = `{
     id
     name
   }
-  owner {
-    id
-    auth0Id
-  }
+  ${ownerFieldSelectionSet}
   props
     ${propSelectionSet}
   store {

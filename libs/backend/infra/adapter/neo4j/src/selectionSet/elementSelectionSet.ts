@@ -1,21 +1,19 @@
 import { atomSelectionSet } from './atomSelectionSet'
-import { componentSelectionSet } from './componentSelectionSet'
 import { propSelectionSet } from './propSelectionSet'
 
-/**
- * `__typename` needed for renderType to resolve
- */
-export const elementSelectionSet = `{
+const baseElementSelectionSet = `
   id
   name
   customCss
   guiCss
-  parentComponent
-    ${componentSelectionSet}
-  renderComponentType
-    ${componentSelectionSet}
-  renderAtomType
-    ${atomSelectionSet}
+  parentComponent {
+    id
+    name
+  }
+  renderComponentType {
+    id
+    name
+  }
   renderType {
     id
     kind
@@ -42,5 +40,19 @@ export const elementSelectionSet = `{
   }
   postRenderAction {
     id
+  }
+`
+
+export const elementSelectionSet = `{
+  ${baseElementSelectionSet}
+  renderAtomType
+    ${atomSelectionSet}
+}`
+
+export const exportElementSelectionSet = `{
+  ${baseElementSelectionSet}
+  renderAtomType {
+    id
+    name
   }
 }`

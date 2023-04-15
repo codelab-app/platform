@@ -1,5 +1,5 @@
 import { fieldSelectionSet } from './fieldSelectionSet'
-import { userSelectionSet } from './userSelectionSet'
+import { ownerFieldSelectionSet } from './userSelectionSet'
 
 /**
  * We omit user during export, since this creates a non-reproducible file if exported from different accounts
@@ -16,8 +16,7 @@ export const baseTypeSelection = `
   id
   kind
   name
-  owner
-    ${userSelectionSet}
+  ${ownerFieldSelectionSet}
 `
 
 export const exportPrimitiveTypeSelectionSet = `{

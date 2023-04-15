@@ -5,17 +5,21 @@ import {
   importElementInitial,
   updateImportedElement,
 } from '@codelab/backend/domain/element'
-import { getPageData } from '@codelab/backend/domain/page'
+import { getPageData, PageRepository } from '@codelab/backend/domain/page'
+import { PropRepository } from '@codelab/backend/domain/prop'
+import { StoreRepository } from '@codelab/backend/domain/store'
+import {
+  FieldRepository,
+  InterfaceTypeRepository,
+} from '@codelab/backend/domain/type'
 import {
   appSelectionSet,
-  pageSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { IAppDTO, IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import {
   connectAuth0Owner,
-  connectNodeId,
   connectNodeIds,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
@@ -97,38 +101,53 @@ export class AppRepository extends AbstractRepository<
 export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
   cLog(omit(app, ['pages']))
 
+  const fieldRepository = new FieldRepository()
+  const propRepository = new PropRepository()
+  const storeRepository = new StoreRepository()
+  const interfaceTypeRepository = new InterfaceTypeRepository()
+  const pageRepository = new PageRepository()
+  const appRepository = new AppRepository()
   const App = await Repository.instance.App
   const { pages } = app
   await validate(pages)
 
-  for (const { components, elements } of pages) {
+  for (const { components, elements, store } of pages) {
     for (const element of elements) {
       await importElementInitial(element, owner)
     }
 
     // components should be created after their root elements
     for (const component of components) {
+      await interfaceTypeRepository.add([
+        { ...component.store.api, fields: [] },
+        { ...component.api, fields: [] },
+      ])
+      await fieldRepository.add(component.api.fields)
+      await fieldRepository.add(component.store.api.fields)
+      await storeRepository.add([component.store])
+      await propRepository.add([component.props])
       await createComponent(component, owner)
     }
 
     for (const element of elements) {
       await updateImportedElement(element)
     }
+
+    await interfaceTypeRepository.add([{ ...store.api, fields: [] }])
+    await fieldRepository.add(store.api.fields)
+    await storeRepository.add([store])
   }
 
   const pagesData = app.pages.map(({ components, elements, ...props }) => ({
     ...props,
+    app: { id: app.id },
   }))
 
   cLog(pagesData)
 
-  const existing = await App.find({
-    where: {
-      id: app.id,
-    },
-  })
+  const existing = await appRepository.findOne({ id: app.id })
 
-  if (existing.length) {
+  if (existing) {
     console.log('Deleting app/pages before re-creating...')
     await App.delete({
       delete: {
@@ -142,54 +161,29 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
 
   console.log('Creating new app...')
 
-  const {
-    apps: [importedApp],
-  } = await App.create({
-    input: [
-      {
-        _compoundName: createUniqueName(app.name, owner.auth0Id),
-        id: app.id,
-        owner: connectAuth0Owner(owner),
-        pages: {
-          create: app.pages.map((page) => ({
-            node: {
-              _compoundName: createUniqueName(page.name, app.id),
-              id: page.id,
-              kind: page.kind,
-              pageContentContainer: page.pageContentContainer?.id
-                ? connectNodeId(page.pageContentContainer.id)
-                : undefined,
-              rootElement: connectNodeId(page.rootElement.id),
-              url: page.url,
-            },
-          })),
-        },
-      },
-    ],
-  })
+  await appRepository.add([{ ...app, owner, pages: [] }])
+  await pageRepository.add(pagesData)
 
   console.log('Creating actions...')
 
   // await importActions(app.store.actions, app.store.id)
 
-  return importedApp
+  return app
 }
 
 /**
  * Gather all pages, elements and components
  */
 export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
-  const Page = await Repository.instance.Page
-
-  const pages = await Page.find({
-    selectionSet: pageSelectionSet,
-    where: { app: { id: app.id } },
-  })
+  const pageRepository = new PageRepository()
+  const pages = await pageRepository.find({ app: { id: app.id } })
 
   const pagesData = await Promise.all(
     pages.map(async (page) => {
       const { components, elements } = await getPageData(page)
-      const { id, kind, name, pageContentContainer, rootElement, url } = page
+
+      const { id, kind, name, pageContentContainer, rootElement, store, url } =
+        page
 
       return {
         components,
@@ -201,6 +195,7 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
           id: rootElement.id,
           name: rootElement.name,
         },
+        store,
         url,
         ...(pageContentContainer ? { pageContentContainer } : {}),
       }
