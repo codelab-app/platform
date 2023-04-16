@@ -1,8 +1,9 @@
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { PageRepository } from '@codelab/backend/domain/page'
 import { RendererType } from '@codelab/frontend/abstract/core'
 import type { AppPagePageProps } from '@codelab/frontend/abstract/types'
 import { pageApi } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
-import { initializeStore } from '@codelab/frontend/model/infra/mobx'
 import {
   useRenderedPage,
   useStore,
@@ -60,35 +61,27 @@ export const getStaticProps: GetStaticProps<AppPagePageProps> = async (
     throw new Error('No context params ')
   }
 
-  const store = initializeStore({})
-  const { appService } = store
+  const pageRepository = new PageRepository()
   const { domain, page } = context.params
   const pageUrl = page ? `/${page}` : '/'
 
-  const [app] = await appService.getAll({
-    domains_SOME: { name_IN: [String(domain)] },
+  const foundPage = await pageRepository.findOne({
+    app: { domains_SOME: { name_IN: [String(domain)] } },
+    url: pageUrl,
   })
-
-  if (!app) {
-    throw new Error(`No apps found for "${domain}" domain`)
-  }
-
-  const foundPage = app.pages.find(
-    (appPage) => appPage.current.url === `/${pageUrl}`,
-  )
 
   if (!foundPage) {
     throw new Error(`Page with ${pageUrl} URL for "${domain}" domain Not found`)
   }
 
   const renderingData = await pageApi.GetRenderedPageAndCommonAppData({
-    appId: app.id,
+    appId: foundPage.app.id,
     pageId: foundPage.id,
   })
 
   return {
     props: {
-      appId: app.id,
+      appId: foundPage.app.id,
       pageId: foundPage.id,
       renderingData,
     },
