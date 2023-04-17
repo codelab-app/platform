@@ -4,15 +4,11 @@ import type {
   IRenderer,
   IUpdateBaseElementData,
   IUpdateElementData,
-  RenderType,
 } from '@codelab/frontend/abstract/core'
 import {
   DATA_COMPONENT_ID,
   DATA_ELEMENT_ID,
-  IRenderTypeKind,
-  isComponentInstance,
 } from '@codelab/frontend/abstract/core'
-import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { SelectAction } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -32,6 +28,7 @@ import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { AutoComputedElementNameField } from '../../../components/auto-computed-element-name'
 import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
+import { getElementModel } from '../../../utils/getElementModel'
 import { updateElementSchema } from './update-element.schema'
 
 export interface UpdateElementFormProps {
@@ -41,40 +38,12 @@ export interface UpdateElementFormProps {
   trackPromises?: UseTrackLoadingPromises
 }
 
-const makeCurrentModel = (element: IElement) => {
-  let renderType: RenderType | null = null
-
-  if (isAtomInstance(element.renderType)) {
-    renderType = {
-      id: element.renderType.id,
-      kind: IRenderTypeKind.Atom,
-    }
-  }
-
-  if (isComponentInstance(element.renderType)) {
-    renderType = {
-      id: element.renderType.id,
-      kind: IRenderTypeKind.Component,
-    }
-  }
-
-  return {
-    id: element.id,
-    name: element.name,
-    // postRenderAction: element.postRenderAction,
-    // preRenderAction: element.preRenderAction,
-    renderForEachPropKey: element.renderForEachPropKey,
-    renderIfExpression: element.renderIfExpression,
-    renderType,
-  }
-}
-
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
   ({ element, elementService, renderer, trackPromises }) => {
     const { builderService } = useStore()
     const { trackPromise } = trackPromises ?? {}
-    const model = makeCurrentModel(element)
+    const model = getElementModel(element)
     const parentComponent = builderService.activeComponent?.current
 
     const onSubmit = (data: IUpdateElementData) => {

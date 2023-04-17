@@ -29,16 +29,14 @@ export interface ICreateElementData {
   renderType?: Nullable<RenderType>
 }
 
-export type IUpdateElementData = Partial<
-  Pick<
-    ICreateElementData,
-    | 'customCss'
-    | 'guiCss'
-    | 'name'
-    | 'postRenderAction'
-    | 'preRenderAction'
-    | 'renderType'
-  >
+export type IUpdateElementData = Pick<
+  ICreateElementData,
+  | 'customCss'
+  | 'guiCss'
+  | 'name'
+  | 'postRenderAction'
+  | 'preRenderAction'
+  | 'renderType'
 > &
   Pick<ICreateElementData, 'id'> & {
     propTransformationJs?: Nullish<string>

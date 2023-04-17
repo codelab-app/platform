@@ -12,6 +12,7 @@ import { Col, Collapse, Row } from 'antd'
 import isString from 'lodash/isString'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { getElementModel } from '../utils/getElementModel'
 import { BackgroundEditor } from './css-background-editor/BackgroundEditor'
 import { BordersEditor } from './css-borders-editor/BordersEditor'
 import { EffectsEditor } from './css-effects-editor/EffectsEditor'
@@ -58,9 +59,11 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
 
     const updateCustomCss = useCallback(
       (newCustomCss: string) => {
+        const elementModel = getElementModel(element)
+
         const promise = elementService.update({
+          ...elementModel,
           customCss: newCustomCss,
-          id: element.id,
         })
 
         return trackPromise?.(promise) ?? promise
@@ -95,9 +98,11 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
 
     const updateGuiCss = useCallback(
       (newGuiCss: string) => {
+        const elementModel = getElementModel(element)
+
         const promise = elementService.update({
+          ...elementModel,
           guiCss: newGuiCss,
-          id: element.id,
         })
 
         return trackPromise?.(promise) ?? promise

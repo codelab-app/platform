@@ -5,6 +5,7 @@ import TextArea from 'antd/lib/input/TextArea'
 import isString from 'lodash/isString'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { getElementModel } from '../../../utils/getElementModel'
 
 export interface UpdateElementPropTransformationFormProp {
   element: IElement
@@ -38,8 +39,10 @@ export const UpdateElementPropTransformationForm =
             return
           }
 
+          const elementModel = getElementModel(element)
+
           const promise = elementService.update({
-            id: element.id,
+            ...elementModel,
             propTransformationJs: newValue,
           })
 

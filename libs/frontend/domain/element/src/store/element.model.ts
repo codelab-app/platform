@@ -625,7 +625,7 @@ export class Element
       propTransformationJs ?? this.propTransformationJs
     this.renderIfExpression = renderIfExpression ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null
-    this.renderType = elementRenderType ?? this.renderType
+    this.renderType = elementRenderType ?? null
     this.props = props?.id ? propRef(props.id) : this.props
     this.parent = parent?.id ? elementRef(parent.id) : this.parent
     this.nextSibling = nextSibling?.id
