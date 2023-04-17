@@ -28,12 +28,12 @@ export class FieldRepository extends AbstractRepository<
       await (
         await this.Field
       ).create({
-        input: fields.map(({ api, fieldType, nextSibling , prevSibling ,...field }) => ({
+        input: fields.map(({ api, fieldType, ...field }) => ({
           ...field,
           api: connectNodeId(api.id),
           fieldType: connectNodeId(fieldType.id),
-          nextSibling : connectNodeId(nextSibling?.id),
-          prevSibling : connectNodeId(prevSibling?.id)
+          nextSibling: connectNodeId(field.nextSibling?.id),
+          prevSibling: connectNodeId(field.prevSibling?.id),
         })),
       })
     ).fields
@@ -45,7 +45,7 @@ export class FieldRepository extends AbstractRepository<
    * Scenario: Say a field was deleted, then we run a seeder, we would have to create for the deleted field
    */
   protected async _update(
-    { api, fieldType, id, nextSibling , prevSibling ,...field }: IFieldDTO,
+    { api, fieldType, id, ...field }: IFieldDTO,
     where: OGM_TYPES.FieldWhere,
   ) {
     return (
@@ -56,8 +56,8 @@ export class FieldRepository extends AbstractRepository<
           ...field,
           api: reconnectNodeId(api.id),
           fieldType: reconnectNodeId(fieldType.id),
-          nextSibling : reconnectNodeId(nextSibling?.id),
-          prevSibling : reconnectNodeId(prevSibling?.id)
+          nextSibling: reconnectNodeId(field.nextSibling?.id),
+          prevSibling: reconnectNodeId(field.prevSibling?.id),
         },
         where,
       })
