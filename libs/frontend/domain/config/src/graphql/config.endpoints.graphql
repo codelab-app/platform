@@ -1,0 +1,27 @@
+query GetConfigs($options: ConfigOptions, $where: ConfigWhere) {
+  configs(options: $options, where: $where) {
+    ...Config
+  }
+}
+
+mutation CreateConfigs($input: [ConfigCreateInput!]!) {
+  createConfigs(input: $input) {
+    configs {
+      id
+    }
+  }
+}
+
+mutation UpdateConfigs($where: ConfigWhere, $update: ConfigUpdateInput!) {
+  updateConfigs(where: $where, update: $update) {
+    configs {
+      id
+    }
+  }
+}
+
+mutation DeleteConfigs($where: ConfigWhere) {
+  deleteConfigs(where: $where) {
+    nodesDeleted
+  }
+}

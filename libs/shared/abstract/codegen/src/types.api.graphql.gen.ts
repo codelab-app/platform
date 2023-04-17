@@ -21369,6 +21369,50 @@ export type GetComponentsQuery = {
   components: Array<{ __typename?: 'Component' } & ComponentFragment>
 }
 
+export type GetConfigsQueryVariables = Exact<{
+  options?: InputMaybe<ConfigOptions>
+  where?: InputMaybe<ConfigWhere>
+}>
+
+export type GetConfigsQuery = {
+  __typename?: 'Query'
+  configs: Array<{ __typename?: 'Config' } & ConfigFragment>
+}
+
+export type CreateConfigsMutationVariables = Exact<{
+  input: Array<ConfigCreateInput> | ConfigCreateInput
+}>
+
+export type CreateConfigsMutation = {
+  __typename?: 'Mutation'
+  createConfigs: {
+    __typename?: 'CreateConfigsMutationResponse'
+    configs: Array<{ __typename?: 'Config'; id: string }>
+  }
+}
+
+export type UpdateConfigsMutationVariables = Exact<{
+  where?: InputMaybe<ConfigWhere>
+  update: ConfigUpdateInput
+}>
+
+export type UpdateConfigsMutation = {
+  __typename?: 'Mutation'
+  updateConfigs: {
+    __typename?: 'UpdateConfigsMutationResponse'
+    configs: Array<{ __typename?: 'Config'; id: string }>
+  }
+}
+
+export type DeleteConfigsMutationVariables = Exact<{
+  where?: InputMaybe<ConfigWhere>
+}>
+
+export type DeleteConfigsMutation = {
+  __typename?: 'Mutation'
+  deleteConfigs: { __typename?: 'DeleteInfo'; nodesDeleted: number }
+}
+
 export type GetDomainsQueryVariables = Exact<{
   options?: InputMaybe<DomainOptions>
   where?: InputMaybe<DomainWhere>

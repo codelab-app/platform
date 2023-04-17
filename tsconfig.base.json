@@ -120,6 +120,9 @@
       "@codelab/frontend/domain/component": [
         "libs/frontend/domain/component/src/index.ts"
       ],
+      "@codelab/frontend/domain/config": [
+        "libs/frontend/domain/config/src/index.ts"
+      ],
       "@codelab/frontend/domain/domain": [
         "libs/frontend/domain/domain/src/index.ts"
       ],

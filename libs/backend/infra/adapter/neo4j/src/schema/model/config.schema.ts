@@ -7,4 +7,3 @@ export const configSchema = gql`
     app: App! @relationship(type: "APP_CONFIG", direction: OUT)
   }
 `
-// API_KEY: AIzaSyAWWMfW9JJ5DMmsn9NyZLYp4VVA6Q3h_EQ
