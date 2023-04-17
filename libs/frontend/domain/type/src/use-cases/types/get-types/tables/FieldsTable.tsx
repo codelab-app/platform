@@ -163,20 +163,29 @@ export const FieldsTable = observer<FieldsTableProps>(
       },
     ]
 
-    const compareNodes = (node1: IField, node2: IField) => {
-      if (node1.nextSibling === null) {
-        return 1
-      } else if (node2.nextSibling === null) {
-        return -1
-      } else if (node1.prevSibling === null) {
-        return -1
-      } else if (node2.prevSibling === null) {
-        return 1
-      } else if (node1.nextSibling?.id === node2.id) {
-        return -1
-      } else {
-        return -1
+    const compareNodes = (field1: IField, field2: IField) => {
+      let node1 = field1
+      let node2 = field2
+      const pathA = [field1.id]
+      const pathB = [field2.id]
+
+      while (node1.prevSibling) {
+        node1 = interfaceType.fields.find(
+          (node) => node.id === node1.prevSibling?.id,
+        ) as IField
+        pathA.unshift(node1.id)
       }
+
+      while (node2.prevSibling) {
+        node2 = interfaceType.fields.find(
+          (node) => node.id === node2.prevSibling?.id,
+        ) as IField
+        pathB.unshift(node2.id)
+      }
+
+      const result = pathA.join().localeCompare(pathB.join())
+
+      return result !== 0 ? result : field1.id.localeCompare(field2.id)
     }
 
     const dataSource: Array<IFieldRecord> = interfaceType.fields
