@@ -5,6 +5,7 @@ export interface IStoreDTO {
   api: IEntity
   component?: IEntity | null
   id: string
+  initialState?: IProp
   name: string
   page?: IEntity | null
   source?: Nullable<IEntity>

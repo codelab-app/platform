@@ -3,6 +3,7 @@ import type {
   IComponent,
   IInterfaceType,
   IPage,
+  IProp,
   IStore,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -58,6 +59,7 @@ export class Store
     api: prop<Ref<IInterfaceType>>().withSetter(),
     component: prop<Nullable<Ref<IComponent>>>().withSetter(),
     id: idProp,
+    initialState: prop<IProp>(() => new Prop({})),
     name: prop<string>(),
 
     page: prop<Nullable<Ref<IPage>>>(),
