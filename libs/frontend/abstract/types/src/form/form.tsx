@@ -41,6 +41,11 @@ export type FormProps<TData, TResponse = unknown> = Partial<
      *  Pass either schema or bridge
      */
     schema: Bridge | JSONSchemaType<TData>
+
+    /**
+     * if true the form submission will be done in the background
+     */
+    optimistic?: boolean
   }
 
 /**

@@ -49,6 +49,7 @@ export const DeleteResourceModal = observer(() => {
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}
         onSubmitSuccess={onSubmitSuccess}
+        optimistic
         schema={emptyJsonSchema}
       >
         <h4>Are you sure you want to delete resource {resource?.name}"</h4>

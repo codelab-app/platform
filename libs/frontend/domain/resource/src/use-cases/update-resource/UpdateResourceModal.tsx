@@ -37,6 +37,7 @@ export const UpdateResourceModal = observer(() => {
           title: 'Error while updating resource',
         })}
         onSubmitSuccess={closeModal}
+        optimistic
         schema={updateResourceSchema}
       >
         <AutoFields />

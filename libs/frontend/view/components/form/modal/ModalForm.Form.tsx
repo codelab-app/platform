@@ -24,6 +24,7 @@ export const Form = <TData, TResponse = unknown>({
   onSubmit = (_model: unknown) => Promise.resolve(),
   onSubmitError = [],
   onSubmitSuccess = [],
+  optimistic = false,
   schema,
 }: React.PropsWithChildren<
   Omit<FormProps<TData, TResponse>, 'submitRef'>
@@ -33,6 +34,23 @@ export const Form = <TData, TResponse = unknown>({
   const [bridge, setBridge] = useState(
     schema instanceof Bridge ? schema : createBridge(schema),
   )
+
+  let onFormSubmit = onSubmit
+  let onFormSubmitError = onSubmitError
+
+  if (optimistic) {
+    onFormSubmit = async (...args) => {
+      onSubmit(...args).catch((error) => {
+        if (Array.isArray(onSubmitError)) {
+          onSubmitError.forEach((onError) => onError(error))
+        } else {
+          onSubmitError(error)
+        }
+      })
+    }
+
+    onFormSubmitError = []
+  }
 
   useEffect(() => {
     setBridge(schema instanceof Bridge ? schema : createBridge(schema))
@@ -47,10 +65,10 @@ export const Form = <TData, TResponse = unknown>({
       onChange={onChange}
       onChangeModel={onChangeModel}
       onSubmit={handleFormSubmit<TData, TResponse>(
-        onSubmit,
+        onFormSubmit,
         setIsLoading,
         onSubmitSuccess,
-        onSubmitError,
+        onFormSubmitError,
       )}
       ref={connectUniformSubmitRef(submitRef)}
       schema={bridge}

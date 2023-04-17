@@ -40,6 +40,7 @@ export const CreateResourceModal = observer(() => {
           title: 'Error while creating resource',
         })}
         onSubmitSuccess={closeModal}
+        optimistic
         schema={createResourceSchema}
       >
         <AutoFields />
