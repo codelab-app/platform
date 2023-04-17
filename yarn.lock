@@ -14139,7 +14139,7 @@ __metadata:
     re-resizable: 6.9.1
     react: 18.2.0
     react-dom: 18.2.0
-    react-drag-listview: ^2.0.0
+    react-drag-listview: 2.0.0
     react-error-boundary: ^3.1.4
     react-grid-layout: 1.3.4
     react-helmet: 6.1.0
@@ -28781,7 +28781,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-drag-listview@npm:^2.0.0":
+"react-drag-listview@npm:2.0.0":
   version: 2.0.0
   resolution: "react-drag-listview@npm:2.0.0"
   dependencies:
