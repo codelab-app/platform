@@ -26,7 +26,7 @@ export class ComponentRenderPipe
     }
 
     const component = element.renderType.current
-    const clonedComponent = component.clone(element.id)
+    const clonedComponent = component.clone(element.id, element.id)
     const rootElement = clonedComponent.rootElement.current
 
     const overrideProps = {

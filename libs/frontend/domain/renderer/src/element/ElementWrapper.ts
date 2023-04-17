@@ -6,11 +6,10 @@ import type {
 import { RendererType } from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
-import React, { useCallback, useEffect } from 'react'
+import React from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { shouldRenderElement } from '../utils'
 import { mapOutput } from '../utils/renderOutputUtils'
@@ -32,18 +31,14 @@ export interface ElementWrapperProps {
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
   ({ element, extraProps = {}, renderer, ...rest }) => {
+    /* 
     const onRefChange = useCallback((node: Nullable<HTMLElement>) => {
       if (node !== null) {
         // FIXME:
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-    useEffect(() => {
-      // FIXME:
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
+   */
     // Render the element to an intermediate output
     const renderOutputs = renderer.renderIntermediateElement(
       element,
@@ -56,11 +51,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     // Render the elements normally for now since the DnD is currently not properly working and
     // causing unnecessary re-renders when hovering over the builder screen section
     const renderedElement = mapOutput(renderOutputs, (renderOutput) => {
-      // FIXME:
-      const children = shouldRenderElement(
-        element,
-        mergeProps(renderOutput.props, {}),
-      )
+      const children = shouldRenderElement(element, renderOutput.props)
         ? renderer.renderChildren({
             extraProps,
             parentOutput: renderOutput,
@@ -68,7 +59,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         : undefined
 
       if (renderOutput.props) {
-        renderOutput.props['forwardedRef'] = onRefChange
+        // renderOutput.props['forwardedRef'] = onRefChange
 
         if (
           isAtomInstance(element.renderType) &&

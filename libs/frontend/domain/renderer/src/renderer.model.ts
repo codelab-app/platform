@@ -272,8 +272,6 @@ export class Renderer
    */
   private applyPropTypeTransformers = (props: IPropData, element: IElement) =>
     mapDeep(props, (value) => {
-      value = preTransformPropTypeValue(value)
-
       if (!isTypedValue(value)) {
         return value
       }
@@ -292,7 +290,7 @@ export class Renderer
           continue
         }
 
-        return propTransformer.transform(value, typeKind, element)
+        return propTransformer.transform(value, element)
       }
 
       /*

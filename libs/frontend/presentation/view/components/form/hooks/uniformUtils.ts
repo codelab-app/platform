@@ -80,9 +80,10 @@ export const createValidator = (schema: Schema, allowExpressions?: boolean) => {
   const validator = ajv.compile(schema)
 
   return (model: Record<string, unknown>) => {
-    // FIXME:
-    const modelToValidate = allowExpressions
-      ? replaceStateInProps(model, {})
+    const store = context?.elementTree?.rootElement.current.store.current
+
+    const modelToValidate = context?.allowExpressions
+      ? replaceStateInProps(model, store?.state)
       : model
 
     validator(modelToValidate)

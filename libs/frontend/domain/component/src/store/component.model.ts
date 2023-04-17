@@ -59,7 +59,8 @@ export class Component
     props: prop<Ref<IProp>>().withSetter(),
     // if this is a duplicate, trace source component id else null
     sourceComponent: prop<Nullable<IEntity>>(null).withSetter(),
-    store: prop<Ref<IStore>>(),
+
+    store: prop<Ref<IStore>>().withSetter(),
   })
   implements IComponent
 {
@@ -162,16 +163,21 @@ export class Component
   }
 
   /**
-   * @param instanceId element which component clone will be attached to
+   * @param key a unique identifier to avoid repeating clone
+   * @param instanceId instance element id
+   * Typed values doesn't have an instance element
+   * therefore the key can't be the same as instanceId
    */
   @modelAction
-  clone(instanceId: string) {
+  clone(key: string, instanceId?: string) {
     const componentService = getComponentService(this)
 
     // if instance already created
-    if (componentService.clonedComponents.has(instanceId)) {
+    if (componentService.clonedComponents.has(key)) {
+      console.log(key)
+
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      return componentService.clonedComponents.get(instanceId)!
+      return componentService.clonedComponents.get(key)!
     }
 
     const clonesList = [...componentService.clonedComponents.values()].filter(
@@ -181,11 +187,18 @@ export class Component
     const clonedComponent: IComponent = clone<IComponent>(this)
     this.cloneTree(clonedComponent, clonesList.length)
 
+    const clonedStore = this.store.current.clone()
+    clonedStore.setComponent(componentRef(clonedComponent.id))
+
     clonedComponent.setProps(propRef(this.props.current.clone()))
     clonedComponent.setSourceComponent({ id: this.id })
-    clonedComponent.setInstanceElement(elementRef(instanceId))
+    clonedComponent.setStore(storeRef(clonedStore))
 
-    componentService.clonedComponents.set(instanceId, clonedComponent)
+    if (instanceId) {
+      clonedComponent.setInstanceElement(elementRef(instanceId))
+    }
+
+    componentService.clonedComponents.set(key, clonedComponent)
 
     return clonedComponent
   }

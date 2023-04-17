@@ -1,14 +1,13 @@
-import type { TypedValue } from '@codelab/frontend/abstract/core'
+import type { IPropData, TypedValue } from '@codelab/frontend/abstract/core'
 import {
   expressionTransformer,
   hasStateExpression,
 } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import merge from 'lodash/merge'
+import isString from 'lodash/isString'
 import { ExtendedModel, model } from 'mobx-keystone'
 import type { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
 import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
-import { getRootElement } from '../utils/getRootElement'
 
 /**
  * Transforms props from the following format:
@@ -34,7 +33,9 @@ export class RenderPropTypedValueTransformer
   }
 
   canHandleValue(value: TypedValue<unknown>): boolean {
-    const isComponentId = Boolean(getRootElement(value, this.componentService))
+    const isComponentId =
+      isString(value.value) && this.componentService.components.has(value.value)
+
     const isComponentExpression = hasStateExpression(value.value)
 
     // either when it is a componentId or a component expression
@@ -46,17 +47,35 @@ export class RenderPropTypedValueTransformer
       return expressionTransformer.transpileAndEvaluateExpression(value.value)
     }
 
-    const rootElement = getRootElement(value, this.componentService)
-
-    if (!rootElement) {
-      return value
-    }
+    const id = value.value
+    const component = this.componentService.components.get(id)
 
     // spread is required to access all args not just the first one
     return (...renderPropArgs: Array<object>) => {
-      console.log(renderPropArgs.reduce(merge, {}))
+      const props: IPropData = renderPropArgs.reduce(
+        (acc, val, index) => ({ ...acc, [index]: val }),
+        {},
+      )
 
-      return this.renderer.renderElement(rootElement, renderPropArgs)
+      // accept zero as a key value
+      if (props[value.key] === undefined || props[value.key] === null) {
+        return value
+      }
+
+      // component has no instance element
+      const componentClone = component?.clone(
+        `${props[value.key]}-${component.name}`,
+      )
+
+      const rootElement = componentClone?.rootElement.current
+
+      if (!rootElement) {
+        return value
+      }
+
+      componentClone.store.current.initialState.setMany(props)
+
+      return this.renderer.renderElement(rootElement)
     }
   }
 }

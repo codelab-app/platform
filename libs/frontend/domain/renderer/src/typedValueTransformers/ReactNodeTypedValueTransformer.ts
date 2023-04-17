@@ -4,10 +4,11 @@ import {
   hasStateExpression,
 } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import isString from 'lodash/isString'
 import { ExtendedModel, model } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import type { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
 import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
-import { getRootElement } from '../utils/getRootElement'
 
 /**
  * Transforms props from the following format:
@@ -33,7 +34,9 @@ export class ReactNodeTypedValueTransformer
   }
 
   canHandleValue(value: TypedValue<unknown>): boolean {
-    const isComponentId = Boolean(getRootElement(value, this.componentService))
+    const isComponentId =
+      isString(value.value) && this.componentService.components.has(value.value)
+
     const isComponentExpression = hasStateExpression(value.value)
 
     // either when it is a componentId or a component expression
@@ -51,7 +54,11 @@ export class ReactNodeTypedValueTransformer
         : transpiledValue
     }
 
-    const rootElement = getRootElement(value, this.componentService)
+    const id = value.value
+    const component = this.componentService.components.get(id)
+    // component has no instance element
+    const componentClone = component?.clone(v4())
+    const rootElement = componentClone?.rootElement.current
 
     if (!rootElement) {
       return value

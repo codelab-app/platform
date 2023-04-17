@@ -26,11 +26,12 @@ export interface IComponent
   sourceComponent?: Nullable<IEntity>
   store: Ref<IStore>
 
-  clone(instanceId: string): IComponent
+  clone(key: string, instanceId?: string): IComponent
   setChildrenContainerElement(element: Ref<IElement>): void
   setInstanceElement(elementRef: Ref<IElement>): void
   setProps(props: Nullable<Ref<IProp>>): void
   setSourceComponent(entity: IEntity): void
+  setStore(props: Nullable<Ref<IStore>>): void
   toCreateInput(): ComponentCreateInput
 }
 

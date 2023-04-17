@@ -47,7 +47,7 @@ export class RawTypedValuePropsTransformer
     return true
   }
 
-  public transform(props: TypedValue<unknown>, typeKind: ITypeKind) {
+  public transform(props: TypedValue<unknown>) {
     if (!props.value) {
       return props
     }

@@ -138,10 +138,7 @@ export const FieldsTable = observer<FieldsTableProps>(
             {() => (
               <Space size="middle">
                 {record.type?.kind === ITypeKind.InterfaceType ? (
-                  <CreateFieldButton
-                    fieldService={fieldService}
-                    interfaceId={record.type.id}
-                  />
+                  <CreateFieldButton interfaceId={record.type.id} />
                 ) : null}
                 <ListItemEditButton
                   onClick={() => {

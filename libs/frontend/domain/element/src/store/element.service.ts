@@ -804,12 +804,9 @@ export class ElementService
     // also to avoid complex typing and conditions
     const createdComponent = yield* _await(
       this.componentService.create({
-        api,
-        childrenContainerElement: element,
         id: v4(),
         name,
         owner,
-        rootElement: element,
       }),
     )
 

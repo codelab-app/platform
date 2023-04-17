@@ -38,10 +38,7 @@ export const UnionTypeTable = observer<UnionTypeTableProps>(
             {() => (
               <Space size="middle">
                 {record.kind === ITypeKind.InterfaceType ? (
-                  <CreateFieldButton
-                    fieldService={fieldService}
-                    interfaceId={record.id}
-                  />
+                  <CreateFieldButton interfaceId={record.id} />
                 ) : null}
               </Space>
             )}
