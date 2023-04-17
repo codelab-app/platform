@@ -184,9 +184,7 @@ export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
               <Divider />
               <Panel
                 header={
-                  <StoreHeader
-                    extra={<CreateActionButton actionService={actionService} />}
-                  >
+                  <StoreHeader extra={<CreateActionButton />}>
                     Actions
                   </StoreHeader>
                 }

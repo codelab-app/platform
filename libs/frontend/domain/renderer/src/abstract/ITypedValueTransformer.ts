@@ -2,6 +2,7 @@
 import type {
   IBaseRenderPipe,
   IComponentService,
+  IElement,
   IElementService,
   IPropData,
   TypedValue,
@@ -18,9 +19,6 @@ export interface ITypedValueTransformer extends IBaseRenderPipe {
   canHandleTypeKind(typeKind: ITypeKind): boolean
   canHandleValue(value: TypedValue<unknown>): boolean
   // TODO: Create better typing
-  transform(
-    typedValue: TypedValue<unknown>,
-    typeKind: ITypeKind,
-    context: IPropData,
-  ): any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  transform(typedValue: TypedValue<unknown>, element: IElement): any
 }

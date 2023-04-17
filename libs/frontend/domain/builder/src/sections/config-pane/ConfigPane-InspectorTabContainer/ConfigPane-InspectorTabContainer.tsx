@@ -72,9 +72,8 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
     return null
   }
 
-  // FIXME:
-  // const autocomplete = renderService?.state
-  const autocomplete = {}
+  const store = elementTree?.rootElement.current.store.current
+  const autocomplete = store?.state || {}
   const allowExpressions = true
 
   const tabItems = [

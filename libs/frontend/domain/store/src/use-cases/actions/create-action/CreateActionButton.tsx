@@ -1,12 +1,14 @@
 import { PlusOutlined } from '@ant-design/icons'
-import type { IActionService } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
 
-export const CreateActionButton = observer<{ actionService: IActionService }>(
-  ({ actionService }) => (
+export const CreateActionButton = observer(() => {
+  const { actionService } = useStore()
+
+  return (
     <Button
       css={tw`flex justify-center items-center`}
       icon={<PlusOutlined />}
@@ -18,5 +20,5 @@ export const CreateActionButton = observer<{ actionService: IActionService }>(
     >
       Action
     </Button>
-  ),
-)
+  )
+})

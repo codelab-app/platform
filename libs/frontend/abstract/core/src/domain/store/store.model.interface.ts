@@ -11,7 +11,7 @@ import type { IAction } from '../action'
 import type { IComponent } from '../component'
 import type { IModel } from '../model.interface'
 import type { IPage } from '../page'
-import type { IPropData } from '../prop'
+import type { IProp, IPropData } from '../prop'
 import type { IInterfaceType } from '../type'
 
 export interface IStore
@@ -21,10 +21,14 @@ export interface IStore
   api: Ref<IInterfaceType>
   component: Nullable<Ref<IComponent>>
   id: string
+  initialState: IProp
   jsonString: string
   name: string
   page: Nullable<Ref<IPage>>
   state: IPropData
+
+  clone(): IStore
+  setComponent(componentRef: Ref<IComponent>): void
 }
 
 export type IStoreRef = string
