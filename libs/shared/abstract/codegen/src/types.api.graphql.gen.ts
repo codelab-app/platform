@@ -21258,6 +21258,18 @@ export type GetAtomsQuery = {
   atoms: Array<{ __typename?: 'Atom' } & AtomFragment>
 }
 
+export type GetAtomOptionsQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetAtomOptionsQuery = {
+  __typename?: 'Query'
+  atoms: Array<{
+    __typename?: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+  }>
+}
+
 export type UpdateAtomsMutationVariables = Exact<{
   where?: InputMaybe<AtomWhere>
   update?: InputMaybe<AtomUpdateInput>
@@ -22366,6 +22378,21 @@ export type GetCodeMirrorTypesQueryVariables = Exact<{
 export type GetCodeMirrorTypesQuery = {
   __typename?: 'Query'
   types: Array<{ __typename?: 'CodeMirrorType' } & Type_CodeMirrorType_Fragment>
+}
+
+export type GetTypeOptionsQueryVariables = Exact<{ [key: string]: never }>
+
+export type GetTypeOptionsQuery = {
+  __typename?: 'Query'
+  baseTypes: {
+    __typename?: 'GetBaseTypesReturn'
+    items: Array<{
+      __typename?: 'BaseType'
+      id: string
+      name: string
+      kind: TypeKind
+    }>
+  }
 }
 
 export type InterfaceForm_GetAppsQueryVariables = Exact<{

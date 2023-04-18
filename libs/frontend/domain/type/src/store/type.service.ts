@@ -259,6 +259,13 @@ export class TypeService
     return all[0]
   })
 
+  @modelFlow
+  getOptions = _async(function* (this: TypeService) {
+    const options = yield* _await(this.typeRepository.findOptions())
+
+    return options
+  })
+
   /**
    * A wrapper around getAll with some type checking.
    * Gets the interface while loading its descendant types

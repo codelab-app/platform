@@ -34,6 +34,12 @@ export type GetAtomsQuery = {
   atoms: Array<AtomFragment>
 }
 
+export type GetAtomOptionsQueryVariables = Types.Exact<{ [key: string]: never }>
+
+export type GetAtomOptionsQuery = {
+  atoms: Array<{ id: string; name: string; type: Types.AtomType }>
+}
+
 export type UpdateAtomsMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.AtomWhere>
   update?: Types.InputMaybe<Types.AtomUpdateInput>
@@ -74,6 +80,15 @@ export const GetAtomsDocument = gql`
     }
   }
   ${AtomFragmentDoc}
+`
+export const GetAtomOptionsDocument = gql`
+  query GetAtomOptions {
+    atoms {
+      id
+      name
+      type
+    }
+  }
 `
 export const UpdateAtomsDocument = gql`
   mutation UpdateAtoms($where: AtomWhere, $update: AtomUpdateInput) {
@@ -141,6 +156,21 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'GetAtoms',
+        'query',
+      )
+    },
+    GetAtomOptions(
+      variables?: GetAtomOptionsQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<GetAtomOptionsQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetAtomOptionsQuery>(
+            GetAtomOptionsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'GetAtomOptions',
         'query',
       )
     },

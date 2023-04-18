@@ -1,6 +1,8 @@
-import type { IType } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presenter/container'
+import type { IBaseType } from '@codelab/shared/abstract/codegen'
 import { useAsync } from '@react-hookz/web'
+import compact from 'lodash/compact'
+import uniqBy from 'lodash/uniqBy'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useField } from 'uniforms'
@@ -10,7 +12,9 @@ interface Option {
   label: string
   value: string
 }
-export type CreateTypeOptions = (types?: Array<IType>) => Array<Option>
+export type CreateTypeOptions = (
+  types?: Array<Pick<IBaseType, 'id' | 'kind' | 'name'>>,
+) => Array<Option>
 
 export interface TypeSelectProps {
   createTypeOptions?: CreateTypeOptions
@@ -18,16 +22,13 @@ export interface TypeSelectProps {
   name: string
 }
 
-const defaultCreateTypeOptions: CreateTypeOptions = (types) =>
-  types?.map(({ id, name }) => ({ label: name, value: id })) ?? []
-
 export const TypeSelect = observer<TypeSelectProps>(
   ({ createTypeOptions, label, name }) => {
     const { typeService } = useStore()
     const [fieldProps] = useField<{ value?: string }>(name, {})
 
-    const [{ error, result, status }, getTypes] = useAsync(() =>
-      typeService.getAll(),
+    const [{ error, result = [], status }, getTypes] = useAsync(() =>
+      typeService.getOptions(),
     )
 
     // On update mode, the current selected type can be used
@@ -38,8 +39,11 @@ export const TypeSelect = observer<TypeSelectProps>(
 
     const typeOptions = createTypeOptions
       ? createTypeOptions(result)
-      : defaultCreateTypeOptions(
-          result ?? (currentType ? [currentType] : undefined),
+      : uniqBy(compact([currentType, ...result]), 'id').map(
+          ({ id, name: optionLabel }) => ({
+            label: optionLabel,
+            value: id,
+          }),
         )
 
     return (

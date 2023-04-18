@@ -169,6 +169,13 @@ export class AtomService
     return all[0]
   })
 
+  @modelFlow
+  getOptions = _async(function* (this: AtomService) {
+    const options = yield* _await(this.atomRepository.findOptions())
+
+    return options
+  })
+
   /**
    * @param interfaceId Optional interface ID for connecting to existing interface, instead of creating an interface
    */

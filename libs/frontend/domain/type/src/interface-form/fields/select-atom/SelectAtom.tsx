@@ -1,9 +1,11 @@
 import type { IAtom } from '@codelab/frontend/abstract/core'
-import { filterNotHookType } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presenter/container'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
-import { useAsync, useMountEffect } from '@react-hookz/web'
+import { useAsync } from '@react-hookz/web'
+import compact from 'lodash/compact'
+import uniqBy from 'lodash/uniqBy'
 import React from 'react'
+import { useField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
 
 export type SelectAtomProps = Pick<
@@ -16,51 +18,42 @@ export type SelectAtomProps = Pick<
   parent?: IAtom
 }
 
-/**
- * @returns { data, isLoading, error }
- */
-export const useGetAllAtoms = () => {
-  const { atomService } = useStore()
-
-  const [{ error, result, status }, getAtoms] = useAsync(async () => {
-    return atomService.allAtomsLoaded
-      ? atomService.atomsList
-      : await atomService.getAll()
-  })
-
-  const atomOptions =
-    result
-      ?.filter(({ type }) => filterNotHookType(type))
-      .map((atom) => ({ label: atom.name, value: atom.id })) ?? []
-
-  return { atomOptions, error, getAtoms, loading: status === 'loading' }
-}
-
 export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
-  const suggestedChildrenIds = parent?.suggestedChildren.map(
-    (child) => child.id,
+  const { atomService } = useStore()
+  const [fieldProps] = useField<{ value?: string }>(name, {})
+
+  const suggestedChildren =
+    parent?.suggestedChildren.map((child) => child.current) ?? []
+
+  // On update mode, the current selected type can be used
+  // to show the type name instead of showing just the id
+  const currentAtom = fieldProps.value
+    ? atomService.atoms.get(fieldProps.value)
+    : undefined
+
+  const [{ error: queryError, result = [], status }, getAtoms] = useAsync(() =>
+    atomService.getOptions(),
   )
 
-  const { atomOptions, error: queryError, getAtoms, loading } = useGetAllAtoms()
-
-  /**
-   * Sort for now before data is added
-   */
-  const filteredOptions = atomOptions.sort(({ value }) =>
-    suggestedChildrenIds?.includes(value) ? -1 : 1,
-  )
-
-  useMountEffect(getAtoms.execute)
+  const options = uniqBy(
+    compact([currentAtom, ...suggestedChildren, ...result]),
+    'id',
+  ).map((atom) => ({ label: atom.name, value: atom.id }))
 
   return (
     <SelectField
       error={error || queryError}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
       label={label}
-      loading={loading}
+      loading={status === 'loading'}
       name={name}
+      onDropdownVisibleChange={async (open) => {
+        if (open && status === 'not-executed') {
+          await getAtoms.execute()
+        }
+      }}
       optionFilterProp="label"
-      options={filteredOptions}
+      options={options}
       showSearch
     />
   )

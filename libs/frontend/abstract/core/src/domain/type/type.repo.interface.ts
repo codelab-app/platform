@@ -19,4 +19,7 @@ export type ITypeRepository = IRepository<
     items: Array<BaseType_BaseType_Fragment>
     totalCount: number
   }>
+  findOptions(): Promise<
+    Array<Pick<BaseType_BaseType_Fragment, 'id' | 'kind' | 'name'>>
+  >
 }

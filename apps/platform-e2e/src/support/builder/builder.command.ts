@@ -14,7 +14,7 @@ export const createElementTree = (elements: Array<ElementData>) => {
     cy.getSider()
       .find('.ant-page-header-heading')
       .getButton({ icon: 'plus' })
-      .click()
+      .click({ force: true })
 
     /**
      * We skip this if parent element is root, since it is disabled and can't be accessed

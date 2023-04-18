@@ -544,19 +544,34 @@ export const setFormFieldValue = (
         throw new Error('Label must be set')
       }
 
-      /**
-       * For long lists, the target item isn't in view, causing the item to not be selected.
-       */
-      // getField().then(setSelectValue(value, opts))
-
+      // This should also work for dropdowns where the items are only fetched upon opening it
+      // e.g. selecting an atom or type
       getField()
         .findByLabelText(label)
         .click({ force: true })
-        .type(`${value}`, { force: true })
+        .get('body')
+        .then((body) => {
+          // This is for awaiting the options in case they are fetched upon opening the dropdown
+          cy.get(`.ant-select-item-option-content`, { timeout: 5000 }).should(
+            'be.visible',
+          )
 
-      getSelectDropdown()
-        .contains('.ant-select-item', value)
-        .click({ force: true })
+          if (
+            body.find(`.ant-select-item-option[title="${value}"]`).length > 0
+          ) {
+            // Just click the option if its already visible in the dropdown
+            cy.get(`.ant-select-item-option[title="${value}"]`).click({
+              force: true,
+            })
+          } else {
+            // Types the value so that the option will show in case it is needed to scroll down
+            getField()
+              .findByLabelText(label)
+              .type(`${value}`, { force: true })
+              .get(`.ant-select-item-option[title="${value}"]`)
+              .click({ force: true })
+          }
+        })
 
       return
     case FIELD_TYPE.MULTISELECT:

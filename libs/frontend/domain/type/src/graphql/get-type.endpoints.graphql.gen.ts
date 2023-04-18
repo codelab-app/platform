@@ -176,6 +176,14 @@ export type GetCodeMirrorTypesQuery = {
   types: Array<Type_CodeMirrorType_Fragment>
 }
 
+export type GetTypeOptionsQueryVariables = Types.Exact<{ [key: string]: never }>
+
+export type GetTypeOptionsQuery = {
+  baseTypes: {
+    items: Array<{ id: string; name: string; kind: Types.TypeKind }>
+  }
+}
+
 export const GetBaseTypesDocument = gql`
   query GetBaseTypes($options: GetBaseTypesOptions) {
     baseTypes(options: $options) {
@@ -365,6 +373,17 @@ export const GetCodeMirrorTypesDocument = gql`
     }
   }
   ${TypeFragmentDoc}
+`
+export const GetTypeOptionsDocument = gql`
+  query GetTypeOptions {
+    baseTypes(options: { limit: 99999 }) {
+      items {
+        id
+        name
+        kind
+      }
+    }
+  }
 `
 
 export type SdkFunctionWrapper = <T>(
@@ -614,6 +633,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'GetCodeMirrorTypes',
+        'query',
+      )
+    },
+    GetTypeOptions(
+      variables?: GetTypeOptionsQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<GetTypeOptionsQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetTypeOptionsQuery>(
+            GetTypeOptionsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'GetTypeOptions',
         'query',
       )
     },

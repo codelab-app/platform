@@ -4,6 +4,7 @@ import type {
   ITypeRepository,
 } from '@codelab/frontend/abstract/core'
 import type { BaseTypeWhere } from '@codelab/shared/abstract/codegen'
+import sortBy from 'lodash/sortBy'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import {
   createTypeApi,
@@ -106,5 +107,14 @@ export class TypeRepository extends Model({}) implements ITypeRepository {
     )
 
     return nodesDeleted
+  })
+
+  @modelFlow
+  findOptions = _async(function* (this: TypeRepository) {
+    const {
+      baseTypes: { items },
+    } = yield* _await(getTypeApi.GetTypeOptions())
+
+    return sortBy(items, 'name')
   })
 }

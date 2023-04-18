@@ -1,5 +1,10 @@
-import type { IAtom, IAtomRepository } from '@codelab/frontend/abstract/core'
+import {
+  type IAtom,
+  type IAtomRepository,
+  filterNotHookType,
+} from '@codelab/frontend/abstract/core'
 import type { AtomWhere } from '@codelab/shared/abstract/codegen'
+import sortBy from 'lodash/sortBy'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { atomApi } from './atom.api'
 
@@ -46,5 +51,15 @@ export class AtomRepository extends Model({}) implements IAtomRepository {
     )
 
     return nodesDeleted
+  })
+
+  @modelFlow
+  findOptions = _async(function* (this: AtomRepository) {
+    const { atoms } = yield* _await(atomApi.GetAtomOptions())
+
+    return sortBy(
+      atoms.filter(({ type }) => filterNotHookType(type)),
+      'name',
+    )
   })
 }

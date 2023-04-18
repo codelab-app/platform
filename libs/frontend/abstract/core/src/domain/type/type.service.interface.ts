@@ -2,6 +2,7 @@ import type {
   BaseTypeOptions,
   BaseTypeWhere,
   GetTypesQuery,
+  IBaseType,
 } from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
@@ -33,6 +34,7 @@ export interface ITypeService
   addInterface(data: ICreateTypeData): IInterfaceType
   getAll(ids?: Array<string>): Promise<Array<IType>>
   getInterface(id: IInterfaceTypeRef): Promise<IInterfaceType>
+  getOptions(): Promise<Array<Pick<IBaseType, 'id' | 'kind' | 'name'>>>
   loadTypes(types: Partial<GetTypesQuery>): Array<IType>
   primitiveKind(id: string): Nullable<IPrimitiveTypeKind>
   type(id: string): Maybe<IType>
