@@ -14585,7 +14585,7 @@ __metadata:
     ts-json-schema-generator: ^1.2.0
     ts-node: 10.9.1
     tslib: 2.3.1
-    twin.macro: 3.1.0
+    twin.macro: 3.3.1
     typescript: 4.9.5
     typescript-json-schema: ^0.55.0
     uniforms: 3.10.2
@@ -33574,9 +33574,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"twin.macro@npm:3.1.0":
-  version: 3.1.0
-  resolution: "twin.macro@npm:3.1.0"
+"twin.macro@npm:3.3.1":
+  version: 3.3.1
+  resolution: "twin.macro@npm:3.3.1"
   dependencies:
     "@babel/template": ^7.18.10
     babel-plugin-macros: ^3.1.0
@@ -33585,8 +33585,8 @@ __metadata:
     lodash.merge: ^4.6.2
     postcss-selector-parser: ^6.0.10
   peerDependencies:
-    tailwindcss: ^3.2.4
-  checksum: 716695be03456adb023dea016044d56fa7bc84d86654153b410748cdcd15b285471191251f8c2354d930499a42fd4d520336c882c81974f55962939f634f06e0
+    tailwindcss: ">=3.3.1"
+  checksum: e9eb3dc7fa5d82cb915f76c4b485a20d6a7741755065b7a30097b56862115f5a3559a0383718d3fa54c01270f62d7830934deb94369c7e873e9060afe284b2a1
   languageName: node
   linkType: hard
 

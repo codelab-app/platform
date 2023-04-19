@@ -1,8 +1,8 @@
+import type { PageHeaderProps } from '@ant-design/pro-components/lib'
+import { PageHeader } from '@ant-design/pro-components/lib'
 import { css } from '@emotion/react'
 import type { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 import styled from '@emotion/styled'
-import type { PageHeaderProps } from 'antd'
-import { PageHeader } from 'antd'
 import React from 'react'
 import tw, { GlobalStyles } from 'twin.macro'
 

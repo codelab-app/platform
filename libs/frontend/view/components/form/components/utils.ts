@@ -36,9 +36,9 @@ export const handleFormSubmit =
 
 export const handleSubmitRefModalOk = (
   submitRef: SubmitRef['submitRef'],
-  onOk?: (event: MouseEvent<HTMLElement>) => void,
+  onOk?: (event: MouseEvent<HTMLButtonElement>) => void,
 ) => {
-  return (event: MouseEvent<HTMLElement>) => {
+  return (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
 
     if (!submitRef?.current) {
