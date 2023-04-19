@@ -12,6 +12,7 @@ import { RenderOutput } from '../abstract/RenderOutput'
 import { atomFactory } from '../atoms'
 import { evalCss } from '../utils/evalCss'
 import { BaseRenderPipe } from './renderPipe.base'
+import { useStore } from '@codelab/frontend/presenter/container'
 
 @model('@codelab/AtomRenderPipe')
 export class AtomRenderPipe
@@ -44,12 +45,31 @@ export class AtomRenderPipe
 
       return this.next.render(element, props)
     }
+    const { builderService } = useStore()
+
+    const selectedCSS = css`
+      position: relative;
+      border: 3px dashed lightblue;
+      &:after {
+        content: '${builderService.selectedNode?.current.name}';
+        position: absolute;
+        top: -20px;
+        background: lightblue;
+        max-width: 80%;
+        min-width: 30%;
+        max-height: 20px;
+        overflow: hidden;
+        left: -4px;
+        padding: 0px 2px;
+      }
+    `
 
     const elCss =
       element.customCss || element.guiCss
         ? css([
             JSON.parse(element.guiCss || '{}'),
             evalCss(element.customCss || ''),
+            builderService.selectedNode?.id === element.id && selectedCSS,
           ])
         : undefined
 
@@ -62,7 +82,7 @@ export class AtomRenderPipe
     return RenderOutput.withAtom({
       atomType: atomRenderType.type,
       element,
-      props: { ...newProps, css: elCss },
+      props: { ...newProps, css: elCss},
     })
   }
 }
