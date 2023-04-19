@@ -3,7 +3,7 @@ import url, { URL } from 'url'
 import { z } from 'zod'
 import { baseHeaders } from './config'
 
-export const deleteDomain: NextApiHandler = async (req, res) => {
+export const vercelDomainProxy: NextApiHandler = async (req, res) => {
   if (!req.url) {
     return res.status(400).send('Missing url')
   }
@@ -36,4 +36,4 @@ export const deleteDomain: NextApiHandler = async (req, res) => {
   }
 }
 
-export default deleteDomain
+export default vercelDomainProxy
