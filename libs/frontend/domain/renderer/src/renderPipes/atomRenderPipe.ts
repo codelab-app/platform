@@ -1,8 +1,9 @@
-import type {
+import {
   IElement,
   IPropData,
   IRenderOutput,
   IRenderPipe,
+  builderServiceContext,
 } from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { css } from '@emotion/react'
@@ -12,7 +13,6 @@ import { RenderOutput } from '../abstract/RenderOutput'
 import { atomFactory } from '../atoms'
 import { evalCss } from '../utils/evalCss'
 import { BaseRenderPipe } from './renderPipe.base'
-import { useStore } from '@codelab/frontend/presenter/container'
 
 @model('@codelab/AtomRenderPipe')
 export class AtomRenderPipe
@@ -45,13 +45,12 @@ export class AtomRenderPipe
 
       return this.next.render(element, props)
     }
-    const { builderService } = useStore()
-
+    
     const selectedCSS = css`
       position: relative;
       border: 3px dashed lightblue;
       &:after {
-        content: '${builderService.selectedNode?.current.name}';
+        content: '${builderServiceContext.get(element)?.selectedNode?.current.name}';
         position: absolute;
         top: -20px;
         background: lightblue;
@@ -69,7 +68,7 @@ export class AtomRenderPipe
         ? css([
             JSON.parse(element.guiCss || '{}'),
             evalCss(element.customCss || ''),
-            builderService.selectedNode?.id === element.id && selectedCSS,
+            builderServiceContext.get(element)?.selectedNode?.id === element.id && selectedCSS,
           ])
         : undefined
 
