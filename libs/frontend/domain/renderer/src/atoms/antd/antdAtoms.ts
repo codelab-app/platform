@@ -116,12 +116,11 @@ export const antdAtoms: AtomsRecord = {
   [IAtomType.AntDesignPagination]: dynamicLoader(
     () => import('antd/lib/pagination'),
   ),
-  [IAtomType.AntDesignPageHeader]: dynamicLoader(
-    () => import('antd/lib/page-header'),
+  [IAtomType.AntDesignPageHeader]: dynamicLoader(() =>
+    import('@ant-design/pro-components/lib').then((mod) => mod.PageHeader),
   ),
   [IAtomType.AntDesignBadge]: dynamicLoader(() => import('antd/lib/badge')),
   [IAtomType.AntDesignAvatar]: dynamicLoader(() => import('antd/lib/avatar')),
-  [IAtomType.AntDesignComment]: dynamicLoader(() => import('antd/lib/comment')),
   [IAtomType.AntDesignCalendar]: dynamicLoader(
     () => import('antd/lib/calendar'),
   ),

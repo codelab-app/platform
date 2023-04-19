@@ -22,7 +22,8 @@ import { User } from './user.model'
 const init = (data?: IUserDTO) => {
   // SSR makes it such that user may be undefined
   if (!data) {
-    return new UserService({})
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return new UserService({ user: {} as any })
   }
 
   const user = User.create(data)
@@ -58,7 +59,7 @@ const init = (data?: IUserDTO) => {
 export class UserService
   extends Model({
     // Authenticated user
-    user: prop<Nullable<IUser>>(null).withSetter(),
+    user: prop<IUser>().withSetter(),
     /**
      * Used by getStaticPaths for custom domain routing
      */
@@ -68,7 +69,7 @@ export class UserService
 {
   @computed
   get auth0Id() {
-    return throwIfUndefined(this.user?.auth0Id)
+    return throwIfUndefined(this.user.auth0Id)
   }
 
   @modelFlow

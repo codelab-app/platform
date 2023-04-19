@@ -1,3 +1,4 @@
+import { PageHeader } from '@ant-design/pro-components/lib'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import type { AtomLibrary } from '@codelab/frontend/domain/atom'
 import {
@@ -34,7 +35,6 @@ import {
 import type { DashboardTemplateProps } from '@codelab/frontend/view/templates'
 import { DashboardTemplate } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
-import { PageHeader } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { useCallback, useMemo } from 'react'

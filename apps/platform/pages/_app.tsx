@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 // import '../src/wdyr'
-import '../src/styles/antd-theme.less'
+// import '../src/styles/antd-theme.less'
 import 'react-quill/dist/quill.snow.css'
 // This stylesheet is used to override some of the default Quill editor's styles.
 import '../src/styles/quill.snow.override.css'
@@ -31,7 +31,15 @@ const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
     <StoreProvider value={store}>
       <UserProvider>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <ConfigProvider>
+          <ConfigProvider
+            theme={{
+              token: {
+                // fontFamily: `'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+                // 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+                // 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'`,
+              },
+            }}
+          >
             <GlobalStyles />
             <Global
               styles={[

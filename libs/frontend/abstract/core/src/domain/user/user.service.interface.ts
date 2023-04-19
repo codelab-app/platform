@@ -4,7 +4,7 @@ import type { IUser } from './user.interface'
 
 export interface IUserService {
   auth0Id: string
-  user: Nullable<IUser>
+  user: IUser
   users: ObjectMap<IUser>
 
   setUser(user: Nullable<IUser>): void

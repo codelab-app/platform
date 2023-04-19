@@ -1,3 +1,4 @@
+import { PageHeader } from '@ant-design/pro-components/lib'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateDomainButton,
@@ -19,7 +20,7 @@ import {
 } from '@codelab/frontend/view/templates'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { useAsync, useMountEffect } from '@react-hookz/web'
-import { PageHeader, Spin } from 'antd'
+import { Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'

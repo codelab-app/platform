@@ -32,12 +32,12 @@ const withRawCypherFiles = (nextConfig = {}) => {
 module.exports = withPlugins(
   [
     // This approach requires importing less file into _app.tsx, which creates a large bundle size
-    [
-      withLess,
-      {
-        lessLoaderOptions: {},
-      },
-    ],
+    // [
+    //   withLess,
+    //   {
+    //     lessLoaderOptions: {},
+    //   },
+    // ],
     withBundleAnalyzer,
     withRawCypherFiles,
   ],

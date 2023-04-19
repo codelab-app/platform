@@ -21,13 +21,6 @@
         "allowDeclareFields": true
       }
     ]
-    // [
-    //   "import",
-    //   {
-    //     "libraryName": "antd",
-    //     "style": true
-    //   }
-    // ]
   ],
   "env": {
     "development": {
