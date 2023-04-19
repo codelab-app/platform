@@ -21,6 +21,7 @@ import {
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
+import isObject from 'lodash/isObject'
 import type { Ref } from 'mobx-keystone'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 import { createTransformer } from 'mobx-utils'
@@ -313,15 +314,23 @@ export class Renderer
         return value
       }
 
+      let preTransformedValue = value
+
+      // This uses the value of the ReactNodeType when selected in a UnionType
+      // instead of the value of UnionType
+      if (isObject(value.value) && isTypedValue(value.value)) {
+        preTransformedValue = value.value
+      }
+
       for (const propTransformer of this.typedValueTransformers) {
         if (
           !propTransformer.canHandleTypeKind(typeKind) ||
-          !propTransformer.canHandleValue(value)
+          !propTransformer.canHandleValue(preTransformedValue)
         ) {
           continue
         }
 
-        return propTransformer.transform(value, typeKind)
+        return propTransformer.transform(preTransformedValue, typeKind)
       }
 
       /*

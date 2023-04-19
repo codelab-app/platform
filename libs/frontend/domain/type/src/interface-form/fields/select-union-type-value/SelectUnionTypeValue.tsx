@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { IFieldDefaultValue } from '@codelab/frontend/abstract/core'
 import { usePrevious } from '@codelab/frontend/shared/utils'
-import { Form } from '@codelab/frontend/view/components'
+import { createValidator, Form } from '@codelab/frontend/view/components'
 import { css } from '@emotion/react'
 import { Form as AntdForm } from 'antd'
 import isNil from 'lodash/isNil'
@@ -93,7 +93,13 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
         <Form
           key={selectedTypeId}
           model={{ value: fieldProps.value.value }}
-          onChangeModel={(formData: any) => {
+          onChangeModel={(formData) => {
+            // This automatically sets the default values into the formData for the properties that has a default value
+            // This is needed for ReactNodeType or similar types where the schema has a default `type` field value
+            // https://ajv.js.org/guide/modifying-data.html#assigning-defaults
+            const validate = createValidator(valueSchema)
+            validate(formData)
+
             context.onChange(valueFieldName, formData.value)
           }}
           onSubmit={() => Promise.resolve()}
