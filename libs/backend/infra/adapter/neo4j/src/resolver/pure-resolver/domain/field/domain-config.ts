@@ -8,7 +8,11 @@ export const domainConfig: IFieldResolver<
   unknown
 > = async ({ name }) => {
   const res = await vercelApis.domain.getDomainConfig(name)
+
   // await handleAPIError(res, 'getConfig - vercel')
+  if (!res.ok) {
+    return { misconfigured: true }
+  }
 
   return await res.json()
 }
