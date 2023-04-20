@@ -47,11 +47,32 @@ export class AtomRenderPipe
       return this.next.render(element, props)
     }
 
+    const selectedCSS = {
+      '&:after': {
+        background: 'lightblue',
+        content: `'${
+          builderServiceContext.get(element)?.selectedNode?.current.name
+        }'`,
+        left: '-4px',
+        'max-height': '20px',
+        'max-width': '80%',
+        'min-width': '30%',
+        overflow: 'hidden',
+        padding: '0px 2px',
+        position: 'absolute',
+        top: '-20px',
+      },
+      border: '3px dashed lightblue',
+      position: 'relative',
+    }
+
     const elCss =
       element.customCss || element.guiCss
         ? css([
             JSON.parse(element.guiCss || '{}'),
             evalCss(element.customCss || ''),
+            builderServiceContext.get(element)?.selectedNode?.id ===
+              element.id && selectedCSS,
           ])
         : undefined
 
