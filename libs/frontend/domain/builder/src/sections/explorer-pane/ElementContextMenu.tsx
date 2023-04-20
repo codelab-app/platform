@@ -43,9 +43,10 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     const { builderService, componentService } = useStore()
     const { user } = useUser()
     const componentInstance = isComponentInstance(element.renderType)
-    const elementTree = element.closestContainerNode
 
     const onAddChild = () => {
+      const elementTree = element.closestContainerNode
+
       return createModal.open({
         elementOptions: elementTree.elements.map(mapElementOption),
         elementTree: elementTreeRef(elementTree.id),
