@@ -1,7 +1,6 @@
 import type { FormProps } from '@codelab/frontend/abstract/types'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
 import { css } from '@emotion/react'
-import { equals } from 'ramda'
 import type { ReactElement } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { Bridge } from 'uniforms'
@@ -41,17 +40,7 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
       )
     }, [schema])
 
-    const lastSubmitted = useRef<typeof model>({})
     const modelRef = useRef(model)
-
-    // This prevents the new model from autosave to interfere while user is typing.
-    // This also enables the form model to be updated when the
-    // model is updated outside the form (e.g. props inspector)
-    useEffect(() => {
-      if (!equals(model, lastSubmitted.current)) {
-        modelRef.current = model
-      }
-    }, [model])
 
     return (
       <div
@@ -76,8 +65,6 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
 
             return submitResults
               .then((result) => {
-                lastSubmitted.current = formData
-
                 if (result) {
                   callbackWithParams(onSubmitSuccess, result)
                 }

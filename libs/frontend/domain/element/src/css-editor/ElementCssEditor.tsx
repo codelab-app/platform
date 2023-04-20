@@ -5,7 +5,6 @@ import type {
   IElementService,
 } from '@codelab/frontend/abstract/core'
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
-import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { CodeMirrorEditor } from '@codelab/frontend/view/components'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { Col, Collapse, Row } from 'antd'
@@ -24,7 +23,6 @@ const { Panel } = Collapse
 export interface ElementCssEditorInternalProps {
   element: IElement
   elementService: IElementService
-  trackPromises?: UseTrackLoadingPromises
 }
 
 /*
@@ -34,9 +32,7 @@ export interface ElementCssEditorInternalProps {
   */
 
 export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
-  ({ element, elementService, trackPromises }) => {
-    const { trackPromise } = trackPromises ?? {}
-
+  ({ element, elementService }) => {
     const [guiCssObj, setGuiCssObj] = useState<CssMap>(
       JSON.parse(element.guiCss ?? '{}'),
     )
@@ -61,14 +57,12 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
       (newCustomCss: string) => {
         const elementModel = getElementModel(element)
 
-        const promise = elementService.update({
+        return elementService.update({
           ...elementModel,
           customCss: newCustomCss,
         })
-
-        return trackPromise?.(promise) ?? promise
       },
-      [element, elementService, trackPromise],
+      [element, elementService],
     )
 
     useEffect(() => {
@@ -100,14 +94,12 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
       (newGuiCss: string) => {
         const elementModel = getElementModel(element)
 
-        const promise = elementService.update({
+        return elementService.update({
           ...elementModel,
           guiCss: newGuiCss,
         })
-
-        return trackPromise?.(promise) ?? promise
       },
-      [element, elementService, trackPromise],
+      [element, elementService],
     )
 
     useEffect(() => {

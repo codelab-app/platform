@@ -1,6 +1,5 @@
 import type { IElement, IElementService } from '@codelab/frontend/abstract/core'
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
-import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import TextArea from 'antd/lib/input/TextArea'
 import isString from 'lodash/isString'
 import { observer } from 'mobx-react-lite'
@@ -10,7 +9,6 @@ import { getElementModel } from '../../../utils/getElementModel'
 export interface UpdateElementPropTransformationFormProp {
   element: IElement
   elementService: IElementService
-  trackPromises?: UseTrackLoadingPromises
 }
 
 const defaultFn = `// Write a transformer function, you get the input props as parameter
@@ -22,9 +20,7 @@ function transform(props){
 
 export const UpdateElementPropTransformationForm =
   observer<UpdateElementPropTransformationFormProp>(
-    ({ element, elementService, trackPromises }) => {
-      const { trackPromise } = trackPromises ?? {}
-
+    ({ element, elementService }) => {
       const [value, setValue] = useState(
         element.propTransformationJs || defaultFn,
       )
@@ -41,14 +37,12 @@ export const UpdateElementPropTransformationForm =
 
           const elementModel = getElementModel(element)
 
-          const promise = elementService.update({
+          return elementService.update({
             ...elementModel,
             propTransformationJs: newValue,
           })
-
-          return trackPromise?.(promise) ?? promise
         },
-        [element, elementService, trackPromise],
+        [element, elementService],
       )
 
       useEffect(() => {

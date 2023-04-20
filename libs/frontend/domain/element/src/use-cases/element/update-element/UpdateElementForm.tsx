@@ -12,7 +12,6 @@ import {
 import { SelectAction } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import {
   AutoCompleteField,
   CodeMirrorField,
@@ -35,25 +34,17 @@ export interface UpdateElementFormProps {
   element: IElement
   elementService: IElementService
   renderer?: IRenderer
-  trackPromises?: UseTrackLoadingPromises
 }
 
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
-  ({ element, elementService, renderer, trackPromises }) => {
+  ({ element, elementService, renderer }) => {
     const { builderService } = useStore()
-    const { trackPromise } = trackPromises ?? {}
     const model = getElementModel(element)
     const parentComponent = builderService.activeComponent?.current
 
     const onSubmit = (data: IUpdateElementData) => {
-      const promise = elementService.update(data)
-
-      if (trackPromise) {
-        trackPromise(promise)
-      }
-
-      return promise
+      return elementService.update(data)
     }
 
     const propsData = React.useMemo(() => {

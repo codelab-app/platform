@@ -24,12 +24,7 @@ import {
 } from '@codelab/frontend/domain/element'
 import { UpdatePageTabForm } from '@codelab/frontend/domain/page'
 import { useStore } from '@codelab/frontend/presenter/container'
-import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
-import {
-  FormContextProvider,
-  LoadingIndicator,
-  useTrackLoadingPromises,
-} from '@codelab/frontend/view/components'
+import { FormContextProvider } from '@codelab/frontend/view/components'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { css } from '@emotion/react'
 import { Spin, Tabs, Tooltip } from 'antd'
@@ -45,10 +40,7 @@ export interface MetaPaneBuilderProps {
   elementTree: Maybe<IElementTree>
   renderService?: Maybe<IRenderer>
 
-  UpdateElementContent(props: {
-    node: IPageNodeRef
-    trackPromises: UseTrackLoadingPromises
-  }): React.ReactElement | null
+  UpdateElementContent(props: { node: IPageNodeRef }): React.ReactElement | null
 }
 
 interface TooltipIconProps {
@@ -75,7 +67,6 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
   ({ elementTree, renderService, UpdateElementContent }) => {
     const { builderService, elementService, pageService } = useStore()
     const selectedNode = builderService.selectedNode
-    const trackPromises = useTrackLoadingPromises()
 
     if (!selectedNode) {
       return <Spin />
@@ -90,11 +81,7 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
     const tabItems = [
       {
         children: (
-          <UpdateElementContent
-            key={selectedNode.id}
-            node={selectedNode}
-            trackPromises={trackPromises}
-          />
+          <UpdateElementContent key={selectedNode.id} node={selectedNode} />
         ),
         key: TAB_NAMES.Node,
         label: (
@@ -113,16 +100,10 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
                   elementTree,
                 }}
               >
-                <UpdateElementPropsForm
-                  element={selectedNode}
-                  trackPromises={trackPromises}
-                />
+                <UpdateElementPropsForm element={selectedNode} />
               </FormContextProvider>
             ) : isComponentPageNodeRef(selectedNode) ? (
-              <UpdateComponentPropsForm
-                component={selectedNode.current}
-                trackPromises={trackPromises}
-              />
+              <UpdateComponentPropsForm component={selectedNode.current} />
             ) : (
               `Add an atom or a component to this element to edit its props`
             )}
@@ -141,7 +122,6 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
               element={selectedNode.current}
               elementService={elementService}
               key={selectedNode.id}
-              trackPromises={trackPromises}
             />
           ) : (
             `Add an atom to this page element to edit its CSS`
@@ -173,7 +153,6 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
             element={selectedNode.current}
             elementService={elementService}
             key={selectedNode.id}
-            trackPromises={trackPromises}
           />
         ) : null,
         key: TAB_NAMES.PropsTransformation,
@@ -206,25 +185,12 @@ export const ConfigPaneInspectorTabContainer = observer<MetaPaneBuilderProps>(
 
     return (
       <TabContainer>
-        <div css={tw`absolute bottom-0 right-0 m-8`}>
-          <LoadingIndicator
-            error={trackPromises.error}
-            isLoading={trackPromises.isLoading}
-          />
-        </div>
-        <Tabs defaultActiveKey={TAB_NAMES.Node} items={tabItems} size="small" />
-
-        {/* <Tabs.TabPane */}
-        {/*  key={selectedNode.id + '_tab4'} */}
-        {/*  tab="Hooks" */}
-        {/* > */}
-        {/*  <ElementHookSection */}
-        {/*    atomService={atomService} */}
-        {/*    elementId={selectedNode.id} */}
-        {/*    key={selectedNode.id} */}
-        {/*    typeService={typeService} */}
-        {/*  /> */}
-        {/* </Tabs.TabPane> */}
+        <Tabs
+          defaultActiveKey={TAB_NAMES.Node}
+          destroyInactiveTabPane
+          items={tabItems}
+          size="small"
+        />
       </TabContainer>
     )
   },

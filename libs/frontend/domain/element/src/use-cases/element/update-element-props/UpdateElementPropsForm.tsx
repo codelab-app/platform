@@ -7,7 +7,6 @@ import { AdminPropsPanel } from '@codelab/frontend/domain/admin'
 import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { PropsForm } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presenter/container'
-import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { ReactQuillField, Spinner } from '@codelab/frontend/view/components'
 import { filterEmptyStrings, mergeProps } from '@codelab/shared/utils'
 import { useAsync } from '@react-hookz/web'
@@ -20,7 +19,6 @@ import tw from 'twin.macro'
 
 export interface UpdateElementPropsFormProps {
   element: Ref<IElement>
-  trackPromises?: UseTrackLoadingPromises
 }
 
 const withCustomTextSchema: JSONSchemaType<{
@@ -42,9 +40,8 @@ const withCustomTextSchema: JSONSchemaType<{
 } as const
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
-  ({ element, trackPromises }) => {
+  ({ element }) => {
     const { propService, typeService } = useStore()
-    const { trackPromise } = trackPromises ?? {}
     const currentElement = element.current
     const apiId = currentElement.renderType?.current.api.id
 
@@ -62,12 +59,10 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
 
       const props = element.current.props.current
 
-      const promise = propService.update({
+      return propService.update({
         data: JSON.stringify(filteredData),
         id: props.id,
       })
-
-      return trackPromise?.(promise) ?? promise
     }
 
     const allowCustomInnerHtml =
@@ -79,11 +74,17 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
 
     // If element is a component type, we also show the component props
     // but should prioritize the element props
-    const propsModel = mergeProps(
-      isComponentInstance(currentElement.renderType)
-        ? currentElement.renderType.maybeCurrent?.props.current.values
-        : {},
-      currentElement.props.current.values,
+    // Since the prop values are observable and changes after the update, we need to prevent
+    // re-rendering the form so the focus is not lost, so the use of `useMemo` here
+    const propsModel = React.useMemo(
+      () =>
+        mergeProps(
+          isComponentInstance(currentElement.renderType)
+            ? currentElement.renderType.maybeCurrent?.props.current.values
+            : {},
+          currentElement.props.current.values,
+        ),
+      [currentElement.id],
     )
 
     return (

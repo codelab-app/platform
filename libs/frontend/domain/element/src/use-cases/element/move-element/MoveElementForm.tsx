@@ -6,7 +6,6 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/domain/type'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import type { UseTrackLoadingPromises } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
@@ -26,12 +25,11 @@ export interface MoveElementFormProps {
    * The element tree is specific to which view we're looking at (i.e. Page, Component)
    */
   elementTree: IElementTree
-  trackPromises?: UseTrackLoadingPromises
 }
 
 /** Not intended to be used in a modal */
 export const MoveElementForm = observer<MoveElementFormProps>(
-  ({ element, elementService, elementTree, trackPromises }) => {
+  ({ element, elementService, elementTree }) => {
     // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
     const { current: model } = useRef({
       parentElement: { id: element.parent?.id },

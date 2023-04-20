@@ -35,7 +35,7 @@ export const ConfigPane = observer<MetaPaneProps>(({ renderService }) => {
     {
       children: (
         <ConfigPaneInspectorTabContainer
-          UpdateElementContent={observer(({ node, trackPromises }) => {
+          UpdateElementContent={observer(({ node }) => {
             if (!elementTree) {
               return <Spin />
             }
@@ -50,14 +50,12 @@ export const ConfigPane = observer<MetaPaneProps>(({ renderService }) => {
                       elementService={elementService}
                       key={node.id + '_update_form'}
                       renderer={renderService}
-                      trackPromises={trackPromises}
                     />
                     <MoveElementForm
                       element={node.current}
                       elementService={elementService}
                       elementTree={elementTree}
                       key={node.id + '_move_form'}
-                      trackPromises={trackPromises}
                     />
                     <DeleteElementButton
                       css={tw`my-3`}
