@@ -1,7 +1,7 @@
 {
   "name": "codelab",
   "engines": {
-    "node": ">=16.14.0",
+    "node": "18.16.0",
     "npm": "please-use-yarn",
     "pnpm": "please-use-yarn"
   },
