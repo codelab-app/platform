@@ -148,7 +148,8 @@ commands:
       - run:
           name: 'Set Node Version'
           command: |
-            nvm install
+            nvm install 18.16.0
+            nvm alias default 18.16.0
             node -v
       - run:
           name: 'Setup Env'
