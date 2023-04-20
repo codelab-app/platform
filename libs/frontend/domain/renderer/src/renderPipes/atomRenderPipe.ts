@@ -1,8 +1,8 @@
 import {
-  IElement,
-  IPropData,
-  IRenderOutput,
-  IRenderPipe,
+  type IElement,
+  type IPropData,
+  type IRenderOutput,
+  type IRenderPipe,
   builderServiceContext,
 } from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/domain/atom'
@@ -45,30 +45,33 @@ export class AtomRenderPipe
 
       return this.next.render(element, props)
     }
-    
-    const selectedCSS = css`
-      position: relative;
-      border: 3px dashed lightblue;
-      &:after {
-        content: '${builderServiceContext.get(element)?.selectedNode?.current.name}';
-        position: absolute;
-        top: -20px;
-        background: lightblue;
-        max-width: 80%;
-        min-width: 30%;
-        max-height: 20px;
-        overflow: hidden;
-        left: -4px;
-        padding: 0px 2px;
-      }
-    `
+
+    const selectedCSS = {
+      '&:after': {
+        background: 'lightblue',
+        content: `'${
+          builderServiceContext.get(element)?.selectedNode?.current.name
+        }'`,
+        left: '-4px',
+        'max-height': '20px',
+        'max-width': '80%',
+        'min-width': '30%',
+        overflow: 'hidden',
+        padding: '0px 2px',
+        position: 'absolute',
+        top: '-20px',
+      },
+      border: '3px dashed lightblue',
+      position: 'relative',
+    }
 
     const elCss =
       element.customCss || element.guiCss
         ? css([
             JSON.parse(element.guiCss || '{}'),
             evalCss(element.customCss || ''),
-            builderServiceContext.get(element)?.selectedNode?.id === element.id && selectedCSS,
+            builderServiceContext.get(element)?.selectedNode?.id ===
+              element.id && selectedCSS,
           ])
         : undefined
 
@@ -81,7 +84,7 @@ export class AtomRenderPipe
     return RenderOutput.withAtom({
       atomType: atomRenderType.type,
       element,
-      props: { ...newProps, css: elCss},
+      props: { ...newProps, css: elCss },
     })
   }
 }
