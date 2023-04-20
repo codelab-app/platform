@@ -304,6 +304,8 @@ export class Renderer
    */
   private applyPropTypeTransformers = (props: IPropData) =>
     mapDeep(props, (value) => {
+      value = preTransformPropTypeValue(value)
+
       if (!isTypedValue(value)) {
         return value
       }
@@ -314,23 +316,15 @@ export class Renderer
         return value
       }
 
-      let preTransformedValue = value
-
-      // This uses the value of the ReactNodeType when selected in a UnionType
-      // instead of the value of UnionType
-      if (isObject(value.value) && isTypedValue(value.value)) {
-        preTransformedValue = value.value
-      }
-
       for (const propTransformer of this.typedValueTransformers) {
         if (
           !propTransformer.canHandleTypeKind(typeKind) ||
-          !propTransformer.canHandleValue(preTransformedValue)
+          !propTransformer.canHandleValue(value)
         ) {
           continue
         }
 
-        return propTransformer.transform(preTransformedValue, typeKind)
+        return propTransformer.transform(value, typeKind)
       }
 
       /*
@@ -364,3 +358,20 @@ export const renderServiceRef = rootRef<IRenderer>(
     },
   },
 )
+
+/**
+ * Use for getting the actual value if the prop data is a UnionType
+ * @param value the prop data
+ * @returns the actual typed value if prop is a UnionType
+ */
+const preTransformPropTypeValue = (value: IPropData) => {
+  if (
+    isTypedValue(value) &&
+    isObject(value.value) &&
+    isTypedValue(value.value)
+  ) {
+    return value.value
+  }
+
+  return value
+}
