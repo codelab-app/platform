@@ -21,7 +21,6 @@ import {
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
-import { jsx } from '@emotion/react'
 import type { Ref } from 'mobx-keystone'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 import { createTransformer } from 'mobx-utils'
@@ -31,18 +30,13 @@ import type { ArrayOrSingle } from 'ts-essentials'
 import type { ITypedValueTransformer } from './abstract/ITypedValueTransformer'
 import type { ElementWrapperProps } from './element/ElementWrapper'
 import { ElementWrapper } from './element/ElementWrapper'
-import {
-  extractValidProps,
-  getReactComponent,
-  makeCustomTextContainer,
-} from './element/wrapper.utils'
+import { makeCustomTextContainer } from './element/wrapper.utils'
 import {
   defaultPipes,
   renderPipeFactory,
 } from './renderPipes/renderPipe.factory'
 import { typedValueTransformersFactory } from './typedValueTransformers/typedValueTransformersFactory'
 import { isTypedValue } from './utils/isTypedValue'
-import { mapOutput } from './utils/renderOutputUtils'
 
 /**
  * Handles the logic of rendering treeElements. Takes in an optional appTree
@@ -134,6 +128,7 @@ export class Renderer
 {
   renderRoot() {
     const root = this.elementTree.maybeCurrent?.rootElement.current
+    const providerRoot = this.providerTree?.current.rootElement.current
 
     if (!root) {
       console.warn('Renderer: No root element found')
@@ -141,65 +136,9 @@ export class Renderer
       return null
     }
 
-    const rootElement = this.renderElement(root)
-
-    // do not self-wrap with providers page if the current page is _app
-    return root.page?.current.kind === IPageKind.Regular
-      ? this.renderWithProviders(rootElement)
-      : rootElement
-  }
-
-  /**
-   * Takes the provider tree and wrap it around our root element
-   */
-  private renderWithProviders(rootElement: ReactElement) {
-    const providerRoot = this.providerTree?.current.rootElement.current
-
-    if (!providerRoot) {
-      return rootElement
-    }
-
-    const pageContentContainer = providerRoot.page?.current.pageContentContainer
-
-    const renderRecursive = (
-      element: IElement,
-    ): ArrayOrSingle<ReactElement> => {
-      const output = this.renderIntermediateElement(element)
-
-      return mapOutput<ReactElement>(output, (renderOutput) => {
-        const Component = getReactComponent(renderOutput)
-        const props = extractValidProps(Component, renderOutput) ?? {}
-
-        const children = element.children.map((childElement) =>
-          renderRecursive(childElement),
-        )
-
-        if (element.id === pageContentContainer?.maybeCurrent?.id) {
-          children.push(rootElement)
-        }
-
-        const injectedText = renderOutput.props?.[CUSTOM_TEXT_PROP_KEY]
-
-        const shouldInjectText =
-          !children.length &&
-          isAtomInstance(element.renderType) &&
-          element.renderType.current.allowCustomTextInjection
-
-        if (shouldInjectText && injectedText) {
-          return makeCustomTextContainer(injectedText)
-        }
-
-        // jsx from @emotion is a must use here.
-        // React.createElement must not be used, because css prop is not supported out of the box by React.
-        return jsx(Component, props, children)
-      })
-    }
-
-    const result = renderRecursive(providerRoot)
-
-    return Array.isArray(result)
-      ? React.createElement(React.Fragment, {}, result)
-      : result
+    return providerRoot && root.page?.current.kind === IPageKind.Regular
+      ? this.renderElement(providerRoot)
+      : this.renderElement(root)
   }
 
   /**
@@ -256,6 +195,25 @@ export class Renderer
     return parentComponent.instanceElement.current.children
   }
 
+  getChildPageChildren(element: IElement) {
+    const providerTreeRoot = this.providerTree?.current.rootElement.current
+    const providerPage = providerTreeRoot?.page?.current
+    const pageContentContainer = providerPage?.pageContentContainer?.current
+    const pageRoot = this.elementTree.current.rootElement.current
+    const pageKind = pageRoot.page?.current.kind
+
+    // 1. check if this is the element in _app page where child page needs to be rendered
+    // 2. do not self-wrap _app page, and do not wrap 404 and 500
+    if (
+      pageContentContainer?.id === element.id &&
+      pageKind === IPageKind.Regular
+    ) {
+      return [this.elementTree.current.rootElement.current]
+    }
+
+    return []
+  }
+
   /**
    * Renders the elements children, createTransformer memoizes the function
    */
@@ -269,6 +227,7 @@ export class Renderer
       const children = [
         ...parentOutput.element.children,
         ...this.getComponentInstanceChildren(parentOutput.element),
+        ...this.getChildPageChildren(parentOutput.element),
       ]
 
       // This will pass down the props from the component instance to the descendants
