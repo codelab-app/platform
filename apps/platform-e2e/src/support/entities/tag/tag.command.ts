@@ -29,7 +29,7 @@ export const createTagByUI = (name: string, parentName?: string) => {
 export const deleteTagInTableByUI = (name: string) => {
   cy.searchTableRow({
     header: 'Name',
-    row: name,
+    row: new RegExp(`^${name}$`),
   })
     .getButton({ icon: 'delete' })
     .click()
