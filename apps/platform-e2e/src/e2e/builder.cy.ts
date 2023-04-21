@@ -54,12 +54,9 @@ describe('Elements CRUD', () => {
   before(() => {
     cy.resetDatabase()
     loginSession()
-    cy.getCurrentOwner()
-      .then((owner) => {
-        return cy.request('/api/cypress/atom').then(() => {
-          return cy.request<IAppDTO>('/api/cypress/app')
-        })
-      })
+
+    cy.request('/api/cypress/atom')
+      .then(() => cy.request<IAppDTO>('/api/cypress/app'))
       .then((apps) => {
         const app = apps.body
         const pageId = app.pages?.[0]?.id

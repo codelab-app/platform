@@ -27,13 +27,12 @@ describe('Component CRUD', () => {
   before(() => {
     cy.resetDatabase()
     loginSession()
-    cy.getCurrentOwner()
-      .then((owner) => {
-        cy.request('/api/cypress/type')
 
-        return cy.request('/api/cypress/atom').then(() => {
-          return cy.request<IAppDTO>('/api/cypress/app')
-        })
+    cy.request('/api/cypress/type')
+
+    cy.request('/api/cypress/atom')
+      .then(() => {
+        return cy.request<IAppDTO>('/api/cypress/app')
       })
       .then((apps) => {
         testApp = apps

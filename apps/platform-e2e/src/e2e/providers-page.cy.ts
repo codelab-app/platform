@@ -1,4 +1,3 @@
-import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { FIELD_TYPE } from '../support/antd/form'
@@ -35,9 +34,7 @@ describe('_app page', () => {
     cy.resetDatabase()
     loginSession()
 
-    cy.getCurrentOwner().then((owner: IAuth0Owner) => {
-      cy.request('/api/cypress/atom')
-    })
+    cy.request('/api/cypress/atom')
   })
 
   it('should create _app page when app is created', () => {

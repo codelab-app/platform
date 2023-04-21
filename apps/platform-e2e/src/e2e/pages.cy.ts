@@ -9,19 +9,15 @@ describe('Pages CRUD', () => {
     cy.resetDatabase()
     loginSession()
 
-    cy.getCurrentOwner()
-      .then((owner) => {
-        return cy.request<IAppDTO>('/api/cypress/app')
-      })
-      .then((res) => {
-        const app = res.body
+    cy.request<IAppDTO>('/api/cypress/app').then((res) => {
+      const app = res.body
 
-        cy.visit(`/apps/${app.id}/pages`)
-        cy.getSpinner().should('not.exist')
-        cy.findAllByText(IPageKindName.Provider).should('exist')
-        cy.findAllByText(IPageKindName.NotFound).should('exist')
-        cy.findAllByText(IPageKindName.InternalServerError).should('exist')
-      })
+      cy.visit(`/apps/${app.id}/pages`)
+      cy.getSpinner().should('not.exist')
+      cy.findAllByText(IPageKindName.Provider).should('exist')
+      cy.findAllByText(IPageKindName.NotFound).should('exist')
+      cy.findAllByText(IPageKindName.InternalServerError).should('exist')
+    })
   })
 
   describe('create', () => {

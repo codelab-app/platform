@@ -11,13 +11,9 @@ describe('Tag CRUD', () => {
     cy.resetDatabase()
     loginSession()
 
-    cy.getCurrentOwner()
-      .then((owner) => {
-        cy.request('/api/cypress/tag')
-      })
-      .then(() => {
-        cy.visit('/tags')
-      })
+    cy.request('/api/cypress/tag').then(() => {
+      cy.visit('/tags')
+    })
   })
 
   describe('create', () => {
