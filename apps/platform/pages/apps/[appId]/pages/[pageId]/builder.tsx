@@ -24,7 +24,7 @@ import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 
 const PageBuilder: CodelabPage<BuilderTabsProps> = observer(
   ({ error, isLoading, page, renderer }) => {
@@ -69,16 +69,22 @@ PageBuilder.Layout = observer(({ children }) => {
   const page = renderer?.elementTree.current
   const contentStyles = useMemo(() => ({ paddingTop: '0rem' }), [])
 
-  const ConfigPaneComponent = () => (
-    <Spinner isLoading={isLoading}>
-      <ConfigPane renderService={renderer} />
-    </Spinner>
+  const ConfigPaneComponent = useCallback(
+    () => (
+      <Spinner isLoading={isLoading}>
+        <ConfigPane renderService={renderer} />
+      </Spinner>
+    ),
+    [isLoading, renderer],
   )
 
-  const ExplorerPaneComponent = () => (
-    <Spinner isLoading={isLoading}>
-      <BuilderExplorerPane pageId={pageId} />
-    </Spinner>
+  const ExplorerPaneComponent = useCallback(
+    () => (
+      <Spinner isLoading={isLoading}>
+        <BuilderExplorerPane pageId={pageId} />
+      </Spinner>
+    ),
+    [isLoading, pageId],
   )
 
   return (
