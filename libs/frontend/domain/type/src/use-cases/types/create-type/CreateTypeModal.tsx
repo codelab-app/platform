@@ -42,7 +42,7 @@ export const CreateTypeModal = observer(() => {
       <ModalForm.Form<ICreateTypeData>
         model={{
           id: v4(),
-          owner: { auth0Id: userService.user?.auth0Id },
+          owner: { auth0Id: userService.user.auth0Id },
         }}
         onSubmit={onSubmit}
         onSubmitError={createNotificationHandler({
