@@ -1,5 +1,4 @@
 import type {
-  IField,
   IFieldRecord,
   IFieldService,
   IInterfaceType,
@@ -163,34 +162,8 @@ export const FieldsTable = observer<FieldsTableProps>(
       },
     ]
 
-    const compareNodes = (field1: IField, field2: IField) => {
-      let node1 = field1
-      let node2 = field2
-      const pathA = [field1.id]
-      const pathB = [field2.id]
-
-      while (node1.prevSibling) {
-        node1 = interfaceType.fields.find(
-          (node) => node.id === node1.prevSibling?.id,
-        ) as IField
-        pathA.unshift(node1.id)
-      }
-
-      while (node2.prevSibling) {
-        node2 = interfaceType.fields.find(
-          (node) => node.id === node2.prevSibling?.id,
-        ) as IField
-        pathB.unshift(node2.id)
-      }
-
-      const result = pathA.join().localeCompare(pathB.join())
-
-      return result !== 0 ? result : field1.id.localeCompare(field2.id)
-    }
-
-    const dataSource: Array<IFieldRecord> = interfaceType.fields
-      .sort(compareNodes)
-      .map((field) => {
+    const dataSource: Array<IFieldRecord> = interfaceType.fields.map(
+      (field) => {
         return {
           dependentTypes: [],
           description: field.description || '',
@@ -206,7 +179,8 @@ export const FieldsTable = observer<FieldsTableProps>(
           },
           validationRules: getValidationRuleTagsArray(field.validationRules),
         }
-      })
+      },
+    )
 
     const onDragEnd = async (fromIndex: number, toIndex: number) => {
       if (fromIndex === toIndex) {

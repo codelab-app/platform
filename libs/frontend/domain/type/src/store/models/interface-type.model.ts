@@ -19,6 +19,7 @@ import {
   prop,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
+import { sortFieldsArray } from '../../shared'
 import { createBaseType } from './base-type.model'
 import { fieldRef } from './field.model'
 
@@ -68,7 +69,9 @@ export class InterfaceType
 {
   @computed
   get fields() {
-    return [...this._fields.values()].map((field) => field.current)
+    const fields = [...this._fields.values()].map((field) => field.current)
+
+    return sortFieldsArray(fields)
   }
 
   @computed
