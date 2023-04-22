@@ -7,7 +7,7 @@
  * an element id, but they are hydrated in different ways in the render pipeline.
  */
 export interface TypedValue<T> {
-  key: number
+  id: string
   type: string
   value: T
 }
