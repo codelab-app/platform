@@ -1,0 +1,359 @@
+[
+  {
+    "tag": "a",
+    "attributes": [
+      "download",
+      "href",
+      "hreflang",
+      "ping",
+      "referrerpolicy",
+      "rel",
+      "target",
+      "type"
+    ]
+  },
+  { "tag": "abbr", "attributes": [] },
+  { "tag": "address", "attributes": [] },
+  {
+    "tag": "area",
+    "attributes": [
+      "alt",
+      "coords",
+      "download",
+      "href",
+      "hreflang",
+      "ping",
+      "referrerpolicy",
+      "rel",
+      "shape",
+      "target",
+      "type"
+    ]
+  },
+  { "tag": "article", "attributes": [] },
+  { "tag": "aside", "attributes": [] },
+  {
+    "tag": "audio",
+    "attributes": [
+      "autoplay",
+      "controls",
+      "crossorigin",
+      "loop",
+      "muted",
+      "preload",
+      "src"
+    ]
+  },
+  { "tag": "b", "attributes": [] },
+  { "tag": "base", "attributes": ["href", "target"] },
+  { "tag": "bdi", "attributes": [] },
+  { "tag": "bdo", "attributes": ["dir"] },
+  { "tag": "blockquote", "attributes": ["cite"] },
+  {
+    "tag": "body",
+    "attributes": [
+      "onafterprint",
+      "onbeforeprint",
+      "onbeforeunload",
+      "onhashchange",
+      "onlanguagechange",
+      "onmessage",
+      "onoffline",
+      "ononline",
+      "onpagehide",
+      "onpageshow",
+      "onpopstate",
+      "onstorage",
+      "onunload"
+    ]
+  },
+  { "tag": "br", "attributes": [] },
+  {
+    "tag": "button",
+    "attributes": [
+      "autofocus",
+      "disabled",
+      "form",
+      "formaction",
+      "formenctype",
+      "formmethod",
+      "formnovalidate",
+      "formtarget",
+      "name",
+      "type",
+      "value"
+    ]
+  },
+  { "tag": "canvas", "attributes": ["height", "width"] },
+  { "tag": "caption", "attributes": [] },
+  { "tag": "cite", "attributes": [] },
+  { "tag": "code", "attributes": [] },
+  { "tag": "col", "attributes": ["span"] },
+  { "tag": "colgroup", "attributes": ["span"] },
+  { "tag": "data", "attributes": ["value"] },
+  { "tag": "datalist", "attributes": [] },
+  { "tag": "dd", "attributes": [] },
+  { "tag": "del", "attributes": ["cite", "datetime"] },
+  { "tag": "details", "attributes": ["open"] },
+  { "tag": "dfn", "attributes": [] },
+  { "tag": "dialog", "attributes": ["open"] },
+  { "tag": "div", "attributes": [] },
+  { "tag": "dl", "attributes": [] },
+  { "tag": "dt", "attributes": [] },
+  { "tag": "em", "attributes": [] },
+  { "tag": "embed", "attributes": ["height", "src", "type", "width"] },
+  { "tag": "fieldset", "attributes": ["disabled", "form", "name"] },
+  { "tag": "figcaption", "attributes": [] },
+  { "tag": "figure", "attributes": [] },
+  { "tag": "footer", "attributes": [] },
+  {
+    "tag": "form",
+    "attributes": [
+      "accept-charset",
+      "action",
+      "autocomplete",
+      "enctype",
+      "method",
+      "name",
+      "novalidate",
+      "target"
+    ]
+  },
+  { "tag": "h1", "attributes": [] },
+  { "tag": "h2", "attributes": [] },
+  { "tag": "h3", "attributes": [] },
+  { "tag": "h4", "attributes": [] },
+  { "tag": "h5", "attributes": [] },
+  { "tag": "h6", "attributes": [] },
+  { "tag": "head", "attributes": [] },
+  { "tag": "header", "attributes": [] },
+  { "tag": "hr", "attributes": [] },
+  { "tag": "html", "attributes": ["manifest", "xmlns"] },
+  { "tag": "i", "attributes": [] },
+  {
+    "tag": "iframe",
+    "attributes": [
+      "allow",
+      "allowfullscreen",
+      "allowpaymentrequest",
+      "height",
+      "loading",
+      "name",
+      "referrerpolicy",
+      "sandbox",
+      "src",
+      "srcdoc",
+      "width"
+    ]
+  },
+  {
+    "tag": "img",
+    "attributes": [
+      "alt",
+      "crossorigin",
+      "decoding",
+      "height",
+      "ismap",
+      "loading",
+      "referrerpolicy",
+      "sizes",
+      "src",
+      "srcset",
+      "usemap",
+      "width"
+    ]
+  },
+  {
+    "tag": "input",
+    "attributes": [
+      "accept",
+      "alt",
+      "autocomplete",
+      "autofocus",
+      "capture",
+      "checked",
+      "dirname",
+      "disabled",
+      "form",
+      "formaction",
+      "formenctype",
+      "formmethod",
+      "formnovalidate",
+      "formtarget",
+      "height",
+      "list",
+      "max",
+      "maxlength",
+      "min",
+      "minlength",
+      "multiple",
+      "name",
+      "pattern",
+      "placeholder",
+      "readonly",
+      "required",
+      "size",
+      "src",
+      "step",
+      "type",
+      "value",
+      "width"
+    ]
+  },
+  { "tag": "ins", "attributes": ["cite", "datetime"] },
+  { "tag": "kbd", "attributes": [] },
+  { "tag": "label", "attributes": ["for", "form"] },
+  { "tag": "legend", "attributes": [] },
+  { "tag": "li", "attributes": ["value"] },
+  {
+    "tag": "link",
+    "attributes": [
+      "as",
+      "crossorigin",
+      "disabled",
+      "href",
+      "hreflang",
+      "imagesizes",
+      "imagesrcset",
+      "integrity",
+      "media",
+      "referrerpolicy",
+      "rel",
+      "sizes",
+      "type"
+    ]
+  },
+  { "tag": "main", "attributes": [] },
+  { "tag": "map", "attributes": ["name"] },
+  { "tag": "mark", "attributes": [] },
+  { "tag": "meta", "attributes": ["charset", "content", "http-equiv", "name"] },
+  {
+    "tag": "meter",
+    "attributes": ["form", "high", "low", "max", "min", "optimum", "value"]
+  },
+  { "tag": "nav", "attributes": [] },
+  { "tag": "noscript", "attributes": [] },
+  {
+    "tag": "object",
+    "attributes": [
+      "data",
+      "form",
+      "height",
+      "name",
+      "type",
+      "typemustmatch",
+      "usemap",
+      "width"
+    ]
+  },
+  { "tag": "ol", "attributes": ["reversed", "start", "type"] },
+  { "tag": "optgroup", "attributes": ["disabled", "label"] },
+  { "tag": "option", "attributes": ["disabled", "label", "selected", "value"] },
+  { "tag": "output", "attributes": ["for", "form", "name"] },
+  { "tag": "p", "attributes": [] },
+  { "tag": "param", "attributes": ["name", "value"] },
+  { "tag": "picture", "attributes": [] },
+  { "tag": "pre", "attributes": [] },
+  { "tag": "progress", "attributes": ["form", "max", "value"] },
+  { "tag": "q", "attributes": ["cite"] },
+  { "tag": "rp", "attributes": [] },
+  { "tag": "rt", "attributes": [] },
+  { "tag": "ruby", "attributes": [] },
+  { "tag": "s", "attributes": [] },
+  { "tag": "samp", "attributes": [] },
+  {
+    "tag": "script",
+    "attributes": [
+      "async",
+      "crossorigin",
+      "defer",
+      "integrity",
+      "nomodule",
+      "referrerpolicy",
+      "src",
+      "type"
+    ]
+  },
+  { "tag": "section", "attributes": [] },
+  {
+    "tag": "select",
+    "attributes": [
+      "autocomplete",
+      "autofocus",
+      "disabled",
+      "form",
+      "multiple",
+      "name",
+      "required",
+      "size"
+    ]
+  },
+  { "tag": "small", "attributes": [] },
+  {
+    "tag": "source",
+    "attributes": ["media", "sizes", "src", "srcset", "type"]
+  },
+  { "tag": "span", "attributes": [] },
+  { "tag": "strong", "attributes": [] },
+  { "tag": "style", "attributes": ["media", "nonce", "title", "type"] },
+  { "tag": "sub", "attributes": [] },
+  { "tag": "summary", "attributes": [] },
+  { "tag": "sup", "attributes": [] },
+  { "tag": "table", "attributes": [] },
+  { "tag": "tbody", "attributes": [] },
+  { "tag": "td", "attributes": ["colspan", "headers", "rowspan"] },
+  { "tag": "template", "attributes": [] },
+  {
+    "tag": "textarea",
+    "attributes": [
+      "autocomplete",
+      "autofocus",
+      "cols",
+      "dirname",
+      "disabled",
+      "form",
+      "maxlength",
+      "minlength",
+      "name",
+      "placeholder",
+      "readonly",
+      "required",
+      "rows",
+      "wrap"
+    ]
+  },
+  { "tag": "tfoot", "attributes": [] },
+  {
+    "tag": "th",
+    "attributes": ["abbr", "colspan", "headers", "rowspan", "scope"]
+  },
+  { "tag": "thead", "attributes": [] },
+  { "tag": "time", "attributes": ["datetime"] },
+  { "tag": "title", "attributes": [] },
+  { "tag": "tr", "attributes": [] },
+  {
+    "tag": "track",
+    "attributes": ["default", "kind", "label", "src", "srclang"]
+  },
+  { "tag": "u", "attributes": [] },
+  { "tag": "ul", "attributes": [] },
+  { "tag": "var", "attributes": [] },
+  {
+    "tag": "video",
+    "attributes": [
+      "autoplay",
+      "buffered",
+      "controls",
+      "crossorigin",
+      "height",
+      "loop",
+      "muted",
+      "playsinline",
+      "poster",
+      "preload",
+      "src",
+      "width"
+    ]
+  },
+  { "tag": "wbr", "attributes": [] }
+]

@@ -1,6 +1,5 @@
 const { withNx } = require('@nrwl/next/plugins/with-nx')
 const withPlugins = require('next-compose-plugins')
-const withLess = require('next-with-less')
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE_BUNDLE === 'true',
@@ -30,17 +29,7 @@ const withRawCypherFiles = (nextConfig = {}) => {
  *
  */
 module.exports = withPlugins(
-  [
-    // This approach requires importing less file into _app.tsx, which creates a large bundle size
-    // [
-    //   withLess,
-    //   {
-    //     lessLoaderOptions: {},
-    //   },
-    // ],
-    withBundleAnalyzer,
-    withRawCypherFiles,
-  ],
+  [withBundleAnalyzer, withRawCypherFiles],
   withNx({
     // https://github.com/vercel/next.js/issues/9830
     experimental: {
