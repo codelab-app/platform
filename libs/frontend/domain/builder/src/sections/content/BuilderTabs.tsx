@@ -54,7 +54,6 @@ export const BuilderTabs = observer<BuilderTabsProps>(
           ) : builderService.activeComponent && store ? (
             <BuilderComponent
               BaseBuilder={BaseBuilder}
-              appStore={store}
               componentId={builderService.activeComponent.id}
             />
           ) : null}

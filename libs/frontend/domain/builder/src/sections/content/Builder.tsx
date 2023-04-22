@@ -18,7 +18,7 @@ import { useDroppable } from '@dnd-kit/core'
 import styled from '@emotion/styled'
 import { motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useMemo } from 'react'
 import tw from 'twin.macro'
 import { useBuilderHotkeys, useBuilderHoverHandlers } from '../../hooks'
 import { useBuilderResize } from '../../hooks/useBuilderResize'
@@ -86,11 +86,15 @@ export const Builder = observer<BuilderProps>(
       }
     }
 
-    const rootStyle = isOver
-      ? makeDropIndicatorStyle(DragPosition.Inside, {
-          backgroundColor: 'rgba(0, 255, 255, 0.2)',
-        })
-      : {}
+    const rootStyle = useMemo(
+      () =>
+        isOver
+          ? makeDropIndicatorStyle(DragPosition.Inside, {
+              backgroundColor: 'rgba(0, 255, 255, 0.2)',
+            })
+          : {},
+      [isOver],
+    )
 
     return (
       <StyledBuilderResizeContainer

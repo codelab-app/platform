@@ -42,14 +42,19 @@ export const Renderer = observer<WithStyleProp<RendererRoot>, HTMLDivElement>(
     // this prevents re-rendering too much
     const renderedRoot = useMemo(() => renderRoot(), [])
 
+    const containerStyle = useMemo(
+      () => ({
+        minHeight: '100%',
+        transform: 'translatex(0)',
+        ...style,
+      }),
+      [style],
+    )
+
     return (
       <ErrorBoundary>
         <CacheProvider value={emotionCache}>
-          <div
-            id={ROOT_RENDER_CONTAINER_ID}
-            ref={ref}
-            style={{ minHeight: '100%', transform: 'translatex(0)', ...style }}
-          >
+          <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>
             {renderedRoot}
           </div>
         </CacheProvider>
