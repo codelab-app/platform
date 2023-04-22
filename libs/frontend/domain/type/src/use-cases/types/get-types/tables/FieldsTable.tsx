@@ -212,12 +212,13 @@ export const FieldsTable = observer<FieldsTableProps>(
       if (fromIndex === toIndex) {
         return
       }
+
       if (fromIndex < toIndex && toIndex !== 0) {
         await fieldService.moveFieldAsNextSibling({
           field: { id: dataSource[fromIndex]?.id as string },
           targetField: { id: dataSource[toIndex]?.id as string },
         })
-      } else if (fromIndex > toIndex ) {
+      } else if (fromIndex > toIndex) {
         await fieldService.moveFieldAsPrevSibling({
           field: { id: dataSource[fromIndex]?.id as string },
           targetField: { id: dataSource[toIndex]?.id as string },
