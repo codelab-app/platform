@@ -6,10 +6,6 @@ const renderTypeKindSchema = `enum RenderTypeKind {
 }`
 
 export const elementSchema = gql`
-  interface ParentOfElement @relationshipProperties {
-    order: Int
-  }
-
   ${renderTypeKindSchema}
 
   # Create this to match frontend

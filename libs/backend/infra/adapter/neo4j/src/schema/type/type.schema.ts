@@ -172,12 +172,6 @@ export const typeSchema = gql`
   }
 
 
-  """
-  The idea is that admin create interfaces and can assign a default value to be used by the interface
-  """
-  interface OwnedBy @relationshipProperties {
-    data: String! @default(value: "{}")
-  }
 
   """
   Represents an object type with multiple fields
