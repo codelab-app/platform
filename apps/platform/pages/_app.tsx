@@ -5,6 +5,11 @@ import 'react-quill/dist/quill.snow.css'
 import '../src/styles/quill.snow.override.css'
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
+// apply fix for common css problems:
+// - remove default padding/margin from html and body
+// - set 100% width and height for html and body
+// - set box-sizing, remove outlines, etc
+import 'antd/dist/reset.css'
 // https://www.elvisduru.com/blog/how-to-customize-ant-design-theme-in-nextjs
 import { UserProvider } from '@auth0/nextjs-auth0'
 import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/core'
