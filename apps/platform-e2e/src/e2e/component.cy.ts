@@ -22,6 +22,25 @@ const componentChildren: Array<ComponentChildData> = [
   { atom: IAtomType.AntDesignTypographyText, name: COMPONENT_CHILD_TYPOGRAPHY },
 ]
 
+const setElementNameInModal = (value: string) => {
+  cy.getModal()
+    .getFormField({
+      label: 'Name',
+    })
+    .within(() => {
+      // Need to wait for the name to automatically be set first (after the
+      // atom is set) because it would override the name otherwise
+      cy.get('input')
+        .should('not.have.value', '')
+        .getModal()
+        .setFormFieldValue({
+          label: 'Name',
+          type: FIELD_TYPE.INPUT,
+          value,
+        })
+    })
+}
+
 let testApp: any
 describe('Component CRUD', () => {
   before(() => {
@@ -112,10 +131,8 @@ describe('Component CRUD', () => {
             type: FIELD_TYPE.SELECT,
             value: child.atom,
           })
-          cy.getModal().setFormFieldValue({
-            label: 'Name',
-            value: child.name,
-          })
+
+          setElementNameInModal(child.name)
 
           cy.getModal()
             .getModalAction(/Create/)
@@ -164,10 +181,8 @@ describe('Component CRUD', () => {
         type: FIELD_TYPE.SELECT,
         value: COMPONENT_NAME,
       })
-      cy.getModal().setFormFieldValue({
-        label: 'Name',
-        value: COMPONENT_INSTANCE_NAME,
-      })
+
+      setElementNameInModal(COMPONENT_INSTANCE_NAME)
 
       cy.getModal()
         .getModalAction(/Create/)
@@ -202,10 +217,8 @@ describe('Component CRUD', () => {
         type: FIELD_TYPE.SELECT,
         value: IAtomType.AntDesignTypographyText,
       })
-      cy.getModal().setFormFieldValue({
-        label: 'Name',
-        value: COMPONENT_INSTANCE_TEXT,
-      })
+
+      setElementNameInModal(COMPONENT_INSTANCE_TEXT)
 
       cy.getModal()
         .getModalAction(/Create/)
