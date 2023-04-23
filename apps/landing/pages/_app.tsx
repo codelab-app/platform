@@ -1,6 +1,11 @@
 // import '../src/wdyr'
 import 'reflect-metadata'
 import '../styles/app.css'
+// apply fix for common css problems:
+// - remove default padding/margin from html and body
+// - set 100% width and height for html and body
+// - set box-sizing, remove outlines, etc
+import 'antd/dist/reset.css'
 // https://www.elvisduru.com/blog/how-to-customize-ant-design-theme-in-nextjs
 import { UserProvider } from '@auth0/nextjs-auth0'
 import type { IAppProps } from '@codelab/frontend/abstract/core'
