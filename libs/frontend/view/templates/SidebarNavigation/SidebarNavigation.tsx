@@ -1,4 +1,3 @@
-import { css } from '@emotion/react'
 import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
 import { useRouter } from 'next/router'
@@ -40,26 +39,12 @@ export const SidebarNavigation = ({
       }}
     >
       <Menu
-        css={[
-          tw`border-none box-border`,
-          css`
-            li {
-              ${tw`!m-0 !pt-1 !h-10`}
-            }
-          `,
-        ]}
+        css={tw`border-none box-border h-full`}
         defaultOpenKeys={[]}
         // defaultSelectedKeys={[PageType.AppList]}
         items={primaryItems}
         mode="inline"
         selectedKeys={transformSelectedKeys([router.pathname])}
-        style={
-          {
-            // width: `${sidebarWidth}px`,
-            // height: fullHeight ? '100%' : undefined,
-            // maxHeight: '100vh',
-          }
-        }
       />
       <Menu
         css={tw`border-none box-border`}
@@ -68,11 +53,6 @@ export const SidebarNavigation = ({
         items={secondaryItems}
         mode="inline"
         selectedKeys={transformSelectedKeys([router.pathname])}
-        style={{
-          width: `${sidebarWidth}px`,
-          // height: fullHeight ? '100%' : undefined,
-          // maxHeight: '100vh',
-        }}
       />
     </div>
   )
