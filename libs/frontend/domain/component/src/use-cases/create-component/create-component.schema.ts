@@ -1,8 +1,8 @@
 import type { ICreateComponentData } from '@codelab/frontend/abstract/core'
 import {
   idSchema,
-  nonEmptyString,
   ownerSchema,
+  titleCaseValidation,
 } from '@codelab/frontend/view/components'
 import type { JSONSchemaType } from 'ajv'
 
@@ -35,8 +35,9 @@ export const createComponentSchema: JSONSchemaType<CreateComponentSchema> = {
     },
     ...ownerSchema,
     name: {
+      type: 'string',
       autoFocus: true,
-      ...nonEmptyString,
+      ...titleCaseValidation,
     },
   },
   required: ['name', 'owner', 'childrenContainerElement'],
