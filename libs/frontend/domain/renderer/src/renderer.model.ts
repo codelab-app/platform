@@ -285,15 +285,14 @@ export class Renderer
    * Parses and transforms the props for a given element, so they are ready for rendering
    */
   private processPropsForRender = (props: IPropData, element: IElement) => {
-    props = this.applyPropTypeTransformers(props)
-    props = element.executePropTransformJs(props)
-
     // FIXME:
     const context =
       this.rendererType === RendererType.ComponentBuilder
         ? props
         : mergeProps(element.store.state, props)
 
+    props = this.applyPropTypeTransformers(props, context)
+    props = element.executePropTransformJs(props)
     props = replaceStateInProps(props, context)
 
     return props
@@ -302,7 +301,7 @@ export class Renderer
   /**
    * Applies all the type transformers to the props
    */
-  private applyPropTypeTransformers = (props: IPropData) =>
+  private applyPropTypeTransformers = (props: IPropData, context: IPropData) =>
     mapDeep(props, (value) => {
       value = preTransformPropTypeValue(value)
 
@@ -324,7 +323,7 @@ export class Renderer
           continue
         }
 
-        return propTransformer.transform(value, typeKind)
+        return propTransformer.transform(value, typeKind, context)
       }
 
       /*

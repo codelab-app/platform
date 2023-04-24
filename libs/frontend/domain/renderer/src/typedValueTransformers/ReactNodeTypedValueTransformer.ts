@@ -1,4 +1,4 @@
-import type { TypedValue } from '@codelab/frontend/abstract/core'
+import type { IPropData, TypedValue } from '@codelab/frontend/abstract/core'
 import {
   expressionTransformer,
   hasStateExpression,
@@ -50,7 +50,11 @@ export class ReactNodeTypedValueTransformer
     )
   }
 
-  public transform(value: TypedValue<string>) {
+  public transform(
+    value: TypedValue<string>,
+    _: ITypeKind,
+    context: IPropData,
+  ) {
     if (hasStateExpression(value.value)) {
       // const { values } = this.renderer.appStore.current.state
 
@@ -65,6 +69,7 @@ export class ReactNodeTypedValueTransformer
       const evaluationContext = {
         atoms,
         React,
+        ...context,
         // ...values
       }
 
