@@ -10,6 +10,7 @@ import { v4 } from 'uuid'
 import { createComponentSchema } from './create-component.schema'
 
 const KEY_GENERATOR = `function run(props) {
+    // props are of type component api
     return props.id
 }`
 
@@ -44,9 +45,7 @@ export const CreateComponentModal = observer(() => {
         onSubmitSuccess={closeModal}
         schema={createComponentSchema}
       >
-        <AutoFields
-          omitFields={['childrenContainerElement', 'keyGenerator', 'api']}
-        />
+        <AutoFields omitFields={['childrenContainerElement', 'api']} />
       </ModalForm.Form>
     </ModalForm.Modal>
   )

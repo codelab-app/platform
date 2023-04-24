@@ -139,15 +139,9 @@ export class Renderer
     element: IElement,
     extraProps?: IPropData,
   ): ArrayOrSingle<IRenderOutput> => {
-    const component = element.parentComponent?.current
-    const componentInstance = component?.instanceElement?.current
-    const componentApi = component?.api.maybeCurrent
-
     let props = mergeProps(
       element.__metadataProps,
-      componentApi?.defaultValues,
-      component?.props.current.values,
-      componentInstance?.props.current.values,
+      element.parentComponent?.current.initialState,
       element.props.current.values,
       extraProps,
     )

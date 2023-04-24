@@ -20,6 +20,7 @@ import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
+import { mergeProps } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { clone, ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -70,6 +71,15 @@ export class Component
   })
   implements IComponent
 {
+  @computed
+  get initialState() {
+    return mergeProps(
+      this.api.current.defaultValues,
+      this.props.current.values,
+      this.instanceElement?.current.props.current.values,
+    )
+  }
+
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   static create = create
 
@@ -181,8 +191,6 @@ export class Component
 
     // if instance already created
     if (componentService.clonedComponents.has(key)) {
-      console.log(key)
-
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       return componentService.clonedComponents.get(key)!
     }

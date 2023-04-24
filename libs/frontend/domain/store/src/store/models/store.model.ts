@@ -1,28 +1,30 @@
 import type {
-  IAction,
   IAppDTO,
   IComponent,
   IInterfaceType,
   IPage,
-  IProp,
   IStore,
 } from '@codelab/frontend/abstract/core'
-import { componentRef, pageRef } from '@codelab/frontend/abstract/core'
-import { Prop } from '@codelab/frontend/domain/prop'
+import {
+  componentRef,
+  IPropData,
+  pageRef,
+} from '@codelab/frontend/abstract/core'
 import { typeRef } from '@codelab/frontend/domain/type'
 import type {
   StoreCreateInput,
   StoreDeleteInput,
   StoreUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { Nullable } from '@codelab/shared/abstract/types'
+import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import { mergeProps } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { computed, makeAutoObservable } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { v4 } from 'uuid'
+import { getActionService } from '../action.service.context'
 import { getStoreService } from '../store.service.context'
-import { actionRef } from './action.ref'
 
 const create = ({ api, component, id, name, page }: IStoreDTO) => {
   new Store({
@@ -41,13 +43,14 @@ const createName = (app: Pick<IAppDTO, 'name'>) => {
 @model('@codelab/Store')
 export class Store
   extends Model(() => ({
-    actions: prop<Array<Ref<IAction>>>(() => []),
+    _initialState: prop<IPropData>(() => ({})),
     api: prop<Ref<IInterfaceType>>().withSetter(),
     component: prop<Nullable<Ref<IComponent>>>().withSetter(),
     id: idProp,
-    initialState: prop<IProp>(() => new Prop({})),
     name: prop<string>(),
     page: prop<Nullable<Ref<IPage>>>(),
+    // if this is a duplicate, trace source component id else null
+    sourceStore: prop<Nullable<IEntity>>(null).withSetter(),
   }))
   implements IStore
 {
@@ -57,13 +60,15 @@ export class Store
   }
 
   @modelAction
-  writeCache({ actions, api, id, name }: Partial<IStoreDTO>) {
+  setInitialState(state: IPropData) {
+    this._initialState = state
+  }
+
+  @modelAction
+  writeCache({ api, id, name }: Partial<IStoreDTO>) {
     this.id = id ? id : this.id
     this.name = name ? name : this.name
     this.api = api ? (typeRef(api.id) as Ref<IInterfaceType>) : this.api
-    this.actions = actions
-      ? actions.map((action) => actionRef(action.id))
-      : this.actions
 
     return this
   }
@@ -74,24 +79,27 @@ export class Store
   }
 
   @computed
+  get actionService() {
+    return getActionService(this)
+  }
+
+  @computed
+  get actions() {
+    return this.actionService.actionsList.filter(
+      ({ store: { id } }) => this.id === id || this.sourceStore?.id === id,
+    )
+  }
+
+  @computed
   get state() {
     return makeAutoObservable(
-      merge(
-        { ...this.initialState.values },
-        { ...this.api.current.defaultValues },
-        { ...this.component?.current.api.current.defaultValues },
-        { ...this.component?.current.props.current.values },
-        {
-          ...this.component?.current.instanceElement?.current.props.current
-            .values,
-        },
-        {
-          ...this.actions
-            .map((action) => ({
-              [action.current.name]: action.current.createRunner(),
-            }))
-            .reduce(merge, {}),
-        },
+      mergeProps(
+        this.api.current.defaultValues,
+        this.component?.current.initialState,
+        this._initialState,
+        this.actions
+          .map((action) => ({ [action.name]: action.createRunner() }))
+          .reduce(merge, {}),
       ),
       {},
       // bind actions to state
@@ -102,11 +110,10 @@ export class Store
   @modelAction
   clone() {
     return this.storeService.add({
-      actions: this.actions,
       api: typeRef<IInterfaceType>(this.api.id),
       id: v4(),
-      initialState: this.initialState.clone(),
       name: this.name,
+      sourceStore: { id: this.id },
     })
   }
 
