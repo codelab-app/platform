@@ -1,7 +1,9 @@
+import { addDomain } from './add-domain'
 import { getDomainConfig } from './get-domain-config'
 import { getProjectDomain, PROJECT_NOT_FOUND } from './get-project-domain'
 
 export const domainApis = {
+  addDomain,
   getDomainConfig,
   getProjectDomain,
 }
