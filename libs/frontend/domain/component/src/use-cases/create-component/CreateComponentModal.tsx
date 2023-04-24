@@ -45,7 +45,9 @@ export const CreateComponentModal = observer(() => {
         onSubmitSuccess={closeModal}
         schema={createComponentSchema}
       >
-        <AutoFields omitFields={['childrenContainerElement', 'api']} />
+        <AutoFields
+          omitFields={['childrenContainerElement', 'keyGenerator', 'api']}
+        />
       </ModalForm.Form>
     </ModalForm.Modal>
   )
