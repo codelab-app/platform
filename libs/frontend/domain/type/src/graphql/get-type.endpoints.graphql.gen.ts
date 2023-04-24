@@ -376,7 +376,7 @@ export const GetCodeMirrorTypesDocument = gql`
 `
 export const GetTypeOptionsDocument = gql`
   query GetTypeOptions {
-    baseTypes(options: { limit: 99999 }) {
+    baseTypes {
       items {
         id
         name

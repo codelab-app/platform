@@ -12,20 +12,11 @@ export const baseTypes: IFieldResolver<
 > = (_, params) =>
   withReadTransaction(async (txn) => {
     const { options } = params
-    const limit = options?.limit ?? 10
-    const offset = options?.offset ?? 0
-
-    const where = options?.where?.name
-      ? options.where
-      : {
-          name: '',
-        }
 
     const { records: getTypesRecords } = await txn.run(getBaseTypes, {
-      limit: int(limit),
-      // this makes the search case insensitive and work like `CONTAINS`
-      name: `(?i).*${where.name}.*`,
-      skip: int(offset),
+      limit: options?.limit ? int(options.limit) : null,
+      name: options?.where?.name ?? '',
+      skip: options?.offset ? int(options.offset) : null,
     })
 
     const totalCountRecord = getTypesRecords[0]?.get('totalCount')
