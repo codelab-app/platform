@@ -150,7 +150,7 @@ export class Renderer
       element,
       extraProps,
       key: `element-wrapper-${element.id}`,
-      renderService: this,
+      renderer: this,
     }
 
     return React.createElement(ElementWrapper, wrapperProps)

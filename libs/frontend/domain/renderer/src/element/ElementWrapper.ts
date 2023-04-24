@@ -22,7 +22,7 @@ export interface ElementWrapperProps {
    * Props passed in from outside the component
    */
   extraProps?: IPropData
-  renderService: IRenderer
+  renderer: IRenderer
 }
 
 /**
@@ -31,7 +31,7 @@ export interface ElementWrapperProps {
  * It is in this wrapper that the children are rendered
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
-  ({ element, extraProps = {}, renderService, ...rest }) => {
+  ({ element, extraProps = {}, renderer, ...rest }) => {
     const onRefChange = useCallback((node: Nullable<HTMLElement>) => {
       if (node !== null) {
         // FIXME:
@@ -45,12 +45,12 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     }, [])
 
     // Render the element to an intermediate output
-    const renderOutputs = renderService.renderIntermediateElement(
+    const renderOutputs = renderer.renderIntermediateElement(
       element,
       extraProps,
     )
 
-    renderService.logRendered(element, renderOutputs)
+    renderer.logRendered(element, renderOutputs)
 
     // TODO: re-work on implementation for the draggable elements and allowable children on the droppable elements.
     // Render the elements normally for now since the DnD is currently not properly working and
@@ -61,7 +61,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         element,
         mergeProps(renderOutput.props, {}),
       )
-        ? renderService.renderChildren({
+        ? renderer.renderChildren({
             extraProps,
             parentOutput: renderOutput,
           })
@@ -75,7 +75,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
           element.renderType.current.type === IAtomType.GridLayout
         ) {
           renderOutput.props['static'] =
-            renderService.rendererType === RendererType.Preview
+            renderer.rendererType === RendererType.Preview
         }
       }
 
