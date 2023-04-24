@@ -155,8 +155,6 @@ query GetCodeMirrorTypes(
 }
 
 query GetTypeOptions {
-  # needs hardcoded limit here since the cypher query for base types requires a limit
-  # and it is set to 10 by default in the backend and is safer to just hardcode here
   baseTypes {
     items {
       id
