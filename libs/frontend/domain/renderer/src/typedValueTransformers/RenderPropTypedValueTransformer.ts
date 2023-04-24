@@ -1,4 +1,8 @@
-import type { IPropData, TypedValue } from '@codelab/frontend/abstract/core'
+import type {
+  IElement,
+  IPropData,
+  TypedValue,
+} from '@codelab/frontend/abstract/core'
 import {
   expressionTransformer,
   hasStateExpression,
@@ -42,36 +46,41 @@ export class RenderPropTypedValueTransformer
     return isComponentId || isComponentExpression
   }
 
-  public transform(value: TypedValue<string>) {
+  public transform(value: TypedValue<string>, element: IElement) {
     if (hasStateExpression(value.value)) {
       return expressionTransformer.transpileAndEvaluateExpression(value.value)
     }
 
-    const id = value.value
-    const component = this.componentService.components.get(id)
+    const { value: componentId } = value
+    const component = this.componentService.components.get(componentId)
+    const fields = component?.api.current.fields || []
 
     // spread is required to access all args not just the first one
     return (...renderPropArgs: Array<object>) => {
-      const props: IPropData = renderPropArgs.reduce(
-        (acc, val, index) => ({ ...acc, [index]: val }),
-        {},
-      )
+      const props: IPropData = renderPropArgs.reduce((acc, val, index) => {
+        const field = fields[index]
 
-      // accept zero as a key value
-      if (props[value.key] === undefined || props[value.key] === null) {
-        return value
+        if (!field) {
+          return acc
+        }
+
+        return { ...acc, [field.key]: val }
+      }, {})
+
+      if (!component?.keyGenerator) {
+        throw new Error('Component must have a key keyGenerator')
       }
 
-      // component has no instance element
-      const componentClone = component?.clone(
-        `${props[value.key]}-${component.name}`,
+      // eslint-disable-next-line no-eval
+      const keyGenerator = eval(`(${component.keyGenerator})`)
+      const key = keyGenerator(props)
+      console.log(key)
+
+      const componentClone = component.clone(
+        `${element.id}${component.id}${key}`,
       )
 
-      const rootElement = componentClone?.rootElement.current
-
-      if (!rootElement) {
-        return value
-      }
+      const rootElement = componentClone.rootElement.current
 
       componentClone.store.current.initialState.setMany(props)
 

@@ -80,10 +80,10 @@ export const createValidator = (schema: Schema, allowExpressions?: boolean) => {
   const validator = ajv.compile(schema)
 
   return (model: Record<string, unknown>) => {
-    const store = context?.elementTree?.rootElement.current.store.current
+    // FIXME: replaceStateInProps should take state as second argument instead of empty object
 
-    const modelToValidate = context?.allowExpressions
-      ? replaceStateInProps(model, store?.state)
+    const modelToValidate = allowExpressions
+      ? replaceStateInProps(model, {})
       : model
 
     validator(modelToValidate)

@@ -274,10 +274,6 @@ export class TypeSchemaFactory {
     typeLabel: Maybe<string>,
   ): { [key: string]: JsonSchema } {
     return {
-      id: {
-        type: 'string',
-        uniforms: blankUniforms,
-      },
       type: {
         default: typeId,
         // This ensures that only this exact type is considered valid. Allows union types to use oneOf

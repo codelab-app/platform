@@ -190,13 +190,11 @@ export const typeSchema = gql`
         direction: IN
       )
     # Fields are defined as a set of list to other types
-    # The field data is stored as relationship properties
     fields: [Field!]!
       @relationship(
-        type: "INTERFACE_FIELD"
+        type: "INTERFACE_FIELD",
         direction: OUT
-      )
-  }
+      )  }
 
   """
   Allows picking an element from the current tree

@@ -5156,6 +5156,7 @@ export type Component = WithOwner & {
   childrenContainerElementAggregate?: Maybe<ComponentElementChildrenContainerElementAggregationSelection>
   childrenContainerElementConnection: ComponentChildrenContainerElementConnection
   id: Scalars['ID']
+  keyGenerator?: Maybe<Scalars['String']>
   name: Scalars['String']
   owner: User
   ownerAggregate?: Maybe<ComponentUserOwnerAggregationSelection>
@@ -5289,6 +5290,7 @@ export type ComponentAggregateSelection = {
   __typename?: 'ComponentAggregateSelection'
   count: Scalars['Int']
   id: IdAggregateSelectionNonNullable
+  keyGenerator: StringAggregateSelectionNullable
   name: StringAggregateSelectionNonNullable
 }
 
@@ -5616,6 +5618,7 @@ export type ComponentCreateInput = {
   api?: InputMaybe<ComponentApiFieldInput>
   childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementFieldInput>
   id: Scalars['ID']
+  keyGenerator?: InputMaybe<Scalars['String']>
   name: Scalars['String']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   props?: InputMaybe<ComponentPropsFieldInput>
@@ -5695,6 +5698,7 @@ export type ComponentInterfaceTypeApiNodeAggregateSelection = {
 
 export type ComponentOnCreateInput = {
   id: Scalars['ID']
+  keyGenerator?: InputMaybe<Scalars['String']>
   name: Scalars['String']
 }
 
@@ -6078,6 +6082,7 @@ export type ComponentRootElementUpdateFieldInput = {
 /** Fields to sort Components by. The order in which sorts are applied is not guaranteed when specifying many fields in one ComponentSort object. */
 export type ComponentSort = {
   id?: InputMaybe<SortDirection>
+  keyGenerator?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
 }
 
@@ -6208,6 +6213,7 @@ export type ComponentUpdateInput = {
   api?: InputMaybe<ComponentApiUpdateFieldInput>
   childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementUpdateFieldInput>
   id?: InputMaybe<Scalars['ID']>
+  keyGenerator?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   props?: InputMaybe<ComponentPropsUpdateFieldInput>
@@ -6249,6 +6255,12 @@ export type ComponentWhere = {
   id_IN?: InputMaybe<Array<Scalars['ID']>>
   id_MATCHES?: InputMaybe<Scalars['String']>
   id_STARTS_WITH?: InputMaybe<Scalars['ID']>
+  keyGenerator?: InputMaybe<Scalars['String']>
+  keyGenerator_CONTAINS?: InputMaybe<Scalars['String']>
+  keyGenerator_ENDS_WITH?: InputMaybe<Scalars['String']>
+  keyGenerator_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  keyGenerator_MATCHES?: InputMaybe<Scalars['String']>
+  keyGenerator_STARTS_WITH?: InputMaybe<Scalars['String']>
   name?: InputMaybe<Scalars['String']>
   name_CONTAINS?: InputMaybe<Scalars['String']>
   name_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -7015,6 +7027,7 @@ export type ElementComponentParentComponentAggregationSelection = {
 export type ElementComponentParentComponentNodeAggregateSelection = {
   __typename?: 'ElementComponentParentComponentNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
+  keyGenerator: StringAggregateSelectionNullable
   name: StringAggregateSelectionNonNullable
 }
 
@@ -7027,6 +7040,7 @@ export type ElementComponentRenderComponentTypeAggregationSelection = {
 export type ElementComponentRenderComponentTypeNodeAggregateSelection = {
   __typename?: 'ElementComponentRenderComponentTypeNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
+  keyGenerator: StringAggregateSelectionNullable
   name: StringAggregateSelectionNonNullable
 }
 
@@ -7785,6 +7799,21 @@ export type ElementParentComponentNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ElementParentComponentNodeAggregationWhereInput>>
   NOT?: InputMaybe<ElementParentComponentNodeAggregationWhereInput>
   OR?: InputMaybe<Array<ElementParentComponentNodeAggregationWhereInput>>
+  keyGenerator_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  keyGenerator_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  keyGenerator_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  keyGenerator_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  keyGenerator_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  keyGenerator_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  keyGenerator_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  keyGenerator_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
   name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
@@ -8618,6 +8647,21 @@ export type ElementRenderComponentTypeNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<ElementRenderComponentTypeNodeAggregationWhereInput>>
   NOT?: InputMaybe<ElementRenderComponentTypeNodeAggregationWhereInput>
   OR?: InputMaybe<Array<ElementRenderComponentTypeNodeAggregationWhereInput>>
+  keyGenerator_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  keyGenerator_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  keyGenerator_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  keyGenerator_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  keyGenerator_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  keyGenerator_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  keyGenerator_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  keyGenerator_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
   name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
@@ -19702,6 +19746,7 @@ export type UserComponentComponentsAggregationSelection = {
 export type UserComponentComponentsNodeAggregateSelection = {
   __typename?: 'UserComponentComponentsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
+  keyGenerator: StringAggregateSelectionNullable
   name: StringAggregateSelectionNonNullable
 }
 
@@ -19775,6 +19820,21 @@ export type UserComponentsNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<UserComponentsNodeAggregationWhereInput>>
   NOT?: InputMaybe<UserComponentsNodeAggregationWhereInput>
   OR?: InputMaybe<Array<UserComponentsNodeAggregationWhereInput>>
+  keyGenerator_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  keyGenerator_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  keyGenerator_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  keyGenerator_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  keyGenerator_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  keyGenerator_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  keyGenerator_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  keyGenerator_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
   name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
   name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
@@ -20693,6 +20753,7 @@ export type ComponentFragment = {
   __typename?: 'Component'
   id: string
   name: string
+  keyGenerator?: string | null
   rootElement: { __typename?: 'Element'; id: string; name: string }
   owner: { __typename?: 'User' } & OwnerFragment
   api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
