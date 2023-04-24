@@ -1,5 +1,5 @@
-import { Model, _async, _await, modelFlow, model } from 'mobx-keystone'
-import { IVercelService } from '@codelab/frontend/abstract/core'
+import type { IVercelService } from '@codelab/frontend/abstract/core'
+import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { projectApiUrl, teamIdParam } from '../config'
 
 @model('@codelab/VercelService')
@@ -8,8 +8,8 @@ export class VercelService extends Model({}) implements IVercelService {
   create = _async(function* (this: VercelService, name: string) {
     return yield* _await(
       fetch(`/api/vercel/${projectApiUrl('10')}/domains?${teamIdParam}`, {
-        method: 'POST',
         body: JSON.stringify({ name }),
+        method: 'POST',
       }),
     )
   })
@@ -18,8 +18,8 @@ export class VercelService extends Model({}) implements IVercelService {
   update = _async(function* (this: VercelService, name: string) {
     return yield* _await(
       fetch(`/api/vercel/${projectApiUrl()}/domains?${teamIdParam}`, {
-        method: 'PATCH',
         body: JSON.stringify({ name }),
+        method: 'PATCH',
       }),
     )
   })
