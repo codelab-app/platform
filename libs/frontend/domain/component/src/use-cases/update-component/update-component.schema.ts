@@ -1,10 +1,13 @@
 import type { IUpdateComponentData } from '@codelab/frontend/abstract/core'
 import { getSelectElementComponent } from '@codelab/frontend/domain/type'
 import {
-  idSchema,
+  CodeMirrorField,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
-import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
+import {
+  CodeMirrorLanguage,
+  ElementTypeKind,
+} from '@codelab/shared/abstract/codegen'
 import type { JSONSchemaType } from 'ajv'
 
 export const updateComponentSchema: JSONSchemaType<IUpdateComponentData> = {
@@ -28,6 +31,15 @@ export const updateComponentSchema: JSONSchemaType<IUpdateComponentData> = {
       type: 'string',
       autoFocus: true,
       ...titleCaseValidation,
+    },
+    keyGenerator: {
+      type: 'string',
+      nullable: true,
+      uniforms: {
+        component: CodeMirrorField({
+          language: CodeMirrorLanguage.Typescript,
+        }),
+      },
     },
   },
   required: ['name', 'childrenContainerElement'],

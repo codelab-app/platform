@@ -10,13 +10,10 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updateComponentSchema } from './update-component.schema'
 
-interface UpdateComponentFormProps {
-  component: IComponent
-}
 /**
  * Used for meta pane
  */
-export const UpdateComponentForm = observer<UpdateComponentFormProps>(
+export const UpdateComponentForm = observer<{ component: IComponent }>(
   ({ component }) => {
     const { componentService } = useStore()
 
@@ -25,6 +22,7 @@ export const UpdateComponentForm = observer<UpdateComponentFormProps>(
         id: component.childrenContainerElement.current.id,
       },
       id: component.id,
+      keyGenerator: component.keyGenerator,
       name: component.name,
     }
 

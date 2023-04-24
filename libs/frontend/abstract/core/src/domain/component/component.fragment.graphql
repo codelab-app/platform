@@ -1,6 +1,7 @@
 fragment Component on Component {
   id
   name
+  keyGenerator
   rootElement {
     id
     name

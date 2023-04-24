@@ -13,7 +13,7 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createActionSchema } from './create-action.schema'
 
-const defaultCodeAction = `function run() {
+const CODE_ACTION = `function run() {
     // insert your code here
     // this.count += 2;
 }`
@@ -38,7 +38,7 @@ export const CreateActionModal = observer<{ store?: IStore }>(({ store }) => {
       : null
 
   const model = {
-    code: defaultCodeAction,
+    code: CODE_ACTION,
     config: {
       data: {
         body: '{}',

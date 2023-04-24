@@ -9,6 +9,10 @@ import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createComponentSchema } from './create-component.schema'
 
+const KEY_GENERATOR = `function run(props) {
+    return props.id
+}`
+
 export const CreateComponentModal = observer(() => {
   const { componentService, userService } = useStore()
 
@@ -20,6 +24,7 @@ export const CreateComponentModal = observer(() => {
 
   const model = {
     id: v4(),
+    keyGenerator: KEY_GENERATOR,
     owner: { auth0Id: userService.user.auth0Id },
   }
 
@@ -39,7 +44,9 @@ export const CreateComponentModal = observer(() => {
         onSubmitSuccess={closeModal}
         schema={createComponentSchema}
       >
-        <AutoFields omitFields={['childrenContainerElement', 'api']} />
+        <AutoFields
+          omitFields={['childrenContainerElement', 'keyGenerator', 'api']}
+        />
       </ModalForm.Form>
     </ModalForm.Modal>
   )

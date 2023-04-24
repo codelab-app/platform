@@ -15,5 +15,5 @@ export const sortFieldsArray = (fields: Array<IField>) => {
     return path.join()
   }
 
-  return sortBy(fields, [(field) => getPath(field), 'id'])
+  return sortBy(fields, [(field) => getPath(field), 'key'])
 }

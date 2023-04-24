@@ -127,7 +127,7 @@ export class ComponentService
   @transaction
   create = _async(function* (
     this: ComponentService,
-    { id, name, owner }: ICreateComponentData,
+    { id, keyGenerator, name, owner }: ICreateComponentData,
   ) {
     const storeApi = this.typeService.addInterface({
       id: v4(),
@@ -167,6 +167,7 @@ export class ComponentService
       api,
       childrenContainerElement: { id: rootElement.id },
       id,
+      keyGenerator,
       name,
       owner,
       props: componentProps,
@@ -185,12 +186,12 @@ export class ComponentService
   @transaction
   update = _async(function* (
     this: ComponentService,
-    { childrenContainerElement, id, name }: IUpdateComponentData,
+    { childrenContainerElement, id, keyGenerator, name }: IUpdateComponentData,
   ) {
     const component = this.components.get(id)!
 
-    component.writeCache({ childrenContainerElement, name })
-    this.writeCloneCache({ childrenContainerElement, id, name })
+    component.writeCache({ childrenContainerElement, keyGenerator, name })
+    this.writeCloneCache({ childrenContainerElement, id, keyGenerator, name })
 
     yield* _await(this.componentRepository.update(component))
 

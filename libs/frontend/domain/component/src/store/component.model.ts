@@ -28,6 +28,7 @@ const create = ({
   api,
   childrenContainerElement,
   id,
+  keyGenerator,
   name,
   owner,
   props,
@@ -39,6 +40,7 @@ const create = ({
     childrenContainerElement: elementRef(childrenContainerElement.id),
     id,
     instanceElement: null,
+    keyGenerator,
     name,
     owner,
     props: propRef(props.id),
@@ -54,9 +56,13 @@ export class Component
     childrenContainerElement: prop<Ref<IElement>>().withSetter(),
     // element which this component is attached to.
     instanceElement: prop<Nullable<Ref<IElement>>>(null).withSetter(),
+    // a function to extract component key from input
+    keyGenerator: prop<Nullable<string>>().withSetter(),
     name: prop<string>().withSetter(),
     owner: prop<IAuth0Owner>(),
+
     props: prop<Ref<IProp>>().withSetter(),
+
     // if this is a duplicate, trace source component id else null
     sourceComponent: prop<Nullable<IEntity>>(null).withSetter(),
 
@@ -72,6 +78,7 @@ export class Component
     api,
     childrenContainerElement,
     id,
+    keyGenerator,
     name,
     owner,
     props,
@@ -86,7 +93,7 @@ export class Component
     this.owner = owner ?? this.owner
     this.api = apiRef
     this.props = props?.id ? propRef(props.id) : this.props
-
+    this.keyGenerator = keyGenerator ?? this.keyGenerator
     this.childrenContainerElement = childrenContainerElement
       ? elementRef(childrenContainerElement.id)
       : this.childrenContainerElement
@@ -209,6 +216,7 @@ export class Component
       api: { create: { node: this.api.current.toCreateInput() } },
       childrenContainerElement: connectNodeId(this.rootElement.id),
       id: this.id,
+      keyGenerator: this.keyGenerator,
       name: this.name,
       owner: connectAuth0Owner(this.owner),
       props: { create: { node: this.props.current.toCreateInput() } },

@@ -28,7 +28,7 @@ export class ComponentRepository
 
   @modelFlow
   update = _async(function* (this: ComponentRepository, component: IComponent) {
-    const { childrenContainerElement, id, name } = component
+    const { childrenContainerElement, id, keyGenerator, name } = component
 
     const {
       updateComponents: { components },
@@ -38,6 +38,7 @@ export class ComponentRepository
           childrenContainerElement: reconnectNodeId(
             childrenContainerElement.current.id,
           ),
+          keyGenerator,
           name,
         },
         where: { id },
