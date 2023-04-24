@@ -3,7 +3,6 @@ import type {
   IComponent,
   IInterfaceType,
   IPage,
-  IProp,
   IStore,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -59,7 +58,6 @@ export class Store
     api: prop<Ref<IInterfaceType>>().withSetter(),
     component: prop<Nullable<Ref<IComponent>>>().withSetter(),
     id: idProp,
-    initialState: prop<IProp>(() => new Prop({})),
     name: prop<string>(),
 
     page: prop<Nullable<Ref<IPage>>>(),
@@ -84,7 +82,12 @@ export class Store
   }
 
   @modelAction
-  writeCache({ actions, api, id, name }: Partial<IStoreDTO>) {
+  setInitialState(state: IPropData) {
+    this._initialState = state
+  }
+
+  @modelAction
+  writeCache({ api, id, name }: Partial<IStoreDTO>) {
     this.id = id ? id : this.id
     this.name = name ? name : this.name
     this.api = api ? (typeRef(api.id) as Ref<IInterfaceType>) : this.api
@@ -97,6 +100,18 @@ export class Store
   @computed
   get actionService() {
     return getActionService(this)
+  }
+
+  @computed
+  get actionService() {
+    return getActionService(this)
+  }
+
+  @computed
+  get actions() {
+    return this.actionService.actionsList.filter(
+      ({ store: { id } }) => this.id === id || this.sourceStore?.id === id,
+    )
   }
 
   @computed
