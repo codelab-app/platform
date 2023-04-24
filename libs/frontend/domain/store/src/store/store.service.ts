@@ -5,7 +5,11 @@ import type {
   IStoreService,
   IUpdateStoreData,
 } from '@codelab/frontend/abstract/core'
-import { componentRef, pageRef } from '@codelab/frontend/abstract/core'
+import {
+  componentRef,
+  IStoreDTO,
+  pageRef,
+} from '@codelab/frontend/abstract/core'
 import { getTypeService, typeRef } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
@@ -28,7 +32,7 @@ import {
 } from 'mobx-keystone'
 import { StoreRepository } from '../services/store.repo'
 import { getActionService } from './action.service.context'
-import { actionRef, Store } from './models'
+import { Store } from './models'
 import { StoreModalService } from './store-modal.service'
 
 @model('@codelab/StoreService')
@@ -63,14 +67,14 @@ export class StoreService
   }
 
   @modelAction
-  add = ({ actions, api, component, id, name, page }: IStoreDTO) => {
+  add({ api, component, id, name, page, sourceStore }: IStoreDTO) {
     const store = new Store({
-      actions: actions?.map((action) => actionRef(action.id)),
       api: typeRef(api.id) as Ref<IInterfaceType>,
       component: component ? componentRef(component.id) : null,
       id,
       name,
       page: page ? pageRef(page.id) : null,
+      sourceStore,
     })
 
     this.stores.set(store.id, store)
@@ -85,7 +89,7 @@ export class StoreService
       interfaceTypes: stores.map((store) => store.api),
     })
 
-    return stores.map((store) => this.add(store))
+    return stores.map((store) => this.add({ ...store, sourceStore: null }))
   }
 
   @modelFlow

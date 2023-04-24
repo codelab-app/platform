@@ -1,4 +1,4 @@
-import type { IPropData, TypedValue } from '@codelab/frontend/abstract/core'
+import type { IElement, TypedValue } from '@codelab/frontend/abstract/core'
 import {
   expressionTransformer,
   hasStateExpression,
@@ -6,9 +6,9 @@ import {
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import isString from 'lodash/isString'
 import { ExtendedModel, model } from 'mobx-keystone'
-import { v4 } from 'uuid'
 import type { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
 import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
+import { cloneComponent } from '../utils'
 
 /**
  * Transforms props from the following format:
@@ -43,7 +43,7 @@ export class ReactNodeTypedValueTransformer
     return isComponentId || isComponentExpression
   }
 
-  public transform(value: TypedValue<string>) {
+  public transform(value: TypedValue<string>, element: IElement) {
     // value is a custom JS component
     if (hasStateExpression(value.value)) {
       const transpiledValue =
@@ -54,15 +54,28 @@ export class ReactNodeTypedValueTransformer
         : transpiledValue
     }
 
-    const id = value.value
-    const component = this.componentService.components.get(id)
-    // component has no instance element
-    const componentClone = component?.clone(v4())
-    const rootElement = componentClone?.rootElement.current
+    const { value: componentId } = value
+    const component = this.componentService.components.get(componentId)
 
-    if (!rootElement) {
+    if (!component) {
+      console.error('Component not found')
+
       return value
     }
+
+    const componentClone = cloneComponent(
+      component,
+      element,
+      component.initialState,
+    )
+
+    if (!componentClone) {
+      console.error('Failed to clone component')
+
+      return value
+    }
+
+    const rootElement = componentClone.rootElement.current
 
     return this.renderer.renderElement(rootElement)
   }

@@ -1,6 +1,6 @@
 import type {
   IElement,
-  IPropData,
+  IField,
   TypedValue,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -12,6 +12,7 @@ import isString from 'lodash/isString'
 import { ExtendedModel, model } from 'mobx-keystone'
 import type { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
 import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
+import { cloneComponent } from '../utils'
 
 /**
  * Transforms props from the following format:
@@ -27,8 +28,18 @@ import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
  *   [$propName]: <(...args) => ReactNode - A function that renders the component with id: $componentId>
  * }
  */
-@model('@codelab/RenderPropTypedValueTransformer')
-export class RenderPropTypedValueTransformer
+
+const matchPropsToFields = (fields: Array<IField> = [], props: Array<object>) =>
+  props.reduce(
+    (acc, val, index) =>
+      fields[index]?.key
+        ? { ...acc, [fields[index]?.key as string]: val }
+        : acc,
+    {},
+  )
+
+@model('@codelab/RenderPropsTypedValueTransformer')
+export class RenderPropsTypedValueTransformer
   extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedValueTransformer
 {
@@ -53,36 +64,28 @@ export class RenderPropTypedValueTransformer
 
     const { value: componentId } = value
     const component = this.componentService.components.get(componentId)
-    const fields = component?.api.current.fields || []
+    const fields = component?.api.current.fields
+
+    if (!component) {
+      console.error('Component not found')
+
+      return value
+    }
 
     // spread is required to access all args not just the first one
     return (...renderPropArgs: Array<object>) => {
-      const props: IPropData = renderPropArgs.reduce((acc, val, index) => {
-        const field = fields[index]
+      // match props to fields by order first to first and so on.
+      const props = matchPropsToFields(fields, renderPropArgs)
+      const componentClone = cloneComponent(component, element, props)
 
-        if (!field) {
-          return acc
-        }
+      if (!componentClone) {
+        console.error('Failed to clone component')
 
-        return { ...acc, [field.key]: val }
-      }, {})
-
-      if (!component?.keyGenerator) {
-        throw new Error('Component must have a key keyGenerator')
+        return value
       }
 
-      // eslint-disable-next-line no-eval
-      const keyGenerator = eval(`(${component.keyGenerator})`)
-      const key = keyGenerator(props)
-      console.log(key)
-
-      const componentClone = component.clone(
-        `${element.id}${component.id}${key}`,
-      )
-
       const rootElement = componentClone.rootElement.current
-
-      componentClone.store.current.initialState.setMany(props)
+      componentClone.store.current.setInitialState(props)
 
       return this.renderer.renderElement(rootElement)
     }
