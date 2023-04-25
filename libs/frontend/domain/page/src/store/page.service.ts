@@ -162,8 +162,8 @@ export class PageService
     })
 
     const appModel = this.appService.apps.get(app.id)
-    const { auth0Id, user } = this.userService
-    const userName = user?.username ?? auth0Id
+    const { user } = this.userService
+    const userName = user.username
 
     const interfaceType = this.typeService.addInterface({
       id: v4(),

@@ -125,8 +125,8 @@ export class PageFactory extends Model({}) implements IPageFactory {
       id: v4(),
     })
 
-    const { auth0Id, user } = this.userService
-    const userName = user?.username ?? auth0Id
+    const { user } = this.userService
+    const userName = user.username
 
     const interfaceType = this.typeService.addInterface({
       id: v4(),
