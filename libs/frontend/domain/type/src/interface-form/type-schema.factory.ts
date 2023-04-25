@@ -93,6 +93,7 @@ export class TypeSchemaFactory {
       label: field.name || compoundCaseToTitleCase(field.key),
       ...(field.description ? fieldDescription(field.description) : {}),
       ...this.transform(field.type.current, {
+        defaultValues: field.defaultValues,
         fieldName: field.name,
         validationRules: field.validationRules ?? undefined,
       }),
@@ -230,9 +231,10 @@ export class TypeSchemaFactory {
         }
         break
       case PrimitiveTypeKind.Boolean:
-        rulesSchema = {
-          default: false,
-        }
+        rulesSchema =
+          typeof context?.defaultValues === 'boolean'
+            ? { default: context.defaultValues }
+            : {}
         break
     }
 

@@ -1,4 +1,5 @@
 import type {
+  IFieldDefaultValue,
   IInterfaceType,
   IPropData,
   IType,
@@ -32,6 +33,7 @@ export interface UiPropertiesContext {
    * for code mirror
    */
   autocomplete?: IPropData
+  defaultValues?: IFieldDefaultValue | null
   fieldName?: string | null
   validationRules?: IValidationRules
 }
