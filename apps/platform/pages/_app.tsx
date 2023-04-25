@@ -37,6 +37,11 @@ const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <ConfigProvider
             theme={{
+              components: {
+                Layout: {
+                  colorBgHeader: '#ffffff',
+                },
+              },
               token: {
                 // fontFamily: `'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
                 // 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
