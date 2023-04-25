@@ -11,7 +11,7 @@ export type ITypeWhere = cg.ActionTypeWhere &
   cg.PageTypeWhere &
   cg.PrimitiveTypeWhere &
   cg.ReactNodeTypeWhere &
-  cg.RenderPropTypeWhere &
+  cg.RenderPropsTypeWhere &
   cg.UnionTypeWhere
 
 //
@@ -27,5 +27,5 @@ export type IAllTypesOptions = cg.AppTypeOptions &
   cg.PageTypeOptions &
   cg.PrimitiveTypeOptions &
   cg.ReactNodeTypeOptions &
-  cg.RenderPropTypeOptions &
+  cg.RenderPropsTypeOptions &
   cg.UnionTypeOptions

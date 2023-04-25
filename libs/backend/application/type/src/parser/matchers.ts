@@ -50,4 +50,4 @@ export const isInterfaceTypeRegex = /^\{.+}$/
  */
 export const reactNodeTypeRegex = /(([:|=>] (ReactNode|HTMLElement))|ReactNode)/
 
-export const renderPropRegexes = [arrowFnReturnReactNode, es5FnReturnReactNode]
+export const renderPropsRegexes = [arrowFnReturnReactNode, es5FnReturnReactNode]

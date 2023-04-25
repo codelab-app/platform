@@ -23,7 +23,7 @@ type UniformsPropertiesContainer = Partial<{
 const uiPropertiesContainer: UniformsPropertiesContainer = {
   [ITypeKind.UnionType]: unionTypeUiProperties,
   [ITypeKind.ReactNodeType]: selectComponentUiProperties,
-  [ITypeKind.RenderPropType]: selectComponentUiProperties,
+  [ITypeKind.RenderPropsType]: selectComponentUiProperties,
   [ITypeKind.ElementType]: elementTypeUiProperties,
   [ITypeKind.CodeMirrorType]: codeMirrorTypeUiProperties,
   [ITypeKind.PrimitiveType]: primitiveTypeUiProperties,

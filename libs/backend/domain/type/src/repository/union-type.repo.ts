@@ -44,7 +44,7 @@ export class UnionTypeRepository extends AbstractRepository<
                 InterfaceType: connectNodeIds(connectIds),
                 PrimitiveType: connectNodeIds(connectIds),
                 ReactNodeType: connectNodeIds(connectIds),
-                RenderPropType: connectNodeIds(connectIds),
+                RenderPropsType: connectNodeIds(connectIds),
               },
             }
           },
@@ -74,7 +74,7 @@ export class UnionTypeRepository extends AbstractRepository<
             InterfaceType: [connectNodeIds(connectIds)],
             PrimitiveType: [connectNodeIds(connectIds)],
             ReactNodeType: [connectNodeIds(connectIds)],
-            RenderPropType: [connectNodeIds(connectIds)],
+            RenderPropsType: [connectNodeIds(connectIds)],
           },
         },
         where,

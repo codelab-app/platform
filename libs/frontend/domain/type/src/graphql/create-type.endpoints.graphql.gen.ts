@@ -43,13 +43,13 @@ export type CreateElementTypesMutation = {
   types: { types: Array<{ id: string }> }
 }
 
-export type CreateRenderPropTypesMutationVariables = Types.Exact<{
+export type CreateRenderPropsTypesMutationVariables = Types.Exact<{
   input:
-    | Array<Types.RenderPropTypeCreateInput>
-    | Types.RenderPropTypeCreateInput
+    | Array<Types.RenderPropsTypeCreateInput>
+    | Types.RenderPropsTypeCreateInput
 }>
 
-export type CreateRenderPropTypesMutation = {
+export type CreateRenderPropsTypesMutation = {
   types: { types: Array<{ id: string }> }
 }
 
@@ -154,10 +154,10 @@ export const CreateElementTypesDocument = gql`
     }
   }
 `
-export const CreateRenderPropTypesDocument = gql`
-  mutation CreateRenderPropTypes($input: [RenderPropTypeCreateInput!]!) {
-    types: createRenderPropTypes(input: $input) {
-      types: renderPropTypes {
+export const CreateRenderPropsTypesDocument = gql`
+  mutation CreateRenderPropsTypes($input: [RenderPropsTypeCreateInput!]!) {
+    types: createRenderPropsTypes(input: $input) {
+      types: renderPropsTypes {
         id
       }
     }
@@ -319,18 +319,18 @@ export function getSdk(
         'mutation',
       )
     },
-    CreateRenderPropTypes(
-      variables: CreateRenderPropTypesMutationVariables,
+    CreateRenderPropsTypes(
+      variables: CreateRenderPropsTypesMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<CreateRenderPropTypesMutation> {
+    ): Promise<CreateRenderPropsTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<CreateRenderPropTypesMutation>(
-            CreateRenderPropTypesDocument,
+          client.request<CreateRenderPropsTypesMutation>(
+            CreateRenderPropsTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'CreateRenderPropTypes',
+        'CreateRenderPropsTypes',
         'mutation',
       )
     },

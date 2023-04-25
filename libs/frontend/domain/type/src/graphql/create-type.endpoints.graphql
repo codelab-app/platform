@@ -39,9 +39,9 @@ mutation CreateElementTypes($input: [ElementTypeCreateInput!]!) {
   }
 }
 
-mutation CreateRenderPropTypes($input: [RenderPropTypeCreateInput!]!) {
-  types: createRenderPropTypes(input: $input) {
-    types: renderPropTypes {
+mutation CreateRenderPropsTypes($input: [RenderPropsTypeCreateInput!]!) {
+  types: createRenderPropsTypes(input: $input) {
+    types: renderPropsTypes {
       id
     }
   }

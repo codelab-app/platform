@@ -11,7 +11,7 @@ import type {
   IPageType,
   IPrimitiveType,
   IReactNodeType,
-  IRenderPropType,
+  IRenderPropsType,
   IType,
   IUnionType,
 } from '@codelab/frontend/abstract/core'
@@ -55,8 +55,8 @@ export class TypeSchemaFactory {
         return this.fromLambdaType(type)
       case ITypeKind.PageType:
         return this.fromPageType(type)
-      case ITypeKind.RenderPropType:
-        return this.fromRenderPropType(type, context)
+      case ITypeKind.RenderPropsType:
+        return this.fromRenderPropsType(type, context)
       case ITypeKind.PrimitiveType:
         return this.fromPrimitiveType(type, context)
       case ITypeKind.ReactNodeType:
@@ -169,8 +169,8 @@ export class TypeSchemaFactory {
     return this.simpleReferenceType(type)
   }
 
-  fromRenderPropType(
-    type: IRenderPropType,
+  fromRenderPropsType(
+    type: IRenderPropsType,
     context?: UiPropertiesContext,
   ): JsonSchema {
     return this.transformTypedValueType(type, context)
@@ -292,7 +292,7 @@ export class TypeSchemaFactory {
    * Produces a {@link TypedValue} shaped schema
    */
   private transformTypedValueType(
-    type: IActionType | IReactNodeType | IRenderPropType,
+    type: IActionType | IReactNodeType | IRenderPropsType,
     context?: UiPropertiesContext,
   ): JsonSchema {
     const extra = this.getExtraProperties(type)

@@ -24,7 +24,7 @@ import {
   isInterfaceType,
   isPrimitiveType,
   isReactNodeType,
-  isRenderPropType,
+  isRenderPropsType,
   isUnionType,
   parseSeparators,
 } from '../../parser'
@@ -66,8 +66,8 @@ export class TransformAntDesignTypesService extends IUseCase<
       return systemTypesData(owner)[ITypeKind.ReactNodeType]
     }
 
-    if (isRenderPropType(field.type)) {
-      return systemTypesData(owner)[ITypeKind.RenderPropType]
+    if (isRenderPropsType(field.type)) {
+      return systemTypesData(owner)[ITypeKind.RenderPropsType]
     }
 
     if (isActionType(field.type)) {

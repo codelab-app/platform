@@ -57,13 +57,13 @@ export type DeleteElementTypesMutation = {
   deleteElementTypes: { relationshipsDeleted: number; nodesDeleted: number }
 }
 
-export type DeleteRenderPropTypesMutationVariables = Types.Exact<{
-  delete?: Types.InputMaybe<Types.RenderPropTypeDeleteInput>
-  where?: Types.InputMaybe<Types.RenderPropTypeWhere>
+export type DeleteRenderPropsTypesMutationVariables = Types.Exact<{
+  delete?: Types.InputMaybe<Types.RenderPropsTypeDeleteInput>
+  where?: Types.InputMaybe<Types.RenderPropsTypeWhere>
 }>
 
-export type DeleteRenderPropTypesMutation = {
-  deleteRenderPropTypes: { relationshipsDeleted: number; nodesDeleted: number }
+export type DeleteRenderPropsTypesMutation = {
+  deleteRenderPropsTypes: { relationshipsDeleted: number; nodesDeleted: number }
 }
 
 export type DeleteEnumTypesMutationVariables = Types.Exact<{
@@ -187,12 +187,12 @@ export const DeleteElementTypesDocument = gql`
     }
   }
 `
-export const DeleteRenderPropTypesDocument = gql`
-  mutation DeleteRenderPropTypes(
-    $delete: RenderPropTypeDeleteInput
-    $where: RenderPropTypeWhere
+export const DeleteRenderPropsTypesDocument = gql`
+  mutation DeleteRenderPropsTypes(
+    $delete: RenderPropsTypeDeleteInput
+    $where: RenderPropsTypeWhere
   ) {
-    deleteRenderPropTypes(delete: $delete, where: $where) {
+    deleteRenderPropsTypes(delete: $delete, where: $where) {
       relationshipsDeleted
       nodesDeleted
     }
@@ -372,18 +372,18 @@ export function getSdk(
         'mutation',
       )
     },
-    DeleteRenderPropTypes(
-      variables?: DeleteRenderPropTypesMutationVariables,
+    DeleteRenderPropsTypes(
+      variables?: DeleteRenderPropsTypesMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<DeleteRenderPropTypesMutation> {
+    ): Promise<DeleteRenderPropsTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<DeleteRenderPropTypesMutation>(
-            DeleteRenderPropTypesDocument,
+          client.request<DeleteRenderPropsTypesMutation>(
+            DeleteRenderPropsTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'DeleteRenderPropTypes',
+        'DeleteRenderPropsTypes',
         'mutation',
       )
     },

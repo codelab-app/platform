@@ -3,7 +3,7 @@ import type {
   IElement,
   IReactNodeType,
   IRenderer,
-  IRenderPropType,
+  IRenderPropsType,
   IRootStore,
   IStore,
 } from '@codelab/frontend/abstract/core'
@@ -29,7 +29,7 @@ export interface TestServices {
   componentToRender: IComponent
   elementToRender: IElement
   reactNodeType: IReactNodeType
-  renderPropType: IRenderPropType
+  renderPropsType: IRenderPropsType
   renderer: IRenderer
   rootStore: ITestRootStore
   store: IStore

@@ -68,9 +68,9 @@ export type Query = {
   elementTypes: Array<ElementType>
   elementTypesAggregate: ElementTypeAggregateSelection
   elementTypesConnection: ElementTypesConnection
-  renderPropTypes: Array<RenderPropType>
-  renderPropTypesAggregate: RenderPropTypeAggregateSelection
-  renderPropTypesConnection: RenderPropTypesConnection
+  renderPropsTypes: Array<RenderPropsType>
+  renderPropsTypesAggregate: RenderPropsTypeAggregateSelection
+  renderPropsTypesConnection: RenderPropsTypesConnection
   reactNodeTypes: Array<ReactNodeType>
   reactNodeTypesAggregate: ReactNodeTypeAggregateSelection
   reactNodeTypesConnection: ReactNodeTypesConnection
@@ -370,20 +370,20 @@ export type QueryElementTypesConnectionArgs = {
   sort?: InputMaybe<Array<InputMaybe<ElementTypeSort>>>
 }
 
-export type QueryRenderPropTypesArgs = {
-  where?: InputMaybe<RenderPropTypeWhere>
-  options?: InputMaybe<RenderPropTypeOptions>
+export type QueryRenderPropsTypesArgs = {
+  where?: InputMaybe<RenderPropsTypeWhere>
+  options?: InputMaybe<RenderPropsTypeOptions>
 }
 
-export type QueryRenderPropTypesAggregateArgs = {
-  where?: InputMaybe<RenderPropTypeWhere>
+export type QueryRenderPropsTypesAggregateArgs = {
+  where?: InputMaybe<RenderPropsTypeWhere>
 }
 
-export type QueryRenderPropTypesConnectionArgs = {
+export type QueryRenderPropsTypesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   after?: InputMaybe<Scalars['String']>
-  where?: InputMaybe<RenderPropTypeWhere>
-  sort?: InputMaybe<Array<InputMaybe<RenderPropTypeSort>>>
+  where?: InputMaybe<RenderPropsTypeWhere>
+  sort?: InputMaybe<Array<InputMaybe<RenderPropsTypeSort>>>
 }
 
 export type QueryReactNodeTypesArgs = {
@@ -794,9 +794,9 @@ export type Mutation = {
   createElementTypes: CreateElementTypesMutationResponse
   deleteElementTypes: DeleteInfo
   updateElementTypes: UpdateElementTypesMutationResponse
-  createRenderPropTypes: CreateRenderPropTypesMutationResponse
-  deleteRenderPropTypes: DeleteInfo
-  updateRenderPropTypes: UpdateRenderPropTypesMutationResponse
+  createRenderPropsTypes: CreateRenderPropsTypesMutationResponse
+  deleteRenderPropsTypes: DeleteInfo
+  updateRenderPropsTypes: UpdateRenderPropsTypesMutationResponse
   createReactNodeTypes: CreateReactNodeTypesMutationResponse
   deleteReactNodeTypes: DeleteInfo
   updateReactNodeTypes: UpdateReactNodeTypesMutationResponse
@@ -1130,23 +1130,23 @@ export type MutationUpdateElementTypesArgs = {
   connectOrCreate?: InputMaybe<ElementTypeConnectOrCreateInput>
 }
 
-export type MutationCreateRenderPropTypesArgs = {
-  input: Array<RenderPropTypeCreateInput>
+export type MutationCreateRenderPropsTypesArgs = {
+  input: Array<RenderPropsTypeCreateInput>
 }
 
-export type MutationDeleteRenderPropTypesArgs = {
-  where?: InputMaybe<RenderPropTypeWhere>
-  delete?: InputMaybe<RenderPropTypeDeleteInput>
+export type MutationDeleteRenderPropsTypesArgs = {
+  where?: InputMaybe<RenderPropsTypeWhere>
+  delete?: InputMaybe<RenderPropsTypeDeleteInput>
 }
 
-export type MutationUpdateRenderPropTypesArgs = {
-  where?: InputMaybe<RenderPropTypeWhere>
-  update?: InputMaybe<RenderPropTypeUpdateInput>
-  connect?: InputMaybe<RenderPropTypeConnectInput>
-  disconnect?: InputMaybe<RenderPropTypeDisconnectInput>
-  create?: InputMaybe<RenderPropTypeRelationInput>
-  delete?: InputMaybe<RenderPropTypeDeleteInput>
-  connectOrCreate?: InputMaybe<RenderPropTypeConnectOrCreateInput>
+export type MutationUpdateRenderPropsTypesArgs = {
+  where?: InputMaybe<RenderPropsTypeWhere>
+  update?: InputMaybe<RenderPropsTypeUpdateInput>
+  connect?: InputMaybe<RenderPropsTypeConnectInput>
+  disconnect?: InputMaybe<RenderPropsTypeDisconnectInput>
+  create?: InputMaybe<RenderPropsTypeRelationInput>
+  delete?: InputMaybe<RenderPropsTypeDeleteInput>
+  connectOrCreate?: InputMaybe<RenderPropsTypeConnectOrCreateInput>
 }
 
 export type MutationCreateReactNodeTypesArgs = {
@@ -1961,7 +1961,7 @@ export enum TypeKind {
   InterfaceType = 'InterfaceType',
   LambdaType = 'LambdaType',
   ElementType = 'ElementType',
-  RenderPropType = 'RenderPropType',
+  RenderPropsType = 'RenderPropsType',
   ReactNodeType = 'ReactNodeType',
   UnionType = 'UnionType',
   CodeMirrorType = 'CodeMirrorType',
@@ -1978,7 +1978,7 @@ export type AnyType =
   | UnionType
   | InterfaceType
   | ElementType
-  | RenderPropType
+  | RenderPropsType
   | ReactNodeType
   | EnumType
   | LambdaType
@@ -3767,10 +3767,10 @@ export type CreateReactNodeTypesMutationResponse = {
   reactNodeTypes: Array<ReactNodeType>
 }
 
-export type CreateRenderPropTypesMutationResponse = {
-  __typename?: 'CreateRenderPropTypesMutationResponse'
+export type CreateRenderPropsTypesMutationResponse = {
+  __typename?: 'CreateRenderPropsTypesMutationResponse'
   info: CreateInfo
-  renderPropTypes: Array<RenderPropType>
+  renderPropsTypes: Array<RenderPropsType>
 }
 
 export type CreateRenderTypesMutationResponse = {
@@ -4483,7 +4483,7 @@ export type ElementsConnection = {
  * Prop values for this type have the shape of TypedValue in order to
  * be distinguished from other element types.
  * Comparison between different element types:
- * - RenderPropType: Component select box, results it '(props) => ReactNode' value
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
  * - ReactNodeType: Component select box, results it 'ReactNode' value
  * - ElementType: Current tree element select box, results it 'ReactNode' value
  */
@@ -4505,7 +4505,7 @@ export type ElementType = IBaseType & {
  * Prop values for this type have the shape of TypedValue in order to
  * be distinguished from other element types.
  * Comparison between different element types:
- * - RenderPropType: Component select box, results it '(props) => ReactNode' value
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
  * - ReactNodeType: Component select box, results it 'ReactNode' value
  * - ElementType: Current tree element select box, results it 'ReactNode' value
  */
@@ -4521,7 +4521,7 @@ export type ElementTypeOwnerArgs = {
  * Prop values for this type have the shape of TypedValue in order to
  * be distinguished from other element types.
  * Comparison between different element types:
- * - RenderPropType: Component select box, results it '(props) => ReactNode' value
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
  * - ReactNodeType: Component select box, results it 'ReactNode' value
  * - ElementType: Current tree element select box, results it 'ReactNode' value
  */
@@ -4536,7 +4536,7 @@ export type ElementTypeOwnerAggregateArgs = {
  * Prop values for this type have the shape of TypedValue in order to
  * be distinguished from other element types.
  * Comparison between different element types:
- * - RenderPropType: Component select box, results it '(props) => ReactNode' value
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
  * - ReactNodeType: Component select box, results it 'ReactNode' value
  * - ElementType: Current tree element select box, results it 'ReactNode' value
  */
@@ -5957,7 +5957,7 @@ export type PropsConnection = {
  * Prop values for this type have the shape of TypedValue in order to
  * be distinguished from other element types.
  * Comparison between different element types:
- * - RenderPropType: Component select box, results it '(props) => ReactNode' value
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
  * - ReactNodeType: Component select box, results it 'ReactNode' value
  * - ElementType: Current tree element select box, results it 'ReactNode' value
  */
@@ -5977,7 +5977,7 @@ export type ReactNodeType = IBaseType & {
  * Prop values for this type have the shape of TypedValue in order to
  * be distinguished from other element types.
  * Comparison between different element types:
- * - RenderPropType: Component select box, results it '(props) => ReactNode' value
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
  * - ReactNodeType: Component select box, results it 'ReactNode' value
  * - ElementType: Current tree element select box, results it 'ReactNode' value
  */
@@ -5993,7 +5993,7 @@ export type ReactNodeTypeOwnerArgs = {
  * Prop values for this type have the shape of TypedValue in order to
  * be distinguished from other element types.
  * Comparison between different element types:
- * - RenderPropType: Component select box, results it '(props) => ReactNode' value
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
  * - ReactNodeType: Component select box, results it 'ReactNode' value
  * - ElementType: Current tree element select box, results it 'ReactNode' value
  */
@@ -6008,7 +6008,7 @@ export type ReactNodeTypeOwnerAggregateArgs = {
  * Prop values for this type have the shape of TypedValue in order to
  * be distinguished from other element types.
  * Comparison between different element types:
- * - RenderPropType: Component select box, results it '(props) => ReactNode' value
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
  * - ReactNodeType: Component select box, results it 'ReactNode' value
  * - ElementType: Current tree element select box, results it 'ReactNode' value
  */
@@ -6061,17 +6061,17 @@ export type ReactNodeTypeUserOwnerNodeAggregateSelection = {
  * Prop values for this type have the shape of TypedValue in order to
  * be distinguished from other element types.
  * Comparison between different element types:
- * - RenderPropType: Component select box, results it '(props) => ReactNode' value
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
  * - ReactNodeType: Component select box, results it 'ReactNode' value
  * - ElementType: Current tree element select box, results it 'ReactNode' value
  */
-export type RenderPropType = IBaseType & {
-  __typename?: 'RenderPropType'
+export type RenderPropsType = IBaseType & {
+  __typename?: 'RenderPropsType'
   id: Scalars['ID']
   name: Scalars['String']
   kind: TypeKind
   owner: User
-  ownerAggregate?: Maybe<RenderPropTypeUserOwnerAggregationSelection>
+  ownerAggregate?: Maybe<RenderPropsTypeUserOwnerAggregationSelection>
   ownerConnection: IBaseTypeOwnerConnection
 }
 
@@ -6082,11 +6082,11 @@ export type RenderPropType = IBaseType & {
  * Prop values for this type have the shape of TypedValue in order to
  * be distinguished from other element types.
  * Comparison between different element types:
- * - RenderPropType: Component select box, results it '(props) => ReactNode' value
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
  * - ReactNodeType: Component select box, results it 'ReactNode' value
  * - ElementType: Current tree element select box, results it 'ReactNode' value
  */
-export type RenderPropTypeOwnerArgs = {
+export type RenderPropsTypeOwnerArgs = {
   where?: InputMaybe<UserWhere>
   options?: InputMaybe<UserOptions>
   directed?: InputMaybe<Scalars['Boolean']>
@@ -6099,11 +6099,11 @@ export type RenderPropTypeOwnerArgs = {
  * Prop values for this type have the shape of TypedValue in order to
  * be distinguished from other element types.
  * Comparison between different element types:
- * - RenderPropType: Component select box, results it '(props) => ReactNode' value
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
  * - ReactNodeType: Component select box, results it 'ReactNode' value
  * - ElementType: Current tree element select box, results it 'ReactNode' value
  */
-export type RenderPropTypeOwnerAggregateArgs = {
+export type RenderPropsTypeOwnerAggregateArgs = {
   where?: InputMaybe<UserWhere>
   directed?: InputMaybe<Scalars['Boolean']>
 }
@@ -6115,11 +6115,11 @@ export type RenderPropTypeOwnerAggregateArgs = {
  * Prop values for this type have the shape of TypedValue in order to
  * be distinguished from other element types.
  * Comparison between different element types:
- * - RenderPropType: Component select box, results it '(props) => ReactNode' value
+ * - RenderPropsType: Component select box, results it '(props) => ReactNode' value
  * - ReactNodeType: Component select box, results it 'ReactNode' value
  * - ElementType: Current tree element select box, results it 'ReactNode' value
  */
-export type RenderPropTypeOwnerConnectionArgs = {
+export type RenderPropsTypeOwnerConnectionArgs = {
   where?: InputMaybe<IBaseTypeOwnerConnectionWhere>
   first?: InputMaybe<Scalars['Int']>
   after?: InputMaybe<Scalars['String']>
@@ -6127,34 +6127,34 @@ export type RenderPropTypeOwnerConnectionArgs = {
   sort?: InputMaybe<Array<IBaseTypeOwnerConnectionSort>>
 }
 
-export type RenderPropTypeAggregateSelection = {
-  __typename?: 'RenderPropTypeAggregateSelection'
+export type RenderPropsTypeAggregateSelection = {
+  __typename?: 'RenderPropsTypeAggregateSelection'
   count: Scalars['Int']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
 }
 
-export type RenderPropTypeEdge = {
-  __typename?: 'RenderPropTypeEdge'
+export type RenderPropsTypeEdge = {
+  __typename?: 'RenderPropsTypeEdge'
   cursor: Scalars['String']
-  node: RenderPropType
+  node: RenderPropsType
 }
 
-export type RenderPropTypesConnection = {
-  __typename?: 'RenderPropTypesConnection'
+export type RenderPropsTypesConnection = {
+  __typename?: 'RenderPropsTypesConnection'
   totalCount: Scalars['Int']
   pageInfo: PageInfo
-  edges: Array<RenderPropTypeEdge>
+  edges: Array<RenderPropsTypeEdge>
 }
 
-export type RenderPropTypeUserOwnerAggregationSelection = {
-  __typename?: 'RenderPropTypeUserOwnerAggregationSelection'
+export type RenderPropsTypeUserOwnerAggregationSelection = {
+  __typename?: 'RenderPropsTypeUserOwnerAggregationSelection'
   count: Scalars['Int']
-  node?: Maybe<RenderPropTypeUserOwnerNodeAggregateSelection>
+  node?: Maybe<RenderPropsTypeUserOwnerNodeAggregateSelection>
 }
 
-export type RenderPropTypeUserOwnerNodeAggregateSelection = {
-  __typename?: 'RenderPropTypeUserOwnerNodeAggregateSelection'
+export type RenderPropsTypeUserOwnerNodeAggregateSelection = {
+  __typename?: 'RenderPropsTypeUserOwnerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   auth0Id: StringAggregateSelectionNonNullable
   email: StringAggregateSelectionNonNullable
@@ -6943,10 +6943,10 @@ export type UpdateReactNodeTypesMutationResponse = {
   reactNodeTypes: Array<ReactNodeType>
 }
 
-export type UpdateRenderPropTypesMutationResponse = {
-  __typename?: 'UpdateRenderPropTypesMutationResponse'
+export type UpdateRenderPropsTypesMutationResponse = {
+  __typename?: 'UpdateRenderPropsTypesMutationResponse'
   info: UpdateInfo
-  renderPropTypes: Array<RenderPropType>
+  renderPropsTypes: Array<RenderPropsType>
 }
 
 export type UpdateRenderTypesMutationResponse = {
@@ -7698,7 +7698,7 @@ export type AnyTypeWhere = {
   UnionType?: InputMaybe<UnionTypeWhere>
   InterfaceType?: InputMaybe<InterfaceTypeWhere>
   ElementType?: InputMaybe<ElementTypeWhere>
-  RenderPropType?: InputMaybe<RenderPropTypeWhere>
+  RenderPropsType?: InputMaybe<RenderPropsTypeWhere>
   ReactNodeType?: InputMaybe<ReactNodeTypeWhere>
   EnumType?: InputMaybe<EnumTypeWhere>
   LambdaType?: InputMaybe<LambdaTypeWhere>
@@ -21528,7 +21528,7 @@ export type IBaseTypeCreateInput = {
   UnionType?: InputMaybe<UnionTypeCreateInput>
   InterfaceType?: InputMaybe<InterfaceTypeCreateInput>
   ElementType?: InputMaybe<ElementTypeCreateInput>
-  RenderPropType?: InputMaybe<RenderPropTypeCreateInput>
+  RenderPropsType?: InputMaybe<RenderPropsTypeCreateInput>
   ReactNodeType?: InputMaybe<ReactNodeTypeCreateInput>
   EnumType?: InputMaybe<EnumTypeCreateInput>
   LambdaType?: InputMaybe<LambdaTypeCreateInput>
@@ -21555,7 +21555,7 @@ export type IBaseTypeImplementationsConnectInput = {
   UnionType?: InputMaybe<Array<UnionTypeConnectInput>>
   InterfaceType?: InputMaybe<Array<InterfaceTypeConnectInput>>
   ElementType?: InputMaybe<Array<ElementTypeConnectInput>>
-  RenderPropType?: InputMaybe<Array<RenderPropTypeConnectInput>>
+  RenderPropsType?: InputMaybe<Array<RenderPropsTypeConnectInput>>
   ReactNodeType?: InputMaybe<Array<ReactNodeTypeConnectInput>>
   EnumType?: InputMaybe<Array<EnumTypeConnectInput>>
   LambdaType?: InputMaybe<Array<LambdaTypeConnectInput>>
@@ -21572,7 +21572,7 @@ export type IBaseTypeImplementationsDeleteInput = {
   UnionType?: InputMaybe<Array<UnionTypeDeleteInput>>
   InterfaceType?: InputMaybe<Array<InterfaceTypeDeleteInput>>
   ElementType?: InputMaybe<Array<ElementTypeDeleteInput>>
-  RenderPropType?: InputMaybe<Array<RenderPropTypeDeleteInput>>
+  RenderPropsType?: InputMaybe<Array<RenderPropsTypeDeleteInput>>
   ReactNodeType?: InputMaybe<Array<ReactNodeTypeDeleteInput>>
   EnumType?: InputMaybe<Array<EnumTypeDeleteInput>>
   LambdaType?: InputMaybe<Array<LambdaTypeDeleteInput>>
@@ -21589,7 +21589,7 @@ export type IBaseTypeImplementationsDisconnectInput = {
   UnionType?: InputMaybe<Array<UnionTypeDisconnectInput>>
   InterfaceType?: InputMaybe<Array<InterfaceTypeDisconnectInput>>
   ElementType?: InputMaybe<Array<ElementTypeDisconnectInput>>
-  RenderPropType?: InputMaybe<Array<RenderPropTypeDisconnectInput>>
+  RenderPropsType?: InputMaybe<Array<RenderPropsTypeDisconnectInput>>
   ReactNodeType?: InputMaybe<Array<ReactNodeTypeDisconnectInput>>
   EnumType?: InputMaybe<Array<EnumTypeDisconnectInput>>
   LambdaType?: InputMaybe<Array<LambdaTypeDisconnectInput>>
@@ -21606,7 +21606,7 @@ export type IBaseTypeImplementationsUpdateInput = {
   UnionType?: InputMaybe<UnionTypeUpdateInput>
   InterfaceType?: InputMaybe<InterfaceTypeUpdateInput>
   ElementType?: InputMaybe<ElementTypeUpdateInput>
-  RenderPropType?: InputMaybe<RenderPropTypeUpdateInput>
+  RenderPropsType?: InputMaybe<RenderPropsTypeUpdateInput>
   ReactNodeType?: InputMaybe<ReactNodeTypeUpdateInput>
   EnumType?: InputMaybe<EnumTypeUpdateInput>
   LambdaType?: InputMaybe<LambdaTypeUpdateInput>
@@ -21623,7 +21623,7 @@ export type IBaseTypeImplementationsWhere = {
   UnionType?: InputMaybe<UnionTypeWhere>
   InterfaceType?: InputMaybe<InterfaceTypeWhere>
   ElementType?: InputMaybe<ElementTypeWhere>
-  RenderPropType?: InputMaybe<RenderPropTypeWhere>
+  RenderPropsType?: InputMaybe<RenderPropsTypeWhere>
   ReactNodeType?: InputMaybe<ReactNodeTypeWhere>
   EnumType?: InputMaybe<EnumTypeWhere>
   LambdaType?: InputMaybe<LambdaTypeWhere>
@@ -25786,66 +25786,66 @@ export type ReactNodeTypeWhere = {
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
 }
 
-export type RenderPropTypeConnectInput = {
+export type RenderPropsTypeConnectInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectFieldInput>
 }
 
-export type RenderPropTypeConnectOrCreateInput = {
+export type RenderPropsTypeConnectOrCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
 }
 
-export type RenderPropTypeConnectOrCreateWhere = {
-  node: RenderPropTypeUniqueWhere
+export type RenderPropsTypeConnectOrCreateWhere = {
+  node: RenderPropsTypeUniqueWhere
 }
 
-export type RenderPropTypeConnectWhere = {
-  node: RenderPropTypeWhere
+export type RenderPropsTypeConnectWhere = {
+  node: RenderPropsTypeWhere
 }
 
-export type RenderPropTypeCreateInput = {
+export type RenderPropsTypeCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
   kind?: TypeKind
   owner?: InputMaybe<IBaseTypeOwnerFieldInput>
 }
 
-export type RenderPropTypeDeleteInput = {
+export type RenderPropsTypeDeleteInput = {
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
 }
 
-export type RenderPropTypeDisconnectInput = {
+export type RenderPropsTypeDisconnectInput = {
   owner?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
 }
 
-export type RenderPropTypeOnCreateInput = {
+export type RenderPropsTypeOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
   kind?: TypeKind
 }
 
-export type RenderPropTypeOptions = {
-  /** Specify one or more RenderPropTypeSort objects to sort RenderPropTypes by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<RenderPropTypeSort>>
+export type RenderPropsTypeOptions = {
+  /** Specify one or more RenderPropsTypeSort objects to sort RenderPropsTypes by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<RenderPropsTypeSort>>
   limit?: InputMaybe<Scalars['Int']>
   offset?: InputMaybe<Scalars['Int']>
 }
 
-export type RenderPropTypeOwnerAggregateInput = {
+export type RenderPropsTypeOwnerAggregateInput = {
   count?: InputMaybe<Scalars['Int']>
   count_LT?: InputMaybe<Scalars['Int']>
   count_LTE?: InputMaybe<Scalars['Int']>
   count_GT?: InputMaybe<Scalars['Int']>
   count_GTE?: InputMaybe<Scalars['Int']>
-  AND?: InputMaybe<Array<RenderPropTypeOwnerAggregateInput>>
-  OR?: InputMaybe<Array<RenderPropTypeOwnerAggregateInput>>
-  NOT?: InputMaybe<RenderPropTypeOwnerAggregateInput>
-  node?: InputMaybe<RenderPropTypeOwnerNodeAggregationWhereInput>
+  AND?: InputMaybe<Array<RenderPropsTypeOwnerAggregateInput>>
+  OR?: InputMaybe<Array<RenderPropsTypeOwnerAggregateInput>>
+  NOT?: InputMaybe<RenderPropsTypeOwnerAggregateInput>
+  node?: InputMaybe<RenderPropsTypeOwnerNodeAggregationWhereInput>
 }
 
-export type RenderPropTypeOwnerNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<RenderPropTypeOwnerNodeAggregationWhereInput>>
-  OR?: InputMaybe<Array<RenderPropTypeOwnerNodeAggregationWhereInput>>
-  NOT?: InputMaybe<RenderPropTypeOwnerNodeAggregationWhereInput>
+export type RenderPropsTypeOwnerNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<RenderPropsTypeOwnerNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<RenderPropsTypeOwnerNodeAggregationWhereInput>>
+  NOT?: InputMaybe<RenderPropsTypeOwnerNodeAggregationWhereInput>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
@@ -26015,32 +26015,32 @@ export type RenderPropTypeOwnerNodeAggregationWhereInput = {
   username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
-export type RenderPropTypeRelationInput = {
+export type RenderPropsTypeRelationInput = {
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
 }
 
-/** Fields to sort RenderPropTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RenderPropTypeSort object. */
-export type RenderPropTypeSort = {
+/** Fields to sort RenderPropsTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RenderPropsTypeSort object. */
+export type RenderPropsTypeSort = {
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
   kind?: InputMaybe<SortDirection>
 }
 
-export type RenderPropTypeUniqueWhere = {
+export type RenderPropsTypeUniqueWhere = {
   id?: InputMaybe<Scalars['ID']>
 }
 
-export type RenderPropTypeUpdateInput = {
+export type RenderPropsTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   kind?: InputMaybe<TypeKind>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
 }
 
-export type RenderPropTypeWhere = {
-  OR?: InputMaybe<Array<RenderPropTypeWhere>>
-  AND?: InputMaybe<Array<RenderPropTypeWhere>>
-  NOT?: InputMaybe<RenderPropTypeWhere>
+export type RenderPropsTypeWhere = {
+  OR?: InputMaybe<Array<RenderPropsTypeWhere>>
+  AND?: InputMaybe<Array<RenderPropsTypeWhere>>
+  NOT?: InputMaybe<RenderPropsTypeWhere>
   id?: InputMaybe<Scalars['ID']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   id_NOT?: InputMaybe<Scalars['ID']>
@@ -26081,7 +26081,7 @@ export type RenderPropTypeWhere = {
   kind_NOT_IN?: InputMaybe<Array<TypeKind>>
   owner?: InputMaybe<UserWhere>
   owner_NOT?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<RenderPropTypeOwnerAggregateInput>
+  ownerAggregate?: InputMaybe<RenderPropsTypeOwnerAggregateInput>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
 }
@@ -28544,8 +28544,8 @@ export type UnionTypeTypesOfUnionTypeConnectInput = {
   ElementType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput>
   >
-  RenderPropType?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput>
+  RenderPropsType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectFieldInput>
   >
   ReactNodeType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeReactNodeTypeConnectFieldInput>
@@ -28574,7 +28574,7 @@ export type UnionTypeTypesOfUnionTypeConnectionWhere = {
   UnionType?: InputMaybe<UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere>
   InterfaceType?: InputMaybe<UnionTypeTypesOfUnionTypeInterfaceTypeConnectionWhere>
   ElementType?: InputMaybe<UnionTypeTypesOfUnionTypeElementTypeConnectionWhere>
-  RenderPropType?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere>
+  RenderPropsType?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere>
   ReactNodeType?: InputMaybe<UnionTypeTypesOfUnionTypeReactNodeTypeConnectionWhere>
   EnumType?: InputMaybe<UnionTypeTypesOfUnionTypeEnumTypeConnectionWhere>
   LambdaType?: InputMaybe<UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere>
@@ -28600,8 +28600,8 @@ export type UnionTypeTypesOfUnionTypeConnectOrCreateInput = {
   ElementType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInput>
   >
-  RenderPropType?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInput>
+  RenderPropsType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectOrCreateFieldInput>
   >
   ReactNodeType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeReactNodeTypeConnectOrCreateFieldInput>
@@ -28642,8 +28642,8 @@ export type UnionTypeTypesOfUnionTypeCreateFieldInput = {
   ElementType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeElementTypeCreateFieldInput>
   >
-  RenderPropType?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeRenderPropTypeCreateFieldInput>
+  RenderPropsType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRenderPropsTypeCreateFieldInput>
   >
   ReactNodeType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeReactNodeTypeCreateFieldInput>
@@ -28672,7 +28672,7 @@ export type UnionTypeTypesOfUnionTypeCreateInput = {
   UnionType?: InputMaybe<UnionTypeTypesOfUnionTypeUnionTypeFieldInput>
   InterfaceType?: InputMaybe<UnionTypeTypesOfUnionTypeInterfaceTypeFieldInput>
   ElementType?: InputMaybe<UnionTypeTypesOfUnionTypeElementTypeFieldInput>
-  RenderPropType?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropTypeFieldInput>
+  RenderPropsType?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropsTypeFieldInput>
   ReactNodeType?: InputMaybe<UnionTypeTypesOfUnionTypeReactNodeTypeFieldInput>
   EnumType?: InputMaybe<UnionTypeTypesOfUnionTypeEnumTypeFieldInput>
   LambdaType?: InputMaybe<UnionTypeTypesOfUnionTypeLambdaTypeFieldInput>
@@ -28698,8 +28698,8 @@ export type UnionTypeTypesOfUnionTypeDeleteInput = {
   ElementType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeElementTypeDeleteFieldInput>
   >
-  RenderPropType?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeRenderPropTypeDeleteFieldInput>
+  RenderPropsType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRenderPropsTypeDeleteFieldInput>
   >
   ReactNodeType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeReactNodeTypeDeleteFieldInput>
@@ -28738,8 +28738,8 @@ export type UnionTypeTypesOfUnionTypeDisconnectInput = {
   ElementType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeElementTypeDisconnectFieldInput>
   >
-  RenderPropType?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeRenderPropTypeDisconnectFieldInput>
+  RenderPropsType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRenderPropsTypeDisconnectFieldInput>
   >
   ReactNodeType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeReactNodeTypeDisconnectFieldInput>
@@ -29270,79 +29270,82 @@ export type UnionTypeTypesOfUnionTypeReactNodeTypeUpdateFieldInput = {
   >
 }
 
-export type UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput = {
-  where?: InputMaybe<RenderPropTypeConnectWhere>
-  connect?: InputMaybe<Array<RenderPropTypeConnectInput>>
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeConnectFieldInput = {
+  where?: InputMaybe<RenderPropsTypeConnectWhere>
+  connect?: InputMaybe<Array<RenderPropsTypeConnectInput>>
 }
 
-export type UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere = {
-  OR?: InputMaybe<Array<UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere>>
-  AND?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere>
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere = {
+  OR?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere>
   >
-  NOT?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere>
-  node?: InputMaybe<RenderPropTypeWhere>
+  AND?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere>
+  >
+  NOT?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere>
+  node?: InputMaybe<RenderPropsTypeWhere>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  node_NOT?: InputMaybe<RenderPropTypeWhere>
+  node_NOT?: InputMaybe<RenderPropsTypeWhere>
 }
 
-export type UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInput = {
-  where: RenderPropTypeConnectOrCreateWhere
-  onCreate: UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInputOnCreate
-}
-
-export type UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInputOnCreate =
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeConnectOrCreateFieldInput =
   {
-    node: RenderPropTypeOnCreateInput
+    where: RenderPropsTypeConnectOrCreateWhere
+    onCreate: UnionTypeTypesOfUnionTypeRenderPropsTypeConnectOrCreateFieldInputOnCreate
   }
 
-export type UnionTypeTypesOfUnionTypeRenderPropTypeCreateFieldInput = {
-  node: RenderPropTypeCreateInput
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeConnectOrCreateFieldInputOnCreate =
+  {
+    node: RenderPropsTypeOnCreateInput
+  }
+
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeCreateFieldInput = {
+  node: RenderPropsTypeCreateInput
 }
 
-export type UnionTypeTypesOfUnionTypeRenderPropTypeDeleteFieldInput = {
-  where?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere>
-  delete?: InputMaybe<RenderPropTypeDeleteInput>
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeDeleteFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere>
+  delete?: InputMaybe<RenderPropsTypeDeleteInput>
 }
 
-export type UnionTypeTypesOfUnionTypeRenderPropTypeDisconnectFieldInput = {
-  where?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere>
-  disconnect?: InputMaybe<RenderPropTypeDisconnectInput>
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeDisconnectFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere>
+  disconnect?: InputMaybe<RenderPropsTypeDisconnectInput>
 }
 
-export type UnionTypeTypesOfUnionTypeRenderPropTypeFieldInput = {
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeFieldInput = {
   create?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeRenderPropTypeCreateFieldInput>
+    Array<UnionTypeTypesOfUnionTypeRenderPropsTypeCreateFieldInput>
   >
   connect?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput>
+    Array<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectFieldInput>
   >
   connectOrCreate?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInput>
+    Array<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectOrCreateFieldInput>
   >
 }
 
-export type UnionTypeTypesOfUnionTypeRenderPropTypeUpdateConnectionInput = {
-  node?: InputMaybe<RenderPropTypeUpdateInput>
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeUpdateConnectionInput = {
+  node?: InputMaybe<RenderPropsTypeUpdateInput>
 }
 
-export type UnionTypeTypesOfUnionTypeRenderPropTypeUpdateFieldInput = {
-  where?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere>
-  update?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropTypeUpdateConnectionInput>
+export type UnionTypeTypesOfUnionTypeRenderPropsTypeUpdateFieldInput = {
+  where?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere>
+  update?: InputMaybe<UnionTypeTypesOfUnionTypeRenderPropsTypeUpdateConnectionInput>
   connect?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput>
+    Array<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectFieldInput>
   >
   disconnect?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeRenderPropTypeDisconnectFieldInput>
+    Array<UnionTypeTypesOfUnionTypeRenderPropsTypeDisconnectFieldInput>
   >
   create?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeRenderPropTypeCreateFieldInput>
+    Array<UnionTypeTypesOfUnionTypeRenderPropsTypeCreateFieldInput>
   >
   delete?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeRenderPropTypeDeleteFieldInput>
+    Array<UnionTypeTypesOfUnionTypeRenderPropsTypeDeleteFieldInput>
   >
   connectOrCreate?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInput>
+    Array<UnionTypeTypesOfUnionTypeRenderPropsTypeConnectOrCreateFieldInput>
   >
 }
 
@@ -29430,8 +29433,8 @@ export type UnionTypeTypesOfUnionTypeUpdateInput = {
   ElementType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeElementTypeUpdateFieldInput>
   >
-  RenderPropType?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeRenderPropTypeUpdateFieldInput>
+  RenderPropsType?: InputMaybe<
+    Array<UnionTypeTypesOfUnionTypeRenderPropsTypeUpdateFieldInput>
   >
   ReactNodeType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeReactNodeTypeUpdateFieldInput>
@@ -32047,54 +32050,54 @@ export interface IntAggregateInputNonNullable {
   average?: boolean
   sum?: boolean
 }
-export interface RenderPropTypeAggregateSelectionInput {
+export interface RenderPropsTypeAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
   name?: StringAggregateInputNonNullable
 }
 
-export declare class RenderPropTypeModel {
+export declare class RenderPropsTypeModel {
   public find(args?: {
-    where?: RenderPropTypeWhere
+    where?: RenderPropsTypeWhere
 
-    options?: RenderPropTypeOptions
+    options?: RenderPropsTypeOptions
     selectionSet?: string | DocumentNode | SelectionSetNode
     args?: any
     context?: any
     rootValue?: any
-  }): Promise<RenderPropType[]>
+  }): Promise<RenderPropsType[]>
   public create(args: {
-    input: RenderPropTypeCreateInput[]
+    input: RenderPropsTypeCreateInput[]
     selectionSet?: string | DocumentNode | SelectionSetNode
     args?: any
     context?: any
     rootValue?: any
-  }): Promise<CreateRenderPropTypesMutationResponse>
+  }): Promise<CreateRenderPropsTypesMutationResponse>
   public update(args: {
-    where?: RenderPropTypeWhere
-    update?: RenderPropTypeUpdateInput
-    connect?: RenderPropTypeConnectInput
-    disconnect?: RenderPropTypeDisconnectInput
-    create?: RenderPropTypeCreateInput
-    connectOrCreate?: RenderPropTypeConnectOrCreateInput
+    where?: RenderPropsTypeWhere
+    update?: RenderPropsTypeUpdateInput
+    connect?: RenderPropsTypeConnectInput
+    disconnect?: RenderPropsTypeDisconnectInput
+    create?: RenderPropsTypeCreateInput
+    connectOrCreate?: RenderPropsTypeConnectOrCreateInput
     selectionSet?: string | DocumentNode | SelectionSetNode
     args?: any
     context?: any
     rootValue?: any
-  }): Promise<UpdateRenderPropTypesMutationResponse>
+  }): Promise<UpdateRenderPropsTypesMutationResponse>
   public delete(args: {
-    where?: RenderPropTypeWhere
-    delete?: RenderPropTypeDeleteInput
+    where?: RenderPropsTypeWhere
+    delete?: RenderPropsTypeDeleteInput
     context?: any
     rootValue?: any
   }): Promise<{ nodesDeleted: number; relationshipsDeleted: number }>
   public aggregate(args: {
-    where?: RenderPropTypeWhere
+    where?: RenderPropsTypeWhere
 
-    aggregate: RenderPropTypeAggregateSelectionInput
+    aggregate: RenderPropsTypeAggregateSelectionInput
     context?: any
     rootValue?: any
-  }): Promise<RenderPropTypeAggregateSelection>
+  }): Promise<RenderPropsTypeAggregateSelection>
 }
 
 export interface IdAggregateInputNonNullable {
@@ -33595,7 +33598,7 @@ export interface ModelMap {
   UnionType: UnionTypeModel
   InterfaceType: InterfaceTypeModel
   ElementType: ElementTypeModel
-  RenderPropType: RenderPropTypeModel
+  RenderPropsType: RenderPropsTypeModel
   ReactNodeType: ReactNodeTypeModel
   EnumType: EnumTypeModel
   EnumTypeValue: EnumTypeValueModel

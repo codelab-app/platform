@@ -56,7 +56,7 @@ query GetRenderedPageAndCommonAppData(
   elementTypes(where: { id_IN: $typeIds }) {
     ...Type
   }
-  renderPropTypes(where: { id_IN: $typeIds }) {
+  renderPropsTypes(where: { id_IN: $typeIds }) {
     ...Type
   }
   reactNodeTypes(where: { id_IN: $typeIds }) {

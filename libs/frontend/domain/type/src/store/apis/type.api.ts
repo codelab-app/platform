@@ -62,9 +62,9 @@ export const createTypeApi: CreateTypesRecord = {
         input: input as ArrayOrSingle<ElementTypeCreateInput>,
       })
       .then(({ types }) => types.types),
-  [ITypeKind.RenderPropType]: (input) =>
+  [ITypeKind.RenderPropsType]: (input) =>
     _createApi
-      .CreateRenderPropTypes({ input })
+      .CreateRenderPropsTypes({ input })
       .then(({ types }) => types.types),
   [ITypeKind.ReactNodeType]: (input) =>
     _createApi
@@ -101,7 +101,7 @@ export const getAllTypes = async (
     pageTypes,
     primitiveTypes,
     reactNodeTypes,
-    renderPropTypes,
+    renderPropsTypes,
     unionTypes,
   } = await getTypeApi.GetTypes({ ids })
 
@@ -111,7 +111,7 @@ export const getAllTypes = async (
     ...unionTypes,
     ...interfaceTypes,
     ...elementTypes,
-    ...renderPropTypes,
+    ...renderPropsTypes,
     ...reactNodeTypes,
     ...enumTypes,
     ...lambdaTypes,
@@ -149,8 +149,8 @@ export const updateTypeApi: UpdateTypesRecord = {
     _updateApi.UpdateLambdaTypes(vars).then(({ types }) => types.types),
   [ITypeKind.ElementType]: (vars) =>
     _updateApi.UpdateElementTypes(vars).then(({ types }) => types.types),
-  [ITypeKind.RenderPropType]: (vars) =>
-    _updateApi.UpdateRenderPropTypes(vars).then(({ types }) => types.types),
+  [ITypeKind.RenderPropsType]: (vars) =>
+    _updateApi.UpdateRenderPropsTypes(vars).then(({ types }) => types.types),
   [ITypeKind.ReactNodeType]: (vars) =>
     _updateApi.UpdateReactNodeTypes(vars).then(({ types }) => types.types),
   [ITypeKind.UnionType]: (vars) =>
@@ -202,10 +202,10 @@ export const deleteTypeApi: DeleteTypesRecord = {
     _deleteApi
       .DeleteElementTypes(vars)
       .then((results) => results.deleteElementTypes),
-  [ITypeKind.RenderPropType]: (vars) =>
+  [ITypeKind.RenderPropsType]: (vars) =>
     _deleteApi
-      .DeleteRenderPropTypes(vars)
-      .then((results) => results.deleteRenderPropTypes),
+      .DeleteRenderPropsTypes(vars)
+      .then((results) => results.deleteRenderPropsTypes),
   [ITypeKind.ReactNodeType]: (vars) =>
     _deleteApi
       .DeleteReactNodeTypes(vars)

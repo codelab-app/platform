@@ -13,17 +13,17 @@ import {
   BaseType_PageType_Fragment,
   BaseType_PrimitiveType_Fragment,
   BaseType_ReactNodeType_Fragment,
-  BaseType_RenderPropType_Fragment,
+  BaseType_RenderPropsType_Fragment,
   BaseType_UnionType_Fragment,
 } from './base-type.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
 import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
-export type RenderPropTypeFragment = BaseType_RenderPropType_Fragment
+export type RenderPropsTypeFragment = BaseType_RenderPropsType_Fragment
 
-export const RenderPropTypeFragmentDoc = gql`
-  fragment RenderPropType on RenderPropType {
+export const RenderPropsTypeFragmentDoc = gql`
+  fragment RenderPropsType on RenderPropsType {
     ...BaseType
   }
   ${BaseTypeFragmentDoc}

@@ -21,7 +21,7 @@ import { getRootElement } from '../utils/getRootElement'
  * Transforms props from the following format:
  * {
  *   [$propName]: {
- *     type: '<id of a type with kind RenderPropType>',
+ *     type: '<id of a type with kind RenderPropsType>',
  *     value: '$componentId'
  *   }
  * }
@@ -31,13 +31,13 @@ import { getRootElement } from '../utils/getRootElement'
  *   [$propName]: <(...args) => ReactNode - A function that renders the component with id: $componentId>
  * }
  */
-@model('@codelab/RenderPropTypedValueTransformer')
-export class RenderPropTypedValueTransformer
+@model('@codelab/RenderPropsTypedValueTransformer')
+export class RenderPropsTypedValueTransformer
   extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedValueTransformer
 {
   canHandleTypeKind(typeKind: ITypeKind): boolean {
-    return typeKind === ITypeKind.RenderPropType
+    return typeKind === ITypeKind.RenderPropsType
   }
 
   canHandleValue(value: TypedValue<unknown>): boolean {

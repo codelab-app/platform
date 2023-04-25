@@ -18,7 +18,7 @@ export const typeSchema = gql`
     InterfaceType
     LambdaType
     ElementType
-    RenderPropType
+    RenderPropsType
     ReactNodeType
     UnionType
     CodeMirrorType
@@ -210,7 +210,7 @@ export const typeSchema = gql`
   Prop values for this type have the shape of TypedValue in order to
   be distinguished from other element types.
   Comparison between different element types:
-  - RenderPropType: Component select box, results it '(props) => ReactNode' value
+  - RenderPropsType: Component select box, results it '(props) => ReactNode' value
   - ReactNodeType: Component select box, results it 'ReactNode' value
   - ElementType: Current tree element select box, results it 'ReactNode' value
   """
@@ -232,13 +232,13 @@ export const typeSchema = gql`
   Prop values for this type have the shape of TypedValue in order to
   be distinguished from other element types.
   Comparison between different element types:
-  - RenderPropType: Component select box, results it '(props) => ReactNode' value
+  - RenderPropsType: Component select box, results it '(props) => ReactNode' value
   - ReactNodeType: Component select box, results it 'ReactNode' value
   - ElementType: Current tree element select box, results it 'ReactNode' value
   """
-  type RenderPropType implements IBaseType @node(labels: ["Type", "RenderPropType"]) {
+  type RenderPropsType implements IBaseType @node(labels: ["Type", "RenderPropsType"]) {
     id: ID!
-    kind: TypeKind! @default(value: RenderPropType)
+    kind: TypeKind! @default(value: RenderPropsType)
     name: String!
     owner: User!
   }
@@ -249,7 +249,7 @@ export const typeSchema = gql`
   Prop values for this type have the shape of TypedValue in order to
   be distinguished from other element types.
   Comparison between different element types:
-  - RenderPropType: Component select box, results it '(props) => ReactNode' value
+  - RenderPropsType: Component select box, results it '(props) => ReactNode' value
   - ReactNodeType: Component select box, results it 'ReactNode' value
   - ElementType: Current tree element select box, results it 'ReactNode' value
   """
@@ -354,7 +354,7 @@ export const typeSchema = gql`
     UnionType |
     InterfaceType |
     ElementType |
-    RenderPropType |
+    RenderPropsType |
     ReactNodeType |
     EnumType |
     LambdaType |

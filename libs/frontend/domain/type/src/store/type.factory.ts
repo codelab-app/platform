@@ -21,7 +21,7 @@ import {
   PageType,
   PrimitiveType,
   ReactNodeType,
-  RenderPropType,
+  RenderPropsType,
   UnionType,
 } from './models'
 
@@ -55,8 +55,8 @@ export class TypeFactory {
       case ITypeKind.ReactNodeType:
         return ReactNodeType.create(typeDTO)
 
-      case ITypeKind.RenderPropType:
-        return RenderPropType.create(typeDTO)
+      case ITypeKind.RenderPropsType:
+        return RenderPropsType.create(typeDTO)
 
       case ITypeKind.ArrayType:
         return ArrayType.create(typeDTO)
@@ -119,8 +119,8 @@ export class TypeFactory {
 
         return model
 
-      case ITypeKind.RenderPropType:
-        model.kind === ITypeKind.RenderPropType && model.writeCache(typeDTO)
+      case ITypeKind.RenderPropsType:
+        model.kind === ITypeKind.RenderPropsType && model.writeCache(typeDTO)
 
         return model
 

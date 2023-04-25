@@ -20,7 +20,7 @@ import {
   Type_PageType_Fragment,
   Type_PrimitiveType_Fragment,
   Type_ReactNodeType_Fragment,
-  Type_RenderPropType_Fragment,
+  Type_RenderPropsType_Fragment,
   Type_UnionType_Fragment,
 } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
@@ -80,7 +80,7 @@ export type GetRenderedPageAndCommonAppDataQuery = {
   unionTypes: Array<Type_UnionType_Fragment>
   interfaceTypes: Array<Type_InterfaceType_Fragment>
   elementTypes: Array<Type_ElementType_Fragment>
-  renderPropTypes: Array<Type_RenderPropType_Fragment>
+  renderPropsTypes: Array<Type_RenderPropsType_Fragment>
   reactNodeTypes: Array<Type_ReactNodeType_Fragment>
   enumTypes: Array<Type_EnumType_Fragment>
   lambdaTypes: Array<Type_LambdaType_Fragment>
@@ -159,7 +159,7 @@ export const GetRenderedPageAndCommonAppDataDocument = gql`
     elementTypes(where: { id_IN: $typeIds }) {
       ...Type
     }
-    renderPropTypes(where: { id_IN: $typeIds }) {
+    renderPropsTypes(where: { id_IN: $typeIds }) {
       ...Type
     }
     reactNodeTypes(where: { id_IN: $typeIds }) {

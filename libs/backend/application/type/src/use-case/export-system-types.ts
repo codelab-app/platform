@@ -3,7 +3,7 @@ import {
   exportActionTypeSelectionSet,
   exportPrimitiveTypeSelectionSet,
   exportReactNodeTypeSelectionSet,
-  exportRenderPropTypeSelectionSet,
+  exportRenderPropsTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
@@ -40,14 +40,14 @@ export const exportSystemTypes = async (): Promise<ITypesExport> => {
   /**
    * Render Props Type
    */
-  const RenderPropType = await Repository.instance.RenderPropType
+  const RenderPropsType = await Repository.instance.RenderPropsType
 
   // Only 1 here
-  const renderPropTypes = await RenderPropType.find({
+  const renderPropsTypes = await RenderPropsType.find({
     options: {
       sort: [{ name: OGM_TYPES.SortDirection.Asc }],
     },
-    selectionSet: exportRenderPropTypeSelectionSet,
+    selectionSet: exportRenderPropsTypeSelectionSet,
   })
 
   /**
@@ -71,7 +71,7 @@ export const exportSystemTypes = async (): Promise<ITypesExport> => {
     fields: [],
     types: [
       ...primitiveTypes,
-      ...renderPropTypes,
+      ...renderPropsTypes,
       ...reactNodeTypes,
       ...actionTypes,
     ],

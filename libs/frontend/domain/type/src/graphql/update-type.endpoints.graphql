@@ -129,15 +129,15 @@ mutation UpdateElementTypes(
   }
 }
 
-mutation UpdateRenderPropTypes(
-  $connect: RenderPropTypeConnectInput
-  $create: RenderPropTypeRelationInput
-  $delete: RenderPropTypeDeleteInput
-  $disconnect: RenderPropTypeDisconnectInput
-  $update: RenderPropTypeUpdateInput
-  $where: RenderPropTypeWhere
+mutation UpdateRenderPropsTypes(
+  $connect: RenderPropsTypeConnectInput
+  $create: RenderPropsTypeRelationInput
+  $delete: RenderPropsTypeDeleteInput
+  $disconnect: RenderPropsTypeDisconnectInput
+  $update: RenderPropsTypeUpdateInput
+  $where: RenderPropsTypeWhere
 ) {
-  types: updateRenderPropTypes(
+  types: updateRenderPropsTypes(
     connect: $connect
     create: $create
     delete: $delete
@@ -145,7 +145,7 @@ mutation UpdateRenderPropTypes(
     update: $update
     where: $where
   ) {
-    types: renderPropTypes {
+    types: renderPropsTypes {
       id
     }
   }

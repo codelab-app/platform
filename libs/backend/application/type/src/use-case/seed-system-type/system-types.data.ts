@@ -74,11 +74,11 @@ export const systemTypesData = (owner: IAuth0Owner) => ({
     name: ITypeKind.ReactNodeType,
     owner,
   } as const,
-  [ITypeKind.RenderPropType]: {
-    __typename: `${ITypeKind.RenderPropType}`,
+  [ITypeKind.RenderPropsType]: {
+    __typename: `${ITypeKind.RenderPropsType}`,
     id: v4(),
-    kind: ITypeKind.RenderPropType,
-    name: ITypeKind.RenderPropType,
+    kind: ITypeKind.RenderPropsType,
+    name: ITypeKind.RenderPropsType,
     owner,
   } as const,
   [ITypeKind.ActionType]: {

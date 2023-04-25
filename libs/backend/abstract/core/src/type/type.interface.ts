@@ -12,7 +12,7 @@ export type ITypeWhere =
   | OGM_TYPES.InterfaceTypeWhere
   | OGM_TYPES.PrimitiveTypeWhere
   | OGM_TYPES.ReactNodeTypeWhere
-  | OGM_TYPES.RenderPropTypeWhere
+  | OGM_TYPES.RenderPropsTypeWhere
   | OGM_TYPES.UnionTypeWhere
 
 export type IType =
@@ -22,7 +22,7 @@ export type IType =
   | OGM_TYPES.InterfaceType
   | OGM_TYPES.PrimitiveType
   | OGM_TYPES.ReactNodeType
-  | OGM_TYPES.RenderPropType
+  | OGM_TYPES.RenderPropsType
   | OGM_TYPES.UnionType
 
 export interface ITypesExport {

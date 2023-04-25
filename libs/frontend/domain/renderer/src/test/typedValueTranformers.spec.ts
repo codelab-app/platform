@@ -40,10 +40,10 @@ describe('RenderService', () => {
     ).toBeInTheDocument()
   })
 
-  it('should render props when kind is RenderPropType', async () => {
+  it('should render props when kind is RenderPropsType', async () => {
     const extraProps = {
       someNode: {
-        type: data.renderPropType.id,
+        type: data.renderPropsType.id,
         value: data.componentToRender.id,
       } as TypedValue<string>,
     }
@@ -64,10 +64,10 @@ describe('RenderService', () => {
     ).toBeInTheDocument()
   })
 
-  it('should render props when kind is RenderPropType with overridden props', async () => {
+  it('should render props when kind is RenderPropsType with overridden props', async () => {
     const extraProps = {
       someNode: {
-        type: data.renderPropType.id,
+        type: data.renderPropsType.id,
         value: data.componentToRender.id,
       } as TypedValue<string>,
     }

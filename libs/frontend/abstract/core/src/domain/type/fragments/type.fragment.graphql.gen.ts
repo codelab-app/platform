@@ -7,7 +7,7 @@ import { InterfaceTypeFragment } from './interface.fragment.graphql.gen'
 import { PrimitiveTypeFragment } from './primitive-type.fragment.graphql.gen'
 import { ElementTypeFragment } from './element-type.fragment.graphql.gen'
 import { LambdaTypeFragment } from './lambda-type.fragment.graphql.gen'
-import { RenderPropTypeFragment } from './render-prop.fragment.graphql.gen'
+import { RenderPropsTypeFragment } from './render-props.fragment.graphql.gen'
 import { ReactNodeTypeFragment } from './react-node-type.fragment.graphql.gen'
 import { CodeMirrorTypeFragment } from './code-mirror-type.fragment.graphql.gen'
 import { PageTypeFragment } from './page-type.fragment.graphql.gen'
@@ -23,7 +23,7 @@ import { InterfaceTypeFragmentDoc } from './interface.fragment.graphql.gen'
 import { PrimitiveTypeFragmentDoc } from './primitive-type.fragment.graphql.gen'
 import { ElementTypeFragmentDoc } from './element-type.fragment.graphql.gen'
 import { LambdaTypeFragmentDoc } from './lambda-type.fragment.graphql.gen'
-import { RenderPropTypeFragmentDoc } from './render-prop.fragment.graphql.gen'
+import { RenderPropsTypeFragmentDoc } from './render-props.fragment.graphql.gen'
 import { ReactNodeTypeFragmentDoc } from './react-node-type.fragment.graphql.gen'
 import { CodeMirrorTypeFragmentDoc } from './code-mirror-type.fragment.graphql.gen'
 import { PageTypeFragmentDoc } from './page-type.fragment.graphql.gen'
@@ -53,7 +53,7 @@ export type Type_PrimitiveType_Fragment = PrimitiveTypeFragment
 
 export type Type_ReactNodeType_Fragment = ReactNodeTypeFragment
 
-export type Type_RenderPropType_Fragment = RenderPropTypeFragment
+export type Type_RenderPropsType_Fragment = RenderPropsTypeFragment
 
 export type Type_UnionType_Fragment = UnionTypeFragment
 
@@ -70,7 +70,7 @@ export type TypeFragment =
   | Type_PageType_Fragment
   | Type_PrimitiveType_Fragment
   | Type_ReactNodeType_Fragment
-  | Type_RenderPropType_Fragment
+  | Type_RenderPropsType_Fragment
   | Type_UnionType_Fragment
 
 export const TypeFragmentDoc = gql`
@@ -82,7 +82,7 @@ export const TypeFragmentDoc = gql`
     ...PrimitiveType
     ...ElementType
     ...LambdaType
-    ...RenderPropType
+    ...RenderPropsType
     ...ReactNodeType
     ...CodeMirrorType
     ...PageType
@@ -96,7 +96,7 @@ export const TypeFragmentDoc = gql`
   ${PrimitiveTypeFragmentDoc}
   ${ElementTypeFragmentDoc}
   ${LambdaTypeFragmentDoc}
-  ${RenderPropTypeFragmentDoc}
+  ${RenderPropsTypeFragmentDoc}
   ${ReactNodeTypeFragmentDoc}
   ${CodeMirrorTypeFragmentDoc}
   ${PageTypeFragmentDoc}

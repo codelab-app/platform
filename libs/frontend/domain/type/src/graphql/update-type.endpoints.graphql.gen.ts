@@ -81,16 +81,16 @@ export type UpdateElementTypesMutation = {
   types: { types: Array<{ id: string }> }
 }
 
-export type UpdateRenderPropTypesMutationVariables = Types.Exact<{
-  connect?: Types.InputMaybe<Types.RenderPropTypeConnectInput>
-  create?: Types.InputMaybe<Types.RenderPropTypeRelationInput>
-  delete?: Types.InputMaybe<Types.RenderPropTypeDeleteInput>
-  disconnect?: Types.InputMaybe<Types.RenderPropTypeDisconnectInput>
-  update?: Types.InputMaybe<Types.RenderPropTypeUpdateInput>
-  where?: Types.InputMaybe<Types.RenderPropTypeWhere>
+export type UpdateRenderPropsTypesMutationVariables = Types.Exact<{
+  connect?: Types.InputMaybe<Types.RenderPropsTypeConnectInput>
+  create?: Types.InputMaybe<Types.RenderPropsTypeRelationInput>
+  delete?: Types.InputMaybe<Types.RenderPropsTypeDeleteInput>
+  disconnect?: Types.InputMaybe<Types.RenderPropsTypeDisconnectInput>
+  update?: Types.InputMaybe<Types.RenderPropsTypeUpdateInput>
+  where?: Types.InputMaybe<Types.RenderPropsTypeWhere>
 }>
 
-export type UpdateRenderPropTypesMutation = {
+export type UpdateRenderPropsTypesMutation = {
   types: { types: Array<{ id: string }> }
 }
 
@@ -308,16 +308,16 @@ export const UpdateElementTypesDocument = gql`
     }
   }
 `
-export const UpdateRenderPropTypesDocument = gql`
-  mutation UpdateRenderPropTypes(
-    $connect: RenderPropTypeConnectInput
-    $create: RenderPropTypeRelationInput
-    $delete: RenderPropTypeDeleteInput
-    $disconnect: RenderPropTypeDisconnectInput
-    $update: RenderPropTypeUpdateInput
-    $where: RenderPropTypeWhere
+export const UpdateRenderPropsTypesDocument = gql`
+  mutation UpdateRenderPropsTypes(
+    $connect: RenderPropsTypeConnectInput
+    $create: RenderPropsTypeRelationInput
+    $delete: RenderPropsTypeDeleteInput
+    $disconnect: RenderPropsTypeDisconnectInput
+    $update: RenderPropsTypeUpdateInput
+    $where: RenderPropsTypeWhere
   ) {
-    types: updateRenderPropTypes(
+    types: updateRenderPropsTypes(
       connect: $connect
       create: $create
       delete: $delete
@@ -325,7 +325,7 @@ export const UpdateRenderPropTypesDocument = gql`
       update: $update
       where: $where
     ) {
-      types: renderPropTypes {
+      types: renderPropsTypes {
         id
       }
     }
@@ -577,18 +577,18 @@ export function getSdk(
         'mutation',
       )
     },
-    UpdateRenderPropTypes(
-      variables?: UpdateRenderPropTypesMutationVariables,
+    UpdateRenderPropsTypes(
+      variables?: UpdateRenderPropsTypesMutationVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<UpdateRenderPropTypesMutation> {
+    ): Promise<UpdateRenderPropsTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<UpdateRenderPropTypesMutation>(
-            UpdateRenderPropTypesDocument,
+          client.request<UpdateRenderPropsTypesMutation>(
+            UpdateRenderPropsTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'UpdateRenderPropTypes',
+        'UpdateRenderPropsTypes',
         'mutation',
       )
     },

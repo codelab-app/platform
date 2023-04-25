@@ -237,7 +237,7 @@ union AnyType =
   | PageType
   | PrimitiveType
   | ReactNodeType
-  | RenderPropType
+  | RenderPropsType
   | UnionType
 
 input AnyTypeWhere {
@@ -252,7 +252,7 @@ input AnyTypeWhere {
   PageType: PageTypeWhere
   PrimitiveType: PrimitiveTypeWhere
   ReactNodeType: ReactNodeTypeWhere
-  RenderPropType: RenderPropTypeWhere
+  RenderPropsType: RenderPropsTypeWhere
   UnionType: UnionTypeWhere
 }
 
@@ -6223,9 +6223,9 @@ type CreateReactNodeTypesMutationResponse {
   reactNodeTypes: [ReactNodeType!]!
 }
 
-type CreateRenderPropTypesMutationResponse {
+type CreateRenderPropsTypesMutationResponse {
   info: CreateInfo!
-  renderPropTypes: [RenderPropType!]!
+  renderPropsTypes: [RenderPropsType!]!
 }
 
 type CreateResourcesMutationResponse {
@@ -8360,7 +8360,7 @@ Is passed to the rendered element as a React node
 Prop values for this type have the shape of TypedValue in order to
 be distinguished from other element types.
 Comparison between different element types:
-- RenderPropType: Component select box, results it '(props) => ReactNode' value
+- RenderPropsType: Component select box, results it '(props) => ReactNode' value
 - ReactNodeType: Component select box, results it 'ReactNode' value
 - ElementType: Current tree element select box, results it 'ReactNode' value
 """
@@ -10850,7 +10850,7 @@ input IBaseTypeCreateInput {
   PageType: PageTypeCreateInput
   PrimitiveType: PrimitiveTypeCreateInput
   ReactNodeType: ReactNodeTypeCreateInput
-  RenderPropType: RenderPropTypeCreateInput
+  RenderPropsType: RenderPropsTypeCreateInput
   UnionType: UnionTypeCreateInput
 }
 
@@ -10877,7 +10877,7 @@ input IBaseTypeImplementationsConnectInput {
   PageType: [PageTypeConnectInput!]
   PrimitiveType: [PrimitiveTypeConnectInput!]
   ReactNodeType: [ReactNodeTypeConnectInput!]
-  RenderPropType: [RenderPropTypeConnectInput!]
+  RenderPropsType: [RenderPropsTypeConnectInput!]
   UnionType: [UnionTypeConnectInput!]
 }
 
@@ -10894,7 +10894,7 @@ input IBaseTypeImplementationsDeleteInput {
   PageType: [PageTypeDeleteInput!]
   PrimitiveType: [PrimitiveTypeDeleteInput!]
   ReactNodeType: [ReactNodeTypeDeleteInput!]
-  RenderPropType: [RenderPropTypeDeleteInput!]
+  RenderPropsType: [RenderPropsTypeDeleteInput!]
   UnionType: [UnionTypeDeleteInput!]
 }
 
@@ -10911,7 +10911,7 @@ input IBaseTypeImplementationsDisconnectInput {
   PageType: [PageTypeDisconnectInput!]
   PrimitiveType: [PrimitiveTypeDisconnectInput!]
   ReactNodeType: [ReactNodeTypeDisconnectInput!]
-  RenderPropType: [RenderPropTypeDisconnectInput!]
+  RenderPropsType: [RenderPropsTypeDisconnectInput!]
   UnionType: [UnionTypeDisconnectInput!]
 }
 
@@ -10928,7 +10928,7 @@ input IBaseTypeImplementationsUpdateInput {
   PageType: PageTypeUpdateInput
   PrimitiveType: PrimitiveTypeUpdateInput
   ReactNodeType: ReactNodeTypeUpdateInput
-  RenderPropType: RenderPropTypeUpdateInput
+  RenderPropsType: RenderPropsTypeUpdateInput
   UnionType: UnionTypeUpdateInput
 }
 
@@ -10945,7 +10945,7 @@ input IBaseTypeImplementationsWhere {
   PageType: PageTypeWhere
   PrimitiveType: PrimitiveTypeWhere
   ReactNodeType: ReactNodeTypeWhere
-  RenderPropType: RenderPropTypeWhere
+  RenderPropsType: RenderPropsTypeWhere
   UnionType: UnionTypeWhere
 }
 
@@ -12250,9 +12250,9 @@ type Mutation {
   createReactNodeTypes(
     input: [ReactNodeTypeCreateInput!]!
   ): CreateReactNodeTypesMutationResponse!
-  createRenderPropTypes(
-    input: [RenderPropTypeCreateInput!]!
-  ): CreateRenderPropTypesMutationResponse!
+  createRenderPropsTypes(
+    input: [RenderPropsTypeCreateInput!]!
+  ): CreateRenderPropsTypesMutationResponse!
   createResources(
     input: [ResourceCreateInput!]!
   ): CreateResourcesMutationResponse!
@@ -12331,9 +12331,9 @@ type Mutation {
     delete: ReactNodeTypeDeleteInput
     where: ReactNodeTypeWhere
   ): DeleteInfo!
-  deleteRenderPropTypes(
-    delete: RenderPropTypeDeleteInput
-    where: RenderPropTypeWhere
+  deleteRenderPropsTypes(
+    delete: RenderPropsTypeDeleteInput
+    where: RenderPropsTypeWhere
   ): DeleteInfo!
   deleteResources(
     delete: ResourceDeleteInput
@@ -12554,15 +12554,15 @@ type Mutation {
     update: ReactNodeTypeUpdateInput
     where: ReactNodeTypeWhere
   ): UpdateReactNodeTypesMutationResponse!
-  updateRenderPropTypes(
-    connect: RenderPropTypeConnectInput
-    connectOrCreate: RenderPropTypeConnectOrCreateInput
-    create: RenderPropTypeRelationInput
-    delete: RenderPropTypeDeleteInput
-    disconnect: RenderPropTypeDisconnectInput
-    update: RenderPropTypeUpdateInput
-    where: RenderPropTypeWhere
-  ): UpdateRenderPropTypesMutationResponse!
+  updateRenderPropsTypes(
+    connect: RenderPropsTypeConnectInput
+    connectOrCreate: RenderPropsTypeConnectOrCreateInput
+    create: RenderPropsTypeRelationInput
+    delete: RenderPropsTypeDeleteInput
+    disconnect: RenderPropsTypeDisconnectInput
+    update: RenderPropsTypeUpdateInput
+    where: RenderPropsTypeWhere
+  ): UpdateRenderPropsTypesMutationResponse!
   updateResources(
     connect: ResourceConnectInput
     connectOrCreate: ResourceConnectOrCreateInput
@@ -14248,19 +14248,19 @@ type Query {
     sort: [ReactNodeTypeSort]
     where: ReactNodeTypeWhere
   ): ReactNodeTypesConnection!
-  renderPropTypes(
-    options: RenderPropTypeOptions
-    where: RenderPropTypeWhere
-  ): [RenderPropType!]!
-  renderPropTypesAggregate(
-    where: RenderPropTypeWhere
-  ): RenderPropTypeAggregateSelection!
-  renderPropTypesConnection(
+  renderPropsTypes(
+    options: RenderPropsTypeOptions
+    where: RenderPropsTypeWhere
+  ): [RenderPropsType!]!
+  renderPropsTypesAggregate(
+    where: RenderPropsTypeWhere
+  ): RenderPropsTypeAggregateSelection!
+  renderPropsTypesConnection(
     after: String
     first: Int
-    sort: [RenderPropTypeSort]
-    where: RenderPropTypeWhere
-  ): RenderPropTypesConnection!
+    sort: [RenderPropsTypeSort]
+    where: RenderPropsTypeWhere
+  ): RenderPropsTypesConnection!
   resources(options: ResourceOptions, where: ResourceWhere): [Resource!]!
   resourcesAggregate(where: ResourceWhere): ResourceAggregateSelection!
   resourcesConnection(
@@ -14327,7 +14327,7 @@ It is passed to the rendered element as a React node: `ReactNode`
 Prop values for this type have the shape of TypedValue in order to
 be distinguished from other element types.
 Comparison between different element types:
-- RenderPropType: Component select box, results it '(props) => ReactNode' value
+- RenderPropsType: Component select box, results it '(props) => ReactNode' value
 - ReactNodeType: Component select box, results it 'ReactNode' value
 - ElementType: Current tree element select box, results it 'ReactNode' value
 """
@@ -14543,11 +14543,11 @@ and returns a React element: '(props) => ReactNode'
 Prop values for this type have the shape of TypedValue in order to
 be distinguished from other element types.
 Comparison between different element types:
-- RenderPropType: Component select box, results it '(props) => ReactNode' value
+- RenderPropsType: Component select box, results it '(props) => ReactNode' value
 - ReactNodeType: Component select box, results it 'ReactNode' value
 - ElementType: Current tree element select box, results it 'ReactNode' value
 """
-type RenderPropType implements IBaseType {
+type RenderPropsType implements IBaseType {
   id: ID!
   kind: TypeKind!
   name: String!
@@ -14555,7 +14555,7 @@ type RenderPropType implements IBaseType {
   ownerAggregate(
     directed: Boolean = true
     where: UserWhere
-  ): RenderPropTypeUserOwnerAggregationSelection
+  ): RenderPropsTypeUserOwnerAggregationSelection
   ownerConnection(
     after: String
     directed: Boolean = true
@@ -14565,80 +14565,80 @@ type RenderPropType implements IBaseType {
   ): IBaseTypeOwnerConnection!
 }
 
-type RenderPropTypeAggregateSelection {
+type RenderPropsTypeAggregateSelection {
   count: Int!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
 }
 
-input RenderPropTypeConnectInput {
+input RenderPropsTypeConnectInput {
   owner: IBaseTypeOwnerConnectFieldInput
 }
 
-input RenderPropTypeConnectOrCreateInput {
+input RenderPropsTypeConnectOrCreateInput {
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
-input RenderPropTypeConnectOrCreateWhere {
-  node: RenderPropTypeUniqueWhere!
+input RenderPropsTypeConnectOrCreateWhere {
+  node: RenderPropsTypeUniqueWhere!
 }
 
-input RenderPropTypeConnectWhere {
-  node: RenderPropTypeWhere!
+input RenderPropsTypeConnectWhere {
+  node: RenderPropsTypeWhere!
 }
 
-input RenderPropTypeCreateInput {
+input RenderPropsTypeCreateInput {
   id: ID!
-  kind: TypeKind! = RenderPropType
+  kind: TypeKind! = RenderPropsType
   name: String!
   owner: IBaseTypeOwnerFieldInput
 }
 
-input RenderPropTypeDeleteInput {
+input RenderPropsTypeDeleteInput {
   owner: IBaseTypeOwnerDeleteFieldInput
 }
 
-input RenderPropTypeDisconnectInput {
+input RenderPropsTypeDisconnectInput {
   owner: IBaseTypeOwnerDisconnectFieldInput
 }
 
-type RenderPropTypeEdge {
+type RenderPropsTypeEdge {
   cursor: String!
-  node: RenderPropType!
+  node: RenderPropsType!
 }
 
-input RenderPropTypeOnCreateInput {
+input RenderPropsTypeOnCreateInput {
   id: ID!
-  kind: TypeKind! = RenderPropType
+  kind: TypeKind! = RenderPropsType
   name: String!
 }
 
-input RenderPropTypeOptions {
+input RenderPropsTypeOptions {
   limit: Int
   offset: Int
 
   """
-  Specify one or more RenderPropTypeSort objects to sort RenderPropTypes by. The sorts will be applied in the order in which they are arranged in the array.
+  Specify one or more RenderPropsTypeSort objects to sort RenderPropsTypes by. The sorts will be applied in the order in which they are arranged in the array.
   """
-  sort: [RenderPropTypeSort!]
+  sort: [RenderPropsTypeSort!]
 }
 
-input RenderPropTypeOwnerAggregateInput {
-  AND: [RenderPropTypeOwnerAggregateInput!]
-  NOT: RenderPropTypeOwnerAggregateInput
-  OR: [RenderPropTypeOwnerAggregateInput!]
+input RenderPropsTypeOwnerAggregateInput {
+  AND: [RenderPropsTypeOwnerAggregateInput!]
+  NOT: RenderPropsTypeOwnerAggregateInput
+  OR: [RenderPropsTypeOwnerAggregateInput!]
   count: Int
   count_GT: Int
   count_GTE: Int
   count_LT: Int
   count_LTE: Int
-  node: RenderPropTypeOwnerNodeAggregationWhereInput
+  node: RenderPropsTypeOwnerNodeAggregationWhereInput
 }
 
-input RenderPropTypeOwnerNodeAggregationWhereInput {
-  AND: [RenderPropTypeOwnerNodeAggregationWhereInput!]
-  NOT: RenderPropTypeOwnerNodeAggregationWhereInput
-  OR: [RenderPropTypeOwnerNodeAggregationWhereInput!]
+input RenderPropsTypeOwnerNodeAggregationWhereInput {
+  AND: [RenderPropsTypeOwnerNodeAggregationWhereInput!]
+  NOT: RenderPropsTypeOwnerNodeAggregationWhereInput
+  OR: [RenderPropsTypeOwnerNodeAggregationWhereInput!]
   auth0Id_AVERAGE_LENGTH_EQUAL: Float
   auth0Id_AVERAGE_LENGTH_GT: Float
   auth0Id_AVERAGE_LENGTH_GTE: Float
@@ -14686,45 +14686,45 @@ input RenderPropTypeOwnerNodeAggregationWhereInput {
   username_SHORTEST_LENGTH_LTE: Int
 }
 
-input RenderPropTypeRelationInput {
+input RenderPropsTypeRelationInput {
   owner: IBaseTypeOwnerCreateFieldInput
 }
 
 """
-Fields to sort RenderPropTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RenderPropTypeSort object.
+Fields to sort RenderPropsTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RenderPropsTypeSort object.
 """
-input RenderPropTypeSort {
+input RenderPropsTypeSort {
   id: SortDirection
   kind: SortDirection
   name: SortDirection
 }
 
-input RenderPropTypeUniqueWhere {
+input RenderPropsTypeUniqueWhere {
   id: ID
 }
 
-input RenderPropTypeUpdateInput {
+input RenderPropsTypeUpdateInput {
   id: ID
   name: String
   owner: IBaseTypeOwnerUpdateFieldInput
 }
 
-type RenderPropTypeUserOwnerAggregationSelection {
+type RenderPropsTypeUserOwnerAggregationSelection {
   count: Int!
-  node: RenderPropTypeUserOwnerNodeAggregateSelection
+  node: RenderPropsTypeUserOwnerNodeAggregateSelection
 }
 
-type RenderPropTypeUserOwnerNodeAggregateSelection {
+type RenderPropsTypeUserOwnerNodeAggregateSelection {
   auth0Id: StringAggregateSelectionNonNullable!
   email: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
   username: StringAggregateSelectionNonNullable!
 }
 
-input RenderPropTypeWhere {
-  AND: [RenderPropTypeWhere!]
-  NOT: RenderPropTypeWhere
-  OR: [RenderPropTypeWhere!]
+input RenderPropsTypeWhere {
+  AND: [RenderPropsTypeWhere!]
+  NOT: RenderPropsTypeWhere
+  OR: [RenderPropsTypeWhere!]
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -14740,14 +14740,14 @@ input RenderPropTypeWhere {
   name_MATCHES: String
   name_STARTS_WITH: String
   owner: UserWhere
-  ownerAggregate: RenderPropTypeOwnerAggregateInput
+  ownerAggregate: RenderPropsTypeOwnerAggregateInput
   ownerConnection: IBaseTypeOwnerConnectionWhere
   ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
   owner_NOT: UserWhere
 }
 
-type RenderPropTypesConnection {
-  edges: [RenderPropTypeEdge!]!
+type RenderPropsTypesConnection {
+  edges: [RenderPropsTypeEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
 }
@@ -16403,7 +16403,7 @@ enum TypeKind {
   PageType
   PrimitiveType
   ReactNodeType
-  RenderPropType
+  RenderPropsType
   UnionType
 }
 
@@ -16887,7 +16887,7 @@ input UnionTypeTypesOfUnionTypeConnectInput {
   PageType: [UnionTypeTypesOfUnionTypePageTypeConnectFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeConnectFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeConnectFieldInput!]
-  RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput!]
+  RenderPropsType: [UnionTypeTypesOfUnionTypeRenderPropsTypeConnectFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeConnectFieldInput!]
 }
 
@@ -16903,7 +16903,7 @@ input UnionTypeTypesOfUnionTypeConnectOrCreateInput {
   PageType: [UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeConnectOrCreateFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeConnectOrCreateFieldInput!]
-  RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInput!]
+  RenderPropsType: [UnionTypeTypesOfUnionTypeRenderPropsTypeConnectOrCreateFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeConnectOrCreateFieldInput!]
 }
 
@@ -16925,7 +16925,7 @@ input UnionTypeTypesOfUnionTypeConnectionWhere {
   PageType: UnionTypeTypesOfUnionTypePageTypeConnectionWhere
   PrimitiveType: UnionTypeTypesOfUnionTypePrimitiveTypeConnectionWhere
   ReactNodeType: UnionTypeTypesOfUnionTypeReactNodeTypeConnectionWhere
-  RenderPropType: UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere
+  RenderPropsType: UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere
   UnionType: UnionTypeTypesOfUnionTypeUnionTypeConnectionWhere
 }
 
@@ -16941,7 +16941,7 @@ input UnionTypeTypesOfUnionTypeCreateFieldInput {
   PageType: [UnionTypeTypesOfUnionTypePageTypeCreateFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeCreateFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeCreateFieldInput!]
-  RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeCreateFieldInput!]
+  RenderPropsType: [UnionTypeTypesOfUnionTypeRenderPropsTypeCreateFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeCreateFieldInput!]
 }
 
@@ -16957,7 +16957,7 @@ input UnionTypeTypesOfUnionTypeCreateInput {
   PageType: UnionTypeTypesOfUnionTypePageTypeFieldInput
   PrimitiveType: UnionTypeTypesOfUnionTypePrimitiveTypeFieldInput
   ReactNodeType: UnionTypeTypesOfUnionTypeReactNodeTypeFieldInput
-  RenderPropType: UnionTypeTypesOfUnionTypeRenderPropTypeFieldInput
+  RenderPropsType: UnionTypeTypesOfUnionTypeRenderPropsTypeFieldInput
   UnionType: UnionTypeTypesOfUnionTypeUnionTypeFieldInput
 }
 
@@ -16973,7 +16973,7 @@ input UnionTypeTypesOfUnionTypeDeleteInput {
   PageType: [UnionTypeTypesOfUnionTypePageTypeDeleteFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeDeleteFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeDeleteFieldInput!]
-  RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeDeleteFieldInput!]
+  RenderPropsType: [UnionTypeTypesOfUnionTypeRenderPropsTypeDeleteFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeDeleteFieldInput!]
 }
 
@@ -16989,7 +16989,7 @@ input UnionTypeTypesOfUnionTypeDisconnectInput {
   PageType: [UnionTypeTypesOfUnionTypePageTypeDisconnectFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeDisconnectFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeDisconnectFieldInput!]
-  RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeDisconnectFieldInput!]
+  RenderPropsType: [UnionTypeTypesOfUnionTypeRenderPropsTypeDisconnectFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeDisconnectFieldInput!]
 }
 
@@ -17383,59 +17383,59 @@ type UnionTypeTypesOfUnionTypeRelationship {
   node: AnyType!
 }
 
-input UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput {
-  connect: [RenderPropTypeConnectInput!]
-  where: RenderPropTypeConnectWhere
+input UnionTypeTypesOfUnionTypeRenderPropsTypeConnectFieldInput {
+  connect: [RenderPropsTypeConnectInput!]
+  where: RenderPropsTypeConnectWhere
 }
 
-input UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInput {
-  onCreate: UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInputOnCreate!
-  where: RenderPropTypeConnectOrCreateWhere!
+input UnionTypeTypesOfUnionTypeRenderPropsTypeConnectOrCreateFieldInput {
+  onCreate: UnionTypeTypesOfUnionTypeRenderPropsTypeConnectOrCreateFieldInputOnCreate!
+  where: RenderPropsTypeConnectOrCreateWhere!
 }
 
-input UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInputOnCreate {
-  node: RenderPropTypeOnCreateInput!
+input UnionTypeTypesOfUnionTypeRenderPropsTypeConnectOrCreateFieldInputOnCreate {
+  node: RenderPropsTypeOnCreateInput!
 }
 
-input UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere {
-  AND: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere!]
-  NOT: UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere
-  OR: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere!]
-  node: RenderPropTypeWhere
+input UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere {
+  AND: [UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere!]
+  NOT: UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere
+  OR: [UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere!]
+  node: RenderPropsTypeWhere
 }
 
-input UnionTypeTypesOfUnionTypeRenderPropTypeCreateFieldInput {
-  node: RenderPropTypeCreateInput!
+input UnionTypeTypesOfUnionTypeRenderPropsTypeCreateFieldInput {
+  node: RenderPropsTypeCreateInput!
 }
 
-input UnionTypeTypesOfUnionTypeRenderPropTypeDeleteFieldInput {
-  delete: RenderPropTypeDeleteInput
-  where: UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere
+input UnionTypeTypesOfUnionTypeRenderPropsTypeDeleteFieldInput {
+  delete: RenderPropsTypeDeleteInput
+  where: UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere
 }
 
-input UnionTypeTypesOfUnionTypeRenderPropTypeDisconnectFieldInput {
-  disconnect: RenderPropTypeDisconnectInput
-  where: UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere
+input UnionTypeTypesOfUnionTypeRenderPropsTypeDisconnectFieldInput {
+  disconnect: RenderPropsTypeDisconnectInput
+  where: UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere
 }
 
-input UnionTypeTypesOfUnionTypeRenderPropTypeFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeRenderPropTypeCreateFieldInput!]
+input UnionTypeTypesOfUnionTypeRenderPropsTypeFieldInput {
+  connect: [UnionTypeTypesOfUnionTypeRenderPropsTypeConnectFieldInput!]
+  connectOrCreate: [UnionTypeTypesOfUnionTypeRenderPropsTypeConnectOrCreateFieldInput!]
+  create: [UnionTypeTypesOfUnionTypeRenderPropsTypeCreateFieldInput!]
 }
 
-input UnionTypeTypesOfUnionTypeRenderPropTypeUpdateConnectionInput {
-  node: RenderPropTypeUpdateInput
+input UnionTypeTypesOfUnionTypeRenderPropsTypeUpdateConnectionInput {
+  node: RenderPropsTypeUpdateInput
 }
 
-input UnionTypeTypesOfUnionTypeRenderPropTypeUpdateFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeRenderPropTypeCreateFieldInput!]
-  delete: [UnionTypeTypesOfUnionTypeRenderPropTypeDeleteFieldInput!]
-  disconnect: [UnionTypeTypesOfUnionTypeRenderPropTypeDisconnectFieldInput!]
-  update: UnionTypeTypesOfUnionTypeRenderPropTypeUpdateConnectionInput
-  where: UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere
+input UnionTypeTypesOfUnionTypeRenderPropsTypeUpdateFieldInput {
+  connect: [UnionTypeTypesOfUnionTypeRenderPropsTypeConnectFieldInput!]
+  connectOrCreate: [UnionTypeTypesOfUnionTypeRenderPropsTypeConnectOrCreateFieldInput!]
+  create: [UnionTypeTypesOfUnionTypeRenderPropsTypeCreateFieldInput!]
+  delete: [UnionTypeTypesOfUnionTypeRenderPropsTypeDeleteFieldInput!]
+  disconnect: [UnionTypeTypesOfUnionTypeRenderPropsTypeDisconnectFieldInput!]
+  update: UnionTypeTypesOfUnionTypeRenderPropsTypeUpdateConnectionInput
+  where: UnionTypeTypesOfUnionTypeRenderPropsTypeConnectionWhere
 }
 
 input UnionTypeTypesOfUnionTypeUnionTypeConnectFieldInput {
@@ -17505,7 +17505,7 @@ input UnionTypeTypesOfUnionTypeUpdateInput {
   PageType: [UnionTypeTypesOfUnionTypePageTypeUpdateFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeUpdateFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeUpdateFieldInput!]
-  RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeUpdateFieldInput!]
+  RenderPropsType: [UnionTypeTypesOfUnionTypeRenderPropsTypeUpdateFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeUpdateFieldInput!]
 }
 
@@ -17712,9 +17712,9 @@ type UpdateReactNodeTypesMutationResponse {
   reactNodeTypes: [ReactNodeType!]!
 }
 
-type UpdateRenderPropTypesMutationResponse {
+type UpdateRenderPropsTypesMutationResponse {
   info: UpdateInfo!
-  renderPropTypes: [RenderPropType!]!
+  renderPropsTypes: [RenderPropsType!]!
 }
 
 type UpdateResourcesMutationResponse {

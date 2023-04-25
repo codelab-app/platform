@@ -27,7 +27,7 @@
 "size","To set the size of the select input","large | middle | small","-","",true
 "status","Set validation status","'error' | 'warning'","-","4.19.0",false
 "suffixIcon","The custom suffix icon,you must set showArrow to true manually in multiple selection mode","ReactNode","-","",false
-"switcherIcon","Customize collapse/expand icon of tree node","ReactNode | ((props: AntTreeNodeProps) => ReactNode)","-","renderProp: 4.20.0",false
+"switcherIcon","Customize collapse/expand icon of tree node","ReactNode | ((props: AntTreeNodeProps) => ReactNode)","-","renderProps: 4.20.0",false
 "tagRender","Customize tag render when multiple","(props) => ReactNode","-","",false
 "treeCheckable","Whether to show checkbox on the treeNodes","boolean","false","",false
 "treeCheckStrictly","Whether to check nodes precisely (in the checkable mode), means parent and child nodes are not associated, and it will make labelInValue be true","boolean","false","",false
