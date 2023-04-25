@@ -10,7 +10,6 @@ import {
   DATA_ELEMENT_ID,
 } from '@codelab/frontend/abstract/core'
 import { SelectAction } from '@codelab/frontend/domain/type'
-import { useStore } from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   AutoCompleteField,
@@ -39,9 +38,7 @@ export interface UpdateElementFormProps {
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
   ({ element, elementService, renderer }) => {
-    const { builderService } = useStore()
     const model = getElementModel(element)
-    const parentComponent = builderService.activeComponent?.current
 
     const onSubmit = (data: IUpdateElementData) => {
       return elementService.update(data)
@@ -96,10 +93,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             'name',
           ]}
         />
-        <RenderTypeCompositeField
-          name="renderType"
-          parentComponent={parentComponent}
-        />
+        <RenderTypeCompositeField name="renderType" />
         <AutoField
           component={CodeMirrorField({
             customOptions: createAutoCompleteOptions(propsData, 'this'),

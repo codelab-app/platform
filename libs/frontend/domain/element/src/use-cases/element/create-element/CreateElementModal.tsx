@@ -18,7 +18,7 @@ import { useRequiredParentValidator } from '../../../utils'
 import { createElementSchema } from './create-element.schema'
 
 export const CreateElementModal = observer(() => {
-  const { builderService, elementService, userService } = useStore()
+  const { elementService, userService } = useStore()
   const { metadata, parentElement } = elementService.createModal
   const elementOptions = metadata?.elementOptions
   const { validateParentForCreate } = useRequiredParentValidator()
@@ -54,7 +54,7 @@ export const CreateElementModal = observer(() => {
 
   const model = {
     id: v4(),
-    owner: userService.user?.auth0Id,
+    owner: userService.user.auth0Id,
     parentElement: {
       id: parentElement.id,
     },
@@ -66,8 +66,6 @@ export const CreateElementModal = observer(() => {
   const parentAtom = isAtomInstance(parentElement.renderType)
     ? parentElement.renderType.current
     : undefined
-
-  const parentComponent = builderService.activeComponent?.current
 
   return (
     <ModalForm.Modal
@@ -112,11 +110,7 @@ export const CreateElementModal = observer(() => {
           name="prevSibling.id"
           required={false}
         />
-        <RenderTypeCompositeField
-          name="renderType"
-          parentAtom={parentAtom}
-          parentComponent={parentComponent}
-        />
+        <RenderTypeCompositeField name="renderType" parentAtom={parentAtom} />
         <AutoField
           component={SelectAction}
           name="preRenderAction.id"

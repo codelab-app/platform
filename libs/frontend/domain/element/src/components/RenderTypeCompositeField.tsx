@@ -1,8 +1,4 @@
-import type {
-  IAtom,
-  IComponent,
-  ICreateElementData,
-} from '@codelab/frontend/abstract/core'
+import type { IAtom, ICreateElementData } from '@codelab/frontend/abstract/core'
 import { IRenderTypeKind } from '@codelab/frontend/abstract/core'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/domain/type'
 import { DisplayIfField } from '@codelab/frontend/view/components'
@@ -14,10 +10,8 @@ const RenderTypeFields = ({
   error,
   onChange,
   parentAtom,
-  parentComponent,
 }: GuaranteedProps<Partial<ICreateElementData['renderType']>> & {
   parentAtom?: IAtom
-  parentComponent?: IComponent
 }) => (
   <section>
     <SelectField
@@ -55,12 +49,7 @@ const RenderTypeFields = ({
         context.model.renderType?.kind === IRenderTypeKind.Component
       }
     >
-      <SelectComponent
-        error={error}
-        label="Component"
-        name="id"
-        parent={parentComponent}
-      />
+      <SelectComponent error={error} label="Component" name="id" />
     </DisplayIfField>
   </section>
 )
