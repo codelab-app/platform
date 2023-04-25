@@ -21,7 +21,7 @@ import {
   InterfaceType,
   PrimitiveType,
   ReactNodeType,
-  RenderPropsType,
+  RenderPropType,
   typeRef,
   TypeService,
 } from '@codelab/frontend/domain/type'
@@ -81,8 +81,8 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       primitiveKind: PrimitiveTypeKind.Integer,
     })
 
-    data.renderPropsType = new RenderPropsType({
-      name: 'renderPropsType',
+    data.renderPropType = new RenderPropType({
+      name: 'renderPropType',
       owner,
     })
 
@@ -110,7 +110,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       typeService: new TypeService({
         types: objectMap<IType>([
           [primitiveType.id, primitiveType],
-          [data.renderPropsType.id, data.renderPropsType],
+          [data.renderPropType.id, data.renderPropType],
           [data.reactNodeType.id, data.reactNodeType],
           [emptyInterface.id, emptyInterface],
         ]),
@@ -119,7 +119,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
 
     stubServiceRepositories(data.rootStore)
 
-    const elementToRenderProps = {
+    const elementToRenderProp = {
       data: JSON.stringify({
         prop01: 'prop01Value',
         prop02: 'prop02Value',
@@ -134,7 +134,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       id: v4(),
       name: ROOT_ELEMENT_NAME,
       page: { id: pageId },
-      props: elementToRenderProps,
+      props: elementToRenderProp,
       propTransformationJs: `
         // Write a transformer function, you get the input props as parameter
         // All returned props will get merged with the original ones

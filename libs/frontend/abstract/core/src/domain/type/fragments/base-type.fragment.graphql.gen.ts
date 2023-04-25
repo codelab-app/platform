@@ -101,8 +101,8 @@ export type BaseType_ReactNodeType_Fragment = {
   owner: OwnerFragment
 }
 
-export type BaseType_RenderPropsType_Fragment = {
-  __typename: 'RenderPropsType'
+export type BaseType_RenderPropType_Fragment = {
+  __typename: 'RenderPropType'
   kind: Types.TypeKind
   id: string
   name: string
@@ -130,7 +130,7 @@ export type BaseTypeFragment =
   | BaseType_PageType_Fragment
   | BaseType_PrimitiveType_Fragment
   | BaseType_ReactNodeType_Fragment
-  | BaseType_RenderPropsType_Fragment
+  | BaseType_RenderPropType_Fragment
   | BaseType_UnionType_Fragment
 
 export const BaseTypeFragmentDoc = gql`

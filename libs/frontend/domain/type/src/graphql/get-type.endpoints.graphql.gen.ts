@@ -13,7 +13,7 @@ import {
   BaseType_PageType_Fragment,
   BaseType_PrimitiveType_Fragment,
   BaseType_ReactNodeType_Fragment,
-  BaseType_RenderPropsType_Fragment,
+  BaseType_RenderPropType_Fragment,
   BaseType_UnionType_Fragment,
 } from '../../../../abstract/core/src/domain/type/fragments/base-type.fragment.graphql.gen'
 import {
@@ -29,7 +29,7 @@ import {
   Type_PageType_Fragment,
   Type_PrimitiveType_Fragment,
   Type_ReactNodeType_Fragment,
-  Type_RenderPropsType_Fragment,
+  Type_RenderPropType_Fragment,
   Type_UnionType_Fragment,
 } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 import { ReactNodeTypeFragment } from '../../../../abstract/core/src/domain/type/fragments/react-node-type.fragment.graphql.gen'
@@ -57,7 +57,7 @@ export type GetTypesQuery = {
   unionTypes: Array<Type_UnionType_Fragment>
   interfaceTypes: Array<Type_InterfaceType_Fragment>
   elementTypes: Array<Type_ElementType_Fragment>
-  renderPropsTypes: Array<Type_RenderPropsType_Fragment>
+  renderPropTypes: Array<Type_RenderPropType_Fragment>
   reactNodeTypes: Array<Type_ReactNodeType_Fragment>
   enumTypes: Array<Type_EnumType_Fragment>
   lambdaTypes: Array<Type_LambdaType_Fragment>
@@ -116,13 +116,13 @@ export type GetElementTypesQueryVariables = Types.Exact<{
 
 export type GetElementTypesQuery = { types: Array<Type_ElementType_Fragment> }
 
-export type GetRenderPropsTypesQueryVariables = Types.Exact<{
-  options?: Types.InputMaybe<Types.RenderPropsTypeOptions>
-  where?: Types.InputMaybe<Types.RenderPropsTypeWhere>
+export type GetRenderPropTypesQueryVariables = Types.Exact<{
+  options?: Types.InputMaybe<Types.RenderPropTypeOptions>
+  where?: Types.InputMaybe<Types.RenderPropTypeWhere>
 }>
 
-export type GetRenderPropsTypesQuery = {
-  types: Array<Type_RenderPropsType_Fragment>
+export type GetRenderPropTypesQuery = {
+  types: Array<Type_RenderPropType_Fragment>
 }
 
 export type GetReactNodeTypesQueryVariables = Types.Exact<{
@@ -212,7 +212,7 @@ export const GetTypesDocument = gql`
     elementTypes(where: { id_IN: $ids }) {
       ...Type
     }
-    renderPropsTypes(where: { id_IN: $ids }) {
+    renderPropTypes(where: { id_IN: $ids }) {
       ...Type
     }
     reactNodeTypes(where: { id_IN: $ids }) {
@@ -301,12 +301,12 @@ export const GetElementTypesDocument = gql`
   }
   ${TypeFragmentDoc}
 `
-export const GetRenderPropsTypesDocument = gql`
-  query GetRenderPropsTypes(
-    $options: RenderPropsTypeOptions
-    $where: RenderPropsTypeWhere
+export const GetRenderPropTypesDocument = gql`
+  query GetRenderPropTypes(
+    $options: RenderPropTypeOptions
+    $where: RenderPropTypeWhere
   ) {
-    types: renderPropsTypes(where: $where, options: $options) {
+    types: renderPropTypes(where: $where, options: $options) {
       ...Type
     }
   }
@@ -519,18 +519,18 @@ export function getSdk(
         'query',
       )
     },
-    GetRenderPropsTypes(
-      variables?: GetRenderPropsTypesQueryVariables,
+    GetRenderPropTypes(
+      variables?: GetRenderPropTypesQueryVariables,
       requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<GetRenderPropsTypesQuery> {
+    ): Promise<GetRenderPropTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
-          client.request<GetRenderPropsTypesQuery>(
-            GetRenderPropsTypesDocument,
+          client.request<GetRenderPropTypesQuery>(
+            GetRenderPropTypesDocument,
             variables,
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
-        'GetRenderPropsTypes',
+        'GetRenderPropTypes',
         'query',
       )
     },

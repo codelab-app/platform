@@ -6,7 +6,7 @@ fragment Type on IBaseType {
   ...PrimitiveType
   ...ElementType
   ...LambdaType
-  ...RenderPropsType
+  ...RenderPropType
   ...ReactNodeType
   ...CodeMirrorType
   ...PageType

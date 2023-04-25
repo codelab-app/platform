@@ -378,10 +378,10 @@
       "validationRules": "{\"general\":{\"nullable\":true}}",
       "defaultValues": "null",
       "fieldType": {
-        "__typename": "RenderPropsType",
+        "__typename": "RenderPropType",
         "id": "9e8326a2-4c44-4adc-b3f0-68e9098718e4",
-        "kind": "RenderPropsType",
-        "name": "RenderPropsType"
+        "kind": "RenderPropType",
+        "name": "RenderPropType"
       },
       "api": {
         "id": "8baae515-020d-422e-a1bc-340c20490dd2"

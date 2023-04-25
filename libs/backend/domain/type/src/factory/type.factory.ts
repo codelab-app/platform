@@ -8,7 +8,7 @@ import {
   InterfaceType,
   PrimitiveType,
   ReactNodeType,
-  RenderPropsType,
+  RenderPropType,
   UnionType,
 } from '../model'
 import { ArrayType } from '../model/array-type.model'
@@ -19,7 +19,7 @@ import {
   InterfaceTypeRepository,
   PrimitiveTypeRepository,
   ReactNodeTypeRepository,
-  RenderPropsTypeRepository,
+  RenderPropTypeRepository,
   UnionTypeRepository,
 } from '../repository'
 
@@ -75,12 +75,12 @@ export class TypeFactory {
         )
       }
 
-      case ITypeKind.RenderPropsType: {
-        const renderPropsType = new RenderPropsType(type)
+      case ITypeKind.RenderPropType: {
+        const renderPropType = new RenderPropType(type)
 
-        return await new RenderPropsTypeRepository().save(
-          renderPropsType,
-          where as OGM_TYPES.RenderPropsTypeWhere,
+        return await new RenderPropTypeRepository().save(
+          renderPropType,
+          where as OGM_TYPES.RenderPropTypeWhere,
         )
       }
 

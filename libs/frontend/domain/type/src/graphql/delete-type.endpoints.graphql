@@ -58,11 +58,11 @@ mutation DeleteElementTypes(
   }
 }
 
-mutation DeleteRenderPropsTypes(
-  $delete: RenderPropsTypeDeleteInput
-  $where: RenderPropsTypeWhere
+mutation DeleteRenderPropTypes(
+  $delete: RenderPropTypeDeleteInput
+  $where: RenderPropTypeWhere
 ) {
-  deleteRenderPropsTypes(delete: $delete, where: $where) {
+  deleteRenderPropTypes(delete: $delete, where: $where) {
     relationshipsDeleted
     nodesDeleted
   }

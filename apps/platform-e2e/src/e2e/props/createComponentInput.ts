@@ -37,9 +37,9 @@ export const createListAtomInput = (owner: IAuth0Owner): AtomCreateInput => ({
                 name: renderItemFieldName,
               },
               node: {
-                RenderPropsType: {
+                RenderPropType: {
                   id: v4(),
-                  name: ITypeKind.RenderPropsType,
+                  name: ITypeKind.RenderPropType,
                   owner: connectAuth0Owner(owner),
                 },
               },

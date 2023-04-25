@@ -20,7 +20,7 @@ type ITypeWhere =
   | cg.PageTypeWhere
   | cg.PrimitiveTypeWhere
   | cg.ReactNodeTypeWhere
-  | cg.RenderPropsTypeWhere
+  | cg.RenderPropTypeWhere
   | cg.UnionTypeWhere
 
 export type IUpdateTypeVars =
@@ -35,7 +35,7 @@ export type IUpdateTypeVars =
   | cg.UpdatePageTypesMutationVariables
   | cg.UpdatePrimitiveTypesMutationVariables
   | cg.UpdateReactNodeTypesMutationVariables
-  | cg.UpdateRenderPropsTypesMutationVariables
+  | cg.UpdateRenderPropTypesMutationVariables
   | cg.UpdateUnionTypesMutationVariables
 
 export type ICreateTypeInput =
@@ -50,7 +50,7 @@ export type ICreateTypeInput =
   | cg.PageTypeCreateInput
   | cg.PrimitiveTypeCreateInput
   | cg.ReactNodeTypeCreateInput
-  | cg.RenderPropsTypeCreateInput
+  | cg.RenderPropTypeCreateInput
   | cg.UnionTypeCreateInput
 
 export type IUpdateTypeInput =
@@ -64,7 +64,7 @@ export type IUpdateTypeInput =
   | cg.PageTypeUpdateInput
   | cg.PrimitiveTypeUpdateInput
   | cg.ReactNodeTypeUpdateInput
-  | cg.RenderPropsTypeUpdateInput
+  | cg.RenderPropTypeUpdateInput
   | cg.UnionTypeUpdateInput
 
 /**
@@ -82,7 +82,7 @@ export type IConnectNodeInput =
   | cg.PageTypeConnectInput
   | cg.PrimitiveTypeConnectInput
   | cg.ReactNodeTypeConnectInput
-  | cg.RenderPropsTypeConnectInput
+  | cg.RenderPropTypeConnectInput
   | cg.UnionTypeConnectInput
 
 /**
@@ -99,7 +99,7 @@ export type IDisconnectNodeInput =
   | cg.PageTypeDisconnectInput
   | cg.PrimitiveTypeDisconnectInput
   | cg.ReactNodeTypeDisconnectInput
-  | cg.RenderPropsTypeDisconnectInput
+  | cg.RenderPropTypeDisconnectInput
   | cg.UnionTypeDisconnectInput
 
 /**
@@ -117,5 +117,5 @@ export type IDeleteTypeInput =
   | cg.PageTypeDeleteInput
   | cg.PrimitiveTypeDeleteInput
   | cg.ReactNodeTypeDeleteInput
-  | cg.RenderPropsTypeDeleteInput
+  | cg.RenderPropTypeDeleteInput
   | cg.UnionTypeDeleteInput

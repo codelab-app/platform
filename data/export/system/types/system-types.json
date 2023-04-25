@@ -30,10 +30,10 @@
       "primitiveKind": "String"
     },
     {
-      "__typename": "RenderPropsType",
+      "__typename": "RenderPropType",
       "id": "9e8326a2-4c44-4adc-b3f0-68e9098718e4",
-      "kind": "RenderPropsType",
-      "name": "RenderPropsType"
+      "kind": "RenderPropType",
+      "name": "RenderPropType"
     },
     {
       "__typename": "ReactNodeType",

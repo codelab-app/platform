@@ -40,7 +40,7 @@ export interface INeo4jRepository {
   LambdaType: Promise<OGM_TYPES.ModelMap['LambdaType']>
   AppType: Promise<OGM_TYPES.ModelMap['AppType']>
   ActionType: Promise<OGM_TYPES.ModelMap['ActionType']>
-  RenderPropsType: Promise<OGM_TYPES.ModelMap['RenderPropsType']>
+  RenderPropType: Promise<OGM_TYPES.ModelMap['RenderPropType']>
   ReactNodeType: Promise<OGM_TYPES.ModelMap['ReactNodeType']>
   PageType: Promise<OGM_TYPES.ModelMap['PageType']>
   CodeMirrorType: Promise<OGM_TYPES.ModelMap['CodeMirrorType']>

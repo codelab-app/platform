@@ -1607,10 +1607,10 @@
       "primitiveKind": "String"
     },
     {
-      "__typename": "RenderPropsType",
+      "__typename": "RenderPropType",
       "id": "47965d30-6d41-427e-8aef-8951d26789ec",
-      "kind": "RenderPropsType",
-      "name": "RenderPropsType"
+      "kind": "RenderPropType",
+      "name": "RenderPropType"
     },
     {
       "__typename": "ActionType",
@@ -5116,10 +5116,10 @@
           "validationRules": null,
           "defaultValues": null,
           "fieldType": {
-            "__typename": "RenderPropsType",
+            "__typename": "RenderPropType",
             "id": "47965d30-6d41-427e-8aef-8951d26789ec",
-            "kind": "RenderPropsType",
-            "name": "RenderPropsType"
+            "kind": "RenderPropType",
+            "name": "RenderPropType"
           }
         },
         {
@@ -5399,10 +5399,10 @@
           "validationRules": null,
           "defaultValues": null,
           "fieldType": {
-            "__typename": "RenderPropsType",
+            "__typename": "RenderPropType",
             "id": "47965d30-6d41-427e-8aef-8951d26789ec",
-            "kind": "RenderPropsType",
-            "name": "RenderPropsType"
+            "kind": "RenderPropType",
+            "name": "RenderPropType"
           }
         },
         {
@@ -5413,10 +5413,10 @@
           "validationRules": null,
           "defaultValues": null,
           "fieldType": {
-            "__typename": "RenderPropsType",
+            "__typename": "RenderPropType",
             "id": "47965d30-6d41-427e-8aef-8951d26789ec",
-            "kind": "RenderPropsType",
-            "name": "RenderPropsType"
+            "kind": "RenderPropType",
+            "name": "RenderPropType"
           }
         },
         {
@@ -5483,10 +5483,10 @@
           "validationRules": null,
           "defaultValues": null,
           "fieldType": {
-            "__typename": "RenderPropsType",
+            "__typename": "RenderPropType",
             "id": "47965d30-6d41-427e-8aef-8951d26789ec",
-            "kind": "RenderPropsType",
-            "name": "RenderPropsType"
+            "kind": "RenderPropType",
+            "name": "RenderPropType"
           }
         },
         {
@@ -5497,10 +5497,10 @@
           "validationRules": null,
           "defaultValues": null,
           "fieldType": {
-            "__typename": "RenderPropsType",
+            "__typename": "RenderPropType",
             "id": "47965d30-6d41-427e-8aef-8951d26789ec",
-            "kind": "RenderPropsType",
-            "name": "RenderPropsType"
+            "kind": "RenderPropType",
+            "name": "RenderPropType"
           }
         },
         {
@@ -6034,10 +6034,10 @@
           "validationRules": null,
           "defaultValues": null,
           "fieldType": {
-            "__typename": "RenderPropsType",
+            "__typename": "RenderPropType",
             "id": "47965d30-6d41-427e-8aef-8951d26789ec",
-            "kind": "RenderPropsType",
-            "name": "RenderPropsType"
+            "kind": "RenderPropType",
+            "name": "RenderPropType"
           }
         },
         {
@@ -6408,10 +6408,10 @@
           "validationRules": null,
           "defaultValues": null,
           "fieldType": {
-            "__typename": "RenderPropsType",
+            "__typename": "RenderPropType",
             "id": "47965d30-6d41-427e-8aef-8951d26789ec",
-            "kind": "RenderPropsType",
-            "name": "RenderPropsType"
+            "kind": "RenderPropType",
+            "name": "RenderPropType"
           }
         },
         {
@@ -6514,10 +6514,10 @@
           "validationRules": null,
           "defaultValues": null,
           "fieldType": {
-            "__typename": "RenderPropsType",
+            "__typename": "RenderPropType",
             "id": "47965d30-6d41-427e-8aef-8951d26789ec",
-            "kind": "RenderPropsType",
-            "name": "RenderPropsType"
+            "kind": "RenderPropType",
+            "name": "RenderPropType"
           }
         },
         {
@@ -8735,10 +8735,10 @@
           "validationRules": null,
           "defaultValues": null,
           "fieldType": {
-            "__typename": "RenderPropsType",
+            "__typename": "RenderPropType",
             "id": "47965d30-6d41-427e-8aef-8951d26789ec",
-            "kind": "RenderPropsType",
-            "name": "RenderPropsType"
+            "kind": "RenderPropType",
+            "name": "RenderPropType"
           }
         },
         {
@@ -10478,10 +10478,10 @@
           "validationRules": null,
           "defaultValues": null,
           "fieldType": {
-            "__typename": "RenderPropsType",
+            "__typename": "RenderPropType",
             "id": "47965d30-6d41-427e-8aef-8951d26789ec",
-            "kind": "RenderPropsType",
-            "name": "RenderPropsType"
+            "kind": "RenderPropType",
+            "name": "RenderPropType"
           }
         },
         {
@@ -10926,10 +10926,10 @@
           "validationRules": null,
           "defaultValues": null,
           "fieldType": {
-            "__typename": "RenderPropsType",
+            "__typename": "RenderPropType",
             "id": "47965d30-6d41-427e-8aef-8951d26789ec",
-            "kind": "RenderPropsType",
-            "name": "RenderPropsType"
+            "kind": "RenderPropType",
+            "name": "RenderPropType"
           }
         },
         {
@@ -11746,10 +11746,10 @@
           "validationRules": null,
           "defaultValues": null,
           "fieldType": {
-            "__typename": "RenderPropsType",
+            "__typename": "RenderPropType",
             "id": "47965d30-6d41-427e-8aef-8951d26789ec",
-            "kind": "RenderPropsType",
-            "name": "RenderPropsType"
+            "kind": "RenderPropType",
+            "name": "RenderPropType"
           }
         },
         {
@@ -12922,10 +12922,10 @@
           "validationRules": null,
           "defaultValues": null,
           "fieldType": {
-            "__typename": "RenderPropsType",
+            "__typename": "RenderPropType",
             "id": "47965d30-6d41-427e-8aef-8951d26789ec",
-            "kind": "RenderPropsType",
-            "name": "RenderPropsType"
+            "kind": "RenderPropType",
+            "name": "RenderPropType"
           }
         },
         {
@@ -13042,10 +13042,10 @@
           "validationRules": null,
           "defaultValues": null,
           "fieldType": {
-            "__typename": "RenderPropsType",
+            "__typename": "RenderPropType",
             "id": "47965d30-6d41-427e-8aef-8951d26789ec",
-            "kind": "RenderPropsType",
-            "name": "RenderPropsType"
+            "kind": "RenderPropType",
+            "name": "RenderPropType"
           }
         },
         {
@@ -13350,10 +13350,10 @@
           "validationRules": null,
           "defaultValues": null,
           "fieldType": {
-            "__typename": "RenderPropsType",
+            "__typename": "RenderPropType",
             "id": "47965d30-6d41-427e-8aef-8951d26789ec",
-            "kind": "RenderPropsType",
-            "name": "RenderPropsType"
+            "kind": "RenderPropType",
+            "name": "RenderPropType"
           }
         },
         {

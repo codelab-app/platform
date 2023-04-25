@@ -18,7 +18,7 @@ import type {
   IPageTypeDTO,
   IPrimitiveTypeDTO,
   IReactNodeTypeDTO,
-  IRenderPropsTypeDTO,
+  IRenderPropTypeDTO,
   IUnionTypeDTO,
 } from './types'
 
@@ -53,5 +53,5 @@ export type ITypeDTO =
   | IPageTypeDTO
   | IPrimitiveTypeDTO
   | IReactNodeTypeDTO
-  | IRenderPropsTypeDTO
+  | IRenderPropTypeDTO
   | IUnionTypeDTO
