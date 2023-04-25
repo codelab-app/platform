@@ -184,7 +184,7 @@ commands:
       - restore_cache:
           name: 'Restore Cache'
           keys:
-            - dep-cache-bust-{{ checksum "yarn.lock" }}
+            - dep-cache-bust-v2-{{ checksum "yarn.lock" }}
           # https://discuss.circleci.com/t/circle-2-0-caching-is-too-limited-to-be-very-useful/11694
       - run:
           name: 'Install NPM Packages'
