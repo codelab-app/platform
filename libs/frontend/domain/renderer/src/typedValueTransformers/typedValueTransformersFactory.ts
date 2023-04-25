@@ -3,12 +3,12 @@ import { ActionTypedValueTransformer } from './ActionTypedValueTransformer'
 import { ElementTypedValueTransformer } from './ElementTypedValueTransformer'
 import { RawTypedValuePropsTransformer } from './RawTypedValuePropsTransformer'
 import { ReactNodeTypedValueTransformer } from './ReactNodeTypedValueTransformer'
-import { RenderPropsTypedValueTransformer } from './RenderPropsTypedValueTransformer'
+import { RenderPropTypedValueTransformer } from './RenderPropTypedValueTransformer'
 
 export const typedValueTransformersFactory =
   (): Array<ITypedValueTransformer> => [
     new ReactNodeTypedValueTransformer({}),
-    new RenderPropsTypedValueTransformer({}),
+    new RenderPropTypedValueTransformer({}),
     new ElementTypedValueTransformer({}),
     new ActionTypedValueTransformer({}),
     new RawTypedValuePropsTransformer({}),

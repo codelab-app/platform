@@ -8,7 +8,7 @@ import {
   isInterfaceType,
   isPrimitiveType,
   isReactNodeType,
-  isRenderPropsType,
+  isRenderPropType,
   isUnionType,
 } from '../parser'
 
@@ -39,8 +39,8 @@ export class AntDesignTypeMapper {
       return { kind: ITypeKind.ReactNodeType }
     }
 
-    if (isRenderPropsType(field.type)) {
-      return { kind: ITypeKind.RenderPropsType }
+    if (isRenderPropType(field.type)) {
+      return { kind: ITypeKind.RenderPropType }
     }
 
     if (isUnionType(field.type)) {

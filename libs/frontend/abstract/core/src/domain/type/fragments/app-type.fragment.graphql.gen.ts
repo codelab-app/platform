@@ -13,7 +13,7 @@ import {
   BaseType_PageType_Fragment,
   BaseType_PrimitiveType_Fragment,
   BaseType_ReactNodeType_Fragment,
-  BaseType_RenderPropsType_Fragment,
+  BaseType_RenderPropType_Fragment,
   BaseType_UnionType_Fragment,
 } from './base-type.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'

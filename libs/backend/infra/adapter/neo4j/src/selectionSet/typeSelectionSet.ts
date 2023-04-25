@@ -28,7 +28,7 @@ export const exportReactNodeTypeSelectionSet = `{
   ${exportBaseTypeSelection}
 }`
 
-export const exportRenderPropsTypeSelectionSet = `{
+export const exportRenderPropTypeSelectionSet = `{
   ${exportBaseTypeSelection}
 }`
 

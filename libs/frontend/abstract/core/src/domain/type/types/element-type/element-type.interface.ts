@@ -14,7 +14,7 @@ import type { IElementTypeDTO } from './element-type.dto.interface'
  * be distinguished from other element types.
  *
  * Comparison between different element types:
- * - RenderPropsType: Component select box, results it `(props) => ReactNode` value
+ * - RenderPropType: Component select box, results it `(props) => ReactNode` value
  * - ReactNodeType: Component select box, results it `ReactNode` value
  * - ElementType: Current tree element select box, results it `ReactNode` value
  *

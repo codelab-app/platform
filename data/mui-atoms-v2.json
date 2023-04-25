@@ -2052,11 +2052,11 @@
     },
     {
       "id": "80b63f8f-fcd9-4226-8b2c-b2f37a758151",
-      "name": "RenderPropsType",
-      "kind": "RenderPropsType",
-      "__typename": "RenderPropsType",
+      "name": "RenderPropType",
+      "kind": "RenderPropType",
+      "__typename": "RenderPropType",
       "ownerAuth0Id": "",
-      "$modelType": "codelab/RenderPropsType"
+      "$modelType": "codelab/RenderPropType"
     },
     {
       "id": "5935b082-76bb-4954-8a80-5158b3f0b68b",

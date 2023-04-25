@@ -10,7 +10,7 @@ import type { ILambdaType } from './lambda-type'
 import type { IPageType } from './page-type'
 import type { IPrimitiveType } from './primitive-type'
 import type { IReactNodeType } from './react-node-type'
-import type { IRenderPropsType } from './render-props-type'
+import type { IRenderPropType } from './render-prop-type'
 import type { IUnionType } from './union-type'
 
 export type IType =
@@ -25,7 +25,7 @@ export type IType =
   | IPageType
   | IPrimitiveType
   | IReactNodeType
-  | IRenderPropsType
+  | IRenderPropType
   | IUnionType
 
 export type ITypeRef = string

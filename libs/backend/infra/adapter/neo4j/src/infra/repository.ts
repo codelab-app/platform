@@ -61,7 +61,7 @@ export class Repository implements INeo4jRepository {
 
   private actionType: OGM_TYPES.ActionTypeModel | undefined
 
-  private renderPropsType: OGM_TYPES.RenderPropsTypeModel | undefined
+  private renderPropType: OGM_TYPES.RenderPropTypeModel | undefined
 
   private reactNodeType: OGM_TYPES.ReactNodeTypeModel | undefined
 
@@ -267,11 +267,11 @@ export class Repository implements INeo4jRepository {
       )))()
   }
 
-  get RenderPropsType() {
+  get RenderPropType() {
     return (async () =>
-      (this.renderPropsType ??= await this.getOgmInstance<'RenderPropsType'>(
-        this.renderPropsType,
-        'RenderPropsType',
+      (this.renderPropType ??= await this.getOgmInstance<'RenderPropType'>(
+        this.renderPropType,
+        'RenderPropType',
       )))()
   }
 

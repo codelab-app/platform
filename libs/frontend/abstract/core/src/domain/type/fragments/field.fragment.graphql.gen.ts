@@ -66,7 +66,7 @@ export type FieldFragment = {
         name: string
       }
     | {
-        __typename: 'RenderPropsType'
+        __typename: 'RenderPropType'
         id: string
         kind: Types.TypeKind
         name: string

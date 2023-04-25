@@ -332,7 +332,7 @@ export class Renderer
        */
       if (
         typeKind === ITypeKind.ReactNodeType ||
-        typeKind === ITypeKind.RenderPropsType
+        typeKind === ITypeKind.RenderPropType
       ) {
         return ''
       }

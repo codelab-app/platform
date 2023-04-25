@@ -6,7 +6,7 @@ import {
   isInterfaceTypeRegex,
   isPrimitiveTypesRegex,
   reactNodeTypeRegex,
-  renderPropsRegexes,
+  renderPropRegexes,
   unionTypeRegex,
 } from './matchers'
 
@@ -59,8 +59,8 @@ export const isActionType: IsTypePredicates = (fieldType) => {
 }
 
 // ReactNode is also render props
-export const isRenderPropsType: IsTypePredicates = (fieldType) => {
-  return renderPropsRegexes.some((regex) => regex.test(fieldType))
+export const isRenderPropType: IsTypePredicates = (fieldType) => {
+  return renderPropRegexes.some((regex) => regex.test(fieldType))
 }
 
 export const isInterfaceType: IsTypePredicates = (fieldType) => {

@@ -23,7 +23,7 @@ query GetTypes($ids: [ID!]) {
   elementTypes(where: { id_IN: $ids }) {
     ...Type
   }
-  renderPropsTypes(where: { id_IN: $ids }) {
+  renderPropTypes(where: { id_IN: $ids }) {
     ...Type
   }
   reactNodeTypes(where: { id_IN: $ids }) {
@@ -97,11 +97,11 @@ query GetElementTypes($options: ElementTypeOptions, $where: ElementTypeWhere) {
   }
 }
 
-query GetRenderPropsTypes(
-  $options: RenderPropsTypeOptions
-  $where: RenderPropsTypeWhere
+query GetRenderPropTypes(
+  $options: RenderPropTypeOptions
+  $where: RenderPropTypeWhere
 ) {
-  types: renderPropsTypes(where: $where, options: $options) {
+  types: renderPropTypes(where: $where, options: $options) {
     ...Type
   }
 }

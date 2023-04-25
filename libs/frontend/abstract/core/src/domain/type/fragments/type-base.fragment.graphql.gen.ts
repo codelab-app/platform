@@ -91,8 +91,8 @@ export interface TypeBase_ReactNodeType_Fragment {
   owner: { id: string; auth0Id: string }
 }
 
-export interface TypeBase_RenderPropsType_Fragment {
-  __typename: 'RenderPropsType'
+export interface TypeBase_RenderPropType_Fragment {
+  __typename: 'RenderPropType'
   kind: Types.TypeKind
   id: string
   name: string
@@ -119,7 +119,7 @@ export type TypeBaseFragment =
   | TypeBase_PageType_Fragment
   | TypeBase_PrimitiveType_Fragment
   | TypeBase_ReactNodeType_Fragment
-  | TypeBase_RenderPropsType_Fragment
+  | TypeBase_RenderPropType_Fragment
   | TypeBase_UnionType_Fragment
 
 export const TypeBaseFragmentDoc = gql`

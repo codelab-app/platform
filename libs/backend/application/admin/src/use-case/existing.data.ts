@@ -5,7 +5,7 @@ import {
   exportEnumTypeSelectionSet,
   exportPrimitiveTypeSelectionSet,
   exportReactNodeTypeSelectionSet,
-  exportRenderPropsTypeSelectionSet,
+  exportRenderPropTypeSelectionSet,
   interfaceTypeSelectionSet,
   Repository,
   tagSelectionSet,
@@ -85,13 +85,13 @@ export const createExistingData = async (): Promise<ExistingData> => {
   })
 
   //
-  // RenderPropsType
+  // RenderPropType
   //
 
-  const RenderPropsType = await Repository.instance.RenderPropsType
+  const RenderPropType = await Repository.instance.RenderPropType
 
-  const renderPropsType = await RenderPropsType.find({
-    selectionSet: exportRenderPropsTypeSelectionSet,
+  const renderPropType = await RenderPropType.find({
+    selectionSet: exportRenderPropTypeSelectionSet,
   })
 
   //
@@ -122,7 +122,7 @@ export const createExistingData = async (): Promise<ExistingData> => {
     ...interfaceTypes,
     ...primitiveTypes,
     ...reactNodeTypes,
-    ...renderPropsType,
+    ...renderPropType,
     ...actionType,
     ...enumTypes,
   ]
@@ -136,7 +136,7 @@ export const createExistingData = async (): Promise<ExistingData> => {
     ...primitiveTypes,
     ...reactNodeTypes,
     ...actionType,
-    ...renderPropsType,
+    ...renderPropType,
     ...enumTypes,
   ]
     .map((type) => ({
