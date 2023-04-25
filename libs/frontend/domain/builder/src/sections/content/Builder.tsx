@@ -1,10 +1,8 @@
 import { PauseOutlined } from '@ant-design/icons'
-import type {
-  IBuilderService,
-  IElementService,
-  IElementTree,
-} from '@codelab/frontend/abstract/core'
 import {
+  type IBuilderService,
+  type IElementService,
+  type IElementTree,
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
   DragPosition,
@@ -14,6 +12,7 @@ import {
   makeDropIndicatorStyle,
   Renderer,
 } from '@codelab/frontend/domain/renderer'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { useDroppable } from '@dnd-kit/core'
 import styled from '@emotion/styled'
 import { motion } from 'framer-motion'
@@ -23,6 +22,7 @@ import tw from 'twin.macro'
 import { useBuilderHotkeys, useBuilderHoverHandlers } from '../../hooks'
 import { useBuilderResize } from '../../hooks/useBuilderResize'
 import { useBuilderRootClickHandler } from '../../hooks/useBuilderRootClickHandler'
+import { BuilderClickOverlay } from '../overlay-toolbar/BuilderClickOverlay'
 
 type BuilderProps = Pick<
   IBuilderService,
@@ -60,6 +60,8 @@ export const Builder = observer<BuilderProps>(
       currentDragData,
       setHoveredNode,
     })
+
+    const { builderService, elementService } = useStore()
 
     const builderResizable = useBuilderResize({
       selectedWidth: selectedMainContentWidth,
@@ -136,9 +138,12 @@ export const Builder = observer<BuilderProps>(
             renderRoot={rendererProps.renderRoot}
             style={rootStyle}
           />
-
+          <BuilderClickOverlay
+            builderService={builderService}
+            elementService={elementService}
+          />
           {/* <BuilderHoverOverlay /> */}
-          {/* <BuilderClickOverlay /> */}
+
           {/* {children} */}
         </StyledBuilderContainer>
       </StyledBuilderResizeContainer>
