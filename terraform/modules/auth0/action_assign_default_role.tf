@@ -30,7 +30,7 @@ resource "auth0_action" "assign_default_role" {
         return
       }
 
-      const ManagementClient = require('auth0@2.27.0').ManagementClient;
+      const ManagementClient = require('auth0').ManagementClient;
 
       const accessToken = await new ManagementClient({
         grant_type: "client_credentials",

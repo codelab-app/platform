@@ -17,12 +17,13 @@ import {
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { Nullable } from '@codelab/shared/abstract/types'
-import { COMPONENT_TAG_NAME } from '@codelab/shared/data/seed'
 import { isNonNullable } from '@codelab/shared/utils'
 import groupBy from 'lodash/groupBy'
 import { computed } from 'mobx'
 import type { Frozen } from 'mobx-keystone'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
+
+export const COMPONENT_TAG_NAME = 'Component'
 
 @model('@codelab/BuilderService')
 export class BuilderService

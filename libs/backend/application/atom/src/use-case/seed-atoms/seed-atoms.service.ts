@@ -1,3 +1,4 @@
+import type { AtomSeedRecord } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { TagRepository } from '@codelab/backend/domain/tag'
@@ -9,7 +10,6 @@ import type { IAtomDTO, IAuth0Owner } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
-import type { AtomSeedData } from './atom'
 import { atomsData } from './atom'
 
 export class SeedAtomsService extends IUseCase<IAuth0Owner, void> {
@@ -23,9 +23,7 @@ export class SeedAtomsService extends IUseCase<IAuth0Owner, void> {
   /**
    * Allow subset to be seeded for testing
    */
-  constructor(
-    private readonly data: Partial<Record<IAtomType, AtomSeedData>> = atomsData,
-  ) {
+  constructor(private readonly data: AtomSeedRecord = atomsData) {
     super()
   }
 

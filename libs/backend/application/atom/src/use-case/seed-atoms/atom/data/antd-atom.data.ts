@@ -1,13 +1,13 @@
+import type { AtomSeedRecord } from '@codelab/backend/abstract/core'
+import { AntdTag } from '@codelab/backend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { AntdTag } from '@codelab/shared/data/seed'
-import type { AtomSeedData } from '../atom-seed-data.interface'
 
 /**
  * Assign all data that is related to the atom here
  */
 // TODO: remove the partial in key
 // https://www.learn-codes.net/javascript/typescript-typescript-types-key-value-enum/
-export const antdAtomData: Partial<Record<IAtomType, AtomSeedData>> = {
+export const antdAtomData: AtomSeedRecord = {
   //
   // Antd:
   //

@@ -1,5 +1,6 @@
+import type { AtomSeedRecord } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
-import type { AtomSeedData } from '@codelab/backend/application/atom'
+import type {} from '@codelab/backend/application/atom'
 import { atomsData } from '@codelab/backend/application/atom'
 import {
   InterfaceType,
@@ -23,9 +24,7 @@ export class SeedAntDesignApiService extends IUseCase<IAuth0Owner, void> {
   /**
    * Allow subset to be seeded for testing
    */
-  constructor(
-    private readonly data: Partial<Record<IAtomType, AtomSeedData>> = atomsData,
-  ) {
+  constructor(private readonly data: AtomSeedRecord = atomsData) {
     super()
   }
 

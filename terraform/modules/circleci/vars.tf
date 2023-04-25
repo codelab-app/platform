@@ -8,11 +8,6 @@ variable "cypress_record_key" {
   description = "The record key is used to authenticate that your project is allowed to record tests to the Dashboard Service"
 }
 
-variable "nx_cloud_access_token" {
-  type        = string
-  description = "Access token for NX Cloud for caching"
-}
-
 variable "slack_access_token" {
   type        = string
   description = "Access token for Slack"

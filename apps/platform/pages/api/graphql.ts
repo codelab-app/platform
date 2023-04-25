@@ -9,7 +9,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { logger } from '@codelab/shared/adapter/logging'
-import { EnvBuilder } from '@codelab/shared/env'
+import { EnvPlatform } from '@codelab/shared/env'
 import { mergeResolvers } from '@graphql-tools/merge'
 import { ApolloServer } from 'apollo-server-micro'
 import type {
@@ -32,7 +32,7 @@ let apolloServer: ApolloServer
 
 const BASIC_LOGGING: ApolloServerPlugin = {
   requestDidStart: (requestContext: GraphQLRequestContext<BaseContext>) => {
-    if (!EnvBuilder().next.enableAPILogging) {
+    if (!EnvPlatform().next.enableAPILogging) {
       return Promise.resolve()
     }
 

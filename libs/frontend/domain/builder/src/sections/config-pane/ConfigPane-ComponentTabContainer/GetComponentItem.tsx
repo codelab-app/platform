@@ -3,7 +3,6 @@ import {
   BuilderDndType,
   IRenderTypeKind,
 } from '@codelab/frontend/abstract/core'
-import { antDesignIconPrefix } from '@codelab/shared/data/seed'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Card } from 'antd'
 import React, { useMemo } from 'react'
@@ -55,6 +54,8 @@ interface GetComponentItemProps {
   className?: string
   component: Pick<IBuilderComponent, 'icon' | 'name'>
 }
+
+export const antDesignIconPrefix = 'assets/atoms/antd'
 
 export const GetComponentItem = ({
   className = '',

@@ -14,7 +14,6 @@ module "circleci" {
 
   circleci_token             = var.CIRCLECI_TOKEN
   cypress_record_key         = var.CYPRESS_RECORD_KEY
-  nx_cloud_access_token      = var.NX_CLOUD_ACCESS_TOKEN
 
   slack_access_token    = var.SLACK_ACCESS_TOKEN
   slack_default_channel = var.SLACK_DEFAULT_CHANNEL

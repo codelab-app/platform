@@ -73,13 +73,6 @@ resource "circleci_environment_variable" "CYPRESS_RECORD_KEY" {
   organization = local.organization
 }
 
-resource "circleci_environment_variable" "NX_CLOUD_ACCESS_TOKEN" {
-  name         = "NX_CLOUD_ACCESS_TOKEN"
-  value        = var.nx_cloud_access_token
-  project      = local.project_name
-  organization = local.organization
-}
-
 resource "circleci_environment_variable" "SLACK_ACCESS_TOKEN" {
   name         = "SLACK_ACCESS_TOKEN"
   value        = var.slack_access_token

@@ -5,7 +5,7 @@ import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import fs from 'fs'
 import inquirer from 'inquirer'
 import path from 'path'
-import type { CommandModule } from 'yargs'
+import type { Argv, CommandModule, Options } from 'yargs'
 import yargs from 'yargs'
 import { getStageOptions, loadStageMiddleware } from '../../shared/command'
 import type { ExportProps } from '../../shared/path-args'
@@ -29,7 +29,7 @@ type ImportProps = ExportProps & {
  *
  * User data includes apps, user type, resources
  */
-export const importCommand: CommandModule<ImportProps, ImportProps> = {
+export const importCommand: CommandModule<unknown, ImportProps> = {
   builder: (argv) =>
     argv
       .options({
@@ -40,7 +40,11 @@ export const importCommand: CommandModule<ImportProps, ImportProps> = {
         ...seedDataPathOption,
         ...getStageOptions([Stage.Dev, Stage.Test]),
       })
-      .middleware([loadStageMiddleware, upsertUserMiddleware]),
+      .middleware([
+        loadStageMiddleware,
+        upsertUserMiddleware,
+        // Issue with inferring option
+      ]) as Argv<ImportProps>,
   command: 'import',
   describe: 'Import user data',
   // https://stackoverflow.com/questions/63912968/where-can-i-find-documentation-for-builder-in-yargs-npm
