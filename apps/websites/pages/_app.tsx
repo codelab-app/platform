@@ -8,8 +8,8 @@ import 'react-grid-layout/css/styles.css'
 // - set box-sizing, remove outlines, etc
 import 'antd/dist/reset.css'
 import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/core'
-import { initializeStore } from '@codelab/frontend/model/infra/mobx'
-import { StoreProvider } from '@codelab/frontend/presenter/container'
+import { initializeStore } from '@codelab/frontend/presentation/client/mobx'
+import { StoreProvider } from '@codelab/frontend/presentation/container'
 import React, { useMemo } from 'react'
 import { GlobalStyles } from 'twin.macro'
 

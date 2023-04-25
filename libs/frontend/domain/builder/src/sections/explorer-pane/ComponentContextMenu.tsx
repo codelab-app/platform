@@ -3,7 +3,7 @@ import type {
   IComponentService,
 } from '@codelab/frontend/abstract/core'
 import { componentRef } from '@codelab/frontend/abstract/core'
-import { Key } from '@codelab/frontend/view/components'
+import { Key } from '@codelab/frontend/presentation/view'
 import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
 import { observer } from 'mobx-react-lite'

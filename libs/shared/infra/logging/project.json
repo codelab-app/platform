@@ -1,0 +1,16 @@
+{
+  "name": "shared-infra-logging",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/infra/logging/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared/infra/logging/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:shared"]
+}

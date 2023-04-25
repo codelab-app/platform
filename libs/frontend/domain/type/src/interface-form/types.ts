@@ -5,7 +5,7 @@ import type {
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
-import type { SetIsLoading } from '@codelab/frontend/view/components'
+import type { SetIsLoading } from '@codelab/frontend/presentation/view'
 import type { Assign } from 'utility-types'
 
 export type InterfaceFormProps<TData, TResponse> = Assign<

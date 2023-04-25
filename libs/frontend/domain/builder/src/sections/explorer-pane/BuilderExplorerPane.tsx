@@ -28,9 +28,11 @@ import {
   DeleteFieldModal,
   UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
-import { useStore } from '@codelab/frontend/presenter/container'
-import { CodeMirrorEditor } from '@codelab/frontend/view/components'
-import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
+import { useStore } from '@codelab/frontend/presentation/container'
+import {
+  CodeMirrorEditor,
+  ExplorerPaneTemplate,
+} from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { css } from '@emotion/react'
 import { Collapse, Divider, Spin, Tabs } from 'antd'

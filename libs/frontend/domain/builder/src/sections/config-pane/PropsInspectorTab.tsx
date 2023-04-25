@@ -4,7 +4,7 @@ import type {
   IRenderer,
 } from '@codelab/frontend/abstract/core'
 import { isElementPageNodeRef } from '@codelab/frontend/abstract/core'
-import { CodeMirrorEditor } from '@codelab/frontend/view/components'
+import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import { propSafeStringify } from '@codelab/shared/utils'
 import Button from 'antd/lib/button'

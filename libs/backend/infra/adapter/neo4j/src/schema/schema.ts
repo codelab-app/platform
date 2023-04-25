@@ -1,5 +1,5 @@
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
-import { EnvPlatform } from '@codelab/shared/env'
+import { EnvPlatform } from '@codelab/shared/infra/config'
 import type { IResolvers } from '@graphql-tools/utils'
 import { Neo4jGraphQL } from '@neo4j/graphql'
 import { Neo4jGraphQLAuthJWKSPlugin } from '@neo4j/graphql-plugin-auth'

@@ -1,4 +1,4 @@
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 
 export const useRequiredParentValidator = () => {

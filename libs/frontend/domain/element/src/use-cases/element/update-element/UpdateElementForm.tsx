@@ -16,7 +16,7 @@ import {
   CodeMirrorField,
   createAutoCompleteOptions,
   Form,
-} from '@codelab/frontend/view/components'
+} from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { mergeProps } from '@codelab/shared/utils'
 import isNil from 'lodash/isNil'

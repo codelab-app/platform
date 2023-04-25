@@ -6,10 +6,10 @@ import { Renderer } from '@codelab/frontend/domain/renderer'
 import {
   useRenderedPage,
   useStore,
-} from '@codelab/frontend/presenter/container'
+} from '@codelab/frontend/presentation/container'
+import { DashboardTemplate } from '@codelab/frontend/presentation/view'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
-import { DashboardTemplate } from '@codelab/frontend/view/templates'
-import { auth0Instance } from '@codelab/shared/adapter/auth0'
+import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { useMountEffect } from '@react-hookz/web'
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'

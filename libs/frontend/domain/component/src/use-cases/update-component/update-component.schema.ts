@@ -1,10 +1,11 @@
 import type { IUpdateComponentData } from '@codelab/frontend/abstract/core'
 import { getSelectElementComponent } from '@codelab/frontend/domain/type'
+import { idSchema, nonEmptyString } from '@codelab/frontend/presentation/view'
+import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
 import {
   idSchema,
   titleCaseValidation,
-} from '@codelab/frontend/view/components'
-import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
+} from '@codelab/frontend/presentation/view'
 import type { JSONSchemaType } from 'ajv'
 
 export const updateComponentSchema: JSONSchemaType<IUpdateComponentData> = {

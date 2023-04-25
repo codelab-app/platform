@@ -1,5 +1,5 @@
 import type { ICreateTypeData } from '@codelab/frontend/abstract/core'
-import { DisplayIfField } from '@codelab/frontend/view/components'
+import { DisplayIfField } from '@codelab/frontend/presentation/view'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'

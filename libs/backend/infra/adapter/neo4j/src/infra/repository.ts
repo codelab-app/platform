@@ -1,4 +1,4 @@
-import type { INeo4jRepository } from '@codelab/backend/infra/ports'
+import type { INeo4jRepository } from '@codelab/backend/abstract/types'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { getOgm } from './ogm'
 

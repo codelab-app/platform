@@ -14,13 +14,13 @@ import {
   useRemainingPages,
   useRenderedPage,
   useStore,
-} from '@codelab/frontend/presenter/container'
-import { Spinner } from '@codelab/frontend/view/components'
+} from '@codelab/frontend/presentation/container'
 import {
   DashboardTemplate,
   sidebarNavigation,
-} from '@codelab/frontend/view/templates'
-import { auth0Instance } from '@codelab/shared/adapter/auth0'
+  Spinner,
+} from '@codelab/frontend/presentation/view'
+import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'

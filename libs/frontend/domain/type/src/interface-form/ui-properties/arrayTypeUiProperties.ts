@@ -1,5 +1,5 @@
 import type { IArrayType } from '@codelab/frontend/abstract/core'
-import { ToggleExpressionField } from '@codelab/frontend/view/components'
+import { ToggleExpressionField } from '@codelab/frontend/presentation/view'
 import type { UiPropertiesFn } from '../types'
 
 export const arrayTypeUiProperties: UiPropertiesFn<IArrayType> = () => {

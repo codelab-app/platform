@@ -1,4 +1,4 @@
-import { Form, handleFormSubmit } from '@codelab/frontend/view/components'
+import { Form, handleFormSubmit } from '@codelab/frontend/presentation/view'
 import type { JSONSchemaType } from 'ajv'
 import { observer } from 'mobx-react-lite'
 import { mergeDeepRight } from 'ramda'

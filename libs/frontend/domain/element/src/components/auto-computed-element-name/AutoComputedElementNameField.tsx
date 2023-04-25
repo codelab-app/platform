@@ -1,6 +1,6 @@
 import type { RenderType } from '@codelab/frontend/abstract/core'
 import { IRenderTypeKind } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import type { InputProps } from 'antd'

@@ -4,7 +4,7 @@ import type {
   IUnionType,
   IUnionTypeRecord,
 } from '@codelab/frontend/abstract/core'
-import { headerCellProps } from '@codelab/frontend/view/style'
+import { headerCellProps } from '@codelab/frontend/presentation/view'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Space } from 'antd'
 import type { ColumnProps } from 'antd/lib/table'

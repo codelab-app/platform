@@ -1,5 +1,5 @@
 import { RendererType } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { observer } from 'mobx-react-lite'
 import type { JSXElementConstructor } from 'react'
 import React, { useEffect } from 'react'

@@ -102,13 +102,16 @@
       "@codelab/backend/infra/data/seed": [
         "libs/backend/infra/data/seed/src/index.ts"
       ],
-      "@codelab/backend/infra/ports": ["libs/backend/infra/ports/src/index.ts"],
       "@codelab/backend/shared/util": ["libs/backend/shared/util/src/index.ts"],
+      "@codelab/backend/test": ["libs/backend/test/src/index.ts"],
       "@codelab/frontend/abstract/core": [
         "libs/frontend/abstract/core/src/index.ts"
       ],
       "@codelab/frontend/abstract/types": [
         "libs/frontend/abstract/types/src/index.ts"
+      ],
+      "@codelab/frontend/application/atoms": [
+        "libs/frontend/application/atoms/src/index.ts"
       ],
       "@codelab/frontend/domain/admin": [
         "libs/frontend/domain/admin/src/index.ts"
@@ -157,33 +160,23 @@
       "@codelab/frontend/domain/user": [
         "libs/frontend/domain/user/src/index.ts"
       ],
-      "@codelab/frontend/model/infra/graphql": [
-        "libs/frontend/model/infra/graphql/src/index.ts"
+      "@codelab/frontend/presentation/client/graphql": [
+        "libs/frontend/presentation/client/graphql/src/index.ts"
       ],
-      "@codelab/frontend/model/infra/mobx": [
-        "libs/frontend/model/infra/mobx/src/index.ts"
+      "@codelab/frontend/presentation/client/mobx": [
+        "libs/frontend/presentation/client/mobx/src/index.ts"
       ],
-      "@codelab/frontend/platform/atoms": [
-        "libs/frontend/platform/atoms/src/index.ts"
+      "@codelab/frontend/presentation/container": [
+        "libs/frontend/presentation/container/src/index.ts"
       ],
-      "@codelab/frontend/presenter/container": [
-        "libs/frontend/presenter/container/src/index.ts"
+      "@codelab/frontend/presentation/view": [
+        "libs/frontend/presentation/view/index.ts"
       ],
       "@codelab/frontend/shared/style": [
         "libs/frontend/shared/style/src/index.ts"
       ],
       "@codelab/frontend/shared/utils": [
         "libs/frontend/shared/utils/src/index.ts"
-      ],
-      "@codelab/frontend/view/components": [
-        "libs/frontend/view/components/index.ts"
-      ],
-      "@codelab/frontend/view/sections": [
-        "libs/frontend/view/sections/index.ts"
-      ],
-      "@codelab/frontend/view/style": ["libs/frontend/view/style/index.ts"],
-      "@codelab/frontend/view/templates": [
-        "libs/frontend/view/templates/index.ts"
       ],
       "@codelab/shared/abstract/codegen": [
         "libs/shared/abstract/codegen/src/index.ts"
@@ -194,18 +187,15 @@
       "@codelab/shared/abstract/types": [
         "libs/shared/abstract/types/src/index.ts"
       ],
-      "@codelab/shared/adapter/auth0": [
-        "libs/shared/adapter/auth0/src/index.ts"
-      ],
-      "@codelab/shared/adapter/logging": [
-        "libs/shared/adapter/logging/src/index.ts"
-      ],
-      "@codelab/shared/config": ["libs/shared/config/src/index.ts"],
       "@codelab/shared/data/test": ["libs/shared/data/test/src/index.ts"],
       "@codelab/shared/domain/mapper": [
         "libs/shared/domain/mapper/src/index.ts"
       ],
-      "@codelab/shared/env": ["libs/shared/env/src/index.ts"],
+      "@codelab/shared/infra/auth0": ["libs/shared/infra/auth0/src/index.ts"],
+      "@codelab/shared/infra/config": ["libs/shared/infra/config/src/index.ts"],
+      "@codelab/shared/infra/logging": [
+        "libs/shared/infra/logging/src/index.ts"
+      ],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"]
     }
   },

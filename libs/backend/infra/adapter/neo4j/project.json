@@ -12,5 +12,5 @@
       }
     }
   },
-  "tags": ["scope:backend", "layer:adapter"]
+  "tags": ["scope:backend", "layer:infra"]
 }

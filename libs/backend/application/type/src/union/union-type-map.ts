@@ -1,7 +1,7 @@
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { logger } from '@codelab/shared/adapter/logging'
 import { connectNode } from '@codelab/shared/domain/mapper'
+import { logger } from '@codelab/shared/infra/logging'
 import {
   capitalizeFirstLetter,
   compoundCaseToTitleCase,

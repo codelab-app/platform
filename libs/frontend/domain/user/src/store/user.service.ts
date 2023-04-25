@@ -4,7 +4,7 @@ import type {
   IUserService,
 } from '@codelab/frontend/abstract/core'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
-import type { Nullable, UserWhere } from '@codelab/shared/abstract/types'
+import type { UserWhere } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
   _async,

@@ -4,8 +4,8 @@ import {
   InterfaceType,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
-import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { createAtomsApiData, createAtomsData } from '@codelab/shared/data/test'
+import { auth0Instance } from '@codelab/shared/infra/auth0'
 import type { NextApiHandler } from 'next'
 
 const atomRepository = new AtomRepository()

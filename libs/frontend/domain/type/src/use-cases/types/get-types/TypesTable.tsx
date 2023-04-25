@@ -1,9 +1,11 @@
 import type { IType, ITypeRecord } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
+import {
+  headerCellProps,
+  useColumnSearchProps,
+} from '@codelab/frontend/presentation/view'
 import { useTablePagination } from '@codelab/frontend/shared/utils'
-import { useColumnSearchProps } from '@codelab/frontend/view/components'
-import { headerCellProps } from '@codelab/frontend/view/style'
 import { Skeleton, Spin, Table } from 'antd'
 import type { ColumnsType } from 'antd/lib/table/interface'
 import { observer } from 'mobx-react-lite'

@@ -7,14 +7,14 @@ import {
 import {
   useCurrentAppId,
   useCurrentPageId,
-} from '@codelab/frontend/presenter/container'
-import { ContentSection } from '@codelab/frontend/view/sections'
-import type { DashboardTemplateProps } from '@codelab/frontend/view/templates'
+} from '@codelab/frontend/presentation/container'
+import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
+  ContentSection,
   DashboardTemplate,
   sidebarNavigation,
-} from '@codelab/frontend/view/templates'
-import { auth0Instance } from '@codelab/shared/adapter/auth0'
+} from '@codelab/frontend/presentation/view'
+import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'

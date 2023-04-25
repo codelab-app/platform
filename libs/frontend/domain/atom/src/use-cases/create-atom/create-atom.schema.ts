@@ -4,7 +4,7 @@ import {
   idSchema,
   nonEmptyString,
   ownerSchema,
-} from '@codelab/frontend/view/components'
+} from '@codelab/frontend/presentation/view'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 

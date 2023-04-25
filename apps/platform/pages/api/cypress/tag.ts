@@ -1,7 +1,7 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { Tag, TagRepository } from '@codelab/backend/domain/tag'
-import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { createTagsData } from '@codelab/shared/data/test'
+import { auth0Instance } from '@codelab/shared/infra/auth0'
 import type { NextApiHandler } from 'next'
 
 const tagRepository = new TagRepository()

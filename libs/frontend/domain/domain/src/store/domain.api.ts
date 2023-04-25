@@ -1,4 +1,4 @@
-import { client } from '@codelab/frontend/model/infra/graphql'
+import { client } from '@codelab/frontend/presentation/client/graphql'
 import { getSdk } from '../graphql'
 
 export const domainApis = getSdk(client)

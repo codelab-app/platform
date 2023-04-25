@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { IFieldDefaultValue } from '@codelab/frontend/abstract/core'
+import { createValidator, Form } from '@codelab/frontend/presentation/view'
 import { usePrevious } from '@codelab/frontend/shared/utils'
-import { createValidator, Form } from '@codelab/frontend/view/components'
 import { css } from '@emotion/react'
 import { Form as AntdForm } from 'antd'
 import isNil from 'lodash/isNil'

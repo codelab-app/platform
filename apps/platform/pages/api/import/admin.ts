@@ -1,6 +1,6 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import type { IAdminDataExport } from '@codelab/backend/abstract/core'
-import { auth0Instance } from '@codelab/shared/adapter/auth0'
+import { auth0Instance } from '@codelab/shared/infra/auth0'
 import type { NextApiHandler } from 'next'
 
 const importApp: NextApiHandler = async (req, res) => {

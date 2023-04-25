@@ -1,4 +1,4 @@
-import { ToggleExpressionField } from '@codelab/frontend/view/components'
+import { ToggleExpressionField } from '@codelab/frontend/presentation/view'
 import { SelectComponent } from '../fields'
 import type { UiPropertiesFn } from '../types'
 

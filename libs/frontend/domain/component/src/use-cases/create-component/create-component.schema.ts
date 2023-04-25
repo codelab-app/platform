@@ -3,7 +3,7 @@ import {
   idSchema,
   ownerSchema,
   titleCaseValidation,
-} from '@codelab/frontend/view/components'
+} from '@codelab/frontend/presentation/view'
 import type { JSONSchemaType } from 'ajv'
 
 export type CreateComponentSchema = Omit<

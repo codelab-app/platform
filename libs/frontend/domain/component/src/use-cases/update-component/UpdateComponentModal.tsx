@@ -2,8 +2,8 @@ import type {
   IComponentService,
   IUpdateComponentData,
 } from '@codelab/frontend/abstract/core'
+import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'

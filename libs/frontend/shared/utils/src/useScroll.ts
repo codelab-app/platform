@@ -4,7 +4,7 @@
  *    const { scrollX, scrollY, scrollDirection } = useScroll();
  * Original Source: https://gist.github.com/joshuacerbito/ea318a6a7ca4336e9fadb9ae5bbb87f4
  */
-import { isServer } from '@codelab/shared/config'
+import { isServer } from '@codelab/shared/infra/config'
 import { useEffect, useState } from 'react'
 
 interface SSRRect {

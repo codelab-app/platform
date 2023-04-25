@@ -1,5 +1,5 @@
 import type { IResource } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

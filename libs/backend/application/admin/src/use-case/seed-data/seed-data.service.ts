@@ -1,15 +1,7 @@
-import type {
-  AntdTag,
-  HtmlTag,
-  ReactTag,
-  TagNode,
-} from '@codelab/backend/abstract/core'
+import type { TagNode } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
-import { SeedAtomsService } from '@codelab/backend/application/atom'
 import { SeedTagsService } from '@codelab/backend/application/tag'
 import {
-  SeedAntDesignApiService,
-  SeedAntDesignFieldsService,
   SeedHtmlTypeService,
   SeedSystemTypeService,
 } from '@codelab/backend/application/type'

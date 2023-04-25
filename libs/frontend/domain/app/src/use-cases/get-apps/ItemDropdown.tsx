@@ -7,7 +7,7 @@ import {
   ToolOutlined,
 } from '@ant-design/icons'
 import type { IApp, IDomain } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown, Menu } from 'antd'
 import { observer } from 'mobx-react-lite'

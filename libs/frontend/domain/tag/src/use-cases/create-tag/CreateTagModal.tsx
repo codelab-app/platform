@@ -1,7 +1,7 @@
 import type { ICreateTagData } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
+import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
@@ -24,7 +24,7 @@ export const CreateTagModal = observer(() => {
       <ModalForm.Form
         model={{
           id: v4(),
-          owner: { auth0Id: userService.user?.auth0Id },
+          owner: { auth0Id: userService.user.auth0Id },
           parent: { id: defaultOption.value.toString() },
         }}
         onSubmit={onSubmit}

@@ -2,9 +2,9 @@ import { PageType } from '@codelab/frontend/abstract/types'
 import {
   useCurrentResourceId,
   useStore,
-} from '@codelab/frontend/presenter/container'
+} from '@codelab/frontend/presentation/container'
+import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { emptyJsonSchema, ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React from 'react'

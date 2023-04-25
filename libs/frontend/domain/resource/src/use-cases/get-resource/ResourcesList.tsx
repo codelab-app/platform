@@ -1,6 +1,9 @@
-import { useStore } from '@codelab/frontend/presenter/container'
-import { DisplayIf, Spinner } from '@codelab/frontend/view/components'
-import { threeGridCol } from '@codelab/frontend/view/style'
+import { useStore } from '@codelab/frontend/presentation/container'
+import {
+  DisplayIf,
+  Spinner,
+  threeGridCol,
+} from '@codelab/frontend/presentation/view'
 import { useAsync, useMountEffect } from '@react-hookz/web'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'

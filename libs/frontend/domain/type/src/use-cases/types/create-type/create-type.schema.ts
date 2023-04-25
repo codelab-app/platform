@@ -3,7 +3,7 @@ import {
   idSchema,
   nonEmptyString,
   ownerSchema,
-} from '@codelab/frontend/view/components'
+} from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {
   IElementTypeKind,

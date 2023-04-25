@@ -2,12 +2,12 @@ import { FileOutlined } from '@ant-design/icons'
 import type { IDomain, IPage } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { regeneratePages } from '@codelab/frontend/domain/domain'
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import {
   ListItemBuildButton,
   ListItemDeleteButton,
   ListItemEditButton,
-} from '@codelab/frontend/view/components'
+} from '@codelab/frontend/presentation/view'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { List, Space } from 'antd'
 import { observer } from 'mobx-react-lite'

@@ -5,7 +5,6 @@ import { EnvPlatform } from '@codelab/shared/env'
 import inquirer from 'inquirer'
 import { v4 } from 'uuid'
 import type { MiddlewareFunction, Options } from 'yargs'
-import type { SeedCommandOptions } from '../commands/seed/seed.command'
 import { selectUserPrompt } from './prompts/selectUser'
 import { Stage } from './utils/stage'
 

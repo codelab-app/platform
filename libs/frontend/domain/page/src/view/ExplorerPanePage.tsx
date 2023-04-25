@@ -1,5 +1,5 @@
 import { PageType } from '@codelab/frontend/abstract/types'
-import { ExplorerPaneTemplate } from '@codelab/frontend/view/templates'
+import { ExplorerPaneTemplate } from '@codelab/frontend/presentation/view'
 import { Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'

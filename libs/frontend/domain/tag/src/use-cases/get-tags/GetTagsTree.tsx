@@ -1,6 +1,6 @@
 import type { CheckedKeys } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/presenter/container'
-import { Spinner } from '@codelab/frontend/view/components'
+import { useStore } from '@codelab/frontend/presentation/container'
+import { Spinner } from '@codelab/frontend/presentation/view'
 import { useAsync } from '@react-hookz/web'
 import type { TreeProps } from 'antd'
 import { Tree } from 'antd'

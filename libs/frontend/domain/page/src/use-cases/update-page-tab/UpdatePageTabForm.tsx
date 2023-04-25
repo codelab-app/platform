@@ -2,8 +2,8 @@ import type {
   IPageService,
   IUpdatePageData,
 } from '@codelab/frontend/abstract/core'
-import { useCurrentPageId } from '@codelab/frontend/presenter/container'
-import { Form } from '@codelab/frontend/view/components'
+import { useCurrentPageId } from '@codelab/frontend/presentation/container'
+import { Form } from '@codelab/frontend/presentation/view'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

@@ -1,6 +1,6 @@
 import type { IElementTree, IRenderer } from '@codelab/frontend/abstract/core'
 import { defaultBuilderWidthBreakPoints } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useMemo } from 'react'
 import { Builder } from './Builder'

@@ -1,7 +1,7 @@
 import {
   ListItemDeleteButton,
   ListItemEditButton,
-} from '@codelab/frontend/view/components'
+} from '@codelab/frontend/presentation/view'
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

@@ -2,9 +2,9 @@ import type { ICreateDomainData } from '@codelab/frontend/abstract/core'
 import {
   useCurrentAppId,
   useStore,
-} from '@codelab/frontend/presenter/container'
+} from '@codelab/frontend/presentation/container'
+import { ModalForm } from '@codelab/frontend/presentation/view'
 import { useNotify } from '@codelab/frontend/shared/utils'
-import { ModalForm } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -18,7 +18,7 @@ export const CreateDomainModal = observer(() => {
 
   const model = {
     app: { id: currentAppId },
-    auth0Id: userService.user?.auth0Id,
+    auth0Id: userService.user.auth0Id,
     id: v4(),
   }
 

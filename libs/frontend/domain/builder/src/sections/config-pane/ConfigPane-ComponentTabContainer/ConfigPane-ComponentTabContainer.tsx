@@ -1,4 +1,4 @@
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { useAsync, useMountEffect } from '@react-hookz/web'
 import { Spin } from 'antd'
 import { observer } from 'mobx-react-lite'

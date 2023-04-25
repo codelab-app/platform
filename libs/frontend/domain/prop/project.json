@@ -3,7 +3,7 @@
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/frontend/domain/prop/src",
   "projectType": "library",
-  "tags": ["layer:domain:frontend", "scope:frontend"],
+  "tags": ["scope:frontend", "layer:domain"],
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",

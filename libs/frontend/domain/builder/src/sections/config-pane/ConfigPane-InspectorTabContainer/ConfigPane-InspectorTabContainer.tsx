@@ -23,8 +23,8 @@ import {
   UpdateElementPropTransformationForm,
 } from '@codelab/frontend/domain/element'
 import { UpdatePageTabForm } from '@codelab/frontend/domain/page'
-import { useStore } from '@codelab/frontend/presenter/container'
-import { FormContextProvider } from '@codelab/frontend/view/components'
+import { useStore } from '@codelab/frontend/presentation/container'
+import { FormContextProvider } from '@codelab/frontend/presentation/view'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { css } from '@emotion/react'
 import { Spin, Tabs, Tooltip } from 'antd'

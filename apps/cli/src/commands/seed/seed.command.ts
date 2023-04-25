@@ -1,16 +1,13 @@
 import { SeedDataService } from '@codelab/backend/application/admin'
-import { UserRepository } from '@codelab/backend/domain/user'
 import { antdTagTree } from '@codelab/backend/infra/data/seed'
 import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
-import type { CommandModule, Options } from 'yargs'
-import type yargs from 'yargs'
+import type { CommandModule } from 'yargs'
 import { getStageOptions, loadStageMiddleware } from '../../shared/command'
 import {
   assignUserOption,
   selectUser,
   upsertUserMiddleware,
 } from '../../shared/path-args'
-import { selectUserPrompt } from '../../shared/prompts/selectUser'
 import { Stage } from '../../shared/utils/stage'
 
 export interface SeedCommandOptions {

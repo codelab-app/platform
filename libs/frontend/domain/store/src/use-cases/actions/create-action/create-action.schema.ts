@@ -6,7 +6,7 @@ import {
   idSchema,
   nonEmptyString,
   showFieldOnDev,
-} from '@codelab/frontend/view/components'
+} from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'

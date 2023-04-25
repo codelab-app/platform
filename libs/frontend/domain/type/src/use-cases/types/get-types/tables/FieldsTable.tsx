@@ -8,7 +8,7 @@ import type {
 import {
   ListItemDeleteButton,
   ListItemEditButton,
-} from '@codelab/frontend/view/components'
+} from '@codelab/frontend/presentation/view'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { faArrowsUpDownLeftRight } from '@fortawesome/pro-light-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

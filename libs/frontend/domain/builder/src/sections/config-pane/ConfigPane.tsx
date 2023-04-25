@@ -10,7 +10,7 @@ import {
   MoveElementForm,
   UpdateElementForm,
 } from '@codelab/frontend/domain/element'
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { TabsProps } from 'antd'
 import { Spin, Tabs } from 'antd'

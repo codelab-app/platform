@@ -1,4 +1,4 @@
-import { Fancybox } from '@codelab/frontend/view/components'
+import { Fancybox } from '@codelab/frontend/presentation/view'
 import { faArrowRight } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Col, Row, Space } from 'antd'
@@ -9,7 +9,7 @@ import { BuilderDemo } from '../demo/BuilderDemo'
 import { CurveAccent } from './CurveAccent'
 
 // const Fancybox = dynamic<any>(
-//   () => import('@codelab/frontend/view/components').then((mod) => mod.Fancybox),
+//   () => import('@codelab/frontend/presentation/view').then((mod) => mod.Fancybox),
 //   { ssr: false },
 // )
 

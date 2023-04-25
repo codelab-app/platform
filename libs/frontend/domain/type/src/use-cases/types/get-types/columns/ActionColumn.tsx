@@ -6,7 +6,7 @@ import type {
 import {
   ListItemDeleteButton,
   ListItemEditButton,
-} from '@codelab/frontend/view/components'
+} from '@codelab/frontend/presentation/view'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'

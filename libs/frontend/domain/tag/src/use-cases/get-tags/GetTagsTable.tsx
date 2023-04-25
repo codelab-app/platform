@@ -1,8 +1,8 @@
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
-} from '@codelab/frontend/view/components'
+} from '@codelab/frontend/presentation/view'
 import type { TableColumnProps } from 'antd'
 import { Space, Table } from 'antd'
 import { observer } from 'mobx-react-lite'

@@ -1,6 +1,10 @@
-import { useStore } from '@codelab/frontend/presenter/container'
-import { DisplayIf, ErrorBoundary } from '@codelab/frontend/view/components'
-import { padding, threeGridCol } from '@codelab/frontend/view/style'
+import { useStore } from '@codelab/frontend/presentation/container'
+import {
+  DisplayIf,
+  ErrorBoundary,
+  padding,
+  threeGridCol,
+} from '@codelab/frontend/presentation/view'
 import { Col, Empty, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

@@ -1,5 +1,5 @@
 import type { IBuilderComponent } from '@codelab/frontend/abstract/core'
-import { ErrorBoundary } from '@codelab/frontend/view/components'
+import { ErrorBoundary } from '@codelab/frontend/presentation/view'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { DraggableGetComponentItem } from './GetComponentItem'

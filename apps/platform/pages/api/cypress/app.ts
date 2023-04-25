@@ -7,7 +7,6 @@ import { Store, StoreRepository } from '@codelab/backend/domain/store'
 import type { InterfaceType } from '@codelab/backend/domain/type'
 import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
 import { IPageKindName } from '@codelab/shared/abstract/core'
-import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import {
   appData,
   internalServerErrorElementData,
@@ -20,6 +19,7 @@ import {
   providerElementPropsData,
   providerPageData,
 } from '@codelab/shared/data/test'
+import { auth0Instance } from '@codelab/shared/infra/auth0'
 import type { NextApiHandler } from 'next'
 
 const appRepository = new AppRepository()

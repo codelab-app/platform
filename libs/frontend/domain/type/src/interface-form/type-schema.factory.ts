@@ -15,7 +15,7 @@ import type {
   IType,
   IUnionType,
 } from '@codelab/frontend/abstract/core'
-import { fieldDescription } from '@codelab/frontend/view/components'
+import { fieldDescription } from '@codelab/frontend/presentation/view'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'

@@ -3,7 +3,7 @@ import type { IDomain } from '@codelab/frontend/abstract/core'
 import {
   useCurrentAppId,
   useStore,
-} from '@codelab/frontend/presenter/container'
+} from '@codelab/frontend/presentation/container'
 import { useAsync } from '@react-hookz/web'
 import { Button, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'

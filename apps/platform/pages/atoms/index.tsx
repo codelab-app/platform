@@ -23,18 +23,18 @@ import {
 import {
   useCurrentAppId,
   useCurrentPageId,
-} from '@codelab/frontend/presenter/container'
+} from '@codelab/frontend/presentation/container'
+import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
   adminMenuItems,
   allPagesMenuItem,
   appMenuItem,
   ContentSection,
+  DashboardTemplate,
   pageBuilderMenuItem,
   resourceMenuItem,
-} from '@codelab/frontend/view/sections'
-import type { DashboardTemplateProps } from '@codelab/frontend/view/templates'
-import { DashboardTemplate } from '@codelab/frontend/view/templates'
-import { auth0Instance } from '@codelab/shared/adapter/auth0'
+} from '@codelab/frontend/presentation/view'
+import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { useCallback, useMemo } from 'react'

@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import type { IActionType } from '@codelab/frontend/abstract/core'
-import { ToggleExpressionField } from '@codelab/frontend/view/components'
+import { ToggleExpressionField } from '@codelab/frontend/presentation/view'
 import { SelectAction } from '../fields'
 import type { UiPropertiesFn } from '../types'
 

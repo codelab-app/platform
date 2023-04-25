@@ -1,7 +1,7 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { TypeFactory } from '@codelab/backend/domain/type'
-import { auth0Instance } from '@codelab/shared/adapter/auth0'
 import { createTypesData } from '@codelab/shared/data/test'
+import { auth0Instance } from '@codelab/shared/infra/auth0'
 import type { NextApiHandler } from 'next'
 
 /**

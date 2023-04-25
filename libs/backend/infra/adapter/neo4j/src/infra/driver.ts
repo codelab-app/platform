@@ -1,4 +1,4 @@
-import { EnvPlatform } from '@codelab/shared/env'
+import { EnvPlatform } from '@codelab/shared/infra/config'
 import type { Driver } from 'neo4j-driver'
 import neo4j from 'neo4j-driver'
 

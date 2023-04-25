@@ -15,7 +15,7 @@ import {
   useCurrentAppId,
   useCurrentPageId,
   useStore,
-} from '@codelab/frontend/presenter/container'
+} from '@codelab/frontend/presentation/container'
 import { InputNumber, Menu, Space } from 'antd'
 import type { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { observer } from 'mobx-react-lite'

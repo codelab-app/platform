@@ -3,7 +3,7 @@ import type { IAction, IActionService } from '@codelab/frontend/abstract/core'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
-} from '@codelab/frontend/view/components'
+} from '@codelab/frontend/presentation/view'
 import { List, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

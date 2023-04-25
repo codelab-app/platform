@@ -1,5 +1,5 @@
 import type { IComponentService } from '@codelab/frontend/abstract/core'
-import { Spinner } from '@codelab/frontend/view/components'
+import { Spinner } from '@codelab/frontend/presentation/view'
 import { useAsync, useMountEffect } from '@react-hookz/web'
 import type { TableColumnProps } from 'antd'
 import { Table } from 'antd'

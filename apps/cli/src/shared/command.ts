@@ -1,6 +1,5 @@
 import dotenv from 'dotenv'
 import type { MiddlewareFunction, Options } from 'yargs'
-import type { SeedCommandOptions } from '../commands/seed/seed.command'
 import { Stage } from './utils/stage'
 
 type GetStageOptions = (stages: Array<Stage>) => {

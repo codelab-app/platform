@@ -8,7 +8,6 @@ import {
   PrimitiveTypeRepository,
 } from '@codelab/backend/domain/type'
 import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
-import type { IAtomType } from '@codelab/shared/abstract/core'
 import { ObjectTyped } from 'object-typed'
 
 /**

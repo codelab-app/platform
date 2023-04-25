@@ -7,8 +7,8 @@ import {
   RendererTab,
 } from '@codelab/frontend/abstract/core'
 import { mapElementOption } from '@codelab/frontend/domain/element'
-import { useStore } from '@codelab/frontend/presenter/container'
-import { Key } from '@codelab/frontend/view/components'
+import { useStore } from '@codelab/frontend/presentation/container'
+import { Key } from '@codelab/frontend/presentation/view'
 import { Menu } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

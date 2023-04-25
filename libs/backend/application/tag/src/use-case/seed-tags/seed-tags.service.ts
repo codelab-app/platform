@@ -1,13 +1,6 @@
-import type {
-  AntdTag,
-  HtmlTag,
-  ReactTag,
-  TagNode,
-  TagNodeData,
-} from '@codelab/backend/abstract/core'
+import type { TagNode, TagNodeData } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import { TagRepository } from '@codelab/backend/domain/tag'
-import { allTagTree } from '@codelab/backend/infra/data/seed'
 import type { IAuth0Owner, ITagDTO } from '@codelab/frontend/abstract/core'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'

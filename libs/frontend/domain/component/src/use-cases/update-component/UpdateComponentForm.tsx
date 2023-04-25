@@ -3,8 +3,8 @@ import type {
   IComponentService,
   IUpdateComponentData,
 } from '@codelab/frontend/abstract/core'
+import { Form, FormContextProvider } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import { Form, FormContextProvider } from '@codelab/frontend/view/components'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'

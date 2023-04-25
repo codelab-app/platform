@@ -1,6 +1,6 @@
 import type { IPage, IRenderer } from '@codelab/frontend/abstract/core'
 import { RendererTab } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
 import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import { Alert, Layout, Spin, Tabs } from 'antd'

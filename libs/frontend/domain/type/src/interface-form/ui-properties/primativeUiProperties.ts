@@ -2,7 +2,7 @@ import type { IPrimitiveType } from '@codelab/frontend/abstract/core'
 import {
   CodeMirrorField,
   ToggleExpressionField,
-} from '@codelab/frontend/view/components'
+} from '@codelab/frontend/presentation/view'
 import { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import type { UiPropertiesFn } from '../types'
 

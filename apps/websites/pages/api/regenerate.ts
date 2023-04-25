@@ -1,4 +1,4 @@
-import { auth0Instance } from '@codelab/shared/adapter/auth0'
+import { auth0Instance } from '@codelab/shared/infra/auth0'
 import type { NextApiHandler } from 'next'
 
 const regenerate: NextApiHandler = async (req, res) => {

@@ -2,11 +2,11 @@ import { RendererType } from '@codelab/frontend/abstract/core'
 import type { AppPagePageProps } from '@codelab/frontend/abstract/types'
 import { pageApi } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
-import { initializeStore } from '@codelab/frontend/model/infra/mobx'
+import { initializeStore } from '@codelab/frontend/presentation/client/mobx'
 import {
   useRenderedPage,
   useStore,
-} from '@codelab/frontend/presenter/container'
+} from '@codelab/frontend/presentation/container'
 import { useMountEffect } from '@react-hookz/web'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'

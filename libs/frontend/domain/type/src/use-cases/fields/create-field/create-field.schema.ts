@@ -4,7 +4,7 @@ import {
   NumberValidationRules,
   StringValidationRules,
 } from '@codelab/frontend/abstract/core'
-import { idSchema, nonEmptyString } from '@codelab/frontend/view/components'
+import { idSchema, nonEmptyString } from '@codelab/frontend/presentation/view'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import type { JSONSchemaType } from 'ajv'
 

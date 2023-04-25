@@ -1,5 +1,5 @@
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { auth0Instance } from '@codelab/shared/adapter/auth0'
+import { auth0Instance } from '@codelab/shared/infra/auth0'
 import Head from 'next/head'
 import React from 'react'
 

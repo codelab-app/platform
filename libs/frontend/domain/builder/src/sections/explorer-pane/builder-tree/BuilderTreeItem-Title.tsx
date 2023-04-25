@@ -3,7 +3,7 @@ import {
   isComponentPageNode,
   isElementPageNode,
 } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'
 import type { DataNode } from 'antd/lib/tree'

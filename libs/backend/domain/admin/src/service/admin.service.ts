@@ -1,8 +1,11 @@
-import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
+// import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
+import type { Driver } from 'neo4j-driver'
 
 export class AdminService {
+  constructor(private readonly driver: Driver) {}
+
   async reset({ close }: { close: boolean } = { close: false }) {
-    const driver = getDriver()
+    const driver = this.driver
     const session = driver.session()
 
     try {

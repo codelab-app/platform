@@ -4,7 +4,7 @@ import type {
   IPageNode,
 } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import { Tree as AntdTree } from 'antd'
 import has from 'lodash/has'

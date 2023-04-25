@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useFormContext } from '@codelab/frontend/view/components'
+import { useFormContext } from '@codelab/frontend/presentation/view'
 import { IElementTypeKind } from '@codelab/shared/abstract/core'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import difference from 'lodash/difference'

@@ -7,9 +7,9 @@ import {
   getSchema,
   resolvers,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { auth0Instance } from '@codelab/shared/adapter/auth0'
-import { logger } from '@codelab/shared/adapter/logging'
-import { EnvPlatform } from '@codelab/shared/env'
+import { auth0Instance } from '@codelab/shared/infra/auth0'
+import { EnvPlatform } from '@codelab/shared/infra/config'
+import { logger } from '@codelab/shared/infra/logging'
 import { mergeResolvers } from '@graphql-tools/merge'
 import { ApolloServer } from 'apollo-server-micro'
 import type {

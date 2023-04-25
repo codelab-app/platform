@@ -1,7 +1,7 @@
 import {
   useCurrentAppId,
   useStore,
-} from '@codelab/frontend/presenter/container'
+} from '@codelab/frontend/presentation/container'
 import { List } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

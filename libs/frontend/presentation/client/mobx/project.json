@@ -1,0 +1,16 @@
+{
+  "name": "frontend-presentation-client-mobx",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/frontend/presentation/client/mobx/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/frontend/presentation/client/mobx/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:frontend"]
+}

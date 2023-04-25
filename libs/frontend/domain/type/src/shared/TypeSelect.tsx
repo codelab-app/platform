@@ -1,4 +1,4 @@
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import type { IBaseType } from '@codelab/shared/abstract/codegen'
 import { useAsync } from '@react-hookz/web'
 import compact from 'lodash/compact'

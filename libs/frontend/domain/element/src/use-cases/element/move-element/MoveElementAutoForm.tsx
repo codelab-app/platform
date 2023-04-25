@@ -1,4 +1,4 @@
-import { withAutoForm } from '@codelab/frontend/view/components'
+import { withAutoForm } from '@codelab/frontend/presentation/view'
 import { AutoForm } from 'uniforms-antd'
 
 // any for delegating generic

@@ -7,10 +7,12 @@ import {
   GetLambdasTable,
   UpdateLambdaModal,
 } from '@codelab/frontend/domain/lambda'
-import { ContentSection } from '@codelab/frontend/view/sections'
-import type { DashboardTemplateProps } from '@codelab/frontend/view/templates'
-import { DashboardTemplate } from '@codelab/frontend/view/templates'
-import { auth0Instance } from '@codelab/shared/adapter/auth0'
+import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
+import {
+  ContentSection,
+  DashboardTemplate,
+} from '@codelab/frontend/presentation/view'
+import { auth0Instance } from '@codelab/shared/infra/auth0'
 import Head from 'next/head'
 import React from 'react'
 

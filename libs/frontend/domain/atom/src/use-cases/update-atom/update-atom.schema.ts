@@ -1,6 +1,6 @@
 import type { IUpdateAtomData } from '@codelab/frontend/abstract/core'
 import { filterNotHookType } from '@codelab/frontend/abstract/core'
-import { idSchema, nonEmptyString } from '@codelab/frontend/view/components'
+import { idSchema, nonEmptyString } from '@codelab/frontend/presentation/view'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 

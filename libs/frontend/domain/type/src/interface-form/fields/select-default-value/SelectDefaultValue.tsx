@@ -4,7 +4,7 @@ import type {
   ITypeService,
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
-import { Form } from '@codelab/frontend/view/components'
+import { Form } from '@codelab/frontend/presentation/view'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'

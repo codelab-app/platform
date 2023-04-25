@@ -22,5 +22,5 @@
       }
     }
   },
-  "tags": ["layer:domain:frontend", "scope:frontend"]
+  "tags": ["scope:frontend", "layer:domain"]
 }

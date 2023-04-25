@@ -329,37 +329,11 @@
               // This is a map of key & their possible values
               //
               // "scope": ["frontend", "backend", "shared", "codegen"]
-              // "layer": ["app", "infra", "adapter"]
-              // "type": ["concrete", "abstract"]
+              // "layer": ["domain", "application", "infra", "presentation"]
+              // "type": ["abstract", "test"]
               {
                 "sourceTag": "type:abstract",
-                "onlyDependOnLibsWithTags": [
-                  "type:abstract",
-                  "scope:codegen",
-                  "scope:shared"
-                ]
-              },
-              // {
-              //   "sourceTag": "scope:backend",
-              //   "onlyDependOnLibsWithTags": ["scope:backend", "scope:shared"]
-              // },
-              // {
-              //   "sourceTag": "layer:domain:frontend",
-              //   "onlyDependOnLibsWithTags": [
-              //     "scope:shared",
-              //     "layer:domain:frontend",
-              //     "layer:infra",
-              //     "type:abstract"
-              //   ]
-              // },
-              {
-                "sourceTag": "scope:backend",
-                "onlyDependOnLibsWithTags": [
-                  "scope:backend",
-                  "scope:shared",
-                  "type:abstract",
-                  "scope:codegen"
-                ]
+                "onlyDependOnLibsWithTags": ["type:abstract"]
               },
               // {
               //   "sourceTag": "layer:domain:frontend",
@@ -370,25 +344,10 @@
               //     "type:abstract"
               //   ]
               // },
-              {
-                "sourceTag": "scope:cli",
-                "onlyDependOnLibsWithTags": [
-                  "scope:frontend",
-                  "scope:codegen",
-                  "scope:backend",
-                  "scope:shared",
-                  "type:abstract"
-                ]
-              },
-              {
-                "sourceTag": "scope:e2e",
-                "onlyDependOnLibsWithTags": [
-                  "scope:frontend",
-                  "scope:codegen",
-                  "scope:shared",
-                  "type:abstract"
-                ]
-              },
+              // {
+              //   "sourceTag": "type:test",
+              //   "onlyDependOnLibsWithTags": ["layer:application"]
+              // },
               {
                 "sourceTag": "scope:frontend",
                 "onlyDependOnLibsWithTags": [
@@ -398,6 +357,40 @@
                   "type:abstract"
                 ]
               },
+              {
+                "sourceTag": "scope:backend",
+                "onlyDependOnLibsWithTags": [
+                  "scope:backend",
+                  "scope:shared",
+                  "type:abstract",
+                  "scope:codegen"
+                ]
+              },
+              {
+                "sourceTag": "layer:domain",
+                "onlyDependOnLibsWithTags": [
+                  "layer:domain",
+                  "type:abstract",
+                  "*"
+                ]
+              },
+              {
+                "sourceTag": "layer:application",
+                "onlyDependOnLibsWithTags": [
+                  "layer:domain",
+                  "layer:application",
+                  "*"
+                ]
+              },
+              // {
+              //   "sourceTag": "layer:domain:frontend",
+              //   "onlyDependOnLibsWithTags": [
+              //     "scope:shared",
+              //     "layer:domain:frontend",
+              //     "layer:infra",
+              //     "type:abstract"
+              //   ]
+              // },
               {
                 "sourceTag": "scope:shared",
                 "onlyDependOnLibsWithTags": ["scope:shared", "type:abstract"]
