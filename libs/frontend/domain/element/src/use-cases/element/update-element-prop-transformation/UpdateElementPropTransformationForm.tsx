@@ -1,6 +1,7 @@
 import type { IElement, IElementService } from '@codelab/frontend/abstract/core'
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
-import TextArea from 'antd/lib/input/TextArea'
+import { CodeMirrorEditor } from '@codelab/frontend/view/components'
+import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import isString from 'lodash/isString'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
@@ -67,7 +68,14 @@ export const UpdateElementPropTransformationForm =
       }, [valueDebounced, updateValue])
 
       return (
-        <TextArea rows={4} />
+        <CodeMirrorEditor
+          height="150px"
+          language={ICodeMirrorLanguage.Javascript}
+          onChange={setValue}
+          title="Prop Transformation Function"
+          value={value}
+        />
+        // <TextArea rows={4} />
         // containerProps={{
         //   style: { height: '100%' },
         //   ...(monacoProps?.containerProps || {}),

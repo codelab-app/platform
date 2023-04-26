@@ -430,6 +430,7 @@ export class Element
       customCss: this.customCss,
       guiCss: this.guiCss,
       name: this.name,
+      propTransformationJs: this.propTransformationJs,
       renderAtomType,
       renderComponentType,
       renderForEachPropKey: this.renderForEachPropKey,
@@ -480,7 +481,7 @@ export class Element
     const result = attempt(transformFn, props)
 
     if (isError(result)) {
-      console.warn('Unable to transform props')
+      console.warn('Unable to transform props', result)
 
       return props
     }
