@@ -59,7 +59,7 @@
     "@fortawesome/react-fontawesome": "latest",
     "@graphql-tools/merge": "8.2.11",
     "@graphql-tools/utils": "8.12.0",
-    "@mailchimp/mailchimp_marketing": "^3.0.80",
+    "@mailchimp/mailchimp_marketing": "3.0.80",
     "@mui/base": "5.0.0-alpha.93",
     "@mui/icons-material": "5.8.4",
     "@mui/lab": "5.0.0-alpha.91",

@@ -220,7 +220,7 @@ jobs:
           name: 'Save Cache'
           key: dep-cache-{{ checksum "yarn.lock" }}
           paths:
-            # - ~/.yarn
+            - ~/.yarn
             # - ~/.cache
             # - ~/project/dist/apps/platform/.next/cache
             # - ~/project/dist/apps/landing/.next/cache

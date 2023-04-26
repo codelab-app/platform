@@ -6601,7 +6601,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mailchimp/mailchimp_marketing@npm:^3.0.80":
+"@mailchimp/mailchimp_marketing@npm:3.0.80":
   version: 3.0.80
   resolution: "@mailchimp/mailchimp_marketing@npm:3.0.80"
   dependencies:
@@ -14352,7 +14352,7 @@ __metadata:
     "@graphql-tools/utils": 8.12.0
     "@hon2a/cypress-without": 1.1.8
     "@ls-lint/ls-lint": 1.11.0
-    "@mailchimp/mailchimp_marketing": ^3.0.80
+    "@mailchimp/mailchimp_marketing": 3.0.80
     "@mui/base": 5.0.0-alpha.93
     "@mui/icons-material": 5.8.4
     "@mui/lab": 5.0.0-alpha.91
