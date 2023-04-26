@@ -184,7 +184,7 @@ commands:
       - restore_cache:
           name: 'Restore Cache'
           keys:
-            - dep-cache-bust-v2-{{ checksum "yarn.lock" }}
+            - dep-cache-{{ checksum "yarn.lock" }}
           # https://discuss.circleci.com/t/circle-2-0-caching-is-too-limited-to-be-very-useful/11694
       - run:
           name: 'Install NPM Packages'
@@ -209,7 +209,7 @@ jobs:
           command: npx nx run-many --target=build --projects=platform,cli,landing,websites --parallel=4 --verbose -c ci
       - save_cache:
           name: 'Save Cache'
-          key: dep-cache-bust-{{ checksum "yarn.lock" }}
+          key: dep-cache-{{ checksum "yarn.lock" }}
           paths:
             - ~/.yarn
             - ~/.cache
@@ -237,7 +237,7 @@ jobs:
           command: npx nx build cli --verbose -c ci
       - save_cache:
           name: 'Save Cache'
-          key: dep-cache-bust-{{ checksum "yarn.lock" }}
+          key: dep-cache-{{ checksum "yarn.lock" }}
           paths:
             - ~/.yarn
             - ~/project/node_modules
@@ -298,6 +298,7 @@ jobs:
       - setup-workspace
       - setup_remote_docker:
           version: 20.10.14
+          docker_layer_caching: true
       - run: npx cypress install
       - run: npx cypress verify
       - run:

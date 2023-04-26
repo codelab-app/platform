@@ -1,6 +1,8 @@
+import type { TagNode } from '@codelab/backend/abstract/core'
+import { AntdTag } from '@codelab/backend/abstract/core'
+import { antdTagTree } from '@codelab/backend/infra/data/seed'
 import type { ITagDTO, IUserDTO } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { AntdTag, antdTagTree } from '@codelab/shared/data/seed'
 import difference from 'lodash/difference'
 import { ExportAdminDataService } from '../export-admin-data.service'
 import { ImportAdminDataService } from '../import-admin-data'
@@ -59,4 +61,5 @@ export const exportAndAssert = async (exportPath: string) => {
   return payload
 }
 
-export const seedData = (user: IUserDTO) => new SeedDataService().execute(user)
+export const seedData = (user: IUserDTO, tagTreeData: TagNode) =>
+  new SeedDataService({ tagTreeData }).execute(user)

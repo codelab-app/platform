@@ -1,7 +1,7 @@
 import { AdminService } from '@codelab/backend/domain/admin'
 import { User, UserRepository } from '@codelab/backend/domain/user'
 import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
-import { setupNewUser } from '@codelab/backend/shared/util'
+import { setupNewUser } from '@codelab/backend/test'
 import type { IUserDTO } from '@codelab/frontend/abstract/core'
 import { v4 } from 'uuid'
 import { Tag } from '../model'
@@ -9,17 +9,18 @@ import { TagRepository } from './tag.repo'
 
 const tagRepository = new TagRepository()
 let user: IUserDTO
+const driver = getDriver()
 
 beforeAll(async () => {
   user = await setupNewUser({
     AdminService,
+    driver,
     User,
     UserRepository,
   })
 })
 
 afterAll(async () => {
-  const driver = getDriver()
   await driver.close()
 })
 

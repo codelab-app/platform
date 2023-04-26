@@ -12,7 +12,7 @@ import {
   makeDropIndicatorStyle,
   Renderer,
 } from '@codelab/frontend/domain/renderer'
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { useDroppable } from '@dnd-kit/core'
 import styled from '@emotion/styled'
 import { motion } from 'framer-motion'

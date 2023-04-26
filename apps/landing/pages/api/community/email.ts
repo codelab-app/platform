@@ -1,4 +1,4 @@
-import { EnvLanding } from '@codelab/shared/env'
+import { EnvLanding } from '@codelab/shared/infra/config'
 import client from '@mailchimp/mailchimp_marketing'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import z from 'zod'

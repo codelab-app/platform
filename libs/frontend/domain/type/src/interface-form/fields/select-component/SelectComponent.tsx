@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import sortBy from 'lodash/sortBy'
 import React from 'react'

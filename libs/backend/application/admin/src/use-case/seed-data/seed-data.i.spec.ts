@@ -1,7 +1,8 @@
 import { AdminService } from '@codelab/backend/domain/admin'
 import { User, UserRepository } from '@codelab/backend/domain/user'
 import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
-import { setupNewUser } from '@codelab/backend/shared/util'
+import { antdTagTree } from '@codelab/backend/infra/data/seed'
+import { setupNewUser } from '@codelab/backend/test'
 import type { IUserDTO } from '@codelab/frontend/abstract/core'
 import path from 'path'
 import { ExportAdminDataService } from '../export-admin-data.service'
@@ -11,16 +12,18 @@ let user: IUserDTO
 
 jest.setTimeout(300000)
 
+const driver = getDriver()
+
 beforeAll(async () => {
   user = await setupNewUser({
     AdminService,
+    driver,
     User,
     UserRepository,
   })
 })
 
 afterAll(async () => {
-  const driver = getDriver()
   await driver.close()
 })
 
@@ -28,7 +31,7 @@ describe('Seed, import, & export data', () => {
   let initialPayload = {}
 
   it('can seed Ant Design CSV data', async () => {
-    await seedData(user)
+    await seedData(user, antdTagTree)
 
     const exportPath = path.resolve('./tmp/data/export')
 
@@ -40,7 +43,7 @@ describe('Seed, import, & export data', () => {
   })
 
   it('should be able to seed twice without changing the database', async () => {
-    await seedData(user)
+    await seedData(user, antdTagTree)
 
     const exportPath = path.resolve('./tmp/data/export-1')
     const payload = await exportAndAssert(exportPath)
@@ -56,6 +59,7 @@ describe('Seed, import, & export data', () => {
   it('should import Ant Design data', async () => {
     user = await setupNewUser({
       AdminService,
+      driver,
       User,
       UserRepository,
     })

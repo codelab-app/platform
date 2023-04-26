@@ -1,5 +1,5 @@
 import type { TagNode } from '@codelab/backend/abstract/core'
-import { AntdTag } from '@codelab/backend/abstract/core'
+import { AntdTag, ReactTag } from '@codelab/backend/abstract/core'
 
 /**
  * This contains hierarchical tag data for Ant Design
@@ -103,4 +103,4 @@ export const antdTagTree: TagNode<AntdTag> = {
     AntdTag.BackTop,
     AntdTag.ConfigProvider,
   ],
-} as const
+}

@@ -1,4 +1,4 @@
-import { EnvPublic } from '@codelab/shared/env'
+import { EnvPublic } from '@codelab/shared/infra/config'
 import Script from 'next/script'
 import React from 'react'
 
