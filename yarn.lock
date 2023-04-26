@@ -134,7 +134,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ant-design/pro-components@npm:^2.4.4":
+"@ant-design/pro-components@npm:2.4.4":
   version: 2.4.4
   resolution: "@ant-design/pro-components@npm:2.4.4"
   dependencies:
@@ -14304,7 +14304,7 @@ __metadata:
   resolution: "codelab@workspace:."
   dependencies:
     "@ant-design/icons": 5.0.1
-    "@ant-design/pro-components": ^2.4.4
+    "@ant-design/pro-components": 2.4.4
     "@auth0/nextjs-auth0": 1.9.2
     "@aws-sdk/client-lambda": 3.51.0
     "@aws-sdk/client-s3": 3.51.0
