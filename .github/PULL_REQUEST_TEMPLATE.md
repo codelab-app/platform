@@ -13,6 +13,4 @@
 
 <!-- Please link the issue being fixed so it gets closed when this is merged -->
 
-Fixes
-
-- #
+Fixes #
