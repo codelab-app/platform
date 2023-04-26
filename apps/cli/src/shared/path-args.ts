@@ -53,7 +53,6 @@ export const skipSeedDataOption: { [key: string]: Options } = {
 export const assignUserOption: { email: Options } = {
   email: {
     alias: 'e',
-    demand: true,
     describe: 'Email of the user to assign to',
     type: 'string',
   },

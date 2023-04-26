@@ -3398,11 +3398,8 @@ enum AtomType {
   HtmlEm
   HtmlEmbed
   HtmlFieldset
-  HtmlFont
   HtmlFooter
   HtmlForm
-  HtmlFrame
-  HtmlFrameset
   HtmlH1
   HtmlH2
   HtmlH3

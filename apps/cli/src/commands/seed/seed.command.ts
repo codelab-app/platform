@@ -1,4 +1,9 @@
-import { SeedDataService } from '@codelab/backend/application/admin'
+import {
+  SeederService,
+  SeedFrameworkService,
+} from '@codelab/backend/application/admin'
+import { antdAtomData } from '@codelab/backend/application/atom'
+import { ExtractAntDesignFieldsService } from '@codelab/backend/application/type'
 import { antdTagTree } from '@codelab/backend/infra/data/seed'
 import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { CommandModule } from 'yargs'
@@ -26,12 +31,12 @@ export const seedCommand: CommandModule = {
       .middleware([loadStageMiddleware, upsertUserMiddleware, selectUser])
       .command(
         'antd',
-        'Seed html',
+        'Seed Ant Design framework',
         (_argv) => _argv,
         async ({ user }) => {
-          await new SeedDataService({
-            tagTreeData: antdTagTree,
-          }).execute(user as IAuth0Owner)
+          const owner = user as IAuth0Owner
+
+          await new SeederService(owner).seedAntDesign()
 
           process.exit(0)
         },

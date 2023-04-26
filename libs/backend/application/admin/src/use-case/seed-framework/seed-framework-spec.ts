@@ -6,9 +6,8 @@ import { IAtomType } from '@codelab/shared/abstract/core'
 import difference from 'lodash/difference'
 import { ExportAdminDataService } from '../export-admin-data.service'
 import { ImportAdminDataService } from '../import-admin-data'
-import { SeedDataService } from './seed-data.service'
 
-export const importData = ({ auth0Id }: IUserDTO, exportPath: string) =>
+export const importData = async ({ auth0Id }: IUserDTO, exportPath: string) =>
   new ImportAdminDataService(exportPath).execute({
     auth0Id,
   })
@@ -16,7 +15,7 @@ export const importData = ({ auth0Id }: IUserDTO, exportPath: string) =>
 export const exportAndAssert = async (exportPath: string) => {
   const payload = (
     await new ExportAdminDataService(exportPath).execute()
-  ).getData()
+  ).saveAsFiles()
 
   const { atoms } = payload
   /**
@@ -60,6 +59,3 @@ export const exportAndAssert = async (exportPath: string) => {
 
   return payload
 }
-
-export const seedData = (user: IUserDTO, tagTreeData: TagNode) =>
-  new SeedDataService({ tagTreeData }).execute(user)

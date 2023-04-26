@@ -1,16 +1,12 @@
 import type { TagNode, TagNodeData } from '@codelab/backend/abstract/core'
-import { IUseCase } from '@codelab/backend/abstract/types'
+import { IAuthUseCase, IUseCase } from '@codelab/backend/abstract/types'
 import { TagRepository } from '@codelab/backend/domain/tag'
 import type { IAuth0Owner, ITagDTO } from '@codelab/frontend/abstract/core'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
 
-export class SeedTagsService extends IUseCase<TagNode, void> {
+export class SeedTagsService extends IAuthUseCase<TagNode, void> {
   tagRepository: TagRepository = new TagRepository()
-
-  constructor(private readonly owner: IAuth0Owner) {
-    super()
-  }
 
   async _execute(tagTree: TagNode) {
     const tags = await this.createTagsData(tagTree)

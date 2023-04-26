@@ -1,1 +1,1 @@
-export * from './setup-user'
+export * from './reset-database'

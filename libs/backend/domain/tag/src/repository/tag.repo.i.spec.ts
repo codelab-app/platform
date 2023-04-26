@@ -1,7 +1,7 @@
 import { AdminService } from '@codelab/backend/domain/admin'
 import { User, UserRepository } from '@codelab/backend/domain/user'
 import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
-import { setupNewUser } from '@codelab/backend/test'
+import { resetDatabase } from '@codelab/backend/test'
 import type { IUserDTO } from '@codelab/frontend/abstract/core'
 import { v4 } from 'uuid'
 import { Tag } from '../model'
@@ -12,7 +12,7 @@ let user: IUserDTO
 const driver = getDriver()
 
 beforeAll(async () => {
-  user = await setupNewUser({
+  user = await resetDatabase({
     AdminService,
     driver,
     User,
