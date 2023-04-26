@@ -124,6 +124,10 @@ commands:
       - checkout
       - attach_workspace:
           at: ..
+      - restore_cache:
+          name: 'Restore Cache'
+          keys:
+            - dep-cache-{{ checksum "yarn.lock" }}
       - run:
           name: 'Install NVM'
           command: |
@@ -220,7 +224,8 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - project/node_modules
+            # Using too much workspace storage, eating up credits
+            # - project/node_modules
             - project/dist
 
   install-and-build-cli:
