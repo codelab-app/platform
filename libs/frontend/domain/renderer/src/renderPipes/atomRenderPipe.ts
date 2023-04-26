@@ -4,6 +4,7 @@ import {
   type IRenderOutput,
   type IRenderPipe,
   builderServiceContext,
+  elementRef,
 } from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { css } from '@emotion/react'
@@ -63,7 +64,16 @@ export class AtomRenderPipe
     return RenderOutput.withAtom({
       atomType: atomRenderType.type,
       element,
-      props: { ...newProps, css: elCss },
+      props: {
+        ...newProps,
+        css: elCss,
+        onMouseEnter: () =>
+          builderServiceContext
+            .get(element)
+            ?.setHoveredNode(elementRef(element)),
+        onMouseLeave: () =>
+          builderServiceContext.get(element)?.setHoveredNode(null),
+      },
     })
   }
 }

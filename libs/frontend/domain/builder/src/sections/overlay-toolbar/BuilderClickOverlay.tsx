@@ -15,18 +15,23 @@ const StyledOverlayContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  max-height: 20px;
   justify-content: space-between;
-  span : {
-    max-width: 200px;
-    text-overflow: hidden;
-  }
-
   & > *:not(:last-child) {
     margin-right: 0.3rem;
   }
 
   .click-overlay-toolbar--button-group {
   }
+`
+
+const StyledSpan = styled.p`
+  height: 20px;
+  min-width: 50px;
+  margin: 0;
+  font-size: 15px;
+  overflow: hidden;
+  white-space: nowrap;
 `
 
 const StyledOverlayButtonGroup = styled.div`
@@ -49,7 +54,7 @@ export const BuilderClickOverlay = observer<{
 
   const content = (
     <StyledOverlayContainer className="click-overlay-toolbar">
-      <span>{selectedNode.current.name}</span>
+      <StyledSpan>{selectedNode.current.name}</StyledSpan>
       <StyledOverlayButtonGroup>
         {/* <Button
           icon={<PlusOutlined />}
