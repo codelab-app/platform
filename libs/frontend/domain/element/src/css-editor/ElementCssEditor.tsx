@@ -57,6 +57,11 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
       (newCustomCss: string) => {
         const elementModel = getElementModel(element)
 
+        // do not send request if value was not changed
+        if (element.customCss === newCustomCss) {
+          return
+        }
+
         return elementService.update({
           ...elementModel,
           customCss: newCustomCss,
@@ -71,7 +76,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
        * because if the panel is closed too quickly, the autosave won't catch the latest changes
        */
       return () => {
-        void updateCustomCss(customCssStringRef.current).then()
+        void updateCustomCss(customCssStringRef.current)
       }
     }, [updateCustomCss])
 
@@ -94,6 +99,11 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
       (newGuiCss: string) => {
         const elementModel = getElementModel(element)
 
+        // do not send request if value was not changed
+        if (element.guiCss === newGuiCss) {
+          return
+        }
+
         return elementService.update({
           ...elementModel,
           guiCss: newGuiCss,
@@ -108,7 +118,10 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
        * because if the panel is closed too quickly, the autosave won't catch the latest changes
        */
       return () => {
-        void updateGuiCss(guiCssStringRef.current).then()
+        // do not send request if value was not changed
+        if (element.guiCss !== guiCssStringRef.current) {
+          void updateGuiCss(guiCssStringRef.current)
+        }
       }
     }, [updateGuiCss])
 
