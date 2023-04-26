@@ -18,5 +18,22 @@ export const ClickOverlay = ({
     return null
   }
 
-  return <OverlayToolbar overlayElement={element}>{content}</OverlayToolbar>
+  return (
+    <OverlayToolbar
+      containerProps={{
+        style: {
+          border: '1px solid rgb(7, 62, 78)',
+        },
+      }}
+      overlayElement={element}
+      toolbarProps={{
+        style: {
+          background: 'rgb(7, 62, 78)',
+          color: 'rgb(255, 255, 255)',
+        },
+      }}
+    >
+      {content}
+    </OverlayToolbar>
+  )
 }

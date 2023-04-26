@@ -29,8 +29,8 @@ export const HoverOverlay = ({
       overlayElement={element}
       toolbarProps={{
         style: {
-          background: 'transparent',
-          color: 'rgb(41, 205, 255)',
+          background: 'rgb(41, 205, 255)',
+          color: 'rgb(255, 255, 255)',
         },
       }}
     >

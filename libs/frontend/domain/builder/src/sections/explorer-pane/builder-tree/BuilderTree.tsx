@@ -96,7 +96,8 @@ export const BuilderTree = observer<BuilderTreeProps>(
             treeNodeWrapper?.classList.add(DISABLE_HOVER_CLASSNAME)
           }
 
-          builderService.setHoveredNode(elementRef(node.key.toString()))
+          node.key.toString() !== 'components' &&
+            builderService.setHoveredNode(elementRef(node.key.toString()))
         }}
         onMouseLeave={() => builderService.setHoveredNode(null)}
         onSelect={([id], { nativeEvent, node }) => {

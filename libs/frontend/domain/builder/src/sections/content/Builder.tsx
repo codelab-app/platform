@@ -23,6 +23,7 @@ import { useBuilderHotkeys, useBuilderHoverHandlers } from '../../hooks'
 import { useBuilderResize } from '../../hooks/useBuilderResize'
 import { useBuilderRootClickHandler } from '../../hooks/useBuilderRootClickHandler'
 import { BuilderClickOverlay } from '../overlay-toolbar/BuilderClickOverlay'
+import { BuilderHoverOverlay } from '../overlay-toolbar/BuilderHoverOverlay'
 
 type BuilderProps = Pick<
   IBuilderService,
@@ -142,7 +143,7 @@ export const Builder = observer<BuilderProps>(
             builderService={builderService}
             elementService={elementService}
           />
-          {/* <BuilderHoverOverlay /> */}
+          <BuilderHoverOverlay builderService={builderService} />
 
           {/* {children} */}
         </StyledBuilderContainer>

@@ -100,7 +100,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
           <ExplorerPaneTemplate
             containerProps={{
               onClick: () => {
-                // builderService.set_selectedElement(null)
+                builderService.selectElementNode(null)
               },
             }}
             header={
