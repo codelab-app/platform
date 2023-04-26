@@ -139,16 +139,7 @@ commands:
             echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
 
             wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-      - run:
-          # Manually install because we can't add `yarn` to terraform orb
-          # https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
-          name: 'Install Terraform'
-          command: |
-            sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DA418C88A3219F7B
-            curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-            sudo apt-add-repository --yes "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-            sudo apt update
-            sudo apt install terraform
+
       - run:
           name: 'Set Node Version'
           command: |
@@ -182,6 +173,20 @@ commands:
             source $BASH_ENV
       - nx/set-shas:
           main-branch-name: master
+
+  setup-infra-workspace:
+    description: 'Setup Infra Workspace'
+    steps:
+      - run:
+          # Manually install because we can't add `yarn` to terraform orb
+          # https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+          name: 'Install Terraform'
+          command: |
+            sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DA418C88A3219F7B
+            curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+            sudo apt-add-repository --yes "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+            sudo apt update
+            sudo apt install terraform
 
   install-package:
     steps:
