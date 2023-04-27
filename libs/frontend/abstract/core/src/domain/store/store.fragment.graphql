@@ -4,6 +4,12 @@ fragment Store on Store {
   api {
     ...InterfaceType
   }
+  component {
+    id
+  }
+  page {
+    id
+  }
   actions {
     ...Action
   }

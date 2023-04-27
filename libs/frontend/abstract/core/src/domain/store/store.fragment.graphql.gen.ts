@@ -14,6 +14,8 @@ export type StoreFragment = {
   id: string
   name: string
   api: InterfaceTypeFragment
+  component?: { id: string } | null
+  page?: { id: string } | null
   actions: Array<Action_ApiAction_Fragment | Action_CodeAction_Fragment>
 }
 
@@ -23,6 +25,12 @@ export const StoreFragmentDoc = gql`
     name
     api {
       ...InterfaceType
+    }
+    component {
+      id
+    }
+    page {
+      id
     }
     actions {
       ...Action
