@@ -4,8 +4,8 @@ import type {
   IElement,
   IElementService,
 } from '@codelab/frontend/abstract/core'
-import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
+import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { Col, Collapse, Row } from 'antd'
 import isString from 'lodash/isString'
@@ -43,6 +43,11 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
 
     const [customCssString, setCustomCssString] = useState(
       element.customCss || '',
+    )
+
+    const cssChangeHandler = useCallback(
+      (value: string) => setCustomCssString(value),
+      [],
     )
 
     const [guiCssString, setGuiCssString] = useState(element.guiCss || '{}')
@@ -154,7 +159,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
           <CodeMirrorEditor
             height="100%"
             language={CodeMirrorLanguage.Css}
-            onChange={(value) => setCustomCssString(value)}
+            onChange={cssChangeHandler}
             title="CSS Editor"
             value={customCssString}
           />
