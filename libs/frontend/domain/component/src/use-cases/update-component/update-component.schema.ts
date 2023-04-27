@@ -2,6 +2,7 @@ import type { IUpdateComponentData } from '@codelab/frontend/abstract/core'
 import { getSelectElementComponent } from '@codelab/frontend/domain/type'
 import {
   CodeMirrorField,
+  idSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
 import {

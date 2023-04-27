@@ -1,6 +1,6 @@
 import { FileOutlined } from '@ant-design/icons'
 import type { IAction } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
