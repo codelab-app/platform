@@ -1,6 +1,6 @@
 import type { IElement } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presenter/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

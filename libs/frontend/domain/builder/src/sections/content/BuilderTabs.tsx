@@ -1,7 +1,7 @@
 import { RendererTab } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
+import { Spinner } from '@codelab/frontend/presentation/view'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
-import { Spinner } from '@codelab/frontend/view/components'
 import { Alert, Layout, Tabs } from 'antd'
 import { Content, Header } from 'antd/lib/layout/layout'
 import { observer } from 'mobx-react-lite'

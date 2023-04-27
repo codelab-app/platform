@@ -9,15 +9,15 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { SelectAction } from '@codelab/frontend/domain/type'
 import {
+  useCurrentPageId,
+  useStore,
+} from '@codelab/frontend/presentation/container'
+import {
   AutoCompleteField,
   CodeMirrorField,
   createAutoCompleteOptions,
   Form,
 } from '@codelab/frontend/presentation/view'
-import {
-  useCurrentPageId,
-  useStore,
-} from '@codelab/frontend/presenter/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { mergeProps } from '@codelab/shared/utils'
