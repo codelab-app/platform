@@ -8,22 +8,13 @@ const backgroundColor2 = 'rgb(182, 99, 48)'
 const elementName = `Element ${ELEMENT_BUTTON}`
 
 const createBackgroundColorStyle = (backgroundColorValue: string) =>
-  `background-color: ${backgroundColorValue} !important; visibility: visible !important;`
+  `background-color: ${backgroundColorValue};`
 
 const clickEditor = () => {
   cy.get('[aria-label="format-painter"]').click()
   cy.getSpinner().should('not.exist')
 
-  return (
-    cy
-      // https://stackoverflow.com/questions/58833459/cypresserror-timed-out-retrying-cy-click-failed-because-this-element-is-deta
-      .get('[role="textbox"]')
-      .first()
-      // .should('be.visible')
-      // .click({ force: true })
-      // .trigger('click')
-      .click({ force: true })
-  )
+  return cy.get('[role="textbox"]').first().click()
 }
 
 describe('CSS CRUD', () => {
@@ -54,7 +45,9 @@ describe('CSS CRUD', () => {
       cy.getSpinner().should('not.exist')
       cy.findByText(elementName).click()
 
-      clickEditor().clear().type(createBackgroundColorStyle(backgroundColor1))
+      clickEditor()
+        .clear()
+        .type(createBackgroundColorStyle(backgroundColor1), { delay: 100 })
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'have.css',
@@ -68,7 +61,7 @@ describe('CSS CRUD', () => {
     it('should be able to update the css styling', () => {
       clickEditor()
         .clear({ force: true })
-        .type(createBackgroundColorStyle(backgroundColor2))
+        .type(createBackgroundColorStyle(backgroundColor2), { delay: 100 })
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'have.css',
@@ -80,7 +73,7 @@ describe('CSS CRUD', () => {
 
   describe('Remove css', () => {
     it('should be able to remove the css styling', () => {
-      clickEditor().clear({ force: true }).type(' ')
+      clickEditor().clear({ force: true }).type(' ', { delay: 100 })
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
         'not.have.css',
