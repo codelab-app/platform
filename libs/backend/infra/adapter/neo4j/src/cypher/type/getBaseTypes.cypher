@@ -9,5 +9,5 @@ WHERE type.name =~ name
 RETURN type, owner, totalCount
 
 ORDER by type.name
-SKIP CASE WHEN $skip IS NOT NULL THEN $skip ELSE 0 END
-LIMIT CASE WHEN $limit IS NOT NULL THEN $limit ELSE 999999 END
+SKIP $skip
+LIMIT $limit

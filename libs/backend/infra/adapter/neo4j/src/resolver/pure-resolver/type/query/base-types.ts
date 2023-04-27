@@ -12,11 +12,14 @@ export const baseTypes: IFieldResolver<
 > = (_, params) =>
   withReadTransaction(async (txn) => {
     const { options } = params
+    const limit = options?.limit ?? 99999
+    const skip = options?.offset ?? 0
+    const name = options?.where?.name ?? ''
 
     const { records: getTypesRecords } = await txn.run(getBaseTypes, {
-      limit: options?.limit ? int(options.limit) : null,
-      name: options?.where?.name ?? '',
-      skip: options?.offset ? int(options.offset) : null,
+      limit: int(limit),
+      name,
+      skip: int(skip),
     })
 
     const totalCountRecord = getTypesRecords[0]?.get('totalCount')

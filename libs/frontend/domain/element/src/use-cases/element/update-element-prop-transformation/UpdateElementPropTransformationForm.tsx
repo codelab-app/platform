@@ -1,6 +1,6 @@
 import type { IElement, IElementService } from '@codelab/frontend/abstract/core'
+import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { useDebouncedState } from '@codelab/frontend/shared/utils'
-import { CodeMirrorEditor } from '@codelab/frontend/view/components'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import isString from 'lodash/isString'
 import { observer } from 'mobx-react-lite'
