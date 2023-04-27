@@ -15212,8 +15212,36 @@ type Store {
     sort: [StoreApiConnectionSort!]
     where: StoreApiConnectionWhere
   ): StoreApiConnection!
+  component(
+    directed: Boolean = true
+    options: ComponentOptions
+    where: ComponentWhere
+  ): Component
+  componentAggregate(
+    directed: Boolean = true
+    where: ComponentWhere
+  ): StoreComponentComponentAggregationSelection
+  componentConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [StoreComponentConnectionSort!]
+    where: StoreComponentConnectionWhere
+  ): StoreComponentConnection!
   id: ID!
   name: String!
+  page(directed: Boolean = true, options: PageOptions, where: PageWhere): Page
+  pageAggregate(
+    directed: Boolean = true
+    where: PageWhere
+  ): StorePagePageAggregationSelection
+  pageConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [StorePageConnectionSort!]
+    where: StorePageConnectionWhere
+  ): StorePageConnection!
 }
 
 input StoreActionsApiActionConnectFieldInput {
@@ -15491,14 +15519,152 @@ input StoreApiUpdateFieldInput {
   where: StoreApiConnectionWhere
 }
 
+input StoreComponentAggregateInput {
+  AND: [StoreComponentAggregateInput!]
+  NOT: StoreComponentAggregateInput
+  OR: [StoreComponentAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: StoreComponentNodeAggregationWhereInput
+}
+
+type StoreComponentComponentAggregationSelection {
+  count: Int!
+  node: StoreComponentComponentNodeAggregateSelection
+}
+
+type StoreComponentComponentNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  keyGenerator: StringAggregateSelectionNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input StoreComponentConnectFieldInput {
+  connect: ComponentConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
+  where: ComponentConnectWhere
+}
+
+input StoreComponentConnectOrCreateFieldInput {
+  onCreate: StoreComponentConnectOrCreateFieldInputOnCreate!
+  where: ComponentConnectOrCreateWhere!
+}
+
+input StoreComponentConnectOrCreateFieldInputOnCreate {
+  node: ComponentOnCreateInput!
+}
+
+type StoreComponentConnection {
+  edges: [StoreComponentRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input StoreComponentConnectionSort {
+  node: ComponentSort
+}
+
+input StoreComponentConnectionWhere {
+  AND: [StoreComponentConnectionWhere!]
+  NOT: StoreComponentConnectionWhere
+  OR: [StoreComponentConnectionWhere!]
+  node: ComponentWhere
+}
+
+input StoreComponentCreateFieldInput {
+  node: ComponentCreateInput!
+}
+
+input StoreComponentDeleteFieldInput {
+  delete: ComponentDeleteInput
+  where: StoreComponentConnectionWhere
+}
+
+input StoreComponentDisconnectFieldInput {
+  disconnect: ComponentDisconnectInput
+  where: StoreComponentConnectionWhere
+}
+
+input StoreComponentFieldInput {
+  connect: StoreComponentConnectFieldInput
+  connectOrCreate: StoreComponentConnectOrCreateFieldInput
+  create: StoreComponentCreateFieldInput
+}
+
+input StoreComponentNodeAggregationWhereInput {
+  AND: [StoreComponentNodeAggregationWhereInput!]
+  NOT: StoreComponentNodeAggregationWhereInput
+  OR: [StoreComponentNodeAggregationWhereInput!]
+  keyGenerator_AVERAGE_LENGTH_EQUAL: Float
+  keyGenerator_AVERAGE_LENGTH_GT: Float
+  keyGenerator_AVERAGE_LENGTH_GTE: Float
+  keyGenerator_AVERAGE_LENGTH_LT: Float
+  keyGenerator_AVERAGE_LENGTH_LTE: Float
+  keyGenerator_LONGEST_LENGTH_EQUAL: Int
+  keyGenerator_LONGEST_LENGTH_GT: Int
+  keyGenerator_LONGEST_LENGTH_GTE: Int
+  keyGenerator_LONGEST_LENGTH_LT: Int
+  keyGenerator_LONGEST_LENGTH_LTE: Int
+  keyGenerator_SHORTEST_LENGTH_EQUAL: Int
+  keyGenerator_SHORTEST_LENGTH_GT: Int
+  keyGenerator_SHORTEST_LENGTH_GTE: Int
+  keyGenerator_SHORTEST_LENGTH_LT: Int
+  keyGenerator_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+}
+
+type StoreComponentRelationship {
+  cursor: String!
+  node: Component!
+}
+
+input StoreComponentUpdateConnectionInput {
+  node: ComponentUpdateInput
+}
+
+input StoreComponentUpdateFieldInput {
+  connect: StoreComponentConnectFieldInput
+  connectOrCreate: StoreComponentConnectOrCreateFieldInput
+  create: StoreComponentCreateFieldInput
+  delete: StoreComponentDeleteFieldInput
+  disconnect: StoreComponentDisconnectFieldInput
+  update: StoreComponentUpdateConnectionInput
+  where: StoreComponentConnectionWhere
+}
+
 input StoreConnectInput {
   actions: StoreActionsConnectInput
   api: StoreApiConnectFieldInput
+  component: StoreComponentConnectFieldInput
+  page: StorePageConnectFieldInput
 }
 
 input StoreConnectOrCreateInput {
   actions: StoreActionsConnectOrCreateInput
   api: StoreApiConnectOrCreateFieldInput
+  component: StoreComponentConnectOrCreateFieldInput
+  page: StorePageConnectOrCreateFieldInput
 }
 
 input StoreConnectOrCreateWhere {
@@ -15512,18 +15678,24 @@ input StoreConnectWhere {
 input StoreCreateInput {
   actions: StoreActionsCreateInput
   api: StoreApiFieldInput
+  component: StoreComponentFieldInput
   id: ID!
   name: String!
+  page: StorePageFieldInput
 }
 
 input StoreDeleteInput {
   actions: StoreActionsDeleteInput
   api: StoreApiDeleteFieldInput
+  component: StoreComponentDeleteFieldInput
+  page: StorePageDeleteFieldInput
 }
 
 input StoreDisconnectInput {
   actions: StoreActionsDisconnectInput
   api: StoreApiDisconnectFieldInput
+  component: StoreComponentDisconnectFieldInput
+  page: StorePageDisconnectFieldInput
 }
 
 type StoreEdge {
@@ -15556,9 +15728,145 @@ input StoreOptions {
   sort: [StoreSort!]
 }
 
+input StorePageAggregateInput {
+  AND: [StorePageAggregateInput!]
+  NOT: StorePageAggregateInput
+  OR: [StorePageAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: StorePageNodeAggregationWhereInput
+}
+
+input StorePageConnectFieldInput {
+  connect: PageConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
+  where: PageConnectWhere
+}
+
+input StorePageConnectOrCreateFieldInput {
+  onCreate: StorePageConnectOrCreateFieldInputOnCreate!
+  where: PageConnectOrCreateWhere!
+}
+
+input StorePageConnectOrCreateFieldInputOnCreate {
+  node: PageOnCreateInput!
+}
+
+type StorePageConnection {
+  edges: [StorePageRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input StorePageConnectionSort {
+  node: PageSort
+}
+
+input StorePageConnectionWhere {
+  AND: [StorePageConnectionWhere!]
+  NOT: StorePageConnectionWhere
+  OR: [StorePageConnectionWhere!]
+  node: PageWhere
+}
+
+input StorePageCreateFieldInput {
+  node: PageCreateInput!
+}
+
+input StorePageDeleteFieldInput {
+  delete: PageDeleteInput
+  where: StorePageConnectionWhere
+}
+
+input StorePageDisconnectFieldInput {
+  disconnect: PageDisconnectInput
+  where: StorePageConnectionWhere
+}
+
+input StorePageFieldInput {
+  connect: StorePageConnectFieldInput
+  connectOrCreate: StorePageConnectOrCreateFieldInput
+  create: StorePageCreateFieldInput
+}
+
+input StorePageNodeAggregationWhereInput {
+  AND: [StorePageNodeAggregationWhereInput!]
+  NOT: StorePageNodeAggregationWhereInput
+  OR: [StorePageNodeAggregationWhereInput!]
+  _compoundName_AVERAGE_LENGTH_EQUAL: Float
+  _compoundName_AVERAGE_LENGTH_GT: Float
+  _compoundName_AVERAGE_LENGTH_GTE: Float
+  _compoundName_AVERAGE_LENGTH_LT: Float
+  _compoundName_AVERAGE_LENGTH_LTE: Float
+  _compoundName_LONGEST_LENGTH_EQUAL: Int
+  _compoundName_LONGEST_LENGTH_GT: Int
+  _compoundName_LONGEST_LENGTH_GTE: Int
+  _compoundName_LONGEST_LENGTH_LT: Int
+  _compoundName_LONGEST_LENGTH_LTE: Int
+  _compoundName_SHORTEST_LENGTH_EQUAL: Int
+  _compoundName_SHORTEST_LENGTH_GT: Int
+  _compoundName_SHORTEST_LENGTH_GTE: Int
+  _compoundName_SHORTEST_LENGTH_LT: Int
+  _compoundName_SHORTEST_LENGTH_LTE: Int
+  url_AVERAGE_LENGTH_EQUAL: Float
+  url_AVERAGE_LENGTH_GT: Float
+  url_AVERAGE_LENGTH_GTE: Float
+  url_AVERAGE_LENGTH_LT: Float
+  url_AVERAGE_LENGTH_LTE: Float
+  url_LONGEST_LENGTH_EQUAL: Int
+  url_LONGEST_LENGTH_GT: Int
+  url_LONGEST_LENGTH_GTE: Int
+  url_LONGEST_LENGTH_LT: Int
+  url_LONGEST_LENGTH_LTE: Int
+  url_SHORTEST_LENGTH_EQUAL: Int
+  url_SHORTEST_LENGTH_GT: Int
+  url_SHORTEST_LENGTH_GTE: Int
+  url_SHORTEST_LENGTH_LT: Int
+  url_SHORTEST_LENGTH_LTE: Int
+}
+
+type StorePagePageAggregationSelection {
+  count: Int!
+  node: StorePagePageNodeAggregateSelection
+}
+
+type StorePagePageNodeAggregateSelection {
+  _compoundName: StringAggregateSelectionNonNullable!
+  id: IDAggregateSelectionNonNullable!
+  url: StringAggregateSelectionNonNullable!
+}
+
+type StorePageRelationship {
+  cursor: String!
+  node: Page!
+}
+
+input StorePageUpdateConnectionInput {
+  node: PageUpdateInput
+}
+
+input StorePageUpdateFieldInput {
+  connect: StorePageConnectFieldInput
+  connectOrCreate: StorePageConnectOrCreateFieldInput
+  create: StorePageCreateFieldInput
+  delete: StorePageDeleteFieldInput
+  disconnect: StorePageDisconnectFieldInput
+  update: StorePageUpdateConnectionInput
+  where: StorePageConnectionWhere
+}
+
 input StoreRelationInput {
   actions: StoreActionsCreateFieldInput
   api: StoreApiCreateFieldInput
+  component: StoreComponentCreateFieldInput
+  page: StorePageCreateFieldInput
 }
 
 """
@@ -15576,8 +15884,10 @@ input StoreUniqueWhere {
 input StoreUpdateInput {
   actions: StoreActionsUpdateInput
   api: StoreApiUpdateFieldInput
+  component: StoreComponentUpdateFieldInput
   id: ID
   name: String
+  page: StorePageUpdateFieldInput
 }
 
 input StoreWhere {
@@ -15609,6 +15919,11 @@ input StoreWhere {
   apiConnection: StoreApiConnectionWhere
   apiConnection_NOT: StoreApiConnectionWhere
   api_NOT: InterfaceTypeWhere
+  component: ComponentWhere
+  componentAggregate: StoreComponentAggregateInput
+  componentConnection: StoreComponentConnectionWhere
+  componentConnection_NOT: StoreComponentConnectionWhere
+  component_NOT: ComponentWhere
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -15621,6 +15936,11 @@ input StoreWhere {
   name_IN: [String!]
   name_MATCHES: String
   name_STARTS_WITH: String
+  page: PageWhere
+  pageAggregate: StorePageAggregateInput
+  pageConnection: StorePageConnectionWhere
+  pageConnection_NOT: StorePageConnectionWhere
+  page_NOT: PageWhere
 }
 
 type StoresConnection {

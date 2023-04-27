@@ -87,7 +87,6 @@ export class Component
   writeCache({
     api,
     childrenContainerElement,
-    id,
     keyGenerator,
     name,
     owner,
@@ -200,11 +199,13 @@ export class Component
     )
 
     const clonedComponent: IComponent = clone<IComponent>(this)
+    componentService.clonedComponents.set(clonedComponent.id, clonedComponent)
+
     this.cloneTree(clonedComponent, clonesList.length)
 
     const clonedStore = this.store.current.clone()
-    clonedStore.setComponent(componentRef(clonedComponent.id))
 
+    clonedStore.setComponent(componentRef(clonedComponent.id))
     clonedComponent.setProps(propRef(this.props.current.clone()))
     clonedComponent.setSourceComponent({ id: this.id })
     clonedComponent.setStore(storeRef(clonedStore))
@@ -212,8 +213,6 @@ export class Component
     if (instanceId) {
       clonedComponent.setInstanceElement(elementRef(instanceId))
     }
-
-    componentService.clonedComponents.set(key, clonedComponent)
 
     return clonedComponent
   }

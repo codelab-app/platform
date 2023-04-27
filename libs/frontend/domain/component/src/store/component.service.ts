@@ -10,6 +10,7 @@ import {
   getBuilderRenderService,
   getElementService,
   IBuilderDataNode,
+  IComponentDTO,
   IUpdateComponentData,
   RendererType,
 } from '@codelab/frontend/abstract/core'
@@ -111,14 +112,36 @@ export class ComponentService
   component(id: string) {
     const component = this.maybeComponent(id)
 
-    this.builderRenderService.addRenderer({
-      elementTree: component,
-      id: component.id,
-      providerTree: null,
-      rendererType: RendererType.ComponentBuilder,
-    })
+    if (!component) {
+      throw new Error('Missing component')
+    }
 
-    this.components.set(component.id, component)
+    return component
+  }
+
+  @modelAction
+  maybeComponent(id: string) {
+    return this.components.get(id) || this.clonedComponents.get(id)
+  }
+
+  @modelAction
+  add(componentDTO: IComponentDTO) {
+    let component = this.maybeComponent(componentDTO.id)
+
+    if (component) {
+      component.writeCache(componentDTO)
+    } else {
+      component = Component.create(componentDTO)
+
+      this.builderRenderService.addRenderer({
+        elementTree: component,
+        id: component.id,
+        providerTree: null,
+        rendererType: RendererType.ComponentBuilder,
+      })
+
+      this.components.set(component.id, component)
+    }
 
     return component
   }
@@ -255,6 +278,10 @@ export class ComponentService
 
     return components.map((component) => {
       this.storeService.load([component.store])
+      /**
+       * attach component props to mobx tree before calling propRef
+       */
+      this.propService.add(component.props)
 
       return this.add(component)
     })
