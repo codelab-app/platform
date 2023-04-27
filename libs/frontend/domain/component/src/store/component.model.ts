@@ -201,6 +201,7 @@ export class Component
 
     const clonedStore = this.store.current.clone(clonedComponent.id)
 
+    clonedStore.setComponent(componentRef(clonedComponent.id))
     clonedComponent.setProps(propRef(this.props.current.clone()))
     clonedComponent.setSourceComponent({ id: this.id })
     clonedComponent.setStore(storeRef(clonedStore))
