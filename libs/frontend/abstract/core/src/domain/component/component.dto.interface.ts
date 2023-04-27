@@ -5,7 +5,7 @@ export interface IComponentDTO extends IOwner {
   api: IEntity
   childrenContainerElement: IEntity
   id: string
-  keyGenerator: Nullish<string>
+  keyGenerator?: Nullish<string>
   name: string
   props: IEntity
   rootElement: IEntity

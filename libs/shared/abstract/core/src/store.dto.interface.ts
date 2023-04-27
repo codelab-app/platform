@@ -6,5 +6,5 @@ export interface IStoreDTO {
   id: string
   name: string
   page?: IEntity | null
-  sourceStore: Nullable<IEntity>
+  sourceStore?: Nullable<IEntity>
 }

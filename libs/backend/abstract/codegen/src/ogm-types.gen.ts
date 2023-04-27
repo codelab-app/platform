@@ -3302,6 +3302,7 @@ export type Component = WithOwner & {
   __typename?: 'Component'
   id: Scalars['ID']
   name: Scalars['String']
+  keyGenerator?: Maybe<Scalars['String']>
   rootElement: Element
   rootElementAggregate?: Maybe<ComponentElementRootElementAggregationSelection>
   api: InterfaceType
@@ -3441,6 +3442,7 @@ export type ComponentAggregateSelection = {
   count: Scalars['Int']
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
+  keyGenerator: StringAggregateSelectionNullable
 }
 
 export type ComponentApiConnection = {
@@ -4215,6 +4217,7 @@ export type ElementComponentParentComponentNodeAggregateSelection = {
   __typename?: 'ElementComponentParentComponentNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
+  keyGenerator: StringAggregateSelectionNullable
 }
 
 export type ElementComponentRenderComponentTypeAggregationSelection = {
@@ -4227,6 +4230,7 @@ export type ElementComponentRenderComponentTypeNodeAggregateSelection = {
   __typename?: 'ElementComponentRenderComponentTypeNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
+  keyGenerator: StringAggregateSelectionNullable
 }
 
 export type ElementEdge = {
@@ -7233,6 +7237,7 @@ export type UserComponentComponentsNodeAggregateSelection = {
   __typename?: 'UserComponentComponentsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
+  keyGenerator: StringAggregateSelectionNullable
 }
 
 export type UserComponentsConnection = {
@@ -14140,6 +14145,7 @@ export type ComponentConnectWhere = {
 export type ComponentCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
+  keyGenerator?: InputMaybe<Scalars['String']>
   rootElement?: InputMaybe<ComponentRootElementFieldInput>
   api?: InputMaybe<ComponentApiFieldInput>
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
@@ -14169,6 +14175,7 @@ export type ComponentDisconnectInput = {
 export type ComponentOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
+  keyGenerator?: InputMaybe<Scalars['String']>
 }
 
 export type ComponentOptions = {
@@ -14924,6 +14931,7 @@ export type ComponentRootElementUpdateFieldInput = {
 export type ComponentSort = {
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
+  keyGenerator?: InputMaybe<SortDirection>
 }
 
 export type ComponentStoreAggregateInput = {
@@ -15071,6 +15079,7 @@ export type ComponentUniqueWhere = {
 export type ComponentUpdateInput = {
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
+  keyGenerator?: InputMaybe<Scalars['String']>
   rootElement?: InputMaybe<ComponentRootElementUpdateFieldInput>
   api?: InputMaybe<ComponentApiUpdateFieldInput>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
@@ -15115,6 +15124,22 @@ export type ComponentWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  keyGenerator?: InputMaybe<Scalars['String']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  keyGenerator_NOT?: InputMaybe<Scalars['String']>
+  keyGenerator_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  keyGenerator_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  keyGenerator_MATCHES?: InputMaybe<Scalars['String']>
+  keyGenerator_CONTAINS?: InputMaybe<Scalars['String']>
+  keyGenerator_STARTS_WITH?: InputMaybe<Scalars['String']>
+  keyGenerator_ENDS_WITH?: InputMaybe<Scalars['String']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  keyGenerator_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  keyGenerator_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  keyGenerator_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
   rootElement?: InputMaybe<ElementWhere>
   rootElement_NOT?: InputMaybe<ElementWhere>
   rootElementAggregate?: InputMaybe<ComponentRootElementAggregateInput>
@@ -16715,6 +16740,61 @@ export type ElementParentComponentNodeAggregationWhereInput = {
   name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementParentComponentUpdateConnectionInput = {
@@ -18109,6 +18189,61 @@ export type ElementRenderComponentTypeNodeAggregationWhereInput = {
   name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementRenderComponentTypeUpdateConnectionInput = {
@@ -29983,6 +30118,61 @@ export type UserComponentsNodeAggregationWhereInput = {
   name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type UserComponentsUpdateConnectionInput = {
@@ -33003,6 +33193,7 @@ export interface ComponentAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
   name?: StringAggregateInputNonNullable
+  keyGenerator?: StringAggregateInputNullable
 }
 
 export declare class ComponentModel {

@@ -18,7 +18,7 @@ import { propRef } from '@codelab/frontend/domain/prop'
 import { typeRef } from '@codelab/frontend/domain/type'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IAuth0Owner } from '@codelab/shared/abstract/core'
-import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
 import { mergeProps } from '@codelab/shared/utils'
 import { computed } from 'mobx'
@@ -58,7 +58,7 @@ export class Component
     // element which this component is attached to.
     instanceElement: prop<Nullable<Ref<IElement>>>(null).withSetter(),
     // a function to extract component key from input
-    keyGenerator: prop<Nullable<string>>().withSetter(),
+    keyGenerator: prop<Nullish<string>>().withSetter(),
     name: prop<string>().withSetter(),
     owner: prop<IAuth0Owner>(),
 

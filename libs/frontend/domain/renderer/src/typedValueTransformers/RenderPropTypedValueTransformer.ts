@@ -38,8 +38,8 @@ const matchPropsToFields = (fields: Array<IField> = [], props: Array<object>) =>
     {},
   )
 
-@model('@codelab/RenderPropsTypedValueTransformer')
-export class RenderPropsTypedValueTransformer
+@model('@codelab/RenderPropTypedValueTransformer')
+export class RenderPropTypedValueTransformer
   extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedValueTransformer
 {
