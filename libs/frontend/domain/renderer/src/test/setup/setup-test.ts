@@ -284,7 +284,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       guiCss: '',
       id: v4(),
       name: ROOT_ELEMENT_NAME,
-      props: propRef(data.elementToRenderProps.id),
+      props: propRef(data.elementToRenderProp.id),
       propTransformationJs: `
     // Write a transformer function, you get the input props as parameter
     // All returned props will get merged with the original ones
@@ -301,7 +301,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       renderType: atomRef(data.divAtom.id),
     })
 
-    data.componentInstanceElementToRenderProps = new Prop({
+    data.componentInstanceElementToRenderProp = new Prop({
       data: frozen({
         componentProp: 'instance',
       }),
@@ -311,7 +311,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     data.componentInstanceElementToRender = new Element({
       id: v4(),
       name: '01',
-      props: propRef(data.componentInstanceElementToRenderProps.id),
+      props: propRef(data.componentInstanceElementToRenderProp.id),
       renderType: componentRef(data.componentToRender),
     })
 
@@ -350,7 +350,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       typeService: new TypeService({
         types: objectMap<IType>([
           [primitiveType.id, primitiveType],
-          [data.renderPropsType.id, data.renderPropsType],
+          [data.renderPropType.id, data.renderPropType],
           [data.reactNodeType.id, data.reactNodeType],
           [emptyInterface.id, emptyInterface],
         ]),
@@ -359,7 +359,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
 
     stubServiceRepositories(data.rootStore)
 
-    const elementToRenderProps = {
+    const elementToRenderProp = {
       data: JSON.stringify({
         prop01: 'prop01Value',
         prop02: 'prop02Value',
@@ -374,7 +374,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       id: v4(),
       name: ROOT_ELEMENT_NAME,
       page: { id: pageId },
-      props: elementToRenderProps,
+      props: elementToRenderProp,
       propTransformationJs: `
         // Write a transformer function, you get the input props as parameter
         // All returned props will get merged with the original ones
