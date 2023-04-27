@@ -1,5 +1,4 @@
 import type { IPageProps, IRootStore } from '@codelab/frontend/abstract/core'
-import { User } from '@codelab/frontend/domain/user'
 import { IRole, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { registerRootStore } from 'mobx-keystone'
 import { createRootStore } from './create-root-store'
@@ -33,17 +32,6 @@ export const initializeStore = (pageProps?: IPageProps): IRootStore => {
     })
 
     registerRootStore(_store as IRootStore)
-  }
-
-  if (!_store.userService.user.auth0Id && user) {
-    /**
-     * need to replace the instance because
-     * set user prop on the service doesn't work
-     *
-     * Nghia: I think mobx keystone does some internal initializations behind the scene, and we can't set nested service data until the process is done
-     */
-    // _store.setUserService(UserService.init(user))
-    _store.userService.setUser(User.create(user))
   }
 
   return _store

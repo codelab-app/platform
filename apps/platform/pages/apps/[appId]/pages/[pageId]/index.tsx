@@ -3,10 +3,7 @@ import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { PageDetailHeader } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
-import {
-  useRenderedPage,
-  useStore,
-} from '@codelab/frontend/presentation/container'
+import { useRenderedPage } from '@codelab/frontend/presentation/container'
 import { DashboardTemplate } from '@codelab/frontend/presentation/view'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
@@ -17,11 +14,8 @@ import Head from 'next/head'
 import React from 'react'
 
 const PageRenderer: CodelabPage<IPageProps> = observer(() => {
-  const { appRenderService } = useStore()
-
   const [{ error, result, status }, actions] = useRenderedPage({
     rendererType: RendererType.Preview,
-    renderService: appRenderService,
   })
 
   useMountEffect(actions.execute)
@@ -34,9 +28,7 @@ const PageRenderer: CodelabPage<IPageProps> = observer(() => {
       {error && <Alert message={extractErrorMessage(error)} type="error" />}
       {status === 'loading' && <Spin />}
       {status === 'success' && result?.elementTree && (
-        <Renderer
-          renderRoot={result.renderer.renderRoot.bind(result.renderer)}
-        />
+        <Renderer renderer={result.renderer} />
       )}
     </>
   )

@@ -1,7 +1,4 @@
-import type {
-  IRenderService,
-  RendererType,
-} from '@codelab/frontend/abstract/core'
+import { RendererType } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import type { GetRenderedPageAndCommonAppDataQuery } from '@codelab/shared/abstract/codegen'
 import { useAsync } from '@react-hookz/web'
@@ -16,10 +13,6 @@ export interface RenderedPageProps {
    */
   initialData?: GetRenderedPageAndCommonAppDataQuery
   /**
-   * builder uses builderRenderService while preview uses appRenderService
-   */
-  renderService: IRenderService
-  /**
    * indicates whether the hook is used inside builder page or preview page
    */
   rendererType: RendererType
@@ -31,12 +24,23 @@ export interface RenderedPageProps {
 export const useRenderedPage = ({
   initialData,
   rendererType,
-  renderService,
 }: RenderedPageProps) => {
-  const { appService, builderService, elementService } = useStore()
+  const {
+    appRenderService,
+    appService,
+    builderRenderService,
+    builderService,
+    elementService,
+  } = useStore()
+
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
   const router = useRouter()
+
+  const renderService =
+    rendererType === RendererType.Preview
+      ? appRenderService
+      : builderRenderService
 
   return useAsync(async () => {
     const app = await appService.getRenderedPageAndCommonAppData(
@@ -58,7 +62,7 @@ export const useRenderedPage = ({
       builderService.selectElementNode(pageRootElement)
     }
 
-    const renderer = await renderService.addRenderer({
+    const renderer = renderService.addRenderer({
       elementTree: page,
       id: page.id,
       providerTree: app.providerPage,

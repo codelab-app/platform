@@ -3,16 +3,7 @@ import type {
   IRenderService,
   RendererProps,
 } from '@codelab/frontend/abstract/core'
-import {
-  _async,
-  _await,
-  Model,
-  model,
-  modelFlow,
-  objectMap,
-  prop,
-  transaction,
-} from 'mobx-keystone'
+import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { Renderer } from './renderer.model'
 
 @model('@codelab/RenderService')
@@ -25,17 +16,16 @@ export class RenderService
   })
   implements IRenderService
 {
-  @modelFlow
-  @transaction
-  addRenderer = _async(function* (this: RenderService, props: RendererProps) {
+  @modelAction
+  addRenderer = (props: RendererProps) => {
     let renderer = this.renderers.get(props.id)
 
     if (!renderer) {
-      renderer = yield* _await(Renderer.create(props))
+      renderer = Renderer.create(props)
 
       this.renderers.set(props.id, renderer)
     }
 
     return renderer
-  })
+  }
 }

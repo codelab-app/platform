@@ -1,6 +1,5 @@
 import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import type { BuilderTabsProps } from '@codelab/frontend/domain/builder'
 import {
   BuilderContext,
   BuilderExplorerPane,
@@ -13,94 +12,56 @@ import {
   useCurrentPageId,
   useRemainingPages,
   useRenderedPage,
-  useStore,
 } from '@codelab/frontend/presentation/container'
 import {
   DashboardTemplate,
   sidebarNavigation,
-  Spinner,
 } from '@codelab/frontend/presentation/view'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React, { useCallback, useMemo } from 'react'
+import React, { useMemo } from 'react'
 
-const PageBuilder: CodelabPage<BuilderTabsProps> = observer(
-  ({ error, isLoading, page, renderer }) => {
-    return (
-      <>
-        <Head>
-          <title>{page?.name} | Builder | Codelab</title>
-        </Head>
+const PageBuilder: CodelabPage = observer(() => {
+  const [{ error, result, status }, loadCurrentPage] = useRenderedPage({
+    rendererType: RendererType.PageBuilder,
+  })
 
-        <BuilderTabs
-          error={error}
-          isLoading={isLoading}
-          page={page}
-          renderer={renderer}
-        />
-      </>
-    )
-  },
-)
+  const [, lazilyLoadRemainingPages] = useRemainingPages()
+  const appId = useCurrentAppId()
+  const pageId = useCurrentPageId()
+
+  useMountEffect(() => {
+    void loadCurrentPage.execute()
+    void lazilyLoadRemainingPages.execute()
+  })
+
+  const isLoading = status !== 'success'
+  const contentStyles = useMemo(() => ({ paddingTop: '0rem' }), [])
+
+  return (
+    <DashboardTemplate
+      ConfigPane={() => <ConfigPane isLoading={isLoading} />}
+      ExplorerPane={() => <BuilderExplorerPane isLoading={isLoading} />}
+      Header={PageDetailHeader}
+      contentStyles={contentStyles}
+      headerHeight={48}
+      sidebarNavigation={sidebarNavigation({ appId, pageId })}
+    >
+      <Head>
+        <title>{result?.page.name} | Builder | Codelab</title>
+      </Head>
+
+      <BuilderTabs error={error} isLoading={isLoading} />
+    </DashboardTemplate>
+  )
+})
 
 export const getServerSideProps = auth0Instance.withPageAuthRequired({})
 
 PageBuilder.Layout = observer(({ children }) => {
-  const { builderRenderService } = useStore()
-
-  const [{ error, status }, loadCurrentPage] = useRenderedPage({
-    rendererType: RendererType.PageBuilder,
-    renderService: builderRenderService,
-  })
-
-  const [, lazilyLoadRemainingPages] = useRemainingPages()
-
-  useMountEffect(async () => {
-    await loadCurrentPage.execute()
-    await lazilyLoadRemainingPages.execute()
-  })
-
-  const isLoading = status !== 'success'
-  const appId = useCurrentAppId()
-  const pageId = useCurrentPageId()
-  const renderer = builderRenderService.renderers.get(pageId)
-  const page = renderer?.elementTree.current
-  const contentStyles = useMemo(() => ({ paddingTop: '0rem' }), [])
-
-  const ConfigPaneComponent = useCallback(
-    () => (
-      <Spinner isLoading={isLoading}>
-        <ConfigPane renderService={renderer} />
-      </Spinner>
-    ),
-    [isLoading, renderer],
-  )
-
-  const ExplorerPaneComponent = useCallback(
-    () => (
-      <Spinner isLoading={isLoading}>
-        <BuilderExplorerPane pageId={pageId} />
-      </Spinner>
-    ),
-    [isLoading, pageId],
-  )
-
-  return (
-    <BuilderContext>
-      <DashboardTemplate
-        ConfigPane={ConfigPaneComponent}
-        ExplorerPane={ExplorerPaneComponent}
-        Header={PageDetailHeader}
-        contentStyles={contentStyles}
-        headerHeight={48}
-        sidebarNavigation={sidebarNavigation({ appId, pageId })}
-      >
-        {children({ error, isLoading, page, renderer })}
-      </DashboardTemplate>
-    </BuilderContext>
-  )
+  return <BuilderContext>{children()}</BuilderContext>
 })
 
 export default PageBuilder

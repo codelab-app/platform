@@ -7,7 +7,6 @@ import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
 import React, { useMemo } from 'react'
 
-export type RendererRoot = Pick<IRenderer, 'renderRoot'>
 /**
  * This is the main entrypoint into our Renderer, the main flow recursively renders the children until no more children exists.
  *
@@ -37,11 +36,11 @@ const emotionCache = createCache({
   prepend: false,
 })
 
-export const Renderer = observer<WithStyleProp<RendererRoot>, HTMLDivElement>(
-  React.forwardRef(({ renderRoot, style = {} }, ref) => {
-    // this prevents re-rendering too much
-    const renderedRoot = useMemo(() => renderRoot(), [])
-
+export const Renderer = observer<
+  WithStyleProp<{ renderer: IRenderer }>,
+  HTMLDivElement
+>(
+  React.forwardRef(({ renderer, style = {} }, ref) => {
     const containerStyle = useMemo(
       () => ({
         minHeight: '100%',
@@ -55,7 +54,7 @@ export const Renderer = observer<WithStyleProp<RendererRoot>, HTMLDivElement>(
       <ErrorBoundary>
         <CacheProvider value={emotionCache}>
           <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>
-            {renderedRoot}
+            {renderer.renderRoot()}
           </div>
         </CacheProvider>
       </ErrorBoundary>

@@ -9,9 +9,13 @@ import { useCurrentAppId } from '../routerHooks'
 export const useRemainingPages = () => {
   const { appService, builderRenderService } = useStore()
   const appId = useCurrentAppId()
-  const app = appService.app(appId)!
+  const app = appService.app(appId)
 
   return useAsync(async () => {
+    if (!app?.pages) {
+      return
+    }
+
     const notAlreadyLoadedPages = app.pages
       .map((page) => page.current.id)
       .map((id) => ({ NOT: { id } }))
@@ -20,20 +24,18 @@ export const useRemainingPages = () => {
       AND: notAlreadyLoadedPages,
     })
 
-    await Promise.all([
-      app.pages.map(async (pageRef) => {
-        const page = pageRef.current
-        const rendererExists = builderRenderService.renderers.has(page.id)
+    app.pages.forEach((pageRef) => {
+      const page = pageRef.current
+      const rendererExists = builderRenderService.renderers.has(page.id)
 
-        if (!rendererExists) {
-          await builderRenderService.addRenderer({
-            elementTree: page,
-            id: page.id,
-            providerTree: app.providerPage,
-            rendererType: RendererType.PageBuilder,
-          })
-        }
-      }),
-    ])
+      if (!rendererExists) {
+        builderRenderService.addRenderer({
+          elementTree: page,
+          id: page.id,
+          providerTree: app.providerPage,
+          rendererType: RendererType.PageBuilder,
+        })
+      }
+    })
   })
 }

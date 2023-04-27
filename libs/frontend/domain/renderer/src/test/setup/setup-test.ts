@@ -29,6 +29,7 @@ import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
 import { objectMap, unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'
+import { RenderService } from '../../render.service'
 import { Renderer } from '../../renderer.model'
 import { PassThroughRenderPipe } from '../../renderPipes/passThroughRenderPipe'
 import type { RenderPipeClass } from '../../renderPipes/renderPipe.factory'
@@ -99,6 +100,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
           [textAtom.id, textAtom],
         ]),
       }),
+      builderRenderService: new RenderService({}),
       componentService: new ComponentService({}),
       elementService: new ElementService({}),
       fieldService: new FieldService({}),

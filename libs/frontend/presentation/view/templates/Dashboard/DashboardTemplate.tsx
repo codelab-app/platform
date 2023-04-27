@@ -23,14 +23,14 @@ const DashboardTemplate = observer(
   }: React.PropsWithChildren<DashboardTemplateProps>) => {
     return (
       <Layout css={tw`max-h-full min-h-full`}>
-        {sidebarNavigation && (
-          <Sider collapsed collapsedWidth={sidebarWidth} theme="light">
+        <Sider collapsed collapsedWidth={sidebarWidth} theme="light">
+          {sidebarNavigation && (
             <SidebarNavigation
               primaryItems={sidebarNavigation.primaryItems}
               secondaryItems={sidebarNavigation.secondaryItems}
             />
-          </Sider>
-        )}
+          )}
+        </Sider>
 
         <Layout>
           {Header && (

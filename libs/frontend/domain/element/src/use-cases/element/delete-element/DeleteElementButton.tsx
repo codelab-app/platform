@@ -1,18 +1,20 @@
-import type { IElement, IElementService } from '@codelab/frontend/abstract/core'
+import type { IElement } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presenter/container'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
 interface DeleteElementProps {
-  elementService: IElementService
-  element: IElement
-  disabled: boolean
   className?: string
+  disabled: boolean
+  element: IElement
 }
 
 export const DeleteElementButton = observer<DeleteElementProps>(
-  ({ elementService, element, disabled, className }) => {
+  ({ className, disabled, element }) => {
+    const { elementService } = useStore()
+
     const onClick = () =>
       elementService.deleteModal.open(elementRef(element.id))
 

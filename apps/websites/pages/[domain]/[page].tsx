@@ -3,36 +3,35 @@ import type { AppPagePageProps } from '@codelab/frontend/abstract/types'
 import { pageApi } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
 import { initializeStore } from '@codelab/frontend/presentation/client/mobx'
-import {
-  useRenderedPage,
-  useStore,
-} from '@codelab/frontend/presentation/container'
+import { useRenderedPage } from '@codelab/frontend/presentation/container'
+import { extractErrorMessage } from '@codelab/frontend/shared/utils'
 import { useMountEffect } from '@react-hookz/web'
+import { Alert, Spin } from 'antd'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import React from 'react'
 
 const Index = (props: AppPagePageProps) => {
-  const store = useStore()
   const { renderingData } = props
 
-  const [{ result }, actions] = useRenderedPage({
+  const [{ error, result, status }, actions] = useRenderedPage({
     initialData: renderingData,
     rendererType: RendererType.Preview,
-    renderService: store.appRenderService,
   })
 
   useMountEffect(actions.execute)
 
-  const { page, renderer } = result ?? {}
-
   return (
     <>
       <Head>
-        <title>{page?.name ?? 'Loading...'}</title>
+        <title>{result?.page.name ?? 'Loading...'}</title>
       </Head>
 
-      {renderer && <Renderer renderRoot={renderer.renderRoot.bind(renderer)} />}
+      {error && <Alert message={extractErrorMessage(error)} type="error" />}
+      {status === 'loading' && <Spin />}
+      {status === 'success' && result?.elementTree && (
+        <Renderer renderer={result.renderer} />
+      )}
     </>
   )
 }

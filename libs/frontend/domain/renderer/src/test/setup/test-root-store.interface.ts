@@ -11,6 +11,7 @@ import type {
 export type ITestRootStore = Pick<
   IRootStore,
   | 'atomService'
+  | 'builderRenderService'
   | 'componentService'
   | 'elementService'
   | 'pageService'

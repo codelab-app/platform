@@ -7,11 +7,13 @@ import type {
   IPageService,
   IPropService,
   IRenderer,
+  IRenderService,
   IStoreService,
   ITagService,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
 import {
+  builderRenderServiceContext,
   componentServiceContext,
   elementServiceContext,
 } from '@codelab/frontend/abstract/core'
@@ -35,6 +37,7 @@ export class TestRootStore
   extends Model({
     actionService: prop<IActionService>(),
     atomService: prop<IAtomService>(),
+    builderRenderService: prop<IRenderService>(),
     componentService: prop<IComponentService>(),
     elementService: prop<IElementService>(),
     fieldService: prop<IFieldService>(),
@@ -58,6 +61,8 @@ export class TestRootStore
     pageServiceContext.set(this, this.pageService)
     storeServiceContext.set(this, this.storeService)
     tagServiceContext.set(this, this.tagService)
+    tagServiceContext.set(this, this.tagService)
+    builderRenderServiceContext.set(this, this.builderRenderService)
 
     registerRootStore(this)
   }

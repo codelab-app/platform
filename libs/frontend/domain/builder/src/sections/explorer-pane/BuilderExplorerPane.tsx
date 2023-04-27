@@ -28,10 +28,14 @@ import {
   DeleteFieldModal,
   UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
-import { useStore } from '@codelab/frontend/presentation/container'
+import {
+  useCurrentPageId,
+  useStore,
+} from '@codelab/frontend/presentation/container'
 import {
   CodeMirrorEditor,
   ExplorerPaneTemplate,
+  SkeletonWrapper,
 } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { css } from '@emotion/react'
@@ -50,8 +54,8 @@ type StoreHeaderProps = PropsWithChildren<{
   extra?: ReactNode
 }>
 
-interface BuilderMainPaneProps {
-  pageId: string
+interface BuilderExplorerPaneProps {
+  isLoading?: boolean
 }
 
 export const StoreHeader = ({ children, extra }: StoreHeaderProps) => (
@@ -61,8 +65,8 @@ export const StoreHeader = ({ children, extra }: StoreHeaderProps) => (
   </div>
 )
 
-export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
-  ({ pageId }) => {
+export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
+  ({ isLoading = true }) => {
     const {
       actionService,
       builderRenderService,
@@ -73,14 +77,15 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
       pageService,
     } = useStore()
 
+    const pageId = useCurrentPageId()
     const page = pageService.pages.get(pageId)
     const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
     const pageTree = pageBuilderRenderer?.elementTree.maybeCurrent
-    const root = pageTree?.rootElement
+    const root = !isLoading ? pageTree?.rootElement : undefined
     const antdTree = root?.current.antdNode
     const componentsAntdTree = componentService.componentAntdNode
     const isPageTree = antdTree && pageTree
-    const store = page?.store.current
+    const store = page?.store.maybeCurrent
 
     const selectTreeNode = (node: IPageNode) => {
       if (isComponentPageNode(node)) {
@@ -97,66 +102,65 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
     const tabItems = [
       {
         children: (
-          <ExplorerPaneTemplate
-            containerProps={{
-              onClick: () => {
-                builderService.selectElementNode(null)
-              },
-            }}
-            header={
-              <BuilderExplorerPaneHeader
-                builderService={builderService}
-                elementService={elementService}
-                elementTree={pageTree}
-                root={root?.maybeCurrent}
-              />
-            }
-            key={root?.id ?? 'main-pane-builder'}
-            title="Page"
-          >
-            {!pageBuilderRenderer && <Spin />}
+          <SkeletonWrapper isLoading={isLoading}>
+            <ExplorerPaneTemplate
+              header={
+                <BuilderExplorerPaneHeader
+                  builderService={builderService}
+                  elementService={elementService}
+                  elementTree={pageTree}
+                  root={root?.maybeCurrent}
+                />
+              }
+              key={root?.id ?? 'main-pane-builder'}
+              title="Page"
+            >
+              {!pageBuilderRenderer && <Spin />}
 
-            {isPageTree && (
-              <BuilderTree
-                className="page-builder"
-                expandedNodeIds={builderService.expandedPageElementTreeNodeIds}
-                selectTreeNode={selectTreeNode}
-                setActiveTab={() =>
-                  builderService.setActiveTab(RendererTab.Page)
-                }
-                setExpandedNodeIds={builderService.setExpandedPageElementTreeNodeIds.bind(
-                  builderService,
-                )}
-                treeData={antdTree}
-              />
-            )}
+              {isPageTree && (
+                <BuilderTree
+                  className="page-builder"
+                  expandedNodeIds={
+                    builderService.expandedPageElementTreeNodeIds
+                  }
+                  selectTreeNode={selectTreeNode}
+                  setActiveTab={() =>
+                    builderService.setActiveTab(RendererTab.Page)
+                  }
+                  setExpandedNodeIds={builderService.setExpandedPageElementTreeNodeIds.bind(
+                    builderService,
+                  )}
+                  treeData={antdTree}
+                />
+              )}
 
-            {pageBuilderRenderer && (
-              <>
-                <Divider />
-                <div css={tw`flex justify-end`}>
-                  <CreateComponentButton
-                    componentService={componentService}
-                    title="Component"
-                  />
-                </div>
-              </>
-            )}
+              {pageBuilderRenderer && (
+                <>
+                  <Divider />
+                  <div css={tw`flex justify-end`}>
+                    <CreateComponentButton
+                      componentService={componentService}
+                      title="Component"
+                    />
+                  </div>
+                </>
+              )}
 
-            {antdTree && (
-              <BuilderTree
-                expandedNodeIds={builderService.expandedComponentTreeNodeIds}
-                selectTreeNode={selectTreeNode}
-                setActiveTab={() =>
-                  builderService.setActiveTab(RendererTab.Component)
-                }
-                setExpandedNodeIds={builderService.setExpandedComponentTreeNodeIds.bind(
-                  builderService,
-                )}
-                treeData={componentsAntdTree}
-              />
-            )}
-          </ExplorerPaneTemplate>
+              {antdTree && (
+                <BuilderTree
+                  expandedNodeIds={builderService.expandedComponentTreeNodeIds}
+                  selectTreeNode={selectTreeNode}
+                  setActiveTab={() =>
+                    builderService.setActiveTab(RendererTab.Component)
+                  }
+                  setExpandedNodeIds={builderService.setExpandedComponentTreeNodeIds.bind(
+                    builderService,
+                  )}
+                  treeData={componentsAntdTree}
+                />
+              )}
+            </ExplorerPaneTemplate>
+          </SkeletonWrapper>
         ),
         key: 'explorer',
         label: (
@@ -168,7 +172,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
       },
       {
         children: (
-          <>
+          <SkeletonWrapper isLoading={isLoading}>
             <Collapse css={tw`w-full mb-2`} defaultActiveKey={['1']} ghost>
               <Panel
                 header={
@@ -213,7 +217,7 @@ export const BuilderExplorerPane = observer<BuilderMainPaneProps>(
               title="Current props"
               value={store?.jsonString}
             />
-          </>
+          </SkeletonWrapper>
         ),
         key: 'store',
         label: (

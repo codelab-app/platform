@@ -1,26 +1,21 @@
-import type { IPage, IRenderer } from '@codelab/frontend/abstract/core'
 import { RendererTab } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
-import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
-import { Alert, Layout, Spin, Tabs } from 'antd'
+import { Spinner } from '@codelab/frontend/view/components'
+import { Alert, Layout, Tabs } from 'antd'
 import { Content, Header } from 'antd/lib/layout/layout'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { BaseBuilder } from './BaseBuilder'
-import { BuilderComponent } from './Builder-Component'
+import { Builder } from './Builder'
 
-export interface BuilderTabsProps {
-  error: Nullish<string>
+interface BuilderTabsProps {
+  error?: Parameters<typeof extractErrorMessage>[0]
   isLoading: boolean
-  page: Maybe<IPage>
-  renderer: Maybe<IRenderer>
 }
 
 export const BuilderTabs = observer<BuilderTabsProps>(
-  ({ error, isLoading, page, renderer }) => {
+  ({ error, isLoading = true }) => {
     const { builderService } = useStore()
-    const store = page?.store.current
 
     const tabItems = [
       {
@@ -45,18 +40,10 @@ export const BuilderTabs = observer<BuilderTabsProps>(
             type="card"
           />
         </Header>
-        {isLoading && <Spin />}
         <Content>
-          {builderService.activeTab === RendererTab.Page ? (
-            page && renderer ? (
-              <BaseBuilder elementTree={page} renderer={renderer} />
-            ) : null
-          ) : builderService.activeComponent && store ? (
-            <BuilderComponent
-              BaseBuilder={BaseBuilder}
-              componentId={builderService.activeComponent.id}
-            />
-          ) : null}
+          <Spinner center isLoading={isLoading}>
+            <Builder />
+          </Spinner>
         </Content>
       </Layout>
     )

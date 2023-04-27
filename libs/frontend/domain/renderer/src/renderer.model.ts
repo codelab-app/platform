@@ -55,39 +55,8 @@ import { isTypedValue } from './utils/isTypedValue'
  * For example - we use the renderContext from ./renderContext inside the pipes to get the renderer model itself and its tree.
  */
 
-const create = async ({
-  elementTree,
-  providerTree,
-  rendererType,
-  setSelectedNode,
-}: RendererProps) => {
-  /**
-   * Use a builder-specific render service that overwrites each onClick handler with a void click handler.
-   */
-  const builderGlobals = {
-    /*
-    FIXME: mobx-keystone 1.2.0 requires frozen data to be serializable.
-    onClick: (e: React.MouseEvent) => {
-      if (!isBuilder) {
-        return
-      }
-
-      e.stopPropagation()
-
-      const elementId = e.currentTarget.getAttribute(DATA_ELEMENT_ID)
-
-      if (elementId !== null) {
-        setSelectedNode?.(elementRef(elementId))
-      }
-    },
-    */
-    href: '#',
-  }
-
-  await expressionTransformer.init()
-
+const create = ({ elementTree, providerTree, rendererType }: RendererProps) => {
   return new Renderer({
-    //  appStore: storeRef(appStore),
     elementTree: elementTreeRef(elementTree),
     providerTree: providerTree ? elementTreeRef(providerTree) : null,
     rendererType,
@@ -127,6 +96,10 @@ export class Renderer
   })
   implements IRenderer
 {
+  onAttachedToRootStore() {
+    void expressionTransformer.init()
+  }
+
   renderRoot() {
     const root = this.elementTree.maybeCurrent?.rootElement.current
     const providerRoot = this.providerTree?.current.rootElement.current

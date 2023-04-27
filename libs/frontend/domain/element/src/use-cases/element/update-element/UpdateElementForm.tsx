@@ -1,7 +1,5 @@
 import type {
   IElement,
-  IElementService,
-  IRenderer,
   IUpdateBaseElementData,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/core'
@@ -10,13 +8,17 @@ import {
   DATA_ELEMENT_ID,
 } from '@codelab/frontend/abstract/core'
 import { SelectAction } from '@codelab/frontend/domain/type'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import {
   AutoCompleteField,
   CodeMirrorField,
   createAutoCompleteOptions,
   Form,
 } from '@codelab/frontend/presentation/view'
+import {
+  useCurrentPageId,
+  useStore,
+} from '@codelab/frontend/presenter/container'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { mergeProps } from '@codelab/shared/utils'
 import isNil from 'lodash/isNil'
@@ -31,13 +33,14 @@ import { updateElementSchema } from './update-element.schema'
 
 export interface UpdateElementFormProps {
   element: IElement
-  elementService: IElementService
-  renderer?: IRenderer
 }
 
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
-  ({ element, elementService, renderer }) => {
+  ({ element }) => {
+    const { builderRenderService, elementService } = useStore()
+    const pageId = useCurrentPageId()
+    const renderer = builderRenderService.renderers.get(pageId)
     const model = getElementModel(element)
 
     const onSubmit = (data: IUpdateElementData) => {

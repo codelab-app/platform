@@ -1,8 +1,8 @@
 import type {
   IComponent,
-  IComponentService,
   IUpdateComponentData,
 } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { Form, FormContextProvider } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
@@ -12,13 +12,14 @@ import { updateComponentSchema } from './update-component.schema'
 
 interface UpdateComponentFormProps {
   component: IComponent
-  componentService: IComponentService
 }
 /**
  * Used for meta pane
  */
 export const UpdateComponentForm = observer<UpdateComponentFormProps>(
-  ({ component, componentService }) => {
+  ({ component }) => {
+    const { componentService } = useStore()
+
     const model = {
       childrenContainerElement: {
         id: component.childrenContainerElement.current.id,

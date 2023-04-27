@@ -1,6 +1,7 @@
 import type { IRootStore, RootStoreData } from '@codelab/frontend/abstract/core'
 import {
   appServiceContext,
+  builderRenderServiceContext,
   builderServiceContext,
   componentServiceContext,
   elementServiceContext,
@@ -77,6 +78,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
       userServiceContext.set(this, this.userService)
       tagServiceContext.set(this, this.tagService)
       fieldServiceContext.set(this, this.fieldService)
+      builderRenderServiceContext.set(this, this.builderRenderService)
     }
   }
 

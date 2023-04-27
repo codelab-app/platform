@@ -1,10 +1,6 @@
-import type {
-  IElement,
-  IElementService,
-  IElementTree,
-  MoveData,
-} from '@codelab/frontend/abstract/core'
+import type { IElement, MoveData } from '@codelab/frontend/abstract/core'
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/domain/type'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
@@ -20,95 +16,91 @@ import {
 
 export interface MoveElementFormProps {
   element: IElement
-  elementService: IElementService
-  /**
-   * The element tree is specific to which view we're looking at (i.e. Page, Component)
-   */
-  elementTree: IElementTree
 }
 
 /** Not intended to be used in a modal */
-export const MoveElementForm = observer<MoveElementFormProps>(
-  ({ element, elementService, elementTree }) => {
-    // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
-    const { current: model } = useRef({
-      parentElement: { id: element.parent?.id },
-      prevSibling: { id: element.prevSibling?.current.id },
-    })
+export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
+  const { builderService, elementService } = useStore()
+  const elementTree = builderService.activeElementTree
 
-    useEffect(() => {
-      model.prevSibling.id = element.prevSibling?.current.id
-      model.parentElement.id = element.parent?.id
-    }, [element.parent, element.prevSibling])
+  // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
+  const { current: model } = useRef({
+    parentElement: { id: element.parent?.id },
+    prevSibling: { id: element.prevSibling?.current.id },
+  })
 
-    const onSubmit = ({ parentElement, prevSibling }: MoveData) => {
-      const {
-        parentElement: currentParentElement,
-        prevSibling: currentPrevSibling,
-      } = model
+  useEffect(() => {
+    model.prevSibling.id = element.prevSibling?.current.id
+    model.parentElement.id = element.parent?.id
+  }, [element.parent, element.prevSibling])
 
-      if (
-        shouldMoveElementAsFirstChild(
-          currentParentElement,
-          parentElement,
-          currentPrevSibling,
-          prevSibling,
-        )
-      ) {
-        return elementService.moveElementAsFirstChild({
-          element,
-          parentElement,
-        })
-      }
+  const onSubmit = ({ parentElement, prevSibling }: MoveData) => {
+    const {
+      parentElement: currentParentElement,
+      prevSibling: currentPrevSibling,
+    } = model
 
-      if (shouldMoveElementAsNextSibling(currentPrevSibling, prevSibling)) {
-        return elementService.moveElementAsNextSibling({
-          element,
-          targetElement: prevSibling,
-        })
-      }
-
-      return Promise.resolve()
+    if (
+      shouldMoveElementAsFirstChild(
+        currentParentElement,
+        parentElement,
+        currentPrevSibling,
+        prevSibling,
+      )
+    ) {
+      return elementService.moveElementAsFirstChild({
+        element,
+        parentElement,
+      })
     }
 
-    const elementOptions = elementTree.elements.map(mapElementOption)
+    if (shouldMoveElementAsNextSibling(currentPrevSibling, prevSibling)) {
+      return elementService.moveElementAsNextSibling({
+        element,
+        targetElement: prevSibling,
+      })
+    }
 
-    return (
-      <MoveElementAutoForm<MoveData>
-        autosave
-        cssString={`
+    return Promise.resolve()
+  }
+
+  const elementOptions = elementTree?.elements.map(mapElementOption)
+
+  return (
+    <MoveElementAutoForm<MoveData>
+      autosave
+      cssString={`
           & .ant-form-item-explain {
             display: none !important;
           }
         `}
-        key={element.id}
-        model={model}
-        onSubmit={onSubmit}
-        onSubmitError={createNotificationHandler({
-          title: 'Error while moving element',
+      key={element.id}
+      model={model}
+      onSubmit={onSubmit}
+      onSubmitError={createNotificationHandler({
+        title: 'Error while moving element',
+      })}
+      schema={moveElementSchema}
+    >
+      <AutoFields omitFields={['parentElement', 'prevSibling']} />
+      <AutoField
+        component={observer((props) => {
+          return (
+            <SelectExcludeDescendantsElements
+              allElementOptions={elementOptions}
+              allowClear={false}
+              targetElementId={element.id}
+              // eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
+              {...(props as any)}
+            />
+          )
         })}
-        schema={moveElementSchema}
-      >
-        <AutoFields omitFields={['parentElement', 'prevSibling']} />
-        <AutoField
-          component={observer((props) => {
-            return (
-              <SelectExcludeDescendantsElements
-                allElementOptions={elementOptions}
-                allowClear={false}
-                targetElementId={element.id}
-                // eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
-                {...(props as any)}
-              />
-            )
-          })}
-          name="parentElement.id"
-        />
-        <SelectLinkElement
-          allElementOptions={elementOptions}
-          name="prevSibling.id"
-        />
-      </MoveElementAutoForm>
-    )
-  },
-)
+        name="parentElement.id"
+      />
+      <SelectLinkElement
+        allElementOptions={elementOptions}
+        name="prevSibling.id"
+      />
+    </MoveElementAutoForm>
+  )
+})

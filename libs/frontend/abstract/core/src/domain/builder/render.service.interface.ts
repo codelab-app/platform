@@ -24,5 +24,5 @@ export interface RendererProps {
 export interface IRenderService {
   renderers: ObjectMap<IRenderer>
 
-  addRenderer(props: RendererProps): Promise<IRenderer>
+  addRenderer(props: RendererProps): IRenderer
 }

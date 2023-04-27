@@ -1,18 +1,17 @@
 import { PauseOutlined } from '@ant-design/icons'
 import {
-  type IBuilderService,
-  type IElementService,
-  type IElementTree,
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
   DragPosition,
 } from '@codelab/frontend/abstract/core'
-import type { RendererRoot } from '@codelab/frontend/domain/renderer'
 import {
   makeDropIndicatorStyle,
   Renderer,
 } from '@codelab/frontend/domain/renderer'
-import { useStore } from '@codelab/frontend/presentation/container'
+import {
+  useCurrentPageId,
+  useStore,
+} from '@codelab/frontend/presentation/container'
 import { useDroppable } from '@dnd-kit/core'
 import styled from '@emotion/styled'
 import { motion } from 'framer-motion'
@@ -23,134 +22,115 @@ import { useBuilderHotkeys, useBuilderHoverHandlers } from '../../hooks'
 import { useBuilderResize } from '../../hooks/useBuilderResize'
 import { useBuilderRootClickHandler } from '../../hooks/useBuilderRootClickHandler'
 import { BuilderClickOverlay } from '../overlay-toolbar/BuilderClickOverlay'
-import { BuilderHoverOverlay } from '../overlay-toolbar/BuilderHoverOverlay'
 
-type BuilderProps = Pick<
-  IBuilderService,
-  | 'currentBuilderWidth'
-  | 'currentDragData'
-  | 'selectedBuilderWidth'
-  | 'selectedNode'
-  | 'setCurrentBuilderWidth'
-  | 'setHoveredNode'
-  | 'setSelectedNode'
-> &
-  Pick<IElementService, 'deleteModal'> & {
-    elementTree: IElementTree
-  } & {
-    rendererProps: RendererRoot
-  }
 /**
  * Generic builder used for both Component & Element
  */
+export const Builder = observer(() => {
+  const { builderRenderService, builderService, elementService } = useStore()
+  const pageId = useCurrentPageId()
+  const activeComponentId = builderService.activeComponent?.id
 
-export const Builder = observer<BuilderProps>(
-  ({
-    currentBuilderWidth: mainContentWidth,
+  const renderer = builderRenderService.renderers.get(
+    activeComponentId ?? pageId,
+  )
+
+  const elementTree = builderService.activeElementTree
+
+  const {
+    currentBuilderWidth,
     currentDragData,
-    deleteModal,
-    elementTree,
-    rendererProps,
-    selectedBuilderWidth: selectedMainContentWidth,
+    selectedBuilderWidth,
     selectedNode,
-    setCurrentBuilderWidth,
-    setHoveredNode,
-    setSelectedNode,
-  }) => {
-    const { handleMouseLeave, handleMouseOver } = useBuilderHoverHandlers({
-      currentDragData,
-      setHoveredNode,
-    })
+  } = builderService
 
-    const { builderService, elementService } = useStore()
+  const { handleMouseLeave, handleMouseOver } = useBuilderHoverHandlers({
+    currentDragData,
+    setHoveredNode: builderService.setHoveredNode.bind(builderService),
+  })
 
-    const builderResizable = useBuilderResize({
-      selectedWidth: selectedMainContentWidth,
-      setCurrentBuilderWidth,
-      width: mainContentWidth,
-    })
+  const builderResizable = useBuilderResize({
+    selectedWidth: selectedBuilderWidth,
+    setCurrentBuilderWidth:
+      builderService.setCurrentBuilderWidth.bind(builderService),
+    width: currentBuilderWidth,
+  })
 
-    const { isOver, over, setNodeRef } = useDroppable({
-      id: elementTree.rootElement.id,
-    })
+  useBuilderHotkeys({
+    deleteModal: elementService.deleteModal,
+    selectedNode,
+    setSelectedNode: builderService.setSelectedNode.bind(builderService),
+  })
 
-    useBuilderHotkeys({
-      deleteModal,
-      selectedNode,
-      setSelectedNode,
-    })
+  const handleContainerClick = useBuilderRootClickHandler()
 
-    const handleContainerClick = useBuilderRootClickHandler()
+  const { isOver, over, setNodeRef } = useDroppable({
+    id: elementTree?.rootElement.id ?? '',
+  })
 
-    if (isOver && over) {
-      over.data.current = {
-        ...over.data.current,
-        dragPosition: DragPosition.Inside,
-      }
+  if (isOver && over) {
+    over.data.current = {
+      ...over.data.current,
+      dragPosition: DragPosition.Inside,
     }
+  }
 
-    const rootStyle = useMemo(
-      () =>
-        isOver
-          ? makeDropIndicatorStyle(DragPosition.Inside, {
-              backgroundColor: 'rgba(0, 255, 255, 0.2)',
-            })
-          : {},
-      [isOver],
-    )
+  const rootStyle = useMemo(
+    () =>
+      isOver
+        ? makeDropIndicatorStyle(DragPosition.Inside, {
+            backgroundColor: 'rgba(0, 255, 255, 0.2)',
+          })
+        : {},
+    [isOver],
+  )
 
-    return (
-      <StyledBuilderResizeContainer
-        css={tw`h-full z-10 flex flex-row`}
-        style={{
-          ...builderResizable.containerProps.style,
-          margin: 'auto',
-        }}
+  if (!elementTree || !renderer) {
+    return null
+  }
+
+  return (
+    <StyledBuilderResizeContainer
+      css={tw`h-full z-10 flex flex-row`}
+      style={{
+        ...builderResizable.containerProps.style,
+        margin: 'auto',
+      }}
+    >
+      <div
+        css={[tw`absolute -right-[14px] bg-transparent h-full w-[17px] z-10 `]}
       >
-        <div
+        <motion.div
+          css={[tw`absolute left-[3px] w-[3px] h-full`]}
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...builderResizable.xDragHandleProps}
+        />
+        <motion.div
           css={[
-            tw`absolute -right-[14px] bg-transparent h-full w-[17px] z-10 `,
+            tw`absolute w-[14px] h-[40px] -right-[3px] top-[50%] bg-zinc-200 flex items-center justify-center opacity-70 rounded-r`,
           ]}
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...builderResizable.xDragHandleProps}
         >
-          <motion.div
-            css={[tw`absolute left-[3px] w-[3px] h-full`]}
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...builderResizable.xDragHandleProps}
-          />
-          <motion.div
-            css={[
-              tw`absolute w-[14px] h-[40px] -right-[3px] top-[50%] bg-zinc-200 flex items-center justify-center opacity-70 rounded-r`,
-            ]}
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...builderResizable.xDragHandleProps}
-          >
-            <PauseOutlined />
-          </motion.div>
-        </div>
-        <StyledBuilderContainer
-          id={BUILDER_CONTAINER_ID}
-          key={elementTree.id}
-          onClick={handleContainerClick}
-          onMouseLeave={handleMouseLeave}
-          onMouseOver={handleMouseOver}
-        >
-          <Renderer
-            ref={setNodeRef}
-            renderRoot={rendererProps.renderRoot}
-            style={rootStyle}
-          />
-          <BuilderClickOverlay
-            builderService={builderService}
-            elementService={elementService}
-          />
-          <BuilderHoverOverlay builderService={builderService} />
-
-          {/* {children} */}
-        </StyledBuilderContainer>
-      </StyledBuilderResizeContainer>
-    )
-  },
-)
+          <PauseOutlined />
+        </motion.div>
+      </div>
+      <StyledBuilderContainer
+        id={BUILDER_CONTAINER_ID}
+        key={elementTree.id}
+        onClick={handleContainerClick}
+        onMouseLeave={handleMouseLeave}
+        onMouseOver={handleMouseOver}
+      >
+        <Renderer ref={setNodeRef} renderer={renderer} style={rootStyle} />
+        <BuilderClickOverlay
+          builderService={builderService}
+          elementService={elementService}
+        />
+      </StyledBuilderContainer>
+    </StyledBuilderResizeContainer>
+  )
+})
 
 Builder.displayName = 'Builder'
 

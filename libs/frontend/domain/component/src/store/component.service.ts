@@ -6,10 +6,12 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   COMPONENT_TREE_CONTAINER,
+  getBuilderRenderService,
   getElementService,
   IBuilderDataNode,
   IComponentDTO,
   IUpdateComponentData,
+  RendererType,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getStoreService, Store } from '@codelab/frontend/domain/store'
@@ -76,6 +78,11 @@ export class ComponentService
   }
 
   @computed
+  get builderRenderService() {
+    return getBuilderRenderService(this)
+  }
+
+  @computed
   get componentList() {
     return [...this.components.values()]
   }
@@ -83,6 +90,13 @@ export class ComponentService
   @modelAction
   add(componentDTO: IComponentDTO) {
     const component = Component.create(componentDTO)
+
+    this.builderRenderService.addRenderer({
+      elementTree: component,
+      id: component.id,
+      providerTree: null,
+      rendererType: RendererType.ComponentBuilder,
+    })
 
     this.components.set(component.id, component)
 
