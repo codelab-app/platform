@@ -1,6 +1,6 @@
+import type { AtomsRecord } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { dynamicLoader } from '../dynamicLoader'
-import type { AtomsRecord } from '../types'
 
 export const muiAtoms: AtomsRecord = {
   [IAtomType.MuiAccordion]: dynamicLoader(

@@ -1,14 +1,9 @@
-import type { AtomSeedRecord } from '@codelab/backend/abstract/core'
-import { IAuthUseCase, IUseCase } from '@codelab/backend/abstract/types'
-import { antdAtomData } from '@codelab/backend/application/atom'
+import { IAuthUseCase } from '@codelab/backend/abstract/types'
 import {
   InterfaceType,
   InterfaceTypeRepository,
-  PrimitiveTypeRepository,
 } from '@codelab/backend/domain/type'
-import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { IAtomType } from '@codelab/shared/abstract/core'
-import { ObjectTyped } from 'object-typed'
 
 /**
  * Seed empty API from atom names

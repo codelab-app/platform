@@ -1,6 +1,5 @@
-import type { TagNode } from '@codelab/backend/abstract/core'
 import { AntdTag } from '@codelab/backend/abstract/core'
-import { antdTagTree } from '@codelab/backend/infra/data/seed'
+import { antdTagTree } from '@codelab/backend/data/seed'
 import type { ITagDTO, IUserDTO } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import difference from 'lodash/difference'

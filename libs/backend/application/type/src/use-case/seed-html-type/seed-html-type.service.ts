@@ -1,6 +1,5 @@
-import { IAuthUseCase, IUseCase } from '@codelab/backend/abstract/types'
-import { htmlAtomData } from '@codelab/backend/application/atom'
-import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
+import { IAuthUseCase } from '@codelab/backend/abstract/types'
+import { htmlAtomData } from '@codelab/shared/data/seed'
 import htmlData from '../../../../../../../data/html/html.json'
 
 interface HtmlSeed {

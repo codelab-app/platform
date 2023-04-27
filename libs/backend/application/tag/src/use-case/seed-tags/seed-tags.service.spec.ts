@@ -1,5 +1,5 @@
 import { AntdTag } from '@codelab/backend/abstract/core'
-import { antdTagTree } from '@codelab/backend/infra/data/seed'
+import { antdTagTree } from '@codelab/backend/data/seed'
 import { SeedTagsService } from './seed-tags.service'
 
 describe('Tag Parser', () => {

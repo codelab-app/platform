@@ -1,10 +1,4 @@
-import {
-  SeederService,
-  SeedFrameworkService,
-} from '@codelab/backend/application/admin'
-import { antdAtomData } from '@codelab/backend/application/atom'
-import { ExtractAntDesignFieldsService } from '@codelab/backend/application/type'
-import { antdTagTree } from '@codelab/backend/infra/data/seed'
+import { SeederService } from '@codelab/backend/application/admin'
 import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { CommandModule } from 'yargs'
 import { getStageOptions, loadStageMiddleware } from '../../shared/command'
@@ -45,8 +39,10 @@ export const seedCommand: CommandModule = {
         'html',
         'Seed html',
         (_argv) => _argv,
-        ({ user }) => {
-          console.log(user)
+        async ({ user }) => {
+          const owner = user as IAuth0Owner
+
+          await new SeederService(owner).seedHtml()
 
           process.exit(0)
         },

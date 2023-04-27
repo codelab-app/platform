@@ -1,5 +1,5 @@
 import type { IAtomType } from '@codelab/shared/abstract/core'
-import { atomsData } from './data'
+import { atomsData } from '@codelab/shared/data/seed'
 
 export interface AtomTypeKeyByFileName {
   [fileName: string]: IAtomType

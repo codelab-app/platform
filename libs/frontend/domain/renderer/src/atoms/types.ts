@@ -1,15 +1,6 @@
-import type { IPropData } from '@codelab/frontend/abstract/core'
+import type { IComponentType, IPropData } from '@codelab/frontend/abstract/core'
 import type { IAtomType } from '@codelab/shared/abstract/core'
-import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
-import type React from 'react'
-
-/**
- * This is our representation of what kind of ReactComponent to use
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type IComponentType = Nullable<string> | React.ComponentType<any>
-
-export type AtomsRecord = Partial<Record<IAtomType, IComponentType>>
+import type { IEntity } from '@codelab/shared/abstract/types'
 
 export interface AtomFactoryInput {
   atomType: IAtomType

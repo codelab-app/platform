@@ -1,5 +1,5 @@
 import type { AntdTag } from './antd-tag.interface'
-import type { HtmlTag } from './html-tag.interface'
+import type { HtmlCategory } from './html-tag.interface'
 import type { ReactTag } from './react-tag.interface'
 
 /**
@@ -13,9 +13,9 @@ import type { ReactTag } from './react-tag.interface'
 //       readonly [K in T]: ReadonlyArray<TagNode<T>>
 //     }
 
-export type TagNode<
-  T extends AntdTag | HtmlTag | ReactTag = AntdTag | HtmlTag | ReactTag,
-> =
+export type AllTags = AntdTag | HtmlCategory | ReactTag
+
+export type TagNode<T extends AllTags = AllTags> =
   | T
   | {
       readonly [K in T]?: ReadonlyArray<TagNode<T>>

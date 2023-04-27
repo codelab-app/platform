@@ -65,6 +65,7 @@
       "@codelab/backend/application/user": [
         "libs/backend/application/user/src/index.ts"
       ],
+      "@codelab/backend/data/seed": ["libs/backend/data/seed/src/index.ts"],
       "@codelab/backend/domain/action": [
         "libs/backend/domain/action/src/index.ts"
       ],
@@ -98,9 +99,6 @@
       ],
       "@codelab/backend/infra/adapter/vercel": [
         "libs/backend/infra/adapter/vercel/src/index.ts"
-      ],
-      "@codelab/backend/infra/data/seed": [
-        "libs/backend/infra/data/seed/src/index.ts"
       ],
       "@codelab/backend/shared/util": ["libs/backend/shared/util/src/index.ts"],
       "@codelab/backend/test": ["libs/backend/test/src/index.ts"],
@@ -187,6 +185,7 @@
       "@codelab/shared/abstract/types": [
         "libs/shared/abstract/types/src/index.ts"
       ],
+      "@codelab/shared/data/seed": ["libs/shared/data/seed/src/index.ts"],
       "@codelab/shared/data/test": ["libs/shared/data/test/src/index.ts"],
       "@codelab/shared/domain/mapper": [
         "libs/shared/domain/mapper/src/index.ts"

@@ -1,5 +1,5 @@
+import type { AtomsRecord } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import type { AtomsRecord } from '../types'
 
 export const htmlAtoms: AtomsRecord = {
   [IAtomType.HtmlDiv]: 'div',

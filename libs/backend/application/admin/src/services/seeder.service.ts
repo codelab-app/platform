@@ -1,8 +1,8 @@
 import { IAuthService } from '@codelab/backend/abstract/types'
-import { antdAtomData } from '@codelab/backend/application/atom'
 import { ExtractAntDesignFieldsService } from '@codelab/backend/application/type'
-import { antdTagTree } from '@codelab/backend/infra/data/seed'
+import { antdTagTree } from '@codelab/backend/data/seed'
 import type { IAtomDTO } from '@codelab/frontend/abstract/core'
+import { antdAtomData } from '@codelab/shared/data/seed'
 import { SeedFrameworkService } from '../use-case'
 
 export class SeederService extends IAuthService {
@@ -15,5 +15,13 @@ export class SeederService extends IAuthService {
       fields,
       tags: antdTagTree,
     })
+  }
+
+  async seedHtml() {
+    // await new SeedFrameworkService(this.owner).execute({
+    //   atoms: htmlAtomData,
+    //   fields: () => [],
+    //   tags: htmlTagTree,
+    // })
   }
 }

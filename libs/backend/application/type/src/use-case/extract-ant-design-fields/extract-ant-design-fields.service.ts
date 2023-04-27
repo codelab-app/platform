@@ -1,22 +1,12 @@
 import type { AntDesignField } from '@codelab/backend/abstract/core'
-import { IAuthUseCase, IUseCase } from '@codelab/backend/abstract/types'
-import {
-  antdAtomData,
-  atomTypeKeyByFileName,
-  SeedAtomsService,
-} from '@codelab/backend/application/atom'
-import { AtomRepository } from '@codelab/backend/domain/atom'
+import { IAuthUseCase } from '@codelab/backend/abstract/types'
+import { atomTypeKeyByFileName } from '@codelab/backend/application/atom'
 import {
   Field,
   FieldRepository,
-  InterfaceTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import type {
-  IAtomDTO,
-  IAuth0Owner,
-  IFieldDTO,
-} from '@codelab/frontend/abstract/core'
+import type { IAtomDTO, IFieldDTO } from '@codelab/frontend/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { v4 } from 'uuid'

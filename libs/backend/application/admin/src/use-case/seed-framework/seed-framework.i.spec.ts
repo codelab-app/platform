@@ -1,7 +1,6 @@
 import { AdminService } from '@codelab/backend/domain/admin'
 import { User, UserRepository } from '@codelab/backend/domain/user'
 import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
-import { antdTagTree } from '@codelab/backend/infra/data/seed'
 import { resetDatabase } from '@codelab/backend/test'
 import type { IUserDTO } from '@codelab/frontend/abstract/core'
 import path from 'path'
