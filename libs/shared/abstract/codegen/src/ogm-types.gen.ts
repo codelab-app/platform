@@ -749,9 +749,6 @@ export type QueryGetTypeReferencesArgs = {
 
 export type Mutation = {
   __typename?: 'Mutation'
-  createDomains: CreateDomainsMutationResponse
-  updateDomains: UpdateDomainsMutationResponse
-  deleteDomains: DeleteInfo
   createResetDatabaseMutationResponses: CreateResetDatabaseMutationResponsesMutationResponse
   deleteResetDatabaseMutationResponses: DeleteInfo
   updateResetDatabaseMutationResponses: UpdateResetDatabaseMutationResponsesMutationResponse
@@ -860,26 +857,10 @@ export type Mutation = {
   createVercelProjectDomains: CreateVercelProjectDomainsMutationResponse
   deleteVercelProjectDomains: DeleteInfo
   updateVercelProjectDomains: UpdateVercelProjectDomainsMutationResponse
+  createDomains: CreateDomainsMutationResponse
+  deleteDomains: DeleteInfo
+  updateDomains: UpdateDomainsMutationResponse
   resetDatabase?: Maybe<ResetDatabaseMutationResponse>
-}
-
-export type MutationCreateDomainsArgs = {
-  input: Array<DomainCreateInput>
-}
-
-export type MutationUpdateDomainsArgs = {
-  where?: InputMaybe<DomainWhere>
-  update?: InputMaybe<DomainUpdateInput>
-  connect?: InputMaybe<DomainConnectInput>
-  disconnect?: InputMaybe<DomainDisconnectInput>
-  create?: InputMaybe<DomainRelationInput>
-  delete?: InputMaybe<DomainDeleteInput>
-  connectOrCreate?: InputMaybe<DomainConnectOrCreateInput>
-}
-
-export type MutationDeleteDomainsArgs = {
-  where?: InputMaybe<DomainWhere>
-  delete?: InputMaybe<DomainDeleteInput>
 }
 
 export type MutationCreateResetDatabaseMutationResponsesArgs = {
@@ -1516,6 +1497,25 @@ export type MutationDeleteVercelProjectDomainsArgs = {
 export type MutationUpdateVercelProjectDomainsArgs = {
   where?: InputMaybe<VercelProjectDomainWhere>
   update?: InputMaybe<VercelProjectDomainUpdateInput>
+}
+
+export type MutationCreateDomainsArgs = {
+  input: Array<DomainCreateInput>
+}
+
+export type MutationDeleteDomainsArgs = {
+  where?: InputMaybe<DomainWhere>
+  delete?: InputMaybe<DomainDeleteInput>
+}
+
+export type MutationUpdateDomainsArgs = {
+  where?: InputMaybe<DomainWhere>
+  update?: InputMaybe<DomainUpdateInput>
+  connect?: InputMaybe<DomainConnectInput>
+  disconnect?: InputMaybe<DomainDisconnectInput>
+  create?: InputMaybe<DomainRelationInput>
+  delete?: InputMaybe<DomainDeleteInput>
+  connectOrCreate?: InputMaybe<DomainConnectOrCreateInput>
 }
 
 export enum ActionKind {

@@ -230,10 +230,10 @@ jobs:
           key: dep-cache-{{ checksum "yarn.lock" }}
           paths:
             - ~/.yarn
-            # - ~/.cache
-            # - ~/project/dist/apps/platform/.next/cache
-            # - ~/project/dist/apps/landing/.next/cache
-            # - ~/project/dist/apps/websites/.next/cache
+            - ~/.cache
+            - ~/project/dist/apps/platform/.next/cache
+            - ~/project/dist/apps/landing/.next/cache
+            - ~/project/dist/apps/websites/.next/cache
             - ~/project/node_modules
       - persist_to_workspace:
           root: ~/
