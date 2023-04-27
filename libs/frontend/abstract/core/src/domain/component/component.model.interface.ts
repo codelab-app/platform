@@ -18,7 +18,7 @@ export interface IComponent
   descendantComponents: Array<IComponent>
   initialState: IPropData
   instanceElement: Nullable<Ref<IElement>>
-  keyGenerator: Nullable<string>
+  keyGenerator: Nullish<string>
   name: string
   props: Ref<IProp>
   /**
