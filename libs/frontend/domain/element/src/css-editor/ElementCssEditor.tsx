@@ -104,8 +104,8 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
       (newGuiCss: string) => {
         const elementModel = getElementModel(element)
 
-        // do not send request if value was not changed
-        if (element.guiCss === newGuiCss) {
+        // // do not send request if value was not changed
+        if (element.guiCss === guiCssDebounced) {
           return
         }
 
