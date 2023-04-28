@@ -35,9 +35,9 @@ const antDesignModalFn: AtomCustomizerFn = ({ props }) => ({
 })
 
 export const antdPropsCustomizer: AtomCustomizer = {
-  [IAtomType.AntDesignRglItem]: antDesignRglItemFn,
-  [IAtomType.AntDesignRglResponsiveContainer]:
-    antDesignRglResponsiveContainerFn,
+  // [IAtomType.AntDesignRglItem]: antDesignRglItemFn,
+  // [IAtomType.AntDesignRglResponsiveContainer]:
+  //   antDesignRglResponsiveContainerFn,
   [IAtomType.AntDesignModal]: antDesignModalFn,
   [IAtomType.AntDesignDrawer]: antDesignModalFn,
 }

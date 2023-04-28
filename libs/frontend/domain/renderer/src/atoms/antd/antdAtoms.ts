@@ -10,15 +10,6 @@ export const antdAtoms: AtomsRecord = {
     import('@codelab/frontend/application/atoms').then((mod) => mod.AntdIcon),
   ),
   [IAtomType.AntDesignMenu]: dynamicLoader(() => import('antd/lib/menu')),
-  [IAtomType.AntDesignMenuItem]: dynamicLoader(
-    () => import('antd/lib/menu/MenuItem'),
-  ),
-  [IAtomType.AntDesignMenuItemGroup]: dynamicLoader(() =>
-    import('antd/lib/menu').then((mod) => mod.default.ItemGroup),
-  ),
-  [IAtomType.AntDesignMenuSubMenu]: dynamicLoader(
-    () => import('antd/lib/menu/SubMenu'),
-  ),
   [IAtomType.AntDesignGridCol]: dynamicLoader(
     () => import('antd/lib/grid/col'),
   ),
@@ -28,9 +19,6 @@ export const antdAtoms: AtomsRecord = {
   ),
   [IAtomType.AntDesignCardMeta]: dynamicLoader(
     () => import('antd/lib/card/Meta'),
-  ),
-  [IAtomType.AntDesignTypography]: dynamicLoader(
-    () => import('antd/lib/typography'),
   ),
   [IAtomType.AntDesignTypographyTitle]: dynamicLoader(
     () => import('antd/lib/typography/Title'),
@@ -89,12 +77,12 @@ export const antdAtoms: AtomsRecord = {
   [IAtomType.AntDesignSelectOption]: dynamicLoader(() =>
     import('antd/lib/select').then((mod) => mod.default.Option),
   ),
-  [IAtomType.AntDesignRglContainer]: dynamicLoader(
-    () => import('react-grid-layout'),
-  ),
-  [IAtomType.AntDesignRglResponsiveContainer]: dynamicLoader(
-    () => import('react-grid-layout'),
-  ),
+  // [IAtomType.AntDesignRglContainer]: dynamicLoader(
+  //   () => import('react-grid-layout'),
+  // ),
+  // [IAtomType.AntDesignRglResponsiveContainer]: dynamicLoader(
+  //   () => import('react-grid-layout'),
+  // ),
   [IAtomType.AntDesignModal]: dynamicLoader(() => import('antd/lib/modal')),
   [IAtomType.AntDesignNotification]: dynamicLoader(
     () => import('antd/lib/notification') as never,
@@ -116,9 +104,9 @@ export const antdAtoms: AtomsRecord = {
   [IAtomType.AntDesignPagination]: dynamicLoader(
     () => import('antd/lib/pagination'),
   ),
-  [IAtomType.AntDesignPageHeader]: dynamicLoader(() =>
-    import('@ant-design/pro-components/lib').then((mod) => mod.PageHeader),
-  ),
+  // [IAtomType.AntDesignPageHeader]: dynamicLoader(() =>
+  //   import('@ant-design/pro-components/lib').then((mod) => mod.PageHeader),
+  // ),
   [IAtomType.AntDesignBadge]: dynamicLoader(() => import('antd/lib/badge')),
   [IAtomType.AntDesignAvatar]: dynamicLoader(() => import('antd/lib/avatar')),
   [IAtomType.AntDesignCalendar]: dynamicLoader(
@@ -174,9 +162,6 @@ export const antdAtoms: AtomsRecord = {
   ),
   [IAtomType.AntDesignTreeSelect]: dynamicLoader(
     () => import('antd/lib/tree-select'),
-  ),
-  [IAtomType.AntDesignTreeNode]: dynamicLoader(() =>
-    import('antd/lib/tree-select').then((mod) => mod.default.TreeNode),
   ),
   [IAtomType.AntDesignTimePicker]: dynamicLoader(
     () => import('antd/lib/time-picker'),
