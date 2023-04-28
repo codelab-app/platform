@@ -1,5 +1,6 @@
 import { FileOutlined } from '@ant-design/icons'
 import type { IAction } from '@codelab/frontend/abstract/core'
+import { actionRef } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import {
   ListItemDeleteButton,
@@ -8,7 +9,6 @@ import {
 import { List, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { actionRef } from '../../../store'
 
 export const ActionItem = observer<{ action: IAction }>(({ action }) => {
   const { actionService } = useStore()

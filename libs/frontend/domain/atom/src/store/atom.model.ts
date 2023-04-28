@@ -3,6 +3,7 @@ import type {
   IInterfaceType,
   ITag,
 } from '@codelab/frontend/abstract/core'
+import { atomRef } from '@codelab/frontend/abstract/core'
 import { tagRef } from '@codelab/frontend/domain/tag'
 import { typeRef } from '@codelab/frontend/domain/type'
 import {
@@ -25,7 +26,6 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { atomRef } from './atom.ref'
 import { customTextInjectionWhiteList } from './custom-text-injection-whitelist'
 
 const create = ({

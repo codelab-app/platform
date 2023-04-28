@@ -1,19 +1,15 @@
-import type { IType } from '@codelab/frontend/abstract/core'
+import { fieldRef } from '@codelab/frontend/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { objectMap } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { FieldService } from '../field.service'
 import {
   Field,
-  fieldRef,
   InterfaceType,
   PrimitiveType,
   typeRef,
   UnionType,
 } from '../models'
-import { TypeService } from '../type.service'
-import { TestRootStore } from './test-root-store'
 
 export const stringType = new PrimitiveType({
   id: v4(),
@@ -80,21 +76,4 @@ export const interfaceWithUnionField = new InterfaceType({
   owner: {
     auth0Id: '',
   },
-})
-
-export const rootStore = new TestRootStore({
-  fieldService: new FieldService({
-    fields: objectMap([
-      [stringField.id, stringField],
-      [unionField.id, unionField],
-    ]),
-  }),
-  typeService: new TypeService({
-    types: objectMap<IType>([
-      [unionType.id, unionType],
-      [interfaceWithUnionField.id, interfaceWithUnionField],
-      [intType.id, intType],
-      [stringType.id, stringType],
-    ]),
-  }),
 })

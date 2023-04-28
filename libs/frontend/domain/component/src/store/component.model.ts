@@ -12,10 +12,10 @@ import {
   getComponentService,
   IComponent,
   isComponentInstance,
+  propRef,
   storeRef,
+  typeRef,
 } from '@codelab/frontend/abstract/core'
-import { propRef } from '@codelab/frontend/domain/prop'
-import { typeRef } from '@codelab/frontend/domain/type'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'

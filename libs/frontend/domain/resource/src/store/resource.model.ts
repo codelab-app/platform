@@ -3,7 +3,7 @@ import type {
   IResource,
   IResourceDTO,
 } from '@codelab/frontend/abstract/core'
-import { propRef } from '@codelab/frontend/domain/prop'
+import { propRef } from '@codelab/frontend/abstract/core'
 import type {
   ResourceCreateInput,
   ResourceUpdateInput,
@@ -11,15 +11,7 @@ import type {
 import type { IAuth0Owner, IResourceType } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import type { Ref } from 'mobx-keystone'
-import {
-  detach,
-  idProp,
-  Model,
-  model,
-  modelAction,
-  prop,
-  rootRef,
-} from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
 const create = ({ config, id, name, owner, type }: IResourceDTO) =>
   new Resource({
@@ -76,11 +68,3 @@ export class Resource
     return this
   }
 }
-
-export const resourceRef = rootRef<IResource>('@codelab/ResourceRef', {
-  onResolvedValueChange: (ref, newResource, oldResource) => {
-    if (oldResource && !newResource) {
-      detach(ref)
-    }
-  },
-})

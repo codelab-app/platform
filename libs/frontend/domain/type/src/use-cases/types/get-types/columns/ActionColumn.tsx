@@ -3,6 +3,7 @@ import type {
   ITypeRecord,
   ITypeService,
 } from '@codelab/frontend/abstract/core'
+import { typeRef } from '@codelab/frontend/abstract/core'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
@@ -11,7 +12,6 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { typeRef } from '../../../../store'
 import { CreateFieldButton } from '../../../fields'
 
 interface ActionColumnProps {

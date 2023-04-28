@@ -8,9 +8,13 @@ import type {
   IResource,
   IRestActionConfig,
 } from '@codelab/frontend/abstract/core'
-import { IProp, storeRef } from '@codelab/frontend/abstract/core'
-import { propRef } from '@codelab/frontend/domain/prop'
-import { resourceRef } from '@codelab/frontend/domain/resource'
+import {
+  actionRef,
+  IProp,
+  propRef,
+  resourceRef,
+  storeRef,
+} from '@codelab/frontend/abstract/core'
 import { replaceStateInProps, tryParse } from '@codelab/frontend/shared/utils'
 import {
   ApiActionCreateInput,
@@ -24,11 +28,9 @@ import type { Axios, Method } from 'axios'
 import axios from 'axios'
 import { GraphQLClient } from 'graphql-request'
 import merge from 'lodash/merge'
-import set from 'lodash/set'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { actionRef } from './action.ref'
 import { createBaseAction } from './base-action.model'
 
 const create = ({

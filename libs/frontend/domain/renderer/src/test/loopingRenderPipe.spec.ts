@@ -12,15 +12,17 @@ const initialProps = {
 }
 
 describe('LoopingRenderPipe.', () => {
-  const data = setupTestForRenderer([LoopingRenderPipe])
+  const { pageRootElement: element, renderer } = setupTestForRenderer([
+    LoopingRenderPipe,
+  ])
 
   beforeEach(() => {
-    data.elementToRender.setRenderForEachPropKey('data')
+    element.setRenderForEachPropKey('data')
   })
 
   it('should add renderForEachPropKey props', () => {
-    const renderOutputs = data.rootStore.renderer.renderIntermediateElement(
-      data.elementToRender,
+    const renderOutputs = renderer.renderIntermediateElement(
+      element,
       initialProps,
     ) as Array<IRenderOutput>
 
@@ -28,22 +30,22 @@ describe('LoopingRenderPipe.', () => {
 
     expect(props).toMatchObject([
       {
-        key: `${data.elementToRender.id}-0`,
+        key: `${element.id}-0`,
         prop01: 'prop01Value',
         ...initialProps,
       },
       {
-        key: `${data.elementToRender.id}-1`,
+        key: `${element.id}-1`,
         prop02: 'prop02Value',
         ...initialProps,
       },
       {
-        key: `${data.elementToRender.id}-2`,
+        key: `${element.id}-2`,
         prop03: 'prop03Value',
         ...initialProps,
       },
       {
-        key: `${data.elementToRender.id}-3`,
+        key: `${element.id}-3`,
         prop04: 'prop04Value',
         ...initialProps,
       },

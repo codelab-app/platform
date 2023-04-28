@@ -1,10 +1,10 @@
 import { EditOutlined } from '@ant-design/icons'
 import type { IResourceService } from '@codelab/frontend/abstract/core'
+import { resourceRef } from '@codelab/frontend/abstract/core'
 import type { UpdateButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { resourceRef } from '../../store'
 
 export type UpdateResourceButtonProps = UpdateButtonProps & {
   resourceService: IResourceService

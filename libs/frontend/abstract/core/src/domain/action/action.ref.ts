@@ -1,5 +1,5 @@
-import type { IAction } from '@codelab/frontend/abstract/core'
 import { detach, rootRef } from 'mobx-keystone'
+import type { IAction } from './action.interface'
 
 export const actionRef = rootRef<IAction>('@codelab/ActionRef', {
   onResolvedValueChange: (ref, newStore, oldStore) => {

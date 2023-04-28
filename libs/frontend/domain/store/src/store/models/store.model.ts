@@ -9,8 +9,8 @@ import {
   componentRef,
   IPropData,
   pageRef,
+  typeRef,
 } from '@codelab/frontend/abstract/core'
-import { typeRef } from '@codelab/frontend/domain/type'
 import type {
   StoreCreateInput,
   StoreDeleteInput,

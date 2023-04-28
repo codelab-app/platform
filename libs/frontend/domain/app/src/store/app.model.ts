@@ -6,8 +6,7 @@ import type {
   IDomain,
   IPage,
 } from '@codelab/frontend/abstract/core'
-import { pageRef } from '@codelab/frontend/abstract/core'
-import { domainRef } from '@codelab/frontend/domain/domain'
+import { domainRef, pageRef } from '@codelab/frontend/abstract/core'
 import type {
   AppCreateInput,
   AppDeleteInput,

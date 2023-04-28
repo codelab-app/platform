@@ -20,11 +20,13 @@ import type {
   IUpdateAppData,
 } from './app.dto.interface'
 import type { IApp } from './app.model.interface'
+import type { IAppRepository } from './app.repo.interface'
 
 export interface IAppService
   extends ICRUDService<IApp, ICreateAppData, IUpdateAppData>,
     IQueryService<IApp, AppWhere, AppOptions>,
     ICRUDModalService<Ref<IApp>, { app: Maybe<IApp> }> {
+  appRepository: IAppRepository
   apps: ObjectMap<IApp>
   appsJson: IPropData
   appsList: Array<IApp>

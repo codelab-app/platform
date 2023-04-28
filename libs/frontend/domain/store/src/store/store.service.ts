@@ -9,8 +9,9 @@ import {
   componentRef,
   IStoreDTO,
   pageRef,
+  typeRef,
 } from '@codelab/frontend/abstract/core'
-import { getTypeService, typeRef } from '@codelab/frontend/domain/type'
+import { getTypeService } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
   StoreFragment,
