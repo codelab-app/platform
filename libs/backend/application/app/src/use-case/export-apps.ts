@@ -1,6 +1,7 @@
 import type { IAppExport } from '@codelab/backend/abstract/core'
 import { AppRepository, getApp } from '@codelab/backend/domain/app'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import { removeDuplicates } from '../shared'
 
 export const exportApps = async (where: OGM_TYPES.AppWhere) => {
   const appRepository = new AppRepository()
@@ -9,6 +10,6 @@ export const exportApps = async (where: OGM_TYPES.AppWhere) => {
   return apps.reduce(async (appsData, app) => {
     const { app: appExport } = await getApp(app)
 
-    return [...(await appsData), appExport]
+    return [...(await appsData), removeDuplicates(appExport)]
   }, Promise.resolve<Array<IAppExport>>([]))
 }
