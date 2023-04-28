@@ -6,7 +6,7 @@ import { SeedTagsService } from './seed-tags.service'
 
 describe('Tag Parser', () => {
   const antdTagTreeData = SeedTagsService.createTagTreeData(antdTagTree)
-  const antdTags = [...antdAtoms, ...ObjectTyped.keys(IAntdCategoryTag)]
+  const antdTags = [...antdAtoms, ...ObjectTyped.values(IAntdCategoryTag)]
 
   it('can generate tag tree data', () => {
     // Pick the most nested and assert

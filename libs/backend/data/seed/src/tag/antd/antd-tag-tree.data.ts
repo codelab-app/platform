@@ -21,7 +21,14 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
     IAtomType.AntDesignDivider,
     IAtomType.AntDesignGridRow,
     IAtomType.AntDesignGridCol,
-    IAtomType.AntDesignLayoutSider,
+    {
+      [IAtomType.AntDesignLayout]: [
+        IAtomType.AntDesignLayoutContent,
+        IAtomType.AntDesignLayoutFooter,
+        IAtomType.AntDesignLayoutHeader,
+        IAtomType.AntDesignLayoutSider,
+      ],
+    },
     IAtomType.AntDesignSpace,
   ],
   [IAntdCategoryTag.Navigation]: [
