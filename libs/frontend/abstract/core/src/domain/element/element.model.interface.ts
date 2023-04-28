@@ -106,6 +106,7 @@ export interface IElement
   detachAsFirstChild(): void
   detachFromParent(): void
   executePropTransformJs(props: IPropData): IPropData
+  setCustomCss(css: string): void
   setFirstChild(firstChild: Ref<IElement>): void
   setName(name: string): void
   setNextSibling(nextSibling: Ref<IElement>): void

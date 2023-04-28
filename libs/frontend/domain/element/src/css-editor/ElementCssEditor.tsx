@@ -5,12 +5,11 @@ import type {
   IElementService,
 } from '@codelab/frontend/abstract/core'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
-import { useDebouncedState } from '@codelab/frontend/shared/utils'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import { useDebouncedEffect } from '@react-hookz/web'
 import { Col, Collapse, Row } from 'antd'
-import isString from 'lodash/isString'
 import { observer } from 'mobx-react-lite'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { getElementModel } from '../utils/getElementModel'
 import { BackgroundEditor } from './css-background-editor/BackgroundEditor'
 import { BordersEditor } from './css-borders-editor/BordersEditor'
@@ -33,125 +32,48 @@ export interface ElementCssEditorInternalProps {
 
 export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
   ({ element, elementService }) => {
-    const [guiCssObj, setGuiCssObj] = useState<CssMap>(
-      JSON.parse(element.guiCss ?? '{}'),
-    )
+    const guiCssObj = JSON.parse(element.guiCss ?? '{}') as CssMap
 
-    useEffect(() => {
-      setGuiCssObj(JSON.parse(element.guiCss ?? '{}'))
-    }, [element.guiCss])
-
-    const [customCssString, setCustomCssString] = useState(
-      element.customCss || '',
-    )
+    const lastStateRef = useRef({
+      customCss: element.customCss,
+      guiCss: element.guiCss,
+    })
 
     const cssChangeHandler = useCallback(
-      (value: string) => setCustomCssString(value),
-      [],
+      (value: string) => element.setCustomCss(value),
+      [element],
     )
 
-    const [guiCssString, setGuiCssString] = useState(element.guiCss || '{}')
-    // Keep the css string value in a ref so we can access it when unmounting the component
-    const customCssStringRef = useRef(customCssString)
-    customCssStringRef.current = customCssString
-
-    const guiCssStringRef = useRef(guiCssString)
-    guiCssStringRef.current = guiCssString
-
-    const updateCustomCss = useCallback(
-      (newCustomCss: string) => {
+    const updateElementStyles = useCallback(
+      ({ customCss, guiCss }: IElement) => {
         const elementModel = getElementModel(element)
+        const lastState = lastStateRef.current
+        const { customCss: lastCustomCss, guiCss: lastGuiCss } = lastState
 
         // do not send request if value was not changed
-        if (element.customCss === newCustomCss) {
-          return
-        }
+        if (customCss === lastCustomCss && guiCss === lastGuiCss) {
+          lastStateRef.current = { customCss, guiCss }
 
-        return elementService.update({
-          ...elementModel,
-          customCss: newCustomCss,
-        })
+          void elementService.update({ ...elementModel, customCss, guiCss })
+        }
       },
       [element, elementService],
     )
 
-    useEffect(() => {
+    useDebouncedEffect(
+      () => updateElementStyles(element),
+      [element.guiCss, element.customCss],
+      1000,
+    )
+
+    useEffect(
       /*
        * Make sure the new string is saved when unmounting the component
        * because if the panel is closed too quickly, the autosave won't catch the latest changes
        */
-      return () => {
-        void updateCustomCss(customCssStringRef.current)
-      }
-    }, [updateCustomCss])
-
-    const [customCssDebounced, setCustomCssDebounced] = useDebouncedState(
-      1000,
-      customCssString,
+      () => () => updateElementStyles(element),
+      [element, updateElementStyles],
     )
-
-    useEffect(() => {
-      setCustomCssDebounced(customCssString)
-    }, [customCssString, setCustomCssDebounced])
-
-    useEffect(() => {
-      if (isString(customCssDebounced)) {
-        void updateCustomCss(customCssDebounced)
-      }
-    }, [customCssDebounced, updateCustomCss])
-
-    const updateGuiCss = useCallback(
-      (newGuiCss: string) => {
-        const elementModel = getElementModel(element)
-
-        // // do not send request if value was not changed
-        if (element.guiCss === guiCssDebounced) {
-          return
-        }
-
-        return elementService.update({
-          ...elementModel,
-          guiCss: newGuiCss,
-        })
-      },
-      [element, elementService],
-    )
-
-    useEffect(() => {
-      /*
-       * Make sure the new string is saved when unmounting the component
-       * because if the panel is closed too quickly, the autosave won't catch the latest changes
-       */
-      return () => {
-        // do not send request if value was not changed
-        if (element.guiCss !== guiCssStringRef.current) {
-          void updateGuiCss(guiCssStringRef.current)
-        }
-      }
-    }, [updateGuiCss])
-
-    const [guiCssDebounced, setGuiCssDebounced] = useDebouncedState(
-      1000,
-      guiCssString,
-    )
-
-    useEffect(() => {
-      setGuiCssDebounced(guiCssString)
-    }, [guiCssString, setGuiCssDebounced])
-
-    useEffect(() => {
-      if (isString(guiCssDebounced)) {
-        void updateGuiCss(guiCssDebounced)
-      }
-    }, [guiCssDebounced, updateGuiCss])
-
-    useEffect(() => {
-      setGuiCssString(element.guiCss ?? '{}')
-    }, [element.guiCss, setGuiCssString])
-
-    if (!element.renderType) {
-      return <>Add an atom to this element to edit its CSS</>
-    }
 
     return (
       <Row style={{ marginBottom: '10%' }}>
@@ -161,7 +83,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
             language={CodeMirrorLanguage.Css}
             onChange={cssChangeHandler}
             title="CSS Editor"
-            value={customCssString}
+            value={element.customCss ?? ''}
           />
         </Col>
         <Col span={24}>
