@@ -4,10 +4,7 @@ import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { objectMap } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { FieldService } from '../field.service'
 import { Field, InterfaceType, PrimitiveType, UnionType } from '../models'
-import { TypeService } from '../type.service'
-import { TestRootStore } from './test-root-store'
 
 export const stringType = new PrimitiveType({
   id: v4(),
