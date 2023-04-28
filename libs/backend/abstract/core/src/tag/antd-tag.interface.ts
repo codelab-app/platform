@@ -5,6 +5,7 @@ export enum IAntdCategoryTag {
   General = 'General',
   Typography = 'Typography',
   Layout = 'Layout',
+  Grid = 'Grid',
   Navigation = 'Navigation',
   DataEntry = 'Data Entry',
   DataDisplay = 'Data Display',

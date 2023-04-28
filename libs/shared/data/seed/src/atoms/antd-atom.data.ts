@@ -305,11 +305,6 @@ export const antdAtomData: IAntdAtomRecords = {
     icon: IAtomType.AntDesignMenu,
     tag: IAtomType.AntDesignMenu,
   },
-  // [IAtomType.AntDesignPageHeader]: {
-  //   file: 'PageHeader',
-  //   icon: IAtomType.AntDesignPageHeader,
-  //   tag: IAtomType.AntDesignPageHeader,
-  // },
   [IAtomType.AntDesignPagination]: {
     file: 'Pagination',
     icon: IAtomType.AntDesignPagination,
