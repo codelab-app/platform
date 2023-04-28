@@ -32,12 +32,6 @@ export class ExtractAntDesignFieldsService extends IAuthUseCase<
    * Extract data to be used for seeding, these data have already been mapped with correct ID for upsert
    */
   protected async _execute(atoms: Array<IAtomDTO>) {
-    const atomsByName = atoms
-      .map((atom) => ({
-        [atom.name]: atom,
-      }))
-      .reduce(merge, {})
-
     const antdCsvData = await readCsvFiles(this.antdDataFolder)
     const reactCsvData = await readCsvFiles(this.reactDataFolder)
     const csvFieldsByFile = { ...antdCsvData, ...reactCsvData }
@@ -45,29 +39,17 @@ export class ExtractAntDesignFieldsService extends IAuthUseCase<
     /**
      * Break down function to act on each file
      */
-    return await Object.entries(csvFieldsByFile).reduce(
-      async (accFieldsPromise, [file, antDesignFields]) => {
-        const accFields = await accFieldsPromise
-        const atomName = file.replace('.csv', '')
-        const atomType = atomTypeKeyByFileName[atomName]
+    return await atoms.reduce(async (accFieldsPromise, atom) => {
+      const antDesignFields = csvFieldsByFile[`${atom.name}.csv`]
 
-        if (!atomType) {
-          return accFields
-        }
+      if (!antDesignFields) {
+        return await accFieldsPromise
+      }
 
-        // Could optimize by passing in existing data map
-        const atom = atomsByName[atomType]
+      const fields = await this.transformFields(atom, antDesignFields)
 
-        if (!atom) {
-          return accFields
-        }
-
-        const fields = await this.transformFields(atom, antDesignFields)
-
-        return [...accFields, ...fields]
-      },
-      Promise.resolve([] as Array<IFieldDTO>),
-    )
+      return [...(await accFieldsPromise), ...fields]
+    }, Promise.resolve([] as Array<IFieldDTO>))
   }
 
   private async transformFields(

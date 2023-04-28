@@ -6,8 +6,8 @@ import difference from 'lodash/difference'
 import { ExportAdminDataService } from '../export-admin-data.service'
 import { ImportAdminDataService } from '../import-admin-data'
 
-export const importData = async ({ auth0Id }: IUserDTO, exportPath: string) =>
-  new ImportAdminDataService(exportPath).execute({
+export const importData = async ({ auth0Id }: IUserDTO, path: string) =>
+  new ImportAdminDataService(path).execute({
     auth0Id,
   })
 

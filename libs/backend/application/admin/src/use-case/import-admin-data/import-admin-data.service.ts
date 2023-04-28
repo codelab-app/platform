@@ -34,10 +34,10 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
 
   constructor(
     // Allow base directory override for testing purpose
-    DATA_EXPORT_PATH = path.resolve('./data/export'),
+    DATA_PATH = path.resolve('./data/export'),
   ) {
     super()
-    this.dataPaths = new DataPaths(DATA_EXPORT_PATH)
+    this.dataPaths = new DataPaths(DATA_PATH)
     this.exportedAdminData = this.getMergedData
   }
 
