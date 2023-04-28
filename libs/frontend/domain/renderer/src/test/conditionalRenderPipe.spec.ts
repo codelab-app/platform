@@ -1,5 +1,7 @@
-import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
-import { isAtomInstance } from '@codelab/frontend/domain/atom'
+import {
+  DATA_ELEMENT_ID,
+  isAtomInstance,
+} from '@codelab/frontend/abstract/core'
 import { ConditionalRenderPipe } from '../renderPipes/conditionalRenderPipe'
 import { setupTestForRenderer } from './setup/setup-test'
 
