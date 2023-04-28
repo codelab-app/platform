@@ -70,6 +70,7 @@ export const ExplorerPaneTemplate = ({
         <div
           css={css`
             max-height: 100%;
+            height: 100%;
           `}
         >
           {children}

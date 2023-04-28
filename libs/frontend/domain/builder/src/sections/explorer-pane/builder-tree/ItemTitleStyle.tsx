@@ -20,6 +20,8 @@ const ItemTitle = ({
 }
 
 export const ItemTitleStyle = tw(ItemTitle)`
-
-
+  w-full
+  whitespace-nowrap
+  overflow-hidden
+  overflow-ellipsis
 `

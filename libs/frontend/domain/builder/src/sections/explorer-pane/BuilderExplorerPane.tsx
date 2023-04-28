@@ -239,6 +239,14 @@ export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
             .ant-page-header-heading {
               ${tw`px-0! mt-0!`}
             }
+
+            .ant-tabs-tabpane {
+              height: 100%;
+            }
+
+            .ant-tabs-content-holder {
+              display: flex;
+            }
           `}
           defaultActiveKey="1"
           items={tabItems}
