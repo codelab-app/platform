@@ -223,7 +223,5 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     unregisterRootStore(data.rootStore)
   })
 
-  console.log(data)
-
   return data
 }
