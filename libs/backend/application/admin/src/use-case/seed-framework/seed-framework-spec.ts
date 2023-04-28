@@ -1,4 +1,4 @@
-import { AntdTag } from '@codelab/backend/abstract/core'
+import { AntdCategoryTag } from '@codelab/backend/abstract/core'
 import { antdTagTree } from '@codelab/backend/data/seed'
 import type { ITagDTO, IUserDTO } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
@@ -42,13 +42,13 @@ export const exportAndAssert = async (exportPath: string) => {
    */
   const unassignedTags = difference(
     // All tags
-    Object.values(AntdTag),
+    Object.values(AntdCategoryTag),
     // Minus assigned tags
     assignedTagNames,
     // Minus root level category tags
     Object.keys(antdTagTree),
     // Minus other non-root, non-atom tags
-    [AntdTag.Typography, AntdTag.Grid],
+    [AntdCategoryTag.Typography, AntdCategoryTag.Grid],
   )
 
   /**

@@ -1,18 +1,18 @@
-import type { AtomSeedRecord } from '@codelab/backend/abstract/core'
-import { IAuthUseCase, IUseCase } from '@codelab/backend/abstract/types'
+import type { IAtomRecords } from '@codelab/backend/abstract/core'
+import { IAuthUseCase } from '@codelab/backend/abstract/types'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { TagRepository } from '@codelab/backend/domain/tag'
 import {
   InterfaceType,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
-import type { IAtomDTO, IAuth0Owner } from '@codelab/frontend/abstract/core'
+import type { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
 
 export class SeedAtomsService extends IAuthUseCase<
-  AtomSeedRecord,
+  Partial<IAtomRecords>,
   Array<IAtomDTO>
 > {
   atomRepository: AtomRepository = new AtomRepository()
@@ -22,7 +22,7 @@ export class SeedAtomsService extends IAuthUseCase<
 
   tagRepository: TagRepository = new TagRepository()
 
-  async _execute(data: AtomSeedRecord) {
+  async _execute(data: IAtomRecords) {
     const atoms = await this.createAtomsData(data)
 
     /**
@@ -52,7 +52,7 @@ export class SeedAtomsService extends IAuthUseCase<
   /**
    * Assume all tags have already been created
    */
-  async createAtomsData(data: AtomSeedRecord): Promise<Array<IAtomDTO>> {
+  async createAtomsData(data: IAtomRecords): Promise<Array<IAtomDTO>> {
     const existingInterfaceTypes = new Map(
       (await this.interfaceTypeRepository.find()).map((interfaceType) => [
         interfaceType.name,
@@ -74,7 +74,7 @@ export class SeedAtomsService extends IAuthUseCase<
 
         // Get tags by name, they always match up
         const existingTag = await this.tagRepository.findOne({
-          name: atomData?.tag ?? '',
+          name: atomData.tag,
         })
 
         if (!existingTag) {
@@ -84,7 +84,7 @@ export class SeedAtomsService extends IAuthUseCase<
 
         return {
           api: existingApi,
-          icon: atomData?.icon,
+          icon: atomData.icon,
           id: v4(),
           name: atomType,
           owner: this.owner,

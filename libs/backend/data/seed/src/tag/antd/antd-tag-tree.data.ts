@@ -1,106 +1,116 @@
-import type { TagNode } from '@codelab/backend/abstract/core'
-import { AntdTag } from '@codelab/backend/abstract/core'
+import type { IAntdAtomRecords, TagNode } from '@codelab/backend/abstract/core'
+import { IAntdCategoryTag } from '@codelab/backend/abstract/core'
+import { IAtomType } from '@codelab/shared/abstract/core'
 
 /**
  * This contains hierarchical tag data for Ant Design
  */
-export const antdTagTree: TagNode<AntdTag> = {
-  [AntdTag.General]: [
-    AntdTag.Button,
-    AntdTag.Icon,
+export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
+  [IAntdCategoryTag.General]: [
+    IAtomType.AntDesignButton,
+    IAtomType.AntDesignIcon,
     {
-      [AntdTag.Typography]: [
-        AntdTag.TypographyText,
-        AntdTag.TypographyTitle,
-        AntdTag.TypographyParagraph,
+      [IAntdCategoryTag.Typography]: [
+        IAtomType.AntDesignTypographyText,
+        IAtomType.AntDesignTypographyTitle,
+        IAtomType.AntDesignTypographyParagraph,
       ],
     },
   ],
-  [AntdTag.Layout]: [
-    AntdTag.Divider,
-    AntdTag.Grid,
-    AntdTag.Row,
-    AntdTag.Col,
-    AntdTag.LayoutSider,
-    AntdTag.Space,
+  [IAntdCategoryTag.Layout]: [
+    IAtomType.AntDesignDivider,
+    IAtomType.AntDesignGridRow,
+    IAtomType.AntDesignGridCol,
+    IAtomType.AntDesignLayoutSider,
+    IAtomType.AntDesignSpace,
   ],
-  [AntdTag.Navigation]: [
-    AntdTag.Affix,
+  [IAntdCategoryTag.Navigation]: [
+    IAtomType.AntDesignAffix,
     {
-      [AntdTag.Breadcrumb]: [
-        AntdTag.BreadcrumbItem,
-        AntdTag.BreadcrumbSeparator,
+      [IAtomType.AntDesignBreadcrumb]: [
+        IAtomType.AntDesignBreadcrumbItem,
+        IAtomType.AntDesignBreadcrumbSeparator,
       ],
     },
-    { [AntdTag.Dropdown]: [AntdTag.DropdownButton] },
-    AntdTag.Menu,
-    AntdTag.Pagination,
-    AntdTag.PageHeader,
-    { [AntdTag.Steps]: [AntdTag.StepsStep] },
+    { [IAtomType.AntDesignDropdown]: [IAtomType.AntDesignDropdownButton] },
+    IAtomType.AntDesignMenu,
+    IAtomType.AntDesignPagination,
+    { [IAtomType.AntDesignSteps]: [IAtomType.AntDesignStepsStep] },
   ],
-  [AntdTag.DataEntry]: [
-    AntdTag.AutoComplete,
-    AntdTag.Cascader,
-    { [AntdTag.Checkbox]: [AntdTag.CheckboxGroup] },
-    AntdTag.DatePicker,
+  [IAntdCategoryTag.DataEntry]: [
+    IAtomType.AntDesignAutoComplete,
+    IAtomType.AntDesignCascader,
+    { [IAtomType.AntDesignCheckbox]: [IAtomType.AntDesignCheckboxGroup] },
+    IAtomType.AntDesignDatePicker,
     {
-      [AntdTag.Form]: [
-        AntdTag.FormItem,
-        AntdTag.FormList,
-        AntdTag.FormErrorList,
-        AntdTag.FormProvider,
+      [IAtomType.AntDesignForm]: [
+        IAtomType.AntDesignFormItem,
+        IAtomType.AntDesignFormList,
+        IAtomType.AntDesignFormErrorList,
+        IAtomType.AntDesignFormProvider,
       ],
     },
-    AntdTag.Input,
-    AntdTag.InputNumber,
-    { [AntdTag.Mentions]: [AntdTag.MentionsOption] },
-    { [AntdTag.Radio]: [AntdTag.RadioGroup] },
-    AntdTag.Rate,
-    { [AntdTag.Select]: [AntdTag.SelectOption] },
-    AntdTag.Slider,
-    AntdTag.Switch,
-    AntdTag.TimePicker,
-    AntdTag.Transfer,
-    AntdTag.TreeSelect,
-    AntdTag.Upload,
+    IAtomType.AntDesignInput,
+    IAtomType.AntDesignInputNumber,
+    { [IAtomType.AntDesignMentions]: [IAtomType.AntDesignMentionsOption] },
+    { [IAtomType.AntDesignRadio]: [IAtomType.AntDesignRadioGroup] },
+    IAtomType.AntDesignRate,
+    { [IAtomType.AntDesignSelect]: [IAtomType.AntDesignSelectOption] },
+    IAtomType.AntDesignSlider,
+    IAtomType.AntDesignSwitch,
+    IAtomType.AntDesignTimePicker,
+    IAtomType.AntDesignTransfer,
+    IAtomType.AntDesignTreeSelect,
+    IAtomType.AntDesignUpload,
   ],
-  [AntdTag.DataDisplay]: [
-    AntdTag.Avatar,
-    AntdTag.Badge,
-    AntdTag.Comment,
-    { [AntdTag.Collapse]: [AntdTag.CollapsePanel] },
-    AntdTag.Carousel,
-    { [AntdTag.Card]: [AntdTag.CardGrid, AntdTag.CardMeta] },
-    AntdTag.Calendar,
-    { [AntdTag.Descriptions]: [AntdTag.DescriptionsItem] },
-    AntdTag.Empty,
-    AntdTag.Image,
-    { [AntdTag.List]: [{ [AntdTag.ListItem]: [AntdTag.ListItemMeta] }] },
-    AntdTag.Popover,
-    AntdTag.Segmented,
-    AntdTag.Statistic,
-    AntdTag.Tree,
-    AntdTag.Tooltip,
-    { [AntdTag.Timeline]: [AntdTag.TimelineItem] },
-    AntdTag.Tag,
-    { [AntdTag.Tabs]: [AntdTag.TabsTabPane] },
-    AntdTag.Table,
+  [IAntdCategoryTag.DataDisplay]: [
+    IAtomType.AntDesignAvatar,
+    IAtomType.AntDesignBadge,
+    IAtomType.AntDesignComment,
+    { [IAtomType.AntDesignCollapse]: [IAtomType.AntDesignCollapsePanel] },
+    IAtomType.AntDesignCarousel,
+    {
+      [IAtomType.AntDesignCard]: [
+        IAtomType.AntDesignCardGrid,
+        IAtomType.AntDesignCardMeta,
+      ],
+    },
+    IAtomType.AntDesignCalendar,
+    {
+      [IAtomType.AntDesignDescriptions]: [IAtomType.AntDesignDescriptionsItem],
+    },
+    IAtomType.AntDesignEmpty,
+    IAtomType.AntDesignImage,
+    {
+      [IAtomType.AntDesignList]: [
+        { [IAtomType.AntDesignListItem]: [IAtomType.AntDesignListItemMeta] },
+      ],
+    },
+    IAtomType.AntDesignPopover,
+    IAtomType.AntDesignSegmented,
+    IAtomType.AntDesignStatistic,
+    IAtomType.AntDesignTree,
+    IAtomType.AntDesignTooltip,
+    { [IAtomType.AntDesignTimeline]: [IAtomType.AntDesignTimelineItem] },
+    IAtomType.AntDesignTag,
+    { [IAtomType.AntDesignTabs]: [IAtomType.AntDesignTabsTabPane] },
+    IAtomType.AntDesignTable,
   ],
-  [AntdTag.Feedback]: [
-    AntdTag.Alert,
-    AntdTag.Drawer,
-    AntdTag.Modal,
-    AntdTag.Message,
-    AntdTag.Notification,
-    AntdTag.Progress,
-    AntdTag.Popconfirm,
-    AntdTag.Result,
-    AntdTag.Spin,
-    AntdTag.Skeleton,
+  [IAntdCategoryTag.Feedback]: [
+    IAtomType.AntDesignAlert,
+    IAtomType.AntDesignDrawer,
+    IAtomType.AntDesignModal,
+    IAtomType.AntDesignMessage,
+    IAtomType.AntDesignNotification,
+    IAtomType.AntDesignProgress,
+    IAtomType.AntDesignPopconfirm,
+    IAtomType.AntDesignResult,
+    IAtomType.AntDesignSpin,
+    IAtomType.AntDesignSkeleton,
   ],
-  [AntdTag.Other]: [
-    { [AntdTag.Anchor]: [AntdTag.AnchorLink] },
-    AntdTag.BackTop,
-    AntdTag.ConfigProvider,
+  [IAntdCategoryTag.Other]: [
+    { [IAtomType.AntDesignAnchor]: [IAtomType.AntDesignAnchorLink] },
+    IAtomType.AntDesignBackTop,
+    IAtomType.AntDesignConfigProvider,
   ],
 }

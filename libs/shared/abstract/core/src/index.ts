@@ -1,4 +1,5 @@
 export * from './action-kind.enum'
+export * from './atom.interface'
 export * from './atom-type.enum'
 export * from './code-mirror-language.enum'
 export * from './element-type.enum'

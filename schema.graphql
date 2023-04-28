@@ -3300,7 +3300,6 @@ enum AtomType {
   AntDesignForm
   AntDesignFormErrorList
   AntDesignFormItem
-  AntDesignFormItemHook
   AntDesignFormList
   AntDesignFormProvider
   AntDesignGridCol
@@ -3317,32 +3316,20 @@ enum AtomType {
   AntDesignList
   AntDesignListItem
   AntDesignListItemMeta
-  AntDesignMapper
   AntDesignMentions
   AntDesignMentionsOption
   AntDesignMenu
-  AntDesignMenuItem
-  AntDesignMenuItemGroup
-  AntDesignMenuSubMenu
   AntDesignMessage
   AntDesignModal
   AntDesignNotification
-  AntDesignPageContainer
-  AntDesignPageHeader
   AntDesignPagination
   AntDesignPopconfirm
   AntDesignPopover
   AntDesignProgress
-  AntDesignProvider
   AntDesignRadio
   AntDesignRadioGroup
   AntDesignRate
-  AntDesignRenderComponent
-  AntDesignRenderContainer
   AntDesignResult
-  AntDesignRglContainer
-  AntDesignRglItem
-  AntDesignRglResponsiveContainer
   AntDesignSegmented
   AntDesignSelect
   AntDesignSelectOption
@@ -3364,9 +3351,7 @@ enum AtomType {
   AntDesignTooltip
   AntDesignTransfer
   AntDesignTree
-  AntDesignTreeNode
   AntDesignTreeSelect
-  AntDesignTypography
   AntDesignTypographyParagraph
   AntDesignTypographyText
   AntDesignTypographyTitle

@@ -1,9 +1,9 @@
-import type { HtmlCategory, TagNode } from '@codelab/backend/abstract/core'
+import type { HtmlCategoryTag, TagNode } from '@codelab/backend/abstract/core'
 
 /**
  * Taken from here https://www.w3schools.com/TAGS/ref_byfunc.asp
  */
-export const htmlTagTree: TagNode<HtmlCategory> = {
+export const htmlTagTree: TagNode<HtmlCategoryTag> = {
   // [HtmlCategory.Sectioning]: [
   //   IAtomType.HtmlArticle,
   //   IAtomType.HtmlAside,
