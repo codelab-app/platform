@@ -11,14 +11,11 @@ import {
   getElementService,
   getUserService,
   ROOT_ELEMENT_NAME,
+  typeRef,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getStoreService, Store } from '@codelab/frontend/domain/store'
-import {
-  getTypeService,
-  InterfaceType,
-  typeRef,
-} from '@codelab/frontend/domain/type'
+import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
 import type { IPageDTO } from '@codelab/shared/abstract/core'

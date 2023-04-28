@@ -1,6 +1,8 @@
 import type { IElement } from '@codelab/frontend/abstract/core'
-import { isComponentInstance } from '@codelab/frontend/abstract/core'
-import { isAtomInstance } from '@codelab/frontend/domain/atom'
+import {
+  isAtomInstance,
+  isComponentInstance,
+} from '@codelab/frontend/abstract/core'
 import type { RenderType } from '@codelab/shared/abstract/core'
 import { IRenderTypeKind } from '@codelab/shared/abstract/core'
 

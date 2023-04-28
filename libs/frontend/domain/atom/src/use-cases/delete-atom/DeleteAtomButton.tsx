@@ -1,10 +1,10 @@
 import { DeleteOutlined } from '@ant-design/icons'
 import type { IAtomService } from '@codelab/frontend/abstract/core'
+import { atomRef } from '@codelab/frontend/abstract/core'
 import type { DeleteButtonProps } from '@codelab/frontend/abstract/types'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { atomRef } from '../../store'
 
 export type DeleteAtomButton = DeleteButtonProps & { atomService: IAtomService }
 

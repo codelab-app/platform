@@ -1,6 +1,5 @@
 import type { IAtom, IComponent } from '@codelab/frontend/abstract/core'
-import { componentRef } from '@codelab/frontend/abstract/core'
-import { atomRef } from '@codelab/frontend/domain/atom'
+import { atomRef, componentRef } from '@codelab/frontend/abstract/core'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { IRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'

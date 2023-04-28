@@ -5,8 +5,9 @@ import type {
   IInterfaceType,
   IUpdateAtomData,
 } from '@codelab/frontend/abstract/core'
+import { typeRef } from '@codelab/frontend/abstract/core'
 import { getTagService } from '@codelab/frontend/domain/tag'
-import { getTypeService, typeRef } from '@codelab/frontend/domain/type'
+import { getTypeService } from '@codelab/frontend/domain/type'
 import { ModalService, PaginationService } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'

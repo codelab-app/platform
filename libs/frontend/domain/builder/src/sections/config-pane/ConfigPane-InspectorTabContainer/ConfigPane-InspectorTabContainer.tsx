@@ -7,10 +7,10 @@ import {
   SettingOutlined,
 } from '@ant-design/icons'
 import {
+  isAtomInstance,
   isComponentPageNodeRef,
   isElementPageNodeRef,
 } from '@codelab/frontend/abstract/core'
-import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import {
   UpdateComponentForm,
   UpdateComponentPropsForm,

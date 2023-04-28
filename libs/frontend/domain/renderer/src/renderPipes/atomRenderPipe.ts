@@ -5,8 +5,8 @@ import {
   type IRenderPipe,
   builderServiceContext,
   elementRef,
+  isAtomInstance,
 } from '@codelab/frontend/abstract/core'
-import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { css } from '@emotion/react'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'

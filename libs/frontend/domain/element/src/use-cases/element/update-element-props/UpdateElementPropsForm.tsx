@@ -1,10 +1,10 @@
 import type { IElement, IPropData } from '@codelab/frontend/abstract/core'
 import {
   CUSTOM_TEXT_PROP_KEY,
+  isAtomInstance,
   isComponentInstance,
 } from '@codelab/frontend/abstract/core'
 import { AdminPropsPanel } from '@codelab/frontend/domain/admin'
-import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { PropsForm } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { ReactQuillField, Spinner } from '@codelab/frontend/presentation/view'
