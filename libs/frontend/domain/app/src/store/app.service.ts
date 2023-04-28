@@ -2,6 +2,7 @@ import type {
   IApp,
   IAppService,
   ICreateAppData,
+  IDomainDTO,
   IPageBuilderAppProps,
   IUpdateAppData,
 } from '@codelab/frontend/abstract/core'
@@ -250,6 +251,8 @@ export class AppService
 
   @modelAction
   add({ domains, id, name, owner, pages }: IAppDTO) {
+    domains?.forEach((domain) => this.domainService.add(domain as IDomainDTO))
+
     const app = App.create({
       domains,
       id,
