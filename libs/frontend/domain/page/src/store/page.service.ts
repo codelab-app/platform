@@ -11,6 +11,7 @@ import {
   getElementService,
   getUserService,
   ROOT_ELEMENT_NAME,
+  typeRef,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getStoreService, Store } from '@codelab/frontend/domain/store'

@@ -3,9 +3,8 @@ import type {
   IInterfaceType,
   ITag,
 } from '@codelab/frontend/abstract/core'
-import { atomRef } from '@codelab/frontend/abstract/core'
+import { atomRef, typeRef } from '@codelab/frontend/abstract/core'
 import { tagRef } from '@codelab/frontend/domain/tag'
-import { typeRef } from '@codelab/frontend/domain/type'
 import {
   AtomCreateInput,
   AtomUpdateInput,

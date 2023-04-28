@@ -18,11 +18,11 @@ import {
   getElementService,
   IBuilderDataNode,
   IElement,
+  isAtomInstance,
   isComponentInstance,
   pageRef,
   propRef,
 } from '@codelab/frontend/abstract/core'
-import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import {
   ElementCreateInput,

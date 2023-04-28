@@ -11,8 +11,8 @@ import type {
 import {
   CUSTOM_TEXT_PROP_KEY,
   elementTreeRef,
+  isAtomInstance,
 } from '@codelab/frontend/abstract/core'
-import { isAtomInstance } from '@codelab/frontend/domain/atom'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import {
   expressionTransformer,

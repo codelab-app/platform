@@ -2,8 +2,8 @@ import type { IInterfaceType, IProp } from '@codelab/frontend/abstract/core'
 import {
   CUSTOM_TEXT_PROP_KEY,
   IPropData,
+  typeRef,
 } from '@codelab/frontend/abstract/core'
-import { typeRef } from '@codelab/frontend/domain/type'
 import type {
   PropCreateInput,
   PropUpdateInput,

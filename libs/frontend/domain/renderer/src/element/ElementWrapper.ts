@@ -3,8 +3,7 @@ import type {
   IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
-import { RendererType } from '@codelab/frontend/abstract/core'
-import { isAtomInstance } from '@codelab/frontend/domain/atom'
+import { isAtomInstance, RendererType } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'

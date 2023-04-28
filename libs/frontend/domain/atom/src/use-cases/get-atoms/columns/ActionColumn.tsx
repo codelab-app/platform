@@ -1,3 +1,4 @@
+import { atomRef } from '@codelab/frontend/abstract/core'
 import {
   ListItemDeleteButton,
   ListItemEditButton,
@@ -5,7 +6,6 @@ import {
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { atomRef } from '../../../store'
 import type { ActionColumnProps } from './types'
 
 export const ActionColumn = observer<ActionColumnProps>(
