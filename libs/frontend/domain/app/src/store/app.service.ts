@@ -23,6 +23,7 @@ import {
 } from '@codelab/frontend/domain/store'
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { getTypeService } from '@codelab/frontend/domain/type'
+import { VercelService } from '@codelab/frontend/domain/vercel'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
   AppWhere,
@@ -59,6 +60,7 @@ export class AppService
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new AppModalService({})),
     updateModal: prop(() => new AppModalService({})),
+    vercelService: prop(() => new VercelService({})),
   })
   implements IAppService
 {
@@ -394,6 +396,10 @@ export class AppService
     yield* _await(this.elementService.elementRepository.delete(pageElements))
 
     yield* _await(this.appRepository.delete([app]))
+
+    for (const domain of app.domains) {
+      yield* _await(this.vercelService.delete(domain.current.name))
+    }
 
     return app
   })
