@@ -6331,8 +6331,14 @@ export type Store = {
   api: InterfaceType
   apiAggregate?: Maybe<StoreInterfaceTypeApiAggregationSelection>
   actions: Array<AnyAction>
+  component?: Maybe<Component>
+  componentAggregate?: Maybe<StoreComponentComponentAggregationSelection>
+  page?: Maybe<Page>
+  pageAggregate?: Maybe<StorePagePageAggregationSelection>
   apiConnection: StoreApiConnection
   actionsConnection: StoreActionsConnection
+  componentConnection: StoreComponentConnection
+  pageConnection: StorePageConnection
 }
 
 export type StoreApiArgs = {
@@ -6352,6 +6358,28 @@ export type StoreActionsArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
 }
 
+export type StoreComponentArgs = {
+  where?: InputMaybe<ComponentWhere>
+  options?: InputMaybe<ComponentOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type StoreComponentAggregateArgs = {
+  where?: InputMaybe<ComponentWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type StorePageArgs = {
+  where?: InputMaybe<PageWhere>
+  options?: InputMaybe<PageOptions>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type StorePageAggregateArgs = {
+  where?: InputMaybe<PageWhere>
+  directed?: InputMaybe<Scalars['Boolean']>
+}
+
 export type StoreApiConnectionArgs = {
   where?: InputMaybe<StoreApiConnectionWhere>
   first?: InputMaybe<Scalars['Int']>
@@ -6365,6 +6393,22 @@ export type StoreActionsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
+}
+
+export type StoreComponentConnectionArgs = {
+  where?: InputMaybe<StoreComponentConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<StoreComponentConnectionSort>>
+}
+
+export type StorePageConnectionArgs = {
+  where?: InputMaybe<StorePageConnectionWhere>
+  first?: InputMaybe<Scalars['Int']>
+  after?: InputMaybe<Scalars['String']>
+  directed?: InputMaybe<Scalars['Boolean']>
+  sort?: InputMaybe<Array<StorePageConnectionSort>>
 }
 
 export type StoreActionsConnection = {
@@ -6400,6 +6444,32 @@ export type StoreApiRelationship = {
   node: InterfaceType
 }
 
+export type StoreComponentComponentAggregationSelection = {
+  __typename?: 'StoreComponentComponentAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<StoreComponentComponentNodeAggregateSelection>
+}
+
+export type StoreComponentComponentNodeAggregateSelection = {
+  __typename?: 'StoreComponentComponentNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  name: StringAggregateSelectionNonNullable
+  keyGenerator: StringAggregateSelectionNullable
+}
+
+export type StoreComponentConnection = {
+  __typename?: 'StoreComponentConnection'
+  edges: Array<StoreComponentRelationship>
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+}
+
+export type StoreComponentRelationship = {
+  __typename?: 'StoreComponentRelationship'
+  cursor: Scalars['String']
+  node: Component
+}
+
 export type StoreEdge = {
   __typename?: 'StoreEdge'
   cursor: Scalars['String']
@@ -6416,6 +6486,32 @@ export type StoreInterfaceTypeApiNodeAggregateSelection = {
   __typename?: 'StoreInterfaceTypeApiNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
+}
+
+export type StorePageConnection = {
+  __typename?: 'StorePageConnection'
+  edges: Array<StorePageRelationship>
+  totalCount: Scalars['Int']
+  pageInfo: PageInfo
+}
+
+export type StorePagePageAggregationSelection = {
+  __typename?: 'StorePagePageAggregationSelection'
+  count: Scalars['Int']
+  node?: Maybe<StorePagePageNodeAggregateSelection>
+}
+
+export type StorePagePageNodeAggregateSelection = {
+  __typename?: 'StorePagePageNodeAggregateSelection'
+  id: IdAggregateSelectionNonNullable
+  _compoundName: StringAggregateSelectionNonNullable
+  url: StringAggregateSelectionNonNullable
+}
+
+export type StorePageRelationship = {
+  __typename?: 'StorePageRelationship'
+  cursor: Scalars['String']
+  node: Page
 }
 
 export type StoresConnection = {
@@ -27052,14 +27148,211 @@ export type StoreApiUpdateFieldInput = {
   connectOrCreate?: InputMaybe<StoreApiConnectOrCreateFieldInput>
 }
 
+export type StoreComponentAggregateInput = {
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<StoreComponentAggregateInput>>
+  OR?: InputMaybe<Array<StoreComponentAggregateInput>>
+  NOT?: InputMaybe<StoreComponentAggregateInput>
+  node?: InputMaybe<StoreComponentNodeAggregationWhereInput>
+}
+
+export type StoreComponentConnectFieldInput = {
+  where?: InputMaybe<ComponentConnectWhere>
+  connect?: InputMaybe<ComponentConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
+}
+
+export type StoreComponentConnectionSort = {
+  node?: InputMaybe<ComponentSort>
+}
+
+export type StoreComponentConnectionWhere = {
+  AND?: InputMaybe<Array<StoreComponentConnectionWhere>>
+  OR?: InputMaybe<Array<StoreComponentConnectionWhere>>
+  NOT?: InputMaybe<StoreComponentConnectionWhere>
+  node?: InputMaybe<ComponentWhere>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  node_NOT?: InputMaybe<ComponentWhere>
+}
+
+export type StoreComponentConnectOrCreateFieldInput = {
+  where: ComponentConnectOrCreateWhere
+  onCreate: StoreComponentConnectOrCreateFieldInputOnCreate
+}
+
+export type StoreComponentConnectOrCreateFieldInputOnCreate = {
+  node: ComponentOnCreateInput
+}
+
+export type StoreComponentCreateFieldInput = {
+  node: ComponentCreateInput
+}
+
+export type StoreComponentDeleteFieldInput = {
+  where?: InputMaybe<StoreComponentConnectionWhere>
+  delete?: InputMaybe<ComponentDeleteInput>
+}
+
+export type StoreComponentDisconnectFieldInput = {
+  where?: InputMaybe<StoreComponentConnectionWhere>
+  disconnect?: InputMaybe<ComponentDisconnectInput>
+}
+
+export type StoreComponentFieldInput = {
+  create?: InputMaybe<StoreComponentCreateFieldInput>
+  connect?: InputMaybe<StoreComponentConnectFieldInput>
+  connectOrCreate?: InputMaybe<StoreComponentConnectOrCreateFieldInput>
+}
+
+export type StoreComponentNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<StoreComponentNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<StoreComponentNodeAggregationWhereInput>>
+  NOT?: InputMaybe<StoreComponentNodeAggregationWhereInput>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  name_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  name_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  keyGenerator_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  keyGenerator_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  keyGenerator_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  keyGenerator_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type StoreComponentUpdateConnectionInput = {
+  node?: InputMaybe<ComponentUpdateInput>
+}
+
+export type StoreComponentUpdateFieldInput = {
+  where?: InputMaybe<StoreComponentConnectionWhere>
+  update?: InputMaybe<StoreComponentUpdateConnectionInput>
+  connect?: InputMaybe<StoreComponentConnectFieldInput>
+  disconnect?: InputMaybe<StoreComponentDisconnectFieldInput>
+  create?: InputMaybe<StoreComponentCreateFieldInput>
+  delete?: InputMaybe<StoreComponentDeleteFieldInput>
+  connectOrCreate?: InputMaybe<StoreComponentConnectOrCreateFieldInput>
+}
+
 export type StoreConnectInput = {
   api?: InputMaybe<StoreApiConnectFieldInput>
   actions?: InputMaybe<StoreActionsConnectInput>
+  component?: InputMaybe<StoreComponentConnectFieldInput>
+  page?: InputMaybe<StorePageConnectFieldInput>
 }
 
 export type StoreConnectOrCreateInput = {
   api?: InputMaybe<StoreApiConnectOrCreateFieldInput>
   actions?: InputMaybe<StoreActionsConnectOrCreateInput>
+  component?: InputMaybe<StoreComponentConnectOrCreateFieldInput>
+  page?: InputMaybe<StorePageConnectOrCreateFieldInput>
 }
 
 export type StoreConnectOrCreateWhere = {
@@ -27075,16 +27368,22 @@ export type StoreCreateInput = {
   name: Scalars['String']
   api?: InputMaybe<StoreApiFieldInput>
   actions?: InputMaybe<StoreActionsCreateInput>
+  component?: InputMaybe<StoreComponentFieldInput>
+  page?: InputMaybe<StorePageFieldInput>
 }
 
 export type StoreDeleteInput = {
   api?: InputMaybe<StoreApiDeleteFieldInput>
   actions?: InputMaybe<StoreActionsDeleteInput>
+  component?: InputMaybe<StoreComponentDeleteFieldInput>
+  page?: InputMaybe<StorePageDeleteFieldInput>
 }
 
 export type StoreDisconnectInput = {
   api?: InputMaybe<StoreApiDisconnectFieldInput>
   actions?: InputMaybe<StoreActionsDisconnectInput>
+  component?: InputMaybe<StoreComponentDisconnectFieldInput>
+  page?: InputMaybe<StorePageDisconnectFieldInput>
 }
 
 export type StoreOnCreateInput = {
@@ -27099,9 +27398,204 @@ export type StoreOptions = {
   offset?: InputMaybe<Scalars['Int']>
 }
 
+export type StorePageAggregateInput = {
+  count?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  AND?: InputMaybe<Array<StorePageAggregateInput>>
+  OR?: InputMaybe<Array<StorePageAggregateInput>>
+  NOT?: InputMaybe<StorePageAggregateInput>
+  node?: InputMaybe<StorePageNodeAggregationWhereInput>
+}
+
+export type StorePageConnectFieldInput = {
+  where?: InputMaybe<PageConnectWhere>
+  connect?: InputMaybe<PageConnectInput>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
+}
+
+export type StorePageConnectionSort = {
+  node?: InputMaybe<PageSort>
+}
+
+export type StorePageConnectionWhere = {
+  AND?: InputMaybe<Array<StorePageConnectionWhere>>
+  OR?: InputMaybe<Array<StorePageConnectionWhere>>
+  NOT?: InputMaybe<StorePageConnectionWhere>
+  node?: InputMaybe<PageWhere>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  node_NOT?: InputMaybe<PageWhere>
+}
+
+export type StorePageConnectOrCreateFieldInput = {
+  where: PageConnectOrCreateWhere
+  onCreate: StorePageConnectOrCreateFieldInputOnCreate
+}
+
+export type StorePageConnectOrCreateFieldInputOnCreate = {
+  node: PageOnCreateInput
+}
+
+export type StorePageCreateFieldInput = {
+  node: PageCreateInput
+}
+
+export type StorePageDeleteFieldInput = {
+  where?: InputMaybe<StorePageConnectionWhere>
+  delete?: InputMaybe<PageDeleteInput>
+}
+
+export type StorePageDisconnectFieldInput = {
+  where?: InputMaybe<StorePageConnectionWhere>
+  disconnect?: InputMaybe<PageDisconnectInput>
+}
+
+export type StorePageFieldInput = {
+  create?: InputMaybe<StorePageCreateFieldInput>
+  connect?: InputMaybe<StorePageConnectFieldInput>
+  connectOrCreate?: InputMaybe<StorePageConnectOrCreateFieldInput>
+}
+
+export type StorePageNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<StorePageNodeAggregationWhereInput>>
+  OR?: InputMaybe<Array<StorePageNodeAggregationWhereInput>>
+  NOT?: InputMaybe<StorePageNodeAggregationWhereInput>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  id_EQUAL?: InputMaybe<Scalars['ID']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  _compoundName_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  _compoundName_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  _compoundName_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  _compoundName_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  _compoundName_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  _compoundName_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  _compoundName_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  _compoundName_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  _compoundName_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  _compoundName_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  _compoundName_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  _compoundName_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  _compoundName_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  _compoundName_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  _compoundName_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  _compoundName_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  _compoundName_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  _compoundName_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  _compoundName_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  _compoundName_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  _compoundName_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  _compoundName_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  _compoundName_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  _compoundName_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  _compoundName_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  _compoundName_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  _compoundName_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  _compoundName_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  _compoundName_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  _compoundName_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  _compoundName_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  _compoundName_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  _compoundName_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  url_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  url_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  url_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  url_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  url_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  url_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  url_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  url_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  url_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  url_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  url_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  url_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  url_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  url_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  url_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  url_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  url_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  url_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  url_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  url_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  url_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  url_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  url_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  url_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  url_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  url_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  url_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  url_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  url_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  url_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  url_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  url_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  url_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  url_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  url_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+}
+
+export type StorePageUpdateConnectionInput = {
+  node?: InputMaybe<PageUpdateInput>
+}
+
+export type StorePageUpdateFieldInput = {
+  where?: InputMaybe<StorePageConnectionWhere>
+  update?: InputMaybe<StorePageUpdateConnectionInput>
+  connect?: InputMaybe<StorePageConnectFieldInput>
+  disconnect?: InputMaybe<StorePageDisconnectFieldInput>
+  create?: InputMaybe<StorePageCreateFieldInput>
+  delete?: InputMaybe<StorePageDeleteFieldInput>
+  connectOrCreate?: InputMaybe<StorePageConnectOrCreateFieldInput>
+}
+
 export type StoreRelationInput = {
   api?: InputMaybe<StoreApiCreateFieldInput>
   actions?: InputMaybe<StoreActionsCreateFieldInput>
+  component?: InputMaybe<StoreComponentCreateFieldInput>
+  page?: InputMaybe<StorePageCreateFieldInput>
 }
 
 /** Fields to sort Stores by. The order in which sorts are applied is not guaranteed when specifying many fields in one StoreSort object. */
@@ -27119,6 +27613,8 @@ export type StoreUpdateInput = {
   name?: InputMaybe<Scalars['String']>
   api?: InputMaybe<StoreApiUpdateFieldInput>
   actions?: InputMaybe<StoreActionsUpdateInput>
+  component?: InputMaybe<StoreComponentUpdateFieldInput>
+  page?: InputMaybe<StorePageUpdateFieldInput>
 }
 
 export type StoreWhere = {
@@ -27160,6 +27656,12 @@ export type StoreWhere = {
   api?: InputMaybe<InterfaceTypeWhere>
   api_NOT?: InputMaybe<InterfaceTypeWhere>
   apiAggregate?: InputMaybe<StoreApiAggregateInput>
+  component?: InputMaybe<ComponentWhere>
+  component_NOT?: InputMaybe<ComponentWhere>
+  componentAggregate?: InputMaybe<StoreComponentAggregateInput>
+  page?: InputMaybe<PageWhere>
+  page_NOT?: InputMaybe<PageWhere>
+  pageAggregate?: InputMaybe<StorePageAggregateInput>
   apiConnection?: InputMaybe<StoreApiConnectionWhere>
   apiConnection_NOT?: InputMaybe<StoreApiConnectionWhere>
   /** @deprecated Use `actionsConnection_SOME` instead. */
@@ -27174,6 +27676,10 @@ export type StoreWhere = {
   actionsConnection_SINGLE?: InputMaybe<StoreActionsConnectionWhere>
   /** Return Stores where some of the related StoreActionsConnections match this filter */
   actionsConnection_SOME?: InputMaybe<StoreActionsConnectionWhere>
+  componentConnection?: InputMaybe<StoreComponentConnectionWhere>
+  componentConnection_NOT?: InputMaybe<StoreComponentConnectionWhere>
+  pageConnection?: InputMaybe<StorePageConnectionWhere>
+  pageConnection_NOT?: InputMaybe<StorePageConnectionWhere>
 }
 
 export type TagAtomsAggregateInput = {

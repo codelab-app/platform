@@ -22,6 +22,7 @@ import {
   userServiceContext,
 } from '@codelab/frontend/abstract/core'
 import { atomServiceContext } from '@codelab/frontend/domain/atom'
+import { pageServiceContext } from '@codelab/frontend/domain/page'
 import { propServiceContext } from '@codelab/frontend/domain/prop'
 import {
   actionServiceContext,
@@ -58,6 +59,8 @@ export class TestRootStore
   protected override onInit() {
     userServiceContext.set(this, this.userService)
     appServiceContext.set(this, this.appService)
+    pageServiceContext.set(this, this.pageService)
+    atomServiceContext.set(this, this.atomService)
     typeServiceContext.set(this, this.typeService)
     atomServiceContext.set(this, this.atomService)
     componentServiceContext.set(this, this.componentService)

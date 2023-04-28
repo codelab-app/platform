@@ -215,11 +215,15 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       renderPropType,
       rootStore,
     }
+
+    return data
   })
 
   afterEach(() => {
     unregisterRootStore(data.rootStore)
   })
+
+  console.log(data)
 
   return data
 }
