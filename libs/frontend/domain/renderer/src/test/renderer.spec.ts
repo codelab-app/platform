@@ -13,11 +13,17 @@ describe('Renderer', () => {
   /**
    * Before all render pipes were built in to the renderer, now we extract and test only the ones we need
    */
-  const data = setupTestForRenderer([ComponentRenderPipe])
+  const {
+    componentInstance,
+    componentRootElement,
+    pageRootElement,
+    renderer,
+    rootStore,
+  } = setupTestForRenderer([ComponentRenderPipe])
 
   it('should add extra props', () => {
-    const { props } = data.rootStore.renderer.renderIntermediateElement(
-      data.elementToRender,
+    const { props } = renderer.renderIntermediateElement(
+      pageRootElement,
       extraProps,
     ) as IRenderOutput
 
@@ -25,8 +31,8 @@ describe('Renderer', () => {
   })
 
   it('should apply transformation function', () => {
-    const { props } = data.rootStore.renderer.renderIntermediateElement(
-      data.elementToRender,
+    const { props } = renderer.renderIntermediateElement(
+      pageRootElement,
       extraProps,
     ) as IRenderOutput
 
@@ -38,10 +44,10 @@ describe('Renderer', () => {
   })
 
   it('should keep same props when transform function is invalid', () => {
-    data.elementToRender.setPropTransformationJs('invalid fn')
+    pageRootElement.setPropTransformationJs('invalid fn')
 
-    const { props } = data.rootStore.renderer.renderIntermediateElement(
-      data.elementToRender,
+    const { props } = renderer.renderIntermediateElement(
+      pageRootElement,
       extraProps,
     ) as IRenderOutput
 
@@ -53,22 +59,18 @@ describe('Renderer', () => {
   })
 
   it('should render component instance', () => {
-    const { atomType, props } =
-      data.rootStore.renderer.renderIntermediateElement(
-        data.componentInstanceElementToRender,
-        {},
-      ) as IRenderOutput
+    const { atomType, props } = renderer.renderIntermediateElement(
+      componentInstance,
+      {},
+    ) as IRenderOutput
 
-    const clonedComponent =
-      data.rootStore.componentService.clonedComponents.get(
-        data.componentInstanceElementToRender.id,
-      )
-
-    const componentRootElement = data.componentToRender.rootElement.current
+    const clonedComponent = rootStore.componentService.clonedComponents.get(
+      componentInstance.id,
+    )
 
     expect(props).toMatchObject({
       [DATA_COMPONENT_ID]: clonedComponent?.id,
-      ...data.componentInstanceElementToRender.props.current.values,
+      ...componentInstance.props.current.values,
     })
 
     const componentAtomType = isAtomInstance(componentRootElement.renderType)

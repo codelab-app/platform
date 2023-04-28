@@ -1,4 +1,5 @@
 import type { IArrayType, IType } from '@codelab/frontend/abstract/core'
+import { typeRef } from '@codelab/frontend/abstract/core'
 import type { IArrayTypeDTO } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
@@ -7,7 +8,6 @@ import merge from 'lodash/merge'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'
-import { typeRef } from './type.ref'
 
 const create = ({
   id,

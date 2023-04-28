@@ -5,15 +5,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
-import {
-  detach,
-  idProp,
-  Model,
-  model,
-  modelAction,
-  prop,
-  rootRef,
-} from 'mobx-keystone'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
 const create = ({ app, domainConfig, id, name, projectDomain }: IDomainDTO) => {
   return new Domain({
@@ -72,11 +64,3 @@ export class Domain
     return this
   }
 }
-
-export const domainRef = rootRef<IDomain>('@codelab/DomainRef', {
-  onResolvedValueChange: (ref, newApp, oldApp) => {
-    if (oldApp && !newApp) {
-      detach(ref)
-    }
-  },
-})

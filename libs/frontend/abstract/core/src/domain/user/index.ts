@@ -1,4 +1,5 @@
 export * from './roles'
 export * from './user.interface'
+export * from './user.ref'
 export * from './user.service.context'
 export * from './user.service.interface'

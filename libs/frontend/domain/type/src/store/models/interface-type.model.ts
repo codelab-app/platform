@@ -3,7 +3,7 @@ import type {
   IField,
   IInterfaceType,
 } from '@codelab/frontend/abstract/core'
-import { IPropData } from '@codelab/frontend/abstract/core'
+import { fieldRef, IPropData } from '@codelab/frontend/abstract/core'
 import type { InterfaceTypeCreateInput } from '@codelab/shared/abstract/codegen'
 import {
   assertIsTypeKind,
@@ -25,7 +25,6 @@ import {
 import { v4 } from 'uuid'
 import { sortFieldsArray } from '../../shared'
 import { createBaseType } from './base-type.model'
-import { fieldRef } from './field.model'
 
 const create = ({
   fields,

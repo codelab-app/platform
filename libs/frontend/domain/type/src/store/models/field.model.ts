@@ -4,22 +4,18 @@ import type {
   IType,
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
-import { IField } from '@codelab/frontend/abstract/core'
+import {
+  fieldRef,
+  IField,
+  IFieldDTO,
+  typeRef,
+} from '@codelab/frontend/abstract/core'
 import type { FieldUpdateInput } from '@codelab/shared/abstract/codegen'
 import { IFieldDTO } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import type { Ref } from 'mobx-keystone'
-import {
-  detach,
-  idProp,
-  Model,
-  model,
-  modelAction,
-  prop,
-  rootRef,
-} from 'mobx-keystone'
-import { typeRef } from './type.ref'
+import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
 const create = ({
   api,
@@ -191,11 +187,3 @@ export class Field
     }
   }
 }
-
-export const fieldRef = rootRef<IField>('@codelab/FieldRef', {
-  onResolvedValueChange: (ref, newType, oldType) => {
-    if (oldType && !newType) {
-      detach(ref)
-    }
-  },
-})

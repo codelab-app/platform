@@ -4,8 +4,8 @@ import type {
   IInterfaceType,
   IType,
 } from '@codelab/frontend/abstract/core'
-import { fieldRef, typeRef } from '@codelab/frontend/domain/type'
-import { Button, Col, Dropdown, Row } from 'antd'
+import { fieldRef, typeRef } from '@codelab/frontend/abstract/core'
+import { Button, Col, Dropdown, Menu, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { PropsColumnProps } from './types'

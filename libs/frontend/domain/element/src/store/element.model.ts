@@ -20,9 +20,10 @@ import {
   IElement,
   isComponentInstance,
   pageRef,
+  propRef,
 } from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/domain/atom'
-import { getPropService, propRef } from '@codelab/frontend/domain/prop'
+import { getPropService } from '@codelab/frontend/domain/prop'
 import {
   ElementCreateInput,
   ElementUpdateInput,

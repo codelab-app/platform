@@ -19,16 +19,7 @@ import set from 'lodash/set'
 import values from 'lodash/values'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
-import {
-  detach,
-  frozen,
-  idProp,
-  Model,
-  model,
-  modelAction,
-  prop,
-  rootRef,
-} from 'mobx-keystone'
+import { frozen, idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { mergeDeepRight } from 'ramda'
 import { v4 } from 'uuid'
 import { getPropService } from './prop.service'
@@ -150,11 +141,3 @@ export class Prop
     return propSafeStringify(this.values)
   }
 }
-
-export const propRef = rootRef<IProp>('@codelab/PropRef', {
-  onResolvedValueChange: (ref, newProp, oldProp) => {
-    if (oldProp && !newProp) {
-      detach(ref)
-    }
-  },
-})

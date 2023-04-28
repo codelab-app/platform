@@ -7,6 +7,7 @@ import {
   ToolOutlined,
 } from '@ant-design/icons'
 import type { IApp, IDomain } from '@codelab/frontend/abstract/core'
+import { appRef } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { MenuProps } from 'antd'
 import { Button, Dropdown } from 'antd'
@@ -15,7 +16,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import type { CSSProperties } from 'react'
 import React from 'react'
-import { appRef } from '../../store'
 
 export interface ItemMenuProps {
   app: IApp

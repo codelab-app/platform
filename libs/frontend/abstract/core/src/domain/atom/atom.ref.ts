@@ -1,6 +1,7 @@
-import type { IAtom, IElementRenderType } from '@codelab/frontend/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import { detach, rootRef } from 'mobx-keystone'
+import type { IElementRenderType } from '../element'
+import type { IAtom } from './atom.model.interface'
 
 export const atomRef = rootRef<IAtom>('@codelab/AtomRef', {
   onResolvedValueChange: (ref, newAtom, oldAtom) => {
