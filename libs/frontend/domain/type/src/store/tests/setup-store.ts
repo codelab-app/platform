@@ -1,15 +1,9 @@
-import { fieldRef } from '@codelab/frontend/abstract/core'
+import { fieldRef, typeRef } from '@codelab/frontend/abstract/core'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { objectMap } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import {
-  Field,
-  InterfaceType,
-  PrimitiveType,
-  typeRef,
-  UnionType,
-} from '../models'
+import { Field, InterfaceType, PrimitiveType, UnionType } from '../models'
 
 export const stringType = new PrimitiveType({
   id: v4(),
