@@ -80,8 +80,8 @@ export const BuilderTree = observer<BuilderTreeProps>(
           //   return checkIfValidUUID(node)
           // },
         }}
-        // disabled={isMoving}
         expandedKeys={expandedNodeIds}
+        // disabled={isMoving}
         onClick={(event) => event.stopPropagation()}
         onDrop={handleDrop}
         onExpand={(expandedKeys) => {
@@ -112,6 +112,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
           selectTreeNode(node.node)
         }}
         selectedKeys={selectedNode ? [selectedNode.id] : []}
+        showLine
         titleRender={(data) => {
           // It seems when a treeData is updated after deleting an element, this function
           // will still run with the deleted element even if that element does not exist
