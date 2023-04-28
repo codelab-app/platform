@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 
 export const DeleteAppModal = observer(() => {
-  const { appService } = useStore()
+  const { appService, domainService } = useStore()
   const app = appService.deleteModal.app
 
   const onSubmitError = createNotificationHandler({
@@ -18,6 +18,14 @@ export const DeleteAppModal = observer(() => {
     if (!app) {
       return Promise.reject()
     }
+
+    app.domains.forEach(async (domain) => {
+      const maybeDomain = domainService.domains.get(domain.id)
+
+      if (maybeDomain) {
+        await domainService.delete(maybeDomain)
+      }
+    })
 
     return appService.delete(app)
   }
