@@ -7,9 +7,11 @@ import type {
   IRenderPropType,
   IRootStore,
 } from '@codelab/frontend/abstract/core'
+import type { Nullable } from '@codelab/shared/abstract/types'
 
 export type ITestRootStore = Pick<
   IRootStore,
+  | 'appService'
   | 'atomService'
   | 'componentService'
   | 'elementService'
@@ -20,7 +22,7 @@ export type ITestRootStore = Pick<
   /**
    * We only use a single renderer for testing
    */
-  renderer: IRenderer
+  renderer: Nullable<IRenderer>
   setRenderer(renderer: IRenderer): void
 }
 

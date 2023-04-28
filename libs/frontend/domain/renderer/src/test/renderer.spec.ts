@@ -15,7 +15,13 @@ describe('Renderer', () => {
   /**
    * Before all render pipes were built in to the renderer, now we extract and test only the ones we need
    */
-  const data = setupTestForRenderer([ComponentRenderPipe])
+  const {
+    componentInstance,
+    componentRootElement,
+    pageRootElement,
+    renderer,
+    rootStore,
+  } = setupTestForRenderer([ComponentRenderPipe])
 
   it('should add extra props', () => {
     const { props } = data.rootStore.renderer.renderIntermediateElement(

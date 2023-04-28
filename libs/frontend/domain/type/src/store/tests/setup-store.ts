@@ -75,20 +75,3 @@ export const interfaceWithUnionField = new InterfaceType({
     auth0Id: '',
   },
 })
-
-export const rootStore = new TestRootStore({
-  fieldService: new FieldService({
-    fields: objectMap([
-      [stringField.id, stringField],
-      [unionField.id, unionField],
-    ]),
-  }),
-  typeService: new TypeService({
-    types: objectMap<IType>([
-      [unionType.id, unionType],
-      [interfaceWithUnionField.id, interfaceWithUnionField],
-      [intType.id, intType],
-      [stringType.id, stringType],
-    ]),
-  }),
-})

@@ -4,7 +4,14 @@ import { render } from '@testing-library/react'
 import { setupTestForRenderer } from './setup/setup-test'
 
 describe('RenderService', () => {
-  const data = setupTestForRenderer()
+  const {
+    component,
+    componentRootElement,
+    pageRootElement: element,
+    reactNodeType,
+    renderer,
+    renderPropType,
+  } = setupTestForRenderer()
 
   it('should apply typed value transformers', () => {
     const { props } = data.rootStore.renderer.renderIntermediateElement(

@@ -6,7 +6,9 @@ import { ConditionalRenderPipe } from '../renderPipes/conditionalRenderPipe'
 import { setupTestForRenderer } from './setup/setup-test'
 
 describe('ConditionalRenderPipe', () => {
-  const data = setupTestForRenderer([ConditionalRenderPipe])
+  const { pageRootElement: element, renderer } = setupTestForRenderer([
+    ConditionalRenderPipe,
+  ])
 
   beforeEach(() => {
     data.element.setRenderIfExpression('{{this.shouldRender}}')

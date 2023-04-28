@@ -4,7 +4,6 @@ import type { IInterfaceType, IType } from '@codelab/frontend/abstract/core'
 import {
   atomRef,
   CUSTOM_TEXT_PROP_KEY,
-  elementRef,
   elementTreeRef,
   pageRef,
   propRef,
@@ -33,6 +32,7 @@ import {
   RenderPropType,
   TypeService,
 } from '@codelab/frontend/domain/type'
+import { User, UserService } from '@codelab/frontend/domain/user'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import {
   IPageKind,
@@ -50,6 +50,9 @@ import { TestRootStore } from './test-root-store'
 import type { ITestRootStore, TestServices } from './test-root-store.interface'
 
 const stubServiceRepositories = (rootStore: ITestRootStore) => {
+  jest.spyOn(rootStore.appService.appRepository, 'add').mockImplementation()
+  jest.spyOn(rootStore.pageService.pageRepository, 'add').mockImplementation()
+
   jest
     .spyOn(rootStore.elementService.elementRepository, 'add')
     .mockImplementation()
@@ -68,24 +71,36 @@ const stubServiceRepositories = (rootStore: ITestRootStore) => {
 
 // Clone everything so that we don't get conflicts between different test files.
 export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
-  const data: TestServices = {} as TestServices
+  let data: TestServices = {} as TestServices
 
   beforeEach(async () => {
-    const owner = { auth0Id: v4() }
+    const user = new User({ auth0Id: v4(), id: v4(), username: '' })
     const pageId = v4()
-    const compRootElementId = v4()
-    const emptyInterface = new InterfaceType({ name: 'Empty interface', owner })
 
-    data.store = new Store({
+    const emptyInterface = new InterfaceType({
+      name: 'Empty interface',
+      owner: { auth0Id: user.auth0Id },
+    })
+
+    const divAtom = new Atom({
       api: typeRef(emptyInterface),
-      component: null,
-      name: 'Store',
-      page: null,
+      name: 'Html Div',
+      owner: { auth0Id: user.auth0Id },
+      tags: [],
+      type: IAtomType.HtmlDiv,
+    })
+
+    const textAtom = new Atom({
+      api: typeRef(emptyInterface),
+      name: 'Text',
+      owner: { auth0Id: user.auth0Id },
+      tags: [],
+      type: IAtomType.Text,
     })
 
     const integerType = new PrimitiveType({
       name: 'primitiveType',
-      owner,
+      owner: { auth0Id: user.auth0Id },
       primitiveKind: PrimitiveTypeKind.Integer,
     })
 
@@ -123,17 +138,17 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
 
     data.renderPropType = new RenderPropType({
       name: 'renderPropType',
-      owner,
+      owner: { auth0Id: user.auth0Id },
     })
 
-    data.reactNodeType = new ReactNodeType({
-      id: v4(),
+    const reactNodeType = new ReactNodeType({
       name: 'reactNodeType',
-      owner,
+      owner: { auth0Id: user.auth0Id },
     })
 
-    data.rootStore = new TestRootStore({
+    const rootStore = new TestRootStore({
       actionService: new ActionService({}),
+      appService: new AppService({}),
       atomService: new AtomService({
         atoms: objectMap([
           [divAtom.id, divAtom],
@@ -350,105 +365,103 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       typeService: new TypeService({
         types: objectMap<IType>([
           [primitiveType.id, primitiveType],
-          [data.renderPropType.id, data.renderPropType],
-          [data.reactNodeType.id, data.reactNodeType],
+          [renderPropType.id, renderPropType],
+          [reactNodeType.id, reactNodeType],
           [emptyInterface.id, emptyInterface],
         ]),
       }),
+      userService: new UserService({ user }),
     })
 
-    stubServiceRepositories(data.rootStore)
+    stubServiceRepositories(rootStore)
 
-    const elementToRenderProp = {
-      data: JSON.stringify({
-        prop01: 'prop01Value',
-        prop02: 'prop02Value',
-        prop03: {
-          type: primitiveType.id,
-          value: 'prop03Value',
-        },
-      }),
-    }
-
-    data.elementToRender = await data.rootStore.elementService.create({
+    const app = await rootStore.appService.create({
       id: v4(),
-      name: ROOT_ELEMENT_NAME,
-      page: { id: pageId },
-      props: elementToRenderProp,
-      propTransformationJs: `
-        // Write a transformer function, you get the input props as parameter
-        // All returned props will get merged with the original ones
-        function transform(props) {
-          return Object.keys(props)
-            .map((x)=> ({
-              [\`$\{x}-edited\`] : props[x]
-            }))
-            .reduce((total,current) =>
-              ({...total,...current}),
-              {}
-            )
-          }
-      `,
-      renderType: { id: divAtom.id, kind: IRenderTypeKind.Atom },
+      name: 'app',
+      owner: { auth0Id: user.auth0Id },
     })
 
-    data.store = await data.rootStore.storeService.create({
-      api: typeRef(emptyInterface),
-      id: v4(),
-      name: 'Store',
-    })
-
-    data.rootStore.pageService.add({
-      app: { id: v4() },
+    const page = await rootStore.pageService.create({
+      app: { id: app.id },
       id: pageId,
       kind: IPageKind.Regular,
       name: 'page',
-      rootElement: elementRef(data.elementToRender),
-      store: data.store,
+      owner: { auth0Id: user.auth0Id },
       url: '/page',
     })
 
-    const componentRootElementProps = await data.rootStore.propService.create({
-      data: JSON.stringify({
-        componentProp: 'original',
-        [CUSTOM_TEXT_PROP_KEY]: "I'm a component",
-      }),
-      id: v4(),
+    page.rootElement.current.props.current.setMany({
+      prop01: 'prop01Value',
+      prop02: 'prop02Value',
+      prop03: {
+        type: primitiveType.id,
+        value: 'prop03Value',
+      },
     })
 
-    data.componentToRender = await data.rootStore.componentService.create({
-      api: typeRef(emptyInterface),
-      childrenContainerElement: { id: compRootElementId },
+    page.rootElement.current.setRenderType(atomRef(divAtom))
+    page.rootElement.current.setPropTransformationJs(`
+      // Write a transformer function, you get the input props as parameter
+      // All returned props will get merged with the original ones
+      function transform(props) {
+        return Object.keys(props)
+          .map((x)=> ({
+              [\`$\{x}-edited\`] : props[x]
+            }))
+          .reduce((total,current) =>
+            ({...total,...current}),
+            {}
+          )
+      }
+  `)
+
+    const component = await rootStore.componentService.create({
       id: v4(),
+      keyGenerator: `function run(props) {
+        // props are of type component api
+          return props.id
+      }`,
       name: 'My Component',
-      owner,
-      rootElement: { id: compRootElementId },
+      owner: { auth0Id: user.auth0Id },
     })
-    data.componentToRender.rootElement.current.setRenderType(atomRef(textAtom))
-    data.componentToRender.rootElement.current.setProps(
-      propRef(componentRootElementProps),
-    )
 
-    data.componentInstanceElementToRender =
-      await data.rootStore.elementService.create({
-        id: v4(),
-        name: '01',
-        parentComponent: data.componentToRender,
-        props: { data: JSON.stringify({ componentProp: 'instance' }) },
-        renderType: {
-          id: data.componentToRender.id,
-          kind: IRenderTypeKind.Component,
-        },
-      })
+    component.rootElement.current.setRenderType(atomRef(textAtom))
+    component.rootElement.current.props.current.setMany({
+      componentProp: 'original',
+      [CUSTOM_TEXT_PROP_KEY]: "I'm a component",
+    })
 
-    const renderer = new Renderer({
+    const componentInstance = await rootStore.elementService.create({
+      id: v4(),
+      name: '01',
+      parentElement: { id: page.rootElement.id },
+      props: { data: JSON.stringify({ componentProp: 'instance' }) },
+      renderType: {
+        id: component.id,
+        kind: IRenderTypeKind.Component,
+      },
+    })
+
+    const renderer: IRenderer = new Renderer({
       debugMode: false,
-      elementTree: elementTreeRef(data.componentToRender),
+      elementTree: elementTreeRef(page),
       rendererType: RendererType.PageBuilder,
       renderPipe: renderPipeFactory([PassThroughRenderPipe, ...pipes]),
     })
 
-    data.rootStore.setRenderer(renderer)
+    rootStore.setRenderer(renderer)
+
+    data = {
+      component,
+      componentInstance,
+      componentRootElement: component.rootElement.current,
+      page,
+      pageRootElement: page.rootElement.current,
+      reactNodeType,
+      renderer,
+      renderPropType,
+      rootStore,
+    }
   })
 
   afterEach(() => {
