@@ -5,7 +5,6 @@ export type IPageExport = Pick<
   OGM_TYPES.Page,
   'id' | 'kind' | 'name' | 'pageContentContainer' | 'store' | 'url'
 > & {
-  components: Array<OGM_TYPES.Component>
   elements: Array<OGM_TYPES.Element>
   rootElement: Pick<IElementExport, 'id' | 'name'>
 }

@@ -8,9 +8,9 @@ export const importUserData = async (
   data: IUserDataExport,
   owner: IAuth0Owner,
 ) => {
-  const { apps, resources } = data
+  const { apps, components, resources } = data
 
   await importResources(resources, owner)
 
-  await importApps(apps, owner)
+  await importApps(apps, components, owner)
 }

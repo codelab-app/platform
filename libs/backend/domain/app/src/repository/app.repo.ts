@@ -20,7 +20,11 @@ import {
   appSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { IAppDTO, IAuth0Owner } from '@codelab/frontend/abstract/core'
+import type {
+  IAppDTO,
+  IAuth0Owner,
+  IComponentExport,
+} from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import {
   connectAuth0Owner,
@@ -104,7 +108,11 @@ export class AppRepository extends AbstractRepository<
   }
 }
 
-export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
+export const createApp = async (
+  app: IAppExport,
+  components: Array<IComponentExport>,
+  owner: IAuth0Owner,
+) => {
   cLog(omit(app, ['pages']))
 
   const fieldRepository = new FieldRepository()
@@ -116,40 +124,6 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
   const App = await Repository.instance.App
   const { pages } = app
   await validate(pages)
-
-  for (const { components, elements, store } of pages) {
-    for (const element of elements) {
-      await importElementInitial(element, owner)
-    }
-
-    // components should be created after their root elements
-    for (const component of components) {
-      await interfaceTypeRepository.add([
-        { ...component.store.api, fields: [] },
-        { ...component.api, fields: [] },
-      ])
-      await fieldRepository.add(component.api.fields)
-      await fieldRepository.add(component.store.api.fields)
-      await storeRepository.add([component.store])
-      await propRepository.add([component.props])
-      await createComponent(component, owner)
-    }
-
-    for (const element of elements) {
-      await updateImportedElement(element)
-    }
-
-    await interfaceTypeRepository.add([{ ...store.api, fields: [] }])
-    await fieldRepository.add(store.api.fields)
-    await storeRepository.add([store])
-  }
-
-  const pagesData = app.pages.map(({ components, elements, ...props }) => ({
-    ...props,
-    app: { id: app.id },
-  }))
-
-  cLog(pagesData)
 
   const existing = await appRepository.findOne({ id: app.id })
 
@@ -164,6 +138,43 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
       },
     })
   }
+
+  for (const { elements, store } of pages) {
+    for (const element of elements) {
+      await importElementInitial(element, owner)
+    }
+
+    for (const element of elements) {
+      await updateImportedElement(element)
+    }
+
+    await interfaceTypeRepository
+      .add([{ ...store.api, fields: [] }])
+      .catch((err) => null)
+
+    await fieldRepository.add(store.api.fields)
+    await storeRepository.add([store]).catch((err) => null)
+  }
+
+  // components should be created after their root elements
+  for (const component of components) {
+    await interfaceTypeRepository
+      .add([
+        { ...component.store.api, fields: [] },
+        { ...component.api, fields: [] },
+      ])
+      .catch((err) => console.log({ err }))
+    await fieldRepository.add(component.api.fields).catch((err) => null)
+    await fieldRepository.add(component.store.api.fields).catch((err) => null)
+    await storeRepository.add([component.store]).catch((err) => null)
+    await propRepository.add([component.props]).catch((err) => null)
+    await createComponent(component, owner).catch((err) => null)
+  }
+
+  const pagesData = app.pages.map(({ elements, ...props }) => ({
+    ...props,
+    app: { id: app.id },
+  }))
 
   console.log('Creating new app...')
 
@@ -192,8 +203,6 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
         page
 
       return {
-        // TODO: TAKE COMPONENT FORM HIGH LEVEL JSON
-        components: [],
         elements,
         id: id,
         kind: kind,
