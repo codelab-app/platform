@@ -5,6 +5,7 @@ import { loginSession } from '../support/nextjs-auth0/commands/login'
 const ELEMENT_BUTTON = 'Button'
 const backgroundColor1 = 'rgb(48, 182, 99)'
 const backgroundColor2 = 'rgb(182, 99, 48)'
+const display = 'none'
 const elementName = `Element ${ELEMENT_BUTTON}`
 
 const createBackgroundColorStyle = (backgroundColorValue: string) =>
@@ -40,8 +41,8 @@ describe('CSS CRUD', () => {
       })
   })
 
-  describe('Add css', () => {
-    it('should be able to add some css styling', () => {
+  describe('Add css string', () => {
+    it('should be able to add styling through css string', () => {
       cy.getSpinner().should('not.exist')
       cy.findByText(elementName).click()
 
@@ -57,8 +58,8 @@ describe('CSS CRUD', () => {
     })
   })
 
-  describe('Update css', () => {
-    it('should be able to update the css styling', () => {
+  describe('Update css string', () => {
+    it('should be able to update styling through css string', () => {
       clickEditor()
         .clear({ force: true })
         .type(createBackgroundColorStyle(backgroundColor2), { delay: 100 })
@@ -71,8 +72,8 @@ describe('CSS CRUD', () => {
     })
   })
 
-  describe('Remove css', () => {
-    it('should be able to remove the css styling', () => {
+  describe('Remove css string', () => {
+    it('should be able to remove the css string', () => {
       clickEditor().clear({ force: true }).type(' ', { delay: 100 })
 
       cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
@@ -85,6 +86,37 @@ describe('CSS CRUD', () => {
         'not.have.css',
         'background-color',
         backgroundColor2,
+      )
+    })
+  })
+
+  describe('Add GUI style', () => {
+    it('should be able to add styling through GUI', () => {
+      cy.getSpinner().should('not.exist')
+
+      cy.get('.ant-collapse-item-active .ant-btn').click()
+      cy.findByText(display).click()
+
+      cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
+        'have.css',
+        'display',
+        display,
+      )
+
+      cy.waitForApiCalls()
+    })
+  })
+
+  describe('Css and GUI style persistance', () => {
+    it('should persist styles after reload', () => {
+      cy.reload()
+      cy.getSpinner().should('not.exist')
+      cy.findByText(elementName).click()
+
+      cy.get('#render-root .ant-btn', { timeout: 30000 }).should(
+        'have.css',
+        'display',
+        display,
       )
     })
   })

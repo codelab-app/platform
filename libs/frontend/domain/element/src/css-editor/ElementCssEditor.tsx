@@ -51,7 +51,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
         const { customCss: lastCustomCss, guiCss: lastGuiCss } = lastState
 
         // do not send request if value was not changed
-        if (customCss === lastCustomCss && guiCss === lastGuiCss) {
+        if (customCss !== lastCustomCss || guiCss !== lastGuiCss) {
           lastStateRef.current = { customCss, guiCss }
 
           void elementService.update({ ...elementModel, customCss, guiCss })
