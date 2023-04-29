@@ -1,4 +1,8 @@
-import type { ExportAppData, IAppExport } from '@codelab/backend/abstract/core'
+import type {
+  ExportAppData,
+  IAppExport,
+  IExportComponents,
+} from '@codelab/backend/abstract/core'
 import { AbstractRepository } from '@codelab/backend/abstract/types'
 import { createComponent } from '@codelab/backend/domain/component'
 import {
@@ -24,6 +28,8 @@ import {
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
 import { cLog, createUniqueName } from '@codelab/shared/utils'
+import flatMap from 'lodash/flatMap'
+import map from 'lodash/map'
 import omit from 'lodash/omit'
 import { validate } from './validate'
 
@@ -186,7 +192,8 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
         page
 
       return {
-        components,
+        // TODO: TAKE COMPONENT FORM HIGH LEVEL JSON
+        components: [],
         elements,
         id: id,
         kind: kind,
@@ -208,4 +215,25 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
       pages: pagesData,
     },
   }
+}
+
+// export component of the app
+
+export const getComponents = async (
+  app: OGM_TYPES.App,
+): Promise<IExportComponents> => {
+  const pageRepository = new PageRepository()
+  const pages = await pageRepository.find({ app: { id: app.id } })
+
+  const componentPromises = map(pages, async (page) => {
+    const { components } = await getPageData(page)
+
+    return components
+  })
+
+  const components = await Promise.all(componentPromises).then((result) =>
+    flatMap(result),
+  )
+
+  return { components }
 }
