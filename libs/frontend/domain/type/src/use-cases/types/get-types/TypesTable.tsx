@@ -19,8 +19,8 @@ export const TypesTable = observer(() => {
   const { data, filter, handleChange, isLoading, pagination } =
     useTablePagination<IType, { name: string }>({
       filterTypes: { name: 'string' },
+      paginationService: typeService.paginationService,
       pathname: PageType.Type,
-      service: typeService,
     })
 
   const nameColumnSearchProps = useColumnSearchProps<ITypeRecord>({

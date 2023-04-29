@@ -33,7 +33,10 @@ export type GetPropsQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.PropWhere>
 }>
 
-export type GetPropsQuery = { props: Array<PropFragment> }
+export type GetPropsQuery = {
+  aggregate: { count: number }
+  items: Array<PropFragment>
+}
 
 export const CreatePropsDocument = gql`
   mutation CreateProps($input: [PropCreateInput!]!) {
@@ -62,7 +65,10 @@ export const DeletePropsDocument = gql`
 `
 export const GetPropsDocument = gql`
   query GetProps($options: PropOptions, $where: PropWhere) {
-    props(options: $options, where: $where) {
+    aggregate: propsAggregate(where: $where) {
+      count
+    }
+    items: props(options: $options, where: $where) {
       ...Prop
     }
   }

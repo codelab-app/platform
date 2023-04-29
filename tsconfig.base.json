@@ -111,6 +111,7 @@
       "@codelab/frontend/application/atoms": [
         "libs/frontend/application/atoms/src/index.ts"
       ],
+      "@codelab/frontend/config": ["libs/frontend/config/src/index.ts"],
       "@codelab/frontend/domain/admin": [
         "libs/frontend/domain/admin/src/index.ts"
       ],
@@ -185,13 +186,13 @@
       "@codelab/shared/abstract/types": [
         "libs/shared/abstract/types/src/index.ts"
       ],
+      "@codelab/shared/config": ["libs/shared/config/src/index.ts"],
       "@codelab/shared/data/seed": ["libs/shared/data/seed/src/index.ts"],
       "@codelab/shared/data/test": ["libs/shared/data/test/src/index.ts"],
       "@codelab/shared/domain/mapper": [
         "libs/shared/domain/mapper/src/index.ts"
       ],
       "@codelab/shared/infra/auth0": ["libs/shared/infra/auth0/src/index.ts"],
-      "@codelab/shared/infra/config": ["libs/shared/infra/config/src/index.ts"],
       "@codelab/shared/infra/logging": [
         "libs/shared/infra/logging/src/index.ts"
       ],

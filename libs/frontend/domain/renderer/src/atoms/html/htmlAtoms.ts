@@ -1,7 +1,7 @@
-import type { AtomsRecord } from '@codelab/shared/abstract/core'
+import type { IAtomRendererRecord } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 
-export const htmlAtoms: AtomsRecord = {
+export const htmlAtoms: IAtomRendererRecord = {
   [IAtomType.HtmlDiv]: 'div',
   [IAtomType.HtmlSpan]: 'span',
   [IAtomType.HtmlA]: 'a',

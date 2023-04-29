@@ -14,8 +14,8 @@ export const adminMenuItems: MenuProps['items'] = [
     icon: (
       <DeploymentUnitOutlined data-testid="atom-tab-trigger" title="Atoms" />
     ),
-    key: PageType.Atom,
-    label: <Link href={PageType.Atom}>Atoms</Link>,
+    key: PageType.Atoms,
+    label: <Link href={PageType.Atoms}>Atoms</Link>,
   },
   {
     icon: <ApiOutlined title="Types" />,

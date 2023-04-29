@@ -28,7 +28,10 @@ export type GetStoresQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.StoreOptions>
 }>
 
-export type GetStoresQuery = { stores: Array<StoreFragment> }
+export type GetStoresQuery = {
+  aggregate: { count: number }
+  items: Array<StoreFragment>
+}
 
 export type UpdateStoresMutationVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.StoreWhere>
@@ -61,7 +64,10 @@ export const DeleteStoresDocument = gql`
 `
 export const GetStoresDocument = gql`
   query GetStores($where: StoreWhere, $options: StoreOptions) {
-    stores(where: $where, options: $options) {
+    aggregate: storesAggregate(where: $where) {
+      count
+    }
+    items: stores(where: $where, options: $options) {
       ...Store
     }
   }

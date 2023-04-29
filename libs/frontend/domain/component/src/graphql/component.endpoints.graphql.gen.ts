@@ -36,7 +36,10 @@ export type GetComponentsQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ComponentWhere>
 }>
 
-export type GetComponentsQuery = { components: Array<ComponentFragment> }
+export type GetComponentsQuery = {
+  aggregate: { count: number }
+  items: Array<ComponentFragment>
+}
 
 export const CreateComponentsDocument = gql`
   mutation CreateComponents($input: [ComponentCreateInput!]!) {
@@ -71,7 +74,10 @@ export const UpdateComponentsDocument = gql`
 `
 export const GetComponentsDocument = gql`
   query GetComponents($options: ComponentOptions, $where: ComponentWhere) {
-    components(options: $options, where: $where) {
+    aggregate: componentsAggregate(where: $where) {
+      count
+    }
+    items: components(options: $options, where: $where) {
       ...Component
     }
   }

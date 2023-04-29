@@ -2,7 +2,10 @@ import type {
   IComponent,
   IComponentRepository,
 } from '@codelab/frontend/abstract/core'
-import type { ComponentWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  ComponentOptions,
+  ComponentWhere,
+} from '@codelab/shared/abstract/codegen'
 import { reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { componentApi } from '../store/component.api'
@@ -45,10 +48,12 @@ export class ComponentRepository
   })
 
   @modelFlow
-  find = _async(function* (this: ComponentRepository, where: ComponentWhere) {
-    const { components } = yield* _await(componentApi.GetComponents({ where }))
-
-    return components
+  find = _async(function* (
+    this: ComponentRepository,
+    where: ComponentWhere,
+    options?: ComponentOptions,
+  ) {
+    return yield* _await(componentApi.GetComponents({ options, where }))
   })
 
   @modelFlow

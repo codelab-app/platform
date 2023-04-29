@@ -14,10 +14,7 @@ import type { IDomain } from './domain.model.interface'
 
 export interface IDomainService
   extends ICRUDService<IDomain, ICreateDomainData, ICreateDomainData>,
-    Omit<
-      IQueryService<IDomain, DomainWhere, DomainOptions>,
-      'getAll' | 'getOne'
-    >,
+    Omit<IQueryService<IDomain, DomainWhere, DomainOptions>, 'getOne'>,
     ICRUDModalService<Ref<IDomain>, { domain: Maybe<IDomain> }> {
   createModal: ICRUDModalService<
     Ref<IDomain>,

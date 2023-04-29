@@ -10,6 +10,7 @@ import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICRUDModalService,
   ICRUDService,
+  IPaginateable,
   IPaginationService,
   IQueryService,
 } from '../../service'
@@ -24,8 +25,8 @@ import type { IInterfaceType, IInterfaceTypeRef, IType } from './types'
 export interface ITypeService
   extends ICRUDService<IType, ICreateTypeData, IUpdateTypeData>,
     Omit<IQueryService<IType, BaseTypeWhere, BaseTypeOptions>, 'getAll'>,
-    ICRUDModalService<Ref<IType>, { type: Maybe<IType> }> {
-  paginationService: IPaginationService<IType, { name?: string }>
+    ICRUDModalService<Ref<IType>, { type: Maybe<IType> }>,
+    IPaginateable<IType, { name?: string }> {
   typeRepository: ITypeRepository
   types: ObjectMap<IType>
   typesList: Array<IType>

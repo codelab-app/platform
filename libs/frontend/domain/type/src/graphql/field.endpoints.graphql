@@ -19,3 +19,12 @@ mutation DeleteFields($where: FieldWhere!) {
     nodesDeleted
   }
 }
+
+query GetFields($where: FieldWhere, $options: FieldOptions) {
+  aggregate: fieldsAggregate(where: $where) {
+    count
+  }
+  items: fields(where: $where, options: $options) {
+    ...Field
+  }
+}

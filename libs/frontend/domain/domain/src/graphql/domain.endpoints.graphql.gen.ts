@@ -10,7 +10,10 @@ export type GetDomainsQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.DomainWhere>
 }>
 
-export type GetDomainsQuery = { domains: Array<DomainFragment> }
+export type GetDomainsQuery = {
+  aggregate: { count: number }
+  items: Array<DomainFragment>
+}
 
 export type CreateDomainsMutationVariables = Types.Exact<{
   input: Array<Types.DomainCreateInput> | Types.DomainCreateInput
@@ -37,7 +40,10 @@ export type DeleteDomainsMutation = { deleteDomains: { nodesDeleted: number } }
 
 export const GetDomainsDocument = gql`
   query GetDomains($options: DomainOptions, $where: DomainWhere) {
-    domains(options: $options, where: $where) {
+    aggregate: domainsAggregate(where: $where) {
+      count
+    }
+    items: domains(options: $options, where: $where) {
       ...Domain
     }
   }

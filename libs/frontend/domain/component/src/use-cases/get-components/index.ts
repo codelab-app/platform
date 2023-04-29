@@ -1,1 +1,1 @@
-export * from './GetComponentsTable'
+export * from './ComponentsTable'

@@ -152,7 +152,7 @@ export class TagService
   @modelFlow
   @transaction
   getAll = _async(function* (this: TagService, where?: TagWhere) {
-    const tags = yield* _await(this.tagRepository.find(where))
+    const { items: tags } = yield* _await(this.tagRepository.find(where))
 
     return tags.map((tag) => this.add(tag))
   })

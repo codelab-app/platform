@@ -2,7 +2,10 @@ import type {
   IResource,
   IResourceRepository,
 } from '@codelab/frontend/abstract/core'
-import type { ResourceWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  ResourceOptions,
+  ResourceWhere,
+} from '@codelab/shared/abstract/codegen'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { resourceApi } from './resource.api'
 
@@ -12,10 +15,12 @@ export class ResourceRepository
   implements IResourceRepository
 {
   @modelFlow
-  find = _async(function* (this: ResourceRepository, where: ResourceWhere) {
-    const { resources } = yield* _await(resourceApi.GetResources({ where }))
-
-    return resources
+  find = _async(function* (
+    this: ResourceRepository,
+    where?: ResourceWhere,
+    options?: ResourceOptions,
+  ) {
+    return yield* _await(resourceApi.GetResources({ options, where }))
   })
 
   @modelFlow

@@ -88,7 +88,7 @@ export class StoreService
   @modelFlow
   @transaction
   getAll = _async(function* (this: StoreService, where: StoreWhere) {
-    const stores = yield* _await(this.storeRepository.find(where))
+    const { items: stores } = yield* _await(this.storeRepository.find(where))
 
     return this.load(stores)
   })

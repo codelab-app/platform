@@ -1,8 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { FieldFragment } from '../../../../abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
+import { FieldFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
 export type CreateFieldsMutationVariables = Types.Exact<{
   input: Array<Types.FieldCreateInput> | Types.FieldCreateInput
 }>
@@ -25,6 +27,16 @@ export type DeleteFieldsMutationVariables = Types.Exact<{
 }>
 
 export type DeleteFieldsMutation = { deleteFields: { nodesDeleted: number } }
+
+export type GetFieldsQueryVariables = Types.Exact<{
+  where?: Types.InputMaybe<Types.FieldWhere>
+  options?: Types.InputMaybe<Types.FieldOptions>
+}>
+
+export type GetFieldsQuery = {
+  aggregate: { count: number }
+  items: Array<FieldFragment>
+}
 
 export const CreateFieldsDocument = gql`
   mutation CreateFields($input: [FieldCreateInput!]!) {
@@ -50,6 +62,17 @@ export const DeleteFieldsDocument = gql`
       nodesDeleted
     }
   }
+`
+export const GetFieldsDocument = gql`
+  query GetFields($where: FieldWhere, $options: FieldOptions) {
+    aggregate: fieldsAggregate(where: $where) {
+      count
+    }
+    items: fields(where: $where, options: $options) {
+      ...Field
+    }
+  }
+  ${FieldFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(
@@ -112,6 +135,20 @@ export function getSdk(
           ),
         'DeleteFields',
         'mutation',
+      )
+    },
+    GetFields(
+      variables?: GetFieldsQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<GetFieldsQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetFieldsQuery>(GetFieldsDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'GetFields',
+        'query',
       )
     },
   }

@@ -36,24 +36,10 @@ export class DomainService
 {
   @modelFlow
   @transaction
-  getAll = _async(function* (
-    this: DomainService,
-    where?: DomainWhere,
-    clearDomain?: boolean,
-  ) {
-    const domainFragments = yield* _await(
-      this.domainRepository.find(where || {}),
-    )
+  getAll = _async(function* (this: DomainService, where?: DomainWhere) {
+    const { items: domains } = yield* _await(this.domainRepository.find(where))
 
-    if (clearDomain) {
-      this.domains.clear()
-    }
-
-    return domainFragments.map((domainFragment) => {
-      const domain = this.add(domainFragment)
-
-      return domain
-    })
+    return domains.map((domain) => this.add(domain))
   })
 
   @modelAction

@@ -30,8 +30,8 @@ export type GetAtomsQueryVariables = Types.Exact<{
 }>
 
 export type GetAtomsQuery = {
-  atomsAggregate: { count: number }
-  atoms: Array<AtomFragment>
+  aggregate: { count: number }
+  items: Array<AtomFragment>
 }
 
 export type GetAtomOptionsQueryVariables = Types.Exact<{ [key: string]: never }>
@@ -72,10 +72,10 @@ export const DeleteAtomsDocument = gql`
 `
 export const GetAtomsDocument = gql`
   query GetAtoms($where: AtomWhere, $options: AtomOptions) {
-    atomsAggregate(where: $where) {
+    aggregate: atomsAggregate(where: $where) {
       count
     }
-    atoms(where: $where, options: $options) {
+    items: atoms(where: $where, options: $options) {
       ...Atom
     }
   }

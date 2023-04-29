@@ -1,8 +1,5 @@
-import type {
-  AtomsRecord,
-  IAtomType,
-  IComponentType,
-} from '@codelab/shared/abstract/core'
+import type { IAtomRendererRecord } from '@codelab/frontend/abstract/core'
+import type { IAtomType, IComponentType } from '@codelab/shared/abstract/core'
 import { antdAtoms, antdPropsCustomizer } from './antd'
 import { codelabAtoms } from './codelab'
 import { htmlAtoms } from './html'
@@ -11,7 +8,7 @@ import { reactAtoms, reactPropsCustomizer } from './react'
 import type { AtomCustomizer } from './types'
 
 // Add new atom records here
-const allAtoms: AtomsRecord = {
+const allAtoms: IAtomRendererRecord = {
   ...htmlAtoms,
   ...codelabAtoms,
   ...antdAtoms,

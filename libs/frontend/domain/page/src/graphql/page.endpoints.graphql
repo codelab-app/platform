@@ -21,7 +21,10 @@ mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {
 }
 
 query GetPages($options: PageOptions, $where: PageWhere) {
-  pages(options: $options, where: $where) {
+  aggregate: pagesAggregate(where: $where) {
+    count
+  }
+  items: pages(options: $options, where: $where) {
     ...Page
   }
 }

@@ -76,7 +76,9 @@ export class ActionService
   @modelFlow
   @transaction
   getAll = _async(function* (this: ActionService, where: IActionWhere) {
-    const actionFragments = yield* _await(this.actionRepository.find(where))
+    const { items: actionFragments } = yield* _await(
+      this.actionRepository.find(where),
+    )
 
     return this.load(actionFragments)
   })

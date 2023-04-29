@@ -26,5 +26,3 @@ export const DashboardTemplateExplorerPane = ({
     </div>
   )
 }
-
-DashboardTemplateExplorerPane.displayName = 'DashboardTemplateExplorerPane'

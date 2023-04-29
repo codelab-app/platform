@@ -201,7 +201,7 @@ export class TypeService
     // Undefined `ids` should get to this point one time only
     // We also dont need to include types already in the cache
     if (newIds?.length || !ids) {
-      const typeFragments = yield* _await(
+      const { items: typeFragments } = yield* _await(
         this.typeRepository.find({ id_IN: newIds }),
       )
 

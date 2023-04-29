@@ -36,7 +36,10 @@ export type GetElementsQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ElementWhere>
 }>
 
-export type GetElementsQuery = { elements: Array<ElementFragment> }
+export type GetElementsQuery = {
+  aggregate: { count: number }
+  items: Array<ElementFragment>
+}
 
 export const CreateElementsDocument = gql`
   mutation CreateElements($input: [ElementCreateInput!]!) {
@@ -65,7 +68,10 @@ export const UpdateElementsDocument = gql`
 `
 export const GetElementsDocument = gql`
   query GetElements($options: ElementOptions, $where: ElementWhere) {
-    elements(options: $options, where: $where) {
+    aggregate: elementsAggregate(where: $where) {
+      count
+    }
+    items: elements(options: $options, where: $where) {
       ...Element
     }
   }

@@ -14,13 +14,15 @@ export interface IRepository<
   Model extends IEntity,
   ModelFragment,
   Where extends { id?: string | null },
+  Option extends { limit?: number | null; offset?: number | null },
 > {
   add(model: Model): Promise<IEntity | undefined>
   addMany?(models: Array<Model>): Promise<Array<IEntity>>
-
   delete(models: ArrayOrSingle<Model>): Promise<number>
-  find(where: Where): Promise<Array<ModelFragment>>
-
+  find(
+    where: Where,
+    options?: Option,
+  ): Promise<{ items: Array<ModelFragment>; aggregate: { count: number } }>
   findOne?(where: Where): Promise<ModelFragment | undefined>
   update(model: Model, where: Where): Promise<IEntity | undefined>
 }

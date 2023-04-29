@@ -39,7 +39,7 @@ export class TypeRepository extends Model({}) implements ITypeRepository {
     const ids = where.id_IN ?? undefined
     const types = yield* _await(getAllTypes(ids))
 
-    return types
+    return { aggregate: { count: types.length }, items: types }
   })
 
   @modelFlow

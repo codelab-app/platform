@@ -1,4 +1,5 @@
 import type { IField, IFieldRepository } from '@codelab/frontend/abstract/core'
+import type { FieldOptions, FieldWhere } from '@codelab/shared/abstract/codegen'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { fieldApi } from '../store'
 
@@ -64,5 +65,14 @@ export class FieldRepository extends Model({}) implements IFieldRepository {
     )
 
     return nodesDeleted
+  })
+
+  @modelFlow
+  find = _async(function* (
+    this: FieldRepository,
+    where?: FieldWhere,
+    options?: FieldOptions,
+  ) {
+    return yield* _await(fieldApi.GetFields({ options, where }))
   })
 }

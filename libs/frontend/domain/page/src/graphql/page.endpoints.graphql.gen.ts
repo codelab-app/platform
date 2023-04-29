@@ -63,7 +63,10 @@ export type GetPagesQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.PageWhere>
 }>
 
-export type GetPagesQuery = { pages: Array<PageFragment> }
+export type GetPagesQuery = {
+  aggregate: { count: number }
+  items: Array<PageFragment>
+}
 
 export type GetRenderedPageAndCommonAppDataQueryVariables = Types.Exact<{
   appId: Types.Scalars['ID']
@@ -123,7 +126,10 @@ export const UpdatePagesDocument = gql`
 `
 export const GetPagesDocument = gql`
   query GetPages($options: PageOptions, $where: PageWhere) {
-    pages(options: $options, where: $where) {
+    aggregate: pagesAggregate(where: $where) {
+      count
+    }
+    items: pages(options: $options, where: $where) {
       ...Page
     }
   }

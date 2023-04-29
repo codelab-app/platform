@@ -1,5 +1,6 @@
 import type {
   IAction,
+  IActionOptions,
   IActionRepository,
   IActionWhere,
 } from '@codelab/frontend/abstract/core'
@@ -75,7 +76,11 @@ export class ActionRepository extends Model({}) implements IActionRepository {
   })
 
   @modelFlow
-  find = _async(function* (this: ActionRepository, where: IActionWhere) {
+  find = _async(function* (
+    this: ActionRepository,
+    where: IActionWhere = {},
+    options?: IActionOptions,
+  ) {
     const { apiActions, codeActions } = yield* _await(
       getActionApi.GetActions({
         apiActionWhere: where,
@@ -83,7 +88,14 @@ export class ActionRepository extends Model({}) implements IActionRepository {
       }),
     )
 
-    return [...apiActions, ...codeActions]
+    const items = [...apiActions, ...codeActions]
+
+    return {
+      aggregate: {
+        count: items.length,
+      },
+      items,
+    }
   })
 
   @modelFlow

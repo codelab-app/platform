@@ -138,10 +138,7 @@ export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
                 <>
                   <Divider />
                   <div css={tw`flex justify-end`}>
-                    <CreateComponentButton
-                      componentService={componentService}
-                      title="Component"
-                    />
+                    <CreateComponentButton title="Component" />
                   </div>
                 </>
               )}

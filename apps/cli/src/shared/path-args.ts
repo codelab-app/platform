@@ -1,7 +1,7 @@
 import { User, UserRepository } from '@codelab/backend/domain/user'
 import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { EnvPlatform } from '@codelab/shared/infra/config'
+import { EnvPlatform } from '@codelab/shared/config'
 import inquirer from 'inquirer'
 import { v4 } from 'uuid'
 import type { MiddlewareFunction, Options } from 'yargs'

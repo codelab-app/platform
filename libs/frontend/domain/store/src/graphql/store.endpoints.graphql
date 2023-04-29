@@ -17,7 +17,10 @@ mutation DeleteStores($where: StoreWhere, $delete: StoreDeleteInput) {
 }
 
 query GetStores($where: StoreWhere, $options: StoreOptions) {
-  stores(where: $where, options: $options) {
+  aggregate: storesAggregate(where: $where) {
+    count
+  }
+  items: stores(where: $where, options: $options) {
     ...Store
   }
 }

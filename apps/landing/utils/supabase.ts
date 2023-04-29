@@ -1,4 +1,4 @@
-import { EnvPublic } from '@codelab/shared/infra/config'
+import { EnvPublic } from '@codelab/shared/config'
 import { createClient } from '@supabase/supabase-js'
 
 const { key, url } = EnvPublic().supabase

@@ -10,7 +10,10 @@ export type GetResourcesQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.ResourceWhere>
 }>
 
-export type GetResourcesQuery = { resources: Array<ResourceFragment> }
+export type GetResourcesQuery = {
+  aggregate: { count: number }
+  items: Array<ResourceFragment>
+}
 
 export type CreateResourcesMutationVariables = Types.Exact<{
   input: Array<Types.ResourceCreateInput> | Types.ResourceCreateInput
@@ -39,7 +42,10 @@ export type DeleteResourcesMutation = {
 
 export const GetResourcesDocument = gql`
   query GetResources($options: ResourceOptions, $where: ResourceWhere) {
-    resources(options: $options, where: $where) {
+    aggregate: resourcesAggregate(where: $where) {
+      count
+    }
+    items: resources(options: $options, where: $where) {
       ...Resource
     }
   }

@@ -205,6 +205,10 @@ jobs:
     steps:
       - setup-workspace
       - install-package
+      - run:
+          command: |
+            cd ~/
+            du -hd1
       # - run:
       #     name: 'Clear Cache'
       #     # clear cache here because NX cache can get quite large, we rely on remote cache instead
@@ -226,6 +230,7 @@ jobs:
             - ~/project/dist/apps/landing/.next/cache
             - ~/project/dist/apps/websites/.next/cache
             - ~/project/node_modules
+      # This is required since dist depends on code other than yarn.lock
       - persist_to_workspace:
           root: ~/
           paths:

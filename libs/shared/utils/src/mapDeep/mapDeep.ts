@@ -1,5 +1,5 @@
 import type { IPropData } from '@codelab/frontend/abstract/core'
-import { isServer } from '@codelab/shared/infra/config'
+import { isServer } from '@codelab/shared/config'
 import isArray from 'lodash/isArray'
 import isObjectLike from 'lodash/isObjectLike'
 import map from 'lodash/map'

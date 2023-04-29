@@ -21,7 +21,10 @@ mutation UpdateElements($where: ElementWhere, $update: ElementUpdateInput) {
 }
 
 query GetElements($options: ElementOptions, $where: ElementWhere) {
-  elements(options: $options, where: $where) {
+  aggregate: elementsAggregate(where: $where) {
+    count
+  }
+  items: elements(options: $options, where: $where) {
     ...Element
   }
 }

@@ -1,5 +1,10 @@
 import type { IPage, IPageRepository } from '@codelab/frontend/abstract/core'
-import type { AppWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  AppOptions,
+  AppWhere,
+  PageOptions,
+  PageWhere,
+} from '@codelab/shared/abstract/codegen'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { pageApi } from './page.api'
 
@@ -29,10 +34,12 @@ export class PageRepository extends Model({}) implements IPageRepository {
   })
 
   @modelFlow
-  find = _async(function* (this: PageRepository, where: AppWhere) {
-    const { pages } = yield* _await(pageApi.GetPages({ where }))
-
-    return pages
+  find = _async(function* (
+    this: PageRepository,
+    where?: PageWhere,
+    options?: PageOptions,
+  ) {
+    return yield* _await(pageApi.GetPages({ options, where }))
   })
 
   @modelFlow

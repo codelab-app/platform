@@ -27,18 +27,19 @@ export class PaginationService<
     T2 extends SupportedPaginationModel,
     U2 extends Filterables | void = void,
   >() => ({
+    currentPage: prop(1).withSetter(),
     data: prop(() => [] as Array<T2>),
     dataRefs: prop(() => objectMap<Ref<T2>>()),
     filter: prop(() => ({} as U2)).withSetter(),
     isLoading: prop(false),
-    page: prop(1).withSetter(),
     pageSize: prop(20).withSetter(),
-    totalItems: prop<number | undefined>(),
+    totalItems: prop<number>(0),
   }))<T1, U1>
   implements IPaginationService<T1, U1>
 {
-  // This can't be passed as props when creating a PaginationService instance so this
-  // has to be initialized in the `onAttachedToRootStore` of the service using this
+  /**
+   * This can't be passed as props when creating a PaginationService instance so this has to be initialized in the `onAttachedToRootStore` of the service using this
+   */
   getDataFn = async (page: number, pageSize: number, filter: U1) => ({
     items: [] as Array<T1>,
     totalItems: 0,
@@ -56,7 +57,7 @@ export class PaginationService<
     this.isLoading = true
 
     const { items, totalItems } = yield* _await(
-      this.getDataFn(this.page, this.pageSize, this.filter),
+      this.getDataFn(this.currentPage, this.pageSize, this.filter),
     )
 
     this.totalItems = totalItems

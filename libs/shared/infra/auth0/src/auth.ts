@@ -1,5 +1,5 @@
 import { initAuth0 } from '@auth0/nextjs-auth0'
-import { EnvPlatform } from '@codelab/shared/infra/config'
+import { EnvPlatform } from '@codelab/shared/config'
 
 /**
  * For Vercel preview, the URL provided as NEXT_PUBLIC_VERCEL_URL https://vercel.com/docs/concepts/projects/environment-variables doesn't have the correct format. It's missing `https`

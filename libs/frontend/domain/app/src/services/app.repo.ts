@@ -1,5 +1,5 @@
 import type { IApp, IAppRepository } from '@codelab/frontend/abstract/core'
-import type { AppWhere } from '@codelab/shared/abstract/codegen'
+import type { AppOptions, AppWhere } from '@codelab/shared/abstract/codegen'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { appApi } from '../store'
 
@@ -33,10 +33,12 @@ export class AppRepository extends Model({}) implements IAppRepository {
   })
 
   @modelFlow
-  find = _async(function* (this: AppRepository, where: AppWhere) {
-    const { apps } = yield* _await(appApi.GetApps({ where }))
-
-    return apps
+  find = _async(function* (
+    this: AppRepository,
+    where?: AppWhere,
+    options?: AppOptions,
+  ) {
+    return yield* _await(appApi.GetApps({ options, where }))
   })
 
   @modelFlow

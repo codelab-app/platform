@@ -1,4 +1,5 @@
 import type {
+  BaseTypeOptions,
   BaseTypeWhere,
   GetBaseTypesOptions,
   TypeFragment,
@@ -12,7 +13,8 @@ export type BaseTypesOptions = GetBaseTypesOptions
 export type ITypeRepository = IRepository<
   IType,
   TypeFragment,
-  BaseTypeWhere
+  BaseTypeWhere,
+  BaseTypeOptions
 > & {
   findDescendants(parentIds: Array<string>): Promise<Array<TypeFragment>>
   findBaseTypes(options: BaseTypesOptions): Promise<{

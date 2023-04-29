@@ -20,8 +20,11 @@ import {
   InterfaceType,
   typeRef,
 } from '@codelab/frontend/domain/type'
-import { ModalService } from '@codelab/frontend/shared/utils'
-import type { ComponentWhere } from '@codelab/shared/abstract/codegen'
+import { ModalService, PaginationService } from '@codelab/frontend/shared/utils'
+import type {
+  ComponentOptions,
+  ComponentWhere,
+} from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
@@ -53,10 +56,27 @@ export class ComponentService
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new ComponentModalService({})),
     id: idProp,
+    paginationService: prop(
+      () => new PaginationService<IComponent, { name?: string }>({}),
+    ),
     updateModal: prop(() => new ComponentModalService({})),
   })
   implements IComponentService
 {
+  onAttachedToRootStore() {
+    this.paginationService.getDataFn = async (page, pageSize, filter) => {
+      const items = await this.getAll(
+        { name_MATCHES: `(?i).*${filter.name ?? ''}.*` },
+        {
+          limit: pageSize,
+          offset: (page - 1) * pageSize,
+        },
+      )
+
+      return { items, totalItems: this.paginationService.totalItems }
+    }
+  }
+
   @computed
   get elementService() {
     return getElementService(this)
@@ -219,8 +239,14 @@ export class ComponentService
 
   @modelFlow
   @transaction
-  getAll = _async(function* (this: ComponentService, where: ComponentWhere) {
-    const components = yield* _await(this.componentRepository.find(where))
+  getAll = _async(function* (
+    this: ComponentService,
+    where: ComponentWhere = {},
+    options?: ComponentOptions,
+  ) {
+    const { items: components } = yield* _await(
+      this.componentRepository.find(where, options),
+    )
 
     return components
       .map((component) => this.add(component))

@@ -20,30 +20,20 @@ import {
 } from './columns'
 import { RequiredParentsColumn } from './columns/RequiredParentsColumn'
 import { SuggestedChildrenColumn } from './columns/SuggestedChildrenColumn'
+import { useGetLibrary } from './dataSource/atomLibrary'
+import { onLibraryFilter } from './dataSource/onLibraryFilter'
 
-interface AtomsTableProps {
-  getAtomLibrary(atomType: string): AtomLibrary
-}
-
-const onLibraryFilter = (
-  value: boolean | number | string,
-  atom: AtomRecord,
-): boolean => {
-  const list = [atom.name, atom.type].map((item) => item.toLowerCase())
-  const search = value.toString().toLowerCase()
-
-  return list.some((item) => item.startsWith(search))
-}
-
-export const AtomsTable = observer<AtomsTableProps>(({ getAtomLibrary }) => {
+export const AtomsTable = observer(() => {
   const { atomService, fieldService, typeService } = useStore()
 
   const { data, filter, handleChange, isLoading, pagination } =
     useTablePagination<IAtom, { name: string }>({
       filterTypes: { name: 'string' },
-      pathname: PageType.Atom,
-      service: atomService,
+      paginationService: atomService.paginationService,
+      pathname: PageType.Atoms,
     })
+
+  const getLibrary = useGetLibrary()
 
   useEffect(() => {
     // This loads all types and will only fetch from the backend once
@@ -123,7 +113,7 @@ export const AtomsTable = observer<AtomsTableProps>(({ getAtomLibrary }) => {
   const dataSource: Array<AtomRecord> | undefined = data.map((atom) => ({
     api: atom.api.current,
     id: atom.id,
-    library: getAtomLibrary(atom.type),
+    library: getLibrary(atom.type),
     name: atom.name,
     requiredParents: atom.requiredParents.map((children) => children.current),
     suggestedChildren: atom.suggestedChildren.map(

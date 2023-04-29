@@ -53,7 +53,9 @@ export class ResourceService
   @modelFlow
   @transaction
   getAll = _async(function* (this: ResourceService, where: ResourceWhere = {}) {
-    const resources = yield* _await(this.resourceRepository.find(where))
+    const { items: resources } = yield* _await(
+      this.resourceRepository.find(where),
+    )
 
     return resources.map((resource) => {
       /**

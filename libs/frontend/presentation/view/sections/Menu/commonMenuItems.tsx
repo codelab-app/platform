@@ -2,6 +2,7 @@ import {
   AppstoreOutlined,
   BuildOutlined,
   CloudServerOutlined,
+  ExpandOutlined,
   FileOutlined,
 } from '@ant-design/icons'
 import { PageType } from '@codelab/frontend/abstract/types'
@@ -11,22 +12,26 @@ import Link from 'next/link'
 import React from 'react'
 
 export const appMenuItem: ItemType = {
-  icon: <AppstoreOutlined data-testid="app-tab-trigger" title="Apps" />,
+  icon: <AppstoreOutlined title="Apps" />,
   key: PageType.AppList,
   label: <Link href={PageType.AppList}>Apps</Link>,
 }
 
 export const resourceMenuItem: ItemType = {
-  icon: (
-    <CloudServerOutlined data-testid="resource-tab-trigger" title="Resources" />
-  ),
+  icon: <CloudServerOutlined title="Resources" />,
   key: PageType.Resources,
   label: <Link href={PageType.Resources}>Resources</Link>,
 }
 
+export const componentMenuItem: ItemType = {
+  icon: <ExpandOutlined title="Resources" />,
+  key: PageType.Components,
+  label: <Link href={PageType.Components}>Components</Link>,
+}
+
 export const allPagesMenuItem = (appId: Nullish<string>): ItemType => ({
   disabled: !appId,
-  icon: <FileOutlined data-testid="pages-tab-trigger" title="Pages" />,
+  icon: <FileOutlined title="Pages" />,
   key: PageType.PageList,
   label: (
     <Link href={{ pathname: PageType.PageList, query: { appId } }}>Pages</Link>
@@ -38,7 +43,7 @@ export const pageBuilderMenuItem = (
   pageId: Nullish<string>,
 ): ItemType => ({
   disabled: !appId || !pageId,
-  icon: <BuildOutlined data-testid="builder-tab-trigger" title="Builder" />,
+  icon: <BuildOutlined title="Builder" />,
   key: PageType.PageBuilder,
   label: (
     <Link href={{ pathname: PageType.PageBuilder, query: { appId, pageId } }}>

@@ -2,7 +2,10 @@ import type {
   IDomain,
   IDomainRepository,
 } from '@codelab/frontend/abstract/core'
-import type { DomainWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  DomainOptions,
+  DomainWhere,
+} from '@codelab/shared/abstract/codegen'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { domainApis } from '../store'
 
@@ -36,10 +39,12 @@ export class DomainRepository extends Model({}) implements IDomainRepository {
   })
 
   @modelFlow
-  find = _async(function* (this: DomainRepository, where: DomainWhere) {
-    const { domains } = yield* _await(domainApis.GetDomains({ where }))
-
-    return domains
+  find = _async(function* (
+    this: DomainRepository,
+    where: DomainWhere = {},
+    options?: DomainOptions,
+  ) {
+    return yield* _await(domainApis.GetDomains({ options, where }))
   })
 
   @modelFlow

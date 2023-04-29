@@ -33,6 +33,7 @@ import {
   DashboardTemplate,
   pageBuilderMenuItem,
   resourceMenuItem,
+  sidebarNavigation,
 } from '@codelab/frontend/presentation/view'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { observer } from 'mobx-react-lite'
@@ -41,29 +42,6 @@ import React, { useCallback, useMemo } from 'react'
 import tw from 'twin.macro'
 
 const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
-  const htmlAtomsKeys = useMemo(() => Object.keys(htmlAtoms), [])
-  const muiAtomsKeys = useMemo(() => Object.keys(muiAtoms), [])
-  const antdAtomsKeys = useMemo(() => Object.keys(antdAtoms), [])
-  const clAtomsKeys = useMemo(() => Object.keys(codelabAtoms), [])
-  const reactAtomsKeys = useMemo(() => Object.keys(reactAtoms), [])
-
-  const getAtomLibrary = useCallback(
-    (atomType: string): AtomLibrary => {
-      return htmlAtomsKeys.includes(atomType)
-        ? { color: 'orange', name: 'HTML' }
-        : antdAtomsKeys.includes(atomType)
-        ? { color: 'geekblue', name: 'Ant Design' }
-        : muiAtomsKeys.includes(atomType)
-        ? { color: 'purple', name: 'Material UI' }
-        : clAtomsKeys.includes(atomType)
-        ? { color: 'yellow', name: 'Codelab' }
-        : reactAtomsKeys.includes(atomType)
-        ? { color: 'green', name: 'React' }
-        : { color: 'black', name: 'Unknown' }
-    },
-    [htmlAtomsKeys, antdAtomsKeys, muiAtomsKeys, clAtomsKeys, reactAtomsKeys],
-  )
-
   return (
     <>
       <Head>
@@ -73,11 +51,13 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <CreateAtomModal />
       <UpdateAtomModal />
       <DeleteAtomsModal />
+
       <CreateFieldModal />
       <UpdateFieldModal />
       <DeleteFieldModal />
+
       <ContentSection>
-        <AtomsTable getAtomLibrary={getAtomLibrary} />
+        <AtomsTable />
       </ContentSection>
     </>
   )
@@ -85,10 +65,7 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
 
 const Header = () => {
   const pageHeaderButtons = [
-    <div
-      css={tw`flex flex-row items-center justify-center gap-2`}
-      key="export_import"
-    >
+    <div css={tw`flex flex-row items-center justify-center gap-2`} key="header">
       <CreateAtomButton key="create" />
     </div>,
   ]
@@ -107,15 +84,7 @@ AtomsPage.Layout = ({ children }) => {
   return (
     <DashboardTemplate
       Header={Header}
-      sidebarNavigation={{
-        primaryItems: [
-          appMenuItem,
-          allPagesMenuItem(appId),
-          pageBuilderMenuItem(appId, pageId),
-          resourceMenuItem,
-        ],
-        secondaryItems: adminMenuItems,
-      }}
+      sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
       {children()}
     </DashboardTemplate>

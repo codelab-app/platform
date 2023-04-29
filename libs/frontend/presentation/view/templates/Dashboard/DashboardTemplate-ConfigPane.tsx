@@ -15,5 +15,3 @@ export const DashboardTemplateConfigPane = ({
     </div>
   )
 }
-
-DashboardTemplateConfigPane.displayName = 'DashboardTemplateMetaPane'

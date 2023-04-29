@@ -21,7 +21,10 @@ mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {
 }
 
 query GetApps($options: AppOptions, $where: AppWhere) {
-  apps(options: $options, where: $where) {
+  aggregate: appsAggregate(where: $where) {
+    count
+  }
+  items: apps(options: $options, where: $where) {
     ...App
   }
 }

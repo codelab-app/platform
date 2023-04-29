@@ -1,4 +1,4 @@
-import { isVercelPreview } from './flags'
+import { isVercelPreview } from '../flags'
 
 // for preview builds should use NEXT_PUBLIC_VERCEL_URL
 // (which is https://builder-*-codelab.vercel.app)

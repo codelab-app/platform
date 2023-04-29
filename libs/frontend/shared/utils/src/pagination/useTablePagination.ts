@@ -1,5 +1,6 @@
 import type {
   Filterables,
+  IPaginationService,
   SupportedPaginationModel,
   SupportedPaginationModelPage,
   SupportedPaginationModelService,
@@ -13,8 +14,8 @@ import { extractTableQueries } from './extractTableQueries'
 
 interface Props<T> {
   filterTypes?: Record<keyof T, 'boolean' | 'number' | 'string' | 'string[]'>
+  paginationService: IPaginationService<SupportedPaginationModel, Filterables>
   pathname: SupportedPaginationModelPage
-  service: SupportedPaginationModelService
 }
 
 export const useTablePagination = <
@@ -22,8 +23,8 @@ export const useTablePagination = <
   U extends Filterables,
 >({
   filterTypes,
+  paginationService,
   pathname,
-  service,
 }: Props<U>) => {
   const router = useRouter()
 
@@ -36,30 +37,30 @@ export const useTablePagination = <
   const handleChange = React.useRef(
     debounce(
       async ({
-        newFilter = service.paginationService.filter,
-        newPage = service.paginationService.page,
-        newPageSize = service.paginationService.pageSize,
+        newFilter = paginationService.filter,
+        newPage = paginationService.currentPage,
+        newPageSize = paginationService.pageSize,
       }: {
         newFilter?: Filterables
         newPage?: number
         newPageSize?: number
       }) => {
         const goBackToFirstPage =
-          newPageSize !== service.paginationService.pageSize ||
-          !isMatch(newFilter, service.paginationService.filter)
+          newPageSize !== paginationService.pageSize ||
+          !isMatch(newFilter, paginationService.filter)
 
-        service.paginationService.setPage(goBackToFirstPage ? 1 : newPage)
-        service.paginationService.setPageSize(newPageSize)
-        service.paginationService.setFilter(newFilter)
-        void service.paginationService.getData()
+        paginationService.setCurrentPage(goBackToFirstPage ? 1 : newPage)
+        paginationService.setPageSize(newPageSize)
+        paginationService.setFilter(newFilter)
+        void paginationService.getData()
 
         await router.push(
           {
             pathname,
             query: {
-              ...service.paginationService.filter,
-              page: service.paginationService.page,
-              pageSize: service.paginationService.pageSize,
+              ...paginationService.filter,
+              page: paginationService.currentPage,
+              pageSize: paginationService.pageSize,
             },
           },
           undefined,
@@ -71,26 +72,26 @@ export const useTablePagination = <
   ).current
 
   useEffect(() => {
-    service.paginationService.setPage(page)
-    service.paginationService.setPageSize(pageSize)
-    service.paginationService.setFilter(filter)
-    void service.paginationService.getData()
+    paginationService.setCurrentPage(page)
+    paginationService.setPageSize(pageSize)
+    paginationService.setFilter(filter)
+    void paginationService.getData()
   }, [])
 
   const pagination: TablePaginationConfig = {
-    current: service.paginationService.page,
+    current: paginationService.currentPage,
     onChange: (newPage, newPageSize) => handleChange({ newPage, newPageSize }),
-    pageSize: service.paginationService.pageSize,
+    pageSize: paginationService.pageSize,
     position: ['bottomCenter'],
     showSizeChanger: true,
-    total: service.paginationService.totalItems,
+    total: paginationService.totalItems,
   }
 
   return {
-    data: service.paginationService.data as Array<T>,
+    data: paginationService.data as Array<T>,
     filter,
     handleChange,
-    isLoading: service.paginationService.isLoading,
+    isLoading: paginationService.isLoading,
     page,
     pageSize,
     pagination,

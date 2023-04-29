@@ -1,4 +1,4 @@
-import { isServer } from '@codelab/shared/infra/config'
+import { isServer } from '@codelab/shared/config'
 import React from 'react'
 import type { OverlayProps } from './overlay.interface'
 import { OverlayToolbar } from './OverlayToolbar'

@@ -1,8 +1,8 @@
-import type { AtomsRecord } from '@codelab/shared/abstract/core'
+import type { IAtomRendererRecord } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { dynamicLoader } from '../dynamicLoader'
 
-export const antdAtoms: AtomsRecord = {
+export const antdAtoms: IAtomRendererRecord = {
   [IAtomType.AntDesignGridRow]: dynamicLoader(
     () => import('antd/lib/grid/row'),
   ),

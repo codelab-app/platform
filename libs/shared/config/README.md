@@ -1,4 +1,4 @@
-# shared-infra-config
+# shared-config
 
 This library was generated with [Nx](https://nx.dev).
 

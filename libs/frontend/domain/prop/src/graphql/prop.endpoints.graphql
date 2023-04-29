@@ -21,7 +21,10 @@ mutation DeleteProps($where: PropWhere!) {
 }
 
 query GetProps($options: PropOptions, $where: PropWhere) {
-  props(options: $options, where: $where) {
+  aggregate: propsAggregate(where: $where) {
+    count
+  }
+  items: props(options: $options, where: $where) {
     ...Prop
   }
 }

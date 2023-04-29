@@ -1,5 +1,5 @@
 import type { IStore, IStoreRepository } from '@codelab/frontend/abstract/core'
-import type { StoreWhere } from '@codelab/shared/abstract/codegen'
+import type { StoreOptions, StoreWhere } from '@codelab/shared/abstract/codegen'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { storeApi } from '../store'
 
@@ -33,10 +33,12 @@ export class StoreRepository extends Model({}) implements IStoreRepository {
   })
 
   @modelFlow
-  find = _async(function* (this: StoreRepository, where: StoreWhere) {
-    const { stores } = yield* _await(storeApi.GetStores({ where }))
-
-    return stores
+  find = _async(function* (
+    this: StoreRepository,
+    where?: StoreWhere,
+    options?: StoreOptions,
+  ) {
+    return yield* _await(storeApi.GetStores({ options, where }))
   })
 
   @modelFlow

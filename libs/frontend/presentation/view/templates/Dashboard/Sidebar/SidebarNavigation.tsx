@@ -2,6 +2,7 @@ import {
   adminMenuItems,
   allPagesMenuItem,
   appMenuItem,
+  componentMenuItem,
   pageBuilderMenuItem,
   resourceMenuItem,
 } from '../../../sections'
@@ -17,6 +18,7 @@ export const sidebarNavigation = ({ appId, pageId }: SidebarNavigation) => ({
     allPagesMenuItem(appId),
     pageBuilderMenuItem(appId, pageId),
     resourceMenuItem,
+    componentMenuItem,
   ],
   secondaryItems: adminMenuItems,
 })

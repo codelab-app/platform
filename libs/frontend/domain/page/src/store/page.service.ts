@@ -130,7 +130,7 @@ export class PageService
   @modelFlow
   @transaction
   getAll = _async(function* (this: PageService, where: PageWhere) {
-    const pages = yield* _await(this.pageRepository.find(where))
+    const { items: pages } = yield* _await(this.pageRepository.find(where))
 
     return pages.map((page) => this.add(page))
   })

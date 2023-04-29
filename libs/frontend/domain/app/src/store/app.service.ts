@@ -174,7 +174,7 @@ export class AppService
     this: AppService,
     where: AppWhere,
   ) {
-    const appsData = yield* _await(this.appRepository.find(where))
+    const { items: appsData } = yield* _await(this.appRepository.find(where))
 
     const apps = appsData.map((appData) => {
       appData.pages.forEach((pageData) => {
@@ -204,7 +204,7 @@ export class AppService
   @modelFlow
   @transaction
   getAll = _async(function* (this: AppService, where: AppWhere) {
-    const apps = yield* _await(this.appRepository.find(where))
+    const { items: apps } = yield* _await(this.appRepository.find(where))
 
     return apps.map((app) => this.add(app))
   })
@@ -327,11 +327,11 @@ export class AppService
     appId: string,
     where: PageWhere,
   ) {
-    const pages = (yield* _await(
+    const { items: pages } = yield* _await(
       this.pageService.pageRepository.find({
         AND: [{ appConnection: { node: { id: appId } } }, where],
       }),
-    )) as Array<BuilderPageFragment>
+    )
 
     this.loadPages({ pages })
 

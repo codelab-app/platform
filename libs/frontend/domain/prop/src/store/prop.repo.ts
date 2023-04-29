@@ -1,5 +1,9 @@
 import type { IProp, IPropRepository } from '@codelab/frontend/abstract/core'
-import type { AppWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  AppWhere,
+  PropOptions,
+  PropWhere,
+} from '@codelab/shared/abstract/codegen'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { propApi } from './prop.api'
 
@@ -33,10 +37,12 @@ export class PropRepository extends Model({}) implements IPropRepository {
   })
 
   @modelFlow
-  find = _async(function* (this: PropRepository, where: AppWhere) {
-    const { props } = yield* _await(propApi.GetProps({ where }))
-
-    return props
+  find = _async(function* (
+    this: PropRepository,
+    where?: PropWhere,
+    options?: PropOptions,
+  ) {
+    return yield* _await(propApi.GetProps({ options, where }))
   })
 
   @modelFlow

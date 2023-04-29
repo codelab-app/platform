@@ -30,7 +30,10 @@ export type GetAppsQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.AppWhere>
 }>
 
-export type GetAppsQuery = { apps: Array<AppFragment> }
+export type GetAppsQuery = {
+  aggregate: { count: number }
+  items: Array<AppFragment>
+}
 
 export const CreateAppsDocument = gql`
   mutation CreateApps($input: [AppCreateInput!]!) {
@@ -59,7 +62,10 @@ export const DeleteAppsDocument = gql`
 `
 export const GetAppsDocument = gql`
   query GetApps($options: AppOptions, $where: AppWhere) {
-    apps(options: $options, where: $where) {
+    aggregate: appsAggregate(where: $where) {
+      count
+    }
+    items: apps(options: $options, where: $where) {
       ...App
     }
   }

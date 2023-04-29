@@ -29,7 +29,10 @@ export type GetTagsQueryVariables = Types.Exact<{
   where?: Types.InputMaybe<Types.TagWhere>
 }>
 
-export type GetTagsQuery = { tags: Array<TagFragment> }
+export type GetTagsQuery = {
+  aggregate: { count: number }
+  items: Array<TagFragment>
+}
 
 export const CreateTagsDocument = gql`
   mutation CreateTags($input: [TagCreateInput!]!) {
@@ -58,7 +61,10 @@ export const DeleteTagsDocument = gql`
 `
 export const GetTagsDocument = gql`
   query GetTags($options: TagOptions, $where: TagWhere) {
-    tags: tags(options: $options, where: $where) {
+    aggregate: tagsAggregate(where: $where) {
+      count
+    }
+    items: tags(options: $options, where: $where) {
       ...Tag
     }
   }

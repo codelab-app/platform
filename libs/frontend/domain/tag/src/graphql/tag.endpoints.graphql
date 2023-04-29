@@ -21,7 +21,10 @@ mutation DeleteTags($where: TagWhere!) {
 }
 
 query GetTags($options: TagOptions, $where: TagWhere) {
-  tags: tags(options: $options, where: $where) {
+  aggregate: tagsAggregate(where: $where) {
+    count
+  }
+  items: tags(options: $options, where: $where) {
     ...Tag
   }
 }

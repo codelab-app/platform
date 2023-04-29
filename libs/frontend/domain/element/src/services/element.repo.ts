@@ -2,7 +2,10 @@ import type {
   IElement,
   IElementRepository,
 } from '@codelab/frontend/abstract/core'
-import type { ElementWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  ElementOptions,
+  ElementWhere,
+} from '@codelab/shared/abstract/codegen'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { elementApi } from '../store'
 
@@ -51,10 +54,12 @@ export class ElementRepository extends Model({}) implements IElementRepository {
   })
 
   @modelFlow
-  find = _async(function* (this: ElementRepository, where: ElementWhere) {
-    const { elements } = yield* _await(elementApi.GetElements({ where }))
-
-    return elements
+  find = _async(function* (
+    this: ElementRepository,
+    where: ElementWhere,
+    options?: ElementOptions,
+  ) {
+    return yield* _await(elementApi.GetElements({ options, where }))
   })
 
   @modelFlow

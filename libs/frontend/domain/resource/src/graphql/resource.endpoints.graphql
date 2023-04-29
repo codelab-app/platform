@@ -1,5 +1,8 @@
 query GetResources($options: ResourceOptions, $where: ResourceWhere) {
-  resources(options: $options, where: $where) {
+  aggregate: resourcesAggregate(where: $where) {
+    count
+  }
+  items: resources(options: $options, where: $where) {
     ...Resource
   }
 }

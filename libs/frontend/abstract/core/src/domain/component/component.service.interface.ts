@@ -7,6 +7,7 @@ import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICRUDModalService,
   ICRUDService,
+  IPaginateable,
   IQueryService,
 } from '../../service'
 import type { IBuilderDataNode } from '../../ui'
@@ -21,7 +22,8 @@ import type { IComponentRepository } from './component.repo.interface'
 export interface IComponentService
   extends ICRUDService<IComponent, ICreateComponentData, IUpdateComponentData>,
     IQueryService<IComponent, ComponentWhere, ComponentOptions>,
-    ICRUDModalService<Ref<IComponent>, { component: Maybe<IComponent> }> {
+    ICRUDModalService<Ref<IComponent>, { component: Maybe<IComponent> }>,
+    IPaginateable<IComponent, { name?: string }> {
   clonedComponents: ObjectMap<IComponent>
   componentAntdNode: IBuilderDataNode
   componentList: Array<IComponent>

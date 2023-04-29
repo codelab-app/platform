@@ -3,7 +3,7 @@ import type {
   IInterfaceTypeDTO,
 } from '@codelab/frontend/abstract/core'
 import type { IAtomBaseRecords } from '@codelab/shared/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import type { IAtomType } from '@codelab/shared/abstract/core'
 import { ObjectTyped } from 'object-typed'
 import type { ITypesExport } from './type'
 
@@ -18,10 +18,6 @@ export type IAtomExport = ITypesExport & {
 export type IAtomRecords = IAtomBaseRecords<IAtomData>
 
 export type IAntdAtomRecords = IAtomBaseRecords<IAtomData, 'AntDesign'>
-
-export const antdAtoms = ObjectTyped.entries(IAtomType)
-  .filter(([keys, values]) => keys.includes('AntDesign'))
-  .map(([keys, values]) => values)
 
 export type IHtmlAtomRecords = IAtomBaseRecords<IAtomData, 'Html'>
 

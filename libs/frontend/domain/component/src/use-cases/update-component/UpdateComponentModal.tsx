@@ -2,6 +2,7 @@ import type {
   IComponentService,
   IUpdateComponentData,
 } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
@@ -10,9 +11,8 @@ import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { updateComponentSchema } from './update-component.schema'
 
-export const UpdateComponentModal = observer<{
-  componentService: IComponentService
-}>(({ componentService }) => {
+export const UpdateComponentModal = observer(() => {
+  const { componentService } = useStore()
   const updatedComponent = componentService.updateModal.component
 
   const handleSubmit = (componentDTO: IUpdateComponentData) => {
