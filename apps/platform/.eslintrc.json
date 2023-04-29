@@ -1,6 +1,6 @@
 {
   "extends": [
-    "plugin:@nrwl/nx/react-typescript",
+    "plugin:@nx/react-typescript",
     "next",
     "next/core-web-vitals",
     "../../.eslintrc.json"
@@ -10,7 +10,10 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["apps/platform/tsconfig(.*)?.json"]
+        "project": [
+          "apps/platform/tsconfig(.*)?.json",
+          "apps/platform/.storybook/tsconfig.json"
+        ]
       },
       "rules": {
         "@next/next/no-html-link-for-pages": ["error", "apps/platform/pages"],
@@ -23,7 +26,7 @@
     {
       "files": ["**/pages/api/graphql.ts"],
       "rules": {
-        "@nrwl/nx/enforce-module-boundaries": "off"
+        "@nx/enforce-module-boundaries": "off"
       }
     },
     {

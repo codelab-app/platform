@@ -2,7 +2,7 @@
   "root": true,
   "ignorePatterns": ["**/*"],
   "plugins": [
-    "@nrwl/nx",
+    "@nx",
     "@typescript-eslint",
     "import",
     "unused-imports",
@@ -319,7 +319,7 @@
           }
         ],
         "func-style": "error",
-        "@nrwl/nx/enforce-module-boundaries": [
+        "@nx/enforce-module-boundaries": [
           "error",
           {
             "enforceBuildableLibDependency": true,
@@ -491,7 +491,7 @@
     {
       "files": ["*.ts", "*.tsx"],
       "extends": [
-        "plugin:@nrwl/nx/typescript",
+        "plugin:@nx/typescript",
         "plugin:jest-formatting/strict",
         "plugin:import/typescript"
       ],
@@ -566,7 +566,7 @@
     },
     {
       "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nrwl/nx/javascript"],
+      "extends": ["plugin:@nx/javascript"],
       "rules": {}
     }
     // {

@@ -1,4 +1,4 @@
-/* eslint-disable @nrwl/nx/enforce-module-boundaries */
+/* eslint-disable @nx/enforce-module-boundaries */
 import { App, AppRepository } from '@codelab/backend/domain/app'
 import { Element, ElementRepository } from '@codelab/backend/domain/element'
 import { Page, PageRepository } from '@codelab/backend/domain/page'

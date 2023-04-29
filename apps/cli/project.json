@@ -1,16 +1,16 @@
 {
   "name": "cli",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/cli/src",
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/webpack:webpack",
+      "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/cli",
         "main": "apps/cli/src/main.ts",
         "tsConfig": "apps/cli/tsconfig.app.json",
-        // "assets": ["apps/cli/src/assets"],
         "webpackConfig": "apps/cli/webpack.config.js",
         "target": "node",
         "compiler": "tsc"
@@ -32,20 +32,20 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/node:node",
+      "executor": "@nx/node:node",
       "options": {
         "buildTarget": "cli:build"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/cli/**/*.ts"]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/apps/cli"],
       "options": {
         "jestConfig": "apps/cli/jest.config.ts",

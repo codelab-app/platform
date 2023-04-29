@@ -1,4 +1,4 @@
-/* eslint-disable @nrwl/nx/enforce-module-boundaries */
+/* eslint-disable @nx/enforce-module-boundaries */
 import { SeoHead } from 'apps/landing/home/SeoHead'
 import * as React from 'react'
 import { HomeTemplate, PricingBody, PricingHeader } from '../../home'

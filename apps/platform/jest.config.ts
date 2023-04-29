@@ -3,11 +3,11 @@ export default {
   globals: {},
   // testEnvironment: 'node',
   transform: {
-    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
+    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
     '^.+\\.[tj]sx?$': [
       'babel-jest',
       {
-        presets: ['@nrwl/next/babel'],
+        presets: ['@nx/next/babel'],
         // https://github.com/facebook/jest/issues/9814#issuecomment-655164306
         // configFile: path.resolve(__dirname, 'babel.config.json'),
       },
@@ -24,4 +24,4 @@ export default {
   coverageDirectory: '../../coverage/apps/platform',
   displayName: 'platform',
   preset: '../../jest.preset.js',
-}
+};

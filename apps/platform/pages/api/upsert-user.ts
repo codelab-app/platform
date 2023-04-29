@@ -1,4 +1,4 @@
-/* eslint-disable @nrwl/nx/enforce-module-boundaries */
+/* eslint-disable @nx/enforce-module-boundaries */
 import { User, UserRepository } from '@codelab/backend/domain/user'
 import type { Auth0SessionUser } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/infra/auth0'

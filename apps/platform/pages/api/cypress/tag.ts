@@ -1,4 +1,4 @@
-/* eslint-disable @nrwl/nx/enforce-module-boundaries */
+/* eslint-disable @nx/enforce-module-boundaries */
 import { Tag, TagRepository } from '@codelab/backend/domain/tag'
 import { createTagsData } from '@codelab/shared/data/test'
 import { auth0Instance } from '@codelab/shared/infra/auth0'

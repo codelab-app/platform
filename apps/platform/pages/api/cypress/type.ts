@@ -1,4 +1,4 @@
-/* eslint-disable @nrwl/nx/enforce-module-boundaries */
+/* eslint-disable @nx/enforce-module-boundaries */
 import { TypeFactory } from '@codelab/backend/domain/type'
 import { createTypesData } from '@codelab/shared/data/test'
 import { auth0Instance } from '@codelab/shared/infra/auth0'

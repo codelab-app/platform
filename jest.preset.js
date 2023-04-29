@@ -1,8 +1,8 @@
-const nxPreset = require('@nrwl/jest/preset').default
+const nxPreset = require('@nx/jest/preset').default;
 
-const testTimeout = process.env.CI ? 15000 : 20000
+const testTimeout = process.env.CI ? 15000 : 20000;
 
-const JEST_CONFIG_PATH = `${__dirname}/scripts/jest`
+const JEST_CONFIG_PATH = `${__dirname}/scripts/jest`;
 
 module.exports = {
   ...nxPreset,
@@ -33,4 +33,4 @@ module.exports = {
    * More info: https://jestjs.io/docs/upgrading-to-jest29#snapshot-format
    */
   snapshotFormat: { escapeString: true, printBasicPrototype: true },
-}
+};

@@ -1,4 +1,4 @@
-/* eslint-disable @nrwl/nx/enforce-module-boundaries */
+/* eslint-disable @nx/enforce-module-boundaries */
 import { Atom, AtomRepository } from '@codelab/backend/domain/atom'
 import {
   InterfaceType,

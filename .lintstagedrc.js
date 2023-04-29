@@ -17,7 +17,7 @@ module.exports = {
   },
   '**/*.{json,graphql,yml,yaml}': (files) => {
     const stagedFiles = files.join(' ')
-    const cmd = `prettier --config .prettierrc.json --write ${stagedFiles}`
+    const cmd = `prettier --config .prettierrc --write ${stagedFiles}`
 
     console.info(`Running: ${cmd}`)
 

@@ -9,7 +9,7 @@ const defaultOptions = () => ({
 })
 
 // Keep a single driver instance if possible
-let driver: Driver
+let driver: Driver | undefined
 
 export const getDriver = () => {
   const { password, uri, username } = defaultOptions()

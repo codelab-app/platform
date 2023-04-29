@@ -1,4 +1,4 @@
-/* eslint-disable @nrwl/nx/enforce-module-boundaries */
+/* eslint-disable @nx/enforce-module-boundaries */
 import { SeoHead } from 'apps/landing/home/SeoHead'
 import { supabase } from 'apps/landing/utils/supabase'
 import type { GetStaticProps } from 'next'

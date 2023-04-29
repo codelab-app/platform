@@ -12,7 +12,7 @@
         "import/no-unresolved": "error",
         "import/named": "error",
         "jest/valid-expect": "off",
-        "@nrwl/nx/enforce-module-boundaries": "off",
+        "@nx/enforce-module-boundaries": "off",
         "@typescript-eslint/no-explicit-any": "off"
       }
     },

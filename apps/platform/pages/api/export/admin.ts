@@ -1,5 +1,5 @@
 /* eslint-disable canonical/sort-keys */
-/* eslint-disable @nrwl/nx/enforce-module-boundaries */
+/* eslint-disable @nx/enforce-module-boundaries */
 import { ExportAdminDataService } from '@codelab/backend/application/admin'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import AdmZip from 'adm-zip'

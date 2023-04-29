@@ -1,13 +1,19 @@
-const { withNx } = require('@nrwl/next/plugins/with-nx')
-const withPlugins = require('next-compose-plugins')
+const { composePlugins, withNx } = require('@nx/next')
 
-/*
- * Next.js doesn't work well with LESS so we use CSS instead.
- *
- */
-module.exports = withPlugins(
-  [],
-  withNx({
-    nx: { svgr: true },
-  }),
-)
+const nextConfig = {
+  experimental: {
+    // appDir: true,
+  },
+  nx: {
+    // Set this to true if you would like to to use SVGR
+    // See: https://github.com/gregberge/svgr
+    svgr: false,
+  },
+}
+
+const plugins = [
+  // Add more Next.js plugins to this list if needed.
+  withNx,
+]
+
+module.exports = composePlugins(...plugins)(nextConfig)

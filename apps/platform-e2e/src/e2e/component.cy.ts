@@ -113,7 +113,7 @@ describe('Component CRUD', () => {
         .trigger('contextmenu')
 
       /**
-       * TODO(@nrwl/cypress): Nesting Cypress commands in a should assertion now throws.
+       * TODO(@nx/cypress): Nesting Cypress commands in a should assertion now throws.
        * You should use .then() to chain commands instead.
        * More Info: https://docs.cypress.io/guides/references/migration-guide#-should
        * */

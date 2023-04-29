@@ -1,4 +1,4 @@
-/* eslint-disable @nrwl/nx/enforce-module-boundaries */
+/* eslint-disable @nx/enforce-module-boundaries */
 import type { IAdminDataExport } from '@codelab/backend/abstract/core'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import type { NextApiHandler } from 'next'

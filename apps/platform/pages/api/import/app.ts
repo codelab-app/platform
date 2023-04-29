@@ -1,4 +1,4 @@
-/* eslint-disable @nrwl/nx/enforce-module-boundaries */
+/* eslint-disable @nx/enforce-module-boundaries */
 import type { IUserDataExport } from '@codelab/backend/abstract/core'
 import { importUserData } from '@codelab/backend/application/user'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
