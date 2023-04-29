@@ -5,7 +5,6 @@ import type {
   IElement,
   IElementDTO,
   IElementService,
-  IUpdateElementData,
   RenderType,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -13,6 +12,7 @@ import {
   getComponentService,
   IRenderTypeKind,
   isComponentInstance,
+  IUpdateElementData,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { Component } from '@codelab/frontend/domain/component'
@@ -152,14 +152,20 @@ export class ElementService
   ) {
     const element = this.element(id)
 
-    element.writeCache({
-      ...elementData,
-    })
+    element.writeCache({ ...elementData })
+    this.writeCloneCache({ id, ...elementData })
 
     yield* _await(this.elementRepository.update(element))
 
     return element
   })
+
+  @modelAction
+  private writeCloneCache({ id, ...elementData }: IUpdateElementData) {
+    return [...this.clonedElements.values()]
+      .filter((clonedElement) => clonedElement.sourceElement?.id === id)
+      .map((clone) => clone.writeCache({ ...elementData }))
+  }
 
   /**
    * Need to take care of reconnecting parent/sibling nodes
