@@ -4,18 +4,11 @@ import { render } from '@testing-library/react'
 import { setupTestForRenderer } from './setup/setup-test'
 
 describe('RenderService', () => {
-  const {
-    component,
-    componentRootElement,
-    pageRootElement: element,
-    reactNodeType,
-    renderer,
-    renderPropType,
-  } = setupTestForRenderer()
+  const data = setupTestForRenderer()
 
   it('should apply typed value transformers', () => {
-    const { props } = renderer.renderIntermediateElement(
-      element,
+    const { props } = data.renderer.renderIntermediateElement(
+      data.pageRootElement,
     ) as IRenderOutput
 
     expect(props).toMatchObject({
@@ -26,13 +19,13 @@ describe('RenderService', () => {
   it('should render props when kind is ReactNodeType', async () => {
     const extraProps = {
       someNode: {
-        type: reactNodeType.id,
-        value: component.id,
+        type: data.reactNodeType.id,
+        value: data.component.id,
       } as TypedValue<string>,
     }
 
-    const { props } = renderer.renderIntermediateElement(
-      element,
+    const { props } = data.renderer.renderIntermediateElement(
+      data.pageRootElement,
       extraProps,
     ) as IRenderOutput
 
@@ -40,7 +33,7 @@ describe('RenderService', () => {
 
     expect(
       await findByText(
-        componentRootElement.props.maybeCurrent
+        data.componentRootElement.props.maybeCurrent
           ?.get(CUSTOM_TEXT_PROP_KEY)
           ?.toString() ?? '',
       ),
@@ -50,13 +43,13 @@ describe('RenderService', () => {
   it('should render props when kind is RenderPropType', async () => {
     const extraProps = {
       someNode: {
-        type: renderPropType.id,
-        value: component.id,
+        type: data.renderPropType.id,
+        value: data.component.id,
       } as TypedValue<string>,
     }
 
-    const { props } = renderer.renderIntermediateElement(
-      element,
+    const { props } = data.renderer.renderIntermediateElement(
+      data.pageRootElement,
       extraProps,
     ) as IRenderOutput
 
@@ -64,7 +57,7 @@ describe('RenderService', () => {
 
     expect(
       await findByText(
-        componentRootElement.props.maybeCurrent
+        data.componentRootElement.props.maybeCurrent
           ?.get(CUSTOM_TEXT_PROP_KEY)
           ?.toString() ?? '',
       ),
@@ -74,13 +67,13 @@ describe('RenderService', () => {
   it('should render props when kind is RenderPropType with overridden props', async () => {
     const extraProps = {
       someNode: {
-        type: renderPropType.id,
-        value: component.id,
+        type: data.renderPropType.id,
+        value: data.component.id,
       } as TypedValue<string>,
     }
 
-    const { props } = renderer.renderIntermediateElement(
-      element,
+    const { props } = data.renderer.renderIntermediateElement(
+      data.pageRootElement,
       extraProps,
     ) as IRenderOutput
 

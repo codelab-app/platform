@@ -6,60 +6,67 @@ import { ConditionalRenderPipe } from '../renderPipes/conditionalRenderPipe'
 import { setupTestForRenderer } from './setup/setup-test'
 
 describe('ConditionalRenderPipe', () => {
-  const { pageRootElement: element, renderer } = setupTestForRenderer([
-    ConditionalRenderPipe,
-  ])
+  const data = setupTestForRenderer([ConditionalRenderPipe])
 
   beforeEach(() => {
-    element.setRenderIfExpression('{{this.shouldRender}}')
+    data.pageRootElement.setRenderIfExpression('{{this.shouldRender}}')
   })
 
   it('should render normally if no expression is set', async () => {
-    element.setRenderIfExpression(undefined)
+    data.pageRootElement.setRenderIfExpression(undefined)
 
-    const output = renderer.renderIntermediateElement(element, {})
+    const output = data.renderer.renderIntermediateElement(
+      data.pageRootElement,
+      {},
+    )
 
-    const atomType = isAtomInstance(element.renderType)
-      ? element.renderType.current.type
+    const atomType = isAtomInstance(data.pageRootElement.renderType)
+      ? data.pageRootElement.renderType.current.type
       : null
 
     expect(output).toEqual({
       atomType,
-      element: element,
+      element: data.pageRootElement,
       props: expect.objectContaining({
-        [DATA_ELEMENT_ID]: element.id,
+        [DATA_ELEMENT_ID]: data.pageRootElement.id,
       }),
     })
   })
 
   it('should stop rendering by returning an empty output', async () => {
-    element.store.current.setInitialState({ shouldRender: false })
+    data.pageRootElement.store.current.setInitialState({ shouldRender: false })
 
-    const output = renderer.renderIntermediateElement(element, {})
+    const output = data.renderer.renderIntermediateElement(
+      data.pageRootElement,
+      {},
+    )
 
-    expect(output).toMatchObject({
-      element: element,
-    })
+    expect(output).toMatchObject({ element: data.pageRootElement })
   })
 
   it('should continue rendering', async () => {
-    element.store.current.setInitialState({ shouldRender: false })
+    data.pageRootElement.store.current.setInitialState({
+      shouldRender: false,
+    })
 
     const initialProps = {
       prop01: 'prop01',
     }
 
-    const output = renderer.renderIntermediateElement(element, initialProps)
+    const output = data.renderer.renderIntermediateElement(
+      data.pageRootElement,
+      initialProps,
+    )
 
-    const atomType = isAtomInstance(element.renderType)
-      ? element.renderType.current.type
+    const atomType = isAtomInstance(data.pageRootElement.renderType)
+      ? data.pageRootElement.renderType.current.type
       : null
 
     expect(output).toEqual({
       atomType,
-      element: element,
+      element: data.pageRootElement,
       props: expect.objectContaining({
-        [DATA_ELEMENT_ID]: element.id,
+        [DATA_ELEMENT_ID]: data.pageRootElement.id,
       }),
     })
   })

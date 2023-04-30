@@ -4,15 +4,14 @@ import { AtomRenderPipe } from '../renderPipes/atomRenderPipe'
 import { setupTestForRenderer } from './setup/setup-test'
 
 describe('RenderAtomPipe', () => {
-  const { pageRootElement, renderer } = setupTestForRenderer([AtomRenderPipe])
+  const data = setupTestForRenderer([AtomRenderPipe])
 
   it('should render element atom', async () => {
-    const elementProps = pageRootElement.props.current
     const text = 'a text to render'
 
-    elementProps.set(CUSTOM_TEXT_PROP_KEY, text)
+    data.atomInstance.props.current.set(CUSTOM_TEXT_PROP_KEY, text)
 
-    const output = renderer.renderElement(pageRootElement)
+    const output = data.renderer.renderElement(data.atomInstance)
     const { findByText } = render(output)
 
     expect(await findByText(text)).toBeInTheDocument()

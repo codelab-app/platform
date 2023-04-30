@@ -199,7 +199,7 @@ export class Component
     )
 
     const clonedComponent: IComponent = clone<IComponent>(this)
-    componentService.clonedComponents.set(clonedComponent.id, clonedComponent)
+    componentService.clonedComponents.set(key, clonedComponent)
 
     this.cloneTree(clonedComponent, clonesList.length)
 
