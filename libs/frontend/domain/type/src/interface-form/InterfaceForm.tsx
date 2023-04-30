@@ -11,6 +11,7 @@ import type { InterfaceFormProps } from './types'
  */
 export const InterfaceForm = observer(
   <TData, TResponse = unknown>({
+    allowExpressions,
     autosave,
     children,
     initialSchema,
@@ -32,6 +33,7 @@ export const InterfaceForm = observer(
 
     return (
       <Form
+        allowExpressions={allowExpressions}
         autosave={autosave}
         model={model}
         onChange={onChange}

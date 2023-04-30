@@ -7,7 +7,6 @@ import addFormats from 'ajv-formats'
 import addKeywords from 'ajv-keywords'
 import type { MutableRefObject } from 'react'
 import JSONSchemaBridge from 'uniforms-bridge-json-schema'
-import type { FormContextValue } from '../providers'
 
 export const connectUniformSubmitRef =
   (submitRef: Maybe<MutableRefObject<Maybe<SubmitController>>>) =>
@@ -77,12 +76,12 @@ ajv.addSchema({
   },
 })
 
-export const createValidator = (schema: Schema, context?: FormContextValue) => {
+export const createValidator = (schema: Schema, allowExpressions?: boolean) => {
   const validator = ajv.compile(schema)
 
   return (model: Record<string, unknown>) => {
     // FIXME:
-    const modelToValidate = context?.allowExpressions
+    const modelToValidate = allowExpressions
       ? replaceStateInProps(model, {})
       : model
 
@@ -94,9 +93,9 @@ export const createValidator = (schema: Schema, context?: FormContextValue) => {
 
 export const createBridge = <T = unknown>(
   schema: JSONSchemaType<T>,
-  context?: FormContextValue,
+  allowExpressions?: boolean,
 ) => {
-  const schemaValidator = createValidator(schema, context)
+  const schemaValidator = createValidator(schema, allowExpressions)
 
   return new JSONSchemaBridge(schema, schemaValidator)
 }

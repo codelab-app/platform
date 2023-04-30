@@ -10,10 +10,10 @@ import {
   createBridge,
   createValidator,
 } from '../hooks/uniformUtils'
-import { useFormContext } from '../providers'
 
 export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
   const Form = <TData, TResponse = unknown>({
+    allowExpressions = false,
     autosave = false,
     children,
     cssString,
@@ -28,15 +28,17 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
     submitField,
     submitRef,
   }: React.PropsWithChildren<FormProps<TData, TResponse>>): ReactElement => {
-    const context = useFormContext()
-
     const [bridge, setBridge] = useState(
-      schema instanceof Bridge ? schema : createBridge(schema, context),
+      schema instanceof Bridge
+        ? schema
+        : createBridge(schema, allowExpressions),
     )
 
     useEffect(() => {
       setBridge(
-        schema instanceof Bridge ? schema : createBridge(schema, context),
+        schema instanceof Bridge
+          ? schema
+          : createBridge(schema, allowExpressions),
       )
     }, [schema])
 
