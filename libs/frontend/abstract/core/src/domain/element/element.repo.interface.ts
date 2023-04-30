@@ -6,9 +6,7 @@ import type {
 import type { IRepository } from '../../service'
 import type { IElement } from './element.model.interface'
 
-export type IElementRepository = IRepository<
-  IElement,
-  ElementFragment,
-  ElementWhere,
-  DomainOptions
->
+export interface IElementRepository
+  extends IRepository<IElement, ElementFragment, ElementWhere, DomainOptions> {
+  updateNodes(element: IElement): Promise<IEntity>
+}

@@ -27,6 +27,7 @@ export type ITestRootStore = Pick<
 }
 
 export interface TestServices {
+  atomInstance: IElement
   component: IComponent
   componentInstance: IElement
   componentRootElement: IElement

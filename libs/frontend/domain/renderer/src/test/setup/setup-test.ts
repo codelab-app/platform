@@ -17,6 +17,7 @@ import { PropService } from '@codelab/frontend/domain/prop'
 import { ActionService, StoreService } from '@codelab/frontend/domain/store'
 import { TagService } from '@codelab/frontend/domain/tag'
 import {
+  Field,
   FieldService,
   InterfaceType,
   PrimitiveType,
@@ -46,6 +47,10 @@ const stubServiceRepositories = (rootStore: ITestRootStore) => {
     .mockImplementation()
 
   jest
+    .spyOn(rootStore.elementService.elementRepository, 'updateNodes')
+    .mockImplementation()
+
+  jest
     .spyOn(rootStore.componentService.componentRepository, 'add')
     .mockImplementation()
 
@@ -55,7 +60,7 @@ const stubServiceRepositories = (rootStore: ITestRootStore) => {
 
 // Clone everything so that we don't get conflicts between different test files.
 export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
-  let data: TestServices = {} as TestServices
+  const data: TestServices = {} as TestServices
 
   beforeEach(async () => {
     const user = new User({ auth0Id: v4(), id: v4(), username: '' })
@@ -82,10 +87,16 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       type: IAtomType.Text,
     })
 
-    const primitiveType = new PrimitiveType({
-      name: 'primitiveType',
+    const integerType = new PrimitiveType({
+      name: 'integerType',
       owner: { auth0Id: user.auth0Id },
       primitiveKind: PrimitiveTypeKind.Integer,
+    })
+
+    const stringType = new PrimitiveType({
+      name: 'stringType',
+      owner: { auth0Id: user.auth0Id },
+      primitiveKind: PrimitiveTypeKind.String,
     })
 
     const renderPropType = new RenderPropType({
@@ -96,6 +107,14 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     const reactNodeType = new ReactNodeType({
       name: 'reactNodeType',
       owner: { auth0Id: user.auth0Id },
+    })
+
+    const customTextField = new Field({
+      api: typeRef(emptyInterface),
+      id: v4(),
+      key: CUSTOM_TEXT_PROP_KEY,
+      name: 'customTextProp',
+      type: typeRef(stringType.id),
     })
 
     const rootStore = new TestRootStore({
@@ -110,14 +129,17 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       builderRenderService: new RenderService({}),
       componentService: new ComponentService({}),
       elementService: new ElementService({}),
-      fieldService: new FieldService({}),
+      fieldService: new FieldService({
+        fields: objectMap([[customTextField.id, customTextField]]),
+      }),
       pageService: new PageService({}),
       propService: new PropService({}),
       storeService: new StoreService({}),
       tagService: new TagService({}),
       typeService: new TypeService({
         types: objectMap<IType>([
-          [primitiveType.id, primitiveType],
+          [integerType.id, integerType],
+          [stringType.id, stringType],
           [renderPropType.id, renderPropType],
           [reactNodeType.id, reactNodeType],
           [emptyInterface.id, emptyInterface],
@@ -147,12 +169,11 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       prop01: 'prop01Value',
       prop02: 'prop02Value',
       prop03: {
-        type: primitiveType.id,
+        type: integerType.id,
         value: 'prop03Value',
       },
     })
 
-    page.rootElement.current.setRenderType(atomRef(divAtom))
     page.rootElement.current.setPropTransformationJs(`
       // Write a transformer function, you get the input props as parameter
       // All returned props will get merged with the original ones
@@ -178,22 +199,36 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       owner: { auth0Id: user.auth0Id },
     })
 
+    component.api.current.fields.push(customTextField)
+
     component.rootElement.current.setRenderType(atomRef(textAtom))
     component.rootElement.current.props.current.setMany({
-      componentProp: 'original',
       [CUSTOM_TEXT_PROP_KEY]: "I'm a component",
     })
 
-    const componentInstance = await rootStore.elementService.create({
-      id: v4(),
-      name: '01',
-      parentElement: { id: page.rootElement.id },
-      props: { data: JSON.stringify({ componentProp: 'instance' }) },
-      renderType: {
-        id: component.id,
-        kind: IRenderTypeKind.Component,
-      },
-    })
+    const componentInstance =
+      await rootStore.elementService.createElementAsFirstChild({
+        id: v4(),
+        name: '01',
+        parentElement: { id: page.rootElement.id },
+        props: {},
+        renderType: {
+          id: component.id,
+          kind: IRenderTypeKind.Component,
+        },
+      })
+
+    const atomInstance =
+      await rootStore.elementService.createElementAsNextSibling({
+        id: v4(),
+        name: 'Text Atom Element',
+        prevSibling: { id: componentInstance.id },
+        props: {},
+        renderType: {
+          id: textAtom.id,
+          kind: IRenderTypeKind.Atom,
+        },
+      })
 
     const renderer: IRenderer = new Renderer({
       debugMode: false,
@@ -204,7 +239,9 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
 
     rootStore.setRenderer(renderer)
 
-    data = {
+    // data object needs to keep the same reference
+    Object.assign(data, {
+      atomInstance,
       component,
       componentInstance,
       componentRootElement: component.rootElement.current,
@@ -214,9 +251,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       renderer,
       renderPropType,
       rootStore,
-    }
-
-    return data
+    })
   })
 
   afterEach(() => {
