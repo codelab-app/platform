@@ -15,13 +15,7 @@ describe('Renderer', () => {
   /**
    * Before all render pipes were built in to the renderer, now we extract and test only the ones we need
    */
-  const {
-    componentInstance,
-    componentRootElement,
-    pageRootElement,
-    renderer,
-    rootStore,
-  } = setupTestForRenderer([ComponentRenderPipe])
+  const data = setupTestForRenderer([ComponentRenderPipe])
 
   it('should add extra props', () => {
     const { props } = data.rootStore.renderer.renderIntermediateElement(
@@ -79,8 +73,10 @@ describe('Renderer', () => {
       ...data.componentInstance.props.current.values,
     })
 
-    const componentAtomType = isAtomInstance(componentRootElement.renderType)
-      ? componentRootElement.renderType.current.type
+    const componentAtomType = isAtomInstance(
+      data.componentRootElement.renderType,
+    )
+      ? data.componentRootElement.renderType.current.type
       : null
 
     expect(atomType).toBe(componentAtomType)

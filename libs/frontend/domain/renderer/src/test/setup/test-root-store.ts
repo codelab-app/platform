@@ -28,6 +28,7 @@ import {
   actionServiceContext,
   storeServiceContext,
 } from '@codelab/frontend/domain/store'
+import { tagServiceContext } from '@codelab/frontend/domain/tag'
 import {
   fieldServiceContext,
   typeServiceContext,
@@ -70,6 +71,7 @@ export class TestRootStore
     propServiceContext.set(this, this.propService)
     storeServiceContext.set(this, this.storeService)
     builderRenderServiceContext.set(this, this.builderRenderService)
+    tagServiceContext.set(this, this.tagService)
 
     registerRootStore(this)
   }
