@@ -449,6 +449,27 @@ export class ElementService
       parentElement: data.parentElement,
     })
 
+    const parentElementClone = [...this.clonedElements.values()].find(
+      ({ sourceElement }) => sourceElement?.id === data.parentElement?.id,
+    )
+
+    if (parentElementClone) {
+      const parentComponentId = element.parentComponent?.current.id
+      const { clonedComponents } = this.componentService
+
+      const clonesList = [...clonedComponents.values()].filter(
+        ({ sourceComponent }) => sourceComponent?.id === parentComponentId,
+      )
+
+      const cloneIndex = clonesList.length
+      const elementClone = element.clone(cloneIndex)
+
+      this.attachElementAsFirstChild({
+        element: elementClone,
+        parentElement: parentElementClone,
+      })
+    }
+
     yield* _await(
       Promise.all(
         affectedNodeIds.map((id) =>
