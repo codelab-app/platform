@@ -13,7 +13,7 @@ export const exportUserData = async (where: OGM_TYPES.AppWhere) => {
 
   const exportData: IUserDataExport = {
     apps: appsData,
-    components: components,
+    components,
     resources: resourcesData,
     ...typesData,
   }

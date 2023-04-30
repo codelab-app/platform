@@ -1,10 +1,9 @@
-import type {
-  ExportAppData,
-  IAppExport,
-  IExportComponents,
-} from '@codelab/backend/abstract/core'
+import type { ExportAppData, IAppExport } from '@codelab/backend/abstract/core'
 import { AbstractRepository } from '@codelab/backend/abstract/types'
-import { createComponent } from '@codelab/backend/domain/component'
+import {
+  createComponent,
+  findComponent,
+} from '@codelab/backend/domain/component'
 import {
   importElementInitial,
   updateImportedElement,
@@ -24,6 +23,7 @@ import type {
   IAppDTO,
   IAuth0Owner,
   IComponentExport,
+  IExportComponents,
 } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import {
@@ -108,15 +108,10 @@ export class AppRepository extends AbstractRepository<
   }
 }
 
-export const createApp = async (
-  app: IAppExport,
-  components: Array<IComponentExport>,
-  owner: IAuth0Owner,
-) => {
+export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
   cLog(omit(app, ['pages']))
 
   const fieldRepository = new FieldRepository()
-  const propRepository = new PropRepository()
   const storeRepository = new StoreRepository()
   const interfaceTypeRepository = new InterfaceTypeRepository()
   const pageRepository = new PageRepository()
@@ -152,24 +147,11 @@ export const createApp = async (
       .add([{ ...store.api, fields: [] }])
       .catch((err) => null)
 
-    await fieldRepository.add(store.api.fields)
+    await fieldRepository.add(store.api.fields).catch((err) => null)
     await storeRepository.add([store]).catch((err) => null)
   }
 
   // components should be created after their root elements
-  for (const component of components) {
-    await interfaceTypeRepository
-      .add([
-        { ...component.store.api, fields: [] },
-        { ...component.api, fields: [] },
-      ])
-      .catch((err) => console.log({ err }))
-    await fieldRepository.add(component.api.fields).catch((err) => null)
-    await fieldRepository.add(component.store.api.fields).catch((err) => null)
-    await storeRepository.add([component.store]).catch((err) => null)
-    await propRepository.add([component.props]).catch((err) => null)
-    await createComponent(component, owner).catch((err) => null)
-  }
 
   const pagesData = app.pages.map(({ elements, ...props }) => ({
     ...props,
@@ -178,8 +160,8 @@ export const createApp = async (
 
   console.log('Creating new app...')
 
-  await appRepository.add([{ ...app, owner, pages: [] }])
-  await pageRepository.add(pagesData)
+  await appRepository.add([{ ...app, owner, pages: [] }]).catch((err) => null)
+  await pageRepository.add(pagesData).catch((err) => null)
 
   console.log('Creating actions...')
 
@@ -188,16 +170,45 @@ export const createApp = async (
   return app
 }
 
+export const createComponents = async (
+  components: Array<IComponentExport>,
+  owner: IAuth0Owner,
+) => {
+  const fieldRepository = new FieldRepository()
+  const propRepository = new PropRepository()
+  const storeRepository = new StoreRepository()
+  const interfaceTypeRepository = new InterfaceTypeRepository()
+
+  for (const component of components) {
+    const isExist = findComponent({ id: component.id })
+
+    if ((await isExist).length > 0) {
+      return
+    } else {
+      await interfaceTypeRepository.add([
+        { ...component.store.api, fields: [] },
+        { ...component.api, fields: [] },
+      ])
+
+      await fieldRepository.add(component.api.fields)
+      await fieldRepository.add(component.store.api.fields)
+      await storeRepository.add([component.store])
+      await propRepository.add([component.props])
+      await createComponent(component, owner)
+    }
+  }
+}
 /**
  * Gather all pages, elements and components
  */
+
 export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
   const pageRepository = new PageRepository()
   const pages = await pageRepository.find({ app: { id: app.id } })
 
   const pagesData = await Promise.all(
     pages.map(async (page) => {
-      const { components, elements } = await getPageData(page)
+      const { elements } = await getPageData(page)
 
       const { id, kind, name, pageContentContainer, rootElement, store, url } =
         page
@@ -228,7 +239,7 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
 
 // export component of the app
 
-export const getComponents = async (
+export const getAppComponents = async (
   app: OGM_TYPES.App,
 ): Promise<IExportComponents> => {
   const pageRepository = new PageRepository()

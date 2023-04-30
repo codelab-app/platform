@@ -1,4 +1,4 @@
-import { AppRepository, getComponents } from '@codelab/backend/domain/app'
+import { AppRepository, getAppComponents } from '@codelab/backend/domain/app'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import flatMap from 'lodash/flatMap'
 import uniqBy from 'lodash/uniqBy'
@@ -9,7 +9,7 @@ export const exportComponents = async (where: OGM_TYPES.AppWhere) => {
 
   const components = await Promise.all(
     apps.map(async (app) => {
-      const { components: Exportedcomponent } = await getComponents(app)
+      const { components: Exportedcomponent } = await getAppComponents(app)
 
       return Exportedcomponent
     }),

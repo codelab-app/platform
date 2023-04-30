@@ -11,7 +11,3 @@ export type IAppExport = Pick<OGM_TYPES.App, 'id' | 'name' | 'slug'> & {
 export interface ExportAppData {
   app: IAppExport
 }
-
-export interface IExportComponents {
-  components: Array<OGM_TYPES.Component>
-}

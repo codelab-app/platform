@@ -9,13 +9,12 @@ import { logSection, logTask } from '@codelab/shared/utils'
 
 export const importApps = async (
   apps: Array<IAppExport> = [],
-  components: Array<IComponentExport>,
   owner: IAuth0Owner,
 ) => {
   logSection('Importing App')
 
   for (const app of apps) {
-    const importedApp = await createApp(app, components, owner)
+    const importedApp = await createApp(app, owner)
 
     logTask('Imported App', importedApp.name)
 

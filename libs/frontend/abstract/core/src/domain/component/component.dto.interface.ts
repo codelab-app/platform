@@ -23,4 +23,8 @@ export type IUpdateComponentData = Pick<
 
 export type IComponentExport = OGM_TYPES.Component
 
+export interface IExportComponents {
+  components: Array<OGM_TYPES.Component>
+}
+
 export type IComponentID = string
