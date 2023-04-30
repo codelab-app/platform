@@ -7,6 +7,7 @@ import type {
   IRenderPropType,
   IRootStore,
 } from '@codelab/frontend/abstract/core'
+import type { Field } from '@codelab/frontend/domain/type'
 import type { Nullable } from '@codelab/shared/abstract/types'
 
 export type ITestRootStore = Pick<

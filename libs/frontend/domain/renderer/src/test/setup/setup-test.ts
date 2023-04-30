@@ -75,17 +75,18 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
 
   beforeEach(async () => {
     const user = new User({ auth0Id: v4(), id: v4(), username: '' })
+    const owner = { auth0Id: user.auth0Id }
     const pageId = v4()
 
     const emptyInterface = new InterfaceType({
       name: 'Empty interface',
-      owner: { auth0Id: user.auth0Id },
+      owner,
     })
 
     const divAtom = new Atom({
       api: typeRef(emptyInterface),
       name: 'Html Div',
-      owner: { auth0Id: user.auth0Id },
+      owner,
       tags: [],
       type: IAtomType.HtmlDiv,
     })
@@ -93,7 +94,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     const textAtom = new Atom({
       api: typeRef(emptyInterface),
       name: 'Text',
-      owner: { auth0Id: user.auth0Id },
+      owner,
       tags: [],
       type: IAtomType.Text,
     })
@@ -138,19 +139,19 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
 
     data.renderPropType = new RenderPropType({
       name: 'renderPropType',
-      owner: { auth0Id: user.auth0Id },
+      owner,
     })
 
     const reactNodeType = new ReactNodeType({
       name: 'reactNodeType',
-      owner: { auth0Id: user.auth0Id },
+      owner,
     })
 
     const customTextField = new Field({
       api: typeRef(emptyInterface),
       id: v4(),
       key: CUSTOM_TEXT_PROP_KEY,
-      name: 'customTextProp',
+      name: CUSTOM_TEXT_PROP_KEY,
       type: typeRef(stringType.id),
     })
 
@@ -387,7 +388,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     const app = await rootStore.appService.create({
       id: v4(),
       name: 'app',
-      owner: { auth0Id: user.auth0Id },
+      owner,
     })
 
     const page = await rootStore.pageService.create({
@@ -395,7 +396,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       id: pageId,
       kind: IPageKind.Regular,
       name: 'page',
-      owner: { auth0Id: user.auth0Id },
+      owner,
       url: '/page',
     })
 
@@ -430,15 +431,11 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
           return props.id
       }`,
       name: 'My Component',
-      owner: { auth0Id: user.auth0Id },
+      owner,
     })
 
-    component.api.current.fields.push(customTextField)
-
+    component.api.current.writeCache({ fields: [{ id: customTextField.id }] })
     component.rootElement.current.setRenderType(atomRef(textAtom))
-    component.rootElement.current.props.current.setMany({
-      [CUSTOM_TEXT_PROP_KEY]: "I'm a component",
-    })
 
     const componentInstance =
       await rootStore.elementService.createElementAsFirstChild({
@@ -479,6 +476,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       component,
       componentInstance,
       componentRootElement: component.rootElement.current,
+      customTextField,
       page,
       pageRootElement: page.rootElement.current,
       reactNodeType,
