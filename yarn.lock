@@ -15941,12 +15941,11 @@ __metadata:
     json2csv: 5.0.7
     jwt-decode: 3.1.2
     lint-staged: 12.4.1
-    local-cypress: ^1.2.6
     lodash: 4.17.21
     madge: 5.0.1
     micro: ^10.0.1
     mobx: 6.9.0
-    mobx-keystone: 1.4.1
+    mobx-keystone: 1.5.0
     mobx-react-lite: 3.4.3
     mobx-utils: 6.0.6
     moment: ^2.29.4
@@ -25817,15 +25816,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"local-cypress@npm:^1.2.6":
-  version: 1.2.6
-  resolution: "local-cypress@npm:1.2.6"
-  dependencies:
-    debug: 4.3.4
-  checksum: b8d42391f6a7ae6379a1e927bb269fd6d106fed5d82f43e90c71cc532f2054938b9da47fe182856277206a1b365c5b40cf3a7329268e90bb658394c11adc97f1
-  languageName: node
-  linkType: hard
-
 "locate-path@npm:^2.0.0":
   version: 2.0.0
   resolution: "locate-path@npm:2.0.0"
@@ -26786,17 +26776,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mobx-keystone@npm:1.4.1":
-  version: 1.4.1
-  resolution: "mobx-keystone@npm:1.4.1"
+"mobx-keystone@npm:1.5.0":
+  version: 1.5.0
+  resolution: "mobx-keystone@npm:1.5.0"
   dependencies:
     fast-deep-equal: ^3.1.3
-    nanoid: ^3.3.4
     ts-toolbelt: ^9.6.0
     tslib: ^2.5.0
   peerDependencies:
     mobx: ^6.0.0 || ^5.0.0 || ^4.0.0
-  checksum: 1f2dd17a63e7b4a8b1263d2aeb99ceb068047f7b36143274d83fef52c453e948d4be179d9286b5e58e4cbc45d48c032a472f3b018969742ee24f1f6567273043
+  checksum: 8c6f709253e95bf1e55f1d55c4233c6f7fe3eb36119c946ffbff834c62e8555a684776fffb6aafb61d7c28db7ade4a24f7324a52d0b5d77279b93daaa2859023
   languageName: node
   linkType: hard
 

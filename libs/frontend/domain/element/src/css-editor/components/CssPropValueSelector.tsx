@@ -7,14 +7,14 @@ import { makeMenu } from '../utils'
 import { CssPropEditorItem } from './CssPropEditorItem'
 
 interface PropValueSelectorProps {
-  name: string
   currentValue: string
+  name: string
   options: Array<string>
-  onClick: (val: string) => void | undefined
+  onClick(val: string): undefined | void
 }
 
 export const CssPropValueSelector = observer(
-  ({ name, currentValue, options, onClick }: PropValueSelectorProps) => {
+  ({ currentValue, name, onClick, options }: PropValueSelectorProps) => {
     const [overlay, setOverlay] = useState<EmotionJSX.Element>(
       makeMenu(options, onClick),
     )

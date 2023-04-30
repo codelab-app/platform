@@ -89,7 +89,7 @@ export const ItemDropdown = observer<ItemMenuProps>(({ app, domains }) => {
   ]
 
   return (
-    <Dropdown overlay={<Menu items={menuItems} />} trigger={['click']}>
+    <Dropdown menu={{ items: menuItems }} trigger={['click']}>
       <Button icon={<EllipsisOutlined />} shape="circle" type="text" />
     </Dropdown>
   )

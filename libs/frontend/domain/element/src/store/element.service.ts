@@ -172,7 +172,7 @@ export class ElementService
    */
   @modelFlow
   @transaction
-  delete = _async(function* (this: ElementService, subRoot: IEntity) {
+  delete = _async(function* (this: ElementService, subRoot: IElement) {
     console.debug('deleteElementSubgraph', subRoot)
 
     const subRootElement = this.element(subRoot.id)

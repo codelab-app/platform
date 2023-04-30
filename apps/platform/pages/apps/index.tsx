@@ -46,7 +46,7 @@ const AppsPageHeader = observer(() => {
   const pageHeaderElements = [
     <ImportAppDialog key={0} />,
     <CreateAppButton key={1} />,
-    <Dropdown key={2} overlay={<Menu items={items} />} trigger={['click']}>
+    <Dropdown key={2} menu={{ items }} trigger={['click']}>
       <Button icon={<EllipsisOutlined />} />
     </Dropdown>,
   ]

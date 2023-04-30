@@ -10,16 +10,17 @@ import React from 'react'
 import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { updateComponentSchema } from './update-component.schema'
+import { UpdateComponentForm } from './UpdateComponentForm'
 
 export const UpdateComponentModal = observer(() => {
   const { componentService } = useStore()
-  const updatedComponent = componentService.updateModal.component
+  const component = componentService.updateModal.component
 
   const handleSubmit = (componentDTO: IUpdateComponentData) => {
     return componentService.update(componentDTO)
   }
 
-  const model = { name: updatedComponent?.name }
+  const model = { id: component?.id, name: component?.name }
   const closeModal = () => componentService.updateModal.close()
 
   return (
@@ -29,6 +30,7 @@ export const UpdateComponentModal = observer(() => {
       open={componentService.updateModal.isOpen}
       title={<span css={tw`font-semibold`}>Update component</span>}
     >
+      {/* <UpdateComponentForm component={component} /> */}
       <ModalForm.Form<IUpdateComponentData>
         model={model}
         onSubmit={handleSubmit}

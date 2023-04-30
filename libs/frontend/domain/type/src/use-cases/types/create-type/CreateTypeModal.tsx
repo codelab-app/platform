@@ -27,8 +27,7 @@ export const CreateTypeModal = observer(() => {
       })),
     }
 
-    const type = await typeService.create(input)
-    typeService.paginationService.dataRefs.set(type.id, typeRef(type))
+    return await typeService.create(input)
   }
 
   return (

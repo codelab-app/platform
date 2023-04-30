@@ -36,7 +36,7 @@ export const CreateResourceButton = observer(() => {
   ]
 
   return (
-    <Dropdown overlay={<Menu items={menuItems} />}>
+    <Dropdown menu={{ items: menuItems }}>
       <Button css={tw`h-full w-full`} icon={<PlusOutlined />} type="primary">
         Connect
       </Button>

@@ -2,7 +2,7 @@ import { Menu } from 'antd'
 
 export const makeMenu = (
   items: Array<string>,
-  onClick: (val: string) => void | undefined,
+  onClick: (val: string) => undefined | void,
 ) => {
   return (
     <Menu
@@ -12,7 +12,7 @@ export const makeMenu = (
           label: item,
         }
       })}
-      onClick={(e) => onClick(e.key)}
+      onClick={(event) => onClick(event.key)}
     />
   )
 }

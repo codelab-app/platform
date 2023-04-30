@@ -13,12 +13,8 @@ export const CreateAtomModal = observer(() => {
   const { atomService, tagService, userService } = useStore()
   const closeModal = () => atomService.createModal.close()
 
-  const onSubmit = async (data: ICreateAtomData) => {
-    const atom = await atomService.create(data)
-    atomService.paginationService.dataRefs.set(atom.id, atomRef(atom))
-
-    return atom
-  }
+  const onSubmit = async (data: ICreateAtomData) =>
+    await atomService.create(data)
 
   const onSubmitError = createNotificationHandler({
     title: 'Error while creating atom',

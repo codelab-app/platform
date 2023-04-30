@@ -28,7 +28,6 @@ export class PaginationService<
     U2 extends Filterables | void = void,
   >() => ({
     currentPage: prop(1).withSetter(),
-    data: prop(() => [] as Array<T2>),
     dataRefs: prop(() => objectMap<Ref<T2>>()),
     filter: prop(() => ({} as U2)).withSetter(),
     isLoading: prop(false),

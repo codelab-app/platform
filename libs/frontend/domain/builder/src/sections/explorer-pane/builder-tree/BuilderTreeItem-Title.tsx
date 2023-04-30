@@ -112,5 +112,3 @@ export const BuilderTreeItemTitle = observer<BuilderTreeItemTitleProps>(
     )
   },
 )
-
-BuilderTreeItemTitle.displayName = 'BuilderTreeItemTitle'

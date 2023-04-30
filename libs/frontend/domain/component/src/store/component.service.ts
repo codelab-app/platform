@@ -6,6 +6,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   COMPONENT_TREE_CONTAINER,
+  componentRef,
   getBuilderRenderService,
   getElementService,
   IBuilderDataNode,
@@ -175,6 +176,8 @@ export class ComponentService
 
     yield* _await(this.componentRepository.add(component))
 
+    this.paginationService.dataRefs.set(component.id, componentRef(component))
+
     return component
   })
 
@@ -197,14 +200,15 @@ export class ComponentService
   @modelFlow
   @transaction
   delete = _async(function* (this: ComponentService, component: IComponent) {
-    const { id, rootElement, store } = component
-    const storeCurrent = store.current
+    const { id } = component
+    const store = component.store.current
+    const rootElement = component.rootElement.current
 
     this.components.delete(id)
     this.removeClones(id)
 
-    yield* _await(this.storeService.delete(storeCurrent))
-    yield* _await(this.elementService.delete({ id: rootElement.id }))
+    yield* _await(this.storeService.delete(store))
+    yield* _await(this.elementService.delete(rootElement))
     yield* _await(this.componentRepository.delete([component]))
 
     return component
@@ -248,9 +252,11 @@ export class ComponentService
       this.componentRepository.find(where, options),
     )
 
-    return components
-      .map((component) => this.add(component))
-      .filter((component): component is Component => Boolean(component))
+    return components.map((component) => {
+      this.storeService.load([component.store])
+
+      return this.add(component)
+    })
   })
 
   @modelFlow

@@ -67,6 +67,8 @@ export class ComponentRepository
       componentApi.DeleteComponents({
         delete: {
           api: {},
+          props: {},
+          store: {},
         },
         where: { id_IN: components.map((component) => component.id) },
       }),

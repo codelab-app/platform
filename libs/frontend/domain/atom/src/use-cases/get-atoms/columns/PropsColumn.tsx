@@ -52,15 +52,12 @@ export const PropsColumn = observer<PropsColumnProps>(
         {Boolean(atom.api.fields.length) && (
           <>
             <Col>
-              <Dropdown.Button overlay={<Menu items={editMenuItems} />}>
+              <Dropdown.Button menu={{ items: editMenuItems }}>
                 <EditOutlined />
               </Dropdown.Button>
             </Col>
             <Col>
-              <Dropdown.Button
-                danger
-                overlay={<Menu items={deleteMenuItems} />}
-              >
+              <Dropdown.Button danger menu={{ items: deleteMenuItems }}>
                 <DeleteOutlined />
               </Dropdown.Button>
             </Col>

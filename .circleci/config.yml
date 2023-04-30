@@ -125,7 +125,7 @@ commands:
       - attach_workspace:
           at: ..
       - restore_cache:
-          name: 'Restore NPM Cache'
+          name: 'Restore Cache'
           keys:
             - dep-cache-{{ checksum "yarn.lock" }}
       - run:

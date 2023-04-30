@@ -60,7 +60,6 @@ export class Component
     props: prop<Ref<IProp>>().withSetter(),
     // if this is a duplicate, trace source component id else null
     sourceComponent: prop<Nullable<IEntity>>(null).withSetter(),
-
     store: prop<Ref<IStore>>(),
   })
   implements IComponent

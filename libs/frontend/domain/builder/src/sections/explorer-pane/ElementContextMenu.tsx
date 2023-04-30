@@ -144,5 +144,3 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     )
   },
 )
-
-ElementContextMenu.displayName = 'ElementContextMenu'

@@ -53,18 +53,11 @@ export const ComponentsTable = observer(() => {
     {
       key: 'action',
       onHeaderCell: headerCellProps,
-      render: (_, component) => (
-        <ActionColumn
-          component={component}
-          componentService={componentService}
-        />
-      ),
+      render: (_, component) => <ActionColumn component={component} />,
       title: 'Action',
       width: 100,
     },
   ]
-
-  console.log(data)
 
   const dataSource: Array<ComponentColumnData> = data.map((component) => ({
     apiId: component.api.id,

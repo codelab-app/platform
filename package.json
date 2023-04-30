@@ -99,7 +99,7 @@
     "lodash": "4.17.21",
     "micro": "^10.0.1",
     "mobx": "6.9.0",
-    "mobx-keystone": "1.4.1",
+    "mobx-keystone": "1.5.0",
     "mobx-react-lite": "3.4.3",
     "mobx-utils": "6.0.6",
     "moment": "^2.29.4",

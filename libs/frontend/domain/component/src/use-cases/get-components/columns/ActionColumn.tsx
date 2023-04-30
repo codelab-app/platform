@@ -2,6 +2,7 @@ import { ApartmentOutlined } from '@ant-design/icons'
 import type { IComponentService } from '@codelab/frontend/abstract/core'
 import { componentRef } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
+import { useStore } from '@codelab/frontend/presentation/container'
 import {
   ListItemButton,
   ListItemDeleteButton,
@@ -15,34 +16,32 @@ import type { ComponentColumnData } from './types'
 
 export interface ActionColumnProps {
   component: ComponentColumnData
-  componentService: IComponentService
 }
 
-export const ActionColumn = observer<ActionColumnProps>(
-  ({ component, componentService }) => {
-    const router = useRouter()
+export const ActionColumn = observer<ActionColumnProps>(({ component }) => {
+  const router = useRouter()
+  const { componentService } = useStore()
 
-    const onEdit = () => {
-      componentService.updateModal.open(componentRef(component.id))
-    }
+  const onEdit = () => {
+    componentService.updateModal.open(componentRef(component.id))
+  }
 
-    const onDelete = () => {
-      componentService.deleteModal.open(componentRef(component.id))
-    }
+  const onDelete = () => {
+    componentService.deleteModal.open(componentRef(component.id))
+  }
 
-    const onBuilder = () => {
-      void router.push({
-        pathname: PageType.ComponentDetail,
-        query: { componentId: component.id },
-      })
-    }
+  const onBuilder = () => {
+    void router.push({
+      pathname: PageType.ComponentDetail,
+      query: { componentId: component.id },
+    })
+  }
 
-    return (
-      <Space size="middle">
-        <ListItemButton icon={<ApartmentOutlined />} onClick={onBuilder} />
-        <ListItemEditButton onClick={onEdit} />
-        <ListItemDeleteButton onClick={onDelete} />
-      </Space>
-    )
-  },
-)
+  return (
+    <Space size="middle">
+      <ListItemButton icon={<ApartmentOutlined />} onClick={onBuilder} />
+      <ListItemEditButton onClick={onEdit} />
+      <ListItemDeleteButton onClick={onDelete} />
+    </Space>
+  )
+})

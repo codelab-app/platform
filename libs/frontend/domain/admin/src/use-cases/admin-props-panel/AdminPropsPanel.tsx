@@ -56,12 +56,12 @@ export const AdminPropsPanel = observer<{ interfaceType: IInterfaceType }>(
           </Button>
         </Col>
         <Col>
-          <Dropdown.Button overlay={<Menu items={editMenuItems} />}>
+          <Dropdown.Button menu={{ items: editMenuItems }}>
             Edit
           </Dropdown.Button>
         </Col>
         <Col>
-          <Dropdown.Button danger overlay={<Menu items={deleteMenuItems} />}>
+          <Dropdown.Button danger menu={{ items: deleteMenuItems }}>
             Delete
           </Dropdown.Button>
         </Col>

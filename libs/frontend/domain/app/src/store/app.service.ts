@@ -15,7 +15,11 @@ import { getDomainService } from '@codelab/frontend/domain/domain'
 import { getPageService, pageApi, pageRef } from '@codelab/frontend/domain/page'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getResourceService } from '@codelab/frontend/domain/resource'
-import { getStoreService } from '@codelab/frontend/domain/store'
+import {
+  getActionService,
+  getStoreService,
+  storeRef,
+} from '@codelab/frontend/domain/store'
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
@@ -32,6 +36,7 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
+  getSnapshot,
   Model,
   model,
   modelAction,
@@ -84,6 +89,11 @@ export class AppService
   @computed
   private get storeService() {
     return getStoreService(this)
+  }
+
+  @computed
+  private get actionService() {
+    return getActionService(this)
   }
 
   @computed
@@ -177,11 +187,20 @@ export class AppService
     const { items: appsData } = yield* _await(this.appRepository.find(where))
 
     const apps = appsData.map((appData) => {
+      /**
+       * Pages
+       */
       appData.pages.forEach((pageData) => {
         this.elementService.add(pageData.rootElement)
+
+        this.storeService.load([pageData.store])
+
         this.pageService.add(pageData)
       })
 
+      /**
+       * Domains
+       */
       appData.domains.forEach((domain) => {
         this.domainService.add(domain)
       })
