@@ -837,6 +837,9 @@ export class ElementService
   removeClones(elementId: string) {
     return [...this.clonedElements.entries()]
       .filter(([id, component]) => component.sourceElement?.id === elementId)
-      .forEach(([id]) => this.clonedElements.delete(id))
+      .forEach(([id]) => {
+        this.detachElementFromElementTree(id)
+        this.clonedElements.delete(id)
+      })
   }
 }
