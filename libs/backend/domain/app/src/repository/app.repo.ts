@@ -143,12 +143,10 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
       await updateImportedElement(element)
     }
 
-    await interfaceTypeRepository
-      .add([{ ...store.api, fields: [] }])
-      .catch((err) => null)
+    await interfaceTypeRepository.add([{ ...store.api, fields: [] }])
 
-    await fieldRepository.add(store.api.fields).catch((err) => null)
-    await storeRepository.add([store]).catch((err) => null)
+    await fieldRepository.add(store.api.fields)
+    await storeRepository.add([store])
   }
 
   // components should be created after their root elements
@@ -160,8 +158,8 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
 
   console.log('Creating new app...')
 
-  await appRepository.add([{ ...app, owner, pages: [] }]).catch((err) => null)
-  await pageRepository.add(pagesData).catch((err) => null)
+  await appRepository.add([{ ...app, owner, pages: [] }])
+  await pageRepository.add(pagesData)
 
   console.log('Creating actions...')
 
