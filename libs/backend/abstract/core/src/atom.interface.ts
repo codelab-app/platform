@@ -2,8 +2,7 @@ import type {
   IAtomDTO,
   IInterfaceTypeDTO,
 } from '@codelab/frontend/abstract/core'
-import type { IAtomBaseRecords } from '@codelab/shared/abstract/core'
-import type { IAtomType } from '@codelab/shared/abstract/core'
+import type { IAtomBaseRecords, IAtomType } from '@codelab/shared/abstract/core'
 import { ObjectTyped } from 'object-typed'
 import type { ITypesExport } from './type'
 
