@@ -242,6 +242,7 @@ jobs:
     <<: *executor-params
     steps:
       - setup-workspace
+      - setup-infra-workspace
       - install-package
       # - run:
       #     name: 'Clear Cache'
