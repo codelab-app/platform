@@ -1,6 +1,7 @@
-import { antdAtoms, IAntdCategoryTag } from '@codelab/backend/abstract/core'
+import { IAntdCategoryTag } from '@codelab/backend/abstract/core'
 import { antdTagTree } from '@codelab/backend/data/seed'
 import { IAtomType } from '@codelab/shared/abstract/core'
+import { antdAtoms } from '@codelab/shared/config'
 import { ObjectTyped } from 'object-typed'
 import { SeedTagsService } from './seed-tags.service'
 
