@@ -40,6 +40,14 @@ const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
               components: {
                 Layout: {
                   colorBgHeader: '#ffffff',
+                  // this is the only way to control height of the header so far.
+                  // odd name for the token, maybe will be changed in the future,
+                  // since there are a lot of discussions about exposed tokens in antd repo
+                  controlHeight: 26,
+                  // even more odd name, but this is the only was to control header padding
+                  // need to observe this file for future changes and adjust if it is updated:
+                  // https://github.com/ant-design/ant-design/blob/master/components/layout/style/index.ts
+                  controlHeightLG: 0,
                 },
               },
               token: {
