@@ -512,7 +512,7 @@ workflows:
           <<: *filters-pr
           e: docker-node
           # Keeps failing with medium
-          size: medium
+          size: large
           requires:
             - install-and-build-workspace
       - integration:
