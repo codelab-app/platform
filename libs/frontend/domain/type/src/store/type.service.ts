@@ -3,7 +3,11 @@ import type {
   ITypeService,
   IUpdateTypeData,
 } from '@codelab/frontend/abstract/core'
-import { ICreateTypeData, IType } from '@codelab/frontend/abstract/core'
+import {
+  ICreateTypeData,
+  IType,
+  typeRef,
+} from '@codelab/frontend/abstract/core'
 import { ModalService, PaginationService } from '@codelab/frontend/shared/utils'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
@@ -27,7 +31,7 @@ import {
 import type { GetTypesQuery } from '../graphql/get-type.endpoints.graphql.gen'
 import { TypeRepository } from '../services'
 import { getFieldService } from './field.service.context'
-import { InterfaceType, typeRef } from './models'
+import { InterfaceType } from './models'
 import { TypeFactory } from './type.factory'
 import { TypeModalService } from './type-modal.service'
 
