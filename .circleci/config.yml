@@ -9,27 +9,30 @@
 #        event: fail
 #        channel: $SLACK_CHANNEL_UPDATE
 #        template: basic_fail_1
-
-filters-pr: &filters-pr
+filters-pr:
+  &filters-pr
   filters:
     branches:
       ignore:
         - master
 
-filters-master: &filters-master
+filters-master:
+  &filters-master
   filters:
     branches:
       only:
         - master
 
-resource-class: &resource-class
+resource-class:
+  &resource-class
   parameters:
     size:
       type: string
       default: small
 
 # Each job select which custom executor to use
-executor-params: &executor-params
+executor-params:
+  &executor-params
   parameters:
     e:
       type: executor
@@ -40,7 +43,8 @@ executor-params: &executor-params
   executor: << parameters.e >>
   resource_class: << parameters.size >>
 
-executor-config: &executor-config
+executor-config:
+  &executor-config
   environment:
     # Application
     NEO4J_URI: bolt://127.0.0.1:7687
@@ -115,7 +119,7 @@ executors:
         environment:
           NEO4J_AUTH: neo4j/password
           NEO4J_PLUGINS: '["apoc"]'
-        command: ['neo4j', 'start']
+        command: [ 'neo4j', 'start' ]
 
 commands:
   setup-workspace:
@@ -219,7 +223,8 @@ jobs:
       - run:
           name: 'Build CI'
           # Can't use `yarn cli` doesn't exist yet
-          command: npx nx run-many --target=build --projects=platform,cli,landing,websites --parallel=4 --verbose -c ci --nx-bail
+          command: npx nx run-many --target=build --projects=platform,cli,landing,websites
+            --parallel=4 --verbose -c ci --nx-bail
       - save_cache:
           name: 'Save Cache'
           key: dep-cache-{{ checksum "yarn.lock" }}
@@ -295,6 +300,8 @@ jobs:
       # Upload test results
       - store_test_results:
           path: /tmp/test-reports
+    # The resource_class feature allows configuring CPU and RAM resources for each job. Different resource classes are available for different executors. https://circleci.com/docs/2.0/configuration-reference/#resourceclass
+    resource_class: large
 
   integration:
     <<: *executor-params
@@ -367,7 +374,6 @@ jobs:
   #      - run:
   #          name: 'Terraform Destroy'
   #          command: terraform -chdir=terraform destroy
-
   notify-success:
     <<: *executor-params
     steps:
@@ -549,6 +555,7 @@ workflows:
       - notify-success:
           <<: *filters-master
           e: docker-node
+
 #          requires:
 #            - lint
 #            - unit
