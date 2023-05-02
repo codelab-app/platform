@@ -67,15 +67,14 @@ export const useBuilderResize = ({
     [mWidth, selectedWidth, setCurrentBuilderWidth],
   )
 
-  useEffect(() => {
-    if (!(selectedWidth.default && selectedWidth.max && selectedWidth.min)) {
-      return
-    }
-
+  const setInitialValue = useCallback(() => {
     setCurrentBuilderWidth(selectedWidth)
-
-    return mWidth.set(selectedWidth.default)
+    mWidth.set(selectedWidth.default)
   }, [selectedWidth, mWidth, setCurrentBuilderWidth])
+
+  useEffect(() => {
+    setInitialValue()
+  }, [selectedWidth])
 
   const commonDragProps: Partial<DragHandleProps> = {
     dragConstraints: { bottom: 0, left: 0, right: 0, top: 0 },

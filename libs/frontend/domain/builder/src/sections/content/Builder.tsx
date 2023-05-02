@@ -16,7 +16,7 @@ import { useDroppable } from '@dnd-kit/core'
 import styled from '@emotion/styled'
 import { motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import tw from 'twin.macro'
 import { useBuilderHotkeys, useBuilderHoverHandlers } from '../../hooks'
 import { useBuilderResize } from '../../hooks/useBuilderResize'
@@ -30,6 +30,7 @@ export const Builder = observer(() => {
   const { builderRenderService, builderService, elementService } = useStore()
   const pageId = useCurrentPageId()
   const activeComponentId = builderService.activeComponent?.id
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const renderer = builderRenderService.renderers.get(
     activeComponentId ?? pageId,
@@ -89,9 +90,16 @@ export const Builder = observer(() => {
     return null
   }
 
+  useEffect(() => {
+    if (containerRef.current) {
+      builderService.setBuilderContainerWidth(containerRef.current.offsetWidth)
+    }
+  }, [containerRef.current])
+
   return (
     <StyledBuilderResizeContainer
       css={tw`h-full z-10 flex flex-row`}
+      ref={containerRef}
       style={{
         ...builderResizable.containerProps.style,
         margin: 'auto',
