@@ -39,7 +39,7 @@ export const EnvPublic = (): EnvPublic => ({
     url: process.env['NEXT_PUBLIC_SUPABASE_URL'] || '',
   },
   vercel: {
-    vercel_project_id: process.env['NEXT_PUBLIC_VERCEL_PROJECT_ID'] || '',
-    vercel_team_id: process.env['NEXT_PUBLIC_VERCEL_TEAM_ID'] || '',
+    vercel_project_id: process.env['VERCEL_PROJECT_ID'] || '',
+    vercel_team_id: process.env['VERCEL_TEAM_ID'] || '',
   },
 })
