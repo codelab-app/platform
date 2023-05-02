@@ -1,4 +1,4 @@
-import { EnvPublic } from '@codelab/shared/infra/config'
+import { EnvPublic } from '@codelab/shared/config'
 
 export const apiUrl = 'https://api.vercel.com'
 

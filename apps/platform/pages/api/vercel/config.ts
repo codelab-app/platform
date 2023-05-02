@@ -1,4 +1,4 @@
-import { EnvPlatform } from '@codelab/shared/infra/config'
+import { EnvPlatform } from '@codelab/shared/config'
 
 export const baseHeaders = {
   Authorization: `Bearer ${EnvPlatform().vercel.vercel_api_token}`,
