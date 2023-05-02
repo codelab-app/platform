@@ -1,6 +1,10 @@
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import {
+  projectApiUrl,
+  teamIdParam,
+} from 'libs/backend/infra/adapter/vercel/src/config'
 import type { NextApiHandler } from 'next'
-import url, { URL } from 'url'
-import { z } from 'zod'
+import url from 'url'
 import { baseHeaders } from './config'
 
 export const vercelDomainProxy: NextApiHandler = async (req, res) => {
@@ -8,18 +12,12 @@ export const vercelDomainProxy: NextApiHandler = async (req, res) => {
     return res.status(400).send('Missing url')
   }
 
-  const urlSchema = z.string().url()
   const reqUrl = url.parse(req.url).href.replace('/api/vercel/', '')
-  const maybeVercelUrl = urlSchema.safeParse(reqUrl)
-
-  if (!maybeVercelUrl.success) {
-    return res.status(400).send(maybeVercelUrl.error.message)
-  }
+  const { apiVersion } = JSON.parse(req.body || '{}')
+  const projectUrl = projectApiUrl(apiVersion)
 
   try {
-    const vercelUrl = new URL(maybeVercelUrl.data)
-
-    const vercelRes = await fetch(vercelUrl, {
+    const vercelRes = await fetch(`${projectUrl}/${reqUrl}?${teamIdParam}`, {
       headers: baseHeaders,
       method: req.method,
       ...(req.body && { body: req.body }),

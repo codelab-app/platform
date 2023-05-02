@@ -89,8 +89,8 @@ export class DomainService
 
     this.domains.delete(id)
 
-    yield* _await(this.domainRepository.delete([domain]))
     yield* _await(this.vercelService.delete(domain.name))
+    yield* _await(this.domainRepository.delete([domain]))
 
     return domain
   })
@@ -102,9 +102,11 @@ export class DomainService
     { id, name }: IUpdateDomainData,
   ) {
     const domain = this.domains.get(id)!
+    const oldName = domain.name
 
     domain.writeCache({ name })
 
+    yield* _await(this.vercelService.update(oldName, name))
     yield* _await(this.domainRepository.update(domain))
 
     // Fetching again to get the backend-generated

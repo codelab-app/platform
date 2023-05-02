@@ -1,33 +1,32 @@
 import type { IVercelService } from '@codelab/frontend/abstract/core'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
-import { projectApiUrl, teamIdParam } from '../config'
 
 @model('@codelab/VercelService')
 export class VercelService extends Model({}) implements IVercelService {
   @modelFlow
   create = _async(function* (this: VercelService, name: string) {
     return yield* _await(
-      fetch(`/api/vercel/${projectApiUrl('10')}/domains?${teamIdParam}`, {
-        body: JSON.stringify({ name }),
+      fetch(`/api/vercel/domains`, {
+        body: JSON.stringify({ apiVersion: 10, name }),
         method: 'POST',
       }),
     )
   })
 
   @modelFlow
-  update = _async(function* (this: VercelService, name: string) {
-    return yield* _await(
-      fetch(`/api/vercel/${projectApiUrl()}/domains?${teamIdParam}`, {
-        body: JSON.stringify({ name }),
-        method: 'PATCH',
-      }),
-    )
+  update = _async(function* (
+    this: VercelService,
+    oldName: string,
+    newName: string,
+  ) {
+    yield* _await(this.delete(oldName))
+    yield* _await(this.create(newName))
   })
 
   @modelFlow
   delete = _async(function* (this: VercelService, name: string) {
     return yield* _await(
-      fetch(`/api/vercel/${projectApiUrl()}/domains/${name}?${teamIdParam}`, {
+      fetch(`/api/vercel/domains/${name}`, {
         method: 'DELETE',
       }),
     )
