@@ -15,7 +15,6 @@
       ],
       "pages": [
         {
-          "components": [],
           "elements": [
             {
               "id": "19d80737-acf9-46db-8337-104c1b66b689",
@@ -503,7 +502,6 @@
           }
         },
         {
-          "components": [],
           "elements": [
             {
               "id": "d89d88dc-34ff-4067-b370-65bc51252300",
@@ -552,7 +550,6 @@
           "url": "/404"
         },
         {
-          "components": [],
           "elements": [
             {
               "id": "2e04cfb6-842b-420f-85bf-e4fb4d6f0c5a",
@@ -601,63 +598,6 @@
           "url": "/500"
         },
         {
-          "components": [
-            {
-              "id": "fd462921-8775-45cc-911e-8763ba7f756b",
-              "name": "Page Title",
-              "rootElement": {
-                "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
-                "name": "Page Title"
-              },
-              "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
-              "props": {
-                "id": "0483e8c9-e47f-455b-9ce7-60f563ebb103",
-                "data": "{\"label\":\"Link Label\",\"href\":\"/\"}"
-              },
-              "store": {
-                "id": "0e632c0e-8963-4975-a39a-e8fe31108cfe",
-                "name": "NavLink Store",
-                "api": {
-                  "__typename": "InterfaceType",
-                  "id": "bc6ef412-0f85-4951-924a-49a978e4ef34",
-                  "kind": "InterfaceType",
-                  "name": "NavLink Store API",
-                  "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
-                  "fields": []
-                },
-                "actions": []
-              },
-              "api": {
-                "__typename": "InterfaceType",
-                "id": "40d0de0c-eb90-4dde-afdc-f4ed64088168",
-                "kind": "InterfaceType",
-                "name": "NavLink API",
-                "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
-                "fields": [
-                  {
-                    "id": "48932cc8-b8ce-4e65-8d94-7c7811384cae",
-                    "key": "text",
-                    "name": null,
-                    "description": null,
-                    "validationRules": "{}",
-                    "defaultValues": "\"Title Text\"",
-                    "prevSibling": null,
-                    "nextSibling": null,
-                    "fieldType": {
-                      "__typename": "PrimitiveType",
-                      "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-                      "kind": "PrimitiveType",
-                      "name": "String"
-                    },
-                    "api": { "id": "40d0de0c-eb90-4dde-afdc-f4ed64088168" }
-                  }
-                ]
-              },
-              "childrenContainerElement": {
-                "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db"
-              }
-            }
-          ],
           "elements": [
             {
               "id": "b1ba1591-c439-4249-9228-952cede73674",
@@ -767,63 +707,6 @@
           "url": "/about"
         },
         {
-          "components": [
-            {
-              "id": "fd462921-8775-45cc-911e-8763ba7f756b",
-              "name": "Page Title",
-              "rootElement": {
-                "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
-                "name": "Page Title"
-              },
-              "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
-              "props": {
-                "id": "0483e8c9-e47f-455b-9ce7-60f563ebb103",
-                "data": "{\"label\":\"Link Label\",\"href\":\"/\"}"
-              },
-              "store": {
-                "id": "0e632c0e-8963-4975-a39a-e8fe31108cfe",
-                "name": "NavLink Store",
-                "api": {
-                  "__typename": "InterfaceType",
-                  "id": "bc6ef412-0f85-4951-924a-49a978e4ef34",
-                  "kind": "InterfaceType",
-                  "name": "NavLink Store API",
-                  "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
-                  "fields": []
-                },
-                "actions": []
-              },
-              "api": {
-                "__typename": "InterfaceType",
-                "id": "40d0de0c-eb90-4dde-afdc-f4ed64088168",
-                "kind": "InterfaceType",
-                "name": "NavLink API",
-                "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
-                "fields": [
-                  {
-                    "id": "48932cc8-b8ce-4e65-8d94-7c7811384cae",
-                    "key": "text",
-                    "name": null,
-                    "description": null,
-                    "validationRules": "{}",
-                    "defaultValues": "\"Title Text\"",
-                    "prevSibling": null,
-                    "nextSibling": null,
-                    "fieldType": {
-                      "__typename": "PrimitiveType",
-                      "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-                      "kind": "PrimitiveType",
-                      "name": "String"
-                    },
-                    "api": { "id": "40d0de0c-eb90-4dde-afdc-f4ed64088168" }
-                  }
-                ]
-              },
-              "childrenContainerElement": {
-                "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db"
-              }
-            }
-          ],
           "elements": [
             {
               "id": "1f237cb8-a5b2-4cf6-b7c2-c697a8cd710b",
@@ -933,63 +816,6 @@
           "url": "/blog"
         },
         {
-          "components": [
-            {
-              "id": "fd462921-8775-45cc-911e-8763ba7f756b",
-              "name": "Page Title",
-              "rootElement": {
-                "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
-                "name": "Page Title"
-              },
-              "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
-              "props": {
-                "id": "0483e8c9-e47f-455b-9ce7-60f563ebb103",
-                "data": "{\"label\":\"Link Label\",\"href\":\"/\"}"
-              },
-              "store": {
-                "id": "0e632c0e-8963-4975-a39a-e8fe31108cfe",
-                "name": "NavLink Store",
-                "api": {
-                  "__typename": "InterfaceType",
-                  "id": "bc6ef412-0f85-4951-924a-49a978e4ef34",
-                  "kind": "InterfaceType",
-                  "name": "NavLink Store API",
-                  "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
-                  "fields": []
-                },
-                "actions": []
-              },
-              "api": {
-                "__typename": "InterfaceType",
-                "id": "40d0de0c-eb90-4dde-afdc-f4ed64088168",
-                "kind": "InterfaceType",
-                "name": "NavLink API",
-                "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
-                "fields": [
-                  {
-                    "id": "48932cc8-b8ce-4e65-8d94-7c7811384cae",
-                    "key": "text",
-                    "name": null,
-                    "description": null,
-                    "validationRules": "{}",
-                    "defaultValues": "\"Title Text\"",
-                    "prevSibling": null,
-                    "nextSibling": null,
-                    "fieldType": {
-                      "__typename": "PrimitiveType",
-                      "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-                      "kind": "PrimitiveType",
-                      "name": "String"
-                    },
-                    "api": { "id": "40d0de0c-eb90-4dde-afdc-f4ed64088168" }
-                  }
-                ]
-              },
-              "childrenContainerElement": {
-                "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db"
-              }
-            }
-          ],
           "elements": [
             {
               "id": "bc07ca6c-04b0-488d-9b26-80a158d7f853",
@@ -1099,63 +925,6 @@
           "url": "/guestbook"
         },
         {
-          "components": [
-            {
-              "id": "fd462921-8775-45cc-911e-8763ba7f756b",
-              "name": "Page Title",
-              "rootElement": {
-                "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
-                "name": "Page Title"
-              },
-              "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
-              "props": {
-                "id": "0483e8c9-e47f-455b-9ce7-60f563ebb103",
-                "data": "{\"label\":\"Link Label\",\"href\":\"/\"}"
-              },
-              "store": {
-                "id": "0e632c0e-8963-4975-a39a-e8fe31108cfe",
-                "name": "NavLink Store",
-                "api": {
-                  "__typename": "InterfaceType",
-                  "id": "bc6ef412-0f85-4951-924a-49a978e4ef34",
-                  "kind": "InterfaceType",
-                  "name": "NavLink Store API",
-                  "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
-                  "fields": []
-                },
-                "actions": []
-              },
-              "api": {
-                "__typename": "InterfaceType",
-                "id": "40d0de0c-eb90-4dde-afdc-f4ed64088168",
-                "kind": "InterfaceType",
-                "name": "NavLink API",
-                "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
-                "fields": [
-                  {
-                    "id": "48932cc8-b8ce-4e65-8d94-7c7811384cae",
-                    "key": "text",
-                    "name": null,
-                    "description": null,
-                    "validationRules": "{}",
-                    "defaultValues": "\"Title Text\"",
-                    "prevSibling": null,
-                    "nextSibling": null,
-                    "fieldType": {
-                      "__typename": "PrimitiveType",
-                      "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-                      "kind": "PrimitiveType",
-                      "name": "String"
-                    },
-                    "api": { "id": "40d0de0c-eb90-4dde-afdc-f4ed64088168" }
-                  }
-                ]
-              },
-              "childrenContainerElement": {
-                "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db"
-              }
-            }
-          ],
           "elements": [
             {
               "id": "1a0d8356-0567-4d5c-b2f0-b0b6cebcc716",
@@ -1265,6 +1034,63 @@
           "url": "/"
         }
       ]
+    }
+  ],
+  "components": [
+    {
+      "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+      "name": "Page Title",
+      "rootElement": {
+        "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
+        "name": "Page Title"
+      },
+      "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
+      "props": {
+        "id": "0483e8c9-e47f-455b-9ce7-60f563ebb103",
+        "data": "{\"label\":\"Link Label\",\"href\":\"/\"}"
+      },
+      "store": {
+        "id": "0e632c0e-8963-4975-a39a-e8fe31108cfe",
+        "name": "NavLink Store",
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "bc6ef412-0f85-4951-924a-49a978e4ef34",
+          "kind": "InterfaceType",
+          "name": "NavLink Store API",
+          "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
+          "fields": []
+        },
+        "actions": []
+      },
+      "api": {
+        "__typename": "InterfaceType",
+        "id": "40d0de0c-eb90-4dde-afdc-f4ed64088168",
+        "kind": "InterfaceType",
+        "name": "NavLink API",
+        "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
+        "fields": [
+          {
+            "id": "48932cc8-b8ce-4e65-8d94-7c7811384cae",
+            "key": "text",
+            "name": null,
+            "description": null,
+            "validationRules": "{}",
+            "defaultValues": "\"Title Text\"",
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "api": { "id": "40d0de0c-eb90-4dde-afdc-f4ed64088168" }
+          }
+        ]
+      },
+      "childrenContainerElement": {
+        "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db"
+      }
     }
   ],
   "resources": [],

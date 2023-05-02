@@ -14,5 +14,5 @@ export const importUserData = async (
 
   await importApps(apps, owner)
 
-  await importComponents(components, owner)
+  await importComponents(components, apps, owner)
 }

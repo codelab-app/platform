@@ -136,7 +136,7 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
 
   for (const { elements, store } of pages) {
     for (const element of elements) {
-      await importElementInitial(element, owner)
+      await importElementInitial(element)
     }
 
     for (const element of elements) {
