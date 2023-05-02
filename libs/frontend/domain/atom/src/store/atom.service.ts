@@ -5,7 +5,7 @@ import type {
   IInterfaceType,
   IUpdateAtomData,
 } from '@codelab/frontend/abstract/core'
-import { typeRef } from '@codelab/frontend/abstract/core'
+import { atomRef, typeRef } from '@codelab/frontend/abstract/core'
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { ModalService, PaginationService } from '@codelab/frontend/shared/utils'
@@ -27,7 +27,6 @@ import {
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { Atom } from './atom.model'
-import { atomRef } from './atom.ref'
 import { AtomRepository } from './atom.repo'
 import { AtomModalService, AtomsModalService } from './atom-modal.service'
 
