@@ -8,11 +8,8 @@ import { ListField, wrapField } from 'uniforms-antd'
 // their labels will be displayed. This is based on the uniforms documentation for the `label` prop
 // https://uniforms.tools/docs/api-fields/#common-props
 // We have a custom component that will render the label for the array field
-const WrappedListFieldInternal = (props: ListFieldProps) =>
-  wrapField(
-    props as Omit<ListFieldProps, 'onReset'>,
-    <ListField {...props} label={null} />,
-  )
+const WrappedListFieldInternal = (props: Omit<ListFieldProps, 'onReset'>) =>
+  wrapField(props, <ListField {...props} label={null} />)
 
 /**
  * The same as uniforms-antd `ListField`, but wrapped with `wrapField`
