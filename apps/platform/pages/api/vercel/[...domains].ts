@@ -1,11 +1,11 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import {
+  baseHeaders,
   projectApiUrl,
   teamIdParam,
 } from 'libs/backend/infra/adapter/vercel/src/config'
 import type { NextApiHandler } from 'next'
 import url from 'url'
-import { baseHeaders } from './config'
 
 export const vercelDomainProxy: NextApiHandler = async (req, res) => {
   if (!req.url) {
