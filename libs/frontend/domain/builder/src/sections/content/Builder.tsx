@@ -1,4 +1,3 @@
-import { PauseOutlined } from '@ant-design/icons'
 import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
@@ -14,14 +13,13 @@ import {
 } from '@codelab/frontend/presentation/container'
 import { useDroppable } from '@dnd-kit/core'
 import styled from '@emotion/styled'
-import { motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
-import React, { useMemo } from 'react'
-import tw from 'twin.macro'
-import { useBuilderHotkeys, useBuilderHoverHandlers } from '../../hooks'
-import { useBuilderResize } from '../../hooks/useBuilderResize'
-import { useBuilderRootClickHandler } from '../../hooks/useBuilderRootClickHandler'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import type { ImperativePanelHandle } from 'react-resizable-panels'
+import { Panel, PanelGroup } from 'react-resizable-panels'
+import { useBuilderHotkeys } from '../../hooks'
 import { BuilderClickOverlay } from '../overlay-toolbar/BuilderClickOverlay'
+import ResizeHandle from './ResizeHandle'
 
 /**
  * Generic builder used for both Component & Element
@@ -37,32 +35,17 @@ export const Builder = observer(() => {
 
   const elementTree = builderService.activeElementTree
 
-  const {
-    currentBuilderWidth,
-    currentDragData,
-    selectedBuilderWidth,
-    selectedNode,
-  } = builderService
+  const { builderContainerWidth, selectedBuilderWidth, selectedNode } =
+    builderService
 
-  const { handleMouseLeave, handleMouseOver } = useBuilderHoverHandlers({
-    currentDragData,
-    setHoveredNode: builderService.setHoveredNode.bind(builderService),
-  })
-
-  const builderResizable = useBuilderResize({
-    selectedWidth: selectedBuilderWidth,
-    setCurrentBuilderWidth:
-      builderService.setCurrentBuilderWidth.bind(builderService),
-    width: currentBuilderWidth,
-  })
+  const containerRef = useRef<HTMLDivElement>(null)
+  const resizableRef = useRef<ImperativePanelHandle>(null)
 
   useBuilderHotkeys({
     deleteModal: elementService.deleteModal,
     selectedNode,
     setSelectedNode: builderService.setSelectedNode.bind(builderService),
   })
-
-  const handleContainerClick = useBuilderRootClickHandler()
 
   const { isOver, over, setNodeRef } = useDroppable({
     id: elementTree?.rootElement.id ?? '',
@@ -89,60 +72,99 @@ export const Builder = observer(() => {
     return null
   }
 
+  const defaultSize = useMemo(() => {
+    if (
+      builderContainerWidth > 0 &&
+      selectedBuilderWidth.default < builderContainerWidth
+    ) {
+      return (selectedBuilderWidth.default / builderContainerWidth) * 100
+    }
+
+    return 100
+  }, [builderContainerWidth, selectedBuilderWidth])
+
+  const minSize = useMemo(() => {
+    if (
+      builderContainerWidth > 0 &&
+      selectedBuilderWidth.min < builderContainerWidth
+    ) {
+      return (selectedBuilderWidth.min / builderContainerWidth) * 100
+    }
+
+    return 0
+  }, [builderContainerWidth, selectedBuilderWidth])
+
+  const maxSize = useMemo(() => {
+    if (
+      builderContainerWidth > 0 &&
+      selectedBuilderWidth.max < builderContainerWidth
+    ) {
+      return (selectedBuilderWidth.max / builderContainerWidth) * 100
+    }
+
+    return 100
+  }, [builderContainerWidth, selectedBuilderWidth])
+
+  const handleResize = useCallback((size: number) => {
+    builderService.setCurrentBuilderWidth({
+      ...builderService.selectedBuilderWidth,
+      default: Math.round((size / 100) * builderContainerWidth),
+    })
+  }, [])
+
+  useEffect(() => {
+    if (containerRef.current) {
+      builderService.setBuilderContainerWidth(containerRef.current.offsetWidth)
+    }
+  }, [containerRef.current])
+
+  useEffect(() => {
+    if (
+      resizableRef.current &&
+      builderContainerWidth > 0 &&
+      selectedBuilderWidth.default < builderContainerWidth
+    ) {
+      resizableRef.current.resize(
+        (selectedBuilderWidth.default / builderContainerWidth) * 100,
+      )
+    }
+  }, [selectedBuilderWidth, builderContainerWidth])
+
   return (
-    <StyledBuilderResizeContainer
-      css={tw`h-full z-10 flex flex-row`}
-      style={{
-        ...builderResizable.containerProps.style,
-        margin: 'auto',
-      }}
-    >
-      <div
-        css={[tw`absolute -right-[14px] bg-transparent h-full w-[17px] z-10 `]}
-      >
-        <motion.div
-          css={[tw`absolute left-[3px] w-[3px] h-full`]}
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          {...builderResizable.xDragHandleProps}
-        />
-        <motion.div
-          css={[
-            tw`absolute w-[14px] h-[40px] -right-[3px] top-[50%] bg-zinc-200 flex items-center justify-center opacity-70 rounded-r`,
-          ]}
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          {...builderResizable.xDragHandleProps}
+    <StyledBuilderContainer ref={containerRef}>
+      <PanelGroup direction="horizontal" style={{ width: '100%' }}>
+        <Panel collapsible={true} minSize={0} order={1}></Panel>
+        <ResizeHandle />
+        <StyledBuilderResizeContainer
+          defaultSize={defaultSize}
+          id={BUILDER_CONTAINER_ID}
+          key={elementTree.id}
+          maxSize={maxSize}
+          minSize={minSize}
+          onResize={handleResize}
+          order={2}
+          ref={resizableRef}
         >
-          <PauseOutlined />
-        </motion.div>
-      </div>
-      <StyledBuilderContainer
-        id={BUILDER_CONTAINER_ID}
-        key={elementTree.id}
-        onClick={handleContainerClick}
-        onMouseLeave={handleMouseLeave}
-        onMouseOver={handleMouseOver}
-      >
-        <Renderer ref={setNodeRef} renderer={renderer} style={rootStyle} />
-        <BuilderClickOverlay
-          builderService={builderService}
-          elementService={elementService}
-        />
-      </StyledBuilderContainer>
-    </StyledBuilderResizeContainer>
+          <Renderer ref={setNodeRef} renderer={renderer} style={rootStyle} />
+          <BuilderClickOverlay
+            builderService={builderService}
+            elementService={elementService}
+          />
+        </StyledBuilderResizeContainer>
+        <ResizeHandle />
+        <Panel collapsible={true} minSize={0} order={3}></Panel>
+      </PanelGroup>
+    </StyledBuilderContainer>
   )
 })
 
 Builder.displayName = 'Builder'
 
-const StyledBuilderResizeContainer = styled(motion.div)`
+const StyledBuilderResizeContainer = styled(Panel)`
   position: relative;
-  width: 100%;
   height: 100%;
-  max-width: 100%;
   background: transparent;
-  //max-height: 100%;
   border: 3px dotted rgba(0, 0, 0, 1);
-  //margin-bottom: 400px;
 `
 
 const StyledBuilderContainer = styled.div`

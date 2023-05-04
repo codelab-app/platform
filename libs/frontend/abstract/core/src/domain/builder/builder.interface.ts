@@ -57,7 +57,7 @@ export const defaultBuilderWidthBreakPoints: Record<
     min: 768,
   },
   // -1 means automatically set the value for this field to the max available space
-  [BuilderWidthBreakPoints.Desktop]: { default: -1, max: -1, min: 992 },
+  [BuilderWidthBreakPoints.Desktop]: { default: 992, max: 1920, min: 992 },
 }
 
 /**
