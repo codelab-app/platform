@@ -18,6 +18,18 @@
   ],
   "abbr": [{ "key": "title", "type": "string" }],
   "address": [],
+  "area": [
+    { "key": "alt", "type": "string" },
+    { "key": "coords", "type": "string" },
+    { "key": "href", "type": "string" },
+    { "key": "hreflang", "type": "string" },
+    { "key": "media", "type": "string" },
+    { "key": "ping", "type": "string" },
+    { "key": "rel", "type": "string" },
+    { "key": "shape", "type": "default | rect | circle | poly" },
+    { "key": "target", "type": "string" },
+    { "key": "type", "type": "string" }
+  ],
   "article": [],
   "aside": [],
   "audio": [
@@ -227,6 +239,10 @@
   "main": [],
   "map": [{ "key": "name", "type": "string" }],
   "mark": [],
+  "math": [
+    { "key": "display", "type": "block | inline" },
+    { "key": "xmlns", "type": "string" }
+  ],
   "menu": [
     { "key": "label", "type": "string" },
     { "key": "type", "type": "context | toolbar" }
@@ -345,6 +361,14 @@
   "sub": [],
   "summary": [],
   "sup": [],
+  "svg": [
+    { "key": "height", "type": "string" },
+    { "key": "preserveAspectRatio", "type": "string" },
+    { "key": "viewBox", "type": "string" },
+    { "key": "width", "type": "string" },
+    { "key": "xmlns", "type": "string" },
+    { "key": "xmlns:xlink", "type": "string" }
+  ],
   "table": [{ "key": "border", "type": "integer" }],
   "tbody": [],
   "td": [
@@ -370,6 +394,32 @@
     { "key": "wrap", "type": "hard | soft" }
   ],
   "tfoot": [],
+  "time": [{ "key": "datetime", "type": "string" }],
+  "title": [],
+  "tr": [
+    { "key": "align", "type": "left | center | right | justify | char" },
+    { "key": "bgcolor", "type": "string" },
+    { "key": "char", "type": "string" },
+    { "key": "charoff", "type": "string" },
+    { "key": "valign", "type": "top | middle | bottom | baseline" }
+  ],
+  "track": [
+    { "key": "default", "type": "boolean" },
+    {
+      "key": "kind",
+      "type": "enum",
+      "values": [
+        "subtitles",
+        "captions",
+        "descriptions",
+        "chapters",
+        "metadata"
+      ]
+    },
+    { "key": "label", "type": "string" },
+    { "key": "src", "type": "string" },
+    { "key": "srclang", "type": "string" }
+  ],
   "th": [
     { "key": "abbr", "type": "string" },
     { "key": "colspan", "type": "integer" },

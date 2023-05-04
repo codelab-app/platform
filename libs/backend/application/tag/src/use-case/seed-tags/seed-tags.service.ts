@@ -2,6 +2,8 @@ import type { TagNode, TagNodeData } from '@codelab/backend/abstract/core'
 import { IAuthUseCase, IUseCase } from '@codelab/backend/abstract/types'
 import { TagRepository } from '@codelab/backend/domain/tag'
 import type { IAuth0Owner, ITagDTO } from '@codelab/frontend/abstract/core'
+import uniq from 'lodash/uniq'
+import uniqBy from 'lodash/uniqBy'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
 
@@ -9,7 +11,7 @@ export class SeedTagsService extends IAuthUseCase<TagNode, void> {
   tagRepository: TagRepository = new TagRepository()
 
   async _execute(tagTree: TagNode) {
-    const tags = await this.createTagsData(tagTree)
+    const tags = uniqBy(await this.createTagsData(tagTree), (tag) => tag.name)
 
     /**
      * Omit parent and children since they need to be created first

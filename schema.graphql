@@ -782,8 +782,8 @@ input ApiActionErrorActionConnectionWhere {
 }
 
 input ApiActionErrorActionCreateFieldInput {
-  ApiAction: [ApiActionErrorActionApiActionCreateFieldInput!]
-  CodeAction: [ApiActionErrorActionCodeActionCreateFieldInput!]
+  ApiAction: ApiActionErrorActionApiActionCreateFieldInput
+  CodeAction: ApiActionErrorActionCodeActionCreateFieldInput
 }
 
 input ApiActionErrorActionCreateInput {
@@ -1148,8 +1148,8 @@ input ApiActionSuccessActionConnectionWhere {
 }
 
 input ApiActionSuccessActionCreateFieldInput {
-  ApiAction: [ApiActionSuccessActionApiActionCreateFieldInput!]
-  CodeAction: [ApiActionSuccessActionCodeActionCreateFieldInput!]
+  ApiAction: ApiActionSuccessActionApiActionCreateFieldInput
+  CodeAction: ApiActionSuccessActionCodeActionCreateFieldInput
 }
 
 input ApiActionSuccessActionCreateInput {
@@ -3366,20 +3366,28 @@ enum AtomType {
   HookRecoilState
   HookRouter
   HtmlA
+  HtmlAbbr
   HtmlArea
+  HtmlArticle
   HtmlAside
   HtmlAudio
+  HtmlB
   HtmlBase
+  HtmlBdo
+  HtmlBlockquote
   HtmlBr
   HtmlButton
   HtmlCanvas
+  HtmlCaption
+  HtmlCite
   HtmlCode
-  HtmlDList
   HtmlData
   HtmlDatalist
   HtmlDetails
+  HtmlDfn
   HtmlDialog
   HtmlDiv
+  HtmlDl
   HtmlEm
   HtmlEmbed
   HtmlFieldset
@@ -3396,19 +3404,23 @@ enum AtomType {
   HtmlHr
   HtmlI
   HtmlIframe
-  HtmlImage
+  HtmlImg
   HtmlInput
+  HtmlKbd
   HtmlLabel
   HtmlLegend
   HtmlLi
   HtmlLink
   HtmlMain
   HtmlMap
+  HtmlMark
+  HtmlMath
   HtmlMeta
   HtmlMeter
   HtmlNav
-  HtmlOList
+  HtmlNoscript
   HtmlObject
+  HtmlOl
   HtmlOptgroup
   HtmlOption
   HtmlOutput
@@ -3417,8 +3429,11 @@ enum AtomType {
   HtmlPicture
   HtmlPre
   HtmlProgress
-  HtmlQuote
+  HtmlQ
+  HtmlRuby
   HtmlS
+  HtmlSamp
+  HtmlScript
   HtmlSection
   HtmlSelect
   HtmlSmall
@@ -3428,18 +3443,21 @@ enum AtomType {
   HtmlStyle
   HtmlSub
   HtmlSup
+  HtmlSvg
   HtmlTable
-  HtmlTableCaption
-  HtmlTableCell
-  HtmlTableCol
-  HtmlTableRow
+  HtmlTd
   HtmlTemplate
   HtmlTextarea
+  HtmlTh
   HtmlTime
   HtmlTitle
+  HtmlTr
   HtmlTrack
-  HtmlUList
+  HtmlU
+  HtmlUl
+  HtmlVar
   HtmlVideo
+  HtmlWbr
   MuiAccordion
   MuiAccordionActions
   MuiAccordionDetails

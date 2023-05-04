@@ -3,7 +3,8 @@
  *
  * We separate the category tags from the actual HTML for better separation, we can create the relationship in the tree
  */
-export enum HtmlCategoryTag {
+export enum IHtmlCategoryTag {
+  Flow = 'Flow',
   Heading = 'Heading',
   Sectioning = 'Sectioning',
   Embedded = 'Embedded',

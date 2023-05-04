@@ -28,9 +28,15 @@ export class ExtractHtmlFieldsService extends IAuthUseCase<
     ) as HtmlData
 
     return atoms.reduce(async (accFieldsPromise, atom) => {
-      const htmlFields = htmlAttributesByName[atom.name]
+      // Convert HtmlA to a
+      const htmlName = atom.name.toLowerCase().replace('html', '')
+      const htmlFields = htmlAttributesByName[htmlName]
 
       if (!htmlFields) {
+        console.log(htmlName)
+
+        process.exit(0)
+
         return await accFieldsPromise
       }
 

@@ -841,8 +841,8 @@ export type ApiActionErrorActionConnectionWhere = {
 }
 
 export type ApiActionErrorActionCreateFieldInput = {
-  ApiAction?: InputMaybe<Array<ApiActionErrorActionApiActionCreateFieldInput>>
-  CodeAction?: InputMaybe<Array<ApiActionErrorActionCodeActionCreateFieldInput>>
+  ApiAction?: InputMaybe<ApiActionErrorActionApiActionCreateFieldInput>
+  CodeAction?: InputMaybe<ApiActionErrorActionCodeActionCreateFieldInput>
 }
 
 export type ApiActionErrorActionCreateInput = {
@@ -1210,10 +1210,8 @@ export type ApiActionSuccessActionConnectionWhere = {
 }
 
 export type ApiActionSuccessActionCreateFieldInput = {
-  ApiAction?: InputMaybe<Array<ApiActionSuccessActionApiActionCreateFieldInput>>
-  CodeAction?: InputMaybe<
-    Array<ApiActionSuccessActionCodeActionCreateFieldInput>
-  >
+  ApiAction?: InputMaybe<ApiActionSuccessActionApiActionCreateFieldInput>
+  CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionCreateFieldInput>
 }
 
 export type ApiActionSuccessActionCreateInput = {
@@ -3532,20 +3530,28 @@ export enum AtomType {
   HookRecoilState = 'HookRecoilState',
   HookRouter = 'HookRouter',
   HtmlA = 'HtmlA',
+  HtmlAbbr = 'HtmlAbbr',
   HtmlArea = 'HtmlArea',
+  HtmlArticle = 'HtmlArticle',
   HtmlAside = 'HtmlAside',
   HtmlAudio = 'HtmlAudio',
+  HtmlB = 'HtmlB',
   HtmlBase = 'HtmlBase',
+  HtmlBdo = 'HtmlBdo',
+  HtmlBlockquote = 'HtmlBlockquote',
   HtmlBr = 'HtmlBr',
   HtmlButton = 'HtmlButton',
   HtmlCanvas = 'HtmlCanvas',
+  HtmlCaption = 'HtmlCaption',
+  HtmlCite = 'HtmlCite',
   HtmlCode = 'HtmlCode',
-  HtmlDList = 'HtmlDList',
   HtmlData = 'HtmlData',
   HtmlDatalist = 'HtmlDatalist',
   HtmlDetails = 'HtmlDetails',
+  HtmlDfn = 'HtmlDfn',
   HtmlDialog = 'HtmlDialog',
   HtmlDiv = 'HtmlDiv',
+  HtmlDl = 'HtmlDl',
   HtmlEm = 'HtmlEm',
   HtmlEmbed = 'HtmlEmbed',
   HtmlFieldset = 'HtmlFieldset',
@@ -3562,19 +3568,23 @@ export enum AtomType {
   HtmlHr = 'HtmlHr',
   HtmlI = 'HtmlI',
   HtmlIframe = 'HtmlIframe',
-  HtmlImage = 'HtmlImage',
+  HtmlImg = 'HtmlImg',
   HtmlInput = 'HtmlInput',
+  HtmlKbd = 'HtmlKbd',
   HtmlLabel = 'HtmlLabel',
   HtmlLegend = 'HtmlLegend',
   HtmlLi = 'HtmlLi',
   HtmlLink = 'HtmlLink',
   HtmlMain = 'HtmlMain',
   HtmlMap = 'HtmlMap',
+  HtmlMark = 'HtmlMark',
+  HtmlMath = 'HtmlMath',
   HtmlMeta = 'HtmlMeta',
   HtmlMeter = 'HtmlMeter',
   HtmlNav = 'HtmlNav',
-  HtmlOList = 'HtmlOList',
+  HtmlNoscript = 'HtmlNoscript',
   HtmlObject = 'HtmlObject',
+  HtmlOl = 'HtmlOl',
   HtmlOptgroup = 'HtmlOptgroup',
   HtmlOption = 'HtmlOption',
   HtmlOutput = 'HtmlOutput',
@@ -3583,8 +3593,11 @@ export enum AtomType {
   HtmlPicture = 'HtmlPicture',
   HtmlPre = 'HtmlPre',
   HtmlProgress = 'HtmlProgress',
-  HtmlQuote = 'HtmlQuote',
+  HtmlQ = 'HtmlQ',
+  HtmlRuby = 'HtmlRuby',
   HtmlS = 'HtmlS',
+  HtmlSamp = 'HtmlSamp',
+  HtmlScript = 'HtmlScript',
   HtmlSection = 'HtmlSection',
   HtmlSelect = 'HtmlSelect',
   HtmlSmall = 'HtmlSmall',
@@ -3594,18 +3607,21 @@ export enum AtomType {
   HtmlStyle = 'HtmlStyle',
   HtmlSub = 'HtmlSub',
   HtmlSup = 'HtmlSup',
+  HtmlSvg = 'HtmlSvg',
   HtmlTable = 'HtmlTable',
-  HtmlTableCaption = 'HtmlTableCaption',
-  HtmlTableCell = 'HtmlTableCell',
-  HtmlTableCol = 'HtmlTableCol',
-  HtmlTableRow = 'HtmlTableRow',
+  HtmlTd = 'HtmlTd',
   HtmlTemplate = 'HtmlTemplate',
   HtmlTextarea = 'HtmlTextarea',
+  HtmlTh = 'HtmlTh',
   HtmlTime = 'HtmlTime',
   HtmlTitle = 'HtmlTitle',
+  HtmlTr = 'HtmlTr',
   HtmlTrack = 'HtmlTrack',
-  HtmlUList = 'HtmlUList',
+  HtmlU = 'HtmlU',
+  HtmlUl = 'HtmlUl',
+  HtmlVar = 'HtmlVar',
   HtmlVideo = 'HtmlVideo',
+  HtmlWbr = 'HtmlWbr',
   MuiAccordion = 'MuiAccordion',
   MuiAccordionActions = 'MuiAccordionActions',
   MuiAccordionDetails = 'MuiAccordionDetails',

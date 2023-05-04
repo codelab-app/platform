@@ -1808,18 +1808,25 @@ export enum AtomType {
   HookQueryPage = 'HookQueryPage',
   ReactFragment = 'ReactFragment',
   HtmlA = 'HtmlA',
+  HtmlAbbr = 'HtmlAbbr',
   HtmlArea = 'HtmlArea',
+  HtmlArticle = 'HtmlArticle',
   HtmlAside = 'HtmlAside',
   HtmlAudio = 'HtmlAudio',
+  HtmlB = 'HtmlB',
   HtmlBase = 'HtmlBase',
+  HtmlBdo = 'HtmlBdo',
+  HtmlBlockquote = 'HtmlBlockquote',
   HtmlBr = 'HtmlBr',
   HtmlButton = 'HtmlButton',
   HtmlCanvas = 'HtmlCanvas',
+  HtmlCite = 'HtmlCite',
   HtmlCode = 'HtmlCode',
-  HtmlDList = 'HtmlDList',
+  HtmlDl = 'HtmlDl',
   HtmlData = 'HtmlData',
   HtmlDatalist = 'HtmlDatalist',
   HtmlDetails = 'HtmlDetails',
+  HtmlDfn = 'HtmlDfn',
   HtmlDialog = 'HtmlDialog',
   HtmlDiv = 'HtmlDiv',
   HtmlEm = 'HtmlEm',
@@ -1838,18 +1845,22 @@ export enum AtomType {
   HtmlHr = 'HtmlHr',
   HtmlI = 'HtmlI',
   HtmlIframe = 'HtmlIframe',
-  HtmlImage = 'HtmlImage',
+  HtmlImg = 'HtmlImg',
   HtmlInput = 'HtmlInput',
+  HtmlKbd = 'HtmlKbd',
   HtmlLabel = 'HtmlLabel',
   HtmlLegend = 'HtmlLegend',
   HtmlLi = 'HtmlLi',
   HtmlLink = 'HtmlLink',
   HtmlMain = 'HtmlMain',
+  HtmlMath = 'HtmlMath',
+  HtmlMark = 'HtmlMark',
   HtmlMap = 'HtmlMap',
   HtmlMeta = 'HtmlMeta',
   HtmlMeter = 'HtmlMeter',
   HtmlNav = 'HtmlNav',
-  HtmlOList = 'HtmlOList',
+  HtmlNoscript = 'HtmlNoscript',
+  HtmlOl = 'HtmlOl',
   HtmlObject = 'HtmlObject',
   HtmlOptgroup = 'HtmlOptgroup',
   HtmlOption = 'HtmlOption',
@@ -1859,8 +1870,11 @@ export enum AtomType {
   HtmlPicture = 'HtmlPicture',
   HtmlPre = 'HtmlPre',
   HtmlProgress = 'HtmlProgress',
-  HtmlQuote = 'HtmlQuote',
+  HtmlQ = 'HtmlQ',
+  HtmlRuby = 'HtmlRuby',
   HtmlS = 'HtmlS',
+  HtmlSamp = 'HtmlSamp',
+  HtmlScript = 'HtmlScript',
   HtmlSection = 'HtmlSection',
   HtmlSelect = 'HtmlSelect',
   HtmlSmall = 'HtmlSmall',
@@ -1870,18 +1884,22 @@ export enum AtomType {
   HtmlStyle = 'HtmlStyle',
   HtmlSub = 'HtmlSub',
   HtmlSup = 'HtmlSup',
+  HtmlSvg = 'HtmlSvg',
   HtmlTable = 'HtmlTable',
-  HtmlTableCaption = 'HtmlTableCaption',
-  HtmlTableCell = 'HtmlTableCell',
-  HtmlTableCol = 'HtmlTableCol',
-  HtmlTableRow = 'HtmlTableRow',
+  HtmlCaption = 'HtmlCaption',
+  HtmlTd = 'HtmlTd',
+  HtmlTh = 'HtmlTh',
+  HtmlTr = 'HtmlTr',
   HtmlTemplate = 'HtmlTemplate',
   HtmlTextarea = 'HtmlTextarea',
   HtmlTime = 'HtmlTime',
   HtmlTitle = 'HtmlTitle',
   HtmlTrack = 'HtmlTrack',
-  HtmlUList = 'HtmlUList',
+  HtmlU = 'HtmlU',
+  HtmlUl = 'HtmlUl',
+  HtmlVar = 'HtmlVar',
   HtmlVideo = 'HtmlVideo',
+  HtmlWbr = 'HtmlWbr',
 }
 
 export enum CodeMirrorLanguage {
@@ -8361,8 +8379,8 @@ export type ApiActionErrorActionConnectOrCreateInput = {
 }
 
 export type ApiActionErrorActionCreateFieldInput = {
-  CodeAction?: InputMaybe<Array<ApiActionErrorActionCodeActionCreateFieldInput>>
-  ApiAction?: InputMaybe<Array<ApiActionErrorActionApiActionCreateFieldInput>>
+  CodeAction?: InputMaybe<ApiActionErrorActionCodeActionCreateFieldInput>
+  ApiAction?: InputMaybe<ApiActionErrorActionApiActionCreateFieldInput>
 }
 
 export type ApiActionErrorActionCreateInput = {
@@ -8758,10 +8776,8 @@ export type ApiActionSuccessActionConnectOrCreateInput = {
 }
 
 export type ApiActionSuccessActionCreateFieldInput = {
-  CodeAction?: InputMaybe<
-    Array<ApiActionSuccessActionCodeActionCreateFieldInput>
-  >
-  ApiAction?: InputMaybe<Array<ApiActionSuccessActionApiActionCreateFieldInput>>
+  CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionCreateFieldInput>
+  ApiAction?: InputMaybe<ApiActionSuccessActionApiActionCreateFieldInput>
 }
 
 export type ApiActionSuccessActionCreateInput = {

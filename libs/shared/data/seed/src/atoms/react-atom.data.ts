@@ -1,5 +1,5 @@
 import type { IReactAtomRecords } from '@codelab/backend/abstract/core'
-import { ReactTag } from '@codelab/backend/abstract/core'
+import { IReactCategoryTag } from '@codelab/backend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 
 /**
@@ -8,6 +8,6 @@ import { IAtomType } from '@codelab/shared/abstract/core'
 export const reactAtomData: IReactAtomRecords = {
   [IAtomType.ReactFragment]: {
     file: 'ReactFragment',
-    tag: ReactTag.ReactFragment,
+    tag: IReactCategoryTag.ReactFragment,
   },
 }

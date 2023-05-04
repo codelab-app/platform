@@ -1,7 +1,7 @@
-import type { IAntdAtomRecords } from '../atom.interface'
+import type { IAntdAtomRecords, IHtmlAtomRecords } from '../atom.interface'
 import type { IAntdCategoryTag } from './antd-tag.interface'
-import type { HtmlCategoryTag } from './html-tag.interface'
-import type { ReactTag } from './react-tag.interface'
+import type { IHtmlCategoryTag } from './html-tag.interface'
+import type { IReactCategoryTag } from './react-tag.interface'
 
 /**
  * This is the node within a tag tree, allows for hierarchical data in json format
@@ -15,10 +15,11 @@ import type { ReactTag } from './react-tag.interface'
 //     }
 
 export type AllTags =
-  | HtmlCategoryTag
   | IAntdCategoryTag
-  | ReactTag
+  | IHtmlCategoryTag
+  | IReactCategoryTag
   | keyof IAntdAtomRecords
+  | keyof IHtmlAtomRecords
 
 export type TagNode<T extends AllTags = AllTags> =
   | T

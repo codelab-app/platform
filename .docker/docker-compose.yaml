@@ -9,7 +9,7 @@ version: '3.8'
 services:
   neo4j:
     container_name: codelab-neo4j
-    image: neo4j:5.4.0
+    image: neo4j:5.7.0
     volumes:
       - codelab-neo4j:/data
       - codelab-neo4j:/plugins
@@ -37,7 +37,7 @@ services:
 
   neo4j-test:
     container_name: codelab-neo4j-test
-    image: neo4j:5.4.0
+    image: neo4j:5.7.0
     volumes:
       - codelab-neo4j-test:/data
       - codelab-neo4j-test:/plugins

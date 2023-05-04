@@ -47,10 +47,10 @@ export const htmlAtomData: IHtmlAtomRecords = {
     icon: null,
     tag: IAtomType.HtmlCode,
   },
-  [IAtomType.HtmlDList]: {
+  [IAtomType.HtmlDl]: {
     file: null,
     icon: null,
-    tag: IAtomType.HtmlDList,
+    tag: IAtomType.HtmlDl,
   },
   [IAtomType.HtmlData]: {
     file: null,
@@ -157,10 +157,10 @@ export const htmlAtomData: IHtmlAtomRecords = {
     icon: null,
     tag: IAtomType.HtmlIframe,
   },
-  [IAtomType.HtmlImage]: {
+  [IAtomType.HtmlImg]: {
     file: null,
     icon: null,
-    tag: IAtomType.HtmlImage,
+    tag: IAtomType.HtmlImg,
   },
   [IAtomType.HtmlInput]: {
     file: null,
@@ -212,10 +212,10 @@ export const htmlAtomData: IHtmlAtomRecords = {
     icon: null,
     tag: IAtomType.HtmlNav,
   },
-  [IAtomType.HtmlOList]: {
+  [IAtomType.HtmlOl]: {
     file: null,
     icon: null,
-    tag: IAtomType.HtmlOList,
+    tag: IAtomType.HtmlOl,
   },
   [IAtomType.HtmlObject]: {
     file: null,
@@ -262,10 +262,10 @@ export const htmlAtomData: IHtmlAtomRecords = {
     icon: null,
     tag: IAtomType.HtmlProgress,
   },
-  [IAtomType.HtmlQuote]: {
+  [IAtomType.HtmlBlockquote]: {
     file: null,
     icon: null,
-    tag: IAtomType.HtmlQuote,
+    tag: IAtomType.HtmlBlockquote,
   },
   [IAtomType.HtmlS]: {
     file: null,
@@ -322,25 +322,25 @@ export const htmlAtomData: IHtmlAtomRecords = {
     icon: null,
     tag: IAtomType.HtmlTable,
   },
-  [IAtomType.HtmlTableCaption]: {
+  [IAtomType.HtmlCaption]: {
     file: null,
     icon: null,
-    tag: IAtomType.HtmlTableCaption,
+    tag: IAtomType.HtmlCaption,
   },
-  [IAtomType.HtmlTableCell]: {
+  [IAtomType.HtmlTd]: {
     file: null,
     icon: null,
-    tag: IAtomType.HtmlTableCell,
+    tag: IAtomType.HtmlTd,
   },
-  [IAtomType.HtmlTableCol]: {
+  [IAtomType.HtmlTh]: {
     file: null,
     icon: null,
-    tag: IAtomType.HtmlTableCol,
+    tag: IAtomType.HtmlTh,
   },
-  [IAtomType.HtmlTableRow]: {
+  [IAtomType.HtmlTr]: {
     file: null,
     icon: null,
-    tag: IAtomType.HtmlTableRow,
+    tag: IAtomType.HtmlTr,
   },
   [IAtomType.HtmlTemplate]: {
     file: null,
@@ -367,14 +367,104 @@ export const htmlAtomData: IHtmlAtomRecords = {
     icon: null,
     tag: IAtomType.HtmlTrack,
   },
-  [IAtomType.HtmlUList]: {
+  [IAtomType.HtmlUl]: {
     file: null,
     icon: null,
-    tag: IAtomType.HtmlUList,
+    tag: IAtomType.HtmlUl,
   },
   [IAtomType.HtmlVideo]: {
     file: null,
     icon: null,
     tag: IAtomType.HtmlVideo,
+  },
+  [IAtomType.HtmlAbbr]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlAbbr,
+  },
+  [IAtomType.HtmlArticle]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlArticle,
+  },
+  [IAtomType.HtmlB]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlB,
+  },
+  [IAtomType.HtmlBdo]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlBdo,
+  },
+  [IAtomType.HtmlCite]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlCite,
+  },
+  [IAtomType.HtmlDfn]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlDfn,
+  },
+  [IAtomType.HtmlKbd]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlKbd,
+  },
+  [IAtomType.HtmlMark]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlMark,
+  },
+  [IAtomType.HtmlMath]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlMath,
+  },
+  [IAtomType.HtmlNoscript]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlNoscript,
+  },
+  [IAtomType.HtmlQ]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlQ,
+  },
+  [IAtomType.HtmlRuby]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlRuby,
+  },
+  [IAtomType.HtmlSamp]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlSamp,
+  },
+  [IAtomType.HtmlScript]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlScript,
+  },
+  [IAtomType.HtmlSvg]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlSvg,
+  },
+  [IAtomType.HtmlU]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlU,
+  },
+  [IAtomType.HtmlVar]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlVar,
+  },
+  [IAtomType.HtmlWbr]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlWbr,
   },
 }
