@@ -321,7 +321,7 @@ export class AppService
   ) {
     const {
       apps: [appData],
-      components,
+      pageComponents: components,
       resources,
       ...types
     } = initialData

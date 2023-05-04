@@ -76,7 +76,7 @@ export type GetRenderedPageAndCommonAppDataQueryVariables = Types.Exact<{
 
 export type GetRenderedPageAndCommonAppDataQuery = {
   apps: Array<PageBuilderAppFragment>
-  components: Array<RenderedComponentFragment>
+  pageComponents: Array<RenderedComponentFragment>
   resources: Array<ResourceFragment>
   primitiveTypes: Array<Type_PrimitiveType_Fragment>
   arrayTypes: Array<Type_ArrayType_Fragment>
@@ -144,7 +144,7 @@ export const GetRenderedPageAndCommonAppDataDocument = gql`
     apps(where: { id: $appId }) {
       ...PageBuilderApp
     }
-    components {
+    pageComponents(pageId: $pageId) {
       ...RenderedComponent
     }
     resources {

@@ -14244,6 +14244,7 @@ type Query {
     sort: [LambdaTypeSort]
     where: LambdaTypeWhere
   ): LambdaTypesConnection!
+  pageComponents(pageId: ID!): [Component!]!
   pageTypes(options: PageTypeOptions, where: PageTypeWhere): [PageType!]!
   pageTypesAggregate(where: PageTypeWhere): PageTypeAggregateSelection!
   pageTypesConnection(

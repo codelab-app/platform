@@ -1,6 +1,10 @@
 import { gql } from 'apollo-server-micro'
 
 export const componentSchema = gql`
+  type Query {
+    pageComponents(pageId: ID!): [Component!]!
+  }
+
   type Component implements WithOwner {
     id: ID! @id(autogenerate: false)
     name: String!

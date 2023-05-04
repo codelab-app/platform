@@ -14873,6 +14873,7 @@ export type Query = {
   lambdaTypes: Array<LambdaType>
   lambdaTypesAggregate: LambdaTypeAggregateSelection
   lambdaTypesConnection: LambdaTypesConnection
+  pageComponents: Array<Component>
   pageTypes: Array<PageType>
   pageTypesAggregate: PageTypeAggregateSelection
   pageTypesConnection: PageTypesConnection
@@ -15226,6 +15227,10 @@ export type QueryLambdaTypesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InputMaybe<LambdaTypeSort>>>
   where?: InputMaybe<LambdaTypeWhere>
+}
+
+export type QueryPageComponentsArgs = {
+  pageId: Scalars['ID']
 }
 
 export type QueryPageTypesArgs = {
@@ -21892,7 +21897,9 @@ export type GetRenderedPageAndCommonAppDataQueryVariables = Exact<{
 export type GetRenderedPageAndCommonAppDataQuery = {
   __typename?: 'Query'
   apps: Array<{ __typename?: 'App' } & PageBuilderAppFragment>
-  components: Array<{ __typename?: 'Component' } & RenderedComponentFragment>
+  pageComponents: Array<
+    { __typename?: 'Component' } & RenderedComponentFragment
+  >
   resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
   primitiveTypes: Array<
     { __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment

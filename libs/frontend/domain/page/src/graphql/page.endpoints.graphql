@@ -37,7 +37,7 @@ query GetRenderedPageAndCommonAppData(
   apps(where: { id: $appId }) {
     ...PageBuilderApp
   }
-  components {
+  pageComponents(pageId: $pageId) {
     ...RenderedComponent
   }
   resources {
