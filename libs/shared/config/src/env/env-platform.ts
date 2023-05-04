@@ -27,6 +27,9 @@ interface EnvPlatform {
   next: {
     enableAPILogging?: boolean
   }
+  vercel: {
+    vercel_api_token: string
+  }
 }
 
 export const EnvPlatform = (): EnvPlatform => {
@@ -67,6 +70,11 @@ export const EnvPlatform = (): EnvPlatform => {
     get next() {
       return {
         enableAPILogging: env.get('NEXT_API_ENABLE_LOGGING').asBool(),
+      }
+    },
+    get vercel() {
+      return {
+        vercel_api_token: env.get('VERCEL_API_TOKEN').required().asString(),
       }
     },
   }
