@@ -28,7 +28,7 @@ export class EnumType extends BaseType implements IEnumTypeDTO {
     this.allowedValues = allowedValues
   }
 
-  static getCompositeName(
+  static compositeName(
     atom: Pick<IAtomDTO, 'name'>,
     field: Pick<IFieldDTO, 'key'>,
   ) {

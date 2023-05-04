@@ -1,19 +1,27 @@
-import type { IAntdAtomRecords, TagNode } from '@codelab/backend/abstract/core'
+import type {
+  IAntdAtomRecords,
+  IAtomRecords,
+  TagNode,
+} from '@codelab/backend/abstract/core'
 import { IAuthUseCase } from '@codelab/backend/abstract/types'
 import { SeedAtomsService } from '@codelab/backend/application/atom'
 import { SeedTagsService } from '@codelab/backend/application/tag'
 import {
   SeedEmptyApiService,
-  SeedFieldService,
-  SeedTypeService,
   systemTypesData,
+  TypeSeederService,
 } from '@codelab/backend/application/type'
-import type { IAtomDTO, IFieldDTO } from '@codelab/frontend/abstract/core'
+import type {
+  IAtomDTO,
+  IAuth0Owner,
+  IFieldDTO,
+} from '@codelab/frontend/abstract/core'
 import type { IAtomType } from '@codelab/shared/abstract/core'
 import { ObjectTyped } from 'object-typed'
+import type { AdminSeederService } from '../../services'
 
 interface FrameworkData {
-  atoms: IAntdAtomRecords
+  atoms: Partial<IAtomRecords>
   tags: TagNode
 
   // This is a callback since we require atom data for fields to connect
@@ -26,6 +34,8 @@ interface FrameworkData {
  * It contains atoms, api's, tags
  */
 export class SeedFrameworkService extends IAuthUseCase<FrameworkData, void> {
+  seeder = new TypeSeederService()
+
   async _execute(data: FrameworkData) {
     await this.seedSystemTypes()
 
@@ -39,7 +49,9 @@ export class SeedFrameworkService extends IAuthUseCase<FrameworkData, void> {
   }
 
   private async seedSystemTypes() {
-    return new SeedTypeService(this.owner).execute(systemTypesData(this.owner))
+    const types = Object.values(systemTypesData(this.owner))
+
+    return await this.seeder.seedTypes(types, this.owner)
   }
 
   private async seedAtoms(atoms: FrameworkData['atoms']) {
@@ -55,6 +67,6 @@ export class SeedFrameworkService extends IAuthUseCase<FrameworkData, void> {
   }
 
   private async seedFields(fields: Array<IFieldDTO>) {
-    return new SeedFieldService(this.owner).execute(fields)
+    return this.seeder.seedFields(fields)
   }
 }

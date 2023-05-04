@@ -19,3 +19,11 @@ export interface AntDesignField {
   type: string
   version: string
 }
+
+/**
+ * This is field of chatgpt generated data
+ */
+export interface HtmlField {
+  key: string
+  type: string
+}

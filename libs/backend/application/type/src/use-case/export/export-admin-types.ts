@@ -9,7 +9,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { IFieldDTO } from '@codelab/frontend/abstract/core'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { sortInterfaceTypesFields } from '../mapper/sort'
+import { sortInterfaceTypesFields } from '../../mapper/sort'
 
 /**
  * Allows us to get only types for an api

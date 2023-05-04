@@ -5,7 +5,7 @@ import {
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import { sortInterfaceTypesFields } from '../mapper/sort'
+import { sortInterfaceTypesFields } from '../../mapper/sort'
 
 /**
  * These are types created by the admin, mostly types related to an atom.

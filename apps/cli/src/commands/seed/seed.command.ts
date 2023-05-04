@@ -1,4 +1,4 @@
-import { SeederService } from '@codelab/backend/application/admin'
+import { AdminSeederService } from '@codelab/backend/application/admin'
 import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { CommandModule } from 'yargs'
 import { getStageOptions, loadStageMiddleware } from '../../shared/command'
@@ -30,7 +30,7 @@ export const seedCommand: CommandModule = {
         async ({ user }) => {
           const owner = user as IAuth0Owner
 
-          await new SeederService(owner).seedAntDesign()
+          await new AdminSeederService(owner).seedAntDesign()
 
           process.exit(0)
         },
@@ -42,7 +42,7 @@ export const seedCommand: CommandModule = {
         async ({ user }) => {
           const owner = user as IAuth0Owner
 
-          await new SeederService(owner).seedHtml()
+          await new AdminSeederService(owner).seedHtml()
 
           process.exit(0)
         },

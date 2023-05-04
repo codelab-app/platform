@@ -26,6 +26,9 @@
       "@codelab/backend/abstract/core": [
         "libs/backend/abstract/core/src/index.ts"
       ],
+      "@codelab/backend/abstract/ports": [
+        "libs/backend/abstract/ports/src/index.ts"
+      ],
       "@codelab/backend/abstract/types": [
         "libs/backend/abstract/types/src/index.ts"
       ],

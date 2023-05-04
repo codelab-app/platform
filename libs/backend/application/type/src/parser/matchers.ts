@@ -1,5 +1,6 @@
-const arrowFnReturnReactNode = /^\(.+\).+=>.+ReactNode$/
-const es5FnReturnReactNode = /^function(.+): ReactNode$/
+export const arrowFnReturnReactNode = /^\(.+\).+=>.+ReactNode$/
+export const es5FnReturnReactNode = /^function(.+): ReactNode$/
+
 /**
  * These are used to match for types we want to ignore for union types
  */
@@ -23,7 +24,7 @@ export const unionTypeRegex = /\|/
 //   `/${arrayTypeRegex}|${functionTypeRegex}/`,
 // )
 
-export const isPrimitiveTypesRegex = /^(boolean|number|string|integer)$/
+export const primitiveTypesRegex = /^(boolean|number|string|integer)$/
 
 export const containsInterfaceTypeRegex = /\{.+\}/
 
@@ -41,7 +42,7 @@ export const stripBracketsRegex = /(?:\{)(.*)(?:\})/
 /* *
  * Used for single items
  */
-export const isInterfaceTypeRegex = /^\{.+}$/
+export const interfaceTypeRegex = /^\{.+}$/
 
 /**
  * : ReactNode|HTMLElement

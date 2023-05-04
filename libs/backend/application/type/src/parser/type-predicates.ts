@@ -3,8 +3,8 @@ import type { IAtomDTO } from '@codelab/frontend/abstract/core'
 import {
   containsInterfaceTypeRegex,
   functionTypeRegex,
-  isInterfaceTypeRegex,
-  isPrimitiveTypesRegex,
+  interfaceTypeRegex,
+  primitiveTypesRegex,
   reactNodeTypeRegex,
   renderPropRegexes,
   unionTypeRegex,
@@ -26,7 +26,7 @@ export type FieldTypeRef = (args: UnionTypeArgs) => Promise<TypeRef>
 export type IsTypePredicates = (fieldType: string) => boolean
 
 export const isPrimitiveType: IsTypePredicates = (fieldType) => {
-  return isPrimitiveTypesRegex.test(fieldType)
+  return primitiveTypesRegex.test(fieldType)
 }
 
 /**
@@ -39,7 +39,7 @@ export const isPrimitiveType: IsTypePredicates = (fieldType) => {
  * @param field
  */
 export const isEnumType: IsTypePredicates = (fieldType) => {
-  if (isInterfaceTypeRegex.test(fieldType)) {
+  if (interfaceTypeRegex.test(fieldType)) {
     return false
   }
 
@@ -47,7 +47,7 @@ export const isEnumType: IsTypePredicates = (fieldType) => {
 }
 
 export const isUnionType: IsTypePredicates = (fieldType) => {
-  return unionTypeRegex.test(fieldType) && !isInterfaceTypeRegex.test(fieldType)
+  return unionTypeRegex.test(fieldType) && !interfaceTypeRegex.test(fieldType)
 }
 
 export const isReactNodeType: IsTypePredicates = (fieldType) => {
@@ -64,7 +64,7 @@ export const isRenderPropType: IsTypePredicates = (fieldType) => {
 }
 
 export const isInterfaceType: IsTypePredicates = (fieldType) => {
-  return isInterfaceTypeRegex.test(fieldType)
+  return interfaceTypeRegex.test(fieldType)
 }
 
 /**

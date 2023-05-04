@@ -1,1 +1,1 @@
-export * from './seeder.service'
+export * from './admin-seeder.service'

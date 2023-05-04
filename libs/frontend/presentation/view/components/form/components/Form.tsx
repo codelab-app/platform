@@ -4,14 +4,14 @@ import { css } from '@emotion/react'
 import type { ReactElement } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { Bridge } from 'uniforms'
-import { AutoForm as BaseAutoForm } from 'uniforms-antd'
+import { AutoForm } from 'uniforms-antd'
 import {
   connectUniformSubmitRef,
   createBridge,
   createValidator,
 } from '../hooks/uniformUtils'
 
-export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
+export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   const Form = <TData, TResponse = unknown>({
     allowExpressions = false,
     autosave = false,
@@ -43,6 +43,9 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
     }, [schema])
 
     const modelRef = useRef(model)
+    // apply default values from the schema for the formData
+    // https://ajv.js.org/guide/modifying-data.html#assigning-defaults
+    const validate = createValidator(schema)
 
     return (
       <div
@@ -50,7 +53,7 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
           ${cssString}
         `}
       >
-        <AutoForm<TData>
+        <BaseAutoForm<TData>
           autosave={autosave}
           autosaveDelay={500}
           model={autosave ? modelRef.current : model}
@@ -58,9 +61,6 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
           onChange={onChange}
           onChangeModel={onChangeModel}
           onSubmit={(formData) => {
-            // apply default values from the schema for the formData
-            // https://ajv.js.org/guide/modifying-data.html#assigning-defaults
-            const validate = createValidator(schema)
             validate(formData)
 
             const submitResults = onSubmit(formData as TData)
@@ -82,7 +82,7 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
           submitField={submitField}
         >
           {children}
-        </AutoForm>
+        </BaseAutoForm>
       </div>
     )
   }
@@ -90,4 +90,4 @@ export const withAutoForm = (AutoForm: typeof BaseAutoForm) => {
   return Form
 }
 
-export const Form = withAutoForm(BaseAutoForm)
+export const Form = withAutoForm(AutoForm)

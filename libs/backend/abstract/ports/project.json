@@ -1,0 +1,16 @@
+{
+  "name": "backend-abstract-ports",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/backend/abstract/ports/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/backend/abstract/ports/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:backend"]
+}

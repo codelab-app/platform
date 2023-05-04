@@ -10,7 +10,7 @@ import type { IAtomDTO, IFieldDTO } from '@codelab/frontend/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { v4 } from 'uuid'
-import { TransformAntDesignTypesService } from '../transform-ant-design-types/transform-ant-design-types.service'
+import { AntdTypeAdapterService } from '../../type-adapter/antd-type-adapter/antd-type-adapter.service'
 import { readCsvFiles } from './read-csv-files'
 
 /**
@@ -26,7 +26,7 @@ export class ExtractAntDesignFieldsService extends IAuthUseCase<
 
   private reactDataFolder = `${process.cwd()}/data/react/`
 
-  fieldRepository: FieldRepository = new FieldRepository()
+  fieldRepository = new FieldRepository()
 
   /**
    * Extract data to be used for seeding, these data have already been mapped with correct ID for upsert
@@ -40,7 +40,8 @@ export class ExtractAntDesignFieldsService extends IAuthUseCase<
      * Break down function to act on each file
      */
     return await atoms.reduce(async (accFieldsPromise, atom) => {
-      const antDesignFields = csvFieldsByFile[`${atom.name}.csv`]
+      const antDesignFields =
+        csvFieldsByFile[`${atom.name.replace('AntDesign', '')}.csv`]
 
       if (!antDesignFields) {
         return await accFieldsPromise
@@ -85,11 +86,13 @@ export class ExtractAntDesignFieldsService extends IAuthUseCase<
       return existingField
     }
 
-    const fieldTypeDTO = await new TransformAntDesignTypesService().execute({
+    const fieldTypeDTO = await new AntdTypeAdapterService({
       atom,
-      field,
+      field: {
+        key: field.property,
+      },
       owner: this.owner,
-    })
+    }).execute({ type: field.type })
 
     if (!fieldTypeDTO) {
       return undefined
