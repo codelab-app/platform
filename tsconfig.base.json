@@ -159,6 +159,9 @@
       "@codelab/frontend/domain/user": [
         "libs/frontend/domain/user/src/index.ts"
       ],
+      "@codelab/frontend/domain/vercel": [
+        "libs/frontend/domain/vercel/src/index.ts"
+      ],
       "@codelab/frontend/presentation/client/graphql": [
         "libs/frontend/presentation/client/graphql/src/index.ts"
       ],
