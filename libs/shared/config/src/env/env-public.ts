@@ -16,6 +16,10 @@ interface EnvPublic {
     key: string
     url: string
   }
+  vercel: {
+    vercel_project_id: string
+    vercel_team_id: string
+  }
 }
 
 export const EnvPublic = (): EnvPublic => ({
@@ -33,5 +37,9 @@ export const EnvPublic = (): EnvPublic => ({
   supabase: {
     key: process.env['NEXT_PUBLIC_SUPABASE_KEY'] || '',
     url: process.env['NEXT_PUBLIC_SUPABASE_URL'] || '',
+  },
+  vercel: {
+    vercel_project_id: process.env['NEXT_PUBLIC_VERCEL_PROJECT_ID'] || '',
+    vercel_team_id: process.env['NEXT_PUBLIC_VERCEL_TEAM_ID'] || '',
   },
 })
