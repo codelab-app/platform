@@ -23,4 +23,14 @@ export const domainSchema = gql`
     domainConfig: VercelDomainConfig!
     projectDomain: VercelProjectDomain!
   }
+
+  # We need custom resolvers to interact with Vercel API, @callback doesn't work for delete
+  type Mutation {
+    createDomains(input: [DomainCreateInput!]!): CreateDomainsMutationResponse!
+    updateDomains(
+      where: DomainWhere!
+      update: DomainUpdateInput!
+    ): UpdateDomainsMutationResponse!
+    deleteDomains(id: String!): DeleteInfo!
+  }
 `

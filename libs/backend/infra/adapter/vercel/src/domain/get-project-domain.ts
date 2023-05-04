@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch'
-import { baseHeaders, projectApiUrl, teamIdParam } from '../config'
+import { getBaseHeaders, projectApiUrl, teamIdParam } from '../config'
 
 export const PROJECT_NOT_FOUND = 404
 
@@ -13,7 +13,7 @@ export const getProjectDomain = (name: string) => {
   const url = `${projectApiUrl()}/domains/${name}?${teamIdParam}`
 
   return fetch(url, {
-    headers: baseHeaders,
+    headers: getBaseHeaders(),
     method: 'GET',
   })
 }

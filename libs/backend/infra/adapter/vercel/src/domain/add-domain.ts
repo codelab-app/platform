@@ -1,4 +1,4 @@
-import { baseHeaders, projectApiUrl, teamIdParam } from '../config'
+import { getBaseHeaders, projectApiUrl, teamIdParam } from '../config'
 
 export const addDomain = (name: string) => {
   const url = `${projectApiUrl()}/domains?${teamIdParam}`
@@ -8,7 +8,7 @@ export const addDomain = (name: string) => {
       method: 'add',
       name,
     }),
-    headers: baseHeaders,
+    headers: getBaseHeaders(),
     method: 'POST',
   })
 }

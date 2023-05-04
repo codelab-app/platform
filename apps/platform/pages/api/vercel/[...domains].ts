@@ -1,9 +1,9 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import {
-  baseHeaders,
+  getBaseHeaders,
   projectApiUrl,
   teamIdParam,
-} from 'libs/backend/infra/adapter/vercel/src/config'
+} from '@codelab/backend/infra/adapter/vercel'
 import type { NextApiHandler } from 'next'
 import url from 'url'
 
@@ -18,7 +18,7 @@ export const vercelDomainProxy: NextApiHandler = async (req, res) => {
 
   try {
     const vercelRes = await fetch(`${projectUrl}/${reqUrl}?${teamIdParam}`, {
-      headers: baseHeaders,
+      headers: getBaseHeaders(),
       method: req.method,
       ...(req.body && { body: req.body }),
     })
