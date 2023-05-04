@@ -1,6 +1,6 @@
 import type { GetRenderedPageAndCommonAppDataQuery } from '@codelab/shared/abstract/codegen'
 
-export interface AppPagePageProps {
+export interface ProductionWebsiteProps {
   appId: string
   pageId: string
   renderingData: GetRenderedPageAndCommonAppDataQuery

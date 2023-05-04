@@ -1,6 +1,6 @@
 import { RendererType } from '@codelab/frontend/abstract/core'
+import type { ProductionWebsiteProps } from '@codelab/frontend/abstract/types'
 import { PageType } from '@codelab/frontend/abstract/types'
-import type { GetRenderedPageAndCommonAppDataQuery } from '@codelab/shared/abstract/codegen'
 import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/router'
 import { useStore } from '../providers'
@@ -8,10 +8,12 @@ import { useCurrentAppId, useCurrentPageId } from '../routerHooks'
 
 export interface RenderedPageProps {
   /**
-   * for production we prebuild pages with all required information
-   * so if this object exists - use it as a source of truth instead of making a request
+   * for production user websites we use slightly different flow:
+   * - we prebuild pages with all required information to avoid requests to platform DB
+   * - pageId and appId are not exposed in url, so we need to pass them explicitly
    */
-  initialData?: GetRenderedPageAndCommonAppDataQuery
+  productionProps?: ProductionWebsiteProps
+
   /**
    * indicates whether the hook is used inside builder page or preview page
    */
@@ -22,7 +24,7 @@ export interface RenderedPageProps {
  * Fetch related data for rendering page, and load them into store
  */
 export const useRenderedPage = ({
-  initialData,
+  productionProps,
   rendererType,
 }: RenderedPageProps) => {
   const {
@@ -33,8 +35,10 @@ export const useRenderedPage = ({
     elementService,
   } = useStore()
 
-  const appId = useCurrentAppId()
-  const pageId = useCurrentPageId()
+  const appIdFromUrl = useCurrentAppId()
+  const pageIdFromUrl = useCurrentPageId()
+  const appId = productionProps?.appId ?? appIdFromUrl
+  const pageId = productionProps?.pageId ?? pageIdFromUrl
   const router = useRouter()
 
   const renderService =
@@ -46,7 +50,7 @@ export const useRenderedPage = ({
     const app = await appService.getRenderedPageAndCommonAppData(
       appId,
       pageId,
-      initialData,
+      productionProps?.renderingData,
     )
 
     if (!app) {
