@@ -142,9 +142,11 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
     for (const element of elements) {
       await updateImportedElement(element)
     }
+
     const interfaceTypeExist = await interfaceTypeRepository.findOne({
       id: store.api.id,
     })
+
     interfaceTypeExist
       ? await interfaceTypeRepository.update(
           { ...store.api, fields: [] },
@@ -158,7 +160,7 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
         ? await fieldRepository.update(field, { id: field.id })
         : await fieldRepository.add([field])
     })
-    
+
     await storeRepository
       .add([store])
       .catch(() => storeRepository.update(store, { id: store.id }))
