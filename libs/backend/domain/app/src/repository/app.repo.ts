@@ -142,14 +142,27 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
     for (const element of elements) {
       await updateImportedElement(element)
     }
+    const interfaceTypeExist = await interfaceTypeRepository.findOne({
+      id: store.api.id,
+    })
+    interfaceTypeExist
+      ? await interfaceTypeRepository.update(
+          { ...store.api, fields: [] },
+          { id: store.api.id },
+        )
+      : await interfaceTypeRepository.add([{ ...store.api, fields: [] }])
 
-    await interfaceTypeRepository.add([{ ...store.api, fields: [] }])
-
-    await fieldRepository.add(store.api.fields)
-    await storeRepository.add([store])
+    store.api.fields.forEach(async (field) => {
+      const fieldExist = await fieldRepository.findOne({ id: field.id })
+      fieldExist
+        ? await fieldRepository.update(field, { id: field.id })
+        : await fieldRepository.add([field])
+    })
+    
+    await storeRepository
+      .add([store])
+      .catch(() => storeRepository.update(store, { id: store.id }))
   }
-
-  // components should be created after their root elements
 
   const pagesData = app.pages.map(({ elements, ...props }) => ({
     ...props,
