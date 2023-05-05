@@ -9,10 +9,11 @@ import {
 import { mapElementOption } from '@codelab/frontend/domain/element'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { Key } from '@codelab/frontend/presentation/view'
-import { Menu } from 'antd'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import { Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
-import tw from 'twin.macro'
+import React, { useState } from 'react'
+import { BuilderTreeItemElementTitle } from './builder-tree/BuilderTreeItem-ElementTitle'
 
 export interface ContextMenuProps {
   onBlur?(): unknown
@@ -37,12 +38,13 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     createModal,
     deleteModal,
     element,
-    onBlur,
-    onClick,
   }) => {
     const { builderService, componentService } = useStore()
     const { user } = useUser()
     const componentInstance = isComponentInstance(element.renderType)
+
+    const [contextMenuItemId, setContextMenuNodeId] =
+      useState<Nullable<string>>(null)
 
     const onAddChild = () => {
       const elementTree = element.closestContainerNode
@@ -130,17 +132,25 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     ]
 
     return (
-      <Menu
-        css={tw`border border-gray-200 shadow-xl`}
-        items={menuItems
-          .filter((item) => !item.hide)
-          .map((item) => ({
-            ...item,
-            hide: String(item.hide),
-          }))}
-        onBlur={onBlur}
-        onClick={() => onClick?.()}
-      />
+      <Dropdown
+        menu={{
+          items: menuItems
+            .filter((item) => !item.hide)
+            .map((item) => ({
+              ...item,
+              hide: String(item.hide),
+            })),
+        }}
+        onOpenChange={(visible) => {
+          setContextMenuNodeId(visible ? element.id : null)
+        }}
+        open={contextMenuItemId === element.id}
+        trigger={['contextMenu']}
+      >
+        <div>
+          <BuilderTreeItemElementTitle element={element} />
+        </div>
+      </Dropdown>
     )
   },
 )
