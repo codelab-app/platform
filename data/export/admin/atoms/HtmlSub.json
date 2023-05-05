@@ -1,0 +1,33 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "ca7d60c9-a0e2-42c7-ace5-8337d3c88120",
+    "kind": "InterfaceType",
+    "name": "HtmlSub API",
+    "fields": []
+  },
+  "atom": {
+    "id": "725b2e25-614a-40f5-8c78-b2d8b0decd54",
+    "name": "HtmlSub",
+    "type": "HtmlSub",
+    "api": {
+      "id": "ca7d60c9-a0e2-42c7-ace5-8337d3c88120"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "efd0fbbc-e2bb-44b1-b6f0-7b9baf19993c",
+        "name": "HtmlSub",
+        "parent": {
+          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
+          "name": "Phrasing"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [],
+  "types": []
+}

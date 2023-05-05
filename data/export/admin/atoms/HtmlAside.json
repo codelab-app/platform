@@ -1,0 +1,33 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "893a88f0-5ec1-42b0-a18a-faf0993651ea",
+    "kind": "InterfaceType",
+    "name": "HtmlAside API",
+    "fields": []
+  },
+  "atom": {
+    "id": "d3306244-1fa7-4ff2-b6be-93b5aaa62037",
+    "name": "HtmlAside",
+    "type": "HtmlAside",
+    "api": {
+      "id": "893a88f0-5ec1-42b0-a18a-faf0993651ea"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "4eb31c42-ebbc-40c5-9cd7-26a4c9626d4e",
+        "name": "HtmlAside",
+        "parent": {
+          "id": "7770d516-4052-4392-abf5-6fba7be6950d",
+          "name": "Sectioning"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [],
+  "types": []
+}

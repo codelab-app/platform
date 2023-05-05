@@ -1,0 +1,175 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "d7943ca3-8c2d-4bff-97a6-be0eef4c9994",
+    "kind": "InterfaceType",
+    "name": "HtmlMeter API",
+    "fields": [
+      {
+        "id": "4c180705-2ec6-456a-990c-d1e4590ed189"
+      },
+      {
+        "id": "5ca4968a-942e-4539-b89a-b688002e02bd"
+      },
+      {
+        "id": "6ae946bc-3be5-4ab7-93a9-0ccdf9113065"
+      },
+      {
+        "id": "7011c0eb-84ab-4870-9017-6892c3655f04"
+      },
+      {
+        "id": "a72f930f-e1bb-4c02-87bf-fcbf41f79893"
+      },
+      {
+        "id": "f35a6ec3-4816-4909-aca4-c9e446b48e14"
+      },
+      {
+        "id": "f721a8c4-41e6-49ae-81bb-2628a1053fae"
+      }
+    ]
+  },
+  "atom": {
+    "id": "12637258-148d-423c-97b1-665f2c9f160c",
+    "name": "HtmlMeter",
+    "type": "HtmlMeter",
+    "api": {
+      "id": "d7943ca3-8c2d-4bff-97a6-be0eef4c9994"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "002d8a12-929b-480f-a74e-09ffe9b8318a",
+        "name": "HtmlMeter",
+        "parent": {
+          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
+          "name": "Phrasing"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "6ae946bc-3be5-4ab7-93a9-0ccdf9113065",
+      "key": "form",
+      "name": "Form",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "d7943ca3-8c2d-4bff-97a6-be0eef4c9994"
+      }
+    },
+    {
+      "id": "a72f930f-e1bb-4c02-87bf-fcbf41f79893",
+      "key": "high",
+      "name": "High",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+        "kind": "PrimitiveType",
+        "name": "Number"
+      },
+      "api": {
+        "id": "d7943ca3-8c2d-4bff-97a6-be0eef4c9994"
+      }
+    },
+    {
+      "id": "4c180705-2ec6-456a-990c-d1e4590ed189",
+      "key": "low",
+      "name": "Low",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+        "kind": "PrimitiveType",
+        "name": "Number"
+      },
+      "api": {
+        "id": "d7943ca3-8c2d-4bff-97a6-be0eef4c9994"
+      }
+    },
+    {
+      "id": "7011c0eb-84ab-4870-9017-6892c3655f04",
+      "key": "max",
+      "name": "Max",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+        "kind": "PrimitiveType",
+        "name": "Number"
+      },
+      "api": {
+        "id": "d7943ca3-8c2d-4bff-97a6-be0eef4c9994"
+      }
+    },
+    {
+      "id": "f35a6ec3-4816-4909-aca4-c9e446b48e14",
+      "key": "min",
+      "name": "Min",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+        "kind": "PrimitiveType",
+        "name": "Number"
+      },
+      "api": {
+        "id": "d7943ca3-8c2d-4bff-97a6-be0eef4c9994"
+      }
+    },
+    {
+      "id": "5ca4968a-942e-4539-b89a-b688002e02bd",
+      "key": "optimum",
+      "name": "Optimum",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+        "kind": "PrimitiveType",
+        "name": "Number"
+      },
+      "api": {
+        "id": "d7943ca3-8c2d-4bff-97a6-be0eef4c9994"
+      }
+    },
+    {
+      "id": "f721a8c4-41e6-49ae-81bb-2628a1053fae",
+      "key": "value",
+      "name": "Value",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+        "kind": "PrimitiveType",
+        "name": "Number"
+      },
+      "api": {
+        "id": "d7943ca3-8c2d-4bff-97a6-be0eef4c9994"
+      }
+    }
+  ],
+  "types": []
+}

@@ -1,0 +1,51 @@
+[
+  {
+    "property": "children",
+    "description": "The wrapped title",
+    "type": "ReactNode",
+    "default": "-"
+  },
+  {
+    "property": "className",
+    "description": "The className of container",
+    "type": "string",
+    "default": "-"
+  },
+  {
+    "property": "dashed",
+    "description": "Whether line is dashed",
+    "type": "boolean",
+    "default": "false"
+  },
+  {
+    "property": "orientation",
+    "description": "The position of title inside divider",
+    "type": "left | right | center",
+    "default": "center"
+  },
+  {
+    "property": "orientationMargin",
+    "description": "The margin-left/right between the title and its closest border, while the orientation must be left or right",
+    "type": "string | number",
+    "default": "-"
+  },
+  {
+    "property": "plain",
+    "description": "Divider text show as plain style",
+    "type": "boolean",
+    "default": "true",
+    "version": "4.2.0"
+  },
+  {
+    "property": "style",
+    "description": "The style object of container",
+    "type": "CSSProperties",
+    "default": "-"
+  },
+  {
+    "property": "type",
+    "description": "The direction type of divider",
+    "type": "horizontal | vertical",
+    "default": "horizontal"
+  }
+]

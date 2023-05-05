@@ -1,0 +1,37 @@
+[
+  {
+    "property": "key",
+    "description": "The unique identifier of the Anchor Link",
+    "type": "string | number",
+    "default": "-",
+    "version": "-"
+  },
+  {
+    "property": "href",
+    "description": "The target of hyperlink",
+    "type": "string",
+    "default": "",
+    "version": "-"
+  },
+  {
+    "property": "target",
+    "description": "Specifies where to display the linked URL",
+    "type": "string",
+    "default": "",
+    "version": "-"
+  },
+  {
+    "property": "title",
+    "description": "The content of hyperlink",
+    "type": "ReactNode",
+    "default": "",
+    "version": "-"
+  },
+  {
+    "property": "children",
+    "description": "Nested Anchor Link, Attention: This attribute does not support horizontal orientation",
+    "type": "AnchorItem[]",
+    "default": "-",
+    "version": "-"
+  }
+]

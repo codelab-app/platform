@@ -1,0 +1,33 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "8ce6a38f-b90e-46e1-bc10-1235fb4fb34a",
+    "kind": "InterfaceType",
+    "name": "HtmlRuby API",
+    "fields": []
+  },
+  "atom": {
+    "id": "8f83316b-03d2-443f-a938-a56e0324769c",
+    "name": "HtmlRuby",
+    "type": "HtmlRuby",
+    "api": {
+      "id": "8ce6a38f-b90e-46e1-bc10-1235fb4fb34a"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "8c647d43-2ca7-434a-8b0c-d5e7d1bf7978",
+        "name": "HtmlRuby",
+        "parent": {
+          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
+          "name": "Phrasing"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [],
+  "types": []
+}

@@ -4,7 +4,44 @@
     "id": "a6b0acb2-aa2c-4b67-a379-0f026208262f",
     "kind": "InterfaceType",
     "name": "HtmlA API",
-    "fields": []
+    "fields": [
+      {
+        "id": "1257a5ce-af50-48fd-9f51-5e85aeda0f40"
+      },
+      {
+        "id": "2a0563f8-b98f-44ae-bb15-1ae1d0d54ade"
+      },
+      {
+        "id": "579e369e-6d1b-4894-ad58-b5bf6cd180d4"
+      },
+      {
+        "id": "675ed78d-3dac-4890-9235-6447cf3865e7"
+      },
+      {
+        "id": "9c291035-b572-41b3-b9a8-8799050fce1f"
+      },
+      {
+        "id": "9d1e820b-4bf1-4e30-9cf3-d0dfa566ce0b"
+      },
+      {
+        "id": "ae6068fa-26f1-4b79-86b5-37303a9a9783"
+      },
+      {
+        "id": "aebbf333-ef80-4dcf-ada8-63bce5dd0002"
+      },
+      {
+        "id": "b49908fd-6a15-482d-86e2-b92069a100c0"
+      },
+      {
+        "id": "e02d7e7d-356c-4425-b7d0-39319d7d78cb"
+      },
+      {
+        "id": "e3668073-4c96-4ad0-a329-570025e6b2d4"
+      },
+      {
+        "id": "ea0a1bf7-2653-4719-9608-dc3e91a75db4"
+      }
+    ]
   },
   "atom": {
     "id": "cc1c914e-48fc-4d04-ad01-2a649e7c5a55",
@@ -16,11 +53,11 @@
     "icon": null,
     "tags": [
       {
-        "id": "81ae8401-3097-43c5-8d72-e7771f140912",
-        "name": "Html",
+        "id": "ab9d93f5-ad70-4005-b83c-19df2b6264ef",
+        "name": "HtmlA",
         "parent": {
-          "id": "fdc6102f-7d20-433d-a6a2-ad8b6102429b",
-          "name": "Basic"
+          "id": "8cadea33-7f0c-48c4-aac3-d85496e81828",
+          "name": "Interactive"
         },
         "children": []
       }
@@ -28,6 +65,250 @@
     "suggestedChildren": [],
     "requiredParents": []
   },
-  "fields": [],
-  "types": []
+  "fields": [
+    {
+      "id": "9c291035-b572-41b3-b9a8-8799050fce1f",
+      "key": "coords",
+      "name": "Coords",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "a6b0acb2-aa2c-4b67-a379-0f026208262f"
+      }
+    },
+    {
+      "id": "b49908fd-6a15-482d-86e2-b92069a100c0",
+      "key": "download",
+      "name": "Download",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "a6b0acb2-aa2c-4b67-a379-0f026208262f"
+      }
+    },
+    {
+      "id": "579e369e-6d1b-4894-ad58-b5bf6cd180d4",
+      "key": "href",
+      "name": "Href",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "a6b0acb2-aa2c-4b67-a379-0f026208262f"
+      }
+    },
+    {
+      "id": "ea0a1bf7-2653-4719-9608-dc3e91a75db4",
+      "key": "hreflang",
+      "name": "Hreflang",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "a6b0acb2-aa2c-4b67-a379-0f026208262f"
+      }
+    },
+    {
+      "id": "2a0563f8-b98f-44ae-bb15-1ae1d0d54ade",
+      "key": "name",
+      "name": "Name",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "a6b0acb2-aa2c-4b67-a379-0f026208262f"
+      }
+    },
+    {
+      "id": "e02d7e7d-356c-4425-b7d0-39319d7d78cb",
+      "key": "ping",
+      "name": "Ping",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "a6b0acb2-aa2c-4b67-a379-0f026208262f"
+      }
+    },
+    {
+      "id": "ae6068fa-26f1-4b79-86b5-37303a9a9783",
+      "key": "referrerpolicy",
+      "name": "Referrerpolicy",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "89f9e0f0-5e58-4e9e-8b2b-36c8226be8ee",
+        "kind": "EnumType",
+        "name": "HtmlA Referrerpolicy Enum"
+      },
+      "api": {
+        "id": "a6b0acb2-aa2c-4b67-a379-0f026208262f"
+      }
+    },
+    {
+      "id": "e3668073-4c96-4ad0-a329-570025e6b2d4",
+      "key": "rel",
+      "name": "Rel",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "a6b0acb2-aa2c-4b67-a379-0f026208262f"
+      }
+    },
+    {
+      "id": "675ed78d-3dac-4890-9235-6447cf3865e7",
+      "key": "rev",
+      "name": "Rev",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "a6b0acb2-aa2c-4b67-a379-0f026208262f"
+      }
+    },
+    {
+      "id": "aebbf333-ef80-4dcf-ada8-63bce5dd0002",
+      "key": "shape",
+      "name": "Shape",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "a6b0acb2-aa2c-4b67-a379-0f026208262f"
+      }
+    },
+    {
+      "id": "9d1e820b-4bf1-4e30-9cf3-d0dfa566ce0b",
+      "key": "target",
+      "name": "Target",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "a6b0acb2-aa2c-4b67-a379-0f026208262f"
+      }
+    },
+    {
+      "id": "1257a5ce-af50-48fd-9f51-5e85aeda0f40",
+      "key": "type",
+      "name": "Type",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "a6b0acb2-aa2c-4b67-a379-0f026208262f"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "EnumType",
+      "id": "89f9e0f0-5e58-4e9e-8b2b-36c8226be8ee",
+      "kind": "EnumType",
+      "name": "HtmlA Referrerpolicy Enum",
+      "allowedValues": [
+        {
+          "id": "f67df19e-9915-4e98-bff7-1d39436fbbd4",
+          "key": "no-referrer",
+          "value": "no-referrer"
+        },
+        {
+          "id": "7d19db58-e338-478f-9b30-69a13ca82d0a",
+          "key": "no-referrer-when-downgrade",
+          "value": "no-referrer-when-downgrade"
+        },
+        {
+          "id": "36bccd3e-6a2b-47b6-a3a3-350ff71fe6a1",
+          "key": "origin",
+          "value": "origin"
+        },
+        {
+          "id": "0a823e25-1cb6-4afd-9203-529d8f1e59d1",
+          "key": "origin-when-cross-origin",
+          "value": "origin-when-cross-origin"
+        },
+        {
+          "id": "ac4cc823-5c14-4ee1-8091-f1fc83086159",
+          "key": "strict-origin-when-cross-origin",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "id": "85870a76-9bd5-478f-a78e-20a9bd3d141e",
+          "key": "unsafe-url",
+          "value": "unsafe-url"
+        }
+      ]
+    }
+  ]
 }

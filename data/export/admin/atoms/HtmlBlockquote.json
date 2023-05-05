@@ -1,0 +1,55 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "bbe82fed-f4c4-4cc1-ac66-0dcdc9d83d2f",
+    "kind": "InterfaceType",
+    "name": "HtmlBlockquote API",
+    "fields": [
+      {
+        "id": "ef84c17b-fb1b-45c1-93e2-bb6fad79e278"
+      }
+    ]
+  },
+  "atom": {
+    "id": "c0322351-8b41-4ca8-9f55-64cb938dd70f",
+    "name": "HtmlBlockquote",
+    "type": "HtmlBlockquote",
+    "api": {
+      "id": "bbe82fed-f4c4-4cc1-ac66-0dcdc9d83d2f"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "945cacfa-4869-47c5-8748-20dadc6d512c",
+        "name": "HtmlBlockquote",
+        "parent": {
+          "id": "b3c5db6d-1853-458c-9388-1b8ddaf89250",
+          "name": "Flow"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "ef84c17b-fb1b-45c1-93e2-bb6fad79e278",
+      "key": "cite",
+      "name": "Cite",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "bbe82fed-f4c4-4cc1-ac66-0dcdc9d83d2f"
+      }
+    }
+  ],
+  "types": []
+}

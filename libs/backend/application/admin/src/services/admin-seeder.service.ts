@@ -24,8 +24,6 @@ export class AdminSeederService extends IAuthService {
     const fields = async (atoms: Array<IAtomDTO>) =>
       new ExtractHtmlFieldsService(this.owner).execute(atoms)
 
-    console.log(fields)
-
     await new SeedFrameworkService(this.owner).execute({
       atoms: htmlAtomData,
       fields,

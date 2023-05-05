@@ -1,0 +1,30 @@
+[
+  {
+    "property": "itemRender",
+    "description": "Custom item renderer",
+    "type": "(route, params, routes, paths) => ReactNode",
+    "default": "-",
+    "version": "-"
+  },
+  {
+    "property": "params",
+    "description": "Routing parameters",
+    "type": "object",
+    "default": "-",
+    "version": "-"
+  },
+  {
+    "property": "items",
+    "description": "The routing stack information of router",
+    "type": "items[]",
+    "default": "-",
+    "version": "5.3.0"
+  },
+  {
+    "property": "separator",
+    "description": "Custom separator",
+    "type": "ReactNode",
+    "default": "/",
+    "version": "-"
+  }
+]

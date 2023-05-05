@@ -1,0 +1,86 @@
+[
+  {
+    "property": "breakpoint",
+    "description": "Breakpoints of the responsive layout",
+    "type": "xs | sm | md | lg | xl | xxl",
+    "default": "-"
+  },
+  {
+    "property": "className",
+    "description": "Container className",
+    "type": "string",
+    "default": "-"
+  },
+  {
+    "property": "collapsed",
+    "description": "To set the current status",
+    "type": "boolean",
+    "default": "-"
+  },
+  {
+    "property": "collapsedWidth",
+    "description": "Width of the collapsed sidebar, by setting to 0 a special trigger will appear",
+    "type": "number",
+    "default": "80"
+  },
+  {
+    "property": "collapsible",
+    "description": "Whether can be collapsed",
+    "type": "boolean",
+    "default": "false"
+  },
+  {
+    "property": "defaultCollapsed",
+    "description": "To set the initial status",
+    "type": "boolean",
+    "default": "false"
+  },
+  {
+    "property": "reverseArrow",
+    "description": "Reverse direction of arrow, for a sider that expands from the right",
+    "type": "boolean",
+    "default": "false"
+  },
+  {
+    "property": "style",
+    "description": "To customize the styles",
+    "type": "CSSProperties",
+    "default": "-"
+  },
+  {
+    "property": "theme",
+    "description": "Color theme of the sidebar",
+    "type": "light | dark",
+    "default": "dark"
+  },
+  {
+    "property": "trigger",
+    "description": "Specify the customized trigger, set to null to hide the trigger",
+    "type": "ReactNode",
+    "default": "-"
+  },
+  {
+    "property": "width",
+    "description": "Width of the sidebar",
+    "type": "number | string",
+    "default": "200"
+  },
+  {
+    "property": "zeroWidthTriggerStyle",
+    "description": "To customize the styles of the special trigger that appears when collapsedWidth is 0",
+    "type": "object",
+    "default": "-"
+  },
+  {
+    "property": "onBreakpoint",
+    "description": "The callback function, executed when breakpoints changed",
+    "type": "(broken) => {}",
+    "default": "-"
+  },
+  {
+    "property": "onCollapse",
+    "description": "The callback function, executed by clicking the trigger or activating the responsive layout",
+    "type": "(collapsed, type) => {}",
+    "default": "-"
+  }
+]

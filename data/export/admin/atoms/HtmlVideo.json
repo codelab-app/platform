@@ -1,0 +1,277 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "5446dfa9-df30-4075-b414-984048da43c3",
+    "kind": "InterfaceType",
+    "name": "HtmlVideo API",
+    "fields": [
+      {
+        "id": "08c0263b-0259-4c3b-aa0c-8b59e97e8198"
+      },
+      {
+        "id": "182f9fca-780b-4867-85ed-1cae2770de50"
+      },
+      {
+        "id": "40c0aaee-db84-4f39-8fd8-01b86006becf"
+      },
+      {
+        "id": "42d4aa95-3c74-4a12-899f-19f1a8b734e6"
+      },
+      {
+        "id": "7c258021-e6e3-4211-8380-cb24c7441b76"
+      },
+      {
+        "id": "8ad293af-11bc-40bf-a736-c79bc3b528c1"
+      },
+      {
+        "id": "a78e9242-9fa3-47f9-9dc0-84ec42f44b04"
+      },
+      {
+        "id": "bc8ae731-7e81-4209-8782-5fd956df662e"
+      },
+      {
+        "id": "f1232711-81f6-40e8-bdcf-d345268978a5"
+      },
+      {
+        "id": "f4970aa6-8b62-44b4-89f0-699113335bcf"
+      }
+    ]
+  },
+  "atom": {
+    "id": "fd726ef4-3f72-40ec-9793-0cbb381e4ee6",
+    "name": "HtmlVideo",
+    "type": "HtmlVideo",
+    "api": {
+      "id": "5446dfa9-df30-4075-b414-984048da43c3"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "957c26dc-59e3-4147-acf5-6bc9cb9b947f",
+        "name": "HtmlVideo",
+        "parent": {
+          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
+          "name": "Phrasing"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "42d4aa95-3c74-4a12-899f-19f1a8b734e6",
+      "key": "autoplay",
+      "name": "Autoplay",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "5446dfa9-df30-4075-b414-984048da43c3"
+      }
+    },
+    {
+      "id": "182f9fca-780b-4867-85ed-1cae2770de50",
+      "key": "controls",
+      "name": "Controls",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "5446dfa9-df30-4075-b414-984048da43c3"
+      }
+    },
+    {
+      "id": "bc8ae731-7e81-4209-8782-5fd956df662e",
+      "key": "crossorigin",
+      "name": "Crossorigin",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "609faa51-7adf-40a6-9e73-dadbbeaa8822",
+        "kind": "EnumType",
+        "name": "HtmlVideo Crossorigin Enum"
+      },
+      "api": {
+        "id": "5446dfa9-df30-4075-b414-984048da43c3"
+      }
+    },
+    {
+      "id": "08c0263b-0259-4c3b-aa0c-8b59e97e8198",
+      "key": "height",
+      "name": "Height",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+        "kind": "PrimitiveType",
+        "name": "Integer"
+      },
+      "api": {
+        "id": "5446dfa9-df30-4075-b414-984048da43c3"
+      }
+    },
+    {
+      "id": "a78e9242-9fa3-47f9-9dc0-84ec42f44b04",
+      "key": "loop",
+      "name": "Loop",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "5446dfa9-df30-4075-b414-984048da43c3"
+      }
+    },
+    {
+      "id": "7c258021-e6e3-4211-8380-cb24c7441b76",
+      "key": "muted",
+      "name": "Muted",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "5446dfa9-df30-4075-b414-984048da43c3"
+      }
+    },
+    {
+      "id": "f4970aa6-8b62-44b4-89f0-699113335bcf",
+      "key": "poster",
+      "name": "Poster",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "5446dfa9-df30-4075-b414-984048da43c3"
+      }
+    },
+    {
+      "id": "f1232711-81f6-40e8-bdcf-d345268978a5",
+      "key": "preload",
+      "name": "Preload",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "ab292cbd-e1a4-456d-8575-2f25db338d45",
+        "kind": "EnumType",
+        "name": "HtmlVideo Preload Enum"
+      },
+      "api": {
+        "id": "5446dfa9-df30-4075-b414-984048da43c3"
+      }
+    },
+    {
+      "id": "8ad293af-11bc-40bf-a736-c79bc3b528c1",
+      "key": "src",
+      "name": "Src",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "5446dfa9-df30-4075-b414-984048da43c3"
+      }
+    },
+    {
+      "id": "40c0aaee-db84-4f39-8fd8-01b86006becf",
+      "key": "width",
+      "name": "Width",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+        "kind": "PrimitiveType",
+        "name": "Integer"
+      },
+      "api": {
+        "id": "5446dfa9-df30-4075-b414-984048da43c3"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "EnumType",
+      "id": "609faa51-7adf-40a6-9e73-dadbbeaa8822",
+      "kind": "EnumType",
+      "name": "HtmlVideo Crossorigin Enum",
+      "allowedValues": [
+        {
+          "id": "c4de2521-0336-4a0c-8d60-6a0592709fa8",
+          "key": "anonymous",
+          "value": "anonymous"
+        },
+        {
+          "id": "d329c3b6-c39e-4fc8-aaa3-2bf187219b47",
+          "key": "use-credentials",
+          "value": "use-credentials"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "ab292cbd-e1a4-456d-8575-2f25db338d45",
+      "kind": "EnumType",
+      "name": "HtmlVideo Preload Enum",
+      "allowedValues": [
+        {
+          "id": "c119e4f0-5a22-4ce1-86a0-8e67c05bf887",
+          "key": "auto",
+          "value": "auto"
+        },
+        {
+          "id": "fcd019f1-6bb0-4a21-96e4-b280577485cb",
+          "key": "metadata",
+          "value": "metadata"
+        },
+        {
+          "id": "ddaba7bf-72dd-49bb-9315-f921bf85158e",
+          "key": "none",
+          "value": "none"
+        }
+      ]
+    }
+  ]
+}

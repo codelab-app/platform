@@ -472,17 +472,17 @@ export const antdAtomData: IAntdAtomRecords = {
   // 'Typography--ellipsis': IAtomType.AntDesignTypography,
   [IAtomType.AntDesignTypographyParagraph]: {
     file: 'Typography--Typography.Paragraph',
-    icon: IAntdCategoryTag.Typography,
+    icon: IAntdCategoryTag.AntDesignTypography,
     tag: IAtomType.AntDesignTypographyParagraph,
   },
   [IAtomType.AntDesignTypographyText]: {
     file: 'Typography--Typography.Text',
-    icon: IAntdCategoryTag.Typography,
+    icon: IAntdCategoryTag.AntDesignTypography,
     tag: IAtomType.AntDesignTypographyText,
   },
   [IAtomType.AntDesignTypographyTitle]: {
     file: 'Typography--Typography.Title',
-    icon: IAntdCategoryTag.Typography,
+    icon: IAntdCategoryTag.AntDesignTypography,
     tag: IAtomType.AntDesignTypographyText,
   },
   [IAtomType.AntDesignUpload]: {

@@ -1,0 +1,33 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "b0692287-891a-4bb4-969a-ef4d15f8084b",
+    "kind": "InterfaceType",
+    "name": "HtmlSamp API",
+    "fields": []
+  },
+  "atom": {
+    "id": "063f79df-cbb8-4d62-81b4-207aebe32418",
+    "name": "HtmlSamp",
+    "type": "HtmlSamp",
+    "api": {
+      "id": "b0692287-891a-4bb4-969a-ef4d15f8084b"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "4d515289-2cf4-445c-b65c-2005aa0f5b7a",
+        "name": "HtmlSamp",
+        "parent": {
+          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
+          "name": "Phrasing"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [],
+  "types": []
+}

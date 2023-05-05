@@ -1,0 +1,179 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "0f186445-2b42-455b-a96e-b5f6f69a4c50",
+    "kind": "InterfaceType",
+    "name": "HtmlAudio API",
+    "fields": [
+      {
+        "id": "1c1d77c0-4abd-4f11-ac84-3fbeacc89d20"
+      },
+      {
+        "id": "2bc9e4d1-8ee2-4107-b354-55252e6e2ed8"
+      },
+      {
+        "id": "4fcb5eaf-6e5b-448e-82e1-2e52d9e5cb70"
+      },
+      {
+        "id": "67543a6b-15e8-4982-93e0-9a474adbc3ab"
+      },
+      {
+        "id": "85b4daa2-a87f-4587-9c26-5c3f8dff34b4"
+      },
+      {
+        "id": "a5bfa806-5695-495e-a7c5-973bfc6db2ee"
+      }
+    ]
+  },
+  "atom": {
+    "id": "fe3645f9-d754-4122-b662-730cb3d61029",
+    "name": "HtmlAudio",
+    "type": "HtmlAudio",
+    "api": {
+      "id": "0f186445-2b42-455b-a96e-b5f6f69a4c50"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "6e6cbbaa-aeb4-43db-a49e-a30f18dc11aa",
+        "name": "HtmlAudio",
+        "parent": {
+          "id": "88febbf3-53e3-443b-9c1c-51e7d2a2a15a",
+          "name": "Embedded"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "85b4daa2-a87f-4587-9c26-5c3f8dff34b4",
+      "key": "autoplay",
+      "name": "Autoplay",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "0f186445-2b42-455b-a96e-b5f6f69a4c50"
+      }
+    },
+    {
+      "id": "1c1d77c0-4abd-4f11-ac84-3fbeacc89d20",
+      "key": "controls",
+      "name": "Controls",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "0f186445-2b42-455b-a96e-b5f6f69a4c50"
+      }
+    },
+    {
+      "id": "2bc9e4d1-8ee2-4107-b354-55252e6e2ed8",
+      "key": "loop",
+      "name": "Loop",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "0f186445-2b42-455b-a96e-b5f6f69a4c50"
+      }
+    },
+    {
+      "id": "a5bfa806-5695-495e-a7c5-973bfc6db2ee",
+      "key": "muted",
+      "name": "Muted",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "0f186445-2b42-455b-a96e-b5f6f69a4c50"
+      }
+    },
+    {
+      "id": "67543a6b-15e8-4982-93e0-9a474adbc3ab",
+      "key": "preload",
+      "name": "Preload",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "d13b7bf1-a118-4fa0-86f5-24718963a701",
+        "kind": "EnumType",
+        "name": "HtmlAudio Preload Enum"
+      },
+      "api": {
+        "id": "0f186445-2b42-455b-a96e-b5f6f69a4c50"
+      }
+    },
+    {
+      "id": "4fcb5eaf-6e5b-448e-82e1-2e52d9e5cb70",
+      "key": "src",
+      "name": "Src",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "0f186445-2b42-455b-a96e-b5f6f69a4c50"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "EnumType",
+      "id": "d13b7bf1-a118-4fa0-86f5-24718963a701",
+      "kind": "EnumType",
+      "name": "HtmlAudio Preload Enum",
+      "allowedValues": [
+        {
+          "id": "55e228dd-3cad-4cf2-bbc8-8d711c473174",
+          "key": "auto",
+          "value": "auto"
+        },
+        {
+          "id": "c8c0ef61-13fc-42f4-a52a-b401c2408366",
+          "key": "metadata",
+          "value": "metadata"
+        },
+        {
+          "id": "fe95e0c3-9362-411a-a0f2-8655a1cfb048",
+          "key": "none",
+          "value": "none"
+        }
+      ]
+    }
+  ]
+}

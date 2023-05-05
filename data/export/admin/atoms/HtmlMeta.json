@@ -1,0 +1,115 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "272c683c-4347-4cfb-9a51-bb69a6ac029a",
+    "kind": "InterfaceType",
+    "name": "HtmlMeta API",
+    "fields": [
+      {
+        "id": "2cc85e15-b609-48e4-afc1-f3282f64b49e"
+      },
+      {
+        "id": "44c97269-ebae-4ad1-b8aa-058f50208d5a"
+      },
+      {
+        "id": "4560797b-d640-4f31-9968-67bff2067412"
+      },
+      {
+        "id": "bed45806-d09b-4b1c-9e0e-47bfdd88c203"
+      }
+    ]
+  },
+  "atom": {
+    "id": "f8102a58-59c7-4857-9551-363de8a5c933",
+    "name": "HtmlMeta",
+    "type": "HtmlMeta",
+    "api": {
+      "id": "272c683c-4347-4cfb-9a51-bb69a6ac029a"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "32764277-e099-4478-b220-0e4ef9a01801",
+        "name": "HtmlMeta",
+        "parent": {
+          "id": "81adcc2f-67a1-4bd9-a0f5-e763effa69b5",
+          "name": "Metadata"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "bed45806-d09b-4b1c-9e0e-47bfdd88c203",
+      "key": "charset",
+      "name": "Charset",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "272c683c-4347-4cfb-9a51-bb69a6ac029a"
+      }
+    },
+    {
+      "id": "2cc85e15-b609-48e4-afc1-f3282f64b49e",
+      "key": "content",
+      "name": "Content",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "272c683c-4347-4cfb-9a51-bb69a6ac029a"
+      }
+    },
+    {
+      "id": "44c97269-ebae-4ad1-b8aa-058f50208d5a",
+      "key": "http-equiv",
+      "name": "Http-equiv",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "272c683c-4347-4cfb-9a51-bb69a6ac029a"
+      }
+    },
+    {
+      "id": "4560797b-d640-4f31-9968-67bff2067412",
+      "key": "name",
+      "name": "Name",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "272c683c-4347-4cfb-9a51-bb69a6ac029a"
+      }
+    }
+  ],
+  "types": []
+}

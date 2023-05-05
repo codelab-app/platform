@@ -1,0 +1,95 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "c299b8bd-3a8e-4675-8cd6-56dda53428a7",
+    "kind": "InterfaceType",
+    "name": "HtmlOl API",
+    "fields": [
+      {
+        "id": "44b4d07f-b0e4-405e-b8fb-8f12b0368a36"
+      },
+      {
+        "id": "d389c360-8952-48d1-b125-b2ef3b1737e1"
+      },
+      {
+        "id": "d4a5276a-e941-4371-995a-c6181c75cb0b"
+      }
+    ]
+  },
+  "atom": {
+    "id": "1c9db3e8-8790-47c8-b09e-eb877f66d2d0",
+    "name": "HtmlOl",
+    "type": "HtmlOl",
+    "api": {
+      "id": "c299b8bd-3a8e-4675-8cd6-56dda53428a7"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "c631a7b6-ec7e-4221-9517-3f097c2ef324",
+        "name": "HtmlOl",
+        "parent": {
+          "id": "b3c5db6d-1853-458c-9388-1b8ddaf89250",
+          "name": "Flow"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "44b4d07f-b0e4-405e-b8fb-8f12b0368a36",
+      "key": "reversed",
+      "name": "Reversed",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "c299b8bd-3a8e-4675-8cd6-56dda53428a7"
+      }
+    },
+    {
+      "id": "d389c360-8952-48d1-b125-b2ef3b1737e1",
+      "key": "start",
+      "name": "Start",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+        "kind": "PrimitiveType",
+        "name": "Integer"
+      },
+      "api": {
+        "id": "c299b8bd-3a8e-4675-8cd6-56dda53428a7"
+      }
+    },
+    {
+      "id": "d4a5276a-e941-4371-995a-c6181c75cb0b",
+      "key": "type",
+      "name": "Type",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "c299b8bd-3a8e-4675-8cd6-56dda53428a7"
+      }
+    }
+  ],
+  "types": []
+}

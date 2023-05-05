@@ -1,0 +1,16 @@
+[
+  {
+    "property": "children",
+    "description": "Sub-menu items",
+    "type": "MenuItemType[]",
+    "default": "",
+    "version": ""
+  },
+  {
+    "property": "label",
+    "description": "The title of the group",
+    "type": "ReactNode",
+    "default": "",
+    "version": ""
+  }
+]

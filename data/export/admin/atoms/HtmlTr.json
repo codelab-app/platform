@@ -1,0 +1,197 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b",
+    "kind": "InterfaceType",
+    "name": "HtmlTr API",
+    "fields": [
+      {
+        "id": "1a30ef45-dc2b-475b-a2d2-7a04a8924ed1"
+      },
+      {
+        "id": "1c6aa902-0f59-4e65-96b0-4e65da717b5e"
+      },
+      {
+        "id": "48847c03-783e-4924-b677-88daa0f11393"
+      },
+      {
+        "id": "6baccaaf-0c19-4178-abae-124e8bf17300"
+      },
+      {
+        "id": "def977fa-6038-4df1-98b9-e94f557b685a"
+      }
+    ]
+  },
+  "atom": {
+    "id": "9f9deec1-7be5-44b4-bd4b-010c5ca27220",
+    "name": "HtmlTr",
+    "type": "HtmlTr",
+    "api": {
+      "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "4c592fd1-b7ce-467b-84b8-cef50a20735c",
+        "name": "HtmlTr",
+        "parent": {
+          "id": "b3c5db6d-1853-458c-9388-1b8ddaf89250",
+          "name": "Flow"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "6baccaaf-0c19-4178-abae-124e8bf17300",
+      "key": "align",
+      "name": "Align",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "b7d3776e-a1f2-4090-bef7-9865a4ee020b",
+        "kind": "EnumType",
+        "name": "HtmlTr Align Enum"
+      },
+      "api": {
+        "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b"
+      }
+    },
+    {
+      "id": "1c6aa902-0f59-4e65-96b0-4e65da717b5e",
+      "key": "bgcolor",
+      "name": "Bgcolor",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b"
+      }
+    },
+    {
+      "id": "48847c03-783e-4924-b677-88daa0f11393",
+      "key": "char",
+      "name": "Char",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b"
+      }
+    },
+    {
+      "id": "def977fa-6038-4df1-98b9-e94f557b685a",
+      "key": "charoff",
+      "name": "Charoff",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b"
+      }
+    },
+    {
+      "id": "1a30ef45-dc2b-475b-a2d2-7a04a8924ed1",
+      "key": "valign",
+      "name": "Valign",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "ad09d99a-de90-4016-ae1b-1391c6120156",
+        "kind": "EnumType",
+        "name": "HtmlTr Valign Enum"
+      },
+      "api": {
+        "id": "7c8ef29d-5e1f-40bb-b5a1-981aada62d7b"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "EnumType",
+      "id": "b7d3776e-a1f2-4090-bef7-9865a4ee020b",
+      "kind": "EnumType",
+      "name": "HtmlTr Align Enum",
+      "allowedValues": [
+        {
+          "id": "934c6b5c-ed58-4a21-bf5f-b9cb92f25ead",
+          "key": "center",
+          "value": "center"
+        },
+        {
+          "id": "1356e600-1bc7-458c-9cd6-2d299074fd1b",
+          "key": "char",
+          "value": "char"
+        },
+        {
+          "id": "9a602bef-6546-459e-8b4a-f37bd1f5ded4",
+          "key": "justify",
+          "value": "justify"
+        },
+        {
+          "id": "05d414d5-9977-4bb6-bd7f-db5a52e8d698",
+          "key": "left",
+          "value": "left"
+        },
+        {
+          "id": "6aa20999-2b63-41fe-9ac9-bf4dca6e1669",
+          "key": "right",
+          "value": "right"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "ad09d99a-de90-4016-ae1b-1391c6120156",
+      "kind": "EnumType",
+      "name": "HtmlTr Valign Enum",
+      "allowedValues": [
+        {
+          "id": "cfd76f8b-80b8-4e13-b64e-7710755b4f01",
+          "key": "baseline",
+          "value": "baseline"
+        },
+        {
+          "id": "d51c57ea-cc49-49ec-87b4-26ca4acce3eb",
+          "key": "bottom",
+          "value": "bottom"
+        },
+        {
+          "id": "446b21b8-37b7-4d3e-8180-d13bdd2a225a",
+          "key": "middle",
+          "value": "middle"
+        },
+        {
+          "id": "22405228-a7d5-4fa5-8caa-26c5f78a618c",
+          "key": "top",
+          "value": "top"
+        }
+      ]
+    }
+  ]
+}

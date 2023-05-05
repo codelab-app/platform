@@ -1,0 +1,175 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "51cd2e92-9172-48b3-9241-bac3ecd44678",
+    "kind": "InterfaceType",
+    "name": "HtmlSelect API",
+    "fields": [
+      {
+        "id": "37f2a117-d7a0-46fc-9759-91411e1d4542"
+      },
+      {
+        "id": "76284952-a014-4c52-8e52-7539ddd7dac8"
+      },
+      {
+        "id": "7715790f-0043-4ecb-b8cc-fd6004b3508c"
+      },
+      {
+        "id": "b9383a50-bd83-4f25-a70e-830ab2dd932b"
+      },
+      {
+        "id": "c1487b22-c158-4cc7-b457-e3126bfc2d3a"
+      },
+      {
+        "id": "ea90a53f-cc53-4908-a013-52b78cd63115"
+      },
+      {
+        "id": "f1302bb5-02f4-435a-a7f4-52c42a6145e8"
+      }
+    ]
+  },
+  "atom": {
+    "id": "9d774c57-10ba-42c2-8084-1be6128a89ae",
+    "name": "HtmlSelect",
+    "type": "HtmlSelect",
+    "api": {
+      "id": "51cd2e92-9172-48b3-9241-bac3ecd44678"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "8362b8d3-21eb-47cd-8167-602554894675",
+        "name": "HtmlSelect",
+        "parent": {
+          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
+          "name": "Phrasing"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "37f2a117-d7a0-46fc-9759-91411e1d4542",
+      "key": "autofocus",
+      "name": "Autofocus",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "51cd2e92-9172-48b3-9241-bac3ecd44678"
+      }
+    },
+    {
+      "id": "7715790f-0043-4ecb-b8cc-fd6004b3508c",
+      "key": "disabled",
+      "name": "Disabled",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "51cd2e92-9172-48b3-9241-bac3ecd44678"
+      }
+    },
+    {
+      "id": "f1302bb5-02f4-435a-a7f4-52c42a6145e8",
+      "key": "form",
+      "name": "Form",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "51cd2e92-9172-48b3-9241-bac3ecd44678"
+      }
+    },
+    {
+      "id": "c1487b22-c158-4cc7-b457-e3126bfc2d3a",
+      "key": "multiple",
+      "name": "Multiple",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "51cd2e92-9172-48b3-9241-bac3ecd44678"
+      }
+    },
+    {
+      "id": "b9383a50-bd83-4f25-a70e-830ab2dd932b",
+      "key": "name",
+      "name": "Name",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "51cd2e92-9172-48b3-9241-bac3ecd44678"
+      }
+    },
+    {
+      "id": "76284952-a014-4c52-8e52-7539ddd7dac8",
+      "key": "required",
+      "name": "Required",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "51cd2e92-9172-48b3-9241-bac3ecd44678"
+      }
+    },
+    {
+      "id": "ea90a53f-cc53-4908-a013-52b78cd63115",
+      "key": "size",
+      "name": "Size",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+        "kind": "PrimitiveType",
+        "name": "Integer"
+      },
+      "api": {
+        "id": "51cd2e92-9172-48b3-9241-bac3ecd44678"
+      }
+    }
+  ],
+  "types": []
+}

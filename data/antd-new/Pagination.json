@@ -1,0 +1,114 @@
+[
+  {
+    "property": "current",
+    "description": "Current page number",
+    "type": "number",
+    "default": "-",
+    "version": ""
+  },
+  {
+    "property": "defaultCurrent",
+    "description": "Default initial page number",
+    "type": "number",
+    "default": "1",
+    "version": ""
+  },
+  {
+    "property": "defaultPageSize",
+    "description": "Default number of data items per page",
+    "type": "number",
+    "default": "10",
+    "version": ""
+  },
+  {
+    "property": "disabled",
+    "description": "Disable pagination",
+    "type": "boolean",
+    "default": "-",
+    "version": ""
+  },
+  {
+    "property": "hideOnSinglePage",
+    "description": "Whether to hide pager on single page",
+    "type": "boolean",
+    "default": "false",
+    "version": ""
+  },
+  {
+    "property": "itemRender",
+    "description": "To customize item's innerHTML",
+    "type": "(page, type: 'page' | 'prev' | 'next', originalElement) => React.ReactNode",
+    "default": "-",
+    "version": ""
+  },
+  {
+    "property": "pageSize",
+    "description": "Number of data items per page",
+    "type": "number",
+    "default": "-",
+    "version": ""
+  },
+  {
+    "property": "pageSizeOptions",
+    "description": "Specify the sizeChanger options",
+    "type": "string[] | number[]",
+    "default": "[10, 20, 50, 100]",
+    "version": ""
+  },
+  {
+    "property": "responsive",
+    "description": "If size is not specified, Pagination would resize according to the width of the window",
+    "type": "boolean",
+    "default": "-",
+    "version": ""
+  },
+  {
+    "property": "showLessItems",
+    "description": "Show less page items",
+    "type": "boolean",
+    "default": "false",
+    "version": ""
+  },
+  {
+    "property": "showQuickJumper",
+    "description": "Determine whether you can jump to pages directly",
+    "type": "boolean | { goButton: ReactNode }",
+    "default": "false",
+    "version": ""
+  },
+  {
+    "property": "showSizeChanger",
+    "description": "Determine whether to show pageSize select, it will be true when total > 50",
+    "type": "boolean",
+    "default": "-",
+    "version": ""
+  },
+  {
+    "property": "showTitle",
+    "description": "Show page item's title",
+    "type": "boolean",
+    "default": "true",
+    "version": ""
+  },
+  {
+    "property": "showTotal",
+    "description": "To display the total number and range",
+    "type": "function(total, range)",
+    "default": "-",
+    "version": ""
+  },
+  {
+    "property": "simple",
+    "description": "Whether to use simple mode",
+    "type": "boolean",
+    "default": "-",
+    "version": ""
+  },
+  {
+    "property": "size",
+    "description": "Specify the size of Pagination, can be set to small",
+    "type": "string",
+    "default": "default",
+    "version": ""
+  }
+]

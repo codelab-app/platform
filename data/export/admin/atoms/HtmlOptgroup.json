@@ -1,0 +1,75 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "1ce20968-947f-4511-8b8b-c56dec38ca9e",
+    "kind": "InterfaceType",
+    "name": "HtmlOptgroup API",
+    "fields": [
+      {
+        "id": "bb30bfba-a361-4458-94a9-48c34c3505ba"
+      },
+      {
+        "id": "dfcdd018-6951-4911-95ea-32440afeeac4"
+      }
+    ]
+  },
+  "atom": {
+    "id": "b996ebfa-52bf-482e-8353-5439e3c4bdb9",
+    "name": "HtmlOptgroup",
+    "type": "HtmlOptgroup",
+    "api": {
+      "id": "1ce20968-947f-4511-8b8b-c56dec38ca9e"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "7f4aa84a-2648-4a3c-880d-684cf56a21e9",
+        "name": "HtmlOptgroup",
+        "parent": {
+          "id": "b3c5db6d-1853-458c-9388-1b8ddaf89250",
+          "name": "Flow"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "dfcdd018-6951-4911-95ea-32440afeeac4",
+      "key": "disabled",
+      "name": "Disabled",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "1ce20968-947f-4511-8b8b-c56dec38ca9e"
+      }
+    },
+    {
+      "id": "bb30bfba-a361-4458-94a9-48c34c3505ba",
+      "key": "label",
+      "name": "Label",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "1ce20968-947f-4511-8b8b-c56dec38ca9e"
+      }
+    }
+  ],
+  "types": []
+}

@@ -1,0 +1,33 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "6002e02c-bc1d-4128-8944-65d4a3202262",
+    "kind": "InterfaceType",
+    "name": "HtmlArticle API",
+    "fields": []
+  },
+  "atom": {
+    "id": "bded8164-9777-4d23-82e2-c43ff27432ef",
+    "name": "HtmlArticle",
+    "type": "HtmlArticle",
+    "api": {
+      "id": "6002e02c-bc1d-4128-8944-65d4a3202262"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "421d68e3-fe05-4037-956e-d24d70bfdbc9",
+        "name": "HtmlArticle",
+        "parent": {
+          "id": "7770d516-4052-4392-abf5-6fba7be6950d",
+          "name": "Sectioning"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [],
+  "types": []
+}

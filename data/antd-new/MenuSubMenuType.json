@@ -1,0 +1,65 @@
+[
+  {
+    "property": "children",
+    "description": "Sub-menus or sub-menu items",
+    "type": "ItemType[]",
+    "default": "",
+    "version": ""
+  },
+  {
+    "property": "disabled",
+    "description": "Whether sub-menu is disabled",
+    "type": "boolean",
+    "default": "false",
+    "version": ""
+  },
+  {
+    "property": "icon",
+    "description": "Icon of sub menu",
+    "type": "ReactNode",
+    "default": "",
+    "version": ""
+  },
+  {
+    "property": "key",
+    "description": "Unique ID of the sub-menu",
+    "type": "string",
+    "default": "",
+    "version": ""
+  },
+  {
+    "property": "label",
+    "description": "Menu label",
+    "type": "ReactNode",
+    "default": "",
+    "version": ""
+  },
+  {
+    "property": "popupClassName",
+    "description": "Sub-menu class name, not working when mode='inline'",
+    "type": "string",
+    "default": "",
+    "version": ""
+  },
+  {
+    "property": "popupOffset",
+    "description": "Sub-menu offset, not working when mode='inline'",
+    "type": "[number, number]",
+    "default": "",
+    "version": ""
+  },
+  {
+    "property": "theme",
+    "description": "Color theme of the SubMenu (inherits from Menu by default)",
+    "type": "light | dark",
+    "default": "",
+    "version": ""
+  },
+  {
+    "property": "onTitleClick",
+    "description": "Callback executed when the sub-menu title is clicked",
+    "type": "function({ key, domEvent })",
+    "default": "",
+    "version": ""
+  }
+]

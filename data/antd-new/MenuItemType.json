@@ -1,0 +1,44 @@
+[
+  {
+    "property": "danger",
+    "description": "Display the danger style",
+    "type": "boolean",
+    "default": "false",
+    "version": ""
+  },
+  {
+    "property": "disabled",
+    "description": "Whether menu item is disabled",
+    "type": "boolean",
+    "default": "false",
+    "version": ""
+  },
+  {
+    "property": "icon",
+    "description": "The icon of the menu item",
+    "type": "ReactNode",
+    "default": "",
+    "version": ""
+  },
+  {
+    "property": "key",
+    "description": "Unique ID of the menu item",
+    "type": "string",
+    "default": "",
+    "version": ""
+  },
+  {
+    "property": "label",
+    "description": "Menu label",
+    "type": "ReactNode",
+    "default": "",
+    "version": ""
+  },
+  {
+    "property": "title",
+    "description": "Set display title for collapsed item",
+    "type": "string",
+    "default": "",
+    "version": ""
+  }
+]

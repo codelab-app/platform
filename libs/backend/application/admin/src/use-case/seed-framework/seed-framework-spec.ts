@@ -48,7 +48,7 @@ export const exportAndAssert = async (exportPath: string) => {
     // Minus root level category tags
     Object.keys(antdTagTree),
     // Minus other non-root, non-atom tags
-    [IAntdCategoryTag.Typography, IAntdCategoryTag.Grid],
+    [IAntdCategoryTag.AntDesignTypography, IAntdCategoryTag.AntDesignGrid],
   )
 
   /**

@@ -4,11 +4,11 @@
  * We separate the category tags from the actual HTML for better separation, we can create the relationship in the tree
  */
 export enum IHtmlCategoryTag {
-  Flow = 'Flow',
-  Heading = 'Heading',
-  Sectioning = 'Sectioning',
-  Embedded = 'Embedded',
-  Phrasing = 'Phrasing',
-  Interactive = 'Interactive',
-  Metadata = 'Metadata',
+  HtmlFlow = 'HtmlFlow',
+  HtmlHeading = 'HtmlHeading',
+  HtmlSectioning = 'HtmlSectioning',
+  HtmlEmbedded = 'HtmlEmbedded',
+  HtmlPhrasing = 'HtmlPhrasing',
+  HtmlInteractive = 'HtmlInteractive',
+  HtmlMetadata = 'HtmlMetadata',
 }

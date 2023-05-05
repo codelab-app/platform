@@ -12,12 +12,12 @@ describe('Tag Parser', () => {
   it('can generate tag tree data', () => {
     // Pick the most nested and assert
     const generalTagNode = antdTagTreeData.find(
-      (node) => node.name === IAntdCategoryTag.General,
+      (node) => node.name === IAntdCategoryTag.AntDesignGeneral,
     )
 
     // Assert root node
     expect(generalTagNode?.parent).toBeNull()
-    expect(generalTagNode?.name).toBe(IAntdCategoryTag.General)
+    expect(generalTagNode?.name).toBe(IAntdCategoryTag.AntDesignGeneral)
     expect(generalTagNode?.children).toHaveLength(3)
 
     // Assert leaf node

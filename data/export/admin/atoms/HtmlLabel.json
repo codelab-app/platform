@@ -1,0 +1,75 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "7c70ef7f-b69a-46e4-a247-f6cb1c4b2eb2",
+    "kind": "InterfaceType",
+    "name": "HtmlLabel API",
+    "fields": [
+      {
+        "id": "ad7c07f8-92a3-4128-96ae-6f9404225a27"
+      },
+      {
+        "id": "d82b49ab-b0bf-47e3-b225-72e5f02b5afd"
+      }
+    ]
+  },
+  "atom": {
+    "id": "73c150e2-6bf6-4758-afec-431a5ed48a39",
+    "name": "HtmlLabel",
+    "type": "HtmlLabel",
+    "api": {
+      "id": "7c70ef7f-b69a-46e4-a247-f6cb1c4b2eb2"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "7a56769f-e34f-4e08-bbe3-036803930d6f",
+        "name": "HtmlLabel",
+        "parent": {
+          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
+          "name": "Phrasing"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "d82b49ab-b0bf-47e3-b225-72e5f02b5afd",
+      "key": "for",
+      "name": "For",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "7c70ef7f-b69a-46e4-a247-f6cb1c4b2eb2"
+      }
+    },
+    {
+      "id": "ad7c07f8-92a3-4128-96ae-6f9404225a27",
+      "key": "form",
+      "name": "Form",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "7c70ef7f-b69a-46e4-a247-f6cb1c4b2eb2"
+      }
+    }
+  ],
+  "types": []
+}

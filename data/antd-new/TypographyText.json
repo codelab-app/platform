@@ -1,0 +1,86 @@
+[
+  {
+    "property": "code",
+    "description": "Code style",
+    "type": "boolean",
+    "default": "false"
+  },
+  {
+    "property": "copyable",
+    "description": "Whether to be copyable, customize it via setting an object",
+    "type": "boolean | copyable",
+    "default": "false",
+    "version": "copyable"
+  },
+  {
+    "property": "delete",
+    "description": "Deleted line style",
+    "type": "boolean",
+    "default": "false"
+  },
+  {
+    "property": "disabled",
+    "description": "Disabled content",
+    "type": "boolean",
+    "default": "false"
+  },
+  {
+    "property": "editable",
+    "description": "If editable. Can control edit state when is object",
+    "type": "boolean | editable",
+    "default": "false",
+    "version": "editable"
+  },
+  {
+    "property": "ellipsis",
+    "description": "Display ellipsis when text overflows, can't configure expandable、rows and onExpand by using object. Diff with Typography.Paragraph, Text do not have 100% width style which means it will fix width on the first ellipsis. If you want to have responsive ellipsis, please set width manually",
+    "type": "boolean | Omit<ellipsis, 'expandable' | 'rows' | 'onExpand'>",
+    "default": "false",
+    "version": "ellipsis"
+  },
+  {
+    "property": "keyboard",
+    "description": "Keyboard style",
+    "type": "boolean",
+    "default": "false",
+    "version": "4.3.0"
+  },
+  {
+    "property": "mark",
+    "description": "Marked style",
+    "type": "boolean",
+    "default": "false"
+  },
+  {
+    "property": "onClick",
+    "description": "Set the handler to handle click event",
+    "type": "(event) => void",
+    "default": "-"
+  },
+  {
+    "property": "strong",
+    "description": "Bold style",
+    "type": "boolean",
+    "default": "false"
+  },
+  {
+    "property": "italic",
+    "description": "Italic style",
+    "type": "boolean",
+    "default": "false",
+    "version": "4.16.0"
+  },
+  {
+    "property": "type",
+    "description": "Content type",
+    "type": "secondary | success | warning | danger",
+    "default": "-",
+    "version": "success: 4.6.0"
+  },
+  {
+    "property": "underline",
+    "description": "Underlined style",
+    "type": "boolean",
+    "default": "false"
+  }
+]

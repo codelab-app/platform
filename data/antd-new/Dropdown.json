@@ -1,0 +1,100 @@
+[
+  {
+    "property": "arrow",
+    "description": "Whether the dropdown arrow should be visible",
+    "type": "boolean | { pointAtCenter: boolean }",
+    "default": "false",
+    "version": ""
+  },
+  {
+    "property": "autoAdjustOverflow",
+    "description": "Whether to adjust dropdown placement automatically when dropdown is off screen",
+    "type": "boolean",
+    "default": "true",
+    "version": "5.2.0"
+  },
+  {
+    "property": "autoFocus",
+    "description": "Focus element in overlay when opened",
+    "type": "boolean",
+    "default": "false",
+    "version": "4.21.0"
+  },
+  {
+    "property": "disabled",
+    "description": "Whether the dropdown menu is disabled",
+    "type": "boolean",
+    "default": "",
+    "version": ""
+  },
+  {
+    "property": "destroyPopupOnHide",
+    "description": "Whether destroy dropdown when hidden",
+    "type": "boolean",
+    "default": "false",
+    "version": ""
+  },
+  {
+    "property": "dropdownRender",
+    "description": "Customize dropdown content",
+    "type": "(menus: ReactNode) => ReactNode",
+    "default": "",
+    "version": "4.24.0"
+  },
+  {
+    "property": "getPopupContainer",
+    "description": "To set the container of the dropdown menu. The default is to create a div element in body, but you can reset it to the scrolling area and make a relative reposition. Example on CodePen",
+    "type": "(triggerNode: HTMLElement) => HTMLElement",
+    "default": "() => document.body",
+    "version": ""
+  },
+  {
+    "property": "menu",
+    "description": "The menu props",
+    "type": "MenuProps",
+    "default": "",
+    "version": "4.24.0"
+  },
+  {
+    "property": "overlayClassName",
+    "description": "The class name of the dropdown root element",
+    "type": "string",
+    "default": "",
+    "version": ""
+  },
+  {
+    "property": "overlayStyle",
+    "description": "The style of the dropdown root element",
+    "type": "CSSProperties",
+    "default": "",
+    "version": ""
+  },
+  {
+    "property": "placement",
+    "description": "Placement of popup menu: bottom bottomLeft bottomRight top topLeft topRight",
+    "type": "string",
+    "default": "bottomLeft",
+    "version": ""
+  },
+  {
+    "property": "trigger",
+    "description": "The trigger mode which executes the dropdown action. Note that hover can't be used on touchscreens",
+    "type": "Array<click|hover|contextMenu>",
+    "default": "[hover]",
+    "version": ""
+  },
+  {
+    "property": "open",
+    "description": "Whether the dropdown menu is currently open. Use visible under 4.23.0 (why?)",
+    "type": "boolean",
+    "default": "",
+    "version": "4.23.0"
+  },
+  {
+    "property": "onOpenChange",
+    "description": "Called when the open state is changed. Not trigger when hidden by click item. Use onVisibleChange under 4.23.0 (why?)",
+    "type": "(open: boolean) => void",
+    "default": "",
+    "version": ""
+  }
+]

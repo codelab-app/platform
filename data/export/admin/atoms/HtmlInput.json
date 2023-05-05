@@ -1,0 +1,715 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "1dddd76a-94fb-403e-9056-1ef17e052347",
+    "kind": "InterfaceType",
+    "name": "HtmlInput API",
+    "fields": [
+      {
+        "id": "0088e551-8b22-45c1-8856-ac3da043a89e"
+      },
+      {
+        "id": "02532614-572d-492e-972d-524527be93bb"
+      },
+      {
+        "id": "082d02a2-e79c-4adf-8ffd-2d4d608d96e4"
+      },
+      {
+        "id": "08b4671e-fda1-4b50-9c5d-d967fa850915"
+      },
+      {
+        "id": "10b4c7a5-5735-4a78-b088-5d800a196e0c"
+      },
+      {
+        "id": "2bdac8b0-b758-4b06-b431-22c66a2e564d"
+      },
+      {
+        "id": "3f551050-b01a-47ad-8f9a-196d9f9fd0c4"
+      },
+      {
+        "id": "43618399-9324-439b-8c09-0f00974a018a"
+      },
+      {
+        "id": "4845a61a-63eb-4712-a520-223060bc3720"
+      },
+      {
+        "id": "4ad851ca-4b3e-4e8b-9c9d-10c77f2453d7"
+      },
+      {
+        "id": "51bdc2f9-914e-443a-8da5-c1b4b3da6a63"
+      },
+      {
+        "id": "52811352-3dab-4592-928d-7c01343f65c1"
+      },
+      {
+        "id": "5cf546b9-4cc0-426c-8a06-9d0c5e2a89ab"
+      },
+      {
+        "id": "6aa94d33-1cc0-4bc8-af6f-3b1b7cc81c24"
+      },
+      {
+        "id": "7d63153a-bbca-424b-9ed0-b153ee278972"
+      },
+      {
+        "id": "890b3057-a40a-437e-9852-3ca91862e808"
+      },
+      {
+        "id": "922ac654-9012-4d27-b3fb-b4b9db3229cf"
+      },
+      {
+        "id": "98afbbd1-90a1-43f1-9d5b-8cb7b4061aad"
+      },
+      {
+        "id": "98eafa53-fd20-4b15-86b8-99ed20cefa73"
+      },
+      {
+        "id": "9cdcc237-45bb-486f-abb5-667903fe2f42"
+      },
+      {
+        "id": "9d59bcf5-4f6c-4947-b0e8-e17fd94a7593"
+      },
+      {
+        "id": "b3de7450-0ac6-4910-b4be-18653fe9b508"
+      },
+      {
+        "id": "bdab78c3-b5c0-4482-8517-89a3fea9bf2b"
+      },
+      {
+        "id": "be4eb0ed-2956-45e2-bf20-18f5ceca6f9c"
+      },
+      {
+        "id": "c7e4caf3-ed3d-456e-a9bd-f390add2e80d"
+      },
+      {
+        "id": "d3189baf-a648-4695-b43e-a365f4ebbab2"
+      },
+      {
+        "id": "d588a826-751f-4c92-9276-c2b3b0ab97c1"
+      },
+      {
+        "id": "d7f83ccf-e995-4bd1-a17f-6cf026d47200"
+      },
+      {
+        "id": "d848d666-b83f-41d7-bee8-cb01753f26f2"
+      },
+      {
+        "id": "e77b85ea-afbd-45aa-86db-6232afd221e3"
+      },
+      {
+        "id": "e9213de5-8798-4a39-a662-b8f28bd2ecd8"
+      }
+    ]
+  },
+  "atom": {
+    "id": "21813e35-eb46-489c-9f27-8742ec170b0f",
+    "name": "HtmlInput",
+    "type": "HtmlInput",
+    "api": {
+      "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "0e3224a0-7bcd-4e75-abe4-76025ebf84c9",
+        "name": "HtmlInput",
+        "parent": {
+          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
+          "name": "Phrasing"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "d7f83ccf-e995-4bd1-a17f-6cf026d47200",
+      "key": "accept",
+      "name": "Accept",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "3f551050-b01a-47ad-8f9a-196d9f9fd0c4",
+      "key": "alt",
+      "name": "Alt",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "922ac654-9012-4d27-b3fb-b4b9db3229cf",
+      "key": "autocomplete",
+      "name": "Autocomplete",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "584eb4e6-55f1-4fb9-86ab-8d3b0ea7bf6d",
+        "kind": "EnumType",
+        "name": "HtmlInput Autocomplete Enum"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "52811352-3dab-4592-928d-7c01343f65c1",
+      "key": "autofocus",
+      "name": "Autofocus",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "e77b85ea-afbd-45aa-86db-6232afd221e3",
+      "key": "checked",
+      "name": "Checked",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "d588a826-751f-4c92-9276-c2b3b0ab97c1",
+      "key": "dirname",
+      "name": "Dirname",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "10b4c7a5-5735-4a78-b088-5d800a196e0c",
+      "key": "disabled",
+      "name": "Disabled",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "d3189baf-a648-4695-b43e-a365f4ebbab2",
+      "key": "form",
+      "name": "Form",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "082d02a2-e79c-4adf-8ffd-2d4d608d96e4",
+      "key": "formaction",
+      "name": "Formaction",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "890b3057-a40a-437e-9852-3ca91862e808",
+      "key": "formenctype",
+      "name": "Formenctype",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "4aa2ba0b-e26c-4369-b4d9-dc5d2e9d367f",
+        "kind": "EnumType",
+        "name": "HtmlInput Formenctype Enum"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "c7e4caf3-ed3d-456e-a9bd-f390add2e80d",
+      "key": "formmethod",
+      "name": "Formmethod",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "779012e5-3996-4f56-b96a-79e501b8c112",
+        "kind": "EnumType",
+        "name": "HtmlInput Formmethod Enum"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "e9213de5-8798-4a39-a662-b8f28bd2ecd8",
+      "key": "formnovalidate",
+      "name": "Formnovalidate",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "7d63153a-bbca-424b-9ed0-b153ee278972",
+      "key": "formtarget",
+      "name": "Formtarget",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "5cf546b9-4cc0-426c-8a06-9d0c5e2a89ab",
+      "key": "height",
+      "name": "Height",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+        "kind": "PrimitiveType",
+        "name": "Integer"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "d848d666-b83f-41d7-bee8-cb01753f26f2",
+      "key": "list",
+      "name": "List",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "6aa94d33-1cc0-4bc8-af6f-3b1b7cc81c24",
+      "key": "max",
+      "name": "Max",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "51bdc2f9-914e-443a-8da5-c1b4b3da6a63",
+      "key": "maxlength",
+      "name": "Maxlength",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+        "kind": "PrimitiveType",
+        "name": "Integer"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "43618399-9324-439b-8c09-0f00974a018a",
+      "key": "min",
+      "name": "Min",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "98afbbd1-90a1-43f1-9d5b-8cb7b4061aad",
+      "key": "minlength",
+      "name": "Minlength",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+        "kind": "PrimitiveType",
+        "name": "Integer"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "2bdac8b0-b758-4b06-b431-22c66a2e564d",
+      "key": "multiple",
+      "name": "Multiple",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "b3de7450-0ac6-4910-b4be-18653fe9b508",
+      "key": "name",
+      "name": "Name",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "bdab78c3-b5c0-4482-8517-89a3fea9bf2b",
+      "key": "pattern",
+      "name": "Pattern",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "9cdcc237-45bb-486f-abb5-667903fe2f42",
+      "key": "placeholder",
+      "name": "Placeholder",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "be4eb0ed-2956-45e2-bf20-18f5ceca6f9c",
+      "key": "readonly",
+      "name": "Readonly",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "98eafa53-fd20-4b15-86b8-99ed20cefa73",
+      "key": "required",
+      "name": "Required",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "4845a61a-63eb-4712-a520-223060bc3720",
+      "key": "size",
+      "name": "Size",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+        "kind": "PrimitiveType",
+        "name": "Integer"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "0088e551-8b22-45c1-8856-ac3da043a89e",
+      "key": "src",
+      "name": "Src",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "4ad851ca-4b3e-4e8b-9c9d-10c77f2453d7",
+      "key": "step",
+      "name": "Step",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "02532614-572d-492e-972d-524527be93bb",
+      "key": "type",
+      "name": "Type",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "08b4671e-fda1-4b50-9c5d-d967fa850915",
+      "key": "value",
+      "name": "Value",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    },
+    {
+      "id": "9d59bcf5-4f6c-4947-b0e8-e17fd94a7593",
+      "key": "width",
+      "name": "Width",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+        "kind": "PrimitiveType",
+        "name": "Integer"
+      },
+      "api": {
+        "id": "1dddd76a-94fb-403e-9056-1ef17e052347"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "EnumType",
+      "id": "584eb4e6-55f1-4fb9-86ab-8d3b0ea7bf6d",
+      "kind": "EnumType",
+      "name": "HtmlInput Autocomplete Enum",
+      "allowedValues": [
+        {
+          "id": "d2fa4cd9-f811-411e-89d9-db2a05426a53",
+          "key": "off",
+          "value": "off"
+        },
+        {
+          "id": "4fdf927a-8096-440f-841d-2272c78a899a",
+          "key": "on",
+          "value": "on"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "4aa2ba0b-e26c-4369-b4d9-dc5d2e9d367f",
+      "kind": "EnumType",
+      "name": "HtmlInput Formenctype Enum",
+      "allowedValues": [
+        {
+          "id": "67805080-b041-4a6b-ad1f-ab886a9e188f",
+          "key": "application/x-www-form-urlencoded",
+          "value": "application/x-www-form-urlencoded"
+        },
+        {
+          "id": "38886f3d-ab04-4e0b-b99c-7feaedb0d685",
+          "key": "multipart/form-data",
+          "value": "multipart/form-data"
+        },
+        {
+          "id": "3a4db521-9ca7-40ed-abfc-1fbfe1633bb6",
+          "key": "text/plain",
+          "value": "text/plain"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "779012e5-3996-4f56-b96a-79e501b8c112",
+      "kind": "EnumType",
+      "name": "HtmlInput Formmethod Enum",
+      "allowedValues": [
+        {
+          "id": "0f12717d-4b6e-4f24-8432-90d8fd2c80f2",
+          "key": "get",
+          "value": "get"
+        },
+        {
+          "id": "58f6511b-cb23-4e88-8a37-c0b150dfe1f1",
+          "key": "post",
+          "value": "post"
+        }
+      ]
+    }
+  ]
+}

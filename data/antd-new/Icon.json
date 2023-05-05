@@ -1,0 +1,32 @@
+[
+  {
+    "property": "className",
+    "description": "The className of Icon",
+    "type": "string",
+    "default": "-"
+  },
+  {
+    "property": "rotate",
+    "description": "Rotate by n degrees (not working in IE9)",
+    "type": "number",
+    "default": "-"
+  },
+  {
+    "property": "spin",
+    "description": "Rotate icon with animation",
+    "type": "boolean",
+    "default": "false"
+  },
+  {
+    "property": "style",
+    "description": "The style properties of icon, like fontSize and color",
+    "type": "CSSProperties",
+    "default": "-"
+  },
+  {
+    "property": "twoToneColor",
+    "description": "Only supports the two-tone icon. Specify the primary color",
+    "type": "string (hex color)",
+    "default": "-"
+  }
+]

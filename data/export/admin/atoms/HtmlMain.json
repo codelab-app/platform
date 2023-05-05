@@ -1,0 +1,33 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "83607dad-762d-4041-b0ca-00b1848a5c43",
+    "kind": "InterfaceType",
+    "name": "HtmlMain API",
+    "fields": []
+  },
+  "atom": {
+    "id": "17117ed0-4acc-40d5-8c74-38518ef7388f",
+    "name": "HtmlMain",
+    "type": "HtmlMain",
+    "api": {
+      "id": "83607dad-762d-4041-b0ca-00b1848a5c43"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "1945ad63-7085-4f38-a563-bc993c1e6950",
+        "name": "HtmlMain",
+        "parent": {
+          "id": "b3c5db6d-1853-458c-9388-1b8ddaf89250",
+          "name": "Flow"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [],
+  "types": []
+}

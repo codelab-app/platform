@@ -1,0 +1,37 @@
+[
+  {
+    "property": "align",
+    "description": "Align items",
+    "type": "start | end | center | baseline",
+    "default": "-",
+    "version": "4.2.0"
+  },
+  {
+    "property": "direction",
+    "description": "The space direction",
+    "type": "vertical | horizontal",
+    "default": "horizontal",
+    "version": "4.1.0"
+  },
+  {
+    "property": "size",
+    "description": "The space size",
+    "type": "Size | Size[]",
+    "default": "small",
+    "version": "4.1.0 | Array: 4.9.0"
+  },
+  {
+    "property": "split",
+    "description": "Set split",
+    "type": "ReactNode",
+    "default": "-",
+    "version": "4.7.0"
+  },
+  {
+    "property": "wrap",
+    "description": "Auto wrap line, when horizontal effective",
+    "type": "boolean",
+    "default": "false",
+    "version": "4.9.0"
+  }
+]

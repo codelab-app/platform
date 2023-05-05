@@ -53,8 +53,8 @@ export const scrapeAntDesignData = async () => {
   )
     // This page has no components
     .filter(([component, href]) => !href.includes('components/overview'))
-  // Use this for testing only
-  // .slice(0, 1)
+    // Use this for testing only
+    .slice(0, 3)
 
   console.log(`Found ${urls.length} links!`)
 

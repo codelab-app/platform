@@ -1,0 +1,33 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "5221f96e-0084-4a4b-810c-c9423c885a06",
+    "kind": "InterfaceType",
+    "name": "HtmlH2 API",
+    "fields": []
+  },
+  "atom": {
+    "id": "a80e76ee-4ce2-4179-a2b7-736112551937",
+    "name": "HtmlH2",
+    "type": "HtmlH2",
+    "api": {
+      "id": "5221f96e-0084-4a4b-810c-c9423c885a06"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "82a9af93-1179-4e04-af08-68bbe0f0a004",
+        "name": "HtmlH2",
+        "parent": {
+          "id": "f53bb282-e5e3-4e99-a420-c4cef331d189",
+          "name": "Heading"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [],
+  "types": []
+}

@@ -1,0 +1,255 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "981ea68a-217f-4003-821a-49725d64048f",
+    "kind": "InterfaceType",
+    "name": "HtmlForm API",
+    "fields": [
+      {
+        "id": "2804350c-08c4-4c80-8d74-a26f1f8e4de5"
+      },
+      {
+        "id": "3d4d0662-ff97-4bf3-9dcc-9a45e3a1712c"
+      },
+      {
+        "id": "5edc6e2e-a381-426c-98a2-5a442bdfbb00"
+      },
+      {
+        "id": "758c41a5-a13b-44f2-9974-c14328ccb1c3"
+      },
+      {
+        "id": "86c2b94a-f5a3-4cb7-9fdf-e2299a348be4"
+      },
+      {
+        "id": "87790b9d-1367-401c-be83-531c7f583cb1"
+      },
+      {
+        "id": "dda509cc-f7f8-48f3-98af-21920d00f9cd"
+      },
+      {
+        "id": "f893b068-aef3-4584-9a41-5be06e3e5d28"
+      }
+    ]
+  },
+  "atom": {
+    "id": "e23acbd6-1789-4c11-9eec-0f5aa75d5004",
+    "name": "HtmlForm",
+    "type": "HtmlForm",
+    "api": {
+      "id": "981ea68a-217f-4003-821a-49725d64048f"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "fbda6dae-b866-42fb-8e23-c29cda0d7e4e",
+        "name": "HtmlForm",
+        "parent": {
+          "id": "b3c5db6d-1853-458c-9388-1b8ddaf89250",
+          "name": "Flow"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "5edc6e2e-a381-426c-98a2-5a442bdfbb00",
+      "key": "accept-charset",
+      "name": "Accept-charset",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "981ea68a-217f-4003-821a-49725d64048f"
+      }
+    },
+    {
+      "id": "2804350c-08c4-4c80-8d74-a26f1f8e4de5",
+      "key": "action",
+      "name": "Action",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "981ea68a-217f-4003-821a-49725d64048f"
+      }
+    },
+    {
+      "id": "dda509cc-f7f8-48f3-98af-21920d00f9cd",
+      "key": "autocomplete",
+      "name": "Autocomplete",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "ee8539e2-34d1-4a69-b47f-eac4eec441a7",
+        "kind": "EnumType",
+        "name": "HtmlForm Autocomplete Enum"
+      },
+      "api": {
+        "id": "981ea68a-217f-4003-821a-49725d64048f"
+      }
+    },
+    {
+      "id": "3d4d0662-ff97-4bf3-9dcc-9a45e3a1712c",
+      "key": "enctype",
+      "name": "Enctype",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "44b62b53-02b4-4b30-bb13-afbcaa6ec10e",
+        "kind": "EnumType",
+        "name": "HtmlForm Enctype Enum"
+      },
+      "api": {
+        "id": "981ea68a-217f-4003-821a-49725d64048f"
+      }
+    },
+    {
+      "id": "758c41a5-a13b-44f2-9974-c14328ccb1c3",
+      "key": "method",
+      "name": "Method",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "70abc0ef-b807-4554-9d3d-e97c7e5adef7",
+        "kind": "EnumType",
+        "name": "HtmlForm Method Enum"
+      },
+      "api": {
+        "id": "981ea68a-217f-4003-821a-49725d64048f"
+      }
+    },
+    {
+      "id": "87790b9d-1367-401c-be83-531c7f583cb1",
+      "key": "name",
+      "name": "Name",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "981ea68a-217f-4003-821a-49725d64048f"
+      }
+    },
+    {
+      "id": "f893b068-aef3-4584-9a41-5be06e3e5d28",
+      "key": "novalidate",
+      "name": "Novalidate",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "981ea68a-217f-4003-821a-49725d64048f"
+      }
+    },
+    {
+      "id": "86c2b94a-f5a3-4cb7-9fdf-e2299a348be4",
+      "key": "target",
+      "name": "Target",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "981ea68a-217f-4003-821a-49725d64048f"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "EnumType",
+      "id": "ee8539e2-34d1-4a69-b47f-eac4eec441a7",
+      "kind": "EnumType",
+      "name": "HtmlForm Autocomplete Enum",
+      "allowedValues": [
+        {
+          "id": "25ca0812-2da7-42bf-86ac-c3f853c9aa8c",
+          "key": "off",
+          "value": "off"
+        },
+        {
+          "id": "86c894ba-3e3e-4af8-a422-30641e9b10df",
+          "key": "on",
+          "value": "on"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "44b62b53-02b4-4b30-bb13-afbcaa6ec10e",
+      "kind": "EnumType",
+      "name": "HtmlForm Enctype Enum",
+      "allowedValues": [
+        {
+          "id": "efdf2858-01c8-405c-ad67-e374802191a8",
+          "key": "application/x-www-form-urlencoded",
+          "value": "application/x-www-form-urlencoded"
+        },
+        {
+          "id": "aff6435d-fd0d-458d-9d74-0e49fccc8d76",
+          "key": "multipart/form-data",
+          "value": "multipart/form-data"
+        },
+        {
+          "id": "ec4d1b11-63c0-4011-8be9-40d74fc6c819",
+          "key": "text/plain",
+          "value": "text/plain"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "70abc0ef-b807-4554-9d3d-e97c7e5adef7",
+      "kind": "EnumType",
+      "name": "HtmlForm Method Enum",
+      "allowedValues": [
+        {
+          "id": "58960a56-49bd-4908-967e-2af2bae074ce",
+          "key": "get",
+          "value": "get"
+        },
+        {
+          "id": "7c0332ac-9c8b-4887-9baa-ed7b5dfa9f2f",
+          "key": "post",
+          "value": "post"
+        }
+      ]
+    }
+  ]
+}

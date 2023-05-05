@@ -1,0 +1,44 @@
+[
+  {
+    "property": "className",
+    "description": "The additional css class",
+    "type": "string",
+    "default": "-",
+    "version": "-"
+  },
+  {
+    "property": "dropdownProps",
+    "description": "The dropdown props",
+    "type": "Dropdown",
+    "default": "-",
+    "version": "-"
+  },
+  {
+    "property": "href",
+    "description": "Target of hyperlink",
+    "type": "string",
+    "default": "-",
+    "version": "-"
+  },
+  {
+    "property": "menu",
+    "description": "The menu props",
+    "type": "MenuProps",
+    "default": "-",
+    "version": "4.24.0"
+  },
+  {
+    "property": "onClick",
+    "description": "Set the handler to handle click event",
+    "type": "(e:MouseEvent) => void",
+    "default": "-",
+    "version": "-"
+  },
+  {
+    "property": "title",
+    "description": "item name",
+    "type": "ReactNode",
+    "default": "-",
+    "version": "-"
+  }
+]

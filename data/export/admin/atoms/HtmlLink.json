@@ -1,0 +1,272 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "60a143e3-0f88-4455-8175-a09d35ae3913",
+    "kind": "InterfaceType",
+    "name": "HtmlLink API",
+    "fields": [
+      {
+        "id": "176b99e5-f8eb-49a4-a388-c08c8038c6fc"
+      },
+      {
+        "id": "22221951-0725-49d2-b432-8b24e03352ba"
+      },
+      {
+        "id": "23e09a78-6b10-4b2b-8847-fbc7e1fc2a0b"
+      },
+      {
+        "id": "4818c921-ad3a-4eda-bf97-158d9da86d85"
+      },
+      {
+        "id": "60c8806d-56ff-429a-89ed-2f777031ac28"
+      },
+      {
+        "id": "80e29df4-e01d-4316-9346-e3f1c21bf806"
+      },
+      {
+        "id": "98a1cc5a-10ae-4907-b825-25c21290d145"
+      },
+      {
+        "id": "b9b4eafa-ae9a-4c76-93ad-8d45df4940f0"
+      },
+      {
+        "id": "df57332d-8b01-4316-9f99-6c8f83075251"
+      }
+    ]
+  },
+  "atom": {
+    "id": "47bcdf5e-f669-4d11-9815-9309b7322498",
+    "name": "HtmlLink",
+    "type": "HtmlLink",
+    "api": {
+      "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "579b099c-95ff-481b-9154-3d00840c2b94",
+        "name": "HtmlLink",
+        "parent": {
+          "id": "81adcc2f-67a1-4bd9-a0f5-e763effa69b5",
+          "name": "Metadata"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "b9b4eafa-ae9a-4c76-93ad-8d45df4940f0",
+      "key": "crossorigin",
+      "name": "Crossorigin",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "1d557d56-c90c-481f-b17c-e80252360d65",
+        "kind": "EnumType",
+        "name": "HtmlLink Crossorigin Enum"
+      },
+      "api": {
+        "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+      }
+    },
+    {
+      "id": "23e09a78-6b10-4b2b-8847-fbc7e1fc2a0b",
+      "key": "href",
+      "name": "Href",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+      }
+    },
+    {
+      "id": "df57332d-8b01-4316-9f99-6c8f83075251",
+      "key": "hreflang",
+      "name": "Hreflang",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+      }
+    },
+    {
+      "id": "176b99e5-f8eb-49a4-a388-c08c8038c6fc",
+      "key": "integrity",
+      "name": "Integrity",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+      }
+    },
+    {
+      "id": "60c8806d-56ff-429a-89ed-2f777031ac28",
+      "key": "media",
+      "name": "Media",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+      }
+    },
+    {
+      "id": "22221951-0725-49d2-b432-8b24e03352ba",
+      "key": "referrerpolicy",
+      "name": "Referrerpolicy",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "48531888-cfd0-4386-b4e3-5cfb85f5dc26",
+        "kind": "EnumType",
+        "name": "HtmlLink Referrerpolicy Enum"
+      },
+      "api": {
+        "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+      }
+    },
+    {
+      "id": "4818c921-ad3a-4eda-bf97-158d9da86d85",
+      "key": "rel",
+      "name": "Rel",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+      }
+    },
+    {
+      "id": "80e29df4-e01d-4316-9346-e3f1c21bf806",
+      "key": "sizes",
+      "name": "Sizes",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+      }
+    },
+    {
+      "id": "98a1cc5a-10ae-4907-b825-25c21290d145",
+      "key": "type",
+      "name": "Type",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "EnumType",
+      "id": "1d557d56-c90c-481f-b17c-e80252360d65",
+      "kind": "EnumType",
+      "name": "HtmlLink Crossorigin Enum",
+      "allowedValues": [
+        {
+          "id": "17d75cae-9aec-4634-a85b-f2574f0d6b4e",
+          "key": "anonymous",
+          "value": "anonymous"
+        },
+        {
+          "id": "0785b781-4273-483d-b19c-0cf56c9844a3",
+          "key": "use-credentials",
+          "value": "use-credentials"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "48531888-cfd0-4386-b4e3-5cfb85f5dc26",
+      "kind": "EnumType",
+      "name": "HtmlLink Referrerpolicy Enum",
+      "allowedValues": [
+        {
+          "id": "bb948efa-1e79-42be-b454-8543886bcca9",
+          "key": "no-referrer",
+          "value": "no-referrer"
+        },
+        {
+          "id": "3b2099bf-08d3-404a-bdf0-1f7c5da1f8c7",
+          "key": "no-referrer-when-downgrade",
+          "value": "no-referrer-when-downgrade"
+        },
+        {
+          "id": "fea5a60c-a0f4-4f42-86ac-1657abe80fe7",
+          "key": "origin",
+          "value": "origin"
+        },
+        {
+          "id": "d5aa8ed0-057b-48f0-9133-4747c4f28a6c",
+          "key": "origin-when-cross-origin",
+          "value": "origin-when-cross-origin"
+        },
+        {
+          "id": "afbb967f-6d1e-4e7a-a02c-6710c4b7a6e4",
+          "key": "strict-origin-when-cross-origin",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "id": "02049e48-0675-4cbd-824b-9e90f9b02461",
+          "key": "unsafe-url",
+          "value": "unsafe-url"
+        }
+      ]
+    }
+  ]
+}

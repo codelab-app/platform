@@ -1,0 +1,55 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "7bc5e53e-b17f-4f23-8a85-27b62c05cf6b",
+    "kind": "InterfaceType",
+    "name": "HtmlData API",
+    "fields": [
+      {
+        "id": "4185aff4-668c-4952-9ecb-dd4ca7444179"
+      }
+    ]
+  },
+  "atom": {
+    "id": "97351c3b-1335-42b4-bfe3-64042d7770e2",
+    "name": "HtmlData",
+    "type": "HtmlData",
+    "api": {
+      "id": "7bc5e53e-b17f-4f23-8a85-27b62c05cf6b"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "68020d77-20b2-4769-b767-147f1f5eb4ef",
+        "name": "HtmlData",
+        "parent": {
+          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
+          "name": "Phrasing"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "4185aff4-668c-4952-9ecb-dd4ca7444179",
+      "key": "value",
+      "name": "Value",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "7bc5e53e-b17f-4f23-8a85-27b62c05cf6b"
+      }
+    }
+  ],
+  "types": []
+}

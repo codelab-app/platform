@@ -1,0 +1,16 @@
+[
+  {
+    "property": "type",
+    "description": "Mark as separator",
+    "type": "separator",
+    "default": "",
+    "version": "5.3.0"
+  },
+  {
+    "property": "separator",
+    "description": "Custom separator",
+    "type": "ReactNode",
+    "default": "/",
+    "version": "5.3.0"
+  }
+]

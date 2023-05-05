@@ -1,0 +1,105 @@
+[
+  {
+    "property": "allowClear",
+    "description": "Show clear button",
+    "type": "boolean",
+    "default": "false",
+    "version": ""
+  },
+  {
+    "property": "autoFocus",
+    "description": "If get focus when component mounted",
+    "type": "boolean",
+    "default": "false",
+    "version": ""
+  },
+  {
+    "property": "backfill",
+    "description": "If backfill selected item the input when using keyboard",
+    "type": "boolean",
+    "default": "false",
+    "version": ""
+  },
+  {
+    "property": "children (for customize input element)",
+    "description": "Customize input element",
+    "type": "HTMLInputElement | HTMLTextAreaElement | React.ReactElement<InputProps>",
+    "default": "<Input />",
+    "version": ""
+  },
+  {
+    "property": "children (for dataSource)",
+    "description": "Data source to auto complete",
+    "type": "React.ReactElement<OptionProps> | Array<React.ReactElement<OptionProps>>",
+    "default": "-",
+    "version": ""
+  },
+  {
+    "property": "defaultActiveFirstOption",
+    "description": "Whether active first option by default",
+    "type": "boolean",
+    "default": "true",
+    "version": ""
+  },
+  {
+    "property": "defaultOpen",
+    "description": "Initial open state of dropdown",
+    "type": "boolean",
+    "default": "-",
+    "version": ""
+  },
+  {
+    "property": "defaultValue",
+    "description": "Initial selected option",
+    "type": "string",
+    "default": "-",
+    "version": ""
+  },
+  {
+    "property": "disabled",
+    "description": "Whether disabled select",
+    "type": "boolean",
+    "default": "false",
+    "version": ""
+  },
+  {
+    "property": "popupClassName",
+    "description": "The className of dropdown menu",
+    "type": "string",
+    "default": "-",
+    "version": "4.23.0"
+  },
+  {
+    "property": "dropdownMatchSelectWidth",
+    "description": "Determine whether the dropdown menu and the select input are the same width. Default set min-width same as input. Will ignore when value less than select width. false will disable virtual scroll",
+    "type": "boolean | number",
+    "default": "true",
+    "version": ""
+  },
+  {
+    "property": "filterOption",
+    "description": "If true, filter options by input, if function, filter options against it. The function will receive two arguments, inputValue and option, if the function returns true, the option will be included in the filtered set; Otherwise, it will be excluded",
+    "type": "boolean | function(inputValue, option)",
+    "default": "true",
+    "version": ""
+  },
+  {
+    "property": "notFoundContent",
+    "description": "Specify content to show when no result matches",
+    "type": "string",
+    "default": "Not Found",
+    "version": ""
+  },
+  {
+    "property": "open",
+    "description": "Controlled open state of dropdown",
+    "type": "boolean",
+    "default": "-",
+    "version": ""
+  },
+  {
+    "property": "options",
+    "description": "Select options. Will get better perf than jsx definition",
+    "type": "{ label, value }[]",
+    "default": "-",
+    "version":

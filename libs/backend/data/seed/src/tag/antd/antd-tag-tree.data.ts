@@ -6,21 +6,21 @@ import { IAtomType } from '@codelab/shared/abstract/core'
  * This contains hierarchical tag data for Ant Design
  */
 export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
-  [IAntdCategoryTag.General]: [
+  [IAntdCategoryTag.AntDesignGeneral]: [
     IAtomType.AntDesignButton,
     IAtomType.AntDesignIcon,
     {
-      [IAntdCategoryTag.Typography]: [
+      [IAntdCategoryTag.AntDesignTypography]: [
         IAtomType.AntDesignTypographyText,
         IAtomType.AntDesignTypographyTitle,
         IAtomType.AntDesignTypographyParagraph,
       ],
     },
   ],
-  [IAntdCategoryTag.Layout]: [
+  [IAntdCategoryTag.AntDesignLayout]: [
     IAtomType.AntDesignDivider,
     {
-      [IAntdCategoryTag.Grid]: [
+      [IAntdCategoryTag.AntDesignGrid]: [
         IAtomType.AntDesignGridRow,
         IAtomType.AntDesignGridCol,
       ],
@@ -35,7 +35,7 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
     },
     IAtomType.AntDesignSpace,
   ],
-  [IAntdCategoryTag.Navigation]: [
+  [IAntdCategoryTag.AntDesignNavigation]: [
     IAtomType.AntDesignAffix,
     {
       [IAtomType.AntDesignBreadcrumb]: [
@@ -48,7 +48,7 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
     IAtomType.AntDesignPagination,
     { [IAtomType.AntDesignSteps]: [IAtomType.AntDesignStepsStep] },
   ],
-  [IAntdCategoryTag.DataEntry]: [
+  [IAntdCategoryTag.AntDesignDataEntry]: [
     IAtomType.AntDesignAutoComplete,
     IAtomType.AntDesignCascader,
     { [IAtomType.AntDesignCheckbox]: [IAtomType.AntDesignCheckboxGroup] },
@@ -74,7 +74,7 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
     IAtomType.AntDesignTreeSelect,
     IAtomType.AntDesignUpload,
   ],
-  [IAntdCategoryTag.DataDisplay]: [
+  [IAntdCategoryTag.AntDesignDataDisplay]: [
     IAtomType.AntDesignAvatar,
     IAtomType.AntDesignBadge,
     IAtomType.AntDesignComment,
@@ -107,7 +107,7 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
     { [IAtomType.AntDesignTabs]: [IAtomType.AntDesignTabsTabPane] },
     IAtomType.AntDesignTable,
   ],
-  [IAntdCategoryTag.Feedback]: [
+  [IAntdCategoryTag.AntDesignFeedback]: [
     IAtomType.AntDesignAlert,
     IAtomType.AntDesignDrawer,
     IAtomType.AntDesignModal,
@@ -119,7 +119,7 @@ export const antdTagTree: TagNode<IAntdCategoryTag | keyof IAntdAtomRecords> = {
     IAtomType.AntDesignSpin,
     IAtomType.AntDesignSkeleton,
   ],
-  [IAntdCategoryTag.Other]: [
+  [IAntdCategoryTag.AntDesignOther]: [
     { [IAtomType.AntDesignAnchor]: [IAtomType.AntDesignAnchorLink] },
     IAtomType.AntDesignBackTop,
     IAtomType.AntDesignConfigProvider,

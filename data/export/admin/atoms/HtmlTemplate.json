@@ -1,0 +1,33 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "f8b30fba-cda3-458f-b037-fa54d25b584f",
+    "kind": "InterfaceType",
+    "name": "HtmlTemplate API",
+    "fields": []
+  },
+  "atom": {
+    "id": "219b5460-9603-4c40-ae6d-9b8a8fa7ba70",
+    "name": "HtmlTemplate",
+    "type": "HtmlTemplate",
+    "api": {
+      "id": "f8b30fba-cda3-458f-b037-fa54d25b584f"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "50a53b99-80e2-4d8e-9e51-741a14638a8c",
+        "name": "HtmlTemplate",
+        "parent": {
+          "id": "b3c5db6d-1853-458c-9388-1b8ddaf89250",
+          "name": "Flow"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [],
+  "types": []
+}

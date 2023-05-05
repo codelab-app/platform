@@ -6,13 +6,13 @@ import { IAtomType } from '@codelab/shared/abstract/core'
  * Taken from here https://developer.mozilla.org/en-US/docs/Web/HTML/Content_categories
  */
 export const htmlTagTree: TagNode<IHtmlCategoryTag | keyof IHtmlAtomRecords> = {
-  [IHtmlCategoryTag.Sectioning]: [
+  [IHtmlCategoryTag.HtmlSectioning]: [
     IAtomType.HtmlArticle,
     IAtomType.HtmlAside,
     IAtomType.HtmlNav,
     IAtomType.HtmlSection,
   ],
-  [IHtmlCategoryTag.Heading]: [
+  [IHtmlCategoryTag.HtmlHeading]: [
     IAtomType.HtmlH1,
     IAtomType.HtmlH2,
     IAtomType.HtmlH3,
@@ -20,7 +20,7 @@ export const htmlTagTree: TagNode<IHtmlCategoryTag | keyof IHtmlAtomRecords> = {
     IAtomType.HtmlH5,
     IAtomType.HtmlH6,
   ],
-  [IHtmlCategoryTag.Phrasing]: [
+  [IHtmlCategoryTag.HtmlPhrasing]: [
     IAtomType.HtmlAbbr,
     IAtomType.HtmlB,
     IAtomType.HtmlBdo,
@@ -65,7 +65,7 @@ export const htmlTagTree: TagNode<IHtmlCategoryTag | keyof IHtmlAtomRecords> = {
     IAtomType.HtmlVideo,
     IAtomType.HtmlWbr,
   ],
-  [IHtmlCategoryTag.Embedded]: [
+  [IHtmlCategoryTag.HtmlEmbedded]: [
     IAtomType.HtmlAudio,
     IAtomType.HtmlCanvas,
     IAtomType.HtmlEmbed,
@@ -77,7 +77,7 @@ export const htmlTagTree: TagNode<IHtmlCategoryTag | keyof IHtmlAtomRecords> = {
     IAtomType.HtmlSvg,
     IAtomType.HtmlVideo,
   ],
-  [IHtmlCategoryTag.Interactive]: [
+  [IHtmlCategoryTag.HtmlInteractive]: [
     IAtomType.HtmlA,
     IAtomType.HtmlButton,
     IAtomType.HtmlDetails,
@@ -87,7 +87,7 @@ export const htmlTagTree: TagNode<IHtmlCategoryTag | keyof IHtmlAtomRecords> = {
     IAtomType.HtmlSelect,
     IAtomType.HtmlTextarea,
   ],
-  [IHtmlCategoryTag.Metadata]: [
+  [IHtmlCategoryTag.HtmlMetadata]: [
     IAtomType.HtmlBase,
     IAtomType.HtmlHead,
     IAtomType.HtmlLink,
@@ -96,7 +96,7 @@ export const htmlTagTree: TagNode<IHtmlCategoryTag | keyof IHtmlAtomRecords> = {
     IAtomType.HtmlTitle,
   ],
   // Treat this as `Other`
-  [IHtmlCategoryTag.Flow]: [
+  [IHtmlCategoryTag.HtmlFlow]: [
     IAtomType.HtmlArea,
     IAtomType.HtmlDl,
     IAtomType.HtmlDialog,

@@ -1,0 +1,75 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "767dce93-c843-4c0d-8311-4c2916e7879a",
+    "kind": "InterfaceType",
+    "name": "HtmlCanvas API",
+    "fields": [
+      {
+        "id": "9acba60e-4f37-4af0-b308-1d04fb771390"
+      },
+      {
+        "id": "cdf69c90-d9aa-4a01-a6fe-ec6cb3864e06"
+      }
+    ]
+  },
+  "atom": {
+    "id": "f069cc92-ff06-4020-ac09-3ff4bcac2b2c",
+    "name": "HtmlCanvas",
+    "type": "HtmlCanvas",
+    "api": {
+      "id": "767dce93-c843-4c0d-8311-4c2916e7879a"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "735e0085-2178-406f-9699-d1d2fbecaa5a",
+        "name": "HtmlCanvas",
+        "parent": {
+          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
+          "name": "Phrasing"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "9acba60e-4f37-4af0-b308-1d04fb771390",
+      "key": "height",
+      "name": "Height",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+        "kind": "PrimitiveType",
+        "name": "Integer"
+      },
+      "api": {
+        "id": "767dce93-c843-4c0d-8311-4c2916e7879a"
+      }
+    },
+    {
+      "id": "cdf69c90-d9aa-4a01-a6fe-ec6cb3864e06",
+      "key": "width",
+      "name": "Width",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+        "kind": "PrimitiveType",
+        "name": "Integer"
+      },
+      "api": {
+        "id": "767dce93-c843-4c0d-8311-4c2916e7879a"
+      }
+    }
+  ],
+  "types": []
+}

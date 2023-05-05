@@ -1,0 +1,234 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "8b27806f-3ba0-4e5d-8051-8ad72a0f9511",
+    "kind": "InterfaceType",
+    "name": "HtmlScript API",
+    "fields": [
+      {
+        "id": "04192b23-d29b-4a48-9b20-f634e3c7a4df"
+      },
+      {
+        "id": "270822e3-3af7-4223-9de4-f4f09e968da8"
+      },
+      {
+        "id": "2b568ea7-9fb0-4e18-b21d-dcc1632a7ba9"
+      },
+      {
+        "id": "a06753ce-f3b2-40c6-adb8-6e3ad0d1d238"
+      },
+      {
+        "id": "a2cdaaf6-b509-40db-8099-9d96299fa8d4"
+      },
+      {
+        "id": "c4825079-138c-434a-bf1b-3bf014fb69a7"
+      },
+      {
+        "id": "c885bd06-3fcb-48e6-9573-78d120cc2cd4"
+      },
+      {
+        "id": "d599c9fc-cce2-4546-b339-149cd15a9de9"
+      },
+      {
+        "id": "ff9aef9f-a3a6-498d-9fc9-764a5b24638d"
+      }
+    ]
+  },
+  "atom": {
+    "id": "679463cd-20a7-4d78-a82b-b20a62ecd6d6",
+    "name": "HtmlScript",
+    "type": "HtmlScript",
+    "api": {
+      "id": "8b27806f-3ba0-4e5d-8051-8ad72a0f9511"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "ac0716ef-f613-400d-9bc6-dd0b8dfdcceb",
+        "name": "HtmlScript",
+        "parent": {
+          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
+          "name": "Phrasing"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "c885bd06-3fcb-48e6-9573-78d120cc2cd4",
+      "key": "async",
+      "name": "Async",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "8b27806f-3ba0-4e5d-8051-8ad72a0f9511"
+      }
+    },
+    {
+      "id": "ff9aef9f-a3a6-498d-9fc9-764a5b24638d",
+      "key": "charset",
+      "name": "Charset",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "8b27806f-3ba0-4e5d-8051-8ad72a0f9511"
+      }
+    },
+    {
+      "id": "04192b23-d29b-4a48-9b20-f634e3c7a4df",
+      "key": "crossorigin",
+      "name": "Crossorigin",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "68561f2b-fd48-42a9-ad2a-2822d3544ab9",
+        "kind": "EnumType",
+        "name": "HtmlScript Crossorigin Enum"
+      },
+      "api": {
+        "id": "8b27806f-3ba0-4e5d-8051-8ad72a0f9511"
+      }
+    },
+    {
+      "id": "c4825079-138c-434a-bf1b-3bf014fb69a7",
+      "key": "defer",
+      "name": "Defer",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "8b27806f-3ba0-4e5d-8051-8ad72a0f9511"
+      }
+    },
+    {
+      "id": "a06753ce-f3b2-40c6-adb8-6e3ad0d1d238",
+      "key": "integrity",
+      "name": "Integrity",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "8b27806f-3ba0-4e5d-8051-8ad72a0f9511"
+      }
+    },
+    {
+      "id": "a2cdaaf6-b509-40db-8099-9d96299fa8d4",
+      "key": "nomodule",
+      "name": "Nomodule",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "8b27806f-3ba0-4e5d-8051-8ad72a0f9511"
+      }
+    },
+    {
+      "id": "270822e3-3af7-4223-9de4-f4f09e968da8",
+      "key": "nonce",
+      "name": "Nonce",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "8b27806f-3ba0-4e5d-8051-8ad72a0f9511"
+      }
+    },
+    {
+      "id": "d599c9fc-cce2-4546-b339-149cd15a9de9",
+      "key": "src",
+      "name": "Src",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "8b27806f-3ba0-4e5d-8051-8ad72a0f9511"
+      }
+    },
+    {
+      "id": "2b568ea7-9fb0-4e18-b21d-dcc1632a7ba9",
+      "key": "type",
+      "name": "Type",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "8b27806f-3ba0-4e5d-8051-8ad72a0f9511"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "EnumType",
+      "id": "68561f2b-fd48-42a9-ad2a-2822d3544ab9",
+      "kind": "EnumType",
+      "name": "HtmlScript Crossorigin Enum",
+      "allowedValues": [
+        {
+          "id": "19321c5e-f4c6-443d-8430-7cfb37b96b3f",
+          "key": "anonymous",
+          "value": "anonymous"
+        },
+        {
+          "id": "38d0160d-e424-40b1-90c7-880fdb1e33b2",
+          "key": "use-credentials",
+          "value": "use-credentials"
+        }
+      ]
+    }
+  ]
+}

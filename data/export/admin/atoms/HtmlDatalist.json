@@ -1,0 +1,33 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "8b4c4158-9410-40bc-9200-c889088422c2",
+    "kind": "InterfaceType",
+    "name": "HtmlDatalist API",
+    "fields": []
+  },
+  "atom": {
+    "id": "149f445e-6a3e-4ef0-8d02-cb48d3e6f0d4",
+    "name": "HtmlDatalist",
+    "type": "HtmlDatalist",
+    "api": {
+      "id": "8b4c4158-9410-40bc-9200-c889088422c2"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "165d749d-3b99-4c40-b5fd-8e0a6ac5798a",
+        "name": "HtmlDatalist",
+        "parent": {
+          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
+          "name": "Phrasing"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [],
+  "types": []
+}

@@ -1,0 +1,55 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "ae575008-033b-463f-936c-3701f64145a5",
+    "kind": "InterfaceType",
+    "name": "HtmlDetails API",
+    "fields": [
+      {
+        "id": "452f4cb0-dc8b-42c5-afb4-938178f91d53"
+      }
+    ]
+  },
+  "atom": {
+    "id": "9fd94ef8-c9eb-4619-866d-af46bea7997e",
+    "name": "HtmlDetails",
+    "type": "HtmlDetails",
+    "api": {
+      "id": "ae575008-033b-463f-936c-3701f64145a5"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "b5f2145c-48ed-4ce2-b14e-7693bd967625",
+        "name": "HtmlDetails",
+        "parent": {
+          "id": "8cadea33-7f0c-48c4-aac3-d85496e81828",
+          "name": "Interactive"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "452f4cb0-dc8b-42c5-afb4-938178f91d53",
+      "key": "open",
+      "name": "Open",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "ae575008-033b-463f-936c-3701f64145a5"
+      }
+    }
+  ],
+  "types": []
+}

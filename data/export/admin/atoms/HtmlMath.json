@@ -1,0 +1,94 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "9c7c8ba8-1995-4854-ad5d-c8cc0c23f260",
+    "kind": "InterfaceType",
+    "name": "HtmlMath API",
+    "fields": [
+      {
+        "id": "37d85426-dfda-4e52-945d-76ba4e4a1a3d"
+      },
+      {
+        "id": "ad9a6cdb-f22e-45df-a7a8-81500fa32182"
+      }
+    ]
+  },
+  "atom": {
+    "id": "5f80e0f2-063a-4bb5-ab72-7c67c902fbbc",
+    "name": "HtmlMath",
+    "type": "HtmlMath",
+    "api": {
+      "id": "9c7c8ba8-1995-4854-ad5d-c8cc0c23f260"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "2501c292-0d90-4a80-9592-65ac1161447d",
+        "name": "HtmlMath",
+        "parent": {
+          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
+          "name": "Phrasing"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "ad9a6cdb-f22e-45df-a7a8-81500fa32182",
+      "key": "display",
+      "name": "Display",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "6a98a4d5-3b17-4b1e-bd6a-4343df4555f1",
+        "kind": "EnumType",
+        "name": "HtmlMath Display Enum"
+      },
+      "api": {
+        "id": "9c7c8ba8-1995-4854-ad5d-c8cc0c23f260"
+      }
+    },
+    {
+      "id": "37d85426-dfda-4e52-945d-76ba4e4a1a3d",
+      "key": "xmlns",
+      "name": "Xmlns",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "9c7c8ba8-1995-4854-ad5d-c8cc0c23f260"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "EnumType",
+      "id": "6a98a4d5-3b17-4b1e-bd6a-4343df4555f1",
+      "kind": "EnumType",
+      "name": "HtmlMath Display Enum",
+      "allowedValues": [
+        {
+          "id": "4e47f381-9ddc-447c-8605-ac0447170ceb",
+          "key": "block",
+          "value": "block"
+        },
+        {
+          "id": "f82f5354-55b3-4e19-9b4a-3c2bfcf218f0",
+          "key": "inline",
+          "value": "inline"
+        }
+      ]
+    }
+  ]
+}

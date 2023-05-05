@@ -1,0 +1,33 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "f5eea46d-4cdd-4806-9e64-60574a5ada9b",
+    "kind": "InterfaceType",
+    "name": "HtmlSup API",
+    "fields": []
+  },
+  "atom": {
+    "id": "b797ec3a-61bc-47fb-b1d8-627fe889d7cd",
+    "name": "HtmlSup",
+    "type": "HtmlSup",
+    "api": {
+      "id": "f5eea46d-4cdd-4806-9e64-60574a5ada9b"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "28dcc7cf-e9ea-4357-b6d1-784370b34a72",
+        "name": "HtmlSup",
+        "parent": {
+          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
+          "name": "Phrasing"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [],
+  "types": []
+}

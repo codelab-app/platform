@@ -1,0 +1,264 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "ee2aed03-5518-40e6-a7ac-6ed4cfd12295",
+    "kind": "InterfaceType",
+    "name": "HtmlArea API",
+    "fields": [
+      {
+        "id": "167f0f43-3ec9-4046-ab12-1e279cc7eada"
+      },
+      {
+        "id": "3251ee24-fae7-4bd8-b672-406f65a043bf"
+      },
+      {
+        "id": "3e0232a4-40eb-4183-8e8b-8b19eda0d535"
+      },
+      {
+        "id": "467dc1fa-222f-4dd2-9f9d-d1dfaeda3352"
+      },
+      {
+        "id": "4fb9f4e7-3684-4df7-a061-00f75563d5d9"
+      },
+      {
+        "id": "528e523e-6d64-4b89-80bf-3fc40076fc4a"
+      },
+      {
+        "id": "7125d220-5fa4-4a07-bfa7-73cd6b2edea1"
+      },
+      {
+        "id": "7cc21172-8457-478f-ac93-f588eb2f300c"
+      },
+      {
+        "id": "b5fded39-6321-4d97-826e-1cba0adaad53"
+      },
+      {
+        "id": "da34d850-36e4-4de6-b2dc-2b85f5a08156"
+      }
+    ]
+  },
+  "atom": {
+    "id": "6f02fd24-b794-4fae-9bbf-6aeaaf1ce7fc",
+    "name": "HtmlArea",
+    "type": "HtmlArea",
+    "api": {
+      "id": "ee2aed03-5518-40e6-a7ac-6ed4cfd12295"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "fb9f2219-7d0f-4e59-b5ab-063263ac36b8",
+        "name": "HtmlArea",
+        "parent": {
+          "id": "b3c5db6d-1853-458c-9388-1b8ddaf89250",
+          "name": "Flow"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "3251ee24-fae7-4bd8-b672-406f65a043bf",
+      "key": "alt",
+      "name": "Alt",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "ee2aed03-5518-40e6-a7ac-6ed4cfd12295"
+      }
+    },
+    {
+      "id": "4fb9f4e7-3684-4df7-a061-00f75563d5d9",
+      "key": "coords",
+      "name": "Coords",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "ee2aed03-5518-40e6-a7ac-6ed4cfd12295"
+      }
+    },
+    {
+      "id": "7125d220-5fa4-4a07-bfa7-73cd6b2edea1",
+      "key": "href",
+      "name": "Href",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "ee2aed03-5518-40e6-a7ac-6ed4cfd12295"
+      }
+    },
+    {
+      "id": "b5fded39-6321-4d97-826e-1cba0adaad53",
+      "key": "hreflang",
+      "name": "Hreflang",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "ee2aed03-5518-40e6-a7ac-6ed4cfd12295"
+      }
+    },
+    {
+      "id": "528e523e-6d64-4b89-80bf-3fc40076fc4a",
+      "key": "media",
+      "name": "Media",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "ee2aed03-5518-40e6-a7ac-6ed4cfd12295"
+      }
+    },
+    {
+      "id": "da34d850-36e4-4de6-b2dc-2b85f5a08156",
+      "key": "ping",
+      "name": "Ping",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "ee2aed03-5518-40e6-a7ac-6ed4cfd12295"
+      }
+    },
+    {
+      "id": "3e0232a4-40eb-4183-8e8b-8b19eda0d535",
+      "key": "rel",
+      "name": "Rel",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "ee2aed03-5518-40e6-a7ac-6ed4cfd12295"
+      }
+    },
+    {
+      "id": "7cc21172-8457-478f-ac93-f588eb2f300c",
+      "key": "shape",
+      "name": "Shape",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "566a5574-c045-47d8-91f9-1488cbec1145",
+        "kind": "EnumType",
+        "name": "HtmlArea Shape Enum"
+      },
+      "api": {
+        "id": "ee2aed03-5518-40e6-a7ac-6ed4cfd12295"
+      }
+    },
+    {
+      "id": "467dc1fa-222f-4dd2-9f9d-d1dfaeda3352",
+      "key": "target",
+      "name": "Target",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "ee2aed03-5518-40e6-a7ac-6ed4cfd12295"
+      }
+    },
+    {
+      "id": "167f0f43-3ec9-4046-ab12-1e279cc7eada",
+      "key": "type",
+      "name": "Type",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "ee2aed03-5518-40e6-a7ac-6ed4cfd12295"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "EnumType",
+      "id": "566a5574-c045-47d8-91f9-1488cbec1145",
+      "kind": "EnumType",
+      "name": "HtmlArea Shape Enum",
+      "allowedValues": [
+        {
+          "id": "e4dcefca-57b1-4bd2-9b1c-0a629e5cdacb",
+          "key": "circle",
+          "value": "circle"
+        },
+        {
+          "id": "8763c394-33f8-4be4-ae8f-6f9c5ef2b9ef",
+          "key": "default",
+          "value": "default"
+        },
+        {
+          "id": "7aac19fa-6562-4333-93cd-2121cb67221f",
+          "key": "poly",
+          "value": "poly"
+        },
+        {
+          "id": "9889912e-f23b-4510-b9b0-66e83ec734fb",
+          "key": "rect",
+          "value": "rect"
+        }
+      ]
+    }
+  ]
+}

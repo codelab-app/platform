@@ -1,0 +1,115 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "80c063e3-c7da-4ed5-a6bc-60c26f2829da",
+    "kind": "InterfaceType",
+    "name": "HtmlOption API",
+    "fields": [
+      {
+        "id": "4ce8ddad-49d6-441b-a114-ed72dd506bf4"
+      },
+      {
+        "id": "6ab21af8-5d4c-4039-aea0-890fb10e7fb6"
+      },
+      {
+        "id": "6ff3fad2-ef73-45a3-a7af-f546cb63c800"
+      },
+      {
+        "id": "76fc1bea-2e29-44a7-92c2-ad23351ec838"
+      }
+    ]
+  },
+  "atom": {
+    "id": "80225ed9-bc87-452a-97ea-2f2305a8bd5c",
+    "name": "HtmlOption",
+    "type": "HtmlOption",
+    "api": {
+      "id": "80c063e3-c7da-4ed5-a6bc-60c26f2829da"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "083ede49-93da-45a5-ade2-fa2104ed5e53",
+        "name": "HtmlOption",
+        "parent": {
+          "id": "b3c5db6d-1853-458c-9388-1b8ddaf89250",
+          "name": "Flow"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "76fc1bea-2e29-44a7-92c2-ad23351ec838",
+      "key": "disabled",
+      "name": "Disabled",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "80c063e3-c7da-4ed5-a6bc-60c26f2829da"
+      }
+    },
+    {
+      "id": "6ff3fad2-ef73-45a3-a7af-f546cb63c800",
+      "key": "label",
+      "name": "Label",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "80c063e3-c7da-4ed5-a6bc-60c26f2829da"
+      }
+    },
+    {
+      "id": "6ab21af8-5d4c-4039-aea0-890fb10e7fb6",
+      "key": "selected",
+      "name": "Selected",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "80c063e3-c7da-4ed5-a6bc-60c26f2829da"
+      }
+    },
+    {
+      "id": "4ce8ddad-49d6-441b-a114-ed72dd506bf4",
+      "key": "value",
+      "name": "Value",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "80c063e3-c7da-4ed5-a6bc-60c26f2829da"
+      }
+    }
+  ],
+  "types": []
+}

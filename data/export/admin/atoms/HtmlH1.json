@@ -1,0 +1,33 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "25586231-334b-4b5d-9d37-56fc86d9e074",
+    "kind": "InterfaceType",
+    "name": "HtmlH1 API",
+    "fields": []
+  },
+  "atom": {
+    "id": "eef936cf-94a9-4483-9c40-7ae7a38ea868",
+    "name": "HtmlH1",
+    "type": "HtmlH1",
+    "api": {
+      "id": "25586231-334b-4b5d-9d37-56fc86d9e074"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "0e96fc9c-30d6-4add-afed-256cbe8c8523",
+        "name": "HtmlH1",
+        "parent": {
+          "id": "f53bb282-e5e3-4e99-a420-c4cef331d189",
+          "name": "Heading"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [],
+  "types": []
+}

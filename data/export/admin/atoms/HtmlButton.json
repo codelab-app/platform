@@ -1,0 +1,320 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "bb3a0543-7087-4c66-ad61-23a538e0dc78",
+    "kind": "InterfaceType",
+    "name": "HtmlButton API",
+    "fields": [
+      {
+        "id": "06cf087b-f989-4828-b003-5e66499dd6fc"
+      },
+      {
+        "id": "0d64d437-cd3f-4e3b-b604-c8fa29190d02"
+      },
+      {
+        "id": "0d91bcb2-5648-472d-a664-701c072ec9aa"
+      },
+      {
+        "id": "19caf0dd-3aa0-41a5-8e1e-c8f15b209c80"
+      },
+      {
+        "id": "575839fc-7123-4c3f-992b-86185f684a5f"
+      },
+      {
+        "id": "6713377f-dab8-4b6a-ad57-f14c6feea8db"
+      },
+      {
+        "id": "776df0b3-799f-45be-a552-0e0d52170ef8"
+      },
+      {
+        "id": "9d6e68d0-bff9-40bf-85aa-fb1d69b34247"
+      },
+      {
+        "id": "ca9206a6-f265-4adb-9fda-5d2b41a65fac"
+      },
+      {
+        "id": "cdfa6cae-bacd-4304-af81-187678aee015"
+      },
+      {
+        "id": "f8e615e6-c2a2-4c5b-808c-c03a03f9fbef"
+      }
+    ]
+  },
+  "atom": {
+    "id": "2241a09d-fa00-4e51-8f9d-dde820037b4a",
+    "name": "HtmlButton",
+    "type": "HtmlButton",
+    "api": {
+      "id": "bb3a0543-7087-4c66-ad61-23a538e0dc78"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "566e1afb-04d4-44b4-b937-8d7d94bcf89a",
+        "name": "HtmlButton",
+        "parent": {
+          "id": "8cadea33-7f0c-48c4-aac3-d85496e81828",
+          "name": "Interactive"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "776df0b3-799f-45be-a552-0e0d52170ef8",
+      "key": "autofocus",
+      "name": "Autofocus",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "bb3a0543-7087-4c66-ad61-23a538e0dc78"
+      }
+    },
+    {
+      "id": "0d91bcb2-5648-472d-a664-701c072ec9aa",
+      "key": "disabled",
+      "name": "Disabled",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "bb3a0543-7087-4c66-ad61-23a538e0dc78"
+      }
+    },
+    {
+      "id": "575839fc-7123-4c3f-992b-86185f684a5f",
+      "key": "form",
+      "name": "Form",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "bb3a0543-7087-4c66-ad61-23a538e0dc78"
+      }
+    },
+    {
+      "id": "6713377f-dab8-4b6a-ad57-f14c6feea8db",
+      "key": "formaction",
+      "name": "Formaction",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "bb3a0543-7087-4c66-ad61-23a538e0dc78"
+      }
+    },
+    {
+      "id": "f8e615e6-c2a2-4c5b-808c-c03a03f9fbef",
+      "key": "formenctype",
+      "name": "Formenctype",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "bcdcec56-a675-4456-a91a-a0f0b5f847f7",
+        "kind": "EnumType",
+        "name": "HtmlButton Formenctype Enum"
+      },
+      "api": {
+        "id": "bb3a0543-7087-4c66-ad61-23a538e0dc78"
+      }
+    },
+    {
+      "id": "9d6e68d0-bff9-40bf-85aa-fb1d69b34247",
+      "key": "formmethod",
+      "name": "Formmethod",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "a4241add-2cf1-4bbc-bc33-610521ee07d6",
+        "kind": "EnumType",
+        "name": "HtmlButton Formmethod Enum"
+      },
+      "api": {
+        "id": "bb3a0543-7087-4c66-ad61-23a538e0dc78"
+      }
+    },
+    {
+      "id": "19caf0dd-3aa0-41a5-8e1e-c8f15b209c80",
+      "key": "formnovalidate",
+      "name": "Formnovalidate",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "bb3a0543-7087-4c66-ad61-23a538e0dc78"
+      }
+    },
+    {
+      "id": "06cf087b-f989-4828-b003-5e66499dd6fc",
+      "key": "formtarget",
+      "name": "Formtarget",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "bb3a0543-7087-4c66-ad61-23a538e0dc78"
+      }
+    },
+    {
+      "id": "cdfa6cae-bacd-4304-af81-187678aee015",
+      "key": "name",
+      "name": "Name",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "bb3a0543-7087-4c66-ad61-23a538e0dc78"
+      }
+    },
+    {
+      "id": "ca9206a6-f265-4adb-9fda-5d2b41a65fac",
+      "key": "type",
+      "name": "Type",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "c71d7e4d-4523-42a3-a4e6-fae4be3f431a",
+        "kind": "EnumType",
+        "name": "HtmlButton Type Enum"
+      },
+      "api": {
+        "id": "bb3a0543-7087-4c66-ad61-23a538e0dc78"
+      }
+    },
+    {
+      "id": "0d64d437-cd3f-4e3b-b604-c8fa29190d02",
+      "key": "value",
+      "name": "Value",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "bb3a0543-7087-4c66-ad61-23a538e0dc78"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "EnumType",
+      "id": "bcdcec56-a675-4456-a91a-a0f0b5f847f7",
+      "kind": "EnumType",
+      "name": "HtmlButton Formenctype Enum",
+      "allowedValues": [
+        {
+          "id": "e47c76de-ba20-477b-a205-7c34ea8f2625",
+          "key": "application/x-www-form-urlencoded",
+          "value": "application/x-www-form-urlencoded"
+        },
+        {
+          "id": "3316fffb-dcc1-402c-95ba-c9fa3e181262",
+          "key": "multipart/form-data",
+          "value": "multipart/form-data"
+        },
+        {
+          "id": "8b79526d-5621-4f5f-a66c-718385d1f0d4",
+          "key": "text/plain",
+          "value": "text/plain"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "a4241add-2cf1-4bbc-bc33-610521ee07d6",
+      "kind": "EnumType",
+      "name": "HtmlButton Formmethod Enum",
+      "allowedValues": [
+        {
+          "id": "c7d277a1-456c-4fba-bfa3-d2958f03c0cd",
+          "key": "get",
+          "value": "get"
+        },
+        {
+          "id": "87a1fbfc-a7de-4537-a9a4-5614bf0f8ed7",
+          "key": "post",
+          "value": "post"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "c71d7e4d-4523-42a3-a4e6-fae4be3f431a",
+      "kind": "EnumType",
+      "name": "HtmlButton Type Enum",
+      "allowedValues": [
+        {
+          "id": "19e95946-0004-418b-827a-a24ced13b7b8",
+          "key": "button",
+          "value": "button"
+        },
+        {
+          "id": "0133e3a3-16b9-467e-b4bf-87d174164966",
+          "key": "reset",
+          "value": "reset"
+        },
+        {
+          "id": "74a96268-3794-4cfa-9fdb-5428d976ef06",
+          "key": "submit",
+          "value": "submit"
+        }
+      ]
+    }
+  ]
+}

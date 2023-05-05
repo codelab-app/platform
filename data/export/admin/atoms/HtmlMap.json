@@ -1,0 +1,55 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "90e6b775-ef89-49af-b1cc-f76547911e75",
+    "kind": "InterfaceType",
+    "name": "HtmlMap API",
+    "fields": [
+      {
+        "id": "f9d19ceb-4a3e-43a4-878a-f8827c96aee2"
+      }
+    ]
+  },
+  "atom": {
+    "id": "ebad6e06-ce65-4d18-9802-7cd9fd68bf58",
+    "name": "HtmlMap",
+    "type": "HtmlMap",
+    "api": {
+      "id": "90e6b775-ef89-49af-b1cc-f76547911e75"
+    },
+    "icon": null,
+    "tags": [
+      {
+        "id": "6f434b99-8734-4f00-883d-5c5d42c02178",
+        "name": "HtmlMap",
+        "parent": {
+          "id": "b3c5db6d-1853-458c-9388-1b8ddaf89250",
+          "name": "Flow"
+        },
+        "children": []
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": []
+  },
+  "fields": [
+    {
+      "id": "f9d19ceb-4a3e-43a4-878a-f8827c96aee2",
+      "key": "name",
+      "name": "Name",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "90e6b775-ef89-49af-b1cc-f76547911e75"
+      }
+    }
+  ],
+  "types": []
+}

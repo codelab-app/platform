@@ -1,0 +1,93 @@
+[
+  {
+    "property": "className",
+    "description": "Additional class to Steps",
+    "type": "string",
+    "default": "-",
+    "version": ""
+  },
+  {
+    "property": "current",
+    "description": "To set the current step, counting from 0. You can overwrite this state by using status of Step",
+    "type": "number",
+    "default": "0",
+    "version": ""
+  },
+  {
+    "property": "direction",
+    "description": "To specify the direction of the step bar, horizontal or vertical",
+    "type": "string",
+    "default": "horizontal",
+    "version": ""
+  },
+  {
+    "property": "initial",
+    "description": "Set the initial step, counting from 0",
+    "type": "number",
+    "default": "0",
+    "version": ""
+  },
+  {
+    "property": "labelPlacement",
+    "description": "Place title and description with horizontal or vertical direction",
+    "type": "string",
+    "default": "horizontal",
+    "version": ""
+  },
+  {
+    "property": "percent",
+    "description": "Progress circle percentage of current step in process status (only works on basic Steps)",
+    "type": "number",
+    "default": "-",
+    "version": "4.5.0"
+  },
+  {
+    "property": "progressDot",
+    "description": "Steps with progress dot style, customize the progress dot by setting it to a function. labelPlacement will be vertical",
+    "type": "boolean | (iconDot, {index, status, title, description}) => ReactNode",
+    "default": "false",
+    "version": ""
+  },
+  {
+    "property": "responsive",
+    "description": "Change to vertical direction when screen width smaller than 532px",
+    "type": "boolean",
+    "default": "true",
+    "version": ""
+  },
+  {
+    "property": "size",
+    "description": "To specify the size of the step bar, default and small are currently supported",
+    "type": "string",
+    "default": "default",
+    "version": ""
+  },
+  {
+    "property": "status",
+    "description": "To specify the status of current step, can be set to one of the following values: wait process finish error",
+    "type": "string",
+    "default": "process",
+    "version": ""
+  },
+  {
+    "property": "type",
+    "description": "Type of steps, can be set to one of the following values: default navigation inline",
+    "type": "default | navigation | Inline",
+    "default": "default",
+    "version": "inline: 5.0"
+  },
+  {
+    "property": "onChange",
+    "description": "Trigger when Step is changed",
+    "type": "(current) => void",
+    "default": "-",
+    "version": ""
+  },
+  {
+    "property": "items",
+    "description": "StepItem content",
+    "type": "StepItem[]",
+    "default": "[]",
+    "version": "4.24.0"
+  }
+]
