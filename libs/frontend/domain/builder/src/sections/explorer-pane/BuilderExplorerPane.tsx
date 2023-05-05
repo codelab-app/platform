@@ -6,7 +6,6 @@ import {
   RendererTab,
 } from '@codelab/frontend/abstract/core'
 import {
-  CreateComponentButton,
   CreateComponentModal,
   DeleteComponentModal,
 } from '@codelab/frontend/domain/component'
@@ -29,6 +28,7 @@ import {
   UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
 import {
+  useActiveTab,
   useCurrentPageId,
   useStore,
 } from '@codelab/frontend/presentation/container'
@@ -39,6 +39,7 @@ import {
 } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { css } from '@emotion/react'
+import type { TabsProps } from 'antd'
 import { Collapse, Divider, Spin, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren, ReactNode } from 'react'
@@ -47,6 +48,7 @@ import tw from 'twin.macro'
 import { renderStickyTabBar } from '../stickyTabBarRenderer'
 import { BuilderTree } from './builder-tree'
 import { BuilderExplorerPaneHeader } from './BuilderExplorerPane-Header'
+import { CustomComponents, PreBuiltComponents } from './tab-contents'
 
 const { Panel } = Collapse
 
@@ -71,16 +73,15 @@ export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
       actionService,
       builderRenderService,
       builderService,
-      componentService,
       elementService,
     } = useStore()
 
+    const activeTab = useActiveTab()
     const pageId = useCurrentPageId()
     const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
     const pageTree = pageBuilderRenderer?.elementTree.maybeCurrent
     const root = !isLoading ? pageTree?.rootElement : undefined
     const antdTree = root?.current.antdNode
-    const componentsAntdTree = componentService.componentAntdNode
     const isPageTree = antdTree && pageTree
     const store = builderService.selectedNode?.current.store.current
 
@@ -96,7 +97,7 @@ export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
       return
     }
 
-    const tabItems = [
+    const mainTabItems = [
       {
         children: (
           <SkeletonWrapper isLoading={isLoading}>
@@ -128,29 +129,6 @@ export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
                     builderService,
                   )}
                   treeData={antdTree}
-                />
-              )}
-
-              {pageBuilderRenderer && (
-                <>
-                  <Divider />
-                  <div css={tw`flex justify-end`}>
-                    <CreateComponentButton title="Component" />
-                  </div>
-                </>
-              )}
-
-              {antdTree && (
-                <BuilderTree
-                  expandedNodeIds={builderService.expandedComponentTreeNodeIds}
-                  selectTreeNode={selectTreeNode}
-                  setActiveTab={() =>
-                    builderService.setActiveTab(RendererTab.Component)
-                  }
-                  setExpandedNodeIds={builderService.setExpandedComponentTreeNodeIds.bind(
-                    builderService,
-                  )}
-                  treeData={componentsAntdTree}
                 />
               )}
             </ExplorerPaneTemplate>
@@ -216,6 +194,22 @@ export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
       },
     ]
 
+    const builderComponentsTabItems: TabsProps['items'] = [
+      {
+        children: <PreBuiltComponents />,
+        key: 'pre-built-components',
+        label: 'Pre-built Components',
+      },
+      {
+        children: <CustomComponents />,
+        key: 'custom-components',
+        label: 'Custom Components',
+      },
+    ]
+
+    const tabItems =
+      activeTab === 'components' ? builderComponentsTabItems : mainTabItems
+
     return (
       <>
         <Tabs
@@ -236,6 +230,7 @@ export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
             }
           `}
           defaultActiveKey="1"
+          destroyInactiveTabPane
           items={tabItems}
           renderTabBar={renderStickyTabBar}
           size="small"

@@ -31,6 +31,6 @@ query GetComponents($options: ComponentOptions, $where: ComponentWhere) {
     count
   }
   items: components(options: $options, where: $where) {
-    ...Component
+    ...RenderedComponent
   }
 }

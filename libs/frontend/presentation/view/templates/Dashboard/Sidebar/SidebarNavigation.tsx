@@ -2,6 +2,7 @@ import {
   adminMenuItems,
   allPagesMenuItem,
   appMenuItem,
+  builderComponentsMenuItem,
   componentMenuItem,
   pageBuilderMenuItem,
   resourceMenuItem,
@@ -16,6 +17,7 @@ export const sidebarNavigation = ({ appId, pageId }: SidebarNavigation) => ({
   primaryItems: [
     appMenuItem,
     allPagesMenuItem(appId, pageId),
+    builderComponentsMenuItem(appId, pageId),
     pageBuilderMenuItem(appId, pageId),
     resourceMenuItem,
     componentMenuItem,

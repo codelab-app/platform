@@ -1,3 +1,4 @@
+import { useActiveTab } from '@codelab/frontend/presentation/container'
 import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
 import { useRouter } from 'next/router'
@@ -15,16 +16,6 @@ export interface SidebarNavigationProps {
   secondaryItems?: MenuProps['items']
 }
 
-export const transformSelectedKeys = (keys: Array<string>) => {
-  const allKeys: Array<string> = []
-
-  keys.forEach((key) => {
-    allKeys.push(key)
-  })
-
-  return allKeys
-}
-
 export const SidebarNavigation = ({
   onClick,
   primaryItems,
@@ -33,6 +24,7 @@ export const SidebarNavigation = ({
   const router = useRouter()
   const { explorerPaneKey } = router.query
   const selectedKey = (explorerPaneKey as string) || router.pathname
+  const activeTab = useActiveTab()
 
   return (
     <div
@@ -45,18 +37,16 @@ export const SidebarNavigation = ({
       <Menu
         css={tw`border-none box-border h-full`}
         defaultOpenKeys={[]}
-        // defaultSelectedKeys={[PageType.AppList]}
         items={primaryItems}
         mode="inline"
-        selectedKeys={transformSelectedKeys([selectedKey])}
+        selectedKeys={[activeTab ?? selectedKey]}
       />
       <Menu
         css={tw`border-none box-border`}
         defaultOpenKeys={[]}
-        // defaultSelectedKeys={[PageType.AppList]}
         items={secondaryItems}
         mode="inline"
-        selectedKeys={transformSelectedKeys([selectedKey])}
+        selectedKeys={[selectedKey]}
       />
     </div>
   )

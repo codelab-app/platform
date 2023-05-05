@@ -15,9 +15,15 @@ import {
   RendererType,
   typeRef,
 } from '@codelab/frontend/abstract/core'
+import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getStoreService, Store } from '@codelab/frontend/domain/store'
-import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
+import { getTagService } from '@codelab/frontend/domain/tag'
+import {
+  getTypeService,
+  InterfaceType,
+  typeRef,
+} from '@codelab/frontend/domain/type'
 import { ModalService, PaginationService } from '@codelab/frontend/shared/utils'
 import type {
   ComponentOptions,
@@ -93,6 +99,16 @@ export class ComponentService
   @computed
   get storeService() {
     return getStoreService(this)
+  }
+
+  @computed
+  get tagService() {
+    return getTagService(this)
+  }
+
+  @computed
+  get atomService() {
+    return getAtomService(this)
   }
 
   @computed
@@ -275,10 +291,32 @@ export class ComponentService
 
     return components.map((component) => {
       this.storeService.load([component.store])
-      /**
-       * attach component props to mobx tree before calling propRef
-       */
       this.propService.add(component.props)
+      this.typeService.addInterface(component.api)
+
+      const allElements = [
+        component.rootElement,
+        ...component.rootElement.descendantElements,
+      ]
+
+      allElements.forEach((elementData) => {
+        this.propService.add(elementData.props)
+
+        /**
+         * Element comes with `component` or `atom` data that we need to load as well
+         */
+        if (elementData.renderAtomType?.id) {
+          this.typeService.addInterface(elementData.renderAtomType.api)
+
+          elementData.renderAtomType.tags.forEach((tag) =>
+            this.tagService.add(tag),
+          )
+
+          this.atomService.add(elementData.renderAtomType)
+        }
+
+        this.elementService.add(elementData)
+      })
 
       return this.add(component)
     })

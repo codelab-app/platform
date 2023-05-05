@@ -1,10 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { ComponentFragment } from '../../../../abstract/core/src/domain/component/component.fragment.graphql.gen'
+import { RenderedComponentFragment } from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
-import { ComponentFragmentDoc } from '../../../../abstract/core/src/domain/component/component.fragment.graphql.gen'
+import { RenderedComponentFragmentDoc } from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 export type CreateComponentsMutationVariables = Types.Exact<{
   input: Array<Types.ComponentCreateInput> | Types.ComponentCreateInput
 }>
@@ -38,7 +38,15 @@ export type GetComponentsQueryVariables = Types.Exact<{
 
 export type GetComponentsQuery = {
   aggregate: { count: number }
-  items: Array<ComponentFragment>
+  items: Array<RenderedComponentFragment>
+}
+
+export type GetComponentOptionsQueryVariables = Types.Exact<{
+  [key: string]: never
+}>
+
+export type GetComponentOptionsQuery = {
+  components: Array<{ id: string; name: string }>
 }
 
 export const CreateComponentsDocument = gql`
@@ -78,10 +86,18 @@ export const GetComponentsDocument = gql`
       count
     }
     items: components(options: $options, where: $where) {
-      ...Component
+      ...RenderedComponent
     }
   }
-  ${ComponentFragmentDoc}
+  ${RenderedComponentFragmentDoc}
+`
+export const GetComponentOptionsDocument = gql`
+  query GetComponentOptions {
+    components {
+      id
+      name
+    }
+  }
 `
 
 export type SdkFunctionWrapper = <T>(
@@ -157,6 +173,21 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'GetComponents',
+        'query',
+      )
+    },
+    GetComponentOptions(
+      variables?: GetComponentOptionsQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<GetComponentOptionsQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetComponentOptionsQuery>(
+            GetComponentOptionsDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'GetComponentOptions',
         'query',
       )
     },

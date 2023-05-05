@@ -5,7 +5,7 @@ import {
   BuilderContext,
   BuilderExplorerPane,
   BuilderTabs,
-  ConfigPane,
+  ConfigPaneInspectorTabContainer,
 } from '@codelab/frontend/domain/builder'
 import {
   ExplorerPanePage,
@@ -20,6 +20,7 @@ import {
 import {
   DashboardTemplate,
   sidebarNavigation,
+  SkeletonWrapper,
 } from '@codelab/frontend/presentation/view'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { useMountEffect } from '@react-hookz/web'
@@ -49,7 +50,11 @@ const PageBuilder: CodelabPage = observer(() => {
 
   return (
     <DashboardTemplate
-      ConfigPane={() => <ConfigPane isLoading={isLoading} />}
+      ConfigPane={() => (
+        <SkeletonWrapper isLoading={isLoading}>
+          <ConfigPaneInspectorTabContainer />
+        </SkeletonWrapper>
+      )}
       ExplorerPane={{
         default: ExplorerPaneType.Explorer,
         items: [

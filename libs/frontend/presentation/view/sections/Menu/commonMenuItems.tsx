@@ -2,6 +2,7 @@ import {
   AppstoreOutlined,
   BuildOutlined,
   CloudServerOutlined,
+  CodeSandboxOutlined,
   ExpandOutlined,
   FileOutlined,
 } from '@ant-design/icons'
@@ -44,6 +45,25 @@ export const allPagesMenuItem = (
       }}
     >
       Pages
+    </Link>
+  ),
+})
+
+export const builderComponentsMenuItem = (
+  appId: Nullish<string>,
+  pageId: Nullish<string>,
+): ItemType => ({
+  disabled: !appId || !pageId,
+  icon: <CodeSandboxOutlined title="Builder Components" />,
+  key: 'components',
+  label: (
+    <Link
+      href={{
+        pathname: PageType.PageBuilder,
+        query: { activeTab: 'components', appId, pageId },
+      }}
+    >
+      Builder Components
     </Link>
   ),
 })
