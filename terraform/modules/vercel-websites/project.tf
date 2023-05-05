@@ -52,6 +52,22 @@ resource "vercel_project" "websites" {
       target = ["production", "preview"]
       key    = "AUTH0_AUDIENCE"
       value = "${var.auth0_issuer_base_url}api/v2/"
+    },
+    # Neo4j
+    {
+      target = ["production", "preview"]
+      key    = "NEO4J_USER"
+      value  = var.neo4j_user
+    },
+    {
+      target = ["production", "preview"]
+      key    = "NEO4J_URI"
+      value  = var.neo4j_uri
+    },
+    {
+      target = ["production", "preview"]
+      key    = "NEO4J_PASSWORD"
+      value  = var.neo4j_password
     }
   ]
 }
