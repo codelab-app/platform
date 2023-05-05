@@ -18,11 +18,15 @@ export const ClickOverlay = ({
     return null
   }
 
+  const elementRect = element.getBoundingClientRect()
+
   return (
     <OverlayToolbar
       containerProps={{
         style: {
           border: '1px solid rgb(7, 62, 78)',
+          maxHeight: '765px',
+          top: `${elementRect.height > 765 ? 155 : elementRect.top}px`,
         },
       }}
       overlayElement={element}
