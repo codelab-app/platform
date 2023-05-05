@@ -1,8 +1,6 @@
-import { PageType } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneTemplate } from '@codelab/frontend/presentation/view'
 import { Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
 import React from 'react'
 import {
   CreatePageButton,
@@ -14,18 +12,8 @@ import {
 
 export const ExplorerPanePage = observer(
   ({ loading }: { loading: boolean }) => {
-    const router = useRouter()
-
-    const headerProps = {
-      onBack: () => router.push({ pathname: PageType.AppList }),
-    }
-
     return (
-      <ExplorerPaneTemplate
-        header={<CreatePageButton key={0} />}
-        headerProps={headerProps}
-        title="Pages"
-      >
+      <ExplorerPaneTemplate header={<CreatePageButton key={0} />} title="Pages">
         {loading ? <Spin /> : <PageList />}
 
         <CreatePageModal />

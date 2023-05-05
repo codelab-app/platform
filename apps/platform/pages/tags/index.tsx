@@ -1,5 +1,6 @@
 import { PageHeader } from '@ant-design/pro-components/lib'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/types'
 import {
   CreateTagButton,
   CreateTagModal,
@@ -73,7 +74,10 @@ TagPage.Layout = observer(({ children }) => {
 
   return (
     <DashboardTemplate
-      ExplorerPane={() => <GetTagsTree />}
+      ExplorerPane={{
+        default: PageType.Tag,
+        items: [{ key: PageType.Tag, render: () => <GetTagsTree /> }],
+      }}
       Header={TagPageHeader}
       sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >

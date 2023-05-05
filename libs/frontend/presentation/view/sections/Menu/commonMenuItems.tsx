@@ -29,12 +29,17 @@ export const componentMenuItem: ItemType = {
   label: <Link href={PageType.Components}>Components</Link>,
 }
 
-export const allPagesMenuItem = (appId: Nullish<string>): ItemType => ({
+export const allPagesMenuItem = (
+  appId: Nullish<string>,
+  pageId: Nullish<string>,
+): ItemType => ({
   disabled: !appId,
   icon: <FileOutlined title="Pages" />,
   key: PageType.PageList,
   label: (
-    <Link href={{ pathname: PageType.PageList, query: { appId } }}>Pages</Link>
+    <Link href={{ pathname: PageType.PageBuilder, query: { appId, pageId } }}>
+      Pages
+    </Link>
   ),
 })
 

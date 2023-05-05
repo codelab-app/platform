@@ -15,7 +15,7 @@ interface SidebarNavigation {
 export const sidebarNavigation = ({ appId, pageId }: SidebarNavigation) => ({
   primaryItems: [
     appMenuItem,
-    allPagesMenuItem(appId),
+    allPagesMenuItem(appId, pageId),
     pageBuilderMenuItem(appId, pageId),
     resourceMenuItem,
     componentMenuItem,

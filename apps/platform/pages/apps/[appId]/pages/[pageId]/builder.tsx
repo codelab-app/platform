@@ -1,12 +1,16 @@
 import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/types'
 import {
   BuilderContext,
   BuilderExplorerPane,
   BuilderTabs,
   ConfigPane,
 } from '@codelab/frontend/domain/builder'
-import { PageDetailHeader } from '@codelab/frontend/domain/page'
+import {
+  ExplorerPanePage,
+  PageDetailHeader,
+} from '@codelab/frontend/domain/page'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -43,7 +47,19 @@ const PageBuilder: CodelabPage = observer(() => {
   return (
     <DashboardTemplate
       ConfigPane={() => <ConfigPane isLoading={isLoading} />}
-      ExplorerPane={() => <BuilderExplorerPane isLoading={isLoading} />}
+      ExplorerPane={{
+        default: PageType.PageBuilder,
+        items: [
+          {
+            key: PageType.PageBuilder,
+            render: () => <BuilderExplorerPane isLoading={isLoading} />,
+          },
+          {
+            key: PageType.PageList,
+            render: () => <ExplorerPanePage loading={false} />,
+          },
+        ],
+      }}
       Header={PageDetailHeader}
       contentStyles={contentStyles}
       headerHeight={48}

@@ -1,8 +1,10 @@
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { Layout } from 'antd'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import tw from 'twin.macro'
+import type { SidebarNavigationProps } from '../SidebarNavigation'
 import { SidebarNavigation } from '../SidebarNavigation'
 import { sidebarWidth } from './constants'
 import { DashboardTemplateConfigPane } from './DashboardTemplate-ConfigPane'
@@ -21,11 +23,27 @@ export const DashboardTemplateSSR = observer(
     Header,
     sidebarNavigation,
   }: React.PropsWithChildren<DashboardTemplateProps>) => {
+    const [activeTabKey, setActiveTabKey] = useState<Nullable<React.Key>>(
+      ExplorerPane?.default || null,
+    )
+
+    const handleSidebarClick: SidebarNavigationProps['onClick'] = (info) => {
+      setActiveTabKey(info.key)
+    }
+
+    const getActiveExplorerPane = useCallback(() => {
+      return ExplorerPane?.items.find((item) => item.key === activeTabKey)
+        ?.render
+    }, [ExplorerPane?.items, activeTabKey])
+
+    const activeExplorerPane = getActiveExplorerPane()
+
     return (
       <Layout css={tw`max-h-full min-h-full`}>
         <Sider collapsed collapsedWidth={sidebarWidth} theme="light">
           {sidebarNavigation && (
             <SidebarNavigation
+              onClick={handleSidebarClick}
               primaryItems={sidebarNavigation.primaryItems}
               secondaryItems={sidebarNavigation.secondaryItems}
             />
@@ -41,11 +59,11 @@ export const DashboardTemplateSSR = observer(
 
           <Layout style={contentStyles}>
             <PanelGroup direction="horizontal">
-              {ExplorerPane && (
+              {activeExplorerPane && (
                 <>
                   <Panel defaultSize={20} order={1}>
                     <DashboardTemplateExplorerPane
-                      ExplorerPane={ExplorerPane}
+                      ExplorerPane={activeExplorerPane}
                     />
                   </Panel>
                   <ResizeHandle />

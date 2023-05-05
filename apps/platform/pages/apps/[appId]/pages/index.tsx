@@ -1,5 +1,6 @@
 import type { IApp } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
+import { PageType } from '@codelab/frontend/abstract/types'
 import { ExplorerPanePage } from '@codelab/frontend/domain/page'
 import {
   useCurrentAppId,
@@ -50,11 +51,19 @@ Pages.Layout = observer(({ children }) => {
 
   return (
     <DashboardTemplate
-      ExplorerPane={() => (
-        <ExplorerPanePage
-          loading={status === 'loading' || status === 'not-executed'}
-        />
-      )}
+      ExplorerPane={{
+        default: PageType.PageList,
+        items: [
+          {
+            key: PageType.PageList,
+            render: () => (
+              <ExplorerPanePage
+                loading={status === 'loading' || status === 'not-executed'}
+              />
+            ),
+          },
+        ],
+      }}
       sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
       {children({ app: apps?.[0] })}

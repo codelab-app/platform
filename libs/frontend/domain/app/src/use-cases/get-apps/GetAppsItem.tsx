@@ -13,7 +13,11 @@ export interface GetAppsItemProps {
 }
 
 export const GetAppsItem = observer<GetAppsItemProps>(({ app }) => {
-  const href = { pathname: PageType.PageList, query: { appId: app.id } }
+  const href = {
+    pathname: PageType.PageBuilder,
+    query: { appId: app.id, pageId: app.pages[0]?.id },
+  }
+
   const domains = app.domains.map((domain) => domain.current)
   const Title = <Link href={href}>{app.name}</Link>
   const Dropdown = <ItemDropdown app={app} domains={domains} />
