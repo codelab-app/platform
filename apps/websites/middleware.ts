@@ -7,7 +7,7 @@ const middleware = async (req: NextRequest) => {
   const { pathname } = req.nextUrl
   const isApi = pathname.startsWith('/api')
   const isInternal = pathname.startsWith('/_next')
-  const isFavicon = pathname.startsWith('favicon.ico')
+  const isFavicon = pathname.includes('favicon.ico')
   const isPublic = pathname.includes('.')
 
   if (
