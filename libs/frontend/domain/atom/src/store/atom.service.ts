@@ -25,7 +25,6 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { atomApi } from './atom.api'
 import { Atom } from './atom.model'
 import { atomRef } from './atom.ref'
 import { AtomRepository } from './atom.repo'
@@ -107,6 +106,7 @@ export class AtomService
   @modelAction
   add = ({
     api,
+    icon,
     id,
     name,
     owner,
@@ -119,6 +119,7 @@ export class AtomService
 
     const atom = Atom.create({
       api: apiRef,
+      icon,
       id,
       name,
       owner,
