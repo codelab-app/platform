@@ -43,7 +43,7 @@ export const DraggableGetComponentItem = ({
       {...listeners}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...attributes}
-      css={tw`mb-6 cursor-pointer`}
+      css={tw`mb-2 cursor-pointer [max-width: 48%]`}
     >
       <GetComponentItem component={component} />
     </div>
@@ -63,7 +63,6 @@ export const GetComponentItem = ({
 }: GetComponentItemProps) => (
   <Card
     className={className}
-    css={tw`mr-16`}
     hoverable
     title={<b css={tw`text-sm`}>{component.name}</b>}
   >

@@ -88,7 +88,7 @@ export class BuilderService
         // Here we assume each atom only has one category tag
         component.tags.filter(
           (tag) => tag.maybeCurrent?.name !== COMPONENT_TAG_NAME,
-        )[0]?.maybeCurrent?.name,
+        )[0]?.maybeCurrent?.name ?? '',
     )
   }
 

@@ -49,12 +49,12 @@ export const ComponentsGroupedByTag = ({
         onChange={(event) => debouncedSearch(event.target.value)}
         placeholder="Search component"
       />
-      <div css={tw`flex flex-wrap justify-between mt-6`}>
+      <div css={tw`flex flex-wrap justify-between`}>
         {tags.map((tag) =>
           filteredItems[tag]?.length ? (
             <React.Fragment key={tag}>
-              <div css={tw`[flex: 48% 1] [max-width: 48%]`}>
-                <Typography.Title ellipsis level={4}>
+              <div css={tw`flex flex-wrap [gap: 12px]`}>
+                <Typography.Title css={tw`w-full mt-4`} ellipsis level={4}>
                   {tag}
                 </Typography.Title>
                 <GetComponentsList components={filteredItems[tag] ?? []} />
