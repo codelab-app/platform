@@ -12,7 +12,11 @@ export const CreateAppModal = observer(() => {
   const { appService, userService } = useStore()
 
   const onSubmit = (appDTO: ICreateAppData) => {
-    return appService.create(appDTO)
+    void appService.create(appDTO)
+
+    closeModal()
+
+    return Promise.resolve()
   }
 
   const closeModal = () => appService.createModal.close()

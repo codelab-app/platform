@@ -13,7 +13,11 @@ export const CreateTagModal = observer(() => {
   const isOpen = tagService.createModal.isOpen
 
   const onSubmit = (input: ICreateTagData) => {
-    return tagService.create(input)
+    void tagService.create(input)
+
+    closeModal()
+
+    return Promise.resolve()
   }
 
   const defaultOption = tagService.selectedOption

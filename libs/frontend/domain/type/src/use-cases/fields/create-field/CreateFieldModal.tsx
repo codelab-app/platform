@@ -36,7 +36,11 @@ export const CreateFieldModal = observer(() => {
       typeService.primitiveKind(input.fieldType),
     )
 
-    return fieldService.create({ ...input, validationRules })
+    void fieldService.create({ ...input, validationRules })
+
+    closeModal()
+
+    return Promise.resolve()
   }
 
   return (

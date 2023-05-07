@@ -10,14 +10,15 @@ import { createResourceSchema } from './create-resource.schema'
 
 export const CreateResourceModal = observer(() => {
   const { resourceService, userService } = useStore()
+  const closeModal = () => resourceService.createModal.close()
 
   const onSubmit = (resourceDTO: ICreateResourceData) => {
-    console.log('submit', resourceDTO)
+    void resourceService.create(resourceDTO)
 
-    return resourceService.create(resourceDTO)
+    closeModal()
+
+    return Promise.resolve()
   }
-
-  const closeModal = () => resourceService.createModal.close()
 
   const model = {
     id: v4(),

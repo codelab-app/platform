@@ -21,11 +21,15 @@ export const UpdateTagModal = observer(() => {
     parent: tag?.parent ? { id: tag.parent.id } : undefined,
   }
 
-  const onSubmit = (tagDTO: IUpdateTagData) => {
-    return tagService.update(tagDTO)
-  }
-
   const closeModal = () => tagService.updateModal.close()
+
+  const onSubmit = (tagDTO: IUpdateTagData) => {
+    void tagService.update(tagDTO)
+
+    closeModal()
+
+    return Promise.resolve()
+  }
 
   return (
     <ModalForm.Modal

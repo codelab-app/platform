@@ -24,12 +24,18 @@ export const DeleteResourceModal = observer(() => {
     }
   }
 
+  const closeModal = () => resourceService.deleteModal.close()
+
   const onSubmit = () => {
     if (!resource) {
       return Promise.reject()
     }
 
-    return resourceService.delete(resource)
+    void resourceService.delete(resource)
+
+    closeModal()
+
+    return Promise.resolve()
   }
 
   const onSubmitError = createNotificationHandler({

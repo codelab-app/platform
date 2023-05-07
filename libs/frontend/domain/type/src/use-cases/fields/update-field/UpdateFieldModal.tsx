@@ -35,7 +35,11 @@ export const UpdateFieldModal = observer(() => {
       typeService.primitiveKind(input.fieldType),
     )
 
-    return fieldService.update({ ...input, validationRules })
+    void fieldService.update({ ...input, validationRules })
+
+    closeModal()
+
+    return Promise.resolve()
   }
 
   return (

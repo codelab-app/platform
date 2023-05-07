@@ -19,10 +19,15 @@ export const UpdateResourceModal = observer(() => {
     type: resource?.type,
   }
 
-  const onSubmit = (resourceDTO: IUpdateResourceData) =>
-    resourceService.update(resourceDTO)
-
   const closeModal = () => resourceService.updateModal.close()
+
+  const onSubmit = (resourceDTO: IUpdateResourceData) => {
+    void resourceService.update(resourceDTO)
+
+    closeModal()
+
+    return Promise.resolve()
+  }
 
   return (
     <ModalForm.Modal

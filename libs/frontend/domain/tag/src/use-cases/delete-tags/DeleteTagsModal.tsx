@@ -11,8 +11,15 @@ import { deleteTagsSchema } from './delete-tags.schema'
 export const DeleteTagsModal = observer(() => {
   const { tagService } = useStore()
   const tags = tagService.deleteManyModal.tags
-  const onSubmit = () => tagService.delete(tags?.map((tag) => tag.id) ?? [])
   const closeModal = () => tagService.deleteManyModal.close()
+
+  const onSubmit = () => {
+    void tagService.delete(tags?.map((tag) => tag.id) ?? [])
+
+    closeModal()
+
+    return Promise.resolve()
+  }
 
   return (
     <ModalForm.Modal
