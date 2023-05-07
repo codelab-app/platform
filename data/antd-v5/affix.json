@@ -1,0 +1,38 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "affix"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Offset from the bottom of the viewport (in pixels)",
+        "property": "offsetBottom",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Offset from the top of the viewport (in pixels)",
+        "property": "offsetTop",
+        "type": "number",
+        "version": "0"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specifies the scrollable area DOM node",
+        "property": "target",
+        "type": "() => HTMLElement",
+        "version": "() => window"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback for when Affix state is changed",
+        "property": "onChange",
+        "type": "(affixed?: boolean) => void",
+        "version": "-"
+      }
+    ]
+  }
+]

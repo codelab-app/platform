@@ -1,0 +1,759 @@
+[
+  {
+    "atom": {
+      "api": "Table",
+      "name": "table"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Whether to show all table borders",
+        "property": "bordered",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Columns of table",
+        "property": "columns",
+        "type": "ColumnsType[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Override default table elements",
+        "property": "components",
+        "type": "TableComponents",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Data record array to be displayed",
+        "property": "dataSource",
+        "type": "object[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Config expandable content",
+        "property": "expandable",
+        "type": "expandable",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Table footer renderer",
+        "property": "footer",
+        "type": "function(currentPageData)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The render container of dropdowns in table",
+        "property": "getPopupContainer",
+        "type": "(triggerNode) => HTMLElement",
+        "version": "() => TableHtmlElement"
+      },
+      {
+        "defaultValue": "",
+        "description": "Loading status of table",
+        "property": "loading",
+        "type": "boolean | Spin Props",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The i18n text including filter, sort, empty text, etc",
+        "property": "locale",
+        "type": "object",
+        "version": "Default Value"
+      },
+      {
+        "defaultValue": "",
+        "description": "Config of pagination. You can ref table pagination config or full pagination document, hide it by setting it to false",
+        "property": "pagination",
+        "type": "object | false",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Row's className",
+        "property": "rowClassName",
+        "type": "function(record, index): string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Row's unique key, could be a string or function that returns a string",
+        "property": "rowKey",
+        "type": "string | function(record): string",
+        "version": "key"
+      },
+      {
+        "defaultValue": "",
+        "description": "Row selection config",
+        "property": "rowSelection",
+        "type": "object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether the table can be scrollable, config",
+        "property": "scroll",
+        "type": "object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to show table header",
+        "property": "showHeader",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "The header show next sorter direction tooltip. It will be set as the property of Tooltip if its type is object",
+        "property": "showSorterTooltip",
+        "type": "boolean | Tooltip props",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Size of table",
+        "property": "size",
+        "type": "large | middle | small",
+        "version": "large"
+      },
+      {
+        "defaultValue": "",
+        "description": "Supported sort way, could be ascend, descend",
+        "property": "sortDirections",
+        "type": "Array",
+        "version": "[ascend, descend]"
+      },
+      {
+        "defaultValue": "4.6.0 (getContainer: 4.7.0)",
+        "description": "Set sticky header and scroll bar",
+        "property": "sticky",
+        "type": "boolean | {offsetHeader?: number, offsetScroll?: number, getContainer?: () => HTMLElement}",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Summary content",
+        "property": "summary",
+        "type": "(currentData) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The table-layout attribute of table element",
+        "property": "tableLayout",
+        "type": "- | auto | fixed",
+        "version": "-fixed when header/columns are fixed, or using column.ellipsis"
+      },
+      {
+        "defaultValue": "",
+        "description": "Table title renderer",
+        "property": "title",
+        "type": "function(currentPageData)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback executed when pagination, filters or sorter is changed",
+        "property": "onChange",
+        "type": "function(pagination, filters, sorter, extra: { currentDataSource: [], action: paginate | sort | filter })",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set props on per header row",
+        "property": "onHeaderRow",
+        "type": "function(columns, index)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set props on per row",
+        "property": "onRow",
+        "type": "function(record, index)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "table"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The specify which way that column is aligned",
+        "property": "align",
+        "type": "left | right | center",
+        "version": "left"
+      },
+      {
+        "defaultValue": "",
+        "description": "The className of this column",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Span of this column's title",
+        "property": "colSpan",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Display field of the data record, support nest path by string array",
+        "property": "dataIndex",
+        "type": "string | string[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Default filtered values",
+        "property": "defaultFilteredValue",
+        "type": "string[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "click the reset button, whether to restore the default filter",
+        "property": "filterResetToDefaultFilteredValue",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Default order of sorted values",
+        "property": "defaultSortOrder",
+        "type": "ascend | descend",
+        "version": "-"
+      },
+      {
+        "defaultValue": "showTitle: 4.3.0",
+        "description": "The ellipsis cell content, not working with sorter and filters for now.tableLayout would be fixed when ellipsis is true or { showTitle?: boolean }",
+        "property": "ellipsis",
+        "type": "boolean | {showTitle?: boolean }",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customized filter overlay",
+        "property": "filterDropdown",
+        "type": "ReactNode | (props: FilterDropdownProps) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether filterDropdown is visible",
+        "property": "filterDropdownOpen",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether the dataSource is filtered",
+        "property": "filtered",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Controlled filtered value, filter icon will highlight",
+        "property": "filteredValue",
+        "type": "string[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customized filter icon",
+        "property": "filterIcon",
+        "type": "ReactNode | (filtered: boolean) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether multiple filters can be selected",
+        "property": "filterMultiple",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "To specify the filter interface",
+        "property": "filterMode",
+        "type": "'menu' | 'tree'",
+        "version": "'menu'"
+      },
+      {
+        "defaultValue": "boolean:4.17.0 function:4.19.0",
+        "description": "Whether to be searchable for filter menu",
+        "property": "filterSearch",
+        "type": "boolean | function(input, record):boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Filter menu config",
+        "property": "filters",
+        "type": "object[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "(IE not support) Set column to be fixed: true(same as left) 'left' 'right'",
+        "property": "fixed",
+        "type": "boolean | string",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Unique key of this column, you can ignore this prop if you've set a unique dataIndex",
+        "property": "key",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Renderer of the table cell. The return value should be a ReactNode",
+        "property": "render",
+        "type": "function(text, record, index) {}",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.2.0",
+        "description": "The list of breakpoints at which to display this column. Always visible if not set",
+        "property": "responsive",
+        "type": "Breakpoint[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "5.1.0",
+        "description": "Set scope attribute for all cells in this column",
+        "property": "rowScope",
+        "type": "row | rowgroup",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.3.0",
+        "description": "Control cell render logic",
+        "property": "shouldCellUpdate",
+        "type": "(record, prevRecord) => boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "If header show next sorter direction tooltip, override showSorterTooltip in table",
+        "property": "showSorterTooltip",
+        "type": "boolean | Tooltip props",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Supported sort way, override sortDirections in Table, could be ascend, descend",
+        "property": "sortDirections",
+        "type": "Array",
+        "version": "[ascend, descend]"
+      },
+      {
+        "defaultValue": "",
+        "description": "Sort function for local sort, see Array.sort's compareFunction. If you need sort buttons only, set to true",
+        "property": "sorter",
+        "type": "function | boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Order of sorted values: ascend descend null",
+        "property": "sortOrder",
+        "type": "ascend | descend | null",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Title of this column",
+        "property": "title",
+        "type": "ReactNode | ({ sortOrder, sortColumn, filters }) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Width of this column (width not working?)",
+        "property": "width",
+        "type": "string | number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set props on per cell",
+        "property": "onCell",
+        "type": "function(record, rowIndex)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Function that determines if the row is displayed when filtered",
+        "property": "onFilter",
+        "type": "function(value, record) => boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback executed when filterDropdownOpen is changed",
+        "property": "onFilterDropdownOpenChange",
+        "type": "function(visible) {}",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set props on per header cell",
+        "property": "onHeaderCell",
+        "type": "function(column)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "ColumnGroup",
+      "name": "table"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Title of the column group",
+        "property": "title",
+        "type": "ReactNode",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "table"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Specify the position of Pagination, could betopLeft | topCenter | topRight |bottomLeft | bottomCenter | bottomRight",
+        "property": "position",
+        "type": "Array",
+        "version": "[bottomRight]"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "table"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The column contains children to display",
+        "property": "childrenColumnName",
+        "type": "string",
+        "version": "children"
+      },
+      {
+        "defaultValue": "4.23.0",
+        "description": "Set the title of the expand column",
+        "property": "columnTitle",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the width of the expand column",
+        "property": "columnWidth",
+        "type": "string | number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Expand all rows initially",
+        "property": "defaultExpandAllRows",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Initial expanded row keys",
+        "property": "defaultExpandedRowKeys",
+        "type": "string[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Expanded row's className",
+        "property": "expandedRowClassName",
+        "type": "function(record, index, indent): string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Current expanded row keys",
+        "property": "expandedRowKeys",
+        "type": "string[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Expanded container render for each row",
+        "property": "expandedRowRender",
+        "type": "function(record, index, indent, expanded): ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize row expand Icon. Ref example",
+        "property": "expandIcon",
+        "type": "function(props): ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to expand row by clicking anywhere in the whole row",
+        "property": "expandRowByClick",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.16.0",
+        "description": "Whether the expansion icon is fixed. Optional true left right",
+        "property": "fixed",
+        "type": "boolean | string",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Indent size in pixels of tree data",
+        "property": "indentSize",
+        "type": "number",
+        "version": "15"
+      },
+      {
+        "defaultValue": "",
+        "description": "Enable row can be expandable",
+        "property": "rowExpandable",
+        "type": "(record) => boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.18.0",
+        "description": "Show expand column",
+        "property": "showExpandColumn",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback executed when the row expand icon is clicked",
+        "property": "onExpand",
+        "type": "function(expanded, record)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback executed when the expanded rows change",
+        "property": "onExpandedRowsChange",
+        "type": "function(expandedRows)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "table"
+    },
+    "fields": [
+      {
+        "defaultValue": "4.4.0",
+        "description": "Check table row precisely; parent row and children rows are not associated",
+        "property": "checkStrictly",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the title of the selection column",
+        "property": "columnTitle",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the width of the selection column",
+        "property": "columnWidth",
+        "type": "string | number",
+        "version": "32px"
+      },
+      {
+        "defaultValue": "",
+        "description": "Fixed selection column on the left",
+        "property": "fixed",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Get Checkbox or Radio props",
+        "property": "getCheckboxProps",
+        "type": "function(record)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.3.0",
+        "description": "Hide the selectAll checkbox and custom selection",
+        "property": "hideSelectAll",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.4.0",
+        "description": "Keep selection key even when it removed from dataSource",
+        "property": "preserveSelectedRowKeys",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.1.0",
+        "description": "Renderer of the table cell. Same as render in column",
+        "property": "renderCell",
+        "type": "function(checked, record, index, originNode) {}",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Controlled selected row keys",
+        "property": "selectedRowKeys",
+        "type": "string[] | number[]",
+        "version": "[]"
+      },
+      {
+        "defaultValue": "",
+        "description": "Custom selection config, only displays default selections when set to true",
+        "property": "selections",
+        "type": "object[] | boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "checkbox or radio",
+        "property": "type",
+        "type": "checkbox | radio",
+        "version": "checkbox"
+      },
+      {
+        "defaultValue": "info.type: 4.21.0",
+        "description": "Callback executed when selected rows change",
+        "property": "onChange",
+        "type": "function(selectedRowKeys, selectedRows, info: { type })",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback executed when select/deselect one row",
+        "property": "onSelect",
+        "type": "function(record, selected, selectedRows, nativeEvent)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback executed when select/deselect all rows",
+        "property": "onSelectAll",
+        "type": "function(selected, selectedRows, changeRows)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback executed when row selection is inverted",
+        "property": "onSelectInvert",
+        "type": "function(selectedRowKeys)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback executed when row selection is cleared",
+        "property": "onSelectNone",
+        "type": "function()",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback executed when row selection is changed by pressing shift",
+        "property": "onSelectMultiple",
+        "type": "function(selected, selectedRows, changeRows)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "scroll",
+      "name": "table"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Whether to scroll to the top of the table when paging, sorting, filtering changes",
+        "property": "scrollToFirstRowOnChange",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set horizontal scrolling, can also be used to specify the width of the scroll area, could be number, percent value, true and 'max-content'",
+        "property": "x",
+        "type": "string | number | true",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set vertical scrolling, can also be used to specify the height of the scroll area, could be string or number",
+        "property": "y",
+        "type": "string | number",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "selection",
+      "name": "table"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Unique key of this selection",
+        "property": "key",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Display text of this selection",
+        "property": "text",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback executed when this selection is clicked",
+        "property": "onSelect",
+        "type": "function(changeableRowKeys)",
+        "version": "-"
+      }
+    ]
+  }
+]

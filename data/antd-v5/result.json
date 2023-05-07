@@ -1,0 +1,45 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "result"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Operating area",
+        "property": "extra",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Custom back icon",
+        "property": "icon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Result status, decide icons and colors",
+        "property": "status",
+        "type": "success | error | info | warning | 404 | 403 | 500",
+        "version": "info"
+      },
+      {
+        "defaultValue": "",
+        "description": "The subTitle",
+        "property": "subTitle",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The title",
+        "property": "title",
+        "type": "ReactNode",
+        "version": "-"
+      }
+    ]
+  }
+]

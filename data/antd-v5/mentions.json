@@ -1,0 +1,208 @@
+[
+  {
+    "atom": {
+      "api": "Mention",
+      "name": "mentions"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Auto get focus when component mounted",
+        "property": "autoFocus",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Textarea height autosize feature, can be set to true | false or an object { minRows: 2, maxRows: 6 }",
+        "property": "autoSize",
+        "type": "boolean | object",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Default value",
+        "property": "defaultValue",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize filter option logic",
+        "property": "filterOption",
+        "type": "false | (input: string, option: OptionProps) => boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the mount HTML node for suggestions",
+        "property": "getPopupContainer",
+        "type": "() => HTMLElement",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set mentions content when not match",
+        "property": "notFoundContent",
+        "type": "ReactNode",
+        "version": "Not Found"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set popup placement",
+        "property": "placement",
+        "type": "top | bottom",
+        "version": "bottom"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set trigger prefix keyword",
+        "property": "prefix",
+        "type": "string | string[]",
+        "version": "@"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set split string before and after selected mention",
+        "property": "split",
+        "type": "string",
+        "version": " "
+      },
+      {
+        "defaultValue": "4.19.0",
+        "description": "Set validation status",
+        "property": "status",
+        "type": "'error' | 'warning' | 'success' | 'validating'",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize trigger search logic",
+        "property": "validateSearch",
+        "type": "(text: string, props: MentionsProps) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set value of mentions",
+        "property": "value",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Trigger when mentions lose focus",
+        "property": "onBlur",
+        "type": "() => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Trigger when value changed",
+        "property": "onChange",
+        "type": "(text: string) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Trigger when mentions get focus",
+        "property": "onFocus",
+        "type": "() => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The callback function that is triggered when textarea resize",
+        "property": "onResize",
+        "type": "function({ width, height })",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Trigger when prefix hit",
+        "property": "onSearch",
+        "type": "(text: string, prefix: string) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Trigger when user select the option",
+        "property": "onSelect",
+        "type": "(option: OptionProps, prefix: string) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "5.1.0",
+        "description": "Option Configuration",
+        "property": "options",
+        "type": "Options",
+        "version": "[]"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Mention methods",
+      "name": "mentions"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Remove focus",
+        "property": "blur()",
+        "type": "",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Get focus",
+        "property": "focus()",
+        "type": "",
+        "version": ""
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Option",
+      "name": "mentions"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Title of the option",
+        "property": "label",
+        "type": "React.ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The key value of the option",
+        "property": "key",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Optional",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "className",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The style of the option",
+        "property": "style",
+        "type": "React.CSSProperties",
+        "version": "-"
+      }
+    ]
+  }
+]

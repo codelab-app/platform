@@ -1,0 +1,223 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "slider"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Whether get focus when component mounted",
+        "property": "autoFocus",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The default value of slider. When range is false, use number, otherwise, use [number, number]",
+        "property": "defaultValue",
+        "type": "number | [number, number]",
+        "version": "0 | [0, 0]"
+      },
+      {
+        "defaultValue": "",
+        "description": "If true, the slider will not be intractable",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "5.2.0+",
+        "description": "Support using keyboard to move handlers",
+        "property": "keyboard",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether the thumb can drag over tick only",
+        "property": "dots",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Make effect when marks not null, true means containment and false means coordinative",
+        "property": "included",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Tick mark of Slider, type of key must be number, and must in closed interval [min, max], each mark can declare its own style",
+        "property": "marks",
+        "type": "object",
+        "version": "{ number: ReactNode } | { number: { style: CSSProperties, label: ReactNode } }"
+      },
+      {
+        "defaultValue": "",
+        "description": "The maximum value the slider can slide to",
+        "property": "max",
+        "type": "number",
+        "version": "100"
+      },
+      {
+        "defaultValue": "",
+        "description": "The minimum value the slider can slide to",
+        "property": "min",
+        "type": "number",
+        "version": "0"
+      },
+      {
+        "defaultValue": "",
+        "description": "Dual thumb mode",
+        "property": "range",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Reverse the component",
+        "property": "reverse",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The granularity the slider can step through values. Must greater than 0, and be divided by (max - min) . When marks no null, step can be null",
+        "property": "step",
+        "type": "number | null",
+        "version": "1"
+      },
+      {
+        "defaultValue": "4.23.0",
+        "description": "The tooltip relate props",
+        "property": "tooltip",
+        "type": "tooltip",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The value of slider. When range is false, use number, otherwise, use [number, number]",
+        "property": "value",
+        "type": "number | [number, number]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "If true, the slider will be vertical",
+        "property": "vertical",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Fire when onmouseup is fired",
+        "property": "onAfterChange",
+        "type": "(value) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback function that is fired when the user changes the slider's value",
+        "property": "onChange",
+        "type": "(value) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The style of slider track (the active range)",
+        "property": "trackStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The style of slider rail (the background)",
+        "property": "railStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The style of slider handle",
+        "property": "handleStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "range",
+      "name": "slider"
+    },
+    "fields": [
+      {
+        "defaultValue": "4.10.0",
+        "description": "Whether range track can be drag",
+        "property": "draggableTrack",
+        "type": "boolean",
+        "version": "false"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "tooltip",
+      "name": "slider"
+    },
+    "fields": [
+      {
+        "defaultValue": "4.23.0",
+        "description": "If true, Tooltip will show always, or it will not show anyway, even if dragging or hovering",
+        "property": "open",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.23.0",
+        "description": "Set Tooltip display position. Ref Tooltip",
+        "property": "placement",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.23.0",
+        "description": "The DOM container of the Tooltip, the default behavior is to create a div element in body",
+        "property": "getPopupContainer",
+        "type": "(triggerNode) => HTMLElement",
+        "version": "() => document.body"
+      },
+      {
+        "defaultValue": "4.23.0",
+        "description": "Slider will pass its value to formatter, and display its value in Tooltip, and hide Tooltip when return value is null",
+        "property": "formatter",
+        "type": "value => ReactNode | null",
+        "version": "IDENTITY"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "slider"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Remove focus",
+        "property": "blur()",
+        "type": "",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Get focus",
+        "property": "focus()",
+        "type": "",
+        "version": ""
+      }
+    ]
+  }
+]

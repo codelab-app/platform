@@ -1,0 +1,475 @@
+[
+  {
+    "atom": {
+      "api": "Select props",
+      "name": "select"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Show clear button",
+        "property": "allowClear",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether the current search will be cleared on selecting an item. Only applies when mode is set to multiple or tags",
+        "property": "autoClearSearchValue",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Get focus by default",
+        "property": "autoFocus",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether has border style",
+        "property": "bordered",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "The custom clear icon",
+        "property": "clearIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether active first option by default",
+        "property": "defaultActiveFirstOption",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Initial open state of dropdown",
+        "property": "defaultOpen",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Initial selected option",
+        "property": "defaultValue",
+        "type": "string | string[] | number | number[] | LabeledValue | LabeledValue[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether disabled select",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.23.0",
+        "description": "The className of dropdown menu",
+        "property": "popupClassName",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Determine whether the dropdown menu and the select input are the same width. Default set min-width same as input. Will ignore when value less than select width. false will disable virtual scroll",
+        "property": "dropdownMatchSelectWidth",
+        "type": "boolean | number",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize dropdown content",
+        "property": "dropdownRender",
+        "type": "(originNode: ReactNode) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The style of dropdown menu",
+        "property": "dropdownStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "Customize node label, value, options field name",
+        "property": "fieldNames",
+        "type": "object",
+        "version": "{ label: label, value: value, options: options }"
+      },
+      {
+        "defaultValue": "",
+        "description": "If true, filter options by input, if function, filter options against it. The function will receive two arguments, inputValue and option, if the function returns true, the option will be included in the filtered set; Otherwise, it will be excluded",
+        "property": "filterOption",
+        "type": "boolean | function(inputValue, option)",
+        "version": "true"
+      },
+      {
+        "defaultValue": "4.9.0",
+        "description": "Sort function for search options sorting, see Array.sort's compareFunction",
+        "property": "filterSort",
+        "type": "(optionA: Option, optionB: Option) => number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Parent Node which the selector should be rendered to. Default to body. When position issues happen, try to modify it into scrollable content and position it relative. Example",
+        "property": "getPopupContainer",
+        "type": "function(triggerNode)",
+        "version": "() => document.body"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to embed label in value, turn the format of value from string to { value: string, label: ReactNode }",
+        "property": "labelInValue",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Config popup height",
+        "property": "listHeight",
+        "type": "number",
+        "version": "256"
+      },
+      {
+        "defaultValue": "",
+        "description": "Indicate loading state",
+        "property": "loading",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "responsive: 4.10",
+        "description": "Max tag count to show. responsive will cost render performance",
+        "property": "maxTagCount",
+        "type": "number | responsive",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Placeholder for not showing tags",
+        "property": "maxTagPlaceholder",
+        "type": "ReactNode | function(omittedValues)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Max tag text length to show",
+        "property": "maxTagTextLength",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The custom menuItemSelected icon with multiple options",
+        "property": "menuItemSelectedIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set mode of Select",
+        "property": "mode",
+        "type": "multiple | tags",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify content to show when no result matches",
+        "property": "notFoundContent",
+        "type": "ReactNode",
+        "version": "Not Found"
+      },
+      {
+        "defaultValue": "",
+        "description": "Controlled open state of dropdown",
+        "property": "open",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Which prop value of option will be used for filter if filterOption is true. If options is set, it should be set to label",
+        "property": "optionFilterProp",
+        "type": "string",
+        "version": "value"
+      },
+      {
+        "defaultValue": "",
+        "description": "Which prop value of option will render as content of select. Example",
+        "property": "optionLabelProp",
+        "type": "string",
+        "version": "children"
+      },
+      {
+        "defaultValue": "",
+        "description": "Select options. Will get better perf than jsx definition",
+        "property": "options",
+        "type": "{ label, value }[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Placeholder of select",
+        "property": "placeholder",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The position where the selection box pops up",
+        "property": "placement",
+        "type": "bottomLeft bottomRight topLeft topRight",
+        "version": "bottomLeft"
+      },
+      {
+        "defaultValue": "",
+        "description": "The custom remove icon",
+        "property": "removeIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The current input \"search\" text",
+        "property": "searchValue",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to show the drop-down arrow",
+        "property": "showArrow",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether select is searchable",
+        "property": "showSearch",
+        "type": "boolean",
+        "version": "single: false, multiple: true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Size of Select input",
+        "property": "size",
+        "type": "large | middle | small",
+        "version": "middle"
+      },
+      {
+        "defaultValue": "4.19.0",
+        "description": "Set validation status",
+        "property": "status",
+        "type": "'error' | 'warning'",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The custom suffix icon",
+        "property": "suffixIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize tag render, only applies when mode is set to multiple or tags",
+        "property": "tagRender",
+        "type": "(props) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Separator used to tokenize, only applies when mode=\"tags\"",
+        "property": "tokenSeparators",
+        "type": "string[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Current selected option (considered as a immutable array)",
+        "property": "value",
+        "type": "string | string[] | number | number[] | LabeledValue | LabeledValue[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.1.0",
+        "description": "Disable virtual scroll when set to false",
+        "property": "virtual",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when blur",
+        "property": "onBlur",
+        "type": "function",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when select an option or input value change",
+        "property": "onChange",
+        "type": "function(value, option:Option | Array<Option>)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.6.0",
+        "description": "Called when clear",
+        "property": "onClear",
+        "type": "function",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when an option is deselected, param is the selected option's value. Only called for multiple or tags, effective in multiple or tags mode only",
+        "property": "onDeselect",
+        "type": "function(value: string | number | LabeledValue)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when dropdown open",
+        "property": "onDropdownVisibleChange",
+        "type": "function(open)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when focus",
+        "property": "onFocus",
+        "type": "function",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when key pressed",
+        "property": "onInputKeyDown",
+        "type": "function",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when mouse enter",
+        "property": "onMouseEnter",
+        "type": "function",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when mouse leave",
+        "property": "onMouseLeave",
+        "type": "function",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when dropdown scrolls",
+        "property": "onPopupScroll",
+        "type": "function",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback function that is fired when input changed",
+        "property": "onSearch",
+        "type": "function(value: string)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when an option is selected, the params are option's value (or key) and option instance",
+        "property": "onSelect",
+        "type": "function(value: string | number | LabeledValue, option: Option)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Select Methods",
+      "name": "select"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Remove focus",
+        "property": "blur()",
+        "type": "",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Get focus",
+        "property": "focus()",
+        "type": "",
+        "version": ""
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Option props",
+      "name": "select"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The additional class to option",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Disable this option",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "title attribute of Select Option",
+        "property": "title",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Default to filter with this property",
+        "property": "value",
+        "type": "string | number",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "OptGroup props",
+      "name": "select"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Group key",
+        "property": "key",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Group label",
+        "property": "label",
+        "type": "string | React.Element",
+        "version": "-"
+      }
+    ]
+  }
+]

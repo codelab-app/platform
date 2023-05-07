@@ -1,0 +1,59 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "segmented"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Option to fit width to its parent's width",
+        "property": "block",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Default selected value",
+        "property": "defaultValue",
+        "type": "string | number",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Disable all segments",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The callback function that is triggered when the state changes",
+        "property": "onChange",
+        "type": "function(value: string | number)",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Set children optional",
+        "property": "options",
+        "type": "string[] | number[] | Array<{ label: ReactNode value: string icon? ReactNode disabled?: boolean className?: string }>",
+        "version": "[]"
+      },
+      {
+        "defaultValue": "",
+        "description": "The size of the Segmented.",
+        "property": "size",
+        "type": "large | middle | small",
+        "version": "middle"
+      },
+      {
+        "defaultValue": "",
+        "description": "Currently selected value",
+        "property": "value",
+        "type": "string | number",
+        "version": ""
+      }
+    ]
+  }
+]

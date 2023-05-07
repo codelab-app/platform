@@ -1,0 +1,124 @@
+[
+  {
+    "atom": {
+      "api": "Checkbox",
+      "name": "checkbox"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "If get focus when component mounted",
+        "property": "autoFocus",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specifies whether the checkbox is selected",
+        "property": "checked",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specifies the initial state: whether or not the checkbox is selected",
+        "property": "defaultChecked",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "If disable checkbox",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The indeterminate checked state of checkbox",
+        "property": "indeterminate",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The callback function that is triggered when the state changes",
+        "property": "onChange",
+        "type": "(e: CheckboxChangeEvent) => void",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Checkbox Group",
+      "name": "checkbox"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Default selected value",
+        "property": "defaultValue",
+        "type": "(string | number)[]",
+        "version": "[]"
+      },
+      {
+        "defaultValue": "",
+        "description": "If disable all checkboxes",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The name property of all input[type=\"checkbox\"] children",
+        "property": "name",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specifies options",
+        "property": "options",
+        "type": "string[] | number[] | Option[]",
+        "version": "[]"
+      },
+      {
+        "defaultValue": "",
+        "description": "Used for setting the currently selected value",
+        "property": "value",
+        "type": "(string | number | boolean)[]",
+        "version": "[]"
+      },
+      {
+        "defaultValue": "",
+        "description": "The callback function that is triggered when the state changes",
+        "property": "onChange",
+        "type": "(checkedValue: CheckboxValueType[]) => void",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Checkbox",
+      "name": "checkbox"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Remove focus",
+        "property": "blur()",
+        "type": "",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Get focus",
+        "property": "focus()",
+        "type": "",
+        "version": ""
+      }
+    ]
+  }
+]

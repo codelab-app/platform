@@ -1,0 +1,66 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "divider"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The wrapped title",
+        "property": "children",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The className of container",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether line is dashed",
+        "property": "dashed",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The position of title inside divider",
+        "property": "orientation",
+        "type": "left | right | center",
+        "version": "center"
+      },
+      {
+        "defaultValue": "",
+        "description": "The margin-left/right between the title and its closest border, while the orientation must be left or right",
+        "property": "orientationMargin",
+        "type": "string | number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.2.0",
+        "description": "Divider text show as plain style",
+        "property": "plain",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "The style object of container",
+        "property": "style",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The direction type of divider",
+        "property": "type",
+        "type": "horizontal | vertical",
+        "version": "horizontal"
+      }
+    ]
+  }
+]

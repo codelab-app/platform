@@ -1,0 +1,145 @@
+[
+  {
+    "atom": {
+      "api": "common API",
+      "name": "float-button"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Set the icon component of button",
+        "property": "icon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Text and other",
+        "property": "description",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The text shown in the tooltip",
+        "property": "tooltip",
+        "type": "ReactNode | () => ReactNode",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Setting button type",
+        "property": "type",
+        "type": "default | primary",
+        "version": "default"
+      },
+      {
+        "defaultValue": "",
+        "description": "Setting button shape",
+        "property": "shape",
+        "type": "circle | square",
+        "version": "circle"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the handler to handle click event",
+        "property": "onClick",
+        "type": "(event) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The target of hyperlink",
+        "property": "href",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specifies where to display the linked URL",
+        "property": "target",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "5.4.0",
+        "description": "Attach Badge to FloatButton. status and other props related are not supported.",
+        "property": "badge",
+        "type": "BadgeProps",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "FloatButton.Group",
+      "name": "float-button"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Setting button shape of children",
+        "property": "shape",
+        "type": "circle | square",
+        "version": "circle"
+      },
+      {
+        "defaultValue": "",
+        "description": "Which action can trigger menu open/close",
+        "property": "trigger",
+        "type": "click | hover",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether the menu is visible or not",
+        "property": "open",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback executed when active menu is changed",
+        "property": "onOpenChange",
+        "type": "(open: boolean) => void",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "FloatButton.BackTop",
+      "name": "float-button"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Time to return to top（ms）",
+        "property": "duration",
+        "type": "number",
+        "version": "450"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specifies the scrollable area dom node",
+        "property": "target",
+        "type": "() => HTMLElement",
+        "version": "() => window"
+      },
+      {
+        "defaultValue": "",
+        "description": "The BackTop button will not show until the scroll height reaches this value",
+        "property": "visibilityHeight",
+        "type": "number",
+        "version": "400"
+      },
+      {
+        "defaultValue": "",
+        "description": "A callback function, which can be executed when you click the button",
+        "property": "onClick",
+        "type": "() => void",
+        "version": "-"
+      }
+    ]
+  }
+]

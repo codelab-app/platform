@@ -1,0 +1,207 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "auto-complete"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Show clear button",
+        "property": "allowClear",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "If get focus when component mounted",
+        "property": "autoFocus",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "If backfill selected item the input when using keyboard",
+        "property": "backfill",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize input element",
+        "property": "children (for customize input element)",
+        "type": "HTMLInputElement | HTMLTextAreaElement | React.ReactElement<InputProps>",
+        "version": "<Input />"
+      },
+      {
+        "defaultValue": "",
+        "description": "Data source to auto complete",
+        "property": "children (for dataSource)",
+        "type": "React.ReactElement<OptionProps> | Array<React.ReactElement<OptionProps>>",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether active first option by default",
+        "property": "defaultActiveFirstOption",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Initial open state of dropdown",
+        "property": "defaultOpen",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Initial selected option",
+        "property": "defaultValue",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether disabled select",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.23.0",
+        "description": "The className of dropdown menu",
+        "property": "popupClassName",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Determine whether the dropdown menu and the select input are the same width. Default set min-width same as input. Will ignore when value less than select width. false will disable virtual scroll",
+        "property": "dropdownMatchSelectWidth",
+        "type": "boolean | number",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "If true, filter options by input, if function, filter options against it. The function will receive two arguments, inputValue and option, if the function returns true, the option will be included in the filtered set; Otherwise, it will be excluded",
+        "property": "filterOption",
+        "type": "boolean | function(inputValue, option)",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify content to show when no result matches",
+        "property": "notFoundContent",
+        "type": "string",
+        "version": "Not Found"
+      },
+      {
+        "defaultValue": "",
+        "description": "Controlled open state of dropdown",
+        "property": "open",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Select options. Will get better perf than jsx definition",
+        "property": "options",
+        "type": "{ label, value }[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The placeholder of input",
+        "property": "placeholder",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.19.0",
+        "description": "Set validation status",
+        "property": "status",
+        "type": "'error' | 'warning'",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Selected option",
+        "property": "value",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when leaving the component",
+        "property": "onBlur",
+        "type": "function()",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when selecting an option or changing an input value",
+        "property": "onChange",
+        "type": "function(value)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Call when dropdown open",
+        "property": "onDropdownVisibleChange",
+        "type": "function(open)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when entering the component",
+        "property": "onFocus",
+        "type": "function()",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when searching items",
+        "property": "onSearch",
+        "type": "function(value)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when a option is selected. param is option's value and option instance",
+        "property": "onSelect",
+        "type": "function(value, option)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.6.0",
+        "description": "Called when clear",
+        "property": "onClear",
+        "type": "function",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "auto-complete"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Remove focus",
+        "property": "blur()",
+        "type": "",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Get focus",
+        "property": "focus()",
+        "type": "",
+        "version": ""
+      }
+    ]
+  }
+]

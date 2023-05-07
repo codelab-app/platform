@@ -1,0 +1,101 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "button"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Option to fit button width to its parent width",
+        "property": "block",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the danger status of button",
+        "property": "danger",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Disabled state of button",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Make background transparent and invert text and border colors",
+        "property": "ghost",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Redirect url of link button",
+        "property": "href",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the original html type of button, see: MDN",
+        "property": "htmlType",
+        "type": "string",
+        "version": "button"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the icon component of button",
+        "property": "icon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the loading status of button",
+        "property": "loading",
+        "type": "boolean | { delay: number }",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Can be set button shape",
+        "property": "shape",
+        "type": "default | circle | round",
+        "version": "default"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the size of button",
+        "property": "size",
+        "type": "large | middle | small",
+        "version": "middle"
+      },
+      {
+        "defaultValue": "",
+        "description": "Same as target attribute of a, works when href is specified",
+        "property": "target",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Can be set to primary ghost dashed link text default",
+        "property": "type",
+        "type": "string",
+        "version": "default"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the handler to handle click event",
+        "property": "onClick",
+        "type": "(event: MouseEvent) => void",
+        "version": "-"
+      }
+    ]
+  }
+]

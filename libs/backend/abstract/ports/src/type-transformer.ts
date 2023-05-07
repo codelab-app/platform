@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import type {
   IActionTypeDTO,
-  IArrayTypeDTO,
   IAtom,
-  IAuth0Owner,
   IEnumTypeDTO,
   IField,
   IPrimitiveTypeDTO,

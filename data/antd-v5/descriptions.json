@@ -1,0 +1,109 @@
+[
+  {
+    "atom": {
+      "api": "Descriptions",
+      "name": "descriptions"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Whether to display the border",
+        "property": "bordered",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Change default props colon value of Descriptions.Item",
+        "property": "colon",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "The number of DescriptionItems in a row,could be a number or a object like { xs: 8, sm: 16, md: 24},(Only set bordered={true} to take effect)",
+        "property": "column",
+        "type": "number",
+        "version": "3"
+      },
+      {
+        "defaultValue": "4.10.0",
+        "description": "Customize content style",
+        "property": "contentStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.5.0",
+        "description": "The action area of the description list, placed at the top-right",
+        "property": "extra",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.10.0",
+        "description": "Customize label style",
+        "property": "labelStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Define description layout",
+        "property": "layout",
+        "type": "horizontal | vertical",
+        "version": "horizontal"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the size of the list. Can be set to middle,small, or not filled",
+        "property": "size",
+        "type": "default | middle | small",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The title of the description list, placed at the top",
+        "property": "title",
+        "type": "ReactNode",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "DescriptionItem",
+      "name": "descriptions"
+    },
+    "fields": [
+      {
+        "defaultValue": "4.9.0",
+        "description": "Customize content style",
+        "property": "contentStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The description of the content",
+        "property": "label",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.9.0",
+        "description": "Customize label style",
+        "property": "labelStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The number of columns included",
+        "property": "span",
+        "type": "number",
+        "version": "1"
+      }
+    ]
+  }
+]

@@ -1,0 +1,159 @@
+[
+  {
+    "atom": {
+      "api": "Anchor Props",
+      "name": "anchor"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Fixed mode of Anchor",
+        "property": "affix",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Bounding distance of anchor area",
+        "property": "bounds",
+        "type": "number",
+        "version": "5"
+      },
+      {
+        "defaultValue": "",
+        "description": "Scrolling container",
+        "property": "getContainer",
+        "type": "() => HTMLElement",
+        "version": "() => window"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize the anchor highlight",
+        "property": "getCurrentAnchor",
+        "type": "(activeLink: string) => string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Pixels to offset from top when calculating position of scroll",
+        "property": "offsetTop",
+        "type": "number",
+        "version": "0"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether show ink-square when affix={false}",
+        "property": "showInkInFixed",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Anchor scroll offset, default as offsetTop, example",
+        "property": "targetOffset",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Listening for anchor link change",
+        "property": "onChange",
+        "type": "(currentActiveLink: string) => void",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the handler to handle click event",
+        "property": "onClick",
+        "type": "(e: MouseEvent, link: object) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "5.1.0",
+        "description": "Data configuration option content, support nesting through children",
+        "property": "items",
+        "type": "{ key, href, title, target, children }[] see",
+        "version": "-"
+      },
+      {
+        "defaultValue": "5.2.0",
+        "description": "Set Anchor direction",
+        "property": "direction",
+        "type": "vertical | horizontal",
+        "version": "vertical"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "AnchorItem",
+      "name": "anchor"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The unique identifier of the Anchor Link",
+        "property": "key",
+        "type": "string | number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The target of hyperlink",
+        "property": "href",
+        "type": "string",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Specifies where to display the linked URL",
+        "property": "target",
+        "type": "string",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "The content of hyperlink",
+        "property": "title",
+        "type": "ReactNode",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Nested Anchor Link, Attention: This attribute does not support horizontal orientation",
+        "property": "children",
+        "type": "AnchorItem[]",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "anchor"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The target of hyperlink",
+        "property": "href",
+        "type": "string",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Specifies where to display the linked URL",
+        "property": "target",
+        "type": "string",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "The content of hyperlink",
+        "property": "title",
+        "type": "ReactNode",
+        "version": ""
+      }
+    ]
+  }
+]

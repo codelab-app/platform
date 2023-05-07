@@ -1,4 +1,3 @@
-import type { IFieldDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 
 export type TypeRef = {
@@ -24,8 +23,3 @@ export type IType =
   | OGM_TYPES.ReactNodeType
   | OGM_TYPES.RenderPropType
   | OGM_TYPES.UnionType
-
-export interface ITypesExport {
-  fields: Array<IFieldDTO>
-  types: Array<ITypeDTO>
-}

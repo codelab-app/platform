@@ -1,0 +1,24 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "popover"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Content of the card",
+        "property": "content",
+        "type": "ReactNode | () => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Title of the card",
+        "property": "title",
+        "type": "ReactNode | () => ReactNode",
+        "version": "-"
+      }
+    ]
+  }
+]

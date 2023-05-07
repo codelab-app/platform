@@ -1,0 +1,117 @@
+[
+  {
+    "atom": {
+      "api": "Breadcrumb",
+      "name": "breadcrumb"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Custom item renderer",
+        "property": "itemRender",
+        "type": "(route, params, routes, paths) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Routing parameters",
+        "property": "params",
+        "type": "object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "5.3.0",
+        "description": "The routing stack information of router",
+        "property": "items",
+        "type": "items[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Custom separator",
+        "property": "separator",
+        "type": "ReactNode",
+        "version": "/"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "RouteItemType",
+      "name": "breadcrumb"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The additional css class",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The dropdown props",
+        "property": "dropdownProps",
+        "type": "Dropdown",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Target of hyperlink. Can not work with path",
+        "property": "href",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Connected path. Each path will connect with prev one. Can not work with href",
+        "property": "path",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.24.0",
+        "description": "The menu props",
+        "property": "menu",
+        "type": "MenuProps",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the handler to handle click event",
+        "property": "onClick",
+        "type": "(e:MouseEvent) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "item name",
+        "property": "title",
+        "type": "ReactNode",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "breadcrumb"
+    },
+    "fields": [
+      {
+        "defaultValue": "5.3.0",
+        "description": "Mark as separator",
+        "property": "type",
+        "type": "separator",
+        "version": ""
+      },
+      {
+        "defaultValue": "5.3.0",
+        "description": "Custom separator",
+        "property": "separator",
+        "type": "ReactNode",
+        "version": "/"
+      }
+    ]
+  }
+]

@@ -1,0 +1,144 @@
+[
+  {
+    "atom": {
+      "api": "Statistic",
+      "name": "statistic"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The decimal separator",
+        "property": "decimalSeparator",
+        "type": "string",
+        "version": "."
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize value display logic",
+        "property": "formatter",
+        "type": "(value) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Group separator",
+        "property": "groupSeparator",
+        "type": "string",
+        "version": ","
+      },
+      {
+        "defaultValue": "4.8.0",
+        "description": "Loading status of Statistic",
+        "property": "loading",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The precision of input value",
+        "property": "precision",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The prefix node of value",
+        "property": "prefix",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The suffix node of value",
+        "property": "suffix",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Display title",
+        "property": "title",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Display value",
+        "property": "value",
+        "type": "string | number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set value section style",
+        "property": "valueStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Statistic.Countdown",
+      "name": "statistic"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Format as dayjs",
+        "property": "format",
+        "type": "string",
+        "version": "HH:mm:ss"
+      },
+      {
+        "defaultValue": "",
+        "description": "The prefix node of value",
+        "property": "prefix",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The suffix node of value",
+        "property": "suffix",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Display title",
+        "property": "title",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set target countdown time",
+        "property": "value",
+        "type": "number | dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set value section style",
+        "property": "valueStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Trigger when time's up",
+        "property": "onFinish",
+        "type": "() => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.16.0",
+        "description": "Trigger when time's changing",
+        "property": "onChange",
+        "type": "(value: number) => void",
+        "version": "-"
+      }
+    ]
+  }
+]

@@ -1,0 +1,201 @@
+[
+  {
+    "atom": {
+      "api": "Card",
+      "name": "card"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The action list, shows at the bottom of the Card",
+        "property": "actions",
+        "type": "Array<ReactNode>",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Current TabPane's key",
+        "property": "activeTabKey",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Inline style to apply to the card content",
+        "property": "bodyStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Toggles rendering of the border around the card",
+        "property": "bordered",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Card cover",
+        "property": "cover",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Initial active TabPane's key, if activeTabKey is not set",
+        "property": "defaultActiveTabKey",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Content to render in the top-right corner of the card",
+        "property": "extra",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Inline style to apply to the card head",
+        "property": "headStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Lift up when hovering card",
+        "property": "hoverable",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Shows a loading indicator while the contents of the card are being fetched",
+        "property": "loading",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Size of card",
+        "property": "size",
+        "type": "default | small",
+        "version": "default"
+      },
+      {
+        "defaultValue": "",
+        "description": "Extra content in tab bar",
+        "property": "tabBarExtraContent",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "List of TabPane's head",
+        "property": "tabList",
+        "type": "Array<{key: string, tab: ReactNode}>",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Tabs",
+        "property": "tabProps",
+        "type": "-",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Card title",
+        "property": "title",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Card style type, can be set to inner or not set",
+        "property": "type",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback when tab is switched",
+        "property": "onTabChange",
+        "type": "(key) => void",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Card.Grid",
+      "name": "card"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The className of container",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Lift up when hovering card grid",
+        "property": "hoverable",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "The style object of container",
+        "property": "style",
+        "type": "CSSProperties",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Card.Meta",
+      "name": "card"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Avatar or icon",
+        "property": "avatar",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The className of container",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Description content",
+        "property": "description",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The style object of container",
+        "property": "style",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Title content",
+        "property": "title",
+        "type": "ReactNode",
+        "version": "-"
+      }
+    ]
+  }
+]

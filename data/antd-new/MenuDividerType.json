@@ -1,9 +1,0 @@
-[
-  {
-    "property": "dashed",
-    "description": "Whether line is dashed",
-    "type": "boolean",
-    "default": "false",
-    "version": ""
-  }
-]

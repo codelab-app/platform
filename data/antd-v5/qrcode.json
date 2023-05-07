@@ -1,0 +1,73 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "qrcode"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "scanned text",
+        "property": "value",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "include image url (only image link are supported)",
+        "property": "icon",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "QRCode size",
+        "property": "size",
+        "type": "number",
+        "version": "128"
+      },
+      {
+        "defaultValue": "",
+        "description": "include image size",
+        "property": "iconSize",
+        "type": "number",
+        "version": "32"
+      },
+      {
+        "defaultValue": "",
+        "description": "QRCode Color",
+        "property": "color",
+        "type": "string",
+        "version": "#000"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether has border style",
+        "property": "bordered",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Error Code Level",
+        "property": "errorLevel",
+        "type": "'L' | 'M' | 'Q' | 'H' ",
+        "version": "M"
+      },
+      {
+        "defaultValue": "",
+        "description": "QRCode status",
+        "property": "status",
+        "type": "active | expired | loading ",
+        "version": "active"
+      },
+      {
+        "defaultValue": "",
+        "description": "callback",
+        "property": "onRefresh",
+        "type": "() => void",
+        "version": "-"
+      }
+    ]
+  }
+]

@@ -1,0 +1,144 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "tooltip"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The text shown in the tooltip",
+        "property": "title",
+        "type": "ReactNode | () => ReactNode",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "tooltip"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "This value will be merged into placement's config, please refer to the settings rc-tooltip",
+        "property": "align",
+        "type": "object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "5.2.0",
+        "description": "Change arrow's visible state and change whether the arrow is pointed at the center of target.",
+        "property": "arrow",
+        "type": "boolean | { pointAtCenter: boolean }",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to adjust popup placement automatically when popup is off screen",
+        "property": "autoAdjustOverflow",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "4.3.0",
+        "description": "The background color",
+        "property": "color",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.23.0",
+        "description": "Whether the floating tooltip card is open by default",
+        "property": "defaultOpen",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether destroy tooltip when hidden",
+        "property": "destroyTooltipOnHide",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The DOM container of the tip, the default behavior is to create a div element in body",
+        "property": "getPopupContainer",
+        "type": "(triggerNode: HTMLElement) => HTMLElement",
+        "version": "() => document.body"
+      },
+      {
+        "defaultValue": "",
+        "description": "Delay in seconds, before tooltip is shown on mouse enter",
+        "property": "mouseEnterDelay",
+        "type": "number",
+        "version": "0.1"
+      },
+      {
+        "defaultValue": "",
+        "description": "Delay in seconds, before tooltip is hidden on mouse leave",
+        "property": "mouseLeaveDelay",
+        "type": "number",
+        "version": "0.1"
+      },
+      {
+        "defaultValue": "",
+        "description": "Class name of the tooltip card",
+        "property": "overlayClassName",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Style of the tooltip card",
+        "property": "overlayStyle",
+        "type": "object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Style of the tooltip inner content",
+        "property": "overlayInnerStyle",
+        "type": "object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The position of the tooltip relative to the target, which can be one of top left right bottom topLeft topRight bottomLeft bottomRight leftTop leftBottom rightTop rightBottom",
+        "property": "placement",
+        "type": "string",
+        "version": "top"
+      },
+      {
+        "defaultValue": "",
+        "description": "Tooltip trigger mode. Could be multiple by passing an array",
+        "property": "trigger",
+        "type": "hover | focus | click | contextMenu | Array<string>",
+        "version": "hover"
+      },
+      {
+        "defaultValue": "4.23.0",
+        "description": "Whether the floating tooltip card is open or not. Use visible under 4.23.0 (why?)",
+        "property": "open",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Config z-index of Tooltip",
+        "property": "zIndex",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.23.0",
+        "description": "Callback executed when visibility of the tooltip card is changed",
+        "property": "onOpenChange",
+        "type": "(open: boolean) => void",
+        "version": "-"
+      }
+    ]
+  }
+]

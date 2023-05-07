@@ -1,0 +1,271 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "time-picker"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Whether allow clearing text",
+        "property": "allowClear",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "If get focus when component mounted",
+        "property": "autoFocus",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether has border style",
+        "property": "bordered",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "The className of picker",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The custom clear icon",
+        "property": "clearIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The clear tooltip of icon",
+        "property": "clearText",
+        "type": "string",
+        "version": "clear"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set default time",
+        "property": "defaultValue",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Determine whether the TimePicker is disabled",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.19.0",
+        "description": "To specify the time that cannot be selected",
+        "property": "disabledTime",
+        "type": "DisabledTime",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the time format",
+        "property": "format",
+        "type": "string",
+        "version": "HH:mm:ss"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the container of the floating layer, while the default is to create a div element in body",
+        "property": "getPopupContainer",
+        "type": "function(trigger)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether hide the options that can not be selected",
+        "property": "hideDisabledOptions",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Interval between hours in picker",
+        "property": "hourStep",
+        "type": "number",
+        "version": "1"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the readonly attribute of the input tag (avoids virtual keyboard on touch devices)",
+        "property": "inputReadOnly",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Interval between minutes in picker",
+        "property": "minuteStep",
+        "type": "number",
+        "version": "1"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to popup panel",
+        "property": "open",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Display when there's no value",
+        "property": "placeholder",
+        "type": "string | [string, string]",
+        "version": "Select a time"
+      },
+      {
+        "defaultValue": "",
+        "description": "The position where the selection box pops up",
+        "property": "placement",
+        "type": "bottomLeft bottomRight topLeft topRight",
+        "version": "bottomLeft"
+      },
+      {
+        "defaultValue": "",
+        "description": "The className of panel",
+        "property": "popupClassName",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The style of panel",
+        "property": "popupStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called from time picker panel to render some addon to its bottom",
+        "property": "renderExtraFooter",
+        "type": "() => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Interval between seconds in picker",
+        "property": "secondStep",
+        "type": "number",
+        "version": "1"
+      },
+      {
+        "defaultValue": "4.4.0",
+        "description": "Whether to show Now button on panel",
+        "property": "showNow",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To determine the size of the input box, the height of large and small, are 40px and 24px respectively, while default size is 32px",
+        "property": "size",
+        "type": "large | middle | small",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.19.0",
+        "description": "Set validation status",
+        "property": "status",
+        "type": "'error' | 'warning' | 'success' | 'validating'",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The custom suffix icon",
+        "property": "suffixIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Display as 12 hours format, with default format h:mm:ss a",
+        "property": "use12Hours",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set time",
+        "property": "value",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "A callback function, can be executed when the selected time is changing",
+        "property": "onChange",
+        "type": "function(time: dayjs, timeString: string): void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "A callback function which will be called while panel opening/closing",
+        "property": "onOpenChange",
+        "type": "(open: boolean) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "A callback function, executes when a value is selected",
+        "property": "onSelect",
+        "type": "function(time: dayjs): void",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "time-picker"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Remove focus",
+        "property": "blur()",
+        "type": "",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Get focus",
+        "property": "focus()",
+        "type": "",
+        "version": ""
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "time-picker"
+    },
+    "fields": [
+      {
+        "defaultValue": "4.19.0",
+        "description": "To specify the time that cannot be selected",
+        "property": "disabledTime",
+        "type": "RangeDisabledTime",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.1.0",
+        "description": "Order start and end time",
+        "property": "order",
+        "type": "boolean",
+        "version": "true"
+      }
+    ]
+  }
+]

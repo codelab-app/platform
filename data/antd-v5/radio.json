@@ -1,0 +1,138 @@
+[
+  {
+    "atom": {
+      "api": "Radio/Radio.Button",
+      "name": "radio"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Whether get focus when component mounted",
+        "property": "autoFocus",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specifies whether the radio is selected",
+        "property": "checked",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specifies the initial state: whether or not the radio is selected",
+        "property": "defaultChecked",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Disable radio",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "According to value for comparison, to determine whether the selected",
+        "property": "value",
+        "type": "any",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "radio"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The style type of radio button",
+        "property": "buttonStyle",
+        "type": "outline | solid",
+        "version": "outline"
+      },
+      {
+        "defaultValue": "",
+        "description": "Default selected value",
+        "property": "defaultValue",
+        "type": "any",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Disable all radio buttons",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The name property of all input[type=\"radio\"] children",
+        "property": "name",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set children optional",
+        "property": "options",
+        "type": "string[] | number[] | Array<{ label: ReactNode; value: string; disabled?: boolean; }>",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.4.0",
+        "description": "Set Radio optionType",
+        "property": "optionType",
+        "type": "default | button",
+        "version": "default"
+      },
+      {
+        "defaultValue": "",
+        "description": "The size of radio button style",
+        "property": "size",
+        "type": "large | middle | small",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Used for setting the currently selected value",
+        "property": "value",
+        "type": "any",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The callback function that is triggered when the state changes",
+        "property": "onChange",
+        "type": "function(e:Event)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Radio",
+      "name": "radio"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Remove focus",
+        "property": "blur()",
+        "type": "",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Get focus",
+        "property": "focus()",
+        "type": "",
+        "version": ""
+      }
+    ]
+  }
+]

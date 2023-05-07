@@ -1,9 +1,5 @@
 import type { IProp, IPropRepository } from '@codelab/frontend/abstract/core'
-import type {
-  AppWhere,
-  PropOptions,
-  PropWhere,
-} from '@codelab/shared/abstract/codegen'
+import type { PropOptions, PropWhere } from '@codelab/shared/abstract/codegen'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { propApi } from './prop.api'
 

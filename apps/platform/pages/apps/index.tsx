@@ -26,7 +26,7 @@ import {
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { useAsync } from '@react-hookz/web'
 import type { MenuProps } from 'antd'
-import { Button, Dropdown, Menu, Spin } from 'antd'
+import { Button, Dropdown, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { useEffect } from 'react'

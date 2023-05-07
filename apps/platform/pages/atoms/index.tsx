@@ -1,6 +1,5 @@
 import { PageHeader } from '@ant-design/pro-components/lib'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import type { AtomLibrary } from '@codelab/frontend/domain/atom'
 import {
   AtomsTable,
   CreateAtomButton,
@@ -8,13 +7,6 @@ import {
   DeleteAtomsModal,
   UpdateAtomModal,
 } from '@codelab/frontend/domain/atom'
-import {
-  antdAtoms,
-  codelabAtoms,
-  htmlAtoms,
-  muiAtoms,
-  reactAtoms,
-} from '@codelab/frontend/domain/renderer'
 import {
   CreateFieldModal,
   DeleteFieldModal,
@@ -26,19 +18,14 @@ import {
 } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
-  adminMenuItems,
-  allPagesMenuItem,
-  appMenuItem,
   ContentSection,
   DashboardTemplate,
-  pageBuilderMenuItem,
-  resourceMenuItem,
   sidebarNavigation,
 } from '@codelab/frontend/presentation/view'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React, { useCallback, useMemo } from 'react'
+import React from 'react'
 import tw from 'twin.macro'
 
 const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {

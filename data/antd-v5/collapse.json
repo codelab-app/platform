@@ -1,0 +1,137 @@
+[
+  {
+    "atom": {
+      "api": "Collapse",
+      "name": "collapse"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "If true, Collapse renders as Accordion",
+        "property": "accordion",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Key of the active panel",
+        "property": "activeKey",
+        "type": "string[] | string  number[] | number",
+        "version": "No default value. In accordion mode, it's the key of the first panel"
+      },
+      {
+        "defaultValue": "",
+        "description": "Toggles rendering of the border around the collapse block",
+        "property": "bordered",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "4.9.0",
+        "description": "Specify whether the panels of children be collapsible or the trigger area of collapsible",
+        "property": "collapsible",
+        "type": "header | icon | disabled",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Key of the initial active panel",
+        "property": "defaultActiveKey",
+        "type": "string[] | string  number[] | number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Destroy Inactive Panel",
+        "property": "destroyInactivePanel",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Allow to customize collapse icon",
+        "property": "expandIcon",
+        "type": "(panelProps) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.21.0",
+        "description": "Set expand icon position",
+        "property": "expandIconPosition",
+        "type": "start | end",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.4.0",
+        "description": "Make the collapse borderless and its background transparent",
+        "property": "ghost",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "5.2.0",
+        "description": "Set the size of collapse",
+        "property": "size",
+        "type": "large | middle | small",
+        "version": "middle"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback function executed when active panel is changed",
+        "property": "onChange",
+        "type": "function",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Collapse.Panel",
+      "name": "collapse"
+    },
+    "fields": [
+      {
+        "defaultValue": "4.9.0 (icon: 4.24.0)",
+        "description": "Specify whether the panel be collapsible or the trigger area of collapsible",
+        "property": "collapsible",
+        "type": "header | icon | disabled",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The extra element in the corner",
+        "property": "extra",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Forced render of content on panel, instead of lazy rendering after clicking on header",
+        "property": "forceRender",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Title of the panel",
+        "property": "header",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Unique key identifying the panel from among its siblings",
+        "property": "key",
+        "type": "string | number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "If false, panel will not show arrow icon. If false, collapsible can't be set as icon",
+        "property": "showArrow",
+        "type": "boolean",
+        "version": "true"
+      }
+    ]
+  }
+]

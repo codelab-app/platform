@@ -1,0 +1,130 @@
+[
+  {
+    "atom": {
+      "api": "Row",
+      "name": "grid"
+    },
+    "fields": [
+      {
+        "defaultValue": "object: 4.24.0",
+        "description": "Vertical alignment",
+        "property": "align",
+        "type": "top | middle | bottom | stretch | {[key in 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl']: 'top' | 'middle' | 'bottom' | 'stretch'}",
+        "version": "top"
+      },
+      {
+        "defaultValue": "",
+        "description": "Spacing between grids, could be a number or a object like { xs: 8, sm: 16, md: 24}. Or you can use array to make horizontal and vertical spacing work at the same time [horizontal, vertical]",
+        "property": "gutter",
+        "type": "number | object | array",
+        "version": "0"
+      },
+      {
+        "defaultValue": "object: 4.24.0",
+        "description": "Horizontal arrangement",
+        "property": "justify",
+        "type": "start | end | center | space-around | space-between | space-evenly | {[key in 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl']: 'start' | 'end' | 'center' | 'space-around' | 'space-between' | 'space-evenly'}",
+        "version": "start"
+      },
+      {
+        "defaultValue": "4.8.0",
+        "description": "Auto wrap line",
+        "property": "wrap",
+        "type": "boolean",
+        "version": "true"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Col",
+      "name": "grid"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Flex layout style",
+        "property": "flex",
+        "type": "string | number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The number of cells to offset Col from the left",
+        "property": "offset",
+        "type": "number",
+        "version": "0"
+      },
+      {
+        "defaultValue": "",
+        "description": "Raster order",
+        "property": "order",
+        "type": "number",
+        "version": "0"
+      },
+      {
+        "defaultValue": "",
+        "description": "The number of cells that raster is moved to the left",
+        "property": "pull",
+        "type": "number",
+        "version": "0"
+      },
+      {
+        "defaultValue": "",
+        "description": "The number of cells that raster is moved to the right",
+        "property": "push",
+        "type": "number",
+        "version": "0"
+      },
+      {
+        "defaultValue": "",
+        "description": "Raster number of cells to occupy, 0 corresponds to display: none",
+        "property": "span",
+        "type": "number",
+        "version": "none"
+      },
+      {
+        "defaultValue": "",
+        "description": "screen < 576px and also default setting, could be a span value or an object containing above props",
+        "property": "xs",
+        "type": "number | object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "screen ≥ 576px, could be a span value or an object containing above props",
+        "property": "sm",
+        "type": "number | object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "screen ≥ 768px, could be a span value or an object containing above props",
+        "property": "md",
+        "type": "number | object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "screen ≥ 992px, could be a span value or an object containing above props",
+        "property": "lg",
+        "type": "number | object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "screen ≥ 1200px, could be a span value or an object containing above props",
+        "property": "xl",
+        "type": "number | object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "screen ≥ 1600px, could be a span value or an object containing above props",
+        "property": "xxl",
+        "type": "number | object",
+        "version": "-"
+      }
+    ]
+  }
+]

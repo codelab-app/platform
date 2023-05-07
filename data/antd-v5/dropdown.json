@@ -1,0 +1,165 @@
+[
+  {
+    "atom": {
+      "api": "Dropdown",
+      "name": "dropdown"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Whether the dropdown arrow should be visible",
+        "property": "arrow",
+        "type": "boolean | { pointAtCenter: boolean }",
+        "version": "false"
+      },
+      {
+        "defaultValue": "5.2.0",
+        "description": "Whether to adjust dropdown placement automatically when dropdown is off screen",
+        "property": "autoAdjustOverflow",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "4.21.0",
+        "description": "Focus element in overlay when opened",
+        "property": "autoFocus",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether the dropdown menu is disabled",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether destroy dropdown when hidden",
+        "property": "destroyPopupOnHide",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.24.0",
+        "description": "Customize dropdown content",
+        "property": "dropdownRender",
+        "type": "(menus: ReactNode) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the container of the dropdown menu. The default is to create a div element in body, but you can reset it to the scrolling area and make a relative reposition. Example on CodePen",
+        "property": "getPopupContainer",
+        "type": "(triggerNode: HTMLElement) => HTMLElement",
+        "version": "() => document.body"
+      },
+      {
+        "defaultValue": "4.24.0",
+        "description": "The menu props",
+        "property": "menu",
+        "type": "MenuProps",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The class name of the dropdown root element",
+        "property": "overlayClassName",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The style of the dropdown root element",
+        "property": "overlayStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Placement of popup menu: bottom bottomLeft bottomRight top topLeft topRight",
+        "property": "placement",
+        "type": "string",
+        "version": "bottomLeft"
+      },
+      {
+        "defaultValue": "",
+        "description": "The trigger mode which executes the dropdown action. Note that hover can't be used on touchscreens",
+        "property": "trigger",
+        "type": "Array<click|hover|contextMenu>",
+        "version": "[hover]"
+      },
+      {
+        "defaultValue": "4.23.0",
+        "description": "Whether the dropdown menu is currently open. Use visible under 4.23.0 (why?)",
+        "property": "open",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.23.0",
+        "description": "Called when the open state is changed. Not trigger when hidden by click item. Use onVisibleChange under 4.23.0 (why?)",
+        "property": "onOpenChange",
+        "type": "(open: boolean) => void",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "dropdown"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Custom buttons inside Dropdown.Button",
+        "property": "buttonsRender",
+        "type": "(buttons: ReactNode[]) => ReactNode[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the loading status of button",
+        "property": "loading",
+        "type": "boolean | { delay: number }",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.23.0",
+        "description": "Set the danger status of button",
+        "property": "danger",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Icon (appears on the right)",
+        "property": "icon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Size of the button, the same as Button",
+        "property": "size",
+        "type": "string",
+        "version": "default"
+      },
+      {
+        "defaultValue": "",
+        "description": "Type of the button, the same as Button",
+        "property": "type",
+        "type": "string",
+        "version": "default"
+      },
+      {
+        "defaultValue": "",
+        "description": "The same as Button: called when you click the button on the left",
+        "property": "onClick",
+        "type": "(event) => void",
+        "version": "-"
+      }
+    ]
+  }
+]

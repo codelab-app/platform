@@ -1,0 +1,94 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "popconfirm"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The cancel button props",
+        "property": "cancelButtonProps",
+        "type": "ButtonProps",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The text of the Cancel button",
+        "property": "cancelText",
+        "type": "string",
+        "version": "Cancel"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether show popconfirm when click its childrenNode",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize icon of confirmation",
+        "property": "icon",
+        "type": "ReactNode",
+        "version": "<ExclamationCircle />"
+      },
+      {
+        "defaultValue": "",
+        "description": "The ok button props",
+        "property": "okButtonProps",
+        "type": "ButtonProps",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The text of the Confirm button",
+        "property": "okText",
+        "type": "string",
+        "version": "OK"
+      },
+      {
+        "defaultValue": "",
+        "description": "Button type of the Confirm button",
+        "property": "okType",
+        "type": "string",
+        "version": "primary"
+      },
+      {
+        "defaultValue": "4.18.0",
+        "description": "Show cancel button",
+        "property": "showCancel",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "The title of the confirmation box",
+        "property": "title",
+        "type": "ReactNode | () => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "5.1.0",
+        "description": "The description of the confirmation box title",
+        "property": "description",
+        "type": "ReactNode | () => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "A callback of cancel",
+        "property": "onCancel",
+        "type": "function(e)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "A callback of confirmation",
+        "property": "onConfirm",
+        "type": "function(e)",
+        "version": "-"
+      }
+    ]
+  }
+]

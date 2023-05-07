@@ -1,0 +1,144 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "rate"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Whether to allow clear when click again",
+        "property": "allowClear",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to allow semi selection",
+        "property": "allowHalf",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "If get focus when component mounted",
+        "property": "autoFocus",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "function(): 4.4.0",
+        "description": "The custom character of rate",
+        "property": "character",
+        "type": "ReactNode | (RateProps) => ReactNode",
+        "version": "<StarFilled />"
+      },
+      {
+        "defaultValue": "",
+        "description": "The custom class name of rate",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Star count",
+        "property": "count",
+        "type": "number",
+        "version": "5"
+      },
+      {
+        "defaultValue": "",
+        "description": "The default value",
+        "property": "defaultValue",
+        "type": "number",
+        "version": "0"
+      },
+      {
+        "defaultValue": "",
+        "description": "If read only, unable to interact",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The custom style object of rate",
+        "property": "style",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize tooltip by each character",
+        "property": "tooltips",
+        "type": "string[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The current value",
+        "property": "value",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback when component lose focus",
+        "property": "onBlur",
+        "type": "function()",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback when select value",
+        "property": "onChange",
+        "type": "function(value: number)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback when component get focus",
+        "property": "onFocus",
+        "type": "function()",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback when hover item",
+        "property": "onHoverChange",
+        "type": "function(value: number)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback when keydown on component",
+        "property": "onKeyDown",
+        "type": "function(event)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "rate"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Remove focus",
+        "property": "blur()",
+        "type": "",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Get focus",
+        "property": "focus()",
+        "type": "",
+        "version": ""
+      }
+    ]
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "atom": {
+      "api": "Tag",
+      "name": "tag"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Whether the Tag can be closed",
+        "property": "closable",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.4.0",
+        "description": "Custom close icon",
+        "property": "closeIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Color of the Tag",
+        "property": "color",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the icon of tag",
+        "property": "icon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "5.4.0",
+        "description": "Whether has border style",
+        "property": "bordered",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback executed when tag is closed",
+        "property": "onClose",
+        "type": "(e) => void",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Tag.CheckableTag",
+      "name": "tag"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Checked status of Tag",
+        "property": "checked",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback executed when Tag is checked/unchecked",
+        "property": "onChange",
+        "type": "(checked) => void",
+        "version": "-"
+      }
+    ]
+  }
+]

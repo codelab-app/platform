@@ -1,0 +1,322 @@
+[
+  {
+    "atom": {
+      "api": "Menu",
+      "name": "menu"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Array with the keys of default opened sub menus",
+        "property": "defaultOpenKeys",
+        "type": "string[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Array with the keys of default selected menu items",
+        "property": "defaultSelectedKeys",
+        "type": "string[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.9.0",
+        "description": "custom expand icon of submenu",
+        "property": "expandIcon",
+        "type": "ReactNode | (props: SubMenuProps & { isSubMenu: boolean }) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Render submenu into DOM before it becomes visible",
+        "property": "forceSubMenuRender",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specifies the collapsed status when menu is inline mode",
+        "property": "inlineCollapsed",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Indent (in pixels) of inline menu items on each level",
+        "property": "inlineIndent",
+        "type": "number",
+        "version": "24"
+      },
+      {
+        "defaultValue": "4.20.0",
+        "description": "Menu item content",
+        "property": "items",
+        "type": "ItemType[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Type of menu",
+        "property": "mode",
+        "type": "vertical | horizontal | inline",
+        "version": "vertical"
+      },
+      {
+        "defaultValue": "",
+        "description": "Allows selection of multiple items",
+        "property": "multiple",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Array with the keys of currently opened sub-menus",
+        "property": "openKeys",
+        "type": "string[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customized the ellipsis icon when menu is collapsed horizontally",
+        "property": "overflowedIndicator",
+        "type": "ReactNode",
+        "version": "<EllipsisOutlined />"
+      },
+      {
+        "defaultValue": "",
+        "description": "Allows selecting menu items",
+        "property": "selectable",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Array with the keys of currently selected menu items",
+        "property": "selectedKeys",
+        "type": "string[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Style of the root node",
+        "property": "style",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Delay time to hide submenu when mouse leaves (in seconds)",
+        "property": "subMenuCloseDelay",
+        "type": "number",
+        "version": "0.1"
+      },
+      {
+        "defaultValue": "",
+        "description": "Delay time to show submenu when mouse enters, (in seconds)",
+        "property": "subMenuOpenDelay",
+        "type": "number",
+        "version": "0"
+      },
+      {
+        "defaultValue": "",
+        "description": "Color theme of the menu",
+        "property": "theme",
+        "type": "light | dark",
+        "version": "light"
+      },
+      {
+        "defaultValue": "",
+        "description": "Which action can trigger submenu open/close",
+        "property": "triggerSubMenuAction",
+        "type": "hover | click",
+        "version": "hover"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when a menu item is clicked",
+        "property": "onClick",
+        "type": "function({ item, key, keyPath, domEvent })",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when a menu item is deselected (multiple mode only)",
+        "property": "onDeselect",
+        "type": "function({ item, key, keyPath, selectedKeys, domEvent })",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when sub-menus are opened or closed",
+        "property": "onOpenChange",
+        "type": "function(openKeys: string[])",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when a menu item is selected",
+        "property": "onSelect",
+        "type": "function({ item, key, keyPath, selectedKeys, domEvent })",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "MenuItemType",
+      "name": "menu"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Display the danger style",
+        "property": "danger",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether menu item is disabled",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The icon of the menu item",
+        "property": "icon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Unique ID of the menu item",
+        "property": "key",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Menu label",
+        "property": "label",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set display title for collapsed item",
+        "property": "title",
+        "type": "string",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "SubMenuType",
+      "name": "menu"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Sub-menus or sub-menu items",
+        "property": "children",
+        "type": "ItemType[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether sub-menu is disabled",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Icon of sub menu",
+        "property": "icon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Unique ID of the sub-menu",
+        "property": "key",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Menu label",
+        "property": "label",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Sub-menu class name, not working when mode=\"inline\"",
+        "property": "popupClassName",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Sub-menu offset, not working when mode=\"inline\"",
+        "property": "popupOffset",
+        "type": "[number, number]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "-",
+        "description": "Color theme of the SubMenu (inherits from Menu by default)",
+        "property": "theme",
+        "type": "",
+        "version": "light | dark"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback executed when the sub-menu title is clicked",
+        "property": "onTitleClick",
+        "type": "function({ key, domEvent })",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "menu"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Sub-menu items",
+        "property": "children",
+        "type": "MenuItemType[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The title of the group",
+        "property": "label",
+        "type": "ReactNode",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "menu"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Whether line is dashed",
+        "property": "dashed",
+        "type": "boolean",
+        "version": "false"
+      }
+    ]
+  }
+]

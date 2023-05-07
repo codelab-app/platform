@@ -8,7 +8,7 @@ import type {
   IResourceService,
 } from '@codelab/frontend/abstract/core'
 import type { MenuProps } from 'antd'
-import { Button, Dropdown, Menu } from 'antd'
+import { Button, Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
 import type { CSSProperties } from 'react'
 import React from 'react'

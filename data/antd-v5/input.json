@@ -1,0 +1,381 @@
+[
+  {
+    "atom": {
+      "api": "Input",
+      "name": "input"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The label text displayed after (on the right side of) the input field",
+        "property": "addonAfter",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The label text displayed before (on the left side of) the input field",
+        "property": "addonBefore",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "If allow to remove input content with clear icon",
+        "property": "allowClear",
+        "type": "boolean | { clearIcon: ReactNode }",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.5.0",
+        "description": "Whether has border style",
+        "property": "bordered",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "5.4.0",
+        "description": "Semantic DOM class",
+        "property": "classNames",
+        "type": "Record<SemanticDOM, string>",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The initial input content",
+        "property": "defaultValue",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether the input is disabled",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The ID for input",
+        "property": "id",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The maximum number of characters in Input",
+        "property": "maxLength",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.18.0 info.value: 4.23.0",
+        "description": "Whether to show character count",
+        "property": "showCount",
+        "type": "boolean | { formatter: (info: { value: string, count: number, maxLength?: number }) => ReactNode }",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.19.0",
+        "description": "Set validation status",
+        "property": "status",
+        "type": "'error' | 'warning'",
+        "version": "-"
+      },
+      {
+        "defaultValue": "5.4.0",
+        "description": "Semantic DOM style",
+        "property": "styles",
+        "type": "Record<SemanticDOM, CSSProperties>",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The prefix icon for the Input",
+        "property": "prefix",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The size of the input box. Note: in the context of a form, the middle size is used",
+        "property": "size",
+        "type": "large | middle | small",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The suffix icon for the Input",
+        "property": "suffix",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The type of input, see: MDN( use Input.TextArea instead of type=\"textarea\")",
+        "property": "type",
+        "type": "string",
+        "version": "text"
+      },
+      {
+        "defaultValue": "",
+        "description": "The input content value",
+        "property": "value",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback when user input",
+        "property": "onChange",
+        "type": "function(e)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The callback function that is triggered when Enter key is pressed",
+        "property": "onPressEnter",
+        "type": "function(e)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Input.TextArea",
+      "name": "input"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "If allow to remove input content with clear icon",
+        "property": "allowClear",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Height autosize feature, can be set to true | false or an object { minRows: 2, maxRows: 6 }",
+        "property": "autoSize",
+        "type": "boolean | object",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.5.0",
+        "description": "Whether has border style",
+        "property": "bordered",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "5.4.0",
+        "description": "Semantic DOM class",
+        "property": "classNames",
+        "type": "Record<SemanticDOM, string>",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The initial input content",
+        "property": "defaultValue",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.7.0",
+        "description": "The maximum number of characters in TextArea",
+        "property": "maxLength",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.7.0 formatter: 4.10.0 info.value: 4.23.0",
+        "description": "Whether to show character count",
+        "property": "showCount",
+        "type": "boolean | { formatter: (info: { value: string, count: number, maxLength?: number }) => string }",
+        "version": "false"
+      },
+      {
+        "defaultValue": "5.4.0",
+        "description": "Semantic DOM style",
+        "property": "styles",
+        "type": "Record<SemanticDOM, CSSProperties>",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The input content value",
+        "property": "value",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The callback function that is triggered when Enter key is pressed",
+        "property": "onPressEnter",
+        "type": "function(e)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The callback function that is triggered when resize",
+        "property": "onResize",
+        "type": "function({ width, height })",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Input.Search",
+      "name": "input"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Whether to show an enter button after input. This property conflicts with the addonAfter property",
+        "property": "enterButton",
+        "type": "boolean | ReactNode",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Search box with loading",
+        "property": "loading",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The callback function triggered when you click on the search-icon, the clear-icon or press the Enter key",
+        "property": "onSearch",
+        "type": "function(value, event)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Input.Password",
+      "name": "input"
+    },
+    "fields": [
+      {
+        "defaultValue": "4.3.0",
+        "description": "Custom toggle button",
+        "property": "iconRender",
+        "type": "(visible) => ReactNode",
+        "version": "(visible) => (visible ? <EyeOutlined /> : <EyeInvisibleOutlined />)"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether show toggle button or control password visible",
+        "property": "visibilityToggle",
+        "type": "boolean | VisibilityToggle",
+        "version": "true"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "VisibilityToggle",
+      "name": "input"
+    },
+    "fields": [
+      {
+        "defaultValue": "4.24.0",
+        "description": "Whether the password is show or hide",
+        "property": "visible",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.24.0",
+        "description": "Callback executed when visibility of the password is changed",
+        "property": "onVisibleChange",
+        "type": "boolean",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Input Methods",
+      "name": "input"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Remove focus",
+        "property": "blur",
+        "type": "-",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Get focus",
+        "property": "focus",
+        "type": "(option?: { preventScroll?: boolean, cursor?: 'start' | 'end' | 'all' })",
+        "version": "option - 4.10.0"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Input",
+      "name": "input"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "input element",
+        "property": "input",
+        "type": "5.4.0",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Wrapper of prefix",
+        "property": "prefix",
+        "type": "5.4.0",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Wrapper of suffix",
+        "property": "suffix",
+        "type": "5.4.0",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Text count element",
+        "property": "count",
+        "type": "5.4.0",
+        "version": ""
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Input.TextArea",
+      "name": "input"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "textarea element",
+        "property": "textarea",
+        "type": "5.4.0",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Text count element",
+        "property": "count",
+        "type": "5.4.0",
+        "version": ""
+      }
+    ]
+  }
+]

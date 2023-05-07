@@ -1,0 +1,143 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "pagination"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Current page number",
+        "property": "current",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Default initial page number",
+        "property": "defaultCurrent",
+        "type": "number",
+        "version": "1"
+      },
+      {
+        "defaultValue": "",
+        "description": "Default number of data items per page",
+        "property": "defaultPageSize",
+        "type": "number",
+        "version": "10"
+      },
+      {
+        "defaultValue": "",
+        "description": "Disable pagination",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to hide pager on single page",
+        "property": "hideOnSinglePage",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "To customize item's innerHTML",
+        "property": "itemRender",
+        "type": "(page, type: 'page' | 'prev' | 'next', originalElement) => React.ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Number of data items per page",
+        "property": "pageSize",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify the sizeChanger options",
+        "property": "pageSizeOptions",
+        "type": "string[] | number[]",
+        "version": "[10, 20, 50, 100]"
+      },
+      {
+        "defaultValue": "",
+        "description": "If size is not specified, Pagination would resize according to the width of the window",
+        "property": "responsive",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Show less page items",
+        "property": "showLessItems",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Determine whether you can jump to pages directly",
+        "property": "showQuickJumper",
+        "type": "boolean | { goButton: ReactNode }",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Determine whether to show pageSize select, it will be true when total > 50",
+        "property": "showSizeChanger",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Show page item's title",
+        "property": "showTitle",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "To display the total number and range",
+        "property": "showTotal",
+        "type": "function(total, range)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to use simple mode",
+        "property": "simple",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify the size of Pagination, can be set to small",
+        "property": "size",
+        "type": "default | small",
+        "version": "default"
+      },
+      {
+        "defaultValue": "",
+        "description": "Total number of data items",
+        "property": "total",
+        "type": "number",
+        "version": "0"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when the page number or pageSize is changed, and it takes the resulting page number and pageSize as its arguments",
+        "property": "onChange",
+        "type": "function(page, pageSize)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when pageSize is changed",
+        "property": "onShowSizeChange",
+        "type": "function(current, size)",
+        "version": "-"
+      }
+    ]
+  }
+]

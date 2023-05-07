@@ -1,0 +1,116 @@
+[
+  {
+    "atom": {
+      "api": "Watermark",
+      "name": "watermark"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The width of the watermark, the default value of content is its own width",
+        "property": "width",
+        "type": "number",
+        "version": "120"
+      },
+      {
+        "defaultValue": "",
+        "description": "The height of the watermark, the default value of content is its own height",
+        "property": "height",
+        "type": "number",
+        "version": "64"
+      },
+      {
+        "defaultValue": "",
+        "description": "When the watermark is drawn, the rotation Angle, unit °",
+        "property": "rotate",
+        "type": "number",
+        "version": "-22"
+      },
+      {
+        "defaultValue": "",
+        "description": "The z-index of the appended watermark element",
+        "property": "zIndex",
+        "type": "number",
+        "version": "9"
+      },
+      {
+        "defaultValue": "",
+        "description": "Image source, it is recommended to export 2x or 3x image, high priority (support base64 format)",
+        "property": "image",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Watermark text content",
+        "property": "content",
+        "type": "string | string[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Text style",
+        "property": "font",
+        "type": "Font",
+        "version": "Font"
+      },
+      {
+        "defaultValue": "",
+        "description": "The spacing between watermarks",
+        "property": "gap",
+        "type": "[number, number]",
+        "version": "[100, 100]"
+      },
+      {
+        "defaultValue": "",
+        "description": "The offset of the watermark from the upper left corner of the container. The default is gap/2",
+        "property": "offset",
+        "type": "[number, number]",
+        "version": "[gap[0]/2, gap[1]/2]"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Font",
+      "name": "watermark"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "font color",
+        "property": "color",
+        "type": "string",
+        "version": "rgba(0,0,0,.15)"
+      },
+      {
+        "defaultValue": "",
+        "description": "font size",
+        "property": "fontSize",
+        "type": "number",
+        "version": "16"
+      },
+      {
+        "defaultValue": "",
+        "description": "font weight",
+        "property": "fontWeight",
+        "type": "normal | light | weight | number",
+        "version": "normal"
+      },
+      {
+        "defaultValue": "",
+        "description": "font family",
+        "property": "fontFamily",
+        "type": "string",
+        "version": "sans-serif"
+      },
+      {
+        "defaultValue": "",
+        "description": "font style",
+        "property": "fontStyle",
+        "type": "none | normal | italic | oblique",
+        "version": "normal"
+      }
+    ]
+  }
+]

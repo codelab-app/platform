@@ -1,0 +1,668 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "date-picker"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Whether to show clear button",
+        "property": "allowClear",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "If get focus when component mounted",
+        "property": "autoFocus",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether has border style",
+        "property": "bordered",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "The picker className",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "< 5.4.0",
+        "description": "Custom rendering function for date cells, >= 5.4.0 use cellRender instead.",
+        "property": "dateRender",
+        "type": "function(currentDate: dayjs, today: dayjs) => React.ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "5.4.0",
+        "description": "Custom rendering function for picker cells",
+        "property": "cellRender",
+        "type": "function(current: dayjs, today: dayjs, info: { originNode: React.ReactElement,today: DateType, range?: 'start' | 'end', type: PanelMode, locale?: Locale, subType?: 'hour' | 'minute' | 'second' | 'meridiem' }) => React.ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Determine whether the DatePicker is disabled",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify the date that cannot be selected",
+        "property": "disabledDate",
+        "type": "(currentDate: dayjs) => boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the date format, support multi-format matching when it is an array, display the first one shall prevail. refer to dayjs#format. for example: Custom Format",
+        "property": "format",
+        "type": "formatType",
+        "version": "rc-picker"
+      },
+      {
+        "defaultValue": "4.23.0",
+        "description": "To customize the className of the popup calendar",
+        "property": "popupClassName",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the container of the floating layer, while the default is to create a div element in body",
+        "property": "getPopupContainer",
+        "type": "function(trigger)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the readonly attribute of the input tag (avoids virtual keyboard on touch devices)",
+        "property": "inputReadOnly",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Localization configuration",
+        "property": "locale",
+        "type": "object",
+        "version": "default"
+      },
+      {
+        "defaultValue": "",
+        "description": "The picker panel mode（ Cannot select year or month anymore? )",
+        "property": "mode",
+        "type": "time | date | month | year | decade",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "The custom next icon",
+        "property": "nextIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The open state of picker",
+        "property": "open",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.5.0",
+        "description": "Customize panel render",
+        "property": "panelRender",
+        "type": "(panelNode) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "quarter: 4.1.0",
+        "description": "Set picker type",
+        "property": "picker",
+        "type": "date | week | month | quarter | year",
+        "version": "date"
+      },
+      {
+        "defaultValue": "",
+        "description": "The placeholder of date input",
+        "property": "placeholder",
+        "type": "string | [string,string]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The position where the selection box pops up",
+        "property": "placement",
+        "type": "bottomLeft bottomRight topLeft topRight",
+        "version": "bottomLeft"
+      },
+      {
+        "defaultValue": "",
+        "description": "To customize the style of the popup calendar",
+        "property": "popupStyle",
+        "type": "CSSProperties",
+        "version": "{}"
+      },
+      {
+        "defaultValue": "",
+        "description": "The preset ranges for quick selection",
+        "property": "presets",
+        "type": "{ label: React.ReactNode, value: dayjs }[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "The custom prev icon",
+        "property": "prevIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To determine the size of the input box, the height of large and small, are 40px and 24px respectively, while default size is 32px",
+        "property": "size",
+        "type": "large | middle | small",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.19.0",
+        "description": "Set validation status",
+        "property": "status",
+        "type": "'error' | 'warning'",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To customize the style of the input box",
+        "property": "style",
+        "type": "CSSProperties",
+        "version": "{}"
+      },
+      {
+        "defaultValue": "",
+        "description": "The custom suffix icon",
+        "property": "suffixIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "The custom super next icon",
+        "property": "superNextIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "The custom super prev icon",
+        "property": "superPrevIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback function, can be executed whether the popup calendar is popped up or closed",
+        "property": "onOpenChange",
+        "type": "function(open)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback when picker panel mode is changed",
+        "property": "onPanelChange",
+        "type": "function(value, mode)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Common Methods",
+      "name": "date-picker"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Remove focus",
+        "property": "blur()",
+        "type": "",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Get focus",
+        "property": "focus()",
+        "type": "",
+        "version": ""
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "DatePicker",
+      "name": "date-picker"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "To set default picker date",
+        "property": "defaultPickerValue",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set default date, if start time or end time is null or undefined, the date range will be an open interval",
+        "property": "defaultValue",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To specify the time that cannot be selected",
+        "property": "disabledTime",
+        "type": "function(date)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the date format. refer to dayjs#format",
+        "property": "format",
+        "type": "formatType",
+        "version": "YYYY-MM-DD"
+      },
+      {
+        "defaultValue": "",
+        "description": "Render extra footer in panel",
+        "property": "renderExtraFooter",
+        "type": "(mode) => React.ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.4.0",
+        "description": "Whether to show 'Now' button on panel when showTime is set",
+        "property": "showNow",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To provide an additional time selection",
+        "property": "showTime",
+        "type": "object | boolean",
+        "version": "TimePicker Options"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set default time of selected date, demo",
+        "property": "showTime.defaultValue",
+        "type": "dayjs",
+        "version": "dayjs()"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to show Today button",
+        "property": "showToday",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set date",
+        "property": "value",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback function, can be executed when the selected time is changing",
+        "property": "onChange",
+        "type": "function(date: dayjs, dateString: string)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback when click ok button",
+        "property": "onOk",
+        "type": "function()",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback function for panel changing",
+        "property": "onPanelChange",
+        "type": "function(value, mode)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "DatePicker[picker=year]",
+      "name": "date-picker"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "To set default picker date",
+        "property": "defaultPickerValue",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set default date",
+        "property": "defaultValue",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the date format. refer to dayjs#format",
+        "property": "format",
+        "type": "formatType",
+        "version": "YYYY"
+      },
+      {
+        "defaultValue": "",
+        "description": "Render extra footer in panel",
+        "property": "renderExtraFooter",
+        "type": "() => React.ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set date",
+        "property": "value",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback function, can be executed when the selected time is changing",
+        "property": "onChange",
+        "type": "function(date: dayjs, dateString: string)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "date-picker"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "To set default picker date",
+        "property": "defaultPickerValue",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set default date",
+        "property": "defaultValue",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the date format. refer to dayjs#format",
+        "property": "format",
+        "type": "formatType",
+        "version": "YYYY-\\QQ"
+      },
+      {
+        "defaultValue": "",
+        "description": "Render extra footer in panel",
+        "property": "renderExtraFooter",
+        "type": "() => React.ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set date",
+        "property": "value",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback function, can be executed when the selected time is changing",
+        "property": "onChange",
+        "type": "function(date: dayjs, dateString: string)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "DatePicker[picker=month]",
+      "name": "date-picker"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "To set default picker date",
+        "property": "defaultPickerValue",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set default date",
+        "property": "defaultValue",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the date format. refer to dayjs#format",
+        "property": "format",
+        "type": "formatType",
+        "version": "YYYY-MM"
+      },
+      {
+        "defaultValue": "",
+        "description": "Render extra footer in panel",
+        "property": "renderExtraFooter",
+        "type": "() => React.ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set date",
+        "property": "value",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback function, can be executed when the selected time is changing",
+        "property": "onChange",
+        "type": "function(date: dayjs, dateString: string)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "DatePicker[picker=week]",
+      "name": "date-picker"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "To set default picker date",
+        "property": "defaultPickerValue",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set default date",
+        "property": "defaultValue",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the date format. refer to dayjs#format",
+        "property": "format",
+        "type": "formatType",
+        "version": "YYYY-wo"
+      },
+      {
+        "defaultValue": "",
+        "description": "Render extra footer in panel",
+        "property": "renderExtraFooter",
+        "type": "(mode) => React.ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set date",
+        "property": "value",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback function, can be executed when the selected time is changing",
+        "property": "onChange",
+        "type": "function(date: dayjs, dateString: string)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "RangePicker",
+      "name": "date-picker"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Allow start or end input leave empty",
+        "property": "allowEmpty",
+        "type": "[boolean, boolean]",
+        "version": "[false, false]"
+      },
+      {
+        "defaultValue": "< 5.4.0",
+        "description": "Custom rendering function for date cells, >= 5.4.0 use cellRender instead.",
+        "property": "dateRender",
+        "type": "function(currentDate: dayjs, today: dayjs) => React.ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "5.4.0",
+        "description": "Custom rendering function for picker cells",
+        "property": "cellRender",
+        "type": "function(current: dayjs, today: dayjs, info: { originNode: React.ReactElement,today: DateType, range?: 'start' | 'end', type: PanelMode, locale?: Locale, subType?: 'hour' | 'minute' | 'second' | 'meridiem' }) => React.ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set default picker date",
+        "property": "defaultPickerValue",
+        "type": "[dayjs, dayjs]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set default date",
+        "property": "defaultValue",
+        "type": "[dayjs, dayjs]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "If disable start or end",
+        "property": "disabled",
+        "type": "[boolean, boolean]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To specify the time that cannot be selected",
+        "property": "disabledTime",
+        "type": "function(date: dayjs, partial: start | end)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the date format. refer to dayjs#format",
+        "property": "format",
+        "type": "formatType",
+        "version": "YYYY-MM-DD HH:mm:ss"
+      },
+      {
+        "defaultValue": "",
+        "description": "The preset ranges for quick selection",
+        "property": "presets",
+        "type": "{ label: React.ReactNode, value: dayjs[] }[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Render extra footer in panel",
+        "property": "renderExtraFooter",
+        "type": "() => React.ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set separator between inputs",
+        "property": "separator",
+        "type": "React.ReactNode",
+        "version": "<SwapRightOutlined />"
+      },
+      {
+        "defaultValue": "",
+        "description": "To provide an additional time selection",
+        "property": "showTime",
+        "type": "object | boolean",
+        "version": "TimePicker Options"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set default time of selected date, demo",
+        "property": "showTime.defaultValue",
+        "type": "dayjs[]",
+        "version": "[dayjs(), dayjs()]"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set date",
+        "property": "value",
+        "type": "[dayjs, dayjs]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback function, can be executed when the start time or the end time of the range is changing. info argument is added in 4.4.0",
+        "property": "onCalendarChange",
+        "type": "function(dates: [dayjs, dayjs], dateStrings: [string, string], info: { range:start|end })",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback function, can be executed when the selected time is changing",
+        "property": "onChange",
+        "type": "function(dates: [dayjs, dayjs], dateStrings: [string, string])",
+        "version": "-"
+      }
+    ]
+  }
+]

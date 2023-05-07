@@ -6,7 +6,6 @@ import type {
   ICRUDService,
   IEntityModalService,
   IPaginateable,
-  IPaginationService,
   IQueryService,
 } from '../../service'
 import type {

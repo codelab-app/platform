@@ -1,0 +1,207 @@
+[
+  {
+    "atom": {
+      "api": "Tabs",
+      "name": "tabs"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Current TabPane's key",
+        "property": "activeKey",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.4.0",
+        "description": "Customize add icon",
+        "property": "addIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to change tabs with animation. Only works while tabPosition=\"top\"",
+        "property": "animated",
+        "type": "boolean | { inkBar: boolean, tabPane: boolean }",
+        "version": "{ inkBar: true, tabPane: false }"
+      },
+      {
+        "defaultValue": "4.4.0",
+        "description": "Centers tabs",
+        "property": "centered",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Initial active TabPane's key, if activeKey is not set",
+        "property": "defaultActiveKey",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Hide plus icon or not. Only works while type=\"editable-card\"",
+        "property": "hideAdd",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.23.0",
+        "description": "Configure tab content",
+        "property": "items",
+        "type": "TabItemType",
+        "version": "[]"
+      },
+      {
+        "defaultValue": "4.14.0",
+        "description": "The custom icon of ellipsis",
+        "property": "moreIcon",
+        "type": "ReactNode",
+        "version": "<EllipsisOutlined />"
+      },
+      {
+        "defaultValue": "4.21.0",
+        "description": "className for more dropdown.",
+        "property": "popupClassName",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Replace the TabBar",
+        "property": "renderTabBar",
+        "type": "(props: DefaultTabBarProps, DefaultTabBar: React.ComponentClass) => React.ReactElement",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Preset tab bar size",
+        "property": "size",
+        "type": "large | middle | small",
+        "version": "middle"
+      },
+      {
+        "defaultValue": "object: 4.6.0",
+        "description": "Extra content in tab bar",
+        "property": "tabBarExtraContent",
+        "type": "ReactNode | {left?: ReactNode, right?: ReactNode}",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The gap between tabs",
+        "property": "tabBarGutter",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Tab bar style object",
+        "property": "tabBarStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Position of tabs",
+        "property": "tabPosition",
+        "type": "top | right | bottom | left",
+        "version": "top"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether destroy inactive TabPane when change tab",
+        "property": "destroyInactiveTabPane",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Basic style of tabs",
+        "property": "type",
+        "type": "line | card | editable-card",
+        "version": "line"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback executed when active tab is changed",
+        "property": "onChange",
+        "type": "function(activeKey) {}",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback executed when tab is added or removed. Only works while type=\"editable-card\"",
+        "property": "onEdit",
+        "type": "(action === 'add' ? event : targetKey, action): void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback executed when tab is clicked",
+        "property": "onTabClick",
+        "type": "function(key: string, event: MouseEvent)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.3.0",
+        "description": "Trigger when tab scroll",
+        "property": "onTabScroll",
+        "type": "function({ direction: left | right | top | bottom })",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "TabItemType",
+      "name": "tabs"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Customize close icon in TabPane's head. Only works while type=\"editable-card\"",
+        "property": "closeIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set TabPane disabled",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Forced render of content in tabs, not lazy render after clicking on tabs",
+        "property": "forceRender",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "TabPane's key",
+        "property": "key",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "TabPane's head display text",
+        "property": "label",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "TabPane's head display content",
+        "property": "children",
+        "type": "ReactNode",
+        "version": "-"
+      }
+    ]
+  }
+]

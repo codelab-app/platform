@@ -1,0 +1,186 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "notification"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Distance from the bottom of the viewport, when placement is bottomRight or bottomLeft (unit: pixels)",
+        "property": "bottom",
+        "type": "number",
+        "version": "24"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customized close button",
+        "property": "btn",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customized CSS class",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Custom close icon",
+        "property": "closeIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The content of notification box (required)",
+        "property": "description",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Time in seconds before Notification is closed. When set to 0 or null, it will never be closed automatically",
+        "property": "duration",
+        "type": "number",
+        "version": "4.5"
+      },
+      {
+        "defaultValue": "",
+        "description": "Return the mount node for Notification",
+        "property": "getContainer",
+        "type": "() => HTMLNode",
+        "version": "() => document.body"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customized icon",
+        "property": "icon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The unique identifier of the Notification",
+        "property": "key",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The title of notification box (required)",
+        "property": "message",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Position of Notification, can be one of topLeft topRight bottomLeft bottomRight",
+        "property": "placement",
+        "type": "string",
+        "version": "topRight"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customized inline style",
+        "property": "style",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Distance from the top of the viewport, when placement is topRight or topLeft (unit: pixels)",
+        "property": "top",
+        "type": "number",
+        "version": "24"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify a function that will be called when the notification is clicked",
+        "property": "onClick",
+        "type": "function",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Trigger when notification closed",
+        "property": "onClose",
+        "type": "function",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "An object that can contain data-*, aria-*, or role props, to be put on the notification div. This currently only allows data-testid instead of data-* in TypeScript. See https://github.com/microsoft/TypeScript/issues/28960.",
+        "property": "props",
+        "type": "Object",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "notification"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Distance from the bottom of the viewport, when placement is bottomRight or bottomLeft (unit: pixels)",
+        "property": "bottom",
+        "type": "number",
+        "version": "24"
+      },
+      {
+        "defaultValue": "",
+        "description": "Custom close icon",
+        "property": "closeIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Time in seconds before Notification is closed. When set to 0 or null, it will never be closed automatically",
+        "property": "duration",
+        "type": "number",
+        "version": "4.5"
+      },
+      {
+        "defaultValue": "",
+        "description": "Return the mount node for Notification",
+        "property": "getContainer",
+        "type": "() => HTMLNode",
+        "version": "() => document.body"
+      },
+      {
+        "defaultValue": "",
+        "description": "Position of Notification, can be one of topLeft topRight bottomLeft bottomRight",
+        "property": "placement",
+        "type": "string",
+        "version": "topRight"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to enable RTL mode",
+        "property": "rtl",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Distance from the top of the viewport, when placement is topRight or topLeft (unit: pixels)",
+        "property": "top",
+        "type": "number",
+        "version": "24"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "Max Notification show, drop oldest if exceed limit",
+        "property": "maxCount",
+        "type": "number",
+        "version": "-"
+      }
+    ]
+  }
+]

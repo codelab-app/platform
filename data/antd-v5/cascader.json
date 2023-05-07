@@ -1,0 +1,348 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "cascader"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Whether allow clear",
+        "property": "allowClear",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "If get focus when component mounted",
+        "property": "autoFocus",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether has border style",
+        "property": "bordered",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "The custom clear icon",
+        "property": "clearIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "(Work on single select) Change value on each selection if set to true, see above demo for details",
+        "property": "changeOnSelect",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The additional css class",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Initial selected value",
+        "property": "defaultValue",
+        "type": "string[] | number[]",
+        "version": "[]"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether disabled select",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "multiple: 4.18.0",
+        "description": "The render function of displaying selected options",
+        "property": "displayRender",
+        "type": "(label, selectedOptions) => ReactNode",
+        "version": "label => label.join(/)"
+      },
+      {
+        "defaultValue": "4.23.0",
+        "description": "The additional className of popup overlay",
+        "property": "popupClassName",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.4.0",
+        "description": "Customize dropdown content",
+        "property": "dropdownRender",
+        "type": "(menus: ReactNode) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.4.0",
+        "description": "Customize the current item expand icon",
+        "property": "expandIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "expand current item when click or hover, one of click hover",
+        "property": "expandTrigger",
+        "type": "string",
+        "version": "click"
+      },
+      {
+        "defaultValue": "",
+        "description": "Custom field name for label and value and children",
+        "property": "fieldNames",
+        "type": "object",
+        "version": "{ label: label, value: value, children: children }"
+      },
+      {
+        "defaultValue": "",
+        "description": "Parent Node which the selector should be rendered to. Default to body. When position issues happen, try to modify it into scrollable content and position it relative. example",
+        "property": "getPopupContainer",
+        "type": "function(triggerNode)",
+        "version": "() => document.body"
+      },
+      {
+        "defaultValue": "",
+        "description": "To load option lazily, and it cannot work with showSearch",
+        "property": "loadData",
+        "type": "(selectedOptions) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "Max tag count to show. responsive will cost render performance",
+        "property": "maxTagCount",
+        "type": "number | responsive",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "Placeholder for not showing tags",
+        "property": "maxTagPlaceholder",
+        "type": "ReactNode | function(omittedValues)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "Max tag text length to show",
+        "property": "maxTagTextLength",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify content to show when no result matches",
+        "property": "notFoundContent",
+        "type": "string",
+        "version": "Not Found"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "Set visible of cascader popup",
+        "property": "open",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The data options of cascade",
+        "property": "options",
+        "type": "Option[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The input placeholder",
+        "property": "placeholder",
+        "type": "string",
+        "version": "Please select"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "Use preset popup align config from builtinPlacements",
+        "property": "placement",
+        "type": "bottomLeft bottomRight topLeft topRight",
+        "version": "bottomLeft"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether show search input in single mode",
+        "property": "showSearch",
+        "type": "boolean | Object",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The input size",
+        "property": "size",
+        "type": "large | middle | small",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.19.0",
+        "description": "Set validation status",
+        "property": "status",
+        "type": "'error' | 'warning'",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The additional style",
+        "property": "style",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The custom suffix icon",
+        "property": "suffixIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The selected value",
+        "property": "value",
+        "type": "string[] | number[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback when finishing cascader select",
+        "property": "onChange",
+        "type": "(value, selectedOptions) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "Callback when popup shown or hidden",
+        "property": "onDropdownVisibleChange",
+        "type": "(value) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "Support multiple or not",
+        "property": "multiple",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The custom remove icon",
+        "property": "removeIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.20.0",
+        "description": "The way show selected item in box. ** SHOW_CHILD: ** just show child treeNode. Cascader.SHOW_PARENT: just show parent treeNode (when all child treeNode under the parent treeNode are checked)",
+        "property": "showCheckedStrategy",
+        "type": "Cascader.SHOW_PARENT | Cascader.SHOW_CHILD",
+        "version": "Cascader.SHOW_PARENT"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "Set search value，Need work with showSearch",
+        "property": "searchValue",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "The callback function triggered when input changed",
+        "property": "onSearch",
+        "type": "(search: string) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The style of the drop-down menu column",
+        "property": "dropdownMenuColumnStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The appearance of lazy loading (now is useless)",
+        "property": "loadingIcon",
+        "type": "ReactNode",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "showSearch",
+      "name": "cascader"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The function will receive two arguments, inputValue and option, if the function returns true, the option will be included in the filtered set; Otherwise, it will be excluded",
+        "property": "filter",
+        "type": "function(inputValue, path): boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the count of filtered items",
+        "property": "limit",
+        "type": "number | false",
+        "version": "50"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether the width of list matches input, (how it looks)",
+        "property": "matchInputWidth",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Used to render filtered options",
+        "property": "render",
+        "type": "function(inputValue, path): ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Used to sort filtered options",
+        "property": "sort",
+        "type": "function(a, b, inputValue)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "cascader"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Remove focus",
+        "property": "blur()",
+        "type": "",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Get focus",
+        "property": "focus()",
+        "type": "",
+        "version": ""
+      }
+    ]
+  }
+]

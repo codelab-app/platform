@@ -1,6 +1,5 @@
 import type { AntDesignField } from '@codelab/backend/abstract/core'
 import { IAuthUseCase } from '@codelab/backend/abstract/types'
-import { atomTypeKeyByFileName } from '@codelab/backend/application/atom'
 import {
   Field,
   FieldRepository,
@@ -8,10 +7,10 @@ import {
 } from '@codelab/backend/domain/type'
 import type { IAtomDTO, IFieldDTO } from '@codelab/frontend/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
-import merge from 'lodash/merge'
+import find from 'lodash/find'
 import { v4 } from 'uuid'
 import { AntdTypeAdapterService } from '../../type-adapter/antd-type-adapter/antd-type-adapter.service'
-import { readCsvFiles } from './read-csv-files'
+import { readJsonFiles } from './read-json-files'
 
 /**
  * Here we want to parse the CSV files from Ant Design and seed it as atoms
@@ -22,9 +21,7 @@ export class ExtractAntDesignFieldsService extends IAuthUseCase<
   Array<IAtomDTO>,
   Array<IFieldDTO>
 > {
-  private antdDataFolder = `${process.cwd()}/data/antd/`
-
-  private reactDataFolder = `${process.cwd()}/data/react/`
+  private antdDataFolder = `${process.cwd()}/data/antd-v5/`
 
   fieldRepository = new FieldRepository()
 
@@ -32,43 +29,42 @@ export class ExtractAntDesignFieldsService extends IAuthUseCase<
    * Extract data to be used for seeding, these data have already been mapped with correct ID for upsert
    */
   protected async _execute(atoms: Array<IAtomDTO>) {
-    const antdCsvData = await readCsvFiles(this.antdDataFolder)
-    const reactCsvData = await readCsvFiles(this.reactDataFolder)
-    const csvFieldsByFile = { ...antdCsvData, ...reactCsvData }
+    const antDesignApis = await readJsonFiles(this.antdDataFolder)
+    const fieldsByAtom = []
 
-    /**
-     * Break down function to act on each file
-     */
-    return await atoms.reduce(async (accFieldsPromise, atom) => {
-      const antDesignFields =
-        csvFieldsByFile[`${atom.name.replace('AntDesign', '')}.csv`]
+    for (const atom of atoms) {
+      const antDesignApi = find(
+        antDesignApis,
+        (api) =>
+          api.atom.name === atom.name.replace('AntDesign', '').toLowerCase(),
+      )
 
-      if (!antDesignFields) {
-        return await accFieldsPromise
+      if (!antDesignApi) {
+        continue
       }
 
-      const fields = await this.transformFields(atom, antDesignFields)
+      const fields = await this.transformFields(atom, antDesignApi.fields)
+      fieldsByAtom.push(...fields)
+    }
 
-      return [...(await accFieldsPromise), ...fields]
-    }, Promise.resolve([] as Array<IFieldDTO>))
+    return fieldsByAtom
   }
 
   private async transformFields(
     atom: IAtomDTO,
     atomFields: Array<AntDesignField>,
   ) {
-    return await atomFields.reduce<Promise<Array<IFieldDTO>>>(
-      async (accFields, field) => {
-        const existingOrNewField = await this.createOrUpdateField(atom, field)
+    const result: Array<IFieldDTO> = []
 
-        if (!existingOrNewField) {
-          return [...(await accFields)]
-        }
+    for (const field of atomFields) {
+      const existingOrNewField = await this.createOrUpdateField(atom, field)
 
-        return [...(await accFields), existingOrNewField]
-      },
-      Promise.resolve([]),
-    )
+      if (existingOrNewField) {
+        result.push(existingOrNewField)
+      }
+    }
+
+    return result
   }
 
   private async createOrUpdateField(

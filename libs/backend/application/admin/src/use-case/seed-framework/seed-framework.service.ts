@@ -1,8 +1,4 @@
-import type {
-  IAntdAtomRecords,
-  IAtomRecords,
-  TagNode,
-} from '@codelab/backend/abstract/core'
+import type { IAtomRecords, TagNode } from '@codelab/backend/abstract/core'
 import { IAuthUseCase } from '@codelab/backend/abstract/types'
 import { SeedAtomsService } from '@codelab/backend/application/atom'
 import { SeedTagsService } from '@codelab/backend/application/tag'
@@ -11,14 +7,9 @@ import {
   systemTypesData,
   TypeSeederService,
 } from '@codelab/backend/application/type'
-import type {
-  IAtomDTO,
-  IAuth0Owner,
-  IFieldDTO,
-} from '@codelab/frontend/abstract/core'
+import type { IAtomDTO, IFieldDTO } from '@codelab/frontend/abstract/core'
 import type { IAtomType } from '@codelab/shared/abstract/core'
 import { ObjectTyped } from 'object-typed'
-import type { AdminSeederService } from '../../services'
 
 interface FrameworkData {
   atoms: Partial<IAtomRecords>

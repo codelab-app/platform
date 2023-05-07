@@ -11,7 +11,6 @@ import type { ColumnType } from 'antd/lib/table'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import {
-  type AtomLibrary,
   type AtomRecord,
   ActionColumn,
   LibraryColumn,

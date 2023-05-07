@@ -1,0 +1,116 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "alert"
+    },
+    "fields": [
+      {
+        "defaultValue": "4.9.0",
+        "description": "The action of Alert",
+        "property": "action",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when close animation is finished",
+        "property": "afterClose",
+        "type": "() => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to show as banner",
+        "property": "banner",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether Alert can be closed",
+        "property": "closable",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Close text to show",
+        "property": "closeText",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.18.0",
+        "description": "Custom close icon",
+        "property": "closeIcon",
+        "type": "ReactNode",
+        "version": "<CloseOutlined />"
+      },
+      {
+        "defaultValue": "",
+        "description": "Additional content of Alert",
+        "property": "description",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Custom icon, effective when showIcon is true",
+        "property": "icon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Content of Alert",
+        "property": "message",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to show icon",
+        "property": "showIcon",
+        "type": "boolean",
+        "version": "false, in banner mode default is true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Type of Alert styles, options: success, info, warning, error",
+        "property": "type",
+        "type": "string",
+        "version": "info, in banner mode default is warning"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback when Alert is closed",
+        "property": "onClose",
+        "type": "(e: MouseEvent) => void",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Alert.ErrorBoundary",
+      "name": "alert"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Custom error description to show",
+        "property": "description",
+        "type": "ReactNode",
+        "version": "{{ error stack }}"
+      },
+      {
+        "defaultValue": "",
+        "description": "Custom error message to show",
+        "property": "message",
+        "type": "ReactNode",
+        "version": "{{ error }}"
+      }
+    ]
+  }
+]

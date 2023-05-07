@@ -3,7 +3,6 @@ import type {
   IPaginationService,
   SupportedPaginationModel,
   SupportedPaginationModelPage,
-  SupportedPaginationModelService,
 } from '@codelab/frontend/abstract/core'
 import type { TablePaginationConfig } from 'antd'
 import debounce from 'lodash/debounce'

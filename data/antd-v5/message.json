@@ -1,0 +1,145 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "message"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The content of the message",
+        "property": "content",
+        "type": "ReactNode | config",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Time(seconds) before auto-dismiss, don't dismiss if set to 0",
+        "property": "duration",
+        "type": "number",
+        "version": "1.5"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify a function that will be called when the message is closed",
+        "property": "onClose",
+        "type": "function",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "message"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Customized CSS class",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The content of the message",
+        "property": "content",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Time(seconds) before auto-dismiss, don't dismiss if set to 0",
+        "property": "duration",
+        "type": "number",
+        "version": "3"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customized Icon",
+        "property": "icon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The unique identifier of the Message",
+        "property": "key",
+        "type": "string | number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customized inline style",
+        "property": "style",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify a function that will be called when the message is clicked",
+        "property": "onClick",
+        "type": "function",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify a function that will be called when the message is closed",
+        "property": "onClose",
+        "type": "function",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "message"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Time before auto-dismiss, in seconds",
+        "property": "duration",
+        "type": "number",
+        "version": "3"
+      },
+      {
+        "defaultValue": "",
+        "description": "Return the mount node for Message",
+        "property": "getContainer",
+        "type": "() => HTMLElement",
+        "version": "() => document.body"
+      },
+      {
+        "defaultValue": "",
+        "description": "Max message show, drop oldest if exceed limit",
+        "property": "maxCount",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.5.0",
+        "description": "The prefix className of message node",
+        "property": "prefixCls",
+        "type": "string",
+        "version": "ant-message"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to enable RTL mode",
+        "property": "rtl",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Distance from top",
+        "property": "top",
+        "type": "number",
+        "version": "8"
+      }
+    ]
+  }
+]

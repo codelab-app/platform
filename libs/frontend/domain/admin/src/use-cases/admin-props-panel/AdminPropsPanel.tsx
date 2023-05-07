@@ -6,7 +6,7 @@ import type {
 import { isAdmin } from '@codelab/frontend/abstract/core'
 import { fieldRef, typeRef } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
-import { Button, Col, Dropdown, Menu, Row } from 'antd'
+import { Button, Col, Dropdown, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 

@@ -1,0 +1,109 @@
+[
+  {
+    "atom": {
+      "api": "Badge",
+      "name": "badge"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Customize Badge dot color",
+        "property": "color",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Number to show in badge",
+        "property": "count",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to display a red dot instead of count",
+        "property": "dot",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set offset of the badge dot",
+        "property": "offset",
+        "type": "[number, number]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Max count to show",
+        "property": "overflowCount",
+        "type": "number",
+        "version": "99"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to show badge when count is zero",
+        "property": "showZero",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.6.0",
+        "description": "If count is set, size sets the size of badge",
+        "property": "size",
+        "type": "default | small",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set Badge as a status dot",
+        "property": "status",
+        "type": "success | processing | default | error | warning",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "If status is set, text sets the display text of the status dot",
+        "property": "text",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Text to show when hovering over the badge",
+        "property": "title",
+        "type": "string",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Badge.Ribbon (4.5.0+)",
+      "name": "badge"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Customize Ribbon color",
+        "property": "color",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The placement of the Ribbon, start and end follow text direction (RTL or LTR)",
+        "property": "placement",
+        "type": "start | end",
+        "version": "end"
+      },
+      {
+        "defaultValue": "",
+        "description": "Content inside the Ribbon",
+        "property": "text",
+        "type": "ReactNode",
+        "version": "-"
+      }
+    ]
+  }
+]

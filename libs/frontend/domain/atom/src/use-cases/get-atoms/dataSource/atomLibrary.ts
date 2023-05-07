@@ -5,7 +5,7 @@ import {
   htmlAtoms,
   reactAtoms,
 } from '@codelab/shared/config'
-import { useCallback, useMemo } from 'react'
+import { useCallback } from 'react'
 import type { AtomLibrary } from '../columns'
 
 export const useGetLibrary = () =>

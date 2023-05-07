@@ -1,0 +1,109 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "switch"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Whether get focus when component mounted",
+        "property": "autoFocus",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Determine whether the Switch is checked",
+        "property": "checked",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The content to be shown when the state is checked",
+        "property": "checkedChildren",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The additional class to Switch",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to set the initial state",
+        "property": "defaultChecked",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Disable switch",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Loading state of switch",
+        "property": "loading",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The size of the Switch, options: default small",
+        "property": "size",
+        "type": "string",
+        "version": "default"
+      },
+      {
+        "defaultValue": "",
+        "description": "The content to be shown when the state is unchecked",
+        "property": "unCheckedChildren",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Trigger when the checked state is changing",
+        "property": "onChange",
+        "type": "function(checked: boolean, event: Event)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Trigger when clicked",
+        "property": "onClick",
+        "type": "function(checked: boolean, event: Event)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "switch"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Remove focus",
+        "property": "blur()",
+        "type": "",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Get focus",
+        "property": "focus()",
+        "type": "",
+        "version": ""
+      }
+    ]
+  }
+]

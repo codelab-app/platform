@@ -1,0 +1,153 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "progress"
+    },
+    "fields": [
+      {
+        "defaultValue": "-",
+        "description": "The template function of the content",
+        "property": "format",
+        "type": "function(percent, successPercent)",
+        "version": "(percent) => percent + %"
+      },
+      {
+        "defaultValue": "-",
+        "description": "To set the completion percentage",
+        "property": "percent",
+        "type": "number",
+        "version": "0"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to display the progress value and the status icon",
+        "property": "showInfo",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the status of the Progress, options: success exception normal active(line only)",
+        "property": "status",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "-",
+        "description": "The color of progress bar",
+        "property": "strokeColor",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "-",
+        "description": "To set the style of the progress linecap",
+        "property": "strokeLinecap",
+        "type": "round | butt | square, see stroke-linecap",
+        "version": "round"
+      },
+      {
+        "defaultValue": "-",
+        "description": "Configs of successfully progress bar",
+        "property": "success",
+        "type": "{ percent: number, strokeColor: string }",
+        "version": "-"
+      },
+      {
+        "defaultValue": "-",
+        "description": "The color of unfilled part",
+        "property": "trailColor",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the type, options: line circle dashboard",
+        "property": "type",
+        "type": "string",
+        "version": "line"
+      },
+      {
+        "defaultValue": "v5.3.0",
+        "description": "Progress size",
+        "property": "size",
+        "type": "number | [number, number] | \"small\" | \"default\"",
+        "version": "\"default\""
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "type=\"line\"",
+      "name": "progress"
+    },
+    "fields": [
+      {
+        "defaultValue": "-",
+        "description": "The total step count",
+        "property": "steps",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.21.0: string[]",
+        "description": "The color of progress bar, render linear-gradient when passing an object, could accept string[] when has steps.",
+        "property": "strokeColor",
+        "type": "string | string[] | { from: string; to: string; direction: string }",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "type=\"circle\"",
+      "name": "progress"
+    },
+    "fields": [
+      {
+        "defaultValue": "-",
+        "description": "The color of circular progress, render linear-gradient when passing an object",
+        "property": "strokeColor",
+        "type": "string | object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "-",
+        "description": "To set the width of the circular progress, unit: percentage of the canvas width",
+        "property": "strokeWidth",
+        "type": "number",
+        "version": "6"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "type=\"dashboard\"",
+      "name": "progress"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The gap degree of half circle, 0 ~ 295",
+        "property": "gapDegree",
+        "type": "number",
+        "version": "75"
+      },
+      {
+        "defaultValue": "",
+        "description": "The gap position, options: top bottom left right",
+        "property": "gapPosition",
+        "type": "string",
+        "version": "bottom"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the width of the dashboard progress, unit: percentage of the canvas width",
+        "property": "strokeWidth",
+        "type": "number",
+        "version": "6"
+      }
+    ]
+  }
+]

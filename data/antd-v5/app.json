@@ -1,0 +1,24 @@
+[
+  {
+    "atom": {
+      "api": "App",
+      "name": "app"
+    },
+    "fields": [
+      {
+        "defaultValue": "5.3.0",
+        "description": "Global config for Message",
+        "property": "message",
+        "type": "MessageConfig",
+        "version": "-"
+      },
+      {
+        "defaultValue": "5.3.0",
+        "description": "Global config for Notification",
+        "property": "notification",
+        "type": "NotificationConfig",
+        "version": "-"
+      }
+    ]
+  }
+]

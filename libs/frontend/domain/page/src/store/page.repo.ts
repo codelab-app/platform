@@ -1,10 +1,5 @@
 import type { IPage, IPageRepository } from '@codelab/frontend/abstract/core'
-import type {
-  AppOptions,
-  AppWhere,
-  PageOptions,
-  PageWhere,
-} from '@codelab/shared/abstract/codegen'
+import type { PageOptions, PageWhere } from '@codelab/shared/abstract/codegen'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { pageApi } from './page.api'
 

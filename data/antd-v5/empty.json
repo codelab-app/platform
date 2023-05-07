@@ -1,0 +1,31 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "empty"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Customize description",
+        "property": "description",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize image. Will treat as image url when string provided",
+        "property": "image",
+        "type": "ReactNode",
+        "version": "Empty.PRESENTED_IMAGE_DEFAULT"
+      },
+      {
+        "defaultValue": "",
+        "description": "The style of image",
+        "property": "imageStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      }
+    ]
+  }
+]

@@ -1,0 +1,179 @@
+[
+  {
+    "atom": {
+      "api": "Tour",
+      "name": "tour"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Whether to show the arrow, including the configuration whether to point to the center of the element",
+        "property": "arrow",
+        "type": "boolean|{ pointAtCenter: boolean}",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Position of the guide card relative to the target element",
+        "property": "placement",
+        "type": "left leftTop leftBottom right rightTop rightBottom top topLeft topRight bottom bottomLeft bottomRight",
+        "version": "bottom"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback function on shutdown",
+        "property": "onClose",
+        "type": "Function",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to enable masking, change mask style and fill color by pass custom props",
+        "property": "mask",
+        "type": "boolean | { style?: React.CSSProperties; color?: string; }",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Type, affects the background color and text color",
+        "property": "type",
+        "type": "default primary",
+        "version": "default"
+      },
+      {
+        "defaultValue": "",
+        "description": "Open tour",
+        "property": "open",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback when the step changes. Current is the previous step",
+        "property": "onChange",
+        "type": "(current: number) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "What is the current step",
+        "property": "current",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "5.2.0",
+        "description": "support pass custom scrollIntoView options",
+        "property": "scrollIntoViewOptions",
+        "type": "boolean | ScrollIntoViewOptions",
+        "version": "true"
+      },
+      {
+        "defaultValue": "5.2.0",
+        "description": "custom indicator",
+        "property": "indicatorsRender",
+        "type": "(current: number, total: number) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "5.3.0",
+        "description": "Tour's zIndex",
+        "property": "zIndex",
+        "type": "number",
+        "version": "1001"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "TourStep",
+      "name": "tour"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Get the element the guide card points to. Empty makes it show in center of screen",
+        "property": "target",
+        "type": "() => HTMLElement HTMLElement",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to show the arrow, including the configuration whether to point to the center of the element",
+        "property": "arrow",
+        "type": "boolean { pointAtCenter: boolean}",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Displayed pictures or videos",
+        "property": "cover",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "title",
+        "property": "title",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "description",
+        "property": "description",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Position of the guide card relative to the target element",
+        "property": "placement",
+        "type": "left leftTop leftBottom right rightTop rightBottom top topLeft topRight bottom bottomLeft bottomRight",
+        "version": "bottom"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback function on shutdown",
+        "property": "onClose",
+        "type": "Function",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to enable masking, change mask style and fill color by pass custom props, the default follows the mask property of Tour",
+        "property": "mask",
+        "type": "boolean | { style?: React.CSSProperties; color?: string; }",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Type, affects the background color and text color",
+        "property": "type",
+        "type": "default primary",
+        "version": "default"
+      },
+      {
+        "defaultValue": "",
+        "description": "Properties of the Next button",
+        "property": "nextButtonProps",
+        "type": "{ children: ReactNode; onClick: Function }",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Properties of the previous button",
+        "property": "prevButtonProps",
+        "type": "{ children: ReactNode; onClick: Function }",
+        "version": "-"
+      },
+      {
+        "defaultValue": "5.2.0",
+        "description": "support pass custom scrollIntoView options, the default follows the scrollIntoViewOptions property of Tour",
+        "property": "scrollIntoViewOptions",
+        "type": "boolean | ScrollIntoViewOptions",
+        "version": "true"
+      }
+    ]
+  }
+]

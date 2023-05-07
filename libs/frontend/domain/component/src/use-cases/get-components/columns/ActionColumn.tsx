@@ -1,5 +1,4 @@
 import { ApartmentOutlined } from '@ant-design/icons'
-import type { IComponentService } from '@codelab/frontend/abstract/core'
 import { componentRef } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/presentation/container'

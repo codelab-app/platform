@@ -1,0 +1,88 @@
+[
+  {
+    "atom": {
+      "api": "Timeline",
+      "name": "timeline"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "By sending alternate the timeline will distribute the nodes to the left and right",
+        "property": "mode",
+        "type": "left | alternate | right",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the last ghost node's existence or its content",
+        "property": "pending",
+        "type": "boolean | ReactNode",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the dot of the last ghost node when pending is true",
+        "property": "pendingDot",
+        "type": "ReactNode",
+        "version": "<LoadingOutlined />"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether reverse nodes or not",
+        "property": "reverse",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Each node of timeline",
+        "property": "items",
+        "type": "Items[]",
+        "version": "5.2.0"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "timeline"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Set the circle's color to blue, red, green, gray or other custom colors",
+        "property": "color",
+        "type": "string",
+        "version": "blue"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize timeline dot",
+        "property": "dot",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the label",
+        "property": "label",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the content",
+        "property": "children",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize node position",
+        "property": "position",
+        "type": "left | right",
+        "version": "-"
+      }
+    ]
+  }
+]

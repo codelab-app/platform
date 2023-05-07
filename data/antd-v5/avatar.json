@@ -1,0 +1,123 @@
+[
+  {
+    "atom": {
+      "api": "Avatar",
+      "name": "avatar"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "This attribute defines the alternative text describing the image",
+        "property": "alt",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.3.0",
+        "description": "Letter type unit distance between left and right sides",
+        "property": "gap",
+        "type": "number",
+        "version": "4"
+      },
+      {
+        "defaultValue": "",
+        "description": "Custom icon type for an icon avatar",
+        "property": "icon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The shape of avatar",
+        "property": "shape",
+        "type": "circle | square",
+        "version": "circle"
+      },
+      {
+        "defaultValue": "4.7.0",
+        "description": "The size of the avatar",
+        "property": "size",
+        "type": "number | large | small | default | { xs: number, sm: number, ...}",
+        "version": "default"
+      },
+      {
+        "defaultValue": "ReactNode: 4.8.0",
+        "description": "The address of the image for an image avatar or image element",
+        "property": "src",
+        "type": "string | ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "A list of sources to use for different screen resolutions",
+        "property": "srcSet",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether the picture is allowed to be dragged",
+        "property": "draggable",
+        "type": "boolean | 'true' | 'false'",
+        "version": "true"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "CORS settings attributes",
+        "property": "crossOrigin",
+        "type": "'anonymous' | 'use-credentials' | ''",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Handler when img load error, return false to prevent default fallback behavior",
+        "property": "onError",
+        "type": "() => boolean",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Avatar.Group (4.5.0+)",
+      "name": "avatar"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Max avatars to show",
+        "property": "maxCount",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The placement of excess avatar Popover",
+        "property": "maxPopoverPlacement",
+        "type": "top | bottom",
+        "version": "top"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "Set the trigger of excess avatar Popover",
+        "property": "maxPopoverTrigger",
+        "type": "hover | focus | click",
+        "version": "hover"
+      },
+      {
+        "defaultValue": "",
+        "description": "The style of excess avatar style",
+        "property": "maxStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.8.0",
+        "description": "The size of the avatar",
+        "property": "size",
+        "type": "number | large | small | default | { xs: number, sm: number, ...}",
+        "version": "default"
+      }
+    ]
+  }
+]

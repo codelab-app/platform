@@ -1,0 +1,115 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "calendar"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Customize the display of the date cell, the returned content will be appended to the cell",
+        "property": "dateCellRender",
+        "type": "function(date: Dayjs): ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize the display of the date cell, the returned content will override the cell",
+        "property": "dateFullCellRender",
+        "type": "function(date: Dayjs): ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The date selected by default",
+        "property": "defaultValue",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Function that specifies the dates that cannot be selected, currentDate is same dayjs object as value prop which you shouldn't mutate it](https://github.com/ant-design/ant-design/issues/30987)",
+        "property": "disabledDate",
+        "type": "(currentDate: Dayjs) => boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to display in full-screen",
+        "property": "fullscreen",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Render custom header in panel",
+        "property": "headerRender",
+        "type": "function(object:{value: Dayjs, type: string, onChange: f(), onTypeChange: f()})",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The calendar's locale",
+        "property": "locale",
+        "type": "object",
+        "version": "(default)"
+      },
+      {
+        "defaultValue": "",
+        "description": "The display mode of the calendar",
+        "property": "mode",
+        "type": "month | year",
+        "version": "month"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize the display of the month cell, the returned content will be appended to the cell",
+        "property": "monthCellRender",
+        "type": "function(date: Dayjs): ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize the display of the month cell, the returned content will override the cell",
+        "property": "monthFullCellRender",
+        "type": "function(date: Dayjs): ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set valid range",
+        "property": "validRange",
+        "type": "[dayjs, dayjs]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The current selected date",
+        "property": "value",
+        "type": "dayjs",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback for when date changes",
+        "property": "onChange",
+        "type": "function(date: Dayjs)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback for when panel changes",
+        "property": "onPanelChange",
+        "type": "function(date: Dayjs, mode: string)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback for when a date is selected",
+        "property": "onSelect",
+        "type": "function(date: Dayjs）",
+        "version": "-"
+      }
+    ]
+  }
+]

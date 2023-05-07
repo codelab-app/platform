@@ -1,0 +1,220 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "drawer"
+    },
+    "fields": [
+      {
+        "defaultValue": "4.17.0",
+        "description": "Whether Drawer should get focused after open",
+        "property": "autoFocus",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback after the animation ends when switching drawers",
+        "property": "afterOpenChange",
+        "type": "function(open)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Style of the drawer content part",
+        "property": "bodyStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Config Drawer Panel className. Use rootClassName if want to config top dom style",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether a close (x) button is visible on top left of the Drawer dialog or not",
+        "property": "closable",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Custom close icon",
+        "property": "closeIcon",
+        "type": "ReactNode",
+        "version": "<CloseOutlined />"
+      },
+      {
+        "defaultValue": "",
+        "description": "Style of the drawer wrapper of content part",
+        "property": "contentWrapperStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to unmount child components on closing drawer or not",
+        "property": "destroyOnClose",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "Extra actions area at corner",
+        "property": "extra",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The footer for Drawer",
+        "property": "footer",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Style of the drawer footer part",
+        "property": "footerStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Pre-render Drawer component forcibly",
+        "property": "forceRender",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "mounted node and display window for Drawer",
+        "property": "getContainer",
+        "type": "HTMLElement | () => HTMLElement | Selectors | false",
+        "version": "body"
+      },
+      {
+        "defaultValue": "",
+        "description": "Style of the drawer header part",
+        "property": "headerStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Placement is top or bottom, height of the Drawer dialog",
+        "property": "height",
+        "type": "string | number",
+        "version": "378"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether support press esc to close",
+        "property": "keyboard",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to show mask or not",
+        "property": "mask",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Clicking on the mask (area outside the Drawer) to close the Drawer or not",
+        "property": "maskClosable",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Style for Drawer's mask element",
+        "property": "maskStyle",
+        "type": "CSSProperties",
+        "version": "{}"
+      },
+      {
+        "defaultValue": "",
+        "description": "The placement of the Drawer",
+        "property": "placement",
+        "type": "top | right | bottom | left",
+        "version": "right"
+      },
+      {
+        "defaultValue": "4.5.0+",
+        "description": "Nested drawers push behavior",
+        "property": "push",
+        "type": "boolean | { distance: string | number }",
+        "version": "{ distance: 180 }"
+      },
+      {
+        "defaultValue": "",
+        "description": "The class name of the container of the Drawer dialog",
+        "property": "rootClassName",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Style of wrapper element which contains mask compare to style",
+        "property": "rootStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Style of Drawer panel. Use bodyStyle if want to config body only",
+        "property": "style",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "preset size of drawer, default 378px and large 736px",
+        "property": "size",
+        "type": "'default' | 'large'",
+        "version": "'default'"
+      },
+      {
+        "defaultValue": "",
+        "description": "The title for Drawer",
+        "property": "title",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether the Drawer dialog is visible or not",
+        "property": "open",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Width of the Drawer dialog",
+        "property": "width",
+        "type": "string | number",
+        "version": "378"
+      },
+      {
+        "defaultValue": "",
+        "description": "The z-index of the Drawer",
+        "property": "zIndex",
+        "type": "number",
+        "version": "1000"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify a callback that will be called when a user clicks mask, close button or Cancel button",
+        "property": "onClose",
+        "type": "function(e)",
+        "version": "-"
+      }
+    ]
+  }
+]

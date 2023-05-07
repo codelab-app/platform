@@ -1,0 +1,95 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "carousel"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Whether to scroll automatically",
+        "property": "autoplay",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The position of the dots, which can be one of top bottom left right",
+        "property": "dotPosition",
+        "type": "string",
+        "version": "bottom"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to show the dots at the bottom of the gallery, object for dotsClass and any others",
+        "property": "dots",
+        "type": "boolean | { className?: string }",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to wait for the animation when switching",
+        "property": "waitForAnimate",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Transition interpolation function name",
+        "property": "easing",
+        "type": "string",
+        "version": "linear"
+      },
+      {
+        "defaultValue": "",
+        "description": "Transition effect",
+        "property": "effect",
+        "type": "scrollx | fade",
+        "version": "scrollx"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback function called after the current index changes",
+        "property": "afterChange",
+        "type": "(current: number) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Callback function called before the current index changes",
+        "property": "beforeChange",
+        "type": "(current: number, next: number) => void",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "carousel"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Go to slide index, if dontAnimate=true, it happens without animation",
+        "property": "goTo(slideNumber, dontAnimate)",
+        "type": "",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Change current slide to next slide",
+        "property": "next()",
+        "type": "",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Change current slide to previous slide",
+        "property": "prev()",
+        "type": "",
+        "version": ""
+      }
+    ]
+  }
+]

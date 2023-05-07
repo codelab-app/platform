@@ -1,0 +1,52 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "spin"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Specifies a delay in milliseconds for loading state (prevent flush)",
+        "property": "delay",
+        "type": "number (milliseconds)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "React node of the spinning indicator",
+        "property": "indicator",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The size of Spin, options: small, default and large",
+        "property": "size",
+        "type": "string",
+        "version": "default"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether Spin is visible",
+        "property": "spinning",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize description content when Spin has children",
+        "property": "tip",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The className of wrapper when Spin has children",
+        "property": "wrapperClassName",
+        "type": "string",
+        "version": "-"
+      }
+    ]
+  }
+]

@@ -1,0 +1,176 @@
+[
+  {
+    "atom": {
+      "api": "Skeleton",
+      "name": "skeleton"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Show animation effect",
+        "property": "active",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Show avatar placeholder",
+        "property": "avatar",
+        "type": "boolean | SkeletonAvatarProps",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Display the skeleton when true",
+        "property": "loading",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Show paragraph placeholder",
+        "property": "paragraph",
+        "type": "boolean | SkeletonParagraphProps",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Show paragraph and title radius when true",
+        "property": "round",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Show title placeholder",
+        "property": "title",
+        "type": "boolean | SkeletonTitleProps",
+        "version": "true"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "SkeletonAvatarProps",
+      "name": "skeleton"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Show animation effect, only valid when used avatar independently",
+        "property": "active",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the shape of avatar",
+        "property": "shape",
+        "type": "circle | square",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the size of avatar",
+        "property": "size",
+        "type": "number | large | small | default",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "SkeletonTitleProps",
+      "name": "skeleton"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Set the width of title",
+        "property": "width",
+        "type": "number | string",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "SkeletonParagraphProps",
+      "name": "skeleton"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Set the row count of paragraph",
+        "property": "rows",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the width of paragraph. When width is an Array, it can set the width of each row. Otherwise only set the last row width",
+        "property": "width",
+        "type": "number | string | Array<number | string>",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "SkeletonButtonProps",
+      "name": "skeleton"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Show animation effect",
+        "property": "active",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "Option to fit button width to its parent width",
+        "property": "block",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the shape of button",
+        "property": "shape",
+        "type": "circle | round | square | default",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the size of button",
+        "property": "size",
+        "type": "large | small | default",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "SkeletonInputProps",
+      "name": "skeleton"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Show animation effect",
+        "property": "active",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the size of input",
+        "property": "size",
+        "type": "large | small | default",
+        "version": "-"
+      }
+    ]
+  }
+]

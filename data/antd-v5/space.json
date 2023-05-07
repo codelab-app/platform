@@ -1,0 +1,74 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "space"
+    },
+    "fields": [
+      {
+        "defaultValue": "4.2.0",
+        "description": "Align items",
+        "property": "align",
+        "type": "start | end |center |baseline",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.1.0",
+        "description": "The space direction",
+        "property": "direction",
+        "type": "vertical | horizontal",
+        "version": "horizontal"
+      },
+      {
+        "defaultValue": "4.1.0 | Array: 4.9.0",
+        "description": "The space size",
+        "property": "size",
+        "type": "Size | Size[]",
+        "version": "small"
+      },
+      {
+        "defaultValue": "4.7.0",
+        "description": "Set split",
+        "property": "split",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.9.0",
+        "description": "Auto wrap line, when horizontal effective",
+        "property": "wrap",
+        "type": "boolean",
+        "version": "false"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "space"
+    },
+    "fields": [
+      {
+        "defaultValue": "4.24.0",
+        "description": "Option to fit width to its parent's width",
+        "property": "block",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.24.0",
+        "description": "Set direction of layout",
+        "property": "direction",
+        "type": "vertical | horizontal",
+        "version": "horizontal"
+      },
+      {
+        "defaultValue": "4.24.0",
+        "description": "Set child component size",
+        "property": "size",
+        "type": "large | middle | small",
+        "version": "middle"
+      }
+    ]
+  }
+]

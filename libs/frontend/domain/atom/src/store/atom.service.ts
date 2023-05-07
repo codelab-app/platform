@@ -25,7 +25,6 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { atomApi } from './atom.api'
 import { Atom } from './atom.model'
 import { atomRef } from './atom.ref'
 import { AtomRepository } from './atom.repo'

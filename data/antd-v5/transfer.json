@@ -1,0 +1,214 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "transfer"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Used for setting the source data. The elements that are part of this array will be present the left column. Except the elements whose keys are included in targetKeys prop",
+        "property": "dataSource",
+        "type": "RecordType extends TransferItem = TransferItem[]",
+        "version": "[]"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether disabled transfer",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "A function to determine whether an item should show in search result list, only works when searching",
+        "property": "filterOption",
+        "type": "(inputValue, option): boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "direction: 4.17.0",
+        "description": "A function used for rendering the footer",
+        "property": "footer",
+        "type": "(props, { direction }) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "A custom CSS style used for rendering the transfer columns",
+        "property": "listStyle",
+        "type": "object | ({direction: left | right}) => object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The i18n text including filter, empty text, item unit, etc",
+        "property": "locale",
+        "type": "{ itemUnit: string; itemsUnit: string; searchPlaceholder: string; notFoundContent: ReactNode | ReactNode[]; }",
+        "version": "{ itemUnit: item, itemsUnit: items, notFoundContent: The list is empty, searchPlaceholder: Search here }"
+      },
+      {
+        "defaultValue": "4.3.0",
+        "description": "Display as single direction style",
+        "property": "oneWay",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "A set of operations that are sorted from top to bottom",
+        "property": "operations",
+        "type": "string[]",
+        "version": "[>, <]"
+      },
+      {
+        "defaultValue": "",
+        "description": "A custom CSS style used for rendering the operations column",
+        "property": "operationStyle",
+        "type": "object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.3.0",
+        "description": "Use pagination. Not work in render props",
+        "property": "pagination",
+        "type": "boolean | { pageSize: number, simple: boolean, showSizeChanger?: boolean, showLessItems?: boolean }",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The function to generate the item shown on a column. Based on an record (element of the dataSource array), this function should return a React element which is generated from that record. Also, it can return a plain object with value and label, label is a React element and value is for title",
+        "property": "render",
+        "type": "(record) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "A set of customized labels for select all checkboxes on the header",
+        "property": "selectAllLabels",
+        "type": "(ReactNode | (info: { selectedCount: number, totalCount: number }) => ReactNode)[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "A set of keys of selected items",
+        "property": "selectedKeys",
+        "type": "string[]",
+        "version": "[]"
+      },
+      {
+        "defaultValue": "",
+        "description": "If included, a search box is shown on each column",
+        "property": "showSearch",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Show select all checkbox on the header",
+        "property": "showSelectAll",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "4.19.0",
+        "description": "Set validation status",
+        "property": "status",
+        "type": "'error' | 'warning'",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "A set of keys of elements that are listed on the right column",
+        "property": "targetKeys",
+        "type": "string[]",
+        "version": "[]"
+      },
+      {
+        "defaultValue": "",
+        "description": "A set of titles that are sorted from left to right",
+        "property": "titles",
+        "type": "ReactNode[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "A callback function that is executed when the transfer between columns is complete",
+        "property": "onChange",
+        "type": "(targetKeys, direction, moveKeys): void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "A callback function which is executed when scroll options list",
+        "property": "onScroll",
+        "type": "(direction, event): void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "A callback function which is executed when search field are changed",
+        "property": "onSearch",
+        "type": "(direction: left | right, value: string): void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "A callback function which is executed when selected items are changed",
+        "property": "onSelectChange",
+        "type": "(sourceSelectedKeys, targetSelectedKeys): void",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "transfer"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "List render direction",
+        "property": "direction",
+        "type": "left | right",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Disable list or not",
+        "property": "disabled",
+        "type": "boolean",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Filtered items",
+        "property": "filteredItems",
+        "type": "RecordType[]",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Selected items",
+        "property": "selectedKeys",
+        "type": "string[]",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Select item",
+        "property": "onItemSelect",
+        "type": "(key: string, selected: boolean)",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Select a group of items",
+        "property": "onItemSelectAll",
+        "type": "(keys: string[], selected: boolean)",
+        "version": ""
+      }
+    ]
+  }
+]

@@ -1,0 +1,245 @@
+[
+  {
+    "atom": {
+      "api": "List",
+      "name": "list"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Toggles rendering of the border around the list",
+        "property": "bordered",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "DataSource array for list",
+        "property": "dataSource",
+        "type": "any[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "List footer renderer",
+        "property": "footer",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The grid type of list. You can set grid to something like {gutter: 16, column: 4}",
+        "property": "grid",
+        "type": "object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "List header renderer",
+        "property": "header",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The layout of list",
+        "property": "itemLayout",
+        "type": "horizontal | vertical",
+        "version": "horizontal"
+      },
+      {
+        "defaultValue": "",
+        "description": "Shows a loading indicator while the contents of the list are being fetched",
+        "property": "loading",
+        "type": "boolean | SpinProps (more)",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Shows a load more content",
+        "property": "loadMore",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The i18n text including empty text",
+        "property": "locale",
+        "type": "object",
+        "version": "{emptyText: No Data}"
+      },
+      {
+        "defaultValue": "",
+        "description": "Pagination config, hide it by setting it to false",
+        "property": "pagination",
+        "type": "boolean | object",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize list item when using dataSource",
+        "property": "renderItem",
+        "type": "(item) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Item's unique value, could be an Item's key which holds a unique value of type React.Key or function that receives Item and returns a React.Key",
+        "property": "rowKey",
+        "type": "keyof T | (item: T) => React.Key",
+        "version": "\"key\""
+      },
+      {
+        "defaultValue": "",
+        "description": "Size of list",
+        "property": "size",
+        "type": "default | large | small",
+        "version": "default"
+      },
+      {
+        "defaultValue": "",
+        "description": "Toggles rendering of the split under the list item",
+        "property": "split",
+        "type": "boolean",
+        "version": "true"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "list"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The specify the position of Pagination",
+        "property": "position",
+        "type": "top | bottom | both",
+        "version": "bottom"
+      },
+      {
+        "defaultValue": "",
+        "description": "The specify the alignment of Pagination",
+        "property": "align",
+        "type": "start | center | end",
+        "version": "end"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "List grid props",
+      "name": "list"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The column of grid",
+        "property": "column",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The spacing between grid",
+        "property": "gutter",
+        "type": "number",
+        "version": "0"
+      },
+      {
+        "defaultValue": "",
+        "description": "<576px column of grid",
+        "property": "xs",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "≥576px column of grid",
+        "property": "sm",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "≥768px column of grid",
+        "property": "md",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "≥992px column of grid",
+        "property": "lg",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "≥1200px column of grid",
+        "property": "xl",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "≥1600px column of grid",
+        "property": "xxl",
+        "type": "number",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "List.Item",
+      "name": "list"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The actions content of list item. If itemLayout is vertical, shows the content on bottom, otherwise shows content on the far right",
+        "property": "actions",
+        "type": "Array<ReactNode>",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The extra content of list item. If itemLayout is vertical, shows the content on right, otherwise shows content on the far right",
+        "property": "extra",
+        "type": "ReactNode",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "List.Item.Meta",
+      "name": "list"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The avatar of list item",
+        "property": "avatar",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The description of list item",
+        "property": "description",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The title of list item",
+        "property": "title",
+        "type": "ReactNode",
+        "version": "-"
+      }
+    ]
+  }
+]

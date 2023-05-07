@@ -1,25 +1,18 @@
-import type { AntDesignField } from '@codelab/backend/abstract/core'
 import type { ITypeTransformer } from '@codelab/backend/abstract/ports'
-import { IAuthUseCase, IUseCase } from '@codelab/backend/abstract/types'
+import { IAuthUseCase } from '@codelab/backend/abstract/types'
 import {
   EnumType,
   InterfaceType,
   TypeFactory,
   UnionType,
-  UnionTypeRepository,
 } from '@codelab/backend/domain/type'
 import type {
-  IActionTypeDTO,
-  IArrayTypeDTO,
   IAtom,
-  IAtomDTO,
   IAuth0Owner,
   IEnumTypeDTO,
   IField,
   IInterfaceTypeDTO,
   IPrimitiveTypeDTO,
-  IReactNodeTypeDTO,
-  IRenderPropTypeDTO,
   ITypeDTO,
   IUnionTypeDTO,
 } from '@codelab/frontend/abstract/core'
@@ -29,21 +22,11 @@ import { systemTypesData } from '../../../data/system-types.data'
 import {
   arrowFnReturnReactNode,
   es5FnReturnReactNode,
-  isActionType,
-  isEnumType,
-  isInterfaceType,
-  isPrimitiveType,
-  isReactNodeType,
-  isRenderPropType,
-  isUnionType,
   parseSeparators,
 } from '../../../parser'
 
 interface Request {
-  // atom: IAtomDTO
-  // field: Pick<AntDesignField, 'property' | 'type'>
   type: string
-  // owner: IAuth0Owner
 }
 
 interface Props {
@@ -225,6 +208,7 @@ export class DefaultTypeAdapterService
     const typesOfUnionType = parseSeparators({ type })
 
     // Create data here
+
     const mappedTypesOfUnionType = (
       await Promise.all(
         typesOfUnionType.map(async (typeOfUnionType) => {

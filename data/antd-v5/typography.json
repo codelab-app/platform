@@ -1,0 +1,477 @@
+[
+  {
+    "atom": {
+      "api": "Typography.Text",
+      "name": "typography"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Code style",
+        "property": "code",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "copyable",
+        "description": "Whether to be copyable, customize it via setting an object",
+        "property": "copyable",
+        "type": "boolean | copyable",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Deleted line style",
+        "property": "delete",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Disabled content",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "editable",
+        "description": "If editable. Can control edit state when is object",
+        "property": "editable",
+        "type": "boolean | editable",
+        "version": "false"
+      },
+      {
+        "defaultValue": "ellipsis",
+        "description": "Display ellipsis when text overflows，can't configure expandable、rows and onExpand by using object. Diff with Typography.Paragraph, Text do not have 100% width style which means it will fix width on the first ellipsis. If you want to have responsive ellipsis, please set width manually",
+        "property": "ellipsis",
+        "type": "boolean | Omit<ellipsis, 'expandable' | 'rows' | 'onExpand'>",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.3.0",
+        "description": "Keyboard style",
+        "property": "keyboard",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Marked style",
+        "property": "mark",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the handler to handle click event",
+        "property": "onClick",
+        "type": "(event) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Bold style",
+        "property": "strong",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.16.0",
+        "description": "Italic style",
+        "property": "italic",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "success: 4.6.0",
+        "description": "Content type",
+        "property": "type",
+        "type": "secondary | success | warning | danger",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Underlined style",
+        "property": "underline",
+        "type": "boolean",
+        "version": "false"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Typography.Title",
+      "name": "typography"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Code style",
+        "property": "code",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "copyable",
+        "description": "Whether to be copyable, customize it via setting an object",
+        "property": "copyable",
+        "type": "boolean | copyable",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Deleted line style",
+        "property": "delete",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Disabled content",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "editable",
+        "description": "If editable. Can control edit state when is object",
+        "property": "editable",
+        "type": "boolean | editable",
+        "version": "false"
+      },
+      {
+        "defaultValue": "ellipsis",
+        "description": "Display ellipsis when text overflows, can configure rows and expandable by using object",
+        "property": "ellipsis",
+        "type": "boolean | ellipsis",
+        "version": "false"
+      },
+      {
+        "defaultValue": "5: 4.6.0",
+        "description": "Set content importance. Match with h1, h2, h3, h4, h5",
+        "property": "level",
+        "type": "number: 1, 2, 3, 4, 5",
+        "version": "1"
+      },
+      {
+        "defaultValue": "",
+        "description": "Marked style",
+        "property": "mark",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the handler to handle click event",
+        "property": "onClick",
+        "type": "(event) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.16.0",
+        "description": "Italic style",
+        "property": "italic",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "success: 4.6.0",
+        "description": "Content type",
+        "property": "type",
+        "type": "secondary | success | warning | danger",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Underlined style",
+        "property": "underline",
+        "type": "boolean",
+        "version": "false"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Typography.Paragraph",
+      "name": "typography"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Code style",
+        "property": "code",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "copyable",
+        "description": "Whether to be copyable, customize it via setting an object",
+        "property": "copyable",
+        "type": "boolean | copyable",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Deleted line style",
+        "property": "delete",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Disabled content",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "editable",
+        "description": "If editable. Can control edit state when is object",
+        "property": "editable",
+        "type": "boolean | editable",
+        "version": "false"
+      },
+      {
+        "defaultValue": "ellipsis",
+        "description": "Display ellipsis when text overflows, can configure rows and expandable by using object",
+        "property": "ellipsis",
+        "type": "boolean | ellipsis",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Marked style",
+        "property": "mark",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the handler to handle click event",
+        "property": "onClick",
+        "type": "(event) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Bold style",
+        "property": "strong",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.16.0",
+        "description": "Italic style",
+        "property": "italic",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "success: 4.6.0",
+        "description": "Content type",
+        "property": "type",
+        "type": "secondary | success | warning | danger",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Underlined style",
+        "property": "underline",
+        "type": "boolean",
+        "version": "false"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "typography"
+    },
+    "fields": [
+      {
+        "defaultValue": "4.21.0",
+        "description": "The Mime Type of the text",
+        "property": "format",
+        "type": "'text/plain' | 'text/html'",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.6.0",
+        "description": "Custom copy icon: [copyIcon, copiedIcon]",
+        "property": "icon",
+        "type": "[ReactNode, ReactNode]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The text to copy",
+        "property": "text",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.4.0",
+        "description": "Custom tooltip text, hide when it is false",
+        "property": "tooltips",
+        "type": "[ReactNode, ReactNode]",
+        "version": "[Copy, Copied]"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when copied text",
+        "property": "onCopy",
+        "type": "function",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "typography"
+    },
+    "fields": [
+      {
+        "defaultValue": "4.4.0",
+        "description": "autoSize attribute of textarea",
+        "property": "autoSize",
+        "type": "boolean | { minRows: number, maxRows: number }",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to be editable",
+        "property": "editing",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.6.0",
+        "description": "Custom editable icon",
+        "property": "icon",
+        "type": "ReactNode",
+        "version": "<EditOutlined />"
+      },
+      {
+        "defaultValue": "4.4.0",
+        "description": "maxLength attribute of textarea",
+        "property": "maxLength",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.6.0",
+        "description": "Custom tooltip text, hide when it is false",
+        "property": "tooltip",
+        "type": "boolean | ReactNode",
+        "version": "Edit"
+      },
+      {
+        "defaultValue": "4.24.0",
+        "description": "Edit text, specify the editing content instead of using the children implicitly",
+        "property": "text",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when input at textarea",
+        "property": "onChange",
+        "type": "function(value: string)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when type ESC to exit editable state",
+        "property": "onCancel",
+        "type": "function",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when enter editable state",
+        "property": "onStart",
+        "type": "function",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.14.0",
+        "description": "Called when type ENTER to exit editable state",
+        "property": "onEnd",
+        "type": "function",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Edit mode trigger - icon, text or both (not specifying icon as trigger hides it)",
+        "property": "triggerType",
+        "type": "Array<icon|text>",
+        "version": "[icon]"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "Custom \"enter\" icon in the edit field (passing null removes the icon)",
+        "property": "enterIcon",
+        "type": "ReactNode",
+        "version": "<EnterOutlined />"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "typography"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Whether to be expandable",
+        "property": "expandable",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Max rows of content",
+        "property": "rows",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Suffix of ellipsis content",
+        "property": "suffix",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Custom description of ellipsis",
+        "property": "symbol",
+        "type": "ReactNode",
+        "version": "Expand"
+      },
+      {
+        "defaultValue": "4.11.0",
+        "description": "Show tooltip when ellipsis",
+        "property": "tooltip",
+        "type": "boolean | ReactNode | TooltipProps",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.2.0",
+        "description": "Called when enter or leave ellipsis state",
+        "property": "onEllipsis",
+        "type": "function(ellipsis)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when expand content",
+        "property": "onExpand",
+        "type": "function(event)",
+        "version": "-"
+      }
+    ]
+  }
+]

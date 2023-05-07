@@ -1,0 +1,417 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "modal"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Specify a function that will be called when modal is closed completely",
+        "property": "afterClose",
+        "type": "function",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Body style for modal body element. Such as height, padding etc",
+        "property": "bodyStyle",
+        "type": "CSSProperties",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "The cancel button props",
+        "property": "cancelButtonProps",
+        "type": "ButtonProps",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Text of the Cancel button",
+        "property": "cancelText",
+        "type": "ReactNode",
+        "version": "Cancel"
+      },
+      {
+        "defaultValue": "",
+        "description": "Centered Modal",
+        "property": "centered",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether a close (x) button is visible on top right of the modal dialog or not",
+        "property": "closable",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Custom close icon",
+        "property": "closeIcon",
+        "type": "ReactNode",
+        "version": "<CloseOutlined />"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to apply loading visual effect for OK button or not",
+        "property": "confirmLoading",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to unmount child components on onClose",
+        "property": "destroyOnClose",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.9.0",
+        "description": "Whether need to focus trigger element after dialog is closed",
+        "property": "focusTriggerAfterClose",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Footer content, set as footer={null} when you don't need default buttons",
+        "property": "footer",
+        "type": "ReactNode",
+        "version": "(OK and Cancel buttons)"
+      },
+      {
+        "defaultValue": "",
+        "description": "Force render Modal",
+        "property": "forceRender",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The mounted node for Modal but still display at fullscreen",
+        "property": "getContainer",
+        "type": "HTMLElement | () => HTMLElement | Selectors | false",
+        "version": "document.body"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether support press esc to close",
+        "property": "keyboard",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether show mask or not",
+        "property": "mask",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to close the modal dialog when the mask (area outside the modal) is clicked",
+        "property": "maskClosable",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Style for modal's mask element",
+        "property": "maskStyle",
+        "type": "CSSProperties",
+        "version": ""
+      },
+      {
+        "defaultValue": "4.7.0",
+        "description": "Custom modal content render",
+        "property": "modalRender",
+        "type": "(node: ReactNode) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The ok button props",
+        "property": "okButtonProps",
+        "type": "ButtonProps",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Text of the OK button",
+        "property": "okText",
+        "type": "ReactNode",
+        "version": "OK"
+      },
+      {
+        "defaultValue": "",
+        "description": "Button type of the OK button",
+        "property": "okType",
+        "type": "string",
+        "version": "primary"
+      },
+      {
+        "defaultValue": "",
+        "description": "Style of floating layer, typically used at least for adjusting the position",
+        "property": "style",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The modal dialog's title",
+        "property": "title",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether the modal dialog is visible or not",
+        "property": "open",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Width of the modal dialog",
+        "property": "width",
+        "type": "string | number",
+        "version": "520"
+      },
+      {
+        "defaultValue": "",
+        "description": "The class name of the container of the modal dialog",
+        "property": "wrapClassName",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The z-index of the Modal",
+        "property": "zIndex",
+        "type": "number",
+        "version": "1000"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify a function that will be called when a user clicks mask, close button on top right or Cancel button",
+        "property": "onCancel",
+        "type": "function(e)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify a function that will be called when a user clicks the OK button",
+        "property": "onOk",
+        "type": "function(e)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "5.4.0",
+        "description": "Callback when the animation ends when Modal is turned on and off",
+        "property": "afterOpenChange",
+        "type": "(open: boolean) => void",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "modal"
+    },
+    "fields": [
+      {
+        "defaultValue": "4.9.0",
+        "description": "Specify a function that will be called when modal is closed completely",
+        "property": "afterClose",
+        "type": "function",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify which button to autofocus",
+        "property": "autoFocusButton",
+        "type": "null | ok | cancel",
+        "version": "ok"
+      },
+      {
+        "defaultValue": "4.8.0",
+        "description": "Body style for modal body element. Such as height, padding etc",
+        "property": "bodyStyle",
+        "type": "CSSProperties",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "The cancel button props",
+        "property": "cancelButtonProps",
+        "type": "ButtonProps",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Text of the Cancel button with Modal.confirm",
+        "property": "cancelText",
+        "type": "string",
+        "version": "Cancel"
+      },
+      {
+        "defaultValue": "",
+        "description": "Centered Modal",
+        "property": "centered",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The className of container",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.9.0",
+        "description": "Whether a close (x) button is visible on top right of the confirm dialog or not",
+        "property": "closable",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.9.0",
+        "description": "Custom close icon",
+        "property": "closeIcon",
+        "type": "ReactNode",
+        "version": "undefined"
+      },
+      {
+        "defaultValue": "",
+        "description": "Content",
+        "property": "content",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "5.1.0",
+        "description": "Footer content, set as footer: null when you don't need default buttons",
+        "property": "footer",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Return the mount node for Modal",
+        "property": "getContainer",
+        "type": "HTMLElement | () => HTMLElement | Selectors | false",
+        "version": "document.body"
+      },
+      {
+        "defaultValue": "",
+        "description": "Custom icon",
+        "property": "icon",
+        "type": "ReactNode",
+        "version": "<ExclamationCircleFilled />"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether support press esc to close",
+        "property": "keyboard",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether show mask or not.",
+        "property": "mask",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to close the modal dialog when the mask (area outside the modal) is clicked",
+        "property": "maskClosable",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Style for modal's mask element",
+        "property": "maskStyle",
+        "type": "object",
+        "version": "{}"
+      },
+      {
+        "defaultValue": "",
+        "description": "The ok button props",
+        "property": "okButtonProps",
+        "type": "ButtonProps",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Text of the OK button",
+        "property": "okText",
+        "type": "string",
+        "version": "OK"
+      },
+      {
+        "defaultValue": "",
+        "description": "Button type of the OK button",
+        "property": "okType",
+        "type": "string",
+        "version": "primary"
+      },
+      {
+        "defaultValue": "",
+        "description": "Style of floating layer, typically used at least for adjusting the position",
+        "property": "style",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Title",
+        "property": "title",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Width of the modal dialog",
+        "property": "width",
+        "type": "string | number",
+        "version": "416"
+      },
+      {
+        "defaultValue": "4.18.0",
+        "description": "The class name of the container of the modal dialog",
+        "property": "wrapClassName",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The z-index of the Modal",
+        "property": "zIndex",
+        "type": "number",
+        "version": "1000"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify a function that will be called when the user clicks the Cancel button. The parameter of this function is a function whose execution should include closing the dialog. If the function does not take any parameter (!onCancel.length) then modal dialog will be closed unless returned value is true (!!onCancel()). You can also just return a promise and when the promise is resolved, the modal dialog will also be closed",
+        "property": "onCancel",
+        "type": "function(close)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify a function that will be called when the user clicks the OK button. The parameter of this function is a function whose execution should include closing the dialog. If the function does not take any parameter (!onOk.length) then modal dialog will be closed unless returned value is true (!!onOk()). You can also just return a promise and when the promise is resolved, the modal dialog will also be closed",
+        "property": "onOk",
+        "type": "function(close)",
+        "version": "-"
+      }
+    ]
+  }
+]

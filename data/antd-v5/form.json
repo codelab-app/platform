@@ -1,0 +1,768 @@
+[
+  {
+    "atom": {
+      "api": "Form",
+      "name": "form"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Configure the default value of colon for Form.Item. Indicates whether the colon after the label is displayed (only effective when prop layout is horizontal)",
+        "property": "colon",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "4.21.0",
+        "description": "Set form component disable, only available for antd components",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the Form rendering element. Do not create a DOM node for false",
+        "property": "component",
+        "type": "ComponentType | false",
+        "version": "form"
+      },
+      {
+        "defaultValue": "",
+        "description": "Control of form fields through state management (such as redux). Not recommended for non-strong demand. View example",
+        "property": "fields",
+        "type": "FieldData[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Form control instance created by Form.useForm(). Automatically created when not provided",
+        "property": "form",
+        "type": "FormInstance",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set value by Form initialization or reset",
+        "property": "initialValues",
+        "type": "object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The text align of label of all items",
+        "property": "labelAlign",
+        "type": "left | right",
+        "version": "right"
+      },
+      {
+        "defaultValue": "4.18.0",
+        "description": "whether label can be wrap",
+        "property": "labelWrap",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Label layout, like <Col> component. Set span offset value like {span: 3, offset: 12} or sm: {span: 3, offset: 12}",
+        "property": "labelCol",
+        "type": "object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Form layout",
+        "property": "layout",
+        "type": "horizontal | vertical | inline",
+        "version": "horizontal"
+      },
+      {
+        "defaultValue": "",
+        "description": "Form name. Will be the prefix of Field id",
+        "property": "name",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.4.0",
+        "description": "Keep field value even when field removed",
+        "property": "preserve",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "4.6.0",
+        "description": "Required mark style. Can use required mark or optional mark. You can not config to single Form.Item since this is a Form level config",
+        "property": "requiredMark",
+        "type": "boolean | optional",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Auto scroll to first failed field when submit",
+        "property": "scrollToFirstError",
+        "type": "boolean | Options",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set field component size (antd components only)",
+        "property": "size",
+        "type": "small | middle | large",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Validation prompt template, description see below",
+        "property": "validateMessages",
+        "type": "ValidateMessages",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.3.0",
+        "description": "Config field validate trigger",
+        "property": "validateTrigger",
+        "type": "string | string[]",
+        "version": "onChange"
+      },
+      {
+        "defaultValue": "",
+        "description": "The layout for input controls, same as labelCol",
+        "property": "wrapperCol",
+        "type": "object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Trigger when field updated",
+        "property": "onFieldsChange",
+        "type": "function(changedFields, allFields)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Trigger after submitting the form and verifying data successfully",
+        "property": "onFinish",
+        "type": "function(values)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Trigger after submitting the form and verifying data failed",
+        "property": "onFinishFailed",
+        "type": "function({ values, errorFields, outOfDate })",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Trigger when value updated",
+        "property": "onValuesChange",
+        "type": "function(changedValues, allValues)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "form"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Used with label, whether to display : after label text.",
+        "property": "colon",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the dependency field. See below",
+        "property": "dependencies",
+        "type": "NamePath[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The extra prompt message. It is similar to help. Usage example: to display error message and prompt message at the same time",
+        "property": "extra",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify how to get value from event or other onChange arguments",
+        "property": "getValueFromEvent",
+        "type": "(..args: any[]) => any",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.2.0",
+        "description": "Additional props with sub component",
+        "property": "getValueProps",
+        "type": "(value: any) => any",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Used with validateStatus, this option specifies the validation status icon. Recommended to be used only with Input",
+        "property": "hasFeedback",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The prompt message. If not provided, the prompt message will be generated by the validation rule.",
+        "property": "help",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.4.0",
+        "description": "Whether to hide Form.Item (still collect and validate value)",
+        "property": "hidden",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set sub label htmlFor",
+        "property": "htmlFor",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.2.0",
+        "description": "Config sub default value. Form initialValues get higher priority when conflict",
+        "property": "initialValue",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Label text",
+        "property": "label",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The text align of label",
+        "property": "labelAlign",
+        "type": "left | right",
+        "version": "right"
+      },
+      {
+        "defaultValue": "",
+        "description": "The layout of label. You can set span offset to something like {span: 3, offset: 12} or sm: {span: 3, offset: 12} same as with <Col>. You can set labelCol on Form which will not affect nest Item. If both exists, use Item first",
+        "property": "labelCol",
+        "type": "object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.7.0",
+        "description": "The default validate field info",
+        "property": "messageVariables",
+        "type": "Record<string, string>",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Field name, support array",
+        "property": "name",
+        "type": "NamePath",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Normalize value from component value before passing to Form instance. Do not support async",
+        "property": "normalize",
+        "type": "(value, prevValue, prevValues) => any",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "No style for true, used as a pure field control",
+        "property": "noStyle",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.4.0",
+        "description": "Keep field value even when field removed",
+        "property": "preserve",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Display required style. It will be generated by the validation rule",
+        "property": "required",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Rules for field validation. Click here to see an example",
+        "property": "rules",
+        "type": "Rule[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Custom field update logic. See below",
+        "property": "shouldUpdate",
+        "type": "boolean | (prevValue, curValue) => boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.7.0",
+        "description": "Config tooltip info",
+        "property": "tooltip",
+        "type": "ReactNode | TooltipProps & { icon: ReactNode }",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "When to collect the value of children node. Click here to see an example",
+        "property": "trigger",
+        "type": "string",
+        "version": "onChange"
+      },
+      {
+        "defaultValue": "parallel: 4.5.0",
+        "description": "Whether stop validate on first rule of error for this field. Will parallel validate when parallel configured",
+        "property": "validateFirst",
+        "type": "boolean | parallel",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "The validation status. If not provided, it will be generated by validation rule. options: success warning error validating",
+        "property": "validateStatus",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "When to validate the value of children node",
+        "property": "validateTrigger",
+        "type": "string | string[]",
+        "version": "onChange"
+      },
+      {
+        "defaultValue": "",
+        "description": "Props of children node, for example, the prop of Switch is 'checked'. This prop is an encapsulation of getValueProps, which will be invalid after customizing getValueProps",
+        "property": "valuePropName",
+        "type": "string",
+        "version": "value"
+      },
+      {
+        "defaultValue": "",
+        "description": "The layout for input controls, same as labelCol. You can set wrapperCol on Form which will not affect nest Item. If both exists, use Item first",
+        "property": "wrapperCol",
+        "type": "object",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "form"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Render function",
+        "property": "children",
+        "type": "(fields: Field[], operation: { add, remove, move }, meta: { errors }) => React.ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.9.0",
+        "description": "Config sub default value. Form initialValues get higher priority when conflict",
+        "property": "initialValue",
+        "type": "any[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Field name, support array",
+        "property": "name",
+        "type": "NamePath",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.7.0",
+        "description": "Validate rules, only support customize validator. Should work with ErrorList",
+        "property": "rules",
+        "type": "{ validator, message }[]",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "form"
+    },
+    "fields": [
+      {
+        "defaultValue": "4.6.0",
+        "description": "add form item",
+        "property": "add",
+        "type": "(defaultValue?: any, insertIndex?: number) => void",
+        "version": "insertIndex"
+      },
+      {
+        "defaultValue": "",
+        "description": "move form item",
+        "property": "move",
+        "type": "(from: number, to: number) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.5.0",
+        "description": "remove form item",
+        "property": "remove",
+        "type": "(index: number | number[]) => void",
+        "version": "number[]"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "form"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Error list",
+        "property": "errors",
+        "type": "ReactNode[]",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "form"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Triggered when a sub form field updates",
+        "property": "onFormChange",
+        "type": "function(formName: string, info: { changedFields, forms })",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Triggered when a sub form submits",
+        "property": "onFormFinish",
+        "type": "function(formName: string, info: { values, forms })",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "FormInstance",
+      "name": "form"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Get the error messages by the field name",
+        "property": "getFieldError",
+        "type": "(name: NamePath) => string[]",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Get field instance",
+        "property": "getFieldInstance",
+        "type": "(name: NamePath) => any",
+        "version": "4.4.0"
+      },
+      {
+        "defaultValue": "",
+        "description": "Get the error messages by the fields name. Return as an array",
+        "property": "getFieldsError",
+        "type": "(nameList?: NamePath[]) => FieldError[]",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Get values by a set of field names. Return according to the corresponding structure. Default return mounted field value, but you can use getFieldsValue(true) to get all values",
+        "property": "getFieldsValue",
+        "type": "(nameList?: NamePath[], filterFunc?: (meta: { touched: boolean, validating: boolean }) => boolean) => any",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Get the value by the field name",
+        "property": "getFieldValue",
+        "type": "(name: NamePath) => any",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Check if fields have been operated. Check if all fields is touched when allTouched is true",
+        "property": "isFieldsTouched",
+        "type": "(nameList?: NamePath[], allTouched?: boolean) => boolean",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Check if a field has been operated",
+        "property": "isFieldTouched",
+        "type": "(name: NamePath) => boolean",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Check field if is in validating",
+        "property": "isFieldValidating",
+        "type": "(name: NamePath) => boolean",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Reset fields to initialValues",
+        "property": "resetFields",
+        "type": "(fields?: NamePath[]) => void",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Scroll to field position",
+        "property": "scrollToField",
+        "type": "(name: NamePath, options: [ScrollOptions]) => void",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Set fields status",
+        "property": "setFields",
+        "type": "(fields: FieldData[]) => void",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Set fields value(Will directly pass to form store. If you do not want to modify passed object, please clone first)",
+        "property": "setFieldValue",
+        "type": "(name: NamePath, value: any) => void",
+        "version": "4.22.0"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set fields value(Will directly pass to form store. If you do not want to modify passed object, please clone first). Use setFieldValue instead if you want to only config single value in Form.List",
+        "property": "setFieldsValue",
+        "type": "(values) => void",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Submit the form. It's same as click submit button",
+        "property": "submit",
+        "type": "() => void",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Validate fields",
+        "property": "validateFields",
+        "type": "(nameList?: NamePath[]) => Promise",
+        "version": ""
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "FieldData",
+      "name": "form"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Error messages",
+        "property": "errors",
+        "type": "string[]",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Warning messages",
+        "property": "warnings",
+        "type": "string[]",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Field name path",
+        "property": "name",
+        "type": "NamePath[]",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether is operated",
+        "property": "touched",
+        "type": "boolean",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether is in validating",
+        "property": "validating",
+        "type": "boolean",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Field value",
+        "property": "value",
+        "type": "any",
+        "version": ""
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "form"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Validate rule for all array elements, valid when type is array",
+        "property": "defaultField",
+        "type": "rule",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Match enum value. You need to set type to enum to enable this",
+        "property": "enum",
+        "type": "any[]",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Validate rule for child elements, valid when type is array or object",
+        "property": "fields",
+        "type": "Record<string, rule>",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Length of string, number, array",
+        "property": "len",
+        "type": "number",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "type required: max length of string, number, array",
+        "property": "max",
+        "type": "number",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Error message. Will auto generate by template if not provided",
+        "property": "message",
+        "type": "string",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "type required: min length of string, number, array",
+        "property": "min",
+        "type": "number",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Regex pattern",
+        "property": "pattern",
+        "type": "RegExp",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Required field",
+        "property": "required",
+        "type": "boolean",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Transform value to the rule before validation",
+        "property": "transform",
+        "type": "(value) => any",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Normally string |number |boolean |url | email. More type to ref here",
+        "property": "type",
+        "type": "string",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Set validate trigger event. Must be the sub set of validateTrigger in Form.Item",
+        "property": "validateTrigger",
+        "type": "string | string[]",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize validation rule. Accept Promise as return. See example",
+        "property": "validator",
+        "type": "(rule, value) => Promise",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Warning only. Not block form submit",
+        "property": "warningOnly",
+        "type": "boolean",
+        "version": "4.17.0"
+      },
+      {
+        "defaultValue": "",
+        "description": "Failed if only has whitespace, only work with type: 'string' rule",
+        "property": "whitespace",
+        "type": "boolean",
+        "version": ""
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "WatchOptions",
+      "name": "form"
+    },
+    "fields": [
+      {
+        "defaultValue": "5.4.0",
+        "description": "Form instance",
+        "property": "form",
+        "type": "FormInstance",
+        "version": "Current form in context"
+      },
+      {
+        "defaultValue": "5.4.0",
+        "description": "Whether to watch the field which has no matched Form.Item",
+        "property": "preserve",
+        "type": "boolean",
+        "version": "false"
+      }
+    ]
+  }
+]

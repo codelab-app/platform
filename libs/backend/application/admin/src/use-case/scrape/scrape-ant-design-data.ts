@@ -1,198 +1,107 @@
+import 'jquery'
+import type { AntDesignApi } from '@codelab/backend/abstract/core'
 import fs from 'fs'
-import { parse } from 'json2csv'
+import path from 'path'
+import type { Browser } from 'puppeteer'
 import puppeteer from 'puppeteer'
 
-export interface AntdDesignApi {
-  default: string
-  description: string
-  isEnum: boolean
-  property: string
-  type: string
-  version: string
+declare const $: JQueryStatic
+
+const BASE_URL = 'https://ant.design/components/'
+const outputDirectory = './data/antd-v5'
+
+const getComponentApiData = async (
+  browser: Browser,
+  component: string,
+): Promise<Array<AntDesignApi>> => {
+  const componentUrl = `${BASE_URL}${component}`
+  const componentPage = await browser.newPage()
+
+  await componentPage.goto(componentUrl)
+
+  // Inject jQuery into the page
+  await componentPage.addScriptTag({
+    path: 'node_modules/jquery/dist/jquery.min.js',
+  })
+
+  return await componentPage.evaluate((name) => {
+    const apiTables = Array.from($('table.component-api-table'))
+
+    return apiTables.map((table) => {
+      const apiTitle = $(table)
+        .closest('.dumi-default-table')
+        .prev('h3, h4')
+        .text()
+
+      const rows = Array.from($(table).find('tbody tr'))
+
+      const fields = rows.map((row) => {
+        const rowData = Array.from($(row).find('td')).map(
+          (cell) => cell.textContent,
+        )
+
+        return {
+          defaultValue: rowData[4] ?? '',
+          description: rowData[1] ?? '',
+          property: rowData[0] ?? '',
+          type: rowData[2] ?? '',
+          version: rowData[3] ?? '',
+        }
+      })
+
+      return {
+        atom: {
+          api: apiTitle,
+          name,
+        },
+        fields,
+      }
+    })
+  }, component)
 }
-
-interface ComponentData {
-  name: string
-  props: Array<AntdDesignApi>
-}
-
-export const antdTableKeys: Array<keyof AntdDesignApi> = [
-  'property',
-  'description',
-  'type',
-  'default',
-  'version',
-]
-
-const toSkip = new Set(['Message', 'Notification'])
 
 export const scrapeAntDesignData = async () => {
-  const browser = await puppeteer.launch({
-    headless: true,
+  const browser = await puppeteer.launch({ headless: 'new' })
+  const overviewPage = await browser.newPage()
+
+  await overviewPage.goto(`${BASE_URL}overview`, { waitUntil: 'networkidle2' })
+
+  // Inject jQuery into the page
+  await overviewPage.addScriptTag({
+    path: 'node_modules/jquery/dist/jquery.min.js',
   })
 
-  const page = await browser.newPage()
-  await page.goto('https://ant.design/components/overview/', {
-    waitUntil: 'networkidle2',
+  overviewPage.on('console', (msg) => console.log('PAGE LOG:', msg.text()))
+
+  const components = await overviewPage.evaluate(() => {
+    const sidebarLinks = Array.from(
+      $('section.main-menu-inner .ant-menu-item a'),
+    )
+
+    return sidebarLinks
+      .map((link) => $(link).attr('href')?.replace('/components/', '') || '')
+      .filter((link) => link !== 'overview')
+    // .slice(0, 3)
   })
 
-  // Get all links of components
-  const urls = (
-    await page.evaluate(() =>
-      Array.from<HTMLLinkElement, [string, HTMLLinkElement['href']]>(
-        document.querySelectorAll(
-          'section.main-menu-inner li[role="menuitem"] a',
-        ),
-        (link) => {
-          const component = link.innerText
-
-          return [component, link.href]
-        },
-      ),
-    )
-  )
-    // This page has no components
-    .filter(([component, href]) => !href.includes('components/overview'))
-    // Use this for testing only
-    .slice(0, 3)
-
-  console.log(`Found ${urls.length} links!`)
-
-  const urlsMap = new Map(urls)
-  let pagesCount = 1
-
-  for (const [componentPage, url] of urlsMap.entries()) {
-    if (toSkip.has(componentPage)) {
-      continue
-    }
-
-    console.log('\n-----------------------------------')
-    console.log(`Fetching [${pagesCount}/${urls.length}] ${componentPage}...`)
-    await page.goto(url)
-
-    const tableData: Array<ComponentData | undefined> = await page.evaluate(
-      (_tableKeys, _pageName) => {
-        const extractPropsFromTable = (tableToExtract: HTMLTableElement) => {
-          const rows = Array.from<HTMLTableRowElement>(
-            tableToExtract.querySelectorAll('tbody tr'),
-          )
-
-          return (
-            rows
-              .map((tr) => tr.querySelectorAll('td'))
-              // some tables are missing version
-              .filter((tableValues) => tableValues.length >= 4)
-              .map((tableValues) => {
-                const typeTdChildren = Array.from(
-                  tableValues[2]?.children ?? [],
-                ) as Array<Node>
-
-                const textTdContent = tableValues[2]?.textContent ?? ''
-
-                return {
-                  [`${_tableKeys[0]}`]: tableValues[0]?.innerText,
-                  [`${_tableKeys[1]}`]: tableValues[1]?.innerText,
-                  [`${_tableKeys[2]}`]: tableValues[2]?.innerText,
-                  [`${_tableKeys[3]}`]: tableValues[3]?.innerText,
-                  // some tables are missing version
-                  [`${_tableKeys[4]}`]: tableValues[4]?.innerText,
-                  // Enums are displayed within a code block, we can recognize them by that
-                  // if all children of type are in code blocks, we can say that the whole
-                  // props in of enum type
-                  isEnum:
-                    typeTdChildren.length > 1 &&
-                    typeTdChildren.every(
-                      (child) => (child as HTMLElement).tagName === 'CODE',
-                    ) &&
-                    !/(function|=>|<)/g.test(textTdContent),
-                } as unknown as AntdDesignApi
-              })
-          )
-        }
-
-        const tables = document.querySelectorAll('section.api-container table')
-
-        if (tables.length === 0) {
-          // No tables?
-          return []
-        }
-
-        if (tables.length === 1) {
-          // Single table
-          return [
-            {
-              name: _pageName,
-              props: extractPropsFromTable(tables[0] as HTMLTableElement),
-            },
-          ]
-        }
-
-        // Multiple tables (components)
-        return Array.from(tables).map((table) => {
-          let name: string | undefined = undefined
-
-          if (table.tagName !== 'TABLE') {
-            return
-          }
-
-          const checkPrevSibling = (el: HTMLElement, triesLeft: number) => {
-            if (triesLeft <= 0 || !el.previousSibling) {
-              return
-            }
-
-            if ((el.previousSibling as HTMLElement).tagName === 'H3') {
-              name = (el.previousSibling.firstChild as HTMLElement).innerText
-
-              return
-            }
-
-            checkPrevSibling(el.previousSibling as HTMLElement, triesLeft - 1)
-          }
-
-          checkPrevSibling(table as HTMLElement, 3)
-
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          if (!name) {
-            return
-          }
-
-          return {
-            name,
-            props: extractPropsFromTable(table as HTMLTableElement),
-          }
-        })
-      },
-      antdTableKeys,
-      componentPage,
+  for (const [index, component] of components.entries()) {
+    console.log(
+      `Fetching component data: ${component} (${index + 1}/${
+        components.length
+      })...`,
     )
 
-    try {
-      tableData
-        .filter((data): data is ComponentData => Boolean(data))
-        .filter((data) => data.props.length > 0)
-        .forEach(({ name, props }) => {
-          const csv = parse(props, {
-            fields: [...antdTableKeys, 'isEnum'],
-          })
+    const apiData = await getComponentApiData(browser, component)
 
-          const componentName =
-            name === 'API' || componentPage === name
-              ? undefined
-              : name.replace('/', '_')
-
-          fs.writeFileSync(
-            `${process.cwd()}/data/antd/${componentPage}${
-              componentName ? '--' + componentName : ''
-            }.csv`,
-            csv,
-          )
-        })
-    } catch (err) {
-      console.error(err)
-    }
-
-    pagesCount++
+    fs.writeFileSync(
+      path.join(outputDirectory, `${component}.json`),
+      JSON.stringify(apiData, null, 2),
+    )
   }
 
   await browser.close()
+
+  console.log(
+    'Scraping completed. The data has been saved to the "data/antd-v5" directory.',
+  )
 }

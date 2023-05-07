@@ -9,7 +9,7 @@ import {
 import type { IApp, IDomain } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { MenuProps } from 'antd'
-import { Button, Dropdown, Menu } from 'antd'
+import { Button, Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useRouter } from 'next/router'

@@ -1,0 +1,201 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "steps"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Additional class to Steps",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the current step, counting from 0. You can overwrite this state by using status of Step",
+        "property": "current",
+        "type": "number",
+        "version": "0"
+      },
+      {
+        "defaultValue": "",
+        "description": "To specify the direction of the step bar, horizontal or vertical",
+        "property": "direction",
+        "type": "string",
+        "version": "horizontal"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the initial step, counting from 0",
+        "property": "initial",
+        "type": "number",
+        "version": "0"
+      },
+      {
+        "defaultValue": "",
+        "description": "Place title and description with horizontal or vertical direction",
+        "property": "labelPlacement",
+        "type": "string",
+        "version": "horizontal"
+      },
+      {
+        "defaultValue": "4.5.0",
+        "description": "Progress circle percentage of current step in process status (only works on basic Steps)",
+        "property": "percent",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Steps with progress dot style, customize the progress dot by setting it to a function. labelPlacement will be vertical",
+        "property": "progressDot",
+        "type": "boolean | (iconDot, {index, status, title, description}) => ReactNode",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Change to vertical direction when screen width smaller than 532px",
+        "property": "responsive",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "To specify the size of the step bar, default and small are currently supported",
+        "property": "size",
+        "type": "string",
+        "version": "default"
+      },
+      {
+        "defaultValue": "",
+        "description": "To specify the status of current step, can be set to one of the following values: wait process finish error",
+        "property": "status",
+        "type": "string",
+        "version": "process"
+      },
+      {
+        "defaultValue": "inline: 5.0",
+        "description": "Type of steps, can be set to one of the following values: default navigation inline",
+        "property": "type",
+        "type": "string",
+        "version": "default"
+      },
+      {
+        "defaultValue": "",
+        "description": "Trigger when Step is changed",
+        "property": "onChange",
+        "type": "(current) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.24.0",
+        "description": "StepItem content",
+        "property": "items",
+        "type": "StepItem",
+        "version": "[]"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "type=\"inline\"",
+      "name": "steps"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Additional class to Steps",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the current step, counting from 0. You can overwrite this state by using status of Step",
+        "property": "current",
+        "type": "number",
+        "version": "0"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set the initial step, counting from 0",
+        "property": "initial",
+        "type": "number",
+        "version": "0"
+      },
+      {
+        "defaultValue": "",
+        "description": "To specify the status of current step, can be set to one of the following values: wait process finish error",
+        "property": "status",
+        "type": "string",
+        "version": "process"
+      },
+      {
+        "defaultValue": "",
+        "description": "Trigger when Step is changed",
+        "property": "onChange",
+        "type": "(current) => void",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.24.0",
+        "description": "StepItem content. not supported: icon subtitle",
+        "property": "items",
+        "type": "StepItem",
+        "version": "[]"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "steps"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Description of the step, optional property",
+        "property": "description",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Disable click",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Icon of the step, optional property",
+        "property": "icon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To specify the status. It will be automatically set by current of Steps if not configured. Optional values are: wait process finish error",
+        "property": "status",
+        "type": "string",
+        "version": "wait"
+      },
+      {
+        "defaultValue": "",
+        "description": "Subtitle of the step",
+        "property": "subTitle",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Title of the step",
+        "property": "title",
+        "type": "ReactNode",
+        "version": "-"
+      }
+    ]
+  }
+]

@@ -1,0 +1,200 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "input-number"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "The label text displayed after (on the right side of) the input field",
+        "property": "addonAfter",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The label text displayed before (on the left side of) the input field",
+        "property": "addonBefore",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "-",
+        "description": "If get focus when component mounted",
+        "property": "autoFocus",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.12.0",
+        "description": "Whether has border style",
+        "property": "bordered",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "4.19.0",
+        "description": "Whether to show +- controls, or set custom arrows icon",
+        "property": "controls",
+        "type": "boolean | { upIcon?: React.ReactNode; downIcon?: React.ReactNode; }",
+        "version": "-"
+      },
+      {
+        "defaultValue": "-",
+        "description": "Decimal separator",
+        "property": "decimalSeparator",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "-",
+        "description": "The initial value",
+        "property": "defaultValue",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "-",
+        "description": "If disable the input",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "info: 4.17.0",
+        "description": "Specifies the format of the value presented",
+        "property": "formatter",
+        "type": "function(value: number | string, info: { userTyping: boolean, input: string }): string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.12.0",
+        "description": "If enable keyboard behavior",
+        "property": "keyboard",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "-",
+        "description": "The max value",
+        "property": "max",
+        "type": "number",
+        "version": "Number.MAX_SAFE_INTEGER"
+      },
+      {
+        "defaultValue": "-",
+        "description": "The min value",
+        "property": "min",
+        "type": "number",
+        "version": "Number.MIN_SAFE_INTEGER"
+      },
+      {
+        "defaultValue": "-",
+        "description": "Specifies the value extracted from formatter",
+        "property": "parser",
+        "type": "function(string): number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "-",
+        "description": "The precision of input value. Will use formatter when config of formatter",
+        "property": "precision",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "-",
+        "description": "If readonly the input",
+        "property": "readOnly",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.19.0",
+        "description": "Set validation status",
+        "property": "status",
+        "type": "'error' | 'warning'",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "The prefix icon for the Input",
+        "property": "prefix",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "-",
+        "description": "The height of input box",
+        "property": "size",
+        "type": "large | middle | small",
+        "version": "-"
+      },
+      {
+        "defaultValue": "-",
+        "description": "The number to which the current value is increased or decreased. It can be an integer or decimal",
+        "property": "step",
+        "type": "number | string",
+        "version": "1"
+      },
+      {
+        "defaultValue": "4.13.0",
+        "description": "Set value as string to support high precision decimals. Will return string value by onChange",
+        "property": "stringMode",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "-",
+        "description": "The current value",
+        "property": "value",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "-",
+        "description": "The callback triggered when the value is changed",
+        "property": "onChange",
+        "type": "function(value: number | string | null)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "-",
+        "description": "The callback function that is triggered when Enter key is pressed",
+        "property": "onPressEnter",
+        "type": "function(e)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.7.0",
+        "description": "The callback function that is triggered when click up or down buttons",
+        "property": "onStep",
+        "type": "(value: number, info: { offset: number, type: 'up' | 'down' }) => void",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "input-number"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Remove focus",
+        "property": "blur()",
+        "type": "",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Get focus",
+        "property": "focus()",
+        "type": "",
+        "version": ""
+      }
+    ]
+  }
+]

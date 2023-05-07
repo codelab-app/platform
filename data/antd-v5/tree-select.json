@@ -1,0 +1,453 @@
+[
+  {
+    "atom": {
+      "api": "Tree props",
+      "name": "tree-select"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Whether allow clear",
+        "property": "allowClear",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "If auto clear search input value when multiple select is selected/deselected",
+        "property": "autoClearSearchValue",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether has border style",
+        "property": "bordered",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the initial selected treeNode(s)",
+        "property": "defaultValue",
+        "type": "string | string[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Disabled or not",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "4.23.0",
+        "description": "The className of dropdown menu",
+        "property": "popupClassName",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Determine whether the dropdown menu and the select input are the same width. Default set min-width same as input. Will ignore when value less than select width. false will disable virtual scroll",
+        "property": "dropdownMatchSelectWidth",
+        "type": "boolean | number",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize dropdown content",
+        "property": "dropdownRender",
+        "type": "(originNode: ReactNode, props) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the style of the dropdown menu",
+        "property": "dropdownStyle",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "Customize node label, value, children field name",
+        "property": "fieldNames",
+        "type": "object",
+        "version": "{ label: label, value: value, children: children }"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to filter treeNodes by input value. The value of treeNodeFilterProp is used for filtering by default",
+        "property": "filterTreeNode",
+        "type": "boolean | function(inputValue: string, treeNode: TreeNode) (should return boolean)",
+        "version": "function"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the container of the dropdown menu. The default is to create a div element in body, you can reset it to the scrolling area and make a relative reposition. example",
+        "property": "getPopupContainer",
+        "type": "function(triggerNode)",
+        "version": "() => document.body"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to embed label in value, turn the format of value from string to {value: string, label: ReactNode, halfChecked: string[]}",
+        "property": "labelInValue",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Config popup height",
+        "property": "listHeight",
+        "type": "number",
+        "version": "256"
+      },
+      {
+        "defaultValue": "",
+        "description": "Load data asynchronously",
+        "property": "loadData",
+        "type": "function(node)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "responsive: 4.10",
+        "description": "Max tag count to show. responsive will cost render performance",
+        "property": "maxTagCount",
+        "type": "number | responsive",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Placeholder for not showing tags",
+        "property": "maxTagPlaceholder",
+        "type": "ReactNode | function(omittedValues)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Max tag text length to show",
+        "property": "maxTagTextLength",
+        "type": "number",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Support multiple or not, will be true when enable treeCheckable",
+        "property": "multiple",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify content to show when no result matches",
+        "property": "notFoundContent",
+        "type": "ReactNode",
+        "version": "Not Found"
+      },
+      {
+        "defaultValue": "",
+        "description": "Placeholder of the select input",
+        "property": "placeholder",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The position where the selection box pops up",
+        "property": "placement",
+        "type": "bottomLeft bottomRight topLeft topRight",
+        "version": "bottomLeft"
+      },
+      {
+        "defaultValue": "",
+        "description": "Work with onSearch to make search value controlled",
+        "property": "searchValue",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to show the suffixIcon",
+        "property": "showArrow",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "The way show selected item in box when treeCheckable set. Default: just show child nodes. TreeSelect.SHOW_ALL: show all checked treeNodes (include parent treeNode). TreeSelect.SHOW_PARENT: show checked treeNodes (just show parent treeNode)",
+        "property": "showCheckedStrategy",
+        "type": "TreeSelect.SHOW_ALL | TreeSelect.SHOW_PARENT | TreeSelect.SHOW_CHILD",
+        "version": "TreeSelect.SHOW_CHILD"
+      },
+      {
+        "defaultValue": "",
+        "description": "Support search or not",
+        "property": "showSearch",
+        "type": "boolean",
+        "version": "single: false | multiple: true"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the size of the select input",
+        "property": "size",
+        "type": "large | middle | small",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.19.0",
+        "description": "Set validation status",
+        "property": "status",
+        "type": "'error' | 'warning'",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The custom suffix icon,you must set showArrow to true manually in multiple selection mode",
+        "property": "suffixIcon",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "renderProps: 4.20.0",
+        "description": "Customize collapse/expand icon of tree node",
+        "property": "switcherIcon",
+        "type": "ReactNode | ((props: AntTreeNodeProps) => ReactNode)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Customize tag render when multiple",
+        "property": "tagRender",
+        "type": "(props) => ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to show checkbox on the treeNodes",
+        "property": "treeCheckable",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to check nodes precisely (in the checkable mode), means parent and child nodes are not associated, and it will make labelInValue be true",
+        "property": "treeCheckStrictly",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Data of the treeNodes, manual construction work is no longer needed if this property has been set(ensure the Uniqueness of each value)",
+        "property": "treeData",
+        "type": "array<{ value, title, children, [disabled, disableCheckbox, selectable, checkable] }>",
+        "version": "[]"
+      },
+      {
+        "defaultValue": "",
+        "description": "Enable simple mode of treeData. Changes the treeData schema to: [{id:1, pId:0, value:'1', title:\"test1\",...},...] where pId is parent node's id). It is possible to replace the default id and pId keys by providing object to treeDataSimpleMode",
+        "property": "treeDataSimpleMode",
+        "type": "boolean | object<{ id: string, pId: string, rootPId: string }>",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether to expand all treeNodes by default",
+        "property": "treeDefaultExpandAll",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Default expanded treeNodes",
+        "property": "treeDefaultExpandedKeys",
+        "type": "string[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.21.0",
+        "description": "Tree title open logic when click, optional: false | click | doubleClick",
+        "property": "treeExpandAction",
+        "type": "string | boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Set expanded keys",
+        "property": "treeExpandedKeys",
+        "type": "string[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Shows the icon before a TreeNode's title. There is no default style; you must set a custom style for it if set to true",
+        "property": "treeIcon",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "(Controlled) Set loaded tree nodes, work with loadData only",
+        "property": "treeLoadedKeys",
+        "type": "string[]",
+        "version": "[]"
+      },
+      {
+        "defaultValue": "4.17.0",
+        "description": "Show the line. Ref Tree - showLine",
+        "property": "treeLine",
+        "type": "boolean | object",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Will be used for filtering if filterTreeNode returns true",
+        "property": "treeNodeFilterProp",
+        "type": "string",
+        "version": "value"
+      },
+      {
+        "defaultValue": "",
+        "description": "Will render as content of select",
+        "property": "treeNodeLabelProp",
+        "type": "string",
+        "version": "title"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the current selected treeNode(s)",
+        "property": "value",
+        "type": "string | string[]",
+        "version": "-"
+      },
+      {
+        "defaultValue": "4.1.0",
+        "description": "Disable virtual scroll when set to false",
+        "property": "virtual",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "A callback function, can be executed when selected treeNodes or input value change",
+        "property": "onChange",
+        "type": "function(value, label, extra)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Called when dropdown open",
+        "property": "onDropdownVisibleChange",
+        "type": "function(open)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "A callback function, can be executed when the search input changes",
+        "property": "onSearch",
+        "type": "function(value: string)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "A callback function, can be executed when you select a treeNode",
+        "property": "onSelect",
+        "type": "function(value, node, extra)",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "A callback function, can be executed when treeNode expanded",
+        "property": "onTreeExpand",
+        "type": "function(expandedKeys)",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "Tree Methods",
+      "name": "tree-select"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Remove focus",
+        "property": "blur()",
+        "type": "",
+        "version": ""
+      },
+      {
+        "defaultValue": "",
+        "description": "Get focus",
+        "property": "focus()",
+        "type": "",
+        "version": ""
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "tree-select"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "When Tree is checkable, set TreeNode display Checkbox or not",
+        "property": "checkable",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Disables the checkbox of the treeNode",
+        "property": "disableCheckbox",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Disabled or not",
+        "property": "disabled",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Leaf node or not",
+        "property": "isLeaf",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Required property (unless using treeDataSimpleMode), should be unique in the tree",
+        "property": "key",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether can be selected",
+        "property": "selectable",
+        "type": "boolean",
+        "version": "true"
+      },
+      {
+        "defaultValue": "",
+        "description": "Content showed on the treeNodes",
+        "property": "title",
+        "type": "ReactNode",
+        "version": "---"
+      },
+      {
+        "defaultValue": "",
+        "description": "Will be treated as treeNodeFilterProp by default, should be unique in the tree",
+        "property": "value",
+        "type": "string",
+        "version": "-"
+      }
+    ]
+  }
+]

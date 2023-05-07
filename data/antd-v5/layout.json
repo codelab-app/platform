@@ -1,0 +1,137 @@
+[
+  {
+    "atom": {
+      "api": "",
+      "name": "layout"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Container className",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether contain Sider in children, don't have to assign it normally. Useful in ssr avoid style flickering",
+        "property": "hasSider",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To customize the styles",
+        "property": "style",
+        "type": "CSSProperties",
+        "version": "-"
+      }
+    ]
+  },
+  {
+    "atom": {
+      "api": "",
+      "name": "layout"
+    },
+    "fields": [
+      {
+        "defaultValue": "",
+        "description": "Breakpoints of the responsive layout",
+        "property": "breakpoint",
+        "type": "xs | sm | md | lg | xl | xxl",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Container className",
+        "property": "className",
+        "type": "string",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the current status",
+        "property": "collapsed",
+        "type": "boolean",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Width of the collapsed sidebar, by setting to 0 a special trigger will appear",
+        "property": "collapsedWidth",
+        "type": "number",
+        "version": "80"
+      },
+      {
+        "defaultValue": "",
+        "description": "Whether can be collapsed",
+        "property": "collapsible",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "To set the initial status",
+        "property": "defaultCollapsed",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "Reverse direction of arrow, for a sider that expands from the right",
+        "property": "reverseArrow",
+        "type": "boolean",
+        "version": "false"
+      },
+      {
+        "defaultValue": "",
+        "description": "To customize the styles",
+        "property": "style",
+        "type": "CSSProperties",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Color theme of the sidebar",
+        "property": "theme",
+        "type": "light | dark",
+        "version": "dark"
+      },
+      {
+        "defaultValue": "",
+        "description": "Specify the customized trigger, set to null to hide the trigger",
+        "property": "trigger",
+        "type": "ReactNode",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "Width of the sidebar",
+        "property": "width",
+        "type": "number | string",
+        "version": "200"
+      },
+      {
+        "defaultValue": "",
+        "description": "To customize the styles of the special trigger that appears when collapsedWidth is 0",
+        "property": "zeroWidthTriggerStyle",
+        "type": "object",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The callback function, executed when breakpoints changed",
+        "property": "onBreakpoint",
+        "type": "(broken) => {}",
+        "version": "-"
+      },
+      {
+        "defaultValue": "",
+        "description": "The callback function, executed by clicking the trigger or activating the responsive layout",
+        "property": "onCollapse",
+        "type": "(collapsed, type) => {}",
+        "version": "-"
+      }
+    ]
+  }
+]

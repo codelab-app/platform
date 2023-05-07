@@ -9,7 +9,6 @@ import tw from 'twin.macro'
 import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { TypeSelect, typeSelectOptions } from '../../../shared'
-import { typeRef } from '../../../store'
 import { createTypeSchema } from './create-type.schema'
 import { DisplayIfKind } from './DisplayIfKind'
 
