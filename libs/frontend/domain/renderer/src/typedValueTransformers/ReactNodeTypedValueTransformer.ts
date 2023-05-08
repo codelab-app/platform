@@ -45,7 +45,7 @@ export class ReactNodeTypedValueTransformer
 
   public transform(value: TypedValue<string>, element: IElement) {
     // value is a custom JS component
-    if (hasStateExpression(value.value)) {
+    if (hasStateExpression(value.value) && expressionTransformer.initialized) {
       const transpiledValue =
         expressionTransformer.transpileAndEvaluateExpression(value.value)
 
