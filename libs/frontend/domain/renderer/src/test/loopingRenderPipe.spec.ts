@@ -1,52 +1,73 @@
-import type { IRenderOutput } from '@codelab/frontend/abstract/core'
-import { LoopingRenderPipe } from '../renderPipes/loopingRenderPipe'
+import {
+  DATA_ELEMENT_ID,
+  isAtomInstance,
+} from '@codelab/frontend/abstract/core'
+import { ConditionalRenderPipe } from '../renderPipes/conditionalRenderPipe'
 import { setupTestForRenderer } from './setup/setup-test'
 
-const initialProps = {
-  data: [
-    { prop01: 'prop01Value' },
-    { prop02: 'prop02Value' },
-    { prop03: 'prop03Value' },
-    { prop04: 'prop04Value' },
-  ],
-}
-
-describe('LoopingRenderPipe.', () => {
-  const data = setupTestForRenderer([LoopingRenderPipe])
+describe('ConditionalRenderPipe', () => {
+  const data = setupTestForRenderer([ConditionalRenderPipe])
 
   beforeEach(() => {
-    data.pageRootElement.setRenderForEachPropKey('data')
+    data.element.setRenderIfExpression('{{this.shouldRender}}')
   })
 
-  it('should add renderForEachPropKey props', () => {
-    const renderOutputs = data.renderer.renderIntermediateElement(
-      data.pageRootElement,
+  it('should render normally if no expression is set', async () => {
+    data.element.setRenderIfExpression(undefined)
+
+    const output = data.rootStore.renderer.renderIntermediateElement(
+      data.element,
+      {},
+    )
+
+    const atomType = isAtomInstance(data.element.renderType)
+      ? data.element.renderType.current.type
+      : null
+
+    expect(output).toEqual({
+      atomType,
+      element: data.element,
+      props: expect.objectContaining({
+        [DATA_ELEMENT_ID]: data.element.id,
+      }),
+    })
+  })
+
+  it('should stop rendering by returning an empty output', async () => {
+    data.element.store.current.setInitialState({ shouldRender: false })
+
+    const output = data.rootStore.renderer.renderIntermediateElement(
+      data.element,
+      {},
+    )
+
+    expect(output).toMatchObject({
+      element: data.element,
+    })
+  })
+
+  it('should continue rendering', async () => {
+    data.element.store.current.setInitialState({ shouldRender: true })
+
+    const initialProps = {
+      prop01: 'prop01',
+    }
+
+    const output = data.rootStore.renderer.renderIntermediateElement(
+      data.element,
       initialProps,
-    ) as Array<IRenderOutput>
+    )
 
-    const props = renderOutputs.map((output) => output.props)
+    const atomType = isAtomInstance(data.element.renderType)
+      ? data.element.renderType.current.type
+      : null
 
-    expect(props).toMatchObject([
-      {
-        key: `${data.pageRootElement.id}-0`,
-        prop01: 'prop01Value',
-        ...initialProps,
-      },
-      {
-        key: `${data.pageRootElement.id}-1`,
-        prop02: 'prop02Value',
-        ...initialProps,
-      },
-      {
-        key: `${data.pageRootElement.id}-2`,
-        prop03: 'prop03Value',
-        ...initialProps,
-      },
-      {
-        key: `${data.pageRootElement.id}-3`,
-        prop04: 'prop04Value',
-        ...initialProps,
-      },
-    ])
+    expect(output).toEqual({
+      atomType,
+      element: data.element,
+      props: expect.objectContaining({
+        [DATA_ELEMENT_ID]: data.element.id,
+      }),
+    })
   })
 })

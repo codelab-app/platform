@@ -2,68 +2,71 @@ import {
   DATA_ELEMENT_ID,
   isAtomInstance,
 } from '@codelab/frontend/abstract/core'
-import { AtomRenderPipe } from '../renderPipes/atomRenderPipe'
 import { ConditionalRenderPipe } from '../renderPipes/conditionalRenderPipe'
 import { setupTestForRenderer } from './setup/setup-test'
 
 describe('ConditionalRenderPipe', () => {
-  const data = setupTestForRenderer([AtomRenderPipe, ConditionalRenderPipe])
+  const data = setupTestForRenderer([ConditionalRenderPipe])
 
   beforeEach(() => {
-    data.atomInstance.setRenderIfExpression('{{this.shouldRender}}')
+    data.element.setRenderIfExpression('{{this.shouldRender}}')
   })
 
   it('should render normally if no expression is set', async () => {
-    const output = data.renderer.renderIntermediateElement(
-      data.atomInstance,
+    data.element.setRenderIfExpression(undefined)
+
+    const output = data.rootStore.renderer.renderIntermediateElement(
+      data.element,
       {},
     )
 
-    const atomType = isAtomInstance(data.atomInstance.renderType)
-      ? data.atomInstance.renderType.current.type
+    const atomType = isAtomInstance(data.element.renderType)
+      ? data.element.renderType.current.type
       : null
 
-    expect(output).toMatchObject({
+    expect(output).toEqual({
       atomType,
-      element: data.atomInstance,
+      element: data.element,
       props: expect.objectContaining({
-        [DATA_ELEMENT_ID]: data.atomInstance.id,
+        [DATA_ELEMENT_ID]: data.element.id,
       }),
     })
   })
 
   it('should stop rendering by returning an empty output', async () => {
-    data.atomInstance.store.current.setInitialState({ shouldRender: false })
+    data.element.store.current.setInitialState({ shouldRender: false })
 
-    const output = data.renderer.renderIntermediateElement(
-      data.atomInstance,
+    const output = data.rootStore.renderer.renderIntermediateElement(
+      data.element,
       {},
     )
 
-    expect(output).toMatchObject({ element: data.atomInstance })
+    expect(output).toMatchObject({
+      element: data.element,
+    })
   })
 
   it('should continue rendering', async () => {
-    data.atomInstance.store.current.setInitialState({ shouldRender: true })
+    data.element.store.current.setInitialState({ shouldRender: true })
 
     const initialProps = {
       prop01: 'prop01',
     }
 
-    const output = data.renderer.renderIntermediateElement(
-      data.atomInstance,
+    const output = data.rootStore.renderer.renderIntermediateElement(
+      data.element,
       initialProps,
     )
 
-    const atomType = isAtomInstance(data.atomInstance.renderType)
-      ? data.atomInstance.renderType.current.type
+    const atomType = isAtomInstance(data.element.renderType)
+      ? data.element.renderType.current.type
       : null
 
-    expect(output).toMatchObject({
+    expect(output).toEqual({
       atomType,
-      element: data.atomInstance,
+      element: data.element,
       props: expect.objectContaining({
-        [DATA_ELEMENT_ID]: data.atomInstance.id,
+        [DATA_ELEMENT_ID]: data.element.id,
       }),
     })
   })
