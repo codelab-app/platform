@@ -1,6 +1,6 @@
-import type { IApp } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { ExplorerPaneTemplate } from '@codelab/frontend/presentation/view'
-import type { Nullish } from '@codelab/shared/abstract/types'
+import { useAsync, useMountEffect } from '@react-hookz/web'
 import { Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -13,20 +13,27 @@ import {
 } from '../use-cases'
 
 interface ExplorerPanePageProps {
-  app: Nullish<IApp>
-  loading: boolean
+  appId: string
 }
 
-export const ExplorerPanePage = observer(
-  ({ app, loading }: ExplorerPanePageProps) => {
-    return (
-      <ExplorerPaneTemplate header={<CreatePageButton key={0} />} title="Pages">
-        {loading || !app ? <Spin /> : <PageList app={app} />}
+export const ExplorerPanePage = observer(({ appId }: ExplorerPanePageProps) => {
+  const { appService } = useStore()
 
-        <CreatePageModal />
-        <UpdatePageModal />
-        <DeletePageModal />
-      </ExplorerPaneTemplate>
-    )
-  },
-)
+  const [{ result: apps, status }, actions] = useAsync(() =>
+    appService.loadAppsWithNestedPreviews({ id: appId }),
+  )
+
+  useMountEffect(actions.execute)
+
+  const isLoading = status === 'loading' || status === 'not-executed'
+
+  return (
+    <ExplorerPaneTemplate header={<CreatePageButton key={0} />} title="Pages">
+      {isLoading || !apps?.[0] ? <Spin /> : <PageList app={apps[0]} />}
+
+      <CreatePageModal />
+      <UpdatePageModal />
+      <DeletePageModal />
+    </ExplorerPaneTemplate>
+  )
+})

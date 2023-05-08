@@ -68,10 +68,6 @@ export const Builder = observer(() => {
     [isOver],
   )
 
-  if (!elementTree || !renderer) {
-    return null
-  }
-
   const defaultSize = useMemo(() => {
     if (
       builderContainerWidth > 0 &&
@@ -129,6 +125,10 @@ export const Builder = observer(() => {
       )
     }
   }, [selectedBuilderWidth, builderContainerWidth])
+
+  if (!elementTree || !renderer) {
+    return null
+  }
 
   return (
     <StyledBuilderContainer ref={containerRef}>

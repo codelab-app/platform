@@ -88,6 +88,7 @@ export const PageBuilderAppFragmentDoc = gql`
           { kind: Provider }
           { kind: NotFound }
           { kind: InternalServerError }
+          { kind: Regular }
         ]
       }
     ) {

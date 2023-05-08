@@ -43,7 +43,7 @@ Pages.Layout = observer(({ children }) => {
   const pageId = useCurrentPageId()
   const { appService } = useStore()
 
-  const [{ result: apps, status }, actions] = useAsync(() =>
+  const [{ result: apps }, actions] = useAsync(() =>
     appService.loadAppsWithNestedPreviews({ id: appId }),
   )
 
@@ -56,12 +56,7 @@ Pages.Layout = observer(({ children }) => {
         items: [
           {
             key: PageType.PageList,
-            render: () => (
-              <ExplorerPanePage
-                app={apps?.[0]}
-                loading={status === 'loading' || status === 'not-executed'}
-              />
-            ),
+            render: () => <ExplorerPanePage appId={appId} />,
           },
         ],
       }}

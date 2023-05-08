@@ -16,20 +16,18 @@ import {
   useCurrentPageId,
   useRemainingPages,
   useRenderedPage,
-  useStore,
 } from '@codelab/frontend/presentation/container'
 import {
   DashboardTemplate,
   sidebarNavigation,
 } from '@codelab/frontend/presentation/view'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
-import { useAsync, useMountEffect } from '@react-hookz/web'
+import { useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 
 const PageBuilder: CodelabPage = observer(() => {
-  const { appService } = useStore()
   const [, lazilyLoadRemainingPages] = useRemainingPages()
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
@@ -38,14 +36,13 @@ const PageBuilder: CodelabPage = observer(() => {
     rendererType: RendererType.PageBuilder,
   })
 
-  const [{ result: apps, status: appsLoadingStatus }, actions] = useAsync(() =>
-    appService.loadAppsWithNestedPreviews({ id: appId }),
-  )
-
   useMountEffect(() => {
-    void loadCurrentPage.execute().finally(actions.execute)
     void lazilyLoadRemainingPages.execute()
   })
+
+  useEffect(() => {
+    void loadCurrentPage.execute()
+  }, [pageId])
 
   const isLoading = status !== 'success'
   const contentStyles = useMemo(() => ({ paddingTop: '0rem' }), [])
@@ -62,15 +59,7 @@ const PageBuilder: CodelabPage = observer(() => {
           },
           {
             key: PageType.PageList,
-            render: () => (
-              <ExplorerPanePage
-                app={apps?.[0]}
-                loading={
-                  appsLoadingStatus === 'loading' ||
-                  appsLoadingStatus === 'not-executed'
-                }
-              />
-            ),
+            render: () => <ExplorerPanePage appId={appId} />,
           },
         ],
       }}
