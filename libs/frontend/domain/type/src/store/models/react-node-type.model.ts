@@ -1,7 +1,5 @@
-import type {
-  IReactNodeType,
-  IReactNodeTypeDTO,
-} from '@codelab/frontend/abstract/core'
+import type { IReactNodeType } from '@codelab/frontend/abstract/core'
+import type { IReactNodeTypeDTO } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'

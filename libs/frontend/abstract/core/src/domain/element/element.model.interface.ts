@@ -2,6 +2,7 @@ import type {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
+import type { IAuth0Owner, IElementDTO } from '@codelab/shared/abstract/core'
 import type {
   IEntity,
   Maybe,
@@ -17,8 +18,6 @@ import type { IModel } from '../model.interface'
 import type { IPage } from '../page'
 import type { IProp, IPropData } from '../prop'
 import type { IStore } from '../store'
-import type { IAuth0Owner } from '../user'
-import type { IElementDTO } from './element.dto.interface'
 import type { IElementRenderType } from './render-type'
 
 /**

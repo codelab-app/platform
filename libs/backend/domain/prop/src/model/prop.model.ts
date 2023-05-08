@@ -1,4 +1,4 @@
-import type { IPropDTO } from '@codelab/frontend/abstract/core'
+import type { IPropDTO } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 
 export class Prop implements IPropDTO {

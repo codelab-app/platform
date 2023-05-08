@@ -1,10 +1,8 @@
-import type {
-  IAtom,
-  IComponent,
-  IElementDTO,
-} from '@codelab/frontend/abstract/core'
-import { componentRef, IRenderTypeKind } from '@codelab/frontend/abstract/core'
+import type { IAtom, IComponent } from '@codelab/frontend/abstract/core'
+import { componentRef } from '@codelab/frontend/abstract/core'
 import { atomRef } from '@codelab/frontend/domain/atom'
+import type { IElementDTO } from '@codelab/shared/abstract/core'
+import { IRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 
 export const getRenderType = (

@@ -1,4 +1,4 @@
-import { __RenderTypeKind } from '@codelab/frontend/abstract/core'
+import { __RenderTypeKind } from '@codelab/shared/abstract/core'
 import { gql } from 'apollo-server-micro'
 
 const renderTypeKindSchema = `enum RenderTypeKind {

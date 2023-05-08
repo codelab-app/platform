@@ -1,10 +1,10 @@
-import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportReactNodeTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { IReactNodeTypeDTO } from '@codelab/frontend/abstract/core'
+import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { IReactNodeTypeDTO } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 
 export class ReactNodeTypeRepository extends AbstractRepository<
@@ -14,7 +14,7 @@ export class ReactNodeTypeRepository extends AbstractRepository<
 > {
   private ReactNodeType = Repository.instance.ReactNodeType
 
-  async find(where: OGM_TYPES.ReactNodeTypeWhere) {
+  async _find(where: OGM_TYPES.ReactNodeTypeWhere) {
     return await (
       await this.ReactNodeType
     ).find({

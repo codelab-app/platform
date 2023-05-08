@@ -1,5 +1,5 @@
-import type { IComponentExport } from '@codelab/frontend/abstract/core'
 import type { IAppExport } from './app.interface'
+import type { IComponentExport } from './component.interface'
 import type { IResourceExport } from './resource.interface'
 import type { ITypesExport } from './type.interface'
 

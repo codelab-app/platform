@@ -1,14 +1,6 @@
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IAppDTO } from '@codelab/shared/abstract/core'
 import type { RenderedComponentFragment } from '../component/component-render.fragment.graphql.gen'
 import type { BuilderPageFragment } from '../page/page.fragment.graphql.gen'
-import type { IOwnerSchema } from '../user'
-
-export interface IAppDTO extends IOwnerSchema {
-  domains?: Array<IEntity>
-  id: string
-  name: string
-  pages?: Array<IEntity>
-}
 
 export type ICreateAppData = Pick<IAppDTO, 'id' | 'name' | 'owner'>
 

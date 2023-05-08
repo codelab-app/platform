@@ -4,7 +4,7 @@ import type {
   IPropService,
   IUpdatePropData,
 } from '@codelab/frontend/abstract/core'
-import { IPropDTO } from '@codelab/frontend/abstract/core'
+import { IPropDTO } from '@codelab/shared/abstract/core'
 import {
   _async,
   _await,

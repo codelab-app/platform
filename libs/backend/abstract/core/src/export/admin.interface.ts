@@ -1,4 +1,4 @@
-import type { ITagDTO } from '@codelab/frontend/abstract/core'
+import type { ITagDTO } from '@codelab/shared/abstract/core'
 import type { IAtomExport } from '../seed/atom.interface'
 import type { ITypesExport } from './type.interface'
 

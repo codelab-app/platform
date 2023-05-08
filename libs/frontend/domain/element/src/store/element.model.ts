@@ -1,8 +1,6 @@
 import type {
   IAtom,
-  IAuth0Owner,
   IComponent,
-  IElementDTO,
   IElementRenderType,
   IHook,
   IPage,
@@ -28,6 +26,7 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
+import type { IAuth0Owner, IElementDTO } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {

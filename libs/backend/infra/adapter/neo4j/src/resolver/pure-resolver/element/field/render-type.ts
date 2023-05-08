@@ -1,5 +1,5 @@
-import { IRenderTypeKind } from '@codelab/frontend/abstract/core'
 import type { Element } from '@codelab/shared/abstract/codegen'
+import { IRenderTypeKind } from '@codelab/shared/abstract/core'
 
 export const renderType = (element: Element) => {
   const { renderAtomType, renderComponentType } = element

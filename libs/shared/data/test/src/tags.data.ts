@@ -1,4 +1,4 @@
-import type { IAuth0Owner, ITagDTO } from '@codelab/frontend/abstract/core'
+import type { IAuth0Owner, ITagDTO } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 type PartialTagDTO = Partial<ITagDTO> & Pick<ITagDTO, 'name'>

@@ -1,4 +1,4 @@
-import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
+import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 

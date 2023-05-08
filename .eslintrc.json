@@ -78,7 +78,7 @@
         //     "enforceForRenamedProperties": false
         //   }
         // ],
-        "unused-imports/no-unused-imports-ts": "error",
+        // "unused-imports/no-unused-imports-ts": "error",
         "id-length": [
           "error",
           {
@@ -335,19 +335,6 @@
                 "sourceTag": "type:abstract",
                 "onlyDependOnLibsWithTags": ["type:abstract"]
               },
-              // {
-              //   "sourceTag": "layer:domain:frontend",
-              //   "onlyDependOnLibsWithTags": [
-              //     "scope:shared",
-              //     "layer:domain:frontend",
-              //     "layer:infra",
-              //     "type:abstract"
-              //   ]
-              // },
-              // {
-              //   "sourceTag": "type:test",
-              //   "onlyDependOnLibsWithTags": ["layer:application"]
-              // },
               {
                 "sourceTag": "scope:frontend",
                 "onlyDependOnLibsWithTags": [
@@ -362,7 +349,6 @@
                 "onlyDependOnLibsWithTags": [
                   "scope:backend",
                   "scope:shared",
-                  "type:abstract",
                   "scope:codegen"
                 ]
               },

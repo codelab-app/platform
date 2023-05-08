@@ -1,10 +1,10 @@
-import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportPrimitiveTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { IPrimitiveTypeDTO } from '@codelab/frontend/abstract/core'
+import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { IPrimitiveTypeDTO } from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 
@@ -15,7 +15,7 @@ export class PrimitiveTypeRepository extends AbstractRepository<
 > {
   private PrimitiveType = Repository.instance.PrimitiveType
 
-  async find(where: OGM_TYPES.PrimitiveTypeWhere) {
+  async _find(where: OGM_TYPES.PrimitiveTypeWhere) {
     return await (
       await this.PrimitiveType
     ).find({

@@ -1,7 +1,7 @@
 import type { TagNode, TagNodeData } from '@codelab/backend/abstract/core'
 import { IAuthUseCase } from '@codelab/backend/abstract/types'
 import { TagRepository } from '@codelab/backend/domain/tag'
-import type { ITagDTO } from '@codelab/frontend/abstract/core'
+import type { ITagDTO } from '@codelab/shared/abstract/core'
 import uniqBy from 'lodash/uniqBy'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'

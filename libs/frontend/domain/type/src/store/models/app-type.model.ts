@@ -1,4 +1,5 @@
-import type { IAppType, IAppTypeDTO } from '@codelab/frontend/abstract/core'
+import type { IAppType } from '@codelab/frontend/abstract/core'
+import type { IAppTypeDTO } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'

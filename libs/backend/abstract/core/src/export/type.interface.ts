@@ -1,4 +1,4 @@
-import type { IFieldDTO, ITypeDTO } from '@codelab/frontend/abstract/core'
+import type { IFieldDTO, ITypeDTO } from '@codelab/shared/abstract/core'
 
 export interface ITypesExport {
   fields: Array<IFieldDTO>

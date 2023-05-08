@@ -1,4 +1,4 @@
-import type { IFieldDTO } from '@codelab/frontend/abstract/core'
+import type { IFieldDTO } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 

@@ -1,8 +1,6 @@
-import type {
-  IPrimitiveType,
-  IPrimitiveTypeDTO,
-} from '@codelab/frontend/abstract/core'
+import type { IPrimitiveType } from '@codelab/frontend/abstract/core'
 import type { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import type { IPrimitiveTypeDTO } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'

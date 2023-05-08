@@ -1,5 +1,4 @@
 import type {
-  IAuth0Owner,
   IProp,
   IResource,
   IResourceDTO,
@@ -9,7 +8,7 @@ import type {
   ResourceCreateInput,
   ResourceUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IResourceType } from '@codelab/shared/abstract/core'
+import type { IAuth0Owner, IResourceType } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import type { Ref } from 'mobx-keystone'
 import {

@@ -1,8 +1,8 @@
 import type {
   IAuth0Owner,
   IPrimitiveTypeDTO,
-} from '@codelab/frontend/abstract/core'
-import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
+  IPrimitiveTypeKind,
+} from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { BaseType } from './base-type.model'
 

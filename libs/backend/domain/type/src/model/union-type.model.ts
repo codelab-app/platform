@@ -3,7 +3,7 @@ import type {
   IAuth0Owner,
   IFieldDTO,
   IUnionTypeDTO,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'

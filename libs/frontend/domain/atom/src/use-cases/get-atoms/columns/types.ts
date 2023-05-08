@@ -1,11 +1,10 @@
 import type {
-  IAtomDTO,
   IAtomService,
   IFieldService,
   IInterfaceType,
   ITag,
 } from '@codelab/frontend/abstract/core'
-import type { IAtomType } from '@codelab/shared/abstract/core'
+import type { IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
 
 export interface AtomLibrary {
   color: string

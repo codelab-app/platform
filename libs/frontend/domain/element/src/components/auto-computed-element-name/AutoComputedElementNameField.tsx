@@ -1,6 +1,6 @@
-import type { RenderType } from '@codelab/frontend/abstract/core'
 import { IRenderTypeKind } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
+import type { RenderType } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import type { InputProps } from 'antd'
@@ -15,7 +15,7 @@ type AutoComputedElementNameProps = FieldProps<
   string,
   Omit<InputProps, 'onReset'>
 > & {
-  onChange: (value: string) => void
+  onChange(value: string): void
 }
 
 /**
@@ -31,7 +31,7 @@ const AutoComputedElementName = observer<AutoComputedElementNameProps>(
       {},
     )
 
-    const { atomService, componentService, builderService } = useStore()
+    const { atomService, builderService, componentService } = useStore()
     // Used to check if the previous selected atom/component name
     // is different from the current value to determine if the user
     // altered the auto-generated name

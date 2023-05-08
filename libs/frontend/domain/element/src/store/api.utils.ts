@@ -4,10 +4,10 @@ import type {
   IElement,
   IFieldDefaultValue,
   IInterfaceType,
-  RenderType,
 } from '@codelab/frontend/abstract/core'
-import { IRenderTypeKind } from '@codelab/frontend/abstract/core'
 import type { ElementUpdateInput } from '@codelab/shared/abstract/codegen'
+import type { RenderType } from '@codelab/shared/abstract/core'
+import { IRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import { isNil } from 'ramda'

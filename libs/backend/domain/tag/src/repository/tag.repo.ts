@@ -1,10 +1,10 @@
-import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   Repository,
   tagSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { ITagDTO } from '@codelab/frontend/abstract/core'
+import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { ITagDTO } from '@codelab/shared/abstract/core'
 import {
   connectAuth0Owner,
   connectNodeId,
@@ -19,7 +19,7 @@ export class TagRepository extends AbstractRepository<
 > {
   private Tag = Repository.instance.Tag
 
-  async find(where: OGM_TYPES.TagWhere = {}) {
+  async _find(where: OGM_TYPES.TagWhere = {}) {
     return await (
       await this.Tag
     ).find({

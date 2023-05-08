@@ -1,10 +1,10 @@
-import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   Repository,
   storeSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { IStoreDTO } from '@codelab/frontend/abstract/core'
+import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { IStoreDTO } from '@codelab/shared/abstract/core'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
 
 export class StoreRepository extends AbstractRepository<
@@ -14,7 +14,7 @@ export class StoreRepository extends AbstractRepository<
 > {
   private Store = Repository.instance.Store
 
-  async find(where: OGM_TYPES.StoreWhere = {}) {
+  async _find(where: OGM_TYPES.StoreWhere = {}) {
     return await (
       await this.Store
     ).find({

@@ -1,7 +1,5 @@
-import type { IUser, IUserDTO } from '@codelab/frontend/abstract/core'
-// import { appRef } from '@codelab/frontend/domain/app'
-import type { IRole } from '@codelab/shared/abstract/core'
-// import type { Ref } from 'mobx-keystone'
+import type { IUser } from '@codelab/frontend/abstract/core'
+import type { IRole, IUserDTO } from '@codelab/shared/abstract/core'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 
 const create = ({ apps, auth0Id, id, roles, username }: IUserDTO) => {

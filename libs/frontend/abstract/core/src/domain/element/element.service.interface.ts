@@ -1,4 +1,5 @@
 import type { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
+import type { IAuth0Owner, IElementDTO } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
@@ -6,10 +7,8 @@ import type {
   ICRUDService,
   IEntityModalService,
 } from '../../service'
-import type { IAuth0Owner } from '../user'
 import type {
   ICreateElementData,
-  IElementDTO,
   IUpdateElementData,
 } from './element.dto.interface'
 import type { IElement } from './element.model.interface'

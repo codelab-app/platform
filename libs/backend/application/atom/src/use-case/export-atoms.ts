@@ -2,8 +2,8 @@ import {
   exportAtomSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { IAtomDTO } from '@codelab/frontend/abstract/core'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { IAtomDTO } from '@codelab/shared/abstract/core'
 
 interface ExportAtomsProps {
   where?: OGM_TYPES.AtomWhere

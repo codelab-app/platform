@@ -1,3 +1,4 @@
+import type { IFieldDTO } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
@@ -7,9 +8,8 @@ import type {
 } from '../../../service'
 import type {
   ICreateFieldData,
-  IFieldDTO,
   IUpdateFieldData,
-} from '../field.dto.interface'
+} from '../field.data.interface'
 import type { FieldFragment } from '../fragments'
 import type { IInterfaceType, IType } from '../types'
 import type { IField } from './field.interface'

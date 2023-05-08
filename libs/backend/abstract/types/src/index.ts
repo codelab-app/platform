@@ -1,3 +1,4 @@
+export * from './cache.interface'
 export * from './driver.interface'
 export * from './model.interface'
 export * from './neo4j.repo.interface'

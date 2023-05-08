@@ -1,13 +1,13 @@
-import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   interfaceTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
+import { AbstractRepository } from '@codelab/backend/infra/core'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type {
   IFieldDTO,
   IInterfaceTypeDTO,
-} from '@codelab/frontend/abstract/core'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+} from '@codelab/shared/abstract/core'
 import {
   connectAuth0Owner,
   connectNodeId,
@@ -21,7 +21,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
 > {
   private InterfaceType = Repository.instance.InterfaceType
 
-  async find(where: OGM_TYPES.InterfaceTypeWhere = {}) {
+  async _find(where: OGM_TYPES.InterfaceTypeWhere = {}) {
     return await (
       await this.InterfaceType
     ).find({

@@ -5,7 +5,7 @@ import {
   FieldRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import type { IAtomDTO, IFieldDTO } from '@codelab/frontend/abstract/core'
+import type { IAtomDTO, IFieldDTO } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import find from 'lodash/find'
 import { v4 } from 'uuid'
@@ -94,17 +94,13 @@ export class ExtractAntDesignFieldsService extends IAuthUseCase<
       return undefined
     }
 
-    const type = await TypeFactory.create(
+    const type = await TypeFactory.save(
       {
         ...fieldTypeDTO,
         owner: this.owner,
       },
       { name: fieldTypeDTO.name },
     )
-
-    if (!type) {
-      throw new Error('Error creating type')
-    }
 
     return Field.create({
       api: { id: atom.api.id },

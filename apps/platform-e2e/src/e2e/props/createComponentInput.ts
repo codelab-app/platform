@@ -1,6 +1,6 @@
-import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
 import type { AtomCreateInput } from '@codelab/shared/abstract/codegen'
 import { AtomType, PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
+import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
 import { v4 } from 'uuid'

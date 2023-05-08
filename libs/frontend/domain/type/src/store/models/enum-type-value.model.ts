@@ -1,7 +1,5 @@
-import type {
-  IEnumTypeValue,
-  IEnumTypeValueDTO,
-} from '@codelab/frontend/abstract/core'
+import type { IEnumTypeValue } from '@codelab/frontend/abstract/core'
+import type { IEnumTypeValueDTO } from '@codelab/shared/abstract/core'
 import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
 
 const create = (fragment: IEnumTypeValueDTO) =>

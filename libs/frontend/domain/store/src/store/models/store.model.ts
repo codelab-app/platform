@@ -1,10 +1,8 @@
 import type {
   IAction,
-  IAppDTO,
   IInterfaceType,
   IProp,
   IStore,
-  IStoreDTO,
 } from '@codelab/frontend/abstract/core'
 import { Prop } from '@codelab/frontend/domain/prop'
 import { typeRef } from '@codelab/frontend/domain/type'
@@ -13,6 +11,7 @@ import type {
   StoreDeleteInput,
   StoreUpdateInput,
 } from '@codelab/shared/abstract/codegen'
+import type { IAppDTO, IStoreDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {

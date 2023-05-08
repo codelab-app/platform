@@ -23,7 +23,7 @@ const createTypes: NextApiHandler = async (req, res) => {
      */
     const types = await Promise.all(
       typesData.map((typeData) => {
-        return TypeFactory.create(typeData)
+        return TypeFactory.save(typeData)
       }),
     )
 

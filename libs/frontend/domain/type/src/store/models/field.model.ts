@@ -4,8 +4,9 @@ import type {
   IType,
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
-import { IField, IFieldDTO } from '@codelab/frontend/abstract/core'
+import { IField } from '@codelab/frontend/abstract/core'
 import type { FieldUpdateInput } from '@codelab/shared/abstract/codegen'
+import { IFieldDTO } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import type { Ref } from 'mobx-keystone'

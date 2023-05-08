@@ -1,10 +1,10 @@
-import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   fieldSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { IFieldDTO } from '@codelab/frontend/abstract/core'
+import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { IFieldDTO } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 
 export class FieldRepository extends AbstractRepository<
@@ -14,7 +14,7 @@ export class FieldRepository extends AbstractRepository<
 > {
   private Field = Repository.instance.Field
 
-  async find(where: OGM_TYPES.FieldWhere = {}) {
+  async _find(where: OGM_TYPES.FieldWhere = {}) {
     return await (
       await this.Field
     ).find({

@@ -3,11 +3,12 @@ import type {
   FieldDeleteInput,
   FieldUpdateInput,
 } from '@codelab/shared/abstract/codegen'
+import type { IFieldDTO } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../../service'
 import type { IModel } from '../../model.interface'
-import type { IFieldDTO, IValidationRules } from '../field.dto.interface'
+import type { IValidationRules } from '../field.validation'
 import type { IInterfaceType, IType } from '../types'
 
 export type IFieldDefaultValue =

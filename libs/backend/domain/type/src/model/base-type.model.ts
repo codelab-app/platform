@@ -1,5 +1,8 @@
-import type { IAuth0Owner, IBaseTypeDTO } from '@codelab/frontend/abstract/core'
-import type { ITypeKind } from '@codelab/shared/abstract/core'
+import type {
+  IAuth0Owner,
+  IBaseTypeDTO,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 
 export abstract class BaseType implements IBaseTypeDTO {
   id: string

@@ -1,6 +1,6 @@
 import type { IResourceExport } from '@codelab/backend/abstract/core'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
-import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
+import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 
 export const createResource = async (

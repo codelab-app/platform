@@ -1,8 +1,5 @@
-import type {
-  IArrayType,
-  IArrayTypeDTO,
-  IType,
-} from '@codelab/frontend/abstract/core'
+import type { IArrayType, IType } from '@codelab/frontend/abstract/core'
+import type { IArrayTypeDTO } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain/mapper'

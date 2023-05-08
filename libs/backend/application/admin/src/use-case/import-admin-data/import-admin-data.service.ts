@@ -11,7 +11,7 @@ import {
   InterfaceTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import type { IAuth0Owner, ITagDTO } from '@codelab/frontend/abstract/core'
+import type { IAuth0Owner, ITagDTO } from '@codelab/shared/abstract/core'
 import fs from 'fs'
 import path from 'path'
 import { DataPaths } from '../../data-paths'
@@ -58,7 +58,7 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
     ) as ITypesExport
 
     for await (const type of types) {
-      await TypeFactory.create({ ...type, owner })
+      await TypeFactory.save({ ...type, owner })
     }
   }
 
@@ -67,11 +67,11 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
       .atoms) {
       // Create types first so they can be referenced
       for await (const type of types) {
-        await TypeFactory.create({ ...type, owner })
+        await TypeFactory.save({ ...type, owner })
       }
 
       // Then api's
-      await TypeFactory.create({ ...api, owner })
+      await TypeFactory.save({ ...api, owner })
 
       // Finally fields
       for await (const field of fields) {

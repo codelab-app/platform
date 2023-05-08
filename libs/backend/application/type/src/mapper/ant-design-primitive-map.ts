@@ -1,5 +1,5 @@
 import type { AntDesignField } from '@codelab/backend/abstract/core'
-import type { ITypeDTO } from '@codelab/frontend/abstract/core'
+import type { ITypeDTO } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { DistributivePick } from '@codelab/shared/abstract/types'
 import {

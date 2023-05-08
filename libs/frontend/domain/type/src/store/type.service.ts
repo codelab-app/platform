@@ -3,15 +3,11 @@ import type {
   ITypeService,
   IUpdateTypeData,
 } from '@codelab/frontend/abstract/core'
-import {
-  ICreateTypeData,
-  IType,
-  ITypeDTO,
-} from '@codelab/frontend/abstract/core'
+import { ICreateTypeData, IType } from '@codelab/frontend/abstract/core'
 import { ModalService, PaginationService } from '@codelab/frontend/shared/utils'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { ITypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import { Nullable } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
 import sortBy from 'lodash/sortBy'

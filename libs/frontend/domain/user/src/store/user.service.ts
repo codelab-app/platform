@@ -1,9 +1,6 @@
-import type {
-  IUser,
-  IUserDTO,
-  IUserService,
-} from '@codelab/frontend/abstract/core'
+import type { IUser, IUserService } from '@codelab/frontend/abstract/core'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
+import type { IUserDTO } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {

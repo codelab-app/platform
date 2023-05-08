@@ -1,12 +1,9 @@
-import type {
-  IAuth0Owner,
-  ITag,
-  ITagDTO,
-} from '@codelab/frontend/abstract/core'
+import type { ITag } from '@codelab/frontend/abstract/core'
 import type {
   TagCreateInput,
   TagUpdateInput,
 } from '@codelab/shared/abstract/codegen'
+import type { IAuth0Owner, ITagDTO } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import {
   connectAuth0Owner,

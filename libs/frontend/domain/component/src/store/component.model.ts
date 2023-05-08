@@ -1,5 +1,4 @@
 import type {
-  IAuth0Owner,
   IComponentDTO,
   IElement,
   IInterfaceType,
@@ -19,6 +18,7 @@ import { storeRef } from '@codelab/frontend/domain/store'
 import { typeRef } from '@codelab/frontend/domain/type'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
+import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'

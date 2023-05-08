@@ -1,16 +1,12 @@
 import type {
-  IAuth0Owner,
   IComponent,
   ICreateElementData,
   IElement,
-  IElementDTO,
   IElementService,
-  RenderType,
 } from '@codelab/frontend/abstract/core'
 import {
   getBuilderService,
   getComponentService,
-  IRenderTypeKind,
   isComponentInstance,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/core'
@@ -22,6 +18,11 @@ import {
   RenderedComponentFragment,
   RenderTypeKind,
 } from '@codelab/shared/abstract/codegen'
+import type {
+  IAuth0Owner,
+  IElementDTO,
+  RenderType,
+} from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'

@@ -1,5 +1,5 @@
 import { AdminSeederService } from '@codelab/backend/application/admin'
-import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
+import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import type { CommandModule } from 'yargs'
 import { getStageOptions, loadStageMiddleware } from '../../shared/command'
 import {

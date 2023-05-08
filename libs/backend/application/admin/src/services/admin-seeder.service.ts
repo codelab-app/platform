@@ -4,7 +4,7 @@ import {
   ExtractHtmlFieldsService,
 } from '@codelab/backend/application/type'
 import { antdTagTree, htmlTagTree } from '@codelab/backend/data/seed'
-import type { IAtomDTO } from '@codelab/frontend/abstract/core'
+import type { IAtomDTO } from '@codelab/shared/abstract/core'
 import { antdAtomData, htmlAtomData } from '@codelab/shared/data/seed'
 import { SeedFrameworkService } from '../use-case'
 

@@ -2,7 +2,7 @@ import type {
   IAtomDTO,
   IAuth0Owner,
   IInterfaceTypeDTO,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/shared/abstract/core'
 import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 

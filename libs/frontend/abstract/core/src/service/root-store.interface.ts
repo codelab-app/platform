@@ -1,3 +1,4 @@
+import type { IUserDTO } from '@codelab/shared/abstract/core'
 import type {
   IActionService,
   IAdminService,
@@ -15,7 +16,6 @@ import type {
   IStoreService,
   ITagService,
   ITypeService,
-  IUserDTO,
   IUserService,
 } from '../domain'
 

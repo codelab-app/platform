@@ -7,8 +7,11 @@ import {
   systemTypesData,
   TypeSeederService,
 } from '@codelab/backend/application/type'
-import type { IAtomDTO, IFieldDTO } from '@codelab/frontend/abstract/core'
-import type { IAtomType } from '@codelab/shared/abstract/core'
+import type {
+  IAtomDTO,
+  IAtomType,
+  IFieldDTO,
+} from '@codelab/shared/abstract/core'
 import { ObjectTyped } from 'object-typed'
 
 interface FrameworkData {

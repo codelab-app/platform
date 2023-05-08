@@ -2,13 +2,13 @@ import type {
   PropCreateInput,
   PropUpdateInput,
 } from '@codelab/shared/abstract/codegen'
+import type { IPropDTO } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Frozen, Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IElement } from '../element'
 import type { IModel } from '../model.interface'
 import type { IInterfaceType } from '../type'
-import type { IPropDTO } from './prop.dto.interface'
 
 export interface IProp
   extends Omit<IModel<PropCreateInput, PropUpdateInput, void>, 'toDeleteInput'>,

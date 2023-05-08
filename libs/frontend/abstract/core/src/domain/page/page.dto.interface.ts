@@ -1,23 +1,9 @@
-import type { IPageKind } from '@codelab/shared/abstract/core'
-import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
-import type { IOwnerSchema } from '../user'
-
-export interface IPageDTO {
-  app: IEntity
-  id: string
-  kind: IPageKind
-  name: string
-  // The container element of the page
-  pageContentContainer?: Nullish<IEntity>
-  rootElement: IEntity
-  store: IEntity
-  url: string
-}
+import type { IOwner, IPageDTO } from '@codelab/shared/abstract/core'
 
 /**
  * IOwnerSchema is required for store api
  */
-export type ICreatePageData = IOwnerSchema &
+export type ICreatePageData = IOwner &
   Pick<IPageDTO, 'app' | 'id' | 'kind' | 'name' | 'url'>
 
 export type IUpdatePageData = Pick<

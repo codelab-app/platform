@@ -1,4 +1,5 @@
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
+import type { IAtomDTO } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
@@ -8,11 +9,7 @@ import type {
   IPaginateable,
   IQueryService,
 } from '../../service'
-import type {
-  IAtomDTO,
-  ICreateAtomData,
-  IUpdateAtomData,
-} from './atom.dto.interface'
+import type { ICreateAtomData, IUpdateAtomData } from './atom.dto.interface'
 import type { IAtom } from './atom.model.interface'
 import type { IAtomRepository } from './atom.repo.interface'
 

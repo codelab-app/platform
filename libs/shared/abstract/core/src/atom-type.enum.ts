@@ -317,6 +317,7 @@ export enum __AtomType {
   HtmlCanvas = 'HtmlCanvas',
   HtmlCite = 'HtmlCite',
   HtmlCode = 'HtmlCode',
+  HtmlCol = 'HtmlCol',
   HtmlDl = 'HtmlDl',
   HtmlData = 'HtmlData',
   HtmlDatalist = 'HtmlDatalist',

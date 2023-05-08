@@ -1,12 +1,11 @@
-import type { IPageDTO } from '@codelab/frontend/abstract/core'
 import type { PageKind } from '@codelab/shared/abstract/codegen'
+import type { IPageDTO } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 
 export class Page implements IPageDTO {
   app: IEntity
 
   // descendentElements?: Array<IEntity> | undefined
-
   id: string
 
   kind: PageKind

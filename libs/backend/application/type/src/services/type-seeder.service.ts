@@ -3,7 +3,7 @@ import type {
   IAuth0Owner,
   IFieldDTO,
   ITypeDTO,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/shared/abstract/core'
 
 export class TypeSeederService {
   fieldRepository = new FieldRepository()
@@ -27,7 +27,7 @@ export class TypeSeederService {
     await Promise.all(
       Object.values(types).map(
         async (type) =>
-          await TypeFactory.create({ ...type, owner }, { name: type.name }),
+          await TypeFactory.save({ ...type, owner }, { name: type.name }),
       ),
     )
   }

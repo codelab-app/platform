@@ -1,10 +1,10 @@
-import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   atomSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { IAtomDTO } from '@codelab/frontend/abstract/core'
+import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { IAtomDTO } from '@codelab/shared/abstract/core'
 import {
   connectAuth0Owner,
   connectNodeId,
@@ -21,7 +21,7 @@ export class AtomRepository extends AbstractRepository<
 > {
   private Atom = Repository.instance.Atom
 
-  async find(where: OGM_TYPES.AtomWhere = {}) {
+  async _find(where: OGM_TYPES.AtomWhere = {}) {
     return await (
       await this.Atom
     ).find({

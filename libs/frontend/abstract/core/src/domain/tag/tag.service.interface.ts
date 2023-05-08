@@ -1,4 +1,5 @@
 import type { TagOptions, TagWhere } from '@codelab/shared/abstract/codegen'
+import type { ITagDTO } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { LabeledValue } from 'antd/es/select'
 import type { ObjectMap, Ref } from 'mobx-keystone'
@@ -8,11 +9,7 @@ import type {
   IEntityModalService,
   IQueryService,
 } from '../../service'
-import type {
-  ICreateTagData,
-  ITagDTO,
-  IUpdateTagData,
-} from './tag.dto.interface'
+import type { ICreateTagData, IUpdateTagData } from './tag.data.interface'
 import type { ITag } from './tag.model.interface'
 import type { ITagTreeService } from './tag-tree.service.interface'
 

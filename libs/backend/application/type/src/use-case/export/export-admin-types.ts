@@ -7,8 +7,8 @@ import {
   exportUnionTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { IFieldDTO } from '@codelab/frontend/abstract/core'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { IFieldDTO } from '@codelab/shared/abstract/core'
 import { sortInterfaceTypesFields } from '../../mapper/sort'
 
 /**

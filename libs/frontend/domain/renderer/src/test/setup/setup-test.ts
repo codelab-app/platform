@@ -5,7 +5,6 @@ import {
   CUSTOM_TEXT_PROP_KEY,
   elementRef,
   elementTreeRef,
-  IRenderTypeKind,
   RendererType,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
@@ -26,7 +25,11 @@ import {
   TypeService,
 } from '@codelab/frontend/domain/type'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
-import { IAtomType, IPageKind } from '@codelab/shared/abstract/core'
+import {
+  IAtomType,
+  IPageKind,
+  IRenderTypeKind,
+} from '@codelab/shared/abstract/core'
 import { objectMap, unregisterRootStore } from 'mobx-keystone'
 import { v4 } from 'uuid'
 import { RenderService } from '../../render.service'
@@ -167,6 +170,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       name: 'page',
       rootElement: elementRef(data.elementToRender),
       store: data.store,
+      url: '',
     })
 
     const componentRootElementProps = await data.rootStore.propService.create({

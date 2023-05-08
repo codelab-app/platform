@@ -2,7 +2,6 @@ import type {
   ICreateStoreData,
   IInterfaceType,
   IStore,
-  IStoreDTO,
   IStoreService,
   IUpdateStoreData,
 } from '@codelab/frontend/abstract/core'
@@ -12,6 +11,7 @@ import type {
   StoreFragment,
   StoreWhere,
 } from '@codelab/shared/abstract/codegen'
+import type { IStoreDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {

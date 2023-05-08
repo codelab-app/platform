@@ -1,8 +1,7 @@
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { IOwner } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import type { IOwnerSchema } from '../user'
 
-export interface IComponentDTO extends IOwnerSchema {
+export interface IComponentDTO extends IOwner {
   api: IEntity
   childrenContainerElement: IEntity
   id: string
@@ -12,7 +11,7 @@ export interface IComponentDTO extends IOwnerSchema {
   store: IEntity
 }
 
-export type ICreateComponentData = IOwnerSchema &
+export type ICreateComponentData = IOwner &
   // Default store and props are added
   Omit<IComponentDTO, 'props' | 'store'>
 
@@ -20,11 +19,3 @@ export type IUpdateComponentData = Pick<
   ICreateComponentData,
   'childrenContainerElement' | 'id' | 'name'
 >
-
-export type IComponentExport = OGM_TYPES.Component
-
-export interface IExportComponents {
-  components: Array<OGM_TYPES.Component>
-}
-
-export type IComponentID = string

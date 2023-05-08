@@ -239,7 +239,7 @@ export const typeSchema = gql`
   type RenderPropType implements IBaseType @node(labels: ["Type", "RenderPropType"]) {
     id: ID!
     kind: TypeKind! @default(value: RenderPropType)
-    name: String!
+    name: String! @unique
     owner: User!
   }
 
@@ -256,7 +256,7 @@ export const typeSchema = gql`
   type ReactNodeType implements IBaseType @node(labels: ["Type", "ReactNodeType"]) {
     id: ID!
     kind: TypeKind! @default(value: ReactNodeType)
-    name: String!
+    name: String! @unique
     owner: User!
   }
 
@@ -324,7 +324,7 @@ export const typeSchema = gql`
   type ActionType implements IBaseType @node(labels: ["Type", "ActionType"]) {
     id: ID!
     kind: TypeKind! @default(value: ActionType)
-    name: String!
+    name: String! @unique
     owner: User!
   }
 

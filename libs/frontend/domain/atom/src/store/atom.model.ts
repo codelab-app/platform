@@ -1,7 +1,5 @@
 import type {
   IAtom,
-  IAtomDTO,
-  IAuth0Owner,
   IInterfaceType,
   ITag,
 } from '@codelab/frontend/abstract/core'
@@ -11,7 +9,11 @@ import {
   AtomCreateInput,
   AtomUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAtomType } from '@codelab/shared/abstract/core'
+import type {
+  IAtomDTO,
+  IAtomType,
+  IAuth0Owner,
+} from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
   connectAuth0Owner,

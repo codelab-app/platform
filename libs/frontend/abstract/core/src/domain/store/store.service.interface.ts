@@ -3,6 +3,7 @@ import type {
   StoreOptions,
   StoreWhere,
 } from '@codelab/shared/abstract/codegen'
+import type { IStoreDTO } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
@@ -10,7 +11,7 @@ import type {
   ICRUDService,
   IQueryService,
 } from '../../service'
-import type { IStoreDTO, IUpdateStoreData } from './store.dto.interface'
+import type { IUpdateStoreData } from './store.data.interface'
 import type { IStore } from './store.model.interface'
 import type { IStoreRepository } from './store.repo.interface'
 

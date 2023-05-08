@@ -4,6 +4,7 @@ import type {
   GetRenderedPageAndCommonAppDataQuery,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
+import type { IAppDTO } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
@@ -14,7 +15,6 @@ import type {
 } from '../../service'
 import type { IPropData } from '../prop'
 import type {
-  IAppDTO,
   ICreateAppData,
   IPageBuilderAppProps,
   IUpdateAppData,

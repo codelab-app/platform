@@ -1,7 +1,5 @@
-import type {
-  IRenderPropType,
-  IRenderPropTypeDTO,
-} from '@codelab/frontend/abstract/core'
+import type { IRenderPropType } from '@codelab/frontend/abstract/core'
+import type { IRenderPropTypeDTO } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { createBaseType } from './base-type.model'

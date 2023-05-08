@@ -5,7 +5,6 @@ import type {
 import {
   getElementService,
   getUserService,
-  IAuth0Owner,
   ICreatePageData,
   IPageAppFragment,
   ROOT_ELEMENT_NAME,
@@ -18,6 +17,7 @@ import {
   typeRef,
 } from '@codelab/frontend/domain/type'
 import {
+  IAuth0Owner,
   IPageKind,
   IPageKindName,
   ITypeKind,

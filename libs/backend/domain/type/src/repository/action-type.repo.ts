@@ -1,10 +1,10 @@
-import { AbstractRepository } from '@codelab/backend/abstract/types'
 import {
   exportActionTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { IActionTypeDTO } from '@codelab/frontend/abstract/core'
+import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { IActionTypeDTO } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 
 export class ActionTypeRepository extends AbstractRepository<
@@ -14,7 +14,7 @@ export class ActionTypeRepository extends AbstractRepository<
 > {
   private ActionType = Repository.instance.ActionType
 
-  async find(where: OGM_TYPES.ActionTypeWhere) {
+  async _find(where: OGM_TYPES.ActionTypeWhere) {
     return await (
       await this.ActionType
     ).find({

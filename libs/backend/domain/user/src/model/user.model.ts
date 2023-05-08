@@ -1,6 +1,9 @@
-import type { IUserDTO } from '@codelab/frontend/abstract/core'
 import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
-import type { Auth0SessionUser, IRole } from '@codelab/shared/abstract/core'
+import type {
+  Auth0SessionUser,
+  IRole,
+  IUserDTO,
+} from '@codelab/shared/abstract/core'
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 

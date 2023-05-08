@@ -1,9 +1,6 @@
-import type {
-  IEntityModalService,
-  ITag,
-  ITagDTO,
-} from '@codelab/frontend/abstract/core'
+import type { IEntityModalService, ITag } from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
+import type { ITagDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelClass } from 'mobx-keystone'

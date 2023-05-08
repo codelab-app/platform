@@ -2,7 +2,6 @@ import type {
   ICreatePageData,
   IInterfaceType,
   IPage,
-  IPageDTO,
   IPageService,
   IUpdatePageData,
 } from '@codelab/frontend/abstract/core'
@@ -22,6 +21,7 @@ import {
 } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
+import type { IPageDTO } from '@codelab/shared/abstract/core'
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {

@@ -8,7 +8,7 @@ import {
   exportSystemTypes,
 } from '@codelab/backend/application/type'
 import { saveFormattedFile } from '@codelab/backend/shared/util'
-import type { IInterfaceTypeDTO } from '@codelab/frontend/abstract/core'
+import type { IInterfaceTypeDTO } from '@codelab/shared/abstract/core'
 import filter from 'lodash/filter'
 import find from 'lodash/find'
 import path from 'path'

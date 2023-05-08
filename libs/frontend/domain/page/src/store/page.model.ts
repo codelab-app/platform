@@ -1,9 +1,4 @@
-import type {
-  IElement,
-  IPage,
-  IPageDTO,
-  IStore,
-} from '@codelab/frontend/abstract/core'
+import type { IElement, IPage, IStore } from '@codelab/frontend/abstract/core'
 import { elementRef, ElementTree } from '@codelab/frontend/abstract/core'
 import { storeRef } from '@codelab/frontend/domain/store'
 import type {
@@ -11,7 +6,7 @@ import type {
   PageDeleteInput,
   PageUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IPageKind } from '@codelab/shared/abstract/core'
+import type { IPageDTO, IPageKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { createUniqueName } from '@codelab/shared/utils'

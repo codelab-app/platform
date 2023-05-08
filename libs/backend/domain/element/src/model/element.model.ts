@@ -1,4 +1,4 @@
-import type { IElementDTO, RenderType } from '@codelab/frontend/abstract/core'
+import type { IElementDTO, RenderType } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 
 export class Element implements IElementDTO {

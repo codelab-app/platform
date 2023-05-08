@@ -1,5 +1,9 @@
-import type { ExportAppData, IAppExport } from '@codelab/backend/abstract/core'
-import { AbstractRepository } from '@codelab/backend/abstract/types'
+import type {
+  ExportAppData,
+  IAppExport,
+  IComponentExport,
+  IExportComponents,
+} from '@codelab/backend/abstract/core'
 import {
   createComponent,
   findComponent,
@@ -19,13 +23,9 @@ import {
   appSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type {
-  IAppDTO,
-  IAuth0Owner,
-  IComponentExport,
-  IExportComponents,
-} from '@codelab/frontend/abstract/core'
+import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { IAppDTO, IAuth0Owner } from '@codelab/shared/abstract/core'
 import {
   connectAuth0Owner,
   connectNodeIds,
@@ -44,7 +44,7 @@ export class AppRepository extends AbstractRepository<
 > {
   private App = Repository.instance.App
 
-  async find(where: OGM_TYPES.AppWhere = {}) {
+  async _find(where: OGM_TYPES.AppWhere = {}) {
     return await (
       await this.App
     ).find({

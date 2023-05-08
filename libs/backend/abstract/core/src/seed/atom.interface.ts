@@ -1,8 +1,9 @@
 import type {
+  IAtomBaseRecords,
   IAtomDTO,
+  IAtomType,
   IInterfaceTypeDTO,
-} from '@codelab/frontend/abstract/core'
-import type { IAtomBaseRecords, IAtomType } from '@codelab/shared/abstract/core'
+} from '@codelab/shared/abstract/core'
 import type { ITypesExport } from '../export/type.interface'
 
 /**

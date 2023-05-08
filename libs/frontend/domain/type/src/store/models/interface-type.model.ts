@@ -3,9 +3,13 @@ import type {
   IField,
   IInterfaceType,
 } from '@codelab/frontend/abstract/core'
-import { IInterfaceTypeDTO, IPropData } from '@codelab/frontend/abstract/core'
+import { IPropData } from '@codelab/frontend/abstract/core'
 import type { InterfaceTypeCreateInput } from '@codelab/shared/abstract/codegen'
-import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  assertIsTypeKind,
+  IInterfaceTypeDTO,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import merge from 'lodash/merge'

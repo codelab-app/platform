@@ -1,24 +1,28 @@
+import type { IType } from '@codelab/backend/abstract/core'
 import type { ITypeTransformer } from '@codelab/backend/abstract/ports'
 import { IAuthUseCase } from '@codelab/backend/abstract/types'
 import {
+  ActionTypeRepository,
   EnumType,
   InterfaceType,
+  PrimitiveTypeRepository,
+  ReactNodeTypeRepository,
+  RenderPropTypeRepository,
   TypeFactory,
   UnionType,
 } from '@codelab/backend/domain/type'
+import { throwIfUndefined } from '@codelab/frontend/shared/utils'
+import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type {
-  IAtom,
+  IAtomDTO,
   IAuth0Owner,
   IEnumTypeDTO,
-  IField,
+  IFieldDTO,
   IInterfaceTypeDTO,
-  IPrimitiveTypeDTO,
-  ITypeDTO,
   IUnionTypeDTO,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
-import { systemTypesData } from '../../../data/system-types.data'
 import {
   arrowFnReturnReactNode,
   es5FnReturnReactNode,
@@ -30,8 +34,8 @@ interface Request {
 }
 
 interface Props {
-  atom: Pick<IAtom, 'name'>
-  field: Pick<IField, 'key'>
+  atom: Pick<IAtomDTO, 'name'>
+  field: Pick<IFieldDTO, 'key'>
   owner: IAuth0Owner
 }
 
@@ -42,12 +46,20 @@ interface Props {
  *
  */
 export class DefaultTypeAdapterService
-  extends IAuthUseCase<Request, ITypeDTO | undefined>
+  extends IAuthUseCase<Request, IType | undefined>
   implements ITypeTransformer
 {
-  atom: Pick<IAtom, 'name'>
+  primitiveTypeRepository = new PrimitiveTypeRepository()
 
-  field: Pick<IField, 'key'>
+  actionTypeRepository = new ActionTypeRepository()
+
+  reactNodeTypeRepository = new ReactNodeTypeRepository()
+
+  renderPropTypeRepository = new RenderPropTypeRepository()
+
+  atom: Pick<IAtomDTO, 'name'>
+
+  field: Pick<IFieldDTO, 'key'>
 
   reactNodeTypeRegex = /(([:|=>] (ReactNode|HTMLElement))|ReactNode)/
 
@@ -65,6 +77,8 @@ export class DefaultTypeAdapterService
    * This pattern ensures that it will match any string that starts with a { and ends with a }, even if there are multiple lines or nested objects within the interface type. The [\s\S]* part of the regex pattern matches any character, including whitespace and non-whitespace characters, zero or more times.
    */
   interfaceTypeRegex = /^\{[\s\S]*}$/
+
+  containsInterfaceTypeRegex = /{[\s\S]*}/
 
   unionTypeRegex = /\|/
 
@@ -132,6 +146,16 @@ export class DefaultTypeAdapterService
     }
 
     if (matchingTypeChecks.length > 1) {
+      const matchedKinds = matchingTypeChecks.map(
+        ({ transform }) => transform.name,
+      )
+
+      console.error(
+        `More than one type check matched for type: ${type}. The type checks should be mutually exclusive. Matched kinds: ${matchedKinds.join(
+          ', ',
+        )}`,
+      )
+
       throw new Error(
         `More than one type check matched for type: ${type}. The type checks should be mutually exclusive.`,
       )
@@ -148,8 +172,11 @@ export class DefaultTypeAdapterService
     return this.stringTypeRegex.test(type)
   }
 
+  /**
+   * Must be a union type if contains a nested interface type
+   */
   isEnumType(type: string) {
-    if (this.interfaceTypeRegex.test(type)) {
+    if (this.containsInterfaceTypeRegex.test(type)) {
       return false
     }
 
@@ -180,20 +207,30 @@ export class DefaultTypeAdapterService
     return this.renderPropTypeRegexes.some((regex) => regex.test(type))
   }
 
-  actionType() {
-    return systemTypesData(this.owner)[ITypeKind.ActionType]
+  async actionType() {
+    return throwIfUndefined(
+      await this.actionTypeRepository.findOne({ name: ITypeKind.ActionType }),
+    )
   }
 
-  reactNodeType() {
-    return systemTypesData(this.owner)[ITypeKind.ReactNodeType]
+  async reactNodeType() {
+    return throwIfUndefined(
+      await this.reactNodeTypeRepository.findOne({
+        name: ITypeKind.ReactNodeType,
+      }),
+    )
   }
 
-  renderPropType() {
-    return systemTypesData(this.owner)[ITypeKind.RenderPropType]
+  async renderPropType() {
+    return throwIfUndefined(
+      await this.renderPropTypeRepository.findOne({
+        name: ITypeKind.RenderPropType,
+      }),
+    )
   }
 
-  interfaceType() {
-    const interfaceTypeDTO: IInterfaceTypeDTO = {
+  async interfaceType() {
+    const interfaceType: IInterfaceTypeDTO = {
       __typename: ITypeKind.InterfaceType,
       fields: [],
       id: v4(),
@@ -204,29 +241,43 @@ export class DefaultTypeAdapterService
       owner: this.owner,
     }
 
-    return interfaceTypeDTO
+    return await TypeFactory.save<OGM_TYPES.InterfaceType>(interfaceType)
   }
 
-  booleanType() {
-    return systemTypesData(this.owner)[IPrimitiveTypeKind.Boolean]
+  async booleanType() {
+    return throwIfUndefined(
+      await this.primitiveTypeRepository.findOne({
+        name: IPrimitiveTypeKind.Boolean,
+      }),
+    )
   }
 
-  stringType() {
-    return systemTypesData(this.owner)[IPrimitiveTypeKind.String]
+  async stringType() {
+    return throwIfUndefined(
+      await this.primitiveTypeRepository.findOne({
+        name: IPrimitiveTypeKind.String,
+      }),
+    )
   }
 
-  numberType(): IPrimitiveTypeDTO {
-    return systemTypesData(this.owner)[IPrimitiveTypeKind.Number]
+  async numberType() {
+    return throwIfUndefined(
+      await this.primitiveTypeRepository.findOne({
+        name: IPrimitiveTypeKind.Number,
+      }),
+    )
   }
 
-  integerType() {
-    return systemTypesData(this.owner)[IPrimitiveTypeKind.Integer]
+  async integerType() {
+    return throwIfUndefined(
+      await this.primitiveTypeRepository.findOne({
+        name: IPrimitiveTypeKind.Integer,
+      }),
+    )
   }
 
   async unionType(type: string) {
     const typesOfUnionType = parseSeparators({ type })
-
-    // Create data here
 
     const mappedTypesOfUnionType = (
       await Promise.all(
@@ -240,14 +291,14 @@ export class DefaultTypeAdapterService
           })
         }),
       )
-    ).filter((typeOfUnionType): typeOfUnionType is ITypeDTO =>
+    ).filter((typeOfUnionType): typeOfUnionType is IType =>
       Boolean(typeOfUnionType),
     )
 
     // Create nested types
     await Promise.all(
       mappedTypesOfUnionType.map(async ({ ...typeOfUnionType }) => {
-        return await TypeFactory.create({
+        return await TypeFactory.save({
           ...typeOfUnionType,
           owner: this.owner,
         })
@@ -266,10 +317,10 @@ export class DefaultTypeAdapterService
       typesOfUnionType: mappedTypesOfUnionType,
     }
 
-    return unionType
+    return await TypeFactory.save<OGM_TYPES.UnionType>(unionType)
   }
 
-  enumType(type: string) {
+  async enumType(type: string) {
     const values = parseSeparators({ type })
 
     const enumType: IEnumTypeDTO = {
@@ -287,7 +338,7 @@ export class DefaultTypeAdapterService
       owner: this.owner,
     }
 
-    return enumType
+    return await TypeFactory.save<OGM_TYPES.EnumType>(enumType)
   }
 
   isReactNodeType(type: string) {

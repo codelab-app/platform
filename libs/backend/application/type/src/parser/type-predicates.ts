@@ -1,5 +1,5 @@
 import type { AntDesignField, TypeRef } from '@codelab/backend/abstract/core'
-import type { IAtomDTO } from '@codelab/frontend/abstract/core'
+import type { IAtomDTO } from '@codelab/shared/abstract/core'
 import {
   containsInterfaceTypeRegex,
   functionTypeRegex,

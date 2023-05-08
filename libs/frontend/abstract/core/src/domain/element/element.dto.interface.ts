@@ -1,14 +1,5 @@
+import type { IPropDTO, RenderType } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
-import type { IAtomID } from '../atom'
-import type { IComponentID } from '../component'
-import type { IPropDTO } from '../prop'
-import type { IRenderTypeKind } from './render-type'
-
-export interface RenderType {
-  // This is the ID of either `atom` or `component`
-  id: IAtomID | IComponentID
-  kind: IRenderTypeKind
-}
 
 export interface ICreateElementData {
   customCss?: Nullable<string>
@@ -57,29 +48,3 @@ export type IUpdateBaseElementData = Pick<
   | 'renderIfExpression'
   | 'renderType'
 >
-
-/**
- * This is the graphql fragment equivalent, used for hydrating object
- */
-export interface IElementDTO {
-  // slug: string
-  customCss?: Nullable<string>
-  firstChild?: IEntity | null
-  guiCss?: Nullable<string>
-  id: string
-  name: string
-  nextSibling?: IEntity | null
-  page?: IEntity | null
-  parent?: IEntity | null
-  parentComponent?: IEntity | null
-  postRenderAction?: IEntity | null
-  preRenderAction?: IEntity | null
-  // renderComponentType?: IComponentDTO | null
-  // renderAtomType?: IAtomDTO | null
-  prevSibling?: IEntity | null
-  propTransformationJs?: Nullable<string>
-  props: IEntity
-  renderForEachPropKey?: Nullable<string>
-  renderIfExpression?: Nullable<string>
-  renderType?: Nullable<RenderType>
-}

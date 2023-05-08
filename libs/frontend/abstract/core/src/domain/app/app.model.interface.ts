@@ -3,6 +3,7 @@ import type {
   AppDeleteInput,
   AppUpdateInput,
 } from '@codelab/shared/abstract/codegen'
+import type { IAppDTO, IOwner } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IDomain } from '../domain'
@@ -10,13 +11,11 @@ import type { IElement } from '../element'
 import type { IModel } from '../model.interface'
 import type { IPage } from '../page'
 import type { IPropData } from '../prop'
-import type { IOwnerSchema } from '../user'
-import type { IAppDTO } from './app.dto.interface'
 
 export interface IApp
   extends IModel<AppCreateInput, AppUpdateInput, AppDeleteInput>,
     ICacheService<IAppDTO, IApp>,
-    IOwnerSchema {
+    IOwner {
   domains: Array<Ref<IDomain>>
   id: IAppRef
   name: string

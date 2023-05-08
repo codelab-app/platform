@@ -1,5 +1,6 @@
 export * from './export/admin.interface'
 export * from './export/app.interface'
+export * from './export/component.interface'
 export * from './export/domain.interface'
 export * from './export/page.interface'
 export * from './export/resource.interface'

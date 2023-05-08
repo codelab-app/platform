@@ -1,4 +1,4 @@
-import type { IAuth0Owner } from '@codelab/frontend/abstract/core'
+import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 
 export abstract class IUseCase<IRequest = void, IResponse = void> {
   execute(request: IRequest): IResponse | Promise<IResponse> {

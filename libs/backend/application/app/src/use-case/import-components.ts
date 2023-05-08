@@ -1,10 +1,10 @@
-import type { IAppExport } from '@codelab/backend/abstract/core'
+import type {
+  IAppExport,
+  IComponentExport,
+} from '@codelab/backend/abstract/core'
 import { createComponents } from '@codelab/backend/domain/app'
 import { updateImportedElement } from '@codelab/backend/domain/element'
-import type {
-  IAuth0Owner,
-  IComponentExport,
-} from '@codelab/frontend/abstract/core'
+import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import { logSection } from '@codelab/shared/utils'
 
 export const importComponents = async (

@@ -1,11 +1,13 @@
 import type {
-  IAuth0Owner,
   IBaseType,
-  IBaseTypeDTO,
   ICreateTypeInput,
   IUpdateTypeVars,
 } from '@codelab/frontend/abstract/core'
-import type { ITypeKind } from '@codelab/shared/abstract/core'
+import type {
+  IAuth0Owner,
+  IBaseTypeDTO,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 

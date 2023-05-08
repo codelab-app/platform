@@ -6,7 +6,7 @@ import {
 import { User, UserRepository } from '@codelab/backend/domain/user'
 import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
 import { resetDatabase } from '@codelab/backend/test'
-import type { IUnionTypeDTO, IUserDTO } from '@codelab/frontend/abstract/core'
+import type { IUnionTypeDTO, IUserDTO } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { DefaultTypeAdapterService } from './default-type-adapter.service'
 
@@ -22,6 +22,8 @@ beforeAll(async () => {
     User,
     UserRepository,
   })
+
+  console.log('Before all', user)
 })
 
 afterAll(async () => {
@@ -29,20 +31,23 @@ afterAll(async () => {
 })
 
 describe('DefaultTypeAdapterService', () => {
-  const atom = {
-    name: 'TestAtom',
-  }
-
-  const field = {
-    key: 'testField',
-  }
-
   const type = 'boolean | { delay: number }'
+  let service: DefaultTypeAdapterService
 
-  const service = new DefaultTypeAdapterService({
-    atom,
-    field,
-    owner: user,
+  beforeAll(() => {
+    const atom = {
+      name: 'TestAtom',
+    }
+
+    const field = {
+      key: 'testField',
+    }
+
+    service = new DefaultTypeAdapterService({
+      atom,
+      field,
+      owner: user,
+    })
   })
 
   it('should be an interfaceType', async () => {
@@ -71,7 +76,9 @@ describe('DefaultTypeAdapterService', () => {
       id: interfaceTypeId,
     })
 
-    expect(existingBooleanType?.kind).toEqual(IPrimitiveTypeKind.Boolean)
+    expect(existingBooleanType?.primitiveKind).toEqual(
+      IPrimitiveTypeKind.Boolean,
+    )
     expect(existingInterfaceType?.kind).toEqual(ITypeKind.InterfaceType)
 
     const interfaceTypeFields = existingInterfaceType?.fields

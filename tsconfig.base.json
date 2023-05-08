@@ -23,6 +23,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@codelab/backend/abstract/codegen": [
+        "libs/backend/abstract/codegen/src/index.ts"
+      ],
       "@codelab/backend/abstract/core": [
         "libs/backend/abstract/core/src/index.ts"
       ],
@@ -103,6 +106,7 @@
       "@codelab/backend/infra/adapter/vercel": [
         "libs/backend/infra/adapter/vercel/src/index.ts"
       ],
+      "@codelab/backend/infra/core": ["libs/backend/infra/core/src/index.ts"],
       "@codelab/backend/shared/util": ["libs/backend/shared/util/src/index.ts"],
       "@codelab/backend/test": ["libs/backend/test/src/index.ts"],
       "@codelab/frontend/abstract/core": [

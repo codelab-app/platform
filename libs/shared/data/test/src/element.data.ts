@@ -1,5 +1,5 @@
-import type { IElementDTO, IPropDTO } from '@codelab/frontend/abstract/core'
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
+import type { IElementDTO, IPropDTO } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
 /**

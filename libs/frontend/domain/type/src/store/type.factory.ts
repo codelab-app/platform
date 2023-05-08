@@ -1,13 +1,15 @@
 import type {
-  IArrayTypeDTO,
   ICreateTypeData,
-  IInterfaceTypeDTO,
   IType,
-  ITypeDTO,
-  IUnionTypeDTO,
   IUpdateTypeData,
 } from '@codelab/frontend/abstract/core'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
+import type {
+  IArrayTypeDTO,
+  IInterfaceTypeDTO,
+  ITypeDTO,
+  IUnionTypeDTO,
+} from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
   ActionType,

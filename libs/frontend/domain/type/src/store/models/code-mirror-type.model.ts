@@ -1,8 +1,6 @@
-import type {
-  ICodeMirrorType,
-  ICodeMirrorTypeDTO,
-} from '@codelab/frontend/abstract/core'
+import type { ICodeMirrorType } from '@codelab/frontend/abstract/core'
 import type { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import type { ICodeMirrorTypeDTO } from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'

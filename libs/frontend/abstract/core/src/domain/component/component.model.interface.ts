@@ -1,4 +1,5 @@
 import type { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
+import type { IOwner } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
@@ -6,12 +7,11 @@ import type { IElement, IElementTree } from '../element'
 import type { IProp } from '../prop'
 import type { IStore } from '../store'
 import type { IInterfaceType } from '../type'
-import type { IOwnerSchema } from '../user'
 import type { IComponentDTO } from './component.dto.interface'
 
 export interface IComponent
   extends ICacheService<IComponentDTO, IComponent>,
-    IOwnerSchema,
+    IOwner,
     IElementTree {
   api: Ref<IInterfaceType>
   childrenContainerElement: Ref<IElement>

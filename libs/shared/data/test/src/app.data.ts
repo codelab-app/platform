@@ -1,10 +1,10 @@
+import type { ICreateElementData } from '@codelab/frontend/abstract/core'
 import type {
   IAppDTO,
   IAuth0Owner,
-  ICreateElementData,
   IInterfaceTypeDTO,
   IStoreDTO,
-} from '@codelab/frontend/abstract/core'
+} from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { v4 } from 'uuid'

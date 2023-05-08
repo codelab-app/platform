@@ -1,8 +1,8 @@
+import type { IElementType } from '@codelab/frontend/abstract/core'
 import type {
-  IElementType,
   IElementTypeDTO,
-} from '@codelab/frontend/abstract/core'
-import type { IElementTypeKind } from '@codelab/shared/abstract/core'
+  IElementTypeKind,
+} from '@codelab/shared/abstract/core'
 import { assertIsTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import merge from 'lodash/merge'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'

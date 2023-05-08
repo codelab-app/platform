@@ -1,10 +1,4 @@
-import type {
-  IApp,
-  IAppDTO,
-  IAuth0Owner,
-  IDomain,
-  IPage,
-} from '@codelab/frontend/abstract/core'
+import type { IApp, IDomain, IPage } from '@codelab/frontend/abstract/core'
 import { domainRef } from '@codelab/frontend/domain/domain'
 import { pageRef } from '@codelab/frontend/domain/page'
 import type {
@@ -12,6 +6,7 @@ import type {
   AppDeleteInput,
   AppUpdateInput,
 } from '@codelab/shared/abstract/codegen'
+import type { IAppDTO, IAuth0Owner } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { createUniqueName } from '@codelab/shared/utils'

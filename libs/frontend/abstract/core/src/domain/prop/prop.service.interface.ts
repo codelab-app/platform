@@ -1,9 +1,6 @@
+import type { IPropDTO } from '@codelab/shared/abstract/core'
 import type { ICRUDService } from '../../service'
-import type {
-  ICreatePropData,
-  IPropDTO,
-  IUpdatePropData,
-} from './prop.dto.interface'
+import type { ICreatePropData, IUpdatePropData } from './prop.data.interface'
 import type { IProp } from './prop.model.interface'
 import type { IPropRepository } from './prop.repo.interface'
 

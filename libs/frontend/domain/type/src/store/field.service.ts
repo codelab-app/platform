@@ -4,8 +4,9 @@ import type {
   IFieldService,
   IInterfaceType,
 } from '@codelab/frontend/abstract/core'
-import { getElementService, IFieldDTO } from '@codelab/frontend/abstract/core'
+import { getElementService } from '@codelab/frontend/abstract/core'
 import type { FieldFragment } from '@codelab/shared/abstract/codegen'
+import { IFieldDTO } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
 import uniq from 'lodash/uniq'

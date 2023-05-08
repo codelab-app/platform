@@ -3,7 +3,7 @@ import type {
   PageDeleteInput,
   PageUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IPageKind } from '@codelab/shared/abstract/core'
+import type { IPageDTO, IPageKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
@@ -11,7 +11,6 @@ import type { IElement, IElementTree } from '../element'
 import type { IModel } from '../model.interface'
 import type { IPropData } from '../prop'
 import type { IStore } from '../store'
-import type { IPageDTO } from './page.dto.interface'
 
 export interface IPage
   extends IModel<PageCreateInput, PageUpdateInput, PageDeleteInput>,

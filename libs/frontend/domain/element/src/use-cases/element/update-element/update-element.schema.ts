@@ -1,9 +1,9 @@
 import type { IUpdateBaseElementData } from '@codelab/frontend/abstract/core'
-import { IRenderTypeKind } from '@codelab/frontend/abstract/core'
 import {
   idSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
+import { IRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {

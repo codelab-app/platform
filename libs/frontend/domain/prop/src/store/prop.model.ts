@@ -1,8 +1,4 @@
-import type {
-  IInterfaceType,
-  IProp,
-  IPropDTO,
-} from '@codelab/frontend/abstract/core'
+import type { IInterfaceType, IProp } from '@codelab/frontend/abstract/core'
 import {
   CUSTOM_TEXT_PROP_KEY,
   IPropData,
@@ -12,6 +8,7 @@ import type {
   PropCreateInput,
   PropUpdateInput,
 } from '@codelab/shared/abstract/codegen'
+import type { IPropDTO } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import get from 'lodash/get'
