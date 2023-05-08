@@ -10,7 +10,7 @@ import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import find from 'lodash/find'
 import { v4 } from 'uuid'
 import { AntdTypeAdapterService } from '../../type-adapter/antd-type-adapter/antd-type-adapter.service'
-import { readJsonFiles } from './read-json-files'
+import { readAntDesignApis } from './read-ant-design-apis'
 
 /**
  * Here we want to parse the CSV files from Ant Design and seed it as atoms
@@ -29,7 +29,7 @@ export class ExtractAntDesignFieldsService extends IAuthUseCase<
    * Extract data to be used for seeding, these data have already been mapped with correct ID for upsert
    */
   protected async _execute(atoms: Array<IAtomDTO>) {
-    const antDesignApis = await readJsonFiles(this.antdDataFolder)
+    const antDesignApis = await readAntDesignApis(this.antdDataFolder)
     const fieldsByAtom = []
 
     for (const atom of atoms) {

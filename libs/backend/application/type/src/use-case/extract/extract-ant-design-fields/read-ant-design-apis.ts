@@ -1,8 +1,9 @@
 import type { AntDesignApi } from '@codelab/backend/abstract/core'
+import { AntDesignApiSchema } from '@codelab/backend/abstract/core'
 import fs from 'fs'
 import path from 'path'
 
-export const readJsonFiles = async (
+export const readAntDesignApis = async (
   folder: string,
 ): Promise<Array<AntDesignApi>> => {
   const jsonFiles = fs.readdirSync(folder)
@@ -11,9 +12,11 @@ export const readJsonFiles = async (
   for (const file of jsonFiles) {
     const filePath = path.resolve(folder, file)
     const fileContent = fs.readFileSync(filePath, 'utf8')
-    const api: Array<AntDesignApi> = JSON.parse(fileContent)
+    const apisData: Array<AntDesignApi> = JSON.parse(fileContent)
 
-    apis.push(...api)
+    apisData.forEach((data) => AntDesignApiSchema.parse(data))
+
+    apis.push(...apisData)
   }
 
   return apis

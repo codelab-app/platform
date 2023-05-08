@@ -7258,7 +7258,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@neo4j/graphql@npm:3.18.2, @neo4j/graphql@npm:^3.18.2":
+"@neo4j/graphql@npm:3.18.2":
   version: 3.18.2
   resolution: "@neo4j/graphql@npm:3.18.2"
   dependencies:
@@ -7283,6 +7283,34 @@ __metadata:
     graphql: ^16.0.0
     neo4j-driver: ^4.1.0 || ^5.0.0
   checksum: 4a1cf09d1aa0d12ca5dc06efc1edc10c9959c5c9c719a8092455eb199647ad969ffe789e2eced75b63b2243a6d4e403f4a23a04684392ed26b0689c608bb3a0e
+  languageName: node
+  linkType: hard
+
+"@neo4j/graphql@patch:@neo4j/graphql@npm%3A3.18.2#./.yarn/patches/@neo4j-graphql-npm-3.18.2-d5226be5f3.patch::locator=codelab%40workspace%3A.":
+  version: 3.18.2
+  resolution: "@neo4j/graphql@patch:@neo4j/graphql@npm%3A3.18.2#./.yarn/patches/@neo4j-graphql-npm-3.18.2-d5226be5f3.patch::version=3.18.2&hash=0fa633&locator=codelab%40workspace%3A."
+  dependencies:
+    "@apollo/subgraph": ^2.2.3
+    "@graphql-tools/merge": ^8.3.3
+    "@graphql-tools/resolvers-composition": ^6.5.3
+    "@graphql-tools/schema": 9.0.19
+    "@graphql-tools/utils": ^9.0.0
+    "@neo4j/cypher-builder": ~0.4.1
+    camelcase: ^6.3.0
+    debug: ^4.3.4
+    deep-equal: ^2.0.5
+    dot-prop: ^6.0.1
+    graphql-compose: ^9.0.8
+    graphql-parse-resolve-info: ^4.12.3
+    graphql-relay: ^0.10.0
+    jose: ^4.13.1
+    pluralize: ^8.0.0
+    semver: ^7.3.7
+    uuid: ^9.0.0
+  peerDependencies:
+    graphql: ^16.0.0
+    neo4j-driver: ^4.1.0 || ^5.0.0
+  checksum: 311f576ebcbbb0ba4bf6a1e0c8a02d065736b94ae0c209ee04e373ede273b7eb31b51797987ba194e4329b9741952e01cd9eb1e806a1f752e6c1347ef28b01f3
   languageName: node
   linkType: hard
 
@@ -10343,7 +10371,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jquery@npm:^3.5.16":
+"@types/jquery@npm:3.5.16":
   version: 3.5.16
   resolution: "@types/jquery@npm:3.5.16"
   dependencies:
@@ -14798,7 +14826,7 @@ __metadata:
     "@types/graphql-iso-date": 3.4.0
     "@types/inquirer": 8.2.1
     "@types/jest": 29.4.0
-    "@types/jquery": ^3.5.16
+    "@types/jquery": 3.5.16
     "@types/js-cookie": 3.0.1
     "@types/json2csv": 5.0.3
     "@types/jwt-decode": 3.1.0

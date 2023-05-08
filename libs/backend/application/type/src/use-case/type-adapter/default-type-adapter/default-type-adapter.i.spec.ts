@@ -37,15 +37,22 @@ describe('DefaultTypeAdapterService', () => {
     key: 'testField',
   }
 
+  const type = 'boolean | { delay: number }'
+
   const service = new DefaultTypeAdapterService({
     atom,
     field,
     owner: user,
   })
 
+  it('should be an interfaceType', async () => {
+    const isInterfaceType = service.isUnionType(type)
+
+    expect(isInterfaceType).toBeTruthy()
+  })
+
   it('should create a union type with boolean and interface type for given input', async () => {
-    const inputType = 'boolean | { delay: number }'
-    const result = (await service.execute({ type: inputType })) as IUnionTypeDTO
+    const result = (await service.execute({ type })) as IUnionTypeDTO
 
     expect(result).toBeDefined()
     expect(result.kind).toEqual(ITypeKind.UnionType)

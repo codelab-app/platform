@@ -317,8 +317,8 @@
   },
   "resolutions": {
     "rxjs": "^6.6.3",
-    "@neo4j/graphql@3.17.0": "patch:@neo4j/graphql@npm%3A3.17.0#./.yarn/patches/@neo4j-graphql-npm-3.17.0-09c3b04e61.patch",
-    "@neo4j/graphql@^3.17.0": "patch:@neo4j/graphql@npm%3A3.17.0#./.yarn/patches/@neo4j-graphql-npm-3.17.0-09c3b04e61.patch"
+    "@neo4j/graphql@3.18.2": "patch:@neo4j/graphql@npm%3A3.18.2#./.yarn/patches/@neo4j-graphql-npm-3.18.2-d5226be5f3.patch",
+    "@neo4j/graphql@^3.18.2": "patch:@neo4j/graphql@npm%3A3.18.2#./.yarn/patches/@neo4j-graphql-npm-3.18.2-d5226be5f3.patch"
   },
   "packageManager": "yarn@3.5.1"
 }

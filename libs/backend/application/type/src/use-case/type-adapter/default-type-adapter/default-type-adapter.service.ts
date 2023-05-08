@@ -62,9 +62,9 @@ export class DefaultTypeAdapterService
   integerTypeRegex = /^integer$/
 
   /**
-   * We consider it an interface if it has brackets
+   * This pattern ensures that it will match any string that starts with a { and ends with a }, even if there are multiple lines or nested objects within the interface type. The [\s\S]* part of the regex pattern matches any character, including whitespace and non-whitespace characters, zero or more times.
    */
-  interfaceTypeRegex = /^\{.+}$/
+  interfaceTypeRegex = /^\{[\s\S]*}$/
 
   unionTypeRegex = /\|/
 
@@ -78,47 +78,66 @@ export class DefaultTypeAdapterService
   }
 
   async _execute({ type }: Request) {
-    if (this.isEnumType(type)) {
-      return this.enumType(type)
+    const typeChecks = [
+      {
+        check: this.isEnumType.bind(this),
+        transform: this.enumType.bind(this),
+      },
+      {
+        check: this.isReactNodeType.bind(this),
+        transform: this.reactNodeType.bind(this),
+      },
+      {
+        check: this.isRenderPropType.bind(this),
+        transform: this.renderPropType.bind(this),
+      },
+      {
+        check: this.isActionType.bind(this),
+        transform: this.actionType.bind(this),
+      },
+      {
+        check: this.isStringType.bind(this),
+        transform: this.stringType.bind(this),
+      },
+      {
+        check: this.isBooleanType.bind(this),
+        transform: this.booleanType.bind(this),
+      },
+      {
+        check: this.isNumberType.bind(this),
+        transform: this.numberType.bind(this),
+      },
+      {
+        check: this.isIntegerType.bind(this),
+        transform: this.integerType.bind(this),
+      },
+      {
+        check: this.isInterfaceType.bind(this),
+        transform: this.interfaceType.bind(this),
+      },
+      {
+        check: this.isUnionType.bind(this),
+        transform: this.unionType.bind(this),
+      },
+    ]
+
+    const matchingTypeChecks = typeChecks.filter(({ check }) => check(type))
+
+    if (matchingTypeChecks.length === 0) {
+      console.warn(
+        `No matching type check found for type: ${type}. Consider improving the code to handle this case.`,
+      )
+
+      return
     }
 
-    if (this.isReactNodeType(type)) {
-      return this.reactNodeType()
+    if (matchingTypeChecks.length > 1) {
+      throw new Error(
+        `More than one type check matched for type: ${type}. The type checks should be mutually exclusive.`,
+      )
     }
 
-    if (this.isRenderPropType(type)) {
-      return this.renderPropType()
-    }
-
-    if (this.isActionType(type)) {
-      return this.actionType()
-    }
-
-    if (this.isStringType(type)) {
-      return this.stringType()
-    }
-
-    if (this.isBooleanType(type)) {
-      return this.booleanType()
-    }
-
-    if (this.isNumberType(type)) {
-      return this.numberType()
-    }
-
-    if (this.isIntegerType(type)) {
-      return this.integerType()
-    }
-
-    if (this.isInterfaceType(type)) {
-      return this.interfaceType()
-    }
-
-    if (this.isUnionType(type)) {
-      return this.unionType(type)
-    }
-
-    return
+    return await matchingTypeChecks[0]?.transform(type)
   }
 
   isNumberType(type: string) {
