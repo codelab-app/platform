@@ -4,6 +4,7 @@ import type { IInterfaceType, IType } from '@codelab/frontend/abstract/core'
 import {
   atomRef,
   CUSTOM_TEXT_PROP_KEY,
+  elementRef,
   elementTreeRef,
   pageRef,
   propRef,
@@ -32,7 +33,6 @@ import {
   RenderPropType,
   TypeService,
 } from '@codelab/frontend/domain/type'
-import { User, UserService } from '@codelab/frontend/domain/user'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import {
   IPageKind,
@@ -50,9 +50,6 @@ import { TestRootStore } from './test-root-store'
 import type { ITestRootStore, TestServices } from './test-root-store.interface'
 
 const stubServiceRepositories = (rootStore: ITestRootStore) => {
-  jest.spyOn(rootStore.appService.appRepository, 'add').mockImplementation()
-  jest.spyOn(rootStore.pageService.pageRepository, 'add').mockImplementation()
-
   jest
     .spyOn(rootStore.elementService.elementRepository, 'add')
     .mockImplementation()
@@ -74,14 +71,10 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
   const data: TestServices = {} as TestServices
 
   beforeEach(async () => {
-    const user = new User({ auth0Id: v4(), id: v4(), username: '' })
-    const owner = { auth0Id: user.auth0Id }
+    const owner = { auth0Id: v4() }
     const pageId = v4()
-
-    const emptyInterface = new InterfaceType({
-      name: 'Empty interface',
-      owner,
-    })
+    const compRootElementId = v4()
+    const emptyInterface = new InterfaceType({ name: 'Empty interface', owner })
 
     const divAtom = new Atom({
       api: typeRef(emptyInterface),
@@ -142,12 +135,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       owner,
     })
 
-    const reactNodeType = new ReactNodeType({
-      name: 'reactNodeType',
-      owner,
-    })
-
-    const customTextField = new Field({
+    data.textField = new Field({
       api: typeRef(emptyInterface),
       id: v4(),
       key: CUSTOM_TEXT_PROP_KEY,
@@ -155,9 +143,18 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       type: typeRef(stringType.id),
     })
 
-    const rootStore = new TestRootStore({
+    data.renderPropType = new RenderPropType({
+      name: 'renderPropType',
+      owner,
+    })
+
+    data.reactNodeType = new ReactNodeType({
+      name: 'reactNodeType',
+      owner,
+    })
+
+    data.rootStore = new TestRootStore({
       actionService: new ActionService({}),
-      appService: new AppService({}),
       atomService: new AtomService({
         atoms: objectMap([
           [divAtom.id, divAtom],
@@ -375,56 +372,68 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
         types: objectMap<IType>([
           [integerType.id, integerType],
           [stringType.id, stringType],
-          [renderPropType.id, renderPropType],
-          [reactNodeType.id, reactNodeType],
+          [data.renderPropType.id, data.renderPropType],
+          [data.reactNodeType.id, data.reactNodeType],
           [emptyInterface.id, emptyInterface],
         ]),
       }),
-      userService: new UserService({ user }),
     })
 
-    stubServiceRepositories(rootStore)
+    stubServiceRepositories(data.rootStore)
 
-    const app = await rootStore.appService.create({
+    const elementToRenderProp = {
+      data: JSON.stringify({
+        prop01: 'prop01Value',
+        prop02: 'prop02Value',
+        prop03: {
+          type: integerType.id,
+          value: 'prop03Value',
+        },
+      }),
+    }
+
+    data.element = await data.rootStore.elementService.create({
       id: v4(),
-      name: 'app',
-      owner,
+      name: ROOT_ELEMENT_NAME,
+      props: elementToRenderProp,
+      propTransformationJs: `
+        // Write a transformer function, you get the input props as parameter
+        // All returned props will get merged with the original ones
+        function transform(props) {
+          return Object.keys(props)
+            .map((x)=> ({
+              [\`$\{x}-edited\`] : props[x]
+            }))
+            .reduce((total,current) =>
+              ({...total,...current}),
+              {}
+            )
+          }
+      `,
+      renderType: { id: divAtom.id, kind: IRenderTypeKind.Atom },
     })
 
-    const page = await rootStore.pageService.create({
-      app: { id: app.id },
+    data.element.setPage(pageRef(pageId))
+
+    data.rootStore.pageService.add({
+      app: { id: v4() },
       id: pageId,
       kind: IPageKind.Regular,
       name: 'page',
-      owner,
-      url: '/page',
+      rootElement: elementRef(data.element),
+      store: storeRef(pageStore.id),
+      url: 'page-url',
     })
 
-    page.rootElement.current.props.current.setMany({
-      prop01: 'prop01Value',
-      prop02: 'prop02Value',
-      prop03: {
-        type: integerType.id,
-        value: 'prop03Value',
-      },
+    const componentRootElementProps = await data.rootStore.propService.create({
+      data: JSON.stringify({
+        componentProp: 'original',
+        [CUSTOM_TEXT_PROP_KEY]: "I'm a component",
+      }),
+      id: v4(),
     })
 
-    page.rootElement.current.setPropTransformationJs(`
-      // Write a transformer function, you get the input props as parameter
-      // All returned props will get merged with the original ones
-      function transform(props) {
-        return Object.keys(props)
-          .map((x)=> ({
-              [\`$\{x}-edited\`] : props[x]
-            }))
-          .reduce((total,current) =>
-            ({...total,...current}),
-            {}
-          )
-      }
-  `)
-
-    const component = await rootStore.componentService.create({
+    data.component = await data.rootStore.componentService.create({
       id: v4(),
       keyGenerator: `function run(props) {
         // props are of type component api
@@ -434,56 +443,36 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       owner,
     })
 
-    component.api.current.writeCache({ fields: [{ id: customTextField.id }] })
-    component.rootElement.current.setRenderType(atomRef(textAtom))
+    data.component.api.current.writeCache({
+      fields: [{ id: data.textField.id }],
+    })
 
-    const componentInstance =
-      await rootStore.elementService.createElementAsFirstChild({
+    data.component.setChildrenContainerElement(elementRef(compRootElementId))
+    data.component.rootElement.current.setRenderType(atomRef(textAtom))
+    data.component.rootElement.current.setProps(
+      propRef(componentRootElementProps),
+    )
+
+    data.componentInstance =
+      await data.rootStore.elementService.createElementAsFirstChild({
         id: v4(),
         name: '01',
-        parentElement: { id: page.rootElement.id },
-        props: {},
+        parentElement: { id: data.element.id },
+        props: { data: JSON.stringify({ componentProp: 'instance' }) },
         renderType: {
-          id: component.id,
+          id: data.component.id,
           kind: IRenderTypeKind.Component,
         },
       })
 
-    const atomInstance =
-      await rootStore.elementService.createElementAsNextSibling({
-        id: v4(),
-        name: 'Text Atom Element',
-        prevSibling: { id: componentInstance.id },
-        props: {},
-        renderType: {
-          id: textAtom.id,
-          kind: IRenderTypeKind.Atom,
-        },
-      })
-
-    const renderer: IRenderer = new Renderer({
+    const renderer = new Renderer({
       debugMode: false,
-      elementTree: elementTreeRef(page),
+      elementTree: elementTreeRef(data.component),
       rendererType: RendererType.PageBuilder,
       renderPipe: renderPipeFactory([PassThroughRenderPipe, ...pipes]),
     })
 
-    rootStore.setRenderer(renderer)
-
-    // data object needs to keep the same reference
-    Object.assign(data, {
-      atomInstance,
-      component,
-      componentInstance,
-      componentRootElement: component.rootElement.current,
-      customTextField,
-      page,
-      pageRootElement: page.rootElement.current,
-      reactNodeType,
-      renderer,
-      renderPropType,
-      rootStore,
-    })
+    data.rootStore.setRenderer(renderer)
   })
 
   afterEach(() => {
