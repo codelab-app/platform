@@ -209,6 +209,8 @@ jobs:
           command: |
             cd ~/
             du -hd1
+            cd ~/.cache
+            du -hd1
       # - run:
       #     name: 'Clear Cache'
       #     # clear cache here because NX cache can get quite large, we rely on remote cache instead
@@ -221,11 +223,15 @@ jobs:
           # Can't use `yarn cli` doesn't exist yet
           command: npx nx run-many --target=build --projects=platform,cli,landing,websites --parallel=4 --verbose -c ci --nx-bail
       - save_cache:
+          # 1.2G ./Cypress
+          # 909M ./ms-playright
+          # 763M ./puppeteer
+          # Puppeteer installs a lot of extra dependency that isn't needed
           name: 'Save Cache'
           key: dep-cache-{{ checksum "yarn.lock" }}
           paths:
             - ~/.yarn
-            - ~/.cache
+            - ~/.cache/Cypress
             - ~/project/dist/apps/platform/.next/cache
             - ~/project/dist/apps/landing/.next/cache
             - ~/project/dist/apps/websites/.next/cache
