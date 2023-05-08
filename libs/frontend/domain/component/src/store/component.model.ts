@@ -73,11 +73,7 @@ export class Component
 {
   @computed
   get initialState() {
-    return mergeProps(
-      this.api.current.defaultValues,
-      this.props.current.values,
-      this.instanceElement?.current.props.current.values,
-    )
+    return mergeProps(this.api.current.defaultValues, this.props.current.values)
   }
 
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173

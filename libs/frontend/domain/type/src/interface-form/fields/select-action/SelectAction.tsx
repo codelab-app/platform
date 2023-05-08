@@ -10,9 +10,14 @@ export type SelectActionProps = Pick<
 >
 
 export const SelectAction = (fieldProps: SelectActionProps) => {
-  const { actionService } = useStore()
+  const { actionService, builderService } = useStore()
+  const store = builderService.selectedNode?.current.store.current
 
-  const actions = actionService.actionsList.map((action) => ({
+  const actions = store
+    ? actionService.actionsList.filter((action) => action.store.id === store.id)
+    : actionService.actionsList
+
+  const options = actions.map((action) => ({
     label: action.name,
     value: action.id,
   }))
@@ -22,7 +27,7 @@ export const SelectAction = (fieldProps: SelectActionProps) => {
       {...fieldProps}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
       optionFilterProp="label"
-      options={actions}
+      options={options}
       showSearch
     />
   )
