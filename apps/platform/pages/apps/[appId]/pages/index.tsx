@@ -58,6 +58,7 @@ Pages.Layout = observer(({ children }) => {
             key: PageType.PageList,
             render: () => (
               <ExplorerPanePage
+                app={apps?.[0]}
                 loading={status === 'loading' || status === 'not-executed'}
               />
             ),

@@ -252,13 +252,24 @@ export class AppService
   add({ domains, id, name, owner, pages }: IAppDTO) {
     domains?.forEach((domain) => this.domainService.add(domain as IDomainDTO))
 
-    const app = App.create({
-      domains,
-      id,
-      name,
-      owner,
-      pages,
-    })
+    let app = this.apps.get(id)
+
+    if (app) {
+      app.writeCache({
+        domains,
+        name,
+        owner,
+        pages,
+      })
+    } else {
+      app = App.create({
+        domains,
+        id,
+        name,
+        owner,
+        pages,
+      })
+    }
 
     this.apps.set(app.id, app)
 
