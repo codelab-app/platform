@@ -1,27 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="222px" height="166px" viewBox="0 0 222 166" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>编组 2</title>
-    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="编组-2" transform="translate(1.000000, 1.000000)" fill-rule="nonzero">
-            <g id="编组">
-                <rect id="d" fill-opacity="0.6" fill="#67BBFE" x="0" y="0" width="98" height="70"></rect>
-                <polygon id="路径" fill="#308FFF" points="0 70 46.937105 31.2502077 61.2295209 48.3562963 98 11 98 69.9639872"></polygon>
-                <circle id="椭圆形" fill="#308FFF" cx="21.15" cy="21.15" r="7.65"></circle>
-            </g>
-            <g id="编组备份-7" transform="translate(0.000000, 94.000000)">
-                <rect id="d" stroke-opacity="0.15" stroke="#000000" x="0" y="0" width="98" height="70"></rect>
-                <polygon id="路径" fill-opacity="0.15" fill="#000000" points="0 70 46.937105 31.2502077 61.2295209 48.3562963 98 11 98 69.9639872"></polygon>
-                <circle id="椭圆形" fill-opacity="0.15" fill="#000000" cx="21.15" cy="21.15" r="7.65"></circle>
-            </g>
-            <g id="编组备份-5" transform="translate(122.000000, 0.000000)">
-                <rect id="d" stroke-opacity="0.15" stroke="#000000" x="0" y="0" width="98" height="70"></rect>
-                <polygon id="路径" fill-opacity="0.15" fill="#000000" points="0 70 46.937105 31.2502077 61.2295209 48.3562963 98 11 98 69.9639872"></polygon>
-                <circle id="椭圆形" fill-opacity="0.15" fill="#000000" cx="21.15" cy="21.15" r="7.65"></circle>
-            </g>
-            <g id="编组备份-8" transform="translate(122.000000, 94.000000)">
-                <rect id="d" stroke-opacity="0.15" stroke="#000000" x="0" y="0" width="98" height="70"></rect>
-                <polygon id="路径" fill-opacity="0.15" fill="#000000" points="0 70 46.937105 31.2502077 61.2295209 48.3562963 98 11 98 69.9639872"></polygon>
-                <circle id="椭圆形" fill-opacity="0.15" fill="#000000" cx="21.15" cy="21.15" r="7.65"></circle>
+<svg width="133px" height="96px" viewBox="0 0 133 96" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>image</title>
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-185.000000, -3490.000000)">
+            <g id="编组备份-5" transform="translate(186.000000, 3491.000000)">
+                <rect id="d" stroke-opacity="0.15" stroke="#000000" x="0" y="0" width="131" height="94"></rect>
+                <polygon id="路径" fill-opacity="0.15" fill="#000000" fill-rule="nonzero" points="0 94 62.7424567 42.1146849 81.8476249 65.0194476 131 15 131 93.9517795"></polygon>
+                <ellipse id="椭圆形" fill-opacity="0.15" fill="#000000" fill-rule="nonzero" cx="28" cy="28.5" rx="10" ry="10.5"></ellipse>
             </g>
         </g>
     </g>

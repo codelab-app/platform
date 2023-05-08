@@ -12,5 +12,5 @@ export type IAtomRepository = IRepository<
   AtomWhere,
   AtomOptions
 > & {
-  findOptions(): Promise<Array<Pick<IAtom, 'id' | 'name' | 'type'>>>
+  findOptions(): Promise<Array<Pick<IAtom, 'icon' | 'id' | 'name' | 'type'>>>
 }

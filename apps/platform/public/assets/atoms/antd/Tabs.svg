@@ -1,1 +1,27 @@
-<svg width="208" height="56" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><text font-family="PingFangSC-Regular, PingFang SC" font-size="14" fill="#000" fill-opacity=".85" transform="translate(0 -5)"><tspan x="85" y="15">Tab 2</tspan></text><text font-family="PingFangSC-Regular, PingFang SC" font-size="14" fill="#000" fill-opacity=".85" transform="translate(0 -5)"><tspan x="0" y="59">Content of Tab Pane 1</tspan></text><text font-family="PingFangSC-Regular, PingFang SC" font-size="14" fill="#000" fill-opacity=".85" transform="translate(0 -5)"><tspan x="165" y="15">Tab 3</tspan></text><path fill="#F0F0F0" d="M0 26h208v1H0z"/><text font-family="PingFangSC-Medium, PingFang SC" font-size="14" font-weight="400" fill="#1890FF" transform="translate(0 -5)"><tspan x="6" y="15">Tab 1</tspan></text><path fill="#1890FF" d="M0 25h48v2H0z"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="208px" height="32px" viewBox="0 0 208 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Tabs</title>
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-879.000000, -3762.000000)" fill-rule="nonzero">
+            <g id="Tabs" transform="translate(879.000000, 3762.000000)">
+                <g id="编组" transform="translate(85.000000, 0.000000)" fill="#000000" fill-opacity="0.85" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal">
+                    <text id="Tab-2">
+                        <tspan x="0" y="15">Tab 2</tspan>
+                    </text>
+                </g>
+                <g id="编组" transform="translate(165.000000, 0.000000)" fill="#000000" fill-opacity="0.85" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal">
+                    <text id="Tab-3">
+                        <tspan x="0" y="15">Tab 3</tspan>
+                    </text>
+                </g>
+                <polygon id="路径" fill="#F0F0F0" points="0 31 208 31 208 32 0 32"></polygon>
+                <g id="编组" transform="translate(6.000000, 0.000000)" fill="#1677FF" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal">
+                    <text id="Tab-1">
+                        <tspan x="0" y="15">Tab 1</tspan>
+                    </text>
+                </g>
+                <polygon id="路径" fill="#1677FF" points="0 30 48 30 48 32 0 32"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

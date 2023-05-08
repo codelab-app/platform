@@ -1,31 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="160px" height="59px" viewBox="0 0 160 59" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Upload</title>
-    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Ant-Design-组件缩略图" transform="translate(-2013.000000, -355.000000)">
-            <g id="Upload" transform="translate(2013.000000, 355.000000)">
-                <g id="Z/Z-Space/typo14pt#" transform="translate(0.000000, 39.000000)" fill="#000000" font-family="PingFangSC-Regular, PingFang SC" font-size="12" font-weight="normal" line-spacing="20" opacity="0.45">
-                    <text id="✏️Text">
-                        <tspan x="0" y="13">Support：.rar .zip .doc .jpg...</tspan>
+<svg width="185px" height="59px" viewBox="0 0 185 59" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>DataEntry/Upload/Light/Clicking</title>
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-158.000000, -2683.000000)">
+            <g id="DataEntry/Upload/Light/Clicking" transform="translate(158.000000, 2683.000000)">
+                <g id="General/Button/Icon/Light/Default" opacity="0.88">
+                    <path d="M89.9947701,0.5 C91.5149742,0.5 92.8912801,1.11575526 93.8875548,2.11119151 C94.88377,3.10656823 95.5,4.48159951 95.5,6.00017566 L95.5,25.9998243 C95.5,27.5180882 94.8831667,28.8926023 93.8871327,29.887798 C92.8902689,30.8838228 91.5135335,31.5 89.9947701,31.5 L6.00522995,31.5 C4.48384352,31.5 3.10648639,30.885494 2.10999782,29.8893205 C1.11505116,28.8946885 0.5,27.5196754 0.5,25.9966691 L0.5,6.00333095 C0.5,4.48416605 1.11685481,3.10882428 2.11296026,2.11303382 C3.10980023,1.11650908 4.48649656,0.5 6.00522995,0.5 Z" id="矩形" stroke-opacity="0.15" stroke="#000000" fill="#FFFFFF"></path>
+                    <text id="Text" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" line-spacing="22" fill="#000000" fill-opacity="0.88">
+                        <tspan x="34" y="20">Upload</tspan>
                     </text>
-                </g>
-                <g id="1.Button/1.Default/2.Icon.2.Secondary-#">
-                    <g id="9.Box/1.Cards/4.Border" fill-rule="nonzero">
-                        <g id="Z/Shape/RectangleRC/2px/RC-A">
-                            <rect id="BG/fill" fill="#FFFFFF" x="1" y="1" width="97" height="30" rx="1"></rect>
-                            <rect id="outline" stroke="#000000" stroke-width="1" opacity="0.15" x="0.5" y="0.5" width="98" height="31" rx="2"></rect>
-                        </g>
-                    </g>
-                    <text id="✏️Text" opacity="0.65" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" line-spacing="22" fill="#000000">
-                        <tspan x="40" y="20">Upload</tspan>
-                    </text>
-                    <g id="7.Icon/interface/19.upload" transform="translate(16.000000, 8.000000)" fill="#000000" fill-rule="evenodd" stroke-width="1">
-                        <g id="upload">
-                            <rect id="Rectangle" opacity="0" x="0" y="0" width="16" height="16"></rect>
-                            <path d="M6.25,4.9640625 L7.4046875,4.9640625 L7.4046875,10.25 C7.4046875,10.31875 7.4609375,10.375 7.5296875,10.375 L8.4671875,10.375 C8.5359375,10.375 8.5921875,10.31875 8.5921875,10.25 L8.5921875,4.9640625 L9.75,4.9640625 C9.8546875,4.9640625 9.9125,4.84375 9.8484375,4.7625 L8.0984375,2.546875 C8.0484375,2.4828125 7.9515625,2.4828125 7.9015625,2.546875 L6.1515625,4.7609375 C6.0875,4.84375 6.1453125,4.9640625 6.25,4.9640625 L6.25,4.9640625 Z M13.71875,9.78125 L12.78125,9.78125 C12.7125,9.78125 12.65625,9.8375 12.65625,9.90625 L12.65625,12.3125 L3.34375,12.3125 L3.34375,9.90625 C3.34375,9.8375 3.2875,9.78125 3.21875,9.78125 L2.28125,9.78125 C2.2125,9.78125 2.15625,9.8375 2.15625,9.90625 L2.15625,13 C2.15625,13.2765625 2.3796875,13.5 2.65625,13.5 L13.34375,13.5 C13.6203125,13.5 13.84375,13.2765625 13.84375,13 L13.84375,9.90625 C13.84375,9.8375 13.7875,9.78125 13.71875,9.78125 Z" id="Shape" fill-rule="nonzero" opacity="0.65"></path>
-                        </g>
+                    <g id="Icon/Save" transform="translate(12.000000, 9.000000)" fill="#000000">
+                        <rect id="矩形" fill-rule="nonzero" opacity="0" x="0" y="0" width="14" height="14"></rect>
+                        <path d="M5.46875,4.34355469 L6.47910156,4.34355469 L6.47910156,8.96875 C6.47910156,9.02890625 6.52832031,9.078125 6.58847656,9.078125 L7.40878906,9.078125 C7.46894531,9.078125 7.51816406,9.02890625 7.51816406,8.96875 L7.51816406,4.34355469 L8.53125,4.34355469 C8.62285156,4.34355469 8.6734375,4.23828125 8.61738281,4.1671875 L7.08613281,2.22851562 C7.04238281,2.17246094 6.95761719,2.17246094 6.91386719,2.22851562 L5.38261719,4.16582031 C5.3265625,4.23828125 5.37714844,4.34355469 5.46875,4.34355469 L5.46875,4.34355469 Z M12.0039062,8.55859375 L11.1835938,8.55859375 C11.1234375,8.55859375 11.0742188,8.6078125 11.0742188,8.66796875 L11.0742188,10.7734375 L2.92578125,10.7734375 L2.92578125,8.66796875 C2.92578125,8.6078125 2.8765625,8.55859375 2.81640625,8.55859375 L1.99609375,8.55859375 C1.9359375,8.55859375 1.88671875,8.6078125 1.88671875,8.66796875 L1.88671875,11.375 C1.88671875,11.6169922 2.08222656,11.8125 2.32421875,11.8125 L11.6757812,11.8125 C11.9177734,11.8125 12.1132812,11.6169922 12.1132812,11.375 L12.1132812,8.66796875 C12.1132812,8.6078125 12.0640625,8.55859375 12.0039062,8.55859375 Z" id="形状"></path>
                     </g>
                 </g>
+                <text id="↳-Description" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" line-spacing="22" fill="#000000" fill-opacity="0.88">
+                    <tspan x="0" y="55">Support：.rar .zip .doc .jpg...</tspan>
+                </text>
             </g>
         </g>
     </g>

@@ -1,34 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="120px" height="32px" viewBox="0 0 120 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>InputNumber</title>
-    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Ant-Design-组件缩略图" transform="translate(-1081.000000, -369.000000)">
-            <g id="InputNumber" transform="translate(1081.000000, 369.000000)">
-                <g id="3.DataEntry/Input/Default/Basic-#">
-                    <g id="9.Box/1.Cards/4.Border" fill-rule="nonzero">
-                        <g id="Z/Shape/RectangleRC/2px/RC-A">
-                            <rect id="BG/fill" fill="#FFFFFF" x="1" y="1" width="118" height="30" rx="1"></rect>
-                            <rect id="outline" stroke="#000000" stroke-width="1" opacity="0.15" x="0.5" y="0.5" width="119" height="31" rx="2"></rect>
+<svg width="121px" height="34px" viewBox="0 0 121 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>DataEntry/Input/Light/InputNumber</title>
+    <defs>
+        <path d="M0,15 L21,15 L21,28.0081158 C21,29.1082031 20.0976562,30 19.0054385,30 L0,30 L0,15 Z" id="path-1"></path>
+        <filter x="-2.4%" y="-3.3%" width="104.8%" height="106.7%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="1" dy="0" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.850980392   0 0 0 0 0.850980392   0 0 0 0 0.850980392  0 0 0 1 0" type="matrix" in="shadowInnerInner1" result="shadowMatrixInner1"></feColorMatrix>
+            <feOffset dx="0" dy="0.5" in="SourceAlpha" result="shadowOffsetInner2"></feOffset>
+            <feComposite in="shadowOffsetInner2" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner2"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.850980392   0 0 0 0 0.850980392   0 0 0 0 0.850980392  0 0 0 1 0" type="matrix" in="shadowInnerInner2" result="shadowMatrixInner2"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixInner1"></feMergeNode>
+                <feMergeNode in="shadowMatrixInner2"></feMergeNode>
+            </feMerge>
+        </filter>
+        <path d="M0,0 L19.0054385,0 C20.1070044,0 21,0.893397331 21,1.99188419 L21,15 L0,15 L0,0 Z" id="path-3"></path>
+        <filter x="-2.4%" y="-3.3%" width="104.8%" height="106.7%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="1" dy="0" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.850980392   0 0 0 0 0.850980392   0 0 0 0 0.850980392  0 0 0 1 0" type="matrix" in="shadowInnerInner1" result="shadowMatrixInner1"></feColorMatrix>
+            <feOffset dx="0" dy="-0.5" in="SourceAlpha" result="shadowOffsetInner2"></feOffset>
+            <feComposite in="shadowOffsetInner2" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner2"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.850980392   0 0 0 0 0.850980392   0 0 0 0 0.850980392  0 0 0 1 0" type="matrix" in="shadowInnerInner2" result="shadowMatrixInner2"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixInner1"></feMergeNode>
+                <feMergeNode in="shadowMatrixInner2"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-922.000000, -1980.000000)">
+            <g id="DataEntry/Input/Light/InputNumber" transform="translate(923.000000, 1981.000000)">
+                <path d="M0,6.00017566 C0,2.68637015 2.68062968,0 6.00324648,0 L112.996754,0 C116.312255,0 119,2.68697795 119,6.00017566 L119,25.9998243 C119,29.3136299 116.31937,32 112.996754,32 L6.00324648,32 C2.687745,32 0,29.3130221 0,25.9998243 L0,6.00017566 Z" id="bg" stroke="#000000" opacity="0.15"></path>
+                <g id="UpDown" transform="translate(97.000000, 1.000000)">
+                    <g id="Rectangle-26-Copy-2" fill="black" fill-opacity="1">
+                        <use filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    </g>
+                    <g id="Rectangle-26-Copy-2" fill="black" fill-opacity="1">
+                        <use filter="url(#filter-4)" xlink:href="#path-3"></use>
+                    </g>
+                    <g id="Icon/Up" opacity="0.45" transform="translate(7.000000, 4.000000)" fill="#000000">
+                        <g id="up">
+                            <rect id="矩形" fill-rule="nonzero" opacity="0" x="0" y="0" width="8" height="8"></rect>
+                            <path d="M6.95703125,5.90078125 L4.20234375,2.103125 C4.10234375,1.965625 3.89765625,1.965625 3.7984375,2.103125 L1.04296875,5.90078125 C1.01328125,5.9421875 1.0421875,6 1.09375,6 L1.6796875,6 C1.71953125,6 1.75703125,5.98046875 1.78046875,5.9484375 L4,2.8890625 L6.21953125,5.9484375 C6.24296875,5.98046875 6.28046875,6 6.3203125,6 L6.90625,6 C6.95703125,6 6.98671875,5.9421875 6.95703125,5.90078125 L6.95703125,5.90078125 Z" id="路径"></path>
                         </g>
                     </g>
-                    <text id="✏️Text" opacity="0.25" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" line-spacing="22" fill="#000000">
-                        <tspan x="12" y="20">Number</tspan>
-                    </text>
-                </g>
-                <g id="Group" transform="translate(103.000000, 0.000000)" fill="#000000" fill-rule="nonzero">
-                    <g id="Z/Divider" opacity="0.09">
-                        <rect id="divider/fill" x="0" y="0" width="1" height="32"></rect>
-                    </g>
-                    <g id="Z/Divider" transform="translate(1.000000, 15.000000)" opacity="0.09">
-                        <rect id="divider/fill" x="0" y="0" width="16" height="1"></rect>
-                    </g>
-                    <g id="7.Icon/arrow/3.up" transform="translate(3.000000, 2.000000)" opacity="0.65">
-                        <path d="M10.4355469,8.85117187 L6.30351562,3.1546875 C6.15351562,2.9484375 5.84648437,2.9484375 5.69765625,3.1546875 L1.56445312,8.85117187 C1.51992187,8.91328125 1.56328125,9 1.640625,9 L2.51953125,9 C2.57929687,9 2.63554687,8.97070312 2.67070312,8.92265625 L6,4.33359375 L9.32929687,8.92265625 C9.36445312,8.97070312 9.42070312,9 9.48046875,9 L10.359375,9 C10.4355469,9 10.4800781,8.91328125 10.4355469,8.85117187 L10.4355469,8.85117187 Z" id="fill"></path>
-                    </g>
-                    <g id="7.Icon/arrow/4.down" transform="translate(3.000000, 18.000000)" opacity="0.65">
-                        <path d="M10.359375,3 L9.48046875,3 C9.42070312,3 9.36445312,3.02929688 9.32929687,3.07734375 L6,7.66640625 L2.67070313,3.07734375 C2.63554688,3.02929688 2.57929687,3 2.51953125,3 L1.640625,3 C1.56445313,3 1.51992188,3.08671875 1.56445313,3.14882813 L5.69648437,8.8453125 C5.84648437,9.0515625 6.15351562,9.0515625 6.30234375,8.8453125 L10.434375,3.14882812 C10.4800781,3.08671875 10.4355469,3 10.359375,3 Z" id="fill"></path>
+                    <g id="Icon/Down" transform="translate(7.000000, 19.000000)">
+                        <rect id="Rectangle" x="0" y="0" width="8" height="8"></rect>
+                        <path d="M6.87509895,2 L6.28916145,2 C6.2493177,2 6.2118177,2.01953125 6.1883802,2.0515625 L3.96884895,5.1109375 L1.7493177,2.0515625 C1.7258802,2.01953125 1.6883802,2 1.64853645,2 L1.06259895,2 C1.0118177,2 0.982130198,2.0578125 1.0118177,2.09921875 L3.7665052,5.896875 C3.8665052,6.034375 4.0711927,6.034375 4.17041145,5.896875 L6.92509895,2.09921875 C6.9555677,2.0578125 6.9258802,2 6.87509895,2 Z" id="Down" fill-opacity="0.45" fill="#000000"></path>
                     </g>
                 </g>
+                <text id="Number" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" line-spacing="22" fill="#000000" fill-opacity="0.88">
+                    <tspan x="12" y="20">Number</tspan>
+                </text>
             </g>
         </g>
     </g>

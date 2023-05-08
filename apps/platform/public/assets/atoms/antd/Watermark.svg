@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="196px" height="118px" viewBox="0 0 196 118" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Ant Design 5.0</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="194" height="116" rx="6.4000001"></rect>
+    </defs>
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-520.000000, -5480.000000)">
+            <g id="Ant-Design-5.0" transform="translate(521.000000, 5481.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="蒙版" stroke="#F0F0F0" stroke-width="0.8" fill="#FFFFFF" fill-rule="nonzero" xlink:href="#path-1"></use>
+                <text mask="url(#mask-2)" transform="translate(50.227928, 32.794879) rotate(-32.000000) translate(-50.227928, -32.794879) " font-family="PingFangSC-Regular, PingFang SC" font-size="16" font-weight="normal" fill="#000000" fill-opacity="0.12">
+                    <tspan x="-4.77207214" y="38.7948789">Ant Design 5.0</tspan>
+                </text>
+                <text id="Ant-Design-5.0备份-7" mask="url(#mask-2)" transform="translate(18.227928, 3.794879) rotate(-32.000000) translate(-18.227928, -3.794879) " font-family="PingFangSC-Regular, PingFang SC" font-size="16" font-weight="normal" fill="#000000" fill-opacity="0.12">
+                    <tspan x="-36.7720721" y="9.7948789">Ant Design 5.0</tspan>
+                </text>
+                <text id="Ant-Design-5.0备份" mask="url(#mask-2)" transform="translate(83.227928, 59.794879) rotate(-32.000000) translate(-83.227928, -59.794879) " font-family="PingFangSC-Regular, PingFang SC" font-size="16" font-weight="normal" fill="#000000" fill-opacity="0.12">
+                    <tspan x="28.2279279" y="65.7948789">Ant Design 5.0</tspan>
+                </text>
+                <text id="Ant-Design-5.0备份-8" mask="url(#mask-2)" transform="translate(-28.772072, 130.794879) rotate(-32.000000) translate(28.772072, -130.794879) " font-family="PingFangSC-Regular, PingFang SC" font-size="16" font-weight="normal" fill="#000000" fill-opacity="0.12">
+                    <tspan x="-83.7720721" y="136.794879">Ant Design 5.0</tspan>
+                </text>
+                <text id="Ant-Design-5.0备份-5" mask="url(#mask-2)" transform="translate(52.227928, 127.794879) rotate(-32.000000) translate(-52.227928, -127.794879) " font-family="PingFangSC-Regular, PingFang SC" font-size="16" font-weight="normal" fill="#000000" fill-opacity="0.12">
+                    <tspan x="-2.77207214" y="133.794879">Ant Design 5.0</tspan>
+                </text>
+                <text id="Ant-Design-5.0备份-3" mask="url(#mask-2)" transform="translate(107.227928, 135.794879) rotate(-32.000000) translate(-107.227928, -135.794879) " font-family="PingFangSC-Regular, PingFang SC" font-size="16" font-weight="normal" fill="#000000" fill-opacity="0.12">
+                    <tspan x="52.2279279" y="141.794879">Ant Design 5.0</tspan>
+                </text>
+                <text id="Ant-Design-5.0备份-2" mask="url(#mask-2)" transform="translate(195.227928, -9.205121) rotate(-32.000000) translate(-195.227928, 9.205121) " font-family="PingFangSC-Regular, PingFang SC" font-size="16" font-weight="normal" fill="#000000" fill-opacity="0.12">
+                    <tspan x="140.227928" y="-3.2051211">Ant Design 5.0</tspan>
+                </text>
+                <text id="Ant-Design-5.0备份-6" mask="url(#mask-2)" transform="translate(164.227928, 57.794879) rotate(-32.000000) translate(-164.227928, -57.794879) " font-family="PingFangSC-Regular, PingFang SC" font-size="16" font-weight="normal" fill="#000000" fill-opacity="0.12">
+                    <tspan x="109.227928" y="63.7948789">Ant Design 5.0</tspan>
+                </text>
+                <text id="Ant-Design-5.0备份-4" mask="url(#mask-2)" transform="translate(226.227928, 61.794879) rotate(-32.000000) translate(-226.227928, -61.794879) " font-family="PingFangSC-Regular, PingFang SC" font-size="16" font-weight="normal" fill="#000000" fill-opacity="0.12">
+                    <tspan x="171.227928" y="67.7948789">Ant Design 5.0</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

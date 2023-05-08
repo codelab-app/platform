@@ -21668,6 +21668,7 @@ export type GetAtomOptionsQuery = {
     id: string
     name: string
     type: AtomType
+    icon?: string | null
   }>
 }
 
@@ -21728,13 +21729,6 @@ export type GetComponentsQuery = {
   __typename?: 'Query'
   aggregate: { __typename?: 'ComponentAggregateSelection'; count: number }
   items: Array<{ __typename?: 'Component' } & RenderedComponentFragment>
-}
-
-export type GetComponentOptionsQueryVariables = Exact<{ [key: string]: never }>
-
-export type GetComponentOptionsQuery = {
-  __typename?: 'Query'
-  components: Array<{ __typename?: 'Component'; id: string; name: string }>
 }
 
 export type GetDomainsQueryVariables = Exact<{

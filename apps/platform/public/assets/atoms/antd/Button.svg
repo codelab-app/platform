@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="81px" height="112px" viewBox="0 0 81 112" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="80px" height="111px" viewBox="0 0 80 111" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Button</title>
-    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Ant-Design-组件缩略图" transform="translate(-1100.000000, -792.000000)">
-            <g id="Button" transform="translate(1101.000000, 793.000000)">
-                <rect id="矩形" stroke="#1890FF" fill="#0091FF" x="0" y="0" width="79" height="31" rx="2"></rect>
-                <text id="||||||||||||||||||" fill="#FFFFFF" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal">
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-204.000000, -424.000000)">
+            <g id="Button" transform="translate(204.000000, 424.000000)">
+                <rect id="矩形" fill="#1677FF" x="0" y="0" width="79" height="31" rx="6"></rect>
+                <text id="||||||||||||||||||" fill-rule="nonzero" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" fill="#FFFFFF">
                     <tspan x="16" y="20">||||||||||||||||||</tspan>
                 </text>
-                <rect id="矩形" fill="#FFFFFF" fill-rule="nonzero" x="1" y="40" width="78" height="30" rx="2"></rect>
-                <rect id="矩形" stroke="#000000" opacity="0.15" x="0.5" y="39.5" width="79" height="31" rx="2"></rect>
-                <g id="编组" opacity="0.65" transform="translate(16.000000, 45.000000)" fill="#000000" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal">
-                    <text id="||||||||||||||||||">
-                        <tspan x="0" y="15">||||||||||||||||||</tspan>
-                    </text>
+                <rect id="矩形" fill="#FFFFFF" fill-rule="nonzero" x="1" y="40" width="78" height="30" rx="6"></rect>
+                <rect id="矩形" stroke="#000000" opacity="0.15" x="0.5" y="39.5" width="79" height="31" rx="6"></rect>
+                <text id="||||||||||||||||||" fill-rule="nonzero" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" fill="#000000" fill-opacity="0.88">
+                    <tspan x="16" y="60">||||||||||||||||||</tspan>
+                </text>
+                <g id="编组" transform="translate(0.500000, 79.500000)" stroke="#F5222D">
+                    <rect id="矩形" x="0" y="0" width="79" height="31" rx="6"></rect>
                 </g>
-                <g id="编组" transform="translate(0.000000, 79.000000)" stroke="#F5222D">
-                    <rect id="矩形" x="0.5" y="0.5" width="79" height="31" rx="2"></rect>
-                </g>
-                <g id="编组" transform="translate(16.000000, 85.000000)" fill="#F5222D" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal">
-                    <text id="||||||||||||||||||">
-                        <tspan x="0" y="15">||||||||||||||||||</tspan>
-                    </text>
+                <g id="编组" transform="translate(16.000000, 85.000000)" fill="#F5222D" fill-rule="nonzero" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal">
+                    <g id="||||||||||||||||||">
+                        <text>
+                            <tspan x="0" y="15">||||||||||||||||||</tspan>
+                        </text>
+                    </g>
                 </g>
             </g>
         </g>

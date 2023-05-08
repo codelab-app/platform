@@ -31,5 +31,5 @@ export interface IAtomService
 
   add(atomDTO: IAtomDTO): IAtom
   delete(ids: Array<string>): Promise<number>
-  getOptions(): Promise<Array<Pick<IAtom, 'id' | 'name' | 'type'>>>
+  getOptions(): Promise<Array<Pick<IAtom, 'icon' | 'id' | 'name' | 'type'>>>
 }

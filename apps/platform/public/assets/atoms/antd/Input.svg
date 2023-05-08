@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="120px" height="76px" viewBox="0 0 120 76" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="121px" height="77px" viewBox="0 0 121 77" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Input</title>
-    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Ant-Design-组件缩略图" transform="translate(-843.000000, -1266.000000)">
-            <g id="Input" transform="translate(843.000000, 1266.000000)">
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-558.000000, -1959.000000)">
+            <g id="Input" transform="translate(559.000000, 1960.000000)">
                 <g id="3.DataEntry/Input/Default/Basic-#">
-                    <g id="9.Box/1.Cards/4.Border" fill-rule="nonzero">
-                        <g id="Z/Shape/RectangleRC/2px/RC-A">
-                            <rect id="BG/fill" fill="#FFFFFF" x="1" y="1" width="118" height="30" rx="1"></rect>
-                            <rect id="outline" stroke="#000000" stroke-width="1" opacity="0.15" x="0.5" y="0.5" width="119" height="31" rx="2"></rect>
-                        </g>
+                    <g id="Z/Shape/RectangleRC/2px/RC-A">
+                        <rect id="BG/fill" fill="#FFFFFF" fill-rule="nonzero" x="0.5" y="0.5" width="118" height="30" rx="1"></rect>
+                        <rect id="outline" stroke="#000000" opacity="0.15" x="0" y="0" width="119" height="31" rx="6"></rect>
                     </g>
-                    <text id="✏️Text" opacity="0.25" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" line-spacing="22" fill="#000000">
-                        <tspan x="12" y="20">Default Size</tspan>
+                    <text id="Default-Size" fill="#000000" fill-rule="nonzero" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal">
+                        <tspan x="11.5" y="19.5">Default Size</tspan>
                     </text>
                 </g>
                 <g id="3.DataEntry/Input/Default/IconRight" transform="translate(0.000000, 44.000000)">
                     <g id="3.DataEntry/Input/Default/Basic-#">
-                        <g id="9.Box/1.Cards/4.Border" fill-rule="nonzero">
+                        <g id="9.Box/1.Cards/4.Border" opacity="0.15" stroke="#000000">
                             <g id="Z/Shape/RectangleRC/2px/RC-A">
-                                <rect id="BG/fill" fill="#FFFFFF" x="1" y="1" width="118" height="30" rx="1"></rect>
-                                <rect id="outline" stroke="#000000" stroke-width="1" opacity="0.15" x="0.5" y="0.5" width="119" height="31" rx="2"></rect>
+                                <rect id="outline" x="0" y="0" width="119" height="31" rx="6"></rect>
                             </g>
                         </g>
-                        <text id="✏️Text" opacity="0.25" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" line-spacing="22" fill="#000000">
-                            <tspan x="12" y="20">Default Size</tspan>
+                        <text id="Default-Size" fill="#000000" fill-rule="nonzero" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal">
+                            <tspan x="11.5" y="19.5">Default Size</tspan>
                         </text>
                     </g>
-                    <g id="7.Icon/interface/16.search" transform="translate(96.000000, 8.000000)" fill="#000000" fill-rule="nonzero" opacity="0.65">
-                        <path d="M9.5,1.75 C6.8765625,1.75 4.75,3.8765625 4.75,6.5 C4.75,7.5984375 5.1234375,8.609375 5.7484375,9.4140625 L1.7859375,13.3765625 C1.7375,13.425 1.7375,13.5046875 1.7859375,13.553125 L2.446875,14.2140625 C2.4953125,14.2625 2.575,14.2625 2.6234375,14.2140625 L6.5859375,10.2515625 C7.390625,10.8765625 8.4015625,11.25 9.5,11.25 C12.1234375,11.25 14.25,9.1234375 14.25,6.5 C14.25,3.8765625 12.1234375,1.75 9.5,1.75 Z M12.01875,9.01875 C11.346875,9.6921875 10.4515625,10.0625 9.5,10.0625 C8.5484375,10.0625 7.653125,9.6921875 6.98125,9.01875 C6.3078125,8.346875 5.9375,7.4515625 5.9375,6.5 C5.9375,5.5484375 6.3078125,4.653125 6.98125,3.98125 C7.653125,3.3078125 8.5484375,2.9375 9.5,2.9375 C10.4515625,2.9375 11.346875,3.3078125 12.01875,3.98125 C12.6921875,4.653125 13.0625,5.5484375 13.0625,6.5 C13.0625,7.4515625 12.6921875,8.346875 12.01875,9.01875 Z" id="fill"></path>
+                    <g id="7.Icon/interface/16.search" opacity="0.65" transform="translate(97.249609, 9.250000)" fill="#000000" fill-rule="nonzero">
+                        <path d="M7.75039062,8.8817842e-16 C5.12695312,8.8817842e-16 3.00039062,2.1265625 3.00039062,4.75 C3.00039062,5.8484375 3.37382812,6.859375 3.99882812,7.6640625 L0.036328125,11.6265625 C-0.012109375,11.675 -0.012109375,11.7546875 0.036328125,11.803125 L0.697265625,12.4640625 C0.745703125,12.5125 0.825390625,12.5125 0.873828125,12.4640625 L4.83632812,8.5015625 C5.64101562,9.1265625 6.65195312,9.5 7.75039062,9.5 C10.3738281,9.5 12.5003906,7.3734375 12.5003906,4.75 C12.5003906,2.1265625 10.3738281,8.8817842e-16 7.75039062,8.8817842e-16 Z M10.2691406,7.26875 C9.59726562,7.9421875 8.70195312,8.3125 7.75039062,8.3125 C6.79882812,8.3125 5.90351562,7.9421875 5.23164062,7.26875 C4.55820312,6.596875 4.18789062,5.7015625 4.18789062,4.75 C4.18789062,3.7984375 4.55820312,2.903125 5.23164062,2.23125 C5.90351562,1.5578125 6.79882812,1.1875 7.75039062,1.1875 C8.70195312,1.1875 9.59726562,1.5578125 10.2691406,2.23125 C10.9425781,2.903125 11.3128906,3.7984375 11.3128906,4.75 C11.3128906,5.7015625 10.9425781,6.596875 10.2691406,7.26875 Z" id="fill"></path>
                     </g>
                 </g>
             </g>

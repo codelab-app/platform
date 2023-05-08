@@ -1,1 +1,16 @@
-<svg width="180" height="90" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path fill="#364D79" d="M0 0h180v90H0z"/><text font-family="PingFangSC-Regular, PingFang SC" font-size="9.767" fill="#FFF"><tspan x="87.042" y="47">1</tspan></text><path fill="#FFF" d="M61 84h17v2H61z"/><path fill-opacity=".45" fill="#FFF" d="M80 84h11v2H80zm14 0h11v2H94zm14 0h11v2h-11z"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="180px" height="90px" viewBox="0 0 180 90" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Carousel</title>
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-164.000000, -3257.000000)" fill-rule="nonzero">
+            <g id="Carousel" transform="translate(164.000000, 3257.000000)">
+                <path d="M6,0 L174,0 C177.313708,-6.08718376e-16 180,2.6862915 180,6 L180,84 C180,87.3137085 177.313708,90 174,90 L6,90 C2.6862915,90 -4.82366169e-16,87.3137085 0,84 L0,6 C-4.05812251e-16,2.6862915 2.6862915,-2.79460044e-16 6,0 Z" id="路径" fill="#0958D9"></path>
+                <text id="1" fill="#FFFFFF" font-family="PingFangSC-Regular, PingFang SC" font-size="9.767" font-weight="normal">
+                    <tspan x="87.042" y="47">1</tspan>
+                </text>
+                <polygon id="路径" fill="#FFFFFF" points="61 84 78 84 78 86 61 86"></polygon>
+                <path d="M80,84 L91,84 L91,86 L80,86 L80,84 Z M94,84 L105,84 L105,86 L94,86 L94,84 Z M108,84 L119,84 L119,86 L108,86 L108,84 Z" id="形状" fill-opacity="0.45" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

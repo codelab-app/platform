@@ -1,41 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="132px" height="109px" viewBox="0 0 132 109" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Popover</title>
-    <defs>
-        <path d="M1.44,74.16 C0.64470996,74.16 0,73.51529 0,72.72 L0,1.44 C0,0.645 0.645,0 1.44,0 L122.4,0 C123.195,0 123.84,0.645 123.84,1.44 L123.84,72.72 C123.84,73.51529 123.19529,74.16 122.4,74.16 L64.8,74.16 L62.28,77.04 L59.76,74.16 L1.44,74.16 Z" id="path-1"></path>
-        <filter x="-5.7%" y="-6.5%" width="111.3%" height="118.2%" filterUnits="objectBoundingBox" id="filter-2">
-            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-        </filter>
-    </defs>
-    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Popover" transform="translate(4.000000, 2.000000)">
-            <g id="编组-7" transform="translate(33.000000, 83.000000)">
-                <path d="M1.69590643,0 L56.3040936,0 C57.2407168,0 58,0.8954305 58,2 L58,21.04 C58,22.1445695 57.2407168,23.04 56.3040936,23.04 L1.69590643,23.04 C0.759283173,23.04 0,22.1445695 0,21.04 L0,2 C0,0.8954305 0.759283173,0 1.69590643,0 Z" id="路径" fill="#40A9FF" fill-rule="nonzero"></path>
-                <g id="编组" transform="translate(11.920000, 4.200000)" fill="#FFFFFF" font-family="PingFangSC-Regular, PingFang SC" font-size="10.08" font-weight="normal">
-                    <text id="||||||||||||||||||">
-                        <tspan x="0" y="11">||||||||||||||||||</tspan>
-                    </text>
-                </g>
+<svg width="174px" height="107px" viewBox="0 0 174 107" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>4.数据展示/2.Popover气泡卡片/亮色/上左⬇️</title>
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-898.000000, -3486.000000)">
+            <g id="4.数据展示/2.Popover气泡卡片/亮色/上左⬇️" transform="translate(899.000000, 3487.000000)">
+                <path d="M161.744459,4.92498016e-16 C165.310534,-2.8615553e-16 166.603679,0.371302445 167.907383,1.06853082 C169.211087,1.76575919 170.234241,2.78891348 170.931469,4.09261719 C171.628698,5.39632089 172,6.68946584 172,10.2555408 L172,87.7444592 C172,91.3105342 171.628698,92.6036791 170.931469,93.9073828 C170.234241,95.2110865 169.211087,96.2342408 167.907383,96.9314692 C166.603679,97.6286976 165.310534,98 161.744459,98 L32.6287,98.0000989 C31.5780019,98.0074846 30.5719342,98.4280658 29.8284271,99.1715729 L24.4142136,104.585786 C23.633165,105.366835 22.366835,105.366835 21.5857864,104.585786 L16.1715729,99.1715729 C15.4214274,98.4214274 14.4040117,98 13.3431458,98 L13.375,98 L10.2555408,98 C6.81243394,98 5.48820595,97.6538631 4.22753905,97.0024318 L4.09261719,96.9314692 C2.78891348,96.2342408 1.76575919,95.2110865 1.06853082,93.9073828 C0.371302445,92.6036791 -2.84217094e-14,91.3105342 2.84217094e-14,87.7444592 L0,10.2555408 C0,6.68946584 0.371302445,5.39632089 1.06853082,4.09261719 C1.76575919,2.78891348 2.78891348,1.76575919 4.09261719,1.06853082 C5.39632089,0.371302445 6.68946584,-7.67637969e-16 10.2555408,1.32117026e-15 Z" id="形状结合" stroke="#F0F0F0" fill="#FFFFFF" fill-rule="nonzero"></path>
+                <text id="Title" font-family="PingFangSC-Medium, PingFang SC" font-size="14" font-weight="400" line-spacing="22" fill="#000000" fill-opacity="0.88">
+                    <tspan x="12" y="27">||||||||||||||||||||</tspan>
+                </text>
+                <text id="Text" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" line-spacing="22" fill="#000000" fill-opacity="0.88">
+                    <tspan x="12" y="57">||||||||||||||||||||||||||||||||||||||||||||||||||||||</tspan>
+                    <tspan x="12" y="79">||||||||||||||||||||||||||||||||||||||</tspan>
+                </text>
             </g>
-            <g id="编组" fill-rule="nonzero">
-                <g id="b-link" fill="#000000">
-                    <path d="M1.44,74.16 C0.64470996,74.16 0,73.51529 0,72.72 L0,1.44 C0,0.645 0.645,0 1.44,0 L122.4,0 C123.195,0 123.84,0.645 123.84,1.44 L123.84,72.72 C123.84,73.51529 123.19529,74.16 122.4,74.16 L64.8,74.16 L62.28,77.04 L59.76,74.16 L1.44,74.16 Z" id="b"></path>
-                </g>
-                <g id="b-link">
-                    <g id="b">
-                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-                        <use fill="#FFFFFF" xlink:href="#path-1"></use>
-                    </g>
-                </g>
-            </g>
-            <g id="编组" transform="translate(9.000000, 5.000000)" fill="#000000" fill-opacity="0.5">
-                <rect id="矩形" x="0" y="0" width="33" height="10"></rect>
-            </g>
-            <polygon id="路径" fill="#F0F0F0" fill-rule="nonzero" points="0 21.6 123.84 21.6 123.84 22.6 0 22.6"></polygon>
-            <rect id="矩形复制-143" fill="#F5F5F5" x="9" y="48" width="76" height="8"></rect>
-            <rect id="矩形复制-144" fill="#F5F5F5" x="9" y="34" width="76" height="8"></rect>
         </g>
     </g>
 </svg>

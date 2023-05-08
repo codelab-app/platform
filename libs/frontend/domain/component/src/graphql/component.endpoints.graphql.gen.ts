@@ -41,14 +41,6 @@ export type GetComponentsQuery = {
   items: Array<RenderedComponentFragment>
 }
 
-export type GetComponentOptionsQueryVariables = Types.Exact<{
-  [key: string]: never
-}>
-
-export type GetComponentOptionsQuery = {
-  components: Array<{ id: string; name: string }>
-}
-
 export const CreateComponentsDocument = gql`
   mutation CreateComponents($input: [ComponentCreateInput!]!) {
     createComponents(input: $input) {
@@ -90,14 +82,6 @@ export const GetComponentsDocument = gql`
     }
   }
   ${RenderedComponentFragmentDoc}
-`
-export const GetComponentOptionsDocument = gql`
-  query GetComponentOptions {
-    components {
-      id
-      name
-    }
-  }
 `
 
 export type SdkFunctionWrapper = <T>(
@@ -173,21 +157,6 @@ export function getSdk(
             ...wrappedRequestHeaders,
           }),
         'GetComponents',
-        'query',
-      )
-    },
-    GetComponentOptions(
-      variables?: GetComponentOptionsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
-    ): Promise<GetComponentOptionsQuery> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.request<GetComponentOptionsQuery>(
-            GetComponentOptionsDocument,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
-        'GetComponentOptions',
         'query',
       )
     },

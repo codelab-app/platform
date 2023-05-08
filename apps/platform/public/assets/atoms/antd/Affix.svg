@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="155px" height="104px" viewBox="0 0 155 104" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Affix</title>
-    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Ant-Design-组件缩略图" transform="translate(-1063.000000, -103.000000)">
-            <g id="Affix" transform="translate(1063.000000, 103.000000)">
-                <rect id="矩形复制-42" fill="#F5F5F5" x="0" y="19" width="155" height="10"></rect>
-                <rect id="矩形复制-47" fill="#F5F5F5" x="0" y="0" width="155" height="10"></rect>
-                <rect id="矩形复制-43" fill="#F5F5F5" x="0" y="38" width="155" height="10"></rect>
-                <rect id="矩形复制-44" fill="#F5F5F5" x="0" y="56" width="155" height="10"></rect>
-                <rect id="矩形复制-45" fill="#F5F5F5" x="0" y="75" width="155" height="10"></rect>
-                <rect id="矩形复制-46" fill="#F5F5F5" x="0" y="94" width="155" height="10"></rect>
-                <rect id="矩形" fill="#1890FF" x="0" y="72" width="80" height="32" rx="2"></rect>
-                <text font-family="PingFangSC-Regular, PingFang SC" font-size="16" font-weight="normal" fill="#FFFFFF">
-                    <tspan x="23" y="94">Affix</tspan>
-                </text>
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-176.000000, -5141.000000)">
+            <g id="Affix" transform="translate(176.000000, 5141.000000)">
+                <rect id="矩形复制-42" fill="#F5F5F5" fill-rule="nonzero" x="0" y="19" width="155" height="10"></rect>
+                <rect id="矩形复制-47" fill="#F5F5F5" fill-rule="nonzero" x="0" y="0" width="155" height="10"></rect>
+                <rect id="矩形复制-43" fill="#F5F5F5" fill-rule="nonzero" x="0" y="38" width="155" height="10"></rect>
+                <rect id="矩形复制-44" fill="#F5F5F5" fill-rule="nonzero" x="0" y="56" width="155" height="10"></rect>
+                <rect id="矩形复制-45" fill="#F5F5F5" fill-rule="nonzero" x="0" y="75" width="155" height="10"></rect>
+                <rect id="矩形复制-46" fill="#F5F5F5" fill-rule="nonzero" x="0" y="94" width="155" height="10"></rect>
+                <rect id="矩形" fill="#1677FF" x="0" y="72" width="80" height="32" rx="6"></rect>
+                <g id="编组" transform="translate(23.000000, 77.000000)" fill="#FFFFFF" fill-rule="nonzero" font-family="PingFangSC-Regular, PingFang SC" font-size="16" font-weight="normal">
+                    <text id="Affix">
+                        <tspan x="0" y="17">Affix</tspan>
+                    </text>
+                </g>
             </g>
         </g>
     </g>

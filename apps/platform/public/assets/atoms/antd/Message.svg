@@ -1,28 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="174px" height="64px" viewBox="0 0 174 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Message</title>
-    <defs>
-        <rect id="path-1" x="0" y="0" width="150" height="40" rx="2"></rect>
-        <filter x="-13.3%" y="-40.0%" width="126.7%" height="200.0%" filterUnits="objectBoundingBox" id="filter-2">
-            <feOffset dx="0" dy="4" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-            <feGaussianBlur stdDeviation="6" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.15 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-        </filter>
-    </defs>
-    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Ant-Design-组件缩略图" transform="translate(-814.000000, -586.000000)">
-            <g id="Message" transform="translate(826.000000, 594.000000)">
-                <g id="Rectangle-1-Copy-7">
-                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
-                </g>
-                <g id="check-circle-fill" transform="translate(16.000000, 12.000000)" fill-rule="nonzero">
-                    <rect id="矩形" fill="#000000" opacity="0" x="0" y="0" width="16" height="16"></rect>
-                    <path d="M8,1 C4.134375,1 1,4.134375 1,8 C1,11.865625 4.134375,15 8,15 C11.865625,15 15,11.865625 15,8 C15,4.134375 11.865625,1 8,1 Z M11.0234375,5.7140625 L7.7328125,10.2765625 C7.534375,10.553125 7.1234375,10.553125 6.925,10.2765625 L4.9765625,7.5765625 C4.9171875,7.49375 4.9765625,7.378125 5.078125,7.378125 L5.8109375,7.378125 C5.9703125,7.378125 6.121875,7.4546875 6.215625,7.5859375 L7.328125,9.1296875 L9.784375,5.7234375 C9.878125,5.59375 10.028125,5.515625 10.1890625,5.515625 L10.921875,5.515625 C11.0234375,5.515625 11.0828125,5.63125 11.0234375,5.7140625 Z" id="形状" fill="#52C41A"></path>
-                </g>
-                <text id="||||||||||||||||||||" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" line-spacing="22" fill="#000000" fill-opacity="0.65">
-                    <tspan x="40" y="24">||||||||||||||||||||||||||||||</tspan>
+<svg width="154px" height="42px" viewBox="0 0 154 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Feedback/Message/Light/Success</title>
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-907.000000, -4341.000000)">
+            <g id="Feedback/Message/Light/Success" transform="translate(908.000000, 4342.000000)">
+                <path d="M10.2555408,-4.14336123e-16 L141.744459,4.14336123e-16 C145.310534,-2.4074122e-16 146.603679,0.371302445 147.907383,1.06853082 C149.211087,1.76575919 150.234241,2.78891348 150.931469,4.09261719 C151.628698,5.39632089 152,6.68946584 152,10.2555408 L152,29.7444592 C152,33.3105342 151.628698,34.6036791 150.931469,35.9073828 C150.234241,37.2110865 149.211087,38.2342408 147.907383,38.9314692 C146.603679,39.6286976 145.310534,40 141.744459,40 L10.2555408,40 C6.68946584,40 5.39632089,39.6286976 4.09261719,38.9314692 C2.78891348,38.2342408 1.76575919,37.2110865 1.06853082,35.9073828 C0.371302445,34.6036791 1.60494146e-16,33.3105342 -2.76224082e-16,29.7444592 L2.76224082e-16,10.2555408 C-1.60494146e-16,6.68946584 0.371302445,5.39632089 1.06853082,4.09261719 C1.76575919,2.78891348 2.78891348,1.76575919 4.09261719,1.06853082 C5.39632089,0.371302445 6.68946584,2.4074122e-16 10.2555408,-4.14336123e-16 Z" id="bg" stroke="#F0F0F0" fill="#FFFFFF" fill-rule="nonzero"></path>
+                <text id="这是一条成功消息，会主动消失。" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" line-spacing="22" fill="#000000" fill-opacity="0.88">
+                    <tspan x="36" y="24">|||||||||||||||||||||||||||||||||||</tspan>
                 </text>
+                <g id="Icon/Fill/Check-Circle-Fill" transform="translate(12.000000, 12.000000)" fill="#52C41A">
+                    <rect id="矩形" fill-rule="nonzero" opacity="0" x="0" y="0" width="16" height="16"></rect>
+                    <path d="M8,1 C4.134375,1 1,4.134375 1,8 C1,11.865625 4.134375,15 8,15 C11.865625,15 15,11.865625 15,8 C15,4.134375 11.865625,1 8,1 Z M11.0234375,5.7140625 L7.7328125,10.2765625 C7.534375,10.553125 7.1234375,10.553125 6.925,10.2765625 L4.9765625,7.5765625 C4.9171875,7.49375 4.9765625,7.378125 5.078125,7.378125 L5.8109375,7.378125 C5.9703125,7.378125 6.121875,7.4546875 6.215625,7.5859375 L7.328125,9.1296875 L9.784375,5.7234375 C9.878125,5.59375 10.028125,5.515625 10.1890625,5.515625 L10.921875,5.515625 C11.0234375,5.515625 11.0828125,5.63125 11.0234375,5.7140625 Z" id="形状"></path>
+                </g>
             </g>
         </g>
     </g>

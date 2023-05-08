@@ -1,30 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="93px" height="82px" viewBox="0 0 93 82" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>编组 47</title>
-    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="CheckBox备份" transform="translate(-178.000000, -21.000000)">
-            <g id="编组-47" transform="translate(178.000000, 21.000000)">
-                <g id="Radio/Selected/Normal">
-                    <g id="Group" transform="translate(0.000000, 3.000000)">
-                        <circle id="Oval-1-Copy-2" stroke="#1890FF" fill="#FFFFFF" cx="8" cy="8" r="7.5"></circle>
-                        <circle id="Oval-1-Copy-5" fill="#1890FF" cx="8" cy="8" r="4"></circle>
-                    </g>
-                    <text id="Text" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" line-spacing="22" fill="#000000" fill-opacity="0.65">
-                        <tspan x="24" y="15">|||||||||||||||||||||||||</tspan>
-                    </text>
+<svg width="94px" height="80px" viewBox="0 0 94 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 4</title>
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-206.000000, -2198.000000)">
+            <g id="编组-4" transform="translate(207.000000, 2198.000000)">
+                <g id="Icon/Radio-Selected" transform="translate(0.000000, 2.000000)">
+                    <g id="save"></g>
+                    <rect id="矩形" fill="#000000" fill-rule="nonzero" opacity="0" x="0" y="0" width="16" height="16"></rect>
+                    <rect id="Rectangle-271" fill="#1677FF" x="0" y="0" width="16" height="16" rx="8"></rect>
+                    <circle id="椭圆形" fill="#FFFFFF" cx="8" cy="8" r="3"></circle>
                 </g>
-                <g id="Radio/Default/Disabled" transform="translate(0.000000, 60.000000)">
-                    <circle id="Oval-1-Copy-3" stroke="#D9D9D9" fill="#F5F5F5" cx="8" cy="11" r="7.5"></circle>
-                    <text id="Text" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" line-spacing="22" fill="#000000" fill-opacity="0.25">
-                        <tspan x="24" y="15">|||||||||||||||||||||||||</tspan>
-                    </text>
-                </g>
-                <g id="Radio/Default/Normal" transform="translate(0.000000, 30.000000)">
-                    <circle id="Oval-1" stroke="#D9D9D9" fill="#FFFFFF" cx="8" cy="11" r="7.5"></circle>
-                    <text id="Text" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" line-spacing="22" fill="#000000" fill-opacity="0.65">
-                        <tspan x="24" y="15">|||||||||||||||||||||||||</tspan>
-                    </text>
-                </g>
+                <text id="|||||||||||||||||||||||||" fill-rule="nonzero" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" fill="#000000" fill-opacity="0.88">
+                    <tspan x="23.5" y="15">|||||||||||||||||||||||||</tspan>
+                </text>
+                <circle id="Oval-1-Copy-3" stroke="#D9D9D9" fill="#F5F5F5" fill-rule="nonzero" cx="7.5" cy="71" r="7.5"></circle>
+                <text id="|||||||||||||||||||||||||" fill-rule="nonzero" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" fill="#000000" fill-opacity="0.25">
+                    <tspan x="23.5" y="75">|||||||||||||||||||||||||</tspan>
+                </text>
+                <circle id="Oval-1" stroke="#D9D9D9" fill="#FFFFFF" fill-rule="nonzero" cx="7.5" cy="41" r="7.5"></circle>
+                <text id="|||||||||||||||||||||||||" fill-rule="nonzero" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" fill="#000000" fill-opacity="0.88">
+                    <tspan x="23.5" y="45">|||||||||||||||||||||||||</tspan>
+                </text>
             </g>
         </g>
     </g>

@@ -1,3 +1,26 @@
-<svg width="161" height="117" xmlns="http://www.w3.org/2000/svg"><g transform="translate(.074)" fill="none" fill-rule="evenodd"><rect fill="#EEE" width="160.926" height="117" rx="2"/><path fill="#FFF" d="M82.853 1h77v115h-77z"/><path stroke="#EEE" stroke-linecap="square" d="M83.416 19.5h76.025"/><rect fill-opacity=".06" fill="#000" x="87.926" y="27" width="32" height="8" rx="1"/><rect fill-opacity=".06" fill="#000" x="123.926" y="69" width="32" height="8" rx="1"/><rect fill-opacity=".06" fill="#000" x="87.926" y="55" width="68" height="8" rx="1"/><rect fill-opacity=".06" fill="#000" x="87.926" y="69" width="32" height="8" rx="1"/><rect fill-opacity=".06" fill="#000" x="87.926" y="83" width="32" height="8" rx="1"/><rect fill-opacity=".06" fill="#000" x="87.926" y="41" width="68" height="8" rx="1"/><text font-family="PingFangSC-Regular, PingFang SC" font-size="6" letter-spacing="-4.286" fill="#000" fill-opacity=".45">
-                <tspan x="96" y="12">｜｜｜｜｜｜｜｜｜｜｜</tspan>
-            </text><path d="m91.116 9.925 1.668-1.667a.187.187 0 0 0-.265-.266L90.85 9.66l-1.667-1.668a.188.188 0 0 0-.265.266l1.667 1.667-1.667 1.667a.187.187 0 0 0 .265.266l1.667-1.668 1.668 1.668a.187.187 0 0 0 .265 0 .188.188 0 0 0 0-.266l-1.668-1.667Z" fill="#8C8C8C" fill-rule="nonzero"/><rect fill="#1791FF" x="139.926" y="6" width="16" height="8" rx="2"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="162px" height="117px" viewBox="0 0 162 117" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>O1CN019djdZP1OHwXSRGCOW_!!6000000001681-55-tps-161-117</title>
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-537.000000, -4310.000000)">
+            <g id="O1CN019djdZP1OHwXSRGCOW_!!6000000001681-55-tps-161-117" transform="translate(537.000000, 4310.000000)">
+                <rect id="矩形" fill="#EEEEEE" fill-rule="nonzero" x="0" y="0" width="160.926" height="117" rx="2"></rect>
+                <polygon id="路径" fill="#FFFFFF" fill-rule="nonzero" points="82.853 1 159.853 1 159.853 116 82.853 116"></polygon>
+                <line x1="83.416" y1="19.5" x2="159.441" y2="19.5" id="路径" stroke="#EEEEEE" stroke-linecap="square"></line>
+                <rect id="矩形" fill-opacity="0.06" fill="#000000" fill-rule="nonzero" x="87.926" y="27" width="32" height="8" rx="1"></rect>
+                <rect id="矩形" fill-opacity="0.06" fill="#000000" fill-rule="nonzero" x="123.926" y="69" width="32" height="8" rx="1"></rect>
+                <rect id="矩形" fill-opacity="0.06" fill="#000000" fill-rule="nonzero" x="87.926" y="55" width="68" height="8" rx="1"></rect>
+                <rect id="矩形" fill-opacity="0.06" fill="#000000" fill-rule="nonzero" x="87.926" y="69" width="32" height="8" rx="1"></rect>
+                <rect id="矩形" fill-opacity="0.06" fill="#000000" fill-rule="nonzero" x="87.926" y="83" width="32" height="8" rx="1"></rect>
+                <rect id="矩形" fill-opacity="0.06" fill="#000000" fill-rule="nonzero" x="87.926" y="41" width="68" height="8" rx="1"></rect>
+                <g id="编组" transform="translate(96.000000, 6.000000)" fill="#000000" fill-opacity="0.45" fill-rule="nonzero" font-family="PingFangSC-Regular, PingFang SC" font-size="6" font-weight="normal">
+                    <text id="｜｜｜｜｜｜｜｜｜｜｜">
+                        <tspan x="0" y="6">｜｜｜｜｜｜｜｜｜｜｜</tspan>
+                    </text>
+                </g>
+                <path d="M91.116,9.925 L92.784,8.258 C92.8574539,8.18482227 92.8576777,8.06595387 92.7845,7.9925 C92.7113223,7.91904613 92.5924539,7.91882227 92.519,7.992 L90.85,9.66 L89.183,7.992 C89.1085487,7.92528736 88.9949085,7.92850703 88.9243538,7.999328 C88.853799,8.07014897 88.8510074,8.18380045 88.918,8.258 L90.585,9.925 L88.918,11.592 C88.8445461,11.6651777 88.8443223,11.7840461 88.9175,11.8575 C88.9906777,11.9309539 89.1095461,11.9311777 89.183,11.858 L90.85,10.19 L92.518,11.858 C92.5530911,11.8932354 92.6007715,11.9130426 92.6505,11.9130426 C92.7002285,11.9130426 92.7479089,11.8932354 92.783,11.858 C92.818296,11.822738 92.8381279,11.774892 92.8381279,11.725 C92.8381279,11.675108 92.818296,11.627262 92.783,11.592 L91.115,9.925 L91.116,9.925 Z" id="路径" fill="#8C8C8C" fill-rule="nonzero"></path>
+                <rect id="矩形" fill="#1791FF" fill-rule="nonzero" x="139.926" y="6" width="16" height="8" rx="2"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -2,6 +2,7 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { PageHeader } from '@ant-design/pro-components/lib'
 import type {
   IBuilderDataNode,
+  IComponent,
   IPageNode,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -15,7 +16,7 @@ import { CreateComponentButton } from '@codelab/frontend/domain/component'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { SkeletonWrapper } from '@codelab/frontend/presentation/view'
 import { useAsync } from '@react-hookz/web'
-import { Button, Card, Tree } from 'antd'
+import { Button, Card, Space, Tree } from 'antd'
 import has from 'lodash/has'
 import isNil from 'lodash/isNil'
 import sortBy from 'lodash/sortBy'
@@ -31,7 +32,7 @@ import {
 
 export const CustomComponents = observer(() => {
   const { builderService, componentService, elementService } = useStore()
-  const [activeComponent, setActiveComponent] = useState<IBuilderDataNode>()
+  const [activeComponent, setActiveComponent] = useState<IComponent>()
   const previousActiveNode = useRef<IPageNode>()
 
   const [{ error, status }, getComponents] = useAsync(() =>
@@ -46,27 +47,30 @@ export const CustomComponents = observer(() => {
 
   const loadComponent = async (id: string) => {
     const component = await componentService.getOne(id)
+    setActiveComponent(component)
 
     if (component) {
       previousActiveNode.current = builderService.selectedNode?.current
       builderService.setActiveTab(RendererTab.Component)
       builderService.selectComponentNode(component)
-
-      const dataNode = component.rootElement.current.antdNode
-
-      setActiveComponent({
-        children: [dataNode].filter((data): data is IBuilderDataNode =>
-          Boolean(data),
-        ),
-        key: component.id,
-        node: component,
-        rootKey: component.rootElement.id,
-        // This should bring up a meta pane for editing the component
-        selectable: true,
-        title: component.name,
-      })
     }
   }
+
+  const componentTree = activeComponent
+    ? [
+        {
+          children: [activeComponent.rootElement.current.antdNode].filter(
+            (data): data is IBuilderDataNode => Boolean(data),
+          ),
+          key: activeComponent.id,
+          node: activeComponent,
+          rootKey: activeComponent.rootElement.id,
+          // This should bring up a meta pane for editing the component
+          selectable: true,
+          title: activeComponent.name,
+        },
+      ]
+    : undefined
 
   const onBack = () => {
     builderService.setActiveTab(RendererTab.Page)
@@ -159,7 +163,7 @@ export const CustomComponents = observer(() => {
                 node={data.node}
               />
             )}
-            treeData={[activeComponent]}
+            treeData={componentTree}
           />
         </>
       ) : (
@@ -167,33 +171,36 @@ export const CustomComponents = observer(() => {
           <div style={{ textAlign: 'right' }}>
             <CreateComponentButton />
           </div>
-          {sortBy(componentService.componentList, 'name').map((component) => (
-            <Card
-              extra={
-                <>
-                  <Button
-                    icon={<EditOutlined />}
-                    onClick={() => loadComponent(component.id)}
-                    type="text"
-                  />
-                  <Button
-                    danger
-                    icon={<DeleteOutlined />}
-                    onClick={() =>
-                      componentService.deleteModal.open(
-                        componentRef(component.id),
-                      )
-                    }
-                    type="text"
-                  />
-                </>
-              }
-              key={component.id}
-              title={component.name}
-            >
-              {component.name}
-            </Card>
-          ))}
+          <Space direction="vertical" size="small" style={{ display: 'flex' }}>
+            {sortBy(componentService.componentList, 'name').map((component) => (
+              <Card
+                extra={
+                  <>
+                    <Button
+                      icon={<EditOutlined />}
+                      onClick={() => loadComponent(component.id)}
+                      type="text"
+                    />
+                    <Button
+                      danger
+                      icon={<DeleteOutlined />}
+                      onClick={() =>
+                        componentService.deleteModal.open(
+                          componentRef(component.id),
+                        )
+                      }
+                      type="text"
+                    />
+                  </>
+                }
+                hoverable
+                key={component.id}
+                title={component.name}
+              >
+                {component.name}
+              </Card>
+            ))}
+          </Space>
         </>
       )}
     </SkeletonWrapper>

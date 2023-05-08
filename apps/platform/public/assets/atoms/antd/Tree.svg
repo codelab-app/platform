@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="91px" height="92px" viewBox="0 0 91 92" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Tree</title>
-    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Tree">
-            <g id="编组-15">
-                <g id="编组-12" transform="translate(0.000000, 4.556962)">
-                    <rect id="矩形" x="0" y="0" width="9.11392405" height="6.07594937"></rect>
-                    <path d="M7.36230459,4.76344335 L4.61669573,1.58717534 C4.53810644,1.49625801 4.38678025,1.49625801 4.3073549,1.58717534 L1.56174605,4.76344335 C1.45974718,4.88188612 1.55171337,5.05537975 1.71641646,5.05537975 L7.20763417,5.05537975 C7.37233726,5.05537975 7.46430345,4.88188612 7.36230459,4.76344335 Z" id="Path" fill-opacity="0.65" fill="#000000" transform="translate(4.462025, 3.287184) scale(1, -1) translate(-4.462025, -3.287184) "></path>
-                </g>
-                <text id="|||||||||||||||" font-family="PingFangSC-Regular, PingFang SC" font-size="10.6329114" font-weight="normal" fill="#000000" fill-opacity="0.65">
-                    <tspan x="29" y="11">|||||||||||||||</tspan>
-                </text>
-                <g id="3.DataEntry/Checkbox#" transform="translate(15.000000, 3.000000)">
-                    <g id="Group">
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-1302.000000, -3974.000000)">
+            <g id="Tree" transform="translate(1302.000000, 3974.000000)">
+                <g id="编组-15">
+                    <g id="编组-12" transform="translate(0.000000, 4.556962)">
+                        <rect id="矩形" x="0" y="0" width="9.11392405" height="6.07594937"></rect>
+                        <path d="M7.36230459,4.76344426 L4.61669573,1.58717625 C4.53810644,1.49625892 4.38678025,1.49625892 4.3073549,1.58717625 L1.56174605,4.76344426 C1.45974718,4.88188703 1.55171337,5.05538066 1.71641646,5.05538066 L7.20763417,5.05538066 C7.37233726,5.05538066 7.46430345,4.88188703 7.36230459,4.76344426 Z" id="Path" fill-opacity="0.65" fill="#000000" fill-rule="nonzero" transform="translate(4.462025, 3.287184) scale(-1, 1) rotate(-180.000000) translate(-4.462025, -3.287184) "></path>
+                    </g>
+                    <text id="|||||||||||||||" fill-opacity="0.65" fill="#000000" fill-rule="nonzero" font-family="PingFangSC-Regular, PingFang SC" font-size="10.6329114" font-weight="normal">
+                        <tspan x="29" y="11">|||||||||||||||</tspan>
+                    </text>
+                    <g id="3.DataEntry/Checkbox#" transform="translate(15.000000, 3.000000)" fill-rule="nonzero">
                         <g id="7.Icon/control/checkbox/Checked-">
-                            <g id="icon/z/checkboxChecked-Copy" fill="#1890FF" fill-rule="nonzero">
+                            <g id="icon/z/checkboxChecked-Copy" fill="#1677FF">
                                 <rect id="box" x="0" y="0" width="8" height="8" rx="1.14285714"></rect>
                             </g>
                             <g id="check" transform="translate(1.500000, 1.500000)">
@@ -24,19 +24,19 @@
                         </g>
                     </g>
                 </g>
-            </g>
-            <g id="编组-15备份" transform="translate(15.000000, 61.000000)">
-                <g id="编组-12" transform="translate(0.000000, 4.556962)">
-                    <rect id="矩形" x="0" y="0" width="9.11392405" height="6.07594937"></rect>
-                    <path d="M7.36230459,4.76344335 L4.61669573,1.58717534 C4.53810644,1.49625801 4.38678025,1.49625801 4.3073549,1.58717534 L1.56174605,4.76344335 C1.45974718,4.88188612 1.55171337,5.05537975 1.71641646,5.05537975 L7.20763417,5.05537975 C7.37233726,5.05537975 7.46430345,4.88188612 7.36230459,4.76344335 Z" id="Path" fill-opacity="0.65" fill="#000000" transform="translate(4.462025, 3.287184) scale(1, -1) translate(-4.462025, -3.287184) "></path>
-                </g>
-                <text id="|||||||||||||||" font-family="PingFangSC-Regular, PingFang SC" font-size="10.6329114" font-weight="normal" fill="#000000" fill-opacity="0.65">
-                    <tspan x="29" y="11">|||||||||||||||</tspan>
-                </text>
-                <g id="3.DataEntry/Checkbox#" transform="translate(15.000000, 3.000000)">
-                    <g id="Group">
+                <g id="编组-15备份" transform="translate(15.000000, 61.000000)">
+                    <g id="编组-12" transform="translate(0.000000, 4.556962)">
+                        <rect id="矩形" x="0" y="0" width="9.11392405" height="6.07594937"></rect>
+                        <path d="M7.36230459,4.76344426 L4.61669573,1.58717625 C4.53810644,1.49625892 4.38678025,1.49625892 4.3073549,1.58717625 L1.56174605,4.76344426 C1.45974718,4.88188703 1.55171337,5.05538066 1.71641646,5.05538066 L7.20763417,5.05538066 C7.37233726,5.05538066 7.46430345,4.88188703 7.36230459,4.76344426 Z" id="Path" fill-opacity="0.65" fill="#000000" fill-rule="nonzero" transform="translate(4.462025, 3.287184) scale(-1, 1) rotate(-180.000000) translate(-4.462025, -3.287184) "></path>
+                    </g>
+                    <g id="|||||||||||||||" transform="translate(29.000000, 0.000000)" fill="#000000" fill-opacity="0.65" fill-rule="nonzero" font-family="PingFangSC-Regular, PingFang SC" font-size="10.6329114" font-weight="normal">
+                        <text>
+                            <tspan x="0" y="11">|||||||||||||||</tspan>
+                        </text>
+                    </g>
+                    <g id="3.DataEntry/Checkbox#" transform="translate(15.000000, 3.000000)" fill-rule="nonzero">
                         <g id="7.Icon/control/checkbox/Checked-">
-                            <g id="icon/z/checkboxChecked-Copy" fill="#1890FF" fill-rule="nonzero">
+                            <g id="icon/z/checkboxChecked-Copy" fill="#1677FF">
                                 <rect id="box" x="0" y="0" width="8" height="8" rx="1.14285714"></rect>
                             </g>
                             <g id="check" transform="translate(1.500000, 1.500000)">
@@ -46,14 +46,12 @@
                         </g>
                     </g>
                 </g>
-            </g>
-            <text id="|||||||||||||||" font-family="PingFangSC-Regular, PingFang SC" font-size="10.6329114" font-weight="normal" fill="#0091FF">
-                <tspan x="59" y="88">|||||||||||||||</tspan>
-            </text>
-            <g id="3.DataEntry/Checkbox#" transform="translate(45.000000, 80.000000)">
-                <g id="Group">
+                <text id="|||||||||||||||" fill="#1677FF" fill-rule="nonzero" font-family="PingFangSC-Regular, PingFang SC" font-size="10.6329114" font-weight="normal">
+                    <tspan x="59" y="88">|||||||||||||||</tspan>
+                </text>
+                <g id="3.DataEntry/Checkbox#" transform="translate(45.000000, 80.000000)" fill-rule="nonzero">
                     <g id="7.Icon/control/checkbox/Checked-">
-                        <g id="icon/z/checkboxChecked-Copy" fill="#1890FF" fill-rule="nonzero">
+                        <g id="icon/z/checkboxChecked-Copy" fill="#1677FF">
                             <rect id="box" x="0" y="0" width="8" height="8" rx="1.14285714"></rect>
                         </g>
                         <g id="check" transform="translate(1.500000, 1.500000)">
@@ -62,39 +60,35 @@
                         </g>
                     </g>
                 </g>
-            </g>
-            <g id="编组-12备份" transform="translate(15.000000, 19.000000)">
-                <rect id="矩形" x="0" y="0" width="9.11392405" height="6.07594937"></rect>
-                <path d="M7.36230459,4.76344335 L4.61669573,1.58717534 C4.53810644,1.49625801 4.38678025,1.49625801 4.3073549,1.58717534 L1.56174605,4.76344335 C1.45974718,4.88188612 1.55171337,5.05537975 1.71641646,5.05537975 L7.20763417,5.05537975 C7.37233726,5.05537975 7.46430345,4.88188612 7.36230459,4.76344335 Z" id="Path" fill-opacity="0.65" fill="#000000" transform="translate(4.462025, 3.287184) scale(1, -1) translate(-4.462025, -3.287184) "></path>
-            </g>
-            <text id="||||||||||||||||||" font-family="PingFangSC-Regular, PingFang SC" font-size="10.6329114" font-weight="normal" fill="#000000" fill-opacity="0.1">
-                <tspan x="44" y="26">||||||||||||||||||</tspan>
-            </text>
-            <text id="||||||||||||||||||备份" font-family="PingFangSC-Regular, PingFang SC" font-size="10.6329114" font-weight="normal" fill="#000000" fill-opacity="0.1">
-                <tspan x="53" y="41">||||||||||||||||||</tspan>
-            </text>
-            <g id="编组-13备份-2" transform="translate(52.569620, 45.569620)" fill="#000000" fill-opacity="0.65" font-family="PingFangSC-Regular, PingFang SC" font-size="10.6329114" font-weight="normal">
-                <text id="|||||||||||||||||">
-                    <tspan x="0.430379747" y="11">|||||||||||||||||</tspan>
+                <g id="编组-12备份" transform="translate(15.000000, 19.000000)">
+                    <rect id="矩形" x="0" y="0" width="9.11392405" height="6.07594937"></rect>
+                    <path d="M7.36230459,4.76344426 L4.61669573,1.58717625 C4.53810644,1.49625892 4.38678025,1.49625892 4.3073549,1.58717625 L1.56174605,4.76344426 C1.45974718,4.88188703 1.55171337,5.05538066 1.71641646,5.05538066 L7.20763417,5.05538066 C7.37233726,5.05538066 7.46430345,4.88188703 7.36230459,4.76344426 Z" id="Path" fill-opacity="0.65" fill="#000000" fill-rule="nonzero" transform="translate(4.462025, 3.287184) scale(-1, 1) rotate(-180.000000) translate(-4.462025, -3.287184) "></path>
+                </g>
+                <text id="||||||||||||||||||" fill-opacity="0.1" fill="#000000" fill-rule="nonzero" font-family="PingFangSC-Regular, PingFang SC" font-size="10.6329114" font-weight="normal">
+                    <tspan x="44" y="26">||||||||||||||||||</tspan>
                 </text>
-            </g>
-            <g id="编组-14" transform="translate(30.000000, 19.000000)" stroke-width="0.5">
-                <g id="7.Icon/control/checkbox/Checked-" fill="#F4F4F4" fill-rule="nonzero" stroke="#DEDEDE">
+                <text id="||||||||||||||||||" fill-opacity="0.1" fill="#000000" fill-rule="nonzero" font-family="PingFangSC-Regular, PingFang SC" font-size="10.6329114" font-weight="normal">
+                    <tspan x="53" y="41">||||||||||||||||||</tspan>
+                </text>
+                <g id="编组-13备份-2" transform="translate(53.000000, 45.569620)" fill="#000000" fill-opacity="0.65" fill-rule="nonzero" font-family="PingFangSC-Regular, PingFang SC" font-size="10.6329114" font-weight="normal">
+                    <g id="|||||||||||||||||">
+                        <text>
+                            <tspan x="5.55111512e-17" y="11">|||||||||||||||||</tspan>
+                        </text>
+                    </g>
+                </g>
+                <g id="编组-14" transform="translate(30.000000, 19.000000)" fill-rule="nonzero">
+                    <g id="icon/z/checkboxChecked-Copy" fill="#F4F4F4" stroke="#DEDEDE">
+                        <rect id="box" x="0" y="0" width="8" height="8" rx="0.5"></rect>
+                    </g>
+                    <path d="M6.50901884,2 L6.11895187,2 C6.06426437,2 6.01236705,2.02511161 5.97888491,2.06808036 L3.67810366,4.98270089 L2.57486705,3.58482143 C2.54082687,3.54185268 2.48948759,3.51674107 2.43480009,3.51674107 L2.04473312,3.51674107 C2.00734473,3.51674107 1.98669741,3.55970982 2.00957687,3.58872768 L3.53803669,5.52511161 C3.60946527,5.61551339 3.74674205,5.61551339 3.81872866,5.52511161 L6.54417509,2.07142857 C6.56705455,2.04296875 6.54640723,2 6.50901884,2 Z" id="Path" stroke="#B8B8B8" fill="#BABABA"></path>
+                </g>
+                <g id="编组-14备份" transform="translate(40.000000, 34.000000)" fill="#F4F4F4" fill-rule="nonzero" stroke="#DEDEDE" stroke-width="0.5">
                     <g id="icon/z/checkboxChecked-Copy">
                         <rect id="box" x="0" y="0" width="8" height="8" rx="0.5"></rect>
                     </g>
                 </g>
-                <path d="M6.50901884,2 L6.11895187,2 C6.06426437,2 6.01236705,2.02511161 5.97888491,2.06808036 L3.67810366,4.98270089 L2.57486705,3.58482143 C2.54082687,3.54185268 2.48948759,3.51674107 2.43480009,3.51674107 L2.04473312,3.51674107 C2.00734473,3.51674107 1.98669741,3.55970982 2.00957687,3.58872768 L3.53803669,5.52511161 C3.60946527,5.61551339 3.74674205,5.61551339 3.81872866,5.52511161 L6.54417509,2.07142857 C6.56705455,2.04296875 6.54640723,2 6.50901884,2 Z" id="Path" stroke="#B8B8B8" fill="#BABABA"></path>
-            </g>
-            <g id="编组-14备份" transform="translate(40.000000, 34.000000)" fill="#F4F4F4" fill-rule="nonzero" stroke="#DEDEDE" stroke-width="0.5">
-                <g id="7.Icon/control/checkbox/Checked-">
-                    <g id="icon/z/checkboxChecked-Copy">
-                        <rect id="box" x="0" y="0" width="8" height="8" rx="0.5"></rect>
-                    </g>
-                </g>
-            </g>
-            <g id="编组-14备份-2" transform="translate(40.000000, 49.000000)" fill="#FFFFFF" fill-rule="nonzero" stroke="#DEDEDE" stroke-width="0.5">
-                <g id="7.Icon/control/checkbox/Checked-">
+                <g id="编组-14备份-2" transform="translate(40.000000, 49.000000)" fill="#FFFFFF" fill-rule="nonzero" stroke="#DEDEDE" stroke-width="0.5">
                     <g id="icon/z/checkboxChecked-Copy">
                         <rect id="box" x="0" y="0" width="8" height="8" rx="0.5"></rect>
                     </g>

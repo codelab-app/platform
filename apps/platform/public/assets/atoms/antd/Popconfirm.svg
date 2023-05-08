@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="150px" height="91px" viewBox="0 0 150 91" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Popconfirm</title>
-    <defs>
-        <path d="M135.563636,0.965517241 C136.447292,0.965517241 137.163636,1.68186164 137.163636,2.56551724 L137.163636,73.3655172 C137.163636,74.2491728 136.447292,74.9655172 135.563636,74.9655172 L72.217,74.9655172 L69.4181818,78.1655172 L66.619,74.9655172 L1.6,74.9655172 C0.7163444,74.9655172 7.19088647e-13,74.2491728 7.2475359e-13,73.3655172 L7.2475359e-13,2.56551724 C7.24645374e-13,1.68186164 0.7163444,0.965517241 1.6,0.965517241 L135.563636,0.965517241 Z" id="path-1"></path>
-        <filter x="-6.6%" y="-11.7%" width="113.1%" height="123.3%" filterUnits="objectBoundingBox" id="filter-2">
-            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.15 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-        </filter>
-    </defs>
-    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Popconfirm" transform="translate(-18.000000, -24.000000)">
-            <g transform="translate(24.000000, 30.000000)">
-                <g id="4.DataDisplay/Popover/Box/Top" fill-rule="nonzero">
-                    <g id="Combined-Shape">
-                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-                        <use fill="#FFFFFF" xlink:href="#path-1"></use>
-                    </g>
+<svg width="182px" height="91px" viewBox="0 0 182 91" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 4</title>
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-527.000000, -4555.000000)">
+            <g id="编组-4" transform="translate(528.000000, 4556.000000)">
+                <path d="M35.3137085,82 C33.1919766,82 31.1571453,82.8428547 29.6568542,84.3431458 L25.4142136,88.5857864 C24.633165,89.366835 23.366835,89.366835 22.5857864,88.5857864 L18.3431458,84.3431458 C16.8428547,82.8428547 14.8080234,82 12.6862915,82 L10.2555408,82 C6.68946584,82 5.39632089,81.6286976 4.09261719,80.9314692 C2.78891348,80.2342408 1.76575919,79.2110865 1.06853082,77.9073828 C0.371302445,76.6036791 0,75.3105342 0,71.7444592 L0,10.2555408 C0,6.68946584 0.371302445,5.39632089 1.06853082,4.09261719 C1.76575919,2.78891348 2.78891348,1.76575919 4.09261719,1.06853082 C5.39632089,0.371302445 6.68946584,-2.27614417e-13 10.2555408,-2.26959339e-13 L169.744459,-2.27334594e-13 C173.310534,-2.27396383e-13 174.603679,0.371302445 175.907383,1.06853082 C177.211087,1.76575919 178.234241,2.78891348 178.931469,4.09261719 C179.628698,5.39632089 180,6.68946584 180,10.2555408 L180,71.7444592 C180,75.3105342 179.628698,76.6036791 178.931469,77.9073828 C178.234241,79.2110865 177.211087,80.2342408 175.907383,80.9314692 C174.603679,81.6286976 173.310534,82 169.744459,82 Z" id="形状结合" stroke="#F0F0F0" fill="#FFFFFF" fill-rule="nonzero"></path>
+                <g id="1.通用/1.Buttons按钮/主按钮/亮色/小" transform="translate(126.000000, 46.000000)">
+                    <rect id="矩形" fill="#1677FF" x="0" y="0" width="40" height="24" rx="4"></rect>
+                    <text id="主按钮" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" line-spacing="22"></text>
                 </g>
-                <g id="1.Button/3.Small/1.Text.1.Primary" transform="translate(92.600000, 45.000000)">
-                    <g id="1.Button/3.Small/1.Text.2.Secondary#" transform="translate(0.400000, 0.000000)">
-                        <g id="9.Box/1.Cards/8.Primary" transform="translate(0.200000, 0.200000)">
-                            <g id="Z/Shape/RectangleRC/2px/RC-A">
-                                <rect id="BG/fill" fill="#FFFFFF" fill-rule="nonzero" x="0.8" y="0.8" width="30.4" height="14.4" rx="0.8"></rect>
-                                <rect id="outline" fill="#1890FF" fill-rule="evenodd" x="0" y="0" width="32" height="16" rx="1.6"></rect>
-                            </g>
-                        </g>
-                    </g>
+                <g id="1.通用/1.Buttons按钮/次按钮/亮色/小" transform="translate(78.000000, 46.000000)">
+                    <rect id="矩形" stroke-opacity="0.15" stroke="#000000" fill="#FFFFFF" x="0.5" y="0.5" width="39" height="23" rx="4"></rect>
+                    <text id="次按钮" font-family="PingFangSC-Regular, PingFang SC" font-size="14" font-weight="normal" line-spacing="22"></text>
                 </g>
-                <g id="1.Button/3.Small/1.Text.2.Secondary#" transform="translate(56.000000, 45.000000)" fill-rule="nonzero">
-                    <g id="9.Box/1.Cards/4.Border">
-                        <g id="Z/Shape/RectangleRC/2px/RC-A" transform="translate(0.518919, 0.000000)">
-                            <rect id="BG/fill" fill="#FFFFFF" x="0.8" y="0.8" width="29.5351351" height="14.4" rx="0.8"></rect>
-                            <rect id="outline" stroke="#000000" stroke-width="0.8" opacity="0.15" x="0.4" y="0.4" width="30.3351351" height="15.2" rx="1.6"></rect>
-                        </g>
-                    </g>
+                <g id="编组" transform="translate(40.000000, 18.000000)" fill="#000000" fill-opacity="0.88" fill-rule="nonzero">
+                    <rect id="矩形" x="0" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份" x="3" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-2" x="6" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-3" x="9" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-4" x="12" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-5" x="15" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-6" x="18" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-7" x="21" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-8" x="24" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-9" x="27" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-10" x="30" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-10备份-2" x="42" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-10备份-4" x="54" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-10备份" x="36" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-10备份-3" x="48" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-10备份-5" x="60" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-11" x="33" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-11备份-4" x="45" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-11备份-6" x="57" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-11备份-3" x="39" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-11备份-5" x="51" y="0" width="1" height="10"></rect>
+                    <rect id="矩形备份-11备份-7" x="63" y="0" width="1" height="10"></rect>
                 </g>
-                <g id="7.Icon/suggested/12.info-circle/fill" transform="translate(13.800000, 12.000000)" fill="#FAAD14" fill-rule="nonzero">
-                    <path d="M4.9,0 C2.1940625,0 0,2.1940625 0,4.9 C0,7.6059375 2.1940625,9.8 4.9,9.8 C7.6059375,9.8 9.8,7.6059375 9.8,4.9 C9.8,2.1940625 7.6059375,0 4.9,0 Z M5.25,7.2625 C5.25,7.310625 5.210625,7.35 5.1625,7.35 L4.6375,7.35 C4.589375,7.35 4.55,7.310625 4.55,7.2625 L4.55,4.2875 C4.55,4.239375 4.589375,4.2 4.6375,4.2 L5.1625,4.2 C5.210625,4.2 5.25,4.239375 5.25,4.2875 L5.25,7.2625 Z M4.9,3.5 C4.61015625,3.5 4.375,3.26484375 4.375,2.975 C4.375,2.68515625 4.61015625,2.45 4.9,2.45 C5.18984375,2.45 5.425,2.68515625 5.425,2.975 C5.425,3.26484375 5.18984375,3.5 4.9,3.5 Z" id="fill"></path>
+                <g id="Icon/Warning" transform="translate(12.000000, 15.000000)" fill="#FAAD14">
+                    <rect id="矩形" fill-rule="nonzero" opacity="0" x="0" y="0" width="16" height="16"></rect>
+                    <path d="M8,1 C4.134375,1 1,4.134375 1,8 C1,11.865625 4.134375,15 8,15 C11.865625,15 15,11.865625 15,8 C15,4.134375 11.865625,1 8,1 Z M7.5,4.625 C7.5,4.55625 7.55625,4.5 7.625,4.5 L8.375,4.5 C8.44375,4.5 8.5,4.55625 8.5,4.625 L8.5,8.875 C8.5,8.94375 8.44375,9 8.375,9 L7.625,9 C7.55625,9 7.5,8.94375 7.5,8.875 L7.5,4.625 Z M8,11.5 C7.5859375,11.5 7.25,11.1640625 7.25,10.75 C7.25,10.3359375 7.5859375,10 8,10 C8.4140625,10 8.75,10.3359375 8.75,10.75 C8.75,11.1640625 8.4140625,11.5 8,11.5 Z" id="形状"></path>
                 </g>
-                <rect id="矩形复制-55备份-5" fill="#EBEBEB" x="29" y="12" width="97" height="8"></rect>
-                <rect id="矩形复制-55备份-6" fill="#EBEBEB" x="29" y="24" width="53" height="8"></rect>
             </g>
         </g>
     </g>

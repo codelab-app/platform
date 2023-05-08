@@ -1,85 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="180px" height="107px" viewBox="0 0 180 107" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="196px" height="116px" viewBox="0 0 196 116" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Transfer</title>
-    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Transfer">
-            <g id="Group-22">
-                <rect id="Rectangle-3-Copy-52" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill="#FFFFFF" x="99.4336735" y="0.25" width="80.3163265" height="106.030612" rx="1"></rect>
-                <rect id="Rectangle-25" fill-opacity="0.09" fill="#000000" x="99.6428571" y="17.9081633" width="79.8979592" height="1"></rect>
-                <text id="|||||||||||||||||" font-family="PingFangSC-Regular, PingFang SC" font-size="6.42857143" font-weight="normal" line-spacing="10.1020408" fill="#000000" fill-opacity="0.65">
-                    <tspan x="153.464796" y="11.1326531">|||||||||||||||||</tspan>
-                </text>
-                <rect id="Rectangle-3-Copy-40" stroke="#D9D9D9" stroke-width="0.5" fill="#FFFFFF" x="0.25" y="0.25" width="80.3163265" height="106.030612" rx="1"></rect>
-                <g id="Group-18" transform="translate(5.510204, 5.510204)">
-                    <rect id="Rectangle-271-Copy-2" fill="#1890FF" x="0" y="0" width="7.34693878" height="7.34693878" rx="0.918367347"></rect>
-                    <g id="Group" transform="translate(0.918367, 0.918367)">
-                        <rect id="Rectangle" x="0" y="0" width="5.51020408" height="5.51020408"></rect>
-                        <rect id="Combined-Shape" fill="#FFFFFF" x="0.459183673" y="2.29591837" width="5.05102041" height="1" rx="0.387436224"></rect>
+    <defs>
+        <path d="M5.84,3.5 L2.16,3.5 C2.0715,3.5 2,3.517875 2,3.54 L2,4.46 C2,4.482125 2.0715,4.5 2.16,4.5 L5.84,4.5 C5.9285,4.5 6,4.482125 6,4.46 L6,3.54 C6,3.517875 5.9285,3.5 5.84,3.5 Z" id="path-1"></path>
+    </defs>
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-885.000000, -2421.000000)">
+            <g id="Transfer" transform="translate(885.000000, 2421.000000)">
+                <g id="目的列表" transform="translate(107.774936, 0.000000)">
+                    <rect id="Rectangle-3-Copy-52" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill="#FFFFFF" x="0.25" y="0.25" width="87.7250639" height="115.5" rx="4"></rect>
+                    <rect id="Dividers" fill-opacity="0.06" fill="#000000" x="0.501278772" y="19.5" width="87.2225064" height="1"></rect>
+                    <text font-family="PingFangSC-Regular, PingFang SC" font-size="7" font-weight="normal" line-spacing="11" fill="#000000" fill-opacity="0.88">
+                        <tspan x="61.1815857" y="11.5">||||||||||||||</tspan>
+                    </text>
+                    <g id="Icon/Checkbox-Normal" transform="translate(6.516624, 6.000000)">
+                        <g id="save"></g>
+                        <rect id="矩形" fill="#000000" fill-rule="nonzero" opacity="0" x="0" y="0" width="8.02046036" height="8"></rect>
+                        <rect id="Rectangle" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill="#FFFFFF" x="0.25" y="0.25" width="7.5" height="7.5" rx="2"></rect>
+                    </g>
+                    <g id="DataEntry/Checkbox/Light/Normal" transform="translate(6.516624, 22.500000)">
+                        <g id="Icon/Checkbox-Normal" transform="translate(0.000000, 1.500000)">
+                            <g id="save"></g>
+                            <rect id="矩形" fill="#000000" fill-rule="nonzero" opacity="0" x="0" y="0" width="8" height="8"></rect>
+                            <rect id="Rectangle" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill="#FFFFFF" x="0.25" y="0.25" width="7.5" height="7.5" rx="2"></rect>
+                        </g>
+                        <text id="Text" font-family="PingFangSC-Regular, PingFang SC" font-size="7" font-weight="normal" line-spacing="11" fill="#000000" fill-opacity="0.88">
+                            <tspan x="12" y="7">||||||||||||||||||||</tspan>
+                        </text>
+                    </g>
+                    <g id="DataEntry/Checkbox/Light/Normal备份-3" transform="translate(6.516624, 38.500000)">
+                        <g id="Icon/Checkbox-Normal" transform="translate(0.000000, 1.500000)">
+                            <g id="save"></g>
+                            <rect id="矩形" fill="#000000" fill-rule="nonzero" opacity="0" x="0" y="0" width="8" height="8"></rect>
+                            <rect id="Rectangle" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill="#FFFFFF" x="0.25" y="0.25" width="7.5" height="7.5" rx="2"></rect>
+                        </g>
+                        <text id="Text" font-family="PingFangSC-Regular, PingFang SC" font-size="7" font-weight="normal" line-spacing="11" fill="#000000" fill-opacity="0.88">
+                            <tspan x="12" y="7">||||||||||||||||||||</tspan>
+                        </text>
                     </g>
                 </g>
-                <rect id="Rectangle-271-Copy-5" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill-opacity="0.04" fill="#000000" x="5.76020408" y="51.6785714" width="6.84693878" height="6.84693878" rx="0.918367347"></rect>
-                <rect id="Rectangle-271-Copy-6" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill="#FFFFFF" x="5.76020408" y="81.0663265" width="6.84693878" height="6.84693878" rx="0.918367347"></rect>
-                <rect id="Rectangle-3-Copy-60" fill="#E6F7FF" x="0.459183673" y="33.0612245" width="79.8979592" height="14.6938776"></rect>
-                <text id="|||||||||||||||||" font-family="PingFangSC-Regular, PingFang SC" font-size="6.42857143" font-weight="normal" line-spacing="10.1020408" fill="#000000" fill-opacity="0.65">
-                    <tspan x="16.5306122" y="27.6632653">|||||||||||||||||</tspan>
-                </text>
-                <text id="|||||||||||||||||" font-family="PingFangSC-Regular, PingFang SC" font-size="6.42857143" font-weight="normal" line-spacing="10.1020408" fill="#000000" fill-opacity="0.65">
-                    <tspan x="115.714286" y="27.6632653">|||||||||||||||||</tspan>
-                </text>
-                <text id="|||||||||||||||||" font-family="PingFangSC-Regular, PingFang SC" font-size="6.42857143" font-weight="normal" line-spacing="10.1020408" fill="#000000" fill-opacity="0.65">
-                    <tspan x="56.0204082" y="11.1326531">|||||||||||||||||</tspan>
-                </text>
-                <text id="|||||||||||||||||" font-family="PingFangSC-Regular, PingFang SC" font-size="6.42857143" font-weight="normal" line-spacing="10.1020408" fill="#000000" fill-opacity="0.65">
-                    <tspan x="16.5306122" y="42.3571429">|||||||||||||||||</tspan>
-                </text>
-                <text id="|||||||||||||||||" font-family="PingFangSC-Regular, PingFang SC" font-size="6.42857143" font-weight="normal" line-spacing="10.1020408" fill="#000000" fill-opacity="0.65">
-                    <tspan x="115.714286" y="42.3571429">|||||||||||||||||</tspan>
-                </text>
-                <text id="|||||||||||||||||" font-family="PingFangSC-Regular, PingFang SC" font-size="6.42857143" font-weight="normal" line-spacing="10.1020408" fill="#000000" fill-opacity="0.25">
-                    <tspan x="16.5306122" y="57.0510204">|||||||||||||||||</tspan>
-                </text>
-                <text id="|||||||||||||||||" font-family="PingFangSC-Regular, PingFang SC" font-size="6.42857143" font-weight="normal" line-spacing="10.1020408" fill="#000000" fill-opacity="0.65">
-                    <tspan x="16.5306122" y="71.744898">|||||||||||||||||</tspan>
-                </text>
-                <text id="|||||||||||||||||" font-family="PingFangSC-Regular, PingFang SC" font-size="6.42857143" font-weight="normal" line-spacing="10.1020408" fill="#000000" fill-opacity="0.65">
-                    <tspan x="16.5306122" y="86.4387755">|||||||||||||||||</tspan>
-                </text>
-                <rect id="Rectangle-271-Copy-6" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill="#FFFFFF" x="5.76020408" y="95.7602041" width="6.84693878" height="6.84693878" rx="0.918367347"></rect>
-                <text id="|||||||||||||||||" font-family="PingFangSC-Regular, PingFang SC" font-size="6.42857143" font-weight="normal" line-spacing="10.1020408" fill="#000000" fill-opacity="0.65">
-                    <tspan x="16.5306122" y="101.132653">|||||||||||||||||</tspan>
-                </text>
-                <g id="Group-19" transform="translate(84.489796, 40.408163)">
-                    <rect id="Rectangle-355-Copy-16" fill="#1890FF" x="0" y="0" width="11.0204082" height="11.0204082" rx="1.83673469"></rect>
-                    <g id="Group-44-Copy" transform="translate(5.265306, 5.755102) scale(-1, 1) translate(-5.265306, -5.755102) translate(2.265306, 2.755102)">
-                        <rect id="Rectangle-11" x="0" y="0" width="5.51020408" height="5.51020408"></rect>
-                        <path d="M3.89702502,5.05102041 C3.84528822,5.05102041 3.79301251,5.03187085 3.74935959,4.99357172 L1.46539578,2.95354497 C1.40988652,2.90387579 1.37755102,2.82907281 1.37755102,2.74948245 C1.37755102,2.67049051 1.40988652,2.59508911 1.46539578,2.54601835 L3.73965894,0.516763227 C3.84097682,0.426401232 3.98918118,0.444353946 4.07055884,0.556857622 C4.1519365,0.669361298 4.13576875,0.833927844 4.03445087,0.924289839 L1.98869188,2.74948245 L4.04469044,4.58604511 C4.14600833,4.67640711 4.16217608,4.84097365 4.08079841,4.95347733 C4.03391194,5.01750868 3.9660074,5.05102041 3.89702502,5.05102041 Z" id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+                <g id="源列表">
+                    <rect id="Rectangle-" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill="#FFFFFF" x="0.25" y="0.25" width="87.7250639" height="115.5" rx="4"></rect>
+                    <g id="Icon/Checkbox-ChecK-Part" transform="translate(6.015345, 6.000000)">
+                        <g id="save"></g>
+                        <rect id="Rectangle-271" fill="#1677FF" x="0" y="0" width="8" height="8" rx="2"></rect>
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <use id="Shape" fill="#FFFFFF" xlink:href="#path-1"></use>
                     </g>
-                    <rect id="Rectangle-355-Copy-17" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill-opacity="0.04" fill="#000000" x="0.25" y="13.1071429" width="10.5204082" height="10.5204082" rx="1.83673469"></rect>
-                    <g id="Group-44-Copy" transform="translate(2.755102, 15.612245)">
-                        <rect id="Rectangle-11" x="0" y="0" width="5.51020408" height="5.51020408"></rect>
-                        <path d="M3.89702502,5.05102041 C3.84528822,5.05102041 3.79301251,5.03187085 3.74935959,4.99357172 L1.46539578,2.95354497 C1.40988652,2.90387579 1.37755102,2.82907281 1.37755102,2.74948245 C1.37755102,2.67049051 1.40988652,2.59508911 1.46539578,2.54601835 L3.73965894,0.516763227 C3.84097682,0.426401232 3.98918118,0.444353946 4.07055884,0.556857622 C4.1519365,0.669361298 4.13576875,0.833927844 4.03445087,0.924289839 L1.98869188,2.74948245 L4.04469044,4.58604511 C4.14600833,4.67640711 4.16217608,4.84097365 4.08079841,4.95347733 C4.03391194,5.01750868 3.9660074,5.05102041 3.89702502,5.05102041 Z" id="Shape" fill-opacity="0.25" fill="#000000" fill-rule="nonzero"></path>
+                    <rect id="Selected-Bg" fill="#E6F4FF" x="0.501278772" y="36" width="87.2225064" height="16"></rect>
+                    <g id="DataEntry/Checkbox/Light/Normal" transform="translate(6.015345, 22.500000)">
+                        <g id="Icon/Checkbox-Normal" transform="translate(0.000000, 1.500000)">
+                            <g id="save"></g>
+                            <rect id="矩形" fill="#000000" fill-rule="nonzero" opacity="0" x="0" y="0" width="8" height="8"></rect>
+                            <rect id="Rectangle" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill="#FFFFFF" x="0.25" y="0.25" width="7.5" height="7.5" rx="2"></rect>
+                        </g>
+                        <text id="Text" font-family="PingFangSC-Regular, PingFang SC" font-size="7" font-weight="normal" line-spacing="11" fill="#000000" fill-opacity="0.88">
+                            <tspan x="12" y="7">||||||||||||||||||||</tspan>
+                        </text>
+                    </g>
+                    <g id="DataEntry/Checkbox/Light/Normal备份" transform="translate(6.015345, 86.500000)">
+                        <g id="Icon/Checkbox-Normal" transform="translate(0.000000, 1.500000)">
+                            <g id="save"></g>
+                            <rect id="矩形" fill="#000000" fill-rule="nonzero" opacity="0" x="0" y="0" width="8" height="8"></rect>
+                            <rect id="Rectangle" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill="#FFFFFF" x="0.25" y="0.25" width="7.5" height="7.5" rx="2"></rect>
+                        </g>
+                        <text id="Text" font-family="PingFangSC-Regular, PingFang SC" font-size="7" font-weight="normal" line-spacing="11" fill="#000000" fill-opacity="0.88">
+                            <tspan x="12" y="7">||||||||||||||||||||</tspan>
+                        </text>
+                    </g>
+                    <g id="DataEntry/Checkbox/Light/Normal备份-2" transform="translate(6.015345, 102.500000)">
+                        <g id="Icon/Checkbox-Normal" transform="translate(0.000000, 1.500000)">
+                            <g id="save"></g>
+                            <rect id="矩形" fill="#000000" fill-rule="nonzero" opacity="0" x="0" y="0" width="8" height="8"></rect>
+                            <rect id="Rectangle" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill="#FFFFFF" x="0.25" y="0.25" width="7.5" height="7.5" rx="2"></rect>
+                        </g>
+                        <text id="Text" font-family="PingFangSC-Regular, PingFang SC" font-size="7" font-weight="normal" line-spacing="11" fill="#000000" fill-opacity="0.88">
+                            <tspan x="12" y="7">||||||||||||||||||||</tspan>
+                        </text>
+                    </g>
+                    <g id="DataEntry/Checkbox/Light/Selected" transform="translate(6.015345, 38.500000)">
+                        <g id="Icon/Checkbox-Selected" transform="translate(0.000000, 1.500000)">
+                            <g id="save"></g>
+                            <rect id="矩形" fill="#000000" fill-rule="nonzero" opacity="0" x="0" y="0" width="8" height="8"></rect>
+                            <rect id="Rectangle-271" fill="#1677FF" x="0" y="0" width="8" height="8" rx="2"></rect>
+                            <path d="M5.88512665,2.627 L3.77912665,5.547 C3.65212665,5.724 3.38912665,5.724 3.26212665,5.547 L2.01512665,3.819 C1.97712665,3.766 2.01512665,3.692 2.08012665,3.692 L2.54912665,3.692 C2.65112665,3.692 2.74812665,3.741 2.80812665,3.825 L3.52012665,4.813 L5.09212665,2.633 C5.15212665,2.55 5.24812665,2.5 5.35112665,2.5 L5.82012665,2.5 C5.88512665,2.5 5.92312665,2.574 5.88512665,2.627 Z" id="Path" fill="#FFFFFF"></path>
+                        </g>
+                        <text id="Text" font-family="PingFangSC-Regular, PingFang SC" font-size="7" font-weight="normal" line-spacing="11" fill="#000000" fill-opacity="0.88">
+                            <tspan x="12" y="7">||||||||||||||||||||</tspan>
+                        </text>
+                    </g>
+                    <g id="DataEntry/Checkbox/Light/Normal-Disabled" transform="translate(6.015345, 54.500000)">
+                        <g id="Icon/Checkbox-Normal-Disabled" transform="translate(0.000000, 1.500000)">
+                            <g id="save"></g>
+                            <rect id="矩形" fill="#000000" fill-rule="nonzero" opacity="0" x="0" y="0" width="8" height="8"></rect>
+                            <rect id="Rectangle-271" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill-opacity="0.04" fill="#000000" x="0.25" y="0.25" width="7.5" height="7.5" rx="2"></rect>
+                        </g>
+                        <text id="Text" font-family="PingFangSC-Regular, PingFang SC" font-size="7" font-weight="normal" line-spacing="11" fill="#000000" fill-opacity="0.25">
+                            <tspan x="12" y="7">||||||||||||||||||||</tspan>
+                        </text>
+                    </g>
+                    <g id="DataEntry/Checkbox/Light/Selected-Disabled" transform="translate(5.965472, 70.500000)">
+                        <g id="Icon/Checkbox-Selected-Disabled" transform="translate(0.000000, 1.500000)">
+                            <g id="save"></g>
+                            <rect id="矩形" fill="#000000" fill-rule="nonzero" opacity="0" x="0" y="0" width="8" height="8"></rect>
+                            <rect id="Rectangle-271" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill-opacity="0.04" fill="#000000" x="0.25" y="0.25" width="7.5" height="7.5" rx="2"></rect>
+                            <path d="M5.88512665,2.627 L3.77912665,5.547 C3.65212665,5.724 3.38912665,5.724 3.26212665,5.547 L2.01512665,3.819 C1.97712665,3.766 2.01512665,3.692 2.08012665,3.692 L2.54912665,3.692 C2.65112665,3.692 2.74812665,3.741 2.80812665,3.825 L3.52012665,4.813 L5.09212665,2.633 C5.15212665,2.55 5.24812665,2.5 5.35112665,2.5 L5.82012665,2.5 C5.88512665,2.5 5.92312665,2.574 5.88512665,2.627 Z" id="Path" fill-opacity="0.25" fill="#000000"></path>
+                        </g>
+                        <text id="Text" font-family="PingFangSC-Regular, PingFang SC" font-size="7" font-weight="normal" line-spacing="11" fill="#000000" fill-opacity="0.25">
+                            <tspan x="12.0498733" y="7">||||||||||||||||||||</tspan>
+                        </text>
+                    </g>
+                    <text font-family="PingFangSC-Regular, PingFang SC" font-size="7" font-weight="normal" line-spacing="11" fill="#000000" fill-opacity="0.88">
+                        <tspan x="61.1815857" y="11.5">||||||||||||||</tspan>
+                    </text>
+                    <rect id="Scrollbar" fill-opacity="0.45" fill="#000000" x="84.2180307" y="25" width="2.5" height="22" rx="1.25"></rect>
+                    <rect id="Dividers" fill-opacity="0.06" fill="#000000" x="0.501278772" y="19.5" width="87.2225064" height="1"></rect>
+                </g>
+                <g id="Icon/Left-Disabled" transform="translate(92.250639, 58.000000)" fill="#000000">
+                    <rect id="Rectangle-271" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill-opacity="0.04" x="0.25" y="0.25" width="11.5" height="11.5" rx="2"></rect>
+                    <g id="left" transform="translate(2.000000, 2.000000)">
+                        <rect id="矩形" fill-rule="nonzero" opacity="0" x="0" y="0" width="8" height="8"></rect>
+                        <path d="M5.65625,1.70546875 L5.65625,1.1015625 C5.65625,1.04921875 5.59609375,1.0203125 5.55546875,1.05234375 L2.03359375,3.803125 C1.90546875,3.903125 1.90546875,4.09609375 2.03359375,4.19609375 L5.55546875,6.946875 C5.596875,6.97890625 5.65625,6.95 5.65625,6.89765625 L5.65625,6.29375 C5.65625,6.25546875 5.63828125,6.21875 5.60859375,6.1953125 L2.79609375,4 L5.60859375,1.80390625 C5.63828125,1.78046875 5.65625,1.74375 5.65625,1.70546875 Z" id="路径" fill-opacity="0.25"></path>
                     </g>
                 </g>
-                <rect id="Rectangle-319" fill-opacity="0.45" fill="#000000" x="77.1428571" y="22.9591837" width="2.29591837" height="20.2040816" rx="1.14795918"></rect>
-                <rect id="Rectangle-25" fill-opacity="0.09" fill="#000000" x="0.459183673" y="17.9081633" width="79.8979592" height="1"></rect>
-                <g id="Group-21" transform="translate(5.510204, 36.734694)">
-                    <rect id="Rectangle-271-Copy-2" fill="#1890FF" x="0" y="0" width="7.34693878" height="7.34693878" rx="0.918367347"></rect>
-                    <g id="Group-Copy" transform="translate(0.918367, 0.918367)">
-                        <rect id="Rectangle" x="0" y="0" width="5.51020408" height="5.51020408"></rect>
-                        <path d="M5.08311777,0.920797446 C5.18912744,1.01624898 5.1976865,1.17956555 5.10223497,1.28557522 L2.02179718,4.70674798 C1.99832549,4.73281593 1.97075017,4.75299127 1.9409324,4.76717647 C1.93674687,4.7671906 1.93306341,4.76901132 1.92934879,4.77073819 C1.91712899,4.77746431 1.90399868,4.7817556 1.89065011,4.78497567 C1.8770849,4.78886436 1.86360153,4.79149103 1.85002987,4.79304036 C1.84641554,4.79170874 1.84235322,4.79193757 1.83828742,4.79207096 C1.76165691,4.79926997 1.68376411,4.77055496 1.62856613,4.70925139 L1.62856613,4.70925139 L0.41179543,3.35789062 C0.316343896,3.25188096 0.324902955,3.08856438 0.430912623,2.99311285 C0.536922291,2.89766132 0.700238863,2.90622038 0.795690397,3.01223004 L0.795690397,3.01223004 L1.82344989,4.15345191 L4.71834,0.939914639 C4.81379153,0.833904971 4.97710811,0.825345912 5.08311777,0.920797446 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+                <g id="Icon/Right-Selected" transform="translate(92.250639, 44.000000)">
+                    <rect id="Rectangle-271" fill="#1677FF" x="0" y="0" width="12" height="12" rx="2"></rect>
+                    <g id="right" transform="translate(2.000000, 2.000000)">
+                        <rect id="矩形" fill="#000000" fill-rule="nonzero" opacity="0" x="0" y="0" width="8" height="8"></rect>
+                        <path d="M5.98203125,3.803125 L2.46015625,1.05234375 C2.41875,1.0203125 2.359375,1.04921875 2.359375,1.1015625 L2.359375,1.70546875 C2.359375,1.74375 2.37734375,1.78046875 2.40703125,1.80390625 L5.21953125,4 L2.40703125,6.19609375 C2.3765625,6.21953125 2.359375,6.25625 2.359375,6.29453125 L2.359375,6.8984375 C2.359375,6.95078125 2.41953125,6.9796875 2.46015625,6.94765625 L5.98203125,4.196875 C6.11015625,4.096875 6.11015625,3.903125 5.98203125,3.803125 Z" id="路径" fill="#FFFFFF"></path>
                     </g>
                 </g>
-                <g id="Group-21-Copy" transform="translate(5.510204, 66.122449)">
-                    <rect id="Rectangle-271-Copy-2" fill="#1890FF" x="0" y="0" width="7.34693878" height="7.34693878" rx="0.918367347"></rect>
-                    <g id="Group-Copy" transform="translate(0.918367, 0.918367)">
-                        <rect id="Rectangle" x="0" y="0" width="5.51020408" height="5.51020408"></rect>
-                        <path d="M5.08311777,0.920797446 C5.18912744,1.01624898 5.1976865,1.17956555 5.10223497,1.28557522 L2.02179718,4.70674798 C1.99832549,4.73281593 1.97075017,4.75299127 1.9409324,4.76717647 C1.93674687,4.7671906 1.93306341,4.76901132 1.92934879,4.77073819 C1.91712899,4.77746431 1.90399868,4.7817556 1.89065011,4.78497567 C1.8770849,4.78886436 1.86360153,4.79149103 1.85002987,4.79304036 C1.84641554,4.79170874 1.84235322,4.79193757 1.83828742,4.79207096 C1.76165691,4.79926997 1.68376411,4.77055496 1.62856613,4.70925139 L1.62856613,4.70925139 L0.41179543,3.35789062 C0.316343896,3.25188096 0.324902955,3.08856438 0.430912623,2.99311285 C0.536922291,2.89766132 0.700238863,2.90622038 0.795690397,3.01223004 L0.795690397,3.01223004 L1.82344989,4.15345191 L4.71834,0.939914639 C4.81379153,0.833904971 4.97710811,0.825345912 5.08311777,0.920797446 Z" id="Combined-Shape" fill="#FFFFFF"></path>
-                    </g>
-                </g>
-                <rect id="Rectangle-271" stroke="#D9D9D9" stroke-width="0.5" fill="#FFFFFF" x="5.76020408" y="22.2908163" width="6.84693878" height="6.84693878" rx="0.918367347"></rect>
-                <rect id="Rectangle-271-Copy-3" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill="#FFFFFF" x="104.943878" y="5.76020408" width="6.84693878" height="6.84693878" rx="0.918367347"></rect>
-                <rect id="Rectangle-271-Copy-7" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill="#FFFFFF" x="104.943878" y="22.2908163" width="6.84693878" height="6.84693878" rx="0.918367347"></rect>
-                <rect id="Rectangle-271-Copy-8" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5" fill="#FFFFFF" x="104.943878" y="36.9846939" width="6.84693878" height="6.84693878" rx="0.918367347"></rect>
             </g>
         </g>
     </g>

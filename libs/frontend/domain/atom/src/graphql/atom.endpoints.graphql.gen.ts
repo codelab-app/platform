@@ -37,7 +37,12 @@ export type GetAtomsQuery = {
 export type GetAtomOptionsQueryVariables = Types.Exact<{ [key: string]: never }>
 
 export type GetAtomOptionsQuery = {
-  atoms: Array<{ id: string; name: string; type: Types.AtomType }>
+  atoms: Array<{
+    id: string
+    name: string
+    type: Types.AtomType
+    icon?: string | null
+  }>
 }
 
 export type UpdateAtomsMutationVariables = Types.Exact<{
@@ -87,6 +92,7 @@ export const GetAtomOptionsDocument = gql`
       id
       name
       type
+      icon
     }
   }
 `

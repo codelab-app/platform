@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="108px" height="36px" viewBox="0 0 108 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Spin</title>
-    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Ant-Design-组件缩略图" transform="translate(-2290.000000, -1286.000000)">
-            <g id="Spin" transform="translate(2290.000000, 1286.000000)">
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-564.000000, -4827.000000)" fill-rule="nonzero">
+            <g id="Spin" transform="translate(564.000000, 4827.000000)">
                 <g id="编组" transform="translate(72.000000, 0.000000)">
-                    <circle id="椭圆形" fill="#9AD0FF" cx="19" cy="5" r="5"></circle>
-                    <circle id="椭圆形备份" fill="#3995FF" cx="19" cy="31" r="5"></circle>
-                    <circle id="椭圆形备份-2" fill="#5DB0FF" cx="5" cy="18" r="5"></circle>
-                    <circle id="椭圆形备份-3" fill="#7DC1FF" cx="31" cy="18" r="5"></circle>
+                    <circle id="椭圆形" fill="#91CAFF" cx="19" cy="5" r="5"></circle>
+                    <circle id="椭圆形备份" fill="#4096FF" cx="19" cy="31" r="5"></circle>
+                    <circle id="椭圆形备份-2" fill="#69B1FF" cx="5" cy="18" r="5"></circle>
+                    <circle id="椭圆形备份-3" fill="#BAE0FF" cx="31" cy="18" r="5"></circle>
                 </g>
                 <g id="编组备份" transform="translate(32.000000, 6.000000)">
-                    <circle id="椭圆形" fill="#9AD0FF" cx="12.6666667" cy="3.33333333" r="3.33333333"></circle>
-                    <circle id="椭圆形备份" fill="#3995FF" cx="12.6666667" cy="20.6666667" r="3.33333333"></circle>
-                    <circle id="椭圆形备份-2" fill="#5DB0FF" cx="3.33333333" cy="12" r="3.33333333"></circle>
-                    <circle id="椭圆形备份-3" fill="#7DC1FF" cx="20.6666667" cy="12" r="3.33333333"></circle>
+                    <circle id="椭圆形" fill="#91CAFF" cx="12.6666667" cy="3.33333333" r="3.33333333"></circle>
+                    <circle id="椭圆形备份" fill="#4096FF" cx="12.6666667" cy="20.6666667" r="3.33333333"></circle>
+                    <circle id="椭圆形备份-2" fill="#69B1FF" cx="3.33333333" cy="12" r="3.33333333"></circle>
+                    <circle id="椭圆形备份-3" fill="#BAE0FF" cx="20.6666667" cy="12" r="3.33333333"></circle>
                 </g>
                 <g id="编组备份-2" transform="translate(0.000000, 10.000000)">
-                    <circle id="椭圆形" fill="#9AD0FF" cx="8.44444444" cy="2.22222222" r="2.22222222"></circle>
-                    <circle id="椭圆形备份" fill="#3995FF" cx="8.44444444" cy="13.7777778" r="2.22222222"></circle>
-                    <circle id="椭圆形备份-2" fill="#5DB0FF" cx="2.22222222" cy="8" r="2.22222222"></circle>
-                    <circle id="椭圆形备份-3" fill="#7DC1FF" cx="13.7777778" cy="8" r="2.22222222"></circle>
+                    <circle id="椭圆形" fill="#91CAFF" cx="8.44444444" cy="2.22222222" r="2.22222222"></circle>
+                    <circle id="椭圆形备份" fill="#4096FF" cx="8.44444444" cy="13.7777778" r="2.22222222"></circle>
+                    <circle id="椭圆形备份-2" fill="#69B1FF" cx="2.22222222" cy="8" r="2.22222222"></circle>
+                    <circle id="椭圆形备份-3" fill="#BAE0FF" cx="13.7777778" cy="8" r="2.22222222"></circle>
                 </g>
             </g>
         </g>

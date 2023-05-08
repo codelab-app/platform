@@ -1,38 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="156px" height="80px" viewBox="0 0 156 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="156px" height="81px" viewBox="0 0 156 81" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Form</title>
-    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Form">
-            <g id="数据录入/Form表单/Light/标题-必填" transform="translate(0.000000, 3.000000)">
-                <text id=":" font-family="PingFangSC-Regular, PingFang SC" font-size="7.875" font-weight="normal" line-spacing="12.375" fill="#000000" fill-opacity="0.85">
-                    <tspan x="31" y="8">:</tspan>
-                </text>
-                <rect id="矩形复制-61" fill="#EBEBEB" x="0" y="2" width="29" height="10"></rect>
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-176.000000, -1957.000000)">
+            <g id="Form" transform="translate(176.000000, 1958.000000)">
+                <g id="数据录入/Form表单/Light/标题-必填" transform="translate(0.000000, 2.718750)" fill-rule="nonzero">
+                    <g id=":" transform="translate(31.000000, 0.000000)" fill="#000000" fill-opacity="0.85" font-family="PingFangSC-Regular, PingFang SC" font-size="7.875" font-weight="normal">
+                        <text>
+                            <tspan x="0" y="8">:</tspan>
+                        </text>
+                    </g>
+                    <rect id="矩形复制-61" fill="#EBEBEB" x="0" y="2" width="29" height="10"></rect>
+                </g>
+                <g id="数据录入/Form表单/Light/标题-必填备份" transform="translate(31.000000, 32.718750)" fill="#000000" fill-opacity="0.85" fill-rule="nonzero" font-family="PingFangSC-Regular, PingFang SC" font-size="7.875" font-weight="normal">
+                    <g id=":">
+                        <text>
+                            <tspan x="0" y="8">:</tspan>
+                        </text>
+                    </g>
+                </g>
+                <g id="3.数据录入/4.Input输入框/亮色/中-未输入" transform="translate(43.281250, 0.000000)">
+                    <path d="M111.087047,0 L0.85045338,0 C0.614044259,0 0.401440035,0.093931855 0.247919057,0.246676514 C0.094252081,0.399566432 0,0.611113409 0,0.84473062 L0,16.5927694 C0,16.826939 0.094502811,17.0377424 0.247625385,17.1900906 C0.401774138,17.3434599 0.615044012,17.4375 0.85045338,17.4375 L111.087047,17.4375 C111.323456,17.4375 111.53606,17.3435681 111.689581,17.1908235 C111.843248,17.0379336 111.9375,16.8263866 111.9375,16.5927694 L111.9375,0.84473062 C111.9375,0.610560962 111.842997,0.399757624 111.689875,0.247409355 C111.535726,0.094040097 111.322456,0 111.087047,0 Z" id="Rectangle-26-Copy-23" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5625" fill="#FFFFFF"></path>
+                    <g id="Text" transform="translate(6.468750, 2.531250)" fill="#000000" fill-opacity="0.25" fill-rule="nonzero" font-family="PingFangSC-Regular, PingFang SC" font-size="7.875" font-weight="normal">
+                        <text id="请输入用户名">
+                            <tspan x="0" y="8">请输入用户名</tspan>
+                        </text>
+                    </g>
+                </g>
+                <g id="DataEntry/Input/Light/Search" transform="translate(43.281250, 31.000000)" fill-rule="nonzero">
+                    <path d="M111.087047,0 L0.85045338,0 C0.614044259,0 0.401440035,0.093931855 0.247919057,0.246676514 C0.094252081,0.399566432 0,0.611113409 0,0.84473062 L0,16.5927694 C0,16.826939 0.094502811,17.0377424 0.247625385,17.1900906 C0.401774138,17.3434599 0.615044012,17.4375 0.85045338,17.4375 L111.087047,17.4375 C111.323456,17.4375 111.53606,17.3435681 111.689581,17.1908235 C111.843248,17.0379336 111.9375,16.8263866 111.9375,16.5927694 L111.9375,0.84473062 C111.9375,0.610560962 111.842997,0.399757624 111.689875,0.247409355 C111.535726,0.094040097 111.322456,0 111.087047,0 Z" id="bg" stroke="#D9D9D9" stroke-width="0.5625" fill="#FFFFFF"></path>
+                    <g id="Text" transform="translate(6.468750, 2.531250)" fill="#000000" fill-opacity="0.25" font-family="PingFangSC-Regular, PingFang SC" font-size="7.875" font-weight="normal">
+                        <text id="请输入密码">
+                            <tspan x="0" y="8">请输入密码</tspan>
+                        </text>
+                    </g>
+                </g>
+                <g id="1.通用/1.Buttons按钮/主按钮/亮色/默认" transform="translate(43.000000, 61.718750)" fill="#1677FF">
+                    <rect id="矩形" x="0" y="0" width="38.625" height="18" rx="4"></rect>
+                </g>
+                <rect id="矩形复制-60" fill="#F5F5F5" fill-rule="nonzero" x="49" y="34.71875" width="51" height="10"></rect>
+                <rect id="矩形复制-60备份" fill="#F5F5F5" fill-rule="nonzero" x="49" y="3.71875" width="51" height="10"></rect>
+                <rect id="矩形复制-61备份" fill="#EBEBEB" fill-rule="nonzero" x="0" y="34.71875" width="29" height="10"></rect>
             </g>
-            <g id="数据录入/Form表单/Light/标题-必填备份" transform="translate(31.000000, 33.000000)" fill="#000000" fill-opacity="0.85" font-family="PingFangSC-Regular, PingFang SC" font-size="7.875" font-weight="normal" line-spacing="12.375">
-                <text id=":">
-                    <tspan x="0" y="8">:</tspan>
-                </text>
-            </g>
-            <g id="3.数据录入/4.Input输入框/亮色/中-未输入" transform="translate(43.000000, 0.000000)">
-                <path d="M111.368297,0.28125 L1.13170338,0.28125 C0.895294259,0.28125 0.682690035,0.375181855 0.529169057,0.527926514 C0.375502081,0.680816432 0.28125,0.892363409 0.28125,1.12598062 L0.28125,16.8740194 C0.28125,17.108189 0.375752811,17.3189924 0.528875385,17.4713406 C0.683024138,17.6247099 0.896294012,17.71875 1.13170338,17.71875 L111.368297,17.71875 C111.604706,17.71875 111.81731,17.6248181 111.970831,17.4720735 C112.124498,17.3191836 112.21875,17.1076366 112.21875,16.8740194 L112.21875,1.12598062 C112.21875,0.891810962 112.124247,0.681007624 111.971125,0.528659355 C111.816976,0.375290097 111.603706,0.28125 111.368297,0.28125 Z" id="Rectangle-26-Copy-23" stroke-opacity="0.15" stroke="#000000" stroke-width="0.5625" fill="#FFFFFF" fill-rule="evenodd"></path>
-                <text id="Text" font-family="PingFangSC-Regular, PingFang SC" font-size="7.875" font-weight="normal" line-spacing="12.375" fill="#000000" fill-opacity="0.25">
-                    <tspan x="6.75" y="10.8125">请输入用户名</tspan>
-                </text>
-            </g>
-            <g id="DataEntry/Input/Light/Search" transform="translate(43.000000, 31.000000)">
-                <path d="M111.368297,0.28125 L1.13170338,0.28125 C0.895294259,0.28125 0.682690035,0.375181855 0.529169057,0.527926514 C0.375502081,0.680816432 0.28125,0.892363409 0.28125,1.12598062 L0.28125,16.8740194 C0.28125,17.108189 0.375752811,17.3189924 0.528875385,17.4713406 C0.683024138,17.6247099 0.896294012,17.71875 1.13170338,17.71875 L111.368297,17.71875 C111.604706,17.71875 111.81731,17.6248181 111.970831,17.4720735 C112.124498,17.3191836 112.21875,17.1076366 112.21875,16.8740194 L112.21875,1.12598062 C112.21875,0.891810962 112.124247,0.681007624 111.971125,0.528659355 C111.816976,0.375290097 111.603706,0.28125 111.368297,0.28125 Z" id="bg" stroke="#D9D9D9" stroke-width="0.5625" fill="#FFFFFF"></path>
-                <text id="Text" font-family="PingFangSC-Regular, PingFang SC" font-size="7.875" font-weight="normal" line-spacing="12.375" fill="#000000" fill-opacity="0.25">
-                    <tspan x="6.75" y="10.8125">请输入密码</tspan>
-                </text>
-            </g>
-            <g id="1.通用/1.Buttons按钮/主按钮/亮色/默认" transform="translate(43.000000, 62.000000)">
-                <rect id="矩形" fill="#1890FF" fill-rule="evenodd" x="0" y="0" width="38.625" height="18" rx="1.125"></rect>
-                <text id="主按钮" font-family="PingFangSC-Regular, PingFang SC" font-size="7.875" font-weight="normal" line-spacing="12.375"></text>
-            </g>
-            <rect id="矩形复制-60" fill="#F5F5F5" x="49" y="35" width="51" height="10"></rect>
-            <rect id="矩形复制-60备份" fill="#F5F5F5" x="49" y="4" width="51" height="10"></rect>
-            <rect id="矩形复制-61备份" fill="#EBEBEB" x="0" y="35" width="29" height="10"></rect>
         </g>
     </g>
 </svg>

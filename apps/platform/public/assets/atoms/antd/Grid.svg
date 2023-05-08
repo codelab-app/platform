@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="155px" height="104px" viewBox="0 0 155 104" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="156px" height="104px" viewBox="0 0 156 104" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Grid</title>
-    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Ant-Design-组件缩略图" transform="translate(-584.000000, -102.000000)">
-            <g id="Grid" transform="translate(584.000000, 102.000000)">
+    <g id="组件骨架图更新" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="🎉-5.0-新版" transform="translate(-540.000000, -775.000000)">
+            <g id="Grid" transform="translate(541.000000, 775.000000)">
                 <g id="编组-27">
-                    <rect id="矩形" fill="#F5F5F5" x="10.3333333" y="0" width="10.3333333" height="104"></rect>
-                    <rect id="矩形复制-9" fill="#F5F5F5" x="51.6666667" y="0" width="10.3333333" height="104"></rect>
-                    <rect id="矩形复制-37" fill="#F5F5F5" x="93" y="0" width="10.3333333" height="104"></rect>
-                    <rect id="矩形复制-2" fill="#F5F5F5" x="31" y="0" width="10.3333333" height="104"></rect>
-                    <rect id="矩形复制-36" fill="#F5F5F5" x="72.3333333" y="0" width="10.3333333" height="104"></rect>
-                    <rect id="矩形复制-39" fill="#F5F5F5" x="113.666667" y="0" width="10.3333333" height="104"></rect>
-                    <rect id="矩形复制-40" fill="#F5F5F5" x="134.333333" y="0" width="10.3333333" height="104"></rect>
-                    <rect id="矩形" stroke="#D9D9D9" x="0.5" y="0.5" width="154" height="103" rx="2"></rect>
+                    <rect id="矩形" fill="#F5F5F5" fill-rule="nonzero" x="9.8333333" y="0" width="10.3333333" height="104"></rect>
+                    <rect id="矩形复制-9" fill="#F5F5F5" fill-rule="nonzero" x="51.1666667" y="0" width="10.3333333" height="104"></rect>
+                    <rect id="矩形复制-37" fill="#F5F5F5" fill-rule="nonzero" x="92.5" y="0" width="10.3333333" height="104"></rect>
+                    <rect id="矩形复制-2" fill="#F5F5F5" fill-rule="nonzero" x="30.5" y="0" width="10.3333333" height="104"></rect>
+                    <rect id="矩形复制-36" fill="#F5F5F5" fill-rule="nonzero" x="71.8333333" y="0" width="10.3333333" height="104"></rect>
+                    <rect id="矩形复制-39" fill="#F5F5F5" fill-rule="nonzero" x="113.166667" y="0" width="10.3333333" height="104"></rect>
+                    <rect id="矩形复制-40" fill="#F5F5F5" fill-rule="nonzero" x="133.833333" y="0" width="10.3333333" height="104"></rect>
+                    <rect id="矩形" stroke="#D9D9D9" x="0" y="0.5" width="154" height="103" rx="2"></rect>
                 </g>
-                <rect id="矩形" fill="#BAE7FF" style="mix-blend-mode: multiply;" x="10.3333333" y="16" width="93" height="72"></rect>
-                <rect id="矩形复制-38" fill="#BAE7FF" style="mix-blend-mode: multiply;" x="113.666667" y="16" width="31" height="72"></rect>
+                <rect id="矩形" fill="#E6F4FF" fill-rule="nonzero" style="mix-blend-mode: multiply;" x="9.8333333" y="16" width="93" height="72"></rect>
+                <rect id="矩形复制-38" fill="#E6F4FF" fill-rule="nonzero" style="mix-blend-mode: multiply;" x="113.166667" y="16" width="31" height="72"></rect>
             </g>
         </g>
     </g>
