@@ -1,7 +1,7 @@
 import type { IAtom, ICreateElementData } from '@codelab/frontend/abstract/core'
-import { IRenderTypeKind } from '@codelab/frontend/abstract/core'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/domain/type'
 import { DisplayIfField } from '@codelab/frontend/presentation/view'
+import { IRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { GuaranteedProps } from 'uniforms'
 import { connectField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'

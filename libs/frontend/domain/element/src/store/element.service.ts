@@ -18,9 +18,10 @@ import {
   RenderedComponentFragment,
   RenderTypeKind,
 } from '@codelab/shared/abstract/codegen'
-import type {
+import {
   IAuth0Owner,
   IElementDTO,
+  IRenderTypeKind,
   RenderType,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
