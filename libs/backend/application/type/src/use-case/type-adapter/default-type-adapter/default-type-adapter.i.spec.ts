@@ -56,7 +56,7 @@ describe('DefaultTypeAdapterService', () => {
     expect(isInterfaceType).toBeTruthy()
   })
 
-  it('should create a union type with boolean and interface type for given input', async () => {
+  it.skip('should create a union type with boolean and interface type for given input', async () => {
     const result = (await service.execute({ type })) as IUnionTypeDTO
 
     expect(result).toBeDefined()

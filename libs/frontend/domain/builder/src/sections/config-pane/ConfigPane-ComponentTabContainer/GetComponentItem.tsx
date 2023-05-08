@@ -1,13 +1,11 @@
 import type { IBuilderComponent } from '@codelab/frontend/abstract/core'
-import {
-  BuilderDndType,
-  IRenderTypeKind,
-} from '@codelab/frontend/abstract/core'
+import { BuilderDndType } from '@codelab/frontend/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Card } from 'antd'
 import React, { useMemo } from 'react'
 import tw from 'twin.macro'
 import { useCreateElementDraggable } from '../../../dnd/useCreateElementDraggable'
+import { IRenderTypeKind } from '@codelab/shared/abstract/core'
 
 interface DraggableGetComponentItemProps {
   component: IBuilderComponent
