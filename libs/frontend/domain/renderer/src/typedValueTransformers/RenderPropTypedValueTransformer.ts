@@ -58,7 +58,7 @@ export class RenderPropTypedValueTransformer
   }
 
   public transform(value: TypedValue<string>, element: IElement) {
-    if (hasStateExpression(value.value)) {
+    if (hasStateExpression(value.value) && expressionTransformer.initialized) {
       return expressionTransformer.transpileAndEvaluateExpression(value.value)
     }
 
