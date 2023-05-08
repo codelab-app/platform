@@ -7,6 +7,7 @@ import {
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep } from '@codelab/shared/utils'
 import isString from 'lodash/isString'
+import type { Options } from 'sucrase'
 
 export const hasStateExpression = (str: unknown): boolean =>
   isString(str) &&
@@ -72,7 +73,9 @@ export const getByExpression = (key: string, context: IPropData) => {
 interface ExpressionTransformer {
   context: object
   initialized: boolean
-  transform: Nullable<(code: string) => { code: string | null }>
+  transform: Nullable<
+    (code: string, options: Options) => { code: string | null }
+  >
 
   init(context: object): Promise<void>
   transpileAndEvaluateExpression(expression: string): unknown
@@ -85,7 +88,7 @@ export const expressionTransformer: ExpressionTransformer = {
       return
     }
 
-    const { transform } = await import('buble')
+    const { transform } = await import('sucrase')
 
     this.transform = transform
     this.context = context
@@ -107,7 +110,10 @@ export const expressionTransformer: ExpressionTransformer = {
             return ${stripStateExpression(expression)}
           }).call(this)`
 
-      const { code } = this.transform(wrappedExpression)
+      const { code } = this.transform(wrappedExpression, {
+        production: true,
+        transforms: ['jsx'],
+      })
 
       // eslint-disable-next-line no-new-func
       return new Function('return ' + (code ?? '')).call(this.context)
