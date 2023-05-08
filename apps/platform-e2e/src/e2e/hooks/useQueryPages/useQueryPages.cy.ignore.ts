@@ -19,6 +19,6 @@ describe('useQueryPagesHook', () => {
 
     cy.getOpenedModal().findByText('Add hook').click()
     // // Assert the mapper value
-    cy.get('#Builder').findByText(pageName).should('exist')
+    cy.get('#render-root').findByText(pageName).should('exist')
   })
 })

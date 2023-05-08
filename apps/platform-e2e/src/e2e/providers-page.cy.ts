@@ -99,7 +99,7 @@ describe('_app page', () => {
   })
 
   it('should render the input inside isnide the card in builder and viewer', () => {
-    cy.get('#Builder .ant-card-body input').should('not.be.disabled')
+    cy.get('#render-root .ant-card-body input').should('not.be.disabled')
 
     cy.get('header .anticon-eye').click()
     cy.get('header .anticon-tool', { timeout: 30000 }).should('be.visible')

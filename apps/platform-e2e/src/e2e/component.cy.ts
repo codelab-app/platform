@@ -147,7 +147,7 @@ describe('Component CRUD', () => {
             { parseSpecialCharSequences: false },
           )
 
-          cy.get('#Builder').findByText('text null').should('exist')
+          cy.get('#render-root').findByText('text null').should('exist')
         })
     })
 
@@ -230,10 +230,10 @@ describe('Component CRUD', () => {
         COMPONENT_INSTANCE_TEXT,
       )
 
-      cy.get('#Builder')
+      cy.get('#render-root')
         .findByText(`text ${COMPONENT_PROP_VALUE}`)
         .should('exist')
-      cy.get('#Builder').findByText(COMPONENT_INSTANCE_TEXT).should('exist')
+      cy.get('#render-root').findByText(COMPONENT_INSTANCE_TEXT).should('exist')
     })
   })
 })
