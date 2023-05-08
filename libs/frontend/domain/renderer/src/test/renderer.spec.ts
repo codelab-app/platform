@@ -18,8 +18,8 @@ describe('Renderer', () => {
   const data = setupTestForRenderer([ComponentRenderPipe])
 
   it('should add extra props', () => {
-    const { props } = data.renderer.renderIntermediateElement(
-      data.pageRootElement,
+    const { props } = data.rootStore.renderer.renderIntermediateElement(
+      data.element,
       extraProps,
     ) as IRenderOutput
 
@@ -27,8 +27,8 @@ describe('Renderer', () => {
   })
 
   it('should apply transformation function', () => {
-    const { props } = data.renderer.renderIntermediateElement(
-      data.pageRootElement,
+    const { props } = data.rootStore.renderer.renderIntermediateElement(
+      data.element,
       extraProps,
     ) as IRenderOutput
 
@@ -40,10 +40,10 @@ describe('Renderer', () => {
   })
 
   it('should keep same props when transform function is invalid', () => {
-    data.pageRootElement.setPropTransformationJs('invalid fn')
+    data.element.setPropTransformationJs('invalid fn')
 
-    const { props } = data.renderer.renderIntermediateElement(
-      data.pageRootElement,
+    const { props } = data.rootStore.renderer.renderIntermediateElement(
+      data.element,
       extraProps,
     ) as IRenderOutput
 
@@ -55,25 +55,26 @@ describe('Renderer', () => {
   })
 
   it('should render component instance', () => {
-    const { atomType, props } = data.renderer.renderIntermediateElement(
-      data.componentInstance,
-      {},
-    ) as IRenderOutput
+    const { atomType, props } =
+      data.rootStore.renderer.renderIntermediateElement(
+        data.componentInstance,
+        {},
+      ) as IRenderOutput
 
     const clonedComponent =
       data.rootStore.componentService.clonedComponents.get(
         data.componentInstance.id,
       )
 
+    const componentRootElement = data.component.rootElement.current
+
     expect(props).toMatchObject({
       [DATA_COMPONENT_ID]: clonedComponent?.id,
       ...data.componentInstance.props.current.values,
     })
 
-    const componentAtomType = isAtomInstance(
-      data.componentRootElement.renderType,
-    )
-      ? data.componentRootElement.renderType.current.type
+    const componentAtomType = isAtomInstance(componentRootElement.renderType)
+      ? componentRootElement.renderType.current.type
       : null
 
     expect(atomType).toBe(componentAtomType)
