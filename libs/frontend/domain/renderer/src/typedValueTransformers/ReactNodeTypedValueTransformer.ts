@@ -44,7 +44,7 @@ export class ReactNodeTypedValueTransformer
     const { expressionTransformer } = this.renderer
 
     // value is a custom JS component
-    if (hasStateExpression(value.value)) {
+    if (hasStateExpression(value.value) && expressionTransformer.initialized) {
       const transpiledValue =
         expressionTransformer.transpileAndEvaluateExpression(value.value)
 
