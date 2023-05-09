@@ -1,3 +1,4 @@
+import { PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { ExplorerPaneTemplate } from '@codelab/frontend/presentation/view'
 import { useAsync, useMountEffect } from '@react-hookz/web'
@@ -6,6 +7,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import {
   CreatePageButton,
+  CreatePageForm,
   CreatePageModal,
   DeletePageModal,
   PageList,
@@ -19,11 +21,29 @@ interface ExplorerPanePageProps {
 export const ExplorerPanePage = observer(({ appId }: ExplorerPanePageProps) => {
   const { appService } = useStore()
 
-  const [{ result: apps, status }, actions] = useAsync(() =>
-    appService.loadAppsWithNestedPreviews({ id: appId }),
-  )
+    const { pageService } = useStore()
 
-  useMountEffect(actions.execute)
+    return (
+      <ExplorerPaneTemplate
+        header={<CreatePageButton key={0} />}
+        headerProps={headerProps}
+        title="Pages"
+      >
+        {!pageService.createForm.isOpen ? (
+          loading ? (
+            <Spin />
+          ) : (
+            <PageList />
+          )
+        ) : null}
+        {pageService.createForm.isOpen && <CreatePageForm />}
+        <CreatePageModal />
+        <UpdatePageModal />
+        <DeletePageModal />
+      </ExplorerPaneTemplate>
+    )
+  },
+)
 
   const isLoading = status === 'loading' || status === 'not-executed'
 

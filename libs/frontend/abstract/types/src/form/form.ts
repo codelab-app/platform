@@ -44,6 +44,11 @@ export type FormProps<TData, TResponse = unknown> = Partial<
     allowExpressions?: boolean
   }
 
+// form Controller props
+export interface formController {
+  onCancel(): void
+}
+
 /**
  * Use this to be able to hide the submit button and get a controller, which can trigger form submit.
  *

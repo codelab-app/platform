@@ -7,6 +7,7 @@ import type { IPageDTO } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
+  ICRUDFormService,
   ICRUDModalService,
   ICRUDService,
   IQueryService,
@@ -25,7 +26,8 @@ export interface IPageFactory {
 export interface IPageService
   extends ICRUDService<IPage, ICreatePageData, IUpdatePageData>,
     IQueryService<IPage, PageWhere, PageOptions>,
-    ICRUDModalService<Ref<IPage>, { page: Maybe<IPage> }> {
+    ICRUDModalService<Ref<IPage>, { page: Maybe<IPage> }>,
+    ICRUDFormService<Ref<IPage>, { page: Maybe<IPage> }> {
   pageFactory: IPageFactory
   pageRepository: IPageRepository
   pages: ObjectMap<IPage>

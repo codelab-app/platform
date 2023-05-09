@@ -19,7 +19,7 @@ import {
   InterfaceType,
   typeRef,
 } from '@codelab/frontend/domain/type'
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { InlineFormService, ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
 import type { IPageDTO } from '@codelab/shared/abstract/core'
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
@@ -46,6 +46,7 @@ import { PageModalService } from './page-modal.service'
 @model('@codelab/PageService')
 export class PageService
   extends Model({
+    createForm: prop(() => new InlineFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new PageModalService({})),
     pageFactory: prop(() => new PageFactory({})),

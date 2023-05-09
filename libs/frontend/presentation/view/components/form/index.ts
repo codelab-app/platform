@@ -1,4 +1,5 @@
 export * from './components/Form'
+export * from './components/formController'
 export * from './components/FormModal'
 export * from './components/utils'
 export * from './fields'

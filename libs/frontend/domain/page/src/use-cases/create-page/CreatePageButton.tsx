@@ -6,7 +6,7 @@ import React from 'react'
 
 export const CreatePageButton = observer(() => {
   const { pageService } = useStore()
-  const onClick = () => pageService.createModal.open()
+  const onClick = () => pageService.createForm.open()
 
   return (
     <Button
