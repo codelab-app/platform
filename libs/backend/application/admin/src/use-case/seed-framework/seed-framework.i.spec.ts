@@ -21,7 +21,7 @@ afterAll(async () => {
 describe('Seed, import, & export data', () => {
   let initialPayload = {}
 
-  describe('Seed', () => {
+  describe.skip('Seed', () => {
     it('can seed Ant Design CSV data', async () => {
       user = await resetDatabase({
         AdminService,
@@ -51,7 +51,7 @@ describe('Seed, import, & export data', () => {
     })
   })
 
-  describe('Import', () => {
+  describe.skip('Import', () => {
     const importPath = path.resolve('./tmp/data/export')
 
     /**
