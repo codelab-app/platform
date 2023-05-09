@@ -176,7 +176,7 @@ export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
               `}
               singleLine={false}
               title="Current props"
-              value={JSON.stringify(store.state, null, 4)}
+              value={store.jsonString}
             />
           </SkeletonWrapper>
         ) : null,

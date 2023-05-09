@@ -17,7 +17,7 @@ import type { IInterfaceType } from '../type'
 export interface IStore
   extends IModel<StoreCreateInput, StoreUpdateInput, StoreDeleteInput>,
     ICacheService<IStoreDTO, IStore> {
-  actions: Array<IAction>
+  actions: Array<Ref<IAction>>
   api: Ref<IInterfaceType>
   component: Nullable<Ref<IComponent>>
   id: string

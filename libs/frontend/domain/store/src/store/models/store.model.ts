@@ -87,7 +87,7 @@ export class Store
   }
 
   @modelAction
-  writeCache({ api, id, name }: Partial<IStoreDTO>) {
+  writeCache({ actions, api, id, name }: Partial<IStoreDTO>) {
     this.id = id ? id : this.id
     this.name = name ? name : this.name
     this.api = api ? (typeRef(api.id) as Ref<IInterfaceType>) : this.api
@@ -105,13 +105,6 @@ export class Store
   @computed
   get actionService() {
     return getActionService(this)
-  }
-
-  @computed
-  get actions() {
-    return this.actionService.actionsList.filter(
-      ({ store: { id } }) => this.id === id || this.sourceStore?.id === id,
-    )
   }
 
   @computed
