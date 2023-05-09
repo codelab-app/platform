@@ -11,7 +11,6 @@ import type {
 } from '../../service'
 import type {
   IActionDTO,
-  IBaseActionDTO,
   ICreateActionData,
   IUpdateActionData,
 } from './action.dto.interface'
@@ -30,6 +29,6 @@ export interface IActionService
   actionsList: Array<IAction>
 
   action(id: string): Maybe<IAction>
-  add(action: IBaseActionDTO): IAction
+  add<T extends IActionDTO>(action: T): IAction
   load(actions: Array<ActionFragment>): Array<IAction>
 }

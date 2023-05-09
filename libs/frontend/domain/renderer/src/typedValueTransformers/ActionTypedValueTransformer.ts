@@ -1,4 +1,4 @@
-import type { IElement, TypedValue } from '@codelab/frontend/abstract/core'
+import type { TypedValue } from '@codelab/frontend/abstract/core'
 import { getActionService } from '@codelab/frontend/domain/store'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import isString from 'lodash/isString'
@@ -39,15 +39,16 @@ export class ActionTypedValueTransformer
     return isString(value.value) && Boolean(referencedAction)
   }
 
-  public transform(props: TypedValue<unknown>, element: IElement) {
+  public transform(props: TypedValue<unknown>) {
     const actionService = getActionService(this)
 
     const actionModel = actionService.actionsList.find(
       (action) => action.id === props.value,
     )
 
-    return actionModel
-      ? element.store.current.state[actionModel.name]
-      : () => null
+    // get action executor for its own store's state
+    const actionExecutor = actionModel?.store.current.state[actionModel.name]
+
+    return actionExecutor || (() => null)
   }
 }

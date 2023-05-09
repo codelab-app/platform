@@ -1,11 +1,11 @@
 import type {
   IAction,
+  IActionDTO,
   IActionService,
   IActionWhere,
   ICreateActionData,
   IUpdateActionData,
 } from '@codelab/frontend/abstract/core'
-import { IActionDTO } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
@@ -35,6 +35,7 @@ export class ActionService
     actionFactory: prop(() => new ActionFactory({})),
     actionRepository: prop(() => new ActionRepository({})),
     actions: prop(() => objectMap<IAction>()),
+    clones: prop(() => objectMap<IAction>()),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new ActionModalService({})),
     selectedActions: prop(() => Array<Ref<IAction>>()).withSetter(),
@@ -58,11 +59,11 @@ export class ActionService
   }
 
   action(id: string) {
-    return this.actions.get(id)
+    return this.actions.get(id) || this.clones.get(id)
   }
 
   @modelAction
-  add(actionDTO: IActionDTO) {
+  add<T extends IActionDTO>(actionDTO: T) {
     const action =
       actionDTO.__typename === IActionKind.CodeAction
         ? CodeAction.create(actionDTO)

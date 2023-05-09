@@ -1,5 +1,7 @@
 import type { IActionKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
+import type { Ref } from 'mobx-keystone'
+import type { IAction } from './action.interface'
 import type {
   IApiActionDTO,
   ICodeActionDTO,
@@ -28,6 +30,7 @@ export interface IApiActionData extends IBaseActionData {
   id: string
   name: string
   resourceId: string
+  source?: Ref<IAction>
   successActionId?: string
 }
 
