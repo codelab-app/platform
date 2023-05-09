@@ -42,7 +42,10 @@ export default AdminPage
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 AdminPage.Layout = ({ children }) => {
-  const AdminHeader = () => <PageHeader ghost={false} title="Admin" />
+  const AdminHeader = () => (
+    <PageHeader css={tw`bg-white`} ghost={false} title="Admin" />
+  )
+
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 

@@ -20,7 +20,7 @@ import { InputNumber, Menu, Space } from 'antd'
 import type { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import tw from 'twin.macro'
 
 export type MenuItemProps = ItemType & {
@@ -28,7 +28,7 @@ export type MenuItemProps = ItemType & {
 }
 
 export const PageDetailHeader = observer(() => {
-  const { builderService, pageService } = useStore()
+  const { appService, builderService, pageService } = useStore()
   const router = useRouter()
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
@@ -36,12 +36,26 @@ export const PageDetailHeader = observer(() => {
   const currentPage = pagesList.find((page) => page.id === pageId)
   const isBuilder = router.pathname === PageType.PageBuilder
 
+  const appName = useMemo(
+    () => (appId ? appService.app(appId)?.name : ''),
+    [appId],
+  )
+
+  const pageName = useMemo(
+    () => (currentPage?.id ? pageService.page(currentPage.id)?.name : ''),
+    [currentPage],
+  )
+
   const switchPreviewMode = () => {
     return router.push({
       pathname: isBuilder ? PageType.PageDetail : PageType.PageBuilder,
       query: router.query,
     })
   }
+
+  const navigatePagesPanel = useCallback(async () => {
+    await router.push({ pathname: PageType.PageList, query: router.query })
+  }, [router])
 
   const [selectedWidthBreakpoint, setSelectedWidthBreakpoint] = useState(
     BuilderWidthBreakPoints.Desktop,
@@ -150,19 +164,28 @@ export const PageDetailHeader = observer(() => {
   ]
 
   return (
-    <Menu
-      css={tw`flex justify-center`}
-      items={menuItems
-        .filter((item) => !item.hide)
-        .map((item) => ({
-          ...item,
-          hide: String(item.hide),
-        }))}
-      mode="horizontal"
-      selectable={false}
-      selectedKeys={[selectedWidthBreakpoint]}
-      theme="light"
-      triggerSubMenuAction="click"
-    />
+    <div css={tw`bg-white relative`}>
+      <div
+        css={tw`absolute left-3 flex items-center flex-row h-full cursor-pointer`}
+        onClick={navigatePagesPanel}
+      >
+        <img alt="" css={tw`w-6 mr-2`} src="/logo.png" />
+        {`${appName} - ${pageName}`}
+      </div>
+      <Menu
+        css={tw`flex justify-center`}
+        items={menuItems
+          .filter((item) => !item.hide)
+          .map((item) => ({
+            ...item,
+            hide: String(item.hide),
+          }))}
+        mode="horizontal"
+        selectable={false}
+        selectedKeys={[selectedWidthBreakpoint]}
+        theme="light"
+        triggerSubMenuAction="click"
+      />
+    </div>
   )
 })

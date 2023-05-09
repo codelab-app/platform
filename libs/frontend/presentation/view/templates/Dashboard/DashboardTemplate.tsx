@@ -11,7 +11,7 @@ import { DashboardTemplateExplorerPane } from './DashboardTemplate-ExplorerPane'
 import ResizeHandle from './ResizeHandle'
 import type { DashboardTemplateProps } from './types'
 
-const { Header: AntDesignHeader, Sider } = Layout
+const { Sider } = Layout
 
 export const DashboardTemplateSSR = observer(
   ({
@@ -33,22 +33,16 @@ export const DashboardTemplateSSR = observer(
 
     return (
       <Layout css={tw`max-h-full min-h-full`}>
-        <Sider collapsed collapsedWidth={sidebarWidth} theme="light">
-          {sidebarNavigation && (
-            <SidebarNavigation
-              primaryItems={sidebarNavigation.primaryItems}
-              secondaryItems={sidebarNavigation.secondaryItems}
-            />
-          )}
-        </Sider>
-
+        {Header && <Header />}
         <Layout>
-          {Header && (
-            <AntDesignHeader>
-              <Header />
-            </AntDesignHeader>
-          )}
-
+          <Sider collapsed collapsedWidth={sidebarWidth} theme="light">
+            {sidebarNavigation && (
+              <SidebarNavigation
+                primaryItems={sidebarNavigation.primaryItems}
+                secondaryItems={sidebarNavigation.secondaryItems}
+              />
+            )}
+          </Sider>
           <Layout style={contentStyles}>
             <PanelGroup direction="horizontal">
               {activeExplorerPane && (

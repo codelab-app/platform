@@ -30,6 +30,7 @@ import { Button, Dropdown, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { useEffect } from 'react'
+import tw from 'twin.macro'
 
 const items: MenuProps['items'] = [
   {
@@ -51,7 +52,14 @@ const AppsPageHeader = observer(() => {
     </Dropdown>,
   ]
 
-  return <PageHeader extra={pageHeaderElements} ghost={false} title="Apps" />
+  return (
+    <PageHeader
+      css={tw`bg-white`}
+      extra={pageHeaderElements}
+      ghost={false}
+      title="Apps"
+    />
+  )
 })
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
@@ -72,7 +80,7 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
     if (user && process.env.NEXT_PUBLIC_PLATFORM_HOST?.includes('127.0.0.1')) {
       void fetch('/api/upsert-user')
     }
-  }, [user?.sub])
+  }, [user, loadApp])
 
   return (
     <>
