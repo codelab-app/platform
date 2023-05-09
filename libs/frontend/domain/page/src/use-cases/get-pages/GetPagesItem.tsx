@@ -1,6 +1,6 @@
 import { FileOutlined } from '@ant-design/icons'
 import type { IDomain, IPage } from '@codelab/frontend/abstract/core'
-import { PageType } from '@codelab/frontend/abstract/types'
+import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import { regeneratePages } from '@codelab/frontend/domain/domain'
 import { useStore } from '@codelab/frontend/presentation/container'
 import {
@@ -27,7 +27,11 @@ export const GetPagesItem = observer<GetPagesItemProps>(({ domains, page }) => {
 
   const href = {
     pathname: PageType.PageBuilder,
-    query: { ...router.query, pageId: page.id },
+    query: {
+      ...router.query,
+      explorerPaneKey: ExplorerPaneType.Explorer,
+      pageId: page.id,
+    },
   }
 
   const [rebuildButtonLoading, setRebuildButtonLoading] = useState(false)

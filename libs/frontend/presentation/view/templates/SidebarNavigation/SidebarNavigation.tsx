@@ -1,7 +1,7 @@
 import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React from 'react'
 import tw from 'twin.macro'
 import { sidebarWidth } from '../Dashboard'
 
@@ -31,12 +31,8 @@ export const SidebarNavigation = ({
   secondaryItems,
 }: SidebarNavigationProps) => {
   const router = useRouter()
-  const [selectedKey, setSelectedKey] = useState<string>(router.pathname)
-
-  const handleClick: Parameters<typeof Menu>[0]['onClick'] = (info) => {
-    onClick && onClick(info)
-    setSelectedKey(info.key.toString())
-  }
+  const { explorerPaneKey } = router.query
+  const selectedKey = (explorerPaneKey as string) || router.pathname
 
   return (
     <div
@@ -52,7 +48,6 @@ export const SidebarNavigation = ({
         // defaultSelectedKeys={[PageType.AppList]}
         items={primaryItems}
         mode="inline"
-        onClick={handleClick}
         selectedKeys={transformSelectedKeys([selectedKey])}
       />
       <Menu

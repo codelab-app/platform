@@ -10,7 +10,7 @@ import {
   BuilderWidthBreakPoints,
   defaultBuilderWidthBreakPoints,
 } from '@codelab/frontend/abstract/core'
-import { PageType } from '@codelab/frontend/abstract/types'
+import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -66,7 +66,11 @@ export const PageDetailHeader = observer(() => {
           router.push(
             {
               pathname: PageType.PageBuilder,
-              query: { ...router.query, pageId: page.id },
+              query: {
+                ...router.query,
+                explorerPaneKey: ExplorerPaneType.Explorer,
+                pageId: page.id,
+              },
             },
             undefined,
             { shallow: false },

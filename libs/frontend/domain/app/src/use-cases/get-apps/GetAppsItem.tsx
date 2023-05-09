@@ -1,5 +1,5 @@
 import type { IApp, IDomain } from '@codelab/frontend/abstract/core'
-import { PageType } from '@codelab/frontend/abstract/types'
+import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import { Card } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
@@ -15,7 +15,11 @@ export interface GetAppsItemProps {
 export const GetAppsItem = observer<GetAppsItemProps>(({ app }) => {
   const href = {
     pathname: PageType.PageBuilder,
-    query: { appId: app.id, pageId: app.pages[0]?.id },
+    query: {
+      appId: app.id,
+      explorerPaneKey: ExplorerPaneType.Explorer,
+      pageId: app.pages[0]?.id,
+    },
   }
 
   const domains = app.domains.map((domain) => domain.current)

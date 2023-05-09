@@ -35,7 +35,7 @@ export const allPagesMenuItem = (
 ): ItemType => ({
   disabled: !appId,
   icon: <FileOutlined title="Pages" />,
-  key: PageType.PageList,
+  key: ExplorerPaneType.PageList,
   label: (
     <Link
       href={{
@@ -54,7 +54,7 @@ export const pageBuilderMenuItem = (
 ): ItemType => ({
   disabled: !appId || !pageId,
   icon: <BuildOutlined title="Builder" />,
-  key: PageType.PageBuilder,
+  key: ExplorerPaneType.Explorer,
   label: (
     <Link
       href={{
