@@ -1,6 +1,6 @@
 import type { IApp } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { PageType } from '@codelab/frontend/abstract/types'
+import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import { ExplorerPanePage } from '@codelab/frontend/domain/page'
 import {
   useCurrentAppId,
@@ -52,10 +52,10 @@ Pages.Layout = observer(({ children }) => {
   return (
     <DashboardTemplate
       ExplorerPane={{
-        default: PageType.PageList,
+        default: ExplorerPaneType.PageList,
         items: [
           {
-            key: PageType.PageList,
+            key: ExplorerPaneType.PageList,
             render: () => <ExplorerPanePage appId={appId} />,
           },
         ],

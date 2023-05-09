@@ -5,7 +5,7 @@ import {
   ExpandOutlined,
   FileOutlined,
 } from '@ant-design/icons'
-import { PageType } from '@codelab/frontend/abstract/types'
+import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import type { ItemType } from 'antd/lib/menu/hooks/useItems'
 import Link from 'next/link'
@@ -37,7 +37,12 @@ export const allPagesMenuItem = (
   icon: <FileOutlined title="Pages" />,
   key: PageType.PageList,
   label: (
-    <Link href={{ pathname: PageType.PageBuilder, query: { appId, pageId } }}>
+    <Link
+      href={{
+        pathname: PageType.PageBuilder,
+        query: { appId, explorerPaneKey: ExplorerPaneType.PageList, pageId },
+      }}
+    >
       Pages
     </Link>
   ),
@@ -51,7 +56,12 @@ export const pageBuilderMenuItem = (
   icon: <BuildOutlined title="Builder" />,
   key: PageType.PageBuilder,
   label: (
-    <Link href={{ pathname: PageType.PageBuilder, query: { appId, pageId } }}>
+    <Link
+      href={{
+        pathname: PageType.PageBuilder,
+        query: { appId, explorerPaneKey: ExplorerPaneType.Explorer, pageId },
+      }}
+    >
       Builder
     </Link>
   ),

@@ -1,6 +1,6 @@
 import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { PageType } from '@codelab/frontend/abstract/types'
+import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import {
   BuilderContext,
   BuilderExplorerPane,
@@ -51,14 +51,14 @@ const PageBuilder: CodelabPage = observer(() => {
     <DashboardTemplate
       ConfigPane={() => <ConfigPane isLoading={isLoading} />}
       ExplorerPane={{
-        default: PageType.PageBuilder,
+        default: ExplorerPaneType.Explorer,
         items: [
           {
-            key: PageType.PageBuilder,
+            key: ExplorerPaneType.Explorer,
             render: () => <BuilderExplorerPane isLoading={isLoading} />,
           },
           {
-            key: PageType.PageList,
+            key: ExplorerPaneType.PageList,
             render: () => <ExplorerPanePage appId={appId} />,
           },
         ],
