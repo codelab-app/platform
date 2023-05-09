@@ -80,7 +80,7 @@ export const usePropsInspector = (
 
     try {
       setIsLoading(true)
-      validate(data)
+      // validate(data)
 
       await propService.update({
         data: jsonData,

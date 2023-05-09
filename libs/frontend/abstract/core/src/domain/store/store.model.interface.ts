@@ -17,20 +17,19 @@ import type { IInterfaceType } from '../type'
 export interface IStore
   extends IModel<StoreCreateInput, StoreUpdateInput, StoreDeleteInput>,
     ICacheService<IStoreDTO, IStore> {
-  actions: Array<IAction>
+  actions: Array<Ref<IAction>>
   api: Ref<IInterfaceType>
   component: Nullable<Ref<IComponent>>
   id: string
   jsonString: string
   name: string
   page: Nullable<Ref<IPage>>
-  sourceStore: Nullable<IEntity>
+  source: Nullable<IEntity>
   state: IPropData
 
-  clone(): IStore
+  clone(componentId: string): IStore
   setComponent(componentRef: Ref<IComponent>): void
   setInitialState(state: IPropData): void
-  setSourceStore(source: IEntity): void
 }
 
 export type IStoreRef = string

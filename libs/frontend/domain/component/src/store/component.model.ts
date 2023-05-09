@@ -199,9 +199,8 @@ export class Component
 
     this.cloneTree(clonedComponent, clonesList.length)
 
-    const clonedStore = this.store.current.clone()
+    const clonedStore = this.store.current.clone(clonedComponent.id)
 
-    clonedStore.setComponent(componentRef(clonedComponent.id))
     clonedComponent.setProps(propRef(this.props.current.clone()))
     clonedComponent.setSourceComponent({ id: this.id })
     clonedComponent.setStore(storeRef(clonedStore))

@@ -30,14 +30,6 @@ export interface ElementWrapperProps {
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
   ({ element, extraProps = {}, renderer, ...rest }) => {
-    /* 
-    const onRefChange = useCallback((node: Nullable<HTMLElement>) => {
-      if (node !== null) {
-        // FIXME:
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-   */
     // Render the element to an intermediate output
     const renderOutputs = renderer.renderIntermediateElement(
       element,
@@ -58,8 +50,6 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         : undefined
 
       if (renderOutput.props) {
-        // renderOutput.props['forwardedRef'] = onRefChange
-
         if (
           isAtomInstance(element.renderType) &&
           element.renderType.current.type === IAtomType.GridLayout

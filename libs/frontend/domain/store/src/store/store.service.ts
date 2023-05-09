@@ -6,9 +6,11 @@ import type {
   IUpdateStoreData,
 } from '@codelab/frontend/abstract/core'
 import {
+  actionRef,
   componentRef,
   IStoreDTO,
   pageRef,
+  storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/core'
 import { getTypeService } from '@codelab/frontend/domain/type'
@@ -39,7 +41,6 @@ import { StoreModalService } from './store-modal.service'
 @model('@codelab/StoreService')
 export class StoreService
   extends Model({
-    clonedStores: prop(() => objectMap<IStore>()),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new StoreModalService({})),
     storeRepository: prop(() => new StoreRepository({})),
@@ -64,18 +65,19 @@ export class StoreService
   }
 
   store(id: string) {
-    return this.stores.get(id) || this.clonedStores.get(id)
+    return this.stores.get(id)
   }
 
   @modelAction
-  add({ api, component, id, name, page, sourceStore }: IStoreDTO) {
+  add({ actions, api, component, id, name, page, source }: IStoreDTO) {
     const store = new Store({
+      actions: actions?.map((action) => actionRef(action.id)) || [],
       api: typeRef(api.id) as Ref<IInterfaceType>,
       component: component ? componentRef(component.id) : null,
       id,
       name,
       page: page ? pageRef(page.id) : null,
-      sourceStore,
+      source: source ? storeRef(source.id) : null,
     })
 
     this.stores.set(store.id, store)
@@ -90,7 +92,7 @@ export class StoreService
       interfaceTypes: stores.map((store) => store.api),
     })
 
-    return stores.map((store) => this.add({ ...store, sourceStore: null }))
+    return stores.map((store) => this.add({ ...store, source: null }))
   }
 
   @modelFlow
