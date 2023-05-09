@@ -30,6 +30,7 @@ import type {
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import isEmpty from 'lodash/isEmpty'
 import { computed } from 'mobx'
 import {
   _async,
@@ -54,6 +55,7 @@ import { ComponentModalService } from './component-modal.service'
 @model('@codelab/ComponentService')
 export class ComponentService
   extends Model({
+    allComponentsLoaded: prop(() => false),
     clonedComponents: prop(() => objectMap<IComponent>()),
     componentRepository: prop(() => new ComponentRepository({})),
     components: prop(() => objectMap<IComponent>()),
@@ -285,9 +287,17 @@ export class ComponentService
     where: ComponentWhere = {},
     options?: ComponentOptions,
   ) {
+    if (this.allComponentsLoaded) {
+      return this.componentList
+    }
+
     const { items: components } = yield* _await(
       this.componentRepository.find(where, options),
     )
+
+    if (isEmpty(where)) {
+      this.allComponentsLoaded = true
+    }
 
     return components.map((component) => {
       this.storeService.load([component.store])

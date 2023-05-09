@@ -1,4 +1,3 @@
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { PageHeader } from '@ant-design/pro-components/lib'
 import type {
   IBuilderDataNode,
@@ -16,10 +15,9 @@ import { CreateComponentButton } from '@codelab/frontend/domain/component'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { SkeletonWrapper } from '@codelab/frontend/presentation/view'
 import { useAsync } from '@react-hookz/web'
-import { Button, Card, Space, Tree } from 'antd'
+import { Tree } from 'antd'
 import has from 'lodash/has'
 import isNil from 'lodash/isNil'
-import sortBy from 'lodash/sortBy'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef, useState } from 'react'
 import { BuilderTreeItemTitle } from '../builder-tree'
@@ -29,6 +27,7 @@ import {
   disableTreeNodeWrapperHoverStyle,
   TREE_NODE_WRAPPER_SELECTOR,
 } from '../builder-tree/disableNodeHoverEffects'
+import { ComponentList } from './ComponentList'
 
 export const CustomComponents = observer(() => {
   const { builderService, componentService, elementService } = useStore()
@@ -168,39 +167,16 @@ export const CustomComponents = observer(() => {
         </>
       ) : (
         <>
-          <div style={{ textAlign: 'right' }}>
+          <div style={{ marginBottom: 10, textAlign: 'right' }}>
             <CreateComponentButton />
           </div>
-          <Space direction="vertical" size="small" style={{ display: 'flex' }}>
-            {sortBy(componentService.componentList, 'name').map((component) => (
-              <Card
-                extra={
-                  <>
-                    <Button
-                      icon={<EditOutlined />}
-                      onClick={() => loadComponent(component.id)}
-                      type="text"
-                    />
-                    <Button
-                      danger
-                      icon={<DeleteOutlined />}
-                      onClick={() =>
-                        componentService.deleteModal.open(
-                          componentRef(component.id),
-                        )
-                      }
-                      type="text"
-                    />
-                  </>
-                }
-                hoverable
-                key={component.id}
-                title={component.name}
-              >
-                {component.name}
-              </Card>
-            ))}
-          </Space>
+          <ComponentList
+            components={componentService.componentList}
+            onDelete={(id) =>
+              componentService.deleteModal.open(componentRef(id))
+            }
+            onEdit={(id) => loadComponent(id)}
+          />
         </>
       )}
     </SkeletonWrapper>

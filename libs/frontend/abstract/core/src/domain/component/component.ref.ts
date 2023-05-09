@@ -1,6 +1,12 @@
 import isNil from 'lodash/isNil'
-import type { Ref } from 'mobx-keystone'
-import { createContext, detach, isRefOfType, rootRef } from 'mobx-keystone'
+import type { AnyModel, Ref } from 'mobx-keystone'
+import {
+  createContext,
+  detach,
+  isRefOfType,
+  modelTypeKey,
+  rootRef,
+} from 'mobx-keystone'
 import type { IElementRenderType } from '../element'
 import type { IComponent } from './component.model.interface'
 import type { IComponentService } from './component.service.interface'
@@ -39,4 +45,12 @@ export const isComponentInstance = (
   node: IElementRenderType | null,
 ): node is Ref<IComponent> => {
   return !isNil(node) && isRefOfType(node, componentRef)
+}
+
+export const isComponentModel = (model: object): model is IComponent => {
+  return (
+    !isNil(model) &&
+    // `IComponent` is mobx model type
+    (model as unknown as AnyModel)[modelTypeKey] === '@codelab/Component'
+  )
 }
