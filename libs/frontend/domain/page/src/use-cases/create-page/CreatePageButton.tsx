@@ -1,4 +1,4 @@
-import { PlusOutlined } from '@ant-design/icons'
+import { CloseOutlined, PlusOutlined } from '@ant-design/icons'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -8,7 +8,15 @@ export const CreatePageButton = observer(() => {
   const { pageService } = useStore()
   const onClick = () => pageService.createForm.open()
 
-  return (
+  return pageService.createForm.isOpen ? (
+    <Button
+      icon={<CloseOutlined />}
+      onClick={() => pageService.createForm.close()}
+      size="small"
+      style={{ background: 'red' }}
+      type="primary"
+    />
+  ) : (
     <Button
       icon={<PlusOutlined />}
       onClick={onClick}
