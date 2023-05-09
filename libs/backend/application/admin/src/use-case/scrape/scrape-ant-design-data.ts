@@ -1,5 +1,6 @@
 import 'jquery'
 import type { AntDesignApi } from '@codelab/backend/abstract/core'
+import { saveFormattedFile } from '@codelab/backend/shared/util'
 import fs from 'fs'
 import path from 'path'
 import type { Browser } from 'puppeteer'
@@ -93,10 +94,7 @@ export const scrapeAntDesignData = async () => {
 
     const apiData = await getComponentApiData(browser, component)
 
-    fs.writeFileSync(
-      path.join(outputDirectory, `${component}.json`),
-      JSON.stringify(apiData, null, 2),
-    )
+    saveFormattedFile(path.join(outputDirectory, `${component}.json`), apiData)
   }
 
   await browser.close()
