@@ -2,10 +2,10 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import type { IAtom, IComponent } from '@codelab/frontend/abstract/core'
 import {
   BuilderDndType,
-  IRenderTypeKind,
   isComponentModel,
   isComponentPageNode,
 } from '@codelab/frontend/abstract/core'
+import { IRenderTypeKind } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Button, Card } from 'antd'
 import Tooltip from 'antd/lib/tooltip'

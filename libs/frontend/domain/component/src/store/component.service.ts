@@ -316,7 +316,9 @@ export class ComponentService
          * Element comes with `component` or `atom` data that we need to load as well
          */
         if (elementData.renderAtomType?.id) {
-          this.typeService.addInterface(elementData.renderAtomType.api)
+          this.typeService.loadTypes({
+            interfaceTypes: [elementData.renderAtomType.api],
+          })
 
           elementData.renderAtomType.tags.forEach((tag) =>
             this.tagService.add(tag),
