@@ -1,7 +1,5 @@
 import hkdf from 'futoin-hkdf'
 import { JWE, JWK } from 'jose'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-// const { JWE, JWK } = require('jose')
 
 const BYTE_LENGTH = 32
 const ENCRYPTION_INFO = 'JWE CEK'
