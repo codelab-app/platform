@@ -3,10 +3,7 @@ import type {
   IField,
   TypedValue,
 } from '@codelab/frontend/abstract/core'
-import {
-  expressionTransformer,
-  hasStateExpression,
-} from '@codelab/frontend/shared/utils'
+import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import isString from 'lodash/isString'
 import { ExtendedModel, model } from 'mobx-keystone'
@@ -58,7 +55,9 @@ export class RenderPropTypedValueTransformer
   }
 
   public transform(value: TypedValue<string>, element: IElement) {
-    if (hasStateExpression(value.value) && expressionTransformer.initialized) {
+    const { expressionTransformer } = this.renderer
+
+    if (hasStateExpression(value.value)) {
       return expressionTransformer.transpileAndEvaluateExpression(value.value)
     }
 

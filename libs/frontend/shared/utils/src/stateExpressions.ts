@@ -4,10 +4,8 @@ import {
   STATE_PATH_TEMPLATE_REGEX,
   STATE_PATH_TEMPLATE_START,
 } from '@codelab/frontend/abstract/core'
-import type { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep } from '@codelab/shared/utils'
 import isString from 'lodash/isString'
-import type { Options } from 'sucrase'
 
 export const hasStateExpression = (str: unknown): boolean =>
   isString(str) &&
@@ -68,59 +66,4 @@ export const getByExpression = (key: string, context: IPropData) => {
   return key.replace(STATE_PATH_TEMPLATE_REGEX, (value) =>
     evaluateExpression(value, context),
   )
-}
-
-interface ExpressionTransformer {
-  context: object
-  initialized: boolean
-  transform: Nullable<
-    (code: string, options: Options) => { code: string | null }
-  >
-
-  init(context: object): Promise<void>
-  transpileAndEvaluateExpression(expression: string): unknown
-}
-
-export const expressionTransformer: ExpressionTransformer = {
-  context: {},
-  init: async function (context: object) {
-    if (this.initialized) {
-      return
-    }
-
-    const { transform } = await import('sucrase')
-
-    this.transform = transform
-    this.context = context
-    this.initialized = true
-  },
-  initialized: false,
-  transform: null,
-  transpileAndEvaluateExpression: function (expression: string) {
-    if (!this.transform) {
-      throw new Error(
-        'BabelExpressionsTranspiler needs to be initialized first. Make sure to call "init" first.',
-      )
-    }
-
-    try {
-      const wrappedExpression = `(function getResult() {
-            const { React } = this
-
-            return ${stripStateExpression(expression)}
-          }).call(this)`
-
-      const { code } = this.transform(wrappedExpression, {
-        production: true,
-        transforms: ['jsx'],
-      })
-
-      // eslint-disable-next-line no-new-func
-      return new Function('return ' + (code ?? '')).call(this.context)
-    } catch (error) {
-      console.log(error)
-
-      return expression
-    }
-  },
 }

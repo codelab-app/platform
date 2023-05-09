@@ -1,6 +1,7 @@
 import type {
   IElement,
   IElementTree,
+  IExpressionTransformer,
   IPropData,
   IRenderer,
   IRenderOutput,
@@ -14,10 +15,7 @@ import {
   isAtomInstance,
 } from '@codelab/frontend/abstract/core'
 import { getTypeService } from '@codelab/frontend/domain/type'
-import {
-  expressionTransformer,
-  replaceStateInProps,
-} from '@codelab/frontend/shared/utils'
+import { replaceStateInProps } from '@codelab/frontend/shared/utils'
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
@@ -29,10 +27,10 @@ import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 import type { ITypedValueTransformer } from './abstract/ITypedValueTransformer'
-import { allAtoms } from './atoms'
 import type { ElementWrapperProps } from './element/ElementWrapper'
 import { ElementWrapper } from './element/ElementWrapper'
 import { makeCustomTextContainer } from './element/wrapper.utils'
+import { ExpressionTransformer } from './expresssionTransformer.service'
 import {
   defaultPipes,
   renderPipeFactory,
@@ -75,6 +73,9 @@ export class Renderer
      * The tree that's being rendered, we assume that this is properly constructed
      */
     elementTree: prop<Ref<IElementTree>>(),
+    expressionTransformer: prop<IExpressionTransformer>(
+      () => new ExpressionTransformer({}),
+    ),
     id: idProp,
     /**
      * Store attached to app, needed to access its actions
@@ -97,10 +98,6 @@ export class Renderer
   })
   implements IRenderer
 {
-  onAttachedToRootStore() {
-    void expressionTransformer.init({ atoms: allAtoms, React })
-  }
-
   renderRoot() {
     const root = this.elementTree.maybeCurrent?.rootElement.current
     const providerRoot = this.providerTree?.current.rootElement.current

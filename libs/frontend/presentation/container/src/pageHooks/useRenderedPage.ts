@@ -73,6 +73,8 @@ export const useRenderedPage = ({
       rendererType,
     })
 
+    await renderer.expressionTransformer.init()
+
     return {
       app,
       elementTree: page,

@@ -5,6 +5,7 @@ import type { ArrayOrSingle } from 'ts-essentials'
 import type { IElement, IElementTree } from '../element'
 import type { IPropData } from '../prop'
 import type { IRenderOutput } from '../render'
+import type { IExpressionTransformer } from './expressionTransformer.service.interface'
 
 export const enum RendererType {
   ComponentBuilder = 'component-builder',
@@ -14,6 +15,7 @@ export const enum RendererType {
 export interface IRenderer {
   debugMode: boolean
   elementTree: Ref<IElementTree>
+  expressionTransformer: IExpressionTransformer
   providerTree: Nullable<Ref<IElementTree>>
   rendererType: RendererType
 

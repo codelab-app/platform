@@ -1,8 +1,5 @@
 import type { IElement, TypedValue } from '@codelab/frontend/abstract/core'
-import {
-  expressionTransformer,
-  hasStateExpression,
-} from '@codelab/frontend/shared/utils'
+import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import isString from 'lodash/isString'
 import { ExtendedModel, model } from 'mobx-keystone'
@@ -44,8 +41,10 @@ export class ReactNodeTypedValueTransformer
   }
 
   public transform(value: TypedValue<string>, element: IElement) {
+    const { expressionTransformer } = this.renderer
+
     // value is a custom JS component
-    if (hasStateExpression(value.value) && expressionTransformer.initialized) {
+    if (hasStateExpression(value.value)) {
       const transpiledValue =
         expressionTransformer.transpileAndEvaluateExpression(value.value)
 
