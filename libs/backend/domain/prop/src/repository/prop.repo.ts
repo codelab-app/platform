@@ -1,19 +1,19 @@
+import type { Prop, PropWhere } from '@codelab/backend/abstract/codegen'
 import {
   propSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IPropDTO } from '@codelab/shared/abstract/core'
 
 export class PropRepository extends AbstractRepository<
   IPropDTO,
-  OGM_TYPES.Prop,
-  OGM_TYPES.PropWhere
+  Prop,
+  PropWhere
 > {
   private Prop = Repository.instance.Prop
 
-  async _find(where: OGM_TYPES.PropWhere = {}) {
+  async _find(where: PropWhere = {}) {
     return await (
       await this.Prop
     ).find({
@@ -38,7 +38,7 @@ export class PropRepository extends AbstractRepository<
     ).props
   }
 
-  protected async _update({ data, id }: IPropDTO, where: OGM_TYPES.PropWhere) {
+  protected async _update({ data, id }: IPropDTO, where: PropWhere) {
     return (
       await (
         await this.Prop

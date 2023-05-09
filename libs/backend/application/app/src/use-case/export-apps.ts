@@ -1,8 +1,8 @@
+import type { AppWhere } from '@codelab/backend/abstract/codegen'
 import type { IAppExport } from '@codelab/backend/abstract/core'
 import { AppRepository, getApp } from '@codelab/backend/domain/app'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 
-export const exportApps = async (where: OGM_TYPES.AppWhere) => {
+export const exportApps = async (where: AppWhere) => {
   const appRepository = new AppRepository()
   const apps = await appRepository.find(where)
 

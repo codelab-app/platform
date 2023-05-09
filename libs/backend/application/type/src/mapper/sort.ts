@@ -1,7 +1,7 @@
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { InterfaceType } from '@codelab/backend/abstract/codegen'
 
 export const sortInterfaceTypesFields = (
-  interfaceTypes: Array<OGM_TYPES.InterfaceType>,
+  interfaceTypes: Array<InterfaceType>,
 ) => {
   return interfaceTypes.map((interfaceType) => ({
     ...interfaceType,

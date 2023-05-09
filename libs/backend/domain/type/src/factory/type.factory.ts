@@ -1,5 +1,14 @@
+import type {
+  ActionTypeWhere,
+  ArrayTypeWhere,
+  EnumTypeWhere,
+  InterfaceTypeWhere,
+  PrimitiveTypeWhere,
+  ReactNodeTypeWhere,
+  RenderPropTypeWhere,
+  UnionTypeWhere,
+} from '@codelab/backend/abstract/codegen'
 import type { IType, ITypeWhere } from '@codelab/backend/abstract/core'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { ITypeDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
@@ -44,7 +53,7 @@ export class TypeFactory {
 
         return (await new PrimitiveTypeRepository().save(
           primitiveType,
-          where as OGM_TYPES.PrimitiveTypeWhere,
+          where as PrimitiveTypeWhere,
         )) as T
       }
 
@@ -53,7 +62,7 @@ export class TypeFactory {
 
         return (await new EnumTypeRepository().save(
           enumType,
-          where as OGM_TYPES.EnumTypeWhere,
+          where as EnumTypeWhere,
         )) as T
       }
 
@@ -62,7 +71,7 @@ export class TypeFactory {
 
         return (await new InterfaceTypeRepository().save(
           interfaceType,
-          where as OGM_TYPES.InterfaceTypeWhere,
+          where as InterfaceTypeWhere,
         )) as T
       }
 
@@ -71,7 +80,7 @@ export class TypeFactory {
 
         return (await new ReactNodeTypeRepository().save(
           reactNodeType,
-          where as OGM_TYPES.ReactNodeTypeWhere,
+          where as ReactNodeTypeWhere,
         )) as T
       }
 
@@ -80,7 +89,7 @@ export class TypeFactory {
 
         return (await new RenderPropTypeRepository().save(
           renderPropType,
-          where as OGM_TYPES.RenderPropTypeWhere,
+          where as RenderPropTypeWhere,
         )) as T
       }
 
@@ -89,7 +98,7 @@ export class TypeFactory {
 
         return (await new ActionTypeRepository().save(
           actionType,
-          where as OGM_TYPES.ActionTypeWhere,
+          where as ActionTypeWhere,
         )) as T
       }
 
@@ -98,7 +107,7 @@ export class TypeFactory {
 
         return (await new UnionTypeRepository().save(
           unionType,
-          where as OGM_TYPES.UnionTypeWhere,
+          where as UnionTypeWhere,
         )) as T
       }
 
@@ -107,7 +116,7 @@ export class TypeFactory {
 
         return (await new ArrayTypeRepository().save(
           arrayType,
-          where as OGM_TYPES.ArrayTypeWhere,
+          where as ArrayTypeWhere,
         )) as T
       }
 

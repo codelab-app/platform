@@ -167,6 +167,7 @@ input ActionTypeSort {
 
 input ActionTypeUniqueWhere {
   id: ID
+  name: String
 }
 
 input ActionTypeUpdateInput {
@@ -3381,6 +3382,7 @@ enum AtomType {
   HtmlCaption
   HtmlCite
   HtmlCode
+  HtmlCol
   HtmlData
   HtmlDatalist
   HtmlDetails
@@ -14485,6 +14487,7 @@ input ReactNodeTypeSort {
 
 input ReactNodeTypeUniqueWhere {
   id: ID
+  name: String
 }
 
 input ReactNodeTypeUpdateInput {
@@ -14701,6 +14704,7 @@ input RenderPropTypeSort {
 
 input RenderPropTypeUniqueWhere {
   id: ID
+  name: String
 }
 
 input RenderPropTypeUpdateInput {

@@ -1822,6 +1822,7 @@ export enum AtomType {
   HtmlCanvas = 'HtmlCanvas',
   HtmlCite = 'HtmlCite',
   HtmlCode = 'HtmlCode',
+  HtmlCol = 'HtmlCol',
   HtmlDl = 'HtmlDl',
   HtmlData = 'HtmlData',
   HtmlDatalist = 'HtmlDatalist',
@@ -7629,6 +7630,7 @@ export type ActionTypeSort = {
 
 export type ActionTypeUniqueWhere = {
   id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
 }
 
 export type ActionTypeUpdateInput = {
@@ -25726,6 +25728,7 @@ export type ReactNodeTypeSort = {
 
 export type ReactNodeTypeUniqueWhere = {
   id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
 }
 
 export type ReactNodeTypeUpdateInput = {
@@ -26026,6 +26029,7 @@ export type RenderPropTypeSort = {
 
 export type RenderPropTypeUniqueWhere = {
   id?: InputMaybe<Scalars['ID']>
+  name?: InputMaybe<Scalars['String']>
 }
 
 export type RenderPropTypeUpdateInput = {

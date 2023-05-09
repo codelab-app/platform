@@ -1,3 +1,4 @@
+import { SortDirection } from '@codelab/backend/abstract/codegen'
 import type { ITypesExport } from '@codelab/backend/abstract/core'
 import {
   exportActionTypeSelectionSet,
@@ -6,7 +7,6 @@ import {
   exportRenderPropTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 
 /**
  * These are required system types that other types reference
@@ -19,7 +19,7 @@ export const exportSystemTypes = async (): Promise<ITypesExport> => {
 
   const primitiveTypes = await PrimitiveType.find({
     options: {
-      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+      sort: [{ name: SortDirection.Asc }],
     },
     selectionSet: exportPrimitiveTypeSelectionSet,
   })
@@ -32,7 +32,7 @@ export const exportSystemTypes = async (): Promise<ITypesExport> => {
   // Only 1 here
   const reactNodeTypes = await ReactNodeType.find({
     options: {
-      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+      sort: [{ name: SortDirection.Asc }],
     },
     selectionSet: exportReactNodeTypeSelectionSet,
   })
@@ -45,7 +45,7 @@ export const exportSystemTypes = async (): Promise<ITypesExport> => {
   // Only 1 here
   const renderPropTypes = await RenderPropType.find({
     options: {
-      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+      sort: [{ name: SortDirection.Asc }],
     },
     selectionSet: exportRenderPropTypeSelectionSet,
   })
@@ -57,7 +57,7 @@ export const exportSystemTypes = async (): Promise<ITypesExport> => {
 
   const actionTypes = await ActionType.find({
     options: {
-      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+      sort: [{ name: SortDirection.Asc }],
     },
     selectionSet: exportActionTypeSelectionSet,
   })

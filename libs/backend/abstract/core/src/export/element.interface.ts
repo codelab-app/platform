@@ -1,6 +1,6 @@
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { Element } from '@codelab/backend/abstract/codegen'
 
 export type IElementExport = Pick<
-  OGM_TYPES.Element,
+  Element,
   'id' | 'name' | 'parent' | 'renderAtomType'
 >

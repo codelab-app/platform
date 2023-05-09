@@ -1,9 +1,13 @@
+import type {
+  InterfaceType,
+  InterfaceTypeFieldsFieldInput,
+  InterfaceTypeWhere,
+} from '@codelab/backend/abstract/codegen'
 import {
   interfaceTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type {
   IFieldDTO,
   IInterfaceTypeDTO,
@@ -16,12 +20,12 @@ import {
 
 export class InterfaceTypeRepository extends AbstractRepository<
   IInterfaceTypeDTO,
-  OGM_TYPES.InterfaceType,
-  OGM_TYPES.InterfaceTypeWhere
+  InterfaceType,
+  InterfaceTypeWhere
 > {
   private InterfaceType = Repository.instance.InterfaceType
 
-  async _find(where: OGM_TYPES.InterfaceTypeWhere = {}) {
+  async _find(where: InterfaceTypeWhere = {}) {
     return await (
       await this.InterfaceType
     ).find({
@@ -60,7 +64,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
    */
   protected async _update(
     { __typename, fields, id, name, owner, ...data }: IInterfaceTypeDTO,
-    where: OGM_TYPES.InterfaceTypeWhere,
+    where: InterfaceTypeWhere,
   ) {
     return (
       await (
@@ -78,7 +82,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
 
   private mapCreateFields(
     fields: Array<IFieldDTO>,
-  ): OGM_TYPES.InterfaceTypeFieldsFieldInput {
+  ): InterfaceTypeFieldsFieldInput {
     return {
       create: fields.map(
         ({ api, fieldType, nextSibling, prevSibling, ...field }) => ({
@@ -100,7 +104,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
    */
   // private mapUpdateFields(
   //   fields: Array<IField>,
-  // ): OGM_TYPES.InterfaceTypeFieldsUpdateFieldInput {
+  // ): InterfaceTypeFieldsUpdateFieldInput {
   //   return {
   //     create: fields.map(({ api, fieldType, ...field }) => ({
   //       node: {

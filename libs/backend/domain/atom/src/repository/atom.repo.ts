@@ -1,9 +1,9 @@
+import type { Atom, AtomWhere } from '@codelab/backend/abstract/codegen'
 import {
   atomSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
 import {
   connectAuth0Owner,
@@ -16,12 +16,12 @@ import {
 
 export class AtomRepository extends AbstractRepository<
   IAtomDTO,
-  OGM_TYPES.Atom,
-  OGM_TYPES.AtomWhere
+  Atom,
+  AtomWhere
 > {
   private Atom = Repository.instance.Atom
 
-  async _find(where: OGM_TYPES.AtomWhere = {}) {
+  async _find(where: AtomWhere = {}) {
     return await (
       await this.Atom
     ).find({
@@ -73,7 +73,7 @@ export class AtomRepository extends AbstractRepository<
       tags,
       ...atom
     }: IAtomDTO,
-    where: OGM_TYPES.AtomWhere,
+    where: AtomWhere,
   ) {
     return (
       await (

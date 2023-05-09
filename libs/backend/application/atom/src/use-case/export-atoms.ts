@@ -1,12 +1,13 @@
+import type { AtomWhere } from '@codelab/backend/abstract/codegen'
+import { SortDirection } from '@codelab/backend/abstract/codegen'
 import {
   exportAtomSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
 
 interface ExportAtomsProps {
-  where?: OGM_TYPES.AtomWhere
+  where?: AtomWhere
 }
 
 export const exportAtoms = async (
@@ -18,7 +19,7 @@ export const exportAtoms = async (
     (
       await Atom.find({
         options: {
-          sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+          sort: [{ name: SortDirection.Asc }],
         },
         selectionSet: exportAtomSelectionSet,
         where: props.where,

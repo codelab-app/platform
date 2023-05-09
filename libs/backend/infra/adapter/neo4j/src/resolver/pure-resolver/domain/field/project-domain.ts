@@ -1,7 +1,7 @@
+import type { Domain } from '@codelab/backend/abstract/codegen'
 import { vercelApis } from '@codelab/backend/infra/adapter/vercel'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 
-export const projectDomain = async ({ name }: OGM_TYPES.Domain) => {
+export const projectDomain = async ({ name }: Domain) => {
   const res = await vercelApis.domain.getProjectDomain(name)
 
   // await handleAPIError(res, 'getProjectDomain - vercel')

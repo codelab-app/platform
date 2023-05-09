@@ -47,6 +47,11 @@ export const htmlAtomData: IHtmlAtomRecords = {
     icon: null,
     tag: IAtomType.HtmlCode,
   },
+  [IAtomType.HtmlCol]: {
+    file: null,
+    icon: null,
+    tag: IAtomType.HtmlCol,
+  },
   [IAtomType.HtmlDl]: {
     file: null,
     icon: null,

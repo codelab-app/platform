@@ -1,11 +1,11 @@
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { ModelMap } from '@codelab/backend/abstract/codegen'
 import { OGM } from '@neo4j/graphql-ogm'
 import { pureResolvers } from '../resolver'
 import { typeDefs } from '../schema'
 import { getDriver } from './driver'
 
 // Keep a single OGM instance
-let ogm: OGM<OGM_TYPES.ModelMap> | undefined
+let ogm: OGM<ModelMap> | undefined
 
 export const getOgm = async () => {
   if (!ogm) {

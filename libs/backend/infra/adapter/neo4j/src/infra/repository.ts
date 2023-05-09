@@ -1,75 +1,105 @@
+import type {
+  ActionTypeModel,
+  ApiActionModel,
+  AppModel,
+  AppTypeModel,
+  ArrayTypeModel,
+  AtomModel,
+  CodeActionModel,
+  CodeMirrorTypeModel,
+  ComponentModel,
+  DomainModel,
+  ElementModel,
+  ElementTypeModel,
+  EnumTypeModel,
+  EnumTypeValueModel,
+  FieldModel,
+  InterfaceTypeModel,
+  LambdaTypeModel,
+  ModelMap,
+  PageModel,
+  PageTypeModel,
+  PrimitiveTypeModel,
+  PropModel,
+  ReactNodeTypeModel,
+  RenderPropTypeModel,
+  ResourceModel,
+  StoreModel,
+  TagModel,
+  UnionTypeModel,
+  UserModel,
+} from '@codelab/backend/abstract/codegen'
 import type { INeo4jRepository } from '@codelab/backend/abstract/types'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { getOgm } from './ogm'
 
 export class Repository implements INeo4jRepository {
-  private user: OGM_TYPES.UserModel | undefined
+  private user: UserModel | undefined
 
   //
   // App
   //
-  private app: OGM_TYPES.AppModel | undefined
+  private app: AppModel | undefined
 
-  private domain: OGM_TYPES.DomainModel | undefined
+  private domain: DomainModel | undefined
 
-  private page: OGM_TYPES.PageModel | undefined
+  private page: PageModel | undefined
 
   //
   // Store
   //
-  private store: OGM_TYPES.StoreModel | undefined
+  private store: StoreModel | undefined
 
-  private apiAction: OGM_TYPES.ApiActionModel | undefined
+  private apiAction: ApiActionModel | undefined
 
-  private codeAction: OGM_TYPES.CodeActionModel | undefined
+  private codeAction: CodeActionModel | undefined
 
-  private resource: OGM_TYPES.ResourceModel | undefined
+  private resource: ResourceModel | undefined
 
   //
   // Component
   //
-  private atom: OGM_TYPES.AtomModel | undefined
+  private atom: AtomModel | undefined
 
-  private element: OGM_TYPES.ElementModel | undefined
+  private element: ElementModel | undefined
 
-  private prop: OGM_TYPES.PropModel | undefined
+  private prop: PropModel | undefined
 
-  private component: OGM_TYPES.ComponentModel | undefined
+  private component: ComponentModel | undefined
 
-  private tag: OGM_TYPES.TagModel | undefined
+  private tag: TagModel | undefined
 
   //
   // Types
   //
-  private field: OGM_TYPES.FieldModel | undefined
+  private field: FieldModel | undefined
 
-  private interfaceType: OGM_TYPES.InterfaceTypeModel | undefined
+  private interfaceType: InterfaceTypeModel | undefined
 
-  private primitiveType: OGM_TYPES.PrimitiveTypeModel | undefined
+  private primitiveType: PrimitiveTypeModel | undefined
 
-  private unionType: OGM_TYPES.UnionTypeModel | undefined
+  private unionType: UnionTypeModel | undefined
 
-  private arrayType: OGM_TYPES.ArrayTypeModel | undefined
+  private arrayType: ArrayTypeModel | undefined
 
-  private enumType: OGM_TYPES.EnumTypeModel | undefined
+  private enumType: EnumTypeModel | undefined
 
-  private enumTypeValue: OGM_TYPES.EnumTypeValueModel | undefined
+  private enumTypeValue: EnumTypeValueModel | undefined
 
-  private lambdaType: OGM_TYPES.LambdaTypeModel | undefined
+  private lambdaType: LambdaTypeModel | undefined
 
-  private appType: OGM_TYPES.AppTypeModel | undefined
+  private appType: AppTypeModel | undefined
 
-  private actionType: OGM_TYPES.ActionTypeModel | undefined
+  private actionType: ActionTypeModel | undefined
 
-  private renderPropType: OGM_TYPES.RenderPropTypeModel | undefined
+  private renderPropType: RenderPropTypeModel | undefined
 
-  private reactNodeType: OGM_TYPES.ReactNodeTypeModel | undefined
+  private reactNodeType: ReactNodeTypeModel | undefined
 
-  private pageType: OGM_TYPES.PageTypeModel | undefined
+  private pageType: PageTypeModel | undefined
 
-  private codeMirrorType: OGM_TYPES.CodeMirrorTypeModel | undefined
+  private codeMirrorType: CodeMirrorTypeModel | undefined
 
-  private elementType: OGM_TYPES.ElementTypeModel | undefined
+  private elementType: ElementTypeModel | undefined
 
   private static _instance?: Repository
 
@@ -307,14 +337,14 @@ export class Repository implements INeo4jRepository {
       )))()
   }
 
-  private getOgmInstance = async <ModelKey extends keyof OGM_TYPES.ModelMap>(
-    inst: OGM_TYPES.ModelMap[ModelKey] | undefined,
-    name: keyof OGM_TYPES.ModelMap,
+  private getOgmInstance = async <ModelKey extends keyof ModelMap>(
+    inst: ModelMap[ModelKey] | undefined,
+    name: keyof ModelMap,
   ) => {
     const ogm = await getOgm()
 
     if (!inst) {
-      return ogm.model(name) as OGM_TYPES.ModelMap[ModelKey]
+      return ogm.model(name) as ModelMap[ModelKey]
     }
 
     return inst

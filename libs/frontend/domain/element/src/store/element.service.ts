@@ -18,13 +18,12 @@ import {
   RenderedComponentFragment,
   RenderTypeKind,
 } from '@codelab/shared/abstract/codegen'
-import {
+import type {
   IAuth0Owner,
   IElementDTO,
-  IRenderTypeKind,
   RenderType,
 } from '@codelab/shared/abstract/core'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { IRenderTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
 import uniq from 'lodash/uniq'

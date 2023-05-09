@@ -1,20 +1,20 @@
+import type { Store, StoreWhere } from '@codelab/backend/abstract/codegen'
 import {
   Repository,
   storeSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IStoreDTO } from '@codelab/shared/abstract/core'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
 
 export class StoreRepository extends AbstractRepository<
   IStoreDTO,
-  OGM_TYPES.Store,
-  OGM_TYPES.StoreWhere
+  Store,
+  StoreWhere
 > {
   private Store = Repository.instance.Store
 
-  async _find(where: OGM_TYPES.StoreWhere = {}) {
+  async _find(where: StoreWhere = {}) {
     return await (
       await this.Store
     ).find({
@@ -40,10 +40,7 @@ export class StoreRepository extends AbstractRepository<
     ).stores
   }
 
-  protected async _update(
-    { api, id, name }: IStoreDTO,
-    where: OGM_TYPES.StoreWhere,
-  ) {
+  protected async _update({ api, id, name }: IStoreDTO, where: StoreWhere) {
     return (
       await (
         await this.Store

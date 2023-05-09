@@ -1,11 +1,12 @@
+import type { TagWhere } from '@codelab/backend/abstract/codegen'
+import { SortDirection } from '@codelab/backend/abstract/codegen'
 import {
   exportTagSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 
 interface ExportTagsProps {
-  where?: OGM_TYPES.TagWhere
+  where?: TagWhere
 }
 
 export const exportTags = async (props: ExportTagsProps = {}) => {
@@ -15,7 +16,7 @@ export const exportTags = async (props: ExportTagsProps = {}) => {
     (
       await Tag.find({
         options: {
-          sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+          sort: [{ name: SortDirection.Asc }],
         },
         selectionSet: exportTagSelectionSet,
         where: props.where,

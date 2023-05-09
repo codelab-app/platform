@@ -1,5 +1,5 @@
+import { Role } from '@codelab/backend/abstract/codegen'
 import { User, UserRepository } from '@codelab/backend/domain/user'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import { EnvPlatform } from '@codelab/shared/config'
 import inquirer from 'inquirer'
@@ -71,7 +71,7 @@ export const upsertUserMiddleware: MiddlewareFunction = async ({ stage }) => {
       auth0Id: v4(),
       email: EnvPlatform().auth0.cypress_username!,
       id: v4(),
-      roles: [OGM_TYPES.Role.Admin],
+      roles: [Role.Admin],
       username: 'Codelab',
     })
 

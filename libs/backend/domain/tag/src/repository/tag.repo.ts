@@ -1,9 +1,9 @@
+import type { Tag, TagWhere } from '@codelab/backend/abstract/codegen'
 import {
   Repository,
   tagSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { ITagDTO } from '@codelab/shared/abstract/core'
 import {
   connectAuth0Owner,
@@ -12,14 +12,10 @@ import {
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
 
-export class TagRepository extends AbstractRepository<
-  ITagDTO,
-  OGM_TYPES.Tag,
-  OGM_TYPES.TagWhere
-> {
+export class TagRepository extends AbstractRepository<ITagDTO, Tag, TagWhere> {
   private Tag = Repository.instance.Tag
 
-  async _find(where: OGM_TYPES.TagWhere = {}) {
+  async _find(where: TagWhere = {}) {
     return await (
       await this.Tag
     ).find({
@@ -48,7 +44,7 @@ export class TagRepository extends AbstractRepository<
 
   protected async _update(
     { children, descendants, id, owner, parent, ...tag }: ITagDTO,
-    where: OGM_TYPES.TagWhere,
+    where: TagWhere,
   ) {
     // Get existing tag so we know what to connect/disconnect
     const existing = await this.findOne(where)

@@ -1,3 +1,4 @@
+import type { Page, PageWhere } from '@codelab/backend/abstract/codegen'
 import { getElementWithDescendants } from '@codelab/backend/domain/element'
 import {
   componentSelectionSet,
@@ -5,7 +6,6 @@ import {
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IPageDTO } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { createUniqueName, uuidRegex } from '@codelab/shared/utils'
@@ -13,12 +13,12 @@ import flatMap from 'lodash/flatMap'
 
 export class PageRepository extends AbstractRepository<
   IPageDTO,
-  OGM_TYPES.Page,
-  OGM_TYPES.PageWhere
+  Page,
+  PageWhere
 > {
   private Page = Repository.instance.Page
 
-  async _find(where: OGM_TYPES.PageWhere = {}) {
+  async _find(where: PageWhere = {}) {
     return await (
       await this.Page
     ).find({
@@ -62,7 +62,7 @@ export class PageRepository extends AbstractRepository<
 
   protected async _update(
     { app, name, pageContentContainer, rootElement, url }: IPageDTO,
-    where: OGM_TYPES.PageWhere,
+    where: PageWhere,
   ) {
     return (
       await (
@@ -81,7 +81,7 @@ export class PageRepository extends AbstractRepository<
   }
 }
 
-export const getPageData = async (page: OGM_TYPES.Page) => {
+export const getPageData = async (page: Page) => {
   const Component = await Repository.instance.Component
   const elements = await getElementWithDescendants(page.rootElement.id)
 

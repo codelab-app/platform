@@ -1,3 +1,3 @@
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { Resource } from '@codelab/backend/abstract/codegen'
 
-export type IResourceExport = OGM_TYPES.Resource
+export type IResourceExport = Resource

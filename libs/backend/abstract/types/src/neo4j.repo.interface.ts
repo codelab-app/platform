@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { ModelMap } from '@codelab/backend/abstract/codegen'
 
 /**
  * This is the port our application uses, can't use static interfaces, so we sacrifice some use-ability for this architecture.
@@ -7,42 +7,42 @@ import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
  * Will have to `new Repository`
  */
 export interface INeo4jRepository {
-  User: Promise<OGM_TYPES.ModelMap['User']>
+  User: Promise<ModelMap['User']>
   //
   // App
   //
-  App: Promise<OGM_TYPES.ModelMap['App']>
-  Domain: Promise<OGM_TYPES.ModelMap['Domain']>
-  Page: Promise<OGM_TYPES.ModelMap['Page']>
+  App: Promise<ModelMap['App']>
+  Domain: Promise<ModelMap['Domain']>
+  Page: Promise<ModelMap['Page']>
   //
   // Store
   //
-  Store: Promise<OGM_TYPES.ModelMap['Store']>
-  ApiAction: Promise<OGM_TYPES.ModelMap['ApiAction']>
-  CodeAction: Promise<OGM_TYPES.ModelMap['CodeAction']>
-  Resource: Promise<OGM_TYPES.ModelMap['Resource']>
+  Store: Promise<ModelMap['Store']>
+  ApiAction: Promise<ModelMap['ApiAction']>
+  CodeAction: Promise<ModelMap['CodeAction']>
+  Resource: Promise<ModelMap['Resource']>
   //
   // Component
   //
-  Atom: Promise<OGM_TYPES.ModelMap['Atom']>
-  Element: Promise<OGM_TYPES.ModelMap['Element']>
-  Component: Promise<OGM_TYPES.ModelMap['Component']>
-  Tag: Promise<OGM_TYPES.ModelMap['Tag']>
+  Atom: Promise<ModelMap['Atom']>
+  Element: Promise<ModelMap['Element']>
+  Component: Promise<ModelMap['Component']>
+  Tag: Promise<ModelMap['Tag']>
   //
   // Types
   //
-  InterfaceType: Promise<OGM_TYPES.ModelMap['InterfaceType']>
-  PrimitiveType: Promise<OGM_TYPES.ModelMap['PrimitiveType']>
-  UnionType: Promise<OGM_TYPES.ModelMap['UnionType']>
-  ArrayType: Promise<OGM_TYPES.ModelMap['ArrayType']>
-  EnumType: Promise<OGM_TYPES.ModelMap['EnumType']>
-  EnumTypeValue: Promise<OGM_TYPES.ModelMap['EnumTypeValue']>
-  LambdaType: Promise<OGM_TYPES.ModelMap['LambdaType']>
-  AppType: Promise<OGM_TYPES.ModelMap['AppType']>
-  ActionType: Promise<OGM_TYPES.ModelMap['ActionType']>
-  RenderPropType: Promise<OGM_TYPES.ModelMap['RenderPropType']>
-  ReactNodeType: Promise<OGM_TYPES.ModelMap['ReactNodeType']>
-  PageType: Promise<OGM_TYPES.ModelMap['PageType']>
-  CodeMirrorType: Promise<OGM_TYPES.ModelMap['CodeMirrorType']>
-  ElementType: Promise<OGM_TYPES.ModelMap['ElementType']>
+  InterfaceType: Promise<ModelMap['InterfaceType']>
+  PrimitiveType: Promise<ModelMap['PrimitiveType']>
+  UnionType: Promise<ModelMap['UnionType']>
+  ArrayType: Promise<ModelMap['ArrayType']>
+  EnumType: Promise<ModelMap['EnumType']>
+  EnumTypeValue: Promise<ModelMap['EnumTypeValue']>
+  LambdaType: Promise<ModelMap['LambdaType']>
+  AppType: Promise<ModelMap['AppType']>
+  ActionType: Promise<ModelMap['ActionType']>
+  RenderPropType: Promise<ModelMap['RenderPropType']>
+  ReactNodeType: Promise<ModelMap['ReactNodeType']>
+  PageType: Promise<ModelMap['PageType']>
+  CodeMirrorType: Promise<ModelMap['CodeMirrorType']>
+  ElementType: Promise<ModelMap['ElementType']>
 }

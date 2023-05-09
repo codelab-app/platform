@@ -1,7 +1,11 @@
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type {
+  ApiAction,
+  CodeAction,
+  Store,
+} from '@codelab/backend/abstract/codegen'
 
-export type IStoreExport = Omit<OGM_TYPES.Store, 'actions'> & {
+export type IStoreExport = Omit<Store, 'actions'> & {
   actions: Array<IActionExport>
 }
 
-export type IActionExport = OGM_TYPES.ApiAction | OGM_TYPES.CodeAction
+export type IActionExport = ApiAction | CodeAction

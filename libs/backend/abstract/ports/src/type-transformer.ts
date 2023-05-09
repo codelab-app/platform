@@ -1,5 +1,12 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type {
+  ActionType,
+  EnumType,
+  PrimitiveType,
+  ReactNodeType,
+  RenderPropType,
+  UnionType,
+} from '@codelab/backend/abstract/codegen'
 import type { IAtomDTO, IFieldDTO } from '@codelab/shared/abstract/core'
 
 /**
@@ -10,31 +17,31 @@ export interface ITypeTransformer {
   field: Pick<IFieldDTO, 'key'>
 
   isActionType(type: string): boolean
-  actionType(type: string): Promise<OGM_TYPES.ActionType>
+  actionType(type: string): Promise<ActionType>
 
   isReactNodeType(type: string): boolean
-  reactNodeType(type: string): Promise<OGM_TYPES.ReactNodeType>
+  reactNodeType(type: string): Promise<ReactNodeType>
 
   isRenderPropType(type: string): boolean
-  renderPropType(type: string): Promise<OGM_TYPES.RenderPropType>
+  renderPropType(type: string): Promise<RenderPropType>
 
   isEnumType(type: string): boolean
-  enumType(type: string): Promise<OGM_TYPES.EnumType>
+  enumType(type: string): Promise<EnumType>
 
   // arrayType(type: string): IArrayTypeDTO
 
   isUnionType(type: string): boolean
-  unionType(type: string): Promise<OGM_TYPES.UnionType>
+  unionType(type: string): Promise<UnionType>
 
   isBooleanType(type: string): boolean
-  booleanType(type: string): Promise<OGM_TYPES.PrimitiveType>
+  booleanType(type: string): Promise<PrimitiveType>
 
   isStringType(type: string): boolean
-  stringType(type: string): Promise<OGM_TYPES.PrimitiveType>
+  stringType(type: string): Promise<PrimitiveType>
 
   isNumberType(type: string): boolean
-  numberType(type: string): Promise<OGM_TYPES.PrimitiveType>
+  numberType(type: string): Promise<PrimitiveType>
 
   isIntegerType(type: string): boolean
-  integerType(type: string): Promise<OGM_TYPES.PrimitiveType>
+  integerType(type: string): Promise<PrimitiveType>
 }

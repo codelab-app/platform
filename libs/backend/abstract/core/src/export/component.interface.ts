@@ -1,7 +1,7 @@
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { Component } from '@codelab/backend/abstract/codegen'
 
-export type IComponentExport = OGM_TYPES.Component
+export type IComponentExport = Component
 
 export interface IExportComponents {
-  components: Array<OGM_TYPES.Component>
+  components: Array<Component>
 }

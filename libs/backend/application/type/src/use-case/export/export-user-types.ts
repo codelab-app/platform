@@ -1,3 +1,4 @@
+import type { InterfaceType } from '@codelab/backend/abstract/codegen'
 import type { ITypesExport } from '@codelab/backend/abstract/core'
 import {
   exportInterfaceTypeSelectionSet,
@@ -5,7 +6,6 @@ import {
   getTypeDescendantsOGM,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 
 interface Descendant {
@@ -69,7 +69,7 @@ export const exportUserTypes = async (): Promise<ITypesExport> => {
         (interfaceType) => interfaceType.id === type.id,
       )
     })
-    .filter((type): type is OGM_TYPES.InterfaceType => Boolean(type))
+    .filter((type): type is InterfaceType => Boolean(type))
 
   // TODO: Need to fix type here
   return {

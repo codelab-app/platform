@@ -1,15 +1,18 @@
+import type {
+  Component,
+  ComponentWhere,
+} from '@codelab/backend/abstract/codegen'
 import {
   componentSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
 
 export const createComponent = async (
-  component: OGM_TYPES.Component,
+  component: Component,
   owner: IAuth0Owner,
-): Promise<OGM_TYPES.Component> => {
+): Promise<Component> => {
   const Component = await Repository.instance.Component
 
   const {
@@ -38,7 +41,7 @@ export const createComponent = async (
   return newComponent
 }
 
-export const findComponent = async (where: OGM_TYPES.ComponentWhere) => {
+export const findComponent = async (where: ComponentWhere) => {
   const Component = await Repository.instance.Component
 
   const components = await Component.find({

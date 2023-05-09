@@ -1,20 +1,23 @@
+import type {
+  RenderPropType,
+  RenderPropTypeWhere,
+} from '@codelab/backend/abstract/codegen'
 import {
   exportRenderPropTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IRenderPropTypeDTO } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 
 export class RenderPropTypeRepository extends AbstractRepository<
   IRenderPropTypeDTO,
-  OGM_TYPES.RenderPropType,
-  OGM_TYPES.RenderPropTypeWhere
+  RenderPropType,
+  RenderPropTypeWhere
 > {
   private RenderPropType = Repository.instance.RenderPropType
 
-  async _find(where: OGM_TYPES.RenderPropTypeWhere) {
+  async _find(where: RenderPropTypeWhere) {
     return await (
       await this.RenderPropType
     ).find({
@@ -41,7 +44,7 @@ export class RenderPropTypeRepository extends AbstractRepository<
 
   protected async _update(
     { __typename, id, name, owner }: IRenderPropTypeDTO,
-    where: OGM_TYPES.RenderPropTypeWhere,
+    where: RenderPropTypeWhere,
   ) {
     return (
       await (

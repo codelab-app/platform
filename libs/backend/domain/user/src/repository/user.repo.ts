@@ -1,16 +1,15 @@
+import type { User, UserWhere } from '@codelab/backend/abstract/codegen'
 import {
   Repository,
   userSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IUserDTO } from '@codelab/shared/abstract/core'
-import type { UserWhere } from '@codelab/shared/abstract/types'
 
 export class UserRepository extends AbstractRepository<
   IUserDTO,
-  OGM_TYPES.User,
-  OGM_TYPES.UserWhere
+  User,
+  UserWhere
 > {
   private User = Repository.instance.User
 

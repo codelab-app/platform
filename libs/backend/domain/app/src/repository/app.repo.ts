@@ -1,3 +1,4 @@
+import type { App, AppWhere } from '@codelab/backend/abstract/codegen'
 import type {
   ExportAppData,
   IAppExport,
@@ -24,7 +25,6 @@ import {
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO, IAuth0Owner } from '@codelab/shared/abstract/core'
 import {
   connectAuth0Owner,
@@ -37,14 +37,10 @@ import map from 'lodash/map'
 import omit from 'lodash/omit'
 import { validate } from './validate'
 
-export class AppRepository extends AbstractRepository<
-  IAppDTO,
-  OGM_TYPES.App,
-  OGM_TYPES.AppWhere
-> {
+export class AppRepository extends AbstractRepository<IAppDTO, App, AppWhere> {
   private App = Repository.instance.App
 
-  async _find(where: OGM_TYPES.AppWhere = {}) {
+  async _find(where: AppWhere = {}) {
     return await (
       await this.App
     ).find({
@@ -71,10 +67,7 @@ export class AppRepository extends AbstractRepository<
     ).apps
   }
 
-  protected async _update(
-    { name, owner, pages }: IAppDTO,
-    where: OGM_TYPES.AppWhere,
-  ) {
+  protected async _update({ name, owner, pages }: IAppDTO, where: AppWhere) {
     return (
       await (
         await this.App
@@ -215,7 +208,7 @@ export const createComponents = async (
  * Gather all pages, elements and components
  */
 
-export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
+export const getApp = async (app: App): Promise<ExportAppData> => {
   const pageRepository = new PageRepository()
   const pages = await pageRepository.find({ app: { id: app.id } })
 
@@ -253,7 +246,7 @@ export const getApp = async (app: OGM_TYPES.App): Promise<ExportAppData> => {
 // export component of the app
 
 export const getAppComponents = async (
-  app: OGM_TYPES.App,
+  app: App,
 ): Promise<IExportComponents> => {
   const pageRepository = new PageRepository()
   const pages = await pageRepository.find({ app: { id: app.id } })

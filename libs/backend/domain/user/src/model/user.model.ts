@@ -1,4 +1,4 @@
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import { Role } from '@codelab/backend/abstract/codegen'
 import type {
   Auth0SessionUser,
   IRole,
@@ -34,8 +34,7 @@ export class User implements IUserDTO {
       auth0Id,
       email,
       id: v4(),
-      // roles: rolesToEnum(roles),
-      roles: [OGM_TYPES.Role.Admin],
+      roles: [Role.Admin],
 
       username: nickname,
     })

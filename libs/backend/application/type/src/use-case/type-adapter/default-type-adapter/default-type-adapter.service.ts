@@ -1,3 +1,8 @@
+import type {
+  EnumType as IEnumType,
+  InterfaceType as IInterfaceType,
+  UnionType as IUnionType,
+} from '@codelab/backend/abstract/codegen'
 import type { IType } from '@codelab/backend/abstract/core'
 import type { ITypeTransformer } from '@codelab/backend/abstract/ports'
 import { IAuthUseCase } from '@codelab/backend/abstract/types'
@@ -12,7 +17,6 @@ import {
   UnionType,
 } from '@codelab/backend/domain/type'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type {
   IAtomDTO,
   IAuth0Owner,
@@ -241,7 +245,7 @@ export class DefaultTypeAdapterService
       owner: this.owner,
     }
 
-    return await TypeFactory.save<OGM_TYPES.InterfaceType>(interfaceType)
+    return await TypeFactory.save<IInterfaceType>(interfaceType)
   }
 
   async booleanType() {
@@ -317,7 +321,7 @@ export class DefaultTypeAdapterService
       typesOfUnionType: mappedTypesOfUnionType,
     }
 
-    return await TypeFactory.save<OGM_TYPES.UnionType>(unionType)
+    return await TypeFactory.save<IUnionType>(unionType)
   }
 
   async enumType(type: string) {
@@ -338,7 +342,7 @@ export class DefaultTypeAdapterService
       owner: this.owner,
     }
 
-    return await TypeFactory.save<OGM_TYPES.EnumType>(enumType)
+    return await TypeFactory.save<IEnumType>(enumType)
   }
 
   isReactNodeType(type: string) {

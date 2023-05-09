@@ -1,5 +1,5 @@
+import type { Element } from '@codelab/backend/abstract/codegen'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 
@@ -7,7 +7,7 @@ import { compoundCaseToTitleCase } from '@codelab/shared/utils'
  * Creates the element without prop map bindings and without parent/children connections
  */
 
-const label = (element: OGM_TYPES.Element) =>
+const label = (element: Element) =>
   element.name ||
   element.renderAtomType?.name ||
   (element.renderAtomType
@@ -17,8 +17,8 @@ const label = (element: OGM_TYPES.Element) =>
   element.renderComponentType?.name
 
 export const importElementInitial = async (
-  element: OGM_TYPES.Element,
-): Promise<OGM_TYPES.Element> => {
+  element: Element,
+): Promise<Element> => {
   const Element = await Repository.instance.Element
 
   const existing = await Element.find({
@@ -99,7 +99,7 @@ export const importElementInitial = async (
  */
 // TODO: update CLI to support the new elment-parent structure
 export const updateImportedElement = async (
-  element: OGM_TYPES.Element,
+  element: Element,
 ): Promise<void> => {
   const Element = await Repository.instance.Element
 

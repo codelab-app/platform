@@ -1,10 +1,10 @@
+import { SortDirection } from '@codelab/backend/abstract/codegen'
 import type { ITypesExport } from '@codelab/backend/abstract/core'
 import {
   exportFieldSelectionSet,
   exportInterfaceTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { sortInterfaceTypesFields } from '../../mapper/sort'
 
 /**
@@ -22,7 +22,7 @@ export const exportAtomApis = async (): Promise<ITypesExport> => {
 
   const interfaceTypes = await InterfaceType.find({
     options: {
-      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+      sort: [{ name: SortDirection.Asc }],
     },
     selectionSet: exportInterfaceTypeSelectionSet,
     // Where it is assigned to atom
@@ -40,7 +40,7 @@ export const exportAtomApis = async (): Promise<ITypesExport> => {
 
   const fields = await Field.find({
     options: {
-      sort: [{ key: OGM_TYPES.SortDirection.Asc }],
+      sort: [{ key: SortDirection.Asc }],
     },
     selectionSet: exportFieldSelectionSet,
     where: {

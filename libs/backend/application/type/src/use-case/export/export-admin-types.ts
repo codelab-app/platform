@@ -1,3 +1,4 @@
+import { SortDirection } from '@codelab/backend/abstract/codegen'
 import type { ITypesExport } from '@codelab/backend/abstract/core'
 import {
   exportArrayTypeSelectionSet,
@@ -7,8 +8,8 @@ import {
   exportUnionTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IFieldDTO } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { sortInterfaceTypesFields } from '../../mapper/sort'
 
 /**
@@ -38,7 +39,7 @@ export const exportAdminTypes = async (
    */
   const unionTypes = await UnionType.find({
     options: {
-      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+      sort: [{ name: SortDirection.Asc }],
     },
     selectionSet: exportUnionTypeSelectionSet,
     where: {
@@ -51,7 +52,7 @@ export const exportAdminTypes = async (
    */
   const arrayTypes = await Array.find({
     options: {
-      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+      sort: [{ name: SortDirection.Asc }],
     },
     selectionSet: exportArrayTypeSelectionSet,
     where: {
@@ -72,14 +73,13 @@ export const exportAdminTypes = async (
    */
   const arrayInterfaceItemTypes = await InterfaceType.find({
     options: {
-      sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+      sort: [{ name: SortDirection.Asc }],
     },
     selectionSet: exportInterfaceTypeSelectionSet,
     where: {
       id_IN: arrayTypes
         .filter(
-          (arrayType) =>
-            arrayType.itemType.kind === OGM_TYPES.TypeKind.InterfaceType,
+          (arrayType) => arrayType.itemType.kind === ITypeKind.InterfaceType,
         )
         .map((arrayType) => arrayType.itemType.id),
     },
@@ -91,7 +91,7 @@ export const exportAdminTypes = async (
   const enumTypes = (
     await EnumType.find({
       options: {
-        sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+        sort: [{ name: SortDirection.Asc }],
       },
       selectionSet: exportEnumTypeSelectionSet,
       where: props.apiId
@@ -121,7 +121,7 @@ export const exportAdminTypes = async (
   const firstLevelInterfaceTypes = sortInterfaceTypesFields(
     await InterfaceType.find({
       options: {
-        sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+        sort: [{ name: SortDirection.Asc }],
       },
       selectionSet: exportInterfaceTypeSelectionSet,
       where: {
@@ -155,7 +155,7 @@ export const exportAdminTypes = async (
   const secondLevelInterfaceTypes = sortInterfaceTypesFields(
     await InterfaceType.find({
       options: {
-        sort: [{ name: OGM_TYPES.SortDirection.Asc }],
+        sort: [{ name: SortDirection.Asc }],
       },
       selectionSet: exportInterfaceTypeSelectionSet,
       where: {
@@ -177,7 +177,7 @@ export const exportAdminTypes = async (
    */
   const fields = await Field.find({
     options: {
-      sort: [{ key: OGM_TYPES.SortDirection.Asc }],
+      sort: [{ key: SortDirection.Asc }],
     },
     selectionSet: exportFieldSelectionSet,
     where: {

@@ -1,20 +1,23 @@
+import type {
+  ActionType,
+  ActionTypeWhere,
+} from '@codelab/backend/abstract/codegen'
 import {
   exportActionTypeSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import type { IActionTypeDTO } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 
 export class ActionTypeRepository extends AbstractRepository<
   IActionTypeDTO,
-  OGM_TYPES.ActionType,
-  OGM_TYPES.ActionTypeWhere
+  ActionType,
+  ActionTypeWhere
 > {
   private ActionType = Repository.instance.ActionType
 
-  async _find(where: OGM_TYPES.ActionTypeWhere) {
+  async _find(where: ActionTypeWhere) {
     return await (
       await this.ActionType
     ).find({
@@ -39,7 +42,7 @@ export class ActionTypeRepository extends AbstractRepository<
 
   protected async _update(
     { __typename, id, name, owner, ...actionType }: IActionTypeDTO,
-    where: OGM_TYPES.ActionTypeWhere,
+    where: ActionTypeWhere,
   ) {
     return (
       await (
