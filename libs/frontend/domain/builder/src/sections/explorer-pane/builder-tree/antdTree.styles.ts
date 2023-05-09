@@ -5,7 +5,4 @@ export const antdTreeStyle = css`
   .ant-tree-node-content-wrapper.ant-tree-node-selected {
     padding: 0 !important;
   }
-
-  height: 45%;
-  overflow: auto;
 `

@@ -31,7 +31,6 @@ query GetAtomOptions {
     id
     name
     type
-    icon
   }
 }
 
