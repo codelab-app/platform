@@ -206,12 +206,12 @@ export const exportAdminTypes = async (
       type.kind === ITypeKind.ArrayType,
   )
 
-  // if (!withSubTypes.length) {
-  //   return {
-  //     fields,
-  //     types,
-  //   }
-  // }
+  if (!withSubTypes.length) {
+    return {
+      fields,
+      types: types.flat(),
+    }
+  }
 
   /**
    * Get all subtypes of interface types and array types

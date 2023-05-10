@@ -174,9 +174,11 @@ export class ExportAdminDataService extends IUseCase<
 
   saveComponentAsFile(componentData: IComponentExportData) {
     const { api, component, descendantElements, fields, types } = componentData
+    // Component name can have spaces, which can cause issues with file names
+    const name = component.name.replace(/ /g, '')
 
     saveFormattedFile(
-      path.resolve(this.dataPaths.COMPONENTS_PATH, `${component.name}.json`),
+      path.resolve(this.dataPaths.COMPONENTS_PATH, `${name}.json`),
       {
         api,
         component,
