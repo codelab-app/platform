@@ -218,18 +218,10 @@ export const exportAdminTypes = async (
    */
   const subTypes = await Promise.all(
     withSubTypes.map(async (subType) => {
-      const { fields: exportedSubFields, types: exportedSubTypes } =
-        await exportAdminTypes({
-          apiFields: fields.filter(
-            (field) => field.fieldType.id === subType.id,
-          ),
-          apiId: subType.id,
-        })
-
-      return {
-        fields: exportedSubFields,
-        types: exportedSubTypes,
-      }
+      return await exportAdminTypes({
+        apiFields: fields.filter((field) => field.fieldType.id === subType.id),
+        apiId: subType.id,
+      })
     }),
   )
 
@@ -237,6 +229,8 @@ export const exportAdminTypes = async (
    * Here we create the interface dependency tree order
    *
    * Further to the front are closer to the leaf.
+   *
+   * Subtypes are included first so that they can be referenced in the parent type
    */
   return {
     fields: [...subTypes.map((value) => value.fields).flat(), ...fields],

@@ -8,6 +8,10 @@ export interface IExportComponents {
   components: Array<Component>
 }
 
+/**
+ * This type is used for exporting components individually
+ * We need to export the types, api and descendant elements as well
+ */
 export type IComponentExportData = ITypesExport & {
   api: IInterfaceTypeDTO
   component: Component

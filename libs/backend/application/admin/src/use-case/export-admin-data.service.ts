@@ -1,10 +1,10 @@
+import type { ComponentWhere } from '@codelab/backend/abstract/codegen'
 import type {
   IAdminDataExport,
   IComponentExportData,
 } from '@codelab/backend/abstract/core'
 import { IUseCase } from '@codelab/backend/abstract/types'
 import { exportAtoms } from '@codelab/backend/application/atom'
-import type { ExportComponentsProps } from '@codelab/backend/application/component'
 import { exportComponents } from '@codelab/backend/application/component'
 import { exportTags } from '@codelab/backend/application/tag'
 import {
@@ -130,8 +130,8 @@ export class ExportAdminDataService extends IUseCase<
     )
   }
 
-  private async extractComponentsData(props?: ExportComponentsProps) {
-    const componentsData = await exportComponents(props)
+  private async extractComponentsData(where?: ComponentWhere) {
+    const componentsData = await exportComponents(where)
     const apis = await exportAtomApis()
 
     return Promise.all(
@@ -165,7 +165,7 @@ export class ExportAdminDataService extends IUseCase<
   }
 
   async exportComponent(id: string) {
-    const componentsData = await this.extractComponentsData({ where: { id } })
+    const componentsData = await this.extractComponentsData({ id })
 
     if (componentsData[0]) {
       this.saveComponentAsFile(componentsData[0])

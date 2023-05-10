@@ -1,37 +1,37 @@
 {
   "api": {
     "__typename": "InterfaceType",
-    "id": "484abba7-8a85-4a07-8cb2-2e78ab7458bf",
+    "id": "d8d412dd-2611-4132-8234-e7ea8667c919",
     "kind": "InterfaceType",
-    "name": "Google Fonts Picker API",
+    "name": "Google Fonts API",
     "fields": [
       {
-        "id": "3c5056b6-2bba-4a7d-8a90-b2f290334969"
+        "id": "cdf4060c-824c-4083-9405-aeaad52526f6"
       }
     ]
   },
   "component": {
-    "id": "68bdf6f2-df31-4c9c-a535-a67e8e4304f6",
-    "name": "Google Fonts Picker",
+    "id": "417cba0d-a781-485d-82d5-cb3672efe555",
+    "name": "Google Fonts",
     "rootElement": {
-      "id": "392deb42-c6ea-4d46-a1cb-e6eacf28fe81",
-      "name": "Google Fonts Picker"
+      "id": "562984ba-3c4a-41df-8375-21dbc750915c",
+      "name": "Google Fonts"
     },
     "owner": {
       "auth0Id": "google-oauth2|102754257061116639674"
     },
     "props": {
-      "id": "e4be8c5e-d316-49b8-86e8-dfcd68540f55",
-      "data": "{\"fonts\":[{\"weight\":\"400\",\"family\":\"Pacifico, handwriting\"}]}"
+      "id": "7e8d336a-65b3-47cd-9a44-2bb446155210",
+      "data": "{\"fonts\":[{\"weight\":\"400\",\"family\":\"Roboto, sans-serif\"}]}"
     },
     "store": {
-      "id": "41fddc60-d645-4988-b99f-64777f3ad0c2",
-      "name": "Google Fonts Picker Store",
+      "id": "ee6cb6a6-fadd-4e24-85eb-477f33bee868",
+      "name": "Google Fonts Store",
       "api": {
         "__typename": "InterfaceType",
-        "id": "989f0f64-1d4d-439b-9f72-f96164b51b38",
+        "id": "369777a3-7afb-4059-be35-71d145fed48d",
         "kind": "InterfaceType",
-        "name": "Google Fonts Picker Store API",
+        "name": "Google Fonts Store API",
         "owner": {
           "auth0Id": "google-oauth2|102754257061116639674"
         },
@@ -41,19 +41,19 @@
     },
     "api": {
       "__typename": "InterfaceType",
-      "id": "484abba7-8a85-4a07-8cb2-2e78ab7458bf",
+      "id": "d8d412dd-2611-4132-8234-e7ea8667c919",
       "kind": "InterfaceType",
-      "name": "Google Fonts Picker API",
+      "name": "Google Fonts API",
       "owner": {
         "auth0Id": "google-oauth2|102754257061116639674"
       },
       "fields": [
         {
-          "id": "3c5056b6-2bba-4a7d-8a90-b2f290334969",
+          "id": "cdf4060c-824c-4083-9405-aeaad52526f6",
           "key": "fonts",
           "name": null,
           "description": null,
-          "validationRules": "{}",
+          "validationRules": "{\"general\":{\"nullable\":true}}",
           "defaultValues": "[]",
           "prevSibling": null,
           "nextSibling": null,
@@ -64,24 +64,24 @@
             "name": "GoogleFonts"
           },
           "api": {
-            "id": "484abba7-8a85-4a07-8cb2-2e78ab7458bf"
+            "id": "d8d412dd-2611-4132-8234-e7ea8667c919"
           }
         }
       ]
     },
     "childrenContainerElement": {
-      "id": "392deb42-c6ea-4d46-a1cb-e6eacf28fe81"
+      "id": "562984ba-3c4a-41df-8375-21dbc750915c"
     }
   },
   "descendantElements": [
     {
-      "id": "392deb42-c6ea-4d46-a1cb-e6eacf28fe81",
-      "name": "Google Fonts Picker",
+      "id": "562984ba-3c4a-41df-8375-21dbc750915c",
+      "name": "Google Fonts",
       "customCss": null,
       "guiCss": null,
       "parentComponent": {
-        "id": "68bdf6f2-df31-4c9c-a535-a67e8e4304f6",
-        "name": "Google Fonts Picker"
+        "id": "417cba0d-a781-485d-82d5-cb3672efe555",
+        "name": "Google Fonts"
       },
       "renderComponentType": null,
       "renderType": {
@@ -93,7 +93,7 @@
       "nextSibling": null,
       "firstChild": null,
       "props": {
-        "id": "86fb3262-650f-4090-8c5c-02a74676ddf5",
+        "id": "135c4280-aa76-4026-bb9b-92c1ac363bf1",
         "data": "{}"
       },
       "renderForEachPropKey": null,

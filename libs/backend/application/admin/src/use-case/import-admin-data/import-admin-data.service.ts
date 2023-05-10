@@ -7,10 +7,7 @@ import type {
 import { IUseCase } from '@codelab/backend/abstract/types'
 import { createComponents } from '@codelab/backend/domain/app'
 import { AtomRepository } from '@codelab/backend/domain/atom'
-import {
-  importElementInitial,
-  updateImportedElement,
-} from '@codelab/backend/domain/element'
+import { importElementInitial } from '@codelab/backend/domain/element'
 import { TagRepository } from '@codelab/backend/domain/tag'
 import {
   FieldRepository,
@@ -97,7 +94,6 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
   }
 
   async importComponents(owner: IAuth0Owner) {
-    // TODO: optimize
     const componentsExportData = this.exportedAdminData.components
 
     for await (const {
@@ -105,32 +101,21 @@ export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
       fields,
       types,
     } of componentsExportData) {
-      // Create types first so they can be referenced
       for await (const type of types) {
         await TypeFactory.save({ ...type, owner })
       }
 
-      // Finally fields
       for await (const field of fields) {
         await this.fieldRepository.save(field)
       }
 
       for await (const element of descendantElements) {
-        await importElementInitial({
-          ...element,
-          parentComponent: undefined,
-        })
+        await importElementInitial(element)
       }
     }
 
     const components = componentsExportData.map((item) => item.component)
     await createComponents(components, owner)
-
-    for await (const { descendantElements } of componentsExportData) {
-      for (const descendant of descendantElements) {
-        await updateImportedElement(descendant)
-      }
-    }
   }
 
   /**
