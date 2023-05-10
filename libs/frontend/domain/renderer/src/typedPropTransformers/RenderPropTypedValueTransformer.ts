@@ -1,16 +1,14 @@
 import type {
   IElement,
   IField,
-  TypedValue,
+  TypedProp,
 } from '@codelab/frontend/abstract/core'
 import {
   expressionTransformer,
   hasStateExpression,
 } from '@codelab/frontend/shared/utils'
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import isString from 'lodash/isString'
 import { ExtendedModel, model } from 'mobx-keystone'
-import type { ITypedValueTransformer } from '../abstract/ITypedValueTransformer'
+import type { ITypedPropTransformer } from '../abstract/ITypedPropTransformer'
 import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
 import { cloneComponent } from '../utils'
 
@@ -41,35 +39,22 @@ const matchPropsToFields = (fields: Array<IField> = [], props: Array<object>) =>
 @model('@codelab/RenderPropTypedValueTransformer')
 export class RenderPropTypedValueTransformer
   extends ExtendedModel(BaseRenderPipe, {})
-  implements ITypedValueTransformer
+  implements ITypedPropTransformer
 {
-  canHandleTypeKind(typeKind: ITypeKind): boolean {
-    return typeKind === ITypeKind.RenderPropType
-  }
-
-  canHandleValue(value: TypedValue<unknown>): boolean {
-    const isComponentId =
-      isString(value.value) && this.componentService.components.has(value.value)
-
-    const isComponentExpression = hasStateExpression(value.value)
-
-    // either when it is a componentId or a component expression
-    return isComponentId || isComponentExpression
-  }
-
-  public transform(value: TypedValue<string>, element: IElement) {
-    if (hasStateExpression(value.value) && expressionTransformer.initialized) {
-      return expressionTransformer.transpileAndEvaluateExpression(value.value)
+  public transform(prop: TypedProp, element: IElement) {
+    if (hasStateExpression(prop.value) && expressionTransformer.initialized) {
+      return expressionTransformer.transpileAndEvaluateExpression(prop.value)
     }
 
-    const { value: componentId } = value
-    const component = this.componentService.components.get(componentId)
+    const component = this.componentService.components.get(prop.value)
     const fields = component?.api.current.fields
+    // can't return prop object because it will be passed as React Child, which will throw an error
+    const fallback = ''
 
     if (!component) {
       console.error('Component not found')
 
-      return value
+      return fallback
     }
 
     // spread is required to access all args not just the first one
@@ -81,7 +66,7 @@ export class RenderPropTypedValueTransformer
       if (!componentClone) {
         console.error('Failed to clone component')
 
-        return value
+        return fallback
       }
 
       const rootElement = componentClone.rootElement.current

@@ -9,6 +9,7 @@ import type {
   IStore,
   RenderingError,
   RenderingMetadata,
+  TransformPropsFn,
 } from '@codelab/frontend/abstract/core'
 import {
   componentRef,
@@ -50,8 +51,6 @@ import {
   Ref,
 } from 'mobx-keystone'
 import { getRenderType } from './utils'
-
-type TransformFn = (props: IPropData) => IPropData
 
 const create = ({
   customCss,
@@ -363,7 +362,7 @@ export class Element
    * Parses and materializes the propTransformationJs
    */
   @computed
-  get transformFn(): Maybe<TransformFn> {
+  get transformPropsFn(): Maybe<TransformPropsFn> {
     if (!this.propTransformationJs) {
       return undefined
     }
@@ -474,7 +473,7 @@ export class Element
    * If failed, returns the original props
    */
   executePropTransformJs = (props: IPropData) => {
-    const transformFn = this.transformFn
+    const transformFn = this.transformPropsFn
 
     if (!transformFn) {
       return props
