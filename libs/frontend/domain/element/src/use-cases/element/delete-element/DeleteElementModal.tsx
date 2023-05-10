@@ -21,7 +21,8 @@ export const DeleteElementModal = observer(() => {
   const elementToDelete = elementService.deleteModal.element
 
   const onSubmit = ({ element }: DeleteElementData) => {
-    // Get parent or previous sibling before we delete the current element
+    // Get parent before we delete the current element
+    const parentElement = elementToDelete.closestParent
 
     const newSelectedNode =
       elementToDelete.prevSibling?.current ?? elementToDelete.parent?.current
