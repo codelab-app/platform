@@ -202,16 +202,16 @@ export const exportAdminTypes = async (
 
   const withSubTypes = types.filter(
     (type) =>
-      type.kind === OGM_TYPES.TypeKind.InterfaceType ||
-      type.kind === OGM_TYPES.TypeKind.ArrayType,
+      type.kind === ITypeKind.InterfaceType ||
+      type.kind === ITypeKind.ArrayType,
   )
 
-  if (!withSubTypes.length) {
-    return {
-      fields,
-      types,
-    }
-  }
+  // if (!withSubTypes.length) {
+  //   return {
+  //     fields,
+  //     types,
+  //   }
+  // }
 
   /**
    * Get all subtypes of interface types and array types

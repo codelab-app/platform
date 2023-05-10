@@ -3,18 +3,20 @@ import {
   componentSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
+import type { ComponentWhere } from '@codelab/shared/abstract/codegen'
 
 export interface ExportComponentsProps {
-  where?: OGM_TYPES.ComponentWhere
+  where?: ComponentWhere
 }
 
 export const exportComponents = async (props: ExportComponentsProps = {}) => {
   const Component = await Repository.instance.Component
 
   const components = await Component.find({
+    args: {
+      where: props.where,
+    },
     selectionSet: componentSelectionSet,
-    where: props.where,
   })
 
   return Promise.all(
