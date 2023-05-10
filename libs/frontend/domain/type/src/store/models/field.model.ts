@@ -4,12 +4,7 @@ import type {
   IType,
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
-import {
-  fieldRef,
-  IField,
-  IFieldDTO,
-  typeRef,
-} from '@codelab/frontend/abstract/core'
+import { fieldRef, IField, typeRef } from '@codelab/frontend/abstract/core'
 import type { FieldUpdateInput } from '@codelab/shared/abstract/codegen'
 import { IFieldDTO } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'

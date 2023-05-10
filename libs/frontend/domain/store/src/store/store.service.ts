@@ -8,7 +8,6 @@ import type {
 import {
   actionRef,
   componentRef,
-  IStoreDTO,
   pageRef,
   storeRef,
   typeRef,
@@ -19,7 +18,7 @@ import type {
   StoreFragment,
   StoreWhere,
 } from '@codelab/shared/abstract/codegen'
-import type { IStoreDTO } from '@codelab/shared/abstract/core'
+import { IStoreDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import {

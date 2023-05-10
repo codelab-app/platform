@@ -1,11 +1,4 @@
 import type { IApp, IDomain, IPage } from '@codelab/frontend/abstract/core'
-import type {
-  IApp,
-  IAppDTO,
-  IAuth0Owner,
-  IDomain,
-  IPage,
-} from '@codelab/frontend/abstract/core'
 import { domainRef, pageRef } from '@codelab/frontend/abstract/core'
 import type {
   AppCreateInput,
