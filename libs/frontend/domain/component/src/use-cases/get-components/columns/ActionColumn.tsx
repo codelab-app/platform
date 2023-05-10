@@ -7,9 +7,8 @@ import {
   ListItemDeleteButton,
   ListItemEditButton,
 } from '@codelab/frontend/presentation/view'
-import { Space } from 'antd'
+import { Button, message, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import type { ComponentColumnData } from './types'
@@ -37,14 +36,20 @@ export const ActionColumn = observer<ActionColumnProps>(({ component }) => {
     })
   }
 
+  const onExport = async () => {
+    void fetch(`/api/export/component?id=${component.id}`).then(() =>
+      message.success('Export success!'),
+    )
+  }
+
   return (
     <Space size="middle">
       <ListItemButton icon={<ApartmentOutlined />} onClick={onBuilder} />
       <ListItemEditButton onClick={onEdit} />
       <ListItemDeleteButton onClick={onDelete} />
-      <Link href={`/api/export/component?id=${component.id}`}>
-        <span>Export</span>
-      </Link>
+      <Button onClick={onExport} type="text">
+        Export
+      </Button>
     </Space>
   )
 })
