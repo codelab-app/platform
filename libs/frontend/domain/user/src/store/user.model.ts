@@ -1,6 +1,6 @@
-import type { IUser, IUserDTO } from '@codelab/frontend/abstract/core'
+import type { IUser } from '@codelab/frontend/abstract/core'
 // import { appRef } from '@codelab/frontend/domain/app'
-import type { IRole } from '@codelab/shared/abstract/core'
+import type { IRole, IUserDTO } from '@codelab/shared/abstract/core'
 // import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 

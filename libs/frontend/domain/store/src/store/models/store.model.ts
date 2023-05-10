@@ -1,6 +1,5 @@
 import type {
   IAction,
-  IAppDTO,
   IComponent,
   IInterfaceType,
   IPage,
@@ -18,6 +17,7 @@ import type {
   StoreDeleteInput,
   StoreUpdateInput,
 } from '@codelab/shared/abstract/codegen'
+import type { IAppDTO, IStoreDTO } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import merge from 'lodash/merge'

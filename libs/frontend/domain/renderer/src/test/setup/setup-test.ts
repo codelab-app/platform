@@ -106,6 +106,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     })
 
     const pageStore = new Store({
+      actions: [],
       api: typeRef(emptyInterface.id) as Ref<IInterfaceType>,
       component: null,
       id: v4(),
