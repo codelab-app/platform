@@ -7,6 +7,7 @@ import {
   ListItemDeleteButton,
   ListItemEditButton,
 } from '@codelab/frontend/presentation/view'
+import { useAsync } from '@react-hookz/web'
 import { Button, message, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
@@ -20,6 +21,10 @@ export interface ActionColumnProps {
 export const ActionColumn = observer<ActionColumnProps>(({ component }) => {
   const router = useRouter()
   const { componentService } = useStore()
+
+  const [{ status }, exportComponent] = useAsync(() =>
+    fetch(`/api/export/component?id=${component.id}`),
+  )
 
   const onEdit = () => {
     componentService.updateModal.open(componentRef(component.id))
@@ -37,9 +42,10 @@ export const ActionColumn = observer<ActionColumnProps>(({ component }) => {
   }
 
   const onExport = async () => {
-    void fetch(`/api/export/component?id=${component.id}`).then(() =>
-      message.success('Export success!'),
-    )
+    exportComponent
+      .execute()
+      .then(() => message.success('Export success!'))
+      .catch(() => message.error('Export failed!'))
   }
 
   return (
@@ -47,7 +53,7 @@ export const ActionColumn = observer<ActionColumnProps>(({ component }) => {
       <ListItemButton icon={<ApartmentOutlined />} onClick={onBuilder} />
       <ListItemEditButton onClick={onEdit} />
       <ListItemDeleteButton onClick={onDelete} />
-      <Button onClick={onExport} type="text">
+      <Button loading={status === 'loading'} onClick={onExport} type="text">
         Export
       </Button>
     </Space>
