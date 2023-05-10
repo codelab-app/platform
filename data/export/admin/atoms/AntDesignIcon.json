@@ -12,6 +12,9 @@
         "id": "5f34a1f4-38e2-4bfe-a43e-f46901792a7b"
       },
       {
+        "id": "9f28cc92-2e53-4b8b-8b7f-0ef5734f2c86"
+      },
+      {
         "id": "de6b3607-bfbe-41d3-9ad0-5e2d4a12450e"
       }
     ]
@@ -46,6 +49,23 @@
       "description": null,
       "validationRules": null,
       "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "9a1fb9ff-df8c-4377-9b10-d1f7425c0ff4"
+      }
+    },
+    {
+      "id": "9f28cc92-2e53-4b8b-8b7f-0ef5734f2c86",
+      "key": "name",
+      "name": "Icon Name",
+      "description": null,
+      "validationRules": "{\"general\":{\"nullable\":false}}",
+      "defaultValues": "\"PictureOutlined\"",
       "fieldType": {
         "__typename": "PrimitiveType",
         "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",

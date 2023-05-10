@@ -7,18 +7,15 @@ type _IconProps = IconProps & {
   /**
    * Name of destructured icon to use
    */
-  name: string
+  name: keyof typeof AntdIcons | null
 }
 
 export const AntdIcon = ({ name, ...props }: _IconProps) => {
-  if (!name) {
+  const icon = name && AntdIcons[name]
+
+  if (!icon) {
     return null
   }
 
-  return React.createElement(
-    AntdIcons[name as keyof typeof AntdIcons] as (
-      props: IconProps,
-    ) => ReactElement,
-    props,
-  )
+  return React.createElement(icon as (props: IconProps) => ReactElement, props)
 }
