@@ -17,4 +17,8 @@ export class DataPaths {
   get TAGS_FILE_PATH() {
     return path.resolve(this.DATA_PATH, './admin/tags/tags.json')
   }
+
+  get COMPONENTS_PATH() {
+    return path.resolve(this.DATA_PATH, './admin/components')
+  }
 }

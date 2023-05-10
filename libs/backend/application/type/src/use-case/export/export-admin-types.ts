@@ -191,20 +191,55 @@ export const exportAdminTypes = async (
     },
   })
 
+  const types = [
+    ...enumTypes,
+    ...firstLevelInterfaceTypes,
+    ...secondLevelInterfaceTypes,
+    ...arrayInterfaceItemTypes,
+    ...arrayTypes,
+    ...unionTypes,
+  ]
+
+  const withSubTypes = types.filter(
+    (type) =>
+      type.kind === OGM_TYPES.TypeKind.InterfaceType ||
+      type.kind === OGM_TYPES.TypeKind.ArrayType,
+  )
+
+  if (!withSubTypes.length) {
+    return {
+      fields,
+      types,
+    }
+  }
+
+  /**
+   * Get all subtypes of interface types and array types
+   */
+  const subTypes = await Promise.all(
+    withSubTypes.map(async (subType) => {
+      const { fields: exportedSubFields, types: exportedSubTypes } =
+        await exportAdminTypes({
+          apiFields: fields.filter(
+            (field) => field.fieldType.id === subType.id,
+          ),
+          apiId: subType.id,
+        })
+
+      return {
+        fields: exportedSubFields,
+        types: exportedSubTypes,
+      }
+    }),
+  )
+
   /**
    * Here we create the interface dependency tree order
    *
    * Further to the front are closer to the leaf.
    */
   return {
-    fields,
-    types: [
-      ...enumTypes,
-      ...firstLevelInterfaceTypes,
-      ...secondLevelInterfaceTypes,
-      ...arrayInterfaceItemTypes,
-      ...arrayTypes,
-      ...unionTypes,
-    ],
+    fields: [...subTypes.map((value) => value.fields).flat(), ...fields],
+    types: [...subTypes.map((subType) => subType.types).flat(), ...types],
   }
 }

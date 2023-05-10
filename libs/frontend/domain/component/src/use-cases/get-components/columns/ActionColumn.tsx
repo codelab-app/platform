@@ -9,6 +9,7 @@ import {
 } from '@codelab/frontend/presentation/view'
 import { Space } from 'antd'
 import { observer } from 'mobx-react-lite'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import type { ComponentColumnData } from './types'
@@ -41,6 +42,9 @@ export const ActionColumn = observer<ActionColumnProps>(({ component }) => {
       <ListItemButton icon={<ApartmentOutlined />} onClick={onBuilder} />
       <ListItemEditButton onClick={onEdit} />
       <ListItemDeleteButton onClick={onDelete} />
+      <Link href={`/api/export/component?id=${component.id}`}>
+        <span>Export</span>
+      </Link>
     </Space>
   )
 })
