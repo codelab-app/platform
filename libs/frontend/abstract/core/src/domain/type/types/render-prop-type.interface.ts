@@ -9,7 +9,7 @@ import type {
 import type { IBaseType } from './base-type.interface'
 
 /**
- * Prop values for this type have the shape of {@see TypedValue} in order to
+ * Prop values for this type have the shape of {@see TypedProp} in order to
  * be distinguished from other element types.
  *
  * Comparison between different element types:

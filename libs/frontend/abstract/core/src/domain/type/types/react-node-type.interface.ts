@@ -11,7 +11,7 @@ import type { IBaseType } from './base-type.interface'
 /**
  * Allows picking a Component from the list of components.
  *
- * Prop values for this type have the shape of {@see TypedValue} in order to
+ * Prop values for this type have the shape of {@see TypedProp} in order to
  * be distinguished from other element types.
  *
  * Comparison between different element types:
