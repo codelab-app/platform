@@ -17,239 +17,7 @@
         {
           "elements": [
             {
-              "id": "19d80737-acf9-46db-8337-104c1b66b689",
-              "name": "About Duplicate",
-              "customCss": null,
-              "guiCss": null,
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
-                "kind": "Atom"
-              },
-              "parent": { "id": "edea1558-7743-44d9-b97a-5afdb44b6536" },
-              "prevSibling": null,
-              "nextSibling": { "id": "4a40db40-c857-455e-b977-cf85e58ff2f3" },
-              "firstChild": null,
-              "props": {
-                "id": "71651184-2726-4824-a309-a62a3c7932e9",
-                "data": "{\"title\":{\"value\":\"{{\\\"about\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/about\"}"
-              },
-              "renderForEachPropKey": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "renderAtomType": {
-                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
-                "name": "AntDesignAnchorLink"
-              }
-            },
-            {
-              "id": "621cfd09-3aeb-48c3-8fdc-cfaffa7c08e9",
-              "name": "Home",
-              "customCss": null,
-              "guiCss": null,
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
-                "kind": "Atom"
-              },
-              "parent": { "id": "798770b4-ae0d-486a-8780-6293b6855d1e" },
-              "prevSibling": null,
-              "nextSibling": { "id": "72598184-eb1a-4274-87f4-aa5863107aa3" },
-              "firstChild": null,
-              "props": {
-                "id": "bd937767-5918-40bb-8037-ec7e85944a15",
-                "data": "{\"title\":{\"value\":\"{{\\\"home\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/\"}"
-              },
-              "renderForEachPropKey": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "renderAtomType": {
-                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
-                "name": "AntDesignAnchorLink"
-              }
-            },
-            {
-              "id": "5220576a-6c35-4aa8-be58-3b02b707ab05",
-              "name": "Main",
-              "customCss": "background-color: #111010;",
-              "guiCss": "{}",
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612",
-                "kind": "Atom"
-              },
-              "parent": null,
-              "prevSibling": { "id": "5e96e399-2a61-49ab-8365-3a74addd6d4a" },
-              "nextSibling": null,
-              "firstChild": null,
-              "props": {
-                "id": "fadb28d7-edfa-42fc-9e5a-7df339e94d93",
-                "data": "{}"
-              },
-              "renderForEachPropKey": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "renderAtomType": {
-                "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612",
-                "name": "AntDesignLayout"
-              }
-            },
-            {
-              "id": "edea1558-7743-44d9-b97a-5afdb44b6536",
-              "name": "Ant Design Anchor Duplicate",
-              "customCss": ".ant-anchor {\n  width: 100%;\n  display: flex;\n  justify-content: space-around;\n}",
-              "guiCss": "{}",
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "1fba53cd-e7a0-4a94-abd7-d92f5de5a9b6",
-                "kind": "Atom"
-              },
-              "parent": { "id": "345b5920-1df9-4dc8-9da0-4f1c8c8de99e" },
-              "prevSibling": null,
-              "nextSibling": null,
-              "firstChild": { "id": "19d80737-acf9-46db-8337-104c1b66b689" },
-              "props": {
-                "id": "33bdc0da-5b20-4e8a-95ed-32dd8962ba75",
-                "data": "{\"showInkInFixed\":false,\"affix\":false}"
-              },
-              "renderForEachPropKey": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "renderAtomType": {
-                "id": "1fba53cd-e7a0-4a94-abd7-d92f5de5a9b6",
-                "name": "AntDesignAnchor"
-              }
-            },
-            {
-              "id": "a8dbb55e-9f47-45c6-afe9-b770436844b4",
-              "name": "Blog",
-              "customCss": null,
-              "guiCss": null,
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
-                "kind": "Atom"
-              },
-              "parent": null,
-              "prevSibling": { "id": "72598184-eb1a-4274-87f4-aa5863107aa3" },
-              "nextSibling": { "id": "122f76ec-7d02-40f8-a017-20cb6c143f9b" },
-              "firstChild": null,
-              "props": {
-                "id": "9028487b-258e-4024-9ad6-b02092478382",
-                "data": "{\"title\":{\"value\":\"{{\\\"blog\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/blog\"}"
-              },
-              "renderForEachPropKey": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "renderAtomType": {
-                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
-                "name": "AntDesignAnchorLink"
-              }
-            },
-            {
-              "id": "2b2d037c-844c-4f98-b4d9-3aa2480c7c2a",
-              "name": "Root",
-              "customCss": "min-height: 100vh;\n\n* {\n  color: #e5e5e5;\n}",
-              "guiCss": "{}",
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612",
-                "kind": "Atom"
-              },
-              "parent": { "id": "d6d9b4dd-f563-4b17-a6f7-5ad112d7c76e" },
-              "prevSibling": null,
-              "nextSibling": null,
-              "firstChild": { "id": "345b5920-1df9-4dc8-9da0-4f1c8c8de99e" },
-              "props": {
-                "id": "72ea6561-b976-40a7-8fd0-285881ff60a4",
-                "data": "{}"
-              },
-              "renderForEachPropKey": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "renderAtomType": {
-                "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612",
-                "name": "AntDesignLayout"
-              }
-            },
-            {
-              "id": "5e96e399-2a61-49ab-8365-3a74addd6d4a",
-              "name": "Left Menu",
-              "customCss": "background-color: #111010;",
-              "guiCss": "{}",
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "1bcde2f5-3695-4d4d-908a-5bd6957743ef",
-                "kind": "Atom"
-              },
-              "parent": { "id": "199bcf59-a390-4593-98df-c161c29de60b" },
-              "prevSibling": null,
-              "nextSibling": { "id": "5220576a-6c35-4aa8-be58-3b02b707ab05" },
-              "firstChild": { "id": "798770b4-ae0d-486a-8780-6293b6855d1e" },
-              "props": {
-                "id": "81bd788b-ef7b-42d1-b962-a5b08be99794",
-                "data": "{}"
-              },
-              "renderForEachPropKey": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "renderAtomType": {
-                "id": "1bcde2f5-3695-4d4d-908a-5bd6957743ef",
-                "name": "AntDesignLayoutSider"
-              }
-            },
-            {
-              "id": "199bcf59-a390-4593-98df-c161c29de60b",
-              "name": "Body",
-              "customCss": "",
-              "guiCss": "{}",
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612",
-                "kind": "Atom"
-              },
-              "parent": null,
-              "prevSibling": { "id": "345b5920-1df9-4dc8-9da0-4f1c8c8de99e" },
-              "nextSibling": null,
-              "firstChild": { "id": "5e96e399-2a61-49ab-8365-3a74addd6d4a" },
-              "props": {
-                "id": "36138df1-2593-4649-8db4-df98e0044b28",
-                "data": "{}"
-              },
-              "renderForEachPropKey": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "renderAtomType": {
-                "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612",
-                "name": "AntDesignLayout"
-              }
-            },
-            {
-              "id": "d6d9b4dd-f563-4b17-a6f7-5ad112d7c76e",
+              "id": "1f237cb8-a5b2-4cf6-b7c2-c697a8cd710b",
               "name": "Body",
               "customCss": null,
               "guiCss": null,
@@ -259,9 +27,9 @@
               "parent": null,
               "prevSibling": null,
               "nextSibling": null,
-              "firstChild": { "id": "2b2d037c-844c-4f98-b4d9-3aa2480c7c2a" },
+              "firstChild": { "id": "643a26a4-5a1d-4a12-9019-5bde8579bdcc" },
               "props": {
-                "id": "91a9466a-74ee-42ca-9430-3e99800bc49c",
+                "id": "8b54409b-3863-4cf5-9529-59ee0afd6172",
                 "data": "{}"
               },
               "renderForEachPropKey": null,
@@ -272,252 +40,26 @@
               "renderAtomType": null
             },
             {
-              "id": "345b5920-1df9-4dc8-9da0-4f1c8c8de99e",
-              "name": "Header",
-              "customCss": "background-color: #111010;\n\n.ant-space-item {\n  width: 100%;\n}",
-              "guiCss": "{}",
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
-                "kind": "Atom"
-              },
-              "parent": { "id": "2b2d037c-844c-4f98-b4d9-3aa2480c7c2a" },
-              "prevSibling": null,
-              "nextSibling": { "id": "199bcf59-a390-4593-98df-c161c29de60b" },
-              "firstChild": { "id": "edea1558-7743-44d9-b97a-5afdb44b6536" },
-              "props": {
-                "id": "4072d00b-ce77-4021-b7ee-a91659d879f1",
-                "data": "{}"
-              },
-              "renderForEachPropKey": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "renderAtomType": {
-                "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
-                "name": "AntDesignSpace"
-              }
-            },
-            {
-              "id": "798770b4-ae0d-486a-8780-6293b6855d1e",
-              "name": "Ant Design Anchor",
-              "customCss": "",
-              "guiCss": "{}",
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "1fba53cd-e7a0-4a94-abd7-d92f5de5a9b6",
-                "kind": "Atom"
-              },
-              "parent": { "id": "5e96e399-2a61-49ab-8365-3a74addd6d4a" },
-              "prevSibling": null,
-              "nextSibling": null,
-              "firstChild": { "id": "621cfd09-3aeb-48c3-8fdc-cfaffa7c08e9" },
-              "props": {
-                "id": "b494ceb3-0791-49fd-9020-27039ac854b0",
-                "data": "{\"showInkInFixed\":false,\"affix\":false}"
-              },
-              "renderForEachPropKey": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "renderAtomType": {
-                "id": "1fba53cd-e7a0-4a94-abd7-d92f5de5a9b6",
-                "name": "AntDesignAnchor"
-              }
-            },
-            {
-              "id": "122f76ec-7d02-40f8-a017-20cb6c143f9b",
-              "name": "Guestbook",
+              "id": "643a26a4-5a1d-4a12-9019-5bde8579bdcc",
+              "name": "Page Title",
               "customCss": null,
               "guiCss": null,
               "parentComponent": null,
-              "renderComponentType": null,
+              "renderComponentType": {
+                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+                "name": "Page Title"
+              },
               "renderType": {
-                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
-                "kind": "Atom"
+                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+                "kind": "Component"
               },
-              "parent": null,
-              "prevSibling": { "id": "a8dbb55e-9f47-45c6-afe9-b770436844b4" },
-              "nextSibling": null,
-              "firstChild": null,
-              "props": {
-                "id": "13f5466b-a199-4ec5-baf6-ebf24a7f77f3",
-                "data": "{\"title\":{\"value\":\"{{\\\"guestbook\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/guestbook\"}"
-              },
-              "renderForEachPropKey": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "renderAtomType": {
-                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
-                "name": "AntDesignAnchorLink"
-              }
-            },
-            {
-              "id": "4a40db40-c857-455e-b977-cf85e58ff2f3",
-              "name": "Guestbook Duplicate",
-              "customCss": null,
-              "guiCss": null,
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
-                "kind": "Atom"
-              },
-              "parent": null,
-              "prevSibling": { "id": "19d80737-acf9-46db-8337-104c1b66b689" },
-              "nextSibling": { "id": "a23de75d-092f-4d1d-b82f-32dd594c49b3" },
-              "firstChild": null,
-              "props": {
-                "id": "9600e291-f509-4f44-a93e-c14b2409be1b",
-                "data": "{\"title\":{\"value\":\"{{\\\"guestbook\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/guestbook\"}"
-              },
-              "renderForEachPropKey": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "renderAtomType": {
-                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
-                "name": "AntDesignAnchorLink"
-              }
-            },
-            {
-              "id": "c9132e28-93af-47ab-9cd5-f8207ce44477",
-              "name": "Blog Duplicate",
-              "customCss": null,
-              "guiCss": null,
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
-                "kind": "Atom"
-              },
-              "parent": null,
-              "prevSibling": { "id": "a23de75d-092f-4d1d-b82f-32dd594c49b3" },
-              "nextSibling": null,
-              "firstChild": null,
-              "props": {
-                "id": "4f29bfec-2bb8-45e0-a03a-4a350635332f",
-                "data": "{\"title\":{\"value\":\"{{\\\"blog\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/blog\"}"
-              },
-              "renderForEachPropKey": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "renderAtomType": {
-                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
-                "name": "AntDesignAnchorLink"
-              }
-            },
-            {
-              "id": "a23de75d-092f-4d1d-b82f-32dd594c49b3",
-              "name": "Home Duplicate",
-              "customCss": null,
-              "guiCss": null,
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
-                "kind": "Atom"
-              },
-              "parent": null,
-              "prevSibling": { "id": "4a40db40-c857-455e-b977-cf85e58ff2f3" },
-              "nextSibling": { "id": "c9132e28-93af-47ab-9cd5-f8207ce44477" },
-              "firstChild": null,
-              "props": {
-                "id": "30d492d6-516b-4416-adcb-1d741296f475",
-                "data": "{\"title\":{\"value\":\"{{\\\"home\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/\"}"
-              },
-              "renderForEachPropKey": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "renderAtomType": {
-                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
-                "name": "AntDesignAnchorLink"
-              }
-            },
-            {
-              "id": "72598184-eb1a-4274-87f4-aa5863107aa3",
-              "name": "About",
-              "customCss": "",
-              "guiCss": "{}",
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
-                "kind": "Atom"
-              },
-              "parent": null,
-              "prevSibling": { "id": "621cfd09-3aeb-48c3-8fdc-cfaffa7c08e9" },
-              "nextSibling": { "id": "a8dbb55e-9f47-45c6-afe9-b770436844b4" },
-              "firstChild": null,
-              "props": {
-                "id": "01ff4a87-7d39-494b-8f01-c0fc487b9e8a",
-                "data": "{\"title\":{\"value\":\"{{\\\"about\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/about\"}"
-              },
-              "renderForEachPropKey": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "renderAtomType": {
-                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
-                "name": "AntDesignAnchorLink"
-              }
-            }
-          ],
-          "id": "3572c095-5028-4b92-b025-505848a3f51b",
-          "kind": "Provider",
-          "name": "_app",
-          "rootElement": {
-            "id": "d6d9b4dd-f563-4b17-a6f7-5ad112d7c76e",
-            "name": "Body"
-          },
-          "store": {
-            "id": "08dc07c7-9f3e-4e8b-8cbc-60c76a7a29f2",
-            "name": "_app Store",
-            "api": {
-              "__typename": "InterfaceType",
-              "id": "4e13bb44-abc5-4b67-b18a-604a9edf479d",
-              "kind": "InterfaceType",
-              "name": "Portfolio Website(gm.vpolishchuk) _app Store API",
-              "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
-              "fields": []
-            },
-            "actions": []
-          },
-          "url": "/_app",
-          "pageContentContainer": {
-            "id": "5220576a-6c35-4aa8-be58-3b02b707ab05",
-            "name": "Main"
-          }
-        },
-        {
-          "elements": [
-            {
-              "id": "d89d88dc-34ff-4067-b370-65bc51252300",
-              "name": "Body",
-              "customCss": null,
-              "guiCss": null,
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": null,
-              "parent": null,
+              "parent": { "id": "1f237cb8-a5b2-4cf6-b7c2-c697a8cd710b" },
               "prevSibling": null,
               "nextSibling": null,
               "firstChild": null,
               "props": {
-                "id": "2821facc-92dd-4fef-9840-653199450af8",
-                "data": "{}"
+                "id": "4e19258b-2baf-4a57-8894-2cec4af41182",
+                "data": "{\"label\":\"Link Label\",\"href\":\"/\",\"text\":\"Blog\"}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
@@ -525,77 +67,61 @@
               "preRenderAction": null,
               "postRenderAction": null,
               "renderAtomType": null
-            }
-          ],
-          "id": "947be0c9-bd08-4eeb-8a35-6af5000e4f18",
-          "kind": "NotFound",
-          "name": "404",
-          "rootElement": {
-            "id": "d89d88dc-34ff-4067-b370-65bc51252300",
-            "name": "Body"
-          },
-          "store": {
-            "id": "cc124580-79ea-4630-9e19-7216ac2e3491",
-            "name": "404 Store",
-            "api": {
-              "__typename": "InterfaceType",
-              "id": "5a24a739-ceae-4277-ae72-ba7c00c0517a",
-              "kind": "InterfaceType",
-              "name": "Portfolio Website(gm.vpolishchuk) 404 Store API",
-              "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
-              "fields": []
             },
-            "actions": []
-          },
-          "url": "/404"
-        },
-        {
-          "elements": [
             {
-              "id": "2e04cfb6-842b-420f-85bf-e4fb4d6f0c5a",
-              "name": "Body",
-              "customCss": null,
-              "guiCss": null,
-              "parentComponent": null,
+              "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
+              "name": "Page Title",
+              "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
+              "guiCss": "{}",
+              "parentComponent": {
+                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+                "name": "Page Title"
+              },
               "renderComponentType": null,
-              "renderType": null,
+              "renderType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "kind": "Atom"
+              },
               "parent": null,
               "prevSibling": null,
               "nextSibling": null,
               "firstChild": null,
               "props": {
-                "id": "83eb0c21-eb0c-48fb-a3b6-09524f096dde",
-                "data": "{}"
+                "id": "c042e37b-8120-4104-8869-ab1db62a039a",
+                "data": "{\"title\":{\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{\\n  function run() { \\n    const { AntDesignTypographyParagraph, /* import atoms here */ } = this.atoms\\n\\n    console.log(\\n    return (\\n      <AntDesignTypographyParagraph>{this.label}</AntDesignTypographyParagraph>\\n    )\\n  }.bind(this)\\n}}\"},\"customText\":\"<p>{{this.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "renderAtomType": null
+              "renderAtomType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "name": "AntDesignTypographyParagraph"
+              }
             }
           ],
-          "id": "5c83ec4b-725f-402b-8139-8c943c40843c",
-          "kind": "InternalServerError",
-          "name": "500",
+          "id": "f3a4d506-6737-4857-a55f-5b03e72d49b0",
+          "kind": "Regular",
+          "name": "Blog",
           "rootElement": {
-            "id": "2e04cfb6-842b-420f-85bf-e4fb4d6f0c5a",
+            "id": "1f237cb8-a5b2-4cf6-b7c2-c697a8cd710b",
             "name": "Body"
           },
           "store": {
-            "id": "aaedfd6b-8ffc-454a-a65a-6de23a7a6142",
-            "name": "500 Store",
+            "id": "a38112a0-6c96-469d-8d43-9e1ccbdda339",
+            "name": "Blog Store",
             "api": {
               "__typename": "InterfaceType",
-              "id": "5d755ffc-3d41-460b-a904-3cbb79427fee",
+              "id": "76e3db17-441a-4973-8cca-4e44f3001f9a",
               "kind": "InterfaceType",
-              "name": "Portfolio Website(gm.vpolishchuk) 500 Store API",
+              "name": "Portfolio Website(gm.vpolishchuk) Blog Store API",
               "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
               "fields": []
             },
             "actions": []
           },
-          "url": "/500"
+          "url": "/blog"
         },
         {
           "elements": [
@@ -709,19 +235,54 @@
         {
           "elements": [
             {
-              "id": "1f237cb8-a5b2-4cf6-b7c2-c697a8cd710b",
-              "name": "Body",
+              "id": "5220576a-6c35-4aa8-be58-3b02b707ab05",
+              "name": "Main",
+              "customCss": "background-color: #111010;",
+              "guiCss": "{}",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "5e96e399-2a61-49ab-8365-3a74addd6d4a" },
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "fadb28d7-edfa-42fc-9e5a-7df339e94d93",
+                "data": "{}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612",
+                "name": "AntDesignLayout"
+              }
+            },
+            {
+              "id": "9f6997ce-e41e-4307-b372-d002f51da5a3",
+              "name": "Sidebar Nav",
               "customCss": null,
               "guiCss": null,
               "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": null,
+              "renderComponentType": {
+                "id": "cc2ffc1f-5956-469a-af08-3621df67530b",
+                "name": "Navigation"
+              },
+              "renderType": {
+                "id": "cc2ffc1f-5956-469a-af08-3621df67530b",
+                "kind": "Component"
+              },
               "parent": null,
-              "prevSibling": null,
+              "prevSibling": { "id": "b495dad3-d4b7-4ac8-aea4-68d21c04f1bf" },
               "nextSibling": null,
-              "firstChild": { "id": "643a26a4-5a1d-4a12-9019-5bde8579bdcc" },
+              "firstChild": null,
               "props": {
-                "id": "8b54409b-3863-4cf5-9529-59ee0afd6172",
+                "id": "f9c71385-15de-4232-a0aa-5a1d9378ddae",
                 "data": "{}"
               },
               "renderForEachPropKey": null,
@@ -732,55 +293,139 @@
               "renderAtomType": null
             },
             {
-              "id": "643a26a4-5a1d-4a12-9019-5bde8579bdcc",
-              "name": "Page Title",
-              "customCss": null,
-              "guiCss": null,
+              "id": "2b2d037c-844c-4f98-b4d9-3aa2480c7c2a",
+              "name": "Root",
+              "customCss": "min-height: 100vh;\n\n* {\n  font-size: 16px;\n  color: #e5e5e5 !important;\n}",
+              "guiCss": "{}",
               "parentComponent": null,
-              "renderComponentType": {
-                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
-                "name": "Page Title"
-              },
+              "renderComponentType": null,
               "renderType": {
-                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
-                "kind": "Component"
+                "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612",
+                "kind": "Atom"
               },
-              "parent": { "id": "1f237cb8-a5b2-4cf6-b7c2-c697a8cd710b" },
+              "parent": { "id": "d6d9b4dd-f563-4b17-a6f7-5ad112d7c76e" },
               "prevSibling": null,
               "nextSibling": null,
-              "firstChild": null,
+              "firstChild": { "id": "345b5920-1df9-4dc8-9da0-4f1c8c8de99e" },
               "props": {
-                "id": "4e19258b-2baf-4a57-8894-2cec4af41182",
-                "data": "{\"label\":\"Link Label\",\"href\":\"/\",\"text\":\"Blog\"}"
+                "id": "72ea6561-b976-40a7-8fd0-285881ff60a4",
+                "data": "{}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "renderAtomType": null
+              "renderAtomType": {
+                "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612",
+                "name": "AntDesignLayout"
+              }
             },
             {
-              "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
-              "name": "Page Title",
-              "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
+              "id": "5e96e399-2a61-49ab-8365-3a74addd6d4a",
+              "name": "Left Menu",
+              "customCss": "background-color: #111010 !important;\n\n@media (max-width: 600px) {\n  display: none;\n}",
               "guiCss": "{}",
-              "parentComponent": {
-                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
-                "name": "Page Title"
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "1bcde2f5-3695-4d4d-908a-5bd6957743ef",
+                "kind": "Atom"
               },
+              "parent": { "id": "199bcf59-a390-4593-98df-c161c29de60b" },
+              "prevSibling": null,
+              "nextSibling": { "id": "5220576a-6c35-4aa8-be58-3b02b707ab05" },
+              "firstChild": { "id": "b495dad3-d4b7-4ac8-aea4-68d21c04f1bf" },
+              "props": {
+                "id": "81bd788b-ef7b-42d1-b962-a5b08be99794",
+                "data": "{}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "1bcde2f5-3695-4d4d-908a-5bd6957743ef",
+                "name": "AntDesignLayoutSider"
+              }
+            },
+            {
+              "id": "199bcf59-a390-4593-98df-c161c29de60b",
+              "name": "Body",
+              "customCss": "padding: 15vh 25% 0 25%;\nbackground-color: #111010;",
+              "guiCss": "{}",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "345b5920-1df9-4dc8-9da0-4f1c8c8de99e" },
+              "nextSibling": null,
+              "firstChild": { "id": "5e96e399-2a61-49ab-8365-3a74addd6d4a" },
+              "props": {
+                "id": "36138df1-2593-4649-8db4-df98e0044b28",
+                "data": "{}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612",
+                "name": "AntDesignLayout"
+              }
+            },
+            {
+              "id": "345b5920-1df9-4dc8-9da0-4f1c8c8de99e",
+              "name": "Header",
+              "customCss": "background-color: #111010;\ndisplay: none;\n\n.ant-space-item {\n  width: 100%;\n}\n\n.ant-anchor {\n  display: flex;\n  justify-content: space-around;\n  margin-top: 12px;\n}\n\n@media (max-width: 600px) {\n  display: block;\n}",
+              "guiCss": "{}",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
+                "kind": "Atom"
+              },
+              "parent": { "id": "2b2d037c-844c-4f98-b4d9-3aa2480c7c2a" },
+              "prevSibling": null,
+              "nextSibling": { "id": "199bcf59-a390-4593-98df-c161c29de60b" },
+              "firstChild": { "id": "003c574e-6ff1-4b3f-a635-6e1e9e6870a4" },
+              "props": {
+                "id": "4072d00b-ce77-4021-b7ee-a91659d879f1",
+                "data": "{}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": "",
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
+                "name": "AntDesignSpace"
+              }
+            },
+            {
+              "id": "b495dad3-d4b7-4ac8-aea4-68d21c04f1bf",
+              "name": "Logo",
+              "customCss": "padding-left: 16px;\n\nstrong {\n  font-size: 2rem;\n}",
+              "guiCss": null,
+              "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "kind": "Atom"
               },
-              "parent": null,
+              "parent": { "id": "5e96e399-2a61-49ab-8365-3a74addd6d4a" },
               "prevSibling": null,
-              "nextSibling": null,
+              "nextSibling": { "id": "9f6997ce-e41e-4307-b372-d002f51da5a3" },
               "firstChild": null,
               "props": {
-                "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"title\":{\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{\\n  function run() { \\n    const { AntDesignTypographyParagraph, /* import atoms here */ } = this.atoms\\n\\n    console.log(\\n    return (\\n      <AntDesignTypographyParagraph>{this.label}</AntDesignTypographyParagraph>\\n    )\\n  }.bind(this)\\n}}\"},\"customText\":\"<p>{{this.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "id": "34b5b994-9abb-43fc-84ff-d337ef91df8c",
+                "data": "{\"customText\":\"<h1><strong class=\\\"ql-font-serif\\\">VP</strong></h1>\"}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
@@ -791,29 +436,281 @@
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "name": "AntDesignTypographyParagraph"
               }
+            },
+            {
+              "id": "003c574e-6ff1-4b3f-a635-6e1e9e6870a4",
+              "name": "Header Nav",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": {
+                "id": "cc2ffc1f-5956-469a-af08-3621df67530b",
+                "name": "Navigation"
+              },
+              "renderType": {
+                "id": "cc2ffc1f-5956-469a-af08-3621df67530b",
+                "kind": "Component"
+              },
+              "parent": { "id": "345b5920-1df9-4dc8-9da0-4f1c8c8de99e" },
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "23c55acf-ea44-44f1-9c94-df8ff3ebebde",
+                "data": "{}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": null
+            },
+            {
+              "id": "d6d9b4dd-f563-4b17-a6f7-5ad112d7c76e",
+              "name": "Body",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": null,
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": { "id": "2b2d037c-844c-4f98-b4d9-3aa2480c7c2a" },
+              "props": {
+                "id": "91a9466a-74ee-42ca-9430-3e99800bc49c",
+                "data": "{}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": null
+            },
+            {
+              "id": "112e8b92-fb22-4b20-a4f6-d92cfd76790d",
+              "name": "Blog",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "78ca3cab-6ab4-4078-850b-067ddd171bda" },
+              "nextSibling": { "id": "c5b65bf0-faca-4af1-9405-9bdbabaebf11" },
+              "firstChild": null,
+              "props": {
+                "id": "c25fea2c-efee-4ded-b154-a42d9db0715e",
+                "data": "{\"title\":{\"value\":\"{{\\\"blog\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/blog\"}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
+                "name": "AntDesignAnchorLink"
+              }
+            },
+            {
+              "id": "8o-TtaZfJmemKjWDAtgHQYvw",
+              "name": "Navigation",
+              "customCss": ".ant-anchor-link {\n  margin-bottom: 8px;\n}\n\n* {\n  font-size: 16px;\n  color: #e5e5e5 !important;\n}",
+              "guiCss": null,
+              "parentComponent": {
+                "id": "cc2ffc1f-5956-469a-af08-3621df67530b",
+                "name": "Navigation"
+              },
+              "renderComponentType": null,
+              "renderType": {
+                "id": "1fba53cd-e7a0-4a94-abd7-d92f5de5a9b6",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": { "id": "fa5402fd-1e88-411e-baa6-2c435b94eede" },
+              "props": {
+                "id": "39e61199-edc1-4cf9-9254-0e96df0511c4",
+                "data": "{}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "1fba53cd-e7a0-4a94-abd7-d92f5de5a9b6",
+                "name": "AntDesignAnchor"
+              }
+            },
+            {
+              "id": "fa5402fd-1e88-411e-baa6-2c435b94eede",
+              "name": "Home",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
+                "kind": "Atom"
+              },
+              "parent": { "id": "8o-TtaZfJmemKjWDAtgHQYvw" },
+              "prevSibling": null,
+              "nextSibling": { "id": "78ca3cab-6ab4-4078-850b-067ddd171bda" },
+              "firstChild": null,
+              "props": {
+                "id": "157e01a0-539d-4502-b36a-199f2557717e",
+                "data": "{\"title\":{\"value\":\"{{\\\"home\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/\"}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
+                "name": "AntDesignAnchorLink"
+              }
+            },
+            {
+              "id": "c5b65bf0-faca-4af1-9405-9bdbabaebf11",
+              "name": "Guestbook",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "112e8b92-fb22-4b20-a4f6-d92cfd76790d" },
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "cf312e87-3f5f-4dfe-922d-ffdb92e9d536",
+                "data": "{\"title\":{\"value\":\"{{\\\"guestbook\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/guestbook\"}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
+                "name": "AntDesignAnchorLink"
+              }
+            },
+            {
+              "id": "78ca3cab-6ab4-4078-850b-067ddd171bda",
+              "name": "About",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "fa5402fd-1e88-411e-baa6-2c435b94eede" },
+              "nextSibling": { "id": "112e8b92-fb22-4b20-a4f6-d92cfd76790d" },
+              "firstChild": null,
+              "props": {
+                "id": "7081ca21-84ea-45f5-acdb-f369cb87232f",
+                "data": "{\"title\":{\"value\":\"{{\\\"about\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/about\"}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
+                "name": "AntDesignAnchorLink"
+              }
             }
           ],
-          "id": "f3a4d506-6737-4857-a55f-5b03e72d49b0",
-          "kind": "Regular",
-          "name": "Blog",
+          "id": "3572c095-5028-4b92-b025-505848a3f51b",
+          "kind": "Provider",
+          "name": "_app",
           "rootElement": {
-            "id": "1f237cb8-a5b2-4cf6-b7c2-c697a8cd710b",
+            "id": "d6d9b4dd-f563-4b17-a6f7-5ad112d7c76e",
             "name": "Body"
           },
           "store": {
-            "id": "a38112a0-6c96-469d-8d43-9e1ccbdda339",
-            "name": "Blog Store",
+            "id": "08dc07c7-9f3e-4e8b-8cbc-60c76a7a29f2",
+            "name": "_app Store",
             "api": {
               "__typename": "InterfaceType",
-              "id": "76e3db17-441a-4973-8cca-4e44f3001f9a",
+              "id": "4e13bb44-abc5-4b67-b18a-604a9edf479d",
               "kind": "InterfaceType",
-              "name": "Portfolio Website(gm.vpolishchuk) Blog Store API",
+              "name": "Portfolio Website(gm.vpolishchuk) _app Store API",
               "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
               "fields": []
             },
             "actions": []
           },
-          "url": "/blog"
+          "url": "/_app",
+          "pageContentContainer": {
+            "id": "5220576a-6c35-4aa8-be58-3b02b707ab05",
+            "name": "Main"
+          }
+        },
+        {
+          "elements": [
+            {
+              "id": "d89d88dc-34ff-4067-b370-65bc51252300",
+              "name": "Body",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": null,
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "2821facc-92dd-4fef-9840-653199450af8",
+                "data": "{}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": null
+            }
+          ],
+          "id": "947be0c9-bd08-4eeb-8a35-6af5000e4f18",
+          "kind": "NotFound",
+          "name": "404",
+          "rootElement": {
+            "id": "d89d88dc-34ff-4067-b370-65bc51252300",
+            "name": "Body"
+          },
+          "store": {
+            "id": "cc124580-79ea-4630-9e19-7216ac2e3491",
+            "name": "404 Store",
+            "api": {
+              "__typename": "InterfaceType",
+              "id": "5a24a739-ceae-4277-ae72-ba7c00c0517a",
+              "kind": "InterfaceType",
+              "name": "Portfolio Website(gm.vpolishchuk) 404 Store API",
+              "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
+              "fields": []
+            },
+            "actions": []
+          },
+          "url": "/404"
         },
         {
           "elements": [
@@ -950,6 +847,93 @@
               "renderAtomType": null
             },
             {
+              "id": "0796d377-83ee-4b25-8cdb-1386931ff443",
+              "name": "Subscribe Container",
+              "customCss": ".ant-anchor {\n  display: flex;\n}\n\n.ant-anchor-link {\n  padding: 0 24px 0 0 !important;\n}\n\na {\n  color: #a3a3a3 !important;\n}",
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "1fba53cd-e7a0-4a94-abd7-d92f5de5a9b6",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "e6e0ef15-6b50-4d68-bc01-2ac45f8fad8f" },
+              "nextSibling": null,
+              "firstChild": { "id": "988c3b8e-2313-40f6-ab11-5aa53c9fc338" },
+              "props": {
+                "id": "3bb11e31-7694-4b90-aa93-c29a7214667c",
+                "data": "{}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "1fba53cd-e7a0-4a94-abd7-d92f5de5a9b6",
+                "name": "AntDesignAnchor"
+              }
+            },
+            {
+              "id": "63fe96eb-6278-4c24-a0a2-7cdd4384974b",
+              "name": "Avatar",
+              "customCss": "width: 100px;\nheight: 100px;\nmargin-right: 24px;",
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "ff6a8cfe-af3e-4e03-a51b-70455f976edb",
+                "kind": "Atom"
+              },
+              "parent": { "id": "9e8a51cd-dc2d-421e-8276-5f2a9fd9ebca" },
+              "prevSibling": null,
+              "nextSibling": { "id": "e91993f3-684a-4ebd-8288-40d000939b7b" },
+              "firstChild": null,
+              "props": {
+                "id": "4a9055ed-4866-4c41-ad11-8d998cddcd33",
+                "data": "{\"src\":{\"type\":\"3a0d0fc6-c51e-4f05-85b4-cde709fe5625\",\"value\":\"https://lh3.googleusercontent.com/a/AGNmyxaSN-jsTl96I4sv5YzE3rMV1XywsfVHqq9zobFq=s192-c-rg-br100\"}}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "ff6a8cfe-af3e-4e03-a51b-70455f976edb",
+                "name": "AntDesignAvatar"
+              }
+            },
+            {
+              "id": "49e4f8a1-83e8-49ba-80b1-6b7b137ac496",
+              "name": "Github",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": {
+                "id": "af199668-2ed3-43df-b374-e567abc9e980",
+                "name": "Social Link"
+              },
+              "renderType": {
+                "id": "af199668-2ed3-43df-b374-e567abc9e980",
+                "kind": "Component"
+              },
+              "parent": null,
+              "prevSibling": { "id": "9c191ad9-4933-4ccd-a219-115b13739899" },
+              "nextSibling": { "id": "e10df881-c3da-4602-9f05-36f40698ee0e" },
+              "firstChild": null,
+              "props": {
+                "id": "d1bc4fe8-f81f-4a73-8b84-b2e0b4e22ec9",
+                "data": "{\"text\":\"5,682 stars on this repo\",\"icon\":\"GithubOutlined\"}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": null
+            },
+            {
               "id": "fe8bb789-f1f3-43af-89b5-d2b06ec60a0b",
               "name": "Page Title",
               "customCss": null,
@@ -965,7 +949,7 @@
               },
               "parent": { "id": "1a0d8356-0567-4d5c-b2f0-b0b6cebcc716" },
               "prevSibling": null,
-              "nextSibling": null,
+              "nextSibling": { "id": "f73aa818-db0b-4e79-ada9-5ea895544429" },
               "firstChild": null,
               "props": {
                 "id": "6e3522e0-68c6-4cc7-9a1b-f70b168c95f8",
@@ -977,6 +961,322 @@
               "preRenderAction": null,
               "postRenderAction": null,
               "renderAtomType": null
+            },
+            {
+              "id": "9e8a51cd-dc2d-421e-8276-5f2a9fd9ebca",
+              "name": "Stats Container",
+              "customCss": "margin-top: 32px;\nmargin-bottom: 32px;",
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "f73aa818-db0b-4e79-ada9-5ea895544429" },
+              "nextSibling": { "id": "e6e0ef15-6b50-4d68-bc01-2ac45f8fad8f" },
+              "firstChild": { "id": "63fe96eb-6278-4c24-a0a2-7cdd4384974b" },
+              "props": {
+                "id": "00290418-b5fa-4f2a-8eff-7774236ca556",
+                "data": "{}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
+                "name": "AntDesignSpace"
+              }
+            },
+            {
+              "id": "988c3b8e-2313-40f6-ab11-5aa53c9fc338",
+              "name": "Ant Design Anchor Link",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
+                "kind": "Atom"
+              },
+              "parent": { "id": "0796d377-83ee-4b25-8cdb-1386931ff443" },
+              "prevSibling": null,
+              "nextSibling": { "id": "46f6279d-5ba9-4351-b469-e7134fc9f258" },
+              "firstChild": null,
+              "props": {
+                "id": "2c891c7b-e05e-4e16-9a31-f6b376f74e5c",
+                "data": "{\"title\":{\"value\":\"{{\\n  function run() {\\n    const { AntDesignIcon } = this.atoms\\n\\n    return (\\n      <>\\n        <AntDesignIcon name=\\\"ArrowRightOutlined\\\" /> follow me on twitter\\n      </>\\n    )\\n  }.bind(this)\\n}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
+                "name": "AntDesignAnchorLink"
+              }
+            },
+            {
+              "id": "e10df881-c3da-4602-9f05-36f40698ee0e",
+              "name": "Blog",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": {
+                "id": "af199668-2ed3-43df-b374-e567abc9e980",
+                "name": "Social Link"
+              },
+              "renderType": {
+                "id": "af199668-2ed3-43df-b374-e567abc9e980",
+                "kind": "Component"
+              },
+              "parent": null,
+              "prevSibling": { "id": "49e4f8a1-83e8-49ba-80b1-6b7b137ac496" },
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "93905852-0ea0-474c-93a6-da4db4643409",
+                "data": "{\"text\":\"5,682 stars on this repo\",\"icon\":\"RiseOutlined\"}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": null
+            },
+            {
+              "id": "e91993f3-684a-4ebd-8288-40d000939b7b",
+              "name": "Stats Links Container",
+              "customCss": "padding: 0;\n\n.ant-anchor > span {\n  display: block;\n}",
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "1fba53cd-e7a0-4a94-abd7-d92f5de5a9b6",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "63fe96eb-6278-4c24-a0a2-7cdd4384974b" },
+              "nextSibling": null,
+              "firstChild": { "id": "9c191ad9-4933-4ccd-a219-115b13739899" },
+              "props": {
+                "id": "9f07f9ee-6ee6-4b79-b341-9c44d1b31c6c",
+                "data": "{}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "1fba53cd-e7a0-4a94-abd7-d92f5de5a9b6",
+                "name": "AntDesignAnchor"
+              }
+            },
+            {
+              "id": "e6e0ef15-6b50-4d68-bc01-2ac45f8fad8f",
+              "name": "About",
+              "customCss": "margin-bottom: 32px;",
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "9e8a51cd-dc2d-421e-8276-5f2a9fd9ebca" },
+              "nextSibling": { "id": "0796d377-83ee-4b25-8cdb-1386931ff443" },
+              "firstChild": null,
+              "props": {
+                "id": "e3a0bd4d-a3ba-4769-824c-da40b948b3c7",
+                "data": "{\"customText\":\"<p><span style=\\\"color: rgb(229, 229, 229); background-color: rgb(17, 16, 16);\\\">I'm a Next.js contributor and help lead our open-source communities. I'm passionate about frontend development and have created courses on React, Next.js, and web development. I'm an advisor and investor in early stage startups.</span></p>\"}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "name": "AntDesignTypographyText"
+              }
+            },
+            {
+              "id": "46f6279d-5ba9-4351-b469-e7134fc9f258",
+              "name": "Ant Design Anchor Link Duplicate",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "988c3b8e-2313-40f6-ab11-5aa53c9fc338" },
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "45317451-196a-4b0e-978f-ab63da37762e",
+                "data": "{\"title\":{\"value\":\"{{\\n  function run() {\\n    const { AntDesignIcon } = this.atoms\\n\\n    return (\\n      <>\\n        <AntDesignIcon name=\\\"ArrowRightOutlined\\\" /> get email updates\\n      </>\\n    )\\n  }.bind(this)\\n}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
+                "name": "AntDesignAnchorLink"
+              }
+            },
+            {
+              "id": "f73aa818-db0b-4e79-ada9-5ea895544429",
+              "name": "Intro",
+              "customCss": "",
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "fe8bb789-f1f3-43af-89b5-d2b06ec60a0b" },
+              "nextSibling": { "id": "9e8a51cd-dc2d-421e-8276-5f2a9fd9ebca" },
+              "firstChild": null,
+              "props": {
+                "id": "8be4eac7-5cbf-48f9-9fe7-161c58832b08",
+                "data": "{\"customText\":\"<p><span style=\\\"background-color: rgb(17, 16, 16); color: rgb(229, 229, 229);\\\">Hey, I'm Lee. I'm the&nbsp;</span><strong style=\\\"background-color: rgb(17, 16, 16); color: rgb(229, 229, 229);\\\">VP of Developer Experience at Vercel</strong><span style=\\\"background-color: rgb(17, 16, 16); color: rgb(229, 229, 229);\\\">&nbsp;where my team helps developers build a faster web.</span></p>\"}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "name": "AntDesignTypographyText"
+              }
+            },
+            {
+              "id": "9c191ad9-4933-4ccd-a219-115b13739899",
+              "name": "Twitter",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": {
+                "id": "af199668-2ed3-43df-b374-e567abc9e980",
+                "name": "Social Link"
+              },
+              "renderType": {
+                "id": "af199668-2ed3-43df-b374-e567abc9e980",
+                "kind": "Component"
+              },
+              "parent": { "id": "e91993f3-684a-4ebd-8288-40d000939b7b" },
+              "prevSibling": null,
+              "nextSibling": { "id": "49e4f8a1-83e8-49ba-80b1-6b7b137ac496" },
+              "firstChild": null,
+              "props": {
+                "id": "96d75878-cbed-4a5d-8e7d-4a5aec103f38",
+                "data": "{\"text\":\"7,570 tweets all time\",\"icon\":\"TwitterOutlined\"}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": null
+            },
+            {
+              "id": "25fabb88-c088-496f-aa18-5e21d1fee3b3",
+              "name": "Social Link",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": {
+                "id": "af199668-2ed3-43df-b374-e567abc9e980",
+                "name": "Social Link"
+              },
+              "renderComponentType": null,
+              "renderType": null,
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": { "id": "f43e3a60-5328-4c48-85ec-157ef6731e82" },
+              "props": {
+                "id": "e9beac46-d5af-4d9a-89cf-50f0c849f216",
+                "data": "{}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": null
+            },
+            {
+              "id": "f43e3a60-5328-4c48-85ec-157ef6731e82",
+              "name": "Icon",
+              "customCss": "svg {\n  width: 24px;\n  height: 24px;\n}",
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "7244a1cf-3ec7-43fb-a9b0-2d5f99b92f69",
+                "kind": "Atom"
+              },
+              "parent": { "id": "25fabb88-c088-496f-aa18-5e21d1fee3b3" },
+              "prevSibling": null,
+              "nextSibling": { "id": "fc52756d-170e-4a4f-988a-fe25a037d7e2" },
+              "firstChild": null,
+              "props": {
+                "id": "386c3025-e620-4e2a-99d3-25fa9bad9a55",
+                "data": "{\"name\":\"{{this.icon}}\"}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "7244a1cf-3ec7-43fb-a9b0-2d5f99b92f69",
+                "name": "AntDesignIcon"
+              }
+            },
+            {
+              "id": "fc52756d-170e-4a4f-988a-fe25a037d7e2",
+              "name": "Link",
+              "customCss": "display: inline-block;\nline-height: 20px;\n\na {\n  color: #a3a3a3 !important;\n}",
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "f43e3a60-5328-4c48-85ec-157ef6731e82" },
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "810218c4-2c5b-4d2b-a472-8103cfc4e7e1",
+                "data": "{\"title\":{\"value\":\"{{this.text}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
+                "name": "AntDesignAnchorLink"
+              }
             },
             {
               "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
@@ -1032,6 +1332,54 @@
             "actions": []
           },
           "url": "/"
+        },
+        {
+          "elements": [
+            {
+              "id": "2e04cfb6-842b-420f-85bf-e4fb4d6f0c5a",
+              "name": "Body",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": null,
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "83eb0c21-eb0c-48fb-a3b6-09524f096dde",
+                "data": "{}"
+              },
+              "renderForEachPropKey": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": null
+            }
+          ],
+          "id": "5c83ec4b-725f-402b-8139-8c943c40843c",
+          "kind": "InternalServerError",
+          "name": "500",
+          "rootElement": {
+            "id": "2e04cfb6-842b-420f-85bf-e4fb4d6f0c5a",
+            "name": "Body"
+          },
+          "store": {
+            "id": "aaedfd6b-8ffc-454a-a65a-6de23a7a6142",
+            "name": "500 Store",
+            "api": {
+              "__typename": "InterfaceType",
+              "id": "5d755ffc-3d41-460b-a904-3cbb79427fee",
+              "kind": "InterfaceType",
+              "name": "Portfolio Website(gm.vpolishchuk) 500 Store API",
+              "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
+              "fields": []
+            },
+            "actions": []
+          },
+          "url": "/500"
         }
       ]
     }
@@ -1090,6 +1438,104 @@
       },
       "childrenContainerElement": {
         "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db"
+      }
+    },
+    {
+      "id": "cc2ffc1f-5956-469a-af08-3621df67530b",
+      "name": "Navigation",
+      "rootElement": { "id": "8o-TtaZfJmemKjWDAtgHQYvw", "name": "Navigation" },
+      "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
+      "props": { "id": "8d4889a4-15d8-4756-885d-03f6a280a61b", "data": "{}" },
+      "store": {
+        "id": "be125a84-99ce-4761-a5ce-778063f26d53",
+        "name": "Ant Design Anchor Duplicate Store",
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "f91a98cd-bdfb-4a3c-97d8-0206c4eb27ed",
+          "kind": "InterfaceType",
+          "name": "Ant Design Anchor Duplicate Store API",
+          "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
+          "fields": []
+        },
+        "actions": []
+      },
+      "api": {
+        "__typename": "InterfaceType",
+        "id": "8p-TtaZfJmemKjWDAtgHQYvw",
+        "kind": "InterfaceType",
+        "name": "Ant Design Anchor Duplicate API",
+        "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
+        "fields": []
+      },
+      "childrenContainerElement": { "id": "8o-TtaZfJmemKjWDAtgHQYvw" }
+    },
+    {
+      "id": "af199668-2ed3-43df-b374-e567abc9e980",
+      "name": "Social Link",
+      "rootElement": {
+        "id": "25fabb88-c088-496f-aa18-5e21d1fee3b3",
+        "name": "Social Link"
+      },
+      "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
+      "props": { "id": "444ae484-00c1-488b-9d04-c1ae11c0f499", "data": "{}" },
+      "store": {
+        "id": "e6b9a69e-168c-41ac-a96b-d635226c75fc",
+        "name": "Social Stat Item Store",
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "5c15e647-7ed9-4192-bfd5-013168e54566",
+          "kind": "InterfaceType",
+          "name": "Social Stat Item Store API",
+          "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
+          "fields": []
+        },
+        "actions": []
+      },
+      "api": {
+        "__typename": "InterfaceType",
+        "id": "45829a46-89fa-4fdc-9996-97a3e1c6a701",
+        "kind": "InterfaceType",
+        "name": "Social Stat Item API",
+        "owner": { "auth0Id": "google-oauth2|103532353421614768841" },
+        "fields": [
+          {
+            "id": "5bf9863b-abee-416d-bd5e-93f42d516cad",
+            "key": "icon",
+            "name": "",
+            "description": null,
+            "validationRules": "{\"general\":{\"nullable\":true}}",
+            "defaultValues": "\"GithubOutlined\"",
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "api": { "id": "45829a46-89fa-4fdc-9996-97a3e1c6a701" }
+          },
+          {
+            "id": "453eebaf-2871-4f19-a9b8-490e2f5db893",
+            "key": "text",
+            "name": null,
+            "description": null,
+            "validationRules": "{}",
+            "defaultValues": "\"stat item text\"",
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "api": { "id": "45829a46-89fa-4fdc-9996-97a3e1c6a701" }
+          }
+        ]
+      },
+      "childrenContainerElement": {
+        "id": "25fabb88-c088-496f-aa18-5e21d1fee3b3"
       }
     }
   ],
