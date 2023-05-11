@@ -20,31 +20,4 @@ orbs:
   swissknife: roopakv/swissknife@0.69.0
   terraform: circleci/terraform@3.2.1
 
-environment:
-  # Application
-  NEO4J_URI: bolt://127.0.0.1:7687
-  NEO4J_USER: neo4j
-  NEO4J_PASSWORD: password
-  # CircleCI
-  GITHUB_ANTON_M: antonmihaylov
-  SLACK_ANTON_M: <@U01HWRY2USE>
-  GITHUB_WEBBER: webberwang
-  SLACK_WEBBER: <@U0J401GAH>
-  GITHUB_ASSIM: assimhabeek
-  SLACK_ASSIM: <@U02GJN72TKR>
-  GITHUB_NGHIA: phmngocnghia
-  SLACK_NGHIA: <@U02DX6U7YGP>
-  GITHUB_YASEEN: mohasarc
-  SLACK_YASEEN: <@U03B5N7J2N9>
-  GITHUB_HAU: hauleIT
-  SLACK_HAU: <U040GU0PQ81>
-  GITHUB_ELHAM: melhamin
-  SLACK_ELHAM: <U0406P3J9T6>
-  SLACK_CHANNEL_UPDATE: CQVPNKS8K
-  COLOR_SUCCESS: '#b7eb8f'
-  COLOR_FAILURE: '#ffccc7'
-  NODE_OPTIONS: --max_old_space_size=8192
-  #    NODE_ENV: production
-  CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
-
 working_directory: ~/project

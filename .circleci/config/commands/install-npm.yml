@@ -11,5 +11,5 @@ steps:
       key: npm-cache-{{ checksum "yarn.lock" }}
       paths:
         - ~/.yarn
-        - ~/.cache/Cypress
+        # - ~/.cache/Cypress
         - ~/project/node_modules
