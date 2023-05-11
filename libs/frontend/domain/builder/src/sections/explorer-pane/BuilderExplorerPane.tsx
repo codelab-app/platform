@@ -28,7 +28,6 @@ import {
   UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
 import {
-  useActiveTab,
   useCurrentPageId,
   useStore,
 } from '@codelab/frontend/presentation/container'
@@ -39,7 +38,6 @@ import {
 } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { css } from '@emotion/react'
-import type { TabsProps } from 'antd'
 import { Collapse, Divider, Spin, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren, ReactNode } from 'react'
@@ -48,7 +46,6 @@ import tw from 'twin.macro'
 import { renderStickyTabBar } from '../stickyTabBarRenderer'
 import { BuilderTree } from './builder-tree'
 import { BuilderExplorerPaneHeader } from './BuilderExplorerPane-Header'
-import { CustomComponents, PreBuiltComponents } from './tab-contents'
 
 const { Panel } = Collapse
 
@@ -76,7 +73,6 @@ export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
       elementService,
     } = useStore()
 
-    const activeTab = useActiveTab()
     const pageId = useCurrentPageId()
     const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
     const pageTree = pageBuilderRenderer?.elementTree.maybeCurrent
@@ -97,7 +93,7 @@ export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
       return
     }
 
-    const mainTabItems = [
+    const tabItems = [
       {
         children: (
           <SkeletonWrapper isLoading={isLoading}>
@@ -193,22 +189,6 @@ export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
         ),
       },
     ]
-
-    const builderComponentsTabItems: TabsProps['items'] = [
-      {
-        children: <PreBuiltComponents />,
-        key: 'pre-built-components',
-        label: 'Pre-built Components',
-      },
-      {
-        children: <CustomComponents />,
-        key: 'custom-components',
-        label: 'Custom Components',
-      },
-    ]
-
-    const tabItems =
-      activeTab === 'components' ? builderComponentsTabItems : mainTabItems
 
     return (
       <>

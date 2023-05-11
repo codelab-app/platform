@@ -60,7 +60,7 @@ export const builderComponentsMenuItem = (
     <Link
       href={{
         pathname: PageType.PageBuilder,
-        query: { activeTab: 'components', appId, pageId },
+        query: { appId, explorerPaneKey: ExplorerPaneType.Components, pageId },
       }}
     >
       Builder Components

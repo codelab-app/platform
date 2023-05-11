@@ -5,6 +5,7 @@ import {
   BuilderContext,
   BuilderExplorerPane,
   BuilderTabs,
+  ComponentsExplorerPane,
   ConfigPaneInspectorTabContainer,
 } from '@codelab/frontend/domain/builder'
 import {
@@ -58,6 +59,10 @@ const PageBuilder: CodelabPage = observer(() => {
       ExplorerPane={{
         default: ExplorerPaneType.Explorer,
         items: [
+          {
+            key: ExplorerPaneType.Components,
+            render: () => <ComponentsExplorerPane />,
+          },
           {
             key: ExplorerPaneType.Explorer,
             render: () => <BuilderExplorerPane isLoading={isLoading} />,
