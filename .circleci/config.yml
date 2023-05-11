@@ -20,8 +20,11 @@ commands:
                 keys:
                     - npm-cache-{{ checksum "yarn.lock" }}
                     - nvm-cache-{{ checksum ".nvmrc" }}
+                name: Restore NPM Cache
+            - restore_cache:
+                keys:
                     - nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
-                name: Restore Cache
+                name: Restore NX Cache
             - run:
                 command: source ~/project/.circleci/config/env.sh
                 name: Setup Env

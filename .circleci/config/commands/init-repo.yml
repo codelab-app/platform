@@ -4,14 +4,17 @@ steps:
   - attach_workspace:
       at: ..
   - restore_cache:
-      name: 'Restore Cache'
+      name: 'Restore NPM Cache'
       keys:
         # We store this only in setup-workspace
         # - yarn-cache-{{ checksum "yarn.lock" }}
         - npm-cache-{{ checksum "yarn.lock" }}
         - nvm-cache-{{ checksum ".nvmrc" }}
+  - restore_cache:
+      # Need this to run after we restore the npm library
+      name: 'Restore NX Cache'
+      keys:
         - nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
-  # - install-nvm
   - run:
       name: 'Setup Env'
       command: source ~/project/.circleci/config/env.sh

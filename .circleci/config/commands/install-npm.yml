@@ -16,4 +16,5 @@ steps:
       name: 'Save NPM Cache'
       key: npm-cache-{{ checksum "yarn.lock" }}
       paths:
+        # ~/project/node_modules/.cache/nx may not be needed if we are using nx cloud
         - ~/project/node_modules
