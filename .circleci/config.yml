@@ -22,7 +22,6 @@ commands:
                     - nvm-cache-{{ checksum ".nvmrc" }}
                     - nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
                 name: Restore Cache
-            - install-nvm
             - run:
                 command: source ~/project/.circleci/config/env.sh
                 name: Setup Env
@@ -31,14 +30,22 @@ commands:
                 main-branch-name: master
     install-npm:
         steps:
+            - restore_cache:
+                keys:
+                    - yarn-cache-{{ checksum "yarn.lock" }}
+                name: Restore Yarn Cache
             - run:
                 command: yarn install --immutable
                 name: Install NPM Packages
+            - key: yarn-cache-{{ checksum "yarn.lock" }}
+              name: Save Yarn Cache
+              paths:
+                - ~/.yarn
+              save_cache: null
             - save_cache:
                 key: npm-cache-{{ checksum "yarn.lock" }}
-                name: Save Cache
+                name: Save NPM Cache
                 paths:
-                    - ~/.yarn
                     - ~/project/node_modules
     install-nvm:
         steps:
@@ -298,6 +305,7 @@ jobs:
         steps:
             - init-repo
             - install-npm
+            - install-nvm
             - build-repo
             - run:
                 command: |

@@ -1,15 +1,19 @@
 steps:
-  # - restore_cache:
-  #     name: 'Restore NPM Cache'
-  #     keys:
-  #       - npm-cache-{{ checksum "yarn.lock" }}
+  # NPM cache already restored in init-repo, which is shared with other jobs. While yarn cache is only needed in the setup-workspace job
+  - restore_cache:
+      name: 'Restore Yarn Cache'
+      keys:
+        - yarn-cache-{{ checksum "yarn.lock" }}
   - run:
       name: 'Install NPM Packages'
       command: yarn install --immutable
   - save_cache:
-      name: 'Save Cache'
+    name: 'Save Yarn Cache'
+    key: yarn-cache-{{ checksum "yarn.lock" }}
+    paths:
+      - ~/.yarn
+  - save_cache:
+      name: 'Save NPM Cache'
       key: npm-cache-{{ checksum "yarn.lock" }}
       paths:
-        - ~/.yarn
-        # - ~/.cache/Cypress
         - ~/project/node_modules

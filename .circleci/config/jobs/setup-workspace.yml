@@ -4,7 +4,7 @@ resource_class: large
 steps:
   - init-repo
   - install-npm
-  # - install-nvm
+  - install-nvm
   - build-repo
   - run:
       command: |
