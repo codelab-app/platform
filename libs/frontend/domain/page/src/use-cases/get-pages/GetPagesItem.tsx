@@ -1,11 +1,7 @@
 import { FileOutlined } from '@ant-design/icons'
 import type { IDomain, IPage } from '@codelab/frontend/abstract/core'
 import { pageRef } from '@codelab/frontend/abstract/core'
-import {
-  ExplorerPaneType,
-  PageType,
-  PageType,
-} from '@codelab/frontend/abstract/types'
+import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import { regeneratePages } from '@codelab/frontend/domain/domain'
 import { useStore } from '@codelab/frontend/presentation/container'
 import {
