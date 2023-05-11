@@ -37,11 +37,11 @@ commands:
             - run:
                 command: yarn install --immutable
                 name: Install NPM Packages
-            - key: yarn-cache-{{ checksum "yarn.lock" }}
-              name: Save Yarn Cache
-              paths:
-                - ~/.yarn
-              save_cache: null
+            - save_cache:
+                key: yarn-cache-{{ checksum "yarn.lock" }}
+                name: Save Yarn Cache
+                paths:
+                    - ~/.yarn
             - save_cache:
                 key: npm-cache-{{ checksum "yarn.lock" }}
                 name: Save NPM Cache

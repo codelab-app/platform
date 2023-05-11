@@ -8,10 +8,10 @@ steps:
       name: 'Install NPM Packages'
       command: yarn install --immutable
   - save_cache:
-    name: 'Save Yarn Cache'
-    key: yarn-cache-{{ checksum "yarn.lock" }}
-    paths:
-      - ~/.yarn
+      name: 'Save Yarn Cache'
+      key: yarn-cache-{{ checksum "yarn.lock" }}
+      paths:
+        - ~/.yarn
   - save_cache:
       name: 'Save NPM Cache'
       key: npm-cache-{{ checksum "yarn.lock" }}
