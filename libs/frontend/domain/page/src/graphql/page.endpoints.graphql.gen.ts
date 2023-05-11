@@ -81,7 +81,6 @@ export type GetRenderedPageAndCommonAppDataQuery = {
   primitiveTypes: Array<Type_PrimitiveType_Fragment>
   arrayTypes: Array<Type_ArrayType_Fragment>
   unionTypes: Array<Type_UnionType_Fragment>
-  interfaceTypes: Array<Type_InterfaceType_Fragment>
   elementTypes: Array<Type_ElementType_Fragment>
   renderPropTypes: Array<Type_RenderPropType_Fragment>
   reactNodeTypes: Array<Type_ReactNodeType_Fragment>
@@ -157,9 +156,6 @@ export const GetRenderedPageAndCommonAppDataDocument = gql`
       ...Type
     }
     unionTypes(where: { id_IN: $typeIds }) {
-      ...Type
-    }
-    interfaceTypes(where: { id_IN: $typeIds }) {
       ...Type
     }
     elementTypes(where: { id_IN: $typeIds }) {

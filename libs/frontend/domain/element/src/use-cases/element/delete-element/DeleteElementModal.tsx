@@ -1,7 +1,7 @@
 import { elementRef } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ModalForm } from '@codelab/frontend/presentation/view'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
@@ -21,15 +21,17 @@ export const DeleteElementModal = observer(() => {
   const elementToDelete = elementService.deleteModal.element
 
   const onSubmit = ({ element }: DeleteElementData) => {
-    // Get parent before we delete the current element
-    const parentElement = elementToDelete.parent?.current
+    // Get parent or previous sibling before we delete the current element
+
+    const newSelectedNode =
+      elementToDelete.prevSibling?.current ?? elementToDelete.parent?.current
 
     // Don't wait so we don't block the UI
     void elementService.delete(element)
 
-    parentElement &&
+    newSelectedNode &&
       // Need to create new ref since prev ref already has a parent
-      builderService.setSelectedNode(elementRef(parentElement))
+      builderService.setSelectedNode(elementRef(newSelectedNode))
 
     return Promise.resolve()
   }

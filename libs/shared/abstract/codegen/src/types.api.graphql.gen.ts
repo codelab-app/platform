@@ -21668,7 +21668,6 @@ export type GetAtomOptionsQuery = {
     id: string
     name: string
     type: AtomType
-    icon?: string | null
   }>
 }
 
@@ -21907,9 +21906,6 @@ export type GetRenderedPageAndCommonAppDataQuery = {
   >
   arrayTypes: Array<{ __typename?: 'ArrayType' } & Type_ArrayType_Fragment>
   unionTypes: Array<{ __typename?: 'UnionType' } & Type_UnionType_Fragment>
-  interfaceTypes: Array<
-    { __typename?: 'InterfaceType' } & Type_InterfaceType_Fragment
-  >
   elementTypes: Array<
     { __typename?: 'ElementType' } & Type_ElementType_Fragment
   >

@@ -30,13 +30,16 @@ import Head from 'next/head'
 import React, { useEffect, useMemo } from 'react'
 
 const PageBuilder: CodelabPage = observer(() => {
-  const [, lazilyLoadRemainingPages] = useRemainingPages()
+  const [{ status: remainingPagesStatus }, lazilyLoadRemainingPages] =
+    useRemainingPages()
+
   const appId = useCurrentAppId()
   const pageId = useCurrentPageId()
 
-  const [{ error, result, status }, loadCurrentPage] = useRenderedPage({
-    rendererType: RendererType.PageBuilder,
-  })
+  const [{ error, result, status: renderedPageStatus }, loadCurrentPage] =
+    useRenderedPage({
+      rendererType: RendererType.PageBuilder,
+    })
 
   useMountEffect(() => {
     void lazilyLoadRemainingPages.execute()
@@ -46,7 +49,9 @@ const PageBuilder: CodelabPage = observer(() => {
     void loadCurrentPage.execute()
   }, [pageId])
 
-  const isLoading = status !== 'success'
+  const isLoading =
+    renderedPageStatus !== 'success' || remainingPagesStatus !== 'success'
+
   const contentStyles = useMemo(() => ({ paddingTop: '0rem' }), [])
 
   return (
@@ -61,7 +66,7 @@ const PageBuilder: CodelabPage = observer(() => {
         items: [
           {
             key: ExplorerPaneType.Components,
-            render: () => <ComponentsExplorerPane />,
+            render: () => <ComponentsExplorerPane isLoading={isLoading} />,
           },
           {
             key: ExplorerPaneType.Explorer,
