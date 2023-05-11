@@ -31,12 +31,20 @@ echo "export NEO4J_USER=neo4j" >> $BASH_ENV
 echo "export NODE_OPTIONS='--max_old_space_size=8192'" >> $BASH_ENV
 
 # Slack settings
-if [ "$CIRCLE_USERNAME" == "$GITHUB_ANTON_M" ]; then
-  echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_ANTON_M}\>" >> $BASH_ENV
+if [ "$CIRCLE_USERNAME" == "$GITHUB_JETHRO" ]; then
+  echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_JETHRO}\>" >> $BASH_ENV
+elif [ "$CIRCLE_USERNAME" == "$GITHUB_VLADSLAV" ]; then
+  echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_VLADSLAV}\>" >> $BASH_ENV
 elif [ "$CIRCLE_USERNAME" == "$GITHUB_ASSIM" ]; then
   echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_ASSIM}\>" >> $BASH_ENV
 elif [ "$CIRCLE_USERNAME" == "$GITHUB_YASEEN" ]; then
   echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_YASEEN}\>" >> $BASH_ENV
+elif [ "$CIRCLE_USERNAME" == "$GITHUB_ELHAM" ]; then
+  echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_ELHAM}\>" >> $BASH_ENV
+elif [ "$CIRCLE_USERNAME" == "$GITHUB_AMR" ]; then
+  echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_AMR}\>" >> $BASH_ENV
+elif [ "$CIRCLE_USERNAME" == "$GITHUB_VOLODYMYR" ]; then
+  echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_VOLODYMYR}\>" >> $BASH_ENV
 else
   echo "export SLACK_PARAM_MENTIONS=<@${SLACK_WEBBER}>" >> $BASH_ENV
 fi
