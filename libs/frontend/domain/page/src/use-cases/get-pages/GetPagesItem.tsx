@@ -47,7 +47,7 @@ export const GetPagesItem = observer<GetPagesItemProps>(({ domains, page }) => {
   }
 
   const onClickDelete = () => pageService.deleteModal.open(pageRef(page.id))
-  const onClickEdit = () => pageService.updateModal.open(pageRef(page.id))
+  const onClickEdit = () => pageService.updateForm.open(pageRef(page.id))
 
   return (
     <List.Item style={{ paddingLeft: 0 }}>

@@ -44,7 +44,7 @@ export const CreatePageForm = observer(() => {
       schema={createPageSchema}
     >
       <AutoFields />
-      <FormController onCancel={closeForm} />
+      <FormController onCancel={closeForm} submitLabel="Create page" />
     </Form>
   )
 })

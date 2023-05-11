@@ -38,6 +38,7 @@ import { PageFactory } from '../services'
 import { pageApi } from './page.api'
 import { Page } from './page.model'
 import { PageRepository } from './page.repo'
+import { PageFormService } from './page-form.service'
 import { PageModalService } from './page-modal.service'
 
 @model('@codelab/PageService')
@@ -49,6 +50,7 @@ export class PageService
     pageFactory: prop(() => new PageFactory({})),
     pageRepository: prop(() => new PageRepository({})),
     pages: prop(() => objectMap<IPage>()),
+    updateForm: prop(() => new PageFormService({})),
     updateModal: prop(() => new PageModalService({})),
   })
   implements IPageService

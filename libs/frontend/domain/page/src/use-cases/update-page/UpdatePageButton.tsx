@@ -28,7 +28,7 @@ export const UpdatePageButton = observer(
             throw new Error('Page is not valid')
           }
 
-          pages.updateModal.open(pageRef(page))
+          pages.updateForm.open(pageRef(page))
         }}
         size="small"
         type="primary"

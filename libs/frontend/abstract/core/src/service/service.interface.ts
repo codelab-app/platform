@@ -40,6 +40,7 @@ export interface ICRUDFormService<
   Properties extends object = never,
 > {
   createForm: IEntityModalService
+  updateForm: IEntityModalService<Metadata, Properties>
 }
 /**
  * Used for base modal, since a class can only implement an object type or intersection of object types with statically known members
@@ -53,6 +54,17 @@ export interface IModalService<Metadata = never> {
 }
 
 export type IEntityModalService<
+  Metadata = never,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Properties extends object = Record<string, any>,
+> = IModalService<Metadata> & {
+  /**
+   * All properties must be partial, since we don't know whether user has opened (and set) the metadata yet
+   */
+  [K in keyof Properties]?: Properties[K]
+}
+
+export type IEntityFormService<
   Metadata = never,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Properties extends object = Record<string, any>,

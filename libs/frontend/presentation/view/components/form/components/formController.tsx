@@ -15,11 +15,11 @@ const StyledContainer = styled.div`
   }
 `
 
-const formControl = ({ onCancel }: formController) => {
+const formControl = ({ onCancel, submitLabel }: formController) => {
   return (
     <StyledContainer>
       <Button htmlType="submit" type="primary">
-        Create Page
+        {submitLabel}
       </Button>
       <Button onClick={onCancel} type="default">
         Cancel
