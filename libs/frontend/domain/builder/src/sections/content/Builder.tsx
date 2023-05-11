@@ -165,6 +165,7 @@ const StyledBuilderResizeContainer = styled(Panel)`
   height: 100%;
   background: transparent;
   border: 3px dotted rgba(0, 0, 0, 1);
+  overflow: scroll !important;
 `
 
 const StyledBuilderContainer = styled.div`
