@@ -1,0 +1,10 @@
+executor: docker-node
+steps:
+  - init-repo
+  - run:
+      name: 'Terraform Apply'
+      command: yarn cli terraform --stage=prod apply
+#      - run:
+#          name: 'Terraform Destroy'
+#          command: terraform -chdir=terraform destroy
+

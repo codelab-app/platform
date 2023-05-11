@@ -1,0 +1,12 @@
+description: 'Setup Infra Workspace'
+steps:
+  - run:
+      # Manually install because we can't add `yarn` to terraform orb
+      # https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+      name: 'Install Terraform'
+      command: |
+        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DA418C88A3219F7B
+        curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+        sudo apt-add-repository --yes "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+        sudo apt update
+        sudo apt install terraform

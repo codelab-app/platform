@@ -1,0 +1,13 @@
+executor: docker-node
+resource_class: medium
+steps:
+  - init-repo
+  - install-terraform
+  - install-nvm
+  - install-npm
+  - build-repo
+  - persist_to_workspace:
+      root: ~/
+      paths:
+        - project/node_modules
+        - project/dist

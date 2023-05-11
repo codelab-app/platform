@@ -21,6 +21,6 @@ module.exports = {
 
     console.info(`Running: ${cmd}`)
 
-    return cmd
+    return [cmd]
   },
 }

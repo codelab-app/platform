@@ -1,0 +1,15 @@
+steps:
+  - restore_cache:
+      name: 'Restore NPM Cache'
+      keys:
+        - npm-cache-{{ checksum "yarn.lock" }}
+  - run:
+      name: 'Install NPM Packages'
+      command: yarn install --immutable
+  - save_cache:
+      name: 'Save Cache'
+      key: npm-cache-{{ checksum "yarn.lock" }}
+      paths:
+        - ~/.yarn
+        - ~/.cache/Cypress
+        - ~/project/node_modules

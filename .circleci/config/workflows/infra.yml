@@ -1,0 +1,29 @@
+jobs:
+  - setup-infra-workspace:
+      filters:
+        branches:
+          only:
+            - master
+  - plan:
+      filters:
+        branches:
+          only:
+            - master
+      # e: docker-node
+      requires:
+        - setup-infra-workspace
+  - hold-apply:
+      filters:
+        branches:
+          only:
+            - master
+      type: approval
+      requires:
+        - plan
+  - apply:
+      filters:
+        branches:
+          only:
+            - master
+      requires:
+        - hold-apply

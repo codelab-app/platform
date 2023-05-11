@@ -1,0 +1,25 @@
+executor: docker-node
+steps:
+  - init-repo
+  - run:
+      name: 'Create .terraformrc file locally'
+      command: |
+        echo "credentials \"app.terraform.io\" {token = \"$TERRAFORM_TOKEN\"}" >> $HOME/.terraformrc
+  - run: terraform --version
+  - run:
+      name: 'Terraform Format'
+      command: terraform -chdir=terraform fmt
+  - run:
+      name: 'Terraform Init'
+      command: yarn cli terraform --stage=prod init
+  - run:
+      name: 'Terraform Validate'
+      command: yarn cli terraform --stage=prod validate
+  - run:
+      name: 'Terraform Plan'
+      command: yarn cli terraform --stage=prod plan
+  - persist_to_workspace:
+      root: ~/
+      paths:
+        - .terraformrc
+        - project/terraform/.terraform

@@ -1,0 +1,9 @@
+executor: machine-ubuntu
+resource_class: small
+steps:
+  - swissknife/wait_for_job:
+      job-name: install-and-build-workspace,lint,unit,e2e,codegen
+  - slack/notify:
+      event: fail
+      channel: $SLACK_CHANNEL_UPDATE
+      template: basic_fail_1

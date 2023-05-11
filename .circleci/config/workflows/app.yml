@@ -1,0 +1,6 @@
+jobs:
+  - notify-success:
+      filters:
+        branches:
+          only:
+            - master

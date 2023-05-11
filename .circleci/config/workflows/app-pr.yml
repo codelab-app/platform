@@ -1,0 +1,60 @@
+# Anchors don't work with circleci pack
+# filters-pr: &filters-pr
+#   filters:
+#     branches:
+#       ignore:
+#         - master
+
+jobs:
+  - setup-workspace:
+      # <<: *filters-pr
+      filters:
+        branches:
+          ignore:
+            - master
+  - lint:
+      filters:
+        branches:
+          ignore:
+            - master
+      requires:
+        - setup-workspace
+  - codegen:
+      filters:
+        branches:
+          ignore:
+            - master
+      requires:
+        - setup-workspace
+  - unit:
+      filters:
+        branches:
+          ignore:
+            - master
+      requires:
+        - setup-workspace
+  - integration:
+      filters:
+        branches:
+          ignore:
+            - master
+      requires:
+        - setup-workspace
+  - e2e:
+      filters:
+        branches:
+          ignore:
+            - master
+      requires:
+        - setup-workspace
+  - notify-success:
+      filters:
+        branches:
+          ignore:
+            - master
+      requires:
+        - lint
+        - codegen
+        - unit
+        - integration
+        - e2e

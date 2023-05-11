@@ -1,0 +1,13 @@
+executor: docker-node
+resource_class: medium
+environment:
+  CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
+  CIRCLE_REVISION: << pipeline.git.revision >>
+steps:
+  - init-repo
+  - run:
+      name: 'Run Lint on Repository'
+      command: yarn cli tasks lint --stage ci
+  - run:
+      name: 'Commitlint'
+      command: yarn cli tasks commitlint --stage ci

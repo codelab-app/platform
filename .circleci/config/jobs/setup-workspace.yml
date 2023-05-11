@@ -1,0 +1,28 @@
+# Can't build with machine image, causes build issues
+executor: docker-node
+resource_class: large
+steps:
+  - init-repo
+  - install-npm
+  - install-nvm
+  - build-repo
+
+  - run:
+      command: |
+        cd ~/
+        du -hd1
+  # - run:
+  #     name: 'Clear Cache'
+  #     # clear cache here because NX cache can get quite large, we rely on remote cache instead
+  #     command: |
+  #       rm -rf ~/project/node_modules/nx/.cache
+  # #            npx cypress cache clear
+  # #            npx jest --clearCache
+  # This is required since dist depends on code other than yarn.lock
+  # Instead of this can use nx caching
+  # - persist_to_workspace:
+  #     root: ~/
+  #     paths:
+  #       # Using too much workspace storage, eating up credits
+  #       # - project/node_modules
+  #       - project/dist

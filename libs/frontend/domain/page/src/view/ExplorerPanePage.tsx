@@ -4,6 +4,7 @@ import { ExplorerPaneTemplate } from '@codelab/frontend/presentation/view'
 import { useAsync, useMountEffect } from '@react-hookz/web'
 import { Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/router'
 import React from 'react'
 import {
   CreatePageButton,
@@ -19,38 +20,35 @@ interface ExplorerPanePageProps {
 }
 
 export const ExplorerPanePage = observer(({ appId }: ExplorerPanePageProps) => {
-  const { appService } = useStore()
+  const router = useRouter()
+  const { appService, pageService } = useStore()
 
-    const { pageService } = useStore()
+  const [{ result: apps, status }, actions] = useAsync(() =>
+    appService.loadAppsWithNestedPreviews({ id: appId }),
+  )
 
-    return (
-      <ExplorerPaneTemplate
-        header={<CreatePageButton key={0} />}
-        headerProps={headerProps}
-        title="Pages"
-      >
-        {!pageService.createForm.isOpen ? (
-          loading ? (
-            <Spin />
-          ) : (
-            <PageList />
-          )
-        ) : null}
-        {pageService.createForm.isOpen && <CreatePageForm />}
-        <CreatePageModal />
-        <UpdatePageModal />
-        <DeletePageModal />
-      </ExplorerPaneTemplate>
-    )
-  },
-)
+  useMountEffect(actions.execute)
+
+  const headerProps = {
+    onBack: () => router.push({ pathname: PageType.AppList }),
+  }
 
   const isLoading = status === 'loading' || status === 'not-executed'
 
   return (
-    <ExplorerPaneTemplate header={<CreatePageButton key={0} />} title="Pages">
-      {isLoading || !apps?.[0] ? <Spin /> : <PageList app={apps[0]} />}
-
+    <ExplorerPaneTemplate
+      header={<CreatePageButton key={0} />}
+      headerProps={headerProps}
+      title="Pages"
+    >
+      {!pageService.createForm.isOpen ? (
+        isLoading || !apps?.[0] ? (
+          <Spin />
+        ) : (
+          <PageList app={apps[0]} />
+        )
+      ) : null}
+      {pageService.createForm.isOpen && <CreatePageForm />}
       <CreatePageModal />
       <UpdatePageModal />
       <DeletePageModal />

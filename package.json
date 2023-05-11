@@ -24,6 +24,7 @@
     "dep-graph": "nx dep-graph --watch",
     "help": "nx help",
     "commit": "git-cz",
+    "cpack": "circleci config pack .circleci/config/ > .circleci/config.yml",
     "git:prune": "git gc --aggressive --prune=now"
   },
   "private": true,

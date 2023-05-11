@@ -1,0 +1,11 @@
+# Docker containers work on a merged networking stack, the second container should make it available in localhost
+# https://discuss.circleci.com/t/whats-the-docker-hostname-for-the-second-container/20101
+docker:
+  - image: cimg/node:18.16.0-browsers
+  # https://circleci.com/docs/using-docker#using-multiple-docker-images
+  # The `command` key is the command issued to the image
+  - image: neo4j:5.4.0
+    environment:
+      NEO4J_AUTH: neo4j/password
+      NEO4J_PLUGINS: '["apoc"]'
+    command: ['neo4j', 'start']
