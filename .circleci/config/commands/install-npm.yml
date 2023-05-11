@@ -1,8 +1,8 @@
 steps:
-  - restore_cache:
-      name: 'Restore NPM Cache'
-      keys:
-        - npm-cache-{{ checksum "yarn.lock" }}
+  # - restore_cache:
+  #     name: 'Restore NPM Cache'
+  #     keys:
+  #       - npm-cache-{{ checksum "yarn.lock" }}
   - run:
       name: 'Install NPM Packages'
       command: yarn install --immutable

@@ -17,16 +17,16 @@ steps:
         echo 'export GIT_COMMIT_MSG=$(git log --format="format:%s" -n 1 ${CIRCLE_SHA1})' >> $BASH_ENV
 
         # slack settings
-        if [ $CIRCLE_USERNAME == $GITHUB_ANTON_M ]; then
+        if [ "$CIRCLE_USERNAME" == "$GITHUB_ANTON_M" ]; then
           echo 'export SLACK_PARAM_MENTIONS=${SLACK_ANTOM_M}' >> $BASH_ENV
 
-        elif [ $CIRCLE_USERNAME == $GITHUB_ASSIM ]; then
+        elif [ "$CIRCLE_USERNAME" == "$GITHUB_ASSIM" ]; then
           echo 'export SLACK_PARAM_MENTIONS=${SLACK_ASSIM}' >> $BASH_ENV
 
-        elif [ $CIRCLE_USERNAME == $GITHUB_NGHIA ]; then
+        elif [ "$CIRCLE_USERNAME" == "$GITHUB_NGHIA" ]; then
           echo 'export SLACK_PARAM_MENTIONS=${SLACK_NGHIA}' >> $BASH_ENV
 
-        elif [ $CIRCLE_USERNAME == $GITHUB_YASEEN ]; then
+        elif [ "$CIRCLE_USERNAME" == "$GITHUB_YASEEN" ]; then
           echo 'export SLACK_PARAM_MENTIONS=${SLACK_YASEEN}' >> $BASH_ENV
 
         else

@@ -27,7 +27,9 @@
       "file:///Users/webber/Sites/Codelab/platform/.circleci/workflows.yml",
       "file:///Users/webber/Sites/Codelab/platform/.circleci/config/workflows.yml",
       "file:///Users/webber/Sites/Codelab/platform/.circleci/config/executors/executors.yml",
-      "file:///Users/webber/Sites/Codelab/platform/.circleci/config/commands/resource-class-param.yml"
+      "file:///Users/webber/Sites/Codelab/platform/.circleci/config/commands/resource-class-param.yml",
+      "file:///Users/webber/Sites/Codelab/platform/.circleci/config/jobs/codegen.yml",
+      "file:///Users/webber/Sites/Codelab/platform/.circleci/config/commands/init-repo.yml"
     ],
     "https://json.schemastore.org/cirrus.json": "file:///Users/webber/Sites/Codelab/platform/.circleci/config/workflows/app-pr.yml"
   }

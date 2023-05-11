@@ -4,9 +4,8 @@ resource_class: large
 steps:
   - init-repo
   - install-npm
-  - install-nvm
+  # - install-nvm
   - build-repo
-
   - run:
       command: |
         cd ~/
@@ -20,9 +19,9 @@ steps:
   # #            npx jest --clearCache
   # This is required since dist depends on code other than yarn.lock
   # Instead of this can use nx caching
-  # - persist_to_workspace:
-  #     root: ~/
-  #     paths:
-  #       # Using too much workspace storage, eating up credits
-  #       # - project/node_modules
-  #       - project/dist
+  - persist_to_workspace:
+      root: ~/
+      paths:
+        # Using too much workspace storage, eating up credits
+        # - project/node_modules
+        - project/dist
