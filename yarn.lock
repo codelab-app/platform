@@ -8375,7 +8375,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-hookz/web@npm:^22.0.0":
+"@react-hookz/web@npm:22.0.0":
   version: 22.0.0
   resolution: "@react-hookz/web@npm:22.0.0"
   dependencies:
@@ -15141,7 +15141,7 @@ __metadata:
     "@nx/workspace": 16.1.4
     "@react-hook/size": 2.1.2
     "@react-hook/window-size": 3.0.7
-    "@react-hookz/web": ^22.0.0
+    "@react-hookz/web": 22.0.0
     "@storybook/addon-essentials": 7.0.9
     "@storybook/core-common": ^7.0.7
     "@storybook/core-server": 7.0.9

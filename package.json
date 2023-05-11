@@ -68,7 +68,7 @@
     "@next/bundle-analyzer": "12.0.7",
     "@react-hook/size": "2.1.2",
     "@react-hook/window-size": "3.0.7",
-    "@react-hookz/web": "^22.0.0",
+    "@react-hookz/web": "22.0.0",
     "@storybook/core-server": "7.0.9",
     "@supabase/supabase-js": "^2.1.1",
     "@uiw/react-codemirror": "4.11.6",
