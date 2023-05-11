@@ -46,7 +46,7 @@ elif [ "$CIRCLE_USERNAME" == "$GITHUB_AMR" ]; then
 elif [ "$CIRCLE_USERNAME" == "$GITHUB_VOLODYMYR" ]; then
   echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_VOLODYMYR}\>" >> $BASH_ENV
 else
-  echo "export SLACK_PARAM_MENTIONS=<@${SLACK_WEBBER}>" >> $BASH_ENV
+  echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_WEBBER}\>" >> $BASH_ENV
 fi
 
 source $BASH_ENV
