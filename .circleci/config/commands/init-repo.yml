@@ -40,9 +40,9 @@ steps:
         echo "export SLACK_YASEEN=U03B5N7J2N9" >> $BASH_ENV
         echo "export SLACK_CHANNEL_UPDATE=CQVPNKS8K" >> $BASH_ENV
 
-        # # Slack settings
-        # if [ "$CIRCLE_USERNAME" == "$GITHUB_ANTON_M" ]; then
-        #   echo "export SLACK_PARAM_MENTIONS=<@${SLACK_ANTON_M}>" >> $BASH_ENV
+        # Slack settings
+        if [ "$CIRCLE_USERNAME" == "$GITHUB_ANTON_M" ]; then
+          echo "export SLACK_PARAM_MENTIONS=\<@${SLACK_ANTON_M}\>" >> $BASH_ENV
         # elif [ "$CIRCLE_USERNAME" == "$GITHUB_ASSIM" ]; then
         #   echo "export SLACK_PARAM_MENTIONS=<@${SLACK_ASSIM}>" >> $BASH_ENV
         # elif [ "$CIRCLE_USERNAME" == "$GITHUB_NGHIA" ]; then
@@ -51,7 +51,7 @@ steps:
         #   echo "export SLACK_PARAM_MENTIONS=<@${SLACK_YASEEN}>" >> $BASH_ENV
         # else
         #   echo "export SLACK_PARAM_MENTIONS=<@${SLACK_WEBBER}>" >> $BASH_ENV
-        # fi
+        fi
 
         source $BASH_ENV
   - run: env
