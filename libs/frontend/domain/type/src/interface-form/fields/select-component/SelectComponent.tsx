@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+import { useAsync } from '@react-hookz/web'
 import sortBy from 'lodash/sortBy'
 import React from 'react'
 import { SelectField } from 'uniforms-antd'
@@ -12,6 +13,7 @@ export type SelectComponentProps = Pick<
 
 export const SelectComponent = ({ ...fieldProps }: SelectComponentProps) => {
   const { builderService, componentService } = useStore()
+  const [{ status }, getComponents] = useAsync(() => componentService.getAll())
   const allComponents = sortBy(componentService.componentList, 'name')
   // Used for filtering the component options
   const parentComponent = builderService.activeComponent?.current
@@ -41,6 +43,11 @@ export const SelectComponent = ({ ...fieldProps }: SelectComponentProps) => {
       {...fieldProps}
       error={fieldProps.error}
       getPopupContainer={(triggerNode) => triggerNode.parentElement}
+      onDropdownVisibleChange={async (open) => {
+        if (open && status === 'not-executed') {
+          await getComponents.execute()
+        }
+      }}
       optionFilterProp="label"
       options={componentOptions}
       showSearch

@@ -302,7 +302,7 @@ export class ComponentService
     return components.map((component) => {
       this.storeService.load([component.store])
       this.propService.add(component.props)
-      this.typeService.addInterface(component.api)
+      this.typeService.loadTypes({ interfaceTypes: [component.api] })
 
       const allElements = [
         component.rootElement,

@@ -100,6 +100,7 @@ export const CustomComponents = observer(() => {
           <Tree<IBuilderDataNode>
             blockNode
             css={[disableTreeNodeWrapperHoverStyle, antdTreeStyle]}
+            defaultExpandAll
             onClick={(event) => event.stopPropagation()}
             onExpand={(expandedKeys) => {
               return builderService.setExpandedComponentTreeNodeIds(
