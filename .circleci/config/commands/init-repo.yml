@@ -7,7 +7,6 @@ steps:
       name: 'Restore NPM Cache'
       keys:
         # We store this only in setup-workspace
-        # - yarn-cache-{{ checksum "yarn.lock" }}
         - npm-cache-{{ checksum "yarn.lock" }}
         - nvm-cache-{{ checksum ".nvmrc" }}
   - restore_cache:

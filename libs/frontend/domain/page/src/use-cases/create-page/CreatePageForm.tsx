@@ -35,6 +35,7 @@ export const CreatePageForm = observer(() => {
 
   return (
     <Form<ICreatePageData>
+      data-testid="create-page-form"
       model={model}
       onSubmit={onSubmit}
       onSubmitError={createNotificationHandler({

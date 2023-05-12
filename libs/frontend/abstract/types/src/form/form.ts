@@ -16,6 +16,11 @@ export type FormProps<TData, TResponse = unknown> = Partial<
 > &
   Pick<AutoFormProps<TData>, 'model'> &
   SubmitRef & {
+    /**
+     * For testing
+     */
+    'data-testid'?: string
+
     cssString?: CSSInterpolation
     /**
      * Don't use `DeepPartial` even Uniform uses it

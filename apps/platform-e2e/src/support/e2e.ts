@@ -12,11 +12,10 @@
 // You can read more here:
 // https://on.cypress.io/configuration
 // ***********************************************************
-
-import 'cypress-jest-adapter'
 import '@testing-library/cypress/add-commands'
+import 'cypress-jest-adapter'
 import './commands'
 import './antd/register'
 import { stopOnFirstError } from './stopOnFirstError'
 
-afterEach(stopOnFirstError)
+// afterEach(stopOnFirstError)

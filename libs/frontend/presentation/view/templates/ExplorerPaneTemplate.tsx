@@ -18,6 +18,7 @@ export type MainPaneTemplateProps = React.PropsWithChildren<{
   header?: ReactJSXElement
   headerProps?: Pick<PageHeaderProps, 'onBack'>
   title: React.ReactNode
+  'data-testid'?: string
 }>
 
 const StyledContainer = styled.div`
@@ -48,6 +49,7 @@ const StyledContainer = styled.div`
 export const ExplorerPaneTemplate = ({
   children,
   containerProps,
+  'data-testid': dataTestId,
   header,
   headerProps,
   title,
@@ -58,6 +60,7 @@ export const ExplorerPaneTemplate = ({
         max-height: 100%;
         overflow: auto;
       `}
+      data-testid={dataTestId}
       onClick={containerProps?.onClick}
     >
       <GlobalStyles />

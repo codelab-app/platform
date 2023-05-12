@@ -26,17 +26,15 @@ describe('Pages CRUD', () => {
 
       cy.getSider().getButton({ icon: 'plus' }).click()
 
-      cy.getModal().findByLabelText('Name').type(pageName)
-      cy.getModal()
-        .getModalAction(/Create Page/)
+      cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
+      cy.findByTestId('create-page-form')
+        .getButton({ label: 'Create Page' })
         .click()
-
-      cy.getModal().should('not.exist')
     })
 
     it('should have accessible page link on sidebar', () => {
-      cy.findByText(pageName).click()
-      cy.getSpinner().should('not.exist')
+      cy.findByText(pageName).should('exist')
+      cy.findByTestId('page-explorer-pane').findByText(pageName).click()
       cy.findByText(ROOT_ELEMENT_NAME).should('be.visible')
       cy.go('back')
     })

@@ -12,10 +12,10 @@
       "cypress",
       "node",
       "@testing-library/cypress",
-      "cypress-jest-adapter",
+      // "cypress-jest-adapter",
       "jest",
-      "worker-loader",
-      "cypress-nextjs-auth0"
+      "worker-loader"
+      // "cypress-nextjs-auth0"
     ]
   },
   "include": [

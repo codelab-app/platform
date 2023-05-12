@@ -12,9 +12,10 @@ steps:
       key: yarn-cache-{{ checksum "yarn.lock" }}
       paths:
         - ~/.yarn
+    # If we want to remove .cache, need to do it after build
+  - run: rm -rf ~/project/node_modules/nx/.cache
   - save_cache:
       name: 'Save NPM Cache'
       key: npm-cache-{{ checksum "yarn.lock" }}
       paths:
-        # ~/project/node_modules/.cache/nx may not be needed if we are using nx cloud
         - ~/project/node_modules

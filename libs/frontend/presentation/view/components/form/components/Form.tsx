@@ -17,6 +17,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
     autosave = false,
     children,
     cssString,
+    'data-testid': dataTestId,
     model,
     modelTransform,
     onChange,
@@ -56,6 +57,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
         <BaseAutoForm<TData>
           autosave={autosave}
           autosaveDelay={500}
+          data-testid={dataTestId}
           model={autosave ? modelRef.current : model}
           modelTransform={modelTransform}
           onChange={onChange}

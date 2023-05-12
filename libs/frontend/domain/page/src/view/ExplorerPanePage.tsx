@@ -37,6 +37,7 @@ export const ExplorerPanePage = observer(({ appId }: ExplorerPanePageProps) => {
 
   return (
     <ExplorerPaneTemplate
+      data-testid="page-explorer-pane"
       header={<CreatePageButton key={0} />}
       headerProps={headerProps}
       title="Pages"
