@@ -134,7 +134,7 @@ export class AppService
     components.forEach((componentData) => {
       this.propService.add(componentData.props)
       this.componentService.add(componentData)
-      this.typeService.addInterface(componentData.api)
+      this.typeService.loadTypes({ interfaceTypes: [componentData.api] })
     })
 
     // Sorting the components here so that they will be sorted when referenced in the
