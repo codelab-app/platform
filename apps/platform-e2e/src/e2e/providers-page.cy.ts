@@ -78,18 +78,12 @@ describe('_app page', () => {
   })
 
   it('should be able to create simple page', () => {
-    cy.getSider()
-      .find('.ant-page-header-heading')
-      .getButton({ icon: 'plus' })
-      .should('exist')
-      .click()
+    cy.getSider().getButton({ icon: 'plus' }).click()
 
-    cy.getModal().should('be.visible').findByLabelText('Name').type(pageName)
-    cy.getModal()
-      .getModalAction(/Create Page/)
+    cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
+    cy.findByTestId('create-page-form')
+      .getButton({ label: 'Create Page' })
       .click()
-    cy.getSpinner().should('not.exist')
-    cy.getModal().should('not.exist')
 
     openPageByName(pageName)
   })
@@ -98,7 +92,7 @@ describe('_app page', () => {
     cy.createElementTree(mainPageElements)
   })
 
-  it('should render the input inside isnide the card in builder and viewer', () => {
+  it('should render the input inside the card in builder and viewer', () => {
     cy.get('#render-root .ant-card-body input').should('not.be.disabled')
 
     cy.get('header .anticon-eye').click()

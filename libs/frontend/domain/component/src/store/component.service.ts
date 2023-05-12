@@ -5,7 +5,6 @@ import type {
   IInterfaceType,
 } from '@codelab/frontend/abstract/core'
 import {
-  typeRef,
   COMPONENT_TREE_CONTAINER,
   componentRef,
   getBuilderRenderService,
@@ -14,6 +13,7 @@ import {
   IComponentDTO,
   IUpdateComponentData,
   RendererType,
+  typeRef,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getPropService } from '@codelab/frontend/domain/prop'

@@ -50,7 +50,7 @@ describe('Pages CRUD', () => {
       cy.getSpinner().should('not.exist')
 
       cy.getModal().findByLabelText('Name').clear()
-      cy.getModal().findByAltText('Name').type(updatedPageName)
+      cy.getModal().findByLabelText('Name').type(updatedPageName)
 
       cy.getModal()
         .getModalAction(/Update Page/)
