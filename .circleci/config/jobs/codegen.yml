@@ -1,7 +1,7 @@
 executor: docker-node-neo4j
 resource_class: medium
 steps:
-  - init-repo
+  - restore-workspace
   - run: env
   - run:
       name: 'GraphQL Codegen'

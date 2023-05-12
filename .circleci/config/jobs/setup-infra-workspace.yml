@@ -1,7 +1,7 @@
 executor: docker-node
 resource_class: medium
 steps:
-  - init-repo
+  - restore-workspace
   - install-terraform
   - install-nvm
   - install-npm

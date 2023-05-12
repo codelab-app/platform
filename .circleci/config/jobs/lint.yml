@@ -4,7 +4,7 @@ environment:
   CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
   CIRCLE_REVISION: << pipeline.git.revision >>
 steps:
-  - init-repo
+  - restore-workspace
   - run:
       name: 'Run Lint on Repository'
       command: yarn cli tasks lint --stage ci

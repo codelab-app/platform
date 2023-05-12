@@ -114,7 +114,8 @@ describe('Elements CRUD', () => {
   describe('update', () => {
     it(`should be able to update element`, () => {
       cy.findByText(ELEMENT_CONTAINER).click()
-      cy.findByLabelText('Name').clear().type(updatedElementName)
+      cy.findByLabelText('Name').clear()
+      cy.findByLabelText('Name').type(updatedElementName)
       cy.findByText(updatedElementName).should('exist')
     })
   })

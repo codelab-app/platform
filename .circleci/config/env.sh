@@ -1,3 +1,5 @@
+
+#!/bin/bash
 # Git settings
 echo "export GIT_COMMIT_MSG=$(git log --format=format:\"%s\" -n 1 ${CIRCLE_SHA1})" >> $BASH_ENV
 

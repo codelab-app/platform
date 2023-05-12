@@ -3,7 +3,7 @@ resource_class: large
 # Cypress requires record for parallel to work according to https://github.com/cypress-io/cypress/issues/2520
 parallelism: 4
 steps:
-  - init-repo
+  - restore-workspace
   - setup_remote_docker:
       version: 20.10.14
       docker_layer_caching: true

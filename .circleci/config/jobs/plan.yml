@@ -1,6 +1,6 @@
 executor: docker-node
 steps:
-  - init-repo
+  - restore-workspace
   - run:
       name: 'Create .terraformrc file locally'
       command: |

@@ -2,7 +2,10 @@
 executor: docker-node
 resource_class: large
 steps:
-  - init-repo
+  - checkout
+  - setup-env
+  # - nx/set-shas:
+  #     main-branch-name: master
   - install-npm
   - install-nvm
   - build-repo

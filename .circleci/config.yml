@@ -2,6 +2,10 @@ commands:
     build-repo:
         description: Build Repo
         steps:
+            - restore_cache:
+                keys:
+                    - nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
+                name: Restore NX Cache
             - run: npx nx run-many --target=build --projects=platform,cli,landing,websites --parallel=4 --verbose -c ci --nx-bail
             - save_cache:
                 key: nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
@@ -10,32 +14,13 @@ commands:
                     - ~/project/dist/apps/platform/.next/cache
                     - ~/project/dist/apps/landing/.next/cache
                     - ~/project/dist/apps/websites/.next/cache
-    init-repo:
-        description: Init Repo
-        steps:
-            - checkout
-            - attach_workspace:
-                at: ..
-            - restore_cache:
-                keys:
-                    - npm-cache-{{ checksum "yarn.lock" }}
-                    - nvm-cache-{{ checksum ".nvmrc" }}
-                name: Restore NPM Cache
-            - restore_cache:
-                keys:
-                    - nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
-                name: Restore NX Cache
-            - run:
-                command: source ~/project/.circleci/config/env.sh
-                name: Setup Env
-            - run: env
-            - nx/set-shas:
-                main-branch-name: master
+                    - ~/project/node_modules/nx/.cache
     install-npm:
         steps:
             - restore_cache:
                 keys:
                     - yarn-cache-{{ checksum "yarn.lock" }}
+                    - yarn-cache
                 name: Restore Yarn Cache
             - run:
                 command: yarn install --immutable
@@ -45,27 +30,23 @@ commands:
                 name: Save Yarn Cache
                 paths:
                     - ~/.yarn
+            - run:
+                command: |
+                    cd ~/project/node_modules/.cache
+                    du -hd1
             - save_cache:
-                key: npm-cache-{{ checksum "yarn.lock" }}
+                key: node-modules-{{ checksum "yarn.lock" }}
                 name: Save NPM Cache
                 paths:
                     - ~/project/node_modules
     install-nvm:
         steps:
+            - restore_cache:
+                keys:
+                    - nvm-cache-{{ checksum ".nvmrc" }}
+                name: Restore NVM Cache
             - run:
-                command: |
-                    # Set path before install, otherwise paths will be different in the executors
-                    echo 'export NODE_OPTIONS=$NODE_OPTIONS' >> $BASH_ENV
-                    source $BASH_ENV
-
-                    echo 'export NVM_DIR=$HOME/.nvm' >> $BASH_ENV
-                    echo 'source $NVM_DIR/nvm.sh' >> $BASH_ENV
-
-                    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-
-                    #if [ ! -d "$NVM_DIR" ]; then
-                    #  wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-                    #fi
+                command: source ~/project/.circleci/config/install-nvm.sh
                 name: Install NVM
             - save_cache:
                 key: nvm-cache-{{ checksum ".nvmrc" }}
@@ -89,6 +70,24 @@ commands:
                     sudo apt update
                     sudo apt install terraform
                 name: Install Terraform
+    restore-workspace:
+        description: Restore Workspace
+        steps:
+            - checkout
+            - attach_workspace:
+                at: ..
+            - restore_cache:
+                keys:
+                    - node-modules-{{ checksum "yarn.lock" }}
+                    - nvm-cache-{{ checksum ".nvmrc" }}
+                name: Restore NPM Cache
+            - setup-env
+    setup-env:
+        description: Setup Env
+        steps:
+            - run:
+                command: source ~/project/.circleci/config/env.sh
+                name: Setup Env
 executors:
     docker-node:
         docker:
@@ -116,7 +115,7 @@ jobs:
     apply:
         executor: docker-node
         steps:
-            - init-repo
+            - restore-workspace
             - run:
                 command: yarn cli terraform --stage=prod apply
                 name: Terraform Apply
@@ -124,7 +123,7 @@ jobs:
         executor: docker-node-neo4j
         resource_class: medium
         steps:
-            - init-repo
+            - restore-workspace
             - run: env
             - run:
                 command: yarn cli tasks codegen --stage ci
@@ -134,7 +133,7 @@ jobs:
         parallelism: 4
         resource_class: large
         steps:
-            - init-repo
+            - restore-workspace
             - setup_remote_docker:
                 docker_layer_caching: true
                 version: 20.10.14
@@ -156,7 +155,7 @@ jobs:
         executor: docker-node-neo4j
         resource_class: large
         steps:
-            - init-repo
+            - restore-workspace
             - run:
                 command: yarn cli tasks int --stage ci
                 name: Run Integration Tests
@@ -168,7 +167,7 @@ jobs:
         executor: docker-node
         resource_class: medium
         steps:
-            - init-repo
+            - restore-workspace
             - run:
                 command: yarn cli tasks lint --stage ci
                 name: Run Lint on Repository
@@ -265,7 +264,7 @@ jobs:
     plan:
         executor: docker-node
         steps:
-            - init-repo
+            - restore-workspace
             - run:
                 command: |
                     echo "credentials \"app.terraform.io\" {token = \"$TERRAFORM_TOKEN\"}" >> $HOME/.terraformrc
@@ -292,7 +291,7 @@ jobs:
         executor: docker-node
         resource_class: medium
         steps:
-            - init-repo
+            - restore-workspace
             - install-terraform
             - install-nvm
             - install-npm
@@ -306,13 +305,18 @@ jobs:
         executor: docker-node
         resource_class: large
         steps:
-            - init-repo
+            - checkout
+            - setup-env
             - install-npm
             - install-nvm
             - build-repo
             - run:
                 command: |
                     cd ~/
+                    du -hd1
+                    cd ~/project
+                    du -hd1
+                    cd ~/.cache
                     du -hd1
             - persist_to_workspace:
                 paths:
@@ -322,7 +326,7 @@ jobs:
         executor: docker-node
         resource_class: medium
         steps:
-            - init-repo
+            - restore-workspace
             - run:
                 command: yarn cli tasks unit --stage ci
                 name: Run Unit Tests

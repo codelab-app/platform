@@ -117,38 +117,34 @@ describe('Component CRUD', () => {
        * You should use .then() to chain commands instead.
        * More Info: https://docs.cypress.io/guides/references/migration-guide#-should
        * */
-      cy.wrap(componentChildren)
-        .each((child: ComponentChildData) => {
-          cy.contains(/Add child/).click({ force: true })
-
-          cy.getModal().setFormFieldValue({
-            label: 'Render Type',
-            type: FIELD_TYPE.SELECT,
-            value: 'Atom',
-          })
-          cy.getModal().setFormFieldValue({
-            label: 'Atom',
-            type: FIELD_TYPE.SELECT,
-            value: child.atom,
-          })
-
-          setElementNameInModal(child.name)
-
-          cy.getModal()
-            .getModalAction(/Create/)
-            .click()
-          cy.getModal().should('not.exist', { timeout: 10000 })
-          cy.get(`[title="${child.name}"]`).click({ force: true })
+      cy.wrap(componentChildren).each((child: ComponentChildData) => {
+        cy.contains(/Add child/).click({ force: true })
+        cy.getModal().setFormFieldValue({
+          label: 'Render Type',
+          type: FIELD_TYPE.SELECT,
+          value: 'Atom',
         })
-        .then(() => {
-          cy.get(`.ant-tabs [aria-label="setting"]`).click()
-          cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
-            COMPONENT_CHILD_TEXT,
-            { parseSpecialCharSequences: false },
-          )
-
-          cy.get('#render-root').findByText('text null').should('exist')
+        cy.getModal().setFormFieldValue({
+          label: 'Atom',
+          type: FIELD_TYPE.SELECT,
+          value: child.atom,
         })
+        setElementNameInModal(child.name)
+        cy.getModal()
+          .getModalAction(/Create/)
+          .click()
+        cy.getModal().should('not.exist', { timeout: 10000 })
+        cy.get(`[title="${child.name}"]`).click({ force: true })
+      })
+
+      // Should run after each
+      cy.get(`.ant-tabs [aria-label="setting"]`).click()
+      cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
+        COMPONENT_CHILD_TEXT,
+        { parseSpecialCharSequences: false },
+      )
+
+      cy.get('#render-root').findByText('text null').should('exist')
     })
 
     it('should be able to specify where to render component children', () => {

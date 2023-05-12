@@ -1,7 +1,7 @@
 executor: docker-node
 resource_class: medium
 steps:
-  - init-repo
+  - restore-workspace
   - run:
       name: 'Run Unit Tests'
       command: yarn cli tasks unit --stage ci

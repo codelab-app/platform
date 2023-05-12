@@ -1,9 +1,15 @@
 steps:
-  # NPM cache already restored in init-repo, which is shared with other jobs. While yarn cache is only needed in the setup-workspace job
+  # NPM cache already restored in restore-workspace, which is shared with other jobs. While yarn cache is only needed in the setup-workspace job
+  # The time to restore node_modules is longer than the time saving from installing node_modules again
+  # - restore_cache:
+  #     name: 'Restore NPM Cache'
+  #     keys:
+  #       - node-modules-{{ checksum "yarn.lock" }}
   - restore_cache:
       name: 'Restore Yarn Cache'
       keys:
         - yarn-cache-{{ checksum "yarn.lock" }}
+        - yarn-cache
   - run:
       name: 'Install NPM Packages'
       command: yarn install --immutable
@@ -12,10 +18,18 @@ steps:
       key: yarn-cache-{{ checksum "yarn.lock" }}
       paths:
         - ~/.yarn
-    # If we want to remove .cache, need to do it after build
-  - run: rm -rf ~/project/node_modules/nx/.cache
+  # - run:
+  #     command: |
+  #       cd ~/project/node_modules/.cache
+  #       du -hd1
+  #   # If we want to remove .cache, need to do it after build
+  # - run: test -d ~/project/node_modules/.cache/nx && mv ~/project/node_modules/.cache/nx ~/project/nx/.cache || true
+  - run:
+      command: |
+        cd ~/project/node_modules/.cache
+        du -hd1
   - save_cache:
       name: 'Save NPM Cache'
-      key: npm-cache-{{ checksum "yarn.lock" }}
+      key: node-modules-{{ checksum "yarn.lock" }}
       paths:
         - ~/project/node_modules

@@ -1,9 +1,9 @@
 description: 'Build Repo'
 steps:
-  # - restore_cache:
-  #     name: 'Restore NX Cache'
-  #     keys:
-  #       - nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
+  - restore_cache:
+      name: 'Restore NX Cache'
+      keys:
+        - nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
   # Can't use `yarn cli` doesn't exist yet
   - run: npx nx run-many --target=build --projects=platform,cli,landing,websites --parallel=4 --verbose -c ci --nx-bail
   - save_cache:
@@ -13,9 +13,4 @@ steps:
         - ~/project/dist/apps/platform/.next/cache
         - ~/project/dist/apps/landing/.next/cache
         - ~/project/dist/apps/websites/.next/cache
-  # - persist_to_workspace:
-  #     root: ~/
-  #     paths:
-  #       # Using too much workspace storage, eating up credits
-  #       # - project/node_modules
-  #       - project/dist
+        - ~/project/node_modules/nx/.cache

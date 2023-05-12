@@ -1,7 +1,7 @@
 executor: docker-node-neo4j
 resource_class: large
 steps:
-  - init-repo
+  - restore-workspace
   - run:
       name: 'Run Integration Tests'
       command: yarn cli tasks int --stage ci

@@ -18,4 +18,4 @@ import './commands'
 import './antd/register'
 import { stopOnFirstError } from './stopOnFirstError'
 
-// afterEach(stopOnFirstError)
+afterEach(stopOnFirstError)
