@@ -16,6 +16,7 @@ import { BordersEditor } from './css-borders-editor/BordersEditor'
 import { EffectsEditor } from './css-effects-editor/EffectsEditor'
 import { LayoutEditor } from './css-layout-editor'
 import { ShadowsEditor } from './css-shadows-editor'
+import { FontEditor } from './font-editor'
 
 const { Panel } = Collapse
 
@@ -94,6 +95,13 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
               <CaretRightOutlined rotate={isActive ? 90 : 0} />
             )}
           >
+            <Panel
+              className="site-collapse-custom-panel"
+              header="Fonts"
+              key="0"
+            >
+              <FontEditor element={element} guiCssObj={guiCssObj} />
+            </Panel>
             <Panel
               className="site-collapse-custom-panel"
               header="Layout"
