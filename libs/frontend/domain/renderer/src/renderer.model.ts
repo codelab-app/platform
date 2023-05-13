@@ -4,9 +4,9 @@ import type {
   IExpressionTransformer,
   IPropData,
   IRenderer,
+  IRendererProps,
   IRenderOutput,
   IRenderPipe,
-  RendererProps,
   RendererType,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -18,18 +18,13 @@ import { getTypeService } from '@codelab/frontend/domain/type'
 import { replaceStateInProps } from '@codelab/frontend/shared/utils'
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { mapDeep, mergeProps } from '@codelab/shared/utils'
-import attempt from 'lodash/attempt'
-import isError from 'lodash/isError'
-import isObject from 'lodash/isObject'
 import { computed } from 'mobx'
-import type { ObjectMap, Ref } from 'mobx-keystone'
-import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
+import { idProp, Model, model, objectMap, prop } from 'mobx-keystone'
 import { createTransformer } from 'mobx-utils'
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
-import type { ITypedPropTransformer } from './abstract'
 import { allAtoms } from './atoms'
 import type { ElementWrapperProps } from './element/ElementWrapper'
 import { ElementWrapper } from './element/ElementWrapper'
@@ -39,8 +34,6 @@ import {
   defaultPipes,
   renderPipeFactory,
 } from './renderPipes/renderPipe.factory'
-import { typedPropTransformersFactory } from './typedPropTransformers'
-import { isTypedProp } from './utils'
 
 /**
  * Handles the logic of rendering treeElements. Takes in an optional appTree
@@ -85,6 +78,12 @@ export class Renderer
      * Store attached to app, needed to access its actions
      */
     providerTree: prop<Nullable<Ref<IElementTree>>>(null),
+
+    /**
+     *
+     */
+    rendererProps: prop(() => objectMap<IRendererProps>()),
+
     /**
      * Different types of renderer requires behaviors in some cases.
      */
@@ -93,12 +92,6 @@ export class Renderer
      * The render pipe handles and augments the render process. This is a linked list / chain of render pipes
      */
     renderPipe: prop<IRenderPipe>(() => renderPipeFactory(defaultPipes)),
-    /**
-     * Those transform different kinds of typed values into render-ready props
-     */
-    typedPropTransformers: prop<ObjectMap<ITypedPropTransformer>>(() =>
-      typedPropTransformersFactory(),
-    ),
   })
   implements IRenderer
 {
@@ -140,16 +133,14 @@ export class Renderer
     element: IElement,
     extraProps?: IPropData,
   ): ArrayOrSingle<IRenderOutput> => {
-    let props = mergeProps(
-      element.__metadataProps,
-      element.parentComponent?.current.initialState,
-      element.props.current.values,
-      extraProps,
-    )
+    const propsInstance = RendererProps.create({
+      elementId: element.id,
+      extraProps: extraProps || {},
+    })
 
-    props = this.processPropsForRender(props, element)
+    this.rendererProps.set(element.id, propsInstance)
 
-    return this.renderPipe.render(element, props)
+    return this.renderPipe.render(element, propsInstance.evaluatedProps)
   }
 
   getComponentInstanceChildren(element: IElement) {
@@ -250,85 +241,5 @@ export class Renderer
     }
   }
 
-  /**
-   * Parses and transforms the props for a given element, so they are ready for rendering
-   */
-  private processPropsForRender = (props: IPropData, element: IElement) => {
-    props = this.transformTypedProps(props, element)
-    props = this.executePropTransformJs(props, element)
-    props = replaceStateInProps(props, element.store.current.state)
-
-    return props
-  }
-
-  /**
-   * Applies all the type transformers to the props
-   */
-  private transformTypedProps = (props: IPropData, element: IElement) =>
-    mapDeep(props, (value) => {
-      if (!isTypedProp(value)) {
-        return value
-      }
-
-      const typeKind = this.typeService.type(value.type)?.kind
-
-      if (!typeKind) {
-        return value
-      }
-
-      const transformer = this.typedPropTransformers.get(typeKind)
-
-      if (transformer) {
-        return transformer.transform(value, element)
-      }
-
-      return value
-    })
-
-  /**
-   * Executes the prop transformation function
-   * If successful, merges the result with the original props and returns it
-   * If failed, returns the original props
-   */
-  private executePropTransformJs = (props: IPropData, element: IElement) => {
-    if (!element.transformPropsFn) {
-      return props
-    }
-
-    const result = attempt(element.transformPropsFn, props)
-
-    if (isError(result)) {
-      console.warn('Unable to transform props', result)
-
-      return props
-    }
-
-    return mergeProps(props, result)
-  }
-
   static create = create
-}
-
-export const renderServiceRef = rootRef<IRenderer>(
-  '@codelab/RenderServiceRef',
-  {
-    onResolvedValueChange: (ref, newType, oldType) => {
-      if (oldType && !newType) {
-        detach(ref)
-      }
-    },
-  },
-)
-
-/**
- * Use for getting the actual value if the prop data is a UnionType
- * @param value the prop data
- * @returns the actual typed value if prop is a UnionType
- */
-const preTransformPropTypeValue = (value: IPropData) => {
-  if (isTypedProp(value) && isObject(value.value) && isTypedProp(value.value)) {
-    return value.value
-  }
-
-  return value
 }
