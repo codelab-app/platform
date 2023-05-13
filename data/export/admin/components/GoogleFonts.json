@@ -39,7 +39,7 @@
     },
     "props": {
       "id": "7e8d336a-65b3-47cd-9a44-2bb446155210",
-      "data": "{\"fonts\":[{\"weight\":\"400\",\"family\":\"Roboto, sans-serif\"}]}"
+      "data": "{\"fonts\":[{\"weight\":\"400\",\"family\":\"Roboto, sans-serif\"}, {\"weight\":\"400\",\"family\":\"Pacifico, sans-serif\"}]}"
     },
     "store": {
       "id": "ee6cb6a6-fadd-4e24-85eb-477f33bee868",

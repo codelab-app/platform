@@ -98,14 +98,14 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
             <Panel
               className="site-collapse-custom-panel"
               header="Fonts"
-              key="0"
+              key="1"
             >
               <FontEditor element={element} guiCssObj={guiCssObj} />
             </Panel>
             <Panel
               className="site-collapse-custom-panel"
               header="Layout"
-              key="1"
+              key="2"
             >
               <LayoutEditor element={element} guiCssObj={guiCssObj} />
             </Panel>
