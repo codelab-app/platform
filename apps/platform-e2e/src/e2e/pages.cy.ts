@@ -49,13 +49,15 @@ describe('Pages CRUD', () => {
         .click()
       cy.getSpinner().should('not.exist')
 
-      cy.getModal().findByLabelText('Name').clear()
-      cy.getModal().findByLabelText('Name').type(updatedPageName)
-
-      cy.getModal()
-        .getModalAction(/Update Page/)
+      cy.findByTestId('update-page-form').findByLabelText('Name').clear()
+      cy.findByTestId('update-page-form')
+        .findByLabelText('Name')
+        .type(updatedPageName)
+      cy.findByTestId('update-page-form')
+        .getButton({ label: 'Update Page' })
         .click()
-      cy.getModal().should('not.exist')
+
+      cy.findByTestId('update-page-form').should('not.exist')
 
       cy.findByText(pageName).should('not.exist')
       cy.findByText(updatedPageName).should('exist')

@@ -8,10 +8,15 @@ export const CreatePageButton = observer(() => {
   const { pageService } = useStore()
   const onClick = () => pageService.createForm.open()
 
-  return pageService.createForm.isOpen ? (
+  const onClose = () => {
+    pageService.createForm.close()
+    pageService.updateForm.close()
+  }
+
+  return pageService.createForm.isOpen || pageService.updateForm.isOpen ? (
     <Button
       icon={<CloseOutlined />}
-      onClick={() => pageService.createForm.close()}
+      onClick={onClose}
       size="small"
       style={{ background: 'red' }}
       type="primary"

@@ -28,6 +28,7 @@ export const UpdatePageForm = observer(() => {
 
   return (
     <Form<UpdatePageSchema>
+      data-testid="update-page-form"
       model={model}
       onSubmit={onSubmit}
       onSubmitError={createNotificationHandler({
