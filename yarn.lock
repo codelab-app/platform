@@ -9822,7 +9822,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@supabase/supabase-js@npm:^2.1.1":
+"@supabase/supabase-js@npm:2.1.1":
   version: 2.1.1
   resolution: "@supabase/supabase-js@npm:2.1.1"
   dependencies:
@@ -15136,7 +15136,7 @@ __metadata:
     "@storybook/nextjs": 7.0.7
     "@storybook/react-webpack5": 7.0.7
     "@storybook/test-runner": ^0.10.0
-    "@supabase/supabase-js": ^2.1.1
+    "@supabase/supabase-js": 2.1.1
     "@svgr/webpack": 6.2.0
     "@testing-library/cypress": 8.0.7
     "@testing-library/dom": 9.2.0
