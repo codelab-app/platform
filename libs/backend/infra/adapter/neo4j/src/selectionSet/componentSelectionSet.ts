@@ -20,4 +20,5 @@ export const componentSelectionSet = `{
   childrenContainerElement {
     id
   }
+  keyGenerator
 }`
