@@ -5,6 +5,7 @@ import type {
   IElementService,
 } from '@codelab/frontend/abstract/core'
 import {
+  elementRef,
   getBuilderService,
   getComponentService,
   isComponentInstance,
@@ -13,7 +14,7 @@ import {
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { Component } from '@codelab/frontend/domain/component'
 import { getPropService } from '@codelab/frontend/domain/prop'
-import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
+import { getTypeService } from '@codelab/frontend/domain/type'
 import {
   RenderedComponentFragment,
   RenderTypeKind,
@@ -23,7 +24,7 @@ import type {
   IElementDTO,
   RenderType,
 } from '@codelab/shared/abstract/core'
-import { IRenderTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { IRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
 import uniq from 'lodash/uniq'
@@ -207,14 +208,7 @@ export class ElementService
       this.elements.delete(element.id)
     })
 
-    yield* _await(
-      Promise.all(
-        affectedNodeIds.map((id) =>
-          this.elementRepository.updateNodes(this.element(id)),
-        ),
-      ),
-    )
-
+    yield* _await(this.updateAffectedElements(affectedNodeIds))
     yield* _await(this.elementRepository.delete(allElementsToDelete))
 
     return
@@ -393,13 +387,8 @@ export class ElementService
       targetElement,
     })
 
-    yield* _await(
-      Promise.all(
-        uniq([...newConnectedNodeIds, ...oldConnectedNodeIds]).map((id) =>
-          this.elementRepository.updateNodes(this.element(id)),
-        ),
-      ),
-    )
+    const affectedIds = [...newConnectedNodeIds, ...oldConnectedNodeIds]
+    yield* _await(this.updateAffectedElements(affectedIds))
   })
 
   @modelFlow
@@ -418,13 +407,8 @@ export class ElementService
       parentElement,
     })
 
-    yield* _await(
-      Promise.all(
-        uniq([...newConnectedNodeIds, ...oldConnectedNodeIds]).map((id) =>
-          this.elementRepository.updateNodes(this.element(id)),
-        ),
-      ),
-    )
+    const affectedIds = [...newConnectedNodeIds, ...oldConnectedNodeIds]
+    yield* _await(this.updateAffectedElements(affectedIds))
   })
 
   @modelFlow
@@ -471,13 +455,7 @@ export class ElementService
       })
     }
 
-    yield* _await(
-      Promise.all(
-        affectedNodeIds.map((id) =>
-          this.elementRepository.updateNodes(this.element(id)),
-        ),
-      ),
-    )
+    yield* _await(this.updateAffectedElements(affectedNodeIds))
 
     return element
   })
@@ -501,13 +479,7 @@ export class ElementService
       targetElement: prevSibling,
     })
 
-    yield* _await(
-      Promise.all(
-        affectedNodeIds.map((id) =>
-          this.elementRepository.updateNodes(this.element(id)),
-        ),
-      ),
-    )
+    yield* _await(this.updateAffectedElements(affectedNodeIds))
 
     return element
   })
@@ -656,13 +628,7 @@ export class ElementService
       )
     }
 
-    yield* _await(
-      Promise.all(
-        affectedNodeIds.map((id) =>
-          this.elementRepository.updateNodes(this.element(id)),
-        ),
-      ),
-    )
+    yield* _await(this.updateAffectedElements(affectedNodeIds))
   })
 
   private async recursiveDuplicate(element: IElement, parentElement: IElement) {
@@ -775,82 +741,66 @@ export class ElementService
     element: IElement,
     owner: IAuth0Owner,
   ) {
-    if (!element.parent) {
+    if (!element.closestParent) {
       throw new Error("Can't convert root element")
     }
 
-    const { name, parent: parentElement, prevSibling } = element
-    // 1. detach the element from the element tree
-    const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
+    const { closestParent: parentElement, name, prevSibling } = element
 
+    // 1. deselect active element to avoid script errors if the selected element
+    // is a child of the element we are converting or the element itself
+    this.builderService.setSelectedNode(null)
+
+    // 2. create the component first before detaching the element from the element tree,
+    // this way in case if component creation fails, we avoid data loss
+    const createdComponent = yield* _await(
+      this.componentService.create({ id: v4(), name, owner }),
+    )
+
+    // 3. detach the element from the element tree
+    const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
+    yield* _await(this.updateAffectedElements(oldConnectedNodeIds))
+
+    // 4. attach current element to the component
+    const affectedAttachedNodes = this.attachElementAsFirstChild({
+      element,
+      parentElement: createdComponent.rootElement,
+    })
+
+    yield* _await(this.updateAffectedElements(affectedAttachedNodes))
+
+    // 5. create a new element as an instance of the component
+    const componentId = createdComponent.id
+    const renderType = { id: componentId, kind: IRenderTypeKind.Component }
+    const instanceElement = { id: v4(), name, parentElement, renderType }
+
+    const createdElement = yield* _await(
+      prevSibling
+        ? this.createElementAsNextSibling({
+            ...instanceElement,
+            prevSibling,
+          })
+        : this.createElementAsFirstChild(instanceElement),
+    )
+
+    // 6. set newly created element as selected element in builder tree
+    this.builderService.setSelectedNode(elementRef(createdElement))
+
+    return createdElement
+  })
+
+  @modelFlow
+  @transaction
+  updateAffectedElements = _async(function* (
+    this: ElementService,
+    elementIds: Array<string>,
+  ) {
     yield* _await(
       Promise.all(
-        oldConnectedNodeIds.map((id) =>
+        uniq(elementIds).map((id) =>
           this.elementRepository.updateNodes(this.element(id)),
         ),
       ),
-    )
-
-    const api = this.typeService.addInterface({
-      id: v4(),
-      kind: ITypeKind.InterfaceType,
-      name: InterfaceType.createName(`${element.name}`),
-      owner,
-    })
-
-    // 2. create the component with predefined root element
-    // TODO: create a separate use case in componentService
-    // because a new rootElement is getting created here (we may use createOrConnect)
-    // also to avoid complex typing and conditions
-    const createdComponent = yield* _await(
-      this.componentService.create({
-        id: v4(),
-        name,
-        owner,
-      }),
-    )
-
-    // 3. create a new element as an instance of the component
-    if (!prevSibling) {
-      const createdElement = yield* _await(
-        this.create({
-          id: v4(),
-          name,
-          parentElement,
-          renderType: {
-            id: createdComponent.id,
-            kind: IRenderTypeKind.Component,
-          },
-        }),
-      )
-
-      const newConnectedNodeIds = this.attachElementAsFirstChild({
-        element: createdElement,
-        parentElement,
-      })
-
-      yield* _await(
-        Promise.all(
-          newConnectedNodeIds.map((id) =>
-            this.elementRepository.updateNodes(this.element(id)),
-          ),
-        ),
-      )
-
-      return createdElement
-    }
-
-    return yield* _await(
-      this.createElementAsNextSibling({
-        id: v4(),
-        name,
-        parentElement,
-        prevSibling,
-        renderType: {
-          id: createdComponent.id,
-          kind: IRenderTypeKind.Component,
-        },
-      }),
     )
   })
 
