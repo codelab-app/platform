@@ -79,4 +79,22 @@ describe('Renderer', () => {
 
     expect(atomType).toBe(componentAtomType)
   })
+
+  it('should have props with a replaced expression using the instance prop value', () => {
+    const { props } = data.rootStore.renderer.renderIntermediateElement(
+      data.componentInstance,
+      {},
+    ) as IRenderOutput
+
+    const clonedComponent =
+      data.rootStore.componentService.clonedComponents.get(
+        data.componentInstance.id,
+      )
+
+    expect(props).toMatchObject({
+      [DATA_COMPONENT_ID]: clonedComponent?.id,
+      ...data.componentInstance.props.current.values,
+      expressionProp: 'expression value - component instance prop',
+    })
+  })
 })

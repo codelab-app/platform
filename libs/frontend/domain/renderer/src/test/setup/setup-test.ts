@@ -122,6 +122,15 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       type: typeRef(stringType.id),
     })
 
+    data.componentField = new Field({
+      api: typeRef(emptyInterface),
+      defaultValues: 'component prop default',
+      id: v4(),
+      key: 'rootComponentProp',
+      name: 'Root Component Prop',
+      type: typeRef(stringType.id),
+    })
+
     data.renderPropType = new RenderPropType({
       name: 'renderPropType',
       owner,
@@ -144,7 +153,10 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       componentService: new ComponentService({}),
       elementService: new ElementService({}),
       fieldService: new FieldService({
-        fields: objectMap([[data.textField.id, data.textField]]),
+        fields: objectMap([
+          [data.textField.id, data.textField],
+          [data.componentField.id, data.componentField],
+        ]),
       }),
       pageService: new PageService({}),
       propService: new PropService({}),
@@ -214,6 +226,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       data: JSON.stringify({
         componentProp: 'original',
         [CUSTOM_TEXT_PROP_KEY]: "I'm a component",
+        expressionProp: `expression value - {{this.${data.componentField.key}}}`,
       }),
       id: v4(),
     })
@@ -229,7 +242,12 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     })
 
     data.component.api.current.writeCache({
-      fields: [{ id: data.textField.id }],
+      fields: [
+        { id: data.textField.id },
+        {
+          id: data.componentField.id,
+        },
+      ],
     })
 
     data.component.setChildrenContainerElement(elementRef(compRootElementId))
@@ -243,7 +261,12 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
         id: v4(),
         name: '01',
         parentElement: { id: data.element.id },
-        props: { data: JSON.stringify({ componentProp: 'instance' }) },
+        props: {
+          data: JSON.stringify({
+            componentProp: 'instance',
+            [data.componentField.key]: 'component instance prop',
+          }),
+        },
         renderType: {
           id: data.component.id,
           kind: IRenderTypeKind.Component,

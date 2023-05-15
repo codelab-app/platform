@@ -27,6 +27,7 @@ export type ITestRootStore = Pick<
 
 export interface TestServices {
   component: IComponent
+  componentField: IField
   componentInstance: IElement
   element: IElement
   reactNodeType: IReactNodeType
