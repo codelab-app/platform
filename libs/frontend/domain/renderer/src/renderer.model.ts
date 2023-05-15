@@ -253,10 +253,7 @@ export class Renderer
     props = this.applyPropTypeTransformers(props, element)
     props = element.executePropTransformJs(props)
 
-    props = replaceStateInProps(
-      props,
-      mergeProps(element.store.current.state, props),
-    )
+    props = replaceStateInProps(props, element.store.current.state)
 
     return props
   }

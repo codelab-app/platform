@@ -103,6 +103,7 @@ export class Store
       mergeProps(
         this.api.current.defaultValues,
         this.component?.current.initialState,
+        this.component?.current.instanceElement?.current.props.current.values,
         this._initialState,
         this.actions
           .map((action) => ({
