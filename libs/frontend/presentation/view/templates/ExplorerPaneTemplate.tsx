@@ -4,7 +4,7 @@ import { css } from '@emotion/react'
 import type { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 import styled from '@emotion/styled'
 import React from 'react'
-import tw, { GlobalStyles } from 'twin.macro'
+import tw from 'twin.macro'
 
 export type MainPaneTemplateProps = React.PropsWithChildren<{
   containerProps?: Pick<
@@ -63,7 +63,6 @@ export const ExplorerPaneTemplate = ({
       data-testid={dataTestId}
       onClick={containerProps?.onClick}
     >
-      <GlobalStyles />
       <PageHeader
         extra={header}
         onBack={headerProps?.onBack}
