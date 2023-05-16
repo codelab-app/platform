@@ -6,7 +6,6 @@ import {
 } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
 import { ResourceFragment } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 import { PageBuilderAppFragment } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
-import { RenderedComponentFragment } from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 import {
   Type_ActionType_Fragment,
   Type_AppType_Fragment,
@@ -32,7 +31,6 @@ import {
 } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
 import { ResourceFragmentDoc } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 import { PageBuilderAppFragmentDoc } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
-import { RenderedComponentFragmentDoc } from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 import { TypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 export type CreatePagesMutationVariables = Types.Exact<{
   input: Array<Types.PageCreateInput> | Types.PageCreateInput
@@ -76,7 +74,6 @@ export type GetRenderedPageAndCommonAppDataQueryVariables = Types.Exact<{
 
 export type GetRenderedPageAndCommonAppDataQuery = {
   apps: Array<PageBuilderAppFragment>
-  pageComponents: Array<RenderedComponentFragment>
   resources: Array<ResourceFragment>
   primitiveTypes: Array<Type_PrimitiveType_Fragment>
   arrayTypes: Array<Type_ArrayType_Fragment>
@@ -143,9 +140,6 @@ export const GetRenderedPageAndCommonAppDataDocument = gql`
     apps(where: { id: $appId }) {
       ...PageBuilderApp
     }
-    pageComponents(pageId: $pageId) {
-      ...RenderedComponent
-    }
     resources {
       ...Resource
     }
@@ -187,7 +181,6 @@ export const GetRenderedPageAndCommonAppDataDocument = gql`
     }
   }
   ${PageBuilderAppFragmentDoc}
-  ${RenderedComponentFragmentDoc}
   ${ResourceFragmentDoc}
   ${TypeFragmentDoc}
 `

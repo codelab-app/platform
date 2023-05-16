@@ -21897,9 +21897,6 @@ export type GetRenderedPageAndCommonAppDataQueryVariables = Exact<{
 export type GetRenderedPageAndCommonAppDataQuery = {
   __typename?: 'Query'
   apps: Array<{ __typename?: 'App' } & PageBuilderAppFragment>
-  pageComponents: Array<
-    { __typename?: 'Component' } & RenderedComponentFragment
-  >
   resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
   primitiveTypes: Array<
     { __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment
