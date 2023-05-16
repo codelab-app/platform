@@ -1,6 +1,6 @@
 import type { IRepository } from '@codelab/backend/abstract/types'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import { TTLCache } from './cache'
+import { TTLCache } from '@codelab/shared/utils'
 
 export abstract class AbstractRepository<
   Model extends IEntity,

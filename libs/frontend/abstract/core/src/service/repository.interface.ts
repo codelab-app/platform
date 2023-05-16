@@ -20,7 +20,7 @@ export interface IRepository<
   addMany?(models: Array<Model>): Promise<Array<IEntity>>
   delete(models: ArrayOrSingle<Model>): Promise<number>
   find(
-    where: Where,
+    where?: Where,
     options?: Option,
   ): Promise<{ items: Array<ModelFragment>; aggregate: { count: number } }>
   findOne?(where: Where): Promise<ModelFragment | undefined>
