@@ -172,7 +172,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           }
 
           if (stage === Stage.CI) {
-            execCommand(`npx nx affected --target=e2e -c ci --verbose`)
+            execCommand(`npx nx run platform-e2e:e2e:ci --verbose`)
           }
         },
       )
