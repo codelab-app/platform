@@ -4,8 +4,8 @@ import React from 'react'
 import tw from 'twin.macro'
 import { ButtonPropsForm } from './ButtonDemoProps'
 import { DemoShoppingCard } from './DemoShoppingCard'
-import { DOMTree } from './DOMTree'
-import { DOMTreeCode } from './DOMTreeCode'
+import { DOMTree } from './DomTree'
+import { DOMTreeCode } from './DomTreeCode'
 
 const onChange = (key: string) => {
   console.log(key)

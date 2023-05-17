@@ -18,7 +18,7 @@ import { Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { renderStickyTabBar } from '../stickyTabBarRenderer'
+import { renderStickyTabBar } from '../StickyTabBarRenderer'
 import { CustomComponents, PreBuiltComponents } from './tab-contents'
 
 interface ComponentsExplorerPaneProps {

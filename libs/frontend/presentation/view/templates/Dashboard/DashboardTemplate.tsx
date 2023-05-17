@@ -6,10 +6,10 @@ import { Panel, PanelGroup } from 'react-resizable-panels'
 import tw from 'twin.macro'
 import { SidebarNavigation } from '../SidebarNavigation'
 import { sidebarWidth } from './constants'
-import { DashboardTemplateConfigPane } from './DashboardTemplate-ConfigPane'
-import { DashboardTemplateExplorerPane } from './DashboardTemplate-ExplorerPane'
+import { DashboardTemplateConfigPane } from './DashboardTemplateConfigPane'
+import { DashboardTemplateExplorerPane } from './DashboardTemplateExplorerPane'
 import ResizeHandle from './ResizeHandle'
-import type { DashboardTemplateProps } from './types'
+import type { DashboardTemplateProps } from './Types'
 
 const { Sider } = Layout
 

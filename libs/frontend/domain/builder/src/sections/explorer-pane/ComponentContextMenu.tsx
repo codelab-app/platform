@@ -10,7 +10,7 @@ import type { MenuProps } from 'antd'
 import { Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
-import { BuilderTreeItemComponentTitle } from './builder-tree/BuilderTreeItem-ComponentTitle'
+import { BuilderTreeItemComponentTitle } from './builder-tree/BuilderTreeItemComponentTitle'
 import type { ContextMenuProps } from './ElementContextMenu'
 
 export type ComponentContextMenuProps = ContextMenuProps &

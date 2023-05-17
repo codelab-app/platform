@@ -36,7 +36,7 @@ import type { ReactNode } from 'react'
 import React from 'react'
 import tw from 'twin.macro'
 import { PropsInspectorTab } from '../PropsInspectorTab'
-import { TabContainer } from './ConfigPane-InspectorTabContainerStyle'
+import { TabContainer } from './ConfigPaneInspectorTabContainerStyle'
 import { TAB_NAMES } from './data'
 
 interface TooltipIconProps {

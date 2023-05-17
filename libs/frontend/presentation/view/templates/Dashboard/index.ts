@@ -1,4 +1,4 @@
 export * from './constants'
-export * from './DashboardTemplateNoSSR'
+export * from './DashboardTemplateNoSsr'
 export * from './Sidebar'
-export * from './types'
+export * from './Types'

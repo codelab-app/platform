@@ -43,9 +43,9 @@ import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren, ReactNode } from 'react'
 import React from 'react'
 import tw from 'twin.macro'
-import { renderStickyTabBar } from '../stickyTabBarRenderer'
+import { renderStickyTabBar } from '../StickyTabBarRenderer'
 import { BuilderTree } from './builder-tree'
-import { BuilderExplorerPaneHeader } from './BuilderExplorerPane-Header'
+import { BuilderExplorerPaneHeader } from './BuilderExplorerPaneHeader'
 
 const { Panel } = Collapse
 

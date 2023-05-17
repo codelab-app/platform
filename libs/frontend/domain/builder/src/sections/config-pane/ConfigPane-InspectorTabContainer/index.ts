@@ -1,1 +1,1 @@
-export * from './ConfigPane-InspectorTabContainer'
+export * from './ConfigPaneInspectorTabContainer'

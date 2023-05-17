@@ -13,7 +13,7 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
-import { BuilderTreeItemElementTitle } from './builder-tree/BuilderTreeItem-ElementTitle'
+import { BuilderTreeItemElementTitle } from './builder-tree/BuilderTreeItemElementTitle'
 
 export interface ContextMenuProps {
   onBlur?(): unknown

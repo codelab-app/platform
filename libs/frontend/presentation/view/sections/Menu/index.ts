@@ -1,2 +1,2 @@
-export * from './adminMenuItems'
-export * from './commonMenuItems'
+export * from './AdminMenuItems'
+export * from './CommonMenuItems'

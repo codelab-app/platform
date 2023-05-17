@@ -6,7 +6,7 @@ import {
 import { Tabs } from 'antd'
 import React from 'react'
 import { ButtonPropsForm } from './ButtonDemoProps'
-import { DOMTree } from './DOMTree'
+import { DOMTree } from './DomTree'
 
 const { TabPane } = Tabs
 

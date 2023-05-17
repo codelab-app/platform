@@ -1,2 +1,2 @@
 export * from './BuilderTree'
-export * from './BuilderTreeItem-Title'
+export * from './BuilderTreeItemTitle'

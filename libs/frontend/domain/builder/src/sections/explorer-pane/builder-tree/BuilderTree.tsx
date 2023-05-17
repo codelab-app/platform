@@ -13,7 +13,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useMemo } from 'react'
 import { useElementTreeDrop } from '../../../hooks'
 import { antdTreeStyle } from './antdTree.styles'
-import { BuilderTreeItemTitle } from './BuilderTreeItem-Title'
+import { BuilderTreeItemTitle } from './BuilderTreeItemTitle'
 import {
   DISABLE_HOVER_CLASSNAME,
   disableTreeNodeWrapperHoverStyle,

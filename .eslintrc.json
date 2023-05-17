@@ -20,7 +20,8 @@
     "sort-destructure-keys",
     // @typescript-eslint/member-ordering doesn't auto-fix
     // But conflicts with member-ordering, since that puts methods after properties, while `typescript-sort-keys` sorts everything alphabetically
-    "typescript-sort-keys"
+    "typescript-sort-keys",
+    "unicorn"
   ],
   "parser": "@typescript-eslint/parser",
   "env": {
@@ -467,6 +468,21 @@
       }
     },
     {
+      "files": ["*.tsx"],
+      "rules": {
+        "unicorn/filename-case": [
+          "error",
+          {
+            "cases": {
+              "camelCase": false,
+              "pascalCase": true
+            },
+            "ignore": ["_app.tsx", "_document.tsx", "^\\[.*\\]\\.tsx$"]
+          }
+        ]
+      }
+    },
+    {
       "files": ["*.spec.ts", "*.spec.tsx"],
       // "plugins": ["plugin:jest/recommended", "plugin:jest/style"],
       "rules": {
@@ -555,6 +571,7 @@
       "extends": ["plugin:@nx/javascript"],
       "rules": {}
     }
+
     // {
     //   "files": ["*.ts"],
     //   "processor": "@graphql-eslint/graphql"
