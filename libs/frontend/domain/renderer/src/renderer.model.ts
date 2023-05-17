@@ -4,9 +4,9 @@ import type {
   IExpressionTransformer,
   IPropData,
   IRenderer,
+  IRendererProps,
   IRenderOutput,
   IRenderPipe,
-  RendererProps,
   RendererType,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -14,29 +14,22 @@ import {
   elementTreeRef,
   isAtomInstance,
 } from '@codelab/frontend/abstract/core'
-import { getTypeService } from '@codelab/frontend/domain/type'
-import { replaceStateInProps } from '@codelab/frontend/shared/utils'
-import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { mapDeep, mergeProps } from '@codelab/shared/utils'
-import isObject from 'lodash/isObject'
 import type { Ref } from 'mobx-keystone'
-import { detach, idProp, Model, model, prop, rootRef } from 'mobx-keystone'
+import { idProp, Model, model, objectMap, prop } from 'mobx-keystone'
 import { createTransformer } from 'mobx-utils'
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
-import type { ITypedValueTransformer } from './abstract/i-typed-value-transformer'
-import type { ElementWrapperProps } from './element/element-wrapper'
-import { ElementWrapper } from './element/element-wrapper'
+import { ElementWrapper, ElementWrapperProps } from './element/element-wrapper'
 import { makeCustomTextContainer } from './element/wrapper.utils'
-import { ExpressionTransformer } from './expresssion-transformer.service'
+import { RendererProps } from './renderer.props.model'
 import {
   defaultPipes,
   renderPipeFactory,
 } from './renderPipes/render-pipe.factory'
-import { typedValueTransformersFactory } from './typedValueTransformers/typed-value-transformers-factory'
-import { isTypedValue } from './utils/is-typed-value'
+import { ExpressionTransformer } from './expresssion-transformer.service'
 
 /**
  * Handles the logic of rendering treeElements. Takes in an optional appTree
@@ -47,7 +40,7 @@ import { isTypedValue } from './utils/is-typed-value'
  * This ensures that each render() call can be used for a single isolated observer() - wrapped React Element
  * and it will get re-rendered only if the source Element model is changed
  *
- * The renderPipe and typedValueTransformers replace the previous render pipeline.
+ * The renderPipe and typedPropTransformers replace the previous render pipeline.
  * It's useful to keep them as mobx-keystone models because they can access the context of the state tree
  * which in practice can act as a DI container, so we can get outside data in the render pipeline easily.
  *
@@ -81,20 +74,21 @@ export class Renderer
      * Store attached to app, needed to access its actions
      */
     providerTree: prop<Nullable<Ref<IElementTree>>>(null),
+
+    /**
+     *
+     */
+    rendererProps: prop(() => objectMap<IRendererProps>()),
+
     /**
      * Different types of renderer requires behaviors in some cases.
      */
     rendererType: prop<RendererType>(),
+
     /**
      * The render pipe handles and augments the render process. This is a linked list / chain of render pipes
      */
     renderPipe: prop<IRenderPipe>(() => renderPipeFactory(defaultPipes)),
-    /**
-     * Those transform different kinds of typed values into render-ready props
-     */
-    typedValueTransformers: prop<Array<ITypedValueTransformer>>(() =>
-      typedValueTransformersFactory(),
-    ),
   })
   implements IRenderer
 {
@@ -136,16 +130,14 @@ export class Renderer
     element: IElement,
     extraProps?: IPropData,
   ): ArrayOrSingle<IRenderOutput> => {
-    let props = mergeProps(
-      element.__metadataProps,
-      element.parentComponent?.current.initialState,
-      element.props.current.values,
-      extraProps,
-    )
+    const propsInstance = RendererProps.create({
+      elementId: element.id,
+      extraProps: extraProps || {},
+    })
 
-    props = this.processPropsForRender(props, element)
+    this.rendererProps.set(element.id, propsInstance)
 
-    return this.renderPipe.render(element, props)
+    return this.renderPipe.render(element, propsInstance.evaluatedProps)
   }
 
   getComponentInstanceChildren(element: IElement) {
@@ -246,89 +238,5 @@ export class Renderer
     }
   }
 
-  /**
-   * Parses and transforms the props for a given element, so they are ready for rendering
-   */
-  private processPropsForRender = (props: IPropData, element: IElement) => {
-    props = this.applyPropTypeTransformers(props, element)
-    props = element.executePropTransformJs(props)
-
-    props = replaceStateInProps(props, element.store.current.state)
-
-    return props
-  }
-
-  /**
-   * Applies all the type transformers to the props
-   */
-  private applyPropTypeTransformers = (props: IPropData, element: IElement) =>
-    mapDeep(props, (value) => {
-      if (!isTypedValue(value)) {
-        return value
-      }
-
-      const typeKind = this.getTypeKindById(value.type)
-
-      if (!typeKind) {
-        return value
-      }
-
-      for (const propTransformer of this.typedValueTransformers) {
-        if (
-          !propTransformer.canHandleTypeKind(typeKind) ||
-          !propTransformer.canHandleValue(value)
-        ) {
-          continue
-        }
-
-        return propTransformer.transform(value, element)
-      }
-
-      /*
-       * We need to return an empty string here, if the prop cannot be transformed, otherwise
-       * the empty object will be passed as React Child, which will throw an error
-       */
-      if (
-        typeKind === ITypeKind.ReactNodeType ||
-        typeKind === ITypeKind.RenderPropType
-      ) {
-        return ''
-      }
-
-      return {}
-    })
-
-  private getTypeKindById(typeId: string): ITypeKind | undefined {
-    return getTypeService(this).type(typeId)?.kind
-  }
-
   static create = create
-}
-
-export const renderServiceRef = rootRef<IRenderer>(
-  '@codelab/RenderServiceRef',
-  {
-    onResolvedValueChange: (ref, newType, oldType) => {
-      if (oldType && !newType) {
-        detach(ref)
-      }
-    },
-  },
-)
-
-/**
- * Use for getting the actual value if the prop data is a UnionType
- * @param value the prop data
- * @returns the actual typed value if prop is a UnionType
- */
-const preTransformPropTypeValue = (value: IPropData) => {
-  if (
-    isTypedValue(value) &&
-    isObject(value.value) &&
-    isTypedValue(value.value)
-  ) {
-    return value.value
-  }
-
-  return value
 }

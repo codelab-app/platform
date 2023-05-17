@@ -19,10 +19,6 @@ export interface IRenderer {
   providerTree: Nullable<Ref<IElementTree>>
   rendererType: RendererType
 
-  // initForce(
-  //   elementTree: IElementTree,
-  //   providerTree?: Nullable<IElementTree>,
-  // ): void
   logRendered(element: IElement, rendered: ArrayOrSingle<IRenderOutput>): void
   renderChildren(input: {
     parentOutput: IRenderOutput

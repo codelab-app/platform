@@ -140,7 +140,7 @@ export class TypeSchemaFactory {
       oneOf: type.typesOfUnionType.map((innerType) => {
         const valueSchema = this.transform(innerType.current)
 
-        const properties = TypeSchemaFactory.schemaForTypedValue(
+        const properties = TypeSchemaFactory.schemaForTypedProp(
           innerType.id,
           valueSchema,
           typeLabel,
@@ -163,7 +163,7 @@ export class TypeSchemaFactory {
   }
 
   fromActionType(type: IActionType, context?: UiPropertiesContext): JsonSchema {
-    return this.transformTypedValueType(type, context)
+    return this.transformTypedPropType(type, context)
   }
 
   fromPageType(type: IPageType): JsonSchema {
@@ -174,7 +174,7 @@ export class TypeSchemaFactory {
     type: IRenderPropType,
     context?: UiPropertiesContext,
   ): JsonSchema {
-    return this.transformTypedValueType(type, context)
+    return this.transformTypedPropType(type, context)
   }
 
   fromCodeMirrorType(
@@ -192,13 +192,13 @@ export class TypeSchemaFactory {
     type: IReactNodeType,
     context?: UiPropertiesContext,
   ): JsonSchema {
-    return this.transformTypedValueType(type, context)
+    return this.transformTypedPropType(type, context)
   }
 
   fromElementType(type: IElementType): JsonSchema {
     const extra = this.getExtraProperties(type)
 
-    const properties = TypeSchemaFactory.schemaForTypedValue(
+    const properties = TypeSchemaFactory.schemaForTypedProp(
       type.id,
       { label: '', type: 'string', ...extra },
       '',
@@ -265,10 +265,10 @@ export class TypeSchemaFactory {
   }
 
   /**
-   * Produces the properties with the shape of a {@link TypedValue}
+   * Produces the properties with the shape of a {@link TypedProp}
    * with a `type` field that has a value of `typeId`
    */
-  private static schemaForTypedValue(
+  private static schemaForTypedProp(
     typeId: Maybe<string>,
     valueSchema: JsonSchema,
     typeLabel: Maybe<string>,
@@ -291,16 +291,16 @@ export class TypeSchemaFactory {
 
   /**
    * Handles transformation of the React Element related types.
-   * Produces a {@link TypedValue} shaped schema
+   * Produces a {@link TypedProp} shaped schema
    */
-  private transformTypedValueType(
+  private transformTypedPropType(
     type: IActionType | IReactNodeType | IRenderPropType,
     context?: UiPropertiesContext,
   ): JsonSchema {
     const extra = this.getExtraProperties(type)
     const label = context?.fieldName ?? ''
 
-    const properties = TypeSchemaFactory.schemaForTypedValue(
+    const properties = TypeSchemaFactory.schemaForTypedProp(
       type.id,
       { label, ...extra },
       '',

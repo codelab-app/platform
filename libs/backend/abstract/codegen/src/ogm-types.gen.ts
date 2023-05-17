@@ -4501,7 +4501,7 @@ export type ElementsConnection = {
 /**
  * Allows picking an element from the current tree
  * Is passed to the rendered element as a React node
- * Prop values for this type have the shape of TypedValue in order to
+ * Prop values for this type have the shape of TypedProp in order to
  * be distinguished from other element types.
  * Comparison between different element types:
  * - RenderPropType: Component select box, results it '(props) => ReactNode' value
@@ -4523,7 +4523,7 @@ export type ElementType = IBaseType & {
 /**
  * Allows picking an element from the current tree
  * Is passed to the rendered element as a React node
- * Prop values for this type have the shape of TypedValue in order to
+ * Prop values for this type have the shape of TypedProp in order to
  * be distinguished from other element types.
  * Comparison between different element types:
  * - RenderPropType: Component select box, results it '(props) => ReactNode' value
@@ -4539,7 +4539,7 @@ export type ElementTypeOwnerArgs = {
 /**
  * Allows picking an element from the current tree
  * Is passed to the rendered element as a React node
- * Prop values for this type have the shape of TypedValue in order to
+ * Prop values for this type have the shape of TypedProp in order to
  * be distinguished from other element types.
  * Comparison between different element types:
  * - RenderPropType: Component select box, results it '(props) => ReactNode' value
@@ -4554,7 +4554,7 @@ export type ElementTypeOwnerAggregateArgs = {
 /**
  * Allows picking an element from the current tree
  * Is passed to the rendered element as a React node
- * Prop values for this type have the shape of TypedValue in order to
+ * Prop values for this type have the shape of TypedProp in order to
  * be distinguished from other element types.
  * Comparison between different element types:
  * - RenderPropType: Component select box, results it '(props) => ReactNode' value
@@ -5978,7 +5978,7 @@ export type PropsConnection = {
 /**
  * Allows picking a Component from the list of components.
  * It is passed to the rendered element as a React node: `ReactNode`
- * Prop values for this type have the shape of TypedValue in order to
+ * Prop values for this type have the shape of TypedProp in order to
  * be distinguished from other element types.
  * Comparison between different element types:
  * - RenderPropType: Component select box, results it '(props) => ReactNode' value
@@ -5998,7 +5998,7 @@ export type ReactNodeType = IBaseType & {
 /**
  * Allows picking a Component from the list of components.
  * It is passed to the rendered element as a React node: `ReactNode`
- * Prop values for this type have the shape of TypedValue in order to
+ * Prop values for this type have the shape of TypedProp in order to
  * be distinguished from other element types.
  * Comparison between different element types:
  * - RenderPropType: Component select box, results it '(props) => ReactNode' value
@@ -6014,7 +6014,7 @@ export type ReactNodeTypeOwnerArgs = {
 /**
  * Allows picking a Component from the list of components.
  * It is passed to the rendered element as a React node: `ReactNode`
- * Prop values for this type have the shape of TypedValue in order to
+ * Prop values for this type have the shape of TypedProp in order to
  * be distinguished from other element types.
  * Comparison between different element types:
  * - RenderPropType: Component select box, results it '(props) => ReactNode' value
@@ -6029,7 +6029,7 @@ export type ReactNodeTypeOwnerAggregateArgs = {
 /**
  * Allows picking a Component from the list of components.
  * It is passed to the rendered element as a React node: `ReactNode`
- * Prop values for this type have the shape of TypedValue in order to
+ * Prop values for this type have the shape of TypedProp in order to
  * be distinguished from other element types.
  * Comparison between different element types:
  * - RenderPropType: Component select box, results it '(props) => ReactNode' value
@@ -6082,7 +6082,7 @@ export type ReactNodeTypeUserOwnerNodeAggregateSelection = {
  * Allows picking a Component from the list of components.
  * It is passed to the rendered element as a function that takes props as input
  * and returns a React element: '(props) => ReactNode'
- * Prop values for this type have the shape of TypedValue in order to
+ * Prop values for this type have the shape of TypedProp in order to
  * be distinguished from other element types.
  * Comparison between different element types:
  * - RenderPropType: Component select box, results it '(props) => ReactNode' value
@@ -6103,7 +6103,7 @@ export type RenderPropType = IBaseType & {
  * Allows picking a Component from the list of components.
  * It is passed to the rendered element as a function that takes props as input
  * and returns a React element: '(props) => ReactNode'
- * Prop values for this type have the shape of TypedValue in order to
+ * Prop values for this type have the shape of TypedProp in order to
  * be distinguished from other element types.
  * Comparison between different element types:
  * - RenderPropType: Component select box, results it '(props) => ReactNode' value
@@ -6120,7 +6120,7 @@ export type RenderPropTypeOwnerArgs = {
  * Allows picking a Component from the list of components.
  * It is passed to the rendered element as a function that takes props as input
  * and returns a React element: '(props) => ReactNode'
- * Prop values for this type have the shape of TypedValue in order to
+ * Prop values for this type have the shape of TypedProp in order to
  * be distinguished from other element types.
  * Comparison between different element types:
  * - RenderPropType: Component select box, results it '(props) => ReactNode' value
@@ -6136,7 +6136,7 @@ export type RenderPropTypeOwnerAggregateArgs = {
  * Allows picking a Component from the list of components.
  * It is passed to the rendered element as a function that takes props as input
  * and returns a React element: '(props) => ReactNode'
- * Prop values for this type have the shape of TypedValue in order to
+ * Prop values for this type have the shape of TypedProp in order to
  * be distinguished from other element types.
  * Comparison between different element types:
  * - RenderPropType: Component select box, results it '(props) => ReactNode' value

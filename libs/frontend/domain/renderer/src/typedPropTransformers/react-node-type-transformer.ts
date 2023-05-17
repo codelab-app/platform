@@ -1,9 +1,12 @@
-import type { IElement, TypedValue } from '@codelab/frontend/abstract/core'
+import type {
+  IElement,
+  ITypedPropTransformer,
+  TypedProp,
+} from '@codelab/frontend/abstract/core'
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import isString from 'lodash/isString'
 import { ExtendedModel, model } from 'mobx-keystone'
-import type { ITypedValueTransformer } from '../abstract/i-typed-value-transformer'
 import { BaseRenderPipe } from '../renderPipes/render-pipe.base'
 import { cloneComponent } from '../utils'
 
@@ -24,42 +27,28 @@ import { cloneComponent } from '../utils'
 @model('@codelab/ReactNodeTypedValueTransformer')
 export class ReactNodeTypedValueTransformer
   extends ExtendedModel(BaseRenderPipe, {})
-  implements ITypedValueTransformer
+  implements ITypedPropTransformer
 {
-  canHandleTypeKind(typeKind: ITypeKind): boolean {
-    return typeKind === ITypeKind.ReactNodeType
-  }
-
-  canHandleValue(value: TypedValue<unknown>): boolean {
-    const isComponentId =
-      isString(value.value) && this.componentService.components.has(value.value)
-
-    const isComponentExpression = hasStateExpression(value.value)
-
-    // either when it is a componentId or a component expression
-    return isComponentId || isComponentExpression
-  }
-
-  public transform(value: TypedValue<string>, element: IElement) {
+  public transform(prop: TypedProp, element: IElement) {
     const { expressionTransformer } = this.renderer
 
     // value is a custom JS component
-    if (hasStateExpression(value.value)) {
+    if (hasStateExpression(prop.value) && expressionTransformer.initialized) {
       const transpiledValue =
-        expressionTransformer.transpileAndEvaluateExpression(value.value)
+        expressionTransformer.transpileAndEvaluateExpression(prop.value)
 
       return typeof transpiledValue === 'function'
         ? transpiledValue.call(expressionTransformer.context)
         : transpiledValue
     }
 
-    const { value: componentId } = value
+    const { value: componentId } = prop
     const component = this.componentService.components.get(componentId)
-
+    const fallback = ''
     if (!component) {
       console.error('Component not found')
 
-      return value
+      return fallback
     }
 
     const componentClone = cloneComponent(
@@ -71,7 +60,7 @@ export class ReactNodeTypedValueTransformer
     if (!componentClone) {
       console.error('Failed to clone component')
 
-      return value
+      return fallback
     }
 
     const rootElement = componentClone.rootElement.current

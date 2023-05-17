@@ -6,7 +6,7 @@
  * Example: React Node Type and Render Props Type both represent
  * an element id, but they are hydrated in different ways in the render pipeline.
  */
-export interface TypedValue<T> {
+export interface TypedProp {
   type: string
-  value: T
+  value: string
 }

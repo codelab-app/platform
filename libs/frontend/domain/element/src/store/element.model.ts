@@ -9,6 +9,7 @@ import type {
   IStore,
   RenderingError,
   RenderingMetadata,
+  TransformPropsFn,
 } from '@codelab/frontend/abstract/core'
 import {
   componentRef,
@@ -377,7 +378,7 @@ export class Element
    * Parses and materializes the propTransformationJs
    */
   @computed
-  get transformFn(): Maybe<TransformFn> {
+  get transformPropsFn(): Maybe<TransformPropsFn> {
     if (!this.propTransformationJs) {
       return undefined
     }
@@ -488,13 +489,11 @@ export class Element
    * If failed, returns the original props
    */
   executePropTransformJs = (props: IPropData) => {
-    const transformFn = this.transformFn
-
-    if (!transformFn) {
+    if (!this.transformPropsFn) {
       return props
     }
 
-    const result = attempt(transformFn, props)
+    const result = attempt(this.transformPropsFn, props)
 
     if (isError(result)) {
       console.warn('Unable to transform props', result)

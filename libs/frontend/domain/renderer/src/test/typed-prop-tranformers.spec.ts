@@ -1,4 +1,4 @@
-import type { IRenderOutput, TypedValue } from '@codelab/frontend/abstract/core'
+import type { IRenderOutput, TypedProp } from '@codelab/frontend/abstract/core'
 import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/core'
 import { render } from '@testing-library/react'
 import { setupTestForRenderer } from './setup/setup-test'
@@ -22,7 +22,7 @@ describe('RenderService', () => {
       someNode: {
         type: data.reactNodeType.id,
         value: data.component.id,
-      } as TypedValue<string>,
+      } as TypedProp,
     }
 
     const text = 'some text'
@@ -49,7 +49,7 @@ describe('RenderService', () => {
       someNode: {
         type: data.renderPropType.id,
         value: data.component.id,
-      } as TypedValue<string>,
+      } as TypedProp,
     }
 
     const { props } = data.rootStore.renderer.renderIntermediateElement(
@@ -77,7 +77,7 @@ describe('RenderService', () => {
       someNode: {
         type: data.renderPropType.id,
         value: data.component.id,
-      } as TypedValue<string>,
+      } as TypedProp,
     }
 
     const { props } = data.rootStore.renderer.renderIntermediateElement(

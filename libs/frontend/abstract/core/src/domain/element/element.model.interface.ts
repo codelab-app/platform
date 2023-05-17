@@ -45,6 +45,8 @@ export interface RenderingMetadata {
   error: Nullish<RenderingError>
 }
 
+export type TransformPropsFn = (props: IPropData) => IPropData
+
 export interface IElement
   extends Omit<
       IModel<ElementCreateInput, ElementUpdateInput, void>,
@@ -93,6 +95,7 @@ export interface IElement
   sourceElement: Nullable<IEntity>
   // store attached to closestContainerNode
   store: Ref<IStore>
+  transformPropsFn: Maybe<TransformPropsFn>
   treeViewNode: IElementTreeViewDataNode
 
   appendToGuiCss(css: CssMap): void
@@ -104,7 +107,6 @@ export interface IElement
   deleteFromGuiCss(propNames: Array<string>): void
   detachAsFirstChild(): void
   detachFromParent(): void
-  executePropTransformJs(props: IPropData): IPropData
   setCustomCss(css: string): void
   setFirstChild(firstChild: Ref<IElement>): void
   setName(name: string): void
