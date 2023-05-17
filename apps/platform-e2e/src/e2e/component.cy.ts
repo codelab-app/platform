@@ -72,7 +72,9 @@ describe('Component CRUD', () => {
         cy.waitForApiCalls()
         cy.getSpinner().should('not.exist')
 
-        cy.get('#rc-tabs-2-tab-custom-components').click({ force: true })
+        cy.get('[data-node-key="custom-components"] .ant-tabs-tab-btn').click({
+          force: true,
+        })
         // GetComponents
         cy.waitForApiCalls()
         cy.getSpinner().should('not.exist')

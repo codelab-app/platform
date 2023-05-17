@@ -164,7 +164,7 @@ export const PageDetailHeader = observer(() => {
   ]
 
   return (
-    <div css={tw`bg-white relative`}>
+    <header css={tw`bg-white relative`}>
       <div
         css={tw`absolute left-3 flex items-center flex-row h-full cursor-pointer`}
         onClick={navigatePagesPanel}
@@ -186,6 +186,6 @@ export const PageDetailHeader = observer(() => {
         theme="light"
         triggerSubMenuAction="click"
       />
-    </div>
+    </header>
   )
 })
