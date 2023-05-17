@@ -6,22 +6,6 @@ import {
 } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
 import { ResourceFragment } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 import { PageBuilderAppFragment } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
-import {
-  Type_ActionType_Fragment,
-  Type_AppType_Fragment,
-  Type_ArrayType_Fragment,
-  Type_BaseType_Fragment,
-  Type_CodeMirrorType_Fragment,
-  Type_ElementType_Fragment,
-  Type_EnumType_Fragment,
-  Type_InterfaceType_Fragment,
-  Type_LambdaType_Fragment,
-  Type_PageType_Fragment,
-  Type_PrimitiveType_Fragment,
-  Type_ReactNodeType_Fragment,
-  Type_RenderPropType_Fragment,
-  Type_UnionType_Fragment,
-} from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import * as Dom from 'graphql-request/dist/types.dom'
 import { gql } from 'graphql-tag'
@@ -31,7 +15,6 @@ import {
 } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
 import { ResourceFragmentDoc } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 import { PageBuilderAppFragmentDoc } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
-import { TypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 export type CreatePagesMutationVariables = Types.Exact<{
   input: Array<Types.PageCreateInput> | Types.PageCreateInput
 }>
@@ -69,24 +52,11 @@ export type GetPagesQuery = {
 export type GetRenderedPageAndCommonAppDataQueryVariables = Types.Exact<{
   appId: Types.Scalars['ID']
   pageId: Types.Scalars['ID']
-  typeIds?: Types.InputMaybe<Array<Types.Scalars['ID']> | Types.Scalars['ID']>
 }>
 
 export type GetRenderedPageAndCommonAppDataQuery = {
   apps: Array<PageBuilderAppFragment>
   resources: Array<ResourceFragment>
-  primitiveTypes: Array<Type_PrimitiveType_Fragment>
-  arrayTypes: Array<Type_ArrayType_Fragment>
-  unionTypes: Array<Type_UnionType_Fragment>
-  elementTypes: Array<Type_ElementType_Fragment>
-  renderPropTypes: Array<Type_RenderPropType_Fragment>
-  reactNodeTypes: Array<Type_ReactNodeType_Fragment>
-  enumTypes: Array<Type_EnumType_Fragment>
-  lambdaTypes: Array<Type_LambdaType_Fragment>
-  pageTypes: Array<Type_PageType_Fragment>
-  appTypes: Array<Type_AppType_Fragment>
-  actionTypes: Array<Type_ActionType_Fragment>
-  codeMirrorTypes: Array<Type_CodeMirrorType_Fragment>
 }
 
 export type GetRenderedPageQueryVariables = Types.Exact<{
@@ -132,57 +102,16 @@ export const GetPagesDocument = gql`
   ${PageFragmentDoc}
 `
 export const GetRenderedPageAndCommonAppDataDocument = gql`
-  query GetRenderedPageAndCommonAppData(
-    $appId: ID!
-    $pageId: ID!
-    $typeIds: [ID!]
-  ) {
+  query GetRenderedPageAndCommonAppData($appId: ID!, $pageId: ID!) {
     apps(where: { id: $appId }) {
       ...PageBuilderApp
     }
     resources {
       ...Resource
     }
-    primitiveTypes(where: { id_IN: $typeIds }) {
-      ...Type
-    }
-    arrayTypes(where: { id_IN: $typeIds }) {
-      ...Type
-    }
-    unionTypes(where: { id_IN: $typeIds }) {
-      ...Type
-    }
-    elementTypes(where: { id_IN: $typeIds }) {
-      ...Type
-    }
-    renderPropTypes(where: { id_IN: $typeIds }) {
-      ...Type
-    }
-    reactNodeTypes(where: { id_IN: $typeIds }) {
-      ...Type
-    }
-    enumTypes(where: { id_IN: $typeIds }) {
-      ...Type
-    }
-    lambdaTypes(where: { id_IN: $typeIds }) {
-      ...Type
-    }
-    pageTypes(where: { id_IN: $typeIds }) {
-      ...Type
-    }
-    appTypes(where: { id_IN: $typeIds }) {
-      ...Type
-    }
-    actionTypes(where: { id_IN: $typeIds }) {
-      ...Type
-    }
-    codeMirrorTypes(where: { id_IN: $typeIds }) {
-      ...Type
-    }
   }
   ${PageBuilderAppFragmentDoc}
   ${ResourceFragmentDoc}
-  ${TypeFragmentDoc}
 `
 export const GetRenderedPageDocument = gql`
   query GetRenderedPage($pageId: ID!) {

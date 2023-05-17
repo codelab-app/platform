@@ -322,9 +322,7 @@ export class AppService
   ) {
     const {
       apps: [appData],
-      // pageComponents: components,
       resources,
-      ...types
     } = initialData
       ? initialData
       : yield* _await(
@@ -339,8 +337,6 @@ export class AppService
      * Load app, pages, elements
      */
     this.loadPages({ pages: appData.pages })
-
-    this.typeService.loadTypes(types)
 
     // write cache for resources
     this.resourceService.load(resources)

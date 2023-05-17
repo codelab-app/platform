@@ -12,7 +12,6 @@ import { ModalService, PaginationService } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import isEmpty from 'lodash/isEmpty'
 import { computed } from 'mobx'
 import {
   _async,
@@ -142,23 +141,23 @@ export class AtomService
     where?: AtomWhere,
     options?: AtomOptions,
   ) {
-    if (this.allAtomsLoaded) {
-      return this.atomsList
-    }
+    // if (this.allAtomsLoaded && isEmpty(where)) {
+    //   return this.atomsList
+    // }
 
     const {
       aggregate: { count },
       items: atoms,
     } = yield* _await(this.atomRepository.find(where, options))
 
-    if (isEmpty(where)) {
-      this.allAtomsLoaded = true
-    }
+    // if (isEmpty(where)) {
+    //   this.allAtomsLoaded = true
+    // }
 
     this.paginationService.totalItems = count
 
     return atoms.map((atom) => {
-      this.typeService.loadTypes({ interfaceTypes: [atom.api] })
+      // this.typeService.loadTypes({ interfaceTypes: [atom.api] })
 
       return this.add(atom)
     })

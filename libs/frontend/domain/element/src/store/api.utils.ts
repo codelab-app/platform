@@ -28,12 +28,12 @@ type GetRenderTypeApi = (props: {
   atomService: IAtomService
   componentService: IComponentService
   renderType: RenderType | null
-}) => Ref<IInterfaceType> | undefined
+}) => Promise<Ref<IInterfaceType> | undefined>
 
 /**
  * We can't access model using id with Ref (since ref is not attached to root tree), so need service to access it
  */
-export const getRenderTypeApi: GetRenderTypeApi = ({
+export const getRenderTypeApi: GetRenderTypeApi = async ({
   atomService,
   componentService,
   renderType,
@@ -43,12 +43,12 @@ export const getRenderTypeApi: GetRenderTypeApi = ({
   let renderTypeApi: Ref<IInterfaceType> | undefined = undefined
 
   if (renderType?.kind === IRenderTypeKind.Atom) {
-    const renderTypeRef = atomService.atoms.get(renderType.id)
+    const renderTypeRef = await atomService.getOne(renderType.id)
     renderTypeApi = renderTypeRef?.api
   }
 
   if (renderType?.kind === IRenderTypeKind.Component) {
-    const renderTypeRef = componentService.components.get(renderType.id)
+    const renderTypeRef = await componentService.getOne(renderType.id)
     renderTypeApi = renderTypeRef?.api
   }
 

@@ -21891,35 +21891,12 @@ export type GetPagesQuery = {
 export type GetRenderedPageAndCommonAppDataQueryVariables = Exact<{
   appId: Scalars['ID']
   pageId: Scalars['ID']
-  typeIds?: InputMaybe<Array<Scalars['ID']> | Scalars['ID']>
 }>
 
 export type GetRenderedPageAndCommonAppDataQuery = {
   __typename?: 'Query'
   apps: Array<{ __typename?: 'App' } & PageBuilderAppFragment>
   resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
-  primitiveTypes: Array<
-    { __typename?: 'PrimitiveType' } & Type_PrimitiveType_Fragment
-  >
-  arrayTypes: Array<{ __typename?: 'ArrayType' } & Type_ArrayType_Fragment>
-  unionTypes: Array<{ __typename?: 'UnionType' } & Type_UnionType_Fragment>
-  elementTypes: Array<
-    { __typename?: 'ElementType' } & Type_ElementType_Fragment
-  >
-  renderPropTypes: Array<
-    { __typename?: 'RenderPropType' } & Type_RenderPropType_Fragment
-  >
-  reactNodeTypes: Array<
-    { __typename?: 'ReactNodeType' } & Type_ReactNodeType_Fragment
-  >
-  enumTypes: Array<{ __typename?: 'EnumType' } & Type_EnumType_Fragment>
-  lambdaTypes: Array<{ __typename?: 'LambdaType' } & Type_LambdaType_Fragment>
-  pageTypes: Array<{ __typename?: 'PageType' } & Type_PageType_Fragment>
-  appTypes: Array<{ __typename?: 'AppType' } & Type_AppType_Fragment>
-  actionTypes: Array<{ __typename?: 'ActionType' } & Type_ActionType_Fragment>
-  codeMirrorTypes: Array<
-    { __typename?: 'CodeMirrorType' } & Type_CodeMirrorType_Fragment
-  >
 }
 
 export type GetRenderedPageQueryVariables = Exact<{

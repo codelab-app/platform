@@ -41,6 +41,7 @@ export const useRenderedPage = ({
     builderService,
     componentService,
     elementService,
+    typeService,
   } = useStore()
 
   const appIdFromUrl = useCurrentAppId()
@@ -68,6 +69,7 @@ export const useRenderedPage = ({
     }
 
     const page = app.page(pageId)
+    const loadedComponents = []
 
     // Loading custom components
     let componentsBatch = getComponentIdsFromElements([
@@ -88,6 +90,8 @@ export const useRenderedPage = ({
           id_IN: componentsBatch,
         })
 
+        loadedComponents.push(...components)
+
         componentsBatch = getComponentIdsFromElements([
           ...flatMap(components, ({ rootElement }) => rootElement.current),
           ...flatMap(
@@ -97,6 +101,22 @@ export const useRenderedPage = ({
         ]).filter((id) => !componentService.components.has(id))
       }
     } while (componentsBatch.length > 0)
+
+    // Loading types
+    const typesBatch = getTypeIdsFromElements([
+      ...(page.kind === PageKind.Regular
+        ? app.providerPage.rootElement.current.descendantElements
+        : []),
+      ...page.rootElement.current.descendantElements,
+      ...loadedComponents.map((comp) => comp.rootElement.current),
+      ...flatMap(
+        loadedComponents.map(
+          (comp) => comp.rootElement.current.descendantElements,
+        ),
+      ),
+    ]).filter((id) => !typeService.types.has(id))
+
+    await typeService.getAll(typesBatch)
 
     const pageRootElement = elementService.maybeElement(page.rootElement.id)
 
@@ -149,6 +169,20 @@ const getComponentIdsFromElements = (elements: Array<IElement>) => {
 
     if (renderPropTypeFieldValues.length > 0) {
       acc.push(...renderPropTypeFieldValues)
+    }
+
+    return acc
+  }, [])
+}
+
+const getTypeIdsFromElements = (elements: Array<IElement>) => {
+  return elements.reduce<Array<string>>((acc, element) => {
+    if (element.renderType) {
+      acc.push(element.renderType.current.api.id)
+
+      element.renderType.current.api.current.fields.forEach((field) => {
+        acc.push(field.type.id)
+      })
     }
 
     return acc
