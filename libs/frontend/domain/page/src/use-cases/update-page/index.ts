@@ -1,1 +1,1 @@
-export * from './UpdatePageModal'
+export * from './UpdatePageForm'
