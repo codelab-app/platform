@@ -21,4 +21,12 @@ export class TTLCache<TKey extends number | string | symbol, TValue> {
 
     return undefined
   }
+
+  clear() {
+    this.cache.clear()
+  }
+
+  size() {
+    return this.cache.size
+  }
 }

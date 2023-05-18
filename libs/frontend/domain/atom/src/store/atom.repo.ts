@@ -1,6 +1,6 @@
 import type { IAtom, IAtomRepository } from '@codelab/frontend/abstract/core'
 import { filterNotHookType } from '@codelab/frontend/abstract/core'
-import { cachedWithTTL } from '@codelab/frontend/shared/utils'
+import { cachedWithTTL, clearCacheForKey } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import sortBy from 'lodash/sortBy'
 import { Model, model } from 'mobx-keystone'
@@ -10,6 +10,7 @@ import { atomApi } from './atom.api'
 // so we can cache them until the page is refreshed using Infinity as the TTL
 @model('@codelab/AtomRepository')
 export class AtomRepository extends Model({}) implements IAtomRepository {
+  @clearCacheForKey('atoms')
   add = async (atom: IAtom) => {
     const {
       createAtoms: { atoms },
@@ -18,6 +19,7 @@ export class AtomRepository extends Model({}) implements IAtomRepository {
     return atoms[0]
   }
 
+  @clearCacheForKey('atoms')
   update = async (atom: IAtom) => {
     const {
       updateAtoms: { atoms },
@@ -29,11 +31,12 @@ export class AtomRepository extends Model({}) implements IAtomRepository {
     return atoms[0]!
   }
 
-  @cachedWithTTL(Infinity)
+  @cachedWithTTL('atoms', Infinity)
   find = async (where?: AtomWhere, options?: AtomOptions) => {
     return await atomApi.GetAtoms({ options, where })
   }
 
+  @clearCacheForKey('atoms')
   delete = async (atoms: Array<IAtom>) => {
     const {
       deleteAtoms: { nodesDeleted },
@@ -47,7 +50,7 @@ export class AtomRepository extends Model({}) implements IAtomRepository {
   /**
    * Get list of atom previews for select dropdown
    */
-  @cachedWithTTL(Infinity)
+  @cachedWithTTL('atoms', Infinity)
   findOptions = async () => {
     const { atoms } = await atomApi.GetAtomOptions()
 
