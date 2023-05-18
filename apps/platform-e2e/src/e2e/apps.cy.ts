@@ -12,7 +12,7 @@ describe('Apps CRUD', () => {
       // check that we don't have app with test-name
       cy.findAllByText(appName, { exact: true, timeout: 0 }).should('not.exist')
 
-      cy.getButton({ label: /Create App/ }).click()
+      cy.getButton({ label: /Create Now/ }).click()
 
       cy.getModal().setFormFieldValue({ label: 'Name', value: appName })
 
