@@ -1,8 +1,7 @@
-import { PageHeader } from '@ant-design/pro-components/lib'
+import { PlusOutlined } from '@ant-design/icons'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   AtomsTable,
-  CreateAtomButton,
   CreateAtomModal,
   DeleteAtomsModal,
   UpdateAtomModal,
@@ -13,8 +12,14 @@ import {
   UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
 import {
+  Header,
+  HeaderBreadcrumb,
+  HeaderToolbar,
+} from '@codelab/frontend/presentation//codelab-ui'
+import {
   useCurrentAppId,
   useCurrentPageId,
+  useStore,
 } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
@@ -23,6 +28,7 @@ import {
   sidebarNavigation,
 } from '@codelab/frontend/presentation/view'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
+import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
@@ -50,15 +56,33 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   )
 })
 
-const Header = () => {
-  const pageHeaderButtons = [
-    <div css={tw`flex flex-row items-center justify-center gap-2`} key="header">
-      <CreateAtomButton key="create" />
-    </div>,
+const AtomsHeader = observer(() => {
+  const { atomService } = useStore()
+
+  const toolbarItems = [
+    {
+      icon: <PlusOutlined />,
+      key: 'create',
+      onClick: () => atomService.createModal.open(),
+      title: 'Create Atom',
+    },
   ]
 
-  return <PageHeader extra={pageHeaderButtons} ghost={false} title="Atom" />
-}
+  return (
+    <Header
+      direction={<HeaderBreadcrumb items={[{ title: 'Atoms' }]} />}
+      logo={
+        <Image
+          alt="codelab logo"
+          css={tw`w-full h-full`}
+          preview={false}
+          src="/logo.png"
+        />
+      }
+      toolbar={<HeaderToolbar items={toolbarItems} title="My Header Toolbal" />}
+    />
+  )
+})
 
 export default AtomsPage
 
@@ -70,7 +94,7 @@ AtomsPage.Layout = ({ children }) => {
 
   return (
     <DashboardTemplate
-      Header={Header}
+      Header={AtomsHeader}
       sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
       {children()}

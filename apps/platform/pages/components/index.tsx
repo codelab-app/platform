@@ -1,15 +1,20 @@
-import { PageHeader } from '@ant-design/pro-layout'
+import { PlusOutlined } from '@ant-design/icons'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   ComponentsTable,
-  CreateComponentButton,
   CreateComponentModal,
   DeleteComponentModal,
   UpdateComponentModal,
 } from '@codelab/frontend/domain/component'
 import {
+  Header,
+  HeaderBreadcrumb,
+  HeaderToolbar,
+} from '@codelab/frontend/presentation//codelab-ui'
+import {
   useCurrentAppId,
   useCurrentPageId,
+  useStore,
 } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
@@ -18,6 +23,7 @@ import {
   sidebarNavigation,
 } from '@codelab/frontend/presentation/view'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
+import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
@@ -41,17 +47,33 @@ const ComponentsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   )
 })
 
-const Header = () => {
-  const pageHeaderButtons = [
-    <div css={tw`flex flex-row items-center justify-center gap-2`} key="header">
-      <CreateComponentButton />
-    </div>,
+const AtomsHeader = observer(() => {
+  const { componentService } = useStore()
+
+  const toolbarItems = [
+    {
+      icon: <PlusOutlined />,
+      key: 'create',
+      onClick: () => componentService.createModal.open(),
+      title: 'Create Component',
+    },
   ]
 
   return (
-    <PageHeader extra={pageHeaderButtons} ghost={false} title="Component" />
+    <Header
+      direction={<HeaderBreadcrumb items={[{ title: 'Components' }]} />}
+      logo={
+        <Image
+          alt="codelab logo"
+          css={tw`w-full h-full`}
+          preview={false}
+          src="/logo.png"
+        />
+      }
+      toolbar={<HeaderToolbar items={toolbarItems} title="My Header Toolbal" />}
+    />
   )
-}
+})
 
 export default ComponentsPage
 
@@ -63,7 +85,7 @@ ComponentsPage.Layout = ({ children }) => {
 
   return (
     <DashboardTemplate
-      Header={Header}
+      Header={AtomsHeader}
       sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
       {children()}
