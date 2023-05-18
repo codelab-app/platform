@@ -477,7 +477,26 @@
               "camelCase": false,
               "pascalCase": true
             },
-            "ignore": ["_app.tsx", "_document.tsx", "^\\[.*\\]\\.tsx$"]
+            "ignore": [
+              "_app.tsx",
+              "_document.tsx",
+              "^\\[.*\\]\\.tsx$",
+              ".*\\.hook\\.tsx?$"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.hook.ts", "*.hook.tsx"],
+      "rules": {
+        "unicorn/filename-case": [
+          "error",
+          {
+            "cases": {
+              "camelCase": true,
+              "pascalCase": false
+            }
           }
         ]
       }

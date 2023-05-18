@@ -1,2 +1,2 @@
-export * from './useRemainingPages'
-export * from './useRenderedPage'
+export * from './useRemainingPages.hook'
+export * from './useRenderedPage.hook'

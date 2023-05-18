@@ -19,7 +19,7 @@ import { RecoilRoot } from 'recoil'
 import { GlobalStyles } from 'twin.macro'
 import { GoogleAnalytics } from '../home/GoogleAnalytics'
 import { Intercom } from '../home/Intercom'
-import { useHotjar } from '../hooks/UseHotjar'
+import { useHotjar } from '../hooks/useHotjar.hook'
 // import { slickCssFix } from '../src/styles/slick/Slick'
 
 /**

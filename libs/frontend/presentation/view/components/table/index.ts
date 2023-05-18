@@ -1,1 +1,1 @@
-export * from './UseColumnSearchProps'
+export * from './useColumnSearchProps.hook'

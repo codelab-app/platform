@@ -11,7 +11,7 @@ import { Button, Card } from 'antd'
 import Tooltip from 'antd/lib/tooltip'
 import React, { useMemo } from 'react'
 import tw from 'twin.macro'
-import { useCreateElementDraggable } from '../../../dnd/useCreateElementDraggable'
+import { useCreateElementDraggable } from '../../../dnd/useCreateElementDraggable.hook'
 
 interface DraggableComponentItemProps {
   component: IAtom | IComponent

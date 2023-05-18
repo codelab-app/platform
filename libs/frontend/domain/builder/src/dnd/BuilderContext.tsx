@@ -5,7 +5,7 @@ import { DndContext, DragOverlay, pointerWithin } from '@dnd-kit/core'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
 import React, { useCallback, useMemo } from 'react'
-import { useBuilderDnd } from './useBuilderDnd'
+import { useBuilderDnd } from './useBuilderDnd.hook'
 
 /**
  * Provides the DnD context for the builder

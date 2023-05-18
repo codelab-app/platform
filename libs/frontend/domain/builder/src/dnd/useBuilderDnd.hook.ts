@@ -11,7 +11,7 @@ import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
 import { frozen } from 'mobx-keystone'
 import { pick } from 'ramda'
 import { useCallback } from 'react'
-import { useDndDropHandler } from './useDndDropHandlers'
+import { useDndDropHandler } from './useDndDropHandlers.hook'
 
 export interface UseBuilderDnd {
   sensors: ReturnType<typeof useSensors>

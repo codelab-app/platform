@@ -6,7 +6,7 @@ import type { PropsWithChildren } from 'react'
 import React, { useMemo } from 'react'
 import tw from 'twin.macro'
 import { BuilderDropId } from './BuilderDropId'
-import { useCreateElementDroppable } from './useCreateElementDroppable'
+import { useCreateElementDroppable } from './useCreateElementDroppable.hook'
 import { shouldCreateElementAsFirstChild } from './utils'
 
 interface BuilderDropHandlerProps {

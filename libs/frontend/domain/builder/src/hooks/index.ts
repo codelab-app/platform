@@ -1,4 +1,4 @@
-export * from './useBuilderHotkeys'
-export * from './useBuilderHoverHandlers'
+export * from './useBuilderHotkeys.hook'
+export * from './useBuilderHoverHandlers.hook'
 export * from './useElementTreeDrop'
-export * from './usePropsInspector'
+export * from './usePropsInspector.hook'

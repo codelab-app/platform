@@ -1,6 +1,6 @@
 import { Table } from 'antd'
 import React from 'react'
-import { useLambdaTable } from './UseLambdasTable'
+import { useLambdaTable } from './useLambdasTable.hook'
 
 export const GetLambdasTable = () => {
   const { columns } = useLambdaTable()

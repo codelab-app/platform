@@ -9,7 +9,7 @@ import type { TreeProps } from 'antd/lib/tree'
 import {
   shouldMoveElementAsFirstChild,
   shouldMoveElementAsNextSibling,
-} from './utils'
+} from './utils.hook'
 
 export interface UseElementTreeDropProps {
   elementService: IElementService
