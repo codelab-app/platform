@@ -49,7 +49,12 @@ AdminPage.Layout = ({ children }) => {
     <Header
       direction={<HeaderBreadcrumb items={[{ title: 'Admin' }]} />}
       logo={
-        <Image alt="codelab logo" css={tw`w-full h-full`} src="/logo.png" />
+        <Image
+          alt="codelab logo"
+          css={tw`w-full h-full`}
+          preview={false}
+          src="/logo.png"
+        />
       }
     />
   )

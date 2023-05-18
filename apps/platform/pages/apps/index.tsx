@@ -65,7 +65,12 @@ const AppsPageHeader = observer(() => {
     <Header
       direction={<HeaderBreadcrumb items={[{ title: 'Apps' }]} />}
       logo={
-        <Image alt="codelab logo" css={tw`w-full h-full`} src="/logo.png" />
+        <Image
+          alt="codelab logo"
+          css={tw`w-full h-full`}
+          preview={false}
+          src="/logo.png"
+        />
       }
       toolbar={<HeaderToolbar items={toolbarItems} title="My Header Toolbal" />}
     />

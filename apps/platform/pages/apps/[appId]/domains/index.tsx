@@ -1,12 +1,16 @@
-import { PageHeader } from '@ant-design/pro-components/lib'
+import { PlusOutlined } from '@ant-design/icons'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
-  CreateDomainButton,
   CreateDomainModal,
   DeleteDomainModal,
   GetDomainsList,
   UpdateDomainModal,
 } from '@codelab/frontend/domain/domain'
+import {
+  Header,
+  HeaderBreadcrumb,
+  HeaderToolbar,
+} from '@codelab/frontend/presentation//codelab-ui'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -20,32 +24,58 @@ import {
 } from '@codelab/frontend/presentation/view'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { useAsync, useMountEffect } from '@react-hookz/web'
-import { Spin } from 'antd'
+import { Image, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useMemo } from 'react'
+import tw from 'twin.macro'
 
 const DomainsPageHeader = observer(() => {
-  const pageHeaderButtons = [<CreateDomainButton key={0} />]
-  const router = useRouter()
-  const onBack = () => router.push('/apps')
+  const { appService, domainService } = useStore()
+  const appId = useCurrentAppId()
+
+  const appName = useMemo(
+    () => (appId ? appService.app(appId)?.name : ''),
+    [appId],
+  )
 
   return (
-    <PageHeader
-      extra={pageHeaderButtons}
-      ghost={false}
-      onBack={onBack}
-      title="Domains"
+    <Header
+      direction={
+        <HeaderBreadcrumb
+          items={[{ title: appName || '?' }, { title: 'Domains' }]}
+        />
+      }
+      logo={
+        <Image
+          alt="codelab logo"
+          css={tw`w-full h-full`}
+          preview={false}
+          src="/logo.png"
+        />
+      }
+      toolbar={
+        <HeaderToolbar
+          items={[
+            {
+              icon: <PlusOutlined />,
+              key: '0',
+              onClick: () => domainService.createModal.open(),
+              title: 'Create Domain',
+            },
+          ]}
+          title="Domains toolbar"
+        />
+      }
     />
   )
 })
 
 const DomainsPage: CodelabPage<DashboardTemplateProps> = (props) => {
-  const { appService, domainService } = useStore()
+  const { appService } = useStore()
   const appId = useCurrentAppId()
 
-  const [{ error, result: app, status }, getApp] = useAsync(() =>
+  const [{ result: app, status }, getApp] = useAsync(() =>
     appService.getOne(appId),
   )
 
