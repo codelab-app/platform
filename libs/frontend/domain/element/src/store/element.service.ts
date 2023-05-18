@@ -134,6 +134,8 @@ export class ElementService
       ))
 
     if (renderTypeApi) {
+      // If the new element is an atom or component that is not used yet anywhere
+      // in the current page, this will load its interface types and its fields
       yield* _await(this.typeService.getOne(renderTypeApi.id))
     }
 

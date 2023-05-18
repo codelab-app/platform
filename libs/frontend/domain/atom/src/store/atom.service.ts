@@ -33,7 +33,6 @@ import { AtomModalService, AtomsModalService } from './atom-modal.service'
 @model('@codelab/AtomService')
 export class AtomService
   extends Model({
-    allAtomsLoaded: prop(() => false),
     atomRepository: prop(() => new AtomRepository({})),
     atoms: prop(() => objectMap<IAtom>()),
     createModal: prop(() => new ModalService({})),
@@ -141,26 +140,14 @@ export class AtomService
     where?: AtomWhere,
     options?: AtomOptions,
   ) {
-    // if (this.allAtomsLoaded && isEmpty(where)) {
-    //   return this.atomsList
-    // }
-
     const {
       aggregate: { count },
       items: atoms,
     } = yield* _await(this.atomRepository.find(where, options))
 
-    // if (isEmpty(where)) {
-    //   this.allAtomsLoaded = true
-    // }
-
     this.paginationService.totalItems = count
 
-    return atoms.map((atom) => {
-      // this.typeService.loadTypes({ interfaceTypes: [atom.api] })
-
-      return this.add(atom)
-    })
+    return atoms.map((atom) => this.add(atom))
   })
 
   @modelFlow

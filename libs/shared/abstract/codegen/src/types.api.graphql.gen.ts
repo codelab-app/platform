@@ -14873,7 +14873,6 @@ export type Query = {
   lambdaTypes: Array<LambdaType>
   lambdaTypesAggregate: LambdaTypeAggregateSelection
   lambdaTypesConnection: LambdaTypesConnection
-  pageComponents: Array<Component>
   pageTypes: Array<PageType>
   pageTypesAggregate: PageTypeAggregateSelection
   pageTypesConnection: PageTypesConnection
@@ -15227,10 +15226,6 @@ export type QueryLambdaTypesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']>
   sort?: InputMaybe<Array<InputMaybe<LambdaTypeSort>>>
   where?: InputMaybe<LambdaTypeWhere>
-}
-
-export type QueryPageComponentsArgs = {
-  pageId: Scalars['ID']
 }
 
 export type QueryPageTypesArgs = {

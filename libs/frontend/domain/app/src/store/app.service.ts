@@ -130,21 +130,7 @@ export class AppService
    */
   @modelAction
   loadPages = ({ pages }: IPageBuilderAppProps) => {
-    // components.forEach((componentData) => {
-    //   this.propService.add(componentData.props)
-    //   this.componentService.add(componentData)
-    //   this.typeService.loadTypes({ interfaceTypes: [componentData.api] })
-    // })
-
-    // Sorting the components here so that they will be sorted when referenced in the
-    // explorer builder tree, or in other areas
-    // Would be nice if this can be sorted in the backend instead
     const allElements = [
-      // ...flatMap(sortBy(components, 'name'), ({ rootElement }) => rootElement),
-      // ...flatMap(
-      //   components,
-      //   ({ rootElement }) => rootElement.descendantElements,
-      // ),
       ...flatMap(pages, ({ rootElement }) => [
         rootElement,
         ...rootElement.descendantElements,

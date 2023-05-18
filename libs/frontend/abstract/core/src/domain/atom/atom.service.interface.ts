@@ -18,9 +18,6 @@ export interface IAtomService
     IQueryService<IAtom, AtomWhere, AtomOptions>,
     Omit<ICRUDModalService<Ref<IAtom>, { atom: Maybe<IAtom> }>, 'deleteModal'>,
     IPaginateable<IAtom, { name?: string }> {
-  // Select dropdown for atoms need to load all atoms from the db
-  // but this is a heavy operation, this flag allows to call it only once
-  allAtomsLoaded: boolean
   atomRepository: IAtomRepository
   atoms: ObjectMap<IAtom>
   atomsList: Array<IAtom>
