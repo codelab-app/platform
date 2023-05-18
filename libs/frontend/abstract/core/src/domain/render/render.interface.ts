@@ -1,9 +1,9 @@
 import type { IAtomType } from '@codelab/shared/abstract/core'
 import type { ArrayOrSingle } from 'ts-essentials'
-import type { IRenderer } from '../builder'
 import type { IComponentService } from '../component'
 import type { IElement, IElementService } from '../element'
 import type { IPropData, IPropDataByElementId } from '../prop'
+import type { IRenderer } from './renderer.model.interface'
 
 export enum RendererTab {
   Component = 'Component',
