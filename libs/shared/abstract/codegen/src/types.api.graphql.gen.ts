@@ -2094,9 +2094,9 @@ export type ArrayType = IBaseType &
   WithDescendants & {
     __typename?: 'ArrayType'
     descendantTypesIds: Array<Scalars['ID']>
-    field?: Maybe<Field>
-    fieldAggregate?: Maybe<ArrayTypeFieldFieldAggregationSelection>
-    fieldConnection: ArrayTypeFieldConnection
+    fieldRefs: Array<Field>
+    fieldRefsAggregate?: Maybe<ArrayTypeFieldFieldRefsAggregationSelection>
+    fieldRefsConnection: ArrayTypeFieldRefsConnection
     id: Scalars['ID']
     itemType: IBaseType
     itemTypeConnection: ArrayTypeItemTypeConnection
@@ -2111,7 +2111,7 @@ export type ArrayType = IBaseType &
  * ArrayType Allows defining a variable number of items of a given type.
  * Contains a reference to another type which is the array item type.
  */
-export type ArrayTypeFieldArgs = {
+export type ArrayTypeFieldRefsArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   options?: InputMaybe<FieldOptions>
   where?: InputMaybe<FieldWhere>
@@ -2121,7 +2121,7 @@ export type ArrayTypeFieldArgs = {
  * ArrayType Allows defining a variable number of items of a given type.
  * Contains a reference to another type which is the array item type.
  */
-export type ArrayTypeFieldAggregateArgs = {
+export type ArrayTypeFieldRefsAggregateArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   where?: InputMaybe<FieldWhere>
 }
@@ -2130,12 +2130,12 @@ export type ArrayTypeFieldAggregateArgs = {
  * ArrayType Allows defining a variable number of items of a given type.
  * Contains a reference to another type which is the array item type.
  */
-export type ArrayTypeFieldConnectionArgs = {
+export type ArrayTypeFieldRefsConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<ArrayTypeFieldConnectionSort>>
-  where?: InputMaybe<ArrayTypeFieldConnectionWhere>
+  sort?: InputMaybe<Array<ArrayTypeFieldRefsConnectionSort>>
+  where?: InputMaybe<ArrayTypeFieldRefsConnectionWhere>
 }
 
 /**
@@ -2199,7 +2199,7 @@ export type ArrayTypeAggregateSelection = {
 }
 
 export type ArrayTypeConnectInput = {
-  field?: InputMaybe<ArrayTypeFieldConnectFieldInput>
+  fieldRefs?: InputMaybe<Array<ArrayTypeFieldRefsConnectFieldInput>>
   itemType?: InputMaybe<ArrayTypeItemTypeConnectFieldInput>
   owner?: InputMaybe<IBaseTypeOwnerConnectFieldInput>
 }
@@ -2217,7 +2217,7 @@ export type ArrayTypeConnectWhere = {
 }
 
 export type ArrayTypeCreateInput = {
-  field?: InputMaybe<ArrayTypeFieldFieldInput>
+  fieldRefs?: InputMaybe<ArrayTypeFieldRefsFieldInput>
   id: Scalars['ID']
   itemType?: InputMaybe<ArrayTypeItemTypeFieldInput>
   kind?: TypeKind
@@ -2226,13 +2226,13 @@ export type ArrayTypeCreateInput = {
 }
 
 export type ArrayTypeDeleteInput = {
-  field?: InputMaybe<ArrayTypeFieldDeleteFieldInput>
+  fieldRefs?: InputMaybe<Array<ArrayTypeFieldRefsDeleteFieldInput>>
   itemType?: InputMaybe<ArrayTypeItemTypeDeleteFieldInput>
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
 }
 
 export type ArrayTypeDisconnectInput = {
-  field?: InputMaybe<ArrayTypeFieldDisconnectFieldInput>
+  fieldRefs?: InputMaybe<Array<ArrayTypeFieldRefsDisconnectFieldInput>>
   itemType?: InputMaybe<ArrayTypeItemTypeDisconnectFieldInput>
   owner?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
 }
@@ -2243,70 +2243,14 @@ export type ArrayTypeEdge = {
   node: ArrayType
 }
 
-export type ArrayTypeFieldAggregateInput = {
-  AND?: InputMaybe<Array<ArrayTypeFieldAggregateInput>>
-  NOT?: InputMaybe<ArrayTypeFieldAggregateInput>
-  OR?: InputMaybe<Array<ArrayTypeFieldAggregateInput>>
-  count?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<ArrayTypeFieldNodeAggregationWhereInput>
-}
-
-export type ArrayTypeFieldConnectFieldInput = {
-  connect?: InputMaybe<FieldConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
-  overwrite?: Scalars['Boolean']
-  where?: InputMaybe<FieldConnectWhere>
-}
-
-export type ArrayTypeFieldConnection = {
-  __typename?: 'ArrayTypeFieldConnection'
-  edges: Array<ArrayTypeFieldRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
-export type ArrayTypeFieldConnectionSort = {
-  node?: InputMaybe<FieldSort>
-}
-
-export type ArrayTypeFieldConnectionWhere = {
-  AND?: InputMaybe<Array<ArrayTypeFieldConnectionWhere>>
-  NOT?: InputMaybe<ArrayTypeFieldConnectionWhere>
-  OR?: InputMaybe<Array<ArrayTypeFieldConnectionWhere>>
-  node?: InputMaybe<FieldWhere>
-}
-
-export type ArrayTypeFieldCreateFieldInput = {
-  node: FieldCreateInput
-}
-
-export type ArrayTypeFieldDeleteFieldInput = {
-  delete?: InputMaybe<FieldDeleteInput>
-  where?: InputMaybe<ArrayTypeFieldConnectionWhere>
-}
-
-export type ArrayTypeFieldDisconnectFieldInput = {
-  disconnect?: InputMaybe<FieldDisconnectInput>
-  where?: InputMaybe<ArrayTypeFieldConnectionWhere>
-}
-
-export type ArrayTypeFieldFieldAggregationSelection = {
-  __typename?: 'ArrayTypeFieldFieldAggregationSelection'
+export type ArrayTypeFieldFieldRefsAggregationSelection = {
+  __typename?: 'ArrayTypeFieldFieldRefsAggregationSelection'
   count: Scalars['Int']
-  node?: Maybe<ArrayTypeFieldFieldNodeAggregateSelection>
+  node?: Maybe<ArrayTypeFieldFieldRefsNodeAggregateSelection>
 }
 
-export type ArrayTypeFieldFieldInput = {
-  connect?: InputMaybe<ArrayTypeFieldConnectFieldInput>
-  create?: InputMaybe<ArrayTypeFieldCreateFieldInput>
-}
-
-export type ArrayTypeFieldFieldNodeAggregateSelection = {
-  __typename?: 'ArrayTypeFieldFieldNodeAggregateSelection'
+export type ArrayTypeFieldFieldRefsNodeAggregateSelection = {
+  __typename?: 'ArrayTypeFieldFieldRefsNodeAggregateSelection'
   defaultValues: StringAggregateSelectionNullable
   description: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
@@ -2315,10 +2259,66 @@ export type ArrayTypeFieldFieldNodeAggregateSelection = {
   validationRules: StringAggregateSelectionNullable
 }
 
-export type ArrayTypeFieldNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ArrayTypeFieldNodeAggregationWhereInput>>
-  NOT?: InputMaybe<ArrayTypeFieldNodeAggregationWhereInput>
-  OR?: InputMaybe<Array<ArrayTypeFieldNodeAggregationWhereInput>>
+export type ArrayTypeFieldRefsAggregateInput = {
+  AND?: InputMaybe<Array<ArrayTypeFieldRefsAggregateInput>>
+  NOT?: InputMaybe<ArrayTypeFieldRefsAggregateInput>
+  OR?: InputMaybe<Array<ArrayTypeFieldRefsAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<ArrayTypeFieldRefsNodeAggregationWhereInput>
+}
+
+export type ArrayTypeFieldRefsConnectFieldInput = {
+  connect?: InputMaybe<Array<FieldConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
+  where?: InputMaybe<FieldConnectWhere>
+}
+
+export type ArrayTypeFieldRefsConnection = {
+  __typename?: 'ArrayTypeFieldRefsConnection'
+  edges: Array<ArrayTypeFieldRefsRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type ArrayTypeFieldRefsConnectionSort = {
+  node?: InputMaybe<FieldSort>
+}
+
+export type ArrayTypeFieldRefsConnectionWhere = {
+  AND?: InputMaybe<Array<ArrayTypeFieldRefsConnectionWhere>>
+  NOT?: InputMaybe<ArrayTypeFieldRefsConnectionWhere>
+  OR?: InputMaybe<Array<ArrayTypeFieldRefsConnectionWhere>>
+  node?: InputMaybe<FieldWhere>
+}
+
+export type ArrayTypeFieldRefsCreateFieldInput = {
+  node: FieldCreateInput
+}
+
+export type ArrayTypeFieldRefsDeleteFieldInput = {
+  delete?: InputMaybe<FieldDeleteInput>
+  where?: InputMaybe<ArrayTypeFieldRefsConnectionWhere>
+}
+
+export type ArrayTypeFieldRefsDisconnectFieldInput = {
+  disconnect?: InputMaybe<FieldDisconnectInput>
+  where?: InputMaybe<ArrayTypeFieldRefsConnectionWhere>
+}
+
+export type ArrayTypeFieldRefsFieldInput = {
+  connect?: InputMaybe<Array<ArrayTypeFieldRefsConnectFieldInput>>
+  create?: InputMaybe<Array<ArrayTypeFieldRefsCreateFieldInput>>
+}
+
+export type ArrayTypeFieldRefsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<ArrayTypeFieldRefsNodeAggregationWhereInput>>
+  NOT?: InputMaybe<ArrayTypeFieldRefsNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<ArrayTypeFieldRefsNodeAggregationWhereInput>>
   defaultValues_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
   defaultValues_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
   defaultValues_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
@@ -2396,23 +2396,23 @@ export type ArrayTypeFieldNodeAggregationWhereInput = {
   validationRules_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
-export type ArrayTypeFieldRelationship = {
-  __typename?: 'ArrayTypeFieldRelationship'
+export type ArrayTypeFieldRefsRelationship = {
+  __typename?: 'ArrayTypeFieldRefsRelationship'
   cursor: Scalars['String']
   node: Field
 }
 
-export type ArrayTypeFieldUpdateConnectionInput = {
+export type ArrayTypeFieldRefsUpdateConnectionInput = {
   node?: InputMaybe<FieldUpdateInput>
 }
 
-export type ArrayTypeFieldUpdateFieldInput = {
-  connect?: InputMaybe<ArrayTypeFieldConnectFieldInput>
-  create?: InputMaybe<ArrayTypeFieldCreateFieldInput>
-  delete?: InputMaybe<ArrayTypeFieldDeleteFieldInput>
-  disconnect?: InputMaybe<ArrayTypeFieldDisconnectFieldInput>
-  update?: InputMaybe<ArrayTypeFieldUpdateConnectionInput>
-  where?: InputMaybe<ArrayTypeFieldConnectionWhere>
+export type ArrayTypeFieldRefsUpdateFieldInput = {
+  connect?: InputMaybe<Array<ArrayTypeFieldRefsConnectFieldInput>>
+  create?: InputMaybe<Array<ArrayTypeFieldRefsCreateFieldInput>>
+  delete?: InputMaybe<Array<ArrayTypeFieldRefsDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<ArrayTypeFieldRefsDisconnectFieldInput>>
+  update?: InputMaybe<ArrayTypeFieldRefsUpdateConnectionInput>
+  where?: InputMaybe<ArrayTypeFieldRefsConnectionWhere>
 }
 
 export type ArrayTypeItemTypeConnectFieldInput = {
@@ -2553,7 +2553,7 @@ export type ArrayTypeOwnerNodeAggregationWhereInput = {
 }
 
 export type ArrayTypeRelationInput = {
-  field?: InputMaybe<ArrayTypeFieldCreateFieldInput>
+  fieldRefs?: InputMaybe<Array<ArrayTypeFieldRefsCreateFieldInput>>
   itemType?: InputMaybe<ArrayTypeItemTypeCreateFieldInput>
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
 }
@@ -2570,7 +2570,7 @@ export type ArrayTypeUniqueWhere = {
 }
 
 export type ArrayTypeUpdateInput = {
-  field?: InputMaybe<ArrayTypeFieldUpdateFieldInput>
+  fieldRefs?: InputMaybe<Array<ArrayTypeFieldRefsUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   itemType?: InputMaybe<ArrayTypeItemTypeUpdateFieldInput>
   name?: InputMaybe<Scalars['String']>
@@ -2595,11 +2595,23 @@ export type ArrayTypeWhere = {
   AND?: InputMaybe<Array<ArrayTypeWhere>>
   NOT?: InputMaybe<ArrayTypeWhere>
   OR?: InputMaybe<Array<ArrayTypeWhere>>
-  field?: InputMaybe<FieldWhere>
-  fieldAggregate?: InputMaybe<ArrayTypeFieldAggregateInput>
-  fieldConnection?: InputMaybe<ArrayTypeFieldConnectionWhere>
-  fieldConnection_NOT?: InputMaybe<ArrayTypeFieldConnectionWhere>
-  field_NOT?: InputMaybe<FieldWhere>
+  fieldRefsAggregate?: InputMaybe<ArrayTypeFieldRefsAggregateInput>
+  /** Return ArrayTypes where all of the related ArrayTypeFieldRefsConnections match this filter */
+  fieldRefsConnection_ALL?: InputMaybe<ArrayTypeFieldRefsConnectionWhere>
+  /** Return ArrayTypes where none of the related ArrayTypeFieldRefsConnections match this filter */
+  fieldRefsConnection_NONE?: InputMaybe<ArrayTypeFieldRefsConnectionWhere>
+  /** Return ArrayTypes where one of the related ArrayTypeFieldRefsConnections match this filter */
+  fieldRefsConnection_SINGLE?: InputMaybe<ArrayTypeFieldRefsConnectionWhere>
+  /** Return ArrayTypes where some of the related ArrayTypeFieldRefsConnections match this filter */
+  fieldRefsConnection_SOME?: InputMaybe<ArrayTypeFieldRefsConnectionWhere>
+  /** Return ArrayTypes where all of the related Fields match this filter */
+  fieldRefs_ALL?: InputMaybe<FieldWhere>
+  /** Return ArrayTypes where none of the related Fields match this filter */
+  fieldRefs_NONE?: InputMaybe<FieldWhere>
+  /** Return ArrayTypes where one of the related Fields match this filter */
+  fieldRefs_SINGLE?: InputMaybe<FieldWhere>
+  /** Return ArrayTypes where some of the related Fields match this filter */
+  fieldRefs_SOME?: InputMaybe<FieldWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -9120,9 +9132,9 @@ export type EnumType = IBaseType & {
   allowedValues: Array<EnumTypeValue>
   allowedValuesAggregate?: Maybe<EnumTypeEnumTypeValueAllowedValuesAggregationSelection>
   allowedValuesConnection: EnumTypeAllowedValuesConnection
-  field?: Maybe<Field>
-  fieldAggregate?: Maybe<EnumTypeFieldFieldAggregationSelection>
-  fieldConnection: EnumTypeFieldConnection
+  fieldRefs: Array<Field>
+  fieldRefsAggregate?: Maybe<EnumTypeFieldFieldRefsAggregationSelection>
+  fieldRefsConnection: EnumTypeFieldRefsConnection
   id: Scalars['ID']
   kind: TypeKind
   name: Scalars['String']
@@ -9170,7 +9182,7 @@ export type EnumTypeAllowedValuesConnectionArgs = {
  * The value gets passed to the render pipe as a Enum Type Value id.
  * The actual value must be de-referenced by the id.
  */
-export type EnumTypeFieldArgs = {
+export type EnumTypeFieldRefsArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   options?: InputMaybe<FieldOptions>
   where?: InputMaybe<FieldWhere>
@@ -9181,7 +9193,7 @@ export type EnumTypeFieldArgs = {
  * The value gets passed to the render pipe as a Enum Type Value id.
  * The actual value must be de-referenced by the id.
  */
-export type EnumTypeFieldAggregateArgs = {
+export type EnumTypeFieldRefsAggregateArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   where?: InputMaybe<FieldWhere>
 }
@@ -9191,12 +9203,12 @@ export type EnumTypeFieldAggregateArgs = {
  * The value gets passed to the render pipe as a Enum Type Value id.
  * The actual value must be de-referenced by the id.
  */
-export type EnumTypeFieldConnectionArgs = {
+export type EnumTypeFieldRefsConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<EnumTypeFieldConnectionSort>>
-  where?: InputMaybe<EnumTypeFieldConnectionWhere>
+  sort?: InputMaybe<Array<EnumTypeFieldRefsConnectionSort>>
+  where?: InputMaybe<EnumTypeFieldRefsConnectionWhere>
 }
 
 /**
@@ -9353,7 +9365,7 @@ export type EnumTypeAllowedValuesUpdateFieldInput = {
 
 export type EnumTypeConnectInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesConnectFieldInput>>
-  field?: InputMaybe<EnumTypeFieldConnectFieldInput>
+  fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsConnectFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerConnectFieldInput>
 }
 
@@ -9371,7 +9383,7 @@ export type EnumTypeConnectWhere = {
 
 export type EnumTypeCreateInput = {
   allowedValues?: InputMaybe<EnumTypeAllowedValuesFieldInput>
-  field?: InputMaybe<EnumTypeFieldFieldInput>
+  fieldRefs?: InputMaybe<EnumTypeFieldRefsFieldInput>
   id: Scalars['ID']
   kind?: TypeKind
   name: Scalars['String']
@@ -9380,13 +9392,13 @@ export type EnumTypeCreateInput = {
 
 export type EnumTypeDeleteInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesDeleteFieldInput>>
-  field?: InputMaybe<EnumTypeFieldDeleteFieldInput>
+  fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsDeleteFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
 }
 
 export type EnumTypeDisconnectInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesDisconnectFieldInput>>
-  field?: InputMaybe<EnumTypeFieldDisconnectFieldInput>
+  fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsDisconnectFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
 }
 
@@ -9409,70 +9421,14 @@ export type EnumTypeEnumTypeValueAllowedValuesNodeAggregateSelection = {
   value: StringAggregateSelectionNonNullable
 }
 
-export type EnumTypeFieldAggregateInput = {
-  AND?: InputMaybe<Array<EnumTypeFieldAggregateInput>>
-  NOT?: InputMaybe<EnumTypeFieldAggregateInput>
-  OR?: InputMaybe<Array<EnumTypeFieldAggregateInput>>
-  count?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<EnumTypeFieldNodeAggregationWhereInput>
-}
-
-export type EnumTypeFieldConnectFieldInput = {
-  connect?: InputMaybe<FieldConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
-  overwrite?: Scalars['Boolean']
-  where?: InputMaybe<FieldConnectWhere>
-}
-
-export type EnumTypeFieldConnection = {
-  __typename?: 'EnumTypeFieldConnection'
-  edges: Array<EnumTypeFieldRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
-export type EnumTypeFieldConnectionSort = {
-  node?: InputMaybe<FieldSort>
-}
-
-export type EnumTypeFieldConnectionWhere = {
-  AND?: InputMaybe<Array<EnumTypeFieldConnectionWhere>>
-  NOT?: InputMaybe<EnumTypeFieldConnectionWhere>
-  OR?: InputMaybe<Array<EnumTypeFieldConnectionWhere>>
-  node?: InputMaybe<FieldWhere>
-}
-
-export type EnumTypeFieldCreateFieldInput = {
-  node: FieldCreateInput
-}
-
-export type EnumTypeFieldDeleteFieldInput = {
-  delete?: InputMaybe<FieldDeleteInput>
-  where?: InputMaybe<EnumTypeFieldConnectionWhere>
-}
-
-export type EnumTypeFieldDisconnectFieldInput = {
-  disconnect?: InputMaybe<FieldDisconnectInput>
-  where?: InputMaybe<EnumTypeFieldConnectionWhere>
-}
-
-export type EnumTypeFieldFieldAggregationSelection = {
-  __typename?: 'EnumTypeFieldFieldAggregationSelection'
+export type EnumTypeFieldFieldRefsAggregationSelection = {
+  __typename?: 'EnumTypeFieldFieldRefsAggregationSelection'
   count: Scalars['Int']
-  node?: Maybe<EnumTypeFieldFieldNodeAggregateSelection>
+  node?: Maybe<EnumTypeFieldFieldRefsNodeAggregateSelection>
 }
 
-export type EnumTypeFieldFieldInput = {
-  connect?: InputMaybe<EnumTypeFieldConnectFieldInput>
-  create?: InputMaybe<EnumTypeFieldCreateFieldInput>
-}
-
-export type EnumTypeFieldFieldNodeAggregateSelection = {
-  __typename?: 'EnumTypeFieldFieldNodeAggregateSelection'
+export type EnumTypeFieldFieldRefsNodeAggregateSelection = {
+  __typename?: 'EnumTypeFieldFieldRefsNodeAggregateSelection'
   defaultValues: StringAggregateSelectionNullable
   description: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
@@ -9481,10 +9437,66 @@ export type EnumTypeFieldFieldNodeAggregateSelection = {
   validationRules: StringAggregateSelectionNullable
 }
 
-export type EnumTypeFieldNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<EnumTypeFieldNodeAggregationWhereInput>>
-  NOT?: InputMaybe<EnumTypeFieldNodeAggregationWhereInput>
-  OR?: InputMaybe<Array<EnumTypeFieldNodeAggregationWhereInput>>
+export type EnumTypeFieldRefsAggregateInput = {
+  AND?: InputMaybe<Array<EnumTypeFieldRefsAggregateInput>>
+  NOT?: InputMaybe<EnumTypeFieldRefsAggregateInput>
+  OR?: InputMaybe<Array<EnumTypeFieldRefsAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<EnumTypeFieldRefsNodeAggregationWhereInput>
+}
+
+export type EnumTypeFieldRefsConnectFieldInput = {
+  connect?: InputMaybe<Array<FieldConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
+  where?: InputMaybe<FieldConnectWhere>
+}
+
+export type EnumTypeFieldRefsConnection = {
+  __typename?: 'EnumTypeFieldRefsConnection'
+  edges: Array<EnumTypeFieldRefsRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type EnumTypeFieldRefsConnectionSort = {
+  node?: InputMaybe<FieldSort>
+}
+
+export type EnumTypeFieldRefsConnectionWhere = {
+  AND?: InputMaybe<Array<EnumTypeFieldRefsConnectionWhere>>
+  NOT?: InputMaybe<EnumTypeFieldRefsConnectionWhere>
+  OR?: InputMaybe<Array<EnumTypeFieldRefsConnectionWhere>>
+  node?: InputMaybe<FieldWhere>
+}
+
+export type EnumTypeFieldRefsCreateFieldInput = {
+  node: FieldCreateInput
+}
+
+export type EnumTypeFieldRefsDeleteFieldInput = {
+  delete?: InputMaybe<FieldDeleteInput>
+  where?: InputMaybe<EnumTypeFieldRefsConnectionWhere>
+}
+
+export type EnumTypeFieldRefsDisconnectFieldInput = {
+  disconnect?: InputMaybe<FieldDisconnectInput>
+  where?: InputMaybe<EnumTypeFieldRefsConnectionWhere>
+}
+
+export type EnumTypeFieldRefsFieldInput = {
+  connect?: InputMaybe<Array<EnumTypeFieldRefsConnectFieldInput>>
+  create?: InputMaybe<Array<EnumTypeFieldRefsCreateFieldInput>>
+}
+
+export type EnumTypeFieldRefsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<EnumTypeFieldRefsNodeAggregationWhereInput>>
+  NOT?: InputMaybe<EnumTypeFieldRefsNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<EnumTypeFieldRefsNodeAggregationWhereInput>>
   defaultValues_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
   defaultValues_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
   defaultValues_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
@@ -9562,23 +9574,23 @@ export type EnumTypeFieldNodeAggregationWhereInput = {
   validationRules_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
-export type EnumTypeFieldRelationship = {
-  __typename?: 'EnumTypeFieldRelationship'
+export type EnumTypeFieldRefsRelationship = {
+  __typename?: 'EnumTypeFieldRefsRelationship'
   cursor: Scalars['String']
   node: Field
 }
 
-export type EnumTypeFieldUpdateConnectionInput = {
+export type EnumTypeFieldRefsUpdateConnectionInput = {
   node?: InputMaybe<FieldUpdateInput>
 }
 
-export type EnumTypeFieldUpdateFieldInput = {
-  connect?: InputMaybe<EnumTypeFieldConnectFieldInput>
-  create?: InputMaybe<EnumTypeFieldCreateFieldInput>
-  delete?: InputMaybe<EnumTypeFieldDeleteFieldInput>
-  disconnect?: InputMaybe<EnumTypeFieldDisconnectFieldInput>
-  update?: InputMaybe<EnumTypeFieldUpdateConnectionInput>
-  where?: InputMaybe<EnumTypeFieldConnectionWhere>
+export type EnumTypeFieldRefsUpdateFieldInput = {
+  connect?: InputMaybe<Array<EnumTypeFieldRefsConnectFieldInput>>
+  create?: InputMaybe<Array<EnumTypeFieldRefsCreateFieldInput>>
+  delete?: InputMaybe<Array<EnumTypeFieldRefsDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<EnumTypeFieldRefsDisconnectFieldInput>>
+  update?: InputMaybe<EnumTypeFieldRefsUpdateConnectionInput>
+  where?: InputMaybe<EnumTypeFieldRefsConnectionWhere>
 }
 
 export type EnumTypeOnCreateInput = {
@@ -9659,7 +9671,7 @@ export type EnumTypeOwnerNodeAggregationWhereInput = {
 
 export type EnumTypeRelationInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesCreateFieldInput>>
-  field?: InputMaybe<EnumTypeFieldCreateFieldInput>
+  fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsCreateFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
 }
 
@@ -9676,7 +9688,7 @@ export type EnumTypeUniqueWhere = {
 
 export type EnumTypeUpdateInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesUpdateFieldInput>>
-  field?: InputMaybe<EnumTypeFieldUpdateFieldInput>
+  fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
@@ -9967,11 +9979,23 @@ export type EnumTypeWhere = {
   allowedValues_SINGLE?: InputMaybe<EnumTypeValueWhere>
   /** Return EnumTypes where some of the related EnumTypeValues match this filter */
   allowedValues_SOME?: InputMaybe<EnumTypeValueWhere>
-  field?: InputMaybe<FieldWhere>
-  fieldAggregate?: InputMaybe<EnumTypeFieldAggregateInput>
-  fieldConnection?: InputMaybe<EnumTypeFieldConnectionWhere>
-  fieldConnection_NOT?: InputMaybe<EnumTypeFieldConnectionWhere>
-  field_NOT?: InputMaybe<FieldWhere>
+  fieldRefsAggregate?: InputMaybe<EnumTypeFieldRefsAggregateInput>
+  /** Return EnumTypes where all of the related EnumTypeFieldRefsConnections match this filter */
+  fieldRefsConnection_ALL?: InputMaybe<EnumTypeFieldRefsConnectionWhere>
+  /** Return EnumTypes where none of the related EnumTypeFieldRefsConnections match this filter */
+  fieldRefsConnection_NONE?: InputMaybe<EnumTypeFieldRefsConnectionWhere>
+  /** Return EnumTypes where one of the related EnumTypeFieldRefsConnections match this filter */
+  fieldRefsConnection_SINGLE?: InputMaybe<EnumTypeFieldRefsConnectionWhere>
+  /** Return EnumTypes where some of the related EnumTypeFieldRefsConnections match this filter */
+  fieldRefsConnection_SOME?: InputMaybe<EnumTypeFieldRefsConnectionWhere>
+  /** Return EnumTypes where all of the related Fields match this filter */
+  fieldRefs_ALL?: InputMaybe<FieldWhere>
+  /** Return EnumTypes where none of the related Fields match this filter */
+  fieldRefs_NONE?: InputMaybe<FieldWhere>
+  /** Return EnumTypes where one of the related Fields match this filter */
+  fieldRefs_SINGLE?: InputMaybe<FieldWhere>
+  /** Return EnumTypes where some of the related Fields match this filter */
+  fieldRefs_SOME?: InputMaybe<FieldWhere>
   id?: InputMaybe<Scalars['ID']>
   id_CONTAINS?: InputMaybe<Scalars['ID']>
   id_ENDS_WITH?: InputMaybe<Scalars['ID']>
@@ -11647,9 +11671,9 @@ export type InterfaceType = IBaseType &
     apiOfAtomsAggregate?: Maybe<InterfaceTypeAtomApiOfAtomsAggregationSelection>
     apiOfAtomsConnection: InterfaceTypeApiOfAtomsConnection
     descendantTypesIds: Array<Scalars['ID']>
-    field?: Maybe<Field>
-    fieldAggregate?: Maybe<InterfaceTypeFieldFieldAggregationSelection>
-    fieldConnection: InterfaceTypeFieldConnection
+    fieldRefs: Array<Field>
+    fieldRefsAggregate?: Maybe<InterfaceTypeFieldFieldRefsAggregationSelection>
+    fieldRefsConnection: InterfaceTypeFieldRefsConnection
     fields: Array<Field>
     fieldsAggregate?: Maybe<InterfaceTypeFieldFieldsAggregationSelection>
     fieldsConnection: InterfaceTypeFieldsConnection
@@ -11684,25 +11708,25 @@ export type InterfaceTypeApiOfAtomsConnectionArgs = {
 }
 
 /** Represents an object type with multiple fields */
-export type InterfaceTypeFieldArgs = {
+export type InterfaceTypeFieldRefsArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   options?: InputMaybe<FieldOptions>
   where?: InputMaybe<FieldWhere>
 }
 
 /** Represents an object type with multiple fields */
-export type InterfaceTypeFieldAggregateArgs = {
+export type InterfaceTypeFieldRefsAggregateArgs = {
   directed?: InputMaybe<Scalars['Boolean']>
   where?: InputMaybe<FieldWhere>
 }
 
 /** Represents an object type with multiple fields */
-export type InterfaceTypeFieldConnectionArgs = {
+export type InterfaceTypeFieldRefsConnectionArgs = {
   after?: InputMaybe<Scalars['String']>
   directed?: InputMaybe<Scalars['Boolean']>
   first?: InputMaybe<Scalars['Int']>
-  sort?: InputMaybe<Array<InterfaceTypeFieldConnectionSort>>
-  where?: InputMaybe<InterfaceTypeFieldConnectionWhere>
+  sort?: InputMaybe<Array<InterfaceTypeFieldRefsConnectionSort>>
+  where?: InputMaybe<InterfaceTypeFieldRefsConnectionWhere>
 }
 
 /** Represents an object type with multiple fields */
@@ -11897,7 +11921,7 @@ export type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection = {
 
 export type InterfaceTypeConnectInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
-  field?: InputMaybe<InterfaceTypeFieldConnectFieldInput>
+  fieldRefs?: InputMaybe<Array<InterfaceTypeFieldRefsConnectFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerConnectFieldInput>
 }
@@ -11919,7 +11943,7 @@ export type InterfaceTypeConnectWhere = {
 
 export type InterfaceTypeCreateInput = {
   apiOfAtoms?: InputMaybe<InterfaceTypeApiOfAtomsFieldInput>
-  field?: InputMaybe<InterfaceTypeFieldFieldInput>
+  fieldRefs?: InputMaybe<InterfaceTypeFieldRefsFieldInput>
   fields?: InputMaybe<InterfaceTypeFieldsFieldInput>
   id: Scalars['ID']
   kind?: TypeKind
@@ -11929,14 +11953,14 @@ export type InterfaceTypeCreateInput = {
 
 export type InterfaceTypeDeleteInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDeleteFieldInput>>
-  field?: InputMaybe<InterfaceTypeFieldDeleteFieldInput>
+  fieldRefs?: InputMaybe<Array<InterfaceTypeFieldRefsDeleteFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsDeleteFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
 }
 
 export type InterfaceTypeDisconnectInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>
-  field?: InputMaybe<InterfaceTypeFieldDisconnectFieldInput>
+  fieldRefs?: InputMaybe<Array<InterfaceTypeFieldRefsDisconnectFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
 }
@@ -11947,70 +11971,14 @@ export type InterfaceTypeEdge = {
   node: InterfaceType
 }
 
-export type InterfaceTypeFieldAggregateInput = {
-  AND?: InputMaybe<Array<InterfaceTypeFieldAggregateInput>>
-  NOT?: InputMaybe<InterfaceTypeFieldAggregateInput>
-  OR?: InputMaybe<Array<InterfaceTypeFieldAggregateInput>>
-  count?: InputMaybe<Scalars['Int']>
-  count_GT?: InputMaybe<Scalars['Int']>
-  count_GTE?: InputMaybe<Scalars['Int']>
-  count_LT?: InputMaybe<Scalars['Int']>
-  count_LTE?: InputMaybe<Scalars['Int']>
-  node?: InputMaybe<InterfaceTypeFieldNodeAggregationWhereInput>
-}
-
-export type InterfaceTypeFieldConnectFieldInput = {
-  connect?: InputMaybe<FieldConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
-  overwrite?: Scalars['Boolean']
-  where?: InputMaybe<FieldConnectWhere>
-}
-
-export type InterfaceTypeFieldConnection = {
-  __typename?: 'InterfaceTypeFieldConnection'
-  edges: Array<InterfaceTypeFieldRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']
-}
-
-export type InterfaceTypeFieldConnectionSort = {
-  node?: InputMaybe<FieldSort>
-}
-
-export type InterfaceTypeFieldConnectionWhere = {
-  AND?: InputMaybe<Array<InterfaceTypeFieldConnectionWhere>>
-  NOT?: InputMaybe<InterfaceTypeFieldConnectionWhere>
-  OR?: InputMaybe<Array<InterfaceTypeFieldConnectionWhere>>
-  node?: InputMaybe<FieldWhere>
-}
-
-export type InterfaceTypeFieldCreateFieldInput = {
-  node: FieldCreateInput
-}
-
-export type InterfaceTypeFieldDeleteFieldInput = {
-  delete?: InputMaybe<FieldDeleteInput>
-  where?: InputMaybe<InterfaceTypeFieldConnectionWhere>
-}
-
-export type InterfaceTypeFieldDisconnectFieldInput = {
-  disconnect?: InputMaybe<FieldDisconnectInput>
-  where?: InputMaybe<InterfaceTypeFieldConnectionWhere>
-}
-
-export type InterfaceTypeFieldFieldAggregationSelection = {
-  __typename?: 'InterfaceTypeFieldFieldAggregationSelection'
+export type InterfaceTypeFieldFieldRefsAggregationSelection = {
+  __typename?: 'InterfaceTypeFieldFieldRefsAggregationSelection'
   count: Scalars['Int']
-  node?: Maybe<InterfaceTypeFieldFieldNodeAggregateSelection>
+  node?: Maybe<InterfaceTypeFieldFieldRefsNodeAggregateSelection>
 }
 
-export type InterfaceTypeFieldFieldInput = {
-  connect?: InputMaybe<InterfaceTypeFieldConnectFieldInput>
-  create?: InputMaybe<InterfaceTypeFieldCreateFieldInput>
-}
-
-export type InterfaceTypeFieldFieldNodeAggregateSelection = {
-  __typename?: 'InterfaceTypeFieldFieldNodeAggregateSelection'
+export type InterfaceTypeFieldFieldRefsNodeAggregateSelection = {
+  __typename?: 'InterfaceTypeFieldFieldRefsNodeAggregateSelection'
   defaultValues: StringAggregateSelectionNullable
   description: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
@@ -12035,10 +12003,66 @@ export type InterfaceTypeFieldFieldsNodeAggregateSelection = {
   validationRules: StringAggregateSelectionNullable
 }
 
-export type InterfaceTypeFieldNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<InterfaceTypeFieldNodeAggregationWhereInput>>
-  NOT?: InputMaybe<InterfaceTypeFieldNodeAggregationWhereInput>
-  OR?: InputMaybe<Array<InterfaceTypeFieldNodeAggregationWhereInput>>
+export type InterfaceTypeFieldRefsAggregateInput = {
+  AND?: InputMaybe<Array<InterfaceTypeFieldRefsAggregateInput>>
+  NOT?: InputMaybe<InterfaceTypeFieldRefsAggregateInput>
+  OR?: InputMaybe<Array<InterfaceTypeFieldRefsAggregateInput>>
+  count?: InputMaybe<Scalars['Int']>
+  count_GT?: InputMaybe<Scalars['Int']>
+  count_GTE?: InputMaybe<Scalars['Int']>
+  count_LT?: InputMaybe<Scalars['Int']>
+  count_LTE?: InputMaybe<Scalars['Int']>
+  node?: InputMaybe<InterfaceTypeFieldRefsNodeAggregationWhereInput>
+}
+
+export type InterfaceTypeFieldRefsConnectFieldInput = {
+  connect?: InputMaybe<Array<FieldConnectInput>>
+  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  overwrite?: Scalars['Boolean']
+  where?: InputMaybe<FieldConnectWhere>
+}
+
+export type InterfaceTypeFieldRefsConnection = {
+  __typename?: 'InterfaceTypeFieldRefsConnection'
+  edges: Array<InterfaceTypeFieldRefsRelationship>
+  pageInfo: PageInfo
+  totalCount: Scalars['Int']
+}
+
+export type InterfaceTypeFieldRefsConnectionSort = {
+  node?: InputMaybe<FieldSort>
+}
+
+export type InterfaceTypeFieldRefsConnectionWhere = {
+  AND?: InputMaybe<Array<InterfaceTypeFieldRefsConnectionWhere>>
+  NOT?: InputMaybe<InterfaceTypeFieldRefsConnectionWhere>
+  OR?: InputMaybe<Array<InterfaceTypeFieldRefsConnectionWhere>>
+  node?: InputMaybe<FieldWhere>
+}
+
+export type InterfaceTypeFieldRefsCreateFieldInput = {
+  node: FieldCreateInput
+}
+
+export type InterfaceTypeFieldRefsDeleteFieldInput = {
+  delete?: InputMaybe<FieldDeleteInput>
+  where?: InputMaybe<InterfaceTypeFieldRefsConnectionWhere>
+}
+
+export type InterfaceTypeFieldRefsDisconnectFieldInput = {
+  disconnect?: InputMaybe<FieldDisconnectInput>
+  where?: InputMaybe<InterfaceTypeFieldRefsConnectionWhere>
+}
+
+export type InterfaceTypeFieldRefsFieldInput = {
+  connect?: InputMaybe<Array<InterfaceTypeFieldRefsConnectFieldInput>>
+  create?: InputMaybe<Array<InterfaceTypeFieldRefsCreateFieldInput>>
+}
+
+export type InterfaceTypeFieldRefsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<InterfaceTypeFieldRefsNodeAggregationWhereInput>>
+  NOT?: InputMaybe<InterfaceTypeFieldRefsNodeAggregationWhereInput>
+  OR?: InputMaybe<Array<InterfaceTypeFieldRefsNodeAggregationWhereInput>>
   defaultValues_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
   defaultValues_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
   defaultValues_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
@@ -12116,23 +12140,23 @@ export type InterfaceTypeFieldNodeAggregationWhereInput = {
   validationRules_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
-export type InterfaceTypeFieldRelationship = {
-  __typename?: 'InterfaceTypeFieldRelationship'
+export type InterfaceTypeFieldRefsRelationship = {
+  __typename?: 'InterfaceTypeFieldRefsRelationship'
   cursor: Scalars['String']
   node: Field
 }
 
-export type InterfaceTypeFieldUpdateConnectionInput = {
+export type InterfaceTypeFieldRefsUpdateConnectionInput = {
   node?: InputMaybe<FieldUpdateInput>
 }
 
-export type InterfaceTypeFieldUpdateFieldInput = {
-  connect?: InputMaybe<InterfaceTypeFieldConnectFieldInput>
-  create?: InputMaybe<InterfaceTypeFieldCreateFieldInput>
-  delete?: InputMaybe<InterfaceTypeFieldDeleteFieldInput>
-  disconnect?: InputMaybe<InterfaceTypeFieldDisconnectFieldInput>
-  update?: InputMaybe<InterfaceTypeFieldUpdateConnectionInput>
-  where?: InputMaybe<InterfaceTypeFieldConnectionWhere>
+export type InterfaceTypeFieldRefsUpdateFieldInput = {
+  connect?: InputMaybe<Array<InterfaceTypeFieldRefsConnectFieldInput>>
+  create?: InputMaybe<Array<InterfaceTypeFieldRefsCreateFieldInput>>
+  delete?: InputMaybe<Array<InterfaceTypeFieldRefsDeleteFieldInput>>
+  disconnect?: InputMaybe<Array<InterfaceTypeFieldRefsDisconnectFieldInput>>
+  update?: InputMaybe<InterfaceTypeFieldRefsUpdateConnectionInput>
+  where?: InputMaybe<InterfaceTypeFieldRefsConnectionWhere>
 }
 
 export type InterfaceTypeFieldsAggregateInput = {
@@ -12369,7 +12393,7 @@ export type InterfaceTypeOwnerNodeAggregationWhereInput = {
 
 export type InterfaceTypeRelationInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
-  field?: InputMaybe<InterfaceTypeFieldCreateFieldInput>
+  fieldRefs?: InputMaybe<Array<InterfaceTypeFieldRefsCreateFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
 }
@@ -12387,7 +12411,7 @@ export type InterfaceTypeUniqueWhere = {
 
 export type InterfaceTypeUpdateInput = {
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>
-  field?: InputMaybe<InterfaceTypeFieldUpdateFieldInput>
+  fieldRefs?: InputMaybe<Array<InterfaceTypeFieldRefsUpdateFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
@@ -12429,11 +12453,23 @@ export type InterfaceTypeWhere = {
   apiOfAtoms_SINGLE?: InputMaybe<AtomWhere>
   /** Return InterfaceTypes where some of the related Atoms match this filter */
   apiOfAtoms_SOME?: InputMaybe<AtomWhere>
-  field?: InputMaybe<FieldWhere>
-  fieldAggregate?: InputMaybe<InterfaceTypeFieldAggregateInput>
-  fieldConnection?: InputMaybe<InterfaceTypeFieldConnectionWhere>
-  fieldConnection_NOT?: InputMaybe<InterfaceTypeFieldConnectionWhere>
-  field_NOT?: InputMaybe<FieldWhere>
+  fieldRefsAggregate?: InputMaybe<InterfaceTypeFieldRefsAggregateInput>
+  /** Return InterfaceTypes where all of the related InterfaceTypeFieldRefsConnections match this filter */
+  fieldRefsConnection_ALL?: InputMaybe<InterfaceTypeFieldRefsConnectionWhere>
+  /** Return InterfaceTypes where none of the related InterfaceTypeFieldRefsConnections match this filter */
+  fieldRefsConnection_NONE?: InputMaybe<InterfaceTypeFieldRefsConnectionWhere>
+  /** Return InterfaceTypes where one of the related InterfaceTypeFieldRefsConnections match this filter */
+  fieldRefsConnection_SINGLE?: InputMaybe<InterfaceTypeFieldRefsConnectionWhere>
+  /** Return InterfaceTypes where some of the related InterfaceTypeFieldRefsConnections match this filter */
+  fieldRefsConnection_SOME?: InputMaybe<InterfaceTypeFieldRefsConnectionWhere>
+  /** Return InterfaceTypes where all of the related Fields match this filter */
+  fieldRefs_ALL?: InputMaybe<FieldWhere>
+  /** Return InterfaceTypes where none of the related Fields match this filter */
+  fieldRefs_NONE?: InputMaybe<FieldWhere>
+  /** Return InterfaceTypes where one of the related Fields match this filter */
+  fieldRefs_SINGLE?: InputMaybe<FieldWhere>
+  /** Return InterfaceTypes where some of the related Fields match this filter */
+  fieldRefs_SOME?: InputMaybe<FieldWhere>
   fieldsAggregate?: InputMaybe<InterfaceTypeFieldsAggregateInput>
   /** Return InterfaceTypes where all of the related InterfaceTypeFieldsConnections match this filter */
   fieldsConnection_ALL?: InputMaybe<InterfaceTypeFieldsConnectionWhere>

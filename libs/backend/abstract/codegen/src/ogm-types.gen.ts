@@ -2615,7 +2615,7 @@ export type ArrayType = IBaseType &
     kind: TypeKind
     owner: User
     ownerAggregate?: Maybe<ArrayTypeUserOwnerAggregationSelection>
-    field?: Maybe<Field>
+    field: Array<Field>
     fieldAggregate?: Maybe<ArrayTypeFieldFieldAggregationSelection>
     itemType: IBaseType
     ownerConnection: IBaseTypeOwnerConnection
@@ -4599,7 +4599,7 @@ export type EnumType = IBaseType & {
   kind: TypeKind
   owner: User
   ownerAggregate?: Maybe<EnumTypeUserOwnerAggregationSelection>
-  field?: Maybe<Field>
+  field: Array<Field>
   fieldAggregate?: Maybe<EnumTypeFieldFieldAggregationSelection>
   allowedValues: Array<EnumTypeValue>
   allowedValuesAggregate?: Maybe<EnumTypeEnumTypeValueAllowedValuesAggregationSelection>
@@ -5272,7 +5272,7 @@ export type InterfaceType = IBaseType &
     kind: TypeKind
     owner: User
     ownerAggregate?: Maybe<InterfaceTypeUserOwnerAggregationSelection>
-    field?: Maybe<Field>
+    field: Array<Field>
     fieldAggregate?: Maybe<InterfaceTypeFieldFieldAggregationSelection>
     apiOfAtoms: Array<Atom>
     apiOfAtomsAggregate?: Maybe<InterfaceTypeAtomApiOfAtomsAggregationSelection>
@@ -9975,7 +9975,7 @@ export type AppWhere = {
 
 export type ArrayTypeConnectInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectFieldInput>
-  field?: InputMaybe<ArrayTypeFieldConnectFieldInput>
+  field?: InputMaybe<Array<ArrayTypeFieldConnectFieldInput>>
   itemType?: InputMaybe<ArrayTypeItemTypeConnectFieldInput>
 }
 
@@ -10002,13 +10002,13 @@ export type ArrayTypeCreateInput = {
 
 export type ArrayTypeDeleteInput = {
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
-  field?: InputMaybe<ArrayTypeFieldDeleteFieldInput>
+  field?: InputMaybe<Array<ArrayTypeFieldDeleteFieldInput>>
   itemType?: InputMaybe<ArrayTypeItemTypeDeleteFieldInput>
 }
 
 export type ArrayTypeDisconnectInput = {
   owner?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
-  field?: InputMaybe<ArrayTypeFieldDisconnectFieldInput>
+  field?: InputMaybe<Array<ArrayTypeFieldDisconnectFieldInput>>
   itemType?: InputMaybe<ArrayTypeItemTypeDisconnectFieldInput>
 }
 
@@ -10026,7 +10026,7 @@ export type ArrayTypeFieldAggregateInput = {
 
 export type ArrayTypeFieldConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
-  connect?: InputMaybe<FieldConnectInput>
+  connect?: InputMaybe<Array<FieldConnectInput>>
   /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
   overwrite?: Scalars['Boolean']
 }
@@ -10059,8 +10059,8 @@ export type ArrayTypeFieldDisconnectFieldInput = {
 }
 
 export type ArrayTypeFieldFieldInput = {
-  create?: InputMaybe<ArrayTypeFieldCreateFieldInput>
-  connect?: InputMaybe<ArrayTypeFieldConnectFieldInput>
+  create?: InputMaybe<Array<ArrayTypeFieldCreateFieldInput>>
+  connect?: InputMaybe<Array<ArrayTypeFieldConnectFieldInput>>
 }
 
 export type ArrayTypeFieldNodeAggregationWhereInput = {
@@ -10353,10 +10353,10 @@ export type ArrayTypeFieldUpdateConnectionInput = {
 export type ArrayTypeFieldUpdateFieldInput = {
   where?: InputMaybe<ArrayTypeFieldConnectionWhere>
   update?: InputMaybe<ArrayTypeFieldUpdateConnectionInput>
-  connect?: InputMaybe<ArrayTypeFieldConnectFieldInput>
-  disconnect?: InputMaybe<ArrayTypeFieldDisconnectFieldInput>
-  create?: InputMaybe<ArrayTypeFieldCreateFieldInput>
-  delete?: InputMaybe<ArrayTypeFieldDeleteFieldInput>
+  connect?: InputMaybe<Array<ArrayTypeFieldConnectFieldInput>>
+  disconnect?: InputMaybe<Array<ArrayTypeFieldDisconnectFieldInput>>
+  create?: InputMaybe<Array<ArrayTypeFieldCreateFieldInput>>
+  delete?: InputMaybe<Array<ArrayTypeFieldDeleteFieldInput>>
 }
 
 export type ArrayTypeItemTypeConnectFieldInput = {
@@ -10609,7 +10609,7 @@ export type ArrayTypeOwnerNodeAggregationWhereInput = {
 
 export type ArrayTypeRelationInput = {
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
-  field?: InputMaybe<ArrayTypeFieldCreateFieldInput>
+  field?: InputMaybe<Array<ArrayTypeFieldCreateFieldInput>>
   itemType?: InputMaybe<ArrayTypeItemTypeCreateFieldInput>
 }
 
@@ -10629,7 +10629,7 @@ export type ArrayTypeUpdateInput = {
   name?: InputMaybe<Scalars['String']>
   kind?: InputMaybe<TypeKind>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
-  field?: InputMaybe<ArrayTypeFieldUpdateFieldInput>
+  field?: InputMaybe<Array<ArrayTypeFieldUpdateFieldInput>>
   itemType?: InputMaybe<ArrayTypeItemTypeUpdateFieldInput>
 }
 
@@ -10678,13 +10678,33 @@ export type ArrayTypeWhere = {
   owner?: InputMaybe<UserWhere>
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<ArrayTypeOwnerAggregateInput>
+  /** @deprecated Use `field_SOME` instead. */
   field?: InputMaybe<FieldWhere>
+  /** @deprecated Use `field_NONE` instead. */
   field_NOT?: InputMaybe<FieldWhere>
   fieldAggregate?: InputMaybe<ArrayTypeFieldAggregateInput>
+  /** Return ArrayTypes where all of the related Fields match this filter */
+  field_ALL?: InputMaybe<FieldWhere>
+  /** Return ArrayTypes where none of the related Fields match this filter */
+  field_NONE?: InputMaybe<FieldWhere>
+  /** Return ArrayTypes where one of the related Fields match this filter */
+  field_SINGLE?: InputMaybe<FieldWhere>
+  /** Return ArrayTypes where some of the related Fields match this filter */
+  field_SOME?: InputMaybe<FieldWhere>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  /** @deprecated Use `fieldConnection_SOME` instead. */
   fieldConnection?: InputMaybe<ArrayTypeFieldConnectionWhere>
+  /** @deprecated Use `fieldConnection_NONE` instead. */
   fieldConnection_NOT?: InputMaybe<ArrayTypeFieldConnectionWhere>
+  /** Return ArrayTypes where all of the related ArrayTypeFieldConnections match this filter */
+  fieldConnection_ALL?: InputMaybe<ArrayTypeFieldConnectionWhere>
+  /** Return ArrayTypes where none of the related ArrayTypeFieldConnections match this filter */
+  fieldConnection_NONE?: InputMaybe<ArrayTypeFieldConnectionWhere>
+  /** Return ArrayTypes where one of the related ArrayTypeFieldConnections match this filter */
+  fieldConnection_SINGLE?: InputMaybe<ArrayTypeFieldConnectionWhere>
+  /** Return ArrayTypes where some of the related ArrayTypeFieldConnections match this filter */
+  fieldConnection_SOME?: InputMaybe<ArrayTypeFieldConnectionWhere>
   itemTypeConnection?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
   itemTypeConnection_NOT?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
 }
@@ -19053,7 +19073,7 @@ export type EnumTypeAllowedValuesUpdateFieldInput = {
 
 export type EnumTypeConnectInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectFieldInput>
-  field?: InputMaybe<EnumTypeFieldConnectFieldInput>
+  field?: InputMaybe<Array<EnumTypeFieldConnectFieldInput>>
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesConnectFieldInput>>
 }
 
@@ -19080,13 +19100,13 @@ export type EnumTypeCreateInput = {
 
 export type EnumTypeDeleteInput = {
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
-  field?: InputMaybe<EnumTypeFieldDeleteFieldInput>
+  field?: InputMaybe<Array<EnumTypeFieldDeleteFieldInput>>
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesDeleteFieldInput>>
 }
 
 export type EnumTypeDisconnectInput = {
   owner?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
-  field?: InputMaybe<EnumTypeFieldDisconnectFieldInput>
+  field?: InputMaybe<Array<EnumTypeFieldDisconnectFieldInput>>
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesDisconnectFieldInput>>
 }
 
@@ -19104,7 +19124,7 @@ export type EnumTypeFieldAggregateInput = {
 
 export type EnumTypeFieldConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
-  connect?: InputMaybe<FieldConnectInput>
+  connect?: InputMaybe<Array<FieldConnectInput>>
   /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
   overwrite?: Scalars['Boolean']
 }
@@ -19137,8 +19157,8 @@ export type EnumTypeFieldDisconnectFieldInput = {
 }
 
 export type EnumTypeFieldFieldInput = {
-  create?: InputMaybe<EnumTypeFieldCreateFieldInput>
-  connect?: InputMaybe<EnumTypeFieldConnectFieldInput>
+  create?: InputMaybe<Array<EnumTypeFieldCreateFieldInput>>
+  connect?: InputMaybe<Array<EnumTypeFieldConnectFieldInput>>
 }
 
 export type EnumTypeFieldNodeAggregationWhereInput = {
@@ -19431,10 +19451,10 @@ export type EnumTypeFieldUpdateConnectionInput = {
 export type EnumTypeFieldUpdateFieldInput = {
   where?: InputMaybe<EnumTypeFieldConnectionWhere>
   update?: InputMaybe<EnumTypeFieldUpdateConnectionInput>
-  connect?: InputMaybe<EnumTypeFieldConnectFieldInput>
-  disconnect?: InputMaybe<EnumTypeFieldDisconnectFieldInput>
-  create?: InputMaybe<EnumTypeFieldCreateFieldInput>
-  delete?: InputMaybe<EnumTypeFieldDeleteFieldInput>
+  connect?: InputMaybe<Array<EnumTypeFieldConnectFieldInput>>
+  disconnect?: InputMaybe<Array<EnumTypeFieldDisconnectFieldInput>>
+  create?: InputMaybe<Array<EnumTypeFieldCreateFieldInput>>
+  delete?: InputMaybe<Array<EnumTypeFieldDeleteFieldInput>>
 }
 
 export type EnumTypeOnCreateInput = {
@@ -19637,7 +19657,7 @@ export type EnumTypeOwnerNodeAggregationWhereInput = {
 
 export type EnumTypeRelationInput = {
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
-  field?: InputMaybe<EnumTypeFieldCreateFieldInput>
+  field?: InputMaybe<Array<EnumTypeFieldCreateFieldInput>>
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesCreateFieldInput>>
 }
 
@@ -19657,7 +19677,7 @@ export type EnumTypeUpdateInput = {
   name?: InputMaybe<Scalars['String']>
   kind?: InputMaybe<TypeKind>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
-  field?: InputMaybe<EnumTypeFieldUpdateFieldInput>
+  field?: InputMaybe<Array<EnumTypeFieldUpdateFieldInput>>
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesUpdateFieldInput>>
 }
 
@@ -19955,9 +19975,19 @@ export type EnumTypeWhere = {
   owner?: InputMaybe<UserWhere>
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<EnumTypeOwnerAggregateInput>
+  /** @deprecated Use `field_SOME` instead. */
   field?: InputMaybe<FieldWhere>
+  /** @deprecated Use `field_NONE` instead. */
   field_NOT?: InputMaybe<FieldWhere>
   fieldAggregate?: InputMaybe<EnumTypeFieldAggregateInput>
+  /** Return EnumTypes where all of the related Fields match this filter */
+  field_ALL?: InputMaybe<FieldWhere>
+  /** Return EnumTypes where none of the related Fields match this filter */
+  field_NONE?: InputMaybe<FieldWhere>
+  /** Return EnumTypes where one of the related Fields match this filter */
+  field_SINGLE?: InputMaybe<FieldWhere>
+  /** Return EnumTypes where some of the related Fields match this filter */
+  field_SOME?: InputMaybe<FieldWhere>
   /** @deprecated Use `allowedValues_SOME` instead. */
   allowedValues?: InputMaybe<EnumTypeValueWhere>
   /** @deprecated Use `allowedValues_NONE` instead. */
@@ -19973,8 +20003,18 @@ export type EnumTypeWhere = {
   allowedValues_SOME?: InputMaybe<EnumTypeValueWhere>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  /** @deprecated Use `fieldConnection_SOME` instead. */
   fieldConnection?: InputMaybe<EnumTypeFieldConnectionWhere>
+  /** @deprecated Use `fieldConnection_NONE` instead. */
   fieldConnection_NOT?: InputMaybe<EnumTypeFieldConnectionWhere>
+  /** Return EnumTypes where all of the related EnumTypeFieldConnections match this filter */
+  fieldConnection_ALL?: InputMaybe<EnumTypeFieldConnectionWhere>
+  /** Return EnumTypes where none of the related EnumTypeFieldConnections match this filter */
+  fieldConnection_NONE?: InputMaybe<EnumTypeFieldConnectionWhere>
+  /** Return EnumTypes where one of the related EnumTypeFieldConnections match this filter */
+  fieldConnection_SINGLE?: InputMaybe<EnumTypeFieldConnectionWhere>
+  /** Return EnumTypes where some of the related EnumTypeFieldConnections match this filter */
+  fieldConnection_SOME?: InputMaybe<EnumTypeFieldConnectionWhere>
   /** @deprecated Use `allowedValuesConnection_SOME` instead. */
   allowedValuesConnection?: InputMaybe<EnumTypeAllowedValuesConnectionWhere>
   /** @deprecated Use `allowedValuesConnection_NONE` instead. */
@@ -22380,7 +22420,7 @@ export type InterfaceTypeApiOfAtomsUpdateFieldInput = {
 
 export type InterfaceTypeConnectInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectFieldInput>
-  field?: InputMaybe<InterfaceTypeFieldConnectFieldInput>
+  field?: InputMaybe<Array<InterfaceTypeFieldConnectFieldInput>>
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsConnectFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsConnectFieldInput>>
 }
@@ -22412,14 +22452,14 @@ export type InterfaceTypeCreateInput = {
 
 export type InterfaceTypeDeleteInput = {
   owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
-  field?: InputMaybe<InterfaceTypeFieldDeleteFieldInput>
+  field?: InputMaybe<Array<InterfaceTypeFieldDeleteFieldInput>>
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDeleteFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsDeleteFieldInput>>
 }
 
 export type InterfaceTypeDisconnectInput = {
   owner?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
-  field?: InputMaybe<InterfaceTypeFieldDisconnectFieldInput>
+  field?: InputMaybe<Array<InterfaceTypeFieldDisconnectFieldInput>>
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsDisconnectFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsDisconnectFieldInput>>
 }
@@ -22438,7 +22478,7 @@ export type InterfaceTypeFieldAggregateInput = {
 
 export type InterfaceTypeFieldConnectFieldInput = {
   where?: InputMaybe<FieldConnectWhere>
-  connect?: InputMaybe<FieldConnectInput>
+  connect?: InputMaybe<Array<FieldConnectInput>>
   /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
   overwrite?: Scalars['Boolean']
 }
@@ -22471,8 +22511,8 @@ export type InterfaceTypeFieldDisconnectFieldInput = {
 }
 
 export type InterfaceTypeFieldFieldInput = {
-  create?: InputMaybe<InterfaceTypeFieldCreateFieldInput>
-  connect?: InputMaybe<InterfaceTypeFieldConnectFieldInput>
+  create?: InputMaybe<Array<InterfaceTypeFieldCreateFieldInput>>
+  connect?: InputMaybe<Array<InterfaceTypeFieldConnectFieldInput>>
 }
 
 export type InterfaceTypeFieldNodeAggregationWhereInput = {
@@ -23112,10 +23152,10 @@ export type InterfaceTypeFieldUpdateConnectionInput = {
 export type InterfaceTypeFieldUpdateFieldInput = {
   where?: InputMaybe<InterfaceTypeFieldConnectionWhere>
   update?: InputMaybe<InterfaceTypeFieldUpdateConnectionInput>
-  connect?: InputMaybe<InterfaceTypeFieldConnectFieldInput>
-  disconnect?: InputMaybe<InterfaceTypeFieldDisconnectFieldInput>
-  create?: InputMaybe<InterfaceTypeFieldCreateFieldInput>
-  delete?: InputMaybe<InterfaceTypeFieldDeleteFieldInput>
+  connect?: InputMaybe<Array<InterfaceTypeFieldConnectFieldInput>>
+  disconnect?: InputMaybe<Array<InterfaceTypeFieldDisconnectFieldInput>>
+  create?: InputMaybe<Array<InterfaceTypeFieldCreateFieldInput>>
+  delete?: InputMaybe<Array<InterfaceTypeFieldDeleteFieldInput>>
 }
 
 export type InterfaceTypeOnCreateInput = {
@@ -23318,7 +23358,7 @@ export type InterfaceTypeOwnerNodeAggregationWhereInput = {
 
 export type InterfaceTypeRelationInput = {
   owner?: InputMaybe<IBaseTypeOwnerCreateFieldInput>
-  field?: InputMaybe<InterfaceTypeFieldCreateFieldInput>
+  field?: InputMaybe<Array<InterfaceTypeFieldCreateFieldInput>>
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsCreateFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsCreateFieldInput>>
 }
@@ -23339,7 +23379,7 @@ export type InterfaceTypeUpdateInput = {
   name?: InputMaybe<Scalars['String']>
   kind?: InputMaybe<TypeKind>
   owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
-  field?: InputMaybe<InterfaceTypeFieldUpdateFieldInput>
+  field?: InputMaybe<Array<InterfaceTypeFieldUpdateFieldInput>>
   apiOfAtoms?: InputMaybe<Array<InterfaceTypeApiOfAtomsUpdateFieldInput>>
   fields?: InputMaybe<Array<InterfaceTypeFieldsUpdateFieldInput>>
 }
@@ -23389,9 +23429,19 @@ export type InterfaceTypeWhere = {
   owner?: InputMaybe<UserWhere>
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<InterfaceTypeOwnerAggregateInput>
+  /** @deprecated Use `field_SOME` instead. */
   field?: InputMaybe<FieldWhere>
+  /** @deprecated Use `field_NONE` instead. */
   field_NOT?: InputMaybe<FieldWhere>
   fieldAggregate?: InputMaybe<InterfaceTypeFieldAggregateInput>
+  /** Return InterfaceTypes where all of the related Fields match this filter */
+  field_ALL?: InputMaybe<FieldWhere>
+  /** Return InterfaceTypes where none of the related Fields match this filter */
+  field_NONE?: InputMaybe<FieldWhere>
+  /** Return InterfaceTypes where one of the related Fields match this filter */
+  field_SINGLE?: InputMaybe<FieldWhere>
+  /** Return InterfaceTypes where some of the related Fields match this filter */
+  field_SOME?: InputMaybe<FieldWhere>
   /** @deprecated Use `apiOfAtoms_SOME` instead. */
   apiOfAtoms?: InputMaybe<AtomWhere>
   /** @deprecated Use `apiOfAtoms_NONE` instead. */
@@ -23420,8 +23470,18 @@ export type InterfaceTypeWhere = {
   fields_SOME?: InputMaybe<FieldWhere>
   ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
   ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
+  /** @deprecated Use `fieldConnection_SOME` instead. */
   fieldConnection?: InputMaybe<InterfaceTypeFieldConnectionWhere>
+  /** @deprecated Use `fieldConnection_NONE` instead. */
   fieldConnection_NOT?: InputMaybe<InterfaceTypeFieldConnectionWhere>
+  /** Return InterfaceTypes where all of the related InterfaceTypeFieldConnections match this filter */
+  fieldConnection_ALL?: InputMaybe<InterfaceTypeFieldConnectionWhere>
+  /** Return InterfaceTypes where none of the related InterfaceTypeFieldConnections match this filter */
+  fieldConnection_NONE?: InputMaybe<InterfaceTypeFieldConnectionWhere>
+  /** Return InterfaceTypes where one of the related InterfaceTypeFieldConnections match this filter */
+  fieldConnection_SINGLE?: InputMaybe<InterfaceTypeFieldConnectionWhere>
+  /** Return InterfaceTypes where some of the related InterfaceTypeFieldConnections match this filter */
+  fieldConnection_SOME?: InputMaybe<InterfaceTypeFieldConnectionWhere>
   /** @deprecated Use `apiOfAtomsConnection_SOME` instead. */
   apiOfAtomsConnection?: InputMaybe<InterfaceTypeApiOfAtomsConnectionWhere>
   /** @deprecated Use `apiOfAtomsConnection_NONE` instead. */

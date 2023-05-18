@@ -146,7 +146,8 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: ArrayType)
     name: String!
     owner: User!
-    field: Field @relationship(type: "FIELD_TYPE", direction: IN)
+    # ArrayTypes can be shared between components/atoms
+    fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
     descendantTypesIds: [ID!]!
     itemType: IBaseType!
       @relationship(
@@ -181,7 +182,8 @@ export const typeSchema = gql`
     kind: TypeKind! @default(value: InterfaceType)
     name: String!
     owner: User!
-    field: Field @relationship(type: "FIELD_TYPE", direction: IN)
+    # InterfaceTypes can be shared between components/atoms
+    fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
     descendantTypesIds: [ID!]!
     # List of atoms that have this interface as their api type
     apiOfAtoms: [Atom!]!
@@ -265,7 +267,8 @@ export const typeSchema = gql`
     name: String!
     owner: User!
     # Allows reverse lookup and get all api's enums
-    field: Field @relationship(type: "FIELD_TYPE", direction: IN)
+    # EnumTypes can be shared between components/atoms
+    fieldRefs: [Field!]! @relationship(type: "FIELD_TYPE", direction: IN)
     allowedValues: [EnumTypeValue!]!
       @relationship(
         type: "ALLOWED_VALUE",
