@@ -1,15 +1,19 @@
-import { PageHeader } from '@ant-design/pro-components/lib'
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import {
-  CreateTagButton,
   CreateTagModal,
-  DeleteTagsButton,
   DeleteTagsModal,
   GetTagsTable,
   GetTagsTree,
+  tagRef,
   UpdateTagModal,
 } from '@codelab/frontend/domain/tag'
+import {
+  Header,
+  HeaderBreadcrumb,
+  HeaderToolbar,
+} from '@codelab/frontend/presentation//codelab-ui'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -23,9 +27,11 @@ import {
 } from '@codelab/frontend/presentation/view'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { useAsync, useMountEffect } from '@react-hookz/web'
+import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
+import tw from 'twin.macro'
 
 const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const { tagService } = useStore()
@@ -56,14 +62,41 @@ const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
 })
 
 const TagPageHeader = observer(() => {
-  const store = useStore()
+  const { tagService } = useStore()
+  const ids = tagService.checkedTags.map((tag) => tag.id)
 
-  const pageHeaderButtons = [
-    <CreateTagButton key={0} tagService={store.tagService} />,
-    <DeleteTagsButton key={1} tagService={store.tagService} />,
+  const toolbarItems = [
+    {
+      icon: <PlusOutlined />,
+      key: 'create',
+      onClick: () => tagService.createModal.open(),
+      title: 'Create Tag',
+    },
+    {
+      icon: <DeleteOutlined />,
+      key: 'create',
+      onClick: () =>
+        tagService.deleteManyModal.open(ids.map((id) => tagRef(id))),
+      title: 'Create Tag',
+    },
   ]
 
-  return <PageHeader extra={pageHeaderButtons} ghost={false} title="Tags" />
+  return (
+    <Header
+      direction={<HeaderBreadcrumb items={[{ title: 'Tags' }]} />}
+      logo={
+        <Image
+          alt="codelab logo"
+          css={tw`w-full h-full`}
+          preview={false}
+          src="/logo.png"
+        />
+      }
+      toolbar={
+        <HeaderToolbar items={toolbarItems} title="Tags Header Toolbal" />
+      }
+    />
+  )
 })
 
 export default TagPage

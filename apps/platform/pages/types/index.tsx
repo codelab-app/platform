@@ -1,8 +1,7 @@
-import { PageHeader } from '@ant-design/pro-components/lib'
+import { PlusOutlined } from '@ant-design/icons'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   CreateFieldModal,
-  CreateTypeButton,
   CreateTypeModal,
   DeleteFieldModal,
   DeleteTypeModal,
@@ -10,6 +9,11 @@ import {
   UpdateFieldModal,
   UpdateTypeModal,
 } from '@codelab/frontend/domain/type'
+import {
+  Header,
+  HeaderBreadcrumb,
+  HeaderToolbar,
+} from '@codelab/frontend/presentation//codelab-ui'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -22,26 +26,38 @@ import {
   sidebarNavigation,
 } from '@codelab/frontend/presentation/view'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
+import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
 import tw from 'twin.macro'
 
-const Header = observer(() => {
+const TypePageHeader = observer(() => {
   const { typeService } = useStore()
 
-  const headerButtons = [
-    <div css={tw`flex flex-row items-center justify-center gap-2`} key={0}>
-      <CreateTypeButton key={0} typeService={typeService} />
-    </div>,
+  const toolbarItems = [
+    {
+      icon: <PlusOutlined />,
+      key: 'create',
+      onClick: () => typeService.createModal.open(),
+      title: 'Create Type',
+    },
   ]
 
   return (
-    <PageHeader
-      extra={headerButtons}
-      // onBack={() => router.back()}
-      ghost={false}
-      title="Types"
+    <Header
+      direction={<HeaderBreadcrumb items={[{ title: 'Types' }]} />}
+      logo={
+        <Image
+          alt="codelab logo"
+          css={tw`w-full h-full`}
+          preview={false}
+          src="/logo.png"
+        />
+      }
+      toolbar={
+        <HeaderToolbar items={toolbarItems} title="Types Header Toolbal" />
+      }
     />
   )
 })
@@ -76,7 +92,7 @@ TypesPage.Layout = observer(({ children }) => {
 
   return (
     <DashboardTemplate
-      Header={Header}
+      Header={TypePageHeader}
       sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
       {children()}
