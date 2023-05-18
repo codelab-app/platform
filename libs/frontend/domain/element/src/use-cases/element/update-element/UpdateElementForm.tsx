@@ -38,9 +38,9 @@ export interface UpdateElementFormProps {
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
   ({ element }) => {
-    const { builderRenderService, elementService } = useStore()
+    const { elementService, renderService } = useStore()
     const pageId = useCurrentPageId()
-    const renderer = builderRenderService.renderers.get(pageId)
+    const renderer = renderService.renderers.get(pageId)
     const model = getElementModel(element)
 
     const onSubmit = (data: IUpdateElementData) => {

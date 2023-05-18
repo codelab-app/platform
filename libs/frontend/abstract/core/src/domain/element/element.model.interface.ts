@@ -17,6 +17,7 @@ import type { IHook } from '../hook'
 import type { IModel } from '../model.interface'
 import type { IPage } from '../page'
 import type { IProp, IPropData } from '../prop'
+import type { IRuntimeProp } from '../render'
 import type { IStore } from '../store'
 import type { IElementRenderType } from './render-type'
 
@@ -53,7 +54,6 @@ export interface IElement
       'toDeleteInput'
     >,
     ICacheService<IElementDTO, IElement> {
-  __metadataProps: IPropData
   ancestorError: Nullish<RenderingError>
   atomName: string
   children: Array<IElement>
@@ -88,6 +88,8 @@ export interface IElement
   // atom: Nullable<Ref<IAtom>>
   // renderComponentType: Nullable<Ref<IComponent>>
   renderingMetadata: Nullable<RenderingMetadata>
+  runtimeProp: Maybe<IRuntimeProp>
+
   /**
    * to render a component we create a duplicate for each element
    * keeps track of source element in case this is a duplicate

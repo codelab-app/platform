@@ -6,6 +6,7 @@ import type {
   IPage,
   IProp,
   IPropData,
+  IRuntimeProp,
   IStore,
   RenderingError,
   RenderingMetadata,
@@ -17,6 +18,7 @@ import {
   DATA_ELEMENT_ID,
   elementRef,
   getElementService,
+  getRenderService,
   IElement,
   IElementTreeViewDataNode,
   isAtomInstance,
@@ -145,6 +147,11 @@ export class Element
   }
 
   @computed
+  get renderService() {
+    return getRenderService(this)
+  }
+
+  @computed
   get propService() {
     return getPropService(this)
   }
@@ -248,6 +255,11 @@ export class Element
     }
 
     return null
+  }
+
+  @computed
+  get runtimeProp(): Maybe<IRuntimeProp> {
+    return this.renderService.activeRenderer?.current.runtimeProps.get(this.id)
   }
 
   @modelAction

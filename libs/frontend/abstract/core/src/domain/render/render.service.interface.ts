@@ -1,7 +1,7 @@
 import type { Nullable } from '@codelab/shared/abstract/types'
-import type { ObjectMap } from 'mobx-keystone'
+import type { ObjectMap, Ref } from 'mobx-keystone'
+import type { IBuilderService } from '../builder/builder.service.interface'
 import type { IElementTree } from '../element'
-import type { IBuilderService } from './builder.service.interface'
 import type { IRenderer, RendererType } from './renderer.model.interface'
 
 export interface RendererProps {
@@ -22,7 +22,8 @@ export interface RendererProps {
 }
 
 export interface IRenderService {
+  activeRenderer: Nullable<Ref<IRenderer>>
   renderers: ObjectMap<IRenderer>
-
   addRenderer(props: RendererProps): IRenderer
+  setActiveRenderer(renderer: Ref<IRenderer>): void
 }

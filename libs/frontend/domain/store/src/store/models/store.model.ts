@@ -8,7 +8,6 @@ import type {
 import {
   actionRef,
   componentRef,
-  IPropData,
   pageRef,
   typeRef,
 } from '@codelab/frontend/abstract/core'
@@ -25,7 +24,6 @@ import { computed, makeAutoObservable } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { getActionService } from '../action.service.context'
 import { getStoreService } from '../store.service.context'
 
 const create = ({
@@ -53,7 +51,6 @@ const createName = (app: Pick<IAppDTO, 'name'>) => {
 @model('@codelab/Store')
 export class Store
   extends Model(() => ({
-    _initialState: prop<IPropData>(() => ({})),
     actions: prop<Array<Ref<IAction>>>(),
     api: prop<Ref<IInterfaceType>>().withSetter(),
     component: prop<Nullable<Ref<IComponent>>>().withSetter(),
@@ -77,11 +74,6 @@ export class Store
   }
 
   @modelAction
-  setInitialState(state: IPropData) {
-    this._initialState = state
-  }
-
-  @modelAction
   writeCache({ actions, api, id, name }: Partial<IStoreDTO>) {
     this.id = id ? id : this.id
     this.name = name ? name : this.name
@@ -93,18 +85,19 @@ export class Store
   }
 
   @computed
-  get actionService() {
-    return getActionService(this)
-  }
-
-  @computed
   get state() {
+    const component = this.component?.current
+
+    const componentProps = mergeProps(
+      component?.api.current.defaultValues,
+      component?.props.current.values,
+      component?.instanceElement?.current.runtimeProp?.evaluatedProps,
+    )
+
     return makeAutoObservable(
       mergeProps(
         this.api.current.defaultValues,
-        this.component?.current.initialState,
-        this.component?.current.instanceElement?.current.props.current.values,
-        this._initialState,
+        componentProps,
         this.actions
           .map((action) => ({
             [action.current.name]: action.current.createRunner(),

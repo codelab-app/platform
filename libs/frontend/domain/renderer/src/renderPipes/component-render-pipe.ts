@@ -36,7 +36,7 @@ export class ComponentRenderPipe
 
     ComponentRenderPipe.logRendering(this.renderer, rootElement, element)
 
-    return this.renderer.renderIntermediateElement(rootElement, overrideProps)
+    return this.renderer.renderIntermediateElement(rootElement)
   }
 
   // private static logRootElementNotFound(

@@ -5,8 +5,6 @@ import type {
   TypedProp,
 } from '@codelab/frontend/abstract/core'
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import isString from 'lodash/isString'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { BaseRenderPipe } from '../renderPipes/render-pipe.base'
 import { cloneComponent } from '../utils'
@@ -40,20 +38,6 @@ export class RenderPropTypeTransformer
   extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedPropTransformer
 {
-  canHandleTypeKind(typeKind: ITypeKind): boolean {
-    return typeKind === ITypeKind.RenderPropType
-  }
-
-  canHandleValue(value: TypedProp): boolean {
-    const isComponentId =
-      isString(value.value) && this.componentService.components.has(value.value)
-
-    const isComponentExpression = hasStateExpression(value.value)
-
-    // either when it is a componentId or a component expression
-    return isComponentId || isComponentExpression
-  }
-
   public transform(prop: TypedProp, element: IElement) {
     const { expressionTransformer } = this.renderer
 
@@ -85,7 +69,6 @@ export class RenderPropTypeTransformer
       }
 
       const rootElement = componentClone.rootElement.current
-      componentClone.store.current.setInitialState(props)
 
       return this.renderer.renderElement(rootElement)
     }

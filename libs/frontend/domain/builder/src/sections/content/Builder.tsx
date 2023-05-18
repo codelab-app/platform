@@ -25,14 +25,10 @@ import ResizeHandle from './ResizeHandle'
  * Generic builder used for both Component & Element
  */
 export const Builder = observer(() => {
-  const { builderRenderService, builderService, elementService } = useStore()
+  const { builderService, elementService, renderService } = useStore()
   const pageId = useCurrentPageId()
   const activeComponentId = builderService.activeComponent?.id
-
-  const renderer = builderRenderService.renderers.get(
-    activeComponentId ?? pageId,
-  )
-
+  const renderer = renderService.renderers.get(activeComponentId ?? pageId)
   const elementTree = builderService.activeElementTree
 
   const { builderContainerWidth, selectedBuilderWidth, selectedNode } =

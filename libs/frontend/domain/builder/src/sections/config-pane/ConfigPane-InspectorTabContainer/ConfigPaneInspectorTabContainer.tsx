@@ -60,11 +60,11 @@ const TooltipIcon = ({ icon, title }: TooltipIconProps) => {
 }
 
 export const ConfigPaneInspectorTabContainer = observer(() => {
-  const { builderRenderService, builderService, elementService, pageService } =
+  const { builderService, elementService, pageService, renderService } =
     useStore()
 
   const pageId = useCurrentPageId()
-  const renderService = builderRenderService.renderers.get(pageId)
+  const renderer = renderService.renderers.get(pageId)
   const elementTree = builderService.activeElementTree
   const selectedNode = builderService.selectedNode
 
@@ -144,11 +144,11 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
       ),
     },
     {
-      children: renderService && (
+      children: renderer && (
         <PropsInspectorTab
           key={selectedNode.id}
           node={selectedNode}
-          renderer={renderService}
+          renderer={renderer}
         />
       ),
       key: TAB_NAMES.PropsInspector,

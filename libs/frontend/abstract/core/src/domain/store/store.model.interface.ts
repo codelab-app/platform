@@ -29,7 +29,6 @@ export interface IStore
 
   clone(componentId: string): IStore
   setComponent(componentRef: Ref<IComponent>): void
-  setInitialState(state: IPropData): void
 }
 
 export type IStoreRef = string

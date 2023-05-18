@@ -11,10 +11,10 @@ import type { IAtomType } from '@codelab/shared/abstract/core'
 import { css } from '@emotion/react'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
-import { RenderOutput } from '../abstract/render-output'
 import { atomFactory } from '../atoms'
 import { evalCss } from '../utils/eval-css'
 import { BaseRenderPipe } from './render-pipe.base'
+import { RenderOutput } from '../utils'
 
 @model('@codelab/AtomRenderPipe')
 export class AtomRenderPipe

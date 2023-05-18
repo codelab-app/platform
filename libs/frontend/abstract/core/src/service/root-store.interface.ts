@@ -31,10 +31,8 @@ export interface RootStoreData {
 export interface IRootStore {
   actionService: IActionService
   adminService: IAdminService
-  appRenderService: IRenderService
   appService: IAppService
   atomService: IAtomService
-  builderRenderService: IRenderService
   builderService: IBuilderService
   componentService: IComponentService
   domainService: IDomainService
@@ -42,6 +40,7 @@ export interface IRootStore {
   fieldService: IFieldService
   pageService: IPageService
   propService: IPropService
+  renderService: IRenderService
   resourceService: IResourceService
   storeService: IStoreService
   tagService: ITagService

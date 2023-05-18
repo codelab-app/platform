@@ -1,18 +1,15 @@
-import type {
-  IElement,
-  IPropData,
-  IRendererProps,
-  ITypedPropTransformer,
-} from '@codelab/frontend/abstract/core'
-import { elementRef } from '@codelab/frontend/abstract/core'
+import type { IElement, IRuntimeProp } from '@codelab/frontend/abstract/core'
+import { DATA_ELEMENT_ID, elementRef } from '@codelab/frontend/abstract/core'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { replaceStateInProps } from '@codelab/frontend/shared/utils'
 import { mapDeep, mergeProps } from '@codelab/shared/utils'
 import attempt from 'lodash/attempt'
 import isError from 'lodash/isError'
 import { computed } from 'mobx'
-import type { ObjectMap, Ref } from 'mobx-keystone'
-import { Model, model, prop } from 'mobx-keystone'
+import type { Ref } from 'mobx-keystone'
+import { ExtendedModel, model, prop } from 'mobx-keystone'
+import { BaseRenderPipe } from './renderPipes/renderPipe.base'
+import { isTypedProp } from './utils'
 
 /**
  * The pipeline is as follow
@@ -24,34 +21,18 @@ import { Model, model, prop } from 'mobx-keystone'
  *                                evaluatedProps
  */
 
-const create = ({
-  elementId,
-  extraProps,
-}: {
-  elementId: string
-  extraProps: IPropData
-}) =>
-  new RendererProps({
-    element: elementRef(elementId),
-    extraProps,
-  })
+const create = ({ elementId }: { elementId: string }) =>
+  new RuntimeProps({ element: elementRef(elementId) })
 
-@model('@codelab/RendererProps')
-export class RendererProps
-  extends Model({
+@model('@codelab/RuntimeProps')
+export class RuntimeProps
+  extends ExtendedModel(BaseRenderPipe, {
     element: prop<Ref<IElement>>(),
-    /**
-     * Extra props that comes from upper components
-     */
-    extraProps: prop<IPropData>(),
     /**
      * Those transform different kinds of typed values into render-ready props
      */
-    typedPropTransformers: prop<ObjectMap<ITypedPropTransformer>>(() =>
-      typedPropTransformersFactory(),
-    ),
   })
-  implements IRendererProps
+  implements IRuntimeProp
 {
   @computed
   get typeService() {
@@ -60,7 +41,14 @@ export class RendererProps
 
   @computed
   get props() {
-    return this.element.current.props.current.values
+    return {
+      ...this.element.current.props.current.values,
+      /**
+       * Internal system props for meta data, use double underline for system-defined identifiers.
+       */
+      [DATA_ELEMENT_ID]: this.element.current.id,
+      key: this.element.current.id,
+    }
   }
 
   /**
@@ -103,7 +91,7 @@ export class RendererProps
         return value
       }
 
-      const transformer = this.typedPropTransformers.get(typeKind)
+      const transformer = this.renderer.typedPropTransformers.get(typeKind)
 
       if (transformer) {
         return transformer.transform(value, this.element.current)
@@ -113,24 +101,10 @@ export class RendererProps
     })
   }
 
-  /**
-   * Parses and transforms the props for a given element, so they are ready for rendering
-   */
-  @computed
-  get renderedProps() {
-    const props = mergeProps(
-      this.element.current.__metadataProps,
-      this.renderedTypedProps,
-      this.extraProps,
-    )
-
-    return props
-  }
-
   @computed
   get evaluatedProps() {
     return replaceStateInProps(
-      this.renderedProps,
+      this.renderedTypedProps,
       this.element.current.store.current.state,
     )
   }

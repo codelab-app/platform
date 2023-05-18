@@ -1,8 +1,11 @@
-import type { TypedProp } from '@codelab/frontend/abstract/core'
+import type {
+  ITypedPropTransformer,
+  TypedProp,
+} from '@codelab/frontend/abstract/core'
 import { getActionService } from '@codelab/frontend/domain/store'
+import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { computed } from 'mobx'
 import { ExtendedModel, model } from 'mobx-keystone'
-import type { ITypedPropTransformer } from '../abstract'
 import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
 
 /**
@@ -30,6 +33,11 @@ export class ActionTypeTransformer
   }
 
   public transform(prop: TypedProp) {
+    // unwrap custom action code so it is evaluated later
+    if (hasStateExpression(prop.value)) {
+      return prop.value
+    }
+
     const actionModel = this.actionService.action(prop.value)
 
     if (!actionModel) {

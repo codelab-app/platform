@@ -6,8 +6,8 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   componentRef,
-  getBuilderRenderService,
   getElementService,
+  getRenderService,
   IComponentDTO,
   IUpdateComponentData,
   RendererType,
@@ -112,8 +112,8 @@ export class ComponentService
   }
 
   @computed
-  get builderRenderService() {
-    return getBuilderRenderService(this)
+  get renderService() {
+    return getRenderService(this)
   }
 
   @computed
@@ -146,7 +146,7 @@ export class ComponentService
     } else {
       component = Component.create(componentDTO)
 
-      this.builderRenderService.addRenderer({
+      this.renderService.addRenderer({
         elementTree: component,
         id: component.id,
         providerTree: null,

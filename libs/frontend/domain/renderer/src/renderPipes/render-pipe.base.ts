@@ -1,15 +1,11 @@
-import type {
-  IBaseRenderPipe,
-  IRenderer,
-} from '@codelab/frontend/abstract/core'
+import type { IBaseRenderPipe } from '@codelab/frontend/abstract/core'
 import {
   getComponentService,
   getElementService,
+  getRenderService,
 } from '@codelab/frontend/abstract/core'
-import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import { computed } from 'mobx'
-import type { AnyModel } from 'mobx-keystone'
-import { findParent, idProp, Model, model, modelTypeKey } from 'mobx-keystone'
+import { idProp, Model, model } from 'mobx-keystone'
 
 @model('@codelab/BaseRenderPipe')
 export class BaseRenderPipe
@@ -28,15 +24,22 @@ export class BaseRenderPipe
     return getComponentService(this)
   }
 
+  @computed
+  get renderService() {
+    return getRenderService(this)
+  }
+
   /**
    * The RenderService is the one that contains these pipes
    */
   @computed
   get renderer() {
-    return throwIfUndefined(
-      findParent<IRenderer>(this, (parent) => {
-        return (parent as AnyModel)[modelTypeKey] === '@codelab/Renderer'
-      }),
-    )
+    const renderer = this.renderService.activeRenderer?.current
+
+    if (!renderer) {
+      throw new Error('Unable to find active renderer')
+    }
+
+    return renderer
   }
 }

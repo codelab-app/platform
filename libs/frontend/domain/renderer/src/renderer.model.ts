@@ -2,11 +2,12 @@ import type {
   IElement,
   IElementTree,
   IExpressionTransformer,
-  IPropData,
   IRenderer,
-  IRendererProps,
   IRenderOutput,
   IRenderPipe,
+  IRuntimeProp,
+  ITypedPropTransformer,
+  RendererProps,
   RendererType,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -16,7 +17,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import type { Ref } from 'mobx-keystone'
+import type { ObjectMap, Ref } from 'mobx-keystone'
 import { idProp, Model, model, objectMap, prop } from 'mobx-keystone'
 import { createTransformer } from 'mobx-utils'
 import type { ReactElement, ReactNode } from 'react'
@@ -24,12 +25,13 @@ import React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 import { ElementWrapper, ElementWrapperProps } from './element/element-wrapper'
 import { makeCustomTextContainer } from './element/wrapper.utils'
-import { RendererProps } from './renderer.props.model'
+import { ExpressionTransformer } from './expresssion-transformer.service'
 import {
   defaultPipes,
   renderPipeFactory,
 } from './renderPipes/render-pipe.factory'
-import { ExpressionTransformer } from './expresssion-transformer.service'
+import { typedPropTransformersFactory } from './typedPropTransformers'
+import { RuntimeProps } from './runtime.props.model'
 
 /**
  * Handles the logic of rendering treeElements. Takes in an optional appTree
@@ -47,9 +49,17 @@ import { ExpressionTransformer } from './expresssion-transformer.service'
  * For example - we use the renderContext from ./renderContext inside the pipes to get the renderer model itself and its tree.
  */
 
-const create = ({ elementTree, providerTree, rendererType }: RendererProps) => {
+const create = ({
+  elementTree,
+  id,
+  providerTree,
+  rendererType,
+}: RendererProps) => {
   return new Renderer({
     elementTree: elementTreeRef(elementTree),
+    // for refs to resolve we can't use pageId/componentId alone
+    // it will resolve page/component instead
+    id: `${id}.renderer`,
     providerTree: providerTree ? elementTreeRef(providerTree) : null,
     rendererType,
   })
@@ -62,10 +72,12 @@ export class Renderer
      * Will log the render output and render pipe info to the console
      */
     debugMode: prop(false).withSetter(),
+
     /**
      * The tree that's being rendered, we assume that this is properly constructed
      */
     elementTree: prop<Ref<IElementTree>>(),
+
     expressionTransformer: prop<IExpressionTransformer>(
       () => new ExpressionTransformer({}),
     ),
@@ -76,11 +88,6 @@ export class Renderer
     providerTree: prop<Nullable<Ref<IElementTree>>>(null),
 
     /**
-     *
-     */
-    rendererProps: prop(() => objectMap<IRendererProps>()),
-
-    /**
      * Different types of renderer requires behaviors in some cases.
      */
     rendererType: prop<RendererType>(),
@@ -89,6 +96,15 @@ export class Renderer
      * The render pipe handles and augments the render process. This is a linked list / chain of render pipes
      */
     renderPipe: prop<IRenderPipe>(() => renderPipeFactory(defaultPipes)),
+
+    runtimeProps: prop<ObjectMap<IRuntimeProp>>(() => objectMap([])),
+
+    /**
+     * Those transform different kinds of typed values into render-ready props
+     */
+    typedPropTransformers: prop<ObjectMap<ITypedPropTransformer>>(() =>
+      typedPropTransformersFactory(),
+    ),
   })
   implements IRenderer
 {
@@ -110,10 +126,9 @@ export class Renderer
   /**
    * Renders a single Element using the provided RenderAdapter
    */
-  renderElement = (element: IElement, extraProps?: IPropData): ReactElement => {
+  renderElement = (element: IElement): ReactElement => {
     const wrapperProps: ElementWrapperProps & { key: string } = {
       element,
-      extraProps,
       key: `element-wrapper-${element.id}`,
       renderer: this,
     }
@@ -124,20 +139,14 @@ export class Renderer
   /**
    * Renders a single element (without its children) to an intermediate RenderOutput
    *
-   * @param extraProps props passed down from parent components, these have high priority than element.props
    */
   renderIntermediateElement = (
     element: IElement,
-    extraProps?: IPropData,
   ): ArrayOrSingle<IRenderOutput> => {
-    const propsInstance = RendererProps.create({
-      elementId: element.id,
-      extraProps: extraProps || {},
-    })
+    const runtimeProps = RuntimeProps.create({ elementId: element.id })
+    this.runtimeProps.set(element.id, runtimeProps)
 
-    this.rendererProps.set(element.id, propsInstance)
-
-    return this.renderPipe.render(element, propsInstance.evaluatedProps)
+    return this.renderPipe.render(element, runtimeProps.evaluatedProps)
   }
 
   getComponentInstanceChildren(element: IElement) {
@@ -176,27 +185,15 @@ export class Renderer
    * Renders the elements children, createTransformer memoizes the function
    */
   renderChildren = createTransformer(
-    ({
-      extraProps,
-      parentOutput,
-    }: Parameters<
-      IRenderer['renderChildren']
-    >[0]): ArrayOrSingle<ReactNode> => {
+    (parentOutput: IRenderOutput): ArrayOrSingle<ReactNode> => {
       const children = [
         ...parentOutput.element.children,
         ...this.getComponentInstanceChildren(parentOutput.element),
         ...this.getChildPageChildren(parentOutput.element),
       ]
 
-      // This will pass down the props from the component instance to the descendants
-      const componentInstanceProps = {
-        ...parentOutput.element.parentComponent?.current.instanceElement
-          ?.current.props.current.values,
-        ...extraProps,
-      }
-
       const renderedChildren = children.map((child) =>
-        this.renderElement(child, componentInstanceProps),
+        this.renderElement(child),
       )
 
       const hasChildren = renderedChildren.length > 0

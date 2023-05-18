@@ -7,7 +7,7 @@ import { useCurrentAppId } from '../routerHooks'
  * Fetch and load the remaining app pages (that currently were not loaded from server)
  */
 export const useRemainingPages = () => {
-  const { appService, builderRenderService } = useStore()
+  const { appService, renderService } = useStore()
   const appId = useCurrentAppId()
   const app = appService.app(appId)
 
@@ -26,10 +26,10 @@ export const useRemainingPages = () => {
 
     app.pages.forEach((pageRef) => {
       const page = pageRef.current
-      const rendererExists = builderRenderService.renderers.has(page.id)
+      const rendererExists = renderService.renderers.has(page.id)
 
       if (!rendererExists) {
-        builderRenderService.addRenderer({
+        renderService.addRenderer({
           elementTree: page,
           id: page.id,
           providerTree: app.providerPage,

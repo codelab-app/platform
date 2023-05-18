@@ -54,7 +54,7 @@ export class ReactNodeTypedValueTransformer
     const componentClone = cloneComponent(
       component,
       element,
-      component.initialState,
+      element.store.current.state,
     )
 
     if (!componentClone) {

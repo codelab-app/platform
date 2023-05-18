@@ -1,19 +1,33 @@
 import type { Nullable } from '@codelab/shared/abstract/types'
-import type { ObjectMap } from 'mobx-keystone'
-import type { IRenderer, RendererType } from '../builder'
-import type { IElementTree } from '../element'
+import type { ObjectMap, Ref } from 'mobx-keystone'
+import type { ReactElement, ReactNode } from 'react'
+import type { ArrayOrSingle } from 'ts-essentials'
+import type { IExpressionTransformer } from '../builder/expressionTransformer.service.interface'
+import type { IElement, IElementTree } from '../element'
+import type { IRenderOutput } from './render.interface'
+import type {
+  IRuntimeProp,
+  ITypedPropTransformer,
+} from './runtime.props.model.interface'
 
-export interface IBaseRenderer {
-  /**
-   * Renderer for multiple contexts
-   * - page, component etc
-   */
-  renderers: ObjectMap<IRenderer>
+export const enum RendererType {
+  ComponentBuilder = 'component-builder',
+  PageBuilder = 'page-builder',
+  Preview = 'preview',
+}
+export interface IRenderer {
+  debugMode: boolean
+  elementTree: Ref<IElementTree>
+  expressionTransformer: IExpressionTransformer
+  id: string
+  providerTree: Nullable<Ref<IElementTree>>
+  rendererType: RendererType
+  runtimeProps: ObjectMap<IRuntimeProp>
+  typedPropTransformers: ObjectMap<ITypedPropTransformer>
 
-  initRenderer(
-    id: string,
-    pageTree: IElementTree,
-    appTree: Nullable<IElementTree>,
-    rendererType: RendererType,
-  ): IRenderer
+  logRendered(element: IElement, rendered: ArrayOrSingle<IRenderOutput>): void
+  renderChildren(parentOutput: IRenderOutput): ArrayOrSingle<ReactNode>
+  renderElement(element: IElement): ReactElement
+  renderIntermediateElement(element: IElement): ArrayOrSingle<IRenderOutput>
+  renderRoot(): ReactElement | null
 }

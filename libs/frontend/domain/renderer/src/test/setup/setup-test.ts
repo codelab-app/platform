@@ -149,7 +149,6 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
           [textAtom.id, textAtom],
         ]),
       }),
-      builderRenderService: new RenderService({}),
       componentService: new ComponentService({}),
       elementService: new ElementService({}),
       fieldService: new FieldService({
@@ -161,6 +160,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       pageService: new PageService({}),
       propService: new PropService({}),
       renderer: data.renderer,
+      renderService: new RenderService({}),
       storeService: new StoreService({
         stores: objectMap([[pageStore.id, pageStore]]),
       }),

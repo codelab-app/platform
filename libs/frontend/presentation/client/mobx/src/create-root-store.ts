@@ -1,10 +1,10 @@
 import type { IRootStore, RootStoreData } from '@codelab/frontend/abstract/core'
 import {
   appServiceContext,
-  builderRenderServiceContext,
   builderServiceContext,
   componentServiceContext,
   elementServiceContext,
+  renderServiceContext,
   userServiceContext,
 } from '@codelab/frontend/abstract/core'
 import { AdminService } from '@codelab/frontend/domain/admin'
@@ -45,10 +45,8 @@ export const createRootStore = ({ user }: RootStoreData) => {
   class RootStore extends Model({
     actionService: prop(() => new ActionService({})),
     adminService: prop(() => new AdminService({})),
-    appRenderService: prop(() => new RenderService({})),
     appService: prop(() => new AppService({})),
     atomService: prop(() => new AtomService({})),
-    builderRenderService: prop(() => new RenderService({})),
     builderService: prop(() => new BuilderService({})),
     componentService: prop(() => new ComponentService({})),
     domainService: prop(() => new DomainService({})),
@@ -56,6 +54,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
     fieldService: prop(() => new FieldService({})),
     pageService: prop(() => new PageService({})),
     propService: prop(() => new PropService({})),
+    renderService: prop(() => new RenderService({})),
     resourceService: prop(() => new ResourceService({})),
     storeService: prop(() => new StoreService({})),
     tagService: prop(() => new TagService({})),
@@ -78,7 +77,7 @@ export const createRootStore = ({ user }: RootStoreData) => {
       userServiceContext.set(this, this.userService)
       tagServiceContext.set(this, this.tagService)
       fieldServiceContext.set(this, this.fieldService)
-      builderRenderServiceContext.set(this, this.builderRenderService)
+      renderServiceContext.set(this, this.renderService)
     }
   }
 

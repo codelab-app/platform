@@ -8,7 +8,7 @@ import type { Element } from '@codelab/frontend/domain/element'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
-import { RenderOutput } from '../abstract/render-output'
+import { RenderOutput } from '../utils'
 import { BaseRenderPipe } from './render-pipe.base'
 
 /**

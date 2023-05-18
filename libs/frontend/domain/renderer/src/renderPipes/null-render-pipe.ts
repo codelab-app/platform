@@ -6,8 +6,8 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
-import { RenderOutput } from '../abstract/render-output'
 import { BaseRenderPipe } from './render-pipe.base'
+import { RenderOutput } from '../utils'
 
 /**
  * Fallback render pipe, returns null

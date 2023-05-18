@@ -1,8 +1,4 @@
-import type {
-  IElement,
-  IPropData,
-  IRenderer,
-} from '@codelab/frontend/abstract/core'
+import type { IElement, IRenderer } from '@codelab/frontend/abstract/core'
 import { isAtomInstance, RendererType } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { IAtomType } from '@codelab/shared/abstract/core'
@@ -20,7 +16,6 @@ export interface ElementWrapperProps {
   /**
    * Props passed in from outside the component
    */
-  extraProps?: IPropData
   renderer: IRenderer
 }
 
@@ -30,14 +25,10 @@ export interface ElementWrapperProps {
  * It is in this wrapper that the children are rendered
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
-  ({ element, extraProps = {}, renderer, ...rest }) => {
+  ({ element, renderer, ...rest }) => {
     const { atomService } = useStore()
-
     // Render the element to an intermediate output
-    const renderOutputs = renderer.renderIntermediateElement(
-      element,
-      extraProps,
-    )
+    const renderOutputs = renderer.renderIntermediateElement(element)
 
     renderer.logRendered(element, renderOutputs)
 
@@ -46,10 +37,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
     // causing unnecessary re-renders when hovering over the builder screen section
     const renderedElement = mapOutput(renderOutputs, (renderOutput) => {
       const children = shouldRenderElement(element, renderOutput.props)
-        ? renderer.renderChildren({
-            extraProps,
-            parentOutput: renderOutput,
-          })
+        ? renderer.renderChildren(renderOutput)
         : undefined
 
       if (renderOutput.props) {
