@@ -1,16 +1,18 @@
-import { PageHeader } from '@ant-design/pro-components/lib'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
-  CreateResourceButton,
   CreateResourceModal,
   DeleteResourceModal,
   ResourcesList,
+  ResourceToolbar,
   UpdateResourceModal,
 } from '@codelab/frontend/domain/resource'
 import {
+  Header,
+  HeaderBreadcrumb,
+} from '@codelab/frontend/presentation//codelab-ui'
+import {
   useCurrentAppId,
   useCurrentPageId,
-  useStore,
 } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
@@ -19,25 +21,28 @@ import {
   sidebarNavigation,
 } from '@codelab/frontend/presentation/view'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
+import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
+import tw from 'twin.macro'
 
-const ResourcesPageHeader = observer(() => {
-  const { resourceService } = useStore()
-
-  return (
-    <PageHeader
-      extra={[<CreateResourceButton key={0} />]}
-      ghost={false}
-      title="Resources"
-    />
-  )
-})
+const ResourcesPageHeader = observer(() => (
+  <Header
+    direction={<HeaderBreadcrumb items={[{ title: 'Resources' }]} />}
+    logo={
+      <Image
+        alt="codelab logo"
+        css={tw`w-full h-full`}
+        preview={false}
+        src="/logo.png"
+      />
+    }
+    toolbar={<ResourceToolbar />}
+  />
+))
 
 const ResourcesPage: CodelabPage<DashboardTemplateProps> = () => {
-  const store = useStore()
-
   return (
     <>
       <Head>

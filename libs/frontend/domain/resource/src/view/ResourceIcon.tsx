@@ -5,10 +5,11 @@ import React from 'react'
 import { icons } from '../icons'
 
 interface ResourceIconProps extends Partial<CustomIconComponentProps> {
+  add?: boolean
   type: IResourceType
 }
 
-export const ResourceIcon = ({ type, ...props }: ResourceIconProps) => (
+export const ResourceIcon = ({ add, type, ...props }: ResourceIconProps) => (
   // eslint-disable-next-line react/jsx-props-no-spreading
-  <Icon component={icons[type]} {...props} />
+  <Icon component={add ? icons.add[type] : icons[type]} {...props} />
 )
