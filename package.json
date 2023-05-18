@@ -99,7 +99,7 @@
     "mobx-keystone": "1.5.0",
     "mobx-react-lite": "3.4.3",
     "mobx-utils": "6.0.6",
-    "moment": "^2.29.4",
+    "moment": "2.29.4",
     "morphext": "2.4.7",
     "neo4j-driver": "5.8.0",
     "next": "13.3.0",
