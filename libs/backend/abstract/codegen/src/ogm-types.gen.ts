@@ -151,10 +151,6 @@ export type QueryBaseTypesArgs = {
   options?: InputMaybe<BaseTypeOptions>
 }
 
-export type QueryPageComponentsArgs = {
-  pageId: Scalars['ID']
-}
-
 export type QueryResetDatabaseMutationResponsesArgs = {
   where?: InputMaybe<ResetDatabaseMutationResponseWhere>
   options?: InputMaybe<ResetDatabaseMutationResponseOptions>
