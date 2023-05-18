@@ -65,6 +65,10 @@ export class TypeRepository extends Model({}) implements ITypeRepository {
       )
       .filter((id) => !parentIds.includes(id))
 
+    if (allDescendantIdsWithoutParents.length === 0) {
+      return []
+    }
+
     return yield* _await(getAllTypes(allDescendantIdsWithoutParents))
   })
 

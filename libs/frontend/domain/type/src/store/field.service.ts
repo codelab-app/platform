@@ -76,6 +76,11 @@ export class FieldService
     this: FieldService,
     createFieldData: ICreateFieldData,
   ) {
+    // Need to load the field type if its not loaded yet
+    if (!this.typeService.types.has(createFieldData.fieldType)) {
+      yield* _await(this.typeService.getOne(createFieldData.fieldType))
+    }
+
     const field = this.add(FieldService.mapDataToDTO(createFieldData))
     const interfaceType = this.typeService.type(field.api.id) as IInterfaceType
 

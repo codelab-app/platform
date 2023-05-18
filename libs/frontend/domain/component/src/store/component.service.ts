@@ -26,7 +26,9 @@ import type {
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import flatMap from 'lodash/flatMap'
 import isEmpty from 'lodash/isEmpty'
+import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
 import {
   _async,
@@ -295,7 +297,7 @@ export class ComponentService
       this.allComponentsLoaded = true
     }
 
-    return components.map((component) => {
+    const componentModels = components.map((component) => {
       this.storeService.load([component.store])
       this.propService.add(component.props)
       this.typeService.loadTypes({ interfaceTypes: [component.api] })
@@ -328,6 +330,18 @@ export class ComponentService
 
       return this.add(component)
     })
+
+    const allComponentsFieldTypeIds = uniq(
+      flatMap(componentModels, (component) =>
+        component.api.current.fields.map((field) => field.type.id),
+      ).filter((id) => !this.typeService.types.has(id)),
+    )
+
+    if (allComponentsFieldTypeIds.length > 0) {
+      yield* _await(this.typeService.getAll(allComponentsFieldTypeIds))
+    }
+
+    return componentModels
   })
 
   @modelFlow
