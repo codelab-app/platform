@@ -54,8 +54,6 @@ import {
 } from 'mobx-keystone'
 import { getRenderType } from './utils'
 
-type TransformFn = (props: IPropData) => IPropData
-
 const create = ({
   customCss,
   firstChild,
