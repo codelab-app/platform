@@ -72,12 +72,10 @@ export class Renderer
      * Will log the render output and render pipe info to the console
      */
     debugMode: prop(false).withSetter(),
-
     /**
      * The tree that's being rendered, we assume that this is properly constructed
      */
     elementTree: prop<Ref<IElementTree>>(),
-
     expressionTransformer: prop<IExpressionTransformer>(
       () => new ExpressionTransformer({}),
     ),
@@ -86,19 +84,18 @@ export class Renderer
      * Store attached to app, needed to access its actions
      */
     providerTree: prop<Nullable<Ref<IElementTree>>>(null),
-
     /**
      * Different types of renderer requires behaviors in some cases.
      */
     rendererType: prop<RendererType>(),
-
     /**
      * The render pipe handles and augments the render process. This is a linked list / chain of render pipes
      */
     renderPipe: prop<IRenderPipe>(() => renderPipeFactory(defaultPipes)),
-
+    /**
+     * Props record for all elements during all transformations stages
+     */
     runtimeProps: prop<ObjectMap<IRuntimeProp>>(() => objectMap([])),
-
     /**
      * Those transform different kinds of typed values into render-ready props
      */
