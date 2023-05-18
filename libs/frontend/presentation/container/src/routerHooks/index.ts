@@ -1,3 +1,3 @@
-export * from './useCurrentAppId'
-export * from './useCurrentPageId'
-export * from './useGetCurrentResourceId'
+export * from './useCurrentAppId.hook'
+export * from './useCurrentPageId.hook'
+export * from './useGetCurrentResourceId.hook'

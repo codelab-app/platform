@@ -1,2 +1,2 @@
-export * from './reactAtoms'
-export * from './reactPropsCustomizer'
+export * from './react-atoms'
+export * from './react-props-customizer'

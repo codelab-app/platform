@@ -10,7 +10,7 @@ import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { handleDomainExistError } from '../../errors'
-import { createDomainSchema } from './createDomain.schema'
+import { createDomainSchema } from './create-domain.schema'
 
 export const CreateDomainModal = observer(() => {
   const { domainService, userService } = useStore()

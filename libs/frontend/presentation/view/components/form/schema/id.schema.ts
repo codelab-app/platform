@@ -1,6 +1,6 @@
 import type { IEntity } from '@codelab/shared/abstract/types'
 import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
-import { showFieldOnDev } from './showFieldOnDev'
+import { showFieldOnDev } from './show-field-on-dev'
 
 export const idSchema: PropertiesSchema<IEntity> = {
   id: {

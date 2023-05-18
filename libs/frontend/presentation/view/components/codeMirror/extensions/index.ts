@@ -1,2 +1,2 @@
-export * from './completionSource'
-export * from './graphqlExtension.factory'
+export * from './completion-source'
+export * from './graphql-extension.factory'

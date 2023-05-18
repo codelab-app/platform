@@ -28,7 +28,7 @@ import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { AutoComputedElementNameField } from '../../../components/auto-computed-element-name'
 import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
-import { getElementModel } from '../../../utils/getElementModel'
+import { getElementModel } from '../../../utils/get-element-model'
 import { updateElementSchema } from './update-element.schema'
 
 export interface UpdateElementFormProps {

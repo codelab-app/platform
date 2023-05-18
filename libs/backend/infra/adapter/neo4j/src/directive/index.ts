@@ -1,1 +1,1 @@
-export * from './defaultDirectives'
+export * from './default-directives'

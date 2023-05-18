@@ -2,7 +2,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import { notification } from 'antd'
 import isFunction from 'lodash/isFunction'
 import isString from 'lodash/isString'
-import { extractErrorMessage } from './extractErrorMessage'
+import { extractErrorMessage } from './extract-error-message'
 
 type NotificationType = 'error' | 'info' | 'success' | 'warning'
 

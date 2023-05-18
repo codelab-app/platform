@@ -1,2 +1,2 @@
-export * from './headerCellProps'
-export * from './sectionStyle'
+export * from './header-cell-props'
+export * from './section-style'

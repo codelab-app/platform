@@ -1,1 +1,1 @@
-export * from './HooksList'
+export * from './hooksList.hook'

@@ -1,2 +1,2 @@
-export * from './filterEmptyStrings'
-export * from './isNonNullable'
+export * from './filter-empty-strings'
+export * from './is-non-nullable'

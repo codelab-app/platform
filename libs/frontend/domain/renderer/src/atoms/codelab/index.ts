@@ -1,1 +1,1 @@
-export * from './codelabAtoms'
+export * from './codelab-atoms'

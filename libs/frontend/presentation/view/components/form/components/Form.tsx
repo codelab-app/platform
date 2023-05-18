@@ -9,7 +9,7 @@ import {
   connectUniformSubmitRef,
   createBridge,
   createValidator,
-} from '../hooks/uniformUtils'
+} from '../hooks/uniformUtils.hook'
 
 export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   const Form = <TData, TResponse = unknown>({

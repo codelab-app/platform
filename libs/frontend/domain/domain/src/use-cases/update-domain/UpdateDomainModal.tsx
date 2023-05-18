@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { handleDomainExistError } from '../../errors'
-import { updateDomainSchema } from './updateDomain.schema'
+import { updateDomainSchema } from './update-domain.schema'
 
 export const UpdateDomainModal = observer(() => {
   const { domainService } = useStore()

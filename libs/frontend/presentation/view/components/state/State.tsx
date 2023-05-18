@@ -2,7 +2,7 @@
 import isFunction from 'lodash/isFunction'
 import React from 'react'
 import { useRecoilState } from 'recoil'
-import { stateAtomFamily } from './stateAtomFamily'
+import { stateAtomFamily } from './state-atom-family'
 import type { StateProps } from './StateProps'
 
 // https://stackoverflow.com/questions/11547672/how-to-stringify-event-object

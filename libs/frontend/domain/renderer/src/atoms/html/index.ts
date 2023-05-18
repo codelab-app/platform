@@ -1,1 +1,1 @@
-export * from './htmlAtoms'
+export * from './html-atoms'

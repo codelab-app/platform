@@ -19,8 +19,8 @@ import {
 } from './columns'
 import { RequiredParentsColumn } from './columns/RequiredParentsColumn'
 import { SuggestedChildrenColumn } from './columns/SuggestedChildrenColumn'
-import { useGetLibrary } from './dataSource/atomLibrary'
-import { onLibraryFilter } from './dataSource/onLibraryFilter'
+import { useGetLibrary } from './dataSource/atom-library'
+import { onLibraryFilter } from './dataSource/on-library-filter'
 
 export const AtomsTable = observer(() => {
   const { atomService, fieldService, typeService } = useStore()

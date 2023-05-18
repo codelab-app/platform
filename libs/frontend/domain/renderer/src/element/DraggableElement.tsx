@@ -8,7 +8,7 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import { useDraggable, useDroppable } from '@dnd-kit/core'
 import React, { useEffect } from 'react'
 import { makeDropIndicatorStyle } from '../utils'
-import { calcDragPosition, useElementLayout } from './draggableElement.util'
+import { calcDragPosition, useElementLayout } from './draggable-element.util'
 import { ElementDragOverlay } from './ElementDragOverlay'
 
 export interface DraggableElementProps {

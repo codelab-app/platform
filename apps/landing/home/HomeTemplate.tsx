@@ -5,8 +5,8 @@ import { useRecoilValue } from 'recoil'
 import tw from 'twin.macro'
 import { Footer } from '../sections/footer/Footer'
 import { MenuDesktop } from './menu/DesktopNavigation'
+import { menuState } from './menu/menu-state'
 import { CodelabMenuContainer } from './menu/MenuContainer'
-import { menuState } from './menu/menuState'
 import { MenuMobile } from './menu/MobileMenu'
 
 export interface HomeTemplateProps {

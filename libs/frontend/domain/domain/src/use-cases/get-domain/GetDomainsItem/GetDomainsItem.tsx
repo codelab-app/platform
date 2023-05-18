@@ -7,7 +7,7 @@ import React from 'react'
 import { ItemTools } from '../ItemTools'
 import { ConfigGuide } from './ConfigGuideTab'
 import { ConfigStatus } from './ConfigStatus'
-import { hideAntBody } from './GetDomainsItem.styles'
+import { hideAntBody } from './get-domains-item.styles'
 
 export interface GetAppsItemProps {
   domain: IDomain

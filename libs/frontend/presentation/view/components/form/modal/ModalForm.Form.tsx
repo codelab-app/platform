@@ -4,8 +4,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
 import { handleFormSubmit } from '../components/utils'
-import { connectUniformSubmitRef, createBridge } from '../hooks/uniformUtils'
-import { ModalFormContext } from './ModalForm.Context'
+import {
+  connectUniformSubmitRef,
+  createBridge,
+} from '../hooks/uniformUtils.hook'
+import { ModalFormContext } from './modal-form.context'
 
 /**
  * @param onSubmit The fact Uniform types this as `DeepPartial` causes a lot of issue.

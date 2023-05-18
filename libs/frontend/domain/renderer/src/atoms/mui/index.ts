@@ -1,2 +1,2 @@
-export * from './muiAtoms'
-export * from './muiPropsCustomizer'
+export * from './mui-atoms'
+export * from './mui-props-customizer'

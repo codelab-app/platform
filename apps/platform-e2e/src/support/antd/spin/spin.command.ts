@@ -1,4 +1,4 @@
-import { domClasses } from '../../deprecated/domClasses'
+import { domClasses } from '../../deprecated/dom-classes'
 import type { CypressElement } from '../../deprecated/types'
 
 export const getSpinner = (subject: any): CypressElement =>

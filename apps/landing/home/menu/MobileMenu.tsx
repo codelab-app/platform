@@ -17,7 +17,7 @@ import { useRecoilState } from 'recoil'
 import { useOutsideClick } from 'rooks'
 import tw from 'twin.macro'
 import { Logo } from '../logo/Logo'
-import { menuState } from './menuState'
+import { menuState } from './menu-state'
 
 const SpaceEvenly = styled.div(
   tw`

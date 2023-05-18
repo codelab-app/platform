@@ -3,7 +3,7 @@ import {
   DATA_COMPONENT_ID,
   isAtomInstance,
 } from '@codelab/frontend/abstract/core'
-import { ComponentRenderPipe } from '../renderPipes/componentRenderPipe'
+import { ComponentRenderPipe } from '../renderPipes/component-render-pipe'
 import { setupTestForRenderer } from './setup/setup-test'
 
 const extraProps = {

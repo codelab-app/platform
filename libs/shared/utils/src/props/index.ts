@@ -1,2 +1,2 @@
-export * from './mergeProps'
-export * from './propSafeStringify'
+export * from './merge-props'
+export * from './prop-safe-stringify'

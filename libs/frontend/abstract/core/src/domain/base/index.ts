@@ -1,1 +1,1 @@
-export * from './refSchema'
+export * from './ref-schema'

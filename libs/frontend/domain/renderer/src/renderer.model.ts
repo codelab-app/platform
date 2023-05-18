@@ -26,17 +26,17 @@ import { createTransformer } from 'mobx-utils'
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
-import type { ITypedValueTransformer } from './abstract/ITypedValueTransformer'
-import type { ElementWrapperProps } from './element/ElementWrapper'
-import { ElementWrapper } from './element/ElementWrapper'
+import type { ITypedValueTransformer } from './abstract/i-typed-value-transformer'
+import type { ElementWrapperProps } from './element/element-wrapper'
+import { ElementWrapper } from './element/element-wrapper'
 import { makeCustomTextContainer } from './element/wrapper.utils'
-import { ExpressionTransformer } from './expresssionTransformer.service'
+import { ExpressionTransformer } from './expresssion-transformer.service'
 import {
   defaultPipes,
   renderPipeFactory,
-} from './renderPipes/renderPipe.factory'
-import { typedValueTransformersFactory } from './typedValueTransformers/typedValueTransformersFactory'
-import { isTypedValue } from './utils/isTypedValue'
+} from './renderPipes/render-pipe.factory'
+import { typedValueTransformersFactory } from './typedValueTransformers/typed-value-transformers-factory'
+import { isTypedValue } from './utils/is-typed-value'
 
 /**
  * Handles the logic of rendering treeElements. Takes in an optional appTree

@@ -1,2 +1,2 @@
 export * from './schema'
-export * from './typeDefs'
+export * from './type-defs'

@@ -5,7 +5,7 @@ import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
 import isString from 'lodash/isString'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { getElementModel } from '../../../utils/getElementModel'
+import { getElementModel } from '../../../utils/get-element-model'
 
 export interface UpdateElementPropTransformationFormProp {
   element: IElement

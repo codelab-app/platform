@@ -1,2 +1,2 @@
-export * from './antdAtoms'
-export * from './antdPropsCustomizer'
+export * from './antd-atoms'
+export * from './antd-props-customizer'

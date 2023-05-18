@@ -17,7 +17,7 @@ import {
   upsertUserMiddleware,
   userDataPathOption,
 } from '../../shared/path-args'
-import { selectUserPrompt } from '../../shared/prompts/selectUser'
+import { selectUserPrompt } from '../../shared/prompts/select-user'
 import { Stage } from '../../shared/utils/stage'
 
 type ImportProps = ExportProps & {

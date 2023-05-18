@@ -1,2 +1,2 @@
 export * from './abstract'
-export * from './mapDeep'
+export * from './map-deep'

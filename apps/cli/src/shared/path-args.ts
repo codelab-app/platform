@@ -5,7 +5,7 @@ import { EnvPlatform } from '@codelab/shared/config'
 import inquirer from 'inquirer'
 import { v4 } from 'uuid'
 import type { MiddlewareFunction, Options } from 'yargs'
-import { selectUserPrompt } from './prompts/selectUser'
+import { selectUserPrompt } from './prompts/select-user'
 import { Stage } from './utils/stage'
 
 export interface ExportProps {

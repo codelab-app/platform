@@ -11,7 +11,7 @@ import {
   reactNodeTextComponentName,
   reactNodeTextProp,
   renderItemFieldName,
-} from './createComponentInput'
+} from './create-component-input'
 
 const atomsInputs = (userId: string): Array<AtomCreateInput> => [
   createListAtomInput(userId),

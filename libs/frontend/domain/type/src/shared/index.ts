@@ -1,3 +1,3 @@
-export * from './sortFields'
+export * from './sort-fields'
 export * from './TypeSelect'
-export * from './typeSelectOptions'
+export * from './type-select-options'

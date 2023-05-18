@@ -8,7 +8,7 @@ import {
   storeData,
 } from '@codelab/shared/data/test'
 import { getSnapshot, unregisterRootStore } from 'mobx-keystone'
-import { TestRootStore } from '../test/testRootStore'
+import { TestRootStore } from '../test/test-root-store'
 
 let rootStore: TestRootStore
 

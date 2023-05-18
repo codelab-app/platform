@@ -12,13 +12,13 @@ import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
 import React, { useMemo } from 'react'
 import { useElementTreeDrop } from '../../../hooks'
-import { antdTreeStyle } from './antdTree.styles'
+import { antdTreeStyle } from './antd-tree.styles'
 import { BuilderTreeItemTitle } from './BuilderTreeItemTitle'
 import {
   DISABLE_HOVER_CLASSNAME,
   disableTreeNodeWrapperHoverStyle,
   TREE_NODE_WRAPPER_SELECTOR,
-} from './disableNodeHoverEffects'
+} from './disable-node-hover-effects'
 
 interface BuilderTreeProps {
   className?: string

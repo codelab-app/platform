@@ -5,7 +5,7 @@ import AntdModal from 'antd/lib/modal'
 import type { PropsWithChildren } from 'react'
 import React, { useRef, useState } from 'react'
 import { handleSubmitRefModalOk } from '../components/utils'
-import { ModalFormContext } from './ModalForm.Context'
+import { ModalFormContext } from './modal-form.context'
 
 export type ModalProps = Pick<
   AntModalProps,

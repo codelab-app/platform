@@ -502,6 +502,22 @@
       }
     },
     {
+      "files": ["*.ts"],
+      "rules": {
+        "unicorn/filename-case": [
+          "error",
+          {
+            "cases": {
+              "camelCase": false,
+              "pascalCase": false,
+              "kebabCase": true
+            },
+            "ignore": [".*\\.hook\\.tsx?$"]
+          }
+        ]
+      }
+    },
+    {
       "files": ["*.spec.ts", "*.spec.tsx"],
       // "plugins": ["plugin:jest/recommended", "plugin:jest/style"],
       "rules": {

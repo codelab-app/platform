@@ -1,6 +1,6 @@
 import type { IAppSchema } from '@codelab/frontend/abstract/core'
 import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
-import { showFieldOnDev } from './showFieldOnDev'
+import { showFieldOnDev } from './show-field-on-dev'
 
 export const appSchema: PropertiesSchema<IAppSchema> = {
   app: {

@@ -21,12 +21,12 @@ import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef, useState } from 'react'
 import { BuilderTreeItemTitle } from '../builder-tree'
-import { antdTreeStyle } from '../builder-tree/antdTree.styles'
+import { antdTreeStyle } from '../builder-tree/antd-tree.styles'
 import {
   DISABLE_HOVER_CLASSNAME,
   disableTreeNodeWrapperHoverStyle,
   TREE_NODE_WRAPPER_SELECTOR,
-} from '../builder-tree/disableNodeHoverEffects'
+} from '../builder-tree/disable-node-hover-effects'
 import { ComponentList } from './ComponentList'
 
 export const CustomComponents = observer(() => {

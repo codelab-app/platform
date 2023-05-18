@@ -1,2 +1,2 @@
-export * from './RemoveHookFromElementButton'
-export * from './RemoveHookFromElementModal'
+export * from './removeHookFromElementButton.hook'
+export * from './removeHookFromElementModal.hook'

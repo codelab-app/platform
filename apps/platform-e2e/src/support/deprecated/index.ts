@@ -1,11 +1,11 @@
 import { getSpinner } from '../antd/spin/spin.command'
 import type { CypressCommand } from '../types'
-import { findButtonByItemText } from './findButtonByItemText'
-import { findByButtonText } from './findByButtonText'
-import { findElementByText } from './findElementByText'
-import { getOpenedModal } from './getOpenedModal'
-import { getOptionItem } from './getOptionItem'
-import { selectOptionItem } from './selectOptionItem'
+import { findButtonByItemText } from './find-button-by-item-text'
+import { findByButtonText } from './find-by-button-text'
+import { findElementByText } from './find-element-by-text'
+import { getOpenedModal } from './get-opened-modal'
+import { getOptionItem } from './get-option-item'
+import { selectOptionItem } from './select-option-item'
 import type { OmitFirstArg } from './types'
 
 const options = { prevSubject: 'optional' }
