@@ -27,7 +27,6 @@ export type Scalars = {
 export type Query = {
   __typename?: 'Query'
   baseTypes: Array<BaseType>
-  pageComponents: Array<Component>
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
   resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection
   resetDatabaseMutationResponsesConnection: ResetDatabaseMutationResponsesConnection
