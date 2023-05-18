@@ -11,6 +11,7 @@ import {
   useCurrentPageId,
   useStore,
 } from '@codelab/frontend/presentation/container'
+import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React, { useCallback, useMemo } from 'react'
@@ -67,7 +68,9 @@ export const PageDetailHeader = observer(() => {
           ]}
         />
       }
-      logo={<img css={tw`w-full h-full`} src="/logo.png"></img>}
+      logo={
+        <Image alt="codelab logo" css={tw`w-full h-full`} src="/logo.png" />
+      }
       toolbar={<HeaderToolbar items={toolbarItems} title="My Header Toolbal" />}
     />
   )

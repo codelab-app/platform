@@ -1,9 +1,12 @@
-import { PageHeader } from '@ant-design/pro-components/lib'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   ExportAdminDataButton,
   ImportDataButton,
 } from '@codelab/frontend/domain/admin'
+import {
+  Header,
+  HeaderBreadcrumb,
+} from '@codelab/frontend/presentation//codelab-ui'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -15,7 +18,7 @@ import {
   sidebarNavigation,
 } from '@codelab/frontend/presentation/view'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
-import { Space } from 'antd'
+import { Image, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
@@ -43,7 +46,12 @@ export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 AdminPage.Layout = ({ children }) => {
   const AdminHeader = () => (
-    <PageHeader css={tw`bg-white`} ghost={false} title="Admin" />
+    <Header
+      direction={<HeaderBreadcrumb items={[{ title: 'Admin' }]} />}
+      logo={
+        <Image alt="codelab logo" css={tw`w-full h-full`} src="/logo.png" />
+      }
+    />
   )
 
   const appId = useCurrentAppId()

@@ -5,7 +5,7 @@ export interface ToolbarItem {
   key: React.Key
   label?: string
   title: string
-  onClick(): void
+  onClick?(): void
 }
 
 export interface ToolbarProps {

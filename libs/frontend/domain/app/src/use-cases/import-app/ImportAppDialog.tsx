@@ -1,7 +1,6 @@
 import { ImportOutlined } from '@ant-design/icons'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { useNotify } from '@codelab/frontend/shared/utils'
-import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useRef } from 'react'
 import { importApp } from './import-app.api'
@@ -29,9 +28,7 @@ export const ImportAppDialog = observer(() => {
 
   return (
     <>
-      <Button icon={<ImportOutlined />} onClick={onClick}>
-        Import App
-      </Button>
+      <ImportOutlined onClick={onClick} />
 
       <input
         accept=".json"

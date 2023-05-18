@@ -1,16 +1,20 @@
-import { EllipsisOutlined } from '@ant-design/icons'
-import { PageHeader } from '@ant-design/pro-components/lib'
+import { LogoutOutlined, PlusOutlined } from '@ant-design/icons'
 import { useUser } from '@auth0/nextjs-auth0'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   BuildAppModal,
-  CreateAppButton,
   CreateAppModal,
   DeleteAppModal,
   GetAppsList,
   ImportAppDialog,
   UpdateAppModal,
 } from '@codelab/frontend/domain/app'
+import type { ToolbarItem } from '@codelab/frontend/presentation//codelab-ui'
+import {
+  Header,
+  HeaderBreadcrumb,
+  HeaderToolbar,
+} from '@codelab/frontend/presentation//codelab-ui'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -25,39 +29,45 @@ import {
 import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { useAsync } from '@react-hookz/web'
-import type { MenuProps } from 'antd'
-import { Button, Dropdown, Spin } from 'antd'
+import { Image, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { useEffect } from 'react'
 import tw from 'twin.macro'
 
-const items: MenuProps['items'] = [
-  {
-    icon: (
-      <Button href="/api/auth/logout" type="link">
-        Sign Out
-      </Button>
-    ),
-    key: '0',
-  },
-]
-
 const AppsPageHeader = observer(() => {
-  const pageHeaderElements = [
-    <ImportAppDialog key={0} />,
-    <CreateAppButton key={1} />,
-    <Dropdown key={2} menu={{ items }} trigger={['click']}>
-      <Button icon={<EllipsisOutlined />} />
-    </Dropdown>,
+  const { appService } = useStore()
+
+  const toolbarItems: Array<ToolbarItem> = [
+    {
+      icon: <ImportAppDialog key={0} />,
+      key: '0',
+      title: 'Import an app',
+    },
+    {
+      icon: <PlusOutlined />,
+      key: '1',
+      onClick: () => appService.createModal.open(),
+      title: 'Create an App',
+    },
+    {
+      icon: <LogoutOutlined />,
+      key: '1',
+      onClick: () => {
+        // redirect to /api/auth/logout
+        window.location.href = '/api/auth/logout'
+      },
+      title: 'Sign Out',
+    },
   ]
 
   return (
-    <PageHeader
-      css={tw`bg-white`}
-      extra={pageHeaderElements}
-      ghost={false}
-      title="Apps"
+    <Header
+      direction={<HeaderBreadcrumb items={[{ title: 'Apps' }]} />}
+      logo={
+        <Image alt="codelab logo" css={tw`w-full h-full`} src="/logo.png" />
+      }
+      toolbar={<HeaderToolbar items={toolbarItems} title="My Header Toolbal" />}
     />
   )
 })
