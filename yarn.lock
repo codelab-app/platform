@@ -15359,7 +15359,7 @@ __metadata:
     wait-on: 6.0.1
     winston: ^3.8.2
     yargs: 17.7.1
-    zlib: ^1.0.5
+    zlib: 1.0.5
     zod: 3.20.2
   languageName: unknown
   linkType: soft
@@ -35727,7 +35727,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zlib@npm:^1.0.5":
+"zlib@npm:1.0.5":
   version: 1.0.5
   resolution: "zlib@npm:1.0.5"
   checksum: 5ef5693a1deb70f65845424f5ecce1ee956e50320aa438126759fd28ec8a25ae876acb3b179b4f5050427e7e0dfcd9e45bdae23f055b2d732bc2fe1dbe4da169
