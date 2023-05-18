@@ -1,4 +1,5 @@
 import { EllipsisOutlined } from '@ant-design/icons'
+import { Tooltip } from '@mui/material'
 import { Button, Dropdown, Menu, Space } from 'antd'
 import React, { useEffect, useRef, useState } from 'react'
 import tw from 'twin.macro'
@@ -69,12 +70,14 @@ export const HeaderToolbar = ({ items }: HeaderToolbarProps) => {
         ref={listRef}
       >
         {items.map((item, index) => (
-          <Button css={tw`px-2 py-1 h-8`} key={index} onClick={item.onClick}>
-            <Space>
-              {item.icon}
-              {item.label}
-            </Space>
-          </Button>
+          <Tooltip title={item.title}>
+            <Button css={tw`px-2 py-1 h-8`} key={index} onClick={item.onClick}>
+              <Space>
+                {item.icon}
+                {item.label}
+              </Space>
+            </Button>
+          </Tooltip>
         ))}
       </div>
       {showDropdown && (
