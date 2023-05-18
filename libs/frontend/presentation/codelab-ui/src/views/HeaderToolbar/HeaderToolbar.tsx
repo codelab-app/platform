@@ -69,9 +69,9 @@ export const HeaderToolbar = ({ items }: HeaderToolbarProps) => {
         `}
         ref={listRef}
       >
-        {items.map((item, index) => (
-          <Tooltip title={item.title}>
-            <Button css={tw`px-2 py-1 h-8`} key={index} onClick={item.onClick}>
+        {items.map((item) => (
+          <Tooltip key={item.key} title={item.title}>
+            <Button css={tw`px-2 py-1 h-8`} onClick={item.onClick}>
               <Space>
                 {item.icon}
                 {item.label}

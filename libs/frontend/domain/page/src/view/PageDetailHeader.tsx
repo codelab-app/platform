@@ -14,7 +14,7 @@ import {
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback } from 'react'
 import tw from 'twin.macro'
 import { BuilderSizeMenu } from './BuilderSizeMenu'
 
@@ -27,15 +27,10 @@ export const PageDetailHeader = observer(() => {
   const currentPage = pagesList.find((page) => page.id === pageId)
   const isBuilder = router.pathname === PageType.PageBuilder
 
-  const appName = useMemo(
-    () => (appId ? appService.app(appId)?.name : ''),
-    [appId],
-  )
+  console.log('app id: ', appId)
 
-  const pageName = useMemo(
-    () => (currentPage?.id ? pageService.page(currentPage.id)?.name : ''),
-    [currentPage],
-  )
+  const appName = appService.app(appId)?.name || '?'
+  const pageName = currentPage?.name || '?'
 
   const switchPreviewMode = () => {
     return router.push({
@@ -74,9 +69,9 @@ export const PageDetailHeader = observer(() => {
       direction={
         <HeaderBreadcrumb
           items={[
-            { onClick: navigateAppsPage, title: appName || '?' },
+            { onClick: navigateAppsPage, title: appName },
             { title: 'Pages' },
-            { onClick: navigatePagesPanel, title: pageName || '?' },
+            { onClick: navigatePagesPanel, title: pageName },
           ]}
         />
       }
