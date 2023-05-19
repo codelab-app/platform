@@ -485,7 +485,15 @@
             ]
           }
         ]
-      }
+      },
+      "overrides": [
+        {
+          "files": ["**/pages/**/*.tsx"],
+          "rules": {
+            "unicorn/filename-case": "off"
+          }
+        }
+      ]
     },
     {
       "files": ["*.hook.ts", "*.hook.tsx"],

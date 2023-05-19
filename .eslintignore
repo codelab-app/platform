@@ -9,7 +9,6 @@ public
 *.d.ts
 *.mp4
 *.log
-**/pages
 **/*.gen.ts
 jest.config.ts
 
