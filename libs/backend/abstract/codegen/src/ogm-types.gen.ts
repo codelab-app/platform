@@ -27,7 +27,6 @@ export type Scalars = {
 export type Query = {
   __typename?: 'Query'
   baseTypes: Array<BaseType>
-  pageComponents: Array<Component>
   resetDatabaseMutationResponses: Array<ResetDatabaseMutationResponse>
   resetDatabaseMutationResponsesAggregate: ResetDatabaseMutationResponseAggregateSelection
   resetDatabaseMutationResponsesConnection: ResetDatabaseMutationResponsesConnection
@@ -150,10 +149,6 @@ export type Query = {
 export type QueryBaseTypesArgs = {
   where?: InputMaybe<BaseTypeWhere>
   options?: InputMaybe<BaseTypeOptions>
-}
-
-export type QueryPageComponentsArgs = {
-  pageId: Scalars['ID']
 }
 
 export type QueryResetDatabaseMutationResponsesArgs = {

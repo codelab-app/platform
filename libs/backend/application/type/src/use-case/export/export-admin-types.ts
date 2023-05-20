@@ -56,7 +56,7 @@ export const exportAdminTypes = async (
     },
     selectionSet: exportArrayTypeSelectionSet,
     where: {
-      fieldConnection: {
+      fieldRefsConnection: {
         node: {
           apiConnection: {
             node: {
@@ -96,7 +96,7 @@ export const exportAdminTypes = async (
       selectionSet: exportEnumTypeSelectionSet,
       where: props.apiId
         ? {
-            fieldConnection: {
+            fieldRefsConnection: {
               node: {
                 apiConnection: {
                   node: {
@@ -128,7 +128,7 @@ export const exportAdminTypes = async (
         OR: [
           // Find api 1 level deep
           {
-            fieldConnection: {
+            fieldRefsConnection: {
               node: { apiConnection: { node: { id: props.apiId } } },
             },
           },
@@ -159,7 +159,7 @@ export const exportAdminTypes = async (
       },
       selectionSet: exportInterfaceTypeSelectionSet,
       where: {
-        fieldConnection: {
+        fieldRefsConnection: {
           node: {
             apiConnection: {
               node: {
