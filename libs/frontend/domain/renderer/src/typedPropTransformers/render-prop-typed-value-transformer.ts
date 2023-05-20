@@ -41,7 +41,7 @@ export class RenderPropTypeTransformer
   public transform(prop: TypedProp, element: IElement) {
     const { expressionTransformer } = this.renderer
 
-    if (hasStateExpression(prop.value)) {
+    if (hasStateExpression(prop.value) && expressionTransformer.initialized) {
       return expressionTransformer.transpileAndEvaluateExpression(prop.value)
     }
 
