@@ -8,7 +8,7 @@ import isError from 'lodash/isError'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
-import { BaseRenderPipe } from './renderPipes/renderPipe.base'
+import { BaseRenderPipe } from './renderPipes/render-pipe.base'
 import { isTypedProp } from './utils'
 
 /**

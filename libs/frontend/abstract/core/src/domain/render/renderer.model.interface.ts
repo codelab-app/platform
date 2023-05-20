@@ -2,7 +2,7 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
-import type { IExpressionTransformer } from '../builder/expressionTransformer.service.interface'
+import type { IExpressionTransformer } from '../builder'
 import type { IElement, IElementTree } from '../element'
 import type { IRenderOutput } from './render.interface'
 import type {

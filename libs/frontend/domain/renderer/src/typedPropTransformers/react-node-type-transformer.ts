@@ -4,8 +4,6 @@ import type {
   TypedProp,
 } from '@codelab/frontend/abstract/core'
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
-import { ITypeKind } from '@codelab/shared/abstract/core'
-import isString from 'lodash/isString'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { BaseRenderPipe } from '../renderPipes/render-pipe.base'
 import { cloneComponent } from '../utils'
@@ -24,8 +22,8 @@ import { cloneComponent } from '../utils'
  *   [$propName]: <ReactNode - Rendered component with id: $componentId>
  * }
  */
-@model('@codelab/ReactNodeTypedValueTransformer')
-export class ReactNodeTypedValueTransformer
+@model('@codelab/ReactNodeTypeTransformer')
+export class ReactNodeTypeTransformer
   extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedPropTransformer
 {
@@ -45,6 +43,7 @@ export class ReactNodeTypedValueTransformer
     const { value: componentId } = prop
     const component = this.componentService.components.get(componentId)
     const fallback = ''
+
     if (!component) {
       console.error('Component not found')
 

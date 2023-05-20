@@ -1,9 +1,9 @@
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { objectMap } from 'mobx-keystone'
-import { ActionTypeTransformer } from './ActionTypeTransformer'
-import { ElementTypeTransformer } from './ElementTypeTransformer'
-import { ReactNodeTypeTransformer } from './ReactNodeTypeTransformer'
-import { RenderPropTypeTransformer } from './RenderPropTypeTransformer'
+import { ActionTypeTransformer } from './action-type-transformer'
+import { ElementTypeTransformer } from './element-type-transformer'
+import { ReactNodeTypeTransformer } from './react-node-type-transformer'
+import { RenderPropTypeTransformer } from './render-prop-typed-value-transformer'
 
 export const typedPropTransformersFactory = () =>
   objectMap([

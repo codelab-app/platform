@@ -6,7 +6,7 @@ import { getActionService } from '@codelab/frontend/domain/store'
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { computed } from 'mobx'
 import { ExtendedModel, model } from 'mobx-keystone'
-import { BaseRenderPipe } from '../renderPipes/renderPipe.base'
+import { BaseRenderPipe } from '../renderPipes/render-pipe.base'
 
 /**
  * Transforms props from the following format:

@@ -2,11 +2,9 @@ import type {
   IComponentService,
   IElement,
   ITypeService,
-} from '@codelab/frontend/abstract/core'
-import {
-  isComponentInstance,
   RendererType,
 } from '@codelab/frontend/abstract/core'
+import { isComponentInstance } from '@codelab/frontend/abstract/core'
 import type { ProductionWebsiteProps } from '@codelab/frontend/abstract/types'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { PageKind } from '@codelab/shared/abstract/codegen'
@@ -39,12 +37,11 @@ export const useRenderedPage = ({
   rendererType,
 }: RenderedPageProps) => {
   const {
-    appRenderService,
     appService,
-    builderRenderService,
     builderService,
     componentService,
     elementService,
+    renderService,
     typeService,
   } = useStore()
 
@@ -53,11 +50,6 @@ export const useRenderedPage = ({
   const appId = productionProps?.appId ?? appIdFromUrl
   const pageId = productionProps?.pageId ?? pageIdFromUrl
   const router = useRouter()
-
-  const renderService =
-    rendererType === RendererType.Preview
-      ? appRenderService
-      : builderRenderService
 
   return useAsync(async () => {
     const app = await appService.getRenderedPageAndCommonAppData(
