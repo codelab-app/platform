@@ -1,4 +1,4 @@
-import { ApartmentOutlined, DatabaseOutlined } from '@ant-design/icons'
+import { ApartmentOutlined } from '@ant-design/icons'
 import type { IPageNode } from '@codelab/frontend/abstract/core'
 import {
   isComponentPageNode,
@@ -14,15 +14,11 @@ import {
   DeleteElementModal,
 } from '@codelab/frontend/domain/element'
 import {
-  ActionsList,
-  CreateActionButton,
   CreateActionModal,
   DeleteActionsModal,
-  GetStateList,
   UpdateActionModal,
 } from '@codelab/frontend/domain/store'
 import {
-  CreateFieldButton,
   CreateFieldModal,
   DeleteFieldModal,
   UpdateFieldModal,
@@ -32,39 +28,20 @@ import {
   useStore,
 } from '@codelab/frontend/presentation/container'
 import {
-  CodeMirrorEditor,
   ExplorerPaneTemplate,
   SkeletonWrapper,
 } from '@codelab/frontend/presentation/view'
-import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { css } from '@emotion/react'
-import { Collapse, Divider, Spin, Tabs } from 'antd'
+import { Spin, Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
-import type { PropsWithChildren, ReactNode } from 'react'
 import React from 'react'
 import tw from 'twin.macro'
 import { renderStickyTabBar } from '../StickyTabBarRenderer'
 import { BuilderTree } from './builder-tree'
 import { BuilderExplorerPaneHeader } from './BuilderExplorerPaneHeader'
+import { StorePane } from './StorePane'
 
-const { Panel } = Collapse
-
-type StoreHeaderProps = PropsWithChildren<{
-  extra?: ReactNode
-}>
-
-interface BuilderExplorerPaneProps {
-  isLoading?: boolean
-}
-
-export const StoreHeader = ({ children, extra }: StoreHeaderProps) => (
-  <div css={tw`flex justify-between`}>
-    <span css={tw`text-sm font-bold`}>{children}</span>
-    <div>{extra}</div>
-  </div>
-)
-
-export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
+export const BuilderExplorerPane = observer<{ isLoading?: boolean }>(
   ({ isLoading = true }) => {
     const {
       actionService,
@@ -112,20 +89,23 @@ export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
               {!pageBuilderRenderer && <Spin />}
 
               {isPageTree && (
-                <BuilderTree
-                  className="page-builder"
-                  expandedNodeIds={
-                    builderService.expandedPageElementTreeNodeIds
-                  }
-                  selectTreeNode={selectTreeNode}
-                  setActiveTab={() =>
-                    builderService.setActiveTab(RendererTab.Page)
-                  }
-                  setExpandedNodeIds={builderService.setExpandedPageElementTreeNodeIds.bind(
-                    builderService,
-                  )}
-                  treeData={antdTree}
-                />
+                <>
+                  <BuilderTree
+                    className="page-builder"
+                    expandedNodeIds={
+                      builderService.expandedPageElementTreeNodeIds
+                    }
+                    selectTreeNode={selectTreeNode}
+                    setActiveTab={() =>
+                      builderService.setActiveTab(RendererTab.Page)
+                    }
+                    setExpandedNodeIds={builderService.setExpandedPageElementTreeNodeIds.bind(
+                      builderService,
+                    )}
+                    treeData={antdTree}
+                  />
+                  <StorePane isLoading={isLoading} store={store} />
+                </>
               )}
             </ExplorerPaneTemplate>
           </SkeletonWrapper>
@@ -135,56 +115,6 @@ export const BuilderExplorerPane = observer<BuilderExplorerPaneProps>(
           <div>
             <ApartmentOutlined title="Explorer" />
             Explorer
-          </div>
-        ),
-      },
-      {
-        children: store ? (
-          <SkeletonWrapper isLoading={isLoading}>
-            <Collapse css={tw`w-full mb-2`} defaultActiveKey={['1']} ghost>
-              <Panel
-                header={
-                  <StoreHeader
-                    extra={<CreateFieldButton interfaceId={store.api.id} />}
-                  >
-                    State
-                  </StoreHeader>
-                }
-                key="store-state"
-              >
-                <GetStateList store={store} />
-              </Panel>
-
-              <Divider />
-              <Panel
-                header={
-                  <StoreHeader extra={<CreateActionButton />}>
-                    Actions
-                  </StoreHeader>
-                }
-                key="store-actions"
-              >
-                <ActionsList store={store} />
-              </Panel>
-            </Collapse>
-            <StoreHeader>Store Inspector</StoreHeader>
-            <CodeMirrorEditor
-              language={CodeMirrorLanguage.Json}
-              onChange={() => undefined}
-              overrideStyles={css`
-                ${tw`mt-1`}
-              `}
-              singleLine={false}
-              title="Current props"
-              value={store.jsonString}
-            />
-          </SkeletonWrapper>
-        ) : null,
-        key: 'store',
-        label: (
-          <div>
-            <DatabaseOutlined title="Store" />
-            Store
           </div>
         ),
       },

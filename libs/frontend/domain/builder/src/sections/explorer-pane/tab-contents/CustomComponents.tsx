@@ -27,6 +27,7 @@ import {
   disableTreeNodeWrapperHoverStyle,
   TREE_NODE_WRAPPER_SELECTOR,
 } from '../builder-tree/disable-node-hover-effects'
+import { StorePane } from '../StorePane'
 import { ComponentList } from './ComponentList'
 
 export const CustomComponents = observer(() => {
@@ -38,21 +39,20 @@ export const CustomComponents = observer(() => {
     componentService.getAll(),
   )
 
+  const isLoading = status === 'loading'
+
   useEffect(() => {
     void getComponents.execute()
 
     return onBack
   }, [])
 
-  const loadComponent = async (id: string) => {
-    const component = await componentService.getOne(id)
+  const editComponent = (id: string) => {
+    const component = componentService.component(id)
     setActiveComponent(component)
-
-    if (component) {
-      previousActiveNode.current = builderService.selectedNode?.current
-      builderService.setActiveTab(RendererTab.Component)
-      builderService.selectComponentNode(component)
-    }
+    previousActiveNode.current = builderService.selectedNode?.current
+    builderService.setActiveTab(RendererTab.Component)
+    builderService.selectComponentNode(component)
   }
 
   const componentTree = activeComponent
@@ -92,7 +92,7 @@ export const CustomComponents = observer(() => {
   }
 
   return (
-    <SkeletonWrapper isLoading={status === 'loading'}>
+    <SkeletonWrapper isLoading={isLoading}>
       {!isNil(error) ? error.message : null}
       {activeComponent ? (
         <>
@@ -165,6 +165,10 @@ export const CustomComponents = observer(() => {
             )}
             treeData={componentTree}
           />
+          <StorePane
+            isLoading={isLoading}
+            store={activeComponent.store.current}
+          />
         </>
       ) : (
         <>
@@ -176,7 +180,7 @@ export const CustomComponents = observer(() => {
             onDelete={(id) =>
               componentService.deleteModal.open(componentRef(id))
             }
-            onEdit={(id) => loadComponent(id)}
+            onEdit={(id) => editComponent(id)}
           />
         </>
       )}
