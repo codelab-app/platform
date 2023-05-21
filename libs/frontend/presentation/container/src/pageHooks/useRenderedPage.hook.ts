@@ -1,6 +1,7 @@
 import type {
   IComponentService,
   IElement,
+  IPropData,
   ITypeService,
   RendererType,
 } from '@codelab/frontend/abstract/core'
@@ -13,7 +14,8 @@ import { PageType } from '@codelab/frontend/abstract/types'
 import { PageKind } from '@codelab/shared/abstract/codegen'
 import { useAsync } from '@react-hookz/web'
 import flatMap from 'lodash/flatMap'
-import has from 'lodash/has'
+import isObject from 'lodash/isObject'
+import values from 'lodash/values'
 import { useRouter } from 'next/router'
 import { useStore } from '../providers'
 import { useCurrentAppId, useCurrentPageId } from '../routerHooks'
@@ -105,6 +107,13 @@ export const useRenderedPage = ({
   })
 }
 
+const getComponentIdsFromProp = (prop: IPropData): Array<string> =>
+  isTypedProp(prop)
+    ? [prop.value]
+    : isObject(prop)
+    ? values(prop).flatMap((childProp) => getComponentIdsFromProp(childProp))
+    : []
+
 /**
  * Get all component ids that could be an element or a render prop type
  */
@@ -115,24 +124,7 @@ const getComponentIdsFromElements = (elements: Array<IElement>) => {
       acc.push(element.renderType.id)
     }
 
-    // Components as render prop types
-    const renderPropTypeFieldValues = Object.values(
-      element.props.current.values,
-    )
-      .filter(
-        (value) =>
-          has(value, 'value') &&
-          has(value, 'type') &&
-          typeof value['value'] === 'string' &&
-          typeof value['type'] === 'string' &&
-          value['value'] &&
-          value['type'],
-      )
-      .map(({ value }) => value)
-
-    if (renderPropTypeFieldValues.length > 0) {
-      acc.push(...renderPropTypeFieldValues)
-    }
+    acc.push(...getComponentIdsFromProp(element.props.current))
 
     return acc
   }, [])
