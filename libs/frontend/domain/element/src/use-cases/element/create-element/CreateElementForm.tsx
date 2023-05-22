@@ -38,9 +38,9 @@ export const CreateElementForm = observer(() => {
       return Promise.reject()
     }
 
-    void (await (prevSibling
+    void (prevSibling
       ? elementService.createElementAsNextSibling(data)
-      : elementService.createElementAsFirstChild(data)))
+      : elementService.createElementAsFirstChild(data))
 
     closeModal()
 
