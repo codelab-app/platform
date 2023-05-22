@@ -1,1 +1,1 @@
-export * from './ToolbarProps.interface'
+export * from './toolbar-props.interface'
