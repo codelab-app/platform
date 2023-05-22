@@ -3,7 +3,7 @@ import { FIELD_TYPE } from '../../antd/form'
 const modalName = 'Create Tag'
 
 export const createTagByUI = (name: string, parentName?: string) => {
-  cy.findByRole('button', { name: /plus/ }).contains(modalName).click()
+  cy.getHeaderToolbarItem(modalName).click()
 
   // wait for 100ms before typing into the input to avoid issue when first letters are skipped
   // https://github.com/cypress-io/cypress/issues/3817

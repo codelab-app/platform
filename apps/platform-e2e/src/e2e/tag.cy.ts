@@ -82,7 +82,7 @@ describe('Tag CRUD', () => {
     describe('tree', () => {
       const deleteTagNodeInTree = (tagName: string) => {
         cy.toggleTreeNodeChk(tagName)
-        cy.findByText(/Delete Tags/).click()
+        cy.getHeaderToolbarItem('Delete Tag').click()
         cy.getModal().findByText(`Are you sure you want to delete ${tagName}?`)
         cy.getModal()
           .getModalAction(/Delete Tags/)

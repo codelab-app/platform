@@ -74,10 +74,10 @@ const TagPageHeader = observer(() => {
     },
     {
       icon: <DeleteOutlined />,
-      key: 'create',
+      key: 'delete',
       onClick: () =>
         tagService.deleteManyModal.open(ids.map((id) => tagRef(id))),
-      title: 'Create Tag',
+      title: 'Delete Tag',
     },
   ]
 
