@@ -89,7 +89,7 @@ export const BuilderExplorerPane = observer<{ isLoading?: boolean }>(
             >
               {!pageBuilderRenderer && <Spin />}
 
-              {isPageTree && (
+              {isPageTree && !elementService.createForm.isOpen && (
                 <>
                   <BuilderTree
                     className="page-builder"
@@ -105,10 +105,11 @@ export const BuilderExplorerPane = observer<{ isLoading?: boolean }>(
                     )}
                     treeData={antdTree}
                   />
+
                   <StorePane isLoading={isLoading} store={store} />
                 </>
               )}
-              <CreateElementForm />
+              {elementService.createForm.isOpen && <CreateElementForm />}
             </ExplorerPaneTemplate>
           </SkeletonWrapper>
         ),

@@ -1,4 +1,4 @@
-import { PlusOutlined } from '@ant-design/icons'
+import { CloseOutlined, PlusOutlined } from '@ant-design/icons'
 import type {
   IElementService,
   IElementTree,
@@ -10,26 +10,35 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { mapElementOption } from '../../../utils'
 
-export type CreateElementButtonProps = Pick<IElementService, 'createModal'> &
+export type CreateElementButtonProps = Pick<IElementService, 'createForm'> &
   React.ComponentProps<typeof Button> & {
     selectedElementId: Maybe<string>
     elementTree: IElementTree
   }
 
 export const CreateElementButton = observer<CreateElementButtonProps>(
-  ({ createModal, elementTree, selectedElementId, title, type }) => {
+  ({ createForm, elementTree, selectedElementId, title, type }) => {
     const selectedElement = selectedElementId
       ? elementRef(selectedElementId)
       : undefined
-
-    return (
+    return createForm.isOpen ? (
+      <Button
+        icon={<CloseOutlined data-testid="close-page-element-button" />}
+        onClick={(event) => {
+          createForm.close()
+        }}
+        style={{ background: 'red', color: 'white' }}
+        size="small"
+        type={type}
+      ></Button>
+    ) : (
       <Button
         icon={<PlusOutlined data-testid="create-page-element-button" />}
         onClick={(event) => {
           event.stopPropagation()
           event.preventDefault()
 
-          return createModal.open({
+          return createForm.open({
             elementOptions: elementTree.elements.map(mapElementOption),
             elementTree: elementTreeRef(elementTree.id),
             selectedElement,

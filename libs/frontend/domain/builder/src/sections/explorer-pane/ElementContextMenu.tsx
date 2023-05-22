@@ -23,7 +23,7 @@ export interface ContextMenuProps {
 export type ElementContextMenuProps = ContextMenuProps &
   Pick<
     IElementService,
-    'cloneElement' | 'convertElementToComponent' | 'createModal' | 'deleteModal'
+    'cloneElement' | 'convertElementToComponent' | 'createForm' | 'deleteModal'
   > & {
     element: IElement
   }
@@ -35,7 +35,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
   ({
     cloneElement,
     convertElementToComponent,
-    createModal,
+    createForm,
     deleteModal,
     element,
   }) => {
@@ -49,7 +49,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
     const onAddChild = () => {
       const elementTree = element.closestContainerNode
 
-      return createModal.open({
+      return createForm.open({
         elementOptions: elementTree.elements.map(mapElementOption),
         elementTree: elementTreeRef(elementTree.id),
         selectedElement: elementRef(element.id),

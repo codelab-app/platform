@@ -2,26 +2,23 @@ import type { ICreateElementData } from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/abstract/core'
 import { SelectAction, SelectAnyElement } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
-import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { Form, FormController } from '@codelab/frontend/presentation/view'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { Divider } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { AutoComputedElementNameField } from '../../../components/auto-computed-element-name'
 import RenderTypeCompositeField from '../../../components/RenderTypeCompositeField'
-
 import { SelectLinkElement } from '../../../components/SelectLinkElement'
 import { useRequiredParentValidator } from '../../../utils'
 import { createElementSchema } from './create-element.schema'
 
 export const CreateElementForm = observer(() => {
   const { elementService, userService } = useStore()
-  const { metadata, parentElement } = elementService.createModal
+  const { metadata, parentElement } = elementService.createForm
   const elementOptions = metadata?.elementOptions
   const { validateParentForCreate } = useRequiredParentValidator()
 
@@ -41,11 +38,13 @@ export const CreateElementForm = observer(() => {
       return Promise.reject()
     }
 
-    const element = await (prevSibling
+    void (await (prevSibling
       ? elementService.createElementAsNextSibling(data)
-      : elementService.createElementAsFirstChild(data))
+      : elementService.createElementAsFirstChild(data)))
 
-    return Promise.resolve([element])
+    closeModal()
+
+    return Promise.resolve()
   }
 
   const onSubmitError = createNotificationHandler({
@@ -77,7 +76,6 @@ export const CreateElementForm = observer(() => {
       onSubmitSuccess={closeModal}
       schema={createElementSchema}
     >
-      <p>hello</p>
       <AutoFields
         omitFields={[
           'parentElement',

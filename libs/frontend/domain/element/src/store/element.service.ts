@@ -47,14 +47,14 @@ import { makeAutoIncrementedName } from '../utils'
 import { getRenderTypeApi, makeDefaultProps } from './api.utils'
 import { Element } from './element.model'
 import {
+  CreateElementFormService,
+  UpdateElementFormService,
+} from './element-form.service'
+import {
   CreateElementModalService,
   ElementModalService,
   UpdateElementModalService,
 } from './element-modal.service'
-import {
-  CreateElementFormService,
-  UpdateElementFormService,
-} from './element-form.service'
 
 /**
  * We will have a single ElementService that contains all elements from

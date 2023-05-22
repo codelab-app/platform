@@ -12,6 +12,7 @@ import {
   RendererTab,
 } from '@codelab/frontend/abstract/core'
 import { CreateComponentButton } from '@codelab/frontend/domain/component'
+import { CreateElementForm } from '@codelab/frontend/domain/element'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { SkeletonWrapper } from '@codelab/frontend/presentation/view'
 import { useAsync } from '@react-hookz/web'
@@ -97,74 +98,78 @@ export const CustomComponents = observer(() => {
       {activeComponent ? (
         <>
           <PageHeader onBack={onBack} title="Edit" />
-          <Tree<IBuilderDataNode>
-            blockNode
-            css={[disableTreeNodeWrapperHoverStyle, antdTreeStyle]}
-            defaultExpandAll
-            onClick={(event) => event.stopPropagation()}
-            onExpand={(expandedKeys) => {
-              return builderService.setExpandedComponentTreeNodeIds(
-                expandedKeys as Array<string>,
-              )
-            }}
-            onMouseEnter={({ event, node }) => {
-              // Selectable by default, unless it's not
-              if (has(node, 'selectable') && !node.selectable) {
-                const target = event.target as Element
-
-                // This is where the hover effect is set
-                const treeNodeWrapper = target.closest(
-                  TREE_NODE_WRAPPER_SELECTOR,
+          {elementService.createForm.isOpen ? (
+            <CreateElementForm />
+          ) : (
+            <Tree<IBuilderDataNode>
+              blockNode
+              css={[disableTreeNodeWrapperHoverStyle, antdTreeStyle]}
+              defaultExpandAll
+              onClick={(event) => event.stopPropagation()}
+              onExpand={(expandedKeys) => {
+                return builderService.setExpandedComponentTreeNodeIds(
+                  expandedKeys as Array<string>,
                 )
+              }}
+              onMouseEnter={({ event, node }) => {
+                // Selectable by default, unless it's not
+                if (has(node, 'selectable') && !node.selectable) {
+                  const target = event.target as Element
 
-                treeNodeWrapper?.classList.add(DISABLE_HOVER_CLASSNAME)
+                  // This is where the hover effect is set
+                  const treeNodeWrapper = target.closest(
+                    TREE_NODE_WRAPPER_SELECTOR,
+                  )
+
+                  treeNodeWrapper?.classList.add(DISABLE_HOVER_CLASSNAME)
+                }
+
+                builderService.setHoveredNode(elementRef(node.key.toString()))
+              }}
+              onMouseLeave={() => builderService.setHoveredNode(null)}
+              onSelect={([id], { nativeEvent, node }) => {
+                nativeEvent.stopPropagation()
+
+                if (!id) {
+                  return
+                }
+
+                if (isComponentPageNode(node.node)) {
+                  builderService.selectComponentNode(node.node)
+                }
+
+                if (isElementPageNode(node.node)) {
+                  builderService.selectElementNode(node.node)
+                }
+              }}
+              selectedKeys={
+                builderService.selectedNode
+                  ? [builderService.selectedNode.id]
+                  : []
               }
-
-              builderService.setHoveredNode(elementRef(node.key.toString()))
-            }}
-            onMouseLeave={() => builderService.setHoveredNode(null)}
-            onSelect={([id], { nativeEvent, node }) => {
-              nativeEvent.stopPropagation()
-
-              if (!id) {
-                return
-              }
-
-              if (isComponentPageNode(node.node)) {
-                builderService.selectComponentNode(node.node)
-              }
-
-              if (isElementPageNode(node.node)) {
-                builderService.selectElementNode(node.node)
-              }
-            }}
-            selectedKeys={
-              builderService.selectedNode
-                ? [builderService.selectedNode.id]
-                : []
-            }
-            showLine
-            titleRender={(data) => (
-              <BuilderTreeItemTitle
-                componentContextMenuProps={{
-                  deleteModal: componentService.deleteModal,
-                }}
-                data={data}
-                elementContextMenuProps={{
-                  cloneElement:
-                    elementService.cloneElement.bind(elementService),
-                  convertElementToComponent:
-                    elementService.convertElementToComponent.bind(
-                      elementService,
-                    ),
-                  createModal: elementService.createModal,
-                  deleteModal: elementService.deleteModal,
-                }}
-                node={data.node}
-              />
-            )}
-            treeData={componentTree}
-          />
+              showLine
+              titleRender={(data) => (
+                <BuilderTreeItemTitle
+                  componentContextMenuProps={{
+                    deleteModal: componentService.deleteModal,
+                  }}
+                  data={data}
+                  elementContextMenuProps={{
+                    cloneElement:
+                      elementService.cloneElement.bind(elementService),
+                    convertElementToComponent:
+                      elementService.convertElementToComponent.bind(
+                        elementService,
+                      ),
+                    createForm: elementService.createForm,
+                    deleteModal: elementService.deleteModal,
+                  }}
+                  node={data.node}
+                />
+              )}
+              treeData={componentTree}
+            />
+          )}
           <StorePane
             isLoading={isLoading}
             store={activeComponent.store.current}

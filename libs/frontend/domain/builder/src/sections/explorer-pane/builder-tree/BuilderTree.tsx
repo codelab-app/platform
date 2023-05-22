@@ -61,7 +61,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
         cloneElement: elementService.cloneElement.bind(elementService),
         convertElementToComponent:
           elementService.convertElementToComponent.bind(elementService),
-        createModal: elementService.createModal,
+        createForm: elementService.createForm,
         deleteModal: elementService.deleteModal,
       }),
       [elementService],
