@@ -1,1 +1,1 @@
-export * from './TTLCache'
+export * from './ttl-cache'
