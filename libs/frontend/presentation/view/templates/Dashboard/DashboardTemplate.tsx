@@ -1,10 +1,10 @@
+import { NavigationBar } from '@codelab/frontend/presentation//codelab-ui'
 import { Layout } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import tw from 'twin.macro'
-import { SidebarNavigation } from '../SidebarNavigation'
 import { sidebarWidth } from './constants'
 import { DashboardTemplateConfigPane } from './DashboardTemplateConfigPane'
 import { DashboardTemplateExplorerPane } from './DashboardTemplateExplorerPane'
@@ -37,7 +37,7 @@ export const DashboardTemplateSSR = observer(
         <Layout>
           <Sider collapsed collapsedWidth={sidebarWidth} theme="light">
             {sidebarNavigation && (
-              <SidebarNavigation
+              <NavigationBar
                 primaryItems={sidebarNavigation.primaryItems}
                 secondaryItems={sidebarNavigation.secondaryItems}
               />
