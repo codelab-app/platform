@@ -1,5 +1,5 @@
 import * as env from 'env-var'
-import { isVercelPreview } from '../flags'
+import { isProduction, isVercelPreview } from '../flags'
 
 /**
  * This can't be imported by Vercel due to edge middleware
@@ -33,9 +33,24 @@ interface EnvPlatform {
 }
 
 export const EnvPlatform = (): EnvPlatform => {
+  console.log('isProduction', isProduction, 'isVercelPreview', isVercelPreview)
+
   const auth0baseUrl = isVercelPreview
     ? env.get('VERCEL_URL').required().asString()
     : env.get('NEXT_PUBLIC_PLATFORM_HOST').required().asString()
+
+  console.log('auth0baseUrl', auth0baseUrl)
+
+  console.log(
+    '1',
+    process.env['VERCEL_ENV']?.split(' '),
+    '2',
+    process.env['NEXT_PUBLIC_VERCEL_ENV']?.split(' '),
+    '3',
+    env.get('VERCEL_ENV').asString()?.split(' '),
+    '4',
+    env.get('NEXT_PUBLIC_VERCEL_ENV').asString()?.split(' '),
+  )
 
   const isDev = auth0baseUrl.startsWith('127.0.0.1')
   const protocol = isDev ? 'http' : 'https'
