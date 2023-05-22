@@ -85,6 +85,10 @@ export class RuntimeProps
         return value
       }
 
+      if (!value.value) {
+        return undefined
+      }
+
       const typeKind = this.typeService.type(value.type)?.kind
 
       if (!typeKind) {
@@ -93,11 +97,11 @@ export class RuntimeProps
 
       const transformer = this.renderer.typedPropTransformers.get(typeKind)
 
-      if (transformer) {
-        return transformer.transform(value, this.element.current)
+      if (!transformer) {
+        return value
       }
 
-      return value
+      return transformer.transform(value, this.element.current)
     })
   }
 

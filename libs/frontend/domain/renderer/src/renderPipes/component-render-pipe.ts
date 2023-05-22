@@ -5,10 +5,7 @@ import type {
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/frontend/abstract/core'
-import {
-  DATA_COMPONENT_ID,
-  isComponentInstance,
-} from '@codelab/frontend/abstract/core'
+import { isComponentInstance } from '@codelab/frontend/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
 import { BaseRenderPipe } from './render-pipe.base'
@@ -28,11 +25,6 @@ export class ComponentRenderPipe
     const component = element.renderType.current
     const clonedComponent = component.clone(element.id, element.id)
     const rootElement = clonedComponent.rootElement.current
-
-    const overrideProps = {
-      ...props,
-      [DATA_COMPONENT_ID]: clonedComponent.id,
-    }
 
     ComponentRenderPipe.logRendering(this.renderer, rootElement, element)
 

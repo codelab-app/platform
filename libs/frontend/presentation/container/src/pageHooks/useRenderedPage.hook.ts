@@ -117,18 +117,19 @@ const getComponentIdsFromProp = (prop: IPropData): Array<string> =>
 /**
  * Get all component ids that could be an element or a render prop type
  */
-const getComponentIdsFromElements = (elements: Array<IElement>) => {
-  return elements.reduce<Array<string>>((acc, element) => {
-    // Component as an element
-    if (isComponentInstance(element.renderType)) {
-      acc.push(element.renderType.id)
-    }
+const getComponentIdsFromElements = (elements: Array<IElement>) =>
+  elements
+    .reduce<Array<string>>((acc, element) => {
+      // Component as an element
+      if (isComponentInstance(element.renderType)) {
+        acc.push(element.renderType.id)
+      }
 
-    acc.push(...getComponentIdsFromProp(element.props.current))
+      acc.push(...getComponentIdsFromProp(element.props.current))
 
-    return acc
-  }, [])
-}
+      return acc
+    }, [])
+    .filter(Boolean)
 
 /**
  * Get all api and field type ids from the elements
