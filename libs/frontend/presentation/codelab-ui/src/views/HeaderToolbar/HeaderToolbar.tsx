@@ -1,9 +1,9 @@
 import { EllipsisOutlined } from '@ant-design/icons'
-import { Tooltip } from '@mui/material'
-import { Button, Dropdown, Menu, Space } from 'antd'
+import { Button, Dropdown, Menu } from 'antd'
 import React, { useEffect, useRef, useState } from 'react'
 import tw from 'twin.macro'
 import type { ToolbarItem, ToolbarProps } from '../../abstract'
+import { HeaderToolbarItem } from './HeaderToolbarItem'
 
 type HeaderToolbarProps = ToolbarProps
 
@@ -58,6 +58,7 @@ export const HeaderToolbar = ({ items }: HeaderToolbarProps) => {
       flex
       justify-end
     `}
+      data-cy="codelabui-header-toolbar"
     >
       <div
         css={tw`
@@ -70,14 +71,13 @@ export const HeaderToolbar = ({ items }: HeaderToolbarProps) => {
         ref={listRef}
       >
         {items.map((item) => (
-          <Tooltip key={item.key} title={item.title}>
-            <Button css={tw`px-2 py-1 h-8`} onClick={item.onClick}>
-              <Space>
-                {item.icon}
-                {item.label}
-              </Space>
-            </Button>
-          </Tooltip>
+          <HeaderToolbarItem
+            icon={item.icon}
+            key={item.key}
+            label={item.label}
+            onClick={item.onClick}
+            title={item.title}
+          />
         ))}
       </div>
       {showDropdown && (

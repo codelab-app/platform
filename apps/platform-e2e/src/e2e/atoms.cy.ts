@@ -19,7 +19,7 @@ describe('Atoms CRUD', () => {
         'not.exist',
       )
 
-      cy.findByRole('button', { name: /plus/ }).click()
+      cy.getHeaderToolbarItem('Create Atom').click()
 
       cy.getModal().setFormFieldValue({ label: 'Name', value: atomName })
 
