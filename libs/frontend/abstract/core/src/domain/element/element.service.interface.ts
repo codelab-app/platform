@@ -3,8 +3,10 @@ import type { IAuth0Owner, IElementDTO } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
+  ICRUDFormService,
   ICRUDModalService,
   ICRUDService,
+  IEntityFormService,
   IEntityModalService,
 } from '../../service'
 import type {
@@ -45,13 +47,18 @@ export interface IElementService
     Omit<
       ICRUDModalService<Ref<IElement>, { element?: IElement }>,
       'createModal'
+    >,
+    Omit<
+      ICRUDFormService<Ref<IElement>, { element?: IElement }>,
+      'createForm'
     > {
   clonedElements: ObjectMap<IElement>
+  createForm: IEntityFormService<CreateElementData, CreateElementProperties>
   createModal: IEntityModalService<CreateElementData, CreateElementProperties>
   elementRepository: IElementRepository
   elements: ObjectMap<IElement>
+  updateForm: IEntityModalService<Ref<IElement>, UpdateElementProperties>
   updateModal: IEntityModalService<Ref<IElement>, UpdateElementProperties>
-
   add(elementDTO: IElementDTO): IElement
   cloneElement(
     target: IElement,

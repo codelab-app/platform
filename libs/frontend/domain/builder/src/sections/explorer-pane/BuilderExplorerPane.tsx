@@ -10,6 +10,7 @@ import {
   DeleteComponentModal,
 } from '@codelab/frontend/domain/component'
 import {
+  CreateElementForm,
   CreateElementModal,
   DeleteElementModal,
 } from '@codelab/frontend/domain/element'
@@ -107,6 +108,7 @@ export const BuilderExplorerPane = observer<{ isLoading?: boolean }>(
                   <StorePane isLoading={isLoading} store={store} />
                 </>
               )}
+              <CreateElementForm />
             </ExplorerPaneTemplate>
           </SkeletonWrapper>
         ),
@@ -145,7 +147,6 @@ export const BuilderExplorerPane = observer<{ isLoading?: boolean }>(
           renderTabBar={renderStickyTabBar}
           size="small"
         />
-        <CreateElementModal />
         <CreateComponentModal />
         <DeleteComponentModal />
         <DeleteElementModal />

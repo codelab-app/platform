@@ -51,6 +51,10 @@ import {
   ElementModalService,
   UpdateElementModalService,
 } from './element-modal.service'
+import {
+  CreateElementFormService,
+  UpdateElementFormService,
+} from './element-form.service'
 
 /**
  * We will have a single ElementService that contains all elements from
@@ -62,6 +66,7 @@ import {
 export class ElementService
   extends Model({
     clonedElements: prop(() => objectMap<IElement>()),
+    createForm: prop(() => new CreateElementFormService({})),
     createModal: prop(() => new CreateElementModalService({})),
     deleteModal: prop(() => new ElementModalService({})),
     elementRepository: prop(() => new ElementRepository({})),
@@ -73,6 +78,7 @@ export class ElementService
      */
     elements: prop(() => objectMap<IElement>()),
     id: idProp,
+    updateForm: prop(() => new UpdateElementFormService({})),
     updateModal: prop(() => new UpdateElementModalService({})),
   })
   implements IElementService

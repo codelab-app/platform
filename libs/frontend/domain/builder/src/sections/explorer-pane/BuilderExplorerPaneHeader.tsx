@@ -29,7 +29,7 @@ export const BuilderExplorerPaneHeader = observer(
 
     return (
       <CreateElementButton
-        createModal={elementService.createModal}
+        createModal={elementService.createForm}
         elementTree={elementTree}
         key={0}
         selectedElementId={builderService.selectedNode?.id}
