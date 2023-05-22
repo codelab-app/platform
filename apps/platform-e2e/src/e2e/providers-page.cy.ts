@@ -24,7 +24,7 @@ const mainPageElements = [
 ]
 
 const openPageByName = (name: string) => {
-  cy.findByText(name).click()
+  cy.getListItem(name).findByText(name).click()
   cy.getSpinner().should('not.exist')
   cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 }).should('be.visible')
 }
@@ -40,7 +40,7 @@ describe('_app page', () => {
   it('should create _app page when app is created', () => {
     cy.findAllByText(appName, { exact: true, timeout: 0 }).should('not.exist')
 
-    cy.getButton({ label: /Create App/ }).click()
+    cy.getButton({ label: /Create Now/ }).click()
     cy.getModal().setFormFieldValue({ label: 'Name', value: appName })
     cy.getModal()
       .getModalAction(/Create App/)
@@ -74,12 +74,13 @@ describe('_app page', () => {
     cy.get('.ant-layout-sider a[href]').eq(1).click()
 
     cy.getSpinner().should('not.exist')
-    cy.findAllByText(IPageKindName.Provider).should('be.visible')
+    cy.getListItem(IPageKindName.Provider)
+      .findByText(IPageKindName.Provider)
+      .should('be.visible')
   })
 
   it('should be able to create simple page', () => {
     cy.getSider().getButton({ icon: 'plus' }).click()
-
     cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
     cy.findByTestId('create-page-form')
       .getButton({ label: 'Create Page' })
@@ -95,8 +96,8 @@ describe('_app page', () => {
   it('should render the input inside the card in builder and viewer', () => {
     cy.get('#render-root .ant-card-body input').should('not.be.disabled')
 
-    cy.get('header .anticon-eye').click()
-    cy.get('header .anticon-tool', { timeout: 30000 }).should('be.visible')
+    cy.get('.anticon-eye').click()
+    cy.get('.anticon-tool', { timeout: 30000 }).should('be.visible')
     cy.get('#render-root .ant-card-body input').should('not.be.disabled')
   })
 })
