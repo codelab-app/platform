@@ -20,7 +20,7 @@ export const createElementTree = (elements: Array<ElementData>) => {
      * We skip this if parent element is root, since it is disabled and can't be accessed
      */
     if (parentElement !== ROOT_ELEMENT_NAME) {
-      cy.getModal().setFormFieldValue({
+      cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Parent element',
         type: FIELD_TYPE.SELECT,
         value: parentElement,
@@ -28,18 +28,18 @@ export const createElementTree = (elements: Array<ElementData>) => {
     }
 
     if (atom) {
-      cy.getModal().setFormFieldValue({
+      cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Render Type',
         type: FIELD_TYPE.SELECT,
         value: 'Atom',
       })
-      cy.getModal().setFormFieldValue({
+      cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Atom',
         type: FIELD_TYPE.SELECT,
         value: atom,
       })
 
-      cy.getModal()
+      cy.findByTestId('create-element-form')
         .getFormField({
           label: 'Name',
         })
@@ -48,7 +48,7 @@ export const createElementTree = (elements: Array<ElementData>) => {
           // atom is set) because it would override the name otherwise
           cy.get('input')
             .should('not.have.value', '')
-            .getModal()
+            .findByTestId('create-element-form')
             .setFormFieldValue({
               label: 'Name',
               type: FIELD_TYPE.INPUT,
@@ -56,16 +56,18 @@ export const createElementTree = (elements: Array<ElementData>) => {
             })
         })
     } else {
-      cy.getModal().setFormFieldValue({
+      cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Name',
         type: FIELD_TYPE.INPUT,
         value: name,
       })
     }
 
-    cy.getModal()
-      .getModalAction(/Create/)
+    cy.findByTestId('create-element-form')
+      .getButton({ label: 'Create Element' })
       .click()
-    cy.getModal().should('not.exist', { timeout: 10000 })
+    cy.findByTestId('create-element-form').should('not.exist', {
+      timeout: 10000,
+    })
   })
 }

@@ -83,24 +83,28 @@ describe('Elements CRUD', () => {
         .getButton({ icon: 'plus' })
         .click()
 
-      cy.getModal().findByLabelText('Name').type(ELEMENT_TEXT_1)
+      cy.findByTestId('create-element-form')
+        .findByLabelText('Name')
+        .type(ELEMENT_TEXT_1)
 
-      cy.getModal().setFormFieldValue({
+      cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Parent element',
         type: FIELD_TYPE.SELECT,
         value: ROOT_ELEMENT_NAME,
       })
 
-      cy.getModal().setFormFieldValue({
+      cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Atom',
         type: FIELD_TYPE.SELECT,
         value: IAtomType.AntDesignTypographyText,
       })
 
-      cy.getModal()
-        .getModalAction(/Create/)
+      cy.findByTestId('create-element-form')
+        .getButton({ label: 'Create Element' })
         .click()
-      cy.getModal().should('not.exist', { timeout: 10000 })
+      cy.findByTestId('create-element-form').should('not.exist', {
+        timeout: 10000,
+      })
 
       cy.contains(/Text.*/).click()
 

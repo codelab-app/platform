@@ -70,6 +70,7 @@ export const CreateElementForm = observer(() => {
 
   return (
     <Form<ICreateElementData>
+      data-testid="create-element-form"
       model={model}
       onSubmit={onSubmit}
       onSubmitError={onSubmitError}
