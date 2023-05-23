@@ -22,25 +22,6 @@ const componentChildren: Array<ComponentChildData> = [
   { atom: IAtomType.AntDesignTypographyText, name: COMPONENT_CHILD_TYPOGRAPHY },
 ]
 
-const setElementNameInModal = (value: string) => {
-  cy.getModal()
-    .getFormField({
-      label: 'Name',
-    })
-    .within(() => {
-      // Need to wait for the name to automatically be set first (after the
-      // atom is set) because it would override the name otherwise
-      cy.get('input')
-        .should('not.have.value', '')
-        .getModal()
-        .setFormFieldValue({
-          label: 'Name',
-          type: FIELD_TYPE.INPUT,
-          value,
-        })
-    })
-}
-
 let testApp: any
 let appId: string | undefined
 let pageId: string | undefined
@@ -118,16 +99,15 @@ describe('Component CRUD', () => {
     })
 
     it('should be able to add elements to the component', () => {
-      cy.get(`.ant-tree-node-content-wrapper[title="${COMPONENT_NAME}"]`)
-        .eq(1)
-        .trigger('contextmenu')
-
       /**
        * TODO(@nx/cypress): Nesting Cypress commands in a should assertion now throws.
        * You should use .then() to chain commands instead.
        * More Info: https://docs.cypress.io/guides/references/migration-guide#-should
        * */
       cy.wrap(componentChildren).each((child: ComponentChildData) => {
+        cy.get(`.ant-tree-node-content-wrapper[title="${COMPONENT_NAME}"]`)
+          .eq(1)
+          .trigger('contextmenu')
         cy.contains(/Add child/).click({ force: true })
         cy.findByTestId('create-element-form').setFormFieldValue({
           label: 'Render Type',
