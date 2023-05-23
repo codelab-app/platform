@@ -13,14 +13,12 @@ import {
 } from '@codelab/frontend/presentation//codelab-ui'
 import {
   useCurrentAppId,
-  useCurrentPageId,
   useStore,
 } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
   ContentSection,
   DashboardTemplate,
-  sidebarNavigation,
 } from '@codelab/frontend/presentation/view'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { useAsync, useMountEffect } from '@react-hookz/web'
@@ -103,14 +101,8 @@ export default DomainsPage
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 DomainsPage.Layout = ({ children }) => {
-  const appId = useCurrentAppId()
-  const pageId = useCurrentPageId()
-
   return (
-    <DashboardTemplate
-      Header={DomainsPageHeader}
-      sidebarNavigation={sidebarNavigation({ appId, pageId })}
-    >
+    <DashboardTemplate Header={DomainsPageHeader}>
       {children()}
     </DashboardTemplate>
   )

@@ -1,4 +1,3 @@
-import type { MenuProps } from 'antd'
 import type { JSXElementConstructor } from 'react'
 
 export interface PaneItem {
@@ -23,11 +22,4 @@ export type DashboardTemplateProps<T = unknown> = T & {
   Header?: JSXElementConstructor<unknown>
   contentStyles?: React.CSSProperties
   headerHeight?: number
-  /**
-   * The vertical icon only menu
-   */
-  sidebarNavigation?: {
-    primaryItems: MenuProps['items']
-    secondaryItems: MenuProps['items']
-  }
 }

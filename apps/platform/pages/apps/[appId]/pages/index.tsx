@@ -4,14 +4,10 @@ import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import { ExplorerPanePage } from '@codelab/frontend/domain/page'
 import {
   useCurrentAppId,
-  useCurrentPageId,
   useStore,
 } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
-import {
-  DashboardTemplate,
-  sidebarNavigation,
-} from '@codelab/frontend/presentation/view'
+import { DashboardTemplate } from '@codelab/frontend/presentation/view'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { useAsync, useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
@@ -76,7 +72,6 @@ const PageListHeader = observer(() => {
 
 Pages.Layout = observer(({ children }) => {
   const appId = useCurrentAppId()
-  const pageId = useCurrentPageId()
   const { appService } = useStore()
 
   const [{ result: apps }, actions] = useAsync(() =>
@@ -96,7 +91,6 @@ Pages.Layout = observer(({ children }) => {
           },
         ],
       }}
-      sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
       {children({ app: apps?.[0] })}
     </DashboardTemplate>

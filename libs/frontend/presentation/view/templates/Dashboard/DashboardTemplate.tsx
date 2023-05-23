@@ -1,13 +1,18 @@
 import { NavigationBar } from '@codelab/frontend/presentation//codelab-ui'
+import {
+  useCurrentAppId,
+  useCurrentPageId,
+} from '@codelab/frontend/presentation/container'
 import { Layout } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import tw from 'twin.macro'
 import { sidebarWidth } from './constants'
 import { DashboardTemplateConfigPane } from './DashboardTemplateConfigPane'
 import { DashboardTemplateExplorerPane } from './DashboardTemplateExplorerPane'
+import { defaultNavigationBarItems } from './NavigationBar'
 import ResizeHandle from './ResizeHandle'
 import type { DashboardTemplateProps } from './Types'
 
@@ -20,9 +25,15 @@ export const DashboardTemplateSSR = observer(
     contentStyles,
     ExplorerPane,
     Header,
-    sidebarNavigation,
   }: React.PropsWithChildren<DashboardTemplateProps>) => {
     const { explorerPaneKey } = useRouter().query
+    const appId = useCurrentAppId()
+    const pageId = useCurrentPageId()
+
+    const navigationBarItems = useMemo(
+      () => defaultNavigationBarItems({ appId, pageId }),
+      [appId, pageId],
+    )
 
     const activeTabKey =
       (explorerPaneKey as React.Key) || ExplorerPane?.default || null
@@ -36,12 +47,10 @@ export const DashboardTemplateSSR = observer(
         {Header && <Header />}
         <Layout>
           <Sider collapsed collapsedWidth={sidebarWidth} theme="light">
-            {sidebarNavigation && (
-              <NavigationBar
-                primaryItems={sidebarNavigation.primaryItems}
-                secondaryItems={sidebarNavigation.secondaryItems}
-              />
-            )}
+            <NavigationBar
+              primaryItems={navigationBarItems.primaryItems}
+              secondaryItems={navigationBarItems.secondaryItems}
+            />
           </Sider>
           <Layout style={contentStyles}>
             <PanelGroup direction="horizontal">

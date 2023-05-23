@@ -7,87 +7,86 @@ import {
   FileOutlined,
 } from '@ant-design/icons'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
+import type { NavigationBarItem } from '@codelab/frontend/presentation//codelab-ui'
 import type { Nullish } from '@codelab/shared/abstract/types'
-import type { ItemType } from 'antd/lib/menu/hooks/useItems'
-import Link from 'next/link'
 import React from 'react'
 
-export const appMenuItem: ItemType = {
+export const appMenuItem: NavigationBarItem = {
   icon: <AppstoreOutlined title="Apps" />,
   key: PageType.AppList,
-  label: <Link href={PageType.AppList}>Apps</Link>,
+  link: {
+    href: PageType.AppList,
+  },
+  title: 'Apps',
 }
 
-export const resourceMenuItem: ItemType = {
+export const resourceMenuItem: NavigationBarItem = {
   icon: <CloudServerOutlined title="Resources" />,
   key: PageType.Resources,
-  label: <Link href={PageType.Resources}>Resources</Link>,
+  link: {
+    href: PageType.Resources,
+  },
+  title: 'Resources',
 }
 
-export const componentMenuItem: ItemType = {
+export const componentMenuItem: NavigationBarItem = {
   icon: <ExpandOutlined title="Resources" />,
   key: PageType.Components,
-  label: <Link href={PageType.Components}>Components</Link>,
+  link: {
+    href: PageType.Components,
+  },
+  title: 'Resources',
 }
 
 export const allPagesMenuItem = (
   appId: Nullish<string>,
   pageId: Nullish<string>,
-): ItemType => ({
+): NavigationBarItem => ({
   disabled: !appId,
   icon: <FileOutlined title="Pages" />,
   key: ExplorerPaneType.PageList,
-  label: (
-    <Link
-      href={{
-        pathname: PageType.PageBuilder,
-        query: { appId, explorerPaneKey: ExplorerPaneType.PageList, pageId },
-      }}
-    >
-      Pages
-    </Link>
-  ),
+  link: {
+    href: {
+      pathname: PageType.PageBuilder,
+      query: { appId, explorerPaneKey: ExplorerPaneType.PageList, pageId },
+    },
+  },
+  title: 'Pages',
 })
 
 export const builderComponentsMenuItem = (
   appId: Nullish<string>,
   pageId: Nullish<string>,
-): ItemType => ({
+): NavigationBarItem => ({
   disabled: !appId || !pageId,
   icon: <CodeSandboxOutlined title="Builder Components" />,
   key: 'components',
-  label: (
-    <Link
-      href={{
-        pathname: PageType.PageBuilder,
-        query: { appId, explorerPaneKey: ExplorerPaneType.Components, pageId },
-      }}
-    >
-      Builder Components
-    </Link>
-  ),
+  link: {
+    href: {
+      pathname: PageType.PageBuilder,
+      query: { appId, explorerPaneKey: ExplorerPaneType.Components, pageId },
+    },
+  },
+  title: 'Builder Components',
 })
 
 export const pageBuilderMenuItem = (
   appId: Nullish<string>,
   pageId: Nullish<string>,
-): ItemType => ({
+): NavigationBarItem => ({
   disabled: !appId || !pageId,
   icon: <BuildOutlined title="Builder" />,
   key: ExplorerPaneType.Explorer,
-  label: (
-    <Link
-      href={{
-        pathname: PageType.PageBuilder,
-        query: { appId, explorerPaneKey: ExplorerPaneType.Explorer, pageId },
-      }}
-    >
-      Builder
-    </Link>
-  ),
+  link: {
+    href: {
+      pathname: PageType.PageBuilder,
+      query: { appId, explorerPaneKey: ExplorerPaneType.Explorer, pageId },
+    },
+  },
+  title: 'Builder',
 })
 
-export const commonMenuItems: Array<ItemType> = [
+export const commonMenuItems: Array<NavigationBarItem> = [
   appMenuItem,
   // {
   //   icon: <TagOutlined data-testid="tag-tab-trigger" title="Tags" />,

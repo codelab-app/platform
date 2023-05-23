@@ -14,16 +14,11 @@ import {
   HeaderBreadcrumb,
   HeaderToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
-import {
-  useCurrentAppId,
-  useCurrentPageId,
-  useStore,
-} from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
   ContentSection,
   DashboardTemplate,
-  sidebarNavigation,
 } from '@codelab/frontend/presentation/view'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { useAsync, useMountEffect } from '@react-hookz/web'
@@ -102,9 +97,6 @@ const TagPageHeader = observer(() => {
 export default TagPage
 
 TagPage.Layout = observer(({ children }) => {
-  const appId = useCurrentAppId()
-  const pageId = useCurrentPageId()
-
   return (
     <DashboardTemplate
       ExplorerPane={{
@@ -112,7 +104,6 @@ TagPage.Layout = observer(({ children }) => {
         items: [{ key: ExplorerPaneType.Tag, render: () => <GetTagsTree /> }],
       }}
       Header={TagPageHeader}
-      sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
       {children()}
     </DashboardTemplate>

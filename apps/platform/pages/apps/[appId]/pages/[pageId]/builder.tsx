@@ -20,7 +20,6 @@ import {
 } from '@codelab/frontend/presentation/container'
 import {
   DashboardTemplate,
-  sidebarNavigation,
   SkeletonWrapper,
 } from '@codelab/frontend/presentation/view'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
@@ -81,7 +80,6 @@ const PageBuilder: CodelabPage = observer(() => {
       Header={PageDetailHeader}
       contentStyles={contentStyles}
       headerHeight={48}
-      sidebarNavigation={sidebarNavigation({ appId, pageId })}
     >
       <Head>
         <title>{result?.page.name} | Builder | Codelab</title>

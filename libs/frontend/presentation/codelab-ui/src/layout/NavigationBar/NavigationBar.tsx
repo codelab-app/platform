@@ -1,14 +1,25 @@
-import type { MenuProps } from 'antd'
 import { Menu } from 'antd'
+import type { LinkProps } from 'next/link'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
+import type { ReactNode } from 'react'
 import React from 'react'
 import tw from 'twin.macro'
 
+export interface NavigationBarItem {
+  disabled?: boolean
+  icon: ReactNode
+  key: React.Key
+  link?: LinkProps
+  title: string
+  onClick?(): void
+}
+
 export interface NavigationBarProps {
   // Default menu items
-  primaryItems?: MenuProps['items']
+  primaryItems?: Array<NavigationBarItem>
   // Menu items at the bottom
-  secondaryItems?: MenuProps['items']
+  secondaryItems?: Array<NavigationBarItem>
 }
 
 const NavigationMenuStyles = [
@@ -50,9 +61,25 @@ const NavigationMenuStyles = [
                 }
             }
         }
+
+        .anticon {
+          display: flex;
+        }
     `,
   tw`border-none box-border`,
 ]
+
+const mapNavBarItemToMenuItem = (navBarItem: NavigationBarItem) => ({
+  disabled: navBarItem.disabled,
+  icon: <div data-cy={navBarItem.title}>{navBarItem.icon}</div>,
+  key: navBarItem.key,
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  label: navBarItem.link && <Link {...navBarItem.link} />,
+  onClick: () => {
+    navBarItem.onClick?.()
+  },
+  title: navBarItem.title,
+})
 
 export const NavigationBar = ({
   primaryItems,
@@ -78,14 +105,14 @@ export const NavigationBar = ({
       <Menu
         css={[...NavigationMenuStyles, tw`h-full`]}
         defaultOpenKeys={[]}
-        items={primaryItems}
+        items={primaryItems?.map(mapNavBarItemToMenuItem)}
         mode="inline"
         selectedKeys={[selectedKey]}
       />
       <Menu
         css={NavigationMenuStyles}
         defaultOpenKeys={[]}
-        items={secondaryItems}
+        items={secondaryItems?.map(mapNavBarItemToMenuItem)}
         mode="inline"
         selectedKeys={[selectedKey]}
       />

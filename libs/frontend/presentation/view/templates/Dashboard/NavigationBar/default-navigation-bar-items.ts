@@ -1,3 +1,4 @@
+import type { NavigationBarItem } from '@codelab/frontend/presentation//codelab-ui'
 import {
   adminMenuItems,
   allPagesMenuItem,
@@ -8,12 +9,18 @@ import {
   resourceMenuItem,
 } from '../../../sections'
 
-interface SidebarNavigation {
+interface SidebarNavigationRequirements {
   appId: string
   pageId: string
 }
 
-export const sidebarNavigation = ({ appId, pageId }: SidebarNavigation) => ({
+export const defaultNavigationBarItems = ({
+  appId,
+  pageId,
+}: SidebarNavigationRequirements): {
+  primaryItems: Array<NavigationBarItem>
+  secondaryItems: Array<NavigationBarItem>
+} => ({
   primaryItems: [
     appMenuItem,
     allPagesMenuItem(appId, pageId),

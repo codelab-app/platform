@@ -14,16 +14,11 @@ import {
   HeaderBreadcrumb,
   HeaderToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
-import {
-  useCurrentAppId,
-  useCurrentPageId,
-  useStore,
-} from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
   ContentSection,
   DashboardTemplate,
-  sidebarNavigation,
 } from '@codelab/frontend/presentation/view'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { Image } from 'antd'
@@ -87,15 +82,7 @@ export default TypesPage
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 TypesPage.Layout = observer(({ children }) => {
-  const appId = useCurrentAppId()
-  const pageId = useCurrentPageId()
-
   return (
-    <DashboardTemplate
-      Header={TypePageHeader}
-      sidebarNavigation={sidebarNavigation({ appId, pageId })}
-    >
-      {children()}
-    </DashboardTemplate>
+    <DashboardTemplate Header={TypePageHeader}>{children()}</DashboardTemplate>
   )
 })

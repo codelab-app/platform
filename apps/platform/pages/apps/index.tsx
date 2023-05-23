@@ -15,16 +15,11 @@ import {
   HeaderBreadcrumb,
   HeaderToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
-import {
-  useCurrentAppId,
-  useCurrentPageId,
-  useStore,
-} from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
   ContentSection,
   DashboardTemplate,
-  sidebarNavigation,
 } from '@codelab/frontend/presentation/view'
 import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
@@ -128,15 +123,7 @@ export default AppsPage
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 AppsPage.Layout = ({ children }) => {
-  const appId = useCurrentAppId()
-  const pageId = useCurrentPageId()
-
   return (
-    <DashboardTemplate
-      Header={AppsPageHeader}
-      sidebarNavigation={sidebarNavigation({ appId, pageId })}
-    >
-      {children()}
-    </DashboardTemplate>
+    <DashboardTemplate Header={AppsPageHeader}>{children()}</DashboardTemplate>
   )
 }
