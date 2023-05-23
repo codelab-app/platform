@@ -197,6 +197,7 @@ describe('Component CRUD', () => {
         type: FIELD_TYPE.SELECT,
         value: COMPONENT_NAME,
       })
+
       cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Name',
         type: FIELD_TYPE.INPUT,
@@ -206,6 +207,7 @@ describe('Component CRUD', () => {
       cy.findByTestId('create-element-form')
         .getButton({ label: 'Create Element' })
         .click()
+
       cy.findByTestId('create-element-form').should('not.exist', {
         timeout: 10000,
       })
@@ -233,6 +235,7 @@ describe('Component CRUD', () => {
         type: FIELD_TYPE.SELECT,
         value: 'Atom',
       })
+
       cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Atom',
         type: FIELD_TYPE.SELECT,
@@ -242,7 +245,7 @@ describe('Component CRUD', () => {
       cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Name',
         type: FIELD_TYPE.INPUT,
-        value: COMPONENT_INSTANCE_NAME,
+        value: COMPONENT_INSTANCE_TEXT,
       })
 
       cy.findByTestId('create-element-form')
@@ -252,6 +255,7 @@ describe('Component CRUD', () => {
       cy.findByTestId('create-element-form').should('not.exist', {
         timeout: 10000,
       })
+
       cy.get(`[title="${COMPONENT_INSTANCE_TEXT}"]`).click({ force: true })
       cy.get(`.ant-tabs [aria-label="setting"]`).click()
       cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
