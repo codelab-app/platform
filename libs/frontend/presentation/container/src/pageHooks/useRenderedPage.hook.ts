@@ -1,4 +1,8 @@
-import type { IElement } from '@codelab/frontend/abstract/core'
+import type {
+  IComponentService,
+  IElement,
+  ITypeService,
+} from '@codelab/frontend/abstract/core'
 import {
   isComponentInstance,
   RendererType,
@@ -69,7 +73,6 @@ export const useRenderedPage = ({
     }
 
     const page = app.page(pageId)
-    const loadedComponentElements: Array<IElement> = []
 
     const pageElements = [
       // This will load the custom components in the _app (provider page) for the regular pages since we also
@@ -80,45 +83,7 @@ export const useRenderedPage = ({
       ...page.rootElement.current.descendantElements,
     ]
 
-    // Loading custom components
-    let componentsBatch = getComponentIdsFromElements(pageElements).filter(
-      (id) => !componentService.components.has(id),
-    )
-
-    // This makes sure the deeply nested components will also be loaded
-    // e.g. When an element has a render prop type with a component, and that component
-    // also has render prop type with another component, and so on
-    do {
-      if (componentsBatch.length > 0) {
-        const components = await componentService.getAll({
-          id_IN: componentsBatch,
-        })
-
-        const componentElements = [
-          ...components.map((comp) => comp.rootElement.current),
-          ...flatMap(
-            components.map(
-              (comp) => comp.rootElement.current.descendantElements,
-            ),
-          ),
-        ]
-
-        loadedComponentElements.push(...componentElements)
-
-        componentsBatch = getComponentIdsFromElements(componentElements).filter(
-          (id) => !componentService.components.has(id),
-        )
-      }
-    } while (componentsBatch.length > 0)
-
-    // Loading all the types of the elements that are used on the current page
-    // This will also get the types of fields, not just interface types
-    const typeIds = getTypeIdsFromElements([
-      ...pageElements,
-      ...loadedComponentElements,
-    ]).filter((id) => !typeService.types.has(id))
-
-    await typeService.getAll(typeIds)
+    await loadAllTypesForElements(componentService, typeService, pageElements)
 
     const pageRootElement = elementService.maybeElement(page.rootElement.id)
 
@@ -192,4 +157,50 @@ const getTypeIdsFromElements = (elements: Array<IElement>) => {
 
     return acc
   }, [])
+}
+
+export const loadAllTypesForElements = async (
+  componentService: IComponentService,
+  typeService: ITypeService,
+  elements: Array<IElement>,
+) => {
+  const loadedComponentElements: Array<IElement> = []
+
+  // Loading custom components
+  let componentsBatch = getComponentIdsFromElements(elements).filter(
+    (id) => !componentService.components.has(id),
+  )
+
+  // This makes sure the deeply nested components will also be loaded
+  // e.g. When an element has a render prop type with a component, and that component
+  // also has render prop type with another component, and so on
+  do {
+    if (componentsBatch.length > 0) {
+      const components = await componentService.getAll({
+        id_IN: componentsBatch,
+      })
+
+      const componentElements = [
+        ...components.map((comp) => comp.rootElement.current),
+        ...flatMap(
+          components.map((comp) => comp.rootElement.current.descendantElements),
+        ),
+      ]
+
+      loadedComponentElements.push(...componentElements)
+
+      componentsBatch = getComponentIdsFromElements(componentElements).filter(
+        (id) => !componentService.components.has(id),
+      )
+    }
+  } while (componentsBatch.length > 0)
+
+  // Loading all the types of the elements that are used on the current page
+  // This will also get the types of fields, not just interface types
+  const typeIds = getTypeIdsFromElements([
+    ...elements,
+    ...loadedComponentElements,
+  ]).filter((id) => !typeService.types.has(id))
+
+  await typeService.getAll(typeIds)
 }

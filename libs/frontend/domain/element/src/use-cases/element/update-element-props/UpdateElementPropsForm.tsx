@@ -6,7 +6,10 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { AdminPropsPanel } from '@codelab/frontend/domain/admin'
 import { PropsForm } from '@codelab/frontend/domain/type'
-import { useStore } from '@codelab/frontend/presentation/container'
+import {
+  loadAllTypesForElements,
+  useStore,
+} from '@codelab/frontend/presentation/container'
 import { ReactQuillField, Spinner } from '@codelab/frontend/presentation/view'
 import { filterEmptyStrings, mergeProps } from '@codelab/shared/utils'
 import { useAsync } from '@react-hookz/web'
@@ -41,12 +44,23 @@ const withCustomTextSchema: JSONSchemaType<{
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({ element }) => {
-    const { propService, typeService } = useStore()
+    const { builderService, componentService, propService, typeService } =
+      useStore()
+
     const currentElement = element.current
     const apiId = currentElement.renderType?.current.api.id
 
-    const [{ result: interfaceType, status }, getInterface] = useAsync(() =>
-      typeService.getInterface(apiId!),
+    const [{ result: interfaceType, status }, getInterface] = useAsync(
+      async () => {
+        await loadAllTypesForElements(
+          componentService,
+          typeService,
+          builderService.activeElementTree?.rootElement.current
+            .descendantElements ?? [],
+        )
+
+        return typeService.getInterface(apiId!)
+      },
     )
 
     useEffect(() => {
