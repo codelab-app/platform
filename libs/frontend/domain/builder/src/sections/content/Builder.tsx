@@ -5,7 +5,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import {
   makeDropIndicatorStyle,
-  RendererContainer,
+  Renderer,
 } from '@codelab/frontend/domain/renderer'
 import {
   useCurrentPageId,
@@ -141,11 +141,7 @@ export const Builder = observer(() => {
           order={2}
           ref={resizableRef}
         >
-          <RendererContainer
-            ref={setNodeRef}
-            renderer={renderer}
-            style={rootStyle}
-          />
+          <Renderer ref={setNodeRef} renderer={renderer} style={rootStyle} />
           <BuilderClickOverlay
             builderService={builderService}
             elementService={elementService}
