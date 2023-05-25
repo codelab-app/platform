@@ -7,7 +7,6 @@ import {
   Header,
   HeaderBreadcrumb,
 } from '@codelab/frontend/presentation//codelab-ui'
-import {} from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
   ContentSection,
