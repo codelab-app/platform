@@ -2,11 +2,11 @@ import type {
   IAtom,
   IComponent,
   IElementRenderType,
+  IElementRuntimeProp,
   IHook,
   IPage,
   IProp,
   IPropData,
-  IRuntimeProp,
   IStore,
   RenderingError,
   RenderingMetadata,
@@ -256,8 +256,10 @@ export class Element
   }
 
   @computed
-  get runtimeProp(): Maybe<IRuntimeProp> {
-    return this.renderService.activeRenderer?.current.runtimeProps.get(this.id)
+  get runtimeProp(): Maybe<IElementRuntimeProp> {
+    return this.renderService.activeRenderer?.current.runtimeProps.get(
+      this.id,
+    ) as Maybe<IElementRuntimeProp>
   }
 
   @modelAction

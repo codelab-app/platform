@@ -1,5 +1,4 @@
 import type { SubmitController } from '@codelab/frontend/abstract/types'
-import { replaceStateInProps } from '@codelab/frontend/shared/utils'
 import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { JSONSchemaType, Schema } from 'ajv'
 import Ajv from 'ajv'
@@ -76,27 +75,15 @@ ajv.addSchema({
   },
 })
 
-export const createValidator = (schema: Schema, allowExpressions?: boolean) => {
+export const createValidator = (schema: Schema) => {
   const validator = ajv.compile(schema)
 
   return (model: Record<string, unknown>) => {
-    // FIXME: replaceStateInProps should take state as second argument instead of empty object
+    validator(model)
 
-    const modelToValidate = allowExpressions
-      ? replaceStateInProps(model, {})
-      : model
-
-    validator(modelToValidate)
-
-    return validator.errors?.length ? { details: validator.errors } : null
+    return validator
   }
 }
 
-export const createBridge = <T = unknown>(
-  schema: JSONSchemaType<T>,
-  allowExpressions?: boolean,
-) => {
-  const schemaValidator = createValidator(schema, allowExpressions)
-
-  return new JSONSchemaBridge(schema, schemaValidator)
-}
+export const createBridge = <T = unknown>(schema: JSONSchemaType<T>) =>
+  new JSONSchemaBridge(schema, createValidator(schema))

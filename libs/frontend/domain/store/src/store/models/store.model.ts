@@ -86,18 +86,9 @@ export class Store
 
   @computed
   get state() {
-    const component = this.component?.current
-
-    const componentProps = mergeProps(
-      component?.api.current.defaultValues,
-      component?.props.current.values,
-      component?.instanceElement?.current.runtimeProp?.evaluatedProps,
-    )
-
     return makeAutoObservable(
       mergeProps(
         this.api.current.defaultValues,
-        componentProps,
         this.actions
           .map((action) => ({
             [action.current.name]: action.current.createRunner(),

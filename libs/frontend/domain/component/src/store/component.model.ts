@@ -1,5 +1,6 @@
 import type {
   IComponentDTO,
+  IComponentRuntimeProp,
   IElement,
   IInterfaceType,
   IProp,
@@ -10,6 +11,7 @@ import {
   elementRef,
   ElementTree,
   getComponentService,
+  getRenderService,
   IComponent,
   isComponentInstance,
   propRef,
@@ -19,6 +21,7 @@ import {
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
 import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import { Maybe } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -72,6 +75,18 @@ export class Component
 {
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   static create = create
+
+  @computed
+  get renderService() {
+    return getRenderService(this)
+  }
+
+  @computed
+  get runtimeProp(): Maybe<IComponentRuntimeProp> {
+    return this.renderService.activeRenderer?.current.runtimeProps.get(
+      this.id,
+    ) as Maybe<IComponentRuntimeProp>
+  }
 
   @modelAction
   writeCache({

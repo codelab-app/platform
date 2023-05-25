@@ -13,7 +13,6 @@ import {
 
 export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   const Form = <TData, TResponse = unknown>({
-    allowExpressions = false,
     autosave = false,
     children,
     cssString,
@@ -30,17 +29,11 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
     submitRef,
   }: React.PropsWithChildren<FormProps<TData, TResponse>>): ReactElement => {
     const [bridge, setBridge] = useState(
-      schema instanceof Bridge
-        ? schema
-        : createBridge(schema, allowExpressions),
+      schema instanceof Bridge ? schema : createBridge(schema),
     )
 
     useEffect(() => {
-      setBridge(
-        schema instanceof Bridge
-          ? schema
-          : createBridge(schema, allowExpressions),
-      )
+      setBridge(schema instanceof Bridge ? schema : createBridge(schema))
     }, [schema])
 
     const modelRef = useRef(model)

@@ -1,5 +1,8 @@
+import type { Maybe } from '@graphql-tools/utils'
 import type { Ref } from 'mobx-keystone'
+import type { IComponent } from '../component'
 import type { IElement } from '../element'
+import type { IPageNode } from '../page'
 import type { IPropData } from '../prop/prop.model.interface'
 import type { TypedProp } from '../type'
 import type { IBaseRenderPipe } from '.'
@@ -8,11 +11,29 @@ import type { IBaseRenderPipe } from '.'
  * Transforms a typed prop to a specific value
  */
 export interface ITypedPropTransformer extends IBaseRenderPipe {
-  transform(prop: TypedProp, element: IElement): unknown
+  transform(prop: TypedProp, node: IPageNode): unknown
 }
 
-export interface IRuntimeProp {
-  element: Ref<IElement>
+export interface IRuntimeProp<T extends IPageNode> {
+  /**
+   * Final output after rendering typedProps
+   */
   evaluatedProps: IPropData
+  /**
+   * Props after applying `propTransformationJs` and substituting state expression
+   * used for validation by PropsInspector
+   */
+  evaluatedPropsBeforeRender: IPropData
+  instanceElementProps?: Maybe<IElementRuntimeProp>
+  /**
+   * Ref for node that holds the props either element or component
+   */
+  nodeRef: Ref<T>
+  /**
+   * Props in initial state before any transformation
+   */
   props: IPropData
 }
+
+export type IElementRuntimeProp = IRuntimeProp<IElement>
+export type IComponentRuntimeProp = IRuntimeProp<IComponent>

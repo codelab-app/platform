@@ -2,6 +2,7 @@ import type {
   IElement,
   IElementTree,
   IExpressionTransformer,
+  IPageNode,
   IRenderer,
   IRenderOutput,
   IRenderPipe,
@@ -12,6 +13,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   CUSTOM_TEXT_PROP_KEY,
+  elementRef,
   elementTreeRef,
   isAtomInstance,
 } from '@codelab/frontend/abstract/core'
@@ -23,15 +25,16 @@ import { createTransformer } from 'mobx-utils'
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
-import { ElementWrapper, ElementWrapperProps } from './element/element-wrapper'
+import type { ElementWrapperProps } from './element/element-wrapper'
+import { ElementWrapper } from './element/element-wrapper'
 import { makeCustomTextContainer } from './element/wrapper.utils'
+import { ElementRuntimeProps } from './element-runtime-props.model'
 import { ExpressionTransformer } from './expresssion-transformer.service'
 import {
   defaultPipes,
   renderPipeFactory,
 } from './renderPipes/render-pipe.factory'
 import { typedPropTransformersFactory } from './typedPropTransformers'
-import { RuntimeProps } from './runtime.props.model'
 
 /**
  * Handles the logic of rendering treeElements. Takes in an optional appTree
@@ -49,6 +52,8 @@ import { RuntimeProps } from './runtime.props.model'
  * For example - we use the renderContext from ./renderContext inside the pipes to get the renderer model itself and its tree.
  */
 
+const getRendererId = (id: string) => `${id}.renderer`
+
 const create = ({
   elementTree,
   id,
@@ -59,7 +64,7 @@ const create = ({
     elementTree: elementTreeRef(elementTree),
     // for refs to resolve we can't use pageId/componentId alone
     // it will resolve page/component instead
-    id: `${id}.renderer`,
+    id: getRendererId(id),
     providerTree: providerTree ? elementTreeRef(providerTree) : null,
     rendererType,
   })
@@ -93,9 +98,9 @@ export class Renderer
      */
     renderPipe: prop<IRenderPipe>(() => renderPipeFactory(defaultPipes)),
     /**
-     * Props record for all elements during all transformations stages
+     * Props record for all components during all transformations stages
      */
-    runtimeProps: prop<ObjectMap<IRuntimeProp>>(() => objectMap([])),
+    runtimeProps: prop<ObjectMap<IRuntimeProp<IPageNode>>>(() => objectMap([])),
     /**
      * Those transform different kinds of typed values into render-ready props
      */
@@ -140,7 +145,7 @@ export class Renderer
   renderIntermediateElement = (
     element: IElement,
   ): ArrayOrSingle<IRenderOutput> => {
-    const runtimeProps = RuntimeProps.create({ elementId: element.id })
+    const runtimeProps = ElementRuntimeProps.create(elementRef(element.id))
     this.runtimeProps.set(element.id, runtimeProps)
 
     return this.renderPipe.render(element, runtimeProps.evaluatedProps)
@@ -231,6 +236,8 @@ export class Renderer
       console.dir({ element: element, rendered })
     }
   }
+
+  static getRendererId = getRendererId
 
   static create = create
 }

@@ -1,6 +1,6 @@
 import type {
   IComponent,
-  IElement,
+  IPageNode,
   IPropData,
 } from '@codelab/frontend/abstract/core'
 
@@ -14,7 +14,7 @@ import type {
 
 export const cloneComponent = (
   component: IComponent,
-  element: IElement,
+  node: IPageNode,
   props: IPropData,
 ) => {
   if (!component.keyGenerator) {
@@ -27,10 +27,7 @@ export const cloneComponent = (
     // eslint-disable-next-line no-eval
     const keyGenerator = eval(`(${component.keyGenerator})`)
     const key = keyGenerator(props)
-
-    const componentClone = component.clone(
-      `${element.id}-${component.id}-${key}`,
-    )
+    const componentClone = component.clone(`${node.id}-${component.id}-${key}`)
 
     return componentClone
   } catch (error) {

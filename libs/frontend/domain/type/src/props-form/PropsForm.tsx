@@ -53,7 +53,6 @@ export const PropsForm = observer<PropsFormProps>(
         `}
       >
         <InterfaceForm
-          allowExpressions={true}
           autosave={autosave}
           initialSchema={initialSchema}
           interfaceType={interfaceType}

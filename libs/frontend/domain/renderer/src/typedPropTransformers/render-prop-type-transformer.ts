@@ -1,6 +1,6 @@
 import type {
-  IElement,
   IField,
+  IPageNode,
   ITypedPropTransformer,
   TypedProp,
 } from '@codelab/frontend/abstract/core'
@@ -38,7 +38,7 @@ export class RenderPropTypeTransformer
   extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedPropTransformer
 {
-  public transform(prop: TypedProp, element: IElement) {
+  public transform(prop: TypedProp, node: IPageNode) {
     const { expressionTransformer } = this.renderer
 
     if (hasStateExpression(prop.value) && expressionTransformer.initialized) {
@@ -60,7 +60,7 @@ export class RenderPropTypeTransformer
     return (...renderPropArgs: Array<object>) => {
       // match props to fields by order first to first and so on.
       const props = matchPropsToFields(fields, renderPropArgs)
-      const componentClone = cloneComponent(component, element, props)
+      const componentClone = cloneComponent(component, node, props)
 
       if (!componentClone) {
         console.error('Failed to clone component')

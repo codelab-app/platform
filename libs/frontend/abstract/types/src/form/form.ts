@@ -46,7 +46,6 @@ export type FormProps<TData, TResponse = unknown> = Partial<
      *  Pass either schema or bridge
      */
     schema: Bridge | JSONSchemaType<TData>
-    allowExpressions?: boolean
   }
 
 // form Controller props

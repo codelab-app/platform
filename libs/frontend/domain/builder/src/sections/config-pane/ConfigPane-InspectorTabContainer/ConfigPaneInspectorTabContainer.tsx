@@ -24,10 +24,7 @@ import {
   UpdateElementPropTransformationForm,
 } from '@codelab/frontend/domain/element'
 import { UpdatePageTabForm } from '@codelab/frontend/domain/page'
-import {
-  useCurrentPageId,
-  useStore,
-} from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { FormContextProvider } from '@codelab/frontend/presentation/view'
 import { css } from '@emotion/react'
 import { Tabs, Tooltip } from 'antd'
@@ -60,11 +57,7 @@ const TooltipIcon = ({ icon, title }: TooltipIconProps) => {
 }
 
 export const ConfigPaneInspectorTabContainer = observer(() => {
-  const { builderService, elementService, pageService, renderService } =
-    useStore()
-
-  const pageId = useCurrentPageId()
-  const renderer = renderService.renderers.get(pageId)
+  const { builderService, elementService, pageService } = useStore()
   const elementTree = builderService.activeElementTree
   const selectedNode = builderService.selectedNode
 
@@ -74,7 +67,6 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
 
   const store = elementTree?.rootElement.current.store.current
   const autocomplete = store?.state || {}
-  const allowExpressions = true
 
   const tabItems = [
     {
@@ -108,11 +100,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
           {isElementPageNodeRef(selectedNode) &&
           selectedNode.current.renderType ? (
             <FormContextProvider
-              value={{
-                allowExpressions,
-                autocomplete,
-                elementTree,
-              }}
+              value={{ allowExpressions: true, autocomplete, elementTree }}
             >
               <UpdateElementPropsForm element={selectedNode} />
             </FormContextProvider>
@@ -144,13 +132,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
       ),
     },
     {
-      children: renderer && (
-        <PropsInspectorTab
-          key={selectedNode.id}
-          node={selectedNode}
-          renderer={renderer}
-        />
-      ),
+      children: <PropsInspectorTab key={selectedNode.id} node={selectedNode} />,
       key: TAB_NAMES.PropsInspector,
       label: (
         <TooltipIcon icon={<CodeOutlined />} title={TAB_NAMES.PropsInspector} />
@@ -176,7 +158,6 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
       children: (
         <FormContextProvider
           value={{
-            allowExpressions,
             autocomplete,
             elementTree,
           }}
