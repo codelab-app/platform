@@ -68,6 +68,11 @@ resource "vercel_project" "websites" {
       target = ["production", "preview"]
       key    = "NEO4J_PASSWORD"
       value  = var.neo4j_password
+    },
+    {
+      target = ["production"]
+      key    = "VERCEL_FORCE_NO_BUILD_CACHE"
+      value  = "1"
     }
   ]
 }

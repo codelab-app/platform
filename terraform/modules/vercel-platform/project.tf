@@ -98,6 +98,11 @@ resource "vercel_project" "platform" {
       key    = "VERCEL_TEAM_ID"
       value  = var.vercel_team_id
     },
+    {
+      target = ["production"]
+      key    = "VERCEL_FORCE_NO_BUILD_CACHE"
+      value  = "1"
+    }
   ]
 }
 
