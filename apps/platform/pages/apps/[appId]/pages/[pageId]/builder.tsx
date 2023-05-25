@@ -17,6 +17,7 @@ import {
   useCurrentPageId,
   useRemainingPages,
   useRenderedPage,
+  useStore,
 } from '@codelab/frontend/presentation/container'
 import {
   DashboardTemplate,
@@ -29,6 +30,8 @@ import Head from 'next/head'
 import React, { useEffect, useMemo } from 'react'
 
 const PageBuilder: CodelabPage = observer(() => {
+  const { builderRenderService } = useStore()
+
   const [{ status: remainingPagesStatus }, lazilyLoadRemainingPages] =
     useRemainingPages()
 
@@ -46,6 +49,7 @@ const PageBuilder: CodelabPage = observer(() => {
 
   useEffect(() => {
     void loadCurrentPage.execute()
+    builderRenderService.loadExternalComponents()
   }, [pageId])
 
   const isLoading =
