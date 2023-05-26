@@ -22,6 +22,8 @@ export interface IAtom
    * We store preview data here so we can more easily display the tags in the atoms table
    */
   api: Ref<IInterfaceType>
+  externalCssSource?: string | null
+  externalJsSource?: string | null
   icon?: string | null
   id: string
   name: string

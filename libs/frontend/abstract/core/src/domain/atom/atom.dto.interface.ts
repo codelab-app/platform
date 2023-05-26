@@ -7,6 +7,8 @@ export interface ICreateAtomData extends IOwner {
   // Used for interface
   // Allow for connection to existing interface
   // api: IEntity
+  externalCssSource?: string | null
+  externalJsSource?: string | null
   id: string
   name: string
   requiredParents?: Array<IAtomRef>

@@ -22,6 +22,8 @@ fragment Atom on Atom {
     name
     type
   }
+  externalCssSource
+  externalJsSource
 }
 
 fragment RenderAtom on Atom {

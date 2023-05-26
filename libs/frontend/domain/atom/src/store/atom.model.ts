@@ -29,6 +29,8 @@ import { customTextInjectionWhiteList } from './custom-text-injection-whitelist'
 
 const create = ({
   api,
+  externalCssSource,
+  externalJsSource,
   icon,
   id,
   name,
@@ -40,6 +42,8 @@ const create = ({
 }: IAtomDTO) => {
   return new Atom({
     api: typeRef<IInterfaceType>(api.id),
+    externalCssSource,
+    externalJsSource,
     icon,
     id,
     name,
@@ -55,6 +59,8 @@ const create = ({
 export class Atom
   extends Model({
     api: prop<Ref<IInterfaceType>>(),
+    externalCssSource: prop<string | null | undefined>(),
+    externalJsSource: prop<string | null | undefined>(),
     icon: prop<string | null | undefined>(null),
     id: idProp,
     name: prop<string>(),
@@ -81,6 +87,8 @@ export class Atom
   @modelAction
   writeCache({
     api,
+    externalCssSource,
+    externalJsSource,
     icon,
     id,
     name,
@@ -89,6 +97,8 @@ export class Atom
     tags = [],
     type,
   }: Partial<IAtomDTO>) {
+    this.externalCssSource = externalCssSource ?? this.externalCssSource
+    this.externalJsSource = externalJsSource ?? this.externalJsSource
     this.name = name ?? this.name
     this.type = type ?? this.type
     this.api = api?.id ? typeRef<IInterfaceType>(api.id) : this.api
@@ -113,6 +123,8 @@ export class Atom
           },
         },
       },
+      externalCssSource: this.externalCssSource,
+      externalJsSource: this.externalJsSource,
       id: this.id,
       name: this.name,
       owner: connectAuth0Owner(this.owner),
@@ -125,6 +137,8 @@ export class Atom
   toUpdateInput(): AtomUpdateInput {
     return {
       api: connectNodeId(this.api.id),
+      externalCssSource: this.externalCssSource,
+      externalJsSource: this.externalJsSource,
       id: this.id,
       name: this.name,
       owner: connectAuth0Owner(this.owner),

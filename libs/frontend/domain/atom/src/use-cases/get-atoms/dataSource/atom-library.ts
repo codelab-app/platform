@@ -18,5 +18,7 @@ export const useGetLibrary = () =>
       ? { color: 'yellow', name: 'Codelab' }
       : reactAtoms.includes(atomType)
       ? { color: 'green', name: 'React' }
+      : atomType === 'CustomAtom'
+      ? { color: 'white', name: 'External' }
       : { color: 'black', name: 'Unknown' }
   }, [])

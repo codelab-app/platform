@@ -19,6 +19,14 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
       autoFocus: true,
       ...nonEmptyString,
     },
+    externalCssSource: {
+      nullable: true,
+      ...nonEmptyString,
+    },
+    externalJsSource: {
+      nullable: true,
+      ...nonEmptyString,
+    },
     tags: {
       items: {
         properties: {

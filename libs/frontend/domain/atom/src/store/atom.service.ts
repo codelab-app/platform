@@ -64,6 +64,8 @@ export class AtomService
   update = _async(function* (
     this: AtomService,
     {
+      externalCssSource,
+      externalJsSource,
       id,
       name,
       requiredParents = [],
@@ -75,6 +77,8 @@ export class AtomService
     const atom = this.atoms.get(id)
 
     atom?.writeCache({
+      externalCssSource,
+      externalJsSource,
       name,
       requiredParents: requiredParents.map((child) => ({ id: child })),
       suggestedChildren: suggestedChildren.map((child) => ({ id: child })),
@@ -105,6 +109,8 @@ export class AtomService
   @modelAction
   add = ({
     api,
+    externalCssSource,
+    externalJsSource,
     icon,
     id,
     name,
@@ -118,6 +124,8 @@ export class AtomService
 
     const atom = Atom.create({
       api: apiRef,
+      externalCssSource,
+      externalJsSource,
       icon,
       id,
       name,
@@ -127,6 +135,30 @@ export class AtomService
       tags: [],
       type,
     })
+
+    if (externalCssSource) {
+      const link = document.createElement('link')
+      link.setAttribute('rel', 'stylesheet')
+      link.setAttribute('href', externalCssSource)
+      document.head.appendChild(link)
+
+      console.log(`Loaded external css for "${name}"`)
+    }
+
+    if (externalJsSource) {
+      const script = document.createElement('script')
+      script.type = 'module'
+      script.innerText = `
+        import ${name} from '${externalJsSource}';
+        if (!window.externalComponents) {
+          window.externalComponents = {};
+        }
+        window.externalComponents.${name} = ${name};
+      `
+      document.getElementsByTagName('head')[0]?.appendChild(script)
+
+      console.log(`Loaded external js for "${name}"`)
+    }
 
     this.atoms.set(atom.id, atom)
 
@@ -176,7 +208,15 @@ export class AtomService
   @transaction
   create = _async(function* (
     this: AtomService,
-    { id, name, owner, tags = [], type }: ICreateAtomData,
+    {
+      externalCssSource,
+      externalJsSource,
+      id,
+      name,
+      owner,
+      tags = [],
+      type,
+    }: ICreateAtomData,
   ) {
     const interfaceType = this.typeService.addInterface({
       id: v4(),
@@ -187,6 +227,8 @@ export class AtomService
 
     const atom = Atom.create({
       api: interfaceType,
+      externalCssSource,
+      externalJsSource,
       id,
       name,
       owner,

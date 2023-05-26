@@ -31,6 +31,14 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
       autoFocus: true,
       ...nonEmptyString,
     },
+    externalCssSource: {
+      nullable: true,
+      ...nonEmptyString,
+    },
+    externalJsSource: {
+      nullable: true,
+      ...nonEmptyString,
+    },
     ...ownerSchema,
     tags: {
       items: {

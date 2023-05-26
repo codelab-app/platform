@@ -2573,6 +2573,8 @@ type Atom implements WithOwner {
     sort: [AtomApiConnectionSort!]
     where: AtomApiConnectionWhere
   ): AtomApiConnection!
+  externalCssSource: String
+  externalJsSource: String
   icon: String
   id: ID!
   name: String!
@@ -2637,6 +2639,8 @@ type Atom implements WithOwner {
 
 type AtomAggregateSelection {
   count: Int!
+  externalCssSource: StringAggregateSelectionNullable!
+  externalJsSource: StringAggregateSelectionNullable!
   icon: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
@@ -2756,6 +2760,8 @@ type AtomAtomRequiredParentsAggregationSelection {
 }
 
 type AtomAtomRequiredParentsNodeAggregateSelection {
+  externalCssSource: StringAggregateSelectionNullable!
+  externalJsSource: StringAggregateSelectionNullable!
   icon: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
@@ -2767,6 +2773,8 @@ type AtomAtomSuggestedChildrenAggregationSelection {
 }
 
 type AtomAtomSuggestedChildrenNodeAggregateSelection {
+  externalCssSource: StringAggregateSelectionNullable!
+  externalJsSource: StringAggregateSelectionNullable!
   icon: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
@@ -2798,6 +2806,8 @@ input AtomConnectWhere {
 
 input AtomCreateInput {
   api: AtomApiFieldInput
+  externalCssSource: String
+  externalJsSource: String
   icon: String
   id: ID!
   name: String!
@@ -2840,6 +2850,8 @@ type AtomInterfaceTypeApiNodeAggregateSelection {
 }
 
 input AtomOnCreateInput {
+  externalCssSource: String
+  externalJsSource: String
   icon: String
   id: ID!
   name: String!
@@ -2999,6 +3011,36 @@ input AtomRequiredParentsNodeAggregationWhereInput {
   AND: [AtomRequiredParentsNodeAggregationWhereInput!]
   NOT: AtomRequiredParentsNodeAggregationWhereInput
   OR: [AtomRequiredParentsNodeAggregationWhereInput!]
+  externalCssSource_AVERAGE_LENGTH_EQUAL: Float
+  externalCssSource_AVERAGE_LENGTH_GT: Float
+  externalCssSource_AVERAGE_LENGTH_GTE: Float
+  externalCssSource_AVERAGE_LENGTH_LT: Float
+  externalCssSource_AVERAGE_LENGTH_LTE: Float
+  externalCssSource_LONGEST_LENGTH_EQUAL: Int
+  externalCssSource_LONGEST_LENGTH_GT: Int
+  externalCssSource_LONGEST_LENGTH_GTE: Int
+  externalCssSource_LONGEST_LENGTH_LT: Int
+  externalCssSource_LONGEST_LENGTH_LTE: Int
+  externalCssSource_SHORTEST_LENGTH_EQUAL: Int
+  externalCssSource_SHORTEST_LENGTH_GT: Int
+  externalCssSource_SHORTEST_LENGTH_GTE: Int
+  externalCssSource_SHORTEST_LENGTH_LT: Int
+  externalCssSource_SHORTEST_LENGTH_LTE: Int
+  externalJsSource_AVERAGE_LENGTH_EQUAL: Float
+  externalJsSource_AVERAGE_LENGTH_GT: Float
+  externalJsSource_AVERAGE_LENGTH_GTE: Float
+  externalJsSource_AVERAGE_LENGTH_LT: Float
+  externalJsSource_AVERAGE_LENGTH_LTE: Float
+  externalJsSource_LONGEST_LENGTH_EQUAL: Int
+  externalJsSource_LONGEST_LENGTH_GT: Int
+  externalJsSource_LONGEST_LENGTH_GTE: Int
+  externalJsSource_LONGEST_LENGTH_LT: Int
+  externalJsSource_LONGEST_LENGTH_LTE: Int
+  externalJsSource_SHORTEST_LENGTH_EQUAL: Int
+  externalJsSource_SHORTEST_LENGTH_GT: Int
+  externalJsSource_SHORTEST_LENGTH_GTE: Int
+  externalJsSource_SHORTEST_LENGTH_LT: Int
+  externalJsSource_SHORTEST_LENGTH_LTE: Int
   icon_AVERAGE_LENGTH_EQUAL: Float
   icon_AVERAGE_LENGTH_GT: Float
   icon_AVERAGE_LENGTH_GTE: Float
@@ -3054,6 +3096,8 @@ input AtomRequiredParentsUpdateFieldInput {
 Fields to sort Atoms by. The order in which sorts are applied is not guaranteed when specifying many fields in one AtomSort object.
 """
 input AtomSort {
+  externalCssSource: SortDirection
+  externalJsSource: SortDirection
   icon: SortDirection
   id: SortDirection
   name: SortDirection
@@ -3132,6 +3176,36 @@ input AtomSuggestedChildrenNodeAggregationWhereInput {
   AND: [AtomSuggestedChildrenNodeAggregationWhereInput!]
   NOT: AtomSuggestedChildrenNodeAggregationWhereInput
   OR: [AtomSuggestedChildrenNodeAggregationWhereInput!]
+  externalCssSource_AVERAGE_LENGTH_EQUAL: Float
+  externalCssSource_AVERAGE_LENGTH_GT: Float
+  externalCssSource_AVERAGE_LENGTH_GTE: Float
+  externalCssSource_AVERAGE_LENGTH_LT: Float
+  externalCssSource_AVERAGE_LENGTH_LTE: Float
+  externalCssSource_LONGEST_LENGTH_EQUAL: Int
+  externalCssSource_LONGEST_LENGTH_GT: Int
+  externalCssSource_LONGEST_LENGTH_GTE: Int
+  externalCssSource_LONGEST_LENGTH_LT: Int
+  externalCssSource_LONGEST_LENGTH_LTE: Int
+  externalCssSource_SHORTEST_LENGTH_EQUAL: Int
+  externalCssSource_SHORTEST_LENGTH_GT: Int
+  externalCssSource_SHORTEST_LENGTH_GTE: Int
+  externalCssSource_SHORTEST_LENGTH_LT: Int
+  externalCssSource_SHORTEST_LENGTH_LTE: Int
+  externalJsSource_AVERAGE_LENGTH_EQUAL: Float
+  externalJsSource_AVERAGE_LENGTH_GT: Float
+  externalJsSource_AVERAGE_LENGTH_GTE: Float
+  externalJsSource_AVERAGE_LENGTH_LT: Float
+  externalJsSource_AVERAGE_LENGTH_LTE: Float
+  externalJsSource_LONGEST_LENGTH_EQUAL: Int
+  externalJsSource_LONGEST_LENGTH_GT: Int
+  externalJsSource_LONGEST_LENGTH_GTE: Int
+  externalJsSource_LONGEST_LENGTH_LT: Int
+  externalJsSource_LONGEST_LENGTH_LTE: Int
+  externalJsSource_SHORTEST_LENGTH_EQUAL: Int
+  externalJsSource_SHORTEST_LENGTH_GT: Int
+  externalJsSource_SHORTEST_LENGTH_GTE: Int
+  externalJsSource_SHORTEST_LENGTH_LT: Int
+  externalJsSource_SHORTEST_LENGTH_LTE: Int
   icon_AVERAGE_LENGTH_EQUAL: Float
   icon_AVERAGE_LENGTH_GT: Float
   icon_AVERAGE_LENGTH_GTE: Float
@@ -3393,6 +3467,7 @@ enum AtomType {
   AntDesignTypographyText
   AntDesignTypographyTitle
   AntDesignUpload
+  CustomAtom
   GridLayout
   HookGraphqlMutation
   HookGraphqlQuery
@@ -3682,11 +3757,12 @@ enum AtomType {
 input AtomUniqueWhere {
   id: ID
   name: String
-  type: AtomType
 }
 
 input AtomUpdateInput {
   api: AtomApiUpdateFieldInput
+  externalCssSource: String
+  externalJsSource: String
   icon: String
   id: ID
   name: String
@@ -3718,6 +3794,18 @@ input AtomWhere {
   apiConnection: AtomApiConnectionWhere
   apiConnection_NOT: AtomApiConnectionWhere
   api_NOT: InterfaceTypeWhere
+  externalCssSource: String
+  externalCssSource_CONTAINS: String
+  externalCssSource_ENDS_WITH: String
+  externalCssSource_IN: [String]
+  externalCssSource_MATCHES: String
+  externalCssSource_STARTS_WITH: String
+  externalJsSource: String
+  externalJsSource_CONTAINS: String
+  externalJsSource_ENDS_WITH: String
+  externalJsSource_IN: [String]
+  externalJsSource_MATCHES: String
+  externalJsSource_STARTS_WITH: String
   icon: String
   icon_CONTAINS: String
   icon_ENDS_WITH: String
@@ -6747,6 +6835,8 @@ type ElementAtomRenderAtomTypeAggregationSelection {
 }
 
 type ElementAtomRenderAtomTypeNodeAggregateSelection {
+  externalCssSource: StringAggregateSelectionNullable!
+  externalJsSource: StringAggregateSelectionNullable!
   icon: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
@@ -8249,6 +8339,36 @@ input ElementRenderAtomTypeNodeAggregationWhereInput {
   AND: [ElementRenderAtomTypeNodeAggregationWhereInput!]
   NOT: ElementRenderAtomTypeNodeAggregationWhereInput
   OR: [ElementRenderAtomTypeNodeAggregationWhereInput!]
+  externalCssSource_AVERAGE_LENGTH_EQUAL: Float
+  externalCssSource_AVERAGE_LENGTH_GT: Float
+  externalCssSource_AVERAGE_LENGTH_GTE: Float
+  externalCssSource_AVERAGE_LENGTH_LT: Float
+  externalCssSource_AVERAGE_LENGTH_LTE: Float
+  externalCssSource_LONGEST_LENGTH_EQUAL: Int
+  externalCssSource_LONGEST_LENGTH_GT: Int
+  externalCssSource_LONGEST_LENGTH_GTE: Int
+  externalCssSource_LONGEST_LENGTH_LT: Int
+  externalCssSource_LONGEST_LENGTH_LTE: Int
+  externalCssSource_SHORTEST_LENGTH_EQUAL: Int
+  externalCssSource_SHORTEST_LENGTH_GT: Int
+  externalCssSource_SHORTEST_LENGTH_GTE: Int
+  externalCssSource_SHORTEST_LENGTH_LT: Int
+  externalCssSource_SHORTEST_LENGTH_LTE: Int
+  externalJsSource_AVERAGE_LENGTH_EQUAL: Float
+  externalJsSource_AVERAGE_LENGTH_GT: Float
+  externalJsSource_AVERAGE_LENGTH_GTE: Float
+  externalJsSource_AVERAGE_LENGTH_LT: Float
+  externalJsSource_AVERAGE_LENGTH_LTE: Float
+  externalJsSource_LONGEST_LENGTH_EQUAL: Int
+  externalJsSource_LONGEST_LENGTH_GT: Int
+  externalJsSource_LONGEST_LENGTH_GTE: Int
+  externalJsSource_LONGEST_LENGTH_LT: Int
+  externalJsSource_LONGEST_LENGTH_LTE: Int
+  externalJsSource_SHORTEST_LENGTH_EQUAL: Int
+  externalJsSource_SHORTEST_LENGTH_GT: Int
+  externalJsSource_SHORTEST_LENGTH_GTE: Int
+  externalJsSource_SHORTEST_LENGTH_LT: Int
+  externalJsSource_SHORTEST_LENGTH_LTE: Int
   icon_AVERAGE_LENGTH_EQUAL: Float
   icon_AVERAGE_LENGTH_GT: Float
   icon_AVERAGE_LENGTH_GTE: Float
@@ -11414,6 +11534,36 @@ input InterfaceTypeApiOfAtomsNodeAggregationWhereInput {
   AND: [InterfaceTypeApiOfAtomsNodeAggregationWhereInput!]
   NOT: InterfaceTypeApiOfAtomsNodeAggregationWhereInput
   OR: [InterfaceTypeApiOfAtomsNodeAggregationWhereInput!]
+  externalCssSource_AVERAGE_LENGTH_EQUAL: Float
+  externalCssSource_AVERAGE_LENGTH_GT: Float
+  externalCssSource_AVERAGE_LENGTH_GTE: Float
+  externalCssSource_AVERAGE_LENGTH_LT: Float
+  externalCssSource_AVERAGE_LENGTH_LTE: Float
+  externalCssSource_LONGEST_LENGTH_EQUAL: Int
+  externalCssSource_LONGEST_LENGTH_GT: Int
+  externalCssSource_LONGEST_LENGTH_GTE: Int
+  externalCssSource_LONGEST_LENGTH_LT: Int
+  externalCssSource_LONGEST_LENGTH_LTE: Int
+  externalCssSource_SHORTEST_LENGTH_EQUAL: Int
+  externalCssSource_SHORTEST_LENGTH_GT: Int
+  externalCssSource_SHORTEST_LENGTH_GTE: Int
+  externalCssSource_SHORTEST_LENGTH_LT: Int
+  externalCssSource_SHORTEST_LENGTH_LTE: Int
+  externalJsSource_AVERAGE_LENGTH_EQUAL: Float
+  externalJsSource_AVERAGE_LENGTH_GT: Float
+  externalJsSource_AVERAGE_LENGTH_GTE: Float
+  externalJsSource_AVERAGE_LENGTH_LT: Float
+  externalJsSource_AVERAGE_LENGTH_LTE: Float
+  externalJsSource_LONGEST_LENGTH_EQUAL: Int
+  externalJsSource_LONGEST_LENGTH_GT: Int
+  externalJsSource_LONGEST_LENGTH_GTE: Int
+  externalJsSource_LONGEST_LENGTH_LT: Int
+  externalJsSource_LONGEST_LENGTH_LTE: Int
+  externalJsSource_SHORTEST_LENGTH_EQUAL: Int
+  externalJsSource_SHORTEST_LENGTH_GT: Int
+  externalJsSource_SHORTEST_LENGTH_GTE: Int
+  externalJsSource_SHORTEST_LENGTH_LT: Int
+  externalJsSource_SHORTEST_LENGTH_LTE: Int
   icon_AVERAGE_LENGTH_EQUAL: Float
   icon_AVERAGE_LENGTH_GT: Float
   icon_AVERAGE_LENGTH_GTE: Float
@@ -11471,6 +11621,8 @@ type InterfaceTypeAtomApiOfAtomsAggregationSelection {
 }
 
 type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection {
+  externalCssSource: StringAggregateSelectionNullable!
+  externalJsSource: StringAggregateSelectionNullable!
   icon: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
@@ -16142,6 +16294,8 @@ type TagAtomAtomsAggregationSelection {
 }
 
 type TagAtomAtomsNodeAggregateSelection {
+  externalCssSource: StringAggregateSelectionNullable!
+  externalJsSource: StringAggregateSelectionNullable!
   icon: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
@@ -16219,6 +16373,36 @@ input TagAtomsNodeAggregationWhereInput {
   AND: [TagAtomsNodeAggregationWhereInput!]
   NOT: TagAtomsNodeAggregationWhereInput
   OR: [TagAtomsNodeAggregationWhereInput!]
+  externalCssSource_AVERAGE_LENGTH_EQUAL: Float
+  externalCssSource_AVERAGE_LENGTH_GT: Float
+  externalCssSource_AVERAGE_LENGTH_GTE: Float
+  externalCssSource_AVERAGE_LENGTH_LT: Float
+  externalCssSource_AVERAGE_LENGTH_LTE: Float
+  externalCssSource_LONGEST_LENGTH_EQUAL: Int
+  externalCssSource_LONGEST_LENGTH_GT: Int
+  externalCssSource_LONGEST_LENGTH_GTE: Int
+  externalCssSource_LONGEST_LENGTH_LT: Int
+  externalCssSource_LONGEST_LENGTH_LTE: Int
+  externalCssSource_SHORTEST_LENGTH_EQUAL: Int
+  externalCssSource_SHORTEST_LENGTH_GT: Int
+  externalCssSource_SHORTEST_LENGTH_GTE: Int
+  externalCssSource_SHORTEST_LENGTH_LT: Int
+  externalCssSource_SHORTEST_LENGTH_LTE: Int
+  externalJsSource_AVERAGE_LENGTH_EQUAL: Float
+  externalJsSource_AVERAGE_LENGTH_GT: Float
+  externalJsSource_AVERAGE_LENGTH_GTE: Float
+  externalJsSource_AVERAGE_LENGTH_LT: Float
+  externalJsSource_AVERAGE_LENGTH_LTE: Float
+  externalJsSource_LONGEST_LENGTH_EQUAL: Int
+  externalJsSource_LONGEST_LENGTH_GT: Int
+  externalJsSource_LONGEST_LENGTH_GTE: Int
+  externalJsSource_LONGEST_LENGTH_LT: Int
+  externalJsSource_LONGEST_LENGTH_LTE: Int
+  externalJsSource_SHORTEST_LENGTH_EQUAL: Int
+  externalJsSource_SHORTEST_LENGTH_GT: Int
+  externalJsSource_SHORTEST_LENGTH_GTE: Int
+  externalJsSource_SHORTEST_LENGTH_LT: Int
+  externalJsSource_SHORTEST_LENGTH_LTE: Int
   icon_AVERAGE_LENGTH_EQUAL: Float
   icon_AVERAGE_LENGTH_GT: Float
   icon_AVERAGE_LENGTH_GTE: Float
@@ -18446,6 +18630,8 @@ type UserAtomAtomsAggregationSelection {
 }
 
 type UserAtomAtomsNodeAggregateSelection {
+  externalCssSource: StringAggregateSelectionNullable!
+  externalJsSource: StringAggregateSelectionNullable!
   icon: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
@@ -18523,6 +18709,36 @@ input UserAtomsNodeAggregationWhereInput {
   AND: [UserAtomsNodeAggregationWhereInput!]
   NOT: UserAtomsNodeAggregationWhereInput
   OR: [UserAtomsNodeAggregationWhereInput!]
+  externalCssSource_AVERAGE_LENGTH_EQUAL: Float
+  externalCssSource_AVERAGE_LENGTH_GT: Float
+  externalCssSource_AVERAGE_LENGTH_GTE: Float
+  externalCssSource_AVERAGE_LENGTH_LT: Float
+  externalCssSource_AVERAGE_LENGTH_LTE: Float
+  externalCssSource_LONGEST_LENGTH_EQUAL: Int
+  externalCssSource_LONGEST_LENGTH_GT: Int
+  externalCssSource_LONGEST_LENGTH_GTE: Int
+  externalCssSource_LONGEST_LENGTH_LT: Int
+  externalCssSource_LONGEST_LENGTH_LTE: Int
+  externalCssSource_SHORTEST_LENGTH_EQUAL: Int
+  externalCssSource_SHORTEST_LENGTH_GT: Int
+  externalCssSource_SHORTEST_LENGTH_GTE: Int
+  externalCssSource_SHORTEST_LENGTH_LT: Int
+  externalCssSource_SHORTEST_LENGTH_LTE: Int
+  externalJsSource_AVERAGE_LENGTH_EQUAL: Float
+  externalJsSource_AVERAGE_LENGTH_GT: Float
+  externalJsSource_AVERAGE_LENGTH_GTE: Float
+  externalJsSource_AVERAGE_LENGTH_LT: Float
+  externalJsSource_AVERAGE_LENGTH_LTE: Float
+  externalJsSource_LONGEST_LENGTH_EQUAL: Int
+  externalJsSource_LONGEST_LENGTH_GT: Int
+  externalJsSource_LONGEST_LENGTH_GTE: Int
+  externalJsSource_LONGEST_LENGTH_LT: Int
+  externalJsSource_LONGEST_LENGTH_LTE: Int
+  externalJsSource_SHORTEST_LENGTH_EQUAL: Int
+  externalJsSource_SHORTEST_LENGTH_GT: Int
+  externalJsSource_SHORTEST_LENGTH_GTE: Int
+  externalJsSource_SHORTEST_LENGTH_LT: Int
+  externalJsSource_SHORTEST_LENGTH_LTE: Int
   icon_AVERAGE_LENGTH_EQUAL: Float
   icon_AVERAGE_LENGTH_GT: Float
   icon_AVERAGE_LENGTH_GTE: Float

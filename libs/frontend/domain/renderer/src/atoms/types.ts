@@ -1,9 +1,13 @@
-import type { IComponentType, IPropData } from '@codelab/frontend/abstract/core'
+import type {
+  IAtom,
+  IComponentType,
+  IPropData,
+} from '@codelab/frontend/abstract/core'
 import type { IAtomType } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 
 export interface AtomFactoryInput {
-  atomType: IAtomType
+  atom: IAtom
   node: IEntity
   props: IPropData
 }

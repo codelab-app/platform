@@ -28,9 +28,7 @@ export interface RendererProps {
 }
 
 export interface IRenderService {
-  externalComponents: ObjectMap<ExternalComponent>
   renderers: ObjectMap<IRenderer>
 
   addRenderer(props: RendererProps): IRenderer
-  loadExternalComponents(): void
 }

@@ -7,6 +7,7 @@ import { AtomType } from '@codelab/shared/abstract/codegen'
  */
 export enum __AtomType {
   // Ant Design
+  CustomAtom = 'CustomAtom',
   AntDesignAffix = 'AntDesignAffix',
   AntDesignAlert = 'AntDesignAlert',
   AntDesignAnchor = 'AntDesignAnchor',
