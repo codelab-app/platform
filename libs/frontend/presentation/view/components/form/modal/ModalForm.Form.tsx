@@ -1,8 +1,10 @@
 import type { FormProps } from '@codelab/frontend/abstract/types'
+import { css } from '@emotion/react'
 import type { ReactElement } from 'react'
 import React, { useContext, useEffect, useState } from 'react'
 import { Bridge } from 'uniforms'
 import { AutoForm } from 'uniforms-antd'
+import { inlineFieldCssFix } from '../components/Form'
 import { handleFormSubmit } from '../components/utils'
 import {
   connectUniformSubmitRef,
@@ -42,24 +44,30 @@ export const Form = <TData, TResponse = unknown>({
   }, [schema])
 
   return (
-    <AutoForm<TData>
-      autosave={autosave}
-      autosaveDelay={500}
-      model={model}
-      modelTransform={modelTransform}
-      onChange={onChange}
-      onChangeModel={onChangeModel}
-      onSubmit={handleFormSubmit<TData, TResponse>(
-        onSubmit,
-        setIsLoading,
-        onSubmitSuccess,
-        onSubmitError,
-      )}
-      ref={connectUniformSubmitRef(submitRef)}
-      schema={bridge}
-      showInlineError
+    <div
+      css={css`
+        ${inlineFieldCssFix}
+      `}
     >
-      {children}
-    </AutoForm>
+      <AutoForm<TData>
+        autosave={autosave}
+        autosaveDelay={500}
+        model={model}
+        modelTransform={modelTransform}
+        onChange={onChange}
+        onChangeModel={onChangeModel}
+        onSubmit={handleFormSubmit<TData, TResponse>(
+          onSubmit,
+          setIsLoading,
+          onSubmitSuccess,
+          onSubmitError,
+        )}
+        ref={connectUniformSubmitRef(submitRef)}
+        schema={bridge}
+        showInlineError
+      >
+        {children}
+      </AutoForm>
+    </div>
   )
 }

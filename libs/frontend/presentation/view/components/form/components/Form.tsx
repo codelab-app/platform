@@ -11,6 +11,21 @@ import {
   createValidator,
 } from '../hooks/uniformUtils.hook'
 
+// we migrated to antd major version 5 before all the packages were ready.
+// currently uniforms-antd is not compatible with antd 5, there is an issue
+// exists for this: https://github.com/vazco/uniforms/issues/1259.
+// once it is resolved, we can remove this temporal fix.
+export const inlineFieldCssFix = `
+  & .ant-row {
+    display: flex;
+    flex-direction: column;
+  }
+
+  & .ant-form-item-label {
+    align-self: baseline;
+  }
+`
+
 export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   const Form = <TData, TResponse = unknown>({
     allowExpressions = false,
@@ -52,6 +67,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
       <div
         css={css`
           ${cssString}
+          ${inlineFieldCssFix}
         `}
       >
         <BaseAutoForm<TData>

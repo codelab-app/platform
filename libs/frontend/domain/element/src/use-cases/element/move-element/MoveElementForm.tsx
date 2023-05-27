@@ -69,11 +69,6 @@ export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
   return (
     <MoveElementAutoForm<MoveData>
       autosave
-      cssString={`
-          & .ant-form-item-explain {
-            display: none !important;
-          }
-        `}
       key={element.id}
       model={model}
       onSubmit={onSubmit}

@@ -66,11 +66,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     return (
       <Form<IUpdateBaseElementData>
         autosave
-        cssString={`
-          & .ant-form-item-explain {
-            display: none !important;
-          }
-        `}
         key={element.id}
         model={model}
         onSubmit={onSubmit}

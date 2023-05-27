@@ -118,21 +118,20 @@ const ToggleExpression = ({
         </Tooltip>
       </Space>
 
-      <div>
-        {showExpressionEditor ? (
-          <CodeMirrorEditor
-            customOptions={createAutoCompleteOptions({}, 'this')}
-            language={ICodeMirrorLanguage.Javascript}
-            overrideStyles={css`
-              display: block;
-            `}
-            {...fieldProps}
-            value={value}
-          />
-        ) : (
-          BaseControl
-        )}
-      </div>
+      {showExpressionEditor ? (
+        <CodeMirrorEditor
+          customOptions={createAutoCompleteOptions({}, 'this')}
+          language={ICodeMirrorLanguage.Javascript}
+          overrideStyles={css`
+            display: block;
+            margin-bottom: 12px;
+          `}
+          {...fieldProps}
+          value={value}
+        />
+      ) : (
+        BaseControl
+      )}
     </div>
   )
 }
