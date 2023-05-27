@@ -59,6 +59,9 @@
       "@codelab/backend/application/resource": [
         "libs/backend/application/resource/src/index.ts"
       ],
+      "@codelab/backend/application/service": [
+        "libs/backend/application/service/src/index.ts"
+      ],
       "@codelab/backend/application/store": [
         "libs/backend/application/store/src/index.ts"
       ],

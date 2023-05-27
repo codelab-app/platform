@@ -1,12 +1,12 @@
 import type { TagNode, TagNodeData } from '@codelab/backend/abstract/core'
-import { IAuthUseCase } from '@codelab/backend/abstract/types'
+import { AuthUseCase } from '@codelab/backend/application/service'
 import { TagRepository } from '@codelab/backend/domain/tag'
 import type { ITagDTO } from '@codelab/shared/abstract/core'
 import uniqBy from 'lodash/uniqBy'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
 
-export class SeedTagsService extends IAuthUseCase<TagNode, void> {
+export class SeedTagsService extends AuthUseCase<TagNode, void> {
   tagRepository: TagRepository = new TagRepository()
 
   async _execute(tagTree: TagNode) {

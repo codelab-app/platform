@@ -1,4 +1,4 @@
-import { IAuthService } from '@codelab/backend/abstract/types'
+import { AuthService } from '@codelab/backend/application/service'
 import {
   ExtractAntDesignFieldsService,
   ExtractHtmlFieldsService,
@@ -8,7 +8,7 @@ import type { IAtomDTO } from '@codelab/shared/abstract/core'
 import { antdAtomData, htmlAtomData } from '@codelab/shared/data/seed'
 import { SeedFrameworkService } from '../use-case'
 
-export class AdminSeederService extends IAuthService {
+export class AdminSeederService extends AuthService {
   async seedAntDesign() {
     const fields = async (atoms: Array<IAtomDTO>) =>
       new ExtractAntDesignFieldsService(this.owner).execute(atoms)

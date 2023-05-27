@@ -1,5 +1,5 @@
 import type { IAtomRecords } from '@codelab/backend/abstract/core'
-import { IAuthUseCase } from '@codelab/backend/abstract/types'
+import { AuthUseCase } from '@codelab/backend/application/service'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { TagRepository } from '@codelab/backend/domain/tag'
 import {
@@ -11,7 +11,7 @@ import { IAtomType } from '@codelab/shared/abstract/core'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
 
-export class SeedAtomsService extends IAuthUseCase<
+export class SeedAtomsService extends AuthUseCase<
   Partial<IAtomRecords>,
   Array<IAtomDTO>
 > {

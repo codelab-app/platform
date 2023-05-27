@@ -1,7 +1,7 @@
 /**
  * Thin wrapper to parse env, so we load correct `.env`
  */
-import { registerCustomOTel, withTracing } from '@codelab/shared/infra/otel'
+import { registerCustomOTel } from '@codelab/shared/infra/otel'
 import { config } from 'dotenv'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
@@ -14,13 +14,7 @@ import { seedCommand } from './commands/seed/seed.command'
 import { tasksCommand } from './commands/tasks/tasks.command'
 import { terraformCommand } from './commands/terraform/terraform.command'
 
-export const doWork = () => {
-  console.log('test')
-}
-
-registerCustomOTel('codelab-cli')
-
-void withTracing('demo', () => doWork())
+const sdk = registerCustomOTel('codelab-cli')
 
 // Assume `.env` if no other middleware
 config({})
@@ -31,8 +25,6 @@ config({})
  * Having our own CLI commands also makes it more self documenting on what commands are possible. Think of this as docs for devs, it creates a better DX.
  */
 void yargs(hideBin(process.argv))
-  .scriptName('cli')
-  // .middleware(() => {})
   /**
    * These scripts could act on different deployment environment, so we group under `data`
    */
@@ -67,7 +59,6 @@ void yargs(hideBin(process.argv))
    * Terraform
    */
   .command(terraformCommand)
-
   .demandCommand(1, 'Please provide a command')
   // Must add this to throw error for unknown arguments
   .strict().argv

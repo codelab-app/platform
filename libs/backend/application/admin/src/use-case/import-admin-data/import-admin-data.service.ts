@@ -4,7 +4,7 @@ import type {
   IComponentExportData,
   ITypesExport,
 } from '@codelab/backend/abstract/core'
-import { IUseCase } from '@codelab/backend/abstract/types'
+import { UseCase } from '@codelab/backend/application/service'
 import { createComponents } from '@codelab/backend/domain/app'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { importElementInitial } from '@codelab/backend/domain/element'
@@ -15,12 +15,7 @@ import {
   TypeFactory,
 } from '@codelab/backend/domain/type'
 import type { IAuth0Owner, ITagDTO } from '@codelab/shared/abstract/core'
-import {
-  IMPORT_SYSTEM_TYPES_SPAN,
-  IMPORT_TRACER,
-  withTracing,
-} from '@codelab/shared/infra/otel'
-import { context, trace } from '@opentelemetry/api'
+import { withTracing } from '@codelab/shared/infra/otel'
 import fs from 'fs'
 import path from 'path'
 import { DataPaths } from '../../data-paths'
@@ -28,7 +23,7 @@ import { DataPaths } from '../../data-paths'
 /**
  * During `save`, we'll want to replace the owner with the current
  */
-export class ImportAdminDataService extends IUseCase<IAuth0Owner, void> {
+export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
   tagRepository = new TagRepository()
 
   atomRepository = new AtomRepository()

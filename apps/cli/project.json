@@ -14,16 +14,7 @@
         "webpackConfig": "apps/cli/webpack.config.js",
         "target": "node",
         "compiler": "tsc",
-        "additionalEntryPoints": [
-          {
-            "entryName": "otel-demo",
-            "entryPath": "./src/otel-demo.ts"
-          },
-          {
-            "entryName": "instrumentation",
-            "entryPath": "./src/instrumentation.ts"
-          }
-        ]
+        "additionalEntryPoints": []
       },
       "configurations": {
         "test": {},

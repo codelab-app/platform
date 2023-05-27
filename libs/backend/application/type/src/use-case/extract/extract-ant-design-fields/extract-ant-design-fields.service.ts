@@ -1,5 +1,5 @@
 import type { AntDesignField } from '@codelab/backend/abstract/core'
-import { IAuthUseCase } from '@codelab/backend/abstract/types'
+import { AuthUseCase } from '@codelab/backend/application/service'
 import {
   Field,
   FieldRepository,
@@ -17,7 +17,7 @@ import { readAntDesignApis } from './read-ant-design-apis'
  *
  * We don't map the existing ids here
  */
-export class ExtractAntDesignFieldsService extends IAuthUseCase<
+export class ExtractAntDesignFieldsService extends AuthUseCase<
   Array<IAtomDTO>,
   Array<IFieldDTO>
 > {

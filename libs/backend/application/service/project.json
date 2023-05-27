@@ -1,0 +1,16 @@
+{
+  "name": "backend-application-service",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/backend/application/service/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/backend/application/service/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:backend"]
+}

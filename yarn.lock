@@ -12434,12 +12434,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ramda@npm:0.27.64":
-  version: 0.27.64
-  resolution: "@types/ramda@npm:0.27.64"
+"@types/ramda@npm:0.29.2":
+  version: 0.29.2
+  resolution: "@types/ramda@npm:0.29.2"
   dependencies:
-    ts-toolbelt: ^6.15.1
-  checksum: 8512be3bf220d63df398fe333aafb21a48e1967300afa629f21de5e35e757bdf37323bd59a67da025ab549520bc9c9119e6ca9702a95948eef5bd17ae9b319d2
+    types-ramda: ^0.29.3
+  checksum: 152151848a02aca8b7eb7e95e247a10c8e0f12e07d096a25c4c230cc3bd704009670c735737d3f843373a4598869c2b2d6f81e425fa17c762e4b57808400d968
   languageName: node
   linkType: hard
 
@@ -16769,7 +16769,7 @@ __metadata:
     "@types/mailchimp__mailchimp_marketing": ^3.0.8
     "@types/node": 18.14.2
     "@types/prettier": 2.4.4
-    "@types/ramda": 0.27.64
+    "@types/ramda": 0.29.2
     "@types/react": 18.0.28
     "@types/react-dom": 18.0.11
     "@types/react-grid-layout": 1.3.2
@@ -16900,7 +16900,7 @@ __metadata:
     postcss-import: 14.1.0
     prettier: 2.7.0
     puppeteer: 20.1.1
-    ramda: 0.27.2
+    ramda: 0.29.0
     re-resizable: 6.9.1
     react: 18.2.0
     react-dom: 18.2.0
@@ -30931,10 +30931,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ramda@npm:0.27.2":
-  version: 0.27.2
-  resolution: "ramda@npm:0.27.2"
-  checksum: 28d6735dd1eea1a796c56cf6111f3673c6105bbd736e521cdd7826c46a18eeff337c2dba4668f6eed990d539b9961fd6db19aa46ccc1530ba67a396c0a9f580d
+"ramda@npm:0.29.0":
+  version: 0.29.0
+  resolution: "ramda@npm:0.29.0"
+  checksum: 9ab26c06eb7545cbb7eebcf75526d6ee2fcaae19e338f165b2bf32772121e7b28192d6664d1ba222ff76188ba26ab307342d66e805dbb02c860560adc4d5dd57
   languageName: node
   linkType: hard
 
@@ -35609,13 +35609,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-toolbelt@npm:^6.15.1":
-  version: 6.15.5
-  resolution: "ts-toolbelt@npm:6.15.5"
-  checksum: 24ad00cfd9ce735c76c873a9b1347eac475b94e39ebbdf100c9019dce88dd5f4babed52884cf82bb456a38c28edd0099ab6f704b84b2e5e034852b618472c1f3
-  languageName: node
-  linkType: hard
-
 "ts-toolbelt@npm:^9.6.0":
   version: 9.6.0
   resolution: "ts-toolbelt@npm:9.6.0"
@@ -35899,6 +35892,15 @@ __metadata:
   dependencies:
     is-typedarray: ^1.0.0
   checksum: 99c11aaa8f45189fcfba6b8a4825fd684a321caa9bd7a76a27cf0c7732c174d198b99f449c52c3818107430b5f41c0ccbbfb75cb2ee3ca4a9451710986d61a60
+  languageName: node
+  linkType: hard
+
+"types-ramda@npm:^0.29.3":
+  version: 0.29.3
+  resolution: "types-ramda@npm:0.29.3"
+  dependencies:
+    ts-toolbelt: ^9.6.0
+  checksum: 2efb5182a02b9b11b0fd960c501c8a3c595f7fe82922526872020868a6a98c788b544c6beccb48360f1af9401d0c7f5e0be9b2ca484987f0339a71f48cec6199
   languageName: node
   linkType: hard
 

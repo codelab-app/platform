@@ -5,7 +5,7 @@ import type {
 } from '@codelab/backend/abstract/codegen'
 import type { IType } from '@codelab/backend/abstract/core'
 import type { ITypeTransformer } from '@codelab/backend/abstract/ports'
-import { IAuthUseCase } from '@codelab/backend/abstract/types'
+import { AuthUseCase } from '@codelab/backend/application/service'
 import {
   ActionTypeRepository,
   EnumType,
@@ -50,7 +50,7 @@ interface Props {
  *
  */
 export class DefaultTypeAdapterService
-  extends IAuthUseCase<Request, IType | undefined>
+  extends AuthUseCase<Request, IType | undefined>
   implements ITypeTransformer
 {
   primitiveTypeRepository = new PrimitiveTypeRepository()

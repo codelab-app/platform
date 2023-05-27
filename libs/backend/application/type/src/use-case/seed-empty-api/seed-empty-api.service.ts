@@ -1,4 +1,4 @@
-import { IAuthUseCase } from '@codelab/backend/abstract/types'
+import { AuthUseCase } from '@codelab/backend/application/service'
 import {
   InterfaceType,
   InterfaceTypeRepository,
@@ -8,7 +8,7 @@ import type { IAtomType } from '@codelab/shared/abstract/core'
 /**
  * Seed empty API from atom names
  */
-export class SeedEmptyApiService extends IAuthUseCase<Array<IAtomType>, void> {
+export class SeedEmptyApiService extends AuthUseCase<Array<IAtomType>, void> {
   interfaceTypeRepository: InterfaceTypeRepository =
     new InterfaceTypeRepository()
 

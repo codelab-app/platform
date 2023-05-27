@@ -3,9 +3,9 @@ import type {
   IAdminDataExport,
   IComponentExportData,
 } from '@codelab/backend/abstract/core'
-import { IUseCase } from '@codelab/backend/abstract/types'
 import { exportAtoms } from '@codelab/backend/application/atom'
 import { exportComponents } from '@codelab/backend/application/component'
+import { UseCase } from '@codelab/backend/application/service'
 import { exportTags } from '@codelab/backend/application/tag'
 import {
   exportAdminTypes,
@@ -22,7 +22,7 @@ import { DataPaths } from '../data-paths'
 /**
  * This service should save the files as well, since admin data is all located in the same location
  */
-export class ExportAdminDataService extends IUseCase<
+export class ExportAdminDataService extends UseCase<
   void,
   ExportAdminDataService
 > {

@@ -1,6 +1,6 @@
 import type { IAtomRecords, TagNode } from '@codelab/backend/abstract/core'
-import { IAuthUseCase } from '@codelab/backend/abstract/types'
 import { SeedAtomsService } from '@codelab/backend/application/atom'
+import { AuthUseCase } from '@codelab/backend/application/service'
 import { SeedTagsService } from '@codelab/backend/application/tag'
 import {
   SeedEmptyApiService,
@@ -27,7 +27,7 @@ interface FrameworkData {
  *
  * It contains atoms, api's, tags
  */
-export class SeedFrameworkService extends IAuthUseCase<FrameworkData, void> {
+export class SeedFrameworkService extends AuthUseCase<FrameworkData, void> {
   seeder = new TypeSeederService()
 
   async _execute(data: FrameworkData) {

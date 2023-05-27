@@ -1,5 +1,5 @@
 import type { HtmlField } from '@codelab/backend/abstract/core'
-import { IAuthUseCase } from '@codelab/backend/abstract/types'
+import { AuthUseCase } from '@codelab/backend/application/service'
 import {
   Field,
   FieldRepository,
@@ -14,7 +14,7 @@ import { HtmlTypeAdapterService } from '../../type-adapter/html-type-adapter/htm
 
 export type HtmlData = Record<string, Array<HtmlField>>
 
-export class ExtractHtmlFieldsService extends IAuthUseCase<
+export class ExtractHtmlFieldsService extends AuthUseCase<
   Array<IAtomDTO>,
   Array<IFieldDTO>
 > {
