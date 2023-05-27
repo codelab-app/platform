@@ -5,6 +5,11 @@ labels: 'bug'
 projects: 'Dev'
 ---
 
-## Current Behavior
+## How to Reproduce
 
-## Video Showing Bug
+1.
+2.
+
+## Current/Expected Behavior
+
+## Video/Screenshot Showing Bug

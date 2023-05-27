@@ -117,4 +117,6 @@ export abstract class AbstractRepository<
   private getWhere(data: Model, where?: Where) {
     return where ? where : ({ id: data.id } as Where)
   }
+
+  // protected abstract getTracerName: string
 }

@@ -10,6 +10,7 @@ import 'antd/dist/reset.css'
 import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/core'
 import { initializeStore } from '@codelab/frontend/presentation/client/mobx'
 import { StoreProvider } from '@codelab/frontend/presentation/container'
+import { Analytics } from '@vercel/analytics/react'
 import React, { useMemo } from 'react'
 import { GlobalStyles } from 'twin.macro'
 
@@ -23,6 +24,7 @@ const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...pageProps}
       />
+      <Analytics />
     </StoreProvider>
   )
 }

@@ -27,6 +27,7 @@ const plugins = [withBundleAnalyzer, withRawCypherFiles]
 
 const nextConfig = {
   experimental: {
+    instrumentationHook: true,
     // appDir: true,
   },
   nx: { svgr: true },

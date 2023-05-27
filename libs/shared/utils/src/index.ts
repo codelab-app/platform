@@ -1,6 +1,7 @@
 export * from './assert'
 export * from './cache'
 export * from './entity'
+export * from './error'
 export * from './filter'
 export * from './logger'
 export * from './mapDeep'

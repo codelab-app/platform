@@ -14,11 +14,10 @@ if [ "$SKIP_POST_INSTALL" != true ]; then
 
   # Never run husky on CI
   if [ "$CI" != true ]; then
-    husky install
+    yarn husky install
   fi
 
   # Build CLI for later use
   nx build cli
-
 fi
 

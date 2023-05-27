@@ -2,11 +2,35 @@
   "migrations": [
     {
       "cli": "nx",
-      "version": "16.1.0-beta.0",
-      "description": "Ignore @nx/react/plugins/storybook in Storybook eslint rules.",
-      "factory": "./src/migrations/update-16-1-0/eslint-ignore-react-plugin",
-      "package": "@nx/storybook",
-      "name": "update-16-1-0"
+      "version": "16.2.0-beta.0",
+      "description": "Remove outputPath from run commands",
+      "implementation": "./src/migrations/update-16-2-0/remove-run-commands-output-path",
+      "package": "nx",
+      "name": "16.2.0-remove-output-path-from-run-commands"
+    },
+    {
+      "cli": "nx",
+      "version": "16.2.0-beta.0",
+      "description": "Remove react-test-renderer from package.json",
+      "implementation": "./src/migrations/update-16-2-0-remove-package/update-16-2-0-remove-package",
+      "package": "@nx/react",
+      "name": "update-16-2-0-remove-package"
+    },
+    {
+      "cli": "nx",
+      "version": "16.2.0-beta.0",
+      "description": "Normalize tsconfig.cy.json files to be located at '<projectRoot>/cypress/tsconfig.json'",
+      "implementation": "./src/migrations/update-16-2-0/update-cy-tsconfig",
+      "package": "@nx/cypress",
+      "name": "update-16-2-0-normalize-tsconfigs"
+    },
+    {
+      "cli": "nx",
+      "version": "16.2.0-beta.0",
+      "description": "Replace @nx/plugin:e2e with @nx/jest",
+      "implementation": "./src/migrations/update-16-2-0/replace-e2e-executor",
+      "package": "@nx/plugin",
+      "name": "update-16-2-0-replace-e2e-executor"
     }
   ]
 }

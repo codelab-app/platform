@@ -1,4 +1,8 @@
-export class TTLCache<TKey extends number | string | symbol, TValue> {
+import type { ITTLCache } from '@codelab/backend/abstract/types'
+
+export class TTLCache<TKey extends number | string | symbol, TValue>
+  implements ITTLCache<TKey, TValue>
+{
   private cache: Map<TKey, { value: TValue; expiresAt: number }> = new Map()
 
   constructor(private ttl: number) {}

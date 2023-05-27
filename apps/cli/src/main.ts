@@ -1,6 +1,7 @@
 /**
  * Thin wrapper to parse env, so we load correct `.env`
  */
+import { registerCustomOTel, withTracing } from '@codelab/shared/infra/otel'
 import { config } from 'dotenv'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
@@ -13,6 +14,14 @@ import { seedCommand } from './commands/seed/seed.command'
 import { tasksCommand } from './commands/tasks/tasks.command'
 import { terraformCommand } from './commands/terraform/terraform.command'
 
+export const doWork = () => {
+  console.log('test')
+}
+
+registerCustomOTel('codelab-cli')
+
+void withTracing('demo', () => doWork())
+
 // Assume `.env` if no other middleware
 config({})
 
@@ -23,6 +32,7 @@ config({})
  */
 void yargs(hideBin(process.argv))
   .scriptName('cli')
+  // .middleware(() => {})
   /**
    * These scripts could act on different deployment environment, so we group under `data`
    */
