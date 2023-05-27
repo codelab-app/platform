@@ -44,7 +44,6 @@ describe('CSS CRUD', () => {
   describe('Add css string', () => {
     it('should be able to add styling through css string', () => {
       cy.getSpinner().should('not.exist')
-      cy.findByText(elementName).click()
 
       clickEditor()
         .clear()

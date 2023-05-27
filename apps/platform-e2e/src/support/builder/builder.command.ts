@@ -46,15 +46,13 @@ export const createElementTree = (elements: Array<ElementData>) => {
         .within(() => {
           // Need to wait for the name to automatically be set first (after the
           // atom is set) because it would override the name otherwise
-          cy.get('input')
-            .should('not.have.value', '')
-            .findByTestId('create-element-form')
-            .setFormFieldValue({
-              label: 'Name',
-              type: FIELD_TYPE.INPUT,
-              value: name,
-            })
+          cy.get('input').should('not.have.value', '')
         })
+      cy.findByTestId('create-element-form').setFormFieldValue({
+        label: 'Name',
+        type: FIELD_TYPE.INPUT,
+        value: name,
+      })
     } else {
       cy.findByTestId('create-element-form').setFormFieldValue({
         label: 'Name',
@@ -69,5 +67,7 @@ export const createElementTree = (elements: Array<ElementData>) => {
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
     })
+
+    cy.findByText(name).should('exist').click()
   })
 }

@@ -24,9 +24,12 @@ const mainPageElements = [
 ]
 
 const openPageByName = (name: string) => {
-  cy.getListItem(name).findByText(name).click()
+  cy.contains('.ant-list-item a', name).should('exist')
+  cy.contains('.ant-list-item a', name).click()
   cy.getSpinner().should('not.exist')
-  cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 }).should('be.visible')
+  cy.contains('.ant-tree-list', ROOT_ELEMENT_NAME, { timeout: 30000 }).should(
+    'be.visible',
+  )
 }
 
 describe('_app page', () => {
@@ -71,7 +74,7 @@ describe('_app page', () => {
     // Otherwise, there is a risk that `cy.go('back')` will prevent the request from being sent
     cy.waitForApiCalls()
 
-    cy.get('.ant-layout-sider a[href]').eq(1).click()
+    cy.get('li[title="Pages"]').should('be.visible').click()
 
     cy.getSpinner().should('not.exist')
     cy.getListItem(IPageKindName.Provider)
