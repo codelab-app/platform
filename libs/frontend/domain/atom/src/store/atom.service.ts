@@ -16,6 +16,7 @@ import { computed } from 'mobx'
 import {
   _async,
   _await,
+  arraySet,
   idProp,
   Model,
   model,
@@ -38,6 +39,8 @@ export class AtomService
     createModal: prop(() => new ModalService({})),
     deleteManyModal: prop(() => new AtomsModalService({})),
     id: idProp,
+    loadedExternalCssSources: prop(() => arraySet<string>()),
+    loadedExternalJsSources: prop(() => arraySet<string>()),
     paginationService: prop(
       () => new PaginationService<IAtom, { name?: string }>({}),
     ),
@@ -136,16 +139,18 @@ export class AtomService
       type,
     })
 
-    if (externalCssSource) {
+    if (externalCssSource && !this.loadedExternalCssSources.has(name)) {
       const link = document.createElement('link')
       link.setAttribute('rel', 'stylesheet')
       link.setAttribute('href', externalCssSource)
       document.head.appendChild(link)
 
       console.log(`Loaded external css for "${name}"`)
+
+      this.loadedExternalCssSources.add(name)
     }
 
-    if (externalJsSource) {
+    if (externalJsSource && !this.loadedExternalJsSources.has(name)) {
       const script = document.createElement('script')
       script.type = 'module'
       script.innerText = `
@@ -158,6 +163,8 @@ export class AtomService
       document.getElementsByTagName('head')[0]?.appendChild(script)
 
       console.log(`Loaded external js for "${name}"`)
+
+      this.loadedExternalJsSources.add(name)
     }
 
     this.atoms.set(atom.id, atom)
