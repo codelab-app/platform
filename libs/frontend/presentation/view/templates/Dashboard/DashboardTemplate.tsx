@@ -66,7 +66,7 @@ export const DashboardTemplateSSR = observer(
               )}
 
               <Panel defaultSize={60} order={2}>
-                <main css={tw`w-full h-full mt-5 px-3 pb-8`}>{children}</main>
+                <main css={tw`w-full h-full mt-3 px-3 pb-6`}>{children}</main>
               </Panel>
 
               {ConfigPane && (

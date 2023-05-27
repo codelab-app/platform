@@ -31,7 +31,9 @@ export const BuilderTabs = observer<BuilderTabsProps>(
     return (
       <Layout style={{ height: '100%' }}>
         {error && <Alert message={extractErrorMessage(error)} type="error" />}
-        <Header style={{ background: 'rgba(0,0,0,0)', marginBottom: '5px' }}>
+        <Header
+          style={{ background: 'transparent', height: '52px', padding: 0 }}
+        >
           <Tabs
             activeKey={builderService.activeTab}
             defaultActiveKey={RendererTab.Page}
