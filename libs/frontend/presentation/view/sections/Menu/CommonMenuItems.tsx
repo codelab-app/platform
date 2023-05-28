@@ -30,12 +30,12 @@ export const resourceMenuItem: NavigationBarItem = {
 }
 
 export const componentMenuItem: NavigationBarItem = {
-  icon: <ExpandOutlined title="Resources" />,
+  icon: <ExpandOutlined title="Components" />,
   key: PageType.Components,
   link: {
     href: PageType.Components,
   },
-  title: 'Resources',
+  title: 'Components',
 }
 
 export const allPagesMenuItem = (

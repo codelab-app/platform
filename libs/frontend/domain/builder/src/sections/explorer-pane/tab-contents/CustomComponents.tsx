@@ -11,7 +11,10 @@ import {
   isElementPageNode,
   RendererTab,
 } from '@codelab/frontend/abstract/core'
-import { CreateComponentButton } from '@codelab/frontend/domain/component'
+import {
+  CreateComponentButton,
+  CreateComponentForm,
+} from '@codelab/frontend/domain/component'
 import { CreateElementForm } from '@codelab/frontend/domain/element'
 import { CreateFieldForm, UpdateFieldForm } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
@@ -192,13 +195,17 @@ export const CustomComponents = observer(() => {
           <div style={{ marginBottom: 10, textAlign: 'right' }}>
             <CreateComponentButton />
           </div>
-          <ComponentList
-            components={componentService.componentList}
-            onDelete={(id) =>
-              componentService.deleteModal.open(componentRef(id))
-            }
-            onEdit={(id) => editComponent(id)}
-          />
+          {componentService.createForm.isOpen ? (
+            <CreateComponentForm />
+          ) : (
+            <ComponentList
+              components={componentService.componentList}
+              onDelete={(id) =>
+                componentService.deleteModal.open(componentRef(id))
+              }
+              onEdit={(id) => editComponent(id)}
+            />
+          )}
         </>
       )}
     </SkeletonWrapper>

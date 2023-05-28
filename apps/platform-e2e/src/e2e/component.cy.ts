@@ -66,11 +66,15 @@ describe('Component CRUD', () => {
     it('should be able to add a new component', () => {
       cy.log('my app', JSON.stringify(testApp, null, 2))
       cy.getSider().getButton({ icon: 'plus' }).click()
-      cy.getModal().findByLabelText('Name').type(COMPONENT_NAME)
-      cy.getModal()
-        .getModalAction(/Create/)
+      cy.findByTestId('create-component-form')
+        .findByLabelText('Name')
+        .type(COMPONENT_NAME)
+      cy.findByTestId('create-component-form')
+        .getButton({ label: 'Create Component' })
         .click()
-      cy.getModal().should('not.exist', { timeout: 10000 })
+      cy.findByTestId('create-component-form').should('not.exist', {
+        timeout: 10000,
+      })
       cy.findByText(COMPONENT_NAME).should('exist')
     })
 

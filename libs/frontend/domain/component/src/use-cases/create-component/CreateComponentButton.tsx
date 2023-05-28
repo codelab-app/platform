@@ -1,4 +1,4 @@
-import { PlusOutlined } from '@ant-design/icons'
+import { CloseOutlined, PlusOutlined } from '@ant-design/icons'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -9,15 +9,21 @@ export type CreateComponentButtonProps = React.ComponentProps<typeof Button> & {
 }
 
 export const CreateComponentButton = observer<CreateComponentButtonProps>(
-  ({ className, title }) => {
+  ({ className }) => {
     const { componentService } = useStore()
 
-    return (
+    return componentService.createForm.isOpen ? (
+      <Button
+        icon={<CloseOutlined data-testid="close-component-form-button" />}
+        onClick={() => componentService.createForm.close()}
+        style={{ background: 'red', color: 'white' }}
+      ></Button>
+    ) : (
       <Button
         className={className}
         icon={<PlusOutlined />}
         key={0}
-        onClick={() => componentService.createModal.open()}
+        onClick={() => componentService.createForm.open()}
         type="primary"
       >
         Create

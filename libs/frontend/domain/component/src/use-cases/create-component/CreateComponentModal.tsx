@@ -8,11 +8,7 @@ import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createComponentSchema } from './create-component.schema'
-
-const KEY_GENERATOR = `function run(props) {
-    // props are of type component api
-    return props.id
-}`
+import { KEY_GENERATOR } from './CreateComponentForm'
 
 export const CreateComponentModal = observer(() => {
   const { componentService, userService } = useStore()

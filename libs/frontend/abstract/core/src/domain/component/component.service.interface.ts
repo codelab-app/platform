@@ -7,6 +7,7 @@ import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICRUDModalService,
   ICRUDService,
+  IEntityFormService,
   IPaginateable,
   IQueryService,
 } from '../../service'
@@ -29,6 +30,7 @@ export interface IComponentService
   componentList: Array<IComponent>
   componentRepository: IComponentRepository
   components: ObjectMap<IComponent>
+  createForm: IEntityFormService
 
   add(componentDTO: IComponentDTO): IComponent
   component(id: string): IComponent

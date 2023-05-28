@@ -45,6 +45,7 @@ import {
 import { v4 } from 'uuid'
 import { ComponentRepository } from '../services/component.repo'
 import { Component } from './component.model'
+import { ComponentFormService } from './component-form.service'
 import { ComponentModalService } from './component-modal.service'
 
 /**
@@ -57,6 +58,7 @@ export class ComponentService
     clonedComponents: prop(() => objectMap<IComponent>()),
     componentRepository: prop(() => new ComponentRepository({})),
     components: prop(() => objectMap<IComponent>()),
+    createForm: prop(() => new ComponentFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new ComponentModalService({})),
     id: idProp,
