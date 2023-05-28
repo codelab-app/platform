@@ -2,6 +2,7 @@ import { CloseOutlined, PlusOutlined } from '@ant-design/icons'
 import type {
   IElementService,
   IElementTree,
+  IEntityFormService,
 } from '@codelab/frontend/abstract/core'
 import { elementRef, elementTreeRef } from '@codelab/frontend/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -10,25 +11,32 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { mapElementOption } from '../../../utils'
 
-export type CreateElementButtonProps = Pick<IElementService, 'createForm'> &
-  React.ComponentProps<typeof Button> & {
-    selectedElementId: Maybe<string>
-    elementTree: IElementTree
-  }
+export type CreateElementButtonProps = React.ComponentProps<typeof Button> & {
+  activeForm?: IEntityFormService<unknown> | null
+  createElementForm: IElementService['createForm']
+  selectedElementId: Maybe<string>
+  elementTree: IElementTree
+}
 
 export const CreateElementButton = observer<CreateElementButtonProps>(
-  ({ createForm, elementTree, selectedElementId, title, type }) => {
+  ({
+    activeForm,
+    createElementForm,
+    elementTree,
+    selectedElementId,
+    title,
+    type,
+  }) => {
     const selectedElement = selectedElementId
       ? elementRef(selectedElementId)
       : undefined
-    return createForm.isOpen ? (
+
+    return activeForm ? (
       <Button
         icon={<CloseOutlined data-testid="close-page-element-button" />}
-        onClick={(event) => {
-          createForm.close()
-        }}
-        style={{ background: 'red', color: 'white' }}
+        onClick={() => activeForm.close()}
         size="small"
+        style={{ background: 'red', color: 'white' }}
         type={type}
       ></Button>
     ) : (
@@ -38,7 +46,7 @@ export const CreateElementButton = observer<CreateElementButtonProps>(
           event.stopPropagation()
           event.preventDefault()
 
-          return createForm.open({
+          return createElementForm.open({
             elementOptions: elementTree.elements.map(mapElementOption),
             elementTree: elementTreeRef(elementTree.id),
             selectedElement,

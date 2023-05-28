@@ -2,8 +2,10 @@ import type { IFieldDTO } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
+  ICRUDFormService,
   ICRUDModalService,
   ICRUDService,
+  IEntityFormService,
   IEntityModalService,
 } from '../../../service'
 import type {
@@ -22,7 +24,15 @@ export interface IFieldService
     Omit<
       ICRUDModalService<Ref<IField>, { field: Maybe<IField> }>,
       'createModal'
+    >,
+    Omit<
+      ICRUDFormService<Ref<IField>, { field: Maybe<IField> }>,
+      'createForm'
     > {
+  createForm: IEntityFormService<
+    Ref<IInterfaceType>,
+    { interface: Maybe<IInterfaceType> }
+  >
   createModal: IEntityModalService<
     Ref<IInterfaceType>,
     { interface: Maybe<IInterfaceType> }

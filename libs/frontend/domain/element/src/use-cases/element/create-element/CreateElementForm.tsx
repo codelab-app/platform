@@ -2,8 +2,8 @@ import type { ICreateElementData } from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/abstract/core'
 import { SelectAction, SelectAnyElement } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { Form, FormController } from '@codelab/frontend/presentation/view'
+import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { Divider } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -119,7 +119,7 @@ export const CreateElementForm = observer(() => {
       />
       <Divider />
       <AutoComputedElementNameField label="Name" name="name" />
-      <FormController submitLabel="Create Element" onCancel={closeModal} />
+      <FormController onCancel={closeModal} submitLabel="Create Element" />
     </Form>
   )
 })

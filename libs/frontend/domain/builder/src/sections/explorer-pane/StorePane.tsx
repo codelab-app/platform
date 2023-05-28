@@ -36,7 +36,12 @@ export const StorePane = observer<{ store: Maybe<IStore>; isLoading: boolean }>(
           <Collapse.Panel
             header={
               <StoreHeader
-                extra={<CreateFieldButton interfaceId={store.api.id} />}
+                extra={
+                  <CreateFieldButton
+                    interfaceId={store.api.id}
+                    useModal={false}
+                  />
+                }
               >
                 State
               </StoreHeader>

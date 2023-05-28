@@ -14,7 +14,7 @@ export const GetStateItem = observer<{ field: IField }>(({ field }) => {
   const { fieldService } = useStore()
 
   const onEdit = () => {
-    fieldService.updateModal.open(fieldRef(field.id))
+    fieldService.updateForm.open(fieldRef(field.id))
   }
 
   const onDelete = () => {

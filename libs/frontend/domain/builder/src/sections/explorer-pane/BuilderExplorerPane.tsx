@@ -19,8 +19,10 @@ import {
   UpdateActionModal,
 } from '@codelab/frontend/domain/store'
 import {
+  CreateFieldForm,
   CreateFieldModal,
   DeleteFieldModal,
+  UpdateFieldForm,
   UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
 import {
@@ -44,10 +46,10 @@ import { StorePane } from './StorePane'
 export const BuilderExplorerPane = observer<{ isLoading?: boolean }>(
   ({ isLoading = true }) => {
     const {
-      actionService,
       builderRenderService,
       builderService,
       elementService,
+      fieldService,
     } = useStore()
 
     const pageId = useCurrentPageId()
@@ -80,6 +82,7 @@ export const BuilderExplorerPane = observer<{ isLoading?: boolean }>(
                   builderService={builderService}
                   elementService={elementService}
                   elementTree={pageTree}
+                  fieldService={fieldService}
                   root={root?.maybeCurrent}
                 />
               }
@@ -88,27 +91,32 @@ export const BuilderExplorerPane = observer<{ isLoading?: boolean }>(
             >
               {!pageBuilderRenderer && <Spin />}
 
-              {isPageTree && !elementService.createForm.isOpen && (
-                <>
-                  <BuilderTree
-                    className="page-builder"
-                    expandedNodeIds={
-                      builderService.expandedPageElementTreeNodeIds
-                    }
-                    selectTreeNode={selectTreeNode}
-                    setActiveTab={() =>
-                      builderService.setActiveTab(RendererTab.Page)
-                    }
-                    setExpandedNodeIds={builderService.setExpandedPageElementTreeNodeIds.bind(
-                      builderService,
-                    )}
-                    treeData={antdTree}
-                  />
+              {isPageTree &&
+                !elementService.createForm.isOpen &&
+                !fieldService.createForm.isOpen &&
+                !fieldService.updateForm.isOpen && (
+                  <>
+                    <BuilderTree
+                      className="page-builder"
+                      expandedNodeIds={
+                        builderService.expandedPageElementTreeNodeIds
+                      }
+                      selectTreeNode={selectTreeNode}
+                      setActiveTab={() =>
+                        builderService.setActiveTab(RendererTab.Page)
+                      }
+                      setExpandedNodeIds={builderService.setExpandedPageElementTreeNodeIds.bind(
+                        builderService,
+                      )}
+                      treeData={antdTree}
+                    />
 
-                  <StorePane isLoading={isLoading} store={store} />
-                </>
-              )}
+                    <StorePane isLoading={isLoading} store={store} />
+                  </>
+                )}
               {elementService.createForm.isOpen && <CreateElementForm />}
+              {fieldService.createForm.isOpen && <CreateFieldForm />}
+              {fieldService.updateForm.isOpen && <UpdateFieldForm />}
             </ExplorerPaneTemplate>
           </SkeletonWrapper>
         ),

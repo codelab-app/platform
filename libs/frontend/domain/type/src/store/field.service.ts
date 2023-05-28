@@ -24,6 +24,7 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { FieldRepository } from '../services/field.repo'
+import { CreateFieldFormService, FieldFormService } from './field-form.service'
 import {
   CreateFieldModalService,
   FieldModalService,
@@ -34,11 +35,13 @@ import { getTypeService } from './type.service.context'
 @model('@codelab/FieldService')
 export class FieldService
   extends Model({
+    createForm: prop(() => new CreateFieldFormService({})),
     createModal: prop(() => new CreateFieldModalService({})),
     deleteModal: prop(() => new FieldModalService({})),
     fieldRepository: prop(() => new FieldRepository({})),
     fields: prop(() => objectMap<IField>()),
     id: idProp,
+    updateForm: prop(() => new FieldFormService({})),
     updateModal: prop(() => new FieldModalService({})),
   })
   implements IFieldService

@@ -8,23 +8,25 @@ import React from 'react'
 import tw from 'twin.macro'
 import type { InterfaceType } from '../../../store'
 
-export const CreateFieldButton = observer<{ interfaceId: string }>(
-  ({ interfaceId }) => {
-    const { fieldService } = useStore()
+export const CreateFieldButton = observer<{
+  interfaceId: string
+  useModal?: boolean
+}>(({ interfaceId, useModal = true }) => {
+  const { fieldService } = useStore()
 
-    const onClick = () => {
-      fieldService.createModal.open(typeRef(interfaceId) as Ref<InterfaceType>)
-    }
+  const onClick = () => {
+    const form = useModal ? fieldService.createModal : fieldService.createForm
+    form.open(typeRef(interfaceId) as Ref<InterfaceType>)
+  }
 
-    return (
-      <Button
-        css={tw`flex justify-center items-center`}
-        icon={<PlusOutlined />}
-        onClick={onClick}
-        size="small"
-      >
-        Field
-      </Button>
-    )
-  },
-)
+  return (
+    <Button
+      css={tw`flex justify-center items-center`}
+      icon={<PlusOutlined />}
+      onClick={onClick}
+      size="small"
+    >
+      Field
+    </Button>
+  )
+})
