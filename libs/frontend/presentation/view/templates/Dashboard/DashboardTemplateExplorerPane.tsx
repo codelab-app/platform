@@ -1,4 +1,5 @@
-import Sider from 'antd/lib/layout/Sider'
+import { EyeOutlined } from '@ant-design/icons'
+import { Sidebar } from '@codelab/frontend/presentation//codelab-ui'
 import type { ComponentType } from 'react'
 import React from 'react'
 import tw from 'twin.macro'
@@ -10,9 +11,105 @@ export interface ExplorerPaneProps {
 export const DashboardTemplateExplorerPane = ({
   ExplorerPane,
 }: ExplorerPaneProps) => {
+  // ! This code is temporary for testing purposes.
   return (
     <div css={tw`w-full h-full`}>
-      <Sider
+      <Sidebar
+        label="My Sidebar"
+        views={[
+          {
+            content: <ExplorerPane />,
+            key: '1',
+            label: 'Explorer pane',
+            toolbar: {
+              items: [
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '1',
+                  title: 'Explorer pane',
+                },
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '2',
+                  title: 'Explorer pane',
+                },
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '3',
+                  title: 'Explorer pane',
+                },
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '4',
+                  title: 'Explorer pane',
+                },
+              ],
+              title: 'ExplorerPaneTitle',
+            },
+          },
+          {
+            content: <ExplorerPane />,
+            key: '2',
+            label: 'Explorer pane',
+            toolbar: {
+              items: [
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '1',
+                  title: 'Explorer pane',
+                },
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '2',
+                  title: 'Explorer pane',
+                },
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '3',
+                  title: 'Explorer pane',
+                },
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '4',
+                  title: 'Explorer pane',
+                },
+              ],
+              title: 'ExplorerPaneTitle',
+            },
+          },
+          {
+            content: <ExplorerPane />,
+            key: '3',
+            label: 'Explorer pane',
+            toolbar: {
+              items: [
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '1',
+                  title: 'Explorer pane',
+                },
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '2',
+                  title: 'Explorer pane',
+                },
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '3',
+                  title: 'Explorer pane',
+                },
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '4',
+                  title: 'Explorer pane',
+                },
+              ],
+              title: 'ExplorerPaneTitle',
+            },
+          },
+        ]}
+      />
+      {/* <Sider
         css={tw`w-auto border-r border-gray-200 max-h-full h-full overflow-x-hidden overflow-y-auto overscroll-contain`}
         theme="light"
         width="auto"
@@ -22,7 +119,7 @@ export const DashboardTemplateExplorerPane = ({
             <ExplorerPane />
           </div>
         </div>
-      </Sider>
+      </Sider> */}
     </div>
   )
 }
