@@ -65,7 +65,6 @@ export const SidebarToolbar = ({ items }: SidebarToolbarProps) => {
           flex
           items-start
           flex-row
-          gap-2
           overflow-hidden
         `}
         ref={listRef}
@@ -74,7 +73,6 @@ export const SidebarToolbar = ({ items }: SidebarToolbarProps) => {
           <SidebarToolbarItem
             icon={item.icon}
             key={item.key}
-            label={item.label}
             onClick={item.onClick}
             title={item.title}
           />

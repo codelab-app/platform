@@ -16,6 +16,75 @@ export const DashboardTemplateExplorerPane = ({
     <div css={tw`w-full h-full`}>
       <Sidebar
         label="My Sidebar"
+        tabs={[
+          {
+            icon: <EyeOutlined></EyeOutlined>,
+            key: '1',
+            label: 'Tab 1',
+            views: [
+              {
+                content: <ExplorerPane />,
+                key: '1',
+                label: 'Explorer pane',
+                toolbar: {
+                  items: [
+                    {
+                      icon: <EyeOutlined></EyeOutlined>,
+                      key: '1',
+                      title: 'Explorer pane',
+                    },
+                    {
+                      icon: <EyeOutlined></EyeOutlined>,
+                      key: '2',
+                      title: 'Explorer pane',
+                    },
+                    {
+                      icon: <EyeOutlined></EyeOutlined>,
+                      key: '3',
+                      title: 'Explorer pane',
+                    },
+                    {
+                      icon: <EyeOutlined></EyeOutlined>,
+                      key: '4',
+                      title: 'Explorer pane',
+                    },
+                  ],
+                  title: 'ExplorerPaneTitle',
+                },
+              },
+              {
+                content: <ExplorerPane />,
+                key: '2',
+                label: 'Explorer pane',
+                toolbar: {
+                  items: [
+                    {
+                      icon: <EyeOutlined></EyeOutlined>,
+                      key: '1',
+                      title: 'Explorer pane',
+                    },
+                    {
+                      icon: <EyeOutlined></EyeOutlined>,
+                      key: '2',
+                      title: 'Explorer pane',
+                    },
+                    {
+                      icon: <EyeOutlined></EyeOutlined>,
+                      key: '3',
+                      title: 'Explorer pane',
+                    },
+                    {
+                      icon: <EyeOutlined></EyeOutlined>,
+                      key: '4',
+                      title: 'Explorer pane',
+                    },
+                  ],
+                  title: 'ExplorerPaneTitle',
+                },
+              },
+            ],
+          },
+        ]}
         views={[
           {
             content: <ExplorerPane />,
@@ -80,6 +149,96 @@ export const DashboardTemplateExplorerPane = ({
           {
             content: <ExplorerPane />,
             key: '3',
+            label: 'Explorer pane',
+            toolbar: {
+              items: [
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '1',
+                  title: 'Explorer pane',
+                },
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '2',
+                  title: 'Explorer pane',
+                },
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '3',
+                  title: 'Explorer pane',
+                },
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '4',
+                  title: 'Explorer pane',
+                },
+              ],
+              title: 'ExplorerPaneTitle',
+            },
+          },
+          {
+            content: <ExplorerPane />,
+            key: '4',
+            label: 'Explorer pane',
+            toolbar: {
+              items: [
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '1',
+                  title: 'Explorer pane',
+                },
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '2',
+                  title: 'Explorer pane',
+                },
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '3',
+                  title: 'Explorer pane',
+                },
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '4',
+                  title: 'Explorer pane',
+                },
+              ],
+              title: 'ExplorerPaneTitle',
+            },
+          },
+          {
+            content: <ExplorerPane />,
+            key: '5',
+            label: 'Explorer pane',
+            toolbar: {
+              items: [
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '1',
+                  title: 'Explorer pane',
+                },
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '2',
+                  title: 'Explorer pane',
+                },
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '3',
+                  title: 'Explorer pane',
+                },
+                {
+                  icon: <EyeOutlined></EyeOutlined>,
+                  key: '4',
+                  title: 'Explorer pane',
+                },
+              ],
+              title: 'ExplorerPaneTitle',
+            },
+          },
+          {
+            content: <ExplorerPane />,
+            key: '6',
             label: 'Explorer pane',
             toolbar: {
               items: [
