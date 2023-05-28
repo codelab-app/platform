@@ -51,7 +51,7 @@ export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
      */
     await withTracing('import-system-types', () =>
       this.importSystemTypes(owner),
-    )
+    )()
 
     // await this.importTags(owner)
 

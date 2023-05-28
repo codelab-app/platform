@@ -12,6 +12,10 @@ jobs:
         branches:
           ignore:
             - master
+  - deploy-preview:
+      filters:
+        branches:
+          ignore: /master/
   - lint:
       filters:
         branches:

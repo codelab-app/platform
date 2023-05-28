@@ -5,7 +5,10 @@
 #
 # https://docs.docker.com/compose/environment-variables/
 #
+# When you use a bind mount, as in your example, Docker doesn't create a named volume. Instead, it directly maps the file or directory from your host machine into the container. In this case, ./prometheus.yaml from your local machine is being mounted to /etc/prometheus/prometheus.yml within the container.
+#
 version: '3.8'
+name: 'codelab'
 services:
   neo4j:
     container_name: codelab-neo4j
@@ -59,6 +62,7 @@ services:
 
   # Observability, used for tracing
   jaeger-all-in-one:
+    container_name: jaeger-all-in-one
     image: jaegertracing/all-in-one:1.45.0
     restart: always
     ports:
@@ -68,6 +72,7 @@ services:
 
   # Zipkin
   zipkin-all-in-one:
+    container_name: zipkin-all-in-one
     image: openzipkin/zipkin:latest
     restart: always
     ports:
@@ -79,17 +84,20 @@ services:
     image: prom/prometheus:latest
     restart: always
     volumes:
+      # - prometheus-config:/etc/prometheus
       - ./prometheus.yaml:/etc/prometheus/prometheus.yml
     ports:
       - '9090:9090'
 
   # Collectors, used for collecting metrics and traces
-  otel-collector:
+  opentelemetry:
+    container_name: opentelemetry
     image: otel/opentelemetry-collector:0.77.0
     restart: always
-    command: ['--config=/etc/otel-collector-config.yaml']
+    command: ['--config=/etc/opentelemetry/opentelemetry.yaml']
     volumes:
-      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+      # - opentelemetry-config:/etc/opentelemetry
+      - ./opentelemetry.yaml:/etc/opentelemetry/opentelemetry.yaml
     ports:
       - '1888:1888' # pprof extension
       - '8888:8888' # Prometheus metrics exposed by the collector
@@ -104,6 +112,10 @@ services:
 
 volumes:
   codelab-neo4j:
-    name: codelab-neo4j-volume
+    name: codelab-neo4j
   codelab-neo4j-test:
-    name: codelab-neo4j-test-volume
+    name: codelab-neo4j-test
+  # prometheus-config:
+  #   name: prometheus-config
+  # opentelemetry-config:
+  #   name: opentelemetry-config

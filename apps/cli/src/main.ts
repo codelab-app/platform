@@ -1,6 +1,7 @@
 /**
  * Thin wrapper to parse env, so we load correct `.env`
  */
+import 'source-map-support/register'
 import { registerCustomOTel } from '@codelab/shared/infra/otel'
 import { config } from 'dotenv'
 import yargs from 'yargs'

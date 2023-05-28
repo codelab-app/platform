@@ -1,3 +1,4 @@
+import type { PromiseCallback } from '@codelab/shared/abstract/types'
 import { withTracing } from '@codelab/shared/infra/otel'
 import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
 import { getStageOptions, loadStageMiddleware } from '../../shared/command'
@@ -14,10 +15,10 @@ import type { ImportProps } from './import.handler'
 import { importHandler } from './import.handler'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const withTeardown = <T, A extends Array<any>>(
-  operation: (...args: A) => Promise<T>,
+const withTeardown = <Return, Param extends Array<any>>(
+  operation: PromiseCallback<Return, Param>,
 ) => {
-  return async (...args: A): Promise<T> => {
+  return async (...args: Param): Promise<Return> => {
     try {
       return await operation(...args)
     } finally {

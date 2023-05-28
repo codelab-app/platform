@@ -1,5 +1,3 @@
-export * from './import'
 export * from './register'
 export * from './span'
-export * from './test-function'
 export * from './tracer'

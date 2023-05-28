@@ -5,6 +5,7 @@ commands:
             - restore_cache:
                 keys:
                     - nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
+                    - nx-cache
                 name: Restore NX Cache
             - run: npx nx run-many --target=build --projects=platform,cli,landing,websites --parallel=4 --verbose -c ci --nx-bail
             - save_cache:
@@ -14,7 +15,7 @@ commands:
                     - ~/project/dist/apps/platform/.next/cache
                     - ~/project/dist/apps/landing/.next/cache
                     - ~/project/dist/apps/websites/.next/cache
-                    - ~/project/node_modules/nx/.cache
+                    - ~/project/node_modules/.cache/nx
     install-npm:
         steps:
             - restore_cache:
@@ -124,10 +125,43 @@ jobs:
         resource_class: medium
         steps:
             - restore-workspace
-            - run: env
             - run:
                 command: yarn cli tasks codegen --stage ci
                 name: GraphQL Codegen
+    deploy-preview:
+        executor: docker-node-neo4j
+        resource_class: medium
+        steps:
+            - restore-workspace
+            - run:
+                command: npm install --global vercel@latest
+                name: Install Vercel CLI
+            - run:
+                command: vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
+                name: Pull Vercel Environment Information
+            - run:
+                command: vercel build --token=$VERCEL_TOKEN
+                name: Build Project Artifacts
+            - run:
+                command: vercel deploy --prebuilt --token=$VERCEL_TOKEN
+                name: Deploy Project Artifacts to Vercel
+    deploy-production:
+        executor: docker-node-neo4j
+        resource_class: medium
+        steps:
+            - restore-workspace
+            - run:
+                command: npm install --global vercel@latest
+                name: Install Vercel CLI
+            - run:
+                command: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+                name: Pull Vercel Environment Information
+            - run:
+                command: vercel build --prod --token=$VERCEL_TOKEN
+                name: Build Project Artifacts
+            - run:
+                command: vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+                name: Deploy Project Artifacts to Vercel
     e2e:
         executor: docker-node-neo4j
         parallelism: 4
@@ -355,6 +389,10 @@ workflows:
                     branches:
                         ignore:
                             - master
+            - deploy-preview:
+                filters:
+                    branches:
+                        ignore: /master/
             - lint:
                 filters:
                     branches:

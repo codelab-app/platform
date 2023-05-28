@@ -1,4 +1,5 @@
 export * from './array'
+export * from './callback'
 export * from './entity'
 export * from './error'
 export * from './graphql'
