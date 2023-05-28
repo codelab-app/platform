@@ -11,7 +11,6 @@ import {
 } from '@codelab/frontend/domain/component'
 import {
   CreateElementForm,
-  CreateElementModal,
   DeleteElementModal,
 } from '@codelab/frontend/domain/element'
 import {

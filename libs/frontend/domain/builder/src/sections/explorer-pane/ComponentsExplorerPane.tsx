@@ -2,10 +2,7 @@ import {
   CreateComponentModal,
   DeleteComponentModal,
 } from '@codelab/frontend/domain/component'
-import {
-  CreateElementModal,
-  DeleteElementModal,
-} from '@codelab/frontend/domain/element'
+import { DeleteElementModal } from '@codelab/frontend/domain/element'
 import {
   CreateFieldModal,
   DeleteFieldModal,
@@ -75,7 +72,6 @@ export const ComponentsExplorerPane = observer<ComponentsExplorerPaneProps>(
           renderTabBar={renderStickyTabBar}
           size="small"
         />
-        <CreateElementModal />
         <DeleteElementModal />
         <CreateComponentModal />
         <DeleteComponentModal />
