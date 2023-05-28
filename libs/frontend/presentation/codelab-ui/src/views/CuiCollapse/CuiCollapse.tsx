@@ -27,7 +27,7 @@ export const CuiCollapse = ({ panels }: CuiCollapseProps) => {
 
   return (
     <div
-      css={tw`w-full h-screen overflow-y-auto overflow-x-hidden flex flex-col`}
+      css={tw`w-full h-full overflow-y-auto overflow-x-hidden flex flex-col`}
     >
       <div css={tw`w-full h-full flex flex-col py-1`}>
         {panels.map((view) => (

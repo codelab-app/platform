@@ -1,10 +1,11 @@
-import { Tabs, Typography } from 'antd'
+import { MoreOutlined } from '@ant-design/icons'
+import { Tabs, Tooltip, Typography } from 'antd'
 import type { ReactNode } from 'react'
 import React from 'react'
 import tw from 'twin.macro'
 import type { SidebarToolbarProps } from '../../views'
 import { SidebarToolbar } from '../../views'
-import { CuiCollapse } from '../../views/CUICollapse'
+import { CuiCollapse } from '../../views/CuiCollapse'
 
 interface SidebarView {
   content: React.ReactNode
@@ -27,24 +28,137 @@ interface SidebarProps {
   views?: Array<SidebarView>
 }
 
+const overrideAntdStyles = `
+  .cuiSidebarAntdTabsWrapper {
+    height: 100%;
+  }
+
+  .cuiSidebarAntdTabsWrapper >
+  .ant-tabs {
+    overflow: hidden;
+    height: 100%;
+  }
+
+  .cuiSidebarAntdTabsWrapper >
+  .ant-tabs >
+  .ant-tabs-nav >
+  .ant-tabs-nav-wrap >
+  .ant-tabs-nav-list >
+  .ant-tabs-tab+.ant-tabs-tab {
+    margin: 0px 0px 0px 4px;
+  }
+
+  .cuiSidebarAntdTabsWrapper >
+  .ant-tabs >
+  .ant-tabs-nav >
+  .ant-tabs-nav-wrap >
+  .ant-tabs-nav-list >
+  .ant-tabs-tab >
+  .ant-tabs-tab-btn {
+    color: #121212;
+  }
+
+  .cuiSidebarAntdTabsWrapper >
+  .ant-tabs >
+  .ant-tabs-nav >
+  .ant-tabs-nav-wrap >
+  .ant-tabs-nav-list >
+  .ant-tabs-tab >
+  .ant-tabs-tab-btn >
+  .anticon {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .cuiSidebarAntdTabsWrapper >
+  .ant-tabs >
+  .ant-tabs-nav >
+  .ant-tabs-nav-wrap >
+  .ant-tabs-nav-list >
+  .ant-tabs-tab-active >
+  .ant-tabs-tab-btn {
+    color: #000000;
+  }
+
+  .cuiSidebarAntdTabsWrapper >
+  .ant-tabs >
+  .ant-tabs-nav >
+  .ant-tabs-nav-wrap >
+  .ant-tabs-nav-list >
+  .ant-tabs-ink-bar {
+    background: #000000;
+  }
+  
+  .cuiSidebarAntdTabsWrapper >
+  .ant-tabs >
+  .ant-tabs-nav {
+    margin: 0;
+    height: 30px;
+  }
+
+  .cuiSidebarAntdTabsWrapper >
+  .ant-tabs >
+  .ant-tabs-content-holder {
+    overflow: hidden;
+    height: 100%;
+  }
+
+  .cuiSidebarAntdTabsWrapper >
+  .ant-tabs >
+  .ant-tabs-content-holder >
+  .ant-tabs-content {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .cuiSidebarAntdTabsWrapper >
+  .ant-tabs >
+  .ant-tabs-content-holder >
+  .ant-tabs-content >
+  .ant-tabs-tabpane {
+    height: 100%;
+  }
+`
+
 const { TabPane } = Tabs
 
 export const Sidebar = ({ label, tabs, toolbar, views }: SidebarProps) => {
   return (
-    <div css={tw`h-full flex flex-col`}>
+    <div
+      css={[
+        overrideAntdStyles,
+        tw`
+          h-full
+          flex
+          flex-col
+        `,
+      ]}
+    >
       {tabs && tabs[0] ? (
-        <Tabs defaultActiveKey={tabs[0].key}>
-          {tabs.map((tab) => (
-            <TabPane key={tab.key} tab={tab.label}>
-              <CuiCollapse panels={tab.views} />
-            </TabPane>
-          ))}
-          {views && (
-            <TabPane key="other" tab="Other Views">
-              <CuiCollapse panels={views} />
-            </TabPane>
-          )}
-        </Tabs>
+        <div className="cuiSidebarAntdTabsWrapper">
+          <Tabs defaultActiveKey={tabs[0].key}>
+            {tabs.map((tab) => (
+              <TabPane
+                key={tab.key}
+                tab={<Tooltip title={tab.label}>{tab.icon}</Tooltip>}
+              >
+                <CuiCollapse panels={tab.views} />
+              </TabPane>
+            ))}
+            {views && (
+              <TabPane
+                key="other"
+                tab={
+                  <Tooltip title="Other">
+                    <MoreOutlined rotate={90} />
+                  </Tooltip>
+                }
+              >
+                <CuiCollapse panels={views} />
+              </TabPane>
+            )}
+          </Tabs>
+        </div>
       ) : (
         <>
           <div css={tw`w-full h-10 flex flex-row justify-between items-center`}>
