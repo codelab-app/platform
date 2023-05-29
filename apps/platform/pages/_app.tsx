@@ -3,6 +3,7 @@
 import 'react-quill/dist/quill.snow.css'
 // This stylesheet is used to override some of the default Quill editor's styles.
 import '../src/styles/quill.snow.override.css'
+import '../src/styles/antd.global.fix.css'
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
 // apply fix for common css problems:
