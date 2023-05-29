@@ -1,7 +1,16 @@
-import { elementSelectionSet } from './element-selection-set'
+import {
+  elementSelectionSet,
+  exportElementSelectionSet,
+} from './element-selection-set'
 import { propSelectionSet } from './prop-selection-set'
-import { storeSelectionSet } from './store-selection-set'
-import { interfaceTypeSelectionSet } from './type-selection-set'
+import {
+  exportStoreSelectionSet,
+  storeSelectionSet,
+} from './store-selection-set'
+import {
+  exportInterfaceTypeWithFieldsSelectionSet,
+  interfaceTypeSelectionSet,
+} from './type-selection-set'
 import { ownerFieldSelectionSet } from './user-selection-set'
 
 export const componentSelectionSet = `{
@@ -17,6 +26,24 @@ export const componentSelectionSet = `{
   }
   api
     ${interfaceTypeSelectionSet}
+  childrenContainerElement {
+    id
+  }
+  keyGenerator
+}`
+
+export const exportComponentSelectionSet = `{
+  id
+  name
+  rootElement
+    ${exportElementSelectionSet}
+  props
+    ${propSelectionSet}
+  store {
+    ${exportStoreSelectionSet}
+  }
+  api
+    ${exportInterfaceTypeWithFieldsSelectionSet}
   childrenContainerElement {
     id
   }

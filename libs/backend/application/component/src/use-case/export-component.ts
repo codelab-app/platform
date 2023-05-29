@@ -1,7 +1,7 @@
 import type { ComponentWhere } from '@codelab/backend/abstract/codegen'
 import { getElementWithDescendants } from '@codelab/backend/domain/element'
 import {
-  componentSelectionSet,
+  exportComponentSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 
@@ -9,7 +9,7 @@ export const exportComponents = async (where?: ComponentWhere) => {
   const Component = await Repository.instance.Component
 
   const components = await Component.find({
-    selectionSet: componentSelectionSet,
+    selectionSet: exportComponentSelectionSet,
     where,
   })
 

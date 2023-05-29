@@ -192,8 +192,8 @@ export const createComponents = async (
       return
     } else {
       await interfaceTypeRepository.add([
-        { ...component.store.api, fields: [] },
-        { ...component.api, fields: [] },
+        { ...component.store.api, fields: [], owner },
+        { ...component.api, fields: [], owner },
       ])
 
       await fieldRepository.add(component.api.fields)

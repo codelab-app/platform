@@ -140,6 +140,10 @@ export class ExportAdminDataService extends UseCase<
           | IInterfaceTypeDTO
           | undefined
 
+        if (!api) {
+          throw new Error('Missing api')
+        }
+
         const apiFields = filter(apis.fields, {
           api: { id: componentData.component.api.id },
         })
@@ -149,12 +153,7 @@ export class ExportAdminDataService extends UseCase<
           apiId: componentData.component.api.id,
         })
 
-        if (!api) {
-          throw new Error('Missing api')
-        }
-
         return {
-          api,
           component: componentData.component,
           descendantElements: componentData.descendantElements,
           fields,
@@ -173,14 +172,13 @@ export class ExportAdminDataService extends UseCase<
   }
 
   saveComponentAsFile(componentData: IComponentExportData) {
-    const { api, component, descendantElements, fields, types } = componentData
+    const { component, descendantElements, fields, types } = componentData
     // Component name can have spaces, which can cause issues with file names
     const name = component.name.replace(/ /g, '')
 
     saveFormattedFile(
       path.resolve(this.dataPaths.COMPONENTS_PATH, `${name}.json`),
       {
-        api,
         component,
         descendantElements,
         fields,

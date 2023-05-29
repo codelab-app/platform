@@ -1,0 +1,707 @@
+{
+  "component": {
+    "id": "417cba0d-a781-485d-82d5-cb3672efe555",
+    "name": "Google Fonts",
+    "rootElement": {
+      "id": "562984ba-3c4a-41df-8375-21dbc750915c",
+      "name": "Google Fonts",
+      "customCss": null,
+      "guiCss": null,
+      "parentComponent": {
+        "id": "417cba0d-a781-485d-82d5-cb3672efe555",
+        "name": "Google Fonts"
+      },
+      "renderComponentType": null,
+      "renderType": {
+        "id": "47bcdf5e-f669-4d11-9815-9309b7322498",
+        "kind": "Atom"
+      },
+      "parent": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "firstChild": null,
+      "props": {
+        "id": "135c4280-aa76-4026-bb9b-92c1ac363bf1",
+        "data": "{}"
+      },
+      "renderForEachPropKey": null,
+      "renderIfExpression": null,
+      "propTransformationJs": "function transform(props){\n  const { fonts } = props\n  \n  const url = 'https://fonts.googleapis.com/css2?'\n  const href = fonts.reduce((acc, font) => {\n      const family = font.family.split(',')[0]\n      \n      acc += `family=${family.replace(/ /g, '+')}&`\n      \n      return acc\n  }, url)\n  \n  return {\n      ...props,\n      href,\n      rel: 'stylesheet'\n  }\n}",
+      "preRenderAction": null,
+      "postRenderAction": null,
+      "renderAtomType": {
+        "id": "47bcdf5e-f669-4d11-9815-9309b7322498",
+        "name": "HtmlLink"
+      }
+    },
+    "props": {
+      "id": "7e8d336a-65b3-47cd-9a44-2bb446155210",
+      "data": "{\"fonts\":[{\"weight\":\"400\",\"family\":\"Roboto, sans-serif\"}]}"
+    },
+    "store": {
+      "id": "ee6cb6a6-fadd-4e24-85eb-477f33bee868",
+      "name": "Google Fonts Store",
+      "api": {
+        "__typename": "InterfaceType",
+        "id": "369777a3-7afb-4059-be35-71d145fed48d",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Store API",
+        "fields": []
+      },
+      "actions": []
+    },
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "d8d412dd-2611-4132-8234-e7ea8667c919",
+      "kind": "InterfaceType",
+      "name": "Google Fonts API",
+      "fields": [
+        {
+          "id": "cdf4060c-824c-4083-9405-aeaad52526f6",
+          "key": "fonts",
+          "name": null,
+          "description": null,
+          "validationRules": "{\"general\":{\"nullable\":true}}",
+          "defaultValues": "[]",
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ArrayType",
+            "id": "0f7d154d-4043-479b-8d51-b952d62b6b22",
+            "kind": "ArrayType",
+            "name": "GoogleFonts"
+          },
+          "api": {
+            "id": "d8d412dd-2611-4132-8234-e7ea8667c919"
+          }
+        }
+      ]
+    },
+    "childrenContainerElement": {
+      "id": "562984ba-3c4a-41df-8375-21dbc750915c"
+    },
+    "keyGenerator": null
+  },
+  "descendantElements": [
+    {
+      "id": "562984ba-3c4a-41df-8375-21dbc750915c",
+      "name": "Google Fonts",
+      "customCss": null,
+      "guiCss": null,
+      "parentComponent": {
+        "id": "417cba0d-a781-485d-82d5-cb3672efe555",
+        "name": "Google Fonts"
+      },
+      "renderComponentType": null,
+      "renderType": {
+        "id": "47bcdf5e-f669-4d11-9815-9309b7322498",
+        "kind": "Atom"
+      },
+      "parent": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "firstChild": null,
+      "props": {
+        "id": "135c4280-aa76-4026-bb9b-92c1ac363bf1",
+        "data": "{}"
+      },
+      "renderForEachPropKey": null,
+      "renderIfExpression": null,
+      "propTransformationJs": "function transform(props){\n  const { fonts } = props\n  \n  const url = 'https://fonts.googleapis.com/css2?'\n  const href = fonts.reduce((acc, font) => {\n      const family = font.family.split(',')[0]\n      \n      acc += `family=${family.replace(/ /g, '+')}&`\n      \n      return acc\n  }, url)\n  \n  return {\n      ...props,\n      href,\n      rel: 'stylesheet'\n  }\n}",
+      "preRenderAction": null,
+      "postRenderAction": null,
+      "renderAtomType": {
+        "id": "47bcdf5e-f669-4d11-9815-9309b7322498",
+        "name": "HtmlLink"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "bc57f3aa-cc0e-4418-82c5-2da33134a212",
+      "key": "family",
+      "name": null,
+      "description": null,
+      "validationRules": "{\"general\":{\"nullable\":false}}",
+      "defaultValues": "\"Roboto, sans-serif\"",
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "7860dec9-23ac-4fcd-b126-7be1b2b451d1",
+        "kind": "EnumType",
+        "name": "Google Fonts Family Enum"
+      },
+      "api": {
+        "id": "c34c7009-d623-4832-891b-885a2f95152e"
+      }
+    },
+    {
+      "id": "37e3ac9e-b369-4e63-930c-c3f055473d5b",
+      "key": "weight",
+      "name": null,
+      "description": null,
+      "validationRules": "{\"general\":{\"nullable\":false}}",
+      "defaultValues": "\"400\"",
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "1153bc9f-cb56-438f-8aa4-d0b6c61febf4",
+        "kind": "EnumType",
+        "name": "Google Fonts Weight Enum"
+      },
+      "api": {
+        "id": "c34c7009-d623-4832-891b-885a2f95152e"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "EnumType",
+      "id": "7860dec9-23ac-4fcd-b126-7be1b2b451d1",
+      "kind": "EnumType",
+      "name": "Google Fonts Family Enum",
+      "allowedValues": [
+        {
+          "id": "7f3b5512-c9e1-4c0f-9301-eba9af695e93",
+          "key": "Abel",
+          "value": "Abel, sans-serif"
+        },
+        {
+          "id": "576d9db1-5f7a-474a-8460-09c5c1616692",
+          "key": "Abril Fatface",
+          "value": "Abril Fatface, display"
+        },
+        {
+          "id": "d752ab99-0ae8-436b-ac3e-2b768b9dcdd8",
+          "key": "Anton",
+          "value": "Anton, sans-serif"
+        },
+        {
+          "id": "e6ac8f47-d7c0-4089-a832-ad0a918678d6",
+          "key": "Archivo",
+          "value": "Archivo, sans-serif"
+        },
+        {
+          "id": "bb2dfca5-f396-4445-abe5-f732c5d9c2ca",
+          "key": "Arimo",
+          "value": "Arimo, sans-serif"
+        },
+        {
+          "id": "c9b7a564-410e-4123-adfc-b432b034eeb5",
+          "key": "Arvo",
+          "value": "Arvo, serif"
+        },
+        {
+          "id": "8b48b72d-7c24-4187-970e-26bdd47d68b5",
+          "key": "Asap",
+          "value": "Asap, sans-serif"
+        },
+        {
+          "id": "5ee43fe8-b3ae-495d-8e0f-3887a48fc1f2",
+          "key": "Assistant",
+          "value": "Assistant, sans-serif"
+        },
+        {
+          "id": "fcd1c4ac-c8d5-4f21-9754-f39b1b91c32b",
+          "key": "Barlow",
+          "value": "Barlow, sans-serif"
+        },
+        {
+          "id": "237ed155-9b17-4e0d-b507-4f096dc3d36d",
+          "key": "Barlow Condensed",
+          "value": "Barlow Condensed, sans-serif"
+        },
+        {
+          "id": "c2c0a627-d39b-466d-a012-7b9e36ac1064",
+          "key": "Bebas Neue",
+          "value": "Bebas Neue, sans-serif"
+        },
+        {
+          "id": "67e31779-5409-4299-bb08-86da302185b5",
+          "key": "Bitter",
+          "value": "Bitter, serif"
+        },
+        {
+          "id": "df7b6521-7860-4009-af4a-661884d8b54c",
+          "key": "Cabin",
+          "value": "Cabin, sans-serif"
+        },
+        {
+          "id": "40f83df2-ad74-404a-b624-ffa9dd624f69",
+          "key": "Cairo",
+          "value": "Cairo, sans-serif"
+        },
+        {
+          "id": "ad1db0bd-9248-48f4-bf2f-8b974f81b5c5",
+          "key": "Caveat",
+          "value": "Caveat, handwriting"
+        },
+        {
+          "id": "563e4578-32fd-4933-ae73-92c701fdaac4",
+          "key": "Comfortaa",
+          "value": "Comfortaa, display"
+        },
+        {
+          "id": "caa7d515-8028-4ac4-81a0-1bd7bb1f7835",
+          "key": "Cormorant Garamond",
+          "value": "Cormorant Garamond, serif"
+        },
+        {
+          "id": "b959dbdf-ca13-4a6e-8bba-bb18517ceb98",
+          "key": "Crimson Text",
+          "value": "Crimson Text, serif"
+        },
+        {
+          "id": "9e75bd63-54ba-4e2f-8ba0-7a59a504fc20",
+          "key": "Dancing Script",
+          "value": "Dancing Script, handwriting"
+        },
+        {
+          "id": "90cbef47-9339-4a60-aa4b-f1e905d97f95",
+          "key": "DM Sans",
+          "value": "DM Sans, sans-serif"
+        },
+        {
+          "id": "1d014cbe-93cd-4177-ac27-add1b5653bce",
+          "key": "Dosis",
+          "value": "Dosis, sans-serif"
+        },
+        {
+          "id": "16ffa437-d226-471d-9882-b1e51ea35a81",
+          "key": "EB Garamond",
+          "value": "EB Garamond, serif"
+        },
+        {
+          "id": "a6e2f087-1b33-4ad2-8072-48dba90c1df7",
+          "key": "Exo 2",
+          "value": "Exo 2, sans-serif"
+        },
+        {
+          "id": "61d8094f-2492-42d1-bf22-259027b912d7",
+          "key": "Fira Sans",
+          "value": "Fira Sans, sans-serif"
+        },
+        {
+          "id": "d33f1b13-fe25-4aa0-95cd-9c07a58dabea",
+          "key": "Fjalla One",
+          "value": "Fjalla One, sans-serif"
+        },
+        {
+          "id": "224232c5-68c4-412b-ac3c-f84e83773422",
+          "key": "Heebo",
+          "value": "Heebo, sans-serif"
+        },
+        {
+          "id": "4939464e-69ae-402f-b5d1-e02e51697324",
+          "key": "Hind",
+          "value": "Hind, sans-serif"
+        },
+        {
+          "id": "4d24f6be-d16d-43bc-88b9-fd6831c17bf0",
+          "key": "Hind Siliguri",
+          "value": "Hind Siliguri, sans-serif"
+        },
+        {
+          "id": "296334af-2b01-4dfb-9313-86c1b96ab7a7",
+          "key": "IBM Plex Mono",
+          "value": "IBM Plex Mono, monospace"
+        },
+        {
+          "id": "04c3dfc1-99ff-4413-bbfa-ab116d63c57e",
+          "key": "IBM Plex Sans",
+          "value": "IBM Plex Sans, sans-serif"
+        },
+        {
+          "id": "bf85a8f0-8474-42c9-a218-dbbd42b8a5e3",
+          "key": "Inconsolata",
+          "value": "Inconsolata, monospace"
+        },
+        {
+          "id": "f9d36009-47f2-4580-b977-9cb664ace6dd",
+          "key": "Inter",
+          "value": "Inter, sans-serif"
+        },
+        {
+          "id": "8b3c5799-2a7d-4ab0-8cce-7b8589ccade5",
+          "key": "Josefin Sans",
+          "value": "Josefin Sans, sans-serif"
+        },
+        {
+          "id": "65cb7e5f-8648-467d-b8c4-c1f4427ff78e",
+          "key": "Jost",
+          "value": "Jost, sans-serif"
+        },
+        {
+          "id": "47d326f2-4ee9-477a-89a6-2d72835e0211",
+          "key": "Kanit",
+          "value": "Kanit, sans-serif"
+        },
+        {
+          "id": "35528cfe-211f-416f-81ec-b88efa0ec9ee",
+          "key": "Karla",
+          "value": "Karla, sans-serif"
+        },
+        {
+          "id": "461d8c28-0166-48f1-88db-82c11c967651",
+          "key": "Lato",
+          "value": "Lato, sans-serif"
+        },
+        {
+          "id": "033147be-292f-439a-9e39-5c6798f2a3be",
+          "key": "Libre Baskerville",
+          "value": "Libre Baskerville, serif"
+        },
+        {
+          "id": "1efbc899-7a81-4c15-95db-ccf38c9740b3",
+          "key": "Libre Franklin",
+          "value": "Libre Franklin, sans-serif"
+        },
+        {
+          "id": "469a1241-b87a-487b-a163-a54bae32c4c3",
+          "key": "Lobster",
+          "value": "Lobster, display"
+        },
+        {
+          "id": "f99b6de6-5715-42ff-b0d2-62611c8cc87a",
+          "key": "Lora",
+          "value": "Lora, serif"
+        },
+        {
+          "id": "6fedff87-2c42-4b07-a00b-581a203b961d",
+          "key": "M PLUS Rounded 1c",
+          "value": "M PLUS Rounded 1c, sans-serif"
+        },
+        {
+          "id": "9ce54cd2-48c5-468f-9262-8a6b0bd4abe8",
+          "key": "Manrope",
+          "value": "Manrope, sans-serif"
+        },
+        {
+          "id": "f257eeb2-ed48-4ae7-92b6-d1f8245c6640",
+          "key": "Material Icons",
+          "value": "Material Icons, monospace"
+        },
+        {
+          "id": "c943bab1-5a4d-4573-a587-53de946c9c25",
+          "key": "Material Icons Outlined",
+          "value": "Material Icons Outlined, monospace"
+        },
+        {
+          "id": "184c2be9-75bc-40fe-a6e9-16a0f3de24df",
+          "key": "Material Icons Round",
+          "value": "Material Icons Round, monospace"
+        },
+        {
+          "id": "b5303de5-badf-4e95-95f2-694e18937dfa",
+          "key": "Material Symbols Outlined",
+          "value": "Material Symbols Outlined, monospace"
+        },
+        {
+          "id": "cd6b1010-747b-40ac-ab41-585495d2bdf3",
+          "key": "Maven Pro",
+          "value": "Maven Pro, sans-serif"
+        },
+        {
+          "id": "bc481a2d-ca2e-4fc2-a381-cbb693d5ddf2",
+          "key": "Merriweather",
+          "value": "Merriweather, serif"
+        },
+        {
+          "id": "7590ac6e-0c18-4c09-a2c2-36e058ed3b02",
+          "key": "Merriweather Sans",
+          "value": "Merriweather Sans, sans-serif"
+        },
+        {
+          "id": "cae94dac-ee4a-48d4-9b55-32cadac47ae6",
+          "key": "Montserrat",
+          "value": "Montserrat, sans-serif"
+        },
+        {
+          "id": "fa75c91f-03d8-4675-b8fe-f2870eabedb6",
+          "key": "Mukta",
+          "value": "Mukta, sans-serif"
+        },
+        {
+          "id": "c40c0730-2de7-45e2-aa36-df873f8ce005",
+          "key": "Mulish",
+          "value": "Mulish, sans-serif"
+        },
+        {
+          "id": "0a5c817e-ce5c-4024-b085-4bf2ff337294",
+          "key": "Nanum Gothic",
+          "value": "Nanum Gothic, sans-serif"
+        },
+        {
+          "id": "30c7f58c-2e8e-4c87-a0ae-c89fa0bbcd9b",
+          "key": "Noto Color Emoji",
+          "value": "Noto Color Emoji, sans-serif"
+        },
+        {
+          "id": "7057cb90-9db4-4be7-8154-28880dc8ec98",
+          "key": "Noto Sans",
+          "value": "Noto Sans, sans-serif"
+        },
+        {
+          "id": "3e62e9a2-0a8d-470b-89e2-706525e1ad89",
+          "key": "Noto Sans JP",
+          "value": "Noto Sans JP, sans-serif"
+        },
+        {
+          "id": "bda67040-aa30-462c-aac2-e87eb64f682c",
+          "key": "Noto Sans KR",
+          "value": "Noto Sans KR, sans-serif"
+        },
+        {
+          "id": "1a64a8b1-e37a-444a-b731-0fdf1b59a06f",
+          "key": "Noto Sans SC",
+          "value": "Noto Sans SC, sans-serif"
+        },
+        {
+          "id": "41333907-bca6-42a5-8f5d-23a2b9c44f80",
+          "key": "Noto Sans TC",
+          "value": "Noto Sans TC, sans-serif"
+        },
+        {
+          "id": "d2b7e704-d422-4eeb-89f2-bb0a52d9628a",
+          "key": "Noto Serif",
+          "value": "Noto Serif, serif"
+        },
+        {
+          "id": "982c1227-dbd1-4d1b-9a48-a278dae48192",
+          "key": "Noto Serif JP",
+          "value": "Noto Serif JP, serif"
+        },
+        {
+          "id": "f6f35a01-4c46-4877-b0ea-497d164b809a",
+          "key": "Nunito",
+          "value": "Nunito, sans-serif"
+        },
+        {
+          "id": "ab2f0b56-3e1c-4f1c-ab2f-d8829805ab13",
+          "key": "Nunito Sans",
+          "value": "Nunito Sans, sans-serif"
+        },
+        {
+          "id": "a674a9d3-7d93-43b0-8495-0574f39589d4",
+          "key": "Open Sans",
+          "value": "Open Sans, sans-serif"
+        },
+        {
+          "id": "570a6089-71ea-451f-8257-e33663dc4c0e",
+          "key": "Oswald",
+          "value": "Oswald, sans-serif"
+        },
+        {
+          "id": "98121b04-3ff5-4c47-83fb-f730e3dba2e3",
+          "key": "Overpass",
+          "value": "Overpass, sans-serif"
+        },
+        {
+          "id": "9c58b586-a7b1-4865-b531-5ffcb4c26598",
+          "key": "Oxygen",
+          "value": "Oxygen, sans-serif"
+        },
+        {
+          "id": "15945a6d-a20c-4baf-8366-21ddac4f9928",
+          "key": "Pacifico",
+          "value": "Pacifico, handwriting"
+        },
+        {
+          "id": "eaba7ae6-0074-4765-9425-9d1dc147efd4",
+          "key": "Playfair Display",
+          "value": "Playfair Display, serif"
+        },
+        {
+          "id": "d8df5a4e-c861-41d3-a9dd-cb1eaeefaad6",
+          "key": "Poppins",
+          "value": "Poppins, sans-serif"
+        },
+        {
+          "id": "078ddc8f-84e0-439e-b777-c4d9b1ef55cd",
+          "key": "Prompt",
+          "value": "Prompt, sans-serif"
+        },
+        {
+          "id": "a8b01173-254c-4697-aa2c-0bfd8111c054",
+          "key": "PT Sans",
+          "value": "PT Sans, sans-serif"
+        },
+        {
+          "id": "0d22c22f-78d7-4084-b1b1-6c1570442dee",
+          "key": "PT Sans Narrow",
+          "value": "PT Sans Narrow, sans-serif"
+        },
+        {
+          "id": "69c53f6e-1931-4644-82e7-44c1e54052ea",
+          "key": "PT Serif",
+          "value": "PT Serif, serif"
+        },
+        {
+          "id": "1f9cdb36-f822-4f5c-b468-e0e341cf0cfc",
+          "key": "Public Sans",
+          "value": "Public Sans, sans-serif"
+        },
+        {
+          "id": "8d56d5b9-f21d-4dba-be75-4a56618af348",
+          "key": "Quicksand",
+          "value": "Quicksand, sans-serif"
+        },
+        {
+          "id": "ea293628-0820-4025-b1a6-7ac30ebba17a",
+          "key": "Rajdhani",
+          "value": "Rajdhani, sans-serif"
+        },
+        {
+          "id": "95f44ef8-bf12-4eef-975b-3c2f11540a8f",
+          "key": "Raleway",
+          "value": "Raleway, sans-serif"
+        },
+        {
+          "id": "e0a7e636-ac5b-4680-8844-5aa067f84cc8",
+          "key": "Righteous",
+          "value": "Righteous, display"
+        },
+        {
+          "id": "c35b8d81-df47-4385-91f8-8dd311258b1d",
+          "key": "Roboto",
+          "value": "Roboto, sans-serif"
+        },
+        {
+          "id": "1ab08df4-81ee-4fa5-93e9-652e2ed44d48",
+          "key": "Roboto Condensed",
+          "value": "Roboto Condensed, sans-serif"
+        },
+        {
+          "id": "ace1e75f-a259-47e4-8947-aac5f43ede11",
+          "key": "Roboto Mono",
+          "value": "Roboto Mono, monospace"
+        },
+        {
+          "id": "4df9ff62-0f31-4e62-bd20-e1252f060e11",
+          "key": "Roboto Slab",
+          "value": "Roboto Slab, serif"
+        },
+        {
+          "id": "e954369d-0753-47e5-9ca7-45205721080d",
+          "key": "Rubik",
+          "value": "Rubik, sans-serif"
+        },
+        {
+          "id": "7cfccab0-c010-45f4-b112-c1258f25bc3f",
+          "key": "Satisfy",
+          "value": "Satisfy, handwriting"
+        },
+        {
+          "id": "414ba0b0-af96-44a0-9021-716768a828f1",
+          "key": "Shadows Into Light",
+          "value": "Shadows Into Light, handwriting"
+        },
+        {
+          "id": "4ba632b3-9be4-4f2c-8ab8-8a4a581a9b26",
+          "key": "Signika Negative",
+          "value": "Signika Negative, sans-serif"
+        },
+        {
+          "id": "bf814314-3a13-439c-a33e-a3529987d612",
+          "key": "Slabo 27px",
+          "value": "Slabo 27px, serif"
+        },
+        {
+          "id": "c29ad3f0-b7ea-4923-99a6-c20411195a5b",
+          "key": "Source Code Pro",
+          "value": "Source Code Pro, monospace"
+        },
+        {
+          "id": "b7434554-da76-4f00-b1d4-c3874ffb688b",
+          "key": "Source Sans Pro",
+          "value": "Source Sans Pro, sans-serif"
+        },
+        {
+          "id": "60bdf7e9-ef8b-42c3-b704-218be5a6e559",
+          "key": "Source Serif Pro",
+          "value": "Source Serif Pro, serif"
+        },
+        {
+          "id": "3bbdb970-552e-48a0-9e8e-11490ffe36ee",
+          "key": "Space Grotesk",
+          "value": "Space Grotesk, sans-serif"
+        },
+        {
+          "id": "b5ab5ff7-3f40-4208-821c-c578705cbf16",
+          "key": "Tajawal",
+          "value": "Tajawal, sans-serif"
+        },
+        {
+          "id": "6733b3d4-24dc-4d5e-9268-f583fc42fac6",
+          "key": "Teko",
+          "value": "Teko, sans-serif"
+        },
+        {
+          "id": "46f9e9a4-1a79-45e4-9cc7-e8db005eaace",
+          "key": "Titillium Web",
+          "value": "Titillium Web, sans-serif"
+        },
+        {
+          "id": "14e6abee-6d78-4582-b030-b8a84b495984",
+          "key": "Ubuntu",
+          "value": "Ubuntu, sans-serif"
+        },
+        {
+          "id": "7a80a14d-7069-4a49-8ec6-3b9215de2c3e",
+          "key": "Varela Round",
+          "value": "Varela Round, sans-serif"
+        },
+        {
+          "id": "bff4e362-cce9-475b-891b-d80e78997de9",
+          "key": "Work Sans",
+          "value": "Work Sans, sans-serif"
+        },
+        {
+          "id": "ba60e332-3c43-4d16-8242-bb5ae0711890",
+          "key": "Yanone Kaffeesatz",
+          "value": "Yanone Kaffeesatz, sans-serif"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "1153bc9f-cb56-438f-8aa4-d0b6c61febf4",
+      "kind": "EnumType",
+      "name": "Google Fonts Weight Enum",
+      "allowedValues": [
+        {
+          "id": "db94499e-4dc5-45a2-802e-05ad54d7019a",
+          "key": "400",
+          "value": "400"
+        },
+        {
+          "id": "3cf20a35-277e-4e27-af76-c55a2b0f583d",
+          "key": "700",
+          "value": "700"
+        }
+      ]
+    },
+    {
+      "__typename": "InterfaceType",
+      "id": "c34c7009-d623-4832-891b-885a2f95152e",
+      "kind": "InterfaceType",
+      "name": "GoogleFont",
+      "fields": [
+        {
+          "id": "37e3ac9e-b369-4e63-930c-c3f055473d5b"
+        },
+        {
+          "id": "bc57f3aa-cc0e-4418-82c5-2da33134a212"
+        }
+      ]
+    },
+    {
+      "__typename": "ArrayType",
+      "id": "0f7d154d-4043-479b-8d51-b952d62b6b22",
+      "kind": "ArrayType",
+      "name": "GoogleFonts",
+      "itemType": {
+        "id": "c34c7009-d623-4832-891b-885a2f95152e",
+        "kind": "InterfaceType"
+      }
+    }
+  ]
+}

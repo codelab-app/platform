@@ -75,3 +75,9 @@ export const interfaceTypeSelectionSet = `{
   fields
     ${fieldSelectionSet}
 }`
+
+export const exportInterfaceTypeWithFieldsSelectionSet = `{
+  ${exportBaseTypeSelection}
+  fields
+    ${fieldSelectionSet}
+}`
