@@ -39,6 +39,7 @@ export const CuiCollapsePanelHeader = ({
         border-gray-500
         px-1
       `}
+      data-cy={`codelabui-sidebar-view-header-${label}`}
       onClick={updateExpand}
     >
       <div

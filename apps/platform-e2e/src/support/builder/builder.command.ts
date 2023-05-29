@@ -11,10 +11,7 @@ export const createElementTree = (elements: Array<ElementData>) => {
   return cy.wrap(elements).each((element: ElementData) => {
     const { atom, name, parentElement } = element
 
-    cy.getSider()
-      .find('.ant-page-header-heading')
-      .getButton({ icon: 'plus' })
-      .click({ force: true })
+    cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').click()
 
     /**
      * We skip this if parent element is root, since it is disabled and can't be accessed

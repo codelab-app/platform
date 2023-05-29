@@ -78,10 +78,7 @@ describe('Elements CRUD', () => {
     })
 
     it.skip('should be able to view props', () => {
-      cy.getSider()
-        .find('.ant-page-header-heading')
-        .getButton({ icon: 'plus' })
-        .click()
+      cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').click()
 
       cy.findByTestId('create-element-form')
         .findByLabelText('Name')

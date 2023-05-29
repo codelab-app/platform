@@ -56,6 +56,7 @@ export const CuiCollapse = ({
                 content={view.content}
                 isLoading={view.isLoading}
                 key={view.key}
+                label={view.label}
               />
             )}
           </>

@@ -142,6 +142,7 @@ export const Sidebar = ({
           flex-col
         `,
       ]}
+      data-cy={`codelabui-sidebar-${label}`}
     >
       {tabs && tabs[0] ? (
         <div className="cuiSidebarAntdTabsWrapper">
