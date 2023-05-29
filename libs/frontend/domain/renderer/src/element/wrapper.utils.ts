@@ -1,11 +1,9 @@
 import type { IRenderOutput } from '@codelab/frontend/abstract/core'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import get from 'lodash/get'
 import type { ReactElement } from 'react'
 import React, { Fragment } from 'react'
 import { getAtom } from '../atoms'
-import { dynamicLoader } from '../atoms/dynamic-loader'
 import type { DraggableElementProps } from './DraggableElement'
 import { DraggableElementWrapper } from './DraggableElementWrapper'
 
@@ -30,10 +28,7 @@ export const getReactComponent = (renderOutput: IRenderOutput) => {
       : renderOutput.atomType
 
   // Render the atom if it exists, otherwise use fragment
-  return atomType
-    ? getAtom(atomType) ??
-        dynamicLoader(() => get(window, `externalComponents.${atomType}`))
-    : Fragment
+  return atomType ? getAtom(atomType) ?? Fragment : Fragment
 }
 
 export const makeCustomTextContainer = (customText: string) =>

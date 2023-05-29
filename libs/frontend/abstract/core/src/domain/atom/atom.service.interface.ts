@@ -1,7 +1,7 @@
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { ObjectMap, Ref } from 'mobx-keystone'
+import type { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
 import type {
   ICRUDModalService,
   ICRUDService,
@@ -25,6 +25,8 @@ export interface IAtomService
     Array<Ref<IAtom>>,
     { atoms: Array<IAtom> }
   >
+  loadedExternalCssSources: ArraySet<string>
+  loadedExternalJsSources: ArraySet<string>
 
   add(atomDTO: IAtomDTO): IAtom
   delete(ids: Array<string>): Promise<number>

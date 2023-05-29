@@ -6,6 +6,7 @@ export interface IAtomDTO extends IOwner {
   api: IEntity
   externalCssSource?: string | null
   externalJsSource?: string | null
+  externalSourceType?: string | null
   icon?: string | null
   id: string
   name: string

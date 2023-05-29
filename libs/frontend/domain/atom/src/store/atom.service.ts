@@ -69,6 +69,7 @@ export class AtomService
     {
       externalCssSource,
       externalJsSource,
+      externalSourceType,
       id,
       name,
       requiredParents = [],
@@ -82,6 +83,7 @@ export class AtomService
     atom?.writeCache({
       externalCssSource,
       externalJsSource,
+      externalSourceType,
       name,
       requiredParents: requiredParents.map((child) => ({ id: child })),
       suggestedChildren: suggestedChildren.map((child) => ({ id: child })),
@@ -114,6 +116,7 @@ export class AtomService
     api,
     externalCssSource,
     externalJsSource,
+    externalSourceType,
     icon,
     id,
     name,
@@ -129,6 +132,7 @@ export class AtomService
       api: apiRef,
       externalCssSource,
       externalJsSource,
+      externalSourceType,
       icon,
       id,
       name,
@@ -139,32 +143,47 @@ export class AtomService
       type,
     })
 
-    if (externalCssSource && !this.loadedExternalCssSources.has(name)) {
+    if (
+      externalSourceType &&
+      externalCssSource &&
+      !this.loadedExternalCssSources.has(externalSourceType)
+    ) {
       const link = document.createElement('link')
       link.setAttribute('rel', 'stylesheet')
       link.setAttribute('href', externalCssSource)
       document.head.appendChild(link)
 
-      console.log(`Loaded external css for "${name}"`)
+      console.log(`Loaded external css for "${externalSourceType}"`)
 
-      this.loadedExternalCssSources.add(name)
+      this.loadedExternalCssSources.add(externalSourceType)
     }
 
-    if (externalJsSource && !this.loadedExternalJsSources.has(name)) {
+    if (
+      externalSourceType &&
+      externalJsSource &&
+      !this.loadedExternalJsSources.has(externalSourceType)
+    ) {
+      // TODO: add these custom types on the window object
+      // @ts-expect-error: type will be added later
+      window.onloadExternalSource = () => {
+        this.loadedExternalJsSources.add(externalSourceType)
+      }
+
       const script = document.createElement('script')
       script.type = 'module'
       script.innerText = `
-        import ${name} from '${externalJsSource}';
+        import ${externalSourceType} from '${externalJsSource}';
         if (!window.externalComponents) {
           window.externalComponents = {};
         }
-        window.externalComponents.${name} = ${name};
+        window.externalComponents.${externalSourceType} = ${externalSourceType};
+        if (window.onloadExternalSource) {
+          window.onloadExternalSource();
+        }
       `
       document.getElementsByTagName('head')[0]?.appendChild(script)
 
-      console.log(`Loaded external js for "${name}"`)
-
-      this.loadedExternalJsSources.add(name)
+      console.log(`Loaded external js for "${externalSourceType}"`)
     }
 
     this.atoms.set(atom.id, atom)
@@ -218,6 +237,7 @@ export class AtomService
     {
       externalCssSource,
       externalJsSource,
+      externalSourceType,
       id,
       name,
       owner,
@@ -225,25 +245,24 @@ export class AtomService
       type,
     }: ICreateAtomData,
   ) {
-    const interfaceType = this.typeService.addInterface({
+    const api = this.typeService.addInterface({
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: `${name} API`,
       owner,
     })
 
-    const atom = Atom.create({
-      api: interfaceType,
+    const atom = this.add({
+      api,
       externalCssSource,
       externalJsSource,
+      externalSourceType,
       id,
       name,
       owner,
       tags,
       type,
     })
-
-    this.atoms.set(atom.id, atom)
 
     yield* _await(this.atomRepository.add(atom))
 

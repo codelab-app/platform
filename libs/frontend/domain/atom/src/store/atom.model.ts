@@ -31,6 +31,7 @@ const create = ({
   api,
   externalCssSource,
   externalJsSource,
+  externalSourceType,
   icon,
   id,
   name,
@@ -44,6 +45,7 @@ const create = ({
     api: typeRef<IInterfaceType>(api.id),
     externalCssSource,
     externalJsSource,
+    externalSourceType,
     icon,
     id,
     name,
@@ -61,6 +63,7 @@ export class Atom
     api: prop<Ref<IInterfaceType>>(),
     externalCssSource: prop<string | null | undefined>(),
     externalJsSource: prop<string | null | undefined>(),
+    externalSourceType: prop<string | null | undefined>(),
     icon: prop<string | null | undefined>(null),
     id: idProp,
     name: prop<string>(),
@@ -89,6 +92,7 @@ export class Atom
     api,
     externalCssSource,
     externalJsSource,
+    externalSourceType,
     icon,
     id,
     name,
@@ -99,6 +103,7 @@ export class Atom
   }: Partial<IAtomDTO>) {
     this.externalCssSource = externalCssSource ?? this.externalCssSource
     this.externalJsSource = externalJsSource ?? this.externalJsSource
+    this.externalSourceType = externalSourceType ?? this.externalSourceType
     this.name = name ?? this.name
     this.type = type ?? this.type
     this.api = api?.id ? typeRef<IInterfaceType>(api.id) : this.api
@@ -125,6 +130,7 @@ export class Atom
       },
       externalCssSource: this.externalCssSource,
       externalJsSource: this.externalJsSource,
+      externalSourceType: this.externalSourceType,
       id: this.id,
       name: this.name,
       owner: connectAuth0Owner(this.owner),
@@ -139,6 +145,7 @@ export class Atom
       api: connectNodeId(this.api.id),
       externalCssSource: this.externalCssSource,
       externalJsSource: this.externalJsSource,
+      externalSourceType: this.externalSourceType,
       id: this.id,
       name: this.name,
       owner: connectAuth0Owner(this.owner),

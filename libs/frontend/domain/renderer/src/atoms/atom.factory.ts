@@ -5,7 +5,6 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { notify } from '@codelab/frontend/shared/utils'
 import { AtomType } from '@codelab/shared/abstract/codegen'
-import { IAtomType } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import get from 'lodash/get'
 import { allPropsCustomizer, getAtom } from './atoms'
@@ -17,19 +16,18 @@ import type { AtomFactoryInput, AtomFactoryResult } from './types'
  */
 export const atomFactory = (input: AtomFactoryInput): AtomFactoryResult => {
   const { atom, node, props } = input
-
-  const atomTypeName =
-    atom.type === IAtomType.CustomAtom ? atom.name : atom.type
+  const atomTypeName = atom.externalSourceType ?? atom.type
 
   /**
    * Get ReactComponent by atomType, this takes in a module mapper to resolve the ReactComponent
    */
-  const ReactComponent =
-    atom.type === AtomType.CustomAtom
-      ? get(window, `externalComponents.${atom.name}`)
-        ? dynamicLoader(() => get(window, `externalComponents.${atom.name}`))
-        : getAtom(AtomType.ReactFragment)
-      : getAtom(atom.type)
+  const ReactComponent = atom.externalSourceType
+    ? get(window, `externalComponents.${atom.externalSourceType}`)
+      ? dynamicLoader(() =>
+          get(window, `externalComponents.${atom.externalSourceType}`),
+        )
+      : getAtom(AtomType.ReactFragment)
+    : getAtom(atom.type)
 
   if (!ReactComponent) {
     notify({
@@ -55,7 +53,7 @@ export const atomFactory = (input: AtomFactoryInput): AtomFactoryResult => {
   if (propsCustomizer) {
     // apply propsCustomizer and get the new props
     const customizer = propsCustomizer({
-      atomType: atom.type,
+      atom,
       node,
       props: newProps,
     })

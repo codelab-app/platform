@@ -24,6 +24,7 @@ export const atomSelectionSet = `{
   }
   externalCssSource
   externalJsSource
+  externalSourceType
 }`
 
 export const exportAtomSelectionSet = `{

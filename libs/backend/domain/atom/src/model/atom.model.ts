@@ -16,6 +16,8 @@ export class Atom implements IAtomDTO {
 
   externalJsSource: string | null | undefined
 
+  externalSourceType: string | null | undefined
+
   type: IAtomType
 
   api: IEntity
@@ -32,6 +34,7 @@ export class Atom implements IAtomDTO {
     api,
     externalCssSource,
     externalJsSource,
+    externalSourceType,
     icon,
     id,
     name,
@@ -44,6 +47,7 @@ export class Atom implements IAtomDTO {
     this.id = id
     this.externalJsSource = externalJsSource
     this.externalCssSource = externalCssSource
+    this.externalSourceType = externalSourceType
     this.name = name
     this.icon = icon
     this.type = type

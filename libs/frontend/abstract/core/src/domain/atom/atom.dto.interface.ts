@@ -9,6 +9,7 @@ export interface ICreateAtomData extends IOwner {
   // api: IEntity
   externalCssSource?: string | null
   externalJsSource?: string | null
+  externalSourceType?: string | null
   id: string
   name: string
   requiredParents?: Array<IAtomRef>

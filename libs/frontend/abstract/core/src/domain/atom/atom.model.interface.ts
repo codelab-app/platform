@@ -24,6 +24,7 @@ export interface IAtom
   api: Ref<IInterfaceType>
   externalCssSource?: string | null
   externalJsSource?: string | null
+  externalSourceType?: string | null
   icon?: string | null
   id: string
   name: string

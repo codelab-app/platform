@@ -24,6 +24,7 @@ export const UpdateAtomModal = observer(() => {
   const model = {
     externalCssSource: atom?.externalCssSource,
     externalJsSource: atom?.externalJsSource,
+    externalSourceType: atom?.externalSourceType,
     id: atom?.id,
     name: atom?.name,
     requiredParents: atom?.requiredParents.map((child) => child.id),

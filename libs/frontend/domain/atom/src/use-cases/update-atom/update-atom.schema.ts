@@ -27,6 +27,10 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
       nullable: true,
       ...nonEmptyString,
     },
+    externalSourceType: {
+      nullable: true,
+      ...nonEmptyString,
+    },
     tags: {
       items: {
         properties: {

@@ -39,6 +39,10 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
       nullable: true,
       ...nonEmptyString,
     },
+    externalSourceType: {
+      nullable: true,
+      ...nonEmptyString,
+    },
     ...ownerSchema,
     tags: {
       items: {

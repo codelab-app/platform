@@ -2649,6 +2649,7 @@ export type Atom = WithOwner & {
   apiConnection: AtomApiConnection
   externalCssSource?: Maybe<Scalars['String']>
   externalJsSource?: Maybe<Scalars['String']>
+  externalSourceType?: Maybe<Scalars['String']>
   icon?: Maybe<Scalars['String']>
   id: Scalars['ID']
   name: Scalars['String']
@@ -2767,6 +2768,7 @@ export type AtomAggregateSelection = {
   count: Scalars['Int']
   externalCssSource: StringAggregateSelectionNullable
   externalJsSource: StringAggregateSelectionNullable
+  externalSourceType: StringAggregateSelectionNullable
   icon: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
@@ -2889,6 +2891,7 @@ export type AtomAtomRequiredParentsNodeAggregateSelection = {
   __typename?: 'AtomAtomRequiredParentsNodeAggregateSelection'
   externalCssSource: StringAggregateSelectionNullable
   externalJsSource: StringAggregateSelectionNullable
+  externalSourceType: StringAggregateSelectionNullable
   icon: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
@@ -2904,6 +2907,7 @@ export type AtomAtomSuggestedChildrenNodeAggregateSelection = {
   __typename?: 'AtomAtomSuggestedChildrenNodeAggregateSelection'
   externalCssSource: StringAggregateSelectionNullable
   externalJsSource: StringAggregateSelectionNullable
+  externalSourceType: StringAggregateSelectionNullable
   icon: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
@@ -2941,6 +2945,7 @@ export type AtomCreateInput = {
   api?: InputMaybe<AtomApiFieldInput>
   externalCssSource?: InputMaybe<Scalars['String']>
   externalJsSource?: InputMaybe<Scalars['String']>
+  externalSourceType?: InputMaybe<Scalars['String']>
   icon?: InputMaybe<Scalars['String']>
   id: Scalars['ID']
   name: Scalars['String']
@@ -2990,6 +2995,7 @@ export type AtomInterfaceTypeApiNodeAggregateSelection = {
 export type AtomOnCreateInput = {
   externalCssSource?: InputMaybe<Scalars['String']>
   externalJsSource?: InputMaybe<Scalars['String']>
+  externalSourceType?: InputMaybe<Scalars['String']>
   icon?: InputMaybe<Scalars['String']>
   id: Scalars['ID']
   name: Scalars['String']
@@ -3176,6 +3182,21 @@ export type AtomRequiredParentsNodeAggregationWhereInput = {
   externalJsSource_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   externalJsSource_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   externalJsSource_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   icon_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
   icon_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
   icon_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
@@ -3234,6 +3255,7 @@ export type AtomRequiredParentsUpdateFieldInput = {
 export type AtomSort = {
   externalCssSource?: InputMaybe<SortDirection>
   externalJsSource?: InputMaybe<SortDirection>
+  externalSourceType?: InputMaybe<SortDirection>
   icon?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
@@ -3342,6 +3364,21 @@ export type AtomSuggestedChildrenNodeAggregationWhereInput = {
   externalJsSource_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   externalJsSource_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   externalJsSource_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   icon_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
   icon_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
   icon_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
@@ -3903,6 +3940,7 @@ export type AtomUpdateInput = {
   api?: InputMaybe<AtomApiUpdateFieldInput>
   externalCssSource?: InputMaybe<Scalars['String']>
   externalJsSource?: InputMaybe<Scalars['String']>
+  externalSourceType?: InputMaybe<Scalars['String']>
   icon?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
@@ -3948,6 +3986,12 @@ export type AtomWhere = {
   externalJsSource_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   externalJsSource_MATCHES?: InputMaybe<Scalars['String']>
   externalJsSource_STARTS_WITH?: InputMaybe<Scalars['String']>
+  externalSourceType?: InputMaybe<Scalars['String']>
+  externalSourceType_CONTAINS?: InputMaybe<Scalars['String']>
+  externalSourceType_ENDS_WITH?: InputMaybe<Scalars['String']>
+  externalSourceType_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  externalSourceType_MATCHES?: InputMaybe<Scalars['String']>
+  externalSourceType_STARTS_WITH?: InputMaybe<Scalars['String']>
   icon?: InputMaybe<Scalars['String']>
   icon_CONTAINS?: InputMaybe<Scalars['String']>
   icon_ENDS_WITH?: InputMaybe<Scalars['String']>
@@ -7115,6 +7159,7 @@ export type ElementAtomRenderAtomTypeNodeAggregateSelection = {
   __typename?: 'ElementAtomRenderAtomTypeNodeAggregateSelection'
   externalCssSource: StringAggregateSelectionNullable
   externalJsSource: StringAggregateSelectionNullable
+  externalSourceType: StringAggregateSelectionNullable
   icon: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
@@ -8657,6 +8702,21 @@ export type ElementRenderAtomTypeNodeAggregationWhereInput = {
   externalJsSource_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   externalJsSource_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   externalJsSource_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   icon_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
   icon_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
   icon_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
@@ -12002,6 +12062,21 @@ export type InterfaceTypeApiOfAtomsNodeAggregationWhereInput = {
   externalJsSource_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   externalJsSource_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   externalJsSource_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   icon_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
   icon_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
   icon_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
@@ -12066,6 +12141,7 @@ export type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection = {
   __typename?: 'InterfaceTypeAtomApiOfAtomsNodeAggregateSelection'
   externalCssSource: StringAggregateSelectionNullable
   externalJsSource: StringAggregateSelectionNullable
+  externalSourceType: StringAggregateSelectionNullable
   icon: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
@@ -17449,6 +17525,7 @@ export type TagAtomAtomsNodeAggregateSelection = {
   __typename?: 'TagAtomAtomsNodeAggregateSelection'
   externalCssSource: StringAggregateSelectionNullable
   externalJsSource: StringAggregateSelectionNullable
+  externalSourceType: StringAggregateSelectionNullable
   icon: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
@@ -17554,6 +17631,21 @@ export type TagAtomsNodeAggregationWhereInput = {
   externalJsSource_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   externalJsSource_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   externalJsSource_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   icon_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
   icon_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
   icon_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
@@ -20158,6 +20250,7 @@ export type UserAtomAtomsNodeAggregateSelection = {
   __typename?: 'UserAtomAtomsNodeAggregateSelection'
   externalCssSource: StringAggregateSelectionNullable
   externalJsSource: StringAggregateSelectionNullable
+  externalSourceType: StringAggregateSelectionNullable
   icon: StringAggregateSelectionNullable
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
@@ -20263,6 +20356,21 @@ export type UserAtomsNodeAggregationWhereInput = {
   externalJsSource_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   externalJsSource_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   externalJsSource_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  externalSourceType_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   icon_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
   icon_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
   icon_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
@@ -21308,6 +21416,7 @@ export type AtomFragment = {
   type: AtomType
   externalCssSource?: string | null
   externalJsSource?: string | null
+  externalSourceType?: string | null
   owner: { __typename?: 'User' } & OwnerFragment
   tags: Array<{ __typename?: 'Tag' } & TagFragment>
   api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
