@@ -1,4 +1,4 @@
-variable "VERCEL_API_TOKEN" {
+variable "VERCEL_ACCESS_TOKEN" {
   type = string
 }
 

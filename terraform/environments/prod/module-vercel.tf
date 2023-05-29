@@ -1,7 +1,7 @@
 provider "vercel" {
   # Or omit this for the api_token to be read
-  # from the VERCEL_API_TOKEN environment variable
-  api_token = var.VERCEL_API_TOKEN
+  # from the VERCEL_ACCESS_TOKEN environment variable
+  api_token = var.VERCEL_ACCESS_TOKEN
   # "codelab" slug, id is more permanent
   team = var.VERCEL_TEAM_ID
 }
@@ -29,7 +29,7 @@ module "vercel-platform" {
   neo4j_uri      = var.NEO4J_URI
   neo4j_user     = var.NEO4J_USER
 
-  vercel_api_token          = var.VERCEL_API_TOKEN
+  vercel_access_token          = var.VERCEL_ACCESS_TOKEN
   vercel_team_id            = var.VERCEL_TEAM_ID
   vercel_builder_project_id = var.VERCEL_BUILDER_PROJECT_ID
 }
@@ -57,7 +57,7 @@ module "vercel-websites" {
   neo4j_uri      = var.NEO4J_URI
   neo4j_user     = var.NEO4J_USER
 
-  vercel_api_token          = var.VERCEL_API_TOKEN
+  vercel_access_token          = var.VERCEL_ACCESS_TOKEN
   vercel_team_id            = var.VERCEL_TEAM_ID
   # vercel_builder_project_id = var.VERCEL_BUILDER_PROJECT_ID
 }

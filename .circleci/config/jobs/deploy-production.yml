@@ -1,16 +1,17 @@
 executor: docker-node-neo4j
-resource_class: medium
+resource_class: large
 steps:
   - restore-workspace
+  # - checkout
   - run:
       name: 'Install Vercel CLI'
       command: npm install --global vercel@latest
   - run:
       name: 'Pull Vercel Environment Information'
-      command: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+      command: vercel pull --yes --environment=production --token=$VERCEL_ACCESS_TOKEN
   - run:
       name: 'Build Project Artifacts'
-      command: vercel build --prod --token=$VERCEL_TOKEN
+      command: vercel build --prod --token=$VERCEL_ACCESS_TOKEN
   - run:
       name: 'Deploy Project Artifacts to Vercel'
-      command: vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+      command: vercel deploy --prebuilt --prod --token=$VERCEL_ACCESS_TOKEN

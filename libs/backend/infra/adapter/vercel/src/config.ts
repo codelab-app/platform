@@ -3,7 +3,7 @@ import { EnvPlatform, EnvPublic } from '@codelab/shared/config'
 export const apiUrl = 'https://api.vercel.com'
 
 export const getBaseHeaders = () => ({
-  Authorization: `Bearer ${EnvPlatform().vercel.vercel_api_token}`,
+  Authorization: `Bearer ${EnvPlatform().vercel.vercel_access_token}`,
   'Content-Type': 'application/json',
 })
 

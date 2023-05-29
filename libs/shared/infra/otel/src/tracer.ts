@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { PromiseCallback } from '@codelab/shared/abstract/types'
+import type { PromiseCallback } from '@codelab/shared/abstract/types'
 import { toError } from '@codelab/shared/utils'
 import type { Span } from '@opentelemetry/api'
 import { context, SpanStatusCode, trace } from '@opentelemetry/api'

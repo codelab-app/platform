@@ -107,3 +107,17 @@ resource "circleci_environment_variable" "NEXT_PUBLIC_SUPABASE_KEY" {
   project      = local.project_name
   organization = local.organization
 }
+
+resource "circleci_environment_variable" "NX_CLOUD_ACCESS_TOKEN" {
+  name         = "NX_CLOUD_ACCESS_TOKEN"
+  value        = var.nx_cloud_access_token
+  project      = local.project_name
+  organization = local.organization
+}
+
+resource "circleci_environment_variable" "VERCEL_ACCESS_TOKEN" {
+  name         = "VERCEL_ACCESS_TOKEN"
+  value        = var.vercel_access_token
+  project      = local.project_name
+  organization = local.organization
+}

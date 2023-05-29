@@ -1,5 +1,4 @@
 import * as env from 'env-var'
-import { isVercelPreview } from '../flags'
 
 /**
  * This can't be imported by Vercel due to edge middleware
@@ -28,14 +27,15 @@ interface EnvPlatform {
     enableAPILogging?: boolean
   }
   vercel: {
-    vercel_api_token: string
+    vercel_access_token: string
   }
 }
 
 export const EnvPlatform = (): EnvPlatform => {
-  const auth0baseUrl = isVercelPreview
-    ? env.get('VERCEL_URL').required().asString()
-    : env.get('NEXT_PUBLIC_PLATFORM_HOST').required().asString()
+  const auth0baseUrl = env
+    .get('NEXT_PUBLIC_PLATFORM_HOST')
+    .required()
+    .asString()
 
   const isDev = auth0baseUrl.startsWith('127.0.0.1')
   const protocol = isDev ? 'http' : 'https'
@@ -74,7 +74,10 @@ export const EnvPlatform = (): EnvPlatform => {
     },
     get vercel() {
       return {
-        vercel_api_token: env.get('VERCEL_API_TOKEN').required().asString(),
+        vercel_access_token: env
+          .get('VERCEL_ACCESS_TOKEN')
+          .required()
+          .asString(),
       }
     },
   }

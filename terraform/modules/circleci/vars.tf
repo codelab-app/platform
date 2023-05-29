@@ -32,3 +32,13 @@ variable "next_public_supabase_key" {
   type        = string
   description = "Next public Supabase key"
 }
+
+variable "vercel_access_token" {
+  type = string
+  description = "Access token to access Vercel API"
+}
+
+variable "nx_cloud_access_token" {
+  type = string
+  description = "Read/write access token to access NX Cloud"
+}

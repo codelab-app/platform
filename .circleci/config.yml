@@ -105,7 +105,6 @@ executors:
               image: neo4j:5.4.0
     machine-ubuntu:
         machine:
-            docker_layer_caching: true
             image: ubuntu-2004:2022.04.1
     terraform:
         docker:
@@ -130,37 +129,31 @@ jobs:
                 name: GraphQL Codegen
     deploy-preview:
         executor: docker-node-neo4j
-        resource_class: medium
+        resource_class: large
         steps:
-            - restore-workspace
+            - checkout
             - run:
-                command: npm install --global vercel@latest
-                name: Install Vercel CLI
+                command: git push origin HEAD:staging
+                name: Push to Staging Branch
             - run:
-                command: vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
-                name: Pull Vercel Environment Information
-            - run:
-                command: vercel build --token=$VERCEL_TOKEN
-                name: Build Project Artifacts
-            - run:
-                command: vercel deploy --prebuilt --token=$VERCEL_TOKEN
-                name: Deploy Project Artifacts to Vercel
+                command: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_tV5TS4XJhvtYfyw8GMEKzRzSn9au/2Ze7qyE7x3
+                name: Trigger Vercel Deploy
     deploy-production:
         executor: docker-node-neo4j
-        resource_class: medium
+        resource_class: large
         steps:
             - restore-workspace
             - run:
                 command: npm install --global vercel@latest
                 name: Install Vercel CLI
             - run:
-                command: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+                command: vercel pull --yes --environment=production --token=$VERCEL_ACCESS_TOKEN
                 name: Pull Vercel Environment Information
             - run:
-                command: vercel build --prod --token=$VERCEL_TOKEN
+                command: vercel build --prod --token=$VERCEL_ACCESS_TOKEN
                 name: Build Project Artifacts
             - run:
-                command: vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+                command: vercel deploy --prebuilt --prod --token=$VERCEL_ACCESS_TOKEN
                 name: Deploy Project Artifacts to Vercel
     e2e:
         executor: docker-node-neo4j
@@ -169,7 +162,6 @@ jobs:
         steps:
             - restore-workspace
             - setup_remote_docker:
-                docker_layer_caching: true
                 version: 20.10.14
             - run: npx cypress install
             - run: npx cypress verify

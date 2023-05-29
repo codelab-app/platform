@@ -6,4 +6,4 @@ yarn cli tasks unit --stage test
 yarn cli tasks int --stage test
 yarn cli tasks e2e --stage test
 
-./scripts/git.sh
+./scripts/git/branch-name-check.sh

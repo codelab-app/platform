@@ -23,4 +23,5 @@ module.exports = {
 
     return [cmd]
   },
+  '.circleci/**/*.{yml}': () => ['yarn cpack', 'git add .circleci/**/*'],
 }

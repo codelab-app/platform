@@ -10,7 +10,7 @@ set -x
 
 # Yarn 3 have trouble disabling scripts
 # Postinstall is cached! https://github.com/yarnpkg/yarn/issues/7762
-if [ "$SKIP_POST_INSTALL" != true ]; then
+if [ "$CI" != true ]; then
 
   # Never run husky on CI
   # if [ "$CI" != true ]; then

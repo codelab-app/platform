@@ -13,6 +13,8 @@ jobs:
           ignore:
             - master
   - deploy-preview:
+      # requires:
+      #   - setup-workspace
       filters:
         branches:
           ignore: /master/

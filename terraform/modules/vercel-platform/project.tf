@@ -81,8 +81,8 @@ resource "vercel_project" "platform" {
     # Vercel
     {
       target = ["production", "preview"]
-      key    = "VERCEL_API_TOKEN"
-      value  = var.vercel_api_token
+      key    = "VERCEL_ACCESS_TOKEN"
+      value  = var.vercel_access_token
     },
     {
       target = ["production", "preview"]

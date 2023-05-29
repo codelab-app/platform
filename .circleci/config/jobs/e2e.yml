@@ -6,7 +6,8 @@ steps:
   - restore-workspace
   - setup_remote_docker:
       version: 20.10.14
-      docker_layer_caching: true
+      # No need since we're not building anything
+      # docker_layer_caching: true
   - run: npx cypress install
   - run: npx cypress verify
   - run:

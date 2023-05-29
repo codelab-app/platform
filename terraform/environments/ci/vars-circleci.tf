@@ -17,3 +17,11 @@ variable "SLACK_DEFAULT_CHANNEL" {
 variable "TERRAFORM_TOKEN" {
   type = string
 }
+
+variable "VERCEL_ACCESS_TOKEN" {
+  type = string
+}
+
+variable "NX_CLOUD_ACCESS_TOKEN" {
+  type = string
+}

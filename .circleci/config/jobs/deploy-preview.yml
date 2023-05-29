@@ -1,16 +1,21 @@
 executor: docker-node-neo4j
-resource_class: medium
+resource_class: large
 steps:
-  - restore-workspace
+  # - restore-workspace
+  - checkout
   - run:
-      name: 'Install Vercel CLI'
-      command: npm install --global vercel@latest
+      name: 'Push to Staging Branch'
+      command: git push origin HEAD:staging
   - run:
-      name: 'Pull Vercel Environment Information'
-      command: vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
-  - run:
-      name: 'Build Project Artifacts'
-      command: vercel build --token=$VERCEL_TOKEN
-  - run:
-      name: 'Deploy Project Artifacts to Vercel'
-      command: vercel deploy --prebuilt --token=$VERCEL_TOKEN
+      name: 'Trigger Vercel Deploy'
+      command: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_tV5TS4XJhvtYfyw8GMEKzRzSn9au/2Ze7qyE7x3
+  # - run:
+  #     name: 'Pull Vercel Environment Information'
+  #     command: npx vercel pull --yes --environment=preview --token=$VERCEL_ACCESS_TOKEN
+  # - run:
+  #     name: 'Build Project Artifacts'
+  #     # Does not use dashboard settings
+  #     command: npx vercel build --token=$VERCEL_ACCESS_TOKEN
+  # - run:
+  #     name: 'Deploy Project Artifacts to Vercel'
+  #     command: npx vercel deploy --prebuilt --token=$VERCEL_ACCESS_TOKEN
