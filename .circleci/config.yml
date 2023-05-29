@@ -132,8 +132,11 @@ jobs:
         resource_class: large
         steps:
             - checkout
+            - add_ssh_keys-f:
+                fingerprints:
+                    - SHA256:9rhQIHmDI4ch+zBMmw7SOWe0utLgvKuqcUrvoXEcKMk
             - run:
-                command: git push origin HEAD:staging
+                command: git push -f origin HEAD:staging
                 name: Push to Staging Branch
             - run:
                 command: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_tV5TS4XJhvtYfyw8GMEKzRzSn9au/2Ze7qyE7x3
@@ -381,10 +384,6 @@ workflows:
                     branches:
                         ignore:
                             - master
-            - deploy-preview:
-                filters:
-                    branches:
-                        ignore: /master/
             - lint:
                 filters:
                     branches:

@@ -12,12 +12,12 @@ jobs:
         branches:
           ignore:
             - master
-  - deploy-preview:
-      # requires:
-      #   - setup-workspace
-      filters:
-        branches:
-          ignore: /master/
+  # - deploy-preview:
+  #     # requires:
+  #     #   - setup-workspace
+  #     filters:
+  #       branches:
+  #         ignore: /master/
   - lint:
       filters:
         branches:
