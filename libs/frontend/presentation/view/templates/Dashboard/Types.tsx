@@ -1,13 +1,13 @@
-import type { JSXElementConstructor } from 'react'
+import type { ComponentType, JSXElementConstructor } from 'react'
 
-export interface PaneItem {
+export interface PrimarySidebarItem {
   key: React.Key
-  render: JSXElementConstructor<unknown>
+  render: ComponentType
 }
 
-export interface ExplorerPane {
+export interface PrimarySidebar {
   default?: React.Key
-  items: Array<PaneItem>
+  items: Array<PrimarySidebarItem>
 }
 
 export type DashboardTemplateProps<T = unknown> = T & {
@@ -18,7 +18,7 @@ export type DashboardTemplateProps<T = unknown> = T & {
   /**
    * The left panel used for navigating tree data, naming taken from VSCode's explorer pane
    */
-  ExplorerPane?: ExplorerPane
+  PrimarySidebar?: PrimarySidebar
   Header?: JSXElementConstructor<unknown>
   contentStyles?: React.CSSProperties
   headerHeight?: number

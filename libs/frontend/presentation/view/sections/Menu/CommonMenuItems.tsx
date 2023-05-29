@@ -48,7 +48,7 @@ export const allPagesMenuItem = (
   link: {
     href: {
       pathname: PageType.PageBuilder,
-      query: { appId, explorerPaneKey: ExplorerPaneType.PageList, pageId },
+      query: { appId, pageId, primarySidebarKey: ExplorerPaneType.PageList },
     },
   },
   title: 'Pages',
@@ -64,7 +64,7 @@ export const builderComponentsMenuItem = (
   link: {
     href: {
       pathname: PageType.PageBuilder,
-      query: { appId, explorerPaneKey: ExplorerPaneType.Components, pageId },
+      query: { appId, pageId, primarySidebarKey: ExplorerPaneType.Components },
     },
   },
   title: 'Builder Components',
@@ -80,7 +80,7 @@ export const pageBuilderMenuItem = (
   link: {
     href: {
       pathname: PageType.PageBuilder,
-      query: { appId, explorerPaneKey: ExplorerPaneType.Explorer, pageId },
+      query: { appId, pageId, primarySidebarKey: ExplorerPaneType.Explorer },
     },
   },
   title: 'Builder',

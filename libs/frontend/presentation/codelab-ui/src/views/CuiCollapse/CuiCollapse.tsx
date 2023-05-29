@@ -6,17 +6,30 @@ import { CuiCollapsePanelHeader } from './CuiCollapsePanelHeader'
 
 interface CuiCollapsePanelProps {
   content: React.ReactNode
+  isLoading?: boolean
   key: string
   label: string
   toolbar?: SidebarToolbarProps
 }
 
 interface CuiCollapseProps {
+  defaultActivePanels?: Array<string>
   panels: Array<CuiCollapsePanelProps>
 }
 
-export const CuiCollapse = ({ panels }: CuiCollapseProps) => {
-  const [activePanels, setActivePanels] = useState<Record<string, boolean>>({})
+export const CuiCollapse = ({
+  defaultActivePanels,
+  panels,
+}: CuiCollapseProps) => {
+  const [activePanels, setActivePanels] = useState<Record<string, boolean>>(
+    defaultActivePanels?.reduce(
+      (acc, panelKey) => ({
+        ...acc,
+        [panelKey]: true,
+      }),
+      {},
+    ) || {},
+  )
 
   const updateActivePanel = (key: string, expanded: boolean) => {
     setActivePanels({
@@ -33,12 +46,17 @@ export const CuiCollapse = ({ panels }: CuiCollapseProps) => {
         {panels.map((view) => (
           <>
             <CuiCollapsePanelHeader
+              defaultExpand={activePanels[view.key]}
               label={view.label}
               onExpand={(expanded) => updateActivePanel(view.key, expanded)}
               toolbar={view.toolbar}
             />
             {activePanels[view.key] && (
-              <CuiCollapsePanelContent content={view.content} key={view.key} />
+              <CuiCollapsePanelContent
+                content={view.content}
+                isLoading={view.isLoading}
+                key={view.key}
+              />
             )}
           </>
         ))}

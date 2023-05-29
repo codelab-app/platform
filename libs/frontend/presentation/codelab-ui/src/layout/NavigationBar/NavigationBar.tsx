@@ -86,8 +86,8 @@ export const NavigationBar = ({
   secondaryItems,
 }: NavigationBarProps) => {
   const router = useRouter()
-  const { explorerPaneKey } = router.query
-  const selectedKey = (explorerPaneKey as string) || router.pathname
+  const { primarySidebarKey } = router.query
+  const selectedKey = (primarySidebarKey as string) || router.pathname
 
   return (
     <div

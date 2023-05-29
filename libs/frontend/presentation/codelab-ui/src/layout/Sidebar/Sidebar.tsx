@@ -7,21 +7,24 @@ import type { SidebarToolbarProps } from '../../views'
 import { SidebarToolbar } from '../../views'
 import { CuiCollapse } from '../../views/CuiCollapse'
 
-interface SidebarView {
+export interface SidebarView {
   content: React.ReactNode
+  isLoading?: boolean
   key: string
   label: string
   toolbar?: SidebarToolbarProps
 }
 
-interface SidebarTab {
+export interface SidebarTab {
+  defaultActiveViewKeys?: Array<string>
   icon: ReactNode
   key: string
   label: string
   views: Array<SidebarView>
 }
 
-interface SidebarProps {
+export interface SidebarProps {
+  defaultActiveViewKeys?: Array<string>
   label: string
   tabs?: Array<SidebarTab>
   toolbar?: SidebarToolbarProps
@@ -122,7 +125,13 @@ const overrideAntdStyles = `
 
 const { TabPane } = Tabs
 
-export const Sidebar = ({ label, tabs, toolbar, views }: SidebarProps) => {
+export const Sidebar = ({
+  defaultActiveViewKeys,
+  label,
+  tabs,
+  toolbar,
+  views,
+}: SidebarProps) => {
   return (
     <div
       css={[
@@ -142,7 +151,10 @@ export const Sidebar = ({ label, tabs, toolbar, views }: SidebarProps) => {
                 key={tab.key}
                 tab={<Tooltip title={tab.label}>{tab.icon}</Tooltip>}
               >
-                <CuiCollapse panels={tab.views} />
+                <CuiCollapse
+                  defaultActivePanels={tab.defaultActiveViewKeys}
+                  panels={tab.views}
+                />
               </TabPane>
             ))}
             {views && (
@@ -154,7 +166,10 @@ export const Sidebar = ({ label, tabs, toolbar, views }: SidebarProps) => {
                   </Tooltip>
                 }
               >
-                <CuiCollapse panels={views} />
+                <CuiCollapse
+                  defaultActivePanels={defaultActiveViewKeys}
+                  panels={views}
+                />
               </TabPane>
             )}
           </Tabs>
@@ -172,7 +187,12 @@ export const Sidebar = ({ label, tabs, toolbar, views }: SidebarProps) => {
               </div>
             )}
           </div>
-          {views && <CuiCollapse panels={views} />}
+          {views && (
+            <CuiCollapse
+              defaultActivePanels={defaultActiveViewKeys}
+              panels={views}
+            />
+          )}
         </>
       )}
     </div>

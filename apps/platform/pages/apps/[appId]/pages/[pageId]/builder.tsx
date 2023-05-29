@@ -3,7 +3,7 @@ import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import {
   BuilderContext,
-  BuilderExplorerPane,
+  BuilderPrimarySidebar,
   BuilderTabs,
   ComponentsExplorerPane,
   ConfigPaneInspectorTabContainer,
@@ -60,7 +60,8 @@ const PageBuilder: CodelabPage = observer(() => {
           <ConfigPaneInspectorTabContainer />
         </SkeletonWrapper>
       )}
-      ExplorerPane={{
+      Header={PageDetailHeader}
+      PrimarySidebar={{
         default: ExplorerPaneType.Explorer,
         items: [
           {
@@ -69,7 +70,7 @@ const PageBuilder: CodelabPage = observer(() => {
           },
           {
             key: ExplorerPaneType.Explorer,
-            render: () => <BuilderExplorerPane isLoading={isLoading} />,
+            render: () => <BuilderPrimarySidebar isLoading={isLoading} />,
           },
           {
             key: ExplorerPaneType.PageList,
@@ -77,7 +78,6 @@ const PageBuilder: CodelabPage = observer(() => {
           },
         ],
       }}
-      Header={PageDetailHeader}
       contentStyles={contentStyles}
       headerHeight={48}
     >

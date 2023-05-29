@@ -82,7 +82,7 @@ Pages.Layout = observer(({ children }) => {
 
   return (
     <DashboardTemplate
-      ExplorerPane={{
+      PrimarySidebar={{
         default: ExplorerPaneType.PageList,
         items: [
           {

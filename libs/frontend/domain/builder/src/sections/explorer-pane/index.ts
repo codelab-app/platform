@@ -1,4 +1,4 @@
 export * from './builder-tree'
-export * from './BuilderExplorerPane'
+export * from './BuilderPrimarySidebar'
 export * from './ComponentsExplorerPane'
 export * from './ElementContextMenu'

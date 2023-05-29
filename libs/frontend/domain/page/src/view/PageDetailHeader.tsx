@@ -44,8 +44,8 @@ export const PageDetailHeader = observer(() => {
       pathname: PageType.PageBuilder,
       query: {
         appId,
-        explorerPaneKey: ExplorerPaneType.PageList,
         pageId,
+        primarySidebarKey: ExplorerPaneType.PageList,
       },
     })
   }, [router])

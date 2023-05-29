@@ -99,11 +99,11 @@ export default TagPage
 TagPage.Layout = observer(({ children }) => {
   return (
     <DashboardTemplate
-      ExplorerPane={{
+      Header={TagPageHeader}
+      PrimarySidebar={{
         default: ExplorerPaneType.Tag,
         items: [{ key: ExplorerPaneType.Tag, render: () => <GetTagsTree /> }],
       }}
-      Header={TagPageHeader}
     >
       {children()}
     </DashboardTemplate>
