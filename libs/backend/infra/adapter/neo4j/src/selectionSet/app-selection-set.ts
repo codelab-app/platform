@@ -1,11 +1,10 @@
-export const appSelectionSet = `{
+import { ownerFieldSelectionSet } from './user-selection-set'
+
+export const baseAppSelectionSet = `
   __typename
   id
   name
   slug
-  owner {
-    auth0Id
-  }
   domains {
     id
     name
@@ -13,4 +12,14 @@ export const appSelectionSet = `{
       id
     }
   }
+`
+
+export const appSelectionSet = `{
+  ${baseAppSelectionSet}
+  ${ownerFieldSelectionSet}
+}`
+
+export const exportAppSelectionSet = `{
+  ${baseAppSelectionSet}
+
 }`

@@ -1,7 +1,7 @@
 import type { Page, PageWhere } from '@codelab/backend/abstract/codegen'
 import { getElementWithDescendants } from '@codelab/backend/domain/element'
 import {
-  componentSelectionSet,
+  exportComponentSelectionSet,
   pageSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
@@ -92,7 +92,7 @@ export const getPageData = async (page: Page) => {
   ]).filter((element): element is string => Boolean(element))
 
   const components = await Component.find({
-    selectionSet: componentSelectionSet,
+    selectionSet: exportComponentSelectionSet,
     where: { id_IN: componentIds },
   })
 

@@ -1,6 +1,5 @@
 import type { App, AppWhere } from '@codelab/backend/abstract/codegen'
 import type {
-  ExportAppData,
   IAppExport,
   IComponentExport,
   IExportComponents,
@@ -22,6 +21,7 @@ import {
 } from '@codelab/backend/domain/type'
 import {
   appSelectionSet,
+  exportPageSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
@@ -145,14 +145,14 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
           { ...store.api, fields: [] },
           { id: store.api.id },
         )
-      : await interfaceTypeRepository.add([{ ...store.api, fields: [] }])
+      : await interfaceTypeRepository.add([{ ...store.api, fields: [], owner }])
 
-    store.api.fields.forEach(async (field) => {
+    for (const field of store.api.fields) {
       const fieldExist = await fieldRepository.findOne({ id: field.id })
       fieldExist
         ? await fieldRepository.update(field, { id: field.id })
         : await fieldRepository.add([field])
-    })
+    }
 
     await storeRepository
       .add([store])
@@ -208,9 +208,13 @@ export const createComponents = async (
  * Gather all pages, elements and components
  */
 
-export const getApp = async (app: App): Promise<ExportAppData> => {
-  const pageRepository = new PageRepository()
-  const pages = await pageRepository.find({ app: { id: app.id } })
+export const getAppPages = async (app: App) => {
+  const Page = await Repository.instance.Page
+
+  const pages = await Page.find({
+    selectionSet: exportPageSelectionSet,
+    where: { app: { id: app.id } },
+  })
 
   const pagesData = await Promise.all(
     pages.map(async (page) => {
@@ -235,12 +239,7 @@ export const getApp = async (app: App): Promise<ExportAppData> => {
     }),
   )
 
-  return {
-    app: {
-      ...app,
-      pages: pagesData,
-    },
-  }
+  return pagesData
 }
 
 // export component of the app

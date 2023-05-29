@@ -1,6 +1,9 @@
-import { storeSelectionSet } from './store-selection-set'
+import {
+  exportStoreSelectionSet,
+  storeSelectionSet,
+} from './store-selection-set'
 
-export const pageSelectionSet = `{
+export const basePageSelectionSet = `
   app {
     id
   }
@@ -16,8 +19,19 @@ export const pageSelectionSet = `{
     id
     name
   }
+  url
+`
+
+export const pageSelectionSet = `{
+  ${basePageSelectionSet}
   store {
     ${storeSelectionSet}
   }
-  url
+}`
+
+export const exportPageSelectionSet = `{
+  ${basePageSelectionSet}
+  store {
+     ${exportStoreSelectionSet}
+  }
 }`
