@@ -56,7 +56,7 @@ export const DashboardTemplateSSR = observer(
               {ActivePrimarySidebar && (
                 <>
                   <Panel defaultSize={20} order={1}>
-                    <div css={tw`w-full h-full`}>
+                    <div css={tw`w-full h-full overflow-auto`}>
                       <ActivePrimarySidebar />
                     </div>
                   </Panel>
