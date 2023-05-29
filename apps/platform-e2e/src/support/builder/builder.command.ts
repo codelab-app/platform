@@ -11,6 +11,7 @@ export const createElementTree = (elements: Array<ElementData>) => {
   return cy.wrap(elements).each((element: ElementData) => {
     const { atom, name, parentElement } = element
 
+    cy.getCuiSidebar('Explorer').getCuiSkeleton().should('not.exist')
     cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').click()
 
     /**

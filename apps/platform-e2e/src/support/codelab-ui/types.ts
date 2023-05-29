@@ -1,5 +1,6 @@
 import type { CodelabUIHeaderToolbarCommands } from './header-toolbar'
 import type { CodelabUISidebarCommands } from './sidebar'
+import type { CodelabUISkeletonCommands } from './skeleton'
 import type { CodelabUIToolbarCommands } from './toolbar'
 
 declare global {
@@ -8,6 +9,7 @@ declare global {
     interface Chainable<Subject>
       extends CodelabUIHeaderToolbarCommands,
         CodelabUISidebarCommands,
-        CodelabUIToolbarCommands {}
+        CodelabUIToolbarCommands,
+        CodelabUISkeletonCommands {}
   }
 }
