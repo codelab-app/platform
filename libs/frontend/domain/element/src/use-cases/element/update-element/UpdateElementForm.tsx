@@ -9,7 +9,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { SelectAction } from '@codelab/frontend/domain/type'
 import {
-  useCurrentPageId,
+  useCurrentPage,
   useStore,
 } from '@codelab/frontend/presentation/container'
 import {
@@ -39,8 +39,8 @@ export interface UpdateElementFormProps {
 export const UpdateElementForm = observer<UpdateElementFormProps>(
   ({ element }) => {
     const { elementService, renderService } = useStore()
-    const pageId = useCurrentPageId()
-    const renderer = renderService.renderers.get(pageId)
+    const { page } = useCurrentPage()
+    const renderer = page && renderService.renderers.get(page.id)
     const model = getElementModel(element)
 
     const onSubmit = (data: IUpdateElementData) => {

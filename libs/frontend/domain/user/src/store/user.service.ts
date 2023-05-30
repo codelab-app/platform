@@ -69,6 +69,11 @@ export class UserService
     return throwIfUndefined(this.user.auth0Id)
   }
 
+  @computed
+  get usersList() {
+    return [...Object.values(this.users), this.user]
+  }
+
   @modelFlow
   @transaction
   getOne = _async(function* (this: UserService, where: UserWhere) {

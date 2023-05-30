@@ -2,7 +2,7 @@ import type {
   IPageService,
   IUpdatePageData,
 } from '@codelab/frontend/abstract/core'
-import { useCurrentPageId } from '@codelab/frontend/presentation/container'
+import { useCurrentPage } from '@codelab/frontend/presentation/container'
 import { Form } from '@codelab/frontend/presentation/view'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
@@ -12,8 +12,7 @@ import { schema } from './update-page-tab.schema'
 
 export const UpdatePageTabForm = observer<{ pageService: IPageService }>(
   ({ pageService }) => {
-    const pageId = useCurrentPageId()
-    const page = pageService.page(pageId)
+    const { page } = useCurrentPage()
 
     if (!page) {
       return null

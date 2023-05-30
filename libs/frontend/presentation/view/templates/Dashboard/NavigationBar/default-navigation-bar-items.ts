@@ -11,7 +11,7 @@ import {
 
 interface SidebarNavigationRequirements {
   appId: string
-  pageId: string
+  pageId?: string
 }
 
 export const defaultNavigationBarItems = ({

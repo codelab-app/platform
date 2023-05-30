@@ -19,7 +19,7 @@ import isObject from 'lodash/isObject'
 import values from 'lodash/values'
 import { useRouter } from 'next/router'
 import { useStore } from '../providers'
-import { useCurrentAppId, useCurrentPageId } from '../routerHooks'
+import { useCurrentAppId, useCurrentPage } from '../routerHooks'
 
 export interface RenderedPageProps {
   /**
@@ -52,15 +52,15 @@ export const useRenderedPage = ({
   } = useStore()
 
   const appIdFromUrl = useCurrentAppId()
-  const pageIdFromUrl = useCurrentPageId()
+  const { _compoundName, pageName: pageNameFromUrl } = useCurrentPage()
   const appId = productionProps?.appId ?? appIdFromUrl
-  const pageId = productionProps?.pageId ?? pageIdFromUrl
+  const pageName = productionProps?.pageName ?? pageNameFromUrl
   const router = useRouter()
 
   return useAsync(async () => {
     const app = await appService.getRenderedPageAndCommonAppData(
       appId,
-      pageId,
+      _compoundName,
       productionProps?.renderingData,
     )
 
@@ -70,7 +70,15 @@ export const useRenderedPage = ({
       return null
     }
 
-    const page = app.page(pageId)
+    const page = app.pages.find(
+      (_page) => _page.current.name === pageName,
+    )?.current
+
+    if (!page) {
+      await router.push({ pathname: PageType.AppList, query: {} })
+
+      return null
+    }
 
     const pageElements = [
       // This will load the custom components in the _app (provider page) for the regular pages since we also

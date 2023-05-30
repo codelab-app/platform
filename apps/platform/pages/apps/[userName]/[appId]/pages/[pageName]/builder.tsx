@@ -14,7 +14,7 @@ import {
 } from '@codelab/frontend/domain/page'
 import {
   useCurrentAppId,
-  useCurrentPageId,
+  useCurrentPage,
   useRemainingPages,
   useRenderedPage,
 } from '@codelab/frontend/presentation/container'
@@ -33,7 +33,7 @@ const PageBuilder: CodelabPage = observer(() => {
     useRemainingPages()
 
   const appId = useCurrentAppId()
-  const pageId = useCurrentPageId()
+  const { pageName } = useCurrentPage()
 
   const [{ error, result, status: renderedPageStatus }, loadCurrentPage] =
     useRenderedPage({
@@ -46,7 +46,7 @@ const PageBuilder: CodelabPage = observer(() => {
 
   useEffect(() => {
     void loadCurrentPage.execute()
-  }, [pageId])
+  }, [pageName])
 
   const isLoading =
     renderedPageStatus !== 'success' || remainingPagesStatus !== 'success'
