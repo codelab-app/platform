@@ -5,14 +5,9 @@ import type {
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/frontend/abstract/core'
-import {
-  componentRef,
-  getRendererId,
-  isComponentInstance,
-} from '@codelab/frontend/abstract/core'
+import { isComponentInstance } from '@codelab/frontend/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
-import { ComponentRuntimeProps } from '../component-runtime-props.model'
 import { BaseRenderPipe } from './render-pipe.base'
 
 @model('@codelab/ComponentRenderPipe')
@@ -28,22 +23,8 @@ export class ComponentRenderPipe
     }
 
     const component = element.renderType.current
-    // only the main component is not cloned in component builder
-    // other nested components inside the main must be cloned
-    // therefor it is not enough to compare using renderer.renderType
-    const isComponentBuilder = this.renderer.id === getRendererId(component.id)
-
-    const componentToRender = isComponentBuilder
-      ? component
-      : component.clone(element.id, element.id)
-
-    const runtimeProp = ComponentRuntimeProps.create(
-      componentRef(componentToRender.id),
-    )
-
-    this.renderer.runtimeProps.set(componentToRender.id, runtimeProp)
-
-    const rootElement = componentToRender.rootElement.current
+    const clonedComponent = component.clone(element.id, element.id)
+    const rootElement = clonedComponent.rootElement.current
 
     ComponentRenderPipe.logRendering(this.renderer, rootElement, element)
 

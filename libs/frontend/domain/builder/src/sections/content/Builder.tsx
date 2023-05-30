@@ -7,10 +7,7 @@ import {
   makeDropIndicatorStyle,
   Renderer,
 } from '@codelab/frontend/domain/renderer'
-import {
-  useCurrentPageId,
-  useStore,
-} from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { useDroppable } from '@dnd-kit/core'
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
@@ -26,9 +23,7 @@ import ResizeHandle from './ResizeHandle'
  */
 export const Builder = observer(() => {
   const { builderService, elementService, renderService } = useStore()
-  const pageId = useCurrentPageId()
-  const activeComponentId = builderService.activeComponent?.id
-  const renderer = renderService.renderers.get(activeComponentId ?? pageId)
+  const renderer = renderService.activeRenderer?.current
   const elementTree = builderService.activeElementTree
 
   const { builderContainerWidth, selectedBuilderWidth, selectedNode } =

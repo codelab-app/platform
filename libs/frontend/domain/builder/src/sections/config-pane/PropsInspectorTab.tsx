@@ -13,8 +13,6 @@ const PropsInspectorTab = observer<{ node: IPageNodeRef }>(({ node }) => {
   const initialProps = node.current.props.current.jsonString
   const [editedProp, setEditedProp] = useState(initialProps)
   const isSaved = editedProp === initialProps
-  console.log(node.current.runtimeProp)
-
   const lastRenderedProp = node.current.runtimeProp?.evaluatedProps || {}
 
   return (

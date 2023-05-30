@@ -2,8 +2,10 @@ import { PageHeader } from '@ant-design/pro-components/lib'
 import type { IComponent, IPageNode } from '@codelab/frontend/abstract/core'
 import {
   componentRef,
+  getRendererId,
   isComponentPageNode,
   isElementPageNode,
+  rendererRef,
   RendererTab,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -23,8 +25,13 @@ import { StorePane } from '../StorePane'
 import { ComponentList } from './ComponentList'
 
 export const CustomComponents = observer(() => {
-  const { builderService, componentService, elementService, fieldService } =
-    useStore()
+  const {
+    builderService,
+    componentService,
+    elementService,
+    fieldService,
+    renderService,
+  } = useStore()
 
   const [activeComponent, setActiveComponent] = useState<IComponent>()
   const previousActiveNode = useRef<IPageNode>()
@@ -44,6 +51,7 @@ export const CustomComponents = observer(() => {
   const editComponent = (id: string) => {
     const component = componentService.component(id)
     setActiveComponent(component)
+    renderService.setActiveRenderer(rendererRef(getRendererId(id)))
     previousActiveNode.current = builderService.selectedNode?.current
     builderService.setActiveTab(RendererTab.Component)
     builderService.selectComponentNode(component)

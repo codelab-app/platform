@@ -8,6 +8,7 @@ import type {
 import {
   isComponentInstance,
   isTypedProp,
+  rendererRef,
 } from '@codelab/frontend/abstract/core'
 import type { ProductionWebsiteProps } from '@codelab/frontend/abstract/types'
 import { PageType } from '@codelab/frontend/abstract/types'
@@ -95,6 +96,7 @@ export const useRenderedPage = ({
       rendererType,
     })
 
+    renderService.setActiveRenderer(rendererRef(renderer.id))
     await renderer.expressionTransformer.init()
 
     return {
