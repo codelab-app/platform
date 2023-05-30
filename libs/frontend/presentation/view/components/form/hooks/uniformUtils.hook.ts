@@ -81,7 +81,7 @@ export const createValidator = (schema: Schema) => {
   return (model: Record<string, unknown>) => {
     validator(model)
 
-    return validator
+    return validator.errors?.length ? { details: validator.errors } : null
   }
 }
 

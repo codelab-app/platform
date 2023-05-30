@@ -36,8 +36,8 @@ const validateSchema = (node: IPageNodeRef) => {
   return (data: IPropData) => {
     const validation = validator(data)
 
-    if (validation.errors?.[0]) {
-      const { instancePath, message } = validation.errors[0]
+    if (validation?.details[0]) {
+      const { instancePath, message } = validation.details[0]
 
       notify({
         content: `${instancePath} ${message}`,
