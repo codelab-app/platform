@@ -3,7 +3,7 @@ import Script from 'next/script'
 import React from 'react'
 
 export const Intercom = () => {
-  const app_id = Env.intercom.app_id
+  const app_id = Env.intercom.appId
 
   return (
     <Script id="intercom">

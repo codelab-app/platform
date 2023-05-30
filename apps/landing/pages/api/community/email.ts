@@ -8,16 +8,16 @@ const schema = z.object({
 })
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { api_key, list_id, server_prefix } = Env.mailchimp
+  const { apiKey, listId, serverPrefix } = Env.mailchimp
 
   try {
     const { email } = schema.parse(req.body)
     client.setConfig({
-      apiKey: api_key,
-      server: server_prefix,
+      apiKey,
+      server: serverPrefix,
     })
 
-    const response = await client.lists.addListMember(list_id, {
+    const response = await client.lists.addListMember(listId, {
       email_address: email,
       status: 'subscribed',
     })
