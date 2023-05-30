@@ -8,7 +8,14 @@ export const exportApps = async (where: AppWhere) => {
 
   return apps.reduce(async (appsData, app) => {
     const pagesData = await getAppPages(app)
-    const appExport = { ...app, pages: pagesData }
+
+    const appExport = {
+      domains: app.domains,
+      id: app.id,
+      name: app.name,
+      pages: pagesData,
+      slug: app.slug,
+    }
 
     return [...(await appsData), appExport]
   }, Promise.resolve<Array<IAppExport>>([]))
