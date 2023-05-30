@@ -11,6 +11,17 @@ import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 import { BaseRuntimeProps } from './base-runtime-props.model'
 
+/**
+ * The pipeline is as follow
+ *
+ * (component.props + component.api.defaultValues )->
+ *         preProceedProps ->
+ *               renderedTypedProps ->
+ *                                evaluatedProps
+ *
+ * evaluatedProps + instanceElementProps.evaluatedProps => componentEvaluatedProps
+ */
+
 const create = (nodeRef: Ref<IComponent>) =>
   new ComponentRuntimeProps({ nodeRef })
 
@@ -42,6 +53,14 @@ export class ComponentRuntimeProps
   @computed
   get preProceedProps(): IPropData {
     return this.props
+  }
+
+  @computed
+  get componentEvaluatedProps() {
+    return mergeProps(
+      this.evaluatedProps,
+      this.instanceElementProps?.evaluatedProps,
+    )
   }
 
   static create = create

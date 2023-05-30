@@ -12,7 +12,6 @@ import { ModalService } from '@codelab/frontend/shared/utils'
 import type { ActionFragment } from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
@@ -38,7 +37,6 @@ export class ActionService
     clones: prop(() => objectMap<IAction>()),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new ActionModalService({})),
-    selectedActions: prop(() => Array<Ref<IAction>>()).withSetter(),
     updateModal: prop(() => new ActionModalService({})),
   })
   implements IActionService

@@ -58,5 +58,14 @@ export class ElementRuntimeProps
     return mergeProps(this.props, result)
   }
 
+  @computed
+  get evaluationContext() {
+    const parentComponent = this.node.parentComponent?.current
+
+    return mergeProps(this.node.store.current.state, {
+      parent: { props: parentComponent?.runtimeProp?.componentEvaluatedProps },
+    })
+  }
+
   static create = create
 }

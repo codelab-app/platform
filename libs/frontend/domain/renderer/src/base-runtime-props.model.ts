@@ -38,6 +38,10 @@ export class BaseRuntimeProps<TNode extends IPageNode>
     return this.props
   }
 
+  get evaluationContext() {
+    return this.node.store.current.state
+  }
+
   @computed
   get typeService() {
     return getTypeService(this)
@@ -80,17 +84,11 @@ export class BaseRuntimeProps<TNode extends IPageNode>
 
   @computed
   get evaluatedProps() {
-    return replaceStateInProps(
-      this.renderedTypedProps,
-      this.node.store.current.state,
-    )
+    return replaceStateInProps(this.renderedTypedProps, this.evaluationContext)
   }
 
   @computed
   get evaluatedPropsBeforeRender() {
-    return replaceStateInProps(
-      this.preProceedProps,
-      this.node.store.current.state,
-    )
+    return replaceStateInProps(this.preProceedProps, this.evaluationContext)
   }
 }

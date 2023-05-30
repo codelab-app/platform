@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 
-export const DeleteActionsModal = observer(() => {
+export const DeleteActionModal = observer(() => {
   const { actionService } = useStore()
   const action = actionService.deleteModal.action
   const closeModal = () => actionService.deleteModal.close()

@@ -1,2 +1,2 @@
 export * from './DeleteActionButton'
-export * from './DeleteActionsModal'
+export * from './DeleteActionModal'

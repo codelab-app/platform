@@ -24,7 +24,10 @@ export interface IRuntimeProp<T extends IPageNode> {
    * used for validation by PropsInspector
    */
   evaluatedPropsBeforeRender: IPropData
-  instanceElementProps?: Maybe<IElementRuntimeProp>
+  /**
+   * Props evaluation context (state + parent props)
+   */
+  evaluationContext: IPropData
   /**
    * Ref for node that holds the props either element or component
    */
@@ -36,4 +39,14 @@ export interface IRuntimeProp<T extends IPageNode> {
 }
 
 export type IElementRuntimeProp = IRuntimeProp<IElement>
-export type IComponentRuntimeProp = IRuntimeProp<IComponent>
+export interface IComponentRuntimeProp extends IRuntimeProp<IComponent> {
+  /**
+   * merge component.props evaluation with instance element props evaluation
+   */
+  componentEvaluatedProps: IPropData
+
+  /**
+   * Runtime props for component instance
+   */
+  instanceElementProps: Maybe<IElementRuntimeProp>
+}

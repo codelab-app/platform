@@ -1,6 +1,11 @@
 import { DeleteComponentModal } from '@codelab/frontend/domain/component'
 import { DeleteElementModal } from '@codelab/frontend/domain/element'
 import {
+  CreateActionModal,
+  DeleteActionModal,
+  UpdateActionModal,
+} from '@codelab/frontend/domain/store'
+import {
   CreateFieldModal,
   DeleteFieldModal,
   UpdateFieldModal,
@@ -74,6 +79,9 @@ export const ComponentsExplorerPane = observer<ComponentsExplorerPaneProps>(
         <CreateFieldModal />
         <UpdateFieldModal />
         <DeleteFieldModal />
+        <CreateActionModal />
+        <UpdateActionModal />
+        <DeleteActionModal />
       </>
     )
   },
