@@ -1,3 +1,7 @@
+import isPlainObject from 'lodash/isPlainObject'
+import isString from 'lodash/isString'
+import type { IPropData } from '../../prop'
+
 /**
  * Used to represent a value that has a specific type.
  * Useful for handling the same value in a different way
@@ -9,4 +13,8 @@
 export interface TypedProp {
   type: string
   value: string
+}
+
+export const isTypedProp = (prop: IPropData): prop is TypedProp => {
+  return isPlainObject(prop) && 'type' in prop && isString(prop['type'])
 }

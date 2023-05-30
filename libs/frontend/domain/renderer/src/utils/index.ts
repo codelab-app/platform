@@ -1,6 +1,5 @@
 export * from './clone-component'
 export * from './make-drop-indicator-style'
 export * from './query-rendered-element-by-id'
-export * from './should-render-element'
-export * from './is-typed-prop'
 export * from './render-output'
+export * from './should-render-element'

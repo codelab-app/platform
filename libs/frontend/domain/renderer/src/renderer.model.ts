@@ -15,6 +15,7 @@ import {
   CUSTOM_TEXT_PROP_KEY,
   elementRef,
   elementTreeRef,
+  getRendererId,
   isAtomInstance,
 } from '@codelab/frontend/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
@@ -51,8 +52,6 @@ import { typedPropTransformersFactory } from './typedPropTransformers'
  *
  * For example - we use the renderContext from ./renderContext inside the pipes to get the renderer model itself and its tree.
  */
-
-const getRendererId = (id: string) => `${id}.renderer`
 
 const create = ({
   elementTree,
@@ -236,8 +235,6 @@ export class Renderer
       console.dir({ element: element, rendered })
     }
   }
-
-  static getRendererId = getRendererId
 
   static create = create
 }

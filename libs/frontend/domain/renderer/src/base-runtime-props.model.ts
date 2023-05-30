@@ -1,4 +1,5 @@
 import type { IPageNode, IRuntimeProp } from '@codelab/frontend/abstract/core'
+import { isTypedProp } from '@codelab/frontend/abstract/core'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { replaceStateInProps } from '@codelab/frontend/shared/utils'
 import { mapDeep } from '@codelab/shared/utils'
@@ -6,7 +7,6 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelClass, prop } from 'mobx-keystone'
 import { BaseRenderPipe } from './renderPipes/render-pipe.base'
-import { isTypedProp } from './utils'
 
 /**
  * The pipeline is as follow
