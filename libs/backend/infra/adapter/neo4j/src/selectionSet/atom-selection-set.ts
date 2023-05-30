@@ -47,4 +47,7 @@ export const exportAtomSelectionSet = `{
     name
     type
   }
+  externalCssSource
+  externalJsSource
+  externalSourceType
 }`

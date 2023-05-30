@@ -1,6 +1,6 @@
 import type { IAtomRendererRecord } from '@codelab/frontend/abstract/core'
+import { dynamicLoader } from '@codelab/frontend/shared/utils'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { dynamicLoader } from '../dynamic-loader'
 
 // Custom atom components
 // Note: some of those are obsolete and replaced by hooks (or mobx platform when implemented)

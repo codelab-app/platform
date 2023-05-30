@@ -43,7 +43,7 @@ export class AtomRenderPipe
       props,
     })
 
-    if (!ReactComponent) {
+    if (!ReactComponent && !atomRenderType.externalSourceType) {
       console.warn(
         `AtomRenderPipe: No RootComponent found for atom type ${atomType}`,
       )

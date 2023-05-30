@@ -3932,6 +3932,7 @@ export enum AtomType {
 }
 
 export type AtomUniqueWhere = {
+  externalSourceType?: InputMaybe<Scalars['String']>
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
 }

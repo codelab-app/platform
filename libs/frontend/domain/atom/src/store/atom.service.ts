@@ -8,11 +8,16 @@ import type {
 import { atomRef, typeRef } from '@codelab/frontend/abstract/core'
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { getTypeService } from '@codelab/frontend/domain/type'
-import { ModalService, PaginationService } from '@codelab/frontend/shared/utils'
+import {
+  dynamicLoader,
+  ModalService,
+  PaginationService,
+} from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
-import type { IAtomDTO } from '@codelab/shared/abstract/core'
+import type { IAtomDTO, IComponentType } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { computed } from 'mobx'
+import isEmpty from 'lodash/isEmpty'
+import { computed, observable } from 'mobx'
 import {
   _async,
   _await,
@@ -111,6 +116,9 @@ export class AtomService
     return Array.from(this.atoms.values())
   }
 
+  @observable
+  dynamicComponents: Record<string, IComponentType> = {}
+
   @modelAction
   add = ({
     api,
@@ -163,22 +171,24 @@ export class AtomService
       externalJsSource &&
       !this.loadedExternalJsSources.has(externalSourceType)
     ) {
-      // TODO: add these custom types on the window object
-      // @ts-expect-error: type will be added later
-      window.onloadExternalSource = () => {
+      // @ts-expect-error: dynamic function
+      window[`onload${externalSourceType}`] = (
+        component: React.ComponentType,
+      ) => {
         this.loadedExternalJsSources.add(externalSourceType)
+        this.dynamicComponents[externalSourceType] = dynamicLoader(
+          async () => component,
+        )
       }
 
       const script = document.createElement('script')
       script.type = 'module'
       script.innerText = `
         import ${externalSourceType} from '${externalJsSource}';
-        if (!window.externalComponents) {
-          window.externalComponents = {};
-        }
-        window.externalComponents.${externalSourceType} = ${externalSourceType};
-        if (window.onloadExternalSource) {
-          window.onloadExternalSource();
+        window.${externalSourceType} = ${externalSourceType};
+        if (window.onload${externalSourceType}) {
+          window.onload${externalSourceType}(${externalSourceType});
+          delete window.onload${externalSourceType};
         }
       `
       document.getElementsByTagName('head')[0]?.appendChild(script)
@@ -204,6 +214,12 @@ export class AtomService
     } = yield* _await(this.atomRepository.find(where, options))
 
     this.paginationService.totalItems = count
+
+    if (!isEmpty(where) || options?.limit) {
+      this.typeService.loadTypes({
+        interfaceTypes: atoms.map((atom) => atom.api),
+      })
+    }
 
     return atoms.map((atom) => this.add(atom))
   })

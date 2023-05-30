@@ -18,7 +18,7 @@ export const atomSchema = gql`
     icon: String
     externalJsSource: String
     externalCssSource: String
-    externalSourceType: String
+    externalSourceType: String @unique
     requiredParents: [Atom!]!
       @relationship(type: "REQUIRED_PARRENTS", direction: OUT)
     suggestedChildren: [Atom!]!

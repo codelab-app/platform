@@ -9,7 +9,7 @@ import { useTablePagination } from '@codelab/frontend/shared/utils'
 import { Table } from 'antd'
 import type { ColumnType } from 'antd/lib/table'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   type AtomRecord,
   ActionColumn,
@@ -23,7 +23,7 @@ import { useGetLibrary } from './dataSource/atom-library'
 import { onLibraryFilter } from './dataSource/on-library-filter'
 
 export const AtomsTable = observer(() => {
-  const { atomService, fieldService, typeService } = useStore()
+  const { atomService, fieldService } = useStore()
 
   const { data, filter, handleChange, isLoading, pagination } =
     useTablePagination<IAtom, { name: string }>({
@@ -33,12 +33,6 @@ export const AtomsTable = observer(() => {
     })
 
   const getLibrary = useGetLibrary()
-
-  useEffect(() => {
-    // This loads all types and will only fetch from the backend once
-    // so that they will already be available on all TypeSelect fields
-    void typeService.getAll()
-  }, [])
 
   const nameColumnSearchProps = useColumnSearchProps<AtomRecord>({
     dataIndex: 'name',

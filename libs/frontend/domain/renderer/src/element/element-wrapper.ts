@@ -8,11 +8,9 @@ import { useStore } from '@codelab/frontend/presentation/container'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
 import { jsx } from '@emotion/react'
-import get from 'lodash/get'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import { dynamicLoader } from '../atoms/dynamic-loader'
 import { shouldRenderElement } from '../utils'
 import { mapOutput } from '../utils/render-output-utils'
 import { extractValidProps, getReactComponent } from './wrapper.utils'
@@ -66,10 +64,9 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
       const ReactComponent =
         renderOutput.atomType &&
-        atomService.loadedExternalJsSources.has(renderOutput.atomType)
-          ? dynamicLoader(() =>
-              get(window, `externalComponents.${renderOutput.atomType}`),
-            )
+        atomService.dynamicComponents[renderOutput.atomType]
+          ? atomService.dynamicComponents[renderOutput.atomType] ??
+            React.Fragment
           : getReactComponent(renderOutput)
 
       const extractedProps = extractValidProps(ReactComponent, renderOutput)

@@ -4,11 +4,8 @@ import {
   DATA_ELEMENT_ID,
 } from '@codelab/frontend/abstract/core'
 import { notify } from '@codelab/frontend/shared/utils'
-import { AtomType } from '@codelab/shared/abstract/codegen'
 import { mergeProps } from '@codelab/shared/utils'
-import get from 'lodash/get'
 import { allPropsCustomizer, getAtom } from './atoms'
-import { dynamicLoader } from './dynamic-loader'
 import type { AtomFactoryInput, AtomFactoryResult } from './types'
 
 /**
@@ -16,22 +13,14 @@ import type { AtomFactoryInput, AtomFactoryResult } from './types'
  */
 export const atomFactory = (input: AtomFactoryInput): AtomFactoryResult => {
   const { atom, node, props } = input
-  const atomTypeName = atom.externalSourceType ?? atom.type
-
   /**
    * Get ReactComponent by atomType, this takes in a module mapper to resolve the ReactComponent
    */
-  const ReactComponent = atom.externalSourceType
-    ? get(window, `externalComponents.${atom.externalSourceType}`)
-      ? dynamicLoader(() =>
-          get(window, `externalComponents.${atom.externalSourceType}`),
-        )
-      : getAtom(AtomType.ReactFragment)
-    : getAtom(atom.type)
+  const ReactComponent = getAtom(atom.type)
 
-  if (!ReactComponent) {
+  if (!ReactComponent && !atom.externalSourceType) {
     notify({
-      title: `Missing atom of type ${atomTypeName} in atom type map`,
+      title: `Missing atom of type ${atom.type} in atom type map`,
       type: 'error',
     })
 
