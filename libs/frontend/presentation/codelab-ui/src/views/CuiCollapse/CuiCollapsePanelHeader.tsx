@@ -2,13 +2,13 @@ import { DownOutlined, RightOutlined } from '@ant-design/icons'
 import { Typography } from 'antd'
 import React, { useState } from 'react'
 import tw from 'twin.macro'
-import type { SidebarToolbarProps } from '../SidebarToolbar'
-import { SidebarToolbar } from '../SidebarToolbar'
+import type { CuiSidebarToolbarProps } from '../CuiSidebarToolbar'
+import { CuiSidebarToolbar } from '../CuiSidebarToolbar'
 
 export interface CuiCollapsePanelHeaderProps {
   defaultExpand?: boolean
   label: string
-  toolbar?: SidebarToolbarProps
+  toolbar?: CuiSidebarToolbarProps
   onExpand(isExpanded: boolean): void
 }
 
@@ -79,7 +79,7 @@ export const CuiCollapsePanelHeader = ({
         >
           {
             // eslint-disable-next-line react/jsx-props-no-spreading
-            <SidebarToolbar {...toolbar} />
+            <CuiSidebarToolbar {...toolbar} />
           }
         </div>
       )}

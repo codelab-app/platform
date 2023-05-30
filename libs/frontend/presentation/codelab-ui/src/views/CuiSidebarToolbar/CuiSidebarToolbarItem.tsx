@@ -3,14 +3,14 @@ import React from 'react'
 import tw from 'twin.macro'
 import type { ToolbarItem } from '../../abstract'
 
-type SidebarToolbarItemProps = Omit<ToolbarItem, 'label'>
+type CuiSidebarToolbarItemProps = Omit<ToolbarItem, 'label'>
 
-export const SidebarToolbarItem = ({
+export const CuiSidebarToolbarItem = ({
   icon,
   key,
   onClick,
   title,
-}: SidebarToolbarItemProps) => {
+}: CuiSidebarToolbarItemProps) => {
   return (
     <div css={tw`w-full h-full`} data-cy={`codelabui-toolbar-item-${title}`}>
       <Tooltip key={key} title={title}>

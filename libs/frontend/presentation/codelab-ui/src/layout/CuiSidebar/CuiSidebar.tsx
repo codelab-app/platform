@@ -3,32 +3,32 @@ import { Tabs, Tooltip, Typography } from 'antd'
 import type { ReactNode } from 'react'
 import React from 'react'
 import tw from 'twin.macro'
-import type { SidebarToolbarProps } from '../../views'
-import { SidebarToolbar } from '../../views'
+import type { CuiSidebarToolbarProps } from '../../views'
+import { CuiSidebarToolbar } from '../../views'
 import { CuiCollapse } from '../../views/CuiCollapse'
 
-export interface SidebarView {
+export interface CuiSidebarView {
   content: React.ReactNode
   isLoading?: boolean
   key: string
   label: string
-  toolbar?: SidebarToolbarProps
+  toolbar?: CuiSidebarToolbarProps
 }
 
-export interface SidebarTab {
+export interface CuiSidebarTab {
   defaultActiveViewKeys?: Array<string>
   icon: ReactNode
   key: string
   label: string
-  views: Array<SidebarView>
+  views: Array<CuiSidebarView>
 }
 
-export interface SidebarProps {
+export interface CuiSidebarProps {
   defaultActiveViewKeys?: Array<string>
   label: string
-  tabs?: Array<SidebarTab>
-  toolbar?: SidebarToolbarProps
-  views?: Array<SidebarView>
+  tabs?: Array<CuiSidebarTab>
+  toolbar?: CuiSidebarToolbarProps
+  views?: Array<CuiSidebarView>
 }
 
 const overrideAntdStyles = `
@@ -123,15 +123,13 @@ const overrideAntdStyles = `
   }
 `
 
-const { TabPane } = Tabs
-
-export const Sidebar = ({
+export const CuiSidebar = ({
   defaultActiveViewKeys,
   label,
   tabs,
   toolbar,
   views,
-}: SidebarProps) => {
+}: CuiSidebarProps) => {
   return (
     <div
       css={[
@@ -148,7 +146,7 @@ export const Sidebar = ({
         <div className="cuiSidebarAntdTabsWrapper">
           <Tabs defaultActiveKey={tabs[0].key}>
             {tabs.map((tab) => (
-              <TabPane
+              <Tabs.TabPane
                 key={tab.key}
                 tab={<Tooltip title={tab.label}>{tab.icon}</Tooltip>}
               >
@@ -156,10 +154,10 @@ export const Sidebar = ({
                   defaultActivePanels={tab.defaultActiveViewKeys}
                   panels={tab.views}
                 />
-              </TabPane>
+              </Tabs.TabPane>
             ))}
             {views && (
-              <TabPane
+              <Tabs.TabPane
                 key="other"
                 tab={
                   <Tooltip title="Other">
@@ -171,7 +169,7 @@ export const Sidebar = ({
                   defaultActivePanels={defaultActiveViewKeys}
                   panels={views}
                 />
-              </TabPane>
+              </Tabs.TabPane>
             )}
           </Tabs>
         </div>
@@ -183,7 +181,7 @@ export const Sidebar = ({
               <div css={tw`max-w-lg`}>
                 {
                   // eslint-disable-next-line react/jsx-props-no-spreading
-                  <SidebarToolbar {...toolbar} />
+                  <CuiSidebarToolbar {...toolbar} />
                 }
               </div>
             )}

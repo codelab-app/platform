@@ -32,8 +32,8 @@ import {
   UpdateFieldForm,
   UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
-import type { SidebarView } from '@codelab/frontend/presentation//codelab-ui'
-import { Sidebar } from '@codelab/frontend/presentation//codelab-ui'
+import type { CuiSidebarView } from '@codelab/frontend/presentation//codelab-ui'
+import { CuiSidebar } from '@codelab/frontend/presentation//codelab-ui'
 import {
   useCurrentPageId,
   useStore,
@@ -77,7 +77,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
       return
     }
 
-    const sidebarViews: Array<SidebarView> = [
+    const sidebarViews: Array<CuiSidebarView> = [
       {
         content: pageTree && (
           <>
@@ -212,7 +212,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
 
     return (
       <>
-        <Sidebar
+        <CuiSidebar
           defaultActiveViewKeys={['ElementTree', 'StateList']}
           label="Explorer"
           views={sidebarViews}

@@ -3,11 +3,11 @@ import { Button, Dropdown, Menu } from 'antd'
 import React, { useEffect, useRef, useState } from 'react'
 import tw from 'twin.macro'
 import type { ToolbarItem, ToolbarProps } from '../../abstract'
-import { SidebarToolbarItem } from './SidebarToolbarItem'
+import { CuiSidebarToolbarItem } from './CuiSidebarToolbarItem'
 
-export type SidebarToolbarProps = ToolbarProps
+export type CuiSidebarToolbarProps = ToolbarProps
 
-export const SidebarToolbar = ({ items }: SidebarToolbarProps) => {
+export const CuiSidebarToolbar = ({ items }: CuiSidebarToolbarProps) => {
   const [showDropdown, setShowDropdown] = useState(false)
   const [overflowItems, setOverflowItems] = useState<Array<ToolbarItem>>([])
   const listRef = useRef<HTMLDivElement>(null)
@@ -70,7 +70,7 @@ export const SidebarToolbar = ({ items }: SidebarToolbarProps) => {
         ref={listRef}
       >
         {items.map((item) => (
-          <SidebarToolbarItem
+          <CuiSidebarToolbarItem
             icon={item.icon}
             key={item.key}
             onClick={item.onClick}

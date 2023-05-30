@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import tw from 'twin.macro'
-import type { SidebarToolbarProps } from '../SidebarToolbar'
+import type { CuiSidebarToolbarProps } from '../CuiSidebarToolbar'
 import { CuiCollapsePanelContent } from './CuiCollapsePanelContent'
 import { CuiCollapsePanelHeader } from './CuiCollapsePanelHeader'
 
@@ -9,7 +9,7 @@ interface CuiCollapsePanelProps {
   isLoading?: boolean
   key: string
   label: string
-  toolbar?: SidebarToolbarProps
+  toolbar?: CuiSidebarToolbarProps
 }
 
 interface CuiCollapseProps {
