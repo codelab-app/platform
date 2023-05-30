@@ -1,4 +1,4 @@
-import { NavigationBar } from '@codelab/frontend/presentation//codelab-ui'
+import { CuiNavigationBar } from '@codelab/frontend/presentation//codelab-ui'
 import {
   useCurrentAppId,
   useCurrentPageId,
@@ -46,7 +46,7 @@ export const DashboardTemplateSSR = observer(
         {Header && <Header />}
         <Layout>
           <Sider collapsed collapsedWidth={sidebarWidth} theme="light">
-            <NavigationBar
+            <CuiNavigationBar
               primaryItems={navigationBarItems.primaryItems}
               secondaryItems={navigationBarItems.secondaryItems}
             />

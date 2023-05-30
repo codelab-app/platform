@@ -15,7 +15,7 @@ export interface NavigationBarItem {
   onClick?(): void
 }
 
-export interface NavigationBarProps {
+export interface CuiNavigationBarProps {
   // Default menu items
   primaryItems?: Array<NavigationBarItem>
   // Menu items at the bottom
@@ -81,10 +81,10 @@ const mapNavBarItemToMenuItem = (navBarItem: NavigationBarItem) => ({
   title: navBarItem.title,
 })
 
-export const NavigationBar = ({
+export const CuiNavigationBar = ({
   primaryItems,
   secondaryItems,
-}: NavigationBarProps) => {
+}: CuiNavigationBarProps) => {
   const router = useRouter()
   const { primarySidebarKey } = router.query
   const selectedKey = (primarySidebarKey as string) || router.pathname

@@ -1,4 +1,4 @@
 export * from './CuiCollapse'
+export * from './CuiHeaderBreadcrumb'
+export * from './CuiHeaderToolbar'
 export * from './CuiSidebarToolbar'
-export * from './HeaderBreadcrumb'
-export * from './HeaderToolbar'

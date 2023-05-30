@@ -2,19 +2,19 @@ import { Col, Row } from 'antd'
 import React from 'react'
 import tw from 'twin.macro'
 
-interface HeaderProps {
+interface CuiHeaderProps {
   centralArea?: React.ReactElement | null
   direction?: React.ReactElement | null
   logo?: React.ReactElement | null
   toolbar?: React.ReactElement | null
 }
 
-export const Header = ({
+export const CuiHeader = ({
   centralArea,
   direction,
   logo,
   toolbar,
-}: HeaderProps) => {
+}: CuiHeaderProps) => {
   return (
     <div>
       <div

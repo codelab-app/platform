@@ -2,9 +2,9 @@ import { EyeOutlined, ToolOutlined } from '@ant-design/icons'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation//codelab-ui'
 import {
-  Header,
-  HeaderBreadcrumb,
-  HeaderToolbar,
+  CuiHeader,
+  CuiHeaderBreadcrumb,
+  CuiHeaderToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
 import {
   useCurrentAppId,
@@ -64,10 +64,10 @@ export const PageDetailHeader = observer(() => {
   ]
 
   return (
-    <Header
+    <CuiHeader
       centralArea={isBuilder ? <BuilderSizeMenu /> : null}
       direction={
-        <HeaderBreadcrumb
+        <CuiHeaderBreadcrumb
           items={[
             { onClick: navigateAppsPage, title: appName },
             { title: 'Pages' },
@@ -83,7 +83,9 @@ export const PageDetailHeader = observer(() => {
           src="/logo.png"
         />
       }
-      toolbar={<HeaderToolbar items={toolbarItems} title="My Header Toolbal" />}
+      toolbar={
+        <CuiHeaderToolbar items={toolbarItems} title="My Header Toolbal" />
+      }
     />
   )
 })

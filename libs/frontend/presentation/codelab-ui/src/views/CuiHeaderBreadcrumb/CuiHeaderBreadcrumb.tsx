@@ -10,7 +10,7 @@ interface HeaderBreadcrumbItem {
   onClick?(): void
 }
 
-interface HeaderBreadcrumbProps {
+interface CuiHeaderBreadcrumbProps {
   items: Array<HeaderBreadcrumbItem>
 }
 
@@ -43,7 +43,7 @@ const createFullPath = (allItems: Array<HeaderBreadcrumbItem>) => {
   return allItems.map((item) => item.title).join(` ${separator} `)
 }
 
-export const HeaderBreadcrumb = ({ items }: HeaderBreadcrumbProps) => {
+export const CuiHeaderBreadcrumb = ({ items }: CuiHeaderBreadcrumbProps) => {
   return (
     <Tooltip placement="bottom-start" title={createFullPath(items)}>
       <div css={tw`h-full px-2 flex items-center`}>
