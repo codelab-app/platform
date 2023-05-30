@@ -7,8 +7,8 @@ import {
   UpdateResourceModal,
 } from '@codelab/frontend/domain/resource'
 import {
-  Header,
-  HeaderBreadcrumb,
+  CuiHeader,
+  CuiHeaderBreadcrumb,
 } from '@codelab/frontend/presentation//codelab-ui'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
@@ -23,8 +23,8 @@ import React from 'react'
 import tw from 'twin.macro'
 
 const ResourcesPageHeader = observer(() => (
-  <Header
-    direction={<HeaderBreadcrumb items={[{ title: 'Resources' }]} />}
+  <CuiHeader
+    direction={<CuiHeaderBreadcrumb items={[{ title: 'Resources' }]} />}
     logo={
       <Image
         alt="codelab logo"

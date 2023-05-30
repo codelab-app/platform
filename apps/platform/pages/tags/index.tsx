@@ -10,9 +10,9 @@ import {
   UpdateTagModal,
 } from '@codelab/frontend/domain/tag'
 import {
-  Header,
-  HeaderBreadcrumb,
-  HeaderToolbar,
+  CuiHeader,
+  CuiHeaderBreadcrumb,
+  CuiHeaderToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
@@ -77,8 +77,8 @@ const TagPageHeader = observer(() => {
   ]
 
   return (
-    <Header
-      direction={<HeaderBreadcrumb items={[{ title: 'Tags' }]} />}
+    <CuiHeader
+      direction={<CuiHeaderBreadcrumb items={[{ title: 'Tags' }]} />}
       logo={
         <Image
           alt="codelab logo"
@@ -88,7 +88,7 @@ const TagPageHeader = observer(() => {
         />
       }
       toolbar={
-        <HeaderToolbar items={toolbarItems} title="Tags Header Toolbal" />
+        <CuiHeaderToolbar items={toolbarItems} title="Tags Header Toolbal" />
       }
     />
   )

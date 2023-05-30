@@ -4,8 +4,8 @@ import {
   ImportDataButton,
 } from '@codelab/frontend/domain/admin'
 import {
-  Header,
-  HeaderBreadcrumb,
+  CuiHeader,
+  CuiHeaderBreadcrumb,
 } from '@codelab/frontend/presentation//codelab-ui'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
@@ -41,8 +41,8 @@ export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 AdminPage.Layout = ({ children }) => {
   const AdminHeader = () => (
-    <Header
-      direction={<HeaderBreadcrumb items={[{ title: 'Admin' }]} />}
+    <CuiHeader
+      direction={<CuiHeaderBreadcrumb items={[{ title: 'Admin' }]} />}
       logo={
         <Image
           alt="codelab logo"

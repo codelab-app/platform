@@ -12,9 +12,9 @@ import {
   UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
 import {
-  Header,
-  HeaderBreadcrumb,
-  HeaderToolbar,
+  CuiHeader,
+  CuiHeaderBreadcrumb,
+  CuiHeaderToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
@@ -64,8 +64,8 @@ const AtomsHeader = observer(() => {
   ]
 
   return (
-    <Header
-      direction={<HeaderBreadcrumb items={[{ title: 'Atoms' }]} />}
+    <CuiHeader
+      direction={<CuiHeaderBreadcrumb items={[{ title: 'Atoms' }]} />}
       logo={
         <Image
           alt="codelab logo"
@@ -74,7 +74,9 @@ const AtomsHeader = observer(() => {
           src="/logo.png"
         />
       }
-      toolbar={<HeaderToolbar items={toolbarItems} title="My Header Toolbal" />}
+      toolbar={
+        <CuiHeaderToolbar items={toolbarItems} title="My Header Toolbal" />
+      }
     />
   )
 })

@@ -11,9 +11,9 @@ import {
 } from '@codelab/frontend/domain/app'
 import type { ToolbarItem } from '@codelab/frontend/presentation//codelab-ui'
 import {
-  Header,
-  HeaderBreadcrumb,
-  HeaderToolbar,
+  CuiHeader,
+  CuiHeaderBreadcrumb,
+  CuiHeaderToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
@@ -57,8 +57,8 @@ const AppsPageHeader = observer(() => {
   ]
 
   return (
-    <Header
-      direction={<HeaderBreadcrumb items={[{ title: 'Apps' }]} />}
+    <CuiHeader
+      direction={<CuiHeaderBreadcrumb items={[{ title: 'Apps' }]} />}
       logo={
         <Image
           alt="codelab logo"
@@ -67,7 +67,9 @@ const AppsPageHeader = observer(() => {
           src="/logo.png"
         />
       }
-      toolbar={<HeaderToolbar items={toolbarItems} title="My Header Toolbal" />}
+      toolbar={
+        <CuiHeaderToolbar items={toolbarItems} title="My Header Toolbal" />
+      }
     />
   )
 })

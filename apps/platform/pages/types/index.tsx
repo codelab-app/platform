@@ -10,9 +10,9 @@ import {
   UpdateTypeModal,
 } from '@codelab/frontend/domain/type'
 import {
-  Header,
-  HeaderBreadcrumb,
-  HeaderToolbar,
+  CuiHeader,
+  CuiHeaderBreadcrumb,
+  CuiHeaderToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
@@ -40,8 +40,8 @@ const TypePageHeader = observer(() => {
   ]
 
   return (
-    <Header
-      direction={<HeaderBreadcrumb items={[{ title: 'Types' }]} />}
+    <CuiHeader
+      direction={<CuiHeaderBreadcrumb items={[{ title: 'Types' }]} />}
       logo={
         <Image
           alt="codelab logo"
@@ -51,7 +51,7 @@ const TypePageHeader = observer(() => {
         />
       }
       toolbar={
-        <HeaderToolbar items={toolbarItems} title="Types Header Toolbal" />
+        <CuiHeaderToolbar items={toolbarItems} title="Types Header Toolbal" />
       }
     />
   )

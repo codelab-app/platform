@@ -7,9 +7,9 @@ import {
   UpdateDomainModal,
 } from '@codelab/frontend/domain/domain'
 import {
-  Header,
-  HeaderBreadcrumb,
-  HeaderToolbar,
+  CuiHeader,
+  CuiHeaderBreadcrumb,
+  CuiHeaderToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
 import {
   useCurrentAppId,
@@ -38,9 +38,9 @@ const DomainsPageHeader = observer(() => {
   )
 
   return (
-    <Header
+    <CuiHeader
       direction={
-        <HeaderBreadcrumb
+        <CuiHeaderBreadcrumb
           items={[{ title: appName || '?' }, { title: 'Domains' }]}
         />
       }
@@ -53,7 +53,7 @@ const DomainsPageHeader = observer(() => {
         />
       }
       toolbar={
-        <HeaderToolbar
+        <CuiHeaderToolbar
           items={[
             {
               icon: <PlusOutlined />,
