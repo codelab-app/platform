@@ -1,7 +1,6 @@
-import { isServer } from '@codelab/shared/config'
+import { isServer } from '@codelab/shared/utils'
 import React from 'react'
 import type { OverlayProps } from './overlay.interface'
-// import { queryRenderedElementById } from '../../renderer'
 import { OverlayToolbar } from './OverlayToolbar'
 
 export const HoverOverlay = ({

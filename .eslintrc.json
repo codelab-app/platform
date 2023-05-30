@@ -399,6 +399,25 @@
             ]
           }
         ],
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": ["classProperty"],
+            "format": ["camelCase"]
+          },
+          {
+            "selector": ["objectLiteralProperty"],
+            "format": ["camelCase", "PascalCase"],
+            "filter": {
+              "regex": "_CONTAINS$|_ENDS_WITH$|_IN$|_STARTS_WITH$|_NOT$|_ALL$|_NONE$|_SINGLE$|_SOME$|^[#.].*|^[0-9]*$",
+              "match": false
+            }
+          },
+          {
+            "selector": ["interface"],
+            "format": ["PascalCase"]
+          }
+        ],
         "@typescript-eslint/padding-line-between-statements": [
           "error",
           {
@@ -521,6 +540,18 @@
               "kebabCase": true
             },
             "ignore": [".*\\.hook\\.tsx?$"]
+          }
+        ],
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": ["typeProperty"],
+            "format": ["camelCase", "PascalCase"],
+            "filter": {
+              "regex": "^data-",
+              "match": false
+            },
+            "leadingUnderscore": "allowDouble"
           }
         ]
       }

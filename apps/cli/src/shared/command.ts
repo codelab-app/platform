@@ -1,3 +1,4 @@
+import { Env } from '@codelab/shared/config'
 import dotenv from 'dotenv'
 import type { MiddlewareFunction, Options } from 'yargs'
 import { Stage } from './utils/stage'
@@ -23,7 +24,7 @@ export const getStageOptions: GetStageOptions = (stages) => ({
  * Used locally to load env for other stages
  */
 export const loadStageMiddleware: MiddlewareFunction = async ({ stage }) => {
-  if (process.env.CI) {
+  if (Env.circleci.ci) {
     return
   }
 

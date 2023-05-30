@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import type { CypressCommand } from '../types'
 import {
   _clearAuth0Cookie,

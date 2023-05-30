@@ -1,5 +1,7 @@
 /// <reference types="@welldone-software/why-did-you-render" />
 
+import { Env } from '@codelab/shared/config'
+import { isServer } from '@codelab/shared/utils'
 import React from 'react'
 
 /**
@@ -7,21 +9,19 @@ import React from 'react'
  *
  * https://github.com/welldone-software/why-did-you-render/issues/162
  */
-if (process.env.NODE_ENV === 'development') {
-  if (typeof window !== 'undefined') {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const whyDidYouRender = require('@welldone-software/why-did-you-render')
+if (Env.node.isDevelopment && !isServer) {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const whyDidYouRender = require('@welldone-software/why-did-you-render')
 
-    whyDidYouRender(React, {
-      // logOwnerReasons: true,
-      collapseGroups: true,
-      // include: [/.*/],
-      /**
-       * Ant Design Tabs component causes multiple re-renders to show up as OperationNode.
-       */
-      exclude: [/OperationNode/],
-      trackAllPureComponents: true,
-      // trackHooks: true,
-    })
-  }
+  whyDidYouRender(React, {
+    // logOwnerReasons: true,
+    collapseGroups: true,
+    // include: [/.*/],
+    /**
+     * Ant Design Tabs component causes multiple re-renders to show up as OperationNode.
+     */
+    exclude: [/OperationNode/],
+    trackAllPureComponents: true,
+    // trackHooks: true,
+  })
 }

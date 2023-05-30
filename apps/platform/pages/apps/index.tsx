@@ -22,6 +22,7 @@ import {
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
 import type { IAuth0Owner } from '@codelab/shared/abstract/core'
+import { Env } from '@codelab/shared/config'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { useAsync } from '@react-hookz/web'
 import { Image, Spin } from 'antd'
@@ -87,7 +88,7 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
 
     // in development need to execute this each time page is loaded,
     // since useUser always returns valid Auth0 user even when it does not exist in neo4j db yet
-    if (user && process.env.NEXT_PUBLIC_PLATFORM_HOST?.includes('127.0.0.1')) {
+    if (user && Env.node.isDevelopment) {
       void fetch('/api/upsert-user')
     }
   }, [user, loadApp])

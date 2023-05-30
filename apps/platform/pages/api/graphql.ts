@@ -7,7 +7,7 @@ import {
   getSchema,
   resolvers,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { EnvPlatform } from '@codelab/shared/config'
+import { Env, ENV_VARS } from '@codelab/shared/config'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { logger } from '@codelab/shared/infra/logging'
 import { mergeResolvers } from '@graphql-tools/merge'
@@ -32,9 +32,7 @@ let apolloServer: ApolloServer
 
 const BASIC_LOGGING: ApolloServerPlugin = {
   requestDidStart: (requestContext: GraphQLRequestContext<BaseContext>) => {
-    if (!EnvPlatform().next.enableAPILogging) {
-      return Promise.resolve()
-    }
+    return Promise.resolve()
 
     logger.info(
       `Processing request ${JSON.stringify(requestContext.request, null, 2)}`,
@@ -138,7 +136,7 @@ const handler: NextApiHandler = async (req, res) => {
 
     // Apollo studio polls the graphql schema every second, and it pollutes the log
     if (
-      process.env.NODE_ENV !== 'development' ||
+      !Env.node.isDevelopment ||
       !req.headers['origin']?.includes('studio.apollographql')
     ) {
       // console.error(e)

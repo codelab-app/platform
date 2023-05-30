@@ -1,9 +1,9 @@
-import { EnvPublic } from '@codelab/shared/config'
+import { Env } from '@codelab/shared/config'
 import Script from 'next/script'
 import React from 'react'
 
 export const Intercom = () => {
-  const app_id = EnvPublic().intercom.app_id
+  const app_id = Env.intercom.app_id
 
   return (
     <Script id="intercom">

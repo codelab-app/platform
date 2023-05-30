@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import type { Claims } from '@auth0/nextjs-auth0'
 import type { IRole } from './role.enum'
 

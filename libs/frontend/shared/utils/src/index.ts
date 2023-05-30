@@ -1,4 +1,3 @@
-export * from './auth-token-storage'
 export * from './callback-with-params'
 export * from './client-cache'
 export * from './copy-text-to-clipboard'

@@ -1,6 +1,6 @@
-import { EnvPublic } from '@codelab/shared/config'
+import { Env } from '@codelab/shared/config'
 import { createClient } from '@supabase/supabase-js'
 
-const { key, url } = EnvPublic().supabase
+const { key, url } = Env.supabase
 
 export const supabase = createClient(url, key)

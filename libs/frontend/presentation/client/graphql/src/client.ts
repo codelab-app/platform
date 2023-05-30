@@ -1,4 +1,4 @@
-import { graphqlApiOrigin } from '@codelab/shared/config'
+import { Env } from '@codelab/shared/config'
 import { GraphQLClient } from 'graphql-request'
 
-export const client = new GraphQLClient(graphqlApiOrigin)
+export const client = new GraphQLClient(Env.graphql.graphqlApiOrigin)

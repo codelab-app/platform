@@ -1,4 +1,6 @@
-const baseUrl = process.env['NEXT_PUBLIC_PLATFORM_HOST']
+import { Env } from '@codelab/shared/config'
+
+const baseUrl = Env.graphql.nextPublicPlatformHost
 
 // makes a call to the builder backend where session is checked
 // and request will be redirected to appropriate user domain

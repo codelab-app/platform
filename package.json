@@ -18,7 +18,7 @@
     "build": "nx run-many --all --target=build",
     "build:test": "npx env-cmd -f .env.test nx build builder -c test",
     "test": "nx run-many --all --target=test --parallel=3",
-    "lint": "nx run-many --all --target=lint --parallel=5",
+    "lint": "nx run-many --all --target=lint --parallel=5 --quiet",
     "format": "npx prettier --write \"./**/*.{graphql,yaml,json}\"",
     "nx": "nx",
     "update": "nx migrate @nx/workspace",
