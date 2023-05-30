@@ -22248,7 +22248,7 @@ export type GetPagesQuery = {
 }
 
 export type GetRenderedPageAndCommonAppDataQueryVariables = Exact<{
-  appId: Scalars['ID']
+  appName: Scalars['String']
   pageName: Scalars['String']
 }>
 

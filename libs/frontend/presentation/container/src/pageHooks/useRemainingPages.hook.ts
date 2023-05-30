@@ -1,15 +1,14 @@
 import { RendererType } from '@codelab/frontend/abstract/core'
 import { useAsync } from '@react-hookz/web'
 import { useStore } from '../providers'
-import { useCurrentAppId } from '../routerHooks'
+import { useCurrentApp } from '../routerHooks'
 
 /**
  * Fetch and load the remaining app pages (that currently were not loaded from server)
  */
 export const useRemainingPages = () => {
   const { appService, renderService } = useStore()
-  const appId = useCurrentAppId()
-  const app = appService.app(appId)
+  const { app } = useCurrentApp()
 
   return useAsync(async () => {
     if (!app?.pages) {
@@ -20,7 +19,7 @@ export const useRemainingPages = () => {
       .map((page) => page.current.id)
       .map((id) => ({ NOT: { id } }))
 
-    await appService.getAppPages(appId, {
+    await appService.getAppPages(app.id, {
       AND: notAlreadyLoadedPages,
     })
 

@@ -1,6 +1,6 @@
 import type { IUpdateDomainData } from '@codelab/frontend/abstract/core'
 import {
-  useCurrentAppId,
+  useCurrentApp,
   useStore,
 } from '@codelab/frontend/presentation/container'
 import { ModalForm } from '@codelab/frontend/presentation/view'
@@ -15,7 +15,7 @@ export const UpdateDomainModal = observer(() => {
   const { domainService } = useStore()
   const domain = domainService.updateModal.domain
   const isOpen = domainService.updateModal.isOpen
-  const currentAppId = useCurrentAppId()
+  const { app } = useCurrentApp()
 
   const onSubmit = (domainDTO: IUpdateDomainData) => {
     return domainService.update(domainDTO)
@@ -31,7 +31,7 @@ export const UpdateDomainModal = observer(() => {
   }
 
   const model = {
-    app: { id: currentAppId },
+    app: { id: app?.id },
     id: domain?.id,
     name: domain?.name,
   }

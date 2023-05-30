@@ -7,9 +7,8 @@ import {
   CuiHeaderToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
 import {
-  useCurrentAppId,
+  useCurrentApp,
   useCurrentPage,
-  useStore,
 } from '@codelab/frontend/presentation/container'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -19,15 +18,11 @@ import tw from 'twin.macro'
 import { BuilderSizeMenu } from './BuilderSizeMenu'
 
 export const PageDetailHeader = observer(() => {
-  const { appService } = useStore()
   const router = useRouter()
-  const appId = useCurrentAppId()
+  const { appName: currentAppName, userName } = useCurrentApp()
   const { pageName: currentPageName } = useCurrentPage()
   const isBuilder = router.pathname === PageType.PageBuilder
-
-  console.log('app id: ', appId, currentPageName)
-
-  const appName = appService.app(appId)?.name || '?'
+  const appName = currentAppName || '?'
   const pageName = currentPageName || '?'
 
   const switchPreviewMode = () => {
@@ -41,10 +36,11 @@ export const PageDetailHeader = observer(() => {
     await router.push({
       pathname: PageType.PageBuilder,
       query: {
-        appId,
+        appName,
         explorerPaneKey: ExplorerPaneType.PageList,
         pageName,
         primarySidebarKey: ExplorerPaneType.PageList,
+        userName,
       },
     })
   }, [router])

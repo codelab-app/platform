@@ -1,7 +1,7 @@
 import { SyncOutlined } from '@ant-design/icons'
 import type { IDomain } from '@codelab/frontend/abstract/core'
 import {
-  useCurrentAppId,
+  useCurrentApp,
   useStore,
 } from '@codelab/frontend/presentation/container'
 import { useAsync } from '@react-hookz/web'
@@ -16,11 +16,11 @@ interface RefreshDomainButtonProps {
 export const RefreshDomainButton = observer(
   ({ domain }: RefreshDomainButtonProps) => {
     const { domainService } = useStore()
-    const appId = useCurrentAppId()
+    const { _compoundName } = useCurrentApp()
 
     const [{ status }, getAllDomains] = useAsync(async () =>
       domainService.getAll({
-        appConnection: { node: { id: appId } },
+        appConnection: { node: { _compoundName } },
         id: domain.id,
       }),
     )

@@ -12,7 +12,7 @@ import {
   CuiHeaderToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
 import {
-  useCurrentAppId,
+  useCurrentApp,
   useStore,
 } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
@@ -25,17 +25,12 @@ import { useAsync, useMountEffect } from '@react-hookz/web'
 import { Image, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
-import React, { useMemo } from 'react'
+import React from 'react'
 import tw from 'twin.macro'
 
 const DomainsPageHeader = observer(() => {
-  const { appService, domainService } = useStore()
-  const appId = useCurrentAppId()
-
-  const appName = useMemo(
-    () => (appId ? appService.app(appId)?.name : ''),
-    [appId],
-  )
+  const { domainService } = useStore()
+  const { appName } = useCurrentApp()
 
   return (
     <CuiHeader
@@ -71,11 +66,13 @@ const DomainsPageHeader = observer(() => {
 
 const DomainsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   const { appService } = useStore()
-  const appId = useCurrentAppId()
+  const { _compoundName } = useCurrentApp()
 
-  const [{ result: app, status }, getApp] = useAsync(() =>
-    appService.getOne(appId),
+  const [{ result, status }, getApp] = useAsync(() =>
+    appService.getAll({ _compoundName }),
   )
+
+  const app = result?.[0]
 
   useMountEffect(getApp.execute)
 

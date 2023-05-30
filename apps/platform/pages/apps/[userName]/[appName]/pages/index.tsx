@@ -3,7 +3,7 @@ import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import { ExplorerPanePage } from '@codelab/frontend/domain/page'
 import {
-  useCurrentAppId,
+  useCurrentApp,
   useStore,
 } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
@@ -35,11 +35,11 @@ export default Pages
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 Pages.Layout = observer(({ children }) => {
-  const appId = useCurrentAppId()
+  const { _compoundName, app } = useCurrentApp()
   const { appService } = useStore()
 
   const [{ result: apps }, actions] = useAsync(() =>
-    appService.loadAppsWithNestedPreviews({ id: appId }),
+    appService.loadAppsWithNestedPreviews({ _compoundName }),
   )
 
   useMountEffect(actions.execute)
@@ -51,7 +51,7 @@ Pages.Layout = observer(({ children }) => {
         items: [
           {
             key: ExplorerPaneType.PageList,
-            render: () => <ExplorerPanePage appId={appId} />,
+            render: () => (app ? <ExplorerPanePage appId={app.id} /> : null),
           },
         ],
       }}

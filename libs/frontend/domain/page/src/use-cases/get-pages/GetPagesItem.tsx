@@ -22,15 +22,17 @@ export interface GetPagesItemProps {
 }
 
 export const GetPagesItem = observer<GetPagesItemProps>(({ domains, page }) => {
-  const { pageService } = useStore()
+  const { pageService, userService } = useStore()
   const router = useRouter()
 
   const href = {
     pathname: PageType.PageBuilder,
     query: {
       ...router.query,
-      pageId: page.id,
+      explorerPaneKey: ExplorerPaneType.Explorer,
+      pageName: page.name,
       primarySidebarKey: ExplorerPaneType.Explorer,
+      userName: userService.user.username,
     },
   }
 

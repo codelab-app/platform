@@ -50,7 +50,7 @@ export type GetPagesQuery = {
 }
 
 export type GetRenderedPageAndCommonAppDataQueryVariables = Types.Exact<{
-  appId: Types.Scalars['ID']
+  appName: Types.Scalars['String']
   pageName: Types.Scalars['String']
 }>
 
@@ -102,8 +102,8 @@ export const GetPagesDocument = gql`
   ${PageFragmentDoc}
 `
 export const GetRenderedPageAndCommonAppDataDocument = gql`
-  query GetRenderedPageAndCommonAppData($appId: ID!, $pageName: String!) {
-    apps(where: { id: $appId }) {
+  query GetRenderedPageAndCommonAppData($appName: String!, $pageName: String!) {
+    apps(where: { _compoundName: $appName }) {
       ...PageBuilderApp
     }
     resources {

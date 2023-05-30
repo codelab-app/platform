@@ -1,6 +1,6 @@
 import type { ICreateDomainData } from '@codelab/frontend/abstract/core'
 import {
-  useCurrentAppId,
+  useCurrentApp,
   useStore,
 } from '@codelab/frontend/presentation/container'
 import { ModalForm } from '@codelab/frontend/presentation/view'
@@ -14,10 +14,10 @@ import { createDomainSchema } from './create-domain.schema'
 
 export const CreateDomainModal = observer(() => {
   const { domainService, userService } = useStore()
-  const currentAppId = useCurrentAppId()
+  const { app } = useCurrentApp()
 
   const model = {
-    app: { id: currentAppId },
+    app: { id: app?.id },
     auth0Id: userService.user.auth0Id,
     id: v4(),
   }

@@ -19,13 +19,13 @@ import isObject from 'lodash/isObject'
 import values from 'lodash/values'
 import { useRouter } from 'next/router'
 import { useStore } from '../providers'
-import { useCurrentAppId, useCurrentPage } from '../routerHooks'
+import { useCurrentApp, useCurrentPage } from '../routerHooks'
 
 export interface RenderedPageProps {
   /**
    * for production user websites we use slightly different flow:
    * - we prebuild pages with all required information to avoid requests to platform DB
-   * - pageId and appId are not exposed in url, so we need to pass them explicitly
+   * - pageName and appName are not exposed in url, so we need to pass them explicitly
    */
   productionProps?: ProductionWebsiteProps
 
@@ -51,16 +51,18 @@ export const useRenderedPage = ({
     typeService,
   } = useStore()
 
-  const appIdFromUrl = useCurrentAppId()
-  const { _compoundName, pageName: pageNameFromUrl } = useCurrentPage()
-  const appId = productionProps?.appId ?? appIdFromUrl
+  const { _compoundName: compoundAppName } = useCurrentApp()
+
+  const { _compoundName: compoundPageName, pageName: pageNameFromUrl } =
+    useCurrentPage()
+
   const pageName = productionProps?.pageName ?? pageNameFromUrl
   const router = useRouter()
 
   return useAsync(async () => {
     const app = await appService.getRenderedPageAndCommonAppData(
-      appId,
-      _compoundName,
+      compoundAppName,
+      compoundPageName,
       productionProps?.renderingData,
     )
 

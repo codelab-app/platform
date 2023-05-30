@@ -35,14 +35,18 @@ const menuItemIconStyle: CSSProperties = {
 }
 
 export const ItemDropdown = observer<ItemMenuProps>(({ app, domains }) => {
-  const { appService } = useStore()
+  const { appService, userService } = useStore()
   const onEditClick = () => appService.updateModal.open(appRef(app.id))
   const onDeleteClick = () => appService.deleteModal.open(appRef(app.id))
   const onBuildClick = () => appService.buildModal.open(appRef(app.id))
   const router = useRouter()
 
+  const appOwner = userService.usersList.find(
+    (user) => user.auth0Id === app.owner.auth0Id,
+  )
+
   const goToDomainsPage = () =>
-    router.push(`${router.pathname}/${app.id}/domains`)
+    router.push(`${router.pathname}/${appOwner?.username}/${app.name}/domains`)
 
   const menuItems: MenuProps['items'] = [
     {

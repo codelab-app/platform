@@ -29,8 +29,8 @@ query GetPages($options: PageOptions, $where: PageWhere) {
   }
 }
 
-query GetRenderedPageAndCommonAppData($appId: ID!, $pageName: String!) {
-  apps(where: { id: $appId }) {
+query GetRenderedPageAndCommonAppData($appName: String!, $pageName: String!) {
+  apps(where: { _compoundName: $appName }) {
     ...PageBuilderApp
   }
   resources {

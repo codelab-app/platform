@@ -1,6 +1,6 @@
 import type { ICreatePageData } from '@codelab/frontend/abstract/core'
 import {
-  useCurrentAppId,
+  useCurrentApp,
   useStore,
 } from '@codelab/frontend/presentation/container'
 import { Form, FormController } from '@codelab/frontend/presentation/view'
@@ -13,10 +13,10 @@ import { createPageSchema } from './create-page.schema'
 
 export const CreatePageForm = observer(() => {
   const { pageService, userService } = useStore()
-  const currentAppId = useCurrentAppId()
+  const { app } = useCurrentApp()
 
   const model = {
-    app: { id: currentAppId },
+    app: { id: app?.id },
     id: v4(),
     // required for store api
     owner: {
