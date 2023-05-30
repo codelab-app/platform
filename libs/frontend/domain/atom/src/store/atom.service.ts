@@ -8,10 +8,15 @@ import type {
 import { atomRef, typeRef } from '@codelab/frontend/abstract/core'
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { getTypeService } from '@codelab/frontend/domain/type'
-import { ModalService, PaginationService } from '@codelab/frontend/shared/utils'
+import {
+  ModalService,
+  notify,
+  PaginationService,
+} from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import get from 'lodash/get'
 import { computed } from 'mobx'
 import {
   _async,
@@ -193,6 +198,20 @@ export class AtomService
       tags,
       type,
     })
+
+    const sameNameOrTypeAtom = this.atomsList.find(
+      (exist) => exist.name === atom.name || exist.type === atom.type,
+    )
+
+    if (sameNameOrTypeAtom) {
+      notify({
+        content: 'The atom with the same name or type already exists.',
+        title: 'Error while creating atom.',
+        type: 'error',
+      })
+
+      return atom
+    }
 
     this.atoms.set(atom.id, atom)
 

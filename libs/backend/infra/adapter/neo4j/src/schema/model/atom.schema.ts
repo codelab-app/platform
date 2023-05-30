@@ -11,7 +11,7 @@ export const atomSchema = gql`
   type Atom implements WithOwner {
     id: ID! @id(autogenerate: false)
     owner: User!
-    type: AtomType!
+    type: AtomType! @unique
     name: String! @unique
     tags: [Tag!]! @relationship(type: "TAGS_WITH", direction: OUT)
     api: InterfaceType! @relationship(type: "ATOM_API", direction: OUT)
