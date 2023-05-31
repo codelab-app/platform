@@ -151,6 +151,7 @@ export class AtomService
       type,
     })
 
+    // dynamically load an external css
     if (
       externalSourceType &&
       externalCssSource &&
@@ -166,11 +167,13 @@ export class AtomService
       this.loadedExternalCssSources.add(externalSourceType)
     }
 
+    // dynamically load an external js
     if (
       externalSourceType &&
       externalJsSource &&
       !this.loadedExternalJsSources.has(externalSourceType)
     ) {
+      // this stores the react component into this class so it can be observable
       // @ts-expect-error: dynamic function
       window[`onload${externalSourceType}`] = (
         component: React.ComponentType,

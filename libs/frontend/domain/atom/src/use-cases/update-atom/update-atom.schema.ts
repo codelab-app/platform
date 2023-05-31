@@ -19,18 +19,6 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
       autoFocus: true,
       ...nonEmptyString,
     },
-    externalCssSource: {
-      nullable: true,
-      ...nonEmptyString,
-    },
-    externalJsSource: {
-      nullable: true,
-      ...nonEmptyString,
-    },
-    externalSourceType: {
-      nullable: true,
-      ...nonEmptyString,
-    },
     tags: {
       items: {
         properties: {
@@ -58,6 +46,18 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
       showSearch: true,
       type: 'string',
     },
+    externalCssSource: {
+      nullable: true,
+      ...nonEmptyString,
+    },
+    externalJsSource: {
+      nullable: true,
+      ...nonEmptyString,
+    },
+    externalSourceType: {
+      nullable: true,
+      ...nonEmptyString,
+    },
     requiredParents: {
       items: {
         type: 'string',
@@ -67,7 +67,17 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
       type: 'array',
     },
   },
-  required: ['name', 'type'],
   title: 'Update Atom Input',
   type: 'object',
+  required: ['name', 'type'],
+  if: {
+    properties: {
+      type: {
+        const: 'ExternalComponent',
+      },
+    },
+  },
+  then: {
+    required: ['name', 'type', 'externalJsSource', 'externalSourceType'],
+  },
 } as const

@@ -31,18 +31,6 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
       autoFocus: true,
       ...nonEmptyString,
     },
-    externalCssSource: {
-      nullable: true,
-      ...nonEmptyString,
-    },
-    externalJsSource: {
-      nullable: true,
-      ...nonEmptyString,
-    },
-    externalSourceType: {
-      nullable: true,
-      ...nonEmptyString,
-    },
     ...ownerSchema,
     tags: {
       items: {
@@ -63,6 +51,18 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
       showSearch: true,
       type: 'string',
     },
+    externalCssSource: {
+      nullable: true,
+      ...nonEmptyString,
+    },
+    externalJsSource: {
+      nullable: true,
+      ...nonEmptyString,
+    },
+    externalSourceType: {
+      nullable: true,
+      ...nonEmptyString,
+    },
     requiredParents: {
       items: {
         type: 'string',
@@ -72,7 +72,23 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
       type: 'array',
     },
   },
-  required: ['name', 'type', 'owner'],
   title: 'Create Atom',
   type: 'object',
+  required: ['name', 'type', 'owner'],
+  if: {
+    properties: {
+      type: {
+        const: 'ExternalComponent',
+      },
+    },
+  },
+  then: {
+    required: [
+      'name',
+      'type',
+      'owner',
+      'externalJsSource',
+      'externalSourceType',
+    ],
+  },
 } as const

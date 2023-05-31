@@ -3644,7 +3644,7 @@ export enum AtomType {
   AntDesignTypographyText = 'AntDesignTypographyText',
   AntDesignTypographyTitle = 'AntDesignTypographyTitle',
   AntDesignUpload = 'AntDesignUpload',
-  CustomAtom = 'CustomAtom',
+  ExternalComponent = 'ExternalComponent',
   GridLayout = 'GridLayout',
   HookGraphqlMutation = 'HookGraphqlMutation',
   HookGraphqlQuery = 'HookGraphqlQuery',

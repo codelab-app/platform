@@ -3504,7 +3504,7 @@ enum AtomType {
   AntDesignTypographyText
   AntDesignTypographyTitle
   AntDesignUpload
-  CustomAtom
+  ExternalComponent
   GridLayout
   HookGraphqlMutation
   HookGraphqlQuery

@@ -1526,7 +1526,6 @@ export enum ActionKind {
 }
 
 export enum AtomType {
-  CustomAtom = 'CustomAtom',
   AntDesignAffix = 'AntDesignAffix',
   AntDesignAlert = 'AntDesignAlert',
   AntDesignAnchor = 'AntDesignAnchor',
@@ -1902,6 +1901,7 @@ export enum AtomType {
   HtmlVar = 'HtmlVar',
   HtmlVideo = 'HtmlVideo',
   HtmlWbr = 'HtmlWbr',
+  ExternalComponent = 'ExternalComponent',
 }
 
 export enum CodeMirrorLanguage {
@@ -2791,6 +2791,7 @@ export type Atom = WithOwner & {
   icon?: Maybe<Scalars['String']>
   externalJsSource?: Maybe<Scalars['String']>
   externalCssSource?: Maybe<Scalars['String']>
+  externalSourceType?: Maybe<Scalars['String']>
   type: AtomType
   owner: User
   ownerAggregate?: Maybe<AtomUserOwnerAggregationSelection>
@@ -2912,6 +2913,7 @@ export type AtomAggregateSelection = {
   icon: StringAggregateSelectionNullable
   externalJsSource: StringAggregateSelectionNullable
   externalCssSource: StringAggregateSelectionNullable
+  externalSourceType: StringAggregateSelectionNullable
 }
 
 export type AtomApiConnection = {
@@ -2940,6 +2942,7 @@ export type AtomAtomRequiredParentsNodeAggregateSelection = {
   icon: StringAggregateSelectionNullable
   externalJsSource: StringAggregateSelectionNullable
   externalCssSource: StringAggregateSelectionNullable
+  externalSourceType: StringAggregateSelectionNullable
 }
 
 export type AtomAtomSuggestedChildrenAggregationSelection = {
@@ -2955,6 +2958,7 @@ export type AtomAtomSuggestedChildrenNodeAggregateSelection = {
   icon: StringAggregateSelectionNullable
   externalJsSource: StringAggregateSelectionNullable
   externalCssSource: StringAggregateSelectionNullable
+  externalSourceType: StringAggregateSelectionNullable
 }
 
 export type AtomEdge = {
@@ -4216,6 +4220,7 @@ export type ElementAtomRenderAtomTypeNodeAggregateSelection = {
   icon: StringAggregateSelectionNullable
   externalJsSource: StringAggregateSelectionNullable
   externalCssSource: StringAggregateSelectionNullable
+  externalSourceType: StringAggregateSelectionNullable
 }
 
 export type ElementComponentParentComponentAggregationSelection = {
@@ -5416,6 +5421,7 @@ export type InterfaceTypeAtomApiOfAtomsNodeAggregateSelection = {
   icon: StringAggregateSelectionNullable
   externalJsSource: StringAggregateSelectionNullable
   externalCssSource: StringAggregateSelectionNullable
+  externalSourceType: StringAggregateSelectionNullable
 }
 
 export type InterfaceTypeEdge = {
@@ -6662,6 +6668,7 @@ export type TagAtomAtomsNodeAggregateSelection = {
   icon: StringAggregateSelectionNullable
   externalJsSource: StringAggregateSelectionNullable
   externalCssSource: StringAggregateSelectionNullable
+  externalSourceType: StringAggregateSelectionNullable
 }
 
 export type TagAtomsConnection = {
@@ -7313,6 +7320,7 @@ export type UserAtomAtomsNodeAggregateSelection = {
   icon: StringAggregateSelectionNullable
   externalJsSource: StringAggregateSelectionNullable
   externalCssSource: StringAggregateSelectionNullable
+  externalSourceType: StringAggregateSelectionNullable
 }
 
 export type UserAtomsConnection = {
@@ -10898,6 +10906,7 @@ export type AtomCreateInput = {
   icon?: InputMaybe<Scalars['String']>
   externalJsSource?: InputMaybe<Scalars['String']>
   externalCssSource?: InputMaybe<Scalars['String']>
+  externalSourceType?: InputMaybe<Scalars['String']>
   type: AtomType
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   tags?: InputMaybe<AtomTagsFieldInput>
@@ -10930,6 +10939,7 @@ export type AtomOnCreateInput = {
   icon?: InputMaybe<Scalars['String']>
   externalJsSource?: InputMaybe<Scalars['String']>
   externalCssSource?: InputMaybe<Scalars['String']>
+  externalSourceType?: InputMaybe<Scalars['String']>
   type: AtomType
 }
 
@@ -11422,6 +11432,61 @@ export type AtomRequiredParentsNodeAggregationWhereInput = {
   externalCssSource_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   externalCssSource_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   externalCssSource_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type AtomRequiredParentsUpdateConnectionInput = {
@@ -11447,6 +11512,7 @@ export type AtomSort = {
   icon?: InputMaybe<SortDirection>
   externalJsSource?: InputMaybe<SortDirection>
   externalCssSource?: InputMaybe<SortDirection>
+  externalSourceType?: InputMaybe<SortDirection>
   type?: InputMaybe<SortDirection>
 }
 
@@ -11739,6 +11805,61 @@ export type AtomSuggestedChildrenNodeAggregationWhereInput = {
   externalCssSource_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   externalCssSource_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   externalCssSource_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type AtomSuggestedChildrenUpdateConnectionInput = {
@@ -11898,6 +12019,7 @@ export type AtomTagsUpdateFieldInput = {
 export type AtomUniqueWhere = {
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
+  externalSourceType?: InputMaybe<Scalars['String']>
 }
 
 export type AtomUpdateInput = {
@@ -11906,6 +12028,7 @@ export type AtomUpdateInput = {
   icon?: InputMaybe<Scalars['String']>
   externalJsSource?: InputMaybe<Scalars['String']>
   externalCssSource?: InputMaybe<Scalars['String']>
+  externalSourceType?: InputMaybe<Scalars['String']>
   type?: InputMaybe<AtomType>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   tags?: InputMaybe<Array<AtomTagsUpdateFieldInput>>
@@ -11998,6 +12121,22 @@ export type AtomWhere = {
   externalCssSource_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   externalCssSource_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  externalSourceType?: InputMaybe<Scalars['String']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  externalSourceType_NOT?: InputMaybe<Scalars['String']>
+  externalSourceType_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  externalSourceType_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  externalSourceType_MATCHES?: InputMaybe<Scalars['String']>
+  externalSourceType_CONTAINS?: InputMaybe<Scalars['String']>
+  externalSourceType_STARTS_WITH?: InputMaybe<Scalars['String']>
+  externalSourceType_ENDS_WITH?: InputMaybe<Scalars['String']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  externalSourceType_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  externalSourceType_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  externalSourceType_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
   type?: InputMaybe<AtomType>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   type_NOT?: InputMaybe<AtomType>
@@ -18553,6 +18692,61 @@ export type ElementRenderAtomTypeNodeAggregationWhereInput = {
   externalCssSource_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   externalCssSource_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   externalCssSource_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementRenderAtomTypeUpdateConnectionInput = {
@@ -22896,6 +23090,61 @@ export type InterfaceTypeApiOfAtomsNodeAggregationWhereInput = {
   externalCssSource_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   externalCssSource_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   externalCssSource_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type InterfaceTypeApiOfAtomsUpdateConnectionInput = {
@@ -28525,6 +28774,61 @@ export type TagAtomsNodeAggregationWhereInput = {
   externalCssSource_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   externalCssSource_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   externalCssSource_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type TagAtomsUpdateConnectionInput = {
@@ -31262,6 +31566,61 @@ export type UserAtomsNodeAggregationWhereInput = {
   externalCssSource_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   externalCssSource_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   externalCssSource_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_EQUAL?: InputMaybe<Scalars['String']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
+  externalSourceType_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
+  externalSourceType_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  externalSourceType_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  externalSourceType_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type UserAtomsUpdateConnectionInput = {
@@ -32865,6 +33224,7 @@ export interface AtomAggregateSelectionInput {
   icon?: StringAggregateInputNullable
   externalJsSource?: StringAggregateInputNullable
   externalCssSource?: StringAggregateInputNullable
+  externalSourceType?: StringAggregateInputNullable
 }
 
 export declare class AtomModel {

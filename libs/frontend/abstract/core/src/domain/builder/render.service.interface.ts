@@ -4,12 +4,6 @@ import type { IElementTree } from '../element'
 import type { IBuilderService } from './builder.service.interface'
 import type { IRenderer, RendererType } from './renderer.model.interface'
 
-export interface ExternalComponent {
-  isLoaded: boolean
-  name: string
-  src: string
-}
-
 export interface RendererProps {
   /**
    * This is the elementTree we are rendering, could be a page tree or a component tree

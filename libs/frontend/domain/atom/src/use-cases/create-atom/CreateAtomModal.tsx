@@ -1,11 +1,11 @@
 import type { ICreateAtomData } from '@codelab/frontend/abstract/core'
-import { atomRef } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
-import { ModalForm } from '@codelab/frontend/presentation/view'
+import { DisplayIfField, ModalForm } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { IAtomType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { AutoFields, SelectField } from 'uniforms-antd'
+import { AutoField, AutoFields, SelectField, TextField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createAtomSchema } from './create-atom.schema'
 
@@ -38,7 +38,25 @@ export const CreateAtomModal = observer(() => {
         onSubmitSuccess={closeModal}
         schema={createAtomSchema}
       >
-        <AutoFields omitFields={['tags']} />
+        <AutoFields
+          omitFields={[
+            'tags',
+            'requiredParents',
+            'externalCssSource',
+            'externalJsSource',
+            'externalSourceType',
+          ]}
+        />
+        <DisplayIfField<ICreateAtomData>
+          condition={(context) =>
+            context.model.type === IAtomType.ExternalComponent
+          }
+        >
+          <TextField name="externalCssSource" />
+          <TextField name="externalJsSource" required />
+          <TextField name="externalSourceType" required />
+        </DisplayIfField>
+        <AutoField name="requiredParents" />
         <SelectField
           label="Connect Tag"
           mode="multiple"
