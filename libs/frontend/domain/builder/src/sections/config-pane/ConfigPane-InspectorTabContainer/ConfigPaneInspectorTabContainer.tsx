@@ -65,9 +65,6 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
     return null
   }
 
-  const store = elementTree?.rootElement.current.store.current
-  const autocomplete = store?.state || {}
-
   const tabItems = [
     {
       children: isElementPageNodeRef(selectedNode) ? (
@@ -99,11 +96,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
         <div key={selectedNode.id}>
           {isElementPageNodeRef(selectedNode) &&
           selectedNode.current.renderType ? (
-            <FormContextProvider
-              value={{ allowExpressions: true, autocomplete, elementTree }}
-            >
-              <UpdateElementPropsForm element={selectedNode} />
-            </FormContextProvider>
+            <UpdateElementPropsForm element={selectedNode} />
           ) : isComponentPageNodeRef(selectedNode) ? (
             <UpdateComponentPropsForm component={selectedNode.current} />
           ) : (
@@ -156,14 +149,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
     },
     {
       children: (
-        <FormContextProvider
-          value={{
-            autocomplete,
-            elementTree,
-          }}
-        >
-          <UpdatePageTabForm key={selectedNode.id} pageService={pageService} />
-        </FormContextProvider>
+        <UpdatePageTabForm key={selectedNode.id} pageService={pageService} />
       ),
       key: TAB_NAMES.Page,
       label: <TooltipIcon icon={<FileOutlined />} title={TAB_NAMES.Page} />,
@@ -171,14 +157,16 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
   ]
 
   return (
-    <TabContainer>
-      <Tabs
-        defaultActiveKey={TAB_NAMES.Node}
-        destroyInactiveTabPane
-        items={tabItems}
-        size="small"
-      />
-    </TabContainer>
+    <FormContextProvider value={{ elementTree, selectedNode }}>
+      <TabContainer>
+        <Tabs
+          defaultActiveKey={TAB_NAMES.Node}
+          destroyInactiveTabPane
+          items={tabItems}
+          size="small"
+        />
+      </TabContainer>
+    </FormContextProvider>
   )
 })
 

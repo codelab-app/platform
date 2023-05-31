@@ -13,7 +13,6 @@ import { connectField } from 'uniforms'
 import type { ListFieldProps, SelectFieldProps } from 'uniforms-antd'
 import { BoolField, NumField, SelectField } from 'uniforms-antd'
 import { CodeMirrorEditor, createAutoCompleteOptions } from '../../codeMirror'
-import { useFormContext } from '../providers'
 import { WrappedListField } from './WrappedListField'
 
 type InnerProps = Omit<AutoCompleteProps, 'onChange' | 'onSelect'>
@@ -74,8 +73,6 @@ const ToggleExpression = ({
   fieldProps,
   mainProps,
 }: ToggleExpressionFieldProps) => {
-  const { allowExpressions } = useFormContext()
-
   // Will show blank if undefined instead of "undefined" string
   const value = !isNil(fieldProps.value ?? fieldProps.field?.default)
     ? String(fieldProps.value ?? fieldProps.field?.default)
@@ -108,11 +105,7 @@ const ToggleExpression = ({
         <label htmlFor={fieldProps.id}>{fieldProps.label ?? ''}</label>
 
         <Tooltip placement="left" title={toggleButtonTooltip}>
-          <Button
-            hidden={!allowExpressions}
-            onClick={toggleControlClick}
-            type={toggleButtonType}
-          >
+          <Button onClick={toggleControlClick} type={toggleButtonType}>
             JS
           </Button>
         </Tooltip>

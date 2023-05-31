@@ -1,4 +1,6 @@
+import type { IPropData } from '@codelab/frontend/abstract/core'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
+import { replaceStateInProps } from '@codelab/frontend/shared/utils'
 import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { JSONSchemaType, Schema } from 'ajv'
 import Ajv from 'ajv'
@@ -75,15 +77,20 @@ ajv.addSchema({
   },
 })
 
-export const createValidator = (schema: Schema) => {
+export const createValidator = (schema: Schema, state: IPropData = {}) => {
   const validator = ajv.compile(schema)
 
   return (model: Record<string, unknown>) => {
-    validator(model)
+    // replace expressions with values to pass validation
+    const evaluatedModel = replaceStateInProps(model, state)
+
+    validator(evaluatedModel)
 
     return validator.errors?.length ? { details: validator.errors } : null
   }
 }
 
-export const createBridge = <T = unknown>(schema: JSONSchemaType<T>) =>
-  new JSONSchemaBridge(schema, createValidator(schema))
+export const createBridge = <T = unknown>(
+  schema: JSONSchemaType<T>,
+  state: IPropData = {},
+) => new JSONSchemaBridge(schema, createValidator(schema, state))

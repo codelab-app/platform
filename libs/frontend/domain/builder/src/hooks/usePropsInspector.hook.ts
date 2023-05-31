@@ -31,7 +31,11 @@ const validateSchema = (node: IPageNodeRef) => {
   }
 
   const nodeApiSchema = schemaTransformer.transform(interfaceType)
-  const validator = createValidator(nodeApiSchema)
+
+  const validator = createValidator(
+    nodeApiSchema,
+    node.current.store.current.state,
+  )
 
   return (data: IPropData) => {
     const validation = validator(data)
@@ -64,16 +68,7 @@ export const usePropsInspector = (node: IPageNodeRef) => {
   const save = async (data: string) => {
     const jsonValue = validateJson(data)
 
-    if (!jsonValue) {
-      return
-    }
-
-    node.current.props.current.setMany(jsonValue)
-
-    const runtimeProp = node.current.runtimeProp
-    const evaluatedProps = runtimeProp?.evaluatedPropsBeforeRender || {}
-
-    if (!validator(evaluatedProps)) {
+    if (!jsonValue || !validator(jsonValue)) {
       return
     }
 

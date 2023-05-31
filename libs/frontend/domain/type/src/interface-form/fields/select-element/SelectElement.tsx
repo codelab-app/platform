@@ -73,7 +73,7 @@ export const SelectElement = ({
           allElementOptions,
           getDescendants(targetElement, elementMap),
         )
-          // remove the element itself
+          // remove the ele ment itself
           .filter(({ value }) => value !== targetElement.value)
         break
       default:

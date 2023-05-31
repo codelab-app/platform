@@ -3,7 +3,7 @@ import type {
   IUpdateComponentData,
 } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
-import { Form, FormContextProvider } from '@codelab/frontend/presentation/view'
+import { Form } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
@@ -37,20 +37,18 @@ export const UpdateComponentForm = observer<{ component: IComponent }>(
       componentService.update(componentData)
 
     return (
-      <FormContextProvider key={key} value={{ elementTree: component }}>
-        <Form<IUpdateComponentData>
-          autosave
-          model={model}
-          onSubmit={onSubmit}
-          onSubmitError={createNotificationHandler({
-            title: 'Error while creating component',
-            type: 'error',
-          })}
-          schema={updateComponentSchema}
-        >
-          <AutoFields />
-        </Form>
-      </FormContextProvider>
+      <Form<IUpdateComponentData>
+        autosave
+        model={model}
+        onSubmit={onSubmit}
+        onSubmitError={createNotificationHandler({
+          title: 'Error while creating component',
+          type: 'error',
+        })}
+        schema={updateComponentSchema}
+      >
+        <AutoFields />
+      </Form>
     )
   },
 )

@@ -1,13 +1,19 @@
-import type { IElementTree, IPropData } from '@codelab/frontend/abstract/core'
+import type {
+  IElementTree,
+  IPageNodeRef,
+} from '@codelab/frontend/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { createContext, useContext } from 'react'
 
 export interface FormContextValue {
-  allowExpressions?: boolean
-  autocomplete?: IPropData
-  elementTree?: IElementTree
+  elementTree: Maybe<IElementTree>
+  selectedNode: Maybe<IPageNodeRef>
 }
 
-const FormContext = createContext<FormContextValue>({})
+const FormContext = createContext<FormContextValue>({
+  elementTree: undefined,
+  selectedNode: undefined,
+})
 
 export const FormContextProvider = FormContext.Provider
 

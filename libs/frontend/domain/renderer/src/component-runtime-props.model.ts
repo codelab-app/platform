@@ -66,10 +66,7 @@ export class ComponentRuntimeProps
 
   @computed
   get evaluatedPropsBeforeRender() {
-    return replaceStateInProps(
-      this.preProceedProps,
-      this.node.store.current.state,
-    )
+    return replaceStateInProps(this.props, this.node.store.current.state)
   }
 
   @computed
