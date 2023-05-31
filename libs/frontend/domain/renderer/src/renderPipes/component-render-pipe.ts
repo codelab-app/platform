@@ -5,9 +5,13 @@ import type {
   IRenderOutput,
   IRenderPipe,
 } from '@codelab/frontend/abstract/core'
-import { isComponentInstance } from '@codelab/frontend/abstract/core'
+import {
+  componentRef,
+  isComponentInstance,
+} from '@codelab/frontend/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
+import { ComponentRuntimeProps } from '../component-runtime-props.model'
 import { BaseRenderPipe } from './render-pipe.base'
 
 @model('@codelab/ComponentRenderPipe')
@@ -26,6 +30,11 @@ export class ComponentRenderPipe
     const clonedComponent = component.clone(element.id, element.id)
     const rootElement = clonedComponent.rootElement.current
 
+    const runtimeProp = ComponentRuntimeProps.create(
+      componentRef(clonedComponent.id),
+    )
+
+    this.renderer.runtimeProps.set(clonedComponent.id, runtimeProp)
     ComponentRenderPipe.logRendering(this.renderer, rootElement, element)
 
     return this.renderer.renderIntermediateElement(rootElement)

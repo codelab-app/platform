@@ -18,7 +18,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO, IStoreDTO } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { mergeProps } from '@codelab/shared/utils'
+import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { computed, makeAutoObservable } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -70,7 +70,7 @@ export class Store
 
   @computed
   get jsonString() {
-    return JSON.stringify(this.state, null, 4)
+    return propSafeStringify(this.state)
   }
 
   @modelAction

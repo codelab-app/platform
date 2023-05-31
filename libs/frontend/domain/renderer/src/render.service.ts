@@ -32,7 +32,13 @@ export class RenderService
     if (!renderer) {
       renderer = Renderer.create(props)
 
-      // setup runtime props for component
+      /**
+       * setup runtime props for component builder
+       * this is different from the one created in component-render-pipe
+       * because the other one creates runtime props for component instances
+       * while this one doesn't pass by the component at all
+       */
+
       if (props.rendererType === RendererType.ComponentBuilder) {
         const runtimeProp = ComponentRuntimeProps.create(componentRef(props.id))
 

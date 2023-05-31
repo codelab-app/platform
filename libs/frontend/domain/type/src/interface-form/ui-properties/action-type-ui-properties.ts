@@ -5,7 +5,8 @@ import { SelectAction } from '../fields'
 import type { UiPropertiesFn } from '../types'
 
 const ACTION_TEMPLATE = `{{
-  function() {
+  function(event) {
+    // To access component props use component.[prop-name]
     /* your code here */
   }.bind(this)
 }}`

@@ -21,13 +21,9 @@ export interface IRuntimeProp<T extends IPageNode> {
   evaluatedProps: IPropData
   /**
    * Props after applying `propTransformationJs` and substituting state expression
-   * used for validation by PropsInspector
+   * used for form validation
    */
   evaluatedPropsBeforeRender: IPropData
-  /**
-   * Props evaluation context (state + parent props)
-   */
-  evaluationContext: IPropData
   /**
    * Ref for node that holds the props either element or component
    */

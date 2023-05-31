@@ -70,9 +70,8 @@ export const usePropsInspector = (node: IPageNodeRef) => {
 
     node.current.props.current.setMany(jsonValue)
 
-    const evaluatedProps = isElementPageNodeRef(node)
-      ? node.current.runtimeProp?.evaluatedPropsBeforeRender || {}
-      : node.current.props.current.values
+    const runtimeProp = node.current.runtimeProp
+    const evaluatedProps = runtimeProp?.evaluatedPropsBeforeRender || {}
 
     if (!validator(evaluatedProps)) {
       return

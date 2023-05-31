@@ -21,13 +21,14 @@ export const stripStateExpression = (expression: string) =>
 
 export const evaluateExpression = (
   expression: string,
-  evaluationContext: IPropData,
+  state: IPropData,
+  componentProps: IPropData = {},
 ) => {
   try {
     const code = `return ${stripStateExpression(expression)}`
 
     // eslint-disable-next-line no-new-func
-    return new Function(code).call(evaluationContext)
+    return new Function('component', code).call(state, componentProps)
   } catch (error) {
     console.log(error)
 
@@ -37,18 +38,26 @@ export const evaluateExpression = (
 
 export const replaceStateInProps = (
   props: IPropData,
-  context: IPropData = {},
+  state: IPropData = {},
+  componentProps: IPropData = {},
 ) =>
   mapDeep(
     props,
     // value mapper
-    (value, key) => (isString(value) ? getByExpression(value, context) : value),
+    (value, key) =>
+      isString(value) ? getByExpression(value, state, componentProps) : value,
     // key mapper
     (value, key) =>
-      (isString(key) ? getByExpression(key, context) : key) as string,
+      (isString(key)
+        ? getByExpression(key, state, componentProps)
+        : key) as string,
   )
 
-export const getByExpression = (key: string, context: IPropData) => {
+export const getByExpression = (
+  key: string,
+  state: IPropData,
+  componentProps: IPropData = {},
+) => {
   if (!hasStateExpression(key)) {
     return key
   }
@@ -57,13 +66,13 @@ export const getByExpression = (key: string, context: IPropData) => {
    * return typed value for : {{expression}}
    */
   if (isSingleStateExpression(key)) {
-    return evaluateExpression(key, context)
+    return evaluateExpression(key, state, componentProps)
   }
 
   /**
    * return string value for : [text1]? {{expression1}} [text2]? {{expression2}}...
    */
   return key.replace(STATE_PATH_TEMPLATE_REGEX, (value) =>
-    evaluateExpression(value, context),
+    evaluateExpression(value, state, componentProps),
   )
 }

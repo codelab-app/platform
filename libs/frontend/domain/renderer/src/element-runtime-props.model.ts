@@ -3,6 +3,7 @@ import type {
   IElementRuntimeProp,
 } from '@codelab/frontend/abstract/core'
 import { DATA_ELEMENT_ID, IPropData } from '@codelab/frontend/abstract/core'
+import { replaceStateInProps } from '@codelab/frontend/shared/utils'
 import { mergeProps } from '@codelab/shared/utils'
 import attempt from 'lodash/attempt'
 import isError from 'lodash/isError'
@@ -59,12 +60,21 @@ export class ElementRuntimeProps
   }
 
   @computed
-  get evaluationContext() {
-    const parentComponent = this.node.parentComponent?.current
+  get evaluatedProps() {
+    return replaceStateInProps(
+      this.renderedTypedProps,
+      this.node.store.current.state,
+      this.node.parentComponent?.current.runtimeProp?.componentEvaluatedProps,
+    )
+  }
 
-    return mergeProps(this.node.store.current.state, {
-      parent: { props: parentComponent?.runtimeProp?.componentEvaluatedProps },
-    })
+  @computed
+  get evaluatedPropsBeforeRender() {
+    return replaceStateInProps(
+      this.preProceedProps,
+      this.node.store.current.state,
+      this.node.parentComponent?.current.runtimeProp?.componentEvaluatedProps,
+    )
   }
 
   static create = create

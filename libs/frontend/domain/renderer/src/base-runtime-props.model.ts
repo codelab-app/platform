@@ -1,7 +1,6 @@
 import type { IPageNode, IRuntimeProp } from '@codelab/frontend/abstract/core'
 import { isTypedProp } from '@codelab/frontend/abstract/core'
 import { getTypeService } from '@codelab/frontend/domain/type'
-import { replaceStateInProps } from '@codelab/frontend/shared/utils'
 import { mapDeep } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -24,7 +23,8 @@ export class BaseRuntimeProps<TNode extends IPageNode>
       nodeRef: prop<Ref<Node>>(),
     },
   }))<TNode>
-  implements IRuntimeProp<TNode>
+  implements
+    Omit<IRuntimeProp<TNode>, 'evaluatedProps' | 'evaluatedPropsBeforeRender'>
 {
   /**
    * Mobx-keystone doesn't support abstract model class
@@ -36,10 +36,6 @@ export class BaseRuntimeProps<TNode extends IPageNode>
 
   get preProceedProps() {
     return this.props
-  }
-
-  get evaluationContext() {
-    return this.node.store.current.state
   }
 
   @computed
@@ -80,15 +76,5 @@ export class BaseRuntimeProps<TNode extends IPageNode>
 
       return transformer.transform(value, this.node)
     })
-  }
-
-  @computed
-  get evaluatedProps() {
-    return replaceStateInProps(this.renderedTypedProps, this.evaluationContext)
-  }
-
-  @computed
-  get evaluatedPropsBeforeRender() {
-    return replaceStateInProps(this.preProceedProps, this.evaluationContext)
   }
 }
