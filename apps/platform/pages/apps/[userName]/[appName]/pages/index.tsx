@@ -35,12 +35,14 @@ export default Pages
 export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 Pages.Layout = observer(({ children }) => {
-  const { _compoundName, app } = useCurrentApp()
+  const { _compoundName } = useCurrentApp()
   const { appService } = useStore()
 
   const [{ result: apps }, actions] = useAsync(() =>
     appService.loadAppsWithNestedPreviews({ _compoundName }),
   )
+
+  const app = apps?.[0]
 
   useMountEffect(actions.execute)
 
@@ -56,7 +58,7 @@ Pages.Layout = observer(({ children }) => {
         ],
       }}
     >
-      {children({ app: apps?.[0] })}
+      {children({ app })}
     </DashboardTemplate>
   )
 })

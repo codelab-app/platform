@@ -59,8 +59,7 @@ describe('Elements CRUD', () => {
       .then(() => cy.request<IAppDTO>('/api/cypress/app'))
       .then((apps) => {
         const app = apps.body
-        const pageId = app.pages?.[0]?.id
-        cy.visit(`/apps/${app.id}/pages/${pageId}/builder`)
+        cy.visit(`/apps/cypress/${app.name}/pages/_app/builder`)
         cy.getSpinner().should('not.exist')
 
         // select root now so we can update its child later

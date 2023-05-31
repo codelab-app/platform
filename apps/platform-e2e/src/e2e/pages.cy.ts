@@ -11,7 +11,7 @@ before(() => {
 
   cy.request<IAppDTO>('/api/cypress/app').then((res) => {
     const app = res.body
-    cy.visit(`/apps/${app.id}/pages`)
+    cy.visit(`/apps/cypress/${app.name}/pages`)
     cy.getSpinner().should('not.exist')
     cy.findAllByText(IPageKindName.Provider).should('exist')
     cy.findAllByText(IPageKindName.NotFound).should('exist')
