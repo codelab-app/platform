@@ -1,5 +1,5 @@
 executor: docker-node-neo4j
-resource_class: large
+resource_class: medium
 # Cypress requires record for parallel to work according to https://github.com/cypress-io/cypress/issues/2520
 parallelism: 4
 steps:

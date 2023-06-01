@@ -220,9 +220,7 @@ describe('Types CRUD', () => {
     it('should be able to update array', () => {
       cy.visit(`/types`)
 
-      cy.findAllByText(arrayTypeName, { exact: true, timeout: 3000 }).should(
-        'exist',
-      )
+      cy.findAllByText(arrayTypeName, { exact: true }).should('exist')
 
       cy.searchTableRow({
         header: 'Name',
