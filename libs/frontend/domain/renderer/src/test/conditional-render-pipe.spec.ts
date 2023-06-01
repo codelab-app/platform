@@ -8,11 +8,7 @@ import { setupTestForRenderer } from './setup/setup-test'
 describe('ConditionalRenderPipe', () => {
   const data = setupTestForRenderer([ConditionalRenderPipe])
 
-  beforeEach(() => {
-    data.element.setRenderIfExpression('{{this.shouldRender}}')
-  })
-
-  it('should render normally if no expression is set', () => {
+  it('should render normally if no expression is set', async () => {
     data.element.setRenderIfExpression(undefined)
 
     const output = data.rootStore.renderer.renderIntermediateElement(
@@ -32,7 +28,8 @@ describe('ConditionalRenderPipe', () => {
     })
   })
 
-  it('should stop rendering by returning an empty output', () => {
+  it('should stop rendering by returning an empty output', async () => {
+    data.element.setRenderIfExpression('{{this.shouldRender}}')
     data.element.store.current.state['shouldRender'] = false
 
     const output = data.rootStore.renderer.renderIntermediateElement(
@@ -42,7 +39,8 @@ describe('ConditionalRenderPipe', () => {
     expect(output).toMatchObject({ element: data.element })
   })
 
-  it('should continue rendering', () => {
+  it('should continue rendering', async () => {
+    data.element.setRenderIfExpression('{{this.shouldRender}}')
     data.element.store.current.state['shouldRender'] = false
 
     const output = data.rootStore.renderer.renderIntermediateElement(
