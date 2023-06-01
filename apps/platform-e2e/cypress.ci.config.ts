@@ -33,5 +33,6 @@ export default defineConfig({
     ...cypressJsonConfig,
     env: {},
     setupNodeEvents,
+    testIsolation: false,
   },
 })

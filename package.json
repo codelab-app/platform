@@ -10,7 +10,6 @@
   "sideEffects": false,
   "scripts": {
     "e2e": "yarn cli tasks e2e --stage dev",
-    "prepare": "husky install",
     "cli": "node ./dist/apps/cli/main.js",
     "docker:up": "scripts/docker/up.sh",
     "tunnel": "ngrok http --region=us --hostname=api.codelab-dev.ngrok.io 127.0.0.1:3000",

@@ -136,7 +136,7 @@ const handler: NextApiHandler = async (req, res) => {
 
     // Apollo studio polls the graphql schema every second, and it pollutes the log
     if (
-      !getEnv().node.isDevelopment ||
+      !getEnv().node.isLocal ||
       !req.headers['origin']?.includes('studio.apollographql')
     ) {
       // console.error(e)

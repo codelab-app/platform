@@ -56,7 +56,7 @@ export class Auth0EnvVars implements IAuth0EnvVars {
   get baseUrl() {
     const auth0baseUrl = this.graphql.nextPublicPlatformHost
     // const isDev = auth0baseUrl.startsWith('127.0.0.1')
-    const protocol = this.node.isDevelopment ? 'http' : 'https'
+    const protocol = this.node.isLocal ? 'http' : 'https'
     const baseUrl = `${protocol}://${auth0baseUrl}`
 
     return baseUrl
