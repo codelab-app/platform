@@ -20,42 +20,67 @@ export interface IAuth0EnvVars {
  * `isVercelPreview` is build-time
  */
 export class Auth0EnvVars implements IAuth0EnvVars {
-  readonly clientId: string
+  private _clientId?: string
 
-  readonly clientSecret: string
+  private _clientSecret?: string
 
-  readonly cypressUsername: string
+  private _cypressUsername?: string
 
-  readonly cypressPassword: string
+  private _cypressPassword?: string
 
-  readonly issuerBaseUrl: string
+  private _issuerBaseUrl?: string
 
-  readonly secret: string
+  private _secret?: string
 
-  readonly audience: string
+  private _audience?: string
 
   constructor(
     private readonly graphql: IGraphQLEnvVars,
     private readonly node: INodeEnvVars,
-  ) {
-    this.clientId = env.get('AUTH0_CLIENT_ID').required().asString()
-    this.clientSecret = env.get('AUTH0_CLIENT_SECRET').required().asString()
-    this.cypressUsername = env
+  ) {}
+
+  get clientId(): string {
+    return (this._clientId ??= env.get('AUTH0_CLIENT_ID').required().asString())
+  }
+
+  get clientSecret(): string {
+    return (this._clientSecret ??= env
+      .get('AUTH0_CLIENT_SECRET')
+      .required()
+      .asString())
+  }
+
+  get cypressUsername(): string {
+    return (this._cypressUsername ??= env
       .get('AUTH0_CYPRESS_USERNAME')
       .required()
-      .asString()
-    this.cypressPassword = env
+      .asString())
+  }
+
+  get cypressPassword(): string {
+    return (this._cypressPassword ??= env
       .get('AUTH0_CYPRESS_PASSWORD')
       .required()
-      .asString()
-    this.issuerBaseUrl = env.get('AUTH0_ISSUER_BASE_URL').required().asString()
-    this.secret = env.get('AUTH0_SECRET').required().asString()
-    this.audience = env.get('AUTH0_AUDIENCE').required().asString()
+      .asString())
+  }
+
+  get issuerBaseUrl(): string {
+    return (this._issuerBaseUrl ??= env
+      .get('AUTH0_ISSUER_BASE_URL')
+      .required()
+      .asString())
+  }
+
+  get secret(): string {
+    return (this._secret ??= env.get('AUTH0_SECRET').required().asString())
+  }
+
+  get audience(): string {
+    return (this._audience ??= env.get('AUTH0_AUDIENCE').required().asString())
   }
 
   get baseUrl() {
     const auth0baseUrl = this.graphql.nextPublicPlatformHost
-    // const isDev = auth0baseUrl.startsWith('127.0.0.1')
     const protocol = this.node.isLocal ? 'http' : 'https'
     const baseUrl = `${protocol}://${auth0baseUrl}`
 
