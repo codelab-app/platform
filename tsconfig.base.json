@@ -103,6 +103,9 @@
       "@codelab/backend/domain/tag": ["libs/backend/domain/tag/src/index.ts"],
       "@codelab/backend/domain/type": ["libs/backend/domain/type/src/index.ts"],
       "@codelab/backend/domain/user": ["libs/backend/domain/user/src/index.ts"],
+      "@codelab/backend/infra/adapter/graphql": [
+        "libs/backend/infra/adapter/graphql/src/index.ts"
+      ],
       "@codelab/backend/infra/adapter/neo4j": [
         "libs/backend/infra/adapter/neo4j/src/index.ts"
       ],

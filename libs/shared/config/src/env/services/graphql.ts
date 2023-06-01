@@ -1,5 +1,3 @@
-import * as env from 'env-var'
-import type { INodeEnvVars } from './node'
 import type { IVercelEnvVars } from './vercel'
 
 export interface IGraphQLEnvVars {

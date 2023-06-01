@@ -1,6 +1,4 @@
 import { codegen } from '@graphql-codegen/core'
-import nearOperationFilePreset from '@graphql-codegen/near-operation-file-preset'
-import { Types } from '@graphql-codegen/plugin-helpers'
 import typescriptPlugin from '@graphql-codegen/typescript'
 import typescriptGraphqlRequestPlugin from '@graphql-codegen/typescript-graphql-request'
 import typescriptOperationsPlugin from '@graphql-codegen/typescript-operations'
@@ -8,7 +6,7 @@ import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 import { loadDocuments, loadSchema } from '@graphql-tools/load'
 import { UrlLoader } from '@graphql-tools/url-loader'
 import fs from 'fs'
-import { buildSchema, GraphQLSchema, parse, printSchema } from 'graphql'
+import { parse, printSchema } from 'graphql'
 import { join } from 'path'
 
 export const graphqlCodegen = async () => {

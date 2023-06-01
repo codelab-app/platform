@@ -1,7 +1,3 @@
-import * as env from 'env-var'
-import type { IGraphQLEnvVars } from './graphql'
-import type { IVercelEnvVars } from './vercel'
-
 export type NodeEnv = 'development' | 'production' | 'test'
 
 export interface INodeEnvVars {
