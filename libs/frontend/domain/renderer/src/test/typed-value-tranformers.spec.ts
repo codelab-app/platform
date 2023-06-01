@@ -2,6 +2,7 @@ import type { IRenderOutput, TypedValue } from '@codelab/frontend/abstract/core'
 import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/core'
 import { render } from '@testing-library/react'
 import { setupTestForRenderer } from './setup/setup-test'
+import TestProviderWrapper from './TestProviderWrapper'
 
 describe('RenderService', () => {
   const data = setupTestForRenderer()
@@ -36,7 +37,9 @@ describe('RenderService', () => {
       extraProps,
     ) as IRenderOutput
 
-    const { findByText } = render(props?.['someNode'])
+    const { findByText } = render(props?.['someNode'], {
+      wrapper: TestProviderWrapper(data.rootStore),
+    })
 
     expect(await findByText(text)).toBeInTheDocument()
   })
@@ -62,7 +65,9 @@ describe('RenderService', () => {
     const text = 'some text'
     data.component.props.current.set(data.textField.key, text)
 
-    const { findByText } = render(props?.['someNode']())
+    const { findByText } = render(props?.['someNode'](), {
+      wrapper: TestProviderWrapper(data.rootStore),
+    })
 
     expect(await findByText(text)).toBeInTheDocument()
   })
@@ -91,7 +96,10 @@ describe('RenderService', () => {
 
     // passed arguments
     const anotherText = 'anotherText'
-    const { findByText } = render(props?.['someNode'](anotherText))
+
+    const { findByText } = render(props?.['someNode'](anotherText), {
+      wrapper: TestProviderWrapper(data.rootStore),
+    })
 
     expect(await findByText(anotherText)).toBeInTheDocument()
   })
