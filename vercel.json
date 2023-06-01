@@ -1,5 +1,4 @@
 {
-  // Disables Vercel from commenting on PR's, so we don't get email notifications
   "github": {
     "silent": true
   }

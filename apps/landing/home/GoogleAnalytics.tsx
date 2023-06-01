@@ -1,9 +1,9 @@
-import { Env } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config'
 import Script from 'next/script'
 import React from 'react'
 
 export const GoogleAnalytics = () => {
-  const { id } = Env.googleAnalytics
+  const { id } = getEnv().googleAnalytics
 
   return (
     <>
