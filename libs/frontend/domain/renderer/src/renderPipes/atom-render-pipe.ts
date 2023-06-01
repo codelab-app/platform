@@ -12,9 +12,9 @@ import { css } from '@emotion/react'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
 import { atomFactory } from '../atoms'
+import { RenderOutput } from '../utils'
 import { evalCss } from '../utils/eval-css'
 import { BaseRenderPipe } from './render-pipe.base'
-import { RenderOutput } from '../utils'
 
 @model('@codelab/AtomRenderPipe')
 export class AtomRenderPipe
