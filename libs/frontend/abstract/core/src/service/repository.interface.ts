@@ -13,7 +13,7 @@ import type { ArrayOrSingle } from 'ts-essentials'
 export interface IRepository<
   Model extends IEntity,
   ModelFragment,
-  Where extends { id?: string | null },
+  Where extends { id?: number | string | null },
   Option extends { limit?: number | null; offset?: number | null },
 > {
   add(model: Model): Promise<IEntity | undefined>

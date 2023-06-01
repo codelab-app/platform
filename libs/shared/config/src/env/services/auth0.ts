@@ -34,10 +34,7 @@ export class Auth0EnvVars implements IAuth0EnvVars {
 
   private _audience?: string
 
-  constructor(
-    private readonly graphql: IGraphQLEnvVars,
-    private readonly node: INodeEnvVars,
-  ) {}
+  constructor(private readonly graphql: IGraphQLEnvVars) {}
 
   get clientId(): string {
     return (this._clientId ??= env.get('AUTH0_CLIENT_ID').required().asString())

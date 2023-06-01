@@ -10,7 +10,7 @@ import type { CommandModule } from 'yargs'
 import { getStageOptions } from '../../shared/command'
 import { Stage } from '../../shared/utils/stage'
 import { Tasks } from '../../shared/utils/tasks'
-//
+import { graphqlCodegen } from '../codegen'
 
 /**
  * We require this since execCommand creates a new process and any env set before that doesn't apply
@@ -100,6 +100,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
             }
 
             execCommand('yarn graphql-codegen')
+            // await graphqlCodegen()
             await generateOgmTypes()
 
             process.exit(0)

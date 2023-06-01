@@ -109,7 +109,7 @@ class EnvironmentVariables implements IEnvironmentVariables {
   }
 
   public get graphql() {
-    return (this._graphql ??= new GraphQLEnvVars(this.vercel, this.node))
+    return (this._graphql ??= new GraphQLEnvVars(this.vercel))
   }
 }
 

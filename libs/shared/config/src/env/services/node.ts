@@ -15,7 +15,7 @@ export class NodeEnvVars implements INodeEnvVars {
   private _nodeEnv?: NodeEnv
 
   get nodeEnv() {
-    return (this._nodeEnv ??= process.env['NODE_ENV'])
+    return (this._nodeEnv ??= process.env['NODE_ENV'] as NodeEnv)
 
     // return (this._nodeEnv ??= env
     //   .get('NODE_ENV')
