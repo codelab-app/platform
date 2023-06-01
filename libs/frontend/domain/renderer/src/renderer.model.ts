@@ -141,6 +141,8 @@ export class Renderer
       : ComponentRuntimeProps.create(nodeRef)
 
     this.runtimeProps.set(nodeRef.id, runtimeProps)
+
+    return runtimeProps
   }
 
   /**
@@ -163,8 +165,7 @@ export class Renderer
   renderIntermediateElement = (
     element: IElement,
   ): ArrayOrSingle<IRenderOutput> => {
-    const runtimeProps = ElementRuntimeProps.create(elementRef(element.id))
-    this.runtimeProps.set(element.id, runtimeProps)
+    const runtimeProps = this.addRuntimeProps(elementRef(element.id))
 
     return this.renderPipe.render(element, runtimeProps.evaluatedProps)
   }
