@@ -17,7 +17,13 @@ export type ITestRootStore = Pick<
   | 'propService'
   | 'renderService'
   | 'storeService'
->
+> & {
+  /**
+   * We only use a single renderer for testing
+   */
+  renderer: IRenderer
+  setRenderer(renderer: IRenderer): void
+}
 
 export interface TestServices {
   component: IComponent

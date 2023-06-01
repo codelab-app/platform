@@ -13,7 +13,7 @@ describe('Renderer', () => {
   const data = setupTestForRenderer([ComponentRenderPipe])
 
   it('should apply transformation function', () => {
-    const { props } = data.renderer.renderIntermediateElement(
+    const { props } = data.rootStore.renderer.renderIntermediateElement(
       data.element,
     ) as IRenderOutput
 
@@ -27,7 +27,7 @@ describe('Renderer', () => {
   it('should keep same props when transform function is invalid', () => {
     data.element.setPropTransformationJs('invalid fn')
 
-    const { props } = data.renderer.renderIntermediateElement(
+    const { props } = data.rootStore.renderer.renderIntermediateElement(
       data.element,
     ) as IRenderOutput
 
@@ -39,9 +39,10 @@ describe('Renderer', () => {
   })
 
   it('should render component instance', () => {
-    const { atomType, props } = data.renderer.renderIntermediateElement(
-      data.componentInstance,
-    ) as IRenderOutput
+    const { atomType, props } =
+      data.rootStore.renderer.renderIntermediateElement(
+        data.componentInstance,
+      ) as IRenderOutput
 
     const clonedComponent =
       data.rootStore.componentService.clonedComponents.get(
@@ -62,7 +63,7 @@ describe('Renderer', () => {
   })
 
   it('should have props with a replaced expression using the instance prop value', () => {
-    const { props } = data.renderer.renderIntermediateElement(
+    const { props } = data.rootStore.renderer.renderIntermediateElement(
       data.componentInstance,
     ) as IRenderOutput
 

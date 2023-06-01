@@ -15,7 +15,9 @@ describe('ConditionalRenderPipe', () => {
   it('should render normally if no expression is set', () => {
     data.element.setRenderIfExpression(undefined)
 
-    const output = data.renderer.renderIntermediateElement(data.element)
+    const output = data.rootStore.renderer.renderIntermediateElement(
+      data.element,
+    )
 
     const atomType = isAtomInstance(data.element.renderType)
       ? data.element.renderType.current.type
@@ -33,7 +35,9 @@ describe('ConditionalRenderPipe', () => {
   it('should stop rendering by returning an empty output', () => {
     data.element.store.current.state['shouldRender'] = false
 
-    const output = data.renderer.renderIntermediateElement(data.element)
+    const output = data.rootStore.renderer.renderIntermediateElement(
+      data.element,
+    )
 
     expect(output).toMatchObject({ element: data.element })
   })
@@ -41,7 +45,9 @@ describe('ConditionalRenderPipe', () => {
   it('should continue rendering', () => {
     data.element.store.current.state['shouldRender'] = false
 
-    const output = data.renderer.renderIntermediateElement(data.element)
+    const output = data.rootStore.renderer.renderIntermediateElement(
+      data.element,
+    )
 
     const atomType = isAtomInstance(data.element.renderType)
       ? data.element.renderType.current.type

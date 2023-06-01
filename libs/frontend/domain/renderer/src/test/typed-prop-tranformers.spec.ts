@@ -8,7 +8,7 @@ describe('RenderService', () => {
   const data = setupTestForRenderer()
 
   it('should apply typed value transformers', () => {
-    const { props } = data.renderer.renderIntermediateElement(
+    const { props } = data.rootStore.renderer.renderIntermediateElement(
       data.element,
     ) as IRenderOutput
 
@@ -32,7 +32,7 @@ describe('RenderService', () => {
       text,
     )
 
-    const { props } = data.renderer.renderIntermediateElement(
+    const { props } = data.rootStore.renderer.renderIntermediateElement(
       data.element,
     ) as IRenderOutput
 
@@ -51,7 +51,7 @@ describe('RenderService', () => {
       } as TypedProp,
     })
 
-    const { props } = data.renderer.renderIntermediateElement(
+    const { props } = data.rootStore.renderer.renderIntermediateElement(
       data.element,
     ) as IRenderOutput
 
@@ -78,7 +78,7 @@ describe('RenderService', () => {
       },
     })
 
-    const { props } = data.renderer.renderIntermediateElement(
+    const { props } = data.rootStore.renderer.renderIntermediateElement(
       data.element,
     ) as IRenderOutput
 

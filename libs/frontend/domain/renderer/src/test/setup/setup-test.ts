@@ -160,6 +160,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       }),
       pageService: new PageService({}),
       propService: new PropService({}),
+      renderer: data.renderer,
       renderService: new RenderService({}),
       storeService: new StoreService({
         stores: objectMap([[pageStore.id, pageStore]]),
@@ -242,7 +243,12 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     })
 
     data.component.api.current.writeCache({
-      fields: [{ id: data.textField.id }, { id: data.componentField.id }],
+      fields: [
+        { id: data.textField.id },
+        {
+          id: data.componentField.id,
+        },
+      ],
     })
 
     data.component.setChildrenContainerElement(elementRef(compRootElementId))
@@ -268,17 +274,15 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
         },
       })
 
-    data.renderer = new Renderer({
+    const renderer = new Renderer({
       debugMode: false,
       elementTree: elementTreeRef(data.component),
       rendererType: RendererType.PageBuilder,
       renderPipe: renderPipeFactory([PassThroughRenderPipe, ...pipes]),
     })
 
-    data.rootStore.renderService.renderers.set(data.renderer.id, data.renderer)
-    data.rootStore.renderService.setActiveRenderer(
-      rendererRef(data.renderer.id),
-    )
+    data.rootStore.setRenderer(renderer)
+    data.rootStore.renderService.setActiveRenderer(rendererRef(renderer.id))
   })
 
   afterEach(() => {
