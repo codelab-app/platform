@@ -11,7 +11,6 @@ import {
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
-import { ComponentRuntimeProps } from './component-runtime-props.model'
 import { Renderer } from './renderer.model'
 
 @model('@codelab/RenderService')
@@ -36,13 +35,11 @@ export class RenderService
        * setup runtime props for component builder
        * this is different from the one created in component-render-pipe
        * because the other one creates runtime props for component instances
-       * while this one doesn't pass by the component at all
+       * while this one doesn't pass by the component pipe at all
        */
 
       if (props.rendererType === RendererType.ComponentBuilder) {
-        const runtimeProp = ComponentRuntimeProps.create(componentRef(props.id))
-
-        renderer.runtimeProps.set(props.id, runtimeProp)
+        renderer.addRuntimeProps(componentRef(props.id))
       }
 
       this.renderers.set(props.id, renderer)

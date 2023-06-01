@@ -4,6 +4,7 @@ import type {
   ITypedPropTransformer,
   TypedProp,
 } from '@codelab/frontend/abstract/core'
+import { componentRef } from '@codelab/frontend/abstract/core'
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { BaseRenderPipe } from '../renderPipes/render-pipe.base'
@@ -60,15 +61,18 @@ export class RenderPropTypeTransformer
     return (...renderPropArgs: Array<object>) => {
       // match props to fields by order first to first and so on.
       const props = matchPropsToFields(fields, renderPropArgs)
-      const componentClone = cloneComponent(component, node, props)
+      const clonedComponent = cloneComponent(component, node, props)
 
-      if (!componentClone) {
+      if (!clonedComponent) {
         console.error('Failed to clone component')
 
         return fallback
       }
 
-      const rootElement = componentClone.rootElement.current
+      clonedComponent.props.current.setMany(props)
+      this.renderer.addRuntimeProps(componentRef(clonedComponent.id))
+
+      const rootElement = clonedComponent.rootElement.current
 
       return this.renderer.renderElement(rootElement)
     }

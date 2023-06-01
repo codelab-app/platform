@@ -6,8 +6,8 @@ import type {
 
 /**
  * Clones component by generating a unique key from props
- * @param component
- * @param element
+ * @param component the component where prop.value == component.id
+ * @param node the node that has RenderProp/ReactNode as prop
  * @param props
  * @returns
  */

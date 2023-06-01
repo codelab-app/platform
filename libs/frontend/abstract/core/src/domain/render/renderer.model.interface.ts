@@ -4,7 +4,7 @@ import type { ReactElement, ReactNode } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 import type { IExpressionTransformer } from '../builder'
 import type { IElement, IElementTree } from '../element'
-import type { IPageNode } from '../page'
+import type { IPageNode, IPageNodeRef } from '../page'
 import type { IRenderOutput } from './render.interface'
 import type {
   IRuntimeProp,
@@ -26,6 +26,7 @@ export interface IRenderer {
   runtimeProps: ObjectMap<IRuntimeProp<IPageNode>>
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
 
+  addRuntimeProps(nodeRef: IPageNodeRef): void
   logRendered(element: IElement, rendered: ArrayOrSingle<IRenderOutput>): void
   renderChildren(parentOutput: IRenderOutput): ArrayOrSingle<ReactNode>
   renderElement(element: IElement): ReactElement

@@ -1,8 +1,9 @@
 import type {
-  IElement,
+  IPageNode,
   ITypedPropTransformer,
   TypedProp,
 } from '@codelab/frontend/abstract/core'
+import { componentRef } from '@codelab/frontend/abstract/core'
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { BaseRenderPipe } from '../renderPipes/render-pipe.base'
@@ -27,7 +28,7 @@ export class ReactNodeTypeTransformer
   extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedPropTransformer
 {
-  public transform(prop: TypedProp, element: IElement) {
+  public transform(prop: TypedProp, node: IPageNode) {
     const { expressionTransformer } = this.renderer
 
     // value is a custom JS component
@@ -50,19 +51,19 @@ export class ReactNodeTypeTransformer
       return fallback
     }
 
-    const componentClone = cloneComponent(
-      component,
-      element,
-      element.store.current.state,
-    )
+    // TODO: ReactNode unlike RenderProps doesn't take any props
+    // figure out on what we should apply keyGenerator
+    const clonedComponent = cloneComponent(component, node, {})
 
-    if (!componentClone) {
+    if (!clonedComponent) {
       console.error('Failed to clone component')
 
       return fallback
     }
 
-    const rootElement = componentClone.rootElement.current
+    this.renderer.addRuntimeProps(componentRef(clonedComponent.id))
+
+    const rootElement = clonedComponent.rootElement.current
 
     return this.renderer.renderElement(rootElement)
   }

@@ -16,16 +16,26 @@ import {
   elementRef,
   elementTreeRef,
   getRendererId,
+  IPageNodeRef,
   isAtomInstance,
+  isElementPageNodeRef,
 } from '@codelab/frontend/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
-import { idProp, Model, model, objectMap, prop } from 'mobx-keystone'
+import {
+  idProp,
+  Model,
+  model,
+  modelAction,
+  objectMap,
+  prop,
+} from 'mobx-keystone'
 import { createTransformer } from 'mobx-utils'
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
+import { ComponentRuntimeProps } from './component-runtime-props.model'
 import type { ElementWrapperProps } from './element/element-wrapper'
 import { ElementWrapper } from './element/element-wrapper'
 import { makeCustomTextContainer } from './element/wrapper.utils'
@@ -122,6 +132,15 @@ export class Renderer
     return providerRoot && root.page?.current.kind === IPageKind.Regular
       ? this.renderElement(providerRoot)
       : this.renderElement(root)
+  }
+
+  @modelAction
+  addRuntimeProps(nodeRef: IPageNodeRef) {
+    const runtimeProps = isElementPageNodeRef(nodeRef)
+      ? ElementRuntimeProps.create(nodeRef)
+      : ComponentRuntimeProps.create(nodeRef)
+
+    this.runtimeProps.set(nodeRef.id, runtimeProps)
   }
 
   /**

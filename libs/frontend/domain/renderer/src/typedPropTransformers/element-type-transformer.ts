@@ -1,8 +1,9 @@
 import type {
-  IElement,
+  IPageNode,
   ITypedPropTransformer,
   TypedProp,
 } from '@codelab/frontend/abstract/core'
+import { isElementPageNode } from '@codelab/frontend/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { BaseRenderPipe } from '../renderPipes/render-pipe.base'
 
@@ -25,10 +26,12 @@ export class ElementTypeTransformer
   extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedPropTransformer
 {
-  public transform(prop: TypedProp, element: IElement) {
-    const targetElement = element.closestContainerNode.elements.find(
-      (el) => el.id === prop.value,
-    )
+  public transform(prop: TypedProp, node: IPageNode) {
+    const elements = isElementPageNode(node)
+      ? node.closestContainerNode.elements
+      : node.elements
+
+    const targetElement = elements.find((el) => el.id === prop.value)
 
     if (!targetElement) {
       return prop
