@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import * as env from 'env-var'
-import type { IEnvironmentVariables } from '../env'
 import type { IGraphQLEnvVars } from './graphql'
 import type { INodeEnvVars } from './node'
 

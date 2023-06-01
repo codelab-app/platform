@@ -8,7 +8,7 @@
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
 
-import { ENV_VARS, getEnv } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config'
 import { encrypt } from '../support/nextjs-auth0/utils/encrypt'
 
 // import installLogsPrinter from 'cypress-terminal-report/src/installLogsPrinter'

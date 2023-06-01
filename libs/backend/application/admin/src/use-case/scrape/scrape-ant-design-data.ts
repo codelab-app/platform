@@ -1,7 +1,6 @@
 import 'jquery'
 import type { AntDesignApi } from '@codelab/backend/abstract/core'
 import { saveFormattedFile } from '@codelab/backend/shared/util'
-import fs from 'fs'
 import path from 'path'
 import type { Browser } from 'puppeteer'
 import puppeteer from 'puppeteer'

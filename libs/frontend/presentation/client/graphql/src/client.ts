@@ -1,4 +1,3 @@
-import { Env } from '@codelab/shared/config'
 import { GraphQLClient } from 'graphql-request'
 
 export const isVercelPreview =
@@ -16,6 +15,8 @@ export const graphqlApiOrigin = `${protocol}://${graphqlApiHost}/api/graphql`
 
 /**
  * Issue with loading order when used by sdk
+ *
+ * TODO: Need to find a way to use `getEnv().graphql.graphqlApiOrigin`
  */
-// export const client = new GraphQLClient(Env.graphql.graphqlApiOrigin)
+// export const client = new GraphQLClient(getEnv().graphql.graphqlApiOrigin)
 export const client = new GraphQLClient(graphqlApiOrigin)

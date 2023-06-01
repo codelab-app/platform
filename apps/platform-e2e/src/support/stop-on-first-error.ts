@@ -1,4 +1,4 @@
-import { ENV_VARS, getEnv } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config'
 
 export const stopOnFirstError = function (this: any) {
   // Only do this on CI to save credits

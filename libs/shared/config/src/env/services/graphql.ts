@@ -1,5 +1,4 @@
 import * as env from 'env-var'
-import type { IEnvironmentVariables } from '../env'
 import type { INodeEnvVars } from './node'
 import type { IVercelEnvVars } from './vercel'
 

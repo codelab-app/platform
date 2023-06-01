@@ -1,5 +1,4 @@
 import type { ICreateTypeData } from '@codelab/frontend/abstract/core'
-import { typeRef } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'

@@ -4,7 +4,6 @@ import type {
   IComponentService,
   IElement,
   IElementService,
-  IPropData,
   TypedValue,
 } from '@codelab/frontend/abstract/core'
 import type { ITypeKind } from '@codelab/shared/abstract/core'
