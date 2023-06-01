@@ -1,4 +1,4 @@
-import { domainApiUrl, getBaseHeaders, teamIdParam } from '../config'
+import { getEnv } from '@codelab/shared/config'
 
 /**
  * https://vercel.com/docs/rest-api#endpoints/domains/get-a-domain-s-configuration
@@ -6,6 +6,7 @@ import { domainApiUrl, getBaseHeaders, teamIdParam } from '../config'
  * @param name
  */
 export const getDomainConfig = (name: string) => {
+  const { domainApiUrl, getBaseHeaders, teamIdParam } = getEnv().vercel
   const url = `${domainApiUrl()}/${name}/config?${teamIdParam}`
 
   return fetch(url, {

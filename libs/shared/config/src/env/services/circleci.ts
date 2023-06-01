@@ -2,7 +2,7 @@ import * as env from 'env-var'
 
 export interface ICircleCIEnvVars {
   ci: boolean
-  circleci: boolean
+  circleCi: boolean
 }
 
 export class CircleCIEnvVars implements ICircleCIEnvVars {
@@ -10,10 +10,10 @@ export class CircleCIEnvVars implements ICircleCIEnvVars {
   // Others may use 'true'
   readonly ci: boolean
 
-  readonly circleci: boolean
+  readonly circleCi: boolean
 
   constructor() {
     this.ci = env.get('CI').default('false').asBool()
-    this.circleci = env.get('CI').default('false').asBool()
+    this.circleCi = env.get('CI').default('false').asBool()
   }
 }

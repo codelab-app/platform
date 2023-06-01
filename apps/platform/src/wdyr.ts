@@ -1,6 +1,6 @@
 /// <reference types="@welldone-software/why-did-you-render" />
 
-import { Env } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config'
 import { isServer } from '@codelab/shared/utils'
 import React from 'react'
 
@@ -9,7 +9,7 @@ import React from 'react'
  *
  * https://github.com/welldone-software/why-did-you-render/issues/162
  */
-if (Env.node.isDevelopment && !isServer) {
+if (getEnv().node.isDevelopment && !isServer) {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const whyDidYouRender = require('@welldone-software/why-did-you-render')
 

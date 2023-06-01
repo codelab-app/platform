@@ -10,13 +10,13 @@ export interface INodeEnvVars {
 }
 
 export class NodeEnvVars implements INodeEnvVars {
-  public readonly nodeEnv: NodeEnv
+  private _nodeEnv?: NodeEnv
 
-  constructor() {
-    this.nodeEnv = env
+  get nodeEnv() {
+    return (this._nodeEnv ??= env
       .get('NODE_ENV')
-      .required()
-      .asEnum(['development', 'production', 'test'])
+      .default('development')
+      .asEnum(['development', 'production', 'test']))
   }
 
   get isDevelopment() {

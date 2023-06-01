@@ -1,13 +1,10 @@
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import {
-  getBaseHeaders,
-  projectApiUrl,
-  teamIdParam,
-} from '@codelab/backend/infra/adapter/vercel'
+import { getEnv } from '@codelab/shared/config'
 import type { NextApiHandler } from 'next'
 import url from 'url'
 
 export const vercelDomainProxy: NextApiHandler = async (req, res) => {
+  const { getBaseHeaders, projectApiUrl, teamIdParam } = getEnv().vercel
+
   if (!req.url) {
     return res.status(400).send('Missing url')
   }

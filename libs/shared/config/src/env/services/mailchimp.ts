@@ -14,6 +14,7 @@ export class MailchimpEnvVars implements IMailchimpEnvVars {
   serverPrefix: string
 
   constructor() {
+    console.log(process.env['MAILCHIMP_API_KEY'])
     this.apiKey = env.get('MAILCHIMP_API_KEY').required().asString()
     this.listId = env.get('MAILCHIMP_LIST_ID').required().asString()
     this.serverPrefix = env.get('MAILCHIMP_SERVER_PREFIX').required().asString()

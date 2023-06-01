@@ -1,10 +1,7 @@
-import * as env from 'env-var'
 import type { IAuth0EnvVars } from './services/auth0'
 import { Auth0EnvVars } from './services/auth0'
 import type { ICircleCIEnvVars } from './services/circleci'
 import { CircleCIEnvVars } from './services/circleci'
-import type { IEnvironmentEnvVars } from './services/environment'
-import { EnvironmentEnvVars } from './services/environment'
 import type { IGoogleAnalyticsEnvVars } from './services/google-analytics'
 import { GoogleAnalyticsEnvVars } from './services/google-analytics'
 import type { IGraphQLEnvVars } from './services/graphql'
@@ -27,7 +24,6 @@ import { VercelEnvVars } from './services/vercel'
 export interface IEnvironmentVariables {
   auth0: IAuth0EnvVars
   circleci: ICircleCIEnvVars
-  environment: IEnvironmentEnvVars
   googleAnalytics: IGoogleAnalyticsEnvVars
   graphql: IGraphQLEnvVars
   hotjar: IHotjarEnvVars
@@ -40,47 +36,81 @@ export interface IEnvironmentVariables {
 }
 
 class EnvironmentVariables implements IEnvironmentVariables {
-  public mailchimp: IMailchimpEnvVars
+  private _mailchimp?: IMailchimpEnvVars
 
-  public auth0: IAuth0EnvVars
+  private _auth0?: IAuth0EnvVars
 
-  public circleci: ICircleCIEnvVars
+  private _circleci?: ICircleCIEnvVars
 
-  public googleAnalytics: IGoogleAnalyticsEnvVars
+  private _googleAnalytics?: IGoogleAnalyticsEnvVars
 
-  public hotjar: IHotjarEnvVars
+  private _hotjar?: IHotjarEnvVars
 
-  public intercom: IIntercomEnvVars
+  private _intercom?: IIntercomEnvVars
 
-  public neo4j: INeo4jEnvVars
+  private _neo4j?: INeo4jEnvVars
 
-  public supabase: ISupabaseEnvVars
+  private _supabase?: ISupabaseEnvVars
 
-  public vercel: IVercelEnvVars
+  private _vercel?: IVercelEnvVars
 
-  public environment: IEnvironmentEnvVars
+  private _node?: INodeEnvVars
 
-  public graphql: IGraphQLEnvVars
+  private _graphql?: IGraphQLEnvVars
 
-  /**
-   * Put these here for now
-   */
-  public node: INodeEnvVars
+  private static instance?: EnvironmentVariables
 
-  constructor() {
-    this.auth0 = new Auth0EnvVars(this)
-    this.circleci = new CircleCIEnvVars()
-    this.googleAnalytics = new GoogleAnalyticsEnvVars()
-    this.hotjar = new HotjarEnvVars()
-    this.intercom = new IntercomEnvVars()
-    this.mailchimp = new MailchimpEnvVars()
-    this.neo4j = new Neo4jEnvVars()
-    this.supabase = new SupabaseEnvVars()
-    this.vercel = new VercelEnvVars()
-    this.node = new NodeEnvVars()
-    this.environment = new EnvironmentEnvVars(this)
-    this.graphql = new GraphQLEnvVars(this)
+  public static getInstance(): EnvironmentVariables {
+    if (!EnvironmentVariables.instance) {
+      EnvironmentVariables.instance = new EnvironmentVariables()
+    }
+
+    return EnvironmentVariables.instance
+  }
+
+  public get mailchimp() {
+    return (this._mailchimp ??= new MailchimpEnvVars())
+  }
+
+  public get auth0() {
+    return (this._auth0 ??= new Auth0EnvVars(this.graphql, this.node))
+  }
+
+  public get circleci() {
+    return (this._circleci ??= new CircleCIEnvVars())
+  }
+
+  public get googleAnalytics() {
+    return (this._googleAnalytics ??= new GoogleAnalyticsEnvVars())
+  }
+
+  public get hotjar() {
+    return (this._hotjar ??= new HotjarEnvVars())
+  }
+
+  public get intercom() {
+    return (this._intercom ??= new IntercomEnvVars())
+  }
+
+  public get neo4j() {
+    return (this._neo4j ??= new Neo4jEnvVars())
+  }
+
+  public get supabase() {
+    return (this._supabase ??= new SupabaseEnvVars())
+  }
+
+  public get vercel() {
+    return (this._vercel ??= new VercelEnvVars())
+  }
+
+  public get node() {
+    return (this._node ??= new NodeEnvVars())
+  }
+
+  public get graphql() {
+    return (this._graphql ??= new GraphQLEnvVars(this.vercel, this.node))
   }
 }
 
-export const Env = new EnvironmentVariables()
+export const getEnv = () => EnvironmentVariables.getInstance()

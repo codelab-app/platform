@@ -8,7 +8,7 @@
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
 
-import { Env, ENV_VARS } from '@codelab/shared/config'
+import { ENV_VARS, getEnv } from '@codelab/shared/config'
 import { encrypt } from '../support/nextjs-auth0/utils/encrypt'
 
 // import installLogsPrinter from 'cypress-terminal-report/src/installLogsPrinter'
@@ -46,18 +46,18 @@ const pluginConfig = async (
   config.env.tsConfig = 'tsconfig.json'
 
   // Remap some of the .env values, because cypress-nextjs-auth0/encrypt requires them to be with other names
-  config.env.auth0Audience = Env.auth0.audience
-  config.env.auth0Domain = Env.auth0.issuerBaseUrl
-  config.env.auth0ClientId = Env.auth0.clientId
-  config.env.auth0ClientSecret = Env.auth0.clientSecret
-  config.env.auth0CookieSecret = Env.auth0.secret
+  config.env.auth0Audience = getEnv().auth0.audience
+  config.env.auth0Domain = getEnv().auth0.issuerBaseUrl
+  config.env.auth0ClientId = getEnv().auth0.clientId
+  config.env.auth0ClientSecret = getEnv().auth0.clientSecret
+  config.env.auth0CookieSecret = getEnv().auth0.secret
   config.env.auth0Scope = 'openid profile email'
   config.env.auth0SessionCookieName = 'appSession'
   config.env.auth0LogoutUrl = '/api/auth/logout'
   config.env.auth0ReturnToUrl = '/'
   // This is the Auth0 Management API url
-  config.env.auth0Username = Env.auth0.cypressUsername
-  config.env.auth0Password = Env.auth0.cypressPassword
+  config.env.auth0Username = getEnv().auth0.cypressUsername
+  config.env.auth0Password = getEnv().auth0.cypressPassword
 
   return config
 }

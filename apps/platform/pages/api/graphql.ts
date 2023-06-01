@@ -7,7 +7,7 @@ import {
   getSchema,
   resolvers,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { Env, ENV_VARS } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { logger } from '@codelab/shared/infra/logging'
 import { mergeResolvers } from '@graphql-tools/merge'
@@ -136,7 +136,7 @@ const handler: NextApiHandler = async (req, res) => {
 
     // Apollo studio polls the graphql schema every second, and it pollutes the log
     if (
-      !Env.node.isDevelopment ||
+      !getEnv().node.isDevelopment ||
       !req.headers['origin']?.includes('studio.apollographql')
     ) {
       // console.error(e)

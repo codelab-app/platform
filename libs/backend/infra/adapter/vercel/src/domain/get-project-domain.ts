@@ -1,5 +1,5 @@
+import { getEnv } from '@codelab/shared/config'
 import fetch from 'cross-fetch'
-import { getBaseHeaders, projectApiUrl, teamIdParam } from '../config'
 
 export const PROJECT_NOT_FOUND = 404
 
@@ -10,6 +10,7 @@ export const PROJECT_NOT_FOUND = 404
  * 404 - Project not found
  */
 export const getProjectDomain = (name: string) => {
+  const { getBaseHeaders, projectApiUrl, teamIdParam } = getEnv().vercel
   const url = `${projectApiUrl()}/domains/${name}?${teamIdParam}`
 
   return fetch(url, {

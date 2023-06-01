@@ -1,6 +1,7 @@
 import * as env from 'env-var'
 import type { IEnvironmentVariables } from '../env'
-import { Env } from '../env'
+import type { INodeEnvVars } from './node'
+import type { IVercelEnvVars } from './vercel'
 
 export interface IGraphQLEnvVars {
   graphqlApiHost: string
@@ -10,19 +11,32 @@ export interface IGraphQLEnvVars {
 }
 
 export class GraphQLEnvVars implements IGraphQLEnvVars {
-  readonly nextPublicPlatformHost: string
+  private _nextPublicPlatformHost?: string
 
-  constructor(private readonly environment: IEnvironmentVariables) {
-    this.nextPublicPlatformHost = env
+  constructor(
+    private readonly vercel: IVercelEnvVars,
+    private readonly node: INodeEnvVars,
+  ) {}
+
+  get nextPublicPlatformHost(): string {
+    return (this._nextPublicPlatformHost ??= env
       .get('NEXT_PUBLIC_PLATFORM_HOST')
       .required()
-      .asString()
+      .asString())
   }
 
   get graphqlApiHost() {
-    return Env.environment.isVercelPreview
-      ? this.environment.vercel.nextPublicVercelEnv
-      : this.nextPublicPlatformHost
+    if (this.vercel.isVercelPreview) {
+      const url = this.vercel.nextPublicVercelUrl
+
+      if (!url) {
+        throw new Error('Invalid Vercel url')
+      }
+
+      return url
+    }
+
+    return this.nextPublicPlatformHost
   }
 
   get graphqlApiOrigin() {
@@ -30,6 +44,6 @@ export class GraphQLEnvVars implements IGraphQLEnvVars {
   }
 
   get protocol() {
-    return Env.node.isDevelopment ? 'http' : 'https'
+    return this.node.isDevelopment ? 'http' : 'https'
   }
 }

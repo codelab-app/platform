@@ -1,5 +1,5 @@
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
-import { Env } from '@codelab/shared/config'
+import { getEnv } from '@codelab/shared/config'
 import type { IResolvers } from '@graphql-tools/utils'
 import { Neo4jGraphQL } from '@neo4j/graphql'
 import { Neo4jGraphQLAuthJWKSPlugin } from '@neo4j/graphql-plugin-auth'
@@ -41,8 +41,10 @@ export const getSchema = (driver: Driver, resolvers: IResolvers) =>
        * https://community.auth0.com/t/jwk-vs-pem-what-is-the-difference/61927
        */
       auth: new Neo4jGraphQLAuthJWKSPlugin({
-        jwksEndpoint: new URL('.well-known/jwks.json', Env.auth0.issuerBaseUrl)
-          .href,
+        jwksEndpoint: new URL(
+          '.well-known/jwks.json',
+          getEnv().auth0.issuerBaseUrl,
+        ).href,
         /**
          * Use "dot path" since our roles path is nested
          *

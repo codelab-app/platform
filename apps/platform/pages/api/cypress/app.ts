@@ -75,15 +75,6 @@ const createApp: NextApiHandler = async (req, res) => {
     ])
 
     /**
-     * Create store
-     */
-    // const storeApi = new InterfaceType(storeApiData(owner))
-    // await interfaceTypeRepository.add([storeApi])
-
-    // const store = new Store(storeData({ id: storeApi.id }))
-    // await storeRepository.add([store])
-
-    /**
      * Create app
      */
     const app = new App(appData(owner))

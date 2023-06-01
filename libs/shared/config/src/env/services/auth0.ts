@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import * as env from 'env-var'
 import type { IEnvironmentVariables } from '../env'
+import type { IGraphQLEnvVars } from './graphql'
+import type { INodeEnvVars } from './node'
 
 export interface IAuth0EnvVars {
   baseUrl: string
@@ -33,7 +35,10 @@ export class Auth0EnvVars implements IAuth0EnvVars {
 
   readonly audience: string
 
-  constructor(private readonly environment: IEnvironmentVariables) {
+  constructor(
+    private readonly graphql: IGraphQLEnvVars,
+    private readonly node: INodeEnvVars,
+  ) {
     this.clientId = env.get('AUTH0_CLIENT_ID').required().asString()
     this.clientSecret = env.get('AUTH0_CLIENT_SECRET').required().asString()
     this.cypressUsername = env
@@ -50,15 +55,11 @@ export class Auth0EnvVars implements IAuth0EnvVars {
   }
 
   get baseUrl() {
-    const auth0baseUrl = this.environment.graphql.nextPublicPlatformHost
+    const auth0baseUrl = this.graphql.nextPublicPlatformHost
     // const isDev = auth0baseUrl.startsWith('127.0.0.1')
-    const protocol = this.environment.node.isDevelopment ? 'http' : 'https'
+    const protocol = this.node.isDevelopment ? 'http' : 'https'
     const baseUrl = `${protocol}://${auth0baseUrl}`
 
     return baseUrl
-  }
-
-  get demo_url() {
-    return null
   }
 }
