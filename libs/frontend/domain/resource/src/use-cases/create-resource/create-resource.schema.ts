@@ -4,6 +4,7 @@ import {
   idSchema,
   nonEmptyString,
   ownerSchema,
+  titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { IResourceType } from '@codelab/shared/abstract/core'
@@ -32,6 +33,7 @@ export const createResourceSchema: JSONSchemaType<ICreateResourceData> = {
     name: {
       autoFocus: true,
       ...nonEmptyString,
+      ...titleCaseValidation,
     },
     type: {
       enum: Object.values(IResourceType),
