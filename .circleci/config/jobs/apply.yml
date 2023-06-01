@@ -1,10 +1,9 @@
 executor: docker-node
 steps:
-  - restore-workspace
+  - restore-infra-workspace
+  - run:
+      name: 'Terraform Init'
+      command: yarn cli terraform --stage=prod init
   - run:
       name: 'Terraform Apply'
       command: yarn cli terraform --stage=prod apply
-#      - run:
-#          name: 'Terraform Destroy'
-#          command: terraform -chdir=terraform destroy
-

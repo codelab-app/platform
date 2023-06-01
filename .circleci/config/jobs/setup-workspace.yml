@@ -4,19 +4,17 @@ resource_class: large
 steps:
   - checkout
   - setup-env
-  # - nx/set-shas:
-  #     main-branch-name: master
   - install-npm
   - install-nvm
   - build-repo
-  - run:
-      command: |
-        cd ~/
-        du -hd1
-        cd ~/project
-        du -hd1
-        cd ~/.cache
-        du -hd1
+  # - run:
+  #     command: |
+  #       cd ~/
+  #       du -hd1
+  #       cd ~/project
+  #       du -hd1
+  #       cd ~/.cache
+  #       du -hd1
   # - run:
   #     name: 'Clear Cache'
   #     # clear cache here because NX cache can get quite large, we rely on remote cache instead

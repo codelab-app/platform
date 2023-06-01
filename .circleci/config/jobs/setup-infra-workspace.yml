@@ -1,5 +1,5 @@
 executor: docker-node
-resource_class: medium
+resource_class: large
 steps:
   - restore-workspace
   - install-terraform
@@ -9,5 +9,4 @@ steps:
   - persist_to_workspace:
       root: ~/
       paths:
-        - project/node_modules
-        - project/dist
+        - ./project/dist

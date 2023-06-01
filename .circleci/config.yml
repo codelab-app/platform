@@ -61,16 +61,31 @@ commands:
                     node -v
                 name: Set Node Version
     install-terraform:
-        description: Setup Infra Workspace
+        description: Install Terraform
         steps:
             - run:
                 command: |
                     sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DA418C88A3219F7B
+
                     curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
                     sudo apt-add-repository --yes "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+
                     sudo apt update
-                    sudo apt install terraform
+                    sudo apt install terraform=1.3.9
                 name: Install Terraform
+    restore-infra-workspace:
+        description: Restore Infra Workspace
+        steps:
+            - checkout
+            - attach_workspace:
+                at: ..
+            - restore_cache:
+                keys:
+                    - node-modules-{{ checksum "yarn.lock" }}
+                    - nvm-cache-{{ checksum ".nvmrc" }}
+                name: Restore Cache
+            - install-terraform
+            - setup-env
     restore-workspace:
         description: Restore Workspace
         steps:
@@ -115,7 +130,10 @@ jobs:
     apply:
         executor: docker-node
         steps:
-            - restore-workspace
+            - restore-infra-workspace
+            - run:
+                command: yarn cli terraform --stage=prod init
+                name: Terraform Init
             - run:
                 command: yarn cli terraform --stage=prod apply
                 name: Terraform Apply
@@ -293,7 +311,7 @@ jobs:
     plan:
         executor: docker-node
         steps:
-            - restore-workspace
+            - restore-infra-workspace
             - run:
                 command: |
                     echo "credentials \"app.terraform.io\" {token = \"$TERRAFORM_TOKEN\"}" >> $HOME/.terraformrc
@@ -318,7 +336,7 @@ jobs:
                 root: ~/
     setup-infra-workspace:
         executor: docker-node
-        resource_class: medium
+        resource_class: large
         steps:
             - restore-workspace
             - install-terraform
@@ -327,8 +345,7 @@ jobs:
             - build-repo
             - persist_to_workspace:
                 paths:
-                    - project/node_modules
-                    - project/dist
+                    - ./project/dist
                 root: ~/
     setup-workspace:
         executor: docker-node
@@ -339,14 +356,6 @@ jobs:
             - install-npm
             - install-nvm
             - build-repo
-            - run:
-                command: |
-                    cd ~/
-                    du -hd1
-                    cd ~/project
-                    du -hd1
-                    cd ~/.cache
-                    du -hd1
             - persist_to_workspace:
                 paths:
                     - project/dist

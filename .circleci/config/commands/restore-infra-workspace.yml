@@ -1,0 +1,12 @@
+description: 'Restore Infra Workspace'
+steps:
+  - checkout
+  - attach_workspace:
+      at: ..
+  - restore_cache:
+      name: 'Restore Cache'
+      keys:
+        - node-modules-{{ checksum "yarn.lock" }}
+        - nvm-cache-{{ checksum ".nvmrc" }}
+  - install-terraform
+  - setup-env

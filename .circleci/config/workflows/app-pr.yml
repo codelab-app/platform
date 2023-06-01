@@ -7,7 +7,6 @@
 
 jobs:
   - setup-workspace:
-      # <<: *filters-pr
       filters:
         branches:
           ignore:

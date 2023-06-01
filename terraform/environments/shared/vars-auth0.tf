@@ -26,3 +26,7 @@ variable "AUTH0_CYPRESS_PASSWORD" {
   type = string
 }
 
+variable "AUTH0_SECRET" {
+  type = string
+}
+

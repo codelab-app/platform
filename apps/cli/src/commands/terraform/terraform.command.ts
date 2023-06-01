@@ -15,7 +15,6 @@ export const terraformCommand: CommandModule<unknown, unknown> = {
         (argv) => argv,
         ({ stage }) => {
           execCommand(`cd terraform/environments/${stage} && ./symlink.sh`)
-          execCommand('echo $PWD')
           execCommand(`cd terraform/modules && ./symlink.sh`)
 
           return execCommand(

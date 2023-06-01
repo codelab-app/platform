@@ -1,3 +1,4 @@
+# This is required to be used by terraform
 # Not used by Circleci
 variable "auth0_m2m_client_id" {
   type        = string
