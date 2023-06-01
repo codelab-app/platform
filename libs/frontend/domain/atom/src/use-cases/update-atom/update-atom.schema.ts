@@ -1,6 +1,10 @@
 import type { IUpdateAtomData } from '@codelab/frontend/abstract/core'
 import { filterNotHookType } from '@codelab/frontend/abstract/core'
-import { idSchema, nonEmptyString } from '@codelab/frontend/presentation/view'
+import {
+  cdnEsmValidation,
+  idSchema,
+  nonEmptyString,
+} from '@codelab/frontend/presentation/view'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
@@ -52,10 +56,12 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
     },
     externalJsSource: {
       nullable: true,
+      ...cdnEsmValidation,
       ...nonEmptyString,
     },
     externalSourceType: {
       nullable: true,
+      pattern: '^[A-Z][a-zA-Z]*$',
       ...nonEmptyString,
     },
     requiredParents: {

@@ -1,6 +1,7 @@
 import type { ICreateAtomData } from '@codelab/frontend/abstract/core'
 import { filterNotHookType } from '@codelab/frontend/abstract/core'
 import {
+  cdnEsmValidation,
   idSchema,
   nonEmptyString,
   ownerSchema,
@@ -57,10 +58,12 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
     },
     externalJsSource: {
       nullable: true,
+      ...cdnEsmValidation,
       ...nonEmptyString,
     },
     externalSourceType: {
       nullable: true,
+      pattern: '^[A-Z][a-zA-Z]*$',
       ...nonEmptyString,
     },
     requiredParents: {
