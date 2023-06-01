@@ -23,4 +23,4 @@ else
   target_head="$(git log "$commit^" -1 --pretty=%H)"
 fi
 
-npx commitlint --verbose --from="$target_head"
+npx commitlint --from="$target_head"

@@ -65,7 +65,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
 
           if (stage === Stage.CI) {
             execCommand(
-              'npx nx affected --target=test --testPathPattern="[^i].spec.ts" --color --verbose --parallel=4 --runInBand',
+              'npx nx affected --target=test --testPathPattern="[^i].spec.ts" --color --parallel=4 --runInBand',
             )
           }
         },
@@ -83,7 +83,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
 
           if (stage === Stage.CI) {
             execCommand(
-              'npx nx affected --target=test --testPathPattern="[i].spec.ts" --color --parallel=4 --verbose',
+              'npx nx affected --target=test --testPathPattern="[i].spec.ts" --color --parallel=4',
             )
           }
         },
@@ -164,7 +164,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
         (argv) => argv,
         ({ stage }) => {
           if (stage === Stage.Test) {
-            execCommand(`${NX_TEST} affected --target=e2e -c test --verbose`)
+            execCommand(`${NX_TEST} affected --target=e2e -c test`)
           }
 
           if (stage === Stage.Dev) {
@@ -172,7 +172,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           }
 
           if (stage === Stage.CI) {
-            execCommand(`npx nx affected --target=e2e -c ci --verbose`)
+            execCommand(`npx nx affected --target=e2e -c ci`)
           }
         },
       )
@@ -182,7 +182,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
         (argv) => argv,
         ({ stage }) => {
           if (stage === Stage.Test) {
-            execCommand(`yarn cross-env TIMING=1 lint-staged --verbose`)
+            execCommand(`yarn cross-env TIMING=1 lint-staged`)
             execCommand(`npx ls-lint`)
           }
 
