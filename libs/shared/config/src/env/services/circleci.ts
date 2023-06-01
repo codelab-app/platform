@@ -8,12 +8,15 @@ export interface ICircleCIEnvVars {
 export class CircleCIEnvVars implements ICircleCIEnvVars {
   // Vercel uses '1'
   // Others may use 'true'
-  readonly ci: boolean
+  private _ci?: boolean
 
-  readonly circleCi: boolean
+  private _circleCi?: boolean
 
-  constructor() {
-    this.ci = env.get('CI').default('false').asBool()
-    this.circleCi = env.get('CI').default('false').asBool()
+  get ci() {
+    return (this._ci ??= env.get('CI').default('false').asBool())
+  }
+
+  get circleCi() {
+    return (this._circleCi ??= env.get('CIRCLE').default('false').asBool())
   }
 }

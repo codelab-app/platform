@@ -164,11 +164,11 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
         (argv) => argv,
         ({ stage }) => {
           if (stage === Stage.Test) {
-            execCommand(`${NX_TEST} affected --target=e2e -c test`)
+            execCommand(`${NX_TEST} run platform-e2e:e2e:test`)
           }
 
           if (stage === Stage.Dev) {
-            execCommand(`${NX_TEST} affected --target=e2e -c dev`)
+            execCommand(`${NX_TEST} run platform-e2e:e2e:dev`)
           }
 
           if (stage === Stage.CI) {
