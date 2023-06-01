@@ -5,6 +5,7 @@ import type { IVercelEnvVars } from './vercel'
 export interface IGraphQLEnvVars {
   graphqlApiHost: string
   graphqlApiOrigin: string
+  isLocal: boolean
   nextPublicPlatformHost: string
   protocol: string
 }
@@ -16,6 +17,10 @@ export class GraphQLEnvVars implements IGraphQLEnvVars {
     private readonly vercel: IVercelEnvVars,
     private readonly node: INodeEnvVars,
   ) {}
+
+  get isLocal() {
+    return this.nextPublicPlatformHost.includes('127.0.0.1')
+  }
 
   get nextPublicPlatformHost(): string {
     return (this._nextPublicPlatformHost ??= env

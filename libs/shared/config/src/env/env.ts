@@ -73,7 +73,7 @@ class EnvironmentVariables implements IEnvironmentVariables {
   }
 
   public get auth0() {
-    return (this._auth0 ??= new Auth0EnvVars(this.graphql, this.node))
+    return (this._auth0 ??= new Auth0EnvVars(this.graphql))
   }
 
   public get circleci() {
