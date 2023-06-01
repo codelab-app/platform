@@ -172,6 +172,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           }
 
           if (stage === Stage.CI) {
+            // Using `affected` here causes CircleCI parallel specs to not work
             // execCommand(`npx nx affected --target=e2e -c ci`)
             execCommand(`npx nx run platform-e2e:e2e:ci --verbose`)
           }
