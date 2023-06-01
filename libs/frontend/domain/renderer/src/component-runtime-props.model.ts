@@ -47,7 +47,10 @@ export class ComponentRuntimeProps
       /**
        * Internal system props for meta data, use double underline for system-defined identifiers.
        */
-      { [DATA_COMPONENT_ID]: this.node.id, key: this.node.id },
+      {
+        [DATA_COMPONENT_ID]: this.node.id,
+        key: this.node.id,
+      },
     )
   }
 

@@ -65,13 +65,13 @@ export class BaseRuntimeProps<TNode extends IPageNode>
       const typeKind = this.typeService.type(value.type)?.kind
 
       if (!typeKind) {
-        return value
+        return value.value
       }
 
       const transformer = this.renderer.typedPropTransformers.get(typeKind)
 
       if (!transformer) {
-        return value
+        return value.value
       }
 
       return transformer.transform(value, this.node)

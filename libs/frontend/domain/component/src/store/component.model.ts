@@ -8,6 +8,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   componentRef,
+  DATA_COMPONENT_ID,
   elementRef,
   ElementTree,
   getComponentService,
@@ -213,6 +214,10 @@ export class Component
     clonedComponent.setProps(propRef(this.props.current.clone()))
     clonedComponent.setSourceComponent({ id: this.id })
     clonedComponent.setStore(storeRef(clonedStore))
+
+    clonedComponent.elements.forEach((childElement) => {
+      childElement.props.current.set(DATA_COMPONENT_ID, clonedComponent.id)
+    })
 
     if (instanceId) {
       clonedComponent.setInstanceElement(elementRef(instanceId))

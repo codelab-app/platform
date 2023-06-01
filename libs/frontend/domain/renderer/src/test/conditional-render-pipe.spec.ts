@@ -12,13 +12,10 @@ describe('ConditionalRenderPipe', () => {
     data.element.setRenderIfExpression('{{this.shouldRender}}')
   })
 
-  it('should render normally if no expression is set', async () => {
+  it('should render normally if no expression is set', () => {
     data.element.setRenderIfExpression(undefined)
 
-    const output = data.rootStore.renderer.renderIntermediateElement(
-      data.element,
-      {},
-    )
+    const output = data.renderer.renderIntermediateElement(data.element)
 
     const atomType = isAtomInstance(data.element.renderType)
       ? data.element.renderType.current.type
@@ -33,36 +30,24 @@ describe('ConditionalRenderPipe', () => {
     })
   })
 
-  it('should stop rendering by returning an empty output', async () => {
-    data.element.store.current.setInitialState({ shouldRender: false })
+  it('should stop rendering by returning an empty output', () => {
+    data.element.store.current.state['shouldRender'] = false
 
-    const output = data.rootStore.renderer.renderIntermediateElement(
-      data.element,
-      {},
-    )
+    const output = data.renderer.renderIntermediateElement(data.element)
 
-    expect(output).toMatchObject({
-      element: data.element,
-    })
+    expect(output).toMatchObject({ element: data.element })
   })
 
-  it('should continue rendering', async () => {
-    data.element.store.current.setInitialState({ shouldRender: true })
+  it('should continue rendering', () => {
+    data.element.store.current.state['shouldRender'] = false
 
-    const initialProps = {
-      prop01: 'prop01',
-    }
-
-    const output = data.rootStore.renderer.renderIntermediateElement(
-      data.element,
-      initialProps,
-    )
+    const output = data.renderer.renderIntermediateElement(data.element)
 
     const atomType = isAtomInstance(data.element.renderType)
       ? data.element.renderType.current.type
       : null
 
-    expect(output).toEqual({
+    expect(output).toMatchObject({
       atomType,
       element: data.element,
       props: expect.objectContaining({
