@@ -35,7 +35,7 @@ export const componentMenuItem: NavigationBarItem = {
   link: {
     href: PageType.Components,
   },
-  title: 'Resources',
+  title: 'Components',
 }
 
 export const allPagesMenuItem = (
