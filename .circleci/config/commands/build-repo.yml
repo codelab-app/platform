@@ -14,4 +14,6 @@ steps:
         - ~/project/dist/apps/platform/.next/cache
         - ~/project/dist/apps/landing/.next/cache
         - ~/project/dist/apps/websites/.next/cache
-        - ~/project/node_modules/.cache/nx/lockfile.hash
+        # Need this folder for local cache to hit, remote cache still hits but takes too long to build
+        - ~/project/node_modules/.cache/nx
+        # - ~/project/node_modules/.cache/nx/lockfile.hash

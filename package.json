@@ -31,8 +31,8 @@
   "dependencies": {
     "@ant-design/icons": "5.0.1",
     "@ant-design/pro-components": "2.4.4",
-    "@apollo/client": "^3.7.15",
-    "@apollo/server": "^4.7.1",
+    "@apollo/client": "3.7.15",
+    "@apollo/server": "4.7.1",
     "@as-integrations/next": "^2.0.0",
     "@auth0/nextjs-auth0": "1.9.2",
     "@babel/runtime": "7.18.3",
