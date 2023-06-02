@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-micro'
+import { gql } from '@apollo/client'
 import values from 'lodash/values'
 
 enum ResourceType {

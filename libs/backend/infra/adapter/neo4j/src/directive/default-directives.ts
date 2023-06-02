@@ -1,6 +1,6 @@
-import { gql } from 'apollo-server-micro'
-
 // Directives taken from the neo4j docs and the generated sdql schema
+import { gql } from '@apollo/client'
+
 // Adding them here helps ide autocompletion and error checking for gql segments
 export const defaultDirectives = gql`
   """

@@ -23,7 +23,7 @@ export const authMiddleware: NextApiHandler = async (req, res) => {
       req.headers.authorization = `Bearer ${accessToken}`
     }
   } catch (error) {
-    console.log('error when get access token', error)
+    // console.log('error when get access token', error)
 
     // Apollo studio polls the graphql schema every second, and it pollutes the log
     if (

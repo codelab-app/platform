@@ -5,14 +5,16 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 
 /** Allows importing cypher files */
-const withRawCypherFiles = (nextConfig = {}) => {
-  return Object.assign({}, nextConfig, {
+const withRawCypherFiles = (nextConfig = {}) =>
+  Object.assign({}, nextConfig, {
     webpack(config, options) {
       config.module.rules = config.module.rules ?? []
       config.module.rules.push({
         test: /\.(cypher|cyp)$/,
         type: 'asset/source',
       })
+
+      config.experiments = { ...config.experiments, topLevelAwait: true }
 
       if (typeof nextConfig.webpack === 'function') {
         return nextConfig.webpack(config, options)
@@ -21,7 +23,6 @@ const withRawCypherFiles = (nextConfig = {}) => {
       return config
     },
   })
-}
 
 const plugins = [withBundleAnalyzer, withRawCypherFiles]
 

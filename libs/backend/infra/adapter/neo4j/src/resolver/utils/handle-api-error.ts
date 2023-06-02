@@ -1,4 +1,4 @@
-import { ApolloError } from 'apollo-server-micro'
+import { ApolloError } from '@apollo/server'
 
 export const handleAPIError = async (res: Response, requestName: string) => {
   const parsedBody = await res.json()

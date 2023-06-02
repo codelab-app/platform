@@ -1,13 +1,11 @@
-import { logger } from '@codelab/shared/infra/logging'
 import type {
   ApolloServerPlugin,
-  GraphQLRequestListener,
-} from 'apollo-server-plugin-base'
-import type {
   BaseContext,
   GraphQLRequestContext,
   GraphQLRequestContextWillSendResponse,
-} from 'apollo-server-types'
+  GraphQLRequestListener,
+} from '@apollo/server'
+import { logger } from '@codelab/shared/infra/logging'
 
 export const BASIC_LOGGING: ApolloServerPlugin = {
   requestDidStart: (requestContext: GraphQLRequestContext<BaseContext>) => {

@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-micro'
+import { gql } from '@apollo/client'
 import { print } from 'graphql'
 import { commonSchema } from './common.schema'
 import { actionSchema } from './model/action.schema'

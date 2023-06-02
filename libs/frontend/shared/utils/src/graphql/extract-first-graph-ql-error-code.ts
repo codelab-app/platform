@@ -1,4 +1,4 @@
-import type { ApolloError } from 'apollo-server-micro'
+import type { ApolloError } from '@apollo/client'
 
 export const extractFirstGraphQlErrorCode = (error: ApolloError) =>
-  error.response?.errors?.[0]?.extensions?.code
+  error.graphQLErrors[0]?.extensions?.code

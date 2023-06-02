@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-micro'
+import { gql } from '@apollo/client'
 
 export const componentSchema = gql`
   type Component implements WithOwner {

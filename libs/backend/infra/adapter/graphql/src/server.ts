@@ -1,3 +1,5 @@
+import type { BaseContext, ContextFunction } from '@apollo/server'
+import { ApolloServer } from '@apollo/server'
 import type { NextApiRequest } from '@codelab/backend/abstract/types'
 import {
   getDriver,
@@ -5,7 +7,7 @@ import {
   resolvers,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { mergeResolvers } from '@graphql-tools/merge'
-import { ApolloServer } from 'apollo-server-micro'
+import type { NextApiResponse } from 'next'
 import * as util from 'util'
 import { BASIC_LOGGING } from './logger'
 
@@ -14,20 +16,29 @@ const neoSchema = getSchema(driver, mergeResolvers([resolvers]))
 
 // https://community.apollographql.com/t/allow-cookies-to-be-sent-alongside-request/920/13
 
-export const startServer = async () => {
+export const apolloServerContext: ContextFunction<
+  [NextApiRequest],
+  BaseContext
+> = async (req) => {
+  const user = req.user
+
+  return {
+    req,
+    user,
+  }
+}
+
+export const apolloServer = async () => {
   const schema = await neoSchema.getSchema()
 
-  const apolloServer = new ApolloServer({
-    context: ({ req }: { req: NextApiRequest }) => {
-      const user = req.user
+  await neoSchema.assertIndexesAndConstraints({
+    driver,
+    options: { create: true },
+  })
 
-      return {
-        req,
-        user,
-      }
-    },
+  const server = new ApolloServer({
     formatError: (err) => {
-      console.error(util.inspect(err, false, null, true))
+      // console.error(util.inspect(err, false, null, true))
 
       // Otherwise return the original error. The error can also
       // be manipulated in other ways, as long as it's returned.
@@ -39,12 +50,7 @@ export const startServer = async () => {
     // plugins: [ApolloServerPluginInlineTrace()],
   })
 
-  await neoSchema.assertIndexesAndConstraints({
-    driver,
-    options: { create: true },
-  })
+  // await apolloServer.start()
 
-  await apolloServer.start()
-
-  return apolloServer
+  return server
 }

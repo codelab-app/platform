@@ -1,5 +1,5 @@
+import type { ApolloError } from '@apollo/client'
 import type { AsyncState } from '@react-hookz/web'
-import type { ApolloError } from 'apollo-server-micro'
 import isObjectLike from 'lodash/isObjectLike'
 import isString from 'lodash/isString'
 
