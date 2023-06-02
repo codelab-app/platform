@@ -179,7 +179,7 @@ jobs:
     e2e:
         executor: docker-node-neo4j
         parallelism: 4
-        resource_class: medium
+        resource_class: large
         steps:
             - restore-workspace
             - setup_remote_docker:
