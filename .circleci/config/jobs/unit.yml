@@ -1,10 +1,13 @@
 executor: docker-node
-resource_class: medium
+resource_class: large
 steps:
   - restore-workspace
   - run:
       name: 'Run Unit Tests'
       command: yarn cli tasks unit --stage ci
-  # Upload test results
+      environment:
+        JEST_JUNIT_OUTPUT_DIR: ./reports/
+        # JEST_JUNIT_OUTPUT_NAME: 'unit-specs-results.xml'
+  # https://discuss.circleci.com/t/insights-test-panel-doesnt-show-any-information/45070/13
   - store_test_results:
-      path: /tmp/test-reports
+      path: ./reports/

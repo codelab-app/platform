@@ -1,4 +1,4 @@
-const { getJestProjects } = require('@nx/jest');
+const { getJestProjects } = require('@nx/jest')
 
 /**
  * Issue with jest 28 due to ES6 import, ignoring transform doesn't work either.
@@ -15,4 +15,5 @@ const { getJestProjects } = require('@nx/jest');
  */
 module.exports = {
   projects: getJestProjects(),
-};
+  // reporters: ['default', 'jest-junit'],
+}

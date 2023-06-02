@@ -1,8 +1,8 @@
-const nxPreset = require('@nx/jest/preset').default;
+const nxPreset = require('@nx/jest/preset').default
 
-const testTimeout = process.env.CI ? 15000 : 20000;
+const testTimeout = process.env.CI ? 15000 : 20000
 
-const JEST_CONFIG_PATH = `${__dirname}/scripts/jest`;
+const JEST_CONFIG_PATH = `${__dirname}/scripts/jest`
 
 module.exports = {
   ...nxPreset,
@@ -12,6 +12,7 @@ module.exports = {
     '@testing-library/jest-dom',
     // `${JEST_CONFIG_PATH}/setupFilesAfterEnv.js`,
   ],
+  // reporters: ['default', 'jest-junit'],
   testTimeout,
   /**
    * Some NPM modules are written in ES6, and must be transformed with babel. node_modules is ignored by default because there are too many packages to transform, so we only transform the ones we have to.
@@ -33,4 +34,9 @@ module.exports = {
    * More info: https://jestjs.io/docs/upgrading-to-jest29#snapshot-format
    */
   snapshotFormat: { escapeString: true, printBasicPrototype: true },
-};
+  /**
+   * https://github.com/jestjs/jest/issues/13576#issuecomment-1572682459
+   */
+  // collectCoverage: true,
+  // coverageDirectory: `${process.env.NX_WORKSPACE_ROOT}/coverage/${process.env['NX_TASK_TARGET_PROJECT']}`,
+}

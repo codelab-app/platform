@@ -19,7 +19,8 @@
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/renderer"],
       "options": {
         "jestConfig": "libs/frontend/domain/renderer/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "runInBand": true
       }
     }
   }

@@ -13,5 +13,5 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../../coverage/libs/backend/application/type',
+  // coverageDirectory: '../../../../coverage/libs/backend/application/type',
 }

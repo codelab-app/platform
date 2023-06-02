@@ -64,7 +64,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
 
           if (stage === Stage.CI) {
             execCommand(
-              'npx nx affected --target=test --testPathPattern="[^i].spec.ts" --color --parallel=3 --verbose',
+              'npx nx affected --target=test --testPathPattern="[^i].spec.ts" --color --parallel=3 --verbose --reporters=default --reporters=jest-junit --ci',
             )
           }
         },
@@ -82,7 +82,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
 
           if (stage === Stage.CI) {
             execCommand(
-              'npx nx affected --target=test --testPathPattern="[i].spec.ts" --color --parallel=4',
+              'npx nx affected --target=test --testPathPattern="[i].spec.ts" --color --parallel=4 --reporters=default --reporters=jest-junit',
             )
           }
         },
@@ -164,7 +164,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
         (argv) => argv,
         ({ stage }) => {
           if (stage === Stage.Test) {
-            execCommand(`${NX_TEST} run platform-e2e:e2e:test`)
+            execCommand(`${NX_TEST} run platform-e2e:e2e:test `)
           }
 
           if (stage === Stage.Dev) {
@@ -189,7 +189,10 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           }
 
           if (stage === Stage.CI) {
-            execCommand(`npx nx affected --target=lint --parallel=3 --verbose`)
+            execCommand(
+              `npx nx affected --target=lint --parallel=3 --verbose --format junit --output-file ./reports/eslint.xml`,
+            )
+            // https://github.com/nrwl/nx/discussions/8769
             execCommand(`npx prettier --check "./**/*.{graphql,yaml,json}"`)
             // execCommand(
             //   `yarn madge --circular apps libs --extensions ts,tsx,js,jsx`,

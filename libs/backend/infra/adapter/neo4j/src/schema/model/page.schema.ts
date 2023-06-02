@@ -1,5 +1,5 @@
-import { __PageKind } from '@codelab/shared/abstract/core'
 import { gql } from '@apollo/client'
+import { __PageKind } from '@codelab/shared/abstract/core'
 
 const pageKindSchema = `enum PageKind {
   ${Object.values(__PageKind).join('\n')}

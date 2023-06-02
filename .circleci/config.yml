@@ -188,6 +188,9 @@ jobs:
             - run: npx cypress verify
             - run:
                 command: yarn cli tasks e2e --stage ci
+                environment:
+                    JEST_JUNIT_OUTPUT_DIR: /tmp/test-reports
+                    JEST_JUNIT_OUTPUT_NAME: e2e-specs-results.xml
                 name: Run E2E Tests
             - store_artifacts:
                 destination: cypress/videos
@@ -198,6 +201,8 @@ jobs:
             - store_artifacts:
                 destination: cypress/data
                 path: ~/project/apps/platform-e2e/src/data
+            - store_test_results:
+                path: /tmp/test-reports
     integration:
         executor: docker-node-neo4j
         resource_class: large
@@ -205,8 +210,13 @@ jobs:
             - restore-workspace
             - run:
                 command: yarn cli tasks int --stage ci
+                environment:
+                    JEST_JUNIT_OUTPUT_DIR: /tmp/test-reports
+                    JEST_JUNIT_OUTPUT_NAME: integration-specs-results.xml
                 name: Run Integration Tests
                 no_output_timeout: 20m
+            - store_test_results:
+                path: /tmp/test-reports
     lint:
         environment:
             CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
@@ -221,6 +231,8 @@ jobs:
             - run:
                 command: yarn cli tasks commitlint --stage ci
                 name: Commitlint
+            - store_test_results:
+                path: ~/reports
     notify-failure:
         executor: machine-ubuntu
         resource_class: small
@@ -362,14 +374,16 @@ jobs:
                 root: ~/
     unit:
         executor: docker-node
-        resource_class: medium
+        resource_class: large
         steps:
             - restore-workspace
             - run:
                 command: yarn cli tasks unit --stage ci
+                environment:
+                    JEST_JUNIT_OUTPUT_DIR: ./reports/
                 name: Run Unit Tests
             - store_test_results:
-                path: /tmp/test-reports
+                path: ./reports/
 orbs:
     node: circleci/node@5.1.0
     nx: nrwl/nx@1.6.1
