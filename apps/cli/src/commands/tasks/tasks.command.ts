@@ -64,7 +64,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
 
           if (stage === Stage.CI) {
             execCommand(
-              'npx nx affected --target=test --testPathPattern="[^i].spec.ts" --color --parallel=3 --runInBand',
+              'npx nx affected --target=test --testPathPattern="[^i].spec.ts" --color --parallel=3 --verbose',
             )
           }
         },
@@ -189,7 +189,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           }
 
           if (stage === Stage.CI) {
-            execCommand(`npx nx affected --target=lint --parallel=3`)
+            execCommand(`npx nx affected --target=lint --parallel=3 --verbose`)
             execCommand(`npx prettier --check "./**/*.{graphql,yaml,json}"`)
             // execCommand(
             //   `yarn madge --circular apps libs --extensions ts,tsx,js,jsx`,

@@ -7,7 +7,7 @@ commands:
                     - nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
                     - nx-cache
                 name: Restore NX Cache
-            - run: npx nx run-many --target=build --projects=platform,cli,landing,websites --parallel=4 -c ci --nx-bail
+            - run: npx nx run-many --target=build --projects=platform,cli,landing,websites --parallel=4 -c ci --verbose --nx-bail
             - save_cache:
                 key: nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
                 name: Save Cache
