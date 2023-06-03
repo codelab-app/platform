@@ -58,7 +58,7 @@ export const DraggableComponentItem = ({
       {...listeners}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...attributes}
-      css={tw`cursor-pointer [max-width: 300px]`}
+      css={tw`cursor-pointer [max-width: 350px]`}
     >
       <ComponentItem
         component={component}
@@ -96,6 +96,16 @@ export const ComponentItem = ({
       ? `/${antDesignIconPrefix}/${component.icon}.svg`
       : '/codelab-logo-default.svg'
 
+  const handleEditClick = (event: React.MouseEvent) => {
+    event.stopPropagation()
+    onEdit && onEdit(component.id)
+  }
+
+  const handleDeleteClick = (event: React.MouseEvent) => {
+    event.stopPropagation()
+    onDelete && onDelete(component.id)
+  }
+
   return (
     <Card
       extra={
@@ -103,7 +113,7 @@ export const ComponentItem = ({
           {onEdit ? (
             <Button
               icon={<EditOutlined />}
-              onClick={() => onEdit(component.id)}
+              onClick={handleEditClick}
               type="text"
             />
           ) : (
@@ -114,7 +124,7 @@ export const ComponentItem = ({
               danger
               hidden={!onDelete}
               icon={<DeleteOutlined />}
-              onClick={() => onDelete(component.id)}
+              onClick={handleDeleteClick}
               type="text"
             />
           ) : (
