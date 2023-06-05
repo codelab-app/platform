@@ -25,6 +25,7 @@ steps:
   #   # If we want to remove .cache, need to do it after build
   # - run: test -d ~/project/node_modules/.cache/nx && mv ~/project/node_modules/.cache/nx ~/project/nx/.cache || true
   - run:
+      name: 'Monitor NX Cache Size'
       command: |
         cd ~/project/node_modules/.cache
         du -hd1

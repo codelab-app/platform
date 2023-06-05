@@ -75,7 +75,8 @@
         },
         "development": {
           "buildTarget": "platform:build:development",
-          "dev": true
+          "dev": true,
+          "open": true
         }
       },
       "defaultConfiguration": "development"
