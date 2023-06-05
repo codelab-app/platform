@@ -34,7 +34,11 @@ export const CuiTreeItem = ({
     `,
         varientColors[varient ?? 'primary'],
       ]}
-      data-cy="codelabui-tree-item"
+      data-cy={`
+        codelabui-tree-item
+        codelabui-tree-item-primary-title-${primaryTitle}
+        codelabui-tree-item-secondary-title-${secondaryTitle}
+      `}
     >
       <div
         css={tw`

@@ -109,9 +109,8 @@ describe('Component CRUD', () => {
        * More Info: https://docs.cypress.io/guides/references/migration-guide#-should
        * */
       cy.wrap(componentChildren).each((child: ComponentChildData) => {
-        cy.get(`.ant-tree-node-content-wrapper[title="${COMPONENT_NAME}"]`)
-          .eq(1)
-          .trigger('contextmenu')
+        cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).trigger('contextmenu')
+
         cy.contains(/Add child/).click({ force: true })
         cy.findByTestId('create-element-form').setFormFieldValue({
           label: 'Render Type',
@@ -134,7 +133,7 @@ describe('Component CRUD', () => {
         cy.findByTestId('create-element-form').should('not.exist', {
           timeout: 10000,
         })
-        cy.get(`[title="${child.name}"]`).click({ force: true })
+        cy.getCuiTreeItemByPrimaryTitle(child.name).click({ force: true })
       })
 
       // Should run after each

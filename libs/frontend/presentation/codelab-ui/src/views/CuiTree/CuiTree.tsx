@@ -92,7 +92,7 @@ export const CuiTree = <T extends CuiTreeBasicDataNode = CuiTreeBasicDataNode>(
               secondaryTitle={node.secondaryTitle}
               tag={node.tags}
               toolbar={node.toolbar}
-              varient="danger"
+              varient={node.varient}
             />
           )
         }}
