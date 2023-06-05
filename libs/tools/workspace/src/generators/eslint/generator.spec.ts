@@ -31,6 +31,6 @@ describe('project.json lint settings', () => {
     const lintCiConfig = project.targets?.lint?.configurations?.['ci']
 
     expect(lintCiConfig.format).toBe('junit')
-    expect(lintCiConfig.outputFile).toBe(`${LIB_NAME}.xml`)
+    expect(lintCiConfig.outputFile).toBe(`tmp/reports/lint/${LIB_NAME}.xml`)
   })
 })
