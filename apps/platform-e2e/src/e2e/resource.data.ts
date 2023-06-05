@@ -1,3 +1,3 @@
-export const resourceName = 'New resource'
-export const updatedResourceName = `${resourceName} updated`
+export const resourceName = 'New Resource'
+export const updatedResourceName = `${resourceName} Updated`
 export const resourcesUrl = 'https://countries.trevorblades.com/'
