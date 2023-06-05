@@ -17,7 +17,7 @@ import {
   elementRef,
   getElementService,
   IElement,
-  IElementTreeDataNode,
+  IElementTreeViewDataNode,
   isAtomInstance,
   isComponentInstance,
   pageRef,
@@ -352,14 +352,15 @@ export class Element
   }
 
   @computed
-  get antdNode(): IElementTreeDataNode {
+  get treeViewNode(): IElementTreeViewDataNode {
     return {
-      children: this.children.map((child) => child.antdNode),
+      children: this.children.map((child) => child.treeViewNode),
       key: this.id,
       node: this,
       primaryTitle: this.treeTitle.primary,
       rootKey: this.closestRootElement.id,
       secondaryTitle: this.treeTitle.secondary,
+      title: `${this.treeTitle.primary} (${this.treeTitle.secondary})`,
     }
   }
 

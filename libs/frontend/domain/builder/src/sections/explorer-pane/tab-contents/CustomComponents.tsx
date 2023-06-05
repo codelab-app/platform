@@ -18,7 +18,7 @@ import { useAsync } from '@react-hookz/web'
 import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef, useState } from 'react'
-import { ElementTree } from '../builder-tree'
+import { ElementTreeView } from '../builder-tree'
 import { StorePane } from '../StorePane'
 import { ComponentList } from './ComponentList'
 
@@ -50,7 +50,7 @@ export const CustomComponents = observer(() => {
   }
 
   const componentElementTree = activeComponent
-    ? activeComponent.rootElement.current.antdNode
+    ? activeComponent.rootElement.current.treeViewNode
     : undefined
 
   const onBack = () => {
@@ -103,7 +103,7 @@ export const CustomComponents = observer(() => {
           {!isInlineFormOpened && (
             <>
               {componentElementTree && (
-                <ElementTree
+                <ElementTreeView
                   expandedNodeIds={
                     builderService.expandedPageElementTreeNodeIds
                   }

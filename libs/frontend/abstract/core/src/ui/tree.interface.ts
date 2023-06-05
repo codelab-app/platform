@@ -1,8 +1,8 @@
 import type * as React from 'react'
 import type { IPageNode } from '../domain'
 
-export interface IElementTreeDataNode {
-  children?: Array<IElementTreeDataNode>
+export interface IElementTreeViewDataNode {
+  children?: Array<IElementTreeViewDataNode>
   // This is the id
   key: number | string
   /**
@@ -16,5 +16,6 @@ export interface IElementTreeDataNode {
   secondaryTitle?: string
   selectable?: boolean
   tags?: React.ReactNode
+  title?: string
   toolbar?: React.ReactNode
 }

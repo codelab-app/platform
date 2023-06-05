@@ -1,6 +1,6 @@
 import type {
   IElement,
-  IElementTreeDataNode,
+  IElementTreeViewDataNode,
   IPageNode,
 } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/abstract/core'
@@ -19,9 +19,9 @@ import {
 } from './disable-node-hover-effects'
 import { ElementTreeItemTitle } from './ElementTreeItemTitle'
 
-interface ElementTreeProps {
+interface ElementTreeViewProps {
   expandedNodeIds: Array<string>
-  treeData: IElementTreeDataNode | undefined
+  treeData: IElementTreeViewDataNode | undefined
 
   selectTreeNode(node: Nullable<IPageNode>): void
   /**
@@ -34,7 +34,7 @@ interface ElementTreeProps {
 /**
  * When you think about it, the only dependency a BuilderTree should have is the data. All other services or data is only supporting infrastructure
  */
-export const ElementTree = observer<ElementTreeProps>(
+export const ElementTreeView = observer<ElementTreeViewProps>(
   ({
     expandedNodeIds,
     selectTreeNode,
@@ -58,7 +58,7 @@ export const ElementTree = observer<ElementTreeProps>(
     )
 
     return (
-      <CuiTree<IElementTreeDataNode>
+      <CuiTree<IElementTreeViewDataNode>
         defaultExpandAll
         disabled={isMoving}
         draggable={true}
@@ -126,4 +126,4 @@ export const ElementTree = observer<ElementTreeProps>(
   },
 )
 
-ElementTree.displayName = 'ElementTree'
+ElementTreeView.displayName = 'ElementTree'

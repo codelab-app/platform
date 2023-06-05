@@ -1,5 +1,5 @@
 import type {
-  IElementTreeDataNode,
+  IElementTreeViewDataNode,
   IPageNode,
 } from '@codelab/frontend/abstract/core'
 import { isElementPageNode } from '@codelab/frontend/abstract/core'
@@ -12,7 +12,7 @@ import { ElementContextMenu } from '../ElementContextMenu'
 import { ElementTreeItemElementTitle } from './ElementTreeItemElementTitle'
 
 interface ElementTreeItemTitleProps {
-  data: IElementTreeDataNode
+  data: IElementTreeViewDataNode
   elementContextMenuProps: Omit<
     ElementContextMenuProps,
     'element' | 'elementTree'
