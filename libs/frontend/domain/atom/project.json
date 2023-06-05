@@ -9,7 +9,13 @@
       "options": {
         "lintFilePatterns": ["libs/frontend/domain/atom/**/*.{ts,tsx,js,jsx}"]
       },
-      "outputs": ["{options.outputFile}"]
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/frontend-domain-atom.xml"
+        }
+      }
     }
   },
   "tags": ["scope:frontend", "layer:domain"]

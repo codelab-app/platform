@@ -232,7 +232,7 @@ jobs:
                 command: yarn cli tasks commitlint --stage ci
                 name: Commitlint
             - store_test_results:
-                path: ./reports/
+                path: ./tmp/reports/lint
     notify-failure:
         executor: machine-ubuntu
         resource_class: small

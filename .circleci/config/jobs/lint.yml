@@ -12,4 +12,4 @@ steps:
       name: 'Commitlint'
       command: yarn cli tasks commitlint --stage ci
   - store_test_results:
-      path: ./reports/
+      path: ./tmp/reports/lint

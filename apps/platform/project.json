@@ -91,7 +91,13 @@
       "options": {
         "lintFilePatterns": ["apps/platform/**/*.{ts,tsx,js,jsx}"]
       },
-      "outputs": ["{options.outputFile}"]
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/platform.xml"
+        }
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",

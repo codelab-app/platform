@@ -1,0 +1,10 @@
+{
+  "generators": {
+    "eslint": {
+      "version": "0.0.1",
+      "description": "Update eslint files for each lib",
+      "cli": "nx",
+      "implementation": "./src/migrations/eslint/eslint"
+    }
+  }
+}

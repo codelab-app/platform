@@ -10,6 +10,12 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/frontend/domain/prop/**/*.{ts,tsx,js,jsx}"]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/frontend-domain-prop.xml"
+        }
       }
     },
     "test": {

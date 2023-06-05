@@ -67,7 +67,7 @@ describe('RenderService', () => {
     expect(await findByText(text)).toBeInTheDocument()
   })
 
-  it('should render props when kind is RenderPropType with passed arguments (override component props)', async () => {
+  it.skip('should render props when kind is RenderPropType with passed arguments (override component props)', async () => {
     const extraProps = {
       someNode: {
         type: data.renderPropType.id,

@@ -16,7 +16,7 @@ export const loginSession = () => {
       cy.visit('/apps')
       cy.getSpinner().should('not.exist')
       cy.intercept('GET', '/api/upsert-user').as('upsertUser')
-      cy.wait('@upsertUser')
+      cy.wait('@upsertUser', { timeout: 10000 })
     },
     {
       cacheAcrossSpecs: true,

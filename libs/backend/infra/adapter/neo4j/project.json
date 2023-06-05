@@ -9,6 +9,12 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/backend/infra/adapter/neo4j/**/*.ts"]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/backend-infra-adapter-neo4j.xml"
+        }
       }
     }
   },

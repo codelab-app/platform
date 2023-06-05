@@ -12,6 +12,12 @@
         "lintFilePatterns": [
           "libs/frontend/domain/resource/**/*.{ts,tsx,js,jsx}"
         ]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/frontend-domain-resource.xml"
+        }
       }
     },
     "test": {

@@ -9,7 +9,13 @@
       "options": {
         "lintFilePatterns": ["libs/shared/abstract/types/**/*.ts"]
       },
-      "outputs": ["{options.outputFile}"]
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/shared-abstract-types.xml"
+        }
+      }
     }
   },
   "tags": ["scope:shared", "type:abstract"]

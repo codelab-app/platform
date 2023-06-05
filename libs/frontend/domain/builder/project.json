@@ -11,7 +11,13 @@
           "libs/frontend/domain/builder/**/*.{ts,tsx,js,jsx}"
         ]
       },
-      "outputs": ["{options.outputFile}"]
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/frontend-domain-builder.xml"
+        }
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",

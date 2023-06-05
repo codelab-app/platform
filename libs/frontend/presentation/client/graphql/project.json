@@ -11,6 +11,12 @@
         "lintFilePatterns": [
           "libs/frontend/presentation/client/graphql/**/*.ts"
         ]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/frontend-presentation-client-graphql.xml"
+        }
       }
     }
   },

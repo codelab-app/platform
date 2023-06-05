@@ -9,7 +9,13 @@
       "options": {
         "lintFilePatterns": ["libs/shared/utils/**/*.ts"]
       },
-      "outputs": ["{options.outputFile}"]
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/shared-utils.xml"
+        }
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",

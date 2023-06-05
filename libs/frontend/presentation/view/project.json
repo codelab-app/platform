@@ -11,7 +11,13 @@
           "libs/frontend/presentation/view/**/*.{ts,tsx,js,jsx}"
         ]
       },
-      "outputs": ["{options.outputFile}"]
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/frontend-presentation-view.xml"
+        }
+      }
     }
   },
   "tags": ["scope:frontend"]

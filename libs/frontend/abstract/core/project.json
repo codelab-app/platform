@@ -9,7 +9,13 @@
       "options": {
         "lintFilePatterns": ["libs/frontend/abstract/core/**/*.{ts,tsx,js,jsx}"]
       },
-      "outputs": ["{options.outputFile}"]
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/frontend-abstract-core.xml"
+        }
+      }
     }
   },
   "tags": ["type:abstract", "scope:frontend"]

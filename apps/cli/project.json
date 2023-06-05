@@ -36,7 +36,6 @@
       "executor": "@nx/node:node",
       "options": {
         "buildTarget": "cli:build",
-        // specify path to your OpenTelemetry setup script
         "runtimeArgs": ["-r", "./src/instrumentation"]
       }
     },
@@ -45,6 +44,12 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/cli/**/*.ts"]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/cli.xml"
+        }
       }
     },
     "test": {

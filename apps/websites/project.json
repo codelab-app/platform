@@ -80,7 +80,13 @@
       "options": {
         "lintFilePatterns": ["apps/websites/**/*.{ts,tsx,js,jsx}"]
       },
-      "outputs": ["{options.outputFile}"]
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/websites.xml"
+        }
+      }
     }
   },
   "tags": ["scope:frontend"],

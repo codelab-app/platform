@@ -9,7 +9,13 @@
       "options": {
         "lintFilePatterns": ["libs/frontend/domain/page/**/*.{ts,tsx,js,jsx}"]
       },
-      "outputs": ["{options.outputFile}"]
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/frontend-domain-page.xml"
+        }
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",

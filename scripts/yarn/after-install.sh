@@ -12,7 +12,8 @@ if [ "$CI" != true ] && [ "$VERCEL" != "1" ]; then
   #   yarn husky install
   # fi
 
+  # nx run-many --target=build --projects=cli,tools-workspace
+
   # Build CLI for later use
   nx build cli
 fi
-

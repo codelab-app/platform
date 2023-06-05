@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "eslint": {
+      "factory": "./src/generators/eslint/generator",
+      "schema": "./src/generators/eslint/schema.json",
+      "description": "Update .eslintrc.json for each library"
+    }
+  }
+}

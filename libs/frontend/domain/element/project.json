@@ -9,7 +9,13 @@
       "options": {
         "lintFilePatterns": ["libs/frontend/domain/element/**/*.ts"]
       },
-      "outputs": ["{options.outputFile}"]
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/frontend-domain-element.xml"
+        }
+      }
     }
   },
   "tags": ["scope:frontend", "layer:domain"]

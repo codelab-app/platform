@@ -21,7 +21,6 @@
           "reporter": "../../node_modules/cypress-multi-reporters",
           "reporterOptions": {
             "mochaFile": "results/my-test-output-[hash].xml"
-            // "configFile": "reporter-config.json"
           },
           "record": true,
           "parallel": true,
@@ -85,7 +84,13 @@
       "options": {
         "lintFilePatterns": ["apps/platform-e2e/**/*.{js,ts}"]
       },
-      "outputs": ["{options.outputFile}"]
+      "outputs": ["{options.outputFile}"],
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/platform-e2e.xml"
+        }
+      }
     }
   },
   "tags": [],

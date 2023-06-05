@@ -47,6 +47,12 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/landing/**/*.{ts,tsx,js,jsx}"]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/landing.xml"
+        }
       }
     }
   },

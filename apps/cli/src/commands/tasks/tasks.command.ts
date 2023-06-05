@@ -64,7 +64,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
 
           if (stage === Stage.CI) {
             execCommand(
-              'npx nx affected --target=test --testPathPattern="[^i].spec.ts" --color --parallel=3 --verbose --reporters=default --reporters=jest-junit --ci',
+              'npx nx affected --target=test --testPathPattern="[^i].spec.ts" --color --parallel=3 --verbose --reporters=default --reporters=jest-junit',
             )
           }
         },
@@ -190,7 +190,7 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
 
           if (stage === Stage.CI) {
             execCommand(
-              `npx nx affected --target=lint --parallel=3 --verbose --format junit --output-file ./reports/eslint.xml`,
+              `npx nx affected --target=lint --parallel=3 --verbose -c ci`,
             )
             // https://github.com/nrwl/nx/discussions/8769
             execCommand(`npx prettier --check "./**/*.{graphql,yaml,json}"`)

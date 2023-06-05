@@ -216,7 +216,8 @@
         "libs/shared/infra/logging/src/index.ts"
       ],
       "@codelab/shared/infra/otel": ["libs/shared/infra/otel/src/index.ts"],
-      "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"]
+      "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
+      "@codelab/workspace": ["libs/tools/workspace/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"],

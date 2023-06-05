@@ -4,9 +4,6 @@
   },
   "eslint.run": "onSave",
   "eslint.packageManager": "yarn",
-  /*
-   * Formatter
-   */
   "eslint.format.enable": true,
   "eslint.nodePath": "D:\\workspace\\codelab\\web\\node_modules",
   "[typescript][typescriptreact][javascript][javascriptreact]": {
@@ -32,5 +29,6 @@
       "file:///Users/webber/Sites/Codelab/platform/.circleci/config/commands/init-repo.yml"
     ],
     "https://json.schemastore.org/cirrus.json": "file:///Users/webber/Sites/Codelab/platform/.circleci/config/workflows/app-pr.yml"
-  }
+  },
+  "eslint.validate": ["json"]
 }
