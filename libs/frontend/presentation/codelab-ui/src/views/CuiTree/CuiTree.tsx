@@ -5,7 +5,11 @@ import React from 'react'
 import tw from 'twin.macro'
 import type { Varient } from '../../abstract'
 import { CuiTreeItem } from './CuiTreeItem'
-import { overrideAntdTreeStyles } from './override-antd-tree-styles'
+import {
+  overrideAntdTreeStyles,
+  TREE_NODE_HOVERED_CLASS,
+  TREE_NODE_SELECTOR,
+} from './tree-styles'
 
 const { DirectoryTree } = Tree
 
@@ -48,7 +52,7 @@ export interface CuiTreeProps<T extends CuiTreeBasicDataNode> {
 export const CuiTree = <T extends CuiTreeBasicDataNode = CuiTreeBasicDataNode>(
   props: CuiTreeProps<T>,
 ) => {
-  const { draggable, titleRender, treeData } = props
+  const { draggable, onMouseEnter, onMouseLeave, titleRender, treeData } = props
 
   return (
     <div css={[overrideAntdTreeStyles, tw`h-full`]}>
@@ -62,6 +66,20 @@ export const CuiTree = <T extends CuiTreeBasicDataNode = CuiTreeBasicDataNode>(
               }
             : false
         }
+        onMouseEnter={(info) => {
+          const target = info.event.target as Element
+          const treeNodeWrapper = target.closest(TREE_NODE_SELECTOR)
+          treeNodeWrapper?.classList.add(TREE_NODE_HOVERED_CLASS)
+
+          return onMouseEnter?.(info)
+        }}
+        onMouseLeave={(info) => {
+          const target = info.event.target as Element
+          const treeNodeWrapper = target.closest(TREE_NODE_SELECTOR)
+          treeNodeWrapper?.classList.remove(TREE_NODE_HOVERED_CLASS)
+
+          return onMouseLeave?.(info)
+        }}
         showIcon={false}
         showLine
         titleRender={(node) => {

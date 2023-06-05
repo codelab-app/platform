@@ -1,3 +1,7 @@
+export const TREE_NODE_SELECTOR = '.ant-tree-treenode'
+export const TREE_ITEM_TOOLBAR_SELECTOR = '.codelabui-tree-item-toolbar'
+export const TREE_NODE_HOVERED_CLASS = 'ant-tree-treenode-hovered'
+
 export const overrideAntdTreeStyles = `
     .ant-tree {
       height: 100%;
@@ -36,6 +40,18 @@ export const overrideAntdTreeStyles = `
 
     .ant-tree-treenode-selected::before {
       background-color: #1890ff !important;
+    }
+
+    ${TREE_ITEM_TOOLBAR_SELECTOR} {
+      display: none;
+    }
+
+    .ant-tree-treenode-selected ${TREE_ITEM_TOOLBAR_SELECTOR} {
+      display: unset;
+    }
+
+    .${TREE_NODE_HOVERED_CLASS} ${TREE_ITEM_TOOLBAR_SELECTOR} {
+      display: unset;
     }
 
     .ant-tree-title {

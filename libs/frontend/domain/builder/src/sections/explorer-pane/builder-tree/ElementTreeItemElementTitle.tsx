@@ -13,8 +13,8 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { mapElementOption } from '@codelab/frontend/domain/element'
 import {
-  CuiSidebarToolbar,
   CuiTreeItem,
+  CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { Tooltip } from 'antd'
@@ -69,7 +69,7 @@ export const ElementTreeItemElementTitle = observer(
           ) : null
         }
         toolbar={
-          <CuiSidebarToolbar
+          <CuiTreeItemToolbar
             items={[
               {
                 icon: <PlusOutlined />,
