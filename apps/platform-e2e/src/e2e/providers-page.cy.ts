@@ -24,10 +24,11 @@ const mainPageElements = [
 ]
 
 const openPageByName = (name: string) => {
-  cy.contains('.ant-list-item a', name).should('exist')
+  // Takes a while to load the pages
+  cy.contains('.ant-list-item a', name).should('exist', { timeout: 15000 })
   cy.contains('.ant-list-item a', name).click()
   cy.getSpinner().should('not.exist')
-  cy.contains('.ant-tree-list', ROOT_ELEMENT_NAME, { timeout: 30000 }).should(
+  cy.contains('.ant-tree-list', ROOT_ELEMENT_NAME, { timeout: 15000 }).should(
     'be.visible',
   )
 }
