@@ -23,6 +23,7 @@ export const CuiTreeItem = ({
 }: CuiTreeItemProps) => {
   return (
     <div
+      className="codelabui-tree-item"
       css={[
         tw`
       h-full
@@ -33,6 +34,7 @@ export const CuiTreeItem = ({
     `,
         varientColors[varient ?? 'primary'],
       ]}
+      data-cy="codelabui-tree-item"
     >
       <div
         css={tw`

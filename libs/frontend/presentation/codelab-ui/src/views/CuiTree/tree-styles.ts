@@ -30,11 +30,19 @@ export const overrideAntdTreeStyles = `
       justify-content: flex-start;
     }
 
-    .ant-tree-treenode-selected.dragging span {
+    .ant-tree-treenode-selected.dragging .codelabui-tree-item {
       color: #ffffff !important;
     }
 
-    .ant-tree-treenode-selected span {
+    .ant-tree-treenode-selected.dragging .codelabui-tree-item span {
+      color: #ffffff !important;
+    }
+
+    .ant-tree-treenode-selected .codelabui-tree-item {
+      color: #ffffff !important;
+    }
+
+    .ant-tree-treenode-selected .codelabui-tree-item span {
       color: #ffffff !important;
     }
 
