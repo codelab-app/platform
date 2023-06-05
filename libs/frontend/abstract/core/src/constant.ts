@@ -18,8 +18,6 @@ export const DATA_GRID = 'DATA-GRID'
 export const ROOT_RENDER_CONTAINER_ID = 'render-root'
 export const ROOT_ELEMENT_NAME = 'Body'
 
-export const COMPONENT_TREE_CONTAINER = 'components'
-
 export const STATE_PATH_TEMPLATE_START = '{{'
 export const STATE_PATH_TEMPLATE_START_REGEX = /\{\{/g
 // start bracket that is not closed with }}

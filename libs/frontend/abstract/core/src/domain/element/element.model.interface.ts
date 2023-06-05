@@ -11,7 +11,7 @@ import type {
 } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
-import type { IBuilderDataNode } from '../../ui'
+import type { IElementTreeDataNode } from '../../ui'
 import type { IComponent } from '../component'
 import type { IHook } from '../hook'
 import type { IModel } from '../model.interface'
@@ -53,7 +53,7 @@ export interface IElement
     ICacheService<IElementDTO, IElement> {
   __metadataProps: IPropData
   ancestorError: Nullish<RenderingError>
-  antdNode: IBuilderDataNode
+  antdNode: IElementTreeDataNode
   atomName: string
   children: Array<IElement>
   // the closest container node that element belongs to

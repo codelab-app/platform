@@ -1,12 +1,7 @@
 import { PageHeader } from '@ant-design/pro-components/lib'
-import type {
-  IBuilderDataNode,
-  IComponent,
-  IPageNode,
-} from '@codelab/frontend/abstract/core'
+import type { IComponent, IPageNode } from '@codelab/frontend/abstract/core'
 import {
   componentRef,
-  elementRef,
   isComponentPageNode,
   isElementPageNode,
   RendererTab,
@@ -20,18 +15,10 @@ import { CreateFieldForm, UpdateFieldForm } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { SkeletonWrapper } from '@codelab/frontend/presentation/view'
 import { useAsync } from '@react-hookz/web'
-import { Tree } from 'antd'
-import has from 'lodash/has'
 import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef, useState } from 'react'
-import { BuilderTreeItemTitle } from '../builder-tree'
-import { antdTreeStyle } from '../builder-tree/antd-tree.styles'
-import {
-  DISABLE_HOVER_CLASSNAME,
-  disableTreeNodeWrapperHoverStyle,
-  TREE_NODE_WRAPPER_SELECTOR,
-} from '../builder-tree/disable-node-hover-effects'
+import { ElementTree } from '../builder-tree'
 import { StorePane } from '../StorePane'
 import { ComponentList } from './ComponentList'
 
@@ -62,20 +49,8 @@ export const CustomComponents = observer(() => {
     builderService.selectComponentNode(component)
   }
 
-  const componentTree = activeComponent
-    ? [
-        {
-          children: [activeComponent.rootElement.current.antdNode].filter(
-            (data): data is IBuilderDataNode => Boolean(data),
-          ),
-          key: activeComponent.id,
-          node: activeComponent,
-          rootKey: activeComponent.rootElement.id,
-          // This should bring up a meta pane for editing the component
-          selectable: true,
-          title: activeComponent.name,
-        },
-      ]
+  const componentElementTree = activeComponent
+    ? activeComponent.rootElement.current.antdNode
     : undefined
 
   const onBack = () => {
@@ -103,6 +78,18 @@ export const CustomComponents = observer(() => {
     fieldService.createForm.isOpen ||
     fieldService.updateForm.isOpen
 
+  const selectTreeNode = (node: IPageNode) => {
+    if (isComponentPageNode(node)) {
+      return builderService.selectComponentNode(node)
+    }
+
+    if (isElementPageNode(node)) {
+      return builderService.selectElementNode(node)
+    }
+
+    return
+  }
+
   return (
     <SkeletonWrapper isLoading={isLoading}>
       {!isNil(error) ? error.message : null}
@@ -115,74 +102,21 @@ export const CustomComponents = observer(() => {
 
           {!isInlineFormOpened && (
             <>
-              <Tree<IBuilderDataNode>
-                blockNode
-                css={[disableTreeNodeWrapperHoverStyle, antdTreeStyle]}
-                defaultExpandAll
-                onClick={(event) => event.stopPropagation()}
-                onExpand={(expandedKeys) => {
-                  return builderService.setExpandedComponentTreeNodeIds(
-                    expandedKeys as Array<string>,
-                  )
-                }}
-                onMouseEnter={({ event, node }) => {
-                  // Selectable by default, unless it's not
-                  if (has(node, 'selectable') && !node.selectable) {
-                    const target = event.target as Element
-
-                    // This is where the hover effect is set
-                    const treeNodeWrapper = target.closest(
-                      TREE_NODE_WRAPPER_SELECTOR,
-                    )
-
-                    treeNodeWrapper?.classList.add(DISABLE_HOVER_CLASSNAME)
+              {componentElementTree && (
+                <ElementTree
+                  expandedNodeIds={
+                    builderService.expandedPageElementTreeNodeIds
                   }
-
-                  builderService.setHoveredNode(elementRef(node.key.toString()))
-                }}
-                onMouseLeave={() => builderService.setHoveredNode(null)}
-                onSelect={([id], { nativeEvent, node }) => {
-                  nativeEvent.stopPropagation()
-
-                  if (!id) {
-                    return
+                  selectTreeNode={selectTreeNode}
+                  setActiveTab={() =>
+                    builderService.setActiveTab(RendererTab.Page)
                   }
-
-                  if (isComponentPageNode(node.node)) {
-                    builderService.selectComponentNode(node.node)
-                  }
-
-                  if (isElementPageNode(node.node)) {
-                    builderService.selectElementNode(node.node)
-                  }
-                }}
-                selectedKeys={
-                  builderService.selectedNode
-                    ? [builderService.selectedNode.id]
-                    : []
-                }
-                showLine
-                titleRender={(data) => (
-                  <BuilderTreeItemTitle
-                    componentContextMenuProps={{
-                      deleteModal: componentService.deleteModal,
-                    }}
-                    data={data}
-                    elementContextMenuProps={{
-                      cloneElement:
-                        elementService.cloneElement.bind(elementService),
-                      convertElementToComponent:
-                        elementService.convertElementToComponent.bind(
-                          elementService,
-                        ),
-                      createForm: elementService.createForm,
-                      deleteModal: elementService.deleteModal,
-                    }}
-                    node={data.node}
-                  />
-                )}
-                treeData={componentTree}
-              />
+                  setExpandedNodeIds={builderService.setExpandedPageElementTreeNodeIds.bind(
+                    builderService,
+                  )}
+                  treeData={componentElementTree}
+                />
+              )}
               <StorePane
                 isLoading={isLoading}
                 store={activeComponent.store.current}

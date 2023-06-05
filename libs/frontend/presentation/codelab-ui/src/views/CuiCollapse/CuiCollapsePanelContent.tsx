@@ -23,6 +23,7 @@ export const CuiCollapsePanelContent = ({
       flex
       flex-col
       overflow-auto
+      bg-white
       min-h-1/3
     `}
       data-cy={`codelabui-sidebar-view-content-${label}`}

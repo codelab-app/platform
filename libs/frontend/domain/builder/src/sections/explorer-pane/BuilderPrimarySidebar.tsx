@@ -45,7 +45,7 @@ import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import tw from 'twin.macro'
-import { BuilderTree } from './builder-tree'
+import { ElementTree } from './builder-tree'
 
 export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
   ({ isLoading = true }) => {
@@ -82,8 +82,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         content: pageTree && (
           <>
             {isPageTree && !elementService.createForm.isOpen && (
-              <BuilderTree
-                className="page-builder"
+              <ElementTree
                 expandedNodeIds={builderService.expandedPageElementTreeNodeIds}
                 selectTreeNode={selectTreeNode}
                 setActiveTab={() =>

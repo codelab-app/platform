@@ -1,29 +1,27 @@
 import type {
-  IBuilderDataNode,
   IElement,
+  IElementTreeDataNode,
   IPageNode,
 } from '@codelab/frontend/abstract/core'
 import { elementRef } from '@codelab/frontend/abstract/core'
+import { CuiTree } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
-import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
-import { Tree as AntdTree } from 'antd'
+import type { Nullable } from '@codelab/shared/abstract/types'
+import type { Maybe } from '@graphql-tools/utils'
 import has from 'lodash/has'
 import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
 import React, { useMemo } from 'react'
 import { useElementTreeDrop } from '../../../hooks'
-import { antdTreeStyle } from './antd-tree.styles'
-import { BuilderTreeItemTitle } from './BuilderTreeItemTitle'
 import {
   DISABLE_HOVER_CLASSNAME,
-  disableTreeNodeWrapperHoverStyle,
   TREE_NODE_WRAPPER_SELECTOR,
 } from './disable-node-hover-effects'
+import { ElementTreeItemTitle } from './ElementTreeItemTitle'
 
-interface BuilderTreeProps {
-  className?: string
+interface ElementTreeProps {
   expandedNodeIds: Array<string>
-  treeData: IBuilderDataNode | undefined
+  treeData: IElementTreeDataNode | undefined
 
   selectTreeNode(node: Nullable<IPageNode>): void
   /**
@@ -36,25 +34,17 @@ interface BuilderTreeProps {
 /**
  * When you think about it, the only dependency a BuilderTree should have is the data. All other services or data is only supporting infrastructure
  */
-export const BuilderTree = observer<BuilderTreeProps>(
+export const ElementTree = observer<ElementTreeProps>(
   ({
-    className,
     expandedNodeIds,
     selectTreeNode,
     setActiveTab,
     setExpandedNodeIds,
     treeData,
   }) => {
-    const { builderService, componentService, elementService } = useStore()
+    const { builderService, elementService } = useStore()
     const selectedNode = builderService.selectedNode
     const { handleDrop, isMoving } = useElementTreeDrop(elementService)
-
-    const componentContextMenuProps = useMemo(
-      () => ({
-        deleteModal: componentService.deleteModal,
-      }),
-      [componentService.deleteModal],
-    )
 
     const elementContextMenuProps = useMemo(
       () => ({
@@ -68,20 +58,11 @@ export const BuilderTree = observer<BuilderTreeProps>(
     )
 
     return (
-      <AntdTree<IBuilderDataNode>
-        blockNode
-        className={`${className} draggable-tree`}
-        css={[disableTreeNodeWrapperHoverStyle, antdTreeStyle]}
+      <CuiTree<IElementTreeDataNode>
+        defaultExpandAll
         disabled={isMoving}
-        draggable={{
-          icon: false,
-          // nodeDraggable: (node: AntTreeNode) => {
-          //   // Only real nodes have uuid
-          //   return checkIfValidUUID(node)
-          // },
-        }}
+        draggable={true}
         expandedKeys={expandedNodeIds}
-        // disabled={isMoving}
         onClick={(event) => event.stopPropagation()}
         onDrop={handleDrop}
         onExpand={(expandedKeys) => {
@@ -112,7 +93,6 @@ export const BuilderTree = observer<BuilderTreeProps>(
           selectTreeNode(node.node)
         }}
         selectedKeys={selectedNode ? [selectedNode.id] : []}
-        showLine
         titleRender={(data) => {
           // It seems when a treeData is updated after deleting an element, this function
           // will still run with the deleted element even if that element does not exist
@@ -130,8 +110,7 @@ export const BuilderTree = observer<BuilderTreeProps>(
 
           if (nodeExists || isRoot) {
             return (
-              <BuilderTreeItemTitle
-                componentContextMenuProps={componentContextMenuProps}
+              <ElementTreeItemTitle
                 data={data}
                 elementContextMenuProps={elementContextMenuProps}
                 node={data.node}
@@ -147,4 +126,4 @@ export const BuilderTree = observer<BuilderTreeProps>(
   },
 )
 
-BuilderTree.displayName = 'BuilderTree'
+ElementTree.displayName = 'ElementTree'

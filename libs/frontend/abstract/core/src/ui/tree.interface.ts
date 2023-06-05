@@ -1,9 +1,8 @@
-import type { DataNode } from 'antd/lib/tree'
 import type * as React from 'react'
 import type { IPageNode } from '../domain'
 
-export interface IBuilderDataNode extends DataNode {
-  children?: Array<IBuilderDataNode>
+export interface IElementTreeDataNode {
+  children?: Array<IElementTreeDataNode>
   // This is the id
   key: number | string
   /**
@@ -12,6 +11,10 @@ export interface IBuilderDataNode extends DataNode {
    * - Context menus (different for element vs component)
    */
   node: IPageNode | null
+  primaryTitle?: string
   rootKey: string | null
-  title?: React.ReactNode
+  secondaryTitle?: string
+  selectable?: boolean
+  tags?: React.ReactNode
+  toolbar?: React.ReactNode
 }

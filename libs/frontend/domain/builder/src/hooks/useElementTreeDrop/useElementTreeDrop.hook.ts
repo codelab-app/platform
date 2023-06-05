@@ -1,7 +1,7 @@
 import type {
-  IBuilderDataNode,
   IElementService,
   IElementTree,
+  IElementTreeDataNode,
 } from '@codelab/frontend/abstract/core'
 import { useRequiredParentValidator } from '@codelab/frontend/domain/element'
 import type { Nullable } from '@codelab/shared/abstract/types'
@@ -23,7 +23,9 @@ export interface UseElementTreeDropProps {
 export const useElementTreeDrop = (elementService: IElementService) => {
   const { validateParentForMove } = useRequiredParentValidator()
 
-  const handleDrop: TreeProps<IBuilderDataNode>['onDrop'] = async (info) => {
+  const handleDrop: TreeProps<IElementTreeDataNode>['onDrop'] = async (
+    info,
+  ) => {
     const dragElement = { id: info.dragNode.key.toString() }
     const dropElement = { id: info.node.key.toString() }
     const dragRootId = info.dragNode.rootKey?.toString()

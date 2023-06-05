@@ -13,7 +13,6 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import { Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
-import { BuilderTreeItemElementTitle } from './builder-tree/BuilderTreeItemElementTitle'
 
 export interface ContextMenuProps {
   onBlur?(): unknown
@@ -31,8 +30,11 @@ export type ElementContextMenuProps = ContextMenuProps &
 /**
  * The right-click menu in the element tree
  */
-export const ElementContextMenu = observer<ElementContextMenuProps>(
+export const ElementContextMenu = observer<
+  React.PropsWithChildren<ElementContextMenuProps>
+>(
   ({
+    children,
     cloneElement,
     convertElementToComponent,
     createForm,
@@ -147,9 +149,7 @@ export const ElementContextMenu = observer<ElementContextMenuProps>(
         open={contextMenuItemId === element.id}
         trigger={['contextMenu']}
       >
-        <div>
-          <BuilderTreeItemElementTitle element={element} />
-        </div>
+        <div>{children}</div>
       </Dropdown>
     )
   },

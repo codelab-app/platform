@@ -5,11 +5,9 @@ import type {
   IInterfaceType,
 } from '@codelab/frontend/abstract/core'
 import {
-  COMPONENT_TREE_CONTAINER,
   componentRef,
   getBuilderRenderService,
   getElementService,
-  IBuilderDataNode,
   IComponentDTO,
   IUpdateComponentData,
   RendererType,
@@ -252,33 +250,6 @@ export class ComponentService
 
     return component
   })
-
-  @computed
-  get componentAntdNode(): IBuilderDataNode {
-    return {
-      children: [...this.components.values()].map((component) => {
-        const dataNode = component.rootElement.current.antdNode
-
-        return {
-          children: [dataNode].filter((data): data is IBuilderDataNode =>
-            Boolean(data),
-          ),
-          key: component.id,
-          node: component,
-          rootKey: component.rootElement.id,
-          // This should bring up a meta pane for editing the component
-          selectable: true,
-          title: component.name,
-        }
-      }),
-      key: COMPONENT_TREE_CONTAINER,
-      // Container shouldn't have any type
-      node: null,
-      rootKey: null,
-      selectable: false,
-      title: 'Components',
-    }
-  }
 
   @modelFlow
   @transaction

@@ -16,8 +16,8 @@ import {
   DATA_ELEMENT_ID,
   elementRef,
   getElementService,
-  IBuilderDataNode,
   IElement,
+  IElementTreeDataNode,
   isAtomInstance,
   isComponentInstance,
   pageRef,
@@ -331,6 +331,18 @@ export class Element
     )
   }
 
+  @computed
+  get treeTitle() {
+    return {
+      primary: this.label,
+      secondary:
+        this.renderType?.current.name ||
+        (isAtomInstance(this.renderType)
+          ? compoundCaseToTitleCase((this.renderType.current as IAtom).type)
+          : undefined),
+    }
+  }
+
   /**
    * Internal system props for meta data, use double underline for system-defined identifiers.
    */
@@ -340,13 +352,14 @@ export class Element
   }
 
   @computed
-  get antdNode(): IBuilderDataNode {
+  get antdNode(): IElementTreeDataNode {
     return {
       children: this.children.map((child) => child.antdNode),
       key: this.id,
       node: this,
+      primaryTitle: this.treeTitle.primary,
       rootKey: this.closestRootElement.id,
-      title: this.label,
+      secondaryTitle: this.treeTitle.secondary,
     }
   }
 
