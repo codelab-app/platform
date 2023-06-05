@@ -7,7 +7,7 @@ import '../styles/app.css'
 // - set box-sizing, remove outlines, etc
 import 'antd/dist/reset.css'
 // https://www.elvisduru.com/blog/how-to-customize-ant-design-theme-in-nextjs
-import { UserProvider } from '@auth0/nextjs-auth0'
+import { UserProvider } from '@auth0/nextjs-auth0/client'
 import type { IAppProps } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { css, Global } from '@emotion/react'

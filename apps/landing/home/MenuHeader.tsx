@@ -3,7 +3,7 @@ import {
   MenuUnfoldOutlined,
   UserOutlined,
 } from '@ant-design/icons'
-import { useUser } from '@auth0/nextjs-auth0'
+import { useUser } from '@auth0/nextjs-auth0/client'
 import { useMobileOrTabletMediaQuery } from '@codelab/frontend/shared/style'
 import { Button, Menu } from 'antd'
 import Link from 'next/link'

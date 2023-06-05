@@ -1,5 +1,5 @@
 import { LogoutOutlined, PlusOutlined } from '@ant-design/icons'
-import { useUser } from '@auth0/nextjs-auth0'
+import { useUser } from '@auth0/nextjs-auth0/client'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   BuildAppModal,
