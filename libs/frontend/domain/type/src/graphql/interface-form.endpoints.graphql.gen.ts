@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 export type InterfaceForm_GetAppsQueryVariables = Types.Exact<{
   options?: Types.InputMaybe<Types.AppOptions>
@@ -22,7 +22,7 @@ export type InterfaceForm_GetAtomsQuery = {
 }
 
 export type InterfaceForm_GetActionsQueryVariables = Types.Exact<{
-  appId?: Types.InputMaybe<Types.Scalars['ID']>
+  appId?: Types.InputMaybe<Types.Scalars['ID']['input']>
 }>
 
 export type InterfaceForm_GetActionsQuery = {
@@ -133,7 +133,7 @@ export function getSdk(
   return {
     InterfaceForm_GetApps(
       variables?: InterfaceForm_GetAppsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<InterfaceForm_GetAppsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -148,7 +148,7 @@ export function getSdk(
     },
     InterfaceForm_GetAtoms(
       variables?: InterfaceForm_GetAtomsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<InterfaceForm_GetAtomsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -163,7 +163,7 @@ export function getSdk(
     },
     InterfaceForm_GetActions(
       variables?: InterfaceForm_GetActionsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<InterfaceForm_GetActionsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -178,7 +178,7 @@ export function getSdk(
     },
     InterfaceForm_GetStores(
       variables?: InterfaceForm_GetStoresQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<InterfaceForm_GetStoresQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -193,7 +193,7 @@ export function getSdk(
     },
     InterfaceForm_GetResource(
       variables?: InterfaceForm_GetResourceQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<InterfaceForm_GetResourceQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -208,7 +208,7 @@ export function getSdk(
     },
     InterfaceForm_GetPages(
       variables?: InterfaceForm_GetPagesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<InterfaceForm_GetPagesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>

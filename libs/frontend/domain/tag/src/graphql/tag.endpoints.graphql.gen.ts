@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import { TagFragment } from '../../../../abstract/core/src/domain/tag/tag.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import { TagFragmentDoc } from '../../../../abstract/core/src/domain/tag/tag.fragment.graphql.gen'
 export type CreateTagsMutationVariables = Types.Exact<{
@@ -90,7 +90,7 @@ export function getSdk(
   return {
     CreateTags(
       variables: CreateTagsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<CreateTagsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -104,7 +104,7 @@ export function getSdk(
     },
     UpdateTags(
       variables: UpdateTagsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdateTagsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -118,7 +118,7 @@ export function getSdk(
     },
     DeleteTags(
       variables: DeleteTagsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteTagsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -132,7 +132,7 @@ export function getSdk(
     },
     GetTags(
       variables?: GetTagsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetTagsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>

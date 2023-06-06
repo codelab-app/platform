@@ -88,7 +88,7 @@ export const getTypeApi = getGetSdk(client)
 
 export const getAllTypes = async (
   // where?: BaseTypeWhere
-  ids?: Array<string>,
+  ids?: Array<number | string>,
 ): Promise<Array<UnboxArray<GetTypesQuery[keyof GetTypesQuery]>>> => {
   const {
     actionTypes,

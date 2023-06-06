@@ -5,7 +5,7 @@ import {
   Action_CodeAction_Fragment,
 } from '../../../../abstract/core/src/domain/action/fragments/action.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import { ActionFragmentDoc } from '../../../../abstract/core/src/domain/action/fragments/action.fragment.graphql.gen'
 export type GetActionsQueryVariables = Types.Exact<{
@@ -52,7 +52,7 @@ export function getSdk(
   return {
     GetActions(
       variables?: GetActionsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetActionsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>

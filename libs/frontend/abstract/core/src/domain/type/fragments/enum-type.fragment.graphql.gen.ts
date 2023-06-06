@@ -18,7 +18,7 @@ import {
 } from './base-type.fragment.graphql.gen'
 import { EnumTypeValueFragment } from './enum-type-value.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import { BaseTypeFragmentDoc } from './base-type.fragment.graphql.gen'
 import { EnumTypeValueFragmentDoc } from './enum-type-value.fragment.graphql.gen'

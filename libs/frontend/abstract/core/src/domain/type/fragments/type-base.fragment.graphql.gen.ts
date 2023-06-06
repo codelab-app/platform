@@ -1,6 +1,6 @@
 import type * as Types from '@codelab/shared/abstract/codegen'
 import type { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import * as Dom from 'graphql-request'
 import { gql } from 'graphql-tag'
 
 export interface TypeBase_ActionType_Fragment {

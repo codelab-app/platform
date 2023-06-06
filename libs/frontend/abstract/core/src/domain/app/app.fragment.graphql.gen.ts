@@ -7,7 +7,7 @@ import {
 } from '../page/page.fragment.graphql.gen'
 import { DomainFragment } from '../domain/domain.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import {

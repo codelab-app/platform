@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 export type UpdatePrimitiveTypesMutationVariables = Types.Exact<{
   connect?: Types.InputMaybe<Types.PrimitiveTypeConnectInput>
@@ -489,7 +489,7 @@ export function getSdk(
   return {
     UpdatePrimitiveTypes(
       variables?: UpdatePrimitiveTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdatePrimitiveTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -504,7 +504,7 @@ export function getSdk(
     },
     UpdateArrayTypes(
       variables?: UpdateArrayTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdateArrayTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -519,7 +519,7 @@ export function getSdk(
     },
     UpdateUnionTypes(
       variables?: UpdateUnionTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdateUnionTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -534,7 +534,7 @@ export function getSdk(
     },
     UpdateInterfaceTypes(
       variables?: UpdateInterfaceTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdateInterfaceTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -549,7 +549,7 @@ export function getSdk(
     },
     UpdateReactNodeTypes(
       variables?: UpdateReactNodeTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdateReactNodeTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -564,7 +564,7 @@ export function getSdk(
     },
     UpdateElementTypes(
       variables?: UpdateElementTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdateElementTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -579,7 +579,7 @@ export function getSdk(
     },
     UpdateRenderPropTypes(
       variables?: UpdateRenderPropTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdateRenderPropTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -594,7 +594,7 @@ export function getSdk(
     },
     UpdateEnumTypes(
       variables?: UpdateEnumTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdateEnumTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -609,7 +609,7 @@ export function getSdk(
     },
     UpdateLambdaTypes(
       variables?: UpdateLambdaTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdateLambdaTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -624,7 +624,7 @@ export function getSdk(
     },
     UpdatePageTypes(
       variables?: UpdatePageTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdatePageTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -639,7 +639,7 @@ export function getSdk(
     },
     UpdateAppTypes(
       variables?: UpdateAppTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdateAppTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -654,7 +654,7 @@ export function getSdk(
     },
     UpdateActionTypes(
       variables?: UpdateActionTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdateActionTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -669,7 +669,7 @@ export function getSdk(
     },
     UpdateCodeMirrorTypes(
       variables?: UpdateCodeMirrorTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdateCodeMirrorTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>

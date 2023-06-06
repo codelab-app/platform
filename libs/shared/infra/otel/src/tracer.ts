@@ -4,6 +4,7 @@ import { toError } from '@codelab/shared/utils'
 import type { Span } from '@opentelemetry/api'
 import { context, SpanStatusCode, trace } from '@opentelemetry/api'
 
+//
 export const CLI_TRACER = 'cli-tracer'
 
 /**
@@ -49,11 +50,15 @@ export const withTracing: WithTracing = <Return, Param extends Array<any>>(
   const tracer = trace.getTracer(CLI_TRACER)
 
   return async (...args: Param) => {
-    const span = tracer.startSpan(operationName)
+    /**
+     * Use active span, otherwise create new span
+     */
+    const span =
+      trace.getSpan(context.active()) ?? tracer.startSpan(operationName)
 
-    trace.setSpan(context.active(), span)
-
-    return executeCallback(callback, args, span)
+    return context.with(context.active(), () =>
+      executeCallback(callback, args, span),
+    )
   }
 }
 

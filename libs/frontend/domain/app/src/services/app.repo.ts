@@ -16,6 +16,7 @@ export class AppRepository extends Model({}) implements IAppRepository {
     return apps[0]!
   }
 
+  @clearCacheForKey('apps')
   update = async (app: IApp) => {
     const {
       updateApps: { apps },

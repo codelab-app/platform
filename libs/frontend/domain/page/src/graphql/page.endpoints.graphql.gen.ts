@@ -7,7 +7,7 @@ import {
 import { ResourceFragment } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 import { PageBuilderAppFragment } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import {
   PageFragmentDoc,
@@ -50,8 +50,8 @@ export type GetPagesQuery = {
 }
 
 export type GetRenderedPageAndCommonAppDataQueryVariables = Types.Exact<{
-  appId: Types.Scalars['ID']
-  pageId: Types.Scalars['ID']
+  appId: Types.Scalars['ID']['input']
+  pageId: Types.Scalars['ID']['input']
 }>
 
 export type GetRenderedPageAndCommonAppDataQuery = {
@@ -60,7 +60,7 @@ export type GetRenderedPageAndCommonAppDataQuery = {
 }
 
 export type GetRenderedPageQueryVariables = Types.Exact<{
-  pageId: Types.Scalars['ID']
+  pageId: Types.Scalars['ID']['input']
 }>
 
 export type GetRenderedPageQuery = { pages: Array<BuilderPageFragment> }
@@ -141,7 +141,7 @@ export function getSdk(
   return {
     CreatePages(
       variables: CreatePagesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<CreatePagesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -155,7 +155,7 @@ export function getSdk(
     },
     DeletePages(
       variables?: DeletePagesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeletePagesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -169,7 +169,7 @@ export function getSdk(
     },
     UpdatePages(
       variables?: UpdatePagesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdatePagesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -183,7 +183,7 @@ export function getSdk(
     },
     GetPages(
       variables?: GetPagesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetPagesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -197,7 +197,7 @@ export function getSdk(
     },
     GetRenderedPageAndCommonAppData(
       variables: GetRenderedPageAndCommonAppDataQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetRenderedPageAndCommonAppDataQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -212,7 +212,7 @@ export function getSdk(
     },
     GetRenderedPage(
       variables: GetRenderedPageQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetRenderedPageQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>

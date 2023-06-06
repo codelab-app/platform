@@ -1,17 +1,17 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 export type IsTypeDescendantOfQueryVariables = Types.Exact<{
-  descendantTypeId: Types.Scalars['ID']
-  parentTypeId: Types.Scalars['ID']
+  descendantTypeId: Types.Scalars['ID']['input']
+  parentTypeId: Types.Scalars['ID']['input']
 }>
 
 export type IsTypeDescendantOfQuery = { isTypeDescendantOf?: boolean | null }
 
 export type GetTypeReferencesQueryVariables = Types.Exact<{
-  typeId: Types.Scalars['ID']
+  typeId: Types.Scalars['ID']['input']
 }>
 
 export type GetTypeReferencesQuery = {
@@ -54,7 +54,7 @@ export function getSdk(
   return {
     IsTypeDescendantOf(
       variables: IsTypeDescendantOfQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<IsTypeDescendantOfQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -69,7 +69,7 @@ export function getSdk(
     },
     GetTypeReferences(
       variables: GetTypeReferencesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetTypeReferencesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>

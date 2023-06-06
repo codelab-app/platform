@@ -34,7 +34,7 @@ import {
 } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
 import { ReactNodeTypeFragment } from '../../../../abstract/core/src/domain/type/fragments/react-node-type.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import { BaseTypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/base-type.fragment.graphql.gen'
 import { TypeFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/type.fragment.graphql.gen'
@@ -48,7 +48,9 @@ export type GetBaseTypesQuery = {
 }
 
 export type GetTypesQueryVariables = Types.Exact<{
-  ids?: Types.InputMaybe<Array<Types.Scalars['ID']> | Types.Scalars['ID']>
+  ids?: Types.InputMaybe<
+    Array<Types.Scalars['ID']['input']> | Types.Scalars['ID']['input']
+  >
 }>
 
 export type GetTypesQuery = {
@@ -68,7 +70,9 @@ export type GetTypesQuery = {
 }
 
 export type GetDescendantsQueryVariables = Types.Exact<{
-  ids?: Types.InputMaybe<Array<Types.Scalars['ID']> | Types.Scalars['ID']>
+  ids?: Types.InputMaybe<
+    Array<Types.Scalars['ID']['input']> | Types.Scalars['ID']['input']
+  >
 }>
 
 export type GetDescendantsQuery = {
@@ -405,7 +409,7 @@ export function getSdk(
   return {
     GetBaseTypes(
       variables?: GetBaseTypesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetBaseTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -419,7 +423,7 @@ export function getSdk(
     },
     GetTypes(
       variables?: GetTypesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -433,7 +437,7 @@ export function getSdk(
     },
     GetDescendants(
       variables?: GetDescendantsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetDescendantsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -448,7 +452,7 @@ export function getSdk(
     },
     GetPrimitiveTypes(
       variables?: GetPrimitiveTypesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetPrimitiveTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -463,7 +467,7 @@ export function getSdk(
     },
     GetArrayTypes(
       variables?: GetArrayTypesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetArrayTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -477,7 +481,7 @@ export function getSdk(
     },
     GetUnionTypes(
       variables?: GetUnionTypesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetUnionTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -491,7 +495,7 @@ export function getSdk(
     },
     GetInterfaceTypes(
       variables?: GetInterfaceTypesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetInterfaceTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -506,7 +510,7 @@ export function getSdk(
     },
     GetElementTypes(
       variables?: GetElementTypesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetElementTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -521,7 +525,7 @@ export function getSdk(
     },
     GetRenderPropTypes(
       variables?: GetRenderPropTypesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetRenderPropTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -536,7 +540,7 @@ export function getSdk(
     },
     GetReactNodeTypes(
       variables?: GetReactNodeTypesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetReactNodeTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -551,7 +555,7 @@ export function getSdk(
     },
     GetEnumTypes(
       variables?: GetEnumTypesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetEnumTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -565,7 +569,7 @@ export function getSdk(
     },
     GetLambdaTypes(
       variables?: GetLambdaTypesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetLambdaTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -580,7 +584,7 @@ export function getSdk(
     },
     GetPageTypes(
       variables?: GetPageTypesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetPageTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -594,7 +598,7 @@ export function getSdk(
     },
     GetAppTypes(
       variables?: GetAppTypesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetAppTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -608,7 +612,7 @@ export function getSdk(
     },
     GetActionTypes(
       variables?: GetActionTypesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetActionTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -623,7 +627,7 @@ export function getSdk(
     },
     GetCodeMirrorTypes(
       variables?: GetCodeMirrorTypesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetCodeMirrorTypesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -638,7 +642,7 @@ export function getSdk(
     },
     GetTypeOptions(
       variables?: GetTypeOptionsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetTypeOptionsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>

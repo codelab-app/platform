@@ -1,6 +1,6 @@
 import type { QueryBaseTypesArgs } from '@codelab/shared/abstract/codegen'
 import type { IFieldResolver } from '@graphql-tools/utils'
-import type { GraphQLRequestContext } from 'graphql-request/dist/types'
+import type { GraphQLRequestContext } from 'graphql-request/build/cjs/types'
 import { int } from 'neo4j-driver'
 import { getBaseTypes } from '../../../../cypher'
 import { withReadTransaction } from '../../../../infra'

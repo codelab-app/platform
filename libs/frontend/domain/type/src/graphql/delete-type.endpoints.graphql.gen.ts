@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 export type DeletePrimitiveTypesMutationVariables = Types.Exact<{
   delete?: Types.InputMaybe<Types.PrimitiveTypeDeleteInput>
@@ -284,7 +284,7 @@ export function getSdk(
   return {
     DeletePrimitiveTypes(
       variables?: DeletePrimitiveTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeletePrimitiveTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -299,7 +299,7 @@ export function getSdk(
     },
     DeleteArrayTypes(
       variables?: DeleteArrayTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteArrayTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -314,7 +314,7 @@ export function getSdk(
     },
     DeleteReactNodeTypes(
       variables?: DeleteReactNodeTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteReactNodeTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -329,7 +329,7 @@ export function getSdk(
     },
     DeleteUnionTypes(
       variables?: DeleteUnionTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteUnionTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -344,7 +344,7 @@ export function getSdk(
     },
     DeleteInterfaceTypes(
       variables?: DeleteInterfaceTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteInterfaceTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -359,7 +359,7 @@ export function getSdk(
     },
     DeleteElementTypes(
       variables?: DeleteElementTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteElementTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -374,7 +374,7 @@ export function getSdk(
     },
     DeleteRenderPropTypes(
       variables?: DeleteRenderPropTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteRenderPropTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -389,7 +389,7 @@ export function getSdk(
     },
     DeleteEnumTypes(
       variables?: DeleteEnumTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteEnumTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -404,7 +404,7 @@ export function getSdk(
     },
     DeleteLambdaTypes(
       variables?: DeleteLambdaTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteLambdaTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -419,7 +419,7 @@ export function getSdk(
     },
     DeletePageTypes(
       variables?: DeletePageTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeletePageTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -434,7 +434,7 @@ export function getSdk(
     },
     DeleteAppTypes(
       variables?: DeleteAppTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteAppTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -449,7 +449,7 @@ export function getSdk(
     },
     DeleteActionTypes(
       variables?: DeleteActionTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteActionTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -464,7 +464,7 @@ export function getSdk(
     },
     DeleteCodeMirrorTypes(
       variables?: DeleteCodeMirrorTypesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteCodeMirrorTypesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
