@@ -13,9 +13,11 @@ const { Search } = Input
 
 export const ComponentList = observer<{
   components: Array<IAtom | IComponent>
+  selectedIds?: Array<string>
   onDelete?(id: string): void
   onEdit?(id: string): void
-}>(({ components, onDelete, onEdit }) => {
+  onSelect?(id: string): void
+}>(({ components, onDelete, onEdit, onSelect, selectedIds }) => {
   const [searchValue, setSearchValue] = useState('')
 
   const debouncedSearch = useRef(
@@ -43,6 +45,8 @@ export const ComponentList = observer<{
               key={component.id}
               onDelete={onDelete}
               onEdit={onEdit}
+              onSelect={onSelect}
+              selected={selectedIds?.includes(component.id)}
             />
           ))}
         </Space>

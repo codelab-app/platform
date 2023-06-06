@@ -6,7 +6,7 @@ import { useStore } from '@codelab/frontend/presentation/container'
 import { Form, FormContextProvider } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { updateComponentSchema } from './update-component.schema'
 
@@ -16,6 +16,13 @@ import { updateComponentSchema } from './update-component.schema'
 export const UpdateComponentForm = observer<{ component: IComponent }>(
   ({ component }) => {
     const { componentService } = useStore()
+    const [key, setKey] = useState('')
+
+    // for some reason FormContextProvider is not
+    // updated when the component is updated
+    useEffect(() => {
+      setKey(component.id)
+    }, [component])
 
     const model = {
       childrenContainerElement: {
@@ -30,7 +37,7 @@ export const UpdateComponentForm = observer<{ component: IComponent }>(
       componentService.update(componentData)
 
     return (
-      <FormContextProvider value={{ elementTree: component }}>
+      <FormContextProvider key={key} value={{ elementTree: component }}>
         <Form<IUpdateComponentData>
           autosave
           model={model}

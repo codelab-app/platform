@@ -49,6 +49,11 @@ export const CustomComponents = observer(() => {
     builderService.selectComponentNode(component)
   }
 
+  const selectComponent = (id: string) => {
+    const component = componentService.component(id)
+    builderService.selectComponentNode(component)
+  }
+
   const componentElementTree = activeComponent
     ? activeComponent.rootElement.current.treeViewNode
     : undefined
@@ -138,6 +143,12 @@ export const CustomComponents = observer(() => {
                 componentService.deleteModal.open(componentRef(id))
               }
               onEdit={(id) => editComponent(id)}
+              onSelect={(id) => selectComponent(id)}
+              selectedIds={
+                builderService.selectedNode
+                  ? [builderService.selectedNode.id]
+                  : undefined
+              }
             />
           )}
         </>

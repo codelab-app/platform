@@ -15,14 +15,18 @@ import { useCreateElementDraggable } from '../../../dnd/useCreateElementDraggabl
 
 interface DraggableComponentItemProps {
   component: IAtom | IComponent
+  selected?: boolean
   onDelete?(id: string): void
   onEdit?(id: string): void
+  onSelect?(id: string): void
 }
 
 export const DraggableComponentItem = ({
   component,
   onDelete,
   onEdit,
+  onSelect,
+  selected,
 }: DraggableComponentItemProps) => {
   const createElementInput = useMemo(() => {
     return {
@@ -64,6 +68,8 @@ export const DraggableComponentItem = ({
         component={component}
         onDelete={onDelete}
         onEdit={onEdit}
+        onSelect={onSelect}
+        selected={selected}
       />
     </div>
   )
@@ -71,8 +77,10 @@ export const DraggableComponentItem = ({
 
 interface ComponentItemProps {
   component: IAtom | IComponent
+  selected?: boolean
   onDelete?(id: string): void
   onEdit?(id: string): void
+  onSelect?(id: string): void
 }
 
 export const antDesignIconPrefix = 'assets/atoms/antd'
@@ -81,6 +89,8 @@ export const ComponentItem = ({
   component,
   onDelete,
   onEdit,
+  onSelect,
+  selected,
 }: ComponentItemProps) => {
   const title = (
     <Tooltip placement="left" title={component.name}>
@@ -106,14 +116,19 @@ export const ComponentItem = ({
     onDelete && onDelete(component.id)
   }
 
+  const handleSelectClick = () => {
+    onSelect && onSelect(component.id)
+  }
+
   return (
     <Card
+      css={[selected ? tw`border border-solid border-blue-400` : '']}
       extra={
         <>
           {onEdit ? (
             <Button
               icon={<EditOutlined />}
-              onClick={handleEditClick}
+              onMouseDown={handleEditClick}
               type="text"
             />
           ) : (
@@ -124,7 +139,7 @@ export const ComponentItem = ({
               danger
               hidden={!onDelete}
               icon={<DeleteOutlined />}
-              onClick={handleDeleteClick}
+              onMouseDown={handleDeleteClick}
               type="text"
             />
           ) : (
@@ -133,6 +148,7 @@ export const ComponentItem = ({
         </>
       }
       hoverable
+      onMouseDown={handleSelectClick}
       title={title}
     >
       <img alt="" css={tw`w-full`} src={src} />
