@@ -47,7 +47,7 @@ export const cachedWithTTL = (segmentCacheKey: string, ttl = 5 * 60 * 1000) => {
           return cachedValue
         }
 
-        const result = originalMethod.apply(this, args)
+        const result = await originalMethod.apply(this, args)
         cache?.set(cacheKey, result)
 
         return result

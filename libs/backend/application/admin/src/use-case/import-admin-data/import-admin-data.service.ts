@@ -53,11 +53,11 @@ export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
       this.importSystemTypes(owner),
     )()
 
-    await this.importTags(owner)
+    await withTracing('import-tags', () => this.importTags(owner))()
 
-    await this.importAtoms(owner)
+    await withTracing('import-atoms', () => this.importAtoms(owner))()
 
-    await this.importComponents(owner)
+    await withTracing('import-components', () => this.importComponents(owner))()
   }
 
   private async importSystemTypes(owner: IAuth0Owner) {

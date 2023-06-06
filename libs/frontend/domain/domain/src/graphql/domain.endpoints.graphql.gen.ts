@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import { DomainFragment } from '../../../../abstract/core/src/domain/domain/domain.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import { DomainFragmentDoc } from '../../../../abstract/core/src/domain/domain/domain.fragment.graphql.gen'
 export type GetDomainsQueryVariables = Types.Exact<{
@@ -94,7 +94,7 @@ export function getSdk(
   return {
     GetDomains(
       variables?: GetDomainsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetDomainsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -108,7 +108,7 @@ export function getSdk(
     },
     CreateDomains(
       variables: CreateDomainsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<CreateDomainsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -123,7 +123,7 @@ export function getSdk(
     },
     UpdateDomains(
       variables: UpdateDomainsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdateDomainsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -138,7 +138,7 @@ export function getSdk(
     },
     DeleteDomains(
       variables: DeleteDomainsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteDomainsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>

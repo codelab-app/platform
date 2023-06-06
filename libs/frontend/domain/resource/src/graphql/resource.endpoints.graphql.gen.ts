@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import { ResourceFragment } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import { ResourceFragmentDoc } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 export type GetResourcesQueryVariables = Types.Exact<{
@@ -96,7 +96,7 @@ export function getSdk(
   return {
     GetResources(
       variables?: GetResourcesQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetResourcesQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -110,7 +110,7 @@ export function getSdk(
     },
     CreateResources(
       variables: CreateResourcesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<CreateResourcesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -125,7 +125,7 @@ export function getSdk(
     },
     UpdateResource(
       variables?: UpdateResourceMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdateResourceMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -140,7 +140,7 @@ export function getSdk(
     },
     DeleteResources(
       variables?: DeleteResourcesMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteResourcesMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>

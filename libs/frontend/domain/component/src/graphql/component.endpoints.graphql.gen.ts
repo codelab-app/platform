@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import { RenderedComponentFragment } from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import { RenderedComponentFragmentDoc } from '../../../../abstract/core/src/domain/component/component-render.fragment.graphql.gen'
 export type CreateComponentsMutationVariables = Types.Exact<{
@@ -103,7 +103,7 @@ export function getSdk(
   return {
     CreateComponents(
       variables: CreateComponentsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<CreateComponentsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -118,7 +118,7 @@ export function getSdk(
     },
     DeleteComponents(
       variables?: DeleteComponentsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteComponentsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -133,7 +133,7 @@ export function getSdk(
     },
     UpdateComponents(
       variables?: UpdateComponentsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdateComponentsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -148,7 +148,7 @@ export function getSdk(
     },
     GetComponents(
       variables?: GetComponentsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetComponentsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>

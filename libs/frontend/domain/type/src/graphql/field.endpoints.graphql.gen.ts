@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import { FieldFragment } from '../../../../abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import { FieldFragmentDoc } from '../../../../abstract/core/src/domain/type/fragments/field.fragment.graphql.gen'
 export type CreateFieldsMutationVariables = Types.Exact<{
@@ -94,7 +94,7 @@ export function getSdk(
   return {
     CreateFields(
       variables: CreateFieldsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<CreateFieldsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -109,7 +109,7 @@ export function getSdk(
     },
     UpdateFields(
       variables: UpdateFieldsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdateFieldsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -124,7 +124,7 @@ export function getSdk(
     },
     DeleteFields(
       variables: DeleteFieldsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteFieldsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -139,7 +139,7 @@ export function getSdk(
     },
     GetFields(
       variables?: GetFieldsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetFieldsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>

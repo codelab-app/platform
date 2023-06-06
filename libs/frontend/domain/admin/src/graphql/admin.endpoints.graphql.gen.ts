@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 export type ResetDatabaseMutationVariables = Types.Exact<{
   [key: string]: never
@@ -38,7 +38,7 @@ export function getSdk(
   return {
     ResetDatabase(
       variables?: ResetDatabaseMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<ResetDatabaseMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>

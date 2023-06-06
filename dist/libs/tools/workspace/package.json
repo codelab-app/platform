@@ -3,10 +3,12 @@
   "version": "0.0.1",
   "type": "commonjs",
   "generators": "./generators.json",
-  "nx-migrations": {
-    "migrations": "./migrations.json"
-  },
   "dependencies": {
+    "@graphql-codegen/core": "4.0.0",
+    "@graphql-tools/graphql-file-loader": "8.0.0",
+    "@graphql-tools/load": "8.0.0",
+    "@graphql-tools/url-loader": "8.0.0",
+    "graphql": "16.6.0",
     "lodash": "4.17.21"
   },
   "peerDependencies": {

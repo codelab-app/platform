@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import { OwnerFragment } from '../../user/owner.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import { OwnerFragmentDoc } from '../../user/owner.fragment.graphql.gen'
 export type BaseType_ActionType_Fragment = {

@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import { AtomFragment } from '../../../../abstract/core/src/domain/atom/atom.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import { AtomFragmentDoc } from '../../../../abstract/core/src/domain/atom/atom.fragment.graphql.gen'
 export type CreateAtomsMutationVariables = Types.Exact<{
@@ -119,7 +119,7 @@ export function getSdk(
   return {
     CreateAtoms(
       variables: CreateAtomsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<CreateAtomsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -133,7 +133,7 @@ export function getSdk(
     },
     DeleteAtoms(
       variables: DeleteAtomsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteAtomsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -147,7 +147,7 @@ export function getSdk(
     },
     GetAtoms(
       variables?: GetAtomsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetAtomsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -161,7 +161,7 @@ export function getSdk(
     },
     GetAtomOptions(
       variables?: GetAtomOptionsQueryVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<GetAtomOptionsQuery> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -176,7 +176,7 @@ export function getSdk(
     },
     UpdateAtoms(
       variables?: UpdateAtomsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<UpdateAtomsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>

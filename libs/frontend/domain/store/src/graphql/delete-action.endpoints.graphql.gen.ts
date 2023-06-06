@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
 import { GraphQLClient } from 'graphql-request'
-import * as Dom from 'graphql-request/dist/types.dom'
+import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 export type DeleteCodeActionsMutationVariables = Types.Exact<{
   where: Types.CodeActionWhere
@@ -63,7 +63,7 @@ export function getSdk(
   return {
     DeleteCodeActions(
       variables: DeleteCodeActionsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteCodeActionsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
@@ -78,7 +78,7 @@ export function getSdk(
     },
     DeleteApiActions(
       variables: DeleteApiActionsMutationVariables,
-      requestHeaders?: Dom.RequestInit['headers'],
+      requestHeaders?: GraphQLClientRequestHeaders,
     ): Promise<DeleteApiActionsMutation> {
       return withWrapper(
         (wrappedRequestHeaders) =>
