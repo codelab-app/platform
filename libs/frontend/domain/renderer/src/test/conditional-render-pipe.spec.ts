@@ -30,18 +30,20 @@ describe('ConditionalRenderPipe', () => {
 
   it('should stop rendering by returning an empty output', async () => {
     data.element.setRenderIfExpression('{{this.shouldRender}}')
-    data.element.store.current.state['shouldRender'] = false
+    // changing state is bit tricky so, just use props
+    data.element.props.current.set('shouldRender', false)
 
     const output = data.rootStore.renderer.renderIntermediateElement(
       data.element,
     )
 
-    expect(output).toMatchObject({ element: data.element })
+    expect(output).toEqual({ element: data.element })
   })
 
   it('should continue rendering', async () => {
     data.element.setRenderIfExpression('{{this.shouldRender}}')
-    data.element.store.current.state['shouldRender'] = false
+    // changing state is bit tricky so, just use props
+    data.element.props.current.set('shouldRender', true)
 
     const output = data.rootStore.renderer.renderIntermediateElement(
       data.element,
@@ -51,7 +53,7 @@ describe('ConditionalRenderPipe', () => {
       ? data.element.renderType.current.type
       : null
 
-    expect(output).toMatchObject({
+    expect(output).toEqual({
       atomType,
       element: data.element,
       props: expect.objectContaining({
