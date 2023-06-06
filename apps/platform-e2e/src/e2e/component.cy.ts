@@ -147,9 +147,22 @@ describe('Component CRUD', () => {
     })
 
     it('should be able to specify where to render component children', () => {
-      cy.get(`.ant-tree-node-content-wrapper[title="${COMPONENT_NAME}"]`)
-        .eq(0)
-        .click({ force: true })
+      cy.visit(
+        `/apps/${appId}/pages/${pageId}/builder?primarySidebarKey=components`,
+      )
+      // GetRenderedPageAndCommonAppData
+      cy.waitForApiCalls()
+      cy.getSpinner().should('not.exist')
+
+      // GetAtoms
+      cy.waitForApiCalls()
+      cy.getSpinner().should('not.exist')
+
+      cy.get('[data-node-key="custom-components"] .ant-tabs-tab-btn').click({
+        force: true,
+      })
+
+      cy.findByText(COMPONENT_NAME).click({ force: true })
       cy.get(`.ant-tabs [aria-label="node-index"]`).click()
       cy.get('.ant-tabs-tabpane-active form').setFormFieldValue({
         label: 'Container for component children',
@@ -163,7 +176,7 @@ describe('Component CRUD', () => {
         `/apps/${appId}/pages/${pageId}/builder?primarySidebarKey=explorer`,
       )
 
-      cy.get(`[title="Body"]`).click({ force: true })
+      cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
       cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').click()
 
@@ -194,7 +207,9 @@ describe('Component CRUD', () => {
     })
 
     it('should be able to set props on an instance of the component', () => {
-      cy.get(`[title="${COMPONENT_INSTANCE_NAME}"]`).click({ force: true })
+      cy.getCuiTreeItemByPrimaryTitle(COMPONENT_INSTANCE_NAME).click({
+        force: true,
+      })
       cy.get(`.ant-tabs [aria-label="setting"]`).click()
       cy.getSpinner().should('not.exist')
       cy.get('.ant-tabs-tabpane-active form').setFormFieldValue({
@@ -233,7 +248,9 @@ describe('Component CRUD', () => {
         timeout: 10000,
       })
 
-      cy.get(`[title="${COMPONENT_INSTANCE_TEXT}"]`).click({ force: true })
+      cy.getCuiTreeItemByPrimaryTitle(COMPONENT_INSTANCE_TEXT).click({
+        force: true,
+      })
       cy.get(`.ant-tabs [aria-label="setting"]`).click()
       cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
         COMPONENT_INSTANCE_TEXT,
