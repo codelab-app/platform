@@ -6,6 +6,7 @@ import {
   CUSTOM_TEXT_PROP_KEY,
   elementRef,
   elementTreeRef,
+  fieldRef,
   pageRef,
   propRef,
   rendererRef,
@@ -129,6 +130,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       id: v4(),
       key: 'rootComponentProp',
       name: 'Root Component Prop',
+      prevSibling: fieldRef(data.textField.id),
       type: typeRef(stringType.id),
     })
 
@@ -243,12 +245,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     })
 
     data.component.api.current.writeCache({
-      fields: [
-        { id: data.textField.id },
-        {
-          id: data.componentField.id,
-        },
-      ],
+      fields: [{ id: data.textField.id }, { id: data.componentField.id }],
     })
 
     data.component.setChildrenContainerElement(elementRef(compRootElementId))

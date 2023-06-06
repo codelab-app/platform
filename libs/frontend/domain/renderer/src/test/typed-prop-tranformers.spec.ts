@@ -82,14 +82,14 @@ describe('RenderService', () => {
       data.element,
     ) as IRenderOutput
 
-    // component props values
-    const text = 'some text'
-    data.component.props.current.set(data.textField.key, text)
-
     data.component.rootElement.current.props.current.set(
       CUSTOM_TEXT_PROP_KEY,
       `{{component.${data.textField.key}}}`,
     )
+
+    // component props values
+    const text = 'some text'
+    data.component.props.current.set(data.textField.key, text)
 
     // passed arguments
     const anotherText = 'anotherText'
