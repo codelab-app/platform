@@ -20,7 +20,7 @@ import {
 import {
   ActionsList,
   CreateActionModal,
-  DeleteActionsModal,
+  DeleteActionModal,
   GetStateList,
   UpdateActionModal,
 } from '@codelab/frontend/domain/store'
@@ -51,14 +51,14 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
   ({ isLoading = true }) => {
     const {
       actionService,
-      builderRenderService,
       builderService,
       elementService,
       fieldService,
+      renderService,
     } = useStore()
 
     const pageId = useCurrentPageId()
-    const pageBuilderRenderer = builderRenderService.renderers.get(pageId)
+    const pageBuilderRenderer = renderService.renderers.get(pageId)
     const pageTree = pageBuilderRenderer?.elementTree.maybeCurrent
     const root = !isLoading ? pageTree?.rootElement : undefined
     const antdTree = root?.current.treeViewNode
@@ -225,7 +225,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
 
         <CreateActionModal store={store} />
         <UpdateActionModal />
-        <DeleteActionsModal />
+        <DeleteActionModal />
       </>
     )
   },
