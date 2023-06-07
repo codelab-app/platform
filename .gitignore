@@ -5,6 +5,8 @@
 !.env.example
 !.env.test.example
 
+.build
+
 # compiled output
 # Ignore everything in 'dist'
 /dist/*
