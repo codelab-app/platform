@@ -109,6 +109,9 @@
       "@codelab/backend/infra/adapter/neo4j": [
         "libs/backend/infra/adapter/neo4j/src/index.ts"
       ],
+      "@codelab/backend/infra/adapter/queue": [
+        "libs/backend/infra/adapter/queue/src/index.ts"
+      ],
       "@codelab/backend/infra/adapter/vercel": [
         "libs/backend/infra/adapter/vercel/src/index.ts"
       ],
