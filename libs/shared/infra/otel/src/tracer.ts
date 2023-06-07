@@ -3,6 +3,7 @@ import type { PromiseCallback } from '@codelab/shared/abstract/types'
 import { toError } from '@codelab/shared/utils'
 import type { Span } from '@opentelemetry/api'
 import { context, SpanStatusCode, trace } from '@opentelemetry/api'
+import { setSpan } from '@opentelemetry/api/build/src/trace/context-utils'
 
 //
 export const CLI_TRACER = 'cli-tracer'

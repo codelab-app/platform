@@ -83,6 +83,7 @@
     "@react-hook/size": "2.1.2",
     "@react-hook/window-size": "3.0.7",
     "@react-hookz/web": "22.0.0",
+    "@serverlessq/nextjs": "^1.0.9",
     "@storybook/core-server": "7.0.9",
     "@supabase/supabase-js": "2.1.1",
     "@swc/helpers": "~0.5.0",
