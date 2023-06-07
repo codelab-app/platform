@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "module": "commonjs",
-    "types": ["node"],
+    "types": ["node", "cypher"],
     "emitDecoratorMetadata": true,
     "target": "es2015",
     "strictNullChecks": true,

@@ -12,7 +12,8 @@ import * as util from 'util'
 import { BASIC_LOGGING } from './logger'
 
 const driver = getDriver()
-const neoSchema = getSchema(driver, mergeResolvers([resolvers]))
+
+export const neoSchema = getSchema(driver, mergeResolvers([resolvers]))
 
 // https://community.apollographql.com/t/allow-cookies-to-be-sent-alongside-request/920/13
 
