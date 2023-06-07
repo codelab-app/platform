@@ -18,14 +18,22 @@ const executeCallback = <Return, Param extends Array<any>>(
   span: Span,
 ) => {
   try {
-    const result = context.with(context.active(), () => callback(...args))
+    const result = context.with(setSpan(context.active(), span), () =>
+      callback(...args),
+    )
 
-    return result instanceof Promise ? result.finally(() => span.end()) : result
+    if (result instanceof Promise) {
+      return result.finally(() => {
+        return span.end()
+      })
+    } else {
+      span.end()
+
+      return result
+    }
   } catch (error) {
     recordExceptionAndStatus(span, error)
     throw error
-  } finally {
-    span.end()
   }
 }
 
@@ -37,8 +45,18 @@ const recordExceptionAndStatus = (span: Span, error: unknown) => {
 
 interface WithTracing {
   <Return, Param extends Array<any>>(
+    /**
+     * Name of the span
+     */
     operationName: string,
+    /**
+     * The function we are measuring
+     */
     callback: PromiseCallback<Return, Param>,
+    /**
+     * Allows us to add attributes to span
+     */
+    spanCallback?: (span: Span) => void,
   ): PromiseCallback<Return, Param>
 }
 
@@ -46,42 +64,23 @@ interface WithTracing {
 export const withTracing: WithTracing = <Return, Param extends Array<any>>(
   operationName: string,
   callback: PromiseCallback<Return, Param>,
+  spanCallback?: (span: Span) => void,
 ) => {
-  const tracer = trace.getTracer(CLI_TRACER)
-
   return async (...args: Param) => {
-    /**
-     * Use active span, otherwise create new span
-     */
-    const span =
-      trace.getSpan(context.active()) ?? tracer.startSpan(operationName)
+    const tracer = trace.getTracer(CLI_TRACER)
 
-    return context.with(context.active(), () =>
-      executeCallback(callback, args, span),
-    )
+    return tracer.startActiveSpan(operationName, async (span) => {
+      try {
+        if (spanCallback) {
+          spanCallback(span)
+        }
+
+        const result = await executeCallback(callback, args, span)
+
+        return result
+      } finally {
+        span.end()
+      }
+    })
   }
 }
-
-/**
- * Don't use this approach, doesn't work
- */
-
-// export const withTracing = <T, A extends Array<any>>(
-//   operationName: string,
-//   callback: PromiseCallback<T,A>,
-// ) => {
-//   const tracer = trace.getTracer(CLI_TRACER)
-
-//   return (...args: A) =>
-//     tracer.startActiveSpan(operationName, async (span) => {
-//       try {
-//         const result = await callback(...args)
-
-//         return result
-//       } catch (error) {
-//         span.recordException(toError(error))
-//         span.setStatus({ code: SpanStatusCode.ERROR })
-//         throw error
-//       }
-//     })
-// }

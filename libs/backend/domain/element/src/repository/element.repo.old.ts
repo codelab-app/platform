@@ -74,7 +74,7 @@ export const importElementInitial = async (
     return newElement
   }
 
-  console.log(`Updating ${label(element)}`)
+  // console.log(`Updating ${label(element)}`)
 
   const {
     elements: [newElement],
