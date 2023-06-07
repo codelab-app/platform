@@ -17,6 +17,7 @@ import {
 import type { IAuth0Owner, ITagDTO } from '@codelab/shared/abstract/core'
 import { withTracing } from '@codelab/shared/infra/otel'
 import fs from 'fs'
+import pick from 'lodash/pick'
 import path from 'path'
 import { DataPaths } from '../../data-paths'
 
@@ -52,11 +53,8 @@ export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
     await withTracing('import-system-types', () =>
       this.importSystemTypes(owner),
     )()
-
     await withTracing('import-tags', () => this.importTags(owner))()
-
     await withTracing('import-atoms', () => this.importAtoms(owner))()
-
     await withTracing('import-components', () => this.importComponents(owner))()
   }
 
@@ -71,23 +69,36 @@ export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
   }
 
   private async importAtoms(owner: IAuth0Owner) {
-    for await (const { api, atom, fields, types } of this.exportedAdminData
-      .atoms) {
-      // C reate types first so they can be referenced
-      for await (const type of types) {
-        await TypeFactory.save({ ...type, owner })
-      }
-
-      // T hen api's
-      await TypeFactory.save({ ...api, owner })
-
-      // F inally fields
-      for await (const field of fields) {
-        await this.fieldRepository.save(field)
-      }
-
-      await this.atomRepository.save({ ...atom, owner })
+    for await (const atomData of this.exportedAdminData.atoms) {
+      await withTracing(
+        'import-atom',
+        () => this.importAtom(atomData, owner),
+        (span) => {
+          const attributes = pick(atomData.atom, ['name'])
+          span.setAttributes(attributes)
+        },
+      )()
     }
+  }
+
+  private async importAtom(
+    { api, atom, fields, types }: IAtomExport,
+    owner: IAuth0Owner,
+  ) {
+    // Create types first so they can be referenced
+    for await (const type of types) {
+      await TypeFactory.save({ ...type, owner })
+    }
+
+    // Then api's
+    await TypeFactory.save({ ...api, owner })
+
+    // Finally fields
+    for await (const field of fields) {
+      await this.fieldRepository.save(field)
+    }
+
+    await this.atomRepository.save({ ...atom, owner })
   }
 
   private async importTags(owner: IAuth0Owner) {

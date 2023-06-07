@@ -1,6 +1,5 @@
 import type { PromiseCallback } from '@codelab/shared/abstract/types'
-import { withTracing } from '@codelab/shared/infra/otel'
-import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
+import type { Argv, CommandModule } from 'yargs'
 import { getStageOptions, loadStageMiddleware } from '../../shared/command'
 import {
   assignUserOption,
@@ -27,14 +26,7 @@ const withTeardown = <Return, Param extends Array<any>>(
   }
 }
 
-const importHandlerWithTracing = withTracing(
-  'import-command',
-  (args: ArgumentsCamelCase<ImportProps>) => importHandler(args),
-)
-
-const importHandlerWithTracingAndTeardown = withTeardown(
-  importHandlerWithTracing,
-)
+const importHandlerWithTeardown = withTeardown(importHandler)
 
 /**
  * Imports seed data and/or user data.
@@ -64,5 +56,5 @@ export const importCommand: CommandModule<unknown, ImportProps> = {
    *
    * @param file File for the user data
    */
-  handler: importHandlerWithTracingAndTeardown,
+  handler: importHandlerWithTeardown,
 }
