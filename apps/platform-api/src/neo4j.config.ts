@@ -1,14 +1,9 @@
 import { registerAs } from '@nestjs/config'
+import * as env from 'env-var'
 import * as Joi from 'joi'
 
 export const neo4jConfig = registerAs('neo4j', () => ({
-  password: process.env.NEO4J_PASSWORD,
-  uri: process.env.NEO4J_URI,
-  user: process.env.NEO4J_USER,
+  password: env.get('NEO4J_PASSWORD').required().asString(),
+  uri: env.get('NEO4J_URI').required().asUrlObject(),
+  user: env.get('NEO4J_USER').required().asString(),
 }))
-
-export const neo4jValidation = Joi.object({
-  NEO4J_PASSWORD: Joi.number(),
-  NEO4J_URI: Joi.string(),
-  NEO4J_USER: Joi.string(),
-})
