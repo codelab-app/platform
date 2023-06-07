@@ -1,0 +1,68 @@
+{
+  "name": "platform-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/platform-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "development",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/platform-api",
+        "main": "apps/platform-api/src/main.ts",
+        "tsConfig": "apps/platform-api/tsconfig.app.json",
+        "assets": ["apps/platform-api/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/platform-api/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "outputPath": "dist/apps/platform-api-serverless",
+          "main": "apps/platform-api/src/serverless.ts"
+        },
+        "ci": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "platform-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "platform-api:build:development"
+        },
+        "production": {
+          "buildTarget": "platform-api:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/platform-api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/platform-api/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": ["scope:backend"]
+}
