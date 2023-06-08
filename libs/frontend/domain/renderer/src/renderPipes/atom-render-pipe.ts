@@ -71,12 +71,13 @@ export class AtomRenderPipe
       props: {
         ...newProps,
         css: elCss,
-        onMouseEnter: () =>
-          builderServiceContext
-            .get(element)
-            ?.setHoveredNode(elementRef(element)),
-        onMouseLeave: () =>
-          builderServiceContext.get(element)?.setHoveredNode(null),
+
+        // onMouseEnter: () =>
+        //   builderServiceContext
+        //     .get(element)
+        //     ?.setHoveredNode(elementRef(element)),
+        // onMouseLeave: () =>
+        //   builderServiceContext.get(element)?.setHoveredNode(null),
       },
     })
   }
