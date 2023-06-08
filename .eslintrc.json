@@ -7,7 +7,6 @@
     "import",
     "unused-imports",
     "react",
-    //    "react-hooks",
     "@emotion",
     "prettier",
     "jest",
@@ -15,11 +14,8 @@
     "simple-import-sort",
     "lodash",
     "prefer-arrow",
-    // https://github.com/gajus/eslint-plugin-canonical#no-unused-exports
     "canonical",
     "sort-destructure-keys",
-    // @typescript-eslint/member-ordering doesn't auto-fix
-    // But conflicts with member-ordering, since that puts methods after properties, while `typescript-sort-keys` sorts everything alphabetically
     "typescript-sort-keys",
     "unicorn"
   ],
@@ -27,15 +23,7 @@
   "env": {
     "jest/globals": true
   },
-  "extends": [
-    "plugin:prettier/recommended",
-    "plugin:canonical/recommended"
-    // We first apply `typescript-sort-keys`, then comment off and manually move methods after properties
-    // "plugin:typescript-sort-keys/recommended"
-    // "plugin:import/recommended",
-    // "plugin:lodash/recommended"
-  ],
-  // Used for import plugin
+  "extends": ["plugin:prettier/recommended", "plugin:canonical/recommended"],
   "settings": {
     "extensions": [".js", ".jsx", ".ts", ".tsx"],
     "import/parsers": {
@@ -58,28 +46,13 @@
       "rules": {
         "sort-destructure-keys/sort-destructure-keys": [
           "error",
-          { "caseSensitive": false }
+          {
+            "caseSensitive": false
+          }
         ],
         "canonical/destructuring-property-newline": "off",
         "canonical/import-specifier-newline": "off",
         "canonical/id-match": "off",
-        // "max-params": [
-        //   "error",
-        //   {
-        //     "max": 6
-        //   }
-        // ],
-        // "prefer-destructuring": [
-        //   "error",
-        //   {
-        //     "array": true,
-        //     "object": true
-        //   },
-        //   {
-        //     "enforceForRenamedProperties": false
-        //   }
-        // ],
-        // "unused-imports/no-unused-imports-ts": "error",
         "id-length": [
           "error",
           {
@@ -99,7 +72,6 @@
           }
         ],
         "jest/expect-expect": "off",
-        /* Those font rules are broken in nw15. Lint will result internal error inside of rule's implementation */
         "@next/next/google-font-display": "off",
         "@next/next/google-font-preconnect": "off",
         "react/jsx-props-no-spreading": [
@@ -112,7 +84,6 @@
           }
         ],
         "react/jsx-curly-brace-presence": "error",
-        // https://github.com/microsoft/TypeScript/issues/14306
         "no-restricted-globals": [
           "error",
           "postMessage",
@@ -305,12 +276,8 @@
           }
         ],
         "simple-import-sort/exports": "error",
-        //
-        // Custom import rules
-        //
         "import/newline-after-import": "error",
         "import/first": "error",
-        // SUPER SLOW!
         "import/no-cycle": "off",
         "import/no-duplicates": "error",
         "prettier/prettier": [
@@ -326,12 +293,6 @@
             "enforceBuildableLibDependency": true,
             "allow": [],
             "depConstraints": [
-              //
-              // This is a map of key & their possible values
-              //
-              // "scope": ["frontend", "backend", "shared", "codegen"]
-              // "layer": ["domain", "application", "infra", "presentation"]
-              // "type": ["abstract", "test"]
               {
                 "sourceTag": "type:abstract",
                 "onlyDependOnLibsWithTags": ["type:abstract"]
@@ -369,29 +330,10 @@
                   "*"
                 ]
               },
-              // {
-              //   "sourceTag": "layer:domain:frontend",
-              //   "onlyDependOnLibsWithTags": [
-              //     "scope:shared",
-              //     "layer:domain:frontend",
-              //     "layer:infra",
-              //     "type:abstract"
-              //   ]
-              // },
               {
                 "sourceTag": "scope:shared",
                 "onlyDependOnLibsWithTags": ["scope:shared", "type:abstract"]
               },
-              // {
-              //   "sourceTag": "layer:domain:backend",
-              //   "onlyDependOnLibsWithTags": [
-              //     "layer:domain:backend",
-              //     "layer:application:backend",
-              //     "scope:shared",
-              //     "layer:infra",
-              //     "type:abstract"
-              //   ]
-              // },
               {
                 "sourceTag": "scope:publishable",
                 "onlyDependOnLibsWithTags": ["scope:publishable"]
@@ -558,7 +500,6 @@
     },
     {
       "files": ["*.spec.ts", "*.spec.tsx"],
-      // "plugins": ["plugin:jest/recommended", "plugin:jest/style"],
       "rules": {
         "import/no-unresolved": "error",
         "import/named": "error"
@@ -577,20 +518,11 @@
         "@typescript-eslint/member-ordering": [
           "error",
           {
-            "default": {
-              // "optionalityOrder": "required-first",
-              // "order": "alphabetically"
-            },
+            "default": {},
             "interfaces": {
               "memberTypes": ["signature", "constructor", "field", "method"],
-              // "optionalityOrder": "required-first",
               "order": "alphabetically"
             }
-            // "interfaces": {
-            //   "memberTypes": ["field", "method"],
-            //   "optionalityOrder": "required-first",
-            //   "order": "alphabetically"
-            // }
           }
         ],
         "@typescript-eslint/method-signature-style": ["error", "method"],
@@ -644,24 +576,11 @@
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nx/javascript"],
       "rules": {}
+    },
+    {
+      "files": "*.json",
+      "parser": "jsonc-eslint-parser",
+      "rules": {}
     }
-
-    // {
-    //   "files": ["*.ts"],
-    //   "processor": "@graphql-eslint/graphql"
-    // },
-    // {
-    //   "files": ["*.graphql"],
-    //   // "parser": "@graphql-eslint/eslint-plugin",
-    //   // "plugins": ["@graphql-eslint"],
-    //   "extends": ["plugin:@graphql-eslint/schema-all"],
-    //   // "parserOptions": {
-    //   //   "operations": "{apps,libs}/**/*.graphql",
-    //   //   "schema": "./schema.graphql"
-    //   // },
-    //   "rules": {
-    //     "@graphql-eslint/known-type-names": "error"
-    //   }
-    // }
   ]
 }

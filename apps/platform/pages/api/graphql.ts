@@ -1,6 +1,3 @@
-/**
- * This file is under `api` code so can import backend code
- */
 import {
   authMiddleware,
   corsMiddleware,
@@ -12,10 +9,15 @@ const handler: NextApiHandler = async (req, res) => {
   await corsMiddleware(req, res)
   await authMiddleware(req, res)
 
-  return httpProxyMiddleware(req, res, {
-    pathRewrite: { '^/api/graphql': 'http://l/ocalhost:4000/graphql' },
+  await httpProxyMiddleware(req, res, {
+    pathRewrite: [
+      {
+        patternStr: '^/api/graphql',
+        replaceStr: 'http://localhost:4000/graphql',
+      },
+    ],
     target: 'http://localhost:4000/graphql',
   })
 }
 
-export default await handler
+export default handler

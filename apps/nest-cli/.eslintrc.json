@@ -1,11 +1,11 @@
 {
-  "extends": ["../../../.eslintrc.json"],
+  "extends": ["../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": ["libs/tools/workspace/tsconfig.*?.json"]
+        "project": ["apps/nest-cli/tsconfig.*?.json"]
       },
       "rules": {}
     },
@@ -16,13 +16,6 @@
     {
       "files": ["*.js", "*.jsx"],
       "rules": {}
-    },
-    {
-      "files": ["./package.json", "./generators.json", "./executors.json"],
-      "parser": "jsonc-eslint-parser",
-      "rules": {
-        "@nx/nx-plugin-checks": "error"
-      }
     }
   ]
 }
