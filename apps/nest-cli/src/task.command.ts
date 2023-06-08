@@ -1,5 +1,6 @@
 import { LoggerService } from '@nestjs/common'
 import { Command, CommandRunner, Option } from 'nest-commander'
+import { Span } from 'nestjs-otel'
 import { CodelabLogger } from './logger/logger.service'
 
 interface BasicCommandOptions {
@@ -14,10 +15,13 @@ export class BasicCommand extends CommandRunner {
     super()
   }
 
+  @Span('CRITICAL_SECTION')
   async run(
     passedParam: Array<string>,
     options?: BasicCommandOptions,
   ): Promise<void> {
+    // this.logService.log(this)
+
     if (options?.boolean !== undefined) {
       this.runWithBoolean(passedParam, options.boolean)
     } else if (options?.number) {
