@@ -9260,13 +9260,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ls-lint/ls-lint@npm:1.11.0":
-  version: 1.11.0
-  resolution: "@ls-lint/ls-lint@npm:1.11.0"
+"@ls-lint/ls-lint@npm:2.0.0":
+  version: 2.0.0
+  resolution: "@ls-lint/ls-lint@npm:2.0.0"
   bin:
     ls-lint: bin/cli.js
-  checksum: d94df05c3bb3ed29e0cceab61af4c8f439920ebadd889c7bcaefe99328c3e32ebcad4e58e7ed284af512361290d3ba2bce33226344e95e65175d14b5b5666484
-  conditions: (os=darwin | os=linux | os=win32) & (cpu=x64 | cpu=arm64)
+  checksum: d63fe9bdbb7d2bc34ac41567ae6395ba71439fa9ac82a91586f2a292ef2a8250e74fb5dff54898377af5036f8192c99e45e153ce65a4d7a4ef6938d73c78fc26
+  conditions: (os=darwin | os=linux | os=win32) & (cpu=x64 | cpu=arm64 | cpu=s390x)
   languageName: node
   linkType: hard
 
@@ -14803,6 +14803,15 @@ __metadata:
   version: 2.0.1
   resolution: "@types/http-errors@npm:2.0.1"
   checksum: 3bb0c50b0a652e679a84c30cd0340d696c32ef6558518268c238840346c077f899315daaf1c26c09c57ddd5dc80510f2a7f46acd52bf949e339e35ed3ee9654f
+  languageName: node
+  linkType: hard
+
+"@types/http-proxy@npm:1.17.3":
+  version: 1.17.3
+  resolution: "@types/http-proxy@npm:1.17.3"
+  dependencies:
+    "@types/node": "*"
+  checksum: 92edcd434a8933575acd341a3076ecb8591db4e1aeaec35d55979b77047b3bca0f8f5900a9c7aa75de2dbb2eb2a8a6cb9406277b290b58532ec4488a2bc237a1
   languageName: node
   linkType: hard
 
@@ -20343,7 +20352,7 @@ __metadata:
     "@graphql-tools/merge": 8.2.11
     "@graphql-tools/utils": 8.12.0
     "@hon2a/cypress-without": 1.1.8
-    "@ls-lint/ls-lint": 1.11.0
+    "@ls-lint/ls-lint": 2.0.0
     "@mailchimp/mailchimp_marketing": 3.0.80
     "@mui/base": 5.0.0-alpha.93
     "@mui/icons-material": 5.8.4
@@ -20557,6 +20566,7 @@ __metadata:
     neo4j-driver: 5.8.0
     nest-neo4j: ^0.3.1
     next: 13.4.3
+    next-http-proxy-middleware: ^1.2.5
     next-seo: 5.15.0
     node-fetch: 3.1.0
     nx: 16.3.2
@@ -32940,6 +32950,16 @@ __metadata:
   dependencies:
     neo4j-driver: ^5.6.0
   checksum: 6f1db4be7e452c838cab47d7984d3cd38eb0c58641a47952ee9d074b54f6f2a0547ca1a4d13bef1277424bae4976dfdeed2d4a31c8b110da44e32a1f49204140
+  languageName: node
+  linkType: hard
+
+"next-http-proxy-middleware@npm:^1.2.5":
+  version: 1.2.5
+  resolution: "next-http-proxy-middleware@npm:1.2.5"
+  dependencies:
+    "@types/http-proxy": 1.17.3
+    http-proxy: ^1.18.1
+  checksum: 5fe81f764332b3bda141a17d0ac10f43d810bf2f84122c475c0813e61cbd893e3b3caf0dee37d951f99616f533902902f5ad36d9fd9b612845c86de9dd10ebd0
   languageName: node
   linkType: hard
 

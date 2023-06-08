@@ -2,7 +2,7 @@ import { neoSchema } from '@codelab/backend/infra/adapter/graphql'
 import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
 import type { ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloDriver } from '@nestjs/apollo'
-import { Inject, Module } from '@nestjs/common'
+import { Global, Inject, Module } from '@nestjs/common'
 import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import type { BaseValidationOptions } from 'joi'
@@ -31,10 +31,13 @@ export interface GqlContext {
   res: Response
 }
 
+@Global()
 @Module({
   controllers: [AppController],
   imports: [
     ConfigModule.forRoot({
+      ignoreEnvVars: true,
+      isGlobal: true,
       load: [neo4jConfig],
     }),
     // GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -45,7 +48,7 @@ export interface GqlContext {
     GraphQLModule.forRootAsync({
       driver: ApolloDriver,
       imports: [ConfigModule],
-      inject: [neo4jConfig.KEY],
+      inject: [ConfigService],
       useFactory: async () => ({
         context: ({ connection, payload, req, res }: GqlContext) =>
           ({
@@ -90,6 +93,6 @@ export class AppModule {
     @Inject(neo4jConfig.KEY)
     private neo4j: ConfigType<typeof neo4jConfig>,
   ) {
-    console.log(neo4j)
+    // console.log(neo4j)
   }
 }

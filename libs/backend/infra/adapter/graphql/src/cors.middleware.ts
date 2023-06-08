@@ -1,6 +1,6 @@
 import type { NextApiHandler } from 'next'
 
-export const corsMiddleware: NextApiHandler = (req, res) => {
+export const corsMiddleware: NextApiHandler = async (req, res) => {
   res.setHeader('Access-Control-Allow-Credentials', 'true')
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Headers', '*')
@@ -11,9 +11,5 @@ export const corsMiddleware: NextApiHandler = (req, res) => {
    */
   if (req.method === 'OPTIONS') {
     res.end()
-
-    return false
   }
-
-  return true
 }
