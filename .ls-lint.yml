@@ -19,3 +19,4 @@ ls:
 
 ignore:
   - node_modules
+  - .build

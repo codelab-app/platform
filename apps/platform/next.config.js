@@ -26,12 +26,24 @@ const withRawCypherFiles = (nextConfig = {}) =>
 
 const plugins = [withBundleAnalyzer, withRawCypherFiles]
 
+/**
+ * @type {WithNxOptions}
+ */
 const nextConfig = {
   experimental: {
     instrumentationHook: true,
     // appDir: true,
   },
   nx: { svgr: true },
+  rewrites: async () => ({
+    // We still want the api/graphql to append headers and other context before redirecting
+    // afterFiles: [
+    //   {
+    //     destination: 'http://localhost:4000/graphql',
+    //     source: '/api/graphql',
+    //   },
+    // ],
+  }),
 }
 
 /*
