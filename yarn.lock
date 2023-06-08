@@ -6891,6 +6891,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@golevelup/nestjs-discovery@npm:3.0.0":
+  version: 3.0.0
+  resolution: "@golevelup/nestjs-discovery@npm:3.0.0"
+  dependencies:
+    lodash: ^4.17.15
+  checksum: 62d60b3da8604dc131f38fcf965fcbbb0fdce37af7d71c71710fa14b8ac1df80d22b45d3ecbe5da9bc55a233079ae031778f34b07fc5d19bda082a0345cab87f
+  languageName: node
+  linkType: hard
+
 "@graphql-codegen/add@npm:^3.2.1":
   version: 3.2.3
   resolution: "@graphql-codegen/add@npm:3.2.3"
@@ -20564,6 +20573,7 @@ __metadata:
     moment: 2.29.4
     morphext: 2.4.7
     neo4j-driver: 5.8.0
+    nest-commander: ^3.7.1
     nest-neo4j: ^0.3.1
     next: 13.4.3
     next-http-proxy-middleware: ^1.2.5
@@ -20795,17 +20805,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:10.0.1, commander@npm:^10.0.0":
+  version: 10.0.1
+  resolution: "commander@npm:10.0.1"
+  checksum: 436901d64a818295803c1996cd856621a74f30b9f9e28a588e726b2b1670665bccd7c1a77007ebf328729f0139838a88a19265858a0fa7a8728c4656796db948
+  languageName: node
+  linkType: hard
+
 "commander@npm:2.11.x":
   version: 2.11.0
   resolution: "commander@npm:2.11.0"
   checksum: 0d0c622d129a801699b9bbf6fa518108c7e221e51ae12457119aec52f1142ab759b6cd3348ee253604e934639e200c8f0e1cf8342a2ba4b28b3565a7322ead14
-  languageName: node
-  linkType: hard
-
-"commander@npm:^10.0.0":
-  version: 10.0.1
-  resolution: "commander@npm:10.0.1"
-  checksum: 436901d64a818295803c1996cd856621a74f30b9f9e28a588e726b2b1670665bccd7c1a77007ebf328729f0139838a88a19265858a0fa7a8728c4656796db948
   languageName: node
   linkType: hard
 
@@ -28235,7 +28245,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:^8.2.5":
+"inquirer@npm:8.2.5, inquirer@npm:^8.2.5":
   version: 8.2.5
   resolution: "inquirer@npm:8.2.5"
   dependencies:
@@ -32941,6 +32951,22 @@ __metadata:
     neo4j-driver-core: 5.9.0
     rxjs: ^7.8.0
   checksum: a9ce4151a903b25e40403cfd17f5edc554a13dadb36efee874d7da86d10c29e7e0ff86d1087f1f6f9eaa57c948217f61c147022b5a1c016b89e47cd39aede547
+  languageName: node
+  linkType: hard
+
+"nest-commander@npm:^3.7.1":
+  version: 3.7.1
+  resolution: "nest-commander@npm:3.7.1"
+  dependencies:
+    "@golevelup/nestjs-discovery": 3.0.0
+    commander: 10.0.1
+    cosmiconfig: 8.1.3
+    inquirer: 8.2.5
+  peerDependencies:
+    "@nestjs/common": ^8.0.0 || ^9.0.0
+    "@nestjs/core": ^8.0.0 || ^9.0.0
+    "@types/inquirer": ^8.1.3
+  checksum: df26653a2684742e6b6e13ba17dddbb922ef3e00da6d70fa45f8eb355bea1bfc17000cdde416dff43f35ad3595ea7969cc97aa5b48a13c5eb89b95ddfad4acf7
   languageName: node
   linkType: hard
 

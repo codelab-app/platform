@@ -48,7 +48,8 @@
         "lintFilePatterns": [
           "libs/tools/workspace/**/*.ts",
           "libs/tools/workspace/package.json",
-          "libs/tools/workspace/generators.json"
+          "libs/tools/workspace/generators.json",
+          "libs/tools/workspace/executors.json"
         ]
       },
       "configurations": {

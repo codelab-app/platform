@@ -13,7 +13,7 @@
   "sideEffects": false,
   "scripts": {
     "e2e": "yarn cli tasks e2e --stage dev",
-    "cli": "node ./dist/apps/cli/main.js",
+    "cli": "node ./dist/apps/nest-cli/main.js",
     "docker:up": "scripts/docker/up.sh",
     "tunnel": "ngrok http --region=us --hostname=api.codelab-dev.ngrok.io 127.0.0.1:3000",
     "codegen": "yarn cli tasks codegen --stage dev",
@@ -128,6 +128,7 @@
     "moment": "2.29.4",
     "morphext": "2.4.7",
     "neo4j-driver": "5.8.0",
+    "nest-commander": "^3.7.1",
     "nest-neo4j": "^0.3.1",
     "next": "13.4.3",
     "next-http-proxy-middleware": "^1.2.5",
