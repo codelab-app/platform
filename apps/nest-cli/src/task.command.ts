@@ -1,7 +1,7 @@
+import { CodelabLogger } from '@codelab/backend/infra/adapter/logger'
 import { LoggerService } from '@nestjs/common'
 import { Command, CommandRunner, Option } from 'nest-commander'
-import { Span } from 'nestjs-otel'
-import { CodelabLogger } from './logger/logger.service'
+import { OtelMethodCounter, Span, TraceService } from 'nestjs-otel'
 
 interface BasicCommandOptions {
   boolean?: boolean
@@ -11,17 +11,18 @@ interface BasicCommandOptions {
 
 @Command({ description: 'A parameter parse', name: 'basic' })
 export class BasicCommand extends CommandRunner {
-  constructor(private readonly logService: CodelabLogger) {
+  constructor(
+    private readonly logService: CodelabLogger,
+    private readonly traceService: TraceService,
+  ) {
     super()
   }
 
-  @Span('CRITICAL_SECTION')
+  @Span('run')
   async run(
     passedParam: Array<string>,
     options?: BasicCommandOptions,
   ): Promise<void> {
-    // this.logService.log(this)
-
     if (options?.boolean !== undefined) {
       this.runWithBoolean(passedParam, options.boolean)
     } else if (options?.number) {
@@ -69,6 +70,7 @@ export class BasicCommand extends CommandRunner {
     this.logService.log({ boolean: option, param })
   }
 
+  @Span('run-with-none')
   runWithNone(param: Array<string>): void {
     this.logService.log({ param })
   }

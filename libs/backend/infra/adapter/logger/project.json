@@ -1,0 +1,16 @@
+{
+  "name": "backend-infra-adapter-logger",
+  "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/backend/infra/adapter/logger/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/backend/infra/adapter/logger/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:backend"]
+}

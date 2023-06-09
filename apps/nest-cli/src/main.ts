@@ -1,13 +1,21 @@
+// Must be imported first
+// eslint-disable-next-line simple-import-sort/imports
+import { otelSDK } from '@codelab/backend/infra/adapter/otel'
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
-import { CommandFactory } from 'nest-commander'
 import { AppModule } from './app/app.module'
-import { CodelabLogger } from './logger/logger.service'
-import { otelSDK } from './tracing'
+import { CommandModule } from './commands/command.module'
+import { CommandService } from './commands/command.service'
 
 const bootstrap = async () => {
   await otelSDK.start()
-  await CommandFactory.run(AppModule, new CodelabLogger())
+
+  const app = await NestFactory.createApplicationContext(AppModule, {
+    logger: false,
+  })
+
+  await app.select(CommandModule).get(CommandService)
+  await app.close()
 }
 
 void bootstrap()

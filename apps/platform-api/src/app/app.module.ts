@@ -1,5 +1,7 @@
 import { neoSchema } from '@codelab/backend/infra/adapter/graphql'
+import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
+import { OpenTelemetryModuleConfig } from '@codelab/backend/infra/adapter/otel'
 import type { ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloDriver } from '@nestjs/apollo'
 import { Global, Inject, Module } from '@nestjs/common'
@@ -35,6 +37,8 @@ export interface GqlContext {
 @Module({
   controllers: [AppController],
   imports: [
+    CodelabLoggerModule,
+    OpenTelemetryModuleConfig,
     ConfigModule.forRoot({
       ignoreEnvVars: true,
       isGlobal: true,

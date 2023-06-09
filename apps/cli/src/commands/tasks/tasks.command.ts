@@ -1,6 +1,6 @@
 import { generateOgmTypes } from '@codelab/backend/infra/adapter/neo4j'
+import { execCommand } from '@codelab/backend/infra/adapter/shell'
 import { spawn } from 'child_process'
-import execa from 'execa'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import gitChangedFiles from 'git-changed-files'
@@ -15,18 +15,6 @@ import { Tasks } from '../../shared/utils/tasks'
  * We require this since execCommand creates a new process and any env set before that doesn't apply
  */
 const NX_TEST = 'npx env-cmd -f .env.test nx'
-
-export const execCommand = (command: string) => {
-  try {
-    execa.commandSync(command, {
-      shell: true,
-      stdio: 'inherit',
-    })
-  } catch (error) {
-    console.error(error)
-    process.exit(1)
-  }
-}
 
 export const tasksCommand: CommandModule<unknown, unknown> = {
   builder: (yargv) =>
