@@ -10,6 +10,7 @@ export class CommandModule implements OnModuleInit {
   constructor(private readonly commandService: CommandService) {}
 
   onModuleInit() {
-    this.commandService.initialize()
+    console.log('init')
+    // this.commandService.init()
   }
 }
