@@ -1,3 +1,4 @@
+import { tasksCommand } from '@codelab/backend/infra/adapter/cli'
 import { Global, Injectable } from '@nestjs/common'
 import type { Argv, CommandModule } from 'yargs'
 import yargs from 'yargs'
@@ -7,7 +8,8 @@ import { hideBin } from 'yargs/helpers'
 export class CommandService {
   private yargs?: Argv
 
-  constructor() {
+  start() {
+    console.log('start')
     void yargs(hideBin(process.argv))
       // /**
       //  * These scripts could act on different deployment environment, so we group under `data`

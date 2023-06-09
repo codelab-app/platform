@@ -14,6 +14,8 @@ const bootstrap = async () => {
     logger: false,
   })
 
+  await app.init()
+
   await app.select(CommandModule).get(CommandService)
   await app.close()
 }
