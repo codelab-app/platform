@@ -1,4 +1,5 @@
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http'
+import { NestInstrumentation } from '@opentelemetry/instrumentation-nestjs-core'
 import { Resource } from '@opentelemetry/resources'
 import { NodeSDK } from '@opentelemetry/sdk-node'
 import { SimpleSpanProcessor } from '@opentelemetry/sdk-trace-node'
@@ -20,7 +21,7 @@ export const registerCustomOTel = (serviceName: string) => {
   // }
 
   const sdk = new NodeSDK({
-    // instrumentations: [getNodeAutoInstrumentations()],
+    instrumentations: [new NestInstrumentation()],
     resource: new Resource({
       [SemanticResourceAttributes.SERVICE_NAME]: serviceName,
     }),

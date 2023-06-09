@@ -1,7 +1,7 @@
+import { execCommand } from '@codelab/backend/infra/adapter/shell'
 import type { CommandModule } from 'yargs'
 import { getStageOptions } from '../../shared/command'
 import { Stage } from '../../shared/utils/stage'
-import { execCommand } from '../tasks/tasks.command'
 
 export const terraformCommand: CommandModule<unknown, unknown> = {
   builder: (yargv) =>

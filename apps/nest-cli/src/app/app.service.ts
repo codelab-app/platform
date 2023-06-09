@@ -1,3 +1,4 @@
+import { CodelabLogger } from '@codelab/backend/infra/adapter/logger'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

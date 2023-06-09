@@ -103,14 +103,26 @@
       "@codelab/backend/domain/tag": ["libs/backend/domain/tag/src/index.ts"],
       "@codelab/backend/domain/type": ["libs/backend/domain/type/src/index.ts"],
       "@codelab/backend/domain/user": ["libs/backend/domain/user/src/index.ts"],
+      "@codelab/backend/infra/adapter/cli": [
+        "libs/backend/infra/adapter/cli/src/index.ts"
+      ],
       "@codelab/backend/infra/adapter/graphql": [
         "libs/backend/infra/adapter/graphql/src/index.ts"
+      ],
+      "@codelab/backend/infra/adapter/logger": [
+        "libs/backend/infra/adapter/logger/src/index.ts"
       ],
       "@codelab/backend/infra/adapter/neo4j": [
         "libs/backend/infra/adapter/neo4j/src/index.ts"
       ],
+      "@codelab/backend/infra/adapter/otel": [
+        "libs/backend/infra/adapter/otel/src/index.ts"
+      ],
       "@codelab/backend/infra/adapter/queue": [
         "libs/backend/infra/adapter/queue/src/index.ts"
+      ],
+      "@codelab/backend/infra/adapter/shell": [
+        "libs/backend/infra/adapter/shell/src/index.ts"
       ],
       "@codelab/backend/infra/adapter/vercel": [
         "libs/backend/infra/adapter/vercel/src/index.ts"
