@@ -1,6 +1,6 @@
 import React from 'react'
 import tw from 'twin.macro'
-import { SkeletonWrapper } from '../../components'
+import { CuiSkeletonWrapper } from '../../components'
 
 export interface CuiCollapsePanelContentProps {
   content: React.ReactNode
@@ -30,7 +30,7 @@ export const CuiCollapsePanelContent = ({
       key={key}
     >
       <div css={tw`w-full flex-1 overflow-auto`}>
-        <SkeletonWrapper isLoading={isLoading}>{content}</SkeletonWrapper>
+        <CuiSkeletonWrapper isLoading={isLoading}>{content}</CuiSkeletonWrapper>
       </div>
     </div>
   )

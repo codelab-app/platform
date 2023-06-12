@@ -36,15 +36,16 @@ export interface CuiTreeProps<T extends CuiTreeBasicDataNode> {
   defaultExpandAll?: DirectoryTreeProps<T>['defaultExpandAll']
   disabled?: DirectoryTreeProps<T>['disabled']
   draggable?: boolean
-  expandedKeys: DirectoryTreeProps<T>['expandedKeys']
+  expandedKeys?: DirectoryTreeProps<T>['expandedKeys']
+  loadData?: DirectoryTreeProps<T>['loadData']
   multiple?: DirectoryTreeProps<T>['multiple']
   onClick?: DirectoryTreeProps<T>['onClick']
   onDrop?: DirectoryTreeProps<T>['onDrop']
   onExpand?: DirectoryTreeProps<T>['onExpand']
-  onMouseEnter: DirectoryTreeProps<T>['onMouseEnter']
-  onMouseLeave: DirectoryTreeProps<T>['onMouseLeave']
+  onMouseEnter?: DirectoryTreeProps<T>['onMouseEnter']
+  onMouseLeave?: DirectoryTreeProps<T>['onMouseLeave']
   onSelect?: DirectoryTreeProps<T>['onSelect']
-  selectedKeys: DirectoryTreeProps<T>['selectedKeys']
+  selectedKeys?: DirectoryTreeProps<T>['selectedKeys']
   titleRender?: DirectoryTreeProps<T>['titleRender']
   treeData?: Array<T>
 }

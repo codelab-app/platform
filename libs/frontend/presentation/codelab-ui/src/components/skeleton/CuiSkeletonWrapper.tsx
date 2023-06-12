@@ -1,15 +1,15 @@
 import { Skeleton } from 'antd'
 import React from 'react'
 
-interface SkeletonWrapperProps {
+interface CuiSkeletonWrapperProps {
   children?: React.ReactNode
   isLoading: boolean
 }
 
-export const SkeletonWrapper = ({
+export const CuiSkeletonWrapper = ({
   children,
   isLoading,
-}: SkeletonWrapperProps) =>
+}: CuiSkeletonWrapperProps) =>
   isLoading ? (
     <div data-cy="codelabui-skeleton">
       <Skeleton active loading style={{ padding: 5 }} />

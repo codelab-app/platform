@@ -195,14 +195,14 @@ export class TypeService
     }
 
     const existingTypes = compact(ids?.map((id) => this.types.get(id)) ?? [])
-    const newIds = ids?.filter((id) => !this.types.has(id))
+    const idsToLoad = ids?.filter((id) => this.shouldLoadType(id))
     let newTypes: Array<IType> = []
 
     // Undefined `ids` should get to this point one time only
     // We also dont need to include types already in the cache
-    if (newIds?.length || !ids) {
+    if (idsToLoad?.length || !ids) {
       const { items: typeFragments } = yield* _await(
-        this.typeRepository.find({ id_IN: newIds }),
+        this.typeRepository.find({ id_IN: idsToLoad }),
       )
 
       const parentIds = typeFragments.map((typeFragment) => typeFragment.id)
@@ -226,7 +226,9 @@ export class TypeService
 
           const newType = this.add(typeFragment)
 
-          return newIds?.includes(typeFragment.id) || !ids ? newType : undefined
+          return idsToLoad?.includes(typeFragment.id) || !ids
+            ? newType
+            : undefined
         }),
       )
     }
@@ -250,7 +252,7 @@ export class TypeService
   @modelFlow
   @transaction
   getOne = _async(function* (this: TypeService, id: string) {
-    if (this.types.has(id)) {
+    if (!this.shouldLoadType(id)) {
       return this.types.get(id)
     }
 
@@ -320,4 +322,50 @@ export class TypeService
 
     return type
   })
+
+  /**
+   * Decides whether loading the type is necessary or not.
+   * loading is required if the type of any of its descendant
+   * types are not available in the cache.
+   */
+  shouldLoadType(typeId: string) {
+    const type = this.types.get(typeId)
+
+    if (!type) {
+      return true
+    }
+
+    if (type.kind === TypeKind.InterfaceType) {
+      for (const field of type.fields) {
+        if (
+          !field.type.maybeCurrent ||
+          this.shouldLoadType(field.type.maybeCurrent.id)
+        ) {
+          return true
+        }
+      }
+    }
+
+    if (type.kind === TypeKind.ArrayType) {
+      if (
+        !type.itemType?.maybeCurrent ||
+        this.shouldLoadType(type.itemType.maybeCurrent.id)
+      ) {
+        return true
+      }
+    }
+
+    if (type.kind === TypeKind.UnionType) {
+      for (const typeOfUnion of type.typesOfUnionType) {
+        if (
+          !typeOfUnion.maybeCurrent ||
+          this.shouldLoadType(typeOfUnion.maybeCurrent.id)
+        ) {
+          return true
+        }
+      }
+    }
+
+    return false
+  }
 }

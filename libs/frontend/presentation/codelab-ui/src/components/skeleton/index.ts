@@ -1,1 +1,1 @@
-export * from './SkeletonWrapper'
+export * from './CuiSkeletonWrapper'
