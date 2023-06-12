@@ -88,8 +88,8 @@ export class InterfaceType
         field,
         isLeaf: field.type.maybeCurrent?.kind !== ITypeKind.InterfaceType,
         key: field.id,
-        primaryTitle: field.type.maybeCurrent?.kind,
-        secondaryTitle: field.key,
+        primaryTitle: field.key,
+        secondaryTitle: field.type.maybeCurrent?.kind,
         title: `${field.key} (${field.type.maybeCurrent?.kind})`,
       }
     })
