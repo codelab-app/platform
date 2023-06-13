@@ -14,10 +14,10 @@ import type { ImportProps } from './import.handler'
 import { importHandler } from './import.handler'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const withTeardown = <Return, Param extends Array<any>>(
-  operation: PromiseCallback<Return, Param>,
+export const withTeardown = <Param extends Array<any>>(
+  operation: PromiseCallback<void, Param>,
 ) => {
-  return async (...args: Param): Promise<Return> => {
+  return async (...args: Param): Promise<void> => {
     try {
       return await operation(...args)
     } finally {

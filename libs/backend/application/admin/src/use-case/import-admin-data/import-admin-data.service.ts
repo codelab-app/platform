@@ -2,6 +2,7 @@ import type {
   IAdminDataExport,
   IAtomExport,
   IComponentExportData,
+  IType,
   ITypesExport,
 } from '@codelab/backend/abstract/core'
 import { UseCase } from '@codelab/backend/application/service'
@@ -14,8 +15,15 @@ import {
   InterfaceTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import type { IAuth0Owner, ITagDTO } from '@codelab/shared/abstract/core'
+import type {
+  IAuth0Owner,
+  ITagDTO,
+  ITypeDTO,
+} from '@codelab/shared/abstract/core'
 import { withTracing } from '@codelab/shared/infra/otel'
+import { InjectQueue } from '@nestjs/bull'
+import { Injectable } from '@nestjs/common'
+import { Queue } from 'bull'
 import fs from 'fs'
 import pick from 'lodash/pick'
 import path from 'path'
@@ -24,25 +32,28 @@ import { DataPaths } from '../../data-paths'
 /**
  * During `save`, we'll want to replace the owner with the current
  */
+@Injectable()
 export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
-  tagRepository = new TagRepository()
+  // tagRepository = new TagRepository()
 
-  atomRepository = new AtomRepository()
+  // atomRepository = new AtomRepository()
 
-  fieldRepository = new FieldRepository()
+  // fieldRepository = new FieldRepository()
 
-  interfaceTypeRepository = new InterfaceTypeRepository()
+  // interfaceTypeRepository = new InterfaceTypeRepository()
 
   dataPaths: DataPaths
 
   exportedAdminData: IAdminDataExport
 
+  DATA_PATH = path.resolve('./data/export')
+
   constructor(
     // Allow base directory override for testing purpose
-    DATA_PATH = path.resolve('./data/export'),
+    @InjectQueue('import-admin-data') private importQueue: Queue,
   ) {
     super()
-    this.dataPaths = new DataPaths(DATA_PATH)
+    this.dataPaths = new DataPaths(this.DATA_PATH)
     this.exportedAdminData = this.getMergedData
   }
 
@@ -53,9 +64,9 @@ export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
     await withTracing('import-system-types', () =>
       this.importSystemTypes(owner),
     )()
-    await withTracing('import-tags', () => this.importTags(owner))()
-    await withTracing('import-atoms', () => this.importAtoms(owner))()
-    await withTracing('import-components', () => this.importComponents(owner))()
+    // await withTracing('import-tags', () => this.importTags(owner))()
+    // await withTracing('import-atoms', () => this.importAtoms(owner))()
+    // await withTracing('import-components', () => this.importComponents(owner))()
   }
 
   private async importSystemTypes(owner: IAuth0Owner) {
@@ -64,7 +75,9 @@ export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
     ) as ITypesExport
 
     for await (const type of types) {
-      await TypeFactory.save({ ...type, owner })
+      const data: ITypeDTO = { ...type, owner }
+      const job = await this.importQueue.add(data)
+      // await TypeFactory.save({ ...type, owner })
     }
   }
 
@@ -95,15 +108,15 @@ export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
 
     // Finally fields
     for await (const field of fields) {
-      await this.fieldRepository.save(field)
+      // await this.fieldRepository.save(field)
     }
 
-    await this.atomRepository.save({ ...atom, owner })
+    // await this.atomRepository.save({ ...atom, owner })
   }
 
   private async importTags(owner: IAuth0Owner) {
     for await (const tag of this.exportedAdminData.tags) {
-      await this.tagRepository.save({ ...tag, owner })
+      // await this.tagRepository.save({ ...tag, owner })
     }
   }
 
@@ -116,15 +129,15 @@ export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
       types,
     } of componentsExportData) {
       for await (const type of types) {
-        await TypeFactory.save({ ...type, owner })
+        // await TypeFactory.save({ ...type, owner })
       }
 
       for await (const field of fields) {
-        await this.fieldRepository.save(field)
+        // await this.fieldRepository.save(field)
       }
 
       for await (const element of descendantElements) {
-        await importElementInitial(element)
+        // await importElementInitial(element)
       }
     }
 

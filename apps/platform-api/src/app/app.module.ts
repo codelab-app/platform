@@ -4,6 +4,7 @@ import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
 import { OpenTelemetryModuleConfig } from '@codelab/backend/infra/adapter/otel'
 import type { ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloDriver } from '@nestjs/apollo'
+import { BullModule } from '@nestjs/bull'
 import { Global, Inject, Module } from '@nestjs/common'
 import { ConfigModule, ConfigService, ConfigType } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
@@ -13,6 +14,7 @@ import type { Driver } from 'neo4j-driver'
 import { driver } from 'neo4j-driver'
 import { Neo4jModule } from 'nest-neo4j'
 import { join } from 'path'
+import { CommandHandlerService } from '../handlers/command-handler.service'
 import { neo4jConfig } from '../neo4j.config'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
@@ -39,6 +41,15 @@ export interface GqlContext {
   imports: [
     CodelabLoggerModule,
     OpenTelemetryModuleConfig,
+    BullModule.forRoot({
+      redis: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
+    BullModule.registerQueue({
+      name: 'import-admin-data',
+    }),
     ConfigModule.forRoot({
       ignoreEnvVars: true,
       isGlobal: true,
@@ -90,7 +101,7 @@ export interface GqlContext {
     //   username: 'neo4j',
     // }),
   ],
-  providers: [AppService],
+  providers: [AppService, CommandHandlerService],
 })
 export class AppModule {
   constructor(

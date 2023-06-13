@@ -1,6 +1,7 @@
 export * from './codegen/codegen'
 export * from './export/export.command'
 export * from './import/import.command'
+export * from './import/import.service'
 export * from './reset/reset.command'
 export * from './scrape/scrape-antd.command'
 export * from './scrape/scrape-html.command'
