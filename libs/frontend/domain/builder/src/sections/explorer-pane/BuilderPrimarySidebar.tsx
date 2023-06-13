@@ -35,7 +35,7 @@ import {
 import type { CuiSidebarView } from '@codelab/frontend/presentation//codelab-ui'
 import { CuiSidebar } from '@codelab/frontend/presentation//codelab-ui'
 import {
-  useCurrentPageId,
+  useCurrentPage,
   useStore,
 } from '@codelab/frontend/presentation/container'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
@@ -57,8 +57,8 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
       renderService,
     } = useStore()
 
-    const pageId = useCurrentPageId()
-    const pageBuilderRenderer = renderService.renderers.get(pageId)
+    const { page } = useCurrentPage()
+    const pageBuilderRenderer = page && renderService.renderers.get(page.id)
     const pageTree = pageBuilderRenderer?.elementTree.maybeCurrent
     const root = !isLoading ? pageTree?.rootElement : undefined
     const antdTree = root?.current.treeViewNode
