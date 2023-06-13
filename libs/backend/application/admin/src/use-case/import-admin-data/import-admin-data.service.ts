@@ -76,6 +76,8 @@ export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
 
     for await (const type of types) {
       const data: ITypeDTO = { ...type, owner }
+      console.log('import queue')
+
       const job = await this.importQueue.add(data)
       // await TypeFactory.save({ ...type, owner })
     }

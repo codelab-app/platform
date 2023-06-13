@@ -1,0 +1,35 @@
+service: codelab-nest-cli
+useDotenv: true
+frameworkVersion: ^3.32.2
+
+custom:
+  esbuild:
+    external:
+      - 'cache-manager'
+      - 'class-validator'
+      - 'class-transformer'
+      - '@nestjs/websockets'
+      - '@nestjs/microservices'
+#     bundle: true
+#     minify: false
+
+plugins:
+  - serverless-esbuild
+  # - serverless-plugin-typescript
+  # - serverless-plugin-optimize
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  main:
+    handler: dist/main
+    # events:
+    #   - http:
+    #       method: ANY
+    #       path: /
+    #   - http:
+    #       method: ANY
+    #       path: '{proxy+}'

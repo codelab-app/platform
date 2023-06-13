@@ -2,6 +2,7 @@ import type { IUserDataExport } from '@codelab/backend/abstract/core'
 import { ImportAdminDataService } from '@codelab/backend/application/admin'
 import { importUserData } from '@codelab/backend/application/user'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import type { PromiseCallback } from '@codelab/shared/abstract/types'
 import { InjectQueue } from '@nestjs/bull'
 import { Injectable } from '@nestjs/common'
 import { MessagePattern } from '@nestjs/microservices'
@@ -16,6 +17,7 @@ import type {
   CommandModule,
 } from 'yargs'
 import { getStageOptions, loadStageMiddleware } from '../../shared/command'
+import type { ExportProps } from '../../shared/path-args'
 import {
   assignUserOption,
   seedDataPathOption,
@@ -26,11 +28,10 @@ import {
 } from '../../shared/path-args'
 import { selectUserPrompt } from '../../shared/prompts/select-user'
 import { Stage } from '../../shared/utils/stage'
-import { withTeardown } from './import.command'
-import type { ImportProps } from './import.handler'
-import { importHandler } from './import.handler'
 
-const importHandlerWithTeardown = withTeardown(importHandler)
+export type ImportProps = ExportProps & {
+  email?: string
+}
 
 @Injectable()
 export class ImportService implements CommandModule<unknown, ImportProps> {
@@ -59,7 +60,8 @@ export class ImportService implements CommandModule<unknown, ImportProps> {
       ]) as Argv<ImportProps>
   }
 
-  handler = withTeardown(this.execute)
+  handler = this.execute
+  // handler = this.execute.bind(this)
 
   async execute({
     email,
