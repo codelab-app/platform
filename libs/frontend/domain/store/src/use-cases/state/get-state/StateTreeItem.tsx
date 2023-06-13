@@ -48,7 +48,10 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
     },
   ]
 
-  if (data.node.type.maybeCurrent?.kind === 'InterfaceType') {
+  if (
+    fieldService.getField(data.node.id)?.type.maybeCurrent?.kind ===
+    'InterfaceType'
+  ) {
     toolbarItems.push({
       icon: <PlusOutlined />,
       key: 'add-field',
