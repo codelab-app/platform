@@ -18,7 +18,7 @@ const bootstrap = async () => {
   })
 
   await app.init()
-  await app.close()
+  // await app.close()
 }
 
 void bootstrap()

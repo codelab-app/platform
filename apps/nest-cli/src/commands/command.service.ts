@@ -1,13 +1,12 @@
 import {
   exportCommand,
-  importCommand,
   ImportService,
   resetCommand,
   scrapeAntdCommand,
   scrapeHtmlCommand,
   seedCommand,
   tasksCommand,
-  terraformCommand,
+  TerraformService,
 } from '@codelab/backend/infra/adapter/cli'
 import { Global, Injectable } from '@nestjs/common'
 import type { Argv } from 'yargs'
@@ -16,9 +15,14 @@ import { hideBin } from 'yargs/helpers'
 
 @Injectable()
 export class CommandService {
-  constructor(private readonly importService: ImportService) {}
+  constructor(
+    private readonly importService: ImportService,
+    private readonly terraformService: TerraformService,
+  ) {}
 
   exec() {
+    // this.importService.execute.bind(this)
+
     void yargs(hideBin(process.argv))
       .scriptName('cli')
       /**
@@ -43,9 +47,11 @@ export class CommandService {
       /**
        * Terraform
        */
-      .command(terraformCommand)
+      .command(this.terraformService)
       .demandCommand(1, 'Please provide a command')
       // Must add this to throw error for unknown arguments
       .strict().argv
+
+    console.log('Done! Please press Ctrl+C')
   }
 }

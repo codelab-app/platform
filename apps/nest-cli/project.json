@@ -20,7 +20,10 @@
       },
       "configurations": {
         "development": {},
-        "production": {}
+        "production": {
+          "outputPath": "apps/nest-cli/dist",
+          "main": "apps/nest-cli/src/main.ts"
+        }
       }
     },
     "serve": {
