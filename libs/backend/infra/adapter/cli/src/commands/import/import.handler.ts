@@ -57,7 +57,7 @@ export const importHandler = async ({
    * Seed atoms & types for the project
    */
   if (!shouldSkipSeedData) {
-    await new ImportAdminDataService().execute({ auth0Id: selectedAuth0Id })
+    // await new ImportAdminDataService().execute({ auth0Id: selectedAuth0Id })
   }
 
   // If we specified a file for import

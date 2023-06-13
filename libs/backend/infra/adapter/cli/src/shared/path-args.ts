@@ -80,7 +80,7 @@ export const upsertUserMiddleware: MiddlewareFunction = async ({ stage }) => {
 }
 
 export const selectUser: MiddlewareFunction = async (argv) => {
-  const email = argv.email as string
+  const email = argv['email'] as string
   const userRepository = new UserRepository()
 
   const selectedAuth0Id = email
@@ -93,5 +93,5 @@ export const selectUser: MiddlewareFunction = async (argv) => {
 
   const user: IAuth0Owner = { auth0Id: selectedAuth0Id }
 
-  argv.user = user
+  argv['user'] = user
 }
