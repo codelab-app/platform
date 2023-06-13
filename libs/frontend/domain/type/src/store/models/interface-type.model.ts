@@ -85,9 +85,9 @@ export class InterfaceType
           field.type.maybeCurrent?.kind === ITypeKind.InterfaceType
             ? field.type.maybeCurrent.fieldsTree
             : [],
-        field,
         isLeaf: field.type.maybeCurrent?.kind !== ITypeKind.InterfaceType,
         key: field.id,
+        node: field,
         primaryTitle: field.key,
         secondaryTitle: field.type.maybeCurrent?.kind,
         title: `${field.key} (${field.type.maybeCurrent?.kind})`,

@@ -18,7 +18,7 @@ import {
   mapElementOption,
 } from '@codelab/frontend/domain/element'
 import {
-  ActionsList,
+  ActionsTreeView,
   CreateActionModal,
   DeleteActionModal,
   StateTreeView,
@@ -174,7 +174,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         },
       },
       {
-        content: store && <ActionsList store={store} />,
+        content: store && <ActionsTreeView store={store} />,
         isLoading: isLoading || !store,
         key: 'Actions',
         label: 'Actions',

@@ -1,6 +1,6 @@
 import type { IStore } from '@codelab/frontend/abstract/core'
 import {
-  ActionsList,
+  ActionsTreeView,
   CreateActionButton,
   StateTreeView,
 } from '@codelab/frontend/domain/store'
@@ -56,7 +56,7 @@ export const StorePane = observer<{ store: Maybe<IStore>; isLoading: boolean }>(
             }
             key="store-actions"
           >
-            <ActionsList store={store} />
+            <ActionsTreeView store={store} />
           </Collapse.Panel>
           <Collapse.Panel
             header={<StoreHeader>Inspector</StoreHeader>}

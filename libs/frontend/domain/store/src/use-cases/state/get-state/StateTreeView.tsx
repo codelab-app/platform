@@ -1,4 +1,7 @@
-import type { IStore, StateTreeDataNode } from '@codelab/frontend/abstract/core'
+import type {
+  IStateTreeDataNode,
+  IStore,
+} from '@codelab/frontend/abstract/core'
 import {
   CuiSkeletonWrapper,
   CuiTree,
@@ -23,7 +26,7 @@ export const StateTreeView = observer<{ store: IStore }>(({ store }) => {
   return (
     <CuiSkeletonWrapper isLoading={status === 'loading'}>
       {treeData.length > 0 ? (
-        <CuiTree<StateTreeDataNode>
+        <CuiTree<IStateTreeDataNode>
           titleRender={(node) => {
             return <StateTreeItem data={node} />
           }}

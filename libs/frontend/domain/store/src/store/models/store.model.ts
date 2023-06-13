@@ -101,6 +101,21 @@ export class Store
     )
   }
 
+  @computed
+  get actionsTree() {
+    return this.actions
+      .map((action) => ({
+        isLeaf: true,
+        key: action.id,
+        node: action.current,
+        primaryTitle: action.current.name,
+        secondaryTitle: action.current.type,
+        selectable: true,
+        title: `${action.current.name} (${action.current.type})`,
+      }))
+      .filter((node) => Boolean(node))
+  }
+
   @modelAction
   clone(componentId: string) {
     const id = v4()

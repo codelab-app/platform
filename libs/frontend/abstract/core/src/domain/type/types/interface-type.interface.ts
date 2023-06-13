@@ -6,7 +6,7 @@ import type {
   IInterfaceTypeDTO,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import type { StateTreeDataNode } from '../../../ui'
+import type { IStateTreeDataNode } from '../../../ui'
 import type { IPropData } from '../../prop'
 import type { IField } from '../field'
 import type { IBaseType } from './base-type.interface'
@@ -24,7 +24,7 @@ export interface IInterfaceType
   > {
   defaultValues: IPropData
   fields: Array<IField>
-  fieldsTree: Array<StateTreeDataNode>
+  fieldsTree: Array<IStateTreeDataNode>
   kind: ITypeKind.InterfaceType
 }
 

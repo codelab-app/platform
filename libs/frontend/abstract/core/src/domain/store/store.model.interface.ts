@@ -7,6 +7,7 @@ import type { IStoreDTO } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
+import type { IActionsTreeDataNode } from '../../ui'
 import type { IAction } from '../action'
 import type { IComponent } from '../component'
 import type { IModel } from '../model.interface'
@@ -18,6 +19,7 @@ export interface IStore
   extends IModel<StoreCreateInput, StoreUpdateInput, StoreDeleteInput>,
     ICacheService<IStoreDTO, IStore> {
   actions: Array<Ref<IAction>>
+  actionsTree: Array<IActionsTreeDataNode>
   api: Ref<IInterfaceType>
   component: Nullable<Ref<IComponent>>
   id: string

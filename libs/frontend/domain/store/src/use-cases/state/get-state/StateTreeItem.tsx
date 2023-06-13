@@ -1,10 +1,9 @@
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons'
-import {
-  type StateTreeDataNode,
-  fieldRef,
-  typeRef,
+import type {
+  IInterfaceType,
+  IStateTreeDataNode,
 } from '@codelab/frontend/abstract/core'
-import type { InterfaceType } from '@codelab/frontend/domain/type'
+import { fieldRef, typeRef } from '@codelab/frontend/abstract/core'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
@@ -14,23 +13,23 @@ import type { Ref } from 'mobx-keystone'
 import React from 'react'
 
 interface StateTreeItemProps {
-  data: StateTreeDataNode
+  data: IStateTreeDataNode
 }
 
 export const StateTreeItem = ({ data }: StateTreeItemProps) => {
   const { fieldService } = useStore()
 
   const onEdit = () => {
-    fieldService.updateForm.open(fieldRef(data.field.id))
+    fieldService.updateForm.open(fieldRef(data.node.id))
   }
 
   const onDelete = () => {
-    fieldService.deleteModal.open(fieldRef(data.field.id))
+    fieldService.deleteModal.open(fieldRef(data.node.id))
   }
 
   const onAddField = () => {
     fieldService.createModal.open(
-      typeRef(data.field.type.id) as Ref<InterfaceType>,
+      typeRef(data.node.type.id) as Ref<IInterfaceType>,
     )
   }
 
@@ -49,7 +48,7 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
     },
   ]
 
-  if (data.field.type.maybeCurrent?.kind === 'InterfaceType') {
+  if (data.node.type.maybeCurrent?.kind === 'InterfaceType') {
     toolbarItems.push({
       icon: <PlusOutlined />,
       key: 'add-field',
