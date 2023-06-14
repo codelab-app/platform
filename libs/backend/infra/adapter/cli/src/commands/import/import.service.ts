@@ -6,6 +6,7 @@ import type { PromiseCallback } from '@codelab/shared/abstract/types'
 import { InjectQueue } from '@nestjs/bull'
 import { Injectable } from '@nestjs/common'
 import { MessagePattern } from '@nestjs/microservices'
+import AWS from 'aws-sdk'
 import { Queue } from 'bull'
 import fs from 'fs'
 import inquirer from 'inquirer'
@@ -16,7 +17,8 @@ import type {
   CommandBuilder,
   CommandModule,
 } from 'yargs'
-import { getStageOptions, loadStageMiddleware } from '../../shared/command'
+import { loadStageMiddleware } from '../../shared/middleware'
+import { getStageOptions } from '../../shared/options'
 import type { ExportProps } from '../../shared/path-args'
 import {
   assignUserOption,
@@ -60,14 +62,12 @@ export class ImportService implements CommandModule<unknown, ImportProps> {
       ]) as Argv<ImportProps>
   }
 
-  handler = this.execute
-  // handler = this.execute.bind(this)
-
-  async execute({
+  async handler({
     email,
     seedDataPath,
     skipSeedData,
     skipUserData,
+    stage,
   }: ArgumentsCamelCase<ImportProps>) {
     const User = await Repository.instance.User
 

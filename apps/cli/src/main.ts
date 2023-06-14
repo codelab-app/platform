@@ -51,7 +51,6 @@ void yargs(hideBin(process.argv))
   /**
    * This uses puppeteer to scrape the API documentation as CSV file
    */
-  // .command(scrapeCommand)
   .command('scrape', 'Antd / Html', (argv) =>
     argv.command(scrapeAntdCommand).command(scrapeHtmlCommand),
   )

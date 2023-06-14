@@ -15,3 +15,4 @@ ln -s ../shared/vars-vercel-builder.tf ./vars-vercel-builder.symlink.tf
 ln -s ../shared/vars-google.tf ./vars-google.symlink.tf
 ln -s ../shared/vars-supabase.tf ./vars-supabase.symlink.tf
 ln -s ../shared/vars-digitalocean.tf ./vars-digitalocean.symlink.tf
+ln -s ../shared/vars-aws.tf ./vars-aws.symlink.tf

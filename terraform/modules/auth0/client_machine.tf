@@ -5,10 +5,10 @@ resource "auth0_client" "machine_client" {
 
   web_origins = [
     "${local.builder_url}",
-    "https://*.vercel.app"]
+  "https://*.vercel.app"]
   allowed_origins = [
     "${local.builder_url}",
-    "https://*.vercel.app"]
+  "https://*.vercel.app"]
 }
 
 # Allow machine client to access the scope of the management API

@@ -5,7 +5,8 @@ import { saveFormattedFile } from '@codelab/backend/shared/util'
 import inquirer from 'inquirer'
 import type { CommandModule } from 'yargs'
 import yargs from 'yargs'
-import { getStageOptions, loadStageMiddleware } from '../../shared/command'
+import { loadStageMiddleware } from '../../shared/middleware'
+import { getStageOptions } from '../../shared/options'
 import type { ExportProps } from '../../shared/path-args'
 import {
   seedDataPathOption,
