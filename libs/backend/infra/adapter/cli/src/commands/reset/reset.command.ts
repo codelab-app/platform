@@ -1,7 +1,8 @@
 import { AdminService } from '@codelab/backend/domain/admin'
 import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
 import type { CommandModule } from 'yargs'
-import { getStageOptions, loadStageMiddleware } from '../../shared/command'
+import { loadStageMiddleware } from '../../shared/middleware'
+import { getStageOptions } from '../../shared/options'
 import { Stage } from '../../shared/utils/stage'
 
 export const resetCommand: CommandModule<unknown, unknown> = {

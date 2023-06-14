@@ -7,7 +7,7 @@ import gitChangedFiles from 'git-changed-files'
 import isPortReachable from 'is-port-reachable'
 import path from 'path'
 import type { CommandModule } from 'yargs'
-import { getStageOptions } from '../../shared/command'
+import { getStageOptions } from '../../shared/options'
 import { Stage } from '../../shared/utils/stage'
 import { Tasks } from '../../shared/utils/tasks'
 

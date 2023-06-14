@@ -7,7 +7,7 @@
     "build": {
       "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
+      "defaultConfiguration": "development",
       "options": {
         "target": "node",
         "compiler": "tsc",
@@ -21,8 +21,8 @@
       "configurations": {
         "development": {},
         "production": {
-          "outputPath": "apps/nest-cli/dist",
-          "main": "apps/nest-cli/src/main.ts"
+          "outputPath": "dist/apps/nest-cli-serverless",
+          "main": "apps/nest-cli/src/serverless.ts"
         }
       }
     },

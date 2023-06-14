@@ -4,12 +4,12 @@
   * Each module must declare its own provider requirements. This is especially important for non-HashiCorp providers.
   */
 terraform {
-  required_version = "~> 1.3.1"
+  required_version = "~> 1.5.0"
 
   required_providers {
     auth0 = {
       source  = "auth0/auth0"
-      version = ">= 0.37.1"
+      version = ">= 0.48.0"
     }
   }
 }

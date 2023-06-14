@@ -1,4 +1,4 @@
 variable "next_public_google_analytics" {
-  type = string
+  type        = string
   description = "Google Analytics ID"
 }

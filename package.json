@@ -6,7 +6,8 @@
     "pnpm": "please-use-yarn"
   },
   "workspaces": [
-    "dist/libs/tools/workspace"
+    "dist/libs/tools/workspace",
+    "apps/nest-cli"
   ],
   "version": "0.0.1",
   "license": "MIT",
@@ -21,7 +22,7 @@
     "build:test": "npx env-cmd -f .env.test nx build builder -c test",
     "test": "nx run-many --all --target=test --parallel=3",
     "lint": "nx run-many --all --target=lint --parallel=5 --quiet",
-    "format": "npx prettier --write \"./**/*.{graphql,yaml,json}\"",
+    "format": "npx prettier --write \"./**/*.{graphql,yaml,json}\" && terraform -chdir=terraform fmt --recursive",
     "nx": "nx",
     "update": "nx migrate @nx/workspace",
     "dep-graph": "nx dep-graph --watch",
@@ -351,6 +352,7 @@
     "json-schema": "0.4.0",
     "jsonc-eslint-parser": "^2.1.0",
     "jwt-decode": "3.1.2",
+    "lerna": "^7.0.1",
     "lint-staged": "13.2.2",
     "madge": "5.0.1",
     "nx": "16.3.2",

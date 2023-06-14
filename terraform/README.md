@@ -1,7 +1,7 @@
 ## Run Terraform
 
 ```
-# Select workspace programatically
+# Select workspace programmatically
 # These workspace names come from Terraform Cloud
 export TF_WORKSPACE=builder-prod #builder-prod
 

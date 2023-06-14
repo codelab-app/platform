@@ -12,10 +12,6 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true
   },
-  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
-  "include": [
-    "src/**/*.ts",
-    "../../libs/backend/infra/adapter/otel/src/otek-sdk.ts",
-    "../../libs/backend/infra/adapter/logger/src/index.ts"
-  ]
+  "exclude": ["jest.config.ts"],
+  "include": ["src/**/*.ts"]
 }

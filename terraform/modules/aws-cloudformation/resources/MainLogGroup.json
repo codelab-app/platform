@@ -1,0 +1,8 @@
+{
+  "MainLogGroup": {
+    "Type": "AWS::Logs::LogGroup",
+    "Properties": {
+      "LogGroupName": "/aws/lambda/codelab-nest-cli-dev-main"
+    }
+  }
+}

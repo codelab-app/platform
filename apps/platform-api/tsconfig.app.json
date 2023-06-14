@@ -13,5 +13,5 @@
     "noFallthroughCasesInSwitch": true
   },
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
-  "include": ["src/**/*.ts", "../nest-cli/src/task.command.ts"]
+  "include": ["src/**/*.ts"]
 }

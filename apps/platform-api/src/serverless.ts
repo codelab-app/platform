@@ -9,8 +9,6 @@ import serverlessExpress from '@vendia/serverless-express'
 import type { Callback, Context, Handler } from 'aws-lambda'
 import { AppModule } from './app/app.module'
 
-let server: Handler | undefined
-
 /**
  * Used for when nx configuration is `production`
  */
@@ -25,6 +23,8 @@ const bootstrap = async () => {
 
   return serverlessExpress({ app: expressApp })
 }
+
+let server: Handler | undefined
 
 export const handler: Handler = async (
   event: unknown,

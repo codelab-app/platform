@@ -19,46 +19,46 @@ resource "vercel_project" "landing" {
     // Mailchimp
     {
       target = ["production", "preview"]
-      key = "MAILCHIMP_LIST_ID"
-      value = var.mailchimp_list_id
+      key    = "MAILCHIMP_LIST_ID"
+      value  = var.mailchimp_list_id
     },
     {
       target = ["production", "preview"]
-      key = "MAILCHIMP_API_KEY"
-      value = var.mailchimp_api_key
+      key    = "MAILCHIMP_API_KEY"
+      value  = var.mailchimp_api_key
     },
     {
       target = ["production", "preview"]
-      key = "MAILCHIMP_SERVER_PREFIX"
-      value = var.mailchimp_server_prefix
+      key    = "MAILCHIMP_SERVER_PREFIX"
+      value  = var.mailchimp_server_prefix
     },
     // Intercom
     {
       target = ["production", "preview"]
-      key = "NEXT_PUBLIC_INTERCOM_APP_ID"
-      value = var.next_public_intercom_app_id
+      key    = "NEXT_PUBLIC_INTERCOM_APP_ID"
+      value  = var.next_public_intercom_app_id
     },
     // Hotjar
     {
       target = ["production", "preview"]
-      key = "NEXT_PUBLIC_HOTJAR_ID"
-      value = var.next_public_hotjar_id
+      key    = "NEXT_PUBLIC_HOTJAR_ID"
+      value  = var.next_public_hotjar_id
     },
     {
       target = ["production", "preview"]
-      key = "NEXT_PUBLIC_HOTJAR_SNIPPET_VERSION"
-      value = var.next_public_hotjar_snippet_version
+      key    = "NEXT_PUBLIC_HOTJAR_SNIPPET_VERSION"
+      value  = var.next_public_hotjar_snippet_version
     },
     // Supabase
     {
       target = ["production", "preview"]
-      key = "NEXT_PUBLIC_SUPABASE_URL"
-      value = var.next_public_supabase_url
+      key    = "NEXT_PUBLIC_SUPABASE_URL"
+      value  = var.next_public_supabase_url
     },
     {
       target = ["production", "preview"]
-      key = "NEXT_PUBLIC_SUPABASE_KEY"
-      value = var.next_public_supabase_key
+      key    = "NEXT_PUBLIC_SUPABASE_KEY"
+      value  = var.next_public_supabase_key
     }
   ]
 }

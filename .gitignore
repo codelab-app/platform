@@ -5,6 +5,8 @@
 !.env.example
 !.env.test.example
 
+
+.serverless/
 .build/
 
 # compiled output
@@ -51,6 +53,3 @@ Thumbs.db
 # Next.js
 .next
 .vercel
-
-upsert.ts
-

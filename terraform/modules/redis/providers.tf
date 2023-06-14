@@ -1,14 +1,14 @@
 terraform {
   required_providers {
     digitalocean = {
-      source = "digitalocean/digitalocean"
+      source  = "digitalocean/digitalocean"
       version = "~> 2.0"
     }
   }
 }
 
 variable "digitalocean_token" {
-  type = string
+  type        = string
   description = "Digital Ocean access token"
 }
 
@@ -22,10 +22,10 @@ resource "digitalocean_database_cluster" "redis_cluster" {
   size       = "db-s-1vcpu-1gb"
   region     = "nyc1"
   version    = "6"
-  node_count  = 1
+  node_count = 1
 }
 
-resource "digitalocean_database_db" "redis_db" {
-  cluster_id = digitalocean_database_cluster.redis_cluster.id
-  name       = "codelab-redis-db"
-}
+# resource "digitalocean_database_db" "redis_db" {
+#   cluster_id = digitalocean_database_cluster.redis_cluster.id
+#   name       = "codelab-redis-db"
+# }

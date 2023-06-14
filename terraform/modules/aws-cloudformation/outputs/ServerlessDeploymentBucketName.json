@@ -1,0 +1,10 @@
+{
+  "ServerlessDeploymentBucketName": {
+    "Value": {
+      "Ref": "ServerlessDeploymentBucket"
+    },
+    "Export": {
+      "Name": "sls-codelab-nest-cli-dev-ServerlessDeploymentBucketName"
+    }
+  }
+}
