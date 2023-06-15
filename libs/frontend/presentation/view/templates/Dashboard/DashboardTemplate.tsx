@@ -26,12 +26,12 @@ export const DashboardTemplateSSR = observer(
     PrimarySidebar,
   }: React.PropsWithChildren<DashboardTemplateProps>) => {
     const { primarySidebarKey } = useRouter().query
-    const { appName, userName } = useCurrentApp()
-    const { pageName } = useCurrentPage()
+    const { appSlug, userName } = useCurrentApp()
+    const { pageSlug } = useCurrentPage()
 
     const navigationBarItems = useMemo(
-      () => defaultNavigationBarItems({ appName, pageName, userName }),
-      [appName, pageName],
+      () => defaultNavigationBarItems({ appSlug, pageSlug, userName }),
+      [appSlug, pageSlug],
     )
 
     const activeSidebarKey =

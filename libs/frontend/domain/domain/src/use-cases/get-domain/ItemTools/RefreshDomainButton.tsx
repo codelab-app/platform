@@ -20,6 +20,7 @@ export const RefreshDomainButton = observer(
 
     const [{ status }, getAllDomains] = useAsync(async () =>
       domainService.getAll({
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         appConnection: { node: { _compoundName } },
         id: domain.id,
       }),

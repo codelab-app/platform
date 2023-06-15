@@ -1,5 +1,6 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
+import slugify from 'voca/slugify'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 const ELEMENT_BUTTON = 'Button'
@@ -28,7 +29,7 @@ describe('CSS CRUD', () => {
       .then((apps) => {
         const app = apps.body
 
-        cy.visit(`/apps/cypress/${app.name}/pages/_app/builder`)
+        cy.visit(`/apps/cypress/${slugify(app.name)}/pages/app/builder`)
         cy.getSpinner().should('not.exist')
         cy.createElementTree([
           {

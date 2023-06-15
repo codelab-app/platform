@@ -39,6 +39,7 @@ Pages.Layout = observer(({ children }) => {
   const { appService } = useStore()
 
   const [{ result: apps }, actions] = useAsync(() =>
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     appService.loadAppsWithNestedPreviews({ _compoundName }),
   )
 

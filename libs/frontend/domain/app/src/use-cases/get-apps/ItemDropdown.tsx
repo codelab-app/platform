@@ -46,7 +46,7 @@ export const ItemDropdown = observer<ItemMenuProps>(({ app, domains }) => {
   )
 
   const goToDomainsPage = () =>
-    router.push(`${router.pathname}/${appOwner?.username}/${app.name}/domains`)
+    router.push(`${router.pathname}/${appOwner?.username}/${app.slug}/domains`)
 
   const menuItems: MenuProps['items'] = [
     {

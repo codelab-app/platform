@@ -69,6 +69,7 @@ const DomainsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   const { _compoundName } = useCurrentApp()
 
   const [{ result, status }, getApp] = useAsync(() =>
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     appService.getAll({ _compoundName }),
   )
 

@@ -2,14 +2,15 @@ import { createUniqueName } from '@codelab/shared/utils'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { useStore } from '../providers'
-import { useCurrentApp } from './useCurrentApp.hook'
+import { getNameFromSlug, useCurrentApp } from './useCurrentApp.hook'
 
 export const useCurrentPage = () => {
   const { app } = useCurrentApp()
   const { pageService, userService } = useStore()
   const { query } = useRouter()
-  const pageName = query.pageName as string
+  const pageSlug = query.pageSlug as string
   const userName = query.userName as string
+  const pageName = pageSlug && getNameFromSlug(pageSlug)
 
   const user = userService.usersList.find(
     ({ username }) => username === userName,
@@ -26,6 +27,6 @@ export const useCurrentPage = () => {
       app &&
       pageService.pagesByApp(app.id).find(({ name }) => name === pageName)
 
-    return { _compoundName, page, pageName }
+    return { _compoundName, page, pageName, pageSlug }
   }, [pageName, userName])
 }

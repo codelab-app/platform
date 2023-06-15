@@ -19,8 +19,8 @@ import { BuilderSizeMenu } from './BuilderSizeMenu'
 
 export const PageDetailHeader = observer(() => {
   const router = useRouter()
-  const { appName: currentAppName, userName } = useCurrentApp()
-  const { pageName: currentPageName } = useCurrentPage()
+  const { appName: currentAppName, appSlug, userName } = useCurrentApp()
+  const { pageName: currentPageName, pageSlug } = useCurrentPage()
   const isBuilder = router.pathname === PageType.PageBuilder
   const appName = currentAppName || '?'
   const pageName = currentPageName || '?'
@@ -36,9 +36,9 @@ export const PageDetailHeader = observer(() => {
     await router.push({
       pathname: PageType.PageBuilder,
       query: {
-        appName,
+        appSlug,
         explorerPaneKey: ExplorerPaneType.PageList,
-        pageName,
+        pageSlug,
         primarySidebarKey: ExplorerPaneType.PageList,
         userName,
       },

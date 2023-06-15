@@ -10,14 +10,14 @@ import {
 } from '../../../sections'
 
 interface SidebarNavigationRequirements {
-  appName: string
-  pageName: string
+  appSlug: string
+  pageSlug: string
   userName: string
 }
 
 export const defaultNavigationBarItems = ({
-  appName,
-  pageName,
+  appSlug,
+  pageSlug,
   userName,
 }: SidebarNavigationRequirements): {
   primaryItems: Array<NavigationBarItem>
@@ -25,9 +25,9 @@ export const defaultNavigationBarItems = ({
 } => ({
   primaryItems: [
     appMenuItem,
-    allPagesMenuItem(appName, pageName, userName),
-    builderComponentsMenuItem(appName, pageName, userName),
-    pageBuilderMenuItem(appName, pageName, userName),
+    allPagesMenuItem(appSlug, pageSlug, userName),
+    builderComponentsMenuItem(appSlug, pageSlug, userName),
+    pageBuilderMenuItem(appSlug, pageSlug, userName),
     resourceMenuItem,
     componentMenuItem,
   ],

@@ -39,20 +39,20 @@ export const componentMenuItem: NavigationBarItem = {
 }
 
 export const allPagesMenuItem = (
-  appName: Nullish<string>,
-  pageName: Nullish<string>,
+  appSlug: Nullish<string>,
+  pageSlug: Nullish<string>,
   userName: Nullish<string>,
 ): NavigationBarItem => ({
-  disabled: !appName,
+  disabled: !appSlug,
   icon: <FileOutlined title="Pages" />,
   key: ExplorerPaneType.PageList,
   link: {
     href: {
       pathname: PageType.PageBuilder,
       query: {
-        appName,
+        appSlug,
         explorerPaneKey: ExplorerPaneType.PageList,
-        pageName,
+        pageSlug,
         primarySidebarKey: ExplorerPaneType.PageList,
         userName,
       },
@@ -62,20 +62,20 @@ export const allPagesMenuItem = (
 })
 
 export const builderComponentsMenuItem = (
-  appName: Nullish<string>,
-  pageName: Nullish<string>,
+  appSlug: Nullish<string>,
+  pageSlug: Nullish<string>,
   userName: Nullish<string>,
 ): NavigationBarItem => ({
-  disabled: !appName || !pageName,
+  disabled: !appSlug || !pageSlug,
   icon: <CodeSandboxOutlined title="Builder Components" />,
   key: 'components',
   link: {
     href: {
       pathname: PageType.PageBuilder,
       query: {
-        appName,
+        appSlug,
         explorerPaneKey: ExplorerPaneType.Components,
-        pageName,
+        pageSlug,
         primarySidebarKey: ExplorerPaneType.Components,
         userName,
       },
@@ -85,20 +85,20 @@ export const builderComponentsMenuItem = (
 })
 
 export const pageBuilderMenuItem = (
-  appName: Nullish<string>,
-  pageName: Nullish<string>,
+  appSlug: Nullish<string>,
+  pageSlug: Nullish<string>,
   userName: Nullish<string>,
 ): NavigationBarItem => ({
-  disabled: !appName || !pageName,
+  disabled: !appSlug || !pageSlug,
   icon: <BuildOutlined title="Builder" />,
   key: ExplorerPaneType.Explorer,
   link: {
     href: {
       pathname: PageType.PageBuilder,
       query: {
-        appName,
+        appSlug,
         explorerPaneKey: ExplorerPaneType.Explorer,
-        pageName,
+        pageSlug,
         primarySidebarKey: ExplorerPaneType.Explorer,
         userName,
       },

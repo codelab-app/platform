@@ -1,5 +1,6 @@
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
+import slugify from 'voca/slugify'
 import { FIELD_TYPE } from '../support/antd/form'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 
@@ -42,7 +43,9 @@ describe('Component CRUD', () => {
         const app = apps.body
         appName = app.name
         cy.visit(
-          `/apps/cypress/${appName}/pages/${PAGE_NAME}/builder?primarySidebarKey=components`,
+          `/apps/cypress/${slugify(appName)}/pages/${slugify(
+            PAGE_NAME,
+          )}/builder?primarySidebarKey=components`,
         )
         // GetRenderedPageAndCommonAppData
         cy.waitForApiCalls()
@@ -147,7 +150,9 @@ describe('Component CRUD', () => {
 
     it('should be able to specify where to render component children', () => {
       cy.visit(
-        `/apps/cypress/${appName}/pages/${PAGE_NAME}/builder?primarySidebarKey=components`,
+        `/apps/cypress/${slugify(appName)}/pages/${slugify(
+          PAGE_NAME,
+        )}/builder?primarySidebarKey=components`,
       )
       // GetRenderedPageAndCommonAppData
       cy.waitForApiCalls()
@@ -172,7 +177,9 @@ describe('Component CRUD', () => {
 
     it('should be able to create an instance of the component', () => {
       cy.visit(
-        `/apps/cypress/${appName}/pages/${PAGE_NAME}/builder?primarySidebarKey=explorer`,
+        `/apps/cypress/${slugify(appName)}/pages/${slugify(
+          PAGE_NAME,
+        )}/builder?primarySidebarKey=explorer`,
       )
 
       cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })

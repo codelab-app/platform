@@ -30,7 +30,7 @@ export const GetPagesItem = observer<GetPagesItemProps>(({ domains, page }) => {
     query: {
       ...router.query,
       explorerPaneKey: ExplorerPaneType.Explorer,
-      pageName: page.name,
+      pageSlug: page.slug,
       primarySidebarKey: ExplorerPaneType.Explorer,
       userName: userService.user.username,
     },
