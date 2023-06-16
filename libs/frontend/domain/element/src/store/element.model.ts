@@ -335,11 +335,11 @@ export class Element
   get label() {
     return (
       this.name ||
-      this.renderType?.current.name ||
+      this.renderType?.maybeCurrent?.name ||
       (isAtomInstance(this.renderType)
         ? compoundCaseToTitleCase((this.renderType.current as IAtom).type)
         : undefined) ||
-      this.parentComponent?.current.name ||
+      this.parentComponent?.maybeCurrent?.name ||
       ''
     )
   }
@@ -349,7 +349,7 @@ export class Element
     return {
       primary: this.label,
       secondary:
-        this.renderType?.current.name ||
+        this.renderType?.maybeCurrent?.name ||
         (isAtomInstance(this.renderType)
           ? compoundCaseToTitleCase((this.renderType.current as IAtom).type)
           : undefined),
