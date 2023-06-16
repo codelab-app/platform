@@ -1,7 +1,7 @@
 {
   "name": "codelab",
   "engines": {
-    "node": "18.16.0",
+    "node": "18.x",
     "npm": "please-use-yarn",
     "pnpm": "please-use-yarn"
   },
@@ -357,6 +357,7 @@
     "madge": "5.0.1",
     "nx": "16.3.2",
     "nx-cloud": "16.0.5",
+    "nx-ignore": "^16.3.1",
     "plugin": "^0.3.3",
     "postcss": "8.4.16",
     "postcss-import": "14.1.0",

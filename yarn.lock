@@ -21475,6 +21475,7 @@ __metadata:
     node-fetch: 3.1.0
     nx: 16.3.2
     nx-cloud: 16.0.5
+    nx-ignore: ^16.3.1
     object-typed: ^1.0.0
     pino: ^8.14.1
     pino-http: ^8.3.3
@@ -35305,6 +35306,18 @@ __metadata:
   bin:
     nx-cloud: bin/nx-cloud.js
   checksum: 56455af6c74a3a472a09c11bd837fc6e2d594d58fdbf1fc9012a61a7b516a76f09b4fabdb87de3dd967d939da04c3784e9ca7e8bff4409e1c9069a68bdc54423
+  languageName: node
+  linkType: hard
+
+"nx-ignore@npm:^16.3.1":
+  version: 16.3.1
+  resolution: "nx-ignore@npm:16.3.1"
+  dependencies:
+    "@swc/helpers": 0.5.1
+    fs-extra: ^10.1.0
+  bin:
+    nx-ignore: src/index.js
+  checksum: 6e586c767df71f1145ba8bc75b0bf7de4459d22a848350d389065cd17fd558faaa68082bc06467163fb771f08fc33721479b63c2b64d3007b55c78c254acd129
   languageName: node
   linkType: hard
 
