@@ -2,7 +2,6 @@
   "affected": {
     "defaultBase": "master"
   },
-  "npmScope": "codelab",
   "tasksRunnerOptions": {
     "default": {
       "runner": "nx-cloud",
@@ -18,6 +17,12 @@
         "showUsageWarnings": true,
         "parallel": 3,
         "accessToken": "NzFlYmNlOTctMjdmOS00NmUwLWJkYzEtNjllY2M3MzYxNTg0fHJlYWQtb25seQ=="
+      }
+    },
+    "vercel": {
+      "runner": "@vercel/remote-nx",
+      "options": {
+        "cacheableOperations": ["build", "test", "lint", "e2e"]
       }
     }
   },

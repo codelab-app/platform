@@ -1,12 +1,13 @@
 import { generateOgmTypes } from '@codelab/backend/infra/adapter/neo4j'
 import { execCommand } from '@codelab/backend/infra/adapter/shell'
+import { Injectable } from '@nestjs/common'
 import { spawn } from 'child_process'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import gitChangedFiles from 'git-changed-files'
 import isPortReachable from 'is-port-reachable'
 import path from 'path'
-import type { CommandModule } from 'yargs'
+import type { Argv, CommandModule } from 'yargs'
 import { getStageOptions } from '../../shared/options'
 import { Stage } from '../../shared/utils/stage'
 import { Tasks } from '../../shared/utils/tasks'
@@ -16,9 +17,14 @@ import { Tasks } from '../../shared/utils/tasks'
  */
 const NX_TEST = 'npx env-cmd -f .env.test nx'
 
-export const tasksCommand: CommandModule<unknown, unknown> = {
-  builder: (yargv) =>
-    yargv
+@Injectable()
+export class TaskService implements CommandModule<unknown, unknown> {
+  command = 'tasks'
+
+  describe = 'Run tasks'
+
+  builder(yargv: Argv<unknown>) {
+    return yargv
       .options(getStageOptions([Stage.Dev, Stage.Test, Stage.CI]))
       .command(
         Tasks.Build,
@@ -203,11 +209,10 @@ export const tasksCommand: CommandModule<unknown, unknown> = {
           }
         },
       )
+      .demandCommand(1, 'Please provide a task')
+  }
 
-      .demandCommand(1, 'Please provide a task'),
-  command: 'tasks',
-  describe: 'Run tasks',
-  handler: () => {
+  handler() {
     //
-  },
+  }
 }

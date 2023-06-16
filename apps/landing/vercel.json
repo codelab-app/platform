@@ -2,5 +2,5 @@
   "installCommand": "../../scripts/vercel/landing/install.sh",
   "buildCommand": "../../scripts/vercel/landing/build.sh",
   "outputDirectory": "../../dist/apps/landing/.next",
-  "ignoreCommand": "cd ../../ && npx nx-ignore landing"
+  "ignoreCommand": "../../scripts/vercel/landing/ignore.sh"
 }

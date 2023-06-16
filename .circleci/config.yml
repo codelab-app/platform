@@ -7,7 +7,7 @@ commands:
                     - nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
                     - nx-cache
                 name: Restore NX Cache
-            - run: npx nx run-many --target=build --projects=platform,cli,landing,websites --parallel=4 -c ci --verbose --nx-bail
+            - run: npx nx run-many --target=build --projects=platform,nest-cli,landing,websites --parallel=4 -c ci --verbose --nx-bail
             - save_cache:
                 key: nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
                 name: Save Cache
@@ -35,6 +35,7 @@ commands:
                 command: |
                     cd ~/project/node_modules/.cache
                     du -hd1
+                name: Monitor NX Cache Size
             - save_cache:
                 key: node-modules-{{ checksum "yarn.lock" }}
                 name: Save NPM Cache

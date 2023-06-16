@@ -6,7 +6,7 @@ steps:
         - nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
         - nx-cache
   # Can't use `yarn cli` doesn't exist yet
-  - run: npx nx run-many --target=build --projects=platform,cli,landing,websites --parallel=4 -c ci --verbose --nx-bail
+  - run: npx nx run-many --target=build --projects=platform,nest-cli,landing,websites --parallel=4 -c ci --verbose --nx-bail
   - save_cache:
       name: 'Save Cache'
       key: nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}

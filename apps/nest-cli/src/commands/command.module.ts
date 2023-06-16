@@ -2,6 +2,7 @@ import { ImportAdminDataService } from '@codelab/backend/application/admin'
 import {
   ImportService,
   ServerlessService,
+  TaskService,
   TerraformService,
 } from '@codelab/backend/infra/adapter/cli'
 import { BullModule } from '@nestjs/bull'
@@ -22,6 +23,7 @@ import { CommandService } from './command.service'
     ImportAdminDataService,
     TerraformService,
     ServerlessService,
+    TaskService,
   ],
 })
 export class CommandModule implements OnModuleInit {

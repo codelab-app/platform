@@ -17075,6 +17075,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vercel/remote-nx@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@vercel/remote-nx@npm:1.0.1"
+  dependencies:
+    "@vercel/remote": ^1.0.1
+    chalk: ^4.1.0
+    nx-remotecache-custom: ^2.0.0
+  checksum: e32507a1f00b9a82fb4c3f99861238261005bd6a116bf4958e7f2537363533035beb8bf076df68334ee9b215f657169f50ab4f496f41df277cc5f42a75e35596
+  languageName: node
+  linkType: hard
+
+"@vercel/remote@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@vercel/remote@npm:1.0.1"
+  dependencies:
+    ci-info: ^3.4.0
+    concat-stream: ^2.0.0
+    node-fetch: ^2.6.7
+    raw-body: ^2.5.1
+  checksum: d0d479aceabb31af1d8abfce8b4666beee0242848303119b4f46abc83bbd1c76d7cfb475de9ed88662edfc11dd24c4b928ad833eb60f342059bf2f49418b1046
+  languageName: node
+  linkType: hard
+
 "@webassemblyjs/ast@npm:1.11.1":
   version: 1.11.1
   resolution: "@webassemblyjs/ast@npm:1.11.1"
@@ -20873,7 +20896,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ci-info@npm:^3.6.1, ci-info@npm:^3.8.0":
+"ci-info@npm:^3.4.0, ci-info@npm:^3.6.1, ci-info@npm:^3.8.0":
   version: 3.8.0
   resolution: "ci-info@npm:3.8.0"
   checksum: d0a4d3160497cae54294974a7246202244fff031b0a6ea20dd57b10ec510aa17399c41a1b0982142c105f3255aff2173e5c0dd7302ee1b2f28ba3debda375098
@@ -21358,6 +21381,7 @@ __metadata:
     "@vendia/serverless-express": ^4.10.4
     "@vercel/analytics": ^1.0.1
     "@vercel/otel": ^0.3.0
+    "@vercel/remote-nx": ^1.0.1
     "@welldone-software/why-did-you-render": 7.0.1
     adm-zip: ^0.5.10
     ajv: 8.12.0
@@ -21475,7 +21499,6 @@ __metadata:
     node-fetch: 3.1.0
     nx: 16.3.2
     nx-cloud: 16.0.5
-    nx-ignore: ^16.3.1
     object-typed: ^1.0.0
     pino: ^8.14.1
     pino-http: ^8.3.3
@@ -35309,15 +35332,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx-ignore@npm:^16.3.1":
-  version: 16.3.1
-  resolution: "nx-ignore@npm:16.3.1"
+"nx-remotecache-custom@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "nx-remotecache-custom@npm:2.0.0"
   dependencies:
-    "@swc/helpers": 0.5.1
-    fs-extra: ^10.1.0
-  bin:
-    nx-ignore: src/index.js
-  checksum: 6e586c767df71f1145ba8bc75b0bf7de4459d22a848350d389065cd17fd558faaa68082bc06467163fb771f08fc33721479b63c2b64d3007b55c78c254acd129
+    chalk: ^4.1.0
+    dotenv: ^8.2.0
+    tar: ^6.1.11
+  peerDependencies:
+    "@nrwl/workspace": ">=9.2.2"
+  checksum: c5e6266076efba91811dfc8019bba5b25667f2bc50df77a003f09485c40c32112b57968059960a8a64b928494ff16c7846c66ad8bcae0dd9e37c2df0e474dd55
   languageName: node
   linkType: hard
 
@@ -38152,7 +38176,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"raw-body@npm:2.5.2":
+"raw-body@npm:2.5.2, raw-body@npm:^2.5.1":
   version: 2.5.2
   resolution: "raw-body@npm:2.5.2"
   dependencies:

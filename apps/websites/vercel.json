@@ -2,5 +2,5 @@
   "installCommand": "../../scripts/vercel/websites/install.sh",
   "buildCommand": "../../scripts/vercel/websites/build.sh",
   "outputDirectory": "../../dist/apps/websites/.next",
-  "ignoreCommand": "cd ../../ && npx nx-ignore websites"
+  "ignoreCommand": "../../scripts/vercel/websites/ignore.sh"
 }

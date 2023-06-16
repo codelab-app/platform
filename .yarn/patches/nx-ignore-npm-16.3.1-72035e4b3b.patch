@@ -1,0 +1,13 @@
+diff --git a/src/index.js b/src/index.js
+index 823fac573ff14b98e95075cba843c6af6dd7b3c8..932f8049ae6d929a547014572c908f7556f5b190 100644
+--- a/src/index.js
++++ b/src/index.js
+@@ -123,7 +123,7 @@ function installTempNx(root, plugins) {
+             json.dependencies['@nx/devkit'] = deps['nx'];
+         }
+         writeFileSync(join(tmpPath, 'package.json'), JSON.stringify(json));
+-        execSync(`npm install --force`, {
++        execSync(`yarn install`, {
+             cwd: tmpPath
+         });
+         moveSync(join(tmpPath, 'node_modules'), join(root, 'node_modules'));

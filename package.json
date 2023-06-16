@@ -1,7 +1,7 @@
 {
   "name": "codelab",
   "engines": {
-    "node": "18.x",
+    "node": "18.16.0",
     "npm": "please-use-yarn",
     "pnpm": "please-use-yarn"
   },
@@ -282,6 +282,7 @@
     "@types/yargs": "17.0.24",
     "@typescript-eslint/eslint-plugin": "5.59.1",
     "@typescript-eslint/parser": "5.59.1",
+    "@vercel/remote-nx": "^1.0.1",
     "@welldone-software/why-did-you-render": "7.0.1",
     "ajv-formats": "2.1.1",
     "ajv-keywords": "^5.1.0",
@@ -357,7 +358,6 @@
     "madge": "5.0.1",
     "nx": "16.3.2",
     "nx-cloud": "16.0.5",
-    "nx-ignore": "^16.3.1",
     "plugin": "^0.3.3",
     "postcss": "8.4.16",
     "postcss-import": "14.1.0",

@@ -6,7 +6,7 @@ import {
   scrapeHtmlCommand,
   seedCommand,
   ServerlessService,
-  tasksCommand,
+  TaskService,
   TerraformService,
 } from '@codelab/backend/infra/adapter/cli'
 import { Global, Injectable } from '@nestjs/common'
@@ -20,6 +20,7 @@ export class CommandService {
     private readonly importService: ImportService,
     private readonly terraformService: TerraformService,
     private readonly serverlessService: ServerlessService,
+    private readonly taskService: TaskService,
   ) {}
 
   exec() {
@@ -39,7 +40,7 @@ export class CommandService {
       /**
        * These scripts don't require env to be explicitly set
        */
-      // .command(tasksCommand)
+      .command(this.taskService)
       /**
        * This uses puppeteer to scrape the API documentation as CSV file
        */
