@@ -14,7 +14,7 @@ const importAdminData: NextApiHandler = async (req, res) => {
     const owner = { auth0Id: session.user.sub }
     // const data = JSON.parse(req.body) as IAdminDataExport
 
-    await new ImportAdminDataService().execute(owner)
+    // await new ImportAdminDataService().execute(owner)
 
     return res.status(200).send(true)
   } catch (err) {
