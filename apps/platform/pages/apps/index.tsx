@@ -48,7 +48,7 @@ const AppsPageHeader = observer(() => {
     },
     {
       icon: <LogoutOutlined />,
-      key: '1',
+      key: '2',
       onClick: () => {
         // redirect to /api/auth/logout
         window.location.href = '/api/auth/logout'
