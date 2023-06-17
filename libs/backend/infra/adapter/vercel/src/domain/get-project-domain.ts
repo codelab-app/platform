@@ -10,11 +10,11 @@ export const PROJECT_NOT_FOUND = 404
  * 404 - Project not found
  */
 export const getProjectDomain = (name: string) => {
-  const { getBaseHeaders, projectApiUrl, teamIdParam } = getEnv().vercel
-  const url = `${projectApiUrl()}/domains/${name}?${teamIdParam}`
+  const { vercel } = getEnv()
+  const url = `${vercel.projectApiUrl()}/domains/${name}?${vercel.teamIdParam}`
 
   return fetch(url, {
-    headers: getBaseHeaders(),
+    headers: vercel.getBaseHeaders(),
     method: 'GET',
   })
 }

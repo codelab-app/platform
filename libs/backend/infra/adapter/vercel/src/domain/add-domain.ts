@@ -1,15 +1,15 @@
 import { getEnv } from '@codelab/shared/config'
 
 export const addDomain = (name: string) => {
-  const { getBaseHeaders, projectApiUrl, teamIdParam } = getEnv().vercel
-  const url = `${projectApiUrl()}/domains?${teamIdParam}`
+  const { vercel } = getEnv()
+  const url = `${vercel.projectApiUrl()}/domains?${vercel.teamIdParam}`
 
   return fetch(url, {
     body: JSON.stringify({
       method: 'add',
       name,
     }),
-    headers: getBaseHeaders(),
+    headers: vercel.getBaseHeaders(),
     method: 'POST',
   })
 }

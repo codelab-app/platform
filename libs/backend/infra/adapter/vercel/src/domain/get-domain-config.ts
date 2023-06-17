@@ -6,11 +6,11 @@ import { getEnv } from '@codelab/shared/config'
  * @param name
  */
 export const getDomainConfig = (name: string) => {
-  const { domainApiUrl, getBaseHeaders, teamIdParam } = getEnv().vercel
-  const url = `${domainApiUrl()}/${name}/config?${teamIdParam}`
+  const { vercel } = getEnv()
+  const url = `${vercel.domainApiUrl()}/${name}/config?${vercel.teamIdParam}`
 
   return fetch(url, {
-    headers: getBaseHeaders(),
+    headers: vercel.getBaseHeaders(),
     method: 'GET',
   })
 }
