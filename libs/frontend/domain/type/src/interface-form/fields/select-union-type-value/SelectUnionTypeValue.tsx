@@ -47,8 +47,11 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
   const { name } = props
   const [fieldProps, context] = useField(name, props)
   const oneOf = fieldProps.field.oneOf
-  const typeFieldName = `${name}.type`
-  const valueFieldName = `${name}.value`
+  // For the nested fields i.e. UnionType inside ArrayType, the name seems to be empty
+  // this causes the field not be validated correctly against the schema
+  // hence `type` would is valid not "".type
+  const typeFieldName = name ? `${name}.type` : 'type'
+  const valueFieldName = name ? `${name}.value` : 'value'
 
   if (!oneOf?.length) {
     throw new Error('SelectUnionTypeValue must be used with a oneOf field')
