@@ -9,6 +9,13 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/backend/infra/adapter/otel/**/*.ts"]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/backend-infra-adapter-otel.xml",
+          "quiet": true
+        }
       }
     }
   },

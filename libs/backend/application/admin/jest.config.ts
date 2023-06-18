@@ -13,4 +13,13 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../../../coverage/libs/backend/application/admin',
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputName: 'backend-application-admin.xml',
+      },
+    ],
+  ],
 }

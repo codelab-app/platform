@@ -13,7 +13,8 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/backend-infra-adapter-vercel.xml"
+          "outputFile": "tmp/reports/lint/backend-infra-adapter-vercel.xml",
+          "quiet": true
         }
       }
     }

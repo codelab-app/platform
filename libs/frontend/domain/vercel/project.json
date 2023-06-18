@@ -14,7 +14,8 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/frontend-domain-vercel.xml"
+          "outputFile": "tmp/reports/lint/frontend-domain-vercel.xml",
+          "quiet": true
         }
       }
     }

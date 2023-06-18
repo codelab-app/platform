@@ -15,7 +15,8 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/frontend-presentation-client-graphql.xml"
+          "outputFile": "tmp/reports/lint/frontend-presentation-client-graphql.xml",
+          "quiet": true
         }
       }
     }

@@ -8,4 +8,13 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../../../../coverage/libs/backend/infra/adapter/cli',
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputName: 'backend-infra-adapter-cli.xml',
+      },
+    ],
+  ],
 }

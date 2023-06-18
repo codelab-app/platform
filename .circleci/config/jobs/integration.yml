@@ -8,7 +8,7 @@ steps:
       # seed-data.i.spec.ts is running multiple seed/import/export commands which take more than default 10m timeout
       no_output_timeout: 20m
       environment:
-        JEST_JUNIT_OUTPUT_DIR: '/tmp/test-reports'
-        JEST_JUNIT_OUTPUT_NAME: 'integration-specs-results.xml'
+        JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-integration
+        # JEST_JUNIT_OUTPUT_NAME: 'integration-specs-results.xml'
   - store_test_results:
-      path: /tmp/test-reports
+      path: ./tmp/reports/test-integration

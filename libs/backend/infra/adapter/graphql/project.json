@@ -13,7 +13,8 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/backend-infra-adapter-graphql.xml"
+          "outputFile": "tmp/reports/lint/backend-infra-adapter-graphql.xml",
+          "quiet": true
         }
       }
     }

@@ -13,7 +13,8 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/frontend-domain-user.xml"
+          "outputFile": "tmp/reports/lint/frontend-domain-user.xml",
+          "quiet": true
         }
       }
     }

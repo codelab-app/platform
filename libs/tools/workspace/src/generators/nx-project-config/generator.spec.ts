@@ -6,7 +6,7 @@ import {
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing'
 import { Linter } from '@nx/linter'
 import { libraryGenerator } from '@nx/react'
-import { eslintGenerator } from './generator'
+import { nxProjectConfigGenerator } from './generator'
 import type { EslintGeneratorSchema } from './schema'
 
 describe('project.json lint settings', () => {
@@ -25,7 +25,7 @@ describe('project.json lint settings', () => {
   })
 
   it('should update the ci settings', async () => {
-    await eslintGenerator(tree, options)
+    await nxProjectConfigGenerator(tree, options)
 
     const project = readProjectConfiguration(tree, LIB_NAME)
     const lintCiConfig = project.targets?.lint?.configurations?.['ci']

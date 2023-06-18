@@ -17,3 +17,31 @@ steps:
         # Need this folder for local cache to hit, remote cache still hits but takes too long to build
         - ~/project/node_modules/.cache/nx
         # - ~/project/node_modules/.cache/nx/lockfile.hash
+  - run:
+      name: 'Monitor NX Cache Size'
+      command: |
+
+        cd ~/project/node_modules/.cache
+        du -hd1
+        cd ~/project/dist/apps/platform/.next
+        du -hd1
+        cd ~/project/dist/apps/landing/.next
+        du -hd1
+        cd ~/project/dist/apps/websites/.next
+        du -hd1
+
+        DIR="~/project/node_modules/.cache"
+
+        # Calculate size of directory
+        SIZE=$(du -s "$DIR" | cut -f1)
+
+        # Convert size to GB (since 'du -s' returns size in KB)
+        SIZE_GB=$((SIZE / 1024 / 1024))
+
+        # Check if size is greater than 2GB
+        if ((SIZE_GB > 2)); then
+            echo "Directory $DIR is over 2G, deleting cache."
+            nx reset
+        else
+            echo "Directory $DIR is not over 2G, keeping cache."
+        fi

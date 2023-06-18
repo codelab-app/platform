@@ -24,4 +24,13 @@ export default {
   coverageDirectory: '../../coverage/apps/platform',
   displayName: 'platform',
   preset: '../../jest.preset.js',
-};
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputName: 'platform.xml',
+      },
+    ],
+  ],
+}

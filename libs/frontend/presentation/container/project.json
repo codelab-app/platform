@@ -15,7 +15,8 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/frontend-presentation-container.xml"
+          "outputFile": "tmp/reports/lint/frontend-presentation-container.xml",
+          "quiet": true
         }
       }
     }

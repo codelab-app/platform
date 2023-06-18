@@ -15,7 +15,8 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/frontend-application-atoms.xml"
+          "outputFile": "tmp/reports/lint/frontend-application-atoms.xml",
+          "quiet": true
         }
       }
     }

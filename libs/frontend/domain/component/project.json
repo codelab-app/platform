@@ -15,7 +15,8 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/frontend-domain-component.xml"
+          "outputFile": "tmp/reports/lint/frontend-domain-component.xml",
+          "quiet": true
         }
       }
     },
@@ -26,6 +27,44 @@
         "jestConfig": "libs/frontend/domain/component/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "test:integration": {
+      "options": {
+        "memoryLimit": 8192,
+        "color": true,
+        "testPathPattern": ["[i].spec.ts"],
+        "jestConfig": "libs/frontend/domain/component/jest.config.ts",
+        "passWithNoTests": true,
+        "reporters": ["default"]
+      },
+      "configurations": {
+        "ci": {
+          "outputFile": "tmp/reports/test-integration/frontend-domain-component.xml",
+          "reporters": ["default", "jest-junit"],
+          "parallel": 3
+        }
+      },
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/component"]
+    },
+    "test:unit": {
+      "options": {
+        "memoryLimit": 8192,
+        "parallel": 3,
+        "color": true,
+        "testPathPattern": ["[^i].spec.ts"],
+        "jestConfig": "libs/frontend/domain/component/jest.config.ts",
+        "passWithNoTests": true,
+        "reporters": ["default"]
+      },
+      "configurations": {
+        "ci": {
+          "outputFile": "frontend-domain-component.xml",
+          "reporters": ["default", "jest-junit"]
+        }
+      },
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/component"]
     }
   },
   "tags": ["scope:frontend", "layer:domain"]

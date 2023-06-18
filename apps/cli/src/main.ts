@@ -2,18 +2,17 @@
  * Thin wrapper to parse env, so we load correct `.env`
  */
 import 'source-map-support/register'
+import {
+  exportCommand,
+  resetCommand,
+  scrapeAntdCommand,
+  scrapeHtmlCommand,
+  seedCommand,
+} from '@codelab/backend/infra/adapter/cli'
 import { registerCustomOTel } from '@codelab/shared/infra/otel'
 import { config } from 'dotenv'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
-import { exportCommand } from '../../../libs/backend/infra/adapter/cli/src/commands/export/export.command'
-import { importCommand } from '../../../libs/backend/infra/adapter/cli/src/commands/import/import.command'
-import { resetCommand } from '../../../libs/backend/infra/adapter/cli/src/commands/reset/reset.command'
-import { scrapeAntdCommand } from '../../../libs/backend/infra/adapter/cli/src/commands/scrape/scrape-antd.command'
-import { scrapeHtmlCommand } from '../../../libs/backend/infra/adapter/cli/src/commands/scrape/scrape-html.command'
-import { seedCommand } from '../../../libs/backend/infra/adapter/cli/src/commands/seed/seed.command'
-import { tasksCommand } from '../../../libs/backend/infra/adapter/cli/src/commands/tasks/tasks.command'
-import { terraformCommand } from '../../../libs/backend/infra/adapter/cli/src/commands/terraform/terraform.command'
 
 const sdk = registerCustomOTel('codelab-cli')
 
@@ -33,7 +32,7 @@ void yargs(hideBin(process.argv))
     argv
       .command(seedCommand)
       .command(resetCommand)
-      .command(importCommand)
+      // .command(importCommand)
       .command(exportCommand)
       /**
        * Here we initialize all data, data ID is created so may duplicate data
@@ -47,7 +46,7 @@ void yargs(hideBin(process.argv))
   /**
    * These scripts don't require env to be explicitly set
    */
-  .command(tasksCommand)
+  // .command(tasksCommand)
   /**
    * This uses puppeteer to scrape the API documentation as CSV file
    */
@@ -58,7 +57,7 @@ void yargs(hideBin(process.argv))
   /**
    * Terraform
    */
-  .command(terraformCommand)
+  // .command(terraformCommand)
   .demandCommand(1, 'Please provide a command')
   // Must add this to throw error for unknown arguments
   .strict().argv

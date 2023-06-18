@@ -51,7 +51,8 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/landing.xml"
+          "outputFile": "tmp/reports/lint/landing.xml",
+          "quiet": true
         }
       }
     }

@@ -84,7 +84,8 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/websites.xml"
+          "outputFile": "tmp/reports/lint/websites.xml",
+          "quiet": true
         }
       }
     }

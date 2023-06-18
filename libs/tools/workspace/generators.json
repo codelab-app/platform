@@ -1,9 +1,9 @@
 {
   "generators": {
-    "eslint": {
-      "factory": "./src/generators/eslint/generator",
-      "schema": "./src/generators/eslint/schema.json",
-      "description": "Update .eslintrc.json for each library"
+    "nx-project-config": {
+      "factory": "./src/generators/nx-project-config/generator",
+      "schema": "./src/generators/nx-project-config/schema.json",
+      "description": "Update NX project config for each library"
     },
     "codegen": {
       "factory": "./src/generators/codegen/generator",

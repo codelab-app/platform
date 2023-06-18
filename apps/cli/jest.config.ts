@@ -1,5 +1,5 @@
 /* eslint-disable */
-module.exports = {
+export default {
   displayName: 'cli',
   preset: '../../jest.preset.js',
   globals: {},
@@ -25,4 +25,13 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/apps/cli',
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputName: 'cli.xml',
+      },
+    ],
+  ],
 }

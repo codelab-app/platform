@@ -13,7 +13,8 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/backend-application-store.xml"
+          "outputFile": "tmp/reports/lint/backend-application-store.xml",
+          "quiet": true
         }
       }
     },
@@ -30,6 +31,48 @@
           "codeCoverage": true
         }
       }
+    },
+    "test:integration": {
+      "options": {
+        "memoryLimit": 8192,
+        "color": true,
+        "testPathPattern": ["[i].spec.ts"],
+        "jestConfig": "libs/backend/application/store/jest.config.ts",
+        "passWithNoTests": true,
+        "reporters": ["default"]
+      },
+      "configurations": {
+        "ci": {
+          "outputFile": "tmp/reports/test-integration/backend-application-store.xml",
+          "reporters": ["default", "jest-junit"],
+          "parallel": 3,
+          "ci": true,
+          "codeCoverage": true
+        }
+      },
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+    },
+    "test:unit": {
+      "options": {
+        "memoryLimit": 8192,
+        "parallel": 3,
+        "color": true,
+        "testPathPattern": ["[^i].spec.ts"],
+        "jestConfig": "libs/backend/application/store/jest.config.ts",
+        "passWithNoTests": true,
+        "reporters": ["default"]
+      },
+      "configurations": {
+        "ci": {
+          "outputFile": "backend-application-store.xml",
+          "reporters": ["default", "jest-junit"],
+          "ci": true,
+          "codeCoverage": true
+        }
+      },
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     }
   },
   "tags": ["scope:backend", "layer:application"]

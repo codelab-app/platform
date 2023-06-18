@@ -13,7 +13,8 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/backend-application-domain-prop.xml"
+          "outputFile": "tmp/reports/lint/backend-application-domain-prop.xml",
+          "quiet": true
         }
       }
     }

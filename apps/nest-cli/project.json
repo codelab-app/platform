@@ -46,6 +46,13 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/nest-cli/**/*.ts"]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/nest-cli.xml",
+          "quiet": true
+        }
       }
     },
     "test": {
@@ -61,6 +68,48 @@
           "codeCoverage": true
         }
       }
+    },
+    "test:integration": {
+      "options": {
+        "memoryLimit": 8192,
+        "color": true,
+        "testPathPattern": ["[i].spec.ts"],
+        "jestConfig": "apps/nest-cli/jest.config.ts",
+        "passWithNoTests": true,
+        "reporters": ["default"]
+      },
+      "configurations": {
+        "ci": {
+          "outputFile": "tmp/reports/test-integration/nest-cli.xml",
+          "reporters": ["default", "jest-junit"],
+          "parallel": 3,
+          "ci": true,
+          "codeCoverage": true
+        }
+      },
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+    },
+    "test:unit": {
+      "options": {
+        "memoryLimit": 8192,
+        "parallel": 3,
+        "color": true,
+        "testPathPattern": ["[^i].spec.ts"],
+        "jestConfig": "apps/nest-cli/jest.config.ts",
+        "passWithNoTests": true,
+        "reporters": ["default"]
+      },
+      "configurations": {
+        "ci": {
+          "outputFile": "nest-cli.xml",
+          "reporters": ["default", "jest-junit"],
+          "ci": true,
+          "codeCoverage": true
+        }
+      },
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     }
   },
   "tags": ["scope:backend"]

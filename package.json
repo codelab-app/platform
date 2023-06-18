@@ -29,7 +29,8 @@
     "help": "nx help",
     "commit": "git-cz",
     "cpack": "scripts/circleci/circleci-pack.sh",
-    "git:prune": "git gc --aggressive --prune=now"
+    "git:prune": "git gc --aggressive --prune=now",
+    "project:update": "nx build tools-workspace && yarn && nx generate @codelab/workspace:nx-project-config"
   },
   "private": true,
   "dependencies": {
@@ -218,7 +219,7 @@
     "@nx/jest": "16.3.2",
     "@nx/js": "16.3.2",
     "@nx/linter": "16.3.2",
-    "@nx/nest": "^16.3.2",
+    "@nx/nest": "16.3.2",
     "@nx/next": "16.3.2",
     "@nx/node": "16.3.2",
     "@nx/plugin": "16.3.2",
@@ -369,6 +370,7 @@
     "tailwindcss": "3.3.2",
     "ts-essentials": "9.1.2",
     "ts-jest": "29.1.0",
+    "ts-morph": "^19.0.0",
     "ts-node": "10.9.1",
     "twin.macro": "3.3.1",
     "typescript": "5.0.4",

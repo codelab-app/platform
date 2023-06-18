@@ -13,7 +13,8 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/shared-infra-otel.xml"
+          "outputFile": "tmp/reports/lint/shared-infra-otel.xml",
+          "quiet": true
         }
       }
     }

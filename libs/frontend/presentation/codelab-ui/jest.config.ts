@@ -9,4 +9,13 @@ export default {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory:
     '../../../../coverage/libs/frontend/presentation/codelab-ui',
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputName: 'frontend-presentation--codelab-ui.xml',
+      },
+    ],
+  ],
 }

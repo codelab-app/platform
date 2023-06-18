@@ -16,6 +16,17 @@ commands:
                     - ~/project/dist/apps/landing/.next/cache
                     - ~/project/dist/apps/websites/.next/cache
                     - ~/project/node_modules/.cache/nx
+            - run:
+                command: |
+                    cd ~/project/node_modules/.cache
+                    du -hd1
+                    cd ~/projects/dist/apps/platform/.next
+                    du -hd1
+                    cd ~/projects/dist/apps/landing/.next
+                    du -hd1
+                    cd ~/projects/dist/apps/websites/.next
+                    du -hd1
+                name: Monitor NX Cache Size
     install-npm:
         steps:
             - restore_cache:
@@ -31,11 +42,6 @@ commands:
                 name: Save Yarn Cache
                 paths:
                     - ~/.yarn
-            - run:
-                command: |
-                    cd ~/project/node_modules/.cache
-                    du -hd1
-                name: Monitor NX Cache Size
             - save_cache:
                 key: node-modules-{{ checksum "yarn.lock" }}
                 name: Save NPM Cache
@@ -212,18 +218,17 @@ jobs:
             - run:
                 command: yarn cli tasks int --stage ci
                 environment:
-                    JEST_JUNIT_OUTPUT_DIR: /tmp/test-reports
-                    JEST_JUNIT_OUTPUT_NAME: integration-specs-results.xml
+                    JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-integration
                 name: Run Integration Tests
                 no_output_timeout: 20m
             - store_test_results:
-                path: /tmp/test-reports
+                path: ./tmp/reports/test-integration
     lint:
         environment:
             CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
             CIRCLE_REVISION: << pipeline.git.revision >>
         executor: docker-node
-        resource_class: medium
+        resource_class: large
         steps:
             - restore-workspace
             - run:
@@ -381,10 +386,10 @@ jobs:
             - run:
                 command: yarn cli tasks unit --stage ci
                 environment:
-                    JEST_JUNIT_OUTPUT_DIR: ./reports/
+                    JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-unit
                 name: Run Unit Tests
             - store_test_results:
-                path: ./reports/
+                path: ./tmp/reports/test-unit
 orbs:
     node: circleci/node@5.1.0
     nx: nrwl/nx@1.6.1

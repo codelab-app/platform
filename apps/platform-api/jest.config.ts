@@ -8,4 +8,13 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/apps/platform-api',
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputName: 'platform-api.xml',
+      },
+    ],
+  ],
 }

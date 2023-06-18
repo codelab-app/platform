@@ -51,15 +51,11 @@ export class TaskService implements CommandModule<unknown, unknown> {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
             // execCommand(`${NX_TEST} build platform -c test`)
-            execCommand(
-              `${NX_TEST} affected --target=test --testPathPattern="[^i].spec.ts" --memoryLimit=8192 --color`,
-            )
+            execCommand(`${NX_TEST} affected --target=test:unit`)
           }
 
           if (stage === Stage.CI) {
-            execCommand(
-              'npx nx affected --target=test --testPathPattern="[^i].spec.ts" --color --parallel=3 --verbose --reporters=default --reporters=jest-junit',
-            )
+            execCommand('npx nx affected --target=test:unit -c ci')
           }
         },
       )
@@ -69,15 +65,11 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         ({ stage }) => {
           if (stage === Stage.Test) {
-            execCommand(
-              `${NX_TEST} affected --target=test --testPathPattern="[i].spec.ts" --memoryLimit=8192 --color`,
-            )
+            execCommand(`${NX_TEST} affected --target=test:integration`)
           }
 
           if (stage === Stage.CI) {
-            execCommand(
-              'npx nx affected --target=test --testPathPattern="[i].spec.ts" --color --parallel=4 --reporters=default --reporters=jest-junit --verbose',
-            )
+            execCommand('npx nx affected --target=test:integration -c ci')
           }
         },
       )

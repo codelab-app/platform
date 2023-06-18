@@ -13,7 +13,8 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/frontend-presentation-client-mobx.xml"
+          "outputFile": "tmp/reports/lint/frontend-presentation-client-mobx.xml",
+          "quiet": true
         }
       }
     }

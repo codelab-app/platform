@@ -7,4 +7,13 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../../coverage/libs/tools/workspace',
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputName: 'tools-workspace.xml',
+      },
+    ],
+  ],
 }

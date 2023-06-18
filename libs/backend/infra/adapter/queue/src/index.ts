@@ -1,1 +1,1 @@
-export * from './lib/backend-infra-adapter-queue'
+export * from './serverlessq.service'

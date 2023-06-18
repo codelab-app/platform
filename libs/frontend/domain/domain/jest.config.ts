@@ -16,4 +16,13 @@ export default {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../../coverage/libs/frontend/domain/domain',
   preset: '../../../../jest.preset.js',
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputName: 'frontend-domain-domain.xml',
+      },
+    ],
+  ],
 }

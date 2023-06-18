@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   displayName: 'frontend-domain-type',
   preset: '../../../../jest.preset.js',
   // globals: {
@@ -14,4 +14,13 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../../coverage/libs/frontend/domain/type',
-};
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputName: 'frontend-domain-type.xml',
+      },
+    ],
+  ],
+}

@@ -17,4 +17,13 @@ export default {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../../coverage/libs/frontend/domain/renderer',
-};
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputName: 'frontend-domain-renderer.xml',
+      },
+    ],
+  ],
+}

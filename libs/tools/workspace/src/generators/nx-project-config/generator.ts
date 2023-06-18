@@ -8,12 +8,12 @@ import {
 } from '@nx/devkit'
 import * as path from 'path'
 import type { EslintGeneratorSchema } from './schema'
-import { addCiLintConfig } from './update-project-config'
+import { updateProjectConfig } from './update-project-config'
 
 /**
  * Go through all projects and update the `lint` setting of `project.json`
  */
-export const eslintGenerator = async (
+export const nxProjectConfigGenerator = async (
   tree: Tree,
   options: EslintGeneratorSchema,
 ) => {
@@ -21,7 +21,7 @@ export const eslintGenerator = async (
   const projectNames = projects.keys()
 
   for (const projectName of projectNames) {
-    addCiLintConfig(tree, projectName)
+    updateProjectConfig(tree, projectName)
   }
 
   // const projectRoot = `libs/${options.name}`
@@ -36,4 +36,4 @@ export const eslintGenerator = async (
   await formatFiles(tree)
 }
 
-export default eslintGenerator
+export default nxProjectConfigGenerator

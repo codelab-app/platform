@@ -8,4 +8,13 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/apps/nest-cli',
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputName: 'nest-cli.xml',
+      },
+    ],
+  ],
 }

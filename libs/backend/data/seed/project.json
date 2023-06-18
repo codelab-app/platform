@@ -13,7 +13,8 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/backend-data-seed.xml"
+          "outputFile": "tmp/reports/lint/backend-data-seed.xml",
+          "quiet": true
         }
       }
     }

@@ -88,7 +88,8 @@
       "configurations": {
         "ci": {
           "format": "junit",
-          "outputFile": "tmp/reports/lint/platform-e2e.xml"
+          "outputFile": "tmp/reports/lint/platform-e2e.xml",
+          "quiet": true
         }
       }
     }
