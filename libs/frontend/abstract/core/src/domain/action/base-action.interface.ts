@@ -13,7 +13,7 @@ export interface IBaseAction {
   type: IActionKind
 
   clone(storeId: string): IAction
-  createRunner(): (...args: Array<unknown>) => unknown
+  runner(...args: Array<unknown>): unknown
 }
 
 export type IActionRef = string

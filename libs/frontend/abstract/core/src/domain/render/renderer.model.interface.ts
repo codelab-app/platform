@@ -5,6 +5,7 @@ import type { ArrayOrSingle } from 'ts-essentials'
 import type { IExpressionTransformer } from '../builder'
 import type { IElement, IElementTree } from '../element'
 import type { IPageNode, IPageNodeRef } from '../page'
+import type { IActionRunner } from './action.runner.model.interface'
 import type { IRenderOutput } from './render.interface'
 import type {
   IComponentRuntimeProp,
@@ -19,6 +20,7 @@ export const enum RendererType {
   Preview = 'preview',
 }
 export interface IRenderer {
+  actionRunners: ObjectMap<IActionRunner>
   debugMode: boolean
   elementTree: Ref<IElementTree>
   expressionTransformer: IExpressionTransformer

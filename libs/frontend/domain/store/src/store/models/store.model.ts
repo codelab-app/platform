@@ -90,9 +90,7 @@ export class Store
       mergeProps(
         this.api.current.defaultValues,
         this.actions
-          .map((action) => ({
-            [action.current.name]: action.current.createRunner(),
-          }))
+          .map((action) => ({ [action.current.name]: action.current.runner }))
           .reduce(merge, {}),
       ),
       {},

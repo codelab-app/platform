@@ -1,4 +1,5 @@
 import type {
+  IActionRunner,
   IElement,
   IElementTree,
   IExpressionTransformer,
@@ -12,6 +13,7 @@ import type {
   RendererType,
 } from '@codelab/frontend/abstract/core'
 import {
+  actionRef,
   CUSTOM_TEXT_PROP_KEY,
   elementRef,
   elementTreeRef,
@@ -35,6 +37,7 @@ import { createTransformer } from 'mobx-utils'
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
+import { ActionRunner } from './action-runner.model'
 import { ComponentRuntimeProps } from './component-runtime-props.model'
 import type { ElementWrapperProps } from './element/element-wrapper'
 import { ElementWrapper } from './element/element-wrapper'
@@ -82,6 +85,7 @@ const create = ({
 @model('@codelab/Renderer')
 export class Renderer
   extends Model({
+    actionRunners: prop<ObjectMap<IActionRunner>>(() => objectMap([])),
     /**
      * Will log the render output and render pipe info to the console
      */
@@ -166,6 +170,17 @@ export class Renderer
     element: IElement,
   ): ArrayOrSingle<IRenderOutput> => {
     const runtimeProps = this.addRuntimeProps(elementRef(element.id))
+
+    if (element.isRoot) {
+      element.store.current.actions.forEach((action) => {
+        const componentProps =
+          element.parentComponent?.current.runtimeProp
+            ?.componentEvaluatedProps || {}
+
+        const runner = ActionRunner.create(actionRef(action.id), componentProps)
+        this.actionRunners.set(action.id, runner)
+      })
+    }
 
     return this.renderPipe.render(element, runtimeProps.evaluatedProps)
   }

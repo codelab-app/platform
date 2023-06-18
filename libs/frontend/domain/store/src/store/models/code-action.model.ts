@@ -2,7 +2,7 @@ import type {
   ICodeAction,
   ICodeActionDTO,
 } from '@codelab/frontend/abstract/core'
-import { storeRef } from '@codelab/frontend/abstract/core'
+import { getRenderService, storeRef } from '@codelab/frontend/abstract/core'
 import {
   CodeActionCreateInput,
   CodeActionDeleteInput,
@@ -37,16 +37,9 @@ export class CodeAction
     return getActionService(this)
   }
 
-  @modelAction
-  createRunner() {
-    try {
-      // eslint-disable-next-line no-eval
-      return eval(`(${this.code})`)
-    } catch (error) {
-      console.log(error)
-
-      return () => undefined
-    }
+  @computed
+  get renderService() {
+    return getRenderService(this)
   }
 
   @modelAction
