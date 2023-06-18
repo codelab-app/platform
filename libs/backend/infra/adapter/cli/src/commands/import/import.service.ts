@@ -134,5 +134,7 @@ export class ImportService implements CommandModule<unknown, ImportProps> {
       console.log('import user data')
       // await importUserData(userData, { auth0Id: selectedAuth0Id })
     }
+
+    process.exit(0)
   }
 }

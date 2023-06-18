@@ -55,7 +55,6 @@ export class CommandService {
       // Must add this to throw error for unknown arguments
       .strict().argv
 
-    // process.exit(0)
     console.log('Done! Please press Ctrl+C')
   }
 }

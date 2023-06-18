@@ -18,15 +18,4 @@ steps:
       key: yarn-cache-{{ checksum "yarn.lock" }}
       paths:
         - ~/.yarn
-  # - run:
-  #     command: |
-  #       cd ~/project/node_modules/.cache
-  #       du -hd1
-  #   # If we want to remove .cache, need to do it after build
-  # - run: test -d ~/project/node_modules/.cache/nx && mv ~/project/node_modules/.cache/nx ~/project/nx/.cache || true
-
-  - save_cache:
-      name: 'Save NPM Cache'
-      key: node-modules-{{ checksum "yarn.lock" }}
-      paths:
-        - ~/project/node_modules
+  # node_modules cache needs to be checked for cache reset before we can save, otherwise nx cache grows too much. This step happens after build

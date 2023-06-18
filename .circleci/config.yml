@@ -8,6 +8,9 @@ commands:
                     - nx-cache
                 name: Restore NX Cache
             - run: npx nx run-many --target=build --projects=platform,nest-cli,landing,websites --parallel=4 -c ci --verbose --nx-bail
+            - run:
+                command: ./scripts/nx/reset-cache.sh
+                name: Monitor NX Cache Size
             - save_cache:
                 key: nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
                 name: Save Cache
@@ -15,18 +18,11 @@ commands:
                     - ~/project/dist/apps/platform/.next/cache
                     - ~/project/dist/apps/landing/.next/cache
                     - ~/project/dist/apps/websites/.next/cache
-                    - ~/project/node_modules/.cache/nx
-            - run:
-                command: |
-                    cd ~/project/node_modules/.cache
-                    du -hd1
-                    cd ~/projects/dist/apps/platform/.next
-                    du -hd1
-                    cd ~/projects/dist/apps/landing/.next
-                    du -hd1
-                    cd ~/projects/dist/apps/websites/.next
-                    du -hd1
-                name: Monitor NX Cache Size
+            - save_cache:
+                key: node-modules-{{ checksum "yarn.lock" }}
+                name: Save NPM Cache
+                paths:
+                    - ~/project/node_modules
     install-npm:
         steps:
             - restore_cache:
@@ -42,11 +38,6 @@ commands:
                 name: Save Yarn Cache
                 paths:
                     - ~/.yarn
-            - save_cache:
-                key: node-modules-{{ checksum "yarn.lock" }}
-                name: Save NPM Cache
-                paths:
-                    - ~/project/node_modules
     install-nvm:
         steps:
             - restore_cache:

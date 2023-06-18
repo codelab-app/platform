@@ -205,6 +205,6 @@ export class TaskService implements CommandModule<unknown, unknown> {
   }
 
   handler() {
-    //
+    process.exit(0)
   }
 }
