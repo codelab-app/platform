@@ -10,7 +10,10 @@ export const useCurrentPage = () => {
   const { query } = useRouter()
   const pageSlug = query.pageSlug as string
   const userName = query.userName as string
-  const pageName = pageSlug && getNameFromSlug(pageSlug)
+  // this is the only exception for now:
+  // provider page has "_app" name which is sluggified to "app"
+  // and we can't reverse it from "app" to "_app" following generic rules
+  const pageName = pageSlug === 'app' ? '_app' : getNameFromSlug(pageSlug)
 
   const user = userService.usersList.find(
     ({ username }) => username === userName,
