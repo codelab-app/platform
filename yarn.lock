@@ -5479,7 +5479,7 @@ __metadata:
 
 "@codelab/workspace@file:./dist/libs/tools/workspace::locator=codelab%40workspace%3A.":
   version: 0.0.1
-  resolution: "@codelab/workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=b533cc&locator=codelab%40workspace%3A."
+  resolution: "@codelab/workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=764156&locator=codelab%40workspace%3A."
   dependencies:
     "@graphql-codegen/core": 4.0.0
     "@graphql-tools/graphql-file-loader": 8.0.0
@@ -5489,7 +5489,7 @@ __metadata:
     lodash: 4.17.21
   peerDependencies:
     tslib: 2.3.1
-  checksum: 58bb490961290bf949132dba1c876203540808483c50361225878e977e4b9b7c4dbe56c97acd175a44d15c1b56df53ff0feba529f19e1e0ded3dee3dd38f69cd
+  checksum: d84de4f10e08698ecc1bcc6e58efec93a415057c53368d8312283205b69e08efd5ec7adcb889e83eef4e0d0c164a4f35abf19acdcab94e49a782ebcc4d957a28
   languageName: node
   linkType: hard
 
@@ -9884,7 +9884,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/apollo@npm:^11.0.6":
+"@nestjs/apollo@npm:11.0.6":
   version: 11.0.6
   resolution: "@nestjs/apollo@npm:11.0.6"
   dependencies:
@@ -21299,7 +21299,7 @@ __metadata:
     "@neo4j/graphql": 3.18.2
     "@neo4j/graphql-ogm": 3.18.2
     "@neo4j/graphql-plugin-auth": 2.2.0
-    "@nestjs/apollo": ^11.0.6
+    "@nestjs/apollo": 11.0.6
     "@nestjs/bull": ^0.6.3
     "@nestjs/common": ^9.4.2
     "@nestjs/config": ^2.3.2

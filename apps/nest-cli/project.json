@@ -60,7 +60,8 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/nest-cli/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "reporters": ["default"]
       },
       "configurations": {
         "ci": {
@@ -75,13 +76,10 @@
         "color": true,
         "testPathPattern": ["[i].spec.ts"],
         "jestConfig": "apps/nest-cli/jest.config.ts",
-        "passWithNoTests": true,
-        "reporters": ["default"]
+        "passWithNoTests": true
       },
       "configurations": {
         "ci": {
-          "outputFile": "tmp/reports/test-integration/nest-cli.xml",
-          "reporters": ["default", "jest-junit"],
           "parallel": 3,
           "ci": true,
           "codeCoverage": true
@@ -97,13 +95,10 @@
         "color": true,
         "testPathPattern": ["[^i].spec.ts"],
         "jestConfig": "apps/nest-cli/jest.config.ts",
-        "passWithNoTests": true,
-        "reporters": ["default"]
+        "passWithNoTests": true
       },
       "configurations": {
         "ci": {
-          "outputFile": "nest-cli.xml",
-          "reporters": ["default", "jest-junit"],
           "ci": true,
           "codeCoverage": true
         }

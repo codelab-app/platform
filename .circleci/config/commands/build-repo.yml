@@ -5,11 +5,11 @@ steps:
       keys:
         - nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
         - nx-cache
-  # Can't use `yarn cli` doesn't exist yet
-  - run: npx nx run-many --target=build --projects=platform,nest-cli,landing,websites --parallel=4 -c ci --verbose --nx-bail
   - run:
       name: 'Monitor NX Cache Size'
       command: ./scripts/nx/reset-cache.sh
+  # Can't use `yarn cli` doesn't exist yet
+  - run: npx nx run-many --target=build --projects=platform,nest-cli,landing,websites --parallel=4 -c ci --verbose --nx-bail
   - save_cache:
       name: 'Save Cache'
       key: nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
@@ -20,7 +20,8 @@ steps:
     # This step needs to be after reset-cache
   - save_cache:
       name: 'Save NPM Cache'
-      key: node-modules-{{ checksum "yarn.lock" }}
+      keys:
+        - node-modules-{{ checksum "yarn.lock" }}
       paths:
         - ~/project/node_modules
         # Need this folder for local cache to hit, remote cache still hits but takes too long to build

@@ -65,7 +65,8 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/tools/workspace/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "reporters": ["default"]
       },
       "configurations": {
         "ci": {
@@ -80,13 +81,10 @@
         "color": true,
         "testPathPattern": ["[i].spec.ts"],
         "jestConfig": "libs/tools/workspace/jest.config.ts",
-        "passWithNoTests": true,
-        "reporters": ["default"]
+        "passWithNoTests": true
       },
       "configurations": {
         "ci": {
-          "outputFile": "tmp/reports/test-integration/tools-workspace.xml",
-          "reporters": ["default", "jest-junit"],
           "parallel": 3,
           "ci": true,
           "codeCoverage": true
@@ -119,15 +117,12 @@
         "color": true,
         "testPathPattern": ["[^i].spec.ts"],
         "jestConfig": "libs/tools/workspace/jest.config.ts",
-        "passWithNoTests": true,
-        "reporters": ["default"]
+        "passWithNoTests": true
       },
       "configurations": {
         "ci": {
           "ci": true,
-          "codeCoverage": true,
-          "outputFile": "tools-workspace.xml",
-          "reporters": ["default", "jest-junit"]
+          "codeCoverage": true
         }
       },
       "executor": "@nx/jest:jest",

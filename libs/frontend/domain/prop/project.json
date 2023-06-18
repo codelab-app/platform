@@ -24,7 +24,8 @@
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/prop"],
       "options": {
         "jestConfig": "libs/frontend/domain/prop/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "reporters": ["default"]
       }
     },
     "test:integration": {
@@ -33,13 +34,10 @@
         "color": true,
         "testPathPattern": ["[i].spec.ts"],
         "jestConfig": "libs/frontend/domain/prop/jest.config.ts",
-        "passWithNoTests": true,
-        "reporters": ["default"]
+        "passWithNoTests": true
       },
       "configurations": {
         "ci": {
-          "outputFile": "tmp/reports/test-integration/frontend-domain-prop.xml",
-          "reporters": ["default", "jest-junit"],
           "parallel": 3
         }
       },
@@ -53,14 +51,10 @@
         "color": true,
         "testPathPattern": ["[^i].spec.ts"],
         "jestConfig": "libs/frontend/domain/prop/jest.config.ts",
-        "passWithNoTests": true,
-        "reporters": ["default"]
+        "passWithNoTests": true
       },
       "configurations": {
-        "ci": {
-          "outputFile": "frontend-domain-prop.xml",
-          "reporters": ["default", "jest-junit"]
-        }
+        "ci": {}
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/prop"]

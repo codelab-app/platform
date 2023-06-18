@@ -23,7 +23,8 @@
       "outputs": ["{workspaceRoot}/coverage/libs/shared/utils"],
       "options": {
         "jestConfig": "libs/shared/utils/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "reporters": ["default"]
       }
     },
     "test:integration": {
@@ -32,13 +33,10 @@
         "color": true,
         "testPathPattern": ["[i].spec.ts"],
         "jestConfig": "libs/shared/utils/jest.config.ts",
-        "passWithNoTests": true,
-        "reporters": ["default"]
+        "passWithNoTests": true
       },
       "configurations": {
         "ci": {
-          "outputFile": "tmp/reports/test-integration/shared-utils.xml",
-          "reporters": ["default", "jest-junit"],
           "parallel": 3
         }
       },
@@ -52,14 +50,10 @@
         "color": true,
         "testPathPattern": ["[^i].spec.ts"],
         "jestConfig": "libs/shared/utils/jest.config.ts",
-        "passWithNoTests": true,
-        "reporters": ["default"]
+        "passWithNoTests": true
       },
       "configurations": {
-        "ci": {
-          "outputFile": "shared-utils.xml",
-          "reporters": ["default", "jest-junit"]
-        }
+        "ci": {}
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/shared/utils"]

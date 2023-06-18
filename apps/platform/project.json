@@ -105,7 +105,8 @@
       "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "apps/platform/jest.config.ts",
-        "passWithNoTests": true
+        "passWithNoTests": true,
+        "reporters": ["default"]
       },
       "configurations": {
         "test": {
@@ -156,13 +157,10 @@
         "color": true,
         "testPathPattern": ["[i].spec.ts"],
         "jestConfig": "apps/platform/jest.config.ts",
-        "passWithNoTests": true,
-        "reporters": ["default"]
+        "passWithNoTests": true
       },
       "configurations": {
         "ci": {
-          "outputFile": "tmp/reports/test-integration/platform.xml",
-          "reporters": ["default", "jest-junit"],
           "parallel": 3,
           "testPathPattern": ["i.spec.ts"],
           "runInBand": true
@@ -182,13 +180,10 @@
         "color": true,
         "testPathPattern": ["[^i].spec.ts"],
         "jestConfig": "apps/platform/jest.config.ts",
-        "passWithNoTests": true,
-        "reporters": ["default"]
+        "passWithNoTests": true
       },
       "configurations": {
         "ci": {
-          "outputFile": "platform.xml",
-          "reporters": ["default", "jest-junit"],
           "testPathPattern": ["i.spec.ts"],
           "runInBand": true
         },

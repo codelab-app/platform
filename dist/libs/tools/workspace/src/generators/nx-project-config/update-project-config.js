@@ -5,6 +5,8 @@ const tslib_1 = require("tslib");
 const devkit_1 = require("@nx/devkit");
 const has_1 = tslib_1.__importDefault(require("lodash/has"));
 const merge_1 = tslib_1.__importDefault(require("lodash/merge"));
+const omit_1 = tslib_1.__importDefault(require("lodash/omit"));
+const set_1 = tslib_1.__importDefault(require("lodash/set"));
 const path_1 = tslib_1.__importDefault(require("path"));
 const ts_morph_1 = tslib_1.__importStar(require("ts-morph"));
 /**
@@ -42,51 +44,63 @@ const addCiTestConfig = (tree, projectConfig) => {
     /**
      * Only add if library is already using jest
      */
-    var _a, _b;
+    var _a;
     if ((0, has_1.default)(projectConfig, 'targets.test')) {
         console.log(`Updating ${projectConfig.name}...`);
+        /**
+         * First need to add default reporters to developmentto override our jest config for reporters (since those config don't work in CLI, we had to add them to config file)
+         */
         (0, merge_1.default)(projectConfig, {
             targets: {
-                'test:integration': (0, merge_1.default)({
+                test: {
                     options: {
-                        memoryLimit: 8192,
-                        color: true,
-                        testPathPattern: ['[i].spec.ts'],
                         reporters: ['default'],
                     },
-                    configurations: {
-                        ci: {
-                            // outputFile: `tmp/reports/test-integration/${projectConfig.name}.xml`,
-                            // reporters: ['default', 'jest-junit'],
-                            parallel: 3,
-                        },
-                    },
-                }, 
-                // First merge with the default test config, this way if migration update test, we can copy it over
-                // This has higher precedence
-                (_a = projectConfig.targets) === null || _a === void 0 ? void 0 : _a.test),
-                'test:unit': (0, merge_1.default)({
-                    options: {
-                        memoryLimit: 8192,
-                        parallel: 3,
-                        color: true,
-                        testPathPattern: ['[^i].spec.ts'],
-                        reporters: ['default'],
-                    },
-                    configurations: {
-                        ci: {
-                        /**
-                         * Reporter options are not available via CLI
-                         *
-                         * https://stackoverflow.com/questions/59372493/override-jest-junit-default-output-location
-                         */
-                        // outputFile: `${projectConfig.name}.xml`,
-                        // reporters: ['default', 'jest-junit'],
-                        },
-                    },
-                }, (_b = projectConfig.targets) === null || _b === void 0 ? void 0 : _b.test),
+                },
             },
         });
+        /**
+         * But we need to filter out reporters config, since we will use the jest config
+         */
+        const testOptions = (0, omit_1.default)((_a = projectConfig.targets) === null || _a === void 0 ? void 0 : _a.test, 'options.reporters');
+        (0, set_1.default)(projectConfig, 'targets.test:integration', (0, merge_1.default)({
+            options: {
+                memoryLimit: 8192,
+                color: true,
+                testPathPattern: ['[i].spec.ts'],
+            },
+            configurations: {
+                ci: {
+                    // outputFile: `tmp/reports/test-integration/${projectConfig.name}.xml`,
+                    // reporters: ['default', 'jest-junit'],
+                    parallel: 3,
+                },
+            },
+        }, 
+        /**
+         * First merge with the default test config, this way if migration update test, we can copy it over
+         *
+         */
+        testOptions));
+        (0, set_1.default)(projectConfig, 'targets.test:unit', (0, merge_1.default)({
+            options: {
+                memoryLimit: 8192,
+                parallel: 3,
+                color: true,
+                testPathPattern: ['[^i].spec.ts'],
+            },
+            configurations: {
+                ci: {
+                /**
+                 * Reporter options are not available via CLI
+                 *
+                 * https://stackoverflow.com/questions/59372493/override-jest-junit-default-output-location
+                 */
+                // outputFile: `${projectConfig.name}.xml`,
+                // reporters: ['default', 'jest-junit'],
+                },
+            },
+        }, testOptions));
         /**
          * jest reporters options don't work with CLI, so we need to add to jest config
          */

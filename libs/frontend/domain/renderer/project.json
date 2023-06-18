@@ -27,7 +27,8 @@
       "options": {
         "jestConfig": "libs/frontend/domain/renderer/jest.config.ts",
         "passWithNoTests": true,
-        "runInBand": true
+        "runInBand": true,
+        "reporters": ["default"]
       }
     },
     "test:integration": {
@@ -37,13 +38,10 @@
         "testPathPattern": ["[i].spec.ts"],
         "jestConfig": "libs/frontend/domain/renderer/jest.config.ts",
         "passWithNoTests": true,
-        "runInBand": true,
-        "reporters": ["default"]
+        "runInBand": true
       },
       "configurations": {
         "ci": {
-          "outputFile": "tmp/reports/test-integration/frontend-domain-renderer.xml",
-          "reporters": ["default", "jest-junit"],
           "parallel": 3
         }
       },
@@ -58,14 +56,10 @@
         "testPathPattern": ["[^i].spec.ts"],
         "jestConfig": "libs/frontend/domain/renderer/jest.config.ts",
         "passWithNoTests": true,
-        "runInBand": true,
-        "reporters": ["default"]
+        "runInBand": true
       },
       "configurations": {
-        "ci": {
-          "outputFile": "frontend-domain-renderer.xml",
-          "reporters": ["default", "jest-junit"]
-        }
+        "ci": {}
       },
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/renderer"]

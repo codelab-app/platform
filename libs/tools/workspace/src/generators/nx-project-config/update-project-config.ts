@@ -7,6 +7,8 @@ import {
 import get from 'lodash/get'
 import has from 'lodash/has'
 import merge from 'lodash/merge'
+import omit from 'lodash/omit'
+import set from 'lodash/set'
 import path from 'path'
 import tsMorph, { Project } from 'ts-morph'
 
@@ -53,53 +55,79 @@ const addCiTestConfig = (tree: Tree, projectConfig: ProjectConfiguration) => {
   if (has(projectConfig, 'targets.test')) {
     console.log(`Updating ${projectConfig.name}...`)
 
+    /**
+     * First need to add default reporters to developmentto override our jest config for reporters (since those config don't work in CLI, we had to add them to config file)
+     */
     merge(projectConfig, {
       targets: {
-        'test:integration': merge(
-          {
-            options: {
-              memoryLimit: 8192,
-              color: true,
-              testPathPattern: ['[i].spec.ts'],
-              reporters: ['default'],
-            },
-            configurations: {
-              ci: {
-                // outputFile: `tmp/reports/test-integration/${projectConfig.name}.xml`,
-                // reporters: ['default', 'jest-junit'],
-                parallel: 3,
-              },
-            },
+        test: {
+          options: {
+            reporters: ['default'],
           },
-          // First merge with the default test config, this way if migration update test, we can copy it over
-          // This has higher precedence
-          projectConfig.targets?.test,
-        ),
-        'test:unit': merge(
-          {
-            options: {
-              memoryLimit: 8192,
-              parallel: 3,
-              color: true,
-              testPathPattern: ['[^i].spec.ts'],
-              reporters: ['default'],
-            },
-            configurations: {
-              ci: {
-                /**
-                 * Reporter options are not available via CLI
-                 *
-                 * https://stackoverflow.com/questions/59372493/override-jest-junit-default-output-location
-                 */
-                // outputFile: `${projectConfig.name}.xml`,
-                // reporters: ['default', 'jest-junit'],
-              },
-            },
-          },
-          projectConfig.targets?.test,
-        ),
+        },
       },
     })
+
+    /**
+     * But we need to filter out reporters config, since we will use the jest config
+     */
+    const testOptions = omit(projectConfig.targets?.test, 'options.reporters')
+
+    /**
+     * Use set because we want to remove old keys
+     */
+    set(
+      projectConfig,
+      'targets.test:integration',
+      merge(
+        {
+          options: {
+            memoryLimit: 8192,
+            color: true,
+            testPathPattern: ['[i].spec.ts'],
+          },
+          configurations: {
+            ci: {
+              // outputFile: `tmp/reports/test-integration/${projectConfig.name}.xml`,
+              // reporters: ['default', 'jest-junit'],
+              parallel: 3,
+            },
+          },
+        },
+        /**
+         * First merge with the default test config, this way if migration update test, we can copy it over
+         *
+         */
+        testOptions,
+      ),
+    )
+
+    set(
+      projectConfig,
+      'targets.test:unit',
+      merge(
+        {
+          options: {
+            memoryLimit: 8192,
+            parallel: 3,
+            color: true,
+            testPathPattern: ['[^i].spec.ts'],
+          },
+          configurations: {
+            ci: {
+              /**
+               * Reporter options are not available via CLI
+               *
+               * https://stackoverflow.com/questions/59372493/override-jest-junit-default-output-location
+               */
+              // outputFile: `${projectConfig.name}.xml`,
+              // reporters: ['default', 'jest-junit'],
+            },
+          },
+        },
+        testOptions,
+      ),
+    )
 
     /**
      * jest reporters options don't work with CLI, so we need to add to jest config
