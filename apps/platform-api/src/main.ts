@@ -1,32 +1,17 @@
-// Must be imported first
-// eslint-disable-next-line simple-import-sort/imports
-import { otelSDK } from '@codelab/backend/infra/adapter/otel'
 import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
+import { CommandFactory } from 'nest-commander'
 import { AppModule } from './app/app.module'
-import { CodelabLogger } from '@codelab/backend/infra/adapter/logger'
 
 const bootstrap = async () => {
-  await otelSDK.start()
+  await CommandFactory.run(AppModule, ['warn', 'error', 'log'])
 
-  const app = await NestFactory.create(AppModule, { bufferLogs: true })
-  /**
-   * https://docs.nestjs.com/techniques/logger
-   */
-  app.useLogger(app.get(CodelabLogger))
-
+  const app = await NestFactory.create(AppModule)
   const globalPrefix = 'api'
   app.setGlobalPrefix(globalPrefix)
 
-  console.log(process.env)
-
   const port = process.env.PORT ?? 3000
   await app.listen(port)
-
-  /**
-   * Logs
-   */
-
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
   )

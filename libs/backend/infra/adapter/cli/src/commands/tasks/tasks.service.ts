@@ -56,7 +56,9 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
 
           if (stage === Stage.CI) {
-            execCommand('npx nx affected --target=test:unit -c ci')
+            execCommand(
+              'npx nx affected --target=test:unit --runInBand --ci -c ci',
+            )
           }
         }),
       )
@@ -70,7 +72,9 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
 
           if (stage === Stage.CI) {
-            execCommand('npx nx affected --target=test:integration -c ci')
+            execCommand(
+              'npx nx affected --target=test:integration --runInBand --ci -c ci',
+            )
           }
         }),
       )

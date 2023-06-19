@@ -16,6 +16,7 @@ import {
   type ExpectFormFieldErrorArgs,
   type ExpectFormFieldsArgs,
   type ExpectFormFieldValueArgs,
+  FIELD_TYPE,
   type FormFieldOptions,
   type FormFieldValueOptions,
   type FormFieldValueOrErrorOptions,
@@ -23,7 +24,6 @@ import {
   type ScrollPosition,
   type SetFormFieldValueArgs,
   type SetFormFieldValuesArgs,
-  FIELD_TYPE,
 } from './form.types'
 import {
   dropdownSelector,
