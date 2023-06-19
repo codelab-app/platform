@@ -9,7 +9,12 @@ import type {
   IPropData,
   IRestActionConfig,
 } from '@codelab/frontend/abstract/core'
-import { actionRef, getRunnerId, IProp } from '@codelab/frontend/abstract/core'
+import {
+  actionRef,
+  getRenderService,
+  getRunnerId,
+  IProp,
+} from '@codelab/frontend/abstract/core'
 import { replaceStateInProps, tryParse } from '@codelab/frontend/shared/utils'
 import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
 import type { Axios, Method } from 'axios'
@@ -84,6 +89,13 @@ export class ActionRunner
   implements IActionRunner
 {
   @computed
+  get renderer() {
+    const renderService = getRenderService(this)
+
+    return renderService.activeRenderer?.current
+  }
+
+  @computed
   get runner() {
     return this.actionRef.current.type === IActionKind.ApiAction
       ? this.apiRunner(this.props)
@@ -120,8 +132,19 @@ export class ActionRunner
   @computed
   get apiRunner() {
     const action = this.actionRef.current as IApiAction
-    const successAction = action.successAction?.current
-    const errorAction = action.errorAction?.current
+
+    const successRunner = action.successAction?.id
+      ? this.renderer?.actionRunners.get(
+          getRunnerId(action.store.id, action.successAction.id),
+        )?.runner
+      : null
+
+    const errorRunner = action.errorAction?.id
+      ? this.renderer?.actionRunners.get(
+          getRunnerId(action.store.id, action.errorAction.id),
+        )?.runner
+      : null
+
     const resource = action.resource.current
     // FIXME:
     const config = replaceStateInProps(action.config.current.values, {})
@@ -145,9 +168,9 @@ export class ActionRunner
         try {
           const response = await fetchPromise
 
-          //  return successAction?.runner(props).call(this, response)
+          return successRunner?.call(this, response)
         } catch (error) {
-          //  return errorAction?.runner(props).call(this, error)
+          return errorRunner?.call(this, error)
         }
       }
     }
