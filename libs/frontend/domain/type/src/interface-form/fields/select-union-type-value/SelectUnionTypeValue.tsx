@@ -112,7 +112,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
             let valueFieldPath = valueFieldName
 
             if (context.name.length) {
-              valueFieldPath = `${context.name.join('.')}.${valueFieldPath}`
+              valueFieldPath = `${context.name.join('.')}.${valueFieldName}`
             }
 
             context.onChange(valueFieldPath, formData.value)
