@@ -7,7 +7,6 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   actionRef,
-  getRenderService,
   propRef,
   resourceRef,
   storeRef,
@@ -20,11 +19,8 @@ import {
 import { IActionKind } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
-import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
-import { v4 } from 'uuid'
-import { getActionService } from '../action.service.context'
 import { createBaseAction } from './base-action.model'
 
 const create = ({
@@ -58,43 +54,6 @@ export class ApiAction
   })
   implements IApiAction
 {
-  @computed
-  get actionService() {
-    return getActionService(this)
-  }
-
-  @computed
-  get renderService() {
-    return getRenderService(this)
-  }
-
-  @computed
-  get runner() {
-    return (
-      this.renderService.activeRenderer?.current.actionRunners.get(this.id)
-        ?.runner || (() => undefined)
-    )
-  }
-
-  @modelAction
-  clone(storeId: string) {
-    const clonedErrorAction = this.errorAction?.current.clone(storeId)
-    const clonedSuccessAction = this.errorAction?.current.clone(storeId)
-
-    return this.actionService.add<IApiActionDTO>({
-      __typename: IActionKind.ApiAction,
-      config: { id: this.config.id },
-      errorAction: clonedErrorAction ? { id: clonedErrorAction.id } : undefined,
-      id: v4(),
-      name: this.name,
-      resource: { id: this.resource.id },
-      store: { id: storeId },
-      successAction: clonedSuccessAction
-        ? { id: clonedSuccessAction.id }
-        : undefined,
-    })
-  }
-
   @modelAction
   writeCache({
     config,

@@ -306,7 +306,13 @@ export class TypeSchemaFactory {
       '',
     )
 
-    return { label: '', properties, type: 'object', uniforms: nullUniforms }
+    return {
+      label: '',
+      properties,
+      required: ['type'],
+      type: 'object',
+      uniforms: nullUniforms,
+    }
   }
 
   private getExtraProperties(type: IType, context?: UiPropertiesContext) {

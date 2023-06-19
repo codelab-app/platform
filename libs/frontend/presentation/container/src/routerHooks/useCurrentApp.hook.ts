@@ -24,8 +24,6 @@ export const useCurrentApp = () => {
   const userName = query.userName as string
   const appName = appSlug && getNameFromSlug(appSlug)
 
-  console.log(appSlug, appName)
-
   const owner = userService.usersList.find(
     ({ username }) => username === userName,
   )

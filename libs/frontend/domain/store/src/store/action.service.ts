@@ -34,7 +34,6 @@ export class ActionService
     actionFactory: prop(() => new ActionFactory({})),
     actionRepository: prop(() => new ActionRepository({})),
     actions: prop(() => objectMap<IAction>()),
-    clones: prop(() => objectMap<IAction>()),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new ActionModalService({})),
     updateModal: prop(() => new ActionModalService({})),
@@ -57,7 +56,7 @@ export class ActionService
   }
 
   action(id: string) {
-    return this.actions.get(id) || this.clones.get(id)
+    return this.actions.get(id)
   }
 
   @modelAction

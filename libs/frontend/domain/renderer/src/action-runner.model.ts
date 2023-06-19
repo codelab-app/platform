@@ -4,18 +4,19 @@ import type {
   IApiAction,
   IBaseResourceConfigData,
   ICodeAction,
+  IElement,
   IGraphQLActionConfig,
   IPropData,
   IRestActionConfig,
 } from '@codelab/frontend/abstract/core'
-import { IProp } from '@codelab/frontend/abstract/core'
+import { actionRef, getRunnerId, IProp } from '@codelab/frontend/abstract/core'
 import { replaceStateInProps, tryParse } from '@codelab/frontend/shared/utils'
 import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
 import type { Axios, Method } from 'axios'
 import axios from 'axios'
 import { GraphQLClient } from 'graphql-request'
 import merge from 'lodash/merge'
-import { computed } from 'mobx'
+import { computed, toJS } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 
@@ -57,13 +58,27 @@ const graphqlFetch = (
   return client.request(config.query, variables, headers)
 }
 
-const create = (actionRef: Ref<IAction>, props: IPropData) =>
-  new ActionRunner({ actionRef, props })
+const create = (rootElement: IElement) => {
+  const store = rootElement.store.current
+  const component = rootElement.parentComponent?.current
+  // more props will be added other then component
+  const props = { $component: component?.runtimeProp?.componentEvaluatedProps }
+
+  return store.actions.map(
+    (action) =>
+      new ActionRunner({
+        actionRef: actionRef(action.id),
+        id: getRunnerId(store.id, action.id),
+        props,
+      }),
+  )
+}
 
 @model('@codelab/ActionRunner')
 export class ActionRunner
   extends Model(() => ({
     actionRef: prop<Ref<IAction>>(),
+    id: prop<string>(),
     props: prop<IPropData>(() => ({})),
   }))
   implements IActionRunner
@@ -72,7 +87,7 @@ export class ActionRunner
   get runner() {
     return this.actionRef.current.type === IActionKind.ApiAction
       ? this.apiRunner(this.props)
-      : this.codeRunner(this.props)
+      : this.codeRunner(toJS(this.props))
   }
 
   @modelAction

@@ -1,6 +1,8 @@
-import type {
-  ITypedPropTransformer,
-  TypedProp,
+import {
+  type IPageNode,
+  type ITypedPropTransformer,
+  type TypedProp,
+  getRunnerId,
 } from '@codelab/frontend/abstract/core'
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { ExtendedModel, model } from 'mobx-keystone'
@@ -25,16 +27,23 @@ export class ActionTypeTransformer
   extends ExtendedModel(BaseRenderPipe, {})
   implements ITypedPropTransformer
 {
-  public transform(prop: TypedProp) {
+  public transform(prop: TypedProp, node: IPageNode) {
     // unwrap custom action code so it is evaluated later
     if (hasStateExpression(prop.value)) {
       return prop.value
     }
 
-    console.log('I am here')
+    const state = node.store.current.state
 
-    const actionRunner = this.renderer.actionRunners.get(prop.value)
+    const actionRunner = this.renderer.actionRunners.get(
+      getRunnerId(node.store.id, prop.value),
+    )
 
-    return actionRunner?.runner || (() => undefined)
+    const fallback = () =>
+      console.error(`fail to call action with id ${prop.value}`)
+
+    const runner = actionRunner?.runner || fallback
+
+    return runner.bind(state)
   }
 }

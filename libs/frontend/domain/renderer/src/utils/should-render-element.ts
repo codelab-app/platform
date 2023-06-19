@@ -3,7 +3,6 @@ import {
   evaluateExpression,
   hasStateExpression,
 } from '@codelab/frontend/shared/utils'
-import { mergeProps } from '@codelab/shared/utils'
 
 export const shouldRenderElement = (
   { renderIfExpression, store }: IElement,
@@ -13,8 +12,5 @@ export const shouldRenderElement = (
     return true
   }
 
-  return evaluateExpression(
-    renderIfExpression,
-    mergeProps(props, store.current.state),
-  )
+  return evaluateExpression(renderIfExpression, store.current.state, props)
 }

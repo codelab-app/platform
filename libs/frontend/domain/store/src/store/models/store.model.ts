@@ -8,6 +8,8 @@ import type {
 import {
   actionRef,
   componentRef,
+  getRenderService,
+  getRunnerId,
   pageRef,
   typeRef,
 } from '@codelab/frontend/abstract/core'
@@ -64,42 +66,6 @@ export class Store
   implements IStore
 {
   @computed
-  get storeService() {
-    return getStoreService(this)
-  }
-
-  @computed
-  get jsonString() {
-    return propSafeStringify(this.state)
-  }
-
-  @modelAction
-  writeCache({ actions, api, id, name }: Partial<IStoreDTO>) {
-    this.id = id ? id : this.id
-    this.name = name ? name : this.name
-    this.api = api ? (typeRef(api.id) as Ref<IInterfaceType>) : this.api
-    this.actions =
-      actions?.map((action) => actionRef(action.id)) ?? this.actions
-
-    return this
-  }
-
-  @computed
-  get state() {
-    return makeAutoObservable(
-      mergeProps(
-        this.api.current.defaultValues,
-        this.actions
-          .map((action) => ({ [action.current.name]: action.current.runner }))
-          .reduce(merge, {}),
-      ),
-      {},
-      // bind actions to state
-      { autoBind: true },
-    )
-  }
-
-  @computed
   get actionsTree() {
     return this.actions
       .map((action) => ({
@@ -114,15 +80,64 @@ export class Store
       .filter((node) => Boolean(node))
   }
 
+  @computed
+  get storeService() {
+    return getStoreService(this)
+  }
+
+  @computed
+  get jsonString() {
+    return propSafeStringify(this.state)
+  }
+
+  @computed
+  get renderService() {
+    return getRenderService(this)
+  }
+
+  @computed
+  get state() {
+    const renderer = this.renderService.activeRenderer?.current
+
+    return makeAutoObservable(
+      mergeProps(
+        this.api.current.defaultValues,
+        this.actions
+          .map(({ current: action }) => {
+            const actionId = getRunnerId(this.id, action.id)
+            const actionRunner = renderer?.actionRunners.get(actionId)
+            const fallback = () => console.error(`fail to call ${action.name}`)
+            const runner = actionRunner?.runner || fallback
+
+            return { [action.name]: runner }
+          })
+          .reduce(merge, {}),
+      ),
+      {},
+      // bind actions to state
+      { autoBind: true },
+    )
+  }
+
+  @modelAction
+  writeCache({ actions, api, id, name }: Partial<IStoreDTO>) {
+    this.id = id ? id : this.id
+    this.name = name ? name : this.name
+    this.api = api ? (typeRef(api.id) as Ref<IInterfaceType>) : this.api
+    this.actions =
+      actions?.map((action) => actionRef(action.id)) ?? this.actions
+
+    return this
+  }
+
   @modelAction
   clone(componentId: string) {
     const id = v4()
 
     return this.storeService.add({
-      // we clone actions so that action runner is resolved from the correct store
-      actions: [...this.actions.values()].map((action) =>
-        action.current.clone(id),
-      ),
+      actions: [...this.actions.values()].map((action) => ({
+        id: action.current.id,
+      })),
       api: typeRef<IInterfaceType>(this.api.id),
       component: componentRef(componentId),
       id,

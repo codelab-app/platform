@@ -1,6 +1,5 @@
 import type {
   IActionRunner,
-  IElement,
   IElementTree,
   IExpressionTransformer,
   IPageNode,
@@ -13,11 +12,11 @@ import type {
   RendererType,
 } from '@codelab/frontend/abstract/core'
 import {
-  actionRef,
   CUSTOM_TEXT_PROP_KEY,
   elementRef,
   elementTreeRef,
   getRendererId,
+  IElement,
   IPageNodeRef,
   isAtomInstance,
   isElementPageNodeRef,
@@ -139,6 +138,18 @@ export class Renderer
   }
 
   @modelAction
+  addActionRunners(element: IElement) {
+    if (!element.isRoot) {
+      return []
+    }
+
+    const runners = ActionRunner.create(element)
+    runners.forEach((runner) => this.actionRunners.set(runner.id, runner))
+
+    return runners
+  }
+
+  @modelAction
   addRuntimeProps(nodeRef: IPageNodeRef) {
     const runtimeProps = isElementPageNodeRef(nodeRef)
       ? ElementRuntimeProps.create(nodeRef)
@@ -169,18 +180,9 @@ export class Renderer
   renderIntermediateElement = (
     element: IElement,
   ): ArrayOrSingle<IRenderOutput> => {
+    this.addActionRunners(element)
+
     const runtimeProps = this.addRuntimeProps(elementRef(element.id))
-
-    if (element.isRoot) {
-      element.store.current.actions.forEach((action) => {
-        const componentProps =
-          element.parentComponent?.current.runtimeProp
-            ?.componentEvaluatedProps || {}
-
-        const runner = ActionRunner.create(actionRef(action.id), componentProps)
-        this.actionRunners.set(action.id, runner)
-      })
-    }
 
     return this.renderPipe.render(element, runtimeProps.evaluatedProps)
   }

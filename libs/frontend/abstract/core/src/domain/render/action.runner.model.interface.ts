@@ -8,3 +8,6 @@ export interface IActionRunner {
 
   runner(...args: Array<unknown>): void
 }
+
+export const getRunnerId = (storeId: string, actionId: string) =>
+  `${storeId}${actionId}`
