@@ -17,6 +17,7 @@ import type {
   CommandBuilder,
   CommandModule,
 } from 'yargs'
+import { globalHandler } from '../../shared/handler'
 import { loadStageMiddleware } from '../../shared/middleware'
 import { getStageOptions } from '../../shared/options'
 import type { ExportProps } from '../../shared/path-args'
@@ -62,79 +63,79 @@ export class ImportService implements CommandModule<unknown, ImportProps> {
       ]) as Argv<ImportProps>
   }
 
-  async handler({
-    email,
-    seedDataPath,
-    skipSeedData,
-    skipUserData,
-    stage,
-  }: ArgumentsCamelCase<ImportProps>) {
-    const User = await Repository.instance.User
+  handler = globalHandler(
+    async ({
+      email,
+      seedDataPath,
+      skipSeedData,
+      skipUserData,
+      stage,
+    }: ArgumentsCamelCase<ImportProps>) => {
+      const User = await Repository.instance.User
 
-    const selectedAuth0Id = email
-      ? (await User.find({ where: { email } }))[0]?.auth0Id
-      : (await inquirer.prompt([await selectUserPrompt()])).selectedAuth0Id
+      const selectedAuth0Id = email
+        ? (await User.find({ where: { email } }))[0]?.auth0Id
+        : (await inquirer.prompt([await selectUserPrompt()])).selectedAuth0Id
 
-    const shouldSkipSeedData: boolean =
-      skipSeedData !== undefined
-        ? skipSeedData
-        : !(
-            await inquirer.prompt([
-              {
-                default: false,
-                message: 'Would you like to import seed data?',
-                name: 'confirm',
-                type: 'confirm',
-              },
-            ])
-          ).confirm
-
-    const shouldSkipUserData: boolean =
-      skipUserData !== undefined
-        ? skipUserData
-        : !(
-            await inquirer.prompt([
-              {
-                default: false,
-                message: 'Would you like to import user data?',
-                name: 'confirm',
-                type: 'confirm',
-              },
-            ])
-          ).confirm
-
-    /**
-     * Seed atoms & types for the project
-     */
-    if (!shouldSkipSeedData) {
-      await this.importAdminDataService.execute({ auth0Id: selectedAuth0Id })
-    }
-
-    // If we specified a file for import
-    if (!shouldSkipUserData) {
-      const inputFilePath =
-        seedDataPath !== undefined
-          ? seedDataPath
-          : (
+      const shouldSkipSeedData: boolean =
+        skipSeedData !== undefined
+          ? skipSeedData
+          : !(
               await inquirer.prompt([
                 {
-                  message: 'Enter a path to import from, relative to ./',
-                  name: 'inputFilePath',
-                  type: 'input',
+                  default: false,
+                  message: 'Would you like to import seed data?',
+                  name: 'confirm',
+                  type: 'confirm',
                 },
               ])
-            ).inputFilePath
+            ).confirm
 
-      const json = fs.readFileSync(
-        path.resolve(process.cwd(), inputFilePath),
-        'utf8',
-      )
+      const shouldSkipUserData: boolean =
+        skipUserData !== undefined
+          ? skipUserData
+          : !(
+              await inquirer.prompt([
+                {
+                  default: false,
+                  message: 'Would you like to import user data?',
+                  name: 'confirm',
+                  type: 'confirm',
+                },
+              ])
+            ).confirm
 
-      const userData = JSON.parse(json) as IUserDataExport
-      console.log('import user data')
-      // await importUserData(userData, { auth0Id: selectedAuth0Id })
-    }
+      /**
+       * Seed atoms & types for the project
+       */
+      if (!shouldSkipSeedData) {
+        await this.importAdminDataService.execute({ auth0Id: selectedAuth0Id })
+      }
 
-    process.exit(0)
-  }
+      // If we specified a file for import
+      if (!shouldSkipUserData) {
+        const inputFilePath =
+          seedDataPath !== undefined
+            ? seedDataPath
+            : (
+                await inquirer.prompt([
+                  {
+                    message: 'Enter a path to import from, relative to ./',
+                    name: 'inputFilePath',
+                    type: 'input',
+                  },
+                ])
+              ).inputFilePath
+
+        const json = fs.readFileSync(
+          path.resolve(process.cwd(), inputFilePath),
+          'utf8',
+        )
+
+        const userData = JSON.parse(json) as IUserDataExport
+        console.log('import user data')
+        // await importUserData(userData, { auth0Id: selectedAuth0Id })
+      }
+    },
+  )
 }

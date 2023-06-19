@@ -1,7 +1,9 @@
 import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import type { Argv, CommandModule } from 'yargs'
-import { getStageOptions, loadStageMiddleware } from '../../shared/command'
+import { globalHandler } from '../../shared/handler'
+import { loadStageMiddleware } from '../../shared/middleware'
+import { getStageOptions } from '../../shared/options'
 import {
   assignUserOption,
   selectUser,
@@ -22,25 +24,21 @@ export class SeedService implements CommandModule<unknown> {
         'antd',
         'Seed Ant Design framework',
         (_argv) => _argv,
-        async ({ user }) => {
+        globalHandler(async ({ user }) => {
           const owner = user as IAuth0Owner
 
           // await new AdminSeederService(owner).seedAntDesign()
-
-          process.exit(0)
-        },
+        }),
       )
       .command(
         'html',
         'Seed html',
         (_argv) => _argv,
-        async ({ user }) => {
+        globalHandler(async ({ user }) => {
           const owner = user as IAuth0Owner
 
-          await new AdminSeederService(owner).seedHtml()
-
-          process.exit(0)
-        },
+          // await new AdminSeederService(owner).seedHtml()
+        }),
       )
       .demandCommand()
   }

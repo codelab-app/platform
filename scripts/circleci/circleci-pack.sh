@@ -12,6 +12,7 @@ if [ "$git_username" = "Webber Wang" ]; then
 
     # For example, run tests:
     circleci config pack .circleci/config/ > .circleci/config.yml
+    npx prettier --write .circleci/config.yml
 
     exit_status=$?
     if [ $exit_status -ne 0 ]; then

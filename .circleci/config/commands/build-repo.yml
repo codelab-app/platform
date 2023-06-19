@@ -20,8 +20,7 @@ steps:
     # This step needs to be after reset-cache
   - save_cache:
       name: 'Save NPM Cache'
-      keys:
-        - node-modules-{{ checksum "yarn.lock" }}
+      key: node-modules-{{ checksum "yarn.lock" }}
       paths:
         - ~/project/node_modules
         # Need this folder for local cache to hit, remote cache still hits but takes too long to build

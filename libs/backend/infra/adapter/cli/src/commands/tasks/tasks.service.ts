@@ -7,7 +7,8 @@ import { spawn } from 'child_process'
 import gitChangedFiles from 'git-changed-files'
 import isPortReachable from 'is-port-reachable'
 import path from 'path'
-import type { Argv, CommandModule } from 'yargs'
+import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
+import { globalHandler } from '../../shared/handler'
 import { getStageOptions } from '../../shared/options'
 import { Stage } from '../../shared/utils/stage'
 import { Tasks } from '../../shared/utils/tasks'
@@ -30,7 +31,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
         Tasks.Build,
         'Build projects',
         (argv) => argv,
-        ({ stage }) => {
+        globalHandler(({ stage }) => {
           if (stage === Stage.Test) {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
@@ -40,13 +41,13 @@ export class TaskService implements CommandModule<unknown, unknown> {
           if (stage === Stage.CI) {
             execCommand(`nx build platform -c ci`)
           }
-        },
+        }),
       )
       .command(
         Tasks.Unit,
         'Run unit tests',
         (argv) => argv,
-        ({ stage }) => {
+        globalHandler(({ stage }) => {
           if (stage === Stage.Test) {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
@@ -57,13 +58,13 @@ export class TaskService implements CommandModule<unknown, unknown> {
           if (stage === Stage.CI) {
             execCommand('npx nx affected --target=test:unit -c ci')
           }
-        },
+        }),
       )
       .command(
         Tasks.Int,
         'Run integration tests',
         (argv) => argv,
-        ({ stage }) => {
+        globalHandler(({ stage }) => {
           if (stage === Stage.Test) {
             execCommand(`${NX_TEST} affected --target=test:integration`)
           }
@@ -71,13 +72,13 @@ export class TaskService implements CommandModule<unknown, unknown> {
           if (stage === Stage.CI) {
             execCommand('npx nx affected --target=test:integration -c ci')
           }
-        },
+        }),
       )
       .command(
         Tasks.Codegen,
         'Run codegen',
         (argv) => argv.fail((msg, err) => console.log(msg, err)),
-        async ({ stage }) => {
+        globalHandler(async ({ stage }) => {
           if (stage === Stage.Dev) {
             if (!(await isPortReachable(3000, { host: '127.0.0.1' }))) {
               console.error('Please start server!')
@@ -142,13 +143,13 @@ export class TaskService implements CommandModule<unknown, unknown> {
               }
             })
           }
-        },
+        }),
       )
       .command(
         Tasks.E2e,
         'Run e2e tests',
         (argv) => argv,
-        ({ stage }) => {
+        globalHandler(({ stage }) => {
           if (stage === Stage.Test) {
             execCommand(`${NX_TEST} run platform-e2e:e2e:test `)
           }
@@ -162,13 +163,13 @@ export class TaskService implements CommandModule<unknown, unknown> {
             // execCommand(`npx nx affected --target=e2e -c ci`)
             execCommand(`npx nx run platform-e2e:e2e:ci --verbose`)
           }
-        },
+        }),
       )
       .command(
         Tasks.Lint,
         'Lint projects',
         (argv) => argv,
-        ({ stage }) => {
+        globalHandler(({ stage }) => {
           if (stage === Stage.Test) {
             execCommand(`yarn cross-env TIMING=1 lint-staged`)
             execCommand(`npx ls-lint`)
@@ -185,13 +186,13 @@ export class TaskService implements CommandModule<unknown, unknown> {
             // )
             execCommand(`npx ls-lint`)
           }
-        },
+        }),
       )
       .command(
         `${Tasks.Commitlint} [edit]`,
         'Commitlint projects',
         (argv) => argv,
-        ({ edit, stage }) => {
+        globalHandler(({ edit, stage }) => {
           if (stage === Stage.Test) {
             execCommand(`npx --no-install commitlint --edit ${edit}`)
           }
@@ -199,12 +200,12 @@ export class TaskService implements CommandModule<unknown, unknown> {
           if (stage === Stage.CI) {
             execCommand(`./scripts/lint/commitlint-ci.sh`)
           }
-        },
+        }),
       )
       .demandCommand(1, 'Please provide a task')
   }
 
   handler() {
-    process.exit(0)
+    //
   }
 }

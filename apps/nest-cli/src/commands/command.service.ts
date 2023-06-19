@@ -24,8 +24,7 @@ export class CommandService {
   ) {}
 
   exec() {
-    // this.importService.execute.bind(this)
-    console.log('Process.argv', hideBin(process.argv))
+    // console.log('Process.argv', hideBin(process.argv))
 
     void yargs(hideBin(process.argv))
       .scriptName('cli')
@@ -54,7 +53,5 @@ export class CommandService {
       .demandCommand(1)
       // Must add this to throw error for unknown arguments
       .strict().argv
-
-    console.log('Done! Please press Ctrl+C')
   }
 }

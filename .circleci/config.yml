@@ -1,484 +1,482 @@
 commands:
-    build-repo:
-        description: Build Repo
-        steps:
-            - restore_cache:
-                keys:
-                    - nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
-                    - nx-cache
-                name: Restore NX Cache
-            - run:
-                command: ./scripts/nx/reset-cache.sh
-                name: Monitor NX Cache Size
-            - run: npx nx run-many --target=build --projects=platform,nest-cli,landing,websites --parallel=4 -c ci --verbose --nx-bail
-            - save_cache:
-                key: nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
-                name: Save Cache
-                paths:
-                    - ~/project/dist/apps/platform/.next/cache
-                    - ~/project/dist/apps/landing/.next/cache
-                    - ~/project/dist/apps/websites/.next/cache
-            - save_cache:
-                keys:
-                    - node-modules-{{ checksum "yarn.lock" }}
-                name: Save NPM Cache
-                paths:
-                    - ~/project/node_modules
-    install-npm:
-        steps:
-            - restore_cache:
-                keys:
-                    - yarn-cache-{{ checksum "yarn.lock" }}
-                    - yarn-cache
-                name: Restore Yarn Cache
-            - run:
-                command: yarn install --immutable
-                name: Install NPM Packages
-            - save_cache:
-                key: yarn-cache-{{ checksum "yarn.lock" }}
-                name: Save Yarn Cache
-                paths:
-                    - ~/.yarn
-    install-nvm:
-        steps:
-            - restore_cache:
-                keys:
-                    - nvm-cache-{{ checksum ".nvmrc" }}
-                name: Restore NVM Cache
-            - run:
-                command: source ~/project/.circleci/config/install-nvm.sh
-                name: Install NVM
-            - save_cache:
-                key: nvm-cache-{{ checksum ".nvmrc" }}
-                name: Save NVM Cache
-                paths:
-                    - ~/.nvm
-            - run:
-                command: |
-                    nvm install 18.16.0
-                    nvm alias default 18.16.0
-                    node -v
-                name: Set Node Version
-    install-terraform:
-        description: Install Terraform
-        steps:
-            - run:
-                command: |
-                    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DA418C88A3219F7B
+  build-repo:
+    description: Build Repo
+    steps:
+      - restore_cache:
+          keys:
+            - nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
+            - nx-cache
+          name: Restore NX Cache
+      - run:
+          command: ./scripts/nx/reset-cache.sh
+          name: Monitor NX Cache Size
+      - run: npx nx run-many --target=build --projects=platform,nest-cli,landing,websites --parallel=4 -c ci --verbose --nx-bail
+      - save_cache:
+          key: nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
+          name: Save Cache
+          paths:
+            - ~/project/dist/apps/platform/.next/cache
+            - ~/project/dist/apps/landing/.next/cache
+            - ~/project/dist/apps/websites/.next/cache
+      - save_cache:
+          key: node-modules-{{ checksum "yarn.lock" }}
+          name: Save NPM Cache
+          paths:
+            - ~/project/node_modules
+  install-npm:
+    steps:
+      - restore_cache:
+          keys:
+            - yarn-cache-{{ checksum "yarn.lock" }}
+            - yarn-cache
+          name: Restore Yarn Cache
+      - run:
+          command: yarn install --immutable
+          name: Install NPM Packages
+      - save_cache:
+          key: yarn-cache-{{ checksum "yarn.lock" }}
+          name: Save Yarn Cache
+          paths:
+            - ~/.yarn
+  install-nvm:
+    steps:
+      - restore_cache:
+          keys:
+            - nvm-cache-{{ checksum ".nvmrc" }}
+          name: Restore NVM Cache
+      - run:
+          command: source ~/project/.circleci/config/install-nvm.sh
+          name: Install NVM
+      - save_cache:
+          key: nvm-cache-{{ checksum ".nvmrc" }}
+          name: Save NVM Cache
+          paths:
+            - ~/.nvm
+      - run:
+          command: |
+            nvm install 18.16.0
+            nvm alias default 18.16.0
+            node -v
+          name: Set Node Version
+  install-terraform:
+    description: Install Terraform
+    steps:
+      - run:
+          command: |
+            sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DA418C88A3219F7B
 
-                    curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-                    sudo apt-add-repository --yes "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+            curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+            sudo apt-add-repository --yes "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 
-                    sudo apt update
-                    sudo apt install terraform=1.3.9
-                name: Install Terraform
-    restore-infra-workspace:
-        description: Restore Infra Workspace
-        steps:
-            - checkout
-            - attach_workspace:
-                at: ..
-            - restore_cache:
-                keys:
-                    - node-modules-{{ checksum "yarn.lock" }}
-                    - nvm-cache-{{ checksum ".nvmrc" }}
-                name: Restore Cache
-            - install-terraform
-            - setup-env
-    restore-workspace:
-        description: Restore Workspace
-        steps:
-            - checkout
-            - attach_workspace:
-                at: ..
-            - restore_cache:
-                keys:
-                    - node-modules-{{ checksum "yarn.lock" }}
-                    - nvm-cache-{{ checksum ".nvmrc" }}
-                name: Restore NPM Cache
-            - setup-env
-    setup-env:
-        description: Setup Env
-        steps:
-            - run:
-                command: source ~/project/.circleci/config/env.sh
-                name: Setup Env
+            sudo apt update
+            sudo apt install terraform=1.3.9
+          name: Install Terraform
+  restore-infra-workspace:
+    description: Restore Infra Workspace
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ..
+      - restore_cache:
+          keys:
+            - node-modules-{{ checksum "yarn.lock" }}
+            - nvm-cache-{{ checksum ".nvmrc" }}
+          name: Restore Cache
+      - install-terraform
+      - setup-env
+  restore-workspace:
+    description: Restore Workspace
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ..
+      - restore_cache:
+          keys:
+            - node-modules-{{ checksum "yarn.lock" }}
+            - nvm-cache-{{ checksum ".nvmrc" }}
+          name: Restore NPM Cache
+      - setup-env
+  setup-env:
+    description: Setup Env
+    steps:
+      - run:
+          command: source ~/project/.circleci/config/env.sh
+          name: Setup Env
 executors:
-    docker-node:
-        docker:
-            - image: cimg/node:18.16.0-browsers
-    docker-node-neo4j:
-        docker:
-            - image: cimg/node:18.16.0-browsers
-            - command:
-                - neo4j
-                - start
-              environment:
-                NEO4J_AUTH: neo4j/password
-                NEO4J_PLUGINS: '["apoc"]'
-              image: neo4j:5.4.0
-    machine-ubuntu:
-        machine:
-            image: ubuntu-2004:2022.04.1
-    terraform:
-        docker:
-            - image: hashicorp/terraform:1.3.1
+  docker-node:
+    docker:
+      - image: cimg/node:18.16.0-browsers
+  docker-node-neo4j:
+    docker:
+      - image: cimg/node:18.16.0-browsers
+      - command:
+          - neo4j
+          - start
         environment:
-            TF_WORKSPACE: prod
+          NEO4J_AUTH: neo4j/password
+          NEO4J_PLUGINS: '["apoc"]'
+        image: neo4j:5.4.0
+  machine-ubuntu:
+    machine:
+      image: ubuntu-2004:2022.04.1
+  terraform:
+    docker:
+      - image: hashicorp/terraform:1.3.1
+    environment:
+      TF_WORKSPACE: prod
 jobs:
-    apply:
-        executor: docker-node
-        steps:
-            - restore-infra-workspace
-            - run:
-                command: yarn cli terraform --stage=prod init
-                name: Terraform Init
-            - run:
-                command: yarn cli terraform --stage=prod apply
-                name: Terraform Apply
-    codegen:
-        executor: docker-node-neo4j
-        resource_class: medium
-        steps:
-            - restore-workspace
-            - run:
-                command: yarn cli tasks codegen --stage ci
-                name: GraphQL Codegen
-    deploy-preview:
-        executor: docker-node-neo4j
-        resource_class: large
-        steps:
-            - checkout
-            - add_ssh_keys-f:
-                fingerprints:
-                    - SHA256:9rhQIHmDI4ch+zBMmw7SOWe0utLgvKuqcUrvoXEcKMk
-            - run:
-                command: git push -f origin HEAD:staging
-                name: Push to Staging Branch
-            - run:
-                command: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_tV5TS4XJhvtYfyw8GMEKzRzSn9au/2Ze7qyE7x3
-                name: Trigger Vercel Deploy
-    deploy-production:
-        executor: docker-node-neo4j
-        resource_class: large
-        steps:
-            - restore-workspace
-            - run:
-                command: npm install --global vercel@latest
-                name: Install Vercel CLI
-            - run:
-                command: vercel pull --yes --environment=production --token=$VERCEL_ACCESS_TOKEN
-                name: Pull Vercel Environment Information
-            - run:
-                command: vercel build --prod --token=$VERCEL_ACCESS_TOKEN
-                name: Build Project Artifacts
-            - run:
-                command: vercel deploy --prebuilt --prod --token=$VERCEL_ACCESS_TOKEN
-                name: Deploy Project Artifacts to Vercel
-    e2e:
-        executor: docker-node-neo4j
-        parallelism: 4
-        resource_class: large
-        steps:
-            - restore-workspace
-            - setup_remote_docker:
-                version: 20.10.14
-            - run: npx cypress install
-            - run: npx cypress verify
-            - run:
-                command: yarn cli tasks e2e --stage ci
-                environment:
-                    JEST_JUNIT_OUTPUT_DIR: /tmp/test-reports
-                    JEST_JUNIT_OUTPUT_NAME: e2e-specs-results.xml
-                name: Run E2E Tests
-            - store_artifacts:
-                destination: cypress/videos
-                path: ~/project/apps/platform-e2e/src/videos
-            - store_artifacts:
-                destination: cypress/screenshots
-                path: ~/project/apps/platform-e2e/src/screenshots
-            - store_artifacts:
-                destination: cypress/data
-                path: ~/project/apps/platform-e2e/src/data
-            - store_test_results:
-                path: /tmp/test-reports
-    integration:
-        executor: docker-node-neo4j
-        resource_class: large
-        steps:
-            - restore-workspace
-            - run:
-                command: yarn cli tasks int --stage ci
-                environment:
-                    JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-integration
-                name: Run Integration Tests
-                no_output_timeout: 20m
-            - store_test_results:
-                path: ./tmp/reports/test-integration
-    lint:
-        environment:
-            CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
-            CIRCLE_REVISION: << pipeline.git.revision >>
-        executor: docker-node
-        resource_class: large
-        steps:
-            - restore-workspace
-            - run:
-                command: yarn cli tasks lint --stage ci
-                name: Run Lint on Repository
-            - run:
-                command: yarn cli tasks commitlint --stage ci
-                name: Commitlint
-            - store_test_results:
-                path: ./tmp/reports/lint
-    notify-failure:
-        executor: machine-ubuntu
-        resource_class: small
-        steps:
-            - swissknife/wait_for_job:
-                job-name: install-and-build-workspace,lint,unit,e2e,codegen
-            - slack/notify:
-                channel: $SLACK_CHANNEL_UPDATE
-                event: fail
-                template: basic_fail_1
-    notify-success:
-        executor: docker-node
-        steps:
-            - slack/notify:
-                channel: $SLACK_CHANNEL_UPDATE
-                custom: |
-                    {
-                    	"text": "CircleCI job succeeded!",
-                    	"blocks": [
-                    		{
-                    			"type": "header",
-                    			"text": {
-                    				"type": "plain_text",
-                    				"text": "Job Succeeded. :white_check_mark:",
-                    				"emoji": true
-                    			}
-                    		},
-                    		{
-                    			"type": "section",
-                    			"fields": [
-                    				{
-                    					"type": "mrkdwn",
-                    					"text": "*Job*: ${CIRCLE_JOB}"
-                    				}
-                    			]
-                    		},
-                    		{
-                    			"type": "section",
-                    			"fields": [
-                    				{
-                    					"type": "mrkdwn",
-                    					"text": "*Project*:\n $CIRCLE_PROJECT_REPONAME"
-                    				},
-                    				{
-                    					"type": "mrkdwn",
-                    					"text": "*Branch*:\n $CIRCLE_BRANCH"
-                                    },
-                                    {
-                    					"type": "mrkdwn",
-                    					"text": "*Commit*:\n $CIRCLE_SHA1"
-                    				},
-                    				{
-                    					"type": "mrkdwn",
-                    					"text": "*Author*:\n $CIRCLE_USERNAME"
-                    				}
-                    			],
-                    			"accessory": {
-                    				"type": "image",
-                    				"image_url": "https://assets.brandfolder.com/otz5mn-bw4j2w-6jzqo8/original/circle-logo-badge-black.png",
-                    				"alt_text": "CircleCI logo"
-                    			}
-                    		},
-                        {
-                          "type": "section",
-                          "fields": [
+  apply:
+    executor: docker-node
+    steps:
+      - restore-infra-workspace
+      - run:
+          command: yarn cli terraform --stage=prod init
+          name: Terraform Init
+      - run:
+          command: yarn cli terraform --stage=prod apply
+          name: Terraform Apply
+  codegen:
+    executor: docker-node-neo4j
+    resource_class: medium
+    steps:
+      - restore-workspace
+      - run:
+          command: yarn cli tasks codegen --stage ci
+          name: GraphQL Codegen
+  deploy-preview:
+    executor: docker-node-neo4j
+    resource_class: large
+    steps:
+      - checkout
+      - add_ssh_keys-f:
+          fingerprints:
+            - SHA256:9rhQIHmDI4ch+zBMmw7SOWe0utLgvKuqcUrvoXEcKMk
+      - run:
+          command: git push -f origin HEAD:staging
+          name: Push to Staging Branch
+      - run:
+          command: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_tV5TS4XJhvtYfyw8GMEKzRzSn9au/2Ze7qyE7x3
+          name: Trigger Vercel Deploy
+  deploy-production:
+    executor: docker-node-neo4j
+    resource_class: large
+    steps:
+      - restore-workspace
+      - run:
+          command: npm install --global vercel@latest
+          name: Install Vercel CLI
+      - run:
+          command: vercel pull --yes --environment=production --token=$VERCEL_ACCESS_TOKEN
+          name: Pull Vercel Environment Information
+      - run:
+          command: vercel build --prod --token=$VERCEL_ACCESS_TOKEN
+          name: Build Project Artifacts
+      - run:
+          command: vercel deploy --prebuilt --prod --token=$VERCEL_ACCESS_TOKEN
+          name: Deploy Project Artifacts to Vercel
+  e2e:
+    executor: docker-node-neo4j
+    parallelism: 4
+    resource_class: large
+    steps:
+      - restore-workspace
+      - setup_remote_docker:
+          version: 20.10.14
+      - run: npx cypress install
+      - run: npx cypress verify
+      - run:
+          command: yarn cli tasks e2e --stage ci
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: /tmp/test-reports
+            JEST_JUNIT_OUTPUT_NAME: e2e-specs-results.xml
+          name: Run E2E Tests
+      - store_artifacts:
+          destination: cypress/videos
+          path: ~/project/apps/platform-e2e/src/videos
+      - store_artifacts:
+          destination: cypress/screenshots
+          path: ~/project/apps/platform-e2e/src/screenshots
+      - store_artifacts:
+          destination: cypress/data
+          path: ~/project/apps/platform-e2e/src/data
+      - store_test_results:
+          path: /tmp/test-reports
+  integration:
+    executor: docker-node-neo4j
+    resource_class: large
+    steps:
+      - restore-workspace
+      - run:
+          command: yarn cli tasks int --stage ci
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-integration
+          name: Run Integration Tests
+          no_output_timeout: 20m
+      - store_test_results:
+          path: ./tmp/reports/test-integration
+  lint:
+    environment:
+      CIRCLE_BASE_REVISION: << pipeline.git.base_revision >>
+      CIRCLE_REVISION: << pipeline.git.revision >>
+    executor: docker-node
+    resource_class: large
+    steps:
+      - restore-workspace
+      - run:
+          command: yarn cli tasks lint --stage ci
+          name: Run Lint on Repository
+      - run:
+          command: yarn cli tasks commitlint --stage ci
+          name: Commitlint
+      - store_test_results:
+          path: ./tmp/reports/lint
+  notify-failure:
+    executor: machine-ubuntu
+    resource_class: small
+    steps:
+      - swissknife/wait_for_job:
+          job-name: install-and-build-workspace,lint,unit,e2e,codegen
+      - slack/notify:
+          channel: $SLACK_CHANNEL_UPDATE
+          event: fail
+          template: basic_fail_1
+  notify-success:
+    executor: docker-node
+    steps:
+      - slack/notify:
+          channel: $SLACK_CHANNEL_UPDATE
+          custom: |
+            {
+            	"text": "CircleCI job succeeded!",
+            	"blocks": [
+            		{
+            			"type": "header",
+            			"text": {
+            				"type": "plain_text",
+            				"text": "Job Succeeded. :white_check_mark:",
+            				"emoji": true
+            			}
+            		},
+            		{
+            			"type": "section",
+            			"fields": [
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Job*: ${CIRCLE_JOB}"
+            				}
+            			]
+            		},
+            		{
+            			"type": "section",
+            			"fields": [
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Project*:\n $CIRCLE_PROJECT_REPONAME"
+            				},
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Branch*:\n $CIRCLE_BRANCH"
+                            },
                             {
-                              "type": "mrkdwn",
-                              "text": "*Mentions*:\n $SLACK_PARAM_MENTIONS"
-                            }
-                          ]
-                        },
-                    		{
-                    			"type": "actions",
-                    			"elements": [
-                    				{
-                    					"type": "button",
-                    					"text": {
-                    						"type": "plain_text",
-                    						"text": "View Job"
-                    					},
-                    					"url": "${CIRCLE_BUILD_URL}"
-                    				}
-                    			]
-                    		}
-                    	]
+            					"type": "mrkdwn",
+            					"text": "*Commit*:\n $CIRCLE_SHA1"
+            				},
+            				{
+            					"type": "mrkdwn",
+            					"text": "*Author*:\n $CIRCLE_USERNAME"
+            				}
+            			],
+            			"accessory": {
+            				"type": "image",
+            				"image_url": "https://assets.brandfolder.com/otz5mn-bw4j2w-6jzqo8/original/circle-logo-badge-black.png",
+            				"alt_text": "CircleCI logo"
+            			}
+            		},
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Mentions*:\n $SLACK_PARAM_MENTIONS"
                     }
-                event: pass
-    plan:
-        executor: docker-node
-        steps:
-            - restore-infra-workspace
-            - run:
-                command: |
-                    echo "credentials \"app.terraform.io\" {token = \"$TERRAFORM_TOKEN\"}" >> $HOME/.terraformrc
-                name: Create .terraformrc file locally
-            - run: terraform --version
-            - run:
-                command: terraform -chdir=terraform fmt
-                name: Terraform Format
-            - run:
-                command: yarn cli terraform --stage=prod init
-                name: Terraform Init
-            - run:
-                command: yarn cli terraform --stage=prod validate
-                name: Terraform Validate
-            - run:
-                command: yarn cli terraform --stage=prod plan
-                name: Terraform Plan
-            - persist_to_workspace:
-                paths:
-                    - .terraformrc
-                    - project/terraform/.terraform
-                root: ~/
-    setup-infra-workspace:
-        executor: docker-node
-        resource_class: large
-        steps:
-            - restore-workspace
-            - install-terraform
-            - install-nvm
-            - install-npm
-            - build-repo
-            - persist_to_workspace:
-                paths:
-                    - ./project/dist
-                root: ~/
-    setup-workspace:
-        executor: docker-node
-        resource_class: large
-        steps:
-            - checkout
-            - setup-env
-            - install-npm
-            - install-nvm
-            - build-repo
-            - persist_to_workspace:
-                paths:
-                    - project/dist
-                root: ~/
-    unit:
-        executor: docker-node
-        resource_class: large
-        steps:
-            - restore-workspace
-            - run:
-                command: yarn cli tasks unit --stage ci
-                environment:
-                    JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-unit
-                name: Run Unit Tests
-            - store_test_results:
-                path: ./tmp/reports/test-unit
+                  ]
+                },
+            		{
+            			"type": "actions",
+            			"elements": [
+            				{
+            					"type": "button",
+            					"text": {
+            						"type": "plain_text",
+            						"text": "View Job"
+            					},
+            					"url": "${CIRCLE_BUILD_URL}"
+            				}
+            			]
+            		}
+            	]
+            }
+          event: pass
+  plan:
+    executor: docker-node
+    steps:
+      - restore-infra-workspace
+      - run:
+          command: |
+            echo "credentials \"app.terraform.io\" {token = \"$TERRAFORM_TOKEN\"}" >> $HOME/.terraformrc
+          name: Create .terraformrc file locally
+      - run: terraform --version
+      - run:
+          command: terraform -chdir=terraform fmt
+          name: Terraform Format
+      - run:
+          command: yarn cli terraform --stage=prod init
+          name: Terraform Init
+      - run:
+          command: yarn cli terraform --stage=prod validate
+          name: Terraform Validate
+      - run:
+          command: yarn cli terraform --stage=prod plan
+          name: Terraform Plan
+      - persist_to_workspace:
+          paths:
+            - .terraformrc
+            - project/terraform/.terraform
+          root: ~/
+  setup-infra-workspace:
+    executor: docker-node
+    resource_class: large
+    steps:
+      - restore-workspace
+      - install-terraform
+      - install-nvm
+      - install-npm
+      - build-repo
+      - persist_to_workspace:
+          paths:
+            - ./project/dist
+          root: ~/
+  setup-workspace:
+    executor: docker-node
+    resource_class: large
+    steps:
+      - checkout
+      - setup-env
+      - install-npm
+      - install-nvm
+      - build-repo
+      - persist_to_workspace:
+          paths:
+            - project/dist
+          root: ~/
+  unit:
+    executor: docker-node
+    resource_class: large
+    steps:
+      - restore-workspace
+      - run:
+          command: yarn cli tasks unit --stage ci
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./tmp/reports/test-unit
+          name: Run Unit Tests
+      - store_test_results:
+          path: ./tmp/reports/test-unit
 orbs:
-    node: circleci/node@5.1.0
-    nx: nrwl/nx@1.6.1
-    queue: eddiewebb/queue@2.2.1
-    slack: circleci/slack@4.12.5
-    swissknife: roopakv/swissknife@0.69.0
-    terraform: circleci/terraform@3.2.1
+  node: circleci/node@5.1.0
+  nx: nrwl/nx@1.6.1
+  queue: eddiewebb/queue@2.2.1
+  slack: circleci/slack@4.12.5
+  swissknife: roopakv/swissknife@0.69.0
+  terraform: circleci/terraform@3.2.1
 version: 2.1
 workflows:
-    app:
-        jobs:
-            - notify-success:
-                filters:
-                    branches:
-                        only:
-                            - master
-    app-pr:
-        jobs:
-            - setup-workspace:
-                filters:
-                    branches:
-                        ignore:
-                            - master
-            - lint:
-                filters:
-                    branches:
-                        ignore:
-                            - master
-                requires:
-                    - setup-workspace
-            - codegen:
-                filters:
-                    branches:
-                        ignore:
-                            - master
-                requires:
-                    - setup-workspace
-            - unit:
-                filters:
-                    branches:
-                        ignore:
-                            - master
-                requires:
-                    - setup-workspace
-            - integration:
-                filters:
-                    branches:
-                        ignore:
-                            - master
-                requires:
-                    - setup-workspace
-            - e2e:
-                filters:
-                    branches:
-                        ignore:
-                            - master
-                requires:
-                    - setup-workspace
-            - notify-success:
-                filters:
-                    branches:
-                        ignore:
-                            - master
-                requires:
-                    - lint
-                    - codegen
-                    - unit
-                    - integration
-                    - e2e
-    infra:
-        jobs:
-            - setup-infra-workspace:
-                filters:
-                    branches:
-                        only:
-                            - master
-            - plan:
-                filters:
-                    branches:
-                        only:
-                            - master
-                requires:
-                    - setup-infra-workspace
-            - hold-apply:
-                filters:
-                    branches:
-                        only:
-                            - master
-                requires:
-                    - plan
-                type: approval
-            - apply:
-                filters:
-                    branches:
-                        only:
-                            - master
-                requires:
-                    - hold-apply
+  app:
+    jobs:
+      - notify-success:
+          filters:
+            branches:
+              only:
+                - master
+  app-pr:
+    jobs:
+      - setup-workspace:
+          filters:
+            branches:
+              ignore:
+                - master
+      - lint:
+          filters:
+            branches:
+              ignore:
+                - master
+          requires:
+            - setup-workspace
+      - codegen:
+          filters:
+            branches:
+              ignore:
+                - master
+          requires:
+            - setup-workspace
+      - unit:
+          filters:
+            branches:
+              ignore:
+                - master
+          requires:
+            - setup-workspace
+      - integration:
+          filters:
+            branches:
+              ignore:
+                - master
+          requires:
+            - setup-workspace
+      - e2e:
+          filters:
+            branches:
+              ignore:
+                - master
+          requires:
+            - setup-workspace
+      - notify-success:
+          filters:
+            branches:
+              ignore:
+                - master
+          requires:
+            - lint
+            - codegen
+            - unit
+            - integration
+            - e2e
+  infra:
+    jobs:
+      - setup-infra-workspace:
+          filters:
+            branches:
+              only:
+                - master
+      - plan:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - setup-infra-workspace
+      - hold-apply:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - plan
+          type: approval
+      - apply:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - hold-apply
 working_directory: ~/project
-
