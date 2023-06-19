@@ -37,8 +37,6 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           'terraform plan',
           (argv) => argv,
           globalHandler(({ stage }) => {
-            console.log(process.cwd())
-
             return execCommand(
               `export TF_WORKSPACE=${stage}; terraform -chdir=terraform/environments/${stage} plan`,
             )
