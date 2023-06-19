@@ -19,7 +19,8 @@ commands:
                     - ~/project/dist/apps/landing/.next/cache
                     - ~/project/dist/apps/websites/.next/cache
             - save_cache:
-                key: node-modules-{{ checksum "yarn.lock" }}
+                keys:
+                    - node-modules-{{ checksum "yarn.lock" }}
                 name: Save NPM Cache
                 paths:
                     - ~/project/node_modules

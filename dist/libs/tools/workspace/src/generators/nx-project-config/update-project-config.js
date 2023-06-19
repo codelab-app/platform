@@ -63,6 +63,9 @@ const addCiTestConfig = (tree, projectConfig) => {
          * But we need to filter out reporters config, since we will use the jest config
          */
         const testOptions = (0, omit_1.default)((_a = projectConfig.targets) === null || _a === void 0 ? void 0 : _a.test, 'options.reporters');
+        /**
+         * Use set because we want to remove old keys
+         */
         (0, set_1.default)(projectConfig, 'targets.test:integration', (0, merge_1.default)({
             options: {
                 memoryLimit: 8192,
@@ -82,6 +85,25 @@ const addCiTestConfig = (tree, projectConfig) => {
          *
          */
         testOptions));
+        console.log((0, merge_1.default)({
+            options: {
+                memoryLimit: 8192,
+                parallel: 3,
+                color: true,
+                testPathPattern: ['[^i].spec.ts'],
+            },
+            configurations: {
+                ci: {
+                /**
+                 * Reporter options are not available via CLI
+                 *
+                 * https://stackoverflow.com/questions/59372493/override-jest-junit-default-output-location
+                 */
+                // outputFile: `${projectConfig.name}.xml`,
+                // reporters: ['default', 'jest-junit'],
+                },
+            },
+        }, testOptions));
         (0, set_1.default)(projectConfig, 'targets.test:unit', (0, merge_1.default)({
             options: {
                 memoryLimit: 8192,

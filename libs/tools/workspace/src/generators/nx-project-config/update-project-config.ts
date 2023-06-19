@@ -102,6 +102,31 @@ const addCiTestConfig = (tree: Tree, projectConfig: ProjectConfiguration) => {
       ),
     )
 
+    console.log(
+      merge(
+        {
+          options: {
+            memoryLimit: 8192,
+            parallel: 3,
+            color: true,
+            testPathPattern: ['[^i].spec.ts'],
+          },
+          configurations: {
+            ci: {
+              /**
+               * Reporter options are not available via CLI
+               *
+               * https://stackoverflow.com/questions/59372493/override-jest-junit-default-output-location
+               */
+              // outputFile: `${projectConfig.name}.xml`,
+              // reporters: ['default', 'jest-junit'],
+            },
+          },
+        },
+        testOptions,
+      ),
+    )
+
     set(
       projectConfig,
       'targets.test:unit',
