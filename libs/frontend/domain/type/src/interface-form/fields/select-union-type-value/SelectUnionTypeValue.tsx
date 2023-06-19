@@ -67,6 +67,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
     properties: {
       value: getTypeFromOneOf(oneOf, selectedTypeId).properties.value,
     },
+    required: ['value'],
     type: 'object',
   }
 
