@@ -14,6 +14,7 @@ export default {
       'jest-junit',
       {
         outputName: 'frontend-domain-admin.xml',
+        reportTestSuiteErrors: true,
       },
     ],
   ],

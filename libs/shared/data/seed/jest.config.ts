@@ -13,6 +13,7 @@ export default {
       'jest-junit',
       {
         outputName: 'shared-data-seed.xml',
+        reportTestSuiteErrors: true,
       },
     ],
   ],

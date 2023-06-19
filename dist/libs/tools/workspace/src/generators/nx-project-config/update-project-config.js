@@ -18,7 +18,7 @@ const updateProjectConfig = (tree, projectName) => {
     const projectConfig = (0, devkit_1.readProjectConfiguration)(tree, projectName);
     console.log(`Checking for ${projectConfig.name}...`);
     addCiLintConfig(tree, projectConfig);
-    addCiTestConfig(tree, projectConfig);
+    updateTestConfig(tree, projectConfig);
     (0, devkit_1.updateProjectConfiguration)(tree, projectName, projectConfig);
 };
 exports.updateProjectConfig = updateProjectConfig;
@@ -40,7 +40,7 @@ const addCiLintConfig = (tree, projectConfig) => {
         },
     });
 };
-const addCiTestConfig = (tree, projectConfig) => {
+const updateTestConfig = (tree, projectConfig) => {
     /**
      * Only add if library is already using jest
      */
@@ -67,12 +67,19 @@ const addCiTestConfig = (tree, projectConfig) => {
          * Use set because we want to remove old keys
          */
         (0, set_1.default)(projectConfig, 'targets.test:integration', (0, merge_1.default)({
+            defaultConfiguration: 'dev',
             options: {
                 memoryLimit: 8192,
                 color: true,
                 testPathPattern: ['[i].spec.ts'],
             },
             configurations: {
+                dev: {
+                    reporters: ['default'],
+                },
+                test: {
+                    reporters: ['default'],
+                },
                 ci: {
                     // outputFile: `tmp/reports/test-integration/${projectConfig.name}.xml`,
                     // reporters: ['default', 'jest-junit'],
@@ -85,26 +92,8 @@ const addCiTestConfig = (tree, projectConfig) => {
          *
          */
         testOptions));
-        console.log((0, merge_1.default)({
-            options: {
-                memoryLimit: 8192,
-                parallel: 3,
-                color: true,
-                testPathPattern: ['[^i].spec.ts'],
-            },
-            configurations: {
-                ci: {
-                /**
-                 * Reporter options are not available via CLI
-                 *
-                 * https://stackoverflow.com/questions/59372493/override-jest-junit-default-output-location
-                 */
-                // outputFile: `${projectConfig.name}.xml`,
-                // reporters: ['default', 'jest-junit'],
-                },
-            },
-        }, testOptions));
         (0, set_1.default)(projectConfig, 'targets.test:unit', (0, merge_1.default)({
+            defaultConfiguration: 'dev',
             options: {
                 memoryLimit: 8192,
                 parallel: 3,
@@ -112,12 +101,20 @@ const addCiTestConfig = (tree, projectConfig) => {
                 testPathPattern: ['[^i].spec.ts'],
             },
             configurations: {
+                dev: {
+                    reporters: ['default'],
+                },
+                test: {
+                    reporters: ['default'],
+                },
                 ci: {
                 /**
                  * Reporter options are not available via CLI
                  *
                  * https://stackoverflow.com/questions/59372493/override-jest-junit-default-output-location
                  */
+                // So specs that fail to run will show as errors
+                // reportTestSuiteErrors: true,
                 // outputFile: `${projectConfig.name}.xml`,
                 // reporters: ['default', 'jest-junit'],
                 },
@@ -149,7 +146,8 @@ const addReportersToJestConfig = (tree, projectConfig) => {
     [
       'jest-junit',
       {
-        outputName: '${projectConfig.name}.xml'
+        outputName: '${projectConfig.name}.xml',
+        reportTestSuiteErrors: true,
       }
     ]
   ]`;

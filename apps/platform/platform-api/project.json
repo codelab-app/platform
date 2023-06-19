@@ -14,7 +14,14 @@
         "outputPath": "dist/apps/platform-api",
         "main": "apps/platform-api/src/main.ts",
         "tsConfig": "apps/platform-api/tsconfig.app.json",
-        "assets": ["apps/platform-api/src/assets"],
+        "assets": [
+          "apps/platform-api/src/assets",
+          {
+            "input": "./",
+            "glob": "**/*.env*",
+            "output": "."
+          }
+        ],
         "isolatedConfig": true,
         "webpackConfig": "apps/platform-api/webpack.config.js"
       },
@@ -40,6 +47,26 @@
         "production": {
           "buildTarget": "platform-api:build:production"
         }
+      }
+    },
+    "serve:test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "node dist/apps/platform-api/main.js"
+          }
+        ]
+      },
+      "configurations": {
+        "test": {
+          "commands": [
+            {
+              "command": "PORT=3001 node dist/apps/platform-api/main.js"
+            }
+          ]
+        },
+        "ci": {}
       }
     },
     "lint": {
@@ -72,6 +99,7 @@
       }
     },
     "test:integration": {
+      "defaultConfiguration": "dev",
       "options": {
         "memoryLimit": 8192,
         "color": true,
@@ -80,6 +108,12 @@
         "passWithNoTests": true
       },
       "configurations": {
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        },
         "ci": {
           "parallel": 3,
           "ci": true,
@@ -90,6 +124,7 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     },
     "test:unit": {
+      "defaultConfiguration": "dev",
       "options": {
         "memoryLimit": 8192,
         "parallel": 3,
@@ -99,6 +134,12 @@
         "passWithNoTests": true
       },
       "configurations": {
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        },
         "ci": {
           "ci": true,
           "codeCoverage": true

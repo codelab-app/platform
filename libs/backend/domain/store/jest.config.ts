@@ -14,6 +14,7 @@ export default {
       'jest-junit',
       {
         outputName: 'backend-domain-store.xml',
+        reportTestSuiteErrors: true,
       },
     ],
   ],

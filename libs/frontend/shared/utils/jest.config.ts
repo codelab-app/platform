@@ -14,6 +14,7 @@ export default {
       'jest-junit',
       {
         outputName: 'frontend-shared-utils.xml',
+        reportTestSuiteErrors: true,
       },
     ],
   ],

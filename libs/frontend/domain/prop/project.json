@@ -29,6 +29,7 @@
       }
     },
     "test:integration": {
+      "defaultConfiguration": "dev",
       "options": {
         "memoryLimit": 8192,
         "color": true,
@@ -37,6 +38,12 @@
         "passWithNoTests": true
       },
       "configurations": {
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        },
         "ci": {
           "parallel": 3
         }
@@ -45,6 +52,7 @@
       "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/prop"]
     },
     "test:unit": {
+      "defaultConfiguration": "dev",
       "options": {
         "memoryLimit": 8192,
         "parallel": 3,
@@ -54,6 +62,12 @@
         "passWithNoTests": true
       },
       "configurations": {
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        },
         "ci": {}
       },
       "executor": "@nx/jest:jest",

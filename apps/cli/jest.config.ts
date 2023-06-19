@@ -31,6 +31,7 @@ export default {
       'jest-junit',
       {
         outputName: 'cli.xml',
+        reportTestSuiteErrors: true,
       },
     ],
   ],

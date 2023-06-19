@@ -18,6 +18,7 @@ export default {
       'jest-junit',
       {
         outputName: 'backend-application-field.xml',
+        reportTestSuiteErrors: true,
       },
     ],
   ],

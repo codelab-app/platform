@@ -30,6 +30,7 @@ export default {
       'jest-junit',
       {
         outputName: 'platform.xml',
+        reportTestSuiteErrors: true,
       },
     ],
   ],

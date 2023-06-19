@@ -15,6 +15,7 @@ export default {
       'jest-junit',
       {
         outputName: 'frontend-presentation--codelab-ui.xml',
+        reportTestSuiteErrors: true,
       },
     ],
   ],

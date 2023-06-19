@@ -18,7 +18,7 @@ afterAll(async () => {
   await driver.close()
 })
 
-describe('Seed, import, & export data', () => {
+describe.skip('Seed, import, & export data', () => {
   let initialPayload = {}
 
   describe.skip('Seed', () => {

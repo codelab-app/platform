@@ -19,6 +19,7 @@ export default {
       'jest-junit',
       {
         outputName: 'backend-application-admin.xml',
+        reportTestSuiteErrors: true,
       },
     ],
   ],

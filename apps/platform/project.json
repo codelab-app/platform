@@ -27,16 +27,16 @@
       },
       "defaultConfiguration": "production"
     },
-    "serve-test": {
+    "serve:test": {
       "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "npx env-cmd -f .env.test nx serve platform -c test"
+          }
+        ]
+      },
       "configurations": {
-        "dev": {
-          "commands": [
-            {
-              "command": "npx env-cmd -f .env.test nx serve platform -c test"
-            }
-          ]
-        },
         "test": {
           "commands": [
             {
@@ -152,6 +152,7 @@
       }
     },
     "test:integration": {
+      "defaultConfiguration": "dev",
       "options": {
         "memoryLimit": 8192,
         "color": true,
@@ -160,12 +161,16 @@
         "passWithNoTests": true
       },
       "configurations": {
-        "ci": {
-          "parallel": 3,
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"],
           "testPathPattern": ["i.spec.ts"],
           "runInBand": true
         },
-        "test": {
+        "ci": {
+          "parallel": 3,
           "testPathPattern": ["i.spec.ts"],
           "runInBand": true
         }
@@ -174,6 +179,7 @@
       "outputs": ["{workspaceRoot}/coverage/apps/platform"]
     },
     "test:unit": {
+      "defaultConfiguration": "dev",
       "options": {
         "memoryLimit": 8192,
         "parallel": 3,
@@ -183,11 +189,15 @@
         "passWithNoTests": true
       },
       "configurations": {
-        "ci": {
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"],
           "testPathPattern": ["i.spec.ts"],
           "runInBand": true
         },
-        "test": {
+        "ci": {
           "testPathPattern": ["i.spec.ts"],
           "runInBand": true
         }

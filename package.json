@@ -5,6 +5,7 @@
     "npm": "please-use-yarn",
     "pnpm": "please-use-yarn"
   },
+  "packageManager": "yarn@3.5.1",
   "workspaces": [
     "dist/libs/tools/workspace",
     "apps/nest-cli"
@@ -211,6 +212,7 @@
     "@graphql-eslint/eslint-plugin": "^3.16.1",
     "@hon2a/cypress-without": "1.1.8",
     "@ls-lint/ls-lint": "2.0.0",
+    "@nestjs/cli": "^10.0.2",
     "@nestjs/schematics": "^9.2.0",
     "@nestjs/testing": "^9.4.2",
     "@nx/cypress": "16.3.2",
@@ -378,10 +380,8 @@
     "wait-on": "6.0.1"
   },
   "resolutions": {
-    "rxjs": "^6.6.3",
     "@opentelemetry/sdk-trace-base": "1.14.0",
     "@neo4j/graphql@3.18.2": "patch:@neo4j/graphql@npm%3A3.18.2#./.yarn/patches/@neo4j-graphql-npm-3.18.2-d5226be5f3.patch",
     "@neo4j/graphql@^3.18.2": "patch:@neo4j/graphql@npm%3A3.18.2#./.yarn/patches/@neo4j-graphql-npm-3.18.2-d5226be5f3.patch"
-  },
-  "packageManager": "yarn@3.5.1"
+  }
 }

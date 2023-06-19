@@ -71,6 +71,7 @@
       }
     },
     "test:integration": {
+      "defaultConfiguration": "dev",
       "options": {
         "memoryLimit": 8192,
         "color": true,
@@ -79,6 +80,12 @@
         "passWithNoTests": true
       },
       "configurations": {
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        },
         "ci": {
           "parallel": 3,
           "ci": true,
@@ -89,6 +96,7 @@
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     },
     "test:unit": {
+      "defaultConfiguration": "dev",
       "options": {
         "memoryLimit": 8192,
         "parallel": 3,
@@ -98,6 +106,12 @@
         "passWithNoTests": true
       },
       "configurations": {
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        },
         "ci": {
           "ci": true,
           "codeCoverage": true

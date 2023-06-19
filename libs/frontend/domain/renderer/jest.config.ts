@@ -23,6 +23,7 @@ export default {
       'jest-junit',
       {
         outputName: 'frontend-domain-renderer.xml',
+        reportTestSuiteErrors: true,
       },
     ],
   ],

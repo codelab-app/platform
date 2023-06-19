@@ -52,7 +52,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
             // execCommand(`${NX_TEST} build platform -c test`)
-            execCommand(`${NX_TEST} affected --target=test:unit`)
+            execCommand(`${NX_TEST} affected --target=test:unit -c test`)
           }
 
           if (stage === Stage.CI) {
@@ -66,7 +66,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         globalHandler(({ stage }) => {
           if (stage === Stage.Test) {
-            execCommand(`${NX_TEST} affected --target=test:integration`)
+            execCommand(`${NX_TEST} affected --target=test:integration -c test`)
           }
 
           if (stage === Stage.CI) {
@@ -155,7 +155,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
 
           if (stage === Stage.Dev) {
-            execCommand(`${NX_TEST} run platform-e2e:e2e:dev`)
+            execCommand(`${NX_TEST} run platform-e2e:e2e`)
           }
 
           if (stage === Stage.CI) {

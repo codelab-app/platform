@@ -14,6 +14,7 @@ export default {
       'jest-junit',
       {
         outputName: 'backend-infra-core.xml',
+        reportTestSuiteErrors: true,
       },
     ],
   ],

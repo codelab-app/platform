@@ -20,6 +20,7 @@ export default {
       'jest-junit',
       {
         outputName: 'backend-domain-user.xml',
+        reportTestSuiteErrors: true,
       },
     ],
   ],

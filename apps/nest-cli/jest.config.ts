@@ -14,6 +14,7 @@ export default {
       'jest-junit',
       {
         outputName: 'nest-cli.xml',
+        reportTestSuiteErrors: true,
       },
     ],
   ],

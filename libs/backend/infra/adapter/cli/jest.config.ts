@@ -14,6 +14,7 @@ export default {
       'jest-junit',
       {
         outputName: 'backend-infra-adapter-cli.xml',
+        reportTestSuiteErrors: true,
       },
     ],
   ],

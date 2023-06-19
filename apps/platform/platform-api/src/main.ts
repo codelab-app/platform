@@ -18,7 +18,9 @@ const bootstrap = async () => {
   const globalPrefix = 'api'
   app.setGlobalPrefix(globalPrefix)
 
-  const port = 4000
+  console.log(process.env)
+
+  const port = process.env.PORT ?? 3000
   await app.listen(port)
 
   /**

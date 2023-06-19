@@ -14,6 +14,7 @@ export default {
       'jest-junit',
       {
         outputName: 'tools-workspace.xml',
+        reportTestSuiteErrors: true,
       },
     ],
   ],
