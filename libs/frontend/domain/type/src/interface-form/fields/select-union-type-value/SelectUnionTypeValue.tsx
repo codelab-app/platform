@@ -47,9 +47,11 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
   const { name } = props
   const [fieldProps, context] = useField(name, props)
   const oneOf = fieldProps.field.oneOf
-  // For the nested fields i.e. UnionType inside ArrayType, the name seems to be empty
+  // For the nested fields i.e. UnionType inside ArrayType, the name field is passed down as an empty string
   // this causes the field not be validated correctly against the schema
-  // hence `type` would is valid not "".type
+  // because "".type would not be valid
+  // TODO: this issue is most probably caused by the `connectField` wrapper in ToggleExpressionField
+  // must be fixed so that the name is correctly passed down to the nested fields
   const typeFieldName = name ? `${name}.type` : 'type'
   const valueFieldName = name ? `${name}.value` : 'value'
 
@@ -103,7 +105,17 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
             const validate = createValidator(valueSchema)
             validate(formData)
 
-            context.onChange(valueFieldName, formData.value)
+            // To use connectField ToggleExpressionField we need to
+            // remove the parent name from the field path {@link ToggleExpressionField#getBaseControl}
+            // Hence we need to reconstruct the field path here. This is only needed for nested fields
+            // TODO: fix the connectField in ToggleExpressionField so that correct props are passed
+            let valueFieldPath = valueFieldName
+
+            if (context.name.length) {
+              valueFieldPath = `${context.name.join('.')}.${valueFieldPath}`
+            }
+
+            context.onChange(valueFieldPath, formData.value)
           }}
           onSubmit={() => Promise.resolve()}
           schema={valueSchema as any}
