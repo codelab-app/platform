@@ -50,10 +50,13 @@
         "options": {
           "commands": [
             {
-              "command": "nx serve:test platform-api"
+              "command": "npx wait-on --interval 1000 --delay 5000 'tcp:127.0.0.1:4001' && echo 'READY'"
             },
             {
-              "command": "npx wait-on --interval 1000 --delay 5000 'http://127.0.0.1:3001/api' && echo 'READY'"
+              "command": "nx serve:test platform"
+            },
+            {
+              "command": "nx serve:test platform-api"
             }
           ]
         },
@@ -61,7 +64,10 @@
         "test": {
           "commands": [
             {
-              "command": "npx wait-on --interval 1000 --delay 3000 'http://127.0.0.1:3001/api' && echo 'READY'"
+              "command": "npx wait-on --interval 1000 --delay 3000 'tcp:127.0.0.1:4001' && echo 'READY'"
+            },
+            {
+              "command": "nx serve:test platform -c test"
             },
             {
               "command": "nx serve:test platform-api -c test"
@@ -71,7 +77,10 @@
         "ci": {
           "commands": [
             {
-              "command": "npx wait-on --interval 1000 --delay 3000 'http://127.0.0.1:3000/api' && echo 'READY'"
+              "command": "npx wait-on --interval 1000 --delay 3000 'tcp:127.0.0.1:4000' && echo 'READY'"
+            },
+            {
+              "command": "nx serve:test platform -c ci"
             },
             {
               "command": "nx serve:test platform-api -c ci"

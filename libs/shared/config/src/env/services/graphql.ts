@@ -36,17 +36,23 @@ export class GraphQLEnvVars implements IGraphQLEnvVars {
   }
 
   get graphqlApiHost() {
-    if (this.vercel.isVercelPreview) {
-      const url = this.vercel.nextPublicVercelUrl
+    const graphqlApiHost = process.env['GRAPHQL_API_HOST']
 
-      if (!url) {
-        throw new Error('Invalid Vercel url')
-      }
+    // if (this.vercel.isVercelPreview) {
+    //   const url = this.vercel.nextPublicVercelUrl
 
-      return url
+    //   if (!url) {
+    //     throw new Error('Invalid Vercel url')
+    //   }
+
+    //   return url
+    // }
+
+    if (!graphqlApiHost) {
+      throw new Error('GRAPHQL_API_HOST is missing')
     }
 
-    return this.nextPublicPlatformHost
+    return graphqlApiHost
   }
 
   get graphqlApiOrigin() {

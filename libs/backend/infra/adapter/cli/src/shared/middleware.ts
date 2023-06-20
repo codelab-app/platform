@@ -11,6 +11,8 @@ export const loadStageMiddleware: MiddlewareFunction = ({ stage }) => {
     return
   }
 
+  dotenv.config({ override: true, path: '.env' })
+
   // Load prod env only if not CI
   if (stage === Stage.Prod) {
     dotenv.config({ override: true, path: '.env.prod' })

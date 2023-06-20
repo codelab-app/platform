@@ -7,6 +7,7 @@
 DIRS=(
   ~/project/node_modules/.cache/nx
   ~/project/dist/apps/platform/.next
+  ~/project/dist/apps/platform-api/.next
   ~/project/dist/apps/landing/.next
   ~/project/dist/apps/websites/.next
 )

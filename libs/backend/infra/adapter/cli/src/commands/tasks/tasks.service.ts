@@ -9,6 +9,7 @@ import isPortReachable from 'is-port-reachable'
 import path from 'path'
 import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
 import { globalHandler } from '../../shared/handler'
+import { loadStageMiddleware } from '../../shared/middleware'
 import { getStageOptions } from '../../shared/options'
 import { Stage } from '../../shared/utils/stage'
 import { Tasks } from '../../shared/utils/tasks'
@@ -27,6 +28,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
   builder(yargv: Argv<unknown>) {
     return yargv
       .options(getStageOptions([Stage.Dev, Stage.Test, Stage.CI]))
+      .middleware([loadStageMiddleware])
       .command(
         Tasks.Build,
         'Build projects',
@@ -35,11 +37,9 @@ export class TaskService implements CommandModule<unknown, unknown> {
           if (stage === Stage.Test) {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
-            execCommand(`${NX_TEST} build platform -c test`)
-          }
-
-          if (stage === Stage.CI) {
-            execCommand(`nx build platform -c ci`)
+            execCommand(
+              `${NX_TEST} run-many --target=build --projects=platform,platform-api -c test`,
+            )
           }
         }),
       )
@@ -84,7 +84,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv.fail((msg, err) => console.log(msg, err)),
         globalHandler(async ({ stage }) => {
           if (stage === Stage.Dev) {
-            if (!(await isPortReachable(3000, { host: '127.0.0.1' }))) {
+            if (!(await isPortReachable(4000, { host: '127.0.0.1' }))) {
               console.error('Please start server!')
               process.exit(0)
             }
@@ -97,8 +97,10 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
 
           if (stage === Stage.CI) {
-            const startServer = `nx serve-test platform -c ci`
-            const runSpecs = `npx wait-on 'http://127.0.0.1:3000' && yarn graphql-codegen && exit 0`
+            console.log('start')
+
+            const startServer = `nx serve:test platform-api -c ci`
+            const runSpecs = `npx wait-on 'tcp:127.0.0.1:4000' && yarn graphql-codegen && exit 0`
 
             const runSpecsChildProcess = spawn(runSpecs, {
               detached: true,

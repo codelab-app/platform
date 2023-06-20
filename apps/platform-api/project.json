@@ -14,19 +14,12 @@
         "outputPath": "dist/apps/platform-api",
         "main": "apps/platform-api/src/main.ts",
         "tsConfig": "apps/platform-api/tsconfig.app.json",
-        "assets": [
-          "apps/platform-api/src/assets",
-          {
-            "input": "./",
-            "glob": "**/*.env*",
-            "output": "."
-          }
-        ],
+        "assets": ["apps/platform-api/src/assets"],
         "isolatedConfig": true,
         "webpackConfig": "apps/platform-api/webpack.config.js"
       },
       "configurations": {
-        "development": {},
+        "test": {},
         "production": {
           "outputPath": "dist/apps/platform-api-serverless",
           "main": "apps/platform-api/src/serverless.ts"
@@ -60,9 +53,10 @@
       },
       "configurations": {
         "test": {
+          "envFile": ".env.test",
           "commands": [
             {
-              "command": "PORT=3001 node dist/apps/platform-api/main.js"
+              "command": "node dist/apps/platform-api/main.js"
             }
           ]
         },

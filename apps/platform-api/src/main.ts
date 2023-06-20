@@ -1,20 +1,27 @@
 import { Logger } from '@nestjs/common'
+import type { ConfigType } from '@nestjs/config'
+import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { CommandFactory } from 'nest-commander'
 import { AppModule } from './app/app.module'
+import { graphqlConfig } from './graphql.config'
 
 const bootstrap = async () => {
-  await CommandFactory.run(AppModule, ['warn', 'error', 'log'])
-
   const app = await NestFactory.create(AppModule)
-  const globalPrefix = 'api'
-  app.setGlobalPrefix(globalPrefix)
+  const configService = app.get(ConfigService)
 
-  const port = process.env.PORT ?? 3000
-  await app.listen(port)
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
-  )
+  const graphqlApiPort = configService.get<ConfigType<typeof graphqlConfig>>(
+    graphqlConfig.KEY,
+  )?.graphqlApiPort
+
+  console.log(process.env)
+
+  if (!graphqlApiPort) {
+    throw new Error('Missing GRAPHQL_API_HOST')
+  }
+
+  await app.listen(graphqlApiPort)
+  Logger.log(`🚀 Application is running on: http://127.0.0.1:${graphqlApiPort}`)
 
   // Listen for the process termination signals
   process.on('SIGTERM', async () => {

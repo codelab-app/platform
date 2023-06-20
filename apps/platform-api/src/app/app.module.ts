@@ -14,6 +14,7 @@ import type { Driver } from 'neo4j-driver'
 import { driver } from 'neo4j-driver'
 import { Neo4jModule } from 'nest-neo4j'
 import { join } from 'path'
+import { graphqlConfig } from '../graphql.config'
 import { CommandHandlerService } from '../handlers/command-handler.service'
 import { neo4jConfig } from '../neo4j.config'
 import { AppController } from './app.controller'
@@ -53,13 +54,8 @@ export interface GqlContext {
     ConfigModule.forRoot({
       ignoreEnvVars: true,
       isGlobal: true,
-      load: [neo4jConfig],
+      load: [neo4jConfig, graphqlConfig],
     }),
-    // GraphQLModule.forRoot<ApolloDriverConfig>({
-    //   // autoSchemaFile: 'schema.gql',
-    //   driver: Neo4jDriver,
-    //   schema: await neoSchema.getSchema(),
-    // }),
     GraphQLModule.forRootAsync({
       driver: ApolloDriver,
       imports: [ConfigModule],
@@ -76,30 +72,11 @@ export interface GqlContext {
         debug: true,
         installSubscriptionHandlers: true,
         introspection: true,
+        path: 'api',
         playground: true,
         schema: await neoSchema.getSchema(),
       }),
     }),
-    // Neo4jModule.forRootAsync({
-    //   imports: [ConfigModule],
-    //   inject: [neo4jConfig.KEY],
-    //   useFactory: async (
-    //     neo4jConfigService: ConfigType<typeof neo4jConfig>,
-    //   ) => ({
-    //     host: neo4jConfigService.uri.host,
-    //     password: neo4jConfigService.password,
-    //     port: neo4jConfigService.uri.port,
-    //     scheme: neo4jConfigService.uri.protocol,
-    //     username: neo4jConfigService.user,
-    //   }),
-    // }),
-    // Neo4jModule.forRoot({
-    //   host: 'localhost',
-    //   password: 'neo',
-    //   port: 7687,
-    //   scheme: 'neo4j',
-    //   username: 'neo4j',
-    // }),
   ],
   providers: [AppService, CommandHandlerService],
 })

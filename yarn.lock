@@ -10002,7 +10002,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/bull@npm:^0.6.3":
+"@nestjs/bull@npm:0.6.3":
   version: 0.6.3
   resolution: "@nestjs/bull@npm:0.6.3"
   dependencies:
@@ -21525,7 +21525,7 @@ __metadata:
     "@neo4j/graphql-ogm": 3.18.2
     "@neo4j/graphql-plugin-auth": 2.2.0
     "@nestjs/apollo": 11.0.6
-    "@nestjs/bull": ^0.6.3
+    "@nestjs/bull": 0.6.3
     "@nestjs/cli": ^10.0.2
     "@nestjs/common": ^9.4.2
     "@nestjs/config": ^2.3.2
@@ -21668,7 +21668,7 @@ __metadata:
     cz-customizable: 6.3.0
     dotenv: 15.0.0
     env-cmd: 10.1.0
-    env-var: 7.1.1
+    env-var: 7.3.1
     esbuild: ^0.17.19
     eslint: 8.43.0
     eslint-config-airbnb: 19.0.4
@@ -24946,10 +24946,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"env-var@npm:7.1.1":
-  version: 7.1.1
-  resolution: "env-var@npm:7.1.1"
-  checksum: 3392870deeb7241590cdf80214642ac2193dbdf10fa31af22dfb01d5d4a22b0f04798874020975fa7d1ef9ed685618f1cf06085b997f92f7f3f85f27ea658d4d
+"env-var@npm:7.3.1":
+  version: 7.3.1
+  resolution: "env-var@npm:7.3.1"
+  checksum: e8d1db9470a5964a7aa96d682c18a168326c526468c92a14852f16da143c19cb6c3117691f263b2e29ac0d2d1ee1bd7f383f2451d7491f2c3a555db2f4fcfc92
   languageName: node
   linkType: hard
 

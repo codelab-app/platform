@@ -4,6 +4,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE_BUNDLE === 'true',
 })
 
+console.log(process.env)
+
 /** Allows importing cypher files */
 const withRawCypherFiles = (nextConfig = {}) =>
   Object.assign({}, nextConfig, {
@@ -31,7 +33,7 @@ const plugins = [withBundleAnalyzer, withRawCypherFiles]
  */
 const nextConfig = {
   experimental: {
-    instrumentationHook: true,
+    instrumentationHook: process.env.NEXT_ENABLE_OTEL ?? false,
     // appDir: true,
   },
   nx: { svgr: true },
