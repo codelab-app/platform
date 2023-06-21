@@ -57,7 +57,7 @@ describe('RenderService', () => {
 
     data.component.rootElement.current.props.current.set(
       CUSTOM_TEXT_PROP_KEY,
-      `{{component.${data.textField.key}}}`,
+      `{{props.${data.textField.key}}}`,
     )
 
     const text = 'some text'
@@ -84,7 +84,7 @@ describe('RenderService', () => {
 
     data.component.rootElement.current.props.current.set(
       CUSTOM_TEXT_PROP_KEY,
-      `{{component.${data.textField.key}}}`,
+      `{{props.${data.textField.key}}}`,
     )
 
     // component props values

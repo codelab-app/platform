@@ -229,7 +229,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       data: JSON.stringify({
         componentProp: 'original',
         [CUSTOM_TEXT_PROP_KEY]: "I'm a component",
-        expressionProp: `expression value - {{component.${data.componentField.key}}}`,
+        expressionProp: `expression value - {{props.${data.componentField.key}}}`,
       }),
       id: v4(),
     })

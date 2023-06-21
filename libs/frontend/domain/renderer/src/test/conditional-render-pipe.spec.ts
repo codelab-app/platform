@@ -29,7 +29,7 @@ describe('ConditionalRenderPipe', () => {
   })
 
   it('should stop rendering by returning an empty output', async () => {
-    data.element.setRenderIfExpression('{{this.shouldRender}}')
+    data.element.setRenderIfExpression('{{props.shouldRender}}')
     // changing state is bit tricky so, just use props
     data.element.props.current.set('shouldRender', false)
 
@@ -41,7 +41,7 @@ describe('ConditionalRenderPipe', () => {
   })
 
   it('should continue rendering', async () => {
-    data.element.setRenderIfExpression('{{this.shouldRender}}')
+    data.element.setRenderIfExpression('{{props.shouldRender}}')
     // changing state is bit tricky so, just use props
     data.element.props.current.set('shouldRender', true)
 
