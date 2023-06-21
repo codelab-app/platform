@@ -67,7 +67,7 @@ const create = (rootElement: IElement) => {
   const store = rootElement.store.current
   const component = rootElement.parentComponent?.current
   // more props will be added other then component
-  const props = { $component: component?.runtimeProp?.componentEvaluatedProps }
+  const props = component?.runtimeProp?.componentEvaluatedProps || {}
 
   return store.actions.map(
     (action) =>

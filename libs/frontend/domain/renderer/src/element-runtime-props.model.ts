@@ -62,10 +62,7 @@ export class ElementRuntimeProps
   @computed
   get evaluatedProps() {
     const componentProps = this.node.parentComponent?.current.runtimeProp
-
-    const injectedProps = {
-      $component: componentProps?.componentEvaluatedProps,
-    }
+    const injectedProps = componentProps?.componentEvaluatedProps || {}
 
     return replaceStateInProps(
       this.renderedTypedProps,
@@ -77,10 +74,7 @@ export class ElementRuntimeProps
   @computed
   get evaluatedPropsBeforeRender() {
     const componentProps = this.node.parentComponent?.current.runtimeProp
-
-    const injectedProps = {
-      $component: componentProps?.componentEvaluatedProps,
-    }
+    const injectedProps = componentProps?.componentEvaluatedProps || {}
 
     return replaceStateInProps(
       this.props,
