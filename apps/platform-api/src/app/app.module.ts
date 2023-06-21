@@ -67,7 +67,7 @@ export interface GqlContext {
             req,
             res,
           } as GqlContext),
-        debug: true,
+        debug: false,
         installSubscriptionHandlers: true,
         introspection: true,
         path: 'api',

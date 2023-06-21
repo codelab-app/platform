@@ -36,7 +36,7 @@ const PageRenderer: CodelabPage<IPageProps> = observer(() => {
 
 export default PageRenderer
 
-export const getServerSideProps = auth0Instance().withPageAuthRequired()
+export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 PageRenderer.Layout = observer(({ children }) => {
   return (

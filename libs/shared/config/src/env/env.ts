@@ -2,10 +2,10 @@ import type { IAuth0EnvVars } from './services/auth0'
 import { Auth0EnvVars } from './services/auth0'
 import type { ICircleCIEnvVars } from './services/circleci'
 import { CircleCIEnvVars } from './services/circleci'
+import type { IEndpointEnvVars } from './services/endpoint'
+import { EndpointEnvVars } from './services/endpoint'
 import type { IGoogleAnalyticsEnvVars } from './services/google-analytics'
 import { GoogleAnalyticsEnvVars } from './services/google-analytics'
-import type { IGraphQLEnvVars } from './services/graphql'
-import { GraphQLEnvVars } from './services/graphql'
 import type { IHotjarEnvVars } from './services/hotjar'
 import { HotjarEnvVars } from './services/hotjar'
 import type { IIntercomEnvVars } from './services/intercom'
@@ -24,8 +24,8 @@ import { VercelEnvVars } from './services/vercel'
 export interface IEnvironmentVariables {
   auth0: IAuth0EnvVars
   circleci: ICircleCIEnvVars
+  endpoint: IEndpointEnvVars
   googleAnalytics: IGoogleAnalyticsEnvVars
-  graphql: IGraphQLEnvVars
   hotjar: IHotjarEnvVars
   intercom: IIntercomEnvVars
   mailchimp: IMailchimpEnvVars
@@ -56,7 +56,7 @@ class EnvironmentVariables implements IEnvironmentVariables {
 
   private _node?: INodeEnvVars
 
-  private _graphql?: IGraphQLEnvVars
+  private _endpoint?: IEndpointEnvVars
 
   private static instance?: EnvironmentVariables
 
@@ -73,7 +73,7 @@ class EnvironmentVariables implements IEnvironmentVariables {
   }
 
   public get auth0() {
-    return (this._auth0 ??= new Auth0EnvVars(this.graphql))
+    return (this._auth0 ??= new Auth0EnvVars(this.endpoint))
   }
 
   public get circleci() {
@@ -108,8 +108,8 @@ class EnvironmentVariables implements IEnvironmentVariables {
     return (this._node ??= new NodeEnvVars())
   }
 
-  public get graphql() {
-    return (this._graphql ??= new GraphQLEnvVars(this.vercel))
+  public get endpoint() {
+    return (this._endpoint ??= new EndpointEnvVars())
   }
 }
 

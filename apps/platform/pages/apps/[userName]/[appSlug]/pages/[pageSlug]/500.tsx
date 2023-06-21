@@ -16,6 +16,6 @@ const Page500: CodelabPage = () => {
 
 export default Page500
 
-export const getServerSideProps = auth0Instance().withPageAuthRequired({})
+export const getServerSideProps = auth0Instance.withPageAuthRequired({})
 
 Page500.displayName = 'Page500'

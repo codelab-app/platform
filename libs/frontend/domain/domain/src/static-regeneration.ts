@@ -4,7 +4,7 @@ import { getEnv } from '@codelab/shared/config'
 
 // and request will be redirected to appropriate user domain
 export const regeneratePages = (pages: Array<string>, domain: string) => {
-  const baseUrl = getEnv().graphql.nextPublicPlatformHost
+  const baseUrl = getEnv().endpoint.nextPublicPlatformHost
   const pagesParam = pages.join(',')
 
   return fetch(

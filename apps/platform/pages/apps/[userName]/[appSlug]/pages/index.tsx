@@ -32,7 +32,7 @@ const Pages: CodelabPage<
 
 export default Pages
 
-export const getServerSideProps = auth0Instance().withPageAuthRequired()
+export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 Pages.Layout = observer(({ children }) => {
   const { _compoundName } = useCurrentApp()

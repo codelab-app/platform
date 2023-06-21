@@ -4,7 +4,6 @@
 import 'source-map-support/register'
 import {
   exportCommand,
-  resetCommand,
   scrapeAntdCommand,
   scrapeHtmlCommand,
   seedCommand,
@@ -31,8 +30,6 @@ void yargs(hideBin(process.argv))
   .command('data', 'Import / export / reset', (argv) =>
     argv
       .command(seedCommand)
-      .command(resetCommand)
-      // .command(importCommand)
       .command(exportCommand)
       /**
        * Here we initialize all data, data ID is created so may duplicate data

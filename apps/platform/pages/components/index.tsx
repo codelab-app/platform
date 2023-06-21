@@ -74,7 +74,7 @@ const AtomsHeader = observer(() => {
 
 export default ComponentsPage
 
-export const getServerSideProps = auth0Instance().withPageAuthRequired()
+export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 ComponentsPage.Layout = ({ children }) => {
   return (

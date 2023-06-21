@@ -37,7 +37,7 @@ const AdminPage: CodelabPage<DashboardTemplateProps> = observer(() => {
 
 export default AdminPage
 
-export const getServerSideProps = auth0Instance().withPageAuthRequired()
+export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 AdminPage.Layout = ({ children }) => {
   const AdminHeader = () => (

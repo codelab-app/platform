@@ -89,7 +89,7 @@ const PageBuilder: CodelabPage = observer(() => {
   )
 })
 
-export const getServerSideProps = auth0Instance().withPageAuthRequired({})
+export const getServerSideProps = auth0Instance.withPageAuthRequired({})
 
 PageBuilder.Layout = observer(({ children }) => {
   return <BuilderContext>{children()}</BuilderContext>

@@ -96,7 +96,7 @@ const DomainsPage: CodelabPage<DashboardTemplateProps> = (props) => {
 
 export default DomainsPage
 
-export const getServerSideProps = auth0Instance().withPageAuthRequired()
+export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 DomainsPage.Layout = ({ children }) => {
   return (

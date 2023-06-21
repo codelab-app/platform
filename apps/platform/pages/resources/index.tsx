@@ -56,7 +56,7 @@ const ResourcesPage: CodelabPage<DashboardTemplateProps> = () => {
 
 export default ResourcesPage
 
-export const getServerSideProps = auth0Instance().withPageAuthRequired()
+export const getServerSideProps = auth0Instance.withPageAuthRequired()
 
 ResourcesPage.Layout = observer(({ children }) => {
   return (

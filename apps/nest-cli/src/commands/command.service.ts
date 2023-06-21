@@ -1,7 +1,7 @@
 import {
   exportCommand,
   ImportService,
-  resetCommand,
+  ResetService,
   scrapeAntdCommand,
   scrapeHtmlCommand,
   seedCommand,
@@ -21,6 +21,7 @@ export class CommandService {
     private readonly terraformService: TerraformService,
     private readonly serverlessService: ServerlessService,
     private readonly taskService: TaskService,
+    private readonly resetService: ResetService,
   ) {}
 
   exec() {
@@ -32,7 +33,7 @@ export class CommandService {
        * These scripts could act on different deployment environment, so we group under `data`
        */
       // .command(seedCommand)
-      // .command(resetCommand)
+      .command(this.resetService)
       .command(this.importService)
       .command(this.serverlessService)
       // .command(exportCommand)

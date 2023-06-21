@@ -18,7 +18,7 @@ const handler: NextApiHandler = async (req, res) => {
     //   },
     // ],
     // 127.0.0.1:4000
-    target: getEnv().graphql.graphqlApiHost,
+    target: getEnv().endpoint.platformApiHost,
   })
 }
 

@@ -18,6 +18,8 @@ import { Tasks } from '../../shared/utils/tasks'
  * We require this since execCommand creates a new process and any env set before that doesn't apply
  */
 
+const NX_TEST = 'npx env-cmd -f .env.test nx'
+
 @Injectable()
 export class TaskService implements CommandModule<unknown, unknown> {
   command = 'tasks'
@@ -155,12 +157,12 @@ export class TaskService implements CommandModule<unknown, unknown> {
         'Run e2e tests',
         (argv) => argv,
         globalHandler(({ stage }) => {
-          if (stage === Stage.Test) {
-            execCommand(`nx run platform-e2e:e2e:test`)
+          if (stage === Stage.Dev) {
+            execCommand(`${NX_TEST} run platform-e2e:e2e:dev`)
           }
 
-          if (stage === Stage.Dev) {
-            execCommand(`nx run platform-e2e:e2e:dev`)
+          if (stage === Stage.Test) {
+            execCommand(`${NX_TEST} run platform-e2e:e2e:test`)
           }
 
           if (stage === Stage.CI) {

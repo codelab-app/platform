@@ -1,6 +1,7 @@
 import { ImportAdminDataService } from '@codelab/backend/application/admin'
 import {
   ImportService,
+  ResetService,
   ServerlessService,
   TaskService,
   TerraformService,
@@ -24,6 +25,7 @@ import { CommandService } from './command.service'
     TerraformService,
     ServerlessService,
     TaskService,
+    ResetService,
   ],
 })
 export class CommandModule implements OnModuleInit {

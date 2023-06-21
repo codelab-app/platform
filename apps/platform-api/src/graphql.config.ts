@@ -8,6 +8,6 @@ export const GRAPHQL_CONFIG_KEY = 'graphql'
  */
 export const graphqlConfig = registerAs(GRAPHQL_CONFIG_KEY, () => {
   return {
-    graphqlApiPort: env.get('GRAPHQL_API_HOST').required().asUrlObject().port,
+    graphqlApiPort: env.get('PLATFORM_API_HOST').required().asUrlObject().port,
   }
 })

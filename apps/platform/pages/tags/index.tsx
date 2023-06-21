@@ -110,4 +110,4 @@ TagPage.Layout = observer(({ children }) => {
   )
 })
 
-export const getServerSideProps = auth0Instance().withPageAuthRequired()
+export const getServerSideProps = auth0Instance.withPageAuthRequired()
