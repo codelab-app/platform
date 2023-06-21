@@ -50,8 +50,8 @@ export type GetPagesQuery = {
 }
 
 export type GetRenderedPageAndCommonAppDataQueryVariables = Types.Exact<{
-  appId: Types.Scalars['ID']['input']
-  pageId: Types.Scalars['ID']['input']
+  appName: Types.Scalars['String']['input']
+  pageName: Types.Scalars['String']['input']
 }>
 
 export type GetRenderedPageAndCommonAppDataQuery = {

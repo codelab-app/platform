@@ -22567,8 +22567,8 @@ export type GetPagesQuery = {
 }
 
 export type GetRenderedPageAndCommonAppDataQueryVariables = Exact<{
-  appId: Scalars['ID']['input']
-  pageId: Scalars['ID']['input']
+  appName: Scalars['String']['input']
+  pageName: Scalars['String']['input']
 }>
 
 export type GetRenderedPageAndCommonAppDataQuery = {
