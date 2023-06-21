@@ -18,8 +18,6 @@ import { graphqlConfig } from '../graphql.config'
 import { CommandHandlerService } from '../handlers/command-handler.service'
 import { neo4jConfig } from '../neo4j.config'
 import { AppController } from './app.controller'
-import { AppService } from './app.service'
-import { Neo4jDriver } from './neo4j.driver'
 
 export interface GqlContextPayload {
   exp: string
@@ -38,7 +36,7 @@ export interface GqlContext {
 
 @Global()
 @Module({
-  controllers: [AppController],
+  // controllers: [AppController],
   imports: [
     CodelabLoggerModule,
     OpenTelemetryModuleConfig,
@@ -78,7 +76,7 @@ export interface GqlContext {
       }),
     }),
   ],
-  providers: [AppService, CommandHandlerService],
+  // providers: [CommandHandlerService],
 })
 export class AppModule {
   constructor(

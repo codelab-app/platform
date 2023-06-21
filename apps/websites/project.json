@@ -29,7 +29,7 @@
         "dev": {
           "commands": [
             {
-              "command": "npx env-cmd -f .env.test nx serve websites -c test"
+              "command": "nx serve websites -c test"
             }
           ]
         },

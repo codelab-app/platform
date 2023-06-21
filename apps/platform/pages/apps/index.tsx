@@ -123,7 +123,7 @@ export default AppsPage
 /**
  * This gets called on SSR, and props are passed to _app
  */
-export const getServerSideProps = auth0Instance.withPageAuthRequired()
+export const getServerSideProps = auth0Instance().withPageAuthRequired()
 
 AppsPage.Layout = ({ children }) => {
   return (

@@ -4,8 +4,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE_BUNDLE === 'true',
 })
 
-console.log(process.env)
-
 /** Allows importing cypher files */
 const withRawCypherFiles = (nextConfig = {}) =>
   Object.assign({}, nextConfig, {

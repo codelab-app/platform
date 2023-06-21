@@ -16,6 +16,6 @@ const Page404: CodelabPage = () => {
 
 export default Page404
 
-export const getServerSideProps = auth0Instance.withPageAuthRequired({})
+export const getServerSideProps = auth0Instance().withPageAuthRequired({})
 
 Page404.displayName = 'Page404'

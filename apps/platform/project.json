@@ -29,18 +29,12 @@
     },
     "serve:test": {
       "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          {
-            "command": "npx env-cmd -f .env.test nx serve platform -c test"
-          }
-        ]
-      },
+      "options": {},
       "configurations": {
         "test": {
           "commands": [
             {
-              "command": "npx env-cmd -f .env.test next start dist/apps/platform-test --port 3001"
+              "command": "nx build platform -c test && next start dist/apps/platform-test --port 3001"
             }
           ]
         },

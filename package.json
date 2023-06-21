@@ -19,7 +19,6 @@
     "tunnel": "ngrok http --region=us --hostname=api.codelab-dev.ngrok.io 127.0.0.1:3000",
     "codegen": "yarn cli tasks codegen --stage dev",
     "build": "nx run-many --all --target=build",
-    "build:test": "npx env-cmd -f .env.test nx build builder -c test",
     "test": "nx run-many --all --target=test --parallel=3",
     "lint": "nx run-many --all --target=lint --parallel=5 --quiet",
     "format": "npx prettier --write \"./**/*.{graphql,yaml,json}\" && terraform -chdir=terraform fmt --recursive",
@@ -380,6 +379,8 @@
   "resolutions": {
     "@opentelemetry/sdk-trace-base": "1.14.0",
     "@neo4j/graphql@3.18.2": "patch:@neo4j/graphql@npm%3A3.18.2#./.yarn/patches/@neo4j-graphql-npm-3.18.2-d5226be5f3.patch",
-    "@neo4j/graphql@^3.18.2": "patch:@neo4j/graphql@npm%3A3.18.2#./.yarn/patches/@neo4j-graphql-npm-3.18.2-d5226be5f3.patch"
+    "@neo4j/graphql@^3.18.2": "patch:@neo4j/graphql@npm%3A3.18.2#./.yarn/patches/@neo4j-graphql-npm-3.18.2-d5226be5f3.patch",
+    "nx@16.3.2": "patch:nx@npm%3A16.3.2#./.yarn/patches/nx-npm-16.3.2-f5ff810972.patch",
+    "nx@>=16.1.3 < 17": "patch:nx@npm%3A16.3.2#./.yarn/patches/nx-npm-16.3.2-f5ff810972.patch"
   }
 }

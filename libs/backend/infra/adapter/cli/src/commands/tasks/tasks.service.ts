@@ -17,7 +17,6 @@ import { Tasks } from '../../shared/utils/tasks'
 /**
  * We require this since execCommand creates a new process and any env set before that doesn't apply
  */
-const NX_TEST = 'npx env-cmd -f .env.test nx'
 
 @Injectable()
 export class TaskService implements CommandModule<unknown, unknown> {
@@ -38,7 +37,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
             execCommand(
-              `${NX_TEST} run-many --target=build --projects=platform,platform-api -c test`,
+              `nx run-many --target=build --projects=platform,platform-api -c test`,
             )
           }
         }),
@@ -51,8 +50,8 @@ export class TaskService implements CommandModule<unknown, unknown> {
           if (stage === Stage.Test) {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
-            // execCommand(`${NX_TEST} build platform -c test`)
-            execCommand(`${NX_TEST} affected --target=test:unit -c test`)
+            // execCommand(`nx build platform -c test`)
+            execCommand(`nx affected --target=test:unit -c test`)
           }
 
           if (stage === Stage.CI) {
@@ -68,7 +67,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         globalHandler(({ stage }) => {
           if (stage === Stage.Test) {
-            execCommand(`${NX_TEST} affected --target=test:integration -c test`)
+            execCommand(`nx affected --target=test:integration -c test`)
           }
 
           if (stage === Stage.CI) {
@@ -157,11 +156,11 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         globalHandler(({ stage }) => {
           if (stage === Stage.Test) {
-            execCommand(`${NX_TEST} run platform-e2e:e2e:test `)
+            execCommand(`nx run platform-e2e:e2e:test`)
           }
 
           if (stage === Stage.Dev) {
-            execCommand(`${NX_TEST} run platform-e2e:e2e`)
+            execCommand(`nx run platform-e2e:e2e:dev`)
           }
 
           if (stage === Stage.CI) {

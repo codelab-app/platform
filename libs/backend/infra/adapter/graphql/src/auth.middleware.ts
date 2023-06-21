@@ -7,13 +7,13 @@ export const authMiddleware: NextApiHandler = async (req, res) => {
     /**
      * Requires `headers.cookie` to be set by client
      */
-    const session = await auth0Instance.getSession(req, res)
+    const session = await auth0Instance().getSession(req, res)
 
     if (session?.user) {
       Object.assign(req, { user: session.user })
     }
 
-    const accessToken = (await auth0Instance.getAccessToken(req, res))
+    const accessToken = (await auth0Instance().getAccessToken(req, res))
       .accessToken
 
     /**
@@ -24,13 +24,12 @@ export const authMiddleware: NextApiHandler = async (req, res) => {
     }
   } catch (error) {
     // console.log('error when get access token', error)
-
     // Apollo studio polls the graphql schema every second, and it pollutes the log
-    if (
-      !getEnv().graphql.isLocal ||
-      !req.headers['origin']?.includes('studio.apollographql')
-    ) {
-      // console.error(e)
-    }
+    // if (
+    //   !getEnv().graphql.isLocal ||
+    //   !req.headers['origin']?.includes('studio.apollographql')
+    // ) {
+    //   // console.error(e)
+    // }
   }
 }

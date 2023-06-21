@@ -19,7 +19,9 @@
         "webpackConfig": "apps/platform-api/webpack.config.js"
       },
       "configurations": {
-        "test": {},
+        "test": {
+          "outputPath": "dist/apps/platform-api-test"
+        },
         "production": {
           "outputPath": "dist/apps/platform-api-serverless",
           "main": "apps/platform-api/src/serverless.ts"
@@ -44,23 +46,22 @@
     },
     "serve:test": {
       "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          {
-            "command": "node dist/apps/platform-api/main.js"
-          }
-        ]
-      },
+      "options": {},
       "configurations": {
         "test": {
-          "envFile": ".env.test",
+          "commands": [
+            {
+              "command": "nx build platform-api -c test && node dist/apps/platform-api-test/main.js"
+            }
+          ]
+        },
+        "ci": {
           "commands": [
             {
               "command": "node dist/apps/platform-api/main.js"
             }
           ]
-        },
-        "ci": {}
+        }
       }
     },
     "lint": {

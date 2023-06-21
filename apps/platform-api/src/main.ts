@@ -4,17 +4,17 @@ import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { CommandFactory } from 'nest-commander'
 import { AppModule } from './app/app.module'
-import { graphqlConfig } from './graphql.config'
+import type { graphqlConfig } from './graphql.config'
+import { GRAPHQL_CONFIG_KEY } from './graphql.config'
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule)
   const configService = app.get(ConfigService)
 
-  const graphqlApiPort = configService.get<ConfigType<typeof graphqlConfig>>(
-    graphqlConfig.KEY,
-  )?.graphqlApiPort
-
-  console.log(process.env)
+  const graphqlApiPort =
+    configService.get<ConfigType<typeof graphqlConfig>>(
+      GRAPHQL_CONFIG_KEY,
+    )?.graphqlApiPort
 
   if (!graphqlApiPort) {
     throw new Error('Missing GRAPHQL_API_HOST')

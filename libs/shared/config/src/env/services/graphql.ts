@@ -14,7 +14,7 @@ export class GraphQLEnvVars implements IGraphQLEnvVars {
   constructor(private readonly vercel: IVercelEnvVars) {}
 
   get isLocal() {
-    return this.nextPublicPlatformHost.includes('127.0.0.1')
+    return this.graphqlApiHost.includes('127.0.0.1')
   }
 
   /**

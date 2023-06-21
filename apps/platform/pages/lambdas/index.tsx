@@ -48,7 +48,7 @@ const Header = () => {
 
 export default LambdasPage
 
-export const getServerSideProps = auth0Instance.withPageAuthRequired()
+export const getServerSideProps = auth0Instance().withPageAuthRequired()
 
 LambdasPage.Layout = ({ children }) => {
   return <DashboardTemplate Header={Header}>{children()}</DashboardTemplate>

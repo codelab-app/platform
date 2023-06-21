@@ -79,7 +79,7 @@ const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
 
 export default TypesPage
 
-export const getServerSideProps = auth0Instance.withPageAuthRequired()
+export const getServerSideProps = auth0Instance().withPageAuthRequired()
 
 TypesPage.Layout = observer(({ children }) => {
   return (

@@ -1,11 +1,8 @@
 import { Controller, Get } from '@nestjs/common'
 import { context, trace } from '@opentelemetry/api'
-import { AppService } from './app.service'
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
   @Get()
   getData() {
     const tracer = trace.getTracer('nestjs')
@@ -27,12 +24,8 @@ export class AppController {
           span.spanContext().traceId,
         )
 
-        const result = this.appService.getData()
-
         span.addEvent('getHello invoked')
         span.end()
-
-        return result
       },
     )
 
