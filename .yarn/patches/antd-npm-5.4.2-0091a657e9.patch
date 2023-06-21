@@ -36,3 +36,44 @@ index 9a9960a092a3e399c0f9e2bdbbbe3d21776ca2c3..378b7a8531b1730f30f832bca8a40c10
    }, /*#__PURE__*/React.createElement("div", {
      className: anchorClass
    }, /*#__PURE__*/React.createElement("span", {
+diff --git a/lib/calendar/generateCalendar.d.ts b/lib/calendar/generateCalendar.d.ts
+index 4b233552b597d9d229f44abe07053a8e51a131a6..f71fca1dc6c3734af598f9bdcd4e1142484f231a 100644
+--- a/lib/calendar/generateCalendar.d.ts
++++ b/lib/calendar/generateCalendar.d.ts
+@@ -44,6 +44,7 @@ export interface CalendarProps<DateType> {
+     onChange?: (date: DateType) => void;
+     onPanelChange?: (date: DateType, mode: CalendarMode) => void;
+     onSelect?: (date: DateType) => void;
++    [key: `data-${string}`]: string | undefined;
+ }
+ declare function generateCalendar<DateType>(generateConfig: GenerateConfig<DateType>): {
+     (props: CalendarProps<DateType>): React.ReactElement<any, string | React.JSXElementConstructor<any>>;
+diff --git a/lib/calendar/generateCalendar.js b/lib/calendar/generateCalendar.js
+index 6791fa864dff40cb179d7e11fc6911f8933f187a..2fc8ce3c43cacaca6bdd16cc18d15b1c65d31659 100644
+--- a/lib/calendar/generateCalendar.js
++++ b/lib/calendar/generateCalendar.js
+@@ -47,7 +47,8 @@ function generateCalendar(generateConfig) {
+       fullscreen = true,
+       onChange,
+       onPanelChange,
+-      onSelect
++      onSelect,
++      ...rest
+     } = props;
+     const {
+       getPrefixCls,
+@@ -159,12 +160,13 @@ function generateCalendar(generateConfig) {
+       }
+     };
+     return wrapSSR( /*#__PURE__*/React.createElement("div", {
++      ...rest,
+       className: (0, _classnames.default)(calendarPrefixCls, {
+         [`${calendarPrefixCls}-full`]: fullscreen,
+         [`${calendarPrefixCls}-mini`]: !fullscreen,
+         [`${calendarPrefixCls}-rtl`]: direction === 'rtl'
+       }, className, rootClassName, hashId),
+-      style: style
++      style: style,
+     }, headerRender ? headerRender({
+       value: mergedValue,
+       type: mergedMode,

@@ -18278,7 +18278,7 @@ __metadata:
 
 "antd@patch:antd@npm%3A5.4.2#./.yarn/patches/antd-npm-5.4.2-0091a657e9.patch::locator=codelab%40workspace%3A.":
   version: 5.4.2
-  resolution: "antd@patch:antd@npm%3A5.4.2#./.yarn/patches/antd-npm-5.4.2-0091a657e9.patch::version=5.4.2&hash=3c7b12&locator=codelab%40workspace%3A."
+  resolution: "antd@patch:antd@npm%3A5.4.2#./.yarn/patches/antd-npm-5.4.2-0091a657e9.patch::version=5.4.2&hash=23c788&locator=codelab%40workspace%3A."
   dependencies:
     "@ant-design/colors": ^7.0.0
     "@ant-design/cssinjs": ^1.7.1
@@ -18331,7 +18331,7 @@ __metadata:
   peerDependencies:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
-  checksum: 980799cd4fc604338d766dbfa3bf9d6082107eadab07657bf8f5c4d20812a638aa895b588f32c6839c8c782d314cb6840b53fddc3751dcf52f7155b37c95fac6
+  checksum: 99e05f861c09eec61c973321220e04e2ad78b2dc6a712ca7714fddbcafb38910bacd44cb6c7a7a4f88eaa6cdb685bb390a8c1bc091cf489e74d0b02fdeddcbc6
   languageName: node
   linkType: hard
 
