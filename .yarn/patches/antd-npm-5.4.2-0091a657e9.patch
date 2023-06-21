@@ -1,0 +1,38 @@
+diff --git a/lib/anchor/Anchor.d.ts b/lib/anchor/Anchor.d.ts
+index 9ff612e838f9a92148709a50569e4e4ff68ae6f1..b04608e6b316620d5537e032ffe7c4a7b9842cdf 100644
+--- a/lib/anchor/Anchor.d.ts
++++ b/lib/anchor/Anchor.d.ts
+@@ -31,6 +31,7 @@ export interface AnchorProps {
+     onChange?: (currentActiveLink: string) => void;
+     items?: AnchorLinkItemProps[];
+     direction?: AnchorDirection;
++    [key: `data-${string}`]: string | undefined;
+ }
+ export interface AnchorState {
+     activeLink: null | string;
+diff --git a/lib/anchor/Anchor.js b/lib/anchor/Anchor.js
+index 9a9960a092a3e399c0f9e2bdbbbe3d21776ca2c3..378b7a8531b1730f30f832bca8a40c10052ac377 100644
+--- a/lib/anchor/Anchor.js
++++ b/lib/anchor/Anchor.js
+@@ -55,7 +55,8 @@ const AnchorContent = props => {
+     onClick,
+     onChange,
+     getContainer,
+-    getCurrentAnchor
++    getCurrentAnchor,
++    ...rest
+   } = props;
+   // =================== Warning =====================
+   if (process.env.NODE_ENV !== 'production') {
+@@ -195,9 +196,10 @@ const AnchorContent = props => {
+     key: item.key
+   }), anchorDirection === 'vertical' && createNestedLink(item.children))) : null;
+   const anchorContent = /*#__PURE__*/React.createElement("div", {
++    ...rest,
+     ref: wrapperRef,
+     className: wrapperClass,
+-    style: wrapperStyle
++    style: wrapperStyle,
+   }, /*#__PURE__*/React.createElement("div", {
+     className: anchorClass
+   }, /*#__PURE__*/React.createElement("span", {
