@@ -379,7 +379,6 @@
   "resolutions": {
     "@opentelemetry/sdk-trace-base": "1.14.0",
     "@neo4j/graphql@3.18.2": "patch:@neo4j/graphql@npm%3A3.18.2#./.yarn/patches/@neo4j-graphql-npm-3.18.2-d5226be5f3.patch",
-    "@neo4j/graphql@^3.18.2": "patch:@neo4j/graphql@npm%3A3.18.2#./.yarn/patches/@neo4j-graphql-npm-3.18.2-d5226be5f3.patch",
     "antd@5.4.2": "patch:antd@npm%3A5.4.2#./.yarn/patches/antd-npm-5.4.2-0091a657e9.patch"
   }
 }
