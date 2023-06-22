@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="nx" type="NodeJSConfigurationType" application-parameters="build platform --prod" node-parameters="--require &quot;dotenv/config&quot;" path-to-js-file="$USER_HOME$/.nvm/versions/node/v18.16.0/bin/nx" working-dir="$PROJECT_DIR$">
+    <method v="2" />
+  </configuration>
+</component>

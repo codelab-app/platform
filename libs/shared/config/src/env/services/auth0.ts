@@ -33,7 +33,7 @@ export class Auth0EnvVars implements IAuth0EnvVars {
 
   private _audience?: string
 
-  constructor(private readonly graphql: IEndpointEnvVars) {}
+  constructor(private readonly endpoint: IEndpointEnvVars) {}
 
   get clientId(): string {
     return (this._clientId ??= env.get('AUTH0_CLIENT_ID').required().asString())
@@ -76,7 +76,7 @@ export class Auth0EnvVars implements IAuth0EnvVars {
   }
 
   get baseUrl() {
-    const auth0baseUrl = this.graphql.nextPublicPlatformHost
+    const auth0baseUrl = this.endpoint.nextPublicPlatformHost
 
     return auth0baseUrl
   }

@@ -20,12 +20,11 @@
           "root": "apps/platform",
           "outputPath": "dist/apps/platform"
         },
-        "production": {},
-        "development": {
-          "outputPath": "tmp/apps/platform/src"
-        }
-      },
-      "defaultConfiguration": "production"
+        "production": {
+          "root": "./"
+        },
+        "development": {}
+      }
     },
     "serve:test": {
       "executor": "nx:run-commands",
