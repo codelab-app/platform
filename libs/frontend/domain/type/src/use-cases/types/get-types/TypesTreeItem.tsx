@@ -1,7 +1,7 @@
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons'
 import type {
   IInterfaceType,
-  IStateTreeDataNode,
+  ITypesTreeDataNode,
 } from '@codelab/frontend/abstract/core'
 import { fieldRef, typeRef } from '@codelab/frontend/abstract/core'
 import {
@@ -9,18 +9,19 @@ import {
   CuiTreeItemToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import React from 'react'
 
-interface StateTreeItemProps {
-  data: IStateTreeDataNode
+interface TypesTreeItemProps {
+  data: ITypesTreeDataNode
 }
 
-export const StateTreeItem = ({ data }: StateTreeItemProps) => {
+export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
   const { fieldService } = useStore()
 
   const onEdit = () => {
-    fieldService.updateForm.open(fieldRef(data.extraData.node.id))
+    fieldService.updateModal.open(fieldRef(data.extraData.node.id))
   }
 
   const onDelete = () => {
@@ -28,9 +29,26 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
   }
 
   const onAddField = () => {
-    fieldService.createModal.open(
-      typeRef(data.extraData.node.type.id) as Ref<IInterfaceType>,
-    )
+    if (
+      data.extraData.type === 'type' &&
+      data.extraData.node.kind !== ITypeKind.InterfaceType
+    ) {
+      return
+    }
+
+    if (
+      data.extraData.type === 'field' &&
+      data.extraData.node.type.current.kind !== ITypeKind.InterfaceType
+    ) {
+      return
+    }
+
+    const interfaceId =
+      data.extraData.type === 'field'
+        ? data.extraData.node.type.id
+        : data.extraData.node.id
+
+    fieldService.createModal.open(typeRef(interfaceId) as Ref<IInterfaceType>)
   }
 
   const toolbarItems = [
@@ -49,8 +67,11 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
   ]
 
   if (
-    fieldService.getField(data.extraData.node.id)?.type.maybeCurrent?.kind ===
-    'InterfaceType'
+    (data.extraData.type === 'field' &&
+      fieldService.getField(data.extraData.node.id)?.type.maybeCurrent?.kind ===
+        ITypeKind.InterfaceType) ||
+    (data.extraData.type === 'type' &&
+      data.extraData.node.kind === ITypeKind.InterfaceType)
   ) {
     toolbarItems.push({
       icon: <PlusOutlined />,

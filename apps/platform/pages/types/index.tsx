@@ -1,10 +1,11 @@
 import { PlusOutlined } from '@ant-design/icons'
-import type { CodelabPage } from '@codelab/frontend/abstract/types'
+import { type CodelabPage, PageType } from '@codelab/frontend/abstract/types'
 import {
   CreateFieldModal,
   CreateTypeModal,
   DeleteFieldModal,
   DeleteTypeModal,
+  TypesPrimarySidebar,
   TypesTable,
   UpdateFieldModal,
   UpdateTypeModal,
@@ -82,6 +83,19 @@ export const getServerSideProps = withPageAuthRedirect()
 
 TypesPage.Layout = observer(({ children }) => {
   return (
-    <DashboardTemplate Header={TypePageHeader}>{children()}</DashboardTemplate>
+    <DashboardTemplate
+      Header={TypePageHeader}
+      PrimarySidebar={{
+        default: PageType.Type,
+        items: [
+          {
+            key: PageType.Type,
+            render: TypesPrimarySidebar,
+          },
+        ],
+      }}
+    >
+      {children()}
+    </DashboardTemplate>
   )
 })
