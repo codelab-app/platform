@@ -17,7 +17,13 @@ import {
   DeleteElementModal,
   mapElementOption,
 } from '@codelab/frontend/domain/element'
-import { ActionsTreeView, StateTreeView } from '@codelab/frontend/domain/store'
+import {
+  ActionsTreeView,
+  CreateActionModal,
+  DeleteActionModal,
+  StateTreeView,
+  UpdateActionModal,
+} from '@codelab/frontend/domain/store'
 import type { InterfaceType } from '@codelab/frontend/domain/type'
 import {
   CreateFieldForm,
@@ -218,6 +224,9 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         <CreateFieldModal />
         <UpdateFieldModal />
         <DeleteFieldModal />
+        <CreateActionModal store={store} />
+        <UpdateActionModal />
+        <DeleteActionModal />
       </>
     )
   },
