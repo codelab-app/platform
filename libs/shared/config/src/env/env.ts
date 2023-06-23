@@ -35,6 +35,13 @@ export interface IEnvironmentVariables {
   vercel: IVercelEnvVars
 }
 
+/**
+ * Env works a bit different in Next.js for the browser, they inline the value by replacing all references process.env with a hard coded value
+ *
+ * https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables#bundling-environment-variables-for-the-browser
+ *
+ * https://github.com/evanshortiss/env-var/issues/162
+ */
 class EnvironmentVariables implements IEnvironmentVariables {
   private _mailchimp?: IMailchimpEnvVars
 

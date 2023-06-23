@@ -1,5 +1,12 @@
 import * as env from 'env-var'
 
+/**
+ * https://github.com/evanshortiss/env-var/issues/162
+ */
+const { get } = env.from({
+  NEXT_PUBLIC_PLATFORM_HOST: process.env['NEXT_PUBLIC_PLATFORM_HOST'],
+})
+
 export interface IEndpointEnvVars {
   /**
    * This is the Next.js middleware that forwards to the backend graphql endpoint
@@ -44,18 +51,9 @@ export class EndpointEnvVars implements IEndpointEnvVars {
    * This is used before module is initialized, so we must access process.env
    */
   get nextPublicPlatformHost(): string {
-    const nextPublicPlatformHost = process.env['NEXT_PUBLIC_PLATFORM_HOST']
-
-    if (!nextPublicPlatformHost) {
-      throw new Error('Missing "NEXT_PUBLIC_PLATFORM_HOST"')
-    }
-
-    return nextPublicPlatformHost
-
-    // return (this._nextPublicPlatformHost ??= env
-    //   .get('NEXT_PUBLIC_PLATFORM_HOST')
-    //   .required()
-    //   .asString())
+    return (this._nextPublicPlatformHost ??= get('NEXT_PUBLIC_PLATFORM_HOST')
+      .required()
+      .asString())
   }
 
   /**
