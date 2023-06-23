@@ -923,7 +923,7 @@
               "firstChild": { "id": "319c70a5-d071-4273-953c-0659aa2c067c" },
               "props": {
                 "id": "68b1ed37-56d8-40c5-87e2-1f3234a0a5e1",
-                "data": "{\"href\":\"{{component.href}}\"}"
+                "data": "{\"href\":\"{{props.href}}\"}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
@@ -952,7 +952,7 @@
               "firstChild": null,
               "props": {
                 "id": "17c04e6e-9c17-4e87-9397-69d640027219",
-                "data": "{\"name\":\"{{component.icon ?? ''}}\"}"
+                "data": "{\"name\":\"{{props.icon ?? ''}}\"}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
@@ -981,7 +981,7 @@
               "firstChild": null,
               "props": {
                 "id": "d9d56356-8891-4e1b-9bfe-d131d31d33d1",
-                "data": "{\"customText\":\"<p>{{component.label}}</p>\"}"
+                "data": "{\"customText\":\"<p>{{props.label}}</p>\"}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
@@ -1013,7 +1013,7 @@
               "firstChild": null,
               "props": {
                 "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{component.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
@@ -1121,7 +1121,7 @@
               "firstChild": null,
               "props": {
                 "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{component.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
@@ -1229,7 +1229,7 @@
               "firstChild": null,
               "props": {
                 "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{component.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
@@ -1708,7 +1708,7 @@
               "firstChild": null,
               "props": {
                 "id": "386c3025-e620-4e2a-99d3-25fa9bad9a55",
-                "data": "{\"name\":\"{{component.icon}}\"}"
+                "data": "{\"name\":\"{{props.icon}}\"}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
@@ -1737,7 +1737,7 @@
               "firstChild": null,
               "props": {
                 "id": "810218c4-2c5b-4d2b-a472-8103cfc4e7e1",
-                "data": "{\"title\":{\"value\":\"{{component.text}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+                "data": "{\"title\":{\"value\":\"{{props.text}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
@@ -1769,7 +1769,7 @@
               "firstChild": null,
               "props": {
                 "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{component.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
@@ -1888,7 +1888,7 @@
         "firstChild": null,
         "props": {
           "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-          "data": "{\"customText\":\"<p>{{component.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+          "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
         },
         "renderForEachPropKey": null,
         "renderIfExpression": null,
@@ -1969,7 +1969,7 @@
         "firstChild": { "id": "319c70a5-d071-4273-953c-0659aa2c067c" },
         "props": {
           "id": "68b1ed37-56d8-40c5-87e2-1f3234a0a5e1",
-          "data": "{\"href\":\"{{component.href}}\"}"
+          "data": "{\"href\":\"{{props.href}}\"}"
         },
         "renderForEachPropKey": null,
         "renderIfExpression": null,
