@@ -1,6 +1,6 @@
 import type { Page } from '@codelab/shared/abstract/codegen'
+import { slugify } from '@codelab/shared/utils'
 import type { IFieldResolver } from '@graphql-tools/utils'
-import slugify from 'voca/slugify'
 import { name } from './page-name'
 
 /**

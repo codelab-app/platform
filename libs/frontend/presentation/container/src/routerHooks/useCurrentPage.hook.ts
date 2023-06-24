@@ -1,8 +1,8 @@
-import { createUniqueName } from '@codelab/shared/utils'
+import { createUniqueName, getNameFromSlug } from '@codelab/shared/utils'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { useStore } from '../providers'
-import { getNameFromSlug, useCurrentApp } from './useCurrentApp.hook'
+import { useCurrentApp } from './useCurrentApp.hook'
 
 export const useCurrentPage = () => {
   const { app } = useCurrentApp()
@@ -10,10 +10,7 @@ export const useCurrentPage = () => {
   const { query } = useRouter()
   const pageSlug = query.pageSlug as string
   const userName = query.userName as string
-  // this is the only exception for now:
-  // provider page has "_app" name which is sluggified to "app"
-  // and we can't reverse it from "app" to "_app" following generic rules
-  const pageName = pageSlug === 'app' ? '_app' : getNameFromSlug(pageSlug)
+  const pageName = getNameFromSlug(pageSlug)
 
   const user = userService.usersList.find(
     ({ username }) => username === userName,

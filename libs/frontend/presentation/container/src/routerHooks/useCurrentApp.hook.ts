@@ -1,14 +1,7 @@
-import { createUniqueName } from '@codelab/shared/utils'
+import { createUniqueName, getNameFromSlug } from '@codelab/shared/utils'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
-import titleCase from 'voca/title_case'
 import { useStore } from '../providers'
-
-export const getNameFromSlug = (slug?: string) => {
-  const str = slug?.replace(/-/g, ' ')
-
-  return titleCase(str)
-}
 
 export const useCurrentApp = () => {
   const { appService, userService } = useStore()

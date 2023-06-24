@@ -24,5 +24,21 @@ export const stripQuotes = (value: string) => value.replace(/['"]/g, '')
 export const capitalizeFirstLetter = (value: string) =>
   value.charAt(0).toUpperCase() + value.slice(1)
 
+// custom implementation of slugify method because can't rely on voca.slugify.
+// there are collisions, for example for strings like "My1 App", "My1app", "My 1 App"
+// the same slug is generated "my-1-app" and we can't reverse it back to original string.
+// in same time our custom implementation will generate "my1-app", "my1app", "my-1-app"
+export const slugify = (value?: string) =>
+  value
+    ? value
+        .toLowerCase()
+        .replace(/ /g, '-')
+        .replace(/[^\w-]+/g, '')
+    : ''
+
+export const getNameFromSlug = (slug?: string) => {
+  return slug ? slug.split('-').map(capitalizeFirstLetter).join(' ') : ''
+}
+
 // export const startsWithCapital = (word: string) =>
 //   word.charAt(0) === word.charAt(0).toUpperCase()

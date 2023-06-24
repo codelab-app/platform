@@ -20,6 +20,7 @@ import { InlineFormService, ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
 import type { IPageDTO } from '@codelab/shared/abstract/core'
 import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -33,7 +34,6 @@ import {
   transaction,
 } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { slugify } from 'voca'
 import { PageFactory } from '../services'
 import { pageApi } from './page.api'
 import { Page } from './page.model'

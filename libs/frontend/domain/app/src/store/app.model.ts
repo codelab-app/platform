@@ -8,12 +8,11 @@ import type {
 import type { IAppDTO, IAuth0Owner } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
-import { createUniqueName } from '@codelab/shared/utils'
+import { createUniqueName, slugify } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
-import slugify from 'voca/slugify'
 
 const create = ({ domains, id, name, owner, pages }: IAppDTO) => {
   const app = new App({

@@ -7,7 +7,7 @@ import type {
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { v4 } from 'uuid'
-import { capitalize } from 'voca'
+import capitalize from 'voca/capitalize'
 import { BaseType } from './base-type.model'
 
 export class InterfaceType extends BaseType implements IInterfaceTypeDTO {
