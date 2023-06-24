@@ -7,22 +7,60 @@ import {
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { useTablePagination } from '@codelab/frontend/shared/utils'
-import React from 'react'
+import { observer } from 'mobx-react-lite'
+import React, { useEffect, useState } from 'react'
 import tw from 'twin.macro'
 import { TypesTreeView } from '../get-types'
 
-export const TypesPrimarySidebar = () => {
+export const TypesPrimarySidebar = observer(() => {
   const { typeService } = useStore()
 
-  const { data, filter, handleChange, isLoading, pagination } =
-    useTablePagination<IType, { name: string }>({
-      filterTypes: { name: 'string' },
-      paginationService: typeService.paginationService,
-      pathname: PageType.Type,
-    })
+  const { filter, handleChange, pagination } = useTablePagination<
+    IType,
+    { name: string }
+  >({
+    filterTypes: { name: 'string' },
+    paginationService: typeService.paginationService,
+    pathname: PageType.Type,
+  })
 
-  const pageCount = 20
-  const pageSize = 50
+  const { current, pageSize } = pagination
+  const [currentPage, setCurrentPage] = useState(current ?? 1)
+  const [currentPageSize, setCurrentPageSize] = useState(pageSize ?? 50)
+
+  const pageCount = Math.ceil(
+    typeService.paginationService.totalItems / currentPageSize,
+  )
+
+  useEffect(() => {
+    if (current) {
+      setCurrentPage(current)
+    }
+
+    if (pageSize) {
+      setCurrentPageSize(pageSize)
+    }
+  }, [current, pageSize])
+
+  const changePageSize = (newPageSize: number) => {
+    setCurrentPageSize(newPageSize)
+    void handleChange({ newPageSize })
+  }
+
+  const goToPage = (page: number) => {
+    if (page > 0 && page <= pageCount) {
+      setCurrentPage(page)
+      void handleChange({ newPage: page })
+    }
+  }
+
+  const goToPreviousPage = () => {
+    goToPage(currentPage - 1)
+  }
+
+  const goToNextPage = () => {
+    goToPage(currentPage + 1)
+  }
 
   return (
     <CuiSidebar
@@ -38,12 +76,7 @@ export const TypesPrimarySidebar = () => {
               {
                 icon: <LeftOutlined />,
                 key: 'previous',
-                onClick: () => {
-                  pagination.onChange?.(
-                    (pagination.current ?? 2) - 1,
-                    pagination.pageSize || pageSize,
-                  )
-                },
+                onClick: goToPreviousPage,
                 title: 'Previous',
               },
               {
@@ -54,49 +87,23 @@ export const TypesPrimarySidebar = () => {
                     <CuiInput
                       onChange={(value) => {
                         if (typeof value === 'number' && value > 0) {
-                          pagination.onChange?.(
-                            value,
-                            pagination.pageSize || pageSize,
-                          )
+                          goToPage(value)
                         }
                       }}
                       type="number"
-                      value={pagination.current}
+                      value={currentPage}
                     />
-                    <span
-                      css={tw`
-                      w-2
-                      p-0
-                      m-0
-                      text-sm
-                    `}
-                    >
-                      /
-                    </span>
-                    <span
-                      css={tw`
-                        w-6
-                        p-0
-                        m-0
-                        text-sm
-                      `}
-                    >
-                      {`${pageCount}`}
-                    </span>
+                    <span css={tw`w-2 p-0 m-0 text-sm`}>/</span>
+                    <span css={tw`w-6 p-0 m-0 text-sm`}>{`${pageCount}`}</span>
                   </div>
                 ),
                 key: 'current-page',
-                title: `Current page: ${pagination.current} / ${pageCount}`,
+                title: `Current page: ${currentPage} / ${pageCount}`,
               },
               {
                 icon: <RightOutlined />,
                 key: 'next',
-                onClick: () => {
-                  pagination.onChange?.(
-                    (pagination.current ?? 1) + 1,
-                    pagination.pageSize || pageSize,
-                  )
-                },
+                onClick: goToNextPage,
                 title: 'Next',
               },
               {
@@ -107,36 +114,18 @@ export const TypesPrimarySidebar = () => {
                     <CuiInput
                       onChange={(value) => {
                         if (typeof value === 'number' && value > 0) {
-                          pagination.onChange?.(pagination.current ?? 1, value)
+                          changePageSize(value)
                         }
                       }}
                       type="number"
-                      value={pagination.pageSize || pageSize}
+                      value={currentPageSize}
                     />
-                    <span
-                      css={tw`
-                  w-2
-                  p-0
-                  m-0
-                  text-sm
-                `}
-                    >
-                      /
-                    </span>
-                    <span
-                      css={tw`
-                    w-6
-                    p-0
-                    m-0
-                    text-sm
-                  `}
-                    >
-                      Page
-                    </span>
+                    <span css={tw`w-2 p-0 m-0 text-sm`}>/</span>
+                    <span css={tw`w-6 p-0 m-0 text-sm`}>Page</span>
                   </div>
                 ),
                 key: 'page-size',
-                title: `${pagination.pageSize} items per page`,
+                title: `${currentPageSize} items per page`,
               },
             ],
             title: 'types-tree-toolbar',
@@ -145,4 +134,4 @@ export const TypesPrimarySidebar = () => {
       ]}
     />
   )
-}
+})

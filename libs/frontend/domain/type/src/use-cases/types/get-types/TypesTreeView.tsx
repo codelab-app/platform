@@ -15,12 +15,11 @@ import { TypesTreeItem } from './TypesTreeItem'
 export const TypesTreeView = observer(() => {
   const { typeService } = useStore()
 
-  const { data, filter, handleChange, isLoading, pagination } =
-    useTablePagination<IType, { name: string }>({
-      filterTypes: { name: 'string' },
-      paginationService: typeService.paginationService,
-      pathname: PageType.Type,
-    })
+  const { data, isLoading } = useTablePagination<IType, { name: string }>({
+    filterTypes: { name: 'string' },
+    paginationService: typeService.paginationService,
+    pathname: PageType.Type,
+  })
 
   const treeData: Array<ITypesTreeDataNode> = data.map((type) => ({
     children:
