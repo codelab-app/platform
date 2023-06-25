@@ -32,6 +32,11 @@ resource "vercel_project" "platform" {
       key    = "NEXT_PUBLIC_PLATFORM_HOST"
       value  = var.next_public_platform_host
     },
+    {
+      target = ["production", "preview"]
+      key    = "PLATFORM_API_HOST"
+      value  = var.platform_api_host
+    },
     # Auth0
     {
       target = ["production", "preview"]

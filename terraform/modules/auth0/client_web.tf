@@ -4,16 +4,16 @@ resource "auth0_client" "web_client" {
   app_type        = "regular_web"
   oidc_conformant = true
   callbacks = [
-    "${local.builder_url}/api/auth/callback",
+    "${var.next_public_platform_host}/api/auth/callback",
   "https://*.vercel.app/api/auth/callback"]
   allowed_logout_urls = [
-    "${local.builder_url}",
+    "${var.next_public_platform_host}",
   "https://*.vercel.app"]
   web_origins = [
-    "${local.builder_url}",
+    "${var.next_public_platform_host}",
   "https://*.vercel.app"]
   allowed_origins = [
-    "${local.builder_url}",
+    "${var.next_public_platform_host}",
   "https://*.vercel.app"]
   grant_types                = ["authorization_code", "implicit", "password", "refresh_token"]
   token_endpoint_auth_method = "${terraform.workspace}" == "prod" ? "client_secret_post" : "none"

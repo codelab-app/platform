@@ -4,10 +4,10 @@ resource "auth0_client" "machine_client" {
   app_type    = "non_interactive"
 
   web_origins = [
-    "${local.builder_url}",
+    "${var.next_public_platform_host}",
   "https://*.vercel.app"]
   allowed_origins = [
-    "${local.builder_url}",
+    "${var.next_public_platform_host}",
   "https://*.vercel.app"]
 }
 

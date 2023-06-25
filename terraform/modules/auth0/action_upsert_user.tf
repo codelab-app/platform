@@ -43,7 +43,7 @@ exports.onExecutePostLogin = async (event, api) => {
   /**
    * Initialize client
    */
-  const url = '${local.builder_url}'
+  const url = '${var.next_public_platform_host}'
   const endpoint = new URL('api/graphql', url)
 
   const graphQLClient = new GraphQLClient(endpoint.toString(), {

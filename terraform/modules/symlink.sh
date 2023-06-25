@@ -9,6 +9,9 @@ ln -s ../auth0/vars.tf ./circleci/vars-auth0.symlink.tf
 ln -s ../auth0-vars/vars-auth0-secret.tf ./circleci/vars-auth0-secret.symlink.tf
 ln -s ../auth0-vars/vars-web-client.tf ./circleci/vars-auth0-web-client.symlink.tf
 
+# Api
+ln -s ../platform-api/vars.tf ./circleci/vars-platform-api.symlink.tf
+
 # Vercel Platform
 ln -s ../vercel/vars-team-id.tf ./vercel-platform/vars-vercel-team-id.symlink.tf
 ln -s ../vercel/vars-api-token.tf ./vercel-platform/vars-vercel-api-token.symlink.tf
