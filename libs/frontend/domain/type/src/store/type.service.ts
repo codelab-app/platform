@@ -282,7 +282,8 @@ export class TypeService
 
     if (
       interfaceFromStore &&
-      interfaceFromStore.kind === ITypeKind.InterfaceType
+      interfaceFromStore.kind === ITypeKind.InterfaceType &&
+      !this.shouldLoadType(interfaceTypeId)
     ) {
       return interfaceFromStore
     }
