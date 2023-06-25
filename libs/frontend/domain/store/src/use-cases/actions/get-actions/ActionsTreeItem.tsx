@@ -5,8 +5,8 @@ import {
   EditOutlined,
 } from '@ant-design/icons'
 import {
-  type IActionsTreeDataNode,
   actionRef,
+  type IActionsTreeDataNode,
 } from '@codelab/frontend/abstract/core'
 import {
   CuiTreeItem,
