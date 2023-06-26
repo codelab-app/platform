@@ -62,13 +62,7 @@ export class BaseRuntimeProps<TNode extends IPageNode>
         return undefined
       }
 
-      const typeKind = this.typeService.type(value.type)?.kind
-
-      if (!typeKind) {
-        return value.value
-      }
-
-      const transformer = this.renderer.typedPropTransformers.get(typeKind)
+      const transformer = this.renderer.typedPropTransformers.get(value.kind)
 
       if (!transformer) {
         return value.value

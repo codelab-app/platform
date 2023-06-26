@@ -4,6 +4,7 @@ import type {
   IPropData,
   ITypeService,
   RendererType,
+  TypedProp,
 } from '@codelab/frontend/abstract/core'
 import {
   isComponentInstance,
@@ -12,7 +13,9 @@ import {
 } from '@codelab/frontend/abstract/core'
 import type { ProductionWebsiteProps } from '@codelab/frontend/abstract/types'
 import { PageType } from '@codelab/frontend/abstract/types'
+import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { PageKind } from '@codelab/shared/abstract/codegen'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { useAsync } from '@react-hookz/web'
 import flatMap from 'lodash/flatMap'
 import isObject from 'lodash/isObject'
@@ -118,8 +121,12 @@ export const useRenderedPage = ({
   })
 }
 
+const hasComponentId = (prop: TypedProp): boolean =>
+  !hasStateExpression(prop.value) &&
+  [ITypeKind.ReactNodeType, ITypeKind.RenderPropType].includes(prop.kind)
+
 const getComponentIdsFromProp = (prop: IPropData): Array<string> =>
-  isTypedProp(prop)
+  isTypedProp(prop) && hasComponentId(prop)
     ? [prop.value]
     : isObject(prop)
     ? values(prop).flatMap((childProp) => getComponentIdsFromProp(childProp))

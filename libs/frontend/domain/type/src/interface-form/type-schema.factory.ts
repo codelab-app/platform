@@ -141,7 +141,7 @@ export class TypeSchemaFactory {
         const valueSchema = this.transform(innerType.current)
 
         const properties = TypeSchemaFactory.schemaForTypedProp(
-          innerType.id,
+          innerType.current,
           valueSchema,
           typeLabel,
         )
@@ -199,7 +199,7 @@ export class TypeSchemaFactory {
     const extra = this.getExtraProperties(type)
 
     const properties = TypeSchemaFactory.schemaForTypedProp(
-      type.id,
+      type,
       { label: '', type: 'string', ...extra },
       '',
     )
@@ -269,15 +269,26 @@ export class TypeSchemaFactory {
    * with a `type` field that has a value of `typeId`
    */
   private static schemaForTypedProp(
-    typeId: Maybe<string>,
+    type: Maybe<IType>,
     valueSchema: JsonSchema,
     typeLabel: Maybe<string>,
   ): { [key: string]: JsonSchema } {
     return {
+      kind: {
+        default: type?.kind,
+
+        enum: type?.kind ? [type.kind] : undefined,
+
+        label: typeLabel,
+
+        type: 'string',
+
+        uniforms: blankUniforms,
+      },
       type: {
-        default: typeId,
+        default: type?.id,
         // This ensures that only this exact type is considered valid. Allows union types to use oneOf
-        enum: typeId ? [typeId] : undefined,
+        enum: type?.id ? [type.id] : undefined,
 
         label: typeLabel,
 
@@ -301,7 +312,7 @@ export class TypeSchemaFactory {
     const label = context?.fieldName ?? ''
 
     const properties = TypeSchemaFactory.schemaForTypedProp(
-      type.id,
+      type,
       { label, ...extra },
       '',
     )
@@ -309,7 +320,7 @@ export class TypeSchemaFactory {
     return {
       label: '',
       properties,
-      required: ['type'],
+      required: ['type', 'kind'],
       type: 'object',
       uniforms: nullUniforms,
     }
