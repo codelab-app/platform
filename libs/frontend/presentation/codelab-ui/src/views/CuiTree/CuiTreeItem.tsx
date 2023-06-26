@@ -6,8 +6,8 @@ import { variantColors } from '../../abstract'
 
 interface CuiTreeItemProps {
   icon?: ReactNode
-  primaryTitle?: string
-  secondaryTitle?: string
+  primaryTitle?: ReactNode | string
+  secondaryTitle?: ReactNode | string
   tag?: ReactNode
   toolbar?: ReactNode
   variant?: Variant

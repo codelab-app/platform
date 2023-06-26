@@ -1,4 +1,4 @@
-import { LeftOutlined, RightOutlined } from '@ant-design/icons'
+import { LeftOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons'
 import type { IType } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
@@ -15,7 +15,7 @@ import { TypesTreeView } from '../get-types'
 export const TypesPrimarySidebar = observer(() => {
   const { typeService } = useStore()
 
-  const { filter, handleChange, pagination } = useTablePagination<
+  const { handleChange, pagination } = useTablePagination<
     IType,
     { name: string }
   >({
@@ -27,6 +27,7 @@ export const TypesPrimarySidebar = observer(() => {
   const { current, pageSize } = pagination
   const [currentPage, setCurrentPage] = useState(current ?? 1)
   const [currentPageSize, setCurrentPageSize] = useState(pageSize ?? 50)
+  const [showSearchBar, setShowSearchBar] = useState(false)
 
   const pageCount = Math.ceil(
     typeService.paginationService.totalItems / currentPageSize,
@@ -68,11 +69,17 @@ export const TypesPrimarySidebar = observer(() => {
       label="Types"
       views={[
         {
-          content: <TypesTreeView />,
+          content: <TypesTreeView showSearchBar={showSearchBar} />,
           key: 'types-view',
           label: 'Types',
           toolbar: {
             items: [
+              {
+                icon: <SearchOutlined />,
+                key: 'search',
+                onClick: () => setShowSearchBar(!showSearchBar),
+                title: 'Search',
+              },
               {
                 icon: <LeftOutlined />,
                 key: 'previous',
