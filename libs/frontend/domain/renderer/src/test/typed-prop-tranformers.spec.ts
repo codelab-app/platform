@@ -1,6 +1,5 @@
 import type { IRenderOutput, TypedProp } from '@codelab/frontend/abstract/core'
 import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/core'
-import { ITypeKind } from '@codelab/shared/abstract/core'
 import { render } from '@testing-library/react'
 import { setupTestForRenderer } from './setup/setup-test'
 import TestProviderWrapper from './TestProviderWrapper'
@@ -21,7 +20,7 @@ describe('RenderService', () => {
   it('should render props when kind is ReactNodeType', async () => {
     data.element.props.current.setMany({
       someNode: {
-        kind: ITypeKind.ReactNodeType,
+        kind: data.reactNodeType.kind,
         type: data.reactNodeType.id,
         value: data.component.id,
       } as TypedProp,
@@ -48,7 +47,7 @@ describe('RenderService', () => {
   it('should render prop when kind is RenderPropType with component prop values', async () => {
     data.element.props.current.setMany({
       someNode: {
-        kind: ITypeKind.RenderPropType,
+        kind: data.renderPropType.kind,
         type: data.renderPropType.id,
         value: data.component.id,
       } as TypedProp,
@@ -76,6 +75,7 @@ describe('RenderService', () => {
   it('should render props when kind is RenderPropType with passed arguments (override component props)', async () => {
     data.element.props.current.setMany({
       someNode: {
+        kind: data.renderPropType.kind,
         type: data.renderPropType.id,
         value: data.component.id,
       },

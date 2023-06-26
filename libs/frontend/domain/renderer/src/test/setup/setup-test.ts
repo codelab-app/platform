@@ -186,6 +186,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
         prop01: 'prop01Value',
         prop02: 'prop02Value',
         prop03: {
+          kind: integerType.kind,
           type: integerType.id,
           value: 'prop03Value',
         },
