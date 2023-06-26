@@ -28,7 +28,7 @@ export const evaluateExpression = (
     const code = `return ${stripStateExpression(expression)}`
 
     // eslint-disable-next-line no-new-func
-    return new Function('props', code).call(state, props)
+    return new Function('state', 'props', code)(state, props)
   } catch (error) {
     console.log(error)
 

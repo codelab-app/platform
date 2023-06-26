@@ -182,7 +182,10 @@ export class ActionRunner
       // eslint-disable-next-line no-new-func
       return new Function(
         'props',
-        `return ${(this.actionRef.current as ICodeAction).code}`,
+        `return function run(...args) {
+          const state = this;
+          return ${(this.actionRef.current as ICodeAction).code}(...args)
+        }`,
       )
     } catch (error) {
       console.log(error)
