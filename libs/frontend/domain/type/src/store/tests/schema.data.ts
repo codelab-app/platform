@@ -11,6 +11,13 @@ export const unionTypeExpectedSchema = {
     {
       label: '',
       properties: {
+        kind: {
+          default: stringType.kind,
+          enum: [stringType.kind],
+          label: 'TypeKind',
+          type: 'string',
+          uniforms: expect.any(Object),
+        },
         type: {
           default: stringType.id,
           enum: [stringType.id],
@@ -26,6 +33,13 @@ export const unionTypeExpectedSchema = {
     {
       label: '',
       properties: {
+        kind: {
+          default: intType.kind,
+          enum: [intType.kind],
+          label: 'TypeKind',
+          type: 'string',
+          uniforms: expect.any(Object),
+        },
         type: {
           default: intType.id,
           enum: [intType.id],
@@ -53,12 +67,14 @@ export const interfaceWithUnionExpectedSchema = {
       oneOf: [
         merge({}, unionTypeExpectedSchema.oneOf[0], {
           properties: {
+            kind: { label: 'TypeKind' },
             type: { label: 'Type' },
             value: { label: undefined },
           },
         }),
         merge({}, unionTypeExpectedSchema.oneOf[1], {
           properties: {
+            kind: { label: 'TypeKind' },
             type: { label: 'Type' },
             value: { label: undefined },
           },

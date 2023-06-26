@@ -279,7 +279,7 @@ export class TypeSchemaFactory {
 
         enum: type?.kind ? [type.kind] : undefined,
 
-        label: typeLabel,
+        label: `${typeLabel}Kind`,
 
         type: 'string',
 
