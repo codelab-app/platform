@@ -75,12 +75,6 @@ export const TypesPrimarySidebar = observer(() => {
           toolbar: {
             items: [
               {
-                icon: <SearchOutlined />,
-                key: 'search',
-                onClick: () => setShowSearchBar(!showSearchBar),
-                title: 'Search',
-              },
-              {
                 icon: <LeftOutlined />,
                 key: 'previous',
                 onClick: goToPreviousPage,
@@ -97,11 +91,14 @@ export const TypesPrimarySidebar = observer(() => {
                           goToPage(value)
                         }
                       }}
+                      selectAllOnClick
                       type="number"
                       value={currentPage}
                     />
-                    <span css={tw`w-2 p-0 m-0 text-sm`}>/</span>
-                    <span css={tw`w-6 p-0 m-0 text-sm`}>{`${pageCount}`}</span>
+                    <span css={tw`w-2 p-0 m-0 text-sm text-center`}>/</span>
+                    <span
+                      css={tw`w-6 p-0 m-0 text-sm text-center`}
+                    >{`${pageCount}`}</span>
                   </div>
                 ),
                 key: 'current-page',
@@ -124,15 +121,22 @@ export const TypesPrimarySidebar = observer(() => {
                           changePageSize(value)
                         }
                       }}
+                      selectAllOnClick
                       type="number"
                       value={currentPageSize}
                     />
                     <span css={tw`w-2 p-0 m-0 text-sm`}>/</span>
-                    <span css={tw`w-6 p-0 m-0 text-sm`}>Page</span>
+                    <span css={tw`p-0 m-0 text-sm`}>Page</span>
                   </div>
                 ),
                 key: 'page-size',
                 title: `${currentPageSize} items per page`,
+              },
+              {
+                icon: <SearchOutlined />,
+                key: 'search',
+                onClick: () => setShowSearchBar(!showSearchBar),
+                title: 'Search',
               },
             ],
             title: 'types-tree-toolbar',

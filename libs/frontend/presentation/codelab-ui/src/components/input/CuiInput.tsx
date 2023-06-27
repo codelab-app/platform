@@ -1,7 +1,7 @@
+import type { InputRef } from 'antd'
 import { Input } from 'antd'
 import type { InputProps } from 'antd/lib/input'
-import React from 'react'
-import tw from 'twin.macro'
+import React, { useRef } from 'react'
 import { numberRegex } from '../../util'
 
 export interface CuiInputProps {
@@ -10,6 +10,7 @@ export interface CuiInputProps {
   id?: InputProps['id']
   maxLength?: InputProps['maxLength']
   onPressEnter?: InputProps['onPressEnter']
+  selectAllOnClick?: boolean
   type?: 'number' | 'text'
   value?: InputProps['value']
   onChange?(value: number | string): void
@@ -22,9 +23,12 @@ export const CuiInput = ({
   maxLength,
   onChange,
   onPressEnter,
+  selectAllOnClick = false,
   type = 'text',
   value,
 }: CuiInputProps) => {
+  const inputRef = useRef<InputRef>(null)
+
   const handleChange = ({
     target: { value: inputValue },
   }: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,23 +47,31 @@ export const CuiInput = ({
     }
   }
 
+  const handleClick = () => {
+    if (selectAllOnClick) {
+      inputRef.current?.focus({
+        cursor: 'all',
+      })
+    }
+  }
+
   return (
     <Input
       bordered={false}
-      css={tw`
-      w-6
-      h-5
-      p-0
+      className={`
       m-0
       box-border
-      border-0
-      border-dotted
-      border-b
+      h-5
+      w-6
       rounded-none
-    border-black
-      text-sm
+      border-0
+      border-b
+      border-dotted
+      border-black
+    bg-none
+      p-0
       text-center
-      bg-none
+      text-sm
       focus:outline-none
     `}
       defaultValue={defaultValue}
@@ -67,7 +79,9 @@ export const CuiInput = ({
       id={id}
       maxLength={maxLength}
       onChange={handleChange}
+      onClick={handleClick}
       onPressEnter={onPressEnter}
+      ref={inputRef}
       value={value}
     />
   )
