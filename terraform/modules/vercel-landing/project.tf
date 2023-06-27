@@ -6,6 +6,7 @@ resource "vercel_project" "landing" {
   git_repository = {
     type = "github"
     repo = "codelab-app/platform"
+    production_branch = "master"
   }
 
   ignore_command   = "git diff --quiet HEAD^ HEAD ./"

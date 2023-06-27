@@ -20,10 +20,10 @@
           "root": "apps/platform",
           "outputPath": "dist/apps/platform"
         },
-        "production": {
+        "prod": {
           "root": "./"
         },
-        "development": {}
+        "dev": {}
       }
     },
     "serve:test": {
@@ -62,22 +62,22 @@
           "memoryLimit": 8192,
           "port": 3001
         },
-        "production": {
-          "buildTarget": "platform:build:production",
+        "prod": {
+          "buildTarget": "platform:build:prod",
           "dev": false
         },
-        "development": {
-          "buildTarget": "platform:build:development",
+        "dev": {
+          "buildTarget": "platform:build:dev",
           "dev": true,
           "open": true
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "dev"
     },
     "export": {
       "executor": "@nx/next:export",
       "options": {
-        "buildTarget": "platform:build:production"
+        "buildTarget": "platform:build:prod"
       }
     },
     "lint": {

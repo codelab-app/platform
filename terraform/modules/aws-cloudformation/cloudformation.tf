@@ -1,7 +1,6 @@
 locals {
   resource_path        = "${path.root}/../../modules/aws-cloudformation/resources/"
   output_path          = "${path.root}/../../modules/aws-cloudformation/outputs/"
-  service_name         = local.service_name
   lambda_function_name = "main"
   lambda_handler_path  = "dist/app/nest-cli-serverless/main.handler"
 
@@ -12,6 +11,7 @@ locals {
 }
 
 resource "aws_cloudformation_stack" "nestjs-cli-app" {
+  count = 0
   name = "nestjs-cli-app"
 
   parameters = {

@@ -7,7 +7,7 @@ SERVICES="$*"
 # if [ "$CI" != true ]; then
 #   yarn
 #   yarn build
-#   yarn --prod
+#   yarn -c prod
 #   rm -rf node_modules/.cache
 # fi
 

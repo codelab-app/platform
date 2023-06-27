@@ -1,8 +1,3 @@
-variable "next_public_platform_host" {
-  type        = string
-  description = "Domain of our project"
-}
-
 variable "auth0_issuer_base_url" {
   type        = string
   description = "OIDC issuer URL, the endpoint of the provider we're authorizing against"

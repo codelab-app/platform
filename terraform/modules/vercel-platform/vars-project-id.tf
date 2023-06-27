@@ -1,4 +1,4 @@
-variable "vercel_builder_project_id" {
+variable "vercel_platform_project_id" {
   type        = string
   description = "Project ID of the builder project"
 }

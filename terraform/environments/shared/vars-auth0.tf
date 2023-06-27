@@ -1,6 +1,7 @@
-variable "NEXT_PUBLIC_PLATFORM_HOST" {
-  type = string
-}
+# Moved to platform's own variable, even though it is needed by Auth0
+# variable "NEXT_PUBLIC_PLATFORM_HOST" {
+#   type = string
+# }
 
 variable "AUTH0_ISSUER_BASE_URL" {
   type = string

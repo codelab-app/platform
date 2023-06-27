@@ -9,6 +9,7 @@ resource "vercel_project" "websites" {
   git_repository = {
     type = "github"
     repo = "codelab-app/platform"
+    production_branch = "master"
   }
 
   build_command    = "./scripts/vercel/websites/build.sh"
@@ -18,11 +19,11 @@ resource "vercel_project" "websites" {
   serverless_function_region = "sfo1"
 
   environment = [
-    {
-      target = ["production", "preview"]
-      key    = "NEXT_PUBLIC_PLATFORM_HOST"
-      value  = var.next_public_platform_host
-    },
+    # {
+    #   target = ["production", "preview"]
+    #   key    = "NEXT_PUBLIC_PLATFORM_HOST"
+    #   value  = var.next_public_platform_host
+    # },
     # Auth0
     {
       target = ["production", "preview"]

@@ -72,7 +72,7 @@ provider "registry.terraform.io/hashicorp/aws" {
 
 provider "registry.terraform.io/vercel/vercel" {
   version     = "0.14.0"
-  constraints = "~> 0.4"
+  constraints = "~> 0.14.0"
   hashes = [
     "h1:qgsSen7f4epUXHVv1dObbSj/vGdk091TgR632RS0EnA=",
     "zh:1620b262e046dabca452c5099d4eea8ce7920789c49e808b6c82ab8e21e677d6",

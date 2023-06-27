@@ -18,6 +18,7 @@ resource "vercel_project" "platform" {
   git_repository = {
     type = "github"
     repo = "codelab-app/platform"
+    production_branch = "master"
   }
 
   build_command    = "./scripts/vercel/platform/build.sh"
@@ -96,7 +97,7 @@ resource "vercel_project" "platform" {
       # https://github.com/hashicorp/terraform/issues/3267
       #      value = vercel_project.builder.id
       #      value = data.vercel_project.builder.id
-      value = var.vercel_builder_project_id
+      value = var.vercel_platform_project_id
     },
     {
       target = ["production", "preview"]

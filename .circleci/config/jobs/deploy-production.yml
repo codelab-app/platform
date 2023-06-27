@@ -11,7 +11,7 @@ steps:
       command: vercel pull --yes --environment=production --token=$VERCEL_ACCESS_TOKEN
   - run:
       name: 'Build Project Artifacts'
-      command: vercel build --prod --token=$VERCEL_ACCESS_TOKEN
+      command: vercel build -c prod --token=$VERCEL_ACCESS_TOKEN
   - run:
       name: 'Deploy Project Artifacts to Vercel'
-      command: vercel deploy --prebuilt --prod --token=$VERCEL_ACCESS_TOKEN
+      command: vercel deploy --prebuilt -c prod --token=$VERCEL_ACCESS_TOKEN

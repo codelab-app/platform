@@ -83,6 +83,10 @@ module.exports = {
       value: 'wip',
       name: '13) wip:  Work-in-progress',
     },
+    {
+      value: 'tf',
+      name: '14) tf:  terraform code',
+    },
   ],
   scopes,
   allowTicketNumber: true,
