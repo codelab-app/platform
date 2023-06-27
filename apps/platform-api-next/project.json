@@ -7,31 +7,31 @@
     "build": {
       "executor": "@nx/next:build",
       "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
+      "defaultConfiguration": "prod",
       "options": {
         "outputPath": "dist/apps/platform-api-next"
       },
       "configurations": {
-        "development": {
+        "dev": {
           "outputPath": "apps/platform-api-next"
         },
-        "production": {}
+        "prod": {}
       }
     },
     "serve": {
       "executor": "@nx/next:server",
-      "defaultConfiguration": "development",
+      "defaultConfiguration": "dev",
       "options": {
         "buildTarget": "platform-api-next:build",
         "dev": true
       },
       "configurations": {
-        "development": {
-          "buildTarget": "platform-api-next:build:development",
+        "dev": {
+          "buildTarget": "platform-api-next:build:dev",
           "dev": true
         },
-        "production": {
-          "buildTarget": "platform-api-next:build:production",
+        "prod": {
+          "buildTarget": "platform-api-next:build:prod",
           "dev": false
         }
       }
@@ -39,7 +39,7 @@
     "export": {
       "executor": "@nx/next:export",
       "options": {
-        "buildTarget": "platform-api-next:build:production"
+        "buildTarget": "platform-api-next:build:prod"
       }
     },
     "lint": {

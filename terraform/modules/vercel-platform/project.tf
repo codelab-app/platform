@@ -16,8 +16,8 @@ resource "vercel_project" "platform" {
   team_id   = var.vercel_team_id
 
   git_repository = {
-    type = "github"
-    repo = "codelab-app/platform"
+    type              = "github"
+    repo              = "codelab-app/platform"
     production_branch = "master"
   }
 
@@ -25,7 +25,7 @@ resource "vercel_project" "platform" {
 
   build_command    = "../../scripts/vercel/platform/build.sh"
   install_command  = "../../scripts/vercel/platform/install.sh"
-  ignore_command = "../../scripts/vercel/platform/.ignore.sh"
+  ignore_command   = "../../scripts/vercel/platform/.ignore.sh"
   output_directory = "../../dist/apps/platform/.next"
 
   serverless_function_region = "sfo1"

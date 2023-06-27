@@ -12,7 +12,7 @@ locals {
 
 resource "aws_cloudformation_stack" "nestjs-cli-app" {
   count = 0
-  name = "nestjs-cli-app"
+  name  = "nestjs-cli-app"
 
   parameters = {
   }

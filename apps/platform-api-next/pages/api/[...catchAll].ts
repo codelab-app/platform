@@ -18,6 +18,11 @@ export const config = {
   api: {
     // Need this false for Nest.js graphql endpoint to work
     bodyParser: false,
+    /**
+     * https://github.com/vercel/next.js/issues/10439
+     *
+     * Disable false positive of handler not returning anything
+     */
     externalResolver: true,
   },
 }

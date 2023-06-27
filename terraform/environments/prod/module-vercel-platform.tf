@@ -4,7 +4,7 @@ module "vercel-platform" {
   depends_on = [module.auth0]
 
   next_public_platform_host = var.NEXT_PUBLIC_PLATFORM_HOST
-  platform_api_host = var.PLATFORM_API_HOST
+  platform_api_host         = var.PLATFORM_API_HOST
 
   auth0_issuer_base_url = var.AUTH0_ISSUER_BASE_URL
   auth0_domain          = var.AUTH0_DOMAIN
@@ -21,7 +21,7 @@ module "vercel-platform" {
   neo4j_uri      = var.NEO4J_URI
   neo4j_user     = var.NEO4J_USER
 
-  vercel_access_token       = var.VERCEL_ACCESS_TOKEN
-  vercel_team_id            = var.VERCEL_TEAM_ID
+  vercel_access_token        = var.VERCEL_ACCESS_TOKEN
+  vercel_team_id             = var.VERCEL_TEAM_ID
   vercel_platform_project_id = var.VERCEL_PLATFORM_PROJECT_ID
 }

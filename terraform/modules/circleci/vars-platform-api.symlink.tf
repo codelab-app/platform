@@ -1,1 +1,1 @@
-../vercel-platform-api/vars.tf
+../vercel-platform-api-next/vars.tf

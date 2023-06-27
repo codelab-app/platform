@@ -8,4 +8,4 @@ set -x
 # rm -rf node_modules/.cache/nx
 cd ../..
 du -sh * | sort -h
-nx build platform-api -c prod --verbose
+nx build platform-api-next -c prod --verbose

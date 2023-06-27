@@ -4,8 +4,8 @@ resource "vercel_project" "landing" {
   team_id   = var.vercel_team_id
 
   git_repository = {
-    type = "github"
-    repo = "codelab-app/platform"
+    type              = "github"
+    repo              = "codelab-app/platform"
     production_branch = "master"
   }
 
@@ -13,7 +13,7 @@ resource "vercel_project" "landing" {
 
   install_command  = "../../scripts/vercel/landing/install.sh"
   build_command    = "../../scripts/vercel/landing/build.sh"
-  ignore_command = "../../scripts/vercel/landing/ignore.sh"
+  ignore_command   = "../../scripts/vercel/landing/ignore.sh"
   output_directory = "../../dist/apps/landing/.next"
 
   serverless_function_region = "sfo1"

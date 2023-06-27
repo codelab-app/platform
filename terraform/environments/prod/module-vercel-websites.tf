@@ -4,7 +4,7 @@ module "vercel-websites" {
   depends_on = [module.auth0]
 
   # next_public_platform_host = var.NEXT_PUBLIC_PLATFORM_HOST
-  vercel_websites_host =  var.VERCEL_WEBSITES_HOST
+  vercel_websites_host = var.VERCEL_WEBSITES_HOST
 
   auth0_issuer_base_url = var.AUTH0_ISSUER_BASE_URL
   auth0_domain          = var.AUTH0_DOMAIN
