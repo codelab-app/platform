@@ -15,6 +15,7 @@ ln -s ../platform-api/vars.tf ./circleci/vars-platform-api.symlink.tf
 # Vercel Platform
 ln -s ../vercel/vars-team-id.tf ./vercel-platform/vars-vercel-team-id.symlink.tf
 ln -s ../vercel/vars-api-token.tf ./vercel-platform/vars-vercel-api-token.symlink.tf
+ln -s ../platform-api/vars.tf ./vercel-platform/vars-platform-api.symlink.tf
 ln -s ../auth0/vars.tf ./vercel-platform/vars-auth0.symlink.tf
 # ln -s ../auth0/vars-m2m-client.tf ./vercel-platform/vars-auth0-m2m-client.symlink.tf
 ln -s ../auth0-vars/vars-web-client.tf ./vercel-platform/vars-auth0-web-client.symlink.tf

@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="nx platform" type="NodeJSConfigurationType" application-parameters="serve platform" path-to-js-file="$USER_HOME$/.nvm/versions/node/v18.16.0/bin/nx" working-dir="$PROJECT_DIR$">
+    <method v="2" />
+  </configuration>
+</component>
