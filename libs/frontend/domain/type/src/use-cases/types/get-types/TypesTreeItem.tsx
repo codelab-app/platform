@@ -18,14 +18,22 @@ interface TypesTreeItemProps {
 }
 
 export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
-  const { fieldService } = useStore()
+  const { fieldService, typeService } = useStore()
 
   const onEdit = () => {
-    fieldService.updateModal.open(fieldRef(data.extraData.node.id))
+    if (data.extraData.type === 'type') {
+      typeService.updateModal.open(typeRef(data.extraData.node.id))
+    } else {
+      fieldService.updateModal.open(fieldRef(data.extraData.node.id))
+    }
   }
 
   const onDelete = () => {
-    fieldService.deleteModal.open(fieldRef(data.extraData.node.id))
+    if (data.extraData.type === 'type') {
+      typeService.deleteModal.open(typeRef(data.extraData.node.id))
+    } else {
+      fieldService.deleteModal.open(fieldRef(data.extraData.node.id))
+    }
   }
 
   const onAddField = () => {
@@ -56,13 +64,13 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
       icon: <EditOutlined />,
       key: 'edit-field',
       onClick: onEdit,
-      title: 'Edit field',
+      title: data.extraData.type === 'type' ? 'Edit type' : 'Edit field',
     },
     {
       icon: <DeleteOutlined />,
       key: 'delete-field',
       onClick: onDelete,
-      title: 'Delete field',
+      title: data.extraData.type === 'type' ? 'Delete type' : 'Delete field',
     },
   ]
 
