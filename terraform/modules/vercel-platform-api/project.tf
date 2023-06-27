@@ -9,9 +9,12 @@ resource "vercel_project" "platform_api" {
     production_branch = "master"
   }
 
-  build_command    = "./scripts/vercel/platform-api/build.sh"
-  output_directory = "dist/apps/platform-api"
-  install_command  = "./scripts/vercel/platform-api/install.sh"
+  root_directory = "apps/platform-api"
+
+  build_command    = "../../scripts/vercel/platform-api/build.sh"
+  install_command  = "../../scripts/vercel/platform-api/install.sh"
+  ignore_command = "../../scripts/vercel/platform-api/ignore.sh"
+  output_directory = "../../dist/apps/platform-api"
 
   environment = [
     {

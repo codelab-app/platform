@@ -1,6 +1,0 @@
-{
-  "installCommand": "../../scripts/vercel/landing/install.sh",
-  "buildCommand": "../../scripts/vercel/landing/build.sh",
-  "outputDirectory": "../../dist/apps/landing/.next",
-  "ignoreCommand": "../../scripts/vercel/landing/ignore.sh"
-}

@@ -1,6 +1,0 @@
-{
-  "installCommand": "../../scripts/vercel/platform/install.sh",
-  "buildCommand": "../../scripts/vercel/platform/build.sh",
-  "outputDirectory": "../../dist/apps/platform/.next",
-  "ignoreCommand": "../../scripts/vercel/platform/ignore.sh"
-}

@@ -12,9 +12,12 @@ resource "vercel_project" "websites" {
     production_branch = "master"
   }
 
-  build_command    = "./scripts/vercel/websites/build.sh"
-  output_directory = "dist/apps/websites/.next"
-  install_command  = "./scripts/vercel/websites/install.sh"
+  root_directory = "apps/websites"
+
+  build_command    = "../../scripts/vercel/websites/build.sh"
+  install_command  = "../../scripts/vercel/websites/install.sh"
+  ignore_command = "../../scripts/vercel/websites/ignore.sh"
+  output_directory = "../../dist/apps/websites/.next"
 
   serverless_function_region = "sfo1"
 

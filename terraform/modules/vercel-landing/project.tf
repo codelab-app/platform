@@ -9,10 +9,12 @@ resource "vercel_project" "landing" {
     production_branch = "master"
   }
 
-  ignore_command   = "git diff --quiet HEAD^ HEAD ./"
-  build_command    = "./scripts/vercel/landing/build.sh"
-  output_directory = "dist/apps/landing/.next"
-  install_command  = "./scripts/vercel/landing/install.sh"
+  root_directory = "apps/platform"
+
+  install_command  = "../../scripts/vercel/landing/install.sh"
+  build_command    = "../../scripts/vercel/landing/build.sh"
+  ignore_command = "../../scripts/vercel/landing/ignore.sh"
+  output_directory = "../../dist/apps/landing/.next"
 
   serverless_function_region = "sfo1"
 

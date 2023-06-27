@@ -2,4 +2,5 @@
 
 echo $PWD
 # Must use 15.5.0 https://github.com/nrwl/nx-labs/issues/178#issuecomment-1476516764
-cd ../../ && npx nx-ignore@15.5.0 --root websites --verbose
+# cd ../../ && npx nx-ignore@15.5.0 --root websites --verbose
+exit 0

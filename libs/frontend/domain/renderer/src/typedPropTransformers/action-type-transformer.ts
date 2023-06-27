@@ -1,8 +1,8 @@
 import {
+  getRunnerId,
   type IPageNode,
   type ITypedPropTransformer,
   type TypedProp,
-  getRunnerId,
 } from '@codelab/frontend/abstract/core'
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { ExtendedModel, model } from 'mobx-keystone'
