@@ -8,15 +8,18 @@ const handler: NextApiHandler = async (req, res) => {
   const listener = await getListener()
 
   listener(req, res)
+  // res.end()
   // res.on('finish', () => {
   //   console.log('done')
   // })
 }
 
-// export const config = {
-//   api: {
-//     bodyParser: false,
-//   },
-// }
+export const config = {
+  api: {
+    // Need this false for Nest.js graphql endpoint to work
+    bodyParser: false,
+    externalResolver: true,
+  },
+}
 
 export default handler

@@ -36,7 +36,7 @@ export interface GqlContext {
 
 @Global()
 @Module({
-  controllers: [AppController],
+  // controllers: [AppController],
   imports: [
     CodelabLoggerModule,
     OpenTelemetryModuleConfig,
@@ -59,7 +59,7 @@ export interface GqlContext {
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async () => ({
-        bodyParserConfig: false,
+        // bodyParserConfig: false,
         context: ({ connection, payload, req, res }: GqlContext) =>
           ({
             connection,
@@ -69,10 +69,10 @@ export interface GqlContext {
             res,
           } as GqlContext),
         cors: false,
+        debug: true,
         // installSubscriptionHandlers: true,
         introspection: true,
-        debug: true,
-        path: 'graphql',
+        path: 'api/graphql',
         playground: true,
         schema: await neoSchema.getSchema(),
       }),

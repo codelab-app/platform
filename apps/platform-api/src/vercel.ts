@@ -9,9 +9,9 @@ let app: INestApplication | undefined
 export const getListener = async () => {
   if (!app) {
     app = await NestFactory.create(AppModule, {
-      bodyParser: false,
+      // bodyParser: false,
     })
-    app.setGlobalPrefix('api')
+    app.setGlobalPrefix('api/graphql')
     await app.init()
   }
 
