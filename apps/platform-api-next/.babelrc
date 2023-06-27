@@ -1,0 +1,11 @@
+{
+  "presets": ["@nx/next/babel"],
+  "plugins": [
+    [
+      "@babel/plugin-transform-typescript",
+      {
+        "allowDeclareFields": true
+      }
+    ]
+  ]
+}

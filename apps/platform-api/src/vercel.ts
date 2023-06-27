@@ -8,7 +8,10 @@ let app: INestApplication | undefined
 
 export const getListener = async () => {
   if (!app) {
-    app = await NestFactory.create(AppModule)
+    app = await NestFactory.create(AppModule, {
+      bodyParser: false,
+    })
+    app.setGlobalPrefix('api')
     await app.init()
   }
 

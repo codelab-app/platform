@@ -13,16 +13,12 @@
       },
       "configurations": {
         "test": {
-          "root": "apps/platform",
           "outputPath": "dist/apps/platform-test"
         },
         "ci": {
-          "root": "apps/platform",
           "outputPath": "dist/apps/platform"
         },
-        "prod": {
-          "root": "./"
-        },
+        "prod": {},
         "dev": {}
       }
     },

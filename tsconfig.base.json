@@ -23,6 +23,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@codelab/platform-api": ["apps/platform-api/src/vercel.ts"],
       "@codelab/backend/abstract/codegen": [
         "libs/backend/abstract/codegen/src/index.ts"
       ],
