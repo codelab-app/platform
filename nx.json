@@ -9,6 +9,8 @@
         "cacheableOperations": [
           "build",
           "test",
+          "test:integration",
+          "test:unit",
           "lint",
           "e2e",
           "build-storybook"
@@ -16,13 +18,21 @@
         "canTrackAnalytics": true,
         "showUsageWarnings": true,
         "parallel": 3,
-        "accessToken": "NzFlYmNlOTctMjdmOS00NmUwLWJkYzEtNjllY2M3MzYxNTg0fHJlYWQtb25seQ=="
+        "accessToken": "YjdiZWRiOTMtOGMwYS00MjgyLTg3YTQtNzIyYmExMjQ4OGQ4fHJlYWQtd3JpdGU="
       }
     },
     "vercel": {
       "runner": "@vercel/remote-nx",
       "options": {
-        "cacheableOperations": ["build", "test", "lint", "e2e"]
+        "cacheableOperations": [
+          "build",
+          "test",
+          "test:integration",
+          "test:unit",
+          "lint",
+          "e2e",
+          "build-storybook"
+        ]
       }
     }
   },
