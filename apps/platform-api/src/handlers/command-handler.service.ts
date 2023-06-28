@@ -1,5 +1,6 @@
 import type { ITypeDTO } from '@codelab/shared/abstract/core'
 import { Process, Processor } from '@nestjs/bull'
+// TODO: Remove this
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import type { Job } from 'bull'
 
