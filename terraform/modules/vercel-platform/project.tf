@@ -25,7 +25,7 @@ resource "vercel_project" "platform" {
 
   build_command    = "../../scripts/vercel/platform/build.sh"
   install_command  = "../../scripts/vercel/platform/install.sh"
-  ignore_command   = "../../scripts/vercel/platform/.ignore.sh"
+  ignore_command   = "../../scripts/vercel/platform/ignore.sh"
   output_directory = "../../dist/apps/platform/.next"
 
   serverless_function_region = "sfo1"

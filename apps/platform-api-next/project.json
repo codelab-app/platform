@@ -12,9 +12,7 @@
         "outputPath": "dist/apps/platform-api-next"
       },
       "configurations": {
-        "dev": {
-          "outputPath": "apps/platform-api-next"
-        },
+        "dev": {},
         "test": {
           "outputPath": "dist/apps/platform-api-next-test"
         },

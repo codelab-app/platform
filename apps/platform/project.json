@@ -12,14 +12,14 @@
         "outputPath": "dist/apps/platform"
       },
       "configurations": {
+        "dev": {},
         "test": {
           "outputPath": "dist/apps/platform-test"
         },
         "ci": {
           "outputPath": "dist/apps/platform"
         },
-        "prod": {},
-        "dev": {}
+        "prod": {}
       }
     },
     "serve:test": {
