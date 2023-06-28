@@ -15,6 +15,9 @@
         "dev": {
           "outputPath": "apps/platform-api-next"
         },
+        "test": {
+          "outputPath": "dist/apps/platform-api-next-test"
+        },
         "prod": {}
       }
     },
@@ -27,12 +30,38 @@
       },
       "configurations": {
         "dev": {
+          "port": "4000",
           "buildTarget": "platform-api-next:build:dev",
+          "dev": true
+        },
+        "test": {
+          "port": "4001",
+          "buildTarget": "platform-api-next:build:test",
           "dev": true
         },
         "prod": {
           "buildTarget": "platform-api-next:build:prod",
           "dev": false
+        }
+      }
+    },
+    "serve:test": {
+      "executor": "nx:run-commands",
+      "options": {},
+      "configurations": {
+        "test": {
+          "commands": [
+            {
+              "command": "nx build platform-api-next -c test && node dist/apps/platform-api-next/test/main.js"
+            }
+          ]
+        },
+        "ci": {
+          "commands": [
+            {
+              "command": "node dist/apps/platform-api-next/main.js"
+            }
+          ]
         }
       }
     },

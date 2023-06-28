@@ -55,7 +55,7 @@
               "command": "npx env-cmd -f .env.test nx serve platform -c test"
             },
             {
-              "command": "npx env-cmd -f .env.test nx serve platform-api -c test"
+              "command": "npx env-cmd -f .env.test nx serve platform-api-next -c test"
             }
           ]
         },
@@ -68,7 +68,7 @@
               "command": "nx serve:test platform -c test"
             },
             {
-              "command": "nx serve:test platform-api -c test"
+              "command": "nx serve:test platform-api-next -c test"
             }
           ]
         },
@@ -81,7 +81,7 @@
               "command": "nx serve:test platform -c ci"
             },
             {
-              "command": "nx serve:test platform-api -c ci"
+              "command": "nx serve:test platform-api-next -c ci"
             }
           ]
         }

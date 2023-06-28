@@ -39,7 +39,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
             // Added since many times can't find production build of next during push
             // Maybe related? https://github.com/nrwl/nx/issues/2839
             execCommand(
-              `nx run-many --target=build --projects=platform,platform-api -c test`,
+              `nx run-many --target=build --projects=platform,platform-api-test -c test`,
             )
           }
         }),
@@ -100,7 +100,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
           if (stage === Stage.CI) {
             console.log('start')
 
-            const startServer = `nx serve:test platform-api -c ci`
+            const startServer = `nx serve:test platform-api-test -c ci`
             const runSpecs = `npx wait-on 'tcp:127.0.0.1:4000' && yarn graphql-codegen && exit 0`
 
             const runSpecsChildProcess = spawn(runSpecs, {
