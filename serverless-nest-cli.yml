@@ -1,4 +1,4 @@
-service: codelab-nest-cli
+service: codelab-cli
 useDotenv: true
 frameworkVersion: ^3.32.2
 
@@ -31,7 +31,7 @@ package:
 
 functions:
   main:
-    handler: dist/apps/nest-cli-serverless/main.handler
+    handler: dist/apps/cli-serverless/main.handler
     # events:
     #   - http:
     #       method: ANY

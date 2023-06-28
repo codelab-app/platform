@@ -2,7 +2,7 @@ locals {
   resource_path        = "${path.root}/../../modules/aws-cloudformation/resources/"
   output_path          = "${path.root}/../../modules/aws-cloudformation/outputs/"
   lambda_function_name = "main"
-  lambda_handler_path  = "dist/app/nest-cli-serverless/main.handler"
+  lambda_handler_path  = "dist/app/cli-serverless/main.handler"
 
   # These are cloudformation resource names
   i_am_role_lambda_execution        = "IamRoleLambdaExecution"
@@ -99,7 +99,7 @@ resource "aws_cloudformation_stack" "nestjs-cli-app" {
       "MainLogGroup" : {
         "Type" : "AWS::Logs::LogGroup",
         "Properties" : {
-          "LogGroupName" : "/aws/lambda/codelab-nest-cli-dev-main"
+          "LogGroupName" : "/aws/lambda/codelab-cli-dev-main"
         }
       },
       "IamRoleLambdaExecution" : {
@@ -120,7 +120,7 @@ resource "aws_cloudformation_stack" "nestjs-cli-app" {
           "Policies" : [
             {
               "PolicyName" : {
-                "Fn::Join" : ["-", ["codelab-nest-cli", "dev", "lambda"]]
+                "Fn::Join" : ["-", ["codelab-cli", "dev", "lambda"]]
               },
               "PolicyDocument" : {
                 "Version" : "2012-10-17",
@@ -134,7 +134,7 @@ resource "aws_cloudformation_stack" "nestjs-cli-app" {
                     ],
                     "Resource" : [
                       {
-                        "Fn::Sub" : "arn:$${AWS::Partition}:logs:$${AWS::Region}:$${AWS::AccountId}:log-group:/aws/lambda/codelab-nest-cli-dev*:*"
+                        "Fn::Sub" : "arn:$${AWS::Partition}:logs:$${AWS::Region}:$${AWS::AccountId}:log-group:/aws/lambda/codelab-cli-dev*:*"
                       }
                     ]
                   },
@@ -143,7 +143,7 @@ resource "aws_cloudformation_stack" "nestjs-cli-app" {
                     "Action" : ["logs:PutLogEvents"],
                     "Resource" : [
                       {
-                        "Fn::Sub" : "arn:$${AWS::Partition}:logs:$${AWS::Region}:$${AWS::AccountId}:log-group:/aws/lambda/codelab-nest-cli-dev*:*:*"
+                        "Fn::Sub" : "arn:$${AWS::Partition}:logs:$${AWS::Region}:$${AWS::AccountId}:log-group:/aws/lambda/codelab-cli-dev*:*:*"
                       }
                     ]
                   }
@@ -156,7 +156,7 @@ resource "aws_cloudformation_stack" "nestjs-cli-app" {
             "Fn::Join" : [
               "-",
               [
-                "codelab-nest-cli",
+                "codelab-cli",
                 "dev",
                 {
                   "Ref" : "AWS::Region"
@@ -174,11 +174,11 @@ resource "aws_cloudformation_stack" "nestjs-cli-app" {
             "S3Bucket" : {
               "Ref" : "ServerlessDeploymentBucket"
             },
-            "S3Key" : "serverless/codelab-nest-cli/dev/1686797125055-2023-06-15T02:45:25.055Z/codelab-nest-cli.zip"
+            "S3Key" : "serverless/codelab-cli/dev/1686797125055-2023-06-15T02:45:25.055Z/codelab-cli.zip"
           },
-          "Handler" : "dist/apps/nest-cli-serverless/main.handler",
+          "Handler" : "dist/apps/cli-serverless/main.handler",
           "Runtime" : "nodejs18.x",
-          "FunctionName" : "codelab-nest-cli-dev-main",
+          "FunctionName" : "codelab-cli-dev-main",
           "MemorySize" : 1024,
           "Timeout" : 6,
           "Role" : {
@@ -204,7 +204,7 @@ resource "aws_cloudformation_stack" "nestjs-cli-app" {
           "Ref" : "ServerlessDeploymentBucket"
         },
         "Export" : {
-          "Name" : "sls-codelab-nest-cli-dev-ServerlessDeploymentBucketName"
+          "Name" : "sls-codelab-cli-dev-ServerlessDeploymentBucketName"
         }
       },
       "MainLambdaFunctionQualifiedArn" : {
@@ -213,7 +213,7 @@ resource "aws_cloudformation_stack" "nestjs-cli-app" {
           "Ref" : "MainLambdaVersion2ppqOGoTNhcdxylbBMUSHUhrfKhlIQ8AyMWGRZGo4M"
         },
         "Export" : {
-          "Name" : "sls-codelab-nest-cli-dev-MainLambdaFunctionQualifiedArn"
+          "Name" : "sls-codelab-cli-dev-MainLambdaFunctionQualifiedArn"
         }
       }
 

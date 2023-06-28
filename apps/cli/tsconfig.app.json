@@ -2,21 +2,16 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "module": "ESNext",
-    "strict": true,
-    "types": ["node", "worker-loader", "cypher"],
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "jsx": "preserve",
-    "allowJs": false,
-    "jsxImportSource": "@emotion/react",
-    "experimentalDecorators": true,
+    "module": "commonjs",
+    "types": ["node", "cypher"],
     "emitDecoratorMetadata": true,
+    "target": "es2015",
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "useDefineForClassFields": true
+    "noFallthroughCasesInSwitch": true
   },
-  "exclude": ["**/*.spec.ts", "jest.config.ts"],
-  "include": ["**/*.ts"]
+  "exclude": ["jest.config.ts"],
+  "include": ["src/**/*.ts"]
 }

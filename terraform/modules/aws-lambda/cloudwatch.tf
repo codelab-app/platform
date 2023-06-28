@@ -1,5 +1,5 @@
 variable "lambda_function_name" {
-  default = "codelab-nest-cli-dev-us-east-1-lambdaRole"
+  default = "codelab-cli-dev-us-east-1-lambdaRole"
 }
 
 # This is to optionally manage the CloudWatch Log Group for the Lambda Function.

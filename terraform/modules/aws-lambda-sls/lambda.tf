@@ -1,5 +1,5 @@
 variable "lambda_service_name" {
-  default = "codelab-nest-cli"
+  default = "codelab-cli"
 }
 
 variable "serverless_stage" {

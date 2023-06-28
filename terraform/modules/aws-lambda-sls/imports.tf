@@ -1,5 +1,5 @@
 #import {
-#  to = aws_lambda_function.nest-cli
-#  id = "codelab-nest-cli-dev-main"
+#  to = aws_lambda_function.cli
+#  id = "codelab-cli-dev-main"
 #  provider = "aws"
 #}

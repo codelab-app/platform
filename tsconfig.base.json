@@ -23,7 +23,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codelab/platform-api": ["apps/platform-api/src/vercel.ts"],
       "@codelab/backend/abstract/codegen": [
         "libs/backend/abstract/codegen/src/index.ts"
       ],
@@ -212,6 +211,7 @@
       "@codelab/frontend/shared/utils": [
         "libs/frontend/shared/utils/src/index.ts"
       ],
+      "@codelab/platform-api": ["apps/platform-api/src/vercel.ts"],
       "@codelab/shared/abstract/codegen": [
         "libs/shared/abstract/codegen/src/index.ts"
       ],

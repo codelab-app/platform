@@ -9,7 +9,7 @@ module "aws_module" {
 # Needs to be at root module
 # import {
 #   to = aws_module.lambda_lambda_instance
-#   id = "codelab-nest-cli-dev-main"
+#   id = "codelab-cli-dev-main"
 # }
 
 

@@ -1,0 +1,9 @@
+{
+  // eslint uses this file to workaround https://github.com/typescript-eslint/typescript-eslint/issues/5468
+  //
+  // https://github.com/typescript-eslint/typescript-eslint/issues/5468
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "emitDecoratorMetadata": false
+  }
+}

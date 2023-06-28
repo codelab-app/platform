@@ -21,8 +21,8 @@ export class ServerlessService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         ({ stage }) => {
           if (stage === Stage.Prod) {
-            execCommand('nx build nest-cli -c production')
-            execCommand('sls deploy -c serverless-nest-cli.yml')
+            execCommand('nx build cli -c production')
+            execCommand('sls deploy -c serverless-cli.yml')
           }
         },
       )
@@ -43,7 +43,7 @@ export class ServerlessService implements CommandModule<unknown, unknown> {
 
           if (stage === Stage.Prod) {
             execCommand(
-              `sls invoke -c serverless-nest-cli.yml --function main --raw --data ${parsedLambdaData}`,
+              `sls invoke -c serverless-cli.yml --function main --raw --data ${parsedLambdaData}`,
             )
           }
         },

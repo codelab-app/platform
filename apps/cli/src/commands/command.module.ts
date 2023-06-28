@@ -1,7 +1,11 @@
 import { ImportAdminDataService } from '@codelab/backend/application/admin'
 import {
+  ExportService,
   ImportService,
   ResetService,
+  ScrapeAntdService,
+  ScrapeHtmlService,
+  SeedService,
   ServerlessService,
   TaskService,
   TerraformService,
@@ -21,7 +25,11 @@ import { CommandService } from './command.service'
   providers: [
     CommandService,
     ImportService,
+    SeedService,
+    ExportService,
     ImportAdminDataService,
+    ScrapeAntdService,
+    ScrapeHtmlService,
     TerraformService,
     ServerlessService,
     TaskService,

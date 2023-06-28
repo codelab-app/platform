@@ -1,10 +1,10 @@
 import {
-  exportCommand,
+  ExportService,
   ImportService,
   ResetService,
-  scrapeAntdCommand,
-  scrapeHtmlCommand,
-  seedCommand,
+  ScrapeAntdService,
+  ScrapeHtmlService,
+  SeedService,
   ServerlessService,
   TaskService,
   TerraformService,
@@ -22,6 +22,10 @@ export class CommandService {
     private readonly serverlessService: ServerlessService,
     private readonly taskService: TaskService,
     private readonly resetService: ResetService,
+    private readonly exportService: ExportService,
+    private readonly seedService: SeedService,
+    private readonly scrapeAntdService: ScrapeAntdService,
+    private readonly scrapeHtmlService: ScrapeHtmlService,
   ) {}
 
   exec() {
@@ -32,11 +36,11 @@ export class CommandService {
       /**
        * These scripts could act on different deployment environment, so we group under `data`
        */
-      // .command(seedCommand)
+      .command(this.seedService)
       .command(this.resetService)
       .command(this.importService)
       .command(this.serverlessService)
-      // .command(exportCommand)
+      .command(this.exportService)
       /**
        * These scripts don't require env to be explicitly set
        */
@@ -44,9 +48,9 @@ export class CommandService {
       /**
        * This uses puppeteer to scrape the API documentation as CSV file
        */
-      // .command('scrape', 'Antd / Html', (argv) =>
-      //   argv.command(scrapeAntdCommand).command(scrapeHtmlCommand),
-      // )
+      .command('scrape', 'Antd / Html', (argv) =>
+        argv.command(this.scrapeAntdService).command(this.scrapeHtmlService),
+      )
       /**
        * Terraform
        */

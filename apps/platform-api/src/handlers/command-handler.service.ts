@@ -1,7 +1,7 @@
 import type { ITypeDTO } from '@codelab/shared/abstract/core'
 import { Process, Processor } from '@nestjs/bull'
 import { Injectable } from '@nestjs/common'
-import { Job } from 'bull'
+import type { Job } from 'bull'
 
 @Processor('import-admin-data')
 export class CommandHandlerService {

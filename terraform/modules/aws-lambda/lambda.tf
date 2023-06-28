@@ -1,5 +1,5 @@
 variable "lambda_service_name" {
-  default = "codelab-nest-cli"
+  default = "codelab-cli"
 }
 
 variable "serverless_stage" {
@@ -14,7 +14,7 @@ locals {
   lambda_function_name = "${var.lambda_service_name}-${var.serverless_stage}-${var.built_filename}"
 }
 
-resource "aws_lambda_function" "nest-cli" {
+resource "aws_lambda_function" "cli" {
   function_name = local.lambda_function_name
   filename      = "lambda_function_payload.zip"
   role          = aws_iam_role.iam_for_lambda.arn
@@ -40,7 +40,7 @@ resource "aws_lambda_function" "nest-cli" {
 data "archive_file" "lambda" {
   type = "zip"
   # Source file on computer
-  source_file = "./codelab-nest-cli.zip"
+  source_file = "./codelab-cli.zip"
   output_path = "lambda_function_payload.zip"
 }
 

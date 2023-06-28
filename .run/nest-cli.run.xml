@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="nest-cli" type="NodeJSConfigurationType" application-parameters="unit" node-parameters="--require &quot;dotenv/config&quot;" path-to-js-file="dist/apps/nest-cli/main.js" working-dir="$PROJECT_DIR$">
+  <configuration default="false" name="cli" type="NodeJSConfigurationType" application-parameters="unit" node-parameters="--require &quot;dotenv/config&quot;" path-to-js-file="dist/apps/cli/main.js" working-dir="$PROJECT_DIR$">
     <method v="2" />
   </configuration>
 </component>

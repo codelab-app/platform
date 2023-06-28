@@ -13,6 +13,11 @@ import { Stage } from '../../shared/utils/stage'
 
 @Injectable()
 export class SeedService implements CommandModule<unknown> {
+  command = 'seed'
+
+  describe =
+    'Parse Ant Design scraped CSV files and seed to application as types'
+
   builder(argv: Argv<unknown>) {
     return argv
       .options({
@@ -42,11 +47,6 @@ export class SeedService implements CommandModule<unknown> {
       )
       .demandCommand()
   }
-
-  command = 'seed'
-
-  describe =
-    'Parse Ant Design scraped CSV files and seed to application as types'
 
   handler() {
     // await new SeedDataService().execute(user)

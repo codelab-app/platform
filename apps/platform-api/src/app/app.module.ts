@@ -81,10 +81,8 @@ export interface GqlContext {
   // providers: [CommandHandlerService],
 })
 export class AppModule {
-  constructor(
-    @Inject(neo4jConfig.KEY)
-    private neo4j: ConfigType<typeof neo4jConfig>,
-  ) {
+  constructor() {
+    // private neo4j: ConfigType<typeof neo4jConfig>, // @Inject(neo4jConfig.KEY)
     // console.log(neo4j)
   }
 }
