@@ -14,6 +14,7 @@ export default {
       'jest-junit',
       {
         outputName: 'platform-api.xml',
+        reportTestSuiteErrors: true,
       },
     ],
   ],
