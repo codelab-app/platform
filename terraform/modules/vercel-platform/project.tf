@@ -41,7 +41,7 @@ resource "vercel_project" "platform" {
       key    = "PLATFORM_API_HOST"
       value  = var.platform_api_host
     },
-    # Auth0
+    # Auth0UBLIC_PLATFORM_HOST=127.0.0.1:3001
     {
       target = ["production", "preview"]
       key    = "AUTH0_ISSUER_BASE_URL"

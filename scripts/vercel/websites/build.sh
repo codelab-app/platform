@@ -4,4 +4,4 @@
 # https://github.com/vercel/community/discussions/30
 # rm -rf node_modules/.cache/nx
 du -sh * | sort -h
-nx build websites -c prod --verbose
+nx build websites -c prod --runner vercel --verbose

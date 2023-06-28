@@ -14,7 +14,7 @@ resource "vercel_project" "platform_api_next" {
   build_command    = "../../scripts/vercel/platform-api-next/build.sh"
   install_command  = "../../scripts/vercel/platform-api-next/install.sh"
   ignore_command   = "../../scripts/vercel/platform-api-next/ignore.sh"
-  output_directory = "../../dist/apps/platform-api-next"
+  output_directory = "../../dist/apps/platform-api-next/.next"
 
   environment = [
     {
