@@ -9,6 +9,9 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parserOptions": {
+        "project": ["apps/platform-api-next/tsconfig(.*)?.json"]
+      },
       "rules": {
         "@next/next/no-html-link-for-pages": [
           "error",

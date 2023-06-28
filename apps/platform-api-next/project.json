@@ -50,14 +50,14 @@
         "test": {
           "commands": [
             {
-              "command": "nx build platform-api-next -c test && node dist/apps/platform-api-next/test/main.js"
+              "command": "nx build platform-api-next -c test && next start dist/apps/platform-api-next-test --port 4001"
             }
           ]
         },
         "ci": {
           "commands": [
             {
-              "command": "node dist/apps/platform-api-next/main.js"
+              "command": "npx next dist/apps/platform-api-next --port 4000"
             }
           ]
         }

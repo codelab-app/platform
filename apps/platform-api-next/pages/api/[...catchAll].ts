@@ -1,5 +1,7 @@
-import type { NextApiHandler } from 'next'
+/* eslint-disable unicorn/filename-case */
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { getListener } from '@codelab/platform-api'
+import type { NextApiHandler } from 'next'
 
 /**
  * https://github.com/Skn0tt/nextjs-nestjs-integration-example/issues/30
