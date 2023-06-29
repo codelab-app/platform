@@ -1,5 +1,5 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 
@@ -29,7 +29,11 @@ describe('CSS CRUD', () => {
       .then((apps) => {
         const app = apps.body
 
-        cy.visit(`/apps/cypress/${slugify(app.name)}/pages/app/builder`)
+        cy.visit(
+          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+            IPageKindName.Provider,
+          )}/builder`,
+        )
         cy.getSpinner().should('not.exist')
         cy.createElementTree([
           {
@@ -41,6 +45,7 @@ describe('CSS CRUD', () => {
       })
   })
 
+  //
   describe('Add css string', () => {
     it('should be able to add styling through css string', () => {
       cy.getSpinner().should('not.exist')

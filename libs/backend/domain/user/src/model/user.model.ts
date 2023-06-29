@@ -35,7 +35,6 @@ export class User implements IUserDTO {
       email,
       id: v4(),
       roles: [Role.Admin],
-
       username: nickname,
     })
   }

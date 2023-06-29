@@ -30,7 +30,7 @@
       },
       "configurations": {
         "ci": {
-          "buildTarget": "platform-api-next:build",
+          "buildTarget": "platform-api-next:build:ci",
           "dev": false
         },
         "dev": {},
