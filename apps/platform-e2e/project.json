@@ -21,7 +21,7 @@
           "devServerTarget": "platform-e2e:serve:ci",
           "reporter": "../../node_modules/cypress-multi-reporters",
           "reporterOptions": {
-            "mochaFile": "results/my-test-output-[hash].xml"
+            "mochaFile": "./tmp/reports/e2e/cypress-results-[hash].xml"
           },
           "record": true,
           "parallel": true,

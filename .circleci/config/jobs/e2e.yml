@@ -13,9 +13,6 @@ steps:
   - run:
       name: 'Run E2E Tests'
       command: yarn cli tasks e2e --stage ci
-      environment:
-        JEST_JUNIT_OUTPUT_DIR: '/tmp/test-reports'
-        JEST_JUNIT_OUTPUT_NAME: 'e2e-specs-results.xml'
   - store_artifacts:
       path: ~/project/apps/platform-e2e/src/videos
       destination: cypress/videos
@@ -26,4 +23,4 @@ steps:
       path: ~/project/apps/platform-e2e/src/data
       destination: cypress/data
   - store_test_results:
-      path: /tmp/test-reports
+      path: ./tmp/reports/e2e
