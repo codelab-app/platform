@@ -2,19 +2,11 @@ import type {
   IAdminDataExport,
   IAtomExport,
   IComponentExportData,
-  IType,
   ITypesExport,
 } from '@codelab/backend/abstract/core'
 import { UseCase } from '@codelab/backend/application/service'
 import { createComponents } from '@codelab/backend/domain/app'
-import { AtomRepository } from '@codelab/backend/domain/atom'
-import { importElementInitial } from '@codelab/backend/domain/element'
-import { TagRepository } from '@codelab/backend/domain/tag'
-import {
-  FieldRepository,
-  InterfaceTypeRepository,
-  TypeFactory,
-} from '@codelab/backend/domain/type'
+import { TypeFactory } from '@codelab/backend/domain/type'
 import type {
   IAuth0Owner,
   ITagDTO,

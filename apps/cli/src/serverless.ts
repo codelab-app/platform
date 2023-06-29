@@ -2,14 +2,8 @@
 // eslint-disable-next-line simple-import-sort/imports
 import { otelSDK } from '@codelab/backend/infra/adapter/otel'
 import type { INestApplicationContext } from '@nestjs/common'
-import { Logger } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app/app.module'
-import { CommandModule } from './commands/command.module'
-import { CommandService } from './commands/command.service'
-import { command } from 'yargs'
-import type { MicroserviceOptions } from '@nestjs/microservices'
-import { Transport } from '@nestjs/microservices'
 import type { Callback, Context, Handler } from 'aws-lambda'
 
 let app: INestApplicationContext | undefined

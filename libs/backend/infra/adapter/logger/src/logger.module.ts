@@ -1,4 +1,4 @@
-import { Module, RequestMethod } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { LoggerModule } from 'nestjs-pino'
 import { CodelabLogger } from './logger.service'
 

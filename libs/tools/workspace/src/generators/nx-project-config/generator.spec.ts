@@ -1,8 +1,5 @@
 import type { Tree } from '@nx/devkit'
-import {
-  readProjectConfiguration,
-  updateProjectConfiguration,
-} from '@nx/devkit'
+import { readProjectConfiguration } from '@nx/devkit'
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing'
 import { Linter } from '@nx/linter'
 import { libraryGenerator } from '@nx/react'

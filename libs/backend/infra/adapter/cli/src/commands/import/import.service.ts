@@ -1,22 +1,11 @@
 import type { IUserDataExport } from '@codelab/backend/abstract/core'
 import { ImportAdminDataService } from '@codelab/backend/application/admin'
-import { importUserData } from '@codelab/backend/application/user'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
-import type { PromiseCallback } from '@codelab/shared/abstract/types'
-import { InjectQueue } from '@nestjs/bull'
 import { Injectable } from '@nestjs/common'
-import { MessagePattern } from '@nestjs/microservices'
-import AWS from 'aws-sdk'
-import { Queue } from 'bull'
 import fs from 'fs'
 import inquirer from 'inquirer'
 import path from 'path'
-import type {
-  ArgumentsCamelCase,
-  Argv,
-  CommandBuilder,
-  CommandModule,
-} from 'yargs'
+import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
 import { globalHandler } from '../../shared/handler'
 import { loadStageMiddleware } from '../../shared/middleware'
 import { getStageOptions } from '../../shared/options'

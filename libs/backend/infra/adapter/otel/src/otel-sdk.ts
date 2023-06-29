@@ -1,5 +1,4 @@
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http'
-import { NestInstrumentation } from '@opentelemetry/instrumentation-nestjs-core'
 import { Resource } from '@opentelemetry/resources'
 import { NodeSDK } from '@opentelemetry/sdk-node'
 import {

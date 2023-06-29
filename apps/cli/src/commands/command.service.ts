@@ -9,9 +9,8 @@ import {
   TaskService,
   TerraformService,
 } from '@codelab/backend/infra/adapter/cli'
-import { Global, Injectable } from '@nestjs/common'
-import type { Argv } from 'yargs'
-import yargs, { CommandModule, scriptName } from 'yargs'
+import { Injectable } from '@nestjs/common'
+import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
 @Injectable()

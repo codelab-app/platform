@@ -1,5 +1,3 @@
-import type { Tracer } from '@opentelemetry/api'
-
 export interface IUseCase<IRequest = void, IResponse = void> {
   // tracer: Tracer
 

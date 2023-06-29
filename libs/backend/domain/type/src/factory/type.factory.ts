@@ -11,8 +11,6 @@ import type {
 import type { IType, ITypeWhere } from '@codelab/backend/abstract/core'
 import type { ITypeDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { Processor } from '@nestjs/bull'
-import { Injectable } from '@nestjs/common'
 import {
   ActionType,
   EnumType,

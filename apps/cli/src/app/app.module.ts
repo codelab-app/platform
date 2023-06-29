@@ -1,9 +1,7 @@
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import { OpenTelemetryModuleConfig } from '@codelab/backend/infra/adapter/otel'
 import { BullModule } from '@nestjs/bull'
-import { LoggerService, Module } from '@nestjs/common'
-import { ClientsModule, Transport } from '@nestjs/microservices'
-import { LoggerModule } from 'nestjs-pino'
+import { Module } from '@nestjs/common'
 import { CommandModule } from '../commands/command.module'
 
 @Module({

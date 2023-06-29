@@ -7,10 +7,7 @@ import {
   makeDropIndicatorStyle,
   Renderer,
 } from '@codelab/frontend/domain/renderer'
-import {
-  useCurrentPage,
-  useStore,
-} from '@codelab/frontend/presentation/container'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { useDroppable } from '@dnd-kit/core'
 import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'

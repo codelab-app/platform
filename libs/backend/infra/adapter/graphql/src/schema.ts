@@ -1,15 +1,9 @@
-import type { BaseContext, ContextFunction } from '@apollo/server'
-import { ApolloServer } from '@apollo/server'
-import type { NextApiRequest } from '@codelab/backend/abstract/types'
 import {
   getDriver,
   getSchema,
   resolvers,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { mergeResolvers } from '@graphql-tools/merge'
-import type { NextApiResponse } from 'next'
-import * as util from 'util'
-import { BASIC_LOGGING } from './logger'
 
 const driver = getDriver()
 

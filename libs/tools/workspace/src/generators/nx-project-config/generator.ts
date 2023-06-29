@@ -1,12 +1,5 @@
 import type { Tree } from '@nx/devkit'
-import {
-  addProjectConfiguration,
-  formatFiles,
-  generateFiles,
-  getProjects,
-  updateProjectConfiguration,
-} from '@nx/devkit'
-import * as path from 'path'
+import { formatFiles, getProjects } from '@nx/devkit'
 import type { EslintGeneratorSchema } from './schema'
 import { updateProjectConfig } from './update-project-config'
 

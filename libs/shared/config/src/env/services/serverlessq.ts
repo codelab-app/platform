@@ -1,4 +1,3 @@
-import axios from 'axios'
 import * as env from 'env-var'
 
 export interface IServerlessqEnvVars {

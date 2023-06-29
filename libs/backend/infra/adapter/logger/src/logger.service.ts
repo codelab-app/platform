@@ -1,9 +1,5 @@
 import type { LoggerService } from '@nestjs/common'
 import { ConsoleLogger } from '@nestjs/common'
-import { context, trace } from '@opentelemetry/api'
-import { Logger } from 'nestjs-pino'
-import type { LoggerOptions } from 'pino'
-import Pino from 'pino'
 
 // export const loggerOptions: LoggerOptions = {
 //   formatters: {

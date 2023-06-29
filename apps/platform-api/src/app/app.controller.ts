@@ -1,5 +1,4 @@
 import { Controller, Get } from '@nestjs/common'
-import { context, trace } from '@opentelemetry/api'
 
 @Controller()
 export class AppController {
