@@ -23,25 +23,6 @@
       },
       "defaultConfiguration": "production"
     },
-    "serve-test": {
-      "executor": "nx:run-commands",
-      "configurations": {
-        "dev": {
-          "commands": [
-            {
-              "command": "nx serve websites -c test"
-            }
-          ]
-        },
-        "ci": {
-          "commands": [
-            {
-              "command": "npx next start dist/apps/websites --port 3000"
-            }
-          ]
-        }
-      }
-    },
     "serve": {
       "executor": "@nx/next:server",
       "options": {

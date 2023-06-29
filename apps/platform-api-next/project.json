@@ -13,6 +13,7 @@
       },
       "configurations": {
         "dev": {},
+        "ci": {},
         "test": {
           "outputPath": "dist/apps/platform-api-next-test"
         },
