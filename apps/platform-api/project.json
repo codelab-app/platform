@@ -29,13 +29,6 @@
         "ci": {}
       }
     },
-    "build:nextjs": {
-      "executor": "@nx/next:build",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/apps/platform-api"
-      }
-    },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "dev",
@@ -48,26 +41,6 @@
         },
         "prod": {
           "buildTarget": "platform-api:build:prod"
-        }
-      }
-    },
-    "serve:test": {
-      "executor": "nx:run-commands",
-      "options": {},
-      "configurations": {
-        "test": {
-          "commands": [
-            {
-              "command": "nx build platform-api -c test && node dist/apps/platform-api-test/main.js"
-            }
-          ]
-        },
-        "ci": {
-          "commands": [
-            {
-              "command": "node dist/apps/platform-api/main.js"
-            }
-          ]
         }
       }
     },

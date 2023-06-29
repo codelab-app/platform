@@ -8,4 +8,4 @@ set -x
 # rm -rf node_modules/.cache/nx
 cd ../..
 du -sh * | sort -h
-nx build platform -c prod --runner vercel --verbose
+npx nx build platform -c prod --runner vercel --verbose

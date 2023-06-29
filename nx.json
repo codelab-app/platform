@@ -113,9 +113,15 @@
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "inputs": ["prod", "^prod"]
     },
     "test": {
+      "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]
+    },
+    "test:unit": {
+      "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]
+    },
+    "test:integration": {
       "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]
     },
     "e2e": {
@@ -125,7 +131,7 @@
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
     },
     "build-storybook": {
-      "inputs": ["default", "^production", "!{projectRoot}/.storybook/**/*"]
+      "inputs": ["default", "^prod", "!{projectRoot}/.storybook/**/*"]
     }
   },
   "namedInputs": {
@@ -136,7 +142,7 @@
       "{workspaceRoot}/nx.json",
       "{workspaceRoot}/tsconfig.base.json"
     ],
-    "production": [
+    "prod": [
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",

@@ -98,10 +98,8 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
 
           if (stage === Stage.CI) {
-            console.log('start')
-
-            const startServer = `nx serve:test platform-api-test -c ci`
-            const runSpecs = `npx wait-on 'tcp:127.0.0.1:4000' && yarn graphql-codegen && exit 0`
+            const startServer = `nx serve platform-api-test -c ci`
+            const runSpecs = `npx wait-on 'tcp:127.0.0.1:4001' && yarn graphql-codegen && exit 0`
 
             const runSpecsChildProcess = spawn(runSpecs, {
               detached: true,

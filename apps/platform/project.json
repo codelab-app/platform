@@ -16,30 +16,7 @@
         "test": {
           "outputPath": "dist/apps/platform-test"
         },
-        "ci": {
-          "outputPath": "dist/apps/platform"
-        },
         "prod": {}
-      }
-    },
-    "serve:test": {
-      "executor": "nx:run-commands",
-      "options": {},
-      "configurations": {
-        "test": {
-          "commands": [
-            {
-              "command": "nx build platform -c test && next start dist/apps/platform-test --port 3001"
-            }
-          ]
-        },
-        "ci": {
-          "commands": [
-            {
-              "command": "npx next start dist/apps/platform --port 3000"
-            }
-          ]
-        }
       }
     },
     "serve": {
@@ -52,10 +29,12 @@
         "maxWorkers": 4
       },
       "configurations": {
-        "ci": {},
+        "ci": {
+          "buildTarget": "platform:build",
+          "dev": false
+        },
         "test": {
           "buildTarget": "platform:build:test",
-          "memoryLimit": 8192,
           "port": 3001
         },
         "prod": {
@@ -64,7 +43,6 @@
         },
         "dev": {
           "buildTarget": "platform:build:dev",
-          "dev": true,
           "open": true
         }
       },

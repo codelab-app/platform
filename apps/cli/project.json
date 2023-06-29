@@ -7,7 +7,7 @@
     "build": {
       "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "development",
+      "defaultConfiguration": "dev",
       "options": {
         "target": "node",
         "compiler": "tsc",
@@ -19,8 +19,9 @@
         "webpackConfig": "apps/cli/webpack.config.js"
       },
       "configurations": {
-        "development": {},
-        "production": {
+        "dev": {},
+        "ci": {},
+        "prod": {
           "outputPath": "dist/apps/cli-serverless",
           "main": "apps/cli/src/serverless.ts"
         }
@@ -28,16 +29,16 @@
     },
     "serve": {
       "executor": "@nx/js:node",
-      "defaultConfiguration": "development",
+      "defaultConfiguration": "dev",
       "options": {
         "buildTarget": "cli:build"
       },
       "configurations": {
-        "development": {
-          "buildTarget": "cli:build:development"
+        "dev": {
+          "buildTarget": "cli:build:dev"
         },
-        "production": {
-          "buildTarget": "cli:build:production"
+        "prod": {
+          "buildTarget": "cli:build:prod"
         }
       }
     },

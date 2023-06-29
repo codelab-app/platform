@@ -23,43 +23,23 @@
       "executor": "@nx/next:server",
       "defaultConfiguration": "dev",
       "options": {
-        "buildTarget": "platform-api-next:build",
+        "port": 4000,
+        "buildTarget": "platform-api-next:build:dev",
         "dev": true
       },
       "configurations": {
-        "dev": {
-          "port": "4000",
-          "buildTarget": "platform-api-next:build:dev",
-          "dev": true
+        "ci": {
+          "buildTarget": "platform-api-next:build",
+          "dev": false
         },
+        "dev": {},
         "test": {
-          "port": "4001",
-          "buildTarget": "platform-api-next:build:test",
-          "dev": true
+          "port": 4001,
+          "buildTarget": "platform-api-next:build:test"
         },
         "prod": {
           "buildTarget": "platform-api-next:build:prod",
           "dev": false
-        }
-      }
-    },
-    "serve:test": {
-      "executor": "nx:run-commands",
-      "options": {},
-      "configurations": {
-        "test": {
-          "commands": [
-            {
-              "command": "nx build platform-api-next -c test && next start dist/apps/platform-api-next-test --port 4001"
-            }
-          ]
-        },
-        "ci": {
-          "commands": [
-            {
-              "command": "npx next dist/apps/platform-api-next --port 4000"
-            }
-          ]
         }
       }
     },
