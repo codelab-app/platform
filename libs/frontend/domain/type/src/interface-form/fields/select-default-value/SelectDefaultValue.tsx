@@ -8,6 +8,7 @@ import { Form } from '@codelab/frontend/presentation/view'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
+import { useAsync, useMountEffect } from '@react-hookz/web'
 import type { JSONSchemaType } from 'ajv'
 import isNil from 'lodash/isNil'
 import React, { useMemo } from 'react'
@@ -22,6 +23,14 @@ export interface SelectDefaultValueProps {
 export const SelectDefaultValue = ({
   typeService,
 }: SelectDefaultValueProps) => {
+  // Need to load the type if not loaded yet
+  // otherwise default value form will not be rendered
+  const [, getType] = useAsync(() =>
+    typeService.getAll(fieldType.value ? [fieldType.value] : []),
+  )
+
+  useMountEffect(getType.execute)
+
   const [fieldType, context] = useField<{ value?: string }>('fieldType', {})
 
   const [validationRules] = useField<{ value?: IValidationRules }>(
