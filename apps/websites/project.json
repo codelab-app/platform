@@ -12,16 +12,13 @@
         "outputPath": "dist/apps/websites"
       },
       "configurations": {
-        "ci": {
-          "root": "apps/websites",
-          "outputPath": "dist/apps/websites"
-        },
-        "production": {},
-        "development": {
+        "ci": {},
+        "prod": {},
+        "dev": {
           "outputPath": "tmp/apps/websites/src"
         }
       },
-      "defaultConfiguration": "production"
+      "defaultConfiguration": "prod"
     },
     "serve": {
       "executor": "@nx/next:server",
@@ -39,21 +36,21 @@
           "memoryLimit": 8192,
           "port": 3001
         },
-        "production": {
-          "buildTarget": "websites:build:production",
+        "prod": {
+          "buildTarget": "websites:build:prod",
           "dev": false
         },
-        "development": {
-          "buildTarget": "websites:build:development",
+        "dev": {
+          "buildTarget": "websites:build:dev",
           "dev": true
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "dev"
     },
     "export": {
       "executor": "@nx/next:export",
       "options": {
-        "buildTarget": "websites:build:production"
+        "buildTarget": "websites:build:prod"
       }
     },
     "lint": {
