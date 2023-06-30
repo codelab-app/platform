@@ -2,7 +2,6 @@ import type { IUser } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import { DashboardTemplate } from '@codelab/frontend/presentation/view'
-import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { Space, Table } from 'antd'
 import type { ColumnsType } from 'antd/lib/table'
 import React from 'react'
@@ -48,7 +47,7 @@ const UsersPage: CodelabPage<DashboardTemplateProps> = () => {
 
 export default UsersPage
 
-export const getServerSideProps = auth0Instance.withPageAuthRequired()
+export const getServerSideProps = withPageAuthRedirect()
 
 UsersPage.Layout = ({ children }) => {
   return <DashboardTemplate>{children()}</DashboardTemplate>

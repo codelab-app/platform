@@ -12,7 +12,6 @@ import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
-import { auth0Instance } from '@codelab/shared/infra/auth0'
 import Head from 'next/head'
 import React from 'react'
 
@@ -48,7 +47,7 @@ const Header = () => {
 
 export default LambdasPage
 
-export const getServerSideProps = auth0Instance.withPageAuthRequired()
+export const getServerSideProps = withPageAuthRedirect()
 
 LambdasPage.Layout = ({ children }) => {
   return <DashboardTemplate Header={Header}>{children()}</DashboardTemplate>

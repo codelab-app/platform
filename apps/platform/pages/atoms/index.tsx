@@ -22,7 +22,6 @@ import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
-import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
@@ -83,7 +82,7 @@ const AtomsHeader = observer(() => {
 
 export default AtomsPage
 
-export const getServerSideProps = auth0Instance.withPageAuthRequired()
+export const getServerSideProps = withPageAuthRedirect()
 
 AtomsPage.Layout = ({ children }) => {
   return (

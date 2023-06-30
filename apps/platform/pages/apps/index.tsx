@@ -21,9 +21,9 @@ import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
+import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
 import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import { getEnv } from '@codelab/shared/config'
-import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { useAsync } from '@react-hookz/web'
 import { Image, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -123,7 +123,7 @@ export default AppsPage
 /**
  * This gets called on SSR, and props are passed to _app
  */
-export const getServerSideProps = auth0Instance.withPageAuthRequired()
+export const getServerSideProps = withPageAuthRedirect()
 
 AppsPage.Layout = ({ children }) => {
   return (

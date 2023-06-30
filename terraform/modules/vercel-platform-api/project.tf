@@ -22,6 +22,12 @@ resource "vercel_project" "platform_api" {
       key    = "PLATFORM_API_HOST"
       value  = var.platform_api_host
     },
+    # Auth0
+    {
+      target = ["production", "preview"]
+      key    = "AUTH0_ISSUER_BASE_URL"
+      value  = var.auth0_issuer_base_url
+    },
     # Neo4j
     {
       target = ["production", "preview"]

@@ -1,4 +1,4 @@
-import { auth0Instance } from '@codelab/shared/infra/auth0'
+import { auth0Instance, checkExpiry } from '@codelab/shared/infra/auth0'
 import type { NextApiHandler } from 'next'
 
 export const authMiddleware: NextApiHandler = async (req, res) => {
@@ -6,13 +6,22 @@ export const authMiddleware: NextApiHandler = async (req, res) => {
     /**
      * Requires `headers.cookie` to be set by client
      */
-    const session = await auth0Instance.getSession(req, res)
+    const session = await auth0Instance().getSession(req, res)
+    const expirationValid = checkExpiry(session)
+
+    // if (session && !expirationValid) {
+    //   console.log('Invalid session, logging out...')
+
+    //   await auth0Instance().handleLogout(req, res, {
+    //     returnTo: '/apps',
+    //   })
+    // }
 
     if (session?.user) {
       Object.assign(req, { user: session.user })
     }
 
-    const accessToken = (await auth0Instance.getAccessToken(req, res))
+    const accessToken = (await auth0Instance().getAccessToken(req, res))
       .accessToken
 
     /**

@@ -8,7 +8,6 @@ import {
 } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import { DashboardTemplate } from '@codelab/frontend/presentation/view'
-import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { useAsync, useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
@@ -32,7 +31,7 @@ const Pages: CodelabPage<
 
 export default Pages
 
-export const getServerSideProps = auth0Instance.withPageAuthRequired()
+export const getServerSideProps = withPageAuthRedirect()
 
 Pages.Layout = observer(({ children }) => {
   const { _compoundName } = useCurrentApp()

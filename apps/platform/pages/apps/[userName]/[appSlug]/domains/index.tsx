@@ -20,7 +20,6 @@ import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
-import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { useAsync, useMountEffect } from '@react-hookz/web'
 import { Image, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -96,7 +95,7 @@ const DomainsPage: CodelabPage<DashboardTemplateProps> = (props) => {
 
 export default DomainsPage
 
-export const getServerSideProps = auth0Instance.withPageAuthRequired()
+export const getServerSideProps = withPageAuthRedirect()
 
 DomainsPage.Layout = ({ children }) => {
   return (
