@@ -48,7 +48,14 @@ export class ElementRuntimeProps
       return this.props
     }
 
-    const result = attempt(transformFn, this.props)
+    const parentComponentProps =
+      this.node.parentComponent?.current.runtimeProp?.componentEvaluatedProps ||
+      {}
+
+    const result = attempt(transformFn, {
+      ...this.props,
+      ...parentComponentProps,
+    })
 
     if (isError(result)) {
       console.warn('Unable to transform props', result)
