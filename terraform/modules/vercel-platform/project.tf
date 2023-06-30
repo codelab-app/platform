@@ -41,7 +41,7 @@ resource "vercel_project" "platform" {
       key    = "PLATFORM_API_HOST"
       value  = var.platform_api_host
     },
-    # Auth0UBLIC_PLATFORM_HOST=127.0.0.1:3001
+    # Auth0
     {
       target = ["production", "preview"]
       key    = "AUTH0_ISSUER_BASE_URL"
@@ -71,22 +71,7 @@ resource "vercel_project" "platform" {
       key    = "AUTH0_AUDIENCE"
       value  = "${var.auth0_issuer_base_url}api/v2/"
     },
-    # Neo4j
-    {
-      target = ["production", "preview"]
-      key    = "NEO4J_USER"
-      value  = var.neo4j_user
-    },
-    {
-      target = ["production", "preview"]
-      key    = "NEO4J_URI"
-      value  = var.neo4j_uri
-    },
-    {
-      target = ["production", "preview"]
-      key    = "NEO4J_PASSWORD"
-      value  = var.neo4j_password
-    },
+
     # Vercel
     {
       target = ["production", "preview"]

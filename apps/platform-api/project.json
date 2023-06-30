@@ -1,54 +1,60 @@
 {
   "name": "platform-api",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/platform-api/src",
+  "sourceRoot": "apps/platform-api",
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nx/webpack:webpack",
+      "executor": "@nx/next:build",
       "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "dev",
+      "defaultConfiguration": "prod",
       "options": {
-        "target": "node",
-        "compiler": "tsc",
-        "outputPath": "dist/apps/platform-api",
-        "main": "apps/platform-api/src/main.ts",
-        "tsConfig": "apps/platform-api/tsconfig.app.json",
-        "assets": ["apps/platform-api/src/assets"],
-        "isolatedConfig": true,
-        "webpackConfig": "apps/platform-api/webpack.config.js"
+        "outputPath": "dist/apps/platform-api"
       },
       "configurations": {
+        "dev": {},
+        "ci": {},
         "test": {
           "outputPath": "dist/apps/platform-api-test"
         },
-        "prod": {
-          "outputPath": "dist/apps/platform-api-serverless",
-          "main": "apps/platform-api/src/serverless.ts"
-        },
-        "ci": {}
+        "prod": {}
       }
     },
     "serve": {
-      "executor": "@nx/js:node",
+      "executor": "@nx/next:server",
       "defaultConfiguration": "dev",
       "options": {
-        "buildTarget": "platform-api:build"
+        "port": 4000,
+        "buildTarget": "platform-api:build:dev",
+        "dev": true
       },
       "configurations": {
-        "dev": {
-          "buildTarget": "platform-api:build:dev"
+        "ci": {
+          "buildTarget": "platform-api:build:ci",
+          "dev": false
+        },
+        "dev": {},
+        "test": {
+          "port": 4001,
+          "buildTarget": "platform-api:build:test"
         },
         "prod": {
-          "buildTarget": "platform-api:build:prod"
+          "buildTarget": "platform-api:build:prod",
+          "dev": false
         }
+      }
+    },
+    "export": {
+      "executor": "@nx/next:export",
+      "options": {
+        "buildTarget": "platform-api:build:prod"
       }
     },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/platform-api/**/*.ts"]
+        "lintFilePatterns": ["apps/platform-api/**/*.{ts,tsx,js,jsx}"]
       },
       "configurations": {
         "ci": {
@@ -57,72 +63,7 @@
           "quiet": true
         }
       }
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "apps/platform-api/jest.config.ts",
-        "passWithNoTests": true,
-        "reporters": ["default"]
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
-      }
-    },
-    "test:integration": {
-      "defaultConfiguration": "dev",
-      "options": {
-        "memoryLimit": 8192,
-        "color": true,
-        "testPathPattern": ["[i].spec.ts"],
-        "jestConfig": "apps/platform-api/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "dev": {
-          "reporters": ["default"]
-        },
-        "test": {
-          "reporters": ["default"]
-        },
-        "ci": {
-          "parallel": 3,
-          "ci": true,
-          "codeCoverage": true
-        }
-      },
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
-    },
-    "test:unit": {
-      "defaultConfiguration": "dev",
-      "options": {
-        "memoryLimit": 8192,
-        "parallel": 3,
-        "color": true,
-        "testPathPattern": ["[^i].spec.ts"],
-        "jestConfig": "apps/platform-api/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "dev": {
-          "reporters": ["default"]
-        },
-        "test": {
-          "reporters": ["default"]
-        },
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
-      },
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     }
   },
-  "tags": ["scope:backend"]
+  "tags": ["scope:frontend"]
 }

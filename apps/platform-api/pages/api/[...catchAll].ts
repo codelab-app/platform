@@ -1,6 +1,5 @@
 /* eslint-disable unicorn/filename-case */
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { getListener } from '@codelab/platform-api'
+import { getListener } from 'backend/infra/adapter/serverless'
 import type { NextApiHandler } from 'next'
 
 /**

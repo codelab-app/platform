@@ -6,7 +6,7 @@
 import { NestFactory } from '@nestjs/core'
 import serverlessExpress from '@vendia/serverless-express'
 import type { Callback, Context, Handler } from 'aws-lambda'
-import { AppModule } from './app/app.module'
+import { AppModule } from '../../../libs/backend/infra/adapter/serverless/src/app/app.module'
 
 /**
  * Used for when nx configuration is `production`

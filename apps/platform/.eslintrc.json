@@ -24,7 +24,7 @@
       }
     },
     {
-      "files": ["**/pages/api/graphql.ts"],
+      "files": ["**/pages/api/*"],
       "rules": {
         "@nx/enforce-module-boundaries": "off"
       }

@@ -211,7 +211,6 @@
       "@codelab/frontend/shared/utils": [
         "libs/frontend/shared/utils/src/index.ts"
       ],
-      "@codelab/platform-api": ["apps/platform-api/src/vercel.ts"],
       "@codelab/shared/abstract/codegen": [
         "libs/shared/abstract/codegen/src/index.ts"
       ],
@@ -233,7 +232,10 @@
       ],
       "@codelab/shared/infra/otel": ["libs/shared/infra/otel/src/index.ts"],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
-      "@codelab/workspace": ["libs/tools/workspace/src/index.ts"]
+      "@codelab/workspace": ["libs/tools/workspace/src/index.ts"],
+      "backend/infra/adapter/serverless": [
+        "libs/backend/infra/adapter/serverless/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"],

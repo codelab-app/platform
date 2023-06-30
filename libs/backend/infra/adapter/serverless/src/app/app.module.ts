@@ -9,7 +9,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import type { Driver } from 'neo4j-driver'
 import { graphqlConfig } from '../graphql.config'
-import { neo4jConfig } from '../neo4j.config'
+import { neo4jConfig } from '../../../../../../../apps/platform-api/src/neo4j.config'
 
 export interface GqlContextPayload {
   exp: string

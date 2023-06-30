@@ -2,7 +2,7 @@ import type { INestApplication } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import type { Server } from 'http'
 import type { NextApiHandler } from 'next'
-import { AppModule } from './app/app.module'
+import { AppModule } from '../../../libs/backend/infra/adapter/serverless/src/app/app.module'
 
 let app: INestApplication | undefined
 

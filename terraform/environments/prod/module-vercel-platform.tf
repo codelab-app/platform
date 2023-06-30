@@ -17,10 +17,6 @@ module "vercel-platform" {
   auth0_web_client_id     = module.auth0.web_client.id
   auth0_web_client_secret = module.auth0.web_client.client_secret
 
-  neo4j_password = var.NEO4J_PASSWORD
-  neo4j_uri      = var.NEO4J_URI
-  neo4j_user     = var.NEO4J_USER
-
   vercel_access_token        = var.VERCEL_ACCESS_TOKEN
   vercel_team_id             = var.VERCEL_TEAM_ID
   vercel_platform_project_id = var.VERCEL_PLATFORM_PROJECT_ID

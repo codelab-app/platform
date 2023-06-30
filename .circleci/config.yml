@@ -10,13 +10,13 @@ commands:
       - run:
           command: ./scripts/nx/reset-cache.sh
           name: Monitor NX Cache Size
-      - run: npx nx run-many --target=build --projects=platform,platform-api-next,cli,landing,websites --parallel=4 -c ci --verbose --nx-bail
+      - run: npx nx run-many --target=build --projects=platform,platform-api,cli,landing,websites --parallel=4 -c ci --verbose --nx-bail
       - save_cache:
           key: nx-cache-{{ checksum "node_modules/.cache/nx/lockfile.hash" }}
           name: Save Cache
           paths:
             - ~/project/dist/apps/platform/.next/cache
-            - ~/project/dist/apps/platform-api-next/.next/cache
+            - ~/project/dist/apps/platform-api/.next/cache
             - ~/project/dist/apps/landing/.next/cache
             - ~/project/dist/apps/websites/.next/cache
       - save_cache:
