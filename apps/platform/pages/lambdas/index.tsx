@@ -12,6 +12,7 @@ import {
   ContentSection,
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
+import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
 import Head from 'next/head'
 import React from 'react'
 

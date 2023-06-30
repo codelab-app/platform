@@ -5,7 +5,10 @@ import { PageDetailHeader } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
 import { useRenderedPage } from '@codelab/frontend/presentation/container'
 import { DashboardTemplate } from '@codelab/frontend/presentation/view'
-import { extractErrorMessage } from '@codelab/frontend/shared/utils'
+import {
+  extractErrorMessage,
+  withPageAuthRedirect,
+} from '@codelab/frontend/shared/utils'
 import { useMountEffect } from '@react-hookz/web'
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
