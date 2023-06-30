@@ -16,6 +16,7 @@ import {
   elementRef,
   elementTreeRef,
   getRendererId,
+  getRunnerId,
   IElement,
   IPageNodeRef,
   isAtomInstance,
@@ -168,6 +169,15 @@ export class Renderer
       element,
       key: `element-wrapper-${element.id}`,
       renderer: this,
+    }
+
+    const { preRenderAction, store } = element
+
+    if (preRenderAction) {
+      const actionRunnerId = getRunnerId(store.id, preRenderAction.id)
+      const preRenderActionRunner = this.actionRunners.get(actionRunnerId)
+
+      preRenderActionRunner?.runner()
     }
 
     return React.createElement(ElementWrapper, wrapperProps)
