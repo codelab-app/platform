@@ -1,4 +1,5 @@
 import type {
+  IAction,
   IAtom,
   IComponent,
   IElementRenderType,
@@ -13,6 +14,7 @@ import type {
   TransformPropsFn,
 } from '@codelab/frontend/abstract/core'
 import {
+  actionRef,
   componentRef,
   CssMap,
   DATA_ELEMENT_ID,
@@ -64,6 +66,8 @@ const create = ({
   page,
   parent,
   parentComponent,
+  postRenderAction,
+  preRenderAction,
   prevSibling,
   props,
   propTransformationJs,
@@ -85,6 +89,12 @@ const create = ({
 
     // parent of first child
     parent: parent?.id ? elementRef(parent.id) : undefined,
+    postRenderAction: postRenderAction?.id
+      ? actionRef(postRenderAction.id)
+      : undefined,
+    preRenderAction: preRenderAction?.id
+      ? actionRef(preRenderAction.id)
+      : undefined,
     prevSibling: prevSibling?.id ? elementRef(prevSibling.id) : undefined,
     props: propRef(props.id),
     propTransformationJs,
@@ -126,6 +136,8 @@ export class Element
 
     // Data used for tree initializing, before our Element model is ready
     parent: prop<Nullable<Ref<IElement>>>(null).withSetter(),
+    postRenderAction: prop<Nullable<Ref<IAction>>>(null).withSetter(),
+    preRenderAction: prop<Nullable<Ref<IAction>>>(null).withSetter(),
     prevSibling: prop<Nullable<Ref<IElement>>>(null).withSetter(),
     props: prop<Ref<IProp>>().withSetter(),
     propTransformationJs: prop<Nullable<string>>(null).withSetter(),
@@ -454,10 +466,20 @@ export class Element
       ? reconnectNodeId(this.renderType.id)
       : disconnectNodeId(undefined)
 
+    const preRenderAction = this.preRenderAction?.id
+      ? reconnectNodeId(this.preRenderAction.id)
+      : disconnectNodeId(undefined)
+
+    const postRenderAction = this.postRenderAction?.id
+      ? reconnectNodeId(this.postRenderAction.id)
+      : disconnectNodeId(undefined)
+
     return {
       customCss: this.customCss,
       guiCss: this.guiCss,
       name: this.name,
+      postRenderAction,
+      preRenderAction,
       propTransformationJs: this.propTransformationJs,
       renderAtomType,
       renderComponentType,
@@ -632,11 +654,12 @@ export class Element
     customCss,
     firstChild,
     guiCss,
-    id,
     name,
     nextSibling,
     parent,
     parentComponent,
+    postRenderAction,
+    preRenderAction,
     prevSibling,
     props,
     propTransformationJs,
@@ -668,6 +691,12 @@ export class Element
     this._parentComponent = parentComponent
       ? componentRef(parentComponent.id)
       : this._parentComponent
+    this.preRenderAction = preRenderAction
+      ? actionRef(preRenderAction.id)
+      : null
+    this.postRenderAction = postRenderAction
+      ? actionRef(postRenderAction.id)
+      : null
 
     return this
   }

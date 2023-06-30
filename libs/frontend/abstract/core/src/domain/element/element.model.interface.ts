@@ -12,6 +12,7 @@ import type {
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IElementTreeViewDataNode } from '../../ui'
+import type { IAction } from '../action'
 import type { IComponent } from '../component'
 import type { IHook } from '../hook'
 import type { IModel } from '../model.interface'
@@ -79,6 +80,8 @@ export interface IElement
   parent?: Nullable<Ref<IElement>>
   // component that this element belongs to
   parentComponent?: Nullable<Ref<IComponent>>
+  postRenderAction?: Nullable<Ref<IAction>>
+  preRenderAction?: Nullable<Ref<IAction>>
   prevSibling?: Nullable<Ref<IElement>>
   propTransformationJs: Nullable<string>
   props: Ref<IProp>
