@@ -1,0 +1,1 @@
+../shared/vars-vercel-platform.tf
