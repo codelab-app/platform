@@ -2,7 +2,7 @@ import { Logger } from '@nestjs/common'
 import type { ConfigType } from '@nestjs/config'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
-import { AppModule } from '../../../libs/backend/infra/adapter/serverless/src/app/app.module'
+import { AppModule } from './app/app.module'
 import type { graphqlConfig } from './graphql.config'
 import { GRAPHQL_CONFIG_KEY } from './graphql.config'
 
