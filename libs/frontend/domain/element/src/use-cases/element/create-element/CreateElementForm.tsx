@@ -1,6 +1,9 @@
 import type { ICreateElementData } from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/abstract/core'
-import { SelectAction, SelectAnyElement } from '@codelab/frontend/domain/type'
+import {
+  SelectActionField,
+  SelectAnyElement,
+} from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { Form, FormController } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -107,16 +110,8 @@ export const CreateElementForm = observer(() => {
         required={false}
       />
       <RenderTypeCompositeField name="renderType" parentAtom={parentAtom} />
-      <AutoField
-        component={SelectAction}
-        name="preRenderAction.id"
-        required={false}
-      />
-      <AutoField
-        component={SelectAction}
-        name="postRenderAction.id"
-        required={false}
-      />
+      <SelectActionField name="preRenderAction" />
+      <SelectActionField name="postRenderAction" />
       <Divider />
       <AutoComputedElementNameField label="Name" name="name" />
       <FormController onCancel={closeModal} submitLabel="Create Element" />

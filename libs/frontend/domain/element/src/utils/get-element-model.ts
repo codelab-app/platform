@@ -26,8 +26,12 @@ export const getElementModel = (element: IElement) => {
   return {
     id: element.id,
     name: element.name,
-    postRenderAction: element.postRenderAction,
-    preRenderAction: element.preRenderAction,
+    postRenderAction: element.postRenderAction
+      ? { id: element.postRenderAction.current.id }
+      : null,
+    preRenderAction: element.preRenderAction
+      ? { id: element.preRenderAction.current.id }
+      : null,
     renderForEachPropKey: element.renderForEachPropKey,
     renderIfExpression: element.renderIfExpression,
     renderType,

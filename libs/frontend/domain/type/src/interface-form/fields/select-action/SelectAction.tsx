@@ -6,8 +6,10 @@ import { SelectField } from 'uniforms-antd'
 
 export type SelectActionProps = Pick<
   UniformSelectFieldProps,
-  'error' | 'label' | 'name'
->
+  'error' | 'label' | 'name' | 'required' | 'value'
+> & {
+  onChange(value: unknown): void
+}
 
 export const SelectAction = (fieldProps: SelectActionProps) => {
   const { actionService, builderService } = useStore()

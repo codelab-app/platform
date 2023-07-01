@@ -7,7 +7,7 @@ import {
   DATA_COMPONENT_ID,
   DATA_ELEMENT_ID,
 } from '@codelab/frontend/abstract/core'
-import { SelectAction } from '@codelab/frontend/domain/type'
+import { SelectActionField } from '@codelab/frontend/domain/type'
 import {
   useCurrentPage,
   useStore,
@@ -105,8 +105,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             .sort()
             .map((label) => ({ label, value: label }))}
         />
-        <AutoField component={SelectAction} name="preRenderAction.id" />
-        <AutoField component={SelectAction} name="postRenderAction.id" />
+        <SelectActionField name="preRenderAction" />
+        <SelectActionField name="postRenderAction" />
       </Form>
     )
   },
