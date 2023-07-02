@@ -21816,12 +21816,12 @@ export type ElementFragment = {
   firstChild?: { __typename?: 'Element'; id: string } | null
   props: { __typename?: 'Prop' } & PropFragment
   preRenderAction?:
-    | { __typename?: 'ApiAction'; id: string }
-    | { __typename?: 'CodeAction'; id: string }
+    | { __typename?: 'ApiAction'; id: string; type: ActionKind }
+    | { __typename?: 'CodeAction'; id: string; type: ActionKind }
     | null
   postRenderAction?:
-    | { __typename?: 'ApiAction'; id: string }
-    | { __typename?: 'CodeAction'; id: string }
+    | { __typename?: 'ApiAction'; id: string; type: ActionKind }
+    | { __typename?: 'CodeAction'; id: string; type: ActionKind }
     | null
 }
 

@@ -176,8 +176,9 @@ export class Renderer
     if (preRenderAction) {
       const actionRunnerId = getRunnerId(store.id, preRenderAction.id)
       const preRenderActionRunner = this.actionRunners.get(actionRunnerId)
+      const runner = preRenderActionRunner?.runner.bind(store.current.state)
 
-      preRenderActionRunner?.runner()
+      runner?.()
     }
 
     return React.createElement(ElementWrapper, wrapperProps)

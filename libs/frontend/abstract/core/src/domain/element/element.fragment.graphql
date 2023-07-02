@@ -40,9 +40,11 @@ fragment Element on Element {
   renderIfExpression
   preRenderAction {
     id
+    type
   }
   postRenderAction {
     id
+    type
   }
   propTransformationJs
 }

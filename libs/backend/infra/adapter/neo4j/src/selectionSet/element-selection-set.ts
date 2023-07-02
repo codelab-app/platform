@@ -37,9 +37,11 @@ const baseElementSelectionSet = `
   propTransformationJs
   preRenderAction {
     id
+    type
   }
   postRenderAction {
     id
+    type
   }
 `
 

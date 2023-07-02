@@ -42,7 +42,7 @@ export const createElementSchema: JSONSchemaType<
           type: 'string',
         },
       },
-      required: ['id'],
+      required: [],
       type: 'object',
     },
     preRenderAction: {
@@ -53,7 +53,7 @@ export const createElementSchema: JSONSchemaType<
           type: 'string',
         },
       },
-      required: ['id'],
+      required: [],
       type: 'object',
     },
     prevSibling: {

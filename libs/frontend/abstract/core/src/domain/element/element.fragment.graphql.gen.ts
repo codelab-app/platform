@@ -26,8 +26,14 @@ export type ElementFragment = {
   parent?: { id: string } | null
   firstChild?: { id: string } | null
   props: PropFragment
-  preRenderAction?: { id: string } | { id: string } | null
-  postRenderAction?: { id: string } | { id: string } | null
+  preRenderAction?:
+    | { id: string; type: Types.ActionKind }
+    | { id: string; type: Types.ActionKind }
+    | null
+  postRenderAction?:
+    | { id: string; type: Types.ActionKind }
+    | { id: string; type: Types.ActionKind }
+    | null
 }
 
 export const ElementFragmentDoc = gql`
@@ -72,9 +78,11 @@ export const ElementFragmentDoc = gql`
     renderIfExpression
     preRenderAction {
       id
+      type
     }
     postRenderAction {
       id
+      type
     }
     propTransformationJs
   }

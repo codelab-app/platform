@@ -38,9 +38,10 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       }
 
       const actionRunnerId = getRunnerId(store.id, postRenderAction.id)
-      const preRenderActionRunner = renderer.actionRunners.get(actionRunnerId)
+      const postRenderActionRunner = renderer.actionRunners.get(actionRunnerId)
+      const runner = postRenderActionRunner?.runner.bind(store.current.state)
 
-      preRenderActionRunner?.runner()
+      runner?.()
     }, [])
 
     const { atomService } = useStore()
