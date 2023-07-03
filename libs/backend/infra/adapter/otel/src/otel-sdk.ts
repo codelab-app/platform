@@ -1,4 +1,6 @@
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http'
+import { ExpressInstrumentation } from '@opentelemetry/instrumentation-express'
+import { HttpInstrumentation } from '@opentelemetry/instrumentation-http'
 import { Resource } from '@opentelemetry/resources'
 import { NodeSDK } from '@opentelemetry/sdk-node'
 import {
@@ -9,7 +11,11 @@ import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions'
 import { MultiSpanProcessor } from './exporter/multi-span-processor'
 
 export const otelSDK = new NodeSDK({
-  // instrumentations: [new NestInstrumentation()],
+  instrumentations: [
+    // new NestInstrumentation(),
+    new HttpInstrumentation(),
+    new ExpressInstrumentation(),
+  ],
   resource: new Resource({
     [SemanticResourceAttributes.SERVICE_NAME]: 'platform-api',
   }),

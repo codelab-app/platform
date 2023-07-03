@@ -20,6 +20,7 @@ import { StoreProvider } from '@codelab/frontend/presentation/container'
 import { css, Global } from '@emotion/react'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { Analytics } from '@vercel/analytics/react'
 import { ConfigProvider } from 'antd'
 import React, { useMemo } from 'react'
 import { GlobalStyles } from 'twin.macro'
@@ -34,6 +35,7 @@ const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
 
   return (
     <StoreProvider value={store}>
+      <Analytics />
       <UserProvider>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <ConfigProvider
