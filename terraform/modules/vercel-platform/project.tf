@@ -71,32 +71,11 @@ resource "vercel_project" "platform" {
       key    = "AUTH0_AUDIENCE"
       value  = "${var.auth0_issuer_base_url}api/v2/"
     },
-
-    # Vercel
-    {
-      target = ["production", "preview"]
-      key    = "VERCEL_ACCESS_TOKEN"
-      value  = var.vercel_access_token
-    },
-    {
-      target = ["production", "preview"]
-      key    = "VERCEL_PROJECT_ID"
-      # Cannot have self-referencing ID
-      # https://github.com/hashicorp/terraform/issues/3267
-      #      value = vercel_project.builder.id
-      #      value = data.vercel_project.builder.id
-      value = var.vercel_platform_project_id
-    },
-    {
-      target = ["production", "preview"]
-      key    = "VERCEL_TEAM_ID"
-      value  = var.vercel_team_id
-    },
-    {
-      target = ["production"]
-      key    = "VERCEL_FORCE_NO_BUILD_CACHE"
-      value  = "1"
-    }
+    # {
+    #   target = ["production"]
+    #   key    = "VERCEL_FORCE_NO_BUILD_CACHE"
+    #   value  = "1"
+    # }
   ]
 }
 

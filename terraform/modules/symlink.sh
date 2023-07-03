@@ -18,8 +18,9 @@ ln -s ../terraform/vars.tf ./circleci/vars-terraform.symlink.tf
 ln -s ../vercel-platform-api/vars.tf ./circleci/vars-platform-api.symlink.tf
 
 # Api
-ln -s ../vercel/vars-team-id.tf ./vercel-platform-api/vars-vercel-team-id.symlink.tf
-ln -s ../vercel/vars-api-token.tf ./vercel-platform-api/vars-vercel-api-token.symlink.tf
+# ln -s ../vercel/vars-team-id.tf ./vercel-platform-api/vars-vercel-team-id.symlink.tf
+# ln -s ../vercel/vars-api-token.tf ./vercel-platform-api/vars-vercel-api-token.symlink.tf
+ln -s ../vercel/vars.tf ./vercel-platform-api/vars-vercel.symlink.tf
 
 # Vercel Platform
 ln -s ../vercel/vars-team-id.tf ./vercel-platform/vars-vercel-team-id.symlink.tf

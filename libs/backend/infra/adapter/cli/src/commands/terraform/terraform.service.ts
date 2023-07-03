@@ -13,6 +13,8 @@ export class TerraformService implements CommandModule<unknown, unknown> {
   describe = 'Terraform commands'
 
   builder(yargv: Argv<unknown>) {
+    console.log(yargv.argv)
+
     return (
       yargv
         .options({
