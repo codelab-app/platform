@@ -1,10 +1,11 @@
-import type {
-  IAction,
-  IActionDTO,
-  IActionService,
-  IActionWhere,
-  ICreateActionData,
-  IUpdateActionData,
+import {
+  actionRef,
+  type IAction,
+  type IActionDTO,
+  type IActionService,
+  type IActionWhere,
+  type ICreateActionData,
+  type IUpdateActionData,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getTypeService } from '@codelab/frontend/domain/type'
@@ -106,6 +107,9 @@ export class ActionService
   @transaction
   create = _async(function* (this: ActionService, data: ICreateActionData) {
     const action = this.add(ActionFactory.mapDataToDTO(data))
+    const store = action.store.current
+
+    store.actions.push(actionRef(action))
 
     if (data.type === IActionKind.ApiAction) {
       this.propService.add({
