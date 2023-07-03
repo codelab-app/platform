@@ -44,5 +44,25 @@ resource "vercel_project" "platform_api" {
       key    = "NEO4J_PASSWORD"
       value  = var.neo4j_password
     },
+    # Vercel
+    {
+      target = ["production", "preview"]
+      key    = "VERCEL_ACCESS_TOKEN"
+      value  = var.vercel_access_token
+    },
+    {
+      target = ["production", "preview"]
+      key    = "VERCEL_PROJECT_ID"
+      # Cannot have self-referencing ID
+      # https://github.com/hashicorp/terraform/issues/3267
+      #      value = vercel_project.builder.id
+      #      value = data.vercel_project.builder.id
+      value = var.vercel_platform_project_id
+    },
+    {
+      target = ["production", "preview"]
+      key    = "VERCEL_TEAM_ID"
+      value  = var.vercel_team_id
+    },
   ]
 }
