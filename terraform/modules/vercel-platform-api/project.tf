@@ -52,7 +52,7 @@ resource "vercel_project" "platform_api" {
     },
     {
       target = ["production", "preview"]
-      key    = "VERCEL_PROJECT_ID"
+      key    = "VERCEL_PLATFORM_PROJECT_ID"
       # Cannot have self-referencing ID
       # https://github.com/hashicorp/terraform/issues/3267
       #      value = vercel_project.builder.id
