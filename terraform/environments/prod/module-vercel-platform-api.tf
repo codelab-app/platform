@@ -2,7 +2,10 @@ module "vercel-platform-api" {
   source = "../../modules/vercel-platform-api"
 
   platform_api_host = var.PLATFORM_API_HOST
-  vercel_team_id    = var.VERCEL_TEAM_ID
+
+  vercel_access_token        = var.VERCEL_ACCESS_TOKEN
+  vercel_team_id             = var.VERCEL_TEAM_ID
+  vercel_platform_project_id = var.VERCEL_PLATFORM_PROJECT_ID
 
   auth0_issuer_base_url = var.AUTH0_ISSUER_BASE_URL
 

@@ -14,9 +14,9 @@ const graphql_1 = require("graphql");
  *
  * @param sourceRoot Use source root of lib to search for graphql documents
  */
-const graphqlCodegen = (sourceRoot, libName) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+const graphqlCodegen = async (sourceRoot, libName) => {
     // Schema
-    const schema = yield (0, load_1.loadSchema)('http://127.0.0.1:3000/api/graphql', {
+    const schema = await (0, load_1.loadSchema)('http://127.0.0.1:3000/api/graphql', {
         loaders: [new url_loader_1.UrlLoader()],
     });
     // const schema = await loadSchema('your-schema.graphql', {
@@ -28,11 +28,11 @@ const graphqlCodegen = (sourceRoot, libName) => tslib_1.__awaiter(void 0, void 0
     console.log({ libName, sourceRoot });
     console.log({ documentFiles });
     // Documents - this is an example, you might need to adjust according to your file structure
-    const documents = yield (0, load_1.loadDocuments)(documentFiles, {
+    const documents = await (0, load_1.loadDocuments)(documentFiles, {
         loaders: [new graphql_file_loader_1.GraphQLFileLoader()],
     });
     // Call the codegen function
-    const output = yield (0, core_1.codegen)({
+    const output = await (0, core_1.codegen)({
         config: {
             defaultScalarType: 'unknown',
             gqlImport: 'graphql-tag#gql',
@@ -68,6 +68,6 @@ const graphqlCodegen = (sourceRoot, libName) => tslib_1.__awaiter(void 0, void 0
     });
     // Write output to a file
     fs_1.default.writeFileSync(`${libName}.ts`, output);
-});
+};
 exports.graphqlCodegen = graphqlCodegen;
 //# sourceMappingURL=graphql-codegen.js.map

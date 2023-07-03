@@ -17,20 +17,15 @@ ln -s ../cypress/vars.tf ./circleci/vars-cypress.symlink.tf
 ln -s ../terraform/vars.tf ./circleci/vars-terraform.symlink.tf
 ln -s ../vercel-platform-api/vars.tf ./circleci/vars-platform-api.symlink.tf
 
-# Api
-# ln -s ../vercel/vars-team-id.tf ./vercel-platform-api/vars-vercel-team-id.symlink.tf
-# ln -s ../vercel/vars-api-token.tf ./vercel-platform-api/vars-vercel-api-token.symlink.tf
-ln -s ../vercel/vars.tf ./vercel-platform-api/vars-vercel.symlink.tf
-
 # Vercel Platform
-ln -s ../vercel/vars-team-id.tf ./vercel-platform/vars-vercel-team-id.symlink.tf
-ln -s ../vercel/vars-api-token.tf ./vercel-platform/vars-vercel-api-token.symlink.tf
 ln -s ../vercel-platform-api/vars.tf ./vercel-platform/vars-platform-api.symlink.tf
 ln -s ../auth0/vars.tf ./vercel-platform/vars-auth0.symlink.tf
 ln -s ../auth0-vars/vars-web-client.tf ./vercel-platform/vars-auth0-web-client.symlink.tf
 ln -s ../auth0-vars/vars-auth0-secret.tf ./vercel-platform/vars-auth0-secret.symlink.tf
+ln -s ../vercel/vars-team-id.tf ./vercel-platform/vars-vercel-team-id.symlink.tf
 
 # Vercel Platform API
+ln -s ../vercel/vars.tf ./vercel-platform-api/vars-vercel.symlink.tf
 ln -s ../vercel/vars-team-id.tf ./vercel-platform-api/vars-vercel-team-id.symlink.tf
 ln -s ../neo4j/vars.tf ./vercel-platform-api/vars-neo4j.symlink.tf
 
@@ -47,7 +42,6 @@ ln -s ../auth0-vars/vars-web-client.tf ./vercel-websites/vars-auth0-web-client.s
 ln -s ../auth0-vars/vars-auth0-secret.tf ./vercel-websites/vars-auth0-secret.symlink.tf
 ln -s ../neo4j/vars.tf ./vercel-websites/vars-neo4j.symlink.tf
 ln -s ../vercel/vars-team-id.tf ./vercel-websites/vars-vercel-team-id.symlink.tf
-ln -s ../vercel/vars-api-token.tf ./vercel-websites/vars-api-token.symlink.tf
 
 # Auth0
 ln -s ../vercel-platform/vars.tf ./auth0/vars-vercel-platform.symlink.tf

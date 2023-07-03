@@ -1,4 +1,8 @@
-import type { ICreateActionData } from '@codelab/frontend/abstract/core'
+import type {
+  ICreateActionData,
+  IGraphQLActionConfig,
+  IRestActionConfig,
+} from '@codelab/frontend/abstract/core'
 import { HttpMethod, HttpResponseType } from '@codelab/frontend/abstract/core'
 import {
   CodeMirrorField,
@@ -75,7 +79,6 @@ export const createActionSchema: JSONSchemaType<ICreateActionData> = {
               type: 'string',
             },
             urlSegment: {
-              nullable: true,
               type: 'string',
             },
             variables: {

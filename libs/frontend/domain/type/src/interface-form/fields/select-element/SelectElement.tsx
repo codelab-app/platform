@@ -89,6 +89,11 @@ export const SelectElement = ({
         disableWhenOneOpt && (elements.length === 1 || !elements.length)
       }
       name={name}
+      /**
+       * Prop seems to exist but not in interface
+       */
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       optionFilterProp="label"
       options={elements}
       showSearch

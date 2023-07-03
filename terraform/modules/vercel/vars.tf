@@ -3,14 +3,9 @@ variable "vercel_access_token" {
   description = "Vercel Access Tokens are required to authenticate and use the Vercel API"
 }
 
-variable "vercel_team_id" {
+variable "vercel_platform_project_id" {
   type        = string
-  description = "ID of the Vercel team"
-}
-
-variable "VERCEL_PLATFORM_PROJECT_ID" {
-  type        = string
-  description = "ID of the Vercel team"
+  description = "ID of the project"
 }
 
 
