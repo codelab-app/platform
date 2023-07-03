@@ -41,7 +41,7 @@ export const CuiCollapse = ({
     <div className="flex h-full w-full flex-col overflow-y-auto overflow-x-hidden">
       <div className="flex h-full w-full flex-col py-1">
         {panels.map((view) => (
-          <>
+          <React.Fragment key={view.key}>
             <CuiCollapsePanelHeader
               defaultExpand={activePanels[view.key]}
               label={view.label}
@@ -52,11 +52,10 @@ export const CuiCollapse = ({
               <CuiCollapsePanelContent
                 content={view.content}
                 isLoading={view.isLoading}
-                key={view.key}
                 label={view.label}
               />
             )}
-          </>
+          </React.Fragment>
         ))}
       </div>
     </div>
