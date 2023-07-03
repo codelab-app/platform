@@ -14,7 +14,7 @@
   "sideEffects": false,
   "scripts": {
     "e2e": "yarn cli tasks e2e --stage dev",
-    "cli": "nx serve cli --watch false --runtimeArgs",
+    "cli": "scripts/nx/cli.sh",
     "docker:up": "scripts/docker/up.sh",
     "tunnel": "ngrok http --region=us --hostname=api.codelab-dev.ngrok.io 127.0.0.1:3000",
     "codegen": "yarn cli tasks codegen --stage dev",
@@ -85,6 +85,7 @@
     "@opentelemetry/auto-instrumentations-node": "0.37.0",
     "@opentelemetry/exporter-prometheus": "0.40.0",
     "@opentelemetry/exporter-trace-otlp-http": "0.40.0",
+    "@opentelemetry/instrumentation-graphql": "^0.34.3",
     "@opentelemetry/resources": "1.14.0",
     "@opentelemetry/sdk-metrics": "1.14.0",
     "@opentelemetry/sdk-node": "0.40.0",

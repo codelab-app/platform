@@ -59,14 +59,14 @@ export const assignUserOption: { email: Options } = {
 }
 
 export const upsertUserMiddleware: MiddlewareFunction = async ({ stage }) => {
+  const userRepository: UserRepository = new UserRepository()
+
   /**
    * This may cause errors. The auth0Id may not match up
    *
    * Perform upsert here
    */
   if (stage === Stage.Dev) {
-    const userRepository: UserRepository = new UserRepository()
-
     const user = new User({
       auth0Id: v4(),
       email: getEnv().auth0.cypressUsername!,
@@ -74,6 +74,8 @@ export const upsertUserMiddleware: MiddlewareFunction = async ({ stage }) => {
       roles: [Role.Admin],
       username: 'Codelab',
     })
+
+    console.log(user)
 
     await userRepository.save(user, { email: user.email })
   }

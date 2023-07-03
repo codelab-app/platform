@@ -7,6 +7,7 @@ import { BullModule } from '@nestjs/bull'
 import { Global, Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
+import type { GraphQLError } from 'graphql'
 import type { Driver } from 'neo4j-driver'
 import { graphqlConfig } from '../graphql.config'
 import { neo4jConfig } from '../neo4j.config'
@@ -62,6 +63,16 @@ export interface GqlContext {
           } as GqlContext),
         cors: false,
         debug: true,
+        formatError: (error: GraphQLError) => {
+          console.log(error)
+
+          return error
+        },
+        formatResponse: (response: unknown) => {
+          console.log(response)
+
+          return response
+        },
         // installSubscriptionHandlers: true,
         introspection: true,
         path: 'api/graphql',

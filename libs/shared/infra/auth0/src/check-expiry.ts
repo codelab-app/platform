@@ -14,8 +14,6 @@ export const checkExpiry = (session: Session | null | undefined): boolean => {
 
   const sessionExpiryTime = new Date(accessTokenExpiresAt * 1000)
 
-  console.log(currentTime.toDateString(), sessionExpiryTime.toDateString())
-
   // return true
   return currentTime.getTime() > sessionExpiryTime.getTime()
 }

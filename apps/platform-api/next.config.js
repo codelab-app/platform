@@ -20,6 +20,12 @@ const withRawCypherFiles = (nextConfig = {}) =>
   })
 
 const nextConfig = {
+  experimental: {
+    instrumentationHook: process.env.NEXT_PLATFORM_API_ENABLE_OTEL
+      ? true
+      : false,
+    // appDir: true,
+  },
   nx: {
     // Set this to true if you would like to to use SVGR
     // See: https://github.com/gregberge/svgr

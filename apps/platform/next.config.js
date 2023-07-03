@@ -31,7 +31,7 @@ const plugins = [withBundleAnalyzer, withRawCypherFiles]
  */
 const nextConfig = {
   experimental: {
-    instrumentationHook: process.env.NEXT_ENABLE_OTEL ? true : false,
+    instrumentationHook: process.env.NEXT_PLATFORM_ENABLE_OTEL ? true : false,
     // appDir: true,
   },
   nx: { svgr: true },

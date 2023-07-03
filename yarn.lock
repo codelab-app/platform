@@ -11770,6 +11770,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@opentelemetry/instrumentation-graphql@npm:^0.34.3":
+  version: 0.34.3
+  resolution: "@opentelemetry/instrumentation-graphql@npm:0.34.3"
+  dependencies:
+    "@opentelemetry/instrumentation": ^0.40.0
+  peerDependencies:
+    "@opentelemetry/api": ^1.3.0
+  checksum: 8f12ae59f90c3c92447dc58342fe7d628d78102fb5bba1ff7d755e7bad685820e67338bab6465b8d449c0fc267a4ee1c7b448c4a10f25360052dab03cc402ca3
+  languageName: node
+  linkType: hard
+
 "@opentelemetry/instrumentation-grpc@npm:^0.39.1":
   version: 0.39.1
   resolution: "@opentelemetry/instrumentation-grpc@npm:0.39.1"
@@ -12088,7 +12099,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/instrumentation@npm:0.40.0":
+"@opentelemetry/instrumentation@npm:0.40.0, @opentelemetry/instrumentation@npm:^0.40.0":
   version: 0.40.0
   resolution: "@opentelemetry/instrumentation@npm:0.40.0"
   dependencies:
@@ -21614,6 +21625,7 @@ __metadata:
     "@opentelemetry/auto-instrumentations-node": 0.37.0
     "@opentelemetry/exporter-prometheus": 0.40.0
     "@opentelemetry/exporter-trace-otlp-http": 0.40.0
+    "@opentelemetry/instrumentation-graphql": ^0.34.3
     "@opentelemetry/resources": 1.14.0
     "@opentelemetry/sdk-metrics": 1.14.0
     "@opentelemetry/sdk-node": 0.40.0
