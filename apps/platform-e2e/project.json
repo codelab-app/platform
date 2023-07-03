@@ -8,7 +8,6 @@
       "executor": "@nx/cypress:cypress",
       "options": {
         "cypressConfig": "apps/platform-e2e/cypress.ci.config.ts",
-        "tsConfig": "./tsconfig.base.json",
         "baseUrl": "http://127.0.0.1:3001",
         "browser": "electron",
         "testingType": "e2e"

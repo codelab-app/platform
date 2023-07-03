@@ -3,6 +3,8 @@ module "vercel-platform" {
 
   depends_on = [module.auth0]
 
+  vercel_team_id = var.VERCEL_TEAM_ID
+
   next_public_platform_host = var.NEXT_PUBLIC_PLATFORM_HOST
   platform_api_host         = var.PLATFORM_API_HOST
 
@@ -16,8 +18,4 @@ module "vercel-platform" {
 
   auth0_web_client_id     = module.auth0.web_client.id
   auth0_web_client_secret = module.auth0.web_client.client_secret
-
-  vercel_access_token        = var.VERCEL_ACCESS_TOKEN
-  vercel_team_id             = var.VERCEL_TEAM_ID
-  vercel_platform_project_id = var.VERCEL_PLATFORM_PROJECT_ID
 }

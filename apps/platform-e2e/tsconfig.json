@@ -1,9 +1,9 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "sourceMap": false,
-    "target": "es5",
-    "lib": ["es5", "dom"],
+    "sourceMap": true,
+    "target": "es2015",
+    "lib": ["es2017", "dom"],
     "strict": true,
     "outDir": "../../dist/out-tsc",
     "allowJs": true,

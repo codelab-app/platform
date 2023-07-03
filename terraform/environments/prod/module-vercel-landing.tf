@@ -1,7 +1,8 @@
 module "vercel-landing" {
   source = "../../modules/vercel-landing"
 
-  vercel_team_id           = var.VERCEL_TEAM_ID
+  vercel_team_id = var.VERCEL_TEAM_ID
+
   next_public_landing_host = var.NEXT_PUBLIC_LANDING_HOST
 
   mailchimp_api_key       = var.MAILCHIMP_API_KEY
