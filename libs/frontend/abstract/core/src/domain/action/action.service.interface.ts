@@ -8,8 +8,10 @@ import type {
   ICRUDFormService,
   ICRUDModalService,
   ICRUDService,
+  IEntityFormService,
   IQueryService,
 } from '../../service'
+import type { IStore } from '../store'
 import type {
   IActionDTO,
   ICreateActionData,
@@ -26,9 +28,13 @@ export interface IActionService
   extends ICRUDService<IAction, ICreateActionData, IUpdateActionData>,
     IQueryService<IAction, IActionWhere, ApiActionOptions>,
     ICRUDModalService<Ref<IAction>, { action: Maybe<IAction> }>,
-    ICRUDFormService<Ref<IAction>, { action: Maybe<IAction> }> {
+    Omit<
+      ICRUDFormService<Ref<IAction>, { action: Maybe<IAction> }>,
+      'createForm'
+    > {
   actionFactory: IActionFactory
   actionsList: Array<IAction>
+  createForm: IEntityFormService<Ref<IStore>, { store: Maybe<IStore> }>
 
   action(id: string): Maybe<IAction>
   add<T extends IActionDTO>(action: T): IAction
