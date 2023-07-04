@@ -14,7 +14,7 @@ export const CreateActionButton = observer(() => {
       icon={<PlusOutlined />}
       onClick={(event) => {
         event.stopPropagation()
-        actionService.createModal.open()
+        actionService.createForm.open()
       }}
       size="small"
     >

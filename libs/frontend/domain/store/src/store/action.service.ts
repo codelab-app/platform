@@ -25,6 +25,10 @@ import {
 } from 'mobx-keystone'
 import { ActionRepository } from '../services/action.repo'
 import { ActionFactory } from './action.factory'
+import {
+  ActionFormService,
+  CreateActionFormService,
+} from './action-form.service'
 import { ActionModalService } from './action-modal.service'
 import { ApiAction, CodeAction } from './models'
 
@@ -34,8 +38,10 @@ export class ActionService
     actionFactory: prop(() => new ActionFactory({})),
     actionRepository: prop(() => new ActionRepository({})),
     actions: prop(() => objectMap<IAction>()),
+    createForm: prop(() => new CreateActionFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new ActionModalService({})),
+    updateForm: prop(() => new ActionFormService({})),
     updateModal: prop(() => new ActionModalService({})),
   })
   implements IActionService

@@ -5,6 +5,7 @@ import type {
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type {
+  ICRUDFormService,
   ICRUDModalService,
   ICRUDService,
   IQueryService,
@@ -24,7 +25,8 @@ export interface IActionFactory {
 export interface IActionService
   extends ICRUDService<IAction, ICreateActionData, IUpdateActionData>,
     IQueryService<IAction, IActionWhere, ApiActionOptions>,
-    ICRUDModalService<Ref<IAction>, { action: Maybe<IAction> }> {
+    ICRUDModalService<Ref<IAction>, { action: Maybe<IAction> }>,
+    ICRUDFormService<Ref<IAction>, { action: Maybe<IAction> }> {
   actionFactory: IActionFactory
   actionsList: Array<IAction>
 
