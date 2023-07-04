@@ -13,6 +13,10 @@ import {
   CreateComponentForm,
 } from '@codelab/frontend/domain/component'
 import { CreateElementForm } from '@codelab/frontend/domain/element'
+import {
+  CreateActionForm,
+  UpdateActionForm,
+} from '@codelab/frontend/domain/store'
 import { CreateFieldForm, UpdateFieldForm } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { SkeletonWrapper } from '@codelab/frontend/presentation/view'
@@ -26,6 +30,7 @@ import { ComponentList } from './ComponentList'
 
 export const CustomComponents = observer(() => {
   const {
+    actionService,
     builderService,
     componentService,
     elementService,
@@ -89,7 +94,9 @@ export const CustomComponents = observer(() => {
   const isInlineFormOpened =
     elementService.createForm.isOpen ||
     fieldService.createForm.isOpen ||
-    fieldService.updateForm.isOpen
+    fieldService.updateForm.isOpen ||
+    actionService.createForm.isOpen ||
+    actionService.updateForm.isOpen
 
   const selectTreeNode = (node: IPageNode) => {
     if (isComponentPageNode(node)) {
@@ -99,8 +106,6 @@ export const CustomComponents = observer(() => {
     if (isElementPageNode(node)) {
       return builderService.selectElementNode(node)
     }
-
-    return
   }
 
   return (
@@ -112,6 +117,8 @@ export const CustomComponents = observer(() => {
           {elementService.createForm.isOpen && <CreateElementForm />}
           {fieldService.createForm.isOpen && <CreateFieldForm />}
           {fieldService.updateForm.isOpen && <UpdateFieldForm />}
+          {actionService.createForm.isOpen && <CreateActionForm />}
+          {actionService.updateForm.isOpen && <UpdateActionForm />}
 
           {!isInlineFormOpened && (
             <>

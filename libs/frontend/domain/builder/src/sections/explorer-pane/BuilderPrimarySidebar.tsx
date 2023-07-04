@@ -199,8 +199,6 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   return
                 }
 
-                debugger
-
                 const form = actionService.createForm
                 form.open(storeRef(store) as Ref<IStore>)
               },
