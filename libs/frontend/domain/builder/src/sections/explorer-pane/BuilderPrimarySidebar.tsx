@@ -226,7 +226,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     return (
       <>
         <CuiSidebar
-          defaultActiveViewKeys={['ElementTree', 'StateList']}
+          defaultActiveViewKeys={['ElementTree']}
           label="Explorer"
           views={sidebarViews}
         />
