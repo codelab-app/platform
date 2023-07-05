@@ -2,43 +2,19 @@
   "migrations": [
     {
       "cli": "nx",
-      "version": "16.4.0-beta.10",
-      "description": "Remove tsconfig.e2e.json and add settings to project tsconfig.json. tsConfigs executor option is now deprecated. The project level tsconfig.json file should be used instead.",
-      "implementation": "./src/migrations/update-16-4-0/tsconfig-sourcemaps",
-      "package": "@nx/cypress",
-      "name": "update-16-3-0-remove-old-tsconfigs"
+      "version": "16.5.0-beta.2",
+      "description": "Add test-setup.ts to ignored files in production input",
+      "implementation": "./src/migrations/update-16-5-0/add-test-setup-to-inputs-ignore",
+      "package": "@nx/jest",
+      "name": "add-test-setup-to-inputs-ignore"
     },
     {
       "cli": "nx",
-      "version": "16.4.0-beta.11",
-      "description": "Cypress Component Testing is broken with Angular 16.1.0. Warn about it if the workspace has Angular >= 16.1.0 and Angular projects using Component Testing.",
-      "implementation": "./src/migrations/update-16-4-0/warn-incompatible-angular-cypress",
-      "package": "@nx/cypress",
-      "name": "update-16-4-0-warn-incompatible-angular-cypress"
-    },
-    {
-      "cli": "nx",
-      "version": "16.4.0-beta.8",
-      "description": "Replace @nx/node:node with @nx/js:node for all project targets",
-      "implementation": "./src/migrations/update-16-4-0/replace-node-executor",
-      "package": "@nx/node",
-      "name": "update-16-4-0-replace-node-executor"
-    },
-    {
-      "cli": "nx",
-      "version": "16.4.0-beta.16",
-      "description": "Update TsConfig target to es2021 and CacheModule if being used. Read more at https://docs.nestjs.com/migration-guide",
-      "implementation": "./src/migrations/update-16-4-0-cache-manager/nestjs-10-updates",
-      "package": "@nx/nest",
-      "name": "update-16-4-0-support-nestjs-10"
-    },
-    {
-      "cli": "nx",
-      "version": "16.4.0-beta.3",
-      "description": "Update package.json moving @nx/next from dependency to devDependency",
-      "implementation": "./src/migrations/update-16-4-0/update-nx-next-dependency",
-      "package": "@nx/next",
-      "name": "update-16-4-0-update-next-dependency"
+      "version": "16.5.0-beta.0",
+      "description": "Move .storybook/tsconfig.json to tsconfig.storybook.json for non-Angular projects.",
+      "factory": "./src/migrations/update-16-5-0/move-storybook-tsconfig",
+      "package": "@nx/storybook",
+      "name": "update-16-5-0"
     }
   ]
 }

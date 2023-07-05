@@ -27,37 +27,6 @@
         "reporters": ["default"]
       }
     },
-    "storybook": {
-      "executor": "@nx/storybook:storybook",
-      "options": {
-        "port": 4400,
-        "configDir": "libs/frontend/domain/app/.storybook"
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "build-storybook": {
-      "executor": "@nx/storybook:build",
-      "outputs": ["{options.outputDir}"],
-      "options": {
-        "outputDir": "dist/storybook/frontend-domain-app",
-        "configDir": "libs/frontend/domain/app/.storybook"
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "test-storybook": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "test-storybook -c libs/frontend/domain/app/.storybook --url=http://localhost:4400"
-      }
-    },
     "test:integration": {
       "defaultConfiguration": "dev",
       "options": {
