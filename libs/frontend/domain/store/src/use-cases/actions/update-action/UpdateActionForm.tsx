@@ -65,9 +65,6 @@ export const UpdateActionForm = observer(() => {
 
   return (
     <Form<IUpdateActionData>
-      //   okText="Update Action"
-      //   onCancel={closeModal}
-      //   open={actionService.updateModal.isOpen}
       model={model}
       onSubmit={onSubmit}
       onSubmitError={onSubmitError}
