@@ -36,7 +36,6 @@ export const PageDetailHeader = observer(() => {
       pathname: PageType.PageBuilder,
       query: {
         appSlug,
-        explorerPaneKey: ExplorerPaneType.PageList,
         pageSlug,
         primarySidebarKey: ExplorerPaneType.PageList,
         userName,

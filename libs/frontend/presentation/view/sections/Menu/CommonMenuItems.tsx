@@ -51,7 +51,6 @@ export const allPagesMenuItem = (
       pathname: PageType.PageBuilder,
       query: {
         appSlug,
-        explorerPaneKey: ExplorerPaneType.PageList,
         pageSlug,
         primarySidebarKey: ExplorerPaneType.PageList,
         userName,
@@ -74,7 +73,6 @@ export const builderComponentsMenuItem = (
       pathname: PageType.PageBuilder,
       query: {
         appSlug,
-        explorerPaneKey: ExplorerPaneType.Components,
         pageSlug,
         primarySidebarKey: ExplorerPaneType.Components,
         userName,
@@ -97,7 +95,6 @@ export const pageBuilderMenuItem = (
       pathname: PageType.PageBuilder,
       query: {
         appSlug,
-        explorerPaneKey: ExplorerPaneType.Explorer,
         pageSlug,
         primarySidebarKey: ExplorerPaneType.Explorer,
         userName,

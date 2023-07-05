@@ -20,7 +20,6 @@ export const GetAppsItem = observer<GetAppsItemProps>(({ app }) => {
     pathname: PageType.PageBuilder,
     query: {
       appSlug: app.slug,
-      explorerPaneKey: ExplorerPaneType.PageList,
       pageSlug: app.pages[0]?.current.slug,
       primarySidebarKey: ExplorerPaneType.PageList,
       userName: userService.user.username,
