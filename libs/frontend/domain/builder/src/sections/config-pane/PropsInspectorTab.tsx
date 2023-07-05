@@ -5,7 +5,6 @@ import { propSafeStringify } from '@codelab/shared/utils'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
-import tw from 'twin.macro'
 import { usePropsInspector } from '../../hooks'
 
 const PropsInspectorTab = observer<{ node: IPageNodeRef }>(({ node }) => {
@@ -16,8 +15,8 @@ const PropsInspectorTab = observer<{ node: IPageNodeRef }>(({ node }) => {
   const lastRenderedProp = node.current.runtimeProp?.evaluatedProps || {}
 
   return (
-    <div css={tw`w-full`}>
-      <h3 css={tw`text-gray-700`}>Current props</h3>
+    <div className="w-full">
+      <h3 className="text-gray-700">Current props</h3>
       <CodeMirrorEditor
         height="150px"
         language={ICodeMirrorLanguage.Json}
@@ -27,7 +26,7 @@ const PropsInspectorTab = observer<{ node: IPageNodeRef }>(({ node }) => {
         value={propSafeStringify(lastRenderedProp)}
       />
 
-      <h3 css={tw`text-gray-700`}>{nodeLabel} props</h3>
+      <h3 className="text-gray-700">{nodeLabel} props</h3>
       <CodeMirrorEditor
         height="150px"
         language={ICodeMirrorLanguage.Json}

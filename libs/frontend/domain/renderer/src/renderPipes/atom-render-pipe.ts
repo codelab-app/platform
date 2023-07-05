@@ -8,8 +8,8 @@ import {
   isAtomInstance,
 } from '@codelab/frontend/abstract/core'
 import type { IAtomType } from '@codelab/shared/abstract/core'
-import { css } from '@emotion/react'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
+import { css } from 'styled-components'
 import type { ArrayOrSingle } from 'ts-essentials'
 import { atomFactory } from '../atoms'
 import { RenderOutput } from '../utils'
@@ -53,10 +53,10 @@ export class AtomRenderPipe
 
     const elCss =
       element.customCss || element.guiCss
-        ? css([
-            JSON.parse(element.guiCss || '{}'),
-            evalCss(element.customCss || ''),
-          ])
+        ? css`
+            ${JSON.parse(element.guiCss || '{}')}
+            ${evalCss(element.customCss || '')}
+          `
         : undefined
 
     if (this.renderer.debugMode) {

@@ -6,7 +6,6 @@ import {
 import type { IDomain } from '@codelab/frontend/abstract/core'
 import Link from 'next/link'
 import React from 'react'
-import tw from 'twin.macro'
 
 export interface DomainListProps {
   domains: Array<IDomain>
@@ -14,7 +13,7 @@ export interface DomainListProps {
 
 export const DomainsList = ({ domains }: DomainListProps) => {
   if (!domains.length) {
-    return <div css={tw`text-red-400`}>No domains assigned</div>
+    return <div className="text-red-400">No domains assigned</div>
   }
 
   return (
@@ -24,17 +23,17 @@ export const DomainsList = ({ domains }: DomainListProps) => {
         const valid = projectDomain?.verified && !domainConfig?.misconfigured
 
         const badge = valid ? (
-          <span css={tw`text-green-400 flex items-center`}>
-            <CheckCircleOutlined css={tw`mr-1`} /> Valid
+          <span className="flex items-center text-green-400">
+            <CheckCircleOutlined className="mr-1" /> Valid
           </span>
         ) : (
-          <span css={tw`text-red-400 flex items-center`}>
-            <CloseCircleOutlined css={tw`mr-1`} /> Invalid
+          <span className="flex items-center text-red-400">
+            <CloseCircleOutlined className="mr-1" /> Invalid
           </span>
         )
 
         return (
-          <div css={tw`text-sm flex items-center justify-between`} key={name}>
+          <div className="flex items-center justify-between text-sm" key={name}>
             <Link href={`https://${name}`}>
               <span>
                 {name} <LinkOutlined />

@@ -1,13 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
-import { css } from '@emotion/react'
-import type { EmotionJSX } from '@emotion/react/types/jsx-namespace'
 import type { AutoCompleteProps } from 'antd'
 import { Button, Space, Tooltip } from 'antd'
 import isNil from 'lodash/isNil'
 import React, { useState } from 'react'
-import tw from 'twin.macro'
+import { css } from 'styled-components'
 import type { FieldProps } from 'uniforms'
 import { connectField } from 'uniforms'
 import type { ListFieldProps, SelectFieldProps } from 'uniforms-antd'
@@ -20,7 +18,7 @@ type InnerProps = Omit<AutoCompleteProps, 'onChange' | 'onSelect'>
 type Value = Array<unknown> | boolean | number | string | undefined
 
 interface CodeMirrorFieldProps {
-  getBaseControl?(fieldProps: CodeMirrorConnectFieldProps): EmotionJSX.Element
+  getBaseControl?(fieldProps: CodeMirrorConnectFieldProps): React.ReactElement
   onToggle?(
     value: boolean,
     props: CodeMirrorConnectFieldProps,
@@ -101,7 +99,7 @@ const ToggleExpression = ({
 
   return (
     <div className="ant-form-item">
-      <Space css={tw`mb-1 justify-between w-full`}>
+      <Space className="mb-1 w-full justify-between">
         <label htmlFor={fieldProps.id}>{fieldProps.label ?? ''}</label>
 
         <Tooltip placement="left" title={toggleButtonTooltip}>
@@ -113,12 +111,12 @@ const ToggleExpression = ({
 
       {showExpressionEditor ? (
         <CodeMirrorEditor
-          customOptions={createAutoCompleteOptions({}, 'this')}
-          language={ICodeMirrorLanguage.Javascript}
-          overrideStyles={css`
+          cssString={`
             display: block;
             margin-bottom: 12px;
           `}
+          customOptions={createAutoCompleteOptions({}, 'this')}
+          language={ICodeMirrorLanguage.Javascript}
           {...fieldProps}
           value={value}
         />

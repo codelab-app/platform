@@ -1,4 +1,3 @@
-// import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
 import type { Driver } from 'neo4j-driver'
 
 export class AdminService {

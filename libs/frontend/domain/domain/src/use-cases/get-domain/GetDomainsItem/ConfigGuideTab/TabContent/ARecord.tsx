@@ -1,6 +1,5 @@
 import { Table, Typography } from 'antd'
 import React from 'react'
-import tw from 'twin.macro'
 
 const dataSource = [
   {
@@ -30,7 +29,7 @@ const columns = [
 
 export const ARecordTabContent = () => (
   <div>
-    <p css={tw`mb-2`}>
+    <p className="mb-2">
       Set the following record on your DNS provider to continue:
     </p>
     <Table

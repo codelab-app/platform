@@ -2,10 +2,9 @@ import type { IInterfaceType, IPropData } from '@codelab/frontend/abstract/core'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import type { SetIsLoading } from '@codelab/frontend/presentation/view'
 import { handleFormSubmit } from '@codelab/frontend/presentation/view'
-import { css } from '@emotion/react'
-import type { CSSInterpolation } from '@emotion/serialize'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { css } from 'styled-components'
 import type { DeepPartial } from 'utility-types'
 import { InterfaceForm } from '../interface-form'
 
@@ -16,7 +15,7 @@ export interface PropsFormProps
       'onSubmitError' | 'onSubmitSuccess' | 'submitField'
     > {
   autosave?: boolean
-  cssString?: CSSInterpolation
+  cssString?: string
   initialSchema?: object
   interfaceType?: IInterfaceType
   model?: IPropData
@@ -48,7 +47,7 @@ export const PropsForm = observer<PropsFormProps>(
 
     return (
       <div
-        css={css`
+        css={`
           ${cssString}
         `}
       >

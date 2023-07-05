@@ -26,12 +26,13 @@ import {
 import { UpdatePageTabForm } from '@codelab/frontend/domain/page'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { FormContextProvider } from '@codelab/frontend/presentation/view'
-import { css } from '@emotion/react'
 import { Tabs, Tooltip } from 'antd'
+import { getStatusClassNames } from 'antd/lib/_util/statusUtils'
+import classNames from 'classnames'
 import { observer } from 'mobx-react-lite'
 import type { ReactNode } from 'react'
 import React from 'react'
-import tw from 'twin.macro'
+import styled, { css } from 'styled-components'
 import { PropsInspectorTab } from '../PropsInspectorTab'
 import { TabContainer } from './ConfigPaneInspectorTabContainerStyle'
 import { TAB_NAMES } from './data'
@@ -44,11 +45,13 @@ interface TooltipIconProps {
 const TooltipIcon = ({ icon, title }: TooltipIconProps) => {
   return (
     <Tooltip
-      css={css`
-        &.anticon {
-          ${tw`!mr-0 p-0 h-full flex items-center`}
-        }
-      `}
+      className={classNames(
+        '[&_.anticon]:!mr-0',
+        '[&_.anticon]:flex',
+        '[&_.anticon]:h-full',
+        '[&_.anticon]:items-center',
+        '[&_.anticon]:p-0',
+      )}
       title={title}
     >
       {icon}
@@ -78,7 +81,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
             key={selectedNode.id + '_move_form'}
           />
           <DeleteElementButton
-            css={tw`my-3`}
+            className="my-3"
             disabled={selectedNode.current.isRoot}
             element={selectedNode.current}
           />

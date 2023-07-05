@@ -3,7 +3,6 @@ import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 
 export const DeleteDomainModal = observer(() => {
@@ -36,7 +35,7 @@ export const DeleteDomainModal = observer(() => {
       okText="Delete"
       onCancel={closeModal}
       open={domainService.deleteModal.isOpen}
-      title={<span css={tw`font-semibold`}>Delete domain</span>}
+      title={<span className="font-semibold">Delete domain</span>}
     >
       <ModalForm.Form
         model={model}

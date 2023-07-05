@@ -9,7 +9,7 @@ import {
 } from '@codelab/frontend/domain/renderer'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { useDroppable } from '@dnd-kit/core'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import type { ImperativePanelHandle } from 'react-resizable-panels'

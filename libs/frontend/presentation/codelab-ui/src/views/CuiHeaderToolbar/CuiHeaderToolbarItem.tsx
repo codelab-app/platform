@@ -1,6 +1,5 @@
 import { Button, Space, Tooltip } from 'antd'
 import React from 'react'
-import tw from 'twin.macro'
 import type { ToolbarItem } from '../../abstract'
 
 type CuiHeaderToolbarItemProps = ToolbarItem
@@ -12,9 +11,9 @@ export const CuiHeaderToolbarItem = ({
   title,
 }: CuiHeaderToolbarItemProps) => {
   return (
-    <div css={tw`w-full h-full`} data-cy={`codelabui-toolbar-item-${title}`}>
+    <div className="h-full w-full" data-cy={`codelabui-toolbar-item-${title}`}>
       <Tooltip title={title}>
-        <Button css={tw`px-2 py-1 h-8`} onClick={onClick}>
+        <Button className="h-8 px-2 py-1" onClick={onClick}>
           <Space>
             {icon}
             {label}

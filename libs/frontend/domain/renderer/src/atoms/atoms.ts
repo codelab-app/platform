@@ -1,9 +1,12 @@
-import type { IAtomRendererRecord } from '@codelab/frontend/abstract/core'
-import type { IAtomType, IComponentType } from '@codelab/shared/abstract/core'
+import type {
+  IAtomRendererRecord,
+  IComponentType,
+} from '@codelab/frontend/abstract/core'
+import type { IAtomType } from '@codelab/shared/abstract/core'
 import { antdAtoms, antdPropsCustomizer } from './antd'
 import { codelabAtoms } from './codelab'
 import { htmlAtoms } from './html'
-import { muiAtoms, muiPropsCustomizer } from './mui'
+// import { muiAtoms, muiPropsCustomizer } from './mui'
 import { reactAtoms, reactPropsCustomizer } from './react'
 import type { AtomCustomizer } from './types'
 
@@ -12,11 +15,17 @@ export const allAtoms: IAtomRendererRecord = {
   ...htmlAtoms,
   ...codelabAtoms,
   ...antdAtoms,
-  ...muiAtoms,
+  // ...muiAtoms,
   ...reactAtoms,
 }
 
-export { antdAtoms, codelabAtoms, htmlAtoms, muiAtoms, reactAtoms }
+export {
+  antdAtoms,
+  codelabAtoms,
+  htmlAtoms,
+  // muiAtoms,
+  reactAtoms,
+}
 
 /**
  * Add a customizers here if you want to modify or add props to a specific element type
@@ -24,7 +33,7 @@ export { antdAtoms, codelabAtoms, htmlAtoms, muiAtoms, reactAtoms }
 export const allPropsCustomizer: AtomCustomizer = {
   ...antdPropsCustomizer,
   ...reactPropsCustomizer,
-  ...muiPropsCustomizer,
+  // ...muiPropsCustomizer,
 }
 
 /**

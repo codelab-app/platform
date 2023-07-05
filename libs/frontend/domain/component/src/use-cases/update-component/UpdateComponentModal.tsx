@@ -4,7 +4,6 @@ import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { updateComponentSchema } from './update-component.schema'
 
@@ -24,7 +23,7 @@ export const UpdateComponentModal = observer(() => {
       okText="Update Component"
       onCancel={closeModal}
       open={componentService.updateModal.isOpen}
-      title={<span css={tw`font-semibold`}>Update component</span>}
+      title={<span className="font-semibold">Update component</span>}
     >
       {/* <UpdateComponentForm component={component} /> */}
       <ModalForm.Form<IUpdateComponentData>

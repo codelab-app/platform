@@ -2,9 +2,8 @@ import type { PropsWithChildren } from 'react'
 import React, { useState } from 'react'
 import type { StatusCode } from 'react-stickynode'
 import Sticky from 'react-stickynode'
-import tw from 'twin.macro'
 
-export const CodelabMenuContainer = ({ children }: PropsWithChildren) => {
+export const CodelabMenuContainer = ({ children }: PropsWithChildren<any>) => {
   // 0 STATUS_ORIGINAL
   // 1 STATUS_RELEASED
   // 2 STATUS_FIXED
@@ -21,8 +20,8 @@ export const CodelabMenuContainer = ({ children }: PropsWithChildren) => {
       }}
       top={0}
     >
-      <div css={[tw`z-50 m-0 p-0 bg-white`, showStickyHeader && tw`shadow`]}>
-        <div css={tw`xl:container mx-auto`}>{children}</div>
+      <div className={`z-50 m-0 bg-white p-0 ${showStickyHeader && 'shadow'}`}>
+        <div className="mx-auto xl:container">{children}</div>
       </div>
     </Sticky>
   )

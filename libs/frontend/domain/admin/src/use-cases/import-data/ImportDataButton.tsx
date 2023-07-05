@@ -11,7 +11,7 @@ export const ImportDataButton = observer(() => {
     <Button
       icon={<ImportOutlined />}
       onClick={() =>
-        adminService.import().then(() => message.success('Import success!'))
+        adminService.importData().then(() => message.success('Import success!'))
       }
     >
       Import Data

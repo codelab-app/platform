@@ -12,7 +12,6 @@ import { Divider, InputNumber, Menu, Space } from 'antd'
 import type { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useState } from 'react'
-import tw from 'twin.macro'
 
 export type MenuItemProps = ItemType & {
   hide?: boolean
@@ -21,7 +20,7 @@ export type MenuItemProps = ItemType & {
 const MenuIconContainer = ({ children }: React.PropsWithChildren) => {
   return (
     <div
-      css={tw`h-full w-5 flex items-center justify-center`}
+      className="flex h-full w-5 items-center justify-center"
       style={{ backgroundColor: 'initial' }}
     >
       {children}
@@ -58,7 +57,7 @@ export const BuilderSizeMenu = observer(() => {
       key: BuilderWidthBreakPoints.Mobile,
       label: (
         <MenuIconContainer>
-          <MobileOutlined css={tw`h-full`} />
+          <MobileOutlined className="h-full" />
         </MenuIconContainer>
       ),
 
@@ -105,9 +104,9 @@ export const BuilderSizeMenu = observer(() => {
   ]
 
   return (
-    <div css={tw`h-full flex flex-row items-center justify-center`}>
+    <div className="flex h-full flex-row items-center justify-center">
       <Menu
-        css={tw`flex justify-center`}
+        className="flex justify-center"
         items={menuItems
           .filter((item) => !item.hide)
           .map((item) => ({

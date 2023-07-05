@@ -2,16 +2,25 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "preserve",
-    "jsxImportSource": "@emotion/react",
     "allowJs": true,
+    "experimentalDecorators": true,
     "emitDecoratorMetadata": false,
-    "types": ["@fancyapps/ui"],
+    "lib": ["es2021"],
+    "types": ["node", "worker-loader", "@fancyapps/ui", "styled-components"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
+    "noEmit": false,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "incremental": true
+    "incremental": true,
+    "module": "esnext",
+    "useDefineForClassFields": true,
+    "esModuleInterop": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts"],
   "exclude": ["node_modules", "jest.config.ts"]

@@ -1,5 +1,4 @@
 import React from 'react'
-import tw from 'twin.macro'
 import { CuiSkeletonWrapper } from '../../components'
 
 export interface CuiCollapsePanelContentProps {
@@ -17,19 +16,11 @@ export const CuiCollapsePanelContent = ({
 }: CuiCollapsePanelContentProps) => {
   return (
     <div
-      css={tw`
-      h-full
-      w-full
-      flex
-      flex-col
-      overflow-auto
-      bg-white
-      min-h-1/3
-    `}
+      className="flex h-full min-h-1/3 w-full flex-col overflow-auto bg-white"
       data-cy={`codelabui-sidebar-view-content-${label}`}
       key={key}
     >
-      <div css={tw`w-full flex-1 overflow-auto`}>
+      <div className="w-full flex-1 overflow-auto">
         <CuiSkeletonWrapper isLoading={isLoading}>{content}</CuiSkeletonWrapper>
       </div>
     </div>

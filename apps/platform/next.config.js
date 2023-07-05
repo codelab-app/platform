@@ -30,9 +30,15 @@ const plugins = [withBundleAnalyzer, withRawCypherFiles]
  * @type {WithNxOptions}
  */
 const nextConfig = {
+  compiler: {
+    // For other options, see https://styled-components.com/docs/tooling#babel-plugin
+    styledComponents: {
+      cssProp: true,
+    },
+  },
   experimental: {
+    appDir: true,
     instrumentationHook: process.env.NEXT_PLATFORM_ENABLE_OTEL ? true : false,
-    // appDir: true,
   },
   nx: { svgr: true },
 }

@@ -1,8 +1,7 @@
-import { Tooltip } from '@mui/material'
+// import { Tooltip } from '@mui/material'
 import { Breadcrumb } from 'antd'
 import type { BreadcrumbItemType } from 'antd/es/breadcrumb/Breadcrumb'
 import React from 'react'
-import tw from 'twin.macro'
 import { BreadcrumbItemWrapper } from './BreadcrumbItemWrapper'
 
 interface HeaderBreadcrumbItem {
@@ -45,13 +44,13 @@ const createFullPath = (allItems: Array<HeaderBreadcrumbItem>) => {
 
 export const CuiHeaderBreadcrumb = ({ items }: CuiHeaderBreadcrumbProps) => {
   return (
-    <Tooltip placement="bottom-start" title={createFullPath(items)}>
-      <div css={tw`h-full px-2 flex items-center`}>
-        <Breadcrumb
-          items={filterBreadcrumbItems(items).map(transformBreadcrumbItems)}
-          separator={<BreadcrumbItemWrapper>{separator}</BreadcrumbItemWrapper>}
-        />
-      </div>
-    </Tooltip>
+    // <Tooltip placement="bottom-start" title={createFullPath(items)}>
+    <div className="flex h-full items-center px-2">
+      <Breadcrumb
+        items={filterBreadcrumbItems(items).map(transformBreadcrumbItems)}
+        separator={<BreadcrumbItemWrapper>{separator}</BreadcrumbItemWrapper>}
+      />
+    </div>
+    // </Tooltip>
   )
 }

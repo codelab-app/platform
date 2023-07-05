@@ -1,4 +1,4 @@
-import { css } from '@emotion/react'
+import { css } from 'styled-components'
 
 /**
  * Discovered first when using Ant Design Image component, the preview feature was off-centered

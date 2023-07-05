@@ -1,5 +1,4 @@
 // import type { IPropData } from '@codelab/frontend/abstract/core'
-// import { jsx } from '@emotion/react'
 // import type { ComponentProps, ComponentType, PropsWithChildren } from 'react'
 // import React from 'react'
 

@@ -1,5 +1,4 @@
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { CSSInterpolation } from '@emotion/serialize'
 import type { JSONSchemaType } from 'ajv'
 import type React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
@@ -21,7 +20,7 @@ export type FormProps<TData, TResponse = unknown> = Partial<
      */
     'data-testid'?: string
 
-    cssString?: CSSInterpolation
+    cssString?: string
     /**
      * Don't use `DeepPartial` even Uniform uses it
      */

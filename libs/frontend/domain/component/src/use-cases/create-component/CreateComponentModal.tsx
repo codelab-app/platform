@@ -4,7 +4,6 @@ import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createComponentSchema } from './create-component.schema'
@@ -30,7 +29,7 @@ export const CreateComponentModal = observer(() => {
       okText="Create Component"
       onCancel={closeModal}
       open={componentService.createModal.isOpen}
-      title={<span css={tw`font-semibold`}>Create component</span>}
+      title={<span className="font-semibold">Create component</span>}
     >
       <ModalForm.Form<ICreateComponentData>
         model={model}

@@ -1,11 +1,10 @@
-import { css } from '@emotion/react'
+import { css } from 'styled-components'
 import { faQuoteLeft, faStar } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar, Card, Divider, Typography } from 'antd'
 import React from 'react'
 import type { Settings } from 'react-slick'
 import Slider from 'react-slick'
-import tw from 'twin.macro'
 import voca from 'voca'
 import styles from './customDots.module.css'
 
@@ -30,17 +29,13 @@ export const TestimonialItem = ({
 
   return (
     <>
-      <div css={tw`h-8`} />
-      <Card css={[tw`max-w-[600px] mx-2 bg-transparent p-2 sm:p-4 rounded-lg`]}>
-        <div css={tw`flex justify-center`}>
-          <span css={tw`flex relative -mt-20 bg-slate-700 p-4`}>
+      <div className="h-8" />
+      <Card className="max-w-[600px] mx-2 bg-transparent p-2 sm:p-4 rounded-lg">
+        <div className="flex justify-center">
+          <span className="flex relative -mt-20 bg-slate-700 p-4">
             <FontAwesomeIcon
               color=""
-              css={css`
-                path {
-                  ${tw`fill-yellow-400`}
-                }
-              `}
+              className="[&_path]:fill-yellow-400"
               icon={faQuoteLeft}
               size="5x"
             />
@@ -49,14 +44,7 @@ export const TestimonialItem = ({
         {Array(5)
           .fill(
             <FontAwesomeIcon
-              css={[
-                css`
-                  path {
-                    ${tw`fill-yellow-400`}
-                  }
-                `,
-                tw`pr-1.5`,
-              ]}
+              className="[&_path]:fill-yellow-400 pr-1.5"
               icon={faStar}
               size="lg"
             />,
@@ -64,31 +52,16 @@ export const TestimonialItem = ({
           .map((item, idx) => (
             <React.Fragment key={idx}>{item}</React.Fragment>
           ))}
-        <div
-          css={tw`mt-3 min-h-[120px] md:min-h-[200px] lg:min-h-[144px] xl:min-h-[170px] 2xl:min-h-[140px]`}
-        >
+        <div className="mt-3 min-h-[120px] md:min-h-[200px] lg:min-h-[144px] xl:min-h-[170px] 2xl:min-h-[140px]">
           <Text
-            css={tw`text-sm sm:text-base text-slate-300`}
+            className="text-sm sm:text-base text-slate-300"
             italic
           >{`"${review}"`}</Text>
         </div>
-        <Divider css={tw`bg-slate-600`} />
+        <Divider className="bg-slate-600" />
         <Meta
           avatar={<Avatar size={48}>{initials(stakeholder)}</Avatar>}
-          css={[
-            css`
-              .ant-card-meta-title {
-                margin-bottom: 0 !important;
-              }
-              .ant-card-meta-title {
-                ${tw`text-neutral-300`}
-              }
-              .ant-card-meta-description {
-                ${tw`text-slate-400`}
-              }
-            `,
-            tw`text-slate-300`,
-          ]}
+          className="text-slate-300 [&_.ant-card-meta-title]:text-neutral-300 [&_.ant-card-meta-description]:text-slate-400 [&_.ant-card-meta-title]:!mb-0"
           description={role}
           title={stakeholder}
         />
@@ -162,14 +135,14 @@ export const TestimonialSection = () => {
   }
 
   return (
-    <div css={tw`px-8 pt-12 pb-12 sm:pb-20 `}>
+    <div className="px-8 pt-12 pb-12 sm:pb-20">
       <h1
-        css={tw`text-center mt-4 sm:mt-14 md:mt-28 !font-extrabold !text-white text-xl sm:text-3xl lg:text-4xl xl:!text-5xl`}
+        className="text-center mt-4 sm:mt-14 md:mt-28 !font-extrabold !text-white text-xl sm:text-3xl lg:text-4xl xl:!text-5xl"
         // level={2}
       >
         Loved by startups
       </h1>
-      <Slider {...settings} css={tw`my-2 sm:my-8 pb-0 sm:pb-8 z-10 mt-8`}>
+      <Slider {...settings} className="my-2 sm:my-8 pb-0 sm:pb-8 z-10 mt-8">
         {testimonialItems.map((item, index) => (
           <TestimonialItem
             key={index}
@@ -179,7 +152,7 @@ export const TestimonialSection = () => {
           />
         ))}
       </Slider>
-      <div css={tw`mt-12`}></div>
+      <div className="mt-12"></div>
     </div>
   )
 }

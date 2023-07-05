@@ -2,9 +2,7 @@
   "extends": "../../../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "@emotion/react",
     "allowJs": true,
-
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitReturns": true,

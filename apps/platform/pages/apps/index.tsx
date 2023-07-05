@@ -29,7 +29,6 @@ import { Image, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { useEffect } from 'react'
-import tw from 'twin.macro'
 
 const AppsPageHeader = observer(() => {
   const { appService } = useStore()
@@ -63,13 +62,13 @@ const AppsPageHeader = observer(() => {
       logo={
         <Image
           alt="codelab logo"
-          css={tw`w-full h-full`}
+          className="h-full w-full"
           preview={false}
           src="/logo.png"
         />
       }
       toolbar={
-        <CuiHeaderToolbar items={toolbarItems} title="My Header Toolbal" />
+        <CuiHeaderToolbar items={toolbarItems} title="My Header Toolbar" />
       }
     />
   )

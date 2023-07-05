@@ -1,8 +1,6 @@
 import type { IRenderer } from '@codelab/frontend/abstract/core'
 import { ROOT_RENDER_CONTAINER_ID } from '@codelab/frontend/abstract/core'
 import type { WithStyleProp } from '@codelab/frontend/abstract/types'
-import createCache from '@emotion/cache'
-import { CacheProvider } from '@emotion/react'
 import ErrorBoundary from 'antd/lib/alert/ErrorBoundary'
 import { observer } from 'mobx-react-lite'
 import React, { useMemo } from 'react'
@@ -31,11 +29,6 @@ import React, { useMemo } from 'react'
  * Hooks and prop map bindings are currently not implemented, since they might be replaced by platform-level mobx.
  */
 
-const emotionCache = createCache({
-  key: ROOT_RENDER_CONTAINER_ID,
-  prepend: false,
-})
-
 export const Renderer = observer<
   WithStyleProp<{ renderer: IRenderer }>,
   HTMLDivElement
@@ -52,11 +45,9 @@ export const Renderer = observer<
 
     return (
       <ErrorBoundary>
-        <CacheProvider value={emotionCache}>
-          <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>
-            {renderer.renderRoot()}
-          </div>
-        </CacheProvider>
+        <div id={ROOT_RENDER_CONTAINER_ID} ref={ref} style={containerStyle}>
+          {renderer.renderRoot()}
+        </div>
       </ErrorBoundary>
     )
   }),

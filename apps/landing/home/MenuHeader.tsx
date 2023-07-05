@@ -8,7 +8,6 @@ import { useMobileOrTabletMediaQuery } from '@codelab/frontend/shared/style'
 import { Button, Menu } from 'antd'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import tw from 'twin.macro'
 import { disableMenuHoverEffects, removeHoverBorder } from '../styles/style'
 import { LoginUserButton } from './auth/LoginUserButton'
 import { RegisterUserButton } from './auth/RegisterUserButton'
@@ -81,7 +80,7 @@ export const HomeMenuHeader = () => {
         <>{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}</>
       </Button>
       <Menu
-        css={tw`justify-end flex-grow`}
+        className="justify-end flex-grow"
         inlineCollapsed={collapsed}
         mode={isMobileOrTablet ? 'inline' : 'horizontal'}
         style={

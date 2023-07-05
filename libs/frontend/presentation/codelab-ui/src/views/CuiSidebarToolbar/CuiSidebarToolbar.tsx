@@ -1,7 +1,6 @@
 import { EllipsisOutlined } from '@ant-design/icons'
 import { Button, Dropdown, Menu } from 'antd'
 import React, { useEffect, useRef, useState } from 'react'
-import tw from 'twin.macro'
 import type { ToolbarItem, ToolbarProps } from '../../abstract'
 import { CuiSidebarToolbarItem } from './CuiSidebarToolbarItem'
 
@@ -52,23 +51,8 @@ export const CuiSidebarToolbar = ({ items }: CuiSidebarToolbarProps) => {
   )
 
   return (
-    <div
-      css={tw`
-      w-full
-      flex
-      justify-end
-    `}
-      data-cy="codelabui-header-toolbar"
-    >
-      <div
-        css={tw`
-          flex
-          items-start
-          flex-row
-          overflow-hidden
-        `}
-        ref={listRef}
-      >
+    <div className="flex w-full justify-end" data-cy="codelabui-header-toolbar">
+      <div className="flex flex-row items-start overflow-hidden" ref={listRef}>
         {items.map((item) => (
           <CuiSidebarToolbarItem
             icon={item.icon}
@@ -80,7 +64,7 @@ export const CuiSidebarToolbar = ({ items }: CuiSidebarToolbarProps) => {
       </div>
       {showDropdown && (
         <Dropdown overlay={menu} trigger={['click']}>
-          <Button css={tw`px-2 py-1`}>
+          <Button className="px-2 py-1">
             <EllipsisOutlined />
           </Button>
         </Dropdown>

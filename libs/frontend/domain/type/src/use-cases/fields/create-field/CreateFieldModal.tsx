@@ -5,7 +5,6 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { SelectDefaultValue } from '../../../interface-form'
@@ -49,7 +48,7 @@ export const CreateFieldModal = observer(() => {
       okText="Create"
       onCancel={closeModal}
       open={fieldService.createModal.isOpen}
-      title={<span css={tw`font-semibold`}>Create field</span>}
+      title={<span className="font-semibold">Create field</span>}
     >
       <ModalForm.Form<ICreateFieldData>
         model={{

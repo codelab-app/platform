@@ -26,7 +26,6 @@ import { Image, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
-import tw from 'twin.macro'
 
 const DomainsPageHeader = observer(() => {
   const { domainService } = useStore()
@@ -42,7 +41,7 @@ const DomainsPageHeader = observer(() => {
       logo={
         <Image
           alt="codelab logo"
-          css={tw`w-full h-full`}
+          className="h-full w-full"
           preview={false}
           src="/logo.png"
         />

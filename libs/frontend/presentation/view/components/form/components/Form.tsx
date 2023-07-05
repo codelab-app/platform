@@ -1,6 +1,6 @@
 import type { FormProps } from '@codelab/frontend/abstract/types'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
-import { css } from '@emotion/react'
+import { css } from 'styled-components'
 import type { ReactElement } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { Bridge } from 'uniforms'

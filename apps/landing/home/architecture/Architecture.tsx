@@ -1,11 +1,10 @@
 import { Button, Space } from 'antd'
 import Image from 'next/image'
 import React from 'react'
-import tw from 'twin.macro'
 
 export const Architecture = () => {
   return (
-    <section css={tw`bg-violet-700 m-auto container`}>
+    <section className="bg-violet-700 m-auto container">
       <h2>Replace Your Entire Frontend Stack</h2>
       <p>
         Codelab is a purpose built frontend layer meant to be used with external

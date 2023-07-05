@@ -3,10 +3,10 @@
   "compilerOptions": {
     "outDir": "../../../../dist/out-tsc",
     "jsx": "react-jsx",
-    "jsxImportSource": "@emotion/react",
+
     "strict": true,
     "noPropertyAccessFromIndexSignature": false,
-    "types": ["node", "@emotion/react/types/css-prop"],
+    "types": ["node", "styled-components"],
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },

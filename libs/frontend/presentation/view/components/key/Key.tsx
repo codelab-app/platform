@@ -1,10 +1,10 @@
-import { css } from '@emotion/react'
 import React from 'react'
-import tw from 'twin.macro'
+import { css } from 'styled-components'
 
 export const Key = ({ children }: React.PropsWithChildren<unknown>) => {
   return (
     <kbd
+      className="rounded border border-gray-200 px-1 py-0.5 text-xs text-gray-600"
       css={[
         css`
           background: white;
@@ -16,7 +16,6 @@ export const Key = ({ children }: React.PropsWithChildren<unknown>) => {
           );
         `,
         // font-mono failed
-        tw`rounded px-1 py-0.5 text-gray-600 border border-gray-200 text-xs`,
       ]}
     >
       {children}

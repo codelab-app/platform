@@ -1,18 +1,13 @@
 import React from 'react'
-import tw from 'twin.macro'
 
 export const TutorialsHeader = () => {
   return (
-    <section css={tw`w-11/12 xl:container m-auto`}>
-      <div
-        css={tw`w-11/12 m-auto xl:container pb-7 sm:pb-14 mt-5 sm:mt-10 md:mt-20`}
-      >
-        <h1 css={tw`text-center text-2xl sm:text-3xl md:text-5xl`}>
+    <section className="m-auto w-11/12 xl:container">
+      <div className="m-auto mt-5 w-11/12 pb-7 xl:container sm:mt-10 sm:pb-14 md:mt-20">
+        <h1 className="text-center text-2xl sm:text-3xl md:text-5xl">
           Learn To Build
         </h1>
-        <p
-          css={tw`w-full xl:w-3/5 m-auto text-base sm:text-lg md:text-xl px-8 md:px-0  text-center text-slate-500`}
-        >
+        <p className="m-auto w-full px-8 text-center text-base text-slate-500 sm:text-lg md:px-0 md:text-xl xl:w-3/5">
           Checkout our different tutorials for building different types of user
           interfaces. From simple to complex, we've got you covered.
         </p>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import tw from 'twin.macro'
 import type { CuiSidebarToolbarProps } from '../CuiSidebarToolbar'
 import { CuiCollapsePanelContent } from './CuiCollapsePanelContent'
 import { CuiCollapsePanelHeader } from './CuiCollapsePanelHeader'
@@ -39,10 +38,8 @@ export const CuiCollapse = ({
   }
 
   return (
-    <div
-      css={tw`w-full h-full overflow-y-auto overflow-x-hidden flex flex-col`}
-    >
-      <div css={tw`w-full h-full flex flex-col py-1`}>
+    <div className="flex h-full w-full flex-col overflow-y-auto overflow-x-hidden">
+      <div className="flex h-full w-full flex-col py-1">
         {panels.map((view) => (
           <>
             <CuiCollapsePanelHeader

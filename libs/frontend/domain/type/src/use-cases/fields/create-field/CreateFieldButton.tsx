@@ -5,7 +5,6 @@ import { Button } from 'antd'
 import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
 import type { InterfaceType } from '../../../store'
 
 export const CreateFieldButton = observer<{
@@ -21,7 +20,7 @@ export const CreateFieldButton = observer<{
 
   return (
     <Button
-      css={tw`flex justify-center items-center`}
+      className="flex justify-center items-center"
       icon={<PlusOutlined />}
       onClick={onClick}
       size="small"

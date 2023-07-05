@@ -92,7 +92,7 @@ export const ElementTreeItemElementTitle = observer(
             title="ElementTreeItemToolbar"
           />
         }
-        varient={errorMessage ? 'danger' : 'primary'}
+        variant={errorMessage ? 'danger' : 'primary'}
       />
     )
   },

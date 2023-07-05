@@ -6,7 +6,7 @@ import type {
 import { elementRef, isElementRef } from '@codelab/frontend/abstract/core'
 import { queryRenderedElementById } from '@codelab/frontend/domain/renderer'
 import { ClickOverlay } from '@codelab/frontend/presentation/view'
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'

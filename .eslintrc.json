@@ -8,7 +8,6 @@
     "unused-imports",
     "react",
     //    "react-hooks",
-    "@emotion",
     "prettier",
     "jest",
     "jest-formatting",
@@ -21,7 +20,8 @@
     // @typescript-eslint/member-ordering doesn't auto-fix
     // But conflicts with member-ordering, since that puts methods after properties, while `typescript-sort-keys` sorts everything alphabetically
     "typescript-sort-keys",
-    "unicorn"
+    "unicorn",
+    "tailwindcss"
   ],
   "parser": "@typescript-eslint/parser",
   "env": {
@@ -29,7 +29,8 @@
   },
   "extends": [
     "plugin:prettier/recommended",
-    "plugin:canonical/recommended"
+    "plugin:canonical/recommended",
+    "plugin:tailwindcss/recommended"
     // We first apply `typescript-sort-keys`, then comment off and manually move methods after properties
     // "plugin:typescript-sort-keys/recommended"
     // "plugin:import/recommended"
@@ -496,23 +497,10 @@
               "camelCase": false,
               "pascalCase": true
             },
-            "ignore": [
-              "_app.tsx",
-              "_document.tsx",
-              "^\\[.*\\]\\.tsx$",
-              ".*\\.hook\\.tsx?$"
-            ]
+            "ignore": [".*\\.hook\\.tsx?$"]
           }
         ]
-      },
-      "overrides": [
-        {
-          "files": ["**/pages/**/*.tsx"],
-          "rules": {
-            "unicorn/filename-case": "off"
-          }
-        }
-      ]
+      }
     },
     {
       "files": ["*.hook.ts", "*.hook.tsx"],
@@ -554,6 +542,12 @@
             "leadingUnderscore": "allowDouble"
           }
         ]
+      }
+    },
+    {
+      "files": ["**/pages/**/*.tsx", "**/app/**/*.tsx"],
+      "rules": {
+        "unicorn/filename-case": "off"
       }
     },
     {

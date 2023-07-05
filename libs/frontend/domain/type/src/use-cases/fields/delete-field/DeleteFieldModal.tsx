@@ -4,7 +4,6 @@ import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 
 export const DeleteFieldModal = observer(() => {
@@ -23,7 +22,7 @@ export const DeleteFieldModal = observer(() => {
       okText="Delete"
       onCancel={closeModal}
       open={fieldService.deleteModal.isOpen}
-      title={<span css={tw`font-semibold`}>Delete field</span>}
+      title={<span className="font-semibold">Delete field</span>}
     >
       <ModalForm.Form<EmptyJsonSchemaType>
         model={{}}

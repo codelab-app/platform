@@ -14,19 +14,18 @@ import {
 } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import { css } from '@emotion/react'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren, ReactNode } from 'react'
 import React from 'react'
-import tw from 'twin.macro'
+import { css } from 'styled-components'
 
 const StoreHeader = ({
   children,
   extra,
 }: PropsWithChildren<{ extra?: ReactNode }>) => (
-  <div css={tw`flex justify-between`}>
-    <span css={tw`text-sm font-bold`}>{children}</span>
+  <div className="flex justify-between">
+    <span className="text-sm font-bold">{children}</span>
     <div>{extra}</div>
   </div>
 )
@@ -36,7 +35,7 @@ export const StorePane = observer<{ store: Maybe<IStore>; isLoading: boolean }>(
     <SkeletonWrapper isLoading={isLoading}>
       {store ? (
         <>
-          <Collapse css={tw`w-full mb-2`} defaultActiveKey={['1']} ghost>
+          <Collapse className="w-full mb-2" defaultActiveKey={['1']} ghost>
             <Collapse.Panel
               header={
                 <StoreHeader
@@ -69,11 +68,9 @@ export const StorePane = observer<{ store: Maybe<IStore>; isLoading: boolean }>(
               key="store-inspector"
             >
               <CodeMirrorEditor
+                className="mt-1"
                 language={CodeMirrorLanguage.Json}
                 onChange={() => undefined}
-                overrideStyles={css`
-                  ${tw`mt-1`}
-                `}
                 singleLine={false}
                 title="Current props"
                 value={store.jsonString}

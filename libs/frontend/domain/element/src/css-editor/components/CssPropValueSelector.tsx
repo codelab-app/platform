@@ -1,7 +1,7 @@
 import { DownOutlined } from '@ant-design/icons'
-import type { EmotionJSX } from '@emotion/react/types/jsx-namespace'
 import { Button, Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
+import type { ReactElement, ReactNode } from 'react'
 import { useEffect, useState } from 'react'
 import { makeMenu } from '../utils'
 import { CssPropEditorItem } from './CssPropEditorItem'
@@ -15,7 +15,7 @@ interface PropValueSelectorProps {
 
 export const CssPropValueSelector = observer(
   ({ currentValue, name, onClick, options }: PropValueSelectorProps) => {
-    const [overlay, setOverlay] = useState<EmotionJSX.Element>(
+    const [overlay, setOverlay] = useState<ReactElement>(
       makeMenu(options, onClick),
     )
 

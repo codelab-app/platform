@@ -19,7 +19,6 @@ import isNil from 'lodash/isNil'
 import { Observer, observer } from 'mobx-react-lite'
 import React from 'react'
 import ReactDragListView from 'react-drag-listview'
-import tw from 'twin.macro'
 import { CreateFieldButton } from '../../../fields/create-field'
 import { getValidationRuleTagsArray } from '../../../fields/get-fields/validation'
 import { TypeDetailsTable } from '../../index'
@@ -32,7 +31,7 @@ export interface FieldsTableProps {
   typeService: ITypeService
 }
 
-const headerCellProps = () => ({ style: tw`font-semibold text-gray-900` })
+const headerCellProps = () => ({ className: 'font-semibold text-gray-900' })
 
 export const FieldsTable = observer<FieldsTableProps>(
   ({ fieldService, hideActions, interfaceType, isLoading, typeService }) => {

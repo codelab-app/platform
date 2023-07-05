@@ -20,12 +20,12 @@ export class AdminService extends Model({}) implements IAdminService {
   })
 
   @modelFlow
-  export = _async(function* (this: AdminService) {
+  exportData = _async(function* (this: AdminService) {
     return yield* _await(fetch(`/api/export/admin`))
   })
 
   @modelFlow
-  import = _async(function* (this: AdminService) {
+  importData = _async(function* (this: AdminService) {
     return yield* _await(fetch(`/api/import/admin`))
   })
 }

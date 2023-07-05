@@ -1,6 +1,7 @@
 import type {
   IAtom,
   IAtomService,
+  IComponentType,
   ICreateAtomData,
   IInterfaceType,
   IUpdateAtomData,
@@ -14,7 +15,7 @@ import {
   PaginationService,
 } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
-import type { IAtomDTO, IComponentType } from '@codelab/shared/abstract/core'
+import type { IAtomDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import isEmpty from 'lodash/isEmpty'
 import { computed, observable } from 'mobx'

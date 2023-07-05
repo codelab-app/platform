@@ -6,12 +6,11 @@ import {
   UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
 import { SkeletonWrapper } from '@codelab/frontend/presentation/view'
-import { css } from '@emotion/react'
 import type { TabsProps } from 'antd'
 import { Tabs } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
+import { css } from 'styled-components'
 import { renderStickyTabBar } from '../StickyTabBarRenderer'
 import { CustomComponents, PreBuiltComponents } from './tab-contents'
 
@@ -47,18 +46,13 @@ export const ComponentsExplorerPane = observer<ComponentsExplorerPaneProps>(
     return (
       <>
         <Tabs
+          className="[&_.ant-page-header-heading]:px-0! [&_.ant-page-header-heading]:mt-0! h-full w-full px-4"
           css={css`
-            ${tw`px-4 h-full w-full`}
             .ant-page-header-content,
             .ant-collapse-header,
-            .ant-page-header-heading {
-              ${tw`px-0! mt-0!`}
-            }
-
             .ant-tabs-tabpane {
               height: 100%;
             }
-
             .ant-tabs-content-holder {
               display: flex;
             }

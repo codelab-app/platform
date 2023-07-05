@@ -40,11 +40,10 @@ import {
 } from '@codelab/frontend/presentation/container'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import { css } from '@emotion/react'
 import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
+import { css } from 'styled-components'
 import { ElementTreeView } from './builder-tree'
 
 export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
@@ -95,7 +94,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
               />
             )}
             {elementService.createForm.isOpen && (
-              <div css={tw`p-2`}>
+              <div className="p-2">
                 <CreateElementForm />
               </div>
             )}
@@ -140,12 +139,12 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                 <StateTreeView store={store} />
               )}
             {fieldService.createForm.isOpen && (
-              <div css={tw`p-2`}>
+              <div className="p-2">
                 <CreateFieldForm />
               </div>
             )}
             {fieldService.updateForm.isOpen && (
-              <div css={tw`p-2`}>
+              <div className="p-2">
                 <UpdateFieldForm />
               </div>
             )}
@@ -195,11 +194,9 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
       {
         content: store && (
           <CodeMirrorEditor
+            className="mt-1"
             language={CodeMirrorLanguage.Json}
             onChange={() => undefined}
-            overrideStyles={css`
-              ${tw`mt-1`}
-            `}
             singleLine={false}
             title="Current props"
             value={store.jsonString}

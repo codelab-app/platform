@@ -14,7 +14,6 @@ import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import React, { useCallback } from 'react'
-import tw from 'twin.macro'
 import { BuilderSizeMenu } from './BuilderSizeMenu'
 
 export const PageDetailHeader = observer(() => {
@@ -73,13 +72,13 @@ export const PageDetailHeader = observer(() => {
       logo={
         <Image
           alt="codelab logo"
-          css={tw`w-full h-full`}
+          className="h-full w-full"
           preview={false}
           src="/logo.png"
         />
       }
       toolbar={
-        <CuiHeaderToolbar items={toolbarItems} title="My Header Toolbal" />
+        <CuiHeaderToolbar items={toolbarItems} title="My Header Toolbar" />
       }
     />
   )

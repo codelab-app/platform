@@ -8,7 +8,6 @@ import {
 } from '@fortawesome/pro-light-svg-icons'
 import { Col, Row, Typography } from 'antd'
 import React from 'react'
-import tw from 'twin.macro'
 import { alignFullGridStyle } from '../../styles/style'
 import { FeatureCard } from './FeatureCard'
 
@@ -61,27 +60,23 @@ const featureItems = [
 
 export const BestPractices = () => {
   return (
-    <section css={tw`w-11/12 m-auto xl:container md:pb-14 pb-0`}>
-      <div css={tw`m-auto py-4 mt-8 sm:py-0`}>
+    <section className="w-11/12 m-auto xl:container md:pb-14 pb-0">
+      <div className="m-auto py-4 mt-8 sm:py-0">
         <Title
-          css={tw`text-center mt-4 sm:mt-14 md:mt-28 !text-lg sm:!text-2xl md:!text-3xl lg:!text-4xl xl:!text-5xl !font-extrabold !text-violet-600 `}
+          className="text-center mt-4 sm:mt-14 md:mt-28 !text-lg sm:!text-2xl md:!text-3xl lg:!text-4xl xl:!text-5xl !font-extrabold !text-violet-600"
           level={2}
         >
           Build with best practices: re-use & compose
         </Title>
-        <div
-          css={tw`text-center mb-11 text-sm px-4 sm:px-0  sm:text-base md:text-lg text-slate-500 text-black`}
-        >
+        <div className="text-center mb-11 text-sm px-4 sm:px-0  sm:text-base md:text-lg text-black">
           Re-use your knowledge of coding and apply them as you would with code.
           Think like a developer, but work more productively using our
           development platform. It’s like a smart IDE on steroids.
         </div>
-        <Row
-          css={tw`justify-center pl-0 md:pl-8 2xl:pl-0 m-auto w-11/12 md:container`}
-        >
+        <Row className="justify-center pl-0 md:pl-8 2xl:pl-0 m-auto w-11/12 md:container">
           {featureItems.map((items, index) => (
             <Col
-              css={tw`mr-0 md:mr-8 mb-8`}
+              className="mr-0 md:mr-8 mb-8"
               key={index}
               lg={11}
               span={24}

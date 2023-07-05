@@ -5,7 +5,6 @@ import { Button, Dropdown } from 'antd'
 import type { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
 import { ResourceIcon } from '../../view'
 
 export const CreateResourceButton = observer(() => {
@@ -37,7 +36,7 @@ export const CreateResourceButton = observer(() => {
 
   return (
     <Dropdown menu={{ items: menuItems }}>
-      <Button css={tw`h-full w-full`} icon={<PlusOutlined />} type="primary">
+      <Button className="h-full w-full" icon={<PlusOutlined />} type="primary">
         Connect
       </Button>
     </Dropdown>

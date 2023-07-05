@@ -1,8 +1,8 @@
+import classNames from 'classnames'
 import type { ReactNode } from 'react'
 import React from 'react'
-import tw from 'twin.macro'
-import type { Varient } from '../../abstract'
-import { varientColors } from '../../abstract'
+import type { Variant } from '../../abstract'
+import { variantColors } from '../../abstract'
 
 interface CuiTreeItemProps {
   icon?: ReactNode
@@ -10,7 +10,7 @@ interface CuiTreeItemProps {
   secondaryTitle?: string
   tag?: ReactNode
   toolbar?: ReactNode
-  varient?: Varient
+  variant?: Variant
 }
 
 export const CuiTreeItem = ({
@@ -19,56 +19,31 @@ export const CuiTreeItem = ({
   secondaryTitle,
   tag,
   toolbar,
-  varient,
+  variant,
 }: CuiTreeItemProps) => {
   return (
     <div
-      className="codelabui-tree-item"
-      css={[
-        tw`
-      h-full
-      flex
-      flex-row
-      justify-between
-      overflow-hidden
-    `,
-        varientColors[varient ?? 'primary'],
-      ]}
+      className={classNames(
+        'codelabui-tree-item h-full flex flex-row justify-between overflow-hidden',
+        variantColors[variant ?? 'primary'],
+      )}
       data-cy={`
         codelabui-tree-item
         codelabui-tree-item-primary-title-${primaryTitle}
         codelabui-tree-item-secondary-title-${secondaryTitle}
       `}
     >
-      <div
-        css={tw`
-          h-full
-          flex
-          flex-row
-          justify-start
-          overflow-hidden
-        `}
-      >
-        <div css={tw`flex-shrink-0`}>{icon}</div>
-        <div
-          css={tw`
-          h-full
-          flex
-          flex-row
-          justify-start
-          overflow-hidden
-          pl-2
-          min-w-1/3
-        `}
-        >
-          <p css={tw`truncate m-0`}>
-            <span css={tw`font-semibold`}>{primaryTitle}</span>
-            <span css={tw`pl-2 font-normal`}>{secondaryTitle}</span>
+      <div className="flex h-full flex-row justify-start overflow-hidden">
+        <div className="shrink-0">{icon}</div>
+        <div className="flex h-full min-w-1/3 flex-row justify-start overflow-hidden pl-2">
+          <p className="m-0 truncate">
+            <span className="font-semibold">{primaryTitle}</span>
+            <span className="pl-2 font-normal">{secondaryTitle}</span>
           </p>
         </div>
-        <div css={tw`flex-shrink-0 pl-2`}>{tag}</div>
+        <div className="shrink-0 pl-2">{tag}</div>
       </div>
-      <div css={tw`flex-shrink-0 text-black`}>{toolbar}</div>
+      <div className="shrink-0 text-black">{toolbar}</div>
     </div>
   )
 }
