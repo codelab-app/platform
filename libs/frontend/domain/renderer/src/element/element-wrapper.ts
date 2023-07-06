@@ -17,6 +17,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 import styled from 'styled-components'
 import { shouldRenderElement } from '../utils'
 import { mapOutput } from '../utils/render-output-utils'
+import { getStyledComponent } from './get-styled-components'
 import { extractValidProps, getReactComponent } from './wrapper.utils'
 
 export interface ElementWrapperProps {
@@ -25,18 +26,6 @@ export interface ElementWrapperProps {
    * Props passed in from outside the component
    */
   renderer: IRenderer
-}
-
-// Only wrap the component with styled() if it's a valid component (not a string or React.Fragment)
-export const getStyledComponent = (ReactComponent: IComponentType) => {
-  if (
-    typeof ReactComponent === 'function' &&
-    ReactComponent !== React.Fragment
-  ) {
-    return styled(ReactComponent)``
-  }
-
-  return ReactComponent ?? React.Fragment
 }
 
 /**
@@ -92,7 +81,13 @@ export const ElementWrapper = observer<ElementWrapperProps>(
           : getReactComponent(renderOutput)
 
       const extractedProps = extractValidProps(ReactComponent, renderOutput)
-      const StyledReactComponent = getStyledComponent(ReactComponent)
+
+      const StyledReactComponent = getStyledComponent(
+        ReactComponent,
+        extractedProps?.['css'],
+      )
+
+      // console.log(ReactComponent, renderOutput, extractedProps)
 
       return React.createElement(
         StyledReactComponent,

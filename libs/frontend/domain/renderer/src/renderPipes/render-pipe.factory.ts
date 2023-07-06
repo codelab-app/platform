@@ -13,7 +13,7 @@ export type RenderPipeClass =
   | typeof LoopingRenderPipe
   | typeof PassThroughRenderPipe
 
-// define pipes in order of execution, we reverse is to that it matches the order of calling next
+// define pipes in order of execution, we reverse it so that it matches the order of calling next
 export const defaultPipes: Array<RenderPipeClass> = [
   LoopingRenderPipe,
   ConditionalRenderPipe,

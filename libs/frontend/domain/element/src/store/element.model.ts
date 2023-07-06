@@ -110,30 +110,19 @@ export class Element
   extends Model({
     // page which has this element as rootElement
     _page: prop<Nullable<Ref<IPage>>>(null),
-
     // component which has this element as rootElement
     _parentComponent: prop<Nullable<Ref<IComponent>>>(null),
-
     customCss: prop<Nullable<string>>(null).withSetter(),
-
     firstChild: prop<Nullable<Ref<IElement>>>(null).withSetter(),
-
     guiCss: prop<Nullable<string>>(null),
-
     // Marks the element as an instance of a specific component
     // renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
-
     id: idProp.withSetter(),
-
     name: prop<string>().withSetter(),
-
     nextSibling: prop<Nullable<Ref<IElement>>>(null).withSetter(),
-
     orderInParent: prop<Nullable<number>>(null).withSetter(),
-
     owner: prop<Nullable<IAuth0Owner>>(null),
-
     // Data used for tree initializing, before our Element model is ready
     parent: prop<Nullable<Ref<IElement>>>(null).withSetter(),
     postRenderAction: prop<Nullable<Ref<IAction>>>(null).withSetter(),

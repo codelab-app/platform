@@ -19,7 +19,7 @@ const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
 
   return (
     <StoreProvider value={store}>
-      <Analytics />
+      {/* <Analytics /> */}
       <UserProvider>
         <ConfigProvider
           theme={{

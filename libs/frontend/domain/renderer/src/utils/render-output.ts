@@ -11,5 +11,7 @@ export const RenderOutput = {
   },
   withAtom: (
     input: Pick<IRenderOutput, 'atomType' | 'element' | 'props'>,
-  ): IRenderOutput => input,
+  ): IRenderOutput => {
+    return input
+  },
 }

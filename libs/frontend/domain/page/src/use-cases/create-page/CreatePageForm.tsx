@@ -26,8 +26,8 @@ export const CreatePageForm = observer(() => {
 
   const closeForm = () => pageService.createForm.close()
 
-  const onSubmit = (data: ICreatePageData) => {
-    void pageService.create(data)
+  const onSubmit = async (data: ICreatePageData) => {
+    await pageService.create(data)
     closeForm()
 
     return Promise.resolve()
