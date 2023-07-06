@@ -1,6 +1,6 @@
 import { neoSchema } from '@codelab/backend/infra/adapter/graphql'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
-import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
+import { getDriver, neo4jConfig } from '@codelab/backend/infra/adapter/neo4j'
 import { OpenTelemetryModuleConfig } from '@codelab/backend/infra/adapter/otel'
 import { ApolloDriver } from '@nestjs/apollo'
 import { BullModule } from '@nestjs/bull'
@@ -10,7 +10,6 @@ import { GraphQLModule } from '@nestjs/graphql'
 import type { GraphQLError } from 'graphql'
 import type { Driver } from 'neo4j-driver'
 import { graphqlConfig } from '../graphql.config'
-import { neo4jConfig } from '../neo4j.config'
 
 export interface GqlContextPayload {
   exp: string

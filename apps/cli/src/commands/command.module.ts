@@ -10,9 +10,11 @@ import {
   TaskService,
   TerraformService,
 } from '@codelab/backend/infra/adapter/cli'
+import { neo4jConfig } from '@codelab/backend/infra/adapter/neo4j'
 import { BullModule } from '@nestjs/bull'
 import type { OnModuleInit } from '@nestjs/common'
 import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
 import { CommandService } from './command.service'
 
 @Module({
@@ -20,6 +22,11 @@ import { CommandService } from './command.service'
   imports: [
     BullModule.registerQueue({
       name: 'import-admin-data',
+    }),
+    ConfigModule.forRoot({
+      ignoreEnvVars: true,
+      isGlobal: true,
+      load: [neo4jConfig],
     }),
   ],
   providers: [
