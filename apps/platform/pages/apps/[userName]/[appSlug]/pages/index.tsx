@@ -54,7 +54,7 @@ Pages.Layout = observer(({ children }) => {
         items: [
           {
             key: ExplorerPaneType.PageList,
-            render: () => (app ? <ExplorerPanePage /> : null),
+            render: () => <ExplorerPanePage />,
           },
         ],
       }}

@@ -1,6 +1,7 @@
 import { CuiNavigationBar } from '@codelab/frontend/presentation//codelab-ui'
 import {
   useCurrentApp,
+  useCurrentComponent,
   useCurrentPage,
 } from '@codelab/frontend/presentation/container'
 import { Layout } from 'antd'
@@ -27,10 +28,17 @@ export const DashboardTemplateSSR = observer(
     const { primarySidebarKey } = useRouter().query
     const { appSlug, userName } = useCurrentApp()
     const { pageSlug } = useCurrentPage()
+    const { componentSlug } = useCurrentComponent()
 
     const navigationBarItems = useMemo(
-      () => defaultNavigationBarItems({ appSlug, pageSlug, userName }),
-      [appSlug, pageSlug],
+      () =>
+        defaultNavigationBarItems({
+          appSlug,
+          componentSlug,
+          pageSlug,
+          userName,
+        }),
+      [appSlug, pageSlug, componentSlug],
     )
 
     const activeSidebarKey =

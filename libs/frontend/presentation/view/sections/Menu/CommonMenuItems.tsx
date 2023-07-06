@@ -41,6 +41,7 @@ export const componentMenuItem: NavigationBarItem = {
 export const allPagesMenuItem = (
   appSlug: Nullish<string>,
   pageSlug: Nullish<string>,
+  componentSlug: Nullish<string>,
   userName: Nullish<string>,
 ): NavigationBarItem => ({
   disabled: !appSlug,
@@ -48,9 +49,10 @@ export const allPagesMenuItem = (
   key: ExplorerPaneType.PageList,
   link: {
     href: {
-      pathname: PageType.PageBuilder,
+      pathname: pageSlug ? PageType.PageBuilder : PageType.ComponentBuilder,
       query: {
         appSlug,
+        componentSlug,
         pageSlug,
         primarySidebarKey: ExplorerPaneType.PageList,
         userName,
@@ -63,16 +65,18 @@ export const allPagesMenuItem = (
 export const builderComponentsMenuItem = (
   appSlug: Nullish<string>,
   pageSlug: Nullish<string>,
+  componentSlug: Nullish<string>,
   userName: Nullish<string>,
 ): NavigationBarItem => ({
-  disabled: !appSlug || !pageSlug,
+  disabled: !appSlug || (!pageSlug && !componentSlug),
   icon: <CodeSandboxOutlined title="Builder Components" />,
   key: 'components',
   link: {
     href: {
-      pathname: PageType.PageBuilder,
+      pathname: pageSlug ? PageType.PageBuilder : PageType.ComponentBuilder,
       query: {
         appSlug,
+        componentSlug,
         pageSlug,
         primarySidebarKey: ExplorerPaneType.Components,
         userName,
@@ -85,16 +89,18 @@ export const builderComponentsMenuItem = (
 export const pageBuilderMenuItem = (
   appSlug: Nullish<string>,
   pageSlug: Nullish<string>,
+  componentSlug: Nullish<string>,
   userName: Nullish<string>,
 ): NavigationBarItem => ({
-  disabled: !appSlug || !pageSlug,
+  disabled: !appSlug || (!pageSlug && !componentSlug),
   icon: <BuildOutlined title="Builder" />,
   key: ExplorerPaneType.Explorer,
   link: {
     href: {
-      pathname: PageType.PageBuilder,
+      pathname: pageSlug ? PageType.PageBuilder : PageType.ComponentBuilder,
       query: {
         appSlug,
+        componentSlug,
         pageSlug,
         primarySidebarKey: ExplorerPaneType.Explorer,
         userName,
