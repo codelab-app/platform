@@ -173,12 +173,12 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                 <ActionsTreeView store={store} />
               )}
             {actionService.createForm.isOpen && (
-              <div css={tw`p-2`}>
+              <div className="p-2">
                 <CreateActionForm />
               </div>
             )}
             {actionService.updateForm.isOpen && (
-              <div css={tw`p-2`}>
+              <div className="p-2">
                 <UpdateActionForm />
               </div>
             )}
