@@ -60,23 +60,23 @@ const featureItems = [
 
 export const BestPractices = () => {
   return (
-    <section className="w-11/12 m-auto xl:container md:pb-14 pb-0">
-      <div className="m-auto py-4 mt-8 sm:py-0">
+    <section className="m-auto w-11/12 pb-0 xl:container md:pb-14">
+      <div className="m-auto mt-8 py-4 sm:py-0">
         <Title
-          className="text-center mt-4 sm:mt-14 md:mt-28 !text-lg sm:!text-2xl md:!text-3xl lg:!text-4xl xl:!text-5xl !font-extrabold !text-violet-600"
+          className="mt-4 text-center !text-lg !font-extrabold !text-violet-600 sm:mt-14 sm:!text-2xl md:mt-28 md:!text-3xl lg:!text-4xl xl:!text-5xl"
           level={2}
         >
           Build with best practices: re-use & compose
         </Title>
-        <div className="text-center mb-11 text-sm px-4 sm:px-0  sm:text-base md:text-lg text-black">
+        <div className="mb-11 px-4 text-center text-sm text-black  sm:px-0 sm:text-base md:text-lg">
           Re-use your knowledge of coding and apply them as you would with code.
           Think like a developer, but work more productively using our
           development platform. It’s like a smart IDE on steroids.
         </div>
-        <Row className="justify-center pl-0 md:pl-8 2xl:pl-0 m-auto w-11/12 md:container">
+        <Row className="m-auto w-11/12 justify-center pl-0 md:container md:pl-8 2xl:pl-0">
           {featureItems.map((items, index) => (
             <Col
-              className="mr-0 md:mr-8 mb-8"
+              className="mb-8 mr-0 md:mr-8"
               key={index}
               lg={11}
               span={24}

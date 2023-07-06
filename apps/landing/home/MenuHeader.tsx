@@ -80,7 +80,7 @@ export const HomeMenuHeader = () => {
         <>{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}</>
       </Button>
       <Menu
-        className="justify-end flex-grow"
+        className="grow justify-end"
         inlineCollapsed={collapsed}
         mode={isMobileOrTablet ? 'inline' : 'horizontal'}
         style={

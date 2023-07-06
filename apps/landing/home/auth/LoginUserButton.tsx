@@ -4,7 +4,7 @@ import React from 'react'
 export const LoginUserButton = () => {
   return (
     <Button
-      className="!text-purple-500 hover:!bg-purple-400 rounded-2xl hover:!text-white"
+      className="rounded-2xl !text-purple-500 hover:!bg-purple-400 hover:!text-white"
       ghost
       href="/api/auth/login"
       type="primary"

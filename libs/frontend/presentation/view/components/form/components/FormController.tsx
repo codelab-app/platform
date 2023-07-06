@@ -1,7 +1,7 @@
 import type { formController } from '@codelab/frontend/abstract/types'
-import styled from 'styled-components'
 import { Button } from 'antd'
 import React from 'react'
+import styled from 'styled-components'
 
 const StyledContainer = styled.div`
   width: 100%;

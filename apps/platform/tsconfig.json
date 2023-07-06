@@ -11,7 +11,7 @@
       "worker-loader",
       "@fancyapps/ui",
       "cypher",
-      "styled-components/cssprop"
+      "styled-components"
     ],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -54,9 +54,5 @@
     "**/*.stories.jsx",
     "**/*.stories.tsx"
   ],
-  "references": [
-    {
-      "path": "./.storybook/tsconfig.json"
-    }
-  ]
+  "references": []
 }

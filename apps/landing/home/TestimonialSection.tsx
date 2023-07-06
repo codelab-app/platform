@@ -1,4 +1,3 @@
-import { css } from 'styled-components'
 import { faQuoteLeft, faStar } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Avatar, Card, Divider, Typography } from 'antd'
@@ -30,12 +29,12 @@ export const TestimonialItem = ({
   return (
     <>
       <div className="h-8" />
-      <Card className="max-w-[600px] mx-2 bg-transparent p-2 sm:p-4 rounded-lg">
+      <Card className="mx-2 max-w-[600px] rounded-lg bg-transparent p-2 sm:p-4">
         <div className="flex justify-center">
-          <span className="flex relative -mt-20 bg-slate-700 p-4">
+          <span className="relative -mt-20 flex bg-slate-700 p-4">
             <FontAwesomeIcon
-              color=""
               className="[&_path]:fill-yellow-400"
+              color=""
               icon={faQuoteLeft}
               size="5x"
             />
@@ -44,7 +43,7 @@ export const TestimonialItem = ({
         {Array(5)
           .fill(
             <FontAwesomeIcon
-              className="[&_path]:fill-yellow-400 pr-1.5"
+              className="pr-1.5 [&_path]:fill-yellow-400"
               icon={faStar}
               size="lg"
             />,
@@ -54,14 +53,14 @@ export const TestimonialItem = ({
           ))}
         <div className="mt-3 min-h-[120px] md:min-h-[200px] lg:min-h-[144px] xl:min-h-[170px] 2xl:min-h-[140px]">
           <Text
-            className="text-sm sm:text-base text-slate-300"
+            className="text-sm text-slate-300 sm:text-base"
             italic
           >{`"${review}"`}</Text>
         </div>
         <Divider className="bg-slate-600" />
         <Meta
           avatar={<Avatar size={48}>{initials(stakeholder)}</Avatar>}
-          className="text-slate-300 [&_.ant-card-meta-title]:text-neutral-300 [&_.ant-card-meta-description]:text-slate-400 [&_.ant-card-meta-title]:!mb-0"
+          className="text-slate-300 [&_.ant-card-meta-description]:text-slate-400 [&_.ant-card-meta-title]:!mb-0 [&_.ant-card-meta-title]:text-neutral-300"
           description={role}
           title={stakeholder}
         />
@@ -135,14 +134,14 @@ export const TestimonialSection = () => {
   }
 
   return (
-    <div className="px-8 pt-12 pb-12 sm:pb-20">
+    <div className="px-8 py-12 sm:pb-20">
       <h1
-        className="text-center mt-4 sm:mt-14 md:mt-28 !font-extrabold !text-white text-xl sm:text-3xl lg:text-4xl xl:!text-5xl"
+        className="mt-4 text-center text-xl !font-extrabold !text-white sm:mt-14 sm:text-3xl md:mt-28 lg:text-4xl xl:!text-5xl"
         // level={2}
       >
         Loved by startups
       </h1>
-      <Slider {...settings} className="my-2 sm:my-8 pb-0 sm:pb-8 z-10 mt-8">
+      <Slider {...settings} className="z-10 my-2 mt-8 pb-0 sm:my-8 sm:pb-8">
         {testimonialItems.map((item, index) => (
           <TestimonialItem
             key={index}

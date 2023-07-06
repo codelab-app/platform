@@ -1,62 +1,74 @@
 import type { IAtom, IAtomRepository } from '@codelab/frontend/abstract/core'
 import { filterNotHookType } from '@codelab/frontend/abstract/core'
-import { cachedWithTTL, clearCacheForKey } from '@codelab/frontend/shared/utils'
 import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import sortBy from 'lodash/sortBy'
-import { Model, model } from 'mobx-keystone'
+import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { atomApi } from './atom.api'
 
 // atoms are part of the system and they unlikely to change often,
 // so we can cache them until the page is refreshed using Infinity as the TTL
 @model('@codelab/AtomRepository')
 export class AtomRepository extends Model({}) implements IAtomRepository {
-  @clearCacheForKey('atoms')
-  add = async (atom: IAtom) => {
+  @modelFlow
+  // @clearCacheForKey('atoms')
+  add = _async(function* (this: AtomRepository, atom: IAtom) {
     const {
       createAtoms: { atoms },
-    } = await atomApi.CreateAtoms({ input: [atom.toCreateInput()] })
+    } = yield* _await(atomApi.CreateAtoms({ input: [atom.toCreateInput()] }))
 
     return atoms[0]
-  }
+  })
 
-  @clearCacheForKey('atoms')
-  update = async (atom: IAtom) => {
+  @modelFlow
+  // @clearCacheForKey('atoms')
+  update = _async(function* (this: AtomRepository, atom: IAtom) {
     const {
       updateAtoms: { atoms },
-    } = await atomApi.UpdateAtoms({
-      update: atom.toUpdateInput(),
-      where: { id: atom.id },
-    })
+    } = yield* _await(
+      atomApi.UpdateAtoms({
+        update: atom.toUpdateInput(),
+        where: { id: atom.id },
+      }),
+    )
 
     return atoms[0]!
-  }
+  })
 
-  @cachedWithTTL('atoms', Infinity)
-  find = async (where?: AtomWhere, options?: AtomOptions) => {
-    return await atomApi.GetAtoms({ options, where })
-  }
+  @modelFlow
+  // @cachedWithTTL('atoms', Infinity)
+  find = _async(function* (
+    this: AtomRepository,
+    where?: AtomWhere,
+    options?: AtomOptions,
+  ) {
+    return yield* _await(atomApi.GetAtoms({ options, where }))
+  })
 
-  @clearCacheForKey('atoms')
-  delete = async (atoms: Array<IAtom>) => {
+  @modelFlow
+  // @clearCacheForKey('atoms')
+  delete = _async(function* (this: AtomRepository, atoms: Array<IAtom>) {
     const {
       deleteAtoms: { nodesDeleted },
-    } = await atomApi.DeleteAtoms({
-      where: { id_IN: atoms.map(({ id }) => id) },
-    })
+    } = yield* _await(
+      atomApi.DeleteAtoms({
+        where: { id_IN: atoms.map(({ id }) => id) },
+      }),
+    )
 
     return nodesDeleted
-  }
+  })
 
   /**
    * Get list of atom previews for select dropdown
    */
-  @cachedWithTTL('atoms', Infinity)
-  findOptions = async () => {
-    const { atoms } = await atomApi.GetAtomOptions()
+  @modelFlow
+  // @cachedWithTTL('atoms', Infinity)
+  findOptions = _async(function* (this: AtomRepository) {
+    const { atoms } = yield* _await(atomApi.GetAtomOptions())
 
     return sortBy(
       atoms.filter(({ type }) => filterNotHookType(type)),
       'name',
     )
-  }
+  })
 }

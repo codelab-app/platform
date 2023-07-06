@@ -36,7 +36,7 @@ const App = ({ Component, pageProps }: IAppProps) => {
         <UserProvider>
           <ConfigProvider>
             {/* <GlobalStyles /> */}
-            <Global
+            {/* <Global
               styles={[
                 css({
                   '#__next': {
@@ -56,7 +56,7 @@ const App = ({ Component, pageProps }: IAppProps) => {
                   }
                 `,
               ]}
-            />
+            /> */}
             <Layout>
               {() => (
                 <Component

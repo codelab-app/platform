@@ -14,7 +14,7 @@ import React, { useRef } from 'react'
 import ReactDOM from 'react-dom'
 import { useRecoilState } from 'recoil'
 import { useOutsideClick } from 'rooks'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { Logo } from '../logo/Logo'
 import { menuState } from './menu-state'
 

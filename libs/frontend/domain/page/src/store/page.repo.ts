@@ -1,45 +1,55 @@
 import type { IPage, IPageRepository } from '@codelab/frontend/abstract/core'
-import { clearCacheForKey } from '@codelab/frontend/shared/utils'
 import type { PageOptions, PageWhere } from '@codelab/shared/abstract/codegen'
-import { Model, model } from 'mobx-keystone'
+import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { pageApi } from './page.api'
 
 @model('@codelab/PageRepository')
 export class PageRepository extends Model({}) implements IPageRepository {
   // clear apps cache when we add a new page
   // to make sure that the new page is included in the apps query
-  @clearCacheForKey('apps')
-  add = async (page: IPage) => {
+  // @clearCacheForKey('apps')
+  add = _async(function* (this: PageRepository, page: IPage) {
     const {
       createPages: { pages },
-    } = await pageApi.CreatePages({ input: page.toCreateInput() })
+    } = yield* _await(pageApi.CreatePages({ input: page.toCreateInput() }))
 
     return pages[0]!
-  }
+  })
 
-  update = async (page: IPage) => {
+  @modelFlow
+  update = _async(function* (this: PageRepository, page: IPage) {
     const {
       updatePages: { pages },
-    } = await pageApi.UpdatePages({
-      update: page.toUpdateInput(),
-      where: { id: page.id },
-    })
+    } = yield* _await(
+      pageApi.UpdatePages({
+        update: page.toUpdateInput(),
+        where: { id: page.id },
+      }),
+    )
 
     return pages[0]!
-  }
+  })
 
-  find = (where?: PageWhere, options?: PageOptions) => {
-    return pageApi.GetPages({ options, where })
-  }
+  @modelFlow
+  find = _async(function* (
+    this: PageRepository,
+    where?: PageWhere,
+    options?: PageOptions,
+  ) {
+    return yield* _await(pageApi.GetPages({ options, where }))
+  })
 
-  delete = async (pages: Array<IPage>) => {
+  @modelFlow
+  delete = _async(function* (this: PageRepository, pages: Array<IPage>) {
     const {
       deletePages: { nodesDeleted },
-    } = await pageApi.DeletePages({
-      delete: pages[0]?.toDeleteInput(),
-      where: { id_IN: pages.map((page) => page.id) },
-    })
+    } = yield* _await(
+      pageApi.DeletePages({
+        delete: pages[0]?.toDeleteInput(),
+        where: { id_IN: pages.map((page) => page.id) },
+      }),
+    )
 
     return nodesDeleted
-  }
+  })
 }

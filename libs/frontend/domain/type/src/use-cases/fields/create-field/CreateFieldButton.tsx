@@ -20,7 +20,7 @@ export const CreateFieldButton = observer<{
 
   return (
     <Button
-      className="flex justify-center items-center"
+      className="flex items-center justify-center"
       icon={<PlusOutlined />}
       onClick={onClick}
       size="small"

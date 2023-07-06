@@ -21,6 +21,8 @@ import { StoreProvider } from '@codelab/frontend/presentation/container'
 import { Analytics } from '@vercel/analytics/react'
 import { ConfigProvider } from 'antd'
 import React, { useMemo } from 'react'
+
+require('reflect-metadata')
 // import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
 // import { slickCssFix } from '../src/styles/slick/Slick'
 

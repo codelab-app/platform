@@ -18,7 +18,6 @@ import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren, ReactNode } from 'react'
 import React from 'react'
-import { css } from 'styled-components'
 
 const StoreHeader = ({
   children,
@@ -35,7 +34,7 @@ export const StorePane = observer<{ store: Maybe<IStore>; isLoading: boolean }>(
     <SkeletonWrapper isLoading={isLoading}>
       {store ? (
         <>
-          <Collapse className="w-full mb-2" defaultActiveKey={['1']} ghost>
+          <Collapse className="mb-2 w-full" defaultActiveKey={['1']} ghost>
             <Collapse.Panel
               header={
                 <StoreHeader

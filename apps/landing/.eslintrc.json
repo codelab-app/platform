@@ -17,7 +17,7 @@
       }
     },
     {
-      "files": ["home/**/*.tsx?"],
+      "files": ["home/**/*.{ts,tsx}"],
       "rules": {
         "react/jsx-props-no-spreading": "off"
       }

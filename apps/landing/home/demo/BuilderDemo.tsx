@@ -65,7 +65,7 @@ export const BuilderDemo = () => {
       </Col>
       <Col md={24} span={24} xl={8}>
         <div className="flex justify-center md:h-full md:justify-center xl:justify-end">
-          <div className="relative m-0 w-full sm:w-full md:w-3/5 lg:m-0 lg:m-auto xl:m-0 xl:w-full">
+          <div className="relative m-0 w-full sm:w-full md:w-3/5 lg:m-auto xl:m-0 xl:w-full">
             <img
               alt="/Browser/Safari (Big Sur)"
               className="absolute z-10 max-h-80 w-full rounded-xl border border-solid border-gray-200 object-contain sm:max-h-[520px] md:max-h-fit"

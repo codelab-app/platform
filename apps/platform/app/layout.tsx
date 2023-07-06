@@ -1,3 +1,5 @@
+import type { PropsWithChildren } from 'react'
+import React from 'react'
 import { StyledComponentsRegistry } from './registry'
 
 export const metadata = {
@@ -5,11 +7,7 @@ export const metadata = {
   title: 'Welcome to demo2',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="en">
       <body>
@@ -18,3 +16,5 @@ export default function RootLayout({
     </html>
   )
 }
+
+export default RootLayout

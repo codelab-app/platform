@@ -1,6 +1,4 @@
 import {
-  builderServiceContext,
-  elementRef,
   type IElement,
   type IPropData,
   type IRenderOutput,
@@ -71,7 +69,6 @@ export class AtomRenderPipe
       props: {
         ...newProps,
         css: elCss,
-
         // onMouseEnter: () =>
         //   builderServiceContext
         //     .get(element)

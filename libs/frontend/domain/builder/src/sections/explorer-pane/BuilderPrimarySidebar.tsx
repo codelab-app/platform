@@ -43,7 +43,6 @@ import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { css } from 'styled-components'
 import { ElementTreeView } from './builder-tree'
 
 export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(

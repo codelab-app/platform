@@ -2,7 +2,7 @@ import type { PageHeaderProps } from '@ant-design/pro-components/lib'
 import { PageHeader } from '@ant-design/pro-components/lib'
 import type { ReactNode } from 'react'
 import React from 'react'
-import styled, { css } from 'styled-components'
+import { css } from 'styled-components'
 import styles from './ExplorerPaneTemplate.module.css'
 
 export type MainPaneTemplateProps = React.PropsWithChildren<{

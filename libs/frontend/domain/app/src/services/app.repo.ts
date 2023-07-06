@@ -1,47 +1,60 @@
 import type { IApp, IAppRepository } from '@codelab/frontend/abstract/core'
-import { cachedWithTTL, clearCacheForKey } from '@codelab/frontend/shared/utils'
 import type { AppOptions, AppWhere } from '@codelab/shared/abstract/codegen'
-import { Model, model } from 'mobx-keystone'
+import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import { appApi } from '../store'
 
 @model('@codelab/AppRepository')
 export class AppRepository extends Model({}) implements IAppRepository {
-  add = async (app: IApp) => {
+  @modelFlow
+  add = _async(function* (this: AppRepository, app: IApp) {
     const {
       createApps: { apps },
-    } = await appApi.CreateApps({
-      input: [app.toCreateInput()],
-    })
+    } = yield* _await(
+      appApi.CreateApps({
+        input: [app.toCreateInput()],
+      }),
+    )
 
     return apps[0]!
-  }
+  })
 
-  @clearCacheForKey('apps')
-  update = async (app: IApp) => {
+  @modelFlow
+  // @clearCacheForKey('apps')
+  update = _async(function* (this: AppRepository, app: IApp) {
     const {
       updateApps: { apps },
-    } = await appApi.UpdateApps({
-      update: app.toUpdateInput(),
-      where: { id: app.id },
-    })
+    } = yield* _await(
+      appApi.UpdateApps({
+        update: app.toUpdateInput(),
+        where: { id: app.id },
+      }),
+    )
 
     return apps[0]!
-  }
+  })
 
-  @cachedWithTTL('apps')
-  find = async (where?: AppWhere, options?: AppOptions) => {
-    return await appApi.GetApps({ options, where })
-  }
+  @modelFlow
+  // @cachedWithTTL('apps')
+  find = _async(function* (
+    this: AppRepository,
+    where?: AppWhere,
+    options?: AppOptions,
+  ) {
+    return yield* _await(appApi.GetApps({ options, where }))
+  })
 
-  @clearCacheForKey('apps')
-  delete = async (apps: Array<IApp>) => {
+  @modelFlow
+  // @clearCacheForKey('apps')
+  delete = _async(function* (this: AppRepository, apps: Array<IApp>) {
     const {
       deleteApps: { nodesDeleted },
-    } = await appApi.DeleteApps({
-      delete: apps[0]?.toDeleteInput(),
-      where: { id_IN: apps.map((app) => app.id) },
-    })
+    } = yield* _await(
+      appApi.DeleteApps({
+        delete: apps[0]?.toDeleteInput(),
+        where: { id_IN: apps.map((app) => app.id) },
+      }),
+    )
 
     return nodesDeleted
-  }
+  })
 }

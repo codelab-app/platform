@@ -1,8 +1,4 @@
-import type {
-  ICreateActionData,
-  IGraphQLActionConfig,
-  IRestActionConfig,
-} from '@codelab/frontend/abstract/core'
+import type { ICreateActionData } from '@codelab/frontend/abstract/core'
 import { HttpMethod, HttpResponseType } from '@codelab/frontend/abstract/core'
 import {
   CodeMirrorField,

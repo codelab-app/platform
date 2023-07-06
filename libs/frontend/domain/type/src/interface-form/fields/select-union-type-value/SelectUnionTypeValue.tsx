@@ -5,7 +5,6 @@ import { usePrevious } from '@codelab/frontend/shared/utils'
 import { Form as AntdForm } from 'antd'
 import isNil from 'lodash/isNil'
 import React, { useEffect } from 'react'
-import { css } from 'styled-components'
 import { useField } from 'uniforms'
 import { AutoField, SelectField } from 'uniforms-antd'
 

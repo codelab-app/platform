@@ -11,17 +11,14 @@ export const MenuDesktop = () => {
   return (
     <nav>
       <menu className="m-0 h-[67px] w-full bg-white p-0">
-        <ul className="flex h-full flex-row items-center p-0 px-0 tablet:justify-between md:px-6 2xl:px-8">
+        <ul className="flex h-full flex-row items-center p-0 tablet:justify-between md:px-6 2xl:px-8">
           <li className="flex justify-start p-2">
             <Logo />
           </li>
           {/* Used to push other items to the end */}
-          <li className="hidden flex-grow laptop:flex"></li>
+          <li className="hidden grow laptop:flex"></li>
           {menuItems.map((items, index) => (
-            <li
-              className="mr-4 flex hidden p-2 text-base laptop:flex"
-              key={index}
-            >
+            <li className="mr-4  hidden p-2 text-base laptop:flex" key={index}>
               <Link
                 className="flex items-center font-display font-normal text-black hover:text-primary"
                 href={items.href}
