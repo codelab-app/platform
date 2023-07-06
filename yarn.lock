@@ -5692,7 +5692,7 @@ __metadata:
 
 "@codelab/workspace@file:./dist/libs/tools/workspace::locator=codelab%40workspace%3A.":
   version: 0.0.1
-  resolution: "@codelab/workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=b8f8e5&locator=codelab%40workspace%3A."
+  resolution: "@codelab/workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=de9c0e&locator=codelab%40workspace%3A."
   dependencies:
     "@graphql-codegen/core": 4.0.0
     "@graphql-tools/graphql-file-loader": 8.0.0
@@ -5702,7 +5702,7 @@ __metadata:
     lodash: 4.17.21
   peerDependencies:
     tslib: 2.3.1
-  checksum: aa5a1f0ae198bf1eba1b2d18143cd9bf4cb653fe863d1633af2cfcaf8738d0349532f7c9867eb26f56d53d701689b00e7895f480bf3ce3ae7e8a3cf73b4579ee
+  checksum: 06d1d8abc83012c7f2816429c8b29785e9f83a40bb788e51b7c7b213b0be166e963e8f29efcc73fbadc6d025b86592bb2a4d6ea4f5b89b11bca5039c08a7b02b
   languageName: node
   linkType: hard
 
@@ -8530,6 +8530,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jest/create-cache-key-function@npm:^27.4.2":
+  version: 27.5.1
+  resolution: "@jest/create-cache-key-function@npm:27.5.1"
+  dependencies:
+    "@jest/types": ^27.5.1
+  checksum: a6c3a8c769aca6f66f5dc80f1c77e66980b4f213a6b2a15a92ba3595f032848a1261c06c9c798dcf2b672b1ffbefad5085af89d130548741c85ddbe0cf4284e7
+  languageName: node
+  linkType: hard
+
 "@jest/environment@npm:^28.1.3":
   version: 28.1.3
   resolution: "@jest/environment@npm:28.1.3"
@@ -8904,6 +8913,19 @@ __metadata:
     "@types/yargs": ^15.0.0
     chalk: ^4.0.0
   checksum: a0bd3d2f22f26ddb23f41fddf6e6a30bf4fab2ce79ec1cb6ce6fdfaf90a72e00f4c71da91ec61e13db3b10c41de22cf49d07c57ff2b59171d64b29f909c1d8d6
+  languageName: node
+  linkType: hard
+
+"@jest/types@npm:^27.5.1":
+  version: 27.5.1
+  resolution: "@jest/types@npm:27.5.1"
+  dependencies:
+    "@types/istanbul-lib-coverage": ^2.0.0
+    "@types/istanbul-reports": ^3.0.0
+    "@types/node": "*"
+    "@types/yargs": ^16.0.0
+    chalk: ^4.0.0
+  checksum: d1f43cc946d87543ddd79d49547aab2399481d34025d5c5f2025d3d99c573e1d9832fa83cef25e9d9b07a8583500229d15bbb07b8e233d127d911d133e2f14b1
   languageName: node
   linkType: hard
 
@@ -14555,6 +14577,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc/jest@npm:^0.2.26":
+  version: 0.2.26
+  resolution: "@swc/jest@npm:0.2.26"
+  dependencies:
+    "@jest/create-cache-key-function": ^27.4.2
+    jsonc-parser: ^3.2.0
+  peerDependencies:
+    "@swc/core": "*"
+  checksum: 771821ed08cf168ca0b6307dee7689253d0af0685acd08408ac431860a7c42ace892db2cb6bb6dcfe297edbdce0f2e22d44ed4ed72d1c621be9e841cffd408a0
+  languageName: node
+  linkType: hard
+
 "@szmarczak/http-timer@npm:^4.0.5":
   version: 4.0.6
   resolution: "@szmarczak/http-timer@npm:4.0.6"
@@ -16190,6 +16224,15 @@ __metadata:
   dependencies:
     "@types/yargs-parser": "*"
   checksum: 8e358aeb8f0c3758e59e2b8fcfdee5627ab2fe3d92f50f380503d966c7f33287be3322155516a50d27727fde1ad3878f48f60cd6648439126d4b0bbb1a1153ed
+  languageName: node
+  linkType: hard
+
+"@types/yargs@npm:^16.0.0":
+  version: 16.0.5
+  resolution: "@types/yargs@npm:16.0.5"
+  dependencies:
+    "@types/yargs-parser": "*"
+  checksum: 22697f7cc8aa32dcc10981a87f035e183303a58351c537c81fb450270d5c494b1d918186210e445b0eb2e4a8b34a8bda2a595f346bdb1c9ed2b63d193cb00430
   languageName: node
   linkType: hard
 
@@ -21046,6 +21089,7 @@ __metadata:
     "@swc/cli": ~0.1.62
     "@swc/core": ~1.3.51
     "@swc/helpers": ~0.5.0
+    "@swc/jest": ^0.2.26
     "@testing-library/cypress": 8.0.7
     "@testing-library/dom": 9.2.0
     "@testing-library/jest-dom": 5.16.5
@@ -32031,7 +32075,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsonc-parser@npm:3.2.0":
+"jsonc-parser@npm:3.2.0, jsonc-parser@npm:^3.2.0":
   version: 3.2.0
   resolution: "jsonc-parser@npm:3.2.0"
   checksum: 946dd9a5f326b745aa326d48a7257e3f4a4b62c5e98ec8e49fa2bdd8d96cef7e6febf1399f5c7016114fd1f68a1c62c6138826d5d90bc650448e3cf0951c53c7

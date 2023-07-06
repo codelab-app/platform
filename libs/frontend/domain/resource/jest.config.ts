@@ -4,9 +4,18 @@ export default {
 
   globals: {},
   transform: {
-    '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nx/react/babel'] }],
-    '.+\\.(svg|css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$':
-      'jest-transform-stub',
+    '^.+.[tj]sx?$': [
+      '@swc/jest',
+      {
+        jsc: {
+          parser: { syntax: 'typescript', tsx: true, decorators: true },
+          transform: {
+            decoratorMetadata: true,
+            react: { runtime: 'automatic' },
+          },
+        },
+      },
+    ],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../../../coverage/libs/frontend/domain/resource',

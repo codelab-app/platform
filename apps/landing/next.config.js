@@ -1,9 +1,11 @@
 const { composePlugins, withNx } = require('@nx/next')
 
 const nextConfig = {
+  compiler: {
+    styledComponents: true,
+  },
   experimental: {
     // appDir: true,
-    styledComponents: true,
   },
   nx: {
     // Set this to true if you would like to to use SVGR

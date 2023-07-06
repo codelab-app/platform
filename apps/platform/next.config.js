@@ -31,10 +31,7 @@ const plugins = [withBundleAnalyzer, withRawCypherFiles]
  */
 const nextConfig = {
   compiler: {
-    // For other options, see https://styled-components.com/docs/tooling#babel-plugin
-    styledComponents: {
-      cssProp: true,
-    },
+    styledComponents: true,
   },
   experimental: {
     appDir: true,

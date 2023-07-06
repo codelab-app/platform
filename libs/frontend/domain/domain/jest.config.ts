@@ -3,13 +3,16 @@ export default {
   displayName: 'frontend-domain-domain',
   globals: {},
   transform: {
-    '^.+\\.[tj]sx?$': [
-      'ts-jest',
+    '^.+.[tj]sx?$': [
+      '@swc/jest',
       {
-        tsconfig: '<rootDir>/tsconfig.spec.json',
-        babelConfig: '<rootDir>/.babelrc',
-        // https://github.com/kentcdodds/babel-plugin-macros/issues/160
-        useESM: true,
+        jsc: {
+          parser: { syntax: 'typescript', tsx: true, decorators: true },
+          transform: {
+            decoratorMetadata: true,
+            react: { runtime: 'automatic' },
+          },
+        },
       },
     ],
   },
