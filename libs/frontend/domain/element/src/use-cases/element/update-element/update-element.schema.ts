@@ -36,6 +36,22 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
       required: [],
       type: 'object',
     },
+    childMapperComponent: {
+      nullable: true,
+      properties: {
+        id: {
+          label: 'Child Mapper Component',
+          type: 'string',
+        },
+      },
+      required: [],
+      type: 'object',
+    },
+    childMapperPropKey: {
+      label: 'Prop Key',
+      nullable: true,
+      type: 'string',
+    },
     renderForEachPropKey: {
       label: 'Render for each',
       nullable: true,

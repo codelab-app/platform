@@ -3,7 +3,10 @@ import type {
   IElementRuntimeProp,
 } from '@codelab/frontend/abstract/core'
 import { DATA_ELEMENT_ID, IPropData } from '@codelab/frontend/abstract/core'
-import { replaceStateInProps } from '@codelab/frontend/shared/utils'
+import {
+  evaluateChildMapperPropKey,
+  replaceStateInProps,
+} from '@codelab/frontend/shared/utils'
 import { mergeProps } from '@codelab/shared/utils'
 import attempt from 'lodash/attempt'
 import isError from 'lodash/isError'
@@ -69,7 +72,7 @@ export class ElementRuntimeProps
   @computed
   get evaluatedProps() {
     const componentProps = this.node.parentComponent?.current.runtimeProp
-    const injectedProps = componentProps?.componentEvaluatedProps || {}
+    const injectedProps = componentProps?.componentEvaluatedProps ?? {}
 
     return replaceStateInProps(
       this.renderedTypedProps,
@@ -81,13 +84,29 @@ export class ElementRuntimeProps
   @computed
   get evaluatedPropsBeforeRender() {
     const componentProps = this.node.parentComponent?.current.runtimeProp
-    const injectedProps = componentProps?.componentEvaluatedProps || {}
+    const injectedProps = componentProps?.componentEvaluatedProps ?? {}
 
     return replaceStateInProps(
       this.props,
       this.node.store.current.state,
       injectedProps,
     )
+  }
+
+  @computed
+  get evaluatedChildMapperProp() {
+    const evaluatedChildMapperProp = evaluateChildMapperPropKey(
+      this.node,
+      this.evaluatedProps,
+    )
+
+    if (!Array.isArray(evaluatedChildMapperProp)) {
+      console.error('The evaluated childMapperPropKey is not an array')
+
+      return []
+    }
+
+    return evaluatedChildMapperProp
   }
 
   static create = create

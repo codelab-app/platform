@@ -659,6 +659,10 @@ export class ElementService
     })
 
     const cloneElementDto = {
+      childMapperComponent: element.childMapperComponent
+        ? { id: element.childMapperComponent.id }
+        : null,
+      childMapperPropKey: element.childMapperPropKey,
       customCss: element.customCss,
       guiCss: element.guiCss,
       id: v4(),

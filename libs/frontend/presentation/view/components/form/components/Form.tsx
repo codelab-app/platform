@@ -11,6 +11,7 @@ import {
   createValidator,
 } from '../hooks/uniformUtils.hook'
 import { useFormContext } from '../providers'
+import { bypassExpressionErrors } from './utils'
 
 export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
   const Form = <TData, TResponse = unknown>({
@@ -76,6 +77,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
                 callbackWithParams(onSubmitError, error)
               })
           }}
+          onValidate={bypassExpressionErrors}
           ref={connectUniformSubmitRef(submitRef)}
           schema={bridge}
           submitField={submitField}
