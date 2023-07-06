@@ -5,8 +5,8 @@ import {
   CreateTypeModal,
   DeleteFieldModal,
   DeleteTypeModal,
+  TypeEditor,
   TypesPrimarySidebar,
-  TypesTable,
   UpdateFieldModal,
   UpdateTypeModal,
 } from '@codelab/frontend/domain/type'
@@ -71,7 +71,7 @@ const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <DeleteTypeModal />
       <UpdateTypeModal />
       <ContentSection>
-        <TypesTable />
+        <TypeEditor />
       </ContentSection>
     </>
   )

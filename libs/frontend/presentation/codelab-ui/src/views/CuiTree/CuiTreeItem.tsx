@@ -11,10 +11,12 @@ interface CuiTreeItemProps {
   tag?: ReactNode
   toolbar?: ReactNode
   variant?: Variant
+  onClick?(): void
 }
 
 export const CuiTreeItem = ({
   icon,
+  onClick,
   primaryTitle,
   secondaryTitle,
   tag,
@@ -32,6 +34,7 @@ export const CuiTreeItem = ({
         codelabui-tree-item-primary-title-${primaryTitle}
         codelabui-tree-item-secondary-title-${secondaryTitle}
       `}
+      onClick={onClick}
     >
       <div className="flex h-full flex-row justify-start overflow-hidden">
         <div className="shrink-0">{icon}</div>

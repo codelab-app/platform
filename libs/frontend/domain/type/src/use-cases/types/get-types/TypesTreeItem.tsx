@@ -1,4 +1,4 @@
-import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons'
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import type {
   IInterfaceType,
   ITypesTreeDataNode,
@@ -23,8 +23,9 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
   const onEdit = () => {
     if (data.extraData.type === 'type') {
       typeService.updateModal.open(typeRef(data.extraData.node.id))
+      fieldService.updateForm.close()
     } else {
-      fieldService.updateModal.open(fieldRef(data.extraData.node.id))
+      fieldService.updateForm.open(fieldRef(data.extraData.node.id))
     }
   }
 
@@ -61,12 +62,6 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
 
   const toolbarItems = [
     {
-      icon: <EditOutlined />,
-      key: 'edit-field',
-      onClick: onEdit,
-      title: data.extraData.type === 'type' ? 'Edit type' : 'Edit field',
-    },
-    {
       icon: <DeleteOutlined />,
       key: 'delete-field',
       onClick: onDelete,
@@ -92,6 +87,7 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
   return (
     <CuiTreeItem
       key={data.key}
+      onClick={onEdit}
       primaryTitle={data.primaryTitle}
       secondaryTitle={data.secondaryTitle}
       toolbar={
