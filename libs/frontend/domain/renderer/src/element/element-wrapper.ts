@@ -85,8 +85,6 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         extractedProps?.['css'],
       )
 
-      // console.log(ReactComponent, renderOutput, extractedProps)
-
       return React.createElement(StyledReactComponent, extractedProps, children)
     })
 

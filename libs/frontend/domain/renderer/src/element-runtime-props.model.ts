@@ -4,11 +4,13 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { DATA_ELEMENT_ID, IPropData } from '@codelab/frontend/abstract/core'
 import {
-  evaluateChildMapperPropKey,
+  evaluateExpression,
+  hasStateExpression,
   replaceStateInProps,
 } from '@codelab/frontend/shared/utils'
 import { mergeProps } from '@codelab/shared/utils'
 import attempt from 'lodash/attempt'
+import get from 'lodash/get'
 import isError from 'lodash/isError'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -95,9 +97,28 @@ export class ElementRuntimeProps
 
   @computed
   get evaluatedChildMapperProp() {
-    const evaluatedChildMapperProp = evaluateChildMapperPropKey(
-      this.node,
-      this.evaluatedProps,
+    const componentProps = this.node.parentComponent?.current.runtimeProp
+    const injectedProps = componentProps?.componentEvaluatedProps ?? {}
+
+    if (!this.node.childMapperPropKey) {
+      return []
+    }
+
+    if (hasStateExpression(this.node.childMapperPropKey)) {
+      return evaluateExpression(
+        this.node.childMapperPropKey,
+        this.node.store.current.state,
+        injectedProps,
+      )
+    }
+
+    const allPropsOptions = mergeProps(this.node.store.current.state, {
+      props: injectedProps,
+    })
+
+    const evaluatedChildMapperProp = get(
+      allPropsOptions,
+      this.node.childMapperPropKey,
     )
 
     if (!Array.isArray(evaluatedChildMapperProp)) {
