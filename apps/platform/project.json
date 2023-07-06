@@ -9,7 +9,8 @@
       "executor": "@nx/next:build",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/platform"
+        "outputPath": "dist/apps/platform",
+        "postcssConfig": "apps/platform/postcss.config.js"
       },
       "configurations": {
         "dev": {},

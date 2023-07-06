@@ -31,7 +31,6 @@ export default defineConfig({
   e2e: {
     ...nxE2EPreset(__filename),
     ...cypressJsonConfig,
-    env: {},
     setupNodeEvents,
     testIsolation: false,
   },

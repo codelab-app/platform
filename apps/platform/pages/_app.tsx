@@ -1,18 +1,5 @@
-/* eslint-disable react/jsx-props-no-spreading */
 // import '../src/wdyr'
-import 'react-quill/dist/quill.snow.css'
-// This stylesheet is used to override some of the default Quill editor's styles.
-import '../src/styles/quill.snow.override.css'
-import '../src/styles/antd.global.fix.css'
-import '../src/styles/tailwind.css'
-import 'react-grid-layout/css/styles.css'
-import 'react-resizable/css/styles.css'
-// apply fix for common css problems:
-// - remove default padding/margin from html and body
-// - set 100% width and height for html and body
-// - set box-sizing, remove outlines, etc
-import 'antd/dist/reset.css'
-// https://www.elvisduru.com/blog/how-to-customize-ant-design-theme-in-nextjs
+import '../styles/global.css'
 import { UserProvider } from '@auth0/nextjs-auth0/client'
 import type { IAppProps, IPageProps } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
@@ -23,8 +10,6 @@ import { ConfigProvider } from 'antd'
 import React, { useMemo } from 'react'
 
 require('reflect-metadata')
-// import { globalTailwindFix } from '../src/styles/GlobalTailwindFix'
-// import { slickCssFix } from '../src/styles/slick/Slick'
 
 const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
   const store = useMemo(() => initializeStore(pageProps), [])
@@ -50,18 +35,6 @@ const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
             },
           }}
         >
-          {/* <GlobalStyles /> */}
-          {/* <Global
-              styles={[
-                css({
-                  '#__next': {
-                    height: '100%',
-                  },
-                }),
-                slickCssFix,
-                ...globalTailwindFix,
-              ]}
-            /> */}
           <Layout>{(props) => <Component {...pageProps} {...props} />}</Layout>
         </ConfigProvider>
       </UserProvider>

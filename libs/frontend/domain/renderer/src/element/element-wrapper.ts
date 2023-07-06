@@ -1,4 +1,8 @@
-import type { IElement, IRenderer } from '@codelab/frontend/abstract/core'
+import type {
+  IComponentType,
+  IElement,
+  IRenderer,
+} from '@codelab/frontend/abstract/core'
 import {
   getRunnerId,
   isAtomInstance,

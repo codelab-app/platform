@@ -1,11 +1,16 @@
+/* eslint-disable */
+const { join } = require('path')
+
 module.exports = {
   plugins: {
-    // TODO: Causing build errors
+    // autoprefixer: {},
+    'tailwindcss/nesting': {},
+    tailwindcss: {},
+    // tailwindcss: {
+    //   config: join(__dirname, 'tailwind.config.js'),
+    // },
     // // Required for @import for .css files
     // 'postcss-import': {},
     // // Required for scss like rules for .css files
-    // 'tailwindcss/nesting': {},
-    // tailwindcss: { config: './tailwind.config.js' },
-    // autoprefixer: {},
   },
 }

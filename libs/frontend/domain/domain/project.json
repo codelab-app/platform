@@ -2,7 +2,7 @@
   "name": "frontend-domain-domain",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "tags": ["scope:frontend"],
-  "sourceRoot": "libs/domain/src",
+  "sourceRoot": "libs/frontend/domain/domain/src",
   "projectType": "library",
   "targets": {
     "lint": {

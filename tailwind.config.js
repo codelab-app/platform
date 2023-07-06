@@ -1,4 +1,3 @@
-const path = require('path')
 const colors = require('tailwindcss/colors')
 // const { breakpoints } = require('./.codelab.js')
 
@@ -6,17 +5,10 @@ const colors = require('tailwindcss/colors')
  * This only works if `tailwind.config.js` & `postcss.config.js` are at the project root
  */
 module.exports = {
-  // mode: 'jit',
-  // darkMode: 'class',
-  content: [
-    path.resolve(process.cwd(), 'apps/landing/**/*.{ts,tsx}'),
-    path.resolve(process.cwd(), 'apps/platform/**/*.{ts,tsx}'),
-    path.resolve(process.cwd(), 'apps/websites/**/*.{ts,tsx}'),
-    path.resolve(process.cwd(), 'libs/**/*.{ts,tsx}'),
-  ],
+  plugins: [],
   theme: {
     extend: {
-      minWidth: {
+      minHeight: {
         '1/2': '50%',
         '1/3': '33%',
         '2/3': '66%',
@@ -24,7 +16,7 @@ module.exports = {
         '2/4': '50%',
         '3/4': '70%',
       },
-      minHeight: {
+      minWidth: {
         '1/2': '50%',
         '1/3': '33%',
         '2/3': '66%',
@@ -39,14 +31,17 @@ module.exports = {
       //   primary: theme('colors.violet')
       // }),
       screens: {
-        tablet: '0px',
         laptop: '768px',
+        tablet: '0px',
         desktop: '1200px',
       },
     },
     fontFamily: {
-      display: ['Montserrat'],
       body: ['Nunito'],
+      display: ['Montserrat'],
+    },
+    container: {
+      center: true,
     },
     screens: {
       xs: '0px',
@@ -61,14 +56,10 @@ module.exports = {
       '2xl': '1600px',
       // => @media (min-width: 1600px) { ... }
     },
-    container: {
-      center: true,
-    },
   },
-  variants: {},
-  plugins: [],
   corePlugins: {
     // Reset adds `background:transparent`, which background-color can't override
     preflight: false,
   },
+  variants: {},
 }

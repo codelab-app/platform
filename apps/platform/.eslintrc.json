@@ -21,6 +21,12 @@
       }
     },
     {
+      "files": ["_app.tsx"],
+      "rules": {
+        "react/jsx-props-no-spreading": "off"
+      }
+    },
+    {
       "files": ["**/pages/api/*"],
       "rules": {
         "@nx/enforce-module-boundaries": "off"
