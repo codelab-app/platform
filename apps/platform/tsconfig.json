@@ -5,9 +5,7 @@
     "allowJs": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": false,
-    "lib": [
-      "es2021"
-    ],
+    "lib": ["es2021"],
     "types": [
       "node",
       "worker-loader",

@@ -12,7 +12,7 @@ ln -s ../auth0-vars/vars-auth0-secret.tf ./circleci/vars-auth0-secret.symlink.tf
 ln -s ../auth0-vars/vars-web-client.tf ./circleci/vars-auth0-web-client.symlink.tf
 ln -s ../slack/vars.tf ./circleci/vars-slack.symlink.tf
 ln -s ../nx/vars.tf ./circleci/vars-nx.symlink.tf
-ln -s ../vercel/vars-api-token.tf ./circleci/vars-vercel-api-token.symlink.tf
+ln -s ../vercel/vars.tf ./circleci/vars-vercel.symlink.tf
 ln -s ../cypress/vars.tf ./circleci/vars-cypress.symlink.tf
 ln -s ../terraform/vars.tf ./circleci/vars-terraform.symlink.tf
 ln -s ../vercel-platform-api/vars.tf ./circleci/vars-platform-api.symlink.tf
