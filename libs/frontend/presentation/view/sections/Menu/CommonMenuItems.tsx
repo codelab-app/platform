@@ -52,8 +52,8 @@ export const allPagesMenuItem = (
       pathname: pageSlug ? PageType.PageBuilder : PageType.ComponentBuilder,
       query: {
         appSlug,
-        componentSlug,
-        pageSlug,
+        ...(componentSlug ? { componentSlug } : null),
+        ...(pageSlug ? { pageSlug } : null),
         primarySidebarKey: ExplorerPaneType.PageList,
         userName,
       },
@@ -76,8 +76,8 @@ export const builderComponentsMenuItem = (
       pathname: pageSlug ? PageType.PageBuilder : PageType.ComponentBuilder,
       query: {
         appSlug,
-        componentSlug,
-        pageSlug,
+        ...(componentSlug ? { componentSlug } : null),
+        ...(pageSlug ? { pageSlug } : null),
         primarySidebarKey: ExplorerPaneType.Components,
         userName,
       },
@@ -100,8 +100,8 @@ export const pageBuilderMenuItem = (
       pathname: pageSlug ? PageType.PageBuilder : PageType.ComponentBuilder,
       query: {
         appSlug,
-        componentSlug,
-        pageSlug,
+        ...(componentSlug ? { componentSlug } : null),
+        ...(pageSlug ? { pageSlug } : null),
         primarySidebarKey: ExplorerPaneType.Explorer,
         userName,
       },

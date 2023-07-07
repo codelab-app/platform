@@ -19,13 +19,14 @@ export const useRenderedComponent = () => {
     typeService,
   } = useStore()
 
-  const { _compoundName: compoundAppName } = useCurrentApp()
+  const { _compoundName } = useCurrentApp()
   const { componentName } = useCurrentComponent()
   const router = useRouter()
 
   return useAsync(async () => {
-    const [app] = await appService.getAll({ _compoundName: compoundAppName })
-    const [component] = await componentService.getAll({ name: componentName })
+    const [app] = await appService.loadAppsWithNestedPreviews({ _compoundName })
+    const components = await componentService.getAll({ name: componentName })
+    const component = components.find(({ name }) => name === componentName)
 
     if (!component || !app) {
       await router.push({ pathname: PageType.AppList, query: {} })
@@ -34,13 +35,13 @@ export const useRenderedComponent = () => {
     }
 
     const pageElements = [...component.rootElement.current.descendantElements]
+    const rootElement = elementService.maybeElement(component.rootElement.id)
 
     await loadAllTypesForElements(componentService, typeService, pageElements)
 
-    const rootElement = elementService.maybeElement(component.rootElement.id)
-
     if (rootElement) {
       builderService.selectElementNode(rootElement)
+      builderService.selectComponentNode(component)
     }
 
     const renderer = renderService.addRenderer({
