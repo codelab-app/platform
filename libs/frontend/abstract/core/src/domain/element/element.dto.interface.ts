@@ -28,6 +28,8 @@ export type IUpdateElementData = Pick<
   | 'renderType'
 > &
   Pick<ICreateElementData, 'id'> & {
+    childMapperComponent?: Nullish<IEntity>
+    childMapperPropKey?: Nullish<string>
     propTransformationJs?: Nullish<string>
     renderForEachPropKey?: Nullable<string>
     renderIfExpression?: Nullable<string>
@@ -38,6 +40,8 @@ export type IUpdateElementData = Pick<
  */
 export type IUpdateBaseElementData = Pick<
   IUpdateElementData,
+  | 'childMapperComponent'
+  | 'childMapperPropKey'
   | 'id'
   | 'name'
   | 'postRenderAction'

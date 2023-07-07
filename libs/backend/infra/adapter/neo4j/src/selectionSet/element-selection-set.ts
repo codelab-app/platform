@@ -33,6 +33,11 @@ const baseElementSelectionSet = `
   props
     ${propSelectionSet}
   renderForEachPropKey
+  childMapperPropKey
+  childMapperComponent {
+    id
+    name
+  }
   renderIfExpression
   propTransformationJs
   preRenderAction {

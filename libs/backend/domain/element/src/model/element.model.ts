@@ -2,6 +2,10 @@ import type { IElementDTO, RenderType } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 
 export class Element implements IElementDTO {
+  childMapperComponent?: IEntity | null | undefined
+
+  childMapperPropKey?: Nullable<string> | undefined
+
   customCss?: Nullable<string> | undefined
 
   firstChild?: IEntity | null | undefined

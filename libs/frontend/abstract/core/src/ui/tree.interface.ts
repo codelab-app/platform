@@ -3,6 +3,7 @@ import type { IPageNode } from '../domain'
 
 export interface IElementTreeViewDataNode {
   children?: Array<IElementTreeViewDataNode>
+  isChildMapperComponentInstance?: boolean
   // This is the id
   key: number | string
   /**

@@ -36,18 +36,6 @@ export class ComponentRenderPipe
     return this.renderer.renderIntermediateElement(rootElement)
   }
 
-  // private static logRootElementNotFound(
-  //   renderer: IRenderer,
-  //   element: IElement,
-  // ) {
-  //   if (renderer.debugMode) {
-  //     console.info(
-  //       'ComponentRenderPipe: No root element found for the component',
-  //       { element: element.name },
-  //     )
-  //   }
-  // }
-
   private static logRendering(
     renderer: IRenderer,
     rootElement: IElement,

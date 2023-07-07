@@ -1,5 +1,4 @@
 import type {
-  IElement,
   IElementTreeViewDataNode,
   IPageNode,
 } from '@codelab/frontend/abstract/core'
@@ -7,9 +6,7 @@ import { elementRef } from '@codelab/frontend/abstract/core'
 import { CuiTree } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import type { Maybe } from '@graphql-tools/utils'
 import has from 'lodash/has'
-import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
 import React, { useMemo } from 'react'
 import { useElementTreeDrop } from '../../../hooks'
@@ -94,31 +91,13 @@ export const ElementTreeView = observer<ElementTreeViewProps>(
         }}
         selectedKeys={selectedNode ? [selectedNode.id] : []}
         titleRender={(data) => {
-          // It seems when a treeData is updated after deleting an element, this function
-          // will still run with the deleted element even if that element does not exist
-          // anymore on the treeData prop
-
-          // root node in the treeData is the "Body" or the "Components"
-          const rootNode = treeData?.node as Maybe<IElement>
-          const descendantElements = rootNode?.descendantElements ?? []
-
-          const nodeExists = descendantElements.some(
-            ({ id }) => id === data.key,
+          return (
+            <ElementTreeItemTitle
+              data={data}
+              elementContextMenuProps={elementContextMenuProps}
+              node={data.node}
+            />
           )
-
-          const isRoot = rootNode?.id === data.key || isNil(rootNode)
-
-          if (nodeExists || isRoot) {
-            return (
-              <ElementTreeItemTitle
-                data={data}
-                elementContextMenuProps={elementContextMenuProps}
-                node={data.node}
-              />
-            )
-          }
-
-          return
         }}
         treeData={treeData ? [treeData] : []}
       />

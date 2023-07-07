@@ -1,5 +1,14 @@
+import type { IPropData } from '@codelab/frontend/abstract/core'
+import { isTypedProp } from '@codelab/frontend/abstract/core'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
-import { callbackWithParams } from '@codelab/frontend/shared/utils'
+import {
+  callbackWithParams,
+  hasStateExpression,
+} from '@codelab/frontend/shared/utils'
+import { ITypeKind } from '@codelab/shared/abstract/core'
+import type { ErrorObject } from 'ajv'
+import get from 'lodash/get'
+import isString from 'lodash/isString'
 import type { MouseEvent } from 'react'
 import type { DeepPartial } from 'uniforms'
 
@@ -53,4 +62,36 @@ export const handleSubmitRefModalOk = (
       onOk(event)
     }
   }
+}
+
+/**
+ * Skips validation errors if they are all expressions to allow setting an expression values
+ * to the field types e.g. ArrayType can have `{{this.products}}`.
+ */
+export const bypassExpressionErrors = (
+  formData: Record<string, unknown>,
+  errors?: { details: Array<ErrorObject> },
+) => {
+  const allExpressionErrors = errors?.details.every((err) => {
+    // instancePath has "/" pre-pended
+    const errorValue = get(formData, err.instancePath.slice(1))
+    const possiblyTypedPropValue = errorValue as IPropData
+
+    // Accept a react node type that has an expression value
+    if (
+      isTypedProp(possiblyTypedPropValue) &&
+      possiblyTypedPropValue.kind === ITypeKind.ReactNodeType &&
+      isString(possiblyTypedPropValue.value)
+    ) {
+      return hasStateExpression(possiblyTypedPropValue.value)
+    }
+
+    return hasStateExpression(errorValue)
+  })
+
+  if (allExpressionErrors) {
+    return null
+  }
+
+  return errors
 }

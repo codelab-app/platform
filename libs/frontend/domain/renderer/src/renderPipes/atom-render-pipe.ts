@@ -7,12 +7,10 @@ import {
 } from '@codelab/frontend/abstract/core'
 import type { IAtomType } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
-import { css } from 'styled-components'
 import type { ArrayOrSingle } from 'ts-essentials'
 import { atomFactory } from '../atoms'
 import { jsonStringToCss } from '../element/get-styled-components'
 import { RenderOutput } from '../utils'
-import { evalCss } from '../utils/eval-css'
 import { BaseRenderPipe } from './render-pipe.base'
 
 @model('@codelab/AtomRenderPipe')
@@ -70,12 +68,6 @@ export class AtomRenderPipe
          * This is rendered to style with css prop and styled-components
          */
         css: elementCss,
-        // onMouseEnter: () =>
-        //   builderServiceContext
-        //     .get(element)
-        //     ?.setHoveredNode(elementRef(element)),
-        // onMouseLeave: () =>
-        //   builderServiceContext.get(element)?.setHoveredNode(null),
       },
     })
   }

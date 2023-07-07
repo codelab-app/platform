@@ -143,6 +143,10 @@ const getComponentIdsFromElements = (elements: Array<IElement>) =>
         acc.push(element.renderType.id)
       }
 
+      if (element.childMapperComponent?.id) {
+        acc.push(element.childMapperComponent.id)
+      }
+
       acc.push(...getComponentIdsFromProp(element.props.current))
 
       return acc
