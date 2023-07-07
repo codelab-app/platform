@@ -1,15 +1,15 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useStore } from '@codelab/frontend/presentation/container'
-import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
 import sortBy from 'lodash/sortBy'
 import React from 'react'
+import type { SelectFieldProps } from 'uniforms-antd'
 import { SelectField } from 'uniforms-antd'
 
-export type SelectComponentProps = Pick<
-  UniformSelectFieldProps,
-  'error' | 'label' | 'name'
->
+export type SelectComponentProps = Partial<
+  Pick<SelectFieldProps, 'error' | 'label' | 'onChange'>
+> &
+  Pick<SelectFieldProps, 'name'>
 
 export const SelectComponent = ({ ...fieldProps }: SelectComponentProps) => {
   const { builderService, componentService } = useStore()

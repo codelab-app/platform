@@ -10,11 +10,9 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { IAtomType } from '@codelab/shared/abstract/core'
-import { mergeProps } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import styled from 'styled-components'
 import { shouldRenderElement } from '../utils'
 import { mapOutput } from '../utils/render-output-utils'
 import { getStyledComponent } from './get-styled-components'
@@ -34,7 +32,7 @@ export interface ElementWrapperProps {
  * It is in this wrapper that the children are rendered
  */
 export const ElementWrapper = observer<ElementWrapperProps>(
-  ({ element, renderer, ...rest }) => {
+  ({ element, renderer }) => {
     useEffect(() => {
       const { postRenderAction, store } = element
 
@@ -87,13 +85,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         extractedProps?.['css'],
       )
 
-      // console.log(ReactComponent, renderOutput, extractedProps)
-
-      return React.createElement(
-        StyledReactComponent,
-        mergeProps(extractedProps, rest),
-        children,
-      )
+      return React.createElement(StyledReactComponent, extractedProps, children)
     })
 
     return React.createElement(

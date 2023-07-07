@@ -57,6 +57,8 @@ export interface IElement
     ICacheService<IElementDTO, IElement> {
   ancestorError: Nullish<RenderingError>
   atomName: string
+  childMapperComponent?: Nullable<Ref<IComponent>>
+  childMapperPropKey?: Nullable<string>
   children: Array<IElement>
   // the closest container node that element belongs to
   closestContainerNode: IComponent | IPage
@@ -128,8 +130,6 @@ export interface IElement
   setRenderType(renderType: IElementRenderType): void
   setRenderingError(error: Nullish<RenderingError>): void
   setSourceElement(element: Ref<IElement>): void
-  // setRenderComponentType(componentRef: Ref<IComponent>): void
-  // getDescendantRefs: Array<Ref<IElement>>
   toUpdateNodesInput(): Pick<
     ElementUpdateInput,
     'firstChild' | 'nextSibling' | 'parent' | 'prevSibling'

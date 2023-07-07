@@ -1,6 +1,7 @@
 import type { IExpressionTransformer } from '@codelab/frontend/abstract/core'
 import { stripStateExpression } from '@codelab/frontend/shared/utils'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import get from 'lodash/get'
 import {
   _async,
   _await,
@@ -56,7 +57,16 @@ export class ExpressionTransformer
       // eslint-disable-next-line no-new-func
       return new Function('return ' + (code ?? '')).call(this.context)
     } catch (error) {
-      console.log(error)
+      // Do not log expected error when an expression with props or state
+      // is used in a ReactNodeType value e.g. {{props.name}}
+      if (
+        !get(error, 'message', '').match(
+          /(\bprops|state)\s+is\s+not\s+defined\b/,
+        )
+      ) {
+        console.log('expression', expression)
+        console.log(get(error, 'message', ''))
+      }
 
       return expression
     }

@@ -129,6 +129,7 @@ export class Component
       if (isComponentInstance(element.renderType)) {
         const componentClone = element.renderType.current.clone(
           clonedElement.id,
+          clonedElement.id,
         )
 
         clonedElement.setRenderType(componentRef(componentClone.id))

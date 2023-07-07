@@ -6,20 +6,20 @@ import type { RenderType } from './render-type'
  */
 export interface IElementDTO {
   // slug: string
+  childMapperComponent?: Nullable<IEntity>
+  childMapperPropKey?: Nullable<string>
   customCss?: Nullable<string>
-  firstChild?: IEntity | null
+  firstChild?: Nullable<IEntity>
   guiCss?: Nullable<string>
   id: string
   name: string
-  nextSibling?: IEntity | null
-  page?: IEntity | null
-  parent?: IEntity | null
-  parentComponent?: IEntity | null
-  postRenderAction?: IEntity | null
-  preRenderAction?: IEntity | null
-  // renderComponentType?: IComponentDTO | null
-  // renderAtomType?: IAtomDTO | null
-  prevSibling?: IEntity | null
+  nextSibling?: Nullable<IEntity>
+  page?: Nullable<IEntity>
+  parent?: Nullable<IEntity>
+  parentComponent?: Nullable<IEntity>
+  postRenderAction?: Nullable<IEntity>
+  preRenderAction?: Nullable<IEntity>
+  prevSibling?: Nullable<IEntity>
   propTransformationJs?: Nullable<string>
   props: IEntity
   renderForEachPropKey?: Nullable<string>

@@ -1,7 +1,9 @@
 import { PageType } from '@codelab/frontend/abstract/types'
-import { useStore } from '@codelab/frontend/presentation/container'
+import {
+  useCurrentApp,
+  useStore,
+} from '@codelab/frontend/presentation/container'
 import { ExplorerPaneTemplate } from '@codelab/frontend/presentation/view'
-import { useAsync, useMountEffect } from '@react-hookz/web'
 import { Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
@@ -14,25 +16,14 @@ import {
 } from '../use-cases'
 import { UpdatePageForm } from '../use-cases/update-page/UpdatePageForm'
 
-interface ExplorerPanePageProps {
-  appId: string
-}
-
-export const ExplorerPanePage = observer(({ appId }: ExplorerPanePageProps) => {
+export const ExplorerPanePage = observer(() => {
   const router = useRouter()
-  const { appService, pageService } = useStore()
-
-  const [{ result: apps, status }, actions] = useAsync(() =>
-    appService.loadAppsWithNestedPreviews({ id: appId }),
-  )
-
-  useMountEffect(actions.execute)
+  const { pageService } = useStore()
+  const { app } = useCurrentApp()
 
   const headerProps = {
     onBack: () => router.push({ pathname: PageType.AppList }),
   }
-
-  const isLoading = status === 'loading' || status === 'not-executed'
 
   return (
     <ExplorerPaneTemplate
@@ -42,10 +33,10 @@ export const ExplorerPanePage = observer(({ appId }: ExplorerPanePageProps) => {
       title="Pages"
     >
       {!pageService.createForm.isOpen && !pageService.updateForm.isOpen ? (
-        isLoading || !apps?.[0] ? (
+        !app ? (
           <Spin />
         ) : (
-          <PageList app={apps[0]} />
+          <PageList app={app} />
         )
       ) : null}
       {pageService.createForm.isOpen && <CreatePageForm />}

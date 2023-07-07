@@ -31,7 +31,7 @@ export const ElementTreeItemTitle = observer<ElementTreeItemTitleProps>(
             {...elementContextMenuProps}
             element={node}
           >
-            <ElementTreeItemElementTitle element={node} />
+            <ElementTreeItemElementTitle element={node} treeNode={data} />
           </ElementContextMenu>
         </BuilderDropHandler>
       )
