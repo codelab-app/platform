@@ -1,13 +1,13 @@
 .cuiTree {
-  .ant-tree {
+  :global(.ant-tree) {
     height: 100%;
   }
 
-  .ant-tree-treenode {
+  :global(.ant-tree-treenode) {
     overflow: hidden;
   }
 
-  .ant-tree-node-content-wrapper {
+  :global(.ant-tree-node-content-wrapper) {
     /*
         we have to set min-width to 0 to alow text
         truncate in CuiTreeItem to work without having
@@ -26,44 +26,44 @@
     justify-content: flex-start;
   }
 
-  .ant-tree-treenode-selected.dragging .codelabui-tree-item {
+  :global(.ant-tree-treenode-selected.dragging) :global(.codelabui-tree-item) {
     color: #ffffff !important;
   }
 
-  .ant-tree-treenode-selected.dragging .codelabui-tree-item span {
+  :global(.ant-tree-treenode-selected.dragging) :global(.codelabui-tree-item) span {
     color: #ffffff !important;
   }
 
-  .ant-tree-treenode-selected .codelabui-tree-item {
+  :global(.ant-tree-treenode-selected) :global(.codelabui-tree-item) {
     color: #ffffff !important;
   }
 
-  .ant-tree-treenode-selected .codelabui-tree-item span {
+  :global(.ant-tree-treenode-selected) :global(.codelabui-tree-item) span {
     color: #ffffff !important;
   }
 
-  .ant-tree-treenode-selected::before {
+  :global(.ant-tree-treenode-selected)::before {
     background-color: #1890ff !important;
   }
 
-  .codelabui-tree-item-toolbar {
+  :global(.codelabui-tree-item-toolbar) {
     display: none;
   }
 
-  .ant-tree-treenode-selected .codelabui-tree-item-toolbar {
+  :global(.ant-tree-treenode-selected) :global(.codelabui-tree-item-toolbar) {
     display: unset;
   }
 
-  .ant-tree-treenode-hovered .codelabui-tree-item-toolbar {
+  :global(.ant-tree-treenode-hovered) :global(.codelabui-tree-item-toolbar) {
     display: unset;
   }
 
-  .ant-tree-title {
+  :global(.ant-tree-title) {
     flex: 1;
     overflow: hidden;
   }
 
-  .ant-tree-drop-indicator {
+  :global(.ant-tree-drop-indicator) {
     transform: translate(3px, -6px);
   }
 }

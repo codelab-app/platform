@@ -44,16 +44,29 @@ export const CuiNavigationBar = ({
   const selectedKey = (primarySidebarKey as string) || router.pathname
 
   return (
-    <div className="box-border flex h-full w-10 flex-col justify-between border-r border-gray-200">
+    <div
+      className={classNames(
+        styles.cuiNavigationBar,
+        `
+          box-border
+          flex
+          h-full
+          w-10
+          flex-col
+          justify-between
+          border-r
+          border-gray-200
+        `,
+      )}
+    >
       <Menu
-        className={classNames(styles.menu, 'h-full')}
+        className="h-full"
         defaultOpenKeys={[]}
         items={primaryItems?.map(mapNavBarItemToMenuItem)}
         mode="inline"
         selectedKeys={[selectedKey]}
       />
       <Menu
-        className={styles.menu}
         defaultOpenKeys={[]}
         items={secondaryItems?.map(mapNavBarItemToMenuItem)}
         mode="inline"
