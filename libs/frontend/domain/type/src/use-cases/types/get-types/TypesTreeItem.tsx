@@ -22,10 +22,11 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
 
   const onEdit = () => {
     if (data.extraData.type === 'type') {
-      typeService.updateModal.open(typeRef(data.extraData.node.id))
+      typeService.updateForm.open(typeRef(data.extraData.node.id))
       fieldService.updateForm.close()
     } else {
       fieldService.updateForm.open(fieldRef(data.extraData.node.id))
+      typeService.updateForm.close()
     }
   }
 

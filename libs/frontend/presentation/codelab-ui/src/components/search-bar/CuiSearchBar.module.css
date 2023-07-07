@@ -1,6 +1,6 @@
 .cuiSearchBar {    
     :global(.ant-input-affix-wrapper) {
-        color: #ff0000;
+        color: #000000;
         border: none;
     }
     
