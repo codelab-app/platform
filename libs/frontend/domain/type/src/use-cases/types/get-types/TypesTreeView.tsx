@@ -6,7 +6,6 @@ import { useTablePagination } from '@codelab/frontend/shared/utils'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
 import { TypesTreeItem } from './TypesTreeItem'
 
 interface TypesTreeViewProps {
@@ -40,7 +39,7 @@ export const TypesTreeView = observer(
     }))
 
     return (
-      <div css={tw`w-full h-full`}>
+      <div className="h-full w-full">
         <CuiTree<ITypesTreeDataNode>
           isLoading={isLoading}
           onSearchKeywordChange={(keyword) => {

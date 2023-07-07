@@ -9,7 +9,6 @@ import { useStore } from '@codelab/frontend/presentation/container'
 import { useTablePagination } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
-import tw from 'twin.macro'
 import { TypesTreeView } from '../get-types'
 
 export const TypesPrimarySidebar = observer(() => {
@@ -82,9 +81,7 @@ export const TypesPrimarySidebar = observer(() => {
               },
               {
                 icon: (
-                  <div
-                    css={tw`w-16 flex flex-row justify-between items-center`}
-                  >
+                  <div className="flex w-16 flex-row items-center justify-between">
                     <CuiInput
                       onChange={(value) => {
                         if (typeof value === 'number' && value > 0) {
@@ -95,10 +92,8 @@ export const TypesPrimarySidebar = observer(() => {
                       type="number"
                       value={currentPage}
                     />
-                    <span css={tw`w-2 p-0 m-0 text-sm text-center`}>/</span>
-                    <span
-                      css={tw`w-6 p-0 m-0 text-sm text-center`}
-                    >{`${pageCount}`}</span>
+                    <span className="m-0 w-2 p-0 text-center text-sm">/</span>
+                    <span className="m-0 w-6 p-0 text-center text-sm">{`${pageCount}`}</span>
                   </div>
                 ),
                 key: 'current-page',
@@ -112,9 +107,7 @@ export const TypesPrimarySidebar = observer(() => {
               },
               {
                 icon: (
-                  <div
-                    css={tw`w-16 flex flex-row justify-between items-center`}
-                  >
+                  <div className="flex w-16 flex-row items-center justify-between">
                     <CuiInput
                       onChange={(value) => {
                         if (typeof value === 'number' && value > 0) {
@@ -125,8 +118,8 @@ export const TypesPrimarySidebar = observer(() => {
                       type="number"
                       value={currentPageSize}
                     />
-                    <span css={tw`w-2 p-0 m-0 text-sm`}>/</span>
-                    <span css={tw`p-0 m-0 text-sm`}>Page</span>
+                    <span className="m-0 w-2 p-0 text-sm">/</span>
+                    <span className="m-0 p-0 text-sm">Page</span>
                   </div>
                 ),
                 key: 'page-size',

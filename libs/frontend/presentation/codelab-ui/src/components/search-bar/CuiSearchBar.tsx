@@ -1,8 +1,8 @@
 import { SearchOutlined } from '@ant-design/icons'
 import { Input } from 'antd'
+import classNames from 'classnames'
 import React, { useEffect, useState } from 'react'
-import tw from 'twin.macro'
-import { overrideAntdInputStyles } from './search-bar-styles'
+import Style from './CuiSearchBar.module.css'
 
 interface CuiSearchBarProps {
   searchKeyword?: string
@@ -27,13 +27,13 @@ export const CuiSearchBar = ({
 
   return (
     <div
-      css={[
-        overrideAntdInputStyles,
-        tw`w-full border-0 border-b border-solid border-gray-300`,
-      ]}
+      className={classNames(
+        Style.cuiSearchBar,
+        `w-full border-0 border-b border-solid border-gray-300`,
+      )}
     >
       <Input
-        css={tw`border`}
+        className="border"
         onChange={(event) => handleChange(event.target.value)}
         placeholder="Search"
         prefix={<SearchOutlined />}
