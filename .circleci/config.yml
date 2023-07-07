@@ -97,6 +97,7 @@ commands:
             - nvm-cache-{{ checksum ".nvmrc" }}
           name: Restore NPM Cache
       - setup-env
+      - run: npx nx reset
   setup-env:
     description: Setup Env
     steps:
@@ -187,9 +188,6 @@ jobs:
       - run: npx cypress verify
       - run:
           command: yarn cli tasks e2e --stage ci
-          environment:
-            JEST_JUNIT_OUTPUT_DIR: /tmp/test-reports
-            JEST_JUNIT_OUTPUT_NAME: e2e-specs-results.xml
           name: Run E2E Tests
       - store_artifacts:
           destination: cypress/videos
@@ -201,7 +199,7 @@ jobs:
           destination: cypress/data
           path: ~/project/apps/platform-e2e/src/data
       - store_test_results:
-          path: /tmp/test-reports
+          path: ./tmp/reports/e2e
   integration:
     executor: docker-node-neo4j
     resource_class: large
