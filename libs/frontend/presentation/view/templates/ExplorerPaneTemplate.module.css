@@ -1,0 +1,24 @@
+.container {
+  height: 100%;
+  max-height: 100%;
+
+  .ant-page-header {
+    height: 100%;
+    max-height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    padding-left: 0;
+    padding-right: 0;
+
+    .ant-page-header-content {
+      @apply px-4;
+      max-height: 100%;
+      min-height: 0;
+      overflow-y: auto;
+    }
+    .ant-page-header-heading {
+      @apply px-4 mt-2;
+      align-items: center;
+    }
+  }
+}

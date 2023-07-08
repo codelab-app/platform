@@ -53,7 +53,7 @@
     },
     "@nrwl/gatsby": {
       "application": {
-        "style": "@emotion/styled"
+        "style": "styled-components"
       }
     },
     "@nx/workspace": {
@@ -104,7 +104,7 @@
     },
     "@nx/next": {
       "application": {
-        "style": "@emotion/styled",
+        "style": "styled-components",
         "linter": "eslint"
       }
     }
@@ -131,7 +131,12 @@
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
     },
     "build-storybook": {
-      "inputs": ["default", "^prod", "!{projectRoot}/.storybook/**/*"]
+      "inputs": [
+        "default",
+        "^prod",
+        "{projectRoot}/.storybook/**/*",
+        "{projectRoot}/tsconfig.storybook.json"
+      ]
     }
   },
   "namedInputs": {

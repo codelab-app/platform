@@ -15,7 +15,7 @@ import { createActionSchema } from './create-action.schema'
 
 const CODE_ACTION = `function run() {
     // insert your code here
-    // this.count += 2;
+    // state.count += 2;
 }`
 
 export const CreateActionModal = observer<{ store?: IStore }>(({ store }) => {

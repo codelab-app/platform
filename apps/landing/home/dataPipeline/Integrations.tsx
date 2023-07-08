@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import React from 'react'
-import tw from 'twin.macro'
 
 const listItem = [
   {
@@ -25,15 +24,13 @@ const listItem = [
 
 export const Integrations = () => {
   return (
-    <section css={tw`mt-7 sm:mt-14 md:mt-36`}>
-      <p
-        css={tw`text-center text-lg sm:text-xl md:text-2xl lg:text-3xl md:mb-8 mb-4 sm:mb-8 font-bold`}
-      >
+    <section className="mt-7 sm:mt-14 md:mt-36">
+      <p className="mb-4 text-center text-lg font-bold sm:mb-8 sm:text-xl md:mb-8 md:text-2xl lg:text-3xl">
         Integrations
       </p>
-      <ul css={tw`list-none flex flex-wrap px-0 sm:px-6  mb-8 justify-center`}>
+      <ul className="mb-8 flex list-none flex-wrap justify-center px-0 sm:px-6">
         {listItem.map(({ alt, src }, index) => (
-          <li css={tw`py-6 px-2 w-36 md:w-40 xl:w-48 2xl:w-auto`} key={index}>
+          <li className="w-36 px-2 py-6 md:w-40 xl:w-48 2xl:w-auto" key={index}>
             <Image alt={alt} height={45} src={src} width={200} />
           </li>
         ))}

@@ -27,7 +27,6 @@ import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
-import tw from 'twin.macro'
 
 const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   return (
@@ -69,13 +68,13 @@ const AtomsHeader = observer(() => {
       logo={
         <Image
           alt="codelab logo"
-          css={tw`w-full h-full`}
+          className="h-full w-full"
           preview={false}
           src="/logo.png"
         />
       }
       toolbar={
-        <CuiHeaderToolbar items={toolbarItems} title="My Header Toolbal" />
+        <CuiHeaderToolbar items={toolbarItems} title="My Header Toolbar" />
       }
     />
   )

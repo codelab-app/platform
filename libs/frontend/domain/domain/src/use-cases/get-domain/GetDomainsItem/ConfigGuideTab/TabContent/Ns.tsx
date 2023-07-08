@@ -1,6 +1,5 @@
 import { Table, Typography } from 'antd'
 import React from 'react'
-import tw from 'twin.macro'
 
 interface NameServersProps {
   copyable?: boolean
@@ -53,7 +52,7 @@ export const NameServerTabContent = ({
 
   return (
     <div>
-      <p css={tw`mb-2`}>
+      <p className="mb-2">
         To continue, please set the nameservers of nghia.dev (apex domain) to
         the intended nameservers listed below:
       </p>

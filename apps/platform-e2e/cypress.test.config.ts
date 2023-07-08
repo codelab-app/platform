@@ -5,7 +5,6 @@ import setupNodeEvents from './src/plugins/index'
 const cypressJsonConfig: Cypress.ConfigOptions = {
   chromeWebSecurity: false,
   defaultCommandTimeout: 30000,
-  env: {},
   execTimeout: 15000,
   fileServerFolder: '.',
   fixturesFolder: './src/fixtures',
@@ -29,7 +28,6 @@ export default defineConfig({
   e2e: {
     ...nxE2EPreset(__filename),
     ...cypressJsonConfig,
-    env: {},
     setupNodeEvents,
     testIsolation: false,
   },

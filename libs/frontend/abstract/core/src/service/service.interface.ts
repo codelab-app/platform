@@ -45,16 +45,16 @@ export interface ICRUDFormService<
 /**
  * Used for base modal, since a class can only implement an object type or intersection of object types with statically known members
  */
-export interface IModalService<Metadata = never> {
+export interface IModalService<Metadata = undefined> {
   isOpen: boolean
   metadata?: Metadata | null
 
   close(): void
-  open(...args: Metadata extends never ? [] : [Metadata]): void
+  open(...args: Metadata extends undefined ? [] : [Metadata]): void
 }
 
 export type IEntityModalService<
-  Metadata = never,
+  Metadata = undefined,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Properties extends object = Record<string, any>,
 > = IModalService<Metadata> & {
@@ -65,7 +65,7 @@ export type IEntityModalService<
 }
 
 export type IEntityFormService<
-  Metadata = never,
+  Metadata = undefined,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Properties extends object = Record<string, any>,
 > = IModalService<Metadata> & {

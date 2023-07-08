@@ -26,13 +26,14 @@ const withRawCypherFiles = (nextConfig = {}) => {
 const plugins = [withBundleAnalyzer, withRawCypherFiles]
 
 const nextConfig = {
-  // https://github.com/vercel/next.js/issues/9830
+  compiler: {
+    styledComponents: true,
+  },
   experimental: {
     // appDir: true,
     // css: true,
   },
   nx: { svgr: true },
-  // reactStrictMode: false,
 }
 
 /*

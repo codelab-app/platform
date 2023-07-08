@@ -10,10 +10,7 @@
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "parserOptions": {
-        "project": [
-          "apps/platform/tsconfig(.*)?.json",
-          "apps/platform/.storybook/tsconfig.json"
-        ]
+        "project": ["apps/platform/tsconfig(.*)?.json"]
       },
       "rules": {
         "@next/next/no-html-link-for-pages": ["error", "apps/platform/pages"],
@@ -21,6 +18,12 @@
         "react/jsx-no-useless-fragment": "off",
         "react/display-name": "off",
         "react-hooks/rules-of-hooks": "off"
+      }
+    },
+    {
+      "files": ["_app.tsx"],
+      "rules": {
+        "react/jsx-props-no-spreading": "off"
       }
     },
     {

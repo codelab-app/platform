@@ -4,7 +4,6 @@ import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import type { DeleteElementData } from './delete-element.schema'
 import { deleteElementSchema } from './delete-element.schema'
@@ -44,7 +43,7 @@ export const DeleteElementModal = observer(() => {
       okText="Delete"
       onCancel={closeModal}
       open={elementService.deleteModal.isOpen}
-      title={<span css={tw`font-semibold`}>Delete element</span>}
+      title={<span className="font-semibold">Delete element</span>}
     >
       <ModalForm.Form<DeleteElementData>
         model={model}

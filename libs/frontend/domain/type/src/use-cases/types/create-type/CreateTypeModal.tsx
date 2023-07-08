@@ -5,7 +5,6 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
 import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { TypeSelect, typeSelectOptions } from '../../../shared'
@@ -35,7 +34,7 @@ export const CreateTypeModal = observer(() => {
       okText="Create"
       onCancel={closeModal}
       open={isOpen}
-      title={<span css={tw`font-semibold`}>Create type</span>}
+      title={<span className="font-semibold">Create type</span>}
     >
       <ModalForm.Form<ICreateTypeData>
         model={{

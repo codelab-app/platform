@@ -5,7 +5,6 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { PrimitiveTypeKind } from '@codelab/shared/abstract/codegen'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
 import { AutoFields } from 'uniforms-antd'
 import { SelectDefaultValue } from '../../../interface-form'
 import { TypeSelect } from '../../../shared'
@@ -48,7 +47,7 @@ export const UpdateFieldModal = observer(() => {
       okText="Update"
       onCancel={closeModal}
       open={fieldService.updateModal.isOpen}
-      title={<span css={tw`font-semibold`}>Update field</span>}
+      title={<span className="font-semibold">Update field</span>}
     >
       <ModalForm.Form<IUpdateFieldData>
         model={{

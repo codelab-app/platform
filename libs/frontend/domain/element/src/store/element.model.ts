@@ -19,6 +19,7 @@ import {
   CssMap,
   DATA_ELEMENT_ID,
   elementRef,
+  getComponentService,
   getElementService,
   getRenderService,
   IElement,
@@ -57,6 +58,8 @@ import {
 import { getRenderType } from './utils'
 
 const create = ({
+  childMapperComponent,
+  childMapperPropKey,
   customCss,
   firstChild,
   guiCss,
@@ -80,6 +83,10 @@ const create = ({
   return new Element({
     _page: page ? pageRef(page.id) : null,
     _parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
+    childMapperComponent: childMapperComponent
+      ? componentRef(childMapperComponent.id)
+      : null,
+    childMapperPropKey,
     customCss,
     firstChild: firstChild?.id ? elementRef(firstChild.id) : undefined,
     guiCss,
@@ -110,30 +117,22 @@ export class Element
   extends Model({
     // page which has this element as rootElement
     _page: prop<Nullable<Ref<IPage>>>(null),
-
     // component which has this element as rootElement
     _parentComponent: prop<Nullable<Ref<IComponent>>>(null),
 
+    childMapperComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
+    childMapperPropKey: prop<Nullable<string>>(null).withSetter(),
     customCss: prop<Nullable<string>>(null).withSetter(),
-
     firstChild: prop<Nullable<Ref<IElement>>>(null).withSetter(),
-
     guiCss: prop<Nullable<string>>(null),
-
     // Marks the element as an instance of a specific component
     // renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
-
     id: idProp.withSetter(),
-
     name: prop<string>().withSetter(),
-
     nextSibling: prop<Nullable<Ref<IElement>>>(null).withSetter(),
-
     orderInParent: prop<Nullable<number>>(null).withSetter(),
-
     owner: prop<Nullable<IAuth0Owner>>(null),
-
     // Data used for tree initializing, before our Element model is ready
     parent: prop<Nullable<Ref<IElement>>>(null).withSetter(),
     postRenderAction: prop<Nullable<Ref<IAction>>>(null).withSetter(),
@@ -151,6 +150,11 @@ export class Element
   })
   implements IElement
 {
+  @computed
+  get componentService() {
+    return getComponentService(this)
+  }
+
   @computed
   get elementService() {
     return getElementService(this)
@@ -378,8 +382,40 @@ export class Element
 
   @computed
   get treeViewNode(): IElementTreeViewDataNode {
+    const extraChildren: Array<IElement> = []
+
+    // Creates the tree node n times for the component based on the child mapper prop
+    if (
+      this.childMapperComponent?.id &&
+      this.childMapperPropKey &&
+      this.runtimeProp?.evaluatedChildMapperProp.length
+    ) {
+      const keys = [
+        ...Array(this.runtimeProp.evaluatedChildMapperProp.length).keys(),
+      ]
+
+      keys.forEach((i) => {
+        const clonedComponent = this.componentService.clonedComponents.get(
+          `${this.id}-${i}`,
+        )
+
+        if (clonedComponent) {
+          extraChildren.push(clonedComponent.rootElement.current)
+        }
+      })
+    }
+
     return {
-      children: this.children.map((child) => child.treeViewNode),
+      children: [
+        ...this.children.map((child) => child.treeViewNode),
+        // Render the cloned component instances from the child mapper last
+        // TODO: allow user to move around the elements from the child mapper
+        ...extraChildren.map((child) => ({
+          ...child.treeViewNode,
+          children: [],
+          isChildMapperComponentInstance: true,
+        })),
+      ],
       key: this.id,
       node: this,
       primaryTitle: this.treeTitle.primary,
@@ -474,7 +510,13 @@ export class Element
       ? reconnectNodeId(this.postRenderAction.id)
       : disconnectNodeId(undefined)
 
+    const childMapperComponent = this.childMapperComponent?.id
+      ? reconnectNodeId(this.childMapperComponent.id)
+      : disconnectNodeId(undefined)
+
     return {
+      childMapperComponent,
+      childMapperPropKey: this.childMapperPropKey,
       customCss: this.customCss,
       guiCss: this.guiCss,
       name: this.name,
@@ -651,6 +693,8 @@ export class Element
   @modelAction
   @modelAction
   writeCache({
+    childMapperComponent,
+    childMapperPropKey,
     customCss,
     firstChild,
     guiCss,
@@ -678,6 +722,7 @@ export class Element
     this.renderForEachPropKey = renderForEachPropKey ?? null
     this.renderType = elementRenderType ?? null
     this.props = props?.id ? propRef(props.id) : this.props
+    this.childMapperPropKey = childMapperPropKey ?? null
     this.parent = parent?.id ? elementRef(parent.id) : this.parent
     this.nextSibling = nextSibling?.id
       ? elementRef(nextSibling.id)
@@ -696,6 +741,9 @@ export class Element
       : null
     this.postRenderAction = postRenderAction
       ? actionRef(postRenderAction.id)
+      : null
+    this.childMapperComponent = childMapperComponent
+      ? componentRef(childMapperComponent.id)
       : null
 
     return this

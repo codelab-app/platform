@@ -29,7 +29,6 @@ export interface ElementCssEditorInternalProps {
   - define the interfaces for what Css changes are possible? basically what potential values
     can guiCss be set to?
   */
-
 export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
   ({ element, elementService }) => {
     const guiCssObj = JSON.parse(element.guiCss ?? '{}') as CssMap

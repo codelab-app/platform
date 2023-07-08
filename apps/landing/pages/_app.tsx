@@ -10,13 +10,9 @@ import 'antd/dist/reset.css'
 import { UserProvider } from '@auth0/nextjs-auth0/client'
 import type { IAppProps } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { css, Global } from '@emotion/react'
-import { LocalizationProvider } from '@mui/x-date-pickers'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { ConfigProvider } from 'antd'
 import React from 'react'
 import { RecoilRoot } from 'recoil'
-import { GlobalStyles } from 'twin.macro'
 import { GoogleAnalytics } from '../home/GoogleAnalytics'
 import { Intercom } from '../home/Intercom'
 import { useHotjar } from '../hooks/useHotjar.hook'
@@ -38,40 +34,38 @@ const App = ({ Component, pageProps }: IAppProps) => {
       <Intercom />
       <RecoilRoot>
         <UserProvider>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <ConfigProvider>
-              <GlobalStyles />
-              <Global
-                styles={[
-                  css({
-                    '#__next': {
-                      height: '100%',
-                    },
-                  }),
-                  css`
-                    img,
-                    svg,
-                    video,
-                    canvas,
-                    audio,
-                    iframe,
-                    embed,
-                    object {
-                      display: inline;
-                    }
-                  `,
-                ]}
-              />
-              <Layout>
-                {() => (
-                  <Component
-                    // eslint-disable-next-line react/jsx-props-no-spreading
-                    {...pageProps}
-                  />
-                )}
-              </Layout>
-            </ConfigProvider>
-          </LocalizationProvider>
+          <ConfigProvider>
+            {/* <GlobalStyles /> */}
+            {/* <Global
+              styles={[
+                css({
+                  '#__next': {
+                    height: '100%',
+                  },
+                }),
+                css`
+                  img,
+                  svg,
+                  video,
+                  canvas,
+                  audio,
+                  iframe,
+                  embed,
+                  object {
+                    display: inline;
+                  }
+                `,
+              ]}
+            /> */}
+            <Layout>
+              {() => (
+                <Component
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...pageProps}
+                />
+              )}
+            </Layout>
+          </ConfigProvider>
         </UserProvider>
       </RecoilRoot>
     </>

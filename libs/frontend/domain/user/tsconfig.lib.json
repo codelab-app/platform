@@ -5,8 +5,7 @@
     "types": ["node"],
     "strict": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "jsxImportSource": "@emotion/react"
+    "noFallthroughCasesInSwitch": true
   },
   "files": [
     "../../../../node_modules/@nx/react/typings/cssmodule.d.ts",

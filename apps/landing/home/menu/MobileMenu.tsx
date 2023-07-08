@@ -1,5 +1,3 @@
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
 import {
   faDiscord,
   faFacebook,
@@ -9,26 +7,24 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 import { faArrowLeft, faBars } from '@fortawesome/pro-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import classNames from 'classnames'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useRef } from 'react'
 import ReactDOM from 'react-dom'
 import { useRecoilState } from 'recoil'
 import { useOutsideClick } from 'rooks'
-import tw from 'twin.macro'
+import styled from 'styled-components'
 import { Logo } from '../logo/Logo'
 import { menuState } from './menu-state'
 
-const SpaceEvenly = styled.div(
-  tw`
-  flex flex-row  justify-between items-center flex-grow py-6 px-12
-`,
-  css`
-    & > * {
-      display: flex;
-    }
-  `,
-)
+const SpaceEvenly = styled.div.attrs({
+  className: 'flex flex-row justify-between items-center flex-grow py-6 px-12',
+})`
+  & > * {
+    display: flex;
+  }
+`
 
 interface BackdropProps {
   active: boolean
@@ -43,10 +39,10 @@ const Backdrop = ({ active }: BackdropProps) => {
 
   return ReactDOM.createPortal(
     <div
-      css={[
-        tw`fixed top-0`,
-        active && tw`backdrop-blur-sm bg-white/5 w-screen h-screen`,
-      ]}
+      className={classNames(
+        'fixed top-0',
+        active && 'backdrop-blur-sm bg-white/5 w-screen h-screen',
+      )}
       id="backdrop"
     />,
     body,
@@ -73,28 +69,28 @@ export const MenuMobile = () => {
       <SpaceEvenly>
         <Logo />
         <button
-          css={tw`bg-white border-0 hover:cursor-pointer`}
+          className="border-0 bg-white hover:cursor-pointer"
           onClick={toggleMenu}
         >
-          <FontAwesomeIcon css={tw`text-xl`} icon={faBars} />
+          <FontAwesomeIcon className="text-xl" icon={faBars} />
         </button>
       </SpaceEvenly>
       <menu
-        css={[
-          isMenuOpen ? tw`` : tw`-translate-x-full`,
-          tw`transition fixed top-0 p-0 m-0 bottom-0 w-4/5 h-screen bg-white transform-gpu duration-300 shadow-lg border-r-2`,
-        ]}
+        className={classNames(
+          isMenuOpen && '-translate-x-full',
+          'transition fixed top-0 p-0 m-0 bottom-0 w-4/5 h-screen bg-white transform-gpu duration-300 shadow-lg border-r-2',
+        )}
       >
-        <div css={tw`p-10 h-full`}>
-          <div css={tw`flex items-center justify-between`}>
+        <div className="h-full p-10">
+          <div className="flex items-center justify-between">
             <Logo />
-            <FontAwesomeIcon css={tw`text-xl`} icon={faArrowLeft} />
+            <FontAwesomeIcon className="text-xl" icon={faArrowLeft} />
           </div>
-          <ul css={[tw` p-0 flex-col pt-4 flex`]}>
+          <ul className="flex flex-col p-0 pt-4">
             {menuItems.map((items, index) => (
-              <li css={tw`hidden laptop:flex pt-8 text-base flex`} key={index}>
+              <li className="hidden pt-8 text-base laptop:flex" key={index}>
                 <Link
-                  css={tw`flex items-center text-black hover:text-primary  font-display font-normal`}
+                  className="flex items-center font-display font-normal  text-black hover:text-primary"
                   href={items.href}
                 >
                   <Image
@@ -103,25 +99,25 @@ export const MenuMobile = () => {
                     src={items.icon}
                     width={20}
                   />
-                  <p css={tw`p-0 ml-4 mb-0 mt-0 mr-0`}>{items.title}</p>
+                  <p className="my-0 ml-4 mr-0 p-0">{items.title}</p>
                 </Link>
               </li>
             ))}
           </ul>
-          <ul css={tw`flex items-center p-0 mt-10 justify-between`}>
-            <li css={tw` text-2xl list-none`}>
+          <ul className="mt-10 flex items-center justify-between p-0">
+            <li className="list-none text-2xl">
               <FontAwesomeIcon icon={faTwitter} />
             </li>
-            <li css={tw` text-2xl list-none`}>
+            <li className=" list-none text-2xl">
               <FontAwesomeIcon icon={faFacebook} />
             </li>
-            <li css={tw` text-2xl list-none`}>
+            <li className=" list-none text-2xl">
               <FontAwesomeIcon icon={faGithub} />
             </li>
-            <li css={tw` text-2xl list-none`}>
+            <li className=" list-none text-2xl">
               <FontAwesomeIcon icon={faYoutube} />
             </li>
-            <li css={tw` text-2xl list-none`}>
+            <li className=" list-none text-2xl">
               <FontAwesomeIcon icon={faDiscord} />
             </li>
           </ul>

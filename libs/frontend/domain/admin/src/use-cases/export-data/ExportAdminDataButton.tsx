@@ -12,7 +12,7 @@ export const ExportAdminDataButton = observer(() => {
       icon={<ImportOutlined />}
       onClick={() =>
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        adminService.export().then(async (res: any) => {
+        adminService.exportData().then(async (res: any) => {
           const blob = await res.blob()
 
           // https://stackoverflow.com/questions/50570900/js-fetch-not-getting-headers-on-response

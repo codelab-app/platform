@@ -2,7 +2,6 @@ import { useMobileOrTabletMediaQuery } from '@codelab/frontend/shared/style'
 import type { PropsWithChildren, ReactElement } from 'react'
 import React from 'react'
 import { useRecoilValue } from 'recoil'
-import tw from 'twin.macro'
 import { Footer } from '../sections/footer/Footer'
 import { MenuDesktop } from './menu/DesktopNavigation'
 import { menuState } from './menu/menu-state'
@@ -21,7 +20,7 @@ const Layout = ({ children }: PropsWithChildren) => {
   const isMenuOpen = useRecoilValue(menuState)
 
   return (
-    <div css={[isMenuOpen || tw`backdrop-blur`]} id="home">
+    <div className={isMenuOpen ? 'backdrop-blur' : ''} id="home">
       {children}
     </div>
   )

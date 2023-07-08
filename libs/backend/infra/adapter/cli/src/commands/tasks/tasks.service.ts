@@ -82,7 +82,8 @@ export class TaskService implements CommandModule<unknown, unknown> {
       .command(
         Tasks.Codegen,
         'Run codegen',
-        (argv) => argv.fail((msg, err) => console.log(msg, err)),
+        (argv) => argv,
+        // (argv) => argv.fail((msg, err) => console.log(msg, err)),
         globalHandler(async ({ stage }) => {
           if (stage === Stage.Dev) {
             if (!(await isPortReachable(4000, { host: '127.0.0.1' }))) {

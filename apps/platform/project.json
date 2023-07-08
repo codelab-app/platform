@@ -9,7 +9,8 @@
       "executor": "@nx/next:build",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/platform"
+        "outputPath": "dist/apps/platform",
+        "postcssConfig": "apps/platform/postcss.config.js"
       },
       "configurations": {
         "dev": {},
@@ -88,37 +89,6 @@
       },
       "outputs": ["{workspaceRoot}/coverage/apps/platform"]
     },
-    "storybook": {
-      "executor": "@nx/storybook:storybook",
-      "options": {
-        "port": 4400,
-        "configDir": "apps/platform/.storybook"
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "build-storybook": {
-      "executor": "@nx/storybook:build",
-      "outputs": ["{options.outputDir}"],
-      "options": {
-        "outputDir": "dist/storybook/platform",
-        "configDir": "apps/platform/.storybook"
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      }
-    },
-    "test-storybook": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "test-storybook -c apps/platform/.storybook --url=http://localhost:4400"
-      }
-    },
     "test:integration": {
       "defaultConfiguration": "dev",
       "options": {
@@ -149,9 +119,9 @@
     "test:unit": {
       "defaultConfiguration": "dev",
       "options": {
+        "color": true,
         "memoryLimit": 8192,
         "parallel": 3,
-        "color": true,
         "testPathPattern": ["[^i].spec.ts"],
         "jestConfig": "apps/platform/jest.config.ts",
         "passWithNoTests": true

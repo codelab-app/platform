@@ -30,9 +30,12 @@ const plugins = [withBundleAnalyzer, withRawCypherFiles]
  * @type {WithNxOptions}
  */
 const nextConfig = {
+  compiler: {
+    styledComponents: true,
+  },
   experimental: {
+    appDir: false,
     instrumentationHook: process.env.NEXT_PLATFORM_ENABLE_OTEL ? true : false,
-    // appDir: true,
   },
   nx: { svgr: true },
 }

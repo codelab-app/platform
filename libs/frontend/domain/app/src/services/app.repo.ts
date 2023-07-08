@@ -6,7 +6,7 @@ import { appApi } from '../store'
 
 @model('@codelab/AppRepository')
 export class AppRepository extends Model({}) implements IAppRepository {
-  add = async (app: IApp) => {
+  async add(app: IApp) {
     const {
       createApps: { apps },
     } = await appApi.CreateApps({
@@ -16,8 +16,8 @@ export class AppRepository extends Model({}) implements IAppRepository {
     return apps[0]!
   }
 
-  @clearCacheForKey('apps')
-  update = async (app: IApp) => {
+  // @clearCacheForKey('apps')
+  async update(app: IApp) {
     const {
       updateApps: { apps },
     } = await appApi.UpdateApps({
@@ -28,13 +28,13 @@ export class AppRepository extends Model({}) implements IAppRepository {
     return apps[0]!
   }
 
-  @cachedWithTTL('apps')
-  find = async (where?: AppWhere, options?: AppOptions) => {
+  // @cachedWithTTL('apps')
+  async find(where?: AppWhere, options?: AppOptions) {
     return await appApi.GetApps({ options, where })
   }
 
-  @clearCacheForKey('apps')
-  delete = async (apps: Array<IApp>) => {
+  // @clearCacheForKey('apps')
+  async delete(apps: Array<IApp>) {
     const {
       deleteApps: { nodesDeleted },
     } = await appApi.DeleteApps({

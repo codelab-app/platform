@@ -5,8 +5,8 @@
 
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "jsxImportSource": "@emotion/react",
-    "types": ["node", "worker-loader", "@fancyapps/ui"],
+
+    "types": ["node", "worker-loader", "@fancyapps/ui", "styled-components"],
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,

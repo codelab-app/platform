@@ -45,7 +45,7 @@ export class VercelEnvVars implements IVercelEnvVars {
 
   get vercelProjectId() {
     return (this._vercelProjectId ??= env
-      .get('VERCEL_PROJECT_ID')
+      .get('VERCEL_PLATFORM_PROJECT_ID')
       .required()
       .asString())
   }

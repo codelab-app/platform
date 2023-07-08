@@ -1,6 +1,7 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
+import { slugify } from '@codelab/shared/utils'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 import { pageName, updatedPageName } from './apps/app.data'
 
@@ -11,13 +12,14 @@ before(() => {
 
   cy.request<IAppDTO>('/api/cypress/app').then((res) => {
     const app = res.body
-    cy.visit(`/apps/cypress/${app.name}/pages`)
+    cy.visit(`/apps/cypress/${slugify(app.name)}/pages`)
     cy.getSpinner().should('not.exist')
     cy.findAllByText(IPageKindName.Provider).should('exist')
     cy.findAllByText(IPageKindName.NotFound).should('exist')
     cy.findAllByText(IPageKindName.InternalServerError).should('exist')
   })
 })
+
 describe('Pages CRUD', () => {
   describe('create', () => {
     it('should be able to create page', () => {

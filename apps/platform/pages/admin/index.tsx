@@ -17,7 +17,6 @@ import { Image, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
-import tw from 'twin.macro'
 
 const AdminPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   return (
@@ -25,7 +24,7 @@ const AdminPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <Head>
         <title>Apps | Codelab</title>
       </Head>
-      <ContentSection css={tw`p-4 bg-white`}>
+      <ContentSection className="bg-white p-4">
         <Space>
           <ExportAdminDataButton />
           <ImportDataButton />
@@ -46,7 +45,7 @@ AdminPage.Layout = ({ children }) => {
       logo={
         <Image
           alt="codelab logo"
-          css={tw`w-full h-full`}
+          className="h-full w-full"
           preview={false}
           src="/logo.png"
         />

@@ -1,5 +1,5 @@
 {
-  "name": "@codelab/workspace",
+  "name": "tools-workspace",
   "version": "0.0.1",
   "type": "commonjs",
   "generators": "./generators.json",

@@ -3,6 +3,8 @@ module "vercel-websites" {
 
   depends_on = [module.auth0]
 
+  vercel_team_id = var.VERCEL_TEAM_ID
+
   # next_public_platform_host = var.NEXT_PUBLIC_PLATFORM_HOST
   vercel_websites_host = var.VERCEL_WEBSITES_HOST
 
@@ -20,7 +22,4 @@ module "vercel-websites" {
   neo4j_password = var.NEO4J_PASSWORD
   neo4j_uri      = var.NEO4J_URI
   neo4j_user     = var.NEO4J_USER
-
-  vercel_access_token = var.VERCEL_ACCESS_TOKEN
-  vercel_team_id      = var.VERCEL_TEAM_ID
 }

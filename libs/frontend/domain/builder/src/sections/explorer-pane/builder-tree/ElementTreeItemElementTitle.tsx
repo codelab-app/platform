@@ -5,7 +5,10 @@ import {
   ExclamationCircleOutlined,
   PlusOutlined,
 } from '@ant-design/icons'
-import type { IElement } from '@codelab/frontend/abstract/core'
+import type {
+  IElement,
+  IElementTreeViewDataNode,
+} from '@codelab/frontend/abstract/core'
 import {
   elementRef,
   elementTreeRef,
@@ -23,24 +26,26 @@ import React from 'react'
 
 interface ElementTreeItemElementTitleProps {
   element: IElement
+  treeNode: IElementTreeViewDataNode
 }
 
 export const ElementTreeItemElementTitle = observer(
-  ({ element }: ElementTreeItemElementTitleProps) => {
+  ({ element, treeNode }: ElementTreeItemElementTitleProps) => {
     const { elementService } = useStore()
     const atomName = element.atomName
-    const componentInstance = isComponentInstance(element.renderType)
 
-    const componentInstanceName = componentInstance
-      ? element.renderType?.maybeCurrent?.name
+    const componentInstanceName = treeNode.isChildMapperComponentInstance
+      ? element.parentComponent?.maybeCurrent?.name
+      : isComponentInstance(element.renderType)
+      ? element.renderType.maybeCurrent?.name
       : null
 
     const componentMeta = componentInstanceName
-      ? `instance of ${componentInstanceName || 'a Component'}`
+      ? `instance of ${componentInstanceName}`
       : undefined
 
     const atomMeta = atomName ? `${atomName}` : undefined
-    const meta = componentMeta || atomMeta || ''
+    const meta = componentMeta ?? atomMeta ?? ''
 
     const errorMessage = element.renderingMetadata?.error
       ? `Error: ${element.renderingMetadata.error.message}`
@@ -92,7 +97,7 @@ export const ElementTreeItemElementTitle = observer(
             title="ElementTreeItemToolbar"
           />
         }
-        varient={errorMessage ? 'danger' : 'primary'}
+        variant={errorMessage ? 'danger' : 'primary'}
       />
     )
   },

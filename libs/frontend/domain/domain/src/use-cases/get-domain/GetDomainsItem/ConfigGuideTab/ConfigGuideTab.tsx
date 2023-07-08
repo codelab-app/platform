@@ -1,7 +1,6 @@
 import type { IDomain } from '@codelab/frontend/abstract/core'
 import { Alert, Tabs } from 'antd'
 import React from 'react'
-import tw from 'twin.macro'
 import { ARecordTabContent } from './TabContent/ARecord'
 
 interface ConfigGuideTabProps {
@@ -28,7 +27,7 @@ export const ConfigGuide = ({ domain, type }: ConfigGuideTabProps) => {
           />
         </TabPane> */}
       <Alert
-        css={tw`mt-5 text-blue-600 text-xs`}
+        className="mt-5 text-xs text-blue-600"
         message="Depending on your provider, it might take some time for the changes to apply. "
         type="info"
       />

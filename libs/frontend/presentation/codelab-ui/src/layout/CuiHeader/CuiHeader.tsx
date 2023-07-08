@@ -1,6 +1,5 @@
 import { Col, Row } from 'antd'
 import React from 'react'
-import tw from 'twin.macro'
 
 interface CuiHeaderProps {
   centralArea?: React.ReactElement | null
@@ -17,42 +16,19 @@ export const CuiHeader = ({
 }: CuiHeaderProps) => {
   return (
     <div>
-      <div
-        css={tw`
-            bg-white
-            relative
-            h-10
-            w-full
-            border-solid
-            border-t-0
-            border-l-0
-            border-r-0
-            border-b-2
-            border-gray-300
-            flex
-            flex-row
-            overflow-hidden
-        `}
-      >
-        <div css={tw`w-10 h-full flex-shrink-0 overflow-clip cursor-pointer`}>
+      <div className="relative flex h-10 w-full flex-row overflow-hidden border-x-0 border-b-2 border-t-0 border-solid border-gray-300 bg-white">
+        <div className="h-full w-10 shrink-0 cursor-pointer text-clip">
           {logo}
         </div>
-        <div
-          css={tw`
-            flex-1
-            relative
-            h-full
-            p-1
-        `}
-        >
-          <Row css={tw`h-full`} justify="space-between">
-            <Col css={tw`h-full`} span={4}>
+        <div className="relative h-full flex-1 p-1">
+          <Row className="h-full" justify="space-between">
+            <Col className="h-full" span={4}>
               {direction}
             </Col>
-            <Col css={tw`h-full`} span={8}>
+            <Col className="h-full" span={8}>
               {centralArea}
             </Col>
-            <Col css={tw`h-full`} span={4}>
+            <Col className="h-full" span={4}>
               {toolbar}
             </Col>
           </Row>

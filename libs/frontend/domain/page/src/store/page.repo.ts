@@ -8,8 +8,8 @@ import { pageApi } from './page.api'
 export class PageRepository extends Model({}) implements IPageRepository {
   // clear apps cache when we add a new page
   // to make sure that the new page is included in the apps query
-  @clearCacheForKey('apps')
-  add = async (page: IPage) => {
+  // @clearCacheForKey('apps')
+  async add(page: IPage) {
     const {
       createPages: { pages },
     } = await pageApi.CreatePages({ input: page.toCreateInput() })
@@ -17,7 +17,7 @@ export class PageRepository extends Model({}) implements IPageRepository {
     return pages[0]!
   }
 
-  update = async (page: IPage) => {
+  async update(page: IPage) {
     const {
       updatePages: { pages },
     } = await pageApi.UpdatePages({
@@ -28,11 +28,11 @@ export class PageRepository extends Model({}) implements IPageRepository {
     return pages[0]!
   }
 
-  find = (where?: PageWhere, options?: PageOptions) => {
+  async find(where?: PageWhere, options?: PageOptions) {
     return pageApi.GetPages({ options, where })
   }
 
-  delete = async (pages: Array<IPage>) => {
+  async delete(pages: Array<IPage>) {
     const {
       deletePages: { nodesDeleted },
     } = await pageApi.DeletePages({

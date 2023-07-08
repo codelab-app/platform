@@ -1,7 +1,6 @@
 import { useScroll } from '@codelab/frontend/shared/utils'
 import type { CSSProperties, RefObject } from 'react'
 import React from 'react'
-import tw from 'twin.macro'
 import useResizeObserver from 'use-resize-observer/polyfilled'
 
 interface OverlayToolbarProps {
@@ -59,8 +58,7 @@ export const OverlayToolbar = ({
 
   return (
     <div
-      className={`overlay-toolbar ${containerClassName || ''}`}
-      css={tw`z-50`}
+      className={`overlay-toolbar z-50 ${containerClassName || ''}`}
       style={style}
     >
       {element && content && (

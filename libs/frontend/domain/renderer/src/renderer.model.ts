@@ -12,6 +12,7 @@ import type {
   RendererType,
 } from '@codelab/frontend/abstract/core'
 import {
+  componentRef,
   CUSTOM_TEXT_PROP_KEY,
   elementRef,
   elementTreeRef,
@@ -24,6 +25,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import isObject from 'lodash/isObject'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import {
   idProp,
@@ -144,6 +146,23 @@ export class Renderer
       return []
     }
 
+    const storeActions = element.store.current.actions
+
+    const allActionsStored = storeActions.every((action) =>
+      this.actionRunners.get(getRunnerId(element.store.id, action.id)),
+    )
+
+    // Prevents re-creating of runners which causes unnecessary re-renders
+    // when renderIntermediateElement is called again due to some re-render
+    if (allActionsStored) {
+      return storeActions.map(
+        (action) =>
+          this.actionRunners.get(
+            getRunnerId(element.store.id, action.id),
+          ) as IActionRunner,
+      )
+    }
+
     const runners = ActionRunner.create(element)
     runners.forEach((runner) => this.actionRunners.set(runner.id, runner))
 
@@ -165,9 +184,8 @@ export class Renderer
    * Renders a single Element using the provided RenderAdapter
    */
   renderElement = (element: IElement): ReactElement => {
-    const wrapperProps: ElementWrapperProps & { key: string } = {
+    const wrapperProps: ElementWrapperProps = {
       element,
-      key: `element-wrapper-${element.id}`,
       renderer: this,
     }
 
@@ -211,6 +229,33 @@ export class Renderer
     return parentComponent.instanceElement.current.children
   }
 
+  getChildMapperChildren(element: IElement) {
+    const { childMapperComponent } = element
+
+    if (!childMapperComponent) {
+      return []
+    }
+
+    return (
+      element.runtimeProp?.evaluatedChildMapperProp.map((propValue, i) => {
+        const clonedComponent = childMapperComponent.current.clone(
+          `${element.id}-${i}`,
+        )
+
+        const rootElement = clonedComponent.rootElement.current
+
+        if (!this.runtimeProps.get(clonedComponent.id)) {
+          clonedComponent.props.current.setMany(
+            isObject(propValue) ? propValue : { value: propValue },
+          )
+          this.addRuntimeProps(componentRef(clonedComponent.id))
+        }
+
+        return rootElement
+      }) ?? []
+    )
+  }
+
   getChildPageChildren(element: IElement) {
     const providerTreeRoot = this.providerTree?.current.rootElement.current
     const providerPage = providerTreeRoot?.page?.current
@@ -239,6 +284,9 @@ export class Renderer
         ...parentOutput.element.children,
         ...this.getComponentInstanceChildren(parentOutput.element),
         ...this.getChildPageChildren(parentOutput.element),
+        // Render the children from child mapper last
+        // TODO: allow user to move around the elements from the child mapper
+        ...this.getChildMapperChildren(parentOutput.element),
       ]
 
       const renderedChildren = children.map((child) =>

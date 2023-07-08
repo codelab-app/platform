@@ -18,7 +18,10 @@ export const cachedWithTTL = (segmentCacheKey: string, ttl = 5 * 60 * 1000) => {
     descriptor?: MobXPropertyDescriptor,
   ) => {
     if (typeof descriptor?.initializer !== 'function') {
-      throw new Error("Can't decorate property without 'initializer'")
+      console.log(target?.constructor?.name, propertyKey, descriptor)
+      throw new Error(
+        "Can't decorate property without 'initializer', check that the mobx method uses method-style and not property style",
+      )
     }
 
     const originalInitializer = descriptor.initializer
@@ -67,7 +70,10 @@ export const clearCacheForKey = (segmentCacheKey: Array<string> | string) => {
     descriptor?: MobXPropertyDescriptor,
   ) => {
     if (typeof descriptor?.initializer !== 'function') {
-      throw new Error("Can't decorate property without 'initializer'")
+      console.log(target?.constructor?.name, propertyKey, descriptor)
+      throw new Error(
+        "Can't decorate property without 'initializer', check that the mobx method uses method-style and not property style",
+      )
     }
 
     const originalInitializer = descriptor.initializer

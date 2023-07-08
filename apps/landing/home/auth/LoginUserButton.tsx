@@ -1,11 +1,10 @@
 import { Button } from 'antd'
 import React from 'react'
-import tw from 'twin.macro'
 
 export const LoginUserButton = () => {
   return (
     <Button
-      css={tw`!text-purple-500 hover:!bg-purple-400 rounded-2xl hover:!text-white`}
+      className="rounded-2xl !text-purple-500 hover:!bg-purple-400 hover:!text-white"
       ghost
       href="/api/auth/login"
       type="primary"

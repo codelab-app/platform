@@ -4,5 +4,7 @@
 
 import type { Nullable } from '@codelab/shared/abstract/types'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type IComponentType = Nullable<string> | React.ComponentType<any>
+export type IComponentType = {
+  $$typeof?: symbol
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+} & (Nullable<string> | React.ComponentType<any>)

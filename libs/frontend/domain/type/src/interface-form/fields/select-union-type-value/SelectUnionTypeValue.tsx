@@ -2,11 +2,9 @@
 import type { IFieldDefaultValue } from '@codelab/frontend/abstract/core'
 import { createValidator, Form } from '@codelab/frontend/presentation/view'
 import { usePrevious } from '@codelab/frontend/shared/utils'
-import { css } from '@emotion/react'
 import { Form as AntdForm } from 'antd'
 import isNil from 'lodash/isNil'
 import React, { useEffect } from 'react'
-import tw from 'twin.macro'
 import { useField } from 'uniforms'
 import { AutoField, SelectField } from 'uniforms-antd'
 
@@ -36,12 +34,6 @@ const getTypeFromOneOf = (oneOf: Array<any>, typeId: string) => {
 
   return oneOf.find((of: any) => of.properties.type.default === typeId)
 }
-
-const unionCss = css`
-  label {
-    ${tw`text-sm`}
-  }
-`
 
 export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
   const { name } = props
@@ -89,7 +81,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
 
   return (
     <AntdForm.Item label={fieldProps.label}>
-      <div css={unionCss}>
+      <div className="[&_label]:text-sm">
         <SelectField
           name={typeFieldName}
           options={selectOptions}

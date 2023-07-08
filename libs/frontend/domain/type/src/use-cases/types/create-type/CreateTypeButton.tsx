@@ -3,13 +3,12 @@ import type { ITypeService } from '@codelab/frontend/abstract/core'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
 
 export const CreateTypeButton = observer<{ typeService: ITypeService }>(
   ({ typeService }) => {
     return (
       <Button
-        css={tw`flex justify-center items-center`}
+        className="flex items-center justify-center"
         icon={<PlusOutlined />}
         onClick={() => typeService.createModal.open()}
         type="primary"

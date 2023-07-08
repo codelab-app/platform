@@ -26,7 +26,6 @@ import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React from 'react'
-import tw from 'twin.macro'
 
 const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
   const { tagService } = useStore()
@@ -82,13 +81,13 @@ const TagPageHeader = observer(() => {
       logo={
         <Image
           alt="codelab logo"
-          css={tw`w-full h-full`}
+          className="h-full w-full"
           preview={false}
           src="/logo.png"
         />
       }
       toolbar={
-        <CuiHeaderToolbar items={toolbarItems} title="Tags Header Toolbal" />
+        <CuiHeaderToolbar items={toolbarItems} title="Tags Header Toolbar" />
       }
     />
   )

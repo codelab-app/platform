@@ -1,10 +1,8 @@
 import type { IElement } from '@codelab/frontend/abstract/core'
 import { useDndContext } from '@dnd-kit/core'
-import { css } from '@emotion/react'
 import { observer } from 'mobx-react-lite'
 import type { PropsWithChildren } from 'react'
 import React, { useMemo } from 'react'
-import tw from 'twin.macro'
 import { BuilderDropId } from './builder-drop-id'
 import { useCreateElementDroppable } from './useCreateElementDroppable.hook'
 import { shouldCreateElementAsFirstChild } from './utils'
@@ -60,16 +58,11 @@ export const BuilderDropHandler = observer<
   )
 
   return (
-    <div
-      css={css`
-        ${tw`relative`}
-      `}
-    >
+    <div className="relative">
       <div
-        css={css`
-          ${isOver && tw`bg-blue-500 text-white opacity-70 rounded`}
-          ${tw`px-1`}
-        `}
+        className={`${
+          isOver ? 'rounded bg-blue-500 text-white opacity-70' : ''
+        } px-1`}
         id="builder-drop-handler"
         ref={setNodeRef}
       >

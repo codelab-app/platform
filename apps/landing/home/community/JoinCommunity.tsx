@@ -1,7 +1,6 @@
 import { Button, notification } from 'antd'
 import axios from 'axios'
 import React, { useState } from 'react'
-import tw from 'twin.macro'
 import { EmailModal } from './EmailModal'
 
 type NotificationType = 'error' | 'success'
@@ -38,25 +37,21 @@ export const JoinCommunity = () => {
   return (
     <>
       {contextHolder}
-      <section css={tw`bg-violet-700`}>
-        <div css={tw`m-auto w-11/12  lg:container 2xl:w-11/12 py-12`}>
-          <h2
-            css={tw`text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-white font-semibold pt-7 sm:pt-14 md:pt-28 text-center leading-snug`}
-          >
+      <section className="bg-violet-700">
+        <div className="m-auto w-11/12 py-12 lg:container 2xl:w-11/12">
+          <h2 className="pt-7 text-center text-xl font-semibold leading-snug text-white sm:pt-14 sm:text-2xl md:pt-28 md:text-3xl lg:text-4xl xl:text-5xl">
             Join the Codelab community and help improve our product
           </h2>
-          <p
-            css={tw`text-base sm:text-lg lg:text-xl xl:text-2xl text-white pt-5 mb-10 text-center`}
-          >
+          <p className="mb-10 pt-5 text-center text-base text-white sm:text-lg lg:text-xl xl:text-2xl">
             Talk to other users to share your use cases, or contact one of the
             admins for instant support.
           </p>
           <Button
-            css={tw`rounded-lg p-6 lg:p-8 xl:p-10 flex m-auto items-center mb-6 sm:mb-12 md:mb-24`}
+            className="m-auto mb-6 flex items-center rounded-lg p-6 sm:mb-12 md:mb-24 lg:p-8 xl:p-10"
             ghost
             onClick={() => setShowEmailModal(true)}
           >
-            <a css={tw`text-base lg:text-xl text-white font-bold`}>
+            <a className="text-base font-bold text-white lg:text-xl">
               Join The Community
             </a>
           </Button>

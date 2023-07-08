@@ -28,7 +28,7 @@ export const ActionsTreeItem = ({ data }: ActionsTreeItemProps) => {
   }
 
   const onEdit = () => {
-    actionService.updateModal.open(actionRef(data.node.id))
+    actionService.updateForm.open(actionRef(data.node.id))
   }
 
   const toolbarItems = [

@@ -1,1 +1,0 @@
-../shared/vars-vercel-platform-api-next.tf

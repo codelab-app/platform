@@ -1,6 +1,4 @@
 import {
-  builderServiceContext,
-  elementRef,
   type IElement,
   type IPropData,
   type IRenderOutput,
@@ -8,12 +6,11 @@ import {
   isAtomInstance,
 } from '@codelab/frontend/abstract/core'
 import type { IAtomType } from '@codelab/shared/abstract/core'
-import { css } from '@emotion/react'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import type { ArrayOrSingle } from 'ts-essentials'
 import { atomFactory } from '../atoms'
+import { jsonStringToCss } from '../element/get-styled-components'
 import { RenderOutput } from '../utils'
-import { evalCss } from '../utils/eval-css'
 import { BaseRenderPipe } from './render-pipe.base'
 
 @model('@codelab/AtomRenderPipe')
@@ -51,13 +48,10 @@ export class AtomRenderPipe
       return this.next.render(element, props)
     }
 
-    const elCss =
-      element.customCss || element.guiCss
-        ? css([
-            JSON.parse(element.guiCss || '{}'),
-            evalCss(element.customCss || ''),
-          ])
-        : undefined
+    const elementCss = [
+      element.customCss,
+      jsonStringToCss(element.guiCss),
+    ].join(' ')
 
     if (this.renderer.debugMode) {
       console.info(`AtomRenderPipe: Rendering atom ${atomType}`, {
@@ -70,14 +64,10 @@ export class AtomRenderPipe
       element,
       props: {
         ...newProps,
-        css: elCss,
-
-        // onMouseEnter: () =>
-        //   builderServiceContext
-        //     .get(element)
-        //     ?.setHoveredNode(elementRef(element)),
-        // onMouseLeave: () =>
-        //   builderServiceContext.get(element)?.setHoveredNode(null),
+        /**
+         * This is rendered to style with css prop and styled-components
+         */
+        css: elementCss,
       },
     })
   }

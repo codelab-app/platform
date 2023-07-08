@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../../dist/out-tsc",
-    "jsxImportSource": "@emotion/react",
+
     "types": ["node"],
     "strict": true,
     "noImplicitReturns": true,

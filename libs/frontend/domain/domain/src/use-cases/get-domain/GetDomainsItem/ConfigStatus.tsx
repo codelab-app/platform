@@ -1,29 +1,32 @@
 import { CheckCircleOutlined, WarningOutlined } from '@ant-design/icons'
-import styled from '@emotion/styled'
+import classNames from 'classnames'
 import React from 'react'
-import tw from 'twin.macro'
+import styled from 'styled-components'
 
-const Container = styled.div`
-  ${tw`text-sm text-green-300 flex items-center`}
-`
+const Container = styled.div.attrs((props) => ({
+  className: classNames(
+    'text-sm text-green-300 flex items-center',
+    props.className,
+  ),
+}))``
 
-export interface ConfigStatutsProps {
+export interface ConfigStatusProps {
   misconfigured?: boolean
 }
 
-export const ConfigStatus = ({ misconfigured }: ConfigStatutsProps) => {
+export const ConfigStatus = ({ misconfigured }: ConfigStatusProps) => {
   if (!misconfigured) {
     return (
-      <Container css={tw`text-green-400 mt-2 `}>
-        <CheckCircleOutlined css={tw`mr-1`} />
+      <Container className="mt-2 text-green-400">
+        <CheckCircleOutlined className="mr-1" />
         Valid Configuration
       </Container>
     )
   }
 
   return (
-    <Container css={tw`text-red-400 mt-2`}>
-      <WarningOutlined css={tw`mr-1`} />
+    <Container className="mt-2 text-red-400">
+      <WarningOutlined className="mr-1" />
       Invalid Configuration
     </Container>
   )

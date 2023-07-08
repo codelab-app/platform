@@ -6,7 +6,6 @@ import type { TreeProps } from 'antd'
 import { Tree } from 'antd'
 import type { DataNode } from 'antd/lib/tree'
 import React from 'react'
-import tw from 'twin.macro'
 
 const treeData: Array<DataNode> = [
   {
@@ -70,7 +69,7 @@ export const DOMTree = () => {
 
   return (
     <Tree
-      css={tw`py-3 px-2`}
+      className="px-2 py-3"
       defaultExpandAll
       // defaultExpandedKeys={['card', 'div', 'text-0', 'text-1', 'button']}
       // onSelect={onSelect}

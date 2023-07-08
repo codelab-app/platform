@@ -4,7 +4,6 @@ import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
 import { typeApi } from '../../../store'
 
 export const DeleteTypeModal = observer(() => {
@@ -47,7 +46,7 @@ export const DeleteTypeModal = observer(() => {
       okText="Delete"
       onCancel={closeModal}
       open={typeService.deleteModal.isOpen}
-      title={<span css={tw`font-semibold`}>Delete type</span>}
+      title={<span className="font-semibold">Delete type</span>}
     >
       <ModalForm.Form<EmptyJsonSchemaType>
         model={{}}

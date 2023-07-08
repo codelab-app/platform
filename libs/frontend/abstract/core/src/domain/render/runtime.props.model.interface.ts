@@ -34,7 +34,12 @@ export interface IRuntimeProp<T extends IPageNode> {
   props: IPropData
 }
 
-export type IElementRuntimeProp = IRuntimeProp<IElement>
+export interface IElementRuntimeProp extends IRuntimeProp<IElement> {
+  /**
+   * Evaluated childMapperPropKey based on the state and props
+   */
+  evaluatedChildMapperProp: Array<unknown>
+}
 export interface IComponentRuntimeProp extends IRuntimeProp<IComponent> {
   /**
    * merge component.props evaluation with instance element props evaluation

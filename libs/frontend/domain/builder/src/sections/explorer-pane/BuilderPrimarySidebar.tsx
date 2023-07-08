@@ -1,17 +1,15 @@
 import { PlusOutlined } from '@ant-design/icons'
-import type { IPageNode } from '@codelab/frontend/abstract/core'
+import type { IPageNode, IStore } from '@codelab/frontend/abstract/core'
 import {
   elementRef,
   elementTreeRef,
   isComponentPageNode,
   isElementPageNode,
   RendererTab,
+  storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/core'
-import {
-  CreateComponentModal,
-  DeleteComponentModal,
-} from '@codelab/frontend/domain/component'
+import { DeleteComponentModal } from '@codelab/frontend/domain/component'
 import {
   CreateElementForm,
   DeleteElementModal,
@@ -19,18 +17,16 @@ import {
 } from '@codelab/frontend/domain/element'
 import {
   ActionsTreeView,
-  CreateActionModal,
+  CreateActionForm,
   DeleteActionModal,
   StateTreeView,
-  UpdateActionModal,
+  UpdateActionForm,
 } from '@codelab/frontend/domain/store'
 import type { InterfaceType } from '@codelab/frontend/domain/type'
 import {
   CreateFieldForm,
-  CreateFieldModal,
   DeleteFieldModal,
   UpdateFieldForm,
-  UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
 import type { CuiSidebarView } from '@codelab/frontend/presentation//codelab-ui'
 import { CuiSidebar } from '@codelab/frontend/presentation//codelab-ui'
@@ -40,11 +36,9 @@ import {
 } from '@codelab/frontend/presentation/container'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import { css } from '@emotion/react'
 import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
 import { ElementTreeView } from './builder-tree'
 
 export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
@@ -73,8 +67,6 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
       if (isElementPageNode(node)) {
         return builderService.selectElementNode(node)
       }
-
-      return
     }
 
     const sidebarViews: Array<CuiSidebarView> = [
@@ -95,7 +87,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
               />
             )}
             {elementService.createForm.isOpen && (
-              <div css={tw`p-2`}>
+              <div className="p-2">
                 <CreateElementForm />
               </div>
             )}
@@ -140,12 +132,12 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                 <StateTreeView store={store} />
               )}
             {fieldService.createForm.isOpen && (
-              <div css={tw`p-2`}>
+              <div className="p-2">
                 <CreateFieldForm />
               </div>
             )}
             {fieldService.updateForm.isOpen && (
-              <div css={tw`p-2`}>
+              <div className="p-2">
                 <UpdateFieldForm />
               </div>
             )}
@@ -174,7 +166,24 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         },
       },
       {
-        content: store && <ActionsTreeView store={store} />,
+        content: store && (
+          <>
+            {!actionService.createForm.isOpen &&
+              !actionService.updateForm.isOpen && (
+                <ActionsTreeView store={store} />
+              )}
+            {actionService.createForm.isOpen && (
+              <div className="p-2">
+                <CreateActionForm />
+              </div>
+            )}
+            {actionService.updateForm.isOpen && (
+              <div className="p-2">
+                <UpdateActionForm />
+              </div>
+            )}
+          </>
+        ),
         isLoading: isLoading || !store,
         key: 'Actions',
         label: 'Actions',
@@ -184,7 +193,12 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
               icon: <PlusOutlined />,
               key: 'AddAction',
               onClick: () => {
-                actionService.createModal.open()
+                if (!store) {
+                  return
+                }
+
+                const form = actionService.createForm
+                form.open(storeRef(store) as Ref<IStore>)
               },
               title: 'Add Action',
             },
@@ -195,11 +209,9 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
       {
         content: store && (
           <CodeMirrorEditor
+            className="mt-1"
             language={CodeMirrorLanguage.Json}
             onChange={() => undefined}
-            overrideStyles={css`
-              ${tw`mt-1`}
-            `}
             singleLine={false}
             title="Current props"
             value={store.jsonString}
@@ -218,14 +230,9 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
           label="Explorer"
           views={sidebarViews}
         />
-        <CreateComponentModal />
         <DeleteComponentModal />
         <DeleteElementModal />
-        <CreateFieldModal />
-        <UpdateFieldModal />
         <DeleteFieldModal />
-        <CreateActionModal store={store} />
-        <UpdateActionModal />
         <DeleteActionModal />
       </>
     )

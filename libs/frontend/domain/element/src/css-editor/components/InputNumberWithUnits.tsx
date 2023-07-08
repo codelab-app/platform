@@ -4,37 +4,37 @@ import { makeAddonAfterNumber } from '../utils'
 import { CssPropEditorItem } from './CssPropEditorItem'
 
 interface InputNumberWithUnitsProps {
-  name: string
-  currentValue: number
+  checked?: boolean
   currentUnit?: string
-  onValueChange?: (value: number) => void
-  onUnitChange?: (unit: string) => void
-  onChange?: (value: number, unit: string) => void
-  units?: Array<string>
-  min?: number
-  max?: number
-  step?: number
+  currentValue: number
   disabled?: boolean
   enableCheckBox?: boolean
-  checked?: boolean
-  onCheck?: (checked: boolean) => void
+  max?: number
+  min?: number
+  name: string
+  step?: number
+  units?: Array<string>
+  onChange?(value: number, unit: string): void
+  onCheck?(checked: boolean): void
+  onUnitChange?(unit: string): void
+  onValueChange?(value: number): void
 }
 
 export const InputNumberWithUnits = ({
-  name,
-  currentValue,
+  checked,
   currentUnit,
-  onValueChange,
-  onUnitChange,
-  onChange,
-  units,
-  min,
-  max,
-  step,
+  currentValue,
   disabled,
   enableCheckBox,
-  checked,
+  max,
+  min,
+  name,
+  onChange,
   onCheck,
+  onUnitChange,
+  onValueChange,
+  step,
+  units,
 }: InputNumberWithUnitsProps) => {
   const [value, setValue] = useState<number>(currentValue)
   const [unit, setUnit] = useState<string>(currentUnit ?? '')
@@ -43,8 +43,8 @@ export const InputNumberWithUnits = ({
     (unitList: Array<string>) =>
       makeAddonAfterNumber(
         unitList.map((aUnit) => ({
-          value: aUnit,
           title: aUnit,
+          value: aUnit,
         })),
         unit,
         (selectedUnit) => {
@@ -69,14 +69,14 @@ export const InputNumberWithUnits = ({
         disabled={disabled}
         max={max}
         min={min}
-        onChange={(e) => {
-          if (e === null) {
+        onChange={(event) => {
+          if (event === null) {
             return
           }
 
-          onValueChange?.(e)
-          onChange?.(e, unit)
-          setValue(e)
+          onValueChange?.(event)
+          onChange?.(event, unit)
+          setValue(event)
         }}
         step={step}
         style={{ width: '100%' }}

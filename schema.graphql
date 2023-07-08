@@ -546,6 +546,7 @@ type ApiActionElementElementAggregationSelection {
 }
 
 type ApiActionElementElementNodeAggregateSelection {
+  childMapperPropKey: StringAggregateSelectionNullable!
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
@@ -559,6 +560,21 @@ input ApiActionElementNodeAggregationWhereInput {
   AND: [ApiActionElementNodeAggregationWhereInput!]
   NOT: ApiActionElementNodeAggregationWhereInput
   OR: [ApiActionElementNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
   customCss_AVERAGE_LENGTH_EQUAL: Float
   customCss_AVERAGE_LENGTH_GT: Float
   customCss_AVERAGE_LENGTH_GTE: Float
@@ -4136,6 +4152,21 @@ input BaseActionElementNodeAggregationWhereInput {
   AND: [BaseActionElementNodeAggregationWhereInput!]
   NOT: BaseActionElementNodeAggregationWhereInput
   OR: [BaseActionElementNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
   customCss_AVERAGE_LENGTH_EQUAL: Float
   customCss_AVERAGE_LENGTH_GT: Float
   customCss_AVERAGE_LENGTH_GTE: Float
@@ -4729,6 +4760,7 @@ type CodeActionElementElementAggregationSelection {
 }
 
 type CodeActionElementElementNodeAggregateSelection {
+  childMapperPropKey: StringAggregateSelectionNullable!
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
@@ -4742,6 +4774,21 @@ input CodeActionElementNodeAggregationWhereInput {
   AND: [CodeActionElementNodeAggregationWhereInput!]
   NOT: CodeActionElementNodeAggregationWhereInput
   OR: [CodeActionElementNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
   customCss_AVERAGE_LENGTH_EQUAL: Float
   customCss_AVERAGE_LENGTH_GT: Float
   customCss_AVERAGE_LENGTH_GTE: Float
@@ -5468,6 +5515,21 @@ input ComponentChildrenContainerElementNodeAggregationWhereInput {
   AND: [ComponentChildrenContainerElementNodeAggregationWhereInput!]
   NOT: ComponentChildrenContainerElementNodeAggregationWhereInput
   OR: [ComponentChildrenContainerElementNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
   customCss_AVERAGE_LENGTH_EQUAL: Float
   customCss_AVERAGE_LENGTH_GT: Float
   customCss_AVERAGE_LENGTH_GTE: Float
@@ -5646,6 +5708,7 @@ type ComponentElementChildrenContainerElementAggregationSelection {
 }
 
 type ComponentElementChildrenContainerElementNodeAggregateSelection {
+  childMapperPropKey: StringAggregateSelectionNullable!
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
@@ -5661,6 +5724,7 @@ type ComponentElementRootElementAggregationSelection {
 }
 
 type ComponentElementRootElementNodeAggregateSelection {
+  childMapperPropKey: StringAggregateSelectionNullable!
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
@@ -5954,6 +6018,21 @@ input ComponentRootElementNodeAggregationWhereInput {
   AND: [ComponentRootElementNodeAggregationWhereInput!]
   NOT: ComponentRootElementNodeAggregationWhereInput
   OR: [ComponentRootElementNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
   customCss_AVERAGE_LENGTH_EQUAL: Float
   customCss_AVERAGE_LENGTH_GT: Float
   customCss_AVERAGE_LENGTH_GTE: Float
@@ -6692,6 +6771,23 @@ type DomainsConnection {
 }
 
 type Element {
+  childMapperComponent(
+    directed: Boolean = true
+    options: ComponentOptions
+    where: ComponentWhere
+  ): Component
+  childMapperComponentAggregate(
+    directed: Boolean = true
+    where: ComponentWhere
+  ): ElementComponentChildMapperComponentAggregationSelection
+  childMapperComponentConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ElementChildMapperComponentConnectionSort!]
+    where: ElementChildMapperComponentConnectionWhere
+  ): ElementChildMapperComponentConnection!
+  childMapperPropKey: String
   customCss: String
   descendantElements: [Element!]!
   firstChild(
@@ -6864,6 +6960,7 @@ type Element {
 }
 
 type ElementAggregateSelection {
+  childMapperPropKey: StringAggregateSelectionNullable!
   count: Int!
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
@@ -6885,6 +6982,140 @@ type ElementAtomRenderAtomTypeNodeAggregateSelection {
   externalSourceType: StringAggregateSelectionNullable!
   icon: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+}
+
+input ElementChildMapperComponentAggregateInput {
+  AND: [ElementChildMapperComponentAggregateInput!]
+  NOT: ElementChildMapperComponentAggregateInput
+  OR: [ElementChildMapperComponentAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ElementChildMapperComponentNodeAggregationWhereInput
+}
+
+input ElementChildMapperComponentConnectFieldInput {
+  connect: ComponentConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
+  where: ComponentConnectWhere
+}
+
+input ElementChildMapperComponentConnectOrCreateFieldInput {
+  onCreate: ElementChildMapperComponentConnectOrCreateFieldInputOnCreate!
+  where: ComponentConnectOrCreateWhere!
+}
+
+input ElementChildMapperComponentConnectOrCreateFieldInputOnCreate {
+  node: ComponentOnCreateInput!
+}
+
+type ElementChildMapperComponentConnection {
+  edges: [ElementChildMapperComponentRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ElementChildMapperComponentConnectionSort {
+  node: ComponentSort
+}
+
+input ElementChildMapperComponentConnectionWhere {
+  AND: [ElementChildMapperComponentConnectionWhere!]
+  NOT: ElementChildMapperComponentConnectionWhere
+  OR: [ElementChildMapperComponentConnectionWhere!]
+  node: ComponentWhere
+}
+
+input ElementChildMapperComponentCreateFieldInput {
+  node: ComponentCreateInput!
+}
+
+input ElementChildMapperComponentDeleteFieldInput {
+  delete: ComponentDeleteInput
+  where: ElementChildMapperComponentConnectionWhere
+}
+
+input ElementChildMapperComponentDisconnectFieldInput {
+  disconnect: ComponentDisconnectInput
+  where: ElementChildMapperComponentConnectionWhere
+}
+
+input ElementChildMapperComponentFieldInput {
+  connect: ElementChildMapperComponentConnectFieldInput
+  connectOrCreate: ElementChildMapperComponentConnectOrCreateFieldInput
+  create: ElementChildMapperComponentCreateFieldInput
+}
+
+input ElementChildMapperComponentNodeAggregationWhereInput {
+  AND: [ElementChildMapperComponentNodeAggregationWhereInput!]
+  NOT: ElementChildMapperComponentNodeAggregationWhereInput
+  OR: [ElementChildMapperComponentNodeAggregationWhereInput!]
+  keyGenerator_AVERAGE_LENGTH_EQUAL: Float
+  keyGenerator_AVERAGE_LENGTH_GT: Float
+  keyGenerator_AVERAGE_LENGTH_GTE: Float
+  keyGenerator_AVERAGE_LENGTH_LT: Float
+  keyGenerator_AVERAGE_LENGTH_LTE: Float
+  keyGenerator_LONGEST_LENGTH_EQUAL: Int
+  keyGenerator_LONGEST_LENGTH_GT: Int
+  keyGenerator_LONGEST_LENGTH_GTE: Int
+  keyGenerator_LONGEST_LENGTH_LT: Int
+  keyGenerator_LONGEST_LENGTH_LTE: Int
+  keyGenerator_SHORTEST_LENGTH_EQUAL: Int
+  keyGenerator_SHORTEST_LENGTH_GT: Int
+  keyGenerator_SHORTEST_LENGTH_GTE: Int
+  keyGenerator_SHORTEST_LENGTH_LT: Int
+  keyGenerator_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+}
+
+type ElementChildMapperComponentRelationship {
+  cursor: String!
+  node: Component!
+}
+
+input ElementChildMapperComponentUpdateConnectionInput {
+  node: ComponentUpdateInput
+}
+
+input ElementChildMapperComponentUpdateFieldInput {
+  connect: ElementChildMapperComponentConnectFieldInput
+  connectOrCreate: ElementChildMapperComponentConnectOrCreateFieldInput
+  create: ElementChildMapperComponentCreateFieldInput
+  delete: ElementChildMapperComponentDeleteFieldInput
+  disconnect: ElementChildMapperComponentDisconnectFieldInput
+  update: ElementChildMapperComponentUpdateConnectionInput
+  where: ElementChildMapperComponentConnectionWhere
+}
+
+type ElementComponentChildMapperComponentAggregationSelection {
+  count: Int!
+  node: ElementComponentChildMapperComponentNodeAggregateSelection
+}
+
+type ElementComponentChildMapperComponentNodeAggregateSelection {
+  id: IDAggregateSelectionNonNullable!
+  keyGenerator: StringAggregateSelectionNullable!
   name: StringAggregateSelectionNonNullable!
 }
 
@@ -6911,6 +7142,7 @@ type ElementComponentRenderComponentTypeNodeAggregateSelection {
 }
 
 input ElementConnectInput {
+  childMapperComponent: ElementChildMapperComponentConnectFieldInput
   firstChild: ElementFirstChildConnectFieldInput
   nextSibling: ElementNextSiblingConnectFieldInput
   page: ElementPageConnectFieldInput
@@ -6925,6 +7157,7 @@ input ElementConnectInput {
 }
 
 input ElementConnectOrCreateInput {
+  childMapperComponent: ElementChildMapperComponentConnectOrCreateFieldInput
   firstChild: ElementFirstChildConnectOrCreateFieldInput
   nextSibling: ElementNextSiblingConnectOrCreateFieldInput
   page: ElementPageConnectOrCreateFieldInput
@@ -6945,6 +7178,8 @@ input ElementConnectWhere {
 }
 
 input ElementCreateInput {
+  childMapperComponent: ElementChildMapperComponentFieldInput
+  childMapperPropKey: String
   customCss: String
   firstChild: ElementFirstChildFieldInput
   guiCss: String
@@ -6966,6 +7201,7 @@ input ElementCreateInput {
 }
 
 input ElementDeleteInput {
+  childMapperComponent: ElementChildMapperComponentDeleteFieldInput
   firstChild: ElementFirstChildDeleteFieldInput
   nextSibling: ElementNextSiblingDeleteFieldInput
   page: ElementPageDeleteFieldInput
@@ -6980,6 +7216,7 @@ input ElementDeleteInput {
 }
 
 input ElementDisconnectInput {
+  childMapperComponent: ElementChildMapperComponentDisconnectFieldInput
   firstChild: ElementFirstChildDisconnectFieldInput
   nextSibling: ElementNextSiblingDisconnectFieldInput
   page: ElementPageDisconnectFieldInput
@@ -7004,6 +7241,7 @@ type ElementElementFirstChildAggregationSelection {
 }
 
 type ElementElementFirstChildNodeAggregateSelection {
+  childMapperPropKey: StringAggregateSelectionNullable!
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
@@ -7019,6 +7257,7 @@ type ElementElementNextSiblingAggregationSelection {
 }
 
 type ElementElementNextSiblingNodeAggregateSelection {
+  childMapperPropKey: StringAggregateSelectionNullable!
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
@@ -7034,6 +7273,7 @@ type ElementElementParentAggregationSelection {
 }
 
 type ElementElementParentNodeAggregateSelection {
+  childMapperPropKey: StringAggregateSelectionNullable!
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
@@ -7049,6 +7289,7 @@ type ElementElementPrevSiblingAggregationSelection {
 }
 
 type ElementElementPrevSiblingNodeAggregateSelection {
+  childMapperPropKey: StringAggregateSelectionNullable!
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
@@ -7130,6 +7371,21 @@ input ElementFirstChildNodeAggregationWhereInput {
   AND: [ElementFirstChildNodeAggregationWhereInput!]
   NOT: ElementFirstChildNodeAggregationWhereInput
   OR: [ElementFirstChildNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
   customCss_AVERAGE_LENGTH_EQUAL: Float
   customCss_AVERAGE_LENGTH_GT: Float
   customCss_AVERAGE_LENGTH_GTE: Float
@@ -7313,6 +7569,21 @@ input ElementNextSiblingNodeAggregationWhereInput {
   AND: [ElementNextSiblingNodeAggregationWhereInput!]
   NOT: ElementNextSiblingNodeAggregationWhereInput
   OR: [ElementNextSiblingNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
   customCss_AVERAGE_LENGTH_EQUAL: Float
   customCss_AVERAGE_LENGTH_GT: Float
   customCss_AVERAGE_LENGTH_GTE: Float
@@ -7425,6 +7696,7 @@ input ElementNextSiblingUpdateFieldInput {
 }
 
 input ElementOnCreateInput {
+  childMapperPropKey: String
   customCss: String
   guiCss: String
   id: ID!
@@ -7773,6 +8045,21 @@ input ElementParentNodeAggregationWhereInput {
   AND: [ElementParentNodeAggregationWhereInput!]
   NOT: ElementParentNodeAggregationWhereInput
   OR: [ElementParentNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
   customCss_AVERAGE_LENGTH_EQUAL: Float
   customCss_AVERAGE_LENGTH_GT: Float
   customCss_AVERAGE_LENGTH_GTE: Float
@@ -8074,6 +8361,21 @@ input ElementPrevSiblingNodeAggregationWhereInput {
   AND: [ElementPrevSiblingNodeAggregationWhereInput!]
   NOT: ElementPrevSiblingNodeAggregationWhereInput
   OR: [ElementPrevSiblingNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
   customCss_AVERAGE_LENGTH_EQUAL: Float
   customCss_AVERAGE_LENGTH_GT: Float
   customCss_AVERAGE_LENGTH_GTE: Float
@@ -8300,6 +8602,7 @@ input ElementPropsUpdateFieldInput {
 }
 
 input ElementRelationInput {
+  childMapperComponent: ElementChildMapperComponentCreateFieldInput
   firstChild: ElementFirstChildCreateFieldInput
   nextSibling: ElementNextSiblingCreateFieldInput
   page: ElementPageCreateFieldInput
@@ -8608,6 +8911,7 @@ input ElementRenderComponentTypeUpdateFieldInput {
 Fields to sort Elements by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementSort object.
 """
 input ElementSort {
+  childMapperPropKey: SortDirection
   customCss: SortDirection
   guiCss: SortDirection
   id: SortDirection
@@ -8854,6 +9158,8 @@ input ElementUniqueWhere {
 }
 
 input ElementUpdateInput {
+  childMapperComponent: ElementChildMapperComponentUpdateFieldInput
+  childMapperPropKey: String
   customCss: String
   firstChild: ElementFirstChildUpdateFieldInput
   guiCss: String
@@ -8878,6 +9184,17 @@ input ElementWhere {
   AND: [ElementWhere!]
   NOT: ElementWhere
   OR: [ElementWhere!]
+  childMapperComponent: ComponentWhere
+  childMapperComponentAggregate: ElementChildMapperComponentAggregateInput
+  childMapperComponentConnection: ElementChildMapperComponentConnectionWhere
+  childMapperComponentConnection_NOT: ElementChildMapperComponentConnectionWhere
+  childMapperComponent_NOT: ComponentWhere
+  childMapperPropKey: String
+  childMapperPropKey_CONTAINS: String
+  childMapperPropKey_ENDS_WITH: String
+  childMapperPropKey_IN: [String]
+  childMapperPropKey_MATCHES: String
+  childMapperPropKey_STARTS_WITH: String
   customCss: String
   customCss_CONTAINS: String
   customCss_ENDS_WITH: String
@@ -10914,6 +11231,7 @@ type HookElementElementAggregationSelection {
 }
 
 type HookElementElementNodeAggregateSelection {
+  childMapperPropKey: StringAggregateSelectionNullable!
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
@@ -10933,6 +11251,21 @@ input HookElementNodeAggregationWhereInput {
   AND: [HookElementNodeAggregationWhereInput!]
   NOT: HookElementNodeAggregationWhereInput
   OR: [HookElementNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
   customCss_AVERAGE_LENGTH_EQUAL: Float
   customCss_AVERAGE_LENGTH_GT: Float
   customCss_AVERAGE_LENGTH_GTE: Float
@@ -13240,6 +13573,7 @@ type PageElementPageContentContainerAggregationSelection {
 }
 
 type PageElementPageContentContainerNodeAggregateSelection {
+  childMapperPropKey: StringAggregateSelectionNullable!
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
@@ -13255,6 +13589,7 @@ type PageElementRootElementAggregationSelection {
 }
 
 type PageElementRootElementNodeAggregateSelection {
+  childMapperPropKey: StringAggregateSelectionNullable!
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
@@ -13370,6 +13705,21 @@ input PagePageContentContainerNodeAggregationWhereInput {
   AND: [PagePageContentContainerNodeAggregationWhereInput!]
   NOT: PagePageContentContainerNodeAggregationWhereInput
   OR: [PagePageContentContainerNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
   customCss_AVERAGE_LENGTH_EQUAL: Float
   customCss_AVERAGE_LENGTH_GT: Float
   customCss_AVERAGE_LENGTH_GTE: Float
@@ -13560,6 +13910,21 @@ input PageRootElementNodeAggregationWhereInput {
   AND: [PageRootElementNodeAggregationWhereInput!]
   NOT: PageRootElementNodeAggregationWhereInput
   OR: [PageRootElementNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
   customCss_AVERAGE_LENGTH_EQUAL: Float
   customCss_AVERAGE_LENGTH_GT: Float
   customCss_AVERAGE_LENGTH_GTE: Float
@@ -19103,6 +19468,7 @@ type UserElementElementsAggregationSelection {
 }
 
 type UserElementElementsNodeAggregateSelection {
+  childMapperPropKey: StringAggregateSelectionNullable!
   customCss: StringAggregateSelectionNullable!
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
@@ -19184,6 +19550,21 @@ input UserElementsNodeAggregationWhereInput {
   AND: [UserElementsNodeAggregationWhereInput!]
   NOT: UserElementsNodeAggregationWhereInput
   OR: [UserElementsNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
   customCss_AVERAGE_LENGTH_EQUAL: Float
   customCss_AVERAGE_LENGTH_GT: Float
   customCss_AVERAGE_LENGTH_GTE: Float

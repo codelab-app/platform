@@ -6,7 +6,6 @@ import type { TableColumnProps } from 'antd'
 import { Table } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import tw from 'twin.macro'
 import { ActionColumn } from './columns/ActionColumn'
 import { NameColumn } from './columns/NameColumn'
 import { PropsColumn } from './columns/PropsColumn'
@@ -27,7 +26,7 @@ export const ComponentsTable = observer(() => {
   }, [])
 
   const headerCellProps = () => ({
-    style: tw`font-semibold text-gray-900`,
+    className: 'font-semibold text-gray-900',
   })
 
   const getComponentsTableColumns: Array<

@@ -36,6 +36,11 @@ fragment Element on Element {
   props {
     ...Prop
   }
+  childMapperPropKey
+  childMapperComponent {
+    id
+    name
+  }
   renderForEachPropKey
   renderIfExpression
   preRenderAction {

@@ -9,8 +9,8 @@ import { IRenderTypeKind } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Button, Card } from 'antd'
 import Tooltip from 'antd/lib/tooltip'
+import classNames from 'classnames'
 import React, { useMemo } from 'react'
-import tw from 'twin.macro'
 import { useCreateElementDraggable } from '../../../dnd/useCreateElementDraggable.hook'
 
 interface DraggableComponentItemProps {
@@ -46,10 +46,10 @@ export const DraggableComponentItem = ({
     id: component.id,
     overlayRenderer: () => (
       <ComponentItem
+        className="opacity-40"
         component={component}
         onDelete={onDelete}
         onEdit={onEdit}
-        tw="opacity-40"
       />
     ),
     type: BuilderDndType.CreateElement,
@@ -62,7 +62,7 @@ export const DraggableComponentItem = ({
       {...listeners}
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...attributes}
-      css={tw`cursor-pointer [max-width: 350px]`}
+      className="[max-width: 350px] cursor-pointer"
     >
       <ComponentItem
         component={component}
@@ -76,6 +76,7 @@ export const DraggableComponentItem = ({
 }
 
 interface ComponentItemProps {
+  className?: string
   component: IAtom | IComponent
   selected?: boolean
   onDelete?(id: string): void
@@ -85,7 +86,8 @@ interface ComponentItemProps {
 
 export const antDesignIconPrefix = 'assets/atoms/antd'
 
-export const ComponentItem = ({
+const ComponentItem = ({
+  className,
   component,
   onDelete,
   onEdit,
@@ -94,7 +96,7 @@ export const ComponentItem = ({
 }: ComponentItemProps) => {
   const title = (
     <Tooltip placement="left" title={component.name}>
-      <b css={tw`text-sm`}>{component.name}</b>
+      <b className="text-sm">{component.name}</b>
     </Tooltip>
   )
 
@@ -122,7 +124,10 @@ export const ComponentItem = ({
 
   return (
     <Card
-      css={[selected ? tw`border border-solid border-blue-400` : '']}
+      className={classNames(
+        selected && 'border border-solid border-blue-400',
+        className,
+      )}
       extra={
         <>
           {onEdit ? (
@@ -151,7 +156,7 @@ export const ComponentItem = ({
       onMouseDown={handleSelectClick}
       title={title}
     >
-      <img alt="" css={tw`w-full`} src={src} />
+      <img alt="" className="w-full" src={src} />
     </Card>
   )
 }

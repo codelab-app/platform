@@ -1,15 +1,11 @@
 import { Tree } from 'antd'
 import type { DirectoryTreeProps } from 'antd/es/tree'
+import classNames from 'classnames'
 import type { ReactNode } from 'react'
 import React from 'react'
-import tw from 'twin.macro'
-import type { Varient } from '../../abstract'
+import type { Variant } from '../../abstract'
+import styles from './CuiTree.module.css'
 import { CuiTreeItem } from './CuiTreeItem'
-import {
-  overrideAntdTreeStyles,
-  TREE_NODE_HOVERED_CLASS,
-  TREE_NODE_SELECTOR,
-} from './tree-styles'
 
 const { DirectoryTree } = Tree
 
@@ -29,7 +25,7 @@ export interface CuiTreeBasicDataNode {
   switcherIcon?: ReactNode
   tags?: ReactNode
   toolbar?: ReactNode
-  varient?: Varient
+  varient?: Variant
 }
 
 export interface CuiTreeProps<T extends CuiTreeBasicDataNode> {
@@ -56,7 +52,7 @@ export const CuiTree = <T extends CuiTreeBasicDataNode = CuiTreeBasicDataNode>(
   const { draggable, onMouseEnter, onMouseLeave, titleRender, treeData } = props
 
   return (
-    <div css={[overrideAntdTreeStyles, tw`h-full`]}>
+    <div className={classNames(styles.cuiTree, 'h-full')}>
       <DirectoryTree<T>
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
@@ -69,15 +65,15 @@ export const CuiTree = <T extends CuiTreeBasicDataNode = CuiTreeBasicDataNode>(
         }
         onMouseEnter={(info) => {
           const target = info.event.target as Element
-          const treeNodeWrapper = target.closest(TREE_NODE_SELECTOR)
-          treeNodeWrapper?.classList.add(TREE_NODE_HOVERED_CLASS)
+          const treeNodeWrapper = target.closest('.ant-tree-treenode')
+          treeNodeWrapper?.classList.add('ant-tree-treenode-hovered')
 
           return onMouseEnter?.(info)
         }}
         onMouseLeave={(info) => {
           const target = info.event.target as Element
-          const treeNodeWrapper = target.closest(TREE_NODE_SELECTOR)
-          treeNodeWrapper?.classList.remove(TREE_NODE_HOVERED_CLASS)
+          const treeNodeWrapper = target.closest('.ant-tree-treenode')
+          treeNodeWrapper?.classList.remove('ant-tree-treenode-hovered')
 
           return onMouseLeave?.(info)
         }}
@@ -93,7 +89,7 @@ export const CuiTree = <T extends CuiTreeBasicDataNode = CuiTreeBasicDataNode>(
               secondaryTitle={node.secondaryTitle}
               tag={node.tags}
               toolbar={node.toolbar}
-              varient={node.varient}
+              variant={node.varient}
             />
           )
         }}

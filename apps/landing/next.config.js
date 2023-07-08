@@ -1,6 +1,9 @@
 const { composePlugins, withNx } = require('@nx/next')
 
 const nextConfig = {
+  compiler: {
+    styledComponents: true,
+  },
   experimental: {
     // appDir: true,
   },

@@ -2,9 +2,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../../dist/out-tsc",
-    "jsxImportSource": "@emotion/react",
+
     "strict": true,
-    "types": ["node", "@emotion/react/types/css-prop"],
+    "types": ["node"],
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },

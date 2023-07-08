@@ -3,7 +3,7 @@ import { Model, model, modelAction, prop } from 'mobx-keystone'
 
 @model('@codelab/ModalService')
 export class ModalService<
-    TMetadata = never,
+    TMetadata = undefined,
     Properties extends object = Record<string, unknown>,
   >
   extends Model(<
@@ -16,7 +16,7 @@ export class ModalService<
   implements IModalService<TMetadata>
 {
   @modelAction
-  open(...args: TMetadata extends never ? [] : [TMetadata]) {
+  open(...args: TMetadata extends undefined ? [] : [TMetadata]) {
     this.isOpen = true
 
     if (args.length > 0) {

@@ -4,6 +4,7 @@ import type { IPropData } from '../prop'
 
 export interface IActionRunner {
   actionRef: Ref<IAction>
+  id: string
   props: IPropData
 
   runner(...args: Array<unknown>): void

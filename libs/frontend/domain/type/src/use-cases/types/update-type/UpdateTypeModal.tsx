@@ -5,7 +5,6 @@ import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import tw from 'twin.macro'
 import { AutoField, AutoFields, SelectField } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { TypeSelect } from '../../../shared'
@@ -78,7 +77,7 @@ export const UpdateTypeModal = observer(() => {
       okText="Update"
       onCancel={closeModal}
       open={typeService.updateModal.isOpen}
-      title={<span css={tw`font-semibold`}>Update type</span>}
+      title={<span className="font-semibold">Update type</span>}
     >
       <ModalForm.Form<IUpdateTypeData>
         model={model}

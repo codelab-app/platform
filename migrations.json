@@ -2,59 +2,19 @@
   "migrations": [
     {
       "cli": "nx",
-      "version": "16.2.0-beta.0",
-      "description": "Remove outputPath from run commands",
-      "implementation": "./src/migrations/update-16-2-0/remove-run-commands-output-path",
-      "package": "nx",
-      "name": "16.2.0-remove-output-path-from-run-commands"
+      "version": "16.5.0-beta.2",
+      "description": "Add test-setup.ts to ignored files in production input",
+      "implementation": "./src/migrations/update-16-5-0/add-test-setup-to-inputs-ignore",
+      "package": "@nx/jest",
+      "name": "add-test-setup-to-inputs-ignore"
     },
     {
       "cli": "nx",
-      "version": "16.2.0-beta.0",
-      "description": "Replace @nx/plugin:e2e with @nx/jest",
-      "implementation": "./src/migrations/update-16-2-0/replace-e2e-executor",
-      "package": "@nx/plugin",
-      "name": "update-16-2-0-replace-e2e-executor"
-    },
-    {
-      "cli": "nx",
-      "version": "16.3.1-beta.0",
-      "description": "Replace @nx/node:webpack with @nx/node:webpack for all project targets",
-      "implementation": "./src/migrations/update-16-3-1/update-webpack-executor",
-      "package": "@nx/node",
-      "name": "update-16-3-1-update-executor"
-    },
-    {
-      "cli": "nx",
-      "version": "16.2.0-beta.0",
-      "description": "Normalize tsconfig.cy.json files to be located at '<projectRoot>/cypress/tsconfig.json'",
-      "implementation": "./src/migrations/update-16-2-0/update-cy-tsconfig",
-      "package": "@nx/cypress",
-      "name": "update-16-2-0-normalize-tsconfigs"
-    },
-    {
-      "cli": "nx",
-      "version": "16.2.0-beta.0",
-      "description": "Remove react-test-renderer from package.json",
-      "implementation": "./src/migrations/update-16-2-0-remove-package/update-16-2-0-remove-package",
-      "package": "@nx/react",
-      "name": "update-16-2-0-remove-package"
-    },
-    {
-      "cli": "nx",
-      "version": "16.3.0-beta.2",
-      "description": "Remove @types/react-router-dom from package.json",
-      "implementation": "./src/migrations/update-16-3-0/remove-types-react-router-dom-package",
-      "package": "@nx/react",
-      "name": "remove-types-react-router-dom"
-    },
-    {
-      "cli": "nx",
-      "version": "16.3.0-beta.9",
-      "description": "Remove root build option from project configurations since it is not needed.",
-      "implementation": "./src/migrations/update-16-3-0/remove-root-build-option",
-      "package": "@nx/next",
-      "name": "update-16-3-0-remove-root-build-option"
+      "version": "16.5.0-beta.0",
+      "description": "Move .storybook/tsconfig.json to tsconfig.storybook.json for non-Angular projects.",
+      "factory": "./src/migrations/update-16-5-0/move-storybook-tsconfig",
+      "package": "@nx/storybook",
+      "name": "update-16-5-0"
     }
   ]
 }

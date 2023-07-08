@@ -61,9 +61,9 @@
     "test:unit": {
       "defaultConfiguration": "dev",
       "options": {
+        "color": true,
         "memoryLimit": 8192,
         "parallel": 3,
-        "color": true,
         "testPathPattern": ["[^i].spec.ts"],
         "jestConfig": "libs/backend/domain/user/jest.config.ts",
         "passWithNoTests": true

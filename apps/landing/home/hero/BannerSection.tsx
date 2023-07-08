@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Col, Row, Space } from 'antd'
 import $ from 'jquery'
 import React, { useEffect, useRef } from 'react'
-import tw from 'twin.macro'
 import { BuilderDemo } from '../demo/BuilderDemo'
 import { CurveAccent } from './CurveAccent'
 
@@ -37,15 +36,13 @@ export const BannerSection = () => {
 
   return (
     <>
-      <section css={[tw`m-auto md:container w-full`]}>
-        <div css={tw`md:container m-auto w-11/12 mt-0 md:mt-12 py-6 md:py-10`}>
-          <Row css={tw`justify-center`}>
-            <Col css={tw`flex-col flex items-center`}>
-              <h1
-                css={tw`text-center mb-0 text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:!text-6xl leading-snug font-bold`}
-              >
+      <section className="m-auto w-full md:container">
+        <div className="m-auto mt-0 w-11/12 py-6 md:container md:mt-12 md:py-10">
+          <Row className="justify-center">
+            <Col className="flex flex-col items-center">
+              <h1 className="mb-0 text-center text-xl font-bold leading-snug sm:text-3xl md:text-4xl lg:text-5xl xl:!text-6xl">
                 Build Using&nbsp;
-                <span css={tw`text-yellow-400 inline-block`}>
+                <span className="inline-block text-yellow-400">
                   <span
                     className="animate__animated animate__fadeIn"
                     ref={jsRotatingRef}
@@ -55,25 +52,25 @@ export const BannerSection = () => {
                   <br />
                 </span>
                 <br />
-                <p css={tw`md:mt-3 mt-0 mb-1`}>Without Template Limitations</p>
+                <p className="mb-1 mt-0 md:mt-3">
+                  Without Template Limitations
+                </p>
               </h1>
-              <p
-                css={tw`text-center text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl md:mt-4 mt-0 mb-3 sm:py-4  sm:px-12 lg:px-0 leading-5 sm:leading-7 px-2 font-light xl:w-3/4 w-full`}
-              >
-                <span css={tw`md:mb-10 mb-0`}>
+              <p className="mb-3 mt-0 w-full px-2 text-center text-sm font-light leading-5 sm:px-12 sm:py-4  sm:text-base sm:leading-7 md:mt-4 md:text-lg lg:px-0 lg:text-xl xl:w-3/4 xl:text-2xl">
+                <span className="mb-0 md:mb-10">
                   Nest components to construct the DOM tree as you would in
                   code.&nbsp;
                 </span>
-                <br css={tw`hidden md:block`} />
-                <span css={tw`hidden md:block mb-1`}></span>
-                <span css={tw`mt-0  `}>
+                <br className="hidden md:block" />
+                <span className="mb-1 hidden md:block"></span>
+                <span className="mt-0">
                   Configure props provided by UI frameworks so you can save
                   time.
                 </span>
               </p>
               <Space
                 align="center"
-                css={tw`w-full mb-6 md:mb-0 justify-center`}
+                className="mb-6 w-full justify-center md:mb-0"
                 size="large"
               >
                 <Fancybox
@@ -83,12 +80,12 @@ export const BannerSection = () => {
                   }}
                 >
                   <Button
-                    css={tw`h-10 w-36 md:h-14 sm:h-12 sm:w-48 rounded-lg text-sm sm:text-lg`}
+                    className="h-10 w-36 rounded-lg text-sm sm:h-12 sm:w-48 sm:text-lg md:h-14"
                     data-fancybox="gallery"
                     data-src="https://www.youtube.com/watch?v=OrmhGmr0iTA"
                     icon={
                       <FontAwesomeIcon
-                        css={tw`text-sm sm:text-lg md:text-xl mr-2`}
+                        className="mr-2 text-sm sm:text-lg md:text-xl"
                         icon={faArrowRight}
                       />
                     }
@@ -99,11 +96,11 @@ export const BannerSection = () => {
                   </Button>
                 </Fancybox>
                 <Button
-                  css={tw`h-10 w-36 md:h-14 sm:h-12 sm:w-48 rounded-lg text-sm sm:text-lg`}
+                  className="h-10 w-36 rounded-lg text-sm sm:h-12 sm:w-48 sm:text-lg md:h-14"
                   ghost
                   icon={
                     <FontAwesomeIcon
-                      css={tw`text-sm sm:text-lg md:text-xl mr-2`}
+                      className="mr-2 text-sm sm:text-lg md:text-xl"
                       icon={faArrowRight}
                     />
                   }
@@ -117,7 +114,7 @@ export const BannerSection = () => {
             {/* <WatchTutorial /> */}
           </Row>
         </div>
-        <div css={tw`w-9/12 m-auto md:container md:w-11/12`}>
+        <div className="m-auto w-9/12 md:container md:w-11/12">
           <BuilderDemo />
         </div>
       </section>

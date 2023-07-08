@@ -3,11 +3,16 @@
   "compilerOptions": {
     "jsx": "preserve",
     "allowJs": true,
-    "jsxImportSource": "@emotion/react",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": false,
     "lib": ["es2021"],
-    "types": ["node", "worker-loader", "@fancyapps/ui", "cypher"],
+    "types": [
+      "node",
+      "worker-loader",
+      "@fancyapps/ui",
+      "cypher",
+      "styled-components"
+    ],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": false,
@@ -31,7 +36,9 @@
     "index.d.ts",
     "**/*.js",
     "**/*.jsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "../../dist/apps/platform/.next/types/**/*.ts",
+    "../../dist/apps/platform-test/.next/types/**/*.ts"
   ],
   "exclude": [
     "jest.config.ts",
@@ -48,9 +55,5 @@
     "**/*.stories.jsx",
     "**/*.stories.tsx"
   ],
-  "references": [
-    {
-      "path": "./.storybook/tsconfig.json"
-    }
-  ]
+  "references": []
 }

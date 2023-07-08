@@ -1,10 +1,11 @@
-import type {
-  IAction,
-  IActionDTO,
-  IActionService,
-  IActionWhere,
-  ICreateActionData,
-  IUpdateActionData,
+import {
+  actionRef,
+  type IAction,
+  type IActionDTO,
+  type IActionService,
+  type IActionWhere,
+  type ICreateActionData,
+  type IUpdateActionData,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getTypeService } from '@codelab/frontend/domain/type'
@@ -25,6 +26,10 @@ import {
 } from 'mobx-keystone'
 import { ActionRepository } from '../services/action.repo'
 import { ActionFactory } from './action.factory'
+import {
+  ActionFormService,
+  CreateActionFormService,
+} from './action-form.service'
 import { ActionModalService } from './action-modal.service'
 import { ApiAction, CodeAction } from './models'
 
@@ -34,8 +39,10 @@ export class ActionService
     actionFactory: prop(() => new ActionFactory({})),
     actionRepository: prop(() => new ActionRepository({})),
     actions: prop(() => objectMap<IAction>()),
+    createForm: prop(() => new CreateActionFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new ActionModalService({})),
+    updateForm: prop(() => new ActionFormService({})),
     updateModal: prop(() => new ActionModalService({})),
   })
   implements IActionService
@@ -100,6 +107,9 @@ export class ActionService
   @transaction
   create = _async(function* (this: ActionService, data: ICreateActionData) {
     const action = this.add(ActionFactory.mapDataToDTO(data))
+    const store = action.store.current
+
+    store.actions.push(actionRef(action))
 
     if (data.type === IActionKind.ApiAction) {
       this.propService.add({

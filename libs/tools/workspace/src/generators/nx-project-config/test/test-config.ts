@@ -1,9 +1,10 @@
+/* eslint-disable canonical/sort-keys */
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
 import has from 'lodash/has'
 import merge from 'lodash/merge'
 import omit from 'lodash/omit'
 import set from 'lodash/set'
-import { addReportersToJestConfig } from './reporters'
+import { updateJestConfig } from './update-jest-config'
 
 export const updateTestConfig = (
   tree: Tree,
@@ -42,24 +43,22 @@ export const updateTestConfig = (
       'targets.test:integration',
       merge(
         {
+          defaultConfiguration: 'dev',
+          options: {
+            memoryLimit: 8192,
+            color: true,
+            testPathPattern: ['[i].spec.ts'],
+          },
           configurations: {
-            ci: {
-              // outputFile: `tmp/reports/test-integration/${projectConfig.name}.xml`,
-              // reporters: ['default', 'jest-junit'],
-              parallel: 3,
-            },
             dev: {
               reporters: ['default'],
             },
             test: {
               reporters: ['default'],
             },
-          },
-          defaultConfiguration: 'dev',
-          options: {
-            color: true,
-            memoryLimit: 8192,
-            testPathPattern: ['[i].spec.ts'],
+            ci: {
+              parallel: 3,
+            },
           },
         },
         /**
@@ -75,31 +74,21 @@ export const updateTestConfig = (
       'targets.test:unit',
       merge(
         {
-          configurations: {
-            ci: {
-              /**
-               * Reporter options are not available via CLI
-               *
-               * https://stackoverflow.com/questions/59372493/override-jest-junit-default-output-location
-               */
-              // So specs that fail to run will show as errors
-              // reportTestSuiteErrors: true,
-              // outputFile: `${projectConfig.name}.xml`,
-              // reporters: ['default', 'jest-junit'],
-            },
-            dev: {
-              reporters: ['default'],
-            },
-            test: {
-              reporters: ['default'],
-            },
-          },
           defaultConfiguration: 'dev',
           options: {
             color: true,
             memoryLimit: 8192,
             parallel: 3,
             testPathPattern: ['[^i].spec.ts'],
+          },
+          configurations: {
+            dev: {
+              reporters: ['default'],
+            },
+            test: {
+              reporters: ['default'],
+            },
+            ci: {},
           },
         },
         testOptions,
@@ -109,6 +98,6 @@ export const updateTestConfig = (
     /**
      * jest reporters options don't work with CLI, so we need to add to jest config
      */
-    addReportersToJestConfig(tree, projectConfig)
+    updateJestConfig(tree, projectConfig)
   }
 }

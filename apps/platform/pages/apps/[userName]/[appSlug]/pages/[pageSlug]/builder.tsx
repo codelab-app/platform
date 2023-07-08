@@ -72,8 +72,7 @@ const PageBuilder: CodelabPage = observer(() => {
           },
           {
             key: ExplorerPaneType.PageList,
-            render: () =>
-              result ? <ExplorerPanePage appId={result.app.id} /> : null,
+            render: () => <ExplorerPanePage />,
           },
         ],
       }}

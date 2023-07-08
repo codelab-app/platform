@@ -18,7 +18,6 @@ import { Col, Row } from 'antd'
 import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import tw from 'twin.macro'
 
 export interface UpdateElementPropsFormProps {
   element: Ref<IElement>
@@ -104,7 +103,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     return (
       <Spinner isLoading={status === 'loading'}>
         {interfaceType && (
-          <Row css={tw`mb-5`} gutter={[0, 16]}>
+          <Row className="mb-5" gutter={[0, 16]}>
             <Col span={24}>
               <PropsForm
                 autosave

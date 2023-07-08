@@ -1,4 +1,3 @@
-export * from './codegen/codegen'
 export * from './export/export.service'
 export * from './import/import.service'
 export * from './reset/reset.service'

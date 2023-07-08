@@ -1,6 +1,5 @@
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
 import { Button } from 'antd'
+import styled, { css } from 'styled-components'
 
 export const editorStyles = css`
   width: 100%;

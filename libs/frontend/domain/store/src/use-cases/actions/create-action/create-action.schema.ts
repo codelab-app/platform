@@ -75,7 +75,6 @@ export const createActionSchema: JSONSchemaType<ICreateActionData> = {
               type: 'string',
             },
             urlSegment: {
-              nullable: true,
               type: 'string',
             },
             variables: {
