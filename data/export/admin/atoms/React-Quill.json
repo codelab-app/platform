@@ -1,0 +1,26 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "c5278476-3d65-41b4-ba6d-2ed8abe0df75",
+    "kind": "InterfaceType",
+    "name": "Quil  API",
+    "fields": []
+  },
+  "atom": {
+    "id": "e3e112a3-6dd7-41c5-8610-e91eca082206",
+    "name": "React-Quill",
+    "type": "ExternalComponent",
+    "api": {
+      "id": "c5278476-3d65-41b4-ba6d-2ed8abe0df75"
+    },
+    "icon": null,
+    "tags": [],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": "https://cdn.jsdelivr.net/npm/react-quill@2.0.0/dist/quill.snow.min.css",
+    "externalJsSource": "https://cdn.jsdelivr.net/npm/react-quill@2.0.0/+esm",
+    "externalSourceType": "ReactQuill"
+  },
+  "fields": [],
+  "types": []
+}

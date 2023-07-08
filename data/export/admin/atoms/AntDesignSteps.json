@@ -68,7 +68,10 @@
       }
     ],
     "suggestedChildren": [],
-    "requiredParents": []
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
   },
   "fields": [
     {

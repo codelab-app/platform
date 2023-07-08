@@ -54,7 +54,10 @@
       }
     ],
     "suggestedChildren": [],
-    "requiredParents": []
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
   },
   "fields": [
     {
@@ -205,40 +208,6 @@
         "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
         "kind": "PrimitiveType",
         "name": "String"
-      },
-      "api": {
-        "id": "8b27806f-3ba0-4e5d-8051-8ad72a0f9511"
-      }
-    },
-    {
-      "id": "f043bf13-099d-49de-a8c4-60046209bb1a",
-      "key": "onLoad",
-      "name": "onLoad",
-      "description": null,
-      "validationRules": null,
-      "defaultValues": null,
-      "fieldType": {
-        "__typename": "ActionType",
-        "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
-        "kind": "ActionType",
-        "name": "ActionType"
-      },
-      "api": {
-        "id": "8b27806f-3ba0-4e5d-8051-8ad72a0f9511"
-      }
-    },
-    {
-      "id": "b2a33a2f-032b-47e6-9cf3-44906770a102",
-      "key": "onError",
-      "name": "onError",
-      "description": null,
-      "validationRules": null,
-      "defaultValues": null,
-      "fieldType": {
-        "__typename": "ActionType",
-        "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
-        "kind": "ActionType",
-        "name": "ActionType"
       },
       "api": {
         "id": "8b27806f-3ba0-4e5d-8051-8ad72a0f9511"
