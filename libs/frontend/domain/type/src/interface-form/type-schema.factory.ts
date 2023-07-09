@@ -218,16 +218,19 @@ export class TypeSchemaFactory {
       case PrimitiveTypeKind.String:
         rulesSchema = {
           ...context?.validationRules?.String,
+          default: context?.defaultValues,
         }
         break
       case PrimitiveTypeKind.Number:
         rulesSchema = {
           ...context?.validationRules?.Number,
+          default: context?.defaultValues,
         }
         break
       case PrimitiveTypeKind.Integer:
         rulesSchema = {
           ...context?.validationRules?.Integer,
+          default: context?.defaultValues,
         }
         break
       case PrimitiveTypeKind.Boolean:
