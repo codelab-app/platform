@@ -1,9 +1,5 @@
 import { TTLCache } from '@codelab/shared/utils'
 
-interface MobXPropertyDescriptor extends PropertyDescriptor {
-  initializer?(): (...args: Array<unknown>) => unknown
-}
-
 // Create a map to store cache instances for each cache key
 const cacheMap = new Map<string, TTLCache<string, unknown>>()
 
@@ -15,18 +11,17 @@ export const cachedWithTTL = (segmentCacheKey: string, ttl = 5 * 60 * 1000) => {
   return (
     target: unknown,
     propertyKey: string,
-    descriptor?: MobXPropertyDescriptor,
+    descriptor?: PropertyDescriptor,
   ) => {
-    if (typeof descriptor?.initializer !== 'function') {
-      console.log(target?.constructor?.name, propertyKey, descriptor)
+    if (!descriptor) {
       throw new Error(
-        "Can't decorate property without 'initializer', check that the mobx method uses method-style and not property style",
+        `"descriptor" is undefined for "${target?.constructor?.name}.${propertyKey}", make sure you are not trying to decorate an arrow function`,
       )
     }
 
-    const originalInitializer = descriptor.initializer
+    const originalMethod = descriptor.value
 
-    descriptor.initializer = function () {
+    descriptor.value = async function (...args: Array<unknown>) {
       // Get or create cache for this cacheKey
       let cache = cacheMap.get(segmentCacheKey)
 
@@ -35,26 +30,22 @@ export const cachedWithTTL = (segmentCacheKey: string, ttl = 5 * 60 * 1000) => {
         cacheMap.set(segmentCacheKey, cache)
       }
 
-      const originalMethod = originalInitializer!.call(this)
+      const cacheKey = JSON.stringify(args)
+      const cachedValue = cache.get(cacheKey)
 
-      return async (...args: Array<unknown>) => {
-        const cacheKey = JSON.stringify(args)
-        const cachedValue = cache?.get(cacheKey)
+      if (cachedValue !== undefined) {
+        console.log(
+          `Take value from cache segment ${segmentCacheKey}:`,
+          cachedValue,
+        )
 
-        if (cachedValue !== undefined) {
-          console.log(
-            `Take value from cache segment ${segmentCacheKey}:`,
-            cachedValue,
-          )
-
-          return cachedValue
-        }
-
-        const result = await originalMethod.apply(this, args)
-        cache?.set(cacheKey, result)
-
-        return result
+        return cachedValue
       }
+
+      const result = await originalMethod.apply(this, args)
+      cache.set(cacheKey, result)
+
+      return result
     }
   }
 }
@@ -67,40 +58,35 @@ export const clearCacheForKey = (segmentCacheKey: Array<string> | string) => {
   return (
     target: unknown,
     propertyKey: string,
-    descriptor?: MobXPropertyDescriptor,
+    descriptor?: PropertyDescriptor,
   ) => {
-    if (typeof descriptor?.initializer !== 'function') {
-      console.log(target?.constructor?.name, propertyKey, descriptor)
+    if (!descriptor) {
       throw new Error(
-        "Can't decorate property without 'initializer', check that the mobx method uses method-style and not property style",
+        `"descriptor" is undefined for "${target?.constructor?.name}.${propertyKey}", make sure you are not trying to decorate an arrow function`,
       )
     }
 
-    const originalInitializer = descriptor.initializer
+    const originalMethod = descriptor.value
 
-    descriptor.initializer = function () {
-      const originalMethod = originalInitializer!.call(this)
+    descriptor.value = function (...args: Array<unknown>) {
+      const cacheKeys = Array.isArray(segmentCacheKey)
+        ? segmentCacheKey
+        : [segmentCacheKey]
 
-      return (...args: Array<unknown>) => {
-        const cacheKeys = Array.isArray(segmentCacheKey)
-          ? segmentCacheKey
-          : [segmentCacheKey]
+      cacheKeys.forEach((cacheKey) => {
+        const cacheSegment = cacheMap.get(cacheKey)
 
-        cacheKeys.forEach((cacheKey) => {
-          const cacheSegment = cacheMap.get(cacheKey)
+        if (cacheSegment) {
+          console.log(
+            `Deleting cache segment ${cacheKey} with ${cacheSegment.size()} records`,
+          )
 
-          if (cacheSegment) {
-            console.log(
-              `Deleting cache segment ${cacheKey} with ${cacheSegment.size()} records`,
-            )
+          cacheSegment.clear()
+          cacheMap.delete(cacheKey)
+        }
+      })
 
-            cacheSegment.clear()
-            cacheMap.delete(cacheKey)
-          }
-        })
-
-        return originalMethod.apply(this, args)
-      }
+      return originalMethod.apply(this, args)
     }
   }
 }
