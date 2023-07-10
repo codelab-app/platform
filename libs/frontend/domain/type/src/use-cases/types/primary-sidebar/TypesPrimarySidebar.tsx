@@ -1,4 +1,9 @@
-import { LeftOutlined, RightOutlined, SearchOutlined } from '@ant-design/icons'
+import {
+  LeftOutlined,
+  PlusOutlined,
+  RightOutlined,
+  SearchOutlined,
+} from '@ant-design/icons'
 import type { IType } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import {
@@ -130,6 +135,12 @@ export const TypesPrimarySidebar = observer(() => {
                 key: 'search',
                 onClick: () => setShowSearchBar(!showSearchBar),
                 title: 'Search',
+              },
+              {
+                icon: <PlusOutlined />,
+                key: 'create',
+                onClick: () => typeService.createModal.open(),
+                title: 'Create Type',
               },
             ],
             title: 'types-tree-toolbar',

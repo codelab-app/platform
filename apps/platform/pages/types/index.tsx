@@ -1,4 +1,3 @@
-import { PlusOutlined } from '@ant-design/icons'
 import { type CodelabPage, PageType } from '@codelab/frontend/abstract/types'
 import {
   CreateFieldModal,
@@ -13,7 +12,6 @@ import {
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
-  CuiHeaderToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
@@ -29,16 +27,6 @@ import React from 'react'
 
 const TypePageHeader = observer(() => {
   const { fieldService, typeService } = useStore()
-
-  const toolbarItems = [
-    {
-      icon: <PlusOutlined />,
-      key: 'create',
-      onClick: () => typeService.createModal.open(),
-      title: 'Create Type',
-    },
-  ]
-
   const typeToUpdate = typeService.updateForm.type?.name || ''
   const fieldToUpdate = fieldService.updateForm.field?.key || ''
 
@@ -70,9 +58,6 @@ const TypePageHeader = observer(() => {
           preview={false}
           src="/logo.png"
         />
-      }
-      toolbar={
-        <CuiHeaderToolbar items={toolbarItems} title="Types Header Toolbar" />
       }
     />
   )
