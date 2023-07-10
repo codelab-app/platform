@@ -28,7 +28,7 @@ import Head from 'next/head'
 import React from 'react'
 
 const TypePageHeader = observer(() => {
-  const { typeService } = useStore()
+  const { fieldService, typeService } = useStore()
 
   const toolbarItems = [
     {
@@ -39,9 +39,30 @@ const TypePageHeader = observer(() => {
     },
   ]
 
+  const typeToUpdate = typeService.updateForm.type?.name || ''
+  const fieldToUpdate = fieldService.updateForm.field?.key || ''
+
+  const typeOrField = typeService.updateForm.isOpen
+    ? 'type'
+    : fieldService.updateForm.isOpen
+    ? 'field'
+    : ''
+
+  const typeOrFieldName = typeService.updateForm.isOpen
+    ? typeToUpdate
+    : fieldToUpdate
+
   return (
     <CuiHeader
-      direction={<CuiHeaderBreadcrumb items={[{ title: 'Types' }]} />}
+      direction={
+        <CuiHeaderBreadcrumb
+          items={[
+            { title: 'Types' },
+            { title: typeOrField },
+            { title: typeOrFieldName },
+          ]}
+        />
+      }
       logo={
         <Image
           alt="codelab logo"
