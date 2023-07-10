@@ -244,10 +244,11 @@ export class Renderer
 
         const rootElement = clonedComponent.rootElement.current
 
+        clonedComponent.props.current.setMany(
+          isObject(propValue) ? propValue : { value: propValue },
+        )
+
         if (!this.runtimeProps.get(clonedComponent.id)) {
-          clonedComponent.props.current.setMany(
-            isObject(propValue) ? propValue : { value: propValue },
-          )
           this.addRuntimeProps(componentRef(clonedComponent.id))
         }
 
