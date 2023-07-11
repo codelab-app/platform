@@ -231,10 +231,13 @@ export class TypeSchemaFactory {
         }
         break
       case PrimitiveTypeKind.Boolean:
-        rulesSchema =
-          typeof context?.defaultValues === 'boolean'
-            ? { default: context.defaultValues }
-            : {}
+        rulesSchema = {
+          default:
+            typeof context?.defaultValues === 'boolean'
+              ? context.defaultValues
+              : false,
+        }
+
         break
     }
 
