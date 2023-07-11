@@ -22,3 +22,13 @@
 #__next {
   height: 100%;
 }
+
+/**
+ * quill editor sets font family, font size to default values
+ * this override removes them to use the custom font selected by the user
+ */
+.ql-container {
+  font-family: unset;
+  font-weight: unset;
+  font-size: unset;
+}
