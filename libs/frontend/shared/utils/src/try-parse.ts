@@ -6,6 +6,7 @@ export const tryParse = (str: Nullish<string>) => {
   } catch (error) {
     console.log(error)
 
-    return str
+    // to prevent passing wrong value since the expected output is a parsed JSON
+    return undefined
   }
 }

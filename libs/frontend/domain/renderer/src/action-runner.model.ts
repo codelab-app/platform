@@ -20,6 +20,7 @@ import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
 import type { Axios, Method } from 'axios'
 import axios from 'axios'
 import { GraphQLClient } from 'graphql-request'
+import isString from 'lodash/isString'
 import merge from 'lodash/merge'
 import { computed, toJS } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -32,17 +33,14 @@ const restFetch = (
 ) => {
   const data = merge(tryParse(config.body), overrideConfig?.['body'])
   const headers = merge(tryParse(config.headers), overrideConfig?.['headers'])
-
-  const params = merge(
-    tryParse(config.queryParams),
-    overrideConfig?.['queryParams'],
-  )
+  const parsedParams = tryParse(config.queryParams)
 
   return client.request({
     data,
     headers,
     method: config.method as Method,
-    params,
+    // params should be an object to be properly used as url params
+    params: isString(parsedParams) ? undefined : parsedParams,
     responseType: config.responseType,
     url: config.urlSegment,
   })
@@ -98,7 +96,7 @@ export class ActionRunner
   @computed
   get runner() {
     return this.actionRef.current.type === IActionKind.ApiAction
-      ? this.apiRunner(this.props)
+      ? this.apiRunner
       : this.codeRunner(toJS(this.props))
   }
 
@@ -146,32 +144,36 @@ export class ActionRunner
       : null
 
     const resource = action.resource.current
-    // FIXME:
-    const config = replaceStateInProps(action.config.current.values, {})
+    const config = action.config.current.values
     const graphQLClient = this._graphqlClient
     const restClient = this._restClient
 
-    return (props: IPropData) => {
-      // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-      return async function (this: unknown, ...args: Array<unknown>) {
-        const overrideConfig = args[0] as IPropData
+    // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+    return async function (...args: Array<unknown>) {
+      const overrideConfig = args[1] as IPropData
+      // @ts-expect-error: due to not using arrow function
+      const state = this as IPropData
+      const evaluatedConfig = replaceStateInProps(config, state)
 
-        const fetchPromise =
-          resource.type === IResourceType.GraphQL
-            ? graphqlFetch(
-                graphQLClient,
-                config as IGraphQLActionConfig,
-                overrideConfig,
-              )
-            : restFetch(restClient, config as IRestActionConfig, overrideConfig)
+      const fetchPromise =
+        resource.type === IResourceType.GraphQL
+          ? graphqlFetch(
+              graphQLClient,
+              evaluatedConfig as IGraphQLActionConfig,
+              overrideConfig,
+            )
+          : restFetch(
+              restClient,
+              evaluatedConfig as IRestActionConfig,
+              overrideConfig,
+            )
 
-        try {
-          const response = await fetchPromise
+      try {
+        const response = await fetchPromise
 
-          return successRunner?.call(this, response)
-        } catch (error) {
-          return errorRunner?.call(this, error)
-        }
+        return successRunner?.call(state, response)
+      } catch (error) {
+        return errorRunner?.call(state, error)
       }
     }
   }
