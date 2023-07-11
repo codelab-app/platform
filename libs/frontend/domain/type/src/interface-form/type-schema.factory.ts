@@ -218,19 +218,16 @@ export class TypeSchemaFactory {
       case PrimitiveTypeKind.String:
         rulesSchema = {
           ...context?.validationRules?.String,
-          default: context?.defaultValues,
         }
         break
       case PrimitiveTypeKind.Number:
         rulesSchema = {
           ...context?.validationRules?.Number,
-          default: context?.defaultValues,
         }
         break
       case PrimitiveTypeKind.Integer:
         rulesSchema = {
           ...context?.validationRules?.Integer,
-          default: context?.defaultValues,
         }
         break
       case PrimitiveTypeKind.Boolean:
@@ -239,6 +236,16 @@ export class TypeSchemaFactory {
             ? { default: context.defaultValues }
             : {}
         break
+    }
+
+    if (
+      context?.defaultValues &&
+      type.primitiveKind !== PrimitiveTypeKind.Boolean
+    ) {
+      rulesSchema = {
+        ...rulesSchema,
+        default: context.defaultValues,
+      }
     }
 
     return {
