@@ -3,17 +3,28 @@ import type { SelectElementProps } from '@codelab/frontend/domain/type'
 import { SelectChildElement } from '@codelab/frontend/domain/type'
 import { observer } from 'mobx-react-lite'
 import { useForm } from 'uniforms'
+import type { SelectFieldProps } from 'uniforms-antd'
 import { AutoField } from 'uniforms-antd'
 
-type SelectLinkElementProps = Pick<SelectElementProps, 'allElementOptions'> & {
+type SelectLinkElementProps = Pick<
+  SelectElementProps,
+  'allElementOptions' | 'targetElementId'
+> & {
   name: string
+  onChange?: SelectFieldProps['onChange']
   required?: boolean
 }
 
 export const SelectLinkElement = observer(
-  ({ allElementOptions, name, required }: SelectLinkElementProps) => {
+  ({
+    allElementOptions,
+    name,
+    onChange,
+    required,
+    targetElementId,
+  }: SelectLinkElementProps) => {
     const form = useForm<ICreateElementData>()
-    const parentElementId = form.model.parentElement?.id
+    const parentElementId = targetElementId ?? form.model.parentElement?.id
 
     if (!parentElementId) {
       return null
@@ -26,6 +37,7 @@ export const SelectLinkElement = observer(
             allElementOptions={allElementOptions}
             allowClear
             disableWhenOneOpt={false}
+            onChange={onChange}
             targetElementId={parentElementId}
             // eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
             {...(props as any)}

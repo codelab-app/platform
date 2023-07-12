@@ -80,7 +80,11 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       expandedFields.push('renderCondition')
     }
 
-    if (model.childMapperPropKey ?? model.childMapperComponent) {
+    if (
+      model.childMapperPropKey ??
+      model.childMapperPreviousSibling ??
+      model.childMapperComponent
+    ) {
       expandedFields.push('childMapper')
     }
 
@@ -100,6 +104,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         <AutoFields
           omitFields={[
             'childMapperComponent',
+            'childMapperPreviousSibling',
             'childMapperPropKey',
             'renderIfExpression',
             'renderForEachPropKey',
@@ -131,7 +136,10 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             <SelectActionField name="postRenderAction" />
           </Collapse.Panel>
           <Collapse.Panel header="Child Mapper" key="childMapper">
-            <ChildMapperCompositeField propsData={propsData} />
+            <ChildMapperCompositeField
+              element={element}
+              propsData={propsData}
+            />
           </Collapse.Panel>
         </Collapse>
       </Form>

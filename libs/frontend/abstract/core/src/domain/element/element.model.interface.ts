@@ -58,6 +58,7 @@ export interface IElement
   ancestorError: Nullish<RenderingError>
   atomName: string
   childMapperComponent?: Nullable<Ref<IComponent>>
+  childMapperPreviousSibling?: Nullable<Ref<IElement>>
   childMapperPropKey?: Nullable<string>
   children: Array<IElement>
   // the closest container node that element belongs to

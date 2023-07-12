@@ -36,6 +36,9 @@ fragment Element on Element {
   props {
     ...Prop
   }
+  childMapperPreviousSibling {
+    id
+  }
   childMapperPropKey
   childMapperComponent {
     id

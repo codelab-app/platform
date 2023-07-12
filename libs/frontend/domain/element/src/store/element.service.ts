@@ -662,6 +662,9 @@ export class ElementService
       childMapperComponent: element.childMapperComponent
         ? { id: element.childMapperComponent.id }
         : null,
+      childMapperPreviousSibling: element.childMapperPreviousSibling
+        ? { id: element.childMapperPreviousSibling.id }
+        : null,
       childMapperPropKey: element.childMapperPropKey,
       customCss: element.customCss,
       guiCss: element.guiCss,

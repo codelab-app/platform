@@ -27,6 +27,7 @@ export type ElementFragment = {
   parent?: { id: string } | null
   firstChild?: { id: string } | null
   props: PropFragment
+  childMapperPreviousSibling?: { id: string } | null
   childMapperComponent?: { id: string; name: string } | null
   preRenderAction?:
     | { id: string; type: Types.ActionKind }
@@ -75,6 +76,9 @@ export const ElementFragmentDoc = gql`
     }
     props {
       ...Prop
+    }
+    childMapperPreviousSibling {
+      id
     }
     childMapperPropKey
     childMapperComponent {

@@ -30,6 +30,9 @@ const baseElementSelectionSet = `
   firstChild {
     id
   }
+  childMapperPreviousSibling {
+    id
+  }
   props
     ${propSelectionSet}
   renderForEachPropKey

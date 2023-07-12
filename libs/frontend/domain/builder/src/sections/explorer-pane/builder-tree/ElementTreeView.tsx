@@ -56,6 +56,19 @@ export const ElementTreeView = observer<ElementTreeViewProps>(
 
     return (
       <CuiTree<IElementTreeViewDataNode>
+        allowDrop={(data) => {
+          // Child mapper component instances cannot be moved around individually since they are
+          // dynamically rendered and can't have NODE_SIBLING relationship to actual elements
+          // They can only be moved around via the `childMapperPreviousSibling` field of the element
+          if (
+            data.dragNode.isChildMapperComponentInstance ||
+            data.dropNode.isChildMapperComponentInstance
+          ) {
+            return false
+          }
+
+          return true
+        }}
         defaultExpandAll
         disabled={isMoving}
         draggable={true}

@@ -59,6 +59,7 @@ import { getRenderType } from './utils'
 
 const create = ({
   childMapperComponent,
+  childMapperPreviousSibling,
   childMapperPropKey,
   customCss,
   firstChild,
@@ -85,6 +86,9 @@ const create = ({
     _parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
     childMapperComponent: childMapperComponent
       ? componentRef(childMapperComponent.id)
+      : null,
+    childMapperPreviousSibling: childMapperPreviousSibling
+      ? elementRef(childMapperPreviousSibling.id)
       : null,
     childMapperPropKey,
     customCss,
@@ -121,6 +125,8 @@ export class Element
     _parentComponent: prop<Nullable<Ref<IComponent>>>(null),
 
     childMapperComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
+    childMapperPreviousSibling:
+      prop<Nullable<Ref<IElement>>>(null).withSetter(),
     childMapperPropKey: prop<Nullable<string>>(null).withSetter(),
     customCss: prop<Nullable<string>>(null).withSetter(),
     firstChild: prop<Nullable<Ref<IElement>>>(null).withSetter(),
@@ -405,17 +411,24 @@ export class Element
       })
     }
 
+    const childMapperRenderIndex =
+      this.children.findIndex(
+        (child) => child.id === this.childMapperPreviousSibling?.id,
+      ) + 1
+
+    const children = [...this.children.map((child) => child.treeViewNode)]
+    children.splice(
+      childMapperRenderIndex,
+      0,
+      ...extraChildren.map((child) => ({
+        ...child.treeViewNode,
+        children: [],
+        isChildMapperComponentInstance: true,
+      })),
+    )
+
     return {
-      children: [
-        ...this.children.map((child) => child.treeViewNode),
-        // Render the cloned component instances from the child mapper last
-        // TODO: allow user to move around the elements from the child mapper
-        ...extraChildren.map((child) => ({
-          ...child.treeViewNode,
-          children: [],
-          isChildMapperComponentInstance: true,
-        })),
-      ],
+      children,
       key: this.id,
       node: this,
       primaryTitle: this.treeTitle.primary,
@@ -514,8 +527,13 @@ export class Element
       ? reconnectNodeId(this.childMapperComponent.id)
       : disconnectNodeId(undefined)
 
+    const childMapperPreviousSibling = this.childMapperPreviousSibling?.id
+      ? reconnectNodeId(this.childMapperPreviousSibling.id)
+      : disconnectNodeId(undefined)
+
     return {
       childMapperComponent,
+      childMapperPreviousSibling,
       childMapperPropKey: this.childMapperPropKey,
       customCss: this.customCss,
       guiCss: this.guiCss,
@@ -694,6 +712,7 @@ export class Element
   @modelAction
   writeCache({
     childMapperComponent,
+    childMapperPreviousSibling,
     childMapperPropKey,
     customCss,
     firstChild,
@@ -744,6 +763,9 @@ export class Element
       : null
     this.childMapperComponent = childMapperComponent
       ? componentRef(childMapperComponent.id)
+      : null
+    this.childMapperPreviousSibling = childMapperPreviousSibling
+      ? elementRef(childMapperPreviousSibling.id)
       : null
 
     return this

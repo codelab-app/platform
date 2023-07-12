@@ -29,6 +29,7 @@ export interface CuiTreeBasicDataNode {
 }
 
 export interface CuiTreeProps<T extends CuiTreeBasicDataNode> {
+  allowDrop?: DirectoryTreeProps<T>['allowDrop']
   defaultExpandAll?: DirectoryTreeProps<T>['defaultExpandAll']
   disabled?: DirectoryTreeProps<T>['disabled']
   draggable?: boolean
