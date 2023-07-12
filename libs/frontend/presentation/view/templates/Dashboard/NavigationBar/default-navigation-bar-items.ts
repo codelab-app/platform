@@ -11,12 +11,14 @@ import {
 
 interface SidebarNavigationRequirements {
   appSlug: string
+  componentSlug: string
   pageSlug: string
   userName: string
 }
 
 export const defaultNavigationBarItems = ({
   appSlug,
+  componentSlug,
   pageSlug,
   userName,
 }: SidebarNavigationRequirements): {
@@ -25,9 +27,9 @@ export const defaultNavigationBarItems = ({
 } => ({
   primaryItems: [
     appMenuItem,
-    allPagesMenuItem(appSlug, pageSlug, userName),
-    builderComponentsMenuItem(appSlug, pageSlug, userName),
-    pageBuilderMenuItem(appSlug, pageSlug, userName),
+    allPagesMenuItem(appSlug, pageSlug, componentSlug, userName),
+    builderComponentsMenuItem(appSlug, pageSlug, componentSlug, userName),
+    pageBuilderMenuItem(appSlug, pageSlug, componentSlug, userName),
     resourceMenuItem,
     componentMenuItem,
   ],

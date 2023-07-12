@@ -52,7 +52,9 @@ describe('_app page', () => {
     cy.getModal().should('not.exist')
 
     cy.findByText(appName).click()
-    cy.findByText(IPageKindName.Provider).should('exist')
+    cy.getListItem(IPageKindName.Provider)
+      .findByText(IPageKindName.Provider)
+      .should('be.visible')
   })
 
   it('should be able to add card component to the _app page', () => {

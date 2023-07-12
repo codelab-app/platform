@@ -22,6 +22,7 @@ export enum PageType {
   Components = '/components',
   Type = '/types',
   PageBuilder = '/apps/[userName]/[appSlug]/pages/[pageSlug]/builder',
+  ComponentBuilder = '/apps/[userName]/[appSlug]/components/[componentSlug]/builder',
   PageDetail = '/apps/[userName]/[appSlug]/pages/[pageSlug]',
   PropsInterface = '/apps/[userName]/[appSlug]/props',
   Storybook = '/storybook',

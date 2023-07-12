@@ -1,4 +1,3 @@
-import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import {
@@ -13,43 +12,27 @@ import {
   PageDetailHeader,
 } from '@codelab/frontend/domain/page'
 import {
-  useCurrentPage,
-  useRemainingPages,
-  useRenderedPage,
+  useCurrentComponent,
+  useRenderedComponent,
 } from '@codelab/frontend/presentation/container'
 import {
   DashboardTemplate,
   SkeletonWrapper,
 } from '@codelab/frontend/presentation/view'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
-import { useMountEffect } from '@react-hookz/web'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { useEffect, useMemo } from 'react'
 
-const PageBuilder: CodelabPage = observer(() => {
-  const [{ status: remainingPagesStatus }, lazilyLoadRemainingPages] =
-    useRemainingPages()
-
-  const { pageName } = useCurrentPage()
-
-  const [{ error, result, status: renderedPageStatus }, loadCurrentPage] =
-    useRenderedPage({
-      rendererType: RendererType.PageBuilder,
-    })
-
-  useMountEffect(() => {
-    void lazilyLoadRemainingPages.execute()
-  })
+const ComponentBuilder: CodelabPage = observer(() => {
+  const { componentName } = useCurrentComponent()
+  const [{ error, status }, loadCurrentPage] = useRenderedComponent()
+  const isLoading = status !== 'success'
+  const contentStyles = useMemo(() => ({ paddingTop: '0rem' }), [])
 
   useEffect(() => {
     void loadCurrentPage.execute()
-  }, [pageName])
-
-  const isLoading =
-    renderedPageStatus !== 'success' || remainingPagesStatus !== 'success'
-
-  const contentStyles = useMemo(() => ({ paddingTop: '0rem' }), [])
+  }, [componentName])
 
   return (
     <DashboardTemplate
@@ -80,7 +63,7 @@ const PageBuilder: CodelabPage = observer(() => {
       headerHeight={48}
     >
       <Head>
-        <title>{pageName} | Builder | Codelab</title>
+        <title>{componentName} | Builder | Codelab</title>
       </Head>
 
       <BuilderTabs error={error} isLoading={isLoading} />
@@ -90,10 +73,10 @@ const PageBuilder: CodelabPage = observer(() => {
 
 export const getServerSideProps = auth0Instance().withPageAuthRequired({})
 
-PageBuilder.Layout = observer(({ children }) => {
+ComponentBuilder.Layout = observer(({ children }) => {
   return <BuilderContext>{children()}</BuilderContext>
 })
 
-export default PageBuilder
+export default ComponentBuilder
 
-PageBuilder.displayName = 'PageBuilder'
+ComponentBuilder.displayName = 'ComponentBuilder'

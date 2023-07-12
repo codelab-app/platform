@@ -52,12 +52,6 @@ describe('Component CRUD', () => {
         cy.getSpinner().should('not.exist')
 
         // GetAtoms
-        cy.waitForApiCalls()
-        cy.getSpinner().should('not.exist')
-
-        cy.get('[data-node-key="custom-components"] .ant-tabs-tab-btn').click({
-          force: true,
-        })
         // GetComponents
         cy.waitForApiCalls()
         cy.getSpinner().should('not.exist')
@@ -67,7 +61,7 @@ describe('Component CRUD', () => {
   describe('Add component', () => {
     it('should be able to add a new component', () => {
       cy.log('my app', JSON.stringify(testApp, null, 2))
-      cy.getSider().getButton({ icon: 'plus' }).click()
+      cy.getCuiSidebar('Components').getToolbarItem('Add Component').click()
       cy.findByTestId('create-component-form')
         .findByLabelText('Name')
         .type(COMPONENT_NAME)

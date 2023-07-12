@@ -31,6 +31,7 @@ import {
 import type { CuiSidebarView } from '@codelab/frontend/presentation//codelab-ui'
 import { CuiSidebar } from '@codelab/frontend/presentation//codelab-ui'
 import {
+  useCurrentComponent,
   useCurrentPage,
   useStore,
 } from '@codelab/frontend/presentation/container'
@@ -52,8 +53,15 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     } = useStore()
 
     const { page } = useCurrentPage()
+    const { component } = useCurrentComponent()
     const pageBuilderRenderer = page && renderService.renderers.get(page.id)
-    const pageTree = pageBuilderRenderer?.elementTree.maybeCurrent
+
+    const componentBuilderRenderer =
+      component && renderService.renderers.get(component.id)
+
+    const pageTree = (pageBuilderRenderer ?? componentBuilderRenderer)
+      ?.elementTree.maybeCurrent
+
     const root = !isLoading ? pageTree?.rootElement : undefined
     const antdTree = root?.current.treeViewNode
     const isPageTree = antdTree && pageTree
@@ -226,7 +234,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     return (
       <>
         <CuiSidebar
-          defaultActiveViewKeys={['ElementTree', 'StateList']}
+          defaultActiveViewKeys={['ElementTree']}
           label="Explorer"
           views={sidebarViews}
         />
