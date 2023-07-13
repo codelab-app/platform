@@ -27,6 +27,8 @@
                 "data": "{\"src\":\"https://unpkg.com/@supabase/supabase-js@2\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -56,6 +58,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -88,6 +92,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -114,6 +120,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -143,6 +151,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -172,6 +182,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -201,6 +213,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": "",
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -230,6 +244,8 @@
                 "data": "{\"customText\":\"<h1><strong class=\\\"ql-font-serif\\\">VP</strong></h1>\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -262,6 +278,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -285,6 +303,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -311,6 +331,8 @@
                 "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{\\\"blog\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/blog\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -343,6 +365,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -372,6 +396,8 @@
                 "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{\\\"home\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -401,6 +427,8 @@
                 "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{\\\"guestbook\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/guestbook\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -430,6 +458,8 @@
                 "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{\\\"about\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/about\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -484,6 +514,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -531,6 +563,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -581,6 +615,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -610,6 +646,8 @@
                 "data": "{\"customText\":\"<p><span style=\\\"color: rgb(209, 213, 219);\\\">But it's not all about coding for me. I'm equally drawn to pursuits like tennis, traveling, and snowboarding. I enjoy the thrill of a fast-paced game on the court, the awe-inspiring diversity of places and cultures around the world, and the exhilaration of descending snowy slopes. These activities not only bring balance to my life but also spark creativity and innovation in my work.</span></p>\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -639,6 +677,8 @@
                 "data": "{\"customText\":\"<p><span style=\\\"color: rgb(209, 213, 219);\\\">Outside of my primary job, I invest in promising companies on the stock market. The thrill of uncovering hidden gems and observing their growth mirrors my professional journey - where I started as a trainee and have since mentored numerous others to help them secure their first jobs in the industry.</span></p>\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -671,6 +711,8 @@
                 "data": "{\"label\":\"GitHub\",\"icon\":\"GithubOutlined\",\"href\":\"https://github.com/vladyslav-polishchuk\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -700,6 +742,8 @@
                 "data": "{\"label\":\"Twitter\",\"icon\":\"TwitterOutlined\",\"href\":\"https://twitter.com\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -726,6 +770,8 @@
                 "data": "{\"customText\":\"<p><span style=\\\"color: rgb(209, 213, 219);\\\">Building for the web is what I love. Whether it's something as simple as a single HTML file or as complex as a large React application, the thrill remains the same. The web is a realm of boundless potential where anyone can be a developer, writer, or creator - there are no barriers, only opportunities. Just build, and the world is your oyster.</span></p>\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -752,6 +798,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -778,6 +826,8 @@
                 "data": "{\"customText\":\"<p><span style=\\\"color: rgb(209, 213, 219);\\\">In the exciting realm of software development, there's always something new to learn, and I am committed to sharing my experiences and insights with the community. So, join me on this journey as we delve into the dynamic world of web development, investing, and beyond.</span></p>\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -807,6 +857,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -839,6 +891,8 @@
                 "data": "{\"label\":\"Link Label\",\"href\":\"/\",\"text\":\"About Me\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -865,6 +919,8 @@
                 "data": "{\"customText\":\"<p>Hello! I'm Vladyslav Polishchuk.</p><p>At present, I'm a Full-Stack Software Developer at a progressive startup where we're pioneering a state-of-the-art website builder for developers. My role here allows me to indulge in my passion for React, as well as engage with the vibrant, innovative developer community that we serve.</p>\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -897,11 +953,47 @@
                 "data": "{\"label\":\"Youtube\",\"icon\":\"YoutubeOutlined\",\"href\":\"https://youtube.com\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
               "renderAtomType": null
+            },
+            {
+              "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
+              "name": "Page Title",
+              "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
+              "guiCss": "{}",
+              "parentComponent": {
+                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+                "name": "Page Title"
+              },
+              "renderComponentType": null,
+              "renderType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "c042e37b-8120-4104-8869-ab1db62a039a",
+                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "name": "AntDesignTypographyParagraph"
+              }
             },
             {
               "id": "4eb7f514-bba7-4faf-89e1-58538f4c4737",
@@ -926,6 +1018,8 @@
                 "data": "{\"href\":\"{{props.href}}\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -955,6 +1049,8 @@
                 "data": "{\"name\":\"{{props.icon ?? ''}}\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -984,6 +1080,8 @@
                 "data": "{\"customText\":\"<p>{{props.label}}</p>\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -991,38 +1089,6 @@
               "renderAtomType": {
                 "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
                 "name": "AntDesignTypographyText"
-              }
-            },
-            {
-              "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
-              "name": "Page Title",
-              "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
-              "guiCss": "{}",
-              "parentComponent": {
-                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
-                "name": "Page Title"
-              },
-              "renderComponentType": null,
-              "renderType": {
-                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
-                "kind": "Atom"
-              },
-              "parent": null,
-              "prevSibling": null,
-              "nextSibling": null,
-              "firstChild": null,
-              "props": {
-                "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
-              },
-              "renderForEachPropKey": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "renderAtomType": {
-                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
-                "name": "AntDesignTypographyParagraph"
               }
             }
           ],
@@ -1066,6 +1132,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1095,6 +1163,8 @@
                 "data": "{\"label\":\"Link Label\",\"href\":\"/\",\"text\":\"Blog\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1124,6 +1194,8 @@
                 "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1174,6 +1246,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1203,6 +1277,8 @@
                 "data": "{\"label\":\"Link Label\",\"href\":\"/\",\"text\":\"Guestbook\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1232,6 +1308,8 @@
                 "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1282,6 +1360,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1308,6 +1388,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1337,6 +1419,8 @@
                 "data": "{\"src\":{\"type\":\"3a0d0fc6-c51e-4f05-85b4-cde709fe5625\",\"value\":\"https://lh3.googleusercontent.com/a/AGNmyxaSN-jsTl96I4sv5YzE3rMV1XywsfVHqq9zobFq=s192-c-rg-br100\"}}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1369,6 +1453,8 @@
                 "data": "{\"text\":\"5,682 stars on this repo\",\"icon\":\"GithubOutlined\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1395,6 +1481,8 @@
                 "data": "{\"customText\":\"<p>My passion lies in front-end development, especially in mastering and creating robust applications with React. The ever-evolving nature of technology keeps me on my toes, and I'm always ready to tackle new challenges and learn more. Join me as I share my knowledge, experiences, and the exciting things I'm currently working on.</p>\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1427,6 +1515,8 @@
                 "data": "{\"label\":\"Link Label\",\"href\":\"/\",\"text\":\"Vladyslav Polishchuk\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1453,6 +1543,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1482,6 +1574,8 @@
                 "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignIcon } = this.atoms\\n\\n    return (\\n      <>\\n        <AntDesignIcon name=\\\"ArrowRightOutlined\\\" /> follow me on twitter\\n      </>\\n    )\\n  }.bind(this)\\n}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1514,6 +1608,8 @@
                 "data": "{\"text\":\"5,682 stars on this repo\",\"icon\":\"RiseOutlined\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1540,6 +1636,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1569,6 +1667,8 @@
                 "data": "{\"customText\":\"<p>My professional journey has been an enriching one, encompassing a range of projects from charting and reporting applications to Product Lifecycle Management (PLM) systems. The most rewarding part of my career so far, however, has been mentoring aspiring developers, aiding them in their growth and seeing them land their first jobs in the industry.</p>\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1598,6 +1698,8 @@
                 "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignIcon } = this.atoms\\n\\n    return (\\n      <>\\n        <AntDesignIcon name=\\\"ArrowRightOutlined\\\" /> get email updates\\n      </>\\n    )\\n  }.bind(this)\\n}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1627,6 +1729,8 @@
                 "data": "{\"customText\":\"<p><span style=\\\"color: rgb(209, 213, 219);\\\">Hey there, I'm Vladyslav Polishchuk. I'm a Full-Stack Software Developer with a strong inclination for React and 7 years of industry experience under my belt. Currently, I'm at an innovative startup, where I am part of a dynamic team developing a cutting-edge website builder for fellow developers.</span></p>\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1659,11 +1763,47 @@
                 "data": "{\"text\":\"7,570 tweets all time\",\"icon\":\"TwitterOutlined\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
               "renderAtomType": null
+            },
+            {
+              "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
+              "name": "Page Title",
+              "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
+              "guiCss": "{}",
+              "parentComponent": {
+                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+                "name": "Page Title"
+              },
+              "renderComponentType": null,
+              "renderType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "c042e37b-8120-4104-8869-ab1db62a039a",
+                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "name": "AntDesignTypographyParagraph"
+              }
             },
             {
               "id": "25fabb88-c088-496f-aa18-5e21d1fee3b3",
@@ -1685,6 +1825,8 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1711,6 +1853,8 @@
                 "data": "{\"name\":\"{{props.icon}}\"}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1740,6 +1884,8 @@
                 "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{props.text}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
@@ -1747,38 +1893,6 @@
               "renderAtomType": {
                 "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
                 "name": "AntDesignAnchorLink"
-              }
-            },
-            {
-              "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
-              "name": "Page Title",
-              "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
-              "guiCss": "{}",
-              "parentComponent": {
-                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
-                "name": "Page Title"
-              },
-              "renderComponentType": null,
-              "renderType": {
-                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
-                "kind": "Atom"
-              },
-              "parent": null,
-              "prevSibling": null,
-              "nextSibling": null,
-              "firstChild": null,
-              "props": {
-                "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
-              },
-              "renderForEachPropKey": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "renderAtomType": {
-                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
-                "name": "AntDesignTypographyParagraph"
               }
             }
           ],
@@ -1831,6 +1945,8 @@
         "firstChild": { "id": "fa5402fd-1e88-411e-baa6-2c435b94eede" },
         "props": { "id": "39e61199-edc1-4cf9-9254-0e96df0511c4", "data": "{}" },
         "renderForEachPropKey": null,
+        "childMapperPropKey": null,
+        "childMapperComponent": null,
         "renderIfExpression": null,
         "propTransformationJs": null,
         "preRenderAction": null,
@@ -1891,6 +2007,8 @@
           "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
         },
         "renderForEachPropKey": null,
+        "childMapperPropKey": null,
+        "childMapperComponent": null,
         "renderIfExpression": null,
         "propTransformationJs": null,
         "preRenderAction": null,
@@ -1972,6 +2090,8 @@
           "data": "{\"href\":\"{{props.href}}\"}"
         },
         "renderForEachPropKey": null,
+        "childMapperPropKey": null,
+        "childMapperComponent": null,
         "renderIfExpression": null,
         "propTransformationJs": null,
         "preRenderAction": null,
@@ -2018,23 +2138,6 @@
             "api": { "id": "1d4e23fb-b02f-458a-b115-5169936ab39b" }
           },
           {
-            "id": "42e1f7b4-4a83-43c3-a209-cceeace69902",
-            "key": "label",
-            "name": null,
-            "description": null,
-            "validationRules": "{}",
-            "defaultValues": "\"Link Label\"",
-            "prevSibling": null,
-            "nextSibling": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "api": { "id": "1d4e23fb-b02f-458a-b115-5169936ab39b" }
-          },
-          {
             "id": "a2216b27-8ea9-4e02-9b7f-7ddd0cb2aee1",
             "key": "icon",
             "name": null,
@@ -2050,13 +2153,30 @@
               "name": "String"
             },
             "api": { "id": "1d4e23fb-b02f-458a-b115-5169936ab39b" }
+          },
+          {
+            "id": "42e1f7b4-4a83-43c3-a209-cceeace69902",
+            "key": "label",
+            "name": null,
+            "description": null,
+            "validationRules": "{}",
+            "defaultValues": "\"Link Label\"",
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "api": { "id": "1d4e23fb-b02f-458a-b115-5169936ab39b" }
           }
         ]
       },
       "childrenContainerElement": {
         "id": "4eb7f514-bba7-4faf-89e1-58538f4c4737"
       },
-      "keyGenerator": "function run(props) {\n    // props are of type component api\n    return props.id\n}"
+      "keyGenerator": null
     },
     {
       "id": "af199668-2ed3-43df-b374-e567abc9e980",
@@ -2078,6 +2198,8 @@
         "firstChild": { "id": "f43e3a60-5328-4c48-85ec-157ef6731e82" },
         "props": { "id": "e9beac46-d5af-4d9a-89cf-50f0c849f216", "data": "{}" },
         "renderForEachPropKey": null,
+        "childMapperPropKey": null,
+        "childMapperComponent": null,
         "renderIfExpression": null,
         "propTransformationJs": null,
         "preRenderAction": null,
@@ -2104,12 +2226,12 @@
         "name": "Social Stat Item API",
         "fields": [
           {
-            "id": "453eebaf-2871-4f19-a9b8-490e2f5db893",
-            "key": "text",
-            "name": null,
+            "id": "5bf9863b-abee-416d-bd5e-93f42d516cad",
+            "key": "icon",
+            "name": "",
             "description": null,
-            "validationRules": "{}",
-            "defaultValues": "\"stat item text\"",
+            "validationRules": "{\"general\":{\"nullable\":true}}",
+            "defaultValues": "\"GithubOutlined\"",
             "prevSibling": null,
             "nextSibling": null,
             "fieldType": {
@@ -2121,12 +2243,12 @@
             "api": { "id": "45829a46-89fa-4fdc-9996-97a3e1c6a701" }
           },
           {
-            "id": "5bf9863b-abee-416d-bd5e-93f42d516cad",
-            "key": "icon",
-            "name": "",
+            "id": "453eebaf-2871-4f19-a9b8-490e2f5db893",
+            "key": "text",
+            "name": null,
             "description": null,
-            "validationRules": "{\"general\":{\"nullable\":true}}",
-            "defaultValues": "\"GithubOutlined\"",
+            "validationRules": "{}",
+            "defaultValues": "\"stat item text\"",
             "prevSibling": null,
             "nextSibling": null,
             "fieldType": {
