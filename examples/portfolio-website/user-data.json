@@ -308,7 +308,7 @@
               "firstChild": null,
               "props": {
                 "id": "c25fea2c-efee-4ded-b154-a42d9db0715e",
-                "data": "{\"title\":{\"value\":\"{{\\\"blog\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/blog\"}"
+                "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{\\\"blog\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/blog\"}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
@@ -369,7 +369,7 @@
               "firstChild": null,
               "props": {
                 "id": "157e01a0-539d-4502-b36a-199f2557717e",
-                "data": "{\"title\":{\"value\":\"{{\\\"home\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/\"}"
+                "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{\\\"home\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/\"}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
@@ -398,7 +398,7 @@
               "firstChild": null,
               "props": {
                 "id": "cf312e87-3f5f-4dfe-922d-ffdb92e9d536",
-                "data": "{\"title\":{\"value\":\"{{\\\"guestbook\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/guestbook\"}"
+                "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{\\\"guestbook\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/guestbook\"}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
@@ -427,7 +427,7 @@
               "firstChild": null,
               "props": {
                 "id": "7081ca21-84ea-45f5-acdb-f369cb87232f",
-                "data": "{\"title\":{\"value\":\"{{\\\"about\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/about\"}"
+                "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{\\\"about\\\"}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"href\":\"/about\"}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
@@ -1479,7 +1479,7 @@
               "firstChild": null,
               "props": {
                 "id": "2c891c7b-e05e-4e16-9a31-f6b376f74e5c",
-                "data": "{\"title\":{\"value\":\"{{\\n  function run() {\\n    const { AntDesignIcon } = this.atoms\\n\\n    return (\\n      <>\\n        <AntDesignIcon name=\\\"ArrowRightOutlined\\\" /> follow me on twitter\\n      </>\\n    )\\n  }.bind(this)\\n}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+                "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignIcon } = this.atoms\\n\\n    return (\\n      <>\\n        <AntDesignIcon name=\\\"ArrowRightOutlined\\\" /> follow me on twitter\\n      </>\\n    )\\n  }.bind(this)\\n}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
@@ -1595,7 +1595,7 @@
               "firstChild": null,
               "props": {
                 "id": "45317451-196a-4b0e-978f-ab63da37762e",
-                "data": "{\"title\":{\"value\":\"{{\\n  function run() {\\n    const { AntDesignIcon } = this.atoms\\n\\n    return (\\n      <>\\n        <AntDesignIcon name=\\\"ArrowRightOutlined\\\" /> get email updates\\n      </>\\n    )\\n  }.bind(this)\\n}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+                "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{\\n  function run() {\\n    const { AntDesignIcon } = this.atoms\\n\\n    return (\\n      <>\\n        <AntDesignIcon name=\\\"ArrowRightOutlined\\\" /> get email updates\\n      </>\\n    )\\n  }.bind(this)\\n}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
@@ -1737,7 +1737,7 @@
               "firstChild": null,
               "props": {
                 "id": "810218c4-2c5b-4d2b-a472-8103cfc4e7e1",
-                "data": "{\"title\":{\"value\":\"{{props.text}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+                "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{props.text}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
               "renderIfExpression": null,
