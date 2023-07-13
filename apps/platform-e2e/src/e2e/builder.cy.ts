@@ -5,6 +5,7 @@ import { slugify } from '@codelab/shared/utils'
 import { FIELD_TYPE } from '../support/antd/form'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 
+const COMPONENT_NAME = 'Component Name'
 const ELEMENT_CONTAINER = 'Container'
 const ELEMENT_ROW = 'Row'
 const ELEMENT_COL_A = 'Col A'
@@ -138,5 +139,81 @@ describe('Elements CRUD', () => {
 
       cy.findByText(updatedElementName).should('not.exist')
     })
+  })
+})
+
+describe('Element Child Mapper', () => {
+  before(() => {
+    cy.resetDatabase()
+    loginSession()
+
+    cy.request('/api/cypress/type')
+
+    cy.request('/api/cypress/atom')
+      .then(() => cy.request<IAppDTO>('/api/cypress/app'))
+      .then((apps) => {
+        const app = apps.body
+        cy.visit(
+          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+            IPageKindName.Provider,
+          )}/builder?primarySidebarKey=components`,
+        )
+        // GetRenderedPageAndCommonAppData
+        cy.waitForApiCalls()
+        cy.getSpinner().should('not.exist')
+
+        // GetAtoms
+        // GetComponents
+        cy.waitForApiCalls()
+        cy.getSpinner().should('not.exist')
+
+        cy.getCuiSidebar('Components').getToolbarItem('Add Component').click()
+        cy.findByTestId('create-component-form')
+          .findByLabelText('Name')
+          .type(COMPONENT_NAME)
+        cy.findByTestId('create-component-form')
+          .getButton({ label: 'Create Component' })
+          .click()
+        cy.findByTestId('create-component-form').should('not.exist', {
+          timeout: 10000,
+        })
+        cy.findByText(COMPONENT_NAME).should('exist')
+        cy.visit(
+          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+            IPageKindName.Provider,
+          )}/builder?primarySidebarKey=explorer`,
+        )
+        cy.getSpinner().should('not.exist')
+
+        // select root now so we can update its child later
+        // there is an issue with tree interaction
+        // Increased timeout since builder may take longer to load
+        cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
+          .should('be.visible')
+          .click({ force: true })
+      })
+  })
+
+  it('should create an AntDesignRow element and add child mapper data', () => {
+    cy.createElementTree([
+      {
+        name: ELEMENT_ROW,
+        parentElement: ROOT_ELEMENT_NAME,
+      },
+    ])
+    cy.findByText(ELEMENT_ROW).click()
+    cy.findByText('Child Mapper').click()
+    cy.get('.ant-collapse').setFormFieldValue({
+      label: 'Component',
+      type: FIELD_TYPE.SELECT,
+      value: COMPONENT_NAME,
+    })
+    cy.get('.ant-collapse').findByRole('button', { name: 'JS' }).click()
+    cy.get('.ant-collapse').setFormFieldValue({
+      // label: 'Prop Key',
+      type: FIELD_TYPE.CODE_MIRROR,
+      value: '{{state.arrayProp}}',
+    })
+    // cy.findByText(updatedElementName).should('exist')
   })
 })
