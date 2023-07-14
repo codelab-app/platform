@@ -166,7 +166,7 @@ export class ExportAdminDataService extends UseCase<
   async exportComponent(id: string) {
     const componentsData = await this.extractComponentsData({ id })
 
-    if (!componentsData.length) {
+    if (!componentsData.length || !componentsData[0]) {
       throw new Error(`Component with id ${id} not found`)
     }
 
