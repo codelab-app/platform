@@ -166,9 +166,11 @@ export class ExportAdminDataService extends UseCase<
   async exportComponent(id: string) {
     const componentsData = await this.extractComponentsData({ id })
 
-    if (componentsData[0]) {
-      this.saveComponentAsFile(componentsData[0])
+    if (!componentsData.length) {
+      throw new Error(`Component with id ${id} not found`)
     }
+
+    return componentsData[0]
   }
 
   saveComponentAsFile(componentData: IComponentExportData) {
