@@ -84,6 +84,13 @@ export const useFilteredData = <T extends CuiTreeBasicDataNode>(
   }, [data, filterOptions])
 
   const expandedKeys = useMemo(() => {
+    if (
+      !filterOptions.primaryTitleFilter &&
+      !filterOptions.secondaryTitleFilter
+    ) {
+      return
+    }
+
     const primaryFilter =
       filterOptions.primaryTitleFilter &&
       new RegExp(filterOptions.primaryTitleFilter, 'i')

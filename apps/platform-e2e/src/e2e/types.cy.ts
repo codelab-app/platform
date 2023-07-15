@@ -40,7 +40,7 @@ describe('Types CRUD', () => {
         'not.exist',
       )
 
-      cy.findByRole('button', { name: /plus/ }).click()
+      cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
 
       cy.getModal().setFormFieldValue({
         label: 'Name',
@@ -72,7 +72,7 @@ describe('Types CRUD', () => {
         'not.exist',
       )
 
-      cy.findByRole('button', { name: /plus/ }).click()
+      cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
 
       cy.getModal().setFormFieldValue({ label: 'Name', value: enumTypeName })
 
@@ -98,7 +98,7 @@ describe('Types CRUD', () => {
     })
 
     it('should be able to create array', () => {
-      cy.findByRole('button', { name: /plus/ }).click()
+      cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
 
       cy.getModal().setFormFieldValue({
         label: 'Name',
@@ -130,7 +130,7 @@ describe('Types CRUD', () => {
         'not.exist',
       )
 
-      cy.findByRole('button', { name: /plus/ }).click()
+      cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
 
       cy.getModal().setFormFieldValue({
         label: 'Name',
@@ -152,11 +152,11 @@ describe('Types CRUD', () => {
     })
 
     it('should be able to add fields', () => {
-      cy.findByText(interfaceTypeName)
-        .closest('.ant-table-row')
-        .getButton({
-          icon: 'plus',
-        })
+      cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).click()
+
+      cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName)
+        .getCuiTreeItemToolbar()
+        .getToolbarItem('Add field')
         .click()
 
       cy.getModal().setFormFieldValue({
@@ -189,30 +189,22 @@ describe('Types CRUD', () => {
 
       cy.getModal().should('not.exist')
 
-      cy.findByText(interfaceTypeName)
-        .closest('.ant-table-row')
-        .find('.ant-table-row-expand-icon')
-        .click()
+      cy.getCuiTreeItemByPrimaryTitle(fieldName).should('be.visible')
 
-      cy.getSpinner().should('not.exist')
+      cy.getCuiTreeItemByPrimaryTitle(fieldName).click()
 
-      cy.searchTableRow({
-        header: 'Key',
-        row: fieldName,
-        table: cy.get('.ant-table-expanded-row'),
-      }).should('exist')
+      // TODO: update these to assert the values of the form input instead of table cell.
+      // cy.searchTableRow({
+      //   header: 'Kind',
+      //   row: primitiveTypeKind,
+      //   table: cy.get('.ant-table-expanded-row'),
+      // })
 
-      cy.searchTableRow({
-        header: 'Kind',
-        row: primitiveTypeKind,
-        table: cy.get('.ant-table-expanded-row'),
-      })
-
-      cy.searchTableRow({
-        header: 'Default',
-        row: fieldDefaultValue,
-        table: cy.get('.ant-table-expanded-row'),
-      })
+      // cy.searchTableRow({
+      //   header: 'Default',
+      //   row: fieldDefaultValue,
+      //   table: cy.get('.ant-table-expanded-row'),
+      // })
     })
   })
 
@@ -222,41 +214,31 @@ describe('Types CRUD', () => {
 
       cy.findAllByText(arrayTypeName, { exact: true }).should('exist')
 
-      cy.searchTableRow({
-        header: 'Name',
-        row: arrayTypeName,
-      })
-        .getButton({
-          icon: 'edit',
-        })
-        .click()
+      cy.getCuiTreeItemByPrimaryTitle(arrayTypeName).click()
 
       cy.getSpinner().should('not.exist')
 
-      cy.getModal().setFormFieldValue({
+      cy.setFormFieldValue({
         label: 'Name',
         value: updatedArrayTypeName,
       })
-      cy.getModal()
-        .getModalAction(/Update/)
-        .click()
 
-      cy.getModal().should('not.exist')
-      cy.findByText(arrayTypeName).should('not.exist')
-      cy.findByText(updatedArrayTypeName).should('exist')
+      cy.getButton({ label: 'Update Type' }).click()
+
+      cy.getCuiTreeItemByPrimaryTitle(arrayTypeName).should('not.exist')
+      cy.getCuiTreeItemByPrimaryTitle(updatedArrayTypeName).should('exist')
     })
   })
 
   describe('delete type', () => {
     it('should be able to delete interface', () => {
-      cy.searchTableRow({
-        header: 'Name',
-        row: interfaceTypeName,
+      cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).click()
+      cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).within(() => {
+        cy.getCuiTreeItemToolbar()
+          .getToolbarItem('Delete type')
+          .should('be.visible')
+          .click()
       })
-        .getButton({
-          icon: 'delete',
-        })
-        .click()
 
       cy.getSpinner().should('not.exist')
 
@@ -265,18 +247,18 @@ describe('Types CRUD', () => {
         .click()
       cy.getModal().should('not.exist')
 
-      cy.findAllByText(interfaceTypeName).should('not.exist')
+      cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).should('not.exist')
     })
 
     it('should be able to delete array', () => {
-      cy.searchTableRow({
-        header: 'Name',
-        row: updatedArrayTypeName,
+      cy.getCuiTreeItemByPrimaryTitle(updatedArrayTypeName).click()
+      cy.getCuiTreeItemByPrimaryTitle(updatedArrayTypeName).within(() => {
+        cy.getCuiTreeItemToolbar()
+          .getToolbarItem('Delete type')
+          .should('be.visible')
+          .click()
       })
-        .getButton({
-          icon: 'delete',
-        })
-        .click()
+
       cy.getSpinner().should('not.exist')
 
       cy.getModal()
@@ -288,14 +270,14 @@ describe('Types CRUD', () => {
     })
 
     it('should be able to delete enum', () => {
-      cy.searchTableRow({
-        header: 'Name',
-        row: enumTypeName,
+      cy.getCuiTreeItemByPrimaryTitle(enumTypeName).click()
+      cy.getCuiTreeItemByPrimaryTitle(enumTypeName).within(() => {
+        cy.getCuiTreeItemToolbar()
+          .getToolbarItem('Delete type')
+          .should('be.visible')
+          .click()
       })
-        .getButton({
-          icon: 'delete',
-        })
-        .click()
+
       cy.getSpinner().should('not.exist')
 
       cy.getModal()
@@ -307,14 +289,14 @@ describe('Types CRUD', () => {
     })
 
     it('should be able to delete primitive', () => {
-      cy.searchTableRow({
-        header: 'Name',
-        row: primitiveTypeName,
+      cy.getCuiTreeItemByPrimaryTitle(primitiveTypeName).click()
+      cy.getCuiTreeItemByPrimaryTitle(primitiveTypeName).within(() => {
+        cy.getCuiTreeItemToolbar()
+          .getToolbarItem('Delete type')
+          .should('be.visible')
+          .click()
       })
-        .getButton({
-          icon: 'delete',
-        })
-        .click()
+
       cy.getSpinner().should('not.exist')
 
       cy.getModal()

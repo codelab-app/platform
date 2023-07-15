@@ -84,12 +84,8 @@ export const CuiTree = <T extends CuiTreeBasicDataNode = CuiTreeBasicDataNode>(
   const [currentExpandedKeys, setCurrentExpandedKeys] = useState(expandedKeys)
 
   useEffect(() => {
-    setCurrentExpandedKeys(filterExpandedKeys)
-  }, [filterExpandedKeys])
-
-  useEffect(() => {
-    setCurrentExpandedKeys(expandedKeys)
-  }, [expandedKeys])
+    setCurrentExpandedKeys(filterExpandedKeys || expandedKeys)
+  }, [filterExpandedKeys, expandedKeys])
 
   const handleExpand = (
     newExpandedKeys: Array<React.Key>,

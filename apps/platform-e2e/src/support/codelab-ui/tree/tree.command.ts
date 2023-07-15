@@ -13,3 +13,7 @@ export const getCuiTreeItemBySecondaryTitle = (secondaryTitle: string) => {
     `[data-cy*="codelabui-tree-item-secondary-title-${secondaryTitle}"]`,
   )
 }
+
+export const getCuiTreeItemToolbar = () => {
+  return cy.get(`[data-cy="codelabui-tree-item-toolbar"]`)
+}

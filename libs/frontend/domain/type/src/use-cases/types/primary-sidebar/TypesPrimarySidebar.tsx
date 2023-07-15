@@ -138,7 +138,7 @@ export const TypesPrimarySidebar = observer(() => {
               },
               {
                 icon: <PlusOutlined />,
-                key: 'create',
+                key: 'create type',
                 onClick: () => typeService.createModal.open(),
                 title: 'Create Type',
               },
