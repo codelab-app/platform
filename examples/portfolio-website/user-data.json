@@ -1,7 +1,13 @@
 {
   "apps": [
     {
-      "domains": [],
+      "domains": [
+        {
+          "id": "c0f5c759-ae65-4b04-876a-f75fac32b1f3",
+          "name": "codelab-demo.online",
+          "app": { "id": "e95f416d-bd72-4b46-b6bb-a186740bd875" }
+        }
+      ],
       "id": "e95f416d-bd72-4b46-b6bb-a186740bd875",
       "name": "Portfolio Website",
       "pages": [
@@ -1240,7 +1246,7 @@
               "parent": null,
               "prevSibling": null,
               "nextSibling": null,
-              "firstChild": { "id": "0231b99e-14e8-421d-99a9-8ef5b0a5a936" },
+              "firstChild": { "id": "3183f10e-0b21-4db0-bf65-d2786ee57083" },
               "props": {
                 "id": "1d496164-d8a6-4043-b3f2-0a18e8fdff22",
                 "data": "{}"
@@ -1268,9 +1274,9 @@
                 "id": "fd462921-8775-45cc-911e-8763ba7f756b",
                 "kind": "Component"
               },
-              "parent": { "id": "bc07ca6c-04b0-488d-9b26-80a158d7f853" },
-              "prevSibling": null,
-              "nextSibling": null,
+              "parent": null,
+              "prevSibling": { "id": "3183f10e-0b21-4db0-bf65-d2786ee57083" },
+              "nextSibling": { "id": "94b5215b-2b36-477c-acfd-4c1ff0df1890" },
               "firstChild": null,
               "props": {
                 "id": "5accf1aa-8898-4052-bf78-ddef55bad33b",
@@ -1284,6 +1290,316 @@
               "preRenderAction": null,
               "postRenderAction": null,
               "renderAtomType": null
+            },
+            {
+              "id": "94b5215b-2b36-477c-acfd-4c1ff0df1890",
+              "name": "Github Sign In",
+              "customCss": "height: 42px;\nbackground-color: #262626;",
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "0231b99e-14e8-421d-99a9-8ef5b0a5a936" },
+              "nextSibling": { "id": "350fca05-1a63-4e3d-8da4-acd12cc75729" },
+              "firstChild": { "id": "fb148984-fba3-4412-85dc-1977429d5f49" },
+              "props": {
+                "id": "63b358b6-fc9e-401b-a406-99f6a4389447",
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"2990c9dc-71bb-4598-ae42-023c9dcf5436\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": "{{!state.token}}",
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
+                "name": "AntDesignButton"
+              }
+            },
+            {
+              "id": "fb148984-fba3-4412-85dc-1977429d5f49",
+              "name": "Github Icon",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "7244a1cf-3ec7-43fb-a9b0-2d5f99b92f69",
+                "kind": "Atom"
+              },
+              "parent": { "id": "94b5215b-2b36-477c-acfd-4c1ff0df1890" },
+              "prevSibling": null,
+              "nextSibling": { "id": "3cc2aa10-2799-4a6a-88d1-3fb7dc5077ff" },
+              "firstChild": null,
+              "props": {
+                "id": "bf70bb06-e77d-4f2c-8307-fcb2c187151d",
+                "data": "{\"name\":\"GithubOutlined\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "7244a1cf-3ec7-43fb-a9b0-2d5f99b92f69",
+                "name": "AntDesignIcon"
+              }
+            },
+            {
+              "id": "3cc2aa10-2799-4a6a-88d1-3fb7dc5077ff",
+              "name": "Github Label",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "fb148984-fba3-4412-85dc-1977429d5f49" },
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "f589d2dd-fc72-407f-8351-21dc42c20b02",
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>Sign in with GitHub</p>\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "name": "AntDesignTypographyText"
+              }
+            },
+            {
+              "id": "350fca05-1a63-4e3d-8da4-acd12cc75729",
+              "name": "Message Input Container",
+              "customCss": "height: 42px;\n\n.ant-space-item:first-child {\n  flex-grow: 1;\n}",
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "94b5215b-2b36-477c-acfd-4c1ff0df1890" },
+              "nextSibling": null,
+              "firstChild": { "id": "9ce5a02b-97bd-463e-af3b-4572ddf44d8b" },
+              "props": {
+                "id": "be84fea2-1c16-4ba9-9bee-14e74be6e47a",
+                "data": "{}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": "{{!!state.token || true}}",
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
+                "name": "AntDesignSpace"
+              }
+            },
+            {
+              "id": "9ce5a02b-97bd-463e-af3b-4572ddf44d8b",
+              "name": "Message Input",
+              "customCss": "height: 42px;\nbackground-color: #262626;",
+              "guiCss": "{}",
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "8d669da3-4198-494a-8018-851f6a802bf2",
+                "kind": "Atom"
+              },
+              "parent": { "id": "350fca05-1a63-4e3d-8da4-acd12cc75729" },
+              "prevSibling": null,
+              "nextSibling": { "id": "373c6ee3-7da2-4b43-beb2-b932ff796d86" },
+              "firstChild": null,
+              "props": {
+                "id": "a1956b1e-c1a6-475e-9d7c-07633553b638",
+                "data": "{\"suffix\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"addonBefore\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"prefix\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onPressEnter\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"addonAfter\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "8d669da3-4198-494a-8018-851f6a802bf2",
+                "name": "AntDesignInput"
+              }
+            },
+            {
+              "id": "aae162f4-85c8-4aec-a76f-06e538f4d638",
+              "name": "Logout Button",
+              "customCss": "height: 42px;\nbackground-color: #262626;",
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "373c6ee3-7da2-4b43-beb2-b932ff796d86" },
+              "nextSibling": null,
+              "firstChild": { "id": "4ac4edbb-894f-4419-bebd-45cb982e8476" },
+              "props": {
+                "id": "c681ccf8-cbe1-4999-858d-f191860479f7",
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"d5525e74-bdd9-4311-a0df-d15d923abeab\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"customText\":\"<p><br></p>\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
+                "name": "AntDesignButton"
+              }
+            },
+            {
+              "id": "4ac4edbb-894f-4419-bebd-45cb982e8476",
+              "name": "Logout Label",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "kind": "Atom"
+              },
+              "parent": { "id": "aae162f4-85c8-4aec-a76f-06e538f4d638" },
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "e26783f8-839d-43d8-b0f8-32a3e736cdfb",
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>Logout</p>\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "name": "AntDesignTypographyText"
+              }
+            },
+            {
+              "id": "373c6ee3-7da2-4b43-beb2-b932ff796d86",
+              "name": "Post Message Button",
+              "customCss": "height: 42px;\nbackground-color: #262626;",
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "9ce5a02b-97bd-463e-af3b-4572ddf44d8b" },
+              "nextSibling": { "id": "aae162f4-85c8-4aec-a76f-06e538f4d638" },
+              "firstChild": { "id": "9bfa3c13-20bb-4a04-8133-6c03f20ea38c" },
+              "props": {
+                "id": "158a661a-ecda-4736-85d4-b4aa5420d71a",
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"icon\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"customText\":\"<p><br></p>\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
+                "name": "AntDesignButton"
+              }
+            },
+            {
+              "id": "9bfa3c13-20bb-4a04-8133-6c03f20ea38c",
+              "name": "Post Message Button Label",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "kind": "Atom"
+              },
+              "parent": { "id": "373c6ee3-7da2-4b43-beb2-b932ff796d86" },
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "props": {
+                "id": "6b42fa43-2f8c-417f-aadd-6cf5536aa8bc",
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>Post</p>\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "name": "AntDesignTypographyText"
+              }
+            },
+            {
+              "id": "3183f10e-0b21-4db0-bf65-d2786ee57083",
+              "name": "Supabase Script",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "679463cd-20a7-4d78-a82b-b20a62ecd6d6",
+                "kind": "Atom"
+              },
+              "parent": { "id": "bc07ca6c-04b0-488d-9b26-80a158d7f853" },
+              "prevSibling": null,
+              "nextSibling": { "id": "0231b99e-14e8-421d-99a9-8ef5b0a5a936" },
+              "firstChild": null,
+              "props": {
+                "id": "3390093e-26e0-4f48-8d31-df9512b526b4",
+                "data": "{\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onLoad\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"1a80043e-6e72-4246-8a25-bf643e99b0fd\"},\"src\":\"https://unpkg.com/@supabase/supabase-js@2\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "renderAtomType": {
+                "id": "679463cd-20a7-4d78-a82b-b20a62ecd6d6",
+                "name": "HtmlScript"
+              }
             },
             {
               "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
@@ -1335,9 +1651,49 @@
               "id": "c765c7eb-8cb3-49a0-b4cb-fd2759af1a23",
               "kind": "InterfaceType",
               "name": "Portfolio Website(gm.vpolishchuk) Guestbook Store API",
-              "fields": []
+              "fields": [
+                {
+                  "id": "3ad772fb-635d-4e55-b080-b9b6453d4905",
+                  "key": "token",
+                  "name": null,
+                  "description": null,
+                  "validationRules": "{\"general\":{\"nullable\":true}}",
+                  "defaultValues": "null",
+                  "prevSibling": null,
+                  "nextSibling": null,
+                  "fieldType": {
+                    "__typename": "PrimitiveType",
+                    "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                    "kind": "PrimitiveType",
+                    "name": "String"
+                  },
+                  "api": { "id": "c765c7eb-8cb3-49a0-b4cb-fd2759af1a23" }
+                }
+              ]
             },
-            "actions": []
+            "actions": [
+              {
+                "__typename": "CodeAction",
+                "id": "d5525e74-bdd9-4311-a0df-d15d923abeab",
+                "name": "logoutClick",
+                "type": "CodeAction",
+                "code": "function run() {\n    window.supabaseClient.auth.signOut();\n    // state.token = null;\n}"
+              },
+              {
+                "__typename": "CodeAction",
+                "id": "2990c9dc-71bb-4598-ae42-023c9dcf5436",
+                "name": "loginClick",
+                "type": "CodeAction",
+                "code": "async function run() {\n  debugger\n  const { data, error } = await window.supabaseClient.auth.signInWithOAuth({\n    provider: 'github',\n    options: {\n      redirectTo:'http://127.0.0.1:3000/apps/gm.vpolishchuk/portfolio-website/pages/guestbook'\n    }\n  });\ndebugger\n  //alert('after login')\n  const oAuthToken = data.session?.provider_token;\n\n  state.token = oAuthToken;\n  //alert(oAuthToken)\n}"
+              },
+              {
+                "__typename": "CodeAction",
+                "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
+                "name": "onSupabaseLoad",
+                "type": "CodeAction",
+                "code": "async function run() {\n  const { createClient } = window.supabase;\n  const projectUrl = 'https://cicrfdknwobgyihmmvbe.supabase.co';\n  const projectPublickKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpY3JmZGtud29iZ3lpaG1tdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY1MzgwOTcsImV4cCI6MTk5MjExNDA5N30.DAU_bDvSXg_ya4V-6wk3B2VC5KtpsK4-sdRmHUkmkGo';\n  const supabaseClient = createClient(projectUrl, projectPublickKey);\n\n  this.supabaseClient = supabaseClient;\n  window.supabaseClient = supabaseClient;\ndebugger\n  const posts = await supabaseClient.from('posts').select();\n\n  debugger\n\n  const { data, error } = await supabaseClient.auth.getSession();\n\n  console.log(data, error)\n  \n  const oAuthToken = data.session?.provider_token;\n  setTimeout(() => {\n   // state.token = oAuthToken;\n  }, 0)\n\n  // alert(data)\n  console.log(posts)\n}"
+              }
+            ]
           },
           "url": "/guestbook"
         },
