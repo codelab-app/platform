@@ -21,7 +21,7 @@ import {
   getStoreService,
 } from '@codelab/frontend/domain/store'
 import { getTagService } from '@codelab/frontend/domain/tag'
-import { getTypeService } from '@codelab/frontend/domain/type'
+import { getFieldService, getTypeService } from '@codelab/frontend/domain/type'
 import { VercelService } from '@codelab/frontend/domain/vercel'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
@@ -114,6 +114,11 @@ export class AppService
   @computed
   private get propService() {
     return getPropService(this)
+  }
+
+  @computed
+  private get fieldService() {
+    return getFieldService(this)
   }
 
   @computed
@@ -387,10 +392,17 @@ export class AppService
      * Get all elements of page to delete
      */
     const pageElements = pages.flatMap((page) => page.elements)
+    const pageStores = pages.map((page) => page.store.current)
+    const storeApis = pageStores.flatMap((store) => store.api.current)
+    const fields = storeApis.flatMap((api) => api.fields)
+    const fieldApis = fields.flatMap((field) => field.api.current)
+    const allTypes = [...storeApis, ...fieldApis]
 
     yield* _await(this.elementService.elementRepository.delete(pageElements))
-
     yield* _await(this.appRepository.delete([app]))
+    yield* _await(this.storeService.storeRepository.delete(pageStores))
+    yield* _await(this.typeService.typeRepository.delete(allTypes))
+    yield* _await(this.fieldService.fieldRepository.delete(fields))
 
     for (const domain of app.domains) {
       yield* _await(this.vercelService.delete(domain.current.name))
