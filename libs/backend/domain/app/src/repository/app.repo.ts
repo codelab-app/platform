@@ -4,6 +4,7 @@ import type {
   IComponentExport,
   IExportComponents,
 } from '@codelab/backend/abstract/core'
+import { importActions } from '@codelab/backend/domain/action'
 import {
   createComponent,
   findComponent,
@@ -157,6 +158,8 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
     await storeRepository
       .add([store])
       .catch(() => storeRepository.update(store, { id: store.id }))
+
+    await importActions(store.actions, store.id)
   }
 
   const pagesData = app.pages.map(({ elements, ...props }) => ({
@@ -168,10 +171,6 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
 
   await appRepository.add([{ ...app, owner, pages: [] }])
   await pageRepository.add(pagesData)
-
-  console.log('Creating actions...')
-
-  // await importActions(app.store.actions, app.store.id)
 
   return app
 }
