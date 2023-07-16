@@ -1,4 +1,5 @@
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import type { EditorView } from '@codemirror/view'
 import { FIELD_TYPE } from '../support/antd/form'
 import { loginSession } from '../support/nextjs-auth0/commands/login'
 
@@ -193,18 +194,21 @@ describe('Types CRUD', () => {
 
       cy.getCuiTreeItemByPrimaryTitle(fieldName).click()
 
-      // TODO: update these to assert the values of the form input instead of table cell.
-      // cy.searchTableRow({
-      //   header: 'Kind',
-      //   row: primitiveTypeKind,
-      //   table: cy.get('.ant-table-expanded-row'),
-      // })
+      cy.getFormInput({
+        label: 'Type',
+        type: FIELD_TYPE.MULTISELECT,
+      })
+        .get('.ant-select-selection-item')
+        .invoke('text')
+        .should('equal', primitiveTypeName)
 
-      // cy.searchTableRow({
-      //   header: 'Default',
-      //   row: fieldDefaultValue,
-      //   table: cy.get('.ant-table-expanded-row'),
-      // })
+      cy.getFormInput({
+        label: 'Default values',
+        type: FIELD_TYPE.CODE_MIRROR,
+      }).then((editorView: EditorView) => {
+        const text = editorView.state.doc.toString()
+        expect(text).to.equal(fieldDefaultValue)
+      })
     })
   })
 
