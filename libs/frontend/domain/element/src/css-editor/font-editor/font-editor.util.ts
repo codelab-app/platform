@@ -15,6 +15,8 @@ const getGoogleFontsLink = () => {
   if (linkElement) {
     return linkElement.getAttribute('href')
   }
+
+  return null
 }
 
 /**
@@ -36,17 +38,23 @@ export const extractFontDataFromUrl = (): Array<Font> => {
 
   const familyStrings = match[0].split('&family=')
 
-  return familyStrings.map((familyString) => {
+  return familyStrings.reduce((acc, familyString) => {
     const [family, weightsString] = familyString.split(':wght@')
+
+    if (!family) {
+      return acc
+    }
 
     // Default to 400 if no weights are specified
     const weightsArray = weightsString
       ? weightsString.split(/[;&]/).filter((weight) => weight !== '')
       : ['400']
 
-    return {
+    acc.push({
       family: family.replace(/\+/g, ' '),
       weights: weightsArray,
-    }
-  })
+    })
+
+    return acc
+  }, new Array<Font>())
 }
