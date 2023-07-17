@@ -1,9 +1,9 @@
 variable "kv_rest_api_url" {
-  type = string
+  type        = string
   description = "Vercel KV API url"
 }
 
 variable "kv_rest_api_token" {
-  type = string
+  type        = string
   description = "Vercel KV API token"
 }

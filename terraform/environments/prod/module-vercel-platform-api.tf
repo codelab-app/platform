@@ -12,4 +12,7 @@ module "vercel-platform-api" {
   neo4j_password = var.NEO4J_PASSWORD
   neo4j_uri      = var.NEO4J_URI
   neo4j_user     = var.NEO4J_USER
+
+  kv_rest_api_url   = var.KV_REST_API_URL
+  kv_rest_api_token = var.KV_REST_API_TOKEN
 }

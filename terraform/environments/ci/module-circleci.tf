@@ -23,6 +23,9 @@ module "circleci" {
   next_public_supabase_url = var.NEXT_PUBLIC_SUPABASE_URL
   next_public_supabase_key = var.NEXT_PUBLIC_SUPABASE_KEY
 
-  vercel_access_token   = var.VERCEL_ACCESS_TOKEN
+  # vercel_access_token   = var.VERCEL_ACCESS_TOKEN
   nx_cloud_access_token = var.NX_CLOUD_ACCESS_TOKEN
+
+  kv_rest_api_url   = var.KV_REST_API_URL
+  kv_rest_api_token = var.KV_REST_API_TOKEN
 }
