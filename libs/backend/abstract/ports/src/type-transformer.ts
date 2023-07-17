@@ -30,7 +30,7 @@ export interface ITypeTransformer {
   enumType(type: string): Promise<EnumType>
 
   isArrayType(type: string): boolean
-  arrayType(type: string): Promise<ArrayType>
+  // arrayType(type: string): Promise<ArrayType>
 
   isUnionType(type: string): boolean
   unionType(type: string): Promise<UnionType>

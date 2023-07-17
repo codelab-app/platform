@@ -219,14 +219,14 @@ export class DefaultTypeAdapterService
     return this.arrayTypeRegex.test(type)
   }
 
-  async arrayType(type: string): Promise<IArrayType> {
-    const arrayType: IArrayTypeDTO = {
-      __typename: ITypeKind.ArrayType,
-      itemType: '',
-    }
+  // async arrayType(type: string): Promise<IArrayType> {
+  //   const arrayType: IArrayTypeDTO = {
+  //     __typename: ITypeKind.ArrayType,
+  //     itemType: { id: '' },
+  //   }
 
-    return await TypeFactory.save<IArrayType>(arrayType)
-  }
+  //   return await TypeFactory.save<IArrayType>(arrayType)
+  // }
 
   async actionType() {
     return throwIfUndefined(

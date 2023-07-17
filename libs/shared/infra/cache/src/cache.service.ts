@@ -6,7 +6,11 @@ export enum CacheInstance {
   Frontend = 'Frontend',
 }
 
-export class CacheService {
+interface ICacheService {
+  clearAllCache(): Promise<void>
+}
+
+export class CacheService implements ICacheService {
   private static instances: Record<CacheInstance, CacheService | undefined> = {
     [CacheInstance.Backend]: undefined,
     [CacheInstance.Frontend]: undefined,
@@ -32,7 +36,9 @@ export class CacheService {
   }
 
   public async clearAllCache() {
-    return this.cache.flushall()
+    await this.cache.flushall()
+
+    return
   }
 
   public async clearCache(model?: string, where?: object) {

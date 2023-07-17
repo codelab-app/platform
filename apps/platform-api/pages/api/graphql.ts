@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/filename-case */
-import { getListener } from 'backend/infra/adapter/serverless'
+import { getListener } from '@backend/infra/adapter/serverless'
 import type { NextApiHandler } from 'next'
 
 /**
