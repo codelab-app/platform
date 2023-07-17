@@ -6,7 +6,7 @@ import { CacheInstance, CacheService } from '@shared/infra/cache'
 
 export abstract class AbstractRepository<
   Model extends IEntity,
-  ModelData,
+  ModelData extends object,
   Where extends { id?: string | null },
 > implements IRepository<Model, ModelData, Where>
 {
@@ -27,22 +27,19 @@ export abstract class AbstractRepository<
       return (await this.find(where))[0]
     }
 
-    const cacheKey = `${this.constructor.name}:findOne:${JSON.stringify(where)}`
-    const cachedValue = await this.cacheService.cache.get(cacheKey)
+    const cachedValue = await this.cacheService.getOne<ModelData>(
+      this.constructor.name,
+      where,
+    )
 
     if (cachedValue !== null) {
-      return JSON.parse(cachedValue)
+      return cachedValue
     }
 
     const result = (await this.find(where))[0]
 
     if (result !== undefined) {
-      await this.cacheService.cache.set(
-        cacheKey,
-        JSON.stringify(result),
-        'EX',
-        this.ttl,
-      )
+      await this.cacheService.setOne(this.constructor.name, where, result)
     }
 
     return result
@@ -53,21 +50,18 @@ export abstract class AbstractRepository<
       return await this._find(where)
     }
 
-    const cacheKey = `${this.constructor.name}:find:${JSON.stringify(where)}`
-    const cachedValue = await this.cacheService.cache.get(cacheKey)
+    const cachedValue = await this.cacheService.getMany<ModelData>(
+      this.constructor.name,
+      where,
+    )
 
     if (cachedValue !== null) {
-      return JSON.parse(cachedValue)
+      return cachedValue
     }
 
     const results = await this._find(where)
 
-    await this.cacheService.cache.set(
-      cacheKey,
-      JSON.stringify(results),
-      'EX',
-      this.ttl,
-    )
+    await this.cacheService.setMany(this.constructor.name, where, results)
 
     return results
   }

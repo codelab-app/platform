@@ -31,7 +31,7 @@ const create = ({
   owner,
 }: ITagDTO) => {
   return new Tag({
-    children: children.map((child) => tagRef(child.id)),
+    children: children?.map((child) => tagRef(child.id)),
     descendants: descendants?.map((descendant) => tagRef(descendant.id)),
     id,
     isRoot,
