@@ -1,7 +1,4 @@
-import { TTLCache } from '@codelab/shared/utils'
-
-// Create a map to store cache instances for each cache key
-const cacheMap = new Map<string, TTLCache<string, unknown>>()
+import { CacheInstance, CacheService } from '@shared/infra/cache'
 
 /**
  * @param segmentCacheKey The key indicates a cache segment. Can be used to clear cache for a specific key.
@@ -23,17 +20,11 @@ export const cachedWithTTL = (segmentCacheKey: string, ttl = 5 * 60 * 1000) => {
 
     descriptor.value = async function (...args: Array<unknown>) {
       // Get or create cache for this cacheKey
-      let cache = cacheMap.get(segmentCacheKey)
-
-      if (!cache) {
-        cache = new TTLCache<string, unknown>(ttl)
-        cacheMap.set(segmentCacheKey, cache)
-      }
-
+      const cache = CacheService.getInstance(CacheInstance.Frontend).cache
       const cacheKey = JSON.stringify(args)
-      const cachedValue = cache.get(cacheKey)
+      const cachedValue = await cache.get(cacheKey)
 
-      if (cachedValue !== undefined) {
+      if (cachedValue !== null) {
         console.log(
           `Take value from cache segment ${segmentCacheKey}:`,
           cachedValue,
@@ -43,7 +34,7 @@ export const cachedWithTTL = (segmentCacheKey: string, ttl = 5 * 60 * 1000) => {
       }
 
       const result = await originalMethod.apply(this, args)
-      cache.set(cacheKey, result)
+      await cache.set(cacheKey, result)
 
       return result
     }
@@ -68,23 +59,23 @@ export const clearCacheForKey = (segmentCacheKey: Array<string> | string) => {
 
     const originalMethod = descriptor.value
 
-    descriptor.value = function (...args: Array<unknown>) {
+    descriptor.value = async function (...args: Array<unknown>) {
       const cacheKeys = Array.isArray(segmentCacheKey)
         ? segmentCacheKey
         : [segmentCacheKey]
 
-      cacheKeys.forEach((cacheKey) => {
-        const cacheSegment = cacheMap.get(cacheKey)
+      for (const cacheKey of cacheKeys) {
+        // Retrieve the cache instance
+        const cache = CacheService.getInstance(CacheInstance.Frontend).cache
+        // Clear cache for the given key
+        const result = await cache.del(cacheKey)
 
-        if (cacheSegment) {
-          console.log(
-            `Deleting cache segment ${cacheKey} with ${cacheSegment.size()} records`,
-          )
-
-          cacheSegment.clear()
-          cacheMap.delete(cacheKey)
+        if (result > 0) {
+          console.log(`Cleared cache for key: ${cacheKey}`)
+        } else {
+          console.log(`No cache found for key: ${cacheKey}`)
         }
-      })
+      }
 
       return originalMethod.apply(this, args)
     }

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import type {
   ActionType,
+  ArrayType,
   EnumType,
   PrimitiveType,
   ReactNodeType,
@@ -28,7 +29,8 @@ export interface ITypeTransformer {
   isEnumType(type: string): boolean
   enumType(type: string): Promise<EnumType>
 
-  // arrayType(type: string): IArrayTypeDTO
+  isArrayType(type: string): boolean
+  arrayType(type: string): Promise<ArrayType>
 
   isUnionType(type: string): boolean
   unionType(type: string): Promise<UnionType>

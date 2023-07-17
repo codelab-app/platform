@@ -1,4 +1,5 @@
 import type {
+  ArrayType as IArrayType,
   EnumType as IEnumType,
   InterfaceType as IInterfaceType,
   UnionType as IUnionType,
@@ -18,6 +19,7 @@ import {
 } from '@codelab/backend/domain/type'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type {
+  IArrayTypeDTO,
   IAtomDTO,
   IAuth0Owner,
   IEnumTypeDTO,
@@ -77,6 +79,8 @@ export class DefaultTypeAdapterService
 
   integerTypeRegex = /^integer$/
 
+  arrayTypeRegex = /\[\]$/
+
   /**
    * This pattern ensures that it will match any string that starts with a { and ends with a }, even if there are multiple lines or nested objects within the interface type. The [\s\S]* part of the regex pattern matches any character, including whitespace and non-whitespace characters, zero or more times.
    */
@@ -84,7 +88,7 @@ export class DefaultTypeAdapterService
 
   containsInterfaceTypeRegex = /{[\s\S]*}/
 
-  unionTypeRegex = /\|/
+  enumTypeRegex = /\|/
 
   actionTypeRegex = /(^function\(.*?\))|((\(.*?\)) => \w)/
 
@@ -184,7 +188,7 @@ export class DefaultTypeAdapterService
       return false
     }
 
-    return this.unionTypeRegex.test(type)
+    return this.enumTypeRegex.test(type)
   }
 
   isBooleanType(type: string) {
@@ -192,7 +196,7 @@ export class DefaultTypeAdapterService
   }
 
   isActionType(type: string) {
-    return this.actionTypeRegex.test(type)
+    return this.actionTypeRegex.test(type) && !this.isReactNodeType(type)
   }
 
   isIntegerType(type: string) {
@@ -200,7 +204,7 @@ export class DefaultTypeAdapterService
   }
 
   isUnionType(type: string) {
-    return this.unionTypeRegex.test(type) && !this.interfaceTypeRegex.test(type)
+    return this.enumTypeRegex.test(type) && this.interfaceTypeRegex.test(type)
   }
 
   isInterfaceType(type: string) {
@@ -209,6 +213,19 @@ export class DefaultTypeAdapterService
 
   isRenderPropType(type: string) {
     return this.renderPropTypeRegexes.some((regex) => regex.test(type))
+  }
+
+  isArrayType(type: string) {
+    return this.arrayTypeRegex.test(type)
+  }
+
+  async arrayType(type: string): Promise<IArrayType> {
+    const arrayType: IArrayTypeDTO = {
+      __typename: ITypeKind.ArrayType,
+      itemType: '',
+    }
+
+    return await TypeFactory.save<IArrayType>(arrayType)
   }
 
   async actionType() {

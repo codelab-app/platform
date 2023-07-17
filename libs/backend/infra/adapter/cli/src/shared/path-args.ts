@@ -75,8 +75,6 @@ export const upsertUserMiddleware: MiddlewareFunction = async ({ stage }) => {
       username: 'Codelab',
     })
 
-    console.log(user)
-
     await userRepository.save(user, { email: user.email })
   }
 }

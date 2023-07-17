@@ -1,3 +1,0 @@
-"property","description","type","default","version","isEnum"
-"active","Show animation effect","boolean","false",,false
-"size","Set the size of input","large | small | default","-",,true

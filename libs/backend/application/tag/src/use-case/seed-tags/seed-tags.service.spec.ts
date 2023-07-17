@@ -1,13 +1,23 @@
 import { IAntdCategoryTag } from '@codelab/backend/abstract/core'
 import { antdTagTree } from '@codelab/backend/data/seed'
+import type { ITagDTO } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { antdAtoms } from '@codelab/shared/config'
-import { ObjectTyped } from 'object-typed'
 import { SeedTagsService } from './seed-tags.service'
+import { TagTreeUtils } from './seed-tags.util'
 
 describe('Tag Parser', () => {
-  const antdTagTreeData = SeedTagsService.createTagTreeData(antdTagTree)
-  const antdTags = [...antdAtoms, ...ObjectTyped.values(IAntdCategoryTag)]
+  const seedTagsService = new SeedTagsService({ auth0Id: 'Codelab' })
+  let antdTagTreeData: Array<ITagDTO>
+
+  beforeAll(async () => {
+    antdTagTreeData = await seedTagsService.createTagsData(antdTagTree)
+  })
+
+  const antdTags = [...antdAtoms, ...Object.values(IAntdCategoryTag)]
+
+  const getIdFromName = (atomType: IAtomType) =>
+    antdTagTreeData.find((node) => node.name === atomType)?.id
 
   it('can generate tag tree data', () => {
     // Pick the most nested and assert
@@ -16,28 +26,32 @@ describe('Tag Parser', () => {
     )
 
     // Assert root node
-    expect(generalTagNode?.parent).toBeNull()
+    expect(generalTagNode?.parent).toBeUndefined()
     expect(generalTagNode?.name).toBe(IAntdCategoryTag.AntDesignGeneral)
     expect(generalTagNode?.children).toHaveLength(3)
 
     // Assert leaf node
-    const typographyNode = generalTagNode?.children[2]
+    const typographyNodeId = generalTagNode?.children?.[2]?.id
+
+    const typographyNode = antdTagTreeData.find(
+      (node) => node.id === typographyNodeId,
+    )
 
     expect(typographyNode?.children).toHaveLength(3)
-    expect(typographyNode?.children[0]?.name).toBe(
-      IAtomType.AntDesignTypographyText,
+    expect(typographyNode?.children?.[0]?.id).toBe(
+      getIdFromName(IAtomType.AntDesignTypographyText),
     )
-    expect(typographyNode?.children[1]?.name).toBe(
-      IAtomType.AntDesignTypographyTitle,
+    expect(typographyNode?.children?.[1]?.id).toBe(
+      getIdFromName(IAtomType.AntDesignTypographyTitle),
     )
-    expect(typographyNode?.children[2]?.name).toBe(
-      IAtomType.AntDesignTypographyParagraph,
+    expect(typographyNode?.children?.[2]?.id).toBe(
+      getIdFromName(IAtomType.AntDesignTypographyParagraph),
     )
   })
 
   it('can flatten tag tree data', () => {
-    const tags = antdTagTreeData
-      .flatMap((node) => SeedTagsService.flattenTagTree(node))
+    const tags = TagTreeUtils.createTagTreeData(antdTagTree)
+      .flatMap((node) => TagTreeUtils.flattenTagTree(node))
       .map((tag) => tag.name)
 
     // Assert that all names have been processed as a flat list

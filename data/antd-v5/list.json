@@ -1,7 +1,6 @@
 [
   {
     "atom": {
-      "api": "List",
       "name": "list"
     },
     "fields": [

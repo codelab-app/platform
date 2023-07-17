@@ -1,0 +1,13 @@
+diff --git a/dist/schema-model/parser/cypher-annotation.js b/dist/schema-model/parser/cypher-annotation.js
+index 1cf3bd11b74c6409d90dc487476c489b72d865fe..ca0bfc7cc867e483137df944b90a54819298b9b3 100644
+--- a/dist/schema-model/parser/cypher-annotation.js
++++ b/dist/schema-model/parser/cypher-annotation.js
+@@ -6,7 +6,7 @@ const CypherAnnotation_1 = require("../annotation/CypherAnnotation");
+ const utils_1 = require("./utils");
+ function parseCypherAnnotation(directive) {
+     const { statement } = (0, utils_1.parseArguments)(directive);
+-    if (!statement || typeof statement !== "string") {
++    if (statement === null || statement === undefined || typeof statement !== "string") {
+         throw new classes_1.Neo4jGraphQLSchemaValidationError("@cypher statement required");
+     }
+     return new CypherAnnotation_1.CypherAnnotation({

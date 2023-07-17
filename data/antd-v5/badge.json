@@ -1,7 +1,6 @@
 [
   {
     "atom": {
-      "api": "Badge",
       "name": "badge"
     },
     "fields": [

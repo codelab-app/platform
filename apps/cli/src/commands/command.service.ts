@@ -39,7 +39,7 @@ export class CommandService {
       /**
        * These scripts could act on different deployment environment, so we group under `data`
        */
-      .command(this.seedService)
+      // .command(this.seedService)
       .command(this.resetService)
       .command(this.importService)
       .command(this.serverlessService)
@@ -51,9 +51,9 @@ export class CommandService {
       /**
        * This uses puppeteer to scrape the API documentation as CSV file
        */
-      .command('scrape', 'Antd / Html', (argv) =>
-        argv.command(this.scrapeAntdService).command(this.scrapeHtmlService),
-      )
+      // .command('scrape', 'Antd / Html', (argv) =>
+      //   argv.command(this.scrapeAntdService).command(this.scrapeHtmlService),
+      // )
       /**
        * Terraform
        */

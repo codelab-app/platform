@@ -1,4 +1,0 @@
-"property","description","type","default","version","isEnum"
-"description","Customize description","ReactNode","-","",false
-"image","Customize image. Will treat as image url when string provided","ReactNode","Empty.PRESENTED_IMAGE_DEFAULT","",false
-"imageStyle","The style of image","CSSProperties","-","",false

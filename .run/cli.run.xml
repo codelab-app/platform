@@ -5,4 +5,7 @@
     </envs>
     <method v="2" />
   </configuration>
+  <configuration default="false" name="cli" type="NodeJSConfigurationType" application-parameters="seed antd" node-parameters="--require &quot;dotenv/config&quot;" path-to-js-file="dist/apps/cli/main.js" working-dir="$PROJECT_DIR$">
+    <method v="2" />
+  </configuration>
 </component>

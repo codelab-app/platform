@@ -12,7 +12,7 @@ name: 'codelab'
 services:
   neo4j:
     container_name: codelab-neo4j
-    image: neo4j:5.7.0
+    image: neo4j:5.9.0
     volumes:
       - codelab-neo4j:/data
       - codelab-neo4j:/plugins
@@ -41,7 +41,7 @@ services:
 
   neo4j-test:
     container_name: codelab-neo4j-test
-    image: neo4j:5.7.0
+    image: neo4j:5.9.0
     volumes:
       - codelab-neo4j-test:/data
       - codelab-neo4j-test:/plugins
@@ -92,7 +92,7 @@ services:
   # Collectors, used for collecting metrics and traces
   opentelemetry:
     container_name: opentelemetry
-    image: otel/opentelemetry-collector:0.77.0
+    image: otel/opentelemetry-collector:0.81.0
     restart: always
     command: ['--config=/etc/opentelemetry/opentelemetry.yaml']
     volumes:

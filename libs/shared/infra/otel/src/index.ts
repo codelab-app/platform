@@ -1,3 +1,2 @@
-export * from './register'
-export * from './span'
+export * from './attributes'
 export * from './tracer'

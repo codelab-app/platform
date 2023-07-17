@@ -21,7 +21,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { withTracing } from '@codelab/shared/infra/otel'
 import { InjectQueue } from '@nestjs/bull'
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { Queue } from 'bull'
 import fs from 'fs'
 import pick from 'lodash/pick'
@@ -45,11 +45,10 @@ export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
 
   exportedAdminData: IAdminDataExport
 
-  DATA_PATH = path.resolve('./data/export')
-
+  // @InjectQueue('import-admin-data') private importQueue?: Queue,
   constructor(
     // Allow base directory override for testing purpose
-    @InjectQueue('import-admin-data') private importQueue: Queue,
+    @Inject('DATA_PATH') private readonly DATA_PATH: string,
   ) {
     super()
     this.dataPaths = new DataPaths(this.DATA_PATH)
@@ -60,15 +59,19 @@ export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
     /**
      * System types must be seeded first, so other types can reference it
      */
-    await withTracing('import-system-types', () =>
+    await withTracing('this.importSystemTypes()', () =>
       this.importSystemTypes(owner),
     )()
 
-    await this.importTags(owner)
+    await withTracing('this.importTags()', () =>
+      this.tagRepository.seedTags(this.exportedAdminData.tags, owner),
+    )()
 
-    await this.importAtoms(owner)
+    await withTracing('this.importAtoms()', () => this.importAtoms(owner))()
 
-    await this.importComponents(owner)
+    await withTracing('this.importComponents()', () =>
+      this.importComponents(owner),
+    )()
   }
 
   private async importSystemTypes(owner: IAuth0Owner) {
@@ -117,12 +120,6 @@ export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
     await this.atomRepository.save({ ...atom, owner })
   }
 
-  private async importTags(owner: IAuth0Owner) {
-    for await (const tag of this.exportedAdminData.tags) {
-      await this.tagRepository.save({ ...tag, owner })
-    }
-  }
-
   async importComponents(owner: IAuth0Owner) {
     const componentsExportData = this.exportedAdminData.components
 
@@ -156,11 +153,13 @@ export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
       .readdirSync(this.dataPaths.ATOMS_PATH)
       .filter((filename) => path.extname(filename) === '.json')
 
-    const componentFilenames = fs
-      .readdirSync(this.dataPaths.COMPONENTS_PATH)
-      .filter((filename) => path.extname(filename) === '.json')
+    const componentFilenames = fs.existsSync(this.dataPaths.COMPONENTS_PATH)
+      ? fs
+          .readdirSync(this.dataPaths.COMPONENTS_PATH)
+          .filter((filename) => path.extname(filename) === '.json')
+      : []
 
-    // T ag data is all in single file
+    // Tag data is all in single file
     const tags = JSON.parse(
       fs.readFileSync(this.dataPaths.TAGS_FILE_PATH, 'utf8'),
     ) as Array<ITagDTO>

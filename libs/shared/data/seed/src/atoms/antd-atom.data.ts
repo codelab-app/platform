@@ -6,7 +6,6 @@ import { IAtomType } from '@codelab/shared/abstract/core'
  * Assign all data that is related to the atom here
  */
 // TODO: remove the partial in key
-// https://www.learn-codes.net/javascript/typescript-typescript-types-key-value-enum/
 export const antdAtomData: IAntdAtomRecords = {
   //
   // Antd:

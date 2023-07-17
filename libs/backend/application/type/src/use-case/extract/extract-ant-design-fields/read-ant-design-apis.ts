@@ -14,7 +14,11 @@ export const readAntDesignApis = async (
     const fileContent = fs.readFileSync(filePath, 'utf8')
     const apisData: Array<AntDesignApi> = JSON.parse(fileContent)
 
-    apisData.forEach((data) => AntDesignApiSchema.parse(data))
+    apisData.forEach((data) => {
+      console.log(data)
+
+      return AntDesignApiSchema.parse(data)
+    })
 
     apis.push(...apisData)
   }

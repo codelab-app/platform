@@ -4,13 +4,16 @@ import {
   tagSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { ITagDTO } from '@codelab/shared/abstract/core'
+import type { IAuth0Owner, ITagDTO } from '@codelab/shared/abstract/core'
 import {
   connectAuth0Owner,
   connectNodeId,
   connectNodeIds,
   reconnectNodeId,
+  reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
+import { withTracing } from '@codelab/shared/infra/otel'
+import { cLog } from '@codelab/shared/utils'
 
 export class TagRepository extends AbstractRepository<ITagDTO, Tag, TagWhere> {
   private Tag = Repository.instance.Tag
@@ -32,11 +35,11 @@ export class TagRepository extends AbstractRepository<ITagDTO, Tag, TagWhere> {
       await (
         await this.Tag
       ).create({
-        input: tags.map(({ descendants, owner, ...tag }) => ({
+        input: tags.map(({ children, descendants, owner, parent, ...tag }) => ({
           ...tag,
-          children: connectNodeIds(tag.children.map((child) => child.id)),
+          children: connectNodeIds(children?.map((child) => child.id)),
           owner: connectAuth0Owner(owner),
-          parent: connectNodeId(tag.parent?.id),
+          // parent: connectNodeId(tag.parent?.id),
         })),
       })
     ).tags
@@ -57,7 +60,9 @@ export class TagRepository extends AbstractRepository<ITagDTO, Tag, TagWhere> {
      * Parent
      */
     const parentTagToConnect = parent?.id
-    const childrenTagsToConnect = children.map((_tag) => _tag.id)
+    const childrenTagsToConnect = children?.map((child) => child.id)
+
+    // cLog('Existing:', tag, 'Tags to connect', parentTagToConnect)
 
     return (
       await (
@@ -65,16 +70,45 @@ export class TagRepository extends AbstractRepository<ITagDTO, Tag, TagWhere> {
       ).update({
         update: {
           ...tag,
-          parent: reconnectNodeId(parentTagToConnect),
           /**
            * This causes a bug where some nodes aren't connected, can't figure out why maybe race condition
            *
            * It is also unnecessary to have both.
            */
-          // children: reconnectNodeIds(childrenTagsToConnect),
+          children: reconnectNodeIds(childrenTagsToConnect),
+          // parent: reconnectNodeId(parentTagToConnect),
         },
         where,
       })
     ).tags[0]
+  }
+
+  /**
+   * Seed tags solve the issue of missing target children or parent when creating them for the first time
+   */
+
+  async seedTags(tags: Array<ITagDTO>, owner: IAuth0Owner) {
+    /**
+     * Omit parent and children since they need to be created first
+     */
+
+    await withTracing('Create nodes', async () => {
+      await Promise.all(
+        tags.map(async ({ children, parent, ...tag }) => {
+          return this.save({ ...tag, owner }, { name: tag.name })
+        }),
+      )
+    })()
+
+    /**
+     * set parent and children after all tags are created
+     */
+    await withTracing('Assign relationships', async () => {
+      await Promise.all(
+        tags.map(async (tag) => {
+          return this.save(tag, { name: tag.name })
+        }),
+      )
+    })()
   }
 }

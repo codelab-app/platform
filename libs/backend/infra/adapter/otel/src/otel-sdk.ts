@@ -1,5 +1,6 @@
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http'
 import { ExpressInstrumentation } from '@opentelemetry/instrumentation-express'
+import { GraphQLInstrumentation } from '@opentelemetry/instrumentation-graphql'
 import { HttpInstrumentation } from '@opentelemetry/instrumentation-http'
 import { Resource } from '@opentelemetry/resources'
 import { NodeSDK } from '@opentelemetry/sdk-node'
@@ -13,14 +14,16 @@ import { MultiSpanProcessor } from './exporter/multi-span-processor'
 export const otelSDK = new NodeSDK({
   instrumentations: [
     // new NestInstrumentation(),
-    new HttpInstrumentation(),
-    new ExpressInstrumentation(),
+    // new HttpInstrumentation(),
+    // new ExpressInstrumentation(),
+    // new GraphQLInstrumentation(),
   ],
   resource: new Resource({
     [SemanticResourceAttributes.SERVICE_NAME]: 'platform-api',
   }),
+  // spanProcessor: new SimpleSpanProcessor(new OTLPTraceExporter()),
   spanProcessor: new MultiSpanProcessor([
-    new SimpleSpanProcessor(new ConsoleSpanExporter()),
+    // new SimpleSpanProcessor(new ConsoleSpanExporter()),
     new SimpleSpanProcessor(new OTLPTraceExporter()),
   ]),
   /**
@@ -29,12 +32,12 @@ export const otelSDK = new NodeSDK({
   // traceExporter: new ConsoleSpanExporter(),
 })
 
-process.on('SIGTERM', () => {
-  otelSDK
-    .shutdown()
-    .then(
-      () => console.log('SDK shut down successfully'),
-      (err) => console.log('Error shutting down SDK', err),
-    )
-    .finally(() => process.exit(0))
-})
+// process.on('SIGTERM', () => {
+//   otelSDK
+//     .shutdown()
+//     .then(
+//       () => console.log('SDK shut down successfully'),
+//       (err) => console.log('Error shutting down SDK', err),
+//     )
+//     .finally(() => process.exit(0))
+// })

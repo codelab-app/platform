@@ -97,7 +97,6 @@ commands:
             - nvm-cache-{{ checksum ".nvmrc" }}
           name: Restore NPM Cache
       - setup-env
-      - run: npx nx reset
   setup-env:
     description: Setup Env
     steps:

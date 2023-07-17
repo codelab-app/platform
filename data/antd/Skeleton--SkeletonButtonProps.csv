@@ -1,5 +1,0 @@
-"property","description","type","default","version","isEnum"
-"active","Show animation effect","boolean","false","",false
-"block","Option to fit button width to its parent width","boolean","false","4.17.0",false
-"shape","Set the shape of button","circle | round | square | default","-","",true
-"size","Set the size of button","large | small | default","-","",true

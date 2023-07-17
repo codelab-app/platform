@@ -1,0 +1,16 @@
+{
+  "name": "shared-infra-cache",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/infra/cache/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared/infra/cache/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:shared"]
+}

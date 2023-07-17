@@ -1,3 +1,0 @@
-"property","description","type","default","version","isEnum"
-"content","Content of the card","ReactNode | () => ReactNode","-","",false
-"title","Title of the card","ReactNode | () => ReactNode","-","",false

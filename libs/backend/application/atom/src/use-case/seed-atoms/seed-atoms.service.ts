@@ -68,7 +68,6 @@ export class SeedAtomsService extends AuthUseCase<
         )
 
         if (!existingApi) {
-          console.log(atomData)
           throw new Error('Atom API should exist already')
         }
 

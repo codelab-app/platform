@@ -1,7 +1,6 @@
 [
   {
     "atom": {
-      "api": "common API",
       "name": "float-button"
     },
     "fields": [

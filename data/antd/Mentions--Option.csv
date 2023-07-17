@@ -1,3 +1,0 @@
-"property","description","type","default","version","isEnum"
-"children","Suggestion content","ReactNode","-",,false
-"value","The value of suggestion, the value will insert into input filed while selected","string","-",,false
