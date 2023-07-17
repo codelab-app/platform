@@ -27,6 +27,9 @@ export const getElementModel = (element: IElement) => {
     childMapperComponent: element.childMapperComponent
       ? { id: element.childMapperComponent.id }
       : null,
+    childMapperPreviousSibling: element.childMapperPreviousSibling
+      ? { id: element.childMapperPreviousSibling.id }
+      : null,
     childMapperPropKey: element.childMapperPropKey,
     id: element.id,
     name: element.name,

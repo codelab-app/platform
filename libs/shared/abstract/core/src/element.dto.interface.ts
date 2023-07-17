@@ -7,6 +7,7 @@ import type { RenderType } from './render-type'
 export interface IElementDTO {
   // slug: string
   childMapperComponent?: Nullable<IEntity>
+  childMapperPreviousSibling?: Nullable<IEntity>
   childMapperPropKey?: Nullable<string>
   customCss?: Nullable<string>
   firstChild?: Nullable<IEntity>

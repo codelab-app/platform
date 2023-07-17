@@ -25,8 +25,10 @@ import {
 import type { InterfaceType } from '@codelab/frontend/domain/type'
 import {
   CreateFieldForm,
+  CreateFieldModal,
   DeleteFieldModal,
   UpdateFieldForm,
+  UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
 import type { CuiSidebarView } from '@codelab/frontend/presentation//codelab-ui'
 import { CuiSidebar } from '@codelab/frontend/presentation//codelab-ui'
@@ -238,9 +240,11 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
           label="Explorer"
           views={sidebarViews}
         />
+        <CreateFieldModal />
+        <UpdateFieldModal />
+        <DeleteFieldModal />
         <DeleteComponentModal />
         <DeleteElementModal />
-        <DeleteFieldModal />
         <DeleteActionModal />
       </>
     )

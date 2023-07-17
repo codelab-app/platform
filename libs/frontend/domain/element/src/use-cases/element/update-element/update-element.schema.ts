@@ -1,8 +1,10 @@
 import type { IUpdateBaseElementData } from '@codelab/frontend/abstract/core'
+import { getSelectElementComponent } from '@codelab/frontend/domain/type'
 import {
   idSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
+import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
 import { IRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
@@ -42,6 +44,20 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
         id: {
           label: 'Child Mapper Component',
           type: 'string',
+        },
+      },
+      required: [],
+      type: 'object',
+    },
+    childMapperPreviousSibling: {
+      nullable: true,
+      properties: {
+        id: {
+          label: 'Render next to',
+          type: 'string',
+          uniforms: {
+            component: getSelectElementComponent(ElementTypeKind.ChildrenOnly),
+          },
         },
       },
       required: [],

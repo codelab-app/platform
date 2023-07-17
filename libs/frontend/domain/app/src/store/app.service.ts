@@ -179,7 +179,12 @@ export class AppService
        * Pages
        */
       appData.pages.forEach((pageData) => {
-        this.elementService.add(pageData.rootElement)
+        const pageElements = [
+          pageData.rootElement,
+          ...pageData.rootElement.descendantElements,
+        ]
+
+        pageElements.map((element) => this.elementService.add(element))
 
         this.storeService.load([pageData.store])
 

@@ -1,6 +1,8 @@
+import type { IUserDataExport } from '@codelab/backend/abstract/core'
+
 type ErrorCallback = (reason: string) => void
 
-type SuccessCallback = () => void
+type SuccessCallback = (apps: IUserDataExport) => void
 
 export const importApp = async (
   appData: string,
@@ -13,7 +15,7 @@ export const importApp = async (
   })
 
   if (response.status === 200) {
-    onSuccess()
+    onSuccess(await response.json())
   } else {
     onError(await response.text())
   }

@@ -105,11 +105,19 @@ export class ElementRuntimeProps
     }
 
     if (hasStateExpression(this.node.childMapperPropKey)) {
-      return evaluateExpression(
+      const evaluatedExpression = evaluateExpression(
         this.node.childMapperPropKey,
         this.node.store.current.state,
         injectedProps,
       )
+
+      if (!Array.isArray(evaluatedExpression)) {
+        console.error('The evaluated childMapperPropKey is not an array')
+
+        return []
+      }
+
+      return evaluatedExpression
     }
 
     const allPropsOptions = mergeProps(this.node.store.current.state, {

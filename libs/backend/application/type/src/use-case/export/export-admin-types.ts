@@ -85,6 +85,30 @@ export const exportAdminTypes = async (
     },
   })
 
+  const arrayUnionItemTypes = await UnionType.find({
+    options: {
+      sort: [{ name: SortDirection.Asc }],
+    },
+    selectionSet: exportUnionTypeSelectionSet,
+    where: {
+      id_IN: arrayTypes
+        .filter((arrayType) => arrayType.itemType.kind === ITypeKind.UnionType)
+        .map((arrayType) => arrayType.itemType.id),
+    },
+  })
+
+  const unionInterfaceItemTypes = await InterfaceType.find({
+    options: {
+      sort: [{ name: SortDirection.Asc }],
+    },
+    selectionSet: exportInterfaceTypeSelectionSet,
+    where: {
+      id_IN: [...arrayUnionItemTypes, ...unionTypes]
+        .map((unionType) => unionType.descendantTypesIds)
+        .flat(),
+    },
+  })
+
   /**
    * Enum
    */
@@ -186,6 +210,7 @@ export const exportAdminTypes = async (
           ...firstLevelInterfaceTypes,
           ...secondLevelInterfaceTypes,
           ...arrayInterfaceItemTypes,
+          ...unionInterfaceItemTypes,
         ].map((api) => api.id),
       },
     },
@@ -196,6 +221,8 @@ export const exportAdminTypes = async (
     ...firstLevelInterfaceTypes,
     ...secondLevelInterfaceTypes,
     ...arrayInterfaceItemTypes,
+    ...unionInterfaceItemTypes,
+    ...arrayUnionItemTypes,
     ...arrayTypes,
     ...unionTypes,
   ]

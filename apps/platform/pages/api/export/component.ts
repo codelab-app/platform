@@ -13,7 +13,16 @@ const exportComponent: NextApiHandler = async (req, res) => {
 
     const { id } = req.query
 
-    await new ExportAdminDataService().exportComponent(String(id))
+    const componentData = await new ExportAdminDataService().exportComponent(
+      String(id),
+    )
+
+    const componentName = componentData.component.name
+    const filename = `${componentName}.json`
+
+    res.setHeader('Content-Type', 'application/json')
+    res.setHeader('Content-Disposition', `attachment; filename=${filename}`)
+    res.write(JSON.stringify(componentData), 'utf-8')
 
     return res.end()
   } catch (error) {

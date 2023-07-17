@@ -244,10 +244,11 @@ export class Renderer
 
         const rootElement = clonedComponent.rootElement.current
 
+        clonedComponent.props.current.setMany(
+          isObject(propValue) ? propValue : { value: propValue },
+        )
+
         if (!this.runtimeProps.get(clonedComponent.id)) {
-          clonedComponent.props.current.setMany(
-            isObject(propValue) ? propValue : { value: propValue },
-          )
           this.addRuntimeProps(componentRef(clonedComponent.id))
         }
 
@@ -279,14 +280,21 @@ export class Renderer
    * Renders the elements children, createTransformer memoizes the function
    */
   renderChildren = createTransformer(
-    (parentOutput: IRenderOutput): ArrayOrSingle<ReactNode> => {
+    ({ element, props }: IRenderOutput): ArrayOrSingle<ReactNode> => {
+      const childMapperChildren = this.getChildMapperChildren(element)
+
+      const childMapperRenderIndex =
+        element.children.findIndex(
+          (child) => child.id === element.childMapperPreviousSibling?.id,
+        ) + 1
+
+      const elementChildren = [...element.children]
+      elementChildren.splice(childMapperRenderIndex, 0, ...childMapperChildren)
+
       const children = [
-        ...parentOutput.element.children,
-        ...this.getComponentInstanceChildren(parentOutput.element),
-        ...this.getChildPageChildren(parentOutput.element),
-        // Render the children from child mapper last
-        // TODO: allow user to move around the elements from the child mapper
-        ...this.getChildMapperChildren(parentOutput.element),
+        ...elementChildren,
+        ...this.getComponentInstanceChildren(element),
+        ...this.getChildPageChildren(element),
       ]
 
       const renderedChildren = children.map((child) =>
@@ -297,11 +305,11 @@ export class Renderer
 
       if (!hasChildren) {
         // Inject text, but only if we have no regular children
-        const injectedText = parentOutput.props?.[CUSTOM_TEXT_PROP_KEY]
+        const injectedText = props?.[CUSTOM_TEXT_PROP_KEY]
 
         const shouldInjectText =
-          isAtomInstance(parentOutput.element.renderType) &&
-          parentOutput.element.renderType.current.allowCustomTextInjection
+          isAtomInstance(element.renderType) &&
+          element.renderType.current.allowCustomTextInjection
 
         if (shouldInjectText && injectedText) {
           return makeCustomTextContainer(injectedText)

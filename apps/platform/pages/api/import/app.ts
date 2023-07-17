@@ -17,7 +17,7 @@ const importApp: NextApiHandler = async (req, res) => {
 
     await importUserData(data, owner)
 
-    return res.status(200).send(true)
+    return res.status(200).send(data)
   } catch (err) {
     if (err instanceof Error) {
       return res.status(500).send(err.message)

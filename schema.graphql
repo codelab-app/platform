@@ -6787,6 +6787,22 @@ type Element {
     sort: [ElementChildMapperComponentConnectionSort!]
     where: ElementChildMapperComponentConnectionWhere
   ): ElementChildMapperComponentConnection!
+  childMapperPreviousSibling(
+    directed: Boolean = true
+    options: ElementOptions
+    where: ElementWhere
+  ): Element
+  childMapperPreviousSiblingAggregate(
+    directed: Boolean = true
+    where: ElementWhere
+  ): ElementElementChildMapperPreviousSiblingAggregationSelection
+  childMapperPreviousSiblingConnection(
+    after: String
+    directed: Boolean = true
+    first: Int
+    sort: [ElementChildMapperPreviousSiblingConnectionSort!]
+    where: ElementChildMapperPreviousSiblingConnectionWhere
+  ): ElementChildMapperPreviousSiblingConnection!
   childMapperPropKey: String
   customCss: String
   descendantElements: [Element!]!
@@ -7108,6 +7124,204 @@ input ElementChildMapperComponentUpdateFieldInput {
   where: ElementChildMapperComponentConnectionWhere
 }
 
+input ElementChildMapperPreviousSiblingAggregateInput {
+  AND: [ElementChildMapperPreviousSiblingAggregateInput!]
+  NOT: ElementChildMapperPreviousSiblingAggregateInput
+  OR: [ElementChildMapperPreviousSiblingAggregateInput!]
+  count: Int
+  count_GT: Int
+  count_GTE: Int
+  count_LT: Int
+  count_LTE: Int
+  node: ElementChildMapperPreviousSiblingNodeAggregationWhereInput
+}
+
+input ElementChildMapperPreviousSiblingConnectFieldInput {
+  connect: ElementConnectInput
+
+  """
+  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  """
+  overwrite: Boolean! = true
+  where: ElementConnectWhere
+}
+
+input ElementChildMapperPreviousSiblingConnectOrCreateFieldInput {
+  onCreate: ElementChildMapperPreviousSiblingConnectOrCreateFieldInputOnCreate!
+  where: ElementConnectOrCreateWhere!
+}
+
+input ElementChildMapperPreviousSiblingConnectOrCreateFieldInputOnCreate {
+  node: ElementOnCreateInput!
+}
+
+type ElementChildMapperPreviousSiblingConnection {
+  edges: [ElementChildMapperPreviousSiblingRelationship!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ElementChildMapperPreviousSiblingConnectionSort {
+  node: ElementSort
+}
+
+input ElementChildMapperPreviousSiblingConnectionWhere {
+  AND: [ElementChildMapperPreviousSiblingConnectionWhere!]
+  NOT: ElementChildMapperPreviousSiblingConnectionWhere
+  OR: [ElementChildMapperPreviousSiblingConnectionWhere!]
+  node: ElementWhere
+}
+
+input ElementChildMapperPreviousSiblingCreateFieldInput {
+  node: ElementCreateInput!
+}
+
+input ElementChildMapperPreviousSiblingDeleteFieldInput {
+  delete: ElementDeleteInput
+  where: ElementChildMapperPreviousSiblingConnectionWhere
+}
+
+input ElementChildMapperPreviousSiblingDisconnectFieldInput {
+  disconnect: ElementDisconnectInput
+  where: ElementChildMapperPreviousSiblingConnectionWhere
+}
+
+input ElementChildMapperPreviousSiblingFieldInput {
+  connect: ElementChildMapperPreviousSiblingConnectFieldInput
+  connectOrCreate: ElementChildMapperPreviousSiblingConnectOrCreateFieldInput
+  create: ElementChildMapperPreviousSiblingCreateFieldInput
+}
+
+input ElementChildMapperPreviousSiblingNodeAggregationWhereInput {
+  AND: [ElementChildMapperPreviousSiblingNodeAggregationWhereInput!]
+  NOT: ElementChildMapperPreviousSiblingNodeAggregationWhereInput
+  OR: [ElementChildMapperPreviousSiblingNodeAggregationWhereInput!]
+  childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
+  childMapperPropKey_AVERAGE_LENGTH_GT: Float
+  childMapperPropKey_AVERAGE_LENGTH_GTE: Float
+  childMapperPropKey_AVERAGE_LENGTH_LT: Float
+  childMapperPropKey_AVERAGE_LENGTH_LTE: Float
+  childMapperPropKey_LONGEST_LENGTH_EQUAL: Int
+  childMapperPropKey_LONGEST_LENGTH_GT: Int
+  childMapperPropKey_LONGEST_LENGTH_GTE: Int
+  childMapperPropKey_LONGEST_LENGTH_LT: Int
+  childMapperPropKey_LONGEST_LENGTH_LTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_EQUAL: Int
+  childMapperPropKey_SHORTEST_LENGTH_GT: Int
+  childMapperPropKey_SHORTEST_LENGTH_GTE: Int
+  childMapperPropKey_SHORTEST_LENGTH_LT: Int
+  childMapperPropKey_SHORTEST_LENGTH_LTE: Int
+  customCss_AVERAGE_LENGTH_EQUAL: Float
+  customCss_AVERAGE_LENGTH_GT: Float
+  customCss_AVERAGE_LENGTH_GTE: Float
+  customCss_AVERAGE_LENGTH_LT: Float
+  customCss_AVERAGE_LENGTH_LTE: Float
+  customCss_LONGEST_LENGTH_EQUAL: Int
+  customCss_LONGEST_LENGTH_GT: Int
+  customCss_LONGEST_LENGTH_GTE: Int
+  customCss_LONGEST_LENGTH_LT: Int
+  customCss_LONGEST_LENGTH_LTE: Int
+  customCss_SHORTEST_LENGTH_EQUAL: Int
+  customCss_SHORTEST_LENGTH_GT: Int
+  customCss_SHORTEST_LENGTH_GTE: Int
+  customCss_SHORTEST_LENGTH_LT: Int
+  customCss_SHORTEST_LENGTH_LTE: Int
+  guiCss_AVERAGE_LENGTH_EQUAL: Float
+  guiCss_AVERAGE_LENGTH_GT: Float
+  guiCss_AVERAGE_LENGTH_GTE: Float
+  guiCss_AVERAGE_LENGTH_LT: Float
+  guiCss_AVERAGE_LENGTH_LTE: Float
+  guiCss_LONGEST_LENGTH_EQUAL: Int
+  guiCss_LONGEST_LENGTH_GT: Int
+  guiCss_LONGEST_LENGTH_GTE: Int
+  guiCss_LONGEST_LENGTH_LT: Int
+  guiCss_LONGEST_LENGTH_LTE: Int
+  guiCss_SHORTEST_LENGTH_EQUAL: Int
+  guiCss_SHORTEST_LENGTH_GT: Int
+  guiCss_SHORTEST_LENGTH_GTE: Int
+  guiCss_SHORTEST_LENGTH_LT: Int
+  guiCss_SHORTEST_LENGTH_LTE: Int
+  name_AVERAGE_LENGTH_EQUAL: Float
+  name_AVERAGE_LENGTH_GT: Float
+  name_AVERAGE_LENGTH_GTE: Float
+  name_AVERAGE_LENGTH_LT: Float
+  name_AVERAGE_LENGTH_LTE: Float
+  name_LONGEST_LENGTH_EQUAL: Int
+  name_LONGEST_LENGTH_GT: Int
+  name_LONGEST_LENGTH_GTE: Int
+  name_LONGEST_LENGTH_LT: Int
+  name_LONGEST_LENGTH_LTE: Int
+  name_SHORTEST_LENGTH_EQUAL: Int
+  name_SHORTEST_LENGTH_GT: Int
+  name_SHORTEST_LENGTH_GTE: Int
+  name_SHORTEST_LENGTH_LT: Int
+  name_SHORTEST_LENGTH_LTE: Int
+  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
+  propTransformationJs_AVERAGE_LENGTH_GT: Float
+  propTransformationJs_AVERAGE_LENGTH_GTE: Float
+  propTransformationJs_AVERAGE_LENGTH_LT: Float
+  propTransformationJs_AVERAGE_LENGTH_LTE: Float
+  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
+  propTransformationJs_LONGEST_LENGTH_GT: Int
+  propTransformationJs_LONGEST_LENGTH_GTE: Int
+  propTransformationJs_LONGEST_LENGTH_LT: Int
+  propTransformationJs_LONGEST_LENGTH_LTE: Int
+  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
+  propTransformationJs_SHORTEST_LENGTH_GT: Int
+  propTransformationJs_SHORTEST_LENGTH_GTE: Int
+  propTransformationJs_SHORTEST_LENGTH_LT: Int
+  propTransformationJs_SHORTEST_LENGTH_LTE: Int
+  renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LT: Float
+  renderForEachPropKey_AVERAGE_LENGTH_LTE: Float
+  renderForEachPropKey_LONGEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_LONGEST_LENGTH_GT: Int
+  renderForEachPropKey_LONGEST_LENGTH_GTE: Int
+  renderForEachPropKey_LONGEST_LENGTH_LT: Int
+  renderForEachPropKey_LONGEST_LENGTH_LTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_EQUAL: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_GTE: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LT: Int
+  renderForEachPropKey_SHORTEST_LENGTH_LTE: Int
+  renderIfExpression_AVERAGE_LENGTH_EQUAL: Float
+  renderIfExpression_AVERAGE_LENGTH_GT: Float
+  renderIfExpression_AVERAGE_LENGTH_GTE: Float
+  renderIfExpression_AVERAGE_LENGTH_LT: Float
+  renderIfExpression_AVERAGE_LENGTH_LTE: Float
+  renderIfExpression_LONGEST_LENGTH_EQUAL: Int
+  renderIfExpression_LONGEST_LENGTH_GT: Int
+  renderIfExpression_LONGEST_LENGTH_GTE: Int
+  renderIfExpression_LONGEST_LENGTH_LT: Int
+  renderIfExpression_LONGEST_LENGTH_LTE: Int
+  renderIfExpression_SHORTEST_LENGTH_EQUAL: Int
+  renderIfExpression_SHORTEST_LENGTH_GT: Int
+  renderIfExpression_SHORTEST_LENGTH_GTE: Int
+  renderIfExpression_SHORTEST_LENGTH_LT: Int
+  renderIfExpression_SHORTEST_LENGTH_LTE: Int
+}
+
+type ElementChildMapperPreviousSiblingRelationship {
+  cursor: String!
+  node: Element!
+}
+
+input ElementChildMapperPreviousSiblingUpdateConnectionInput {
+  node: ElementUpdateInput
+}
+
+input ElementChildMapperPreviousSiblingUpdateFieldInput {
+  connect: ElementChildMapperPreviousSiblingConnectFieldInput
+  connectOrCreate: ElementChildMapperPreviousSiblingConnectOrCreateFieldInput
+  create: ElementChildMapperPreviousSiblingCreateFieldInput
+  delete: ElementChildMapperPreviousSiblingDeleteFieldInput
+  disconnect: ElementChildMapperPreviousSiblingDisconnectFieldInput
+  update: ElementChildMapperPreviousSiblingUpdateConnectionInput
+  where: ElementChildMapperPreviousSiblingConnectionWhere
+}
+
 type ElementComponentChildMapperComponentAggregationSelection {
   count: Int!
   node: ElementComponentChildMapperComponentNodeAggregateSelection
@@ -7143,6 +7357,7 @@ type ElementComponentRenderComponentTypeNodeAggregateSelection {
 
 input ElementConnectInput {
   childMapperComponent: ElementChildMapperComponentConnectFieldInput
+  childMapperPreviousSibling: ElementChildMapperPreviousSiblingConnectFieldInput
   firstChild: ElementFirstChildConnectFieldInput
   nextSibling: ElementNextSiblingConnectFieldInput
   page: ElementPageConnectFieldInput
@@ -7158,6 +7373,7 @@ input ElementConnectInput {
 
 input ElementConnectOrCreateInput {
   childMapperComponent: ElementChildMapperComponentConnectOrCreateFieldInput
+  childMapperPreviousSibling: ElementChildMapperPreviousSiblingConnectOrCreateFieldInput
   firstChild: ElementFirstChildConnectOrCreateFieldInput
   nextSibling: ElementNextSiblingConnectOrCreateFieldInput
   page: ElementPageConnectOrCreateFieldInput
@@ -7179,6 +7395,7 @@ input ElementConnectWhere {
 
 input ElementCreateInput {
   childMapperComponent: ElementChildMapperComponentFieldInput
+  childMapperPreviousSibling: ElementChildMapperPreviousSiblingFieldInput
   childMapperPropKey: String
   customCss: String
   firstChild: ElementFirstChildFieldInput
@@ -7202,6 +7419,7 @@ input ElementCreateInput {
 
 input ElementDeleteInput {
   childMapperComponent: ElementChildMapperComponentDeleteFieldInput
+  childMapperPreviousSibling: ElementChildMapperPreviousSiblingDeleteFieldInput
   firstChild: ElementFirstChildDeleteFieldInput
   nextSibling: ElementNextSiblingDeleteFieldInput
   page: ElementPageDeleteFieldInput
@@ -7217,6 +7435,7 @@ input ElementDeleteInput {
 
 input ElementDisconnectInput {
   childMapperComponent: ElementChildMapperComponentDisconnectFieldInput
+  childMapperPreviousSibling: ElementChildMapperPreviousSiblingDisconnectFieldInput
   firstChild: ElementFirstChildDisconnectFieldInput
   nextSibling: ElementNextSiblingDisconnectFieldInput
   page: ElementPageDisconnectFieldInput
@@ -7233,6 +7452,22 @@ input ElementDisconnectInput {
 type ElementEdge {
   cursor: String!
   node: Element!
+}
+
+type ElementElementChildMapperPreviousSiblingAggregationSelection {
+  count: Int!
+  node: ElementElementChildMapperPreviousSiblingNodeAggregateSelection
+}
+
+type ElementElementChildMapperPreviousSiblingNodeAggregateSelection {
+  childMapperPropKey: StringAggregateSelectionNullable!
+  customCss: StringAggregateSelectionNullable!
+  guiCss: StringAggregateSelectionNullable!
+  id: IDAggregateSelectionNonNullable!
+  name: StringAggregateSelectionNonNullable!
+  propTransformationJs: StringAggregateSelectionNullable!
+  renderForEachPropKey: StringAggregateSelectionNullable!
+  renderIfExpression: StringAggregateSelectionNullable!
 }
 
 type ElementElementFirstChildAggregationSelection {
@@ -8603,6 +8838,7 @@ input ElementPropsUpdateFieldInput {
 
 input ElementRelationInput {
   childMapperComponent: ElementChildMapperComponentCreateFieldInput
+  childMapperPreviousSibling: ElementChildMapperPreviousSiblingCreateFieldInput
   firstChild: ElementFirstChildCreateFieldInput
   nextSibling: ElementNextSiblingCreateFieldInput
   page: ElementPageCreateFieldInput
@@ -9159,6 +9395,7 @@ input ElementUniqueWhere {
 
 input ElementUpdateInput {
   childMapperComponent: ElementChildMapperComponentUpdateFieldInput
+  childMapperPreviousSibling: ElementChildMapperPreviousSiblingUpdateFieldInput
   childMapperPropKey: String
   customCss: String
   firstChild: ElementFirstChildUpdateFieldInput
@@ -9189,6 +9426,11 @@ input ElementWhere {
   childMapperComponentConnection: ElementChildMapperComponentConnectionWhere
   childMapperComponentConnection_NOT: ElementChildMapperComponentConnectionWhere
   childMapperComponent_NOT: ComponentWhere
+  childMapperPreviousSibling: ElementWhere
+  childMapperPreviousSiblingAggregate: ElementChildMapperPreviousSiblingAggregateInput
+  childMapperPreviousSiblingConnection: ElementChildMapperPreviousSiblingConnectionWhere
+  childMapperPreviousSiblingConnection_NOT: ElementChildMapperPreviousSiblingConnectionWhere
+  childMapperPreviousSibling_NOT: ElementWhere
   childMapperPropKey: String
   childMapperPropKey_CONTAINS: String
   childMapperPropKey_ENDS_WITH: String

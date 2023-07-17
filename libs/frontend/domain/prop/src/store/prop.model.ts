@@ -12,6 +12,8 @@ import type { IPropDTO } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import get from 'lodash/get'
+import isMatch from 'lodash/isMatch'
+import isNil from 'lodash/isNil'
 import merge from 'lodash/merge'
 import omit from 'lodash/omit'
 import omitBy from 'lodash/omitBy'
@@ -109,7 +111,13 @@ export class Prop
 
   @modelAction
   setMany(data: IPropData) {
-    this.data = frozen(mergeProps(this.data.data, data))
+    // This prevents re-renders caused by setting props with the same values
+    const shouldChangeProp =
+      isNil(this.data.data) || !isMatch(this.data.data, data)
+
+    if (shouldChangeProp) {
+      this.data = frozen(mergeProps(this.data.data, data))
+    }
   }
 
   @modelAction

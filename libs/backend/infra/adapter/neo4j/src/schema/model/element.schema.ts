@@ -38,6 +38,8 @@ export const elementSchema = gql`
     childMapperPropKey: String
     childMapperComponent: Component
       @relationship(type: "CHILD_MAPPER_COMPONENT", direction: OUT)
+    childMapperPreviousSibling: Element
+      @relationship(type: "CHILD_MAPPER_PREVIOUS_SIBLING", direction: IN)
     renderForEachPropKey: String
     renderIfExpression: String
 

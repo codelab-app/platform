@@ -1,10 +1,10 @@
+import type { ApiAction, CodeAction } from '@codelab/backend/abstract/codegen'
 import type { IActionExport } from '@codelab/backend/abstract/core'
 import {
   exportApiActionSelectionSet,
   exportCodeActionSelectionSet,
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
-import type { OGM_TYPES } from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
 
@@ -12,21 +12,25 @@ export const importActions = async (
   actions: Array<IActionExport>,
   storeId: string,
 ) => {
+  if (!actions.length) {
+    return
+  }
+
   const CodeAction = await Repository.instance.CodeAction
   const ApiAction = await Repository.instance.ApiAction
-  const codeActions: Array<OGM_TYPES.CodeAction> = []
-  const apiActions: Array<OGM_TYPES.ApiAction> = []
+  const codeActions: Array<CodeAction> = []
+  const apiActions: Array<ApiAction> = []
 
   for (const action of actions) {
     if (action.type === IActionKind.CodeAction) {
-      codeActions.push(action as OGM_TYPES.CodeAction)
+      codeActions.push(action as CodeAction)
 
       continue
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (action.type === IActionKind.ApiAction) {
-      apiActions.push(action as OGM_TYPES.ApiAction)
+      apiActions.push(action as ApiAction)
 
       continue
     }
