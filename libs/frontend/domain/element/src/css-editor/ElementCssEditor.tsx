@@ -102,11 +102,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
             >
               <LayoutEditor element={element} guiCssObj={guiCssObj} />
             </Panel>
-            <Panel
-              className="site-collapse-custom-panel"
-              header="Fonts"
-              key="2"
-            >
+            <Panel className="site-collapse-custom-panel" header="Font" key="2">
               <FontEditor element={element} guiCssObj={guiCssObj} />
             </Panel>
             <Panel

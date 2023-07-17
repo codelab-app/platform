@@ -1,5 +1,5 @@
 import type { CssMap, IElement } from '@codelab/frontend/abstract/core'
-import { Select } from 'antd'
+import { Row, Select } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { InputNumberWithUnits } from '../components/InputNumberWithUnits'
@@ -25,13 +25,19 @@ export const FontEditor = observer(
     })
 
     // When the component mounts we need to make sure that the selected weight is still valid
-    useEffect(() => onFamilyChanged(selectedFont.family), [])
+    useEffect(() => onFamilyChanged(selectedFont.family ?? ''), [])
 
-    const [weightOptions, setWeightOptions] = React.useState([])
+    const [weightOptions, setWeightOptions] = React.useState<
+      Array<{ label: string; value: string }>
+    >([])
 
-    const onFamilyChanged = (value: string) => {
-      updateGuiCssProperty(element, 'font-family')(`${value}`)
-      setSelectedFont({ ...selectedFont, family: value })
+    const onFamilyChanged = (value?: string) => {
+      updateGuiCssProperty(element, 'font-family')(`${value ?? ''}`)
+      setSelectedFont({ ...selectedFont, family: value ?? '' })
+
+      if (!value) {
+        return
+      }
 
       // When the font family changes we need to make sure that the selected weight is still valid
       const currentFont = fonts.find((font) => font.family === value)
@@ -46,15 +52,18 @@ export const FontEditor = observer(
           }),
         )
 
-        if (!currentFont.weights.includes(selectedFont.weight)) {
+        if (
+          selectedFont.weight &&
+          !currentFont.weights.includes(selectedFont.weight)
+        ) {
           onWeightChanged(currentFont.weights[0])
         }
       }
     }
 
-    const onWeightChanged = (value: string) => {
-      updateGuiCssProperty(element, 'font-weight')(value)
-      setSelectedFont({ ...selectedFont, weight: value })
+    const onWeightChanged = (value?: string) => {
+      updateGuiCssProperty(element, 'font-weight')(value ?? '')
+      setSelectedFont({ ...selectedFont, weight: value ?? '' })
     }
 
     const makeFamilyOptions = () => {
@@ -67,23 +76,29 @@ export const FontEditor = observer(
     }
 
     return (
-      <>
-        <Select
-          className="w-full"
-          onChange={onFamilyChanged}
-          options={makeFamilyOptions()}
-          value={selectedFont.family}
-        />
-        <Select
-          className="w-full"
-          onChange={onWeightChanged}
-          options={weightOptions}
-          value={selectedFont.weight}
-        />
+      <div className="space-y-2">
+        <Row>
+          <span>Family</span>
+          <Select
+            className="w-full"
+            onChange={onFamilyChanged}
+            options={makeFamilyOptions()}
+            value={selectedFont.family}
+          />
+        </Row>
+        <Row>
+          <span>Weight</span>
+          <Select
+            className="w-full"
+            onChange={onWeightChanged}
+            options={weightOptions}
+            value={selectedFont.weight}
+          />
+        </Row>
         <InputNumberWithUnits
           currentUnit={extractCssUnit(guiCssObj['font-size'] ?? '') ?? 'auto'}
           currentValue={extractCssNumber(guiCssObj['font-size'] ?? '') ?? 0}
-          name="font-size"
+          name="Size"
           onChange={(value, unit) =>
             updateGuiCssProperty(
               element,
@@ -92,7 +107,7 @@ export const FontEditor = observer(
           }
           units={['auto', 'px', '%', 'em', 'rem', 'ch', 'vh', 'vw']}
         />
-      </>
+      </div>
     )
   },
 )
