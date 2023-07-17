@@ -16808,6 +16808,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@upstash/redis@npm:1.21.0":
+  version: 1.21.0
+  resolution: "@upstash/redis@npm:1.21.0"
+  dependencies:
+    isomorphic-fetch: ^3.0.0
+  checksum: ba2ba971c1f6d0297afddf73aba0817a39fcf8d71e51131030a24541e4564138a11bae50b78da7dd0eca5a11baa1322888688cb206f078603ea3a8d0a639a30e
+  languageName: node
+  linkType: hard
+
 "@vendia/serverless-express@npm:^3.4.0":
   version: 3.4.0
   resolution: "@vendia/serverless-express@npm:3.4.0"
@@ -16829,6 +16838,15 @@ __metadata:
   version: 1.0.1
   resolution: "@vercel/analytics@npm:1.0.1"
   checksum: 6876e1d0868e85198d43a17ffec7266cdee5a53d5fc797d3f7e0d64e9d76a2ade3cbdcbc0a665e2ee2389f65dfc80591f7d667e9fc981cdbaa848006cbaefe19
+  languageName: node
+  linkType: hard
+
+"@vercel/kv@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "@vercel/kv@npm:0.2.2"
+  dependencies:
+    "@upstash/redis": 1.21.0
+  checksum: ba724fe25cc4f2eba6b94ff7cc057e9e30481beb89ada5a9c121544f284e47eed5586996ed1fb3c11b5455e8f67b281713805638c215fb172b3f566e4ad509d1
   languageName: node
   linkType: hard
 
@@ -21227,6 +21245,7 @@ __metadata:
     "@uiw/react-codemirror": 4.11.6
     "@vendia/serverless-express": ^4.10.4
     "@vercel/analytics": ^1.0.1
+    "@vercel/kv": ^0.2.2
     "@vercel/otel": ^0.3.0
     "@vercel/remote-nx": ^1.0.1
     "@welldone-software/why-did-you-render": 7.0.1

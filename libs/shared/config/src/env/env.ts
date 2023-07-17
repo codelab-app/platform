@@ -20,6 +20,7 @@ import type { ISupabaseEnvVars } from './services/supabase'
 import { SupabaseEnvVars } from './services/supabase'
 import type { IVercelEnvVars } from './services/vercel'
 import { VercelEnvVars } from './services/vercel'
+import { type IVercelKVEnvVars, VercelKVEnvVars } from './services/vercel-kv'
 
 export interface IEnvironmentVariables {
   auth0: IAuth0EnvVars
@@ -33,6 +34,7 @@ export interface IEnvironmentVariables {
   node: INodeEnvVars
   supabase: ISupabaseEnvVars
   vercel: IVercelEnvVars
+  vercelKV: IVercelKVEnvVars
 }
 
 /**
@@ -65,6 +67,8 @@ class EnvironmentVariables implements IEnvironmentVariables {
 
   private _endpoint?: IEndpointEnvVars
 
+  private _vercelKV?: IVercelKVEnvVars
+
   private static instance?: EnvironmentVariables
 
   public static getInstance(): EnvironmentVariables {
@@ -73,6 +77,10 @@ class EnvironmentVariables implements IEnvironmentVariables {
     }
 
     return EnvironmentVariables.instance
+  }
+
+  get vercelKV() {
+    return (this._vercelKV ??= new VercelKVEnvVars())
   }
 
   public get mailchimp() {
