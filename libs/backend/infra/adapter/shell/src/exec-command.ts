@@ -4,8 +4,11 @@ export const execCommand = (command: string) => {
   console.log(`Executing: ${command}`)
 
   try {
+    // Only use shell on CI
+    const shell = process.env['CI'] ? true : false
+
     execa.commandSync(command, {
-      // shell: true,
+      shell,
       stdio: 'inherit',
     })
   } catch (error) {
