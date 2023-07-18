@@ -4,13 +4,13 @@ import setupNodeEvents from './src/plugins/index'
 
 const cypressJsonConfig: Cypress.ConfigOptions = {
   chromeWebSecurity: false,
-  defaultCommandTimeout: 30000,
-  execTimeout: 15000,
+  defaultCommandTimeout: 10000,
+  execTimeout: 5000,
   fileServerFolder: '.',
   fixturesFolder: './src/fixtures',
-  pageLoadTimeout: 15000,
+  pageLoadTimeout: 10000,
   projectId: '9hfoow',
-  responseTimeout: 15000,
+  responseTimeout: 5000,
   retries: {
     openMode: 0,
     runMode: 0,

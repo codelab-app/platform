@@ -45,6 +45,7 @@ describe('_app page', () => {
     loginSession()
 
     cy.request('/api/cypress/atom')
+    cy.visit('/apps')
   })
 
   it('should create _app page when app is created', () => {
