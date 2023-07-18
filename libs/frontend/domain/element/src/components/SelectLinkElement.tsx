@@ -20,6 +20,8 @@ export const SelectLinkElement = observer(
   ({
     allElementOptions,
     name,
+    // Somehow if `onChange` with undefined value is passed into the
+    // uniform-antd SelectField it fails because it will still try to run the `onChange`
     onChange = noop,
     required,
     targetElementId,
