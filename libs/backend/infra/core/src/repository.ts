@@ -72,7 +72,7 @@ export abstract class AbstractRepository<
     return await withTracing(
       `${this.constructor.name}.add()`,
       async () => {
-        await this.cacheService.clearCache(this.constructor.name)
+        // await this.cacheService.clearCache(this.constructor.name)
 
         return this._add(data)
       },

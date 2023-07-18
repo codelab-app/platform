@@ -67,7 +67,10 @@ export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
       this.tagRepository.seedTags(this.exportedAdminData.tags, owner),
     )()
 
-    await withTracing('this.importAtoms()', () => this.importAtoms(owner))()
+    await withTracing('this.importAtoms()', async (span) => {
+      await this.importAtoms(owner)
+      span.end()
+    })()
 
     await withTracing('this.importComponents()', () =>
       this.importComponents(owner),
@@ -80,7 +83,7 @@ export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
     ) as ITypesExport
 
     for await (const type of types) {
-      const data: ITypeDTO = { ...type, owner }
+      // const data: ITypeDTO = { ...type, owner }
 
       // const job = await this.importQueue.add(data)
       await TypeFactory.save({ ...type, owner })

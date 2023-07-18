@@ -14,21 +14,6 @@ import { getStageOptions } from '../../shared/options'
 import { Stage } from '../../shared/utils/stage'
 import { Tasks } from '../../shared/utils/tasks'
 
-const spawnAsync = (command: string, options: any) => {
-  return new Promise((resolve, reject) => {
-    const process = spawn(command, options)
-    process.on('exit', (code: number) => {
-      if (code === 0) {
-        resolve(code)
-      } else {
-        reject(code)
-      }
-    })
-    process.on('error', (err: any) => {
-      reject(err)
-    })
-  })
-}
 
 /**
  * We require this since execCommand creates a new process and any env set before that doesn't apply

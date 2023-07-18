@@ -39,7 +39,7 @@ export class TagRepository extends AbstractRepository<ITagDTO, Tag, TagWhere> {
           ...tag,
           children: connectNodeIds(children?.map((child) => child.id)),
           owner: connectAuth0Owner(owner),
-          // parent: connectNodeId(tag.parent?.id),
+          // parent: connectNodeId(parent?.id),
         })),
       })
     ).tags

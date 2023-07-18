@@ -1,6 +1,7 @@
 import type {
   IAtomDTO,
   IAuth0Owner,
+  IBaseTypeDTO,
   IFieldDTO,
   IUnionTypeDTO,
 } from '@codelab/shared/abstract/core'
@@ -20,7 +21,7 @@ export class UnionType extends BaseType implements IUnionTypeDTO {
 
   declare owner: IAuth0Owner
 
-  typesOfUnionType: Array<IEntity>
+  typesOfUnionType: Array<Omit<IBaseTypeDTO, 'owner'>>
 
   constructor({ id, name, owner, typesOfUnionType }: IUnionTypeDTO) {
     super({ id, kind: ITypeKind.UnionType, name, owner })

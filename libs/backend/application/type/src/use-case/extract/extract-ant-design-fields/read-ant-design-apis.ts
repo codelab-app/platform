@@ -15,8 +15,6 @@ export const readAntDesignApis = async (
     const apisData: Array<AntDesignApi> = JSON.parse(fileContent)
 
     apisData.forEach((data) => {
-      console.log(data)
-
       return AntDesignApiSchema.parse(data)
     })
 

@@ -5,7 +5,7 @@ export const execCommand = (command: string) => {
 
   try {
     execa.commandSync(command, {
-      shell: true,
+      // shell: true,
       stdio: 'inherit',
     })
   } catch (error) {

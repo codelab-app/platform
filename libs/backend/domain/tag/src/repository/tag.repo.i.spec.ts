@@ -3,6 +3,7 @@ import { User, UserRepository } from '@codelab/backend/domain/user'
 import { getDriver } from '@codelab/backend/infra/adapter/neo4j'
 import { resetDatabase } from '@codelab/backend/test'
 import type { IUserDTO } from '@codelab/shared/abstract/core'
+import omit from 'lodash/omit'
 import { v4 } from 'uuid'
 import { Tag } from '../model'
 import { TagRepository } from './tag.repo'
@@ -49,13 +50,13 @@ describe('Tag repository.', () => {
       id: childTagId,
       name: childTagName,
       owner: { auth0Id: user.auth0Id },
-      parent: parentTag,
+      // parent: parentTag,
     })
 
     /**
      * First create 2 tags that aren't connected
      */
-    await tagRepository.add([parentTag, childTag])
+    await tagRepository.add([childTag, parentTag])
 
     let savedParentTag = await tagRepository.findOne({ id: parentTag.id })
     let savedChildTag = await tagRepository.findOne({ id: childTag.id })

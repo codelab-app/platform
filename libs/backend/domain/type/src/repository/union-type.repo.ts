@@ -7,11 +7,31 @@ import {
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IUnionTypeDTO } from '@codelab/shared/abstract/core'
+import type { IBaseTypeDTO, IUnionTypeDTO } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
   connectAuth0Owner,
   connectNodeIds,
+  reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
+import { cLog } from '@codelab/shared/utils'
+
+const filterTypeIds = (
+  typesOfUnionType: Array<Omit<IBaseTypeDTO, 'owner'>>,
+  kind: ITypeKind,
+): Array<string> =>
+  typesOfUnionType.filter((_type) => _type.kind === kind).map(({ id }) => id)
+
+const getFilteredTypes = (
+  typesOfUnionType: Array<Omit<IBaseTypeDTO, 'owner'>>,
+) => ({
+  arrayTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.ArrayType),
+  enumTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.EnumType),
+  interfaceTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.InterfaceType),
+  primitiveTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.PrimitiveType),
+  reactNodeTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.ReactNodeType),
+  renderPropTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.RenderPropType),
+})
 
 export class UnionTypeRepository extends AbstractRepository<
   IUnionTypeDTO,
@@ -35,19 +55,43 @@ export class UnionTypeRepository extends AbstractRepository<
         await this.UnionType
       ).create({
         input: unionTypes.map(
-          ({ __typename, owner, typesOfUnionType, ...type }) => {
-            const connectIds = typesOfUnionType.map(({ id }) => id)
+          ({ __typename, id, kind, name, owner, typesOfUnionType }) => {
+            const {
+              arrayTypeIds,
+              enumTypeIds,
+              interfaceTypeIds,
+              primitiveTypeIds,
+              reactNodeTypeIds,
+              renderPropTypeIds,
+            } = getFilteredTypes(typesOfUnionType)
 
-            return {
-              ...type,
+            cLog({
+              id,
+              kind,
+              name,
               owner: connectAuth0Owner(owner),
               typesOfUnionType: {
-                ArrayType: connectNodeIds(connectIds),
-                EnumType: connectNodeIds(connectIds),
-                InterfaceType: connectNodeIds(connectIds),
-                PrimitiveType: connectNodeIds(connectIds),
-                ReactNodeType: connectNodeIds(connectIds),
-                RenderPropType: connectNodeIds(connectIds),
+                ArrayType: connectNodeIds(arrayTypeIds),
+                EnumType: connectNodeIds(enumTypeIds),
+                InterfaceType: connectNodeIds(interfaceTypeIds),
+                PrimitiveType: connectNodeIds(primitiveTypeIds),
+                ReactNodeType: connectNodeIds(reactNodeTypeIds),
+                RenderPropType: connectNodeIds(renderPropTypeIds),
+              },
+            })
+
+            return {
+              id,
+              kind,
+              name,
+              owner: connectAuth0Owner(owner),
+              typesOfUnionType: {
+                ArrayType: connectNodeIds(arrayTypeIds),
+                EnumType: connectNodeIds(enumTypeIds),
+                InterfaceType: connectNodeIds(interfaceTypeIds),
+                PrimitiveType: connectNodeIds(primitiveTypeIds),
+                ReactNodeType: connectNodeIds(reactNodeTypeIds),
+                RenderPropType: connectNodeIds(renderPropTypeIds),
               },
             }
           },
@@ -61,7 +105,14 @@ export class UnionTypeRepository extends AbstractRepository<
     { id, name, typesOfUnionType }: IUnionTypeDTO,
     where: UnionTypeWhere,
   ) {
-    const connectIds = typesOfUnionType.map(({ id: typeId }) => typeId)
+    const {
+      arrayTypeIds,
+      enumTypeIds,
+      interfaceTypeIds,
+      primitiveTypeIds,
+      reactNodeTypeIds,
+      renderPropTypeIds,
+    } = getFilteredTypes(typesOfUnionType)
 
     return (
       await (
@@ -72,12 +123,12 @@ export class UnionTypeRepository extends AbstractRepository<
           id,
           name,
           typesOfUnionType: {
-            ArrayType: [connectNodeIds(connectIds)],
-            EnumType: [connectNodeIds(connectIds)],
-            InterfaceType: [connectNodeIds(connectIds)],
-            PrimitiveType: [connectNodeIds(connectIds)],
-            ReactNodeType: [connectNodeIds(connectIds)],
-            RenderPropType: [connectNodeIds(connectIds)],
+            ArrayType: reconnectNodeIds(arrayTypeIds),
+            EnumType: reconnectNodeIds(enumTypeIds),
+            InterfaceType: reconnectNodeIds(interfaceTypeIds),
+            PrimitiveType: reconnectNodeIds(primitiveTypeIds),
+            ReactNodeType: reconnectNodeIds(reactNodeTypeIds),
+            RenderPropType: reconnectNodeIds(renderPropTypeIds),
           },
         },
         where,

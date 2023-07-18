@@ -20,11 +20,14 @@
       "prevSibling": null,
       "nextSibling": null,
       "firstChild": null,
+      "childMapperPreviousSibling": null,
       "props": {
         "id": "135c4280-aa76-4026-bb9b-92c1ac363bf1",
         "data": "{}"
       },
       "renderForEachPropKey": null,
+      "childMapperPropKey": null,
+      "childMapperComponent": null,
       "renderIfExpression": null,
       "propTransformationJs": "function transform(props){\n  const { fonts } = props\n  \n  const url = 'https://fonts.googleapis.com/css2?'\n  const href = fonts.reduce((acc, font) => {\n      const family = font.family.split(',')[0]\n      \n      acc += `family=${family.replace(/ /g, '+')}&`\n      \n      return acc\n  }, url)\n  \n  return {\n      ...props,\n      href,\n      rel: 'stylesheet'\n  }\n}",
       "preRenderAction": null,
@@ -101,11 +104,14 @@
       "prevSibling": null,
       "nextSibling": null,
       "firstChild": null,
+      "childMapperPreviousSibling": null,
       "props": {
         "id": "135c4280-aa76-4026-bb9b-92c1ac363bf1",
         "data": "{}"
       },
       "renderForEachPropKey": null,
+      "childMapperPropKey": null,
+      "childMapperComponent": null,
       "renderIfExpression": null,
       "propTransformationJs": "function transform(props){\n  const { fonts } = props\n  \n  const url = 'https://fonts.googleapis.com/css2?'\n  const href = fonts.reduce((acc, font) => {\n      const family = font.family.split(',')[0]\n      \n      acc += `family=${family.replace(/ /g, '+')}&`\n      \n      return acc\n  }, url)\n  \n  return {\n      ...props,\n      href,\n      rel: 'stylesheet'\n  }\n}",
       "preRenderAction": null,

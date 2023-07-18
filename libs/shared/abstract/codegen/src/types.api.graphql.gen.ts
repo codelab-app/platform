@@ -22913,19 +22913,29 @@ export type TypeFragment =
 export type UnionTypeFragment = {
   __typename?: 'UnionType'
   typesOfUnionType: Array<
-    | { __typename?: 'ActionType'; id: string; name: string }
-    | { __typename?: 'AppType'; id: string; name: string }
-    | { __typename?: 'ArrayType'; id: string; name: string }
-    | { __typename?: 'CodeMirrorType'; id: string; name: string }
-    | { __typename?: 'ElementType'; id: string; name: string }
-    | { __typename?: 'EnumType'; id: string; name: string }
-    | { __typename?: 'InterfaceType'; id: string; name: string }
-    | { __typename?: 'LambdaType'; id: string; name: string }
-    | { __typename?: 'PageType'; id: string; name: string }
-    | { __typename?: 'PrimitiveType'; id: string; name: string }
-    | { __typename?: 'ReactNodeType'; id: string; name: string }
-    | { __typename?: 'RenderPropType'; id: string; name: string }
-    | { __typename?: 'UnionType'; id: string; name: string }
+    | { __typename?: 'ActionType'; id: string; kind: TypeKind; name: string }
+    | { __typename?: 'AppType'; id: string; kind: TypeKind; name: string }
+    | { __typename?: 'ArrayType'; id: string; kind: TypeKind; name: string }
+    | {
+        __typename?: 'CodeMirrorType'
+        id: string
+        kind: TypeKind
+        name: string
+      }
+    | { __typename?: 'ElementType'; id: string; kind: TypeKind; name: string }
+    | { __typename?: 'EnumType'; id: string; kind: TypeKind; name: string }
+    | { __typename?: 'InterfaceType'; id: string; kind: TypeKind; name: string }
+    | { __typename?: 'LambdaType'; id: string; kind: TypeKind; name: string }
+    | { __typename?: 'PageType'; id: string; kind: TypeKind; name: string }
+    | { __typename?: 'PrimitiveType'; id: string; kind: TypeKind; name: string }
+    | { __typename?: 'ReactNodeType'; id: string; kind: TypeKind; name: string }
+    | {
+        __typename?: 'RenderPropType'
+        id: string
+        kind: TypeKind
+        name: string
+      }
+    | { __typename?: 'UnionType'; id: string; kind: TypeKind; name: string }
   >
 } & BaseType_UnionType_Fragment
 

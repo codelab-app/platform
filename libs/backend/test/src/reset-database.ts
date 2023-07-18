@@ -36,7 +36,7 @@ export const resetDatabase = async ({
 
   expect(savedUser?.username).toEqual('Codelab')
 
-  await CacheService.getInstance(CacheInstance.Backend).clearCache()
+  // await CacheService.getInstance(CacheInstance.Backend).clearCache()
 
   return user
 }
