@@ -14,7 +14,6 @@ import { getStageOptions } from '../../shared/options'
 import { Stage } from '../../shared/utils/stage'
 import { Tasks } from '../../shared/utils/tasks'
 
-
 /**
  * We require this since execCommand creates a new process and any env set before that doesn't apply
  */
