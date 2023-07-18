@@ -10,6 +10,6 @@
     "src/**/*.test.ts",
     "src/**/*.spec.ts",
     "src/**/*.d.ts",
-    "src/use-case/seed-framework/seed-framework.i.spec copy.ts"
+    "src/use-case/seed-framework/seed-framework.i.spec.ts"
   ]
 }

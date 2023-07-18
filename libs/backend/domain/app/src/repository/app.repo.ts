@@ -167,7 +167,6 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
     app: { id: app.id },
   }))
 
-  console.log('Creating new app...')
 
   await appRepository.add([{ ...app, owner, pages: [] }])
   await pageRepository.add(pagesData)

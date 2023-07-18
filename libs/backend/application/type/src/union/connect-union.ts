@@ -41,7 +41,6 @@ export const connectUnionType: FieldTypeRef = async ({
       field.property,
     )} Union API`
 
-    console.log(`Creating union ${unionName}`)
 
     // create Union Type
     const {

@@ -11,12 +11,10 @@ import {
   TerraformService,
 } from '@codelab/backend/infra/adapter/cli'
 import { neo4jConfig } from '@codelab/backend/infra/adapter/neo4j'
-import { CLI_TRACER } from '@codelab/shared/infra/otel'
 import { BullModule } from '@nestjs/bull'
 import type { OnModuleInit } from '@nestjs/common'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { trace } from '@opentelemetry/api'
 import path from 'path'
 import { CommandService } from './command.service'
 

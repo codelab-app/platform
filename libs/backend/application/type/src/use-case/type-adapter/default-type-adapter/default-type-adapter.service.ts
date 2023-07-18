@@ -1,5 +1,4 @@
 import type {
-  ArrayType as IArrayType,
   EnumType as IEnumType,
   InterfaceType as IInterfaceType,
   UnionType as IUnionType,
@@ -19,7 +18,6 @@ import {
 } from '@codelab/backend/domain/type'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type {
-  IArrayTypeDTO,
   IAtomDTO,
   IAuth0Owner,
   IEnumTypeDTO,

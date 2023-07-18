@@ -1,5 +1,4 @@
 import { getEnv } from '@codelab/shared/config'
-import { flattenWithPrefix, withTracing } from '@codelab/shared/infra/otel'
 import type { VercelKV } from '@vercel/kv'
 import { createClient } from '@vercel/kv'
 import { z } from 'zod'

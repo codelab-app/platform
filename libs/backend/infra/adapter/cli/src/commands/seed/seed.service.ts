@@ -1,8 +1,6 @@
 import { AdminSeederService } from '@codelab/backend/application/admin'
 import type { IAuth0Owner } from '@codelab/shared/abstract/core'
-import { CLI_TRACER, withTracing } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
-import { context, trace } from '@opentelemetry/api'
 import type { Argv, CommandModule } from 'yargs'
 import { globalHandler } from '../../shared/handler'
 import { loadStageMiddleware } from '../../shared/middleware'

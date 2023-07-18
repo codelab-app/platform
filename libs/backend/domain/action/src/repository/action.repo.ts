@@ -38,7 +38,6 @@ export const importActions = async (
     throw new Error(`Unknown action type : ${action.type}`)
   }
 
-  console.log('Creating CodeActions...')
 
   await CodeAction.create({
     input: codeActions.map((action) => ({
@@ -50,7 +49,6 @@ export const importActions = async (
     })),
   })
 
-  console.log('Creating ApiActions...')
 
   await ApiAction.create({
     input: apiActions.map((action) => ({

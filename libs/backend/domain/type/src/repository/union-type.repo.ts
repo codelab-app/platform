@@ -14,7 +14,6 @@ import {
   connectNodeIds,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
-import { cLog } from '@codelab/shared/utils'
 
 const filterTypeIds = (
   typesOfUnionType: Array<Omit<IBaseTypeDTO, 'owner'>>,
@@ -64,21 +63,6 @@ export class UnionTypeRepository extends AbstractRepository<
               reactNodeTypeIds,
               renderPropTypeIds,
             } = getFilteredTypes(typesOfUnionType)
-
-            cLog({
-              id,
-              kind,
-              name,
-              owner: connectAuth0Owner(owner),
-              typesOfUnionType: {
-                ArrayType: connectNodeIds(arrayTypeIds),
-                EnumType: connectNodeIds(enumTypeIds),
-                InterfaceType: connectNodeIds(interfaceTypeIds),
-                PrimitiveType: connectNodeIds(primitiveTypeIds),
-                ReactNodeType: connectNodeIds(reactNodeTypeIds),
-                RenderPropType: connectNodeIds(renderPropTypeIds),
-              },
-            })
 
             return {
               id,

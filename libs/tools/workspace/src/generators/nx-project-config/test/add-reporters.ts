@@ -1,6 +1,6 @@
 import type { ProjectConfiguration } from '@nx/devkit'
 import type { ObjectLiteralExpression } from 'ts-morph'
-import tsMorph, { Project } from 'ts-morph'
+import tsMorph from 'ts-morph'
 
 export const addReportersToJestConfig = (
   configObject: ObjectLiteralExpression,

@@ -1,7 +1,6 @@
 import type { IAdminService } from '@codelab/backend/domain/admin'
 import type { IUserModel, IUserRepository } from '@codelab/backend/domain/user'
 import { IRole } from '@codelab/shared/abstract/core'
-import { CacheInstance, CacheService } from '@shared/infra/cache'
 import type { Driver } from 'neo4j-driver'
 import { v4 } from 'uuid'
 

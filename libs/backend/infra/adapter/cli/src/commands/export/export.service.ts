@@ -83,7 +83,9 @@ export class ExportService implements CommandModule<ExportProps, ExportProps> {
       }
 
       if (!shouldSkipSeedData) {
-        ;(await new ExportAdminDataService().execute()).saveAsFiles()
+        ;(
+          await new ExportAdminDataService(seedDataPath).execute()
+        ).saveAsFiles()
       }
 
       if (!shouldSkipUserData) {

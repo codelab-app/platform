@@ -7,13 +7,10 @@ import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IAuth0Owner, ITagDTO } from '@codelab/shared/abstract/core'
 import {
   connectAuth0Owner,
-  connectNodeId,
   connectNodeIds,
-  reconnectNodeId,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
 import { withTracing } from '@codelab/shared/infra/otel'
-import { cLog } from '@codelab/shared/utils'
 
 export class TagRepository extends AbstractRepository<ITagDTO, Tag, TagWhere> {
   private Tag = Repository.instance.Tag

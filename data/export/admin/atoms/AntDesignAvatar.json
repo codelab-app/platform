@@ -338,8 +338,8 @@
       "kind": "UnionType",
       "name": "AntDesignAvatar Src Union",
       "descendantTypesIds": [
-        "7333edde-f8f5-4d3c-a595-01b5585b37da",
-        "3a0d0fc6-c51e-4f05-85b4-cde709fe5625"
+        "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "7333edde-f8f5-4d3c-a595-01b5585b37da"
       ],
       "typesOfUnionType": [
         {

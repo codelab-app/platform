@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import type {
   ActionType,
-  ArrayType,
   EnumType,
   PrimitiveType,
   ReactNodeType,
