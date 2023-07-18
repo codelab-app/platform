@@ -19,7 +19,6 @@ export const SelectLinkElement = observer(
   ({
     allElementOptions,
     name,
-    onChange,
     required,
     targetElementId,
   }: SelectLinkElementProps) => {
@@ -37,7 +36,6 @@ export const SelectLinkElement = observer(
             allElementOptions={allElementOptions}
             allowClear
             disableWhenOneOpt={false}
-            onChange={onChange}
             targetElementId={parentElementId}
             // eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
             {...(props as any)}
