@@ -1,6 +1,7 @@
 import type { ICreateElementData } from '@codelab/frontend/abstract/core'
 import type { SelectElementProps } from '@codelab/frontend/domain/type'
 import { SelectChildElement } from '@codelab/frontend/domain/type'
+import noop from 'lodash/noop'
 import { observer } from 'mobx-react-lite'
 import { useForm } from 'uniforms'
 import type { SelectFieldProps } from 'uniforms-antd'
@@ -19,6 +20,7 @@ export const SelectLinkElement = observer(
   ({
     allElementOptions,
     name,
+    onChange = noop,
     required,
     targetElementId,
   }: SelectLinkElementProps) => {
@@ -36,6 +38,7 @@ export const SelectLinkElement = observer(
             allElementOptions={allElementOptions}
             allowClear
             disableWhenOneOpt={false}
+            onChange={onChange}
             targetElementId={parentElementId}
             // eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
             {...(props as any)}
