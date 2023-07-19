@@ -79,6 +79,7 @@ export class ElementRuntimeProps
     return replaceStateInProps(
       this.renderedTypedProps,
       this.node.store.current.state,
+      this.node.providerStore?.current.state,
       injectedProps,
     )
   }
@@ -91,6 +92,7 @@ export class ElementRuntimeProps
     return replaceStateInProps(
       this.props,
       this.node.store.current.state,
+      this.node.providerStore?.current.state,
       injectedProps,
     )
   }
@@ -108,6 +110,7 @@ export class ElementRuntimeProps
       const evaluatedExpression = evaluateExpression(
         this.node.childMapperPropKey,
         this.node.store.current.state,
+        this.node.providerStore?.current.state,
         injectedProps,
       )
 
@@ -122,6 +125,7 @@ export class ElementRuntimeProps
 
     const allPropsOptions = mergeProps(this.node.store.current.state, {
       props: injectedProps,
+      rootState: this.node.providerStore?.current.state,
     })
 
     const evaluatedChildMapperProp = get(

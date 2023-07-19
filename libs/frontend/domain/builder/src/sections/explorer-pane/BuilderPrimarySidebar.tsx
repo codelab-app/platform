@@ -1,5 +1,9 @@
 import { PlusOutlined } from '@ant-design/icons'
-import type { IPageNode, IStore } from '@codelab/frontend/abstract/core'
+import type {
+  IElement,
+  IPageNode,
+  IStore,
+} from '@codelab/frontend/abstract/core'
 import {
   elementRef,
   elementTreeRef,
@@ -68,6 +72,10 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     const antdTree = root?.current.treeViewNode
     const isPageTree = antdTree && pageTree
     const store = builderService.selectedNode?.current.store.current
+
+    const providerStore = (
+      builderService.selectedNode?.current as IElement | undefined
+    )?.providerStore?.current
 
     const selectTreeNode = (node: IPageNode) => {
       if (isComponentPageNode(node)) {
@@ -220,6 +228,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         content: store && (
           <CodeMirrorEditor
             className="mt-1"
+            editable={false}
             language={CodeMirrorLanguage.Json}
             onChange={() => undefined}
             singleLine={false}
@@ -230,6 +239,22 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         isLoading: isLoading || !store,
         key: 'Inspector',
         label: 'Inspector',
+      },
+      {
+        content: providerStore && (
+          <CodeMirrorEditor
+            className="mt-1"
+            editable={false}
+            language={CodeMirrorLanguage.Json}
+            onChange={() => undefined}
+            singleLine={false}
+            title="Current root props"
+            value={providerStore.jsonString}
+          />
+        ),
+        isLoading: isLoading || !store,
+        key: 'InspectorRoot',
+        label: 'Inspector Root',
       },
     ]
 

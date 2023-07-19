@@ -33,13 +33,18 @@ export const stripStateExpression = (expression: string) => {
 export const evaluateExpression = (
   expression: string,
   state: IPropData,
+  rootState: IPropData = {},
   props: IPropData = {},
 ) => {
   try {
     const code = `return ${stripStateExpression(expression)}`
 
     // eslint-disable-next-line no-new-func
-    return new Function('state', 'props', code)(state, props)
+    return new Function('state', 'rootState', 'props', code)(
+      state,
+      rootState,
+      props,
+    )
   } catch (error) {
     console.log(error)
 
@@ -50,6 +55,7 @@ export const evaluateExpression = (
 export const replaceStateInProps = (
   props: IPropData,
   state: IPropData = {},
+  rootState: IPropData = {},
   injectedProps: IPropData = {},
 ) =>
   mapDeep(
@@ -57,7 +63,7 @@ export const replaceStateInProps = (
     // value mapper
     (value) => {
       if (isString(value)) {
-        return getByExpression(value, state, injectedProps)
+        return getByExpression(value, state, rootState, injectedProps)
       }
 
       // ReactNodeType can accept a string and will be rendered as a normal html node
@@ -75,13 +81,14 @@ export const replaceStateInProps = (
     // key mapper
     (_, key) =>
       (isString(key)
-        ? getByExpression(key, state, injectedProps)
+        ? getByExpression(key, state, rootState, injectedProps)
         : key) as string,
   )
 
-export const getByExpression = (
+const getByExpression = (
   key: string,
   state: IPropData,
+  rootState: IPropData,
   props: IPropData = {},
 ) => {
   if (!hasStateExpression(key)) {
@@ -92,13 +99,13 @@ export const getByExpression = (
    * return typed value for : {{expression}}
    */
   if (isSingleStateExpression(key)) {
-    return evaluateExpression(key, state, props)
+    return evaluateExpression(key, state, rootState, props)
   }
 
   /**
    * return string value for : [text1]? {{expression1}} [text2]? {{expression2}}...
    */
   return key.replace(STATE_PATH_TEMPLATE_REGEX, (value) =>
-    evaluateExpression(value, state, props),
+    evaluateExpression(value, state, rootState, props),
   )
 }
