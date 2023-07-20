@@ -1,7 +1,6 @@
 [
   {
     "atom": {
-      "api": "Timeline",
       "name": "timeline"
     },
     "fields": [

@@ -1,7 +1,6 @@
 [
   {
     "atom": {
-      "api": "Checkbox",
       "name": "checkbox"
     },
     "fields": [

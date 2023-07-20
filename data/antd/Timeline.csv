@@ -1,5 +1,0 @@
-"property","description","type","default","version","isEnum"
-"mode","By sending alternate the timeline will distribute the nodes to the left and right","left | alternate | right","-",,true
-"pending","Set the last ghost node's existence or its content","boolean | ReactNode","false",,false
-"pendingDot","Set the dot of the last ghost node when pending is true","ReactNode","<LoadingOutlined />",,false
-"reverse","Whether reverse nodes or not","boolean","false",,false

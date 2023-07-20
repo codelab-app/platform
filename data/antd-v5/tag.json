@@ -1,7 +1,6 @@
 [
   {
     "atom": {
-      "api": "Tag",
       "name": "tag"
     },
     "fields": [

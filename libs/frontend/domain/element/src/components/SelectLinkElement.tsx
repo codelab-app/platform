@@ -37,10 +37,13 @@ export const SelectLinkElement = observer(
             allElementOptions={allElementOptions}
             allowClear
             disableWhenOneOpt={false}
-            onChange={onChange}
             targetElementId={parentElementId}
             // eslint-disable-next-line react/jsx-props-no-spreading, @typescript-eslint/no-explicit-any
             {...(props as any)}
+            // Somehow if `onChange` with undefined value is passed into the
+            // uniform-antd SelectField it fails because it will still try to run the `onChange`
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...(onChange ? { onChange } : {})}
           />
         )}
         name={name}

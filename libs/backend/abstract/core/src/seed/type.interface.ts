@@ -9,7 +9,7 @@ export const AntDesignApiSchema = z.object({
    * This is the AntDesign components
    */
   atom: z.object({
-    api: z.string(),
+    // api: z.string(),
     name: z.string(),
   }),
   fields: z.array(AntDesignFieldSchema),

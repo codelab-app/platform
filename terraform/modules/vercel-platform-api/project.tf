@@ -64,5 +64,16 @@ resource "vercel_project" "platform_api" {
       key    = "VERCEL_TEAM_ID"
       value  = var.vercel_team_id
     },
+    # Vercel KV
+    {
+      target = ["production", "preview"]
+      key    = "KV_REST_API_URL"
+      value  = var.kv_rest_api_url
+    },
+    {
+      target = ["production", "preview"]
+      key    = "KV_REST_API_TOKEN"
+      value  = var.kv_rest_api_token
+    },
   ]
 }

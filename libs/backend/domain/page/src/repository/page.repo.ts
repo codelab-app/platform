@@ -88,6 +88,7 @@ export const getPageData = async (page: Page) => {
   const componentIds = flatMap(elements, (element) => [
     element.parentComponent?.id,
     element.renderComponentType?.id,
+    element.childMapperComponent?.id,
     ...(element.props.data.match(uuidRegex) || []),
   ]).filter((element): element is string => Boolean(element))
 

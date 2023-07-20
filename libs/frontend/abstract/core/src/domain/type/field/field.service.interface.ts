@@ -15,6 +15,7 @@ import type {
 import type { FieldFragment } from '../fragments'
 import type { IInterfaceType, IType } from '../types'
 import type { IField } from './field.interface'
+import type { IFieldRepository } from './field.repo.interface'
 
 export interface IFieldService
   extends Omit<
@@ -37,6 +38,7 @@ export interface IFieldService
     Ref<IInterfaceType>,
     { interface: Maybe<IInterfaceType> }
   >
+  fieldRepository: IFieldRepository
   fields: ObjectMap<IField>
   add(fieldDTO: IFieldDTO): IField
   delete(fields: Array<IField>): Promise<number>

@@ -1,7 +1,6 @@
 [
   {
     "atom": {
-      "api": "",
       "name": "layout"
     },
     "fields": [
@@ -30,8 +29,25 @@
   },
   {
     "atom": {
-      "api": "",
-      "name": "layout"
+      "name": "layout.header"
+    },
+    "fields": []
+  },
+  {
+    "atom": {
+      "name": "layout.content"
+    },
+    "fields": []
+  },
+  {
+    "atom": {
+      "name": "layout.footer"
+    },
+    "fields": []
+  },
+  {
+    "atom": {
+      "name": "layout.sider"
     },
     "fields": [
       {

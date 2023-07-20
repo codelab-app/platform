@@ -1,14 +1,17 @@
+/// <reference types="jest" />
+
 import { IAntdCategoryTag } from '@codelab/backend/abstract/core'
 import { antdTagTree } from '@codelab/backend/data/seed'
 import type { ITagDTO, IUserDTO } from '@codelab/shared/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import difference from 'lodash/difference'
 import { ExportAdminDataService } from '../export-admin-data.service'
+import { ImportAdminDataService } from '../import-admin-data'
 
-export const importData = async ({ auth0Id }: IUserDTO, path: string) => null
-// new ImportAdminDataService(path).execute({
-//   auth0Id,
-// })
+export const importData = async ({ auth0Id }: IUserDTO, path: string) =>
+  new ImportAdminDataService(path).execute({
+    auth0Id,
+  })
 
 export const exportAndAssert = async (exportPath: string) => {
   const payload = (

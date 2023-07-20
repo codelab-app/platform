@@ -1,0 +1,121 @@
+{
+  "component": {
+    "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+    "name": "Page Title",
+    "rootElement": {
+      "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
+      "name": "Page Title",
+      "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
+      "guiCss": "{}",
+      "parentComponent": {
+        "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+        "name": "Page Title"
+      },
+      "renderComponentType": null,
+      "renderType": {
+        "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+        "kind": "Atom"
+      },
+      "parent": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "firstChild": null,
+      "props": {
+        "id": "c042e37b-8120-4104-8869-ab1db62a039a",
+        "data": "{\"title\":{\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{\\n  function run() { \\n    const { AntDesignTypographyParagraph, /* import atoms here */ } = this.atoms\\n\\n    console.log(\\n    return (\\n      <AntDesignTypographyParagraph>{this.label}</AntDesignTypographyParagraph>\\n    )\\n  }.bind(this)\\n}}\"},\"customText\":\"<p>{{this.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+      },
+      "renderForEachPropKey": null,
+      "renderIfExpression": null,
+      "propTransformationJs": null,
+      "preRenderAction": null,
+      "postRenderAction": null,
+      "renderAtomType": {
+        "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+        "name": "AntDesignTypographyParagraph"
+      }
+    },
+    "props": {
+      "id": "0483e8c9-e47f-455b-9ce7-60f563ebb103",
+      "data": "{\"label\":\"Link Label\",\"href\":\"/\"}"
+    },
+    "store": {
+      "id": "0e632c0e-8963-4975-a39a-e8fe31108cfe",
+      "name": "NavLink Store",
+      "api": {
+        "__typename": "InterfaceType",
+        "id": "bc6ef412-0f85-4951-924a-49a978e4ef34",
+        "kind": "InterfaceType",
+        "name": "NavLink Store API",
+        "fields": []
+      },
+      "actions": []
+    },
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "40d0de0c-eb90-4dde-afdc-f4ed64088168",
+      "kind": "InterfaceType",
+      "name": "NavLink API",
+      "fields": [
+        {
+          "id": "48932cc8-b8ce-4e65-8d94-7c7811384cae",
+          "key": "text",
+          "name": null,
+          "description": null,
+          "validationRules": "{}",
+          "defaultValues": "\"Title Text\"",
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "api": {
+            "id": "40d0de0c-eb90-4dde-afdc-f4ed64088168"
+          }
+        }
+      ]
+    },
+    "childrenContainerElement": {
+      "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db"
+    },
+    "keyGenerator": null
+  },
+  "descendantElements": [
+    {
+      "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
+      "name": "Page Title",
+      "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
+      "guiCss": "{}",
+      "parentComponent": {
+        "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+        "name": "Page Title"
+      },
+      "renderComponentType": null,
+      "renderType": {
+        "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+        "kind": "Atom"
+      },
+      "parent": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "firstChild": null,
+      "props": {
+        "id": "c042e37b-8120-4104-8869-ab1db62a039a",
+        "data": "{\"title\":{\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\",\"value\":\"{{\\n  function run() { \\n    const { AntDesignTypographyParagraph, /* import atoms here */ } = this.atoms\\n\\n    console.log(\\n    return (\\n      <AntDesignTypographyParagraph>{this.label}</AntDesignTypographyParagraph>\\n    )\\n  }.bind(this)\\n}}\"},\"customText\":\"<p>{{this.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+      },
+      "renderForEachPropKey": null,
+      "renderIfExpression": null,
+      "propTransformationJs": null,
+      "preRenderAction": null,
+      "postRenderAction": null,
+      "renderAtomType": {
+        "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+        "name": "AntDesignTypographyParagraph"
+      }
+    }
+  ],
+  "fields": [],
+  "types": []
+}

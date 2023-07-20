@@ -1,7 +1,6 @@
 [
   {
     "atom": {
-      "api": "Radio/Radio.Button",
       "name": "radio"
     },
     "fields": [

@@ -1,3 +1,0 @@
-"property","description","type","default","version","isEnum"
-"children","Sub-menu items","MenuItem[]","-","",false
-"title","The title of the group","ReactNode","-","",false

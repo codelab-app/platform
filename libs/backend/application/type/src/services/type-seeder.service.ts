@@ -20,9 +20,6 @@ export class TypeSeederService {
     }
   }
 
-  /**
-   * This way let's us
-   */
   async seedTypes(types: Array<ITypeDTO>, owner: IAuth0Owner) {
     await Promise.all(
       Object.values(types).map(

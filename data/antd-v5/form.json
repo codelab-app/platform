@@ -1,7 +1,6 @@
 [
   {
     "atom": {
-      "api": "Form",
       "name": "form"
     },
     "fields": [

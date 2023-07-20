@@ -1,7 +1,6 @@
 [
   {
     "atom": {
-      "api": "Mention",
       "name": "mentions"
     },
     "fields": [

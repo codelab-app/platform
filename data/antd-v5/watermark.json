@@ -1,7 +1,6 @@
 [
   {
     "atom": {
-      "api": "Watermark",
       "name": "watermark"
     },
     "fields": [

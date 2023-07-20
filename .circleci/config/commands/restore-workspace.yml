@@ -9,4 +9,3 @@ steps:
         - node-modules-{{ checksum "yarn.lock" }}
         - nvm-cache-{{ checksum ".nvmrc" }}
   - setup-env
-  - run: npx nx reset

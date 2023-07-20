@@ -4,5 +4,6 @@ import type { IBaseTypeDTO } from './base-type.dto.interface'
 
 export interface IUnionTypeDTO extends IBaseTypeDTO {
   __typename?: `${ITypeKind.UnionType}`
-  typesOfUnionType: Array<IEntity>
+  // We need kind and name
+  typesOfUnionType: Array<Omit<IBaseTypeDTO, 'owner'>>
 }

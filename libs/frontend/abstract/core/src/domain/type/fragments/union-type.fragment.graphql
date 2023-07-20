@@ -3,6 +3,7 @@ fragment UnionType on UnionType {
   typesOfUnionType {
     ... on IBaseType {
       id
+      kind
       name
     }
   }

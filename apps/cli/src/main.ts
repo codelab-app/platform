@@ -5,7 +5,7 @@ import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app/app.module'
 
 const bootstrap = async () => {
-  await otelSDK.start()
+  otelSDK.start()
 
   const app = await NestFactory.createApplicationContext(AppModule, {
     // logger: false,

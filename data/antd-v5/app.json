@@ -1,7 +1,6 @@
 [
   {
     "atom": {
-      "api": "App",
       "name": "app"
     },
     "fields": [

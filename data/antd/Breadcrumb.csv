@@ -1,5 +1,0 @@
-"property","description","type","default","version","isEnum"
-"itemRender","Custom item renderer","(route, params, routes, paths) => ReactNode","-","",false
-"params","Routing parameters","object","-","",false
-"routes","The routing stack information of router","routes[]","-","",false
-"separator","Custom separator","ReactNode","/","",false

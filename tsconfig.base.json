@@ -23,6 +23,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@backend/infra/adapter/serverless": [
+        "libs/backend/infra/adapter/serverless/src/index.ts"
+      ],
       "@codelab/backend/abstract/codegen": [
         "libs/backend/abstract/codegen/src/index.ts"
       ],
@@ -233,9 +236,7 @@
       "@codelab/shared/infra/otel": ["libs/shared/infra/otel/src/index.ts"],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/workspace": ["libs/tools/workspace/src/index.ts"],
-      "backend/infra/adapter/serverless": [
-        "libs/backend/infra/adapter/serverless/src/index.ts"
-      ]
+      "@shared/infra/cache": ["libs/shared/infra/cache/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"],

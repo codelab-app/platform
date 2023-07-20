@@ -1,7 +1,6 @@
 [
   {
     "atom": {
-      "api": "Typography.Text",
       "name": "typography"
     },
     "fields": [

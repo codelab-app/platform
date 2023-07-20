@@ -1,8 +1,3 @@
-import { TTLCache } from '@codelab/shared/utils'
-
-// Create a map to store cache instances for each cache key
-const cacheMap = new Map<string, TTLCache<string, unknown>>()
-
 /**
  * @param segmentCacheKey The key indicates a cache segment. Can be used to clear cache for a specific key.
  * @param ttl Time until cache is reset in milliseconds. Default is 5 minutes.
@@ -13,7 +8,7 @@ export const cachedWithTTL = (segmentCacheKey: string, ttl = 5 * 60 * 1000) => {
     propertyKey: string,
     descriptor?: PropertyDescriptor,
   ) => {
-    if (!descriptor) {
+    /* if (!descriptor) {
       throw new Error(
         `"descriptor" is undefined for "${target?.constructor?.name}.${propertyKey}", make sure you are not trying to decorate an arrow function`,
       )
@@ -22,18 +17,11 @@ export const cachedWithTTL = (segmentCacheKey: string, ttl = 5 * 60 * 1000) => {
     const originalMethod = descriptor.value
 
     descriptor.value = async function (...args: Array<unknown>) {
-      // Get or create cache for this cacheKey
-      let cache = cacheMap.get(segmentCacheKey)
-
-      if (!cache) {
-        cache = new TTLCache<string, unknown>(ttl)
-        cacheMap.set(segmentCacheKey, cache)
-      }
-
+      const cache = CacheService.getInstance(CacheInstance.Frontend).cache
       const cacheKey = JSON.stringify(args)
-      const cachedValue = cache.get(cacheKey)
+      const cachedValue = await cache.get(cacheKey)
 
-      if (cachedValue !== undefined) {
+      if (cachedValue !== null) {
         console.log(
           `Take value from cache segment ${segmentCacheKey}:`,
           cachedValue,
@@ -43,10 +31,12 @@ export const cachedWithTTL = (segmentCacheKey: string, ttl = 5 * 60 * 1000) => {
       }
 
       const result = await originalMethod.apply(this, args)
-      cache.set(cacheKey, result)
+      await cache.set(cacheKey, result)
 
       return result
-    }
+    } */
+
+    return descriptor
   }
 }
 
@@ -60,7 +50,7 @@ export const clearCacheForKey = (segmentCacheKey: Array<string> | string) => {
     propertyKey: string,
     descriptor?: PropertyDescriptor,
   ) => {
-    if (!descriptor) {
+    /* if (!descriptor) {
       throw new Error(
         `"descriptor" is undefined for "${target?.constructor?.name}.${propertyKey}", make sure you are not trying to decorate an arrow function`,
       )
@@ -68,25 +58,25 @@ export const clearCacheForKey = (segmentCacheKey: Array<string> | string) => {
 
     const originalMethod = descriptor.value
 
-    descriptor.value = function (...args: Array<unknown>) {
+    descriptor.value = async function (...args: Array<unknown>) {
       const cacheKeys = Array.isArray(segmentCacheKey)
         ? segmentCacheKey
         : [segmentCacheKey]
 
-      cacheKeys.forEach((cacheKey) => {
-        const cacheSegment = cacheMap.get(cacheKey)
+      for (const cacheKey of cacheKeys) {
+        const cache = CacheService.getInstance(CacheInstance.Frontend).cache
+        const result = await cache.del(cacheKey)
 
-        if (cacheSegment) {
-          console.log(
-            `Deleting cache segment ${cacheKey} with ${cacheSegment.size()} records`,
-          )
-
-          cacheSegment.clear()
-          cacheMap.delete(cacheKey)
+        if (result > 0) {
+          console.log(`Cleared cache for key: ${cacheKey}`)
+        } else {
+          console.log(`No cache found for key: ${cacheKey}`)
         }
-      })
+      }
 
       return originalMethod.apply(this, args)
-    }
+    } */
+
+    return descriptor
   }
 }

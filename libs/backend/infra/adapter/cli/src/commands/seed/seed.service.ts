@@ -1,5 +1,8 @@
+import { AdminSeederService } from '@codelab/backend/application/admin'
 import type { IAuth0Owner } from '@codelab/shared/abstract/core'
+import { CLI_TRACER, withTracing } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
+import { context, trace } from '@opentelemetry/api'
 import type { Argv, CommandModule } from 'yargs'
 import { globalHandler } from '../../shared/handler'
 import { loadStageMiddleware } from '../../shared/middleware'
@@ -31,8 +34,7 @@ export class SeedService implements CommandModule<unknown> {
         (_argv) => _argv,
         globalHandler(async ({ user }) => {
           const owner = user as IAuth0Owner
-
-          // await new AdminSeederService(owner).seedAntDesign()
+          await new AdminSeederService(owner).seedAntDesign()
         }),
       )
       .command(

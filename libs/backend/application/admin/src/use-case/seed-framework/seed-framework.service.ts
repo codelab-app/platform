@@ -12,6 +12,7 @@ import type {
   IAtomType,
   IFieldDTO,
 } from '@codelab/shared/abstract/core'
+import { withTracing } from '@codelab/shared/infra/otel'
 import { ObjectTyped } from 'object-typed'
 
 interface FrameworkData {
@@ -31,28 +32,38 @@ export class SeedFrameworkService extends AuthUseCase<FrameworkData, void> {
   seeder = new TypeSeederService()
 
   async _execute(data: FrameworkData) {
-    await this.seedSystemTypes()
+    await withTracing('SeedFrameworkService.seedSystemTypes()', () =>
+      this.seedSystemTypes(),
+    )()
 
-    await this.seedTags(data.tags)
+    await withTracing('SeedFrameworkService.seedTags()', () =>
+      this.seedTags(data.tags),
+    )()
 
-    await this.seedEmptyApi(ObjectTyped.keys(data.atoms))
+    await withTracing('SeedFrameworkService.seedEmptyApi()', () =>
+      this.seedEmptyApi(ObjectTyped.keys(data.atoms)),
+    )()
 
-    const atoms = await this.seedAtoms(data.atoms)
+    const atoms = await withTracing('SeedFrameworkService.seedAtoms()', () =>
+      this.seedAtoms(data.atoms),
+    )()
 
-    await this.seedFields(await data.fields(atoms))
+    await withTracing('SeedFrameworkService.seedApis()', async () =>
+      this.seedApis(await data.fields(atoms)),
+    )()
   }
 
-  private async seedSystemTypes() {
+  private seedSystemTypes() {
     const types = Object.values(systemTypesData(this.owner))
 
-    return await this.seeder.seedTypes(types, this.owner)
+    return this.seeder.seedTypes(types, this.owner)
   }
 
   private async seedAtoms(atoms: FrameworkData['atoms']) {
     return new SeedAtomsService(this.owner).execute(atoms)
   }
 
-  private async seedTags(tags: FrameworkData['tags']) {
+  private seedTags(tags: FrameworkData['tags']) {
     return new SeedTagsService(this.owner).execute(tags)
   }
 
@@ -60,7 +71,7 @@ export class SeedFrameworkService extends AuthUseCase<FrameworkData, void> {
     return new SeedEmptyApiService(this.owner).execute(atoms)
   }
 
-  private async seedFields(fields: Array<IFieldDTO>) {
+  private async seedApis(fields: Array<IFieldDTO>) {
     return this.seeder.seedFields(fields)
   }
 }

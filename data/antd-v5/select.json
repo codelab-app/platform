@@ -1,7 +1,6 @@
 [
   {
     "atom": {
-      "api": "Select props",
       "name": "select"
     },
     "fields": [

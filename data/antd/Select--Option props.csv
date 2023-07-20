@@ -1,5 +1,0 @@
-"property","description","type","default","version","isEnum"
-"className","The additional class to option","string","-","",false
-"disabled","Disable this option","boolean","false","",false
-"title","title attribute of Select Option","string","-","",false
-"value","Default to filter with this property","string | number","-","",false

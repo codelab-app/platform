@@ -42,6 +42,10 @@ export class TaskService implements CommandModule<unknown, unknown> {
               `nx run-many --target=build --projects=platform,platform-api-test -c test`,
             )
           }
+
+          if (stage === Stage.CI) {
+            execCommand('nx build platform -c ci')
+          }
         }),
       )
       .command(
@@ -57,9 +61,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
           }
 
           if (stage === Stage.CI) {
-            execCommand(
-              'npx nx affected --target=test:unit --runInBand --ci -c ci',
-            )
+            execCommand('npx nx affected --target=test:unit --ci -c ci')
           }
         }),
       )
@@ -92,15 +94,14 @@ export class TaskService implements CommandModule<unknown, unknown> {
             }
 
             execCommand('yarn graphql-codegen')
-            // await graphqlCodegen()
             await generateOgmTypes()
 
             process.exit(0)
           }
 
           if (stage === Stage.CI) {
-            const startServer = `nx serve platform-api-test -c ci`
-            const runSpecs = `npx wait-on 'tcp:127.0.0.1:4001' && yarn graphql-codegen && exit 0`
+            const startServer = `nx serve platform-api -c ci`
+            const runSpecs = `npx wait-on 'tcp:127.0.0.1:4000' && yarn graphql-codegen && exit 0`
 
             const runSpecsChildProcess = spawn(runSpecs, {
               detached: true,
@@ -114,39 +115,52 @@ export class TaskService implements CommandModule<unknown, unknown> {
               stdio: 'inherit',
             })
 
-            runSpecsChildProcess.on('exit', async (code: number) => {
-              if (startServerChildProcess.pid) {
-                await generateOgmTypes()
+            await new Promise<void>((resolve, reject) => {
+              runSpecsChildProcess.on('exit', async (code: number) => {
+                if (!startServerChildProcess.pid) {
+                  reject(
+                    new Error('startServerChildProcess.pid is not defined'),
+                  )
+
+                  return
+                }
 
                 try {
+                  await generateOgmTypes()
                   process.kill(-startServerChildProcess.pid, 'SIGINT')
+
+                  const { unCommittedFiles } = await gitChangedFiles()
+                  console.log('Un-committed files', unCommittedFiles)
+
+                  const containsGeneratedFiles = unCommittedFiles.reduce(
+                    (_matches: boolean, file: string) => {
+                      const filename = path.basename(file)
+
+                      return (
+                        _matches ||
+                        filename.includes('.gen.ts') ||
+                        filename === 'schema.graphql'
+                      )
+                    },
+                    false,
+                  )
+
+                  if (containsGeneratedFiles) {
+                    execCommand('git diff')
+                    console.error('Please run codegen!')
+                    process.exit(1)
+                  }
+
+                  resolve()
                 } catch (error) {
                   console.error(error)
+                  reject(error)
                 }
-              }
+              })
 
-              const { unCommittedFiles } = await gitChangedFiles()
-
-              console.log('Un-committed files', unCommittedFiles)
-
-              const containsGeneratedFiles = unCommittedFiles.reduce(
-                (_matches: boolean, file: string) => {
-                  const filename = path.basename(file)
-
-                  return (
-                    _matches ||
-                    filename.includes('.gen.ts') ||
-                    filename === 'schema.graphql'
-                  )
-                },
-                false,
-              )
-
-              if (containsGeneratedFiles) {
-                execCommand('git diff')
-                console.error('Please run codegen!')
-                process.exit(1)
-              }
+              runSpecsChildProcess.on('error', (error) => {
+                reject(error)
+              })
             })
           }
         }),

@@ -2,9 +2,11 @@ import type { TagNode, TagNodeData } from '@codelab/backend/abstract/core'
 import { AuthUseCase } from '@codelab/backend/application/service'
 import { TagRepository } from '@codelab/backend/domain/tag'
 import type { ITagDTO } from '@codelab/shared/abstract/core'
+import { withTracing } from '@codelab/shared/infra/otel'
 import uniqBy from 'lodash/uniqBy'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
+import { TagTreeUtils } from './seed-tags.util'
 
 export class SeedTagsService extends AuthUseCase<TagNode, void> {
   tagRepository: TagRepository = new TagRepository()
@@ -12,40 +14,20 @@ export class SeedTagsService extends AuthUseCase<TagNode, void> {
   async _execute(tagTree: TagNode) {
     const tags = uniqBy(await this.createTagsData(tagTree), (tag) => tag.name)
 
-    /**
-     * Omit parent and children since they need to be created first
-     */
-    await Promise.all(
-      tags.map(
-        async ({ children, parent, ...tag }) =>
-          await this.tagRepository.save(
-            { ...tag, children: [], owner: this.owner },
-            { name: tag.name },
-          ),
-      ),
-    )
-
-    /**
-     * set parent and children after all tags are created
-     */
-    await Promise.all(
-      tags.map(
-        async (tag) => await this.tagRepository.save(tag, { name: tag.name }),
-      ),
-    )
+    await this.tagRepository.seedTags(tags, this.owner)
   }
 
-  /**
+  /* *
    * Here we want to flatten the hierarchical data
    */
-  private async createTagsData(tagTree: TagNode): Promise<Array<ITagDTO>> {
+  async createTagsData(tagTree: TagNode): Promise<Array<ITagDTO>> {
     const existingTags = new Map(
       (await this.tagRepository.find()).map((tag) => [tag.name, tag]),
     )
 
     const tagData: Array<TagNodeData & { id: string }> = await Promise.all(
-      SeedTagsService.createTagTreeData(tagTree)
-        .flatMap((node) => SeedTagsService.flattenTagTree(node))
+      TagTreeUtils.createTagTreeData(tagTree)
+        .flatMap((node) => TagTreeUtils.flattenTagTree(node))
         .map(async (node) => {
           const existingTag = existingTags.get(node.name)
 
@@ -78,61 +60,5 @@ export class SeedTagsService extends AuthUseCase<TagNode, void> {
         parent: parent ? { id: parent.id, name: parent.name } : undefined,
       }
     })
-  }
-
-  /**
-   * Generate parent/children by inference via object nested relationship
-   */
-  static createTagTreeData = (tagTreeData: TagNode): Array<TagNodeData> =>
-    Object.entries(tagTreeData).flatMap(([tagKey, tagNode]) => [
-      SeedTagsService.parseTagNode({ [tagKey]: tagNode }, null),
-    ])
-
-  /**
-   * Function to parse our custom tag structure that is optimized for easy manual editing
-   */
-  static parseTagNode = (node: TagNode, parent: string | null): TagNodeData => {
-    // if (!node) {
-    //   throw new Error('Missing node')
-    // }
-
-    // Meaning have children
-    if (node instanceof Object) {
-      const tagNode = ObjectTyped.entries(node)[0]
-
-      if (!tagNode) {
-        throw new Error('Tag node invalid')
-      }
-
-      const [name, values] = tagNode
-
-      return {
-        children: (values ?? []).map((value) => this.parseTagNode(value, name)),
-        name,
-        parent,
-      }
-    }
-
-    // No children
-    return {
-      children: [],
-      name: node,
-      parent,
-    }
-  }
-
-  static flattenTagTree = (node: TagNodeData): Array<TagNodeData> => {
-    return node.children.map(this.flattenTagTree).reduce(
-      (tagTree: Array<TagNodeData>, tagNodes: Array<TagNodeData>) => {
-        return [...tagTree, ...tagNodes]
-      },
-      [
-        {
-          children: node.children,
-          name: node.name,
-          parent: node.parent,
-        },
-      ],
-    )
   }
 }
