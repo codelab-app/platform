@@ -363,3 +363,297 @@ describe('Element Child Mapper', () => {
     cy.get('#render-root').findByText('text updated test 2').should('not.exist')
   })
 })
+
+describe.only('State sharing between pages', () => {
+  before(() => {
+    cy.resetDatabase()
+    loginSession()
+
+    cy.request('/api/cypress/type')
+
+    cy.request('/api/cypress/atom')
+      .then(() => cy.request<IAppDTO>('/api/cypress/app'))
+      .then((apps) => {
+        const app = apps.body
+
+        // create regular page
+        cy.visit(`/apps/cypress/${slugify(app.name)}/pages`)
+        cy.getSpinner().should('not.exist')
+
+        cy.getSider().getButton({ icon: 'plus' }).click()
+
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(5000)
+
+        cy.findByTestId('create-page-form')
+          .findByLabelText('Name')
+          .type('Testpage')
+        cy.findByTestId('create-page-form')
+          .getButton({ label: 'Create Page' })
+          .click()
+
+        // create a component
+        cy.visit(
+          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+            IPageKindName.Provider,
+          )}/builder?primarySidebarKey=components`,
+        )
+        // GetRenderedPageAndCommonAppData
+        cy.waitForApiCalls()
+        cy.getSpinner().should('not.exist')
+
+        // GetAtoms
+        // GetComponents
+        cy.waitForApiCalls()
+        cy.getSpinner().should('not.exist')
+
+        cy.getCuiSidebar('Components').getToolbarItem('Add Component').click()
+        cy.findByTestId('create-component-form')
+          .findByLabelText('Name')
+          .type(COMPONENT_NAME)
+        cy.findByTestId('create-component-form')
+          .getButton({ label: 'Create Component' })
+          .click()
+        cy.findByTestId('create-component-form').should('not.exist', {
+          timeout: 10000,
+        })
+        cy.findByText(COMPONENT_NAME).should('exist')
+
+        // add element to component
+        cy.getSider().getButton({ icon: 'edit' }).click()
+        cy.wrap(componentChildren).each((child: ComponentChildData) => {
+          cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).trigger('contextmenu')
+
+          cy.contains(/Add child/).click({ force: true })
+          cy.findByTestId('create-element-form').setFormFieldValue({
+            label: 'Render Type',
+            type: FIELD_TYPE.SELECT,
+            value: 'Atom',
+          })
+          cy.findByTestId('create-element-form').setFormFieldValue({
+            label: 'Atom',
+            type: FIELD_TYPE.SELECT,
+            value: child.atom,
+          })
+          cy.findByTestId('create-element-form').setFormFieldValue({
+            label: 'Name',
+            type: FIELD_TYPE.INPUT,
+            value: child.name,
+          })
+          cy.findByTestId('create-element-form')
+            .getButton({ label: 'Create Element' })
+            .click()
+          cy.findByTestId('create-element-form').should('not.exist', {
+            timeout: 10000,
+          })
+          cy.getCuiTreeItemByPrimaryTitle(child.name).click({ force: true })
+        })
+
+        // Should run after each
+        cy.get(`.ant-tabs [aria-label="setting"]`).click()
+        cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
+          'text {{ props.name ?? rootState.name ?? state.name }}',
+          { parseSpecialCharSequences: false },
+        )
+
+        cy.get('#render-root').findByText('text undefined').should('exist')
+
+        cy.get('[data-cy="codelabui-sidebar-view-header-State"]').click()
+        cy.get('[data-cy="codelabui-toolbar-item-Add Field"]').click()
+
+        cy.get(
+          '[data-cy="codelabui-sidebar-view-content-State"]',
+        ).setFormFieldValue({
+          label: 'Key',
+          type: FIELD_TYPE.INPUT,
+          value: 'name',
+        })
+
+        cy.get(
+          '[data-cy="codelabui-sidebar-view-content-State"]',
+        ).setFormFieldValue({
+          label: 'Type',
+          type: FIELD_TYPE.SELECT,
+          value: 'String',
+        })
+
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1000)
+
+        cy.get(
+          '[data-cy="codelabui-sidebar-view-content-State"]',
+        ).setFormFieldValue({
+          label: 'Default values',
+          type: FIELD_TYPE.CODE_MIRROR,
+          value: 'component state value',
+        })
+
+        cy.get('[data-cy="codelabui-sidebar-view-content-State"]')
+          .getButton({ label: 'Create Field' })
+          .click()
+
+        cy.get('#render-root')
+          .findByText('text component state value')
+          .should('exist')
+
+        // go to builder
+        cy.visit(
+          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+            IPageKindName.Provider,
+          )}/builder?primarySidebarKey=explorer`,
+        )
+        cy.getSpinner().should('not.exist')
+
+        // select root now so we can update its child later
+        // there is an issue with tree interaction
+        // Increased timeout since builder may take longer to load
+        cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
+          .should('be.visible')
+          .click({ force: true })
+
+        cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').click()
+
+        cy.findByTestId('create-element-form').setFormFieldValue({
+          label: 'Render Type',
+          type: FIELD_TYPE.SELECT,
+          value: 'Atom',
+        })
+        cy.findByTestId('create-element-form').setFormFieldValue({
+          label: 'Atom',
+          type: FIELD_TYPE.SELECT,
+          value: IAtomType.AntDesignButton,
+        })
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(500)
+        // cy.findByTestId('create-element-form').setFormFieldValue({
+        //   label: 'Name',
+        //   type: FIELD_TYPE.INPUT,
+        //   value: ELEMENT_BUTTON,
+        // })
+        cy.findByTestId('create-element-form')
+          .getButton({ label: 'Create Element' })
+          .click()
+        cy.findByTestId('create-element-form').should('not.exist', {
+          timeout: 10000,
+        })
+      })
+  })
+
+  it('should be able to use the state from the provider page', () => {
+    cy.get('[data-cy="codelabui-sidebar-view-header-State"]').click()
+    cy.get('[data-cy="codelabui-toolbar-item-Add Field"]').click()
+
+    cy.get(
+      '[data-cy="codelabui-sidebar-view-content-State"]',
+    ).setFormFieldValue({
+      label: 'Key',
+      type: FIELD_TYPE.INPUT,
+      value: 'name',
+    })
+
+    cy.get(
+      '[data-cy="codelabui-sidebar-view-content-State"]',
+    ).setFormFieldValue({
+      label: 'Type',
+      type: FIELD_TYPE.SELECT,
+      value: 'String',
+    })
+
+    cy.get(
+      '[data-cy="codelabui-sidebar-view-content-State"]',
+    ).setFormFieldValue({
+      label: 'Default values',
+      type: FIELD_TYPE.CODE_MIRROR,
+      value: 'provider state value',
+    })
+
+    cy.get('[data-cy="codelabui-sidebar-view-content-State"]')
+      .getButton({ label: 'Create Field' })
+      .click()
+
+    // go to builder
+    cy.visit(
+      `/apps/cypress/codelab-app/pages/testpage/builder?primarySidebarKey=explorer`,
+    )
+    // GetRenderedPageAndCommonAppData
+    cy.waitForApiCalls()
+    cy.getSpinner().should('not.exist')
+
+    // GetAtoms
+    // GetComponents
+    cy.waitForApiCalls()
+    cy.getSpinner().should('not.exist')
+
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(5000)
+
+    // select root now so we can update its child later
+    // there is an issue with tree interaction
+    // Increased timeout since builder may take longer to load
+    cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
+      .should('be.visible')
+      .click({ force: true })
+
+    cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
+
+    cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').click()
+
+    cy.findByTestId('create-element-form').setFormFieldValue({
+      label: 'Render Type',
+      type: FIELD_TYPE.SELECT,
+      value: 'Component',
+    })
+    cy.findByTestId('create-element-form').setFormFieldValue({
+      label: 'Component',
+      type: FIELD_TYPE.SELECT,
+      value: COMPONENT_NAME,
+    })
+
+    cy.findByTestId('create-element-form').setFormFieldValue({
+      label: 'Name',
+      type: FIELD_TYPE.INPUT,
+      value: COMPONENT_NAME,
+    })
+
+    cy.findByTestId('create-element-form')
+      .getButton({ label: 'Create Element' })
+      .click()
+
+    cy.findByTestId('create-element-form').should('not.exist', {
+      timeout: 10000,
+    })
+
+    cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').click()
+
+    cy.findByTestId('create-element-form').setFormFieldValue({
+      label: 'Render Type',
+      type: FIELD_TYPE.SELECT,
+      value: 'Atom',
+    })
+    cy.findByTestId('create-element-form').setFormFieldValue({
+      label: 'Atom',
+      type: FIELD_TYPE.SELECT,
+      value: IAtomType.AntDesignButton,
+    })
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(500)
+    // cy.findByTestId('create-element-form').setFormFieldValue({
+    //   label: 'Name',
+    //   type: FIELD_TYPE.INPUT,
+    //   value: ELEMENT_BUTTON,
+    // })
+    cy.findByTestId('create-element-form')
+      .getButton({ label: 'Create Element' })
+      .click()
+    cy.findByTestId('create-element-form').should('not.exist', {
+      timeout: 10000,
+    })
+
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(2000)
+
+    cy.get('#render-root')
+      .findByText('text provider state value')
+      .should('exist')
+  })
+})
