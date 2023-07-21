@@ -13,6 +13,9 @@ export const providerPageData = (app: IEntity, store: IEntity): IPageDTO => ({
   id: v4(),
   kind: IPageKind.Provider,
   name: IPageKindName.Provider,
+  pageContentContainer: {
+    id: providerElementData.id,
+  },
   rootElement: providerElementData,
   store,
   url: IPageKindName.Provider,
