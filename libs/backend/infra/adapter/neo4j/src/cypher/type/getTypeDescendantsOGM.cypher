@@ -13,7 +13,7 @@ CALL apoc.path.subgraphAll(
   type,
   {
     relationshipFilter: '>ARRAY_ITEM_TYPE|>UNION_TYPE_CHILD|>INTERFACE_FIELD|>FIELD_TYPE',
-    labelFilter: '>TYPE|>FIELD'
+    labelFilter: '>Type|>Field'
   }
 ) YIELD nodes
 
