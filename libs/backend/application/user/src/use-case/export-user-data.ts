@@ -3,6 +3,7 @@ import type { IUserDataExport } from '@codelab/backend/abstract/core'
 import { exportApps, exportComponents } from '@codelab/backend/application/app'
 import { exportResources } from '@codelab/backend/application/resource'
 import { exportUserTypes } from '@codelab/backend/application/type'
+import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 
 const nameComparator = (a: { name: string }, b: { name: string }) =>
   a.name.localeCompare(b.name)
@@ -23,10 +24,9 @@ const sortExportData = (exportData: IUserDataExport) => {
   return exportData
 }
 
-export const exportUserData = async (where: AppWhere) => {
+export const exportUserData = async (where: AppWhere, owner?: IAuth0Owner) => {
   const appsData = await exportApps(where)
-  // TODO: Need to export only types used by app
-  const typesData = await exportUserTypes()
+  const typesData = await exportUserTypes(owner)
   const resourcesData = await exportResources()
   const components = await exportComponents(where)
 
