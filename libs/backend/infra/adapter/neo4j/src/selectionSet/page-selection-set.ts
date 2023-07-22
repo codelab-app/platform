@@ -6,8 +6,10 @@ import {
 export const basePageSelectionSet = `
   app {
     id
+    _compoundName
   }
   id
+  _compoundName
   name
   slug
   kind
