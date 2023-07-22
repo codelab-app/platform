@@ -17,7 +17,7 @@ const Index = (props: ProductionWebsiteProps) => {
   })
 
   useMountEffect(actions.execute)
-  console.log({ result, renderer: result?.renderer })
+
   return (
     <>
       <Head>
