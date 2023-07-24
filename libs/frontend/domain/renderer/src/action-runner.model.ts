@@ -152,8 +152,13 @@ export class ActionRunner
     return async function (...args: Array<unknown>) {
       const overrideConfig = args[1] as IPropData
       // @ts-expect-error: due to not using arrow function
-      const state = this as IPropData
-      const evaluatedConfig = replaceStateInProps(config, state)
+      const _this = this as { state: IPropData; rootState?: IPropData }
+
+      const evaluatedConfig = replaceStateInProps(
+        config,
+        _this.state,
+        _this.rootState,
+      )
 
       const fetchPromise =
         resource.type === IResourceType.GraphQL
@@ -171,9 +176,9 @@ export class ActionRunner
       try {
         const response = await fetchPromise
 
-        return successRunner?.call(state, response)
+        return successRunner?.call(_this, response)
       } catch (error) {
-        return errorRunner?.call(state, error)
+        return errorRunner?.call(_this, error)
       }
     }
   }
@@ -185,7 +190,8 @@ export class ActionRunner
       return new Function(
         'props',
         `return function run(...args) {
-          const state = this;
+          const state = this.state;
+          const rootState = this.rootState;
           return ${(this.actionRef.current as ICodeAction).code}(...args)
         }`,
       )

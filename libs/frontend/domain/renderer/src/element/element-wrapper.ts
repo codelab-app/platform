@@ -1,6 +1,7 @@
 import type {
   IComponentType,
   IElement,
+  IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -42,7 +43,23 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
       const actionRunnerId = getRunnerId(store.id, postRenderAction.id)
       const postRenderActionRunner = renderer.actionRunners.get(actionRunnerId)
-      const runner = postRenderActionRunner?.runner.bind(store.current.state)
+
+      const _this: { state: IPropData; rootState?: IPropData } = {
+        state: store.current.state,
+      }
+
+      // If the action used in a regular page is from the provider, the `state` to use
+      // in the action should be the `state` from the provider store
+      if (element.providerStore) {
+        const isActionFromProvider =
+          postRenderActionRunner?.actionRef.current.store.id ===
+          element.providerStore.id
+
+        _this[isActionFromProvider ? 'state' : 'rootState'] =
+          element.providerStore.current.state
+      }
+
+      const runner = postRenderActionRunner?.runner.bind(_this)
 
       runner?.()
     }, [])
