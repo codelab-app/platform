@@ -1,10 +1,10 @@
 import type {
   IComponentType,
   IElement,
-  IPropData,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
 import {
+  getActionRunnerThisObject,
   getRunnerId,
   isAtomInstance,
   RendererType,
@@ -44,24 +44,17 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       const actionRunnerId = getRunnerId(store.id, postRenderAction.id)
       const postRenderActionRunner = renderer.actionRunners.get(actionRunnerId)
 
-      const _this: { state: IPropData; rootState?: IPropData } = {
-        state: store.current.state,
+      if (postRenderActionRunner) {
+        const _this = getActionRunnerThisObject(
+          postRenderActionRunner,
+          element.store,
+          element.providerStore,
+        )
+
+        postRenderActionRunner.runner.bind(_this)
+
+        postRenderActionRunner.runner()
       }
-
-      // If the action used in a regular page is from the provider, the `state` to use
-      // in the action should be the `state` from the provider store
-      if (element.providerStore) {
-        const isActionFromProvider =
-          postRenderActionRunner?.actionRef.current.store.id ===
-          element.providerStore.id
-
-        _this[isActionFromProvider ? 'state' : 'rootState'] =
-          element.providerStore.current.state
-      }
-
-      const runner = postRenderActionRunner?.runner.bind(_this)
-
-      runner?.()
     }, [])
 
     const { atomService } = useStore()

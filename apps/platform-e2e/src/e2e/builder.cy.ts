@@ -364,7 +364,7 @@ describe('Element Child Mapper', () => {
   })
 })
 
-describe.only('State variables sharing between pages', () => {
+describe('State variables sharing between pages', () => {
   before(() => {
     cy.resetDatabase()
     loginSession()

@@ -3,7 +3,6 @@ import type {
   IElementTree,
   IExpressionTransformer,
   IPageNode,
-  IPropData,
   IRenderer,
   IRenderOutput,
   IRenderPipe,
@@ -17,6 +16,7 @@ import {
   CUSTOM_TEXT_PROP_KEY,
   elementRef,
   elementTreeRef,
+  getActionRunnerThisObject,
   getRendererId,
   getRunnerId,
   IElement,
@@ -196,24 +196,17 @@ export class Renderer
       const actionRunnerId = getRunnerId(store.id, preRenderAction.id)
       const preRenderActionRunner = this.actionRunners.get(actionRunnerId)
 
-      const _this: { state: IPropData; rootState?: IPropData } = {
-        state: store.current.state,
+      if (preRenderActionRunner) {
+        const _this = getActionRunnerThisObject(
+          preRenderActionRunner,
+          element.store,
+          element.providerStore,
+        )
+
+        preRenderActionRunner.runner.bind(_this)
+
+        preRenderActionRunner.runner()
       }
-
-      // If the action used in a regular page is from the provider, the `state` to use
-      // in the action should be the `state` from the provider store
-      if (element.providerStore) {
-        const isActionFromProvider =
-          preRenderActionRunner?.actionRef.current.store.id ===
-          element.providerStore.id
-
-        _this[isActionFromProvider ? 'state' : 'rootState'] =
-          element.providerStore.current.state
-      }
-
-      const runner = preRenderActionRunner?.runner.bind(_this)
-
-      runner?.()
     }
 
     return React.createElement(ElementWrapper, wrapperProps)

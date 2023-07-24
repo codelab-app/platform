@@ -1,4 +1,5 @@
 import type {
+  ActionRunnerThisObject,
   IAction,
   IActionRunner,
   IApiAction,
@@ -152,7 +153,7 @@ export class ActionRunner
     return async function (...args: Array<unknown>) {
       const overrideConfig = args[1] as IPropData
       // @ts-expect-error: due to not using arrow function
-      const _this = this as { state: IPropData; rootState?: IPropData }
+      const _this = this as ActionRunnerThisObject
 
       const evaluatedConfig = replaceStateInProps(
         config,
