@@ -8,6 +8,7 @@
 # When you use a bind mount, as in your example, Docker doesn't create a named volume. Instead, it directly maps the file or directory from your host machine into the container. In this case, ./prometheus.yaml from your local machine is being mounted to /etc/prometheus/prometheus.yml within the container.
 #
 version: '3.8'
+name: 'codelab'
 services:
   neo4j:
     container_name: codelab-neo4j
