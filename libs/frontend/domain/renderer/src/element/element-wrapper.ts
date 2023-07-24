@@ -51,9 +51,9 @@ export const ElementWrapper = observer<ElementWrapperProps>(
           element.providerStore,
         )
 
-        postRenderActionRunner.runner.bind(_this)
+        const runner = postRenderActionRunner.runner.bind(_this)
 
-        postRenderActionRunner.runner()
+        runner()
       }
     }, [])
 

@@ -203,9 +203,9 @@ export class Renderer
           element.providerStore,
         )
 
-        preRenderActionRunner.runner.bind(_this)
+        const runner = preRenderActionRunner.runner.bind(_this)
 
-        preRenderActionRunner.runner()
+        runner()
       }
     }
 
