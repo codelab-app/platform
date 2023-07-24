@@ -1,6 +1,8 @@
 import type { IComponentType } from '@codelab/frontend/abstract/core'
 import React from 'react'
+import type { AnyStyledComponent } from 'styled-components'
 import styled from 'styled-components'
+import { htmlAtoms } from '../atoms'
 
 /**
  * Only wrap the component with styled() if it's a valid component (not a string or React.Fragment)
@@ -9,13 +11,18 @@ export const getStyledComponent = (
   ReactComponent: IComponentType,
   cssString: string | null | undefined,
 ) => {
-  if (
+  const isHtmlAtom = Object.values(htmlAtoms).includes(ReactComponent)
+
+  const isReactComponent =
     ReactComponent.$$typeof !== React.Fragment.$$typeof &&
-    typeof ReactComponent === 'object' &&
+    typeof ReactComponent === 'object'
+
+  if (
+    (isReactComponent || isHtmlAtom) &&
     // Wrap if contains cssString
     cssString
   ) {
-    return styled(ReactComponent)`
+    return styled(ReactComponent as AnyStyledComponent)`
       ${cssString}
     `
   }
