@@ -155,6 +155,7 @@ export class TypeSchemaFactory {
           typeName: innerType.current.name,
         }
       }),
+      required: ['type'],
     }
   }
 
