@@ -23,5 +23,5 @@ export const useCurrentApp = () => {
     const app = appService.appsList.find(({ name }) => name === appName)
 
     return { _compoundName, app, appName, appSlug, userName }
-  }, [appName])
+  }, [appName, appService.appsList])
 }
