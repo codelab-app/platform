@@ -150,12 +150,12 @@ export class TypeSchemaFactory {
           label: '',
           properties,
           ...context?.validationRules?.general,
+          required: ['type'],
           type: 'object',
           // We use this as label of the select field item
           typeName: innerType.current.name,
         }
       }),
-      required: ['type'],
     }
   }
 
