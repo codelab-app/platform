@@ -47,7 +47,7 @@ export const isComponentInstance = (
   return !isNil(node) && isRefOfType(node, componentRef)
 }
 
-export const isComponentModel = (model: object): model is IComponent => {
+export const isComponentModel = (model?: object): model is IComponent => {
   return (
     !isNil(model) &&
     // `IComponent` is mobx model type

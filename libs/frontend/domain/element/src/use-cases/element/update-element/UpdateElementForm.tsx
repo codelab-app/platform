@@ -3,10 +3,7 @@ import type {
   IUpdateBaseElementData,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/core'
-import {
-  DATA_COMPONENT_ID,
-  DATA_ELEMENT_ID,
-} from '@codelab/frontend/abstract/core'
+import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import { SelectActionField } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
 import {
@@ -43,25 +40,29 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     }
 
     const propsData = React.useMemo(() => {
-      const props = element.runtimeProp?.evaluatedProps
+      // Include component instance props on the selection of props
+      const props = mergeProps(
+        element.runtimeProp?.evaluatedProps,
+        element.parentComponent?.current.runtimeProp?.evaluatedProps,
+      )
 
-      // Show component props on the selection of props
-      const componentProps = Object.entries(
-        omit(element.parentComponent?.current.runtimeProp?.evaluatedProps, [
-          'key',
-          DATA_COMPONENT_ID,
-        ]),
-      ).reduce<Record<string, unknown>>((acc, [key, val]) => {
-        acc[`props.${key}`] = val
+      const stateProps = Object.entries(element.store.current.state).reduce<
+        Record<string, unknown>
+      >((acc, [key, val]) => {
+        acc[`state.${key}`] = val
 
         return acc
       }, {})
 
-      const propsAndState = mergeProps(
-        props,
-        element.store.current.state,
-        componentProps,
-      )
+      const rootStateProps = Object.entries(
+        element.providerStore?.current.state ?? {},
+      ).reduce<Record<string, unknown>>((acc, [key, val]) => {
+        acc[`rootState.${key}`] = val
+
+        return acc
+      }, {})
+
+      const propsAndState = mergeProps(props, stateProps, rootStateProps)
 
       return omit(propsAndState, ['key', DATA_ELEMENT_ID])
     }, [element])

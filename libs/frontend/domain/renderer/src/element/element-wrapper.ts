@@ -4,6 +4,7 @@ import type {
   IRenderer,
 } from '@codelab/frontend/abstract/core'
 import {
+  getActionRunnerThisObject,
   getRunnerId,
   isAtomInstance,
   RendererType,
@@ -42,9 +43,18 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
       const actionRunnerId = getRunnerId(store.id, postRenderAction.id)
       const postRenderActionRunner = renderer.actionRunners.get(actionRunnerId)
-      const runner = postRenderActionRunner?.runner.bind(store.current.state)
 
-      runner?.()
+      if (postRenderActionRunner) {
+        const _this = getActionRunnerThisObject(
+          postRenderActionRunner,
+          element.store,
+          element.providerStore,
+        )
+
+        const runner = postRenderActionRunner.runner.bind(_this)
+
+        runner()
+      }
     }, [])
 
     const { atomService } = useStore()

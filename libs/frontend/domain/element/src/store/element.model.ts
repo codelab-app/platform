@@ -210,6 +210,12 @@ export class Element
   }
 
   @computed
+  get providerStore(): Ref<IStore> | undefined {
+    return this.renderService.activeRenderer?.current.providerTree?.current
+      .rootElement.current.store
+  }
+
+  @computed
   get children(): Array<IElement> {
     const firstChild = this.firstChild
 

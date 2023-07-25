@@ -88,6 +88,8 @@ export interface IElement
   prevSibling?: Nullable<Ref<IElement>>
   propTransformationJs: Nullable<string>
   props: Ref<IProp>
+  // store attached to the provider page
+  providerStore?: Ref<IStore>
   renderForEachPropKey: Nullable<string>
   renderIfExpression: Nullable<string>
   renderType: IElementRenderType | null

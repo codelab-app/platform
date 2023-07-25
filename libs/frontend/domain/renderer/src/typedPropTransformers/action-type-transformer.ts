@@ -1,8 +1,12 @@
+import type {
+  IPageNode,
+  ITypedPropTransformer,
+  TypedProp,
+} from '@codelab/frontend/abstract/core'
 import {
+  getActionRunnerThisObject,
   getRunnerId,
-  type IPageNode,
-  type ITypedPropTransformer,
-  type TypedProp,
+  isElementPageNode,
 } from '@codelab/frontend/abstract/core'
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { ExtendedModel, model } from 'mobx-keystone'
@@ -33,17 +37,35 @@ export class ActionTypeTransformer
       return prop.value
     }
 
-    const state = node.store.current.state
+    const providerStore = isElementPageNode(node)
+      ? node.providerStore
+      : undefined
 
-    const actionRunner = this.renderer.actionRunners.get(
+    const localActionRunner = this.renderer.actionRunners.get(
       getRunnerId(node.store.id, prop.value),
     )
+
+    const rootActionRunner = providerStore
+      ? this.renderer.actionRunners.get(
+          getRunnerId(providerStore.id, prop.value),
+        )
+      : undefined
 
     const fallback = () =>
       console.error(`fail to call action with id ${prop.value}`)
 
-    const runner = actionRunner?.runner || fallback
+    const actionRunner = localActionRunner ?? rootActionRunner
 
-    return runner.bind(state)
+    if (actionRunner) {
+      const _this = getActionRunnerThisObject(
+        actionRunner,
+        node.store,
+        providerStore,
+      )
+
+      return actionRunner.runner.bind(_this)
+    }
+
+    return fallback
   }
 }
