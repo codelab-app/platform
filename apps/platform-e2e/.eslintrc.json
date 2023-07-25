@@ -11,8 +11,7 @@
       "rules": {
         "import/no-unresolved": "error",
         "import/named": "error",
-        "jest/valid-expect": "off",
-        "@nx/enforce-module-boundaries": "off",
+        // "jest/valid-expect": "off",
         "@typescript-eslint/no-explicit-any": "off"
       }
     },

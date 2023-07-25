@@ -1,4 +1,5 @@
 import { print } from 'graphql'
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { ResetDatabaseDocument } from 'libs/frontend/domain/admin/src/graphql/admin.endpoints.graphql.gen'
 
 export const resetDatabase = () =>

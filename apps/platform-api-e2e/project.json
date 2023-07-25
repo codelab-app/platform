@@ -48,6 +48,6 @@
       }
     }
   },
-  "tags": [],
+  "tags": ["scope:frontend"],
   "implicitDependencies": ["platform-api"]
 }

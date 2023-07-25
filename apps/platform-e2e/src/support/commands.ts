@@ -1,13 +1,17 @@
-import { auth0Commands } from './auth0/auth0.register'
+import { antCommands } from '@codelab/testing/cypress/antd'
+import {
+  auth0Commands,
+  registerCommands,
+} from '@codelab/testing/cypress/command'
+import { nextjsAuth0Commands } from '@codelab/testing/cypress/nextjs-auth0'
 import { builderCommands } from './builder'
 import { databaseCommands } from './database'
 import { UICommands } from './entities'
 import { helpersCommands } from './helpers'
-import { nextjsAuth0Commands } from './nextjs-auth0/nextjs-auth0.register'
-import { textEditorCommands } from './text-editor/text-editor.register'
 
 const commands = [
   ...helpersCommands,
+  ...antCommands,
   ...databaseCommands,
   ...UICommands,
   ...auth0Commands,
@@ -16,8 +20,4 @@ const commands = [
   ...textEditorCommands,
 ]
 
-for (const cmd of commands) {
-  cmd.options
-    ? Cypress.Commands.add(cmd.name, cmd.options, cmd.fn)
-    : Cypress.Commands.add(cmd.name, cmd.fn)
-}
+registerCommands(commands)

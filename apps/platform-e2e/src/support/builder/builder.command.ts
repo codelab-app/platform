@@ -1,5 +1,5 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import { FIELD_TYPE } from '../antd/form'
+import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
 
 export const NEW_ELEMENT_ID_NAME = 'elementId'
 export interface ElementData {

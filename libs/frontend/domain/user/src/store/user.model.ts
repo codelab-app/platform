@@ -1,10 +1,10 @@
 import type { IUser } from '@codelab/frontend/abstract/core'
 // import { appRef } from '@codelab/frontend/domain/app'
-import type { ICreateUserDTO, IRole } from '@codelab/shared/abstract/core'
+import type { IRole, IUserDTO } from '@codelab/shared/abstract/core'
 // import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, prop } from 'mobx-keystone'
 
-const create = ({ apps, auth0Id, id, roles, username }: ICreateUserDTO) => {
+const create = ({ apps, auth0Id, id, roles, username }: IUserDTO) => {
   return new User({
     // apps: apps?.map((app) => appRef(app.id)),
     auth0Id,

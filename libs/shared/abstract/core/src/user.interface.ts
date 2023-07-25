@@ -5,7 +5,7 @@ import type { IRole } from './role.enum'
 /**
  * Create User
  */
-export class ICreateUserDTO {
+export class IUserDTO {
   apps?: Array<IEntity>
 
   @IsString()
@@ -27,4 +27,4 @@ export interface IAuth0Owner {
   owner: IAuth0User
 }
 
-export type IAuth0User = Pick<ICreateUserDTO, 'auth0Id'>
+export type IAuth0User = Pick<IUserDTO, 'auth0Id'>

@@ -1,0 +1,16 @@
+{
+  "name": "testing-cypress-antd",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/testing/cypress/antd/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/testing/cypress/antd/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:shared"]
+}

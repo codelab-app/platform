@@ -1,10 +1,10 @@
 import { execCommand } from '@codelab/backend/infra/adapter/shell'
+import { Stage } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
 import { globalHandler } from '../../shared/handler'
 import { loadStageMiddleware } from '../../shared/middleware'
 import { getStageOptions } from '../../shared/options'
-import { Stage } from '../../../../../../../shared/abstract/core/src/stage'
 
 @Injectable()
 export class TerraformService implements CommandModule<unknown, unknown> {

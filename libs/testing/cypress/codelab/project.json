@@ -1,0 +1,16 @@
+{
+  "name": "testing-cypress-codelab",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/testing/cypress/codelab/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/testing/cypress/codelab/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:shared"]
+}

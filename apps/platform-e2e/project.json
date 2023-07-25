@@ -101,6 +101,6 @@
       }
     }
   },
-  "tags": [],
+  "tags": ["scope:frontend"],
   "implicitDependencies": ["platform"]
 }

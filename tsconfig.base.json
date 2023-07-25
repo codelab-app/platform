@@ -245,7 +245,19 @@
       ],
       "@codelab/shared/infra/otel": ["libs/shared/infra/otel/src/index.ts"],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
-      "@codelab/workspace": ["libs/tools/workspace/src/index.ts"]
+      "@codelab/testing/cypress/antd": [
+        "libs/testing/cypress/antd/src/index.ts"
+      ],
+      "@codelab/testing/cypress/command": [
+        "libs/testing/cypress/command/src/index.ts"
+      ],
+      "@codelab/testing/cypress/nextjs-auth0": [
+        "libs/testing/cypress/nextjs-auth0/src/index.ts"
+      ],
+      "@codelab/workspace": ["libs/tools/workspace/src/index.ts"],
+      "@codelab/testing/cypress/codelab": [
+        "libs/testing/cypress/codelab/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"],

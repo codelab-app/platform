@@ -8,12 +8,12 @@ import {
   userSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { ICreateUserDTO } from '@codelab/shared/abstract/core'
+import type { IUserDTO } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class UserRepository extends AbstractRepository<
-  ICreateUserDTO,
+  IUserDTO,
   User,
   UserWhere,
   UserOptions
@@ -41,7 +41,7 @@ export class UserRepository extends AbstractRepository<
     })
   }
 
-  protected async _add(users: Array<ICreateUserDTO>) {
+  protected async _add(users: Array<IUserDTO>) {
     return (
       await (
         await this.User
@@ -53,10 +53,7 @@ export class UserRepository extends AbstractRepository<
     ).users
   }
 
-  protected async _update(
-    { apps, id, ...user }: ICreateUserDTO,
-    where: UserWhere,
-  ) {
+  protected async _update({ apps, id, ...user }: IUserDTO, where: UserWhere) {
     return (
       await (
         await this.User

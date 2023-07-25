@@ -14,7 +14,6 @@
 // ***********************************************************
 import '@testing-library/cypress/add-commands'
 import './commands'
-import './antd/register'
 import './codelab-ui/register'
 
 // afterEach(stopOnFirstError)

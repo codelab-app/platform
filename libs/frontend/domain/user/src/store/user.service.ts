@@ -1,6 +1,6 @@
 import type { IUser, IUserService } from '@codelab/frontend/abstract/core'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
-import type { ICreateUserDTO } from '@codelab/shared/abstract/core'
+import type { IUserDTO } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
@@ -16,7 +16,7 @@ import {
 import { userApi } from './user.api'
 import { User } from './user.model'
 
-const init = (data?: ICreateUserDTO) => {
+const init = (data?: IUserDTO) => {
   // SSR makes it such that user may be undefined
   if (!data) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

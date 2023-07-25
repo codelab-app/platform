@@ -2,7 +2,6 @@ import type { IActionExport } from '@codelab/backend/abstract/core'
 import {
   exportApiActionSelectionSet,
   exportCodeActionSelectionSet,
-  Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import type { IActionDTO } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
@@ -44,21 +43,21 @@ export class ActionFactory {
   }
 }
 
-export const exportActions = async (
-  storeId: string,
-): Promise<Array<IActionExport>> => {
-  const CodeAction = await Repository.instance.CodeAction
-  const ApiAction = await Repository.instance.ApiAction
+// export const exportActions = async (
+//   storeId: string,
+// ): Promise<Array<IActionExport>> => {
+//   const CodeAction = await Repository.instance.CodeAction
+//   const ApiAction = await Repository.instance.ApiAction
 
-  const codeActions = await CodeAction.find({
-    selectionSet: exportCodeActionSelectionSet,
-    where: { store: { id: storeId } },
-  })
+//   const codeActions = await CodeAction.find({
+//     selectionSet: exportCodeActionSelectionSet,
+//     where: { store: { id: storeId } },
+//   })
 
-  const apiActions = await ApiAction.find({
-    selectionSet: exportApiActionSelectionSet,
-    where: { store: { id: storeId } },
-  })
+//   const apiActions = await ApiAction.find({
+//     selectionSet: exportApiActionSelectionSet,
+//     where: { store: { id: storeId } },
+//   })
 
-  return [...codeActions, ...apiActions]
-}
+//   return [...codeActions, ...apiActions]
+// }

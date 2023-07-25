@@ -1,0 +1,16 @@
+{
+  "name": "testing-cypress-command",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/testing/cypress/command/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/testing/cypress/command/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:shared"]
+}

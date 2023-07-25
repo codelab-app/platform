@@ -1,12 +1,13 @@
 import type { HtmlField } from '@codelab/backend/abstract/core'
 import type { IUseCase } from '@codelab/backend/abstract/types'
-import { UserService } from '@codelab/backend/application/user'
+import { CurrentUser } from '@codelab/backend/application/service'
 import {
   Field,
   FieldRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
 import type { IAtomDTO, IFieldDTO } from '@codelab/shared/abstract/core'
+import { IAuth0User } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import { readFileSync } from 'fs'
@@ -21,13 +22,14 @@ export class ExtractHtmlFieldsService
   implements IUseCase<Array<IAtomDTO>, Array<IFieldDTO>>
 {
   constructor(
-    private readonly userService: UserService,
+    @CurrentUser() private owner: IAuth0User,
+    private typeFactory: TypeFactory,
     private readonly fieldRepository: FieldRepository,
   ) {}
 
   private htmlDataFolder = `${process.cwd()}/data/html/`
 
-  async _execute(atoms: Array<IAtomDTO>) {
+  async execute(atoms: Array<IAtomDTO>) {
     const htmlAttributesByName = JSON.parse(
       readFileSync(path.resolve(this.htmlDataFolder, 'html.json'), 'utf8'),
     ) as HtmlData
@@ -86,14 +88,14 @@ export class ExtractHtmlFieldsService
       field: {
         key: field.key,
       },
-      owner: this.userService.getCurrentUser(),
+      owner: this.owner,
     }).execute({ type: field.type })
 
     if (!fieldTypeDTO) {
       return undefined
     }
 
-    const type = await TypeFactory.save(
+    const type = await this.typeFactory.save(
       {
         ...fieldTypeDTO,
         owner: this.owner,

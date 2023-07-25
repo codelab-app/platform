@@ -1,5 +1,6 @@
 import { OgmService } from '@codelab/backend/infra/adapter/neo4j'
 import { execCommand } from '@codelab/backend/infra/adapter/shell'
+import { Stage } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { spawn } from 'child_process'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -11,7 +12,6 @@ import type { Argv, CommandModule } from 'yargs'
 import { globalHandler } from '../../shared/handler'
 import { loadStageMiddleware } from '../../shared/middleware'
 import { getStageOptions } from '../../shared/options'
-import { Stage } from '../../../../../../../shared/abstract/core/src/stage'
 import { Tasks } from '../../shared/utils/tasks'
 
 /**

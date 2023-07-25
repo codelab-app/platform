@@ -1,12 +1,12 @@
 import type { AntDesignField } from '@codelab/backend/abstract/core'
-import { UseCase } from '@codelab/backend/application/service'
-import { UserService } from '@codelab/backend/application/user'
+import { CurrentUser, UseCase } from '@codelab/backend/application/service'
 import {
   Field,
   FieldRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
 import type { IAtomDTO, IFieldDTO } from '@codelab/shared/abstract/core'
+import { IAuth0User } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import find from 'lodash/find'
@@ -24,11 +24,15 @@ export class ExtractAntDesignFieldsService extends UseCase<
   Array<IAtomDTO>,
   Array<IFieldDTO>
 > {
-  constructor(private userService: UserService) {}
-
   private antdDataFolder = `${process.cwd()}/data/antd-v5/`
 
-  fieldRepository = new FieldRepository()
+  constructor(
+    private fieldRepository: FieldRepository,
+    private typeFactory: TypeFactory,
+    @CurrentUser() private owner: IAuth0User,
+  ) {
+    super()
+  }
 
   /**
    * Extract data to be used for seeding, these data have already been mapped with correct ID for upsert
@@ -99,7 +103,7 @@ export class ExtractAntDesignFieldsService extends UseCase<
       return undefined
     }
 
-    const type = await TypeFactory.save(
+    const type = await this.typeFactory.save(
       {
         ...fieldTypeDTO,
         owner: this.owner,

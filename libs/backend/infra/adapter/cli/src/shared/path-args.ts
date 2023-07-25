@@ -1,12 +1,12 @@
 import { Role } from '@codelab/backend/abstract/codegen'
 import { User, UserRepository } from '@codelab/backend/domain/user'
 import type { IAuth0User } from '@codelab/shared/abstract/core'
+import { Stage } from '@codelab/shared/abstract/core'
 import { getEnv } from '@codelab/shared/config'
 import inquirer from 'inquirer'
 import { v4 } from 'uuid'
 import type { MiddlewareFunction, Options } from 'yargs'
 import { selectUserPrompt } from './prompts/select-user'
-import { Stage } from '../../../../../../shared/abstract/core/src/stage'
 
 export interface ExportProps {
   adminDataPath?: string

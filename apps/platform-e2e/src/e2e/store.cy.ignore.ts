@@ -1,6 +1,6 @@
 import { IActionKind, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
-import { FIELD_TYPE } from '../support/antd/form'
-import { loginSession } from '../support/nextjs-auth0/commands/login'
+import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 import {
   actionBody,
   actionName,
