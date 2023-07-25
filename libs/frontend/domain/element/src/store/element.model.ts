@@ -42,11 +42,7 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import {
-  type IAuth0Owner,
-  type IElementDTO,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import type { IAuth0User, IElementDTO } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {
@@ -151,7 +147,7 @@ export class Element
     name: prop<string>().withSetter(),
     nextSibling: prop<Nullable<Ref<IElement>>>(null).withSetter(),
     orderInParent: prop<Nullable<number>>(null).withSetter(),
-    owner: prop<Nullable<IAuth0Owner>>(null),
+    owner: prop<Nullable<IAuth0User>>(null),
     // Data used for tree initializing, before our Element model is ready
     parent: prop<Nullable<Ref<IElement>>>(null).withSetter(),
     postRenderAction: prop<Nullable<Ref<IAction>>>(null).withSetter(),

@@ -1,0 +1,1535 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "7a188f10-41ac-454e-b452-b64b68c7ea17",
+    "kind": "InterfaceType",
+    "name": "AntDesignMenu API",
+    "owner": {
+      "auth0Id": "auth0|6359ff8a417a19750991123b"
+    },
+    "fields": [
+      {
+        "id": "f970dde5-ae2d-4b64-b35e-72341b141e4b",
+        "key": "triggerSubMenuAction",
+        "name": "Trigger Sub Menu Action",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "795fcc22-56c6-43e5-b3c9-988ba90f719c",
+          "kind": "EnumType",
+          "name": "AntDesignMenu Trigger Sub Menu Action Enum"
+        },
+        "api": {
+          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+        }
+      },
+      {
+        "id": "489a1fa0-7ce7-40bd-98e1-6dbfa4946778",
+        "key": "theme",
+        "name": "Theme",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "409f602b-ad21-426b-a191-a46e579077b4",
+          "kind": "EnumType",
+          "name": "AntDesignMenu Theme Enum"
+        },
+        "api": {
+          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+        }
+      },
+      {
+        "id": "cf0bb624-dea0-4b5a-a7f1-3bd51b4fc571",
+        "key": "subMenuOpenDelay",
+        "name": "Sub Menu Open Delay",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+        }
+      },
+      {
+        "id": "f5b99820-5000-4322-91fb-df18e57f5caf",
+        "key": "subMenuCloseDelay",
+        "name": "Sub Menu Close Delay",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+        }
+      },
+      {
+        "id": "29e2171f-6dc8-4538-b68a-3a37e81b5275",
+        "key": "selectable",
+        "name": "Selectable",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+        }
+      },
+      {
+        "id": "7e8cde3b-2c0f-4cdb-8131-37b1e8beccd8",
+        "key": "overflowedIndicator",
+        "name": "Overflowed Indicator",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+        }
+      },
+      {
+        "id": "ffc278b0-858c-4689-b3c7-a7b62cbc3e8f",
+        "key": "onSelect",
+        "name": "On Select",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+        }
+      },
+      {
+        "id": "74f85c48-3510-4b1b-b404-9f1c249b5eaa",
+        "key": "onOpenChange",
+        "name": "On Open Change",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+        }
+      },
+      {
+        "id": "6fc2d8ad-d46c-4a19-b89c-8cb0e80431ca",
+        "key": "onDeselect",
+        "name": "On Deselect",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+        }
+      },
+      {
+        "id": "e607b6d9-95bf-454e-916f-f15328e8cc12",
+        "key": "onClick",
+        "name": "On Click",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "ActionType",
+          "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+          "kind": "ActionType",
+          "name": "ActionType"
+        },
+        "api": {
+          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+        }
+      },
+      {
+        "id": "775ba441-8d0f-4dd6-9e9a-2a32375f43c1",
+        "key": "multiple",
+        "name": "Multiple",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+        }
+      },
+      {
+        "id": "481d0c41-2d86-400e-9d0f-38c33d8c585d",
+        "key": "mode",
+        "name": "Mode",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "3551485e-cb49-4e56-88d1-a96244bdbe16",
+          "kind": "EnumType",
+          "name": "AntDesignMenu Mode Enum"
+        },
+        "api": {
+          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+        }
+      },
+      {
+        "id": "435cacb5-c21a-43d4-9736-3aae49898881",
+        "key": "items",
+        "name": "Items",
+        "description": null,
+        "validationRules": "{\"general\":{\"nullable\":true}}",
+        "defaultValues": "null",
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "ArrayType",
+          "id": "61e9178f-9a23-4fc0-bb0b-d8264431f254",
+          "kind": "ArrayType",
+          "name": "AntDesignMenuItemTypeArray"
+        },
+        "api": {
+          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+        }
+      },
+      {
+        "id": "c00e4568-76a6-4da9-8c12-b88ee4af1d25",
+        "key": "inlineIndent",
+        "name": "Inline Indent",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+        }
+      },
+      {
+        "id": "7af1a64d-d90f-4586-a7a8-bd867b4941b3",
+        "key": "inlineCollapsed",
+        "name": "Inline Collapsed",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+        }
+      },
+      {
+        "id": "4308a60e-8fad-4a8f-8ab9-48e2008714d1",
+        "key": "forceSubMenuRender",
+        "name": "Force Sub Menu Render",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+        }
+      },
+      {
+        "id": "4a93ca4b-9fa6-4473-85f1-a75495ee9cc3",
+        "key": "expandIcon",
+        "name": "Expand Icon",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "ec4ded3f-1b18-4749-a06b-6d6a8fa1cc48",
+          "kind": "EnumType",
+          "name": "AntDesignMenu Expand Icon Enum"
+        },
+        "api": {
+          "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+        }
+      }
+    ]
+  },
+  "atom": {
+    "id": "b390b521-50f7-4973-92b5-5fc42624f560",
+    "name": "AntDesignMenu",
+    "type": "AntDesignMenu",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "7a188f10-41ac-454e-b452-b64b68c7ea17",
+      "kind": "InterfaceType",
+      "name": "AntDesignMenu API",
+      "owner": {
+        "auth0Id": "auth0|6359ff8a417a19750991123b"
+      },
+      "fields": [
+        {
+          "id": "f970dde5-ae2d-4b64-b35e-72341b141e4b",
+          "key": "triggerSubMenuAction",
+          "name": "Trigger Sub Menu Action",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "795fcc22-56c6-43e5-b3c9-988ba90f719c",
+            "kind": "EnumType",
+            "name": "AntDesignMenu Trigger Sub Menu Action Enum"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "489a1fa0-7ce7-40bd-98e1-6dbfa4946778",
+          "key": "theme",
+          "name": "Theme",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "409f602b-ad21-426b-a191-a46e579077b4",
+            "kind": "EnumType",
+            "name": "AntDesignMenu Theme Enum"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "cf0bb624-dea0-4b5a-a7f1-3bd51b4fc571",
+          "key": "subMenuOpenDelay",
+          "name": "Sub Menu Open Delay",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+            "kind": "PrimitiveType",
+            "name": "Number"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "f5b99820-5000-4322-91fb-df18e57f5caf",
+          "key": "subMenuCloseDelay",
+          "name": "Sub Menu Close Delay",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+            "kind": "PrimitiveType",
+            "name": "Number"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "29e2171f-6dc8-4538-b68a-3a37e81b5275",
+          "key": "selectable",
+          "name": "Selectable",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "7e8cde3b-2c0f-4cdb-8131-37b1e8beccd8",
+          "key": "overflowedIndicator",
+          "name": "Overflowed Indicator",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "ffc278b0-858c-4689-b3c7-a7b62cbc3e8f",
+          "key": "onSelect",
+          "name": "On Select",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ActionType",
+            "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+            "kind": "ActionType",
+            "name": "ActionType"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "74f85c48-3510-4b1b-b404-9f1c249b5eaa",
+          "key": "onOpenChange",
+          "name": "On Open Change",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ActionType",
+            "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+            "kind": "ActionType",
+            "name": "ActionType"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "6fc2d8ad-d46c-4a19-b89c-8cb0e80431ca",
+          "key": "onDeselect",
+          "name": "On Deselect",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ActionType",
+            "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+            "kind": "ActionType",
+            "name": "ActionType"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "e607b6d9-95bf-454e-916f-f15328e8cc12",
+          "key": "onClick",
+          "name": "On Click",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ActionType",
+            "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+            "kind": "ActionType",
+            "name": "ActionType"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "775ba441-8d0f-4dd6-9e9a-2a32375f43c1",
+          "key": "multiple",
+          "name": "Multiple",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "481d0c41-2d86-400e-9d0f-38c33d8c585d",
+          "key": "mode",
+          "name": "Mode",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "3551485e-cb49-4e56-88d1-a96244bdbe16",
+            "kind": "EnumType",
+            "name": "AntDesignMenu Mode Enum"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "435cacb5-c21a-43d4-9736-3aae49898881",
+          "key": "items",
+          "name": "Items",
+          "description": null,
+          "validationRules": "{\"general\":{\"nullable\":true}}",
+          "defaultValues": "null",
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ArrayType",
+            "id": "61e9178f-9a23-4fc0-bb0b-d8264431f254",
+            "kind": "ArrayType",
+            "name": "AntDesignMenuItemTypeArray"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "c00e4568-76a6-4da9-8c12-b88ee4af1d25",
+          "key": "inlineIndent",
+          "name": "Inline Indent",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+            "kind": "PrimitiveType",
+            "name": "Number"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "7af1a64d-d90f-4586-a7a8-bd867b4941b3",
+          "key": "inlineCollapsed",
+          "name": "Inline Collapsed",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "4308a60e-8fad-4a8f-8ab9-48e2008714d1",
+          "key": "forceSubMenuRender",
+          "name": "Force Sub Menu Render",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "4a93ca4b-9fa6-4473-85f1-a75495ee9cc3",
+          "key": "expandIcon",
+          "name": "Expand Icon",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "ec4ded3f-1b18-4749-a06b-6d6a8fa1cc48",
+            "kind": "EnumType",
+            "name": "AntDesignMenu Expand Icon Enum"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        }
+      ]
+    },
+    "icon": "Menu",
+    "owner": {
+      "auth0Id": "auth0|6359ff8a417a19750991123b"
+    },
+    "tags": [
+      {
+        "id": "9b75586d-d12d-471a-974c-07676491f4ed",
+        "name": "Menu",
+        "parent": {
+          "id": "7c2474e2-f8ab-4cd2-98b7-252a0c8f3c8f",
+          "name": "Navigation"
+        },
+        "children": [],
+        "owner": {
+          "auth0Id": "auth0|6359ff8a417a19750991123b"
+        }
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
+  },
+  "fields": [
+    {
+      "id": "f970dde5-ae2d-4b64-b35e-72341b141e4b",
+      "key": "triggerSubMenuAction",
+      "name": "Trigger Sub Menu Action",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "795fcc22-56c6-43e5-b3c9-988ba90f719c",
+        "kind": "EnumType",
+        "name": "AntDesignMenu Trigger Sub Menu Action Enum"
+      },
+      "api": {
+        "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+      }
+    },
+    {
+      "id": "489a1fa0-7ce7-40bd-98e1-6dbfa4946778",
+      "key": "theme",
+      "name": "Theme",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "409f602b-ad21-426b-a191-a46e579077b4",
+        "kind": "EnumType",
+        "name": "AntDesignMenu Theme Enum"
+      },
+      "api": {
+        "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+      }
+    },
+    {
+      "id": "cf0bb624-dea0-4b5a-a7f1-3bd51b4fc571",
+      "key": "subMenuOpenDelay",
+      "name": "Sub Menu Open Delay",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+        "kind": "PrimitiveType",
+        "name": "Number"
+      },
+      "api": {
+        "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+      }
+    },
+    {
+      "id": "f5b99820-5000-4322-91fb-df18e57f5caf",
+      "key": "subMenuCloseDelay",
+      "name": "Sub Menu Close Delay",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+        "kind": "PrimitiveType",
+        "name": "Number"
+      },
+      "api": {
+        "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+      }
+    },
+    {
+      "id": "29e2171f-6dc8-4538-b68a-3a37e81b5275",
+      "key": "selectable",
+      "name": "Selectable",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+      }
+    },
+    {
+      "id": "7e8cde3b-2c0f-4cdb-8131-37b1e8beccd8",
+      "key": "overflowedIndicator",
+      "name": "Overflowed Indicator",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+      }
+    },
+    {
+      "id": "ffc278b0-858c-4689-b3c7-a7b62cbc3e8f",
+      "key": "onSelect",
+      "name": "On Select",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "ActionType",
+        "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+        "kind": "ActionType",
+        "name": "ActionType"
+      },
+      "api": {
+        "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+      }
+    },
+    {
+      "id": "74f85c48-3510-4b1b-b404-9f1c249b5eaa",
+      "key": "onOpenChange",
+      "name": "On Open Change",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "ActionType",
+        "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+        "kind": "ActionType",
+        "name": "ActionType"
+      },
+      "api": {
+        "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+      }
+    },
+    {
+      "id": "6fc2d8ad-d46c-4a19-b89c-8cb0e80431ca",
+      "key": "onDeselect",
+      "name": "On Deselect",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "ActionType",
+        "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+        "kind": "ActionType",
+        "name": "ActionType"
+      },
+      "api": {
+        "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+      }
+    },
+    {
+      "id": "e607b6d9-95bf-454e-916f-f15328e8cc12",
+      "key": "onClick",
+      "name": "On Click",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "ActionType",
+        "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+        "kind": "ActionType",
+        "name": "ActionType"
+      },
+      "api": {
+        "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+      }
+    },
+    {
+      "id": "775ba441-8d0f-4dd6-9e9a-2a32375f43c1",
+      "key": "multiple",
+      "name": "Multiple",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+      }
+    },
+    {
+      "id": "481d0c41-2d86-400e-9d0f-38c33d8c585d",
+      "key": "mode",
+      "name": "Mode",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "3551485e-cb49-4e56-88d1-a96244bdbe16",
+        "kind": "EnumType",
+        "name": "AntDesignMenu Mode Enum"
+      },
+      "api": {
+        "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+      }
+    },
+    {
+      "id": "435cacb5-c21a-43d4-9736-3aae49898881",
+      "key": "items",
+      "name": "Items",
+      "description": null,
+      "validationRules": "{\"general\":{\"nullable\":true}}",
+      "defaultValues": "null",
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "ArrayType",
+        "id": "61e9178f-9a23-4fc0-bb0b-d8264431f254",
+        "kind": "ArrayType",
+        "name": "AntDesignMenuItemTypeArray"
+      },
+      "api": {
+        "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+      }
+    },
+    {
+      "id": "c00e4568-76a6-4da9-8c12-b88ee4af1d25",
+      "key": "inlineIndent",
+      "name": "Inline Indent",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+        "kind": "PrimitiveType",
+        "name": "Number"
+      },
+      "api": {
+        "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+      }
+    },
+    {
+      "id": "7af1a64d-d90f-4586-a7a8-bd867b4941b3",
+      "key": "inlineCollapsed",
+      "name": "Inline Collapsed",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+      }
+    },
+    {
+      "id": "4308a60e-8fad-4a8f-8ab9-48e2008714d1",
+      "key": "forceSubMenuRender",
+      "name": "Force Sub Menu Render",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+      }
+    },
+    {
+      "id": "4a93ca4b-9fa6-4473-85f1-a75495ee9cc3",
+      "key": "expandIcon",
+      "name": "Expand Icon",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "ec4ded3f-1b18-4749-a06b-6d6a8fa1cc48",
+        "kind": "EnumType",
+        "name": "AntDesignMenu Expand Icon Enum"
+      },
+      "api": {
+        "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "EnumType",
+      "id": "795fcc22-56c6-43e5-b3c9-988ba90f719c",
+      "kind": "EnumType",
+      "name": "AntDesignMenu Trigger Sub Menu Action Enum",
+      "allowedValues": [
+        {
+          "id": "7b358f7d-9fc1-4411-9fcf-b495746c02f2",
+          "key": "click",
+          "value": "click"
+        },
+        {
+          "id": "0b3d4de4-8333-4ef8-b335-663d777dd415",
+          "key": "hover",
+          "value": "hover"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "409f602b-ad21-426b-a191-a46e579077b4",
+      "kind": "EnumType",
+      "name": "AntDesignMenu Theme Enum",
+      "allowedValues": [
+        {
+          "id": "9d4ae4d9-ebf1-4c28-be27-279f539bf6fc",
+          "key": "dark",
+          "value": "dark"
+        },
+        {
+          "id": "4ca12ef1-950b-48fb-9a02-09592db5cdb2",
+          "key": "light",
+          "value": "light"
+        }
+      ]
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+      "kind": "PrimitiveType",
+      "name": "Number",
+      "primitiveKind": "Number"
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+      "kind": "PrimitiveType",
+      "name": "Number",
+      "primitiveKind": "Number"
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+      "kind": "PrimitiveType",
+      "name": "Boolean",
+      "primitiveKind": "Boolean"
+    },
+    {
+      "__typename": "ReactNodeType",
+      "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+      "kind": "ReactNodeType",
+      "name": "ReactNodeType"
+    },
+    {
+      "__typename": "ActionType",
+      "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "ActionType",
+      "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "ActionType",
+      "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "ActionType",
+      "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+      "kind": "ActionType",
+      "name": "ActionType"
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+      "kind": "PrimitiveType",
+      "name": "Boolean",
+      "primitiveKind": "Boolean"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "3551485e-cb49-4e56-88d1-a96244bdbe16",
+      "kind": "EnumType",
+      "name": "AntDesignMenu Mode Enum",
+      "allowedValues": [
+        {
+          "id": "605e0bdf-1cbe-43e5-8f03-f96e38a2ce97",
+          "key": "horizontal",
+          "value": "horizontal"
+        },
+        {
+          "id": "261b3912-3ea3-4da3-9626-6766ec84e497",
+          "key": "inline",
+          "value": "inline"
+        },
+        {
+          "id": "ebb8c71f-0b08-4ece-8a7b-6b968625a440",
+          "key": "vertical",
+          "value": "vertical"
+        }
+      ]
+    },
+    {
+      "__typename": "ArrayType",
+      "id": "61e9178f-9a23-4fc0-bb0b-d8264431f254",
+      "kind": "ArrayType",
+      "name": "AntDesignMenuItemTypeArray",
+      "itemType": {
+        "id": "8baae515-020d-422e-a1bc-340c20490dd2",
+        "kind": "InterfaceType"
+      }
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+      "kind": "PrimitiveType",
+      "name": "Number",
+      "primitiveKind": "Number"
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+      "kind": "PrimitiveType",
+      "name": "Boolean",
+      "primitiveKind": "Boolean"
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+      "kind": "PrimitiveType",
+      "name": "Boolean",
+      "primitiveKind": "Boolean"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "ec4ded3f-1b18-4749-a06b-6d6a8fa1cc48",
+      "kind": "EnumType",
+      "name": "AntDesignMenu Expand Icon Enum",
+      "allowedValues": [
+        {
+          "id": "dab49cd8-6029-4114-9f13-adf60fbc14a0",
+          "key": "ReactNode",
+          "value": "ReactNode"
+        },
+        {
+          "id": "afc53482-37d4-4d7a-8481-2e8c91efbe70",
+          "key": "(props: SubMenuProps & { isSubMenu: boolean }) => ReactNode",
+          "value": "(props: SubMenuProps & { isSubMenu: boolean }) => ReactNode"
+        }
+      ]
+    },
+    {
+      "__typename": "InterfaceType",
+      "id": "7a188f10-41ac-454e-b452-b64b68c7ea17",
+      "kind": "InterfaceType",
+      "name": "AntDesignMenu API",
+      "owner": {
+        "auth0Id": "auth0|6359ff8a417a19750991123b"
+      },
+      "fields": [
+        {
+          "id": "f970dde5-ae2d-4b64-b35e-72341b141e4b",
+          "key": "triggerSubMenuAction",
+          "name": "Trigger Sub Menu Action",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "795fcc22-56c6-43e5-b3c9-988ba90f719c",
+            "kind": "EnumType",
+            "name": "AntDesignMenu Trigger Sub Menu Action Enum"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "489a1fa0-7ce7-40bd-98e1-6dbfa4946778",
+          "key": "theme",
+          "name": "Theme",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "409f602b-ad21-426b-a191-a46e579077b4",
+            "kind": "EnumType",
+            "name": "AntDesignMenu Theme Enum"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "cf0bb624-dea0-4b5a-a7f1-3bd51b4fc571",
+          "key": "subMenuOpenDelay",
+          "name": "Sub Menu Open Delay",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+            "kind": "PrimitiveType",
+            "name": "Number"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "f5b99820-5000-4322-91fb-df18e57f5caf",
+          "key": "subMenuCloseDelay",
+          "name": "Sub Menu Close Delay",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+            "kind": "PrimitiveType",
+            "name": "Number"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "29e2171f-6dc8-4538-b68a-3a37e81b5275",
+          "key": "selectable",
+          "name": "Selectable",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "7e8cde3b-2c0f-4cdb-8131-37b1e8beccd8",
+          "key": "overflowedIndicator",
+          "name": "Overflowed Indicator",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "ffc278b0-858c-4689-b3c7-a7b62cbc3e8f",
+          "key": "onSelect",
+          "name": "On Select",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ActionType",
+            "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+            "kind": "ActionType",
+            "name": "ActionType"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "74f85c48-3510-4b1b-b404-9f1c249b5eaa",
+          "key": "onOpenChange",
+          "name": "On Open Change",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ActionType",
+            "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+            "kind": "ActionType",
+            "name": "ActionType"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "6fc2d8ad-d46c-4a19-b89c-8cb0e80431ca",
+          "key": "onDeselect",
+          "name": "On Deselect",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ActionType",
+            "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+            "kind": "ActionType",
+            "name": "ActionType"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "e607b6d9-95bf-454e-916f-f15328e8cc12",
+          "key": "onClick",
+          "name": "On Click",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ActionType",
+            "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+            "kind": "ActionType",
+            "name": "ActionType"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "775ba441-8d0f-4dd6-9e9a-2a32375f43c1",
+          "key": "multiple",
+          "name": "Multiple",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "481d0c41-2d86-400e-9d0f-38c33d8c585d",
+          "key": "mode",
+          "name": "Mode",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "3551485e-cb49-4e56-88d1-a96244bdbe16",
+            "kind": "EnumType",
+            "name": "AntDesignMenu Mode Enum"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "435cacb5-c21a-43d4-9736-3aae49898881",
+          "key": "items",
+          "name": "Items",
+          "description": null,
+          "validationRules": "{\"general\":{\"nullable\":true}}",
+          "defaultValues": "null",
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ArrayType",
+            "id": "61e9178f-9a23-4fc0-bb0b-d8264431f254",
+            "kind": "ArrayType",
+            "name": "AntDesignMenuItemTypeArray"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "c00e4568-76a6-4da9-8c12-b88ee4af1d25",
+          "key": "inlineIndent",
+          "name": "Inline Indent",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+            "kind": "PrimitiveType",
+            "name": "Number"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "7af1a64d-d90f-4586-a7a8-bd867b4941b3",
+          "key": "inlineCollapsed",
+          "name": "Inline Collapsed",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "4308a60e-8fad-4a8f-8ab9-48e2008714d1",
+          "key": "forceSubMenuRender",
+          "name": "Force Sub Menu Render",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        },
+        {
+          "id": "4a93ca4b-9fa6-4473-85f1-a75495ee9cc3",
+          "key": "expandIcon",
+          "name": "Expand Icon",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "ec4ded3f-1b18-4749-a06b-6d6a8fa1cc48",
+            "kind": "EnumType",
+            "name": "AntDesignMenu Expand Icon Enum"
+          },
+          "api": {
+            "id": "7a188f10-41ac-454e-b452-b64b68c7ea17"
+          }
+        }
+      ]
+    },
+    {
+      "__typename": "ArrayType",
+      "id": "61e9178f-9a23-4fc0-bb0b-d8264431f254",
+      "kind": "ArrayType",
+      "name": "AntDesignMenuItemTypeArray",
+      "itemType": {
+        "id": "8baae515-020d-422e-a1bc-340c20490dd2",
+        "kind": "InterfaceType"
+      }
+    }
+  ]
+}

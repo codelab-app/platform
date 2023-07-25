@@ -1,9 +1,9 @@
-import type { IAtomType, IOwner } from '@codelab/shared/abstract/core'
+import type { IAtomType, IAuth0Owner } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import type { RenderAtomFragment } from './atom.fragment.graphql.gen'
 import type { IAtomRef } from './atom.model.interface'
 
-export interface ICreateAtomData extends IOwner {
+export interface ICreateAtomData extends IAuth0Owner {
   // Used for interface
   // Allow for connection to existing interface
   // api: IEntity

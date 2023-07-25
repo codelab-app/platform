@@ -1,4 +1,4 @@
-import type { IUserDTO } from '@codelab/shared/abstract/core'
+import type { ICreateUserDTO } from '@codelab/shared/abstract/core'
 import type {
   IActionService,
   IAdminService,
@@ -25,7 +25,7 @@ import type {
 export interface RootStoreData {
   init?: boolean
   servicesFromSnapshot?: unknown
-  user?: IUserDTO
+  user?: ICreateUserDTO
 }
 
 export interface IRootStore {

@@ -1,24 +1,24 @@
 import { Role } from '@codelab/backend/abstract/codegen'
 import { User, UserRepository } from '@codelab/backend/domain/user'
-import type { IAuth0Owner } from '@codelab/shared/abstract/core'
+import type { IAuth0User } from '@codelab/shared/abstract/core'
 import { getEnv } from '@codelab/shared/config'
 import inquirer from 'inquirer'
 import { v4 } from 'uuid'
 import type { MiddlewareFunction, Options } from 'yargs'
 import { selectUserPrompt } from './prompts/select-user'
-import { Stage } from './utils/stage'
+import { Stage } from '../../../../../../shared/abstract/core/src/stage'
 
 export interface ExportProps {
-  seedDataPath?: string
-  skipSeedData?: boolean
+  adminDataPath?: string
+  skipAdminData?: boolean
   skipUserData?: boolean
   userDataPath?: string
 }
 
-export const seedDataPathOption: { [key: string]: Options } = {
-  seedDataPath: {
+export const adminDataPathOption: { [key: string]: Options } = {
+  adminDataPath: {
     alias: 'seed',
-    describe: 'File path of the seed data to be exported',
+    describe: 'File path of the admin data to be exported',
     // demandOption: true,
     type: 'string',
     // default: defaultSeedFilePath,
@@ -42,8 +42,8 @@ export const skipUserDataOption: { [key: string]: Options } = {
   },
 }
 
-export const skipSeedDataOption: { [key: string]: Options } = {
-  skipSeedData: {
+export const skipAdminDataOption: { [key: string]: Options } = {
+  skipAdminData: {
     // alias: 's',
     describe: 'Skip seed data',
     type: 'boolean',
@@ -91,7 +91,7 @@ export const selectUser: MiddlewareFunction = async (argv) => {
     throw new Error('User not found!')
   }
 
-  const user: IAuth0Owner = { auth0Id: selectedAuth0Id }
+  const user: IAuth0User = { auth0Id: selectedAuth0Id }
 
   argv['user'] = user
 }

@@ -1,4 +1,3 @@
-import { ImportAdminDataService } from '@codelab/backend/application/admin'
 import {
   ExportService,
   ImportService,
@@ -32,14 +31,13 @@ import { CommandService } from './command.service'
   ],
   providers: [
     {
-      provide: 'DATA_PATH',
+      provide: 'DATA_PATHS',
       useValue: path.resolve('./data/export'),
     },
     CommandService,
     ImportService,
     SeedService,
     ExportService,
-    ImportAdminDataService,
     ScrapeAntdService,
     ScrapeHtmlService,
     TerraformService,

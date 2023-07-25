@@ -1,6 +1,6 @@
 import type {
   IAtomDTO,
-  IAuth0Owner,
+  IAuth0User,
   IInterfaceTypeDTO,
 } from '@codelab/shared/abstract/core'
 import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
@@ -23,7 +23,7 @@ const atomTypes = [
   IAtomType.NextLink,
 ]
 
-export const createAtomsData = (owner: IAuth0Owner): Array<IAtomDTO> =>
+export const createAtomsData = (owner: IAuth0User): Array<IAtomDTO> =>
   atomTypes.map((atomType) => ({
     api: {
       id: v4(),

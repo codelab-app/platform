@@ -1,0 +1,872 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3",
+    "kind": "InterfaceType",
+    "name": "AntDesignCollapse API",
+    "owner": {
+      "auth0Id": "auth0|6359ff8a417a19750991123b"
+    },
+    "fields": [
+      {
+        "id": "1a93d3e0-f5e4-4445-b426-2d57f131079d",
+        "key": "ghost",
+        "name": "Ghost",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+        }
+      },
+      {
+        "id": "560fe7ed-6046-4f10-a895-b2c82401eb3d",
+        "key": "expandIconPosition",
+        "name": "Expand Icon Position",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "deff6330-e2ed-4233-8678-88743e834641",
+          "kind": "EnumType",
+          "name": "AntDesignCollapse Expand Icon Position Enum"
+        },
+        "api": {
+          "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+        }
+      },
+      {
+        "id": "0bc35352-8d94-4658-adca-e64ae3b046a0",
+        "key": "expandIcon",
+        "name": "Expand Icon",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+        }
+      },
+      {
+        "id": "d1b07bf3-c9a8-40b4-ac03-3eeaafdaf205",
+        "key": "destroyInactivePanel",
+        "name": "Destroy Inactive Panel",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+        }
+      },
+      {
+        "id": "1030d34f-5dc0-4ef2-a5fa-dfbc611ae8e7",
+        "key": "defaultActiveKey",
+        "name": "Default Active Key",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "0b622b03-efc1-4995-9278-8fd3cee6c60d",
+          "kind": "EnumType",
+          "name": "AntDesignCollapse Default Active Key Enum"
+        },
+        "api": {
+          "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+        }
+      },
+      {
+        "id": "8a8c57e0-d802-4f08-85cb-e4fcecd06c47",
+        "key": "collapsible",
+        "name": "Collapsible",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "78fe7504-325b-40c3-bb9f-f1abc3e29a3a",
+          "kind": "EnumType",
+          "name": "AntDesignCollapse Collapsible Enum"
+        },
+        "api": {
+          "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+        }
+      },
+      {
+        "id": "7b522ce9-7f4f-48f3-a2f4-9e7a47595eff",
+        "key": "bordered",
+        "name": "Bordered",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+        }
+      },
+      {
+        "id": "c258a5d4-4ca4-421c-9a3c-4cb682b08f54",
+        "key": "activeKey",
+        "name": "Active Key",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "c3ea3493-a88f-4c3d-b245-a43019d4125e",
+          "kind": "EnumType",
+          "name": "AntDesignCollapse Active Key Enum"
+        },
+        "api": {
+          "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+        }
+      },
+      {
+        "id": "f490c0dd-0449-4c99-ab18-8373707e7b96",
+        "key": "accordion",
+        "name": "Accordion",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+        }
+      }
+    ]
+  },
+  "atom": {
+    "id": "28f5a874-261e-4aff-a354-94f214923fc8",
+    "name": "AntDesignCollapse",
+    "type": "AntDesignCollapse",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3",
+      "kind": "InterfaceType",
+      "name": "AntDesignCollapse API",
+      "owner": {
+        "auth0Id": "auth0|6359ff8a417a19750991123b"
+      },
+      "fields": [
+        {
+          "id": "1a93d3e0-f5e4-4445-b426-2d57f131079d",
+          "key": "ghost",
+          "name": "Ghost",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+          }
+        },
+        {
+          "id": "560fe7ed-6046-4f10-a895-b2c82401eb3d",
+          "key": "expandIconPosition",
+          "name": "Expand Icon Position",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "deff6330-e2ed-4233-8678-88743e834641",
+            "kind": "EnumType",
+            "name": "AntDesignCollapse Expand Icon Position Enum"
+          },
+          "api": {
+            "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+          }
+        },
+        {
+          "id": "0bc35352-8d94-4658-adca-e64ae3b046a0",
+          "key": "expandIcon",
+          "name": "Expand Icon",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          },
+          "api": {
+            "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+          }
+        },
+        {
+          "id": "d1b07bf3-c9a8-40b4-ac03-3eeaafdaf205",
+          "key": "destroyInactivePanel",
+          "name": "Destroy Inactive Panel",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+          }
+        },
+        {
+          "id": "1030d34f-5dc0-4ef2-a5fa-dfbc611ae8e7",
+          "key": "defaultActiveKey",
+          "name": "Default Active Key",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "0b622b03-efc1-4995-9278-8fd3cee6c60d",
+            "kind": "EnumType",
+            "name": "AntDesignCollapse Default Active Key Enum"
+          },
+          "api": {
+            "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+          }
+        },
+        {
+          "id": "8a8c57e0-d802-4f08-85cb-e4fcecd06c47",
+          "key": "collapsible",
+          "name": "Collapsible",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "78fe7504-325b-40c3-bb9f-f1abc3e29a3a",
+            "kind": "EnumType",
+            "name": "AntDesignCollapse Collapsible Enum"
+          },
+          "api": {
+            "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+          }
+        },
+        {
+          "id": "7b522ce9-7f4f-48f3-a2f4-9e7a47595eff",
+          "key": "bordered",
+          "name": "Bordered",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+          }
+        },
+        {
+          "id": "c258a5d4-4ca4-421c-9a3c-4cb682b08f54",
+          "key": "activeKey",
+          "name": "Active Key",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "c3ea3493-a88f-4c3d-b245-a43019d4125e",
+            "kind": "EnumType",
+            "name": "AntDesignCollapse Active Key Enum"
+          },
+          "api": {
+            "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+          }
+        },
+        {
+          "id": "f490c0dd-0449-4c99-ab18-8373707e7b96",
+          "key": "accordion",
+          "name": "Accordion",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+          }
+        }
+      ]
+    },
+    "icon": "Collapse",
+    "owner": {
+      "auth0Id": "auth0|6359ff8a417a19750991123b"
+    },
+    "tags": [
+      {
+        "id": "23bd1a78-316a-4df0-af53-b61f6dbdee11",
+        "name": "Collapse",
+        "parent": {
+          "id": "7765f016-04de-4cf7-9ab5-c7920cad0531",
+          "name": "Data Display"
+        },
+        "children": [
+          {
+            "id": "f2dd16bb-73c6-41f2-b2c7-b35a321eaba2",
+            "name": "Collapse.Panel"
+          }
+        ],
+        "owner": {
+          "auth0Id": "auth0|6359ff8a417a19750991123b"
+        }
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
+  },
+  "fields": [
+    {
+      "id": "1a93d3e0-f5e4-4445-b426-2d57f131079d",
+      "key": "ghost",
+      "name": "Ghost",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+      }
+    },
+    {
+      "id": "560fe7ed-6046-4f10-a895-b2c82401eb3d",
+      "key": "expandIconPosition",
+      "name": "Expand Icon Position",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "deff6330-e2ed-4233-8678-88743e834641",
+        "kind": "EnumType",
+        "name": "AntDesignCollapse Expand Icon Position Enum"
+      },
+      "api": {
+        "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+      }
+    },
+    {
+      "id": "0bc35352-8d94-4658-adca-e64ae3b046a0",
+      "key": "expandIcon",
+      "name": "Expand Icon",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+      }
+    },
+    {
+      "id": "d1b07bf3-c9a8-40b4-ac03-3eeaafdaf205",
+      "key": "destroyInactivePanel",
+      "name": "Destroy Inactive Panel",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+      }
+    },
+    {
+      "id": "1030d34f-5dc0-4ef2-a5fa-dfbc611ae8e7",
+      "key": "defaultActiveKey",
+      "name": "Default Active Key",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "0b622b03-efc1-4995-9278-8fd3cee6c60d",
+        "kind": "EnumType",
+        "name": "AntDesignCollapse Default Active Key Enum"
+      },
+      "api": {
+        "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+      }
+    },
+    {
+      "id": "8a8c57e0-d802-4f08-85cb-e4fcecd06c47",
+      "key": "collapsible",
+      "name": "Collapsible",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "78fe7504-325b-40c3-bb9f-f1abc3e29a3a",
+        "kind": "EnumType",
+        "name": "AntDesignCollapse Collapsible Enum"
+      },
+      "api": {
+        "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+      }
+    },
+    {
+      "id": "7b522ce9-7f4f-48f3-a2f4-9e7a47595eff",
+      "key": "bordered",
+      "name": "Bordered",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+      }
+    },
+    {
+      "id": "c258a5d4-4ca4-421c-9a3c-4cb682b08f54",
+      "key": "activeKey",
+      "name": "Active Key",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "c3ea3493-a88f-4c3d-b245-a43019d4125e",
+        "kind": "EnumType",
+        "name": "AntDesignCollapse Active Key Enum"
+      },
+      "api": {
+        "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+      }
+    },
+    {
+      "id": "f490c0dd-0449-4c99-ab18-8373707e7b96",
+      "key": "accordion",
+      "name": "Accordion",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "PrimitiveType",
+      "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+      "kind": "PrimitiveType",
+      "name": "Boolean",
+      "primitiveKind": "Boolean"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "deff6330-e2ed-4233-8678-88743e834641",
+      "kind": "EnumType",
+      "name": "AntDesignCollapse Expand Icon Position Enum",
+      "allowedValues": [
+        {
+          "id": "705e90ea-1624-483d-82ca-49263f70f57d",
+          "key": "start",
+          "value": "start"
+        },
+        {
+          "id": "587c8842-b07c-4630-a6a1-695b04b1f833",
+          "key": "end",
+          "value": "end"
+        }
+      ]
+    },
+    {
+      "__typename": "ReactNodeType",
+      "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+      "kind": "ReactNodeType",
+      "name": "ReactNodeType"
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+      "kind": "PrimitiveType",
+      "name": "Boolean",
+      "primitiveKind": "Boolean"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "0b622b03-efc1-4995-9278-8fd3cee6c60d",
+      "kind": "EnumType",
+      "name": "AntDesignCollapse Default Active Key Enum",
+      "allowedValues": [
+        {
+          "id": "85e4441e-ea5d-40a0-bddd-1bc236b26948",
+          "key": "string[]",
+          "value": "string[]"
+        },
+        {
+          "id": "acccd3d3-a153-402b-b041-c3ba90075a17",
+          "key": "string\nnumber[]",
+          "value": "string\nnumber[]"
+        },
+        {
+          "id": "f5e73dd2-4714-4aef-b26b-d6a321c79d3b",
+          "key": "number",
+          "value": "number"
+        }
+      ]
+    },
+    {
+      "__typename": "EnumType",
+      "id": "78fe7504-325b-40c3-bb9f-f1abc3e29a3a",
+      "kind": "EnumType",
+      "name": "AntDesignCollapse Collapsible Enum",
+      "allowedValues": [
+        {
+          "id": "8aee6251-eff6-4185-9ea2-541fb9c3105c",
+          "key": "header",
+          "value": "header"
+        },
+        {
+          "id": "27a16a06-4ee4-4b8c-aa0b-ce3f595b3df7",
+          "key": "disabled",
+          "value": "disabled"
+        }
+      ]
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+      "kind": "PrimitiveType",
+      "name": "Boolean",
+      "primitiveKind": "Boolean"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "c3ea3493-a88f-4c3d-b245-a43019d4125e",
+      "kind": "EnumType",
+      "name": "AntDesignCollapse Active Key Enum",
+      "allowedValues": [
+        {
+          "id": "9ca47c28-ac5b-4cd6-b0fb-ba6f9a8a3fad",
+          "key": "string[]",
+          "value": "string[]"
+        },
+        {
+          "id": "e0adb589-e6ad-4b07-99f2-f6332faf5381",
+          "key": "string\nnumber[]",
+          "value": "string\nnumber[]"
+        },
+        {
+          "id": "d563fa1a-0317-4d38-92e4-2f407f3c1ab8",
+          "key": "number",
+          "value": "number"
+        }
+      ]
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+      "kind": "PrimitiveType",
+      "name": "Boolean",
+      "primitiveKind": "Boolean"
+    },
+    {
+      "__typename": "InterfaceType",
+      "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3",
+      "kind": "InterfaceType",
+      "name": "AntDesignCollapse API",
+      "owner": {
+        "auth0Id": "auth0|6359ff8a417a19750991123b"
+      },
+      "fields": [
+        {
+          "id": "1a93d3e0-f5e4-4445-b426-2d57f131079d",
+          "key": "ghost",
+          "name": "Ghost",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+          }
+        },
+        {
+          "id": "560fe7ed-6046-4f10-a895-b2c82401eb3d",
+          "key": "expandIconPosition",
+          "name": "Expand Icon Position",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "deff6330-e2ed-4233-8678-88743e834641",
+            "kind": "EnumType",
+            "name": "AntDesignCollapse Expand Icon Position Enum"
+          },
+          "api": {
+            "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+          }
+        },
+        {
+          "id": "0bc35352-8d94-4658-adca-e64ae3b046a0",
+          "key": "expandIcon",
+          "name": "Expand Icon",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          },
+          "api": {
+            "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+          }
+        },
+        {
+          "id": "d1b07bf3-c9a8-40b4-ac03-3eeaafdaf205",
+          "key": "destroyInactivePanel",
+          "name": "Destroy Inactive Panel",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+          }
+        },
+        {
+          "id": "1030d34f-5dc0-4ef2-a5fa-dfbc611ae8e7",
+          "key": "defaultActiveKey",
+          "name": "Default Active Key",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "0b622b03-efc1-4995-9278-8fd3cee6c60d",
+            "kind": "EnumType",
+            "name": "AntDesignCollapse Default Active Key Enum"
+          },
+          "api": {
+            "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+          }
+        },
+        {
+          "id": "8a8c57e0-d802-4f08-85cb-e4fcecd06c47",
+          "key": "collapsible",
+          "name": "Collapsible",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "78fe7504-325b-40c3-bb9f-f1abc3e29a3a",
+            "kind": "EnumType",
+            "name": "AntDesignCollapse Collapsible Enum"
+          },
+          "api": {
+            "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+          }
+        },
+        {
+          "id": "7b522ce9-7f4f-48f3-a2f4-9e7a47595eff",
+          "key": "bordered",
+          "name": "Bordered",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+          }
+        },
+        {
+          "id": "c258a5d4-4ca4-421c-9a3c-4cb682b08f54",
+          "key": "activeKey",
+          "name": "Active Key",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "c3ea3493-a88f-4c3d-b245-a43019d4125e",
+            "kind": "EnumType",
+            "name": "AntDesignCollapse Active Key Enum"
+          },
+          "api": {
+            "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+          }
+        },
+        {
+          "id": "f490c0dd-0449-4c99-ab18-8373707e7b96",
+          "key": "accordion",
+          "name": "Accordion",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "e8ce2f79-9266-43c1-9652-ac07a3c20aa3"
+          }
+        }
+      ]
+    }
+  ]
+}

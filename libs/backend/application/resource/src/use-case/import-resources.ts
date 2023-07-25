@@ -1,11 +1,11 @@
 import type { IResourceExport } from '@codelab/backend/abstract/core'
 import { createResource } from '@codelab/backend/domain/resource'
-import type { IAuth0Owner } from '@codelab/shared/abstract/core'
+import type { IAuth0User } from '@codelab/shared/abstract/core'
 import { logSection, logTask } from '@codelab/shared/utils'
 
 export const importResources = async (
   resources: Array<IResourceExport> = [],
-  owner: IAuth0Owner,
+  owner: IAuth0User,
 ) => {
   logSection('Importing Resource')
 

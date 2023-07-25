@@ -9881,6 +9881,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nestjs/cqrs@npm:^10.0.1":
+  version: 10.0.1
+  resolution: "@nestjs/cqrs@npm:10.0.1"
+  dependencies:
+    uuid: 9.0.0
+  peerDependencies:
+    "@nestjs/common": ^9.0.0 || ^10.0.0
+    "@nestjs/core": ^9.0.0 || ^10.0.0
+    reflect-metadata: 0.1.13
+    rxjs: ^7.2.0
+  checksum: dc0fd0cfbf71d2324bb8b27556ff320f31ec1bb262c506bd49040c0695f481f12d6300353712edd37001a6d5c0ba9512cbc464f040dc8fdd2028d3240b4c0a7d
+  languageName: node
+  linkType: hard
+
+"@nestjs/devtools-integration@npm:^0.1.5":
+  version: 0.1.5
+  resolution: "@nestjs/devtools-integration@npm:0.1.5"
+  dependencies:
+    chalk: ^4.1.2
+    node-fetch: ^2.6.9
+  peerDependencies:
+    "@nestjs/common": ^9.3.7 || ^10.0.0
+    "@nestjs/core": ^9.3.7 || ^10.0.0
+    reflect-metadata: ^0.1.12
+  checksum: c9c006a5769bf09886712c91d405c4344ba6429ddd34b7e949b4b899bd1e7f707a8ebdd50a0b2be4bb191b69b631119f448f9663275a8ba658bef36b9b928b61
+  languageName: node
+  linkType: hard
+
 "@nestjs/graphql@npm:^11.0.6":
   version: 11.0.6
   resolution: "@nestjs/graphql@npm:11.0.6"
@@ -16006,6 +16034,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/multer@npm:^1.4.7":
+  version: 1.4.7
+  resolution: "@types/multer@npm:1.4.7"
+  dependencies:
+    "@types/express": "*"
+  checksum: 680cb0710aa25264d20cdcdaf34c212b636b55ea141310f06c25354ab1401193c7aa6839f9d22abf64a223fab1f2b8287f2512b0bef7e1628c4e9ffe54b4aeb2
+  languageName: node
+  linkType: hard
+
 "@types/mysql@npm:2.15.19":
   version: 2.15.19
   resolution: "@types/mysql@npm:2.15.19"
@@ -16528,6 +16565,13 @@ __metadata:
   version: 8.3.4
   resolution: "@types/uuid@npm:8.3.4"
   checksum: 6f11f3ff70f30210edaa8071422d405e9c1d4e53abbe50fdce365150d3c698fe7bbff65c1e71ae080cbfb8fded860dbb5e174da96fdbbdfcaa3fb3daa474d20f
+  languageName: node
+  linkType: hard
+
+"@types/validator@npm:^13.7.10":
+  version: 13.7.17
+  resolution: "@types/validator@npm:13.7.17"
+  checksum: a827e480c09b957fe1e773e15a18e79930c546c21044ca99d9fb832268d85536cd3577391b6a3c6ebdb38eee244439056ebeed0886123e248d6b8be318c8374e
   languageName: node
   linkType: hard
 
@@ -21082,6 +21126,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"class-transformer@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "class-transformer@npm:0.5.1"
+  checksum: f191c8b4cc4239990f5efdd790cabdd852c243ed66248e39f6616a349c910c6eed2d9fd1fbf7ee6ea89f69b4f1d0b493b27347fe0cd0ae26b47c3745a805b6d3
+  languageName: node
+  linkType: hard
+
 "class-utils@npm:^0.3.5":
   version: 0.3.6
   resolution: "class-utils@npm:0.3.6"
@@ -21091,6 +21142,17 @@ __metadata:
     isobject: ^3.0.0
     static-extend: ^0.1.1
   checksum: be108900801e639e50f96a7e4bfa8867c753a7750a7603879f3981f8b0a89cba657497a2d5f40cd4ea557ff15d535a100818bb486baf6e26fe5d7872e75f1078
+  languageName: node
+  linkType: hard
+
+"class-validator@npm:^0.14.0":
+  version: 0.14.0
+  resolution: "class-validator@npm:0.14.0"
+  dependencies:
+    "@types/validator": ^13.7.10
+    libphonenumber-js: ^1.10.14
+    validator: ^13.7.0
+  checksum: f62e4a0ad24cee68f4b2bc70d32b96de90cb598f96bde362b4dbf4234151af8eb6ae225458312a38fc49fa3959844cf61c60e731a8205e9a570454cff8de2710
   languageName: node
   linkType: hard
 
@@ -21466,6 +21528,8 @@ __metadata:
     "@nestjs/common": 10.0.4
     "@nestjs/config": ^2.3.2
     "@nestjs/core": 10.0.4
+    "@nestjs/cqrs": ^10.0.1
+    "@nestjs/devtools-integration": ^0.1.5
     "@nestjs/graphql": ^11.0.6
     "@nestjs/microservices": ^9.4.2
     "@nestjs/platform-express": 10.0.4
@@ -21544,6 +21608,7 @@ __metadata:
     "@types/jwt-decode": 3.1.0
     "@types/lodash": 4.14.186
     "@types/mailchimp__mailchimp_marketing": ^3.0.8
+    "@types/multer": ^1.4.7
     "@types/node": 18.14.2
     "@types/prettier": 2.4.4
     "@types/ramda": 0.29.2
@@ -21594,6 +21659,8 @@ __metadata:
     babel-plugin-import: ^1.13.5
     babel-runtime: 6.26.0
     bull: ^4.10.4
+    class-transformer: ^0.5.1
+    class-validator: ^0.14.0
     classnames: ^2.3.2
     cm6-graphql: ^0.0.9
     commitizen: 4.2.5
@@ -21683,6 +21750,7 @@ __metadata:
     mobx-utils: 6.0.6
     moment: 2.29.4
     morphext: 2.4.7
+    multer: ^1.4.5-lts.1
     neo4j-driver: 5.10.0
     nest-commander: ^3.7.1
     nest-neo4j: ^0.3.1
@@ -32997,6 +33065,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"libphonenumber-js@npm:^1.10.14":
+  version: 1.10.37
+  resolution: "libphonenumber-js@npm:1.10.37"
+  checksum: c28f7623226d6ab33c48044f12e772d35dfdbebae53e89434840f64da92e92736fa547a47b48d99050f225d921df71d9827848f78d6c62a063dec4c44dad1b1b
+  languageName: node
+  linkType: hard
+
 "license-webpack-plugin@npm:^4.0.2":
   version: 4.0.2
   resolution: "license-webpack-plugin@npm:4.0.2"
@@ -34755,6 +34830,21 @@ __metadata:
     type-is: ^1.6.4
     xtend: ^4.0.0
   checksum: da04b06efdbff9bd42d9f71297eeb2c0566231a4b9c895f49479c09b163c5e404aa6e58bd1c19f006f82e2114362545e39cbf7e0163ffd8d73d0f88adf4489e2
+  languageName: node
+  linkType: hard
+
+"multer@npm:^1.4.5-lts.1":
+  version: 1.4.5-lts.1
+  resolution: "multer@npm:1.4.5-lts.1"
+  dependencies:
+    append-field: ^1.0.0
+    busboy: ^1.0.0
+    concat-stream: ^1.5.2
+    mkdirp: ^0.5.4
+    object-assign: ^4.1.1
+    type-is: ^1.6.4
+    xtend: ^4.0.0
+  checksum: d6dfa78a6ec592b74890412f8962da8a87a3dcfe20f612e039b735b8e0faa72c735516c447f7de694ee0d981eb0a1b892fb9e2402a0348dc6091d18c38d89ecc
   languageName: node
   linkType: hard
 
@@ -45235,6 +45325,13 @@ __metadata:
   dependencies:
     builtins: ^1.0.3
   checksum: ce4c68207abfb22c05eedb09ff97adbcedc80304a235a0844f5344f1fd5086aa80e4dbec5684d6094e26e35065277b765c1caef68bcea66b9056761eddb22967
+  languageName: node
+  linkType: hard
+
+"validator@npm:^13.7.0":
+  version: 13.9.0
+  resolution: "validator@npm:13.9.0"
+  checksum: e2c936f041f61faa42bafd17c6faddf939498666cd82e88d733621c286893730b008959f4cb12ab3e236148a4f3805c30b85e3dcf5e0efd8b0cbcd36c02bfc0c
   languageName: node
   linkType: hard
 

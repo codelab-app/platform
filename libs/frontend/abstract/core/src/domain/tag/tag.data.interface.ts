@@ -1,7 +1,7 @@
-import type { IOwner } from '@codelab/shared/abstract/core'
+import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 
-export interface ICreateTagData extends IOwner {
+export interface ICreateTagData extends IAuth0Owner {
   id: string
   name: string
   parent?: IEntity

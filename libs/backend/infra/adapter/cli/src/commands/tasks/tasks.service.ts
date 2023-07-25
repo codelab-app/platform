@@ -1,4 +1,4 @@
-import { generateOgmTypes } from '@codelab/backend/infra/adapter/neo4j'
+import { OgmService } from '@codelab/backend/infra/adapter/neo4j'
 import { execCommand } from '@codelab/backend/infra/adapter/shell'
 import { Injectable } from '@nestjs/common'
 import { spawn } from 'child_process'
@@ -11,7 +11,7 @@ import type { Argv, CommandModule } from 'yargs'
 import { globalHandler } from '../../shared/handler'
 import { loadStageMiddleware } from '../../shared/middleware'
 import { getStageOptions } from '../../shared/options'
-import { Stage } from '../../shared/utils/stage'
+import { Stage } from '../../../../../../../shared/abstract/core/src/stage'
 import { Tasks } from '../../shared/utils/tasks'
 
 /**
@@ -94,7 +94,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
             }
 
             execCommand('yarn graphql-codegen')
-            await generateOgmTypes()
+            await OgmService()
 
             process.exit(0)
           }
@@ -126,7 +126,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
                 }
 
                 try {
-                  await generateOgmTypes()
+                  await OgmService()
                   process.kill(-startServerChildProcess.pid, 'SIGINT')
 
                   const { unCommittedFiles } = await gitChangedFiles()

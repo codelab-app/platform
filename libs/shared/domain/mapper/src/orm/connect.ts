@@ -1,4 +1,4 @@
-import type { IAuth0Owner } from '@codelab/shared/abstract/core'
+import type { IAuth0User } from '@codelab/shared/abstract/core'
 import { whereNode, whereNodeId } from './where'
 
 /**
@@ -18,5 +18,5 @@ export const connectNode = (key: string, value: string | null | undefined) =>
       }
     : undefined
 
-export const connectAuth0Owner = ({ auth0Id }: IAuth0Owner) =>
+export const connectAuth0Owner = ({ auth0Id }: IAuth0User) =>
   connectNode('auth0Id', auth0Id)

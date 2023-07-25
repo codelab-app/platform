@@ -1,11 +1,5 @@
 import type { IActionKind } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
-import type {
-  IApiActionDTO,
-  ICodeActionDTO,
-  IGraphQLActionConfig,
-  IRestActionConfig,
-} from './actions'
+import type { IGraphQLActionConfig, IRestActionConfig } from './actions'
 
 export type IApiActionConfig = IGraphQLActionConfig | IRestActionConfig
 
@@ -35,18 +29,9 @@ export interface ICodeActionData extends IBaseActionData {
   code: string
 }
 
-export interface IBaseActionDTO {
-  __typename: `${IActionKind.ApiAction}` | `${IActionKind.CodeAction}`
-  id: string
-  name: string
-  store: IEntity
-}
-
 /**
  * Action
  */
-
-export type IActionDTO = IApiActionDTO | ICodeActionDTO
 
 export type ICreateActionData = IApiActionData & ICodeActionData
 

@@ -1,6 +1,6 @@
 import type {
+  IAuth0Owner,
   IBaseTypeDTO,
-  IOwner,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import type { ICacheService } from '../../../service'
@@ -22,7 +22,7 @@ import type { IUnionType } from './union-type.interface'
 export interface IBaseType<DTO extends IBaseTypeDTO, CreateInput, UpdateInput>
   extends Omit<IModel<CreateInput, UpdateInput, void>, 'toDeleteInput'>,
     ICacheService<DTO, IBaseType<DTO, CreateInput, UpdateInput>>,
-    IOwner {
+    IAuth0Owner {
   id: string
   kind: ITypeKind
   name: string

@@ -1,2 +1,2 @@
-export * from './app.repo'
-export * from './validate'
+export * from './app.repo.service'
+export * from './atom-validation.service'

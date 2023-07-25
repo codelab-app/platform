@@ -1,4 +1,4 @@
-import type { IAuth0Owner } from '@codelab/shared/abstract/core'
+import type { IAuth0User } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
@@ -28,7 +28,7 @@ import { v4 } from 'uuid'
 /**
  * Difficult to type this function, we just let it infer
  */
-export const systemTypesData = (owner: IAuth0Owner) => ({
+export const systemTypesData = (owner: IAuth0User) => ({
   /**
    * PrimitiveTypes
    */

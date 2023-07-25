@@ -25,7 +25,7 @@ import {
   RenderTypeKind,
 } from '@codelab/shared/abstract/codegen'
 import type {
-  IAuth0Owner,
+  IAuth0User,
   IElementDTO,
   RenderType,
 } from '@codelab/shared/abstract/core'
@@ -884,7 +884,7 @@ export class ElementService
   convertElementToComponent = _async(function* (
     this: ElementService,
     element: IElement,
-    owner: IAuth0Owner,
+    owner: IAuth0User,
   ) {
     if (!element.closestParent) {
       throw new Error("Can't convert root element")

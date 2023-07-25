@@ -1,8 +1,8 @@
-import type { IOwner } from '@codelab/shared/abstract/core'
+import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 import type { PropertiesSchema } from 'ajv/dist/types/json-schema'
 import { showFieldOnDev } from './show-field-on-dev'
 
-export const ownerSchema: PropertiesSchema<IOwner> = {
+export const ownerSchema: PropertiesSchema<IAuth0Owner> = {
   owner: {
     label: '',
     properties: {

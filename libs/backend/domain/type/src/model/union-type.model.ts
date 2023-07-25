@@ -1,6 +1,6 @@
 import type {
   IAtomDTO,
-  IAuth0Owner,
+  IAuth0User,
   IBaseTypeDTO,
   IFieldDTO,
   IUnionTypeDTO,
@@ -18,7 +18,7 @@ export class UnionType extends BaseType implements IUnionTypeDTO {
 
   declare __typename: `${ITypeKind.UnionType}`
 
-  declare owner: IAuth0Owner
+  declare owner: IAuth0User
 
   typesOfUnionType: Array<Omit<IBaseTypeDTO, 'owner'>>
 

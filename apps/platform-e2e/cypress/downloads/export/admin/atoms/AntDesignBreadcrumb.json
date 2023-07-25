@@ -1,0 +1,240 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "8562d529-43b0-4927-96d3-56f1264e6a50",
+    "kind": "InterfaceType",
+    "name": "AntDesignBreadcrumb API",
+    "owner": {
+      "auth0Id": "auth0|6359ff8a417a19750991123b"
+    },
+    "fields": [
+      {
+        "id": "c66758f5-47c1-4f92-90be-10130ac6022c",
+        "key": "separator",
+        "name": "Separator",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "8562d529-43b0-4927-96d3-56f1264e6a50"
+        }
+      },
+      {
+        "id": "0e324a05-53ec-4a70-a0b8-bdacd1ca09cf",
+        "key": "itemRender",
+        "name": "Item Render",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "8562d529-43b0-4927-96d3-56f1264e6a50"
+        }
+      }
+    ]
+  },
+  "atom": {
+    "id": "e2dbdd86-3bb7-4312-921c-4295d777f0bc",
+    "name": "AntDesignBreadcrumb",
+    "type": "AntDesignBreadcrumb",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "8562d529-43b0-4927-96d3-56f1264e6a50",
+      "kind": "InterfaceType",
+      "name": "AntDesignBreadcrumb API",
+      "owner": {
+        "auth0Id": "auth0|6359ff8a417a19750991123b"
+      },
+      "fields": [
+        {
+          "id": "c66758f5-47c1-4f92-90be-10130ac6022c",
+          "key": "separator",
+          "name": "Separator",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          },
+          "api": {
+            "id": "8562d529-43b0-4927-96d3-56f1264e6a50"
+          }
+        },
+        {
+          "id": "0e324a05-53ec-4a70-a0b8-bdacd1ca09cf",
+          "key": "itemRender",
+          "name": "Item Render",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          },
+          "api": {
+            "id": "8562d529-43b0-4927-96d3-56f1264e6a50"
+          }
+        }
+      ]
+    },
+    "icon": "Breadcrumb",
+    "owner": {
+      "auth0Id": "auth0|6359ff8a417a19750991123b"
+    },
+    "tags": [
+      {
+        "id": "8f749d38-8c70-4fcb-bb69-dd87b49c039b",
+        "name": "Breadcrumb",
+        "parent": {
+          "id": "7c2474e2-f8ab-4cd2-98b7-252a0c8f3c8f",
+          "name": "Navigation"
+        },
+        "children": [
+          {
+            "id": "88502b9c-6350-4a13-845f-f56f9e1a0b76",
+            "name": "Breadcrumb.Item"
+          },
+          {
+            "id": "00210182-7fe7-465e-89ef-4a70dcf51ae3",
+            "name": "Breadcrumb.Separator"
+          }
+        ],
+        "owner": {
+          "auth0Id": "auth0|6359ff8a417a19750991123b"
+        }
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
+  },
+  "fields": [
+    {
+      "id": "c66758f5-47c1-4f92-90be-10130ac6022c",
+      "key": "separator",
+      "name": "Separator",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "8562d529-43b0-4927-96d3-56f1264e6a50"
+      }
+    },
+    {
+      "id": "0e324a05-53ec-4a70-a0b8-bdacd1ca09cf",
+      "key": "itemRender",
+      "name": "Item Render",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "8562d529-43b0-4927-96d3-56f1264e6a50"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "ReactNodeType",
+      "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+      "kind": "ReactNodeType",
+      "name": "ReactNodeType"
+    },
+    {
+      "__typename": "ReactNodeType",
+      "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+      "kind": "ReactNodeType",
+      "name": "ReactNodeType"
+    },
+    {
+      "__typename": "InterfaceType",
+      "id": "8562d529-43b0-4927-96d3-56f1264e6a50",
+      "kind": "InterfaceType",
+      "name": "AntDesignBreadcrumb API",
+      "owner": {
+        "auth0Id": "auth0|6359ff8a417a19750991123b"
+      },
+      "fields": [
+        {
+          "id": "c66758f5-47c1-4f92-90be-10130ac6022c",
+          "key": "separator",
+          "name": "Separator",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          },
+          "api": {
+            "id": "8562d529-43b0-4927-96d3-56f1264e6a50"
+          }
+        },
+        {
+          "id": "0e324a05-53ec-4a70-a0b8-bdacd1ca09cf",
+          "key": "itemRender",
+          "name": "Item Render",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          },
+          "api": {
+            "id": "8562d529-43b0-4927-96d3-56f1264e6a50"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -4,7 +4,7 @@ import type { ArgumentsCamelCase, Argv, CommandModule } from 'yargs'
 import { globalHandler } from '../../shared/handler'
 import { loadStageMiddleware } from '../../shared/middleware'
 import { getStageOptions } from '../../shared/options'
-import { Stage } from '../../shared/utils/stage'
+import { Stage } from '../../../../../../../shared/abstract/core/src/stage'
 
 @Injectable()
 export class TerraformService implements CommandModule<unknown, unknown> {

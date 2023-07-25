@@ -1,9 +1,11 @@
 import type { AppWhere } from '@codelab/backend/abstract/codegen'
 import type { IUserDataExport } from '@codelab/backend/abstract/core'
-import { exportApps, exportComponents } from '@codelab/backend/application/app'
+import { ExportAppsCommand } from '@codelab/backend/application/app'
 import { exportResources } from '@codelab/backend/application/resource'
-import { exportUserTypes } from '@codelab/backend/application/type'
-import type { IAuth0Owner } from '@codelab/shared/abstract/core'
+import type { TypesToExport } from '@codelab/backend/application/type'
+import { UserRepository } from '@codelab/backend/domain/user'
+import type { IAuth0User } from '@codelab/shared/abstract/core'
+import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 const nameComparator = (a: { name: string }, b: { name: string }) =>
   a.name.localeCompare(b.name)
@@ -24,9 +26,41 @@ const sortExportData = (exportData: IUserDataExport) => {
   return exportData
 }
 
-export const exportUserData = async (where: AppWhere, owner?: IAuth0Owner) => {
+export class ExportUserDataCommand {
+  constructor(public owner: IAuth0User) {}
+}
+
+@CommandHandler(ExportUserDataCommand)
+export class ExportUserDataHandler
+  implements ICommandHandler<ExportUserDataCommand, void>
+{
+  constructor(
+    private readonly commandBus: CommandBus,
+    private readonly userRepository: UserRepository,
+  ) {}
+
+  async execute(command: ExportUserDataCommand) {
+    const { owner } = command
+    /**
+     * Get all apps of user
+     */
+    const user = await this.userRepository.findOne(owner)
+    const appIds = user?.apps.map((app) => app.id)
+
+    await this.commandBus.execute(new ExportAppsCommand({ id_IN: appIds }))
+
+    /**
+     * Export user types
+     */
+  }
+
+  getUserTypes(): TypesToExport {}
+}
+
+export const exportUserData = async (where: AppWhere) => {
+  // TODO: Need to export only types used by app
   const appsData = await exportApps(where)
-  const typesData = await exportUserTypes(owner)
+  const typesData = await exportUserTypes()
   const resourcesData = await exportResources()
   const components = await exportComponents(where)
 

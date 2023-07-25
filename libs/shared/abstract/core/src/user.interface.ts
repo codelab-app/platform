@@ -1,17 +1,30 @@
 import type { IEntity } from '@codelab/shared/abstract/types'
+import { IsString } from 'class-validator'
 import type { IRole } from './role.enum'
 
-export interface IUserDTO {
+/**
+ * Create User
+ */
+export class ICreateUserDTO {
   apps?: Array<IEntity>
-  auth0Id: string
-  email: string
-  id: string
-  roles: Array<IRole>
-  username: string
+
+  @IsString()
+  declare auth0Id: string
+
+  @IsString()
+  declare email: string
+
+  @IsString()
+  declare id: string
+
+  declare roles: Array<IRole>
+
+  @IsString()
+  declare username: string
 }
 
-export interface IOwner {
-  owner: IAuth0Owner
+export interface IAuth0Owner {
+  owner: IAuth0User
 }
 
-export type IAuth0Owner = Pick<IUserDTO, 'auth0Id'>
+export type IAuth0User = Pick<ICreateUserDTO, 'auth0Id'>

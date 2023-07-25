@@ -14,7 +14,7 @@ import { getPropService } from '@codelab/frontend/domain/prop'
 import { getStoreService, Store } from '@codelab/frontend/domain/store'
 import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
 import {
-  IAuth0Owner,
+  IAuth0User,
   IPageKind,
   IPageKindName,
   ITypeKind,
@@ -66,7 +66,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
   }
 
   @modelAction
-  private addProviderPage(app: IPageAppFragment, owner: IAuth0Owner) {
+  private addProviderPage(app: IPageAppFragment, owner: IAuth0User) {
     return this.addDefaultPage(
       {
         app,
@@ -81,7 +81,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
   }
 
   @modelAction
-  private addNotFoundPage(app: IPageAppFragment, owner: IAuth0Owner) {
+  private addNotFoundPage(app: IPageAppFragment, owner: IAuth0User) {
     return this.addDefaultPage(
       {
         app,
@@ -96,10 +96,7 @@ export class PageFactory extends Model({}) implements IPageFactory {
   }
 
   @modelAction
-  private addInternalServerErrorPage(
-    app: IPageAppFragment,
-    owner: IAuth0Owner,
-  ) {
+  private addInternalServerErrorPage(app: IPageAppFragment, owner: IAuth0User) {
     return this.addDefaultPage(
       {
         app,

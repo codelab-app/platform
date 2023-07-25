@@ -2,8 +2,12 @@ import type {
   AtomCreateInput,
   AtomUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAtomDTO, IAtomType, IOwner } from '@codelab/shared/abstract/core'
-import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type {
+  IAtomDTO,
+  IAtomType,
+  IAuth0Owner,
+} from '@codelab/shared/abstract/core'
+import type { Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IModel } from '../model.interface'
@@ -14,7 +18,7 @@ import type { IRenderAtomDTO } from './atom.dto.interface'
 export interface IAtom
   extends ICacheService<IAtomDTO, IAtom>,
     Omit<IModel<AtomCreateInput, AtomUpdateInput, void>, 'toDeleteInput'>,
-    IOwner {
+    IAuth0Owner {
   allowCustomTextInjection: boolean
   /**
    * We don't need Ref here, only need id to filter the select options. Making it Ref requires dependency resolution that makes it more difficult.

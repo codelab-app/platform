@@ -40,14 +40,14 @@ describe('Seed, import, & export data', () => {
        * Import here from default data directory
        */
       execCommand(
-        `yarn cli import --stage test --skipSeedData false --skipUserData --email ${user.email}`,
+        `yarn cli import --stage test --skipAdminData false --skipUserData --email ${user.email}`,
       )
 
       /**
        * Export to tmp folder
        */
       execCommand(
-        `yarn cli export --stage test --skipSeedData false --skipUserData --seedDataPath ${exportTestPath}`,
+        `yarn cli export --stage test --skipAdminData false --skipUserData --adminDataPath ${exportTestPath}`,
       )
 
       /**

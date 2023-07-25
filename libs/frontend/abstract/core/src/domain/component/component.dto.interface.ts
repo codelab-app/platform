@@ -1,16 +1,4 @@
-import type { IOwner } from '@codelab/shared/abstract/core'
-import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
-
-export interface IComponentDTO extends IOwner {
-  api: IEntity
-  childrenContainerElement: IEntity
-  id: string
-  keyGenerator?: Nullish<string>
-  name: string
-  props: IEntity
-  rootElement: IEntity
-  store: IEntity
-}
+import type { IComponentDTO } from '@codelab/shared/abstract/core'
 
 export type ICreateComponentData = Pick<
   IComponentDTO,

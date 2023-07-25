@@ -1,36 +1,76 @@
 import type {
   IAtomDTO,
   IAtomType,
-  IAuth0Owner,
+  IAuth0User,
 } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import { type IEntity } from '@codelab/shared/abstract/types'
+import type { ValidationError } from 'class-validator'
+import {
+  IsArray,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  validateSync,
+} from 'class-validator'
 
 export class Atom implements IAtomDTO {
+  @IsOptional()
+  @IsString()
   icon?: string | null | undefined
 
+  @IsNotEmpty()
+  @IsString()
   id: string
 
+  @IsNotEmpty()
+  @IsString()
   name: string
 
+  @IsOptional()
+  @IsString()
   externalCssSource: string | null | undefined
 
+  @IsOptional()
+  @IsString()
   externalJsSource: string | null | undefined
 
+  @IsOptional()
+  @IsString()
   externalSourceType: string | null | undefined
 
+  // Assuming this is a string, add validators as per actual type
   type: IAtomType
 
   api: IEntity | undefined
 
+  @IsArray()
   tags: Array<IEntity>
 
+  @IsArray()
   requiredParents: Array<IEntity>
 
+  @IsArray()
   suggestedChildren: Array<IEntity>
 
-  owner: IAuth0Owner
+  // Assuming this is a string, add validators as per actual type
+  owner: IAuth0User
 
-  constructor({
+  static create(data: IAtomDTO): Atom {
+    const atom = new Atom(data)
+    const errors = validateSync(atom)
+
+    if (errors.length > 0) {
+      const message = errors
+        .map((error: ValidationError) => Object.values(error.constraints || {}))
+        .join(', ')
+
+      throw new Error(message)
+    }
+
+    return atom
+  }
+
+  private constructor({
     api,
     externalCssSource,
     externalJsSource,

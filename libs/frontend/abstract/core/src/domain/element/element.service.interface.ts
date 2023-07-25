@@ -1,5 +1,5 @@
 import type { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
-import type { IAuth0Owner, IElementDTO } from '@codelab/shared/abstract/core'
+import type { IAuth0User, IElementDTO } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
@@ -66,7 +66,7 @@ export interface IElementService
   ): Promise<Array<IElement>>
   convertElementToComponent(
     element: IElement,
-    owner: IAuth0Owner,
+    owner: IAuth0User,
   ): Promise<Maybe<IElement>>
   // moveElement(
   //   targetElementId: IElementRef,

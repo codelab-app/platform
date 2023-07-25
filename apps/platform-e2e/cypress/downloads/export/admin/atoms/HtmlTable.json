@@ -1,0 +1,150 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "a2b234b6-623b-4813-a159-a7c9006ca8bd",
+    "kind": "InterfaceType",
+    "name": "HtmlTable API",
+    "owner": {
+      "auth0Id": "auth0|6359ff8a417a19750991123b"
+    },
+    "fields": [
+      {
+        "id": "1a99544a-6b90-4f4d-9373-0e43c51a418d",
+        "key": "border",
+        "name": "Border",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+          "kind": "PrimitiveType",
+          "name": "Integer"
+        },
+        "api": {
+          "id": "a2b234b6-623b-4813-a159-a7c9006ca8bd"
+        }
+      }
+    ]
+  },
+  "atom": {
+    "id": "17c561a4-7c8c-4beb-ab6f-259e0dc9336c",
+    "name": "HtmlTable",
+    "type": "HtmlTable",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "a2b234b6-623b-4813-a159-a7c9006ca8bd",
+      "kind": "InterfaceType",
+      "name": "HtmlTable API",
+      "owner": {
+        "auth0Id": "auth0|6359ff8a417a19750991123b"
+      },
+      "fields": [
+        {
+          "id": "1a99544a-6b90-4f4d-9373-0e43c51a418d",
+          "key": "border",
+          "name": "Border",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+            "kind": "PrimitiveType",
+            "name": "Integer"
+          },
+          "api": {
+            "id": "a2b234b6-623b-4813-a159-a7c9006ca8bd"
+          }
+        }
+      ]
+    },
+    "icon": null,
+    "owner": {
+      "auth0Id": "auth0|6359ff8a417a19750991123b"
+    },
+    "tags": [
+      {
+        "id": "af5b3fa4-41fc-412d-86d6-77c364679054",
+        "name": "HtmlTable",
+        "parent": {
+          "id": "b3c5db6d-1853-458c-9388-1b8ddaf89250",
+          "name": "Flow"
+        },
+        "children": [],
+        "owner": {
+          "auth0Id": "auth0|6359ff8a417a19750991123b"
+        }
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
+  },
+  "fields": [
+    {
+      "id": "1a99544a-6b90-4f4d-9373-0e43c51a418d",
+      "key": "border",
+      "name": "Border",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+        "kind": "PrimitiveType",
+        "name": "Integer"
+      },
+      "api": {
+        "id": "a2b234b6-623b-4813-a159-a7c9006ca8bd"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "PrimitiveType",
+      "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+      "kind": "PrimitiveType",
+      "name": "Integer",
+      "primitiveKind": "Integer"
+    },
+    {
+      "__typename": "InterfaceType",
+      "id": "a2b234b6-623b-4813-a159-a7c9006ca8bd",
+      "kind": "InterfaceType",
+      "name": "HtmlTable API",
+      "owner": {
+        "auth0Id": "auth0|6359ff8a417a19750991123b"
+      },
+      "fields": [
+        {
+          "id": "1a99544a-6b90-4f4d-9373-0e43c51a418d",
+          "key": "border",
+          "name": "Border",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+            "kind": "PrimitiveType",
+            "name": "Integer"
+          },
+          "api": {
+            "id": "a2b234b6-623b-4813-a159-a7c9006ca8bd"
+          }
+        }
+      ]
+    }
+  ]
+}

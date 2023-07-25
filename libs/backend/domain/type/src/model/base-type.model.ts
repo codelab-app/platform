@@ -1,5 +1,5 @@
 import type {
-  IAuth0Owner,
+  IAuth0User,
   IBaseTypeDTO,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
@@ -11,7 +11,7 @@ export abstract class BaseType implements IBaseTypeDTO {
 
   kind: ITypeKind
 
-  owner: IAuth0Owner
+  owner: IAuth0User
 
   constructor({ id, kind, name, owner }: IBaseTypeDTO) {
     this.id = id

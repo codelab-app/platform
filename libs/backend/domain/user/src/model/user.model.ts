@@ -1,13 +1,13 @@
 import { Role } from '@codelab/backend/abstract/codegen'
 import type {
   Auth0SessionUser,
+  ICreateUserDTO,
   IRole,
-  IUserDTO,
 } from '@codelab/shared/abstract/core'
 import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
-export class User implements IUserDTO {
+export class User implements ICreateUserDTO {
   id: string
 
   auth0Id: string
@@ -18,7 +18,7 @@ export class User implements IUserDTO {
 
   roles: Array<IRole>
 
-  constructor({ auth0Id, email, id, roles = [], username }: IUserDTO) {
+  constructor({ auth0Id, email, id, roles = [], username }: ICreateUserDTO) {
     this.id = id
     this.auth0Id = auth0Id
     this.email = email

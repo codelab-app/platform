@@ -1,6 +1,6 @@
 import type {
   IAtomDTO,
-  IAuth0Owner,
+  IAuth0User,
   IEnumTypeDTO,
   IEnumTypeValueDTO,
   IFieldDTO,
@@ -18,7 +18,7 @@ export class EnumType extends BaseType implements IEnumTypeDTO {
 
   declare __typename: `${ITypeKind.EnumType}`
 
-  declare owner: IAuth0Owner
+  declare owner: IAuth0User
 
   allowedValues: Array<IEnumTypeValueDTO>
 

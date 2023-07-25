@@ -1,0 +1,53 @@
+{
+  "name": "platform-api-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/platform-api-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/platform-api-e2e/cypress.config.ts",
+        "baseUrl": "http://127.0.0.1:4001/api",
+        "browser": "electron",
+        "testingType": "e2e"
+      },
+      "defaultConfiguration": "dev",
+      "configurations": {
+        "dev": {
+          "devServerTarget": "platform-api-e2e:serve:dev",
+          "watch": true,
+          "exit": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": true,
+        "readyWhen": "READY"
+      },
+      "configurations": {
+        "dev": {
+          "commands": [
+            {
+              "command": "npx wait-on --interval 1000 --delay 5000 tcp:127.0.0.1:4001 && echo 'READY'"
+            },
+            {
+              "command": "npx env-cmd -f .env.test nx serve platform-api -c test"
+            }
+          ]
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/platform-api-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["platform-api"]
+}

@@ -1,5 +1,5 @@
 import type {
-  IAuth0Owner,
+  IAuth0User,
   IRenderPropTypeDTO,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -14,7 +14,7 @@ export class RenderPropType extends BaseType implements IRenderPropTypeDTO {
 
   declare __typename: `${ITypeKind.RenderPropType}`
 
-  declare owner: IAuth0Owner
+  declare owner: IAuth0User
 
   constructor({ id, owner }: IRenderPropTypeDTO) {
     super({

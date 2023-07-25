@@ -2,6 +2,7 @@ import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
+import type { IComponentDTO } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import type {
@@ -12,7 +13,6 @@ import type {
   IQueryService,
 } from '../../service'
 import type {
-  IComponentDTO,
   ICreateComponentData,
   IUpdateComponentData,
 } from './component.dto.interface'

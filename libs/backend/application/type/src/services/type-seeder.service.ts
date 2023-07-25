@@ -1,12 +1,17 @@
 import { FieldRepository, TypeFactory } from '@codelab/backend/domain/type'
 import type {
-  IAuth0Owner,
+  IAuth0User,
   IFieldDTO,
   ITypeDTO,
 } from '@codelab/shared/abstract/core'
+import { Injectable } from '@nestjs/common'
 
+@Injectable()
 export class TypeSeederService {
-  fieldRepository = new FieldRepository()
+  constructor(
+    private readonly fieldRepository: FieldRepository,
+    private readonly typeFactory: TypeFactory,
+  ) {}
 
   async seedFields(fields: Array<IFieldDTO>) {
     for await (const field of fields) {
@@ -20,11 +25,11 @@ export class TypeSeederService {
     }
   }
 
-  async seedTypes(types: Array<ITypeDTO>, owner: IAuth0Owner) {
+  async seedTypes(types: Array<ITypeDTO>, owner: IAuth0User) {
     await Promise.all(
       Object.values(types).map(
         async (type) =>
-          await TypeFactory.save({ ...type, owner }, { name: type.name }),
+          await this.typeFactory.save({ ...type, owner }, { name: type.name }),
       ),
     )
   }

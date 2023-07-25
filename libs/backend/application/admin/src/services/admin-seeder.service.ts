@@ -1,19 +1,27 @@
-import { AuthService } from '@codelab/backend/application/service'
 import {
   ExtractAntDesignFieldsService,
   ExtractHtmlFieldsService,
 } from '@codelab/backend/application/type'
+import { UserService } from '@codelab/backend/application/user'
 import { antdTagTree, htmlTagTree } from '@codelab/backend/data/seed'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
 import { antdAtomData, htmlAtomData } from '@codelab/shared/data/seed'
+import { Injectable } from '@nestjs/common'
 import { SeedFrameworkService } from '../use-case'
 
-export class AdminSeederService extends AuthService {
+@Injectable()
+export class AdminSeederService {
+  constructor(
+    private readonly userService: UserService,
+    private readonly extractAntDesignFieldService: ExtractAntDesignFieldsService,
+    private readonly seedFrameworkService: SeedFrameworkService,
+  ) {}
+
   async seedAntDesign() {
     const fields = async (atoms: Array<IAtomDTO>) =>
-      new ExtractAntDesignFieldsService(this.owner).execute(atoms)
+      this.extractAntDesignFieldService.execute(atoms)
 
-    await new SeedFrameworkService(this.owner).execute({
+    await this.seedFrameworkService.execute({
       atoms: antdAtomData,
       fields,
       tags: antdTagTree,
@@ -22,9 +30,9 @@ export class AdminSeederService extends AuthService {
 
   async seedHtml() {
     const fields = async (atoms: Array<IAtomDTO>) =>
-      new ExtractHtmlFieldsService(this.owner).execute(atoms)
+      new ExtractHtmlFieldsService().execute(atoms)
 
-    await new SeedFrameworkService(this.owner).execute({
+    await this.seedFrameworkService.execute({
       atoms: htmlAtomData,
       fields,
       tags: htmlTagTree,

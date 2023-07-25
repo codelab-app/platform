@@ -1,1 +1,1 @@
-export * from './store.repo'
+export * from './store.repo.service'

@@ -1,8 +1,8 @@
 import type {
+  IAuth0Owner,
   ICodeMirrorLanguage,
   IElementTypeKind,
   IEnumTypeValueDTO,
-  IOwner,
   IPrimitiveTypeKind,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
@@ -11,7 +11,7 @@ import type {
  *
  * For the backend, we'll create a type for each sub-type.
  */
-export interface ICreateTypeData extends IOwner {
+export interface ICreateTypeData extends IAuth0Owner {
   allowedValues?: Array<IEnumTypeValueDTO>
   arrayTypeId?: string
   elementKind?: IElementTypeKind

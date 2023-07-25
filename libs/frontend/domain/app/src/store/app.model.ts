@@ -5,7 +5,7 @@ import type {
   AppDeleteInput,
   AppUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAppDTO, IAuth0Owner } from '@codelab/shared/abstract/core'
+import type { IAppDTO, IAuth0User } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { createUniqueName, slugify } from '@codelab/shared/utils'
@@ -32,7 +32,7 @@ export class App
     domains: prop<Array<Ref<IDomain>>>(() => []),
     id: idProp,
     name: prop<string>().withSetter(),
-    owner: prop<IAuth0Owner>(),
+    owner: prop<IAuth0User>(),
     pages: prop<Array<Ref<IPage>>>(() => []),
     // slug: prop<string>().withSetter(),
   })

@@ -19,7 +19,7 @@ import {
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type {
   IAtomDTO,
-  IAuth0Owner,
+  IAuth0User,
   IEnumTypeDTO,
   IFieldDTO,
   IInterfaceTypeDTO,
@@ -40,7 +40,7 @@ interface Request {
 interface Props {
   atom: Pick<IAtomDTO, 'name'>
   field: Pick<IFieldDTO, 'key'>
-  owner: IAuth0Owner
+  owner: IAuth0User
 }
 
 /**

@@ -1,18 +1,4 @@
-import type {
-  IAtomBaseRecords,
-  IAtomDTO,
-  IAtomType,
-  IInterfaceTypeDTO,
-} from '@codelab/shared/abstract/core'
-import type { ITypesExport } from '../export/type.interface'
-
-/**
- * This is the single file that we export. We'll read all the single files and aggregate them into `IAdminData`
- */
-export type IAtomExport = ITypesExport & {
-  api: IInterfaceTypeDTO
-  atom: IAtomDTO
-}
+import type { IAtomBaseRecords, IAtomType } from '@codelab/shared/abstract/core'
 
 export type IAtomRecords = IAtomBaseRecords<IAtomData>
 

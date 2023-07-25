@@ -4,7 +4,7 @@ import type {
   IUpdateTypeVars,
 } from '@codelab/frontend/abstract/core'
 import type {
-  IAuth0Owner,
+  IAuth0User,
   IBaseTypeDTO,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
@@ -18,7 +18,7 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
       id: idProp,
       kind: prop<T>(() => typeKind),
       name: prop<string>(),
-      owner: prop<IAuth0Owner>().withSetter(),
+      owner: prop<IAuth0User>().withSetter(),
     })
     implements IBaseType<IBaseTypeDTO, ICreateTypeInput, IUpdateTypeVars>
   {

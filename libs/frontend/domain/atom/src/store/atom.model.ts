@@ -12,7 +12,7 @@ import {
 import type {
   IAtomDTO,
   IAtomType,
-  IAuth0Owner,
+  IAuth0User,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
@@ -68,7 +68,7 @@ export class Atom
     icon: prop<string | null | undefined>(null),
     id: idProp,
     name: prop<string>(),
-    owner: prop<IAuth0Owner>(),
+    owner: prop<IAuth0User>(),
     requiredParents: prop<Array<Ref<IAtom>>>(() => []),
     suggestedChildren: prop<Array<Ref<IAtom>>>(() => []),
     tags: prop<Array<Ref<ITag>>>(() => []),

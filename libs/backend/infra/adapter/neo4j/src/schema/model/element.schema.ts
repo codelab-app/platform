@@ -48,11 +48,11 @@ export const elementSchema = gql`
       @relationship(type: "POST_RENDER_ELEMENT_ACTION", direction: OUT)
 
     # Type of element to render, could be either a component or atom
+    renderType: RenderType
     renderComponentType: Component
       @relationship(type: "RENDER_COMPONENT_TYPE", direction: OUT)
 
     renderAtomType: Atom @relationship(type: "RENDER_ATOM_TYPE", direction: OUT)
-    renderType: RenderType
 
     # This is a custom field resolver
     descendantElements: [Element!]!

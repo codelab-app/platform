@@ -2,7 +2,7 @@ import { execCommand } from '@codelab/backend/infra/adapter/shell'
 import { Injectable } from '@nestjs/common'
 import type { Argv, CommandModule } from 'yargs'
 import { getStageOptions } from '../../shared/options'
-import { Stage } from '../../shared/utils/stage'
+import { Stage } from '../../../../../../../shared/abstract/core/src/stage'
 
 @Injectable()
 export class ServerlessService implements CommandModule<unknown, unknown> {

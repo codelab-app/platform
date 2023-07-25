@@ -40,7 +40,7 @@
     ".next/types/**/*.ts",
     "../../dist/apps/platform/.next/types/**/*.ts",
     "../../dist/apps/platform-test/.next/types/**/*.ts"
-  ],
+, "../../libs/backend/application/migration/src/export/admin.ts"  ],
   "exclude": [
     "jest.config.ts",
     "**/*.spec.ts",

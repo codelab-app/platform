@@ -1,13 +1,14 @@
 import type { IRepository } from '@codelab/backend/abstract/types'
 import { flattenWithPrefix } from '@codelab/backend/infra/adapter/otel'
 import type { IEntity } from '@codelab/shared/abstract/types'
+import { CacheInstance, CacheService } from '@codelab/shared/infra/cache'
 import { withTracing } from '@codelab/shared/infra/otel'
-import { CacheInstance, CacheService } from '@shared/infra/cache'
 
 export abstract class AbstractRepository<
   Model extends IEntity,
   ModelData extends object,
   Where extends { id?: string | null },
+  Options,
 > implements IRepository<Model, ModelData, Where>
 {
   private cacheService: CacheService
@@ -24,7 +25,7 @@ export abstract class AbstractRepository<
 
   async findOne(where: Where): Promise<ModelData | undefined> {
     if (!this.enableCache) {
-      return (await this.find(where))[0]
+      return (await this.find({ where }))[0]
     }
 
     const cachedValue = await this.cacheService.getOne<ModelData>(
@@ -36,7 +37,7 @@ export abstract class AbstractRepository<
       return cachedValue
     }
 
-    const result = (await this.find(where))[0]
+    const result = (await this.find({ where }))[0]
 
     if (result !== undefined) {
       await this.cacheService.setOne(this.constructor.name, where, result)
@@ -45,9 +46,15 @@ export abstract class AbstractRepository<
     return result
   }
 
-  async find(where?: Where): Promise<Array<ModelData>> {
+  async find({
+    options,
+    where,
+  }: {
+    where?: Where
+    options?: Options
+  } = {}): Promise<Array<ModelData>> {
     if (!this.enableCache) {
-      return await this._find(where)
+      return await this._find({ options, where })
     }
 
     const cachedValue = await this.cacheService.getMany<ModelData>(
@@ -59,14 +66,20 @@ export abstract class AbstractRepository<
       return cachedValue
     }
 
-    const results = await this._find(where)
+    const results = await this._find({ options, where })
 
     await this.cacheService.setMany(this.constructor.name, where, results)
 
     return results
   }
 
-  protected abstract _find(where?: Where): Promise<Array<ModelData>>
+  protected abstract _find({
+    options,
+    where,
+  }: {
+    where?: Where
+    options?: Options
+  }): Promise<Array<ModelData>>
 
   public async add(data: Array<Model>): Promise<Array<ModelData>> {
     return await withTracing(
@@ -90,7 +103,7 @@ export abstract class AbstractRepository<
    *
    * Say we created some DTO data that is keyed by name, but with a generated ID. After finding existing record and performing update, we will actually update the ID as we ll.
    */
-  async update(data: Model, where: Where): Promise<ModelData> {
+  async update(data: Model, where?: Where): Promise<ModelData> {
     const model = await withTracing(
       `${this.constructor.name}.update()`,
       async () => {
@@ -119,7 +132,7 @@ export abstract class AbstractRepository<
 
   protected abstract _update(
     data: Model,
-    where: Where,
+    where?: Where,
   ): Promise<ModelData | undefined>
 
   /**

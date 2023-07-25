@@ -1,6 +1,6 @@
 import type { ITagDTO } from '@codelab/shared/abstract/core'
-import type { IAtomExport } from '../seed/atom.interface'
-import type { IComponentExportData } from './component.interface'
+import type { IAtomExport } from './atom.interface'
+import type { IComponentExport } from './component.interface'
 import type { ITypesExport } from './type.interface'
 
 /**
@@ -20,7 +20,7 @@ import type { ITypesExport } from './type.interface'
  */
 export interface IAdminDataExport {
   atoms: Array<IAtomExport>
-  components: Array<IComponentExportData>
+  components: Array<IComponentExport>
   // resources: Array<IResourceExport>
   systemTypes: ITypesExport
   tags: Array<ITagDTO>

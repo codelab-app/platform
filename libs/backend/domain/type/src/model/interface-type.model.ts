@@ -1,6 +1,6 @@
 import type {
   IAtomDTO,
-  IAuth0Owner,
+  IAuth0User,
   IFieldDTO,
   IInterfaceTypeDTO,
 } from '@codelab/shared/abstract/core'
@@ -19,7 +19,7 @@ export class InterfaceType extends BaseType implements IInterfaceTypeDTO {
 
   declare __typename: `${ITypeKind.InterfaceType}`
 
-  declare owner: IAuth0Owner
+  declare owner: IAuth0User
 
   fields: Array<IEntity>
 
@@ -39,7 +39,7 @@ export class InterfaceType extends BaseType implements IInterfaceTypeDTO {
   /**
    * Make create data from atom name
    */
-  static createFromAtomName(name: string, owner: IAuth0Owner) {
+  static createFromAtomName(name: string, owner: IAuth0User) {
     return new InterfaceType({
       fields: [],
       id: v4(),

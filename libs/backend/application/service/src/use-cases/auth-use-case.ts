@@ -1,4 +1,4 @@
-import type { IAuth0Owner } from '@codelab/shared/abstract/core'
+import type { IAuth0User } from '@codelab/shared/abstract/core'
 import { UseCase } from './use-case'
 
 /**
@@ -8,11 +8,11 @@ export abstract class AuthUseCase<
   IRequest = void,
   IResponse = void,
 > extends UseCase<IRequest, IResponse> {
-  constructor(protected readonly owner: IAuth0Owner) {
+  constructor(protected readonly owner: IAuth0User) {
     super()
   }
 }
 
 export abstract class AuthService {
-  constructor(protected readonly owner: IAuth0Owner) {}
+  constructor(readonly owner: IAuth0User) {}
 }

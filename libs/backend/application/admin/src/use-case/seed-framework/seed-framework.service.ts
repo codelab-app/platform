@@ -12,7 +12,9 @@ import type {
   IAtomType,
   IFieldDTO,
 } from '@codelab/shared/abstract/core'
+import { IAuth0User } from '@codelab/shared/abstract/core'
 import { withTracing } from '@codelab/shared/infra/otel'
+import { Injectable } from '@nestjs/common'
 import { ObjectTyped } from 'object-typed'
 
 interface FrameworkData {
@@ -28,8 +30,14 @@ interface FrameworkData {
  *
  * It contains atoms, api's, tags
  */
+@Injectable()
 export class SeedFrameworkService extends AuthUseCase<FrameworkData, void> {
-  seeder = new TypeSeederService()
+  constructor(
+    private readonly typeSeederService: TypeSeederService,
+    protected readonly owner: IAuth0User,
+  ) {
+    super(owner)
+  }
 
   async _execute(data: FrameworkData) {
     await withTracing('SeedFrameworkService.seedSystemTypes()', () =>
@@ -56,7 +64,7 @@ export class SeedFrameworkService extends AuthUseCase<FrameworkData, void> {
   private seedSystemTypes() {
     const types = Object.values(systemTypesData(this.owner))
 
-    return this.seeder.seedTypes(types, this.owner)
+    return this.typeSeederService.seedTypes(types, this.owner)
   }
 
   private async seedAtoms(atoms: FrameworkData['atoms']) {
@@ -72,6 +80,6 @@ export class SeedFrameworkService extends AuthUseCase<FrameworkData, void> {
   }
 
   private async seedApis(fields: Array<IFieldDTO>) {
-    return this.seeder.seedFields(fields)
+    return this.typeSeederService.seedFields(fields)
   }
 }

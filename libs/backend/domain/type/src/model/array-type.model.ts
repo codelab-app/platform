@@ -1,4 +1,4 @@
-import type { IArrayTypeDTO, IAuth0Owner } from '@codelab/shared/abstract/core'
+import type { IArrayTypeDTO, IAuth0User } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { BaseType } from './base-type.model'
@@ -12,7 +12,7 @@ export class ArrayType extends BaseType implements IArrayTypeDTO {
 
   declare __typename: `${ITypeKind.ArrayType}`
 
-  declare owner: IAuth0Owner
+  declare owner: IAuth0User
 
   declare itemType?: IEntity
 

@@ -1,8 +1,8 @@
-import type { IAuth0Owner, ITypeDTO } from '@codelab/shared/abstract/core'
+import type { IAuth0User, ITypeDTO } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 
-export const createTypesData = (owner: IAuth0Owner): Array<ITypeDTO> => [
+export const createTypesData = (owner: IAuth0User): Array<ITypeDTO> => [
   {
     __typename: ITypeKind.PrimitiveType,
     id: v4(),

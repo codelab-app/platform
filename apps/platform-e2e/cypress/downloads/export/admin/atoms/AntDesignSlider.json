@@ -1,0 +1,150 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "3bd46d1a-475f-4c02-a6e2-d95d020f50d3",
+    "kind": "InterfaceType",
+    "name": "AntDesignSlider API",
+    "owner": {
+      "auth0Id": "auth0|6359ff8a417a19750991123b"
+    },
+    "fields": [
+      {
+        "id": "0aece0a9-b40f-47ed-a5d7-0214b800774f",
+        "key": "draggableTrack",
+        "name": "Draggable Track",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "3bd46d1a-475f-4c02-a6e2-d95d020f50d3"
+        }
+      }
+    ]
+  },
+  "atom": {
+    "id": "6daf0b25-2bdb-4367-9bdb-65cd3f33a669",
+    "name": "AntDesignSlider",
+    "type": "AntDesignSlider",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "3bd46d1a-475f-4c02-a6e2-d95d020f50d3",
+      "kind": "InterfaceType",
+      "name": "AntDesignSlider API",
+      "owner": {
+        "auth0Id": "auth0|6359ff8a417a19750991123b"
+      },
+      "fields": [
+        {
+          "id": "0aece0a9-b40f-47ed-a5d7-0214b800774f",
+          "key": "draggableTrack",
+          "name": "Draggable Track",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "3bd46d1a-475f-4c02-a6e2-d95d020f50d3"
+          }
+        }
+      ]
+    },
+    "icon": "Slider",
+    "owner": {
+      "auth0Id": "auth0|6359ff8a417a19750991123b"
+    },
+    "tags": [
+      {
+        "id": "55a724de-7ddf-4ebb-ba24-54b16469de79",
+        "name": "Slider",
+        "parent": {
+          "id": "79e9ccd1-a5fa-44b9-b728-16e3c79365c8",
+          "name": "Data Entry"
+        },
+        "children": [],
+        "owner": {
+          "auth0Id": "auth0|6359ff8a417a19750991123b"
+        }
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
+  },
+  "fields": [
+    {
+      "id": "0aece0a9-b40f-47ed-a5d7-0214b800774f",
+      "key": "draggableTrack",
+      "name": "Draggable Track",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "3bd46d1a-475f-4c02-a6e2-d95d020f50d3"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "PrimitiveType",
+      "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+      "kind": "PrimitiveType",
+      "name": "Boolean",
+      "primitiveKind": "Boolean"
+    },
+    {
+      "__typename": "InterfaceType",
+      "id": "3bd46d1a-475f-4c02-a6e2-d95d020f50d3",
+      "kind": "InterfaceType",
+      "name": "AntDesignSlider API",
+      "owner": {
+        "auth0Id": "auth0|6359ff8a417a19750991123b"
+      },
+      "fields": [
+        {
+          "id": "0aece0a9-b40f-47ed-a5d7-0214b800774f",
+          "key": "draggableTrack",
+          "name": "Draggable Track",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "3bd46d1a-475f-4c02-a6e2-d95d020f50d3"
+          }
+        }
+      ]
+    }
+  ]
+}

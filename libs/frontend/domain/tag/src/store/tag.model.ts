@@ -4,7 +4,7 @@ import type {
   TagCreateInput,
   TagUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAuth0Owner, ITagDTO } from '@codelab/shared/abstract/core'
+import type { IAuth0User, ITagDTO } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import {
   connectAuth0Owner,
@@ -49,7 +49,7 @@ export class Tag
     id: idProp,
     isRoot: prop<boolean>(false),
     name: prop<string>(),
-    owner: prop<IAuth0Owner>(),
+    owner: prop<IAuth0User>(),
     parent: prop<Nullable<Ref<ITag>>>(null),
   })
   implements ITag

@@ -17,7 +17,7 @@ export interface ITag
   id: string
   isRoot: boolean
   name: string
-  owner: IAuth0Owner
+  owner: IAuth0User
 }
 
 export type ITagRef = string

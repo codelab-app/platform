@@ -9,7 +9,7 @@ export const atomSelectionSet = `{
   api
     ${interfaceTypeSelectionSet}
   icon
-  ${ownerFieldSelectionSet}
+    ${ownerFieldSelectionSet}
   tags
     ${tagSelectionSet}
   suggestedChildren {

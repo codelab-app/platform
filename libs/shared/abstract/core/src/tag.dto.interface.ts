@@ -1,7 +1,7 @@
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
-import type { IOwner } from './user.interface'
+import type { IAuth0Owner } from './user.interface'
 
-export interface ITagDTO extends IOwner {
+export interface ITagDTO extends IAuth0Owner {
   children?: Array<IEntity>
   // This is computed property
   descendants?: Array<IEntity>

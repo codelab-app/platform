@@ -1,5 +1,6 @@
 import type { HtmlField } from '@codelab/backend/abstract/core'
-import { AuthUseCase } from '@codelab/backend/application/service'
+import type { IUseCase } from '@codelab/backend/abstract/types'
+import { UserService } from '@codelab/backend/application/user'
 import {
   Field,
   FieldRepository,
@@ -7,6 +8,7 @@ import {
 } from '@codelab/backend/domain/type'
 import type { IAtomDTO, IFieldDTO } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
+import { Injectable } from '@nestjs/common'
 import { readFileSync } from 'fs'
 import path from 'path'
 import { v4 } from 'uuid'
@@ -14,13 +16,16 @@ import { HtmlTypeAdapterService } from '../../type-adapter/html-type-adapter/htm
 
 export type HtmlData = Record<string, Array<HtmlField>>
 
-export class ExtractHtmlFieldsService extends AuthUseCase<
-  Array<IAtomDTO>,
-  Array<IFieldDTO>
-> {
-  private htmlDataFolder = `${process.cwd()}/data/html/`
+@Injectable()
+export class ExtractHtmlFieldsService
+  implements IUseCase<Array<IAtomDTO>, Array<IFieldDTO>>
+{
+  constructor(
+    private readonly userService: UserService,
+    private readonly fieldRepository: FieldRepository,
+  ) {}
 
-  fieldRepository = new FieldRepository()
+  private htmlDataFolder = `${process.cwd()}/data/html/`
 
   async _execute(atoms: Array<IAtomDTO>) {
     const htmlAttributesByName = JSON.parse(
@@ -81,7 +86,7 @@ export class ExtractHtmlFieldsService extends AuthUseCase<
       field: {
         key: field.key,
       },
-      owner: this.owner,
+      owner: this.userService.getCurrentUser(),
     }).execute({ type: field.type })
 
     if (!fieldTypeDTO) {

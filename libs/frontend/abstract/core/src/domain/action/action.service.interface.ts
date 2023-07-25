@@ -2,6 +2,7 @@ import type {
   ActionFragment,
   ApiActionOptions,
 } from '@codelab/shared/abstract/codegen'
+import type { IActionDTO } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type {
@@ -13,7 +14,6 @@ import type {
 } from '../../service'
 import type { IStore } from '../store'
 import type {
-  IActionDTO,
   ICreateActionData,
   IUpdateActionData,
 } from './action.dto.interface'

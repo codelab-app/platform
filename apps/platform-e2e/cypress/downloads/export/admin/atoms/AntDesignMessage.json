@@ -1,0 +1,63 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "1dcc8d52-3879-4a3d-a4b0-4ce1456b47bf",
+    "kind": "InterfaceType",
+    "name": "AntDesignMessage API",
+    "owner": {
+      "auth0Id": "auth0|6359ff8a417a19750991123b"
+    },
+    "fields": []
+  },
+  "atom": {
+    "id": "f7c9e900-5c6c-4673-bc47-f4e5df7ee80a",
+    "name": "AntDesignMessage",
+    "type": "AntDesignMessage",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "1dcc8d52-3879-4a3d-a4b0-4ce1456b47bf",
+      "kind": "InterfaceType",
+      "name": "AntDesignMessage API",
+      "owner": {
+        "auth0Id": "auth0|6359ff8a417a19750991123b"
+      },
+      "fields": []
+    },
+    "icon": "Message",
+    "owner": {
+      "auth0Id": "auth0|6359ff8a417a19750991123b"
+    },
+    "tags": [
+      {
+        "id": "f202957d-80bd-40e2-beef-03b9c4578b11",
+        "name": "Message",
+        "parent": {
+          "id": "15329905-a687-4f75-939c-1cec559e9ba4",
+          "name": "Feedback"
+        },
+        "children": [],
+        "owner": {
+          "auth0Id": "auth0|6359ff8a417a19750991123b"
+        }
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
+  },
+  "fields": [],
+  "types": [
+    {
+      "__typename": "InterfaceType",
+      "id": "1dcc8d52-3879-4a3d-a4b0-4ce1456b47bf",
+      "kind": "InterfaceType",
+      "name": "AntDesignMessage API",
+      "owner": {
+        "auth0Id": "auth0|6359ff8a417a19750991123b"
+      },
+      "fields": []
+    }
+  ]
+}

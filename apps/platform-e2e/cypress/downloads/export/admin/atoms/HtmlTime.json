@@ -1,0 +1,150 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "3701658f-170b-40a1-a4d7-d88802392090",
+    "kind": "InterfaceType",
+    "name": "HtmlTime API",
+    "owner": {
+      "auth0Id": "auth0|6359ff8a417a19750991123b"
+    },
+    "fields": [
+      {
+        "id": "507c6a8c-02ff-4073-bc5d-2b2c66d60c9c",
+        "key": "datetime",
+        "name": "Datetime",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "3701658f-170b-40a1-a4d7-d88802392090"
+        }
+      }
+    ]
+  },
+  "atom": {
+    "id": "4fa49c45-ba02-4e87-a457-06deb5122061",
+    "name": "HtmlTime",
+    "type": "HtmlTime",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "3701658f-170b-40a1-a4d7-d88802392090",
+      "kind": "InterfaceType",
+      "name": "HtmlTime API",
+      "owner": {
+        "auth0Id": "auth0|6359ff8a417a19750991123b"
+      },
+      "fields": [
+        {
+          "id": "507c6a8c-02ff-4073-bc5d-2b2c66d60c9c",
+          "key": "datetime",
+          "name": "Datetime",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "api": {
+            "id": "3701658f-170b-40a1-a4d7-d88802392090"
+          }
+        }
+      ]
+    },
+    "icon": null,
+    "owner": {
+      "auth0Id": "auth0|6359ff8a417a19750991123b"
+    },
+    "tags": [
+      {
+        "id": "a5dd7e43-87a3-479e-980c-c4b5d8636c8a",
+        "name": "HtmlTime",
+        "parent": {
+          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
+          "name": "Phrasing"
+        },
+        "children": [],
+        "owner": {
+          "auth0Id": "auth0|6359ff8a417a19750991123b"
+        }
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
+  },
+  "fields": [
+    {
+      "id": "507c6a8c-02ff-4073-bc5d-2b2c66d60c9c",
+      "key": "datetime",
+      "name": "Datetime",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "3701658f-170b-40a1-a4d7-d88802392090"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "PrimitiveType",
+      "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+      "kind": "PrimitiveType",
+      "name": "String",
+      "primitiveKind": "String"
+    },
+    {
+      "__typename": "InterfaceType",
+      "id": "3701658f-170b-40a1-a4d7-d88802392090",
+      "kind": "InterfaceType",
+      "name": "HtmlTime API",
+      "owner": {
+        "auth0Id": "auth0|6359ff8a417a19750991123b"
+      },
+      "fields": [
+        {
+          "id": "507c6a8c-02ff-4073-bc5d-2b2c66d60c9c",
+          "key": "datetime",
+          "name": "Datetime",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "api": {
+            "id": "3701658f-170b-40a1-a4d7-d88802392090"
+          }
+        }
+      ]
+    }
+  ]
+}

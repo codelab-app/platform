@@ -1,4 +1,2 @@
-export * from './export-apps'
-export * from './export-components'
-export * from './import-apps'
-export * from './import-components'
+export * from './export-apps.command.service'
+export * from './import-app.command.service'

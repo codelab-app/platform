@@ -1,5 +1,5 @@
 import type {
-  IAuth0Owner,
+  IAuth0User,
   IPrimitiveTypeDTO,
   IPrimitiveTypeKind,
 } from '@codelab/shared/abstract/core'
@@ -15,7 +15,7 @@ export class PrimitiveType extends BaseType implements IPrimitiveTypeDTO {
 
   __typename: `${ITypeKind.PrimitiveType}` = ITypeKind.PrimitiveType
 
-  declare owner: IAuth0Owner
+  declare owner: IAuth0User
 
   primitiveKind: IPrimitiveTypeKind
 

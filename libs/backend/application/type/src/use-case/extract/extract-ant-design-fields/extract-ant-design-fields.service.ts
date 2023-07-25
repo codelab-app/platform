@@ -1,5 +1,6 @@
 import type { AntDesignField } from '@codelab/backend/abstract/core'
-import { AuthUseCase } from '@codelab/backend/application/service'
+import { UseCase } from '@codelab/backend/application/service'
+import { UserService } from '@codelab/backend/application/user'
 import {
   Field,
   FieldRepository,
@@ -7,6 +8,7 @@ import {
 } from '@codelab/backend/domain/type'
 import type { IAtomDTO, IFieldDTO } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
+import { Injectable } from '@nestjs/common'
 import find from 'lodash/find'
 import { v4 } from 'uuid'
 import { AntdTypeAdapterService } from '../../type-adapter/antd-type-adapter/antd-type-adapter.service'
@@ -17,10 +19,13 @@ import { readAntDesignApis } from './read-ant-design-apis'
  *
  * We don't map the existing ids here
  */
-export class ExtractAntDesignFieldsService extends AuthUseCase<
+@Injectable()
+export class ExtractAntDesignFieldsService extends UseCase<
   Array<IAtomDTO>,
   Array<IFieldDTO>
 > {
+  constructor(private userService: UserService) {}
+
   private antdDataFolder = `${process.cwd()}/data/antd-v5/`
 
   fieldRepository = new FieldRepository()

@@ -1,3 +1,3 @@
-export * from './export-atoms'
-export * from './import-atoms/import-atoms.service'
-export * from './seed-atoms'
+export * from './export-atoms.command.service'
+export * from './import-atoms.command.service'
+export * from './seed-atoms.service'

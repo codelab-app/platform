@@ -8,7 +8,7 @@ import type {
   ResourceCreateInput,
   ResourceUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAuth0Owner, IResourceType } from '@codelab/shared/abstract/core'
+import type { IAuth0User, IResourceType } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
@@ -28,7 +28,7 @@ export class Resource
     config: prop<Ref<IProp>>(),
     id: idProp,
     name: prop<string>(),
-    owner: prop<IAuth0Owner>(),
+    owner: prop<IAuth0User>(),
     type: prop<IResourceType>(),
   }))
   implements IResource

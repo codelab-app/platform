@@ -1,0 +1,63 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "fdb3a328-f239-413d-9715-b76865d4448c",
+    "kind": "InterfaceType",
+    "name": "AntDesignDropdownButton API",
+    "owner": {
+      "auth0Id": "auth0|6359ff8a417a19750991123b"
+    },
+    "fields": []
+  },
+  "atom": {
+    "id": "c25fb809-c22d-40e4-87b4-2303ff61e847",
+    "name": "AntDesignDropdownButton",
+    "type": "AntDesignDropdownButton",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "fdb3a328-f239-413d-9715-b76865d4448c",
+      "kind": "InterfaceType",
+      "name": "AntDesignDropdownButton API",
+      "owner": {
+        "auth0Id": "auth0|6359ff8a417a19750991123b"
+      },
+      "fields": []
+    },
+    "icon": "Dropdown",
+    "owner": {
+      "auth0Id": "auth0|6359ff8a417a19750991123b"
+    },
+    "tags": [
+      {
+        "id": "df68f84a-750d-44a0-8204-77273d211391",
+        "name": "Dropdown.Button",
+        "parent": {
+          "id": "3eaa565c-efae-4845-8760-bdeaf74f7768",
+          "name": "Dropdown"
+        },
+        "children": [],
+        "owner": {
+          "auth0Id": "auth0|6359ff8a417a19750991123b"
+        }
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
+  },
+  "fields": [],
+  "types": [
+    {
+      "__typename": "InterfaceType",
+      "id": "fdb3a328-f239-413d-9715-b76865d4448c",
+      "kind": "InterfaceType",
+      "name": "AntDesignDropdownButton API",
+      "owner": {
+        "auth0Id": "auth0|6359ff8a417a19750991123b"
+      },
+      "fields": []
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+import type {
+  Page,
+  PageModel,
+  PageOptions,
+  PageWhere,
+} from '@codelab/backend/abstract/codegen'
+import {
+  OGMService,
+  pageSelectionSet,
+} from '@codelab/backend/infra/adapter/neo4j'
+import { AbstractRepository } from '@codelab/backend/infra/core'
+import type { IPageDTO } from '@codelab/shared/abstract/core'
+import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
+import { createUniqueName } from '@codelab/shared/utils'
+import type { OnModuleInit } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
+
+@Injectable()
+export class PageRepository
+  extends AbstractRepository<IPageDTO, Page, PageWhere, PageOptions>
+  implements OnModuleInit
+{
+  private Page!: PageModel
+
+  constructor(private ogmService: OGMService) {
+    super()
+  }
+
+  onModuleInit() {
+    this.Page = this.ogmService.getModel('Page')
+  }
+
+  async _find({
+    options,
+    where,
+  }: {
+    where?: PageWhere
+    options?: PageOptions
+  }) {
+    return await (
+      await this.Page
+    ).find({
+      options,
+      selectionSet: pageSelectionSet,
+      where,
+    })
+  }
+
+  /**
+   * We only deal with connecting/disconnecting relationships, actual items should exist already
+   */
+  protected async _add(pages: Array<IPageDTO>) {
+    return (
+      await (
+        await this.Page
+      ).create({
+        input: pages.map(
+          ({
+            app,
+            id,
+            kind,
+            name,
+            pageContentContainer,
+            rootElement,
+            store,
+            url,
+          }) => ({
+            _compoundName: createUniqueName(name, app.id),
+            app: connectNodeId(app.id),
+            id,
+            kind,
+            pageContentContainer: connectNodeId(pageContentContainer?.id),
+            rootElement: connectNodeId(rootElement.id),
+            store: connectNodeId(store.id),
+            url,
+          }),
+        ),
+      })
+    ).pages
+  }
+
+  protected async _update(
+    { app, name, pageContentContainer, rootElement, url }: IPageDTO,
+    where: PageWhere,
+  ) {
+    return (
+      await (
+        await this.Page
+      ).update({
+        update: {
+          _compoundName: createUniqueName(name, app.id),
+          app: reconnectNodeId(app.id),
+          pageContentContainer: reconnectNodeId(pageContentContainer?.id),
+          rootElement: reconnectNodeId(rootElement.id),
+          url,
+        },
+        where,
+      })
+    ).pages[0]
+  }
+}

@@ -1,5 +1,5 @@
 import type {
-  IAuth0Owner,
+  IAuth0User,
   IReactNodeTypeDTO,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -14,7 +14,7 @@ export class ReactNodeType extends BaseType implements IReactNodeTypeDTO {
 
   declare __typename: `${ITypeKind.ReactNodeType}`
 
-  declare owner: IAuth0Owner
+  declare owner: IAuth0User
 
   constructor({ id, owner }: IReactNodeTypeDTO) {
     super({

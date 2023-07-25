@@ -1,5 +1,5 @@
 import { InterfaceType } from '@codelab/backend/domain/type'
-import type { IAuth0Owner, IStoreDTO } from '@codelab/shared/abstract/core'
+import type { IAuth0User, IStoreDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { v4 } from 'uuid'
@@ -19,7 +19,7 @@ export class Store implements IStoreDTO {
     this.name = name
   }
 
-  static create(owner: IAuth0Owner, name: string) {
+  static create(owner: IAuth0User, name: string) {
     const api = new InterfaceType({
       fields: [] as Array<IEntity>,
       id: v4(),

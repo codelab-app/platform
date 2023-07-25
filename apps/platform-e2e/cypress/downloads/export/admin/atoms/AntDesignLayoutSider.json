@@ -1,0 +1,949 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d",
+    "kind": "InterfaceType",
+    "name": "AntDesignLayoutSider API",
+    "owner": {
+      "auth0Id": "auth0|6359ff8a417a19750991123b"
+    },
+    "fields": [
+      {
+        "id": "5fd3a7e7-18e1-45b1-bc8e-abcaf85cad08",
+        "key": "width",
+        "name": "Width",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "41c9f657-69e7-40e4-9f7a-afe679e89a38",
+          "kind": "EnumType",
+          "name": "AntDesignLayoutSider Width Enum"
+        },
+        "api": {
+          "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+        }
+      },
+      {
+        "id": "62ac03ba-c0a3-41dc-bcd6-c10b8196ce12",
+        "key": "trigger",
+        "name": "Trigger",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "ReactNodeType",
+          "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+          "kind": "ReactNodeType",
+          "name": "ReactNodeType"
+        },
+        "api": {
+          "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+        }
+      },
+      {
+        "id": "b261c4d6-4a44-4b89-8a5e-15bb187db4b1",
+        "key": "theme",
+        "name": "Theme",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "04862a25-c114-4f3e-869e-d879b461182f",
+          "kind": "EnumType",
+          "name": "AntDesignLayoutSider Theme Enum"
+        },
+        "api": {
+          "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+        }
+      },
+      {
+        "id": "2b857649-bb0d-4391-9ea7-e8b1a93691d0",
+        "key": "reverseArrow",
+        "name": "Reverse Arrow",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+        }
+      },
+      {
+        "id": "69c09edf-07b2-4b66-8e2d-ad61e152cfe1",
+        "key": "defaultCollapsed",
+        "name": "Default Collapsed",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+        }
+      },
+      {
+        "id": "3beed845-a52b-4950-ace9-e1add2c898e8",
+        "key": "collapsible",
+        "name": "Collapsible",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+        }
+      },
+      {
+        "id": "5b696a23-0f36-4105-90a3-c3294497960e",
+        "key": "collapsedWidth",
+        "name": "Collapsed Width",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+          "kind": "PrimitiveType",
+          "name": "Number"
+        },
+        "api": {
+          "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+        }
+      },
+      {
+        "id": "ed5bc733-a0bd-42fa-8b86-855ccb5d73be",
+        "key": "collapsed",
+        "name": "Collapsed",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+          "kind": "PrimitiveType",
+          "name": "Boolean"
+        },
+        "api": {
+          "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+        }
+      },
+      {
+        "id": "dde36a63-2dc7-4279-9366-b056542d349c",
+        "key": "className",
+        "name": "Class Name",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "PrimitiveType",
+          "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+          "kind": "PrimitiveType",
+          "name": "String"
+        },
+        "api": {
+          "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+        }
+      },
+      {
+        "id": "e00146ff-d5c4-4fb9-b6b0-2b2772d074e0",
+        "key": "breakpoint",
+        "name": "Breakpoint",
+        "description": null,
+        "validationRules": null,
+        "defaultValues": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "fieldType": {
+          "__typename": "EnumType",
+          "id": "7e2a75ec-5cb3-46b6-b9c2-ec9d6af9cb87",
+          "kind": "EnumType",
+          "name": "AntDesignLayoutSider Breakpoint Enum"
+        },
+        "api": {
+          "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+        }
+      }
+    ]
+  },
+  "atom": {
+    "id": "1bcde2f5-3695-4d4d-908a-5bd6957743ef",
+    "name": "AntDesignLayoutSider",
+    "type": "AntDesignLayoutSider",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d",
+      "kind": "InterfaceType",
+      "name": "AntDesignLayoutSider API",
+      "owner": {
+        "auth0Id": "auth0|6359ff8a417a19750991123b"
+      },
+      "fields": [
+        {
+          "id": "5fd3a7e7-18e1-45b1-bc8e-abcaf85cad08",
+          "key": "width",
+          "name": "Width",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "41c9f657-69e7-40e4-9f7a-afe679e89a38",
+            "kind": "EnumType",
+            "name": "AntDesignLayoutSider Width Enum"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        },
+        {
+          "id": "62ac03ba-c0a3-41dc-bcd6-c10b8196ce12",
+          "key": "trigger",
+          "name": "Trigger",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        },
+        {
+          "id": "b261c4d6-4a44-4b89-8a5e-15bb187db4b1",
+          "key": "theme",
+          "name": "Theme",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "04862a25-c114-4f3e-869e-d879b461182f",
+            "kind": "EnumType",
+            "name": "AntDesignLayoutSider Theme Enum"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        },
+        {
+          "id": "2b857649-bb0d-4391-9ea7-e8b1a93691d0",
+          "key": "reverseArrow",
+          "name": "Reverse Arrow",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        },
+        {
+          "id": "69c09edf-07b2-4b66-8e2d-ad61e152cfe1",
+          "key": "defaultCollapsed",
+          "name": "Default Collapsed",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        },
+        {
+          "id": "3beed845-a52b-4950-ace9-e1add2c898e8",
+          "key": "collapsible",
+          "name": "Collapsible",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        },
+        {
+          "id": "5b696a23-0f36-4105-90a3-c3294497960e",
+          "key": "collapsedWidth",
+          "name": "Collapsed Width",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+            "kind": "PrimitiveType",
+            "name": "Number"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        },
+        {
+          "id": "ed5bc733-a0bd-42fa-8b86-855ccb5d73be",
+          "key": "collapsed",
+          "name": "Collapsed",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        },
+        {
+          "id": "dde36a63-2dc7-4279-9366-b056542d349c",
+          "key": "className",
+          "name": "Class Name",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        },
+        {
+          "id": "e00146ff-d5c4-4fb9-b6b0-2b2772d074e0",
+          "key": "breakpoint",
+          "name": "Breakpoint",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "7e2a75ec-5cb3-46b6-b9c2-ec9d6af9cb87",
+            "kind": "EnumType",
+            "name": "AntDesignLayoutSider Breakpoint Enum"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        }
+      ]
+    },
+    "icon": "Layout",
+    "owner": {
+      "auth0Id": "auth0|6359ff8a417a19750991123b"
+    },
+    "tags": [
+      {
+        "id": "df88b553-283b-4fda-8659-9618f9a3e851",
+        "name": "Layout.Sider",
+        "parent": {
+          "id": "7dbf9407-3e93-4b8e-8722-edd8baa894ab",
+          "name": "Layout"
+        },
+        "children": [],
+        "owner": {
+          "auth0Id": "auth0|6359ff8a417a19750991123b"
+        }
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
+  },
+  "fields": [
+    {
+      "id": "5fd3a7e7-18e1-45b1-bc8e-abcaf85cad08",
+      "key": "width",
+      "name": "Width",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "41c9f657-69e7-40e4-9f7a-afe679e89a38",
+        "kind": "EnumType",
+        "name": "AntDesignLayoutSider Width Enum"
+      },
+      "api": {
+        "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+      }
+    },
+    {
+      "id": "62ac03ba-c0a3-41dc-bcd6-c10b8196ce12",
+      "key": "trigger",
+      "name": "Trigger",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+      }
+    },
+    {
+      "id": "b261c4d6-4a44-4b89-8a5e-15bb187db4b1",
+      "key": "theme",
+      "name": "Theme",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "04862a25-c114-4f3e-869e-d879b461182f",
+        "kind": "EnumType",
+        "name": "AntDesignLayoutSider Theme Enum"
+      },
+      "api": {
+        "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+      }
+    },
+    {
+      "id": "2b857649-bb0d-4391-9ea7-e8b1a93691d0",
+      "key": "reverseArrow",
+      "name": "Reverse Arrow",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+      }
+    },
+    {
+      "id": "69c09edf-07b2-4b66-8e2d-ad61e152cfe1",
+      "key": "defaultCollapsed",
+      "name": "Default Collapsed",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+      }
+    },
+    {
+      "id": "3beed845-a52b-4950-ace9-e1add2c898e8",
+      "key": "collapsible",
+      "name": "Collapsible",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+      }
+    },
+    {
+      "id": "5b696a23-0f36-4105-90a3-c3294497960e",
+      "key": "collapsedWidth",
+      "name": "Collapsed Width",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+        "kind": "PrimitiveType",
+        "name": "Number"
+      },
+      "api": {
+        "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+      }
+    },
+    {
+      "id": "ed5bc733-a0bd-42fa-8b86-855ccb5d73be",
+      "key": "collapsed",
+      "name": "Collapsed",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+      }
+    },
+    {
+      "id": "dde36a63-2dc7-4279-9366-b056542d349c",
+      "key": "className",
+      "name": "Class Name",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+      }
+    },
+    {
+      "id": "e00146ff-d5c4-4fb9-b6b0-2b2772d074e0",
+      "key": "breakpoint",
+      "name": "Breakpoint",
+      "description": null,
+      "validationRules": null,
+      "defaultValues": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "fieldType": {
+        "__typename": "EnumType",
+        "id": "7e2a75ec-5cb3-46b6-b9c2-ec9d6af9cb87",
+        "kind": "EnumType",
+        "name": "AntDesignLayoutSider Breakpoint Enum"
+      },
+      "api": {
+        "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+      }
+    }
+  ],
+  "types": [
+    {
+      "__typename": "EnumType",
+      "id": "41c9f657-69e7-40e4-9f7a-afe679e89a38",
+      "kind": "EnumType",
+      "name": "AntDesignLayoutSider Width Enum",
+      "allowedValues": [
+        {
+          "id": "c3d1bcc3-dd54-4dae-9c93-929982d2807f",
+          "key": "string",
+          "value": "string"
+        },
+        {
+          "id": "decb4482-2249-46f1-bdf6-4aeb4cab9407",
+          "key": "number",
+          "value": "number"
+        }
+      ]
+    },
+    {
+      "__typename": "ReactNodeType",
+      "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+      "kind": "ReactNodeType",
+      "name": "ReactNodeType"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "04862a25-c114-4f3e-869e-d879b461182f",
+      "kind": "EnumType",
+      "name": "AntDesignLayoutSider Theme Enum",
+      "allowedValues": [
+        {
+          "id": "ef35f341-7fd4-448a-a579-1c19e25e4d07",
+          "key": "light",
+          "value": "light"
+        },
+        {
+          "id": "a73b7843-b9d8-4be3-bc8b-60f27e8f36f7",
+          "key": "dark",
+          "value": "dark"
+        }
+      ]
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+      "kind": "PrimitiveType",
+      "name": "Boolean",
+      "primitiveKind": "Boolean"
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+      "kind": "PrimitiveType",
+      "name": "Boolean",
+      "primitiveKind": "Boolean"
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+      "kind": "PrimitiveType",
+      "name": "Boolean",
+      "primitiveKind": "Boolean"
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+      "kind": "PrimitiveType",
+      "name": "Number",
+      "primitiveKind": "Number"
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+      "kind": "PrimitiveType",
+      "name": "Boolean",
+      "primitiveKind": "Boolean"
+    },
+    {
+      "__typename": "PrimitiveType",
+      "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+      "kind": "PrimitiveType",
+      "name": "String",
+      "primitiveKind": "String"
+    },
+    {
+      "__typename": "EnumType",
+      "id": "7e2a75ec-5cb3-46b6-b9c2-ec9d6af9cb87",
+      "kind": "EnumType",
+      "name": "AntDesignLayoutSider Breakpoint Enum",
+      "allowedValues": [
+        {
+          "id": "8f5a1cd3-43d6-4324-971f-bc8db53cb9d1",
+          "key": "xs",
+          "value": "xs"
+        },
+        {
+          "id": "d069f18e-e180-4c98-a29e-e708e193fec0",
+          "key": "xxl",
+          "value": "xxl"
+        },
+        {
+          "id": "bc9469d8-621f-44eb-ada0-24908f7a30ff",
+          "key": "xl",
+          "value": "xl"
+        },
+        {
+          "id": "71ade439-233c-4d2d-9f68-062154755253",
+          "key": "md",
+          "value": "md"
+        },
+        {
+          "id": "fe9284fb-2399-4988-96f1-874c27ccc5d2",
+          "key": "lg",
+          "value": "lg"
+        },
+        {
+          "id": "bd8a2e8a-69bd-4356-b46a-003c0104b8cd",
+          "key": "sm",
+          "value": "sm"
+        }
+      ]
+    },
+    {
+      "__typename": "InterfaceType",
+      "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d",
+      "kind": "InterfaceType",
+      "name": "AntDesignLayoutSider API",
+      "owner": {
+        "auth0Id": "auth0|6359ff8a417a19750991123b"
+      },
+      "fields": [
+        {
+          "id": "5fd3a7e7-18e1-45b1-bc8e-abcaf85cad08",
+          "key": "width",
+          "name": "Width",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "41c9f657-69e7-40e4-9f7a-afe679e89a38",
+            "kind": "EnumType",
+            "name": "AntDesignLayoutSider Width Enum"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        },
+        {
+          "id": "62ac03ba-c0a3-41dc-bcd6-c10b8196ce12",
+          "key": "trigger",
+          "name": "Trigger",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        },
+        {
+          "id": "b261c4d6-4a44-4b89-8a5e-15bb187db4b1",
+          "key": "theme",
+          "name": "Theme",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "04862a25-c114-4f3e-869e-d879b461182f",
+            "kind": "EnumType",
+            "name": "AntDesignLayoutSider Theme Enum"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        },
+        {
+          "id": "2b857649-bb0d-4391-9ea7-e8b1a93691d0",
+          "key": "reverseArrow",
+          "name": "Reverse Arrow",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        },
+        {
+          "id": "69c09edf-07b2-4b66-8e2d-ad61e152cfe1",
+          "key": "defaultCollapsed",
+          "name": "Default Collapsed",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        },
+        {
+          "id": "3beed845-a52b-4950-ace9-e1add2c898e8",
+          "key": "collapsible",
+          "name": "Collapsible",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        },
+        {
+          "id": "5b696a23-0f36-4105-90a3-c3294497960e",
+          "key": "collapsedWidth",
+          "name": "Collapsed Width",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
+            "kind": "PrimitiveType",
+            "name": "Number"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        },
+        {
+          "id": "ed5bc733-a0bd-42fa-8b86-855ccb5d73be",
+          "key": "collapsed",
+          "name": "Collapsed",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        },
+        {
+          "id": "dde36a63-2dc7-4279-9366-b056542d349c",
+          "key": "className",
+          "name": "Class Name",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        },
+        {
+          "id": "e00146ff-d5c4-4fb9-b6b0-2b2772d074e0",
+          "key": "breakpoint",
+          "name": "Breakpoint",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "7e2a75ec-5cb3-46b6-b9c2-ec9d6af9cb87",
+            "kind": "EnumType",
+            "name": "AntDesignLayoutSider Breakpoint Enum"
+          },
+          "api": {
+            "id": "9b96c8ca-22fe-444c-b1f6-3074eb8e590d"
+          }
+        }
+      ]
+    }
+  ]
+}

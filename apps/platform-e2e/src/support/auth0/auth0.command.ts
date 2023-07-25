@@ -66,7 +66,7 @@ export const loginByAuth0Api = () => {
 
       window.localStorage.setItem('auth0Cypress', JSON.stringify(item))
 
-      console.log(item)
+      // console.log(item)
     })
 
     cy.visit('/apps')

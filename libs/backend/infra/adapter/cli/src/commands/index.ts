@@ -1,5 +1,5 @@
-export * from './export/export.service'
-export * from './import/import.service'
+export * from '../../../../../application/migration/src/export-data.service'
+export * from '../../../../../application/migration/src/import/import.service'
 export * from './reset/reset.service'
 export * from './scrape/scrape-antd.service'
 export * from './scrape/scrape-html.service'

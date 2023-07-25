@@ -1,13 +1,10 @@
-import { z } from 'zod'
+export interface IEntity {
+  id: string
+}
 
-export const EntitySchema = z.object({
-  id: z.string(),
-})
-
-export const NullableEntitySchema = z.object({
-  id: z.string().nullable(),
-})
-
-export type IEntity = z.infer<typeof EntitySchema>
-
-export type INullableEntity = z.infer<typeof NullableEntitySchema>
+/**
+ * Allows us to know the subtype
+ */
+export interface IDiscriminatedEntity<T extends string> extends IEntity {
+  __typename?: T
+}
