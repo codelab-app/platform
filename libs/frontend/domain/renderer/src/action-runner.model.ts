@@ -13,7 +13,7 @@ import {
   actionRef,
   getRenderService,
   getRunnerId,
-  IProp,
+  type IProp,
 } from '@codelab/frontend/abstract/core'
 import { replaceStateInProps, tryParse } from '@codelab/frontend/shared/utils'
 import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'

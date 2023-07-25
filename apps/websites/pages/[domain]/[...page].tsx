@@ -17,7 +17,10 @@ const Index = (props: ProductionWebsiteProps) => {
   })
 
   useMountEffect(actions.execute)
-
+  console.log({
+    result,
+    elementTree: result?.elementTree.rootElement.current.renderType,
+  })
   return (
     <>
       <Head>
@@ -61,7 +64,7 @@ export const getStaticProps: GetStaticProps<ProductionWebsiteProps> = async (
     app: { domains_SOME: { name_IN: [String(domain)] } },
     url: pageUrl,
   })
-
+  console.log({ foundPage })
   if (!foundPage) {
     throw new Error(`Page with ${pageUrl} URL for "${domain}" domain Not found`)
   }

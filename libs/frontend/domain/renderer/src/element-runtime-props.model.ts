@@ -2,7 +2,10 @@ import type {
   IElement,
   IElementRuntimeProp,
 } from '@codelab/frontend/abstract/core'
-import { DATA_ELEMENT_ID, IPropData } from '@codelab/frontend/abstract/core'
+import {
+  DATA_ELEMENT_ID,
+  type IPropData,
+} from '@codelab/frontend/abstract/core'
 import {
   evaluateExpression,
   hasStateExpression,

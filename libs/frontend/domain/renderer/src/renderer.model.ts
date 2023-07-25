@@ -18,8 +18,8 @@ import {
   elementTreeRef,
   getRendererId,
   getRunnerId,
-  IElement,
-  IPageNodeRef,
+  type IElement,
+  type IPageNodeRef,
   isAtomInstance,
   isElementPageNodeRef,
 } from '@codelab/frontend/abstract/core'

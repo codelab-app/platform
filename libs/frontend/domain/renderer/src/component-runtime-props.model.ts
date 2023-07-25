@@ -3,7 +3,10 @@ import type {
   IComponentRuntimeProp,
   IElementRuntimeProp,
 } from '@codelab/frontend/abstract/core'
-import { DATA_COMPONENT_ID, IPropData } from '@codelab/frontend/abstract/core'
+import {
+  DATA_COMPONENT_ID,
+  type IPropData,
+} from '@codelab/frontend/abstract/core'
 import { replaceStateInProps } from '@codelab/frontend/shared/utils'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
