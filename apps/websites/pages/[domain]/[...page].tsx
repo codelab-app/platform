@@ -64,18 +64,21 @@ export const getStaticProps: GetStaticProps<ProductionWebsiteProps> = async (
     app: { domains_SOME: { name_IN: [String(domain)] } },
     url: pageUrl,
   })
-  console.log({ foundPage })
+
   if (!foundPage) {
     throw new Error(`Page with ${pageUrl} URL for "${domain}" domain Not found`)
   }
+
   const renderingData = await pageApi.GetRenderedPageAndCommonAppData({
     appName: foundPage.app._compoundName,
     pageName: foundPage._compoundName,
   })
 
+  const appName = foundPage.app._compoundName.split('-')[2]
+
   return {
     props: {
-      appName: 'Shop',
+      appName: appName || '',
       pageName: foundPage.name,
       renderingData,
     },
