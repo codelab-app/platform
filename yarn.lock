@@ -5692,7 +5692,7 @@ __metadata:
 
 "@codelab/workspace@file:./dist/libs/tools/workspace::locator=codelab%40workspace%3A.":
   version: 0.0.1
-  resolution: "@codelab/workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=de9c0e&locator=codelab%40workspace%3A."
+  resolution: "@codelab/workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=583407&locator=codelab%40workspace%3A."
   dependencies:
     "@graphql-codegen/core": 4.0.0
     "@graphql-tools/graphql-file-loader": 8.0.0
@@ -5702,7 +5702,7 @@ __metadata:
     lodash: 4.17.21
   peerDependencies:
     tslib: 2.3.1
-  checksum: 06d1d8abc83012c7f2816429c8b29785e9f83a40bb788e51b7c7b213b0be166e963e8f29efcc73fbadc6d025b86592bb2a4d6ea4f5b89b11bca5039c08a7b02b
+  checksum: 91c86e252096bfa022b1f4acb69893002a542ba5f1b7d973bbbd003911d269a35376feff817564af5e8437cdb735f0427470b1dc8e49d844945d838af3e2bd16
   languageName: node
   linkType: hard
 
