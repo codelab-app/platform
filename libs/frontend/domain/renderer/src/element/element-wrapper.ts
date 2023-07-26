@@ -21,6 +21,7 @@ import { extractValidProps, getReactComponent } from './wrapper.utils'
 
 export interface ElementWrapperProps {
   element: IElement
+  key: string
   /**
    * Props passed in from outside the component
    */
