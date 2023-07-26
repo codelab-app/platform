@@ -1,13 +1,14 @@
 import { Tree } from 'antd'
 import type { DirectoryTreeProps, EventDataNode } from 'antd/es/tree'
 import classNames from 'classnames'
+import { observer, useLocalObservable } from 'mobx-react-lite'
 import type { ReactNode } from 'react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import type { Variant } from '../../abstract'
 import { CuiSearchBar, CuiSkeletonWrapper } from '../../components'
 import styles from './CuiTree.module.css'
 import { CuiTreeItem } from './CuiTreeItem'
-import { useFilteredData } from './use-filtered-data'
+import { CuiTreeStore } from './store'
 
 const { DirectoryTree } = Tree
 
@@ -57,129 +58,127 @@ export interface CuiTreeProps<T extends WithChildren<CuiTreeBasicDataNode>> {
   onSearchKeywordChange?(keywork: string): void
 }
 
-export const CuiTree = <T extends CuiTreeBasicDataNode = CuiTreeBasicDataNode>(
-  props: CuiTreeProps<T>,
-) => {
-  const {
-    draggable,
-    expandedKeys,
-    isLoading = false,
-    onExpand,
-    onMouseEnter,
-    onMouseLeave,
-    onSearchKeywordChange,
-    searcheable = false,
-    searchKeyword = '',
-    titleRender,
-    treeData,
-  } = props
-
-  const {
-    expandedKeys: filterExpandedKeys,
-    filteredData,
-    setFilterOptions,
-  } = useFilteredData(treeData || [])
-
-  const [autoExpandParent, setAutoExpandParent] = useState(true)
-  const [currentExpandedKeys, setCurrentExpandedKeys] = useState(expandedKeys)
-
-  useEffect(() => {
-    setCurrentExpandedKeys(filterExpandedKeys || expandedKeys)
-  }, [filterExpandedKeys, expandedKeys])
-
-  const handleExpand = (
-    newExpandedKeys: Array<React.Key>,
-    info: {
-      node: EventDataNode<T>
-      expanded: boolean
-      nativeEvent: MouseEvent
-    },
+export const CuiTree = observer(
+  <T extends CuiTreeBasicDataNode = CuiTreeBasicDataNode>(
+    props: CuiTreeProps<T>,
   ) => {
-    onExpand?.(newExpandedKeys, info)
-    setCurrentExpandedKeys(newExpandedKeys)
-    setAutoExpandParent(false)
-  }
+    const {
+      draggable,
+      expandedKeys,
+      isLoading = false,
+      onExpand,
+      onMouseEnter,
+      onMouseLeave,
+      onSearchKeywordChange,
+      searcheable = false,
+      searchKeyword = '',
+      titleRender,
+      treeData,
+    } = props
 
-  const handleSearchKeywordChange = (keyword: string) => {
-    if (searcheable === false) {
-      return
+    const cuiTreeStore = useLocalObservable(
+      () =>
+        new CuiTreeStore({
+          expandedKeys: expandedKeys ?? [],
+          filterOptions: {},
+          treeData: treeData ?? [],
+        }),
+    )
+
+    useEffect(() => {
+      treeData && cuiTreeStore.setTreeData(treeData)
+
+      expandedKeys && cuiTreeStore.setExpandedKeys(expandedKeys)
+
+      cuiTreeStore.updateFilterOptions(searcheable, searchKeyword)
+    }, [expandedKeys, treeData, searcheable, searchKeyword, cuiTreeStore])
+
+    const handleExpand = (
+      newExpandedKeys: Array<React.Key>,
+      info: {
+        node: EventDataNode<T>
+        expanded: boolean
+        nativeEvent: MouseEvent
+      },
+    ) => {
+      onExpand?.(newExpandedKeys, info)
+      cuiTreeStore.setExpandedKeys(newExpandedKeys)
+      cuiTreeStore.setAutoExpandParent(false)
     }
 
-    onSearchKeywordChange?.(keyword)
-    setAutoExpandParent(true)
+    const handleSearchKeywordChange = (keyword: string) => {
+      if (searcheable === false) {
+        return
+      }
 
-    setFilterOptions({
-      primaryTitleFilter:
-        searcheable === true || searcheable.primaryTitle ? keyword : undefined,
-      secondaryTitleFilter:
-        searcheable === true || searcheable.secondaryTitle
-          ? keyword
-          : undefined,
-    })
-  }
+      onSearchKeywordChange?.(keyword)
+      cuiTreeStore.setAutoExpandParent(true)
+      cuiTreeStore.updateFilterOptions(searcheable, keyword)
+    }
 
-  return (
-    <div
-      className={classNames(
-        styles.cuiTree,
-        'h-full overflow-hidden flex flex-col',
-      )}
-    >
-      {searcheable && (
-        <CuiSearchBar
-          onKeywordChange={handleSearchKeywordChange}
-          searchKeyword={searchKeyword}
-        />
-      )}
-      <div className="overflow-auto">
-        <CuiSkeletonWrapper isLoading={isLoading}>
-          <DirectoryTree<T>
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...props}
-            autoExpandParent={autoExpandParent}
-            draggable={
-              draggable
-                ? {
-                    icon: false,
-                  }
-                : false
-            }
-            expandedKeys={currentExpandedKeys}
-            onExpand={handleExpand}
-            onMouseEnter={(info) => {
-              const target = info.event.target as Element
-              const treeNodeWrapper = target.closest('.ant-tree-treenode')
-              treeNodeWrapper?.classList.add('ant-tree-treenode-hovered')
-
-              return onMouseEnter?.(info)
-            }}
-            onMouseLeave={(info) => {
-              const target = info.event.target as Element
-              const treeNodeWrapper = target.closest('.ant-tree-treenode')
-              treeNodeWrapper?.classList.remove('ant-tree-treenode-hovered')
-
-              return onMouseLeave?.(info)
-            }}
-            showIcon={false}
-            showLine
-            titleRender={(node) => {
-              return titleRender ? (
-                titleRender(node)
-              ) : (
-                <CuiTreeItem
-                  icon={node.icon}
-                  primaryTitle={node.primaryTitle}
-                  secondaryTitle={node.secondaryTitle}
-                  tag={node.tags}
-                  toolbar={node.toolbar}
-                  variant={node.varient}
-                />
-              )
-            }}
-            treeData={filteredData}
+    return (
+      <div
+        className={classNames(
+          styles.cuiTree,
+          'h-full overflow-hidden flex flex-col',
+        )}
+      >
+        {searcheable && (
+          <CuiSearchBar
+            onKeywordChange={handleSearchKeywordChange}
+            searchKeyword={searchKeyword}
           />
-        </CuiSkeletonWrapper>
+        )}
+        <div className="overflow-auto">
+          <CuiSkeletonWrapper isLoading={isLoading}>
+            <DirectoryTree<T>
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...props}
+              autoExpandParent={cuiTreeStore.autoExpandParent}
+              draggable={
+                draggable
+                  ? {
+                      icon: false,
+                    }
+                  : false
+              }
+              expandedKeys={cuiTreeStore.expandedKeys}
+              onExpand={handleExpand}
+              onMouseEnter={(info) => {
+                const target = info.event.target as Element
+                const treeNodeWrapper = target.closest('.ant-tree-treenode')
+                treeNodeWrapper?.classList.add('ant-tree-treenode-hovered')
+
+                return onMouseEnter?.(info)
+              }}
+              onMouseLeave={(info) => {
+                const target = info.event.target as Element
+                const treeNodeWrapper = target.closest('.ant-tree-treenode')
+                treeNodeWrapper?.classList.remove('ant-tree-treenode-hovered')
+
+                return onMouseLeave?.(info)
+              }}
+              showIcon={false}
+              showLine
+              titleRender={(node) => {
+                return titleRender ? (
+                  titleRender(node)
+                ) : (
+                  <CuiTreeItem
+                    icon={node.icon}
+                    primaryTitle={node.primaryTitle}
+                    secondaryTitle={node.secondaryTitle}
+                    tag={node.tags}
+                    toolbar={node.toolbar}
+                    variant={node.varient}
+                  />
+                )
+              }}
+              treeData={cuiTreeStore.filteredData}
+            />
+          </CuiSkeletonWrapper>
+        </div>
       </div>
-    </div>
-  )
-}
+    )
+  },
+)
