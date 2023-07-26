@@ -1,7 +1,7 @@
 import compact from 'lodash/compact'
 import { action, computed, makeObservable, observable } from 'mobx'
 import type { Key } from 'react'
-import React from 'react'
+import type React from 'react'
 import { traverseAndFlattenTrees, traverseTrees } from '../../../util'
 import type { CuiTreeBasicDataNode, WithChildren } from '../CuiTree'
 
@@ -14,32 +14,6 @@ interface ICuiTreeStoreDefaults<T extends CuiTreeBasicDataNode> {
   expandedKeys: Array<Key>
   filterOptions: FilterOptions | undefined
   treeData: Array<WithChildren<T>>
-}
-
-const highlightMatch = (text: string, filter: string) => {
-  const index = text.search(new RegExp(filter, 'i'))
-  const beforeStr = text.substring(0, index)
-  const matchedStr = text.substring(index, index + filter.length)
-  const afterStr = text.slice(index + filter.length)
-
-  return index > -1
-    ? React.createElement('span', {
-        children: [
-          beforeStr,
-          React.createElement(
-            'span',
-            {
-              key: '1',
-              style: { backgroundColor: 'rgb(245, 158, 11)' },
-            },
-            matchedStr,
-          ),
-          afterStr,
-        ],
-      })
-    : React.createElement('span', {
-        children: [text],
-      })
 }
 
 /**
@@ -140,14 +114,10 @@ export class CuiTreeStore<T extends CuiTreeBasicDataNode> {
 
     return traverseTrees(this.treeData_, (item) => ({
       ...item,
-      primaryTitle:
-        typeof item.primaryTitle === 'string' && primaryFilter !== undefined
-          ? highlightMatch(item.primaryTitle, primaryFilter)
-          : item.primaryTitle,
-      secondaryTitle:
-        typeof item.secondaryTitle === 'string' && secondaryFilter !== undefined
-          ? highlightMatch(item.secondaryTitle, secondaryFilter)
-          : item.secondaryTitle,
+      highlight: {
+        primaryTitle: primaryFilter,
+        secondaryTitle: secondaryFilter,
+      },
     }))
   }
 

@@ -18,11 +18,15 @@ export interface CuiTreeBasicDataNode {
   className?: string
   disableCheckbox?: boolean
   disabled?: boolean
+  highlight?: {
+    primaryTitle?: string
+    secondaryTitle?: string
+  }
   icon?: ReactNode
   isLeaf?: boolean
   key: number | string
-  primaryTitle?: ReactNode | string
-  secondaryTitle?: ReactNode | string
+  primaryTitle?: string
+  secondaryTitle?: string
   selectable?: boolean
   style?: React.CSSProperties
   switcherIcon?: ReactNode
@@ -165,6 +169,7 @@ export const CuiTree = observer(
                   titleRender(node)
                 ) : (
                   <CuiTreeItem
+                    highlight={node.highlight}
                     icon={node.icon}
                     primaryTitle={node.primaryTitle}
                     secondaryTitle={node.secondaryTitle}

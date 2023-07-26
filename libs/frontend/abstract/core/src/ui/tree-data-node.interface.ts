@@ -6,6 +6,10 @@ interface IExtraData<Node, Type> {
 export interface ITreeDataNode<extraData extends IExtraData<unknown, unknown>> {
   children?: Array<ITreeDataNode<extraData>>
   extraData: extraData
+  highlight?: {
+    primaryTitle: string
+    secondaryTitle: string
+  }
   isLeaf?: boolean
   key: number | string
   primaryTitle?: string

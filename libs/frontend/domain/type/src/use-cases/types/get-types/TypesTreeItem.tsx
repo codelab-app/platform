@@ -87,6 +87,7 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
 
   return (
     <CuiTreeItem
+      highlight={data.highlight}
       key={data.key}
       onClick={onEdit}
       primaryTitle={data.primaryTitle}
