@@ -205,7 +205,7 @@
       "name": "Src",
       "description": null,
       "validationRules": "{}",
-      "defaultValues": "{\"type\":\"3a0d0fc6-c51e-4f05-85b4-cde709fe5625\"}",
+      "defaultValues": "{\"type\":\"3a0d0fc6-c51e-4f05-85b4-cde709fe5625\", \"kind\":\"PrimitiveType\"}",
       "fieldType": {
         "__typename": "UnionType",
         "id": "e1489c1e-c897-400b-8806-d22320a01bf7",

@@ -3,8 +3,10 @@ import type { IPageNode, IStore } from '@codelab/frontend/abstract/core'
 import {
   elementRef,
   elementTreeRef,
+  isComponentModel,
   isComponentPageNode,
   isElementPageNode,
+  isElementPageNodeRef,
   RendererTab,
   storeRef,
   typeRef,
@@ -39,6 +41,8 @@ import {
 } from '@codelab/frontend/presentation/container'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import { IPageKind } from '@codelab/shared/abstract/core'
+import { Collapse } from 'antd'
 import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -68,6 +72,16 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     const antdTree = root?.current.treeViewNode
     const isPageTree = antdTree && pageTree
     const store = builderService.selectedNode?.current.store.current
+
+    const providerStore = isElementPageNodeRef(builderService.selectedNode)
+      ? builderService.selectedNode.current.providerStore?.current
+      : undefined
+
+    const componentStore =
+      isElementPageNodeRef(builderService.selectedNode) &&
+      isComponentModel(builderService.selectedNode.current.renderType?.current)
+        ? builderService.selectedNode.current.renderType?.current.store.current
+        : undefined
 
     const selectTreeNode = (node: IPageNode) => {
       if (isComponentPageNode(node)) {
@@ -218,14 +232,49 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
       },
       {
         content: store && (
-          <CodeMirrorEditor
-            className="mt-1"
-            language={CodeMirrorLanguage.Json}
-            onChange={() => undefined}
-            singleLine={false}
-            title="Current props"
-            value={store.jsonString}
-          />
+          <Collapse ghost size="small">
+            <Collapse.Panel header="Local Store" key="localStore">
+              <CodeMirrorEditor
+                className="mt-1"
+                editable={false}
+                language={CodeMirrorLanguage.Json}
+                onChange={() => undefined}
+                singleLine={false}
+                title="Local Store"
+                value={store.jsonString}
+              />
+            </Collapse.Panel>
+            {componentStore ? (
+              <Collapse.Panel header="Component Store" key="componentStore">
+                <CodeMirrorEditor
+                  className="mt-1"
+                  editable={false}
+                  language={CodeMirrorLanguage.Json}
+                  onChange={() => undefined}
+                  singleLine={false}
+                  title="Component Store"
+                  value={componentStore.jsonString}
+                />
+              </Collapse.Panel>
+            ) : (
+              ''
+            )}
+            {providerStore && page?.kind === IPageKind.Regular ? (
+              <Collapse.Panel header="Root Store" key="rootStore">
+                <CodeMirrorEditor
+                  className="mt-1"
+                  editable={false}
+                  language={CodeMirrorLanguage.Json}
+                  onChange={() => undefined}
+                  singleLine={false}
+                  title="Root Store"
+                  value={providerStore.jsonString}
+                />
+              </Collapse.Panel>
+            ) : (
+              ''
+            )}
+          </Collapse>
         ),
         isLoading: isLoading || !store,
         key: 'Inspector',

@@ -16,6 +16,7 @@ import {
   CUSTOM_TEXT_PROP_KEY,
   elementRef,
   elementTreeRef,
+  getActionRunnerThisObject,
   getRendererId,
   getRunnerId,
   IElement,
@@ -194,9 +195,18 @@ export class Renderer
     if (preRenderAction) {
       const actionRunnerId = getRunnerId(store.id, preRenderAction.id)
       const preRenderActionRunner = this.actionRunners.get(actionRunnerId)
-      const runner = preRenderActionRunner?.runner.bind(store.current.state)
 
-      runner?.()
+      if (preRenderActionRunner) {
+        const _this = getActionRunnerThisObject(
+          preRenderActionRunner,
+          element.store,
+          element.providerStore,
+        )
+
+        const runner = preRenderActionRunner.runner.bind(_this)
+
+        runner()
+      }
     }
 
     return React.createElement(ElementWrapper, wrapperProps)

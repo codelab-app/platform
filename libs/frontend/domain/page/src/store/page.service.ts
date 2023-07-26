@@ -212,8 +212,8 @@ export class PageService
 
     this.pages.delete(page.id)
 
-    yield* _await(this.storeService.delete(pageStore))
     yield* _await(this.elementService.delete(rootElement))
+    yield* _await(this.storeService.delete(pageStore))
     yield* _await(this.pageRepository.delete([page]))
 
     return page!

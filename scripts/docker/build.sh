@@ -11,7 +11,7 @@ SERVICES="$*"
 #   rm -rf node_modules/.cache
 # fi
 
-docker-compose \
+docker compose \
   --env-file .env \
   -f .docker/docker-compose.build.yaml \
   build \

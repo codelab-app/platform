@@ -1,6 +1,10 @@
 import type { IRenderOutput } from '@codelab/frontend/abstract/core'
-import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
+import {
+  CUSTOM_TEXT_PROP_KEY,
+  DATA_COMPONENT_ID,
+} from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
+import omit from 'lodash/omit'
 import type { ReactElement } from 'react'
 import React, { Fragment } from 'react'
 import { getAtom } from '../atoms'
@@ -9,6 +13,9 @@ import { DraggableElementWrapper } from './DraggableElementWrapper'
 
 /**
  * Fragments can only have the `key` prop
+ *
+ * customText is rendered as a child of the component
+ * so shouldn't be passed as a prop to the element
  */
 export const extractValidProps = (
   ReactComponent: unknown,
@@ -16,7 +23,7 @@ export const extractValidProps = (
 ) =>
   ReactComponent === Fragment
     ? { key: renderOutput.props?.['key'] }
-    : renderOutput.props
+    : omit(renderOutput.props, [CUSTOM_TEXT_PROP_KEY])
 
 export const getReactComponent = (renderOutput: IRenderOutput) => {
   // if component does not have atom assigned to the root element
