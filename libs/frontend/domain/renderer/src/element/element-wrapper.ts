@@ -16,11 +16,12 @@ import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { shouldRenderElement } from '../utils'
 import { mapOutput } from '../utils/render-output-utils'
-import { getStyledComponent } from './get-styled-components'
+import { renderComponentWithStyles } from './get-styled-components'
 import { extractValidProps, getReactComponent } from './wrapper.utils'
 
 export interface ElementWrapperProps {
   element: IElement
+  key: string
   /**
    * Props passed in from outside the component
    */
@@ -90,12 +91,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
       const extractedProps = extractValidProps(ReactComponent, renderOutput)
 
-      const StyledReactComponent = getStyledComponent(
-        ReactComponent,
-        extractedProps['css'],
-      )
-
-      return React.createElement(StyledReactComponent, extractedProps, children)
+      return renderComponentWithStyles(ReactComponent, extractedProps, children)
     })
 
     return React.createElement(

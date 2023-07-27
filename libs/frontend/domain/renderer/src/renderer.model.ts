@@ -187,6 +187,7 @@ export class Renderer
   renderElement = (element: IElement): ReactElement => {
     const wrapperProps: ElementWrapperProps = {
       element,
+      key: element.id,
       renderer: this,
     }
 
