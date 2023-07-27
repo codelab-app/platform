@@ -126,7 +126,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
           <Collapse.Panel header="Render Condition" key="renderCondition">
             <AutoField
               component={CodeMirrorField({
-                customOptions: createAutoCompleteOptions(propsData, 'this'),
+                customOptions: createAutoCompleteOptions(propsData),
                 language: CodeMirrorLanguage.Javascript,
               })}
               name="renderIfExpression"
