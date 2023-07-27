@@ -38,7 +38,7 @@ export const Builder = observer(() => {
     setSelectedNode: builderService.setSelectedNode.bind(builderService),
   })
 
-  const { isOver, over, setNodeRef } = useDroppable({
+  const { isOver, node, over, setNodeRef } = useDroppable({
     id: elementTree?.rootElement.id ?? '',
   })
 
@@ -140,6 +140,7 @@ export const Builder = observer(() => {
           <BuilderClickOverlay
             builderService={builderService}
             elementService={elementService}
+            renderContainerRef={node}
           />
         </StyledBuilderResizeContainer>
         <ResizeHandle />

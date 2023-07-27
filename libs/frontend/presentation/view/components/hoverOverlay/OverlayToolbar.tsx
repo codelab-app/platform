@@ -1,7 +1,5 @@
-import { useScroll } from '@codelab/frontend/shared/utils'
 import type { CSSProperties, RefObject } from 'react'
 import React from 'react'
-import useResizeObserver from 'use-resize-observer/polyfilled'
 
 interface OverlayToolbarProps {
   children?: React.ReactNode
@@ -30,11 +28,6 @@ export const OverlayToolbar = ({
   const element = Object.hasOwnProperty.call(overlayElement, 'current')
     ? (overlayElement as RefObject<HTMLElement>).current
     : (overlayElement as HTMLElement)
-
-  // Make sure we re-render when the element changes its size and when we scroll
-  // But we don't actually care about the values, we take what we need from getBoundingClientRect
-  useResizeObserver({ ref: element })
-  useScroll()
 
   // This is not very good for performance, if we can find a way to track movement with
   // IntersectionObserver and only update the rect then, it would be much better

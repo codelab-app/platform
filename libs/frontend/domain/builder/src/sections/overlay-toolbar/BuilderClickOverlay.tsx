@@ -6,6 +6,7 @@ import type {
 import { elementRef, isElementRef } from '@codelab/frontend/abstract/core'
 import { queryRenderedElementById } from '@codelab/frontend/domain/renderer'
 import { ClickOverlay } from '@codelab/frontend/presentation/view'
+import { isServer } from '@codelab/shared/utils'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -45,10 +46,17 @@ const StyledOverlayButtonGroup = styled.div`
 export const BuilderClickOverlay = observer<{
   builderService: IBuilderService
   elementService: IElementService
-}>(({ builderService, elementService }) => {
+  renderContainerRef: React.MutableRefObject<HTMLElement | null>
+}>(({ builderService, elementService, renderContainerRef }) => {
   const selectedNode = builderService.selectedNode
 
-  if (!selectedNode || !isElementRef(selectedNode)) {
+  if (isServer || !selectedNode || !isElementRef(selectedNode)) {
+    return null
+  }
+
+  const element = queryRenderedElementById(selectedNode.id)
+
+  if (!element) {
     return null
   }
 
@@ -56,14 +64,6 @@ export const BuilderClickOverlay = observer<{
     <StyledOverlayContainer className="click-overlay-toolbar">
       <StyledSpan>{selectedNode.current.name}</StyledSpan>
       <StyledOverlayButtonGroup>
-        {/* <Button
-          icon={<PlusOutlined />}
-          onClick={(e) => {
-            e.stopPropagation()
-          }}
-          size="small"
-          type="text"
-        /> */}
         <Button
           danger
           icon={<DeleteOutlined />}
@@ -81,8 +81,8 @@ export const BuilderClickOverlay = observer<{
   return (
     <ClickOverlay
       content={content}
-      getOverlayElement={queryRenderedElementById}
-      nodeId={selectedNode.id}
+      element={element}
+      renderContainerRef={renderContainerRef}
     />
   )
 })
