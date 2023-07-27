@@ -69,9 +69,12 @@ export class Store
   get actionsTree() {
     return this.actions
       .map((action) => ({
+        extraData: {
+          node: action.current,
+          type: 'action' as const,
+        },
         isLeaf: true,
         key: action.id,
-        node: action.current,
         primaryTitle: action.current.name,
         secondaryTitle: action.current.type,
         selectable: true,

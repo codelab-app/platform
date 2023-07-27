@@ -7,5 +7,9 @@ export const ContentSection = ({
 }: PropsWithChildren<
   React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>
 >) => {
-  return <section style={{ marginTop: padding.sm }}>{children}</section>
+  return (
+    <section className="h-full w-full" style={{ marginTop: padding.sm }}>
+      {children}
+    </section>
+  )
 }

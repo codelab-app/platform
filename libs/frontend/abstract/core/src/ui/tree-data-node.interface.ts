@@ -1,8 +1,17 @@
-export interface ITreeDataNode<Node = undefined> {
-  children?: Array<ITreeDataNode<Node>>
+interface IExtraData<Node, Type> {
+  node: Node
+  type: Type
+}
+
+export interface ITreeDataNode<extraData extends IExtraData<unknown, unknown>> {
+  children?: Array<ITreeDataNode<extraData>>
+  extraData: extraData
+  highlight?: {
+    primaryTitle: string
+    secondaryTitle: string
+  }
   isLeaf?: boolean
   key: number | string
-  node: Node
   primaryTitle?: string
   secondaryTitle?: string
   selectable?: boolean

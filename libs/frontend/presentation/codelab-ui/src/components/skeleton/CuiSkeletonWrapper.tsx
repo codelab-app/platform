@@ -9,11 +9,16 @@ interface CuiSkeletonWrapperProps {
 export const CuiSkeletonWrapper = ({
   children,
   isLoading,
-}: CuiSkeletonWrapperProps) =>
-  isLoading ? (
-    <div data-cy="codelabui-skeleton">
+}: CuiSkeletonWrapperProps) => (
+  <div className="h-full w-full">
+    <div
+      className={`h-full w-full ${isLoading ? 'block' : 'hidden'}`}
+      data-cy="codelabui-skeleton"
+    >
       <Skeleton active loading style={{ padding: 5 }} />
     </div>
-  ) : (
-    <>{children}</>
-  )
+    <div className={`h-full w-full ${isLoading ? 'hidden' : 'block'}`}>
+      {children}
+    </div>
+  </div>
+)

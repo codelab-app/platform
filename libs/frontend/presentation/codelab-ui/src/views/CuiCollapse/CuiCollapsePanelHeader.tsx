@@ -26,12 +26,40 @@ export const CuiCollapsePanelHeader = ({
 
   return (
     <div
-      className="flex max-h-20 cursor-pointer items-center justify-between border-0 border-b border-solid border-gray-500 px-1"
+      className={`
+        flex
+        max-h-20
+        cursor-pointer
+        items-center
+        justify-between
+        border-0
+        border-b
+        border-solid
+        border-gray-500
+        px-3
+      `}
       data-cy={`codelabui-sidebar-view-header-${label}`}
       onClick={updateExpand}
     >
-      <div className="flex min-w-1/3 flex-row items-center justify-start overflow-hidden">
-        <div className="flex h-full flex-col justify-center px-1">
+      <div
+        className={`
+          flex
+          min-w-1/4
+          flex-row
+          items-center
+          justify-start
+          overflow-hidden
+        `}
+      >
+        <div
+          className={`
+          flex
+          h-full
+          flex-col
+          justify-center
+          px-1
+        `}
+        >
           {expanded ? (
             <DownOutlined style={{ fontSize: '12px' }} />
           ) : (
@@ -45,7 +73,6 @@ export const CuiCollapsePanelHeader = ({
           className="max-w-lg"
           onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
             event.stopPropagation()
-            console.log('Child clicked')
           }}
         >
           {

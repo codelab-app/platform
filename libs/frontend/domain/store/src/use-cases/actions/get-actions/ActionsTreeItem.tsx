@@ -24,11 +24,11 @@ export const ActionsTreeItem = ({ data }: ActionsTreeItemProps) => {
   const { actionService } = useStore()
 
   const onDelete = () => {
-    actionService.deleteModal.open(actionRef(data.node.id))
+    actionService.deleteModal.open(actionRef(data.extraData.node.id))
   }
 
   const onEdit = () => {
-    actionService.updateForm.open(actionRef(data.node.id))
+    actionService.updateForm.open(actionRef(data.extraData.node.id))
   }
 
   const toolbarItems = [
@@ -49,7 +49,7 @@ export const ActionsTreeItem = ({ data }: ActionsTreeItemProps) => {
   return (
     <CuiTreeItem
       icon={
-        data.node.type === IActionKind.CodeAction ? (
+        data.extraData.node.type === IActionKind.CodeAction ? (
           <CodeOutlined />
         ) : (
           <ApiOutlined />

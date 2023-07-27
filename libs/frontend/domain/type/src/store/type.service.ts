@@ -33,6 +33,7 @@ import { TypeRepository } from '../services'
 import { getFieldService } from './field.service.context'
 import { InterfaceType } from './models'
 import { TypeFactory } from './type.factory'
+import { TypeFormService } from './type-form.service'
 import { TypeModalService } from './type-modal.service'
 
 @model('@codelab/TypeService')
@@ -53,6 +54,7 @@ export class TypeService
      * This holds all types
      */
     types: prop(() => objectMap<IType>()),
+    updateForm: prop(() => new TypeFormService({})),
     updateModal: prop(() => new TypeModalService({})),
   })
   implements ITypeService

@@ -1,18 +1,17 @@
-import { PlusOutlined } from '@ant-design/icons'
-import type { CodelabPage } from '@codelab/frontend/abstract/types'
+import { type CodelabPage, PageType } from '@codelab/frontend/abstract/types'
 import {
   CreateFieldModal,
   CreateTypeModal,
   DeleteFieldModal,
   DeleteTypeModal,
-  TypesTable,
+  TypeEditor,
+  TypesPrimarySidebar,
   UpdateFieldModal,
   UpdateTypeModal,
 } from '@codelab/frontend/domain/type'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
-  CuiHeaderToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
@@ -27,20 +26,31 @@ import Head from 'next/head'
 import React from 'react'
 
 const TypePageHeader = observer(() => {
-  const { typeService } = useStore()
+  const { fieldService, typeService } = useStore()
+  const typeToUpdate = typeService.updateForm.type?.name || ''
+  const fieldToUpdate = fieldService.updateForm.field?.key || ''
 
-  const toolbarItems = [
-    {
-      icon: <PlusOutlined />,
-      key: 'create',
-      onClick: () => typeService.createModal.open(),
-      title: 'Create Type',
-    },
-  ]
+  const typeOrField = typeService.updateForm.isOpen
+    ? 'type'
+    : fieldService.updateForm.isOpen
+    ? 'field'
+    : ''
+
+  const typeOrFieldName = typeService.updateForm.isOpen
+    ? typeToUpdate
+    : fieldToUpdate
 
   return (
     <CuiHeader
-      direction={<CuiHeaderBreadcrumb items={[{ title: 'Types' }]} />}
+      direction={
+        <CuiHeaderBreadcrumb
+          items={[
+            { title: 'Types' },
+            { title: typeOrField },
+            { title: typeOrFieldName },
+          ]}
+        />
+      }
       logo={
         <Image
           alt="codelab logo"
@@ -48,9 +58,6 @@ const TypePageHeader = observer(() => {
           preview={false}
           src="/logo.png"
         />
-      }
-      toolbar={
-        <CuiHeaderToolbar items={toolbarItems} title="Types Header Toolbar" />
       }
     />
   )
@@ -70,7 +77,7 @@ const TypesPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <DeleteTypeModal />
       <UpdateTypeModal />
       <ContentSection>
-        <TypesTable />
+        <TypeEditor />
       </ContentSection>
     </>
   )
@@ -82,6 +89,19 @@ export const getServerSideProps = withPageAuthRedirect()
 
 TypesPage.Layout = observer(({ children }) => {
   return (
-    <DashboardTemplate Header={TypePageHeader}>{children()}</DashboardTemplate>
+    <DashboardTemplate
+      Header={TypePageHeader}
+      PrimarySidebar={{
+        default: PageType.Type,
+        items: [
+          {
+            key: PageType.Type,
+            render: TypesPrimarySidebar,
+          },
+        ],
+      }}
+    >
+      {children()}
+    </DashboardTemplate>
   )
 })

@@ -3,12 +3,14 @@ import {
   getCuiTreeItem,
   getCuiTreeItemByPrimaryTitle,
   getCuiTreeItemBySecondaryTitle,
+  getCuiTreeItemToolbar,
 } from './tree.command'
 
 export interface CodelabUITreeCommands {
   getCuiTreeItem: typeof getCuiTreeItem
   getCuiTreeItemByPrimaryTitle: typeof getCuiTreeItemByPrimaryTitle
   getCuiTreeItemBySecondaryTitle: typeof getCuiTreeItemBySecondaryTitle
+  getCuiTreeItemToolbar: typeof getCuiTreeItemToolbar
 }
 
 export const codelabUITreeCommands: Array<CypressCommand> = [
@@ -23,5 +25,9 @@ export const codelabUITreeCommands: Array<CypressCommand> = [
   {
     fn: getCuiTreeItemBySecondaryTitle,
     name: 'getCuiTreeItemBySecondaryTitle',
+  },
+  {
+    fn: getCuiTreeItemToolbar,
+    name: 'getCuiTreeItemToolbar',
   },
 ]

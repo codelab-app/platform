@@ -1,0 +1,13 @@
+.cuiSearchBar {    
+    :global(.ant-input-affix-wrapper) {
+        color: #000000;
+        border: none;
+    }
+    
+    :global(.ant-input-affix-wrapper):global(.ant-input-affix-wrapper-focused) {
+        border: none;
+        box-shadow: none;
+    }
+}
+
+

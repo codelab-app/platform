@@ -85,10 +85,16 @@ export class InterfaceType
           field.type.maybeCurrent?.kind === ITypeKind.InterfaceType
             ? field.type.maybeCurrent.fieldsTree
             : [],
+        extraData: {
+          node: field,
+          type: 'field' as const,
+        },
         key: field.id,
-        node: field,
         primaryTitle: field.key,
-        secondaryTitle: field.type.maybeCurrent?.kind,
+        secondaryTitle:
+          field.type.maybeCurrent?.kind === ITypeKind.PrimitiveType
+            ? field.type.maybeCurrent.name
+            : field.type.maybeCurrent?.kind,
         title: `${field.key} (${field.type.maybeCurrent?.kind})`,
       }
     })

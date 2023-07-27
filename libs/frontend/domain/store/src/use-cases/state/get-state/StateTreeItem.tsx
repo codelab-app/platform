@@ -20,16 +20,16 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
   const { fieldService } = useStore()
 
   const onEdit = () => {
-    fieldService.updateForm.open(fieldRef(data.node.id))
+    fieldService.updateForm.open(fieldRef(data.extraData.node.id))
   }
 
   const onDelete = () => {
-    fieldService.deleteModal.open(fieldRef(data.node.id))
+    fieldService.deleteModal.open(fieldRef(data.extraData.node.id))
   }
 
   const onAddField = () => {
     fieldService.createModal.open(
-      typeRef(data.node.type.id) as Ref<IInterfaceType>,
+      typeRef(data.extraData.node.type.id) as Ref<IInterfaceType>,
     )
   }
 
@@ -49,7 +49,7 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
   ]
 
   if (
-    fieldService.getField(data.node.id)?.type.maybeCurrent?.kind ===
+    fieldService.getField(data.extraData.node.id)?.type.maybeCurrent?.kind ===
     'InterfaceType'
   ) {
     toolbarItems.push({
