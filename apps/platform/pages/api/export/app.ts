@@ -12,11 +12,8 @@ const exportApp: NextApiHandler = async (req, res) => {
     }
 
     const { id } = req.query
-
-    const exportedApp = await exportUserData({
-      id: String(id),
-    })
-
+    const owner = { auth0Id: session.user.sub }
+    const exportedApp = await exportUserData({ id: String(id) }, owner)
     const appName = exportedApp.apps[0]?.name
     const userName = session.user.name
     const filename = `${userName}-${appName}.json`
