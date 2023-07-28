@@ -336,17 +336,23 @@ export class AppService
      * Sort pages for app. Order is app, custom pages, 404, 500
      */
 
+    enum PageType {
+      App = '_app',
+      NotFound = '404',
+      InternalError = '500',
+    }
+
     const _pages: Array<BuilderPageFragment> = appData.pages
     _pages.sort((a, b) => {
-      if (a.name === '_app') {
+      if (a.name === PageType.App) {
         return -1
       }
 
-      if (a.name === '404') {
+      if (a.name === PageType.NotFound) {
         return 1
       }
 
-      if (a.name === '500') {
+      if (a.name === PageType.InternalError) {
         return 1
       }
 
