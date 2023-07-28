@@ -39,6 +39,7 @@ export type GetAtomOptionsQueryVariables = Types.Exact<{ [key: string]: never }>
 export type GetAtomOptionsQuery = {
   atoms: Array<{
     id: string
+    name: string
     type: Types.AtomType
     requiredParents: Array<{ id: string; type: Types.AtomType }>
   }>
