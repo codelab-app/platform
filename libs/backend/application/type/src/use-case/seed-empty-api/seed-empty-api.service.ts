@@ -1,16 +1,22 @@
-import { AuthUseCase } from '@codelab/backend/application/service'
+import { AuthUseCase, UseCase } from '@codelab/backend/application/service'
 import {
   InterfaceType,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
-import type { IAtomType } from '@codelab/shared/abstract/core'
+import { type IAtomType, type IAuth0User } from '@codelab/shared/abstract/core'
+import { Injectable } from '@nestjs/common'
 
 /**
  * Seed empty API from atom names
  */
-export class SeedEmptyApiService extends AuthUseCase<Array<IAtomType>, void> {
-  interfaceTypeRepository: InterfaceTypeRepository =
-    new InterfaceTypeRepository()
+@Injectable()
+export class SeedEmptyApiService extends UseCase<Array<IAtomType>, void> {
+  constructor(
+    private interfaceTypeRepository: InterfaceTypeRepository,
+    private owner: IAuth0User,
+  ) {
+    super()
+  }
 
   /**
    * Create empty interfaces from Ant Design atom name

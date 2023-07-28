@@ -2,12 +2,15 @@ import type {
   ResourceCreateInput,
   ResourceUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAuth0Owner, IResourceType } from '@codelab/shared/abstract/core'
+import type {
+  IAuth0Owner,
+  IResourceDTO,
+  IResourceType,
+} from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IModel } from '../model.interface'
 import type { IProp } from '../prop'
-import type { IResourceDTO } from './resource.dto.interface'
 
 export interface IResource
   extends Omit<

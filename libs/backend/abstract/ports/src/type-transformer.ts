@@ -13,8 +13,8 @@ import type { IAtomDTO, IFieldDTO } from '@codelab/shared/abstract/core'
  * Allows transformation of any framework types to the core types
  */
 export interface ITypeTransformer {
-  atom: Pick<IAtomDTO, 'name'>
-  field: Pick<IFieldDTO, 'key'>
+  // atom: Pick<IAtomDTO, 'name'>
+  // field: Pick<IFieldDTO, 'key'>
 
   isActionType(type: string): boolean
   actionType(type: string): Promise<ActionType>

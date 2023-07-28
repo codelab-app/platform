@@ -80,6 +80,7 @@
     "@nestjs/graphql": "^11.0.6",
     "@nestjs/microservices": "^9.4.2",
     "@nestjs/platform-express": "10.0.4",
+    "@nestjs/swagger": "^7.1.2",
     "@next/bundle-analyzer": "13.4.6",
     "@opentelemetry/api": "^1.4.1",
     "@opentelemetry/auto-instrumentations-node": "0.37.1",

@@ -1941,7 +1941,7 @@ export enum RenderTypeKind {
 }
 
 export enum ResourceType {
-  GraphQl = 'GraphQL',
+  GraphQL = 'GraphQL',
   Rest = 'Rest',
 }
 
@@ -1980,15 +1980,15 @@ export type AnyType =
   | ArrayType
   | UnionType
   | InterfaceType
-  | ElementType
+  // | ElementType
   | RenderPropType
   | ReactNodeType
   | EnumType
-  | LambdaType
-  | PageType
-  | AppType
+  // | LambdaType
+  // | PageType
+  // | AppType
   | ActionType
-  | CodeMirrorType
+// | CodeMirrorType
 
 export type BaseAction = {
   store: Store

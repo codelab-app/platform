@@ -20,7 +20,7 @@ import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 import filter from 'lodash/filter'
 import find from 'lodash/find'
 import path from 'path'
-import { DataPaths } from '../data-paths'
+import { MigrationDataService } from '../migration-data.service'
 
 @Injectable()
 export class ExportAdminDataCommand {}
@@ -35,7 +35,7 @@ export class ExportAdminDataService
   private declare exportData: IAdminDataExport
 
   constructor(
-    @Inject('DATA_PATHS') private readonly dataPaths: DataPaths,
+    @Inject('DATA_PATHS') private readonly dataPaths: MigrationDataService,
     private commandBus: CommandBus,
   ) {}
 

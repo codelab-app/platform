@@ -1,7 +1,6 @@
 import type { AppWhere } from '@codelab/backend/abstract/codegen'
 import type { IUserDataExport } from '@codelab/backend/abstract/core'
 import { ExportAppsCommand } from '@codelab/backend/application/app'
-import { exportResources } from '@codelab/backend/application/resource'
 import type { TypesToExport } from '@codelab/backend/application/type'
 import { UserRepository } from '@codelab/backend/domain/user'
 import type { IAuth0User } from '@codelab/shared/abstract/core'

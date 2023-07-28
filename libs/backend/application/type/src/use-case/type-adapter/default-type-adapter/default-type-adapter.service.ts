@@ -26,6 +26,7 @@ import type {
   IUnionTypeDTO,
 } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import { Injectable } from '@nestjs/common'
 import { v4 } from 'uuid'
 import {
   arrowFnReturnReactNode,
@@ -49,18 +50,11 @@ interface Props {
  * - Will check if string format maps to a type
  *
  */
+@Injectable()
 export class DefaultTypeAdapterService
   extends AuthUseCase<Request, IType | undefined>
   implements ITypeTransformer
 {
-  primitiveTypeRepository = new PrimitiveTypeRepository()
-
-  actionTypeRepository = new ActionTypeRepository()
-
-  reactNodeTypeRepository = new ReactNodeTypeRepository()
-
-  renderPropTypeRepository = new RenderPropTypeRepository()
-
   atom: Pick<IAtomDTO, 'name'>
 
   field: Pick<IFieldDTO, 'key'>
@@ -90,7 +84,14 @@ export class DefaultTypeAdapterService
 
   actionTypeRegex = /(^function\(.*?\))|((\(.*?\)) => \w)/
 
-  constructor({ atom, field, owner }: Props) {
+  constructor(
+    { atom, field, owner }: Props,
+    private primitiveTypeRepository: PrimitiveTypeRepository,
+    private actionTypeRepository: ActionTypeRepository,
+    private reactNodeTypeRepository: ReactNodeTypeRepository,
+    private renderPropTypeRepository: RenderPropTypeRepository,
+    private typeFactory: TypeFactory,
+  ) {
     super(owner)
 
     this.atom = atom
@@ -260,7 +261,7 @@ export class DefaultTypeAdapterService
       owner: this.owner,
     }
 
-    return await TypeFactory.save<IInterfaceType>(interfaceType)
+    return await this.typeFactory.save<IInterfaceType>(interfaceType)
   }
 
   async booleanType() {
@@ -301,11 +302,7 @@ export class DefaultTypeAdapterService
     const mappedTypesOfUnionType = (
       await Promise.all(
         typesOfUnionType.map(async (typeOfUnionType) => {
-          return await new DefaultTypeAdapterService({
-            atom: this.atom,
-            field: this.field,
-            owner: this.owner,
-          }).execute({
+          return await this.execute({
             type: typeOfUnionType,
           })
         }),
@@ -317,7 +314,7 @@ export class DefaultTypeAdapterService
     // Create nested types
     await Promise.all(
       mappedTypesOfUnionType.map(async ({ ...typeOfUnionType }) => {
-        return await TypeFactory.save({
+        return await this.typeFactory.save({
           ...typeOfUnionType,
           owner: this.owner,
         })
@@ -336,7 +333,7 @@ export class DefaultTypeAdapterService
       typesOfUnionType: mappedTypesOfUnionType,
     }
 
-    return await TypeFactory.save<IUnionType>(unionType)
+    return await this.typeFactory.save<IUnionType>(unionType)
   }
 
   async enumType(type: string) {
@@ -357,7 +354,7 @@ export class DefaultTypeAdapterService
       owner: this.owner,
     }
 
-    return await TypeFactory.save<IEnumType>(enumType)
+    return await this.typeFactory.save<IEnumType>(enumType)
   }
 
   isReactNodeType(type: string) {

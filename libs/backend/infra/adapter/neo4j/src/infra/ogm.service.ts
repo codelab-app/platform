@@ -16,6 +16,7 @@ export class OGMService implements OnModuleInit {
   constructor(@Inject(OGM_PROVIDER) private ogm: OGM<ModelMap>) {}
 
   onModuleInit() {
+    console.log('onModuleInit OGMService')
     this.initModels()
   }
 
@@ -55,6 +56,7 @@ export class OGMService implements OnModuleInit {
       const model = this.ogm.model(name) as ModelMap[typeof name]
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this.models[name] = model as any
+      console.log(name, this.models[name])
     }
   }
 

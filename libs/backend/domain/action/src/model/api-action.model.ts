@@ -18,9 +18,9 @@ export class ApiAction implements IApiActionDTO {
 
   resource: IEntity
 
-  errorAction?: IActionEntity
+  errorAction?: IActionEntity | null
 
-  successAction?: IActionEntity
+  successAction?: IActionEntity | null
 
   constructor({
     config,

@@ -1,5 +1,6 @@
 import type {
   User,
+  UserModel,
   UserOptions,
   UserWhere,
 } from '@codelab/backend/abstract/codegen'
@@ -9,20 +10,23 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IUserDTO } from '@codelab/shared/abstract/core'
+import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class UserRepository extends AbstractRepository<
-  IUserDTO,
-  User,
-  UserWhere,
-  UserOptions
-> {
-  private User
+export class UserRepository
+  extends AbstractRepository<IUserDTO, User, UserWhere, UserOptions>
+  implements OnModuleInit
+{
+  private User!: UserModel
 
-  constructor(ogmService: OGMService) {
+  constructor(private ogmService: OGMService) {
     super()
-    this.User = ogmService.getModel('User')
+  }
+
+  onModuleInit() {
+    console.log('onModuleInit UserRepository')
+    this.User = this.ogmService.getModel('User')
   }
 
   protected async _find({
@@ -67,5 +71,3 @@ export class UserRepository extends AbstractRepository<
     ).users[0]
   }
 }
-
-export type IUserRepository = typeof UserRepository

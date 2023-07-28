@@ -20,7 +20,7 @@
       }
     },
     {
-      "files": ["**/pages/api/*"],
+      "files": ["**/pages/api/**"],
       "rules": {
         "@nx/enforce-module-boundaries": "off"
       }

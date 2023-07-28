@@ -1,25 +1,38 @@
 import type {
   CodeAction,
+  CodeActionModel,
   CodeActionOptions,
   CodeActionWhere,
 } from '@codelab/backend/abstract/codegen'
 import {
   actionSelectionSet,
-  Repository,
+  OGMService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { ICodeActionDTO } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
+import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class CodeActionRepository extends AbstractRepository<
-  ICodeActionDTO,
-  CodeAction,
-  CodeActionWhere,
-  CodeActionOptions
-> {
-  private CodeAction = Repository.instance.CodeAction
+export class CodeActionRepository
+  extends AbstractRepository<
+    ICodeActionDTO,
+    CodeAction,
+    CodeActionWhere,
+    CodeActionOptions
+  >
+  implements OnModuleInit
+{
+  private CodeAction!: CodeActionModel
+
+  constructor(private ogmService: OGMService) {
+    super()
+  }
+
+  onModuleInit() {
+    this.CodeAction = this.ogmService.getModel('CodeAction')
+  }
 
   async _find({
     options,

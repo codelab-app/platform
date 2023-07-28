@@ -1,10 +1,15 @@
 import { UserRepository } from '@codelab/backend/domain/user'
 import { IUserDTO } from '@codelab/shared/abstract/core'
-import { Body, Controller, Post } from '@nestjs/common'
+import { Body, Controller, Get, Post } from '@nestjs/common'
 
 @Controller('user')
 export class UserController {
   constructor(private userRepository: UserRepository) {}
+
+  @Get()
+  index() {
+    return 'Hello World'
+  }
 
   @Post('save')
   save(@Body() createUserDTO: IUserDTO) {

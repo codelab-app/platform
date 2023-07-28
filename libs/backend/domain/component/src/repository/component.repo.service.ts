@@ -1,25 +1,38 @@
 import type {
   Component,
+  ComponentModel,
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/backend/abstract/codegen'
 import {
   componentSelectionSet,
-  Repository,
+  OGMService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IComponentDTO } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
+import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class ComponentRepository extends AbstractRepository<
-  IComponentDTO,
-  Component,
-  ComponentWhere,
-  ComponentOptions
-> {
-  private Component = Repository.instance.Component
+export class ComponentRepository
+  extends AbstractRepository<
+    IComponentDTO,
+    Component,
+    ComponentWhere,
+    ComponentOptions
+  >
+  implements OnModuleInit
+{
+  private Component!: ComponentModel
+
+  constructor(private ogmService: OGMService) {
+    super()
+  }
+
+  onModuleInit() {
+    this.Component = this.ogmService.getModel('Component')
+  }
 
   async _find({
     options,

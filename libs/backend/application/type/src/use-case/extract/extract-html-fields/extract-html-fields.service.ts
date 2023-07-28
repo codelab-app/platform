@@ -6,8 +6,11 @@ import {
   FieldRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import type { IAtomDTO, IFieldDTO } from '@codelab/shared/abstract/core'
-import { IAuth0User } from '@codelab/shared/abstract/core'
+import {
+  type IAtomDTO,
+  type IAuth0User,
+  type IFieldDTO,
+} from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import { readFileSync } from 'fs'
@@ -24,6 +27,7 @@ export class ExtractHtmlFieldsService
   constructor(
     @CurrentUser() private owner: IAuth0User,
     private typeFactory: TypeFactory,
+    private htmlTypeAdapterService: HtmlTypeAdapterService,
     private readonly fieldRepository: FieldRepository,
   ) {}
 
@@ -83,13 +87,9 @@ export class ExtractHtmlFieldsService
       return existingField
     }
 
-    const fieldTypeDTO = await new HtmlTypeAdapterService({
-      atom,
-      field: {
-        key: field.key,
-      },
-      owner: this.owner,
-    }).execute({ type: field.type })
+    const fieldTypeDTO = await this.htmlTypeAdapterService.execute({
+      type: field.type,
+    })
 
     if (!fieldTypeDTO) {
       return undefined

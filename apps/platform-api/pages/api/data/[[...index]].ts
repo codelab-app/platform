@@ -8,7 +8,7 @@ import type { NextApiHandler } from 'next'
 const handler: NextApiHandler = async (req, res) => {
   const listener = await getDataListener()
 
-  listener(req, res)
+  await listener(req, res)
 }
 
 export const config = {

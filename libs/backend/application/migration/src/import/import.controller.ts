@@ -1,5 +1,4 @@
 import 'multer'
-import { ImportAdminDataCommand } from '@codelab/backend/application/admin'
 import { UserRepository } from '@codelab/backend/domain/user'
 import {
   Controller,
@@ -10,8 +9,9 @@ import {
 } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { FileInterceptor } from '@nestjs/platform-express'
-import { Express } from 'express'
+import { type Express } from 'express'
 import fs from 'fs'
+import { ImportAdminDataCommand } from './import-admin-data.command.service'
 
 @Controller('import')
 export class ImportController {

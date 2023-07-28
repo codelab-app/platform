@@ -2,7 +2,7 @@ import type { App, AppWhere, Page } from '@codelab/backend/abstract/codegen'
 import type { IAppExport } from '@codelab/backend/abstract/core'
 import { AppRepository } from '@codelab/backend/domain/app'
 import { ComponentRepository } from '@codelab/backend/domain/component'
-import { getElementWithDescendants } from '@codelab/backend/domain/element'
+import { ElementRepository } from '@codelab/backend/domain/element'
 import { PageRepository } from '@codelab/backend/domain/page'
 import { uuidRegex } from '@codelab/shared/utils'
 import type { ICommandHandler } from '@nestjs/cqrs'
@@ -20,6 +20,7 @@ export class ExportAppsHandler
   constructor(
     private readonly appRepository: AppRepository,
     private readonly pageRepository: PageRepository,
+    private readonly elementRepository: ElementRepository,
     private readonly componentRepository: ComponentRepository,
   ) {}
 
@@ -82,7 +83,9 @@ export class ExportAppsHandler
   }
 
   async getPageData(page: Page) {
-    const elements = await getElementWithDescendants(page.rootElement.id)
+    const elements = await this.elementRepository.getElementWithDescendants(
+      page.rootElement.id,
+    )
 
     const componentIds = flatMap(elements, (element) => [
       element.parentComponent?.id,
@@ -96,9 +99,8 @@ export class ExportAppsHandler
     })
 
     for (const { rootElement } of components) {
-      const componentDescendants = await getElementWithDescendants(
-        rootElement.id,
-      )
+      const componentDescendants =
+        await this.elementRepository.getElementWithDescendants(rootElement.id)
 
       elements.push(...componentDescendants)
     }

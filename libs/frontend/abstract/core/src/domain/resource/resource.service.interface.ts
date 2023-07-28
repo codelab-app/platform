@@ -2,7 +2,7 @@ import type {
   ResourceOptions,
   ResourceWhere,
 } from '@codelab/shared/abstract/codegen'
-import type { IResourceType } from '@codelab/shared/abstract/core'
+import type { IResourceDTO, IResourceType } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type {
@@ -14,7 +14,6 @@ import type {
 } from '../../service'
 import type {
   ICreateResourceData,
-  IResourceDTO,
   IUpdateResourceData,
 } from './resource.dto.interface'
 import type { IResource, IResourceRef } from './resource.model.interface'

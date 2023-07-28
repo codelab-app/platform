@@ -21,6 +21,7 @@ export class ImportComponentsHandler
     private readonly fieldRepository: FieldRepository,
     private readonly elementRepository: ElementRepository,
     private readonly componentRepository: ComponentRepository,
+    private readonly typeFactory: TypeFactory,
   ) {}
 
   async execute(command: ImportComponentsCommand) {
@@ -33,7 +34,7 @@ export class ImportComponentsHandler
       types,
     } of components) {
       for await (const type of types) {
-        await TypeFactory.save({ ...type, owner })
+        await this.typeFactory.save({ ...type, owner })
       }
 
       for await (const field of fields) {

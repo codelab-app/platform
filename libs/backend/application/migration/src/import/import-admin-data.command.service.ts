@@ -22,7 +22,8 @@ import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import fs from 'fs'
 import pick from 'lodash/pick'
 import path from 'path'
-import { DataPaths } from '../data-paths'
+import { MIGRATION_DATA_PROVIDER } from '../migration-data.constant'
+import { MigrationDataService } from '../migration-data.service'
 
 @Injectable()
 export class ImportAdminDataCommand extends AuthService {}
@@ -37,7 +38,6 @@ export class ImportAdminDataHandler
   adminData: IAdminDataExport
 
   constructor(
-    @Inject('DATA_PATHS') private readonly dataPaths: DataPaths,
     private readonly tagRepository: TagRepository,
     private readonly atomRepository: AtomRepository,
     private readonly fieldRepository: FieldRepository,
@@ -46,6 +46,7 @@ export class ImportAdminDataHandler
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
     private readonly commandBus: CommandBus,
     private readonly typeFactory: TypeFactory,
+    private readonly migrationDataService: MigrationDataService,
   ) {
     this.adminData = this.getMergedData
   }
@@ -77,7 +78,7 @@ export class ImportAdminDataHandler
 
   private async importSystemTypes(owner: IAuth0User) {
     const { types } = JSON.parse(
-      fs.readFileSync(this.dataPaths.SYSTEM_TYPES_FILE_PATH, 'utf8'),
+      fs.readFileSync(this.migrationDataService.SYSTEM_TYPES_FILE_PATH, 'utf8'),
     ) as ITypesExport
 
     /**
@@ -126,27 +127,29 @@ export class ImportAdminDataHandler
    */
   get getMergedData(): IAdminDataExport {
     const atomFilenames = fs
-      .readdirSync(this.dataPaths.ATOMS_PATH)
+      .readdirSync(this.migrationDataService.ATOMS_PATH)
       .filter((filename) => path.extname(filename) === '.json')
 
-    const componentFilenames = fs.existsSync(this.dataPaths.COMPONENTS_PATH)
+    const componentFilenames = fs.existsSync(
+      this.migrationDataService.COMPONENTS_PATH,
+    )
       ? fs
-          .readdirSync(this.dataPaths.COMPONENTS_PATH)
+          .readdirSync(this.migrationDataService.COMPONENTS_PATH)
           .filter((filename) => path.extname(filename) === '.json')
       : []
 
     // Tag data is all in single file
     const tags = JSON.parse(
-      fs.readFileSync(this.dataPaths.TAGS_FILE_PATH, 'utf8'),
+      fs.readFileSync(this.migrationDataService.TAGS_FILE_PATH, 'utf8'),
     ) as Array<ITagDTO>
 
     const systemTypes = JSON.parse(
-      fs.readFileSync(this.dataPaths.SYSTEM_TYPES_FILE_PATH, 'utf8'),
+      fs.readFileSync(this.migrationDataService.SYSTEM_TYPES_FILE_PATH, 'utf8'),
     ) as ITypesExport
 
     const components = componentFilenames.map((filename) => {
       const content = fs.readFileSync(
-        path.resolve(this.dataPaths.COMPONENTS_PATH, filename),
+        path.resolve(this.migrationDataService.COMPONENTS_PATH, filename),
         'utf8',
       )
 
@@ -156,7 +159,7 @@ export class ImportAdminDataHandler
     return atomFilenames.reduce(
       (adminData, filename) => {
         const content = fs.readFileSync(
-          `${this.dataPaths.ATOMS_PATH}/${filename}`,
+          `${this.migrationDataService.ATOMS_PATH}/${filename}`,
           'utf8',
         )
 

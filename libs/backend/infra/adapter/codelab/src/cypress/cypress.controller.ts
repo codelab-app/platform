@@ -1,4 +1,4 @@
-import { CurrentUser } from '@codelab/backend/domain/user'
+import { CurrentUser } from '@codelab/backend/application/service'
 import { type IAuth0User } from '@codelab/shared/abstract/core'
 import { Controller, Get, Post } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'

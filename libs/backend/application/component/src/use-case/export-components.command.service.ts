@@ -5,7 +5,7 @@ import {
 import type { IComponentExport } from '@codelab/backend/abstract/core'
 import { ExportTypesCommand } from '@codelab/backend/application/type'
 import type { ComponentRepository } from '@codelab/backend/domain/component'
-import { getElementWithDescendants } from '@codelab/backend/domain/element'
+import type { ElementRepository } from '@codelab/backend/domain/element'
 import type {
   FieldRepository,
   InterfaceTypeRepository,
@@ -23,6 +23,7 @@ export class ExportComponentsHandler
     private componentRepository: ComponentRepository,
     private interfaceTypeRepository: InterfaceTypeRepository,
     private fieldRepository: FieldRepository,
+    private elementRepository: ElementRepository,
     private commandBus: CommandBus,
   ) {}
 
@@ -35,9 +36,10 @@ export class ExportComponentsHandler
 
     return Promise.all(
       components.map(async (component) => {
-        const descendantElements = await getElementWithDescendants(
-          component.rootElement.id,
-        )
+        const descendantElements =
+          await this.elementRepository.getElementWithDescendants(
+            component.rootElement.id,
+          )
 
         const apis = await this.commandBus.execute(
           new ExportTypesCommand({

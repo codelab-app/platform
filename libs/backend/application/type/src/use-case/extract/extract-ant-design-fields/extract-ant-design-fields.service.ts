@@ -5,8 +5,11 @@ import {
   FieldRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import type { IAtomDTO, IFieldDTO } from '@codelab/shared/abstract/core'
-import { IAuth0User } from '@codelab/shared/abstract/core'
+import {
+  type IAtomDTO,
+  type IAuth0User,
+  type IFieldDTO,
+} from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import find from 'lodash/find'
@@ -29,6 +32,7 @@ export class ExtractAntDesignFieldsService extends UseCase<
   constructor(
     private fieldRepository: FieldRepository,
     private typeFactory: TypeFactory,
+    private antTypeAdapterService: AntdTypeAdapterService,
     @CurrentUser() private owner: IAuth0User,
   ) {
     super()
@@ -91,13 +95,9 @@ export class ExtractAntDesignFieldsService extends UseCase<
       return existingField
     }
 
-    const fieldTypeDTO = await new AntdTypeAdapterService({
-      atom,
-      field: {
-        key: field.property,
-      },
-      owner: this.owner,
-    }).execute({ type: field.type })
+    const fieldTypeDTO = await this.antTypeAdapterService.execute({
+      type: field.type,
+    })
 
     if (!fieldTypeDTO) {
       return undefined

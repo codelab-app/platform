@@ -1,11 +1,12 @@
 import type {
   ApiAction,
+  ApiActionModel,
   ApiActionOptions,
   ApiActionWhere,
 } from '@codelab/backend/abstract/codegen'
 import {
   actionSelectionSet,
-  Repository,
+  OGMService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type {
@@ -14,16 +15,28 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
+import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class ApiActionRepository extends AbstractRepository<
-  IApiActionDTO,
-  ApiAction,
-  ApiActionWhere,
-  ApiActionOptions
-> {
-  private ApiAction = Repository.instance.ApiAction
+export class ApiActionRepository
+  extends AbstractRepository<
+    IApiActionDTO,
+    ApiAction,
+    ApiActionWhere,
+    ApiActionOptions
+  >
+  implements OnModuleInit
+{
+  private ApiAction!: ApiActionModel
+
+  constructor(private ogmService: OGMService) {
+    super()
+  }
+
+  onModuleInit() {
+    this.ApiAction = this.ogmService.getModel('ApiAction')
+  }
 
   async _find({
     options,
@@ -128,7 +141,7 @@ export class ApiActionRepository extends AbstractRepository<
    * Filters the entity by their appropriate types
    */
   private filterBy(
-    action: IActionEntity | undefined,
+    action: IActionEntity | null | undefined,
     discriminate: IActionKind,
   ) {
     if (action?.__typename === `${discriminate}`) {

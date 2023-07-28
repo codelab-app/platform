@@ -9966,6 +9966,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nestjs/mapped-types@npm:2.0.2":
+  version: 2.0.2
+  resolution: "@nestjs/mapped-types@npm:2.0.2"
+  peerDependencies:
+    "@nestjs/common": ^8.0.0 || ^9.0.0 || ^10.0.0
+    class-transformer: ^0.4.0 || ^0.5.0
+    class-validator: ^0.13.0 || ^0.14.0
+    reflect-metadata: ^0.1.12
+  peerDependenciesMeta:
+    class-transformer:
+      optional: true
+    class-validator:
+      optional: true
+  checksum: 1fb0dca3838d0dc23107233e95a711e251bfbef9017589d3764c955a1cf190c8372179cee70e3674807896f53a98ab2ba80cd769b4f072fadefb708be1cc911b
+  languageName: node
+  linkType: hard
+
 "@nestjs/microservices@npm:^9.4.2":
   version: 9.4.2
   resolution: "@nestjs/microservices@npm:9.4.2"
@@ -10051,6 +10068,33 @@ __metadata:
   peerDependencies:
     typescript: ">=4.3.5"
   checksum: d7ee0236cc0e130c3bfb2f4794112b0f2e24caaf09323f553acb595629da4ba042aaf98dd5237bf7c9fd389df915930877d23757ea3e7e2b5da94539c1e5c36e
+  languageName: node
+  linkType: hard
+
+"@nestjs/swagger@npm:^7.1.2":
+  version: 7.1.2
+  resolution: "@nestjs/swagger@npm:7.1.2"
+  dependencies:
+    "@nestjs/mapped-types": 2.0.2
+    js-yaml: 4.1.0
+    lodash: 4.17.21
+    path-to-regexp: 3.2.0
+    swagger-ui-dist: 5.1.0
+  peerDependencies:
+    "@fastify/static": ^6.0.0
+    "@nestjs/common": ^9.0.0 || ^10.0.0
+    "@nestjs/core": ^9.0.0 || ^10.0.0
+    class-transformer: "*"
+    class-validator: "*"
+    reflect-metadata: ^0.1.12
+  peerDependenciesMeta:
+    "@fastify/static":
+      optional: true
+    class-transformer:
+      optional: true
+    class-validator:
+      optional: true
+  checksum: ec14e1b578511b510db52883e78c86d9fb148be6bc7d862bbd745708561b5e21f87dcb4d9e79d127b926fd310bf6b8de1a41dad800112ffd154770708d80e9db
   languageName: node
   linkType: hard
 
@@ -21534,6 +21578,7 @@ __metadata:
     "@nestjs/microservices": ^9.4.2
     "@nestjs/platform-express": 10.0.4
     "@nestjs/schematics": 10.0.1
+    "@nestjs/swagger": ^7.1.2
     "@nestjs/testing": 10.0.4
     "@next/bundle-analyzer": 13.4.6
     "@nx/cypress": 16.5.2
@@ -43127,6 +43172,13 @@ __metadata:
   bin:
     svgo: bin/svgo
   checksum: 381ba14aa782e71ab7033227634a3041c11fa3e2769aeaf0df43a08a615de61925108e34f55af6e7c5146f4a3109e78deabb4fa9d687e36d45d1f848b4e23d17
+  languageName: node
+  linkType: hard
+
+"swagger-ui-dist@npm:5.1.0":
+  version: 5.1.0
+  resolution: "swagger-ui-dist@npm:5.1.0"
+  checksum: 41b91708e757852423a4fddfc07d0e87ef38c4ad9fad5757fbc27b23c9e71593a1c48b53661fa2d9bb241043b6800cd9a57d980943a17c9eb388704e30156120
   languageName: node
   linkType: hard
 

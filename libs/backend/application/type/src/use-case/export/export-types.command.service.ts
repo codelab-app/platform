@@ -1,3 +1,4 @@
+import type { AnyType } from '@codelab/backend/abstract/codegen'
 import { SortDirection } from '@codelab/backend/abstract/codegen'
 import type { ITypesExport } from '@codelab/backend/abstract/core'
 import {
@@ -5,9 +6,11 @@ import {
   EnumTypeRepository,
   FieldRepository,
   InterfaceTypeRepository,
+  TypeFactory,
   UnionTypeRepository,
 } from '@codelab/backend/domain/type'
-import type { ITypeEntity } from '@codelab/shared/abstract/core'
+import { throwIfUndefined } from '@codelab/frontend/shared/utils'
+import type { ITypeDTO, ITypeEntity } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
@@ -42,6 +45,7 @@ export class ExportTypesHandler
     private readonly arrayTypeRepository: ArrayTypeRepository,
     private readonly unionTypeRepository: UnionTypeRepository,
     private readonly commandBus: CommandBus,
+    private readonly typeFactory: TypeFactory,
   ) {}
 
   async execute(command: ExportTypesCommand): Promise<ITypesExport> {
@@ -62,13 +66,15 @@ export class ExportTypesHandler
     /**
      * 3) Resolve all dependent types
      */
-    const dependantTypes = await this.execute({
-      typesToExport: { typeIds: fields.flatMap((field) => field.fieldType) },
-    })
+    const dependantTypes = (
+      await Promise.all(
+        fields.flatMap((field) => this.typeFactory.findOne(field.fieldType)),
+      )
+    ).filter((type): type is AnyType => Boolean(type))
 
     return {
       fields,
-      types: [...dependantTypes.types, ...types],
+      types: [...dependantTypes, ...types],
     }
   }
 
@@ -114,118 +120,5 @@ export class ExportTypesHandler
     }
 
     return { fields: [], types: [] }
-  }
-
-  async exportType({ __typename, id }: ITypeEntity) {
-    if (!__typename) {
-      throw new Error('Missing __typename')
-    }
-
-    switch (__typename) {
-      case ITypeKind.InterfaceType: {
-        //
-      }
-    }
-
-    /**
-     * UnionTypes
-     */
-    const unionTypes = (
-      await this.unionTypeRepository.find({
-        options: {
-          sort: [{ name: SortDirection.Asc }],
-        },
-        where: {
-          id,
-        },
-      })
-    ).map(({ descendantTypesIds, typesOfUnionType, ...unionType }) => {
-      console.log(descendantTypesIds, descendantTypesIds.sort())
-
-      return {
-        ...unionType,
-        descendantTypesIds: descendantTypesIds.sort(),
-        typesOfUnionType: typesOfUnionType.sort((a, b) =>
-          a.name.localeCompare(b.name),
-        ),
-      }
-    })
-
-    /**
-     * Array
-     */
-    const arrayTypes = await this.arrayTypeRepository.find({
-      options: {
-        sort: [{ name: SortDirection.Asc }],
-      },
-      where: {
-        id,
-      },
-    })
-
-    const arrayUnionItemTypes = await this.unionTypeRepository.find({
-      options: {
-        sort: [{ name: SortDirection.Asc }],
-      },
-      where: {
-        id_IN: arrayTypes
-          .filter(
-            (arrayType) => arrayType.itemType.kind === ITypeKind.UnionType,
-          )
-          .map((arrayType) => arrayType.itemType.id),
-      },
-    })
-
-    const unionInterfaceItemTypes = await this.interfaceTypeRepository.find({
-      options: {
-        sort: [{ name: SortDirection.Asc }],
-      },
-      where: {
-        id_IN: [...arrayUnionItemTypes, ...unionTypes]
-          .map((unionType) => unionType.descendantTypesIds)
-          .flat(),
-      },
-    })
-
-    /**
-     * Enum
-     */
-    const enumTypes = (
-      await this.enumTypeRepository.find({
-        options: {
-          sort: [{ name: SortDirection.Asc }],
-        },
-        where: apiId
-          ? {
-              fieldRefsConnection: {
-                node: {
-                  apiConnection: {
-                    node: {
-                      id: apiId,
-                    },
-                  },
-                },
-              },
-            }
-          : undefined,
-      })
-    ).map((type) => ({
-      ...type,
-      allowedValues: type.allowedValues.sort((a, b) =>
-        a.key.toString().localeCompare(b.key),
-      ),
-    }))
-
-    /**
-     * Here we create the interface dependency tree order
-     *
-     * Further to the front are closer to the leaf.
-     *
-     * Subtypes are included first so that they can be referenced in the parent type
-     */
-    return {
-      fields: [...subTypes.map((value) => value.fields).flat(), ...fields],
-      types: [...subTypes.map((subType) => subType.types).flat(), ...types],
-    }
   }
 }

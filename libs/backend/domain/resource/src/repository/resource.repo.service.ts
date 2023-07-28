@@ -1,0 +1,78 @@
+import type {
+  Resource,
+  ResourceModel,
+  ResourceOptions,
+  ResourceWhere,
+} from '@codelab/backend/abstract/codegen'
+import type { IResourceExport } from '@codelab/backend/abstract/core'
+import type { OGMService } from '@codelab/backend/infra/adapter/neo4j'
+import { resourceSelectionSet } from '@codelab/backend/infra/adapter/neo4j'
+import { AbstractRepository } from '@codelab/backend/infra/core'
+import type { IAuth0User, IResourceDTO } from '@codelab/shared/abstract/core'
+import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
+import type { OnModuleInit } from '@nestjs/common'
+
+export class ResourceRepository
+  extends AbstractRepository<
+    IResourceDTO,
+    Resource,
+    ResourceWhere,
+    ResourceOptions
+  >
+  implements OnModuleInit
+{
+  private Resource!: ResourceModel
+
+  constructor(private ogmService: OGMService) {
+    super()
+  }
+
+  onModuleInit() {
+    this.Resource = this.ogmService.getModel('Resource')
+  }
+
+  async _find({
+    options,
+    where,
+  }: {
+    where?: ResourceWhere
+    options?: ResourceOptions
+  }) {
+    return await (
+      await this.Resource
+    ).find({
+      options,
+      selectionSet: resourceSelectionSet,
+      where,
+    })
+  }
+
+  protected async _add(resources: Array<IResourceDTO>) {
+    return (
+      await (
+        await this.Resource
+      ).create({
+        input: resources.map(({ id, name, owner, type }) => ({
+          id,
+          name,
+          owner: connectAuth0Owner(owner),
+          type,
+        })),
+      })
+    ).resources
+  }
+
+  protected async _update({ name, type }: IResourceDTO) {
+    return (
+      await (
+        await this.Resource
+      ).update({
+        selectionSet: resourceSelectionSet,
+        update: {
+          name,
+          type,
+        },
+      })
+    ).resources[0]
+  }
+}
