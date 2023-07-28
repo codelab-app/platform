@@ -9,8 +9,6 @@ interface PageListProps {
 }
 
 export const PageList = observer(({ app }: PageListProps) => {
-  console.log(app.pages)
-
   return (
     <List
       dataSource={app.pages.map((page) => page.current)}

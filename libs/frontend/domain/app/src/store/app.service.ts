@@ -337,14 +337,14 @@ export class AppService
      */
 
     enum PageType {
-      App = '_app',
+      Main = '_app',
       NotFound = '404',
       InternalError = '500',
     }
 
     const _pages: Array<BuilderPageFragment> = appData.pages
     _pages.sort((a, b) => {
-      if (a.name === PageType.App) {
+      if (a.name === PageType.Main) {
         return -1
       }
 
