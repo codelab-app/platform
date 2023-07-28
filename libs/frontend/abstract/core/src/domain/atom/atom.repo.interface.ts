@@ -13,6 +13,6 @@ export type IAtomRepository = IRepository<
   AtomOptions
 > & {
   findOptions(): Promise<
-    Array<Pick<IAtom, 'id' | 'name' | 'type' | 'requiredParents'>>
+    Array<Pick<IAtom, 'id' | 'name' | 'requiredParents' | 'type'>>
   >
 }

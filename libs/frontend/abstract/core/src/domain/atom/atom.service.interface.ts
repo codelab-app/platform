@@ -33,6 +33,6 @@ export interface IAtomService
   add(atomDTO: IAtomDTO): IAtom
   delete(ids: Array<string>): Promise<number>
   getOptions(): Promise<
-    Array<Pick<IAtom, 'id' | 'name' | 'type' | 'requiredParents'>>
+    Array<Pick<IAtom, 'id' | 'name' | 'requiredParents' | 'type'>>
   >
 }
