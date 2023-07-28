@@ -20,7 +20,7 @@ export interface MoveElementFormProps {
 
 /** Not intended to be used in a modal */
 export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
-  const { builderService, elementService } = useStore()
+  const { atomService, builderService, elementService } = useStore()
   const elementTree = builderService.activeElementTree
 
   // Cache it only once, don't pass it with every change to the form, because that will cause lag when auto-saving
@@ -64,7 +64,17 @@ export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
     return Promise.resolve()
   }
 
-  const elementOptions = elementTree?.elements.map(mapElementOption)
+  const elementAtomRequiredParents = atomService.atoms
+    .get(element.renderType?.id || '')
+    ?.requiredParents.map((parent) => parent.id)
+
+  const elementOptions = elementAtomRequiredParents?.length
+    ? elementTree?.elements
+        .filter((el) =>
+          elementAtomRequiredParents.includes(el.renderType?.id || ''),
+        )
+        .map(mapElementOption)
+    : elementTree?.elements.map(mapElementOption)
 
   return (
     <MoveElementAutoForm<MoveData>

@@ -22,9 +22,6 @@ export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
   const { atomService } = useStore()
   const [fieldProps] = useField<{ value?: string }>(name, {})
 
-  const suggestedChildren =
-    parent?.suggestedChildren.map((child) => child.current) ?? []
-
   // On update mode, the current selected type can be used
   // to show the type name instead of showing just the id
   const currentAtom = fieldProps.value
@@ -35,10 +32,11 @@ export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
     atomService.getOptions(),
   )
 
-  const options = uniqBy(
-    compact([currentAtom, ...suggestedChildren, ...result]),
-    'id',
-  ).map((atom) => ({ label: atom.name, value: atom.id }))
+  const allAtoms = uniqBy(compact([currentAtom, ...result]), 'id')
+
+  const options = parent
+    ? filterAtoms(allAtoms, parent)
+    : allAtoms.map((atom) => ({ label: atom.name, value: atom.id }))
 
   return (
     <SelectField
@@ -58,3 +56,49 @@ export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
     />
   )
 }
+
+const filterAtoms = (
+  allAtoms: Array<Pick<IAtom, 'id' | 'name' | 'requiredParents' | 'type'>>,
+  parent: IAtom,
+) => {
+  const atomsRequiringCurrentParent = allAtoms
+    .filter((atom) => {
+      return atom.requiredParents.length
+        ? atom.requiredParents.some(
+            (requiredParent) => requiredParent.id === parent.id,
+          )
+        : false
+    })
+    .map(mapAtomOptions)
+
+  const atomsExcludingSelfAndRequiredParents = allAtoms
+    .filter((atom) => {
+      return parent.requiredParents.length
+        ? parent.requiredParents.every(
+            (requiredParent) => requiredParent.id !== atom.id,
+          ) && parent.id !== atom.id
+        : false
+    })
+    .map(mapAtomOptions)
+
+  const atomsWithNoRequiredParents = allAtoms
+    .filter((atom) => atom.requiredParents.length === 0)
+    .map(mapAtomOptions)
+
+  if (atomsRequiringCurrentParent.length) {
+    // only get atoms if their required parents include the parent
+    return atomsRequiringCurrentParent
+  }
+
+  if (atomsExcludingSelfAndRequiredParents.length) {
+    // only get atoms if the required parents of the parent doesn't include the atom
+    return atomsExcludingSelfAndRequiredParents
+  }
+
+  // only get atoms that doesn't have required parents
+  return atomsWithNoRequiredParents
+}
+
+const mapAtomOptions = (
+  atom: Pick<IAtom, 'id' | 'name' | 'requiredParents' | 'type'>,
+) => ({ label: atom.name, value: atom.id })
