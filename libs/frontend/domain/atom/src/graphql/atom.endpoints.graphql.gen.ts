@@ -5,8 +5,6 @@ import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import { AtomFragmentDoc } from '../../../../abstract/core/src/domain/atom/atom.fragment.graphql.gen'
-import { Atom } from '@codelab/backend/domain/atom'
-import { IAtom } from '@codelab/frontend/abstract/core'
 export type CreateAtomsMutationVariables = Types.Exact<{
   input: Array<Types.AtomCreateInput> | Types.AtomCreateInput
 }>
@@ -39,7 +37,11 @@ export type GetAtomsQuery = {
 export type GetAtomOptionsQueryVariables = Types.Exact<{ [key: string]: never }>
 
 export type GetAtomOptionsQuery = {
-  atoms: Array<Pick<IAtom, 'id' | 'name' | 'type' | 'requiredParents'>>
+  atoms: Array<{
+    id: string
+    type: Types.AtomType
+    requiredParents: Array<{ id: string; type: Types.AtomType }>
+  }>
 }
 
 export type UpdateAtomsMutationVariables = Types.Exact<{
