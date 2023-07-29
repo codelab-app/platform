@@ -8,6 +8,7 @@ import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
 import type { IComponentType } from '../../renderer'
 import type {
+  ICRUDFormService,
   ICRUDModalService,
   ICRUDService,
   IEntityModalService,
@@ -22,6 +23,7 @@ export interface IAtomService
   extends Omit<ICRUDService<IAtom, ICreateAtomData, IUpdateAtomData>, 'delete'>,
     IQueryService<IAtom, AtomWhere, AtomOptions>,
     Omit<ICRUDModalService<Ref<IAtom>, { atom: Maybe<IAtom> }>, 'deleteModal'>,
+    Pick<ICRUDFormService<Ref<IAtom>, { atom: Maybe<IAtom> }>, 'updateForm'>,
     IPaginateable<IAtom, { name?: string }> {
   atomRepository: IAtomRepository
   atoms: ObjectMap<IAtom>

@@ -35,6 +35,7 @@ import {
 import { v4 } from 'uuid'
 import { Atom } from './atom.model'
 import { AtomRepository } from './atom.repo'
+import { AtomFormService } from './atom-form.service'
 import { AtomModalService, AtomsModalService } from './atom-modal.service'
 
 @model('@codelab/AtomService')
@@ -50,6 +51,7 @@ export class AtomService
     paginationService: prop(
       () => new PaginationService<IAtom, { name?: string }>({}),
     ),
+    updateForm: prop(() => new AtomFormService({})),
     updateModal: prop(() => new AtomModalService({})),
   })
   implements IAtomService
