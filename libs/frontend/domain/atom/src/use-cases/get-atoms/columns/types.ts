@@ -5,9 +5,11 @@ import type {
   ITag,
 } from '@codelab/frontend/abstract/core'
 import type { IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
+import type { ReactNode } from 'react'
 
 export interface AtomLibrary {
   color: string
+  icon?: ReactNode
   name: string
 }
 
