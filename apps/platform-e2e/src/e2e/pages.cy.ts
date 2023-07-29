@@ -25,7 +25,7 @@ describe('Pages CRUD', () => {
     it('should be able to create page', () => {
       cy.findAllByText(pageName).should('not.exist')
 
-      cy.getSider().getButton({ icon: 'plus' }).click()
+      cy.getCuiSidebar('Pages').getToolbarItem('Create Page').click()
 
       cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
       cy.findByTestId('create-page-form')
@@ -35,19 +35,24 @@ describe('Pages CRUD', () => {
 
     it('should have accessible page link on sidebar', () => {
       cy.findByText(pageName).should('exist')
-      cy.findByTestId('page-explorer-pane').findByText(pageName).click()
+      cy.getCuiTreeItemByPrimaryTitle(pageName).click()
+      cy.getCuiTreeItemByPrimaryTitle(pageName).within(() => {
+        cy.getToolbarItem('Open Builder').click()
+      })
+
       cy.findByText(ROOT_ELEMENT_NAME).should('be.visible')
-      cy.go('back')
+      cy.getCuiNavigationBarItem('Pages').click()
     })
   })
 
   describe('update', () => {
     it('should be able to update page name', () => {
-      cy.getListItem(pageName)
-        .getButton({
-          icon: 'edit',
-        })
-        .click()
+      cy.getCuiTreeItemByPrimaryTitle(pageName).should('exist')
+      cy.getCuiTreeItemByPrimaryTitle(pageName).click()
+      cy.getCuiTreeItemByPrimaryTitle(pageName).within(() => {
+        cy.getToolbarItem('Edit').click()
+      })
+
       cy.getSpinner().should('not.exist')
 
       cy.findByTestId('update-page-form').findByLabelText('Name').clear()
@@ -60,18 +65,18 @@ describe('Pages CRUD', () => {
 
       cy.findByTestId('update-page-form').should('not.exist')
 
-      cy.findByText(pageName).should('not.exist')
-      cy.findByText(updatedPageName).should('exist')
+      cy.getCuiTreeItemByPrimaryTitle(pageName).should('not.exist')
+      cy.getCuiTreeItemByPrimaryTitle(updatedPageName).should('exist')
     })
   })
 
   describe('delete', () => {
     it('should be able to delete page', () => {
-      cy.getListItem(updatedPageName)
-        .getButton({
-          icon: 'delete',
-        })
-        .click()
+      cy.getCuiTreeItemByPrimaryTitle(updatedPageName).click()
+      cy.getCuiTreeItemByPrimaryTitle(updatedPageName).within(() => {
+        cy.getToolbarItem('Delete').click()
+      })
+
       cy.getSpinner().should('not.exist')
 
       cy.getModal()

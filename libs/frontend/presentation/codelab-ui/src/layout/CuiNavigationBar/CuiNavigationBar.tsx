@@ -25,7 +25,11 @@ export interface CuiNavigationBarProps {
 
 const mapNavBarItemToMenuItem = (navBarItem: NavigationBarItem) => ({
   disabled: navBarItem.disabled,
-  icon: <div data-cy={navBarItem.title}>{navBarItem.icon}</div>,
+  icon: (
+    <div data-cy={`navigation-bar-item-${navBarItem.title}`}>
+      {navBarItem.icon}
+    </div>
+  ),
   key: navBarItem.key,
   // eslint-disable-next-line react/jsx-props-no-spreading
   label: navBarItem.link && <Link {...navBarItem.link} />,

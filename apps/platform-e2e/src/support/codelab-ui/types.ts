@@ -1,4 +1,5 @@
 import type { CodelabUIHeaderToolbarCommands } from './header-toolbar'
+import type { CodelabUINavigationBarCommands } from './navigation-bar'
 import type { CodelabUISidebarCommands } from './sidebar'
 import type { CodelabUISkeletonCommands } from './skeleton'
 import type { CodelabUIToolbarCommands } from './toolbar'
@@ -12,6 +13,7 @@ declare global {
         CodelabUISidebarCommands,
         CodelabUIToolbarCommands,
         CodelabUISkeletonCommands,
+        CodelabUINavigationBarCommands,
         CodelabUITreeCommands {}
   }
 }
