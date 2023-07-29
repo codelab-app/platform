@@ -1,3 +1,4 @@
+import { PlusOutlined } from '@ant-design/icons'
 import { CuiSidebar } from '@codelab/frontend/presentation//codelab-ui'
 import {
   useCurrentApp,
@@ -34,6 +35,19 @@ export const PagesPrimarySidebar = observer(() => {
             ),
             key: 'pages',
             label: 'Pages',
+            toolbar: {
+              items: [
+                {
+                  icon: <PlusOutlined />,
+                  key: 'create-page',
+                  onClick: () => {
+                    pageService.createForm.open()
+                  },
+                  title: 'Create Page',
+                },
+              ],
+              title: 'Pages Toolbar',
+            },
           },
         ]}
       />
