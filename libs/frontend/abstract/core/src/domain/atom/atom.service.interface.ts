@@ -1,4 +1,8 @@
-import type { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
+import type {
+  AtomOptions,
+  AtomType,
+  AtomWhere,
+} from '@codelab/shared/abstract/codegen'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { ArraySet, ObjectMap, Ref } from 'mobx-keystone'
@@ -33,6 +37,11 @@ export interface IAtomService
   add(atomDTO: IAtomDTO): IAtom
   delete(ids: Array<string>): Promise<number>
   getOptions(): Promise<
-    Array<Pick<IAtom, 'id' | 'name' | 'requiredParents' | 'type'>>
+    Array<{
+      id: string
+      name: string
+      type: AtomType
+      requiredParents: Array<{ id: string; type: AtomType }>
+    }>
   >
 }

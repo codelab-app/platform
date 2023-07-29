@@ -58,8 +58,6 @@ export class AtomRepository extends Model({}) implements IAtomRepository {
     return sortBy(
       atoms.filter(({ type }) => filterNotHookType(type)),
       'name',
-    ) as unknown as Array<
-      Pick<IAtom, 'id' | 'name' | 'requiredParents' | 'type'>
-    >
+    )
   }
 }

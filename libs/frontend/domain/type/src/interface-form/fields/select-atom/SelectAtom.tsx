@@ -1,5 +1,6 @@
 import type { IAtom } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
+import type { AtomType } from '@codelab/shared/abstract/codegen'
 import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
 import compact from 'lodash/compact'
@@ -58,7 +59,15 @@ export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
 }
 
 const filterAtoms = (
-  allAtoms: Array<Pick<IAtom, 'id' | 'name' | 'requiredParents' | 'type'>>,
+  allAtoms: Array<
+    | IAtom
+    | {
+        id: string
+        name: string
+        type: AtomType
+        requiredParents: Array<{ id: string; type: AtomType }>
+      }
+  >,
   parent: IAtom,
 ) => {
   const atomsRequiringCurrentParent = allAtoms
@@ -100,5 +109,12 @@ const filterAtoms = (
 }
 
 const mapAtomOptions = (
-  atom: Pick<IAtom, 'id' | 'name' | 'requiredParents' | 'type'>,
+  atom:
+    | IAtom
+    | {
+        id: string
+        name: string
+        type: AtomType
+        requiredParents: Array<{ id: string; type: AtomType }>
+      },
 ) => ({ label: atom.name, value: atom.id })
