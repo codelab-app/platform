@@ -3,7 +3,7 @@ import type { CuiSidebarToolbarProps } from '../CuiSidebarToolbar'
 import { CuiCollapsePanelContent } from './CuiCollapsePanelContent'
 import { CuiCollapsePanelHeader } from './CuiCollapsePanelHeader'
 
-interface CuiCollapsePanelProps {
+export interface CuiCollapsePanelProps {
   content: React.ReactNode
   isLoading?: boolean
   key: string

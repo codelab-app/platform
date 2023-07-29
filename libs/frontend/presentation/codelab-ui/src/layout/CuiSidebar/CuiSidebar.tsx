@@ -4,8 +4,7 @@ import classNames from 'classnames'
 import type { ReactNode } from 'react'
 import React from 'react'
 import type { CuiSidebarToolbarProps } from '../../views'
-import { CuiSidebarToolbar } from '../../views'
-import { CuiCollapse } from '../../views/CuiCollapse'
+import { CuiCollapseOrNot, CuiSidebarToolbar } from '../../views'
 import styles from './CuiSidebar.module.css'
 
 export interface CuiSidebarView {
@@ -52,7 +51,7 @@ export const CuiSidebar = ({
                 key={tab.key}
                 tab={<Tooltip title={tab.label}>{tab.icon}</Tooltip>}
               >
-                <CuiCollapse
+                <CuiCollapseOrNot
                   defaultActivePanels={tab.defaultActiveViewKeys}
                   panels={tab.views}
                 />
@@ -67,7 +66,7 @@ export const CuiSidebar = ({
                   </Tooltip>
                 }
               >
-                <CuiCollapse
+                <CuiCollapseOrNot
                   defaultActivePanels={defaultActiveViewKeys}
                   panels={views}
                 />
@@ -78,18 +77,27 @@ export const CuiSidebar = ({
       ) : (
         <>
           <div className="flex h-10 w-full flex-row items-center justify-between">
-            <Typography className="pl-4">{label}</Typography>
-            {toolbar && (
+            <Typography className="pl-4">
+              {views?.length !== 1 ? label : views[0]?.label}
+            </Typography>
+            {toolbar && views?.length !== 1 ? (
               <div className="max-w-lg">
                 {
                   // eslint-disable-next-line react/jsx-props-no-spreading
                   <CuiSidebarToolbar {...toolbar} />
                 }
               </div>
-            )}
+            ) : views?.[0] && views[0].toolbar ? (
+              <div className="max-w-lg">
+                {
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  <CuiSidebarToolbar {...views[0].toolbar} />
+                }
+              </div>
+            ) : null}
           </div>
           {views && (
-            <CuiCollapse
+            <CuiCollapseOrNot
               defaultActivePanels={defaultActiveViewKeys}
               panels={views}
             />
