@@ -10,6 +10,7 @@ import type { TreeProps } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { tagRef } from '../../store'
+import { TagsTreeItem } from './TagsTreeItem'
 
 export const TagsTreeView = observer(() => {
   const { tagService } = useStore()
@@ -36,6 +37,9 @@ export const TagsTreeView = observer(() => {
         disabled={status === 'loading'}
         onCheck={onCheck}
         onSelect={onSelect}
+        titleRender={(node) => {
+          return <TagsTreeItem data={node} />
+        }}
         treeData={tagService.treeService.antdTreeData}
       />
     </CuiSkeletonWrapper>
