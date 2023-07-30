@@ -5,8 +5,8 @@ import {
   CreateTagModal,
   DeleteTagsModal,
   GetTagsTable,
-  GetTagsTree,
   tagRef,
+  TagsPrimarySidebar,
   UpdateTagModal,
 } from '@codelab/frontend/domain/tag'
 import {
@@ -101,7 +101,7 @@ TagPage.Layout = observer(({ children }) => {
       Header={TagPageHeader}
       PrimarySidebar={{
         default: ExplorerPaneType.Tag,
-        items: [{ key: ExplorerPaneType.Tag, render: () => <GetTagsTree /> }],
+        items: [{ key: ExplorerPaneType.Tag, render: TagsPrimarySidebar }],
       }}
     >
       {children()}

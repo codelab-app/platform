@@ -78,6 +78,7 @@ export class Tag
     return {
       children: this.children.map((child) => child.current.antdNode),
       key: this.id,
+      primaryTitle: this.name,
       title: this.name,
     }
   }

@@ -1,14 +1,17 @@
+import type { ITagsTreeDataNode } from '@codelab/frontend/abstract/core'
 import type { CheckedKeys } from '@codelab/frontend/abstract/types'
+import {
+  CuiSkeletonWrapper,
+  CuiTree,
+} from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
-import { Spinner } from '@codelab/frontend/presentation/view'
 import { useAsync } from '@react-hookz/web'
 import type { TreeProps } from 'antd'
-import { Tree } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { tagRef } from '../../store'
 
-export const GetTagsTree = observer(() => {
+export const TagsTreeView = observer(() => {
   const { tagService } = useStore()
 
   const onSelect: TreeProps['onSelect'] = (selectedKeys, info) => {
@@ -25,8 +28,8 @@ export const GetTagsTree = observer(() => {
   const [{ status }] = useAsync(() => tagService.getAll())
 
   return (
-    <Spinner isLoading={status === 'loading'}>
-      <Tree
+    <CuiSkeletonWrapper isLoading={status === 'loading'}>
+      <CuiTree<ITagsTreeDataNode>
         checkStrictly
         checkable
         checkedKeys={tagService.checkedTags.map((checkedTag) => checkedTag.id)}
@@ -35,6 +38,6 @@ export const GetTagsTree = observer(() => {
         onSelect={onSelect}
         treeData={tagService.treeService.antdTreeData}
       />
-    </Spinner>
+    </CuiSkeletonWrapper>
   )
 })
