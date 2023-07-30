@@ -13,6 +13,7 @@ import {
   CuiHeader,
   CuiHeaderBreadcrumb,
 } from '@codelab/frontend/presentation//codelab-ui'
+import { useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import { DashboardTemplate } from '@codelab/frontend/presentation/view'
 import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
@@ -40,9 +41,31 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
 })
 
 const AtomsHeader = observer(() => {
+  const { atomService, fieldService } = useStore()
+  const atomToUpdate = atomService.updateForm.atom?.name || ''
+  const fieldToUpdate = fieldService.updateForm.field?.key || ''
+
+  const atomOrField = atomService.updateForm.isOpen
+    ? 'atom'
+    : fieldService.updateForm.isOpen
+    ? 'field'
+    : ''
+
+  const atomOrFieldName = atomService.updateForm.isOpen
+    ? atomToUpdate
+    : fieldToUpdate
+
   return (
     <CuiHeader
-      direction={<CuiHeaderBreadcrumb items={[{ title: 'Atoms' }]} />}
+      direction={
+        <CuiHeaderBreadcrumb
+          items={[
+            { title: 'Atoms' },
+            { title: atomOrField },
+            { title: atomOrFieldName },
+          ]}
+        />
+      }
       logo={
         <Image
           alt="codelab logo"
