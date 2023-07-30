@@ -5,7 +5,7 @@ import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
 import compact from 'lodash/compact'
 import uniqBy from 'lodash/uniqBy'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
 
@@ -23,21 +23,23 @@ export const SelectAtom = ({ error, label, name, parent }: SelectAtomProps) => {
   const { atomService } = useStore()
   const [fieldProps] = useField<{ value?: string }>(name, {})
 
-  // On update mode, the current selected type can be used
-  // to show the type name instead of showing just the id
-  const currentAtom = fieldProps.value
-    ? atomService.atoms.get(fieldProps.value)
-    : undefined
-
   const [{ error: queryError, result = [], status }, getAtoms] = useAsync(() =>
     atomService.getOptions(),
   )
 
-  const allAtoms = uniqBy(compact([currentAtom, ...result]), 'id')
+  const options = useMemo(() => {
+    // On update mode, the current selected type can be used
+    // to show the type name instead of showing just the id
+    const currentAtom = fieldProps.value
+      ? atomService.atoms.get(fieldProps.value)
+      : undefined
 
-  const options = parent
-    ? filterAtoms(allAtoms, parent)
-    : allAtoms.map((atom) => ({ label: atom.name, value: atom.id }))
+    const allAtoms = uniqBy(compact([currentAtom, ...result]), 'id')
+
+    return parent
+      ? filterAtoms(allAtoms, parent)
+      : allAtoms.map((atom) => ({ label: atom.name, value: atom.id }))
+  }, [result, parent])
 
   return (
     <SelectField
