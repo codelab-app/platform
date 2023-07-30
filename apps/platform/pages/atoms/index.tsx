@@ -14,10 +14,7 @@ import {
   CuiHeaderBreadcrumb,
 } from '@codelab/frontend/presentation//codelab-ui'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
-import {
-  ContentSection,
-  DashboardTemplate,
-} from '@codelab/frontend/presentation/view'
+import { DashboardTemplate } from '@codelab/frontend/presentation/view'
 import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -37,9 +34,7 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <CreateFieldModal />
       <DeleteFieldModal />
 
-      <ContentSection>
-        <AtomForm />
-      </ContentSection>
+      <AtomForm />
     </>
   )
 })
