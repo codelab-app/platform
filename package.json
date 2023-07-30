@@ -13,7 +13,7 @@
   "license": "MIT",
   "sideEffects": false,
   "scripts": {
-    "preinstall": "nx build tools-workspace",
+    "preinstall": "nx build @codelab/tools-workspace",
     "e2e": "yarn cli tasks e2e --stage dev",
     "cli": "nx build cli && node ./dist/apps/cli/main.js",
     "docker:up": "scripts/docker/up.sh",
