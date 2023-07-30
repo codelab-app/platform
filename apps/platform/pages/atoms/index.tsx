@@ -1,22 +1,18 @@
-import { PlusOutlined } from '@ant-design/icons'
-import type { CodelabPage } from '@codelab/frontend/abstract/types'
+import { type CodelabPage, PageType } from '@codelab/frontend/abstract/types'
 import {
-  AtomsTable,
+  AtomForm,
+  AtomsPrimarySidebar,
   CreateAtomModal,
   DeleteAtomsModal,
-  UpdateAtomModal,
 } from '@codelab/frontend/domain/atom'
 import {
   CreateFieldModal,
   DeleteFieldModal,
-  UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
-  CuiHeaderToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
-import { useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
 import {
   ContentSection,
@@ -36,32 +32,19 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       </Head>
 
       <CreateAtomModal />
-      <UpdateAtomModal />
       <DeleteAtomsModal />
 
       <CreateFieldModal />
-      <UpdateFieldModal />
       <DeleteFieldModal />
 
       <ContentSection>
-        <AtomsTable />
+        <AtomForm />
       </ContentSection>
     </>
   )
 })
 
 const AtomsHeader = observer(() => {
-  const { atomService } = useStore()
-
-  const toolbarItems = [
-    {
-      icon: <PlusOutlined />,
-      key: 'create',
-      onClick: () => atomService.createModal.open(),
-      title: 'Create Atom',
-    },
-  ]
-
   return (
     <CuiHeader
       direction={<CuiHeaderBreadcrumb items={[{ title: 'Atoms' }]} />}
@@ -73,9 +56,6 @@ const AtomsHeader = observer(() => {
           src="/logo.png"
         />
       }
-      toolbar={
-        <CuiHeaderToolbar items={toolbarItems} title="My Header Toolbar" />
-      }
     />
   )
 })
@@ -86,6 +66,19 @@ export const getServerSideProps = withPageAuthRedirect()
 
 AtomsPage.Layout = ({ children }) => {
   return (
-    <DashboardTemplate Header={AtomsHeader}>{children()}</DashboardTemplate>
+    <DashboardTemplate
+      Header={AtomsHeader}
+      PrimarySidebar={{
+        default: PageType.Atoms,
+        items: [
+          {
+            key: PageType.Atoms,
+            render: AtomsPrimarySidebar,
+          },
+        ],
+      }}
+    >
+      {children()}
+    </DashboardTemplate>
   )
 }

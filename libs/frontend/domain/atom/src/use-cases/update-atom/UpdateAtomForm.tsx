@@ -48,7 +48,6 @@ export const UpdateAtomForm = observer(() => {
       model={model}
       onSubmit={onSubmit}
       onSubmitError={onSubmitError}
-      onSubmitSuccess={closeForm}
       schema={updateAtomSchema}
     >
       <AutoFields
