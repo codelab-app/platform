@@ -11,6 +11,10 @@ const StyledContainer = styled.div`
   justify-content: space-between;
   .ant-btn {
     min-width: 48%;
+    flex: 1;
+  }
+  .ant-btn:not(:last-child) {
+    margin-right: 20px; /* Adjust this value to set the amount of space between items */
   }
 `
 
@@ -20,9 +24,11 @@ const formControl = ({ onCancel, submitLabel }: formController) => {
       <Button htmlType="submit" type="primary">
         {submitLabel}
       </Button>
-      <Button onClick={onCancel} type="default">
-        Cancel
-      </Button>
+      {onCancel && (
+        <Button onClick={onCancel} type="default">
+          Cancel
+        </Button>
+      )}
     </StyledContainer>
   )
 }

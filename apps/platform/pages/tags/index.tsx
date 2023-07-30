@@ -4,15 +4,16 @@ import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import {
   CreateTagModal,
   DeleteTagsModal,
-  GetTagsTable,
   tagRef,
   TagsPrimarySidebar,
+  UpdateTagForm,
   UpdateTagModal,
 } from '@codelab/frontend/domain/tag'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
   CuiHeaderToolbar,
+  CuiSkeletonWrapper,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
@@ -49,7 +50,9 @@ const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <DeleteTagsModal />
 
       <ContentSection>
-        <GetTagsTable loading={status === 'loading'} />
+        <CuiSkeletonWrapper isLoading={status === 'loading'}>
+          <UpdateTagForm />
+        </CuiSkeletonWrapper>
       </ContentSection>
     </>
   )

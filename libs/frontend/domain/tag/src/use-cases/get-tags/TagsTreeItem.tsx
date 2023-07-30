@@ -18,6 +18,9 @@ export const TagsTreeItem = observer(({ data }: TagsTreeItemProps) => {
 
   return (
     <CuiTreeItem
+      onClick={() => {
+        tagService.updateForm.open(tagRef(data.extraData.node.id))
+      }}
       primaryTitle={data.primaryTitle}
       toolbar={
         <CuiTreeItemToolbar

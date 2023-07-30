@@ -50,7 +50,7 @@ export type FormProps<TData, TResponse = unknown> = Partial<
 // form Controller props
 export interface formController {
   submitLabel: string
-  onCancel(): void
+  onCancel?(): void
 }
 
 /**

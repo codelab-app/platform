@@ -24,6 +24,7 @@ import {
 } from 'mobx-keystone'
 import { TagRepository } from '../services/tag.repo'
 import { Tag, tagRef } from './tag.model'
+import { TagFormService } from './tag-form.service'
 import { TagModalService, TagsModalService } from './tag-modal.service'
 import { TagTreeService } from './tag-tree.service'
 
@@ -37,6 +38,7 @@ export class TagService
     tagRepository: prop(() => new TagRepository({})),
     tags: prop(() => objectMap<ITag>()),
     treeService: prop<ITagTreeService>(() => TagTreeService.init([])),
+    updateForm: prop(() => new TagFormService({})),
     updateModal: prop(() => new TagModalService({})),
   })
   implements ITagService
