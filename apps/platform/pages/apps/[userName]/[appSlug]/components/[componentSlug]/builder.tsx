@@ -8,8 +8,8 @@ import {
   ConfigPaneInspectorTabContainer,
 } from '@codelab/frontend/domain/builder'
 import {
-  ExplorerPanePage,
   PageDetailHeader,
+  PagesPrimarySidebar,
 } from '@codelab/frontend/domain/page'
 import {
   useCurrentComponent,
@@ -55,7 +55,7 @@ const ComponentBuilder: CodelabPage = observer(() => {
           },
           {
             key: ExplorerPaneType.PageList,
-            render: () => <ExplorerPanePage />,
+            render: () => <PagesPrimarySidebar />,
           },
         ],
       }}

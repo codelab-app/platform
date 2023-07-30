@@ -1,7 +1,7 @@
 import type { IApp } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
-import { ExplorerPanePage } from '@codelab/frontend/domain/page'
+import { PagesPrimarySidebar } from '@codelab/frontend/domain/page'
 import {
   useCurrentApp,
   useStore,
@@ -54,7 +54,7 @@ Pages.Layout = observer(({ children }) => {
         items: [
           {
             key: ExplorerPaneType.PageList,
-            render: () => <ExplorerPanePage />,
+            render: () => <PagesPrimarySidebar />,
           },
         ],
       }}

@@ -18,6 +18,7 @@ export const CuiSidebarToolbarItem = ({
           flex
           h-full
           w-full
+          cursor-pointer
           flex-col
           items-center
           justify-center
