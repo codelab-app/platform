@@ -1,10 +1,8 @@
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import {
   CreateTagModal,
   DeleteTagsModal,
-  tagRef,
   TagsPrimarySidebar,
   UpdateTagForm,
   UpdateTagModal,
@@ -12,7 +10,6 @@ import {
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
-  CuiHeaderToolbar,
   CuiSkeletonWrapper,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
@@ -60,27 +57,15 @@ const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
 
 const TagPageHeader = observer(() => {
   const { tagService } = useStore()
-  const ids = tagService.checkedTags.map((tag) => tag.id)
-
-  const toolbarItems = [
-    {
-      icon: <PlusOutlined />,
-      key: 'create',
-      onClick: () => tagService.createModal.open(),
-      title: 'Create Tag',
-    },
-    {
-      icon: <DeleteOutlined />,
-      key: 'delete',
-      onClick: () =>
-        tagService.deleteManyModal.open(ids.map((id) => tagRef(id))),
-      title: 'Delete Tag',
-    },
-  ]
+  const tag = tagService.updateForm.tag
 
   return (
     <CuiHeader
-      direction={<CuiHeaderBreadcrumb items={[{ title: 'Tags' }]} />}
+      direction={
+        <CuiHeaderBreadcrumb
+          items={[{ title: 'Tags' }, { title: tag?.name || '' }]}
+        />
+      }
       logo={
         <Image
           alt="codelab logo"
@@ -88,9 +73,6 @@ const TagPageHeader = observer(() => {
           preview={false}
           src="/logo.png"
         />
-      }
-      toolbar={
-        <CuiHeaderToolbar items={toolbarItems} title="Tags Header Toolbar" />
       }
     />
   )

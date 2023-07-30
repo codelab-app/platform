@@ -46,7 +46,7 @@ export const UpdateTagForm = observer(() => {
         showSearch
       />
 
-      <FormController submitLabel="Update Type" />
+      <FormController submitLabel="Update Tag" />
     </Form>
   ) : null
 })
