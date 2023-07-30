@@ -5690,9 +5690,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codelab/workspace@file:./dist/libs/tools/workspace::locator=codelab%40workspace%3A.":
+"@codelab/tools-workspace@file:./dist/libs/tools/workspace::locator=codelab%40workspace%3A.":
   version: 0.0.1
-  resolution: "@codelab/workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=de9c0e&locator=codelab%40workspace%3A."
+  resolution: "@codelab/tools-workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=dce467&locator=codelab%40workspace%3A."
   dependencies:
     "@graphql-codegen/core": 4.0.0
     "@graphql-tools/graphql-file-loader": 8.0.0
@@ -5702,9 +5702,24 @@ __metadata:
     lodash: 4.17.21
   peerDependencies:
     tslib: 2.3.1
-  checksum: 06d1d8abc83012c7f2816429c8b29785e9f83a40bb788e51b7c7b213b0be166e963e8f29efcc73fbadc6d025b86592bb2a4d6ea4f5b89b11bca5039c08a7b02b
+  checksum: 3bf8bdcd5b9161cab7b12afa98d1809f1893d03beffb973adf1488ff109f07785dcd3392ef2ce3307c70bab5f339240fc03460f4f5b2284d59dbf700db4e87d8
   languageName: node
   linkType: hard
+
+"@codelab/tools-workspace@workspace:dist/libs/tools/workspace":
+  version: 0.0.0-use.local
+  resolution: "@codelab/tools-workspace@workspace:dist/libs/tools/workspace"
+  dependencies:
+    "@graphql-codegen/core": 4.0.0
+    "@graphql-tools/graphql-file-loader": 8.0.0
+    "@graphql-tools/load": 8.0.0
+    "@graphql-tools/url-loader": 8.0.0
+    graphql: 16.6.0
+    lodash: 4.17.21
+  peerDependencies:
+    tslib: 2.3.1
+  languageName: unknown
+  linkType: soft
 
 "@codemirror/autocomplete@npm:6.1.0, @codemirror/autocomplete@npm:^6.0.0":
   version: 6.1.0
@@ -21096,7 +21111,7 @@ __metadata:
     "@babel/preset-react": ^7.18.6
     "@babel/runtime": 7.18.3
     "@babel/types": 7.18.2
-    "@codelab/workspace": "file:./dist/libs/tools/workspace"
+    "@codelab/tools-workspace": "file:./dist/libs/tools/workspace"
     "@codemirror/autocomplete": 6.1.0
     "@codemirror/lang-css": 6.0.0
     "@codemirror/lang-html": 6.1.0
@@ -43306,21 +43321,6 @@ __metadata:
   checksum: 32780123bc6ce8b6a2231d860445c994a02a720abf38df5583ea957aa6626873cd1c4dd8af62314da4cf16ede00c379a765707a3b06f04b8808c38efdae1c785
   languageName: node
   linkType: hard
-
-"tools-workspace@workspace:dist/libs/tools/workspace":
-  version: 0.0.0-use.local
-  resolution: "tools-workspace@workspace:dist/libs/tools/workspace"
-  dependencies:
-    "@graphql-codegen/core": 4.0.0
-    "@graphql-tools/graphql-file-loader": 8.0.0
-    "@graphql-tools/load": 8.0.0
-    "@graphql-tools/url-loader": 8.0.0
-    graphql: 16.6.0
-    lodash: 4.17.21
-  peerDependencies:
-    tslib: 2.3.1
-  languageName: unknown
-  linkType: soft
 
 "totalist@npm:^1.0.0":
   version: 1.1.0

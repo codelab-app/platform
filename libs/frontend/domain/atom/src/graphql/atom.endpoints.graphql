@@ -31,6 +31,10 @@ query GetAtomOptions {
     id
     name
     type
+    requiredParents {
+      id
+      type
+    }
   }
 }
 

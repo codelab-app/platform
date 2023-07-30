@@ -1,6 +1,7 @@
 import type {
   AtomFragment,
   AtomOptions,
+  AtomType,
   AtomWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IRepository } from '../../service'
@@ -12,5 +13,12 @@ export type IAtomRepository = IRepository<
   AtomWhere,
   AtomOptions
 > & {
-  findOptions(): Promise<Array<Pick<IAtom, 'id' | 'name' | 'type'>>>
+  findOptions(): Promise<
+    Array<{
+      id: string
+      name: string
+      type: AtomType
+      requiredParents: Array<{ id: string; type: AtomType }>
+    }>
+  >
 }
