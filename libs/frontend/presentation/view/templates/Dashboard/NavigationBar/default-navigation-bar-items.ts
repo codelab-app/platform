@@ -4,7 +4,6 @@ import {
   allPagesMenuItem,
   appMenuItem,
   builderComponentsMenuItem,
-  componentMenuItem,
   pageBuilderMenuItem,
   resourceMenuItem,
 } from '../../../sections'
@@ -31,7 +30,6 @@ export const defaultNavigationBarItems = ({
     builderComponentsMenuItem(appSlug, pageSlug, componentSlug, userName),
     pageBuilderMenuItem(appSlug, pageSlug, componentSlug, userName),
     resourceMenuItem,
-    componentMenuItem,
   ],
   secondaryItems: adminMenuItems,
 })

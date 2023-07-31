@@ -11,6 +11,7 @@ export enum PageType {
   AtomTypeList = '/atom-types',
   ComponentDetail = '/components/[componentId]',
   ComponentDetailV2 = '/library/[libraryId]/component/[componentId]',
+  ComponentExport = '/api/export/component',
   ComponentList = '/components',
   Home = '/',
   LambdaList = '/lambdas',

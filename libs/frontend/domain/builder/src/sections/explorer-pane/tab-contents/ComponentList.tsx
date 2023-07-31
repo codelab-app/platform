@@ -16,8 +16,9 @@ export const ComponentList = observer<{
   selectedIds?: Array<string>
   onDelete?(id: string): void
   onEdit?(id: string): void
+  onExport?(id: string): void
   onSelect?(id: string): void
-}>(({ components, onDelete, onEdit, onSelect, selectedIds }) => {
+}>(({ components, onDelete, onEdit, onExport, onSelect, selectedIds }) => {
   const [searchValue, setSearchValue] = useState('')
 
   const debouncedSearch = useRef(
@@ -45,6 +46,7 @@ export const ComponentList = observer<{
               key={component.id}
               onDelete={onDelete}
               onEdit={onEdit}
+              onExport={onExport}
               onSelect={onSelect}
               selected={selectedIds?.includes(component.id)}
             />

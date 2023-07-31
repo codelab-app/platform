@@ -3,7 +3,6 @@ import {
   BuildOutlined,
   CloudServerOutlined,
   CodeSandboxOutlined,
-  ExpandOutlined,
   FileOutlined,
 } from '@ant-design/icons'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
@@ -27,15 +26,6 @@ export const resourceMenuItem: NavigationBarItem = {
     href: PageType.Resources,
   },
   title: 'Resources',
-}
-
-export const componentMenuItem: NavigationBarItem = {
-  icon: <ExpandOutlined title="Components" />,
-  key: PageType.Components,
-  link: {
-    href: PageType.Components,
-  },
-  title: 'Components',
 }
 
 export const allPagesMenuItem = (
