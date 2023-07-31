@@ -1,12 +1,13 @@
 import type { ToolbarItem } from '@codelab/frontend/presentation//codelab-ui'
-import { CuiHeaderToolbar } from '@codelab/frontend/presentation//codelab-ui'
+import { CuiSidebar } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { IResourceType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { ResourceIcon } from '../../view'
+import { ResourcesTreeView } from '../get-resource'
 
-export const ResourceToolbar = observer(() => {
+export const ResourcesPrimarySidebar = observer(() => {
   const { resourceService } = useStore()
 
   const items: Array<ToolbarItem> = [
@@ -26,5 +27,17 @@ export const ResourceToolbar = observer(() => {
     },
   ]
 
-  return <CuiHeaderToolbar items={items} title="Resources Header Toolbar" />
+  return (
+    <CuiSidebar
+      label="Resources"
+      views={[
+        {
+          content: <ResourcesTreeView />,
+          key: 'resources',
+          label: 'Resources',
+          toolbar: { items, title: 'Resources toolbar' },
+        },
+      ]}
+    />
+  )
 })

@@ -1,9 +1,12 @@
-import type { CodelabPage } from '@codelab/frontend/abstract/types'
+import {
+  type CodelabPage,
+  ExplorerPaneType,
+} from '@codelab/frontend/abstract/types'
 import {
   CreateResourceModal,
   DeleteResourceModal,
   ResourcesList,
-  ResourceToolbar,
+  ResourcesPrimarySidebar,
   UpdateResourceModal,
 } from '@codelab/frontend/domain/resource'
 import {
@@ -32,7 +35,6 @@ const ResourcesPageHeader = observer(() => (
         src="/logo.png"
       />
     }
-    toolbar={<ResourceToolbar />}
   />
 ))
 
@@ -59,7 +61,18 @@ export const getServerSideProps = withPageAuthRedirect()
 
 ResourcesPage.Layout = observer(({ children }) => {
   return (
-    <DashboardTemplate Header={ResourcesPageHeader}>
+    <DashboardTemplate
+      Header={ResourcesPageHeader}
+      PrimarySidebar={{
+        default: ExplorerPaneType.ResourceList,
+        items: [
+          {
+            key: ExplorerPaneType.ResourceList,
+            render: ResourcesPrimarySidebar,
+          },
+        ],
+      }}
+    >
       {children()}
     </DashboardTemplate>
   )
