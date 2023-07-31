@@ -23,6 +23,7 @@ import {
 import { v4 } from 'uuid'
 import { Resource } from './resource.model'
 import { ResourceRepository } from './resource.repo'
+import { ResourceFormService } from './resource-form.service'
 import { ResourceModalService } from './resource-modal.service'
 
 @model('@codelab/ResourceService')
@@ -32,6 +33,7 @@ export class ResourceService
     deleteModal: prop(() => new ResourceModalService({})),
     resourceRepository: prop(() => new ResourceRepository({})),
     resources: prop(() => objectMap<IResource>()),
+    updateForm: prop(() => new ResourceFormService({})),
     updateModal: prop(() => new ResourceModalService({})),
   })
   implements IResourceService
