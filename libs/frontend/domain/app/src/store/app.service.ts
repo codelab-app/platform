@@ -26,10 +26,11 @@ import { VercelService } from '@codelab/frontend/domain/vercel'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type {
   AppWhere,
+  BuilderPageFragment,
   GetRenderedPageAndCommonAppDataQuery,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
-import { IAppDTO } from '@codelab/shared/abstract/core'
+import { IAppDTO, IPageKind } from '@codelab/shared/abstract/core'
 import flatMap from 'lodash/flatMap'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -328,6 +329,28 @@ export class AppService
     if (!appData) {
       return undefined
     }
+
+    /**
+     * Sort pages for app. Order is app, custom pages, 404, 500
+     */
+
+    const _pages: Array<BuilderPageFragment> = appData.pages
+
+    _pages.sort((a, b) => {
+      if (a.kind === IPageKind.Provider) {
+        return -1
+      }
+
+      if (a.name === IPageKind.NotFound) {
+        return 1
+      }
+
+      if (a.name === IPageKind.InternalServerError) {
+        return 1
+      }
+
+      return a.name.localeCompare(b.name)
+    })
 
     /**
      * Load app, pages, elements
