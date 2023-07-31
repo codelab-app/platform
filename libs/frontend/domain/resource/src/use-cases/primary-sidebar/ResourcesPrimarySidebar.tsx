@@ -16,14 +16,14 @@ export const ResourcesPrimarySidebar = observer(() => {
       key: 'graphql',
       onClick: () =>
         resourceService.createModal.open({ type: IResourceType.GraphQL }),
-      title: 'GraphQL API',
+      title: 'Add GraphQL Resource',
     },
     {
       icon: <ResourceIcon add type={IResourceType.Rest} />,
       key: 'rest',
       onClick: () =>
         resourceService.createModal.open({ type: IResourceType.Rest }),
-      title: 'Rest API',
+      title: 'Add Rest Resource',
     },
   ]
 

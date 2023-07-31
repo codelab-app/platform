@@ -19,8 +19,9 @@ describe('Resource CRUD', () => {
     it('should be able to create resource', () => {
       cy.findAllByText(resourceName).should('not.exist')
 
-      cy.getButton({ label: 'Connect' }).click()
-      cy.getDropdownItem('GraphQL API').click()
+      cy.getCuiSidebar('Resources')
+        .getToolbarItem('Add GraphQL Resource')
+        .click()
 
       cy.getModal().setFormFieldValue({ label: 'Name', value: resourceName })
       cy.getModal().setFormFieldValue({
@@ -35,44 +36,31 @@ describe('Resource CRUD', () => {
         .click()
 
       cy.getModal().should('not.exist')
-      cy.findByText(resourceName).should('exist')
+      cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
     })
   })
 
   describe('update', () => {
     it('should be able to update resource name', () => {
-      cy.getCard({ title: resourceName })
-        .getButton({ icon: 'ellipsis' })
-        .click()
+      cy.getCuiTreeItemByPrimaryTitle(resourceName).click()
 
-      cy.getDropdownItem('Edit').click()
-
-      cy.getSpinner().should('not.exist')
-
-      cy.getModal().setFormFieldValue({
+      cy.setFormFieldValue({
         label: 'Name',
         value: updatedResourceName,
       })
 
-      cy.getModal()
-        .getModalAction(/Update Resource/)
-        .click()
+      cy.getButton({ label: 'Update Resource' }).click()
 
-      cy.getModal().should('not.exist')
-
-      cy.findByText(resourceName).should('not.exist')
-      cy.findByText(updatedResourceName).should('exist')
+      cy.getCuiTreeItemByPrimaryTitle(resourceName).should('not.exist')
+      cy.getCuiTreeItemByPrimaryTitle(updatedResourceName).should('exist')
     })
   })
 
   describe('delete', () => {
     it('should be able to delete resource', () => {
-      cy.getCard({ title: updatedResourceName })
-        .getButton({ icon: 'ellipsis' })
-        .click()
-
-      cy.getDropdownItem('Delete').click()
-      cy.getSpinner().should('not.exist')
+      cy.getCuiTreeItemByPrimaryTitle(resourceName).within(() => {
+        cy.getToolbarItem('Delete').click()
+      })
 
       cy.getModal()
         .getModalAction(/Delete Resource/)

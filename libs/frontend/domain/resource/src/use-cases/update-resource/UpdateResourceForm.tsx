@@ -39,7 +39,7 @@ export const UpdateResourceForm = observer(() => {
         onCancel={() => {
           /** */
         }}
-        submitLabel="Update Type"
+        submitLabel="Update Resource"
       />
     </Form>
   )
