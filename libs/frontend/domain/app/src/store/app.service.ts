@@ -30,7 +30,7 @@ import type {
   GetRenderedPageAndCommonAppDataQuery,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
-import { IAppDTO } from '@codelab/shared/abstract/core'
+import { IAppDTO, IPageKind } from '@codelab/shared/abstract/core'
 import flatMap from 'lodash/flatMap'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -326,8 +326,6 @@ export class AppService
           pageApi.GetRenderedPageAndCommonAppData({ appName, pageName }),
         )
 
-    console.log(appData)
-
     if (!appData) {
       return undefined
     }
@@ -336,23 +334,18 @@ export class AppService
      * Sort pages for app. Order is app, custom pages, 404, 500
      */
 
-    enum PageType {
-      Main = '_app',
-      NotFound = '404',
-      InternalError = '500',
-    }
-
     const _pages: Array<BuilderPageFragment> = appData.pages
+
     _pages.sort((a, b) => {
-      if (a.name === PageType.Main) {
+      if (a.kind === IPageKind.Provider) {
         return -1
       }
 
-      if (a.name === PageType.NotFound) {
+      if (a.name === IPageKind.NotFound) {
         return 1
       }
 
-      if (a.name === PageType.InternalError) {
+      if (a.name === IPageKind.InternalServerError) {
         return 1
       }
 
