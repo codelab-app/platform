@@ -4,7 +4,7 @@ import { loginSession } from '../support/nextjs-auth0/commands/login'
 
 const atomName = 'Button'
 const atomType = IAtomType.AntDesignButton
-const updatedAtomName = 'Button updated'
+const updatedAtomName = 'Updated Button'
 
 describe('Atoms CRUD', () => {
   before(() => {
@@ -40,36 +40,26 @@ describe('Atoms CRUD', () => {
 
   describe('update', () => {
     it('should be able to update atom name', () => {
-      cy.searchTableRow({
-        header: 'Name',
-        row: atomName,
-      })
-        .getButton({
-          icon: 'edit',
-        })
-        .click()
+      cy.getCuiTreeItemBySecondaryTitle(atomName).click()
       cy.getSpinner().should('not.exist')
 
-      cy.getModal().setFormFieldValue({ label: 'Name', value: updatedAtomName })
+      cy.setFormFieldValue({ label: 'Name', value: updatedAtomName })
 
-      cy.getModal()
-        .getModalAction(/Update Atom/)
-        .click()
-      cy.getModal().should('not.exist')
+      cy.getButton({ label: 'Update Atom' }).click()
 
-      cy.findByText(atomName).should('not.exist')
-      cy.findByText(updatedAtomName).should('exist')
+      cy.getCuiTreeItemBySecondaryTitle(atomName).should('not.exist')
+      cy.getCuiTreeItemBySecondaryTitle(updatedAtomName).should('exist')
     })
   })
 
   describe('delete', () => {
     it('should be able to delete an atom', () => {
-      cy.searchTableRow({
-        header: 'Name',
-        row: updatedAtomName,
+      cy.getCuiTreeItemBySecondaryTitle(updatedAtomName).within(() => {
+        cy.getCuiTreeItemToolbar()
+          .getToolbarItem('Delete atom')
+          .should('be.visible')
+          .click()
       })
-        .getButton({ icon: 'delete' })
-        .click()
       cy.getSpinner().should('not.exist')
 
       cy.getModal()
