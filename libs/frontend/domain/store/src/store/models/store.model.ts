@@ -60,6 +60,7 @@ export class Store
     id: idProp,
     name: prop<string>(),
     page: prop<Nullable<Ref<IPage>>>(),
+    refs: prop<Array<string>>(() => []),
     // if this is a duplicate, source store id else null
     source: prop<Nullable<Ref<IStore>>>(null).withSetter(),
   }))
@@ -201,6 +202,7 @@ export class Store
       },
       id: this.id,
       name: this.name,
+      refs: [],
     }
   }
 

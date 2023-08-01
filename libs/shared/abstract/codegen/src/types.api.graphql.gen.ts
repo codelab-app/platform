@@ -17814,6 +17814,7 @@ export type Store = {
   page?: Maybe<Page>
   pageAggregate?: Maybe<StorePagePageAggregationSelection>
   pageConnection: StorePageConnection
+  refs: Array<Scalars['String']['output']>
 }
 
 export type StoreActionsArgs = {
@@ -18337,6 +18338,7 @@ export type StoreCreateInput = {
   id: Scalars['ID']['input']
   name: Scalars['String']['input']
   page?: InputMaybe<StorePageFieldInput>
+  refs: Array<Scalars['String']['input']>
 }
 
 export type StoreDeleteInput = {
@@ -18374,6 +18376,7 @@ export type StoreInterfaceTypeApiNodeAggregateSelection = {
 export type StoreOnCreateInput = {
   id: Scalars['ID']['input']
   name: Scalars['String']['input']
+  refs: Array<Scalars['String']['input']>
 }
 
 export type StoreOptions = {
@@ -18542,6 +18545,9 @@ export type StoreUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   page?: InputMaybe<StorePageUpdateFieldInput>
+  refs?: InputMaybe<Array<Scalars['String']['input']>>
+  refs_POP?: InputMaybe<Scalars['Int']['input']>
+  refs_PUSH?: InputMaybe<Array<Scalars['String']['input']>>
 }
 
 export type StoreWhere = {
@@ -18583,6 +18589,8 @@ export type StoreWhere = {
   pageConnection?: InputMaybe<StorePageConnectionWhere>
   pageConnection_NOT?: InputMaybe<StorePageConnectionWhere>
   page_NOT?: InputMaybe<PageWhere>
+  refs?: InputMaybe<Array<Scalars['String']['input']>>
+  refs_INCLUDES?: InputMaybe<Scalars['String']['input']>
 }
 
 export type StoresConnection = {
@@ -22822,6 +22830,7 @@ export type StoreFragment = {
   __typename?: 'Store'
   id: string
   name: string
+  refs: Array<string>
   api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
   component?: { __typename?: 'Component'; id: string } | null
   page?: { __typename?: 'Page'; id: string } | null

@@ -16408,6 +16408,7 @@ type Store {
     sort: [StorePageConnectionSort!]
     where: StorePageConnectionWhere
   ): StorePageConnection!
+  refs: [String!]!
 }
 
 input StoreActionsApiActionConnectFieldInput {
@@ -16848,6 +16849,7 @@ input StoreCreateInput {
   id: ID!
   name: String!
   page: StorePageFieldInput
+  refs: [String!]!
 }
 
 input StoreDeleteInput {
@@ -16882,6 +16884,7 @@ type StoreInterfaceTypeApiNodeAggregateSelection {
 input StoreOnCreateInput {
   id: ID!
   name: String!
+  refs: [String!]!
 }
 
 input StoreOptions {
@@ -17054,6 +17057,9 @@ input StoreUpdateInput {
   id: ID
   name: String
   page: StorePageUpdateFieldInput
+  refs: [String!]
+  refs_POP: Int
+  refs_PUSH: [String!]
 }
 
 input StoreWhere {
@@ -17107,6 +17113,8 @@ input StoreWhere {
   pageConnection: StorePageConnectionWhere
   pageConnection_NOT: StorePageConnectionWhere
   page_NOT: PageWhere
+  refs: [String!]
+  refs_INCLUDES: String
 }
 
 type StoresConnection {

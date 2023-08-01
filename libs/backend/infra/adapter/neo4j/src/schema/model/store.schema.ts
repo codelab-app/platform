@@ -9,5 +9,6 @@ export const storeSchema = gql`
     component: Component
       @relationship(type: "STORE_OF_COMPONENT", direction: OUT)
     page: Page @relationship(type: "STORE_OF_PAGE", direction: OUT)
+    refs: [String!]!
   }
 `
