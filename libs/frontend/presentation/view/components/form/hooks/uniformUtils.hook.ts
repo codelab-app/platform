@@ -76,6 +76,14 @@ ajv.addSchema({
     },
   },
 })
+ajv.addKeyword({
+  errors: false,
+  keyword: 'forbiddenValues',
+  schema: true,
+  validate: (forbiddenValues: Array<string>, data: string) => {
+    return !forbiddenValues.includes(data)
+  },
+})
 
 export const createValidator = (schema: Schema, state: IPropData = {}) => {
   const validator = ajv.compile(schema)

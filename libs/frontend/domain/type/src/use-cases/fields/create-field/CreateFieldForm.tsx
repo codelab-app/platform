@@ -13,6 +13,7 @@ import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { SelectDefaultValue } from '../../../interface-form'
 import { TypeSelect } from '../../../shared'
+import { useFieldSchema } from '../hooks'
 import { createFieldSchema } from './create-field.schema'
 import {
   canSetDefaultValue,
@@ -26,6 +27,7 @@ import {
 
 export const CreateFieldForm = observer(() => {
   const { fieldService, typeService } = useStore()
+  const fieldSchema = useFieldSchema(createFieldSchema)
   const closeForm = () => fieldService.createForm.close()
   const interfaceTypeId = fieldService.createForm.interface?.id
 
@@ -78,7 +80,7 @@ export const CreateFieldForm = observer(() => {
         type: 'error',
       })}
       onSubmitSuccess={closeForm}
-      schema={createFieldSchema}
+      schema={fieldSchema}
     >
       <AutoFields
         omitFields={[
