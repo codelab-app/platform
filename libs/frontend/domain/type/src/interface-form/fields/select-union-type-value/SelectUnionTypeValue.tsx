@@ -5,7 +5,8 @@ import { usePrevious } from '@codelab/frontend/shared/utils'
 import { Form as AntdForm } from 'antd'
 import isNil from 'lodash/isNil'
 import React, { useEffect } from 'react'
-import { useField } from 'uniforms'
+import type { Context } from 'uniforms'
+import { joinName, useField } from 'uniforms'
 import { AutoField, SelectField } from 'uniforms-antd'
 
 export interface SelectUnionTypeValueProps {
@@ -35,17 +36,40 @@ const getTypeFromOneOf = (oneOf: Array<any>, typeId: string) => {
   return oneOf.find((of: any) => of.properties.type.default === typeId)
 }
 
+/*
+ * This is required for nested fields in a custom field (ToggleExpressionField).
+ * If we use a custom field the name should be joined with the parent name.
+ * https://uniforms.tools/docs/api-helpers/#joinname
+ */
+const concatenateName = (
+  name: string,
+  context: Context<Record<string, any>>,
+) => {
+  if (context.name.length) {
+    return joinName(context.name, name)
+  }
+
+  return name
+}
+
+/*
+ * In custom fields with subfields the name is passed down as an empty string
+ * because the connectField removes the name from the props. So we need to
+ * concatenate the name with the parent name.
+ * https://uniforms.tools/docs/api-helpers/#joinname
+ */
+const getTypeAndValueFieldNames = (name: string) => {
+  const typeFieldName = name ? `${name}.type` : 'type'
+  const valueFieldName = name ? `${name}.value` : 'value'
+
+  return { typeFieldName, valueFieldName }
+}
+
 export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
   const { name } = props
   const [fieldProps, context] = useField(name, props)
   const oneOf = fieldProps.field.oneOf
-  // For the nested fields i.e. UnionType inside ArrayType, the name field is passed down as an empty string
-  // this causes the field not be validated correctly against the schema
-  // because "".type would not be valid
-  // TODO: this issue is most probably caused by the `connectField` wrapper in ToggleExpressionField
-  // must be fixed so that the name is correctly passed down to the nested fields
-  const typeFieldName = name ? `${name}.type` : 'type'
-  const valueFieldName = name ? `${name}.value` : 'value'
+  const { typeFieldName, valueFieldName } = getTypeAndValueFieldNames(name)
 
   if (!oneOf?.length) {
     throw new Error('SelectUnionTypeValue must be used with a oneOf field')
@@ -69,7 +93,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
       !isNil(previousSelectedTypeId) &&
       previousSelectedTypeId !== selectedTypeId
     ) {
-      context.onChange(valueFieldName, undefined)
+      context.onChange(concatenateName(valueFieldName, context), undefined)
     }
   }, [
     context,
@@ -98,17 +122,10 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
             const validate = createValidator(valueSchema)
             validate(formData)
 
-            // To use connectField ToggleExpressionField we need to
-            // remove the parent name from the field path {@link ToggleExpressionField#getBaseControl}
-            // Hence we need to reconstruct the field path here. This is only needed for nested fields
-            // TODO: fix the connectField in ToggleExpressionField so that correct props are passed
-            let valueFieldPath = valueFieldName
-
-            if (context.name.length) {
-              valueFieldPath = `${context.name.join('.')}.${valueFieldName}`
-            }
-
-            context.onChange(valueFieldPath, formData.value)
+            context.onChange(
+              concatenateName(valueFieldName, context),
+              formData.value,
+            )
           }}
           onSubmit={() => Promise.resolve()}
           schema={valueSchema as any}
