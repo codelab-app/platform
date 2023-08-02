@@ -20,7 +20,9 @@ export const useActionSchema = (
       actionService.createForm.store ??
       actionService.updateForm.action?.store.current
 
-    const forbiddenValues = Object.keys(store?.state ?? {})
+    const forbiddenValues = Object.keys(store?.state ?? {}).filter(
+      (fieldName) => fieldName !== actionService.updateForm.action?.name,
+    )
 
     return {
       ...schema,
