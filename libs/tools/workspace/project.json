@@ -1,49 +1,62 @@
 {
-  "name": "@codelab/tools-workspace",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/tools/workspace/src",
+  "name": "@codelab/tools-workspace",
   "projectType": "library",
+  "sourceRoot": "libs/tools/workspace/src",
+  "tags": ["scope:shared"],
   "targets": {
     "build": {
+      "configurations": {
+        "ci": {},
+        "dev": {},
+        "prod": {},
+        "test": {}
+      },
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/tools/workspace",
-        "main": "libs/tools/workspace/src/index.ts",
-        "tsConfig": "libs/tools/workspace/tsconfig.lib.json",
         "assets": [
           "libs/tools/workspace/*.md",
           {
-            "input": "./libs/tools/workspace/src",
             "glob": "**/!(*.ts)",
-            "output": "./src"
-          },
-          {
             "input": "./libs/tools/workspace/src",
-            "glob": "**/*.d.ts",
             "output": "./src"
           },
           {
-            "input": "./libs/tools/workspace",
+            "glob": "**/*.d.ts",
+            "input": "./libs/tools/workspace/src",
+            "output": "./src"
+          },
+          {
             "glob": "generators.json",
+            "input": "./libs/tools/workspace",
             "output": "."
           },
           {
-            "input": "./libs/tools/workspace",
             "glob": "executors.json",
+            "input": "./libs/tools/workspace",
             "output": "."
           },
           {
-            "input": "./libs/tools/workspace",
             "glob": "migrations.json",
+            "input": "./libs/tools/workspace",
             "output": "."
           }
-        ]
-      }
+        ],
+        "main": "libs/tools/workspace/src/index.ts",
+        "outputPath": "dist/libs/tools/workspace",
+        "tsConfig": "libs/tools/workspace/tsconfig.lib.json"
+      },
+      "outputs": ["{options.outputPath}"]
     },
     "lint": {
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/tools-workspace.xml",
+          "quiet": true
+        }
+      },
       "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
           "libs/tools/workspace/**/*.ts",
@@ -52,79 +65,72 @@
           "libs/tools/workspace/executors.json"
         ]
       },
-      "configurations": {
-        "ci": {
-          "format": "junit",
-          "outputFile": "tmp/reports/lint/tools-workspace.xml",
-          "quiet": true
-        }
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      },
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/tools/workspace/jest.config.ts",
         "passWithNoTests": true,
         "reporters": ["default"]
       },
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+    },
+    "test:integration": {
       "configurations": {
         "ci": {
           "ci": true,
-          "codeCoverage": true
-        }
-      }
-    },
-    "test:integration": {
-      "defaultConfiguration": "dev",
-      "options": {
-        "memoryLimit": 8192,
-        "color": true,
-        "testPathPattern": ["[i].spec.ts"],
-        "jestConfig": "libs/tools/workspace/jest.config.ts",
-        "passWithNoTests": true
-      },
-      "configurations": {
+          "codeCoverage": true,
+          "parallel": 3
+        },
         "dev": {
           "reporters": ["default"]
         },
         "test": {
           "reporters": ["default"]
-        },
-        "ci": {
-          "parallel": 3,
-          "ci": true,
-          "codeCoverage": true
         }
       },
+      "defaultConfiguration": "dev",
       "executor": "@nx/jest:jest",
+      "options": {
+        "color": true,
+        "jestConfig": "libs/tools/workspace/jest.config.ts",
+        "memoryLimit": 8192,
+        "passWithNoTests": true,
+        "testPathPattern": ["[i].spec.ts"]
+      },
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     },
     "test:unit": {
-      "defaultConfiguration": "dev",
-      "options": {
-        "color": true,
-        "memoryLimit": 8192,
-        "parallel": 3,
-        "testPathPattern": ["[^i].spec.ts"],
-        "jestConfig": "libs/tools/workspace/jest.config.ts",
-        "passWithNoTests": true
-      },
       "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        },
         "dev": {
           "reporters": ["default"]
         },
         "test": {
           "reporters": ["default"]
-        },
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
         }
       },
+      "defaultConfiguration": "dev",
       "executor": "@nx/jest:jest",
+      "options": {
+        "color": true,
+        "jestConfig": "libs/tools/workspace/jest.config.ts",
+        "memoryLimit": 8192,
+        "parallel": 3,
+        "passWithNoTests": true,
+        "testPathPattern": ["[^i].spec.ts"]
+      },
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
     }
-  },
-  "tags": ["scope:shared"]
+  }
 }
