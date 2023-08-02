@@ -15,27 +15,17 @@ import {
   connectNodeId,
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
-import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class ArrayTypeRepository
-  extends AbstractRepository<
-    IArrayTypeDTO,
-    ArrayType,
-    ArrayTypeWhere,
-    ArrayTypeOptions
-  >
-  implements OnModuleInit
-{
-  private ArrayType!: ArrayTypeModel
-
+export class ArrayTypeRepository extends AbstractRepository<
+  IArrayTypeDTO,
+  ArrayType,
+  ArrayTypeWhere,
+  ArrayTypeOptions
+> {
   constructor(private ogmService: OGMService) {
     super()
-  }
-
-  onModuleInit() {
-    this.ArrayType = this.ogmService.getModel('ArrayType')
   }
 
   async _find({
@@ -46,7 +36,7 @@ export class ArrayTypeRepository
     options?: ArrayTypeOptions
   }) {
     return await (
-      await this.ArrayType
+      await this.ogmService.ArrayType
     ).find({
       options,
       selectionSet: exportArrayTypeSelectionSet,
@@ -57,7 +47,7 @@ export class ArrayTypeRepository
   protected async _add(primitiveTypes: Array<IArrayTypeDTO>) {
     return (
       await (
-        await this.ArrayType
+        await this.ogmService.ArrayType
       ).create({
         input: primitiveTypes.map(
           ({ __typename, itemType, owner, ...type }) => ({
@@ -77,7 +67,7 @@ export class ArrayTypeRepository
   ) {
     return (
       await (
-        await this.ArrayType
+        await this.ogmService.ArrayType
       ).update({
         selectionSet: `{ arrayTypes ${exportArrayTypeSelectionSet} }`,
         update: {

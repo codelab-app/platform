@@ -1,7 +1,10 @@
-import type { CypressAuth0Commands } from '@codelab/testing/cypress/command'
+import type { CypressCodelabUICommands } from '@codelab/testing/cypress/codelab'
+import type {
+  CypressDatabaseCommands,
+  CypressGraphQLCommands,
+} from '@codelab/testing/cypress/command'
 import type { CypressNextjsAuth0Commands } from '@codelab/testing/cypress/nextjs-auth0'
 import type { CypressBuilderCommands } from './builder'
-import type { CypressDatabaseCommands } from './database'
 import type { CypressUICommands } from './entities'
 import type { CypressHelpersCommands } from './helpers'
 import type { CypressNextjsAuth0Commands } from './nextjs-auth0/nextjs-auth0.register'
@@ -16,6 +19,7 @@ declare global {
     interface Chainable<Subject>
       extends CypressDatabaseCommands,
         CypressBuilderCommands,
+        CypressCodelabUICommands,
         CypressNextjsAuth0Commands,
         CypressUICommands,
         CypressAuth0Commands,

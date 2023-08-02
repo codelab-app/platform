@@ -1,8 +1,10 @@
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
+
 describe('UserController', () => {
   before(() => {
     cy.resetDatabase()
     loginSession()
-    cy.visit('/apps')
+    // cy.visit('/apps')
   })
 
   it('should save a user', () => {

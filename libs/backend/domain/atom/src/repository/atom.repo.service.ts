@@ -18,22 +18,17 @@ import {
   reconnectNodeIds,
   whereNodeIds,
 } from '@codelab/shared/domain/mapper'
-import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class AtomRepository
-  extends AbstractRepository<IAtomDTO, Atom, AtomWhere, AtomOptions>
-  implements OnModuleInit
-{
-  private Atom!: AtomModel
-
+export class AtomRepository extends AbstractRepository<
+  IAtomDTO,
+  Atom,
+  AtomWhere,
+  AtomOptions
+> {
   constructor(private ogmService: OGMService) {
     super()
-  }
-
-  onModuleInit() {
-    this.Atom = this.ogmService.getModel('Atom')
   }
 
   async _find({
@@ -44,7 +39,7 @@ export class AtomRepository
     options?: AtomOptions
   }) {
     return await (
-      await this.Atom
+      await this.ogmService.Atom
     ).find({
       options,
       selectionSet: atomSelectionSet,
@@ -58,7 +53,7 @@ export class AtomRepository
   protected async _add(atoms: Array<IAtomDTO>) {
     return (
       await (
-        await this.Atom
+        await this.ogmService.Atom
       ).create({
         input: atoms.map(
           ({
@@ -99,7 +94,7 @@ export class AtomRepository
   ) {
     return (
       await (
-        await this.Atom
+        await this.ogmService.Atom
       ).update({
         update: {
           ...atom,

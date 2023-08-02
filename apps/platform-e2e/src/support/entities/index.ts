@@ -1,4 +1,4 @@
-import type { CypressCommand } from '../types'
+import type { CypressCommand } from '@codelab/testing/cypress/command'
 import { createTagByUI, deleteTagInTableByUI } from './tag/tag.command'
 
 export interface CypressUICommands {

@@ -19,7 +19,6 @@ import {
   connectNodeId,
   connectNodeIds,
 } from '@codelab/shared/domain/mapper'
-import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 interface InterfaceTypeFindArgs {
@@ -28,28 +27,19 @@ interface InterfaceTypeFindArgs {
 }
 
 @Injectable()
-export class InterfaceTypeRepository
-  extends AbstractRepository<
-    IInterfaceTypeDTO,
-    InterfaceType,
-    InterfaceTypeWhere,
-    InterfaceTypeOptions
-  >
-  implements OnModuleInit
-{
-  private InterfaceType!: InterfaceTypeModel
-
+export class InterfaceTypeRepository extends AbstractRepository<
+  IInterfaceTypeDTO,
+  InterfaceType,
+  InterfaceTypeWhere,
+  InterfaceTypeOptions
+> {
   constructor(private ogmService: OGMService) {
     super()
   }
 
-  onModuleInit() {
-    this.InterfaceType = this.ogmService.getModel('InterfaceType')
-  }
-
   async _find({ options, where }: InterfaceTypeFindArgs) {
     return await (
-      await this.InterfaceType
+      await this.ogmService.InterfaceType
     ).find({
       options,
       selectionSet: interfaceTypeSelectionSet,
@@ -65,7 +55,7 @@ export class InterfaceTypeRepository
   protected async _add(interfaceTypes: Array<IInterfaceTypeDTO>) {
     return (
       await (
-        await this.InterfaceType
+        await this.ogmService.InterfaceType
       ).create({
         input: interfaceTypes.map(
           ({ __typename, fields, owner, ...interfaceType }) => ({
@@ -91,7 +81,7 @@ export class InterfaceTypeRepository
   ) {
     return (
       await (
-        await this.InterfaceType
+        await this.ogmService.InterfaceType
       ).update({
         selectionSet: `{ interfaceTypes ${interfaceTypeSelectionSet} }`,
         update: {

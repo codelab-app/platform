@@ -12,27 +12,17 @@ import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IPrimitiveTypeDTO } from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
-import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class PrimitiveTypeRepository
-  extends AbstractRepository<
-    IPrimitiveTypeDTO,
-    PrimitiveType,
-    PrimitiveTypeWhere,
-    PrimitiveTypeOptions
-  >
-  implements OnModuleInit
-{
-  private PrimitiveType!: PrimitiveTypeModel
-
+export class PrimitiveTypeRepository extends AbstractRepository<
+  IPrimitiveTypeDTO,
+  PrimitiveType,
+  PrimitiveTypeWhere,
+  PrimitiveTypeOptions
+> {
   constructor(private ogmService: OGMService) {
     super()
-  }
-
-  onModuleInit() {
-    this.PrimitiveType = this.ogmService.getModel('PrimitiveType')
   }
 
   async _find({
@@ -43,7 +33,7 @@ export class PrimitiveTypeRepository
     options?: PrimitiveTypeOptions
   }) {
     return await (
-      await this.PrimitiveType
+      await this.ogmService.PrimitiveType
     ).find({
       options,
       selectionSet: exportPrimitiveTypeSelectionSet,
@@ -54,7 +44,7 @@ export class PrimitiveTypeRepository
   protected async _add(primitiveTypes: Array<IPrimitiveTypeDTO>) {
     return (
       await (
-        await this.PrimitiveType
+        await this.ogmService.PrimitiveType
       ).create({
         input: primitiveTypes.map(({ __typename, owner, ...type }) => ({
           ...type,
@@ -71,7 +61,7 @@ export class PrimitiveTypeRepository
   ) {
     return (
       await (
-        await this.PrimitiveType
+        await this.ogmService.PrimitiveType
       ).update({
         selectionSet: `{ primitiveTypes ${exportPrimitiveTypeSelectionSet} }`,
         update: { name },

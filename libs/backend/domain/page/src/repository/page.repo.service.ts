@@ -12,22 +12,17 @@ import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IPageDTO } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { createUniqueName } from '@codelab/shared/utils'
-import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class PageRepository
-  extends AbstractRepository<IPageDTO, Page, PageWhere, PageOptions>
-  implements OnModuleInit
-{
-  private Page!: PageModel
-
+export class PageRepository extends AbstractRepository<
+  IPageDTO,
+  Page,
+  PageWhere,
+  PageOptions
+> {
   constructor(private ogmService: OGMService) {
     super()
-  }
-
-  onModuleInit() {
-    this.Page = this.ogmService.getModel('Page')
   }
 
   async _find({
@@ -38,7 +33,7 @@ export class PageRepository
     options?: PageOptions
   }) {
     return await (
-      await this.Page
+      await this.ogmService.Page
     ).find({
       options,
       selectionSet: pageSelectionSet,
@@ -52,7 +47,7 @@ export class PageRepository
   protected async _add(pages: Array<IPageDTO>) {
     return (
       await (
-        await this.Page
+        await this.ogmService.Page
       ).create({
         input: pages.map(
           ({
@@ -85,7 +80,7 @@ export class PageRepository
   ) {
     return (
       await (
-        await this.Page
+        await this.ogmService.Page
       ).update({
         update: {
           _compoundName: createUniqueName(name, app.id),

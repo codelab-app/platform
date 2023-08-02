@@ -1,23 +1,23 @@
 import { antCommands } from '@codelab/testing/cypress/antd'
+import { codelabUICommands } from '@codelab/testing/cypress/codelab'
 import {
-  auth0Commands,
+  databaseCommands,
+  graphQLCommands,
   registerCommands,
+  userCommands,
 } from '@codelab/testing/cypress/command'
 import { nextjsAuth0Commands } from '@codelab/testing/cypress/nextjs-auth0'
 import { builderCommands } from './builder'
-import { databaseCommands } from './database'
 import { UICommands } from './entities'
-import { helpersCommands } from './helpers'
 
-const commands = [
-  ...helpersCommands,
+registerCommands([
+  ...graphQLCommands,
+  ...userCommands,
   ...antCommands,
+  ...codelabUICommands,
   ...databaseCommands,
   ...UICommands,
-  ...auth0Commands,
   ...nextjsAuth0Commands,
   ...builderCommands,
   ...textEditorCommands,
-]
-
-registerCommands(commands)
+])

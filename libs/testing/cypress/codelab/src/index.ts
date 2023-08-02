@@ -1,1 +1,1 @@
-export * from './lib/testing-cypress-codelab'
+export * from './register'

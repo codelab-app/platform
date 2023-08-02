@@ -10,25 +10,15 @@ import { resourceSelectionSet } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IAuth0User, IResourceDTO } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
-import type { OnModuleInit } from '@nestjs/common'
 
-export class ResourceRepository
-  extends AbstractRepository<
-    IResourceDTO,
-    Resource,
-    ResourceWhere,
-    ResourceOptions
-  >
-  implements OnModuleInit
-{
-  private Resource!: ResourceModel
-
+export class ResourceRepository extends AbstractRepository<
+  IResourceDTO,
+  Resource,
+  ResourceWhere,
+  ResourceOptions
+> {
   constructor(private ogmService: OGMService) {
     super()
-  }
-
-  onModuleInit() {
-    this.Resource = this.ogmService.getModel('Resource')
   }
 
   async _find({
@@ -39,7 +29,7 @@ export class ResourceRepository
     options?: ResourceOptions
   }) {
     return await (
-      await this.Resource
+      await this.ogmService.Resource
     ).find({
       options,
       selectionSet: resourceSelectionSet,
@@ -50,7 +40,7 @@ export class ResourceRepository
   protected async _add(resources: Array<IResourceDTO>) {
     return (
       await (
-        await this.Resource
+        await this.ogmService.Resource
       ).create({
         input: resources.map(({ id, name, owner, type }) => ({
           id,
@@ -65,7 +55,7 @@ export class ResourceRepository
   protected async _update({ name, type }: IResourceDTO) {
     return (
       await (
-        await this.Resource
+        await this.ogmService.Resource
       ).update({
         selectionSet: resourceSelectionSet,
         update: {

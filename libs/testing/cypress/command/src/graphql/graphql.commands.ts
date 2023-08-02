@@ -1,13 +1,12 @@
 import type { CyHttpMessages } from 'cypress/types/net-stubbing'
-import type { CypressCommand } from '../types'
 
-const interceptGraphQL = (
+export const interceptGraphQL = (
   interceptor: (req: CyHttpMessages.IncomingHttpRequest) => void,
 ) => {
   cy.intercept('POST', '/api/graphql', interceptor)
 }
 
-const waitForApiCalls = () => {
+export const waitForApiCalls = () => {
   cy.intercept('/api/*').as('graphqlQueries')
   cy.wait('@graphqlQueries')
 }
@@ -48,15 +47,3 @@ export const graphqlRequest = (
       ...config,
     })
     .as(alias)
-
-export interface CypressGraphQLHelpersCommands {
-  graphqlRequest: typeof graphqlRequest
-  interceptGraphQL: typeof interceptGraphQL
-  waitForApiCalls: typeof waitForApiCalls
-}
-
-export const graphQLCommands: Array<CypressCommand> = [
-  { fn: interceptGraphQL, name: 'interceptGraphQL' },
-  { fn: graphqlRequest, name: 'graphqlRequest' },
-  { fn: waitForApiCalls, name: 'waitForApiCalls' },
-]

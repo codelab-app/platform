@@ -11,27 +11,17 @@ import {
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IRenderPropTypeDTO } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
-import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class RenderPropTypeRepository
-  extends AbstractRepository<
-    IRenderPropTypeDTO,
-    RenderPropType,
-    RenderPropTypeWhere,
-    RenderPropTypeOptions
-  >
-  implements OnModuleInit
-{
-  private RenderPropType!: RenderPropTypeModel
-
+export class RenderPropTypeRepository extends AbstractRepository<
+  IRenderPropTypeDTO,
+  RenderPropType,
+  RenderPropTypeWhere,
+  RenderPropTypeOptions
+> {
   constructor(private ogmService: OGMService) {
     super()
-  }
-
-  onModuleInit() {
-    this.RenderPropType = this.ogmService.getModel('RenderPropType')
   }
 
   async _find({
@@ -42,7 +32,7 @@ export class RenderPropTypeRepository
     options?: RenderPropTypeOptions
   }) {
     return await (
-      await this.RenderPropType
+      await this.ogmService.RenderPropType
     ).find({
       options,
       selectionSet: exportRenderPropTypeSelectionSet,
@@ -53,7 +43,7 @@ export class RenderPropTypeRepository
   protected async _add(renderPropTypes: Array<IRenderPropTypeDTO>) {
     return (
       await (
-        await this.RenderPropType
+        await this.ogmService.RenderPropType
       ).create({
         input: renderPropTypes.map(
           ({ __typename, owner, ...renderPropType }) => ({
@@ -72,7 +62,7 @@ export class RenderPropTypeRepository
   ) {
     return (
       await (
-        await this.RenderPropType
+        await this.ogmService.RenderPropType
       ).update({
         selectionSet: `{ renderPropTypes ${exportRenderPropTypeSelectionSet} }`,
         update: { name },

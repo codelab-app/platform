@@ -15,27 +15,17 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
-import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class ApiActionRepository
-  extends AbstractRepository<
-    IApiActionDTO,
-    ApiAction,
-    ApiActionWhere,
-    ApiActionOptions
-  >
-  implements OnModuleInit
-{
-  private ApiAction!: ApiActionModel
-
+export class ApiActionRepository extends AbstractRepository<
+  IApiActionDTO,
+  ApiAction,
+  ApiActionWhere,
+  ApiActionOptions
+> {
   constructor(private ogmService: OGMService) {
     super()
-  }
-
-  onModuleInit() {
-    this.ApiAction = this.ogmService.getModel('ApiAction')
   }
 
   async _find({
@@ -46,7 +36,7 @@ export class ApiActionRepository
     options?: ApiActionOptions
   }) {
     return await (
-      await this.ApiAction
+      await this.ogmService.ApiAction
     ).find({
       options,
       selectionSet: actionSelectionSet,
@@ -57,7 +47,7 @@ export class ApiActionRepository
   protected async _add(actions: Array<IApiActionDTO>) {
     return (
       await (
-        await this.ApiAction
+        await this.ogmService.ApiAction
       ).create({
         input: actions.map(
           ({
@@ -108,7 +98,7 @@ export class ApiActionRepository
   ) {
     return (
       await (
-        await this.ApiAction
+        await this.ogmService.ApiAction
       ).update({
         update: {
           ...action,

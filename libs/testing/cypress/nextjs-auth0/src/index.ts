@@ -1,3 +1,3 @@
 export * from './commands/login'
-export * from './nextjs-auth0.commands'
+export * from './register'
 export * from './utils/encrypt'

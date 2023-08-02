@@ -28,7 +28,7 @@ export const ElementResolverProvider: FactoryProvider<
             records[0]?.get(0).map((descendant: Node) => {
               const id = descendant.properties.id
 
-              const element = ogmService.getModel('Element').find({
+              const element = ogmService.Element.find({
                 selectionSet: elementSelectionSet,
                 where: { id },
               })

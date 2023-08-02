@@ -16,27 +16,22 @@ import {
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
 import { createUniqueName } from '@codelab/shared/utils'
-import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class AppRepository
-  extends AbstractRepository<IAppDTO, App, AppWhere, AppOptions>
-  implements OnModuleInit
-{
-  private App!: AppModel
-
+export class AppRepository extends AbstractRepository<
+  IAppDTO,
+  App,
+  AppWhere,
+  AppOptions
+> {
   constructor(private ogmService: OGMService) {
     super()
   }
 
-  onModuleInit() {
-    this.App = this.ogmService.getModel('App')
-  }
-
   async _find({ options, where }: { where?: AppWhere; options?: AppOptions }) {
     return await (
-      await this.App
+      await this.ogmService.App
     ).find({
       options,
       selectionSet: appSelectionSet,
@@ -50,7 +45,7 @@ export class AppRepository
   protected async _add(apps: Array<IAppDTO>) {
     return (
       await (
-        await this.App
+        await this.ogmService.App
       ).create({
         input: apps.map(({ id, name, owner, pages }) => ({
           _compoundName: createUniqueName(name, owner.auth0Id),
@@ -65,7 +60,7 @@ export class AppRepository
   protected async _update({ name, owner, pages }: IAppDTO, where: AppWhere) {
     return (
       await (
-        await this.App
+        await this.ogmService.App
       ).update({
         update: {
           _compoundName: createUniqueName(name, owner.auth0Id),

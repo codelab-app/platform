@@ -59,7 +59,7 @@ export class ExportUserDataHandler
 
 // export const exportUserData = async (where: AppWhere) => {
 //   // const typesData = await exportUserTypes()
-//.  const appsData = await exportApps(where)
+// .  const appsData = await exportApps(where)
 //   const resourcesData = await exportResources()
 //   const components = await exportComponents(where)
 

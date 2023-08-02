@@ -16,27 +16,22 @@ import {
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
 import { withTracing } from '@codelab/shared/infra/otel'
-import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class TagRepository
-  extends AbstractRepository<ITagDTO, Tag, TagWhere, TagOptions>
-  implements OnModuleInit
-{
-  private Tag!: TagModel
-
+export class TagRepository extends AbstractRepository<
+  ITagDTO,
+  Tag,
+  TagWhere,
+  TagOptions
+> {
   constructor(private ogmService: OGMService) {
     super()
   }
 
-  onModuleInit() {
-    this.Tag = this.ogmService.getModel('Tag')
-  }
-
   async _find({ options, where }: { where?: TagWhere; options?: TagOptions }) {
     return await (
-      await this.Tag
+      await this.ogmService.Tag
     ).find({
       options,
       selectionSet: tagSelectionSet,
@@ -50,7 +45,7 @@ export class TagRepository
   protected async _add(tags: Array<ITagDTO>) {
     return (
       await (
-        await this.Tag
+        await this.ogmService.Tag
       ).create({
         input: tags.map(({ children, descendants, owner, parent, ...tag }) => ({
           ...tag,
@@ -83,7 +78,7 @@ export class TagRepository
 
     return (
       await (
-        await this.Tag
+        await this.ogmService.Tag
       ).update({
         update: {
           ...tag,

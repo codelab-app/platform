@@ -1,4 +1,6 @@
-export * from './auth0/auth0.register'
 export * from './command.interface'
+export * from './database/database.register'
 export * from './deprecated'
+export * from './graphql/graphql.register'
 export * from './register'
+export * from './user/user.register'

@@ -6,11 +6,6 @@ import { Body, Controller, Get, Post } from '@nestjs/common'
 export class UserController {
   constructor(private userRepository: UserRepository) {}
 
-  @Get()
-  index() {
-    return 'Hello World'
-  }
-
   @Post('save')
   save(@Body() createUserDTO: IUserDTO) {
     return this.userRepository.save(createUserDTO)

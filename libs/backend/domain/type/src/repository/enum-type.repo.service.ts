@@ -25,14 +25,8 @@ export class EnumTypeRepository extends AbstractRepository<
   EnumTypeWhere,
   EnumTypeOptions
 > {
-  private EnumType!: EnumTypeModel
-
   constructor(private ogmService: OGMService) {
     super()
-  }
-
-  onModuleInit() {
-    this.EnumType = this.ogmService.getModel('EnumType')
   }
 
   async _find({
@@ -43,7 +37,7 @@ export class EnumTypeRepository extends AbstractRepository<
     options?: EnumTypeOptions
   }) {
     return await (
-      await this.EnumType
+      await this.ogmService.EnumType
     ).find({
       options,
       selectionSet: exportEnumTypeSelectionSet,
@@ -54,7 +48,7 @@ export class EnumTypeRepository extends AbstractRepository<
   protected async _add(enumTypes: Array<IEnumTypeDTO>) {
     return (
       await (
-        await this.EnumType
+        await this.ogmService.EnumType
       ).create({
         input: enumTypes.map(
           ({ __typename, allowedValues, owner, ...enumType }) => ({
@@ -74,7 +68,7 @@ export class EnumTypeRepository extends AbstractRepository<
   ) {
     return (
       await (
-        await this.EnumType
+        await this.ogmService.EnumType
       ).update({
         selectionSet: `{ enumTypes ${exportEnumTypeSelectionSet} }`,
         update: {

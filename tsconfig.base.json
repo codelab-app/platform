@@ -254,7 +254,7 @@
       "@codelab/testing/cypress/nextjs-auth0": [
         "libs/testing/cypress/nextjs-auth0/src/index.ts"
       ],
-      "@codelab/workspace": ["libs/tools/workspace/src/index.ts"],
+      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
       "@codelab/testing/cypress/codelab": [
         "libs/testing/cypress/codelab/src/index.ts"
       ]

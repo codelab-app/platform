@@ -21779,7 +21779,7 @@ __metadata:
     jest-junit: 16.0.0
     jest-transform-stub: 2.0.0
     joi: ^17.9.2
-    jose: 2.0.5
+    jose: 4.14.4
     jquery: 3.6.4
     json-schema: 0.4.0
     jsonc-eslint-parser: ^2.3.0
@@ -32299,7 +32299,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jose@npm:2.0.5, jose@npm:^2.0.5":
+"jose@npm:4.14.4, jose@npm:^4.11.2, jose@npm:^4.11.4, jose@npm:^4.13.1, jose@npm:^4.14.1, jose@npm:^4.9.2":
+  version: 4.14.4
+  resolution: "jose@npm:4.14.4"
+  checksum: 2d820a91a8fd97c05d8bc8eedc373b944a0cd7f5fe41063086da233d0473c73fb523912a9f026ea870782bd221f4a515f441a2d3af4de48c6f2c76dac5082377
+  languageName: node
+  linkType: hard
+
+"jose@npm:^2.0.5":
   version: 2.0.5
   resolution: "jose@npm:2.0.5"
   dependencies:
@@ -32312,13 +32319,6 @@ __metadata:
   version: 4.11.2
   resolution: "jose@npm:4.11.2"
   checksum: bc9b2271c31683603857b2fd2903afa29f826fffd4bcefc0845355ed86995def87eaadf502033207996109d76698c912e5a986e279326d9629321a50504fe466
-  languageName: node
-  linkType: hard
-
-"jose@npm:^4.11.2, jose@npm:^4.11.4, jose@npm:^4.13.1, jose@npm:^4.14.1, jose@npm:^4.9.2":
-  version: 4.14.4
-  resolution: "jose@npm:4.14.4"
-  checksum: 2d820a91a8fd97c05d8bc8eedc373b944a0cd7f5fe41063086da233d0473c73fb523912a9f026ea870782bd221f4a515f441a2d3af4de48c6f2c76dac5082377
   languageName: node
   linkType: hard
 

@@ -1,7 +1,4 @@
 import {
-  ExportService,
-  ImportService,
-  ResetService,
   ScrapeAntdService,
   ScrapeHtmlService,
   SeedService,
@@ -35,15 +32,12 @@ import { CommandService } from './command.service'
       useValue: path.resolve('./data/export'),
     },
     CommandService,
-    ImportService,
     SeedService,
-    ExportService,
     ScrapeAntdService,
     ScrapeHtmlService,
     TerraformService,
     ServerlessService,
     TaskService,
-    ResetService,
   ],
 })
 export class CommandModule implements OnModuleInit {

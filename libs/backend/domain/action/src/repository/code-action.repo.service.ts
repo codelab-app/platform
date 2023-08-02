@@ -11,27 +11,17 @@ import {
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { ICodeActionDTO } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
-import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class CodeActionRepository
-  extends AbstractRepository<
-    ICodeActionDTO,
-    CodeAction,
-    CodeActionWhere,
-    CodeActionOptions
-  >
-  implements OnModuleInit
-{
-  private CodeAction!: CodeActionModel
-
+export class CodeActionRepository extends AbstractRepository<
+  ICodeActionDTO,
+  CodeAction,
+  CodeActionWhere,
+  CodeActionOptions
+> {
   constructor(private ogmService: OGMService) {
     super()
-  }
-
-  onModuleInit() {
-    this.CodeAction = this.ogmService.getModel('CodeAction')
   }
 
   async _find({
@@ -42,7 +32,7 @@ export class CodeActionRepository
     options?: CodeActionOptions
   }) {
     return await (
-      await this.CodeAction
+      await this.ogmService.CodeAction
     ).find({
       options,
       selectionSet: actionSelectionSet,
@@ -53,7 +43,7 @@ export class CodeActionRepository
   protected async _add(actions: Array<ICodeActionDTO>) {
     return (
       await (
-        await this.CodeAction
+        await this.ogmService.CodeAction
       ).create({
         input: actions.map(({ store, ...action }) => ({
           ...action,
@@ -69,7 +59,7 @@ export class CodeActionRepository
   ) {
     return (
       await (
-        await this.CodeAction
+        await this.ogmService.CodeAction
       ).update({
         update: {
           ...action,

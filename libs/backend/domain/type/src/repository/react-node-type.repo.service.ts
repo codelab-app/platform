@@ -12,27 +12,17 @@ import {
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IReactNodeTypeDTO } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
-import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class ReactNodeTypeRepository
-  extends AbstractRepository<
-    IReactNodeTypeDTO,
-    ReactNodeType,
-    ReactNodeTypeWhere,
-    ReactNodeTypeOptions
-  >
-  implements OnModuleInit
-{
-  private ReactNodeType!: ReactNodeTypeModel
-
+export class ReactNodeTypeRepository extends AbstractRepository<
+  IReactNodeTypeDTO,
+  ReactNodeType,
+  ReactNodeTypeWhere,
+  ReactNodeTypeOptions
+> {
   constructor(private ogmService: OGMService) {
     super()
-  }
-
-  onModuleInit() {
-    this.ReactNodeType = this.ogmService.getModel('ReactNodeType')
   }
 
   async _find({
@@ -43,7 +33,7 @@ export class ReactNodeTypeRepository
     options?: ReactNodeTypeOptions
   }) {
     return await (
-      await this.ReactNodeType
+      await this.ogmService.ReactNodeType
     ).find({
       options,
       selectionSet: exportReactNodeTypeSelectionSet,
@@ -54,7 +44,7 @@ export class ReactNodeTypeRepository
   protected async _add(reactNodeTypes: Array<IReactNodeTypeDTO>) {
     return (
       await (
-        await this.ReactNodeType
+        await this.ogmService.ReactNodeType
       ).create({
         input: reactNodeTypes.map(
           ({ __typename, owner, ...reactNodeType }) => ({
@@ -73,7 +63,7 @@ export class ReactNodeTypeRepository
   ) {
     return (
       await (
-        await this.ReactNodeType
+        await this.ogmService.ReactNodeType
       ).update({
         selectionSet: `{ reactNodeTypes ${exportReactNodeTypeSelectionSet} }`,
         update: { name },

@@ -8,10 +8,9 @@
 // https://on.cypress.io/custom-commands
 // ***********************************************
 import {
-  auth0Commands,
+  databaseCommands,
+  graphQLCommands,
   registerCommands,
 } from '@codelab/testing/cypress/command'
 
-const commands = [...auth0Commands]
-
-registerCommands(commands)
+registerCommands([...databaseCommands, ...graphQLCommands])

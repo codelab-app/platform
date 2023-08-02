@@ -1,4 +1,4 @@
-import type { CypressNextjsAuth0Commands } from './src/nextjs-auth0.commands'
+import type { CypressNextjsAuth0Commands } from './src/register'
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace

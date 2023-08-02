@@ -11,27 +11,17 @@ import {
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IComponentDTO } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
-import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class ComponentRepository
-  extends AbstractRepository<
-    IComponentDTO,
-    Component,
-    ComponentWhere,
-    ComponentOptions
-  >
-  implements OnModuleInit
-{
-  private Component!: ComponentModel
-
+export class ComponentRepository extends AbstractRepository<
+  IComponentDTO,
+  Component,
+  ComponentWhere,
+  ComponentOptions
+> {
   constructor(private ogmService: OGMService) {
     super()
-  }
-
-  onModuleInit() {
-    this.Component = this.ogmService.getModel('Component')
   }
 
   async _find({
@@ -42,7 +32,7 @@ export class ComponentRepository
     options?: ComponentOptions
   }) {
     return await (
-      await this.Component
+      await this.ogmService.Component
     ).find({
       options,
       selectionSet: componentSelectionSet,
@@ -53,7 +43,7 @@ export class ComponentRepository
   async _add(components: Array<IComponentDTO>) {
     return (
       await (
-        await this.Component
+        await this.ogmService.Component
       ).create({
         input: components.map(
           ({
@@ -100,7 +90,7 @@ export class ComponentRepository
   ) {
     return (
       await (
-        await this.Component
+        await this.ogmService.Component
       ).update({
         update: {
           api: connectNodeId(api.id),

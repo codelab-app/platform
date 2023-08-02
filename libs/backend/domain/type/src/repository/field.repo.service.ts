@@ -11,22 +11,17 @@ import {
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IFieldDTO } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
-import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class FieldRepository
-  extends AbstractRepository<IFieldDTO, Field, FieldWhere, FieldOptions>
-  implements OnModuleInit
-{
-  private Field!: FieldModel
-
+export class FieldRepository extends AbstractRepository<
+  IFieldDTO,
+  Field,
+  FieldWhere,
+  FieldOptions
+> {
   constructor(private ogmService: OGMService) {
     super()
-  }
-
-  onModuleInit() {
-    this.Field = this.ogmService.getModel('Field')
   }
 
   async _find({
@@ -37,7 +32,7 @@ export class FieldRepository
     options: FieldOptions
   }) {
     return await (
-      await this.Field
+      await this.ogmService.Field
     ).find({
       options,
       selectionSet: fieldSelectionSet,
@@ -48,7 +43,7 @@ export class FieldRepository
   protected async _add(fields: Array<IFieldDTO>) {
     return (
       await (
-        await this.Field
+        await this.ogmService.Field
       ).create({
         input: fields.map(({ api, fieldType, ...field }) => ({
           ...field,
@@ -72,7 +67,7 @@ export class FieldRepository
   ) {
     return (
       await (
-        await this.Field
+        await this.ogmService.Field
       ).update({
         update: {
           ...field,

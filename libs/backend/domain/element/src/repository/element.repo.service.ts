@@ -16,26 +16,21 @@ import {
   IRenderTypeKind,
 } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
-import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 import type { Node } from 'neo4j-driver'
 
 @Injectable()
-export class ElementRepository
-  extends AbstractRepository<IElementDTO, Element, ElementWhere, ElementOptions>
-  implements OnModuleInit
-{
-  private Element!: ElementModel
-
+export class ElementRepository extends AbstractRepository<
+  IElementDTO,
+  Element,
+  ElementWhere,
+  ElementOptions
+> {
   constructor(
     private ogmService: OGMService,
     private neo4jService: Neo4jService,
   ) {
     super()
-  }
-
-  onModuleInit() {
-    this.Element = this.ogmService.getModel('Element')
   }
 
   async _find({
@@ -46,7 +41,7 @@ export class ElementRepository
     options?: ElementOptions
   }) {
     return await (
-      await this.Element
+      await this.ogmService.Element
     ).find({
       options,
       selectionSet: elementSelectionSet,
@@ -60,7 +55,7 @@ export class ElementRepository
   protected async _add(elements: Array<IElementDTO>) {
     return (
       await (
-        await this.Element
+        await this.ogmService.Element
       ).create({
         input: elements.map(
           ({
@@ -114,7 +109,7 @@ export class ElementRepository
   ) {
     return (
       await (
-        await this.Element
+        await this.ogmService.Element
       ).update({
         update: {
           id,

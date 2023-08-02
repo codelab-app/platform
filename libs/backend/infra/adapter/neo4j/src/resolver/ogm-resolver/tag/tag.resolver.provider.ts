@@ -25,7 +25,7 @@ export const TagResolverProvider: FactoryProvider<
             records[0]?.get(0).map(async (descendant: Node) => {
               const id = descendant.properties.id
 
-              const tag = await ogmService.getModel('Tag').find({
+              const tag = await ogmService.Tag.find({
                 selectionSet: tagSelectionSet,
                 where: { id },
               })

@@ -16,7 +16,6 @@ import {
   connectNodeIds,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
-import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 const filterTypeIds = (
@@ -37,23 +36,14 @@ const getFilteredTypes = (
 })
 
 @Injectable()
-export class UnionTypeRepository
-  extends AbstractRepository<
-    IUnionTypeDTO,
-    UnionType,
-    UnionTypeWhere,
-    UnionTypeOptions
-  >
-  implements OnModuleInit
-{
-  private UnionType!: UnionTypeModel
-
+export class UnionTypeRepository extends AbstractRepository<
+  IUnionTypeDTO,
+  UnionType,
+  UnionTypeWhere,
+  UnionTypeOptions
+> {
   constructor(private ogmService: OGMService) {
     super()
-  }
-
-  onModuleInit() {
-    this.UnionType = this.ogmService.getModel('UnionType')
   }
 
   async _find({
@@ -64,7 +54,7 @@ export class UnionTypeRepository
     options?: UnionTypeOptions
   }) {
     return await (
-      await this.UnionType
+      await this.ogmService.UnionType
     ).find({
       options,
       selectionSet: exportUnionTypeSelectionSet,
@@ -75,7 +65,7 @@ export class UnionTypeRepository
   protected async _add(unionTypes: Array<IUnionTypeDTO>) {
     return (
       await (
-        await this.UnionType
+        await this.ogmService.UnionType
       ).create({
         input: unionTypes.map(
           ({ __typename, id, kind, name, owner, typesOfUnionType }) => {
@@ -124,7 +114,7 @@ export class UnionTypeRepository
 
     return (
       await (
-        await this.UnionType
+        await this.ogmService.UnionType
       ).update({
         selectionSet: `{ unionTypes ${exportUnionTypeSelectionSet} }`,
         update: {

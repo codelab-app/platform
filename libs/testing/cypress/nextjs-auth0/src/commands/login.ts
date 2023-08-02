@@ -14,7 +14,7 @@ export const loginSession = () => {
       // so that there will be no forbidden errors when doing mutations
       // because the roles are needed
       // cy.visit('/apps')
-      cy.request('/api/upsert-user')
+      cy.request('/data/user/save')
     },
     {
       cacheAcrossSpecs: true,

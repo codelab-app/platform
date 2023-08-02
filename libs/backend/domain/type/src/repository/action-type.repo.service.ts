@@ -11,27 +11,19 @@ import {
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IActionTypeDTO } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
-import type { OnModuleInit } from '@nestjs/common'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class ActionTypeRepository
-  extends AbstractRepository<
-    IActionTypeDTO,
-    ActionType,
-    ActionTypeWhere,
-    ActionTypeOptions
-  >
-  implements OnModuleInit
-{
+export class ActionTypeRepository extends AbstractRepository<
+  IActionTypeDTO,
+  ActionType,
+  ActionTypeWhere,
+  ActionTypeOptions
+> {
   private ActionType!: ActionTypeModel
 
   constructor(private ogmService: OGMService) {
     super()
-  }
-
-  onModuleInit() {
-    this.ActionType = this.ogmService.getModel('ActionType')
   }
 
   async _find({
@@ -42,7 +34,7 @@ export class ActionTypeRepository
     options?: ActionTypeOptions
   }) {
     return await (
-      await this.ActionType
+      await this.ogmService.ActionType
     ).find({
       options,
       selectionSet: exportActionTypeSelectionSet,
@@ -53,7 +45,7 @@ export class ActionTypeRepository
   protected async _add(actionTypes: Array<IActionTypeDTO>) {
     return (
       await (
-        await this.ActionType
+        await this.ogmService.ActionType
       ).create({
         input: actionTypes.map(({ __typename, owner, ...actionType }) => ({
           ...actionType,
@@ -70,7 +62,7 @@ export class ActionTypeRepository
   ) {
     return (
       await (
-        await this.ActionType
+        await this.ogmService.ActionType
       ).update({
         selectionSet: `{ actionTypes ${exportActionTypeSelectionSet} }`,
         update: { name },

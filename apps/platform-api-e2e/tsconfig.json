@@ -2,6 +2,9 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "sourceMap": false,
+    "target": "es2015",
+    "lib": ["es2017", "dom"],
+    "strict": true,
     "outDir": "../../dist/out-tsc",
     "allowJs": true,
     "types": [
@@ -12,5 +15,5 @@
       "worker-loader"
     ]
   },
-  "include": ["src/**/*.ts", "src/**/*.js", "cypress.config.ts"]
+  "include": ["src/**/*.ts", "src/**/*.js", "cypress.config.ts", "index.d.ts"]
 }

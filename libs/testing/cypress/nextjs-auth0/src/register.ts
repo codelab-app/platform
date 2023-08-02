@@ -11,6 +11,14 @@ import { login } from './commands/login'
 import { logout } from './commands/logout'
 import { _setAuth0Cookie } from './commands/set-auth0-cookie'
 
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace Cypress {
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface Chainable<Subject> extends CypressNextjsAuth0Commands {}
+  }
+}
+
 export interface CypressNextjsAuth0Commands {
   // clear-auth0-cookie
   _clearAuth0Cookie: typeof _clearAuth0Cookie

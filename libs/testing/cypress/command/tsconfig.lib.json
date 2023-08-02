@@ -2,9 +2,11 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../../../dist/out-tsc",
+    "target": "es5",
+    "lib": ["es5", "dom"],
     "declaration": true,
-    "types": ["node", "cypress"]
+    "types": ["cypress", "node"]
   },
-  "include": ["src/**/*.ts", "index.d.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
 }
