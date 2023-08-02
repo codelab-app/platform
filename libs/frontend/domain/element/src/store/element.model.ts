@@ -497,6 +497,8 @@ export class Element
       : undefined
 
     return {
+      customCss: this.customCss,
+      guiCss: this.guiCss,
       id: this.id,
       name: this.name,
       props: {
