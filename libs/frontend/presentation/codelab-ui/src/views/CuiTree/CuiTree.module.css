@@ -42,6 +42,10 @@
     color: #ffffff !important;
   }
 
+:global(.ant-tree-treenode-selected) :global(.codelabui-tree-item.text-red-500) span {
+  color: #c62b2b !important;
+}
+
   :global(.ant-tree-treenode-selected)::before {
     background-color: #1890ff !important;
   }

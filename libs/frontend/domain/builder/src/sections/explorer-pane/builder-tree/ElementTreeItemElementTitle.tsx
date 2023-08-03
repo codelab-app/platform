@@ -23,6 +23,7 @@ import { useStore } from '@codelab/frontend/presentation/container'
 import { Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import ElementPropsValidator from './ElementPropsValidator'
 
 interface ElementTreeItemElementTitleProps {
   element: IElement
@@ -51,54 +52,57 @@ export const ElementTreeItemElementTitle = observer(
       ? `Error: ${element.renderingMetadata.error.message}`
       : element.ancestorError
       ? `Something went wrong in a parent element`
-      : undefined
+      : element.propsError || undefined
 
     return (
-      <CuiTreeItem
-        icon={
-          componentMeta ? (
-            <CodeSandboxOutlined style={{ color: 'blue' }} />
-          ) : atomMeta ? (
-            <DeploymentUnitOutlined style={{ color: 'green' }} />
-          ) : (
-            <BorderOuterOutlined style={{ color: 'gray' }} />
-          )
-        }
-        primaryTitle={element.label}
-        secondaryTitle={meta}
-        tag={
-          errorMessage ? (
-            <Tooltip title={errorMessage}>
-              <ExclamationCircleOutlined style={{ color: 'red' }} />
-            </Tooltip>
-          ) : null
-        }
-        toolbar={
-          <CuiTreeItemToolbar
-            items={[
-              {
-                icon: <PlusOutlined />,
-                key: `add-child-${element.id}`,
-                onClick: () => {
-                  elementService.createForm.open({
-                    elementOptions:
-                      element.closestContainerNode.elements.map(
-                        mapElementOption,
+      <>
+        <ElementPropsValidator element={element} />
+        <CuiTreeItem
+          icon={
+            componentMeta ? (
+              <CodeSandboxOutlined style={{ color: 'blue' }} />
+            ) : atomMeta ? (
+              <DeploymentUnitOutlined style={{ color: 'green' }} />
+            ) : (
+              <BorderOuterOutlined style={{ color: 'gray' }} />
+            )
+          }
+          primaryTitle={element.label}
+          secondaryTitle={meta}
+          tag={
+            errorMessage ? (
+              <Tooltip title={errorMessage}>
+                <ExclamationCircleOutlined style={{ color: 'red' }} />
+              </Tooltip>
+            ) : null
+          }
+          toolbar={
+            <CuiTreeItemToolbar
+              items={[
+                {
+                  icon: <PlusOutlined />,
+                  key: `add-child-${element.id}`,
+                  onClick: () => {
+                    elementService.createForm.open({
+                      elementOptions:
+                        element.closestContainerNode.elements.map(
+                          mapElementOption,
+                        ),
+                      elementTree: elementTreeRef(
+                        element.closestContainerNode.id,
                       ),
-                    elementTree: elementTreeRef(
-                      element.closestContainerNode.id,
-                    ),
-                    selectedElement: elementRef(element.id),
-                  })
+                      selectedElement: elementRef(element.id),
+                    })
+                  },
+                  title: 'Add Child',
                 },
-                title: 'Add Child',
-              },
-            ]}
-            title="ElementTreeItemToolbar"
-          />
-        }
-        variant={errorMessage ? 'danger' : 'primary'}
-      />
+              ]}
+              title="ElementTreeItemToolbar"
+            />
+          }
+          variant={errorMessage ? 'danger' : 'primary'}
+        />
+      </>
     )
   },
 )

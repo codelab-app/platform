@@ -66,6 +66,9 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
     return null
   }
 
+  const element = elementTree?.element(selectedNode.id || '')
+  const error = element?.propsError
+
   const tabItems = [
     {
       children: isElementPageNodeRef(selectedNode) ? (
@@ -106,7 +109,12 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
         </div>
       ),
       key: TAB_NAMES.Props,
-      label: <TooltipIcon icon={<SettingOutlined />} title={TAB_NAMES.Props} />,
+      label: (
+        <TooltipIcon
+          icon={<SettingOutlined style={error ? { color: 'red' } : {}} />}
+          title={TAB_NAMES.Props}
+        />
+      ),
     },
     {
       children:

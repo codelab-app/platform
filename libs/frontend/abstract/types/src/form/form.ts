@@ -1,5 +1,5 @@
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { JSONSchemaType } from 'ajv'
+import type { ErrorObject, JSONSchemaType } from 'ajv'
 import type React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 import type { AutoFormProps, Bridge } from 'uniforms'
@@ -35,6 +35,14 @@ export type FormProps<TData, TResponse = unknown> = Partial<
      * Called after a successful submit
      */
     onSubmitSuccess?: VoidCallback<TResponse>
+
+    /**
+     * Called after validation
+     */
+    onValidate?: VoidCallback<{
+      formData: Record<string, unknown>
+      errors?: { details: Array<ErrorObject> }
+    }>
 
     /**
      * Schema used for form generation.

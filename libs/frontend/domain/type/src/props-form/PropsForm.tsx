@@ -11,7 +11,7 @@ export interface PropsFormProps
   extends SubmitRef,
     Pick<
       FormProps<IPropData>,
-      'onSubmitError' | 'onSubmitSuccess' | 'submitField'
+      'onSubmitError' | 'onSubmitSuccess' | 'onValidate' | 'submitField'
     > {
   autosave?: boolean
   cssString?: string
@@ -36,6 +36,7 @@ export const PropsForm = observer<PropsFormProps>(
     onSubmit,
     onSubmitError,
     onSubmitSuccess,
+    onValidate,
     setIsLoading,
     submitField,
     submitRef,
@@ -62,6 +63,7 @@ export const PropsForm = observer<PropsFormProps>(
             onSubmitError,
           )}
           onSubmitSuccess={onSubmitSuccess}
+          onValidate={onValidate}
           submitField={submitField}
           submitRef={submitRef}
         />

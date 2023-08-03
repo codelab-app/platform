@@ -4,6 +4,7 @@ import {
   isAtomInstance,
   isComponentInstance,
 } from '@codelab/frontend/abstract/core'
+import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { AdminPropsPanel } from '@codelab/frontend/domain/admin'
 import { PropsForm } from '@codelab/frontend/domain/type'
 import {
@@ -11,13 +12,14 @@ import {
   useStore,
 } from '@codelab/frontend/presentation/container'
 import { ReactQuillField, Spinner } from '@codelab/frontend/presentation/view'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { filterEmptyStrings, mergeProps } from '@codelab/shared/utils'
 import { useAsync } from '@react-hookz/web'
-import type { JSONSchemaType } from 'ajv'
+import type { ErrorObject, JSONSchemaType } from 'ajv'
 import { Col, Row } from 'antd'
 import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 export interface UpdateElementPropsFormProps {
   element: Ref<IElement>
@@ -100,6 +102,26 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       [currentElement.id],
     )
 
+    const submitRef = useRef<Maybe<SubmitController>>()
+    React.useEffect(() => {
+      // to trigger validation when props tab opened
+      console.log('trigger validation')
+      submitRef.current?.submit()
+    }, [submitRef.current])
+
+    const onValidate = ({
+      errors,
+    }: {
+      formData: Record<string, unknown>
+      errors?: { details: Array<ErrorObject> }
+    }) => {
+      if (errors?.details.length) {
+        element.current.setPropsError('some props are not correctly set')
+      } else {
+        element.current.setPropsError(null)
+      }
+    }
+
     return (
       <Spinner isLoading={status === 'loading'}>
         {interfaceType && (
@@ -112,7 +134,9 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
                 key={element.id}
                 model={propsModel}
                 onSubmit={onSubmit}
+                onValidate={onValidate}
                 submitField={React.Fragment}
+                submitRef={submitRef}
               />
             </Col>
             <Col span={24}>

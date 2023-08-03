@@ -149,6 +149,7 @@ export class Element
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
     renderIfExpression: prop<Nullable<string>>(null).withSetter(),
     renderingMetadata: prop<Nullable<RenderingMetadata>>(null),
+    propsError: prop<Nullable<string>>(null),
     // atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
     renderType: prop<IElementRenderType | null>(null).withSetter(),
     // if this is a duplicate, trace source element id else null
@@ -330,6 +331,11 @@ export class Element
     this.renderingMetadata = {
       error,
     }
+  }
+
+  @modelAction
+  setPropsError(message: string) {
+    this.propsError = message
   }
 
   @computed

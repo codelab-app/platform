@@ -88,6 +88,7 @@ export interface IElement
   prevSibling?: Nullable<Ref<IElement>>
   propTransformationJs: Nullable<string>
   props: Ref<IProp>
+  propsError: Nullable<string>
   // store attached to the provider page
   providerStore?: Ref<IStore>
   renderForEachPropKey: Nullable<string>
@@ -129,6 +130,7 @@ export interface IElement
   setPrevSibling(prevSibling: Ref<IElement>): void
   setPropTransformationJs(props: string): void
   setProps(props: Nullable<Ref<IProp>>): void
+  setPropsError(message: Nullable<string>): void
   setRenderForEachPropKey(key: string): void
   setRenderIfExpression(key: Nullish<string>): void
   setRenderType(renderType: IElementRenderType): void

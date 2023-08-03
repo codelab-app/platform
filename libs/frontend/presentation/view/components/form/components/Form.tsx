@@ -1,5 +1,6 @@
 import type { FormProps } from '@codelab/frontend/abstract/types'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
+import type { ErrorObject } from 'ajv'
 import type { ReactElement } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { css } from 'styled-components'
@@ -29,8 +30,9 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
     schema,
     submitField,
     submitRef,
+    onValidate,
   }: React.PropsWithChildren<FormProps<TData, TResponse>>): ReactElement => {
-    const { selectedNode } = useFormContext()
+    const { elementTree, selectedNode } = useFormContext()
     const state = selectedNode?.current.store.current
 
     const [bridge, setBridge] = useState(
@@ -77,7 +79,15 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
                 callbackWithParams(onSubmitError, error)
               })
           }}
-          onValidate={bypassExpressionErrors}
+          onValidate={async (
+            formData: Record<string, unknown>,
+            errors?: { details: Array<ErrorObject> },
+          ) => {
+            if (onValidate) {
+              callbackWithParams(onValidate, { errors, formData })
+            }
+            return bypassExpressionErrors(formData, errors)
+          }}
           ref={connectUniformSubmitRef(submitRef)}
           schema={bridge}
           submitField={submitField}
