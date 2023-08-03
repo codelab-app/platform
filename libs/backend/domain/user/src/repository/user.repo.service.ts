@@ -11,6 +11,7 @@ import {
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IUserDTO } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
+import { v4 } from 'uuid'
 
 @Injectable()
 export class UserRepository extends AbstractRepository<

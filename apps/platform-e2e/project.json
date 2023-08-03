@@ -51,10 +51,10 @@
               "command": "npx wait-on --interval 1000 --delay 5000 http://127.0.0.1:3001 tcp:127.0.0.1:4001 && echo 'READY'"
             },
             {
-              "command": "npx env-cmd -f .env.test nx serve platform -c test"
+              "command": "nx serve platform -c test"
             },
             {
-              "command": "npx env-cmd -f .env.test nx serve platform-api -c test"
+              "command": "nx serve platform-api -c test"
             }
           ]
         },
@@ -64,10 +64,10 @@
               "command": "npx wait-on --interval 1000 --delay 3000 http://127.0.0.1:3001 tcp:127.0.0.1:4001  && echo 'READY'"
             },
             {
-              "command": "npx env-cmd -f .env.test nx serve platform -c test"
+              "command": "nx serve platform -c test"
             },
             {
-              "command": "npx env-cmd -f .env.test nx serve platform-api -c test"
+              "command": "nx serve platform-api -c test"
             }
           ]
         },

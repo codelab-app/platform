@@ -10,8 +10,11 @@ import {
   InterfaceType,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
-import type { IAtomDTO } from '@codelab/shared/abstract/core'
-import { IAtomType, IAuth0User } from '@codelab/shared/abstract/core'
+import {
+  type IAtomDTO,
+  IAtomType,
+  type IAuth0User,
+} from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'

@@ -78,7 +78,7 @@ export class ImportAdminDataHandler
 
   private async importSystemTypes(owner: IAuth0User) {
     const { types } = JSON.parse(
-      fs.readFileSync(this.migrationDataService.SYSTEM_TYPES_FILE_PATH, 'utf8'),
+      fs.readFileSync(this.migrationDataService.systemTypesFilePath, 'utf8'),
     ) as ITypesExport
 
     /**
@@ -127,29 +127,29 @@ export class ImportAdminDataHandler
    */
   get getMergedData(): IAdminDataExport {
     const atomFilenames = fs
-      .readdirSync(this.migrationDataService.ATOMS_PATH)
+      .readdirSync(this.migrationDataService.atomsPath)
       .filter((filename) => path.extname(filename) === '.json')
 
     const componentFilenames = fs.existsSync(
-      this.migrationDataService.COMPONENTS_PATH,
+      this.migrationDataService.componentsPath,
     )
       ? fs
-          .readdirSync(this.migrationDataService.COMPONENTS_PATH)
+          .readdirSync(this.migrationDataService.componentsPath)
           .filter((filename) => path.extname(filename) === '.json')
       : []
 
     // Tag data is all in single file
     const tags = JSON.parse(
-      fs.readFileSync(this.migrationDataService.TAGS_FILE_PATH, 'utf8'),
+      fs.readFileSync(this.migrationDataService.tagsFilePath, 'utf8'),
     ) as Array<ITagDTO>
 
     const systemTypes = JSON.parse(
-      fs.readFileSync(this.migrationDataService.SYSTEM_TYPES_FILE_PATH, 'utf8'),
+      fs.readFileSync(this.migrationDataService.systemTypesFilePath, 'utf8'),
     ) as ITypesExport
 
     const components = componentFilenames.map((filename) => {
       const content = fs.readFileSync(
-        path.resolve(this.migrationDataService.COMPONENTS_PATH, filename),
+        path.resolve(this.migrationDataService.componentsPath, filename),
         'utf8',
       )
 
@@ -159,7 +159,7 @@ export class ImportAdminDataHandler
     return atomFilenames.reduce(
       (adminData, filename) => {
         const content = fs.readFileSync(
-          `${this.migrationDataService.ATOMS_PATH}/${filename}`,
+          `${this.migrationDataService.atomsPath}/${filename}`,
           'utf8',
         )
 

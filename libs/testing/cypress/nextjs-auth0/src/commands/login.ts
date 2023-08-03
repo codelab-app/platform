@@ -7,14 +7,13 @@ interface LoginCredentials {
 
 export const loginSession = () => {
   cy.session(
-    ['auth0-session'],
+    ['auth0-session-25'],
     () => {
       login()
       // Needs to visit the page where the user data will get upserted
       // so that there will be no forbidden errors when doing mutations
       // because the roles are needed
-      // cy.visit('/apps')
-      // cy.request('/data/user/save')
+      cy.request({ method: 'POST', url: '/api/data/user/save' })
     },
     {
       cacheAcrossSpecs: true,

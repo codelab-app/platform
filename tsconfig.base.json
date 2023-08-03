@@ -248,16 +248,16 @@
       "@codelab/testing/cypress/antd": [
         "libs/testing/cypress/antd/src/index.ts"
       ],
+      "@codelab/testing/cypress/codelab": [
+        "libs/testing/cypress/codelab/src/index.ts"
+      ],
       "@codelab/testing/cypress/command": [
         "libs/testing/cypress/command/src/index.ts"
       ],
       "@codelab/testing/cypress/nextjs-auth0": [
         "libs/testing/cypress/nextjs-auth0/src/index.ts"
       ],
-      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
-      "@codelab/testing/cypress/codelab": [
-        "libs/testing/cypress/codelab/src/index.ts"
-      ]
+      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"],

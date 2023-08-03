@@ -5,8 +5,7 @@ import {
   UseCase,
 } from '@codelab/backend/application/service'
 import { TagRepository } from '@codelab/backend/domain/tag'
-import type { ITagDTO } from '@codelab/shared/abstract/core'
-import { IAuth0User } from '@codelab/shared/abstract/core'
+import { type ITagDTO, type IUserDTO } from '@codelab/shared/abstract/core'
 import uniqBy from 'lodash/uniqBy'
 import { v4 } from 'uuid'
 import { TagTreeUtils } from './seed-tags.util'
@@ -14,7 +13,7 @@ import { TagTreeUtils } from './seed-tags.util'
 export class SeedTagsService extends UseCase<TagNode, void> {
   constructor(
     private tagRepository: TagRepository,
-    @CurrentUser() private owner: IAuth0User,
+    @CurrentUser() private owner: IUserDTO,
   ) {
     super()
   }

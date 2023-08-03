@@ -20,7 +20,7 @@ export const ImportAppDialog = observer(() => {
   )
 
   const onSuccess = ({ apps }: IUserDataExport) => {
-    void loadApps.execute({ id: apps[0]?.id })
+    void loadApps.execute({ id: apps[0]?.app.id })
 
     successNotify()
   }

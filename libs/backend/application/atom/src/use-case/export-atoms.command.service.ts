@@ -1,9 +1,15 @@
-import { AtomWhere, SortDirection } from '@codelab/backend/abstract/codegen'
+import {
+  type AtomWhere,
+  SortDirection,
+} from '@codelab/backend/abstract/codegen'
+import type { IAtomExport, ITypesExport } from '@codelab/backend/abstract/core'
+import { ExportTypesCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
-import type { IAtomDTO } from '@codelab/shared/abstract/core'
+import type { IAtomDTO, IInterfaceTypeDTO } from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import type { ICommandHandler } from '@nestjs/cqrs'
-import { CommandHandler } from '@nestjs/cqrs'
+import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 @Injectable()
 export class ExportAtomsCommand {
@@ -12,9 +18,12 @@ export class ExportAtomsCommand {
 
 @CommandHandler(ExportAtomsCommand)
 export class ExportAtomsHandler
-  implements ICommandHandler<ExportAtomsCommand, Array<IAtomDTO>>
+  implements ICommandHandler<ExportAtomsCommand, Array<IAtomExport>>
 {
-  constructor(private readonly atomRepository: AtomRepository) {}
+  constructor(
+    private readonly atomRepository: AtomRepository,
+    private commandBus: CommandBus,
+  ) {}
 
   async execute(command: ExportAtomsCommand) {
     const atoms = (
@@ -36,6 +45,33 @@ export class ExportAtomsHandler
         })),
       }))
 
-    return atoms
+    return Promise.all(
+      atoms.map(async (atom) => {
+        const { fields = [], types } = await this.commandBus.execute<
+          ExportTypesCommand,
+          ITypesExport
+        >(
+          new ExportTypesCommand({
+            typeIds: [atom.api],
+          }),
+        )
+
+        const api = types.filter(
+          (type): type is IInterfaceTypeDTO =>
+            type.kind === ITypeKind.InterfaceType,
+        )[0]
+
+        if (!api) {
+          throw new Error('Missing interface type')
+        }
+
+        return {
+          api,
+          atom,
+          fields,
+          types,
+        }
+      }),
+    )
   }
 }

@@ -13,7 +13,13 @@ export class DatabaseService {
       /**
        * https://aura.support.neo4j.com/hc/en-us/articles/4412131924883-How-to-wipe-out-delete-all-the-content-in-a-Neo4j-AuraDB-Instance-
        */
-      .writeTransaction((txn) => txn.run('MATCH (n) DETACH DELETE n'))
+      .writeTransaction((txn) =>
+        txn.run(`
+          MATCH (n)
+          WHERE NOT n:User
+          DETACH DELETE n
+        `),
+      )
       .catch((error) => {
         console.error(error)
         throw error

@@ -2,7 +2,6 @@ import { gql } from '@apollo/client'
 import { print } from 'graphql'
 import { commonSchema } from './common.schema'
 import { actionSchema } from './model/action.schema'
-import { adminSchema } from './model/admin.schema'
 import { appSchema } from './model/app.schema'
 import { atomSchema } from './model/atom.schema'
 import { componentSchema } from './model/component.schema'
@@ -18,9 +17,7 @@ import { userSchema } from './model/user.schema'
 import { fieldSchema, typeSchema } from './type'
 
 export const typeDefs = print(gql`
-  ${adminSchema}
   ${commonSchema}
-  ${adminSchema}
   ${userSchema}
   ${appSchema}
   ${fieldSchema}
@@ -32,7 +29,6 @@ export const typeDefs = print(gql`
   ${propSchema}
   ${hookSchema}
   ${componentSchema}
-  ${adminSchema}
   ${storeSchema}
   ${actionSchema}
   ${resourceSchema}

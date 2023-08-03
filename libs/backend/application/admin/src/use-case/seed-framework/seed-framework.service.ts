@@ -7,12 +7,12 @@ import {
   systemTypesData,
   TypeSeederService,
 } from '@codelab/backend/application/type'
-import type {
-  IAtomDTO,
-  IAtomType,
-  IFieldDTO,
+import {
+  type IAtomDTO,
+  type IAtomType,
+  type IAuth0User,
+  type IFieldDTO,
 } from '@codelab/shared/abstract/core'
-import { IAuth0User } from '@codelab/shared/abstract/core'
 import { withTracing } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
 import { ObjectTyped } from 'object-typed'

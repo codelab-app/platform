@@ -1,18 +1,24 @@
 import type {
   IAdminDataExport,
+  IAtomExport,
   IComponentExport,
   ITypesExport,
 } from '@codelab/backend/abstract/core'
 import { ExportAtomsCommand } from '@codelab/backend/application/atom'
 import { ExportComponentsCommand } from '@codelab/backend/application/component'
-import { exportTags } from '@codelab/backend/application/tag'
+import { ExportTagsCommand } from '@codelab/backend/application/tag'
+// import { exportTags } from '@codelab/backend/application/tag'
 import {
-  exportAtomApis,
+  // exportAtomApis,
   ExportSystemTypesCommand,
   ExportTypesCommand,
 } from '@codelab/backend/application/type'
 import { saveFormattedFile } from '@codelab/backend/shared/util'
-import type { IAtomDTO, IInterfaceTypeDTO } from '@codelab/shared/abstract/core'
+import type {
+  IAtomDTO,
+  IInterfaceTypeDTO,
+  ITagDTO,
+} from '@codelab/shared/abstract/core'
 import { withTracing } from '@codelab/shared/infra/otel'
 import { Inject, Injectable } from '@nestjs/common'
 import type { ICommandHandler } from '@nestjs/cqrs'
@@ -23,62 +29,54 @@ import path from 'path'
 import { MigrationDataService } from '../migration-data.service'
 
 @Injectable()
-export class ExportAdminDataCommand {}
+export class ExportAdminDataCommand {
+  constructor(public baseDataPaths?: string) {}
+}
 
 /**
  * This service should save the files as well, since admin data is all located in the same location
  */
 @CommandHandler(ExportAdminDataCommand)
 export class ExportAdminDataService
-  implements ICommandHandler<ExportAdminDataCommand, void>
+  implements ICommandHandler<ExportAdminDataCommand, IAdminDataExport>
 {
-  private declare exportData: IAdminDataExport
-
   constructor(
-    @Inject('DATA_PATHS') private readonly dataPaths: MigrationDataService,
+    private readonly migrationDataService: MigrationDataService,
     private commandBus: CommandBus,
   ) {}
 
-  async execute() {
+  async execute(command: ExportAdminDataCommand) {
+    const { baseDataPaths } = command
+
+    if (baseDataPaths) {
+      this.migrationDataService.basePaths = baseDataPaths
+    }
+
     const systemTypes = await this.commandBus.execute<
       ExportSystemTypesCommand,
       ITypesExport
     >(new ExportSystemTypesCommand())
 
-    // const systemTypes = await withTracing(
-    //   'ExportAdminDataService.exportSystemTypes()',
-    //   () => exportSystemTypes(),
-    // )()
+    const atoms = await this.commandBus.execute<
+      ExportAtomsCommand,
+      Array<IAtomExport>
+    >(new ExportAtomsCommand())
 
-    const atoms = await withTracing(
-      'ExportAdminDataService.extractAtomsData()',
-      () => this.extractAtomsData(),
-    )()
-
-    const tags = await withTracing('ExportAdminDataService.exportTags()', () =>
-      exportTags(),
-    )()
+    const tags = await this.commandBus.execute<
+      ExportTagsCommand,
+      Array<ITagDTO>
+    >(new ExportTagsCommand())
 
     const components = await this.commandBus.execute<
       ExportComponentsCommand,
       Array<IComponentExport>
     >(new ExportComponentsCommand())
 
-    const exportData = {
+    return {
       atoms,
       components,
       systemTypes,
       tags,
-    }
-
-    this.exportData = exportData
-  }
-
-  getData() {
-    return {
-      atoms: this.exportData.atoms,
-      systemTypes: this.exportData.systemTypes,
-      tags: this.exportData.tags,
     }
   }
 
@@ -87,71 +85,35 @@ export class ExportAdminDataService
    *
    * (await new ExportAdminDataService().execute()).save()
    */
-  saveAsFiles() {
-    for (const { api, atom, fields, types } of this.exportData.atoms) {
-      saveFormattedFile(
-        path.resolve(this.dataPaths.ATOMS_PATH, `${atom.name}.json`),
-        {
-          api,
-          atom,
-          fields,
-          types,
-        },
-      )
-    }
+  // saveAsFiles() {
+  //   for (const { api, atom, fields, types } of this.exportData.atoms) {
+  //     saveFormattedFile(
+  //       path.resolve(this.migrationDataService.atomsPath, `${atom.name}.json`),
+  //       {
+  //         api,
+  //         atom,
+  //         fields,
+  //         types,
+  //       },
+  //     )
+  //   }
 
-    saveFormattedFile(this.dataPaths.TAGS_FILE_PATH, this.exportData.tags)
+  //   saveFormattedFile(
+  //     this.migrationDataService.tagsFilePath,
+  //     this.exportData.tags,
+  //   )
 
-    saveFormattedFile(
-      this.dataPaths.SYSTEM_TYPES_FILE_PATH,
-      this.exportData.systemTypes,
-    )
+  //   saveFormattedFile(
+  //     this.migrationDataService.systemTypesFilePath,
+  //     this.exportData.systemTypes,
+  //   )
 
-    for (const componentData of this.exportData.components) {
-      this.saveComponentAsFile(componentData)
-    }
+  //   for (const componentData of this.exportData.components) {
+  //     this.saveComponentAsFile(componentData)
+  //   }
 
-    return this.getData()
-  }
-
-  private async extractAtomsData() {
-    const atoms = await this.commandBus.execute<
-      ExportAtomsCommand,
-      Array<IAtomDTO>
-    >(new ExportAtomsCommand())
-
-    const apis = await exportAtomApis()
-
-    return Promise.all(
-      atoms.map(async (atom) => {
-        /**
-         * Get the interface by id
-         */
-        const api = find(apis.types, { id: atom.api?.id }) as
-          | IInterfaceTypeDTO
-          | undefined
-
-        const apiFields = filter(apis.fields, { api: { id: atom.api?.id } })
-
-        const { fields = [], types } = await this.commandBus.execute(
-          new ExportTypesCommand({
-            typeIds: [atom.api],
-          }),
-        )
-
-        if (!api) {
-          throw new Error('Missing api')
-        }
-
-        return {
-          api,
-          atom,
-          fields: [...apiFields, ...fields],
-          types,
-        }
-      }),
-    )
-  }
+  //   return this.getData()
+  // }
 
   saveComponentAsFile(componentData: IComponentExport) {
     const { component, descendantElements, fields, types } = componentData
@@ -159,7 +121,7 @@ export class ExportAdminDataService
     const name = component.name.replace(/ /g, '')
 
     saveFormattedFile(
-      path.resolve(this.dataPaths.COMPONENTS_PATH, `${name}.json`),
+      path.resolve(this.migrationDataService.componentsPath, `${name}.json`),
       {
         component,
         descendantElements,

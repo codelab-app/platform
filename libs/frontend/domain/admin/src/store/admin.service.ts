@@ -7,16 +7,15 @@ import {
   modelFlow,
   transaction,
 } from 'mobx-keystone'
-import { adminApi } from './admin.api'
 
 @model('@codelab/AdminService')
 export class AdminService extends Model({}) implements IAdminService {
   @modelFlow
   @transaction
   resetData = _async(function* (this: AdminService) {
-    const { resetDatabase } = yield* _await(adminApi.ResetDatabase())
+    yield* _await(fetch(`/api/export/admin`))
 
-    return resetDatabase?.success
+    return false
   })
 
   @modelFlow

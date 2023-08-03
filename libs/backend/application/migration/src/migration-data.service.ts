@@ -1,31 +1,33 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { type ConfigType } from '@nestjs/config'
 import path from 'path'
-import { migrationConfig } from './migration.config'
+
+console.log(path.resolve(process.cwd(), './data/export'))
 
 @Injectable()
 export class MigrationDataService {
-  constructor(
-    @Inject(migrationConfig.KEY)
-    private config: ConfigType<typeof migrationConfig>,
-  ) {}
+  private _basePath = path.resolve(process.cwd(), './data/export')
 
-  get SYSTEM_TYPES_FILE_PATH() {
-    return path.resolve(
-      this.config.dataPaths,
-      './system/types/system-types.json',
-    )
+  /**
+   * Allows override by setting at runtime
+   */
+  set basePaths(basePath: string) {
+    this._basePath = basePath
   }
 
-  get ATOMS_PATH() {
-    return path.resolve(this.config.dataPaths, './admin/atoms')
+  get systemTypesFilePath() {
+    return path.resolve(this._basePath, './system/types/system-types.json')
   }
 
-  get TAGS_FILE_PATH() {
-    return path.resolve(this.config.dataPaths, './admin/tags/tags.json')
+  get atomsPath() {
+    return path.resolve(this._basePath, './admin/atoms')
   }
 
-  get COMPONENTS_PATH() {
-    return path.resolve(this.config.dataPaths, './admin/components')
+  get tagsFilePath() {
+    return path.resolve(this._basePath, './admin/tags/tags.json')
+  }
+
+  get componentsPath() {
+    return path.resolve(this._basePath, './admin/components')
   }
 }
