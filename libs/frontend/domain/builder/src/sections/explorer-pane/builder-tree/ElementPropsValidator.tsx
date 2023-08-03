@@ -9,7 +9,7 @@ const ajv = new Ajv({ allErrors: true, strict: false, useDefaults: true })
 
 const ElementPropsValidator = ({ element }: { element: IElement }) => {
   const { typeService } = useStore()
-  const apiId = element.renderType?.current.api.id
+  const apiId = element.renderType?.maybeCurrent?.api.id
   const propsValue = element.props.current.values
 
   const [{ result: interfaceType }, getInterface] = useAsync(async () => {
