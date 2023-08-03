@@ -3799,6 +3799,7 @@ enum AtomType {
   MuiUnstableTrapFocus
   MuiYearPicker
   MuiZoom
+  NextLink
   Query
   ReactFragment
   Script

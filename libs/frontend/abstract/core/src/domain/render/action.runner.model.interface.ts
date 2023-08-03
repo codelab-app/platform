@@ -6,6 +6,7 @@ import type { IStore } from '../store'
 export interface ActionRunnerThisObject {
   rootState?: IPropData
   state: IPropData
+  urlProps?: IPropData
 }
 
 export interface IActionRunner {
@@ -23,9 +24,11 @@ export const getActionRunnerThisObject = (
   runner: IActionRunner,
   store: Ref<IStore>,
   providerStore?: Ref<IStore>,
+  urlProps?: IPropData,
 ) => {
   const _this: ActionRunnerThisObject = {
     state: store.current.state,
+    urlProps: urlProps ?? {},
   }
 
   // If the action used in a regular page is from the provider, the `state` to use

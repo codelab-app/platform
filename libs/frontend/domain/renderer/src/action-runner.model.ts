@@ -159,6 +159,8 @@ export class ActionRunner
         config,
         _this.state,
         _this.rootState,
+        undefined,
+        _this.urlProps,
       )
 
       const fetchPromise =

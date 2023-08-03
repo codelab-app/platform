@@ -216,6 +216,11 @@ export class Element
   }
 
   @computed
+  get urlProps(): IPropData | undefined {
+    return this.renderService.activeRenderer?.current.urlSegments
+  }
+
+  @computed
   get children(): Array<IElement> {
     const firstChild = this.firstChild
 

@@ -16,6 +16,7 @@ import { PageType } from '@codelab/frontend/abstract/types'
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { PageKind } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
 import flatMap from 'lodash/flatMap'
 import isObject from 'lodash/isObject'
@@ -102,11 +103,30 @@ export const useRenderedPage = ({
       builderService.selectElementNode(pageRootElement)
     }
 
+    // extract the dynamic segments from the url query params for the page url
+    // build complains with the return type `RegExpMatchArray` of `match`
+    const extractedUrlSegments =
+      (page.url.match(/:\w+/g) as Nullable<Array<string>>) ?? []
+
+    const urlSegments = extractedUrlSegments.reduce<Record<string, string>>(
+      (acc, segment) => {
+        const segmentName = segment.substring(1)
+
+        if (router.query[segmentName]) {
+          acc[segmentName] = router.query[segmentName] as string
+        }
+
+        return acc
+      },
+      {},
+    )
+
     const renderer = renderService.addRenderer({
       elementTree: page,
       id: page.id,
       providerTree: app.providerPage,
       rendererType,
+      urlSegments,
     })
 
     renderService.setActiveRenderer(rendererRef(renderer.id))

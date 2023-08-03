@@ -12,7 +12,7 @@ export const createElementTree = (elements: Array<ElementData>) => {
     const { atom, name, parentElement } = element
 
     cy.getCuiSidebar('Explorer').getCuiSkeleton().should('not.be.visible')
-    cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').click()
+    cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').first().click()
 
     /**
      * We skip this if parent element is root, since it is disabled and can't be accessed

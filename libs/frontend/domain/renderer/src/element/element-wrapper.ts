@@ -50,6 +50,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
           postRenderActionRunner,
           element.store,
           element.providerStore,
+          element.urlProps,
         )
 
         const runner = postRenderActionRunner.runner.bind(_this)

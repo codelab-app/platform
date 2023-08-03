@@ -38,5 +38,6 @@ export const customTextInjectionWhiteList = [
   IAtomType.MuiDialogContentText,
   IAtomType.MuiLink,
   IAtomType.MuiTypography,
+  IAtomType.NextLink,
   IAtomType.Text,
 ]

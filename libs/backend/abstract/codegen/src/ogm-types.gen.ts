@@ -1902,6 +1902,7 @@ export enum AtomType {
   HtmlVideo = 'HtmlVideo',
   HtmlWbr = 'HtmlWbr',
   ExternalComponent = 'ExternalComponent',
+  NextLink = 'NextLink',
 }
 
 export enum CodeMirrorLanguage {

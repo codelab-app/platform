@@ -399,6 +399,9 @@ export enum __AtomType {
 
   // External dynamic component
   ExternalComponent = 'ExternalComponent',
+
+  // Nextjs components
+  NextLink = 'NextLink',
 }
 
 export { AtomType as IAtomType }

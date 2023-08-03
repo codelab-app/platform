@@ -74,6 +74,7 @@ const create = ({
   id,
   providerTree,
   rendererType,
+  urlSegments,
 }: RendererProps) => {
   return new Renderer({
     elementTree: elementTreeRef(elementTree),
@@ -82,6 +83,7 @@ const create = ({
     id: getRendererId(id),
     providerTree: providerTree ? elementTreeRef(providerTree) : null,
     rendererType,
+    urlSegments,
   })
 }
 
@@ -123,6 +125,7 @@ export class Renderer
     typedPropTransformers: prop<ObjectMap<ITypedPropTransformer>>(() =>
       typedPropTransformersFactory(),
     ),
+    urlSegments: prop<Record<string, string> | undefined>(),
   })
   implements IRenderer
 {
@@ -202,6 +205,7 @@ export class Renderer
           preRenderActionRunner,
           element.store,
           element.providerStore,
+          this.urlSegments,
         )
 
         const runner = preRenderActionRunner.runner.bind(_this)

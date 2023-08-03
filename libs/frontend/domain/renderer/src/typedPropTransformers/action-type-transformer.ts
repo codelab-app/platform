@@ -41,6 +41,8 @@ export class ActionTypeTransformer
       ? node.providerStore
       : undefined
 
+    const urlProps = isElementPageNode(node) ? node.urlProps : undefined
+
     const localActionRunner = this.renderer.actionRunners.get(
       getRunnerId(node.store.id, prop.value),
     )
@@ -61,6 +63,7 @@ export class ActionTypeTransformer
         actionRunner,
         node.store,
         providerStore,
+        urlProps,
       )
 
       return actionRunner.runner.bind(_this)

@@ -8,7 +8,7 @@ import {
   hasStateExpression,
   replaceStateInProps,
 } from '@codelab/frontend/shared/utils'
-import { mergeProps } from '@codelab/shared/utils'
+import { getDefaultFieldProps, mergeProps } from '@codelab/shared/utils'
 import attempt from 'lodash/attempt'
 import get from 'lodash/get'
 import isError from 'lodash/isError'
@@ -30,6 +30,9 @@ export class ElementRuntimeProps
   @computed
   get props() {
     return {
+      ...(this.node.renderType
+        ? getDefaultFieldProps(this.node.renderType.current)
+        : {}),
       ...this.node.props.current.values,
       /**
        * Internal system props for meta data, use double underline for system-defined identifiers.
@@ -81,6 +84,7 @@ export class ElementRuntimeProps
       this.node.store.current.state,
       this.node.providerStore?.current.state,
       injectedProps,
+      this.node.urlProps,
     )
   }
 
@@ -94,6 +98,7 @@ export class ElementRuntimeProps
       this.node.store.current.state,
       this.node.providerStore?.current.state,
       injectedProps,
+      this.node.urlProps,
     )
   }
 

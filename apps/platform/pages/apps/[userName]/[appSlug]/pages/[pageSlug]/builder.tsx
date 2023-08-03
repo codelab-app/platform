@@ -1,6 +1,6 @@
 import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
-import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
+import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import {
   BuilderContext,
   BuilderPrimarySidebar,
@@ -14,41 +14,65 @@ import {
 } from '@codelab/frontend/domain/page'
 import {
   useCurrentPage,
-  useRemainingPages,
   useRenderedPage,
+  useStore,
 } from '@codelab/frontend/presentation/container'
 import {
   DashboardTemplate,
   SkeletonWrapper,
 } from '@codelab/frontend/presentation/view'
+import { builderRouteChangeHandler } from '@codelab/frontend/shared/utils'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
-import { useMountEffect } from '@react-hookz/web'
+import { useUnmountEffect, useUpdateEffect } from '@react-hookz/web'
+import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import React, { useEffect, useMemo } from 'react'
 
 const PageBuilder: CodelabPage = observer(() => {
-  const [{ status: remainingPagesStatus }, lazilyLoadRemainingPages] =
-    useRemainingPages()
-
+  const router = useRouter()
+  const { pageService } = useStore()
   const { pageName } = useCurrentPage()
 
-  const [{ error, result, status: renderedPageStatus }, loadCurrentPage] =
-    useRenderedPage({
-      rendererType: RendererType.PageBuilder,
-    })
+  const [{ error, result }, loadCurrentPage] = useRenderedPage({
+    rendererType: RendererType.PageBuilder,
+  })
 
-  useMountEffect(() => {
-    void lazilyLoadRemainingPages.execute()
+  const routeChangeHandler = React.useMemo(
+    () => async (url: string) => {
+      if (isNil(result)) {
+        return
+      }
+
+      const pages = pageService.pagesByApp(result.app.id)
+      await builderRouteChangeHandler(
+        router,
+        result.app,
+        pages,
+        url,
+        PageType.PageBuilder,
+      )
+    },
+    [result],
+  )
+
+  useUpdateEffect(() => {
+    if (!isNil(result)) {
+      router.events.on('routeChangeStart', routeChangeHandler)
+    }
+  }, [result])
+
+  useUnmountEffect(() => {
+    router.events.off('routeChangeStart', routeChangeHandler)
   })
 
   useEffect(() => {
+    router.events.off('routeChangeStart', routeChangeHandler)
     void loadCurrentPage.execute()
   }, [pageName])
 
-  const isLoading =
-    renderedPageStatus !== 'success' || remainingPagesStatus !== 'success'
-
+  const isLoading = isNil(result?.app)
   const contentStyles = useMemo(() => ({ paddingTop: '0rem' }), [])
 
   return (
