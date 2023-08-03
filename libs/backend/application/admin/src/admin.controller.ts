@@ -1,7 +1,7 @@
 import { DatabaseService } from '@codelab/backend/application/service'
 import { Neo4jService } from '@codelab/backend/infra/adapter/neo4j'
 import { Stage } from '@codelab/shared/abstract/core'
-import { Body, Controller, Post } from '@nestjs/common'
+import { Body, Controller, Get, Post } from '@nestjs/common'
 import { Transform } from 'class-transformer'
 import { IsEnum } from 'class-validator'
 
@@ -12,6 +12,11 @@ export class ResetDataDto {
 @Controller('admin')
 export class AdminController {
   constructor(private readonly databaseService: DatabaseService) {}
+
+  @Get()
+  index() {
+    return 'index'
+  }
 
   @Post('reset')
   async reset(@Body() resetDataDto: ResetDataDto) {

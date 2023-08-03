@@ -1,6 +1,5 @@
 /* eslint-disable canonical/sort-keys */
 /* eslint-disable @nx/enforce-module-boundaries */
-import { ExportAdminDataService } from '@codelab/backend/application/admin'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import AdmZip from 'adm-zip'
 import type { NextApiHandler } from 'next'
@@ -16,7 +15,7 @@ const exportAdminData: NextApiHandler = async (req, res) => {
 
     const baseExportPath = path.resolve('./tmp/data/export')
 
-    ;(await new ExportAdminDataService(baseExportPath).execute()).saveAsFiles()
+    // ;(await new ExportAdminDataService(baseExportPath).execute()).saveAsFiles()
 
     // Create zip
     const zip = new AdmZip()

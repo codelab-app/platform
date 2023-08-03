@@ -1,5 +1,9 @@
 import type { IAtomRecords } from '@codelab/backend/abstract/core'
-import { AuthUseCase } from '@codelab/backend/application/service'
+import {
+  AuthUseCase,
+  CurrentUser,
+  UseCase,
+} from '@codelab/backend/application/service'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { TagRepository } from '@codelab/backend/domain/tag'
 import {
@@ -7,20 +11,24 @@ import {
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
-import { IAtomType } from '@codelab/shared/abstract/core'
+import { IAtomType, IAuth0User } from '@codelab/shared/abstract/core'
+import { Injectable } from '@nestjs/common'
 import { ObjectTyped } from 'object-typed'
 import { v4 } from 'uuid'
 
-export class SeedAtomsService extends AuthUseCase<
+@Injectable()
+export class SeedAtomsService extends UseCase<
   Partial<IAtomRecords>,
   Array<IAtomDTO>
 > {
-  atomRepository: AtomRepository = new AtomRepository()
-
-  interfaceTypeRepository: InterfaceTypeRepository =
-    new InterfaceTypeRepository()
-
-  tagRepository: TagRepository = new TagRepository()
+  constructor(
+    private atomRepository: AtomRepository,
+    private interfaceTypeRepository: InterfaceTypeRepository,
+    private tagRepository: TagRepository,
+    @CurrentUser() private user: IAuth0User,
+  ) {
+    super()
+  }
 
   async _execute(data: IAtomRecords) {
     const atoms = await this.createAtomsData(data)
@@ -86,7 +94,7 @@ export class SeedAtomsService extends AuthUseCase<
           icon: atomData.icon,
           id: v4(),
           name: atomType,
-          owner: this.owner,
+          owner: this.user,
           tags: [existingTag],
           type: IAtomType[atomType],
         }

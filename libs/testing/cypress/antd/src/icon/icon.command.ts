@@ -1,5 +1,7 @@
-import type { CypressElement } from '../../deprecated/types'
-import { wrapSubject } from '../../deprecated/utils'
+import {
+  type CypressElement,
+  wrapSubject,
+} from '@codelab/testing/cypress/command'
 
 export const getIcon = (
   subject: any,

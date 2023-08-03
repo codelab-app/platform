@@ -1,10 +1,10 @@
 import type { CypressCommand } from '../command.interface'
-import { getCurrentOwner } from './user'
+import { getCurrentUser } from './user'
 
 export interface CypressUserCommands {
-  getCurrentOwner: typeof getCurrentOwner
+  getCurrentUser: typeof getCurrentUser
 }
 
 export const userCommands: Array<CypressCommand> = [
-  { fn: getCurrentOwner, name: 'getCurrentOwner' },
+  { fn: getCurrentUser, name: 'getCurrentUser' },
 ]

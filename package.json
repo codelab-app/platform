@@ -15,7 +15,7 @@
   "scripts": {
     "preinstall": "nx build tools-workspace",
     "e2e": "yarn cli tasks e2e --stage dev",
-    "cli": "nx build cli && node ./dist/apps/cli/main.js",
+    "cli": "scripts/nx/cli.sh",
     "docker:up": "scripts/docker/up.sh",
     "tunnel": "ngrok http --region=us --hostname=api.codelab-dev.ngrok.io 127.0.0.1:3000",
     "codegen": "yarn cli tasks codegen --stage dev",

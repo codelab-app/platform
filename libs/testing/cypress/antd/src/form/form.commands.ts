@@ -1,4 +1,4 @@
-import { wrapSubject } from '@codelab/testing/cypress'
+import { wrapSubject } from '@codelab/testing/cypress/command'
 import { EditorView } from '@codemirror/view'
 import { absoluteRoot } from '@hon2a/cypress-without'
 import escapeRegExp from 'lodash/escapeRegExp'

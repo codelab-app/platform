@@ -17,8 +17,8 @@ import './commands'
 
 // afterEach(stopOnFirstError)
 
-Cypress.on('test:after:run', (test) => {
-  if (test.state !== 'passed' && test.retries > 0) {
-    ;(Cypress as any).runner.stop()
-  }
-})
+// Cypress.on('test:after:run', (test) => {
+//   if (test.state !== 'passed' && test.retries > 0) {
+//     ;(Cypress as any).runner.stop()
+//   }
+// })

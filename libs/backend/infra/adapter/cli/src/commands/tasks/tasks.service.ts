@@ -1,4 +1,4 @@
-import { OgmService } from '@codelab/backend/infra/adapter/neo4j'
+import { OGMService } from '@codelab/backend/infra/adapter/neo4j'
 import { execCommand } from '@codelab/backend/infra/adapter/shell'
 import { Stage } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
@@ -25,6 +25,8 @@ export class TaskService implements CommandModule<unknown, unknown> {
   command = 'tasks'
 
   describe = 'Run tasks'
+
+  constructor(private ogmService: OGMService) {}
 
   builder(yargv: Argv<unknown>) {
     return yargv
@@ -94,7 +96,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
             }
 
             execCommand('yarn graphql-codegen')
-            await OgmService()
+            await this.ogmService.generate()
 
             process.exit(0)
           }
@@ -126,7 +128,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
                 }
 
                 try {
-                  await OgmService()
+                  await this.ogmService.generate()
                   process.kill(-startServerChildProcess.pid, 'SIGINT')
 
                   const { unCommittedFiles } = await gitChangedFiles()

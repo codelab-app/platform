@@ -14,6 +14,7 @@ export class AdminSeederService {
   constructor(
     private readonly userService: UserService,
     private readonly extractAntDesignFieldService: ExtractAntDesignFieldsService,
+    private readonly extractHtmlFieldsService: ExtractHtmlFieldsService,
     private readonly seedFrameworkService: SeedFrameworkService,
   ) {}
 
@@ -30,7 +31,7 @@ export class AdminSeederService {
 
   async seedHtml() {
     const fields = async (atoms: Array<IAtomDTO>) =>
-      new ExtractHtmlFieldsService().execute(atoms)
+      this.extractHtmlFieldsService.execute(atoms)
 
     await this.seedFrameworkService.execute({
       atoms: htmlAtomData,

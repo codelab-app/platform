@@ -6,11 +6,6 @@ import type { Argv, CommandModule } from 'yargs'
 import { globalHandler } from '../../shared/handler'
 import { loadStageMiddleware } from '../../shared/middleware'
 import { getStageOptions } from '../../shared/options'
-import {
-  assignUserOption,
-  selectUser,
-  upsertUserMiddleware,
-} from '../../shared/path-args'
 
 @Injectable()
 export class SeedService implements CommandModule<unknown> {
@@ -21,18 +16,13 @@ export class SeedService implements CommandModule<unknown> {
 
   builder(argv: Argv<unknown>) {
     return argv
-      .options({
-        ...getStageOptions([Stage.Dev, Stage.Test]),
-        ...assignUserOption,
-      })
-      .middleware([loadStageMiddleware, upsertUserMiddleware, selectUser])
       .command(
         'antd',
         'Seed Ant Design framework',
         (_argv) => _argv,
         globalHandler(async ({ user }) => {
           const owner = user as IAuth0User
-          await new AdminSeederService(owner).seedAntDesign()
+          // await new AdminSeederService(owner).seedAntDesign()
         }),
       )
       .command(

@@ -1,3 +1,4 @@
+import { getEnv } from '@codelab/shared/config'
 import type { NextApiHandler } from 'next'
 import httpProxyMiddleware from 'next-http-proxy-middleware'
 
@@ -19,9 +20,18 @@ import httpProxyMiddleware from 'next-http-proxy-middleware'
 //   proxy(req as any, res as any, next)
 // }
 
-export const nextProxyMiddleware: NextApiHandler = (req, res) => {
-  return httpProxyMiddleware(req, res, {
-    pathRewrite: { '^/api/graphql': 'http://l/ocalhost:4000/graphql' },
-    target: 'http://localhost:4000/graphql',
+export const nextProxyMiddleware: NextApiHandler = async (req, res) => {
+  await httpProxyMiddleware(req, res, {
+    // pathRewrite: {
+    //   '^/api/': '/api/v1/',
+    // },
+    // pathRewrite: [
+    //   {
+    //     patternStr: '^/api/graphql',
+    //     replaceStr: 'http://localhost:4000/api/graphql',
+    //   },
+    // ],
+    // 127.0.0.1:4000
+    target: getEnv().endpoint.platformApiHost,
   })
 }

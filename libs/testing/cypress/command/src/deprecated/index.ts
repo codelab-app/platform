@@ -26,3 +26,7 @@ export const selectorCommands: Array<CypressCommand> = [
   { fn: getOpenedModal, name: 'getOpenedModal' },
   { fn: findByButtonText, name: 'findByButtonText' },
 ]
+
+export * from './dom-classes'
+export * from './types'
+export * from './utils'

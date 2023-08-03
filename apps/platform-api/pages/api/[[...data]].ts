@@ -1,4 +1,8 @@
 /* eslint-disable unicorn/filename-case */
+import {
+  authMiddleware,
+  corsMiddleware,
+} from '@codelab/backend/infra/adapter/graphql'
 import { getDataListener } from '@codelab/backend/infra/adapter/serverless'
 import type { NextApiHandler } from 'next'
 
@@ -6,6 +10,9 @@ import type { NextApiHandler } from 'next'
  * https://github.com/Skn0tt/nextjs-nestjs-integration-example/issues/30
  */
 const handler: NextApiHandler = async (req, res) => {
+  // await corsMiddleware(req, res)
+  await authMiddleware(req, res)
+
   const listener = await getDataListener()
 
   await listener(req, res)

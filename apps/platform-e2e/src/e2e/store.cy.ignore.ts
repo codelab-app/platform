@@ -13,7 +13,7 @@ describe('Store', () => {
   before(() => {
     cy.resetDatabase()
     loginSession()
-    cy.getCurrentOwner()
+    cy.getCurrentUser()
       .then((owner) => {
         // cy.createType(
         //   {

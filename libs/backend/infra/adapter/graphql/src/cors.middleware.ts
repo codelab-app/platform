@@ -9,7 +9,7 @@ export const corsMiddleware: NextApiHandler = async (req, res) => {
   /**
    * Not an actual request
    */
-  if (req.method === 'OPTIONS') {
-    res.end()
-  }
+  // if (req.method === 'OPTIONS') {
+  //   res.end()
+  // }
 }

@@ -34,7 +34,10 @@ interface FrameworkData {
 export class SeedFrameworkService extends AuthUseCase<FrameworkData, void> {
   constructor(
     private readonly typeSeederService: TypeSeederService,
+    private readonly seedTagsService: SeedTagsService,
+    private seedEmptyApiService: SeedEmptyApiService,
     protected readonly owner: IAuth0User,
+    private seedAtomsService: SeedAtomsService,
   ) {
     super(owner)
   }
@@ -68,15 +71,15 @@ export class SeedFrameworkService extends AuthUseCase<FrameworkData, void> {
   }
 
   private async seedAtoms(atoms: FrameworkData['atoms']) {
-    return new SeedAtomsService(this.owner).execute(atoms)
+    return this.seedAtomsService.execute(atoms)
   }
 
   private seedTags(tags: FrameworkData['tags']) {
-    return new SeedTagsService(this.owner).execute(tags)
+    return this.seedTagsService.execute(tags)
   }
 
   private async seedEmptyApi(atoms: Array<IAtomType>) {
-    return new SeedEmptyApiService(this.owner).execute(atoms)
+    return this.seedEmptyApiService.execute(atoms)
   }
 
   private async seedApis(fields: Array<IFieldDTO>) {

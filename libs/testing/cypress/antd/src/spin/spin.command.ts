@@ -1,5 +1,7 @@
-import { domClasses } from '../../deprecated/dom-classes'
-import type { CypressElement } from '../../deprecated/types'
+import {
+  type CypressElement,
+  domClasses,
+} from '@codelab/testing/cypress/command'
 
 export const getSpinner = (subject: any): CypressElement =>
   subject

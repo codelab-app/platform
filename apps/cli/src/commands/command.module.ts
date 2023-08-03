@@ -2,11 +2,10 @@ import {
   ScrapeAntdService,
   ScrapeHtmlService,
   SeedService,
-  ServerlessService,
   TaskService,
   TerraformService,
 } from '@codelab/backend/infra/adapter/cli'
-import { neo4jConfig } from '@codelab/backend/infra/adapter/neo4j'
+import { neo4jConfig, OGMModule } from '@codelab/backend/infra/adapter/neo4j'
 import { BullModule } from '@nestjs/bull'
 import type { OnModuleInit } from '@nestjs/common'
 import { Module } from '@nestjs/common'
@@ -17,14 +16,12 @@ import { CommandService } from './command.service'
 @Module({
   exports: [CommandService],
   imports: [
-    BullModule.registerQueue({
-      name: 'import-admin-data',
-    }),
     ConfigModule.forRoot({
       ignoreEnvVars: true,
       isGlobal: true,
       load: [neo4jConfig],
     }),
+    OGMModule,
   ],
   providers: [
     {
@@ -36,7 +33,6 @@ import { CommandService } from './command.service'
     ScrapeAntdService,
     ScrapeHtmlService,
     TerraformService,
-    ServerlessService,
     TaskService,
   ],
 })

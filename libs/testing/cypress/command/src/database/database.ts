@@ -1,10 +1,7 @@
-import { defineConfig } from 'cypress'
-import { print } from 'graphql'
-
 export const resetDatabase = () =>
   cy.request({
     method: 'POST',
-    url: '/data/admin/reset',
+    url: '/api/data/admin/reset',
   })
 
 // .graphqlRequest({
