@@ -190,6 +190,8 @@ describe('State variables sharing between pages', () => {
       value: 'String',
     })
 
+    cy.findByText('Default values').should('exist')
+
     cy.get(
       '[data-cy="codelabui-sidebar-view-content-State"]',
     ).setFormFieldValue({
