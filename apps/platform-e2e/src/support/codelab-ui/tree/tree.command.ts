@@ -4,13 +4,13 @@ export const getCuiTreeItem = () => {
 
 export const getCuiTreeItemByPrimaryTitle = (primaryTitle: string) => {
   return cy.get(
-    `[data-cy*="codelabui-tree-item-primary-title-${primaryTitle}"]`,
+    `[data-cy-primary-title="codelabui-tree-item-primary-title-${primaryTitle}"]`,
   )
 }
 
 export const getCuiTreeItemBySecondaryTitle = (secondaryTitle: string) => {
   return cy.get(
-    `[data-cy*="codelabui-tree-item-secondary-title-${secondaryTitle}"]`,
+    `[data-cy-secondary-title="codelabui-tree-item-secondary-title-${secondaryTitle}"]`,
   )
 }
 

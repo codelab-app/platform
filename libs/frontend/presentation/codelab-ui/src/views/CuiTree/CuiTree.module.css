@@ -66,4 +66,14 @@
   :global(.ant-tree-drop-indicator) {
     transform: translate(3px, -6px);
   }
+
+  :global(.ant-tree-checkbox) {
+    margin-inline-end: unset;
+    margin-block-start: unset;
+    transform: translate(0, 4px);
+
+    :global(.ant-tree-checkbox-inner) {
+      border-radius: 24px; 
+    }
+  }
 }

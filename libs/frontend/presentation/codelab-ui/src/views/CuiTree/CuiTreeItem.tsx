@@ -35,11 +35,9 @@ export const CuiTreeItem = ({
         'codelabui-tree-item h-full flex flex-row justify-between overflow-hidden',
         variantColors[variant ?? 'primary'],
       )}
-      data-cy={`
-        codelabui-tree-item
-        codelabui-tree-item-primary-title-${primaryTitle}
-        codelabui-tree-item-secondary-title-${secondaryTitle}
-      `}
+      data-cy="codelabui-tree-item"
+      data-cy-primary-title={`codelabui-tree-item-primary-title-${primaryTitle}`}
+      data-cy-secondary-title={`codelabui-tree-item-secondary-title-${secondaryTitle}`}
       onClick={onClick}
     >
       <div className="flex h-full flex-row justify-start overflow-hidden">

@@ -1,18 +1,16 @@
-import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import {
   CreateTagModal,
   DeleteTagsModal,
-  GetTagsTable,
-  GetTagsTree,
-  tagRef,
+  TagsPrimarySidebar,
+  UpdateTagForm,
   UpdateTagModal,
 } from '@codelab/frontend/domain/tag'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
-  CuiHeaderToolbar,
+  CuiSkeletonWrapper,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
@@ -49,7 +47,9 @@ const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       <DeleteTagsModal />
 
       <ContentSection>
-        <GetTagsTable loading={status === 'loading'} />
+        <CuiSkeletonWrapper isLoading={status === 'loading'}>
+          <UpdateTagForm />
+        </CuiSkeletonWrapper>
       </ContentSection>
     </>
   )
@@ -57,27 +57,15 @@ const TagPage: CodelabPage<DashboardTemplateProps> = observer(() => {
 
 const TagPageHeader = observer(() => {
   const { tagService } = useStore()
-  const ids = tagService.checkedTags.map((tag) => tag.id)
-
-  const toolbarItems = [
-    {
-      icon: <PlusOutlined />,
-      key: 'create',
-      onClick: () => tagService.createModal.open(),
-      title: 'Create Tag',
-    },
-    {
-      icon: <DeleteOutlined />,
-      key: 'delete',
-      onClick: () =>
-        tagService.deleteManyModal.open(ids.map((id) => tagRef(id))),
-      title: 'Delete Tag',
-    },
-  ]
+  const tag = tagService.updateForm.tag
 
   return (
     <CuiHeader
-      direction={<CuiHeaderBreadcrumb items={[{ title: 'Tags' }]} />}
+      direction={
+        <CuiHeaderBreadcrumb
+          items={[{ title: 'Tags' }, { title: tag?.name || '' }]}
+        />
+      }
       logo={
         <Image
           alt="codelab logo"
@@ -85,9 +73,6 @@ const TagPageHeader = observer(() => {
           preview={false}
           src="/logo.png"
         />
-      }
-      toolbar={
-        <CuiHeaderToolbar items={toolbarItems} title="Tags Header Toolbar" />
       }
     />
   )
@@ -101,7 +86,7 @@ TagPage.Layout = observer(({ children }) => {
       Header={TagPageHeader}
       PrimarySidebar={{
         default: ExplorerPaneType.Tag,
-        items: [{ key: ExplorerPaneType.Tag, render: () => <GetTagsTree /> }],
+        items: [{ key: ExplorerPaneType.Tag, render: TagsPrimarySidebar }],
       }}
     >
       {children()}

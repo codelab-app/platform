@@ -41,6 +41,9 @@ export type WithChildren<T> = T & {
 
 export interface CuiTreeProps<T extends WithChildren<CuiTreeBasicDataNode>> {
   allowDrop?: DirectoryTreeProps<T>['allowDrop']
+  checkStrictly?: DirectoryTreeProps<T>['checkStrictly']
+  checkable?: DirectoryTreeProps<T>['checkable']
+  checkedKeys?: DirectoryTreeProps<T>['checkedKeys']
   defaultExpandAll?: DirectoryTreeProps<T>['defaultExpandAll']
   disabled?: DirectoryTreeProps<T>['disabled']
   draggable?: boolean
@@ -48,6 +51,7 @@ export interface CuiTreeProps<T extends WithChildren<CuiTreeBasicDataNode>> {
   isLoading?: boolean
   loadData?: DirectoryTreeProps<T>['loadData']
   multiple?: DirectoryTreeProps<T>['multiple']
+  onCheck?: DirectoryTreeProps<T>['onCheck']
   onClick?: DirectoryTreeProps<T>['onClick']
   onDrop?: DirectoryTreeProps<T>['onDrop']
   onExpand?: DirectoryTreeProps<T>['onExpand']

@@ -1,4 +1,5 @@
 import type { ITag } from '@codelab/frontend/abstract/core'
+import { ITagsTreeDataNode } from '@codelab/frontend/abstract/core'
 import type {
   TagCreateInput,
   TagUpdateInput,
@@ -74,10 +75,15 @@ export class Tag
   }
 
   @computed
-  get antdNode() {
+  get antdNode(): ITagsTreeDataNode {
     return {
       children: this.children.map((child) => child.current.antdNode),
+      extraData: {
+        node: this,
+        type: 'tag',
+      },
       key: this.id,
+      primaryTitle: this.name,
       title: this.name,
     }
   }
