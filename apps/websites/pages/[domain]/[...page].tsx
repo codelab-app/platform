@@ -46,8 +46,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<ProductionWebsiteProps> = async (
   context,
 ) => {
-  console.log('getStaticProps', context.params)
-
   if (!context.params) {
     throw new Error('No context params ')
   }
@@ -66,6 +64,14 @@ export const getStaticProps: GetStaticProps<ProductionWebsiteProps> = async (
     throw new Error(`Page with ${pageUrl} URL for "${domain}" domain Not found`)
   }
 
+  if (!foundPage.app._compoundName) {
+    foundPage.app['_compoundName'] = 'auth0|64be948b1273c2d2eba43496-First App'
+  }
+
+  if (!foundPage._compoundName) {
+    foundPage['_compoundName'] = 'a04a6b16-524c-4600-b5d3-2f0a666e66b4-_app'
+  }
+
   const renderingData = await pageApi.GetRenderedPageAndCommonAppData({
     appName: foundPage.app._compoundName,
     pageName: foundPage._compoundName,
@@ -73,7 +79,7 @@ export const getStaticProps: GetStaticProps<ProductionWebsiteProps> = async (
 
   return {
     props: {
-      appName: foundPage.app.name,
+      appName: foundPage.app.name || 'First App',
       pageName: foundPage.name,
       renderingData,
     },
