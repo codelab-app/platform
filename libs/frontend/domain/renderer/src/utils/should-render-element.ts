@@ -5,7 +5,7 @@ import {
 } from '@codelab/frontend/shared/utils'
 
 export const shouldRenderElement = (
-  { providerStore, renderIfExpression, store }: IElement,
+  { providerStore, renderIfExpression, store, urlProps }: IElement,
   props: IPropData = {},
 ) => {
   if (!renderIfExpression || !hasStateExpression(renderIfExpression)) {
@@ -17,5 +17,6 @@ export const shouldRenderElement = (
     store.current.state,
     providerStore?.current.state,
     props,
+    urlProps,
   )
 }

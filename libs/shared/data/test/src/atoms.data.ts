@@ -14,6 +14,7 @@ const atomTypes = [
   IAtomType.AntDesignSpace,
   IAtomType.AntDesignCard,
   IAtomType.AntDesignInput,
+  IAtomType.NextLink,
 ]
 
 export const createAtomsData = (owner: IAuth0Owner): Array<IAtomDTO> =>

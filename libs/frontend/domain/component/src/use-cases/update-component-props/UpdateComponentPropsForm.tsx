@@ -3,12 +3,15 @@ import { AdminPropsPanel } from '@codelab/frontend/domain/admin'
 import { PropsForm } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { Spinner } from '@codelab/frontend/presentation/view'
-import { filterEmptyStrings, mergeProps } from '@codelab/shared/utils'
+import {
+  filterEmptyStrings,
+  getDefaultFieldProps,
+  mergeProps,
+} from '@codelab/shared/utils'
 import { useAsync } from '@react-hookz/web'
 import { Col, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
-import { getDefaultComponentFieldProps } from '../../store'
 
 export interface UpdateComponentPropsFormProps {
   component: IComponent
@@ -39,7 +42,7 @@ export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(
     // We only set the `defaultValues` as an initial value, not as `defaultValue` in the schema
     // so that the value of `defaultValues` wont show when the field is cleared
     const propsModel = mergeProps(
-      getDefaultComponentFieldProps(component),
+      getDefaultFieldProps(component),
       component.props.current.values,
     )
 

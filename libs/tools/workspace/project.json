@@ -12,6 +12,7 @@
         "prod": {},
         "test": {}
       },
+      "defaultConfiguration": "dev",
       "executor": "@nx/js:tsc",
       "options": {
         "assets": [

@@ -9,6 +9,7 @@ import type { FieldUpdateInput } from '@codelab/shared/abstract/codegen'
 import { IFieldDTO } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
+import isNil from 'lodash/isNil'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
@@ -24,9 +25,20 @@ const create = ({
   prevSibling,
   validationRules,
 }: IFieldDTO) => {
+  let parsedDefaultValues = defaultValues
+
+  try {
+    // `defaultValues` could be a falsy valid value e.g. `false`, 0
+    parsedDefaultValues = !isNil(parsedDefaultValues)
+      ? JSON.parse(parsedDefaultValues)
+      : null
+  } catch (err) {
+    console.log(`Failed to parse default value for field: ${name}`)
+  }
+
   return new Field({
     api: typeRef(api.id) as Ref<IInterfaceType>,
-    defaultValues: defaultValues ? JSON.parse(defaultValues) : null,
+    defaultValues: parsedDefaultValues,
     description,
     id,
     key,

@@ -3976,6 +3976,7 @@ export enum AtomType {
   MuiUnstableTrapFocus = 'MuiUnstableTrapFocus',
   MuiYearPicker = 'MuiYearPicker',
   MuiZoom = 'MuiZoom',
+  NextLink = 'NextLink',
   Query = 'Query',
   ReactFragment = 'ReactFragment',
   Script = 'Script',

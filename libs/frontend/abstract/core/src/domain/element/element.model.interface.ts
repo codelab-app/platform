@@ -107,6 +107,7 @@ export interface IElement
   store: Ref<IStore>
   transformPropsFn: Maybe<TransformPropsFn>
   treeViewNode: IElementTreeViewDataNode
+  urlProps?: IPropData
 
   appendToGuiCss(css: CssMap): void
   attachAsNextSibling(sibling: IElement): void

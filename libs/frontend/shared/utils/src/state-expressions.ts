@@ -35,15 +35,17 @@ export const evaluateExpression = (
   state: IPropData,
   rootState: IPropData = {},
   props: IPropData = {},
+  urlProps: IPropData = {},
 ) => {
   try {
     const code = `return ${stripStateExpression(expression)}`
 
     // eslint-disable-next-line no-new-func
-    return new Function('state', 'rootState', 'props', code)(
+    return new Function('state', 'rootState', 'props', 'url', code)(
       state,
       rootState,
       props,
+      urlProps,
     )
   } catch (error) {
     console.log(error)
@@ -57,13 +59,14 @@ export const replaceStateInProps = (
   state: IPropData = {},
   rootState: IPropData = {},
   injectedProps: IPropData = {},
+  urlProps: IPropData = {},
 ) =>
   mapDeep(
     props,
     // value mapper
     (value) => {
       if (isString(value)) {
-        return getByExpression(value, state, rootState, injectedProps)
+        return getByExpression(value, state, rootState, injectedProps, urlProps)
       }
 
       // ReactNodeType can accept a string and will be rendered as a normal html node
@@ -81,7 +84,7 @@ export const replaceStateInProps = (
     // key mapper
     (_, key) =>
       (isString(key)
-        ? getByExpression(key, state, rootState, injectedProps)
+        ? getByExpression(key, state, rootState, injectedProps, urlProps)
         : key) as string,
   )
 
@@ -90,6 +93,7 @@ const getByExpression = (
   state: IPropData,
   rootState: IPropData,
   props: IPropData = {},
+  urlProps: IPropData = {},
 ) => {
   if (!hasStateExpression(key)) {
     return key
@@ -99,13 +103,13 @@ const getByExpression = (
    * return typed value for : {{expression}}
    */
   if (isSingleStateExpression(key)) {
-    return evaluateExpression(key, state, rootState, props)
+    return evaluateExpression(key, state, rootState, props, urlProps)
   }
 
   /**
    * return string value for : [text1]? {{expression1}} [text2]? {{expression2}}...
    */
   return key.replace(STATE_PATH_TEMPLATE_REGEX, (value) =>
-    evaluateExpression(value, state, rootState, props),
+    evaluateExpression(value, state, rootState, props, urlProps),
   )
 }

@@ -1,4 +1,5 @@
 export * from './authorization/with-page-auth-redirect'
+export * from './builder-url'
 export * from './callback-with-params'
 export * from './client-cache'
 export * from './copy-text-to-clipboard'

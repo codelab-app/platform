@@ -29,6 +29,7 @@ export interface IRenderer {
   rendererType: RendererType
   runtimeProps: ObjectMap<IRuntimeProp<IPageNode>>
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
+  urlSegments?: Record<string, string>
 
   addRuntimeProps(
     nodeRef: IPageNodeRef,

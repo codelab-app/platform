@@ -19,6 +19,7 @@ export interface RendererProps {
   providerTree?: Nullable<IElementTree>
   rendererType: RendererType
   setSelectedNode?: IBuilderService['setSelectedNode']
+  urlSegments?: Record<string, string>
 }
 
 export interface IRenderService {
