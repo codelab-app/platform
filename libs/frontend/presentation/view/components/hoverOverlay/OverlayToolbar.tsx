@@ -1,4 +1,4 @@
-import type { CSSProperties, RefObject } from 'react'
+import type { CSSProperties } from 'react'
 import React from 'react'
 
 interface OverlayToolbarProps {
@@ -7,7 +7,7 @@ interface OverlayToolbarProps {
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
   >
-  overlayElement: HTMLElement | React.RefObject<HTMLElement>
+  overlayElement: HTMLElement
   toolbarProps?: React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
@@ -25,36 +25,29 @@ export const OverlayToolbar = ({
   overlayElement,
   toolbarProps: { style: toolbarStyle, ...toolbarProps } = {},
 }: OverlayToolbarProps) => {
-  const element = Object.hasOwnProperty.call(overlayElement, 'current')
-    ? (overlayElement as RefObject<HTMLElement>).current
-    : (overlayElement as HTMLElement)
-
   // This is not very good for performance, if we can find a way to track movement with
   // IntersectionObserver and only update the rect then, it would be much better
-  const rect = element?.getBoundingClientRect()
+  const rect = overlayElement.getBoundingClientRect()
 
-  const style: CSSProperties =
-    element && rect
-      ? {
-          border: '2px solid rgb(41, 205, 255)',
-          bottom: `${rect.bottom}px`,
-          height: `${rect.height}px`,
-          left: `${rect.left}px`,
-          pointerEvents: 'none',
-          position: 'fixed',
-          right: `${rect.right}px`,
-          top: `${rect.top}px`,
-          width: `${rect.width}px`,
-          ...(containerStyle || {}),
-        }
-      : {}
+  const style: CSSProperties = {
+    border: '2px solid rgb(41, 205, 255)',
+    bottom: `${rect.bottom}px`,
+    height: `${rect.height}px`,
+    left: `${rect.left}px`,
+    pointerEvents: 'none',
+    position: 'fixed',
+    right: `${rect.right}px`,
+    top: `${rect.top}px`,
+    width: `${rect.width}px`,
+    ...(containerStyle || {}),
+  }
 
   return (
     <div
       className={`overlay-toolbar z-50 ${containerClassName || ''}`}
       style={style}
     >
-      {element && content && (
+      {content && (
         <div
           style={{
             backgroundColor: 'rgb(41, 205, 255)',
