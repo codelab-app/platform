@@ -1,9 +1,10 @@
-import Ajv, { AnySchema } from 'ajv'
-import { IElement } from '@codelab/frontend/abstract/core'
+import type { IElement } from '@codelab/frontend/abstract/core'
+import { schemaTransformer } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { useAsync } from '@react-hookz/web'
+import type { AnySchema } from 'ajv'
+import Ajv from 'ajv'
 import React, { useEffect } from 'react'
-import { schemaTransformer } from '@codelab/frontend/domain/type'
 
 const ajv = new Ajv({ allErrors: true, strict: false, useDefaults: true })
 

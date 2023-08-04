@@ -145,11 +145,11 @@ export class Element
     preRenderAction: prop<Nullable<Ref<IAction>>>(null).withSetter(),
     prevSibling: prop<Nullable<Ref<IElement>>>(null).withSetter(),
     props: prop<Ref<IProp>>().withSetter(),
+    propsError: prop<Nullable<string>>(null),
     propTransformationJs: prop<Nullable<string>>(null).withSetter(),
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
     renderIfExpression: prop<Nullable<string>>(null).withSetter(),
     renderingMetadata: prop<Nullable<RenderingMetadata>>(null),
-    propsError: prop<Nullable<string>>(null),
     // atom: prop<Nullable<Ref<IAtom>>>(null).withSetter(),
     renderType: prop<IElementRenderType | null>(null).withSetter(),
     // if this is a duplicate, trace source element id else null
