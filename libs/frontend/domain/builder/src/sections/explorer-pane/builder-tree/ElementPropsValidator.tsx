@@ -26,10 +26,6 @@ const ElementPropsValidator = ({ element }: { element: IElement }) => {
     }
 
     const schema = schemaTransformer.transform(interfaceType)
-    // const bridge = createBridge(schema, state)
-
-    console.log('run validaton')
-
     const validator = ajv.compile(schema as AnySchema)
     void validator(propsValue)
 

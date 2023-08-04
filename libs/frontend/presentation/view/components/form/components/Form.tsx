@@ -27,12 +27,12 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
     onSubmit = (_model: TData) => Promise.resolve(),
     onSubmitError = [],
     onSubmitSuccess = [],
+    onValidate,
     schema,
     submitField,
     submitRef,
-    onValidate,
   }: React.PropsWithChildren<FormProps<TData, TResponse>>): ReactElement => {
-    const { elementTree, selectedNode } = useFormContext()
+    const { selectedNode } = useFormContext()
     const state = selectedNode?.current.store.current
 
     const [bridge, setBridge] = useState(
@@ -86,6 +86,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
             if (onValidate) {
               callbackWithParams(onValidate, { errors, formData })
             }
+
             return bypassExpressionErrors(formData, errors)
           }}
           ref={connectUniformSubmitRef(submitRef)}
