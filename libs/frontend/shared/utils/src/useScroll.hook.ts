@@ -29,6 +29,44 @@ const EmptySSRRect: SSRRect = {
   y: 0,
 }
 
+const findScrollParent = (element: HTMLElement | null) => {
+  while (element && element !== document.body) {
+    const style = window.getComputedStyle(element)
+
+    if (style.overflow === 'auto' || style.overflow === 'scroll') {
+      return element
+    }
+
+    element = element.parentElement
+  }
+
+  return element
+}
+
+const isElementInScrollParentViewport = (
+  element: HTMLElement,
+  root: HTMLElement,
+) => {
+  const scrollParent = findScrollParent(root)
+  const rect = element.getBoundingClientRect()
+  const parentRect = (scrollParent ?? document.body).getBoundingClientRect()
+
+  return (
+    rect.top >= parentRect.top &&
+    rect.left >= parentRect.left &&
+    rect.bottom <= parentRect.bottom &&
+    rect.right <= parentRect.right
+  )
+}
+
+const useScrollIntoView = (element: HTMLElement, root: HTMLElement) => {
+  useEffect(() => {
+    if (!isElementInScrollParentViewport(element, root)) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    }
+  }, [element, root])
+}
+
 const useScroll = () => {
   const [lastScrollTop, setLastScrollTop] = useState<number>(0)
 
@@ -68,4 +106,4 @@ const useScroll = () => {
   }
 }
 
-export { useScroll }
+export { useScroll, useScrollIntoView }

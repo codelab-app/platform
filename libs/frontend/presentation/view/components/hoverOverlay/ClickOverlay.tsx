@@ -1,4 +1,4 @@
-import { useScroll } from '@codelab/frontend/shared/utils'
+import { useScroll, useScrollIntoView } from '@codelab/frontend/shared/utils'
 import React from 'react'
 import useResizeObserver from 'use-resize-observer/polyfilled'
 import type { OverlayProps } from './overlay.interface'
@@ -7,14 +7,15 @@ import { OverlayToolbar } from './OverlayToolbar'
 export const ClickOverlay = ({
   content,
   element,
-  renderContainerRef,
+  renderContainer,
 }: OverlayProps) => {
   // Make sure we re-render overlay when:
   // - element is resized
   // - the page is resized
   // - the content is scrolled
   useResizeObserver({ ref: element })
-  useResizeObserver({ ref: renderContainerRef.current })
+  useResizeObserver({ ref: renderContainer })
+  useScrollIntoView(element, renderContainer)
   useScroll()
 
   const elementRect = element.getBoundingClientRect()
