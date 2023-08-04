@@ -184,6 +184,29 @@ export class AppService
       /**
        * Pages
        */
+
+      /**
+       * Sort pages for app. Order is app, custom pages, 404, 500
+       */
+
+      const _pages: Array<BuilderPageFragment> = appData.pages
+
+      _pages.sort((a, b) => {
+        if (a.kind === IPageKind.Provider) {
+          return -1
+        }
+
+        if (a.kind === IPageKind.NotFound) {
+          return 1
+        }
+
+        if (a.kind === IPageKind.InternalServerError) {
+          return 1
+        }
+
+        return a.name.localeCompare(b.name)
+      })
+
       appData.pages.forEach((pageData) => {
         const pageElements = [
           pageData.rootElement,
@@ -341,11 +364,11 @@ export class AppService
         return -1
       }
 
-      if (a.name === IPageKind.NotFound) {
+      if (a.kind === IPageKind.NotFound) {
         return 1
       }
 
-      if (a.name === IPageKind.InternalServerError) {
+      if (a.kind === IPageKind.InternalServerError) {
         return 1
       }
 
@@ -383,6 +406,7 @@ export class AppService
     this.loadPages({ pages })
 
     const app = this.app(appId)
+
     pages.forEach(({ id }) => {
       const pageExistsInApp = app?.pages.find(
         (appPage) => appPage.current.id === id,
