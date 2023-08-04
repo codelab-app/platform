@@ -47,7 +47,9 @@ export const CuiHeaderBreadcrumb = ({ items }: CuiHeaderBreadcrumbProps) => {
     <Tooltip placement="bottom" title={createFullPath(items)}>
       <div className="flex h-full items-center px-2">
         <Breadcrumb
-          items={filterBreadcrumbItems(items).map(transformBreadcrumbItems)}
+          items={filterBreadcrumbItems(items)
+            .filter((item) => item.title)
+            .map(transformBreadcrumbItems)}
           separator={<BreadcrumbItemWrapper>{separator}</BreadcrumbItemWrapper>}
         />
       </div>

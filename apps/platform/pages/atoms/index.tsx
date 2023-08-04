@@ -1,27 +1,21 @@
-import { PlusOutlined } from '@ant-design/icons'
-import type { CodelabPage } from '@codelab/frontend/abstract/types'
+import { type CodelabPage, PageType } from '@codelab/frontend/abstract/types'
 import {
-  AtomsTable,
+  AtomForm,
+  AtomsPrimarySidebar,
   CreateAtomModal,
   DeleteAtomsModal,
-  UpdateAtomModal,
 } from '@codelab/frontend/domain/atom'
 import {
   CreateFieldModal,
   DeleteFieldModal,
-  UpdateFieldModal,
 } from '@codelab/frontend/domain/type'
 import {
   CuiHeader,
   CuiHeaderBreadcrumb,
-  CuiHeaderToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { DashboardTemplateProps } from '@codelab/frontend/presentation/view'
-import {
-  ContentSection,
-  DashboardTemplate,
-} from '@codelab/frontend/presentation/view'
+import { DashboardTemplate } from '@codelab/frontend/presentation/view'
 import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
 import { Image } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -36,35 +30,42 @@ const AtomsPage: CodelabPage<DashboardTemplateProps> = observer(() => {
       </Head>
 
       <CreateAtomModal />
-      <UpdateAtomModal />
       <DeleteAtomsModal />
 
       <CreateFieldModal />
-      <UpdateFieldModal />
       <DeleteFieldModal />
 
-      <ContentSection>
-        <AtomsTable />
-      </ContentSection>
+      <AtomForm />
     </>
   )
 })
 
 const AtomsHeader = observer(() => {
-  const { atomService } = useStore()
+  const { atomService, fieldService } = useStore()
+  const atomToUpdate = atomService.updateForm.atom?.name || ''
+  const fieldToUpdate = fieldService.updateForm.field?.key || ''
 
-  const toolbarItems = [
-    {
-      icon: <PlusOutlined />,
-      key: 'create',
-      onClick: () => atomService.createModal.open(),
-      title: 'Create Atom',
-    },
-  ]
+  const atomOrField = atomService.updateForm.isOpen
+    ? 'atom'
+    : fieldService.updateForm.isOpen
+    ? 'field'
+    : ''
+
+  const atomOrFieldName = atomService.updateForm.isOpen
+    ? atomToUpdate
+    : fieldToUpdate
 
   return (
     <CuiHeader
-      direction={<CuiHeaderBreadcrumb items={[{ title: 'Atoms' }]} />}
+      direction={
+        <CuiHeaderBreadcrumb
+          items={[
+            { title: 'Atoms' },
+            { title: atomOrField },
+            { title: atomOrFieldName },
+          ]}
+        />
+      }
       logo={
         <Image
           alt="codelab logo"
@@ -72,9 +73,6 @@ const AtomsHeader = observer(() => {
           preview={false}
           src="/logo.png"
         />
-      }
-      toolbar={
-        <CuiHeaderToolbar items={toolbarItems} title="My Header Toolbar" />
       }
     />
   )
@@ -86,6 +84,19 @@ export const getServerSideProps = withPageAuthRedirect()
 
 AtomsPage.Layout = ({ children }) => {
   return (
-    <DashboardTemplate Header={AtomsHeader}>{children()}</DashboardTemplate>
+    <DashboardTemplate
+      Header={AtomsHeader}
+      PrimarySidebar={{
+        default: PageType.Atoms,
+        items: [
+          {
+            key: PageType.Atoms,
+            render: AtomsPrimarySidebar,
+          },
+        ],
+      }}
+    >
+      {children()}
+    </DashboardTemplate>
   )
 }

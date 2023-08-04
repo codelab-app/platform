@@ -7,37 +7,37 @@ import {
 import { useStore } from '@codelab/frontend/presentation/container'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { TypesTreeView } from '../get-types'
+import { AtomsTreeView } from './AtomsTreeView'
 
-export const TypesPrimarySidebar = observer(() => {
-  const { typeService } = useStore()
+export const AtomsPrimarySidebar = observer(() => {
+  const { atomService } = useStore()
 
   const { items, showSearchBar } = useToolbarPagination(
-    typeService,
-    PageType.Type,
+    atomService,
+    PageType.Atoms,
     { name: 'string' },
   )
 
   return (
     <CuiSidebar
-      defaultActiveViewKeys={['types-view']}
-      label="Types"
+      defaultActiveViewKeys={['atoms-view']}
+      label="Atoms"
       views={[
         {
-          content: <TypesTreeView showSearchBar={showSearchBar} />,
-          key: 'types-view',
-          label: 'Types',
+          content: <AtomsTreeView showSearchBar={showSearchBar} />,
+          key: 'atoms-view',
+          label: 'Atoms',
           toolbar: {
             items: [
               ...items,
               {
                 icon: <PlusOutlined />,
-                key: 'create type',
-                onClick: () => typeService.createModal.open(),
-                title: 'Create Type',
+                key: 'create',
+                onClick: () => atomService.createModal.open(),
+                title: 'Create Atom',
               },
             ],
-            title: 'types-tree-toolbar',
+            title: 'atoms-tree-toolbar',
           },
         },
       ]}
