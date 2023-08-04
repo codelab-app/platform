@@ -1,13 +1,17 @@
 import type { ICreateElementData } from '@codelab/frontend/abstract/core'
 import { isAtomInstance } from '@codelab/frontend/abstract/core'
+import type { SubmitController } from '@codelab/frontend/abstract/types'
 import {
   SelectActionField,
   SelectAnyElement,
 } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
-import { Form, FormController } from '@codelab/frontend/presentation/view'
+import { Form } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
-import type { UniformSelectFieldProps } from '@codelab/shared/abstract/types'
+import type {
+  Maybe,
+  UniformSelectFieldProps,
+} from '@codelab/shared/abstract/types'
 import { Divider } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -19,104 +23,110 @@ import { SelectLinkElement } from '../../../components/SelectLinkElement'
 import { useRequiredParentValidator } from '../../../utils'
 import { createElementSchema } from './create-element.schema'
 
-export const CreateElementForm = observer(() => {
-  const { elementService, userService } = useStore()
-  const { metadata, parentElement } = elementService.createForm
-  const elementOptions = metadata?.elementOptions
-  const { validateParentForCreate } = useRequiredParentValidator()
+interface CreateElementFormProps {
+  submitRef: React.MutableRefObject<Maybe<SubmitController>>
+}
 
-  if (!parentElement) {
-    return null
-  }
+export const CreateElementForm = observer(
+  ({ submitRef }: CreateElementFormProps) => {
+    const { elementService, userService } = useStore()
+    const { metadata, parentElement } = elementService.createForm
+    const elementOptions = metadata?.elementOptions
+    const { validateParentForCreate } = useRequiredParentValidator()
 
-  const onSubmit = async (data: ICreateElementData) => {
-    const { prevSibling } = data
-
-    const isValidParent = validateParentForCreate(
-      data.renderType?.id,
-      data.parentElement?.id,
-    )
-
-    if (!isValidParent) {
-      return Promise.reject()
+    if (!parentElement) {
+      return null
     }
 
-    void (prevSibling
-      ? elementService.createElementAsNextSibling(data)
-      : elementService.createElementAsFirstChild(data))
+    const onSubmit = async (data: ICreateElementData) => {
+      const { prevSibling } = data
 
-    closeModal()
+      const isValidParent = validateParentForCreate(
+        data.renderType?.id,
+        data.parentElement?.id,
+      )
 
-    return Promise.resolve()
-  }
+      if (!isValidParent) {
+        return Promise.reject()
+      }
 
-  const onSubmitError = createNotificationHandler({
-    title: 'Error while creating element',
-  })
+      void (prevSibling
+        ? elementService.createElementAsNextSibling(data)
+        : elementService.createElementAsFirstChild(data))
 
-  const closeModal = () => elementService.createForm.close()
+      closeForm()
 
-  const model = {
-    id: v4(),
-    owner: userService.user.auth0Id,
-    parentElement: {
-      id: parentElement.id,
-    },
-    // Needs to be null initially so that required sub-fields
-    // are not validated when nothing is selected yet
-    renderType: null,
-  }
+      return Promise.resolve()
+    }
 
-  const parentAtom = isAtomInstance(parentElement.renderType)
-    ? parentElement.renderType.current
-    : undefined
+    const onSubmitError = createNotificationHandler({
+      title: 'Error while creating element',
+    })
 
-  return (
-    <Form<ICreateElementData>
-      data-testid="create-element-form"
-      model={model}
-      onSubmit={onSubmit}
-      onSubmitError={onSubmitError}
-      onSubmitSuccess={closeModal}
-      schema={createElementSchema}
-    >
-      <AutoFields
-        omitFields={[
-          'parentElement',
-          'customCss',
-          'guiCss',
-          'propsData',
-          'prevSibling',
-          'preRenderAction',
-          'postRenderAction',
-          'renderType',
-          'name',
-        ]}
-      />
-      <AutoField
-        component={(props: UniformSelectFieldProps) => (
-          <SelectAnyElement
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...props}
-            allElementOptions={elementOptions}
-          />
-        )}
-        help={`only elements from \`${parentElement.closestContainerNode.name}\` are visible in this list`}
-        name="parentElement.id"
-      />
-      <SelectLinkElement
-        allElementOptions={elementOptions}
-        name="prevSibling.id"
-        required={false}
-      />
-      <RenderTypeCompositeField name="renderType" parentAtom={parentAtom} />
-      <SelectActionField name="preRenderAction" />
-      <SelectActionField name="postRenderAction" />
-      <Divider />
-      <AutoComputedElementNameField label="Name" name="name" />
-      <FormController onCancel={closeModal} submitLabel="Create Element" />
-    </Form>
-  )
-})
+    const closeForm = () => elementService.createForm.close()
+
+    const model = {
+      id: v4(),
+      owner: userService.user.auth0Id,
+      parentElement: {
+        id: parentElement.id,
+      },
+      // Needs to be null initially so that required sub-fields
+      // are not validated when nothing is selected yet
+      renderType: null,
+    }
+
+    const parentAtom = isAtomInstance(parentElement.renderType)
+      ? parentElement.renderType.current
+      : undefined
+
+    return (
+      <Form<ICreateElementData>
+        data-testid="create-element-form"
+        model={model}
+        onSubmit={onSubmit}
+        onSubmitError={onSubmitError}
+        onSubmitSuccess={closeForm}
+        schema={createElementSchema}
+        submitRef={submitRef}
+      >
+        <AutoFields
+          omitFields={[
+            'parentElement',
+            'customCss',
+            'guiCss',
+            'propsData',
+            'prevSibling',
+            'preRenderAction',
+            'postRenderAction',
+            'renderType',
+            'name',
+          ]}
+        />
+        <AutoField
+          component={(props: UniformSelectFieldProps) => (
+            <SelectAnyElement
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...props}
+              allElementOptions={elementOptions}
+            />
+          )}
+          help={`only elements from \`${parentElement.closestContainerNode.name}\` are visible in this list`}
+          name="parentElement.id"
+        />
+        <SelectLinkElement
+          allElementOptions={elementOptions}
+          name="prevSibling.id"
+          required={false}
+        />
+        <RenderTypeCompositeField name="renderType" parentAtom={parentAtom} />
+        <SelectActionField name="preRenderAction" />
+        <SelectActionField name="postRenderAction" />
+        <Divider />
+        <AutoComputedElementNameField label="Name" name="name" />
+      </Form>
+    )
+  },
+)
 
 CreateElementForm.displayName = 'CreateElementForm'

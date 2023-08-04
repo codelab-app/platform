@@ -1,4 +1,4 @@
-import { PlusOutlined } from '@ant-design/icons'
+import { CloseOutlined, PlusOutlined, SaveOutlined } from '@ant-design/icons'
 import type { IPageNode, IStore } from '@codelab/frontend/abstract/core'
 import {
   elementRef,
@@ -11,6 +11,7 @@ import {
   storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/core'
+import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { DeleteComponentModal } from '@codelab/frontend/domain/component'
 import {
   CreateElementForm,
@@ -42,10 +43,11 @@ import {
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { IPageKind } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { Collapse } from 'antd'
 import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
+import React, { useRef } from 'react'
 import { ElementTreeView } from './builder-tree'
 
 export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
@@ -58,6 +60,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
       renderService,
     } = useStore()
 
+    const createElementSubmitRef = useRef<Maybe<SubmitController>>()
     const { page } = useCurrentPage()
     const { component } = useCurrentComponent()
     const pageBuilderRenderer = page && renderService.renderers.get(page.id)
@@ -97,7 +100,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
       {
         content: pageTree && (
           <>
-            {isPageTree && !elementService.createForm.isOpen && (
+            {isPageTree && (
               <ElementTreeView
                 expandedNodeIds={builderService.expandedPageElementTreeNodeIds}
                 selectTreeNode={selectTreeNode}
@@ -109,11 +112,6 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                 )}
                 treeData={antdTree}
               />
-            )}
-            {elementService.createForm.isOpen && (
-              <div className="p-2">
-                <CreateElementForm />
-              </div>
             )}
           </>
         ),
@@ -287,6 +285,34 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         <CuiSidebar
           defaultActiveViewKeys={['ElementTree']}
           label="Explorer"
+          popover={{
+            content: <CreateElementForm submitRef={createElementSubmitRef} />,
+            label: 'Create Element',
+            open: elementService.createForm.isOpen,
+            toolbar: {
+              items: [
+                {
+                  icon: <SaveOutlined />,
+                  key: 'Create',
+                  label: 'Create',
+                  onClick: () => {
+                    createElementSubmitRef.current?.submit()
+                  },
+                  title: 'Create',
+                },
+                {
+                  icon: <CloseOutlined />,
+                  key: 'Cancel',
+                  label: 'Cancel',
+                  onClick: () => {
+                    elementService.createForm.close()
+                  },
+                  title: 'Cancel',
+                },
+              ],
+              title: 'Create Element toolbar',
+            },
+          }}
           views={sidebarViews}
         />
         <CreateFieldModal />

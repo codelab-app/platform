@@ -2,9 +2,11 @@ import { MoreOutlined } from '@ant-design/icons'
 import { Tabs, Tooltip, Typography } from 'antd'
 import classNames from 'classnames'
 import type { ReactNode } from 'react'
-import React from 'react'
+import React, { useRef } from 'react'
 import type { CuiSidebarToolbarProps } from '../../views'
 import { CuiCollapseOrNot, CuiSidebarToolbar } from '../../views'
+import type { CuiSidebarPopoverProps } from '../CuiSidebarPopover'
+import { CuiSidebarPopover } from '../CuiSidebarPopover'
 import styles from './CuiSidebar.module.css'
 
 export interface CuiSidebarView {
@@ -26,6 +28,7 @@ export interface CuiSidebarTab {
 export interface CuiSidebarProps {
   defaultActiveViewKeys?: Array<string>
   label: string
+  popover?: Omit<CuiSidebarPopoverProps, 'originRef'>
   tabs?: Array<CuiSidebarTab>
   toolbar?: CuiSidebarToolbarProps
   views?: Array<CuiSidebarView>
@@ -34,14 +37,18 @@ export interface CuiSidebarProps {
 export const CuiSidebar = ({
   defaultActiveViewKeys,
   label,
+  popover,
   tabs,
   toolbar,
   views,
 }: CuiSidebarProps) => {
+  const sidebarRef = useRef<HTMLDivElement>(null)
+
   return (
     <div
       className={classNames(styles.cuiSidebar, 'h-full flex flex-col')}
       data-cy={`codelabui-sidebar-${label}`}
+      ref={sidebarRef}
     >
       {tabs && tabs[0] ? (
         <div className="cuiSidebarAntdTabsWrapper">
@@ -76,7 +83,21 @@ export const CuiSidebar = ({
         </div>
       ) : (
         <>
-          <div className="flex h-10 w-full flex-row items-center justify-between">
+          <div
+            className="
+          flex
+          h-10
+          w-full
+          flex-row
+          items-center
+          justify-between
+          border-0
+          border-b-2
+          border-solid
+          border-gray-300
+          bg-neutral-100
+          "
+          >
             <Typography className="pl-4">
               {views?.length !== 1 ? label : views[0]?.label}
             </Typography>
@@ -103,6 +124,15 @@ export const CuiSidebar = ({
             />
           )}
         </>
+      )}
+      {popover && (
+        <CuiSidebarPopover
+          content={popover.content}
+          label="Update Page"
+          open={popover.open}
+          originRef={sidebarRef}
+          toolbar={popover.toolbar}
+        />
       )}
     </div>
   )

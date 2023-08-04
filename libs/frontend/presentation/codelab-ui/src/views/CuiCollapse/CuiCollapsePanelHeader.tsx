@@ -35,7 +35,7 @@ export const CuiCollapsePanelHeader = ({
         border-0
         border-b
         border-solid
-        border-gray-500
+        border-gray-300
         px-3
       `}
       data-cy={`codelabui-sidebar-view-header-${label}`}
