@@ -15,6 +15,7 @@ import React from 'react'
 import type { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
+import { useActionSchema } from '../hooks'
 import { createActionSchema } from './create-action.schema'
 
 const CODE_ACTION = `function run() {
@@ -24,6 +25,7 @@ const CODE_ACTION = `function run() {
 
 export const CreateActionForm = observer(() => {
   const { actionService, resourceService } = useStore()
+  const actionSchema = useActionSchema(createActionSchema)
 
   const onSubmit = (actionDTO: ICreateActionData) => {
     console.log('submit', actionDTO)
@@ -67,7 +69,7 @@ export const CreateActionForm = observer(() => {
         title: 'Error while creating action',
       })}
       onSubmitSuccess={closeForm}
-      schema={createActionSchema}
+      schema={actionSchema}
     >
       <AutoFields
         omitFields={[

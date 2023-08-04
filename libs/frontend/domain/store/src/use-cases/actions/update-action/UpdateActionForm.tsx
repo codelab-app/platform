@@ -12,10 +12,12 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { Context } from 'uniforms'
 import { AutoField, AutoFields } from 'uniforms-antd'
+import { useActionSchema } from '../hooks'
 import { updateActionSchema } from './update-action.schema'
 
 export const UpdateActionForm = observer(() => {
   const { actionService, resourceService } = useStore()
+  const actionSchema = useActionSchema(updateActionSchema)
   const closeForm = () => actionService.updateForm.close()
   const actionToUpdate = actionService.updateForm.action
 
@@ -69,7 +71,7 @@ export const UpdateActionForm = observer(() => {
       onSubmit={onSubmit}
       onSubmitError={onSubmitError}
       onSubmitSuccess={closeForm}
-      schema={updateActionSchema}
+      schema={actionSchema}
     >
       <AutoFields fields={['name']} />
 

@@ -22,9 +22,11 @@ import {
   isPrimitive,
   isString,
 } from '../create-field'
+import { useFieldSchema } from '../hooks'
 
 export const UpdateFieldForm = observer(() => {
   const { fieldService, typeService } = useStore()
+  const fieldSchema = useFieldSchema(createFieldSchema)
   const closeForm = () => fieldService.updateForm.close()
   const field = fieldService.updateForm.field
 
@@ -83,7 +85,7 @@ export const UpdateFieldForm = observer(() => {
         type: 'error',
       })}
       onSubmitSuccess={closeForm}
-      schema={createFieldSchema}
+      schema={fieldSchema}
     >
       <AutoFields fields={['key', 'name', 'description']} />
       <TypeSelect label="Type" name="fieldType" />

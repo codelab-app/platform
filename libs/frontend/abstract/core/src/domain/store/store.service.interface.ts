@@ -21,6 +21,7 @@ export interface IStoreService
     ICRUDModalService<Ref<IStore>, { store: Maybe<IStore> }> {
   storeRepository: IStoreRepository
   stores: ObjectMap<IStore>
+  storesList: Array<IStore>
 
   add(storeDTO: IStoreDTO): IStore
   load(stores: Array<StoreFragment>): Array<IStore>
