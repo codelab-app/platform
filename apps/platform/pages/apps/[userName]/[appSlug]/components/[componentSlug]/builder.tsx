@@ -4,7 +4,7 @@ import {
   BuilderContext,
   BuilderPrimarySidebar,
   BuilderTabs,
-  ComponentsExplorerPane,
+  ComponentsPrimarySidebar,
   ConfigPaneInspectorTabContainer,
 } from '@codelab/frontend/domain/builder'
 import {
@@ -47,7 +47,7 @@ const ComponentBuilder: CodelabPage = observer(() => {
         items: [
           {
             key: ExplorerPaneType.Components,
-            render: () => <ComponentsExplorerPane isLoading={isLoading} />,
+            render: () => <ComponentsPrimarySidebar isLoading={isLoading} />,
           },
           {
             key: ExplorerPaneType.Explorer,

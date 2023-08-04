@@ -1,4 +1,4 @@
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { DeleteOutlined, EditOutlined, ExportOutlined } from '@ant-design/icons'
 import type { IAtom, IComponent } from '@codelab/frontend/abstract/core'
 import {
   BuilderDndType,
@@ -18,6 +18,7 @@ interface DraggableComponentItemProps {
   selected?: boolean
   onDelete?(id: string): void
   onEdit?(id: string): void
+  onExport?(id: string): void
   onSelect?(id: string): void
 }
 
@@ -25,6 +26,7 @@ export const DraggableComponentItem = ({
   component,
   onDelete,
   onEdit,
+  onExport,
   onSelect,
   selected,
 }: DraggableComponentItemProps) => {
@@ -68,6 +70,7 @@ export const DraggableComponentItem = ({
         component={component}
         onDelete={onDelete}
         onEdit={onEdit}
+        onExport={onExport}
         onSelect={onSelect}
         selected={selected}
       />
@@ -81,6 +84,7 @@ interface ComponentItemProps {
   selected?: boolean
   onDelete?(id: string): void
   onEdit?(id: string): void
+  onExport?(id: string): void
   onSelect?(id: string): void
 }
 
@@ -91,6 +95,7 @@ const ComponentItem = ({
   component,
   onDelete,
   onEdit,
+  onExport,
   onSelect,
   selected,
 }: ComponentItemProps) => {
@@ -116,6 +121,11 @@ const ComponentItem = ({
   const handleDeleteClick = (event: React.MouseEvent) => {
     event.stopPropagation()
     onDelete && onDelete(component.id)
+  }
+
+  const handleExportClick = (event: React.MouseEvent) => {
+    event.stopPropagation()
+    onExport && onExport(component.id)
   }
 
   const handleSelectClick = () => {
@@ -145,6 +155,17 @@ const ComponentItem = ({
               hidden={!onDelete}
               icon={<DeleteOutlined />}
               onMouseDown={handleDeleteClick}
+              type="text"
+            />
+          ) : (
+            ''
+          )}
+          {onExport ? (
+            <Button
+              hidden={!onExport}
+              icon={<ExportOutlined />}
+              onMouseDown={handleExportClick}
+              title="Export"
               type="text"
             />
           ) : (

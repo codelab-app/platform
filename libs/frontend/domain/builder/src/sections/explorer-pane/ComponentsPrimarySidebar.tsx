@@ -7,11 +7,11 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CustomComponents, PreBuiltComponents } from './tab-contents'
 
-interface ComponentsExplorerPaneProps {
+interface ComponentsPrimarySidebarProps {
   isLoading: boolean
 }
 
-export const ComponentsExplorerPane = observer<ComponentsExplorerPaneProps>(
+export const ComponentsPrimarySidebar = observer<ComponentsPrimarySidebarProps>(
   ({ isLoading }) => {
     const { componentService } = useStore()
 
@@ -63,4 +63,4 @@ export const ComponentsExplorerPane = observer<ComponentsExplorerPaneProps>(
   },
 )
 
-ComponentsExplorerPane.displayName = 'ComponentsExplorerPane'
+ComponentsPrimarySidebar.displayName = 'ComponentsPrimarySidebar'
