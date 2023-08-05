@@ -62,7 +62,7 @@ const isElementInScrollParentViewport = (
 const useScrollIntoView = (element: HTMLElement, root: HTMLElement) => {
   useEffect(() => {
     if (!isElementInScrollParentViewport(element, root)) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
   }, [element, root])
 }
