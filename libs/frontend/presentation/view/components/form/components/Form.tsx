@@ -1,6 +1,5 @@
 import type { FormProps } from '@codelab/frontend/abstract/types'
 import { callbackWithParams } from '@codelab/frontend/shared/utils'
-import type { ErrorObject } from 'ajv'
 import type { ReactElement } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { css } from 'styled-components'
@@ -78,10 +77,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
                 callbackWithParams(onSubmitError, error)
               })
           }}
-          onValidate={async (
-            formData: Record<string, unknown>,
-            errors?: { details: Array<ErrorObject> },
-          ) => bypassExpressionErrors(formData, errors)}
+          onValidate={bypassExpressionErrors}
           ref={connectUniformSubmitRef(submitRef)}
           schema={bridge}
           submitField={submitField}
