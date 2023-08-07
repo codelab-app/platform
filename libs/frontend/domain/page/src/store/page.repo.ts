@@ -1,5 +1,4 @@
 import type { IPage, IPageRepository } from '@codelab/frontend/abstract/core'
-import { clearCacheForKey } from '@codelab/frontend/shared/utils'
 import type { PageOptions, PageWhere } from '@codelab/shared/abstract/codegen'
 import { Model, model } from 'mobx-keystone'
 import { pageApi } from './page.api'

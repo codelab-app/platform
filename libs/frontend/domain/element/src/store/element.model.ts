@@ -44,7 +44,11 @@ import {
   disconnectNodeId,
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
-import { compoundCaseToTitleCase, mergeProps } from '@codelab/shared/utils'
+import {
+  compoundCaseToTitleCase,
+  createUniqueName,
+  mergeProps,
+} from '@codelab/shared/utils'
 import attempt from 'lodash/attempt'
 import isError from 'lodash/isError'
 import { computed } from 'mobx'
@@ -77,6 +81,7 @@ const create = ({
   prevSibling,
   props,
   propTransformationJs,
+  refKey,
   renderForEachPropKey,
   renderIfExpression,
   renderType,
@@ -111,6 +116,7 @@ const create = ({
     prevSibling: prevSibling?.id ? elementRef(prevSibling.id) : undefined,
     props: propRef(props.id),
     propTransformationJs,
+    refKey,
     renderForEachPropKey,
     renderIfExpression,
     renderingMetadata: null,
@@ -148,6 +154,7 @@ export class Element
     prevSibling: prop<Nullable<Ref<IElement>>>(null).withSetter(),
     props: prop<Ref<IProp>>().withSetter(),
     propTransformationJs: prop<Nullable<string>>(null).withSetter(),
+    refKey: prop<Nullable<string>>(null),
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
     renderIfExpression: prop<Nullable<string>>(null).withSetter(),
     renderingMetadata: prop<Nullable<RenderingMetadata>>(null),
@@ -562,7 +569,13 @@ export class Element
       ? reconnectNodeId(this.childMapperPreviousSibling.id)
       : disconnectNodeId(undefined)
 
+    const _compoundRefKey =
+      this.refKey && this.refKey !== ''
+        ? createUniqueName(this.refKey, this.store.id)
+        : null
+
     return {
+      _compoundRefKey,
       childMapperComponent,
       childMapperPreviousSibling,
       childMapperPropKey: this.childMapperPropKey,
@@ -593,13 +606,12 @@ export class Element
   }
 
   @modelAction
-  clone(cloneIndex: number) {
+  clone() {
     const clonedElement: IElement = clone<IElement>(this, {
       generateNewIds: true,
     })
 
     // FIXME: add atom and props
-    clonedElement.setName(`${this.name} ${cloneIndex}`)
     clonedElement.setSourceElement(elementRef(this.id))
 
     // store elements in elementService
@@ -757,6 +769,7 @@ export class Element
     prevSibling,
     props,
     propTransformationJs,
+    refKey,
     renderForEachPropKey,
     renderIfExpression,
     renderType,
@@ -798,6 +811,8 @@ export class Element
     this.childMapperPreviousSibling = childMapperPreviousSibling
       ? elementRef(childMapperPreviousSibling.id)
       : null
+
+    this.refKey = refKey ?? null
 
     return this
   }

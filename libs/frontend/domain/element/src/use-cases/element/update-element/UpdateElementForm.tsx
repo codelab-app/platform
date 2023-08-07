@@ -62,7 +62,29 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         return acc
       }, {})
 
-      const propsAndState = mergeProps(props, stateProps, rootStateProps)
+      const refsProps = Object.entries(element.store.current.refsValues).reduce<
+        Record<string, unknown>
+      >((acc, [key, val]) => {
+        acc[`refs.${key}`] = val
+
+        return acc
+      }, {})
+
+      const rootRefsProps = Object.entries(
+        element.providerStore?.current.refsValues ?? {},
+      ).reduce<Record<string, unknown>>((acc, [key, val]) => {
+        acc[`rootRefs.${key}`] = val
+
+        return acc
+      }, {})
+
+      const propsAndState = mergeProps(
+        props,
+        stateProps,
+        rootStateProps,
+        refsProps,
+        rootRefsProps,
+      )
 
       return omit(propsAndState, ['key', DATA_ELEMENT_ID])
     }, [element])

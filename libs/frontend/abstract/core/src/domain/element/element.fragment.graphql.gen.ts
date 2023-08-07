@@ -13,6 +13,7 @@ export type ElementFragment = {
   name: string
   customCss?: string | null
   guiCss?: string | null
+  refKey?: string | null
   childMapperPropKey?: string | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
@@ -55,6 +56,7 @@ export const ElementFragmentDoc = gql`
     renderAtomType {
       ...Atom
     }
+    refKey
     renderType {
       id
       kind

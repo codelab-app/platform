@@ -84,6 +84,8 @@ export class ElementRuntimeProps
       this.node.store.current.state,
       this.node.providerStore?.current.state,
       injectedProps,
+      this.node.store.current.refsValues,
+      this.node.providerStore?.current.refsValues,
       this.node.urlProps,
     )
   }
@@ -98,6 +100,8 @@ export class ElementRuntimeProps
       this.node.store.current.state,
       this.node.providerStore?.current.state,
       injectedProps,
+      this.node.store.current.refsValues,
+      this.node.providerStore?.current.refsValues,
       this.node.urlProps,
     )
   }
@@ -130,6 +134,8 @@ export class ElementRuntimeProps
 
     const allPropsOptions = mergeProps(this.node.store.current.state, {
       props: injectedProps,
+      refs: this.node.store.current.refsValues,
+      rootRefs: this.node.providerStore?.current.refsValues,
       rootState: this.node.providerStore?.current.state,
     })
 

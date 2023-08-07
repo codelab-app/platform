@@ -117,13 +117,13 @@ export class Component
   }
 
   @modelAction
-  private cloneTree(clonedComponent: IComponent, cloneIndex: number) {
+  private cloneTree(clonedComponent: IComponent) {
     console.debug('ElementTreeService.cloneTree', this.elements)
 
     const elementMap: Map<string, string> = new Map()
 
     const elements = this.elements.map((element) => {
-      const clonedElement = element.clone(cloneIndex)
+      const clonedElement = element.clone()
 
       // don't move it to element model to avoid dependency issues
       if (isComponentInstance(element.renderType)) {
@@ -201,14 +201,10 @@ export class Component
       return componentService.clonedComponents.get(key)!
     }
 
-    const clonesList = [...componentService.clonedComponents.values()].filter(
-      (component) => component.sourceComponent?.id === this.id,
-    )
-
     const clonedComponent: IComponent = clone<IComponent>(this)
     componentService.clonedComponents.set(key, clonedComponent)
 
-    this.cloneTree(clonedComponent, clonesList.length)
+    this.cloneTree(clonedComponent)
 
     const clonedStore = this.store.current.clone(clonedComponent.id)
 

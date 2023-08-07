@@ -26,6 +26,7 @@ export interface IStore
   jsonString: string
   name: string
   page: Nullable<Ref<IPage>>
+  refsValues: IPropData
   source: Nullable<IEntity>
   state: IPropData
 

@@ -3,6 +3,7 @@ import type {
   IComponent,
   IInterfaceType,
   IPage,
+  IPropData,
   IStore,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -58,13 +59,14 @@ export class Store
     component: prop<Nullable<Ref<IComponent>>>().withSetter(),
     id: idProp,
     name: prop<string>(),
-
     page: prop<Nullable<Ref<IPage>>>(),
     // if this is a duplicate, source store id else null
     source: prop<Nullable<Ref<IStore>>>(null).withSetter(),
   }))
   implements IStore
 {
+  refsValues: IPropData = {}
+
   @computed
   get actionsTree() {
     return this.actions

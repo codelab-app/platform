@@ -160,6 +160,8 @@ export class ActionRunner
         _this.state,
         _this.rootState,
         undefined,
+        _this.refs,
+        _this.rootRefs,
         _this.urlProps,
       )
 
@@ -195,6 +197,8 @@ export class ActionRunner
         `return function run(...args) {
           const state = this.state;
           const rootState = this.rootState;
+          const refs = this.refs;
+          const rootRefs = this.rootRefs;
           return ${(this.actionRef.current as ICodeAction).code}(...args)
         }`,
       )

@@ -4,6 +4,8 @@ import type { IPropData } from '../prop'
 import type { IStore } from '../store'
 
 export interface ActionRunnerThisObject {
+  refs?: IPropData
+  rootRefs?: IPropData
   rootState?: IPropData
   state: IPropData
   urlProps?: IPropData
@@ -27,6 +29,7 @@ export const getActionRunnerThisObject = (
   urlProps?: IPropData,
 ) => {
   const _this: ActionRunnerThisObject = {
+    refs: store.current.refsValues,
     state: store.current.state,
     urlProps: urlProps ?? {},
   }
@@ -39,6 +42,9 @@ export const getActionRunnerThisObject = (
 
     _this[isActionFromProvider ? 'state' : 'rootState'] =
       providerStore.current.state
+
+    _this[isActionFromProvider ? 'refs' : 'rootRefs'] =
+      providerStore.current.refsValues
   }
 
   return _this
