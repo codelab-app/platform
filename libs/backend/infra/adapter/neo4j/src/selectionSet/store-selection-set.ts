@@ -11,7 +11,6 @@ export const storeSelectionSet = `
     ${interfaceTypeSelectionSet}
   actions
     ${actionSelectionSet}
-  refs
 `
 
 export const exportStoreSelectionSet = `

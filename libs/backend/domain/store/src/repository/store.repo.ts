@@ -35,7 +35,6 @@ export class StoreRepository extends AbstractRepository<
           api: connectNodeId(api.id),
           id,
           name,
-          refs: [],
         })),
       })
     ).stores

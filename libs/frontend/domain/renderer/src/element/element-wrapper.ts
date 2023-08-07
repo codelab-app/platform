@@ -17,7 +17,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { getRunner } from '../action-runner.model'
 import { shouldRenderElement } from '../utils'
 import { mapOutput } from '../utils/render-output-utils'
-import { RefWrapper } from './add-ref-wrapper'
+import { getRefWrapper } from './get-ref-wrapper'
 import { renderComponentWithStyles } from './get-styled-components'
 import { extractValidProps, getReactComponent } from './wrapper.utils'
 

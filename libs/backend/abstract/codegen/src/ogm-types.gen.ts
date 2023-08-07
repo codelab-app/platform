@@ -6477,7 +6477,6 @@ export type Store = {
   __typename?: 'Store'
   id: Scalars['ID']
   name: Scalars['String']
-  refs: Array<Scalars['String']>
   api: InterfaceType
   apiAggregate?: Maybe<StoreInterfaceTypeApiAggregationSelection>
   actions: Array<AnyAction>
@@ -30410,7 +30409,6 @@ export type StoreConnectWhere = {
 export type StoreCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  refs: Array<Scalars['String']>
   api?: InputMaybe<StoreApiFieldInput>
   actions?: InputMaybe<StoreActionsCreateInput>
   component?: InputMaybe<StoreComponentFieldInput>
@@ -30434,7 +30432,6 @@ export type StoreDisconnectInput = {
 export type StoreOnCreateInput = {
   id: Scalars['ID']
   name: Scalars['String']
-  refs: Array<Scalars['String']>
 }
 
 export type StoreOptions = {
@@ -30657,9 +30654,6 @@ export type StoreUniqueWhere = {
 export type StoreUpdateInput = {
   id?: InputMaybe<Scalars['ID']>
   name?: InputMaybe<Scalars['String']>
-  refs?: InputMaybe<Array<Scalars['String']>>
-  refs_POP?: InputMaybe<Scalars['Int']>
-  refs_PUSH?: InputMaybe<Array<Scalars['String']>>
   api?: InputMaybe<StoreApiUpdateFieldInput>
   actions?: InputMaybe<StoreActionsUpdateInput>
   component?: InputMaybe<StoreComponentUpdateFieldInput>
@@ -30702,12 +30696,6 @@ export type StoreWhere = {
   name_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   name_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  refs?: InputMaybe<Array<Scalars['String']>>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  refs_NOT?: InputMaybe<Array<Scalars['String']>>
-  refs_INCLUDES?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  refs_NOT_INCLUDES?: InputMaybe<Scalars['String']>
   api?: InputMaybe<InterfaceTypeWhere>
   api_NOT?: InputMaybe<InterfaceTypeWhere>
   apiAggregate?: InputMaybe<StoreApiAggregateInput>

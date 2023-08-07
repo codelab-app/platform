@@ -13,5 +13,4 @@ fragment Store on Store {
   actions {
     ...Action
   }
-  refs
 }

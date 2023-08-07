@@ -13,7 +13,6 @@ import { ActionFragmentDoc } from '../action/fragments/action.fragment.graphql.g
 export type StoreFragment = {
   id: string
   name: string
-  refs: Array<string>
   api: InterfaceTypeFragment
   component?: { id: string } | null
   page?: { id: string } | null
@@ -36,7 +35,6 @@ export const StoreFragmentDoc = gql`
     actions {
       ...Action
     }
-    refs
   }
   ${InterfaceTypeFragmentDoc}
   ${ActionFragmentDoc}
