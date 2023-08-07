@@ -67,7 +67,6 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
   }
 
   const element = elementTree?.element(selectedNode.id || '')
-  const error = element?.propsError
 
   const tabItems = [
     {
@@ -111,7 +110,11 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
       key: TAB_NAMES.Props,
       label: (
         <TooltipIcon
-          icon={<SettingOutlined style={error ? { color: 'red' } : {}} />}
+          icon={
+            <SettingOutlined
+              style={element?.propsHaveErrors ? { color: 'red' } : {}}
+            />
+          }
           title={TAB_NAMES.Props}
         />
       ),

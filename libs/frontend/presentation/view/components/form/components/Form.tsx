@@ -27,7 +27,6 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
     onSubmit = (_model: TData) => Promise.resolve(),
     onSubmitError = [],
     onSubmitSuccess = [],
-    onValidate,
     schema,
     submitField,
     submitRef,
@@ -82,13 +81,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
           onValidate={async (
             formData: Record<string, unknown>,
             errors?: { details: Array<ErrorObject> },
-          ) => {
-            if (onValidate) {
-              callbackWithParams(onValidate, { errors, formData })
-            }
-
-            return bypassExpressionErrors(formData, errors)
-          }}
+          ) => bypassExpressionErrors(formData, errors)}
           ref={connectUniformSubmitRef(submitRef)}
           schema={bridge}
           submitField={submitField}

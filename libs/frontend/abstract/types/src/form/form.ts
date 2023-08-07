@@ -37,14 +37,6 @@ export type FormProps<TData, TResponse = unknown> = Partial<
     onSubmitSuccess?: VoidCallback<TResponse>
 
     /**
-     * Called after validation
-     */
-    onValidate?: VoidCallback<{
-      formData: Record<string, unknown>
-      errors?: { details: Array<ErrorObject> }
-    }>
-
-    /**
      * Schema used for form generation.
      *
      * If you pass a schema object a default {@see Ajv} validator is created from it.

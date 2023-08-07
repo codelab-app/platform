@@ -70,8 +70,6 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
 
     const onSubmit = (data: IPropData) => {
       const filteredData = filterEmptyStrings(data)
-      console.log('Submitting: ', filteredData)
-
       const props = element.current.props.current
 
       return propService.update({
@@ -108,19 +106,6 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       submitRef.current?.validate?.()
     }, [submitRef.current])
 
-    const onValidate = ({
-      errors,
-    }: {
-      formData: Record<string, unknown>
-      errors?: { details: Array<ErrorObject> }
-    }) => {
-      if (errors?.details.length) {
-        element.current.setPropsError('some props are not correctly set')
-      } else {
-        element.current.setPropsError(null)
-      }
-    }
-
     return (
       <Spinner isLoading={status === 'loading'}>
         {interfaceType && (
@@ -133,7 +118,6 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
                 key={element.id}
                 model={propsModel}
                 onSubmit={onSubmit}
-                onValidate={onValidate}
                 submitField={React.Fragment}
                 submitRef={submitRef}
               />

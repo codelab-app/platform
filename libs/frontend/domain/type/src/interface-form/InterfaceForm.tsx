@@ -2,7 +2,7 @@ import { Form, handleFormSubmit } from '@codelab/frontend/presentation/view'
 import type { JSONSchemaType } from 'ajv'
 import { observer } from 'mobx-react-lite'
 import { mergeDeepRight } from 'ramda'
-import React, { useMemo, useRef } from 'react'
+import React, { useMemo } from 'react'
 import { schemaTransformer } from './type-schema.factory'
 import type { InterfaceFormProps } from './types'
 
@@ -20,7 +20,6 @@ export const InterfaceForm = observer(
     onSubmit,
     onSubmitError,
     onSubmitSuccess,
-    onValidate,
     setIsLoading,
     submitField,
     submitRef,
@@ -44,7 +43,6 @@ export const InterfaceForm = observer(
         )}
         onSubmitError={onSubmitError}
         onSubmitSuccess={onSubmitSuccess}
-        onValidate={onValidate}
         schema={formSchema as JSONSchemaType<unknown>}
         submitField={submitField}
         submitRef={submitRef}
