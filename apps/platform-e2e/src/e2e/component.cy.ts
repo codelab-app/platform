@@ -76,6 +76,8 @@ describe('Component CRUD', () => {
 
     it('should be able to define property on component', () => {
       cy.getSider().getButton({ icon: 'edit' }).click()
+      cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).should('be.visible')
+      cy.getSpinner().should('not.exist')
       cy.get(`.ant-tabs [aria-label="setting"]`).click()
       cy.get('.ant-tabs-tabpane-active').contains(/Add/).click()
       cy.getModal().setFormFieldValue({
@@ -155,10 +157,6 @@ describe('Component CRUD', () => {
       // GetAtoms
       cy.waitForApiCalls()
       cy.getSpinner().should('not.exist')
-
-      cy.get('[data-node-key="custom-components"] .ant-tabs-tab-btn').click({
-        force: true,
-      })
 
       cy.findByText(COMPONENT_NAME).click({ force: true })
       cy.get(`.ant-tabs [aria-label="node-index"]`).click()
