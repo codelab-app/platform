@@ -1,5 +1,5 @@
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { ErrorObject, JSONSchemaType } from 'ajv'
+import type { JSONSchemaType } from 'ajv'
 import type React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 import type { AutoFormProps, Bridge } from 'uniforms'
