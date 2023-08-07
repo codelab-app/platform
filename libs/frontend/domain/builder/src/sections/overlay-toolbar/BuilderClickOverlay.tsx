@@ -10,6 +10,7 @@ import { isServer } from '@codelab/shared/utils'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { createPortal } from 'react-dom'
 import styled from 'styled-components'
 
 const StyledOverlayContainer = styled.div`
@@ -20,9 +21,6 @@ const StyledOverlayContainer = styled.div`
   justify-content: space-between;
   & > *:not(:last-child) {
     margin-right: 0.3rem;
-  }
-
-  .click-overlay-toolbar--button-group {
   }
 `
 
@@ -56,7 +54,7 @@ export const BuilderClickOverlay = observer<{
 
   const element = queryRenderedElementById(selectedNode.id)
 
-  if (!element) {
+  if (!element || !renderContainerRef.current) {
     return null
   }
 
@@ -78,12 +76,13 @@ export const BuilderClickOverlay = observer<{
     </StyledOverlayContainer>
   )
 
-  return (
+  return createPortal(
     <ClickOverlay
       content={content}
       element={element}
-      renderContainerRef={renderContainerRef}
-    />
+      renderContainer={renderContainerRef.current}
+    />,
+    renderContainerRef.current,
   )
 })
 
