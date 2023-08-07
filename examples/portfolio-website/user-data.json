@@ -1478,7 +1478,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "a1956b1e-c1a6-475e-9d7c-07633553b638",
-                "data": "{\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"146d2de0-08a9-4994-b87f-4386f58cdfd9\"},\"defaultValue\":\"{{state.message}}\"}"
+                "data": "{\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"146d2de0-08a9-4994-b87f-4386f58cdfd9\"},\"value\":\"{{state.message}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1947,14 +1947,14 @@
                 "id": "78a73536-541d-411c-9bae-a62d26adbb31",
                 "name": "postMessage",
                 "type": "CodeAction",
-                "code": "async function run() {\n  const message = {\n    text: state.message,\n    owner: state.user\n  };\n  \n  const messages = await window.supabaseClient.from('message').insert(message);\n\n  state.message = null;\n  state.messages = [message, ...state.messages];\n}"
+                "code": "async function run() {\n  const message = {\n    text: state.message,\n    owner: state.user\n  };\n\n  state.message = null;\n  \n  const messages = await window.supabaseClient.from('message').insert(message);\n\n  state.messages = [message, ...state.messages];\n}"
               },
               {
                 "__typename": "CodeAction",
                 "id": "0ee6d953-041d-4e34-97f2-6443c90d4aa6",
                 "name": "initState",
                 "type": "CodeAction",
-                "code": "async function run() {\n  if (!window.supabaseClient) return;\n  if (state.messages.length) return;\n  \n  const { data, error } = await window.supabaseClient.auth.getSession(); \n  const oAuthToken = data.session?.provider_token; \n  const messages = await window.supabaseClient.from('message').select();\n  const user = await window.supabaseClient.auth.getUser();\n  \n  state.user = user.data?.user?.user_metadata?.full_name;\n  state.token = oAuthToken;\n  state.messages = messages.data.reverse();\n}"
+                "code": "async function run() {\n  const store = state || this;\n  \n  if (!window.supabaseClient) return;\n  if (store.messages.length) return;\n  \n  const { data, error } = await window.supabaseClient.auth.getSession(); \n  const oAuthToken = data.session?.provider_token; \n  const messages = await window.supabaseClient.from('message').select();\n  const user = await window.supabaseClient.auth.getUser();\n  \n  store.user = user.data?.user?.user_metadata?.full_name;\n  store.token = oAuthToken;\n  store.messages = messages.data.reverse();\n}"
               },
               {
                 "__typename": "CodeAction",
@@ -1968,7 +1968,7 @@
                 "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
                 "name": "onSupabaseLoad",
                 "type": "CodeAction",
-                "code": "async function run() {\n  const { createClient } = window.supabase;\n  const projectUrl = 'https://cicrfdknwobgyihmmvbe.supabase.co';\n  const projectPublickKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpY3JmZGtud29iZ3lpaG1tdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY1MzgwOTcsImV4cCI6MTk5MjExNDA5N30.DAU_bDvSXg_ya4V-6wk3B2VC5KtpsK4-sdRmHUkmkGo';\n  const supabaseClient = createClient(projectUrl, projectPublickKey);\n\n  this.supabaseClient = supabaseClient;\n  window.supabaseClient = supabaseClient;\n\n  state.initState();\n}"
+                "code": "async function run() {\n  const { createClient } = window.supabase;\n  const projectUrl = 'https://cicrfdknwobgyihmmvbe.supabase.co';\n  const projectPublickKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpY3JmZGtud29iZ3lpaG1tdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY1MzgwOTcsImV4cCI6MTk5MjExNDA5N30.DAU_bDvSXg_ya4V-6wk3B2VC5KtpsK4-sdRmHUkmkGo';\n  const supabaseClient = createClient(projectUrl, projectPublickKey);\n\n  this.supabaseClient = supabaseClient;\n  window.supabaseClient = supabaseClient;\n  \n  if (state.messages.length) return;\n  \n  const { data, error } = await window.supabaseClient.auth.getSession(); \n  const oAuthToken = data.session?.provider_token; \n  const messages = await window.supabaseClient.from('message').select();\n  const user = await window.supabaseClient.auth.getUser();\n  \n  state.user = user.data?.user?.user_metadata?.full_name;\n  state.token = oAuthToken;\n  state.messages = messages.data.reverse();\n}"
               },
               {
                 "__typename": "CodeAction",
