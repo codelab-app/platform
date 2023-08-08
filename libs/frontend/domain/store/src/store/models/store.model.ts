@@ -4,6 +4,7 @@ import type {
   IInterfaceType,
   IPage,
   IPropData,
+  IRootStore,
   IStore,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -107,7 +108,10 @@ export class Store
 
   @computed
   get jsonString() {
-    return propSafeStringify(this.state)
+    return propSafeStringify({
+      refs: this.refs,
+      state: this.state,
+    })
   }
 
   @computed

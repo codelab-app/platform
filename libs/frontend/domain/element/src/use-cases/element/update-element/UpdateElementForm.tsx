@@ -71,7 +71,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       }, {})
 
       const rootRefsProps = Object.entries(
-        element.providerStore?.current.refsValues ?? {},
+        element.providerStore?.current.refs ?? {},
       ).reduce<Record<string, unknown>>((acc, [key, val]) => {
         acc[`rootRefs.${key}`] = val
 
