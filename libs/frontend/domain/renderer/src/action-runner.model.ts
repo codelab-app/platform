@@ -8,6 +8,7 @@ import type {
   IElement,
   IGraphQLActionConfig,
   IPropData,
+  IRenderer,
   IRestActionConfig,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -21,6 +22,7 @@ import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
 import type { Axios, Method } from 'axios'
 import axios from 'axios'
 import { GraphQLClient } from 'graphql-request'
+import isNil from 'lodash/isNil'
 import isString from 'lodash/isString'
 import merge from 'lodash/merge'
 import { computed, toJS } from 'mobx'
@@ -60,6 +62,38 @@ const graphqlFetch = (
   )
 
   return client.request(config.query, variables, headers)
+}
+
+const getRunner = (
+  renderer?: IRenderer,
+  actionId?: string,
+  storeId?: string,
+  providerStoreId?: string,
+): { runner?: IActionRunner['runner']; fromProvider?: boolean } => {
+  if (!renderer || !actionId || !storeId) {
+    return {}
+  }
+
+  const runner = renderer.actionRunners.get(
+    getRunnerId(storeId, actionId),
+  )?.runner
+
+  if (!isNil(runner)) {
+    return { fromProvider: false, runner }
+  }
+
+  if (!providerStoreId) {
+    return {}
+  }
+
+  const providerRunner = renderer.actionRunners.get(
+    getRunnerId(providerStoreId, actionId),
+  )?.runner
+
+  return {
+    fromProvider: !isNil(providerRunner),
+    runner: providerRunner,
+  }
 }
 
 const create = (rootElement: IElement) => {
@@ -132,17 +166,24 @@ export class ActionRunner
   get apiRunner() {
     const action = this.actionRef.current as IApiAction
 
-    const successRunner = action.successAction?.id
-      ? this.renderer?.actionRunners.get(
-          getRunnerId(action.store.id, action.successAction.id),
-        )?.runner
-      : null
+    const providerStoreId =
+      this.renderer?.providerTree?.current.rootElement.current.store.id
 
-    const errorRunner = action.errorAction?.id
-      ? this.renderer?.actionRunners.get(
-          getRunnerId(action.store.id, action.errorAction.id),
-        )?.runner
-      : null
+    const { fromProvider: isSuccessRunnerFromProvider, runner: successRunner } =
+      getRunner(
+        this.renderer,
+        action.successAction?.id,
+        action.store.id,
+        providerStoreId,
+      )
+
+    const { fromProvider: isErrorRunnerFromProvider, runner: errorRunner } =
+      getRunner(
+        this.renderer,
+        action.errorAction?.id,
+        action.store.id,
+        providerStoreId,
+      )
 
     const resource = action.resource.current
     const config = action.config.current.values
@@ -181,9 +222,19 @@ export class ActionRunner
       try {
         const response = await fetchPromise
 
-        return successRunner?.call(_this, response)
+        // actions in the provider should not have access to the state of regular pages
+        const successRunnerThis = isSuccessRunnerFromProvider
+          ? { ..._this, state: _this.rootState }
+          : _this
+
+        return successRunner?.call(successRunnerThis, response)
       } catch (error) {
-        return errorRunner?.call(_this, error)
+        // actions in the provider should not have access to the state of regular pages
+        const errorRunnerThis = isErrorRunnerFromProvider
+          ? { ..._this, state: _this.rootState }
+          : _this
+
+        return errorRunner?.call(errorRunnerThis, error)
       }
     }
   }

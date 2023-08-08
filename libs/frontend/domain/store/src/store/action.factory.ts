@@ -53,12 +53,8 @@ export class ActionFactory extends Model({}) implements IActionFactory {
     return {
       ...apiActionFragment,
       config: this.propService.add(config),
-      errorAction: errorAction
-        ? this.fromActionFragment(errorAction as ActionFragment)
-        : undefined,
-      successAction: successAction
-        ? this.fromActionFragment(successAction as ActionFragment)
-        : undefined,
+      errorAction: errorAction ? { id: errorAction.id } : undefined,
+      successAction: successAction ? { id: successAction.id } : undefined,
     }
   }
 
