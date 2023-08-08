@@ -1,4 +1,5 @@
 import type { IUpdateActionData } from '@codelab/frontend/abstract/core'
+import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { SelectAction, SelectResource } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
 import {
@@ -8,6 +9,7 @@ import {
 } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { Context } from 'uniforms'
@@ -15,105 +17,115 @@ import { AutoField, AutoFields } from 'uniforms-antd'
 import { useActionSchema } from '../hooks'
 import { updateActionSchema } from './update-action.schema'
 
-export const UpdateActionForm = observer(() => {
-  const { actionService, resourceService } = useStore()
-  const actionSchema = useActionSchema(updateActionSchema)
-  const closeForm = () => actionService.updateForm.close()
-  const actionToUpdate = actionService.updateForm.action
+interface UpdateActionFormProps {
+  submitRef?: React.MutableRefObject<Maybe<SubmitController>>
+}
 
-  const onSubmit = (actionDTO: IUpdateActionData) => {
-    return actionService.update(actionDTO)
-  }
+export const UpdateActionForm = observer(
+  ({ submitRef }: UpdateActionFormProps) => {
+    const { actionService, resourceService } = useStore()
+    const actionSchema = useActionSchema(updateActionSchema)
+    const closeForm = () => actionService.updateForm.close()
+    const actionToUpdate = actionService.updateForm.action
 
-  const onSubmitError = createNotificationHandler({
-    title: 'Error while updating action',
-  })
+    const onSubmit = (actionDTO: IUpdateActionData) => {
+      return actionService.update(actionDTO)
+    }
 
-  const baseModel = {
-    id: actionToUpdate?.id,
-    name: actionToUpdate?.name,
-    storeId: actionToUpdate?.store.current.id,
-    type: actionToUpdate?.type,
-  }
+    const onSubmitError = createNotificationHandler({
+      title: 'Error while updating action',
+    })
 
-  const model =
-    actionToUpdate?.type === IActionKind.ApiAction
-      ? {
-          config: {
-            data: actionToUpdate.config.current.values,
-            id: actionToUpdate.config.id,
-          },
-          ...baseModel,
-          errorActionId: actionToUpdate.errorAction?.id,
-          resourceId: actionToUpdate.resource.id,
-          successActionId: actionToUpdate.successAction?.id,
-        }
-      : {
-          ...baseModel,
-          code: actionToUpdate?.code,
-        }
+    const baseModel = {
+      id: actionToUpdate?.id,
+      name: actionToUpdate?.name,
+      storeId: actionToUpdate?.store.current.id,
+      type: actionToUpdate?.type,
+    }
 
-  const getResourceType = (context: Context<IUpdateActionData>) =>
-    context.model.resourceId
-      ? resourceService.resource(context.model.resourceId)?.type
-      : null
+    const model =
+      actionToUpdate?.type === IActionKind.ApiAction
+        ? {
+            config: {
+              data: actionToUpdate.config.current.values,
+              id: actionToUpdate.config.id,
+            },
+            ...baseModel,
+            errorActionId: actionToUpdate.errorAction?.id,
+            resourceId: actionToUpdate.resource.id,
+            successActionId: actionToUpdate.successAction?.id,
+          }
+        : {
+            ...baseModel,
+            code: actionToUpdate?.code,
+          }
 
-  const getResourceApiUrl = (context: Context<IUpdateActionData>) =>
-    context.model.resourceId
-      ? resourceService
-          .resource(context.model.resourceId)
-          ?.config.current.get('url')
-      : null
+    const getResourceType = (context: Context<IUpdateActionData>) =>
+      context.model.resourceId
+        ? resourceService.resource(context.model.resourceId)?.type
+        : null
 
-  return (
-    <Form<IUpdateActionData>
-      model={model}
-      onSubmit={onSubmit}
-      onSubmitError={onSubmitError}
-      onSubmitSuccess={closeForm}
-      schema={actionSchema}
-    >
-      <AutoFields fields={['name']} />
+    const getResourceApiUrl = (context: Context<IUpdateActionData>) =>
+      context.model.resourceId
+        ? resourceService
+            .resource(context.model.resourceId)
+            ?.config.current.get('url')
+        : null
 
-      {actionToUpdate?.type === IActionKind.CodeAction && (
-        <AutoField name="code" />
-      )}
+    return (
+      <Form<IUpdateActionData>
+        model={model}
+        onSubmit={onSubmit}
+        onSubmitError={onSubmitError}
+        onSubmitSuccess={closeForm}
+        schema={actionSchema}
+        submitRef={submitRef}
+      >
+        <AutoFields fields={['name']} />
 
-      {actionToUpdate?.type === IActionKind.ApiAction && (
-        <>
-          <SelectResource name="resourceId" resourceService={resourceService} />
-          {/** TODO: Exclude current action */}
-          <AutoField component={SelectAction} name="successActionId" />
-          <AutoField component={SelectAction} name="errorActionId" />
+        {actionToUpdate?.type === IActionKind.CodeAction && (
+          <AutoField name="code" />
+        )}
 
-          {/** GraphQL Config Form */}
-          <DisplayIfField<IUpdateActionData>
-            condition={(context) =>
-              getResourceType(context) === IResourceType.GraphQL
-            }
-          >
-            <AutoField getUrl={getResourceApiUrl} name="config.data.query" />
-            <AutoField name="config.data.variables" />
-            <AutoField name="config.data.headers" />
-          </DisplayIfField>
+        {actionToUpdate?.type === IActionKind.ApiAction && (
+          <>
+            <SelectResource
+              name="resourceId"
+              resourceService={resourceService}
+            />
+            {/** TODO: Exclude current action */}
+            <AutoField component={SelectAction} name="successActionId" />
+            <AutoField component={SelectAction} name="errorActionId" />
 
-          {/** Rest Config Form */}
-          <DisplayIfField<IUpdateActionData>
-            condition={(context) =>
-              getResourceType(context) === IResourceType.Rest
-            }
-          >
-            <AutoField name="config.data.urlSegment" />
-            <AutoField name="config.data.method" />
-            <AutoField name="config.data.body" />
-            <AutoField name="config.data.queryParams" />
-            <AutoField name="config.data.headers" />
-            <AutoField name="config.data.responseType" />
-          </DisplayIfField>
-        </>
-      )}
+            {/** GraphQL Config Form */}
+            <DisplayIfField<IUpdateActionData>
+              condition={(context) =>
+                getResourceType(context) === IResourceType.GraphQL
+              }
+            >
+              <AutoField getUrl={getResourceApiUrl} name="config.data.query" />
+              <AutoField name="config.data.variables" />
+              <AutoField name="config.data.headers" />
+            </DisplayIfField>
 
-      <FormController onCancel={closeForm} submitLabel="Update Field" />
-    </Form>
-  )
-})
+            {/** Rest Config Form */}
+            <DisplayIfField<IUpdateActionData>
+              condition={(context) =>
+                getResourceType(context) === IResourceType.Rest
+              }
+            >
+              <AutoField name="config.data.urlSegment" />
+              <AutoField name="config.data.method" />
+              <AutoField name="config.data.body" />
+              <AutoField name="config.data.queryParams" />
+              <AutoField name="config.data.headers" />
+              <AutoField name="config.data.responseType" />
+            </DisplayIfField>
+          </>
+        )}
+
+        <FormController onCancel={closeForm} submitLabel="Update Field" />
+      </Form>
+    )
+  },
+)

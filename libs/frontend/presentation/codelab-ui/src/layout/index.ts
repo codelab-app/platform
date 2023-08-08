@@ -1,4 +1,5 @@
 export * from './CuiHeader'
 export * from './CuiNavigationBar'
 export * from './CuiSidebar'
+export * from './CuiSidebarPopover'
 export * from './hooks'

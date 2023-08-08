@@ -5,8 +5,7 @@ import type { ReactNode } from 'react'
 import React, { useRef } from 'react'
 import type { CuiSidebarToolbarProps } from '../../views'
 import { CuiCollapseOrNot, CuiSidebarToolbar } from '../../views'
-import type { CuiSidebarPopoverProps } from '../CuiSidebarPopover'
-import { CuiSidebarPopover } from '../CuiSidebarPopover'
+import { CuiSidebarPopoverContainer } from '../CuiSidebarPopover'
 import styles from './CuiSidebar.module.css'
 
 export interface CuiSidebarView {
@@ -28,7 +27,7 @@ export interface CuiSidebarTab {
 export interface CuiSidebarProps {
   defaultActiveViewKeys?: Array<string>
   label: string
-  popover?: Omit<CuiSidebarPopoverProps, 'originRef'>
+  popover?: ReactNode
   tabs?: Array<CuiSidebarTab>
   toolbar?: CuiSidebarToolbarProps
   views?: Array<CuiSidebarView>
@@ -126,13 +125,9 @@ export const CuiSidebar = ({
         </>
       )}
       {popover && (
-        <CuiSidebarPopover
-          content={popover.content}
-          label="Update Page"
-          open={popover.open}
-          originRef={sidebarRef}
-          toolbar={popover.toolbar}
-        />
+        <CuiSidebarPopoverContainer anchorRef={sidebarRef}>
+          {popover}
+        </CuiSidebarPopoverContainer>
       )}
     </div>
   )

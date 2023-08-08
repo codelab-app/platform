@@ -1,5 +1,6 @@
 import type { ICreateActionData } from '@codelab/frontend/abstract/core'
 import { HttpMethod } from '@codelab/frontend/abstract/core'
+import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { SelectAction, SelectResource } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
 import {
@@ -10,6 +11,7 @@ import {
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { ResourceType } from '@codelab/shared/abstract/codegen'
 import { IActionKind } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import type { Context } from 'uniforms'
@@ -23,107 +25,114 @@ const CODE_ACTION = `function run() {
     // state.count += 2;
 }`
 
-export const CreateActionForm = observer(() => {
-  const { actionService, resourceService } = useStore()
-  const actionSchema = useActionSchema(createActionSchema)
+interface CreateActionFormProps {
+  submitRef?: React.MutableRefObject<Maybe<SubmitController>>
+}
 
-  const onSubmit = (actionDTO: ICreateActionData) => {
-    console.log('submit', actionDTO)
+export const CreateActionForm = observer(
+  ({ submitRef }: CreateActionFormProps) => {
+    const { actionService, resourceService } = useStore()
+    const actionSchema = useActionSchema(createActionSchema)
 
-    return actionService.create(actionDTO)
-  }
+    const onSubmit = (actionDTO: ICreateActionData) => {
+      console.log('submit', actionDTO)
 
-  const closeForm = () => actionService.createForm.close()
+      return actionService.create(actionDTO)
+    }
 
-  const getResourceType = ({ model }: Context<ICreateActionData>) =>
-    model.resourceId ? resourceService.resource(model.resourceId)?.type : null
+    const closeForm = () => actionService.createForm.close()
 
-  const getResourceApiUrl = ({ model }: Context<ICreateActionData>) =>
-    model.resourceId
-      ? resourceService.resource(model.resourceId)?.config.current.get('url')
-      : null
+    const getResourceType = ({ model }: Context<ICreateActionData>) =>
+      model.resourceId ? resourceService.resource(model.resourceId)?.type : null
 
-  const model = {
-    code: CODE_ACTION,
-    config: {
-      data: {
-        body: '{}',
-        headers: '{}',
-        method: HttpMethod.GET,
-        query: '',
-        queryParams: '{}',
-        urlSegment: '',
-        variables: '{}',
+    const getResourceApiUrl = ({ model }: Context<ICreateActionData>) =>
+      model.resourceId
+        ? resourceService.resource(model.resourceId)?.config.current.get('url')
+        : null
+
+    const model = {
+      code: CODE_ACTION,
+      config: {
+        data: {
+          body: '{}',
+          headers: '{}',
+          method: HttpMethod.GET,
+          query: '',
+          queryParams: '{}',
+          urlSegment: '',
+          variables: '{}',
+        },
+        id: v4(),
       },
       id: v4(),
-    },
-    id: v4(),
-    storeId: actionService.createForm.store?.id,
-  }
+      storeId: actionService.createForm.store?.id,
+    }
 
-  return (
-    <Form<ICreateActionData>
-      model={model}
-      onSubmit={onSubmit}
-      onSubmitError={createNotificationHandler({
-        title: 'Error while creating action',
-      })}
-      onSubmitSuccess={closeForm}
-      schema={actionSchema}
-    >
-      <AutoFields
-        omitFields={[
-          'code',
-          'resourceId',
-          'config',
-          'successActionId',
-          'errorActionId',
-          'actionsIds',
-        ]}
-      />
-
-      {/** Code Action */}
-      <DisplayIfField<ICreateActionData>
-        condition={(context) => context.model.type === IActionKind.CodeAction}
+    return (
+      <Form<ICreateActionData>
+        model={model}
+        onSubmit={onSubmit}
+        onSubmitError={createNotificationHandler({
+          title: 'Error while creating action',
+        })}
+        onSubmitSuccess={closeForm}
+        schema={actionSchema}
+        submitRef={submitRef}
       >
-        <AutoField label="Action code" name="code" />
-      </DisplayIfField>
+        <AutoFields
+          omitFields={[
+            'code',
+            'resourceId',
+            'config',
+            'successActionId',
+            'errorActionId',
+            'actionsIds',
+          ]}
+        />
 
-      {/** Api Action */}
-      <DisplayIfField<ICreateActionData>
-        condition={(context) => context.model.type === IActionKind.ApiAction}
-      >
-        <SelectResource name="resourceId" resourceService={resourceService} />
-        <AutoField component={SelectAction} name="successActionId" />
-        <AutoField component={SelectAction} name="errorActionId" />
-
-        {/** GraphQL Config Form */}
+        {/** Code Action */}
         <DisplayIfField<ICreateActionData>
-          condition={(context) =>
-            getResourceType(context) === ResourceType.GraphQL
-          }
+          condition={(context) => context.model.type === IActionKind.CodeAction}
         >
-          <AutoField getUrl={getResourceApiUrl} name="config.data.query" />
-          <AutoField name="config.data.variables" />
-          <AutoField name="config.data.headers" />
+          <AutoField label="Action code" name="code" />
         </DisplayIfField>
 
-        {/** Rest Config Form */}
+        {/** Api Action */}
         <DisplayIfField<ICreateActionData>
-          condition={(context) =>
-            getResourceType(context) === ResourceType.Rest
-          }
+          condition={(context) => context.model.type === IActionKind.ApiAction}
         >
-          <AutoField name="config.data.urlSegment" />
-          <AutoField name="config.data.method" />
-          <AutoField name="config.data.body" />
-          <AutoField name="config.data.queryParams" />
-          <AutoField name="config.data.headers" />
-          <AutoField name="config.data.responseType" />
-        </DisplayIfField>
-      </DisplayIfField>
+          <SelectResource name="resourceId" resourceService={resourceService} />
+          <AutoField component={SelectAction} name="successActionId" />
+          <AutoField component={SelectAction} name="errorActionId" />
 
-      <FormController onCancel={closeForm} submitLabel="Create Field" />
-    </Form>
-  )
-})
+          {/** GraphQL Config Form */}
+          <DisplayIfField<ICreateActionData>
+            condition={(context) =>
+              getResourceType(context) === ResourceType.GraphQL
+            }
+          >
+            <AutoField getUrl={getResourceApiUrl} name="config.data.query" />
+            <AutoField name="config.data.variables" />
+            <AutoField name="config.data.headers" />
+          </DisplayIfField>
+
+          {/** Rest Config Form */}
+          <DisplayIfField<ICreateActionData>
+            condition={(context) =>
+              getResourceType(context) === ResourceType.Rest
+            }
+          >
+            <AutoField name="config.data.urlSegment" />
+            <AutoField name="config.data.method" />
+            <AutoField name="config.data.body" />
+            <AutoField name="config.data.queryParams" />
+            <AutoField name="config.data.headers" />
+            <AutoField name="config.data.responseType" />
+          </DisplayIfField>
+        </DisplayIfField>
+
+        <FormController onCancel={closeForm} submitLabel="Create Field" />
+      </Form>
+    )
+  },
+)

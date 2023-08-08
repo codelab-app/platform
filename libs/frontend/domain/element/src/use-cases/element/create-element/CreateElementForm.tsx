@@ -6,7 +6,11 @@ import {
   SelectAnyElement,
 } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
-import { Form } from '@codelab/frontend/presentation/view'
+import {
+  DisplayIf,
+  Form,
+  FormController,
+} from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import type {
   Maybe,
@@ -24,11 +28,17 @@ import { useRequiredParentValidator } from '../../../utils'
 import { createElementSchema } from './create-element.schema'
 
 interface CreateElementFormProps {
+  showFormControl?: boolean
   submitRef: React.MutableRefObject<Maybe<SubmitController>>
+  onSubmitSuccess?(): void
 }
 
 export const CreateElementForm = observer(
-  ({ submitRef }: CreateElementFormProps) => {
+  ({
+    onSubmitSuccess,
+    showFormControl = true,
+    submitRef,
+  }: CreateElementFormProps) => {
     const { elementService, userService } = useStore()
     const { metadata, parentElement } = elementService.createForm
     const elementOptions = metadata?.elementOptions
@@ -55,6 +65,7 @@ export const CreateElementForm = observer(
         : elementService.createElementAsFirstChild(data))
 
       closeForm()
+      onSubmitSuccess?.()
 
       return Promise.resolve()
     }
@@ -124,6 +135,9 @@ export const CreateElementForm = observer(
         <SelectActionField name="postRenderAction" />
         <Divider />
         <AutoComputedElementNameField label="Name" name="name" />
+        <DisplayIf condition={showFormControl}>
+          <FormController onCancel={closeForm} submitLabel="Create Element" />
+        </DisplayIf>
       </Form>
     )
   },
