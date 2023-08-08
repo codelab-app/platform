@@ -135,7 +135,7 @@ export const createFieldSchema: JSONSchemaType<ICreateFieldData> = {
   // This is overridden if the field is not nullable, which will require a value for `defaultValues`
   required: ['id', 'key', 'fieldType'],
   then: {
-    required: ['id', 'key', 'fieldType', 'defaultValues'],
+    required: ['id', 'key', 'fieldType'],
     properties: {
       defaultValues: {
         $ref: 'customTypes#/definitions/fieldDefaultValues',

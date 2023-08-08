@@ -67,4 +67,5 @@ export interface SubmitRef {
 /** This object is used to control form submission imperatively */
 export interface SubmitController {
   submit(): void
+  validate?(): void
 }

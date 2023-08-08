@@ -51,6 +51,8 @@ export const ElementTreeItemElementTitle = observer(
       ? `Error: ${element.renderingMetadata.error.message}`
       : element.ancestorError
       ? `Something went wrong in a parent element`
+      : element.propsHaveErrors
+      ? `Some props are not correctly set`
       : undefined
 
     return (

@@ -11,11 +11,12 @@ import JSONSchemaBridge from 'uniforms-bridge-json-schema'
 
 export const connectUniformSubmitRef =
   (submitRef: Maybe<MutableRefObject<Maybe<SubmitController>>>) =>
-  (ref: Nullish<{ submit(): unknown }>) => {
+  (ref: Nullish<{ submit(): unknown; validate(): unknown }>) => {
     if (submitRef && ref) {
       // eslint-disable-next-line no-param-reassign
       submitRef.current = {
         submit: () => ref.submit(),
+        validate: () => ref.validate(),
       }
     }
   }

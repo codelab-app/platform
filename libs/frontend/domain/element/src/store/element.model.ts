@@ -30,6 +30,8 @@ import {
   propRef,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
+import { schemaTransformer } from '@codelab/frontend/domain/type'
+import { createValidator } from '@codelab/frontend/presentation/view'
 import {
   ElementCreateInput,
   ElementUpdateInput,
@@ -330,6 +332,22 @@ export class Element
     this.renderingMetadata = {
       error,
     }
+  }
+
+  @computed
+  get propsHaveErrors() {
+    if (!this.renderType?.current.api.current) {
+      return false
+    }
+
+    const schema = schemaTransformer.transform(
+      this.renderType.current.api.current,
+    )
+
+    const validate = createValidator(schema)
+    const result = validate(this.props.current.values)
+
+    return result ? result.details.length > 0 : false
   }
 
   @computed
