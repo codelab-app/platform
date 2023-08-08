@@ -4,6 +4,7 @@ import type {
   IInterfaceType,
   IPage,
   IPropData,
+  IRootStore,
   IStore,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -23,7 +24,7 @@ import type { IAppDTO, IStoreDTO } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
-import { computed, makeAutoObservable } from 'mobx'
+import { computed, makeAutoObservable, observable } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { v4 } from 'uuid'
@@ -65,7 +66,24 @@ export class Store
   }))
   implements IStore
 {
-  refsValues: IPropData = {}
+  refs = observable<IPropData>({})
+
+  onAttachedToRootStore({ componentService, pageService }: IRootStore) {
+    const page = this.page?.id ? pageService.page(this.page.id) : null
+
+    const component = this.component?.id
+      ? componentService.component(this.component.id)
+      : null
+
+    const tree = page || component
+    const elements = tree?.elements || []
+
+    for (const element of elements) {
+      if (element.refKey) {
+        this.refs[element.refKey] = { current: null }
+      }
+    }
+  }
 
   @computed
   get actionsTree() {
@@ -92,7 +110,10 @@ export class Store
 
   @computed
   get jsonString() {
-    return propSafeStringify(this.state)
+    return propSafeStringify({
+      refs: this.refs,
+      state: this.state,
+    })
   }
 
   @computed
@@ -133,6 +154,10 @@ export class Store
       actions?.map((action) => actionRef(action.id)) ?? this.actions
 
     return this
+  }
+
+  registerRef(key: string, current: HTMLElement) {
+    this.refs[key] = { current }
   }
 
   @modelAction

@@ -62,7 +62,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         return acc
       }, {})
 
-      const refsProps = Object.entries(element.store.current.refsValues).reduce<
+      const refsProps = Object.entries(element.store.current.refs).reduce<
         Record<string, unknown>
       >((acc, [key, val]) => {
         acc[`refs.${key}`] = val
@@ -71,7 +71,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       }, {})
 
       const rootRefsProps = Object.entries(
-        element.providerStore?.current.refsValues ?? {},
+        element.providerStore?.current.refs ?? {},
       ).reduce<Record<string, unknown>>((acc, [key, val]) => {
         acc[`rootRefs.${key}`] = val
 

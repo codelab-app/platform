@@ -29,7 +29,7 @@ export const getActionRunnerThisObject = (
   urlProps?: IPropData,
 ) => {
   const _this: ActionRunnerThisObject = {
-    refs: store.current.refsValues,
+    refs: store.current.refs,
     state: store.current.state,
     urlProps: urlProps ?? {},
   }
@@ -44,7 +44,7 @@ export const getActionRunnerThisObject = (
       providerStore.current.state
 
     _this[isActionFromProvider ? 'refs' : 'rootRefs'] =
-      providerStore.current.refsValues
+      providerStore.current.refs
   }
 
   return _this

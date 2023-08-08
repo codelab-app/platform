@@ -29,6 +29,10 @@ export class ElementRuntimeProps
 {
   @computed
   get props() {
+    // memorize values or else it will be lost inside callback
+    const refKey = this.node.refKey
+    const store = this.node.store.current
+
     return {
       ...(this.node.renderType
         ? getDefaultFieldProps(this.node.renderType.current)
@@ -38,6 +42,13 @@ export class ElementRuntimeProps
        * Internal system props for meta data, use double underline for system-defined identifiers.
        */
       [DATA_ELEMENT_ID]: this.node.id,
+      forwardedRef: (node: HTMLElement) => {
+        if (!refKey) {
+          return
+        }
+
+        store.registerRef(refKey, node)
+      },
       key: this.node.id,
     }
   }
@@ -84,8 +95,8 @@ export class ElementRuntimeProps
       this.node.store.current.state,
       this.node.providerStore?.current.state,
       injectedProps,
-      this.node.store.current.refsValues,
-      this.node.providerStore?.current.refsValues,
+      this.node.store.current.refs,
+      this.node.providerStore?.current.refs,
       this.node.urlProps,
     )
   }
@@ -100,8 +111,8 @@ export class ElementRuntimeProps
       this.node.store.current.state,
       this.node.providerStore?.current.state,
       injectedProps,
-      this.node.store.current.refsValues,
-      this.node.providerStore?.current.refsValues,
+      this.node.store.current.refs,
+      this.node.providerStore?.current.refs,
       this.node.urlProps,
     )
   }
@@ -134,8 +145,8 @@ export class ElementRuntimeProps
 
     const allPropsOptions = mergeProps(this.node.store.current.state, {
       props: injectedProps,
-      refs: this.node.store.current.refsValues,
-      rootRefs: this.node.providerStore?.current.refsValues,
+      refs: this.node.store.current.refs,
+      rootRefs: this.node.providerStore?.current.refs,
       rootState: this.node.providerStore?.current.state,
     })
 

@@ -16,7 +16,6 @@ import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { shouldRenderElement } from '../utils'
 import { mapOutput } from '../utils/render-output-utils'
-import { getRefWrapper } from './get-ref-wrapper'
 import { renderComponentWithStyles } from './get-styled-components'
 import { extractValidProps, getReactComponent } from './wrapper.utils'
 
@@ -93,11 +92,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
       const extractedProps = extractValidProps(ReactComponent, renderOutput)
 
-      const WithRefWrapper = element.refKey
-        ? getRefWrapper(element, element.refKey, ReactComponent)
-        : ReactComponent
-
-      return renderComponentWithStyles(WithRefWrapper, extractedProps, children)
+      return renderComponentWithStyles(ReactComponent, extractedProps, children)
     })
 
     return React.createElement(

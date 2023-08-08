@@ -26,11 +26,12 @@ export interface IStore
   jsonString: string
   name: string
   page: Nullable<Ref<IPage>>
-  refsValues: IPropData
+  refs: IPropData
   source: Nullable<IEntity>
   state: IPropData
 
   clone(componentId: string): IStore
+  registerRef(key: string, node: HTMLElement): void
   setComponent(componentRef: Ref<IComponent>): void
 }
 
