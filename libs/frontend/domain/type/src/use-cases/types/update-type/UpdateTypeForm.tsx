@@ -102,7 +102,7 @@ export const UpdateTypeForm = observer(() => {
         <SelectField label="Element kind" name="elementKind" showSearch />
       </DisplayIfKind>
 
-      <FormController onCancel={closeForm} submitLabel="Update Type" />
+      <FormController submitLabel="Update Type" />
     </Form>
   )
 })

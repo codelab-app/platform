@@ -35,12 +35,7 @@ export const UpdateResourceForm = observer(() => {
       schema={updateResourceSchema}
     >
       <AutoFields />
-      <FormController
-        onCancel={() => {
-          /** */
-        }}
-        submitLabel="Update Resource"
-      />
+      <FormController submitLabel="Update Resource" />
     </Form>
   )
 })
