@@ -3,7 +3,10 @@ import type {
   ITypedPropTransformer,
   TypedProp,
 } from '@codelab/frontend/abstract/core'
-import { componentRef } from '@codelab/frontend/abstract/core'
+import {
+  componentRef,
+  extractTypedPropValue,
+} from '@codelab/frontend/abstract/core'
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { BaseRenderPipe } from '../renderPipes/render-pipe.base'
@@ -30,19 +33,23 @@ export class ReactNodeTypeTransformer
 {
   public transform(prop: TypedProp, node: IPageNode) {
     const { expressionTransformer } = this.renderer
+    const value = extractTypedPropValue(prop)
+
+    if (!value) {
+      return ''
+    }
 
     // value is a custom JS component
     if (hasStateExpression(prop.value) && expressionTransformer.initialized) {
       const transpiledValue =
-        expressionTransformer.transpileAndEvaluateExpression(prop.value)
+        expressionTransformer.transpileAndEvaluateExpression(value)
 
       return typeof transpiledValue === 'function'
         ? transpiledValue.call(expressionTransformer.context)
         : transpiledValue
     }
 
-    const { value: componentId } = prop
-    const component = this.componentService.components.get(componentId)
+    const component = this.componentService.components.get(value)
     const fallback = ''
 
     if (!component) {

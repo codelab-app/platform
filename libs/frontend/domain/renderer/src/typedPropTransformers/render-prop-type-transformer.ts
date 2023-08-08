@@ -4,7 +4,10 @@ import type {
   ITypedPropTransformer,
   TypedProp,
 } from '@codelab/frontend/abstract/core'
-import { componentRef } from '@codelab/frontend/abstract/core'
+import {
+  componentRef,
+  extractTypedPropValue,
+} from '@codelab/frontend/abstract/core'
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { ExtendedModel, model } from 'mobx-keystone'
 import { BaseRenderPipe } from '../renderPipes/render-pipe.base'
@@ -41,12 +44,17 @@ export class RenderPropTypeTransformer
 {
   public transform(prop: TypedProp, node: IPageNode) {
     const { expressionTransformer } = this.renderer
+    const propValue = extractTypedPropValue(prop)
 
-    if (hasStateExpression(prop.value) && expressionTransformer.initialized) {
-      return expressionTransformer.transpileAndEvaluateExpression(prop.value)
+    if (!propValue) {
+      return ''
     }
 
-    const component = this.componentService.components.get(prop.value)
+    if (hasStateExpression(propValue) && expressionTransformer.initialized) {
+      return expressionTransformer.transpileAndEvaluateExpression(propValue)
+    }
+
+    const component = this.componentService.components.get(propValue)
     const fields = component?.api.current.fields
     // can't return prop object because it will be passed as React Child, which will throw an error
     const fallback = ''

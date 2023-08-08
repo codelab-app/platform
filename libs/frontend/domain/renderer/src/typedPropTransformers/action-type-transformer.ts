@@ -4,6 +4,7 @@ import type {
   TypedProp,
 } from '@codelab/frontend/abstract/core'
 import {
+  extractTypedPropValue,
   getActionRunnerThisObject,
   getRunnerId,
   isElementPageNode,
@@ -37,6 +38,12 @@ export class ActionTypeTransformer
       return prop.value
     }
 
+    const propValue = extractTypedPropValue(prop)
+
+    if (!propValue) {
+      return ''
+    }
+
     const providerStore = isElementPageNode(node)
       ? node.providerStore
       : undefined
@@ -44,12 +51,12 @@ export class ActionTypeTransformer
     const urlProps = isElementPageNode(node) ? node.urlProps : undefined
 
     const localActionRunner = this.renderer.actionRunners.get(
-      getRunnerId(node.store.id, prop.value),
+      getRunnerId(node.store.id, propValue),
     )
 
     const rootActionRunner = providerStore
       ? this.renderer.actionRunners.get(
-          getRunnerId(providerStore.id, prop.value),
+          getRunnerId(providerStore.id, propValue),
         )
       : undefined
 

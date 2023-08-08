@@ -93,7 +93,11 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
       !isNil(previousSelectedTypeId) &&
       previousSelectedTypeId !== selectedTypeId
     ) {
-      context.onChange(concatenateName(valueFieldName, context), undefined)
+      context.onChange(concatenateName(name, context), {
+        kind: getTypeFromOneOf(oneOf, selectedTypeId).properties.kind.default,
+        type: selectedTypeId,
+        value: undefined,
+      })
     }
   }, [
     context,
@@ -101,7 +105,18 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
     previousSelectedTypeId,
     selectedTypeId,
     valueFieldName,
+    name,
+    oneOf,
   ])
+
+  // This is required to avoid using the value of previously
+  // selected type when switching between types.
+  const model = {
+    value:
+      isNil(previousSelectedTypeId) || selectedTypeId === previousSelectedTypeId
+        ? fieldProps.value.value
+        : undefined,
+  }
 
   return (
     <AntdForm.Item label={fieldProps.label}>
@@ -114,7 +129,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
 
         <Form
           key={selectedTypeId}
-          model={{ value: fieldProps.value.value }}
+          model={model}
           onChangeModel={(formData) => {
             // This automatically sets the default values into the formData for the properties that has a default value
             // This is needed for ReactNodeType or similar types where the schema has a default `type` field value

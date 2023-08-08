@@ -1,4 +1,5 @@
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import isPlainObject from 'lodash/isPlainObject'
 import isString from 'lodash/isString'
 import type { IPropData } from '../../prop'
@@ -15,7 +16,7 @@ export interface TypedProp {
   // sometimes we need to know the kind without having to load the type
   kind: ITypeKind
   type: string
-  value: string
+  value?: TypedProp | string
 }
 
 export const isTypedProp = (prop: IPropData): prop is TypedProp => {
@@ -33,4 +34,16 @@ export const isTypedProp = (prop: IPropData): prop is TypedProp => {
   // This condition reduces the chances of falsely identifying a prop from an atom component
   // that has an actual `type`, `kind`, or `value` field but is not a render prop.
   return hasTypeAndKindOnly || hasAllKeys
+}
+
+export const extractTypedPropValue = (prop: TypedProp): Maybe<string> => {
+  if (!prop.value) {
+    return undefined
+  }
+
+  if (isString(prop.value)) {
+    return prop.value
+  }
+
+  return extractTypedPropValue(prop.value)
 }
