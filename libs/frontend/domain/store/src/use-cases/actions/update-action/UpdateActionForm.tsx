@@ -3,6 +3,7 @@ import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { SelectAction, SelectResource } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
 import {
+  DisplayIf,
   DisplayIfField,
   Form,
   FormController,
@@ -18,18 +19,27 @@ import { useActionSchema } from '../hooks'
 import { updateActionSchema } from './update-action.schema'
 
 interface UpdateActionFormProps {
+  showFormControl?: boolean
   submitRef?: React.MutableRefObject<Maybe<SubmitController>>
+  onSubmitSuccess?(): void
 }
 
 export const UpdateActionForm = observer(
-  ({ submitRef }: UpdateActionFormProps) => {
+  ({
+    onSubmitSuccess,
+    showFormControl = true,
+    submitRef,
+  }: UpdateActionFormProps) => {
     const { actionService, resourceService } = useStore()
     const actionSchema = useActionSchema(updateActionSchema)
     const closeForm = () => actionService.updateForm.close()
     const actionToUpdate = actionService.updateForm.action
 
     const onSubmit = (actionDTO: IUpdateActionData) => {
-      return actionService.update(actionDTO)
+      const promise = actionService.update(actionDTO)
+      onSubmitSuccess?.()
+
+      return promise
     }
 
     const onSubmitError = createNotificationHandler({
@@ -124,7 +134,9 @@ export const UpdateActionForm = observer(
           </>
         )}
 
-        <FormController onCancel={closeForm} submitLabel="Update Field" />
+        <DisplayIf condition={showFormControl}>
+          <FormController onCancel={closeForm} submitLabel="Update Field" />
+        </DisplayIf>
       </Form>
     )
   },

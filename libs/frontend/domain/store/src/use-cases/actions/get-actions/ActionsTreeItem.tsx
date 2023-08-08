@@ -8,9 +8,11 @@ import {
   actionRef,
   type IActionsTreeDataNode,
 } from '@codelab/frontend/abstract/core'
+import { FormNames } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
+  useCui,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { IActionKind } from '@codelab/shared/abstract/core'
@@ -22,6 +24,7 @@ interface ActionsTreeItemProps {
 
 export const ActionsTreeItem = ({ data }: ActionsTreeItemProps) => {
   const { actionService } = useStore()
+  const { popover } = useCui()
 
   const onDelete = () => {
     actionService.deleteModal.open(actionRef(data.extraData.node.id))
@@ -29,6 +32,7 @@ export const ActionsTreeItem = ({ data }: ActionsTreeItemProps) => {
 
   const onEdit = () => {
     actionService.updateForm.open(actionRef(data.extraData.node.id))
+    popover.open(FormNames.UpdateAction)
   }
 
   const toolbarItems = [

@@ -20,8 +20,10 @@ import {
 } from '@codelab/frontend/domain/element'
 import {
   ActionsTreeView,
+  CreateActionPopover,
   DeleteActionModal,
   StateTreeView,
+  UpdateActionPopover,
 } from '@codelab/frontend/domain/store'
 import type { InterfaceType } from '@codelab/frontend/domain/type'
 import {
@@ -29,6 +31,7 @@ import {
   CreateFieldPopover,
   DeleteFieldModal,
   UpdateFieldModal,
+  UpdateFieldPopover,
 } from '@codelab/frontend/domain/type'
 import type { CuiSidebarView } from '@codelab/frontend/presentation//codelab-ui'
 import { CuiSidebar, useCui } from '@codelab/frontend/presentation//codelab-ui'
@@ -177,8 +180,8 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   return
                 }
 
-                const form = actionService.createForm
-                form.open(storeRef(store) as Ref<IStore>)
+                actionService.createForm.open(storeRef(store) as Ref<IStore>)
+                popover.open(FormNames.CreateAction)
               },
               title: 'Add Action',
             },
@@ -245,8 +248,11 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
           label="Explorer"
           popover={
             <>
+              <UpdateFieldPopover />
               <CreateFieldPopover />
               <CreateElementPopover />
+              <CreateActionPopover />
+              <UpdateActionPopover />
             </>
           }
           views={sidebarViews}

@@ -2,6 +2,7 @@ import type { IUpdateFieldData } from '@codelab/frontend/abstract/core'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/presentation/container'
 import {
+  DisplayIf,
   DisplayIfField,
   Form,
   FormController,
@@ -27,11 +28,17 @@ import {
 import { useFieldSchema } from '../hooks'
 
 interface UpdateFieldFormProps {
+  showFormControl?: boolean
   submitRef?: React.MutableRefObject<Maybe<SubmitController>>
+  onSubmitSuccess?(): void
 }
 
 export const UpdateFieldForm = observer(
-  ({ submitRef }: UpdateFieldFormProps) => {
+  ({
+    onSubmitSuccess,
+    showFormControl = true,
+    submitRef,
+  }: UpdateFieldFormProps) => {
     const { fieldService, typeService } = useStore()
     const fieldSchema = useFieldSchema(createFieldSchema)
     const closeForm = () => fieldService.updateForm.close()
@@ -50,6 +57,7 @@ export const UpdateFieldForm = observer(
       void fieldService.update({ ...input, validationRules })
 
       closeForm()
+      onSubmitSuccess?.()
 
       return Promise.resolve()
     }
@@ -139,7 +147,9 @@ export const UpdateFieldForm = observer(
           <SelectDefaultValue typeService={typeService} />
         </DisplayIfField>
 
-        <FormController onCancel={closeForm} submitLabel="Update Field" />
+        <DisplayIf condition={showFormControl}>
+          <FormController onCancel={closeForm} submitLabel="Update Field" />
+        </DisplayIf>
       </Form>
     )
   },

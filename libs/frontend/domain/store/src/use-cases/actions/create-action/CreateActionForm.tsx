@@ -4,6 +4,7 @@ import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { SelectAction, SelectResource } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
 import {
+  DisplayIf,
   DisplayIfField,
   Form,
   FormController,
@@ -26,18 +27,28 @@ const CODE_ACTION = `function run() {
 }`
 
 interface CreateActionFormProps {
+  showFormControl?: boolean
   submitRef?: React.MutableRefObject<Maybe<SubmitController>>
+  onSubmitSuccess?(): void
 }
 
 export const CreateActionForm = observer(
-  ({ submitRef }: CreateActionFormProps) => {
+  ({
+    onSubmitSuccess,
+    showFormControl = true,
+    submitRef,
+  }: CreateActionFormProps) => {
     const { actionService, resourceService } = useStore()
     const actionSchema = useActionSchema(createActionSchema)
 
     const onSubmit = (actionDTO: ICreateActionData) => {
       console.log('submit', actionDTO)
 
-      return actionService.create(actionDTO)
+      const promise = actionService.create(actionDTO)
+
+      onSubmitSuccess?.()
+
+      return promise
     }
 
     const closeForm = () => actionService.createForm.close()
@@ -131,7 +142,9 @@ export const CreateActionForm = observer(
           </DisplayIfField>
         </DisplayIfField>
 
-        <FormController onCancel={closeForm} submitLabel="Create Field" />
+        <DisplayIf condition={showFormControl}>
+          <FormController onCancel={closeForm} submitLabel="Create Field" />
+        </DisplayIf>
       </Form>
     )
   },
