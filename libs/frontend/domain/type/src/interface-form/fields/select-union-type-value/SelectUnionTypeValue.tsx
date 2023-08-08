@@ -77,11 +77,12 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
 
   const { type: selectedTypeId } = fieldProps.value
   const selectOptions = makeSelectOptions(oneOf)
+  const typeFromOneOf = getTypeFromOneOf(oneOf, selectedTypeId)
 
   const valueSchema = {
     label: '',
     properties: {
-      value: getTypeFromOneOf(oneOf, selectedTypeId).properties.value,
+      value: typeFromOneOf.properties.value,
     },
     required: ['value'],
     type: 'object',
@@ -94,7 +95,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
       previousSelectedTypeId !== selectedTypeId
     ) {
       context.onChange(concatenateName(name, context), {
-        kind: getTypeFromOneOf(oneOf, selectedTypeId).properties.kind.default,
+        kind: typeFromOneOf.properties.kind.default,
         type: selectedTypeId,
         value: undefined,
       })
@@ -106,7 +107,7 @@ export const SelectUnionTypeValue = (props: SelectUnionTypeValueProps) => {
     selectedTypeId,
     valueFieldName,
     name,
-    oneOf,
+    typeFromOneOf,
   ])
 
   // This is required to avoid using the value of previously

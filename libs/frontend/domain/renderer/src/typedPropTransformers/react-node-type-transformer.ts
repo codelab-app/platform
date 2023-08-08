@@ -33,23 +33,23 @@ export class ReactNodeTypeTransformer
 {
   public transform(prop: TypedProp, node: IPageNode) {
     const { expressionTransformer } = this.renderer
-    const value = extractTypedPropValue(prop)
+    const propValue = extractTypedPropValue(prop)
 
-    if (!value) {
+    if (!propValue) {
       return ''
     }
 
-    // value is a custom JS component
+    // propValue is a custom JS component
     if (hasStateExpression(prop.value) && expressionTransformer.initialized) {
       const transpiledValue =
-        expressionTransformer.transpileAndEvaluateExpression(value)
+        expressionTransformer.transpileAndEvaluateExpression(propValue)
 
       return typeof transpiledValue === 'function'
         ? transpiledValue.call(expressionTransformer.context)
         : transpiledValue
     }
 
-    const component = this.componentService.components.get(value)
+    const component = this.componentService.components.get(propValue)
     const fallback = ''
 
     if (!component) {

@@ -16,6 +16,7 @@ export interface TypedProp {
   // sometimes we need to know the kind without having to load the type
   kind: ITypeKind
   type: string
+  // required for nested types
   value?: TypedProp | string
 }
 
