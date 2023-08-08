@@ -7,4 +7,6 @@ export enum FormNames {
   UpdateAction = 'Update Action',
   CreateComponent = 'Create Component',
   UpdateComponent = 'Update Component',
+  CreatePage = 'Create Page',
+  UpdatePage = 'Update Page',
 }

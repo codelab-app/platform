@@ -1,5 +1,6 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { CuiSidebar } from '@codelab/frontend/presentation//codelab-ui'
+import { FormNames } from '@codelab/frontend/abstract/types'
+import { CuiSidebar, useCui } from '@codelab/frontend/presentation//codelab-ui'
 import {
   useCurrentApp,
   useStore,
@@ -7,32 +8,31 @@ import {
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import {
-  CreatePageForm,
+  CreatePagePopover,
   DeletePageModal,
   PageList,
-  UpdatePageForm,
+  UpdatePagePopover,
 } from '../use-cases'
 
 export const PagesPrimarySidebar = observer(() => {
   const { pageService } = useStore()
   const { app } = useCurrentApp()
+  const { popover } = useCui()
 
   return (
     <>
       <CuiSidebar
         defaultActiveViewKeys={['pages']}
         label="Pages"
+        popover={
+          <>
+            <CreatePagePopover />
+            <UpdatePagePopover />
+          </>
+        }
         views={[
           {
-            content: (
-              <>
-                {!pageService.createForm.isOpen &&
-                  !pageService.updateForm.isOpen &&
-                  app && <PageList app={app} />}
-                {pageService.createForm.isOpen && <CreatePageForm />}
-                {pageService.updateForm.isOpen && <UpdatePageForm />}
-              </>
-            ),
+            content: <>{app && <PageList app={app} />}</>,
             key: 'pages',
             label: 'Pages',
             toolbar: {
@@ -42,6 +42,7 @@ export const PagesPrimarySidebar = observer(() => {
                   key: 'create-page',
                   onClick: () => {
                     pageService.createForm.open()
+                    popover.open(FormNames.CreatePage)
                   },
                   title: 'Create Page',
                 },
