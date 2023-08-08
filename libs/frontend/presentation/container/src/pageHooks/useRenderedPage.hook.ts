@@ -7,6 +7,7 @@ import type {
   TypedProp,
 } from '@codelab/frontend/abstract/core'
 import {
+  extractTypedPropValue,
   isComponentInstance,
   isTypedProp,
   rendererRef,
@@ -20,6 +21,7 @@ import type { Nullable } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
 import flatMap from 'lodash/flatMap'
 import isObject from 'lodash/isObject'
+import isString from 'lodash/isString'
 import values from 'lodash/values'
 import { useRouter } from 'next/router'
 import { useStore } from '../providers'
@@ -146,8 +148,8 @@ const hasComponentId = (prop: TypedProp): boolean =>
   [ITypeKind.ReactNodeType, ITypeKind.RenderPropType].includes(prop.kind)
 
 const getComponentIdsFromProp = (prop: IPropData): Array<string> =>
-  isTypedProp(prop) && hasComponentId(prop)
-    ? [prop.value]
+  isTypedProp(prop) && hasComponentId(prop) && extractTypedPropValue(prop)
+    ? [extractTypedPropValue(prop)!]
     : isObject(prop)
     ? values(prop).flatMap((childProp) => getComponentIdsFromProp(childProp))
     : []
@@ -167,7 +169,9 @@ const getComponentIdsFromElements = (elements: Array<IElement>) =>
         acc.push(element.childMapperComponent.id)
       }
 
-      acc.push(...getComponentIdsFromProp(element.props.current))
+      acc.push(
+        ...getComponentIdsFromProp(element.props.current).filter(isString),
+      )
 
       return acc
     }, [])
