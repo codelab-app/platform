@@ -1,7 +1,11 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { DeleteComponentModal } from '@codelab/frontend/domain/component'
+import { FormNames } from '@codelab/frontend/abstract/types'
+import {
+  CreateComponentPopover,
+  DeleteComponentModal,
+} from '@codelab/frontend/domain/component'
 import type { CuiSidebarView } from '@codelab/frontend/presentation//codelab-ui'
-import { CuiSidebar } from '@codelab/frontend/presentation//codelab-ui'
+import { CuiSidebar, useCui } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -14,6 +18,7 @@ interface ComponentsPrimarySidebarProps {
 export const ComponentsPrimarySidebar = observer<ComponentsPrimarySidebarProps>(
   ({ isLoading }) => {
     const { componentService } = useStore()
+    const { popover } = useCui()
 
     const sidebarViews: Array<CuiSidebarView> = [
       {
@@ -30,7 +35,10 @@ export const ComponentsPrimarySidebar = observer<ComponentsPrimarySidebarProps>(
             {
               icon: <PlusOutlined />,
               key: 'AddComponent',
-              onClick: () => componentService.createForm.open(),
+              onClick: () => {
+                componentService.createForm.open()
+                popover.open(FormNames.CreateComponent)
+              },
               title: 'Add Component',
             },
           ],
@@ -54,6 +62,7 @@ export const ComponentsPrimarySidebar = observer<ComponentsPrimarySidebarProps>(
         <CuiSidebar
           defaultActiveViewKeys={['custom', 'pre-built']}
           label="Components"
+          popover={<CreateComponentPopover />}
           views={sidebarViews}
         />
 

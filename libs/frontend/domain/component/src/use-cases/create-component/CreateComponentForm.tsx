@@ -1,7 +1,13 @@
 import type { ICreateComponentData } from '@codelab/frontend/abstract/core'
+import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/presentation/container'
-import { Form, FormController } from '@codelab/frontend/presentation/view'
+import {
+  DisplayIf,
+  Form,
+  FormController,
+} from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -13,35 +19,53 @@ export const KEY_GENERATOR = `function run(props) {
     return props.id
 }`
 
-export const CreateComponentForm = observer(() => {
-  const { componentService, userService } = useStore()
+interface CreateComponentFormProps {
+  showFormControl?: boolean
+  submitRef?: React.MutableRefObject<Maybe<SubmitController>>
+  onSubmitSuccess?(): void
+}
 
-  const onSubmit = (componentData: ICreateComponentData) => {
-    return componentService.create(componentData)
-  }
+export const CreateComponentForm = observer(
+  ({
+    onSubmitSuccess,
+    showFormControl = true,
+    submitRef,
+  }: CreateComponentFormProps) => {
+    const { componentService, userService } = useStore()
 
-  const closeForm = () => componentService.createForm.close()
+    const onSubmit = (componentData: ICreateComponentData) => {
+      const promise = componentService.create(componentData)
+      onSubmitSuccess?.()
 
-  const model = {
-    id: v4(),
-    keyGenerator: KEY_GENERATOR,
-    owner: { auth0Id: userService.user.auth0Id },
-  }
+      return promise
+    }
 
-  return (
-    <Form<ICreateComponentData>
-      data-testid="create-component-form"
-      model={model}
-      onSubmit={onSubmit}
-      onSubmitError={createNotificationHandler({
-        title: 'Error while creating component',
-      })}
-      onSubmitSuccess={closeForm}
-      schema={createComponentSchema}
-    >
-      <AutoFields omitFields={['childrenContainerElement', 'api']} />
+    const closeForm = () => componentService.createForm.close()
 
-      <FormController onCancel={closeForm} submitLabel="Create Component" />
-    </Form>
-  )
-})
+    const model = {
+      id: v4(),
+      keyGenerator: KEY_GENERATOR,
+      owner: { auth0Id: userService.user.auth0Id },
+    }
+
+    return (
+      <Form<ICreateComponentData>
+        data-testid="create-component-form"
+        model={model}
+        onSubmit={onSubmit}
+        onSubmitError={createNotificationHandler({
+          title: 'Error while creating component',
+        })}
+        onSubmitSuccess={closeForm}
+        schema={createComponentSchema}
+        submitRef={submitRef}
+      >
+        <AutoFields omitFields={['childrenContainerElement', 'api']} />
+
+        <DisplayIf condition={showFormControl}>
+          <FormController onCancel={closeForm} submitLabel="Create Component" />
+        </DisplayIf>
+      </Form>
+    )
+  },
+)

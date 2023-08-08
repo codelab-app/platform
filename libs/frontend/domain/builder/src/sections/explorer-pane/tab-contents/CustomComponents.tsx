@@ -6,7 +6,6 @@ import {
   RendererTab,
 } from '@codelab/frontend/abstract/core'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
-import { CreateComponentForm } from '@codelab/frontend/domain/component'
 import {
   useCurrentApp,
   useStore,
@@ -86,22 +85,18 @@ export const CustomComponents = observer(() => {
   return (
     <SkeletonWrapper isLoading={isLoading}>
       {!isNil(error) ? error.message : null}
-      {componentService.createForm.isOpen ? (
-        <CreateComponentForm />
-      ) : (
-        <ComponentList
-          components={componentService.componentList}
-          onDelete={(id) => componentService.deleteModal.open(componentRef(id))}
-          onEdit={(id) => editComponent(id)}
-          onExport={(id) => exportComponent(id)}
-          onSelect={(id) => selectComponent(id)}
-          selectedIds={
-            builderService.selectedNode
-              ? [builderService.selectedNode.id]
-              : undefined
-          }
-        />
-      )}
+      <ComponentList
+        components={componentService.componentList}
+        onDelete={(id) => componentService.deleteModal.open(componentRef(id))}
+        onEdit={(id) => editComponent(id)}
+        onExport={(id) => exportComponent(id)}
+        onSelect={(id) => selectComponent(id)}
+        selectedIds={
+          builderService.selectedNode
+            ? [builderService.selectedNode.id]
+            : undefined
+        }
+      />
     </SkeletonWrapper>
   )
 })

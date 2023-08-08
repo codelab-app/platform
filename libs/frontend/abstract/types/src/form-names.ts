@@ -5,4 +5,6 @@ export enum FormNames {
   UpdateElement = 'Update Element',
   CreateAction = 'Create Action',
   UpdateAction = 'Update Action',
+  CreateComponent = 'Create Component',
+  UpdateComponent = 'Update Component',
 }
