@@ -8,8 +8,6 @@ import type { IPageNode, IPageNodeRef } from '../page'
 import type { IActionRunner } from './action.runner.model.interface'
 import type { IRenderOutput } from './render.interface'
 import type {
-  IComponentRuntimeProp,
-  IElementRuntimeProp,
   IRuntimeProp,
   ITypedPropTransformer,
 } from './runtime.props.model.interface'
@@ -31,9 +29,7 @@ export interface IRenderer {
   typedPropTransformers: ObjectMap<ITypedPropTransformer>
   urlSegments?: Record<string, string>
 
-  addRuntimeProps(
-    nodeRef: IPageNodeRef,
-  ): IComponentRuntimeProp | IElementRuntimeProp
+  addRuntimeProps(nodeRef: IPageNodeRef): IRuntimeProp<IPageNode>
   logRendered(element: IElement, rendered: ArrayOrSingle<IRenderOutput>): void
   renderChildren(parentOutput: IRenderOutput): ArrayOrSingle<ReactNode>
   renderElement(element: IElement): ReactElement

@@ -34,7 +34,11 @@ export const useRenderedComponent = () => {
       return null
     }
 
-    const pageElements = [...component.rootElement.current.descendantElements]
+    const pageElements = [
+      component.rootElement.current,
+      ...component.rootElement.current.descendantElements,
+    ]
+
     const rootElement = elementService.maybeElement(component.rootElement.id)
 
     await loadAllTypesForElements(componentService, typeService, pageElements)
