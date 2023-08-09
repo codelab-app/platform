@@ -11,6 +11,7 @@ import { getTagService } from '@codelab/frontend/domain/tag'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import {
   dynamicLoader,
+  InlineFormService,
   ModalService,
   PaginationService,
 } from '@codelab/frontend/shared/utils'
@@ -43,6 +44,7 @@ export class AtomService
   extends Model({
     atomRepository: prop(() => new AtomRepository({})),
     atoms: prop(() => objectMap<IAtom>()),
+    createForm: prop(() => new InlineFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteManyModal: prop(() => new AtomsModalService({})),
     id: idProp,
