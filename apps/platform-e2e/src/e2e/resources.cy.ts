@@ -58,7 +58,7 @@ describe('Resource CRUD', () => {
 
   describe('delete', () => {
     it('should be able to delete resource', () => {
-      cy.getCuiTreeItemByPrimaryTitle(resourceName).within(() => {
+      cy.getCuiTreeItemByPrimaryTitle(updatedResourceName).within(() => {
         cy.getToolbarItem('Delete').click()
       })
 
