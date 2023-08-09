@@ -27,7 +27,7 @@ export const CuiSidebarPopoverContainer = observer(
         anchor.getBoundingClientRect()
 
       setTop(anchorTop)
-      setLeft(anchorLeft + 5)
+      setLeft(anchorLeft + 3)
 
       // Create a new ResizeObserver instance and provide a callback function
       const resizeObserver = new ResizeObserver(() => {
@@ -35,7 +35,7 @@ export const CuiSidebarPopoverContainer = observer(
           anchor.getBoundingClientRect()
 
         setTop(newAnchorTop)
-        setLeft(newAchnorLeft + 5)
+        setLeft(newAchnorLeft + 3)
       })
 
       // Start observing the element

@@ -26,7 +26,7 @@ export const CuiPopoverToolbarItem = ({
           flex-col
           items-center
           justify-center
-          p-1
+          px-1
         `}
           onClick={onClick}
         >
