@@ -13,4 +13,6 @@ export enum FormNames {
   UpdateType = 'Update Type',
   CreateAtom = 'Create Atom',
   UpdateAtom = 'Update Atom',
+  CreateTag = 'Create Tag',
+  UpdateTag = 'Update Tag',
 }

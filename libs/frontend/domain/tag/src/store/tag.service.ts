@@ -5,7 +5,7 @@ import type {
   ITagTreeService,
   IUpdateTagData,
 } from '@codelab/frontend/abstract/core'
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { InlineFormService, ModalService } from '@codelab/frontend/shared/utils'
 import type { TagWhere } from '@codelab/shared/abstract/codegen'
 import { ITagDTO } from '@codelab/shared/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
@@ -32,6 +32,7 @@ import { TagTreeService } from './tag-tree.service'
 export class TagService
   extends Model({
     checkedTags: prop<Array<Ref<ITag>>>(() => []).withSetter(),
+    createForm: prop(() => new InlineFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteManyModal: prop(() => new TagsModalService({})),
     selectedTag: prop<Nullish<Ref<ITag>>>(null).withSetter(),

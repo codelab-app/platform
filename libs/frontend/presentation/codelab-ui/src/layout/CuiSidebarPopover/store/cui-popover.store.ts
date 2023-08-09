@@ -11,12 +11,6 @@ export class CuiPopoverStore implements IPopoverStore {
 
   @action
   open(id: string) {
-    if (id === this.openPopoverId) {
-      this.openPopoverId = undefined
-
-      return
-    }
-
     this.openPopoverId = id
   }
 

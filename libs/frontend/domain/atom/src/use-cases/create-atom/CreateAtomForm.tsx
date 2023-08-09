@@ -29,7 +29,7 @@ export const CreateAtomForm = observer(
     submitRef,
   }: CreateAtomFormProps) => {
     const { atomService, tagService, userService } = useStore()
-    const closeForm = () => atomService.createModal.close()
+    const closeForm = () => atomService.createForm.close()
 
     const onSubmit = async (data: ICreateAtomData) => {
       const res = await atomService.create(data)

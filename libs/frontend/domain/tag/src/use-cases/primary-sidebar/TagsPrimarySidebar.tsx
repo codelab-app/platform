@@ -1,20 +1,26 @@
 import { DeleteOutlined, PlusOutlined } from '@ant-design/icons'
-import { CuiSidebar } from '@codelab/frontend/presentation//codelab-ui'
+import { FormNames } from '@codelab/frontend/abstract/types'
+import { CuiSidebar, useCui } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { tagRef } from '../../store'
+import { CreateTagPopover } from '../create-tag'
 import { TagsTreeView } from '../get-tags'
 
 export const TagsPrimarySidebar = observer(() => {
   const { tagService } = useStore()
+  const { popover } = useCui()
   const ids = tagService.checkedTags.map((tag) => tag.id)
 
   const toolbarItems = [
     {
       icon: <PlusOutlined />,
       key: 'create',
-      onClick: () => tagService.createModal.open(),
+      onClick: () => {
+        tagService.createForm.open()
+        popover.open(FormNames.CreateTag)
+      },
       title: 'Create Tag',
     },
     {
@@ -29,6 +35,7 @@ export const TagsPrimarySidebar = observer(() => {
   return (
     <CuiSidebar
       label="Tags"
+      popover={<CreateTagPopover />}
       views={[
         {
           content: <TagsTreeView />,
