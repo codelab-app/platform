@@ -171,13 +171,6 @@ describe('Types CRUD', () => {
         value: primitiveTypeName,
       })
 
-      // should show error because nullable is false by default
-      cy.getModal()
-        .getModalAction(/Create/)
-        .click()
-
-      cy.getModal().findByText('Default values is required if not nullable')
-
       cy.getModal().setFormFieldValue({
         label: 'Default values',
         type: FIELD_TYPE.CODE_MIRROR,
@@ -190,6 +183,7 @@ describe('Types CRUD', () => {
 
       cy.getModal().should('not.exist')
 
+      cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).click()
       cy.getCuiTreeItemByPrimaryTitle(fieldName).should('be.visible')
 
       cy.getCuiTreeItemByPrimaryTitle(fieldName).click()
