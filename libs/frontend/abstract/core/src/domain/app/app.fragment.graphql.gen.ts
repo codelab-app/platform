@@ -40,6 +40,14 @@ export type PageBuilderAppFragment = {
   pages: Array<BuilderPageFragment>
 }
 
+export type PageAppFragment = {
+  id: string
+  name: string
+  slug: string
+  owner: OwnerFragment
+  pages: Array<BuilderPageFragment>
+}
+
 export const AppPreviewFragmentDoc = gql`
   fragment AppPreview on App {
     id
@@ -92,6 +100,21 @@ export const PageBuilderAppFragmentDoc = gql`
         ]
       }
     ) {
+      ...BuilderPage
+    }
+  }
+  ${OwnerFragmentDoc}
+  ${BuilderPageFragmentDoc}
+`
+export const PageAppFragmentDoc = gql`
+  fragment PageApp on App {
+    id
+    name
+    slug
+    owner {
+      ...Owner
+    }
+    pages(where: { OR: [{ _compoundName: $pageName }, { kind: Provider }] }) {
       ...BuilderPage
     }
   }

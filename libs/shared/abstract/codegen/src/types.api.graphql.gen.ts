@@ -22660,6 +22660,15 @@ export type PageBuilderAppFragment = {
   pages: Array<{ __typename?: 'Page' } & BuilderPageFragment>
 }
 
+export type PageAppFragment = {
+  __typename?: 'App'
+  id: string
+  name: string
+  slug: string
+  owner: { __typename?: 'User' } & OwnerFragment
+  pages: Array<{ __typename?: 'Page' } & BuilderPageFragment>
+}
+
 export type AtomFragment = {
   __typename?: 'Atom'
   icon?: string | null
@@ -23525,6 +23534,17 @@ export type GetRenderedPageAndCommonAppDataQueryVariables = Exact<{
 export type GetRenderedPageAndCommonAppDataQuery = {
   __typename?: 'Query'
   apps: Array<{ __typename?: 'App' } & PageBuilderAppFragment>
+  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
+}
+
+export type GetRenderedPageAndAppDataQueryVariables = Exact<{
+  appName: Scalars['String']['input']
+  pageName: Scalars['String']['input']
+}>
+
+export type GetRenderedPageAndAppDataQuery = {
+  __typename?: 'Query'
+  apps: Array<{ __typename?: 'App' } & PageAppFragment>
   resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
 }
 
