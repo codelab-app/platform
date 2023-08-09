@@ -6,6 +6,7 @@ import type { IResourceType } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type {
+  ICRUDFormService,
   ICRUDModalService,
   ICRUDService,
   IEntityModalService,
@@ -31,6 +32,10 @@ export interface IResourceService
     Omit<
       ICRUDModalService<Ref<IResource>, { resource: Maybe<IResource> }>,
       'createModal'
+    >,
+    Pick<
+      ICRUDFormService<Ref<IResource>, { resource: Maybe<IResource> }>,
+      'updateForm'
     > {
   createModal: IEntityModalService<CreateResourceData, { type?: IResourceType }>
   resourceList: Array<IResource>

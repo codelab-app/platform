@@ -16,7 +16,6 @@ import { updateAtomSchema } from './update-atom.schema'
 export const UpdateAtomForm = observer(() => {
   const { atomService, tagService } = useStore()
   const atom = atomService.updateForm.atom
-  const closeForm = () => atomService.updateForm.close()
 
   const onSubmit = (atomDTO: IUpdateAtomData) => {
     return atomService.update(atomDTO)
@@ -80,7 +79,7 @@ export const UpdateAtomForm = observer(() => {
       <SelectAtom label="Suggested Children" name="suggestedChildren" />
       <SelectAtom label="Required Parents" name="requiredParents" />
 
-      <FormController onCancel={closeForm} submitLabel="Update Atom" />
+      <FormController submitLabel="Update Atom" />
     </Form>
   )
 })
