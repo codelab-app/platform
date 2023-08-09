@@ -8,7 +8,11 @@ import {
   IType,
   typeRef,
 } from '@codelab/frontend/abstract/core'
-import { ModalService, PaginationService } from '@codelab/frontend/shared/utils'
+import {
+  InlineFormService,
+  ModalService,
+  PaginationService,
+} from '@codelab/frontend/shared/utils'
 import { TypeKind } from '@codelab/shared/abstract/codegen'
 import type { IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { ITypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
@@ -40,6 +44,7 @@ import { TypeModalService } from './type-modal.service'
 export class TypeService
   extends Model({
     allTypesLoaded: prop(() => false),
+    createForm: prop(() => new InlineFormService({})),
     createModal: prop(() => new ModalService({})),
     /**
      * Used to show current paginated types

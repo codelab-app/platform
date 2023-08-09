@@ -4,9 +4,11 @@ import type {
   ITypesTreeDataNode,
 } from '@codelab/frontend/abstract/core'
 import { fieldRef, typeRef } from '@codelab/frontend/abstract/core'
+import { FormNames } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
+  useCui,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -19,6 +21,7 @@ interface TypesTreeItemProps {
 
 export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
   const { fieldService, typeService } = useStore()
+  const { popover } = useCui()
 
   const onEdit = () => {
     if (data.extraData.type === 'type') {
@@ -58,7 +61,8 @@ export const TypesTreeItem = ({ data }: TypesTreeItemProps) => {
         ? data.extraData.node.type.id
         : data.extraData.node.id
 
-    fieldService.createModal.open(typeRef(interfaceId) as Ref<IInterfaceType>)
+    fieldService.createForm.open(typeRef(interfaceId) as Ref<IInterfaceType>)
+    popover.open(FormNames.CreateField)
   }
 
   const toolbarItems = [

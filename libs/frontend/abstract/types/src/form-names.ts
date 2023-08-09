@@ -9,4 +9,6 @@ export enum FormNames {
   UpdateComponent = 'Update Component',
   CreatePage = 'Create Page',
   UpdatePage = 'Update Page',
+  CreateType = 'Create Type',
+  UpdateType = 'Update Type',
 }
