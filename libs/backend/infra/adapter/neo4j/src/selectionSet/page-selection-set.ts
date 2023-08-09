@@ -6,6 +6,11 @@ import {
 export const basePageSelectionSet = `
   app {
     id
+    name
+    _compoundName
+    owner {
+      auth0Id
+    }
   }
   id
   name
@@ -20,6 +25,7 @@ export const basePageSelectionSet = `
     name
   }
   url
+  _compoundName
 `
 
 export const pageSelectionSet = `{
