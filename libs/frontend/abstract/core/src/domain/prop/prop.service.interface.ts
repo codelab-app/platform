@@ -8,4 +8,5 @@ export interface IPropService
   extends ICRUDService<IProp, ICreatePropData, IUpdatePropData> {
   propRepository: IPropRepository
   add(propDTO: IPropDTO): IProp
+  reset(id: string): void
 }

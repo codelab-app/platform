@@ -82,6 +82,18 @@ export class PropService
 
     return props
   })
+
+  @modelFlow
+  @transaction
+  reset = _async(function* (this: PropService, id: string) {
+    const props = this.props.get(id)!
+
+    props.writeCache({ data: '{}' })
+
+    yield* _await(this.propRepository.update(props))
+
+    return props
+  })
 }
 
 export const propServiceContext = createContext<IPropService>()
