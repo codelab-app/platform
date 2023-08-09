@@ -12,14 +12,6 @@
 # compiled output
 # Ignore everything in 'dist'
 /dist/*
-# Don't ignore 'libs' within 'dist'
-!/dist/libs/
-# Ignore everything in 'dist/libs' except 'tools'
-/dist/libs/*
-!/dist/libs/tools/
-# Ignore everything in 'dist/libs/tools' except 'workspace'
-/dist/libs/tools/*
-!/dist/libs/tools/workspace/
 tmp/
 out-tsc/
 

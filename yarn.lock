@@ -5690,9 +5690,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codelab/tools-workspace@file:./dist/libs/tools/workspace::locator=codelab%40workspace%3A.":
+"@codelab/tools-workspace@file:./libs/tools/workspace::locator=codelab%40workspace%3A.":
   version: 0.0.1
-  resolution: "@codelab/tools-workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=dce467&locator=codelab%40workspace%3A."
+  resolution: "@codelab/tools-workspace@file:./libs/tools/workspace#./libs/tools/workspace::hash=c347ee&locator=codelab%40workspace%3A."
   dependencies:
     "@graphql-codegen/core": 4.0.0
     "@graphql-tools/graphql-file-loader": 8.0.0
@@ -5702,13 +5702,13 @@ __metadata:
     lodash: 4.17.21
   peerDependencies:
     tslib: 2.3.1
-  checksum: 3bf8bdcd5b9161cab7b12afa98d1809f1893d03beffb973adf1488ff109f07785dcd3392ef2ce3307c70bab5f339240fc03460f4f5b2284d59dbf700db4e87d8
+  checksum: fed7449c50e351093b14a7b771c05e2fc504fe0a2e4e6c36ea06b8d11a879ccb90367fe4f3ade62cd877d9eef12a60a06cae065e2de78a935a6dc49bf8379202
   languageName: node
   linkType: hard
 
-"@codelab/tools-workspace@workspace:dist/libs/tools/workspace":
+"@codelab/tools-workspace@workspace:libs/tools/workspace":
   version: 0.0.0-use.local
-  resolution: "@codelab/tools-workspace@workspace:dist/libs/tools/workspace"
+  resolution: "@codelab/tools-workspace@workspace:libs/tools/workspace"
   dependencies:
     "@graphql-codegen/core": 4.0.0
     "@graphql-tools/graphql-file-loader": 8.0.0
@@ -21111,7 +21111,7 @@ __metadata:
     "@babel/preset-react": ^7.18.6
     "@babel/runtime": 7.18.3
     "@babel/types": 7.18.2
-    "@codelab/tools-workspace": "file:./dist/libs/tools/workspace"
+    "@codelab/tools-workspace": "file:./libs/tools/workspace"
     "@codemirror/autocomplete": 6.1.0
     "@codemirror/lang-css": 6.0.0
     "@codemirror/lang-html": 6.1.0
