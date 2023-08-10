@@ -5,18 +5,18 @@ import {
 } from '@codelab/frontend/shared/utils'
 
 export const shouldRenderElement = (
-  { providerStore, renderIfExpression, store, urlProps }: IElement,
+  element: IElement,
   props: IPropData = {},
 ) => {
-  if (!renderIfExpression || !hasStateExpression(renderIfExpression)) {
+  if (
+    !element.renderIfExpression ||
+    !hasStateExpression(element.renderIfExpression)
+  ) {
     return true
   }
 
   return evaluateExpression(
-    renderIfExpression,
-    store.current.state,
-    providerStore?.current.state,
-    props,
-    urlProps,
+    element.renderIfExpression,
+    element.expressionEvaluationContext,
   )
 }

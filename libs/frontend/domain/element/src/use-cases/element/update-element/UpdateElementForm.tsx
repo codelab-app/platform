@@ -3,7 +3,6 @@ import type {
   IUpdateBaseElementData,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/core'
-import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import { SelectActionField } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
 import {
@@ -13,9 +12,7 @@ import {
 } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import { mergeProps } from '@codelab/shared/utils'
 import { Collapse } from 'antd'
-import omit from 'lodash/omit'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
@@ -38,56 +35,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     const onSubmit = async (data: IUpdateElementData) => {
       return elementService.update(data)
     }
-
-    const propsData = React.useMemo(() => {
-      // Include component instance props on the selection of props
-      const props = mergeProps(
-        element.runtimeProp?.evaluatedProps,
-        element.parentComponent?.current.runtimeProp?.evaluatedProps,
-      )
-
-      const stateProps = Object.entries(element.store.current.state).reduce<
-        Record<string, unknown>
-      >((acc, [key, val]) => {
-        acc[`state.${key}`] = val
-
-        return acc
-      }, {})
-
-      const rootStateProps = Object.entries(
-        element.providerStore?.current.state ?? {},
-      ).reduce<Record<string, unknown>>((acc, [key, val]) => {
-        acc[`rootState.${key}`] = val
-
-        return acc
-      }, {})
-
-      const refsProps = Object.entries(element.store.current.refs).reduce<
-        Record<string, unknown>
-      >((acc, [key, val]) => {
-        acc[`refs.${key}`] = val
-
-        return acc
-      }, {})
-
-      const rootRefsProps = Object.entries(
-        element.providerStore?.current.refs ?? {},
-      ).reduce<Record<string, unknown>>((acc, [key, val]) => {
-        acc[`rootRefs.${key}`] = val
-
-        return acc
-      }, {})
-
-      const propsAndState = mergeProps(
-        props,
-        stateProps,
-        rootStateProps,
-        refsProps,
-        rootRefsProps,
-      )
-
-      return omit(propsAndState, ['key', DATA_ELEMENT_ID])
-    }, [element])
 
     const expandedFields: Array<string> = []
 
@@ -153,7 +100,9 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
           <Collapse.Panel header="Render Condition" key="renderCondition">
             <AutoField
               component={CodeMirrorField({
-                customOptions: createAutoCompleteOptions(propsData),
+                customOptions: createAutoCompleteOptions(
+                  element.expressionEvaluationContext,
+                ),
                 language: CodeMirrorLanguage.Javascript,
               })}
               name="renderIfExpression"
@@ -164,10 +113,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             <SelectActionField name="postRenderAction" />
           </Collapse.Panel>
           <Collapse.Panel header="Child Mapper" key="childMapper">
-            <ChildMapperCompositeField
-              element={element}
-              propsData={propsData}
-            />
+            <ChildMapperCompositeField element={element} />
           </Collapse.Panel>
           <Collapse.Panel header="Reference" key="reference">
             <AutoField name="refKey" />

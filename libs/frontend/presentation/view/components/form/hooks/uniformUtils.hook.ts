@@ -1,6 +1,6 @@
 import type { IPropData } from '@codelab/frontend/abstract/core'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
-import { replaceStateInProps } from '@codelab/frontend/shared/utils'
+import { evaluateObject } from '@codelab/frontend/shared/utils'
 import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import type { JSONSchemaType, Schema } from 'ajv'
 import Ajv from 'ajv'
@@ -91,7 +91,15 @@ export const createValidator = (schema: Schema, state: IPropData = {}) => {
 
   return (model: Record<string, unknown>) => {
     // replace expressions with values to pass validation
-    const evaluatedModel = replaceStateInProps(model, state)
+    const evaluatedModel = evaluateObject(model, {
+      componentProps: {},
+      props: {},
+      refs: {},
+      rootRefs: {},
+      rootState: {},
+      state,
+      url: {},
+    })
 
     validator(evaluatedModel)
 

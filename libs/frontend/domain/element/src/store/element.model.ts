@@ -24,6 +24,7 @@ import {
   getRenderService,
   IElement,
   IElementTreeViewDataNode,
+  IEvaluationContext,
   isAtomInstance,
   isComponentInstance,
   pageRef,
@@ -302,6 +303,30 @@ export class Element
     return this.renderService.activeRenderer?.current.runtimeProps.get(
       this.id,
     ) as Maybe<IElementRuntimeProp>
+  }
+
+  @computed
+  get propsEvaluationContext(): IEvaluationContext {
+    const component = this.parentComponent?.current
+
+    return {
+      componentProps: component?.runtimeProp?.componentEvaluatedProps || {},
+      // pass empty object because props can't evaluated by itself
+      props: {},
+      refs: this.store.current.refs,
+      rootRefs: this.providerStore?.current.refs || {},
+      rootState: this.providerStore?.current.state || {},
+      state: this.store.current.state,
+      url: this.urlProps || {},
+    }
+  }
+
+  @computed
+  get expressionEvaluationContext(): IEvaluationContext {
+    return {
+      ...this.propsEvaluationContext,
+      props: this.runtimeProp?.evaluatedProps || {},
+    }
   }
 
   @modelAction

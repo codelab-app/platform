@@ -13,6 +13,7 @@ export interface PropsFormProps
       FormProps<IPropData>,
       'onSubmitError' | 'onSubmitSuccess' | 'submitField'
     > {
+  autocomplete?: IPropData
   autosave?: boolean
   cssString?: string
   initialSchema?: object

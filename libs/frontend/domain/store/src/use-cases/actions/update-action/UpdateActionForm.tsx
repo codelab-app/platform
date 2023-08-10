@@ -135,7 +135,7 @@ export const UpdateActionForm = observer(
         )}
 
         <DisplayIf condition={showFormControl}>
-          <FormController onCancel={closeForm} submitLabel="Update Field" />
+          <FormController onCancel={closeForm} submitLabel="Update Action" />
         </DisplayIf>
       </Form>
     )

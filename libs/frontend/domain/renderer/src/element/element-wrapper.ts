@@ -4,7 +4,7 @@ import type {
   IRenderer,
 } from '@codelab/frontend/abstract/core'
 import {
-  getActionRunnerThisObject,
+  getRunnerId,
   isAtomInstance,
   RendererType,
 } from '@codelab/frontend/abstract/core'
@@ -47,15 +47,9 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       )
 
       if (postRenderActionRunner) {
-        const _this = getActionRunnerThisObject(
-          postRenderActionRunner,
-          element.store,
-          element.providerStore,
-          undefined,
-          element.urlProps,
+        const runner = postRenderActionRunner.runner.bind(
+          element.expressionEvaluationContext,
         )
-
-        const runner = postRenderActionRunner.runner.bind(_this)
 
         runner()
       }

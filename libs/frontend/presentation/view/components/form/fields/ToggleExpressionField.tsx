@@ -114,7 +114,7 @@ const ToggleExpression = ({
             display: block;
             margin-bottom: 12px;
           `}
-          customOptions={createAutoCompleteOptions({}, 'this')}
+          customOptions={createAutoCompleteOptions({})}
           language={ICodeMirrorLanguage.Javascript}
           {...fieldProps}
           value={value}

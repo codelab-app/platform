@@ -143,7 +143,7 @@ export const CreateActionForm = observer(
         </DisplayIfField>
 
         <DisplayIf condition={showFormControl}>
-          <FormController onCancel={closeForm} submitLabel="Create Field" />
+          <FormController onCancel={closeForm} submitLabel="Create Action" />
         </DisplayIf>
       </Form>
     )

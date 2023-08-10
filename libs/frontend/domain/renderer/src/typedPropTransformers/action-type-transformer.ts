@@ -5,7 +5,6 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   extractTypedPropValue,
-  getActionRunnerThisObject,
   getRunnerId,
   isComponentPageNode,
   isElementPageNode,
@@ -39,6 +38,7 @@ export class ActionTypeTransformer
       return prop.value
     }
 
+    const componentStore = isComponentPageNode(node) ? node.store : undefined
     const propValue = extractTypedPropValue(prop)
 
     if (!propValue) {
@@ -48,9 +48,6 @@ export class ActionTypeTransformer
     const providerStore = isElementPageNode(node)
       ? node.providerStore
       : undefined
-
-    const componentStore = isComponentPageNode(node) ? node.store : undefined
-    const urlProps = isElementPageNode(node) ? node.urlProps : undefined
 
     const localActionRunner = this.renderer.actionRunners.get(
       getRunnerId(node.store.id, propValue),
@@ -75,17 +72,9 @@ export class ActionTypeTransformer
       localActionRunner ?? rootActionRunner ?? componentActionRunner
 
     if (actionRunner) {
-      const _this = getActionRunnerThisObject(
-        actionRunner,
-        node.store,
-        providerStore,
-        isElementPageNode(node)
-          ? node.parentComponent?.current.props.current.values
-          : undefined,
-        urlProps,
-      )
+      const context = isElementPageNode(node) ? node.propsEvaluationContext : {}
 
-      return actionRunner.runner.bind(_this)
+      return actionRunner.runner.bind(context)
     }
 
     return fallback

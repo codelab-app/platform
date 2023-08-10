@@ -5,8 +5,8 @@ import type {
 import { DATA_ELEMENT_ID, IPropData } from '@codelab/frontend/abstract/core'
 import {
   evaluateExpression,
+  evaluateObject,
   hasStateExpression,
-  replaceStateInProps,
 } from '@codelab/frontend/shared/utils'
 import { getDefaultFieldProps, mergeProps } from '@codelab/shared/utils'
 import attempt from 'lodash/attempt'
@@ -83,41 +83,19 @@ export class ElementRuntimeProps
 
   @computed
   get evaluatedProps() {
-    const componentProps = this.node.parentComponent?.current.runtimeProp
-    const injectedProps = componentProps?.componentEvaluatedProps ?? {}
-
-    return replaceStateInProps(
+    return evaluateObject(
       this.renderedTypedProps,
-      this.node.store.current.state,
-      this.node.providerStore?.current.state,
-      injectedProps,
-      this.node.store.current.refs,
-      this.node.providerStore?.current.refs,
-      this.node.urlProps,
+      this.node.propsEvaluationContext,
     )
   }
 
   @computed
   get evaluatedPropsBeforeRender() {
-    const componentProps = this.node.parentComponent?.current.runtimeProp
-    const injectedProps = componentProps?.componentEvaluatedProps ?? {}
-
-    return replaceStateInProps(
-      this.props,
-      this.node.store.current.state,
-      this.node.providerStore?.current.state,
-      injectedProps,
-      this.node.store.current.refs,
-      this.node.providerStore?.current.refs,
-      this.node.urlProps,
-    )
+    return evaluateObject(this.props, this.node.propsEvaluationContext)
   }
 
   @computed
   get evaluatedChildMapperProp() {
-    const componentProps = this.node.parentComponent?.current.runtimeProp
-    const injectedProps = componentProps?.componentEvaluatedProps ?? {}
-
     if (!this.node.childMapperPropKey) {
       return []
     }
@@ -125,9 +103,7 @@ export class ElementRuntimeProps
     if (hasStateExpression(this.node.childMapperPropKey)) {
       const evaluatedExpression = evaluateExpression(
         this.node.childMapperPropKey,
-        this.node.store.current.state,
-        this.node.providerStore?.current.state,
-        injectedProps,
+        this.node.propsEvaluationContext,
       )
 
       if (!Array.isArray(evaluatedExpression)) {
@@ -139,15 +115,8 @@ export class ElementRuntimeProps
       return evaluatedExpression
     }
 
-    const allPropsOptions = mergeProps(this.node.store.current.state, {
-      props: injectedProps,
-      refs: this.node.store.current.refs,
-      rootRefs: this.node.providerStore?.current.refs,
-      rootState: this.node.providerStore?.current.state,
-    })
-
     const evaluatedChildMapperProp = get(
-      allPropsOptions,
+      this.node.expressionEvaluationContext,
       this.node.childMapperPropKey,
     )
 
