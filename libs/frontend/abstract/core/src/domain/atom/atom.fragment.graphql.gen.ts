@@ -24,6 +24,20 @@ export type AtomFragment = {
   requiredParents: Array<{ id: string; name: string; type: Types.AtomType }>
 }
 
+export type AtomLiteFragment = {
+  icon?: string | null
+  id: string
+  name: string
+  type: Types.AtomType
+  externalCssSource?: string | null
+  externalJsSource?: string | null
+  externalSourceType?: string | null
+  owner: OwnerFragment
+  tags: Array<TagFragment>
+  suggestedChildren: Array<{ id: string; name: string; type: Types.AtomType }>
+  requiredParents: Array<{ id: string; name: string; type: Types.AtomType }>
+}
+
 export type RenderAtomFragment = {
   icon?: string | null
   id: string
@@ -63,6 +77,35 @@ export const AtomFragmentDoc = gql`
   ${OwnerFragmentDoc}
   ${TagFragmentDoc}
   ${InterfaceTypeFragmentDoc}
+`
+export const AtomLiteFragmentDoc = gql`
+  fragment AtomLite on Atom {
+    icon
+    id
+    name
+    type
+    owner {
+      ...Owner
+    }
+    tags {
+      ...Tag
+    }
+    suggestedChildren {
+      id
+      name
+      type
+    }
+    requiredParents {
+      id
+      name
+      type
+    }
+    externalCssSource
+    externalJsSource
+    externalSourceType
+  }
+  ${OwnerFragmentDoc}
+  ${TagFragmentDoc}
 `
 export const RenderAtomFragmentDoc = gql`
   fragment RenderAtom on Atom {

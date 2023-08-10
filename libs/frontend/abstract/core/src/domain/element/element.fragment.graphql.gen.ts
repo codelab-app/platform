@@ -1,11 +1,17 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { AtomFragment } from '../atom/atom.fragment.graphql.gen'
+import {
+  AtomFragment,
+  AtomLiteFragment,
+} from '../atom/atom.fragment.graphql.gen'
 import { PropFragment } from '../prop/prop.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { AtomFragmentDoc } from '../atom/atom.fragment.graphql.gen'
+import {
+  AtomFragmentDoc,
+  AtomLiteFragmentDoc,
+} from '../atom/atom.fragment.graphql.gen'
 import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
 export type ElementFragment = {
   __typename: 'Element'
@@ -21,6 +27,38 @@ export type ElementFragment = {
   page?: { id: string } | null
   renderComponentType?: { id: string } | null
   renderAtomType?: AtomFragment | null
+  renderType?: { id: string; kind: Types.RenderTypeKind } | null
+  prevSibling?: { id: string } | null
+  nextSibling?: { id: string } | null
+  parentComponent?: { id: string } | null
+  parent?: { id: string } | null
+  firstChild?: { id: string } | null
+  props: PropFragment
+  childMapperPreviousSibling?: { id: string } | null
+  childMapperComponent?: { id: string; name: string } | null
+  preRenderAction?:
+    | { id: string; type: Types.ActionKind }
+    | { id: string; type: Types.ActionKind }
+    | null
+  postRenderAction?:
+    | { id: string; type: Types.ActionKind }
+    | { id: string; type: Types.ActionKind }
+    | null
+}
+
+export type ElementLiteFragment = {
+  __typename: 'Element'
+  id: string
+  name: string
+  customCss?: string | null
+  guiCss?: string | null
+  childMapperPropKey?: string | null
+  renderForEachPropKey?: string | null
+  renderIfExpression?: string | null
+  propTransformationJs?: string | null
+  page?: { id: string } | null
+  renderComponentType?: { id: string } | null
+  renderAtomType?: AtomLiteFragment | null
   renderType?: { id: string; kind: Types.RenderTypeKind } | null
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
@@ -100,6 +138,67 @@ export const ElementFragmentDoc = gql`
     propTransformationJs
   }
   ${AtomFragmentDoc}
+  ${PropFragmentDoc}
+`
+export const ElementLiteFragmentDoc = gql`
+  fragment ElementLite on Element {
+    __typename
+    id
+    name
+    customCss
+    guiCss
+    page {
+      id
+    }
+    renderComponentType {
+      id
+    }
+    renderAtomType {
+      ...AtomLite
+    }
+    renderType {
+      id
+      kind
+    }
+    prevSibling {
+      id
+    }
+    nextSibling {
+      id
+    }
+    parentComponent {
+      id
+    }
+    parent {
+      id
+    }
+    firstChild {
+      id
+    }
+    props {
+      ...Prop
+    }
+    childMapperPreviousSibling {
+      id
+    }
+    childMapperPropKey
+    childMapperComponent {
+      id
+      name
+    }
+    renderForEachPropKey
+    renderIfExpression
+    preRenderAction {
+      id
+      type
+    }
+    postRenderAction {
+      id
+      type
+    }
+    propTransformationJs
+  }
+  ${AtomLiteFragmentDoc}
   ${PropFragmentDoc}
 `
 

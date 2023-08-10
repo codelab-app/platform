@@ -27,6 +27,32 @@ fragment Atom on Atom {
   externalSourceType
 }
 
+fragment AtomLite on Atom {
+  icon
+  id
+  name
+  type
+  owner {
+    ...Owner
+  }
+  tags {
+    ...Tag
+  }
+  suggestedChildren {
+    id
+    name
+    type
+  }
+  requiredParents {
+    id
+    name
+    type
+  }
+  externalCssSource
+  externalJsSource
+  externalSourceType
+}
+
 fragment RenderAtom on Atom {
   icon
   id

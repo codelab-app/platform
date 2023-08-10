@@ -3,6 +3,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import {
   PageFragment,
   BuilderPageFragment,
+  ProductionPageFragment,
 } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
 import { ResourceFragment } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 import {
@@ -15,6 +16,7 @@ import { gql } from 'graphql-tag'
 import {
   PageFragmentDoc,
   BuilderPageFragmentDoc,
+  ProductionPageFragmentDoc,
 } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
 import { ResourceFragmentDoc } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
 import {

@@ -57,3 +57,62 @@ fragment Element on Element {
   }
   propTransformationJs
 }
+
+fragment ElementLite on Element {
+  __typename
+  id
+  name
+  customCss
+  guiCss
+  page {
+    id
+  }
+  renderComponentType {
+    id
+  }
+  renderAtomType {
+    ...AtomLite
+    # ...RenderAtom
+  }
+  renderType {
+    id
+    kind
+  }
+  prevSibling {
+    id
+  }
+  nextSibling {
+    id
+  }
+  parentComponent {
+    id
+  }
+  parent {
+    id
+  }
+  firstChild {
+    id
+  }
+  props {
+    ...Prop
+  }
+  childMapperPreviousSibling {
+    id
+  }
+  childMapperPropKey
+  childMapperComponent {
+    id
+    name
+  }
+  renderForEachPropKey
+  renderIfExpression
+  preRenderAction {
+    id
+    type
+  }
+  postRenderAction {
+    id
+    type
+  }
+  propTransformationJs
+}
