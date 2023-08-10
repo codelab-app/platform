@@ -199,6 +199,7 @@ export class ActionRunner
           const rootState = this.rootState;
           const refs = this.refs;
           const rootRefs = this.rootRefs;
+          const url = this.urlProps
           return ${(this.actionRef.current as ICodeAction).code}(...args)
         }`,
       )
