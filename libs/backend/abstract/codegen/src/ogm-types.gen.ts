@@ -2296,7 +2296,6 @@ export type ApiActionElementElementNodeAggregateSelection = {
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
   _compoundRefKey: StringAggregateSelectionNullable
-  refKey: StringAggregateSelectionNullable
 }
 
 export type ApiActionErrorActionConnection = {
@@ -3228,7 +3227,6 @@ export type CodeActionElementElementNodeAggregateSelection = {
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
   _compoundRefKey: StringAggregateSelectionNullable
-  refKey: StringAggregateSelectionNullable
 }
 
 export type CodeActionsConnection = {
@@ -3514,7 +3512,6 @@ export type ComponentElementChildrenContainerElementNodeAggregateSelection = {
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
   _compoundRefKey: StringAggregateSelectionNullable
-  refKey: StringAggregateSelectionNullable
 }
 
 export type ComponentElementRootElementAggregationSelection = {
@@ -3534,7 +3531,6 @@ export type ComponentElementRootElementNodeAggregateSelection = {
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
   _compoundRefKey: StringAggregateSelectionNullable
-  refKey: StringAggregateSelectionNullable
 }
 
 export type ComponentInterfaceTypeApiAggregationSelection = {
@@ -3976,9 +3972,9 @@ export type Element = {
   renderForEachPropKey?: Maybe<Scalars['String']>
   renderIfExpression?: Maybe<Scalars['String']>
   _compoundRefKey?: Maybe<Scalars['String']>
-  refKey?: Maybe<Scalars['String']>
   renderType?: Maybe<RenderType>
   descendantElements: Array<Element>
+  refKey?: Maybe<Scalars['String']>
   nextSibling?: Maybe<Element>
   nextSiblingAggregate?: Maybe<ElementElementNextSiblingAggregationSelection>
   prevSibling?: Maybe<Element>
@@ -4267,7 +4263,6 @@ export type ElementAggregateSelection = {
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
   _compoundRefKey: StringAggregateSelectionNullable
-  refKey: StringAggregateSelectionNullable
 }
 
 export type ElementAtomRenderAtomTypeAggregationSelection = {
@@ -4374,7 +4369,6 @@ export type ElementElementChildMapperPreviousSiblingNodeAggregateSelection = {
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
   _compoundRefKey: StringAggregateSelectionNullable
-  refKey: StringAggregateSelectionNullable
 }
 
 export type ElementElementFirstChildAggregationSelection = {
@@ -4394,7 +4388,6 @@ export type ElementElementFirstChildNodeAggregateSelection = {
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
   _compoundRefKey: StringAggregateSelectionNullable
-  refKey: StringAggregateSelectionNullable
 }
 
 export type ElementElementNextSiblingAggregationSelection = {
@@ -4414,7 +4407,6 @@ export type ElementElementNextSiblingNodeAggregateSelection = {
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
   _compoundRefKey: StringAggregateSelectionNullable
-  refKey: StringAggregateSelectionNullable
 }
 
 export type ElementElementParentAggregationSelection = {
@@ -4434,7 +4426,6 @@ export type ElementElementParentNodeAggregateSelection = {
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
   _compoundRefKey: StringAggregateSelectionNullable
-  refKey: StringAggregateSelectionNullable
 }
 
 export type ElementElementPrevSiblingAggregationSelection = {
@@ -4454,7 +4445,6 @@ export type ElementElementPrevSiblingNodeAggregateSelection = {
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
   _compoundRefKey: StringAggregateSelectionNullable
-  refKey: StringAggregateSelectionNullable
 }
 
 export type ElementFirstChildConnection = {
@@ -5360,7 +5350,6 @@ export type HookElementElementNodeAggregateSelection = {
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
   _compoundRefKey: StringAggregateSelectionNullable
-  refKey: StringAggregateSelectionNullable
 }
 
 export type HookElementRelationship = {
@@ -5867,7 +5856,6 @@ export type PageElementPageContentContainerNodeAggregateSelection = {
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
   _compoundRefKey: StringAggregateSelectionNullable
-  refKey: StringAggregateSelectionNullable
 }
 
 export type PageElementRootElementAggregationSelection = {
@@ -5887,7 +5875,6 @@ export type PageElementRootElementNodeAggregateSelection = {
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
   _compoundRefKey: StringAggregateSelectionNullable
-  refKey: StringAggregateSelectionNullable
 }
 
 /** Pagination information (Relay) */
@@ -7540,7 +7527,6 @@ export type UserElementElementsNodeAggregateSelection = {
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
   _compoundRefKey: StringAggregateSelectionNullable
-  refKey: StringAggregateSelectionNullable
 }
 
 export type UserElementsConnection = {
@@ -8631,61 +8617,6 @@ export type ApiActionElementNodeAggregationWhereInput = {
   _compoundRefKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   _compoundRefKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundRefKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ApiActionErrorActionApiActionConnectFieldInput = {
@@ -13075,61 +13006,6 @@ export type BaseActionElementNodeAggregationWhereInput = {
   _compoundRefKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   _compoundRefKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundRefKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type BaseActionElementUpdateConnectionInput = {
@@ -14180,61 +14056,6 @@ export type CodeActionElementNodeAggregationWhereInput = {
   _compoundRefKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   _compoundRefKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundRefKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type CodeActionOnCreateInput = {
@@ -15382,61 +15203,6 @@ export type ComponentChildrenContainerElementNodeAggregationWhereInput = {
   _compoundRefKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   _compoundRefKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundRefKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ComponentChildrenContainerElementUpdateConnectionInput = {
@@ -16358,61 +16124,6 @@ export type ComponentRootElementNodeAggregationWhereInput = {
   _compoundRefKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   _compoundRefKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundRefKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ComponentRootElementUpdateConnectionInput = {
@@ -17694,61 +17405,6 @@ export type ElementChildMapperPreviousSiblingNodeAggregationWhereInput = {
   _compoundRefKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   _compoundRefKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundRefKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementChildMapperPreviousSiblingUpdateConnectionInput = {
@@ -17813,7 +17469,6 @@ export type ElementCreateInput = {
   renderForEachPropKey?: InputMaybe<Scalars['String']>
   renderIfExpression?: InputMaybe<Scalars['String']>
   _compoundRefKey?: InputMaybe<Scalars['String']>
-  refKey?: InputMaybe<Scalars['String']>
   nextSibling?: InputMaybe<ElementNextSiblingFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingFieldInput>
   firstChild?: InputMaybe<ElementFirstChildFieldInput>
@@ -18368,61 +18023,6 @@ export type ElementFirstChildNodeAggregationWhereInput = {
   _compoundRefKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   _compoundRefKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundRefKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementFirstChildUpdateConnectionInput = {
@@ -18946,61 +18546,6 @@ export type ElementNextSiblingNodeAggregationWhereInput = {
   _compoundRefKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   _compoundRefKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundRefKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementNextSiblingUpdateConnectionInput = {
@@ -19027,7 +18572,6 @@ export type ElementOnCreateInput = {
   renderForEachPropKey?: InputMaybe<Scalars['String']>
   renderIfExpression?: InputMaybe<Scalars['String']>
   _compoundRefKey?: InputMaybe<Scalars['String']>
-  refKey?: InputMaybe<Scalars['String']>
 }
 
 export type ElementOptions = {
@@ -19930,61 +19474,6 @@ export type ElementParentNodeAggregationWhereInput = {
   _compoundRefKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   _compoundRefKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundRefKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementParentUpdateConnectionInput = {
@@ -20608,61 +20097,6 @@ export type ElementPrevSiblingNodeAggregationWhereInput = {
   _compoundRefKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   _compoundRefKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundRefKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type ElementPrevSiblingUpdateConnectionInput = {
@@ -21392,7 +20826,6 @@ export type ElementSort = {
   renderForEachPropKey?: InputMaybe<SortDirection>
   renderIfExpression?: InputMaybe<SortDirection>
   _compoundRefKey?: InputMaybe<SortDirection>
-  refKey?: InputMaybe<SortDirection>
 }
 
 export type ElementTypeConnectInput = {
@@ -21720,7 +21153,6 @@ export type ElementUpdateInput = {
   renderForEachPropKey?: InputMaybe<Scalars['String']>
   renderIfExpression?: InputMaybe<Scalars['String']>
   _compoundRefKey?: InputMaybe<Scalars['String']>
-  refKey?: InputMaybe<Scalars['String']>
   nextSibling?: InputMaybe<ElementNextSiblingUpdateFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingUpdateFieldInput>
   firstChild?: InputMaybe<ElementFirstChildUpdateFieldInput>
@@ -21884,22 +21316,6 @@ export type ElementWhere = {
   _compoundRefKey_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   _compoundRefKey_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  refKey?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  refKey_NOT?: InputMaybe<Scalars['String']>
-  refKey_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  refKey_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  refKey_MATCHES?: InputMaybe<Scalars['String']>
-  refKey_CONTAINS?: InputMaybe<Scalars['String']>
-  refKey_STARTS_WITH?: InputMaybe<Scalars['String']>
-  refKey_ENDS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  refKey_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  refKey_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  refKey_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
   nextSibling?: InputMaybe<ElementWhere>
   nextSibling_NOT?: InputMaybe<ElementWhere>
   nextSiblingAggregate?: InputMaybe<ElementNextSiblingAggregateInput>
@@ -24887,61 +24303,6 @@ export type HookElementNodeAggregationWhereInput = {
   _compoundRefKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   _compoundRefKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundRefKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type HookElementUpdateConnectionInput = {
@@ -27916,61 +27277,6 @@ export type PagePageContentContainerNodeAggregationWhereInput = {
   _compoundRefKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   _compoundRefKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundRefKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type PagePageContentContainerUpdateConnectionInput = {
@@ -28501,61 +27807,6 @@ export type PageRootElementNodeAggregationWhereInput = {
   _compoundRefKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   _compoundRefKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundRefKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type PageRootElementUpdateConnectionInput = {
@@ -35382,61 +34633,6 @@ export type UserElementsNodeAggregationWhereInput = {
   _compoundRefKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   _compoundRefKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundRefKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  refKey_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  refKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  refKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  refKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  refKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
 }
 
 export type UserElementsUpdateConnectionInput = {
@@ -37791,7 +36987,6 @@ export interface ElementAggregateSelectionInput {
   renderForEachPropKey?: StringAggregateInputNullable
   renderIfExpression?: StringAggregateInputNullable
   _compoundRefKey?: StringAggregateInputNullable
-  refKey?: StringAggregateInputNullable
 }
 
 export declare class ElementModel {
