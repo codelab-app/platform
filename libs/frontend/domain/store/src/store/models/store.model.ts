@@ -4,7 +4,6 @@ import type {
   IInterfaceType,
   IPage,
   IPropData,
-  IRootStore,
   IStore,
 } from '@codelab/frontend/abstract/core'
 import {
