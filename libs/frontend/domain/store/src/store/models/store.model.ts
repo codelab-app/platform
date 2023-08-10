@@ -3,6 +3,7 @@ import type {
   IComponent,
   IInterfaceType,
   IPage,
+  IPropData,
   IStore,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -21,8 +22,9 @@ import type {
 import type { IAppDTO, IStoreDTO } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
+import keys from 'lodash/keys'
 import merge from 'lodash/merge'
-import { computed, makeAutoObservable } from 'mobx'
+import { autorun, computed, makeAutoObservable, observable, set } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { v4 } from 'uuid'
@@ -35,7 +37,7 @@ const create = ({
   id,
   name,
   page,
-}: IStoreDTO) => {
+}: IStoreDTO): IStore =>
   new Store({
     actions: actions.map((action) => actionRef(action.id)),
     api: typeRef(api.id) as Ref<IInterfaceType>,
@@ -44,7 +46,6 @@ const create = ({
     name,
     page: page?.id ? pageRef(page.id) : null,
   })
-}
 
 const createName = (app: Pick<IAppDTO, 'name'>) => {
   return `${app.name} Store`
@@ -58,13 +59,19 @@ export class Store
     component: prop<Nullable<Ref<IComponent>>>().withSetter(),
     id: idProp,
     name: prop<string>(),
-
     page: prop<Nullable<Ref<IPage>>>(),
     // if this is a duplicate, source store id else null
     source: prop<Nullable<Ref<IStore>>>(null).withSetter(),
   }))
   implements IStore
 {
+  refs = observable.object<IPropData>({})
+
+  onAttachedToRootStore() {
+    this.createEmptyRefs(this.refKeys)
+    autorun(() => this.deleteUnusedRefs())
+  }
+
   @computed
   get actionsTree() {
     return this.actions
@@ -89,8 +96,21 @@ export class Store
   }
 
   @computed
+  get refKeys(): Array<string> {
+    const elementTree = this.page?.current || this.component?.current
+    const elements = elementTree?.elements || []
+
+    return elements
+      .filter((element) => Boolean(element.refKey))
+      .map(({ refKey }) => refKey as string)
+  }
+
+  @computed
   get jsonString() {
-    return propSafeStringify(this.state)
+    return propSafeStringify({
+      refs: this.refs,
+      state: this.state,
+    })
   }
 
   @computed
@@ -122,6 +142,21 @@ export class Store
     )
   }
 
+  deleteUnusedRefs() {
+    keys(this.refs).forEach((key) => {
+      if (!this.refKeys.includes(key)) {
+        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+        delete this.refs[key]
+      }
+    })
+  }
+
+  createEmptyRefs(refKeys: Array<string>) {
+    refKeys.forEach((key: string) => {
+      this.registerRef(key, null)
+    })
+  }
+
   @modelAction
   writeCache({ actions, api, id, name }: Partial<IStoreDTO>) {
     this.id = id ? id : this.id
@@ -131,6 +166,10 @@ export class Store
       actions?.map((action) => actionRef(action.id)) ?? this.actions
 
     return this
+  }
+
+  registerRef(key: string, current: Nullable<HTMLElement>) {
+    set(this.refs, { [key]: { current } })
   }
 
   @modelAction

@@ -453,15 +453,7 @@ export class ElementService
     )
 
     if (parentElementClone) {
-      const parentComponentId = element.parentComponent?.current.id
-      const { clonedComponents } = this.componentService
-
-      const clonesList = [...clonedComponents.values()].filter(
-        ({ sourceComponent }) => sourceComponent?.id === parentComponentId,
-      )
-
-      const cloneIndex = clonesList.length
-      const elementClone = element.clone(cloneIndex)
+      const elementClone = element.clone()
 
       this.attachElementAsFirstChild({
         element: elementClone,

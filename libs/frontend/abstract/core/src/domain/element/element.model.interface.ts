@@ -91,6 +91,7 @@ export interface IElement
   propsHaveErrors: boolean | null
   // store attached to the provider page
   providerStore?: Ref<IStore>
+  refKey: Nullish<string>
   renderForEachPropKey: Nullable<string>
   renderIfExpression: Nullable<string>
   renderType: IElementRenderType | null
@@ -114,7 +115,7 @@ export interface IElement
   attachAsNextSibling(sibling: IElement): void
   attachAsPrevSibling(sibling: IElement): void
   attachToParentAsFirstChild(parentElement: IElement): void
-  clone(cloneIndex: number): IElement
+  clone(): IElement
   connectPrevToNextSibling(): void
   deleteFromGuiCss(propNames: Array<string>): void
   detachAsFirstChild(): void

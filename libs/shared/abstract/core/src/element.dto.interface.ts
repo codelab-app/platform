@@ -23,6 +23,7 @@ export interface IElementDTO {
   prevSibling?: Nullable<IEntity>
   propTransformationJs?: Nullable<string>
   props: IEntity
+  refKey?: Nullable<string>
   renderForEachPropKey?: Nullable<string>
   renderIfExpression?: Nullable<string>
   renderType?: Nullable<RenderType>

@@ -72,7 +72,6 @@ export class CuiTreeStore<T extends CuiTreeBasicDataNode> {
 
   @action
   setExpandedKeys(newExpandedKeys: Array<Key>) {
-    console.log('setting newExpandedKeys')
     this.expandedKeys_ = newExpandedKeys
     this.useFilterExpandedKeys_ = false
   }

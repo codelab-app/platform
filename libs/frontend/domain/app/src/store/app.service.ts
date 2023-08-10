@@ -165,8 +165,10 @@ export class AppService
     })
 
     pages.forEach((pageData) => {
-      this.storeService.add(pageData.store)
       this.pageService.add(pageData)
+
+      // store must be attached after page
+      this.storeService.load([pageData.store])
     })
   }
 
@@ -359,10 +361,6 @@ export class AppService
 
     // write cache for resources
     this.resourceService.load(resources)
-
-    const stores = appData.pages.map((pageOrComponent) => pageOrComponent.store)
-
-    this.storeService.load(stores)
 
     return this.add(appData)
   })

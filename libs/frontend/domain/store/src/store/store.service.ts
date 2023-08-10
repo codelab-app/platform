@@ -1,16 +1,8 @@
 import type {
   ICreateStoreData,
-  IInterfaceType,
   IStore,
   IStoreService,
   IUpdateStoreData,
-} from '@codelab/frontend/abstract/core'
-import {
-  actionRef,
-  componentRef,
-  pageRef,
-  storeRef,
-  typeRef,
 } from '@codelab/frontend/abstract/core'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import { ModalService } from '@codelab/frontend/shared/utils'
@@ -20,7 +12,6 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import { IStoreDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
-import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
@@ -68,16 +59,8 @@ export class StoreService
   }
 
   @modelAction
-  add({ actions, api, component, id, name, page, source }: IStoreDTO) {
-    const store = new Store({
-      actions: actions?.map((action) => actionRef(action.id)) || [],
-      api: typeRef(api.id) as Ref<IInterfaceType>,
-      component: component ? componentRef(component.id) : null,
-      id,
-      name,
-      page: page ? pageRef(page.id) : null,
-      source: source ? storeRef(source.id) : null,
-    })
+  add(storeDTO: IStoreDTO) {
+    const store = Store.create(storeDTO)
 
     this.stores.set(store.id, store)
 

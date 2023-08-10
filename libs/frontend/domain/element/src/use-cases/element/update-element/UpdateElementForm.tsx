@@ -62,7 +62,29 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         return acc
       }, {})
 
-      const propsAndState = mergeProps(props, stateProps, rootStateProps)
+      const refsProps = Object.entries(element.store.current.refs).reduce<
+        Record<string, unknown>
+      >((acc, [key, val]) => {
+        acc[`refs.${key}`] = val
+
+        return acc
+      }, {})
+
+      const rootRefsProps = Object.entries(
+        element.providerStore?.current.refs ?? {},
+      ).reduce<Record<string, unknown>>((acc, [key, val]) => {
+        acc[`rootRefs.${key}`] = val
+
+        return acc
+      }, {})
+
+      const propsAndState = mergeProps(
+        props,
+        stateProps,
+        rootStateProps,
+        refsProps,
+        rootRefsProps,
+      )
 
       return omit(propsAndState, ['key', DATA_ELEMENT_ID])
     }, [element])
@@ -79,6 +101,10 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
 
     if (model.renderIfExpression) {
       expandedFields.push('renderCondition')
+    }
+
+    if (model.refKey) {
+      expandedFields.push('reference')
     }
 
     if (
@@ -117,6 +143,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             'postRenderAction',
             'renderType',
             'name',
+            'refKey',
           ]}
         />
         <Collapse defaultActiveKey={expandedFields}>
@@ -141,6 +168,9 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
               element={element}
               propsData={propsData}
             />
+          </Collapse.Panel>
+          <Collapse.Panel header="Reference" key="reference">
+            <AutoField name="refKey" />
           </Collapse.Panel>
         </Collapse>
       </Form>
