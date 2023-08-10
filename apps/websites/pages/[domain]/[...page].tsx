@@ -13,7 +13,7 @@ import React from 'react'
 const Index = (props: ProductionWebsiteProps) => {
   const [{ result }, actions] = useRenderedPage({
     productionProps: props,
-    rendererType: RendererType.Preview,
+    rendererType: RendererType.Production,
   })
 
   useMountEffect(actions.execute)

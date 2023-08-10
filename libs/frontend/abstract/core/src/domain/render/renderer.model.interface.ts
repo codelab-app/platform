@@ -16,6 +16,7 @@ export const enum RendererType {
   ComponentBuilder = 'component-builder',
   PageBuilder = 'page-builder',
   Preview = 'preview',
+  Production = 'production',
 }
 export interface IRenderer {
   actionRunners: ObjectMap<IActionRunner>

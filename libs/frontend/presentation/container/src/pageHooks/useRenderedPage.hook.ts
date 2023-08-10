@@ -3,7 +3,6 @@ import type {
   IElement,
   IPropData,
   ITypeService,
-  RendererType,
   TypedProp,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -11,6 +10,7 @@ import {
   isComponentInstance,
   isTypedProp,
   rendererRef,
+  RendererType,
 } from '@codelab/frontend/abstract/core'
 import type { ProductionWebsiteProps } from '@codelab/frontend/abstract/types'
 import { PageType } from '@codelab/frontend/abstract/types'
@@ -66,7 +66,9 @@ export const useRenderedPage = ({
   const router = useRouter()
 
   return useAsync(async () => {
-    const app = await appService.getRenderedPageAndAppData(
+    const app = await (rendererType === RendererType.Production
+      ? appService.getRenderedPageAndAppData
+      : appService.getRenderedPageAndCommonAppData)(
       compoundAppName,
       compoundPageName,
       productionProps?.renderingData,
