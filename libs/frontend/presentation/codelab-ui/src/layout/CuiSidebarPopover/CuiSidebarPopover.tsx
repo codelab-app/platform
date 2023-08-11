@@ -22,7 +22,19 @@ export const CuiSidebarPopover = observer(
     const isOpen = popoverStore.isOpen(id)
 
     return isOpen ? (
-      <>
+      <div
+        className="
+        flex
+        flex-col
+        justify-start
+        border-0
+        border-r-2
+        border-solid
+        border-gray-300
+        bg-white
+        "
+        data-cy={`codelabui-sidebar-popover-${label}`}
+      >
         <CuiSidebarPopoverHeader label={label} toolbar={toolbar} />
         <div
           className="
@@ -41,7 +53,7 @@ export const CuiSidebarPopover = observer(
         >
           {children}
         </div>
-      </>
+      </div>
     ) : null
   },
 )

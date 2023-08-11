@@ -43,28 +43,27 @@ describe('Types CRUD', () => {
 
       cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
 
-      cy.getModal().setFormFieldValue({
+      cy.setFormFieldValue({
         label: 'Name',
         value: primitiveTypeName,
       })
 
-      cy.getModal().setFormFieldValue({
+      cy.setFormFieldValue({
         label: 'Kind',
         type: FIELD_TYPE.SELECT,
         value: primitiveTypeKind,
       })
 
-      cy.getModal().setFormFieldValue({
+      cy.setFormFieldValue({
         label: 'Primitive kind',
         type: FIELD_TYPE.SELECT,
         value: stringPrimitiveType,
       })
 
-      cy.getModal()
-        .getModalAction(/Create/)
-        .click()
+      cy.getCuiPopover('Create Type').within(() => {
+        cy.getToolbarItem('Create').click()
+      })
 
-      cy.getModal().should('not.exist')
       cy.findByText(primitiveTypeName).should('exist')
     })
 
@@ -75,9 +74,9 @@ describe('Types CRUD', () => {
 
       cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
 
-      cy.getModal().setFormFieldValue({ label: 'Name', value: enumTypeName })
+      cy.setFormFieldValue({ label: 'Name', value: enumTypeName })
 
-      cy.getModal().setFormFieldValue({
+      cy.setFormFieldValue({
         label: 'Kind',
         type: FIELD_TYPE.SELECT,
         value: enumTypeKind,
@@ -87,13 +86,13 @@ describe('Types CRUD', () => {
         cy.findByRole('button', { name: /plus-square/ }).click()
 
         // Can't use setFormFieldValue since it doesn't take previous subject
-        cy.getModal().findAllByLabelText('Key').last().type(enumItem.key)
-        cy.getModal().findAllByLabelText('Value').last().type(enumItem.value)
+        cy.findAllByLabelText('Key').last().type(enumItem.key)
+        cy.findAllByLabelText('Value').last().type(enumItem.value)
       })
 
-      cy.getModal().getModalAction('Create').click()
-
-      cy.getModal().should('not.exist')
+      cy.getCuiPopover('Create Type').within(() => {
+        cy.getToolbarItem('Create').click()
+      })
 
       cy.findByText(primitiveTypeName).should('exist')
     })
@@ -101,28 +100,27 @@ describe('Types CRUD', () => {
     it('should be able to create array', () => {
       cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
 
-      cy.getModal().setFormFieldValue({
+      cy.setFormFieldValue({
         label: 'Name',
         value: arrayTypeName,
       })
 
-      cy.getModal().setFormFieldValue({
+      cy.setFormFieldValue({
         label: 'Kind',
         type: FIELD_TYPE.SELECT,
         value: arrayTypeKind,
       })
 
-      cy.getModal().setFormFieldValue({
+      cy.setFormFieldValue({
         label: 'Array item type',
         type: FIELD_TYPE.SELECT,
         value: arrayItemType,
       })
 
-      cy.getModal()
-        .getModalAction(/Create/)
-        .click()
+      cy.getCuiPopover('Create Type').within(() => {
+        cy.getToolbarItem('Create').click()
+      })
 
-      cy.getModal().should('not.exist')
       cy.findByText(primitiveTypeName).should('exist')
     })
 
@@ -133,22 +131,21 @@ describe('Types CRUD', () => {
 
       cy.getCuiSidebar('Types').getToolbarItem('Create Type').click()
 
-      cy.getModal().setFormFieldValue({
+      cy.setFormFieldValue({
         label: 'Name',
         value: interfaceTypeName,
       })
 
-      cy.getModal().setFormFieldValue({
+      cy.setFormFieldValue({
         label: 'Kind',
         type: FIELD_TYPE.SELECT,
         value: interfaceTypeKind,
       })
 
-      cy.getModal()
-        .getModalAction(/Create/)
-        .click()
+      cy.getCuiPopover('Create Type').within(() => {
+        cy.getToolbarItem('Create').click()
+      })
 
-      cy.getModal().should('not.exist')
       cy.findByText(interfaceTypeName).should('exist')
     })
 
@@ -160,28 +157,33 @@ describe('Types CRUD', () => {
         .getToolbarItem('Add field')
         .click()
 
-      cy.getModal().setFormFieldValue({
+      cy.setFormFieldValue({
         label: 'Key',
         value: fieldName,
       })
 
-      cy.getModal().setFormFieldValue({
+      cy.setFormFieldValue({
         label: 'Type',
         type: FIELD_TYPE.SELECT,
         value: primitiveTypeName,
       })
 
-      cy.getModal().setFormFieldValue({
+      // // should show error because nullable is false by default
+      // cy.getCuiPopover('Create Field').within(() => {
+      //   cy.getToolbarItem('Create').should('be.exist').click({ force: true })
+      // })
+
+      // cy.findByText('Default values is required if not nullable')
+
+      cy.setFormFieldValue({
         label: 'Default values',
         type: FIELD_TYPE.CODE_MIRROR,
         value: fieldDefaultValue,
       })
 
-      cy.getModal()
-        .getModalAction(/Create/)
-        .click()
+      cy.findByText(fieldDefaultValue).should('be.visible')
 
-      cy.getModal().should('not.exist')
+      cy.getToolbarItem('Create').click()
 
       cy.getCuiTreeItemByPrimaryTitle(interfaceTypeName).click()
       cy.getCuiTreeItemByPrimaryTitle(fieldName).should('be.visible')

@@ -15,20 +15,26 @@ export const CuiPopoverToolbarItem = ({
   title,
 }: CuiPopoverToolbarItemProps) => {
   return (
-    <div className="h-full w-full" data-cy={`codelabui-toolbar-item-${title}`}>
+    <div
+      className="
+        h-full
+        w-full
+        cursor-pointer
+      "
+      data-cy={`codelabui-toolbar-item-${title}`}
+      onClick={onClick}
+    >
       <Tooltip key={key} title={title}>
         <div
           className={`
           flex
           h-full
           w-full
-          cursor-pointer
           flex-col
           items-center
           justify-center
           px-1
         `}
-          onClick={onClick}
         >
           <div
             className="

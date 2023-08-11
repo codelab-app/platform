@@ -1,5 +1,6 @@
 import { codelabUIHeaderToolbarCommands } from './header-toolbar'
 import { codelabUINavigationBarCommands } from './navigation-bar'
+import { codelabUIPopoverCommands } from './popover'
 import { codelabUISidebarCommands } from './sidebar'
 import { codelabUISkeletonCommands } from './skeleton'
 import { codelabUIToolbarCommands } from './toolbar'
@@ -12,6 +13,7 @@ const codelabUICommands = [
   ...codelabUIToolbarCommands,
   ...codelabUISkeletonCommands,
   ...codelabUITreeCommands,
+  ...codelabUIPopoverCommands,
 ]
 
 for (const cmd of codelabUICommands) {
