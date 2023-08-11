@@ -8,22 +8,19 @@ export const createTagByUI = (name: string, parentName?: string) => {
   // wait for 100ms before typing into the input to avoid issue when first letters are skipped
   // https://github.com/cypress-io/cypress/issues/3817
   // eslint-disable-next-line cypress/no-unnecessary-waiting
-  cy.getModal()
-    .findByLabelText('Name')
-    .should('be.visible')
-    .wait(100)
-    .type(name)
+  cy.findByLabelText('Name').should('be.visible').wait(100).type(name)
 
   if (parentName) {
-    cy.getModal().setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Parent Tag',
       type: FIELD_TYPE.SELECT,
       value: parentName,
     })
   }
 
-  cy.getModal().getModalAction(new RegExp(modalName)).click()
-  cy.getModal().should('not.exist')
+  cy.getCuiPopover('Create Tag').within(() => {
+    cy.getToolbarItem('Create').click()
+  })
 }
 
 export const deleteTagInTableByUI = (name: string) => {
