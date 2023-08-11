@@ -35,6 +35,11 @@ export const importElementInitial = async (
     } = await Element.create({
       input: [
         {
+          childMapperComponent: connectNodeId(element.childMapperComponent?.id),
+          childMapperPreviousSibling: connectNodeId(
+            element.childMapperPreviousSibling?.id,
+          ),
+          childMapperPropKey: element.childMapperPropKey,
           customCss: element.customCss,
           guiCss: element.guiCss,
           id: element.id,
@@ -115,10 +120,17 @@ export const updateImportedElement = async (
 
   await Element.update({
     update: {
+      childMapperComponent: connectNodeId(element.childMapperComponent?.id),
+      childMapperPreviousSibling: connectNodeId(
+        element.childMapperPreviousSibling?.id,
+      ),
+      childMapperPropKey: element.childMapperPropKey,
       firstChild: connectNodeId(element.firstChild?.id),
       nextSibling: connectNodeId(element.nextSibling?.id),
       parent: connectNodeId(element.parent?.id),
       parentComponent: connectNodeId(element.parentComponent?.id),
+      postRenderAction: connectNodeId(element.postRenderAction?.id),
+      preRenderAction: connectNodeId(element.preRenderAction?.id),
       prevSibling: connectNodeId(element.prevSibling?.id),
       props: {
         update: { node: { data: element.props.data } },

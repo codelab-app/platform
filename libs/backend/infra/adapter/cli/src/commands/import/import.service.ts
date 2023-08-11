@@ -1,5 +1,6 @@
 import type { IUserDataExport } from '@codelab/backend/abstract/core'
 import { ImportAdminDataService } from '@codelab/backend/application/admin'
+import { importUserData } from '@codelab/backend/application/user'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { Injectable } from '@nestjs/common'
 import fs from 'fs'
@@ -123,7 +124,7 @@ export class ImportService implements CommandModule<unknown, ImportProps> {
 
         const userData = JSON.parse(json) as IUserDataExport
         console.log('import user data')
-        // await importUserData(userData, { auth0Id: selectedAuth0Id })
+        await importUserData(userData, { auth0Id: selectedAuth0Id })
       }
     },
   )
