@@ -99,7 +99,12 @@ export const useRenderedPage = ({
       page.rootElement.current,
     ]
 
-    await loadAllTypesForElements(componentService, typeService, roots)
+    await loadAllTypesForElements(
+      componentService,
+      typeService,
+      roots,
+      rendererType,
+    )
 
     const pageRootElement = elementService.maybeElement(page.rootElement.id)
 
@@ -200,6 +205,7 @@ export const loadAllTypesForElements = async (
   componentService: IComponentService,
   typeService: ITypeService,
   roots: Array<IElement>,
+  rendererType: RendererType,
 ) => {
   const loadedComponentElements: Array<IElement> = []
 
@@ -237,12 +243,14 @@ export const loadAllTypesForElements = async (
     }
   } while (componentsBatch.length > 0)
 
-  // Loading all the types of the elements that are used on the current page
-  // This will also get the types of fields, not just interface types
-  const typeIds = getTypeIdsFromElements([
-    ...elements,
-    ...loadedComponentElements,
-  ]).filter((id) => !typeService.types.has(id))
+  if (rendererType !== RendererType.Production) {
+    // Loading all the types of the elements that are used on the current page
+    // This will also get the types of fields, not just interface types
+    const typeIds = getTypeIdsFromElements([
+      ...elements,
+      ...loadedComponentElements,
+    ]).filter((id) => !typeService.types.has(id))
 
-  await typeService.getAll(typeIds)
+    await typeService.getAll(typeIds)
+  }
 }

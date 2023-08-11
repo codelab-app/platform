@@ -42,7 +42,8 @@ const create = ({
   type,
 }: IAtomDTO) => {
   return new Atom({
-    api: typeRef<IInterfaceType>(api.id),
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    api: typeRef<IInterfaceType>(api?.id ?? ''),
     externalCssSource,
     externalJsSource,
     externalSourceType,
