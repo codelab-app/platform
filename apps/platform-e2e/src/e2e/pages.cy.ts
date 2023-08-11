@@ -12,7 +12,11 @@ before(() => {
 
   cy.request<IAppDTO>('/api/cypress/app').then((res) => {
     const app = res.body
-    cy.visit(`/apps/cypress/${slugify(app.name)}/pages`)
+    cy.visit(
+      `/apps/cypress/${slugify(
+        app.name,
+      )}/pages/404/builder?primarySidebarKey=pageList`,
+    )
     cy.getSpinner().should('not.exist')
     cy.findAllByText(IPageKindName.Provider).should('exist')
     cy.findAllByText(IPageKindName.NotFound).should('exist')
