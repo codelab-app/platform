@@ -345,6 +345,48 @@ export class AppService
     return this.add(appData)
   })
 
+  /**
+   This function fetches the current page and _app data for production:
+   - app data
+   - current page
+   - providers page (_app)
+   - components
+   - resources
+   */
+  @modelFlow
+  @transaction
+  getRenderedPageAndAppData = _async(function* (
+    this: AppService,
+    appName: string,
+    pageName: string,
+    // Production is pre-built with all required data, no need for network request
+    initialData?: GetRenderedPageAndAppDataQuery,
+  ) {
+    const {
+      apps: [appData],
+      resources,
+    } = initialData
+      ? initialData
+      : yield* _await(pageApi.GetRenderedPageAndAppData({ appName, pageName }))
+
+    if (!appData) {
+      return undefined
+    }
+
+    /**
+     * Load app, pages, elements
+     */
+    /**
+     * Load app, pages, elements
+     */
+    this.loadPages({ pages: appData.pages as Array<BuilderPageFragment> })
+
+    // write cache for resources
+    this.resourceService.load(resources)
+
+    return this.add(appData)
+  })
+
   @modelFlow
   @transaction
   getAppPages = _async(function* (
