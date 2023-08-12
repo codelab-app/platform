@@ -14,8 +14,8 @@ export const loginSession = () => {
       // so that there will be no forbidden errors when doing mutations
       // because the roles are needed
       cy.visit('/apps')
-      cy.getSpinner().should('not.exist')
       cy.intercept('GET', '/api/upsert-user').as('upsertUser')
+      cy.getSpinner().should('not.exist')
       cy.wait('@upsertUser', { timeout: 15000 })
     },
     {

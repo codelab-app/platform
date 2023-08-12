@@ -25,8 +25,14 @@ const mainPageElements = [
 
 const openPageByName = (name: string) => {
   // Takes a while to load the pages
-  cy.contains('.ant-list-item a', name).should('exist', { timeout: 15000 })
-  cy.contains('.ant-list-item a', name).click()
+  cy.getSpinner().should('not.exist')
+  cy.getCuiTreeItemByPrimaryTitle(name)
+    .should('exist', { timeout: 15000 })
+    .click()
+  cy.getCuiTreeItemByPrimaryTitle(name).within(() => {
+    cy.getToolbarItem('Open Builder').click()
+  })
+
   cy.getSpinner().should('not.exist')
   cy.contains('.ant-tree-list', ROOT_ELEMENT_NAME, { timeout: 15000 }).should(
     'be.visible',
@@ -52,9 +58,8 @@ describe('_app page', () => {
     cy.getModal().should('not.exist')
 
     cy.findByText(appName).click()
-    cy.getListItem(IPageKindName.Provider)
-      .findByText(IPageKindName.Provider)
-      .should('be.visible')
+
+    cy.getCuiTreeItemByPrimaryTitle(IPageKindName.Provider).should('be.visible')
   })
 
   it('should be able to add card component to the _app page', () => {
@@ -77,16 +82,15 @@ describe('_app page', () => {
     // Otherwise, there is a risk that `cy.go('back')` will prevent the request from being sent
     cy.waitForApiCalls()
 
-    cy.get('li[title="Pages"]').should('be.visible').click()
+    cy.getCuiNavigationBarItem('Pages').click()
 
     cy.getSpinner().should('not.exist')
-    cy.getListItem(IPageKindName.Provider)
-      .findByText(IPageKindName.Provider)
-      .should('be.visible')
+
+    cy.getCuiTreeItemByPrimaryTitle(IPageKindName.Provider).should('be.visible')
   })
 
   it('should be able to create simple page', () => {
-    cy.getSider().getButton({ icon: 'plus' }).click()
+    cy.getCuiSidebar('Pages').getToolbarItem('Create Page').click()
     cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
     cy.findByTestId('create-page-form')
       .getButton({ label: 'Create Page' })
