@@ -10,6 +10,7 @@ import {
   getComponentService,
   getElementService,
   pageRef,
+  RendererType,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getDomainService } from '@codelab/frontend/domain/domain'
@@ -29,6 +30,7 @@ import {
 } from '@codelab/frontend/shared/utils'
 import type {
   AppWhere,
+  BuilderPageFragment,
   GetRenderedPageAndCommonAppDataQuery,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
@@ -312,15 +314,21 @@ export class AppService
     pageName: string,
     // Production is pre-built with all required data, no need for network request
     initialData?: GetRenderedPageAndCommonAppDataQuery,
+    rendererType?: RendererType,
   ) {
+    const apiFunction =
+      rendererType === RendererType.Production
+        ? pageApi.GetRenderedPageAndAppData
+        : pageApi.GetRenderedPageAndCommonAppData
+
+    const fetchedData = initialData
+      ? initialData
+      : yield* _await(apiFunction({ appName, pageName }))
+
     const {
       apps: [appData],
       resources,
-    } = initialData
-      ? initialData
-      : yield* _await(
-          pageApi.GetRenderedPageAndCommonAppData({ appName, pageName }),
-        )
+    } = fetchedData
 
     if (!appData) {
       return undefined
@@ -333,72 +341,6 @@ export class AppService
 
     // write cache for resources
     this.resourceService.load(resources)
-
-    return this.add(appData)
-  })
-
-  /**
-   This function fetches the initial page and all the common data shared across all pages in the application:
-   - app data
-   - current page
-   - providers page (_app)
-   - components
-   - resources
-   - types
-   */
-  @modelFlow
-  @transaction
-  getRenderedPageAndAppData = _async(function* (
-    this: AppService,
-    appName: string,
-    pageName: string,
-    // Production is pre-built with all required data, no need for network request
-    initialData?: GetRenderedPageAndCommonAppDataQuery,
-  ) {
-    const {
-      apps: [appData],
-      resources,
-    } = initialData
-      ? initialData
-      : yield* _await(pageApi.GetRenderedPageAndAppData({ appName, pageName }))
-
-    if (!appData) {
-      return undefined
-    }
-
-    /**
-     * Sort pages for app. Order is app, custom pages, 404, 500
-     */
-
-    const _pages: Array<BuilderPageFragment> = appData.pages
-
-    _pages.sort((a, b) => {
-      if (a.kind === IPageKind.Provider) {
-        return -1
-      }
-
-      if (a.name === IPageKind.NotFound) {
-        return 1
-      }
-
-      if (a.name === IPageKind.InternalServerError) {
-        return 1
-      }
-
-      return a.name.localeCompare(b.name)
-    })
-
-    /**
-     * Load app, pages, elements
-     */
-    this.loadPages({ pages: appData.pages })
-
-    // write cache for resources
-    this.resourceService.load(resources)
-
-    const stores = appData.pages.map((pageOrComponent) => pageOrComponent.store)
-
-    this.storeService.load(stores)
 
     return this.add(appData)
   })

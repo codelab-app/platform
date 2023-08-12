@@ -36,11 +36,6 @@ export interface IAppService
   add(appDto: IAppDTO): IApp
   app(id: string): Maybe<IApp>
   getAppPages(appId: string, where: PageWhere): Promise<void>
-  getRenderedPageAndAppData(
-    appId: string,
-    pageName: string,
-    initialData?: GetRenderedPageAndAppDataQuery,
-  ): Promise<IApp | undefined>
   getRenderedPageAndCommonAppData(
     appId: string,
     pageName: string,

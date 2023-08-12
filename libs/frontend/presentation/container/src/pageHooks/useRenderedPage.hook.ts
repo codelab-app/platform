@@ -205,7 +205,7 @@ export const loadAllTypesForElements = async (
   componentService: IComponentService,
   typeService: ITypeService,
   roots: Array<IElement>,
-  rendererType: RendererType,
+  rendererType?: RendererType,
 ) => {
   const loadedComponentElements: Array<IElement> = []
 
