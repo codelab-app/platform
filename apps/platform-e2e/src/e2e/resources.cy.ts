@@ -23,19 +23,16 @@ describe('Resource CRUD', () => {
         .getToolbarItem('Add GraphQL Resource')
         .click()
 
-      cy.getModal().setFormFieldValue({ label: 'Name', value: resourceName })
-      cy.getModal().setFormFieldValue({
+      cy.setFormFieldValue({ label: 'Name', value: resourceName })
+      cy.setFormFieldValue({
         label: 'Type',
         type: FIELD_TYPE.SELECT,
         value: ResourceType.GraphQL,
       })
-      cy.getModal().setFormFieldValue({ label: 'Url', value: resourcesUrl })
+      cy.setFormFieldValue({ label: 'Url', value: resourcesUrl })
 
-      cy.getModal()
-        .getModalAction(/Create Resource/)
-        .click()
+      cy.getModalAction(/Create Resource/).click()
 
-      cy.getModal().should('not.exist')
       cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
     })
   })
@@ -62,10 +59,7 @@ describe('Resource CRUD', () => {
         cy.getToolbarItem('Delete').click()
       })
 
-      cy.getModal()
-        .getModalAction(/Delete Resource/)
-        .click()
-      cy.getModal().should('not.exist')
+      cy.getModalAction(/Delete Resource/).click()
 
       cy.findAllByText(updatedResourceName).should('not.exist')
     })
