@@ -12,7 +12,6 @@ import {
   rendererRef,
   RendererType,
   ROOT_ELEMENT_NAME,
-  storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/core'
 import { Atom, AtomService } from '@codelab/frontend/domain/atom'
@@ -76,6 +75,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
   beforeEach(async () => {
     const owner = { auth0Id: v4() }
     const pageId = v4()
+    const pageStoreId = v4()
     const compRootElementId = v4()
     const emptyInterface = new InterfaceType({ name: 'Empty interface', owner })
 
@@ -105,15 +105,6 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       name: 'primitiveType',
       owner,
       primitiveKind: PrimitiveTypeKind.String,
-    })
-
-    const pageStore = new Store({
-      actions: [],
-      api: typeRef(emptyInterface.id) as Ref<IInterfaceType>,
-      component: null,
-      id: v4(),
-      name: Store.createName({ name: 'Page' }),
-      page: pageRef(pageId),
     })
 
     data.textField = new Field({
@@ -164,9 +155,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       propService: new PropService({}),
       renderer: data.renderer,
       renderService: new RenderService({}),
-      storeService: new StoreService({
-        stores: objectMap([[pageStore.id, pageStore]]),
-      }),
+      storeService: new StoreService({}),
       tagService: new TagService({}),
       typeService: new TypeService({
         types: objectMap<IType>([
@@ -222,8 +211,17 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       kind: IPageKind.Regular,
       name: 'page',
       rootElement: elementRef(data.element),
-      store: storeRef(pageStore.id),
+      store: { id: pageStoreId },
       url: 'page-url',
+    })
+
+    data.rootStore.storeService.add({
+      actions: [],
+      api: typeRef(emptyInterface.id) as Ref<IInterfaceType>,
+      component: null,
+      id: pageStoreId,
+      name: Store.createName({ name: 'Page' }),
+      page: pageRef(pageId),
     })
 
     const componentRootElementProps = await data.rootStore.propService.create({

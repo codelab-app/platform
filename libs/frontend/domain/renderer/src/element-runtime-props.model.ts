@@ -42,13 +42,9 @@ export class ElementRuntimeProps
        * Internal system props for meta data, use double underline for system-defined identifiers.
        */
       [DATA_ELEMENT_ID]: this.node.id,
-      forwardedRef: (node: HTMLElement) => {
-        if (!refKey) {
-          return
-        }
-
-        store.registerRef(refKey, node)
-      },
+      forwardedRef: refKey
+        ? (node: HTMLElement) => store.registerRef(refKey, node)
+        : undefined,
       key: this.node.id,
     }
   }
