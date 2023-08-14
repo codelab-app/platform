@@ -794,7 +794,6 @@ export class ElementService
 
     // 3. detach the element from the element tree
     const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
-    yield* _await(this.updateAffectedElements(oldConnectedNodeIds))
 
     // 4. attach current element to the component
     const affectedAttachedNodes = this.attachElementAsFirstChild({
@@ -802,7 +801,12 @@ export class ElementService
       parentElement: createdComponent.rootElement,
     })
 
-    yield* _await(this.updateAffectedElements(affectedAttachedNodes))
+    yield* _await(
+      this.updateAffectedElements([
+        ...oldConnectedNodeIds,
+        ...affectedAttachedNodes,
+      ]),
+    )
 
     // 5. create a new element as an instance of the component
     const componentId = createdComponent.id
