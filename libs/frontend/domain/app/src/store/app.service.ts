@@ -335,51 +335,31 @@ export class AppService
     }
 
     /**
-     * Load app, pages, elements
+     * Sort pages for app. Order is app, custom pages, 404, 500
      */
-    this.loadPages({ pages: appData.pages })
 
-    // write cache for resources
-    this.resourceService.load(resources)
+    const pages = appData.pages as Array<BuilderPageFragment>
 
-    return this.add(appData)
-  })
+    pages.sort((a, b) => {
+      if (a.kind === IPageKind.Provider) {
+        return -1
+      }
 
-  /**
-   This function fetches the current page and _app data for production:
-   - app data
-   - current page
-   - providers page (_app)
-   - components
-   - resources
-   */
-  @modelFlow
-  @transaction
-  getRenderedPageAndAppData = _async(function* (
-    this: AppService,
-    appName: string,
-    pageName: string,
-    // Production is pre-built with all required data, no need for network request
-    initialData?: GetRenderedPageAndAppDataQuery,
-  ) {
-    const {
-      apps: [appData],
-      resources,
-    } = initialData
-      ? initialData
-      : yield* _await(pageApi.GetRenderedPageAndAppData({ appName, pageName }))
+      if (a.name === IPageKind.NotFound) {
+        return 1
+      }
 
-    if (!appData) {
-      return undefined
-    }
+      if (a.name === IPageKind.InternalServerError) {
+        return 1
+      }
+
+      return a.name.localeCompare(b.name)
+    })
 
     /**
      * Load app, pages, elements
      */
-    /**
-     * Load app, pages, elements
-     */
-    this.loadPages({ pages: appData.pages as Array<BuilderPageFragment> })
+    this.loadPages({ pages })
 
     // write cache for resources
     this.resourceService.load(resources)

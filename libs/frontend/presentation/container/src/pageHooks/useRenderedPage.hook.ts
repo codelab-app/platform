@@ -66,12 +66,11 @@ export const useRenderedPage = ({
   const router = useRouter()
 
   return useAsync(async () => {
-    const app = await (rendererType === RendererType.Production
-      ? appService.getRenderedPageAndAppData
-      : appService.getRenderedPageAndCommonAppData)(
+    const app = await appService.getRenderedPageAndCommonAppData(
       compoundAppName,
       compoundPageName,
       productionProps?.renderingData,
+      rendererType,
     )
 
     if (!app) {

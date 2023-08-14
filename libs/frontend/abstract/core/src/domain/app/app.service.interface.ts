@@ -15,6 +15,7 @@ import type {
   IQueryService,
 } from '../../service'
 import type { IPropData } from '../prop'
+import type { RendererType } from '../render'
 import type {
   ICreateAppData,
   IPageBuilderAppProps,
@@ -39,7 +40,10 @@ export interface IAppService
   getRenderedPageAndCommonAppData(
     appId: string,
     pageName: string,
-    initialData?: GetRenderedPageAndCommonAppDataQuery,
+    initialData?:
+      | GetRenderedPageAndAppDataQuery
+      | GetRenderedPageAndCommonAppDataQuery,
+    rendererType?: RendererType,
   ): Promise<IApp | undefined>
   loadAppsWithNestedPreviews(where: AppWhere): Promise<Array<IApp>>
   loadPages(data: IPageBuilderAppProps): void
