@@ -4,7 +4,10 @@ import {
   ElementFragment,
   ElementLiteFragment,
 } from '../element/element.fragment.graphql.gen'
-import { StoreFragment } from '../store/store.fragment.graphql.gen'
+import {
+  StoreFragment,
+  StoreLiteFragment,
+} from '../store/store.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
@@ -12,7 +15,10 @@ import {
   ElementFragmentDoc,
   ElementLiteFragmentDoc,
 } from '../element/element.fragment.graphql.gen'
-import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
+import {
+  StoreFragmentDoc,
+  StoreLiteFragmentDoc,
+} from '../store/store.fragment.graphql.gen'
 export type PageFragment = {
   id: string
   name: string
@@ -47,7 +53,7 @@ export type ProductionPageFragment = {
     descendantElements: Array<ElementLiteFragment>
   } & ElementLiteFragment
   app: { id: string }
-  store: StoreFragment
+  store: StoreLiteFragment
   pageContentContainer?: { id: string } | null
 }
 
@@ -118,7 +124,7 @@ export const ProductionPageFragmentDoc = gql`
       id
     }
     store {
-      ...Store
+      ...StoreLite
     }
     pageContentContainer {
       id
@@ -127,7 +133,7 @@ export const ProductionPageFragmentDoc = gql`
     url
   }
   ${ElementLiteFragmentDoc}
-  ${StoreFragmentDoc}
+  ${StoreLiteFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

@@ -70,9 +70,13 @@ export class StoreService
   @modelAction
   load = (stores: Array<StoreFragment>) => {
     this.actionService.load(stores.flatMap((store) => store.actions))
-    this.typeService.loadTypes({
-      interfaceTypes: stores.map((store) => store.api),
-    })
+
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (stores.some((store) => store?.api)) {
+      this.typeService.loadTypes({
+        interfaceTypes: stores.map((store) => store.api),
+      })
+    }
 
     return stores.map((store) => this.add({ ...store, source: null }))
   }

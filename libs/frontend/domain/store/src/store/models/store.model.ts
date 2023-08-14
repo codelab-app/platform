@@ -40,7 +40,8 @@ const create = ({
 }: IStoreDTO): IStore =>
   new Store({
     actions: actions.map((action) => actionRef(action.id)),
-    api: typeRef(api.id) as Ref<IInterfaceType>,
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    api: typeRef(api?.id ?? '') as Ref<IInterfaceType>,
     component: component?.id ? componentRef(component.id) : null,
     id,
     name,
@@ -124,7 +125,7 @@ export class Store
 
     return makeAutoObservable(
       mergeProps(
-        this.api.current.defaultValues,
+        this.api.maybeCurrent?.defaultValues ?? {},
         this.actions
           .map(({ current: action }) => {
             const actionId = getRunnerId(this.id, action.id)

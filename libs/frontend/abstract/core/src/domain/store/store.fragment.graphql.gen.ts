@@ -19,6 +19,14 @@ export type StoreFragment = {
   actions: Array<Action_ApiAction_Fragment | Action_CodeAction_Fragment>
 }
 
+export type StoreLiteFragment = {
+  id: string
+  name: string
+  component?: { id: string } | null
+  page?: { id: string } | null
+  actions: Array<Action_ApiAction_Fragment | Action_CodeAction_Fragment>
+}
+
 export const StoreFragmentDoc = gql`
   fragment Store on Store {
     id
@@ -37,6 +45,22 @@ export const StoreFragmentDoc = gql`
     }
   }
   ${InterfaceTypeFragmentDoc}
+  ${ActionFragmentDoc}
+`
+export const StoreLiteFragmentDoc = gql`
+  fragment StoreLite on Store {
+    id
+    name
+    component {
+      id
+    }
+    page {
+      id
+    }
+    actions {
+      ...Action
+    }
+  }
   ${ActionFragmentDoc}
 `
 

@@ -58,7 +58,7 @@ fragment ProductionPage on Page {
     id
   }
   store {
-    ...Store
+    ...StoreLite
   }
   pageContentContainer {
     id

@@ -22905,7 +22905,7 @@ export type ProductionPageFragment = {
     descendantElements: Array<{ __typename?: 'Element' } & ElementLiteFragment>
   } & ElementLiteFragment
   app: { __typename?: 'App'; id: string }
-  store: { __typename?: 'Store' } & StoreFragment
+  store: { __typename?: 'Store' } & StoreLiteFragment
   pageContentContainer?: { __typename?: 'Element'; id: string } | null
 }
 
@@ -22925,6 +22925,18 @@ export type StoreFragment = {
   id: string
   name: string
   api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
+  component?: { __typename?: 'Component'; id: string } | null
+  page?: { __typename?: 'Page'; id: string } | null
+  actions: Array<
+    | ({ __typename?: 'ApiAction' } & Action_ApiAction_Fragment)
+    | ({ __typename?: 'CodeAction' } & Action_CodeAction_Fragment)
+  >
+}
+
+export type StoreLiteFragment = {
+  __typename?: 'Store'
+  id: string
+  name: string
   component?: { __typename?: 'Component'; id: string } | null
   page?: { __typename?: 'Page'; id: string } | null
   actions: Array<
