@@ -4,7 +4,6 @@ import {
   GraphQLSchemaModule,
   neo4jConfig,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { OpenTelemetryModuleConfig } from '@codelab/backend/infra/adapter/otel'
 import { ApolloDriver } from '@nestjs/apollo'
 import { BullModule } from '@nestjs/bull'
 import { Global, Module } from '@nestjs/common'
@@ -36,7 +35,6 @@ export interface GqlContext {
       port: 4000,
     }),
     CodelabLoggerModule,
-    OpenTelemetryModuleConfig,
     BullModule.forRoot({
       redis: {
         host: 'localhost',

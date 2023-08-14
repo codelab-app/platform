@@ -1,6 +1,5 @@
 import type {
   Component,
-  ComponentModel,
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/backend/abstract/codegen'
@@ -8,6 +7,7 @@ import {
   componentSelectionSet,
   OGMService,
 } from '@codelab/backend/infra/adapter/neo4j'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IComponentDTO } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
@@ -20,8 +20,11 @@ export class ComponentRepository extends AbstractRepository<
   ComponentWhere,
   ComponentOptions
 > {
-  constructor(private ogmService: OGMService) {
-    super()
+  constructor(
+    private ogmService: OGMService,
+    protected traceService: TraceService,
+  ) {
+    super(traceService)
   }
 
   async _find({

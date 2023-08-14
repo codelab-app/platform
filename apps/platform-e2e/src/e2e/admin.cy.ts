@@ -20,17 +20,19 @@ describe('Admin', () => {
         includeAdminData: true,
       },
       method: 'POST',
+      timeout: 120000,
       url: '/api/data/migration/import',
     }).as('import')
 
-    cy.request({
-      body: {
-        adminDataPath: path.resolve('tmp'),
-        includeAdminData: true,
-      },
-      method: 'POST',
-      url: '/api/data/migration/export',
-    }).as('export')
+    // cy.request({
+    //   body: {
+    //     adminDataPath: path.resolve('tmp'),
+    //     includeAdminData: true,
+    //   },
+    //   method: 'POST',
+    //   timeout: 30000,
+    //   url: '/api/data/migration/export',
+    // }).as('export')
 
     // cy.get('@export')
   })

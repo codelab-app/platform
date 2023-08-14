@@ -1,7 +1,5 @@
 import type {
-  PageModel,
   ReactNodeType,
-  ReactNodeTypeModel,
   ReactNodeTypeOptions,
   ReactNodeTypeWhere,
 } from '@codelab/backend/abstract/codegen'
@@ -9,6 +7,7 @@ import {
   exportReactNodeTypeSelectionSet,
   OGMService,
 } from '@codelab/backend/infra/adapter/neo4j'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IReactNodeTypeDTO } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
@@ -21,8 +20,11 @@ export class ReactNodeTypeRepository extends AbstractRepository<
   ReactNodeTypeWhere,
   ReactNodeTypeOptions
 > {
-  constructor(private ogmService: OGMService) {
-    super()
+  constructor(
+    private ogmService: OGMService,
+    protected traceService: TraceService,
+  ) {
+    super(traceService)
   }
 
   async _find({

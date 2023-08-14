@@ -1,6 +1,5 @@
 import type {
   UnionType,
-  UnionTypeModel,
   UnionTypeOptions,
   UnionTypeWhere,
 } from '@codelab/backend/abstract/codegen'
@@ -8,6 +7,7 @@ import {
   exportUnionTypeSelectionSet,
   OGMService,
 } from '@codelab/backend/infra/adapter/neo4j'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IBaseTypeDTO, IUnionTypeDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -42,8 +42,11 @@ export class UnionTypeRepository extends AbstractRepository<
   UnionTypeWhere,
   UnionTypeOptions
 > {
-  constructor(private ogmService: OGMService) {
-    super()
+  constructor(
+    private ogmService: OGMService,
+    protected traceService: TraceService,
+  ) {
+    super(traceService)
   }
 
   async _find({

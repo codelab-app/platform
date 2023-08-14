@@ -1,6 +1,5 @@
 import type {
   App,
-  AppModel,
   AppOptions,
   AppWhere,
 } from '@codelab/backend/abstract/codegen'
@@ -8,6 +7,7 @@ import {
   appSelectionSet,
   OGMService,
 } from '@codelab/backend/infra/adapter/neo4j'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import {
@@ -25,8 +25,11 @@ export class AppRepository extends AbstractRepository<
   AppWhere,
   AppOptions
 > {
-  constructor(private ogmService: OGMService) {
-    super()
+  constructor(
+    private ogmService: OGMService,
+    protected traceService: TraceService,
+  ) {
+    super(traceService)
   }
 
   async _find({ options, where }: { where?: AppWhere; options?: AppOptions }) {

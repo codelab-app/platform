@@ -173,7 +173,9 @@ export class TaskService implements CommandModule<unknown, unknown> {
         (argv) => argv,
         globalHandler(({ stage }) => {
           if (stage === Stage.Dev) {
-            execCommand(`${NX_TEST} run platform-e2e:e2e:dev`)
+            execCommand(
+              `${NX_TEST} run platform-e2e:e2e:test --watch true --exit false`,
+            )
           }
 
           if (stage === Stage.Test) {

@@ -1,32 +1,34 @@
-import type {
-  IAdminDataExport,
-  IAtomExport,
-  IComponentExport,
-  ITypesExport,
+import {
+  type IAdminDataExport,
+  type IAtomExport,
+  type IComponentExport,
+  type ITypesExport,
 } from '@codelab/backend/abstract/core'
 import { ImportComponentsCommand } from '@codelab/backend/application/component'
-import { AuthService } from '@codelab/backend/application/service'
 import { AtomRepository } from '@codelab/backend/domain/atom'
-import { ComponentRepository } from '@codelab/backend/domain/component'
-import { ElementRepository } from '@codelab/backend/domain/element'
 import { TagRepository } from '@codelab/backend/domain/tag'
+import { FieldRepository, TypeFactory } from '@codelab/backend/domain/type'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
+import { type IAuth0User, type ITagDTO } from '@codelab/shared/abstract/core'
 import {
-  FieldRepository,
-  InterfaceTypeRepository,
-  TypeFactory,
-} from '@codelab/backend/domain/type'
-import type { IAuth0User, ITagDTO } from '@codelab/shared/abstract/core'
-import { withTracing } from '@codelab/shared/infra/otel'
-import { Inject, Injectable } from '@nestjs/common'
+  flattenWithPrefix,
+  Span,
+  withActiveSpan,
+  withBoundContext,
+} from '@codelab/shared/infra/otel'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
+import { context } from '@opentelemetry/api'
+import { getSpan } from '@opentelemetry/api/build/src/trace/context-utils'
+import { AsyncLocalStorage } from 'async_hooks'
 import fs from 'fs'
 import pick from 'lodash/pick'
 import path from 'path'
-import { MIGRATION_DATA_PROVIDER } from '../migration-data.constant'
+import type { IBaseDataPaths } from '../migration-data.service'
 import { MigrationDataService } from '../migration-data.service'
 
-@Injectable()
-export class ImportAdminDataCommand extends AuthService {}
+export class ImportAdminDataCommand implements IBaseDataPaths {
+  constructor(public owner: IAuth0User, public baseDataPaths?: string) {}
+}
 
 /**
  * During `save`, we'll want to replace the owner with the current
@@ -41,29 +43,33 @@ export class ImportAdminDataHandler
     private readonly tagRepository: TagRepository,
     private readonly atomRepository: AtomRepository,
     private readonly fieldRepository: FieldRepository,
-    private readonly componentRepository: ComponentRepository,
-    private readonly elementRepository: ElementRepository,
-    private readonly interfaceTypeRepository: InterfaceTypeRepository,
     private readonly commandBus: CommandBus,
     private readonly typeFactory: TypeFactory,
     private readonly migrationDataService: MigrationDataService,
+    private readonly traceService: TraceService,
+    private readonly als: AsyncLocalStorage<unknown>,
   ) {
     this.adminData = this.getMergedData
   }
 
+  @Span()
   async execute(command: ImportAdminDataCommand) {
     const { owner } = command
-
     /**
      * System types must be seeded first, so other types can reference it
      */
+
     await this.importSystemTypes(owner)
 
     await this.importTags(owner)
 
     await this.importAtoms(owner)
 
-    await this.importComponents(owner)
+    await this.importAtoms(owner)
+
+    await this.importAtoms(owner)
+
+    // await this.importComponents(owner)
   }
 
   private async importComponents(owner: IAuth0User) {
@@ -72,10 +78,12 @@ export class ImportAdminDataHandler
     )
   }
 
+  @Span()
   private async importTags(owner: IAuth0User) {
     return this.tagRepository.seedTags(this.adminData.tags, owner)
   }
 
+  @Span()
   private async importSystemTypes(owner: IAuth0User) {
     const { types } = JSON.parse(
       fs.readFileSync(this.migrationDataService.systemTypesFilePath, 'utf8'),
@@ -84,32 +92,37 @@ export class ImportAdminDataHandler
     /**
      * Must do sequentially due to type dependency
      */
-    for await (const type of types) {
+    for (const type of types) {
       await this.typeFactory.save({ ...type, owner })
     }
   }
 
+  @Span()
   private async importAtoms(owner: IAuth0User) {
-    const importPromises = this.adminData.atoms.map((atomData) =>
-      withTracing(
-        'import-atom',
-        () => this.importAtom(atomData, owner),
-        (span) => {
-          const attributes = pick(atomData.atom, ['name'])
-          span.setAttributes(attributes)
-        },
-      )(),
-    )
-
-    await Promise.all(importPromises)
+    for (const atomData of this.adminData.atoms) {
+      // const attributes = pick(atomData.atom, ['name'])
+      // this.traceService.getSpan()?.setAttributes(attributes)
+      await this.importAtom(atomData, owner)
+    }
   }
 
+  /**
+   * Maybe issue is too many spans.
+   *
+   * 3915: okay
+   * 4886: not good
+   *
+   */
+  @Span()
   private async importAtom(
     { api, atom, fields, types }: IAtomExport,
     owner: IAuth0User,
   ) {
+    const span = this.traceService.getSpan()
+    span?.setAttributes(flattenWithPrefix(atom))
+
     // Create types first so they can be referenced
-    for await (const type of types) {
+    for (const type of types) {
       await this.typeFactory.save({ ...type, owner })
     }
 
@@ -117,7 +130,9 @@ export class ImportAdminDataHandler
     await this.typeFactory.save({ ...api, owner })
 
     // Finally fields
-    await Promise.all(fields.map((field) => this.fieldRepository.save(field)))
+    for (const field of fields) {
+      await this.fieldRepository.save(field)
+    }
 
     await this.atomRepository.save({ ...atom, owner })
   }

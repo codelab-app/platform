@@ -1,9 +1,13 @@
 import type { IRepository } from '@codelab/backend/abstract/types'
-import { flattenWithPrefix } from '@codelab/backend/infra/adapter/otel'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import { CacheInstance, CacheService } from '@codelab/shared/infra/cache'
-import { withTracing } from '@codelab/shared/infra/otel'
+import type { CacheService } from '@codelab/shared/infra/cache'
+import { CacheInstance } from '@codelab/shared/infra/cache'
+import { flattenWithPrefix, withActiveSpan } from '@codelab/shared/infra/otel'
+import { Injectable } from '@nestjs/common'
+import { context } from '@opentelemetry/api'
 
+@Injectable()
 export abstract class AbstractRepository<
   Model extends IEntity,
   ModelData extends object,
@@ -11,36 +15,13 @@ export abstract class AbstractRepository<
   Options,
 > implements IRepository<Model, ModelData, Where>
 {
-  private cacheService: CacheService
-
-  private enableCache = false
-
-  private ttl: number
-
-  // Set default TTL to 60 seconds
-  constructor(ttl = 60000) {
-    this.cacheService = CacheService.getInstance(CacheInstance.Backend)
-    this.ttl = ttl
-  }
+  constructor(protected traceService: TraceService) {}
 
   async findOne(where: Where): Promise<ModelData | undefined> {
-    if (!this.enableCache) {
-      return (await this.find({ where }))[0]
-    }
-
-    const cachedValue = await this.cacheService.getOne<ModelData>(
-      this.constructor.name,
-      where,
-    )
-
-    if (cachedValue !== null) {
-      return cachedValue
-    }
-
     const result = (await this.find({ where }))[0]
 
-    if (result !== undefined) {
-      await this.cacheService.setOne(this.constructor.name, where, result)
+    if (!result) {
+      return undefined
     }
 
     return result
@@ -53,22 +34,7 @@ export abstract class AbstractRepository<
     where?: Where
     options?: Options
   } = {}): Promise<Array<ModelData>> {
-    if (!this.enableCache) {
-      return await this._find({ options, where })
-    }
-
-    const cachedValue = await this.cacheService.getMany<ModelData>(
-      this.constructor.name,
-      where,
-    )
-
-    if (cachedValue !== null) {
-      return cachedValue
-    }
-
     const results = await this._find({ options, where })
-
-    await this.cacheService.setMany(this.constructor.name, where, results)
 
     return results
   }
@@ -82,18 +48,12 @@ export abstract class AbstractRepository<
   }): Promise<Array<ModelData>>
 
   public async add(data: Array<Model>): Promise<Array<ModelData>> {
-    return await withTracing(
-      `${this.constructor.name}.add()`,
-      async () => {
-        // await this.cacheService.clearCache(this.constructor.name)
+    const span = this.traceService.getSpan()
+    const attributes = flattenWithPrefix(data[0] ?? {}, 'data')
+    span?.setAttributes(attributes)
 
-        return this._add(data)
-      },
-      (span) => {
-        const attributes = flattenWithPrefix(data[0] ?? {}, 'data')
-        span.setAttributes(attributes)
-      },
-    )()
+    // await this.cacheService.clearCache(this.constructor.name)
+    return this._add(data)
   }
 
   protected abstract _add(data: Array<Model>): Promise<Array<ModelData>>
@@ -104,24 +64,7 @@ export abstract class AbstractRepository<
    * Say we created some DTO data that is keyed by name, but with a generated ID. After finding existing record and performing update, we will actually update the ID as we ll.
    */
   async update(data: Model, where?: Where): Promise<ModelData> {
-    const model = await withTracing(
-      `${this.constructor.name}.update()`,
-      async () => {
-        // await CacheService.getInstance(CacheInstance.Backend).clearAllCache()
-        // await CacheService.getInstance(CacheInstance.Backend).clearCache(
-        //   this.constructor.name,
-        //   where,
-        // )
-
-        return this._update(data, where)
-      },
-      (span) => {
-        const dataAttributes = flattenWithPrefix(data, 'data')
-        const whereAttributes = flattenWithPrefix(data, 'where')
-        span.setAttributes(dataAttributes)
-        span.setAttributes(whereAttributes)
-      },
-    )()
+    const model = await this._update(data, where)
 
     if (!model) {
       throw new Error('Model not updated')
@@ -141,48 +84,37 @@ export abstract class AbstractRepository<
    * @param where
    */
   async save(data: Model, where?: Where): Promise<ModelData> {
-    // Only some models have name
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const modelData: any = data
+    const computedWhere = this.getWhere(data, where)
 
-    return await withTracing(
-      `${this.constructor.name}.save() ${modelData.name ?? ''}`,
-      async () => {
-        const computedWhere = this.getWhere(data, where)
+    if (
+      await context.with(context.active(), () =>
+        this.exists(data, computedWhere),
+      )
+    ) {
+      return await this.update(data, computedWhere)
+    }
 
-        if (await this.exists(data, computedWhere)) {
-          return await this.update(data, computedWhere)
-        }
+    const results = (await this.add([data]))[0]
 
-        const results = (await this.add([data]))[0]
+    if (!results) {
+      throw new Error('Save failed')
+    }
 
-        if (!results) {
-          throw new Error('Save failed')
-        }
-
-        return results
-      },
-    )()
+    return results
   }
 
   async exists(data: Model, where: Where) {
-    return withTracing(
-      `${this.constructor.name}.exists()`,
-      async (span) => {
-        const results = await this.findOne(where)
-        const exists = Boolean(results)
+    return withActiveSpan(`${this.constructor.name}.exists`, async (span) => {
+      const results = await this.findOne(where)
+      const exists = Boolean(results)
 
-        span.addEvent('exists', { exists })
+      // Spans
+      span.setAttributes(flattenWithPrefix(where, 'where'))
+      span.setAttributes(flattenWithPrefix(data, 'data'))
+      span.addEvent('Exists', { exists })
 
-        return exists
-      },
-      (span) => {
-        const dataAttributes = flattenWithPrefix(data, 'data')
-        const whereAttributes = flattenWithPrefix(where, 'where')
-        span.setAttributes(dataAttributes)
-        span.setAttributes(whereAttributes)
-      },
-    )()
+      return exists
+    })
   }
 
   /**
@@ -191,6 +123,4 @@ export abstract class AbstractRepository<
   private getWhere(data: Model, where?: Where) {
     return where ? where : ({ id: data.id } as Where)
   }
-
-  // protected abstract getTracerName: string
 }

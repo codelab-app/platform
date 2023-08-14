@@ -1,7 +1,6 @@
 import type {
   InterfaceType,
   InterfaceTypeFieldsFieldInput,
-  InterfaceTypeModel,
   InterfaceTypeOptions,
   InterfaceTypeWhere,
 } from '@codelab/backend/abstract/codegen'
@@ -9,6 +8,7 @@ import {
   interfaceTypeSelectionSet,
   OGMService,
 } from '@codelab/backend/infra/adapter/neo4j'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type {
   IFieldDTO,
@@ -33,8 +33,11 @@ export class InterfaceTypeRepository extends AbstractRepository<
   InterfaceTypeWhere,
   InterfaceTypeOptions
 > {
-  constructor(private ogmService: OGMService) {
-    super()
+  constructor(
+    private ogmService: OGMService,
+    protected traceService: TraceService,
+  ) {
+    super(traceService)
   }
 
   async _find({ options, where }: InterfaceTypeFindArgs) {

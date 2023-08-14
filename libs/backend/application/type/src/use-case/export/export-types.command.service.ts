@@ -2,6 +2,7 @@ import type { AnyType } from '@codelab/backend/abstract/codegen'
 import { SortDirection } from '@codelab/backend/abstract/codegen'
 import type { ITypesExport } from '@codelab/backend/abstract/core'
 import {
+  ActionTypeRepository,
   ArrayTypeRepository,
   EnumTypeRepository,
   FieldRepository,
@@ -9,6 +10,7 @@ import {
   TypeFactory,
   UnionTypeRepository,
 } from '@codelab/backend/domain/type'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type { ITypeDTO, ITypeEntity } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -43,9 +45,11 @@ export class ExportTypesHandler
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
     private readonly fieldRepository: FieldRepository,
     private readonly arrayTypeRepository: ArrayTypeRepository,
+    private readonly actionTypeRepository: ActionTypeRepository,
     private readonly unionTypeRepository: UnionTypeRepository,
     private readonly commandBus: CommandBus,
     private readonly typeFactory: TypeFactory,
+    private traceService: TraceService,
   ) {}
 
   async execute(command: ExportTypesCommand): Promise<ITypesExport> {
@@ -91,26 +95,26 @@ export class ExportTypesHandler
 
       const fieldTypes = interfaceType.fields.map((field) => field.fieldType)
 
-      const results: Array<ITypesExport> = await Promise.all(
+      const types: Array<ITypesExport> = await Promise.all(
         fieldTypes.map((fieldType) => this.getNestedTypes(fieldType)),
       )
 
       const typesExport: ITypesExport = {
         fields: [
           ...interfaceType.fields,
-          ...results.map((result) => result.fields).flat(),
+          ...types.map((result) => result.fields).flat(),
         ],
-        types: [interfaceType, ...results.map((result) => result.types).flat()],
+        types: [interfaceType, ...types.map((result) => result.types).flat()],
       }
 
       return typesExport
     }
 
-    if (__typename === ITypeKind.ActionType) {
+    if (__typename === ITypeKind.ArrayType) {
       const arrayType = await this.arrayTypeRepository.findOne({ id })
 
       if (!arrayType) {
-        throw new Error('Missing arrayType')
+        throw new Error('Missing ArrayType')
       }
 
       const itemType = arrayType.itemType

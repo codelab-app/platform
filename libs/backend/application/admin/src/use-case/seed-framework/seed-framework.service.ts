@@ -13,7 +13,7 @@ import {
   type IAuth0User,
   type IFieldDTO,
 } from '@codelab/shared/abstract/core'
-import { withTracing } from '@codelab/shared/infra/otel'
+import { withActiveSpan } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
 import { ObjectTyped } from 'object-typed'
 
@@ -43,25 +43,25 @@ export class SeedFrameworkService extends AuthUseCase<FrameworkData, void> {
   }
 
   async _execute(data: FrameworkData) {
-    await withTracing('SeedFrameworkService.seedSystemTypes()', () =>
+    await withActiveSpan('SeedFrameworkService.seedSystemTypes()', () =>
       this.seedSystemTypes(),
-    )()
+    )
 
-    await withTracing('SeedFrameworkService.seedTags()', () =>
+    await withActiveSpan('SeedFrameworkService.seedTags()', () =>
       this.seedTags(data.tags),
-    )()
+    )
 
-    await withTracing('SeedFrameworkService.seedEmptyApi()', () =>
+    await withActiveSpan('SeedFrameworkService.seedEmptyApi()', () =>
       this.seedEmptyApi(ObjectTyped.keys(data.atoms)),
-    )()
+    )
 
-    const atoms = await withTracing('SeedFrameworkService.seedAtoms()', () =>
+    const atoms = await withActiveSpan('SeedFrameworkService.seedAtoms()', () =>
       this.seedAtoms(data.atoms),
-    )()
+    )
 
-    await withTracing('SeedFrameworkService.seedApis()', async () =>
+    await withActiveSpan('SeedFrameworkService.seedApis()', async () =>
       this.seedApis(await data.fields(atoms)),
-    )()
+    )
   }
 
   private seedSystemTypes() {

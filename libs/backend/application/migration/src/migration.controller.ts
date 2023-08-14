@@ -4,18 +4,8 @@ import { ExportUserDataCommand } from '@codelab/backend/application/user'
 import { UserRepository } from '@codelab/backend/domain/user'
 import { saveFormattedFile } from '@codelab/backend/shared/util'
 import { type IUserDTO } from '@codelab/shared/abstract/core'
-import {
-  Body,
-  Controller,
-  Post,
-  Query,
-  UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common'
+import { Body, Controller, Post } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
-import { FileInterceptor } from '@nestjs/platform-express'
-import { type Express } from 'express'
-import fs from 'fs'
 import { ExportAdminDataCommand } from './export/export-admin-data.command.service'
 import { ImportAdminDataCommand } from './import/import-admin-data.command.service'
 
@@ -27,25 +17,21 @@ class ExportDto {
   userDataPath?: string
 
   adminDataPath?: string
+
+  download?: boolean
 }
 
 @Controller('migration')
 export class MigrationController {
   constructor(
-    private readonly importAdminDataService: ImportAdminDataCommand,
     private readonly commandBus: CommandBus,
     private readonly userRepository: UserRepository,
   ) {}
 
   @Post('import')
-  @UseInterceptors(FileInterceptor('file'))
   async import(
     @Body() { includeAdminData, includeUserData }: ExportDto,
     @CurrentUser() user: IUserDTO,
-    // @UploadedFile() file: Express.Multer.File,
-    // @Query('email') email: string,
-    // @Query('includeAdminData') includeAdminData: boolean,
-    // @Query('includeUserData') includeUserData: boolean,
   ) {
     const email = user.email
 
@@ -62,7 +48,6 @@ export class MigrationController {
         new ImportAdminDataCommand({ auth0Id: selectedAuth0Id }),
       )
     }
-
     // if (includeUserData) {
     //   const json = fs.readFileSync(file.path, 'utf8')
     //   const userData = JSON.parse(json)

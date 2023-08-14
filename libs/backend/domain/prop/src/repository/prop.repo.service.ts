@@ -1,6 +1,5 @@
 import type {
   Prop,
-  PropModel,
   PropOptions,
   PropWhere,
 } from '@codelab/backend/abstract/codegen'
@@ -8,6 +7,7 @@ import {
   OGMService,
   propSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IPropDTO } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
@@ -19,8 +19,11 @@ export class PropRepository extends AbstractRepository<
   PropWhere,
   PropOptions
 > {
-  constructor(private ogmService: OGMService) {
-    super()
+  constructor(
+    private ogmService: OGMService,
+    protected override traceService: TraceService,
+  ) {
+    super(traceService)
   }
 
   async _find({

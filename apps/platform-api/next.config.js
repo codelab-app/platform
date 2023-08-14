@@ -21,9 +21,10 @@ const withRawCypherFiles = (nextConfig = {}) =>
 
 const nextConfig = {
   experimental: {
-    instrumentationHook: process.env.NEXT_PLATFORM_API_ENABLE_OTEL
-      ? true
-      : false,
+    instrumentationHook: false,
+    // instrumentationHook: process.env.NEXT_PLATFORM_API_ENABLE_OTEL
+    //   ? true
+    //   : false,
     // appDir: true,
   },
   nx: {

@@ -1,6 +1,5 @@
 import type {
   ArrayType,
-  ArrayTypeModel,
   ArrayTypeOptions,
   ArrayTypeWhere,
 } from '@codelab/backend/abstract/codegen'
@@ -8,6 +7,7 @@ import {
   exportArrayTypeSelectionSet,
   OGMService,
 } from '@codelab/backend/infra/adapter/neo4j'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IArrayTypeDTO } from '@codelab/shared/abstract/core'
 import {
@@ -24,8 +24,11 @@ export class ArrayTypeRepository extends AbstractRepository<
   ArrayTypeWhere,
   ArrayTypeOptions
 > {
-  constructor(private ogmService: OGMService) {
-    super()
+  constructor(
+    private ogmService: OGMService,
+    protected traceService: TraceService,
+  ) {
+    super(traceService)
   }
 
   async _find({

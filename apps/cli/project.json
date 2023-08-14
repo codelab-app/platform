@@ -21,10 +21,7 @@
       "configurations": {
         "dev": {},
         "ci": {},
-        "prod": {
-          "outputPath": "dist/apps/cli-serverless",
-          "main": "apps/cli/src/serverless.ts"
-        }
+        "prod": {}
       }
     },
     "serve": {

@@ -1,6 +1,5 @@
 import type {
   ApiAction,
-  ApiActionModel,
   ApiActionOptions,
   ApiActionWhere,
 } from '@codelab/backend/abstract/codegen'
@@ -8,6 +7,7 @@ import {
   actionSelectionSet,
   OGMService,
 } from '@codelab/backend/infra/adapter/neo4j'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type {
   IActionEntity,
@@ -24,8 +24,11 @@ export class ApiActionRepository extends AbstractRepository<
   ApiActionWhere,
   ApiActionOptions
 > {
-  constructor(private ogmService: OGMService) {
-    super()
+  constructor(
+    private ogmService: OGMService,
+    protected traceService: TraceService,
+  ) {
+    super(traceService)
   }
 
   async _find({

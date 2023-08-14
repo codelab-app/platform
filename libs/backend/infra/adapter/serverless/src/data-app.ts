@@ -1,14 +1,17 @@
 import { DataModule } from '@codelab/backend/infra/adapter/codelab'
+import { otelSDK } from '@codelab/backend/infra/adapter/otel'
 import type { INestApplication } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
-import type { IncomingMessage, Server, ServerResponse } from 'http'
-import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
+import type { Server } from 'http'
+import type { NextApiHandler } from 'next'
 
 let app: INestApplication | undefined
 
 export const getDataListener = async () => {
   if (!app) {
+    await otelSDK.start()
+
     app = await NestFactory.create(DataModule, {
       // body Parser: false,
     })

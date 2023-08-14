@@ -1,6 +1,5 @@
 import type {
   PrimitiveType,
-  PrimitiveTypeModel,
   PrimitiveTypeOptions,
   PrimitiveTypeWhere,
 } from '@codelab/backend/abstract/codegen'
@@ -8,6 +7,7 @@ import {
   exportPrimitiveTypeSelectionSet,
   OGMService,
 } from '@codelab/backend/infra/adapter/neo4j'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IPrimitiveTypeDTO } from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
@@ -21,8 +21,11 @@ export class PrimitiveTypeRepository extends AbstractRepository<
   PrimitiveTypeWhere,
   PrimitiveTypeOptions
 > {
-  constructor(private ogmService: OGMService) {
-    super()
+  constructor(
+    private ogmService: OGMService,
+    protected traceService: TraceService,
+  ) {
+    super(traceService)
   }
 
   async _find({

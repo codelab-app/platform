@@ -1,5 +1,4 @@
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
-import { OpenTelemetryModuleConfig } from '@codelab/backend/infra/adapter/otel'
 import { BullModule } from '@nestjs/bull'
 import { Module } from '@nestjs/common'
 import { CommandModule } from '../commands/command.module'
@@ -9,7 +8,6 @@ import { CommandModule } from '../commands/command.module'
   imports: [
     CommandModule,
     CodelabLoggerModule,
-    OpenTelemetryModuleConfig,
     BullModule.forRoot({
       redis: {
         host: 'localhost',

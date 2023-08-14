@@ -24,10 +24,6 @@ import { CommandService } from './command.service'
     OGMModule,
   ],
   providers: [
-    {
-      provide: 'DATA_PATHS',
-      useValue: path.resolve('./data/export'),
-    },
     CommandService,
     SeedService,
     ScrapeAntdService,

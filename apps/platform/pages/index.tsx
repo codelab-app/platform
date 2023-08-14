@@ -9,6 +9,9 @@ const HomePage: CodelabPage<DashboardTemplateProps> = () => {
       <Link href="http://127.0.0.1:16686" target="_blank">
         Jaeger
       </Link>
+      <Link href="http://127.0.0.1:9090/targets" target="_blank">
+        Prometheus
+      </Link>
     </div>
   )
 }

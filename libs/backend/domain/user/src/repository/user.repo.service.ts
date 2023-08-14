@@ -1,6 +1,5 @@
 import type {
   User,
-  UserModel,
   UserOptions,
   UserWhere,
 } from '@codelab/backend/abstract/codegen'
@@ -8,10 +7,10 @@ import {
   OGMService,
   userSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IUserDTO } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
-import { v4 } from 'uuid'
 
 @Injectable()
 export class UserRepository extends AbstractRepository<
@@ -20,8 +19,11 @@ export class UserRepository extends AbstractRepository<
   UserWhere,
   UserOptions
 > {
-  constructor(private ogmService: OGMService) {
-    super()
+  constructor(
+    private ogmService: OGMService,
+    protected traceService: TraceService,
+  ) {
+    super(traceService)
   }
 
   protected async _find({

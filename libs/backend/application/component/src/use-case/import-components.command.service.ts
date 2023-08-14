@@ -1,6 +1,7 @@
 import type { IComponentExport } from '@codelab/backend/abstract/core'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
+import { PropRepository } from '@codelab/backend/domain/prop'
 import { FieldRepository, TypeFactory } from '@codelab/backend/domain/type'
 import type { IAuth0User } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
@@ -22,6 +23,7 @@ export class ImportComponentsHandler
     private readonly elementRepository: ElementRepository,
     private readonly componentRepository: ComponentRepository,
     private readonly typeFactory: TypeFactory,
+    private readonly propRepository: PropRepository,
   ) {}
 
   async execute(command: ImportComponentsCommand) {
@@ -33,6 +35,8 @@ export class ImportComponentsHandler
       fields,
       types,
     } of components) {
+      await this.propRepository.save(component.props)
+
       for await (const type of types) {
         await this.typeFactory.save({ ...type, owner })
       }

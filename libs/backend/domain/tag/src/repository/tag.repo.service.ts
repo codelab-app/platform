@@ -1,6 +1,5 @@
 import type {
   Tag,
-  TagModel,
   TagOptions,
   TagWhere,
 } from '@codelab/backend/abstract/codegen'
@@ -8,15 +7,18 @@ import {
   OGMService,
   tagSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IAuth0User, ITagDTO } from '@codelab/shared/abstract/core'
+import { type IAuth0User, type ITagDTO } from '@codelab/shared/abstract/core'
 import {
   connectAuth0Owner,
   connectNodeIds,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
-import { withTracing } from '@codelab/shared/infra/otel'
+import { withActiveSpan } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
+import { context } from '@opentelemetry/api'
+import { getSpan } from '@opentelemetry/api/build/src/trace/context-utils'
 
 @Injectable()
 export class TagRepository extends AbstractRepository<
@@ -25,8 +27,11 @@ export class TagRepository extends AbstractRepository<
   TagWhere,
   TagOptions
 > {
-  constructor(private ogmService: OGMService) {
-    super()
+  constructor(
+    private ogmService: OGMService,
+    protected traceService: TraceService,
+  ) {
+    super(traceService)
   }
 
   async _find({ options, where }: { where?: TagWhere; options?: TagOptions }) {
@@ -98,29 +103,39 @@ export class TagRepository extends AbstractRepository<
   /**
    * Seed tags solve the issue of missing target children or parent when creating them for the first time
    */
-
   async seedTags(tags: Array<ITagDTO>, owner: IAuth0User) {
     /**
      * Omit parent and children since they need to be created first
      */
-
-    await withTracing('Create nodes', async () => {
-      await Promise.all(
-        tags.map(async ({ children, parent, ...tag }) => {
-          return this.save({ ...tag, owner }, { name: tag.name })
-        }),
-      )
-    })()
+    for (const tag of tags) {
+      await this.save({ ...tag, owner }, { name: tag.name })
+    }
 
     /**
      * set parent and children after all tags are created
      */
-    await withTracing('Assign relationships', async () => {
-      await Promise.all(
-        tags.map(async (tag) => {
-          return this.save(tag, { name: tag.name })
-        }),
-      )
-    })()
+    for (const tag of tags) {
+      await this.save(tag, { name: tag.name })
+    }
+
+    // await Promise.all(
+    //   tags.map(({ children, parent, ...tag }) =>
+    //     withActiveSpan(
+    //       'CreateNodes',
+    //       () => this.save({ ...tag, owner }, { name: tag.name }),
+    //       parentContext,
+    //     ),
+    //   ),
+    // )
+
+    // await Promise.all(
+    //   tags.map((tag) =>
+    //     withActiveSpan(
+    //       'Assign Relationships',
+    //       () => this.save(tag, { name: tag.name }),
+    //       parentContext,
+    //     ),
+    //   ),
+    // )
   }
 }

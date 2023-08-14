@@ -5,12 +5,8 @@ import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app/app.module'
 import type { IUserDTO } from '@codelab/shared/abstract/core'
 
-interface UserContext {
-  user: IUserDTO
-}
-
 const bootstrap = async () => {
-  otelSDK.start()
+  // otelSDK.start()
 
   const app = await NestFactory.createApplicationContext(AppModule, {
     // logger: false,

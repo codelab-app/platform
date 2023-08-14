@@ -1,6 +1,5 @@
 import type {
   Element,
-  ElementModel,
   ElementOptions,
   ElementWhere,
 } from '@codelab/backend/abstract/codegen'
@@ -10,6 +9,7 @@ import {
   Neo4jService,
   OGMService,
 } from '@codelab/backend/infra/adapter/neo4j'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
   type IElementDTO,
@@ -29,8 +29,9 @@ export class ElementRepository extends AbstractRepository<
   constructor(
     private ogmService: OGMService,
     private neo4jService: Neo4jService,
+    protected traceService: TraceService,
   ) {
-    super()
+    super(traceService)
   }
 
   async _find({

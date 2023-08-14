@@ -5,11 +5,16 @@ import {
 import type { IAtomExport, ITypesExport } from '@codelab/backend/abstract/core'
 import { ExportTypesCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
-import type { IAtomDTO, IInterfaceTypeDTO } from '@codelab/shared/abstract/core'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
+import {
+  type IAtomDTO,
+  type IInterfaceTypeDTO,
+} from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
+import { IAtom } from 'mobx'
 
 @Injectable()
 export class ExportAtomsCommand {
@@ -23,6 +28,7 @@ export class ExportAtomsHandler
   constructor(
     private readonly atomRepository: AtomRepository,
     private commandBus: CommandBus,
+    private traceService: TraceService,
   ) {}
 
   async execute(command: ExportAtomsCommand) {
@@ -45,33 +51,35 @@ export class ExportAtomsHandler
         })),
       }))
 
-    return Promise.all(
-      atoms.map(async (atom) => {
-        const { fields = [], types } = await this.commandBus.execute<
-          ExportTypesCommand,
-          ITypesExport
-        >(
-          new ExportTypesCommand({
-            typeIds: [atom.api],
-          }),
-        )
+    return Promise.all(atoms.map(async (atom) => this.exportAtom(atom)))
+  }
 
-        const api = types.filter(
-          (type): type is IInterfaceTypeDTO =>
-            type.kind === ITypeKind.InterfaceType,
-        )[0]
+  private async exportAtom(atom: IAtomDTO) {
+    this.traceService.getSpan()!.setAttributes({ atom: atom.name })
 
-        if (!api) {
-          throw new Error('Missing interface type')
-        }
-
-        return {
-          api,
-          atom,
-          fields,
-          types,
-        }
+    const { fields = [], types } = await this.commandBus.execute<
+      ExportTypesCommand,
+      ITypesExport
+    >(
+      new ExportTypesCommand({
+        typeIds: [atom.api],
       }),
     )
+
+    const api = types.filter(
+      (type): type is IInterfaceTypeDTO =>
+        type.kind === ITypeKind.InterfaceType,
+    )[0]
+
+    if (!api) {
+      throw new Error('Missing interface type')
+    }
+
+    return {
+      api,
+      atom,
+      fields,
+      types,
+    }
   }
 }

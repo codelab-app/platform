@@ -8,6 +8,7 @@ import {
   OGMService,
   storeSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IStoreDTO } from '@codelab/shared/abstract/core'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
@@ -22,8 +23,11 @@ export class StoreRepository extends AbstractRepository<
 > {
   private Store!: StoreModel
 
-  constructor(private ogmService: OGMService) {
-    super()
+  constructor(
+    private ogmService: OGMService,
+    protected override traceService: TraceService,
+  ) {
+    super(traceService)
   }
 
   async _find({

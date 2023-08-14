@@ -1,6 +1,5 @@
 import type {
   Atom,
-  AtomModel,
   AtomOptions,
   AtomWhere,
 } from '@codelab/backend/abstract/codegen'
@@ -8,6 +7,7 @@ import {
   atomSelectionSet,
   OGMService,
 } from '@codelab/backend/infra/adapter/neo4j'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
 import {
@@ -27,8 +27,11 @@ export class AtomRepository extends AbstractRepository<
   AtomWhere,
   AtomOptions
 > {
-  constructor(private ogmService: OGMService) {
-    super()
+  constructor(
+    private ogmService: OGMService,
+    protected traceService: TraceService,
+  ) {
+    super(traceService)
   }
 
   async _find({
