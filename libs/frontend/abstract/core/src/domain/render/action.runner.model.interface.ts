@@ -1,9 +1,11 @@
 import type { Ref } from 'mobx-keystone'
 import type { IAction } from '../action'
+import type { IElement } from '../element'
 import type { IPropData } from '../prop'
 import type { IStore } from '../store'
 
 export interface ActionRunnerThisObject {
+  props?: IPropData
   refs?: IPropData
   rootRefs?: IPropData
   rootState?: IPropData
@@ -13,6 +15,7 @@ export interface ActionRunnerThisObject {
 
 export interface IActionRunner {
   actionRef: Ref<IAction>
+  elementRef: Ref<IElement>
   id: string
   props: IPropData
 
@@ -26,9 +29,11 @@ export const getActionRunnerThisObject = (
   runner: IActionRunner,
   store: Ref<IStore>,
   providerStore?: Ref<IStore>,
+  props?: IPropData,
   urlProps?: IPropData,
 ) => {
   const _this: ActionRunnerThisObject = {
+    props: props ?? {},
     refs: store.current.refs,
     state: store.current.state,
     urlProps: urlProps ?? {},

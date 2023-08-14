@@ -205,6 +205,7 @@ export class Renderer
           preRenderActionRunner,
           element.store,
           element.providerStore,
+          undefined,
           this.urlSegments,
         )
 

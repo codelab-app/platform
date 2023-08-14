@@ -7,6 +7,7 @@ import {
   extractTypedPropValue,
   getActionRunnerThisObject,
   getRunnerId,
+  isComponentPageNode,
   isElementPageNode,
 } from '@codelab/frontend/abstract/core'
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
@@ -48,6 +49,7 @@ export class ActionTypeTransformer
       ? node.providerStore
       : undefined
 
+    const componentStore = isComponentPageNode(node) ? node.store : undefined
     const urlProps = isElementPageNode(node) ? node.urlProps : undefined
 
     const localActionRunner = this.renderer.actionRunners.get(
@@ -60,16 +62,26 @@ export class ActionTypeTransformer
         )
       : undefined
 
+    const componentActionRunner = componentStore
+      ? this.renderer.actionRunners.get(
+          getRunnerId(componentStore.id, propValue),
+        )
+      : undefined
+
     const fallback = () =>
       console.error(`fail to call action with id ${prop.value}`)
 
-    const actionRunner = localActionRunner ?? rootActionRunner
+    const actionRunner =
+      localActionRunner ?? rootActionRunner ?? componentActionRunner
 
     if (actionRunner) {
       const _this = getActionRunnerThisObject(
         actionRunner,
         node.store,
         providerStore,
+        isElementPageNode(node)
+          ? node.parentComponent?.current.props.current.values
+          : undefined,
         urlProps,
       )
 

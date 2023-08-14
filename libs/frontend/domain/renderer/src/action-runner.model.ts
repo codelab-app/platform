@@ -13,6 +13,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   actionRef,
+  elementRef,
   getRenderService,
   getRunnerId,
   IProp,
@@ -106,6 +107,7 @@ const create = (rootElement: IElement) => {
     (action) =>
       new ActionRunner({
         actionRef: actionRef(action.id),
+        elementRef: elementRef(rootElement.id),
         id: getRunnerId(store.id, action.id),
         props,
       }),
@@ -116,6 +118,7 @@ const create = (rootElement: IElement) => {
 export class ActionRunner
   extends Model(() => ({
     actionRef: prop<Ref<IAction>>(),
+    elementRef: prop<Ref<IElement>>(),
     id: prop<string>(),
     props: prop<IPropData>(() => ({})),
   }))
@@ -169,21 +172,18 @@ export class ActionRunner
     const providerStoreId =
       this.renderer?.providerTree?.current.rootElement.current.store.id
 
+    const storeId = this.elementRef.current.store.id
+
     const { fromProvider: isSuccessRunnerFromProvider, runner: successRunner } =
       getRunner(
         this.renderer,
         action.successAction?.id,
-        action.store.id,
+        storeId,
         providerStoreId,
       )
 
     const { fromProvider: isErrorRunnerFromProvider, runner: errorRunner } =
-      getRunner(
-        this.renderer,
-        action.errorAction?.id,
-        action.store.id,
-        providerStoreId,
-      )
+      getRunner(this.renderer, action.errorAction?.id, storeId, providerStoreId)
 
     const resource = action.resource.current
     const config = action.config.current.values
@@ -200,7 +200,7 @@ export class ActionRunner
         config,
         _this.state,
         _this.rootState,
-        undefined,
+        _this.props,
         _this.refs,
         _this.rootRefs,
         _this.urlProps,
