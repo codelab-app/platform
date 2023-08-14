@@ -1,8 +1,8 @@
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPrimitiveTypeKind } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
-import { FIELD_TYPE } from '../support/antd/form'
-import { loginSession } from '../support/nextjs-auth0/commands/login'
+import { FIELD_TYPE } from '../../support/antd/form'
+import { loginSession } from '../../support/nextjs-auth0/commands/login'
 
 const COMPONENT_NAME = 'New Component'
 const COMPONENT_INSTANCE_NAME = 'Component Instance'
