@@ -54,14 +54,7 @@ fragment PageApp on App {
   owner {
     ...Owner
   }
-  pages(
-    where: {
-      OR: [
-        { _compoundName: $pageName }
-        { kind: Provider }
-      ]
-    }
-  ) {
+  pages(where: { OR: [{ _compoundName: $pageName }, { kind: Provider }] }) {
     ...ProductionPage
   }
 }
