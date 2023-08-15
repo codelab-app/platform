@@ -167,6 +167,12 @@ export class ElementService
     { id, ...elementData }: IUpdateElementData,
   ) {
     const element = this.element(id)
+    const { id: newRenderTypeId } = elementData.renderType ?? {}
+    const { id: oldRenderTypeId } = element.renderType ?? {}
+
+    if (newRenderTypeId !== oldRenderTypeId) {
+      this.propService.reset(element.props.id)
+    }
 
     element.writeCache({ ...elementData })
     this.writeCloneCache({ id, ...elementData })

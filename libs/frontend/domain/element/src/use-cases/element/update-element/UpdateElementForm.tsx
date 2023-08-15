@@ -32,17 +32,10 @@ export interface UpdateElementFormProps {
 /** Not intended to be used in a modal */
 export const UpdateElementForm = observer<UpdateElementFormProps>(
   ({ element }) => {
-    const { elementService, propService } = useStore()
+    const { elementService } = useStore()
     const model = getElementModel(element)
 
     const onSubmit = async (data: IUpdateElementData) => {
-      const { id: newRenderTypeId } = data.renderType ?? {}
-      const { id: oldRenderTypeId } = model.renderType ?? {}
-
-      if (newRenderTypeId !== oldRenderTypeId) {
-        await propService.reset(element.props.id)
-      }
-
       return elementService.update(data)
     }
 
