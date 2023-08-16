@@ -188,7 +188,7 @@ const getComponentIdsFromElements = (elements: Array<IElement>) =>
  */
 const getTypeIdsFromElements = (elements: Array<IElement>) => {
   return elements.reduce<Array<string>>((acc, element) => {
-    if (element.renderType) {
+    if (element.renderType?.current.api) {
       acc.push(element.renderType.current.api.id)
 
       element.renderType.current.api.current.fields.forEach((field) => {

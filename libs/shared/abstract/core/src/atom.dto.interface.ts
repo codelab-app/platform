@@ -3,7 +3,7 @@ import type { IAtomType } from './atom-type.enum'
 import type { IOwner } from './user.interface'
 
 export interface IAtomDTO extends IOwner {
-  api: IEntity
+  api: IEntity | undefined
   externalCssSource?: string | null
   externalJsSource?: string | null
   externalSourceType?: string | null

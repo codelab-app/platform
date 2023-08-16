@@ -139,8 +139,7 @@ export class AtomService
     type,
   }: IAtomDTO) => {
     // const tagRefs = tags?.map((tag) => tagRef(tag.id))
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    const apiRef = typeRef<IInterfaceType>(api?.id ?? '')
+    const apiRef = api?.id ? typeRef<IInterfaceType>(api.id) : undefined
 
     const atom = Atom.create({
       api: apiRef,

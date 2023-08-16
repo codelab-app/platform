@@ -3,7 +3,7 @@ import type {
   AtomUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { IAtomDTO, IAtomType, IOwner } from '@codelab/shared/abstract/core'
-import type { Nullish } from '@codelab/shared/abstract/types'
+import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IModel } from '../model.interface'
@@ -21,7 +21,7 @@ export interface IAtom
    *
    * We store preview data here so we can more easily display the tags in the atoms table
    */
-  api: Ref<IInterfaceType>
+  api?: Nullable<Ref<IInterfaceType>>
   externalCssSource?: string | null
   externalJsSource?: string | null
   externalSourceType?: string | null

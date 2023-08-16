@@ -15,6 +15,7 @@ import type {
   IAuth0Owner,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import type { Nullable } from '@codelab/shared/abstract/types'
 import {
   connectAuth0Owner,
   connectNodeId,
@@ -42,8 +43,7 @@ const create = ({
   type,
 }: IAtomDTO) => {
   return new Atom({
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    api: typeRef<IInterfaceType>(api?.id ?? ''),
+    api: api?.id ? typeRef<IInterfaceType>(api.id) : undefined,
     externalCssSource,
     externalJsSource,
     externalSourceType,
@@ -61,7 +61,7 @@ const create = ({
 @model('@codelab/Atom')
 export class Atom
   extends Model({
-    api: prop<Ref<IInterfaceType>>(),
+    api: prop<Nullable<Ref<IInterfaceType>>>(null),
     externalCssSource: prop<string | null | undefined>(),
     externalJsSource: prop<string | null | undefined>(),
     externalSourceType: prop<string | null | undefined>(),
@@ -143,7 +143,7 @@ export class Atom
   @modelAction
   toUpdateInput(): AtomUpdateInput {
     return {
-      api: connectNodeId(this.api.id),
+      api: this.api?.id ? connectNodeId(this.api.id) : undefined,
       externalCssSource: this.externalCssSource,
       externalJsSource: this.externalJsSource,
       externalSourceType: this.externalSourceType,

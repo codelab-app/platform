@@ -49,7 +49,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       useStore()
 
     const currentElement = element.current
-    const apiId = currentElement.renderType?.current.api.id
+    const apiId = currentElement.renderType?.current.api?.id
 
     const [{ result: interfaceType, status }, getInterface] = useAsync(
       async () => {

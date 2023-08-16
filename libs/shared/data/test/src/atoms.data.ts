@@ -36,7 +36,7 @@ export const createAtomsApiData = (
 ): Array<IInterfaceTypeDTO> =>
   atomsData.map((atom) => ({
     fields: [],
-    id: atom.api.id,
+    id: atom.api?.id ?? '',
     kind: ITypeKind.InterfaceType,
     name: `${atom.name} API`,
     owner: atom.owner,

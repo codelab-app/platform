@@ -46,10 +46,15 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
   }
 
   const onAddField = () => {
-    const interfaceId = node.api.id
-    const interfaceRef = typeRef(interfaceId) as Ref<IInterfaceType>
+    const interfaceId = node.api?.id
 
-    fieldService.createForm.open(interfaceRef)
+    const interfaceRef = interfaceId
+      ? (typeRef(interfaceId) as Ref<IInterfaceType>)
+      : undefined
+
+    if (interfaceRef) {
+      fieldService.createForm.open(interfaceRef)
+    }
     popover.open(FormNames.CreateField)
   }
 

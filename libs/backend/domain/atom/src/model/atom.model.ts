@@ -20,7 +20,7 @@ export class Atom implements IAtomDTO {
 
   type: IAtomType
 
-  api: IEntity
+  api: IEntity | undefined
 
   tags: Array<IEntity>
 

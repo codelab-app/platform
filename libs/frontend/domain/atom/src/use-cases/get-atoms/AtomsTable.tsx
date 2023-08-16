@@ -104,7 +104,7 @@ export const AtomsTable = observer(() => {
   ]
 
   const dataSource: Array<AtomRecord> | undefined = data.map((atom) => ({
-    api: atom.api.current,
+    api: atom.api?.current,
     id: atom.id,
     library: getLibrary(atom.type),
     name: atom.name,
