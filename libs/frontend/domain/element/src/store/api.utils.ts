@@ -60,8 +60,6 @@ export const getRenderTypeApi: GetRenderTypeApi = async ({
  * that will be saved as props for the new element created
  */
 export const makeDefaultProps = (typeApi: Maybe<IInterfaceType>) => {
-  console.log('make default values')
-
   const fields = typeApi?.fields ?? []
 
   const defaultProps = fields.reduce<Record<string, IFieldDefaultValue>>(
