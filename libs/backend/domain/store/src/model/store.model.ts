@@ -14,7 +14,7 @@ export class Store implements IStoreDTO {
   name: string
 
   constructor({ api, id, name }: IStoreDTO) {
-    this.api = api
+    this.api = api ?? { id: '' }
     this.id = id
     this.name = name
   }

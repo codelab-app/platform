@@ -16,7 +16,7 @@ export const StateTreeView = observer<{ store: IStore }>(({ store }) => {
   const { typeService } = useStore()
 
   const [{ error, result: type, status }, getOne] = useAsync(
-    async () => (await typeService.getAll([store.api.id]))[0],
+    async () => (await typeService.getAll([store.api?.id ?? '']))[0],
   )
 
   useMountEffect(getOne.execute)

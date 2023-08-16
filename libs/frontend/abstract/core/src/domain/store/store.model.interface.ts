@@ -20,7 +20,7 @@ export interface IStore
     ICacheService<IStoreDTO, IStore> {
   actions: Array<Ref<IAction>>
   actionsTree: Array<IActionsTreeDataNode>
-  api: Ref<IInterfaceType>
+  api?: Nullable<Ref<IInterfaceType>>
   component: Nullable<Ref<IComponent>>
   id: string
   jsonString: string

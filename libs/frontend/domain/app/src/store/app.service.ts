@@ -416,7 +416,7 @@ export class AppService
      */
     const pageElements = pages.flatMap((page) => page.elements)
     const pageStores = pages.map((page) => page.store.current)
-    const storeApis = pageStores.flatMap((store) => store.api.current)
+    const storeApis = pageStores.flatMap((store) => store.api?.current ?? [])
     const fields = storeApis.flatMap((api) => api.fields)
     const fieldApis = fields.flatMap((field) => field.api.current)
     const allTypes = [...storeApis, ...fieldApis]
