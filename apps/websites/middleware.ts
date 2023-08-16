@@ -16,7 +16,7 @@ export const config = {
 }
 
 const middleware = async (req: NextRequest) => {
-  const hostname = req.headers.get('host')?.replace(/https?:\/\//g, '')
+  const hostname = req.headers.get('host')
   const url = req.nextUrl
 
   url.pathname = `/${hostname}${url.pathname}`
