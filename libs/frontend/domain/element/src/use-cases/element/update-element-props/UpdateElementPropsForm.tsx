@@ -53,12 +53,11 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
 
     const [{ result: interfaceType, status }, getInterface] = useAsync(
       async () => {
-        await loadAllTypesForElements(
-          componentService,
-          typeService,
-          builderService.activeElementTree?.rootElement.current
-            .descendantElements ?? [],
-        )
+        const roots = builderService.activeElementTree
+          ? [builderService.activeElementTree.rootElement.current]
+          : []
+
+        await loadAllTypesForElements(componentService, typeService, roots)
 
         return typeService.getInterface(apiId!)
       },
