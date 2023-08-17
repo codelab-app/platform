@@ -13,11 +13,7 @@ import {
 } from '@codelab/frontend/presentation/container'
 import { ReactQuillField, Spinner } from '@codelab/frontend/presentation/view'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import {
-  filterEmptyStrings,
-  getDefaultFieldProps,
-  mergeProps,
-} from '@codelab/shared/utils'
+import { getDefaultFieldProps, mergeProps } from '@codelab/shared/utils'
 import { useAsync } from '@react-hookz/web'
 import type { JSONSchemaType } from 'ajv'
 import { Col, Row } from 'antd'
