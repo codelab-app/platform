@@ -1769,7 +1769,7 @@
                 "data": "{\"direction\":\"vertical\"}"
               },
               "renderForEachPropKey": null,
-              "childMapperPropKey": "messages",
+              "childMapperPropKey": "{{state.messages}}",
               "childMapperComponent": {
                 "id": "f4161637-7ad0-47ec-acb3-d1705fef15c9",
                 "name": "Message"
