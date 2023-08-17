@@ -52,9 +52,11 @@ describe('Element Child Mapper', () => {
         cy.findByTestId('create-component-form')
           .findByLabelText('Name')
           .type(COMPONENT_NAME)
-        cy.findByTestId('create-component-form')
-          .getButton({ label: 'Create Component' })
-          .click()
+
+        cy.getCuiPopover('Create Component').within(() => {
+          cy.getToolbarItem('Create').click()
+        })
+
         cy.findByTestId('create-component-form').should('not.exist', {
           timeout: 10000,
         })
@@ -63,9 +65,11 @@ describe('Element Child Mapper', () => {
         // add element to component
         cy.getSider().getButton({ icon: 'edit' }).click()
         cy.wrap(componentChildren).each((child: ComponentChildData) => {
-          cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).trigger('contextmenu')
+          cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).click()
+          cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).within(() => {
+            cy.getToolbarItem('Add Child').click()
+          })
 
-          cy.contains(/Add child/).click({ force: true })
           cy.findByTestId('create-element-form').setFormFieldValue({
             label: 'Render Type',
             type: FIELD_TYPE.SELECT,
@@ -81,9 +85,11 @@ describe('Element Child Mapper', () => {
             type: FIELD_TYPE.INPUT,
             value: child.name,
           })
-          cy.findByTestId('create-element-form')
-            .getButton({ label: 'Create Element' })
-            .click()
+
+          cy.getCuiPopover('Create Element').within(() => {
+            cy.getToolbarItem('Create').click()
+          })
+
           cy.findByTestId('create-element-form').should('not.exist', {
             timeout: 10000,
           })
