@@ -32,7 +32,7 @@ export class StoreRepository extends AbstractRepository<
         await this.Store
       ).create({
         input: stores.map(({ api, id, name }) => ({
-          api: api?.id ? connectNodeId(api.id) : undefined,
+          api: connectNodeId(api?.id),
           id,
           name,
         })),
