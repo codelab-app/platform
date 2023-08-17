@@ -44,9 +44,10 @@ describe('State variables sharing between pages', () => {
         cy.findByTestId('create-page-form')
           .findByLabelText('Name')
           .type('Testpage')
-        cy.findByTestId('create-page-form')
-          .getButton({ label: 'Create Page' })
-          .click()
+
+        cy.getCuiPopover('Create Page').within(() => {
+          cy.getToolbarItem('Create').click()
+        })
 
         // create a component
         cy.visit(
@@ -70,9 +71,11 @@ describe('State variables sharing between pages', () => {
         cy.findByTestId('create-component-form')
           .findByLabelText('Name')
           .type(COMPONENT_NAME)
-        cy.findByTestId('create-component-form')
-          .getButton({ label: 'Create Component' })
-          .click()
+
+        cy.getCuiPopover('Create Component').within(() => {
+          cy.getToolbarItem('Create').click()
+        })
+
         cy.findByTestId('create-component-form').should('not.exist', {
           timeout: 10000,
         })
@@ -81,9 +84,11 @@ describe('State variables sharing between pages', () => {
         // add element to component
         cy.getSider().getButton({ icon: 'edit' }).click()
         cy.wrap(componentChildren).each((child: ComponentChildData) => {
-          cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).trigger('contextmenu')
+          cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).click()
+          cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).within(() => {
+            cy.getToolbarItem('Add Child').click()
+          })
 
-          cy.contains(/Add child/).click({ force: true })
           cy.findByTestId('create-element-form').setFormFieldValue({
             label: 'Render Type',
             type: FIELD_TYPE.SELECT,
@@ -99,9 +104,11 @@ describe('State variables sharing between pages', () => {
             type: FIELD_TYPE.INPUT,
             value: child.name,
           })
-          cy.findByTestId('create-element-form')
-            .getButton({ label: 'Create Element' })
-            .click()
+
+          cy.getCuiPopover('Create Element').within(() => {
+            cy.getToolbarItem('Create').click()
+          })
+
           cy.findByTestId('create-element-form').should('not.exist', {
             timeout: 10000,
           })
@@ -120,17 +127,13 @@ describe('State variables sharing between pages', () => {
         cy.get('[data-cy="codelabui-sidebar-view-header-State"]').click()
         cy.get('[data-cy="codelabui-toolbar-item-Add Field"]').click()
 
-        cy.get(
-          '[data-cy="codelabui-sidebar-view-content-State"]',
-        ).setFormFieldValue({
+        cy.setFormFieldValue({
           label: 'Key',
           type: FIELD_TYPE.INPUT,
           value: 'name',
         })
 
-        cy.get(
-          '[data-cy="codelabui-sidebar-view-content-State"]',
-        ).setFormFieldValue({
+        cy.setFormFieldValue({
           label: 'Type',
           type: FIELD_TYPE.SELECT,
           value: 'String',
@@ -138,17 +141,15 @@ describe('State variables sharing between pages', () => {
 
         cy.findByText('Default values').should('exist')
 
-        cy.get(
-          '[data-cy="codelabui-sidebar-view-content-State"]',
-        ).setFormFieldValue({
+        cy.setFormFieldValue({
           label: 'Default values',
           type: FIELD_TYPE.CODE_MIRROR,
           value: 'component state value',
         })
 
-        cy.get('[data-cy="codelabui-sidebar-view-content-State"]')
-          .getButton({ label: 'Create Field' })
-          .click()
+        cy.getCuiPopover('Create Field').within(() => {
+          cy.getToolbarItem('Create').click()
+        })
 
         cy.get('#render-root')
           .findByText('text component state value')
@@ -174,17 +175,13 @@ describe('State variables sharing between pages', () => {
     cy.get('[data-cy="codelabui-sidebar-view-header-State"]').click()
     cy.get('[data-cy="codelabui-toolbar-item-Add Field"]').click()
 
-    cy.get(
-      '[data-cy="codelabui-sidebar-view-content-State"]',
-    ).setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Key',
       type: FIELD_TYPE.INPUT,
       value: 'name',
     })
 
-    cy.get(
-      '[data-cy="codelabui-sidebar-view-content-State"]',
-    ).setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Type',
       type: FIELD_TYPE.SELECT,
       value: 'String',
@@ -192,17 +189,15 @@ describe('State variables sharing between pages', () => {
 
     cy.findByText('Default values').should('exist')
 
-    cy.get(
-      '[data-cy="codelabui-sidebar-view-content-State"]',
-    ).setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Default values',
       type: FIELD_TYPE.CODE_MIRROR,
       value: 'provider state value',
     })
 
-    cy.get('[data-cy="codelabui-sidebar-view-content-State"]')
-      .getButton({ label: 'Create Field' })
-      .click()
+    cy.getCuiPopover('Create Field').within(() => {
+      cy.getToolbarItem('Create').click()
+    })
   })
 
   it('should be able to use the state from the provider page', () => {
@@ -235,9 +230,9 @@ describe('State variables sharing between pages', () => {
       value: COMPONENT_NAME,
     })
 
-    cy.findByTestId('create-element-form')
-      .getButton({ label: 'Create Element' })
-      .click()
+    cy.getCuiPopover('Create Element').within(() => {
+      cy.getToolbarItem('Create').click()
+    })
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
