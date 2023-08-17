@@ -2171,7 +2171,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "4a9055ed-4866-4c41-ad11-8d998cddcd33",
-                "data": "{\"src\":{\"type\":\"3a0d0fc6-c51e-4f05-85b4-cde709fe5625\",\"value\":\"https://lh3.googleusercontent.com/a/AGNmyxaSN-jsTl96I4sv5YzE3rMV1XywsfVHqq9zobFq=s192-c-rg-br100\"}}"
+                "data": "{\"src\":{\"type\":\"3a0d0fc6-c51e-4f05-85b4-cde709fe5625\",\"kind\":\"PrimitiveType\",\"value\":\"https://lh3.googleusercontent.com/a/AGNmyxaSN-jsTl96I4sv5YzE3rMV1XywsfVHqq9zobFq=s192-c-rg-br100\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2180,6 +2180,8 @@
               "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
+              "_compoundRefKey": null,
+              "refKey": null,
               "renderAtomType": {
                 "id": "ff6a8cfe-af3e-4e03-a51b-70455f976edb",
                 "name": "AntDesignAvatar"
