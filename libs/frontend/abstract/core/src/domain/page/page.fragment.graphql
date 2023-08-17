@@ -49,16 +49,16 @@ fragment ProductionPage on Page {
   name
   slug
   rootElement {
-    ...ElementLite
+    ...ProductionElement
     descendantElements {
-      ...ElementLite
+      ...ProductionElement
     }
   }
   app {
     id
   }
   store {
-    ...StoreLite
+    ...Store
   }
   pageContentContainer {
     id

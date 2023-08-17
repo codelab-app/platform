@@ -22695,7 +22695,7 @@ export type AtomFragment = {
   }>
 }
 
-export type AtomLiteFragment = {
+export type ProductionAtomFragment = {
   __typename?: 'Atom'
   icon?: string | null
   id: string
@@ -22749,7 +22749,7 @@ export type ComponentFragment = {
   store: { __typename?: 'Store' } & StoreFragment
 }
 
-export type ComponentWithoutApiFragment = {
+export type ProductionComponentFragment = {
   __typename?: 'Component'
   id: string
   name: string
@@ -22811,7 +22811,7 @@ export type ElementFragment = {
     | null
 }
 
-export type ElementLiteFragment = {
+export type ProductionElementFragment = {
   __typename: 'Element'
   id: string
   name: string
@@ -22823,7 +22823,7 @@ export type ElementLiteFragment = {
   propTransformationJs?: string | null
   page?: { __typename?: 'Page'; id: string } | null
   renderComponentType?: { __typename?: 'Component'; id: string } | null
-  renderAtomType?: ({ __typename?: 'Atom' } & AtomLiteFragment) | null
+  renderAtomType?: ({ __typename?: 'Atom' } & ProductionAtomFragment) | null
   renderType?: {
     __typename?: 'RenderType'
     id: string
@@ -22902,10 +22902,12 @@ export type ProductionPageFragment = {
   url: string
   rootElement: {
     __typename?: 'Element'
-    descendantElements: Array<{ __typename?: 'Element' } & ElementLiteFragment>
-  } & ElementLiteFragment
+    descendantElements: Array<
+      { __typename?: 'Element' } & ProductionElementFragment
+    >
+  } & ProductionElementFragment
   app: { __typename?: 'App'; id: string }
-  store: { __typename?: 'Store' } & StoreLiteFragment
+  store: { __typename?: 'Store' } & StoreFragment
   pageContentContainer?: { __typename?: 'Element'; id: string } | null
 }
 
@@ -22933,7 +22935,7 @@ export type StoreFragment = {
   >
 }
 
-export type StoreLiteFragment = {
+export type ProductionStoreFragment = {
   __typename?: 'Store'
   id: string
   name: string

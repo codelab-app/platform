@@ -3,20 +3,14 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import { InterfaceTypeFragment } from '../type/fragments/interface.fragment.graphql.gen'
 import { PropFragment } from '../prop/prop.fragment.graphql.gen'
-import {
-  StoreFragment,
-  StoreLiteFragment,
-} from '../store/store.fragment.graphql.gen'
+import { StoreFragment } from '../store/store.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import { InterfaceTypeFragmentDoc } from '../type/fragments/interface.fragment.graphql.gen'
 import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
-import {
-  StoreFragmentDoc,
-  StoreLiteFragmentDoc,
-} from '../store/store.fragment.graphql.gen'
+import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
 export type ComponentFragment = {
   id: string
   name: string
@@ -29,7 +23,7 @@ export type ComponentFragment = {
   store: StoreFragment
 }
 
-export type ComponentWithoutApiFragment = {
+export type ProductionComponentFragment = {
   id: string
   name: string
   keyGenerator?: string | null
@@ -70,8 +64,8 @@ export const ComponentFragmentDoc = gql`
   ${PropFragmentDoc}
   ${StoreFragmentDoc}
 `
-export const ComponentWithoutApiFragmentDoc = gql`
-  fragment ComponentWithoutApi on Component {
+export const ProductionComponentFragmentDoc = gql`
+  fragment ProductionComponent on Component {
     id
     name
     keyGenerator

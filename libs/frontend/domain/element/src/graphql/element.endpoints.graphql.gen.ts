@@ -2,14 +2,14 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import {
   ElementFragment,
-  ElementLiteFragment,
+  ProductionElementFragment,
 } from '../../../../abstract/core/src/domain/element/element.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import {
   ElementFragmentDoc,
-  ElementLiteFragmentDoc,
+  ProductionElementFragmentDoc,
 } from '../../../../abstract/core/src/domain/element/element.fragment.graphql.gen'
 export type CreateElementsMutationVariables = Types.Exact<{
   input: Array<Types.ElementCreateInput> | Types.ElementCreateInput

@@ -23,7 +23,7 @@ fragment Component on Component {
   }
 }
 
-fragment ComponentWithoutApi on Component {
+fragment ProductionComponent on Component {
   id
   name
   keyGenerator

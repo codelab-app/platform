@@ -19,7 +19,7 @@ export type StoreFragment = {
   actions: Array<Action_ApiAction_Fragment | Action_CodeAction_Fragment>
 }
 
-export type StoreLiteFragment = {
+export type ProductionStoreFragment = {
   id: string
   name: string
   component?: { id: string } | null
@@ -47,8 +47,8 @@ export const StoreFragmentDoc = gql`
   ${InterfaceTypeFragmentDoc}
   ${ActionFragmentDoc}
 `
-export const StoreLiteFragmentDoc = gql`
-  fragment StoreLite on Store {
+export const ProductionStoreFragmentDoc = gql`
+  fragment ProductionStore on Store {
     id
     name
     component {

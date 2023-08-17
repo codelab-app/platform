@@ -2,23 +2,17 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import {
   ElementFragment,
-  ElementLiteFragment,
+  ProductionElementFragment,
 } from '../element/element.fragment.graphql.gen'
-import {
-  StoreFragment,
-  StoreLiteFragment,
-} from '../store/store.fragment.graphql.gen'
+import { StoreFragment } from '../store/store.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import {
   ElementFragmentDoc,
-  ElementLiteFragmentDoc,
+  ProductionElementFragmentDoc,
 } from '../element/element.fragment.graphql.gen'
-import {
-  StoreFragmentDoc,
-  StoreLiteFragmentDoc,
-} from '../store/store.fragment.graphql.gen'
+import { StoreFragmentDoc } from '../store/store.fragment.graphql.gen'
 export type PageFragment = {
   id: string
   name: string
@@ -50,10 +44,10 @@ export type ProductionPageFragment = {
   kind: Types.PageKind
   url: string
   rootElement: {
-    descendantElements: Array<ElementLiteFragment>
-  } & ElementLiteFragment
+    descendantElements: Array<ProductionElementFragment>
+  } & ProductionElementFragment
   app: { id: string }
-  store: StoreLiteFragment
+  store: StoreFragment
   pageContentContainer?: { id: string } | null
 }
 
@@ -115,16 +109,16 @@ export const ProductionPageFragmentDoc = gql`
     name
     slug
     rootElement {
-      ...ElementLite
+      ...ProductionElement
       descendantElements {
-        ...ElementLite
+        ...ProductionElement
       }
     }
     app {
       id
     }
     store {
-      ...StoreLite
+      ...Store
     }
     pageContentContainer {
       id
@@ -132,8 +126,8 @@ export const ProductionPageFragmentDoc = gql`
     kind
     url
   }
-  ${ElementLiteFragmentDoc}
-  ${StoreLiteFragmentDoc}
+  ${ProductionElementFragmentDoc}
+  ${StoreFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

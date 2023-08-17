@@ -27,7 +27,7 @@ fragment Atom on Atom {
   externalSourceType
 }
 
-fragment AtomLite on Atom {
+fragment ProductionAtom on Atom {
   icon
   id
   name

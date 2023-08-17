@@ -24,7 +24,7 @@ export type AtomFragment = {
   requiredParents: Array<{ id: string; name: string; type: Types.AtomType }>
 }
 
-export type AtomLiteFragment = {
+export type ProductionAtomFragment = {
   icon?: string | null
   id: string
   name: string
@@ -78,8 +78,8 @@ export const AtomFragmentDoc = gql`
   ${TagFragmentDoc}
   ${InterfaceTypeFragmentDoc}
 `
-export const AtomLiteFragmentDoc = gql`
-  fragment AtomLite on Atom {
+export const ProductionAtomFragmentDoc = gql`
+  fragment ProductionAtom on Atom {
     icon
     id
     name

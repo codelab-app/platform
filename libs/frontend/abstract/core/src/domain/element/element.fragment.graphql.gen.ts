@@ -2,7 +2,7 @@ import * as Types from '@codelab/shared/abstract/codegen'
 
 import {
   AtomFragment,
-  AtomLiteFragment,
+  ProductionAtomFragment,
 } from '../atom/atom.fragment.graphql.gen'
 import { PropFragment } from '../prop/prop.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
@@ -10,7 +10,7 @@ import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import {
   AtomFragmentDoc,
-  AtomLiteFragmentDoc,
+  ProductionAtomFragmentDoc,
 } from '../atom/atom.fragment.graphql.gen'
 import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
 export type ElementFragment = {
@@ -46,7 +46,7 @@ export type ElementFragment = {
     | null
 }
 
-export type ElementLiteFragment = {
+export type ProductionElementFragment = {
   __typename: 'Element'
   id: string
   name: string
@@ -58,7 +58,7 @@ export type ElementLiteFragment = {
   propTransformationJs?: string | null
   page?: { id: string } | null
   renderComponentType?: { id: string } | null
-  renderAtomType?: AtomLiteFragment | null
+  renderAtomType?: ProductionAtomFragment | null
   renderType?: { id: string; kind: Types.RenderTypeKind } | null
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
@@ -140,8 +140,8 @@ export const ElementFragmentDoc = gql`
   ${AtomFragmentDoc}
   ${PropFragmentDoc}
 `
-export const ElementLiteFragmentDoc = gql`
-  fragment ElementLite on Element {
+export const ProductionElementFragmentDoc = gql`
+  fragment ProductionElement on Element {
     __typename
     id
     name
@@ -154,7 +154,7 @@ export const ElementLiteFragmentDoc = gql`
       id
     }
     renderAtomType {
-      ...AtomLite
+      ...ProductionAtom
     }
     renderType {
       id
@@ -198,7 +198,7 @@ export const ElementLiteFragmentDoc = gql`
     }
     propTransformationJs
   }
-  ${AtomLiteFragmentDoc}
+  ${ProductionAtomFragmentDoc}
   ${PropFragmentDoc}
 `
 

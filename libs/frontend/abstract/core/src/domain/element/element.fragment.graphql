@@ -58,7 +58,7 @@ fragment Element on Element {
   propTransformationJs
 }
 
-fragment ElementLite on Element {
+fragment ProductionElement on Element {
   __typename
   id
   name
@@ -71,7 +71,7 @@ fragment ElementLite on Element {
     id
   }
   renderAtomType {
-    ...AtomLite
+    ...ProductionAtom
     # ...RenderAtom
   }
   renderType {

@@ -15,7 +15,7 @@ fragment Store on Store {
   }
 }
 
-fragment StoreLite on Store {
+fragment ProductionStore on Store {
   id
   name
   component {

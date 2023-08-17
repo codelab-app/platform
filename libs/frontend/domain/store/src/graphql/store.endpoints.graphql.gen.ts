@@ -1,16 +1,10 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import {
-  StoreFragment,
-  StoreLiteFragment,
-} from '../../../../abstract/core/src/domain/store/store.fragment.graphql.gen'
+import { StoreFragment } from '../../../../abstract/core/src/domain/store/store.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import {
-  StoreFragmentDoc,
-  StoreLiteFragmentDoc,
-} from '../../../../abstract/core/src/domain/store/store.fragment.graphql.gen'
+import { StoreFragmentDoc } from '../../../../abstract/core/src/domain/store/store.fragment.graphql.gen'
 export type CreateStoresMutationVariables = Types.Exact<{
   input: Array<Types.StoreCreateInput> | Types.StoreCreateInput
 }>
