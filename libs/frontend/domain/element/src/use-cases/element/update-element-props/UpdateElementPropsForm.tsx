@@ -72,17 +72,11 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     }, [apiId])
 
     const onSubmit = (data: IPropData) => {
-      const filteredData = filterEmptyStrings(data) as IPropData
-
-      const mergedWithDefaultValues = mergeProps(
-        getDefaultFieldProps(currentElement.renderType?.current),
-        filteredData,
-      )
-
       const props = element.current.props.current
 
-      return propService.update({
-        data: JSON.stringify(mergedWithDefaultValues),
+      return propService.updateWithDefaultValuesApplied({
+        data,
+        defaultValues: getDefaultFieldProps(currentElement.renderType?.current),
         id: props.id,
       })
     }
