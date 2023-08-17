@@ -185,22 +185,22 @@ export const createComponents = async (
   const interfaceTypeRepository = new InterfaceTypeRepository()
 
   for (const component of components) {
-    const isExist = findComponent({ id: component.id })
+    const foundComponents = await findComponent({ id: component.id })
 
-    if ((await isExist).length > 0) {
-      return
-    } else {
-      await interfaceTypeRepository.add([
-        { ...component.store.api, fields: [], owner },
-        { ...component.api, fields: [], owner },
-      ])
-
-      await fieldRepository.add(component.api.fields)
-      await fieldRepository.add(component.store.api.fields)
-      await storeRepository.add([component.store])
-      await propRepository.add([component.props])
-      await createComponent(component, owner)
+    if (foundComponents.length > 0) {
+      continue
     }
+
+    await interfaceTypeRepository.add([
+      { ...component.store.api, fields: [], owner },
+      { ...component.api, fields: [], owner },
+    ])
+
+    await fieldRepository.add(component.api.fields)
+    await fieldRepository.add(component.store.api.fields)
+    await storeRepository.add([component.store])
+    await propRepository.add([component.props])
+    await createComponent(component, owner)
   }
 }
 /**
