@@ -23,7 +23,6 @@ import { DemoController } from './demo/demo.controller'
     AdminModule,
     MigrationModule,
     UserModule,
-    AlsModule,
     ConfigModule.forRoot({
       ignoreEnvVars: true,
       isGlobal: true,
@@ -31,27 +30,4 @@ import { DemoController } from './demo/demo.controller'
     }),
   ],
 })
-export class DataModule implements NestModule {
-  constructor(
-    // inject the AsyncLocalStorage in the module constructor,
-    private readonly als: AsyncLocalStorage<unknown>,
-  ) {}
-
-  configure(consumer: MiddlewareConsumer) {
-    // bind the middleware,
-    consumer
-      .apply((req: any, res: any, next: any) => {
-        // populate the store with some default values
-        // based on the request,
-        const store = {
-          context,
-        }
-
-        // and pass the "next" function as callback
-        // to the "als.run" method together with the store.
-        this.als.run(store, () => next())
-      })
-      // and register it for all routes (in case of Fastify use '(.*)')
-      .forRoutes('*')
-  }
-}
+export class DataModule {}

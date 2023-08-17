@@ -15,16 +15,50 @@ export abstract class AbstractRepository<
   Options,
 > implements IRepository<Model, ModelData, Where>
 {
-  constructor(protected traceService: TraceService) {}
+  // private cacheService: CacheService
+
+  // private enableCache = false
+
+  // private ttl = 60000
+
+  constructor(protected traceService: TraceService) {
+    // this.cacheService = CacheService.getInstance(CacheInstance.Backend)
+  }
 
   async findOne(where: Where): Promise<ModelData | undefined> {
-    const result = (await this.find({ where }))[0]
+    // Don't use decorator since it doesn't give us the right name
+    return withActiveSpan(
+      `${this.constructor.name}.findOne`,
+      async (span) => {
+        span.setAttributes(flattenWithPrefix(where, 'where'))
 
-    if (!result) {
-      return undefined
-    }
+        // if (!this.enableCache) {
+        //   return (await this.find({ where }))[0]
+        // }
 
-    return result
+        // const cachedValue = await this.cacheService.getOne<ModelData>(
+        //   this.constructor.name,
+        //   where,
+        // )
+
+        // if (cachedValue !== null) {
+        //   return cachedValue
+        // }
+
+        const result = (await this.find({ where }))[0]
+
+        if (!result) {
+          return undefined
+        }
+
+        // await this.cacheService.setOne(this.constructor.name, where, result)
+
+        span.setAttributes(flattenWithPrefix(result))
+
+        return result
+      },
+      // context.active(),
+    )
   }
 
   async find({
@@ -34,9 +68,34 @@ export abstract class AbstractRepository<
     where?: Where
     options?: Options
   } = {}): Promise<Array<ModelData>> {
-    const results = await this._find({ options, where })
+    return withActiveSpan(
+      `${this.constructor.name}.find`,
+      async (span) => {
+        span.setAttributes(flattenWithPrefix(where, 'where'))
 
-    return results
+        // if (!this.enableCache) {
+        //   return await this._find({ options, where })
+        // }
+
+        // const cachedValue = await this.cacheService.getMany<ModelData>(
+        //   this.constructor.name,
+        //   where,
+        // )
+
+        // if (cachedValue !== null) {
+        //   return cachedValue
+        // }
+
+        const results = await this._find({ options, where })
+
+        span.addEvent('Result', flattenWithPrefix(results))
+
+        // await this.cacheService.setMany(this.constructor.name, where, results)
+
+        return results
+      },
+      // context.active(),
+    )
   }
 
   protected abstract _find({
@@ -64,13 +123,30 @@ export abstract class AbstractRepository<
    * Say we created some DTO data that is keyed by name, but with a generated ID. After finding existing record and performing update, we will actually update the ID as we ll.
    */
   async update(data: Model, where?: Where): Promise<ModelData> {
-    const model = await this._update(data, where)
+    return withActiveSpan(
+      `${this.constructor.name}.update`,
+      async (span) => {
+        const dataAttributes = flattenWithPrefix(data, 'data')
+        const whereAttributes = flattenWithPrefix(data, 'where')
+        span.setAttributes(dataAttributes)
+        span.setAttributes(whereAttributes)
 
-    if (!model) {
-      throw new Error('Model not updated')
-    }
+        // await CacheService.getInstance(CacheInstance.Backend).clearAllCache()
+        // await CacheService.getInstance(CacheInstance.Backend).clearCache(
+        //   this.constructor.name,
+        //   where,
+        // )
 
-    return model
+        const model = await this._update(data, where)
+
+        if (!model) {
+          throw new Error('Model not updated')
+        }
+
+        return model
+      },
+      // context.active(),
+    )
   }
 
   protected abstract _update(
@@ -84,37 +160,43 @@ export abstract class AbstractRepository<
    * @param where
    */
   async save(data: Model, where?: Where): Promise<ModelData> {
-    const computedWhere = this.getWhere(data, where)
+    return withActiveSpan(
+      `${this.constructor.name}.save`,
+      async () => {
+        const computedWhere = this.getWhere(data, where)
 
-    if (
-      await context.with(context.active(), () =>
-        this.exists(data, computedWhere),
-      )
-    ) {
-      return await this.update(data, computedWhere)
-    }
+        if (await this.exists(data, computedWhere)) {
+          return await this.update(data, computedWhere)
+        }
 
-    const results = (await this.add([data]))[0]
+        const results = (await this.add([data]))[0]
 
-    if (!results) {
-      throw new Error('Save failed')
-    }
+        if (!results) {
+          throw new Error('Save failed')
+        }
 
-    return results
+        return results
+      },
+      // context.active(),
+    )
   }
 
   async exists(data: Model, where: Where) {
-    return withActiveSpan(`${this.constructor.name}.exists`, async (span) => {
-      const results = await this.findOne(where)
-      const exists = Boolean(results)
+    return withActiveSpan(
+      `${this.constructor.name}.exists`,
+      async (span) => {
+        const results = await this.findOne(where)
+        const exists = Boolean(results)
 
-      // Spans
-      span.setAttributes(flattenWithPrefix(where, 'where'))
-      span.setAttributes(flattenWithPrefix(data, 'data'))
-      span.addEvent('Exists', { exists })
+        // Spans
+        span.setAttributes(flattenWithPrefix(where, 'where'))
+        span.setAttributes(flattenWithPrefix(data, 'data'))
+        span.addEvent('Exists', { exists })
 
-      return exists
-    })
+        return exists
+      },
+      // context.active(),
+    )
   }
 
   /**

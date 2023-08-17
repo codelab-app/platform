@@ -58,10 +58,10 @@ export class MigrationController {
 
   @Post('export')
   async export(@Body() exportDto: ExportDto, @CurrentUser() user: IUserDTO) {
-    const { includeAdminData, includeUserData } = exportDto
+    const { adminDataPath, includeAdminData, includeUserData } = exportDto
 
     if (includeAdminData) {
-      await this.commandBus.execute(new ExportAdminDataCommand())
+      await this.commandBus.execute(new ExportAdminDataCommand(adminDataPath))
     }
 
     if (includeUserData) {

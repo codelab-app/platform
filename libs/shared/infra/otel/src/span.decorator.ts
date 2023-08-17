@@ -7,7 +7,6 @@ import { Inject } from '@nestjs/common'
 import type { Context, SpanOptions } from '@opentelemetry/api'
 import { context, SpanStatusCode, trace } from '@opentelemetry/api'
 import { setSpan } from '@opentelemetry/api/build/src/trace/context-utils'
-import { AsyncLocalStorage } from 'async_hooks'
 import { TRACER_NAME } from './tracer'
 import { copyMetadataFromFunctionToFunction } from './utils'
 

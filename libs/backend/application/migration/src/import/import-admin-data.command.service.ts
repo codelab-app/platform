@@ -19,7 +19,6 @@ import {
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import { context } from '@opentelemetry/api'
 import { getSpan } from '@opentelemetry/api/build/src/trace/context-utils'
-import { AsyncLocalStorage } from 'async_hooks'
 import fs from 'fs'
 import pick from 'lodash/pick'
 import path from 'path'
@@ -47,7 +46,6 @@ export class ImportAdminDataHandler
     private readonly typeFactory: TypeFactory,
     private readonly migrationDataService: MigrationDataService,
     private readonly traceService: TraceService,
-    private readonly als: AsyncLocalStorage<unknown>,
   ) {
     this.adminData = this.getMergedData
   }
@@ -62,10 +60,6 @@ export class ImportAdminDataHandler
     await this.importSystemTypes(owner)
 
     await this.importTags(owner)
-
-    await this.importAtoms(owner)
-
-    await this.importAtoms(owner)
 
     await this.importAtoms(owner)
 
@@ -97,22 +91,16 @@ export class ImportAdminDataHandler
     }
   }
 
-  @Span()
   private async importAtoms(owner: IAuth0User) {
     for (const atomData of this.adminData.atoms) {
       // const attributes = pick(atomData.atom, ['name'])
       // this.traceService.getSpan()?.setAttributes(attributes)
-      await this.importAtom(atomData, owner)
+      await withActiveSpan(`${atomData.atom.name}`, () =>
+        this.importAtom(atomData, owner),
+      )
     }
   }
 
-  /**
-   * Maybe issue is too many spans.
-   *
-   * 3915: okay
-   * 4886: not good
-   *
-   */
   @Span()
   private async importAtom(
     { api, atom, fields, types }: IAtomExport,

@@ -1,7 +1,10 @@
 import { type IAdminDataExport } from '@codelab/backend/abstract/core'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
-import { formatToPrettifiedJson } from '@codelab/backend/shared/util'
-import { Injectable } from '@nestjs/common'
+import {
+  formatToPrettifiedJson,
+  writeFileSyncWithDirs,
+} from '@codelab/backend/shared/util'
+import { Injectable, Scope } from '@nestjs/common'
 import { findUpSync } from 'find-up'
 import fs from 'fs'
 import path, { dirname } from 'path'
@@ -10,7 +13,9 @@ export interface IBaseDataPaths {
   baseDataPaths?: string
 }
 
-@Injectable()
+@Injectable({
+  scope: Scope.TRANSIENT,
+})
 export class MigrationDataService implements IBaseDataPaths {
   constructor(private traceService: TraceService) {}
 
@@ -75,7 +80,7 @@ export class MigrationDataService implements IBaseDataPaths {
         stringData,
       })
 
-      fs.writeFileSync(outputPath, stringData)
+      writeFileSyncWithDirs(outputPath, stringData)
     }
   }
 
