@@ -23,14 +23,16 @@ import {
 import { getTagService } from '@codelab/frontend/domain/tag'
 import { getFieldService, getTypeService } from '@codelab/frontend/domain/type'
 import { VercelService } from '@codelab/frontend/domain/vercel'
-import { ModalService } from '@codelab/frontend/shared/utils'
+import {
+  ModalService,
+  sortPagesByKindAndName,
+} from '@codelab/frontend/shared/utils'
 import type {
   AppWhere,
-  BuilderPageFragment,
   GetRenderedPageAndCommonAppDataQuery,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
-import { IAppDTO, IPageKind } from '@codelab/shared/abstract/core'
+import { IAppDTO } from '@codelab/shared/abstract/core'
 import flatMap from 'lodash/flatMap'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -136,6 +138,8 @@ export class AppService
    */
   @modelAction
   loadPages = ({ pages }: IPageBuilderAppProps) => {
+    sortPagesByKindAndName(pages)
+
     const allElements = [
       ...flatMap(pages, ({ rootElement }) => [
         rootElement,
@@ -186,18 +190,7 @@ export class AppService
       /**
        * Pages
        */
-      appData.pages.forEach((pageData) => {
-        const pageElements = [
-          pageData.rootElement,
-          ...pageData.rootElement.descendantElements,
-        ]
-
-        pageElements.map((element) => this.elementService.add(element))
-
-        this.storeService.load([pageData.store])
-
-        this.pageService.add(pageData)
-      })
+      this.loadPages(appData)
 
       /**
        * Domains
@@ -331,28 +324,6 @@ export class AppService
     if (!appData) {
       return undefined
     }
-
-    /**
-     * Sort pages for app. Order is app, custom pages, 404, 500
-     */
-
-    const _pages: Array<BuilderPageFragment> = appData.pages
-
-    _pages.sort((a, b) => {
-      if (a.kind === IPageKind.Provider) {
-        return -1
-      }
-
-      if (a.name === IPageKind.NotFound) {
-        return 1
-      }
-
-      if (a.name === IPageKind.InternalServerError) {
-        return 1
-      }
-
-      return a.name.localeCompare(b.name)
-    })
 
     /**
      * Load app, pages, elements
