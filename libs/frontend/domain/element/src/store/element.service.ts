@@ -130,7 +130,7 @@ export class ElementService
    */
   @modelFlow
   @transaction
-  loadRenderTypeInterface = _async(function* (
+  private loadRenderTypeInterface = _async(function* (
     this: ElementService,
     data: ICreateElementData,
   ) {
