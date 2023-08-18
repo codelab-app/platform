@@ -35,7 +35,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
     const { elementService } = useStore()
     const model = getElementModel(element)
 
-    const onSubmit = (data: IUpdateElementData) => {
+    const onSubmit = async (data: IUpdateElementData) => {
       return elementService.update(data)
     }
 
