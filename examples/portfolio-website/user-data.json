@@ -536,9 +536,138 @@
               "id": "4e13bb44-abc5-4b67-b18a-604a9edf479d",
               "kind": "InterfaceType",
               "name": "Portfolio Website(gm.vpolishchuk) _app Store API",
-              "fields": []
+              "fields": [
+                {
+                  "id": "7d74697a-1ef8-4802-afc3-403ef4a6afe6",
+                  "key": "message",
+                  "name": null,
+                  "description": null,
+                  "validationRules": "{\"general\":{\"nullable\":true}}",
+                  "defaultValues": "\"Message placeholder\"",
+                  "prevSibling": null,
+                  "nextSibling": null,
+                  "fieldType": {
+                    "__typename": "PrimitiveType",
+                    "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                    "kind": "PrimitiveType",
+                    "name": "String"
+                  },
+                  "api": { "id": "4e13bb44-abc5-4b67-b18a-604a9edf479d" }
+                },
+                {
+                  "id": "67ed26e8-184b-4d20-aec2-692d2a2181a9",
+                  "key": "messages",
+                  "name": null,
+                  "description": null,
+                  "validationRules": "{\"general\":{\"nullable\":true}}",
+                  "defaultValues": "[]",
+                  "prevSibling": null,
+                  "nextSibling": null,
+                  "fieldType": {
+                    "__typename": "ArrayType",
+                    "id": "8386eb3b-a284-4d50-9c4a-94be8ebe7b03",
+                    "kind": "ArrayType",
+                    "name": "MessagesArray"
+                  },
+                  "api": { "id": "4e13bb44-abc5-4b67-b18a-604a9edf479d" }
+                },
+                {
+                  "id": "c9980e9f-1c52-42ba-b4b1-56e4d4a25cc2",
+                  "key": "posts",
+                  "name": null,
+                  "description": null,
+                  "validationRules": "{}",
+                  "defaultValues": "[]",
+                  "prevSibling": null,
+                  "nextSibling": null,
+                  "fieldType": {
+                    "__typename": "ArrayType",
+                    "id": "58c4f0b8-f185-4d6e-9f19-143936740310",
+                    "kind": "ArrayType",
+                    "name": "Posts"
+                  },
+                  "api": { "id": "4e13bb44-abc5-4b67-b18a-604a9edf479d" }
+                },
+                {
+                  "id": "3ad772fb-635d-4e55-b080-b9b6453d4905",
+                  "key": "token",
+                  "name": null,
+                  "description": null,
+                  "validationRules": "{\"general\":{\"nullable\":true}}",
+                  "defaultValues": "null",
+                  "prevSibling": null,
+                  "nextSibling": null,
+                  "fieldType": {
+                    "__typename": "PrimitiveType",
+                    "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                    "kind": "PrimitiveType",
+                    "name": "String"
+                  },
+                  "api": { "id": "4e13bb44-abc5-4b67-b18a-604a9edf479d" }
+                },
+                {
+                  "id": "159b2fb4-6310-403d-b493-a0c849dd75c4",
+                  "key": "user",
+                  "name": null,
+                  "description": null,
+                  "validationRules": "{\"general\":{\"nullable\":true}}",
+                  "defaultValues": "null",
+                  "prevSibling": null,
+                  "nextSibling": null,
+                  "fieldType": {
+                    "__typename": "PrimitiveType",
+                    "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                    "kind": "PrimitiveType",
+                    "name": "String"
+                  },
+                  "api": { "id": "4e13bb44-abc5-4b67-b18a-604a9edf479d" }
+                }
+              ]
             },
-            "actions": []
+            "actions": [
+              {
+                "__typename": "CodeAction",
+                "id": "0ee6d953-041d-4e34-97f2-6443c90d4aa6",
+                "name": "initState",
+                "type": "CodeAction",
+                "code": "async function run() {\n  const store = state || this;\n  \n  if (!window.supabaseClient) return;\n  if (store.messages.length) return;\n  \n  const { data, error } = await window.supabaseClient.auth.getSession(); \n  const oAuthToken = data.session?.provider_token; \n  const messages = await window.supabaseClient.from('message').select();\n  const user = await window.supabaseClient.auth.getUser();\n  \n  store.user = user.data?.user?.user_metadata?.full_name;\n  store.token = oAuthToken;\n  store.messages = messages.data.reverse();\n}"
+              },
+              {
+                "__typename": "CodeAction",
+                "id": "2990c9dc-71bb-4598-ae42-023c9dcf5436",
+                "name": "loginClick",
+                "type": "CodeAction",
+                "code": "async function run() {\n  const { data, error } = await window.supabaseClient.auth.signInWithOAuth({\n    provider: 'github',\n    options: {\n      redirectTo:'http://127.0.0.1:3000/apps/gm.vpolishchuk/portfolio-website/pages/guestbook'\n    }\n  });\n\n  const oAuthToken = data.session?.provider_token;\n\n  state.token = oAuthToken;\n}"
+              },
+              {
+                "__typename": "CodeAction",
+                "id": "d5525e74-bdd9-4311-a0df-d15d923abeab",
+                "name": "logoutClick",
+                "type": "CodeAction",
+                "code": "function run() {\n    window.supabaseClient.auth.signOut();\n    state.token = null;\n}"
+              },
+              {
+                "__typename": "CodeAction",
+                "id": "146d2de0-08a9-4994-b87f-4386f58cdfd9",
+                "name": "onMessageChange",
+                "type": "CodeAction",
+                "code": "function run({ target }) {\n  state.message = target.value;\n}"
+              },
+              {
+                "__typename": "CodeAction",
+                "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
+                "name": "onSupabaseLoad",
+                "type": "CodeAction",
+                "code": "async function run() {\n  const { createClient } = window.supabase;\n  const projectUrl = 'https://cicrfdknwobgyihmmvbe.supabase.co';\n  const projectPublickKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpY3JmZGtud29iZ3lpaG1tdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY1MzgwOTcsImV4cCI6MTk5MjExNDA5N30.DAU_bDvSXg_ya4V-6wk3B2VC5KtpsK4-sdRmHUkmkGo';\n  const supabaseClient = createClient(projectUrl, projectPublickKey);\n\n  this.supabaseClient = supabaseClient;\n  window.supabaseClient = supabaseClient;\n  \n  if (state.messages.length) return;\n  \n  const { data, error } = await window.supabaseClient.auth.getSession(); \n  const oAuthToken = data.session?.provider_token; \n  const messages = await window.supabaseClient.from('message').select();\n  const user = await window.supabaseClient.auth.getUser();\n  \n  state.user = user.data?.user?.user_metadata?.full_name;\n  state.token = oAuthToken;\n  state.messages = messages.data.reverse();\n}"
+              },
+              {
+                "__typename": "CodeAction",
+                "id": "78a73536-541d-411c-9bae-a62d26adbb31",
+                "name": "postMessage",
+                "type": "CodeAction",
+                "code": "async function run() {\n  const message = {\n    text: state.message,\n    owner: state.user\n  };\n\n  state.message = null;\n  \n  const messages = await window.supabaseClient.from('message').insert(message);\n\n  state.messages = [message, ...state.messages];\n}"
+              }
+            ]
           },
           "url": "/_app",
           "pageContentContainer": {
@@ -1238,7 +1367,7 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
-              "childMapperPropKey": "{{state.posts}}",
+              "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
@@ -1303,7 +1432,7 @@
                 "data": "{}"
               },
               "renderForEachPropKey": null,
-              "childMapperPropKey": "{{state.posts}}",
+              "childMapperPropKey": "{{rootState.posts}}",
               "childMapperComponent": {
                 "id": "89e5750c-c3a5-4dc1-970f-21accc0a6ec0",
                 "name": "Blog Post"
@@ -1437,25 +1566,7 @@
               "id": "76e3db17-441a-4973-8cca-4e44f3001f9a",
               "kind": "InterfaceType",
               "name": "Portfolio Website(gm.vpolishchuk) Blog Store API",
-              "fields": [
-                {
-                  "id": "c9980e9f-1c52-42ba-b4b1-56e4d4a25cc2",
-                  "key": "posts",
-                  "name": null,
-                  "description": null,
-                  "validationRules": "{}",
-                  "defaultValues": "[]",
-                  "prevSibling": null,
-                  "nextSibling": null,
-                  "fieldType": {
-                    "__typename": "ArrayType",
-                    "id": "58c4f0b8-f185-4d6e-9f19-143936740310",
-                    "kind": "ArrayType",
-                    "name": "Posts"
-                  },
-                  "api": { "id": "76e3db17-441a-4973-8cca-4e44f3001f9a" }
-                }
-              ]
+              "fields": []
             },
             "actions": []
           },
@@ -1603,7 +1714,7 @@
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
               "childMapperComponent": null,
-              "renderIfExpression": "{{!state.token}}",
+              "renderIfExpression": "{{!rootState.token}}",
               "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
@@ -1705,7 +1816,7 @@
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
               "childMapperComponent": null,
-              "renderIfExpression": "{{!!state.token}}",
+              "renderIfExpression": "{{!!rootState.token}}",
               "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
@@ -1734,7 +1845,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "a1956b1e-c1a6-475e-9d7c-07633553b638",
-                "data": "{\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"146d2de0-08a9-4994-b87f-4386f58cdfd9\"},\"value\":\"{{state.message}}\"}"
+                "data": "{\"onChange\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"146d2de0-08a9-4994-b87f-4386f58cdfd9\"},\"value\":\"{{rootState.message}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1941,7 +2052,7 @@
                 "data": "{\"direction\":\"vertical\"}"
               },
               "renderForEachPropKey": null,
-              "childMapperPropKey": "{{state.messages}}",
+              "childMapperPropKey": "{{rootState.messages}}",
               "childMapperComponent": {
                 "id": "f4161637-7ad0-47ec-acb3-d1705fef15c9",
                 "name": "Message"
@@ -1980,7 +2091,7 @@
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
               "childMapperComponent": null,
-              "renderIfExpression": "{{state.messages.length === 0}}",
+              "renderIfExpression": "{{rootState.messages.length === 0}}",
               "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
@@ -2143,121 +2254,9 @@
               "id": "c765c7eb-8cb3-49a0-b4cb-fd2759af1a23",
               "kind": "InterfaceType",
               "name": "Portfolio Website(gm.vpolishchuk) Guestbook Store API",
-              "fields": [
-                {
-                  "id": "7d74697a-1ef8-4802-afc3-403ef4a6afe6",
-                  "key": "message",
-                  "name": null,
-                  "description": null,
-                  "validationRules": "{\"general\":{\"nullable\":true}}",
-                  "defaultValues": "\"Message placeholder\"",
-                  "prevSibling": null,
-                  "nextSibling": null,
-                  "fieldType": {
-                    "__typename": "PrimitiveType",
-                    "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-                    "kind": "PrimitiveType",
-                    "name": "String"
-                  },
-                  "api": { "id": "c765c7eb-8cb3-49a0-b4cb-fd2759af1a23" }
-                },
-                {
-                  "id": "67ed26e8-184b-4d20-aec2-692d2a2181a9",
-                  "key": "messages",
-                  "name": null,
-                  "description": null,
-                  "validationRules": "{\"general\":{\"nullable\":true}}",
-                  "defaultValues": "[]",
-                  "prevSibling": null,
-                  "nextSibling": null,
-                  "fieldType": {
-                    "__typename": "ArrayType",
-                    "id": "8386eb3b-a284-4d50-9c4a-94be8ebe7b03",
-                    "kind": "ArrayType",
-                    "name": "MessagesArray"
-                  },
-                  "api": { "id": "c765c7eb-8cb3-49a0-b4cb-fd2759af1a23" }
-                },
-                {
-                  "id": "3ad772fb-635d-4e55-b080-b9b6453d4905",
-                  "key": "token",
-                  "name": null,
-                  "description": null,
-                  "validationRules": "{\"general\":{\"nullable\":true}}",
-                  "defaultValues": "null",
-                  "prevSibling": null,
-                  "nextSibling": null,
-                  "fieldType": {
-                    "__typename": "PrimitiveType",
-                    "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-                    "kind": "PrimitiveType",
-                    "name": "String"
-                  },
-                  "api": { "id": "c765c7eb-8cb3-49a0-b4cb-fd2759af1a23" }
-                },
-                {
-                  "id": "159b2fb4-6310-403d-b493-a0c849dd75c4",
-                  "key": "user",
-                  "name": null,
-                  "description": null,
-                  "validationRules": "{\"general\":{\"nullable\":true}}",
-                  "defaultValues": "null",
-                  "prevSibling": null,
-                  "nextSibling": null,
-                  "fieldType": {
-                    "__typename": "PrimitiveType",
-                    "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-                    "kind": "PrimitiveType",
-                    "name": "String"
-                  },
-                  "api": { "id": "c765c7eb-8cb3-49a0-b4cb-fd2759af1a23" }
-                }
-              ]
+              "fields": []
             },
-            "actions": [
-              {
-                "__typename": "CodeAction",
-                "id": "0ee6d953-041d-4e34-97f2-6443c90d4aa6",
-                "name": "initState",
-                "type": "CodeAction",
-                "code": "async function run() {\n  const store = state || this;\n  \n  if (!window.supabaseClient) return;\n  if (store.messages.length) return;\n  \n  const { data, error } = await window.supabaseClient.auth.getSession(); \n  const oAuthToken = data.session?.provider_token; \n  const messages = await window.supabaseClient.from('message').select();\n  const user = await window.supabaseClient.auth.getUser();\n  \n  store.user = user.data?.user?.user_metadata?.full_name;\n  store.token = oAuthToken;\n  store.messages = messages.data.reverse();\n}"
-              },
-              {
-                "__typename": "CodeAction",
-                "id": "2990c9dc-71bb-4598-ae42-023c9dcf5436",
-                "name": "loginClick",
-                "type": "CodeAction",
-                "code": "async function run() {\n  const { data, error } = await window.supabaseClient.auth.signInWithOAuth({\n    provider: 'github',\n    options: {\n      redirectTo:'http://127.0.0.1:3000/apps/gm.vpolishchuk/portfolio-website/pages/guestbook'\n    }\n  });\n\n  const oAuthToken = data.session?.provider_token;\n\n  state.token = oAuthToken;\n}"
-              },
-              {
-                "__typename": "CodeAction",
-                "id": "d5525e74-bdd9-4311-a0df-d15d923abeab",
-                "name": "logoutClick",
-                "type": "CodeAction",
-                "code": "function run() {\n    window.supabaseClient.auth.signOut();\n    state.token = null;\n}"
-              },
-              {
-                "__typename": "CodeAction",
-                "id": "146d2de0-08a9-4994-b87f-4386f58cdfd9",
-                "name": "onMessageChange",
-                "type": "CodeAction",
-                "code": "function run({ target }) {\n  state.message = target.value;\n}"
-              },
-              {
-                "__typename": "CodeAction",
-                "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
-                "name": "onSupabaseLoad",
-                "type": "CodeAction",
-                "code": "async function run() {\n  const { createClient } = window.supabase;\n  const projectUrl = 'https://cicrfdknwobgyihmmvbe.supabase.co';\n  const projectPublickKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpY3JmZGtud29iZ3lpaG1tdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY1MzgwOTcsImV4cCI6MTk5MjExNDA5N30.DAU_bDvSXg_ya4V-6wk3B2VC5KtpsK4-sdRmHUkmkGo';\n  const supabaseClient = createClient(projectUrl, projectPublickKey);\n\n  this.supabaseClient = supabaseClient;\n  window.supabaseClient = supabaseClient;\n  \n  if (state.messages.length) return;\n  \n  const { data, error } = await window.supabaseClient.auth.getSession(); \n  const oAuthToken = data.session?.provider_token; \n  const messages = await window.supabaseClient.from('message').select();\n  const user = await window.supabaseClient.auth.getUser();\n  \n  state.user = user.data?.user?.user_metadata?.full_name;\n  state.token = oAuthToken;\n  state.messages = messages.data.reverse();\n}"
-              },
-              {
-                "__typename": "CodeAction",
-                "id": "78a73536-541d-411c-9bae-a62d26adbb31",
-                "name": "postMessage",
-                "type": "CodeAction",
-                "code": "async function run() {\n  const message = {\n    text: state.message,\n    owner: state.user\n  };\n\n  state.message = null;\n  \n  const messages = await window.supabaseClient.from('message').insert(message);\n\n  state.messages = [message, ...state.messages];\n}"
-              }
-            ]
+            "actions": []
           },
           "url": "/guestbook"
         },
