@@ -335,31 +335,9 @@ export class AppService
     }
 
     /**
-     * Sort pages for app. Order is app, custom pages, 404, 500
-     */
-
-    const pages = appData.pages as Array<BuilderPageFragment>
-
-    pages.sort((a, b) => {
-      if (a.kind === IPageKind.Provider) {
-        return -1
-      }
-
-      if (a.name === IPageKind.NotFound) {
-        return 1
-      }
-
-      if (a.name === IPageKind.InternalServerError) {
-        return 1
-      }
-
-      return a.name.localeCompare(b.name)
-    })
-
-    /**
      * Load app, pages, elements
      */
-    this.loadPages({ pages })
+    this.loadPages({ pages: appData.pages as Array<BuilderPageFragment> })
 
     // write cache for resources
     this.resourceService.load(resources)
