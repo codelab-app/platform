@@ -5,11 +5,12 @@ import { exportResources } from '@codelab/backend/application/resource'
 import { exportUserTypes } from '@codelab/backend/application/type'
 import type { IAuth0Owner } from '@codelab/shared/abstract/core'
 
-const nameComparator = (a: { name: string }, b: { name: string }) =>
-  a.name.localeCompare(b.name)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const getComparator = (key: string) => (a: any, b: any) =>
+  a[key].localeCompare(b[key])
 
-const keyComparator = (a: { key: string }, b: { key: string }) =>
-  a.key.localeCompare(b.key)
+const nameComparator = getComparator('name')
+const keyComparator = getComparator('key')
 
 // sort data before export to provide consistent export each time
 const sortExportData = (exportData: IUserDataExport) => {
@@ -18,7 +19,13 @@ const sortExportData = (exportData: IUserDataExport) => {
   apps.sort(nameComparator)
   components.sort(nameComparator)
   resources.sort(nameComparator)
-  apps.forEach(({ pages }) => pages.sort(nameComparator))
+  apps.forEach(({ pages }) => {
+    pages.sort(nameComparator)
+    pages.forEach(({ store }) => {
+      store.actions.sort(nameComparator)
+      store.api.fields.sort(keyComparator)
+    })
+  })
   components.forEach(({ api }) => api.fields.sort(keyComparator))
 
   return exportData

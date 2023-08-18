@@ -1973,23 +1973,6 @@
               "name": "Portfolio Website(gm.vpolishchuk) Guestbook Store API",
               "fields": [
                 {
-                  "id": "159b2fb4-6310-403d-b493-a0c849dd75c4",
-                  "key": "user",
-                  "name": null,
-                  "description": null,
-                  "validationRules": "{\"general\":{\"nullable\":true}}",
-                  "defaultValues": "null",
-                  "prevSibling": null,
-                  "nextSibling": null,
-                  "fieldType": {
-                    "__typename": "PrimitiveType",
-                    "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-                    "kind": "PrimitiveType",
-                    "name": "String"
-                  },
-                  "api": { "id": "c765c7eb-8cb3-49a0-b4cb-fd2759af1a23" }
-                },
-                {
                   "id": "7d74697a-1ef8-4802-afc3-403ef4a6afe6",
                   "key": "message",
                   "name": null,
@@ -2039,24 +2022,27 @@
                     "name": "String"
                   },
                   "api": { "id": "c765c7eb-8cb3-49a0-b4cb-fd2759af1a23" }
+                },
+                {
+                  "id": "159b2fb4-6310-403d-b493-a0c849dd75c4",
+                  "key": "user",
+                  "name": null,
+                  "description": null,
+                  "validationRules": "{\"general\":{\"nullable\":true}}",
+                  "defaultValues": "null",
+                  "prevSibling": null,
+                  "nextSibling": null,
+                  "fieldType": {
+                    "__typename": "PrimitiveType",
+                    "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                    "kind": "PrimitiveType",
+                    "name": "String"
+                  },
+                  "api": { "id": "c765c7eb-8cb3-49a0-b4cb-fd2759af1a23" }
                 }
               ]
             },
             "actions": [
-              {
-                "__typename": "CodeAction",
-                "id": "146d2de0-08a9-4994-b87f-4386f58cdfd9",
-                "name": "onMessageChange",
-                "type": "CodeAction",
-                "code": "function run({ target }) {\n  state.message = target.value;\n}"
-              },
-              {
-                "__typename": "CodeAction",
-                "id": "78a73536-541d-411c-9bae-a62d26adbb31",
-                "name": "postMessage",
-                "type": "CodeAction",
-                "code": "async function run() {\n  const message = {\n    text: state.message,\n    owner: state.user\n  };\n\n  state.message = null;\n  \n  const messages = await window.supabaseClient.from('message').insert(message);\n\n  state.messages = [message, ...state.messages];\n}"
-              },
               {
                 "__typename": "CodeAction",
                 "id": "0ee6d953-041d-4e34-97f2-6443c90d4aa6",
@@ -2073,6 +2059,20 @@
               },
               {
                 "__typename": "CodeAction",
+                "id": "d5525e74-bdd9-4311-a0df-d15d923abeab",
+                "name": "logoutClick",
+                "type": "CodeAction",
+                "code": "function run() {\n    window.supabaseClient.auth.signOut();\n    state.token = null;\n}"
+              },
+              {
+                "__typename": "CodeAction",
+                "id": "146d2de0-08a9-4994-b87f-4386f58cdfd9",
+                "name": "onMessageChange",
+                "type": "CodeAction",
+                "code": "function run({ target }) {\n  state.message = target.value;\n}"
+              },
+              {
+                "__typename": "CodeAction",
                 "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
                 "name": "onSupabaseLoad",
                 "type": "CodeAction",
@@ -2080,10 +2080,10 @@
               },
               {
                 "__typename": "CodeAction",
-                "id": "d5525e74-bdd9-4311-a0df-d15d923abeab",
-                "name": "logoutClick",
+                "id": "78a73536-541d-411c-9bae-a62d26adbb31",
+                "name": "postMessage",
                 "type": "CodeAction",
-                "code": "function run() {\n    window.supabaseClient.auth.signOut();\n    state.token = null;\n}"
+                "code": "async function run() {\n  const message = {\n    text: state.message,\n    owner: state.user\n  };\n\n  state.message = null;\n  \n  const messages = await window.supabaseClient.from('message').insert(message);\n\n  state.messages = [message, ...state.messages];\n}"
               }
             ]
           },
@@ -3245,9 +3245,9 @@
       "kind": "InterfaceType",
       "name": "Message",
       "fields": [
-        { "id": "dca32e10-bd59-4c00-91ee-075cb1cb92aa" },
         { "id": "28133c72-18df-41b3-b4a9-0c0d1a86551f" },
         { "id": "dc8e2502-8244-4604-8b0c-d8d003cb2ed2" },
+        { "id": "dca32e10-bd59-4c00-91ee-075cb1cb92aa" },
         { "id": "7c33f212-7398-4e53-a3f4-42e56878abc1" }
       ]
     },
