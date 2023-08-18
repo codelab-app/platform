@@ -343,7 +343,7 @@ export class Element
 
   @computed
   get propsHaveErrors() {
-    if (!this.renderType?.isValid) {
+    if (!this.renderType?.current.api?.current) {
       return false
     }
 
