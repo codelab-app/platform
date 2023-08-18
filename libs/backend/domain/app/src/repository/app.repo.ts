@@ -129,14 +129,6 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
   }
 
   for (const { elements, store } of pages) {
-    for (const element of elements) {
-      await importElementInitial(element)
-    }
-
-    for (const element of elements) {
-      await updateImportedElement(element)
-    }
-
     const interfaceTypeExist = await interfaceTypeRepository.findOne({
       id: store.api.id,
     })
@@ -160,6 +152,14 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
       .catch(() => storeRepository.update(store, { id: store.id }))
 
     await importActions(store.actions, store.id)
+
+    for (const element of elements) {
+      await importElementInitial(element)
+    }
+
+    for (const element of elements) {
+      await updateImportedElement(element)
+    }
   }
 
   const pagesData = app.pages.map(({ elements, ...props }) => ({
