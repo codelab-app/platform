@@ -49,7 +49,7 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
     const interfaceId = node.api?.id
 
     const interfaceRef = interfaceId
-      ? (typeRef(interfaceId) as Ref<IInterfaceType>)
+      ? typeRef<IInterfaceType>(interfaceId)
       : undefined
 
     if (interfaceRef) {
