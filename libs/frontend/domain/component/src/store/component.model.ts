@@ -1,5 +1,4 @@
 import type {
-  IComponentDTO,
   IComponentRuntimeProp,
   IElement,
   IInterfaceType,
@@ -20,7 +19,7 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/core'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
-import type { IAuth0User } from '@codelab/shared/abstract/core'
+import type { IAuth0User, IComponentDTO } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'

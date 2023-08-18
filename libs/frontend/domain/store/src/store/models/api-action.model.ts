@@ -1,7 +1,6 @@
 import type {
   IAction,
   IApiAction,
-  IApiActionDTO,
   IProp,
   IResource,
 } from '@codelab/frontend/abstract/core'
@@ -16,6 +15,7 @@ import {
   ApiActionDeleteInput,
   ApiActionUpdateInput,
 } from '@codelab/shared/abstract/codegen'
+import type { IApiActionDTO } from '@codelab/shared/abstract/core'
 import { IActionKind } from '@codelab/shared/abstract/core'
 import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain/mapper'

@@ -8,7 +8,6 @@ import {
   componentRef,
   getElementService,
   getRenderService,
-  IComponentDTO,
   IUpdateComponentData,
   RendererType,
   typeRef,
@@ -23,7 +22,7 @@ import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { IComponentDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import flatMap from 'lodash/flatMap'
 import isEmpty from 'lodash/isEmpty'
 import uniq from 'lodash/uniq'

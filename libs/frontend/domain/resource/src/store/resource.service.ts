@@ -4,10 +4,10 @@ import type {
   IResourceService,
   IUpdateResourceData,
 } from '@codelab/frontend/abstract/core'
-import { IResourceDTO } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { InlineFormService, ModalService } from '@codelab/frontend/shared/utils'
 import type { ResourceWhere } from '@codelab/shared/abstract/codegen'
+import { IResourceDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,

@@ -1,14 +1,14 @@
-import type {
-  IProp,
-  IResource,
-  IResourceDTO,
-} from '@codelab/frontend/abstract/core'
+import type { IProp, IResource } from '@codelab/frontend/abstract/core'
 import { propRef } from '@codelab/frontend/abstract/core'
 import type {
   ResourceCreateInput,
   ResourceUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAuth0User, IResourceType } from '@codelab/shared/abstract/core'
+import type {
+  IAuth0User,
+  IResourceDTO,
+  IResourceType,
+} from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
