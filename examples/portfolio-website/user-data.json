@@ -31,7 +31,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "fe4a0d61-7212-4ff2-b6a0-8ac1b7b2e202",
-                "data": "{\"src\":\"https://unpkg.com/@supabase/supabase-js@2\"}"
+                "data": "{\"src\":\"https://unpkg.com/@supabase/supabase-js@2\",\"onLoad\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"1a80043e-6e72-4246-8a25-bf643e99b0fd\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -658,7 +658,7 @@
                 "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
                 "name": "onSupabaseLoad",
                 "type": "CodeAction",
-                "code": "async function run() {\n  const { createClient } = window.supabase;\n  const projectUrl = 'https://cicrfdknwobgyihmmvbe.supabase.co';\n  const projectPublickKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpY3JmZGtud29iZ3lpaG1tdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY1MzgwOTcsImV4cCI6MTk5MjExNDA5N30.DAU_bDvSXg_ya4V-6wk3B2VC5KtpsK4-sdRmHUkmkGo';\n  const supabaseClient = createClient(projectUrl, projectPublickKey);\n\n  this.supabaseClient = supabaseClient;\n  window.supabaseClient = supabaseClient;\n  \n  if (state.messages.length) return;\n  \n  const { data, error } = await window.supabaseClient.auth.getSession(); \n  const oAuthToken = data.session?.provider_token; \n  const messages = await window.supabaseClient.from('message').select();\n  const user = await window.supabaseClient.auth.getUser();\n  \n  state.user = user.data?.user?.user_metadata?.full_name;\n  state.token = oAuthToken;\n  state.messages = messages.data.reverse();\n}"
+                "code": "async function run() {\n  function formatDate(dateString) {\n    const date = new Date(dateString);\n    const monthNames = [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"];\n    const monthName = monthNames[date.getMonth()];\n    const day = date.getDate();\n    const year = date.getFullYear();\n\n    const currentDate = new Date();\n    const timeDifference = currentDate - date;\n    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));\n    const monthsDifference = Math.floor(daysDifference / 30);\n    const timeAgo = daysDifference > 30 ? `${monthsDifference}mo ago` : `${daysDifference}d ago`;\n\n    return `${monthName} ${day}, ${year} (${timeAgo})`;\n  }\n  \n  const { createClient } = window.supabase;\n  const projectUrl = 'https://cicrfdknwobgyihmmvbe.supabase.co';\n  const projectPublickKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpY3JmZGtud29iZ3lpaG1tdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY1MzgwOTcsImV4cCI6MTk5MjExNDA5N30.DAU_bDvSXg_ya4V-6wk3B2VC5KtpsK4-sdRmHUkmkGo';\n  const supabaseClient = createClient(projectUrl, projectPublickKey);\n\n  this.supabaseClient = supabaseClient;\n  window.supabaseClient = supabaseClient;\n  \n  if (state.messages.length) return;\n  \n  const { data, error } = await window.supabaseClient.auth.getSession(); \n  const oAuthToken = data.session?.provider_token;\n  const messages = await window.supabaseClient.from('message').select();\n  const posts = await window.supabaseClient.from('posts').select();\n  const user = await window.supabaseClient.auth.getUser();\n  \n  state.user = user.data?.user?.user_metadata?.full_name;\n  state.token = oAuthToken;\n  state.messages = messages.data.reverse();\n  state.posts = posts.data.reverse().map(post => ({\n    ...post,\n    created_at: formatDate(post.created_at)\n  }));\n}"
               },
               {
                 "__typename": "CodeAction",
@@ -1393,7 +1393,7 @@
               },
               "parent": { "id": "1f237cb8-a5b2-4cf6-b7c2-c697a8cd710b" },
               "prevSibling": null,
-              "nextSibling": { "id": "0a483e29-d318-40f8-b1d4-e52e2e515cff" },
+              "nextSibling": { "id": "770913d4-e03d-4492-b7f4-d91cd2d8db94" },
               "firstChild": null,
               "childMapperPreviousSibling": null,
               "props": {
@@ -1414,7 +1414,7 @@
             {
               "id": "0a483e29-d318-40f8-b1d4-e52e2e515cff",
               "name": "Posts Container",
-              "customCss": null,
+              "customCss": "margin-top: .1rem;",
               "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
@@ -1423,13 +1423,13 @@
                 "kind": "Atom"
               },
               "parent": null,
-              "prevSibling": { "id": "643a26a4-5a1d-4a12-9019-5bde8579bdcc" },
+              "prevSibling": { "id": "770913d4-e03d-4492-b7f4-d91cd2d8db94" },
               "nextSibling": null,
               "firstChild": null,
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "955dde35-f355-4d1a-9d3e-bc3616672a98",
-                "data": "{}"
+                "data": "{\"direction\":\"vertical\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": "{{rootState.posts}}",
@@ -1449,27 +1449,24 @@
               }
             },
             {
-              "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
-              "name": "Page Title",
-              "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
-              "guiCss": "{}",
-              "parentComponent": {
-                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
-                "name": "Page Title"
-              },
+              "id": "770913d4-e03d-4492-b7f4-d91cd2d8db94",
+              "name": "Posts Spinner",
+              "customCss": "margin-top: 1rem;\n\n.ant-spin-dot-item {\n  background-color: gray;\n}",
+              "guiCss": null,
+              "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
-                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
                 "kind": "Atom"
               },
               "parent": null,
-              "prevSibling": null,
-              "nextSibling": null,
+              "prevSibling": { "id": "643a26a4-5a1d-4a12-9019-5bde8579bdcc" },
+              "nextSibling": { "id": "0a483e29-d318-40f8-b1d4-e52e2e515cff" },
               "firstChild": null,
               "childMapperPreviousSibling": null,
               "props": {
-                "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "id": "892b0d91-406a-469d-8dc3-4c79aeb1c54b",
+                "data": "{\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"spinning\":\"{{rootState.posts?.length === 0}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1481,8 +1478,8 @@
               "_compoundRefKey": null,
               "refKey": null,
               "renderAtomType": {
-                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
-                "name": "AntDesignTypographyParagraph"
+                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
+                "name": "AntDesignSpin"
               }
             },
             {
@@ -1518,8 +1515,8 @@
             },
             {
               "id": "1b604fd3-992a-4f48-b396-00683a3e31cd",
-              "name": "Ant Design Typography Paragraph",
-              "customCss": null,
+              "name": "Title",
+              "customCss": "margin-bottom: .2em !important;\n\np {\n  color: #f5f5f5 !important;\n}",
               "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
@@ -1529,12 +1526,83 @@
               },
               "parent": { "id": "0d693472-497b-4ba2-8713-ec04d13c338b" },
               "prevSibling": null,
-              "nextSibling": null,
+              "nextSibling": { "id": "4d292c24-688d-4668-b39e-0824becdb741" },
               "firstChild": null,
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "0b89e5ec-b241-4e7e-976b-ca14fd576d92",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>hey</p>\"}"
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>{{props.title}}</p>\",\"data-component-id\":\"90-9S8mCDmFgkhMLqbwQxHXl\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "_compoundRefKey": null,
+              "refKey": null,
+              "renderAtomType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "name": "AntDesignTypographyParagraph"
+              }
+            },
+            {
+              "id": "4d292c24-688d-4668-b39e-0824becdb741",
+              "name": "Date Created",
+              "customCss": "p {\n  color: #a3a3a3 !important;\n  font-size: 14px;\n}",
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "1b604fd3-992a-4f48-b396-00683a3e31cd" },
+              "nextSibling": null,
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "eb5f3d44-c937-4ac0-b42e-a0d5a368487c",
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>{{props.created_at}}</p>\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "_compoundRefKey": null,
+              "refKey": null,
+              "renderAtomType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "name": "AntDesignTypographyParagraph"
+              }
+            },
+            {
+              "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
+              "name": "Page Title",
+              "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
+              "guiCss": "{}",
+              "parentComponent": {
+                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+                "name": "Page Title"
+              },
+              "renderComponentType": null,
+              "renderType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "c042e37b-8120-4104-8869-ab1db62a039a",
+                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1637,7 +1705,7 @@
               "parent": null,
               "prevSibling": null,
               "nextSibling": null,
-              "firstChild": { "id": "3183f10e-0b21-4db0-bf65-d2786ee57083" },
+              "firstChild": { "id": "0231b99e-14e8-421d-99a9-8ef5b0a5a936" },
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "1d496164-d8a6-4043-b3f2-0a18e8fdff22",
@@ -1671,8 +1739,8 @@
                 "id": "fd462921-8775-45cc-911e-8763ba7f756b",
                 "kind": "Component"
               },
-              "parent": null,
-              "prevSibling": { "id": "3183f10e-0b21-4db0-bf65-d2786ee57083" },
+              "parent": { "id": "bc07ca6c-04b0-488d-9b26-80a158d7f853" },
+              "prevSibling": null,
               "nextSibling": { "id": "94b5215b-2b36-477c-acfd-4c1ff0df1890" },
               "firstChild": null,
               "childMapperPreviousSibling": null,
@@ -1995,40 +2063,6 @@
               "renderAtomType": {
                 "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
                 "name": "AntDesignTypographyText"
-              }
-            },
-            {
-              "id": "3183f10e-0b21-4db0-bf65-d2786ee57083",
-              "name": "Supabase Script",
-              "customCss": null,
-              "guiCss": null,
-              "parentComponent": null,
-              "renderComponentType": null,
-              "renderType": {
-                "id": "679463cd-20a7-4d78-a82b-b20a62ecd6d6",
-                "kind": "Atom"
-              },
-              "parent": { "id": "bc07ca6c-04b0-488d-9b26-80a158d7f853" },
-              "prevSibling": null,
-              "nextSibling": { "id": "0231b99e-14e8-421d-99a9-8ef5b0a5a936" },
-              "firstChild": null,
-              "childMapperPreviousSibling": null,
-              "props": {
-                "id": "3390093e-26e0-4f48-8d31-df9512b526b4",
-                "data": "{\"onError\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"onLoad\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\",\"value\":\"1a80043e-6e72-4246-8a25-bf643e99b0fd\"},\"src\":\"https://unpkg.com/@supabase/supabase-js@2\"}"
-              },
-              "renderForEachPropKey": null,
-              "childMapperPropKey": null,
-              "childMapperComponent": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
-              "renderAtomType": {
-                "id": "679463cd-20a7-4d78-a82b-b20a62ecd6d6",
-                "name": "HtmlScript"
               }
             },
             {
@@ -2944,12 +2978,64 @@
         "id": "2592081d-fc6a-4652-8ab8-3978b4f88761",
         "kind": "InterfaceType",
         "name": "Blog Post API",
-        "fields": []
+        "fields": [
+          {
+            "id": "5a388741-0cf4-410e-aa15-ed05167f510e",
+            "key": "Content",
+            "name": null,
+            "description": null,
+            "validationRules": "{}",
+            "defaultValues": "null",
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "api": { "id": "2592081d-fc6a-4652-8ab8-3978b4f88761" }
+          },
+          {
+            "id": "3871300b-a227-480f-a7d6-8802b3563e3e",
+            "key": "created_at",
+            "name": null,
+            "description": null,
+            "validationRules": "{}",
+            "defaultValues": "null",
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "api": { "id": "2592081d-fc6a-4652-8ab8-3978b4f88761" }
+          },
+          {
+            "id": "3469f2d2-82a4-49c9-a2f2-1670235cda4f",
+            "key": "title",
+            "name": null,
+            "description": null,
+            "validationRules": "{}",
+            "defaultValues": "null",
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "api": { "id": "2592081d-fc6a-4652-8ab8-3978b4f88761" }
+          }
+        ]
       },
       "childrenContainerElement": {
         "id": "0d693472-497b-4ba2-8713-ec04d13c338b"
       },
-      "keyGenerator": "function run(props) {\n    // props are of type component api\n    return props.id\n}"
+      "keyGenerator": null
     },
     {
       "id": "f4161637-7ad0-47ec-acb3-d1705fef15c9",
@@ -3435,6 +3521,21 @@
       "api": { "id": "680c7bf2-040a-4c74-8b70-faf438aca4ec" }
     },
     {
+      "id": "abb5583e-c6b9-46ca-8c59-84dbf4c4d18b",
+      "key": "created_at",
+      "name": null,
+      "description": null,
+      "validationRules": "{}",
+      "defaultValues": "null",
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": { "id": "5f71c0de-924a-4d2b-92bc-baca0f066ba2" }
+    },
+    {
       "id": "28133c72-18df-41b3-b4a9-0c0d1a86551f",
       "key": "id",
       "name": null,
@@ -3498,24 +3599,25 @@
   "types": [
     {
       "__typename": "InterfaceType",
-      "id": "680c7bf2-040a-4c74-8b70-faf438aca4ec",
-      "kind": "InterfaceType",
-      "name": "Message",
-      "fields": [
-        { "id": "28133c72-18df-41b3-b4a9-0c0d1a86551f" },
-        { "id": "dc8e2502-8244-4604-8b0c-d8d003cb2ed2" },
-        { "id": "dca32e10-bd59-4c00-91ee-075cb1cb92aa" },
-        { "id": "7c33f212-7398-4e53-a3f4-42e56878abc1" }
-      ]
-    },
-    {
-      "__typename": "InterfaceType",
       "id": "5f71c0de-924a-4d2b-92bc-baca0f066ba2",
       "kind": "InterfaceType",
       "name": "Post",
       "fields": [
-        { "id": "05fa3493-e692-40eb-ad22-4185d980a932" },
-        { "id": "fef2be1d-5db0-4168-b623-3fc24d902fd5" }
+        { "id": "abb5583e-c6b9-46ca-8c59-84dbf4c4d18b" },
+        { "id": "fef2be1d-5db0-4168-b623-3fc24d902fd5" },
+        { "id": "05fa3493-e692-40eb-ad22-4185d980a932" }
+      ]
+    },
+    {
+      "__typename": "InterfaceType",
+      "id": "680c7bf2-040a-4c74-8b70-faf438aca4ec",
+      "kind": "InterfaceType",
+      "name": "Message",
+      "fields": [
+        { "id": "7c33f212-7398-4e53-a3f4-42e56878abc1" },
+        { "id": "28133c72-18df-41b3-b4a9-0c0d1a86551f" },
+        { "id": "dc8e2502-8244-4604-8b0c-d8d003cb2ed2" },
+        { "id": "dca32e10-bd59-4c00-91ee-075cb1cb92aa" }
       ]
     },
     {
