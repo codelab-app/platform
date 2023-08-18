@@ -7,14 +7,14 @@ import { v4 } from 'uuid'
 export class Store implements IStoreDTO {
   actions?: Array<IEntity> | undefined
 
-  api: IEntity
+  api?: IEntity | null
 
   id: string
 
   name: string
 
   constructor({ api, id, name }: IStoreDTO) {
-    this.api = api ?? { id: '' }
+    this.api = api
     this.id = id
     this.name = name
   }
