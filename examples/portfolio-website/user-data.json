@@ -3,6 +3,11 @@
     {
       "domains": [
         {
+          "id": "b13b5b1c-bc99-4fae-9bd9-baa4eedf6117",
+          "name": "test-local.com",
+          "app": { "id": "e95f416d-bd72-4b46-b6bb-a186740bd875" }
+        },
+        {
           "id": "c0f5c759-ae65-4b04-876a-f75fac32b1f3",
           "name": "codelab-demo.online",
           "app": { "id": "e95f416d-bd72-4b46-b6bb-a186740bd875" }
