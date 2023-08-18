@@ -42,7 +42,8 @@
         },
         "dev": {
           "buildTarget": "websites:build:dev",
-          "dev": true
+          "dev": true,
+          "port": 80
         }
       },
       "defaultConfiguration": "dev"
