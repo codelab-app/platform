@@ -51,7 +51,11 @@ export const DashboardTemplateSSR = observer(
     return (
       <Layout className="max-h-full min-h-full">
         {Header && <Header />}
-        <Layout>
+        {/* 
+          Need explicitly set `hasSider` prop to avoid flickering
+          see AntD documentation or https://github.com/ant-design/ant-design/issues/8937 
+        */}
+        <Layout hasSider>
           <Sider collapsed collapsedWidth={sidebarWidth} theme="light">
             <CuiNavigationBar
               primaryItems={navigationBarItems.primaryItems}
