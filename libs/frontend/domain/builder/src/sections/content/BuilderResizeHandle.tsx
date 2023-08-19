@@ -45,14 +45,21 @@ export const BuilderResizeHandle = ({ children }: PropsWithChildren) => {
   return (
     <>
       <div
-        className="h-full w-[3px] bg-gray-200 hover:cursor-col-resize hover:bg-blue-300 active:bg-blue-400"
+        className="h-full w-[3px] bg-gray-200 hover:cursor-col-resize hover:bg-blue-400 active:bg-blue-400"
         ref={beforeElementRef}
       />
       {children}
       <div
-        className="relative h-full w-[3px] bg-gray-200 hover:cursor-col-resize hover:bg-blue-300 active:bg-blue-400"
+        className="relative h-full w-[3px] bg-gray-200 hover:cursor-col-resize hover:bg-blue-400 active:bg-blue-400"
         ref={afterElementRef}
-      />
+      >
+        <div className="absolute left-1/2 top-1/2 -translate-y-1/2">
+          <div className="flex space-x-0.5 rounded-r bg-gray-200 p-1.5 pl-1 hover:bg-blue-400 active:bg-blue-400">
+            <div className="h-6 w-0.5 bg-black"></div>
+            <div className="h-6 w-0.5 bg-black"></div>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
