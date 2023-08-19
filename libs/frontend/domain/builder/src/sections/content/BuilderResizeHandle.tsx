@@ -16,7 +16,11 @@ const useResizer = ({ side }: { side: Side }) => {
     const disposeResizeController = builderResizeController(ref.current, {
       getDefaultValue: () => builderService.selectedBuilderWidth.default,
 
-      getMaxValue: () => builderService.selectedBuilderWidth.max,
+      getMaxValue: () =>
+        Math.min(
+          builderService.builderContainerWidth,
+          builderService.selectedBuilderWidth.max,
+        ),
 
       getMinValue: () => builderService.selectedBuilderWidth.min,
 
