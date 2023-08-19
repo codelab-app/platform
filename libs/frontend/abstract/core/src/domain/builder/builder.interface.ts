@@ -23,11 +23,11 @@ export interface BuilderWidth {
   min: number
 }
 
-export const enum BuilderWidthBreakPoints {
+export const enum BuilderWidthBreakPoint {
   Desktop = 'desktop',
-  Mobile = 'mobile',
-  MobileVertical = 'mobile-vertical',
-  TabletHorizontal = 'tablet-horizontal',
+  MobilePortrait = 'mobile-portrait',
+  MobileLandscape = 'mobile-landscape',
+  Tablet = 'tablet',
 }
 
 export enum BuilderDndType {
@@ -42,22 +42,26 @@ export enum DragPosition {
 }
 
 export const defaultBuilderWidthBreakPoints: Record<
-  BuilderWidthBreakPoints,
+  BuilderWidthBreakPoint,
   BuilderWidth
 > = {
-  [BuilderWidthBreakPoints.Mobile]: { default: 320, max: 479, min: 240 },
-  [BuilderWidthBreakPoints.MobileVertical]: {
+  [BuilderWidthBreakPoint.MobilePortrait]: {
+    default: 320,
+    max: 479,
+    min: 240,
+  },
+  [BuilderWidthBreakPoint.MobileLandscape]: {
     default: 568,
     max: 767,
     min: 480,
   },
-  [BuilderWidthBreakPoints.TabletHorizontal]: {
+  [BuilderWidthBreakPoint.Tablet]: {
     default: 768,
     max: 991,
     min: 768,
   },
   // -1 means automatically set the value for this field to the max available space
-  [BuilderWidthBreakPoints.Desktop]: { default: 992, max: 1920, min: 992 },
+  [BuilderWidthBreakPoint.Desktop]: { default: 992, max: 1920, min: 992 },
 }
 
 /**
