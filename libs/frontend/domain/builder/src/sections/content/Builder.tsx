@@ -76,20 +76,14 @@ export const Builder = observer(() => {
   }
 
   return (
-    <StyledBuilderContainer className="flex justify-center" ref={containerRef}>
+    <StyledBuilderContainer ref={containerRef}>
       <BuilderResizeHandle>
         <StyledBuilderResizeContainer
-          // defaultSize={sizes[1]}
           id={BUILDER_CONTAINER_ID}
           key={elementTree.id}
           style={{
-            width: selectedBuilderWidth.default + 'px',
+            width: `${selectedBuilderWidth.default}px`,
           }}
-          // maxSize={100}
-          // minSize={0}
-          // onResize={handleResize}
-          // order={2}
-          // ref={resizableRef}
         >
           <Renderer ref={setNodeRef} renderer={renderer} style={rootStyle} />
           <BuilderClickOverlay
@@ -124,6 +118,8 @@ const StyledBuilderContainer = styled.div`
     pointer-events: all !important;
   }
   position: relative;
+  display: flex;
+  justify-content: center;
   width: 100%;
   height: 100%;
   background: transparent;
