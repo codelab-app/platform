@@ -45,20 +45,35 @@ const useResizer = ({ side }: { side: Side }) => {
 export const BuilderResizeHandle = ({ children }: PropsWithChildren) => {
   const beforeElementRef = useResizer({ side: 'before' })
   const afterElementRef = useResizer({ side: 'after' })
+  const [hovered, setHovered] = React.useState(false)
+
+  const getClassNames = () => {
+    const defaultClassNames = 'h-full w-[3px] bg-gray-200'
+
+    if (hovered) {
+      return `${defaultClassNames} bg-blue-400 cursor-col-resize`
+    }
+
+    return defaultClassNames
+  }
 
   return (
     <>
       <div
-        className="h-full w-[3px] bg-gray-200 hover:cursor-col-resize hover:bg-blue-400 active:bg-blue-400"
+        className={getClassNames()}
+        onMouseLeave={() => setHovered(false)}
+        onMouseOver={() => setHovered(true)}
         ref={beforeElementRef}
       />
       {children}
       <div
-        className="relative h-full w-[3px] bg-gray-200 hover:cursor-col-resize hover:bg-blue-400 active:bg-blue-400"
+        className={`${getClassNames()} relative`}
+        onMouseLeave={() => setHovered(false)}
+        onMouseOver={() => setHovered(true)}
         ref={afterElementRef}
       >
-        <div className="absolute left-1/2 top-1/2 -translate-y-1/2">
-          <div className="flex space-x-0.5 rounded-r bg-gray-200 p-1.5 pl-1 hover:bg-blue-400 active:bg-blue-400">
+        <div className="absolute left-1/2 top-1/2 -translate-y-1/2 bg-inherit">
+          <div className="flex space-x-0.5 rounded-r bg-inherit p-1.5 pl-1">
             <div className="h-6 w-0.5 bg-black"></div>
             <div className="h-6 w-0.5 bg-black"></div>
           </div>

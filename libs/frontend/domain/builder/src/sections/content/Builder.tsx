@@ -105,6 +105,7 @@ const StyledBuilderResizeContainer = styled.div`
   background: transparent;
   border: 3px dotted rgba(0, 0, 0, 1);
   overflow: scroll !important;
+  box-sizing: border-box;
 `
 
 const StyledBuilderContainer = styled.div`

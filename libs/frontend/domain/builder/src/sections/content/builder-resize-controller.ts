@@ -40,6 +40,8 @@ export const builderResizeController = (
       return
     }
 
+    event.preventDefault()
+
     const { movementX, pointerId, type: eventType } = event
 
     switch (eventType) {
