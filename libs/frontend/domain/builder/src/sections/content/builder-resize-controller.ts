@@ -33,7 +33,7 @@ export const builderResizeController = (
   const { getDefaultValue, getMaxValue, getMinValue, getSide, onValueChanged } =
     options
 
-  let value = 0
+  let width = 0
 
   const handlePointerEvent = (event: Event) => {
     if (!(event instanceof PointerEvent)) {
@@ -44,7 +44,7 @@ export const builderResizeController = (
 
     switch (eventType) {
       case PointerEventType.PointerDown: {
-        value = getDefaultValue()
+        width = getDefaultValue()
 
         // listen to pointer move event
         targetElement.setPointerCapture(pointerId)
@@ -59,15 +59,15 @@ export const builderResizeController = (
         // The builder is centered, so we have to move twice as fast
         // because the width changes from both sides
         const newValue =
-          getSide() === 'after' ? value + movementX * 2 : value - movementX * 2
+          getSide() === 'after' ? width + movementX * 2 : width - movementX * 2
 
         if (newValue > getMinValue()) {
-          value = Math.min(newValue, getMaxValue())
+          width = Math.min(newValue, getMaxValue())
         } else {
-          value = getMinValue()
+          width = getMinValue()
         }
 
-        onValueChanged?.(value)
+        onValueChanged?.(width)
 
         break
       }
@@ -78,7 +78,7 @@ export const builderResizeController = (
           handlePointerEvent,
         )
         targetElement.releasePointerCapture(event.pointerId)
-        onValueChanged?.(value)
+        onValueChanged?.(width)
         break
       }
     }
