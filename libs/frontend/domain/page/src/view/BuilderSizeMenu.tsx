@@ -135,7 +135,7 @@ export const BuilderSizeMenu = observer(() => {
             })
           }
           size="small"
-          value={builderService.currentBuilderWidth.default}
+          value={builderService.selectedBuilderWidth.default}
         />
         <span>px</span>
       </Space>
