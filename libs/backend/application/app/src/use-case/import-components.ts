@@ -16,11 +16,14 @@ export const importComponents = async (
   await createComponents(components, owner)
 
   // after all the components and elements are created,
-  // we can link the element's renderComponentType
+  // we can link the element's renderComponentType and childMapperComponent
   for (const app of apps) {
     for (const page of app.pages) {
       for (const element of page.elements) {
-        if (element.renderComponentType === null) {
+        if (
+          element.renderComponentType === null &&
+          element.childMapperComponent === null
+        ) {
           continue
         }
 
