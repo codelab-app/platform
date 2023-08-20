@@ -19,9 +19,7 @@ describe('Resource CRUD', () => {
     it('should be able to create resource', () => {
       cy.findAllByText(resourceName).should('not.exist')
 
-      cy.getCuiSidebar('Resources')
-        .getToolbarItem('Add GraphQL Resource')
-        .click()
+      cy.getCuiSidebar('Resources').getToolbarItem('Add a Resource').click()
 
       cy.setFormFieldValue({ label: 'Name', value: resourceName })
       cy.setFormFieldValue({
@@ -31,7 +29,9 @@ describe('Resource CRUD', () => {
       })
       cy.setFormFieldValue({ label: 'Url', value: resourcesUrl })
 
-      cy.getModalAction(/Create Resource/).click()
+      cy.getCuiPopover('Create Resource').within(() => {
+        cy.getToolbarItem('Create').click()
+      })
 
       cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
     })
