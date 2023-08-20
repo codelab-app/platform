@@ -632,13 +632,6 @@
             "actions": [
               {
                 "__typename": "CodeAction",
-                "id": "0ee6d953-041d-4e34-97f2-6443c90d4aa6",
-                "name": "initState",
-                "type": "CodeAction",
-                "code": "async function run() {\n  const store = state || this;\n  \n  if (!window.supabaseClient) return;\n  if (store.messages.length) return;\n  \n  const { data, error } = await window.supabaseClient.auth.getSession(); \n  const oAuthToken = data.session?.provider_token; \n  const messages = await window.supabaseClient.from('message').select();\n  const user = await window.supabaseClient.auth.getUser();\n  \n  store.user = user.data?.user?.user_metadata?.full_name;\n  store.token = oAuthToken;\n  store.messages = messages.data.reverse();\n}"
-              },
-              {
-                "__typename": "CodeAction",
                 "id": "2990c9dc-71bb-4598-ae42-023c9dcf5436",
                 "name": "loginClick",
                 "type": "CodeAction",
@@ -663,7 +656,7 @@
                 "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
                 "name": "onSupabaseLoad",
                 "type": "CodeAction",
-                "code": "async function run() {\n  function formatDate(dateString) {\n    const date = new Date(dateString);\n    const monthNames = [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"];\n    const monthName = monthNames[date.getMonth()];\n    const day = date.getDate();\n    const year = date.getFullYear();\n\n    const currentDate = new Date();\n    const timeDifference = currentDate - date;\n    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));\n    const monthsDifference = Math.floor(daysDifference / 30);\n    const timeAgo = daysDifference > 30 ? `${monthsDifference}mo ago` : `${daysDifference}d ago`;\n\n    return `${monthName} ${day}, ${year} (${timeAgo})`;\n  }\n  \n  const { createClient } = window.supabase;\n  const projectUrl = 'https://cicrfdknwobgyihmmvbe.supabase.co';\n  const projectPublickKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpY3JmZGtud29iZ3lpaG1tdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY1MzgwOTcsImV4cCI6MTk5MjExNDA5N30.DAU_bDvSXg_ya4V-6wk3B2VC5KtpsK4-sdRmHUkmkGo';\n  const supabaseClient = createClient(projectUrl, projectPublickKey);\n\n  this.supabaseClient = supabaseClient;\n  window.supabaseClient = supabaseClient;\n  \n  if (state.messages.length) return;\n  \n  const { data, error } = await window.supabaseClient.auth.getSession(); \n  const oAuthToken = data.session?.provider_token;\n  const messages = await window.supabaseClient.from('message').select();\n  const posts = await window.supabaseClient.from('posts').select();\n  const user = await window.supabaseClient.auth.getUser();\n  \n  state.user = user.data?.user?.user_metadata?.full_name;\n  state.token = oAuthToken;\n  state.messages = messages.data.reverse();\n  state.posts = posts.data.reverse().map(post => ({\n    ...post,\n    created_at: formatDate(post.created_at)\n  }));\n}"
+                "code": "async function run() {\n  function formatDate(dateString) {\n    const date = new Date(dateString);\n    const monthNames = [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"];\n    const monthName = monthNames[date.getMonth()];\n    const day = date.getDate();\n    const year = date.getFullYear();\n\n    const currentDate = new Date();\n    const timeDifference = currentDate - date;\n    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));\n    const monthsDifference = Math.floor(daysDifference / 30);\n    const timeAgo = daysDifference > 30 ? `${monthsDifference}mo ago` : `${daysDifference}d ago`;\n\n    return `${monthName} ${day}, ${year} (${timeAgo})`;\n  }\n\n  if (!window.supabaseClient) {\n    const { createClient } = window.supabase;\n    const projectUrl = 'https://cicrfdknwobgyihmmvbe.supabase.co';\n    const projectPublickKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpY3JmZGtud29iZ3lpaG1tdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY1MzgwOTcsImV4cCI6MTk5MjExNDA5N30.DAU_bDvSXg_ya4V-6wk3B2VC5KtpsK4-sdRmHUkmkGo';\n    const supabaseClient = createClient(projectUrl, projectPublickKey);\n\n    window.supabaseClient = supabaseClient;\n  }\n  \n  if (!state.messages.length) {\n    const { data, error } = await window.supabaseClient.auth.getSession(); \n    const oAuthToken = data.session?.provider_token;\n    const messages = await window.supabaseClient.from('message').select();\n    const posts = await window.supabaseClient.from('posts').select();\n    const user = await window.supabaseClient.auth.getUser();\n    \n    state.user = user.data?.user?.user_metadata?.full_name;\n    state.token = oAuthToken;\n    state.messages = messages.data.reverse();\n    state.posts = posts.data.reverse().map(post => ({\n      ...post,\n      created_at: formatDate(post.created_at)\n    }));\n  }\n}"
               },
               {
                 "__typename": "CodeAction",
@@ -1521,7 +1514,7 @@
             {
               "id": "1b604fd3-992a-4f48-b396-00683a3e31cd",
               "name": "Title",
-              "customCss": "margin-bottom: .2em !important;\n\np {\n  color: #f5f5f5 !important;\n}",
+              "customCss": "margin-bottom: .1em !important;\n\np {\n  color: #f5f5f5 !important;\n}",
               "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
@@ -1658,11 +1651,48 @@
               "parent": null,
               "prevSibling": null,
               "nextSibling": null,
-              "firstChild": null,
+              "firstChild": { "id": "c43a1cea-51ff-4ede-b5ae-297aab3d627e" },
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "a755c28d-bacc-4e53-a837-ccb29b34891d",
                 "data": "{}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": {
+                "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
+                "type": "CodeAction"
+              },
+              "postRenderAction": null,
+              "_compoundRefKey": null,
+              "refKey": null,
+              "renderAtomType": null
+            },
+            {
+              "id": "c43a1cea-51ff-4ede-b5ae-297aab3d627e",
+              "name": "Post Title",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": {
+                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+                "name": "Page Title"
+              },
+              "renderType": {
+                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+                "kind": "Component"
+              },
+              "parent": { "id": "4084b13f-8293-45e1-a8a7-fdc15338235e" },
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "e829b7da-810d-4b6a-ab8c-5411e6150a24",
+                "data": "{\"label\":\"Link Label\",\"href\":\"/\",\"text\":\"{{state.post?.title}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1674,6 +1704,43 @@
               "_compoundRefKey": null,
               "refKey": null,
               "renderAtomType": null
+            },
+            {
+              "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
+              "name": "Page Title",
+              "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
+              "guiCss": "{}",
+              "parentComponent": {
+                "id": "fd462921-8775-45cc-911e-8763ba7f756b",
+                "name": "Page Title"
+              },
+              "renderComponentType": null,
+              "renderType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "c042e37b-8120-4104-8869-ab1db62a039a",
+                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "_compoundRefKey": null,
+              "refKey": null,
+              "renderAtomType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "name": "AntDesignTypographyParagraph"
+              }
             }
           ],
           "id": "14e09a14-62c3-4a5f-bec3-9b43747bb21d",
@@ -1691,7 +1758,25 @@
               "id": "4cbc8bce-97ab-4e54-85cf-537e1e2bf4c1",
               "kind": "InterfaceType",
               "name": "Portfolio Website(gm.vpolishchuk) Blog Post Store API",
-              "fields": []
+              "fields": [
+                {
+                  "id": "6ae245aa-b5a0-4e59-a7a5-18b428e9b9cc",
+                  "key": "post",
+                  "name": null,
+                  "description": null,
+                  "validationRules": "{}",
+                  "defaultValues": "{}",
+                  "prevSibling": null,
+                  "nextSibling": null,
+                  "fieldType": {
+                    "__typename": "InterfaceType",
+                    "id": "5f71c0de-924a-4d2b-92bc-baca0f066ba2",
+                    "kind": "InterfaceType",
+                    "name": "Post"
+                  },
+                  "api": { "id": "4cbc8bce-97ab-4e54-85cf-537e1e2bf4c1" }
+                }
+              ]
             },
             "actions": []
           },
@@ -1722,7 +1807,7 @@
               "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": {
-                "id": "0ee6d953-041d-4e34-97f2-6443c90d4aa6",
+                "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
                 "type": "CodeAction"
               },
               "postRenderAction": null,
