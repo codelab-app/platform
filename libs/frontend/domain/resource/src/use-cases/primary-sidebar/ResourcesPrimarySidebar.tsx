@@ -1,35 +1,33 @@
+import { PlusOutlined } from '@ant-design/icons'
+import { FormNames } from '@codelab/frontend/abstract/types'
 import type { ToolbarItem } from '@codelab/frontend/presentation//codelab-ui'
-import { CuiSidebar } from '@codelab/frontend/presentation//codelab-ui'
+import { CuiSidebar, useCui } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
-import { IResourceType } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
-import { ResourceIcon } from '../../view'
+import { CreateResourcePopover } from '../create-resource'
 import { ResourcesTreeView } from '../get-resource'
 
 export const ResourcesPrimarySidebar = observer(() => {
   const { resourceService } = useStore()
+  const { popover } = useCui()
 
   const items: Array<ToolbarItem> = [
     {
-      icon: <ResourceIcon add type={IResourceType.GraphQL} />,
-      key: 'graphql',
-      onClick: () =>
-        resourceService.createModal.open({ type: IResourceType.GraphQL }),
-      title: 'Add GraphQL Resource',
-    },
-    {
-      icon: <ResourceIcon add type={IResourceType.Rest} />,
-      key: 'rest',
-      onClick: () =>
-        resourceService.createModal.open({ type: IResourceType.Rest }),
-      title: 'Add Rest Resource',
+      icon: <PlusOutlined />,
+      key: 'resource',
+      onClick: () => {
+        resourceService.createForm.open()
+        popover.open(FormNames.CreateResource)
+      },
+      title: 'Add a Resource',
     },
   ]
 
   return (
     <CuiSidebar
       label="Resources"
+      popover={<CreateResourcePopover />}
       views={[
         {
           content: <ResourcesTreeView />,

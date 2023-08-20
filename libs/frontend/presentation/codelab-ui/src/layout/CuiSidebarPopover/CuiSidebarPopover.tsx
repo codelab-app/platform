@@ -25,6 +25,7 @@ export const CuiSidebarPopover = observer(
       <div
         className="
         flex
+        w-full
         flex-col
         justify-start
         border-0

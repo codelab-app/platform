@@ -48,9 +48,7 @@ export const CuiSidebarPopoverContainer = observer(
 
     return (
       <div
-        className="
-      w-1/5
-      "
+        className="w-1/5"
         style={{
           display: popover.isAnyPopoverOpen() ? 'flex' : 'none',
           inset: `${top}px 0px 0px ${left}px`,
