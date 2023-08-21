@@ -54,8 +54,8 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
 
     if (interfaceRef) {
       fieldService.createForm.open(interfaceRef)
+      popover.open(FormNames.CreateField)
     }
-    popover.open(FormNames.CreateField)
   }
 
   const toolbarItems = [
