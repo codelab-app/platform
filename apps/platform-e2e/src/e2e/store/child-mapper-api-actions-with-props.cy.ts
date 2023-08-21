@@ -2,7 +2,11 @@ import {
   HttpResponseType,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
-import { ActionKind, TypeKind } from '@codelab/shared/abstract/codegen'
+import {
+  ActionKind,
+  ResourceType,
+  TypeKind,
+} from '@codelab/shared/abstract/codegen'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
@@ -47,16 +51,20 @@ describe('Element Child Mapper', () => {
     cy.getSpinner().should('not.exist')
 
     // Create the API resource we will use for the API action
-    cy.getCuiSidebar('Resources').getToolbarItem('Add Rest Resource').click()
+    cy.getCuiSidebar('Resources').getToolbarItem('Add a Resource').click()
 
-    cy.getModal().setFormFieldValue({ label: 'Name', value: resourceName })
-    cy.getModal().setFormFieldValue({ label: 'Url', value: resourceUrl })
+    cy.setFormFieldValue({ label: 'Name', value: resourceName })
+    cy.setFormFieldValue({ label: 'Url', value: resourceUrl })
+    cy.setFormFieldValue({
+      label: 'Type',
+      type: FIELD_TYPE.SELECT,
+      value: ResourceType.Rest,
+    })
 
-    cy.getModal()
-      .getModalAction(/Create Resource/)
-      .click()
+    cy.getCuiPopover('Create Resource').within(() => {
+      cy.getToolbarItem('Create').click()
+    })
 
-    cy.getModal().should('not.exist')
     cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
 
     cy.request('/api/cypress/type')
@@ -90,9 +98,11 @@ describe('Element Child Mapper', () => {
     cy.findByTestId('create-component-form')
       .findByLabelText('Name')
       .type(COMPONENT_NAME)
-    cy.findByTestId('create-component-form')
-      .getButton({ label: 'Create Component' })
-      .click()
+
+    cy.getCuiPopover('Create Component').within(() => {
+      cy.getToolbarItem('Create').click()
+    })
+
     cy.findByTestId('create-component-form').should('not.exist', {
       timeout: 10000,
     })
@@ -106,52 +116,53 @@ describe('Element Child Mapper', () => {
     cy.getCuiSidebarViewHeader('Actions').click()
     cy.getHeaderToolbarItem('Add Action').click()
 
-    cy.getCuiSidebarViewContent('Actions')
-      .get('input[name="id"]')
+    cy.get('input[name="id"]')
       .invoke('val')
       .then((id) => {
         apiGetActionId = id as string
       })
 
-    cy.getCuiSidebarViewContent('Actions').setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Name',
       type: FIELD_TYPE.INPUT,
       value: apiGetActionName,
     })
 
-    cy.getCuiSidebarViewContent('Actions').setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Type',
       type: FIELD_TYPE.SELECT,
       value: ActionKind.ApiAction,
     })
 
-    cy.getCuiSidebarViewContent('Actions').setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Resource',
       type: FIELD_TYPE.SELECT,
       value: resourceName,
     })
 
-    cy.getCuiSidebarViewContent('Actions').setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Url segment',
       type: FIELD_TYPE.INPUT,
       value: urlGetSegment,
     })
 
-    cy.getCuiSidebarViewContent('Actions').setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Response type',
       type: FIELD_TYPE.SELECT,
       value: HttpResponseType.Text,
     })
 
-    cy.getCuiSidebarViewContent('Actions')
-      .getButton({ label: 'Create Field' })
-      .click()
+    cy.getCuiPopover('Create Action').within(() => {
+      cy.getToolbarItem('Create').click()
+    })
   })
 
   it('should add button to the component and set the api action on the onClick', () => {
-    cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).trigger('contextmenu')
+    cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).click()
+    cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).within(() => {
+      cy.getToolbarItem('Add Child').click()
+    })
 
-    cy.contains(/Add child/).click({ force: true })
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Render Type',
       type: FIELD_TYPE.SELECT,
@@ -174,9 +185,11 @@ describe('Element Child Mapper', () => {
       type: FIELD_TYPE.INPUT,
       value: ELEMENT_BUTTON,
     })
-    cy.findByTestId('create-element-form')
-      .getButton({ label: 'Create Element' })
-      .click()
+
+    cy.getCuiPopover('Create Element').within(() => {
+      cy.getToolbarItem('Create').click()
+    })
+
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
     })

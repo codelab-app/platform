@@ -1,16 +1,20 @@
 import { PlusOutlined } from '@ant-design/icons'
-import { PageType } from '@codelab/frontend/abstract/types'
+import { FormNames, PageType } from '@codelab/frontend/abstract/types'
+import { CreateFieldPopover } from '@codelab/frontend/domain/type'
 import {
   CuiSidebar,
+  useCui,
   useToolbarPagination,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
+import { CreateAtomPopover } from '../create-atom'
 import { AtomsTreeView } from './AtomsTreeView'
 
 export const AtomsPrimarySidebar = observer(() => {
   const { atomService } = useStore()
+  const { popover } = useCui()
 
   const { items, showSearchBar } = useToolbarPagination(
     atomService,
@@ -22,6 +26,12 @@ export const AtomsPrimarySidebar = observer(() => {
     <CuiSidebar
       defaultActiveViewKeys={['atoms-view']}
       label="Atoms"
+      popover={
+        <>
+          <CreateAtomPopover />
+          <CreateFieldPopover />
+        </>
+      }
       views={[
         {
           content: <AtomsTreeView showSearchBar={showSearchBar} />,
@@ -33,7 +43,10 @@ export const AtomsPrimarySidebar = observer(() => {
               {
                 icon: <PlusOutlined />,
                 key: 'create',
-                onClick: () => atomService.createModal.open(),
+                onClick: () => {
+                  atomService.createForm.open()
+                  popover.open(FormNames.CreateAtom)
+                },
                 title: 'Create Atom',
               },
             ],

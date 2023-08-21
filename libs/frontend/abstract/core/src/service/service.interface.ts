@@ -39,8 +39,8 @@ export interface ICRUDFormService<
   Metadata = never,
   Properties extends object = never,
 > {
-  createForm: IEntityModalService
-  updateForm: IEntityModalService<Metadata, Properties>
+  createForm: IEntityFormService
+  updateForm: IEntityFormService<Metadata, Properties>
 }
 /**
  * Used for base modal, since a class can only implement an object type or intersection of object types with statically known members

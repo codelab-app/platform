@@ -14,10 +14,12 @@ import {
   elementTreeRef,
   isComponentInstance,
 } from '@codelab/frontend/abstract/core'
+import { FormNames } from '@codelab/frontend/abstract/types'
 import { mapElementOption } from '@codelab/frontend/domain/element'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
+  useCui,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { Tooltip } from 'antd'
@@ -32,6 +34,7 @@ interface ElementTreeItemElementTitleProps {
 export const ElementTreeItemElementTitle = observer(
   ({ element, treeNode }: ElementTreeItemElementTitleProps) => {
     const { elementService } = useStore()
+    const { popover } = useCui()
     const atomName = element.atomName
 
     const componentInstanceName = treeNode.isChildMapperComponentInstance
@@ -82,6 +85,7 @@ export const ElementTreeItemElementTitle = observer(
                 icon: <PlusOutlined />,
                 key: `add-child-${element.id}`,
                 onClick: () => {
+                  popover.open(FormNames.CreateElement)
                   elementService.createForm.open({
                     elementOptions:
                       element.closestContainerNode.elements.map(

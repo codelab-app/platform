@@ -18,7 +18,7 @@ export interface ITagService
   extends Omit<ICRUDService<ITag, ICreateTagData, IUpdateTagData>, 'delete'>,
     Omit<IQueryService<ITag, TagWhere, TagOptions>, 'getOne'>,
     Omit<ICRUDModalService<Ref<ITag>, { tag: Maybe<ITag> }>, 'deleteModal'>,
-    Pick<ICRUDFormService<Ref<ITag>, { tag: Maybe<ITag> }>, 'updateForm'> {
+    ICRUDFormService<Ref<ITag>, { tag: Maybe<ITag> }> {
   checkedTags: Array<Ref<ITag>>
   deleteManyModal: IEntityModalService<Array<Ref<ITag>>, { tags: Array<ITag> }>
   selectedOption: LabeledValue

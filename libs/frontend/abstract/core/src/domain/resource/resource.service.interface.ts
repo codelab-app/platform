@@ -33,10 +33,7 @@ export interface IResourceService
       ICRUDModalService<Ref<IResource>, { resource: Maybe<IResource> }>,
       'createModal'
     >,
-    Pick<
-      ICRUDFormService<Ref<IResource>, { resource: Maybe<IResource> }>,
-      'updateForm'
-    > {
+    ICRUDFormService<Ref<IResource>, { resource: Maybe<IResource> }> {
   createModal: IEntityModalService<CreateResourceData, { type?: IResourceType }>
   resourceList: Array<IResource>
 

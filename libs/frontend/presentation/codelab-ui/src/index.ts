@@ -1,4 +1,5 @@
 export * from './abstract'
 export * from './components'
+export * from './core'
 export * from './layout'
 export * from './views'

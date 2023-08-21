@@ -46,9 +46,10 @@ describe('Routing between app pages within the builder', () => {
     cy.findByTestId('create-page-form')
       .findByLabelText('Deployed Page URL')
       .type('/test-page')
-    cy.findByTestId('create-page-form')
-      .getButton({ label: 'Create Page' })
-      .click()
+
+    cy.getCuiPopover('Create Page').within(() => {
+      cy.getToolbarItem('Create').click()
+    })
 
     cy.findByTestId('create-page-form').should('not.exist')
   })
@@ -62,9 +63,10 @@ describe('Routing between app pages within the builder', () => {
     cy.findByTestId('create-page-form')
       .findByLabelText('Deployed Page URL')
       .type('/tests/:testId/subtests/:subtestId')
-    cy.findByTestId('create-page-form')
-      .getButton({ label: 'Create Page' })
-      .click()
+
+    cy.getCuiPopover('Create Page').within(() => {
+      cy.getToolbarItem('Create').click()
+    })
 
     cy.findByTestId('create-page-form').should('not.exist')
   })
@@ -99,9 +101,9 @@ describe('Routing between app pages within the builder', () => {
       value: 'Typography Element',
     })
 
-    cy.findByTestId('create-element-form')
-      .getButton({ label: 'Create Element' })
-      .click()
+    cy.getCuiPopover('Create Element').within(() => {
+      cy.getToolbarItem('Create').click()
+    })
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
@@ -151,9 +153,9 @@ describe('Routing between app pages within the builder', () => {
       value: 'Typography Element',
     })
 
-    cy.findByTestId('create-element-form')
-      .getButton({ label: 'Create Element' })
-      .click()
+    cy.getCuiPopover('Create Element').within(() => {
+      cy.getToolbarItem('Create').click()
+    })
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
@@ -195,9 +197,9 @@ describe('Routing between app pages within the builder', () => {
       value: `{ "href": "/tests/${dynamicUrlSegment1}/subtests/${dynamicUrlSegment2}" }`,
     })
 
-    cy.findByTestId('create-element-form')
-      .getButton({ label: 'Create Element' })
-      .click()
+    cy.getCuiPopover('Create Element').within(() => {
+      cy.getToolbarItem('Create').click()
+    })
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
@@ -255,9 +257,9 @@ describe('Routing between app pages within the builder', () => {
       value: '{ "href": "/test-page" }',
     })
 
-    cy.findByTestId('create-element-form')
-      .getButton({ label: 'Create Element' })
-      .click()
+    cy.getCuiPopover('Create Element').within(() => {
+      cy.getToolbarItem('Create').click()
+    })
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,

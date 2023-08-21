@@ -23,7 +23,7 @@ export interface IAtomService
   extends Omit<ICRUDService<IAtom, ICreateAtomData, IUpdateAtomData>, 'delete'>,
     IQueryService<IAtom, AtomWhere, AtomOptions>,
     Omit<ICRUDModalService<Ref<IAtom>, { atom: Maybe<IAtom> }>, 'deleteModal'>,
-    Pick<ICRUDFormService<Ref<IAtom>, { atom: Maybe<IAtom> }>, 'updateForm'>,
+    ICRUDFormService<Ref<IAtom>, { atom: Maybe<IAtom> }>,
     IPaginateable<IAtom, { name?: string }> {
   atomRepository: IAtomRepository
   atoms: ObjectMap<IAtom>

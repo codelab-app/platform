@@ -9,11 +9,16 @@ import {
 } from '@ant-design/icons'
 import type { IApp, IPagesTreeDataNode } from '@codelab/frontend/abstract/core'
 import { pageRef } from '@codelab/frontend/abstract/core'
-import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
+import {
+  ExplorerPaneType,
+  FormNames,
+  PageType,
+} from '@codelab/frontend/abstract/types'
 import { regeneratePages } from '@codelab/frontend/domain/domain'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
+  useCui,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { IPageKind } from '@codelab/shared/abstract/core'
@@ -35,6 +40,7 @@ export const PageTreeItem = observer(
     },
   }: PageTreeItemProps) => {
     const { pageService, userService } = useStore()
+    const { popover } = useCui()
     const [rebuildButtonLoading, setRebuildButtonLoading] = useState(false)
     const router = useRouter()
     const domains = app.domains.map((domain) => domain.current)
@@ -84,7 +90,10 @@ export const PageTreeItem = observer(
       {
         icon: <EditOutlined />,
         key: 'edit',
-        onClick: () => pageService.updateForm.open(pageRef(page)),
+        onClick: () => {
+          pageService.updateForm.open(pageRef(page))
+          popover.open(FormNames.UpdatePage)
+        },
         title: 'Edit',
       },
     ]

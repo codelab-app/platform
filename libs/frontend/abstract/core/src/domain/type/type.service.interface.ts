@@ -25,7 +25,7 @@ export interface ITypeService
   extends ICRUDService<IType, ICreateTypeData, IUpdateTypeData>,
     Omit<IQueryService<IType, BaseTypeWhere, BaseTypeOptions>, 'getAll'>,
     ICRUDModalService<Ref<IType>, { type: Maybe<IType> }>,
-    Pick<ICRUDFormService<Ref<IType>, { type: Maybe<IType> }>, 'updateForm'>,
+    ICRUDFormService<Ref<IType>, { type: Maybe<IType> }>,
     IPaginateable<IType, { name?: string }> {
   typeRepository: ITypeRepository
   types: ObjectMap<IType>

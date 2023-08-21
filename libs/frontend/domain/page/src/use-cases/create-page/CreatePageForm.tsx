@@ -1,50 +1,72 @@
 import type { ICreatePageData } from '@codelab/frontend/abstract/core'
+import type { SubmitController } from '@codelab/frontend/abstract/types'
 import {
   useCurrentApp,
   useStore,
 } from '@codelab/frontend/presentation/container'
-import { Form, FormController } from '@codelab/frontend/presentation/view'
+import {
+  DisplayIf,
+  Form,
+  FormController,
+} from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
 import { createPageSchema } from './create-page.schema'
 
-export const CreatePageForm = observer(() => {
-  const { pageService, userService } = useStore()
-  const { app } = useCurrentApp()
+interface CreatePageFormProps {
+  showFormControl?: boolean
+  submitRef?: React.MutableRefObject<Maybe<SubmitController>>
+  onSubmitSuccess?(): void
+}
 
-  const model = {
-    app: { id: app?.id },
-    id: v4(),
-    // required for store api
-    owner: {
-      auth0Id: userService.auth0Id,
-    },
-  }
+export const CreatePageForm = observer(
+  ({
+    onSubmitSuccess,
+    showFormControl = true,
+    submitRef,
+  }: CreatePageFormProps) => {
+    const { pageService, userService } = useStore()
+    const { app } = useCurrentApp()
 
-  const closeForm = () => pageService.createForm.close()
+    const model = {
+      app: { id: app?.id },
+      id: v4(),
+      // required for store api
+      owner: {
+        auth0Id: userService.auth0Id,
+      },
+    }
 
-  const onSubmit = async (data: ICreatePageData) => {
-    await pageService.create(data)
-    closeForm()
+    const closeForm = () => pageService.createForm.close()
 
-    return Promise.resolve()
-  }
+    const onSubmit = async (data: ICreatePageData) => {
+      await pageService.create(data)
+      closeForm()
+      onSubmitSuccess?.()
 
-  return (
-    <Form<ICreatePageData>
-      data-testid="create-page-form"
-      model={model}
-      onSubmit={onSubmit}
-      onSubmitError={createNotificationHandler({
-        title: 'Error while creating page',
-      })}
-      schema={createPageSchema}
-    >
-      <AutoFields />
-      <FormController onCancel={closeForm} submitLabel="Create Page" />
-    </Form>
-  )
-})
+      return Promise.resolve()
+    }
+
+    return (
+      <Form<ICreatePageData>
+        data-testid="create-page-form"
+        model={model}
+        onSubmit={onSubmit}
+        onSubmitError={createNotificationHandler({
+          title: 'Error while creating page',
+        })}
+        schema={createPageSchema}
+        submitRef={submitRef}
+      >
+        <AutoFields />
+        <DisplayIf condition={showFormControl}>
+          <FormController onCancel={closeForm} submitLabel="Create Page" />
+        </DisplayIf>
+      </Form>
+    )
+  },
+)

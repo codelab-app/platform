@@ -1,3 +1,5 @@
 export * from './create-atom.schema'
 export * from './CreateAtomButton'
+export * from './CreateAtomForm'
 export * from './CreateAtomModal'
+export * from './CreateAtomPopover'

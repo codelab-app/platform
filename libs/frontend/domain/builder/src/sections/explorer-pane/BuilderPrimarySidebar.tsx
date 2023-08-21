@@ -11,29 +11,30 @@ import {
   storeRef,
   typeRef,
 } from '@codelab/frontend/abstract/core'
+import { FormNames } from '@codelab/frontend/abstract/types'
 import { DeleteComponentModal } from '@codelab/frontend/domain/component'
 import {
-  CreateElementForm,
+  CreateElementPopover,
   DeleteElementModal,
   mapElementOption,
 } from '@codelab/frontend/domain/element'
 import {
   ActionsTreeView,
-  CreateActionForm,
+  CreateActionPopover,
   DeleteActionModal,
   StateTreeView,
-  UpdateActionForm,
+  UpdateActionPopover,
 } from '@codelab/frontend/domain/store'
 import type { InterfaceType } from '@codelab/frontend/domain/type'
 import {
-  CreateFieldForm,
   CreateFieldModal,
+  CreateFieldPopover,
   DeleteFieldModal,
-  UpdateFieldForm,
   UpdateFieldModal,
+  UpdateFieldPopover,
 } from '@codelab/frontend/domain/type'
 import type { CuiSidebarView } from '@codelab/frontend/presentation//codelab-ui'
-import { CuiSidebar } from '@codelab/frontend/presentation//codelab-ui'
+import { CuiSidebar, useCui } from '@codelab/frontend/presentation//codelab-ui'
 import {
   useCurrentComponent,
   useCurrentPage,
@@ -58,6 +59,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
       renderService,
     } = useStore()
 
+    const { popover } = useCui()
     const { page } = useCurrentPage()
     const { component } = useCurrentComponent()
     const pageBuilderRenderer = page && renderService.renderers.get(page.id)
@@ -95,27 +97,16 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
 
     const sidebarViews: Array<CuiSidebarView> = [
       {
-        content: pageTree && (
-          <>
-            {isPageTree && !elementService.createForm.isOpen && (
-              <ElementTreeView
-                expandedNodeIds={builderService.expandedPageElementTreeNodeIds}
-                selectTreeNode={selectTreeNode}
-                setActiveTab={() =>
-                  builderService.setActiveTab(RendererTab.Page)
-                }
-                setExpandedNodeIds={builderService.setExpandedPageElementTreeNodeIds.bind(
-                  builderService,
-                )}
-                treeData={antdTree}
-              />
+        content: pageTree && isPageTree && (
+          <ElementTreeView
+            expandedNodeIds={builderService.expandedPageElementTreeNodeIds}
+            selectTreeNode={selectTreeNode}
+            setActiveTab={() => builderService.setActiveTab(RendererTab.Page)}
+            setExpandedNodeIds={builderService.setExpandedPageElementTreeNodeIds.bind(
+              builderService,
             )}
-            {elementService.createForm.isOpen && (
-              <div className="p-2">
-                <CreateElementForm />
-              </div>
-            )}
-          </>
+            treeData={antdTree}
+          />
         ),
         isLoading: isLoading || !pageTree,
         key: 'ElementTree',
@@ -123,7 +114,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         toolbar: {
           items: [
             {
-              icon: <PlusOutlined></PlusOutlined>,
+              icon: <PlusOutlined />,
               key: 'Add Element',
               onClick: () => {
                 if (!pageTree) {
@@ -141,6 +132,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   elementTree: elementTreeRef(pageTree.id),
                   selectedElement,
                 })
+                popover.open(FormNames.CreateElement)
               },
               title: 'Add Element',
             },
@@ -149,24 +141,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         },
       },
       {
-        content: store && (
-          <>
-            {!fieldService.createForm.isOpen &&
-              !fieldService.updateForm.isOpen && (
-                <StateTreeView store={store} />
-              )}
-            {fieldService.createForm.isOpen && (
-              <div className="p-2">
-                <CreateFieldForm />
-              </div>
-            )}
-            {fieldService.updateForm.isOpen && (
-              <div className="p-2">
-                <UpdateFieldForm />
-              </div>
-            )}
-          </>
-        ),
+        content: store && <StateTreeView store={store} />,
         isLoading: isLoading || !store,
         key: 'StateList',
         label: 'State',
@@ -182,6 +157,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
 
                 const form = fieldService.createForm
                 form.open(typeRef(store.api.id) as Ref<InterfaceType>)
+                popover.open(FormNames.CreateField)
               },
               title: 'Add Field',
             },
@@ -190,24 +166,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         },
       },
       {
-        content: store && (
-          <>
-            {!actionService.createForm.isOpen &&
-              !actionService.updateForm.isOpen && (
-                <ActionsTreeView store={store} />
-              )}
-            {actionService.createForm.isOpen && (
-              <div className="p-2">
-                <CreateActionForm />
-              </div>
-            )}
-            {actionService.updateForm.isOpen && (
-              <div className="p-2">
-                <UpdateActionForm />
-              </div>
-            )}
-          </>
-        ),
+        content: store && <ActionsTreeView store={store} />,
         isLoading: isLoading || !store,
         key: 'Actions',
         label: 'Actions',
@@ -221,8 +180,8 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                   return
                 }
 
-                const form = actionService.createForm
-                form.open(storeRef(store) as Ref<IStore>)
+                actionService.createForm.open(storeRef(store) as Ref<IStore>)
+                popover.open(FormNames.CreateAction)
               },
               title: 'Add Action',
             },
@@ -287,6 +246,15 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
         <CuiSidebar
           defaultActiveViewKeys={['ElementTree']}
           label="Explorer"
+          popover={
+            <>
+              <UpdateFieldPopover />
+              <CreateFieldPopover />
+              <CreateElementPopover />
+              <CreateActionPopover />
+              <UpdateActionPopover />
+            </>
+          }
           views={sidebarViews}
         />
         <CreateFieldModal />

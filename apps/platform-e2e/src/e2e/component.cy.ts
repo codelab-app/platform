@@ -65,9 +65,9 @@ describe('Component CRUD', () => {
       cy.findByTestId('create-component-form')
         .findByLabelText('Name')
         .type(COMPONENT_NAME)
-      cy.findByTestId('create-component-form')
-        .getButton({ label: 'Create Component' })
-        .click()
+      cy.getCuiPopover('Create Component').within(() => {
+        cy.getToolbarItem('Create').click()
+      })
       cy.findByTestId('create-component-form').should('not.exist', {
         timeout: 10000,
       })
@@ -107,9 +107,11 @@ describe('Component CRUD', () => {
        * More Info: https://docs.cypress.io/guides/references/migration-guide#-should
        * */
       cy.wrap(componentChildren).each((child: ComponentChildData) => {
-        cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).trigger('contextmenu')
+        cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).click()
+        cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).within(() => {
+          cy.getToolbarItem('Add Child').click()
+        })
 
-        cy.contains(/Add child/).click({ force: true })
         cy.findByTestId('create-element-form').setFormFieldValue({
           label: 'Render Type',
           type: FIELD_TYPE.SELECT,
@@ -125,9 +127,10 @@ describe('Component CRUD', () => {
           type: FIELD_TYPE.INPUT,
           value: child.name,
         })
-        cy.findByTestId('create-element-form')
-          .getButton({ label: 'Create Element' })
-          .click()
+
+        cy.getCuiPopover('Create Element').within(() => {
+          cy.getToolbarItem('Create').click()
+        })
         cy.findByTestId('create-element-form').should('not.exist', {
           timeout: 10000,
         })
@@ -195,9 +198,9 @@ describe('Component CRUD', () => {
         value: COMPONENT_INSTANCE_NAME,
       })
 
-      cy.findByTestId('create-element-form')
-        .getButton({ label: 'Create Element' })
-        .click()
+      cy.getCuiPopover('Create Element').within(() => {
+        cy.getToolbarItem('Create').click()
+      })
 
       cy.findByTestId('create-element-form').should('not.exist', {
         timeout: 10000,
@@ -238,9 +241,9 @@ describe('Component CRUD', () => {
         value: COMPONENT_INSTANCE_TEXT,
       })
 
-      cy.findByTestId('create-element-form')
-        .getButton({ label: 'Create Element' })
-        .click()
+      cy.getCuiPopover('Create Element').within(() => {
+        cy.getToolbarItem('Create').click()
+      })
 
       cy.findByTestId('create-element-form').should('not.exist', {
         timeout: 10000,

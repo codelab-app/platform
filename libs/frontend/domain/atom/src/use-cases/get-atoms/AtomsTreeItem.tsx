@@ -4,9 +4,11 @@ import type {
   IInterfaceType,
 } from '@codelab/frontend/abstract/core'
 import { atomRef, fieldRef, typeRef } from '@codelab/frontend/abstract/core'
+import { FormNames } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
+  useCui,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { AtomType } from '@codelab/shared/abstract/codegen'
@@ -20,6 +22,7 @@ interface AtomsTreeItemProps {
 
 export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
   const { atomService, fieldService } = useStore()
+  const { popover } = useCui()
   const getLibrary = useGetLibrary()
   const { node, type } = data.extraData
   const icon = type === 'atom' ? getLibrary(node.type as AtomType).icon : null
@@ -46,7 +49,8 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
     const interfaceId = node.api.id
     const interfaceRef = typeRef(interfaceId) as Ref<IInterfaceType>
 
-    fieldService.createModal.open(interfaceRef)
+    fieldService.createForm.open(interfaceRef)
+    popover.open(FormNames.CreateField)
   }
 
   const toolbarItems = [

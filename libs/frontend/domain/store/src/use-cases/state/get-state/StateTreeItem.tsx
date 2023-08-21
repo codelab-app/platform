@@ -4,9 +4,11 @@ import type {
   IStateTreeDataNode,
 } from '@codelab/frontend/abstract/core'
 import { fieldRef, typeRef } from '@codelab/frontend/abstract/core'
+import { FormNames } from '@codelab/frontend/abstract/types'
 import {
   CuiTreeItem,
   CuiTreeItemToolbar,
+  useCui,
 } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { Ref } from 'mobx-keystone'
@@ -18,9 +20,11 @@ interface StateTreeItemProps {
 
 export const StateTreeItem = ({ data }: StateTreeItemProps) => {
   const { fieldService } = useStore()
+  const { popover } = useCui()
 
   const onEdit = () => {
     fieldService.updateForm.open(fieldRef(data.extraData.node.id))
+    popover.open(FormNames.UpdateField)
   }
 
   const onDelete = () => {
@@ -28,9 +32,10 @@ export const StateTreeItem = ({ data }: StateTreeItemProps) => {
   }
 
   const onAddField = () => {
-    fieldService.createModal.open(
+    fieldService.createForm.open(
       typeRef(data.extraData.node.type.id) as Ref<IInterfaceType>,
     )
+    popover.open(FormNames.CreateField)
   }
 
   const toolbarItems = [

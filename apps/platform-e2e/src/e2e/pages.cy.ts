@@ -32,9 +32,9 @@ describe('Pages CRUD', () => {
       cy.getCuiSidebar('Pages').getToolbarItem('Create Page').click()
 
       cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
-      cy.findByTestId('create-page-form')
-        .getButton({ label: 'Create Page' })
-        .click()
+      cy.getCuiPopover('Create Page').within(() => {
+        cy.getToolbarItem('Create').click()
+      })
     })
 
     it('should have accessible page link on sidebar', () => {
@@ -63,10 +63,9 @@ describe('Pages CRUD', () => {
       cy.findByTestId('update-page-form')
         .findByLabelText('Name')
         .type(updatedPageName)
-      cy.findByTestId('update-page-form')
-        .getButton({ label: 'Update Page' })
-        .click()
-
+      cy.getCuiPopover('Update Page').within(() => {
+        cy.getToolbarItem('Update').click()
+      })
       cy.findByTestId('update-page-form').should('not.exist')
 
       cy.getCuiTreeItemByPrimaryTitle(pageName).should('not.exist')

@@ -2,7 +2,7 @@ import {
   HttpResponseType,
   ROOT_ELEMENT_NAME,
 } from '@codelab/frontend/abstract/core'
-import { ActionKind } from '@codelab/shared/abstract/codegen'
+import { ActionKind, ResourceType } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
@@ -25,16 +25,21 @@ describe('Running API action and setting state on element pre-render', () => {
     cy.getSpinner().should('not.exist')
 
     // Create the API resource we will use for the API action
-    cy.getCuiSidebar('Resources').getToolbarItem('Add Rest Resource').click()
+    cy.getCuiSidebar('Resources').getToolbarItem('Add a Resource').click()
 
-    cy.getModal().setFormFieldValue({ label: 'Name', value: resourceName })
-    cy.getModal().setFormFieldValue({ label: 'Url', value: resourceUrl })
+    cy.setFormFieldValue({ label: 'Name', value: resourceName })
+    cy.setFormFieldValue({ label: 'Url', value: resourceUrl })
 
-    cy.getModal()
-      .getModalAction(/Create Resource/)
-      .click()
+    cy.setFormFieldValue({
+      label: 'Type',
+      type: FIELD_TYPE.SELECT,
+      value: ResourceType.Rest,
+    })
 
-    cy.getModal().should('not.exist')
+    cy.getCuiPopover('Create Resource').within(() => {
+      cy.getToolbarItem('Create').click()
+    })
+
     cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
 
     cy.request('/api/cypress/type')
@@ -63,13 +68,13 @@ describe('Running API action and setting state on element pre-render', () => {
     cy.getCuiSidebarViewHeader('State').click()
     cy.getHeaderToolbarItem('Add Field').click()
 
-    cy.getCuiSidebarViewContent('State').setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Key',
       type: FIELD_TYPE.INPUT,
       value: stateKey,
     })
 
-    cy.getCuiSidebarViewContent('State').setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Type',
       type: FIELD_TYPE.SELECT,
       value: 'String',
@@ -77,86 +82,86 @@ describe('Running API action and setting state on element pre-render', () => {
 
     cy.findByText('Default values').should('exist')
 
-    cy.getCuiSidebarViewContent('State').setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Nullable',
       type: FIELD_TYPE.TOGGLE,
       value: true,
     })
 
-    cy.getCuiSidebarViewContent('State')
-      .getButton({ label: 'Create Field' })
-      .click()
+    cy.getCuiPopover('Create Field').within(() => {
+      cy.getToolbarItem('Create').click()
+    })
   })
 
   it('should create a code action', () => {
     cy.getCuiSidebarViewHeader('Actions').click()
     cy.getHeaderToolbarItem('Add Action').click()
 
-    cy.getCuiSidebarViewContent('Actions').setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Name',
       type: FIELD_TYPE.INPUT,
       value: codeActionName,
     })
 
-    cy.getCuiSidebarViewContent('Actions').setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Type',
       type: FIELD_TYPE.SELECT,
       value: ActionKind.CodeAction,
     })
 
-    cy.getCuiSidebarViewContent('Actions').setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Action code',
       type: FIELD_TYPE.CODE_MIRROR,
       value: 'function run(response) { state.localData = response.data; }',
     })
 
-    cy.getCuiSidebarViewContent('Actions')
-      .getButton({ label: 'Create Field' })
-      .click()
+    cy.getCuiPopover('Create Action').within(() => {
+      cy.getToolbarItem('Create').click()
+    })
   })
 
   it('should create an api action and set code action as success action', () => {
     cy.getHeaderToolbarItem('Add Action').click()
 
-    cy.getCuiSidebarViewContent('Actions').setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Name',
       type: FIELD_TYPE.INPUT,
       value: apiActionName,
     })
 
-    cy.getCuiSidebarViewContent('Actions').setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Type',
       type: FIELD_TYPE.SELECT,
       value: ActionKind.ApiAction,
     })
 
-    cy.getCuiSidebarViewContent('Actions').setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Resource',
       type: FIELD_TYPE.SELECT,
       value: resourceName,
     })
 
-    cy.getCuiSidebarViewContent('Actions').setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Success Action',
       type: FIELD_TYPE.SELECT,
       value: codeActionName,
     })
 
-    cy.getCuiSidebarViewContent('Actions').setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Url segment',
       type: FIELD_TYPE.INPUT,
       value: urlGetSegment,
     })
 
-    cy.getCuiSidebarViewContent('Actions').setFormFieldValue({
+    cy.setFormFieldValue({
       label: 'Response type',
       type: FIELD_TYPE.SELECT,
       value: HttpResponseType.Text,
     })
 
-    cy.getCuiSidebarViewContent('Actions')
-      .getButton({ label: 'Create Field' })
-      .click()
+    cy.getCuiPopover('Create Action').within(() => {
+      cy.getToolbarItem('Create').click()
+    })
   })
 
   it('should create an element and set api action as pre-render action', () => {
@@ -182,9 +187,9 @@ describe('Running API action and setting state on element pre-render', () => {
       value: 'Typography Element',
     })
 
-    cy.findByTestId('create-element-form')
-      .getButton({ label: 'Create Element' })
-      .click()
+    cy.getCuiPopover('Create Element').within(() => {
+      cy.getToolbarItem('Create').click()
+    })
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,

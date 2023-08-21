@@ -21,18 +21,17 @@ describe('Atoms CRUD', () => {
 
       cy.getHeaderToolbarItem('Create Atom').click()
 
-      cy.getModal().setFormFieldValue({ label: 'Name', value: atomName })
+      cy.setFormFieldValue({ label: 'Name', value: atomName })
 
-      cy.getModal().setFormFieldValue({
+      cy.setFormFieldValue({
         label: 'Type',
         type: FIELD_TYPE.SELECT,
         value: atomType,
       })
 
-      cy.getModal()
-        .getModalAction(/Create Atom/)
-        .click()
-      cy.getModal().should('not.exist')
+      cy.getCuiPopover('Create Atom').within(() => {
+        cy.getToolbarItem('Create').click()
+      })
 
       cy.findByText(atomName).should('exist')
     })

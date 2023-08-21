@@ -1,44 +1,66 @@
 import type { IUpdatePageData } from '@codelab/frontend/abstract/core'
+import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/presentation/container'
-import { Form, FormController } from '@codelab/frontend/presentation/view'
+import {
+  DisplayIf,
+  Form,
+  FormController,
+} from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { type UpdatePageSchema, updatePageSchema } from './update-page.schema'
 
-export const UpdatePageForm = observer(() => {
-  const { pageService } = useStore()
-  const pageToUpdate = pageService.updateForm.page
-  const closeForm = () => pageService.updateForm.close()
+interface CreatePageFormProps {
+  showFormControl?: boolean
+  submitRef?: React.MutableRefObject<Maybe<SubmitController>>
+  onSubmitSuccess?(): void
+}
 
-  const onSubmit = (data: IUpdatePageData) => {
-    void pageService.update(data)
-    closeForm()
+export const UpdatePageForm = observer(
+  ({
+    onSubmitSuccess,
+    showFormControl = true,
+    submitRef,
+  }: CreatePageFormProps) => {
+    const { pageService } = useStore()
+    const pageToUpdate = pageService.updateForm.page
+    const closeForm = () => pageService.updateForm.close()
 
-    return Promise.resolve()
-  }
+    const onSubmit = (data: IUpdatePageData) => {
+      void pageService.update(data)
+      closeForm()
+      onSubmitSuccess?.()
 
-  const model = {
-    app: pageToUpdate?.app,
-    id: pageToUpdate?.id,
-    name: pageToUpdate?.name,
-    url: pageToUpdate?.url,
-  }
+      return Promise.resolve()
+    }
 
-  return (
-    <Form<UpdatePageSchema>
-      data-testid="update-page-form"
-      model={model}
-      onSubmit={onSubmit}
-      onSubmitError={createNotificationHandler({
-        title: 'Error while creating page',
-      })}
-      onSubmitSuccess={closeForm}
-      schema={updatePageSchema}
-    >
-      <AutoFields />
-      <FormController onCancel={closeForm} submitLabel="Update Page" />
-    </Form>
-  )
-})
+    const model = {
+      app: pageToUpdate?.app,
+      id: pageToUpdate?.id,
+      name: pageToUpdate?.name,
+      url: pageToUpdate?.url,
+    }
+
+    return (
+      <Form<UpdatePageSchema>
+        data-testid="update-page-form"
+        model={model}
+        onSubmit={onSubmit}
+        onSubmitError={createNotificationHandler({
+          title: 'Error while creating page',
+        })}
+        onSubmitSuccess={closeForm}
+        schema={updatePageSchema}
+        submitRef={submitRef}
+      >
+        <AutoFields />
+        <DisplayIf condition={showFormControl}>
+          <FormController onCancel={closeForm} submitLabel="Update Page" />
+        </DisplayIf>
+      </Form>
+    )
+  },
+)

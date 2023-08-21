@@ -59,11 +59,8 @@ export const createElementTree = (elements: Array<ElementData>) => {
       })
     }
 
-    cy.findByTestId('create-element-form')
-      .getButton({ label: 'Create Element' })
-      .click()
-    cy.findByTestId('create-element-form').should('not.exist', {
-      timeout: 10000,
+    cy.getCuiPopover('Create Element').within(() => {
+      cy.getToolbarItem('Create').click()
     })
 
     cy.findByText(name).should('exist').click()

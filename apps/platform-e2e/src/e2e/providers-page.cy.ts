@@ -58,7 +58,6 @@ describe('_app page', () => {
     cy.getModal().should('not.exist')
 
     cy.findByText(appName).click()
-
     cy.getCuiTreeItemByPrimaryTitle(IPageKindName.Provider).should('be.visible')
   })
 
@@ -85,16 +84,16 @@ describe('_app page', () => {
     cy.getCuiNavigationBarItem('Pages').click()
 
     cy.getSpinner().should('not.exist')
-
     cy.getCuiTreeItemByPrimaryTitle(IPageKindName.Provider).should('be.visible')
   })
 
   it('should be able to create simple page', () => {
     cy.getCuiSidebar('Pages').getToolbarItem('Create Page').click()
     cy.findByTestId('create-page-form').findByLabelText('Name').type(pageName)
-    cy.findByTestId('create-page-form')
-      .getButton({ label: 'Create Page' })
-      .click()
+
+    cy.getCuiPopover('Create Page').within(() => {
+      cy.getToolbarItem('Create').click()
+    })
 
     openPageByName(pageName)
   })

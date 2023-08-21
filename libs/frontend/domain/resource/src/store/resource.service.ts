@@ -6,7 +6,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { IResourceDTO } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
-import { ModalService } from '@codelab/frontend/shared/utils'
+import { InlineFormService, ModalService } from '@codelab/frontend/shared/utils'
 import type { ResourceWhere } from '@codelab/shared/abstract/codegen'
 import { computed } from 'mobx'
 import {
@@ -29,6 +29,7 @@ import { ResourceModalService } from './resource-modal.service'
 @model('@codelab/ResourceService')
 export class ResourceService
   extends Model({
+    createForm: prop(() => new InlineFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new ResourceModalService({})),
     resourceRepository: prop(() => new ResourceRepository({})),
