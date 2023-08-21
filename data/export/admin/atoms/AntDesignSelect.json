@@ -9,6 +9,9 @@
         "id": "047b6340-04f3-4200-a879-7ab96edcc447"
       },
       {
+        "id": "053469bb-1d0c-4010-bebd-afc7e6409411"
+      },
+      {
         "id": "0d858bdb-01c1-4455-b547-ffae7cf9ad7e"
       },
       {
@@ -695,6 +698,23 @@
       }
     },
     {
+      "id": "053469bb-1d0c-4010-bebd-afc7e6409411",
+      "key": "options",
+      "name": "Options",
+      "description": null,
+      "validationRules": "{\"general\":{\"nullable\":true}}",
+      "defaultValues": "[]",
+      "fieldType": {
+        "__typename": "ArrayType",
+        "id": "a9a0ebd4-17d6-486b-b34d-d45ffa99c8a2",
+        "kind": "ArrayType",
+        "name": "AntDesignSelect Options"
+      },
+      "api": {
+        "id": "8bef2781-fb9d-46b3-8b86-81ea3e8e302d"
+      }
+    },
+    {
       "id": "fd196aff-3242-4935-af61-42c78dfcce5e",
       "key": "placeholder",
       "name": "Placeholder",
@@ -896,6 +916,40 @@
       },
       "api": {
         "id": "8bef2781-fb9d-46b3-8b86-81ea3e8e302d"
+      }
+    },
+    {
+      "id": "b9852d21-bfab-43aa-870f-382f75ceb17e",
+      "key": "label",
+      "name": "Label",
+      "description": null,
+      "validationRules": "{\"general\":{\"nullable\":true}}",
+      "defaultValues": "null",
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "874c97ee-b333-4519-bb60-fee49a12ff6b"
+      }
+    },
+    {
+      "id": "f5839627-d5ee-48aa-a91c-c4c14f9f42dc",
+      "key": "value",
+      "name": "Value",
+      "description": null,
+      "validationRules": "{}",
+      "defaultValues": "null",
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "874c97ee-b333-4519-bb60-fee49a12ff6b"
       }
     }
   ],
@@ -1150,6 +1204,30 @@
           "value": "string[]\nnumber"
         }
       ]
+    },
+    {
+      "__typename": "InterfaceType",
+      "id": "874c97ee-b333-4519-bb60-fee49a12ff6b",
+      "kind": "InterfaceType",
+      "name": "AntDesignSelect Option",
+      "fields": [
+        {
+          "id": "b9852d21-bfab-43aa-870f-382f75ceb17e"
+        },
+        {
+          "id": "f5839627-d5ee-48aa-a91c-c4c14f9f42dc"
+        }
+      ]
+    },
+    {
+      "__typename": "ArrayType",
+      "id": "a9a0ebd4-17d6-486b-b34d-d45ffa99c8a2",
+      "kind": "ArrayType",
+      "name": "AntDesignSelect Options",
+      "itemType": {
+        "id": "874c97ee-b333-4519-bb60-fee49a12ff6b",
+        "kind": "InterfaceType"
+      }
     }
   ]
 }

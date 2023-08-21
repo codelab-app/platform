@@ -18,6 +18,9 @@
         "id": "93c25b30-70de-4475-94a2-55fce07b7b95"
       },
       {
+        "id": "ae78f58b-56a2-4a47-9ab1-247301bb1c8b"
+      },
+      {
         "id": "b043b0af-1aa8-496c-9dc4-efed96eee7e7"
       },
       {
@@ -168,6 +171,23 @@
         "id": "80c4a122-a636-402e-a62b-c227f8b49266",
         "kind": "EnumType",
         "name": "AntDesignRadioGroup Size Enum"
+      },
+      "api": {
+        "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"
+      }
+    },
+    {
+      "id": "ae78f58b-56a2-4a47-9ab1-247301bb1c8b",
+      "key": "value",
+      "name": "Value",
+      "description": null,
+      "validationRules": "{\"general\":{\"nullable\":true}}",
+      "defaultValues": "null",
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
       },
       "api": {
         "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed"

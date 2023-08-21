@@ -24,6 +24,9 @@
         "id": "4ebd447c-2a2a-48b2-93dc-c51714153d31"
       },
       {
+        "id": "57b3fb67-3490-4c82-8f8f-b7b7e3d090b0"
+      },
+      {
         "id": "6dfc9268-9f98-4c73-92a3-402922c43b4c"
       },
       {
@@ -137,6 +140,23 @@
         "id": "db9e646e-22fe-4fe3-ae31-a2a86b64d885",
         "kind": "PrimitiveType",
         "name": "Number"
+      },
+      "api": {
+        "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
+      }
+    },
+    {
+      "id": "57b3fb67-3490-4c82-8f8f-b7b7e3d090b0",
+      "key": "items",
+      "name": "Items",
+      "description": null,
+      "validationRules": "{\"general\":{\"nullable\":true}}",
+      "defaultValues": "[]",
+      "fieldType": {
+        "__typename": "ArrayType",
+        "id": "7154aa9d-27e2-4b43-8a09-789467206389",
+        "kind": "ArrayType",
+        "name": "AntDesignSteps Items"
       },
       "api": {
         "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
@@ -277,6 +297,40 @@
       "api": {
         "id": "0ecfb984-557f-45ec-ad14-836808b85d9a"
       }
+    },
+    {
+      "id": "05884e66-b9ef-43da-8700-dcdde900ae2c",
+      "key": "key",
+      "name": "Key",
+      "description": null,
+      "validationRules": "{}",
+      "defaultValues": "null",
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "c83e828d-c476-4921-84b4-014147462750"
+      }
+    },
+    {
+      "id": "0a9aeb4a-c535-4433-90ae-dfa8c50d9ce6",
+      "key": "title",
+      "name": "Title",
+      "description": null,
+      "validationRules": "{}",
+      "defaultValues": "null",
+      "fieldType": {
+        "__typename": "ReactNodeType",
+        "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+        "kind": "ReactNodeType",
+        "name": "ReactNodeType"
+      },
+      "api": {
+        "id": "c83e828d-c476-4921-84b4-014147462750"
+      }
     }
   ],
   "types": [
@@ -297,6 +351,30 @@
           "value": "boolean"
         }
       ]
+    },
+    {
+      "__typename": "InterfaceType",
+      "id": "c83e828d-c476-4921-84b4-014147462750",
+      "kind": "InterfaceType",
+      "name": "AntDesignSteps Item",
+      "fields": [
+        {
+          "id": "05884e66-b9ef-43da-8700-dcdde900ae2c"
+        },
+        {
+          "id": "0a9aeb4a-c535-4433-90ae-dfa8c50d9ce6"
+        }
+      ]
+    },
+    {
+      "__typename": "ArrayType",
+      "id": "7154aa9d-27e2-4b43-8a09-789467206389",
+      "kind": "ArrayType",
+      "name": "AntDesignSteps Items",
+      "itemType": {
+        "id": "c83e828d-c476-4921-84b4-014147462750",
+        "kind": "InterfaceType"
+      }
     }
   ]
 }

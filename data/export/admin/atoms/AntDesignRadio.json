@@ -6,6 +6,9 @@
     "name": "AntDesignRadio API",
     "fields": [
       {
+        "id": "204d617a-06ab-40ff-a2ca-782698c10c4c"
+      },
+      {
         "id": "38d7316b-27a3-4c71-a57e-40d988ab78b2"
       },
       {
@@ -113,6 +116,23 @@
         "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
         "kind": "PrimitiveType",
         "name": "Boolean"
+      },
+      "api": {
+        "id": "8d3b5ebf-58eb-4af1-b80e-1c7eaeb795e1"
+      }
+    },
+    {
+      "id": "204d617a-06ab-40ff-a2ca-782698c10c4c",
+      "key": "value",
+      "name": "Value",
+      "description": null,
+      "validationRules": "{}",
+      "defaultValues": "null",
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
       },
       "api": {
         "id": "8d3b5ebf-58eb-4af1-b80e-1c7eaeb795e1"

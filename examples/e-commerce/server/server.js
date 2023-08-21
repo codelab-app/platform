@@ -17,8 +17,13 @@ app.get('/cart/cartId', (req, res) => {
   res.json(cart)
 })
 
+app.post('/cart/cartId/payment', (req, res) => {
+  console.log('received payment details', req.body)
+  res.json({})
+})
+
 app.post('/cart/cartId/products', (req, res) => {
-  console.log('req.body', req.body)
+  console.log('received cart product', req.body)
   const { id, quantity } = req.body
 
   if (quantity <= 0 && cart.some((c) => c.id === id)) {

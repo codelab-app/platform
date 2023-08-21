@@ -27,6 +27,8 @@ export const customTextInjectionWhiteList = [
   IAtomType.HtmlSub,
   IAtomType.HtmlSup,
   IAtomType.AntDesignButton,
+  IAtomType.AntDesignCheckbox,
+  IAtomType.AntDesignRadio,
   IAtomType.AntDesignTypographyParagraph,
   IAtomType.AntDesignTypographyText,
   IAtomType.AntDesignTypographyTitle,

@@ -18,6 +18,9 @@
         "id": "4de44ce0-f0ed-46f8-a5e1-69998dd8fe55"
       },
       {
+        "id": "6d773ad5-ae53-4428-90ed-174d9459afac"
+      },
+      {
         "id": "8599dae3-32d8-4435-9c8e-55d7b8ccd2dd"
       },
       {
@@ -243,6 +246,23 @@
       "description": null,
       "validationRules": null,
       "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+        "kind": "PrimitiveType",
+        "name": "String"
+      },
+      "api": {
+        "id": "dda4cc69-bee9-4474-be2c-0873d831d6fc"
+      }
+    },
+    {
+      "id": "6d773ad5-ae53-4428-90ed-174d9459afac",
+      "key": "valuePropName",
+      "name": "Value Prop Name",
+      "description": null,
+      "validationRules": "{\"general\":{\"nullable\":true}}",
+      "defaultValues": "null",
       "fieldType": {
         "__typename": "PrimitiveType",
         "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
