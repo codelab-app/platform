@@ -65,19 +65,17 @@ const graphqlFetch = (
   return client.request(config.query, variables, headers)
 }
 
-const getRunner = (
+export const getRunner = (
   renderer?: IRenderer,
   actionId?: string,
   storeId?: string,
   providerStoreId?: string,
-): { runner?: IActionRunner['runner']; fromProvider?: boolean } => {
+): { runner?: IActionRunner; fromProvider?: boolean } => {
   if (!renderer || !actionId || !storeId) {
     return {}
   }
 
-  const runner = renderer.actionRunners.get(
-    getRunnerId(storeId, actionId),
-  )?.runner
+  const runner = renderer.actionRunners.get(getRunnerId(storeId, actionId))
 
   if (!isNil(runner)) {
     return { fromProvider: false, runner }
@@ -89,7 +87,7 @@ const getRunner = (
 
   const providerRunner = renderer.actionRunners.get(
     getRunnerId(providerStoreId, actionId),
-  )?.runner
+  )
 
   return {
     fromProvider: !isNil(providerRunner),
@@ -227,14 +225,14 @@ export class ActionRunner
           ? { ..._this, state: _this.rootState }
           : _this
 
-        return successRunner?.call(successRunnerThis, response)
+        return successRunner?.runner.call(successRunnerThis, response)
       } catch (error) {
         // actions in the provider should not have access to the state of regular pages
         const errorRunnerThis = isErrorRunnerFromProvider
           ? { ..._this, state: _this.rootState }
           : _this
 
-        return errorRunner?.call(errorRunnerThis, error)
+        return errorRunner?.runner.call(errorRunnerThis, error)
       }
     }
   }
