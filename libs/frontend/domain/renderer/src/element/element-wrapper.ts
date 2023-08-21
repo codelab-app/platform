@@ -5,7 +5,6 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   getActionRunnerThisObject,
-  getRunnerId,
   isAtomInstance,
   RendererType,
 } from '@codelab/frontend/abstract/core'
@@ -15,6 +14,7 @@ import { mergeProps } from '@codelab/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
+import { getRunner } from '../action-runner.model'
 import { shouldRenderElement } from '../utils'
 import { mapOutput } from '../utils/render-output-utils'
 import { renderComponentWithStyles } from './get-styled-components'
@@ -37,14 +37,14 @@ export interface ElementWrapperProps {
 export const ElementWrapper = observer<ElementWrapperProps>(
   ({ element, renderer, ...rest }) => {
     useEffect(() => {
-      const { postRenderAction, store } = element
+      const { postRenderAction, providerStore, store } = element
 
-      if (!postRenderAction) {
-        return
-      }
-
-      const actionRunnerId = getRunnerId(store.id, postRenderAction.id)
-      const postRenderActionRunner = renderer.actionRunners.get(actionRunnerId)
+      const { runner: postRenderActionRunner } = getRunner(
+        renderer,
+        postRenderAction?.id,
+        store.id,
+        providerStore?.id,
+      )
 
       if (postRenderActionRunner) {
         const _this = getActionRunnerThisObject(

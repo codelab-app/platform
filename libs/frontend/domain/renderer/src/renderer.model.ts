@@ -40,7 +40,7 @@ import { createTransformer } from 'mobx-utils'
 import type { ReactElement, ReactNode } from 'react'
 import React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
-import { ActionRunner } from './action-runner.model'
+import { ActionRunner, getRunner } from './action-runner.model'
 import { ComponentRuntimeProps } from './component-runtime-props.model'
 import type { ElementWrapperProps } from './element/element-wrapper'
 import { ElementWrapper } from './element/element-wrapper'
@@ -194,11 +194,15 @@ export class Renderer
       renderer: this,
     }
 
-    const { preRenderAction, store } = element
+    const { preRenderAction, providerStore, store } = element
 
     if (preRenderAction) {
-      const actionRunnerId = getRunnerId(store.id, preRenderAction.id)
-      const preRenderActionRunner = this.actionRunners.get(actionRunnerId)
+      const { runner: preRenderActionRunner } = getRunner(
+        this,
+        preRenderAction.id,
+        store.id,
+        providerStore?.id,
+      )
 
       if (preRenderActionRunner) {
         const _this = getActionRunnerThisObject(
