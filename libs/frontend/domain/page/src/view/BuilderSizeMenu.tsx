@@ -4,7 +4,7 @@ import {
   TabletOutlined,
 } from '@ant-design/icons'
 import {
-  BuilderWidthBreakPoints,
+  BuilderWidthBreakPoint,
   defaultBuilderWidthBreakPoints,
 } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
@@ -39,11 +39,11 @@ export const BuilderSizeMenu = observer(() => {
   const { builderService } = useStore()
 
   const [selectedWidthBreakpoint, setSelectedWidthBreakpoint] = useState(
-    BuilderWidthBreakPoints.Desktop,
+    BuilderWidthBreakPoint.Desktop,
   )
 
   const handleBreakpointSelected = useCallback(
-    (breakpoint: BuilderWidthBreakPoints) => {
+    (breakpoint: BuilderWidthBreakPoint) => {
       setSelectedWidthBreakpoint(breakpoint)
       builderService.setSelectedBuilderWidth(
         defaultBuilderWidthBreakPoints[breakpoint],
@@ -54,16 +54,17 @@ export const BuilderSizeMenu = observer(() => {
 
   const menuItems: Array<MenuItemProps> = [
     {
-      key: BuilderWidthBreakPoints.Mobile,
+      key: BuilderWidthBreakPoint.MobilePortrait,
       label: (
         <MenuIconContainer>
           <MobileOutlined className="h-full" />
         </MenuIconContainer>
       ),
 
-      onClick: () => handleBreakpointSelected(BuilderWidthBreakPoints.Mobile),
+      onClick: () =>
+        handleBreakpointSelected(BuilderWidthBreakPoint.MobilePortrait),
       style: menuItemCommonStyle,
-      title: 'mobile',
+      title: 'Mobile portrait',
     },
     {
       icon: (
@@ -71,11 +72,11 @@ export const BuilderSizeMenu = observer(() => {
           <MobileOutlined rotate={-90} />
         </MenuIconContainer>
       ),
-      key: BuilderWidthBreakPoints.MobileVertical,
+      key: BuilderWidthBreakPoint.MobileLandscape,
       onClick: () =>
-        handleBreakpointSelected(BuilderWidthBreakPoints.MobileVertical),
+        handleBreakpointSelected(BuilderWidthBreakPoint.MobileLandscape),
       style: menuItemCommonStyle,
-      title: 'mobile vertical',
+      title: 'Mobile landscape',
     },
     {
       icon: (
@@ -83,11 +84,10 @@ export const BuilderSizeMenu = observer(() => {
           <TabletOutlined />
         </MenuIconContainer>
       ),
-      key: BuilderWidthBreakPoints.TabletHorizontal,
-      onClick: () =>
-        handleBreakpointSelected(BuilderWidthBreakPoints.TabletHorizontal),
+      key: BuilderWidthBreakPoint.Tablet,
+      onClick: () => handleBreakpointSelected(BuilderWidthBreakPoint.Tablet),
       style: menuItemCommonStyle,
-      title: 'tablet horizontal',
+      title: 'tablet',
     },
     {
       icon: (
@@ -95,9 +95,9 @@ export const BuilderSizeMenu = observer(() => {
           <DesktopOutlined />
         </MenuIconContainer>
       ),
-      key: BuilderWidthBreakPoints.Desktop,
+      key: BuilderWidthBreakPoint.Desktop,
       label: false,
-      onClick: () => handleBreakpointSelected(BuilderWidthBreakPoints.Desktop),
+      onClick: () => handleBreakpointSelected(BuilderWidthBreakPoint.Desktop),
       style: menuItemCommonStyle,
       title: 'desktop',
     },
@@ -135,7 +135,7 @@ export const BuilderSizeMenu = observer(() => {
             })
           }
           size="small"
-          value={builderService.currentBuilderWidth.default}
+          value={builderService.selectedBuilderWidth.default}
         />
         <span>px</span>
       </Space>
