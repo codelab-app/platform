@@ -80,6 +80,7 @@ export const withAutoForm = (BaseAutoForm: typeof AutoForm) => {
           onValidate={bypassExpressionErrors}
           ref={connectUniformSubmitRef(submitRef)}
           schema={bridge}
+          showInlineError
           submitField={submitField}
         >
           {children}
