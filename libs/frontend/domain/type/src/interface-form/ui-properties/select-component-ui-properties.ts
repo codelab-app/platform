@@ -1,4 +1,7 @@
-import { ToggleExpressionField } from '@codelab/frontend/presentation/view'
+import {
+  createAutoCompleteOptions,
+  ToggleExpressionField,
+} from '@codelab/frontend/presentation/view'
 import { SelectComponent } from '../fields'
 import type { UiPropertiesFn } from '../types'
 
@@ -12,10 +15,13 @@ const ACTION_TEMPLATE = `{{
   }.bind(this)
 }}`
 
-export const selectComponentUiProperties: UiPropertiesFn = () => ({
+export const selectComponentUiProperties: UiPropertiesFn = (type, context) => ({
   oneOf: [{ typeof: 'string' }, { typeof: 'function' }],
   uniforms: {
     component: ToggleExpressionField({
+      autocomplete: context?.autocomplete
+        ? createAutoCompleteOptions(context.autocomplete)
+        : undefined,
       getBaseControl: (fieldProps) =>
         SelectComponent({ ...fieldProps, label: null, name: '' }),
       onToggle: (showExpression, { field, onChange }, lastValue) => {

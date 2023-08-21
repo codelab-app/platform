@@ -1,7 +1,7 @@
 import type {
+  IEvaluationContext,
   IFieldDefaultValue,
   IInterfaceType,
-  IPropData,
   IType,
   IValidationRules,
 } from '@codelab/frontend/abstract/core'
@@ -32,7 +32,7 @@ export interface UiPropertiesContext {
    * used by uiProperties
    * for code mirror
    */
-  autocomplete?: IPropData
+  autocomplete?: IEvaluationContext
   defaultValues?: IFieldDefaultValue | null
   fieldName?: string | null
   validationRules?: IValidationRules

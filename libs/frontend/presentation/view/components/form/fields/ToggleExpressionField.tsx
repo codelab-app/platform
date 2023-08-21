@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
 import { ICodeMirrorLanguage } from '@codelab/shared/abstract/core'
+import type { Completion } from '@codemirror/autocomplete'
 import type { AutoCompleteProps } from 'antd'
 import { Button, Space, Tooltip } from 'antd'
 import isNil from 'lodash/isNil'
@@ -9,7 +10,7 @@ import type { FieldProps } from 'uniforms'
 import { connectField } from 'uniforms'
 import type { ListFieldProps, SelectFieldProps } from 'uniforms-antd'
 import { BoolField, NumField, SelectField } from 'uniforms-antd'
-import { CodeMirrorEditor, createAutoCompleteOptions } from '../../codeMirror'
+import { CodeMirrorEditor } from '../../codeMirror'
 import { WrappedListField } from './WrappedListField'
 
 type InnerProps = Omit<AutoCompleteProps, 'onChange' | 'onSelect'>
@@ -17,6 +18,7 @@ type InnerProps = Omit<AutoCompleteProps, 'onChange' | 'onSelect'>
 type Value = Array<unknown> | boolean | number | string | undefined
 
 interface CodeMirrorFieldProps {
+  autocomplete?: Array<Completion>
   getBaseControl?(fieldProps: CodeMirrorConnectFieldProps): React.ReactElement
   onToggle?(
     value: boolean,
@@ -114,7 +116,7 @@ const ToggleExpression = ({
             display: block;
             margin-bottom: 12px;
           `}
-          customOptions={createAutoCompleteOptions({})}
+          customOptions={mainProps.autocomplete || []}
           language={ICodeMirrorLanguage.Javascript}
           {...fieldProps}
           value={value}
