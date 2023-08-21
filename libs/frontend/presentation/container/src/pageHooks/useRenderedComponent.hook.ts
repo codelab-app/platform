@@ -34,14 +34,10 @@ export const useRenderedComponent = () => {
       return null
     }
 
-    const pageElements = [
-      component.rootElement.current,
-      ...component.rootElement.current.descendantElements,
-    ]
-
+    const roots = [component.rootElement.current]
     const rootElement = elementService.maybeElement(component.rootElement.id)
 
-    await loadAllTypesForElements(componentService, typeService, pageElements)
+    await loadAllTypesForElements(componentService, typeService, roots)
 
     if (rootElement) {
       builderService.selectElementNode(rootElement)

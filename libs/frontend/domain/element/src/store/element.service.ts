@@ -124,11 +124,16 @@ export class ElementService
   }
 
   /**
-   * We need a separate create function for element trees
+   * If an element is created or updated with renderType atom or component
+   * that is not used yet anywhere in the current page,
+   * this will load its interface types and its fields
    */
   @modelFlow
   @transaction
-  create = _async(function* (this: ElementService, data: ICreateElementData) {
+  private loadRenderTypeInterface = _async(function* (
+    this: ElementService,
+    data: ICreateElementData,
+  ) {
     const renderTypeApi =
       data.renderType &&
       (yield* _await(
@@ -144,6 +149,17 @@ export class ElementService
       // in the current page, this will load its interface types and its fields
       yield* _await(this.typeService.getOne(renderTypeApi.id))
     }
+
+    return renderTypeApi
+  })
+
+  /**
+   * We need a separate create function for element trees
+   */
+  @modelFlow
+  @transaction
+  create = _async(function* (this: ElementService, data: ICreateElementData) {
+    const renderTypeApi = yield* _await(this.loadRenderTypeInterface(data))
 
     const elementProps = this.propService.add({
       data: data.props?.data ?? makeDefaultProps(renderTypeApi?.current),
@@ -162,10 +178,10 @@ export class ElementService
 
   @modelFlow
   @transaction
-  update = _async(function* (
-    this: ElementService,
-    { id, ...elementData }: IUpdateElementData,
-  ) {
+  update = _async(function* (this: ElementService, data: IUpdateElementData) {
+    yield* _await(this.loadRenderTypeInterface(data))
+
+    const { id, ...elementData } = data
     const element = this.element(id)
     const { id: newRenderTypeId } = elementData.renderType ?? {}
     const { id: oldRenderTypeId } = element.renderType ?? {}

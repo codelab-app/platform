@@ -88,16 +88,16 @@ export const useRenderedPage = ({
       return null
     }
 
-    const pageElements = [
+    const roots = [
       // This will load the custom components in the _app (provider page) for the regular pages since we also
       // render the elements of the provider page as part of the regular page
       ...(page.kind === PageKind.Regular
-        ? app.providerPage.rootElement.current.descendantElements
+        ? [app.providerPage.rootElement.current]
         : []),
-      ...page.rootElement.current.descendantElements,
+      page.rootElement.current,
     ]
 
-    await loadAllTypesForElements(componentService, typeService, pageElements)
+    await loadAllTypesForElements(componentService, typeService, roots)
 
     const pageRootElement = elementService.maybeElement(page.rootElement.id)
 
@@ -197,9 +197,14 @@ const getTypeIdsFromElements = (elements: Array<IElement>) => {
 export const loadAllTypesForElements = async (
   componentService: IComponentService,
   typeService: ITypeService,
-  elements: Array<IElement>,
+  roots: Array<IElement>,
 ) => {
   const loadedComponentElements: Array<IElement> = []
+
+  const elements = [
+    ...roots,
+    ...flatMap(roots.map((root) => root.descendantElements)),
+  ]
 
   // Loading custom components
   let componentsBatch = getComponentIdsFromElements(elements).filter(
