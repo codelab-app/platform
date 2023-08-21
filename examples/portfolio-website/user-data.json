@@ -632,6 +632,13 @@
             "actions": [
               {
                 "__typename": "CodeAction",
+                "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
+                "name": "loadDataFromSupabase",
+                "type": "CodeAction",
+                "code": "async function run() {\n  function formatDate(dateString) {\n    const date = new Date(dateString);\n    const monthNames = [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"];\n    const monthName = monthNames[date.getMonth()];\n    const day = date.getDate();\n    const year = date.getFullYear();\n\n    const currentDate = new Date();\n    const timeDifference = currentDate - date;\n    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));\n    const monthsDifference = Math.floor(daysDifference / 30);\n    const timeAgo = daysDifference > 30 ? `${monthsDifference}mo ago` : `${daysDifference}d ago`;\n\n    return `${monthName} ${day}, ${year} (${timeAgo})`;\n  }\n\n  if (!window.supabase) return;\n\n  if (!window.supabaseClient) {\n    const { createClient } = window.supabase;\n    const projectUrl = 'https://cicrfdknwobgyihmmvbe.supabase.co';\n    const projectPublickKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpY3JmZGtud29iZ3lpaG1tdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY1MzgwOTcsImV4cCI6MTk5MjExNDA5N30.DAU_bDvSXg_ya4V-6wk3B2VC5KtpsK4-sdRmHUkmkGo';\n    const supabaseClient = createClient(projectUrl, projectPublickKey);\n\n    window.supabaseClient = supabaseClient;\n  }\n  \n  if (!state.messages.length) {\n    const { data, error } = await window.supabaseClient.auth.getSession(); \n    const oAuthToken = data.session?.provider_token;\n    const messages = await window.supabaseClient.from('message').select();\n    const posts = await window.supabaseClient.from('posts').select();\n    const user = await window.supabaseClient.auth.getUser();\n    \n    state.user = user.data?.user?.user_metadata?.full_name;\n    state.token = oAuthToken;\n    state.messages = messages.data.reverse();\n    state.posts = posts.data.reverse().map(post => ({\n      ...post,\n      created_at: formatDate(post.created_at)\n    }));\n  }\n}"
+              },
+              {
+                "__typename": "CodeAction",
                 "id": "2990c9dc-71bb-4598-ae42-023c9dcf5436",
                 "name": "loginClick",
                 "type": "CodeAction",
@@ -650,13 +657,6 @@
                 "name": "onMessageChange",
                 "type": "CodeAction",
                 "code": "function run({ target }) {\n  state.message = target.value;\n}"
-              },
-              {
-                "__typename": "CodeAction",
-                "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
-                "name": "onSupabaseLoad",
-                "type": "CodeAction",
-                "code": "async function run() {\n  function formatDate(dateString) {\n    const date = new Date(dateString);\n    const monthNames = [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"];\n    const monthName = monthNames[date.getMonth()];\n    const day = date.getDate();\n    const year = date.getFullYear();\n\n    const currentDate = new Date();\n    const timeDifference = currentDate - date;\n    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));\n    const monthsDifference = Math.floor(daysDifference / 30);\n    const timeAgo = daysDifference > 30 ? `${monthsDifference}mo ago` : `${daysDifference}d ago`;\n\n    return `${monthName} ${day}, ${year} (${timeAgo})`;\n  }\n\n  if (!window.supabaseClient) {\n    const { createClient } = window.supabase;\n    const projectUrl = 'https://cicrfdknwobgyihmmvbe.supabase.co';\n    const projectPublickKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpY3JmZGtud29iZ3lpaG1tdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY1MzgwOTcsImV4cCI6MTk5MjExNDA5N30.DAU_bDvSXg_ya4V-6wk3B2VC5KtpsK4-sdRmHUkmkGo';\n    const supabaseClient = createClient(projectUrl, projectPublickKey);\n\n    window.supabaseClient = supabaseClient;\n  }\n  \n  if (!state.messages.length) {\n    const { data, error } = await window.supabaseClient.auth.getSession(); \n    const oAuthToken = data.session?.provider_token;\n    const messages = await window.supabaseClient.from('message').select();\n    const posts = await window.supabaseClient.from('posts').select();\n    const user = await window.supabaseClient.auth.getUser();\n    \n    state.user = user.data?.user?.user_metadata?.full_name;\n    state.token = oAuthToken;\n    state.messages = messages.data.reverse();\n    state.posts = posts.data.reverse().map(post => ({\n      ...post,\n      created_at: formatDate(post.created_at)\n    }));\n  }\n}"
               },
               {
                 "__typename": "CodeAction",
@@ -1369,7 +1369,10 @@
               "childMapperComponent": null,
               "renderIfExpression": null,
               "propTransformationJs": null,
-              "preRenderAction": null,
+              "preRenderAction": {
+                "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
+                "type": "CodeAction"
+              },
               "postRenderAction": null,
               "_compoundRefKey": null,
               "refKey": null,
