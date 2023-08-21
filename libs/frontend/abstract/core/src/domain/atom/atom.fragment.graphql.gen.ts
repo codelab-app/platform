@@ -32,8 +32,6 @@ export type ProductionAtomFragment = {
   externalCssSource?: string | null
   externalJsSource?: string | null
   externalSourceType?: string | null
-  owner: OwnerFragment
-  tags: Array<TagFragment>
   suggestedChildren: Array<{ id: string; name: string; type: Types.AtomType }>
   requiredParents: Array<{ id: string; name: string; type: Types.AtomType }>
 }
@@ -84,12 +82,6 @@ export const ProductionAtomFragmentDoc = gql`
     id
     name
     type
-    owner {
-      ...Owner
-    }
-    tags {
-      ...Tag
-    }
     suggestedChildren {
       id
       name
@@ -104,8 +96,6 @@ export const ProductionAtomFragmentDoc = gql`
     externalJsSource
     externalSourceType
   }
-  ${OwnerFragmentDoc}
-  ${TagFragmentDoc}
 `
 export const RenderAtomFragmentDoc = gql`
   fragment RenderAtom on Atom {

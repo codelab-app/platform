@@ -32,12 +32,6 @@ fragment ProductionAtom on Atom {
   id
   name
   type
-  owner {
-    ...Owner
-  }
-  tags {
-    ...Tag
-  }
   suggestedChildren {
     id
     name

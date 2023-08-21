@@ -156,10 +156,13 @@ export class AppService
        * Element comes with `component` or `atom` data that we need to load as well
        */
       if (elementData.renderAtomType?.id) {
+        this.atomService.add(elementData.renderAtomType)
+      }
+
+      if (elementData.renderAtomType?.tags) {
         elementData.renderAtomType.tags.forEach((tag) =>
           this.tagService.add(tag),
         )
-        this.atomService.add(elementData.renderAtomType)
       }
 
       if (elementData.renderAtomType?.api) {

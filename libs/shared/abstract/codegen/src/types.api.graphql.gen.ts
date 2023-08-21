@@ -22704,8 +22704,6 @@ export type ProductionAtomFragment = {
   externalCssSource?: string | null
   externalJsSource?: string | null
   externalSourceType?: string | null
-  owner: { __typename?: 'User' } & OwnerFragment
-  tags: Array<{ __typename?: 'Tag' } & TagFragment>
   suggestedChildren: Array<{
     __typename?: 'Atom'
     id: string
