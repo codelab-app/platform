@@ -1,4 +1,8 @@
-import type { IInterfaceType, IPropData } from '@codelab/frontend/abstract/core'
+import type {
+  IEvaluationContext,
+  IInterfaceType,
+  IPropData,
+} from '@codelab/frontend/abstract/core'
 import type { FormProps, SubmitRef } from '@codelab/frontend/abstract/types'
 import type { SetIsLoading } from '@codelab/frontend/presentation/view'
 import { handleFormSubmit } from '@codelab/frontend/presentation/view'
@@ -13,6 +17,7 @@ export interface PropsFormProps
       FormProps<IPropData>,
       'onSubmitError' | 'onSubmitSuccess' | 'submitField'
     > {
+  autocomplete?: IEvaluationContext
   autosave?: boolean
   cssString?: string
   initialSchema?: object
@@ -28,6 +33,7 @@ export interface PropsFormProps
  */
 export const PropsForm = observer<PropsFormProps>(
   ({
+    autocomplete,
     autosave,
     cssString,
     initialSchema,
@@ -52,6 +58,7 @@ export const PropsForm = observer<PropsFormProps>(
       >
         <InterfaceForm
           autosave={autosave}
+          context={{ autocomplete }}
           initialSchema={initialSchema}
           interfaceType={interfaceType}
           model={model || {}}

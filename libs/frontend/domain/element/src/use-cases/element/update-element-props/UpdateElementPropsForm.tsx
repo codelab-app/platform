@@ -111,6 +111,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
           <Row className="mb-5" gutter={[0, 16]}>
             <Col span={24}>
               <PropsForm
+                autocomplete={element.current.propsEvaluationContext}
                 autosave
                 initialSchema={initialSchema}
                 interfaceType={interfaceType}

@@ -1,11 +1,11 @@
 import type {
-  ActionRunnerThisObject,
   IAction,
   IActionRunner,
   IApiAction,
   IBaseResourceConfigData,
   ICodeAction,
   IElement,
+  IEvaluationContext,
   IGraphQLActionConfig,
   IPropData,
   IRenderer,
@@ -18,7 +18,7 @@ import {
   getRunnerId,
   IProp,
 } from '@codelab/frontend/abstract/core'
-import { replaceStateInProps, tryParse } from '@codelab/frontend/shared/utils'
+import { evaluateObject, tryParse } from '@codelab/frontend/shared/utils'
 import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
 import type { Axios, Method } from 'axios'
 import axios from 'axios'
@@ -26,7 +26,7 @@ import { GraphQLClient } from 'graphql-request'
 import isNil from 'lodash/isNil'
 import isString from 'lodash/isString'
 import merge from 'lodash/merge'
-import { computed, toJS } from 'mobx'
+import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
 
@@ -107,7 +107,6 @@ const create = (rootElement: IElement) => {
         actionRef: actionRef(action.id),
         elementRef: elementRef(rootElement.id),
         id: getRunnerId(store.id, action.id),
-        props,
       }),
   )
 }
@@ -118,7 +117,6 @@ export class ActionRunner
     actionRef: prop<Ref<IAction>>(),
     elementRef: prop<Ref<IElement>>(),
     id: prop<string>(),
-    props: prop<IPropData>(() => ({})),
   }))
   implements IActionRunner
 {
@@ -133,12 +131,20 @@ export class ActionRunner
   get runner() {
     return this.actionRef.current.type === IActionKind.ApiAction
       ? this.apiRunner
-      : this.codeRunner(toJS(this.props))
+      : this.codeRunner
   }
 
   @modelAction
   private replaceStateInConfig(config: IProp) {
-    return replaceStateInProps(config.values, {})
+    return evaluateObject(config.values, {
+      componentProps: {},
+      props: {},
+      refs: {},
+      rootRefs: {},
+      rootState: {},
+      state: {},
+      url: {},
+    })
   }
 
   @computed
@@ -192,17 +198,8 @@ export class ActionRunner
     return async function (...args: Array<unknown>) {
       const overrideConfig = args[1] as IPropData
       // @ts-expect-error: due to not using arrow function
-      const _this = this as ActionRunnerThisObject
-
-      const evaluatedConfig = replaceStateInProps(
-        config,
-        _this.state,
-        _this.rootState,
-        _this.props,
-        _this.refs,
-        _this.rootRefs,
-        _this.urlProps,
-      )
+      const _this = this as IEvaluationContext
+      const evaluatedConfig = evaluateObject(config, _this)
 
       const fetchPromise =
         resource.type === IResourceType.GraphQL
@@ -242,16 +239,17 @@ export class ActionRunner
     try {
       // eslint-disable-next-line no-new-func
       return new Function(
-        'props',
         `return function run(...args) {
           const state = this.state;
           const rootState = this.rootState;
           const refs = this.refs;
           const rootRefs = this.rootRefs;
-          const url = this.urlProps
+          const url = this.url;
+          const props = this.props;
+          const componentProps = this.componentProps;
           return ${(this.actionRef.current as ICodeAction).code}(...args)
         }`,
-      )
+      )()
     } catch (error) {
       console.log(error)
 

@@ -1,4 +1,7 @@
-import type { IPropData } from '@codelab/frontend/abstract/core'
+import type {
+  IEvaluationContext,
+  IPropData,
+} from '@codelab/frontend/abstract/core'
 import {
   isTypedProp,
   STATE_PATH_TEMPLATE_END,
@@ -32,26 +35,25 @@ export const stripStateExpression = (expression: string) => {
 
 export const evaluateExpression = (
   expression: string,
-  state: IPropData,
-  rootState: IPropData = {},
-  props: IPropData = {},
-  refs: IPropData = {},
-  rootRefs: IPropData = {},
-  urlProps: IPropData = {},
+  context: IEvaluationContext,
 ) => {
   try {
     const code = `return ${stripStateExpression(expression)}`
 
+    const { componentProps, props, refs, rootRefs, rootState, state, url } =
+      context
+
     // eslint-disable-next-line no-new-func
     return new Function(
-      'state',
-      'rootState',
+      'componentProps',
       'props',
       'refs',
       'rootRefs',
+      'rootState',
+      'state',
       'url',
       code,
-    )(state, rootState, props, refs, rootRefs, urlProps)
+    )(componentProps, props, refs, rootRefs, rootState, state, url)
   } catch (error) {
     console.log(error)
 
@@ -59,29 +61,13 @@ export const evaluateExpression = (
   }
 }
 
-export const replaceStateInProps = (
-  props: IPropData,
-  state: IPropData = {},
-  rootState: IPropData = {},
-  injectedProps: IPropData = {},
-  refs: IPropData = {},
-  rootRefs: IPropData = {},
-  urlProps: IPropData = {},
-) =>
+export const evaluateObject = (props: IPropData, context: IEvaluationContext) =>
   mapDeep(
     props,
     // value mapper
     (value) => {
       if (isString(value)) {
-        return getByExpression(
-          value,
-          state,
-          rootState,
-          injectedProps,
-          refs,
-          rootRefs,
-          urlProps,
-        )
+        return getByExpression(value, context)
       }
 
       // ReactNodeType can accept a string and will be rendered as a normal html node
@@ -98,29 +84,10 @@ export const replaceStateInProps = (
       return value
     },
     // key mapper
-    (_, key) =>
-      (isString(key)
-        ? getByExpression(
-            key,
-            state,
-            rootState,
-            injectedProps,
-            refs,
-            rootRefs,
-            urlProps,
-          )
-        : key) as string,
+    (_, key) => (isString(key) ? getByExpression(key, context) : key) as string,
   )
 
-const getByExpression = (
-  key: string,
-  state: IPropData,
-  rootState: IPropData,
-  props: IPropData = {},
-  refs: IPropData = {},
-  rootRefs: IPropData = {},
-  urlProps: IPropData = {},
-) => {
+const getByExpression = (key: string, context: IEvaluationContext) => {
   if (!hasStateExpression(key)) {
     return key
   }
@@ -129,29 +96,13 @@ const getByExpression = (
    * return typed value for : {{expression}}
    */
   if (isSingleStateExpression(key)) {
-    return evaluateExpression(
-      key,
-      state,
-      rootState,
-      props,
-      refs,
-      rootRefs,
-      urlProps,
-    )
+    return evaluateExpression(key, context)
   }
 
   /**
    * return string value for : [text1]? {{expression1}} [text2]? {{expression2}}...
    */
   return key.replace(STATE_PATH_TEMPLATE_REGEX, (value) =>
-    evaluateExpression(
-      value,
-      state,
-      rootState,
-      props,
-      refs,
-      rootRefs,
-      urlProps,
-    ),
+    evaluateExpression(value, context),
   )
 }

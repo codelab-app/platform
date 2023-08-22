@@ -1,6 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import type { IActionType } from '@codelab/frontend/abstract/core'
-import { ToggleExpressionField } from '@codelab/frontend/presentation/view'
+import {
+  createAutoCompleteOptions,
+  ToggleExpressionField,
+} from '@codelab/frontend/presentation/view'
 import { SelectAction } from '../fields'
 import type { UiPropertiesFn } from '../types'
 
@@ -11,11 +14,17 @@ const ACTION_TEMPLATE = `{{
   }
 }}`
 
-export const actionTypeUiProperties: UiPropertiesFn<IActionType> = () => {
+export const actionTypeUiProperties: UiPropertiesFn<IActionType> = (
+  type,
+  context,
+) => {
   return {
     oneOf: [{ typeof: 'string' }, { typeof: 'function' }],
     uniforms: {
       component: ToggleExpressionField({
+        autocomplete: context?.autocomplete
+          ? createAutoCompleteOptions(context.autocomplete)
+          : undefined,
         getBaseControl: (fieldProps) =>
           SelectAction({
             ...fieldProps,

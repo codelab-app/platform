@@ -1,14 +1,21 @@
 import type { IEnumType } from '@codelab/frontend/abstract/core'
-import { ToggleExpressionField } from '@codelab/frontend/presentation/view'
+import {
+  createAutoCompleteOptions,
+  ToggleExpressionField,
+} from '@codelab/frontend/presentation/view'
 import type { UiPropertiesFn } from '../types'
 
 export const enumTypeUiProperties: UiPropertiesFn<IEnumType> = (
   type: IEnumType,
+  context,
 ) => {
   return {
     enum: type.allowedValues.map((allowedValue) => allowedValue.value),
     uniforms: {
       component: ToggleExpressionField({
+        autocomplete: context?.autocomplete
+          ? createAutoCompleteOptions(context.autocomplete)
+          : undefined,
         onToggle: (showExpression, { field, onChange, value }, lastValue) => {
           if (showExpression) {
             onChange(lastValue ?? `{{'${value ?? field.default ?? ''}'}}`)

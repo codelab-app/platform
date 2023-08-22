@@ -4,7 +4,7 @@ import type {
   IElementRuntimeProp,
 } from '@codelab/frontend/abstract/core'
 import { DATA_COMPONENT_ID, IPropData } from '@codelab/frontend/abstract/core'
-import { replaceStateInProps } from '@codelab/frontend/shared/utils'
+import { evaluateObject } from '@codelab/frontend/shared/utils'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
 import { computed } from 'mobx'
@@ -61,15 +61,28 @@ export class ComponentRuntimeProps
 
   @computed
   get evaluatedProps() {
-    return replaceStateInProps(
-      this.renderedTypedProps,
-      this.node.store.current.state,
-    )
+    return evaluateObject(this.renderedTypedProps, {
+      componentProps: {},
+      props: {},
+      refs: this.node.store.current.refs,
+      rootRefs: {},
+      rootState: {},
+      state: this.node.store.current.state,
+      url: {},
+    })
   }
 
   @computed
   get evaluatedPropsBeforeRender() {
-    return replaceStateInProps(this.props, this.node.store.current.state)
+    return evaluateObject(this.props, {
+      componentProps: {},
+      props: {},
+      refs: this.node.store.current.refs,
+      rootRefs: {},
+      rootState: {},
+      state: this.node.store.current.state,
+      url: {},
+    })
   }
 
   @computed

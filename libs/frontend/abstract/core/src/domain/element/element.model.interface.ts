@@ -49,6 +49,16 @@ export interface RenderingMetadata {
 
 export type TransformPropsFn = (props: IPropData) => IPropData
 
+export interface IEvaluationContext {
+  componentProps: IPropData
+  props: IPropData
+  refs: IPropData
+  rootRefs: IPropData
+  rootState: IPropData
+  state: IPropData
+  url: IPropData
+}
+
 export interface IElement
   extends Omit<
       IModel<ElementCreateInput, ElementUpdateInput, void>,
@@ -69,6 +79,8 @@ export interface IElement
   customCss?: Nullable<string>
   // This is a computed property, so we can use model instead of ref
   descendantElements: Array<IElement>
+  // used for expressions evaluation
+  expressionEvaluationContext: IEvaluationContext
   firstChild?: Nullable<Ref<IElement>>
   guiCss?: Nullable<string>
   hooks: Array<IHook>
@@ -88,6 +100,8 @@ export interface IElement
   prevSibling?: Nullable<Ref<IElement>>
   propTransformationJs: Nullable<string>
   props: Ref<IProp>
+  // same as expressionEvaluationContext but without props
+  propsEvaluationContext: IEvaluationContext
   propsHaveErrors: boolean | null
   // store attached to the provider page
   providerStore?: Ref<IStore>

@@ -1,27 +1,27 @@
-import type { IPropData } from '@codelab/frontend/abstract/core'
+import type {
+  IEvaluationContext,
+  IPropData,
+} from '@codelab/frontend/abstract/core'
+import { isCyclic, propSafeStringify } from '@codelab/shared/utils'
 import type { Completion } from '@codemirror/autocomplete'
 import capitalize from 'lodash/capitalize'
 import isArray from 'lodash/isArray'
 import isElement from 'lodash/isElement'
 import isObjectLike from 'lodash/isObjectLike'
-import { modelTypeKey } from 'mobx-keystone'
 
-const isReactNode = (obj?: IPropData) => Boolean(obj?.['$$typeof'])
-const isMobxModel = (obj?: IPropData) => Boolean(obj?.[modelTypeKey])
-const isHtmlNode = (obj: unknown) => obj instanceof HTMLElement
-
-const isCyclic = (obj?: IPropData) =>
-  (isObjectLike(obj) && isReactNode(obj)) || isMobxModel(obj) || isHtmlNode(obj)
-
-// for making autocomplete of code mirror
-export const createAutoCompleteOptions = (
+const getSectionOptions = (
   context: IPropData = {},
-  parentKey = '',
-): Array<Completion> => {
-  return Object.entries(context).flatMap(([key, value]) => {
-    const option = {
+  parentKey: string,
+  sectionName: string,
+): Array<Completion> =>
+  Object.entries(context).flatMap(([key, value]) => {
+    const fullKey = `${parentKey}.${key}`
+
+    const option: Completion = {
       detail: capitalize(typeof value),
-      label: parentKey ? `${parentKey}.${key}` : key,
+      info: propSafeStringify({ value }),
+      label: fullKey,
+      section: { name: sectionName },
       type: typeof value == 'function' ? 'function' : 'variable',
     }
 
@@ -31,16 +31,34 @@ export const createAutoCompleteOptions = (
 
     if (isArray(value)) {
       const children = value.flatMap((_value, index) =>
-        createAutoCompleteOptions(_value, `${key}.${index}`),
+        getSectionOptions(_value, `${fullKey}.${index}`, sectionName),
       )
 
       return [option, ...children]
     }
 
     if (isObjectLike(value) && !isElement(value)) {
-      return [option, ...createAutoCompleteOptions(value, key)]
+      return [option, ...getSectionOptions(value, fullKey, sectionName)]
     }
 
     return [option]
   })
-}
+
+// for making autocomplete of code mirror
+export const createAutoCompleteOptions = ({
+  componentProps,
+  props,
+  refs,
+  rootRefs,
+  rootState,
+  state,
+  url,
+}: IEvaluationContext): Array<Completion> => [
+  ...getSectionOptions(componentProps, 'componentProps', 'Component Props'),
+  ...getSectionOptions(props, 'props', 'Element Props'),
+  ...getSectionOptions(state, 'state', 'Store State'),
+  ...getSectionOptions(refs, 'refs', 'References'),
+  ...getSectionOptions(rootState, 'rootState', 'Root State'),
+  ...getSectionOptions(rootRefs, 'rootRefs', 'Root References'),
+  ...getSectionOptions(url, 'url', 'Urls'),
+]

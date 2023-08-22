@@ -1,4 +1,4 @@
-import type { IElement, IPropData } from '@codelab/frontend/abstract/core'
+import type { IElement } from '@codelab/frontend/abstract/core'
 import { SelectComponent } from '@codelab/frontend/domain/type'
 import {
   AutoCompleteField,
@@ -11,10 +11,9 @@ import { SelectLinkElement } from './SelectLinkElement'
 
 interface ChildMapperFieldsProps {
   element: IElement
-  propsData: IPropData
 }
 
-const ChildMapperFields = ({ element, propsData }: ChildMapperFieldsProps) => {
+const ChildMapperFields = ({ element }: ChildMapperFieldsProps) => {
   const [childMapperComponentFieldProps] = useField<{ value?: IEntity }>(
     'childMapperComponent',
     {},
@@ -31,7 +30,7 @@ const ChildMapperFields = ({ element, propsData }: ChildMapperFieldsProps) => {
         filterOption
         label={null}
         name="childMapperPropKey"
-        options={Object.keys(propsData)
+        options={Object.keys(element.expressionEvaluationContext)
           .sort()
           .map((label) => ({ label, value: label }))}
       />

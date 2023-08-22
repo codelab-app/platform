@@ -16,7 +16,6 @@ import {
   CUSTOM_TEXT_PROP_KEY,
   elementRef,
   elementTreeRef,
-  getActionRunnerThisObject,
   getRendererId,
   getRunnerId,
   IElement,
@@ -205,15 +204,9 @@ export class Renderer
       )
 
       if (preRenderActionRunner) {
-        const _this = getActionRunnerThisObject(
-          preRenderActionRunner,
-          element.store,
-          element.providerStore,
-          undefined,
-          this.urlSegments,
+        const runner = preRenderActionRunner.runner.bind(
+          element.expressionEvaluationContext,
         )
-
-        const runner = preRenderActionRunner.runner.bind(_this)
 
         runner()
       }

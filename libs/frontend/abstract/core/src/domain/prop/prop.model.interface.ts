@@ -35,7 +35,3 @@ export type IPropData = Record<string, any>
 export interface IPropDataByElementId {
   [id: IElement['id']]: IPropData
 }
-
-export interface IPropsFieldContext {
-  autocomplete?: IPropData
-}
