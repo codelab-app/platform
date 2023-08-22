@@ -15,7 +15,10 @@ import {
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { Component } from '@codelab/frontend/domain/component'
 import { getPropService } from '@codelab/frontend/domain/prop'
-import { getActionService } from '@codelab/frontend/domain/store'
+import {
+  getActionService,
+  getStoreService,
+} from '@codelab/frontend/domain/store'
 import { getFieldService, getTypeService } from '@codelab/frontend/domain/type'
 import {
   RenderedComponentFragment,
@@ -119,6 +122,11 @@ export class ElementService
   @computed
   private get fieldService() {
     return getFieldService(this)
+  }
+
+  @computed
+  private get storeService() {
+    return getStoreService(this)
   }
 
   @modelAction
@@ -818,7 +826,7 @@ export class ElementService
       new Map<string, string>(),
     )
 
-    // Update element's and its descendants props values to use new action ids
+    // Update element and its descendants props values to use new action ids
     const elementAndDescendantsProps = [
       element.props.current,
       ...element.descendantElements.map(
@@ -854,6 +862,10 @@ export class ElementService
         })
       }),
     )
+
+    // This is required to load the added actions and fields into the component store
+    // otherwise the actions won't be available until the page is refreshed
+    await this.storeService.getOne(componentStore.id)
   }
 
   @modelFlow
