@@ -775,6 +775,21 @@ export class ElementService
     return createdElements
   })
 
+  private async copyElementStoreToComponentStore(
+    element: IElement,
+    component: IComponent,
+  ) {
+    const elementStore = element.store.current
+    const componentStore = component.store.current
+
+    // Duplicate actions into the component store
+    const clonedActions = await Promise.all(
+      elementStore.actions.map((action) =>
+        this.actionService.cloneAction(action.current, componentStore.id),
+      ),
+    )
+  }
+
   @modelFlow
   @transaction
   convertElementToComponent = _async(function* (
@@ -798,17 +813,8 @@ export class ElementService
       this.componentService.create({ id: v4(), name, owner }),
     )
 
-    const elementActions = element.store.current.actions
-
-    const newActions = yield* _await(
-      Promise.all(
-        elementActions.map((action) =>
-          this.actionService.cloneAction(
-            action.current,
-            createdComponent.store.id,
-          ),
-        ),
-      ),
+    yield* _await(
+      this.copyElementStoreToComponentStore(element, createdComponent),
     )
 
     // 3. detach the element from the element tree
