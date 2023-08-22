@@ -15,7 +15,7 @@ import { getAtomService } from '@codelab/frontend/domain/atom'
 import { Component } from '@codelab/frontend/domain/component'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { getActionService } from '@codelab/frontend/domain/store'
-import { getTypeService } from '@codelab/frontend/domain/type'
+import { getFieldService, getTypeService } from '@codelab/frontend/domain/type'
 import {
   RenderedComponentFragment,
   RenderTypeKind,
@@ -112,6 +112,11 @@ export class ElementService
   @computed
   private get actionService() {
     return getActionService(this)
+  }
+
+  @computed
+  private get fieldService() {
+    return getFieldService(this)
   }
 
   @modelAction
@@ -781,6 +786,13 @@ export class ElementService
   ) {
     const elementStore = element.store.current
     const componentStore = component.store.current
+
+    // Duplicate state fields into the component store api
+    await Promise.all(
+      elementStore.api.current.fields.map((field) =>
+        this.fieldService.cloneField(field, componentStore.api.current.id),
+      ),
+    )
 
     // Duplicate actions into the component store
     const clonedActions = await Promise.all(
