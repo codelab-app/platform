@@ -73,8 +73,16 @@ export const bypassExpressionErrors = (
   errors?: { details: Array<ErrorObject> },
 ) => {
   const allExpressionErrors = errors?.details.every((err) => {
-    // instancePath has "/" pre-pended
-    const errorValue = get(formData, err.instancePath.slice(1))
+    // instancePath has "/" at the start and every sub-property
+    // wrapping prop keys with [] is easier and works in case a sub-property is an array
+    // e.g. `object.items[0].title` will also work with `object['items'][0]['title']`
+    const propPath = err.instancePath
+      .slice(1)
+      .split('/')
+      .map((path) => `[${path}]`)
+      .join('')
+
+    const errorValue = get(formData, propPath)
     const possiblyTypedPropValue = errorValue as IPropData
 
     // Accept a react node type that has an expression value

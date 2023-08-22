@@ -15,6 +15,9 @@
         "id": "399e93d0-612b-4add-85b6-620f2b82ae4e"
       },
       {
+        "id": "a49222ac-9d9c-449f-a1fa-19b58aa62356"
+      },
+      {
         "id": "b15b98c3-7551-40a9-b04f-0f94c07d31c9"
       },
       {
@@ -115,6 +118,23 @@
       "description": null,
       "validationRules": null,
       "defaultValues": null,
+      "fieldType": {
+        "__typename": "PrimitiveType",
+        "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+        "kind": "PrimitiveType",
+        "name": "Boolean"
+      },
+      "api": {
+        "id": "5bfc79a7-076a-45ac-b49b-9af417dd859e"
+      }
+    },
+    {
+      "id": "a49222ac-9d9c-449f-a1fa-19b58aa62356",
+      "key": "forceRender",
+      "name": "Force Render",
+      "description": null,
+      "validationRules": "{}",
+      "defaultValues": "true",
       "fieldType": {
         "__typename": "PrimitiveType",
         "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
