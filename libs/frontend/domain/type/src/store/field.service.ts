@@ -23,6 +23,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { FieldRepository } from '../services/field.repo'
 import { CreateFieldFormService, FieldFormService } from './field-form.service'
 import {
@@ -286,6 +287,48 @@ export class FieldService
       ),
     )
   })
+
+  @modelFlow
+  @transaction
+  cloneField = _async(function* (
+    this: FieldService,
+    field: IField,
+    apiId: string,
+  ) {
+    const fieldDto = {
+      ...FieldService.mapFieldToDTO(field),
+      api: { id: apiId },
+      id: v4(),
+    }
+
+    const newField = this.add(fieldDto)
+    const interfaceType = this.typeService.type(apiId) as IInterfaceType
+
+    interfaceType.writeCache({
+      fields: [{ id: newField.id }],
+    })
+
+    yield* _await(this.fieldRepository.add(newField))
+
+    return newField
+  })
+
+  private static mapFieldToDTO(field: IField): IFieldDTO {
+    return {
+      api: { id: field.api.id },
+      defaultValues: field.defaultValues
+        ? JSON.stringify(field.defaultValues)
+        : null,
+      description: field.description,
+      fieldType: { id: field.type.id },
+      id: field.id,
+      key: field.key,
+      name: field.name,
+      validationRules: field.validationRules
+        ? JSON.stringify(field.validationRules)
+        : null,
+    }
+  }
 
   private static mapDataToDTO(fieldData: ICreateFieldData) {
     return {

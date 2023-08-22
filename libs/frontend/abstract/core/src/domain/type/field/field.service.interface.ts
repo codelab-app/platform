@@ -41,6 +41,7 @@ export interface IFieldService
   fieldRepository: IFieldRepository
   fields: ObjectMap<IField>
   add(fieldDTO: IFieldDTO): IField
+  cloneField(field: IField, apiId: string): Promise<IField>
   delete(fields: Array<IField>): Promise<number>
   getField(id: string): Maybe<IField<IType>>
   load(fields: Array<FieldFragment>): void
