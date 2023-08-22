@@ -3,13 +3,13 @@
     {
       "domains": [
         {
-          "id": "b13b5b1c-bc99-4fae-9bd9-baa4eedf6117",
-          "name": "test-local.com",
+          "id": "c0f5c759-ae65-4b04-876a-f75fac32b1f3",
+          "name": "codelab-demo.online",
           "app": { "id": "e95f416d-bd72-4b46-b6bb-a186740bd875" }
         },
         {
-          "id": "c0f5c759-ae65-4b04-876a-f75fac32b1f3",
-          "name": "codelab-demo.online",
+          "id": "b13b5b1c-bc99-4fae-9bd9-baa4eedf6117",
+          "name": "test-local.com",
           "app": { "id": "e95f416d-bd72-4b46-b6bb-a186740bd875" }
         }
       ],
@@ -577,6 +577,23 @@
                   "api": { "id": "4e13bb44-abc5-4b67-b18a-604a9edf479d" }
                 },
                 {
+                  "id": "c6ad5f72-2146-4c5e-aa53-00abf7e8651d",
+                  "key": "post",
+                  "name": null,
+                  "description": null,
+                  "validationRules": "{}",
+                  "defaultValues": "null",
+                  "prevSibling": null,
+                  "nextSibling": null,
+                  "fieldType": {
+                    "__typename": "InterfaceType",
+                    "id": "5f71c0de-924a-4d2b-92bc-baca0f066ba2",
+                    "kind": "InterfaceType",
+                    "name": "Post"
+                  },
+                  "api": { "id": "4e13bb44-abc5-4b67-b18a-604a9edf479d" }
+                },
+                {
                   "id": "c9980e9f-1c52-42ba-b4b1-56e4d4a25cc2",
                   "key": "posts",
                   "name": null,
@@ -635,7 +652,7 @@
                 "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
                 "name": "loadDataFromSupabase",
                 "type": "CodeAction",
-                "code": "async function run() {\n  function formatDate(dateString) {\n    const date = new Date(dateString);\n    const monthNames = [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"];\n    const monthName = monthNames[date.getMonth()];\n    const day = date.getDate();\n    const year = date.getFullYear();\n\n    const currentDate = new Date();\n    const timeDifference = currentDate - date;\n    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));\n    const monthsDifference = Math.floor(daysDifference / 30);\n    const timeAgo = daysDifference > 30 ? `${monthsDifference}mo ago` : `${daysDifference}d ago`;\n\n    return `${monthName} ${day}, ${year} (${timeAgo})`;\n  }\n\n  if (!window.supabase) return;\n\n  if (!window.supabaseClient) {\n    const { createClient } = window.supabase;\n    const projectUrl = 'https://cicrfdknwobgyihmmvbe.supabase.co';\n    const projectPublickKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpY3JmZGtud29iZ3lpaG1tdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY1MzgwOTcsImV4cCI6MTk5MjExNDA5N30.DAU_bDvSXg_ya4V-6wk3B2VC5KtpsK4-sdRmHUkmkGo';\n    const supabaseClient = createClient(projectUrl, projectPublickKey);\n\n    window.supabaseClient = supabaseClient;\n  }\n  \n  if (!state.messages.length) {\n    const { data, error } = await window.supabaseClient.auth.getSession(); \n    const oAuthToken = data.session?.provider_token;\n    const messages = await window.supabaseClient.from('message').select();\n    const posts = await window.supabaseClient.from('posts').select();\n    const user = await window.supabaseClient.auth.getUser();\n    \n    state.user = user.data?.user?.user_metadata?.full_name;\n    state.token = oAuthToken;\n    state.messages = messages.data.reverse();\n    state.posts = posts.data.reverse().map(post => ({\n      ...post,\n      created_at: formatDate(post.created_at)\n    }));\n  }\n}"
+                "code": "async function run() {\n  function formatDate(dateString) {\n    const date = new Date(dateString);\n    const monthNames = [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"];\n    const monthName = monthNames[date.getMonth()];\n    const day = date.getDate();\n    const year = date.getFullYear();\n\n    const currentDate = new Date();\n    const timeDifference = currentDate - date;\n    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));\n    const monthsDifference = Math.floor(daysDifference / 30);\n    const timeAgo = daysDifference > 30 ? `${monthsDifference}mo ago` : `${daysDifference}d ago`;\n\n    return `${monthName} ${day}, ${year} (${timeAgo})`;\n  }\n\n  if (!window.supabase) return;\n\n  if (!window.supabaseClient) {\n    const { createClient } = window.supabase;\n    const projectUrl = 'https://cicrfdknwobgyihmmvbe.supabase.co';\n    const projectPublickKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpY3JmZGtud29iZ3lpaG1tdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY1MzgwOTcsImV4cCI6MTk5MjExNDA5N30.DAU_bDvSXg_ya4V-6wk3B2VC5KtpsK4-sdRmHUkmkGo';\n    const supabaseClient = createClient(projectUrl, projectPublickKey);\n\n    window.supabaseClient = supabaseClient;\n  }\n  \n  if (!state.messages.length || !state.posts.length) {\n    const { data, error } = await window.supabaseClient.auth.getSession(); \n    const oAuthToken = data.session?.provider_token;\n    const messages = await window.supabaseClient.from('message').select();\n    const posts = await window.supabaseClient.from('posts').select();\n    const user = await window.supabaseClient.auth.getUser();\n    \n    state.user = user.data?.user?.user_metadata?.full_name;\n    state.token = oAuthToken;\n    state.messages = messages.data.reverse();\n    state.posts = posts.data.reverse().map(post => ({\n      ...post,\n      created_at: formatDate(post.created_at)\n    }));\n  }\n\n  if (!state.post) {\n    debugger\n    state.post = state.posts.find(post => post.id == url.postId);\n  }\n}"
               },
               {
                 "__typename": "CodeAction",
@@ -1452,13 +1469,16 @@
             {
               "id": "770913d4-e03d-4492-b7f4-d91cd2d8db94",
               "name": "Posts Spinner",
-              "customCss": "margin-top: 1rem;\n\n.ant-spin-dot-item {\n  background-color: gray;\n}",
+              "customCss": null,
               "guiCss": null,
               "parentComponent": null,
-              "renderComponentType": null,
+              "renderComponentType": {
+                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
+                "name": "Spin"
+              },
               "renderType": {
-                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
-                "kind": "Atom"
+                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
+                "kind": "Component"
               },
               "parent": null,
               "prevSibling": { "id": "643a26a4-5a1d-4a12-9019-5bde8579bdcc" },
@@ -1467,41 +1487,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "892b0d91-406a-469d-8dc3-4c79aeb1c54b",
-                "data": "{\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"spinning\":\"{{rootState.posts?.length === 0}}\"}"
-              },
-              "renderForEachPropKey": null,
-              "childMapperPropKey": null,
-              "childMapperComponent": null,
-              "renderIfExpression": null,
-              "propTransformationJs": null,
-              "preRenderAction": null,
-              "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
-              "renderAtomType": {
-                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
-                "name": "AntDesignSpin"
-              }
-            },
-            {
-              "id": "0d693472-497b-4ba2-8713-ec04d13c338b",
-              "name": "Blog Post",
-              "customCss": null,
-              "guiCss": null,
-              "parentComponent": {
-                "id": "89e5750c-c3a5-4dc1-970f-21accc0a6ec0",
-                "name": "Blog Post"
-              },
-              "renderComponentType": null,
-              "renderType": null,
-              "parent": null,
-              "prevSibling": null,
-              "nextSibling": null,
-              "firstChild": { "id": "1b604fd3-992a-4f48-b396-00683a3e31cd" },
-              "childMapperPreviousSibling": null,
-              "props": {
-                "id": "8b302efc-387f-4c9d-99c2-0591cc903319",
-                "data": "{}"
+                "data": "{\"show\":\"{{rootState.posts?.length === 0}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1513,6 +1499,43 @@
               "_compoundRefKey": null,
               "refKey": null,
               "renderAtomType": null
+            },
+            {
+              "id": "0d693472-497b-4ba2-8713-ec04d13c338b",
+              "name": "Blog Post",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": {
+                "id": "89e5750c-c3a5-4dc1-970f-21accc0a6ec0",
+                "name": "Blog Post"
+              },
+              "renderComponentType": null,
+              "renderType": {
+                "id": "ae02dc9a-6849-4df0-9d45-823fb3a5d064",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": { "id": "1b604fd3-992a-4f48-b396-00683a3e31cd" },
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "8b302efc-387f-4c9d-99c2-0591cc903319",
+                "data": "{\"href\":\"/blog/{{props.id}}\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "_compoundRefKey": null,
+              "refKey": null,
+              "renderAtomType": {
+                "id": "ae02dc9a-6849-4df0-9d45-823fb3a5d064",
+                "name": "NextLink"
+              }
             },
             {
               "id": "1b604fd3-992a-4f48-b396-00683a3e31cd",
@@ -1618,6 +1641,43 @@
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "name": "AntDesignTypographyParagraph"
               }
+            },
+            {
+              "id": "5f2c67fc-7d5d-471a-a3fc-2c4b50322ff2",
+              "name": "Spin",
+              "customCss": "margin-top: 2rem;\n\n.ant-spin-dot-item {\n  background-color: gray;\n}",
+              "guiCss": null,
+              "parentComponent": {
+                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
+                "name": "Spin"
+              },
+              "renderComponentType": null,
+              "renderType": {
+                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "cf21a16c-e64b-40ad-b47e-b97849ab2796",
+                "data": "{\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"spinning\":\"{{props.show}}\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "_compoundRefKey": null,
+              "refKey": null,
+              "renderAtomType": {
+                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
+                "name": "AntDesignSpin"
+              }
             }
           ],
           "id": "f3a4d506-6737-4857-a55f-5b03e72d49b0",
@@ -1643,6 +1703,40 @@
         },
         {
           "elements": [
+            {
+              "id": "9e315c8b-b704-4798-a008-3b68284ead8b",
+              "name": "Create Date",
+              "customCss": "margin-top: -1rem;\n\np {\n  color: #a3a3a3 !important;\n}",
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "ff391359-f3b7-49d9-b5ec-d19bcdc0655a" },
+              "nextSibling": { "id": "e16889f2-f7fd-4392-981c-e3364dba2463" },
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "8cdb2278-5b8a-4a7e-8bf2-a9033399e5ce",
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>{{rootState.post?.created_at ?? ''}}</p>\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "_compoundRefKey": null,
+              "refKey": null,
+              "renderAtomType": {
+                "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
+                "name": "AntDesignTypographyText"
+              }
+            },
             {
               "id": "4084b13f-8293-45e1-a8a7-fdc15338235e",
               "name": "Body",
@@ -1690,12 +1784,80 @@
               },
               "parent": { "id": "4084b13f-8293-45e1-a8a7-fdc15338235e" },
               "prevSibling": null,
-              "nextSibling": null,
+              "nextSibling": { "id": "ff391359-f3b7-49d9-b5ec-d19bcdc0655a" },
               "firstChild": null,
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "e829b7da-810d-4b6a-ab8c-5411e6150a24",
-                "data": "{\"label\":\"Link Label\",\"href\":\"/\",\"text\":\"{{state.post?.title}}\"}"
+                "data": "{\"label\":\"Link Label\",\"href\":\"/\",\"text\":\"{{rootState.post?.title ?? ''}}\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "_compoundRefKey": null,
+              "refKey": null,
+              "renderAtomType": null
+            },
+            {
+              "id": "e16889f2-f7fd-4392-981c-e3364dba2463",
+              "name": "Blog Content",
+              "customCss": "margin-top: 1rem;",
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": null,
+              "renderType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": { "id": "9e315c8b-b704-4798-a008-3b68284ead8b" },
+              "nextSibling": null,
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "e99ae74a-c079-4b21-94f2-07dd969e175b",
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>{{rootState.post?.content ?? ''}}</p>\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "_compoundRefKey": null,
+              "refKey": null,
+              "renderAtomType": {
+                "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+                "name": "AntDesignTypographyParagraph"
+              }
+            },
+            {
+              "id": "ff391359-f3b7-49d9-b5ec-d19bcdc0655a",
+              "name": "Spinner",
+              "customCss": null,
+              "guiCss": null,
+              "parentComponent": null,
+              "renderComponentType": {
+                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
+                "name": "Spin"
+              },
+              "renderType": {
+                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
+                "kind": "Component"
+              },
+              "parent": null,
+              "prevSibling": { "id": "c43a1cea-51ff-4ede-b5ae-297aab3d627e" },
+              "nextSibling": { "id": "9e315c8b-b704-4798-a008-3b68284ead8b" },
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "c4b79519-7703-4d33-94b7-1806f0a2c8e5",
+                "data": "{\"show\":\"{{!rootState.post}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1744,6 +1906,43 @@
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "name": "AntDesignTypographyParagraph"
               }
+            },
+            {
+              "id": "5f2c67fc-7d5d-471a-a3fc-2c4b50322ff2",
+              "name": "Spin",
+              "customCss": "margin-top: 2rem;\n\n.ant-spin-dot-item {\n  background-color: gray;\n}",
+              "guiCss": null,
+              "parentComponent": {
+                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
+                "name": "Spin"
+              },
+              "renderComponentType": null,
+              "renderType": {
+                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "cf21a16c-e64b-40ad-b47e-b97849ab2796",
+                "data": "{\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"spinning\":\"{{props.show}}\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "_compoundRefKey": null,
+              "refKey": null,
+              "renderAtomType": {
+                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
+                "name": "AntDesignSpin"
+              }
             }
           ],
           "id": "14e09a14-62c3-4a5f-bec3-9b43747bb21d",
@@ -1761,25 +1960,7 @@
               "id": "4cbc8bce-97ab-4e54-85cf-537e1e2bf4c1",
               "kind": "InterfaceType",
               "name": "Portfolio Website(gm.vpolishchuk) Blog Post Store API",
-              "fields": [
-                {
-                  "id": "6ae245aa-b5a0-4e59-a7a5-18b428e9b9cc",
-                  "key": "post",
-                  "name": null,
-                  "description": null,
-                  "validationRules": "{}",
-                  "defaultValues": "{}",
-                  "prevSibling": null,
-                  "nextSibling": null,
-                  "fieldType": {
-                    "__typename": "InterfaceType",
-                    "id": "5f71c0de-924a-4d2b-92bc-baca0f066ba2",
-                    "kind": "InterfaceType",
-                    "name": "Post"
-                  },
-                  "api": { "id": "4cbc8bce-97ab-4e54-85cf-537e1e2bf4c1" }
-                }
-              ]
+              "fields": []
             },
             "actions": []
           },
@@ -1967,7 +2148,7 @@
               },
               "parent": null,
               "prevSibling": { "id": "94b5215b-2b36-477c-acfd-4c1ff0df1890" },
-              "nextSibling": { "id": "ece4af6c-3a59-4797-bfa1-e507e829f33d" },
+              "nextSibling": { "id": "41a8a07d-42e8-4717-bc60-c7fdfd610f0f" },
               "firstChild": { "id": "9ce5a02b-97bd-463e-af3b-4572ddf44d8b" },
               "childMapperPreviousSibling": null,
               "props": {
@@ -2170,7 +2351,7 @@
                 "kind": "Atom"
               },
               "parent": null,
-              "prevSibling": { "id": "ece4af6c-3a59-4797-bfa1-e507e829f33d" },
+              "prevSibling": { "id": "41a8a07d-42e8-4717-bc60-c7fdfd610f0f" },
               "nextSibling": null,
               "firstChild": null,
               "childMapperPreviousSibling": null,
@@ -2196,15 +2377,18 @@
               }
             },
             {
-              "id": "ece4af6c-3a59-4797-bfa1-e507e829f33d",
-              "name": "Messages Spin",
-              "customCss": "margin-top: 2rem;\n\n.ant-spin-dot-item {\n  background-color: gray;\n}",
+              "id": "41a8a07d-42e8-4717-bc60-c7fdfd610f0f",
+              "name": "Spinner",
+              "customCss": null,
               "guiCss": null,
               "parentComponent": null,
-              "renderComponentType": null,
+              "renderComponentType": {
+                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
+                "name": "Spin"
+              },
               "renderType": {
-                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
-                "kind": "Atom"
+                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
+                "kind": "Component"
               },
               "parent": null,
               "prevSibling": { "id": "350fca05-1a63-4e3d-8da4-acd12cc75729" },
@@ -2212,22 +2396,19 @@
               "firstChild": null,
               "childMapperPreviousSibling": null,
               "props": {
-                "id": "aae2bd3e-a93b-435a-bfe8-947bcd1d8367",
-                "data": "{}"
+                "id": "25df4fb7-2041-41cb-83ed-7aba19d570f2",
+                "data": "{\"show\":\"{{rootState.messages?.length === 0}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
               "childMapperComponent": null,
-              "renderIfExpression": "{{rootState.messages.length === 0}}",
+              "renderIfExpression": null,
               "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
               "_compoundRefKey": null,
               "refKey": null,
-              "renderAtomType": {
-                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
-                "name": "AntDesignSpin"
-              }
+              "renderAtomType": null
             },
             {
               "id": "10abe9dc-dc98-4914-a38d-c301f34bfc0a",
@@ -2363,6 +2544,43 @@
               "renderAtomType": {
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "name": "AntDesignTypographyParagraph"
+              }
+            },
+            {
+              "id": "5f2c67fc-7d5d-471a-a3fc-2c4b50322ff2",
+              "name": "Spin",
+              "customCss": "margin-top: 2rem;\n\n.ant-spin-dot-item {\n  background-color: gray;\n}",
+              "guiCss": null,
+              "parentComponent": {
+                "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
+                "name": "Spin"
+              },
+              "renderComponentType": null,
+              "renderType": {
+                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
+                "kind": "Atom"
+              },
+              "parent": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "firstChild": null,
+              "childMapperPreviousSibling": null,
+              "props": {
+                "id": "cf21a16c-e64b-40ad-b47e-b97849ab2796",
+                "data": "{\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"spinning\":\"{{props.show}}\"}"
+              },
+              "renderForEachPropKey": null,
+              "childMapperPropKey": null,
+              "childMapperComponent": null,
+              "renderIfExpression": null,
+              "propTransformationJs": null,
+              "preRenderAction": null,
+              "postRenderAction": null,
+              "_compoundRefKey": null,
+              "refKey": null,
+              "renderAtomType": {
+                "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
+                "name": "AntDesignSpin"
               }
             }
           ],
@@ -3035,13 +3253,19 @@
           "name": "Blog Post"
         },
         "renderComponentType": null,
-        "renderType": null,
+        "renderType": {
+          "id": "ae02dc9a-6849-4df0-9d45-823fb3a5d064",
+          "kind": "Atom"
+        },
         "parent": null,
         "prevSibling": null,
         "nextSibling": null,
         "firstChild": { "id": "1b604fd3-992a-4f48-b396-00683a3e31cd" },
         "childMapperPreviousSibling": null,
-        "props": { "id": "8b302efc-387f-4c9d-99c2-0591cc903319", "data": "{}" },
+        "props": {
+          "id": "8b302efc-387f-4c9d-99c2-0591cc903319",
+          "data": "{\"href\":\"/blog/{{props.id}}\"}"
+        },
         "renderForEachPropKey": null,
         "childMapperPropKey": null,
         "childMapperComponent": null,
@@ -3051,7 +3275,10 @@
         "postRenderAction": null,
         "_compoundRefKey": null,
         "refKey": null,
-        "renderAtomType": null
+        "renderAtomType": {
+          "id": "ae02dc9a-6849-4df0-9d45-823fb3a5d064",
+          "name": "NextLink"
+        }
       },
       "props": { "id": "14cec150-be79-41cc-be11-a2d15ebb6433", "data": "{}" },
       "store": {
@@ -3579,6 +3806,89 @@
         "id": "25fabb88-c088-496f-aa18-5e21d1fee3b3"
       },
       "keyGenerator": null
+    },
+    {
+      "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
+      "name": "Spin",
+      "rootElement": {
+        "id": "5f2c67fc-7d5d-471a-a3fc-2c4b50322ff2",
+        "name": "Spin",
+        "customCss": "margin-top: 2rem;\n\n.ant-spin-dot-item {\n  background-color: gray;\n}",
+        "guiCss": null,
+        "parentComponent": {
+          "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
+          "name": "Spin"
+        },
+        "renderComponentType": null,
+        "renderType": {
+          "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
+          "kind": "Atom"
+        },
+        "parent": null,
+        "prevSibling": null,
+        "nextSibling": null,
+        "firstChild": null,
+        "childMapperPreviousSibling": null,
+        "props": {
+          "id": "cf21a16c-e64b-40ad-b47e-b97849ab2796",
+          "data": "{\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"spinning\":\"{{props.show}}\"}"
+        },
+        "renderForEachPropKey": null,
+        "childMapperPropKey": null,
+        "childMapperComponent": null,
+        "renderIfExpression": null,
+        "propTransformationJs": null,
+        "preRenderAction": null,
+        "postRenderAction": null,
+        "_compoundRefKey": null,
+        "refKey": null,
+        "renderAtomType": {
+          "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
+          "name": "AntDesignSpin"
+        }
+      },
+      "props": { "id": "a87540fe-9c1e-4b51-b3cf-46cac55340c3", "data": "{}" },
+      "store": {
+        "id": "c80d3f08-82cc-4bb9-9962-07de3bb9ab98",
+        "name": "Spin Store",
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "9f0136d8-861a-48c3-890e-acbe9862859d",
+          "kind": "InterfaceType",
+          "name": "Spin Store API",
+          "fields": []
+        },
+        "actions": []
+      },
+      "api": {
+        "__typename": "InterfaceType",
+        "id": "27a13ca6-159e-4958-9757-c0173db2c635",
+        "kind": "InterfaceType",
+        "name": "Spin API",
+        "fields": [
+          {
+            "id": "2bfff202-0cc7-4410-9211-9d0987ddd0e1",
+            "key": "show",
+            "name": null,
+            "description": null,
+            "validationRules": "{}",
+            "defaultValues": "true",
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+              "kind": "PrimitiveType",
+              "name": "Boolean"
+            },
+            "api": { "id": "27a13ca6-159e-4958-9757-c0173db2c635" }
+          }
+        ]
+      },
+      "childrenContainerElement": {
+        "id": "5f2c67fc-7d5d-471a-a3fc-2c4b50322ff2"
+      },
+      "keyGenerator": "function run(props) {\n    // props are of type component api\n    return props.id\n}"
     }
   ],
   "resources": [],
