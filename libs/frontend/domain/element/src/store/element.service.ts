@@ -14,6 +14,7 @@ import {
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { Component } from '@codelab/frontend/domain/component'
 import { getPropService } from '@codelab/frontend/domain/prop'
+import { getActionService } from '@codelab/frontend/domain/store'
 import { getTypeService } from '@codelab/frontend/domain/type'
 import {
   RenderedComponentFragment,
@@ -106,6 +107,11 @@ export class ElementService
   @computed
   private get propService() {
     return getPropService(this)
+  }
+
+  @computed
+  private get actionService() {
+    return getActionService(this)
   }
 
   @modelAction
@@ -790,6 +796,19 @@ export class ElementService
     // this way in case if component creation fails, we avoid data loss
     const createdComponent = yield* _await(
       this.componentService.create({ id: v4(), name, owner }),
+    )
+
+    const elementActions = element.store.current.actions
+
+    const newActions = yield* _await(
+      Promise.all(
+        elementActions.map((action) =>
+          this.actionService.cloneAction(
+            action.current,
+            createdComponent.store.id,
+          ),
+        ),
+      ),
     )
 
     // 3. detach the element from the element tree
