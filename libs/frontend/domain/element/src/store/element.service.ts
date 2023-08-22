@@ -3,6 +3,7 @@ import type {
   ICreateElementData,
   IElement,
   IElementService,
+  IPropData,
 } from '@codelab/frontend/abstract/core'
 import {
   elementRef,
@@ -25,8 +26,9 @@ import type {
   IElementDTO,
   RenderType,
 } from '@codelab/shared/abstract/core'
-import { IRenderTypeKind } from '@codelab/shared/abstract/core'
+import { IRenderTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
+import { mapDeep } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
 import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
@@ -780,10 +782,14 @@ export class ElementService
     return createdElements
   })
 
-  private async copyElementStoreToComponentStore(
-    element: IElement,
-    component: IComponent,
-  ) {
+  /**
+   * Creates a clone of the actions and state fields of the element
+   * in the component's store and updates the element props to use
+   * the actions in the component store.
+   * @param element - The element to clone the actions and state fields from
+   * @param component - The component to clone the actions and state fields to
+   */
+  private async cloneElementStore(element: IElement, component: IComponent) {
     const elementStore = element.store.current
     const componentStore = component.store.current
 
@@ -799,6 +805,54 @@ export class ElementService
       elementStore.actions.map((action) =>
         this.actionService.cloneAction(action.current, componentStore.id),
       ),
+    )
+
+    const oldToNewActionIdMap = elementStore.actions.reduce(
+      (acc, action, index) => {
+        if (clonedActions[index]) {
+          acc.set(action.id, clonedActions[index]!.id)
+        }
+
+        return acc
+      },
+      new Map<string, string>(),
+    )
+
+    // Update element's and its descendants props values to use new action ids
+    const elementAndDescendantsProps = [
+      element.props.current,
+      ...element.descendantElements.map(
+        (descendantElement) => descendantElement.props.current,
+      ),
+    ]
+
+    const updatedPropsById = elementAndDescendantsProps.reduce(
+      (acc, elementProps) => {
+        const updatedPropsData = mapDeep(elementProps.data, (value) => {
+          if (
+            value.kind === ITypeKind.ActionType &&
+            oldToNewActionIdMap.has(value.value)
+          ) {
+            return { ...value, value: oldToNewActionIdMap.get(value.value) }
+          }
+
+          return value
+        })
+
+        acc.set(elementProps.id, updatedPropsData)
+
+        return acc
+      },
+      new Map<string, IPropData>(),
+    )
+
+    await Promise.all(
+      Array.from(updatedPropsById.entries()).map(([propId, updatedData]) => {
+        return this.propService.update({
+          data: JSON.stringify(updatedData.data),
+          id: propId,
+        })
+      }),
     )
   }
 
@@ -825,9 +879,7 @@ export class ElementService
       this.componentService.create({ id: v4(), name, owner }),
     )
 
-    yield* _await(
-      this.copyElementStoreToComponentStore(element, createdComponent),
-    )
+    yield* _await(this.cloneElementStore(element, createdComponent))
 
     // 3. detach the element from the element tree
     const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
