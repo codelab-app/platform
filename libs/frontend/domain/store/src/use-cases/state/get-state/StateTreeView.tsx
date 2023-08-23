@@ -3,6 +3,7 @@ import type {
   IStore,
 } from '@codelab/frontend/abstract/core'
 import {
+  CuiEmpty,
   CuiSkeletonWrapper,
   CuiTree,
 } from '@codelab/frontend/presentation//codelab-ui'
@@ -15,7 +16,7 @@ import { StateTreeItem } from './StateTreeItem'
 export const StateTreeView = observer<{ store: IStore }>(({ store }) => {
   const { typeService } = useStore()
 
-  const [{ error, result: type, status }, getOne] = useAsync(
+  const [{ result: type, status }, getOne] = useAsync(
     async () => (await typeService.getAll([store.api?.id ?? '']))[0],
   )
 
@@ -33,7 +34,7 @@ export const StateTreeView = observer<{ store: IStore }>(({ store }) => {
           treeData={treeData}
         />
       ) : (
-        'No fields to show'
+        <CuiEmpty />
       )}
     </CuiSkeletonWrapper>
   )
