@@ -14,7 +14,7 @@ export interface AtomLibrary {
 }
 
 export interface AtomRecord {
-  api: IInterfaceType
+  api: IInterfaceType | undefined
   externalCssSource?: string | null
   externalJsSource?: string | null
   externalSourceType?: string | null

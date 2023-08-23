@@ -1,10 +1,16 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { ElementFragment } from '../../../../abstract/core/src/domain/element/element.fragment.graphql.gen'
+import {
+  ElementFragment,
+  ProductionElementFragment,
+} from '../../../../abstract/core/src/domain/element/element.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { ElementFragmentDoc } from '../../../../abstract/core/src/domain/element/element.fragment.graphql.gen'
+import {
+  ElementFragmentDoc,
+  ProductionElementFragmentDoc,
+} from '../../../../abstract/core/src/domain/element/element.fragment.graphql.gen'
 export type CreateElementsMutationVariables = Types.Exact<{
   input: Array<Types.ElementCreateInput> | Types.ElementCreateInput
 }>

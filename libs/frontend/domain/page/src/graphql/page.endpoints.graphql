@@ -38,6 +38,15 @@ query GetRenderedPageAndCommonAppData($appName: String!, $pageName: String!) {
   }
 }
 
+query GetRenderedPageAndAppData($appName: String!, $pageName: String!) {
+  apps(where: { _compoundName: $appName }) {
+    ...PageApp
+  }
+  resources {
+    ...Resource
+  }
+}
+
 query GetRenderedPage($pageId: ID!) {
   pages(where: { id: $pageId }) {
     ...BuilderPage

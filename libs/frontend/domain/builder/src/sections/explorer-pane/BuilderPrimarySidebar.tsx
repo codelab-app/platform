@@ -156,8 +156,11 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
                 }
 
                 const form = fieldService.createForm
-                form.open(typeRef(store.api.id) as Ref<InterfaceType>)
-                popover.open(FormNames.CreateField)
+
+                if (store.api?.id) {
+                  form.open(typeRef(store.api.id) as Ref<InterfaceType>)
+                  popover.open(FormNames.CreateField)
+                }
               },
               title: 'Add Field',
             },

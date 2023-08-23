@@ -4,6 +4,7 @@ import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import {
   PageFragment,
   BuilderPageFragment,
+  ProductionPageFragment,
 } from '../page/page.fragment.graphql.gen'
 import { DomainFragment } from '../domain/domain.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
@@ -13,6 +14,7 @@ import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import {
   PageFragmentDoc,
   BuilderPageFragmentDoc,
+  ProductionPageFragmentDoc,
 } from '../page/page.fragment.graphql.gen'
 import { DomainFragmentDoc } from '../domain/domain.fragment.graphql.gen'
 export type AppPreviewFragment = {
@@ -38,6 +40,14 @@ export type PageBuilderAppFragment = {
   slug: string
   owner: OwnerFragment
   pages: Array<BuilderPageFragment>
+}
+
+export type PageAppFragment = {
+  id: string
+  name: string
+  slug: string
+  owner: OwnerFragment
+  pages: Array<ProductionPageFragment>
 }
 
 export const AppPreviewFragmentDoc = gql`
@@ -97,6 +107,21 @@ export const PageBuilderAppFragmentDoc = gql`
   }
   ${OwnerFragmentDoc}
   ${BuilderPageFragmentDoc}
+`
+export const PageAppFragmentDoc = gql`
+  fragment PageApp on App {
+    id
+    name
+    slug
+    owner {
+      ...Owner
+    }
+    pages(where: { OR: [{ _compoundName: $pageName }, { kind: Provider }] }) {
+      ...ProductionPage
+    }
+  }
+  ${OwnerFragmentDoc}
+  ${ProductionPageFragmentDoc}
 `
 
 export type SdkFunctionWrapper = <T>(

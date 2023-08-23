@@ -40,7 +40,7 @@ const create = ({
 }: IStoreDTO): IStore =>
   new Store({
     actions: actions.map((action) => actionRef(action.id)),
-    api: typeRef(api.id) as Ref<IInterfaceType>,
+    api: api?.id ? (typeRef(api.id) as Ref<IInterfaceType>) : undefined,
     component: component?.id ? componentRef(component.id) : null,
     id,
     name,
@@ -55,7 +55,7 @@ const createName = (app: Pick<IAppDTO, 'name'>) => {
 export class Store
   extends Model(() => ({
     actions: prop<Array<Ref<IAction>>>(),
-    api: prop<Ref<IInterfaceType>>().withSetter(),
+    api: prop<Nullable<Ref<IInterfaceType>>>(null).withSetter(),
     component: prop<Nullable<Ref<IComponent>>>().withSetter(),
     id: idProp,
     name: prop<string>(),
@@ -124,7 +124,7 @@ export class Store
 
     return makeAutoObservable(
       mergeProps(
-        this.api.current.defaultValues,
+        this.api?.maybeCurrent?.defaultValues ?? {},
         this.actions
           .map(({ current: action }) => {
             const actionId = getRunnerId(this.id, action.id)
@@ -180,7 +180,7 @@ export class Store
       actions: [...this.actions.values()].map((action) => ({
         id: action.current.id,
       })),
-      api: typeRef<IInterfaceType>(this.api.id),
+      api: this.api?.id ? typeRef<IInterfaceType>(this.api.id) : null,
       component: componentRef(componentId),
       id,
       name: this.name,
@@ -191,14 +191,16 @@ export class Store
   static create = create
 
   toCreateInput(): StoreCreateInput {
-    const api = this.api.current
+    const api = this.api?.current
 
     return {
-      api: {
-        create: {
-          node: api.toCreateInput(),
-        },
-      },
+      api: api
+        ? {
+            create: {
+              node: api.toCreateInput(),
+            },
+          }
+        : undefined,
       id: this.id,
       name: this.name,
     }

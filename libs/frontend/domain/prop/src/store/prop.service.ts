@@ -1,10 +1,13 @@
 import type {
   ICreatePropData,
   IProp,
+  IPropData,
   IPropService,
   IUpdatePropData,
+  IUpdatePropDataWithDefaulValues,
 } from '@codelab/frontend/abstract/core'
 import { IPropDTO } from '@codelab/shared/abstract/core'
+import { filterEmptyStrings, mergeProps } from '@codelab/shared/utils'
 import {
   _async,
   _await,
@@ -93,6 +96,20 @@ export class PropService
     yield* _await(this.propRepository.update(props))
 
     return props
+  })
+
+  @modelFlow
+  @transaction
+  updateWithDefaultValuesApplied = _async(function* (
+    this: PropService,
+    { data, defaultValues, id }: IUpdatePropDataWithDefaulValues,
+  ) {
+    const filteredData = filterEmptyStrings(data) as IPropData
+    const mergedWithDefaultValues = mergeProps(defaultValues, filteredData)
+
+    return yield* _await(
+      this.update({ data: JSON.stringify(mergedWithDefaultValues), id }),
+    )
   })
 }
 

@@ -20,7 +20,7 @@ export const PropsColumn = observer<PropsColumnProps>(
       fieldService.deleteModal.open(fieldRef(field.id))
     }
 
-    const editMenuItems = atom.api.fields.map((field) => {
+    const editMenuItems = atom.api?.fields.map((field) => {
       return {
         key: field.key,
         label: field.name,
@@ -28,7 +28,7 @@ export const PropsColumn = observer<PropsColumnProps>(
       }
     })
 
-    const deleteMenuItems = atom.api.fields.map((field) => {
+    const deleteMenuItems = atom.api?.fields.map((field) => {
       return {
         key: field.key,
         label: field.name,
@@ -40,16 +40,20 @@ export const PropsColumn = observer<PropsColumnProps>(
       <Row gutter={[16, 16]} justify="center">
         <Col>
           <Button
-            onClick={() =>
+            onClick={() => {
+              if (!atom.api?.id) {
+                return
+              }
+
               fieldService.createModal.open(
                 typeRef<IInterfaceType>(atom.api.id),
               )
-            }
+            }}
           >
             <PlusOutlined />
           </Button>
         </Col>
-        {Boolean(atom.api.fields.length) && (
+        {Boolean(atom.api?.fields.length) && (
           <>
             <Col>
               <Dropdown.Button menu={{ items: editMenuItems }}>

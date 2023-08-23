@@ -105,15 +105,15 @@ export class ExportAdminDataService extends UseCase<
         /**
          * Get the interface by id
          */
-        const api = find(apis.types, { id: atom.api.id }) as
+        const api = find(apis.types, { id: atom.api?.id }) as
           | IInterfaceTypeDTO
           | undefined
 
-        const apiFields = filter(apis.fields, { api: { id: atom.api.id } })
+        const apiFields = filter(apis.fields, { api: { id: atom.api?.id } })
 
         const { fields = [], types } = await exportAdminTypes({
           apiFields,
-          apiId: atom.api.id,
+          apiId: atom.api?.id,
         })
 
         if (!api) {

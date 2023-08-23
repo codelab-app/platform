@@ -3,7 +3,6 @@ import type {
   IElement,
   IPropData,
   ITypeService,
-  RendererType,
   TypedProp,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -11,6 +10,7 @@ import {
   isComponentInstance,
   isTypedProp,
   rendererRef,
+  RendererType,
 } from '@codelab/frontend/abstract/core'
 import type { ProductionWebsiteProps } from '@codelab/frontend/abstract/types'
 import { PageType } from '@codelab/frontend/abstract/types'
@@ -70,6 +70,7 @@ export const useRenderedPage = ({
       compoundAppName,
       compoundPageName,
       productionProps?.renderingData,
+      rendererType,
     )
 
     if (!app) {
@@ -97,7 +98,12 @@ export const useRenderedPage = ({
       page.rootElement.current,
     ]
 
-    await loadAllTypesForElements(componentService, typeService, roots)
+    await loadAllTypesForElements(
+      componentService,
+      typeService,
+      roots,
+      rendererType,
+    )
 
     const pageRootElement = elementService.maybeElement(page.rootElement.id)
 
@@ -182,7 +188,7 @@ const getComponentIdsFromElements = (elements: Array<IElement>) =>
  */
 const getTypeIdsFromElements = (elements: Array<IElement>) => {
   return elements.reduce<Array<string>>((acc, element) => {
-    if (element.renderType) {
+    if (element.renderType?.current.api) {
       acc.push(element.renderType.current.api.id)
 
       element.renderType.current.api.current.fields.forEach((field) => {
@@ -198,6 +204,7 @@ export const loadAllTypesForElements = async (
   componentService: IComponentService,
   typeService: ITypeService,
   roots: Array<IElement>,
+  rendererType?: RendererType,
 ) => {
   const loadedComponentElements: Array<IElement> = []
 
@@ -235,12 +242,14 @@ export const loadAllTypesForElements = async (
     }
   } while (componentsBatch.length > 0)
 
-  // Loading all the types of the elements that are used on the current page
-  // This will also get the types of fields, not just interface types
-  const typeIds = getTypeIdsFromElements([
-    ...elements,
-    ...loadedComponentElements,
-  ]).filter((id) => !typeService.types.has(id))
+  if (rendererType !== RendererType.Production) {
+    // Loading all the types of the elements that are used on the current page
+    // This will also get the types of fields, not just interface types
+    const typeIds = getTypeIdsFromElements([
+      ...elements,
+      ...loadedComponentElements,
+    ]).filter((id) => !typeService.types.has(id))
 
-  await typeService.getAll(typeIds)
+    await typeService.getAll(typeIds)
+  }
 }

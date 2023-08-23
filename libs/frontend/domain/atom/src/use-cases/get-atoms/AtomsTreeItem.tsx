@@ -46,11 +46,16 @@ export const AtomsTreeItem = ({ data }: AtomsTreeItemProps) => {
   }
 
   const onAddField = () => {
-    const interfaceId = node.api.id
-    const interfaceRef = typeRef(interfaceId) as Ref<IInterfaceType>
+    const interfaceId = node.api?.id
 
-    fieldService.createForm.open(interfaceRef)
-    popover.open(FormNames.CreateField)
+    const interfaceRef = interfaceId
+      ? typeRef<IInterfaceType>(interfaceId)
+      : undefined
+
+    if (interfaceRef) {
+      fieldService.createForm.open(interfaceRef)
+      popover.open(FormNames.CreateField)
+    }
   }
 
   const toolbarItems = [

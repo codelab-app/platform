@@ -13,7 +13,7 @@ import React from 'react'
 const Index = (props: ProductionWebsiteProps) => {
   const [{ result }, actions] = useRenderedPage({
     productionProps: props,
-    rendererType: RendererType.Preview,
+    rendererType: RendererType.Production,
   })
 
   useMountEffect(actions.execute)
@@ -46,8 +46,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<ProductionWebsiteProps> = async (
   context,
 ) => {
-  console.log('getStaticProps', context.params)
-
   if (!context.params) {
     throw new Error('No context params ')
   }
@@ -66,7 +64,7 @@ export const getStaticProps: GetStaticProps<ProductionWebsiteProps> = async (
     throw new Error(`Page with ${pageUrl} URL for "${domain}" domain Not found`)
   }
 
-  const renderingData = await pageApi.GetRenderedPageAndCommonAppData({
+  const renderingData = await pageApi.GetRenderedPageAndAppData({
     appName: foundPage.app._compoundName,
     pageName: foundPage._compoundName,
   })

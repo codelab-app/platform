@@ -23,6 +23,17 @@ export type ComponentFragment = {
   store: StoreFragment
 }
 
+export type ProductionComponentFragment = {
+  id: string
+  name: string
+  keyGenerator?: string | null
+  rootElement: { id: string; name: string }
+  owner: OwnerFragment
+  props: PropFragment
+  childrenContainerElement: { id: string }
+  store: StoreFragment
+}
+
 export const ComponentFragmentDoc = gql`
   fragment Component on Component {
     id
@@ -50,6 +61,32 @@ export const ComponentFragmentDoc = gql`
   }
   ${OwnerFragmentDoc}
   ${InterfaceTypeFragmentDoc}
+  ${PropFragmentDoc}
+  ${StoreFragmentDoc}
+`
+export const ProductionComponentFragmentDoc = gql`
+  fragment ProductionComponent on Component {
+    id
+    name
+    keyGenerator
+    rootElement {
+      id
+      name
+    }
+    owner {
+      ...Owner
+    }
+    props {
+      ...Prop
+    }
+    childrenContainerElement {
+      id
+    }
+    store {
+      ...Store
+    }
+  }
+  ${OwnerFragmentDoc}
   ${PropFragmentDoc}
   ${StoreFragmentDoc}
 `

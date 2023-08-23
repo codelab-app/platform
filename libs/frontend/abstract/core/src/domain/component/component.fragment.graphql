@@ -22,3 +22,25 @@ fragment Component on Component {
     ...Store
   }
 }
+
+fragment ProductionComponent on Component {
+  id
+  name
+  keyGenerator
+  rootElement {
+    id
+    name
+  }
+  owner {
+    ...Owner
+  }
+  props {
+    ...Prop
+  }
+  childrenContainerElement {
+    id
+  }
+  store {
+    ...Store
+  }
+}

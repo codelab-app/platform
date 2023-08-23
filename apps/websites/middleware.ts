@@ -1,27 +1,25 @@
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
+export const config = {
+  matcher: [
+    /*
+     * Match all paths except for:
+     * 1. /api routes
+     * 2. /_next (Next.js internals)
+     * 3. /fonts (inside /public)
+     * 4. /examples (inside /public)
+     * 5. all root files inside /public (e.g. /favicon.ico)
+     */
+    '/((?!api|_next|fonts|examples|[\\w-]+\\.\\w+).*)',
+  ],
+}
+
 const middleware = async (req: NextRequest) => {
   const hostname = req.headers.get('host')
-  const isVercelDomain = hostname?.includes(process.env.NEXT_PUBLIC_VERCEL_URL!)
-  const { pathname } = req.nextUrl
-  const isApi = pathname.startsWith('/api')
-  const isInternal = pathname.startsWith('/_next')
-  const isFavicon = pathname.includes('favicon.ico')
-  const isPublic = pathname.includes('.')
+  const url = req.nextUrl
 
-  if (
-    isApi ||
-    isVercelDomain ||
-    isInternal ||
-    isPublic ||
-    isFavicon ||
-    !hostname
-  ) {
-    return NextResponse.next()
-  }
-
-  const url = new URL(`/${hostname}${pathname}`, `https://${hostname}`)
+  url.pathname = `/${hostname}${url.pathname}`
 
   console.log('Redirecting...', url.toString())
 

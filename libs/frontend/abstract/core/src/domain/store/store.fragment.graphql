@@ -14,3 +14,17 @@ fragment Store on Store {
     ...Action
   }
 }
+
+fragment ProductionStore on Store {
+  id
+  name
+  component {
+    id
+  }
+  page {
+    id
+  }
+  actions {
+    ...Action
+  }
+}

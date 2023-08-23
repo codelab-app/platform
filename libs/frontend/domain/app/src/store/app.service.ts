@@ -10,6 +10,7 @@ import {
   getComponentService,
   getElementService,
   pageRef,
+  RendererType,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getDomainService } from '@codelab/frontend/domain/domain'
@@ -29,6 +30,7 @@ import {
 } from '@codelab/frontend/shared/utils'
 import type {
   AppWhere,
+  BuilderPageFragment,
   GetRenderedPageAndCommonAppDataQuery,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
@@ -154,15 +156,19 @@ export class AppService
        * Element comes with `component` or `atom` data that we need to load as well
        */
       if (elementData.renderAtomType?.id) {
-        this.typeService.loadTypes({
-          interfaceTypes: [elementData.renderAtomType.api],
-        })
+        this.atomService.add(elementData.renderAtomType)
+      }
 
+      if (elementData.renderAtomType?.tags) {
         elementData.renderAtomType.tags.forEach((tag) =>
           this.tagService.add(tag),
         )
+      }
 
-        this.atomService.add(elementData.renderAtomType)
+      if (elementData.renderAtomType?.api) {
+        this.typeService.loadTypes({
+          interfaceTypes: [elementData.renderAtomType.api],
+        })
       }
 
       this.elementService.add(elementData)
@@ -311,15 +317,21 @@ export class AppService
     pageName: string,
     // Production is pre-built with all required data, no need for network request
     initialData?: GetRenderedPageAndCommonAppDataQuery,
+    rendererType?: RendererType,
   ) {
+    const apiFunction =
+      rendererType === RendererType.Production
+        ? pageApi.GetRenderedPageAndAppData
+        : pageApi.GetRenderedPageAndCommonAppData
+
+    const fetchedData = initialData
+      ? initialData
+      : yield* _await(apiFunction({ appName, pageName }))
+
     const {
       apps: [appData],
       resources,
-    } = initialData
-      ? initialData
-      : yield* _await(
-          pageApi.GetRenderedPageAndCommonAppData({ appName, pageName }),
-        )
+    } = fetchedData
 
     if (!appData) {
       return undefined
@@ -328,7 +340,7 @@ export class AppService
     /**
      * Load app, pages, elements
      */
-    this.loadPages({ pages: appData.pages })
+    this.loadPages({ pages: appData.pages as Array<BuilderPageFragment> })
 
     // write cache for resources
     this.resourceService.load(resources)
@@ -385,7 +397,7 @@ export class AppService
      */
     const pageElements = pages.flatMap((page) => page.elements)
     const pageStores = pages.map((page) => page.store.current)
-    const storeApis = pageStores.flatMap((store) => store.api.current)
+    const storeApis = pageStores.flatMap((store) => store.api?.current ?? [])
     const fields = storeApis.flatMap((api) => api.fields)
     const fieldApis = fields.flatMap((field) => field.api.current)
     const allTypes = [...storeApis, ...fieldApis]

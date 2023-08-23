@@ -22660,6 +22660,15 @@ export type PageBuilderAppFragment = {
   pages: Array<{ __typename?: 'Page' } & BuilderPageFragment>
 }
 
+export type PageAppFragment = {
+  __typename?: 'App'
+  id: string
+  name: string
+  slug: string
+  owner: { __typename?: 'User' } & OwnerFragment
+  pages: Array<{ __typename?: 'Page' } & ProductionPageFragment>
+}
+
 export type AtomFragment = {
   __typename?: 'Atom'
   icon?: string | null
@@ -22672,6 +22681,29 @@ export type AtomFragment = {
   owner: { __typename?: 'User' } & OwnerFragment
   tags: Array<{ __typename?: 'Tag' } & TagFragment>
   api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
+  suggestedChildren: Array<{
+    __typename?: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+  }>
+  requiredParents: Array<{
+    __typename?: 'Atom'
+    id: string
+    name: string
+    type: AtomType
+  }>
+}
+
+export type ProductionAtomFragment = {
+  __typename?: 'Atom'
+  icon?: string | null
+  id: string
+  name: string
+  type: AtomType
+  externalCssSource?: string | null
+  externalJsSource?: string | null
+  externalSourceType?: string | null
   suggestedChildren: Array<{
     __typename?: 'Atom'
     id: string
@@ -22715,6 +22747,18 @@ export type ComponentFragment = {
   store: { __typename?: 'Store' } & StoreFragment
 }
 
+export type ProductionComponentFragment = {
+  __typename?: 'Component'
+  id: string
+  name: string
+  keyGenerator?: string | null
+  rootElement: { __typename?: 'Element'; id: string; name: string }
+  owner: { __typename?: 'User' } & OwnerFragment
+  props: { __typename?: 'Prop' } & PropFragment
+  childrenContainerElement: { __typename?: 'Element'; id: string }
+  store: { __typename?: 'Store' } & StoreFragment
+}
+
 export type DomainFragment = {
   __typename?: 'Domain'
   id: string
@@ -22738,6 +22782,46 @@ export type ElementFragment = {
   page?: { __typename?: 'Page'; id: string } | null
   renderComponentType?: { __typename?: 'Component'; id: string } | null
   renderAtomType?: ({ __typename?: 'Atom' } & AtomFragment) | null
+  renderType?: {
+    __typename?: 'RenderType'
+    id: string
+    kind: RenderTypeKind
+  } | null
+  prevSibling?: { __typename?: 'Element'; id: string } | null
+  nextSibling?: { __typename?: 'Element'; id: string } | null
+  parentComponent?: { __typename?: 'Component'; id: string } | null
+  parent?: { __typename?: 'Element'; id: string } | null
+  firstChild?: { __typename?: 'Element'; id: string } | null
+  props: { __typename?: 'Prop' } & PropFragment
+  childMapperPreviousSibling?: { __typename?: 'Element'; id: string } | null
+  childMapperComponent?: {
+    __typename?: 'Component'
+    id: string
+    name: string
+  } | null
+  preRenderAction?:
+    | { __typename?: 'ApiAction'; id: string; type: ActionKind }
+    | { __typename?: 'CodeAction'; id: string; type: ActionKind }
+    | null
+  postRenderAction?:
+    | { __typename?: 'ApiAction'; id: string; type: ActionKind }
+    | { __typename?: 'CodeAction'; id: string; type: ActionKind }
+    | null
+}
+
+export type ProductionElementFragment = {
+  __typename: 'Element'
+  id: string
+  name: string
+  customCss?: string | null
+  guiCss?: string | null
+  childMapperPropKey?: string | null
+  renderForEachPropKey?: string | null
+  renderIfExpression?: string | null
+  propTransformationJs?: string | null
+  page?: { __typename?: 'Page'; id: string } | null
+  renderComponentType?: { __typename?: 'Component'; id: string } | null
+  renderAtomType?: ({ __typename?: 'Atom' } & ProductionAtomFragment) | null
   renderType?: {
     __typename?: 'RenderType'
     id: string
@@ -22807,6 +22891,24 @@ export type BuilderPageFragment = {
   pageContentContainer?: { __typename?: 'Element'; id: string } | null
 }
 
+export type ProductionPageFragment = {
+  __typename?: 'Page'
+  id: string
+  name: string
+  slug: string
+  kind: PageKind
+  url: string
+  rootElement: {
+    __typename?: 'Element'
+    descendantElements: Array<
+      { __typename?: 'Element' } & ProductionElementFragment
+    >
+  } & ProductionElementFragment
+  app: { __typename?: 'App'; id: string }
+  store: { __typename?: 'Store' } & StoreFragment
+  pageContentContainer?: { __typename?: 'Element'; id: string } | null
+}
+
 export type PropFragment = { __typename?: 'Prop'; id: string; data: string }
 
 export type ResourceFragment = {
@@ -22823,6 +22925,18 @@ export type StoreFragment = {
   id: string
   name: string
   api: { __typename?: 'InterfaceType' } & InterfaceTypeFragment
+  component?: { __typename?: 'Component'; id: string } | null
+  page?: { __typename?: 'Page'; id: string } | null
+  actions: Array<
+    | ({ __typename?: 'ApiAction' } & Action_ApiAction_Fragment)
+    | ({ __typename?: 'CodeAction' } & Action_CodeAction_Fragment)
+  >
+}
+
+export type ProductionStoreFragment = {
+  __typename?: 'Store'
+  id: string
+  name: string
   component?: { __typename?: 'Component'; id: string } | null
   page?: { __typename?: 'Page'; id: string } | null
   actions: Array<
@@ -23525,6 +23639,17 @@ export type GetRenderedPageAndCommonAppDataQueryVariables = Exact<{
 export type GetRenderedPageAndCommonAppDataQuery = {
   __typename?: 'Query'
   apps: Array<{ __typename?: 'App' } & PageBuilderAppFragment>
+  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
+}
+
+export type GetRenderedPageAndAppDataQueryVariables = Exact<{
+  appName: Scalars['String']['input']
+  pageName: Scalars['String']['input']
+}>
+
+export type GetRenderedPageAndAppDataQuery = {
+  __typename?: 'Query'
+  apps: Array<{ __typename?: 'App' } & PageAppFragment>
   resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
 }
 

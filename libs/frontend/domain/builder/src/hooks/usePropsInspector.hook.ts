@@ -23,7 +23,7 @@ const validateJson = (value: string): Nullable<IPropData> => {
 
 const validateSchema = (node: IPageNodeRef) => {
   const interfaceType = isElementPageNodeRef(node)
-    ? node.current.renderType?.current.api.current
+    ? node.current.renderType?.current.api?.current
     : node.current.api.current
 
   if (!interfaceType) {

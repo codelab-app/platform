@@ -40,10 +40,16 @@ export const createAtomsData = (owner: IAuth0Owner): Array<IAtomDTO> =>
 export const createAtomsApiData = (
   atomsData: Array<IAtomDTO>,
 ): Array<IInterfaceTypeDTO> =>
-  atomsData.map((atom) => ({
-    fields: [],
-    id: atom.api.id,
-    kind: ITypeKind.InterfaceType,
-    name: `${atom.name} API`,
-    owner: atom.owner,
-  }))
+  atomsData.map((atom) => {
+    if (!atom.api?.id) {
+      throw new Error('Missing api id')
+    }
+
+    return {
+      fields: [],
+      id: atom.api.id,
+      kind: ITypeKind.InterfaceType,
+      name: `${atom.name} API`,
+      owner: atom.owner,
+    }
+  })

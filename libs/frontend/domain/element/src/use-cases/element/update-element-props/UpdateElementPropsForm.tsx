@@ -13,7 +13,7 @@ import {
 } from '@codelab/frontend/presentation/container'
 import { ReactQuillField, Spinner } from '@codelab/frontend/presentation/view'
 import type { Maybe } from '@codelab/shared/abstract/types'
-import { filterEmptyStrings, mergeProps } from '@codelab/shared/utils'
+import { getDefaultFieldProps, mergeProps } from '@codelab/shared/utils'
 import { useAsync } from '@react-hookz/web'
 import type { JSONSchemaType } from 'ajv'
 import { Col, Row } from 'antd'
@@ -49,7 +49,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       useStore()
 
     const currentElement = element.current
-    const apiId = currentElement.renderType?.current.api.id
+    const apiId = currentElement.renderType?.current.api?.id
 
     const [{ result: interfaceType, status }, getInterface] = useAsync(
       async () => {
@@ -68,11 +68,11 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
     }, [apiId])
 
     const onSubmit = (data: IPropData) => {
-      const filteredData = filterEmptyStrings(data)
       const props = element.current.props.current
 
-      return propService.update({
-        data: JSON.stringify(filteredData),
+      return propService.updateWithDefaultValuesApplied({
+        data,
+        defaultValues: getDefaultFieldProps(currentElement.renderType?.current),
         id: props.id,
       })
     }

@@ -3,18 +3,26 @@ import * as Types from '@codelab/shared/abstract/codegen'
 import {
   PageFragment,
   BuilderPageFragment,
+  ProductionPageFragment,
 } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
 import { ResourceFragment } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
-import { PageBuilderAppFragment } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+import {
+  PageBuilderAppFragment,
+  PageAppFragment,
+} from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
 import {
   PageFragmentDoc,
   BuilderPageFragmentDoc,
+  ProductionPageFragmentDoc,
 } from '../../../../abstract/core/src/domain/page/page.fragment.graphql.gen'
 import { ResourceFragmentDoc } from '../../../../abstract/core/src/domain/resource/resource.fragment.graphql.gen'
-import { PageBuilderAppFragmentDoc } from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
+import {
+  PageBuilderAppFragmentDoc,
+  PageAppFragmentDoc,
+} from '../../../../abstract/core/src/domain/app/app.fragment.graphql.gen'
 export type CreatePagesMutationVariables = Types.Exact<{
   input: Array<Types.PageCreateInput> | Types.PageCreateInput
 }>
@@ -56,6 +64,16 @@ export type GetRenderedPageAndCommonAppDataQueryVariables = Types.Exact<{
 
 export type GetRenderedPageAndCommonAppDataQuery = {
   apps: Array<PageBuilderAppFragment>
+  resources: Array<ResourceFragment>
+}
+
+export type GetRenderedPageAndAppDataQueryVariables = Types.Exact<{
+  appName: Types.Scalars['String']['input']
+  pageName: Types.Scalars['String']['input']
+}>
+
+export type GetRenderedPageAndAppDataQuery = {
+  apps: Array<PageAppFragment>
   resources: Array<ResourceFragment>
 }
 
@@ -111,6 +129,18 @@ export const GetRenderedPageAndCommonAppDataDocument = gql`
     }
   }
   ${PageBuilderAppFragmentDoc}
+  ${ResourceFragmentDoc}
+`
+export const GetRenderedPageAndAppDataDocument = gql`
+  query GetRenderedPageAndAppData($appName: String!, $pageName: String!) {
+    apps(where: { _compoundName: $appName }) {
+      ...PageApp
+    }
+    resources {
+      ...Resource
+    }
+  }
+  ${PageAppFragmentDoc}
   ${ResourceFragmentDoc}
 `
 export const GetRenderedPageDocument = gql`
@@ -207,6 +237,21 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         'GetRenderedPageAndCommonAppData',
+        'query',
+      )
+    },
+    GetRenderedPageAndAppData(
+      variables: GetRenderedPageAndAppDataQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+    ): Promise<GetRenderedPageAndAppDataQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<GetRenderedPageAndAppDataQuery>(
+            GetRenderedPageAndAppDataDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'GetRenderedPageAndAppData',
         'query',
       )
     },

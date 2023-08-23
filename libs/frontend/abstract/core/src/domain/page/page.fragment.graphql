@@ -43,3 +43,26 @@ fragment BuilderPage on Page {
   kind
   url
 }
+
+fragment ProductionPage on Page {
+  id
+  name
+  slug
+  rootElement {
+    ...ProductionElement
+    descendantElements {
+      ...ProductionElement
+    }
+  }
+  app {
+    id
+  }
+  store {
+    ...Store
+  }
+  pageContentContainer {
+    id
+  }
+  kind
+  url
+}

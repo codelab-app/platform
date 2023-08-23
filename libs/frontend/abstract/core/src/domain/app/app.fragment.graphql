@@ -46,3 +46,15 @@ fragment PageBuilderApp on App {
     ...BuilderPage
   }
 }
+
+fragment PageApp on App {
+  id
+  name
+  slug
+  owner {
+    ...Owner
+  }
+  pages(where: { OR: [{ _compoundName: $pageName }, { kind: Provider }] }) {
+    ...ProductionPage
+  }
+}

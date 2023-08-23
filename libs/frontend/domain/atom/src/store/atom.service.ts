@@ -139,7 +139,7 @@ export class AtomService
     type,
   }: IAtomDTO) => {
     // const tagRefs = tags?.map((tag) => tagRef(tag.id))
-    const apiRef = typeRef<IInterfaceType>(api.id)
+    const apiRef = api?.id ? typeRef<IInterfaceType>(api.id) : undefined
 
     const atom = Atom.create({
       api: apiRef,

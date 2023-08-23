@@ -27,7 +27,7 @@ export const AtomsTreeView = observer(
     })
 
     const treeData: Array<IAtomsTreeDataNode> = data.map((atom) => ({
-      children: atom.api.current.fieldsTree,
+      children: atom.api?.current.fieldsTree,
       extraData: { node: atom, type: 'atom' },
       key: atom.id,
       primaryTitle: getLibrary(atom.type).name,
