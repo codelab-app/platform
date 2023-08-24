@@ -12,7 +12,9 @@ export const codeMirrorTypeUiProperties: UiPropertiesFn<ICodeMirrorType> = (
   return {
     uniforms: {
       component: CodeMirrorField({
-        customOptions: createAutoCompleteOptions(context?.autocomplete),
+        customOptions: context?.autocomplete
+          ? createAutoCompleteOptions(context.autocomplete)
+          : undefined,
         language: type.language,
       }),
     },
