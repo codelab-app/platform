@@ -5,10 +5,10 @@ import type {
   VercelDomainConfig,
   VercelProjectDomain,
 } from '@codelab/shared/abstract/codegen'
+import type { IDomainDTO } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { ICacheService } from '../../service'
 import type { IModel } from '../model.interface'
-import type { IDomainDTO } from './domain.dto.interface'
 
 export interface IDomain
   extends ICacheService<IDomainDTO, IDomain>,

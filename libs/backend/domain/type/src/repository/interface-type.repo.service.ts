@@ -21,11 +21,6 @@ import {
 } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 
-interface InterfaceTypeFindArgs {
-  options?: InterfaceTypeOptions
-  where?: InterfaceTypeWhere
-}
-
 @Injectable()
 export class InterfaceTypeRepository extends AbstractRepository<
   IInterfaceTypeDTO,
@@ -40,7 +35,13 @@ export class InterfaceTypeRepository extends AbstractRepository<
     super(traceService)
   }
 
-  async _find({ options, where }: InterfaceTypeFindArgs) {
+  protected async _find({
+    options,
+    where,
+  }: {
+    options: InterfaceTypeOptions
+    where: InterfaceTypeWhere
+  }) {
     return await (
       await this.ogmService.InterfaceType
     ).find({

@@ -2,6 +2,7 @@
 import type { CypressCommand } from '@codelab/testing/cypress/command'
 import { getHeaderToolbarItem } from './header-toolbar/header-toolbar.command'
 import { getCuiNavigationBarItem } from './navigation-bar/navigation-bar.command'
+import { getCuiPopover } from './popover/popover.command'
 import {
   getCuiSidebar,
   getCuiSidebarToolbarItem,
@@ -56,6 +57,10 @@ export interface CypressCodelabUICommands {
   getCuiTreeItemByPrimaryTitle: typeof getCuiTreeItemByPrimaryTitle
   getCuiTreeItemBySecondaryTitle: typeof getCuiTreeItemBySecondaryTitle
   getCuiTreeItemToolbar: typeof getCuiTreeItemToolbar
+  /**
+   * popover
+   */
+  getCuiPopover: typeof getCuiPopover
 }
 
 export const codelabUICommands: Array<CypressCommand> = [
@@ -124,5 +129,12 @@ export const codelabUICommands: Array<CypressCommand> = [
   {
     fn: getCuiTreeItemToolbar,
     name: 'getCuiTreeItemToolbar',
+  },
+  /**
+   * Popover
+   */
+  {
+    fn: getCuiPopover,
+    name: 'getCuiPopover',
   },
 ]

@@ -15,10 +15,7 @@ import {
   connectNodeIds,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
-import { withActiveSpan } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
-import { context } from '@opentelemetry/api'
-import { getSpan } from '@opentelemetry/api/build/src/trace/context-utils'
 
 @Injectable()
 export class TagRepository extends AbstractRepository<
@@ -34,7 +31,13 @@ export class TagRepository extends AbstractRepository<
     super(traceService)
   }
 
-  async _find({ options, where }: { where?: TagWhere; options?: TagOptions }) {
+  protected async _find({
+    options,
+    where,
+  }: {
+    where?: TagWhere
+    options?: TagOptions
+  }) {
     return await (
       await this.ogmService.Tag
     ).find({

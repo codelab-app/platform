@@ -1,14 +1,13 @@
 import type {
   Resource,
-  ResourceModel,
   ResourceOptions,
   ResourceWhere,
 } from '@codelab/backend/abstract/codegen'
-import type { IResourceExport } from '@codelab/backend/abstract/core'
 import type { OGMService } from '@codelab/backend/infra/adapter/neo4j'
 import { resourceSelectionSet } from '@codelab/backend/infra/adapter/neo4j'
+import type { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IAuth0User, IResourceDTO } from '@codelab/shared/abstract/core'
+import type { IResourceDTO } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 
 export class ResourceRepository extends AbstractRepository<
@@ -17,11 +16,14 @@ export class ResourceRepository extends AbstractRepository<
   ResourceWhere,
   ResourceOptions
 > {
-  constructor(private ogmService: OGMService) {
-    super()
+  constructor(
+    private ogmService: OGMService,
+    protected traceService: TraceService,
+  ) {
+    super(traceService)
   }
 
-  async _find({
+  protected async _find({
     options,
     where,
   }: {

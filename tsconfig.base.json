@@ -12,6 +12,7 @@
     "experimentalDecorators": true,
     "useDefineForClassFields": true,
     "noUncheckedIndexedAccess": true,
+    "noErrorTruncation": true,
     "resolveJsonModule": true,
     "importHelpers": true,
     "target": "es2021",
@@ -257,7 +258,10 @@
       "@codelab/testing/cypress/nextjs-auth0": [
         "libs/testing/cypress/nextjs-auth0/src/index.ts"
       ],
-      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"]
+      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
+      "@codelab/backend/application/page": [
+        "libs/backend/application/page/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"],

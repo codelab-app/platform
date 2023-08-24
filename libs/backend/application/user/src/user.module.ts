@@ -1,4 +1,4 @@
-import { UserDomainModule, UserRepository } from '@codelab/backend/domain/user'
+import { UserDomainModule } from '@codelab/backend/domain/user'
 import { Module } from '@nestjs/common'
 import { UserController } from './user.controller'
 

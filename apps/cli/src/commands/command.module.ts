@@ -6,11 +6,9 @@ import {
   TerraformService,
 } from '@codelab/backend/infra/adapter/cli'
 import { neo4jConfig, OGMModule } from '@codelab/backend/infra/adapter/neo4j'
-import { BullModule } from '@nestjs/bull'
 import type { OnModuleInit } from '@nestjs/common'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import path from 'path'
 import { CommandService } from './command.service'
 
 @Module({

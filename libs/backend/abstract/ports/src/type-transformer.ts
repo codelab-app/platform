@@ -7,7 +7,6 @@ import type {
   RenderPropType,
   UnionType,
 } from '@codelab/backend/abstract/codegen'
-import type { IAtomDTO, IFieldDTO } from '@codelab/shared/abstract/core'
 
 /**
  * Allows transformation of any framework types to the core types

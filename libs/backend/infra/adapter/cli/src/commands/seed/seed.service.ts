@@ -1,11 +1,7 @@
-import { AdminSeederService } from '@codelab/backend/application/admin'
 import type { IAuth0User } from '@codelab/shared/abstract/core'
-import { Stage } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import type { Argv, CommandModule } from 'yargs'
 import { globalHandler } from '../../shared/handler'
-import { loadStageMiddleware } from '../../shared/middleware'
-import { getStageOptions } from '../../shared/options'
 
 @Injectable()
 export class SeedService implements CommandModule<unknown> {

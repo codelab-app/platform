@@ -1,5 +1,5 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-import type { IUserDataExport } from '@codelab/backend/abstract/core'
+import type { IUserOutputDto } from '@codelab/backend/abstract/core'
 import { importUserData } from '@codelab/backend/application/user'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import type { NextApiHandler } from 'next'
@@ -12,7 +12,7 @@ const importApp: NextApiHandler = async (req, res) => {
       return res.status(403).send('Not Authenticated')
     }
 
-    const data = JSON.parse(req.body) as IUserDataExport
+    const data = JSON.parse(req.body) as IUserOutputDto
     const owner = { auth0Id: session.user.sub }
 
     await importUserData(data, owner)

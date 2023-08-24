@@ -1,11 +1,12 @@
 import { SortDirection } from '@codelab/backend/abstract/codegen'
-import type { ITypesExport } from '@codelab/backend/abstract/core'
+import type { ITypeOutputDto } from '@codelab/backend/abstract/core'
 import {
   ActionTypeRepository,
   PrimitiveTypeRepository,
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
 } from '@codelab/backend/domain/type'
+import { Span } from '@codelab/shared/infra/otel'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
@@ -28,7 +29,7 @@ export class ExportSystemTypesCommand {}
  */
 @CommandHandler(ExportSystemTypesCommand)
 export class ExportSystemTypesHandler
-  implements ICommandHandler<ExportSystemTypesCommand, ITypesExport>
+  implements ICommandHandler<ExportSystemTypesCommand, Array<ITypeOutputDto>>
 {
   constructor(
     private primitiveTypeRepository: PrimitiveTypeRepository,
@@ -37,6 +38,7 @@ export class ExportSystemTypesHandler
     private actionTypeRepository: ActionTypeRepository,
   ) {}
 
+  @Span()
   async execute() {
     /**
      * Export all primitive types
@@ -82,14 +84,11 @@ export class ExportSystemTypesHandler
      *
      * Further to the front are closer to the leaf.
      */
-    return {
-      fields: [],
-      types: [
-        ...primitiveTypes,
-        ...renderPropTypes,
-        ...reactNodeTypes,
-        ...actionTypes,
-      ],
-    } as ITypesExport
+    return [
+      ...primitiveTypes,
+      ...renderPropTypes,
+      ...reactNodeTypes,
+      ...actionTypes,
+    ]
   }
 }

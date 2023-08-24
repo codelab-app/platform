@@ -1,30 +1,27 @@
-import type { IEntity } from '@codelab/shared/abstract/types'
-import { IsString } from 'class-validator'
-import type { IRole } from './role.enum'
+import { IEntity } from '@codelab/shared/abstract/types'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+import { IRole } from './role.enum'
 
-/**
- * Create User
- */
-export class IUserDTO {
-  apps?: Array<IEntity>
+export const IUserDTO = Type.Object({
+  apps: Type.Optional(Type.Array(IEntity)),
+  auth0Id: Type.String(),
+  email: Type.String(),
+  id: Type.String(),
+  roles: Type.Array(Type.Enum(IRole)),
+  username: Type.String(),
+})
 
-  @IsString()
-  declare auth0Id: string
+export type IUserDTO = Static<typeof IUserDTO>
 
-  @IsString()
-  declare email: string
+export const IAuth0User = Type.Object({
+  auth0Id: Type.String(),
+})
 
-  @IsString()
-  declare id: string
+export type IAuth0User = Static<typeof IAuth0User>
 
-  declare roles: Array<IRole>
+export const IAuth0Owner = Type.Object({
+  owner: IAuth0User,
+})
 
-  @IsString()
-  declare username: string
-}
-
-export interface IAuth0Owner {
-  owner: IAuth0User
-}
-
-export type IAuth0User = Pick<IUserDTO, 'auth0Id'>
+export type IAuth0Owner = Static<typeof IAuth0Owner>

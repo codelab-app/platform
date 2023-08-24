@@ -1,11 +1,8 @@
-import type { IDomainExport } from '@codelab/backend/abstract/core'
-import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import type { IDomainOutputDto } from '@codelab/backend/abstract/core'
 import {
   PROJECT_NOT_FOUND,
   vercelApis,
 } from '@codelab/backend/infra/adapter/vercel'
-import { connectNodeId } from '@codelab/shared/domain/mapper'
-import { logTask } from '@codelab/shared/utils'
 
 /**
  * If response is 200, we log error & return false
@@ -42,7 +39,7 @@ export const logAPIError = async (
  * @return throws if due to error
  */
 export const addVercelDomain = async (
-  domain: IDomainExport,
+  domain: IDomainOutputDto,
 ): Promise<boolean> => {
   const getProjectDomainResponse = await vercelApis.domain.getProjectDomain(
     domain.name,
@@ -58,32 +55,4 @@ export const addVercelDomain = async (
   }
 
   return await logAPIError(getProjectDomainResponse, 'getProjectDomain')
-}
-
-export const createDomainIfNotExist = async (domain: IDomainExport) => {
-  const Domain = await Repository.instance.Domain
-
-  const idExisting = await Domain.find({
-    where: {
-      name: domain.name,
-    },
-  })
-
-  if (idExisting.length) {
-    console.error(`Domain ${domain.name} already exists`)
-
-    return
-  }
-
-  logTask('Create Domain', domain.name, domain)
-
-  await Domain.create({
-    input: [
-      {
-        app: connectNodeId(domain.app.id),
-        id: domain.id,
-        name: domain.name,
-      },
-    ],
-  })
 }

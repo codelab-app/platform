@@ -1,10 +1,9 @@
 import { getEnv } from '@codelab/shared/config'
 import client from '@mailchimp/mailchimp_marketing'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import z from 'zod'
 
-const schema = z.object({
-  email: z.string().email(),
+const schema = Type.Object({
+  email: Type.String().email(),
 })
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

@@ -3,8 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { MaybePromise } from '@codelab/shared/abstract/types'
 import { toError } from '@codelab/shared/utils'
-import { Inject } from '@nestjs/common'
-import type { Context, SpanOptions } from '@opentelemetry/api'
+import type { SpanOptions } from '@opentelemetry/api'
 import { context, SpanStatusCode, trace } from '@opentelemetry/api'
 import { setSpan } from '@opentelemetry/api/build/src/trace/context-utils'
 import { TRACER_NAME } from './tracer'

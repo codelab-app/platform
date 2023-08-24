@@ -80,7 +80,7 @@
         //     "enforceForRenamedProperties": false
         //   }
         // ],
-        // "unused-imports/no-unused-imports-ts": "error",
+        "unused-imports/no-unused-imports-ts": "error",
         "id-length": [
           "error",
           {
@@ -570,6 +570,7 @@
         "prefer-arrow/prefer-arrow-functions": "error",
         "@typescript-eslint/member-ordering": [
           "error",
+
           {
             "default": {
               // "optionalityOrder": "required-first",

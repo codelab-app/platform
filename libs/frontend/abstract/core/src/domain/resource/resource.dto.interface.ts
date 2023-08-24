@@ -1,9 +1,4 @@
-import type {
-  IAuth0Owner,
-  IResourceDTO,
-  IResourceType,
-} from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import type { IResourceDTO } from '@codelab/shared/abstract/core'
 
 export interface IBaseResourceConfigData {
   headers: string

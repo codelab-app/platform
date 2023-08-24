@@ -27,7 +27,7 @@ export class CodeActionRepository extends AbstractRepository<
     super(traceService)
   }
 
-  async _find({
+  protected async _find({
     options,
     where,
   }: {

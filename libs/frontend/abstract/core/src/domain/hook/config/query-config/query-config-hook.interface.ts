@@ -1,4 +1,6 @@
-import { z } from 'zod'
+import { Typebox } from '@codelab/shared/abstract/types'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
 import { QueryMethod } from './query-method.enum'
 
 // export interface IQueryHookConfig {
@@ -15,28 +17,28 @@ import { QueryMethod } from './query-method.enum'
  *
  * Use simple type so we can implement
  */
-export const QueryConfigHookConfigSchema = z.object({
-  body: z.string().optional().nullable(),
-  method: z.nativeEnum(QueryMethod).optional().nullable(),
-  queryKey: z.string().min(1),
-  url: z.string().url().optional().nullable(),
+export const QueryConfigHookConfigSchema = Type.Object({
+  body: Typebox.Nullish(Type.String().optional()),
+  method: Typebox.Nullish(Type.Enum(QueryMethod)),
+  queryKey: Type.String({ minLength: 1 }),
+  url: Typebox.Nullish(Type.String().url()),
 })
 // z
 //   .object({
-//     queryKey: z.string().min(1),
+//     queryKey: Type.String().min(1),
 //   })
 //   .and(
 //     z
 //       .object({
-//         lambdaid: z.string().nullish(),
+//         lambdaid: Type.String().nullish(),
 //       })
 //       .or(
-//         z.object({
-//           url: z.string().url(),
-//           body: z.string().optional(),
+//         Type.Object({
+//           url: Type.String().url(),
+//           body: Type.String().optional(),
 //           method: z.nativeEnum(QueryMethod),
 //         }),
 //       ),
 //   )
 
-export type IQueryConfigHookConfig = z.infer<typeof QueryConfigHookConfigSchema>
+export type IQueryConfigHookConfig = Static<typeof QueryConfigHookConfigSchema>

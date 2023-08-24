@@ -1,6 +1,10 @@
-import type { ITypeKind } from '../type-kind.enum'
-import type { IBaseTypeDTO } from './base-type.dto.interface'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+import { ITypeKind } from '../type-kind.enum'
+import { IBaseTypeDTO } from './base-type.dto.interface'
 
-export interface IPageTypeDTO extends IBaseTypeDTO {
-  __typename?: `${ITypeKind.PageType}`
-}
+export const IPageTypeDTO = Type.Composite([
+  IBaseTypeDTO(Type.Literal(`${ITypeKind.PageType}`)),
+])
+
+export type IPageTypeDTO = Static<typeof IPageTypeDTO>

@@ -1,8 +1,8 @@
-import type { IUserDataExport } from '@codelab/backend/abstract/core'
+import type { IUserOutputDto } from '@codelab/backend/abstract/core'
 
 type ErrorCallback = (reason: string) => void
 
-type SuccessCallback = (apps: IUserDataExport) => void
+type SuccessCallback = (apps: IUserOutputDto) => void
 
 export const importApp = async (
   appData: string,

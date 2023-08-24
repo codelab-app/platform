@@ -34,7 +34,7 @@ export class AtomRepository extends AbstractRepository<
     super(traceService)
   }
 
-  async _find({
+  protected async _find({
     options,
     where,
   }: {

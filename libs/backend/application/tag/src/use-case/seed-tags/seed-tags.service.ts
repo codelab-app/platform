@@ -1,9 +1,5 @@
 import type { TagNode, TagNodeData } from '@codelab/backend/abstract/core'
-import {
-  AuthUseCase,
-  CurrentUser,
-  UseCase,
-} from '@codelab/backend/application/service'
+import { CurrentUser, UseCase } from '@codelab/backend/application/service'
 import { TagRepository } from '@codelab/backend/domain/tag'
 import { type ITagDTO, type IUserDTO } from '@codelab/shared/abstract/core'
 import uniqBy from 'lodash/uniqBy'

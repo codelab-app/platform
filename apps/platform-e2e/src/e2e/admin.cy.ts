@@ -14,12 +14,15 @@ describe('Admin', () => {
   })
 
   it('should import user data', () => {
-    cy.intercept({
-      method: 'POST',
-      url: '**/api/data/migration/import',
-    }).as('import')
+    const downloadPath = Cypress.config('downloadsFolder')
+    const cypressDataExportPath = path.resolve(downloadPath, 'export')
 
-    const TIMEOUT = 120000
+    const originalDataExportPath = path.resolve(
+      Cypress.env('workspaceRoot'),
+      'data/export',
+    )
+
+    const TIMEOUT = 60000
 
     cy.request({
       body: {
@@ -31,11 +34,9 @@ describe('Admin', () => {
       url: '/api/data/migration/import',
     })
 
-    cy.wait('@import', { timeout: TIMEOUT })
-
     cy.request({
       body: {
-        adminDataPath: path.resolve('tmp/cypress'),
+        adminDataPath: cypressDataExportPath,
         includeAdminData: true,
       },
       method: 'POST',
@@ -43,6 +44,15 @@ describe('Admin', () => {
       url: '/api/data/migration/export',
     }).as('export')
 
-    // cy.get('@export')
+    cy.task(
+      'areDirectoriesIdentical',
+      {
+        dir1: cypressDataExportPath,
+        dir2: originalDataExportPath,
+      },
+      { timeout: 20000 },
+    ).then((same) => {
+      cy.wrap(same).should('eq', true)
+    })
   })
 })

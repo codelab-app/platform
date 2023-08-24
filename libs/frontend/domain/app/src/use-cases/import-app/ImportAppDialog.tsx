@@ -1,5 +1,5 @@
 import { ImportOutlined } from '@ant-design/icons'
-import type { IUserDataExport } from '@codelab/backend/abstract/core'
+import type { IUserOutputDto } from '@codelab/backend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { useNotify } from '@codelab/frontend/shared/utils'
 import { useAsync } from '@react-hookz/web'
@@ -19,7 +19,7 @@ export const ImportAppDialog = observer(() => {
     { title: 'Failed to import app' },
   )
 
-  const onSuccess = ({ apps }: IUserDataExport) => {
+  const onSuccess = ({ apps }: IUserOutputDto) => {
     void loadApps.execute({ id: apps[0]?.app.id })
 
     successNotify()

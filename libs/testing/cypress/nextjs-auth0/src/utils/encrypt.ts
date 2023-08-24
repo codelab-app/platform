@@ -1,6 +1,5 @@
 import hkdf from 'futoin-hkdf'
-import type { KeyLike } from 'jose'
-import { CompactEncrypt, generateSecret, importJWK } from 'jose'
+import { CompactEncrypt, importJWK } from 'jose'
 
 const BYTE_LENGTH = 32
 const ENCRYPTION_INFO = 'JWE CEK'

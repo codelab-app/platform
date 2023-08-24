@@ -1,17 +1,24 @@
-import type { IEntity } from '@codelab/shared/abstract/types'
+import { IEntity, Typebox } from '@codelab/shared/abstract/types'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
 
-/**
- * Props imply as input for something, in this case a model
- */
-export interface IFieldDTO {
-  api: IEntity
-  defaultValues?: string | null
-  description?: string | null
-  fieldType: IEntity
-  id: string
-  key: string
-  name?: string | null
-  nextSibling?: IEntity | null
-  prevSibling?: IEntity | null
-  validationRules?: string | null
-}
+export const IFieldDTO = Type.Object({
+  api: IEntity,
+  defaultValues: Typebox.Nullish(Type.String()),
+  description: Typebox.Nullish(Type.String()),
+  fieldType: IEntity,
+  id: Type.String(),
+  key: Type.String(),
+  name: Typebox.Nullish(Type.String()),
+  nextSibling: Typebox.Nullish(IEntity),
+  prevSibling: Typebox.Nullish(IEntity),
+  validationRules: Typebox.Nullish(Type.String()),
+})
+
+export type IFieldDTO = Static<typeof IFieldDTO>
+
+const Demo = Type.Object({
+  name: Type.Optional(Type.String()),
+})
+
+type Demo = Static<typeof Demo>

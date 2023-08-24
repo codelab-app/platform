@@ -1,7 +1,5 @@
 import { Global, Module } from '@nestjs/common'
 import { PureResolverProvider } from '../resolver'
-import { ElementResolverProvider } from '../resolver/ogm-resolver/element'
-import { TagResolverProvider } from '../resolver/ogm-resolver/tag'
 import { TypeResolverProvider } from '../resolver/pure-resolver/type'
 import { Neo4jModule } from './neo4j.module'
 import { OGM_PROVIDER } from './ogm.constant'

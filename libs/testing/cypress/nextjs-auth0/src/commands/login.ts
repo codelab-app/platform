@@ -7,7 +7,7 @@ interface LoginCredentials {
 
 export const loginSession = () => {
   cy.session(
-    ['auth0-session-0'],
+    ['auth0-session'],
     () => {
       login()
       // Needs to visit the page where the user data will get upserted

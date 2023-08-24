@@ -2,7 +2,10 @@ import { getEnv } from '@codelab/shared/config'
 import { nxE2EPreset } from '@nx/cypress/plugins/cypress-preset'
 import { defineConfig } from 'cypress'
 // eslint-disable-next-line @nx/enforce-module-boundaries
+import { areDirectoriesIdentical } from 'libs/backend/shared/util/src/file/directory-compare'
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { encrypt } from 'libs/testing/cypress/nextjs-auth0/src/utils/encrypt'
+import path from 'path'
 
 export const testCypressJsonConfig: Cypress.ConfigOptions = {
   chromeWebSecurity: false,
@@ -20,6 +23,7 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
     auth0SessionCookieName: 'appSession',
     // This is the Auth0 Management API url
     auth0Username: getEnv().auth0.cypressUsername,
+    workspaceRoot: path.resolve(__dirname, '../..'),
   },
   execTimeout: 5000,
   fileServerFolder: '.',
@@ -35,7 +39,10 @@ export const testCypressJsonConfig: Cypress.ConfigOptions = {
   // specPattern: './src/integration/**/*.cy.{js,jsx,ts,tsx}',
   // supportFile: 'src/support/e2e.ts',
   setupNodeEvents: (on, config) => {
-    on('task', { encrypt })
+    on('task', {
+      areDirectoriesIdentical,
+      encrypt,
+    })
   },
   testIsolation: false,
   video: true,

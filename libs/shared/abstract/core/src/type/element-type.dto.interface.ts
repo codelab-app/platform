@@ -1,8 +1,14 @@
-import type { ElementTypeKind } from '@codelab/shared/abstract/codegen'
-import type { ITypeKind } from '../type-kind.enum'
-import type { IBaseTypeDTO } from './base-type.dto.interface'
+import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+import { ITypeKind } from '../type-kind.enum'
+import { IBaseTypeDTO } from './base-type.dto.interface'
 
-export interface IElementTypeDTO extends IBaseTypeDTO {
-  __typename?: `${ITypeKind.ElementType}`
-  elementKind: ElementTypeKind
-}
+export const IElementTypeDTO = Type.Composite([
+  IBaseTypeDTO(Type.Literal(`${ITypeKind.ElementType}`)),
+  Type.Object({
+    elementKind: Type.Enum(ElementTypeKind),
+  }),
+])
+
+export type IElementTypeDTO = Static<typeof IElementTypeDTO>

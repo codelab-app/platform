@@ -32,7 +32,13 @@ export class AppRepository extends AbstractRepository<
     super(traceService)
   }
 
-  async _find({ options, where }: { where?: AppWhere; options?: AppOptions }) {
+  protected async _find({
+    options,
+    where,
+  }: {
+    where?: AppWhere
+    options?: AppOptions
+  }) {
     return await (
       await this.ogmService.App
     ).find({

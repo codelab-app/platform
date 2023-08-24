@@ -6,7 +6,7 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ApolloDriver } from '@nestjs/apollo'
 import { BullModule } from '@nestjs/bull'
-import { Global, Module } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { DevtoolsModule } from '@nestjs/devtools-integration'
 import { GraphQLModule } from '@nestjs/graphql'

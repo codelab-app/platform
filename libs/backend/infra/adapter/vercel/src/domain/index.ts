@@ -3,7 +3,7 @@ import { getDomainConfig } from './get-domain-config'
 import { getProjectDomain, PROJECT_NOT_FOUND } from './get-project-domain'
 
 export const domainApis = {
-  //  addDomain is still needed because it is used when importing domains and apps
+  // addDomain is still needed because it is used when importing domains and apps
   addDomain,
   getDomainConfig,
   getProjectDomain,

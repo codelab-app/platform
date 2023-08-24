@@ -2,28 +2,37 @@ import {
   type ComponentWhere,
   SortDirection,
 } from '@codelab/backend/abstract/codegen'
-import type { IComponentExport } from '@codelab/backend/abstract/core'
-import { ExportTypesCommand } from '@codelab/backend/application/type'
-import type { ComponentRepository } from '@codelab/backend/domain/component'
-import type { ElementRepository } from '@codelab/backend/domain/element'
 import type {
+  IApiOutputDto,
+  IComponentOutputDto,
+  IElementOutputDto,
+} from '@codelab/backend/abstract/core'
+import { ExportStoreCommand } from '@codelab/backend/application/store'
+import { ExportTypesCommand } from '@codelab/backend/application/type'
+import { ComponentRepository } from '@codelab/backend/domain/component'
+import { ElementRepository } from '@codelab/backend/domain/element'
+import { StoreRepository } from '@codelab/backend/domain/store'
+import {
   FieldRepository,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
-import type { CommandBus, ICommandHandler } from '@nestjs/cqrs'
+import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ExportComponentsCommand {
-  constructor(public where?: ComponentWhere) {}
+  constructor(public where: ComponentWhere) {}
 }
 
+@CommandHandler(ExportComponentsCommand)
 export class ExportComponentsHandler
-  implements ICommandHandler<ExportComponentsCommand, Array<IComponentExport>>
+  implements
+    ICommandHandler<ExportComponentsCommand, Array<IComponentOutputDto>>
 {
   constructor(
     private componentRepository: ComponentRepository,
     private interfaceTypeRepository: InterfaceTypeRepository,
     private fieldRepository: FieldRepository,
     private elementRepository: ElementRepository,
+    private storeRepository: StoreRepository,
     private commandBus: CommandBus,
   ) {}
 
@@ -36,29 +45,25 @@ export class ExportComponentsHandler
 
     return Promise.all(
       components.map(async (component) => {
-        const descendantElements =
+        const descendantElements: Array<IElementOutputDto> =
           await this.elementRepository.getElementWithDescendants(
             component.rootElement.id,
           )
 
-        const apis = await this.commandBus.execute(
-          new ExportTypesCommand({
-            typeIds: [],
-          }),
-        )
-        // const apis = await exportAtomApis()
+        const api = await this.commandBus.execute<
+          ExportTypesCommand,
+          IApiOutputDto
+        >(new ExportTypesCommand([component.api]))
 
-        const { fields = [], types } = await this.commandBus.execute(
-          new ExportTypesCommand({
-            typeIds: [component.api],
-          }),
+        const store = await this.commandBus.execute<ExportStoreCommand>(
+          new ExportStoreCommand({ id: component.store.id }),
         )
 
         return {
+          api,
           component,
           descendantElements,
-          fields,
-          types,
+          store,
         }
       }),
     )

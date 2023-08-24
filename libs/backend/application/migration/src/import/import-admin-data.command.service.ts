@@ -1,29 +1,20 @@
-import {
-  type IAdminDataExport,
-  type IAtomExport,
-  type IComponentExport,
-  type ITypesExport,
-} from '@codelab/backend/abstract/core'
+import { type IAtomOutputDto } from '@codelab/backend/abstract/core'
+import { ImportAtomCommand } from '@codelab/backend/application/atom'
 import { ImportComponentsCommand } from '@codelab/backend/application/component'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { TagRepository } from '@codelab/backend/domain/tag'
 import { FieldRepository, TypeFactory } from '@codelab/backend/domain/type'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
-import { type IAuth0User, type ITagDTO } from '@codelab/shared/abstract/core'
+import { type IAuth0User } from '@codelab/shared/abstract/core'
 import {
   flattenWithPrefix,
   Span,
   withActiveSpan,
-  withBoundContext,
 } from '@codelab/shared/infra/otel'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
-import { context } from '@opentelemetry/api'
-import { getSpan } from '@opentelemetry/api/build/src/trace/context-utils'
-import fs from 'fs'
-import pick from 'lodash/pick'
-import path from 'path'
 import type { IBaseDataPaths } from '../migration-data.service'
 import { MigrationDataService } from '../migration-data.service'
+import { ReadAdminDataService } from './read-admin-data.service'
 
 export class ImportAdminDataCommand implements IBaseDataPaths {
   constructor(public owner: IAuth0User, public baseDataPaths?: string) {}
@@ -36,8 +27,6 @@ export class ImportAdminDataCommand implements IBaseDataPaths {
 export class ImportAdminDataHandler
   implements ICommandHandler<ImportAdminDataCommand, void>
 {
-  adminData: IAdminDataExport
-
   constructor(
     private readonly tagRepository: TagRepository,
     private readonly atomRepository: AtomRepository,
@@ -46,9 +35,8 @@ export class ImportAdminDataHandler
     private readonly typeFactory: TypeFactory,
     private readonly migrationDataService: MigrationDataService,
     private readonly traceService: TraceService,
-  ) {
-    this.adminData = this.getMergedData
-  }
+    private readonly readAdminDataService: ReadAdminDataService,
+  ) {}
 
   @Span()
   async execute(command: ImportAdminDataCommand) {
@@ -56,7 +44,6 @@ export class ImportAdminDataHandler
     /**
      * System types must be seeded first, so other types can reference it
      */
-
     await this.importSystemTypes(owner)
 
     await this.importTags(owner)
@@ -67,21 +54,21 @@ export class ImportAdminDataHandler
   }
 
   private async importComponents(owner: IAuth0User) {
-    return this.commandBus.execute(
-      new ImportComponentsCommand(this.adminData.components, owner),
-    )
+    for (const component of this.readAdminDataService.components) {
+      await this.commandBus.execute(
+        new ImportComponentsCommand(component, owner),
+      )
+    }
   }
 
   @Span()
   private async importTags(owner: IAuth0User) {
-    return this.tagRepository.seedTags(this.adminData.tags, owner)
+    return this.tagRepository.seedTags(this.readAdminDataService.tags, owner)
   }
 
   @Span()
   private async importSystemTypes(owner: IAuth0User) {
-    const { types } = JSON.parse(
-      fs.readFileSync(this.migrationDataService.systemTypesFilePath, 'utf8'),
-    ) as ITypesExport
+    const { types } = this.readAdminDataService.systemTypes
 
     /**
      * Must do sequentially due to type dependency
@@ -92,7 +79,7 @@ export class ImportAdminDataHandler
   }
 
   private async importAtoms(owner: IAuth0User) {
-    for (const atomData of this.adminData.atoms) {
+    for (const atomData of this.readAdminDataService.atoms) {
       // const attributes = pick(atomData.atom, ['name'])
       // this.traceService.getSpan()?.setAttributes(attributes)
       await withActiveSpan(`${atomData.atom.name}`, () =>
@@ -102,77 +89,12 @@ export class ImportAdminDataHandler
   }
 
   @Span()
-  private async importAtom(
-    { api, atom, fields, types }: IAtomExport,
-    owner: IAuth0User,
-  ) {
+  private async importAtom(atomOutput: IAtomOutputDto, owner: IAuth0User) {
     const span = this.traceService.getSpan()
-    span?.setAttributes(flattenWithPrefix(atom))
+    span?.setAttributes(flattenWithPrefix(atomOutput))
 
-    // Create types first so they can be referenced
-    for (const type of types) {
-      await this.typeFactory.save({ ...type, owner })
-    }
-
-    // Then api's
-    await this.typeFactory.save({ ...api, owner })
-
-    // Finally fields
-    for (const field of fields) {
-      await this.fieldRepository.save(field)
-    }
-
-    await this.atomRepository.save({ ...atom, owner })
-  }
-
-  /**
-   * Extract all the api's from atom file
-   */
-  get getMergedData(): IAdminDataExport {
-    const atomFilenames = fs
-      .readdirSync(this.migrationDataService.atomsPath)
-      .filter((filename) => path.extname(filename) === '.json')
-
-    const componentFilenames = fs.existsSync(
-      this.migrationDataService.componentsPath,
-    )
-      ? fs
-          .readdirSync(this.migrationDataService.componentsPath)
-          .filter((filename) => path.extname(filename) === '.json')
-      : []
-
-    // Tag data is all in single file
-    const tags = JSON.parse(
-      fs.readFileSync(this.migrationDataService.tagsFilePath, 'utf8'),
-    ) as Array<ITagDTO>
-
-    const systemTypes = JSON.parse(
-      fs.readFileSync(this.migrationDataService.systemTypesFilePath, 'utf8'),
-    ) as ITypesExport
-
-    const components = componentFilenames.map((filename) => {
-      const content = fs.readFileSync(
-        path.resolve(this.migrationDataService.componentsPath, filename),
-        'utf8',
-      )
-
-      return JSON.parse(content) as IComponentExport
-    })
-
-    return atomFilenames.reduce(
-      (adminData, filename) => {
-        const content = fs.readFileSync(
-          `${this.migrationDataService.atomsPath}/${filename}`,
-          'utf8',
-        )
-
-        const atomExport = JSON.parse(content.toString()) as IAtomExport
-
-        adminData.atoms.push(atomExport)
-
-        return adminData
-      },
-      { atoms: [] as Array<IAtomExport>, components, systemTypes, tags },
+    await this.commandBus.execute<ImportAtomCommand>(
+      new ImportAtomCommand(atomOutput, owner),
     )
   }
 }

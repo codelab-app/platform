@@ -1,11 +1,8 @@
 import type { IRepository } from '@codelab/backend/abstract/types'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import type { CacheService } from '@codelab/shared/infra/cache'
-import { CacheInstance } from '@codelab/shared/infra/cache'
 import { flattenWithPrefix, withActiveSpan } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
-import { context } from '@opentelemetry/api'
 
 @Injectable()
 export abstract class AbstractRepository<
@@ -161,7 +158,7 @@ export abstract class AbstractRepository<
    */
   async save(data: Model, where?: Where): Promise<ModelData> {
     return withActiveSpan(
-      `${this.constructor.name}.save`,
+      `${this.constructor.name}.save ${data.name}`,
       async () => {
         const computedWhere = this.getWhere(data, where)
 

@@ -1,7 +1,4 @@
-import type { AppWhere } from '@codelab/backend/abstract/codegen'
-import type { IUserDataExport } from '@codelab/backend/abstract/core'
 import { ExportAppsCommand } from '@codelab/backend/application/app'
-import type { TypesToExport } from '@codelab/backend/application/type'
 import { UserRepository } from '@codelab/backend/domain/user'
 import type { IAuth0User } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
@@ -14,7 +11,7 @@ const keyComparator = (a: { key: string }, b: { key: string }) =>
   a.key.localeCompare(b.key)
 
 // sort data before export to provide consistent export each time
-// const sortExportData = (exportData: IUserDataExport) => {
+// const sortExportData = (exportData: IUserOutputDto) => {
 //   const { apps, components, resources } = exportData
 
 //   apps.sort(nameComparator)
@@ -63,7 +60,7 @@ export class ExportUserDataHandler
 //   const resourcesData = await exportResources()
 //   const components = await exportComponents(where)
 
-//   const exportData: IUserDataExport = {
+//   const exportData: IUserOutputDto = {
 //     apps: appsData,
 //     components,
 //     resources: resourcesData,

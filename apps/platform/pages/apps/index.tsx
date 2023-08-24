@@ -22,7 +22,7 @@ import {
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
 import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
-import type { IAuth0Owner, IAuth0User } from '@codelab/shared/abstract/core'
+import type { IAuth0User } from '@codelab/shared/abstract/core'
 import { getEnv } from '@codelab/shared/config'
 import { useAsync } from '@react-hookz/web'
 import { Image, Spin } from 'antd'

@@ -1,9 +1,16 @@
-import type { IEntity } from '@codelab/shared/abstract/types'
-import type { IAuth0Owner } from './user.interface'
+import { IEntity } from '@codelab/shared/abstract/types'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+import { IAuth0Owner } from './user.interface'
 
-export interface IAppDTO extends IAuth0Owner {
-  domains?: Array<IEntity>
-  id: string
-  name: string
-  pages?: Array<IEntity>
-}
+export const IAppDTO = Type.Composite([
+  IAuth0Owner,
+  Type.Object({
+    domains: Type.Optional(Type.Array(IEntity)),
+    id: Type.String(),
+    name: Type.String(),
+    pages: Type.Optional(Type.Array(IEntity)),
+  }),
+])
+
+export type IAppDTO = Static<typeof IAppDTO>

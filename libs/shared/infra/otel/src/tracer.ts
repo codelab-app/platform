@@ -2,10 +2,7 @@ import type { MaybePromise } from '@codelab/shared/abstract/types'
 import { toError } from '@codelab/shared/utils'
 import type { Context, Span } from '@opentelemetry/api'
 import { context, SpanStatusCode, trace } from '@opentelemetry/api'
-import {
-  getSpan,
-  setSpan,
-} from '@opentelemetry/api/build/src/trace/context-utils'
+import { setSpan } from '@opentelemetry/api/build/src/trace/context-utils'
 
 export const TRACER_NAME = 'platform-api'
 

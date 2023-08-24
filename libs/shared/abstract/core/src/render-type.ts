@@ -1,5 +1,7 @@
 import { RenderTypeKind } from '@codelab/shared/abstract/codegen'
-import type { IRenderTypeKind } from '.'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+import { IRenderTypeKind } from '.'
 
 /**
  *  @deprecated We have to use the copy from codegen, otherwise they don't match up
@@ -11,12 +13,13 @@ export enum __RenderTypeKind {
 
 export { RenderTypeKind as IRenderTypeKind }
 
-export type IComponentID = string
+export const IComponentID = Type.String()
 
-export type IAtomID = string
+export const IAtomID = Type.String()
 
-export interface RenderType {
-  // This is the ID of either `atom` or `component`
-  id: IAtomID | IComponentID
-  kind: IRenderTypeKind
-}
+export const RenderType = Type.Object({
+  id: Type.Union([IAtomID, IComponentID]),
+  kind: Type.Enum(IRenderTypeKind),
+})
+
+export type RenderType = Static<typeof RenderType>

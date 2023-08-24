@@ -3,9 +3,7 @@ import {
   corsMiddleware,
   nextProxyMiddleware,
 } from '@codelab/backend/infra/adapter/graphql'
-import { getEnv } from '@codelab/shared/config'
 import type { NextApiHandler } from 'next'
-import httpProxyMiddleware from 'next-http-proxy-middleware'
 
 const handler: NextApiHandler = async (req, res) => {
   await corsMiddleware(req, res)

@@ -2,23 +2,14 @@ import { TRACER_NAME } from '@codelab/shared/infra/otel'
 import { AsyncLocalStorageContextManager } from '@opentelemetry/context-async-hooks'
 import {
   CompositePropagator,
-  W3CBaggagePropagator,
   W3CTraceContextPropagator,
 } from '@opentelemetry/core'
-import { JaegerExporter } from '@opentelemetry/exporter-jaeger'
-import { PrometheusExporter } from '@opentelemetry/exporter-prometheus'
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http'
-import { NestInstrumentation } from '@opentelemetry/instrumentation-nestjs-core'
-import { B3InjectEncoding, B3Propagator } from '@opentelemetry/propagator-b3'
 import { JaegerPropagator } from '@opentelemetry/propagator-jaeger'
 import { Resource } from '@opentelemetry/resources'
 import { NodeSDK } from '@opentelemetry/sdk-node'
-import {
-  BatchSpanProcessor,
-  SimpleSpanProcessor,
-} from '@opentelemetry/sdk-trace-base'
+import { SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base'
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions'
-import { MultiSpanProcessor } from './exporter/multi-span-processor'
 
 export const otelSDK = new NodeSDK({
   /**

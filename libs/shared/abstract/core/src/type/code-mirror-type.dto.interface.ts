@@ -1,8 +1,14 @@
-import type { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import type { ITypeKind } from '../type-kind.enum'
-import type { IBaseTypeDTO } from './base-type.dto.interface'
+import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+import { ITypeKind } from '../type-kind.enum'
+import { IBaseTypeDTO } from './base-type.dto.interface'
 
-export interface ICodeMirrorTypeDTO extends IBaseTypeDTO {
-  __typename?: `${ITypeKind.CodeMirrorType}`
-  language: CodeMirrorLanguage
-}
+export const ICodeMirrorTypeDTO = Type.Composite([
+  IBaseTypeDTO(Type.Literal(`${ITypeKind.CodeMirrorType}`)),
+  Type.Object({
+    language: Type.Enum(CodeMirrorLanguage),
+  }),
+])
+
+export type ICodeMirrorTypeDTO = Static<typeof ICodeMirrorTypeDTO>

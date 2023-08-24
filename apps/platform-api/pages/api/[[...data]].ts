@@ -1,8 +1,5 @@
 /* eslint-disable unicorn/filename-case */
-import {
-  authMiddleware,
-  corsMiddleware,
-} from '@codelab/backend/infra/adapter/graphql'
+import { authMiddleware } from '@codelab/backend/infra/adapter/graphql'
 import { getDataListener } from '@codelab/backend/infra/adapter/serverless'
 import type { NextApiHandler } from 'next'
 

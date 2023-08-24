@@ -1,8 +1,14 @@
-import type { ITypeKind } from '../type-kind.enum'
-import type { IBaseTypeDTO } from './base-type.dto.interface'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+import { ITypeKind } from '../type-kind.enum'
+import { IBaseTypeDTO } from './base-type.dto.interface'
+import { IAnyBaseType } from './type.dto.interface'
 
-export interface IUnionTypeDTO extends IBaseTypeDTO {
-  __typename?: `${ITypeKind.UnionType}`
-  // We need kind and name
-  typesOfUnionType: Array<Omit<IBaseTypeDTO, 'owner'>>
-}
+export const IUnionTypeDTO = Type.Composite([
+  IBaseTypeDTO(Type.Literal(`${ITypeKind.UnionType}`)),
+  Type.Object({
+    typesOfUnionType: Type.Array(IAnyBaseType),
+  }),
+])
+
+export type IUnionTypeDTO = Static<typeof IUnionTypeDTO>

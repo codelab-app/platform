@@ -1,14 +1,18 @@
-import type { IEntity, Nullish } from '@codelab/shared/abstract/types'
-import type { IPageKind } from './page-kind.enum'
+import { IEntity, Typebox } from '@codelab/shared/abstract/types'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+import { IPageKind } from './page-kind.enum'
 
-export interface IPageDTO {
-  app: IEntity
-  id: string
-  kind: IPageKind
-  name: string
+export const IPageDTO = Type.Object({
+  app: IEntity,
+  id: Type.String(),
+  kind: Type.Enum(IPageKind),
+  name: Type.String(),
   // The container element of the page
-  pageContentContainer?: Nullish<IEntity>
-  rootElement: IEntity
-  store: IEntity
-  url: string
-}
+  pageContentContainer: Typebox.Nullish(IEntity),
+  rootElement: IEntity,
+  store: IEntity,
+  url: Type.String(),
+})
+
+export type IPageDTO = Static<typeof IPageDTO>

@@ -1,12 +1,19 @@
-import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
-import type { IAuth0Owner } from './user.interface'
+import { IEntity, Typebox } from '@codelab/shared/abstract/types'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
+import { IAuth0Owner } from './user.interface'
 
-export interface ITagDTO extends IAuth0Owner {
-  children?: Array<IEntity>
-  // This is computed property
-  descendants?: Array<IEntity>
-  id: string
-  isRoot?: boolean | null
-  name: string
-  parent?: Nullable<IEntity>
-}
+export const ITagDTO = Type.Composite([
+  IAuth0Owner,
+  Type.Object({
+    children: Type.Optional(Type.Array(IEntity)),
+    // This is computed property
+    descendants: Type.Optional(Type.Array(IEntity)),
+    id: Type.String(),
+    isRoot: Typebox.Nullish(Type.Boolean()),
+    name: Type.String(),
+    parent: Typebox.Nullish(IEntity),
+  }),
+])
+
+export type ITagDTO = Static<typeof ITagDTO>

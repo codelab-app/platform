@@ -1,8 +1,9 @@
-import { z } from 'zod'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
 
-export const QueryLambdaHookConfigSchema = z.object({
-  lambdaId: z.string(),
-  queryKey: z.string().min(1),
+export const QueryLambdaHookConfigSchema = Type.Object({
+  lambdaId: Type.String(),
+  queryKey: Type.String({ minLength: 1 }),
 })
 
-export type IQueryLambdaHookConfig = z.infer<typeof QueryLambdaHookConfigSchema>
+export type IQueryLambdaHookConfig = Static<typeof QueryLambdaHookConfigSchema>

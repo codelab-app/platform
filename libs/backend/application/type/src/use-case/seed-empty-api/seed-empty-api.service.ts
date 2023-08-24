@@ -1,4 +1,4 @@
-import { AuthUseCase, UseCase } from '@codelab/backend/application/service'
+import { UseCase } from '@codelab/backend/application/service'
 import {
   InterfaceType,
   InterfaceTypeRepository,

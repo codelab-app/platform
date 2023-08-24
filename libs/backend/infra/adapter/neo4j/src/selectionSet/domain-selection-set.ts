@@ -1,4 +1,4 @@
-export const domainSelection = `
+export const domainSelectionSet = `
   id
   name
   app {

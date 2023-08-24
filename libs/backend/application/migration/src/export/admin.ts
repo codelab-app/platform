@@ -14,9 +14,7 @@ const exportAdminData: NextApiHandler = async (req, res) => {
     }
 
     const baseExportPath = path.resolve('./tmp/data/export')
-
     // ;(await new ExportAdminDataService(baseExportPath).execute()).saveAsFiles()
-
     // Create zip
     const zip = new AdmZip()
     const filename = `admin-export-data-${Date.now()}.tgz`

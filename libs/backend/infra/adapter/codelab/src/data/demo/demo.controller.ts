@@ -1,4 +1,4 @@
-import { Controller, Get, Injectable } from '@nestjs/common'
+import { Controller, Get } from '@nestjs/common'
 import { DemoService } from './demo.service'
 
 @Controller('demo')
