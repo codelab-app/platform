@@ -36,9 +36,7 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
     tags: {
       items: {
         properties: {
-          id: {
-            type: 'string',
-          },
+          ...idSchema,
         },
         required: ['id'],
         type: 'object',

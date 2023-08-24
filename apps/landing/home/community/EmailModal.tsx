@@ -1,3 +1,5 @@
+import { Typebox } from '@codelab/shared/abstract/types'
+import { Type } from '@sinclair/typebox'
 import type { ModalProps } from 'antd'
 import { Button, Input, Modal } from 'antd'
 import React, { useState } from 'react'
@@ -8,7 +10,7 @@ interface EmailModalProps extends Omit<ModalProps, 'onOk'> {
 
 export const EmailModal = ({ onCancel, onOk, open }: EmailModalProps) => {
   const [email, setEmail] = useState('')
-  const { success: isValid } = Type.String().email().safeParse(email)
+  const isValid = Typebox.SafeValidate(Type.String().email(), email)
 
   return (
     <Modal

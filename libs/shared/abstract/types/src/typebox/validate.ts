@@ -17,6 +17,15 @@ export const Validate = <T extends TAnySchema>(schema: T, values: unknown) => {
   return values
 }
 
+export const SafeValidate = <T extends TAnySchema>(
+  schema: T,
+  values: unknown,
+) => {
+  const Compiler = TypeCompiler.Compile(schema)
+
+  return !Compiler.Check(values)
+}
+
 const formatErrors = (errors: Array<ValueError>) => {
   return errors
     .map(

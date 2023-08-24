@@ -2,7 +2,6 @@ import type {
   IApp,
   IAppService,
   ICreateAppData,
-  IDomainDTO,
   IPageBuilderAppProps,
   IUpdateAppData,
 } from '@codelab/frontend/abstract/core'
@@ -34,6 +33,7 @@ import type {
   GetRenderedPageAndCommonAppDataQuery,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
+import type { IDomainDTO } from '@codelab/shared/abstract/core'
 import { IAppDTO } from '@codelab/shared/abstract/core'
 import flatMap from 'lodash/flatMap'
 import merge from 'lodash/merge'

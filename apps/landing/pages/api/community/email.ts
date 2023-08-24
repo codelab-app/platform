@@ -1,8 +1,10 @@
+import { Typebox } from '@codelab/shared/abstract/types'
 import { getEnv } from '@codelab/shared/config'
 import client from '@mailchimp/mailchimp_marketing'
+import { Type } from '@sinclair/typebox'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-const schema = Type.Object({
+const Email = Type.Object({
   email: Type.String().email(),
 })
 
@@ -10,7 +12,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { apiKey, listId, serverPrefix } = getEnv().mailchimp
 
   try {
-    const { email } = schema.parse(req.body)
+    const { email } = Typebox.Validate(Email, req.body)
+
     client.setConfig({
       apiKey,
       server: serverPrefix,

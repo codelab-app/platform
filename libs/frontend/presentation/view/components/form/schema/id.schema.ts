@@ -9,6 +9,16 @@ export const idSchema: PropertiesSchema<IEntity> = {
     disabled: true,
     required: ['id'],
   },
+  /**
+   * Hide it, add only to implement IEntity
+   */
+  name: {
+    type: 'string',
+    nullable: true,
+    uniforms: {
+      component: () => null,
+    },
+  },
 }
 
 // TODO Enhance make entity schema typing

@@ -26,9 +26,7 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
     tags: {
       items: {
         properties: {
-          id: {
-            type: 'string',
-          },
+          ...idSchema,
         },
         required: ['id'],
         type: 'object',

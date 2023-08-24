@@ -2,6 +2,16 @@
   "extends": "../../../../tsconfig.base.json",
   "files": [],
   "include": [],
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "../../../../dist/out-tsc",
+    "declaration": true,
+    "types": ["node"],
+    "strict": true,
+    "noImplicitReturns": true,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true
+  },
   "references": [
     {
       "path": "./tsconfig.lib.json"
