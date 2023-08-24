@@ -157,7 +157,7 @@
             {
               "id": "5e96e399-2a61-49ab-8365-3a74addd6d4a",
               "name": "Left Menu",
-              "customCss": "background-color: #111010 !important;\n\n@media (max-width: 600px) {\n  display: none;\n}",
+              "customCss": "background-color: #111010 !important;\n\n@container root (max-width: 600px) {\n  display: none;\n}",
               "guiCss": "{}",
               "parentComponent": null,
               "renderComponentType": null,
@@ -225,7 +225,7 @@
             {
               "id": "345b5920-1df9-4dc8-9da0-4f1c8c8de99e",
               "name": "Header",
-              "customCss": "background-color: #111010;\ndisplay: none;\n\n.ant-space-item {\n  width: 100%;\n}\n\n.ant-anchor {\n  display: flex;\n  justify-content: space-around;\n  margin-top: 12px;\n}\n\n@media (max-width: 600px) {\n  display: block;\n}",
+              "customCss": "background-color: #111010;\ndisplay: none;\n\n.ant-space-item {\n  width: 100%;\n}\n\n.ant-anchor {\n  display: flex;\n  justify-content: space-around;\n  margin-top: 12px;\n}\n\n@container root (max-width: 600px) {\n  display: block;\n}",
               "guiCss": "{}",
               "parentComponent": null,
               "renderComponentType": null,
@@ -1219,7 +1219,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "data": "{\"customText\":\"<p>{{componentProps.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1256,7 +1256,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "68b1ed37-56d8-40c5-87e2-1f3234a0a5e1",
-                "data": "{\"href\":\"{{props.href}}\"}"
+                "data": "{\"href\":\"{{componentProps.href}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1290,7 +1290,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "17c04e6e-9c17-4e87-9397-69d640027219",
-                "data": "{\"name\":\"{{props.icon ?? ''}}\"}"
+                "data": "{\"name\":\"{{componentProps.icon ?? ''}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1324,7 +1324,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "d9d56356-8891-4e1b-9bfe-d131d31d33d1",
-                "data": "{\"customText\":\"<p>{{props.label}}</p>\"}"
+                "data": "{\"customText\":\"<p>{{componentProps.label}}</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1521,7 +1521,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "8b302efc-387f-4c9d-99c2-0591cc903319",
-                "data": "{\"href\":\"/blog/{{props.id}}\"}"
+                "data": "{\"href\":\"/blog/{{componentProps.id}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1555,7 +1555,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "0b89e5ec-b241-4e7e-976b-ca14fd576d92",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>{{props.title}}</p>\",\"data-component-id\":\"90-9S8mCDmFgkhMLqbwQxHXl\"}"
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>{{componentProps.title}}</p>\",\"data-component-id\":\"90-9S8mCDmFgkhMLqbwQxHXl\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1589,7 +1589,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "eb5f3d44-c937-4ac0-b42e-a0d5a368487c",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>{{props.created_at}}</p>\"}"
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>{{componentProps.created_at}}</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1626,7 +1626,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "data": "{\"customText\":\"<p>{{componentProps.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1663,7 +1663,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "cf21a16c-e64b-40ad-b47e-b97849ab2796",
-                "data": "{\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"spinning\":\"{{props.show}}\"}"
+                "data": "{\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"spinning\":\"{{componentProps.show}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1891,7 +1891,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "data": "{\"customText\":\"<p>{{componentProps.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -1928,7 +1928,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "cf21a16c-e64b-40ad-b47e-b97849ab2796",
-                "data": "{\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"spinning\":\"{{props.show}}\"}"
+                "data": "{\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"spinning\":\"{{componentProps.show}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2428,7 +2428,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "8c3e2294-4a72-41f1-a2d9-c01acdaf4d80",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>{{props.owner}}:   </p>\"}"
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>{{componentProps.owner}}:   </p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2493,7 +2493,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "fdd443dd-2510-4966-acd2-d0ece79728ef",
-                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>{{props.text}}</p>\"}"
+                "data": "{\"onClick\":{\"kind\":\"ActionType\",\"type\":\"90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f\"},\"customText\":\"<p>{{componentProps.text}}</p>\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2530,7 +2530,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "data": "{\"customText\":\"<p>{{componentProps.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -2567,7 +2567,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "cf21a16c-e64b-40ad-b47e-b97849ab2796",
-                "data": "{\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"spinning\":\"{{props.show}}\"}"
+                "data": "{\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"spinning\":\"{{componentProps.show}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -3098,7 +3098,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-                "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+                "data": "{\"customText\":\"<p>{{componentProps.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -3163,7 +3163,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "386c3025-e620-4e2a-99d3-25fa9bad9a55",
-                "data": "{\"name\":\"{{props.icon}}\"}"
+                "data": "{\"name\":\"{{componentProps.icon}}\"}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -3197,7 +3197,7 @@
               "childMapperPreviousSibling": null,
               "props": {
                 "id": "810218c4-2c5b-4d2b-a472-8103cfc4e7e1",
-                "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{props.text}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
+                "data": "{\"title\":{\"kind\":\"ReactNodeType\",\"value\":\"{{componentProps.text}}\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"}}"
               },
               "renderForEachPropKey": null,
               "childMapperPropKey": null,
@@ -3264,7 +3264,7 @@
         "childMapperPreviousSibling": null,
         "props": {
           "id": "8b302efc-387f-4c9d-99c2-0591cc903319",
-          "data": "{\"href\":\"/blog/{{props.id}}\"}"
+          "data": "{\"href\":\"/blog/{{componentProps.id}}\"}"
         },
         "renderForEachPropKey": null,
         "childMapperPropKey": null,
@@ -3537,7 +3537,7 @@
         "childMapperPreviousSibling": null,
         "props": {
           "id": "c042e37b-8120-4104-8869-ab1db62a039a",
-          "data": "{\"customText\":\"<p>{{props.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
+          "data": "{\"customText\":\"<p>{{componentProps.text}}</p>\",\"underline\":false,\"strong\":false,\"mark\":false,\"italic\":false,\"disabled\":false,\"delete\":false,\"code\":false}"
         },
         "renderForEachPropKey": null,
         "childMapperPropKey": null,
@@ -3623,7 +3623,7 @@
         "childMapperPreviousSibling": null,
         "props": {
           "id": "68b1ed37-56d8-40c5-87e2-1f3234a0a5e1",
-          "data": "{\"href\":\"{{props.href}}\"}"
+          "data": "{\"href\":\"{{componentProps.href}}\"}"
         },
         "renderForEachPropKey": null,
         "childMapperPropKey": null,
@@ -3831,7 +3831,7 @@
         "childMapperPreviousSibling": null,
         "props": {
           "id": "cf21a16c-e64b-40ad-b47e-b97849ab2796",
-          "data": "{\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"spinning\":\"{{props.show}}\"}"
+          "data": "{\"tip\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"indicator\":{\"kind\":\"ReactNodeType\",\"type\":\"7333edde-f8f5-4d3c-a595-01b5585b37da\"},\"spinning\":\"{{componentProps.show}}\"}"
         },
         "renderForEachPropKey": null,
         "childMapperPropKey": null,
@@ -3888,7 +3888,7 @@
       "childrenContainerElement": {
         "id": "5f2c67fc-7d5d-471a-a3fc-2c4b50322ff2"
       },
-      "keyGenerator": "function run(props) {\n    // props are of type component api\n    return props.id\n}"
+      "keyGenerator": "function run(props) {\n    // props are of type component api\n    return componentProps.id\n}"
     }
   ],
   "resources": [],
