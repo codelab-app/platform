@@ -71,6 +71,13 @@ export const Builder = observer(() => {
     return () => resizeObserver.disconnect()
   }, [])
 
+  const builderStyle = useMemo(() => {
+    return {
+      container: 'root / inline-size',
+      width: `${selectedBuilderWidth.default}px`,
+    }
+  }, [selectedBuilderWidth.default])
+
   if (!elementTree || !renderer) {
     return null
   }
@@ -81,9 +88,7 @@ export const Builder = observer(() => {
         <StyledBuilderResizeContainer
           id={BUILDER_CONTAINER_ID}
           key={elementTree.id}
-          style={{
-            width: `${selectedBuilderWidth.default}px`,
-          }}
+          style={builderStyle}
         >
           <Renderer ref={setNodeRef} renderer={renderer} style={rootStyle} />
           <BuilderClickOverlay
