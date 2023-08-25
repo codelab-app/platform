@@ -2,7 +2,7 @@ import type { IComponentType, IPropData } from '@codelab/frontend/abstract/core'
 import React from 'react'
 import styled from 'styled-components'
 
-const ReusableStyledComponent = styled(React.Fragment)`
+const ReusableStyledComponent = styled('placeholder')`
   ${(props: IPropData) => props['css']}
 `
 
