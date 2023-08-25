@@ -3,6 +3,7 @@ import type {
   ICreateElementData,
   IElement,
   IElementService,
+  IPropData,
 } from '@codelab/frontend/abstract/core'
 import {
   elementRef,
@@ -14,7 +15,11 @@ import {
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { Component } from '@codelab/frontend/domain/component'
 import { getPropService } from '@codelab/frontend/domain/prop'
-import { getTypeService } from '@codelab/frontend/domain/type'
+import {
+  getActionService,
+  getStoreService,
+} from '@codelab/frontend/domain/store'
+import { getFieldService, getTypeService } from '@codelab/frontend/domain/type'
 import {
   RenderedComponentFragment,
   RenderTypeKind,
@@ -24,8 +29,9 @@ import type {
   IElementDTO,
   RenderType,
 } from '@codelab/shared/abstract/core'
-import { IRenderTypeKind } from '@codelab/shared/abstract/core'
+import { IRenderTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
+import { mapDeep } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
 import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
@@ -106,6 +112,21 @@ export class ElementService
   @computed
   private get propService() {
     return getPropService(this)
+  }
+
+  @computed
+  private get actionService() {
+    return getActionService(this)
+  }
+
+  @computed
+  private get fieldService() {
+    return getFieldService(this)
+  }
+
+  @computed
+  private get storeService() {
+    return getStoreService(this)
   }
 
   @modelAction
@@ -768,6 +789,84 @@ export class ElementService
     return createdElements
   })
 
+  /**
+   * Creates a clone of the actions and state fields of the element
+   * in the component's store and updates the element props to use
+   * the actions in the component store.
+   * @param element - The element to clone the actions and state fields from
+   * @param component - The component to clone the actions and state fields to
+   */
+  private async cloneElementStore(element: IElement, component: IComponent) {
+    const elementStore = element.store.current
+    const componentStore = component.store.current
+
+    // Duplicate state fields into the component store api
+    await Promise.all(
+      elementStore.api.current.fields.map((field) =>
+        this.fieldService.cloneField(field, componentStore.api.current.id),
+      ),
+    )
+
+    // Duplicate actions into the component store
+    const clonedActions = await Promise.all(
+      elementStore.actions.map((action) =>
+        this.actionService.cloneAction(action.current, componentStore.id),
+      ),
+    )
+
+    const oldToNewActionIdMap = elementStore.actions.reduce(
+      (acc, action, index) => {
+        if (clonedActions[index]) {
+          acc.set(action.id, clonedActions[index]!.id)
+        }
+
+        return acc
+      },
+      new Map<string, string>(),
+    )
+
+    // Update element and its descendants props values to use new action ids
+    const elementAndDescendantsProps = [
+      element.props.current,
+      ...element.descendantElements.map(
+        (descendantElement) => descendantElement.props.current,
+      ),
+    ]
+
+    const updatedPropsById = elementAndDescendantsProps.reduce(
+      (acc, elementProps) => {
+        const updatedPropsData = mapDeep(elementProps.data, (value) => {
+          if (
+            value.kind === ITypeKind.ActionType &&
+            oldToNewActionIdMap.has(value.value)
+          ) {
+            return { ...value, value: oldToNewActionIdMap.get(value.value) }
+          }
+
+          return value
+        })
+
+        acc.set(elementProps.id, updatedPropsData)
+
+        return acc
+      },
+      new Map<string, IPropData>(),
+    )
+
+    await Promise.all(
+      Array.from(updatedPropsById.entries()).map(([propId, updatedData]) => {
+        return this.propService.update({
+          data: JSON.stringify(updatedData.data),
+          id: propId,
+        })
+      }),
+    )
+
+    // This is required to load the added actions and fields into the component store
+    // otherwise the actions won't be available until the page is refreshed
+    await this.storeService.getOne(componentStore.id)
+  }
+
   @modelFlow
   @transaction
   convertElementToComponent = _async(function* (
@@ -790,6 +889,8 @@ export class ElementService
     const createdComponent = yield* _await(
       this.componentService.create({ id: v4(), name, owner }),
     )
+
+    yield* _await(this.cloneElementStore(element, createdComponent))
 
     // 3. detach the element from the element tree
     const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)

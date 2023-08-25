@@ -24,6 +24,7 @@ import {
   prop,
   transaction,
 } from 'mobx-keystone'
+import { v4 } from 'uuid'
 import { ActionRepository } from '../services/action.repo'
 import { ActionFactory } from './action.factory'
 import {
@@ -122,6 +123,59 @@ export class ActionService
 
     return action
   })
+
+  @modelFlow
+  @transaction
+  cloneAction = _async(function* (
+    this: ActionService,
+    action: IAction,
+    storeId: string,
+  ) {
+    const newAction = yield* _await(this.recursiveClone(action, storeId))
+
+    return newAction
+  })
+
+  private async recursiveClone(action: IAction, storeId: string) {
+    const actionDto = ActionFactory.mapActionToDTO(action)
+
+    let newActionDto: IActionDTO = {
+      ...actionDto,
+      id: v4(),
+      store: { id: storeId },
+    }
+
+    if (action.type === IActionKind.ApiAction) {
+      if (action.successAction?.maybeCurrent) {
+        const successActionCloned = await this.recursiveClone(
+          action.successAction.maybeCurrent,
+          storeId,
+        )
+
+        newActionDto = {
+          ...newActionDto,
+          successAction: { id: successActionCloned.id },
+        } as IActionDTO
+      }
+
+      if (action.errorAction?.maybeCurrent) {
+        const errorActionCloned = await this.recursiveClone(
+          action.errorAction.maybeCurrent,
+          storeId,
+        )
+
+        newActionDto = {
+          ...newActionDto,
+          errorAction: { id: errorActionCloned.id },
+        } as IActionDTO
+      }
+    }
+
+    const newAction = this.add(newActionDto)
+    await this.actionRepository.add(newAction)
+
+    return newAction
+  }
 
   @modelFlow
   @transaction

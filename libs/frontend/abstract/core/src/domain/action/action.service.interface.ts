@@ -38,5 +38,6 @@ export interface IActionService
 
   action(id: string): Maybe<IAction>
   add<T extends IActionDTO>(action: T): IAction
+  cloneAction(action: IAction, storeId: string): Promise<IAction>
   load(actions: Array<ActionFragment>): Array<IAction>
 }

@@ -109,4 +109,36 @@ export class ActionFactory extends Model({}) implements IActionFactory {
         }
     }
   }
+
+  static mapActionToDTO(action: IAction): IActionDTO {
+    switch (action.type) {
+      case IActionKind.CodeAction:
+        return {
+          __typename: IActionKind.CodeAction,
+
+          code: action.code,
+          id: action.id,
+          name: action.name,
+          store: { id: action.store.id },
+        }
+
+      case IActionKind.ApiAction:
+        return {
+          __typename: IActionKind.ApiAction,
+
+          config: { id: action.config.id },
+
+          errorAction: action.errorAction
+            ? { id: action.errorAction.id }
+            : undefined,
+          id: action.id,
+          name: action.name,
+          resource: { id: action.resource.id },
+          store: { id: action.store.id },
+          successAction: action.successAction
+            ? { id: action.successAction.id }
+            : undefined,
+        }
+    }
+  }
 }
