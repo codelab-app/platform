@@ -11,7 +11,6 @@ import { BaseRenderPipe } from './renderPipes/render-pipe.base'
  * The pipeline is as follow
  *
  * node.props ->
- *         preProceedProps ->
  *               renderedTypedProps ->
  *                                evaluatedProps
  */
@@ -34,10 +33,6 @@ export class BaseRuntimeProps<TNode extends IPageNode>
     return this.node.props.current.values
   }
 
-  get preProceedProps() {
-    return this.props
-  }
-
   @computed
   get typeService() {
     return getTypeService(this)
@@ -53,7 +48,7 @@ export class BaseRuntimeProps<TNode extends IPageNode>
    */
   @computed
   get renderedTypedProps() {
-    return mapDeep(this.preProceedProps, (value) => {
+    return mapDeep(this.props, (value) => {
       if (!isTypedProp(value)) {
         return value
       }

@@ -55,7 +55,6 @@ fragment Element on Element {
     id
     type
   }
-  propTransformationJs
 }
 
 fragment ProductionElement on Element {
@@ -114,5 +113,4 @@ fragment ProductionElement on Element {
     id
     type
   }
-  propTransformationJs
 }

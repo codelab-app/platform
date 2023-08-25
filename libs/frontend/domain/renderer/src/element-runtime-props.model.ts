@@ -2,16 +2,14 @@ import type {
   IElement,
   IElementRuntimeProp,
 } from '@codelab/frontend/abstract/core'
-import { DATA_ELEMENT_ID, IPropData } from '@codelab/frontend/abstract/core'
+import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
 import {
   evaluateExpression,
   evaluateObject,
   hasStateExpression,
 } from '@codelab/frontend/shared/utils'
-import { getDefaultFieldProps, mergeProps } from '@codelab/shared/utils'
-import attempt from 'lodash/attempt'
+import { getDefaultFieldProps } from '@codelab/shared/utils'
 import get from 'lodash/get'
-import isError from 'lodash/isError'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelClass } from 'mobx-keystone'
@@ -47,38 +45,6 @@ export class ElementRuntimeProps
         : undefined,
       key: this.node.id,
     }
-  }
-
-  @computed
-  get preProceedProps(): IPropData {
-    /**
-     * Executes the prop transformation function
-     * If successful, merges the result with the original props and returns it
-     * If failed, returns the original props
-     */
-
-    const transformFn = this.node.transformPropsFn
-
-    if (!transformFn) {
-      return this.props
-    }
-
-    const parentComponentProps =
-      this.node.parentComponent?.current.runtimeProp?.componentEvaluatedProps ||
-      {}
-
-    const result = attempt(transformFn, {
-      ...this.props,
-      ...parentComponentProps,
-    })
-
-    if (isError(result)) {
-      console.warn('Unable to transform props', result)
-
-      return this.props
-    }
-
-    return mergeProps(this.props, result)
   }
 
   @computed

@@ -23,7 +23,6 @@ export type ElementFragment = {
   childMapperPropKey?: string | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
-  propTransformationJs?: string | null
   page?: { id: string } | null
   renderComponentType?: { id: string } | null
   renderAtomType?: AtomFragment | null
@@ -55,7 +54,6 @@ export type ProductionElementFragment = {
   childMapperPropKey?: string | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
-  propTransformationJs?: string | null
   page?: { id: string } | null
   renderComponentType?: { id: string } | null
   renderAtomType?: ProductionAtomFragment | null
@@ -135,7 +133,6 @@ export const ElementFragmentDoc = gql`
       id
       type
     }
-    propTransformationJs
   }
   ${AtomFragmentDoc}
   ${PropFragmentDoc}
@@ -196,7 +193,6 @@ export const ProductionElementFragmentDoc = gql`
       id
       type
     }
-    propTransformationJs
   }
   ${ProductionAtomFragmentDoc}
   ${PropFragmentDoc}

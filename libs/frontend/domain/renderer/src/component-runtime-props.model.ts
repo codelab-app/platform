@@ -3,7 +3,7 @@ import type {
   IComponentRuntimeProp,
   IElementRuntimeProp,
 } from '@codelab/frontend/abstract/core'
-import { DATA_COMPONENT_ID, IPropData } from '@codelab/frontend/abstract/core'
+import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
 import { evaluateObject } from '@codelab/frontend/shared/utils'
 import { Maybe } from '@codelab/shared/abstract/types'
 import { mergeProps } from '@codelab/shared/utils'
@@ -16,7 +16,6 @@ import { BaseRuntimeProps } from './base-runtime-props.model'
  * The pipeline is as follow
  *
  * (component.props + component.api.defaultValues )->
- *         preProceedProps ->
  *               renderedTypedProps ->
  *                                evaluatedProps
  *
@@ -52,11 +51,6 @@ export class ComponentRuntimeProps
         key: this.node.id,
       },
     )
-  }
-
-  @computed
-  get preProceedProps(): IPropData {
-    return this.props
   }
 
   @computed

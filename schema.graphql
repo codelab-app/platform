@@ -552,7 +552,6 @@ type ApiActionElementElementNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
 }
@@ -636,21 +635,6 @@ input ApiActionElementNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
-  propTransformationJs_AVERAGE_LENGTH_GT: Float
-  propTransformationJs_AVERAGE_LENGTH_GTE: Float
-  propTransformationJs_AVERAGE_LENGTH_LT: Float
-  propTransformationJs_AVERAGE_LENGTH_LTE: Float
-  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
-  propTransformationJs_LONGEST_LENGTH_GT: Int
-  propTransformationJs_LONGEST_LENGTH_GTE: Int
-  propTransformationJs_LONGEST_LENGTH_LT: Int
-  propTransformationJs_LONGEST_LENGTH_LTE: Int
-  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
-  propTransformationJs_SHORTEST_LENGTH_GT: Int
-  propTransformationJs_SHORTEST_LENGTH_GTE: Int
-  propTransformationJs_SHORTEST_LENGTH_LT: Int
-  propTransformationJs_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -4244,21 +4228,6 @@ input BaseActionElementNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
-  propTransformationJs_AVERAGE_LENGTH_GT: Float
-  propTransformationJs_AVERAGE_LENGTH_GTE: Float
-  propTransformationJs_AVERAGE_LENGTH_LT: Float
-  propTransformationJs_AVERAGE_LENGTH_LTE: Float
-  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
-  propTransformationJs_LONGEST_LENGTH_GT: Int
-  propTransformationJs_LONGEST_LENGTH_GTE: Int
-  propTransformationJs_LONGEST_LENGTH_LT: Int
-  propTransformationJs_LONGEST_LENGTH_LTE: Int
-  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
-  propTransformationJs_SHORTEST_LENGTH_GT: Int
-  propTransformationJs_SHORTEST_LENGTH_GTE: Int
-  propTransformationJs_SHORTEST_LENGTH_LT: Int
-  propTransformationJs_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -4798,7 +4767,6 @@ type CodeActionElementElementNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
 }
@@ -4882,21 +4850,6 @@ input CodeActionElementNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
-  propTransformationJs_AVERAGE_LENGTH_GT: Float
-  propTransformationJs_AVERAGE_LENGTH_GTE: Float
-  propTransformationJs_AVERAGE_LENGTH_LT: Float
-  propTransformationJs_AVERAGE_LENGTH_LTE: Float
-  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
-  propTransformationJs_LONGEST_LENGTH_GT: Int
-  propTransformationJs_LONGEST_LENGTH_GTE: Int
-  propTransformationJs_LONGEST_LENGTH_LT: Int
-  propTransformationJs_LONGEST_LENGTH_LTE: Int
-  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
-  propTransformationJs_SHORTEST_LENGTH_GT: Int
-  propTransformationJs_SHORTEST_LENGTH_GTE: Int
-  propTransformationJs_SHORTEST_LENGTH_LT: Int
-  propTransformationJs_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -5638,21 +5591,6 @@ input ComponentChildrenContainerElementNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
-  propTransformationJs_AVERAGE_LENGTH_GT: Float
-  propTransformationJs_AVERAGE_LENGTH_GTE: Float
-  propTransformationJs_AVERAGE_LENGTH_LT: Float
-  propTransformationJs_AVERAGE_LENGTH_LTE: Float
-  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
-  propTransformationJs_LONGEST_LENGTH_GT: Int
-  propTransformationJs_LONGEST_LENGTH_GTE: Int
-  propTransformationJs_LONGEST_LENGTH_LT: Int
-  propTransformationJs_LONGEST_LENGTH_LTE: Int
-  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
-  propTransformationJs_SHORTEST_LENGTH_GT: Int
-  propTransformationJs_SHORTEST_LENGTH_GTE: Int
-  propTransformationJs_SHORTEST_LENGTH_LT: Int
-  propTransformationJs_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -5777,7 +5715,6 @@ type ComponentElementChildrenContainerElementNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
 }
@@ -5794,7 +5731,6 @@ type ComponentElementRootElementNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
 }
@@ -6158,21 +6094,6 @@ input ComponentRootElementNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
-  propTransformationJs_AVERAGE_LENGTH_GT: Float
-  propTransformationJs_AVERAGE_LENGTH_GTE: Float
-  propTransformationJs_AVERAGE_LENGTH_LT: Float
-  propTransformationJs_AVERAGE_LENGTH_LTE: Float
-  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
-  propTransformationJs_LONGEST_LENGTH_GT: Int
-  propTransformationJs_LONGEST_LENGTH_GTE: Int
-  propTransformationJs_LONGEST_LENGTH_LT: Int
-  propTransformationJs_LONGEST_LENGTH_LTE: Int
-  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
-  propTransformationJs_SHORTEST_LENGTH_GT: Int
-  propTransformationJs_SHORTEST_LENGTH_GTE: Int
-  propTransformationJs_SHORTEST_LENGTH_LT: Int
-  propTransformationJs_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -7006,7 +6927,6 @@ type Element {
     sort: [ElementPrevSiblingConnectionSort!]
     where: ElementPrevSiblingConnectionWhere
   ): ElementPrevSiblingConnection!
-  propTransformationJs: String
   props(directed: Boolean = true, options: PropOptions, where: PropWhere): Prop!
   propsAggregate(
     directed: Boolean = true
@@ -7065,7 +6985,6 @@ type ElementAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
 }
@@ -7354,21 +7273,6 @@ input ElementChildMapperPreviousSiblingNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
-  propTransformationJs_AVERAGE_LENGTH_GT: Float
-  propTransformationJs_AVERAGE_LENGTH_GTE: Float
-  propTransformationJs_AVERAGE_LENGTH_LT: Float
-  propTransformationJs_AVERAGE_LENGTH_LTE: Float
-  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
-  propTransformationJs_LONGEST_LENGTH_GT: Int
-  propTransformationJs_LONGEST_LENGTH_GTE: Int
-  propTransformationJs_LONGEST_LENGTH_LT: Int
-  propTransformationJs_LONGEST_LENGTH_LTE: Int
-  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
-  propTransformationJs_SHORTEST_LENGTH_GT: Int
-  propTransformationJs_SHORTEST_LENGTH_GTE: Int
-  propTransformationJs_SHORTEST_LENGTH_LT: Int
-  propTransformationJs_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -7508,7 +7412,6 @@ input ElementCreateInput {
   postRenderAction: ElementPostRenderActionFieldInput
   preRenderAction: ElementPreRenderActionFieldInput
   prevSibling: ElementPrevSiblingFieldInput
-  propTransformationJs: String
   props: ElementPropsFieldInput
   renderAtomType: ElementRenderAtomTypeFieldInput
   renderComponentType: ElementRenderComponentTypeFieldInput
@@ -7565,7 +7468,6 @@ type ElementElementChildMapperPreviousSiblingNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
 }
@@ -7582,7 +7484,6 @@ type ElementElementFirstChildNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
 }
@@ -7599,7 +7500,6 @@ type ElementElementNextSiblingNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
 }
@@ -7616,7 +7516,6 @@ type ElementElementParentNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
 }
@@ -7633,7 +7532,6 @@ type ElementElementPrevSiblingNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
 }
@@ -7785,21 +7683,6 @@ input ElementFirstChildNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
-  propTransformationJs_AVERAGE_LENGTH_GT: Float
-  propTransformationJs_AVERAGE_LENGTH_GTE: Float
-  propTransformationJs_AVERAGE_LENGTH_LT: Float
-  propTransformationJs_AVERAGE_LENGTH_LTE: Float
-  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
-  propTransformationJs_LONGEST_LENGTH_GT: Int
-  propTransformationJs_LONGEST_LENGTH_GTE: Int
-  propTransformationJs_LONGEST_LENGTH_LT: Int
-  propTransformationJs_LONGEST_LENGTH_LTE: Int
-  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
-  propTransformationJs_SHORTEST_LENGTH_GT: Int
-  propTransformationJs_SHORTEST_LENGTH_GTE: Int
-  propTransformationJs_SHORTEST_LENGTH_LT: Int
-  propTransformationJs_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -7998,21 +7881,6 @@ input ElementNextSiblingNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
-  propTransformationJs_AVERAGE_LENGTH_GT: Float
-  propTransformationJs_AVERAGE_LENGTH_GTE: Float
-  propTransformationJs_AVERAGE_LENGTH_LT: Float
-  propTransformationJs_AVERAGE_LENGTH_LTE: Float
-  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
-  propTransformationJs_LONGEST_LENGTH_GT: Int
-  propTransformationJs_LONGEST_LENGTH_GTE: Int
-  propTransformationJs_LONGEST_LENGTH_LT: Int
-  propTransformationJs_LONGEST_LENGTH_LTE: Int
-  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
-  propTransformationJs_SHORTEST_LENGTH_GT: Int
-  propTransformationJs_SHORTEST_LENGTH_GTE: Int
-  propTransformationJs_SHORTEST_LENGTH_LT: Int
-  propTransformationJs_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -8071,7 +7939,6 @@ input ElementOnCreateInput {
   guiCss: String
   id: ID!
   name: String!
-  propTransformationJs: String
   renderForEachPropKey: String
   renderIfExpression: String
 }
@@ -8490,21 +8357,6 @@ input ElementParentNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
-  propTransformationJs_AVERAGE_LENGTH_GT: Float
-  propTransformationJs_AVERAGE_LENGTH_GTE: Float
-  propTransformationJs_AVERAGE_LENGTH_LT: Float
-  propTransformationJs_AVERAGE_LENGTH_LTE: Float
-  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
-  propTransformationJs_LONGEST_LENGTH_GT: Int
-  propTransformationJs_LONGEST_LENGTH_GTE: Int
-  propTransformationJs_LONGEST_LENGTH_LT: Int
-  propTransformationJs_LONGEST_LENGTH_LTE: Int
-  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
-  propTransformationJs_SHORTEST_LENGTH_GT: Int
-  propTransformationJs_SHORTEST_LENGTH_GTE: Int
-  propTransformationJs_SHORTEST_LENGTH_LT: Int
-  propTransformationJs_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -8821,21 +8673,6 @@ input ElementPrevSiblingNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
-  propTransformationJs_AVERAGE_LENGTH_GT: Float
-  propTransformationJs_AVERAGE_LENGTH_GTE: Float
-  propTransformationJs_AVERAGE_LENGTH_LT: Float
-  propTransformationJs_AVERAGE_LENGTH_LTE: Float
-  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
-  propTransformationJs_LONGEST_LENGTH_GT: Int
-  propTransformationJs_LONGEST_LENGTH_GTE: Int
-  propTransformationJs_LONGEST_LENGTH_LT: Int
-  propTransformationJs_LONGEST_LENGTH_LTE: Int
-  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
-  propTransformationJs_SHORTEST_LENGTH_GT: Int
-  propTransformationJs_SHORTEST_LENGTH_GTE: Int
-  propTransformationJs_SHORTEST_LENGTH_LT: Int
-  propTransformationJs_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -9318,7 +9155,6 @@ input ElementSort {
   guiCss: SortDirection
   id: SortDirection
   name: SortDirection
-  propTransformationJs: SortDirection
   renderForEachPropKey: SortDirection
   renderIfExpression: SortDirection
 }
@@ -9577,7 +9413,6 @@ input ElementUpdateInput {
   postRenderAction: ElementPostRenderActionUpdateFieldInput
   preRenderAction: ElementPreRenderActionUpdateFieldInput
   prevSibling: ElementPrevSiblingUpdateFieldInput
-  propTransformationJs: String
   props: ElementPropsUpdateFieldInput
   renderAtomType: ElementRenderAtomTypeUpdateFieldInput
   renderComponentType: ElementRenderComponentTypeUpdateFieldInput
@@ -9669,12 +9504,6 @@ input ElementWhere {
   prevSiblingConnection: ElementPrevSiblingConnectionWhere
   prevSiblingConnection_NOT: ElementPrevSiblingConnectionWhere
   prevSibling_NOT: ElementWhere
-  propTransformationJs: String
-  propTransformationJs_CONTAINS: String
-  propTransformationJs_ENDS_WITH: String
-  propTransformationJs_IN: [String]
-  propTransformationJs_MATCHES: String
-  propTransformationJs_STARTS_WITH: String
   props: PropWhere
   propsAggregate: ElementPropsAggregateInput
   propsConnection: ElementPropsConnectionWhere
@@ -11653,7 +11482,6 @@ type HookElementElementNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
 }
@@ -11743,21 +11571,6 @@ input HookElementNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
-  propTransformationJs_AVERAGE_LENGTH_GT: Float
-  propTransformationJs_AVERAGE_LENGTH_GTE: Float
-  propTransformationJs_AVERAGE_LENGTH_LT: Float
-  propTransformationJs_AVERAGE_LENGTH_LTE: Float
-  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
-  propTransformationJs_LONGEST_LENGTH_GT: Int
-  propTransformationJs_LONGEST_LENGTH_GTE: Int
-  propTransformationJs_LONGEST_LENGTH_LT: Int
-  propTransformationJs_LONGEST_LENGTH_LTE: Int
-  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
-  propTransformationJs_SHORTEST_LENGTH_GT: Int
-  propTransformationJs_SHORTEST_LENGTH_GTE: Int
-  propTransformationJs_SHORTEST_LENGTH_LT: Int
-  propTransformationJs_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -14011,7 +13824,6 @@ type PageElementPageContentContainerNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
 }
@@ -14028,7 +13840,6 @@ type PageElementRootElementNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
 }
@@ -14214,21 +14025,6 @@ input PagePageContentContainerNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
-  propTransformationJs_AVERAGE_LENGTH_GT: Float
-  propTransformationJs_AVERAGE_LENGTH_GTE: Float
-  propTransformationJs_AVERAGE_LENGTH_LT: Float
-  propTransformationJs_AVERAGE_LENGTH_LTE: Float
-  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
-  propTransformationJs_LONGEST_LENGTH_GT: Int
-  propTransformationJs_LONGEST_LENGTH_GTE: Int
-  propTransformationJs_LONGEST_LENGTH_LT: Int
-  propTransformationJs_LONGEST_LENGTH_LTE: Int
-  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
-  propTransformationJs_SHORTEST_LENGTH_GT: Int
-  propTransformationJs_SHORTEST_LENGTH_GTE: Int
-  propTransformationJs_SHORTEST_LENGTH_LT: Int
-  propTransformationJs_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -14434,21 +14230,6 @@ input PageRootElementNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
-  propTransformationJs_AVERAGE_LENGTH_GT: Float
-  propTransformationJs_AVERAGE_LENGTH_GTE: Float
-  propTransformationJs_AVERAGE_LENGTH_LT: Float
-  propTransformationJs_AVERAGE_LENGTH_LTE: Float
-  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
-  propTransformationJs_LONGEST_LENGTH_GT: Int
-  propTransformationJs_LONGEST_LENGTH_GTE: Int
-  propTransformationJs_LONGEST_LENGTH_LT: Int
-  propTransformationJs_LONGEST_LENGTH_LTE: Int
-  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
-  propTransformationJs_SHORTEST_LENGTH_GT: Int
-  propTransformationJs_SHORTEST_LENGTH_GTE: Int
-  propTransformationJs_SHORTEST_LENGTH_LT: Int
-  propTransformationJs_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -19938,7 +19719,6 @@ type UserElementElementsNodeAggregateSelection {
   guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-  propTransformationJs: StringAggregateSelectionNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
 }
@@ -20090,21 +19870,6 @@ input UserElementsNodeAggregationWhereInput {
   name_SHORTEST_LENGTH_GTE: Int
   name_SHORTEST_LENGTH_LT: Int
   name_SHORTEST_LENGTH_LTE: Int
-  propTransformationJs_AVERAGE_LENGTH_EQUAL: Float
-  propTransformationJs_AVERAGE_LENGTH_GT: Float
-  propTransformationJs_AVERAGE_LENGTH_GTE: Float
-  propTransformationJs_AVERAGE_LENGTH_LT: Float
-  propTransformationJs_AVERAGE_LENGTH_LTE: Float
-  propTransformationJs_LONGEST_LENGTH_EQUAL: Int
-  propTransformationJs_LONGEST_LENGTH_GT: Int
-  propTransformationJs_LONGEST_LENGTH_GTE: Int
-  propTransformationJs_LONGEST_LENGTH_LT: Int
-  propTransformationJs_LONGEST_LENGTH_LTE: Int
-  propTransformationJs_SHORTEST_LENGTH_EQUAL: Int
-  propTransformationJs_SHORTEST_LENGTH_GT: Int
-  propTransformationJs_SHORTEST_LENGTH_GTE: Int
-  propTransformationJs_SHORTEST_LENGTH_LT: Int
-  propTransformationJs_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float

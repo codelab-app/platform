@@ -51,7 +51,6 @@ export const importElementInitial = async (
               node: { data: element.props.data, id: element.props.id },
             },
           },
-          propTransformationJs: element.propTransformationJs,
           renderAtomType: element.renderAtomType
             ? {
                 connect: {

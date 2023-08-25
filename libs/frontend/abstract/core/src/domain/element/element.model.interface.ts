@@ -47,8 +47,6 @@ export interface RenderingMetadata {
   error: Nullish<RenderingError>
 }
 
-export type TransformPropsFn = (props: IPropData) => IPropData
-
 export interface IEvaluationContext {
   componentProps: IPropData
   props: IPropData
@@ -98,7 +96,6 @@ export interface IElement
   postRenderAction?: Nullable<Ref<IAction>>
   preRenderAction?: Nullable<Ref<IAction>>
   prevSibling?: Nullable<Ref<IElement>>
-  propTransformationJs: Nullable<string>
   props: Ref<IProp>
   // same as expressionEvaluationContext but without props
   propsEvaluationContext: IEvaluationContext
@@ -121,7 +118,6 @@ export interface IElement
   sourceElement: Nullable<IEntity>
   // store attached to closestContainerNode
   store: Ref<IStore>
-  transformPropsFn: Maybe<TransformPropsFn>
   treeViewNode: IElementTreeViewDataNode
   urlProps?: IPropData
 
@@ -143,7 +139,6 @@ export interface IElement
   setParent(parent: Ref<IElement>): void
   setParentComponent(component: Ref<IComponent>): void
   setPrevSibling(prevSibling: Ref<IElement>): void
-  setPropTransformationJs(props: string): void
   setProps(props: Nullable<Ref<IProp>>): void
   setRenderForEachPropKey(key: string): void
   setRenderIfExpression(key: Nullish<string>): void

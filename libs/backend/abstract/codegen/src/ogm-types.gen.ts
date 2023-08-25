@@ -2291,7 +2291,6 @@ export type ApiActionElementElementNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
-  propTransformationJs: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -3222,7 +3221,6 @@ export type CodeActionElementElementNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
-  propTransformationJs: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -3507,7 +3505,6 @@ export type ComponentElementChildrenContainerElementNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
-  propTransformationJs: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -3526,7 +3523,6 @@ export type ComponentElementRootElementNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
-  propTransformationJs: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -3967,7 +3963,6 @@ export type Element = {
   name: Scalars['String']
   customCss?: Maybe<Scalars['String']>
   guiCss?: Maybe<Scalars['String']>
-  propTransformationJs?: Maybe<Scalars['String']>
   childMapperPropKey?: Maybe<Scalars['String']>
   renderForEachPropKey?: Maybe<Scalars['String']>
   renderIfExpression?: Maybe<Scalars['String']>
@@ -4258,7 +4253,6 @@ export type ElementAggregateSelection = {
   name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
-  propTransformationJs: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -4364,7 +4358,6 @@ export type ElementElementChildMapperPreviousSiblingNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
-  propTransformationJs: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -4383,7 +4376,6 @@ export type ElementElementFirstChildNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
-  propTransformationJs: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -4402,7 +4394,6 @@ export type ElementElementNextSiblingNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
-  propTransformationJs: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -4421,7 +4412,6 @@ export type ElementElementParentNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
-  propTransformationJs: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -4440,7 +4430,6 @@ export type ElementElementPrevSiblingNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
-  propTransformationJs: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -5345,7 +5334,6 @@ export type HookElementElementNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
-  propTransformationJs: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -5851,7 +5839,6 @@ export type PageElementPageContentContainerNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
-  propTransformationJs: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -5870,7 +5857,6 @@ export type PageElementRootElementNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
-  propTransformationJs: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -7522,7 +7508,6 @@ export type UserElementElementsNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
   customCss: StringAggregateSelectionNullable
   guiCss: StringAggregateSelectionNullable
-  propTransformationJs: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -8342,61 +8327,6 @@ export type ApiActionElementNodeAggregationWhereInput = {
   guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -12732,61 +12662,6 @@ export type BaseActionElementNodeAggregationWhereInput = {
   guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
   childMapperPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
@@ -13781,61 +13656,6 @@ export type CodeActionElementNodeAggregationWhereInput = {
   guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -14929,61 +14749,6 @@ export type ComponentChildrenContainerElementNodeAggregationWhereInput = {
   guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
   childMapperPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
@@ -15849,61 +15614,6 @@ export type ComponentRootElementNodeAggregationWhereInput = {
   guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -17131,61 +16841,6 @@ export type ElementChildMapperPreviousSiblingNodeAggregationWhereInput = {
   guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
   childMapperPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
@@ -17464,7 +17119,6 @@ export type ElementCreateInput = {
   name: Scalars['String']
   customCss?: InputMaybe<Scalars['String']>
   guiCss?: InputMaybe<Scalars['String']>
-  propTransformationJs?: InputMaybe<Scalars['String']>
   childMapperPropKey?: InputMaybe<Scalars['String']>
   renderForEachPropKey?: InputMaybe<Scalars['String']>
   renderIfExpression?: InputMaybe<Scalars['String']>
@@ -17748,61 +17402,6 @@ export type ElementFirstChildNodeAggregationWhereInput = {
   guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -18272,61 +17871,6 @@ export type ElementNextSiblingNodeAggregationWhereInput = {
   guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
   childMapperPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
@@ -18567,7 +18111,6 @@ export type ElementOnCreateInput = {
   name: Scalars['String']
   customCss?: InputMaybe<Scalars['String']>
   guiCss?: InputMaybe<Scalars['String']>
-  propTransformationJs?: InputMaybe<Scalars['String']>
   childMapperPropKey?: InputMaybe<Scalars['String']>
   renderForEachPropKey?: InputMaybe<Scalars['String']>
   renderIfExpression?: InputMaybe<Scalars['String']>
@@ -19200,61 +18743,6 @@ export type ElementParentNodeAggregationWhereInput = {
   guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
   childMapperPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
@@ -19822,61 +19310,6 @@ export type ElementPrevSiblingNodeAggregationWhereInput = {
   guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -20821,7 +20254,6 @@ export type ElementSort = {
   name?: InputMaybe<SortDirection>
   customCss?: InputMaybe<SortDirection>
   guiCss?: InputMaybe<SortDirection>
-  propTransformationJs?: InputMaybe<SortDirection>
   childMapperPropKey?: InputMaybe<SortDirection>
   renderForEachPropKey?: InputMaybe<SortDirection>
   renderIfExpression?: InputMaybe<SortDirection>
@@ -21148,7 +20580,6 @@ export type ElementUpdateInput = {
   name?: InputMaybe<Scalars['String']>
   customCss?: InputMaybe<Scalars['String']>
   guiCss?: InputMaybe<Scalars['String']>
-  propTransformationJs?: InputMaybe<Scalars['String']>
   childMapperPropKey?: InputMaybe<Scalars['String']>
   renderForEachPropKey?: InputMaybe<Scalars['String']>
   renderIfExpression?: InputMaybe<Scalars['String']>
@@ -21236,22 +20667,6 @@ export type ElementWhere = {
   guiCss_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   guiCss_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  propTransformationJs?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  propTransformationJs_NOT?: InputMaybe<Scalars['String']>
-  propTransformationJs_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  propTransformationJs_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  propTransformationJs_MATCHES?: InputMaybe<Scalars['String']>
-  propTransformationJs_CONTAINS?: InputMaybe<Scalars['String']>
-  propTransformationJs_STARTS_WITH?: InputMaybe<Scalars['String']>
-  propTransformationJs_ENDS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  propTransformationJs_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  propTransformationJs_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  propTransformationJs_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
   childMapperPropKey?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   childMapperPropKey_NOT?: InputMaybe<Scalars['String']>
@@ -24028,61 +23443,6 @@ export type HookElementNodeAggregationWhereInput = {
   guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -27003,61 +26363,6 @@ export type PagePageContentContainerNodeAggregationWhereInput = {
   guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
   childMapperPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
@@ -27532,61 +26837,6 @@ export type PageRootElementNodeAggregationWhereInput = {
   guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
   guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -34359,61 +33609,6 @@ export type UserElementsNodeAggregationWhereInput = {
   guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  propTransformationJs_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  propTransformationJs_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  propTransformationJs_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  propTransformationJs_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
   childMapperPropKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
@@ -36982,7 +36177,6 @@ export interface ElementAggregateSelectionInput {
   name?: StringAggregateInputNonNullable
   customCss?: StringAggregateInputNullable
   guiCss?: StringAggregateInputNullable
-  propTransformationJs?: StringAggregateInputNullable
   childMapperPropKey?: StringAggregateInputNullable
   renderForEachPropKey?: StringAggregateInputNullable
   renderIfExpression?: StringAggregateInputNullable

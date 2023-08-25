@@ -7,7 +7,7 @@ import { IRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 export const createElementSchema: JSONSchemaType<
-  Omit<ICreateElementData, 'page' | 'parentComponent' | 'propTransformationJs'>
+  Omit<ICreateElementData, 'page' | 'parentComponent'>
 > = {
   properties: {
     ...idSchema,

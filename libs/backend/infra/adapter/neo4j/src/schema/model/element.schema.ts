@@ -34,7 +34,6 @@ export const elementSchema = gql`
     # Used for the css set by the styling UI. This is a stringified json object of the form:
     # {[prop: string]: string}, where the prop is a css property and the value is its value.
     guiCss: String
-    propTransformationJs: String
     childMapperPropKey: String
     childMapperComponent: Component
       @relationship(type: "CHILD_MAPPER_COMPONENT", direction: OUT)

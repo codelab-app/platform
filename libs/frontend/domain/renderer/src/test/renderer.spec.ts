@@ -12,32 +12,6 @@ describe('Renderer', () => {
    */
   const data = setupTestForRenderer([ComponentRenderPipe])
 
-  it('should apply transformation function', () => {
-    const { props } = data.rootStore.renderer.renderIntermediateElement(
-      data.element,
-    ) as IRenderOutput
-
-    expect(props).toMatchObject({
-      'prop01-edited': 'prop01Value',
-      'prop02-edited': 'prop02Value',
-      'prop03-edited': 'prop03Value',
-    })
-  })
-
-  it('should keep same props when transform function is invalid', () => {
-    data.element.setPropTransformationJs('invalid fn')
-
-    const { props } = data.rootStore.renderer.renderIntermediateElement(
-      data.element,
-    ) as IRenderOutput
-
-    expect(props).not.toMatchObject({
-      'prop01-edited': 'prop01Value',
-      'prop02-edited': 'prop02Value',
-      'prop03-edited': 'prop03Value',
-    })
-  })
-
   it('should render component instance', () => {
     const { atomType, props } =
       data.rootStore.renderer.renderIntermediateElement(

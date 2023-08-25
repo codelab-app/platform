@@ -82,7 +82,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             'childMapperPropKey',
             'renderIfExpression',
             'renderForEachPropKey',
-            'propTransformationJs',
             // We edit it in the css tab
             'customCss',
             'guiCss',

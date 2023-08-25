@@ -42,7 +42,6 @@ const baseElementSelectionSet = `
     name
   }
   renderIfExpression
-  propTransformationJs
   preRenderAction {
     id
     type

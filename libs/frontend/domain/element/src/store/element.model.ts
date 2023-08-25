@@ -11,7 +11,6 @@ import type {
   IStore,
   RenderingError,
   RenderingMetadata,
-  TransformPropsFn,
 } from '@codelab/frontend/abstract/core'
 import {
   actionRef,
@@ -48,10 +47,7 @@ import {
 import {
   compoundCaseToTitleCase,
   createUniqueName,
-  mergeProps,
 } from '@codelab/shared/utils'
-import attempt from 'lodash/attempt'
-import isError from 'lodash/isError'
 import { computed } from 'mobx'
 import {
   clone,
@@ -81,7 +77,6 @@ const create = ({
   preRenderAction,
   prevSibling,
   props,
-  propTransformationJs,
   refKey,
   renderForEachPropKey,
   renderIfExpression,
@@ -116,7 +111,6 @@ const create = ({
       : undefined,
     prevSibling: prevSibling?.id ? elementRef(prevSibling.id) : undefined,
     props: propRef(props.id),
-    propTransformationJs,
     refKey,
     renderForEachPropKey,
     renderIfExpression,
@@ -154,7 +148,6 @@ export class Element
     preRenderAction: prop<Nullable<Ref<IAction>>>(null).withSetter(),
     prevSibling: prop<Nullable<Ref<IElement>>>(null).withSetter(),
     props: prop<Ref<IProp>>().withSetter(),
-    propTransformationJs: prop<Nullable<string>>(null).withSetter(),
     refKey: prop<Nullable<string>>(null),
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
     renderIfExpression: prop<Nullable<string>>(null).withSetter(),
@@ -508,34 +501,6 @@ export class Element
     return ''
   }
 
-  /**
-   * Parses and materializes the propTransformationJs
-   */
-  @computed
-  get transformPropsFn(): Maybe<TransformPropsFn> {
-    if (!this.propTransformationJs) {
-      return undefined
-    }
-
-    // the parentheses allow us to return a function from eval
-    // eslint-disable-next-line no-eval
-    const result = attempt(eval, `(${this.propTransformationJs})`)
-
-    if (isError(result)) {
-      console.warn('Error while evaluating prop transformation', result)
-
-      return undefined
-    }
-
-    if (typeof result != 'function') {
-      console.warn('Invalid transformation function')
-
-      return undefined
-    }
-
-    return result
-  }
-
   static create = create
 
   @modelAction
@@ -609,7 +574,6 @@ export class Element
       name: this.name,
       postRenderAction,
       preRenderAction,
-      propTransformationJs: this.propTransformationJs,
       renderAtomType,
       renderComponentType,
       renderForEachPropKey: this.renderForEachPropKey,
@@ -643,27 +607,6 @@ export class Element
     this.elementService.clonedElements.set(clonedElement.id, clonedElement)
 
     return clonedElement
-  }
-
-  /**
-   * Executes the prop transformation function
-   * If successful, merges the result with the original props and returns it
-   * If failed, returns the original props
-   */
-  executePropTransformJs = (props: IPropData) => {
-    if (!this.transformPropsFn) {
-      return props
-    }
-
-    const result = attempt(this.transformPropsFn, props)
-
-    if (isError(result)) {
-      console.warn('Unable to transform props', result)
-
-      return props
-    }
-
-    return mergeProps(props, result)
   }
 
   /**
@@ -793,7 +736,6 @@ export class Element
     preRenderAction,
     prevSibling,
     props,
-    propTransformationJs,
     refKey,
     renderForEachPropKey,
     renderIfExpression,
@@ -804,8 +746,6 @@ export class Element
     this.name = name ?? this.name
     this.customCss = customCss ?? this.customCss
     this.guiCss = guiCss ?? this.guiCss
-    this.propTransformationJs =
-      propTransformationJs ?? this.propTransformationJs
     this.renderIfExpression = renderIfExpression ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null
     this.renderType = elementRenderType ?? null
