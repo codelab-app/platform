@@ -6,7 +6,9 @@ import {
   isComponentInstance,
   RendererTab,
 } from '@codelab/frontend/abstract/core'
+import { FormNames } from '@codelab/frontend/abstract/types'
 import { mapElementOption } from '@codelab/frontend/domain/element'
+import { useCui } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { Key } from '@codelab/frontend/presentation/view'
 import type { Nullable } from '@codelab/shared/abstract/types'
@@ -43,19 +45,22 @@ export const ElementContextMenu = observer<
   }) => {
     const { builderService, componentService } = useStore()
     const { user } = useUser()
+    const { popover } = useCui()
     const componentInstance = isComponentInstance(element.renderType)
 
     const [contextMenuItemId, setContextMenuNodeId] =
       useState<Nullable<string>>(null)
 
     const onAddChild = () => {
-      const elementTree = element.closestContainerNode
+      popover.open(FormNames.CreateElement)
 
-      return createForm.open({
-        elementOptions: elementTree.elements.map(mapElementOption),
-        elementTree: elementTreeRef(elementTree.id),
+      createForm.open({
+        elementOptions:
+          element.closestContainerNode.elements.map(mapElementOption),
+        elementTree: elementTreeRef(element.closestContainerNode.id),
         selectedElement: elementRef(element.id),
       })
+      setContextMenuNodeId(null)
     }
 
     const onDelete = () => {
