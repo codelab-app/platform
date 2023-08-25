@@ -685,7 +685,6 @@ export class ElementService
       id: v4(),
       name: duplicateName,
       props,
-      propTransformationJs: element.propTransformationJs,
       renderForEachPropKey: element.renderForEachPropKey,
       renderIfExpression: element.renderIfExpression,
       renderType: element.renderType

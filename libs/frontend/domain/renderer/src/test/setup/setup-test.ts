@@ -186,20 +186,6 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
       id: v4(),
       name: ROOT_ELEMENT_NAME,
       props: elementToRenderProp,
-      propTransformationJs: `
-        // Write a transformer function, you get the input props as parameter
-        // All returned props will get merged with the original ones
-        function transform(props) {
-          return Object.keys(props)
-            .map((x)=> ({
-              [\`$\{x}-edited\`] : props[x]
-            }))
-            .reduce((total,current) =>
-              ({...total,...current}),
-              {}
-            )
-          }
-      `,
       renderType: { id: divAtom.id, kind: IRenderTypeKind.Atom },
     })
 

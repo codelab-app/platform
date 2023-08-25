@@ -2,7 +2,6 @@ import {
   CodeOutlined,
   FileOutlined,
   FormatPainterOutlined,
-  FunctionOutlined,
   NodeIndexOutlined,
   SettingOutlined,
 } from '@ant-design/icons'
@@ -21,7 +20,6 @@ import {
   MoveElementForm,
   UpdateElementForm,
   UpdateElementPropsForm,
-  UpdateElementPropTransformationForm,
 } from '@codelab/frontend/domain/element'
 import { UpdatePageTabForm } from '@codelab/frontend/domain/page'
 import { useStore } from '@codelab/frontend/presentation/container'
@@ -141,22 +139,6 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
       key: TAB_NAMES.PropsInspector,
       label: (
         <TooltipIcon icon={<CodeOutlined />} title={TAB_NAMES.PropsInspector} />
-      ),
-    },
-    {
-      children: isElementPageNodeRef(selectedNode) ? (
-        <UpdateElementPropTransformationForm
-          element={selectedNode.current}
-          elementService={elementService}
-          key={selectedNode.id}
-        />
-      ) : null,
-      key: TAB_NAMES.PropsTransformation,
-      label: (
-        <TooltipIcon
-          icon={<FunctionOutlined />}
-          title={TAB_NAMES.PropsTransformation}
-        />
       ),
     },
     {

@@ -20,8 +20,7 @@ export interface IRuntimeProp<T extends IPageNode> {
    */
   evaluatedProps: IPropData
   /**
-   * Props after applying `propTransformationJs` and substituting state expression
-   * used for form validation
+   * Props after substituting state expression used for form validation
    */
   evaluatedPropsBeforeRender: IPropData
   /**

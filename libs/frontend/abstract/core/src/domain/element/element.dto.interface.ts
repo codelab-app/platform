@@ -10,7 +10,6 @@ export interface ICreateElementData {
   postRenderAction?: Nullable<IEntity>
   preRenderAction?: Nullable<IEntity>
   prevSibling?: Nullable<IEntity>
-  propTransformationJs?: Nullable<string>
   props?: Nullable<Pick<IPropDTO, 'data'>>
   /**
    * We should connect to `atom` or `component` in future
@@ -33,7 +32,6 @@ export type IUpdateElementData = Pick<
     childMapperComponent?: Nullish<IEntity>
     childMapperPreviousSibling?: Nullish<IEntity>
     childMapperPropKey?: Nullish<string>
-    propTransformationJs?: Nullish<string>
     renderForEachPropKey?: Nullable<string>
     renderIfExpression?: Nullable<string>
   }

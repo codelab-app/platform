@@ -32,8 +32,6 @@ export class Element implements IElementDTO {
 
   prevSibling?: IEntity | null | undefined
 
-  propTransformationJs?: Nullable<string> | undefined
-
   props: IEntity
 
   renderForEachPropKey?: Nullable<string> | undefined
