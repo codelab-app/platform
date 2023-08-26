@@ -60,9 +60,15 @@ export class StoreService
 
   @modelAction
   add(storeDTO: IStoreDTO) {
-    const store = Store.create(storeDTO)
+    let store = this.stores.get(storeDTO.id)
 
-    this.stores.set(store.id, store)
+    if (store) {
+      store.writeCache(storeDTO)
+    } else {
+      store = Store.create(storeDTO)
+
+      this.stores.set(store.id, store)
+    }
 
     return store
   }
