@@ -118,11 +118,17 @@ export class Store
     return getRenderService(this)
   }
 
+  private cachedState: Nullable<object> = null
+
   @computed
   get state() {
+    if (this.cachedState) {
+      return this.cachedState
+    }
+
     const renderer = this.renderService.activeRenderer?.current
 
-    return makeAutoObservable(
+    this.cachedState = makeAutoObservable(
       mergeProps(
         this.api?.maybeCurrent?.defaultValues ?? {},
         this.actions
@@ -140,6 +146,8 @@ export class Store
       // bind actions to state
       { autoBind: true },
     )
+
+    return this.cachedState
   }
 
   deleteUnusedRefs() {
