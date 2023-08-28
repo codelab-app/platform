@@ -37,7 +37,11 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAuth0Owner, IElementDTO } from '@codelab/shared/abstract/core'
+import {
+  type IAuth0Owner,
+  type IElementDTO,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {
@@ -50,6 +54,7 @@ import {
   createUniqueName,
   mergeProps,
 } from '@codelab/shared/utils'
+import { forEach } from 'lodash'
 import attempt from 'lodash/attempt'
 import isError from 'lodash/isError'
 import { computed } from 'mobx'
@@ -472,6 +477,26 @@ export class Element
       })
     }
 
+    // Add assigned ReactNodes props as children
+    const reactNodesChildren: Array<IElementTreeViewDataNode> = []
+    Object.keys(this.props.current.values).forEach((key, index) => {
+      const propData = this.props.current.values[key]
+
+      const component = this.componentService.components.get(propData.value)
+        ?.rootElement.current
+
+      if (propData.kind === ITypeKind.ReactNodeType && component) {
+        reactNodesChildren.push({
+          ...component.treeViewNode,
+          children: [],
+          isChildMapperComponentInstance: true,
+          key: `${propData.value}${index}`,
+          primaryTitle: `${key}:`,
+          selectable: false,
+        })
+      }
+    })
+
     const childMapperRenderIndex =
       this.children.findIndex(
         (child) => child.id === this.childMapperPreviousSibling?.id,
@@ -486,6 +511,7 @@ export class Element
         children: [],
         isChildMapperComponentInstance: true,
       })),
+      ...reactNodesChildren,
     )
 
     return {

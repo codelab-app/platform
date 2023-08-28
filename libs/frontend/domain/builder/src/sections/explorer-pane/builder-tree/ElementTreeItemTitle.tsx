@@ -30,6 +30,7 @@ export const ElementTreeItemTitle = observer<ElementTreeItemTitleProps>(
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...elementContextMenuProps}
             element={node}
+            treeNode={data}
           >
             <ElementTreeItemElementTitle element={node} treeNode={data} />
           </ElementContextMenu>

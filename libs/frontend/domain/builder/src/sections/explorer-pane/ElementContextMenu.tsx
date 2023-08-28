@@ -1,5 +1,9 @@
 import { useUser } from '@auth0/nextjs-auth0/client'
-import type { IElement, IElementService } from '@codelab/frontend/abstract/core'
+import type {
+  IElement,
+  IElementService,
+  IElementTreeViewDataNode,
+} from '@codelab/frontend/abstract/core'
 import {
   elementRef,
   elementTreeRef,
@@ -25,6 +29,7 @@ export type ElementContextMenuProps = ContextMenuProps &
     'cloneElement' | 'convertElementToComponent' | 'createForm' | 'deleteModal'
   > & {
     element: IElement
+    treeNode?: IElementTreeViewDataNode
   }
 
 /**
@@ -40,6 +45,7 @@ export const ElementContextMenu = observer<
     createForm,
     deleteModal,
     element,
+    treeNode,
   }) => {
     const { builderService, componentService } = useStore()
     const { user } = useUser()
@@ -94,6 +100,7 @@ export const ElementContextMenu = observer<
 
     const menuItems = [
       {
+        hide: treeNode?.selectable === false,
         key: 'add-child',
         label: 'Add child',
         onClick: onAddChild,

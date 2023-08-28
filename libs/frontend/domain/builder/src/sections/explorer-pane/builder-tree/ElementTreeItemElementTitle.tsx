@@ -49,6 +49,7 @@ export const ElementTreeItemElementTitle = observer(
 
     const atomMeta = atomName ? `${atomName}` : undefined
     const meta = componentMeta ?? atomMeta ?? ''
+    const { selectable: treeNodeIsSelectable = true } = treeNode
 
     const errorMessage = element.renderingMetadata?.error
       ? `Error: ${element.renderingMetadata.error.message}`
@@ -69,7 +70,7 @@ export const ElementTreeItemElementTitle = observer(
             <BorderOuterOutlined style={{ color: 'gray' }} />
           )
         }
-        primaryTitle={element.label}
+        primaryTitle={treeNode.primaryTitle}
         secondaryTitle={meta}
         tag={
           errorMessage ? (
@@ -79,29 +80,31 @@ export const ElementTreeItemElementTitle = observer(
           ) : null
         }
         toolbar={
-          <CuiTreeItemToolbar
-            items={[
-              {
-                icon: <PlusOutlined />,
-                key: `add-child-${element.id}`,
-                onClick: () => {
-                  popover.open(FormNames.CreateElement)
-                  elementService.createForm.open({
-                    elementOptions:
-                      element.closestContainerNode.elements.map(
-                        mapElementOption,
+          treeNodeIsSelectable && (
+            <CuiTreeItemToolbar
+              items={[
+                {
+                  icon: <PlusOutlined />,
+                  key: `add-child-${element.id}`,
+                  onClick: () => {
+                    popover.open(FormNames.CreateElement)
+                    elementService.createForm.open({
+                      elementOptions:
+                        element.closestContainerNode.elements.map(
+                          mapElementOption,
+                        ),
+                      elementTree: elementTreeRef(
+                        element.closestContainerNode.id,
                       ),
-                    elementTree: elementTreeRef(
-                      element.closestContainerNode.id,
-                    ),
-                    selectedElement: elementRef(element.id),
-                  })
+                      selectedElement: elementRef(element.id),
+                    })
+                  },
+                  title: 'Add Child',
                 },
-                title: 'Add Child',
-              },
-            ]}
-            title="ElementTreeItemToolbar"
-          />
+              ]}
+              title="ElementTreeItemToolbar"
+            />
+          )
         }
         variant={errorMessage ? 'danger' : 'primary'}
       />
