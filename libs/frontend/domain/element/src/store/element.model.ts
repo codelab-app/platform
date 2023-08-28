@@ -476,7 +476,7 @@ export class Element
       })
     }
 
-    // Add assigned ReactNodes props as children
+    // Add assigned ReactNode props as children
     const reactNodesChildren: Array<IElementTreeViewDataNode> = []
     Object.keys(this.props.current.values).forEach((key, index) => {
       const propData = this.props.current.values[key]
