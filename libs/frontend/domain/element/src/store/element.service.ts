@@ -800,10 +800,20 @@ export class ElementService
     const elementStore = element.store.current
     const componentStore = component.store.current
 
+    if (!elementStore.api) {
+      throw new Error('Field to resolve elementStore api')
+    }
+
+    if (!componentStore.api) {
+      throw new Error('Field to resolve componentStore api')
+    }
+
+    const componentStoreApiId = componentStore.api.id
+
     // Duplicate state fields into the component store api
     await Promise.all(
       elementStore.api.current.fields.map((field) =>
-        this.fieldService.cloneField(field, componentStore.api.current.id),
+        this.fieldService.cloneField(field, componentStoreApiId),
       ),
     )
 
