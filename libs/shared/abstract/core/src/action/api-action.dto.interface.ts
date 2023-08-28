@@ -5,12 +5,15 @@ import { IActionKind } from '../action-kind.enum'
 import { IActionEntity } from './action.dto.interface'
 import { IBaseActionDTO } from './base-action.dto.interface'
 
-export const IApiActionDTO = IBaseActionDTO.extend({
-  __typename: Type.Optional(Type.Literal(`${IActionKind.ApiAction}`)),
-  config: IEntity,
-  errorAction: Typebox.Nullish(IActionEntity),
-  resource: IEntity,
-  successAction: Typebox.Nullish(IActionEntity),
-})
+export const IApiActionDTO = Type.Composite([
+  IBaseActionDTO,
+  Type.Object({
+    __typename: Type.Optional(Type.Literal(`${IActionKind.ApiAction}`)),
+    config: IEntity,
+    errorAction: Typebox.Nullish(IActionEntity),
+    resource: IEntity,
+    successAction: Typebox.Nullish(IActionEntity),
+  }),
+])
 
 export type IApiActionDTO = Static<typeof IApiActionDTO>

@@ -18,10 +18,10 @@ import { QueryMethod } from './query-method.enum'
  * Use simple type so we can implement
  */
 export const QueryConfigHookConfigSchema = Type.Object({
-  body: Typebox.Nullish(Type.String().optional()),
+  body: Typebox.Nullish(Type.String()),
   method: Typebox.Nullish(Type.Enum(QueryMethod)),
   queryKey: Type.String({ minLength: 1 }),
-  url: Typebox.Nullish(Type.String().url()),
+  url: Typebox.Nullish(Type.String({ format: 'uri' })),
 })
 // z
 //   .object({

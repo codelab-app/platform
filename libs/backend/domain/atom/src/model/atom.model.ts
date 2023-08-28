@@ -41,7 +41,7 @@ export class Atom implements IAtomDTO {
   // Assuming this is a string, add validators as per actual type
   type: IAtomType
 
-  api: IEntity | undefined
+  api: IEntity
 
   @IsArray()
   tags: Array<IEntity>

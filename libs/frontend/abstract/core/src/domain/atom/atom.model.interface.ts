@@ -7,7 +7,7 @@ import type {
   IAtomType,
   IAuth0Owner,
 } from '@codelab/shared/abstract/core'
-import type { Nullish } from '@codelab/shared/abstract/types'
+import type { Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IModel } from '../model.interface'

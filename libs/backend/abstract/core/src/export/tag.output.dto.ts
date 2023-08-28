@@ -1,6 +1,6 @@
 import { ITagDTO } from '@codelab/shared/abstract/core'
-import type { Static } from '@sinclair/typebox'
+import { type Static, Type } from '@sinclair/typebox'
 
-export const ITagOutputDto = ITagDTO.Omit({ owner: true }).strict()
+export const ITagOutputDto = Type.Omit(ITagDTO, ['owner'])
 
 export type ITagOutputDto = Static<typeof ITagOutputDto>

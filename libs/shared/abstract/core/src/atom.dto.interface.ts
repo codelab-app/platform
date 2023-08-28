@@ -12,7 +12,7 @@ import { IAuth0Owner } from './user.interface'
 export const IAtomDTO = Type.Composite([
   IAuth0Owner,
   Type.Object({
-    api: Type.Optional(IDiscriminatedEntity(`${ITypeKind.InterfaceType}`)),
+    api: IDiscriminatedEntity(`${ITypeKind.InterfaceType}`),
     externalCssSource: Typebox.Nullish(Type.String()),
     externalJsSource: Typebox.Nullish(Type.String()),
     externalSourceType: Typebox.Nullish(Type.String()),
@@ -27,3 +27,12 @@ export const IAtomDTO = Type.Composite([
 ])
 
 export type IAtomDTO = Static<typeof IAtomDTO>
+
+export const IAtomProductionDto = Type.Composite([
+  IAtomDTO,
+  Type.Object({
+    api: Type.Optional(IDiscriminatedEntity(`${ITypeKind.InterfaceType}`)),
+  }),
+])
+
+export type IAtomProductionDto = Static<typeof IAtomProductionDto>
