@@ -42,3 +42,7 @@ export const getNameFromSlug = (slug?: string) => {
 
 // export const startsWithCapital = (word: string) =>
 //   word.charAt(0) === word.charAt(0).toUpperCase()
+
+export const camelCaseToKebabCase = (input?: string) => {
+  return input?.replace(/([A-Z])/g, '-$1').toLowerCase()
+}
