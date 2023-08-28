@@ -131,9 +131,7 @@ export class ActionService
     action: IAction,
     storeId: string,
   ) {
-    const newAction = yield* _await(this.recursiveClone(action, storeId))
-
-    return newAction
+    return yield* _await(this.recursiveClone(action, storeId))
   })
 
   private async recursiveClone(action: IAction, storeId: string) {
@@ -146,9 +144,9 @@ export class ActionService
     }
 
     if (action.type === IActionKind.ApiAction) {
-      if (action.successAction?.maybeCurrent) {
+      if (action.successAction?.current) {
         const successActionCloned = await this.recursiveClone(
-          action.successAction.maybeCurrent,
+          action.successAction.current,
           storeId,
         )
 
@@ -158,9 +156,9 @@ export class ActionService
         } as IActionDTO
       }
 
-      if (action.errorAction?.maybeCurrent) {
+      if (action.errorAction?.current) {
         const errorActionCloned = await this.recursiveClone(
-          action.errorAction.maybeCurrent,
+          action.errorAction.current,
           storeId,
         )
 
