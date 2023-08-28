@@ -52,6 +52,7 @@ export type ProductionElementFragment = {
   customCss?: string | null
   guiCss?: string | null
   childMapperPropKey?: string | null
+  refKey?: string | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   page?: { id: string } | null
@@ -183,6 +184,7 @@ export const ProductionElementFragmentDoc = gql`
       id
       name
     }
+    refKey
     renderForEachPropKey
     renderIfExpression
     preRenderAction {

@@ -2,7 +2,10 @@ import type {
   IElement,
   IElementRuntimeProp,
 } from '@codelab/frontend/abstract/core'
-import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
+import {
+  DATA_ELEMENT_ID,
+  isAtomInstance,
+} from '@codelab/frontend/abstract/core'
 import {
   evaluateExpression,
   evaluateObject,
@@ -30,6 +33,8 @@ export class ElementRuntimeProps
     // memorize values or else it will be lost inside callback
     const refKey = this.node.refKey
     const store = this.node.store.current
+    // refs are used only for elements with atoms
+    const shouldUseRef = isAtomInstance(this.node.renderType)
 
     return {
       ...(this.node.renderType
@@ -40,10 +45,17 @@ export class ElementRuntimeProps
        * Internal system props for meta data, use double underline for system-defined identifiers.
        */
       [DATA_ELEMENT_ID]: this.node.id,
-      forwardedRef: refKey
-        ? (node: HTMLElement) => store.registerRef(refKey, node)
-        : undefined,
+      // used for atoms which are loaded using `dynamicLoader`
+      forwardedRef:
+        shouldUseRef && refKey
+          ? (node: HTMLElement) => store.registerRef(refKey, node)
+          : undefined,
       key: this.node.id,
+      // used for simple Html atoms which are simple strings tags
+      ref:
+        shouldUseRef && refKey
+          ? (node: HTMLElement) => store.registerRef(refKey, node)
+          : undefined,
     }
   }
 

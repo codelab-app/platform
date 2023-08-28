@@ -11,6 +11,7 @@ import {
   componentRef,
   getRenderService,
   getRunnerId,
+  isAtomInstance,
   pageRef,
   typeRef,
 } from '@codelab/frontend/abstract/core'
@@ -101,7 +102,10 @@ export class Store
     const elements = elementTree?.elements || []
 
     return elements
-      .filter((element) => Boolean(element.refKey))
+      .filter(
+        (element) =>
+          Boolean(element.refKey) && isAtomInstance(element.renderType),
+      )
       .map(({ refKey }) => refKey as string)
   }
 

@@ -22438,6 +22438,7 @@ export type ProductionElementFragment = {
   customCss?: string | null
   guiCss?: string | null
   childMapperPropKey?: string | null
+  refKey?: string | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   page?: { __typename?: 'Page'; id: string } | null

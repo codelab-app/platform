@@ -8,10 +8,12 @@ import { useStore } from '@codelab/frontend/presentation/container'
 import {
   CodeMirrorField,
   createAutoCompleteOptions,
+  DisplayIfField,
   Form,
 } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
+import { IRenderTypeKind } from '@codelab/shared/abstract/core'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
@@ -95,6 +97,13 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         <Collapse defaultActiveKey={expandedFields}>
           <Collapse.Panel header="Renderer" key="renderer">
             <RenderTypeCompositeField name="renderType" />
+            <DisplayIfField<IUpdateElementData>
+              condition={(context) =>
+                context.model.renderType?.kind === IRenderTypeKind.Atom
+              }
+            >
+              <AutoField name="refKey" />
+            </DisplayIfField>
           </Collapse.Panel>
           <Collapse.Panel header="Render Condition" key="renderCondition">
             <AutoField
@@ -113,9 +122,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
           </Collapse.Panel>
           <Collapse.Panel header="Child Mapper" key="childMapper">
             <ChildMapperCompositeField element={element} />
-          </Collapse.Panel>
-          <Collapse.Panel header="Reference" key="reference">
-            <AutoField name="refKey" />
           </Collapse.Panel>
         </Collapse>
       </Form>

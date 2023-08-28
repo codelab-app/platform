@@ -103,6 +103,7 @@ fragment ProductionElement on Element {
     id
     name
   }
+  refKey
   renderForEachPropKey
   renderIfExpression
   preRenderAction {

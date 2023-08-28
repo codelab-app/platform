@@ -541,7 +541,13 @@ export class Element
       ? connectNodeId(this.renderType.id)
       : undefined
 
+    const _compoundRefKey =
+      this.refKey && this.refKey !== ''
+        ? createUniqueName(this.refKey, this.store.id)
+        : null
+
     return {
+      _compoundRefKey,
       customCss: this.customCss,
       guiCss: this.guiCss,
       id: this.id,

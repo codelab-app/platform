@@ -8,10 +8,12 @@ import {
 import { useStore } from '@codelab/frontend/presentation/container'
 import {
   DisplayIf,
+  DisplayIfField,
   Form,
   FormController,
 } from '@codelab/frontend/presentation/view'
 import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { IRenderTypeKind } from '@codelab/shared/abstract/core'
 import type {
   Maybe,
   UniformSelectFieldProps,
@@ -131,6 +133,14 @@ export const CreateElementForm = observer(
           required={false}
         />
         <RenderTypeCompositeField name="renderType" parentAtom={parentAtom} />
+        <DisplayIfField<ICreateElementData>
+          condition={(context) =>
+            context.model.renderType?.kind === IRenderTypeKind.Atom
+          }
+        >
+          <AutoField name="refKey" />
+        </DisplayIfField>
+
         <SelectActionField name="preRenderAction" />
         <SelectActionField name="postRenderAction" />
         <Divider />

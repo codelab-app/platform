@@ -15,8 +15,6 @@ export const primitiveTypeUiProperties: UiPropertiesFn<IPrimitiveType> = (
     ? createAutoCompleteOptions(context.autocomplete)
     : undefined
 
-  console.log(autocomplete)
-
   if (type.primitiveKind === IPrimitiveTypeKind.String) {
     return {
       uniforms: {
