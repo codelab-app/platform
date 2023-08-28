@@ -54,7 +54,6 @@ import {
   createUniqueName,
   mergeProps,
 } from '@codelab/shared/utils'
-import { forEach } from 'lodash'
 import attempt from 'lodash/attempt'
 import isError from 'lodash/isError'
 import { computed } from 'mobx'
