@@ -7,6 +7,7 @@ import List from '@editorjs/list'
 import Marker from '@editorjs/marker'
 import Quote from '@editorjs/quote'
 import Underline from '@editorjs/underline'
+import StrikeThrough from '@sotaproject/strikethrough'
 
 export const EDITOR_TOOLS = {
   checklist: {
@@ -50,6 +51,11 @@ export const EDITOR_TOOLS = {
     class: Quote,
     inlineToolbar: true,
     shortcut: 'CMD+SHIFT+O',
+  },
+
+  strikethrough: {
+    class: StrikeThrough,
+    inlineToolbar: true,
   },
 
   underline: {
