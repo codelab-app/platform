@@ -1,9 +1,5 @@
 import type { IElement, IPropData } from '@codelab/frontend/abstract/core'
-import {
-  CUSTOM_TEXT_PROP_KEY,
-  isAtomInstance,
-  isComponentInstance,
-} from '@codelab/frontend/abstract/core'
+import { isComponentInstance } from '@codelab/frontend/abstract/core'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { AdminPropsPanel } from '@codelab/frontend/domain/admin'
 import { PropsForm } from '@codelab/frontend/domain/type'
@@ -11,11 +7,10 @@ import {
   loadAllTypesForElements,
   useStore,
 } from '@codelab/frontend/presentation/container'
-import { ReactQuillField, Spinner } from '@codelab/frontend/presentation/view'
+import { Spinner } from '@codelab/frontend/presentation/view'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { getDefaultFieldProps, mergeProps } from '@codelab/shared/utils'
 import { useAsync } from '@react-hookz/web'
-import type { JSONSchemaType } from 'ajv'
 import { Col, Row } from 'antd'
 import type { Ref } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
@@ -24,24 +19,6 @@ import React, { useEffect, useRef } from 'react'
 export interface UpdateElementPropsFormProps {
   element: Ref<IElement>
 }
-
-const withCustomTextSchema: JSONSchemaType<{
-  [CUSTOM_TEXT_PROP_KEY]?: string
-}> = {
-  properties: {
-    [CUSTOM_TEXT_PROP_KEY]: {
-      label: 'Custom text',
-      nullable: true,
-      type: 'string',
-      uniforms: {
-        component: ReactQuillField,
-      },
-    },
-  },
-  required: [],
-  title: '',
-  type: 'object',
-} as const
 
 export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
   ({ element }) => {
@@ -77,13 +54,6 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
       })
     }
 
-    const allowCustomInnerHtml =
-      isAtomInstance(currentElement.renderType) &&
-      currentElement.renderType.current.allowCustomTextInjection &&
-      currentElement.children.length === 0
-
-    const initialSchema = allowCustomInnerHtml ? withCustomTextSchema : {}
-
     // If element is a component type, we also show the component props
     // but should prioritize the element props
     // Since the prop values are observable and changes after the update, we need to prevent
@@ -113,7 +83,7 @@ export const UpdateElementPropsForm = observer<UpdateElementPropsFormProps>(
               <PropsForm
                 autocomplete={element.current.propsEvaluationContext}
                 autosave
-                initialSchema={initialSchema}
+                initialSchema={{}}
                 interfaceType={interfaceType}
                 key={element.id}
                 model={propsModel}
