@@ -1,3 +1,7 @@
+.codex-editor {
+  z-index: unset;
+}
+
 .codex-editor__redactor {
   padding: 0 !important;
 }
