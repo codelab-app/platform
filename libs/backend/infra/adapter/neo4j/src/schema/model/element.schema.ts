@@ -14,9 +14,15 @@ export const elementSchema = gql`
     kind: RenderTypeKind!
   }
 
+  union ContainerNode = Component | Page
+
   type Element {
     id: ID! @id(autogenerate: false)
-    name: String!
+    # storeId-name format to make it unique across store
+    # being unique across page/component is equivalent to being unique across store
+    _compoundName: String! @unique
+    name: String! @customResolver(requires: ["id", "_compoundName"])
+    slug: String! @customResolver(requires: ["id", "_compoundName"])
     nextSibling: Element @relationship(type: "NODE_SIBLING", direction: IN)
     prevSibling: Element @relationship(type: "NODE_SIBLING", direction: OUT)
     firstChild: Element @relationship(type: "TREE_FIRST_CHILD", direction: IN)
@@ -51,13 +57,14 @@ export const elementSchema = gql`
     renderComponentType: Component
       @relationship(type: "RENDER_COMPONENT_TYPE", direction: OUT)
 
-    _compoundRefKey: String @unique
-    refKey: String @customResolver(requires: ["id", "_compoundRefKey"])
+    # Only register refs that are needed
+    preserveRef: Boolean
 
     renderAtomType: Atom @relationship(type: "RENDER_ATOM_TYPE", direction: OUT)
     renderType: RenderType
 
-    # This is a custom field resolver
+    # These are a custom field resolvers
+    closestContainerNode: ContainerNode!
     descendantElements: [Element!]!
   }
 `

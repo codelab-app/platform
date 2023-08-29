@@ -17,12 +17,16 @@ export type ElementFragment = {
   __typename: 'Element'
   id: string
   name: string
+  slug: string
   customCss?: string | null
   guiCss?: string | null
-  refKey?: string | null
+  preserveRef?: boolean | null
   childMapperPropKey?: string | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
+  closestContainerNode:
+    | { __typename: 'Component'; id: string }
+    | { __typename: 'Page'; id: string }
   page?: { id: string } | null
   renderComponentType?: { id: string } | null
   renderAtomType?: AtomFragment | null
@@ -49,11 +53,16 @@ export type ProductionElementFragment = {
   __typename: 'Element'
   id: string
   name: string
+  slug: string
   customCss?: string | null
   guiCss?: string | null
   childMapperPropKey?: string | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
+  preserveRef?: boolean | null
+  closestContainerNode:
+    | { __typename: 'Component'; id: string }
+    | { __typename: 'Page'; id: string }
   page?: { id: string } | null
   renderComponentType?: { id: string } | null
   renderAtomType?: ProductionAtomFragment | null
@@ -81,7 +90,18 @@ export const ElementFragmentDoc = gql`
     __typename
     id
     name
+    slug
     customCss
+    closestContainerNode {
+      ... on Page {
+        __typename
+        id
+      }
+      ... on Component {
+        __typename
+        id
+      }
+    }
     guiCss
     page {
       id
@@ -92,11 +112,11 @@ export const ElementFragmentDoc = gql`
     renderAtomType {
       ...Atom
     }
-    refKey
     renderType {
       id
       kind
     }
+    preserveRef
     prevSibling {
       id
     }
@@ -142,7 +162,18 @@ export const ProductionElementFragmentDoc = gql`
     __typename
     id
     name
+    slug
     customCss
+    closestContainerNode {
+      ... on Page {
+        __typename
+        id
+      }
+      ... on Component {
+        __typename
+        id
+      }
+    }
     guiCss
     page {
       id
@@ -185,6 +216,7 @@ export const ProductionElementFragmentDoc = gql`
     }
     renderForEachPropKey
     renderIfExpression
+    preserveRef
     preRenderAction {
       id
       type

@@ -4,6 +4,7 @@ import {
 } from './store-selection-set'
 
 export const basePageSelectionSet = `
+  __typename
   app {
     id
     name

@@ -8,6 +8,8 @@ export class Element implements IElementDTO {
 
   childMapperPropKey?: Nullable<string> | undefined
 
+  closestContainerNode: IEntity
+
   customCss?: Nullable<string> | undefined
 
   firstChild?: IEntity | null | undefined
@@ -42,9 +44,10 @@ export class Element implements IElementDTO {
 
   refKey?: Nullable<string> | undefined
 
-  constructor({ id, name, props }: IElementDTO) {
+  constructor({ closestContainerNode, id, name, props }: IElementDTO) {
     this.id = id
     this.name = name
     this.props = props
+    this.closestContainerNode = closestContainerNode
   }
 }

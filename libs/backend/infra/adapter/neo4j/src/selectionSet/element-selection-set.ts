@@ -4,6 +4,7 @@ import { propSelectionSet } from './prop-selection-set'
 const baseElementSelectionSet = `
   id
   name
+  slug
   customCss
   guiCss
   parentComponent {
@@ -50,8 +51,7 @@ const baseElementSelectionSet = `
     id
     type
   }
-  _compoundRefKey
-  refKey
+  preserveRef
 `
 
 export const elementSelectionSet = `{

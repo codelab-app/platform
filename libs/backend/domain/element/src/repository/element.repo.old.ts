@@ -1,7 +1,10 @@
 import type { Element } from '@codelab/backend/abstract/codegen'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
-import { compoundCaseToTitleCase } from '@codelab/shared/utils'
+import {
+  compoundCaseToTitleCase,
+  createUniqueName,
+} from '@codelab/shared/utils'
 
 /**
  * Creates the element without prop map bindings and without parent/children connections
@@ -35,6 +38,10 @@ export const importElementInitial = async (
     } = await Element.create({
       input: [
         {
+          _compoundName: createUniqueName(
+            element.name,
+            element.closestContainerNode.id,
+          ),
           childMapperComponent: connectNodeId(element.childMapperComponent?.id),
           childMapperPreviousSibling: connectNodeId(
             element.childMapperPreviousSibling?.id,
@@ -43,7 +50,6 @@ export const importElementInitial = async (
           customCss: element.customCss,
           guiCss: element.guiCss,
           id: element.id,
-          name: element.name,
           postRenderAction: connectNodeId(element.postRenderAction?.id),
           preRenderAction: connectNodeId(element.preRenderAction?.id),
           props: {
@@ -84,7 +90,10 @@ export const importElementInitial = async (
     elements: [newElement],
   } = await Element.update({
     update: {
-      name: element.name,
+      _compoundName: createUniqueName(
+        element.name,
+        element.closestContainerNode.id,
+      ),
     },
     where: {
       id: element.id,

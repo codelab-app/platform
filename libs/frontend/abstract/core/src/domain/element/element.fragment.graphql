@@ -2,7 +2,18 @@ fragment Element on Element {
   __typename
   id
   name
+  slug
   customCss
+  closestContainerNode {
+    ... on Page {
+      __typename
+      id
+    }
+    ... on Component {
+      __typename
+      id
+    }
+  }
   guiCss
   page {
     id
@@ -14,11 +25,11 @@ fragment Element on Element {
     ...Atom
     # ...RenderAtom
   }
-  refKey
   renderType {
     id
     kind
   }
+  preserveRef
   prevSibling {
     id
   }
@@ -61,7 +72,18 @@ fragment ProductionElement on Element {
   __typename
   id
   name
+  slug
   customCss
+  closestContainerNode {
+    ... on Page {
+      __typename
+      id
+    }
+    ... on Component {
+      __typename
+      id
+    }
+  }
   guiCss
   page {
     id
@@ -105,6 +127,7 @@ fragment ProductionElement on Element {
   }
   renderForEachPropKey
   renderIfExpression
+  preserveRef
   preRenderAction {
     id
     type

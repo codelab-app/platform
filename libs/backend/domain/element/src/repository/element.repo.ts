@@ -6,6 +6,7 @@ import {
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
+import { createUniqueName } from '@codelab/shared/utils'
 
 export class ElementRepository extends AbstractRepository<
   IElementDTO,
@@ -31,9 +32,9 @@ export class ElementRepository extends AbstractRepository<
       await (
         await this.Element
       ).create({
-        input: elements.map(({ id, name, props }) => ({
+        input: elements.map(({ closestContainerNode, id, name, props }) => ({
+          _compoundName: createUniqueName(name, closestContainerNode.id),
           id,
-          name,
           props: connectNodeId(props.id),
         })),
       })
@@ -41,7 +42,7 @@ export class ElementRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { id, name, props }: IElementDTO,
+    { closestContainerNode, id, name, props }: IElementDTO,
     where: ElementWhere,
   ) {
     return (
@@ -49,8 +50,8 @@ export class ElementRepository extends AbstractRepository<
         await this.Element
       ).update({
         update: {
+          _compoundName: createUniqueName(name, closestContainerNode.id),
           id,
-          name,
           props: reconnectNodeId(props.id),
         },
         where,

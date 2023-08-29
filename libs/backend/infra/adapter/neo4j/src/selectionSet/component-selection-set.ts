@@ -14,6 +14,7 @@ import {
 import { ownerFieldSelectionSet } from './user-selection-set'
 
 export const componentSelectionSet = `{
+  __typename
   id
   name
   rootElement

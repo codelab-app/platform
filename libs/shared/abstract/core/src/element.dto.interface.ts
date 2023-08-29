@@ -9,6 +9,7 @@ export interface IElementDTO {
   childMapperComponent?: Nullable<IEntity>
   childMapperPreviousSibling?: Nullable<IEntity>
   childMapperPropKey?: Nullable<string>
+  closestContainerNode: IEntity
   customCss?: Nullable<string>
   firstChild?: Nullable<IEntity>
   guiCss?: Nullable<string>
