@@ -1,9 +1,10 @@
 import type { IComponentType, IPropData } from '@codelab/frontend/abstract/core'
+import { camelCaseToKebabCase } from '@codelab/shared/utils'
 import React from 'react'
 import styled from 'styled-components'
 
 const ReusableStyledComponent = styled('placeholder')`
-  ${(props: IPropData) => props['css']}
+  ${(props: IPropData) => camelCaseToKebabCase(props['css'])}
 `
 
 /**
