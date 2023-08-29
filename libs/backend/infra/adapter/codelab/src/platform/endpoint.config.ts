@@ -8,6 +8,9 @@ export const ENDPOINT_CONFIG_KEY = 'graphql'
  */
 export const endpointConfig = registerAs(ENDPOINT_CONFIG_KEY, () => {
   return {
-    graphqlApiPort: env.get('PLATFORM_API_HOST').required().asUrlObject().port,
+    graphqlApiPort: env
+      .get('NEXT_PUBLIC_PLATFORM_API_HOST')
+      .required()
+      .asUrlObject().port,
   }
 })

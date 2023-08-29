@@ -14,11 +14,7 @@ export class AdminService extends Model({}) implements IAdminService {
   @modelFlow
   @transaction
   resetData = _async(function* (this: AdminService) {
-    const res = yield* _await(httpClient.post('/admin/reset'))
-
-    console.log(res)
-
-    return res
+    return yield* _await(httpClient.post('/admin/reset'))
   })
 
   @modelFlow

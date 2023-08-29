@@ -5,7 +5,7 @@ import { IActionEntity } from './action'
 
 export const IStoreDTO = Type.Object({
   actions: Type.Optional(Type.Array(IActionEntity)),
-  api: Typebox.Nullish(IEntity),
+  api: IEntity,
   component: Typebox.Nullish(IEntity),
   id: Type.String(),
   name: Type.String(),
