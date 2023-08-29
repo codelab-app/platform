@@ -1,33 +1,59 @@
 import CheckList from '@editorjs/checklist'
 import Code from '@editorjs/code'
-import Delimiter from '@editorjs/delimiter'
-import Embed from '@editorjs/embed'
 import Header from '@editorjs/header'
-import Image from '@editorjs/image'
 import InlineCode from '@editorjs/inline-code'
 import LinkTool from '@editorjs/link'
 import List from '@editorjs/list'
 import Marker from '@editorjs/marker'
 import Quote from '@editorjs/quote'
-import Raw from '@editorjs/raw'
-import SimpleImage from '@editorjs/simple-image'
-import Table from '@editorjs/table'
-import Warning from '@editorjs/warning'
+import Underline from '@editorjs/underline'
 
 export const EDITOR_TOOLS = {
-  checklist: CheckList,
-  code: Code,
-  delimiter: Delimiter,
-  embed: Embed,
-  header: Header,
-  image: Image,
-  inlineCode: InlineCode,
+  checklist: {
+    class: CheckList,
+    inlineToolbar: true,
+  },
+
+  code: {
+    class: Code,
+    shortcut: 'CMD+SHIFT+C',
+  },
+
+  header: {
+    class: Header,
+    config: {
+      placeholder: 'Header',
+    },
+    inlineToolbar: ['marker', 'link'],
+    shortcut: 'CMD+SHIFT+H',
+  },
+
+  inlineCode: {
+    class: InlineCode,
+    shortcut: 'CMD+SHIFT+C',
+  },
+
   linkTool: LinkTool,
-  list: List,
-  marker: Marker,
-  quote: Quote,
-  raw: Raw,
-  simpleImage: SimpleImage,
-  table: Table,
-  warning: Warning,
+
+  list: {
+    class: List,
+    inlineToolbar: true,
+    shortcut: 'CMD+SHIFT+L',
+  },
+
+  marker: {
+    class: Marker,
+    shortcut: 'CMD+SHIFT+M',
+  },
+
+  quote: {
+    class: Quote,
+    inlineToolbar: true,
+    shortcut: 'CMD+SHIFT+O',
+  },
+
+  underline: {
+    class: Underline,
+    inlineToolbar: true,
+  },
 }
