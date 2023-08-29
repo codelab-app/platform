@@ -7,7 +7,6 @@ import { isAtomInstance } from '@codelab/frontend/abstract/core'
 import type { Element } from '@codelab/frontend/domain/element'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model } from 'mobx-keystone'
-import type { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput } from '../utils'
 import { BaseRenderPipe } from './render-pipe.base'
 
@@ -19,7 +18,7 @@ export class PassThroughRenderPipe
   extends ExtendedModel(BaseRenderPipe, {})
   implements IRenderPipe
 {
-  render(element: Element, props: IPropData): ArrayOrSingle<IRenderOutput> {
+  render(element: Element, props: IPropData): IRenderOutput {
     // TODO: element.renderType cannot be component, we should throw error here
     if (this.renderer.debugMode) {
       console.info(`PassThroughRenderPipe: rendering input`, {

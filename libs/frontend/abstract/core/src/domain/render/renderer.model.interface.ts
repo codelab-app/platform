@@ -34,6 +34,6 @@ export interface IRenderer {
   logRendered(element: IElement, rendered: ArrayOrSingle<IRenderOutput>): void
   renderChildren(parentOutput: IRenderOutput): ArrayOrSingle<ReactNode>
   renderElement(element: IElement): ReactElement
-  renderIntermediateElement(element: IElement): ArrayOrSingle<IRenderOutput>
+  renderIntermediateElement(element: IElement): IRenderOutput
   renderRoot(): ReactElement | null
 }
