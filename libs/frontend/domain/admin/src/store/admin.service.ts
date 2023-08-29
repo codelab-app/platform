@@ -1,4 +1,5 @@
 import type { IAdminService } from '@codelab/frontend/abstract/core'
+import { httpClient } from '@codelab/frontend/config'
 import {
   _async,
   _await,
@@ -13,9 +14,11 @@ export class AdminService extends Model({}) implements IAdminService {
   @modelFlow
   @transaction
   resetData = _async(function* (this: AdminService) {
-    yield* _await(fetch(`/api/export/admin`))
+    const res = yield* _await(httpClient.post('/admin/reset'))
 
-    return false
+    console.log(res)
+
+    return res
   })
 
   @modelFlow

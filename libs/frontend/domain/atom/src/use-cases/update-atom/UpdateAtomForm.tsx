@@ -32,9 +32,9 @@ export const UpdateAtomForm = observer(() => {
     externalSourceType: atom?.externalSourceType ?? undefined,
     id: atom?.id,
     name: atom?.name,
-    requiredParents: atom?.requiredParents.map((child) => child.id),
+    requiredParents: atom?.requiredParents.map((child) => child),
     suggestedChildren: atom?.suggestedChildren.map(
-      (suggestedChild) => suggestedChild.id,
+      (suggestedChild) => suggestedChild,
     ),
     tags: atom?.tags,
     type: atom?.type,

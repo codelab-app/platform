@@ -10,7 +10,7 @@ import type { JSONSchemaType } from 'ajv'
 
 export const createComponentSchema: JSONSchemaType<ICreateComponentData> = {
   properties: {
-    ...idSchema,
+    ...idSchema(),
     ...ownerSchema,
     name: {
       type: 'string',

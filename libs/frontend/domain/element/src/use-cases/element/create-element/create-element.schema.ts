@@ -10,7 +10,7 @@ export const createElementSchema: JSONSchemaType<
   Omit<ICreateElementData, 'page' | 'parentComponent'>
 > = {
   properties: {
-    ...idSchema,
+    ...idSchema(),
     style: {
       nullable: true,
       type: 'string',
@@ -22,10 +22,9 @@ export const createElementSchema: JSONSchemaType<
     parentElement: {
       nullable: true,
       properties: {
-        id: {
+        ...idSchema({
           label: 'Parent element',
-          type: 'string',
-        },
+        }),
       },
       required: ['id'],
       type: 'object',
@@ -33,10 +32,9 @@ export const createElementSchema: JSONSchemaType<
     postRenderAction: {
       nullable: true,
       properties: {
-        id: {
+        ...idSchema({
           label: 'Post Render action',
-          type: 'string',
-        },
+        }),
       },
       required: [],
       type: 'object',
@@ -44,10 +42,9 @@ export const createElementSchema: JSONSchemaType<
     preRenderAction: {
       nullable: true,
       properties: {
-        id: {
+        ...idSchema({
           label: 'Pre Render action',
-          type: 'string',
-        },
+        }),
       },
       required: [],
       type: 'object',
@@ -55,10 +52,9 @@ export const createElementSchema: JSONSchemaType<
     prevSibling: {
       nullable: true,
       properties: {
-        id: {
+        ...idSchema({
           label: 'Linked by',
-          type: 'string',
-        },
+        }),
       },
       required: ['id'],
       type: 'object',

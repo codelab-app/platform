@@ -9,7 +9,7 @@ import type { JSONSchemaType } from 'ajv'
 
 export const createAppSchema: JSONSchemaType<ICreateAppData> = {
   properties: {
-    ...idSchema,
+    ...idSchema(),
     name: {
       autoFocus: true,
       ...nonEmptyString,

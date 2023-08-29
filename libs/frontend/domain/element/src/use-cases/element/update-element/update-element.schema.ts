@@ -10,7 +10,7 @@ import type { JSONSchemaType } from 'ajv'
 
 export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
   properties: {
-    ...idSchema,
+    ...idSchema(),
     name: {
       autoFocus: true,
       type: 'string',
@@ -19,10 +19,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     postRenderAction: {
       nullable: true,
       properties: {
-        id: {
-          label: 'Post Render action',
-          type: 'string',
-        },
+        ...idSchema({ label: 'Post render action' }),
       },
       required: [],
       type: 'object',
@@ -30,10 +27,9 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     preRenderAction: {
       nullable: true,
       properties: {
-        id: {
+        ...idSchema({
           label: 'Pre Render action',
-          type: 'string',
-        },
+        }),
       },
       required: [],
       type: 'object',
@@ -41,10 +37,9 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     childMapperComponent: {
       nullable: true,
       properties: {
-        id: {
+        ...idSchema({
           label: 'Child Mapper Component',
-          type: 'string',
-        },
+        }),
       },
       required: [],
       type: 'object',
@@ -52,13 +47,10 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
     childMapperPreviousSibling: {
       nullable: true,
       properties: {
-        id: {
+        ...idSchema({
           label: 'Render next to',
-          type: 'string',
-          uniforms: {
-            component: getSelectElementComponent(ElementTypeKind.ChildrenOnly),
-          },
-        },
+          component: getSelectElementComponent(ElementTypeKind.ChildrenOnly),
+        }),
       },
       required: [],
       type: 'object',

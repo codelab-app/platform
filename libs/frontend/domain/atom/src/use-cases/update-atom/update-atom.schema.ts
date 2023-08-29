@@ -12,13 +12,15 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
   properties: {
     suggestedChildren: {
       items: {
-        type: 'string',
+        type: 'object',
+        properties: idSchema(),
+        required: ['id'],
       },
       nullable: true,
       showSearch: true,
       type: 'array',
     },
-    ...idSchema,
+    ...idSchema(),
     name: {
       autoFocus: true,
       ...nonEmptyString,
@@ -26,7 +28,7 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
     tags: {
       items: {
         properties: {
-          ...idSchema,
+          ...idSchema(),
         },
         required: ['id'],
         type: 'object',
@@ -64,7 +66,9 @@ export const updateAtomSchema: JSONSchemaType<IUpdateAtomData> = {
     },
     requiredParents: {
       items: {
-        type: 'string',
+        type: 'object',
+        properties: idSchema(),
+        required: ['id'],
       },
       nullable: true,
       showSearch: true,

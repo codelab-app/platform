@@ -13,13 +13,17 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
   properties: {
     suggestedChildren: {
       items: {
-        type: 'string',
+        type: 'object',
+        properties: {
+          ...idSchema(),
+        },
+        required: ['id'],
       },
       nullable: true,
       showSearch: true,
       type: 'array',
     },
-    ...idSchema,
+    ...idSchema(),
     // Hide field for now, added only to implement the interface
     // api: {
     //   type: 'string',
@@ -36,7 +40,7 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
     tags: {
       items: {
         properties: {
-          ...idSchema,
+          ...idSchema(),
         },
         required: ['id'],
         type: 'object',
@@ -66,7 +70,11 @@ export const createAtomSchema: JSONSchemaType<ICreateAtomData> = {
     },
     requiredParents: {
       items: {
-        type: 'string',
+        type: 'object',
+        properties: {
+          ...idSchema(),
+        },
+        required: ['id'],
       },
       nullable: true,
       showSearch: true,

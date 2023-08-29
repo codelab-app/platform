@@ -14,7 +14,7 @@ import keys from 'lodash/keys'
 
 export const createActionSchema: JSONSchemaType<ICreateActionData> = {
   properties: {
-    ...idSchema,
+    ...idSchema(),
     code: {
       type: 'string',
       uniforms: {
@@ -26,7 +26,7 @@ export const createActionSchema: JSONSchemaType<ICreateActionData> = {
     config: {
       label: '',
       properties: {
-        ...idSchema,
+        ...idSchema(),
         data: {
           type: 'object',
           properties: {

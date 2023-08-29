@@ -2,7 +2,7 @@ import { IEntity, Typebox } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IActionKind } from '../action-kind.enum'
-import { IActionEntity } from './action.dto.interface'
+import { IActionEntity } from './action-entity.dto.interface'
 import { IBaseActionDTO } from './base-action.dto.interface'
 
 export const IApiActionDTO = Type.Composite([

@@ -134,7 +134,7 @@ export class TypeService
       (types.interfaceTypes || []).flatMap((fragment) => fragment.fields),
     )
 
-    const loadedTypes = flatTypes.map((fragment) =>
+    const loadedTypes = flatTypes.map(({ owner, ...fragment }) =>
       TypeFactory.create(fragment),
     )
 

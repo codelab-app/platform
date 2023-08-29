@@ -10,7 +10,7 @@ import type { JSONSchemaType } from 'ajv'
 
 export const createPageSchema: JSONSchemaType<Omit<ICreatePageData, 'kind'>> = {
   properties: {
-    ...idSchema,
+    ...idSchema(),
     ...ownerSchema,
     ...appSchema,
     name: {

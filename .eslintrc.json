@@ -596,29 +596,6 @@
         "@typescript-eslint/consistent-type-imports": "error",
         "@typescript-eslint/no-explicit-any": "error",
         "@typescript-eslint/no-unnecessary-condition": "error",
-        "@typescript-eslint/ban-types": [
-          "error",
-          {
-            "types": {
-              "React.FC": {
-                "message": "Please read 'Why is `React.FC` discouraged? What about `React.FunctionComponent`/`React.VoidFunctionComponent`?' https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components",
-                "fixWith": ""
-              },
-              "FC": {
-                "message": "Please read 'Why is `React.FC` discouraged? What about `React.FunctionComponent`/`React.VoidFunctionComponent`?' https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components",
-                "fixWith": ""
-              },
-              "React.FunctionComponent": {
-                "message": "Please read 'Why is `React.FC` discouraged? What about `React.FunctionComponent`/`React.VoidFunctionComponent`?' https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components",
-                "fixWith": ""
-              },
-              "FunctionComponent": {
-                "message": "Please read 'Why is `React.FC` discouraged? What about `React.FunctionComponent`/`React.VoidFunctionComponent`?' https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components",
-                "fixWith": ""
-              }
-            }
-          }
-        ],
         "@typescript-eslint/no-shadow": ["error"],
         "@typescript-eslint/array-type": [
           "error",

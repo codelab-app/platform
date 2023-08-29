@@ -1,4 +1,6 @@
 import type { Maybe } from '@codelab/shared/abstract/types'
+import type { AsyncState, UseAsyncActions } from '@react-hookz/web'
+import { useAsync } from '@react-hookz/web'
 import { notification } from 'antd'
 import isFunction from 'lodash/isFunction'
 import isString from 'lodash/isString'
@@ -58,27 +60,47 @@ export const notify = <TEvent>(
   }
 }
 
-export interface UseNotifyReturnType {
+interface UseNotifyArgs<Result, Args extends Array<unknown> = Array<unknown>> {
+  errorNotificationOptions: Omit<NotificationOptions, 'type'>
+  initialValue?: Result
+  successNotificationOptions: Omit<NotificationOptions, 'type'>
+  asyncFn(...params: Args): Promise<Result>
+}
+
+interface UseNotifyReturnType<
+  Result,
+  Args extends Array<unknown> = Array<unknown>,
+> {
+  actions: UseAsyncActions<Result | undefined, Args>
+  state: AsyncState<Result | undefined>
   onError(e: unknown): void
   onSuccess(): void
 }
 
-export const useNotify = (
-  success: Omit<NotificationOptions, 'type'>,
-  error: Omit<NotificationOptions, 'type'>,
-): UseNotifyReturnType => {
-  const onSuccess = () => notify({ ...success, type: 'success' })
+export const useNotify = <
+  Result,
+  Args extends Array<unknown> = Array<unknown>,
+>({
+  asyncFn,
+  errorNotificationOptions,
+  initialValue,
+  successNotificationOptions,
+}: UseNotifyArgs<Result, Args>): UseNotifyReturnType<Result, Args> => {
+  const [state, actions, meta] = useAsync(asyncFn, initialValue)
+
+  const onSuccess = () =>
+    notify({ ...successNotificationOptions, type: 'success' })
 
   const onError = (_error: unknown) => {
     console.error(_error)
     notify({
-      ...error,
-      content: error.content || extractErrorMessage(_error),
+      ...errorNotificationOptions,
+      content: errorNotificationOptions.content || extractErrorMessage(_error),
       type: 'error',
     })
   }
 
-  return { onError, onSuccess }
+  return { actions, onError, onSuccess, state }
 }
 
 /**

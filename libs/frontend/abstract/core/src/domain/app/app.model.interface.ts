@@ -4,6 +4,7 @@ import type {
   AppUpdateInput,
 } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO, IAuth0Owner } from '@codelab/shared/abstract/core'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IDomain } from '../domain'
@@ -39,5 +40,5 @@ export interface IBuilderApp {
 export type IAppRef = string
 
 export interface IAppSchema {
-  app: Pick<IApp, 'id'>
+  app: IEntity
 }

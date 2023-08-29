@@ -1,3 +1,4 @@
+import { idSchema } from '@codelab/frontend/presentation/view'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import type { JSONSchemaType } from 'ajv'
 
@@ -9,10 +10,7 @@ export const deleteElementSchema: JSONSchemaType<DeleteElementData> = {
   properties: {
     element: {
       properties: {
-        id: {
-          disabled: true,
-          type: 'string',
-        },
+        ...idSchema(),
       },
       required: ['id'],
       type: 'object',

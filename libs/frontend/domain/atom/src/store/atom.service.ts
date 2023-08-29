@@ -95,8 +95,8 @@ export class AtomService
       externalJsSource,
       externalSourceType,
       name,
-      requiredParents: requiredParents.map((child) => ({ id: child })),
-      suggestedChildren: suggestedChildren.map((child) => ({ id: child })),
+      requiredParents: requiredParents.map((child) => ({ id: child.id })),
+      suggestedChildren: suggestedChildren.map((child) => ({ id: child.id })),
       tags,
       type,
     })
@@ -139,7 +139,7 @@ export class AtomService
     type,
   }: IAtomDTO) => {
     // const tagRefs = tags?.map((tag) => tagRef(tag.id))
-    const apiRef = api?.id ? typeRef<IInterfaceType>(api.id) : undefined
+    const apiRef = typeRef<IInterfaceType>(api.id)
 
     const atom = Atom.create({
       api: apiRef,

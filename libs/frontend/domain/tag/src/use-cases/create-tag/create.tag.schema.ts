@@ -9,7 +9,7 @@ import { TagSelect } from '../../shared'
 
 export const createTagSchema: JSONSchemaType<ICreateTagData> = {
   properties: {
-    ...idSchema,
+    ...idSchema(),
     name: {
       autoFocus: true,
       ...nonEmptyString,
@@ -17,10 +17,9 @@ export const createTagSchema: JSONSchemaType<ICreateTagData> = {
     parent: {
       nullable: true,
       properties: {
-        id: {
-          type: 'string',
-          uniforms: { component: TagSelect },
-        },
+        ...idSchema({
+          component: TagSelect,
+        }),
       },
       required: [],
       type: 'object',

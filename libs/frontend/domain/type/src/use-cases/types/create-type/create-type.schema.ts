@@ -21,7 +21,7 @@ import { TypeSelect } from '../../../shared'
 export const createTypeSchema: JSONSchemaType<ICreateTypeData> = {
   properties: {
     ...ownerSchema,
-    ...idSchema,
+    ...idSchema(),
     allowedValues: {
       items: {
         properties: {

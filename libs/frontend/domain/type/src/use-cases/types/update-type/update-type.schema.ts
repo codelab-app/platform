@@ -49,7 +49,7 @@ export const updateTypeSchema: JSONSchemaType<
       ...hideField,
     },
     id: {
-      ...idSchema.id,
+      ...idSchema().id,
       ...hideField,
     },
     kind: { enum: Object.values(ITypeKind), type: 'string' },

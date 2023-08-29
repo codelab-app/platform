@@ -2,6 +2,7 @@ import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import {
   ExportAdminDataButton,
   ImportDataButton,
+  ResetDataButton,
 } from '@codelab/frontend/domain/admin'
 import {
   CuiHeader,
@@ -28,6 +29,7 @@ const AdminPage: CodelabPage<DashboardTemplateProps> = observer(() => {
         <Space>
           <ExportAdminDataButton />
           <ImportDataButton />
+          <ResetDataButton />
         </Space>
       </ContentSection>
     </>

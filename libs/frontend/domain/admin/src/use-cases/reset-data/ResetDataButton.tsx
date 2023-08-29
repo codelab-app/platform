@@ -1,19 +1,25 @@
-import type { IAdminService } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { useNotify } from '@codelab/frontend/shared/utils'
 import { Button } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
-export const ResetDataButton = observer<{ adminService: IAdminService }>(
-  ({ adminService }) => {
-    const { onError, onSuccess } = useNotify(
-      { title: 'Data has been reset successfully' },
-      { title: 'Failed to reset Data' },
-    )
+export const ResetDataButton = observer(() => {
+  const { adminService } = useStore()
+  const resetData = () => adminService.resetData()
 
-    const onClick = () =>
-      adminService.resetData().then(onSuccess).catch(onError)
+  const { actions, onError, onSuccess, state } = useNotify({
+    asyncFn: resetData,
+    errorNotificationOptions: { title: 'Failed to reset Data' },
+    successNotificationOptions: { title: 'Data has been reset successfully' },
+  })
 
-    return <Button onClick={onClick}>Reset Data</Button>
-  },
-)
+  return (
+    <Button
+      disabled={state.status === 'loading'}
+      onClick={() => actions.execute().then(onSuccess).catch(onError)}
+    >
+      Reset Data
+    </Button>
+  )
+})

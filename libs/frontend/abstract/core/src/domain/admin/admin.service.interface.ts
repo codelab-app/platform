@@ -1,7 +1,7 @@
-import type { Nullish } from '@codelab/shared/abstract/types'
+import type { AxiosResponse } from 'axios'
 
 export interface IAdminService {
   exportData(): Promise<unknown>
   importData(): Promise<unknown>
-  resetData(): Promise<Nullish<boolean>>
+  resetData(): Promise<AxiosResponse>
 }

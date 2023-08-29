@@ -1,13 +1,13 @@
 import type {
   ICreateDomainData,
   IDomain,
-  IDomainDTO,
   IDomainService,
   IUpdateDomainData,
 } from '@codelab/frontend/abstract/core'
 import { VercelService } from '@codelab/frontend/domain/vercel'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { DomainWhere } from '@codelab/shared/abstract/codegen'
+import type { IDomainDTO } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,

@@ -1,5 +1,5 @@
 import { DatabaseService } from '@codelab/backend/application/service'
-import { Body, Controller, Get, Post } from '@nestjs/common'
+import { Body, Controller, Post } from '@nestjs/common'
 
 export class ResetDataDto {
   close?: false
@@ -9,13 +9,12 @@ export class ResetDataDto {
 export class AdminController {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  @Get()
-  index() {
-    return 'index'
-  }
-
   @Post('reset')
   async reset(@Body() resetDataDto: ResetDataDto) {
-    return this.databaseService.reset(resetDataDto.close)
+    await this.databaseService.reset(resetDataDto.close)
+
+    return {
+      message: 'Admin data reset success',
+    }
   }
 }

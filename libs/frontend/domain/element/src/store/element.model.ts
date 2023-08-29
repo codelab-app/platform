@@ -42,7 +42,11 @@ import {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAuth0User, IElementDTO } from '@codelab/shared/abstract/core'
+import {
+  type IAuth0User,
+  type IElementDTO,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import {

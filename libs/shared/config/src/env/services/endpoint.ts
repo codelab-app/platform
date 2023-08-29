@@ -4,6 +4,7 @@ import * as env from 'env-var'
  * https://github.com/evanshortiss/env-var/issues/162
  */
 const { get } = env.from({
+  NEXT_PUBLIC_PLATFORM_API_HOST: process.env['NEXT_PUBLIC_PLATFORM_API_HOST'],
   NEXT_PUBLIC_PLATFORM_HOST: process.env['NEXT_PUBLIC_PLATFORM_HOST'],
 })
 
@@ -34,8 +35,7 @@ export class EndpointEnvVars implements IEndpointEnvVars {
    * http://127.0.0.1:4000
    */
   get platformApiHost(): string {
-    return (this._platformApiHost ??= env
-      .get('PLATFORM_API_HOST')
+    return (this._platformApiHost ??= get('NEXT_PUBLIC_PLATFORM_API_HOST')
       .required()
       .asUrlString())
   }
