@@ -58,7 +58,7 @@ export const ClickOverlay = ({
   const isToolbarVisible = rect.top - containerRect.top > 0
 
   return (
-    <div className="z-50" style={style}>
+    <div style={style}>
       {content && (
         <div
           style={{
