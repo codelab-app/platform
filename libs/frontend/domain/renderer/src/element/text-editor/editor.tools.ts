@@ -4,7 +4,6 @@ import Header from '@editorjs/header'
 import InlineCode from '@editorjs/inline-code'
 import LinkTool from '@editorjs/link'
 import List from '@editorjs/list'
-import Marker from '@editorjs/marker'
 import Quote from '@editorjs/quote'
 import Underline from '@editorjs/underline'
 import StrikeThrough from '@sotaproject/strikethrough'
@@ -21,22 +20,9 @@ export const EDITOR_TOOLS = {
     shortcut: 'CMD+SHIFT+C',
   },
 
-  Color: {
+  color: {
     class: ColorPicker,
     config: {
-      colorCollections: [
-        '#EC7878',
-        '#9C27B0',
-        '#673AB7',
-        '#3F51B5',
-        '#0070FF',
-        '#03A9F4',
-        '#00BCD4',
-        '#4CAF50',
-        '#8BC34A',
-        '#CDDC39',
-        '#FFF',
-      ],
       customPicker: true,
       defaultColor: '#FF1300',
       type: 'text',
@@ -66,7 +52,11 @@ export const EDITOR_TOOLS = {
   },
 
   marker: {
-    class: Marker,
+    class: ColorPicker,
+    config: {
+      defaultColor: '#FFBF00',
+      type: 'marker',
+    },
     shortcut: 'CMD+SHIFT+M',
   },
 
