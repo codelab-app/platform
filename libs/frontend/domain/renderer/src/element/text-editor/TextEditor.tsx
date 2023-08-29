@@ -6,7 +6,7 @@ import React, { memo, useEffect } from 'react'
 import { EDITOR_TOOLS } from './editor.tools'
 
 interface Props {
-  data?: OutputData
+  data?: string
   elementId: string
   readOnly?: boolean
 }
@@ -27,10 +27,25 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
     })
   }
 
+  // This is for being backwards compatible with the old text editor
+  const getInitialData = (): OutputData => {
+    if (!data) {
+      return { blocks: [{ data: { text: '' }, type: 'paragraph' }] }
+    }
+
+    try {
+      return JSON.parse(data)
+    } catch {
+      return {
+        blocks: [{ data: { text: data }, type: 'paragraph' }],
+      }
+    }
+  }
+
   useEffect(() => {
     if (!editor) {
       const newEditor = new EditorJS({
-        data,
+        data: getInitialData(),
         hideToolbar: true,
         holder,
         onChange: async (api, event) => {
@@ -45,7 +60,9 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
     }
 
     return () => {
-      editor?.destroy()
+      if (editor?.destroy) {
+        editor.destroy()
+      }
     }
   }, [editor])
 

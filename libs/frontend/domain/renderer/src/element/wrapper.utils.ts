@@ -57,7 +57,7 @@ export const createTextEditor = (
   readOnly?: boolean,
 ) => {
   return React.createElement(TextEditor, {
-    data: JSON.parse(customText || '{}'),
+    data: customText,
     elementId,
     readOnly,
   })
