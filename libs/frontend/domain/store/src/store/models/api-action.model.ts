@@ -83,18 +83,24 @@ export class ApiAction
           node: this.config.current.toCreateInput(),
         },
       },
-      errorAction: {
-        ApiAction: connectNodeId(this.errorAction?.id),
-        CodeAction: connectNodeId(this.errorAction?.id),
-      },
+      // empty object errorAction: {} causes validation error
+      errorAction: this.errorAction?.id
+        ? {
+            ApiAction: connectNodeId(this.errorAction.id),
+            CodeAction: connectNodeId(this.errorAction.id),
+          }
+        : undefined,
       id: this.id,
       name: this.name,
       resource: connectNodeId(this.resource.id),
       store: connectNodeId(this.store.id),
-      successAction: {
-        ApiAction: connectNodeId(this.successAction?.id),
-        CodeAction: connectNodeId(this.successAction?.id),
-      },
+      // empty object successAction: {} causes validation error
+      successAction: this.successAction?.id
+        ? {
+            ApiAction: connectNodeId(this.successAction.id),
+            CodeAction: connectNodeId(this.successAction.id),
+          }
+        : undefined,
     }
   }
 
@@ -106,16 +112,22 @@ export class ApiAction
           node: this.config.current.toUpdateInput(),
         },
       },
-      errorAction: {
-        ApiAction: connectNodeId(this.errorAction?.id),
-        CodeAction: connectNodeId(this.errorAction?.id),
-      },
+      // empty object errorAction: {} causes validation error
+      errorAction: this.errorAction?.id
+        ? {
+            ApiAction: connectNodeId(this.errorAction.id),
+            CodeAction: connectNodeId(this.errorAction.id),
+          }
+        : undefined,
       name: this.name,
       resource: connectNodeId(this.resource.id),
-      successAction: {
-        ApiAction: connectNodeId(this.successAction?.id),
-        CodeAction: connectNodeId(this.successAction?.id),
-      },
+      // empty object successAction: {} causes validation error
+      successAction: this.successAction?.id
+        ? {
+            ApiAction: connectNodeId(this.successAction.id),
+            CodeAction: connectNodeId(this.successAction.id),
+          }
+        : undefined,
     }
   }
 

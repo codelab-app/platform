@@ -7,7 +7,7 @@ import { v4 } from 'uuid'
 export class Store implements IStoreDTO {
   actions?: Array<IEntity> | undefined
 
-  api?: IEntity | null
+  api: IEntity
 
   id: string
 
