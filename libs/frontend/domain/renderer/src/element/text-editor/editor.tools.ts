@@ -8,6 +8,7 @@ import Marker from '@editorjs/marker'
 import Quote from '@editorjs/quote'
 import Underline from '@editorjs/underline'
 import StrikeThrough from '@sotaproject/strikethrough'
+import ColorPicker from 'editorjs-text-color-plugin'
 
 export const EDITOR_TOOLS = {
   checklist: {
@@ -18,6 +19,28 @@ export const EDITOR_TOOLS = {
   code: {
     class: Code,
     shortcut: 'CMD+SHIFT+C',
+  },
+
+  Color: {
+    class: ColorPicker,
+    config: {
+      colorCollections: [
+        '#EC7878',
+        '#9C27B0',
+        '#673AB7',
+        '#3F51B5',
+        '#0070FF',
+        '#03A9F4',
+        '#00BCD4',
+        '#4CAF50',
+        '#8BC34A',
+        '#CDDC39',
+        '#FFF',
+      ],
+      customPicker: true,
+      defaultColor: '#FF1300',
+      type: 'text',
+    },
   },
 
   header: {

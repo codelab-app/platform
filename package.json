@@ -133,6 +133,7 @@
     "core-js": "3.20.2",
     "cross-fetch": "3.1.4",
     "csv-parser": "3.0.0",
+    "editorjs-text-color-plugin": "^2.0.4",
     "env-var": "7.3.1",
     "flat": "^5.0.2",
     "framer-motion": "6.3.3",
