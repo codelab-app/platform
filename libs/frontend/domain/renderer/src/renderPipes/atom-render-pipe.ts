@@ -8,7 +8,6 @@ import {
 import type { IAtomType } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
 import { atomFactory } from '../atoms'
-import { jsonStringToCss } from '../element/get-styled-components'
 import { RenderOutput } from '../utils'
 import { BaseRenderPipe } from './render-pipe.base'
 
@@ -47,10 +46,7 @@ export class AtomRenderPipe
       return this.next.render(element, props)
     }
 
-    const elementCss = [
-      element.customCss,
-      jsonStringToCss(element.guiCss),
-    ].join(' ')
+    const css = element.styleCss
 
     if (this.renderer.debugMode) {
       console.info(`AtomRenderPipe: Rendering atom ${atomType}`, {
@@ -66,7 +62,7 @@ export class AtomRenderPipe
         /**
          * This is rendered to style with css prop and styled-components
          */
-        css: elementCss,
+        css,
       },
     })
   }

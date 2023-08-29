@@ -11,7 +11,7 @@ import { useStore } from '@codelab/frontend/presentation/container'
 import { Divider, InputNumber, Menu, Space } from 'antd'
 import type { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { observer } from 'mobx-react-lite'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 
 export type MenuItemProps = ItemType & {
   hide?: boolean
@@ -37,16 +37,14 @@ const menuItemCommonStyle = {
 
 export const BuilderSizeMenu = observer(() => {
   const { builderService } = useStore()
-
-  const [selectedWidthBreakpoint, setSelectedWidthBreakpoint] = useState(
-    BuilderWidthBreakPoint.Desktop,
-  )
+  const breakpoint = builderService.selectedBuilderBreakpoint
+  const selectedWidthBreakpoint = defaultBuilderWidthBreakPoints[breakpoint]
 
   const handleBreakpointSelected = useCallback(
-    (breakpoint: BuilderWidthBreakPoint) => {
-      setSelectedWidthBreakpoint(breakpoint)
-      builderService.setSelectedBuilderWidth(
-        defaultBuilderWidthBreakPoints[breakpoint],
+    (newBreakpoint: BuilderWidthBreakPoint) => {
+      builderService.setSelectedBuilderBreakpoint(newBreakpoint)
+      builderService.setCurrentBuilderWidth(
+        defaultBuilderWidthBreakPoints[newBreakpoint],
       )
     },
     [],
@@ -115,7 +113,7 @@ export const BuilderSizeMenu = observer(() => {
           }))}
         mode="horizontal"
         selectable={false}
-        selectedKeys={[selectedWidthBreakpoint]}
+        selectedKeys={[breakpoint]}
         style={{
           blockSize: '100%',
         }}
@@ -126,16 +124,16 @@ export const BuilderSizeMenu = observer(() => {
       <Space direction="horizontal" size="small">
         <InputNumber
           controls={false}
-          max={builderService.selectedBuilderWidth.max}
-          min={builderService.selectedBuilderWidth.min}
+          max={selectedWidthBreakpoint.max}
+          min={selectedWidthBreakpoint.min}
           onChange={(value) =>
-            builderService.setSelectedBuilderWidth({
-              ...builderService.selectedBuilderWidth,
+            builderService.setCurrentBuilderWidth({
+              ...selectedWidthBreakpoint,
               default: Number(value),
             })
           }
           size="small"
-          value={builderService.selectedBuilderWidth.default}
+          value={selectedWidthBreakpoint.default}
         />
         <span>px</span>
       </Space>

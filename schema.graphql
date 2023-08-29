@@ -548,11 +548,10 @@ type ApiActionElementElementAggregationSelection {
 type ApiActionElementElementNodeAggregateSelection {
   _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
+  style: StringAggregateSelectionNullable!
 }
 
 input ApiActionElementNodeAggregationWhereInput {
@@ -649,6 +648,21 @@ input ApiActionElementNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
 }
 
 input ApiActionErrorActionApiActionConnectFieldInput {
@@ -4227,6 +4241,21 @@ input BaseActionElementNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
 }
 
 type BaseActionElementRelationship {
@@ -4732,11 +4761,10 @@ type CodeActionElementElementAggregationSelection {
 type CodeActionElementElementNodeAggregateSelection {
   _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
+  style: StringAggregateSelectionNullable!
 }
 
 input CodeActionElementNodeAggregationWhereInput {
@@ -4833,6 +4861,21 @@ input CodeActionElementNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
 }
 
 input CodeActionOnCreateInput {
@@ -5559,6 +5602,21 @@ input ComponentChildrenContainerElementNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
 }
 
 type ComponentChildrenContainerElementRelationship {
@@ -5649,11 +5707,10 @@ type ComponentElementChildrenContainerElementAggregationSelection {
 type ComponentElementChildrenContainerElementNodeAggregateSelection {
   _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
+  style: StringAggregateSelectionNullable!
 }
 
 type ComponentElementRootElementAggregationSelection {
@@ -5664,11 +5721,10 @@ type ComponentElementRootElementAggregationSelection {
 type ComponentElementRootElementNodeAggregateSelection {
   _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
+  style: StringAggregateSelectionNullable!
 }
 
 type ComponentInterfaceTypeApiAggregationSelection {
@@ -6045,6 +6101,21 @@ input ComponentRootElementNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
 }
 
 type ComponentRootElementRelationship {
@@ -6727,7 +6798,6 @@ type Element {
     where: ElementChildMapperPreviousSiblingConnectionWhere
   ): ElementChildMapperPreviousSiblingConnection!
   childMapperPropKey: String
-  customCss: String
   descendantElements: [Element!]!
   firstChild(
     directed: Boolean = true
@@ -6745,7 +6815,6 @@ type Element {
     sort: [ElementFirstChildConnectionSort!]
     where: ElementFirstChildConnectionWhere
   ): ElementFirstChildConnection!
-  guiCss: String
   id: ID!
   name: String!
   nextSibling(
@@ -6902,11 +6971,10 @@ type ElementAggregateSelection {
   _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
   count: Int!
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
+  style: StringAggregateSelectionNullable!
 }
 
 type ElementAtomRenderAtomTypeAggregationSelection {
@@ -7208,6 +7276,21 @@ input ElementChildMapperPreviousSiblingNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
 }
 
 type ElementChildMapperPreviousSiblingRelationship {
@@ -7305,9 +7388,7 @@ input ElementCreateInput {
   childMapperComponent: ElementChildMapperComponentFieldInput
   childMapperPreviousSibling: ElementChildMapperPreviousSiblingFieldInput
   childMapperPropKey: String
-  customCss: String
   firstChild: ElementFirstChildFieldInput
-  guiCss: String
   id: ID!
   nextSibling: ElementNextSiblingFieldInput
   page: ElementPageFieldInput
@@ -7321,6 +7402,7 @@ input ElementCreateInput {
   renderComponentType: ElementRenderComponentTypeFieldInput
   renderForEachPropKey: String
   renderIfExpression: String
+  style: String
 }
 
 input ElementDeleteInput {
@@ -7368,11 +7450,10 @@ type ElementElementChildMapperPreviousSiblingAggregationSelection {
 type ElementElementChildMapperPreviousSiblingNodeAggregateSelection {
   _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
+  style: StringAggregateSelectionNullable!
 }
 
 type ElementElementFirstChildAggregationSelection {
@@ -7383,11 +7464,10 @@ type ElementElementFirstChildAggregationSelection {
 type ElementElementFirstChildNodeAggregateSelection {
   _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
+  style: StringAggregateSelectionNullable!
 }
 
 type ElementElementNextSiblingAggregationSelection {
@@ -7398,11 +7478,10 @@ type ElementElementNextSiblingAggregationSelection {
 type ElementElementNextSiblingNodeAggregateSelection {
   _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
+  style: StringAggregateSelectionNullable!
 }
 
 type ElementElementParentAggregationSelection {
@@ -7413,11 +7492,10 @@ type ElementElementParentAggregationSelection {
 type ElementElementParentNodeAggregateSelection {
   _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
+  style: StringAggregateSelectionNullable!
 }
 
 type ElementElementPrevSiblingAggregationSelection {
@@ -7428,11 +7506,10 @@ type ElementElementPrevSiblingAggregationSelection {
 type ElementElementPrevSiblingNodeAggregateSelection {
   _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
+  style: StringAggregateSelectionNullable!
 }
 
 input ElementFirstChildAggregateInput {
@@ -7597,6 +7674,21 @@ input ElementFirstChildNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
 }
 
 type ElementFirstChildRelationship {
@@ -7780,6 +7872,21 @@ input ElementNextSiblingNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
 }
 
 type ElementNextSiblingRelationship {
@@ -7804,11 +7911,10 @@ input ElementNextSiblingUpdateFieldInput {
 input ElementOnCreateInput {
   _compoundName: String!
   childMapperPropKey: String
-  customCss: String
-  guiCss: String
   id: ID!
   renderForEachPropKey: String
   renderIfExpression: String
+  style: String
 }
 
 input ElementOptions {
@@ -8240,6 +8346,21 @@ input ElementParentNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
 }
 
 type ElementParentRelationship {
@@ -8541,6 +8662,21 @@ input ElementPrevSiblingNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
 }
 
 type ElementPrevSiblingRelationship {
@@ -8989,11 +9125,10 @@ Fields to sort Elements by. The order in which sorts are applied is not guarante
 input ElementSort {
   _compoundName: SortDirection
   childMapperPropKey: SortDirection
-  customCss: SortDirection
-  guiCss: SortDirection
   id: SortDirection
   renderForEachPropKey: SortDirection
   renderIfExpression: SortDirection
+  style: SortDirection
 }
 
 """
@@ -9238,9 +9373,7 @@ input ElementUpdateInput {
   childMapperComponent: ElementChildMapperComponentUpdateFieldInput
   childMapperPreviousSibling: ElementChildMapperPreviousSiblingUpdateFieldInput
   childMapperPropKey: String
-  customCss: String
   firstChild: ElementFirstChildUpdateFieldInput
-  guiCss: String
   id: ID
   nextSibling: ElementNextSiblingUpdateFieldInput
   page: ElementPageUpdateFieldInput
@@ -9254,6 +9387,7 @@ input ElementUpdateInput {
   renderComponentType: ElementRenderComponentTypeUpdateFieldInput
   renderForEachPropKey: String
   renderIfExpression: String
+  style: String
 }
 
 input ElementWhere {
@@ -9282,23 +9416,11 @@ input ElementWhere {
   childMapperPropKey_IN: [String]
   childMapperPropKey_MATCHES: String
   childMapperPropKey_STARTS_WITH: String
-  customCss: String
-  customCss_CONTAINS: String
-  customCss_ENDS_WITH: String
-  customCss_IN: [String]
-  customCss_MATCHES: String
-  customCss_STARTS_WITH: String
   firstChild: ElementWhere
   firstChildAggregate: ElementFirstChildAggregateInput
   firstChildConnection: ElementFirstChildConnectionWhere
   firstChildConnection_NOT: ElementFirstChildConnectionWhere
   firstChild_NOT: ElementWhere
-  guiCss: String
-  guiCss_CONTAINS: String
-  guiCss_ENDS_WITH: String
-  guiCss_IN: [String]
-  guiCss_MATCHES: String
-  guiCss_STARTS_WITH: String
   id: ID
   id_CONTAINS: ID
   id_ENDS_WITH: ID
@@ -9361,6 +9483,12 @@ input ElementWhere {
   renderIfExpression_IN: [String]
   renderIfExpression_MATCHES: String
   renderIfExpression_STARTS_WITH: String
+  style: String
+  style_CONTAINS: String
+  style_ENDS_WITH: String
+  style_IN: [String]
+  style_MATCHES: String
+  style_STARTS_WITH: String
 }
 
 type ElementsConnection {
@@ -11308,11 +11436,10 @@ type HookElementElementAggregationSelection {
 type HookElementElementNodeAggregateSelection {
   _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
+  style: StringAggregateSelectionNullable!
 }
 
 input HookElementFieldInput {
@@ -11415,6 +11542,21 @@ input HookElementNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
 }
 
 type HookElementRelationship {
@@ -13634,11 +13776,10 @@ type PageElementPageContentContainerAggregationSelection {
 type PageElementPageContentContainerNodeAggregateSelection {
   _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
+  style: StringAggregateSelectionNullable!
 }
 
 type PageElementRootElementAggregationSelection {
@@ -13649,11 +13790,10 @@ type PageElementRootElementAggregationSelection {
 type PageElementRootElementNodeAggregateSelection {
   _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
+  style: StringAggregateSelectionNullable!
 }
 
 """
@@ -13852,6 +13992,21 @@ input PagePageContentContainerNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
 }
 
 type PagePageContentContainerRelationship {
@@ -14042,6 +14197,21 @@ input PageRootElementNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
 }
 
 type PageRootElementRelationship {
@@ -19497,11 +19667,10 @@ type UserElementElementsAggregationSelection {
 type UserElementElementsNodeAggregateSelection {
   _compoundName: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
-  customCss: StringAggregateSelectionNullable!
-  guiCss: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
+  style: StringAggregateSelectionNullable!
 }
 
 input UserElementsAggregateInput {
@@ -19666,6 +19835,21 @@ input UserElementsNodeAggregationWhereInput {
   renderIfExpression_SHORTEST_LENGTH_GTE: Int
   renderIfExpression_SHORTEST_LENGTH_LT: Int
   renderIfExpression_SHORTEST_LENGTH_LTE: Int
+  style_AVERAGE_LENGTH_EQUAL: Float
+  style_AVERAGE_LENGTH_GT: Float
+  style_AVERAGE_LENGTH_GTE: Float
+  style_AVERAGE_LENGTH_LT: Float
+  style_AVERAGE_LENGTH_LTE: Float
+  style_LONGEST_LENGTH_EQUAL: Int
+  style_LONGEST_LENGTH_GT: Int
+  style_LONGEST_LENGTH_GTE: Int
+  style_LONGEST_LENGTH_LT: Int
+  style_LONGEST_LENGTH_LTE: Int
+  style_SHORTEST_LENGTH_EQUAL: Int
+  style_SHORTEST_LENGTH_GT: Int
+  style_SHORTEST_LENGTH_GTE: Int
+  style_SHORTEST_LENGTH_LT: Int
+  style_SHORTEST_LENGTH_LTE: Int
 }
 
 type UserElementsRelationship {

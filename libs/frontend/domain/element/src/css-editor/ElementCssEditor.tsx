@@ -4,6 +4,7 @@ import type {
   IElement,
   IElementService,
 } from '@codelab/frontend/abstract/core'
+import { useStore } from '@codelab/frontend/presentation/container'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { useDebouncedEffect } from '@react-hookz/web'
@@ -32,37 +33,48 @@ export interface ElementCssEditorInternalProps {
   */
 export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
   ({ element, elementService }) => {
-    const guiCssObj = JSON.parse(element.guiCss ?? '{}') as CssMap
-
-    const lastStateRef = useRef({
-      customCss: element.customCss,
-      guiCss: element.guiCss,
-    })
+    const { builderService } = useStore()
+    const breakpoint = builderService.selectedBuilderBreakpoint
+    const { cssString, guiString } = element.styleParsed[breakpoint] ?? {}
+    const guiCssObj = JSON.parse(guiString ?? '{}') as CssMap
+    const lastStateRef = useRef({ cssString, guiString, style: element.style })
 
     const cssChangeHandler = useCallback(
-      (value: string) => element.setCustomCss(value),
-      [element],
+      (value: string) => element.setCustomCss(value, breakpoint),
+      [element, breakpoint],
     )
 
     const updateElementStyles = useCallback(
-      ({ customCss, guiCss }: IElement) => {
+      (style: IElement['style']) => {
         const elementModel = getElementModel(element)
         const lastState = lastStateRef.current
-        const { customCss: lastCustomCss, guiCss: lastGuiCss } = lastState
+        const breakpointStyle = element.styleParsed[breakpoint] ?? {}
+
+        const {
+          cssString: lastCustomCss,
+          guiString: lastGuiCss,
+          style: oldStyle,
+        } = lastState
+
+        const { cssString: currentCss, guiString: currentGuiCss } =
+          breakpointStyle
+
+        console.log(element.style === oldStyle, oldStyle)
 
         // do not send request if value was not changed
-        if (customCss !== lastCustomCss || guiCss !== lastGuiCss) {
-          lastStateRef.current = { customCss, guiCss }
+        // if (currentCss !== lastCustomCss || currentGuiCss !== lastGuiCss) {
+        if (oldStyle !== style) {
+          lastStateRef.current = { cssString, guiString, style }
 
-          void elementService.update({ ...elementModel, customCss, guiCss })
+          void elementService.update({ ...elementModel, style })
         }
       },
-      [element, elementService],
+      [element, elementService, breakpoint],
     )
 
     useDebouncedEffect(
-      () => updateElementStyles(element),
-      [element.guiCss, element.customCss],
+      () => updateElementStyles(element.style),
+      [element],
       1000,
     )
 
@@ -71,7 +83,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
        * Make sure the new string is saved when unmounting the component
        * because if the panel is closed too quickly, the autosave won't catch the latest changes
        */
-      () => () => updateElementStyles(element),
+      () => () => updateElementStyles(element.style),
       [element, updateElementStyles],
     )
 
@@ -83,54 +95,33 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
             language={CodeMirrorLanguage.Css}
             onChange={cssChangeHandler}
             title="CSS Editor"
-            value={element.customCss ?? ''}
+            value={cssString ?? ''}
           />
         </Col>
         <Col span={24}>
           <Collapse
             bordered={false}
-            className="site-collapse-custom-collapse"
             defaultActiveKey={['1']}
             expandIcon={({ isActive }) => (
               <CaretRightOutlined rotate={isActive ? 90 : 0} />
             )}
           >
-            <Panel
-              className="site-collapse-custom-panel"
-              header="Layout"
-              key="1"
-            >
+            <Panel header="Layout" key="1">
               <LayoutEditor element={element} guiCssObj={guiCssObj} />
             </Panel>
-            <Panel className="site-collapse-custom-panel" header="Font" key="2">
+            <Panel header="Font" key="2">
               <FontEditor element={element} guiCssObj={guiCssObj} />
             </Panel>
-            <Panel
-              className="site-collapse-custom-panel"
-              header="Background"
-              key="3"
-            >
+            <Panel header="Background" key="3">
               <BackgroundEditor element={element} guiCssObj={guiCssObj} />
             </Panel>
-            <Panel
-              className="site-collapse-custom-panel"
-              header="Effects"
-              key="4"
-            >
+            <Panel header="Effects" key="4">
               <EffectsEditor element={element} guiCssObj={guiCssObj} />
             </Panel>
-            <Panel
-              className="site-collapse-custom-panel"
-              header="Borders"
-              key="5"
-            >
+            <Panel header="Borders" key="5">
               <BordersEditor element={element} guiCssObj={guiCssObj} />
             </Panel>
-            <Panel
-              className="site-collapse-custom-panel"
-              header="Shadows"
-              key="6"
-            >
+            <Panel header="Shadows" key="6">
               <ShadowsEditor element={element} guiCssObj={guiCssObj} />
             </Panel>
           </Collapse>

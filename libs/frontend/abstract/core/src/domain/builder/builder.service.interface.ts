@@ -5,7 +5,11 @@ import type { IComponent } from '../component'
 import type { IElement, IElementTree } from '../element'
 import type { IPageNodeRef } from '../page'
 import type { RendererTab } from '../render'
-import type { BuilderDragData, BuilderWidth } from './builder.interface'
+import type {
+  BuilderDragData,
+  BuilderWidth,
+  BuilderWidthBreakPoint,
+} from './builder.interface'
 // TBC: | IComponent
 export type IBuilderComponent = IAtom & {
   // tag: Ref<ITag>
@@ -34,7 +38,7 @@ export interface IBuilderService {
   expandedComponentTreeNodeIds: Array<string>
   expandedPageElementTreeNodeIds: Array<string>
   hoveredNode: Nullable<IPageNodeRef>
-  selectedBuilderWidth: BuilderWidth
+  selectedBuilderBreakpoint: BuilderWidthBreakPoint
   selectedNode: Nullable<IPageNodeRef>
 
   selectComponentNode(node: Nullable<IComponent>): void
@@ -46,6 +50,6 @@ export interface IBuilderService {
   setExpandedComponentTreeNodeIds(expandedNodeIds: Array<string>): void
   setExpandedPageElementTreeNodeIds(expandedNodeIds: Array<string>): void
   setHoveredNode(element: Nullable<IPageNodeRef>): void
-  setSelectedBuilderWidth(width: Nullable<BuilderWidth>): void
+  setSelectedBuilderBreakpoint(width: Nullable<BuilderWidthBreakPoint>): void
   setSelectedNode(node: Nullable<IPageNodeRef>): void
 }

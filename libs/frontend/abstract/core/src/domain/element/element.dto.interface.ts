@@ -2,8 +2,6 @@ import type { IPropDTO, RenderType } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 
 export interface ICreateElementData {
-  customCss?: Nullable<string>
-  guiCss?: Nullable<string>
   id: string
   name: string
   parentElement?: Nullable<IEntity>
@@ -15,16 +13,16 @@ export interface ICreateElementData {
    * We should connect to `atom` or `component` in future
    */
   renderType?: Nullable<RenderType>
+  style?: Nullable<string>
 }
 
 export type IUpdateElementData = Pick<
   ICreateElementData,
-  | 'customCss'
-  | 'guiCss'
   | 'name'
   | 'postRenderAction'
   | 'preRenderAction'
   | 'renderType'
+  | 'style'
 > &
   Pick<ICreateElementData, 'id'> & {
     childMapperComponent?: Nullish<IEntity>

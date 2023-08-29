@@ -1,3 +1,4 @@
+import { defaultBuilderWidthBreakPoints } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { PropsWithChildren } from 'react'
 import React, { useEffect, useRef } from 'react'
@@ -7,28 +8,27 @@ import { builderResizeController } from './builder-resize-controller'
 const useResizer = ({ side }: { side: Side }) => {
   const ref = useRef<HTMLDivElement>(null)
   const { builderService } = useStore()
+  const breakpoint = builderService.selectedBuilderBreakpoint
 
   useEffect(() => {
     if (ref.current === null) {
       return
     }
 
-    const disposeResizeController = builderResizeController(ref.current, {
-      getDefaultValue: () => builderService.selectedBuilderWidth.default,
+    const selectedBuilderWidth = defaultBuilderWidthBreakPoints[breakpoint]
 
+    const disposeResizeController = builderResizeController(ref.current, {
+      getDefaultValue: () => selectedBuilderWidth.default,
       getMaxValue: () =>
         Math.min(
           builderService.builderContainerWidth,
-          builderService.selectedBuilderWidth.max,
+          selectedBuilderWidth.max,
         ),
-
-      getMinValue: () => builderService.selectedBuilderWidth.min,
-
+      getMinValue: () => selectedBuilderWidth.min,
       getSide: () => side,
-
       onValueChanged: (value) => {
-        builderService.setSelectedBuilderWidth({
-          ...builderService.selectedBuilderWidth,
+        builderService.setCurrentBuilderWidth({
+          ...selectedBuilderWidth,
           default: value,
         })
       },
@@ -37,7 +37,7 @@ const useResizer = ({ side }: { side: Side }) => {
     return () => {
       disposeResizeController()
     }
-  }, [side])
+  }, [side, breakpoint])
 
   return ref
 }

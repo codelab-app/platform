@@ -13,6 +13,7 @@ import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IElementTreeViewDataNode } from '../../ui'
 import type { IAction } from '../action'
+import type { BuilderWidthBreakPoint } from '../builder'
 import type { IComponent } from '../component'
 import type { IHook } from '../hook'
 import type { IModel } from '../model.interface'
@@ -61,6 +62,16 @@ export interface IEvaluationContext {
   url: IPropData
 }
 
+export interface IBreakpointStyle {
+  cssString?: string
+  guiString?: string
+}
+
+export type IElementStyle = Record<
+  BuilderWidthBreakPoint,
+  IBreakpointStyle | undefined
+>
+
 export interface IElement
   extends Omit<
       IModel<ElementCreateInput, ElementUpdateInput, void>,
@@ -78,13 +89,11 @@ export interface IElement
   closestParent: IElement | null
   // the closest rootElement of node (page/component) that element belongs to
   closestRootElement: IElement
-  customCss?: Nullable<string>
   // This is a computed property, so we can use model instead of ref
   descendantElements: Array<IElement>
   // used for expressions evaluation
   expressionEvaluationContext: IEvaluationContext
   firstChild?: Nullable<Ref<IElement>>
-  guiCss?: Nullable<string>
   hooks: Array<IHook>
   id: string
   isRoot: boolean
@@ -121,19 +130,25 @@ export interface IElement
   sourceElement: Nullable<IEntity>
   // store attached to closestContainerNode
   store: Ref<IStore>
+  style?: Nullable<string>
+  styleCss: string
+  styleParsed: IElementStyle
   treeViewNode: IElementTreeViewDataNode
   urlProps?: IPropData
 
-  appendToGuiCss(css: CssMap): void
+  appendToGuiCss(css: CssMap, breakpoint: BuilderWidthBreakPoint): void
   attachAsNextSibling(sibling: IElement): void
   attachAsPrevSibling(sibling: IElement): void
   attachToParentAsFirstChild(parentElement: IElement): void
   clone(): IElement
   connectPrevToNextSibling(): void
-  deleteFromGuiCss(propNames: Array<string>): void
+  deleteFromGuiCss(
+    propNames: Array<string>,
+    breakpoint: BuilderWidthBreakPoint,
+  ): void
   detachAsFirstChild(): void
   detachFromParent(): void
-  setCustomCss(css: string): void
+  setCustomCss(css: string, breakpoint: BuilderWidthBreakPoint): void
   setFirstChild(firstChild: Ref<IElement>): void
   setName(name: string): void
   setNextSibling(nextSibling: Ref<IElement>): void

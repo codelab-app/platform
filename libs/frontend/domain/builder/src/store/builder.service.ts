@@ -7,6 +7,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   BuilderWidth,
+  BuilderWidthBreakPoint,
   componentRef,
   defaultBuilderWidthBreakPoints,
   elementRef,
@@ -37,9 +38,9 @@ export class BuilderService
     expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     expandedPageElementTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     hoveredNode: prop<Nullable<IPageNodeRef>>(null).withSetter(),
-    selectedBuilderWidth: prop<BuilderWidth>(
-      () => defaultBuilderWidthBreakPoints.desktop,
-    ),
+    selectedBuilderBreakpoint: prop<BuilderWidthBreakPoint>(
+      () => BuilderWidthBreakPoint.Desktop,
+    ).withSetter(),
     /**
      * select a node would add it to expand list
      * sometimes, it's not necessary to expand the node. E.g:
@@ -205,20 +206,20 @@ export class BuilderService
     this.currentBuilderWidth.max = width.max
   }
 
-  @modelAction
-  setSelectedBuilderWidth(width: BuilderWidth) {
-    // -1 max width means fill the screen, so we use the available
-    // container width as long as it's not smaller than the min
-    this.selectedBuilderWidth = {
-      default:
-        width.default < 0
-          ? Math.max(width.min, this.builderContainerWidth)
-          : width.default,
-      max:
-        width.max < 0
-          ? Math.max(width.min, this.builderContainerWidth)
-          : width.max,
-      min: width.min,
-    }
-  }
+  // @modelAction
+  // setSelectedBuilderWidth(width: BuilderWidth) {
+  //   // -1 max width means fill the screen, so we use the available
+  //   // container width as long as it's not smaller than the min
+  //   this.selectedBuilderWidth = {
+  //     default:
+  //       width.default < 0
+  //         ? Math.max(width.min, this.builderContainerWidth)
+  //         : width.default,
+  //     max:
+  //       width.max < 0
+  //         ? Math.max(width.min, this.builderContainerWidth)
+  //         : width.max,
+  //     min: width.min,
+  //   }
+  // }
 }

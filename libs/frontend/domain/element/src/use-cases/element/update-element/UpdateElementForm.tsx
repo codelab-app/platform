@@ -79,8 +79,7 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             'renderIfExpression',
             'renderForEachPropKey',
             // We edit it in the css tab
-            'customCss',
-            'guiCss',
+            'style',
             'preRenderAction',
             'postRenderAction',
             'renderType',
