@@ -33,10 +33,6 @@
   font-size: unset;
 }
 
-.ce-toolbar {
-  display: none !important;
-}
-
 .codex-editor__redactor {
   padding: 0 !important;
 }

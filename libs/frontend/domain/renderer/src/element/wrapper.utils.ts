@@ -55,9 +55,8 @@ export const makeCustomTextContainer = (customText: string) =>
 
 export const createInlineEditor = (customText: string, elementId: string) => {
   return React.createElement(TextEditor, {
-    data: JSON.parse(customText),
-    holder: elementId,
-    onChange: (data) => console.log(data),
+    data: JSON.parse(customText || '{}'),
+    elementId,
   })
 }
 

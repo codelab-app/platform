@@ -323,7 +323,7 @@ export class Renderer
           element.renderType.current.allowCustomTextInjection
 
         if (shouldInjectText) {
-          return createInlineEditor(injectedText || '{}', element.id)
+          return createInlineEditor(injectedText, element.id)
         }
 
         /*
