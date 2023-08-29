@@ -43,7 +43,7 @@ import { ActionRunner, getRunner } from './action-runner.model'
 import { ComponentRuntimeProps } from './component-runtime-props.model'
 import type { ElementWrapperProps } from './element/element-wrapper'
 import { ElementWrapper } from './element/element-wrapper'
-import { makeCustomTextContainer } from './element/wrapper.utils'
+import { createInlineEditor } from './element/wrapper.utils'
 import { ElementRuntimeProps } from './element-runtime-props.model'
 import { ExpressionTransformer } from './expresssion-transformer.service'
 import {
@@ -322,8 +322,8 @@ export class Renderer
           isAtomInstance(element.renderType) &&
           element.renderType.current.allowCustomTextInjection
 
-        if (shouldInjectText && injectedText) {
-          return makeCustomTextContainer(injectedText)
+        if (shouldInjectText) {
+          return createInlineEditor(injectedText || '{}', element.id)
         }
 
         /*

@@ -5,11 +5,18 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import omit from 'lodash/omit'
+import dynamic from 'next/dynamic'
 import type { ReactElement } from 'react'
 import React, { Fragment } from 'react'
 import { getAtom } from '../atoms'
 import type { DraggableElementProps } from './DraggableElement'
 import { DraggableElementWrapper } from './DraggableElementWrapper'
+
+const TextEditor = dynamic(() => import('./text-editor/TextEditor'), {
+  ssr: false,
+})
+
+// import Editor from './TextEditor'
 
 /**
  * Fragments can only have the `key` prop
@@ -45,6 +52,14 @@ export const makeCustomTextContainer = (customText: string) =>
       __html: `<div class="ql-editor override-ql-editor">${customText}</div>`,
     },
   })
+
+export const createInlineEditor = (customText: string, elementId: string) => {
+  return React.createElement(TextEditor, {
+    data: JSON.parse(customText),
+    holder: elementId,
+    onChange: (data) => console.log(data),
+  })
+}
 
 export const noWrapper = () => (children: ReactElement) => children
 
