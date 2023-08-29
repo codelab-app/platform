@@ -8,19 +8,20 @@ import { EDITOR_TOOLS } from './editor.tools'
 interface Props {
   data?: OutputData
   elementId: string
+  readOnly?: boolean
 }
 
-const TextEditor = ({ data, elementId }: Props) => {
+const TextEditor = ({ data, elementId, readOnly }: Props) => {
   const { elementService, propService } = useStore()
   const [editor, setEditor] = React.useState<EditorJS | null>(null)
   const holder = `${elementId}-editor`
 
-  const onSubmit = (value: string) => {
+  const onChange = (output: OutputData) => {
     const element = elementService.element(elementId)
     const props = element.props.current
 
     return propService.updateWithDefaultValuesApplied({
-      data: { ...props.data.data, customText: value },
+      data: { ...props.data.data, customText: JSON.stringify(output) },
       defaultValues: getDefaultFieldProps(element.renderType?.current),
       id: props.id,
     })
@@ -34,8 +35,9 @@ const TextEditor = ({ data, elementId }: Props) => {
         holder,
         onChange: async (api, event) => {
           const outputData = await api.saver.save()
-          await onSubmit(JSON.stringify(outputData))
+          await onChange(outputData)
         },
+        readOnly,
         tools: EDITOR_TOOLS,
       })
 

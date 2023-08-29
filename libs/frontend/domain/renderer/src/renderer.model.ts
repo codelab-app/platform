@@ -9,7 +9,6 @@ import type {
   IRuntimeProp,
   ITypedPropTransformer,
   RendererProps,
-  RendererType,
 } from '@codelab/frontend/abstract/core'
 import {
   componentRef,
@@ -22,6 +21,7 @@ import {
   IPageNodeRef,
   isAtomInstance,
   isElementPageNodeRef,
+  RendererType,
 } from '@codelab/frontend/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
@@ -43,7 +43,7 @@ import { ActionRunner, getRunner } from './action-runner.model'
 import { ComponentRuntimeProps } from './component-runtime-props.model'
 import type { ElementWrapperProps } from './element/element-wrapper'
 import { ElementWrapper } from './element/element-wrapper'
-import { createInlineEditor } from './element/wrapper.utils'
+import { createTextEditor } from './element/wrapper.utils'
 import { ElementRuntimeProps } from './element-runtime-props.model'
 import { ExpressionTransformer } from './expresssion-transformer.service'
 import {
@@ -323,7 +323,10 @@ export class Renderer
           element.renderType.current.allowCustomTextInjection
 
         if (shouldInjectText) {
-          return createInlineEditor(injectedText, element.id)
+          // TODO: what to do for production?
+          const readOnly = this.rendererType === RendererType.Preview
+
+          return createTextEditor(injectedText, element.id, readOnly)
         }
 
         /*

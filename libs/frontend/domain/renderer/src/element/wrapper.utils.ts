@@ -16,8 +16,6 @@ const TextEditor = dynamic(() => import('./text-editor/TextEditor'), {
   ssr: false,
 })
 
-// import Editor from './TextEditor'
-
 /**
  * Fragments can only have the `key` prop
  *
@@ -53,10 +51,15 @@ export const makeCustomTextContainer = (customText: string) =>
     },
   })
 
-export const createInlineEditor = (customText: string, elementId: string) => {
+export const createTextEditor = (
+  customText: string,
+  elementId: string,
+  readOnly?: boolean,
+) => {
   return React.createElement(TextEditor, {
     data: JSON.parse(customText || '{}'),
     elementId,
+    readOnly,
   })
 }
 
