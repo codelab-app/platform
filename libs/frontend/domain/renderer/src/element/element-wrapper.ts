@@ -3,11 +3,7 @@ import type {
   IElement,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
-import {
-  getRunnerId,
-  isAtomInstance,
-  RendererType,
-} from '@codelab/frontend/abstract/core'
+import { isAtomInstance, RendererType } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
@@ -16,7 +12,6 @@ import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { getRunner } from '../action-runner.model'
 import { shouldRenderElement } from '../utils'
-import { mapOutput } from '../utils/render-output-utils'
 import { renderComponentWithStyles } from './get-styled-components'
 import { extractValidProps, getReactComponent } from './wrapper.utils'
 
@@ -57,41 +52,42 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
     const { atomService } = useStore()
     // Render the element to an intermediate output
-    const renderOutputs = renderer.renderIntermediateElement(element)
+    const renderOutput = renderer.renderIntermediateElement(element)
 
-    renderer.logRendered(element, renderOutputs)
+    renderer.logRendered(element, renderOutput)
 
     // TODO: re-work on implementation for the draggable elements and allowable children on the droppable elements.
     // Render the elements normally for now since the DnD is currently not properly working and
     // causing unnecessary re-renders when hovering over the builder screen section
-    const renderedElement = mapOutput(renderOutputs, (renderOutput) => {
-      const children = shouldRenderElement(element, renderOutput.props)
-        ? renderer.renderChildren(renderOutput)
-        : undefined
+    const children = shouldRenderElement(element, renderOutput.props)
+      ? renderer.renderChildren(renderOutput)
+      : undefined
 
-      if (renderOutput.props) {
-        if (
-          isAtomInstance(element.renderType) &&
-          element.renderType.current.type === IAtomType.GridLayout
-        ) {
-          renderOutput.props['static'] =
-            renderer.rendererType === RendererType.Preview
-        }
+    if (renderOutput.props) {
+      if (
+        isAtomInstance(element.renderType) &&
+        element.renderType.current.type === IAtomType.GridLayout
+      ) {
+        renderOutput.props['static'] =
+          renderer.rendererType === RendererType.Preview
       }
+    }
 
-      const ReactComponent: IComponentType =
-        renderOutput.atomType &&
-        atomService.dynamicComponents[renderOutput.atomType]
-          ? atomService.dynamicComponents[renderOutput.atomType] ??
-            React.Fragment
-          : getReactComponent(renderOutput)
+    const ReactComponent: IComponentType =
+      renderOutput.atomType &&
+      atomService.dynamicComponents[renderOutput.atomType]
+        ? atomService.dynamicComponents[renderOutput.atomType] ?? React.Fragment
+        : getReactComponent(renderOutput)
 
-      const extractedProps = extractValidProps(ReactComponent, renderOutput)
-      // leave ElementWrapper pass-through so refs are attached to correct element
-      const mergedProps = mergeProps(extractedProps, rest)
+    const extractedProps = extractValidProps(ReactComponent, renderOutput)
+    // leave ElementWrapper pass-through so refs are attached to correct element
+    const mergedProps = mergeProps(extractedProps, rest)
 
-      return renderComponentWithStyles(ReactComponent, mergedProps, children)
-    })
+    const renderedElement = renderComponentWithStyles(
+      ReactComponent,
+      mergedProps,
+      children,
+    )
 
     return React.createElement(
       ErrorBoundary,
@@ -103,7 +99,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         onResetKeysChange: () => {
           element.setRenderingError(null)
         },
-        resetKeys: [renderOutputs],
+        resetKeys: [renderOutput],
       },
       renderedElement,
     )

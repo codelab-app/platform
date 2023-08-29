@@ -219,9 +219,7 @@ export class Renderer
    * Renders a single element (without its children) to an intermediate RenderOutput
    *
    */
-  renderIntermediateElement = (
-    element: IElement,
-  ): ArrayOrSingle<IRenderOutput> => {
+  renderIntermediateElement = (element: IElement): IRenderOutput => {
     this.addActionRunners(element)
 
     const runtimeProps = this.addRuntimeProps(elementRef(element.id))

@@ -1,5 +1,4 @@
 import type { IAtomType } from '@codelab/shared/abstract/core'
-import type { ArrayOrSingle } from 'ts-essentials'
 import type { IComponentService } from '../component'
 import type { IElement, IElementService } from '../element'
 import type { IPropData, IPropDataByElementId } from '../prop'
@@ -31,5 +30,5 @@ export interface IBaseRenderPipe {
 
 export interface IRenderPipe extends IBaseRenderPipe {
   next?: IRenderPipe
-  render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput>
+  render(element: IElement, props: IPropData): IRenderOutput
 }

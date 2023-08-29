@@ -10,7 +10,6 @@ import {
   isComponentInstance,
 } from '@codelab/frontend/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
-import type { ArrayOrSingle } from 'ts-essentials'
 import { BaseRenderPipe } from './render-pipe.base'
 
 @model('@codelab/ComponentRenderPipe')
@@ -20,7 +19,7 @@ export class ComponentRenderPipe
   })
   implements IRenderPipe
 {
-  render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
+  render(element: IElement, props: IPropData): IRenderOutput {
     if (!isComponentInstance(element.renderType)) {
       return this.next.render(element, props)
     }

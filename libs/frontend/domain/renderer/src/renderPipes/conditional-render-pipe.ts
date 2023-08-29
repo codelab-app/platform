@@ -5,7 +5,6 @@ import type {
   IRenderPipe,
 } from '@codelab/frontend/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
-import type { ArrayOrSingle } from 'ts-essentials'
 import { RenderOutput, shouldRenderElement } from '../utils'
 import { BaseRenderPipe } from './render-pipe.base'
 
@@ -16,7 +15,7 @@ export class ConditionalRenderPipe
   })
   implements IRenderPipe
 {
-  render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
+  render(element: IElement, props: IPropData): IRenderOutput {
     if (shouldRenderElement(element, props)) {
       return this.next.render(element, props)
     }

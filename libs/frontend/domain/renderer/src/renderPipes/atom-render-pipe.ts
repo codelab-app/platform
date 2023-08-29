@@ -7,7 +7,6 @@ import {
 } from '@codelab/frontend/abstract/core'
 import type { IAtomType } from '@codelab/shared/abstract/core'
 import { ExtendedModel, model, prop } from 'mobx-keystone'
-import type { ArrayOrSingle } from 'ts-essentials'
 import { atomFactory } from '../atoms'
 import { jsonStringToCss } from '../element/get-styled-components'
 import { RenderOutput } from '../utils'
@@ -20,7 +19,7 @@ export class AtomRenderPipe
   })
   implements IRenderPipe
 {
-  render(element: IElement, props: IPropData): ArrayOrSingle<IRenderOutput> {
+  render(element: IElement, props: IPropData): IRenderOutput {
     if (!isAtomInstance(element.renderType)) {
       if (this.renderer.debugMode) {
         console.info(`AtomRenderPipe: No atom found`, { element: element.name })
