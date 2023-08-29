@@ -48,7 +48,17 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
         data: getInitialData(),
         hideToolbar: true,
         holder,
-        onChange: async (api, event) => {
+        inlineToolbar: [
+          'bold',
+          'italic',
+          'underline',
+          'strikethrough',
+          'link',
+          'color',
+          'marker',
+          'inlineCode',
+        ],
+        onChange: async (api) => {
           const outputData = await api.saver.save()
           await onChange(outputData)
         },
