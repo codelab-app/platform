@@ -121,26 +121,32 @@ export class Store
   private cachedState: Nullable<object> = null
 
   @computed
+  get actionRunners() {
+    const renderer = this.renderService.activeRenderer?.current
+
+    return this.actions
+      .map(({ current: action }) => {
+        const actionId = getRunnerId(this.id, action.id)
+        const actionRunner = renderer?.actionRunners.get(actionId)
+        const fallback = () => console.error(`fail to call ${action.name}`)
+        const runner = actionRunner?.runner || fallback
+
+        return { [action.name]: runner }
+      })
+      .reduce(merge, {})
+  }
+
+  @computed
   get state() {
     if (this.cachedState) {
+      // return mergeProps(this.cachedState, this.actionRunners)
       return this.cachedState
     }
-
-    const renderer = this.renderService.activeRenderer?.current
 
     this.cachedState = makeAutoObservable(
       mergeProps(
         this.api.maybeCurrent?.defaultValues ?? {},
-        this.actions
-          .map(({ current: action }) => {
-            const actionId = getRunnerId(this.id, action.id)
-            const actionRunner = renderer?.actionRunners.get(actionId)
-            const fallback = () => console.error(`fail to call ${action.name}`)
-            const runner = actionRunner?.runner || fallback
-
-            return { [action.name]: runner }
-          })
-          .reduce(merge, {}),
+        this.actionRunners,
       ),
       {},
       // bind actions to state
