@@ -1,3 +1,4 @@
+import './mock/match-media.mock'
 import type { IRenderOutput, TypedProp } from '@codelab/frontend/abstract/core'
 import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/core'
 import { render } from '@testing-library/react'
