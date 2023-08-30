@@ -34,6 +34,10 @@ div:where(.css-dev-only-do-not-override-htwhyh).ant-typography {
   min-width: 10px !important;
 }
 
-.ce-toolbar__actions {
+.ce-toolbar, .ce-toolbar__actions {
   display: none !important;
+}
+
+.ce-inline-tool {
+  padding: 0 3px 0 3px !important;
 }
