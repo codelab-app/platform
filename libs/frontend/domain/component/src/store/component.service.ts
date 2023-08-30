@@ -23,7 +23,7 @@ import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import { IContainerNodeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import flatMap from 'lodash/flatMap'
 import isEmpty from 'lodash/isEmpty'
 import uniq from 'lodash/uniq'
@@ -181,9 +181,9 @@ export class ComponentService
     const rootElementProps = this.propService.add({ data: '{}', id: v4() })
 
     const rootElement = this.elementService.add({
+      closestContainerNode: { id, kind: IContainerNodeKind.Component },
       id: v4(),
       name,
-      parentComponent: { id },
       props: rootElementProps,
     })
 

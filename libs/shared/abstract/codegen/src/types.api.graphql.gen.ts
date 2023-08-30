@@ -22166,6 +22166,22 @@ export type DomainFragment = {
   projectDomain: { __typename?: 'VercelProjectDomain'; verified: boolean }
 }
 
+type ContainerNode_Component_Fragment = {
+  __typename?: 'Component'
+  id: string
+  kind: 'Component'
+}
+
+type ContainerNode_Page_Fragment = {
+  __typename?: 'Page'
+  id: string
+  kind: 'Page'
+}
+
+export type ContainerNodeFragment =
+  | ContainerNode_Component_Fragment
+  | ContainerNode_Page_Fragment
+
 export type ElementFragment = {
   __typename: 'Element'
   id: string
@@ -22178,8 +22194,8 @@ export type ElementFragment = {
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   closestContainerNode:
-    | { __typename: 'Component'; id: string }
-    | { __typename: 'Page'; id: string }
+    | ({ __typename?: 'Component' } & ContainerNode_Component_Fragment)
+    | ({ __typename?: 'Page' } & ContainerNode_Page_Fragment)
   page?: { __typename?: 'Page'; id: string } | null
   renderComponentType?: { __typename?: 'Component'; id: string } | null
   renderAtomType?: ({ __typename?: 'Atom' } & AtomFragment) | null
@@ -22222,8 +22238,8 @@ export type ProductionElementFragment = {
   renderIfExpression?: string | null
   preserveRef?: boolean | null
   closestContainerNode:
-    | { __typename: 'Component'; id: string }
-    | { __typename: 'Page'; id: string }
+    | ({ __typename?: 'Component' } & ContainerNode_Component_Fragment)
+    | ({ __typename?: 'Page' } & ContainerNode_Page_Fragment)
   page?: { __typename?: 'Page'; id: string } | null
   renderComponentType?: { __typename?: 'Component'; id: string } | null
   renderAtomType?: ({ __typename?: 'Atom' } & ProductionAtomFragment) | null

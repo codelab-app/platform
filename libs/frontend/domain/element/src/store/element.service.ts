@@ -26,10 +26,15 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import type {
   IAuth0Owner,
+  IContainerNode,
   IElementDTO,
   RenderType,
 } from '@codelab/shared/abstract/core'
-import { IRenderTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  IContainerNodeKind,
+  IRenderTypeKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { mapDeep } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
@@ -175,6 +180,28 @@ export class ElementService
   })
 
   /**
+   * When creating an element closestContainerNode is required for unique element name
+   * To take closestContainerNode of parentElement of prevSibling since its the same
+   */
+  private getClosestContainerNode(data: ICreateElementData): IContainerNode {
+    const targetElementId = data.parentElement?.id || data.prevSibling?.id
+
+    if (!targetElementId) {
+      throw new Error('No target element')
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const targetElement = this.elements.get(targetElementId)!
+
+    return {
+      id: targetElement.closestContainerNode.id,
+      kind: targetElement.parentComponent?.current
+        ? IContainerNodeKind.Component
+        : IContainerNodeKind.Page,
+    }
+  }
+
+  /**
    * We need a separate create function for element trees
    */
   @modelFlow
@@ -189,6 +216,7 @@ export class ElementService
 
     const element = this.add({
       ...data,
+      closestContainerNode: this.getClosestContainerNode(data),
       props: elementProps,
     })
 
@@ -613,8 +641,13 @@ export class ElementService
       kind: IRenderTypeKind.Component,
     }
 
-    const parentElementId = targetElement.id
-    const data = { id: v4(), name, parentElementId, renderType }
+    const data: ICreateElementData = {
+      id: v4(),
+      name,
+      parentElement: { id: targetElement.id },
+      renderType,
+    }
+
     const element = yield* _await(this.create(data))
     /**
      * Attach the new element to the target position
@@ -693,7 +726,7 @@ export class ElementService
       id: v4(),
     })
 
-    const cloneElementDto = {
+    const cloneElementDto: IElementDTO = {
       childMapperComponent: element.childMapperComponent
         ? { id: element.childMapperComponent.id }
         : null,
@@ -701,6 +734,12 @@ export class ElementService
         ? { id: element.childMapperPreviousSibling.id }
         : null,
       childMapperPropKey: element.childMapperPropKey,
+      closestContainerNode: {
+        id: element.closestContainerNode.id,
+        kind: element.page
+          ? IContainerNodeKind.Page
+          : IContainerNodeKind.Component,
+      },
       customCss: element.customCss,
       guiCss: element.guiCss,
       id: v4(),

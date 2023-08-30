@@ -15,6 +15,7 @@ import { getStoreService, Store } from '@codelab/frontend/domain/store'
 import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
 import {
   IAuth0Owner,
+  IContainerNodeKind,
   IPageKind,
   IPageKindName,
   ITypeKind,
@@ -139,9 +140,9 @@ export class PageFactory extends Model({}) implements IPageFactory {
     })
 
     const rootElement = this.elementService.add({
+      closestContainerNode: { id, kind: IContainerNodeKind.Page },
       id: v4(),
       name: ROOT_ELEMENT_NAME,
-      page: { id },
       props: rootElementProps,
     })
 

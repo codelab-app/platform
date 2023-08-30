@@ -1,4 +1,8 @@
-import type { IElementDTO, RenderType } from '@codelab/shared/abstract/core'
+import type {
+  IContainerNode,
+  IElementDTO,
+  RenderType,
+} from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 
 export class Element implements IElementDTO {
@@ -8,7 +12,7 @@ export class Element implements IElementDTO {
 
   childMapperPropKey?: Nullable<string> | undefined
 
-  closestContainerNode: IEntity
+  closestContainerNode: IContainerNode
 
   customCss?: Nullable<string> | undefined
 

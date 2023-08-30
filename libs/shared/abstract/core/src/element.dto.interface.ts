@@ -1,4 +1,5 @@
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import type { IContainerNode } from './container-node.dto'
 import type { RenderType } from './render-type'
 
 /**
@@ -9,16 +10,14 @@ export interface IElementDTO {
   childMapperComponent?: Nullable<IEntity>
   childMapperPreviousSibling?: Nullable<IEntity>
   childMapperPropKey?: Nullable<string>
-  closestContainerNode: IEntity
+  closestContainerNode: IContainerNode
   customCss?: Nullable<string>
   firstChild?: Nullable<IEntity>
   guiCss?: Nullable<string>
   id: string
   name: string
   nextSibling?: Nullable<IEntity>
-  page?: Nullable<IEntity>
   parent?: Nullable<IEntity>
-  parentComponent?: Nullable<IEntity>
   postRenderAction?: Nullable<IEntity>
   preRenderAction?: Nullable<IEntity>
   prevSibling?: Nullable<IEntity>

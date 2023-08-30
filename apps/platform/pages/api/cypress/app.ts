@@ -106,15 +106,30 @@ const createApp: NextApiHandler = async (req, res) => {
     ])
 
     const providerPage = new Page(
-      providerPageData({ id: app.id }, providerPageStore),
+      providerPageData(
+        providerElement.closestContainerNode.id,
+        { id: app.id },
+        providerPageStore,
+        providerElement,
+      ),
     )
 
     const notFoundPage = new Page(
-      notFoundPageData({ id: app.id }, notFoundPageStore),
+      notFoundPageData(
+        notFoundElement.closestContainerNode.id,
+        { id: app.id },
+        notFoundPageStore,
+        notFoundElement,
+      ),
     )
 
     const internalServerErrorPage = new Page(
-      internalServerErrorPageData({ id: app.id }, internalServerErrorPageStore),
+      internalServerErrorPageData(
+        internalServerErrorElement.closestContainerNode.id,
+        { id: app.id },
+        internalServerErrorPageStore,
+        internalServerErrorElement,
+      ),
     )
 
     await pageRepository.add([

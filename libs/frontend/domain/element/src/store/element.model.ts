@@ -38,11 +38,12 @@ import {
 } from '@codelab/shared/abstract/codegen'
 import {
   type IAuth0Owner,
+  IContainerNodeKind,
   type IElementDTO,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import type { IEntity } from '@codelab/shared/abstract/types'
-import { Maybe, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
+import { Maybe, Nullish } from '@codelab/shared/abstract/types'
 import {
   connectNodeId,
   disconnectNodeId,
@@ -68,15 +69,14 @@ const create = ({
   childMapperComponent,
   childMapperPreviousSibling,
   childMapperPropKey,
+  closestContainerNode,
   customCss,
   firstChild,
   guiCss,
   id,
   name,
   nextSibling,
-  page,
   parent,
-  parentComponent,
   postRenderAction,
   preRenderAction,
   prevSibling,
@@ -89,8 +89,6 @@ const create = ({
   const elementRenderType = getRenderType(renderType)
 
   return new Element({
-    _page: page ? pageRef(page.id) : null,
-    _parentComponent: parentComponent ? componentRef(parentComponent.id) : null,
     childMapperComponent: childMapperComponent
       ? componentRef(childMapperComponent.id)
       : null,
@@ -104,9 +102,17 @@ const create = ({
     id,
     name,
     nextSibling: nextSibling?.id ? elementRef(nextSibling.id) : undefined,
-
+    page:
+      closestContainerNode.kind === IContainerNodeKind.Page
+        ? pageRef(closestContainerNode.id)
+        : null,
     // parent of first child
     parent: parent?.id ? elementRef(parent.id) : undefined,
+
+    parentComponent:
+      closestContainerNode.kind === IContainerNodeKind.Component
+        ? componentRef(closestContainerNode.id)
+        : null,
     postRenderAction: postRenderAction?.id
       ? actionRef(postRenderAction.id)
       : undefined,
@@ -126,28 +132,41 @@ const create = ({
 @model('@codelab/Element')
 export class Element
   extends Model({
-    // page which has this element as rootElement
-    _page: prop<Nullable<Ref<IPage>>>(null),
-    // component which has this element as rootElement
-    _parentComponent: prop<Nullable<Ref<IComponent>>>(null),
-
     childMapperComponent: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
+
     childMapperPreviousSibling:
       prop<Nullable<Ref<IElement>>>(null).withSetter(),
+
     childMapperPropKey: prop<Nullable<string>>(null).withSetter(),
+
     customCss: prop<Nullable<string>>(null).withSetter(),
+
     firstChild: prop<Nullable<Ref<IElement>>>(null).withSetter(),
+
     guiCss: prop<Nullable<string>>(null),
+
     // Marks the element as an instance of a specific component
     // renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
+
     id: idProp.withSetter(),
+
     name: prop<string>().withSetter(),
+
     nextSibling: prop<Nullable<Ref<IElement>>>(null).withSetter(),
+
     orderInParent: prop<Nullable<number>>(null).withSetter(),
+
     owner: prop<Nullable<IAuth0Owner>>(null),
+
+    // page which has this element as rootElement
+    page: prop<Nullable<Ref<IPage>>>(null),
+
     // Data used for tree initializing, before our Element model is ready
     parent: prop<Nullable<Ref<IElement>>>(null).withSetter(),
+
+    // component which has this element as rootElement
+    parentComponent: prop<Nullable<Ref<IComponent>>>(null),
     postRenderAction: prop<Nullable<Ref<IAction>>>(null).withSetter(),
     preRenderAction: prop<Nullable<Ref<IAction>>>(null).withSetter(),
     prevSibling: prop<Nullable<Ref<IElement>>>(null).withSetter(),
@@ -185,19 +204,7 @@ export class Element
 
   @computed
   get closestRootElement(): IElement {
-    return this.closestParent
-      ? this.closestParent.closestRootElement
-      : (this as IElement)
-  }
-
-  @computed
-  get parentComponent(): Nullable<Ref<IComponent>> {
-    return this.closestParent?.parentComponent ?? this._parentComponent
-  }
-
-  @computed
-  get page(): Nullable<Ref<IPage>> {
-    return this.closestParent?.page ?? this._page
+    return this.closestContainerNode.rootElement.current
   }
 
   @computed
@@ -348,12 +355,12 @@ export class Element
 
   @modelAction
   setParentComponent(component: Ref<IComponent>) {
-    this._parentComponent = component
+    this.parentComponent = component
   }
 
   @modelAction
   setPage(page: Ref<IPage>) {
-    this._page = page
+    this.page = page
   }
 
   @modelAction
@@ -542,10 +549,10 @@ export class Element
       : undefined
 
     return {
+      _compoundName: createUniqueName(this.name, this.closestContainerNode.id),
       customCss: this.customCss,
       guiCss: this.guiCss,
       id: this.id,
-      name: this.name,
       props: {
         create: {
           node: this.props.current.toCreateInput(),
@@ -584,19 +591,13 @@ export class Element
       ? reconnectNodeId(this.childMapperPreviousSibling.id)
       : disconnectNodeId(undefined)
 
-    const _compoundRefKey =
-      this.refKey && this.refKey !== ''
-        ? createUniqueName(this.refKey, this.store.id)
-        : null
-
     return {
-      _compoundRefKey,
+      _compoundName: createUniqueName(this.name, this.closestContainerNode.id),
       childMapperComponent,
       childMapperPreviousSibling,
       childMapperPropKey: this.childMapperPropKey,
       customCss: this.customCss,
       guiCss: this.guiCss,
-      name: this.name,
       postRenderAction,
       preRenderAction,
       renderAtomType,
@@ -750,13 +751,13 @@ export class Element
     childMapperComponent,
     childMapperPreviousSibling,
     childMapperPropKey,
+    closestContainerNode,
     customCss,
     firstChild,
     guiCss,
     name,
     nextSibling,
     parent,
-    parentComponent,
     postRenderAction,
     preRenderAction,
     prevSibling,
@@ -786,9 +787,14 @@ export class Element
     this.firstChild = firstChild?.id
       ? elementRef(firstChild.id)
       : this.firstChild
-    this._parentComponent = parentComponent
-      ? componentRef(parentComponent.id)
-      : this._parentComponent
+    this.page =
+      closestContainerNode?.kind === IContainerNodeKind.Page
+        ? pageRef(closestContainerNode.id)
+        : this.page
+    this.parentComponent =
+      closestContainerNode?.kind === IContainerNodeKind.Component
+        ? componentRef(closestContainerNode.id)
+        : this.parentComponent
     this.preRenderAction = preRenderAction
       ? actionRef(preRenderAction.id)
       : null

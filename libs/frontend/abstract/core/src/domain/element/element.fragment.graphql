@@ -1,3 +1,14 @@
+fragment ContainerNode on ContainerNode {
+  ... on Page {
+    kind: __typename
+    id
+  }
+  ... on Component {
+    kind: __typename
+    id
+  }
+}
+
 fragment Element on Element {
   __typename
   id
@@ -5,14 +16,7 @@ fragment Element on Element {
   slug
   customCss
   closestContainerNode {
-    ... on Page {
-      __typename
-      id
-    }
-    ... on Component {
-      __typename
-      id
-    }
+    ...ContainerNode
   }
   guiCss
   page {
@@ -75,14 +79,7 @@ fragment ProductionElement on Element {
   slug
   customCss
   closestContainerNode {
-    ... on Page {
-      __typename
-      id
-    }
-    ... on Component {
-      __typename
-      id
-    }
+    ...ContainerNode
   }
   guiCss
   page {

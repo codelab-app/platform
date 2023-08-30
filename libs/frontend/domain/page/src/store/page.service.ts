@@ -19,7 +19,11 @@ import { getTypeService, InterfaceType } from '@codelab/frontend/domain/type'
 import { InlineFormService, ModalService } from '@codelab/frontend/shared/utils'
 import type { PageWhere } from '@codelab/shared/abstract/codegen'
 import type { IPageDTO } from '@codelab/shared/abstract/core'
-import { IPageKind, ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  IContainerNodeKind,
+  IPageKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
@@ -155,9 +159,9 @@ export class PageService
     })
 
     const rootElement = this.elementService.add({
+      closestContainerNode: { id, kind: IContainerNodeKind.Page },
       id: v4(),
       name: ROOT_ELEMENT_NAME,
-      page: { id },
       props: rootElementProps,
     })
 

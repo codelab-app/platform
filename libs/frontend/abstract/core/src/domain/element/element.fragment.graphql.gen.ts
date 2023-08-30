@@ -13,6 +13,14 @@ import {
   ProductionAtomFragmentDoc,
 } from '../atom/atom.fragment.graphql.gen'
 import { PropFragmentDoc } from '../prop/prop.fragment.graphql.gen'
+export type ContainerNode_Component_Fragment = { id: string; kind: 'Component' }
+
+export type ContainerNode_Page_Fragment = { id: string; kind: 'Page' }
+
+export type ContainerNodeFragment =
+  | ContainerNode_Component_Fragment
+  | ContainerNode_Page_Fragment
+
 export type ElementFragment = {
   __typename: 'Element'
   id: string
@@ -25,8 +33,8 @@ export type ElementFragment = {
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   closestContainerNode:
-    | { __typename: 'Component'; id: string }
-    | { __typename: 'Page'; id: string }
+    | ContainerNode_Component_Fragment
+    | ContainerNode_Page_Fragment
   page?: { id: string } | null
   renderComponentType?: { id: string } | null
   renderAtomType?: AtomFragment | null
@@ -61,8 +69,8 @@ export type ProductionElementFragment = {
   renderIfExpression?: string | null
   preserveRef?: boolean | null
   closestContainerNode:
-    | { __typename: 'Component'; id: string }
-    | { __typename: 'Page'; id: string }
+    | ContainerNode_Component_Fragment
+    | ContainerNode_Page_Fragment
   page?: { id: string } | null
   renderComponentType?: { id: string } | null
   renderAtomType?: ProductionAtomFragment | null
@@ -85,6 +93,18 @@ export type ProductionElementFragment = {
     | null
 }
 
+export const ContainerNodeFragmentDoc = gql`
+  fragment ContainerNode on ContainerNode {
+    ... on Page {
+      kind: __typename
+      id
+    }
+    ... on Component {
+      kind: __typename
+      id
+    }
+  }
+`
 export const ElementFragmentDoc = gql`
   fragment Element on Element {
     __typename
@@ -93,14 +113,7 @@ export const ElementFragmentDoc = gql`
     slug
     customCss
     closestContainerNode {
-      ... on Page {
-        __typename
-        id
-      }
-      ... on Component {
-        __typename
-        id
-      }
+      ...ContainerNode
     }
     guiCss
     page {
@@ -154,6 +167,7 @@ export const ElementFragmentDoc = gql`
       type
     }
   }
+  ${ContainerNodeFragmentDoc}
   ${AtomFragmentDoc}
   ${PropFragmentDoc}
 `
@@ -165,14 +179,7 @@ export const ProductionElementFragmentDoc = gql`
     slug
     customCss
     closestContainerNode {
-      ... on Page {
-        __typename
-        id
-      }
-      ... on Component {
-        __typename
-        id
-      }
+      ...ContainerNode
     }
     guiCss
     page {
@@ -226,6 +233,7 @@ export const ProductionElementFragmentDoc = gql`
       type
     }
   }
+  ${ContainerNodeFragmentDoc}
   ${ProductionAtomFragmentDoc}
   ${PropFragmentDoc}
 `

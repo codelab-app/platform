@@ -7,5 +7,10 @@ import type { IFieldResolver } from '@graphql-tools/utils'
  * We can compute name by replacing the ID
  */
 export const name: IFieldResolver<Element, unknown> = (element) => {
-  return element.name.replace(`${''}-`, '')
+  console.log(element)
+
+  return element._compoundName.replace(
+    `${element.closestContainerNode.id}-`,
+    '',
+  )
 }
