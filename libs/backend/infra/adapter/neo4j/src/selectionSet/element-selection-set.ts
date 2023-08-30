@@ -3,6 +3,7 @@ import { propSelectionSet } from './prop-selection-set'
 
 const baseElementSelectionSet = `
   id
+  _compoundName
   name
   slug
   customCss
