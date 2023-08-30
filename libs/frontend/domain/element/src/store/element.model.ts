@@ -343,20 +343,27 @@ export class Element
     const mediaQueryString = isProduction ? '@media' : '@container root'
     const breakpointStyles = []
 
-    for (const breakpoint in parsedCss) {
+    const breakpoints = [
+      BuilderWidthBreakPoint.MobilePortrait,
+      BuilderWidthBreakPoint.MobileLandscape,
+      BuilderWidthBreakPoint.Tablet,
+      BuilderWidthBreakPoint.Desktop,
+    ]
+
+    for (const breakpoint of breakpoints) {
       const breakpointStyle = parsedCss[breakpoint as BuilderWidthBreakPoint]
 
       const breakpointWidth =
         defaultBuilderWidthBreakPoints[breakpoint as BuilderWidthBreakPoint]
 
-      const upperBound =
-        breakpoint === BuilderWidthBreakPoint.Desktop
-          ? 9999
-          : breakpointWidth.max
+      const lowerBound =
+        breakpoint === BuilderWidthBreakPoint.MobilePortrait
+          ? 0
+          : breakpointWidth.min
 
       if (breakpointStyle) {
         breakpointStyles.push(
-          `${mediaQueryString} (width < ${upperBound}px) {
+          `${mediaQueryString} (width > ${lowerBound}px) {
             ${breakpointStyle.cssString ?? ''}
           }`,
         )
