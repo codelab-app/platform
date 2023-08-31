@@ -9,8 +9,8 @@ const driver = getDriver()
 
 export const neoSchema = async () => {
   const schema = getSchema(driver, mergeResolvers([resolvers]))
+  // getSchema must get called before assertIndexesAndConstraints
   const graphqlSchema = await schema.getSchema()
-
   await schema.assertIndexesAndConstraints({
     driver,
     options: { create: true },
