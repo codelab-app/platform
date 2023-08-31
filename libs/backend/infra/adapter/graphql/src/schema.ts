@@ -7,7 +7,17 @@ import { mergeResolvers } from '@graphql-tools/merge'
 
 const driver = getDriver()
 
-export const neoSchema = getSchema(driver, mergeResolvers([resolvers]))
+export const neoSchema = async () => {
+  const schema = getSchema(driver, mergeResolvers([resolvers]))
+  // getSchema must get called before assertIndexesAndConstraints
+  const graphqlSchema = await schema.getSchema()
+  await schema.assertIndexesAndConstraints({
+    driver,
+    options: { create: true },
+  })
+
+  return graphqlSchema
+}
 
 // https://community.apollographql.com/t/allow-cookies-to-be-sent-alongside-request/920/13
 
