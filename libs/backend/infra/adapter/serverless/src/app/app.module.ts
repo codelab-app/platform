@@ -76,7 +76,7 @@ export interface GqlContext {
         introspection: true,
         path: 'api/graphql',
         playground: true,
-        schema: await neoSchema.getSchema(),
+        schema: await neoSchema(),
       }),
     }),
   ],
