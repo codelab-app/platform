@@ -137,6 +137,7 @@ export class ActionRunner
   @modelAction
   private replaceStateInConfig(config: IProp) {
     return evaluateObject(config.values, {
+      actions: {},
       componentProps: {},
       props: {},
       refs: {},
@@ -240,6 +241,7 @@ export class ActionRunner
       // eslint-disable-next-line no-new-func
       return new Function(
         `return function run(...args) {
+          const actions = this.actions;
           const state = this.state;
           const rootState = this.rootState;
           const refs = this.refs;

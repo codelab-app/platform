@@ -48,6 +48,7 @@ export interface RenderingMetadata {
 }
 
 export interface IEvaluationContext {
+  actions: IPropData
   componentProps: IPropData
   props: IPropData
   refs: IPropData

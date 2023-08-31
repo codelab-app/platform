@@ -131,7 +131,7 @@ export class Store
         const fallback = () => console.error(`fail to call ${action.name}`)
         const runner = actionRunner?.runner || fallback
 
-        return { [action.name]: runner }
+        return { [action.name]: runner.bind({ state: this.cachedState }) }
       })
       .reduce(merge, {})
   }
@@ -139,19 +139,10 @@ export class Store
   @computed
   get state() {
     if (this.cachedState) {
-      // return mergeProps(this.cachedState, this.actionRunners)
       return this.cachedState
     }
 
-    this.cachedState = makeAutoObservable(
-      mergeProps(
-        this.api.maybeCurrent?.defaultValues ?? {},
-        this.actionRunners,
-      ),
-      {},
-      // bind actions to state
-      { autoBind: true },
-    )
+    this.cachedState = observable(this.api.maybeCurrent?.defaultValues ?? {})
 
     return this.cachedState
   }
