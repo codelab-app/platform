@@ -195,11 +195,11 @@ describe('Element Child Mapper', () => {
     })
     cy.getCuiTreeItemByPrimaryTitle(ELEMENT_BUTTON).click({ force: true })
 
-    cy.get(`.ant-tabs [aria-label="setting"]`).click()
-    cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
+    cy.get('.codex-editor .ce-block__content .cdx-block').type(
       'Name of data - {{ props.name }}',
       { parseSpecialCharSequences: false },
     )
+
     cy.get('#render-root')
       .findByText('Name of data - undefined')
       .should('exist')

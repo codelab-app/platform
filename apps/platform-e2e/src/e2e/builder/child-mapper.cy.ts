@@ -97,8 +97,7 @@ describe('Element Child Mapper', () => {
         })
 
         // Should run after each
-        cy.get(`.ant-tabs [aria-label="setting"]`).click()
-        cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
+        cy.get('.codex-editor .ce-block__content .cdx-block').type(
           'text {{ props.name }}',
           { parseSpecialCharSequences: false },
         )

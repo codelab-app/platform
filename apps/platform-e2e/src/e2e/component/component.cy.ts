@@ -137,9 +137,7 @@ describe('Component CRUD', () => {
         cy.getCuiTreeItemByPrimaryTitle(child.name).click({ force: true })
       })
 
-      // Should run after each
-      cy.get(`.ant-tabs [aria-label="setting"]`).click()
-      cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
+      cy.get('.codex-editor .ce-block__content .cdx-block').type(
         COMPONENT_CHILD_TEXT,
         { parseSpecialCharSequences: false },
       )
@@ -252,8 +250,8 @@ describe('Component CRUD', () => {
       cy.getCuiTreeItemByPrimaryTitle(COMPONENT_INSTANCE_TEXT).click({
         force: true,
       })
-      cy.get(`.ant-tabs [aria-label="setting"]`).click()
-      cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
+
+      cy.get('.codex-editor .ce-block__content .cdx-block').type(
         COMPONENT_INSTANCE_TEXT,
       )
 

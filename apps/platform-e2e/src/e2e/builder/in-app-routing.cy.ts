@@ -110,8 +110,8 @@ describe('Routing between app pages within the builder', () => {
     })
 
     cy.getCuiTreeItemByPrimaryTitle('Typography Element').click({ force: true })
-    cy.get(`.ant-tabs [aria-label="setting"]`).click()
-    cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
+
+    cy.get('.codex-editor .ce-block__content .cdx-block').type(
       `${DynamicPageText} - {{url.testId}} - {{url.subtestId}}`,
       {
         parseSpecialCharSequences: false,
@@ -162,8 +162,8 @@ describe('Routing between app pages within the builder', () => {
     })
 
     cy.getCuiTreeItemByPrimaryTitle('Typography Element').click({ force: true })
-    cy.get(`.ant-tabs [aria-label="setting"]`).click()
-    cy.get('.ant-tabs-tabpane-active form .ql-editor').type(TestPageText, {
+
+    cy.get('.codex-editor .ce-block__content .cdx-block').type(TestPageText, {
       parseSpecialCharSequences: false,
     })
 
@@ -206,12 +206,10 @@ describe('Routing between app pages within the builder', () => {
     })
 
     cy.getCuiTreeItemByPrimaryTitle('Next Link Element').click({ force: true })
-    cy.get(`.ant-tabs [aria-label="setting"]`).click()
-    cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
-      GoToDynamicPageText,
-      {
-        parseSpecialCharSequences: false,
-      },
+
+    cy.get('.codex-editor .ce-block__content .cdx-block').type(
+      'text {{ props.name ?? rootState.name ?? state.name }}',
+      { parseSpecialCharSequences: false },
     )
 
     cy.get('#render-root').findByText(GoToDynamicPageText).should('exist')
@@ -266,10 +264,11 @@ describe('Routing between app pages within the builder', () => {
     })
 
     cy.getCuiTreeItemByPrimaryTitle('Next Link Element').click({ force: true })
-    cy.get(`.ant-tabs [aria-label="setting"]`).click()
-    cy.get('.ant-tabs-tabpane-active form .ql-editor').type(GoToTestPageText, {
-      parseSpecialCharSequences: false,
-    })
+
+    cy.get('.codex-editor .ce-block__content .cdx-block').type(
+      GoToTestPageText,
+      { parseSpecialCharSequences: false },
+    )
 
     cy.get('#render-root').findByText(GoToTestPageText).should('exist')
   })

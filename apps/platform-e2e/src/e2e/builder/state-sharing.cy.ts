@@ -115,8 +115,7 @@ describe('State variables sharing between pages', () => {
           cy.getCuiTreeItemByPrimaryTitle(child.name).click({ force: true })
         })
 
-        cy.get(`.ant-tabs [aria-label="setting"]`).click()
-        cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
+        cy.get('.codex-editor .ce-block__content .cdx-block').type(
           'text {{ props.name ?? rootState.name ?? state.name }}',
           { parseSpecialCharSequences: false },
         )

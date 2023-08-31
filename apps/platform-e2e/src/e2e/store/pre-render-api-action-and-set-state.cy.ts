@@ -197,9 +197,7 @@ describe('Running API action and setting state on element pre-render', () => {
 
     cy.getCuiTreeItemByPrimaryTitle('Typography Element').click({ force: true })
 
-    // set text prop to use the state
-    cy.get(`.ant-tabs [aria-label="setting"]`).click()
-    cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
+    cy.get('.codex-editor .ce-block__content .cdx-block').type(
       `response from api - {{state.localData}}`,
       {
         parseSpecialCharSequences: false,
