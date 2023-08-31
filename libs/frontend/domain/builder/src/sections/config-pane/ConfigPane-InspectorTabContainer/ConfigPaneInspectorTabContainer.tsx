@@ -122,6 +122,7 @@ export const ConfigPaneInspectorTabContainer = observer(() => {
         isElementPageNodeRef(selectedNode) &&
         isAtomInstance(selectedNode.current.renderType) ? (
           <ElementCssEditor
+            builderService={builderService}
             element={selectedNode.current}
             elementService={elementService}
             key={selectedNode.id}

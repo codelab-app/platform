@@ -53,13 +53,6 @@ export const Builder = observer(() => {
     [isOver],
   )
 
-  const builderStyle = useMemo(() => {
-    return {
-      container: 'root / inline-size',
-      width: `${currentBuilderWidth.default}px`,
-    }
-  }, [currentBuilderWidth.default])
-
   useEffect(() => {
     if (!containerRef.current) {
       return
@@ -77,6 +70,13 @@ export const Builder = observer(() => {
 
     return () => resizeObserver.disconnect()
   }, [])
+
+  const builderStyle = useMemo(() => {
+    return {
+      container: 'root / inline-size',
+      width: `${currentBuilderWidth.default}px`,
+    }
+  }, [currentBuilderWidth.default])
 
   if (!elementTree || !renderer) {
     return null

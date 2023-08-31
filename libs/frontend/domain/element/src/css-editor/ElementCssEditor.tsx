@@ -1,10 +1,10 @@
 import { CaretRightOutlined } from '@ant-design/icons'
 import type {
   CssMap,
+  IBuilderService,
   IElement,
   IElementService,
 } from '@codelab/frontend/abstract/core'
-import { useStore } from '@codelab/frontend/presentation/container'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { useDebouncedEffect } from '@react-hookz/web'
@@ -22,6 +22,7 @@ import { FontEditor } from './font-editor'
 const { Panel } = Collapse
 
 export interface ElementCssEditorInternalProps {
+  builderService: IBuilderService
   element: IElement
   elementService: IElementService
 }
@@ -32,8 +33,7 @@ export interface ElementCssEditorInternalProps {
     can guiCss be set to?
   */
 export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
-  ({ element, elementService }) => {
-    const { builderService } = useStore()
+  ({ builderService, element, elementService }) => {
     const breakpoint = builderService.selectedBuilderBreakpoint
     const { cssString, guiString } = element.styleParsed[breakpoint] ?? {}
     const guiCssObj = JSON.parse(guiString ?? '{}') as CssMap
