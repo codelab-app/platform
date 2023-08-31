@@ -32,14 +32,14 @@ export class BuilderService
     activeTab: prop<RendererTab>(RendererTab.Page).withSetter(),
     builderContainerWidth: prop<number>(0).withSetter(),
     currentBuilderWidth: prop<BuilderWidth>(
-      () => defaultBuilderWidthBreakPoints.desktop,
+      () => defaultBuilderWidthBreakPoints['mobile-portrait'],
     ),
     currentDragData: prop<Nullable<Frozen<BuilderDragData>>>(null).withSetter(),
     expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     expandedPageElementTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     hoveredNode: prop<Nullable<IPageNodeRef>>(null).withSetter(),
     selectedBuilderBreakpoint: prop<BuilderWidthBreakPoint>(
-      () => BuilderWidthBreakPoint.Desktop,
+      () => BuilderWidthBreakPoint.MobilePortrait,
     ).withSetter(),
     /**
      * select a node would add it to expand list
