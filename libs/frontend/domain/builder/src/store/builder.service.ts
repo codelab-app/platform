@@ -201,25 +201,18 @@ export class BuilderService
 
   @modelAction
   setCurrentBuilderWidth(width: BuilderWidth) {
-    this.currentBuilderWidth.default = width.default
-    this.currentBuilderWidth.min = width.min
-    this.currentBuilderWidth.max = width.max
+    // -1 max width means fill the screen, so we use the available
+    // container width as long as it's not smaller than the min
+    this.currentBuilderWidth = {
+      default:
+        width.default < 0
+          ? Math.max(width.min, this.builderContainerWidth)
+          : width.default,
+      max:
+        width.max < 0
+          ? Math.max(width.min, this.builderContainerWidth)
+          : width.max,
+      min: width.min,
+    }
   }
-
-  // @modelAction
-  // setSelectedBuilderWidth(width: BuilderWidth) {
-  //   // -1 max width means fill the screen, so we use the available
-  //   // container width as long as it's not smaller than the min
-  //   this.selectedBuilderWidth = {
-  //     default:
-  //       width.default < 0
-  //         ? Math.max(width.min, this.builderContainerWidth)
-  //         : width.default,
-  //     max:
-  //       width.max < 0
-  //         ? Math.max(width.min, this.builderContainerWidth)
-  //         : width.max,
-  //     min: width.min,
-  //   }
-  // }
 }

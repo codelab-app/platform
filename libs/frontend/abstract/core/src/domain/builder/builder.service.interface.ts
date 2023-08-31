@@ -27,12 +27,6 @@ export interface IBuilderService {
   builderContainerWidth: number
   componentTagNames: Array<string>
   componentsGroupedByCategory: Record<string, Array<IBuilderComponent>>
-  /**
-   * The difference between current and selected builderWidth is that
-   * - currentBuilderWidth is changed by useBuilderResize
-   * - selectedBuilderWidth is changed by PageDetailHeader and
-   * is being listened to by useBuilderResize
-   */
   currentBuilderWidth: BuilderWidth
   currentDragData: Nullable<Frozen<BuilderDragData>>
   expandedComponentTreeNodeIds: Array<string>

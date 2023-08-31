@@ -1,7 +1,6 @@
 import {
   BUILDER_CONTAINER_ID,
   DATA_ELEMENT_ID,
-  defaultBuilderWidthBreakPoints,
   DragPosition,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -24,7 +23,7 @@ export const Builder = observer(() => {
   const { builderService, elementService, renderService } = useStore()
   const renderer = renderService.activeRenderer?.current
   const elementTree = builderService.activeElementTree
-  const { selectedBuilderBreakpoint, selectedNode } = builderService
+  const { currentBuilderWidth, selectedNode } = builderService
   const containerRef = useRef<HTMLDivElement>(null)
 
   useBuilderHotkeys({
@@ -54,6 +53,13 @@ export const Builder = observer(() => {
     [isOver],
   )
 
+  const builderStyle = useMemo(() => {
+    return {
+      container: 'root / inline-size',
+      width: `${currentBuilderWidth.default}px`,
+    }
+  }, [currentBuilderWidth.default])
+
   useEffect(() => {
     if (!containerRef.current) {
       return
@@ -71,16 +77,6 @@ export const Builder = observer(() => {
 
     return () => resizeObserver.disconnect()
   }, [])
-
-  const builderStyle = useMemo(() => {
-    const { default: width } =
-      defaultBuilderWidthBreakPoints[selectedBuilderBreakpoint]
-
-    return {
-      container: 'root / inline-size',
-      width: `${width}px`,
-    }
-  }, [selectedBuilderBreakpoint])
 
   if (!elementTree || !renderer) {
     return null

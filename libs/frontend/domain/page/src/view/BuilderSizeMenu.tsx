@@ -38,7 +38,7 @@ const menuItemCommonStyle = {
 export const BuilderSizeMenu = observer(() => {
   const { builderService } = useStore()
   const breakpoint = builderService.selectedBuilderBreakpoint
-  const selectedWidthBreakpoint = defaultBuilderWidthBreakPoints[breakpoint]
+  const currentBuilderWidth = builderService.currentBuilderWidth
 
   const handleBreakpointSelected = useCallback(
     (newBreakpoint: BuilderWidthBreakPoint) => {
@@ -124,16 +124,16 @@ export const BuilderSizeMenu = observer(() => {
       <Space direction="horizontal" size="small">
         <InputNumber
           controls={false}
-          max={selectedWidthBreakpoint.max}
-          min={selectedWidthBreakpoint.min}
+          max={currentBuilderWidth.max}
+          min={currentBuilderWidth.min}
           onChange={(value) =>
             builderService.setCurrentBuilderWidth({
-              ...selectedWidthBreakpoint,
+              ...currentBuilderWidth,
               default: Number(value),
             })
           }
           size="small"
-          value={selectedWidthBreakpoint.default}
+          value={currentBuilderWidth.default}
         />
         <span>px</span>
       </Space>

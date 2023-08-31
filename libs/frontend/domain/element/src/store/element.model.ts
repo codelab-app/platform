@@ -818,7 +818,6 @@ export class Element
     const elementRenderType = getRenderType(renderType)
 
     this.name = name ?? this.name
-    // this.setStyle(style ?? this.style)
     this.style = style ?? this.style
     this.renderIfExpression = renderIfExpression ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null
