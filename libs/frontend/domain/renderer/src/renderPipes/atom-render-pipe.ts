@@ -46,8 +46,6 @@ export class AtomRenderPipe
       return this.next.render(element, props)
     }
 
-    const css = element.styleCss
-
     if (this.renderer.debugMode) {
       console.info(`AtomRenderPipe: Rendering atom ${atomType}`, {
         element: element.name,
@@ -62,7 +60,7 @@ export class AtomRenderPipe
         /**
          * This is rendered to style with css prop and styled-components
          */
-        css,
+        css: element.styleCss,
       },
     })
   }

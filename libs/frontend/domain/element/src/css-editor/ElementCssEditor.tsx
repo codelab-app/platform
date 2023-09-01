@@ -7,7 +7,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
-import { useDebouncedEffect } from '@react-hookz/web'
+import { useDebouncedCallback, useDebouncedEffect } from '@react-hookz/web'
 import { Col, Collapse, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef } from 'react'
@@ -20,6 +20,7 @@ import { ShadowsEditor } from './css-shadows-editor'
 import { FontEditor } from './font-editor'
 
 const { Panel } = Collapse
+const autosaveTimeout = 1000
 
 export interface ElementCssEditorInternalProps {
   builderService: IBuilderService
@@ -35,47 +36,35 @@ export interface ElementCssEditorInternalProps {
 export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
   ({ builderService, element, elementService }) => {
     const breakpoint = builderService.selectedBuilderBreakpoint
-    const { cssString, guiString } = element.styleParsed[breakpoint] ?? {}
-    const guiCssObj = JSON.parse(guiString ?? '{}') as CssMap
-    const lastStateRef = useRef({ cssString, guiString, style: element.style })
+    const guiCssObj = JSON.parse(element.guiCss ?? '{}') as CssMap
+    const lastStateRef = useRef(element.style)
 
-    const cssChangeHandler = useCallback(
+    const cssChangeHandler = useDebouncedCallback(
       (value: string) => element.setCustomCss(value, breakpoint),
-      [element, breakpoint],
+      [element],
+      autosaveTimeout,
     )
 
     const updateElementStyles = useCallback(
-      (style: IElement['style']) => {
-        const elementModel = getElementModel(element)
-        const lastState = lastStateRef.current
-        const breakpointStyle = element.styleParsed[breakpoint] ?? {}
-
-        const {
-          cssString: lastCustomCss,
-          guiString: lastGuiCss,
-          style: oldStyle,
-        } = lastState
-
-        const { cssString: currentCss, guiString: currentGuiCss } =
-          breakpointStyle
-
-        console.log(element.style === oldStyle, oldStyle)
+      (updatedElement: IElement) => {
+        const elementModel = getElementModel(updatedElement)
+        const oldStyle = lastStateRef.current
+        const { style } = updatedElement
 
         // do not send request if value was not changed
-        // if (currentCss !== lastCustomCss || currentGuiCss !== lastGuiCss) {
         if (oldStyle !== style) {
-          lastStateRef.current = { cssString, guiString, style }
+          lastStateRef.current = style
 
           void elementService.update({ ...elementModel, style })
         }
       },
-      [element, elementService, breakpoint],
+      [elementService],
     )
 
     useDebouncedEffect(
-      () => updateElementStyles(element.style),
-      [element],
-      1000,
+      () => updateElementStyles(element),
+      [element.style],
+      autosaveTimeout,
     )
 
     useEffect(
@@ -83,8 +72,8 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
        * Make sure the new string is saved when unmounting the component
        * because if the panel is closed too quickly, the autosave won't catch the latest changes
        */
-      () => () => updateElementStyles(element.style),
-      [element, updateElementStyles],
+      () => () => updateElementStyles(element),
+      [element.style, updateElementStyles],
     )
 
     return (
@@ -95,7 +84,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
             language={CodeMirrorLanguage.Css}
             onChange={cssChangeHandler}
             title="CSS Editor"
-            value={cssString ?? ''}
+            value={element.customCss ?? ''}
           />
         </Col>
         <Col span={24}>

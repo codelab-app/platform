@@ -89,11 +89,13 @@ export interface IElement
   closestParent: IElement | null
   // the closest rootElement of node (page/component) that element belongs to
   closestRootElement: IElement
+  customCss?: Nullable<string>
   // This is a computed property, so we can use model instead of ref
   descendantElements: Array<IElement>
   // used for expressions evaluation
   expressionEvaluationContext: IEvaluationContext
   firstChild?: Nullable<Ref<IElement>>
+  guiCss?: Nullable<string>
   hooks: Array<IHook>
   id: string
   isRoot: boolean

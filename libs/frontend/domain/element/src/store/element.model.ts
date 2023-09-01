@@ -20,6 +20,7 @@ import {
   DATA_ELEMENT_ID,
   defaultBuilderWidthBreakPoints,
   elementRef,
+  getBuilderService,
   getComponentService,
   getElementService,
   getRenderService,
@@ -183,6 +184,11 @@ export class Element
   }
 
   @computed
+  get builderService() {
+    return getBuilderService(this)
+  }
+
+  @computed
   get closestRootElement(): IElement {
     return this.closestParent
       ? this.closestParent.closestRootElement
@@ -334,8 +340,6 @@ export class Element
   }
 
   get styleCss(): string {
-    // debugger
-
     const parsedCss = this.styleParsed
     const activeRenderer = this.renderService.activeRenderer?.current
     const rendererType = activeRenderer?.rendererType
@@ -365,12 +369,29 @@ export class Element
         breakpointStyles.push(
           `${mediaQueryString} (width > ${lowerBound}px) {
             ${breakpointStyle.cssString ?? ''}
+            ${breakpointStyle.guiString ?? ''}
           }`,
         )
       }
     }
 
     return breakpointStyles.join('\n')
+  }
+
+  @computed
+  get customCss() {
+    const breakpoint = this.builderService.selectedBuilderBreakpoint
+    const { cssString } = this.styleParsed[breakpoint] ?? {}
+
+    return cssString
+  }
+
+  @computed
+  get guiCss() {
+    const breakpoint = this.builderService.selectedBuilderBreakpoint
+    const { guiString } = this.styleParsed[breakpoint] ?? {}
+
+    return guiString
   }
 
   @computed
