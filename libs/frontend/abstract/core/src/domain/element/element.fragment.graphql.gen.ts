@@ -17,6 +17,7 @@ export type ElementFragment = {
   __typename: 'Element'
   id: string
   name: string
+  slug: string
   customCss?: string | null
   guiCss?: string | null
   refKey?: string | null
@@ -49,6 +50,7 @@ export type ProductionElementFragment = {
   __typename: 'Element'
   id: string
   name: string
+  slug: string
   customCss?: string | null
   guiCss?: string | null
   childMapperPropKey?: string | null
@@ -81,6 +83,7 @@ export const ElementFragmentDoc = gql`
     __typename
     id
     name
+    slug
     customCss
     guiCss
     page {
@@ -142,6 +145,7 @@ export const ProductionElementFragmentDoc = gql`
     __typename
     id
     name
+    slug
     customCss
     guiCss
     page {
