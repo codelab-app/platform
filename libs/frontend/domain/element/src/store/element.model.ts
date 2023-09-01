@@ -367,7 +367,7 @@ export class Element
 
       if (breakpointStyle) {
         breakpointStyles.push(
-          `${mediaQueryString} (width > ${lowerBound}px) {
+          `${mediaQueryString} (width >= ${lowerBound}px) {
             ${breakpointStyle.cssString ?? ''}
             ${jsonStringToCss(breakpointStyle.guiString ?? '{}')}
           }`,
