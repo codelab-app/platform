@@ -1,15 +1,16 @@
+import type { ApolloError } from '@apollo/client'
 import type { ICreateDomainData } from '@codelab/frontend/abstract/core'
 import {
   useCurrentApp,
   useStore,
 } from '@codelab/frontend/presentation/container'
 import { ModalForm } from '@codelab/frontend/presentation/view'
-import { useNotify } from '@codelab/frontend/shared/utils'
+import { useErrorNotify } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 import { v4 } from 'uuid'
-import { handleDomainExistError } from '../../errors'
+import { checkDomainExists, DOMAIN_EXISTS_ERROR } from '../../errors'
 import { createDomainSchema } from './create-domain.schema'
 
 export const CreateDomainModal = observer(() => {
@@ -27,11 +28,15 @@ export const CreateDomainModal = observer(() => {
   }
 
   const closeModal = () => domainService.createModal.close()
-  const { onError } = useNotify({}, {})
+
+  const onError = useErrorNotify({
+    description: DOMAIN_EXISTS_ERROR,
+    title: 'Error while adding app domain',
+  })
 
   const onSubmitError = (error: unknown) => {
-    if (!handleDomainExistError(error, onError)) {
-      onError('Error while adding app domain')
+    if (!checkDomainExists(error as ApolloError)) {
+      void onError()
     }
   }
 

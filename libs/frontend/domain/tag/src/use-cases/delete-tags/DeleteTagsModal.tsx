@@ -1,6 +1,6 @@
 import { useStore } from '@codelab/frontend/presentation/container'
 import { ModalForm } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields, ListField } from 'uniforms-antd'
@@ -30,7 +30,7 @@ export const DeleteTagsModal = observer(() => {
       <ModalForm.Form<DeleteTagsData>
         model={{}}
         onSubmit={onSubmit}
-        onSubmitError={createNotificationHandler({
+        onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while deleting tags',
         })}
         onSubmitSuccess={closeModal}

@@ -8,7 +8,6 @@ import { ApolloDriver } from '@nestjs/apollo'
 import { BullModule } from '@nestjs/bull'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { DevtoolsModule } from '@nestjs/devtools-integration'
 import { GraphQLModule } from '@nestjs/graphql'
 import type { GraphQLError, GraphQLSchema } from 'graphql'
 import { endpointConfig } from './endpoint.config'
@@ -30,10 +29,10 @@ export interface GqlContext {
 
 @Module({
   imports: [
-    DevtoolsModule.register({
-      http: process.env.NODE_ENV !== 'production',
-      port: 4000,
-    }),
+    // DevtoolsModule.register({
+    //   http: process.env.NODE_ENV !== 'production',
+    //   port: 4000,
+    // }),
     CodelabLoggerModule,
     BullModule.forRoot({
       redis: {

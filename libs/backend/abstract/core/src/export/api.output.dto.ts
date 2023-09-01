@@ -1,4 +1,4 @@
-import { IFieldDTO } from '@codelab/shared/abstract/core'
+import { IFieldDTO, IInterfaceTypeDTO } from '@codelab/shared/abstract/core'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { ITypeOutputDto } from './type.output.dto'
@@ -14,3 +14,5 @@ export const IApiOutputDto = Type.Object({
 })
 
 export type IApiOutputDto = Static<typeof IApiOutputDto>
+
+export const IApiInputDto = Type.Composite([IInterfaceTypeDTO])

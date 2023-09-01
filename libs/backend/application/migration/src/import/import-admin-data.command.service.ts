@@ -68,7 +68,7 @@ export class ImportAdminDataHandler
 
   @Span()
   private async importSystemTypes(owner: IAuth0User) {
-    const { types } = this.readAdminDataService.systemTypes
+    const types = this.readAdminDataService.systemTypes
 
     /**
      * Must do sequentially due to type dependency

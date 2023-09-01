@@ -24,39 +24,4 @@ export const idSchema = ({
         }
       : {}),
   },
-  /**
-   * Hide it, add only to implement IEntity
-   */
-  name: {
-    type: 'string',
-    nullable: true,
-    uniforms: {
-      component: () => null,
-    },
-  },
 })
-
-// TODO Enhance make entity schema typing
-//  Remove unknown and make the typing work
-//  org projects: platform/Dev/No Status
-
-/**
- * The mapped type makes type checking fail for the whole schema
- */
-const makeEntitySchema = <Key extends string>(
-  entityName: Key,
-): PropertiesSchema<{ [key in Key]: IEntity }> => {
-  return {
-    [entityName]: {
-      properties: {
-        id: {
-          type: 'string',
-        },
-      },
-      type: 'object',
-      ...showFieldOnDev(),
-      disabled: true,
-      required: ['id'],
-    },
-  } as unknown as PropertiesSchema<{ [key in Key]: IEntity }>
-}

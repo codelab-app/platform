@@ -1,7 +1,7 @@
 import type { IElement, MoveData } from '@codelab/frontend/abstract/core'
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useRef } from 'react'
 import { AutoField, AutoFields } from 'uniforms-antd'
@@ -82,7 +82,7 @@ export const MoveElementForm = observer<MoveElementFormProps>(({ element }) => {
       key={element.id}
       model={model}
       onSubmit={onSubmit}
-      onSubmitError={createNotificationHandler({
+      onSubmitError={createFormErrorNotificationHandler({
         title: 'Error while moving element',
       })}
       schema={moveElementSchema}

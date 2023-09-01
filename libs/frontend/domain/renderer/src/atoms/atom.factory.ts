@@ -20,6 +20,7 @@ export const atomFactory = (input: AtomFactoryInput): AtomFactoryResult => {
 
   if (!ReactComponent && !atom.externalSourceType) {
     notify({
+      description: '',
       title: `Missing atom of type ${atom.type} in atom type map`,
       type: 'error',
     })

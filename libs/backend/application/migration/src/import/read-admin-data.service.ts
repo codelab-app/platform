@@ -1,6 +1,9 @@
-import type { IAdminOutputDto } from '@codelab/backend/abstract/core'
-import {
+import type {
+  IAdminOutputDto,
   IAtomOutputDto,
+} from '@codelab/backend/abstract/core'
+import {
+  IAtomInputDto,
   IComponentOutputDto,
   ITagOutputDto,
   ITypeOutputDto,
@@ -42,7 +45,7 @@ export class ReadAdminDataService implements IBaseDataPaths, IAdminOutputDto {
    * Data
    */
   get systemTypes() {
-    const types = JSON.parse(
+    const { types } = JSON.parse(
       fs.readFileSync(this.migrationDataService.systemTypesFilePath, 'utf8'),
     )
 
@@ -61,7 +64,7 @@ export class ReadAdminDataService implements IBaseDataPaths, IAdminOutputDto {
       )
 
       const atomExport = JSON.parse(content.toString())
-      const atom = Typebox.Validate(IAtomOutputDto, atomExport)
+      const atom = Typebox.Validate(IAtomInputDto, atomExport)
 
       atoms.push(atom)
 
@@ -99,6 +102,6 @@ export class ReadAdminDataService implements IBaseDataPaths, IAdminOutputDto {
       fs.readFileSync(this.migrationDataService.tagsFilePath, 'utf8'),
     )
 
-    return tags.map((tag: unknown) => ITagOutputDto.parse(tag))
+    return tags.map((tag: unknown) => Typebox.Validate(ITagOutputDto, tag))
   }
 }

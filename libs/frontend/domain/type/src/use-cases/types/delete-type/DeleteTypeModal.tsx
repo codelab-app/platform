@@ -1,7 +1,7 @@
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { EmptyJsonSchemaType } from '@codelab/frontend/presentation/view'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { typeApi } from '../../../store'
@@ -51,7 +51,7 @@ export const DeleteTypeModal = observer(() => {
       <ModalForm.Form<EmptyJsonSchemaType>
         model={{}}
         onSubmit={onSubmit}
-        onSubmitError={createNotificationHandler({
+        onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while deleting type',
           type: 'error',
         })}

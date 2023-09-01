@@ -8,7 +8,7 @@ import {
   Form,
   FormController,
 } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { IActionKind, IResourceType } from '@codelab/shared/abstract/core'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
@@ -42,7 +42,7 @@ export const UpdateActionForm = observer(
       return promise
     }
 
-    const onSubmitError = createNotificationHandler({
+    const onSubmitError = createFormErrorNotificationHandler({
       title: 'Error while updating action',
     })
 

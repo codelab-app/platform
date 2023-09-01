@@ -1,13 +1,8 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { Typebox } from './typebox'
 
 export const IEntity = Type.Object({
   id: Type.String(),
-  /**
-   * For logging purposes
-   */
-  name: Typebox.Nullish(Type.String()),
 })
 
 export type IEntity = Static<typeof IEntity>

@@ -10,7 +10,7 @@ import {
   createAutoCompleteOptions,
   Form,
 } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -64,9 +64,8 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
         key={element.id}
         model={model}
         onSubmit={onSubmit}
-        onSubmitError={createNotificationHandler({
+        onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while updating element',
-          type: 'error',
         })}
         schema={updateElementSchema}
       >

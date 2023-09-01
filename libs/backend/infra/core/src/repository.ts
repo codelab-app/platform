@@ -158,7 +158,8 @@ export abstract class AbstractRepository<
    */
   async save(data: Model, where?: Where): Promise<ModelData> {
     return withActiveSpan(
-      `${this.constructor.name}.save ${data.name}`,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      `${this.constructor.name}.save ${(data as any)?.['name']}`,
       async () => {
         const computedWhere = this.getWhere(data, where)
 
@@ -174,26 +175,21 @@ export abstract class AbstractRepository<
 
         return results
       },
-      // context.active(),
     )
   }
 
   async exists(data: Model, where: Where) {
-    return withActiveSpan(
-      `${this.constructor.name}.exists`,
-      async (span) => {
-        const results = await this.findOne(where)
-        const exists = Boolean(results)
+    return withActiveSpan(`${this.constructor.name}.exists`, async (span) => {
+      const results = await this.findOne(where)
+      const exists = Boolean(results)
 
-        // Spans
-        span.setAttributes(flattenWithPrefix(where, 'where'))
-        span.setAttributes(flattenWithPrefix(data, 'data'))
-        span.addEvent('Exists', { exists })
+      // Spans
+      span.setAttributes(flattenWithPrefix(where, 'where'))
+      span.setAttributes(flattenWithPrefix(data, 'data'))
+      span.addEvent('Exists', { exists })
 
-        return exists
-      },
-      // context.active(),
-    )
+      return exists
+    })
   }
 
   /**

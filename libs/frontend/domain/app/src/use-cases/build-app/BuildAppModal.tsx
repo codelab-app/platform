@@ -1,7 +1,7 @@
 import { regeneratePages } from '@codelab/frontend/domain/domain'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { emptyJsonSchema, ModalForm } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
@@ -35,7 +35,7 @@ export const BuildAppModal = observer(() => {
       <ModalForm.Form
         model={{}}
         onSubmit={onSubmit}
-        onSubmitError={createNotificationHandler({
+        onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while rebuilding app',
         })}
         onSubmitSuccess={closeModal}

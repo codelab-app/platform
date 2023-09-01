@@ -11,7 +11,7 @@ import {
   Form,
   FormController,
 } from '@codelab/frontend/presentation/view'
-import { createNotificationHandler } from '@codelab/frontend/shared/utils'
+import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import type {
   Maybe,
   UniformSelectFieldProps,
@@ -70,7 +70,7 @@ export const CreateElementForm = observer(
       return Promise.resolve()
     }
 
-    const onSubmitError = createNotificationHandler({
+    const onSubmitError = createFormErrorNotificationHandler({
       title: 'Error while creating element',
     })
 
