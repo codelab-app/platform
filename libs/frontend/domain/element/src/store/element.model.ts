@@ -543,10 +543,10 @@ export class Element
       : undefined
 
     return {
+      _compoundName: createUniqueName(this.name, this.closestContainerNode.id),
       customCss: this.customCss,
       guiCss: this.guiCss,
       id: this.id,
-      name: this.name,
       props: {
         create: {
           node: this.props.current.toCreateInput(),
@@ -585,19 +585,13 @@ export class Element
       ? reconnectNodeId(this.childMapperPreviousSibling.id)
       : disconnectNodeId(undefined)
 
-    const _compoundRefKey =
-      this.refKey && this.refKey !== ''
-        ? createUniqueName(this.refKey, this.store.id)
-        : null
-
     return {
-      _compoundRefKey,
+      _compoundName: createUniqueName(this.name, this.closestContainerNode.id),
       childMapperComponent,
       childMapperPreviousSibling,
       childMapperPropKey: this.childMapperPropKey,
       customCss: this.customCss,
       guiCss: this.guiCss,
-      name: this.name,
       postRenderAction,
       preRenderAction,
       renderAtomType,
@@ -610,9 +604,11 @@ export class Element
   @modelAction
   toUpdateNodesInput(): Pick<
     ElementUpdateInput,
-    'firstChild' | 'nextSibling' | 'parent' | 'prevSibling'
+    '_compoundName' | 'firstChild' | 'nextSibling' | 'parent' | 'prevSibling'
   > {
     return {
+      // _compoundName could change too
+      _compoundName: createUniqueName(this.name, this.closestContainerNode.id),
       firstChild: reconnectNodeId(this.firstChild?.id),
       nextSibling: reconnectNodeId(this.nextSibling?.id),
       parent: reconnectNodeId(this.parent?.id),

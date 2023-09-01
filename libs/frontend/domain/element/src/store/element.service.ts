@@ -189,6 +189,9 @@ export class ElementService
 
     const element = this.add({
       ...data,
+      // initial link to resolve closestContainerNode
+      parent: data.parentElement,
+      prevSibling: data.prevSibling,
       props: elementProps,
     })
 
@@ -515,12 +518,11 @@ export class ElementService
     this: ElementService,
     data: ICreateElementData,
   ) {
-    const element = yield* _await(this.create(data))
-
     if (!data.prevSibling) {
       throw new Error('Missing previous sibling')
     }
 
+    const element = yield* _await(this.create(data))
     const prevSibling = this.element(data.prevSibling.id)
 
     const affectedNodeIds = this.attachElementAsNextSibling({
@@ -613,8 +615,15 @@ export class ElementService
       kind: IRenderTypeKind.Component,
     }
 
-    const parentElementId = targetElement.id
-    const data = { id: v4(), name, parentElementId, renderType }
+    const parentElement = { id: targetElement.id }
+
+    const data: ICreateElementData = {
+      id: v4(),
+      name,
+      parentElement,
+      renderType,
+    }
+
     const element = yield* _await(this.create(data))
     /**
      * Attach the new element to the target position

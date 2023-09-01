@@ -5,7 +5,6 @@ import type { RenderType } from './render-type'
  * This is the graphql fragment equivalent, used for hydrating object
  */
 export interface IElementDTO {
-  // slug: string
   childMapperComponent?: Nullable<IEntity>
   childMapperPreviousSibling?: Nullable<IEntity>
   childMapperPropKey?: Nullable<string>
