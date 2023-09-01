@@ -35,12 +35,12 @@ export interface ElementCssEditorInternalProps {
   */
 export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
   ({ builderService, element, elementService }) => {
-    const breakpoint = builderService.selectedBuilderBreakpoint
     const guiCssObj = JSON.parse(element.guiCss ?? '{}') as CssMap
+    // fix: still update request sent when no changes
     const lastStateRef = useRef(element.style)
 
     const cssChangeHandler = useDebouncedCallback(
-      (value: string) => element.setCustomCss(value, breakpoint),
+      (value: string) => element.setCustomCss(value),
       [element],
       autosaveTimeout,
     )
@@ -73,7 +73,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
        * because if the panel is closed too quickly, the autosave won't catch the latest changes
        */
       () => () => updateElementStyles(element),
-      [element.style, updateElementStyles],
+      [element, updateElementStyles],
     )
 
     return (

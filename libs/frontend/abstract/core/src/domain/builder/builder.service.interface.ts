@@ -27,23 +27,23 @@ export interface IBuilderService {
   builderContainerWidth: number
   componentTagNames: Array<string>
   componentsGroupedByCategory: Record<string, Array<IBuilderComponent>>
-  currentBuilderWidth: BuilderWidth
   currentDragData: Nullable<Frozen<BuilderDragData>>
   expandedComponentTreeNodeIds: Array<string>
   expandedPageElementTreeNodeIds: Array<string>
   hoveredNode: Nullable<IPageNodeRef>
   selectedBuilderBreakpoint: BuilderWidthBreakPoint
+  selectedBuilderWidth: BuilderWidth
   selectedNode: Nullable<IPageNodeRef>
 
   selectComponentNode(node: Nullable<IComponent>): void
   selectElementNode(node: Nullable<IElement>): void
   setActiveTab(tab: RendererTab): void
   setBuilderContainerWidth(width: number): void
-  setCurrentBuilderWidth(width: Nullable<BuilderWidth>): void
   setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void
   setExpandedComponentTreeNodeIds(expandedNodeIds: Array<string>): void
   setExpandedPageElementTreeNodeIds(expandedNodeIds: Array<string>): void
   setHoveredNode(element: Nullable<IPageNodeRef>): void
   setSelectedBuilderBreakpoint(width: Nullable<BuilderWidthBreakPoint>): void
+  setSelectedBuilderWidth(width: Nullable<BuilderWidth>): void
   setSelectedNode(node: Nullable<IPageNodeRef>): void
 }

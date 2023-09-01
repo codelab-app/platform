@@ -134,23 +134,19 @@ export interface IElement
   store: Ref<IStore>
   style?: Nullable<string>
   styleCss: string
-  styleParsed: IElementStyle
   treeViewNode: IElementTreeViewDataNode
   urlProps?: IPropData
 
-  appendToGuiCss(css: CssMap, breakpoint: BuilderWidthBreakPoint): void
+  appendToGuiCss(css: CssMap): void
   attachAsNextSibling(sibling: IElement): void
   attachAsPrevSibling(sibling: IElement): void
   attachToParentAsFirstChild(parentElement: IElement): void
   clone(): IElement
   connectPrevToNextSibling(): void
-  deleteFromGuiCss(
-    propNames: Array<string>,
-    breakpoint: BuilderWidthBreakPoint,
-  ): void
+  deleteFromGuiCss(propNames: Array<string>): void
   detachAsFirstChild(): void
   detachFromParent(): void
-  setCustomCss(css: string, breakpoint: BuilderWidthBreakPoint): void
+  setCustomCss(css: string): void
   setFirstChild(firstChild: Ref<IElement>): void
   setName(name: string): void
   setNextSibling(nextSibling: Ref<IElement>): void

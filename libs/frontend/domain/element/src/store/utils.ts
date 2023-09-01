@@ -17,3 +17,14 @@ export const getRenderType = (
 
   return null
 }
+
+export const jsonStringToCss = (json: string | null | undefined) => {
+  const jsonObject = JSON.parse(json ?? '{}')
+  let css = ''
+
+  for (const key in jsonObject) {
+    css += `${key}: ${jsonObject[key]};`
+  }
+
+  return css
+}

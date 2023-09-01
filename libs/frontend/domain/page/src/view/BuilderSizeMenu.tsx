@@ -37,14 +37,14 @@ const menuItemCommonStyle = {
 
 export const BuilderSizeMenu = observer(() => {
   const { builderService } = useStore()
-  const breakpoint = builderService.selectedBuilderBreakpoint
-  const currentBuilderWidth = builderService.currentBuilderWidth
+  const selectedWidthBreakpoint = builderService.selectedBuilderBreakpoint
+  const selectedBuilderWidth = builderService.selectedBuilderWidth
 
   const handleBreakpointSelected = useCallback(
-    (newBreakpoint: BuilderWidthBreakPoint) => {
-      builderService.setSelectedBuilderBreakpoint(newBreakpoint)
-      builderService.setCurrentBuilderWidth(
-        defaultBuilderWidthBreakPoints[newBreakpoint],
+    (breakpoint: BuilderWidthBreakPoint) => {
+      builderService.setSelectedBuilderBreakpoint(breakpoint)
+      builderService.setSelectedBuilderWidth(
+        defaultBuilderWidthBreakPoints[breakpoint],
       )
     },
     [],
@@ -113,7 +113,7 @@ export const BuilderSizeMenu = observer(() => {
           }))}
         mode="horizontal"
         selectable={false}
-        selectedKeys={[breakpoint]}
+        selectedKeys={[selectedWidthBreakpoint]}
         style={{
           blockSize: '100%',
         }}
@@ -124,16 +124,16 @@ export const BuilderSizeMenu = observer(() => {
       <Space direction="horizontal" size="small">
         <InputNumber
           controls={false}
-          max={currentBuilderWidth.max}
-          min={currentBuilderWidth.min}
+          max={builderService.selectedBuilderWidth.max}
+          min={builderService.selectedBuilderWidth.min}
           onChange={(value) =>
-            builderService.setCurrentBuilderWidth({
-              ...currentBuilderWidth,
+            builderService.setSelectedBuilderWidth({
+              ...builderService.selectedBuilderWidth,
               default: Number(value),
             })
           }
           size="small"
-          value={currentBuilderWidth.default}
+          value={builderService.selectedBuilderWidth.default}
         />
         <span>px</span>
       </Space>

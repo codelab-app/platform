@@ -23,7 +23,7 @@ export const Builder = observer(() => {
   const { builderService, elementService, renderService } = useStore()
   const renderer = renderService.activeRenderer?.current
   const elementTree = builderService.activeElementTree
-  const { currentBuilderWidth, selectedNode } = builderService
+  const { selectedBuilderWidth, selectedNode } = builderService
   const containerRef = useRef<HTMLDivElement>(null)
 
   useBuilderHotkeys({
@@ -74,9 +74,9 @@ export const Builder = observer(() => {
   const builderStyle = useMemo(() => {
     return {
       container: 'root / inline-size',
-      width: `${currentBuilderWidth.default}px`,
+      width: `${selectedBuilderWidth.default}px`,
     }
-  }, [currentBuilderWidth.default])
+  }, [selectedBuilderWidth.default])
 
   if (!elementTree || !renderer) {
     return null

@@ -31,9 +31,6 @@ export class BuilderService
   extends Model({
     activeTab: prop<RendererTab>(RendererTab.Page).withSetter(),
     builderContainerWidth: prop<number>(0).withSetter(),
-    currentBuilderWidth: prop<BuilderWidth>(
-      () => defaultBuilderWidthBreakPoints['mobile-portrait'],
-    ),
     currentDragData: prop<Nullable<Frozen<BuilderDragData>>>(null).withSetter(),
     expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     expandedPageElementTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
@@ -41,6 +38,9 @@ export class BuilderService
     selectedBuilderBreakpoint: prop<BuilderWidthBreakPoint>(
       () => BuilderWidthBreakPoint.MobilePortrait,
     ).withSetter(),
+    selectedBuilderWidth: prop<BuilderWidth>(
+      () => defaultBuilderWidthBreakPoints['mobile-portrait'],
+    ),
     /**
      * select a node would add it to expand list
      * sometimes, it's not necessary to expand the node. E.g:
@@ -200,10 +200,10 @@ export class BuilderService
   }
 
   @modelAction
-  setCurrentBuilderWidth(width: BuilderWidth) {
+  setSelectedBuilderWidth(width: BuilderWidth) {
     // -1 max width means fill the screen, so we use the available
     // container width as long as it's not smaller than the min
-    this.currentBuilderWidth = {
+    this.selectedBuilderWidth = {
       default:
         width.default < 0
           ? Math.max(width.min, this.builderContainerWidth)

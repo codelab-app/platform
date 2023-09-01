@@ -68,7 +68,7 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
-import { getRenderType } from './utils'
+import { getRenderType, jsonStringToCss } from './utils'
 
 const create = ({
   childMapperComponent,
@@ -369,7 +369,7 @@ export class Element
         breakpointStyles.push(
           `${mediaQueryString} (width > ${lowerBound}px) {
             ${breakpointStyle.cssString ?? ''}
-            ${breakpointStyle.guiString ?? ''}
+            ${jsonStringToCss(breakpointStyle.guiString ?? '{}')}
           }`,
         )
       }
@@ -400,7 +400,8 @@ export class Element
   }
 
   @modelAction
-  setCustomCss(cssString: string, breakpoint: BuilderWidthBreakPoint) {
+  setCustomCss(cssString: string) {
+    const breakpoint = this.builderService.selectedBuilderBreakpoint
     const styleObject = this.styleParsed
     styleObject[breakpoint] = { ...styleObject[breakpoint], cssString }
     this.style = JSON.stringify(styleObject)
@@ -408,21 +409,31 @@ export class Element
 
   @modelAction
   appendToGuiCss(css: CssMap) {
-    // const curGuiCss = JSON.parse(this.guiCss || '{}')
-    // const newGuiCss = { ...curGuiCss, ...css }
-    // this.guiCss = JSON.stringify(newGuiCss)
+    const breakpoint = this.builderService.selectedBuilderBreakpoint
+    const styleObject = this.styleParsed
+    const curGuiCss = JSON.parse(this.guiCss || '{}')
+    const newGuiCss = { ...curGuiCss, ...css }
+    const guiString = JSON.stringify(newGuiCss)
+
+    styleObject[breakpoint] = { ...styleObject[breakpoint], guiString }
+    this.style = JSON.stringify(styleObject)
   }
 
   @modelAction
   deleteFromGuiCss(propNames: Array<string>) {
-    // const curGuiCss = JSON.parse(this.guiCss || '{}')
-    // propNames.forEach((propName) => {
-    //   if (curGuiCss[propName]) {
-    //     // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-    //     delete curGuiCss[propName]
-    //   }
-    // })
-    // this.guiCss = JSON.stringify(curGuiCss)
+    const breakpoint = this.builderService.selectedBuilderBreakpoint
+    const styleObject = this.styleParsed
+    const curGuiCss = JSON.parse(this.guiCss || '{}')
+    propNames.forEach((propName) => {
+      if (curGuiCss[propName]) {
+        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+        delete curGuiCss[propName]
+      }
+    })
+
+    const guiString = JSON.stringify(curGuiCss)
+    styleObject[breakpoint] = { ...styleObject[breakpoint], guiString }
+    this.style = JSON.stringify(styleObject)
   }
 
   @modelAction
