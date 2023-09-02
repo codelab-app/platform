@@ -79,6 +79,11 @@ export const BuilderClickOverlay = observer<{
   return createPortal(
     <ClickOverlay
       content={content}
+      dependencies={[
+        selectedNode.current.guiCss,
+        selectedNode.current.customCss,
+        selectedNode.current.props.current.values,
+      ]}
       element={element}
       renderContainer={renderContainerRef.current}
     />,
