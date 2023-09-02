@@ -60,7 +60,7 @@ export class AtomRenderPipe
         /**
          * This is rendered to style with css prop and styled-components
          */
-        css: element.styleCss,
+        css: element.styleStringWithBreakpoints,
       },
     })
   }

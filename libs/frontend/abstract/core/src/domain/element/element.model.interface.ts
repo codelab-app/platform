@@ -132,8 +132,17 @@ export interface IElement
   sourceElement: Nullable<IEntity>
   // store attached to closestContainerNode
   store: Ref<IStore>
+  /**
+   * stringified object, see @IElementStyle interface
+   * to see what is the shape of parsed object
+   */
   style?: Nullable<string>
-  styleCss: string
+  /**
+   * html-ready string that includes styles for all breakpoints
+   * for production - uses media queries to apply styles
+   * for development - uses container queries, for better UX
+   */
+  styleStringWithBreakpoints: string
   treeViewNode: IElementTreeViewDataNode
   urlProps?: IPropData
 

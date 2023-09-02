@@ -339,7 +339,7 @@ export class Element
     return slugify(this.name)
   }
 
-  get styleCss(): string {
+  get styleStringWithBreakpoints(): string {
     const parsedCss = this.styleParsed
     const activeRenderer = this.renderService.activeRenderer?.current
     const rendererType = activeRenderer?.rendererType

@@ -1,7 +1,6 @@
 import { CaretRightOutlined } from '@ant-design/icons'
 import type {
   CssMap,
-  IBuilderService,
   IElement,
   IElementService,
 } from '@codelab/frontend/abstract/core'
@@ -23,7 +22,6 @@ const { Panel } = Collapse
 const autosaveTimeout = 1000
 
 export interface ElementCssEditorInternalProps {
-  builderService: IBuilderService
   element: IElement
   elementService: IElementService
 }
@@ -34,9 +32,8 @@ export interface ElementCssEditorInternalProps {
     can guiCss be set to?
   */
 export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
-  ({ builderService, element, elementService }) => {
+  ({ element, elementService }) => {
     const guiCssObj = JSON.parse(element.guiCss ?? '{}') as CssMap
-    // fix: still update request sent when no changes
     const lastStateRef = useRef(element.style)
 
     const cssChangeHandler = useDebouncedCallback(
