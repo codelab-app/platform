@@ -18,7 +18,7 @@ import type { IHook } from '../hook'
 import type { IModel } from '../model.interface'
 import type { IPage } from '../page'
 import type { IProp, IPropData } from '../prop'
-import type { IElementRuntimeProp } from '../render'
+import type { IElementRuntimeProp, RendererType } from '../render'
 import type { IStore } from '../store'
 import type { IElementRenderType } from './render-type'
 
@@ -51,6 +51,7 @@ export interface IEvaluationContext {
   componentProps: IPropData
   props: IPropData
   refs: IPropData
+  renderType?: RendererType
   rootRefs: IPropData
   rootState: IPropData
   state: IPropData
