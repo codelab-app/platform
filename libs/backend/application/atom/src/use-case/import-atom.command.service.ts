@@ -29,6 +29,10 @@ export class ImportAtomHandler
 
     const atomWithOwner = { ...atom, owner }
 
+    await this.commandBus.execute<ImportApiCommand>(
+      new ImportApiCommand(api, owner),
+    )
+
     /**
      * Create all atoms but omit `suggestedChildren`, since it requires all atoms to be added first
      */
@@ -38,9 +42,5 @@ export class ImportAtomHandler
      * Here we assign suggestedChildren, since all atoms must be created first
      */
     await this.atomRepository.save(atomWithOwner)
-
-    await this.commandBus.execute<ImportApiCommand>(
-      new ImportApiCommand(api, owner),
-    )
   }
 }

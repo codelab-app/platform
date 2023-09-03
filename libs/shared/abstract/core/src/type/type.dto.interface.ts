@@ -48,3 +48,5 @@ export type ITypeEntity =
   | IDiscriminatedEntity<`${ITypeKind.ReactNodeType}`>
   | IDiscriminatedEntity<`${ITypeKind.RenderPropType}`>
   | IDiscriminatedEntity<`${ITypeKind.UnionType}`>
+
+export type IApiEntity = IDiscriminatedEntity<`${ITypeKind.InterfaceType}`>

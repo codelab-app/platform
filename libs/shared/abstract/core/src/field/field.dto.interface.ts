@@ -16,9 +16,3 @@ export const IFieldDTO = Type.Object({
 })
 
 export type IFieldDTO = Static<typeof IFieldDTO>
-
-const Demo = Type.Object({
-  name: Type.Optional(Type.String()),
-})
-
-type Demo = Static<typeof Demo>

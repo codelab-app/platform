@@ -1,55 +1,38 @@
 import type { AnyType } from '@codelab/backend/abstract/codegen'
 import type { IApiOutputDto } from '@codelab/backend/abstract/core'
 import {
-  ActionTypeRepository,
   ArrayTypeRepository,
-  EnumTypeRepository,
-  FieldRepository,
   InterfaceTypeRepository,
   TypeFactory,
-  UnionTypeRepository,
 } from '@codelab/backend/domain/type'
-import { TraceService } from '@codelab/backend/infra/adapter/otel'
-import type { ITypeEntity } from '@codelab/shared/abstract/core'
+import type { IApiEntity, ITypeEntity } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
-import { CommandBus, CommandHandler } from '@nestjs/cqrs'
+import { CommandHandler } from '@nestjs/cqrs'
 
-export class ExportTypesCommand {
-  constructor(public typeIds: Array<ITypeEntity>) {}
+export class ExportApiCommand {
+  constructor(public apiId: IApiEntity) {}
 }
 
 /**
  * Export top level types and all nested types. The dependency of the types should be ordered
  */
-@CommandHandler(ExportTypesCommand)
-export class ExportTypesHandler
-  implements ICommandHandler<ExportTypesCommand, IApiOutputDto>
+@CommandHandler(ExportApiCommand)
+export class ExportApiHandler
+  implements ICommandHandler<ExportApiCommand, IApiOutputDto>
 {
   constructor(
-    private readonly enumTypeRepository: EnumTypeRepository,
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
-    private readonly fieldRepository: FieldRepository,
     private readonly arrayTypeRepository: ArrayTypeRepository,
-    private readonly actionTypeRepository: ActionTypeRepository,
-    private readonly unionTypeRepository: UnionTypeRepository,
-    private readonly commandBus: CommandBus,
     private readonly typeFactory: TypeFactory,
-    private traceService: TraceService,
   ) {}
 
-  async execute(command: ExportTypesCommand): Promise<IApiOutputDto> {
-    const { typeIds } = command
-
+  async execute(command: ExportApiCommand): Promise<IApiOutputDto> {
+    const { apiId } = command
     /**
      * 1) Get all dependent types first
      */
-    const result = await Promise.all(
-      typeIds.map((typeId) => this.getNestedTypes(typeId)),
-    )
-
-    const types = result.flatMap((res) => res.types)
-    const fields = result.flatMap((res) => res.fields)
+    const { fields, types } = await this.getNestedTypes(apiId)
 
     /**
      * 3) Resolve all dependent types
@@ -69,10 +52,7 @@ export class ExportTypesHandler
   /**
    * Recursively get all nested interfaces through fields. We do this since searching for more than 1 connection in GraphQL is O(n)
    */
-  async getNestedTypes({
-    __typename,
-    id,
-  }: ITypeEntity): Promise<IApiOutputDto> {
+  async getNestedTypes({ __typename, id }: IApiEntity): Promise<IApiOutputDto> {
     if (__typename === ITypeKind.InterfaceType) {
       const interfaceType = await this.interfaceTypeRepository.findOne({ id })
 

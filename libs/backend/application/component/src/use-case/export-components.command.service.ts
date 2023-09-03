@@ -8,7 +8,7 @@ import type {
   IElementOutputDto,
 } from '@codelab/backend/abstract/core'
 import { ExportStoreCommand } from '@codelab/backend/application/store'
-import { ExportTypesCommand } from '@codelab/backend/application/type'
+import { ExportApiCommand } from '@codelab/backend/application/type'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { StoreRepository } from '@codelab/backend/domain/store'
@@ -51,9 +51,9 @@ export class ExportComponentsHandler
           )
 
         const api = await this.commandBus.execute<
-          ExportTypesCommand,
+          ExportApiCommand,
           IApiOutputDto
-        >(new ExportTypesCommand([component.api]))
+        >(new ExportApiCommand([component.api]))
 
         const store = await this.commandBus.execute<ExportStoreCommand>(
           new ExportStoreCommand({ id: component.store.id }),

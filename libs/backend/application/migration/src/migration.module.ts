@@ -1,4 +1,7 @@
-import { ExportAtomsHandler } from '@codelab/backend/application/atom'
+import {
+  ExportAtomsHandler,
+  ImportAtomHandler,
+} from '@codelab/backend/application/atom'
 import {
   ExportComponentsHandler,
   ImportComponentsHandler,
@@ -6,7 +9,8 @@ import {
 import { ExportTagsHandler } from '@codelab/backend/application/tag'
 import {
   ExportSystemTypesHandler,
-  ExportTypesHandler,
+  ExportApiHandler,
+  ImportApiHandler,
 } from '@codelab/backend/application/type'
 import { ExportUserDataHandler } from '@codelab/backend/application/user'
 import { AtomDomainModule } from '@codelab/backend/domain/atom'
@@ -17,6 +21,7 @@ import { StoreDomainModule } from '@codelab/backend/domain/store'
 import { TagDomainModule } from '@codelab/backend/domain/tag'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
 import { UserDomainModule } from '@codelab/backend/domain/user'
+import { OtelModule } from '@codelab/backend/infra/adapter/otel'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { ExportAdminDataHandler } from './export/export-admin-data.command.service'
@@ -29,6 +34,7 @@ import { MigrationDataService } from './migration-data.service'
 @Module({
   controllers: [MigrationController],
   imports: [
+    OtelModule,
     CqrsModule,
     UserDomainModule,
     TagDomainModule,
@@ -41,6 +47,8 @@ import { MigrationDataService } from './migration-data.service'
   ],
   providers: [
     ImportAdminDataHandler,
+    ImportAtomHandler,
+    ImportApiHandler,
     ImportComponentsHandler,
     ExportSystemTypesHandler,
     ExportAdminDataHandler,
@@ -48,7 +56,7 @@ import { MigrationDataService } from './migration-data.service'
     ExportAtomsHandler,
     ExportTagsHandler,
     ExportComponentsHandler,
-    ExportTypesHandler,
+    ExportApiHandler,
     MigrationDataService,
     ReadAdminDataService,
     WriteAdminDataService,

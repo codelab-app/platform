@@ -6,7 +6,7 @@ import type {
   IApiOutputDto,
   IAtomOutputDto,
 } from '@codelab/backend/abstract/core'
-import { ExportTypesCommand } from '@codelab/backend/application/type'
+import { ExportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { type IAtomDTO } from '@codelab/shared/abstract/core'
@@ -59,10 +59,9 @@ export class ExportAtomsHandler
   private async exportAtom(atom: IAtomDTO) {
     this.traceService.getSpan()!.setAttributes({ atom: atom.name })
 
-    const api = await this.commandBus.execute<
-      ExportTypesCommand,
-      IApiOutputDto
-    >(new ExportTypesCommand([atom.api]))
+    const api = await this.commandBus.execute<ExportApiCommand, IApiOutputDto>(
+      new ExportApiCommand([atom.api]),
+    )
 
     return {
       api,
