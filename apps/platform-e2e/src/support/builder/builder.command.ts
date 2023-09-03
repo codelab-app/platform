@@ -84,3 +84,11 @@ export const createElementTree = (elements: Array<ElementData>) => {
     cy.findByText(name).should('exist').click()
   })
 }
+
+export const openPreview = () => {
+  return cy.get('[data-cy="codelabui-toolbar-item-Preview"] button').click()
+}
+
+export const openBuilder = () => {
+  return cy.get('[data-cy="codelabui-toolbar-item-Builder"] button').click()
+}
