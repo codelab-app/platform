@@ -51,8 +51,6 @@ const baseElementSelectionSet = `
     id
     type
   }
-  _compoundRefKey
-  refKey
 `
 
 export const elementSelectionSet = `{

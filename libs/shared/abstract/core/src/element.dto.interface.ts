@@ -21,7 +21,6 @@ export interface IElementDTO {
   preRenderAction?: Nullable<IEntity>
   prevSibling?: Nullable<IEntity>
   props: IEntity
-  refKey?: Nullable<string>
   renderForEachPropKey?: Nullable<string>
   renderIfExpression?: Nullable<string>
   renderType?: Nullable<RenderType>

@@ -101,8 +101,8 @@ export class Store
     const elements = elementTree?.elements || []
 
     return elements
-      .filter((element) => Boolean(element.refKey))
-      .map(({ refKey }) => refKey as string)
+      .filter((element) => Boolean(element.renderType?.registerReference))
+      .map(({ slug }) => slug)
   }
 
   @computed

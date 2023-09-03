@@ -39,7 +39,6 @@ export const getElementModel = (element: IElement) => {
     preRenderAction: element.preRenderAction
       ? { id: element.preRenderAction.current.id }
       : null,
-    refKey: element.refKey,
     renderForEachPropKey: element.renderForEachPropKey,
     renderIfExpression: element.renderIfExpression,
     renderType,

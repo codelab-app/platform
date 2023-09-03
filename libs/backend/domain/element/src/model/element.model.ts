@@ -40,8 +40,6 @@ export class Element implements IElementDTO {
 
   renderType?: Nullable<RenderType> | undefined
 
-  refKey?: Nullable<string> | undefined
-
   constructor({ id, name, props }: IElementDTO) {
     this.id = id
     this.name = name

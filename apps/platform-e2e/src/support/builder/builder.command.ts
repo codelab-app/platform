@@ -6,12 +6,11 @@ export interface ElementData {
   name: string
   parentElement: string
   propsData?: object
-  refKey?: string
 }
 
 export const createElementTree = (elements: Array<ElementData>) => {
   return cy.wrap(elements).each((element: ElementData) => {
-    const { atom, name, parentElement, propsData, refKey } = element
+    const { atom, name, parentElement, propsData } = element
 
     cy.getCuiSidebar('Explorer').getCuiSkeleton().should('not.be.visible')
     cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').first().click()
@@ -39,19 +38,17 @@ export const createElementTree = (elements: Array<ElementData>) => {
         value: atom,
       })
 
+      cy.findByTestId('create-element-form').setFormFieldValue({
+        label: 'Register Reference',
+        type: FIELD_TYPE.TOGGLE,
+        value: true,
+      })
+
       if (propsData) {
         cy.findByTestId('create-element-form').setFormFieldValue({
           label: 'Props Data',
           type: FIELD_TYPE.INPUT,
           value: JSON.stringify(propsData),
-        })
-      }
-
-      if (refKey) {
-        cy.findByTestId('create-element-form').setFormFieldValue({
-          label: 'Ref Key',
-          type: FIELD_TYPE.INPUT,
-          value: refKey,
         })
       }
 

@@ -50,10 +50,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
       expandedFields.push('renderCondition')
     }
 
-    if (model.refKey) {
-      expandedFields.push('reference')
-    }
-
     if (
       model.childMapperPropKey ??
       model.childMapperPreviousSibling ??
@@ -89,7 +85,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
             'postRenderAction',
             'renderType',
             'name',
-            'refKey',
           ]}
         />
         <Collapse defaultActiveKey={expandedFields}>
@@ -113,9 +108,6 @@ export const UpdateElementForm = observer<UpdateElementFormProps>(
           </Collapse.Panel>
           <Collapse.Panel header="Child Mapper" key="childMapper">
             <ChildMapperCompositeField element={element} />
-          </Collapse.Panel>
-          <Collapse.Panel header="Reference" key="reference">
-            <AutoField name="refKey" />
           </Collapse.Panel>
         </Collapse>
       </Form>

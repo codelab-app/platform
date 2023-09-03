@@ -17,17 +17,19 @@ export type ElementFragment = {
   __typename: 'Element'
   id: string
   name: string
-  slug: string
   customCss?: string | null
   guiCss?: string | null
-  refKey?: string | null
   childMapperPropKey?: string | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   page?: { id: string } | null
   renderComponentType?: { id: string } | null
   renderAtomType?: AtomFragment | null
-  renderType?: { id: string; kind: Types.RenderTypeKind } | null
+  renderType?: {
+    id: string
+    kind: Types.RenderTypeKind
+    registerReference?: boolean | null
+  } | null
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
   parentComponent?: { id: string } | null
@@ -50,7 +52,6 @@ export type ProductionElementFragment = {
   __typename: 'Element'
   id: string
   name: string
-  slug: string
   customCss?: string | null
   guiCss?: string | null
   childMapperPropKey?: string | null
@@ -59,7 +60,11 @@ export type ProductionElementFragment = {
   page?: { id: string } | null
   renderComponentType?: { id: string } | null
   renderAtomType?: ProductionAtomFragment | null
-  renderType?: { id: string; kind: Types.RenderTypeKind } | null
+  renderType?: {
+    id: string
+    kind: Types.RenderTypeKind
+    registerReference?: boolean | null
+  } | null
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
   parentComponent?: { id: string } | null
@@ -83,7 +88,6 @@ export const ElementFragmentDoc = gql`
     __typename
     id
     name
-    slug
     customCss
     guiCss
     page {
@@ -95,10 +99,10 @@ export const ElementFragmentDoc = gql`
     renderAtomType {
       ...Atom
     }
-    refKey
     renderType {
       id
       kind
+      registerReference
     }
     prevSibling {
       id
@@ -145,7 +149,6 @@ export const ProductionElementFragmentDoc = gql`
     __typename
     id
     name
-    slug
     customCss
     guiCss
     page {
@@ -160,6 +163,7 @@ export const ProductionElementFragmentDoc = gql`
     renderType {
       id
       kind
+      registerReference
     }
     prevSibling {
       id
