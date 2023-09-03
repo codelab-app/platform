@@ -19,7 +19,7 @@ const ComponentRenderer: CodelabPage = observer(() => {
   const { componentName } = useCurrentComponent()
 
   const [{ error, result, status }, loadCurrentPage] = useRenderedComponent(
-    RendererType.ComponentBuilder,
+    RendererType.Preview,
   )
 
   const isLoading = status !== 'success'
