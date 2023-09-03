@@ -1,4 +1,5 @@
-import { rendererRef, RendererType } from '@codelab/frontend/abstract/core'
+import type { RendererType } from '@codelab/frontend/abstract/core'
+import { rendererRef } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/router'
@@ -9,7 +10,7 @@ import { loadAllTypesForElements } from './useRenderedPage.hook'
 /**
  * Fetch related data for rendering component, and load them into store
  */
-export const useRenderedComponent = () => {
+export const useRenderedComponent = (rendererType: RendererType) => {
   const {
     appService,
     builderService,
@@ -47,7 +48,7 @@ export const useRenderedComponent = () => {
     const renderer = renderService.addRenderer({
       elementTree: component,
       id: component.id,
-      rendererType: RendererType.ComponentBuilder,
+      rendererType,
     })
 
     renderService.setActiveRenderer(rendererRef(renderer.id))
