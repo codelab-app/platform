@@ -18,14 +18,13 @@ import React, { useEffect } from 'react'
 const ComponentRenderer: CodelabPage = observer(() => {
   const { componentName } = useCurrentComponent()
 
-  const [{ error, result, status }, loadCurrentPage] = useRenderedComponent(
-    RendererType.Preview,
-  )
+  const [{ error, result, status }, loadCurrentComponent] =
+    useRenderedComponent(RendererType.Preview)
 
   const isLoading = status !== 'success'
 
   useEffect(() => {
-    void loadCurrentPage.execute()
+    void loadCurrentComponent.execute()
   }, [componentName])
 
   return (
