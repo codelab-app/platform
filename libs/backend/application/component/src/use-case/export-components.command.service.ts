@@ -11,7 +11,6 @@ import { ExportStoreCommand } from '@codelab/backend/application/store'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
-import { StoreRepository } from '@codelab/backend/domain/store'
 import {
   FieldRepository,
   InterfaceTypeRepository,
@@ -32,7 +31,6 @@ export class ExportComponentsHandler
     private interfaceTypeRepository: InterfaceTypeRepository,
     private fieldRepository: FieldRepository,
     private elementRepository: ElementRepository,
-    private storeRepository: StoreRepository,
     private commandBus: CommandBus,
   ) {}
 

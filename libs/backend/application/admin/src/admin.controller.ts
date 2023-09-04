@@ -2,14 +2,9 @@ import {
   CurrentUser,
   DatabaseService,
 } from '@codelab/backend/application/service'
-import { ExportUserDataCommand } from '@codelab/backend/application/user'
-import { UserRepository } from '@codelab/backend/domain/user'
-import { saveFormattedFile } from '@codelab/backend/shared/util'
-import { ExportDto, ImportDto, IUserDTO } from '@codelab/shared/abstract/core'
+import { ExportDto, IUserDTO } from '@codelab/shared/abstract/core'
 import { Body, Controller, Post } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
-import type { Static } from '@sinclair/typebox'
-import { Type } from '@sinclair/typebox'
 import { ExportAdminDataCommand } from './use-case/export/export-admin-data.command.service'
 import { ImportAdminDataCommand } from './use-case/import/import-admin-data.command.service'
 
@@ -22,15 +17,10 @@ export class AdminController {
   constructor(
     private readonly databaseService: DatabaseService,
     private readonly commandBus: CommandBus,
-    private readonly userRepository: UserRepository,
   ) {}
 
   @Post('export')
   async export(@Body() exportDto: ExportDto, @CurrentUser() user: IUserDTO) {
-    console.log(exportDto, user)
-
-    const { download } = exportDto
-
     await this.commandBus.execute(new ExportAdminDataCommand())
 
     // if (includeUserData) {

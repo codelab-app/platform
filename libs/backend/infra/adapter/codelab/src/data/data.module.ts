@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AdminModule } from '@codelab/backend/application/admin'
-import { UserModule } from '@codelab/backend/application/user'
+import { AdminApplicationModule } from '@codelab/backend/application/admin'
+import { UserApplicationModule } from '@codelab/backend/application/user'
 import { neo4jConfig, OGMModule } from '@codelab/backend/infra/adapter/neo4j'
 import { OtelModule } from '@codelab/backend/infra/adapter/otel'
 import { Module } from '@nestjs/common'
@@ -14,8 +14,8 @@ import { DemoModule } from './demo'
     DemoModule,
     OtelModule,
     OGMModule,
-    AdminModule,
-    UserModule,
+    AdminApplicationModule,
+    UserApplicationModule,
     ConfigModule.forRoot({
       ignoreEnvVars: true,
       isGlobal: true,

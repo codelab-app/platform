@@ -1,5 +1,5 @@
 import type { Maybe } from '@codelab/shared/abstract/types'
-import type { TSchema, Type } from '@sinclair/typebox'
+import type { TSchema } from '@sinclair/typebox'
 import type { JSONSchemaType } from 'ajv'
 import type React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'

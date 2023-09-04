@@ -5,7 +5,6 @@ import {
   ITagOutputDto,
   ITypeOutputDto,
 } from '@codelab/backend/abstract/core'
-import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { Typebox } from '@codelab/shared/abstract/types'
 import { Injectable, Scope } from '@nestjs/common'
 import { findUpSync } from 'find-up'
@@ -18,10 +17,7 @@ import { MigrationDataService } from '../../services/migration-data.service'
   scope: Scope.TRANSIENT,
 })
 export class ReadAdminDataService implements IBaseDataPaths, IAdminOutputDto {
-  constructor(
-    private traceService: TraceService,
-    private migrationDataService: MigrationDataService,
-  ) {}
+  constructor(private migrationDataService: MigrationDataService) {}
 
   /**
    * process.cwd() doesn't work since run-commands may set app dir as cwd

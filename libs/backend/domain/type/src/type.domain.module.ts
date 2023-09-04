@@ -1,3 +1,4 @@
+import { OGMModule } from '@codelab/backend/infra/adapter/neo4j'
 import { Module } from '@nestjs/common'
 import { TypeFactory } from './factory'
 import {
@@ -25,6 +26,7 @@ import {
     RenderPropTypeRepository,
     UnionTypeRepository,
   ],
+  imports: [OGMModule],
   providers: [
     TypeFactory,
     ActionTypeRepository,

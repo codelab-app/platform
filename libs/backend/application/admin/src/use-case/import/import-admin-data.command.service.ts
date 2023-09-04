@@ -1,9 +1,8 @@
 import { type IAtomOutputDto } from '@codelab/backend/abstract/core'
 import { ImportAtomCommand } from '@codelab/backend/application/atom'
 import { ImportComponentsCommand } from '@codelab/backend/application/component'
-import { AtomRepository } from '@codelab/backend/domain/atom'
-import { TagRepository } from '@codelab/backend/domain/tag'
-import { FieldRepository, TypeFactory } from '@codelab/backend/domain/type'
+import { ImportTagsCommand } from '@codelab/backend/application/tag'
+import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { type IAuth0User } from '@codelab/shared/abstract/core'
 import {
@@ -13,7 +12,6 @@ import {
 } from '@codelab/shared/infra/otel'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import type { IBaseDataPaths } from '../../services/migration-data.service'
-import { MigrationDataService } from '../../services/migration-data.service'
 import { ReadAdminDataService } from './read-admin-data.service'
 
 export class ImportAdminDataCommand implements IBaseDataPaths {
@@ -28,12 +26,7 @@ export class ImportAdminDataHandler
   implements ICommandHandler<ImportAdminDataCommand, void>
 {
   constructor(
-    private readonly tagRepository: TagRepository,
-    private readonly atomRepository: AtomRepository,
-    private readonly fieldRepository: FieldRepository,
     private readonly commandBus: CommandBus,
-    private readonly typeFactory: TypeFactory,
-    private readonly migrationDataService: MigrationDataService,
     private readonly traceService: TraceService,
     private readonly readAdminDataService: ReadAdminDataService,
   ) {}
@@ -63,19 +56,20 @@ export class ImportAdminDataHandler
 
   @Span()
   private async importTags(owner: IAuth0User) {
-    return this.tagRepository.seedTags(this.readAdminDataService.tags, owner)
+    const { tags } = this.readAdminDataService
+
+    return this.commandBus.execute<ImportTagsCommand, void>(
+      new ImportTagsCommand(tags, owner),
+    )
   }
 
   @Span()
   private async importSystemTypes(owner: IAuth0User) {
     const types = this.readAdminDataService.systemTypes
 
-    /**
-     * Must do sequentially due to type dependency
-     */
-    for (const type of types) {
-      await this.typeFactory.save({ ...type, owner })
-    }
+    return this.commandBus.execute<ImportSystemTypesCommand>(
+      new ImportSystemTypesCommand(types, owner),
+    )
   }
 
   private async importAtoms(owner: IAuth0User) {

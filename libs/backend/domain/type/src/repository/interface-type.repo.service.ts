@@ -12,17 +12,18 @@ import {
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type {
-  IFieldDTO,
-  IInterfaceTypeDTO,
-  ITypeDTO,
-  ITypeEntity,
+import {
+  type IFieldDTO,
+  type IInterfaceTypeDTO,
+  type ITypeDTO,
+  type ITypeEntity,
 } from '@codelab/shared/abstract/core'
 import {
   connectAuth0Owner,
   connectNodeId,
   connectNodeIds,
 } from '@codelab/shared/domain/mapper'
+import { Span } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -40,11 +41,19 @@ export class InterfaceTypeRepository extends AbstractRepository<
     super(traceService)
   }
 
-  async getDependentTypes(typeId: ITypeEntity): Promise<Array<ITypeDTO>> {
+  @Span()
+  async getDependentTypes({ id }: ITypeEntity): Promise<Array<ITypeDTO>> {
     return this.neo4jService.withReadTransaction(async (txn) => {
-      const { records } = await txn.run(getDependentTypes, { typeId })
+      const { records } = await txn.run(getDependentTypes, { id })
 
-      return records[0]?.get(0)
+      console.log({
+        id,
+        records,
+      })
+
+      this.traceService.addAttributes({ id, records })
+
+      return records[0]?.get(0) ?? []
     })
   }
 

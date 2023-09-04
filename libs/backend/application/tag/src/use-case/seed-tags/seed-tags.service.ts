@@ -2,13 +2,16 @@ import type { TagNode, TagNodeData } from '@codelab/backend/abstract/core'
 import { CurrentUser, UseCase } from '@codelab/backend/application/service'
 import { TagRepository } from '@codelab/backend/domain/tag'
 import { type ITagDTO, type IUserDTO } from '@codelab/shared/abstract/core'
+import { CommandBus } from '@nestjs/cqrs'
 import uniqBy from 'lodash/uniqBy'
 import { v4 } from 'uuid'
+import { ImportTagsCommand } from '../import-tags.command.service'
 import { TagTreeUtils } from './seed-tags.util'
 
 export class SeedTagsService extends UseCase<TagNode, void> {
   constructor(
     private tagRepository: TagRepository,
+    private commandBus: CommandBus,
     @CurrentUser() private owner: IUserDTO,
   ) {
     super()
@@ -17,7 +20,9 @@ export class SeedTagsService extends UseCase<TagNode, void> {
   async _execute(tagTree: TagNode) {
     const tags = uniqBy(await this.createTagsData(tagTree), (tag) => tag.name)
 
-    await this.tagRepository.seedTags(tags, this.owner)
+    await this.commandBus.execute<ImportTagsCommand>(
+      new ImportTagsCommand(tags, this.owner),
+    )
   }
 
   /* *

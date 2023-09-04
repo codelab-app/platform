@@ -1,24 +1,14 @@
-import type { AnyType } from '@codelab/backend/abstract/codegen'
-import type {
-  IApiOutputDto,
-  ITypeOutputDto,
-} from '@codelab/backend/abstract/core'
+import type { IApiOutputDto } from '@codelab/backend/abstract/core'
 import {
-  ArrayTypeRepository,
   FieldRepository,
   InterfaceTypeRepository,
-  TypeFactory,
 } from '@codelab/backend/domain/type'
 import type {
   IApiEntity,
-  IFieldDTO,
   IInterfaceTypeDTO,
-  IInterfaceTypeEntity,
-  ITypeDTO,
-  ITypeEntity,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { IEntity } from '@codelab/shared/abstract/types'
+import { Span } from '@codelab/shared/infra/otel'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
@@ -38,11 +28,23 @@ export class ExportApiHandler
     private readonly fieldRepository: FieldRepository,
   ) {}
 
+  @Span()
   async execute(command: ExportApiCommand): Promise<IApiOutputDto> {
     const { api } = command
 
     /**
-     * 1) Get all dependent types first
+     * (1) Get itself
+     */
+    const interfaceType = await this.interfaceTypeRepository.findOne({
+      id: api.id,
+    })
+
+    if (!interfaceType) {
+      throw new Error('InterfaceType not found')
+    }
+
+    /**
+     * (2) Get all dependent types first
      */
     const nestedTypes = await this.interfaceTypeRepository.getDependentTypes(
       api,
@@ -52,10 +54,6 @@ export class ExportApiHandler
       (type): type is IInterfaceTypeDTO =>
         type.__typename === `${ITypeKind.InterfaceType}`,
     )
-
-    if (!interfaceTypes.length) {
-      throw new Error('InterfaceType not found')
-    }
 
     const fieldIds = interfaceTypes.reduce(
       (accFieldIds, { id }) => ({
@@ -70,9 +68,9 @@ export class ExportApiHandler
     })
 
     return {
-      api: interfaceTypes[0]!,
+      api: interfaceType,
       fields,
-      types: nestedTypes,
+      types: [interfaceType, ...nestedTypes],
     }
   }
 
