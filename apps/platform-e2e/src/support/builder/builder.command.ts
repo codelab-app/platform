@@ -38,12 +38,6 @@ export const createElementTree = (elements: Array<ElementData>) => {
         value: atom,
       })
 
-      cy.findByTestId('create-element-form').setFormFieldValue({
-        label: 'Register Reference',
-        type: FIELD_TYPE.TOGGLE,
-        value: true,
-      })
-
       if (propsData) {
         cy.findByTestId('create-element-form').setFormFieldValue({
           label: 'Props Data',
