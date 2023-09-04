@@ -10,6 +10,7 @@ import { useDebouncedCallback, useDebouncedEffect } from '@react-hookz/web'
 import { Col, Collapse, Row } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef } from 'react'
+import styled from 'styled-components'
 import { getElementModel } from '../utils/get-element-model'
 import { BackgroundEditor } from './css-background-editor/BackgroundEditor'
 import { BordersEditor } from './css-borders-editor/BordersEditor'
@@ -17,9 +18,16 @@ import { EffectsEditor } from './css-effects-editor/EffectsEditor'
 import { LayoutEditor } from './css-layout-editor'
 import { ShadowsEditor } from './css-shadows-editor'
 import { FontEditor } from './font-editor'
+import { InheritedStyles } from './inherited-styles/InheritedStyles'
 
 const { Panel } = Collapse
 const autosaveTimeout = 1000
+
+const Label = styled.span`
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+`
 
 export interface ElementCssEditorInternalProps {
   element: IElement
@@ -76,6 +84,11 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
     return (
       <Row style={{ marginBottom: '10%' }}>
         <Col span={24}>
+          <Label>Inherited css :</Label>
+          <InheritedStyles element={element} />
+        </Col>
+        <Col span={24}>
+          <Label>Current breakpoint css :</Label>
           <CodeMirrorEditor
             height="100%"
             language={CodeMirrorLanguage.Css}

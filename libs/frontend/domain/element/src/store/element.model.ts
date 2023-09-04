@@ -1,4 +1,5 @@
 import type {
+  ElementCssRules,
   IAction,
   IAtom,
   IComponent,
@@ -68,7 +69,11 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
-import { getRenderType, jsonStringToCss } from './utils'
+import {
+  getRenderType,
+  jsonStringToCss,
+  parseCssStringIntoObject,
+} from './utils'
 
 const create = ({
   childMapperComponent,
@@ -334,6 +339,17 @@ export class Element
     }
   }
 
+  get breakpointsByPrecedence() {
+    const breakpoints = [
+      BuilderWidthBreakPoint.MobilePortrait,
+      BuilderWidthBreakPoint.MobileLandscape,
+      BuilderWidthBreakPoint.Tablet,
+      BuilderWidthBreakPoint.Desktop,
+    ]
+
+    return breakpoints
+  }
+
   @computed
   get slug(): string {
     return slugify(this.name)
@@ -347,14 +363,7 @@ export class Element
     const mediaQueryString = isProduction ? '@media' : '@container root'
     const breakpointStyles = []
 
-    const breakpoints = [
-      BuilderWidthBreakPoint.MobilePortrait,
-      BuilderWidthBreakPoint.MobileLandscape,
-      BuilderWidthBreakPoint.Tablet,
-      BuilderWidthBreakPoint.Desktop,
-    ]
-
-    for (const breakpoint of breakpoints) {
+    for (const breakpoint of this.breakpointsByPrecedence) {
       const breakpointStyle = parsedCss[breakpoint as BuilderWidthBreakPoint]
 
       const breakpointWidth =
@@ -376,6 +385,32 @@ export class Element
     }
 
     return breakpointStyles.join('\n')
+  }
+
+  @computed
+  get stylesInheritedFromOtherBreakpoints() {
+    const currentBreakpoint = this.builderService.selectedBuilderBreakpoint
+    const parsedStyle = this.styleParsed
+    let inheritedStyles = {} as ElementCssRules
+
+    for (const breakpoint of this.breakpointsByPrecedence) {
+      if (breakpoint === currentBreakpoint) {
+        break
+      }
+
+      const { cssString, guiString } = parsedStyle[breakpoint] ?? {}
+      const cssObject = parseCssStringIntoObject(cssString ?? '')
+      const guiObject = JSON.parse(guiString ?? '{}')
+
+      inheritedStyles = { ...inheritedStyles, ...cssObject, ...guiObject }
+    }
+
+    const { cssString, guiString } = parsedStyle[currentBreakpoint] ?? {}
+    const cssObject = parseCssStringIntoObject(cssString ?? '')
+    const guiObject = JSON.parse(guiString ?? '{}')
+    const currentStyles = { ...cssObject, ...guiObject }
+
+    return { currentStyles, inheritedStyles }
   }
 
   @computed

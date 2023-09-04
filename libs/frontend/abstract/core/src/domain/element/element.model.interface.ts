@@ -72,6 +72,10 @@ export type IElementStyle = Record<
   IBreakpointStyle | undefined
 >
 
+export interface ElementCssRules {
+  [key: string]: ElementCssRules | string
+}
+
 export interface IElement
   extends Omit<
       IModel<ElementCreateInput, ElementUpdateInput, void>,
@@ -143,6 +147,16 @@ export interface IElement
    * for development - uses container queries, for better UX
    */
   styleStringWithBreakpoints: string
+  /**
+   * styles that are inherited from other breakpoints,
+   * for example, if we have a style for mobile, it will be inherited
+   * for desktop, and this prop will display the inherited styles
+   * when we edit the desktop breakpoint
+   */
+  stylesInheritedFromOtherBreakpoints: {
+    currentStyles: ElementCssRules
+    inheritedStyles: ElementCssRules
+  }
   treeViewNode: IElementTreeViewDataNode
   urlProps?: IPropData
 
