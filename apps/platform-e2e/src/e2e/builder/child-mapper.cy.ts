@@ -96,17 +96,9 @@ describe('Element Child Mapper', () => {
           cy.getCuiTreeItemByPrimaryTitle(child.name).click({ force: true })
         })
 
-        // Should run after each
-        cy.get(
-          '.codex-editor .ce-block__content .cdx-block[contenteditable="true"]',
-        )
-          .as('editor')
-          .trigger('mousedown', { defaultPrevented: true })
+        cy.typeIntoTextEditor('text {{ props.name }}')
 
-        cy.get('@editor').type('text {{ componentProps.name }}', {
-          force: true,
-          parseSpecialCharSequences: false,
-        })
+        cy.waitForApiCalls()
 
         cy.openPreview()
         cy.get('#render-root').contains('text undefined')
@@ -174,10 +166,10 @@ describe('Element Child Mapper', () => {
       .contains('Child 2')
       .should('exist')
     cy.get('.ant-tree-treenode-draggable:nth-child(4)')
-      .contains(`${COMPONENT_NAME}`)
+      .contains(`${COMPONENT_NAME} 0`)
       .should('exist')
     cy.get('.ant-tree-treenode-draggable:nth-child(5)')
-      .contains(`${COMPONENT_NAME}`)
+      .contains(`${COMPONENT_NAME} 1`)
       .should('exist')
     cy.get('.ant-tree-treenode-draggable:nth-child(6)')
       .contains('Child 1')
@@ -218,10 +210,10 @@ describe('Element Child Mapper', () => {
       .findByText('Child 1')
       .should('exist')
     cy.get('.ant-tree-treenode-draggable:nth-child(5)')
-      .findByText(`${COMPONENT_NAME}`)
+      .findByText(`${COMPONENT_NAME} 0`)
       .should('exist')
     cy.get('.ant-tree-treenode-draggable:nth-child(6)')
-      .findByText(`${COMPONENT_NAME}`)
+      .findByText(`${COMPONENT_NAME} 1`)
       .should('exist')
   })
 
