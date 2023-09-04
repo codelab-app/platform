@@ -26,3 +26,7 @@ export interface IElementDTO {
   renderIfExpression?: Nullable<string>
   renderType?: Nullable<RenderType>
 }
+
+export interface ICreateIElementDTO extends IElementDTO {
+  closestContainerNode: IEntity
+}

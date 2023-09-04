@@ -1,5 +1,6 @@
 import type { Element } from '@codelab/backend/abstract/codegen'
 import { Repository } from '@codelab/backend/infra/adapter/neo4j'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
 import {
   compoundCaseToTitleCase,
@@ -21,7 +22,7 @@ const label = (element: Element) =>
 
 export const importElementInitial = async (
   element: Element,
-  closestContainerNodeId: string,
+  closestContainerNode: IEntity,
 ): Promise<Element> => {
   const Element = await Repository.instance.Element
 
@@ -39,7 +40,10 @@ export const importElementInitial = async (
     } = await Element.create({
       input: [
         {
-          _compoundName: createUniqueName(element.name, closestContainerNodeId),
+          _compoundName: createUniqueName(
+            element.name,
+            closestContainerNode.id,
+          ),
           childMapperComponent: connectNodeId(element.childMapperComponent?.id),
           childMapperPreviousSibling: connectNodeId(
             element.childMapperPreviousSibling?.id,
@@ -88,7 +92,7 @@ export const importElementInitial = async (
     elements: [newElement],
   } = await Element.update({
     update: {
-      _compoundName: createUniqueName(element.name, closestContainerNodeId),
+      _compoundName: createUniqueName(element.name, closestContainerNode.id),
     },
     where: {
       id: element.id,

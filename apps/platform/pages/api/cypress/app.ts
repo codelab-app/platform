@@ -21,6 +21,7 @@ import {
 } from '@codelab/shared/data/test'
 import { auth0Instance } from '@codelab/shared/infra/auth0'
 import type { NextApiHandler } from 'next'
+import { v4 } from 'uuid'
 
 const appRepository = new AppRepository()
 const pageRepository = new PageRepository()
@@ -57,15 +58,24 @@ const createApp: NextApiHandler = async (req, res) => {
       internalServerErrorElementProps,
     ])
 
+    const providerPageId = v4()
+    const notFoundPageId = v4()
+    const internalServerPageId = v4()
+
     /**
      * Create elements
      */
 
-    const providerElement = new Element(providerElementData)
-    const notFoundElement = new Element(notFoundElementData)
+    const providerElement = new Element(
+      providerElementData({ id: providerPageId }),
+    )
+
+    const notFoundElement = new Element(
+      notFoundElementData({ id: notFoundPageId }),
+    )
 
     const internalServerErrorElement = new Element(
-      internalServerErrorElementData,
+      internalServerErrorElementData({ id: internalServerPageId }),
     )
 
     await elementRepository.add([
@@ -106,15 +116,30 @@ const createApp: NextApiHandler = async (req, res) => {
     ])
 
     const providerPage = new Page(
-      providerPageData({ id: app.id }, providerPageStore),
+      providerPageData(
+        providerPageId,
+        { id: app.id },
+        providerPageStore,
+        providerElement,
+      ),
     )
 
     const notFoundPage = new Page(
-      notFoundPageData({ id: app.id }, notFoundPageStore),
+      notFoundPageData(
+        notFoundPageId,
+        { id: app.id },
+        notFoundPageStore,
+        notFoundElement,
+      ),
     )
 
     const internalServerErrorPage = new Page(
-      internalServerErrorPageData({ id: app.id }, internalServerErrorPageStore),
+      internalServerErrorPageData(
+        internalServerPageId,
+        { id: app.id },
+        internalServerErrorPageStore,
+        internalServerErrorElement,
+      ),
     )
 
     await pageRepository.add([

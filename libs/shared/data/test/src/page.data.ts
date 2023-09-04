@@ -1,45 +1,51 @@
 import type { IPageDTO } from '@codelab/shared/abstract/core'
 import { IPageKind, IPageKindName } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import { v4 } from 'uuid'
-import {
-  internalServerErrorElementData,
-  notFoundElementData,
-  providerElementData,
-} from './element.data'
 
-export const providerPageData = (app: IEntity, store: IEntity): IPageDTO => ({
+export const providerPageData = (
+  id: string,
+  app: IEntity,
+  store: IEntity,
+  rootElement: IEntity,
+): IPageDTO => ({
   app,
-  id: v4(),
+  id,
   kind: IPageKind.Provider,
   name: IPageKindName.Provider,
   pageContentContainer: {
-    id: providerElementData.id,
+    id: rootElement.id,
   },
-  rootElement: providerElementData,
+  rootElement,
   store,
   url: IPageKindName.Provider,
 })
 
-export const notFoundPageData = (app: IEntity, store: IEntity): IPageDTO => ({
+export const notFoundPageData = (
+  id: string,
+  app: IEntity,
+  store: IEntity,
+  rootElement: IEntity,
+): IPageDTO => ({
   app,
-  id: v4(),
+  id,
   kind: IPageKind.NotFound,
   name: IPageKindName.NotFound,
-  rootElement: notFoundElementData,
+  rootElement,
   store,
   url: IPageKindName.NotFound,
 })
 
 export const internalServerErrorPageData = (
+  id: string,
   app: IEntity,
   store: IEntity,
+  rootElement: IEntity,
 ): IPageDTO => ({
   app,
-  id: v4(),
+  id,
   kind: IPageKind.InternalServerError,
   name: IPageKindName.InternalServerError,
-  rootElement: internalServerErrorElementData,
+  rootElement,
   store,
   url: IPageKindName.InternalServerError,
 })

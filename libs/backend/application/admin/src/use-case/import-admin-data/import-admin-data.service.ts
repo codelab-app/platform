@@ -135,7 +135,7 @@ export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
       }
 
       for await (const element of descendantElements) {
-        await importElementInitial(element, component.id)
+        await importElementInitial(element, component)
       }
     }
 

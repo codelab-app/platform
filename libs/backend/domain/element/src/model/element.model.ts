@@ -1,4 +1,8 @@
-import type { IElementDTO, RenderType } from '@codelab/shared/abstract/core'
+import type {
+  ICreateIElementDTO,
+  IElementDTO,
+  RenderType,
+} from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable } from '@codelab/shared/abstract/types'
 
 export class Element implements IElementDTO {
@@ -42,9 +46,12 @@ export class Element implements IElementDTO {
 
   refKey?: Nullable<string> | undefined
 
-  constructor({ id, name, props }: IElementDTO) {
+  closestContainerNode: IEntity
+
+  constructor({ closestContainerNode, id, name, props }: ICreateIElementDTO) {
     this.id = id
     this.name = name
     this.props = props
+    this.closestContainerNode = closestContainerNode
   }
 }
