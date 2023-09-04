@@ -115,12 +115,19 @@ describe('State variables sharing between pages', () => {
           cy.getCuiTreeItemByPrimaryTitle(child.name).click({ force: true })
         })
 
-        cy.get('.codex-editor .ce-block__content .cdx-block').type(
+        cy.typeIntoTextEditor(
           'text {{ props.name ?? rootState.name ?? state.name }}',
-          { parseSpecialCharSequences: false },
         )
 
-        cy.get('#render-root').findByText('text undefined').should('exist')
+        cy.waitForApiCalls()
+
+        cy.openPreview()
+        cy.get('#render-root').contains('text undefined').should('exist')
+        cy.openBuilder()
+
+        // Somehow the tree is not updated when navigating back to the builder view
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(2000)
 
         // create a state variable inside the component
         cy.get('[data-cy="codelabui-sidebar-view-header-State"]').click()
@@ -150,8 +157,11 @@ describe('State variables sharing between pages', () => {
           cy.getToolbarItem('Create').click()
         })
 
+        cy.waitForApiCalls()
+
+        cy.openPreview()
         cy.get('#render-root')
-          .findByText('text component state value')
+          .contains('text component state value')
           .should('exist')
 
         // go to the provider page
@@ -237,6 +247,9 @@ describe('State variables sharing between pages', () => {
       timeout: 10000,
     })
 
+    cy.waitForApiCalls()
+
+    cy.openPreview()
     cy.get('#render-root')
       .findByText('text provider state value')
       .should('exist')
