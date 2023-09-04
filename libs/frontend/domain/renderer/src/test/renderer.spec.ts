@@ -26,7 +26,10 @@ describe('Renderer', () => {
     const rootElement = clonedComponent?.rootElement.current
     const rootElementProps = rootElement?.runtimeProp?.evaluatedProps || {}
 
-    expect(props).toMatchObject(rootElementProps)
+    expect(props).toMatchObject({
+      ...rootElementProps,
+      ref: expect.any(Function),
+    })
 
     const componentAtomType =
       rootElement && isAtomInstance(rootElement.renderType)
@@ -53,6 +56,7 @@ describe('Renderer', () => {
       ...rootElementProps,
       [DATA_COMPONENT_ID]: clonedComponent?.id,
       expressionProp: 'expression value - component instance prop',
+      ref: expect.any(Function),
     })
   })
 })

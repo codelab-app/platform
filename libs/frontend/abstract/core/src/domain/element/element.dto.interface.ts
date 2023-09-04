@@ -14,7 +14,6 @@ export interface ICreateElementData {
   /**
    * We should connect to `atom` or `component` in future
    */
-  refKey?: Nullable<string>
   renderType?: Nullable<RenderType>
 }
 
@@ -25,7 +24,6 @@ export type IUpdateElementData = Pick<
   | 'name'
   | 'postRenderAction'
   | 'preRenderAction'
-  | 'refKey'
   | 'renderType'
 > &
   Pick<ICreateElementData, 'id'> & {
@@ -48,7 +46,6 @@ export type IUpdateBaseElementData = Pick<
   | 'name'
   | 'postRenderAction'
   | 'preRenderAction'
-  | 'refKey'
   | 'renderForEachPropKey'
   | 'renderIfExpression'
   | 'renderType'

@@ -53,9 +53,6 @@ export const elementSchema = gql`
     renderComponentType: Component
       @relationship(type: "RENDER_COMPONENT_TYPE", direction: OUT)
 
-    _compoundRefKey: String @unique
-    refKey: String @customResolver(requires: ["id", "_compoundRefKey"])
-
     renderAtomType: Atom @relationship(type: "RENDER_ATOM_TYPE", direction: OUT)
     renderType: RenderType
 

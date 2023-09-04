@@ -44,8 +44,6 @@ export class Element implements IElementDTO {
 
   renderType?: Nullable<RenderType> | undefined
 
-  refKey?: Nullable<string> | undefined
-
   closestContainerNode: IEntity
 
   constructor({ closestContainerNode, id, name, props }: ICreateIElementDTO) {

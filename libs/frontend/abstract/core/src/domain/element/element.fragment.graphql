@@ -2,7 +2,6 @@ fragment Element on Element {
   __typename
   id
   name
-  slug
   customCss
   guiCss
   page {
@@ -15,7 +14,6 @@ fragment Element on Element {
     ...Atom
     # ...RenderAtom
   }
-  refKey
   renderType {
     id
     kind
@@ -62,7 +60,6 @@ fragment ProductionElement on Element {
   __typename
   id
   name
-  slug
   customCss
   guiCss
   page {
