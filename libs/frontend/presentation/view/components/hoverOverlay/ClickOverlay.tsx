@@ -1,4 +1,5 @@
 import { useScroll, useScrollIntoView } from '@codelab/frontend/shared/utils'
+import { useDebouncedEffect } from '@react-hookz/web'
 import type { CSSProperties } from 'react'
 import React, { useEffect, useState } from 'react'
 import useResizeObserver from 'use-resize-observer/polyfilled'
@@ -6,6 +7,7 @@ import type { OverlayProps } from './overlay.interface'
 
 export const ClickOverlay = ({
   content,
+  dependencies,
   element,
   renderContainer,
 }: OverlayProps) => {
@@ -13,6 +15,9 @@ export const ClickOverlay = ({
   // - element is resized
   // - the page is resized
   // - the content is scrolled
+  // - element css is updated, especially height, width, margin, padding
+  // - element props is updated (some props may affect size and position when using 'auto')
+
   useResizeObserver({ ref: element })
   useResizeObserver({ ref: renderContainer })
   useScrollIntoView(element, renderContainer)
@@ -27,7 +32,16 @@ export const ClickOverlay = ({
   useEffect(() => {
     setRect(element.getBoundingClientRect())
     setContainerRect(renderContainer.getBoundingClientRect())
-  }, [element, renderContainer])
+  }, [element, renderContainer, ...dependencies])
+
+  useDebouncedEffect(
+    () => {
+      setRect(element.getBoundingClientRect())
+      setContainerRect(renderContainer.getBoundingClientRect())
+    },
+    dependencies,
+    180,
+  )
 
   const style: CSSProperties = {
     border: '1px solid rgb(7, 62, 78)',
