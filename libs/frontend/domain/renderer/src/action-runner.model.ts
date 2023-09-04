@@ -141,6 +141,7 @@ export class ActionRunner
       componentProps: {},
       props: {},
       refs: {},
+      rootActions: {},
       rootRefs: {},
       rootState: {},
       state: {},
@@ -200,7 +201,7 @@ export class ActionRunner
       const overrideConfig = args[1] as IPropData
       // @ts-expect-error: due to not using arrow function
       const _this = this as IEvaluationContext
-      const evaluatedConfig = evaluateObject(config, _this)
+      const evaluatedConfig = evaluateObject(config, { ..._this, args })
 
       const fetchPromise =
         resource.type === IResourceType.GraphQL
@@ -242,6 +243,7 @@ export class ActionRunner
       return new Function(
         `return function run(...args) {
           const actions = this.actions;
+          const rootActions = this.rootActions;
           const state = this.state;
           const rootState = this.rootState;
           const refs = this.refs;

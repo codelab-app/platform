@@ -313,6 +313,7 @@ export class Element
       props: {},
       refs: this.store.current.refs,
       rendererType: this.renderService.activeRenderer?.current.rendererType,
+      rootActions: this.providerStore?.current.actionRunners ?? {},
       rootRefs: this.providerStore?.current.refs || {},
       rootState: this.providerStore?.current.state || {},
       state: this.store.current.state,

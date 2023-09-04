@@ -40,11 +40,20 @@ export const evaluateExpression = (
   try {
     const code = `return ${stripStateExpression(expression)}`
 
-    const { componentProps, props, refs, rootRefs, rootState, state, url } =
-      context
+    const {
+      args = [],
+      componentProps,
+      props,
+      refs,
+      rootRefs,
+      rootState,
+      state,
+      url,
+    } = context
 
     // eslint-disable-next-line no-new-func
     return new Function(
+      'args',
       'componentProps',
       'props',
       'refs',
@@ -53,7 +62,7 @@ export const evaluateExpression = (
       'state',
       'url',
       code,
-    )(componentProps, props, refs, rootRefs, rootState, state, url)
+    )(args, componentProps, props, refs, rootRefs, rootState, state, url)
   } catch (error) {
     console.log(error)
 
@@ -99,10 +108,25 @@ const getByExpression = (key: string, context: IEvaluationContext) => {
     return evaluateExpression(key, context)
   }
 
+  return evaluateExpressions(key, context)
+}
+
+/**
+ * Used for texts having multiple expressions, or not starting with "{{" and ending with "}}"
+ * e.g. code actions with expressions
+ */
+export const evaluateExpressions = (
+  text: string,
+  context: IEvaluationContext,
+) => {
+  if (!hasStateExpression(text)) {
+    return text
+  }
+
   /**
    * return string value for : [text1]? {{expression1}} [text2]? {{expression2}}...
    */
-  return key.replace(STATE_PATH_TEMPLATE_REGEX, (value) =>
+  return text.replace(STATE_PATH_TEMPLATE_REGEX, (value) =>
     evaluateExpression(value, context),
   )
 }
