@@ -22,14 +22,35 @@ export const PageDetailHeader = observer(() => {
   const { appName: currentAppName, appSlug, userName } = useCurrentApp()
   const { pageName: currentPageName, pageSlug } = useCurrentPage()
   const { componentName: currentComponentName } = useCurrentComponent()
-  const isBuilder = router.pathname === PageType.PageBuilder
+  const isComponentBuilder = router.pathname === PageType.ComponentBuilder
+  const isComponentPreview = router.pathname === PageType.ComponentPreview
+  const isPageBuilder = router.pathname === PageType.PageBuilder
+  const isPagePreview = router.pathname === PageType.PageDetail
   const appName = currentAppName || '?'
   const pageName = currentPageName || '?'
   const componentName = currentComponentName || '?'
 
   const switchPreviewMode = () => {
+    let pathname
+
+    if (isComponentPreview) {
+      pathname = PageType.ComponentBuilder
+    }
+
+    if (isComponentBuilder) {
+      pathname = PageType.ComponentPreview
+    }
+
+    if (isPagePreview) {
+      pathname = PageType.PageBuilder
+    }
+
+    if (isPageBuilder) {
+      pathname = PageType.PageDetail
+    }
+
     return router.push({
-      pathname: isBuilder ? PageType.PageDetail : PageType.PageBuilder,
+      pathname,
       query: router.query,
     })
   }
@@ -52,10 +73,15 @@ export const PageDetailHeader = observer(() => {
 
   const toolbarItems: Array<ToolbarItem> = [
     {
-      icon: isBuilder ? <EyeOutlined /> : <ToolOutlined />,
+      icon:
+        isPageBuilder || isComponentBuilder ? (
+          <EyeOutlined />
+        ) : (
+          <ToolOutlined />
+        ),
       key: '1',
       onClick: switchPreviewMode,
-      title: isBuilder ? 'Preview' : 'Builder',
+      title: isPageBuilder || isComponentBuilder ? 'Preview' : 'Builder',
     },
   ]
 
@@ -73,7 +99,7 @@ export const PageDetailHeader = observer(() => {
 
   return (
     <CuiHeader
-      centralArea={isBuilder ? <BuilderSizeMenu /> : null}
+      centralArea={isPageBuilder ? <BuilderSizeMenu /> : null}
       direction={<CuiHeaderBreadcrumb items={directionItems} />}
       logo={
         <Image

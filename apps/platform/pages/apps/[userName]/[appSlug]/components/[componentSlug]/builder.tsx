@@ -1,3 +1,4 @@
+import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
 import {
@@ -26,7 +27,11 @@ import React, { useEffect, useMemo } from 'react'
 
 const ComponentBuilder: CodelabPage = observer(() => {
   const { componentName } = useCurrentComponent()
-  const [{ error, status }, loadCurrentPage] = useRenderedComponent()
+
+  const [{ error, status }, loadCurrentPage] = useRenderedComponent(
+    RendererType.ComponentBuilder,
+  )
+
   const isLoading = status !== 'success'
   const contentStyles = useMemo(() => ({ paddingTop: '0rem' }), [])
 
