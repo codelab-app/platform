@@ -25,11 +25,7 @@ export type ElementFragment = {
   page?: { id: string } | null
   renderComponentType?: { id: string } | null
   renderAtomType?: AtomFragment | null
-  renderType?: {
-    id: string
-    kind: Types.RenderTypeKind
-    registerReference?: boolean | null
-  } | null
+  renderType?: { id: string; kind: Types.RenderTypeKind } | null
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
   parentComponent?: { id: string } | null
@@ -60,11 +56,7 @@ export type ProductionElementFragment = {
   page?: { id: string } | null
   renderComponentType?: { id: string } | null
   renderAtomType?: ProductionAtomFragment | null
-  renderType?: {
-    id: string
-    kind: Types.RenderTypeKind
-    registerReference?: boolean | null
-  } | null
+  renderType?: { id: string; kind: Types.RenderTypeKind } | null
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
   parentComponent?: { id: string } | null
@@ -102,7 +94,6 @@ export const ElementFragmentDoc = gql`
     renderType {
       id
       kind
-      registerReference
     }
     prevSibling {
       id
@@ -163,7 +154,6 @@ export const ProductionElementFragmentDoc = gql`
     renderType {
       id
       kind
-      registerReference
     }
     prevSibling {
       id

@@ -15532,7 +15532,6 @@ type RenderPropTypesConnection {
 type RenderType {
   id: ID!
   kind: RenderTypeKind!
-  registerReference: Boolean
 }
 
 enum RenderTypeKind {

@@ -16834,7 +16834,6 @@ export type RenderType = {
   __typename?: 'RenderType'
   id: Scalars['ID']['output']
   kind: RenderTypeKind
-  registerReference?: Maybe<Scalars['Boolean']['output']>
 }
 
 export enum RenderTypeKind {
@@ -22174,7 +22173,6 @@ export type ElementFragment = {
     __typename?: 'RenderType'
     id: string
     kind: RenderTypeKind
-    registerReference?: boolean | null
   } | null
   prevSibling?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null
@@ -22214,7 +22212,6 @@ export type ProductionElementFragment = {
     __typename?: 'RenderType'
     id: string
     kind: RenderTypeKind
-    registerReference?: boolean | null
   } | null
   prevSibling?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null

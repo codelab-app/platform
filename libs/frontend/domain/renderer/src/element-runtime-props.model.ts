@@ -2,7 +2,10 @@ import type {
   IElement,
   IElementRuntimeProp,
 } from '@codelab/frontend/abstract/core'
-import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
+import {
+  DATA_ELEMENT_ID,
+  isAtomInstance,
+} from '@codelab/frontend/abstract/core'
 import {
   evaluateExpression,
   evaluateObject,
@@ -28,6 +31,7 @@ export class ElementRuntimeProps
   @computed
   get props() {
     // memorize values or else it will be lost inside callback
+    const registerReference = isAtomInstance(this.node.renderType)
     const slug = this.node.slug
     const store = this.node.store.current
 
@@ -40,9 +44,10 @@ export class ElementRuntimeProps
        * Internal system props for meta data, use double underline for system-defined identifiers.
        */
       [DATA_ELEMENT_ID]: this.node.id,
-      // FIXME: add condition to attach ref
-      forwardedRef: (node: HTMLElement) => store.registerRef(slug, node),
       key: this.node.id,
+      ref: registerReference
+        ? (node: HTMLElement) => store.registerRef(slug, node)
+        : undefined,
     }
   }
 

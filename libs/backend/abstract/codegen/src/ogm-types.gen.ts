@@ -6291,7 +6291,6 @@ export type RenderPropTypeUserOwnerNodeAggregateSelection = {
 export type RenderType = {
   __typename?: 'RenderType'
   id: Scalars['ID']
-  registerReference?: Maybe<Scalars['Boolean']>
   kind: RenderTypeKind
 }
 
@@ -27866,7 +27865,6 @@ export type RenderPropTypeWhere = {
 
 export type RenderTypeCreateInput = {
   id: Scalars['ID']
-  registerReference?: InputMaybe<Scalars['Boolean']>
   kind: RenderTypeKind
 }
 
@@ -27880,13 +27878,11 @@ export type RenderTypeOptions = {
 /** Fields to sort RenderTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one RenderTypeSort object. */
 export type RenderTypeSort = {
   id?: InputMaybe<SortDirection>
-  registerReference?: InputMaybe<SortDirection>
   kind?: InputMaybe<SortDirection>
 }
 
 export type RenderTypeUpdateInput = {
   id?: InputMaybe<Scalars['ID']>
-  registerReference?: InputMaybe<Scalars['Boolean']>
   kind?: InputMaybe<RenderTypeKind>
 }
 
@@ -27910,9 +27906,6 @@ export type RenderTypeWhere = {
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']>
-  registerReference?: InputMaybe<Scalars['Boolean']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  registerReference_NOT?: InputMaybe<Scalars['Boolean']>
   kind?: InputMaybe<RenderTypeKind>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   kind_NOT?: InputMaybe<RenderTypeKind>
