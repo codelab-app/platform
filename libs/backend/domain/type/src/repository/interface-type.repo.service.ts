@@ -5,7 +5,9 @@ import type {
   InterfaceTypeWhere,
 } from '@codelab/backend/abstract/codegen'
 import {
+  getDependentTypes,
   interfaceTypeSelectionSet,
+  Neo4jService,
   OGMService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
@@ -13,6 +15,8 @@ import { AbstractRepository } from '@codelab/backend/infra/core'
 import type {
   IFieldDTO,
   IInterfaceTypeDTO,
+  ITypeDTO,
+  ITypeEntity,
 } from '@codelab/shared/abstract/core'
 import {
   connectAuth0Owner,
@@ -31,8 +35,17 @@ export class InterfaceTypeRepository extends AbstractRepository<
   constructor(
     private ogmService: OGMService,
     protected traceService: TraceService,
+    private neo4jService: Neo4jService,
   ) {
     super(traceService)
+  }
+
+  async getDependentTypes(typeId: ITypeEntity): Promise<Array<ITypeDTO>> {
+    return this.neo4jService.withReadTransaction(async (txn) => {
+      const { records } = await txn.run(getDependentTypes, { typeId })
+
+      return records[0]?.get(0)
+    })
   }
 
   protected async _find({

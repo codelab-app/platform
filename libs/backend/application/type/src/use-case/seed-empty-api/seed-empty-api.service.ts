@@ -31,8 +31,11 @@ export class SeedEmptyApiService extends UseCase<Array<IAtomType>, void> {
 
     await Promise.all(
       atoms.map(async (name) => {
-        // Want to get atom api y atom name
-        const interfaceType = InterfaceType.createFromAtomName(name, this.owner)
+        // Create empty api from atom name
+        const { fields, ...interfaceType } = InterfaceType.createFromAtomName(
+          name,
+          this.owner,
+        )
 
         // Search existing interface type
         const existingInterfaceType = existingInterfaceTypes.get(
@@ -45,6 +48,7 @@ export class SeedEmptyApiService extends UseCase<Array<IAtomType>, void> {
         }
 
         await this.interfaceTypeRepository.save({
+          fields: [],
           ...interfaceType,
           owner: this.owner,
         })

@@ -1,6 +1,10 @@
 import type { IApiOutputDto } from '@codelab/backend/abstract/core'
 import { FieldRepository, TypeFactory } from '@codelab/backend/domain/type'
-import type { IAuth0User } from '@codelab/shared/abstract/core'
+import type {
+  IAuth0User,
+  IInterfaceTypeDTO,
+} from '@codelab/shared/abstract/core'
+import { ITypeKind } from '@codelab/shared/abstract/core'
 import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ImportApiCommand {
@@ -18,7 +22,7 @@ export class ImportApiHandler
 
   async execute(command: ImportApiCommand) {
     const {
-      apiOutput: { fields, types },
+      apiOutput: { api, fields, types },
       owner,
     } = command
 
@@ -27,7 +31,7 @@ export class ImportApiHandler
     }
 
     for (const field of fields) {
-      await this.fieldRepository.save({ ...field })
+      await this.fieldRepository.save(field)
     }
   }
 }

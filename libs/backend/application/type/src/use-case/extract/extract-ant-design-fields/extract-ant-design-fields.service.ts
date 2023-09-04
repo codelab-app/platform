@@ -86,7 +86,7 @@ export class ExtractAntDesignFieldsService extends UseCase<
   ): Promise<IFieldDTO | undefined> {
     const existingField = await this.fieldRepository.findOne({
       api: {
-        id: atom.api?.id,
+        id: atom.api.id,
       },
       key: field.property,
     })
@@ -112,7 +112,7 @@ export class ExtractAntDesignFieldsService extends UseCase<
     )
 
     return Field.create({
-      api: { id: atom.api?.id ?? '' },
+      api: { id: atom.api.id },
       defaultValues: null,
       description: field.description,
       fieldType: type,

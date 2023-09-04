@@ -30,10 +30,6 @@ export class ImportPageHandler implements ICommandHandler<ImportPageCommand> {
       await this.elementRepository.save(element)
     }
 
-    for (const field of store.api.fields) {
-      await this.fieldRepository.save(field)
-    }
-
     await this.commandBus.execute<ImportStoreCommand>(
       new ImportStoreCommand(store, owner),
     )

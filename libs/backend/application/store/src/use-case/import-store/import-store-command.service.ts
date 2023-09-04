@@ -35,9 +35,5 @@ export class ImportStoreHandler implements ICommandHandler<ImportStoreCommand> {
     await this.commandBus.execute<ImportApiCommand>(
       new ImportApiCommand(api, owner),
     )
-
-    for (const field of api.fields) {
-      await this.fieldRepository.save(field)
-    }
   }
 }

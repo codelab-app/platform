@@ -811,11 +811,7 @@ export class ElementService
   private async cloneElementStore(element: IElement, component: IComponent) {
     const elementStore = element.store.current
     const componentStore = component.store.current
-    const componentStoreId = componentStore.api?.current.id
-
-    if (!elementStore.api || !componentStoreId) {
-      throw new Error('Missing data')
-    }
+    const componentStoreId = componentStore.api.current.id
 
     // Duplicate state fields into the component store api
     await Promise.all(

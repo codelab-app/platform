@@ -1,9 +1,6 @@
-import type {
-  IAdminOutputDto,
-  IAtomOutputDto,
-} from '@codelab/backend/abstract/core'
+import type { IAdminOutputDto } from '@codelab/backend/abstract/core'
 import {
-  IAtomInputDto,
+  IAtomOutputDto,
   IComponentOutputDto,
   ITagOutputDto,
   ITypeOutputDto,
@@ -64,7 +61,7 @@ export class ReadAdminDataService implements IBaseDataPaths, IAdminOutputDto {
       )
 
       const atomExport = JSON.parse(content.toString())
-      const atom = Typebox.Validate(IAtomInputDto, atomExport)
+      const atom = Typebox.Validate(IAtomOutputDto, atomExport)
 
       atoms.push(atom)
 

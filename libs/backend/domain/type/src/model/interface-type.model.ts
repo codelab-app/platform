@@ -21,9 +21,9 @@ export class InterfaceType extends BaseType implements IInterfaceTypeDTO {
 
   declare owner: IAuth0User
 
-  fields: Array<IEntity>
+  declare fields: Array<IEntity>
 
-  constructor({ fields, id, name, owner }: IInterfaceTypeDTO) {
+  constructor({ fields = [], id, name, owner }: IInterfaceTypeDTO) {
     super({ id, kind: ITypeKind.InterfaceType, name, owner })
 
     this.fields = fields

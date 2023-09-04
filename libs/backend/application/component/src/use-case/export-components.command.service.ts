@@ -53,7 +53,7 @@ export class ExportComponentsHandler
         const api = await this.commandBus.execute<
           ExportApiCommand,
           IApiOutputDto
-        >(new ExportApiCommand([component.api]))
+        >(new ExportApiCommand(component.api))
 
         const store = await this.commandBus.execute<ExportStoreCommand>(
           new ExportStoreCommand({ id: component.store.id }),

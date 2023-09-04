@@ -43,7 +43,7 @@ const create = ({
   type,
 }: IAtomDTO) => {
   return new Atom({
-    api: api?.id ? typeRef<IInterfaceType>(api.id) : undefined,
+    api: api.id ? typeRef<IInterfaceType>(api.id) : undefined,
     externalCssSource,
     externalJsSource,
     externalSourceType,

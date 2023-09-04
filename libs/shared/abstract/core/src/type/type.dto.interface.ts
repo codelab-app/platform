@@ -16,21 +16,24 @@ import { IReactNodeTypeDTO } from './react-node-type.dto.interface'
 import { IRenderPropTypeDTO } from './render-prop-type.dto.interface'
 import { IUnionTypeDTO } from './union-type.dto.interface'
 
-export const ITypeDTO = Type.Union([
-  IActionTypeDTO,
-  IAppTypeDTO,
-  IArrayTypeDTO,
-  ICodeMirrorTypeDTO,
-  IElementTypeDTO,
-  IEnumTypeDTO,
-  IInterfaceTypeDTO,
-  ILambdaTypeDTO,
-  IPageTypeDTO,
-  IPrimitiveTypeDTO,
-  IReactNodeTypeDTO,
-  IRenderPropTypeDTO,
-  IUnionTypeDTO,
-])
+export const ITypeDTO = Type.Union(
+  [
+    IActionTypeDTO,
+    IAppTypeDTO,
+    IArrayTypeDTO,
+    ICodeMirrorTypeDTO,
+    IElementTypeDTO,
+    IEnumTypeDTO,
+    IInterfaceTypeDTO,
+    ILambdaTypeDTO,
+    IPageTypeDTO,
+    IPrimitiveTypeDTO,
+    IReactNodeTypeDTO,
+    IRenderPropTypeDTO,
+    IUnionTypeDTO,
+  ],
+  { discriminantKey: '__typename', errorMessage: 'Unknown type' },
+)
 
 export type ITypeDTO = Static<typeof ITypeDTO>
 

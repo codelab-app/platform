@@ -60,7 +60,7 @@ export class ExportAtomsHandler
     this.traceService.getSpan()!.setAttributes({ atom: atom.name })
 
     const api = await this.commandBus.execute<ExportApiCommand, IApiOutputDto>(
-      new ExportApiCommand([atom.api]),
+      new ExportApiCommand(atom.api),
     )
 
     return {

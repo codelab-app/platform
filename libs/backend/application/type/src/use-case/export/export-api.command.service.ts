@@ -1,17 +1,29 @@
 import type { AnyType } from '@codelab/backend/abstract/codegen'
-import type { IApiOutputDto } from '@codelab/backend/abstract/core'
+import type {
+  IApiOutputDto,
+  ITypeOutputDto,
+} from '@codelab/backend/abstract/core'
 import {
   ArrayTypeRepository,
+  FieldRepository,
   InterfaceTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import type { IApiEntity, ITypeEntity } from '@codelab/shared/abstract/core'
+import type {
+  IApiEntity,
+  IFieldDTO,
+  IInterfaceTypeDTO,
+  IInterfaceTypeEntity,
+  ITypeDTO,
+  ITypeEntity,
+} from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { IEntity } from '@codelab/shared/abstract/types'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
 export class ExportApiCommand {
-  constructor(public apiId: IApiEntity) {}
+  constructor(public api: IApiEntity) {}
 }
 
 /**
@@ -23,73 +35,91 @@ export class ExportApiHandler
 {
   constructor(
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
-    private readonly arrayTypeRepository: ArrayTypeRepository,
-    private readonly typeFactory: TypeFactory,
+    private readonly fieldRepository: FieldRepository,
   ) {}
 
   async execute(command: ExportApiCommand): Promise<IApiOutputDto> {
-    const { apiId } = command
+    const { api } = command
+
     /**
      * 1) Get all dependent types first
      */
-    const { fields, types } = await this.getNestedTypes(apiId)
+    const nestedTypes = await this.interfaceTypeRepository.getDependentTypes(
+      api,
+    )
 
-    /**
-     * 3) Resolve all dependent types
-     */
-    const dependantTypes = (
-      await Promise.all(
-        fields.flatMap((field) => this.typeFactory.findOne(field.fieldType)),
-      )
-    ).filter((type): type is AnyType => Boolean(type))
+    const interfaceTypes = nestedTypes.filter(
+      (type): type is IInterfaceTypeDTO =>
+        type.__typename === `${ITypeKind.InterfaceType}`,
+    )
+
+    if (!interfaceTypes.length) {
+      throw new Error('InterfaceType not found')
+    }
+
+    const fieldIds = interfaceTypes.reduce(
+      (accFieldIds, { id }) => ({
+        ...accFieldIds,
+        id,
+      }),
+      [] as Array<string>,
+    )
+
+    const fields = await this.fieldRepository.find({
+      where: { id_IN: fieldIds },
+    })
 
     return {
+      api: interfaceTypes[0]!,
       fields,
-      types: [...dependantTypes, ...types],
+      types: nestedTypes,
     }
   }
 
   /**
    * Recursively get all nested interfaces through fields. We do this since searching for more than 1 connection in GraphQL is O(n)
    */
-  async getNestedTypes({ __typename, id }: IApiEntity): Promise<IApiOutputDto> {
-    if (__typename === ITypeKind.InterfaceType) {
-      const interfaceType = await this.interfaceTypeRepository.findOne({ id })
+  // async getNestedTypes({
+  //   __typename,
+  //   id,
+  // }: ITypeEntity): Promise<ITypeOutputDto> {
+  //   if (__typename === ITypeKind.InterfaceType) {
+  //     const interfaceType = await this.interfaceTypeRepository.findOne({ id })
 
-      if (!interfaceType) {
-        throw new Error('Missing interfaceType')
-      }
+  //     if (!interfaceType) {
+  //       throw new Error('Missing interfaceType')
+  //     }
 
-      const fieldTypes = interfaceType.fields.map((field) => field.fieldType)
+  //     const fieldTypes = interfaceType.fields.map((field) => field.fieldType)
 
-      const types: Array<IApiOutputDto> = await Promise.all(
-        fieldTypes.map((fieldType) => this.getNestedTypes(fieldType)),
-      )
+  //     const types: Array<ITypeOutputDto> = await Promise.all(
+  //       fieldTypes.map((fieldType) => this.getNestedTypes(fieldType)),
+  //     )
 
-      const typesExport: IApiOutputDto = {
-        fields: [
-          ...interfaceType.fields,
-          ...types.map((result) => result.fields).flat(),
-        ],
-        types: [interfaceType, ...types.map((result) => result.types).flat()],
-      }
+  //     const typesExport: ITypeOutputDto = {
+  //       fields: [
+  //         ...interfaceType.fields,
+  //         ...types.map((result) => result.fields).flat(),
+  //       ],
+  //       types: [interfaceType, ...types.map((result) => result.types).flat()],
+  //     }
 
-      return typesExport
-    }
+  //     return typesExport
+  //   }
 
-    if (__typename === ITypeKind.ArrayType) {
-      const arrayType = await this.arrayTypeRepository.findOne({ id })
+  //   if (__typename === ITypeKind.ArrayType) {
+  //     const arrayType = await this.arrayTypeRepository.findOne({ id })
 
-      if (!arrayType) {
-        throw new Error('Missing ArrayType')
-      }
+  //     if (!arrayType) {
+  //       throw new Error('Missing ArrayType')
+  //     }
 
-      const itemType = arrayType.itemType
-      const results = await this.getNestedTypes(itemType)
+  //     const itemType = arrayType.itemType
+  //     const results = await this.getNestedTypes(itemType)
 
-      return { fields: results.fields, types: [...results.types, arrayType] }
-    }
+  //     return { fields: results.fields, types: [...results.types, arrayType] }
+  //   }
 
-    return { fields: [], types: [] }
-  }
+  //   return { fields: [], types: [] }
+  // }
 }

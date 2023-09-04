@@ -68,7 +68,7 @@ export class AtomRepository extends AbstractRepository<
             ...atom
           }) => ({
             ...atom,
-            api: connectNodeId(api?.id),
+            api: connectNodeId(api.id),
             owner: connectAuth0Owner(owner),
             requiredParents: connectNodeIds(
               requiredParents.map((parent) => parent.id),
@@ -101,7 +101,7 @@ export class AtomRepository extends AbstractRepository<
       ).update({
         update: {
           ...atom,
-          api: reconnectNodeId(api?.id),
+          api: reconnectNodeId(api.id),
           requiredParents: whereNodeIds(
             requiredParents.map((parent) => parent.id),
           ),

@@ -78,7 +78,7 @@ export class ExtractHtmlFieldsService
   ): Promise<IFieldDTO | undefined> {
     const existingField = await this.fieldRepository.findOne({
       api: {
-        id: atom.api?.id,
+        id: atom.api.id,
       },
       key: field.key,
     })
@@ -104,7 +104,7 @@ export class ExtractHtmlFieldsService
     )
 
     return Field.create({
-      api: { id: atom.api?.id ?? '' },
+      api: { id: atom.api.id },
       defaultValues: null,
       description: '',
       fieldType: type,

@@ -11,9 +11,9 @@ import {
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
-import { FIELD_TYPE } from '../../support/antd/form'
+import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
+import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 import type { ElementData } from '../../support/builder/builder.command'
-import { loginSession } from '../../support/nextjs-auth0/commands/login'
 
 const ELEMENT_FORM = 'Element Form'
 const ELEMENT_FORM_ITEM_INPUT = 'Element Form Item Input'

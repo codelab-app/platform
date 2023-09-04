@@ -41,7 +41,7 @@ export const createAtomsApiData = (
   atomsData: Array<IAtomDTO>,
 ): Array<IInterfaceTypeDTO> =>
   atomsData.map((atom) => {
-    if (!atom.api?.id) {
+    if (!atom.api.id) {
       throw new Error('Missing api id')
     }
 
