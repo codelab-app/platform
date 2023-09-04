@@ -1,6 +1,7 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import { FIELD_TYPE } from '../antd/form'
 
+export const NEW_ELEMENT_ID_NAME = 'elementId'
 export interface ElementData {
   atom?: string
   name: string
@@ -91,4 +92,36 @@ export const openPreview = () => {
 
 export const openBuilder = () => {
   return cy.get('[data-cy="codelabui-toolbar-item-Builder"] button').click()
+}
+
+/**
+ * Creates an alias, with name {@link NEW_ELEMENT_ID_NAME}, for the new element id.
+ * This should be called only when the create element form is open.
+ */
+export const storeNewElementId = () => {
+  return cy
+    .get('input[name="id"]')
+    .invoke('val')
+    .then((id) => {
+      cy.wrap(id).as(NEW_ELEMENT_ID_NAME)
+    })
+}
+
+/**
+ * Gets the new element id from the alias {@link NEW_ELEMENT_ID_NAME}.
+ */
+export const getNewElementId = () => {
+  return cy.get<string>(`@${NEW_ELEMENT_ID_NAME}`).then((id) => id)
+}
+
+export const preventDefaultOnClick = (identifier: string) => {
+  cy.get(identifier).then((el) => {
+    el.on('click', (event) => event.preventDefault())
+  })
+}
+
+export const removePreventDefaultOnClick = (identifier: string) => {
+  cy.get(identifier).then((el) => {
+    el.off('click')
+  })
 }

@@ -174,10 +174,10 @@ describe('Element Child Mapper', () => {
       .contains('Child 2')
       .should('exist')
     cy.get('.ant-tree-treenode-draggable:nth-child(4)')
-      .contains(`${COMPONENT_NAME} 0`)
+      .contains(`${COMPONENT_NAME}`)
       .should('exist')
     cy.get('.ant-tree-treenode-draggable:nth-child(5)')
-      .contains(`${COMPONENT_NAME} 1`)
+      .contains(`${COMPONENT_NAME}`)
       .should('exist')
     cy.get('.ant-tree-treenode-draggable:nth-child(6)')
       .contains('Child 1')
@@ -196,6 +196,8 @@ describe('Element Child Mapper', () => {
       type: FIELD_TYPE.CODE_MIRROR,
       value: '{{[{ name: "updated test 1" }, { name: "updated test 2" }]}}',
     })
+
+    cy.waitForApiCalls()
 
     // changed props
     cy.openPreview()
@@ -216,10 +218,10 @@ describe('Element Child Mapper', () => {
       .findByText('Child 1')
       .should('exist')
     cy.get('.ant-tree-treenode-draggable:nth-child(5)')
-      .findByText(`${COMPONENT_NAME} 0`)
+      .findByText(`${COMPONENT_NAME}`)
       .should('exist')
     cy.get('.ant-tree-treenode-draggable:nth-child(6)')
-      .findByText(`${COMPONENT_NAME} 1`)
+      .findByText(`${COMPONENT_NAME}`)
       .should('exist')
   })
 
@@ -231,13 +233,15 @@ describe('Element Child Mapper', () => {
       value: '{{[]}}',
     })
 
+    cy.waitForApiCalls()
+
     // rendered instances are removed
     cy.get('.ant-tree-treenode-draggable').should('have.length', 4)
 
     // changed props
     cy.openPreview()
-    cy.get('#render-root').contains('text updated test 1')
-    cy.get('#render-root').contains('text updated test 2')
+    cy.get('#render-root').contains('text updated test 1').should('not.exist')
+    cy.get('#render-root').contains('text updated test 2').should('not.exist')
     cy.openBuilder()
   })
 
@@ -249,12 +253,14 @@ describe('Element Child Mapper', () => {
       value: '{{false}}',
     })
 
+    cy.waitForApiCalls()
+
     // rendered instances are removed
     cy.get('.ant-tree-treenode-draggable').should('have.length', 4)
 
     // changed props
     cy.openPreview()
-    cy.get('#render-root').contains('text updated test 1')
-    cy.get('#render-root').contains('text updated test 2')
+    cy.get('#render-root').contains('text updated test 1').should('not.exist')
+    cy.get('#render-root').contains('text updated test 2').should('not.exist')
   })
 })

@@ -111,15 +111,15 @@ describe('Routing between app pages within the builder', () => {
 
     cy.getCuiTreeItemByPrimaryTitle('Typography Element').click({ force: true })
 
-    cy.get('.codex-editor .ce-block__content .cdx-block').type(
+    cy.typeIntoTextEditor(
       `${DynamicPageText} - {{url.testId}} - {{url.subtestId}}`,
-      {
-        parseSpecialCharSequences: false,
-      },
     )
 
+    cy.waitForApiCalls()
+
+    cy.openPreview()
     cy.get('#render-root')
-      .findByText(`${DynamicPageText} - undefined - undefined`)
+      .contains(`${DynamicPageText} - undefined - undefined`)
       .should('exist')
   })
 
@@ -163,17 +163,20 @@ describe('Routing between app pages within the builder', () => {
 
     cy.getCuiTreeItemByPrimaryTitle('Typography Element').click({ force: true })
 
-    cy.get('.codex-editor .ce-block__content .cdx-block').type(TestPageText, {
-      parseSpecialCharSequences: false,
-    })
+    cy.typeIntoTextEditor(TestPageText)
 
-    cy.get('#render-root').findByText(TestPageText).should('exist')
+    cy.get('#render-root').contains(TestPageText).should('exist')
   })
 
   it('should create a NextLink in the test-page to go to the dynamic page', () => {
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
 
     cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').first().click()
+
+    // Create an alias of the new element id to later be used for
+    // getting its corresponding text editor
+    cy.storeNewElementId()
+
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Render Type',
       type: FIELD_TYPE.SELECT,
@@ -205,14 +208,16 @@ describe('Routing between app pages within the builder', () => {
       timeout: 10000,
     })
 
-    cy.getCuiTreeItemByPrimaryTitle('Next Link Element').click({ force: true })
+    cy.getNewElementId().then((nextLinkId) => {
+      // This is a link element so need to prevent the default action
+      // otherwise would not be able to type into the text editor
+      cy.preventDefaultOnClick(`[data-element-id="${nextLinkId}"]`)
+      cy.typeIntoTextEditor(GoToDynamicPageText, nextLinkId)
+    })
 
-    cy.get('.codex-editor .ce-block__content .cdx-block').type(
-      'text {{ props.name ?? rootState.name ?? state.name }}',
-      { parseSpecialCharSequences: false },
-    )
+    cy.waitForApiCalls()
 
-    cy.get('#render-root').findByText(GoToDynamicPageText).should('exist')
+    cy.get('#render-root').contains(GoToDynamicPageText).should('exist')
   })
 
   it('should create a NextLink in the provider with link to the test-page', () => {
@@ -231,6 +236,8 @@ describe('Routing between app pages within the builder', () => {
       .click({ force: true })
 
     cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').first().click()
+
+    cy.storeNewElementId()
 
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Render Type',
@@ -265,21 +272,27 @@ describe('Routing between app pages within the builder', () => {
 
     cy.getCuiTreeItemByPrimaryTitle('Next Link Element').click({ force: true })
 
-    cy.get('.codex-editor .ce-block__content .cdx-block').type(
-      GoToTestPageText,
-      { parseSpecialCharSequences: false },
-    )
+    cy.getNewElementId().then((nextLinkId) => {
+      // Prevent default to be able to type into the text editor
+      cy.preventDefaultOnClick(`[data-element-id="${nextLinkId}"]`)
+      cy.typeIntoTextEditor(GoToTestPageText, nextLinkId)
+      // Remove the prevent default so the link works for the next tests
+      cy.removePreventDefaultOnClick(`[data-element-id="${nextLinkId}"]`)
+    })
 
-    cy.get('#render-root').findByText(GoToTestPageText).should('exist')
+    cy.waitForApiCalls()
+
+    cy.get('#render-root').contains(GoToTestPageText).should('exist')
   })
 
   it('should navigate to /test-page of the app within the builder when NextLink in the provider is clicked', () => {
-    cy.get('#render-root').findByText(GoToTestPageText).click()
-    cy.findByText(TestPageText).should('exist')
+    cy.get('#render-root').contains(GoToTestPageText).click()
+    cy.contains(TestPageText).should('exist')
   })
 
   it('should navigate to the dynamic page within the builder when NextLink in the /test-page is clicked', () => {
-    cy.get('#render-root').findByText(GoToDynamicPageText).click()
+    cy.openPreview()
+    cy.get('#render-root').contains(GoToDynamicPageText).click()
     cy.findByText(
       `${DynamicPageText} - ${dynamicUrlSegment1} - ${dynamicUrlSegment2}`,
     ).should('exist')
