@@ -4,7 +4,7 @@ import type {
   UserWhere,
 } from '@codelab/backend/abstract/codegen'
 import {
-  OGMService,
+  OgmService,
   userSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
@@ -20,7 +20,7 @@ export class UserRepository extends AbstractRepository<
   UserOptions
 > {
   constructor(
-    private ogmService: OGMService,
+    private ogmService: OgmService,
     protected traceService: TraceService,
   ) {
     super(traceService)

@@ -14,7 +14,11 @@ export class ExportStoreHandler implements ICommandHandler<ExportStoreCommand> {
 
   async execute(command: ExportStoreCommand) {
     const { where } = command
-    const store = throwIfUndefined(await this.storeRepository.findOne(where))
+    const store = await this.storeRepository.findOne(where)
+
+    if (!store) {
+      throw new Error('Cannot find Component Store')
+    }
 
     return {
       actions: store.actions,

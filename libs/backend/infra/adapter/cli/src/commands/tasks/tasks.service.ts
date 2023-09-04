@@ -1,4 +1,4 @@
-import { OGMService } from '@codelab/backend/infra/adapter/neo4j'
+import { OgmService } from '@codelab/backend/infra/adapter/neo4j'
 import { execCommand } from '@codelab/backend/infra/adapter/shell'
 import { Stage } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
@@ -26,7 +26,7 @@ export class TaskService implements CommandModule<unknown, unknown> {
 
   describe = 'Run tasks'
 
-  constructor(private ogmService: OGMService) {}
+  constructor(private ogmService: OgmService) {}
 
   builder(yargv: Argv<unknown>) {
     return yargv

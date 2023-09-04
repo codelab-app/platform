@@ -3,7 +3,7 @@ import type {
   ResourceOptions,
   ResourceWhere,
 } from '@codelab/backend/abstract/codegen'
-import type { OGMService } from '@codelab/backend/infra/adapter/neo4j'
+import type { OgmService } from '@codelab/backend/infra/adapter/neo4j'
 import { resourceSelectionSet } from '@codelab/backend/infra/adapter/neo4j'
 import type { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
@@ -17,7 +17,7 @@ export class ResourceRepository extends AbstractRepository<
   ResourceOptions
 > {
   constructor(
-    private ogmService: OGMService,
+    private ogmService: OgmService,
     protected traceService: TraceService,
   ) {
     super(traceService)

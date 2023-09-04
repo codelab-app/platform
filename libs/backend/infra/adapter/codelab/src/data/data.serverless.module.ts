@@ -1,19 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AdminApplicationModule } from '@codelab/backend/application/admin'
 import { UserApplicationModule } from '@codelab/backend/application/user'
-import { neo4jConfig, OGMModule } from '@codelab/backend/infra/adapter/neo4j'
+import { neo4jConfig, OgmModule } from '@codelab/backend/infra/adapter/neo4j'
 import { OtelModule } from '@codelab/backend/infra/adapter/otel'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
+import { DevtoolsModule } from '@nestjs/devtools-integration'
 import { endpointConfig } from '../platform/endpoint.config'
 import { DemoModule } from './demo'
 
 @Module({
   controllers: [],
   imports: [
+    // DevtoolsModule.register({
+    //   http: process.env.NODE_ENV !== 'production',
+    //   port: 8000,
+    // }),
     DemoModule,
     OtelModule,
-    OGMModule,
+    OgmModule,
     AdminApplicationModule,
     UserApplicationModule,
     ConfigModule.forRoot({
@@ -23,4 +28,4 @@ import { DemoModule } from './demo'
     }),
   ],
 })
-export class DataModule {}
+export class DataServerlessModule {}

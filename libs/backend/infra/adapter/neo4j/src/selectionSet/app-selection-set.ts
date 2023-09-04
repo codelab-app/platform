@@ -21,5 +21,4 @@ export const appSelectionSet = `{
 
 export const exportAppSelectionSet = `{
   ${baseAppSelectionSet}
-
 }`

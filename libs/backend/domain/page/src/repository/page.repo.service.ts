@@ -4,7 +4,7 @@ import type {
   PageWhere,
 } from '@codelab/backend/abstract/codegen'
 import {
-  OGMService,
+  OgmService,
   pageSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
@@ -22,7 +22,7 @@ export class PageRepository extends AbstractRepository<
   PageOptions
 > {
   constructor(
-    private ogmService: OGMService,
+    private ogmService: OgmService,
     protected traceService: TraceService,
   ) {
     super(traceService)

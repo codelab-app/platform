@@ -1,10 +1,10 @@
-import { OGMModule } from '@codelab/backend/infra/adapter/neo4j'
+import { OgmModule } from '@codelab/backend/infra/adapter/neo4j'
 import { Module } from '@nestjs/common'
 import { PropRepository } from './repository'
 
 @Module({
   exports: [PropRepository],
-  imports: [OGMModule],
+  imports: [OgmModule],
   providers: [PropRepository],
 })
 export class PropDomainModule {}

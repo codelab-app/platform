@@ -3,7 +3,7 @@ import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
 import type { Node } from 'neo4j-driver'
 import { getDescendantsCypher } from '../../../cypher'
-import { OGMService } from '../../../infra'
+import { OgmService } from '../../../infra'
 import { Neo4jService } from '../../../infra/neo4j.service'
 import { elementSelectionSet } from '../../../selectionSet'
 import { ELEMENT_RESOLVER_PROVIDER } from './element.constant'
@@ -11,9 +11,9 @@ import { ELEMENT_RESOLVER_PROVIDER } from './element.constant'
 export const ElementResolverProvider: FactoryProvider<
   Promise<IResolvers<IEntity, unknown>>
 > = {
-  inject: [OGMService, Neo4jService],
+  inject: [OgmService, Neo4jService],
   provide: ELEMENT_RESOLVER_PROVIDER,
-  useFactory: async (ogmService: OGMService, neo4jService: Neo4jService) => {
+  useFactory: async (ogmService: OgmService, neo4jService: Neo4jService) => {
     const descendantElements: IFieldResolver<IEntity, unknown> = (parent) =>
       neo4jService.withReadTransaction(async (txn) => {
         /**

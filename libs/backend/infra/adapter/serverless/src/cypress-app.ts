@@ -1,4 +1,4 @@
-import { CypressModule } from '@codelab/backend/infra/adapter/codelab'
+import { CypressServerlessModule } from '@codelab/backend/infra/adapter/codelab'
 import type { INestApplication } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import type { Server } from 'http'
@@ -8,7 +8,7 @@ let cypressApp: INestApplication | undefined
 
 export const getCypressListener = async () => {
   if (!cypressApp) {
-    cypressApp = await NestFactory.create(CypressModule, {
+    cypressApp = await NestFactory.create(CypressServerlessModule, {
       // body Parser: false,
     })
     // This must match the nextjs api path

@@ -3,21 +3,21 @@ import { PureResolverProvider } from '../resolver'
 import { TypeResolverProvider } from '../resolver/pure-resolver/type'
 import { Neo4jModule } from './neo4j.module'
 import { OGM_PROVIDER } from './ogm.constant'
-import { OGMProvider } from './ogm.provider'
-import { OGMService } from './ogm.service'
+import { OgmProvider } from './ogm.provider'
+import { OgmService } from './ogm.service'
 
 /**
  * Used across modules, is stateless
  */
 @Module({
-  exports: [OGM_PROVIDER, OGMService],
+  exports: [OGM_PROVIDER, OgmService],
   imports: [Neo4jModule],
   providers: [
-    OGMProvider,
-    OGMService,
+    OgmProvider,
+    OgmService,
     // OGM uses pure resolvers only
     PureResolverProvider,
     TypeResolverProvider,
   ],
 })
-export class OGMModule {}
+export class OgmModule {}

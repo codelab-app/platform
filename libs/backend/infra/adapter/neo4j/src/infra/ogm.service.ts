@@ -37,7 +37,7 @@ import * as prettier from 'prettier'
 import { OGM_PROVIDER } from './ogm.constant'
 
 @Injectable()
-export class OGMService {
+export class OgmService {
   constructor(@Inject(OGM_PROVIDER) private ogm: OGM<ModelMap>) {}
 
   private user: UserModel | undefined

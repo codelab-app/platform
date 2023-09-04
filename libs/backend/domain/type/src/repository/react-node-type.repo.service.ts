@@ -5,7 +5,7 @@ import type {
 } from '@codelab/backend/abstract/codegen'
 import {
   exportReactNodeTypeSelectionSet,
-  OGMService,
+  OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
@@ -21,7 +21,7 @@ export class ReactNodeTypeRepository extends AbstractRepository<
   ReactNodeTypeOptions
 > {
   constructor(
-    private ogmService: OGMService,
+    private ogmService: OgmService,
     protected traceService: TraceService,
   ) {
     super(traceService)

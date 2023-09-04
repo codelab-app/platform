@@ -85,4 +85,4 @@ export interface GqlContext {
     }),
   ],
 })
-export class PlatformModule {}
+export class PlatformServerlessModule {}

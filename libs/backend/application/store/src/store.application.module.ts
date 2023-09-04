@@ -1,10 +1,11 @@
+import { StoreDomainModule } from '@codelab/backend/domain/store'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
-import { ExportStoreCommand } from './use-case'
+import { ExportStoreCommand, ExportStoreHandler } from './use-case'
 
 @Module({
-  exports: [ExportStoreCommand],
-  imports: [CqrsModule],
-  providers: [ExportStoreCommand],
+  exports: [ExportStoreCommand, ExportStoreHandler],
+  imports: [CqrsModule, StoreDomainModule],
+  providers: [ExportStoreCommand, ExportStoreHandler],
 })
 export class StoreApplicationModule {}

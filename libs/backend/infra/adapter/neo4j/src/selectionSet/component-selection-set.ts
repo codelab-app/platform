@@ -16,14 +16,13 @@ import { ownerFieldSelectionSet } from './user-selection-set'
 export const componentSelectionSet = `{
   id
   name
+  ${ownerFieldSelectionSet}
   rootElement
     ${elementSelectionSet}
-  ${ownerFieldSelectionSet}
   props
     ${propSelectionSet}
-  store {
+  store
     ${storeSelectionSet}
-  }
   api
     ${interfaceTypeSelectionSet}
   childrenContainerElement {
@@ -39,9 +38,8 @@ export const exportComponentSelectionSet = `{
     ${exportElementSelectionSet}
   props
     ${propSelectionSet}
-  store {
+  store
     ${exportStoreSelectionSet}
-  }
   api
     ${exportInterfaceTypeWithFieldsSelectionSet}
   childrenContainerElement {

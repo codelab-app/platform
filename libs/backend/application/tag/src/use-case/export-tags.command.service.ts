@@ -2,6 +2,7 @@ import type { TagWhere } from '@codelab/backend/abstract/codegen'
 import { SortDirection } from '@codelab/backend/abstract/codegen'
 import type { ITagOutputDto } from '@codelab/backend/abstract/core'
 import { TagRepository } from '@codelab/backend/domain/tag'
+import { Span } from '@codelab/shared/infra/otel'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
@@ -15,6 +16,7 @@ export class ExportTagsHandler
 {
   constructor(private readonly tagRepository: TagRepository) {}
 
+  @Span()
   async execute(command: ExportTagsCommand) {
     const { where } = command
 

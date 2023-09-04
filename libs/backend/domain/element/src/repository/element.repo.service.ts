@@ -7,7 +7,7 @@ import {
   elementSelectionSet,
   getDescendantsCypher,
   Neo4jService,
-  OGMService,
+  OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
@@ -27,7 +27,7 @@ export class ElementRepository extends AbstractRepository<
   ElementOptions
 > {
   constructor(
-    private ogmService: OGMService,
+    private ogmService: OgmService,
     private neo4jService: Neo4jService,
     protected traceService: TraceService,
   ) {

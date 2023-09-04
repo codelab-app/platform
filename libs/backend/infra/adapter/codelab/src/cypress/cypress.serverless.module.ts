@@ -6,7 +6,7 @@ import { PropDomainModule } from '@codelab/backend/domain/prop'
 import { StoreDomainModule } from '@codelab/backend/domain/store'
 import { TagDomainModule } from '@codelab/backend/domain/tag'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
-import { Neo4jModule, OGMModule } from '@codelab/backend/infra/adapter/neo4j'
+import { Neo4jModule, OgmModule } from '@codelab/backend/infra/adapter/neo4j'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { CypressController } from './cypress.controller'
@@ -19,7 +19,7 @@ import { SeedTypeHandler } from './seed-type.command.service'
   controllers: [CypressController],
   imports: [
     CqrsModule,
-    OGMModule,
+    OgmModule,
     Neo4jModule,
     AppDomainModule,
     AtomDomainModule,
@@ -32,4 +32,4 @@ import { SeedTypeHandler } from './seed-type.command.service'
   ],
   providers: [SeedAppHandler, SeedAtomHandler, SeedTagHandler, SeedTypeHandler],
 })
-export class CypressModule {}
+export class CypressServerlessModule {}

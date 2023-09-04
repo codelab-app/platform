@@ -1,4 +1,4 @@
-import { DataModule } from '@codelab/backend/infra/adapter/codelab'
+import { DataServerlessModule } from '@codelab/backend/infra/adapter/codelab'
 import { otelSDK } from '@codelab/backend/infra/adapter/otel'
 import type { INestApplication } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
@@ -12,7 +12,9 @@ export const getDataListener = async () => {
   if (!app) {
     await otelSDK.start()
 
-    app = await NestFactory.create(DataModule, {
+    app = await NestFactory.create(DataServerlessModule, {
+      // https://docs.nestjs.com/devtools/overview
+      snapshot: true,
       // body Parser: false,
     })
     // This must match the nextjs api path

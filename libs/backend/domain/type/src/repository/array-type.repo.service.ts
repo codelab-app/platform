@@ -5,7 +5,7 @@ import type {
 } from '@codelab/backend/abstract/codegen'
 import {
   exportArrayTypeSelectionSet,
-  OGMService,
+  OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
@@ -25,7 +25,7 @@ export class ArrayTypeRepository extends AbstractRepository<
   ArrayTypeOptions
 > {
   constructor(
-    private ogmService: OGMService,
+    private ogmService: OgmService,
     protected traceService: TraceService,
   ) {
     super(traceService)

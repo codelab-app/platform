@@ -3,16 +3,16 @@ import type { IFieldResolver, IResolvers } from '@graphql-tools/utils'
 import type { FactoryProvider } from '@nestjs/common'
 import type { Node } from 'neo4j-driver'
 import { tagDescendants } from '../../../cypher'
-import { Neo4jService, OGMService } from '../../../infra'
+import { Neo4jService, OgmService } from '../../../infra'
 import { tagSelectionSet } from '../../../selectionSet'
 import { TAG_RESOLVER_PROVIDER } from './tag.constant'
 
 export const TagResolverProvider: FactoryProvider<
   Promise<IResolvers<IEntity, unknown>>
 > = {
-  inject: [OGMService, Neo4jService],
+  inject: [OgmService, Neo4jService],
   provide: TAG_RESOLVER_PROVIDER,
-  useFactory: async (ogmService: OGMService, neo4jService: Neo4jService) => {
+  useFactory: async (ogmService: OgmService, neo4jService: Neo4jService) => {
     const descendants: IFieldResolver<IEntity, unknown> = (parent) =>
       neo4jService.withReadTransaction(async (txn) => {
         /**

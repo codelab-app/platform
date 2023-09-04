@@ -8,7 +8,7 @@ import {
   getDependentTypes,
   interfaceTypeSelectionSet,
   Neo4jService,
-  OGMService,
+  OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
@@ -34,7 +34,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
   InterfaceTypeOptions
 > {
   constructor(
-    private ogmService: OGMService,
+    private ogmService: OgmService,
     protected traceService: TraceService,
     private neo4jService: Neo4jService,
   ) {
@@ -45,11 +45,6 @@ export class InterfaceTypeRepository extends AbstractRepository<
   async getDependentTypes({ id }: ITypeEntity): Promise<Array<ITypeDTO>> {
     return this.neo4jService.withReadTransaction(async (txn) => {
       const { records } = await txn.run(getDependentTypes, { id })
-
-      console.log({
-        id,
-        records,
-      })
 
       this.traceService.addAttributes({ id, records })
 

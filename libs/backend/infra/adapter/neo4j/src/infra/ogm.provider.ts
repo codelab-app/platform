@@ -7,7 +7,7 @@ import { typeDefs } from '../schema'
 import { NEO4J_DRIVER_PROVIDER } from './neo4j.constant'
 import { OGM_PROVIDER } from './ogm.constant'
 
-export const OGMProvider: Provider = {
+export const OgmProvider: Provider = {
   inject: [NEO4J_DRIVER_PROVIDER, PURE_RESOLVER_PROVIDER],
   provide: OGM_PROVIDER,
   useFactory: async (driver: Driver, pureResolvers: IResolvers) => {

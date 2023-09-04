@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { Neo4jModule } from './infra/neo4j.module'
-import { OGMModule } from './infra/ogm.module'
+import { OgmModule } from './infra/ogm.module'
 import { PureResolverProvider } from './resolver'
 import { ElementResolverProvider } from './resolver/ogm-resolver/element'
 import { OgmResolverProvider } from './resolver/ogm-resolver/ogm-resolver.provider'
@@ -10,7 +10,7 @@ import { GRAPHQL_SCHEMA_PROVIDER, GraphQLSchemaProvider } from './schema'
 
 @Module({
   exports: [GRAPHQL_SCHEMA_PROVIDER],
-  imports: [Neo4jModule, OGMModule],
+  imports: [Neo4jModule, OgmModule],
   providers: [
     TypeResolverProvider,
     PureResolverProvider,

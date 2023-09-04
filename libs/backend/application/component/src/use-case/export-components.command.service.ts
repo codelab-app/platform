@@ -15,6 +15,8 @@ import {
   FieldRepository,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
+import { Span } from '@codelab/shared/infra/otel'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ExportComponentsCommand {
@@ -32,8 +34,10 @@ export class ExportComponentsHandler
     private fieldRepository: FieldRepository,
     private elementRepository: ElementRepository,
     private commandBus: CommandBus,
+    private traceService: TraceService,
   ) {}
 
+  @Span()
   async execute(command: ExportComponentsCommand) {
     const { where } = command
 

@@ -5,7 +5,7 @@ import type {
   StoreWhere,
 } from '@codelab/backend/abstract/codegen'
 import {
-  OGMService,
+  OgmService,
   storeSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
@@ -21,10 +21,8 @@ export class StoreRepository extends AbstractRepository<
   StoreWhere,
   StoreOptions
 > {
-  private Store!: StoreModel
-
   constructor(
-    private ogmService: OGMService,
+    private ogmService: OgmService,
     protected override traceService: TraceService,
   ) {
     super(traceService)

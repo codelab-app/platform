@@ -4,7 +4,7 @@ import type {
   PropWhere,
 } from '@codelab/backend/abstract/codegen'
 import {
-  OGMService,
+  OgmService,
   propSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
@@ -20,7 +20,7 @@ export class PropRepository extends AbstractRepository<
   PropOptions
 > {
   constructor(
-    private ogmService: OGMService,
+    private ogmService: OgmService,
     protected override traceService: TraceService,
   ) {
     super(traceService)

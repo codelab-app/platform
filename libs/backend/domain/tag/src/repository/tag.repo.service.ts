@@ -4,7 +4,7 @@ import type {
   TagWhere,
 } from '@codelab/backend/abstract/codegen'
 import {
-  OGMService,
+  OgmService,
   tagSelectionSet,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
@@ -25,7 +25,7 @@ export class TagRepository extends AbstractRepository<
   TagOptions
 > {
   constructor(
-    private ogmService: OGMService,
+    private ogmService: OgmService,
     protected traceService: TraceService,
   ) {
     super(traceService)
