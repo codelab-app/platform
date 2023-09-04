@@ -157,7 +157,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
 
                 const form = fieldService.createForm
 
-                if (store.api?.id) {
+                if (store.api.id) {
                   form.open(typeRef(store.api.id) as Ref<InterfaceType>)
                   popover.open(FormNames.CreateField)
                 }
