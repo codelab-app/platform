@@ -21,7 +21,7 @@ export const useFieldSchema = (
       fieldService.updateForm.field?.api.current.id
 
     const parentStore = storeService.storesList.find(
-      ({ api }) => api?.id === interfaceId,
+      ({ api }) => api.id === interfaceId,
     )
 
     const forbiddenValues = Object.keys(parentStore?.state ?? {}).filter(
