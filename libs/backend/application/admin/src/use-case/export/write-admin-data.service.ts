@@ -7,7 +7,7 @@ import {
 import { Span } from '@codelab/shared/infra/otel'
 import { Injectable, Scope } from '@nestjs/common'
 import path from 'path'
-import { MigrationDataService } from '../migration-data.service'
+import { MigrationDataService } from '../../services/migration-data.service'
 
 @Injectable({
   scope: Scope.TRANSIENT,

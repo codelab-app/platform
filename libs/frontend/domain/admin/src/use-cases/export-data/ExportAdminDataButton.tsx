@@ -10,28 +10,29 @@ export const ExportAdminDataButton = observer(() => {
   return (
     <Button
       icon={<ImportOutlined />}
-      onClick={() =>
+      onClick={
+        () => adminService.exportDataModal.open()
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        adminService.exportData().then(async (res: any) => {
-          const blob = await res.blob()
+        // adminService.exportData().then(async (res: any) => {
+        //   const blob = await res.blob()
 
-          // https://stackoverflow.com/questions/50570900/js-fetch-not-getting-headers-on-response
-          const filename = res.headers
-            .get('content-disposition')
-            .split('filename=')[1]
-            .split('.')[0]
+        //   // https://stackoverflow.com/questions/50570900/js-fetch-not-getting-headers-on-response
+        //   const filename = res.headers
+        //     .get('content-disposition')
+        //     .split('filename=')[1]
+        //     .split('.')[0]
 
-          const url = URL.createObjectURL(blob)
-          const a = document.createElement('a')
-          a.href = url
-          a.download = filename
-          a.target = '_blank'
-          a.click()
+        //   const url = URL.createObjectURL(blob)
+        //   const a = document.createElement('a')
+        //   a.href = url
+        //   a.download = filename
+        //   a.target = '_blank'
+        //   a.click()
 
-          URL.revokeObjectURL(url)
+        //   URL.revokeObjectURL(url)
 
-          return message.success('Export success!')
-        })
+        //   return message.success('Export success!')
+        // })
       }
     >
       Export Data

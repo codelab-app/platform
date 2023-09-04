@@ -2,7 +2,10 @@ import { getEnv } from '@codelab/shared/config'
 import axios from 'axios'
 
 export const httpClient = axios.create({
-  baseURL: new URL('api/data', getEnv().endpoint.platformApiHost).toString(),
+  baseURL: new URL(
+    'api/data',
+    getEnv().endpoint.nextPublicPlatformHost,
+  ).toString(),
   headers: {
     'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',

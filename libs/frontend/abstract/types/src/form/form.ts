@@ -1,4 +1,5 @@
 import type { Maybe } from '@codelab/shared/abstract/types'
+import type { TSchema, Type } from '@sinclair/typebox'
 import type { JSONSchemaType } from 'ajv'
 import type React from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
@@ -44,7 +45,7 @@ export type FormProps<TData, TResponse = unknown> = Partial<
      * Pass a Bridge to to customize the process of creating a bridge from a schema (custom validations, dynamic schema, etc)
      *  Pass either schema or bridge
      */
-    schema: Bridge | JSONSchemaType<TData>
+    schema: Bridge | JSONSchemaType<TData> | TSchema
   }
 
 // form Controller props

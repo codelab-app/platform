@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AdminModule } from '@codelab/backend/application/admin'
-import { MigrationModule } from '@codelab/backend/application/migration'
 import { UserModule } from '@codelab/backend/application/user'
 import { neo4jConfig, OGMModule } from '@codelab/backend/infra/adapter/neo4j'
 import { OtelModule } from '@codelab/backend/infra/adapter/otel'
@@ -16,7 +15,6 @@ import { DemoModule } from './demo'
     OtelModule,
     OGMModule,
     AdminModule,
-    MigrationModule,
     UserModule,
     ConfigModule.forRoot({
       ignoreEnvVars: true,

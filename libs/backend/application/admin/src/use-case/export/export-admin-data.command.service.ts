@@ -15,8 +15,8 @@ import { flattenWithPrefix, Span } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
-import type { IBaseDataPaths } from '../migration-data.service'
-import { MigrationDataService } from '../migration-data.service'
+import type { IBaseDataPaths } from '../../services/migration-data.service'
+import { MigrationDataService } from '../../services/migration-data.service'
 import { WriteAdminDataService } from './write-admin-data.service'
 
 @Injectable()

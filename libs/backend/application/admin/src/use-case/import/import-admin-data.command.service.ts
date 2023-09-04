@@ -12,8 +12,8 @@ import {
   withActiveSpan,
 } from '@codelab/shared/infra/otel'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
-import type { IBaseDataPaths } from '../migration-data.service'
-import { MigrationDataService } from '../migration-data.service'
+import type { IBaseDataPaths } from '../../services/migration-data.service'
+import { MigrationDataService } from '../../services/migration-data.service'
 import { ReadAdminDataService } from './read-admin-data.service'
 
 export class ImportAdminDataCommand implements IBaseDataPaths {

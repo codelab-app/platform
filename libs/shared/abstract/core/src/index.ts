@@ -1,6 +1,7 @@
 export * from './action'
 export * from './action/base-action.dto.interface'
 export * from './action-kind.enum'
+export * from './admin'
 export * from './app.dto.interface'
 export * from './atom.dto.interface'
 export * from './atom.interface'

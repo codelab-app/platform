@@ -11,8 +11,8 @@ import { Injectable, Scope } from '@nestjs/common'
 import { findUpSync } from 'find-up'
 import fs from 'fs'
 import path, { dirname } from 'path'
-import type { IBaseDataPaths } from '../migration-data.service'
-import { MigrationDataService } from '../migration-data.service'
+import type { IBaseDataPaths } from '../../services/migration-data.service'
+import { MigrationDataService } from '../../services/migration-data.service'
 
 @Injectable({
   scope: Scope.TRANSIENT,

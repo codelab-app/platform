@@ -4,6 +4,7 @@ import {
   type IAdminService,
 } from '@codelab/frontend/abstract/core'
 import { httpClient } from '@codelab/frontend/config'
+import { ModalService } from '@codelab/frontend/shared/utils'
 import { computed } from 'mobx'
 import {
   _async,
@@ -11,11 +12,17 @@ import {
   Model,
   model,
   modelFlow,
+  prop,
   transaction,
 } from 'mobx-keystone'
 
 @model('@codelab/AdminService')
-export class AdminService extends Model({}) implements IAdminService {
+export class AdminService
+  extends Model({
+    exportDataModal: prop(() => new ModalService({})),
+  })
+  implements IAdminService
+{
   @modelFlow
   @transaction
   resetData = _async(function* (this: AdminService) {
@@ -24,12 +31,12 @@ export class AdminService extends Model({}) implements IAdminService {
 
   @modelFlow
   exportData = _async(function* (this: AdminService) {
-    return yield* _await(fetch(`/api/export/admin`))
+    return yield* _await(httpClient.post('/admin/export'))
   })
 
   @modelFlow
   importData = _async(function* (this: AdminService) {
-    return yield* _await(fetch(`/api/import/admin`))
+    return yield* _await(httpClient.post('/admin/import'))
   })
 
   @computed
