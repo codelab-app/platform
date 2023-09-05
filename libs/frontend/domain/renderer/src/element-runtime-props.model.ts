@@ -55,7 +55,9 @@ export class ElementRuntimeProps
   @computed
   get evaluatedProps() {
     // Evaluate customText prop only in preview mode
-    if (this.node.propsEvaluationContext.renderType !== RendererType.Preview) {
+    if (
+      this.node.propsEvaluationContext.rendererType !== RendererType.Preview
+    ) {
       const customTextProp =
         this.nodeRef.current.props.current.values[CUSTOM_TEXT_PROP_KEY]
 

@@ -51,7 +51,7 @@ export interface IEvaluationContext {
   componentProps: IPropData
   props: IPropData
   refs: IPropData
-  renderType?: RendererType
+  rendererType?: RendererType
   rootRefs: IPropData
   rootState: IPropData
   state: IPropData
