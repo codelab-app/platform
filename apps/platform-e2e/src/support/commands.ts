@@ -4,6 +4,7 @@ import { databaseCommands } from './database'
 import { UICommands } from './entities'
 import { helpersCommands } from './helpers'
 import { nextjsAuth0Commands } from './nextjs-auth0/nextjs-auth0.register'
+import { textEditorCommands } from './text-editor/text-editor.register'
 
 const commands = [
   ...helpersCommands,
@@ -12,6 +13,7 @@ const commands = [
   ...auth0Commands,
   ...nextjsAuth0Commands,
   ...builderCommands,
+  ...textEditorCommands,
 ]
 
 for (const cmd of commands) {

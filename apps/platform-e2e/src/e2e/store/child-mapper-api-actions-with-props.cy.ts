@@ -190,19 +190,16 @@ describe('Element Child Mapper', () => {
       cy.getToolbarItem('Create').click()
     })
 
+    cy.waitForApiCalls()
+
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
     })
-    cy.getCuiTreeItemByPrimaryTitle(ELEMENT_BUTTON).click({ force: true })
 
-    cy.get(`.ant-tabs [aria-label="setting"]`).click()
-    cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
-      'Name of data - {{ props.name }}',
-      { parseSpecialCharSequences: false },
-    )
-    cy.get('#render-root')
-      .findByText('Name of data - undefined')
-      .should('exist')
+    cy.typeIntoTextEditor('Name of data - {{ props.name }}')
+
+    cy.openPreview()
+    cy.get('#render-root').contains('Name of data - undefined').should('exist')
   })
 
   it('should create an element with child mapper data', () => {
@@ -243,9 +240,12 @@ describe('Element Child Mapper', () => {
   })
 
   it('should render the component instances with props values from array', () => {
+    cy.waitForApiCalls()
+
+    cy.openPreview()
     childMapperData.forEach((data) => {
       cy.get('#render-root')
-        .findByText(`Name of data - ${data.name}`)
+        .contains(`Name of data - ${data.name}`)
         .should('exist')
     })
   })
@@ -255,8 +255,9 @@ describe('Element Child Mapper', () => {
       cy.intercept('GET', `${resourceUrl}/data/${data.id}`, mockGetResponse).as(
         `getData-${data.id}`,
       )
+
       cy.get('#render-root')
-        .findByText(`Name of data - ${data.name}`)
+        .contains(`Name of data - ${data.name}`)
         .click({ force: true })
 
       cy.wait(`@getData-${data.id}`)

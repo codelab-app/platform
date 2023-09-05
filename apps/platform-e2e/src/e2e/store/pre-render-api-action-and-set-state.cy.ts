@@ -195,20 +195,15 @@ describe('Running API action and setting state on element pre-render', () => {
       timeout: 10000,
     })
 
-    cy.getCuiTreeItemByPrimaryTitle('Typography Element').click({ force: true })
+    // cy.getCuiTreeItemByPrimaryTitle('Typography Element').click({ force: true })
 
-    // set text prop to use the state
-    cy.get(`.ant-tabs [aria-label="setting"]`).click()
-    cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
-      `response from api - {{state.localData}}`,
-      {
-        parseSpecialCharSequences: false,
-      },
-    )
+    cy.typeIntoTextEditor(`response from api - {{state.localData}}`)
 
-    cy.get('#render-root')
-      .findByText(`response from api - null`)
-      .should('exist')
+    cy.waitForApiCalls()
+
+    cy.openPreview()
+    cy.get('#render-root').contains(`response from api - null`).should('exist')
+    cy.openBuilder()
 
     // set pre-render action
     cy.get(`.ant-tabs [aria-label="node-index"]`).click()
@@ -219,10 +214,12 @@ describe('Running API action and setting state on element pre-render', () => {
       value: apiActionName,
     })
 
+    cy.waitForApiCalls()
+    cy.openPreview()
     // it executes after setting the pre-render action
     // this makes sure that the form got saved
     cy.get('#render-root')
-      .findByText(`response from api - ${mockResponse}`)
+      .contains(`response from api - ${mockResponse}`)
       .should('exist')
   })
 
@@ -230,8 +227,9 @@ describe('Running API action and setting state on element pre-render', () => {
     cy.intercept(`${resourceUrl}${urlGetSegment}`, mockResponse)
     cy.reload()
 
+    cy.openPreview()
     cy.get('#render-root')
-      .findByText(`response from api - ${mockResponse}`)
+      .contains(`response from api - ${mockResponse}`)
       .should('exist')
   })
 })

@@ -96,13 +96,12 @@ describe('Element Child Mapper', () => {
           cy.getCuiTreeItemByPrimaryTitle(child.name).click({ force: true })
         })
 
-        // Should run after each
-        cy.get(`.ant-tabs [aria-label="setting"]`).click()
-        cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
-          'text {{ props.name }}',
-          { parseSpecialCharSequences: false },
-        )
-        cy.get('#render-root').findByText('text undefined').should('exist')
+        cy.typeIntoTextEditor('text {{ props.name }}')
+
+        cy.waitForApiCalls()
+
+        cy.openPreview()
+        cy.get('#render-root').contains('text undefined')
 
         // go to builder
         cy.visit(
@@ -156,26 +155,30 @@ describe('Element Child Mapper', () => {
   })
 
   it('should render the component instances with props values from array', () => {
-    cy.get('#render-root').findByText('text test 1').should('exist')
-    cy.get('#render-root').findByText('text test 2').should('exist')
+    cy.openPreview()
+    cy.get('#render-root').contains('text test 1')
+    cy.get('#render-root').contains('text test 2')
+    cy.openBuilder()
   })
 
   it('should render the component instances n times and next to the selected previous sibling', () => {
     cy.get('.ant-tree-treenode-draggable:nth-child(3)')
-      .findByText('Child 2')
+      .contains('Child 2')
       .should('exist')
     cy.get('.ant-tree-treenode-draggable:nth-child(4)')
-      .findByText(`${COMPONENT_NAME} 0`)
+      .contains(`${COMPONENT_NAME} 0`)
       .should('exist')
     cy.get('.ant-tree-treenode-draggable:nth-child(5)')
-      .findByText(`${COMPONENT_NAME} 1`)
+      .contains(`${COMPONENT_NAME} 1`)
       .should('exist')
     cy.get('.ant-tree-treenode-draggable:nth-child(6)')
-      .findByText('Child 1')
+      .contains('Child 1')
       .should('exist')
   })
 
   it('should update the rendered instances when props values from array and previous sibling is updated', () => {
+    cy.findAllByText(ELEMENT_ROW).first().click()
+
     cy.get('.ant-collapse').setFormFieldValue({
       label: 'Render next to',
       type: FIELD_TYPE.SELECT,
@@ -186,9 +189,13 @@ describe('Element Child Mapper', () => {
       value: '{{[{ name: "updated test 1" }, { name: "updated test 2" }]}}',
     })
 
+    cy.waitForApiCalls()
+
     // changed props
-    cy.get('#render-root').findByText('text updated test 1').should('exist')
-    cy.get('#render-root').findByText('text updated test 2').should('exist')
+    cy.openPreview()
+    cy.get('#render-root').contains('text updated test 1')
+    cy.get('#render-root').contains('text updated test 2')
+    cy.openBuilder()
 
     // For some reason, when the prop is auto updated from the form, theres some delay in the tree view changes
     // and the element node being queried still has the old value
@@ -211,30 +218,41 @@ describe('Element Child Mapper', () => {
   })
 
   it('should not render instances when the prop arrary is empty', () => {
+    cy.findAllByText(ELEMENT_ROW).first().click()
+
     cy.get('.ant-collapse').setFormFieldValue({
       type: FIELD_TYPE.CODE_MIRROR,
       value: '{{[]}}',
     })
 
+    cy.waitForApiCalls()
+
     // rendered instances are removed
     cy.get('.ant-tree-treenode-draggable').should('have.length', 4)
 
     // changed props
-    cy.get('#render-root').findByText('text updated test 1').should('not.exist')
-    cy.get('#render-root').findByText('text updated test 2').should('not.exist')
+    cy.openPreview()
+    cy.get('#render-root').contains('text updated test 1').should('not.exist')
+    cy.get('#render-root').contains('text updated test 2').should('not.exist')
+    cy.openBuilder()
   })
 
   it('should not render instances when the prop is not an array', () => {
+    cy.findAllByText(ELEMENT_ROW).first().click()
+
     cy.get('.ant-collapse').setFormFieldValue({
       type: FIELD_TYPE.CODE_MIRROR,
       value: '{{false}}',
     })
 
+    cy.waitForApiCalls()
+
     // rendered instances are removed
     cy.get('.ant-tree-treenode-draggable').should('have.length', 4)
 
     // changed props
-    cy.get('#render-root').findByText('text updated test 1').should('not.exist')
-    cy.get('#render-root').findByText('text updated test 2').should('not.exist')
+    cy.openPreview()
+    cy.get('#render-root').contains('text updated test 1').should('not.exist')
+    cy.get('#render-root').contains('text updated test 2').should('not.exist')
   })
 })

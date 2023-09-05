@@ -2,7 +2,11 @@ import type {
   IElement,
   IElementRuntimeProp,
 } from '@codelab/frontend/abstract/core'
-import { DATA_ELEMENT_ID } from '@codelab/frontend/abstract/core'
+import {
+  CUSTOM_TEXT_PROP_KEY,
+  DATA_ELEMENT_ID,
+  RendererType,
+} from '@codelab/frontend/abstract/core'
 import {
   evaluateExpression,
   evaluateObject,
@@ -10,6 +14,7 @@ import {
 } from '@codelab/frontend/shared/utils'
 import { getDefaultFieldProps } from '@codelab/shared/utils'
 import get from 'lodash/get'
+import omit from 'lodash/omit'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelClass } from 'mobx-keystone'
@@ -49,6 +54,19 @@ export class ElementRuntimeProps
 
   @computed
   get evaluatedProps() {
+    // Evaluate customText prop only in preview mode
+    if (
+      this.node.propsEvaluationContext.rendererType !== RendererType.Preview
+    ) {
+      const customTextProp =
+        this.nodeRef.current.props.current.values[CUSTOM_TEXT_PROP_KEY]
+
+      const props = omit(this.renderedTypedProps, [CUSTOM_TEXT_PROP_KEY])
+      const evaluated = evaluateObject(props, this.node.propsEvaluationContext)
+
+      return { ...evaluated, [CUSTOM_TEXT_PROP_KEY]: customTextProp }
+    }
+
     return evaluateObject(
       this.renderedTypedProps,
       this.node.propsEvaluationContext,

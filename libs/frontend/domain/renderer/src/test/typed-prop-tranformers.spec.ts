@@ -1,11 +1,16 @@
+import './mock/match-media.mock'
 import type { IRenderOutput, TypedProp } from '@codelab/frontend/abstract/core'
-import { CUSTOM_TEXT_PROP_KEY } from '@codelab/frontend/abstract/core'
+import {
+  CUSTOM_TEXT_PROP_KEY,
+  RendererType,
+} from '@codelab/frontend/abstract/core'
 import { render } from '@testing-library/react'
 import { setupTestForRenderer } from './setup/setup-test'
 import TestProviderWrapper from './TestProviderWrapper'
 
 describe('RenderService', () => {
-  const data = setupTestForRenderer()
+  // Passing Preview renderer to replace customText prop value
+  const data = setupTestForRenderer([], RendererType.Preview)
 
   it('should apply typed value transformers', () => {
     const { props } = data.rootStore.renderer.renderIntermediateElement(

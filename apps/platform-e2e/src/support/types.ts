@@ -4,6 +4,7 @@ import type { CypressDatabaseCommands } from './database'
 import type { CypressUICommands } from './entities'
 import type { CypressHelpersCommands } from './helpers'
 import type { CypressNextjsAuth0Commands } from './nextjs-auth0/nextjs-auth0.register'
+import type { CypressTextEditorCommands } from './text-editor/text-editor.register'
 
 export interface CypressCommand {
   fn: any
@@ -23,6 +24,7 @@ declare global {
         CypressNextjsAuth0Commands,
         CypressUICommands,
         CypressAuth0Commands,
+        CypressTextEditorCommands,
         CypressHelpersCommands {}
   }
 }

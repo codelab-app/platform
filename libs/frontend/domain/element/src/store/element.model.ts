@@ -311,6 +311,7 @@ export class Element
       // pass empty object because props can't evaluated by itself
       props: {},
       refs: this.store.current.refs,
+      rendererType: this.renderService.activeRenderer?.current.rendererType,
       rootRefs: this.providerStore?.current.refs || {},
       rootState: this.providerStore?.current.state || {},
       state: this.store.current.state,

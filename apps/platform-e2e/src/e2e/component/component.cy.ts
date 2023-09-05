@@ -137,14 +137,12 @@ describe('Component CRUD', () => {
         cy.getCuiTreeItemByPrimaryTitle(child.name).click({ force: true })
       })
 
-      // Should run after each
-      cy.get(`.ant-tabs [aria-label="setting"]`).click()
-      cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
-        COMPONENT_CHILD_TEXT,
-        { parseSpecialCharSequences: false },
-      )
+      cy.typeIntoTextEditor(COMPONENT_CHILD_TEXT)
 
-      cy.get('#render-root').findByText('text undefined').should('exist')
+      cy.waitForApiCalls()
+
+      cy.openPreview()
+      cy.get('#render-root').contains('text undefined').should('exist')
     })
 
     it('should be able to specify where to render component children', () => {
@@ -241,9 +239,13 @@ describe('Component CRUD', () => {
         value: COMPONENT_INSTANCE_TEXT,
       })
 
+      cy.storeNewElementId()
+
       cy.getCuiPopover('Create Element').within(() => {
         cy.getToolbarItem('Create').click()
       })
+
+      cy.waitForApiCalls()
 
       cy.findByTestId('create-element-form').should('not.exist', {
         timeout: 10000,
@@ -252,15 +254,13 @@ describe('Component CRUD', () => {
       cy.getCuiTreeItemByPrimaryTitle(COMPONENT_INSTANCE_TEXT).click({
         force: true,
       })
-      cy.get(`.ant-tabs [aria-label="setting"]`).click()
-      cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
-        COMPONENT_INSTANCE_TEXT,
-      )
 
-      // cy.get('#render-root')
-      //   .findByText(`text ${COMPONENT_PROP_VALUE}`)
-      //   .should('exist')
-      cy.get('#render-root').findByText(COMPONENT_INSTANCE_TEXT).should('exist')
+      cy.getNewElementId().then((newElementId) => {
+        cy.typeIntoTextEditor(COMPONENT_INSTANCE_TEXT, newElementId)
+      })
+
+      cy.openPreview()
+      cy.get('#render-root').contains(COMPONENT_INSTANCE_TEXT).should('exist')
     })
   })
 })

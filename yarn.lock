@@ -5998,6 +5998,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@codexteam/icons@npm:^0.0.4":
+  version: 0.0.4
+  resolution: "@codexteam/icons@npm:0.0.4"
+  checksum: ead8fc8ad333e450f174fe5c7a74cbde7e34beff4ae6512962d96a115860c5a254ad5577f4e9a5c9134ef01775a6771da8fc547807b6e08dc000bd1c67642304
+  languageName: node
+  linkType: hard
+
+"@codexteam/icons@npm:^0.0.5":
+  version: 0.0.5
+  resolution: "@codexteam/icons@npm:0.0.5"
+  checksum: 7a27857f769bab2ec6fa52662b9fad0b8084c3b1b86ad12addad774d03430a6666b88ba6f49bae945aab7e53dd5d3c9797d92948d5db177042e881caab394e86
+  languageName: node
+  linkType: hard
+
+"@codexteam/icons@npm:^0.0.6":
+  version: 0.0.6
+  resolution: "@codexteam/icons@npm:0.0.6"
+  checksum: b2d4aa71d2608f53922ca164e4c5ecb4cf446498ca65efe7da7b19c4642f6dca68119da2df5ff740e11e6e3f4dfcd822920694cab2f70ab2f1c3d2ae33b6ebfd
+  languageName: node
+  linkType: hard
+
+"@codexteam/icons@npm:^0.0.8":
+  version: 0.0.8
+  resolution: "@codexteam/icons@npm:0.0.8"
+  checksum: 798471a5543b3502c81106b7996f93254588eefee1dd24ee69d769853019a75ed612bff366872274aa00aaf2d1aa7890028b2445aee6ba6f7a5539bc8390a705
+  languageName: node
+  linkType: hard
+
+"@codexteam/icons@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "@codexteam/icons@npm:0.3.0"
+  checksum: 4949e753a9f8d0442c581512566167dddf7853fce0aa388ec9ddd9acc2aa3f081192d266c0eb1a2f78154492f376f7ce042f69ca45cad9a1f02583ab70e0000b
+  languageName: node
+  linkType: hard
+
 "@colors/colors@npm:1.5.0":
   version: 1.5.0
   resolution: "@colors/colors@npm:1.5.0"
@@ -6371,6 +6406,113 @@ __metadata:
   peerDependencies:
     react: ">=16.8.0"
   checksum: 575e554992c5ff26622854b889b6288580f308e1125620a4aae55d0a113d47f05fdb7c6e2023ce51c58d5a206091fc1deac868222dd5f9c35c80c3e2f99db9af
+  languageName: node
+  linkType: hard
+
+"@editorjs/checklist@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "@editorjs/checklist@npm:1.5.0"
+  dependencies:
+    "@codexteam/icons": ^0.3.0
+  checksum: cf71993ba60d1301d4b9fdb8709ee4f37f87430cf74548e710dc8a829c7b624b11f2a7c8b90fe21526e7002664d3e04880309849e9c21ae322a64b5be33dc829
+  languageName: node
+  linkType: hard
+
+"@editorjs/code@npm:^2.8.0":
+  version: 2.8.0
+  resolution: "@editorjs/code@npm:2.8.0"
+  dependencies:
+    "@codexteam/icons": ^0.0.5
+  checksum: f2182617989207199fb02a31ccc18f059370591e28274fd2c232a17add7acd1d41287aa3310e38c42a371f2bea8200a987e8209eb7151aee944637837f8d5632
+  languageName: node
+  linkType: hard
+
+"@editorjs/delimiter@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@editorjs/delimiter@npm:1.3.0"
+  dependencies:
+    "@codexteam/icons": ^0.0.5
+  checksum: fae437d1e99511136fe25fb8912cd18cfe4fac6442e1918b016e57578a5473a02b8f73831bbb2e1358a85b3703e5e72b16068ac397c72de52e94415fbabd80ab
+  languageName: node
+  linkType: hard
+
+"@editorjs/editorjs@npm:^2.28.0":
+  version: 2.28.0
+  resolution: "@editorjs/editorjs@npm:2.28.0"
+  checksum: 48f19fe090de4fbd45e54b44b80f2269ca33395166ac3537e643ed26417bc894a32c6300494162d9f42bf209074f2d89d96fd1920238e09dcbdf2562f861622e
+  languageName: node
+  linkType: hard
+
+"@editorjs/header@npm:^2.7.0":
+  version: 2.7.0
+  resolution: "@editorjs/header@npm:2.7.0"
+  dependencies:
+    "@codexteam/icons": ^0.0.5
+  checksum: 9b26ed44356bb0a2099d6b7d0d1c44b47c38737107e7c99cc43e337811926393f0494e8ce5b300115562c6e6f9b9cd9962da7e3ec9c81c14fded93bbe5b3a999
+  languageName: node
+  linkType: hard
+
+"@editorjs/inline-code@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "@editorjs/inline-code@npm:1.4.0"
+  dependencies:
+    "@codexteam/icons": ^0.0.5
+  checksum: 364c30add969c601bb08f852a74f051236f7df1d37d793dac23a6fb3048714dd5e04cc2a5ba4b8100290c8e6ea0f2c87c9ae4ebb2930fa518ea49b0ba6d9b196
+  languageName: node
+  linkType: hard
+
+"@editorjs/link@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "@editorjs/link@npm:2.5.0"
+  dependencies:
+    "@babel/runtime": ^7.10.2
+    "@codexteam/icons": ^0.0.4
+  checksum: ef573cc7973b9a6d79bfcc686ed6e3734cb05e67a589d1b33590a3a52508ba7d8e4a3620a47aa9f549cb51682e4240ea318c4528bffd0c714198a30754929161
+  languageName: node
+  linkType: hard
+
+"@editorjs/list@npm:^1.8.0":
+  version: 1.8.0
+  resolution: "@editorjs/list@npm:1.8.0"
+  dependencies:
+    "@codexteam/icons": ^0.0.4
+  checksum: fb62db17e96a22305bc71d94ae89be12ad4ca44cba4bb4271bec6d38c1b24d03221ba1db8f3b9e8c6555aac9873039fec8194a2e52bca95a03c01d9ce4e88549
+  languageName: node
+  linkType: hard
+
+"@editorjs/marker@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@editorjs/marker@npm:1.3.0"
+  dependencies:
+    "@codexteam/icons": ^0.0.5
+  checksum: b93bc22b92ba39a568b146adc4d2d3134a331c1b344e4a75d12cc654864fb5f0dad0ec305fb9aa1e0de81c3599da7e9e2f6a1d6ef776275106d8530804a96f9e
+  languageName: node
+  linkType: hard
+
+"@editorjs/paragraph@npm:^2.10.0":
+  version: 2.10.0
+  resolution: "@editorjs/paragraph@npm:2.10.0"
+  dependencies:
+    "@codexteam/icons": ^0.0.4
+  checksum: 000b29101dd23ad7a4ef4af906ee84436926808c1ca991bfb5bd48aa54c288087f5ca77417ef8138ed760055b8f86d8035ae566b7a25d11e4e970249f471b18b
+  languageName: node
+  linkType: hard
+
+"@editorjs/quote@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "@editorjs/quote@npm:2.5.0"
+  dependencies:
+    "@codexteam/icons": ^0.0.5
+  checksum: ead59ab48576549d477dc10bf94dba2ae03450cc5a11f2157efe911dcaecffd8fcd059e88a53cabd451362b12382d57173b352eec4024a51e36da734bd9e7ea1
+  languageName: node
+  linkType: hard
+
+"@editorjs/underline@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@editorjs/underline@npm:1.1.0"
+  dependencies:
+    "@codexteam/icons": ^0.0.6
+  checksum: 5611b76bea374e698479c06315f1d93e69f16297bd7c04eafd31bdd8d5bcdf2d16dce8711d7cee6a89f8c6edbcbafdd8c659646dc57138710d0aaefefc51bfe2
   languageName: node
   linkType: hard
 
@@ -13146,6 +13288,15 @@ __metadata:
   dependencies:
     tslib: ^2.5.0
   checksum: ec05163564af050088f3c21cb047640ca842bea645c2a73624475b486d5df8ad9c494bf683a498f4b467b84fab2817cc199893dfb5cee30dce1e0172ab38db00
+  languageName: node
+  linkType: hard
+
+"@sotaproject/strikethrough@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@sotaproject/strikethrough@npm:1.0.1"
+  dependencies:
+    "@codexteam/icons": ^0.0.8
+  checksum: dc41fed6432fe12dbff498f842b0cc7418259dd244ccc717ad183a361dd1af0777f49f8eee7fa79e1bd52d7f3420ae93d32ce985f61ca8e391024cf9ba05ae74
   languageName: node
   linkType: hard
 
@@ -21269,6 +21420,18 @@ __metadata:
     "@commitlint/cli": 17.6.5
     "@commitlint/config-conventional": 17.6.5
     "@dnd-kit/core": 6.0.5
+    "@editorjs/checklist": ^1.5.0
+    "@editorjs/code": ^2.8.0
+    "@editorjs/delimiter": ^1.3.0
+    "@editorjs/editorjs": ^2.28.0
+    "@editorjs/header": ^2.7.0
+    "@editorjs/inline-code": ^1.4.0
+    "@editorjs/link": ^2.5.0
+    "@editorjs/list": ^1.8.0
+    "@editorjs/marker": ^1.3.0
+    "@editorjs/paragraph": ^2.10.0
+    "@editorjs/quote": ^2.5.0
+    "@editorjs/underline": ^1.1.0
     "@fancyapps/ui": 4.0.16
     "@fortawesome/fontawesome-pro": 6.1.2
     "@fortawesome/fontawesome-svg-core": 6.1.2
@@ -21343,6 +21506,7 @@ __metadata:
     "@react-hook/window-size": 3.0.7
     "@react-hookz/web": 22.0.0
     "@serverlessq/nextjs": ^1.0.9
+    "@sotaproject/strikethrough": ^1.0.1
     "@storybook/addon-essentials": 7.0.24
     "@storybook/core-common": 7.0.7
     "@storybook/core-server": 7.0.24
@@ -21450,6 +21614,7 @@ __metadata:
     cypress-terminal-report: ^5.1.1
     cz-customizable: 6.3.0
     dotenv: 15.0.0
+    editorjs-text-color-plugin: ^2.0.4
     env-cmd: 10.1.0
     env-var: 7.3.1
     esbuild: ^0.17.19
@@ -24445,6 +24610,13 @@ __metadata:
   version: 1.0.0
   resolution: "editor@npm:1.0.0"
   checksum: 41fb75f605f92e4f3dba3da594300928e66f93a8e60e1d5734c85e8597554d7af37ef823e1ae4aca6b40c72ae7fabfdc0f3ef31b0daa1bd945f8cb7b6380009f
+  languageName: node
+  linkType: hard
+
+"editorjs-text-color-plugin@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "editorjs-text-color-plugin@npm:2.0.4"
+  checksum: 730fc3e4de8f4137473d9f93cd722c77f63e9705906c4c98911122fe79f8c8324a99921736e4fa130f7fc64a9da79289ecd90a3905aa3347b24abeefb464bce4
   languageName: node
   linkType: hard
 

@@ -265,8 +265,7 @@ describe('Running nested API and code actions', () => {
     cy.getCuiTreeItemByPrimaryTitle('Typography Element').click({ force: true })
 
     // set text prop to use the state
-    cy.get(`.ant-tabs [aria-label="setting"]`).click()
-    cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
+    cy.get('.codex-editor .ce-block__content .cdx-block').type(
       `response from api - {{state.localData}}`,
       {
         parseSpecialCharSequences: false,
@@ -315,7 +314,7 @@ describe('Running nested API and code actions', () => {
 
     cy.getCuiTreeItemByPrimaryTitle('Post Button').click({ force: true })
 
-    cy.get('.ant-tabs-tabpane-active form .ql-editor').type(
+    cy.get('.codex-editor .ce-block__content .cdx-block').type(
       'Click button to post',
       {
         parseSpecialCharSequences: false,
