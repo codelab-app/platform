@@ -69,7 +69,10 @@ const stubServiceRepositories = (rootStore: ITestRootStore) => {
 }
 
 // Clone everything so that we don't get conflicts between different test files.
-export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
+export const setupTestForRenderer = (
+  pipes: Array<RenderPipeClass> = [],
+  rendererType: RendererType = RendererType.PageBuilder,
+) => {
   const data: TestServices = {} as TestServices
 
   beforeEach(async () => {
@@ -259,7 +262,7 @@ export const setupTestForRenderer = (pipes: Array<RenderPipeClass> = []) => {
     const renderer = new Renderer({
       debugMode: false,
       elementTree: elementTreeRef(data.component),
-      rendererType: RendererType.PageBuilder,
+      rendererType,
       renderPipe: renderPipeFactory([PassThroughRenderPipe, ...pipes]),
     })
 
