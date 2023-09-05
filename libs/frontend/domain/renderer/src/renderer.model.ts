@@ -25,6 +25,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import compact from 'lodash/compact'
 import isObject from 'lodash/isObject'
 import type { ObjectMap, Ref } from 'mobx-keystone'
 import {
@@ -51,6 +52,7 @@ import {
   renderPipeFactory,
 } from './renderPipes/render-pipe.factory'
 import { typedPropTransformersFactory } from './typedPropTransformers'
+import { shouldRenderElement } from './utils'
 
 /**
  * Handles the logic of rendering treeElements. Takes in an optional appTree
@@ -174,6 +176,12 @@ export class Renderer
 
   @modelAction
   addRuntimeProps(nodeRef: IPageNodeRef) {
+    const existingRuntimeProps = this.runtimeProps.get(nodeRef.id)
+
+    if (existingRuntimeProps) {
+      return existingRuntimeProps
+    }
+
     const runtimeProps = isElementPageNodeRef(nodeRef)
       ? ElementRuntimeProps.create(nodeRef)
       : ComponentRuntimeProps.create(nodeRef)
@@ -308,8 +316,14 @@ export class Renderer
         ...this.getChildPageChildren(element),
       ]
 
-      const renderedChildren = children.map((child) =>
-        this.renderElement(child),
+      const renderedChildren = compact(
+        children.map((child) => {
+          if (shouldRenderElement(child)) {
+            return this.renderElement(child)
+          }
+
+          return null
+        }),
       )
 
       const hasChildren = renderedChildren.length > 0

@@ -41,10 +41,12 @@ export const evaluateExpression = (
     const code = `return ${stripStateExpression(expression)}`
 
     const {
+      actions,
       args = [],
       componentProps,
       props,
       refs,
+      rootActions,
       rootRefs,
       rootState,
       state,
@@ -53,16 +55,29 @@ export const evaluateExpression = (
 
     // eslint-disable-next-line no-new-func
     return new Function(
+      'actions',
       'args',
       'componentProps',
       'props',
       'refs',
+      'rootActions',
       'rootRefs',
       'rootState',
       'state',
       'url',
       code,
-    )(args, componentProps, props, refs, rootRefs, rootState, state, url)
+    )(
+      actions,
+      args,
+      componentProps,
+      props,
+      refs,
+      rootActions,
+      rootRefs,
+      rootState,
+      state,
+      url,
+    )
   } catch (error) {
     console.log(error)
 
