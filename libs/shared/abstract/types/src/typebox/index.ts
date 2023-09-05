@@ -1,12 +1,11 @@
 import { Nullish } from './nullish'
 import { OmitOwner } from './omit-owner'
-import { SafeValidate, Validate } from './validate'
+import { ValidateAndClean } from './validate'
 
 const Typebox = {
   Nullish,
   OmitOwner,
-  SafeValidate,
-  Validate,
+  ValidateAndClean,
 }
 
 export { Typebox }

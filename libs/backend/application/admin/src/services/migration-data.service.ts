@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Scope } from '@nestjs/common'
 import { findUpSync } from 'find-up'
 import path, { dirname } from 'path'
 
@@ -6,24 +6,27 @@ export interface IBaseDataPaths {
   baseDataPaths?: string | undefined
 }
 
+const resolveWorkspaceRoot = (basePath: string) =>
+  path.resolve(dirname(findUpSync('package.json')!), basePath)
+
 /**
  * This service holds all the paths for our migration data
  */
-@Injectable()
+@Injectable({
+  scope: Scope.TRANSIENT,
+})
 export class MigrationDataService implements IBaseDataPaths {
   /**
    * process.cwd() doesn't work since run-commands may set app dir as cwd
    */
-  baseDataPaths = path.resolve(
-    dirname(findUpSync('package.json')!),
-    './data/export',
-  )
+  baseDataPaths = resolveWorkspaceRoot('./data/export')
 
   /**
-   * Allows override by setting at runtime
+   * Allows override by setting at runtime, base path relative to workspace root
    */
   set basePaths(basePath: string) {
-    this.baseDataPaths = basePath
+    this.baseDataPaths = resolveWorkspaceRoot(basePath)
+    console.log(basePath, this.baseDataPaths)
   }
 
   /**

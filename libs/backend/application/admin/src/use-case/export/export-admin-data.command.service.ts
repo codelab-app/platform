@@ -19,7 +19,6 @@ import type { IBaseDataPaths } from '../../services/migration-data.service'
 import { MigrationDataService } from '../../services/migration-data.service'
 import { WriteAdminDataService } from './write-admin-data.service'
 
-@Injectable()
 export class ExportAdminDataCommand implements IBaseDataPaths {
   constructor(public baseDataPaths?: string) {}
 }
@@ -32,7 +31,6 @@ export class ExportAdminDataHandler
   implements ICommandHandler<ExportAdminDataCommand, IAdminOutputDto>
 {
   constructor(
-    private readonly migrationDataService: MigrationDataService,
     private writeAdminDataService: WriteAdminDataService,
     private commandBus: CommandBus,
     private traceService: TraceService,
@@ -40,15 +38,14 @@ export class ExportAdminDataHandler
 
   @Span()
   async execute(command: ExportAdminDataCommand) {
+    const { baseDataPaths } = command
     const span = this.traceService.getSpan()!
 
     span.setAttributes(flattenWithPrefix(command))
 
-    const { baseDataPaths } = command
-
     if (baseDataPaths) {
       span.addEvent('Add baseDataPath')
-      this.migrationDataService.basePaths = baseDataPaths
+      this.writeAdminDataService.migrationDataService.basePaths = baseDataPaths
     }
 
     const systemTypes = await this.commandBus.execute<

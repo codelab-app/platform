@@ -9,13 +9,11 @@ import { Injectable, Scope } from '@nestjs/common'
 import path from 'path'
 import { MigrationDataService } from '../../services/migration-data.service'
 
-@Injectable({
-  scope: Scope.TRANSIENT,
-})
+@Injectable()
 export class WriteAdminDataService {
   constructor(
     private traceService: TraceService,
-    private migrationDataService: MigrationDataService,
+    public migrationDataService: MigrationDataService,
   ) {}
 
   /**
@@ -40,7 +38,7 @@ export class WriteAdminDataService {
       )
 
       const stringData = formatToPrettifiedJson({
-        api,
+        ...api,
         atom,
       })
 

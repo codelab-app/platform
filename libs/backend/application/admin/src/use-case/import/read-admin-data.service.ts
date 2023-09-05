@@ -42,7 +42,9 @@ export class ReadAdminDataService implements IBaseDataPaths, IAdminOutputDto {
       fs.readFileSync(this.migrationDataService.systemTypesFilePath, 'utf8'),
     )
 
-    return types.map((type: unknown) => Typebox.Validate(ITypeOutputDto, type))
+    return types.map((type: unknown) =>
+      Typebox.ValidateAndClean(ITypeOutputDto, type),
+    )
   }
 
   get atoms() {
@@ -57,7 +59,7 @@ export class ReadAdminDataService implements IBaseDataPaths, IAdminOutputDto {
       )
 
       const atomExport = JSON.parse(content.toString())
-      const atom = Typebox.Validate(IAtomOutputDto, atomExport)
+      const atom = Typebox.ValidateAndClean(IAtomOutputDto, atomExport)
 
       atoms.push(atom)
 
@@ -82,7 +84,7 @@ export class ReadAdminDataService implements IBaseDataPaths, IAdminOutputDto {
 
       const component = JSON.parse(content)
 
-      return Typebox.Validate(IComponentOutputDto, component)
+      return Typebox.ValidateAndClean(IComponentOutputDto, component)
     })
   }
 
@@ -95,6 +97,8 @@ export class ReadAdminDataService implements IBaseDataPaths, IAdminOutputDto {
       fs.readFileSync(this.migrationDataService.tagsFilePath, 'utf8'),
     )
 
-    return tags.map((tag: unknown) => Typebox.Validate(ITagOutputDto, tag))
+    return tags.map((tag: unknown) =>
+      Typebox.ValidateAndClean(ITagOutputDto, tag),
+    )
   }
 }

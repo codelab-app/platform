@@ -52,7 +52,7 @@ export class ExportAtomsHandler
         })),
       }))
 
-    return Promise.all(atoms.map(async (atom) => this.exportAtom(atom)))
+    return Promise.all(atoms.map(async (atom) => await this.exportAtom(atom)))
   }
 
   @Span()

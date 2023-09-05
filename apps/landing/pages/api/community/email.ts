@@ -12,7 +12,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { apiKey, listId, serverPrefix } = getEnv().mailchimp
 
   try {
-    const { email } = Typebox.Validate(Email, req.body)
+    const { email } = Typebox.ValidateAndClean(Email, req.body)
 
     client.setConfig({
       apiKey,

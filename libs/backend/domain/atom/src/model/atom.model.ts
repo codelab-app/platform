@@ -14,28 +14,16 @@ import {
 } from 'class-validator'
 
 export class Atom implements IAtomDTO {
-  @IsOptional()
-  @IsString()
   icon?: string | null | undefined
 
-  @IsNotEmpty()
-  @IsString()
   id: string
 
-  @IsNotEmpty()
-  @IsString()
   name: string
 
-  @IsOptional()
-  @IsString()
   externalCssSource: string | null | undefined
 
-  @IsOptional()
-  @IsString()
   externalJsSource: string | null | undefined
 
-  @IsOptional()
-  @IsString()
   externalSourceType: string | null | undefined
 
   // Assuming this is a string, add validators as per actual type
@@ -43,13 +31,10 @@ export class Atom implements IAtomDTO {
 
   api: IEntity
 
-  @IsArray()
   tags: Array<IEntity>
 
-  @IsArray()
   requiredParents: Array<IEntity>
 
-  @IsArray()
   suggestedChildren: Array<IEntity>
 
   // Assuming this is a string, add validators as per actual type

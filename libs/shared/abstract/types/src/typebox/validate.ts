@@ -4,8 +4,24 @@
 import type { TAnySchema } from '@sinclair/typebox'
 import type { ValueError } from '@sinclair/typebox/compiler'
 import { TypeCompiler, ValueErrorType } from '@sinclair/typebox/compiler'
+import { StandardValidator } from 'typebox-validators/standard'
 
-export const Validate = <T extends TAnySchema>(schema: T, values: unknown) => {
+/**
+ * Removes unrecognized properties from the validated data
+ */
+export const ValidateAndClean = <T extends TAnySchema>(
+  schema: T,
+  values: unknown,
+) => {
+  const validator = new StandardValidator(schema)
+
+  return validator.validateAndCleanCopy(values as Readonly<unknown>)
+}
+
+export const Validate = <T extends TAnySchema>(
+  schema: T,
+  values: Readonly<unknown>,
+) => {
   const Compiler = TypeCompiler.Compile(schema)
 
   if (!Compiler.Check(values)) {
@@ -15,15 +31,6 @@ export const Validate = <T extends TAnySchema>(schema: T, values: unknown) => {
   }
 
   return values
-}
-
-export const SafeValidate = <T extends TAnySchema>(
-  schema: T,
-  values: unknown,
-) => {
-  const Compiler = TypeCompiler.Compile(schema)
-
-  return !Compiler.Check(values)
 }
 
 const formatErrors = (errors: Array<ValueError>) => {

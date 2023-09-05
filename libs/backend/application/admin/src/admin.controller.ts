@@ -21,7 +21,9 @@ export class AdminController {
 
   @Post('export')
   async export(@Body() exportDto: ExportDto, @CurrentUser() user: IUserDTO) {
-    await this.commandBus.execute(new ExportAdminDataCommand())
+    const { adminDataPath } = exportDto
+
+    await this.commandBus.execute(new ExportAdminDataCommand(adminDataPath))
 
     // if (includeUserData) {
     //   const userData = await this.commandBus.execute(
