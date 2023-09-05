@@ -15,6 +15,7 @@ export type SelectActionProps = Pick<
   UniformSelectFieldProps,
   'error' | 'label' | 'name' | 'required' | 'value'
 > & {
+  onChange(value: unknown): void
   updatedAction?: IEntity
 }
 
