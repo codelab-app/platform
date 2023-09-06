@@ -1,0 +1,29 @@
+{
+  "name": "shared-infra-validation",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/infra/validation/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shared/infra/validation",
+        "main": "libs/shared/infra/validation/src/index.ts",
+        "tsConfig": "libs/shared/infra/validation/tsconfig.lib.json",
+        "assets": ["libs/shared/infra/validation/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/shared/infra/validation/**/*.ts",
+          "libs/shared/infra/validation/package.json"
+        ]
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:abstract"]
+}

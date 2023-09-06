@@ -5,9 +5,8 @@ import {
   ITagOutputDto,
   ITypeOutputDto,
 } from '@codelab/backend/abstract/core'
-import { Typebox } from '@codelab/shared/abstract/types'
+import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { Injectable, Scope } from '@nestjs/common'
-import { ValidationService } from 'backend/infra/adapter/typebox'
 import { findUpSync } from 'find-up'
 import fs from 'fs'
 import path, { dirname } from 'path'

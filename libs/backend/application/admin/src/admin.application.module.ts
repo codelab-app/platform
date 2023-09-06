@@ -6,6 +6,7 @@ import { TagApplicationModule } from '@codelab/backend/application/tag'
 import { TypeApplicationModule } from '@codelab/backend/application/type'
 import { UserApplicationModule } from '@codelab/backend/application/user'
 import { OtelModule } from '@codelab/backend/infra/adapter/otel'
+import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { AdminController } from './admin.controller'
@@ -20,6 +21,7 @@ import { ReadAdminDataService } from './use-case/import/read-admin-data.service'
   imports: [
     OtelModule,
     CqrsModule,
+    ValidationModule,
     /**
      * Application
      */

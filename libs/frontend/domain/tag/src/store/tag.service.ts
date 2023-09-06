@@ -169,7 +169,7 @@ export class TagService
       isRoot,
       name,
       owner,
-      parent: parent?.id ? tagRef(parent.id) : null,
+      parent: parent.id ? tagRef(parent.id) : null,
     })
 
     this.tags.set(tag.id, tag)

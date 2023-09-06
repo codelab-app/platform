@@ -1,24 +1,28 @@
+import { TraceService } from '@codelab/backend/infra/adapter/otel'
+import { Typebox } from '@codelab/shared/infra/validation'
 import { Injectable } from '@nestjs/common'
 import type { TAnySchema, TObject, TUnion } from '@sinclair/typebox'
+import type { ValidationException } from 'typebox-validators'
 import { DiscriminatedUnionValidator } from 'typebox-validators/discriminated'
 import { StandardValidator } from 'typebox-validators/standard'
-import { isUnionSchema } from '../schema/is-union'
 
 @Injectable()
 export class ValidationService {
+  constructor(private traceService: TraceService) {}
+
   /**
    * Removes unrecognized properties from the validated data
    */
-  validateAndClean = <T extends TAnySchema>(schema: T, values: unknown) => {
-    const validator = new StandardValidator(schema)
+  validateAndClean = <T extends TAnySchema>(anySchema: T, values: unknown) => {
+    const validator = new StandardValidator(anySchema)
 
     try {
       /**
        * Does additional check for discriminated union if is a union
        */
-      if (isUnionSchema(schema)) {
+      if (Typebox.isUnionSchema(anySchema)) {
         const discriminatedValidator = new DiscriminatedUnionValidator(
-          schema as TUnion<Array<TObject>>,
+          anySchema as TUnion<Array<TObject>>,
         )
 
         discriminatedValidator.validateAndClean(values)
@@ -26,7 +30,30 @@ export class ValidationService {
 
       return validator.validateAndCleanCopy(values as Readonly<unknown>)
     } catch (error) {
-      console.error(schema, values, error)
+      const validationException = error as ValidationException
+
+      /**
+       * Remove schema from error
+       */
+      const cleanedErrors = {
+        ...validationException,
+        details: validationException.details.map(
+          ({ schema, ...detail }) => detail,
+        ),
+      }
+
+      /**
+       * Remove schema as it can get very long
+       */
+      this.traceService.addEvent(`Validation failed for ${anySchema.$id}`, {
+        error: cleanedErrors,
+        values,
+      })
+
+      if (error instanceof Error) {
+        this.traceService.addJsonAttributes(`stack_trace: ${error.stack}`)
+      }
+
       throw error
     }
   }

@@ -8,6 +8,7 @@ import {
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
+import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IArrayTypeDTO } from '@codelab/shared/abstract/core'
 import {
@@ -16,7 +17,6 @@ import {
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
-import { ValidationService } from 'backend/infra/adapter/typebox'
 
 @Injectable()
 export class ArrayTypeRepository extends AbstractRepository<

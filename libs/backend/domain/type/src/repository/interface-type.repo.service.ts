@@ -11,6 +11,7 @@ import {
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
+import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
   type IFieldDTO,
@@ -18,7 +19,6 @@ import {
   type ITypeDTO,
   type ITypeEntity,
 } from '@codelab/shared/abstract/core'
-import { Typebox } from '@codelab/shared/abstract/types'
 import {
   connectAuth0Owner,
   connectNodeId,
@@ -27,7 +27,6 @@ import {
 import { Span } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
 import { type TAnySchema } from '@sinclair/typebox'
-import { ValidationService } from 'backend/infra/adapter/typebox'
 
 @Injectable()
 export class InterfaceTypeRepository extends AbstractRepository<

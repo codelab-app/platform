@@ -85,4 +85,11 @@ export class ExportAdminDataHandler
 
     return this.writeAdminDataService.saveData(data)
   }
+
+  async exportAtoms() {
+    const atoms = await this.commandBus.execute<
+      ExportAtomsCommand,
+      Array<IAtomOutputDto>
+    >(new ExportAtomsCommand())
+  }
 }

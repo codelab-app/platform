@@ -1,10 +1,10 @@
 import type { IRepository } from '@codelab/backend/abstract/types'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
-import { type IEntity, Typebox } from '@codelab/shared/abstract/types'
+import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { type IEntity } from '@codelab/shared/abstract/types'
 import { flattenWithPrefix, withActiveSpan } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
 import type { TAnySchema } from '@sinclair/typebox'
-import { ValidationService } from 'backend/infra/adapter/typebox'
 
 @Injectable()
 export abstract class AbstractRepository<
@@ -41,7 +41,7 @@ export abstract class AbstractRepository<
     return withActiveSpan(
       `${this.constructor.name}.findOne`,
       async (span) => {
-        span.setAttributes(flattenWithPrefix(where, 'where'))
+        this.traceService.addJsonAttributes('where', where)
 
         // if (!this.enableCache) {
         //   return (await this.find({ where }))[0]
@@ -56,37 +56,46 @@ export abstract class AbstractRepository<
         //   return cachedValue
         // }
 
-        const result = (await this.find({ where }))[0]
+        const results = (await this.find({ where }, schema))[0]
 
-        if (!result) {
+        if (!results) {
           return undefined
         }
 
         // await this.cacheService.setOne(this.constructor.name, where, result)
 
-        span.setAttributes(flattenWithPrefix(result))
+        this.traceService.addJsonAttributes('results', results)
 
         if (schema) {
-          return this.validationService.validateAndClean(schema, result)
+          return this.validationService.validateAndClean(schema, results)
         }
 
-        return result
+        return results
       },
       // context.active(),
     )
   }
 
-  async find({
-    options,
-    where,
-  }: {
-    where?: Where
-    options?: Options
-  } = {}): Promise<Array<ModelData>> {
+  /**
+   *
+   * @param param0
+   * @param schema This is the singular form of the schema
+   * @returns
+   */
+  async find(
+    {
+      options,
+      where,
+    }: {
+      where?: Where
+      options?: Options
+    } = {},
+    schema?: TAnySchema,
+  ): Promise<Array<ModelData>> {
     return withActiveSpan(
       `${this.constructor.name}.find`,
       async (span) => {
-        span.setAttributes(flattenWithPrefix(where, 'where'))
+        this.traceService.addJsonAttributes('where', where)
 
         // if (!this.enableCache) {
         //   return await this._find({ options, where })
@@ -103,7 +112,13 @@ export abstract class AbstractRepository<
 
         const results = await this._find({ options, where })
 
-        span.addEvent('Result', flattenWithPrefix(results))
+        this.traceService.addJsonAttributes('results', results)
+
+        if (schema) {
+          return results.map((result) => {
+            return this.validationService.validateAndClean(schema, result)
+          })
+        }
 
         // await this.cacheService.setMany(this.constructor.name, where, results)
 

@@ -7,12 +7,11 @@ import { IAtomOutputDto } from '@codelab/backend/abstract/core'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
+import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { type IAtomDTO } from '@codelab/shared/abstract/core'
-import { Typebox } from '@codelab/shared/abstract/types'
 import { Span } from '@codelab/shared/infra/otel'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
-import { ValidationService } from 'backend/infra/adapter/typebox'
 
 export class ExportAtomsCommand {
   constructor(readonly where?: AtomWhere) {}

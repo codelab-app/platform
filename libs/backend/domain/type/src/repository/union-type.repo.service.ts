@@ -8,6 +8,7 @@ import {
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
+import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IBaseTypeDTO, IUnionTypeDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -17,7 +18,6 @@ import {
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
-import { ValidationService } from 'backend/infra/adapter/typebox'
 
 const filterTypeIds = (
   typesOfUnionType: Array<Omit<IBaseTypeDTO, 'owner'>>,

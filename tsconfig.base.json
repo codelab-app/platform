@@ -262,8 +262,11 @@
         "libs/testing/cypress/nextjs-auth0/src/index.ts"
       ],
       "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
-      "backend/infra/adapter/typebox": [
+      "@codelab/backend/infra/adapter/typebox": [
         "libs/backend/infra/adapter/typebox/src/index.ts"
+      ],
+      "@codelab/shared/infra/validation": [
+        "libs/shared/infra/validation/src/index.ts"
       ]
     }
   },

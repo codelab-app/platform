@@ -110,6 +110,14 @@
         "style": "styled-components",
         "linter": "eslint"
       }
+    },
+    "@nx/js": {
+      "library": {
+        "unitTestRunner": "none",
+        "setParserOptionsProject": true,
+        "strict": true,
+        "tags": "scope:shared"
+      }
     }
   },
   "$schema": "./node_modules/nx/schemas/nx-schema.json",

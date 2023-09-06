@@ -8,7 +8,6 @@ import type {
   IInterfaceTypeDTO,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
-import { Typebox } from '@codelab/shared/abstract/types'
 import { Span } from '@codelab/shared/infra/otel'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
