@@ -5,6 +5,7 @@ import type {
 import {
   CUSTOM_TEXT_PROP_KEY,
   DATA_ELEMENT_ID,
+  isAtomInstance,
   RendererType,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -33,7 +34,8 @@ export class ElementRuntimeProps
   @computed
   get props() {
     // memorize values or else it will be lost inside callback
-    const refKey = this.node.refKey
+    const registerReference = isAtomInstance(this.node.renderType)
+    const slug = this.node.slug
     const store = this.node.store.current
 
     return {
@@ -45,10 +47,10 @@ export class ElementRuntimeProps
        * Internal system props for meta data, use double underline for system-defined identifiers.
        */
       [DATA_ELEMENT_ID]: this.node.id,
-      forwardedRef: refKey
-        ? (node: HTMLElement) => store.registerRef(refKey, node)
-        : undefined,
       key: this.node.id,
+      ref: registerReference
+        ? (node: HTMLElement) => store.registerRef(slug, node)
+        : undefined,
     }
   }
 

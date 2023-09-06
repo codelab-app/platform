@@ -1,5 +1,9 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import type { IElementDTO, IPropDTO } from '@codelab/shared/abstract/core'
+import type {
+  ICreateIElementDTO,
+  IPropDTO,
+} from '@codelab/shared/abstract/core'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import { v4 } from 'uuid'
 
 /**
@@ -10,11 +14,14 @@ export const providerElementPropsData: IPropDTO = {
   id: v4(),
 }
 
-export const providerElementData: IElementDTO = {
+export const providerElementData = (
+  closestContainerNode: IEntity,
+): ICreateIElementDTO => ({
+  closestContainerNode,
   id: v4(),
   name: ROOT_ELEMENT_NAME,
   props: providerElementPropsData,
-}
+})
 
 /**
  * IPageKind.NotFound
@@ -24,11 +31,14 @@ export const notFoundElementPropsData: IPropDTO = {
   id: v4(),
 }
 
-export const notFoundElementData: IElementDTO = {
+export const notFoundElementData = (
+  closestContainerNode: IEntity,
+): ICreateIElementDTO => ({
+  closestContainerNode,
   id: v4(),
   name: ROOT_ELEMENT_NAME,
   props: notFoundElementPropsData,
-}
+})
 
 /**
  * IPageKind.InternalServerError
@@ -38,8 +48,11 @@ export const internalServerErrorPropsData: IPropDTO = {
   id: v4(),
 }
 
-export const internalServerErrorElementData: IElementDTO = {
+export const internalServerErrorElementData = (
+  closestContainerNode: IEntity,
+): ICreateIElementDTO => ({
+  closestContainerNode,
   id: v4(),
   name: ROOT_ELEMENT_NAME,
   props: internalServerErrorPropsData,
-}
+})

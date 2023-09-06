@@ -14,7 +14,6 @@ fragment Element on Element {
     ...Atom
     # ...RenderAtom
   }
-  refKey
   renderType {
     id
     kind

@@ -51,6 +51,7 @@ import {
 import {
   compoundCaseToTitleCase,
   createUniqueName,
+  slugify,
 } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import {
@@ -81,7 +82,6 @@ const create = ({
   preRenderAction,
   prevSibling,
   props,
-  refKey,
   renderForEachPropKey,
   renderIfExpression,
   renderType,
@@ -115,7 +115,6 @@ const create = ({
       : undefined,
     prevSibling: prevSibling?.id ? elementRef(prevSibling.id) : undefined,
     props: propRef(props.id),
-    refKey,
     renderForEachPropKey,
     renderIfExpression,
     renderingMetadata: null,
@@ -152,7 +151,6 @@ export class Element
     preRenderAction: prop<Nullable<Ref<IAction>>>(null).withSetter(),
     prevSibling: prop<Nullable<Ref<IElement>>>(null).withSetter(),
     props: prop<Ref<IProp>>().withSetter(),
-    refKey: prop<Nullable<string>>(null),
     renderForEachPropKey: prop<Nullable<string>>(null).withSetter(),
     renderIfExpression: prop<Nullable<string>>(null).withSetter(),
     renderingMetadata: prop<Nullable<RenderingMetadata>>(null),
@@ -329,6 +327,11 @@ export class Element
     }
   }
 
+  @computed
+  get slug(): string {
+    return slugify(this.name)
+  }
+
   @modelAction
   appendToGuiCss(css: CssMap) {
     const curGuiCss = JSON.parse(this.guiCss || '{}')
@@ -434,7 +437,7 @@ export class Element
       secondary:
         this.renderType?.maybeCurrent?.name ||
         (isAtomInstance(this.renderType)
-          ? compoundCaseToTitleCase((this.renderType.current as IAtom).type)
+          ? compoundCaseToTitleCase(this.renderType.current.type)
           : undefined),
     }
   }
@@ -545,10 +548,10 @@ export class Element
       : undefined
 
     return {
+      _compoundName: createUniqueName(this.name, this.closestContainerNode.id),
       customCss: this.customCss,
       guiCss: this.guiCss,
       id: this.id,
-      name: this.name,
       props: {
         create: {
           node: this.props.current.toCreateInput(),
@@ -587,19 +590,13 @@ export class Element
       ? reconnectNodeId(this.childMapperPreviousSibling.id)
       : disconnectNodeId(undefined)
 
-    const _compoundRefKey =
-      this.refKey && this.refKey !== ''
-        ? createUniqueName(this.refKey, this.store.id)
-        : null
-
     return {
-      _compoundRefKey,
+      _compoundName: createUniqueName(this.name, this.closestContainerNode.id),
       childMapperComponent,
       childMapperPreviousSibling,
       childMapperPropKey: this.childMapperPropKey,
       customCss: this.customCss,
       guiCss: this.guiCss,
-      name: this.name,
       postRenderAction,
       preRenderAction,
       renderAtomType,
@@ -612,9 +609,11 @@ export class Element
   @modelAction
   toUpdateNodesInput(): Pick<
     ElementUpdateInput,
-    'firstChild' | 'nextSibling' | 'parent' | 'prevSibling'
+    '_compoundName' | 'firstChild' | 'nextSibling' | 'parent' | 'prevSibling'
   > {
     return {
+      // _compoundName could change too
+      _compoundName: createUniqueName(this.name, this.closestContainerNode.id),
       firstChild: reconnectNodeId(this.firstChild?.id),
       nextSibling: reconnectNodeId(this.nextSibling?.id),
       parent: reconnectNodeId(this.parent?.id),
@@ -764,7 +763,6 @@ export class Element
     preRenderAction,
     prevSibling,
     props,
-    refKey,
     renderForEachPropKey,
     renderIfExpression,
     renderType,
@@ -804,8 +802,6 @@ export class Element
     this.childMapperPreviousSibling = childMapperPreviousSibling
       ? elementRef(childMapperPreviousSibling.id)
       : null
-
-    this.refKey = refKey ?? null
 
     return this
   }

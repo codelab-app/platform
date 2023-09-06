@@ -16,7 +16,9 @@ export const elementSchema = gql`
 
   type Element {
     id: ID! @id(autogenerate: false)
-    name: String!
+    _compoundName: String! @unique
+    name: String! @customResolver(requires: ["id", "_compoundName"])
+    slug: String! @customResolver(requires: ["id", "_compoundName"])
     nextSibling: Element @relationship(type: "NODE_SIBLING", direction: IN)
     prevSibling: Element @relationship(type: "NODE_SIBLING", direction: OUT)
     firstChild: Element @relationship(type: "TREE_FIRST_CHILD", direction: IN)
@@ -50,9 +52,6 @@ export const elementSchema = gql`
     # Type of element to render, could be either a component or atom
     renderComponentType: Component
       @relationship(type: "RENDER_COMPONENT_TYPE", direction: OUT)
-
-    _compoundRefKey: String @unique
-    refKey: String @customResolver(requires: ["id", "_compoundRefKey"])
 
     renderAtomType: Atom @relationship(type: "RENDER_ATOM_TYPE", direction: OUT)
     renderType: RenderType

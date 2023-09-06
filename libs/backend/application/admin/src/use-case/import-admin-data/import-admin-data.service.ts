@@ -14,15 +14,9 @@ import {
   InterfaceTypeRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import type {
-  IAuth0Owner,
-  ITagDTO,
-  ITypeDTO,
-} from '@codelab/shared/abstract/core'
+import type { IAuth0Owner, ITagDTO } from '@codelab/shared/abstract/core'
 import { withTracing } from '@codelab/shared/infra/otel'
-import { InjectQueue } from '@nestjs/bull'
 import { Inject, Injectable } from '@nestjs/common'
-import { Queue } from 'bull'
 import fs from 'fs'
 import pick from 'lodash/pick'
 import path from 'path'
@@ -127,6 +121,7 @@ export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
     const componentsExportData = this.exportedAdminData.components
 
     for await (const {
+      component,
       descendantElements,
       fields,
       types,
@@ -140,7 +135,7 @@ export class ImportAdminDataService extends UseCase<IAuth0Owner, void> {
       }
 
       for await (const element of descendantElements) {
-        await importElementInitial(element)
+        await importElementInitial(element, component)
       }
     }
 

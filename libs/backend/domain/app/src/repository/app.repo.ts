@@ -128,7 +128,7 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
     })
   }
 
-  for (const { elements, store } of pages) {
+  for (const { elements, id, store } of pages) {
     const interfaceTypeExist = await interfaceTypeRepository.findOne({
       id: store.api.id,
     })
@@ -154,7 +154,7 @@ export const createApp = async (app: IAppExport, owner: IAuth0Owner) => {
     await importActions(store.actions, store.id)
 
     for (const element of elements) {
-      await importElementInitial(element)
+      await importElementInitial(element, { id })
     }
 
     for (const element of elements) {

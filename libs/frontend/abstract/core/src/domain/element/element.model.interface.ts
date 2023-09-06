@@ -106,7 +106,6 @@ export interface IElement
   propsHaveErrors: boolean | null
   // store attached to the provider page
   providerStore?: Ref<IStore>
-  refKey: Nullish<string>
   renderForEachPropKey: Nullable<string>
   renderIfExpression: Nullable<string>
   renderType: IElementRenderType | null
@@ -114,7 +113,7 @@ export interface IElement
   // renderComponentType: Nullable<Ref<IComponent>>
   renderingMetadata: Nullable<RenderingMetadata>
   runtimeProp: Maybe<IElementRuntimeProp>
-
+  slug: string
   /**
    * to render a component we create a duplicate for each element
    * keeps track of source element in case this is a duplicate

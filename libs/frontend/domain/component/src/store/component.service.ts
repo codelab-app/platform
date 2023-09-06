@@ -182,7 +182,7 @@ export class ComponentService
 
     const rootElement = this.elementService.add({
       id: v4(),
-      name,
+      name: `${name} Root`,
       parentComponent: { id },
       props: rootElementProps,
     })

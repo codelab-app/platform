@@ -95,11 +95,6 @@ export const createElementSchema: JSONSchemaType<
       required: ['id', 'kind'],
       type: 'object',
     },
-    refKey: {
-      label: 'Ref Key',
-      nullable: true,
-      type: 'string',
-    },
   },
   required: ['name', 'id'],
   title: 'Create Element Input',

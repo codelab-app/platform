@@ -4,11 +4,12 @@ import {
   Repository,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IElementDTO } from '@codelab/shared/abstract/core'
+import type { ICreateIElementDTO } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
+import { createUniqueName } from '@codelab/shared/utils'
 
 export class ElementRepository extends AbstractRepository<
-  IElementDTO,
+  ICreateIElementDTO,
   Element,
   ElementWhere
 > {
@@ -26,22 +27,20 @@ export class ElementRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _add(elements: Array<IElementDTO>) {
-    return (
-      await (
-        await this.Element
-      ).create({
-        input: elements.map(({ id, name, props }) => ({
-          id,
-          name,
-          props: connectNodeId(props.id),
-        })),
-      })
-    ).elements
+  protected async _add(elements: Array<ICreateIElementDTO>) {
+    const input = await Promise.all(
+      elements.map(async ({ closestContainerNode, id, name, props }) => ({
+        _compoundName: createUniqueName(name, closestContainerNode.id),
+        id,
+        props: connectNodeId(props.id),
+      })),
+    )
+
+    return (await (await this.Element).create({ input })).elements
   }
 
   protected async _update(
-    { id, name, props }: IElementDTO,
+    { closestContainerNode, id, name, props }: ICreateIElementDTO,
     where: ElementWhere,
   ) {
     return (
@@ -49,8 +48,8 @@ export class ElementRepository extends AbstractRepository<
         await this.Element
       ).update({
         update: {
+          _compoundName: createUniqueName(name, closestContainerNode.id),
           id,
-          name,
           props: reconnectNodeId(props.id),
         },
         where,

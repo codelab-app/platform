@@ -232,7 +232,6 @@ describe('Testing the Form atom', () => {
             value: apiPostActionId,
           },
         },
-        refKey: 'formRef',
       },
     ])
 

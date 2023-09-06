@@ -94,11 +94,6 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
       required: ['id', 'kind'],
       type: 'object',
     },
-    refKey: {
-      label: 'Ref Key',
-      nullable: true,
-      type: 'string',
-    },
   },
   required: [],
   title: 'Update Element Input',
