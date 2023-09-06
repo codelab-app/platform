@@ -2289,8 +2289,7 @@ export type ApiActionElementElementNodeAggregateSelection = {
   __typename?: 'ApiActionElementElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -3218,8 +3217,7 @@ export type CodeActionElementElementNodeAggregateSelection = {
   __typename?: 'CodeActionElementElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -3501,8 +3499,7 @@ export type ComponentElementChildrenContainerElementNodeAggregateSelection = {
   __typename?: 'ComponentElementChildrenContainerElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -3518,8 +3515,7 @@ export type ComponentElementRootElementNodeAggregateSelection = {
   __typename?: 'ComponentElementRootElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -3957,8 +3953,7 @@ export type Element = {
   __typename?: 'Element'
   id: Scalars['ID']
   _compoundName: Scalars['String']
-  customCss?: Maybe<Scalars['String']>
-  guiCss?: Maybe<Scalars['String']>
+  style?: Maybe<Scalars['String']>
   childMapperPropKey?: Maybe<Scalars['String']>
   renderForEachPropKey?: Maybe<Scalars['String']>
   renderIfExpression?: Maybe<Scalars['String']>
@@ -4247,8 +4242,7 @@ export type ElementAggregateSelection = {
   count: Scalars['Int']
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -4351,8 +4345,7 @@ export type ElementElementChildMapperPreviousSiblingNodeAggregateSelection = {
   __typename?: 'ElementElementChildMapperPreviousSiblingNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -4368,8 +4361,7 @@ export type ElementElementFirstChildNodeAggregateSelection = {
   __typename?: 'ElementElementFirstChildNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -4385,8 +4377,7 @@ export type ElementElementNextSiblingNodeAggregateSelection = {
   __typename?: 'ElementElementNextSiblingNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -4402,8 +4393,7 @@ export type ElementElementParentNodeAggregateSelection = {
   __typename?: 'ElementElementParentNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -4419,8 +4409,7 @@ export type ElementElementPrevSiblingNodeAggregateSelection = {
   __typename?: 'ElementElementPrevSiblingNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -5322,8 +5311,7 @@ export type HookElementElementNodeAggregateSelection = {
   __typename?: 'HookElementElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -5826,8 +5814,7 @@ export type PageElementPageContentContainerNodeAggregateSelection = {
   __typename?: 'PageElementPageContentContainerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -5843,8 +5830,7 @@ export type PageElementRootElementNodeAggregateSelection = {
   __typename?: 'PageElementRootElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -7493,8 +7479,7 @@ export type UserElementElementsNodeAggregateSelection = {
   __typename?: 'UserElementElementsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -16443,8 +16428,7 @@ export type ElementConnectWhere = {
 export type ElementCreateInput = {
   id: Scalars['ID']
   _compoundName: Scalars['String']
-  customCss?: InputMaybe<Scalars['String']>
-  guiCss?: InputMaybe<Scalars['String']>
+  style?: InputMaybe<Scalars['String']>
   childMapperPropKey?: InputMaybe<Scalars['String']>
   renderForEachPropKey?: InputMaybe<Scalars['String']>
   renderIfExpression?: InputMaybe<Scalars['String']>
@@ -17214,8 +17198,7 @@ export type ElementNextSiblingUpdateFieldInput = {
 export type ElementOnCreateInput = {
   id: Scalars['ID']
   _compoundName: Scalars['String']
-  customCss?: InputMaybe<Scalars['String']>
-  guiCss?: InputMaybe<Scalars['String']>
+  style?: InputMaybe<Scalars['String']>
   childMapperPropKey?: InputMaybe<Scalars['String']>
   renderForEachPropKey?: InputMaybe<Scalars['String']>
   renderIfExpression?: InputMaybe<Scalars['String']>
@@ -19136,8 +19119,7 @@ export type ElementRenderComponentTypeUpdateFieldInput = {
 export type ElementSort = {
   id?: InputMaybe<SortDirection>
   _compoundName?: InputMaybe<SortDirection>
-  customCss?: InputMaybe<SortDirection>
-  guiCss?: InputMaybe<SortDirection>
+  style?: InputMaybe<SortDirection>
   childMapperPropKey?: InputMaybe<SortDirection>
   renderForEachPropKey?: InputMaybe<SortDirection>
   renderIfExpression?: InputMaybe<SortDirection>
@@ -19461,8 +19443,7 @@ export type ElementUniqueWhere = {
 export type ElementUpdateInput = {
   id?: InputMaybe<Scalars['ID']>
   _compoundName?: InputMaybe<Scalars['String']>
-  customCss?: InputMaybe<Scalars['String']>
-  guiCss?: InputMaybe<Scalars['String']>
+  style?: InputMaybe<Scalars['String']>
   childMapperPropKey?: InputMaybe<Scalars['String']>
   renderForEachPropKey?: InputMaybe<Scalars['String']>
   renderIfExpression?: InputMaybe<Scalars['String']>
@@ -19517,7 +19498,7 @@ export type ElementWhere = {
   _compoundName_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   _compoundName_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  customCss?: InputMaybe<Scalars['String']>
+  style?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   style_NOT?: InputMaybe<Scalars['String']>
   style_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
@@ -34585,8 +34566,7 @@ export interface ElementAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
   _compoundName?: StringAggregateInputNonNullable
-  customCss?: StringAggregateInputNullable
-  guiCss?: StringAggregateInputNullable
+  style?: StringAggregateInputNullable
   childMapperPropKey?: StringAggregateInputNullable
   renderForEachPropKey?: StringAggregateInputNullable
   renderIfExpression?: StringAggregateInputNullable

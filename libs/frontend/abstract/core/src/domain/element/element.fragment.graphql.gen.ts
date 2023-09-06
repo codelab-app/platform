@@ -17,8 +17,7 @@ export type ElementFragment = {
   __typename: 'Element'
   id: string
   name: string
-  customCss?: string | null
-  guiCss?: string | null
+  style?: string | null
   childMapperPropKey?: string | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null

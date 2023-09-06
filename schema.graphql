@@ -588,36 +588,6 @@ input ApiActionElementNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
-  customCss_AVERAGE_LENGTH_EQUAL: Float
-  customCss_AVERAGE_LENGTH_GT: Float
-  customCss_AVERAGE_LENGTH_GTE: Float
-  customCss_AVERAGE_LENGTH_LT: Float
-  customCss_AVERAGE_LENGTH_LTE: Float
-  customCss_LONGEST_LENGTH_EQUAL: Int
-  customCss_LONGEST_LENGTH_GT: Int
-  customCss_LONGEST_LENGTH_GTE: Int
-  customCss_LONGEST_LENGTH_LT: Int
-  customCss_LONGEST_LENGTH_LTE: Int
-  customCss_SHORTEST_LENGTH_EQUAL: Int
-  customCss_SHORTEST_LENGTH_GT: Int
-  customCss_SHORTEST_LENGTH_GTE: Int
-  customCss_SHORTEST_LENGTH_LT: Int
-  customCss_SHORTEST_LENGTH_LTE: Int
-  guiCss_AVERAGE_LENGTH_EQUAL: Float
-  guiCss_AVERAGE_LENGTH_GT: Float
-  guiCss_AVERAGE_LENGTH_GTE: Float
-  guiCss_AVERAGE_LENGTH_LT: Float
-  guiCss_AVERAGE_LENGTH_LTE: Float
-  guiCss_LONGEST_LENGTH_EQUAL: Int
-  guiCss_LONGEST_LENGTH_GT: Int
-  guiCss_LONGEST_LENGTH_GTE: Int
-  guiCss_LONGEST_LENGTH_LT: Int
-  guiCss_LONGEST_LENGTH_LTE: Int
-  guiCss_SHORTEST_LENGTH_EQUAL: Int
-  guiCss_SHORTEST_LENGTH_GT: Int
-  guiCss_SHORTEST_LENGTH_GTE: Int
-  guiCss_SHORTEST_LENGTH_LT: Int
-  guiCss_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -4181,36 +4151,6 @@ input BaseActionElementNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
-  customCss_AVERAGE_LENGTH_EQUAL: Float
-  customCss_AVERAGE_LENGTH_GT: Float
-  customCss_AVERAGE_LENGTH_GTE: Float
-  customCss_AVERAGE_LENGTH_LT: Float
-  customCss_AVERAGE_LENGTH_LTE: Float
-  customCss_LONGEST_LENGTH_EQUAL: Int
-  customCss_LONGEST_LENGTH_GT: Int
-  customCss_LONGEST_LENGTH_GTE: Int
-  customCss_LONGEST_LENGTH_LT: Int
-  customCss_LONGEST_LENGTH_LTE: Int
-  customCss_SHORTEST_LENGTH_EQUAL: Int
-  customCss_SHORTEST_LENGTH_GT: Int
-  customCss_SHORTEST_LENGTH_GTE: Int
-  customCss_SHORTEST_LENGTH_LT: Int
-  customCss_SHORTEST_LENGTH_LTE: Int
-  guiCss_AVERAGE_LENGTH_EQUAL: Float
-  guiCss_AVERAGE_LENGTH_GT: Float
-  guiCss_AVERAGE_LENGTH_GTE: Float
-  guiCss_AVERAGE_LENGTH_LT: Float
-  guiCss_AVERAGE_LENGTH_LTE: Float
-  guiCss_LONGEST_LENGTH_EQUAL: Int
-  guiCss_LONGEST_LENGTH_GT: Int
-  guiCss_LONGEST_LENGTH_GTE: Int
-  guiCss_LONGEST_LENGTH_LT: Int
-  guiCss_LONGEST_LENGTH_LTE: Int
-  guiCss_SHORTEST_LENGTH_EQUAL: Int
-  guiCss_SHORTEST_LENGTH_GT: Int
-  guiCss_SHORTEST_LENGTH_GTE: Int
-  guiCss_SHORTEST_LENGTH_LT: Int
-  guiCss_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -4801,36 +4741,6 @@ input CodeActionElementNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
-  customCss_AVERAGE_LENGTH_EQUAL: Float
-  customCss_AVERAGE_LENGTH_GT: Float
-  customCss_AVERAGE_LENGTH_GTE: Float
-  customCss_AVERAGE_LENGTH_LT: Float
-  customCss_AVERAGE_LENGTH_LTE: Float
-  customCss_LONGEST_LENGTH_EQUAL: Int
-  customCss_LONGEST_LENGTH_GT: Int
-  customCss_LONGEST_LENGTH_GTE: Int
-  customCss_LONGEST_LENGTH_LT: Int
-  customCss_LONGEST_LENGTH_LTE: Int
-  customCss_SHORTEST_LENGTH_EQUAL: Int
-  customCss_SHORTEST_LENGTH_GT: Int
-  customCss_SHORTEST_LENGTH_GTE: Int
-  customCss_SHORTEST_LENGTH_LT: Int
-  customCss_SHORTEST_LENGTH_LTE: Int
-  guiCss_AVERAGE_LENGTH_EQUAL: Float
-  guiCss_AVERAGE_LENGTH_GT: Float
-  guiCss_AVERAGE_LENGTH_GTE: Float
-  guiCss_AVERAGE_LENGTH_LT: Float
-  guiCss_AVERAGE_LENGTH_LTE: Float
-  guiCss_LONGEST_LENGTH_EQUAL: Int
-  guiCss_LONGEST_LENGTH_GT: Int
-  guiCss_LONGEST_LENGTH_GTE: Int
-  guiCss_LONGEST_LENGTH_LT: Int
-  guiCss_LONGEST_LENGTH_LTE: Int
-  guiCss_SHORTEST_LENGTH_EQUAL: Int
-  guiCss_SHORTEST_LENGTH_GT: Int
-  guiCss_SHORTEST_LENGTH_GTE: Int
-  guiCss_SHORTEST_LENGTH_LT: Int
-  guiCss_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -5542,36 +5452,6 @@ input ComponentChildrenContainerElementNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
-  customCss_AVERAGE_LENGTH_EQUAL: Float
-  customCss_AVERAGE_LENGTH_GT: Float
-  customCss_AVERAGE_LENGTH_GTE: Float
-  customCss_AVERAGE_LENGTH_LT: Float
-  customCss_AVERAGE_LENGTH_LTE: Float
-  customCss_LONGEST_LENGTH_EQUAL: Int
-  customCss_LONGEST_LENGTH_GT: Int
-  customCss_LONGEST_LENGTH_GTE: Int
-  customCss_LONGEST_LENGTH_LT: Int
-  customCss_LONGEST_LENGTH_LTE: Int
-  customCss_SHORTEST_LENGTH_EQUAL: Int
-  customCss_SHORTEST_LENGTH_GT: Int
-  customCss_SHORTEST_LENGTH_GTE: Int
-  customCss_SHORTEST_LENGTH_LT: Int
-  customCss_SHORTEST_LENGTH_LTE: Int
-  guiCss_AVERAGE_LENGTH_EQUAL: Float
-  guiCss_AVERAGE_LENGTH_GT: Float
-  guiCss_AVERAGE_LENGTH_GTE: Float
-  guiCss_AVERAGE_LENGTH_LT: Float
-  guiCss_AVERAGE_LENGTH_LTE: Float
-  guiCss_LONGEST_LENGTH_EQUAL: Int
-  guiCss_LONGEST_LENGTH_GT: Int
-  guiCss_LONGEST_LENGTH_GTE: Int
-  guiCss_LONGEST_LENGTH_LT: Int
-  guiCss_LONGEST_LENGTH_LTE: Int
-  guiCss_SHORTEST_LENGTH_EQUAL: Int
-  guiCss_SHORTEST_LENGTH_GT: Int
-  guiCss_SHORTEST_LENGTH_GTE: Int
-  guiCss_SHORTEST_LENGTH_LT: Int
-  guiCss_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -6041,36 +5921,6 @@ input ComponentRootElementNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
-  customCss_AVERAGE_LENGTH_EQUAL: Float
-  customCss_AVERAGE_LENGTH_GT: Float
-  customCss_AVERAGE_LENGTH_GTE: Float
-  customCss_AVERAGE_LENGTH_LT: Float
-  customCss_AVERAGE_LENGTH_LTE: Float
-  customCss_LONGEST_LENGTH_EQUAL: Int
-  customCss_LONGEST_LENGTH_GT: Int
-  customCss_LONGEST_LENGTH_GTE: Int
-  customCss_LONGEST_LENGTH_LT: Int
-  customCss_LONGEST_LENGTH_LTE: Int
-  customCss_SHORTEST_LENGTH_EQUAL: Int
-  customCss_SHORTEST_LENGTH_GT: Int
-  customCss_SHORTEST_LENGTH_GTE: Int
-  customCss_SHORTEST_LENGTH_LT: Int
-  customCss_SHORTEST_LENGTH_LTE: Int
-  guiCss_AVERAGE_LENGTH_EQUAL: Float
-  guiCss_AVERAGE_LENGTH_GT: Float
-  guiCss_AVERAGE_LENGTH_GTE: Float
-  guiCss_AVERAGE_LENGTH_LT: Float
-  guiCss_AVERAGE_LENGTH_LTE: Float
-  guiCss_LONGEST_LENGTH_EQUAL: Int
-  guiCss_LONGEST_LENGTH_GT: Int
-  guiCss_LONGEST_LENGTH_GTE: Int
-  guiCss_LONGEST_LENGTH_LT: Int
-  guiCss_LONGEST_LENGTH_LTE: Int
-  guiCss_SHORTEST_LENGTH_EQUAL: Int
-  guiCss_SHORTEST_LENGTH_GT: Int
-  guiCss_SHORTEST_LENGTH_GTE: Int
-  guiCss_SHORTEST_LENGTH_LT: Int
-  guiCss_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -6965,6 +6815,7 @@ type Element {
   renderIfExpression: String
   renderType: RenderType
   slug: String!
+  style: String
 }
 
 type ElementAggregateSelection {
@@ -7216,36 +7067,6 @@ input ElementChildMapperPreviousSiblingNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
-  customCss_AVERAGE_LENGTH_EQUAL: Float
-  customCss_AVERAGE_LENGTH_GT: Float
-  customCss_AVERAGE_LENGTH_GTE: Float
-  customCss_AVERAGE_LENGTH_LT: Float
-  customCss_AVERAGE_LENGTH_LTE: Float
-  customCss_LONGEST_LENGTH_EQUAL: Int
-  customCss_LONGEST_LENGTH_GT: Int
-  customCss_LONGEST_LENGTH_GTE: Int
-  customCss_LONGEST_LENGTH_LT: Int
-  customCss_LONGEST_LENGTH_LTE: Int
-  customCss_SHORTEST_LENGTH_EQUAL: Int
-  customCss_SHORTEST_LENGTH_GT: Int
-  customCss_SHORTEST_LENGTH_GTE: Int
-  customCss_SHORTEST_LENGTH_LT: Int
-  customCss_SHORTEST_LENGTH_LTE: Int
-  guiCss_AVERAGE_LENGTH_EQUAL: Float
-  guiCss_AVERAGE_LENGTH_GT: Float
-  guiCss_AVERAGE_LENGTH_GTE: Float
-  guiCss_AVERAGE_LENGTH_LT: Float
-  guiCss_AVERAGE_LENGTH_LTE: Float
-  guiCss_LONGEST_LENGTH_EQUAL: Int
-  guiCss_LONGEST_LENGTH_GT: Int
-  guiCss_LONGEST_LENGTH_GTE: Int
-  guiCss_LONGEST_LENGTH_LT: Int
-  guiCss_LONGEST_LENGTH_LTE: Int
-  guiCss_SHORTEST_LENGTH_EQUAL: Int
-  guiCss_SHORTEST_LENGTH_GT: Int
-  guiCss_SHORTEST_LENGTH_GTE: Int
-  guiCss_SHORTEST_LENGTH_LT: Int
-  guiCss_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -7614,36 +7435,6 @@ input ElementFirstChildNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
-  customCss_AVERAGE_LENGTH_EQUAL: Float
-  customCss_AVERAGE_LENGTH_GT: Float
-  customCss_AVERAGE_LENGTH_GTE: Float
-  customCss_AVERAGE_LENGTH_LT: Float
-  customCss_AVERAGE_LENGTH_LTE: Float
-  customCss_LONGEST_LENGTH_EQUAL: Int
-  customCss_LONGEST_LENGTH_GT: Int
-  customCss_LONGEST_LENGTH_GTE: Int
-  customCss_LONGEST_LENGTH_LT: Int
-  customCss_LONGEST_LENGTH_LTE: Int
-  customCss_SHORTEST_LENGTH_EQUAL: Int
-  customCss_SHORTEST_LENGTH_GT: Int
-  customCss_SHORTEST_LENGTH_GTE: Int
-  customCss_SHORTEST_LENGTH_LT: Int
-  customCss_SHORTEST_LENGTH_LTE: Int
-  guiCss_AVERAGE_LENGTH_EQUAL: Float
-  guiCss_AVERAGE_LENGTH_GT: Float
-  guiCss_AVERAGE_LENGTH_GTE: Float
-  guiCss_AVERAGE_LENGTH_LT: Float
-  guiCss_AVERAGE_LENGTH_LTE: Float
-  guiCss_LONGEST_LENGTH_EQUAL: Int
-  guiCss_LONGEST_LENGTH_GT: Int
-  guiCss_LONGEST_LENGTH_GTE: Int
-  guiCss_LONGEST_LENGTH_LT: Int
-  guiCss_LONGEST_LENGTH_LTE: Int
-  guiCss_SHORTEST_LENGTH_EQUAL: Int
-  guiCss_SHORTEST_LENGTH_GT: Int
-  guiCss_SHORTEST_LENGTH_GTE: Int
-  guiCss_SHORTEST_LENGTH_LT: Int
-  guiCss_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -7812,36 +7603,6 @@ input ElementNextSiblingNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
-  customCss_AVERAGE_LENGTH_EQUAL: Float
-  customCss_AVERAGE_LENGTH_GT: Float
-  customCss_AVERAGE_LENGTH_GTE: Float
-  customCss_AVERAGE_LENGTH_LT: Float
-  customCss_AVERAGE_LENGTH_LTE: Float
-  customCss_LONGEST_LENGTH_EQUAL: Int
-  customCss_LONGEST_LENGTH_GT: Int
-  customCss_LONGEST_LENGTH_GTE: Int
-  customCss_LONGEST_LENGTH_LT: Int
-  customCss_LONGEST_LENGTH_LTE: Int
-  customCss_SHORTEST_LENGTH_EQUAL: Int
-  customCss_SHORTEST_LENGTH_GT: Int
-  customCss_SHORTEST_LENGTH_GTE: Int
-  customCss_SHORTEST_LENGTH_LT: Int
-  customCss_SHORTEST_LENGTH_LTE: Int
-  guiCss_AVERAGE_LENGTH_EQUAL: Float
-  guiCss_AVERAGE_LENGTH_GT: Float
-  guiCss_AVERAGE_LENGTH_GTE: Float
-  guiCss_AVERAGE_LENGTH_LT: Float
-  guiCss_AVERAGE_LENGTH_LTE: Float
-  guiCss_LONGEST_LENGTH_EQUAL: Int
-  guiCss_LONGEST_LENGTH_GT: Int
-  guiCss_LONGEST_LENGTH_GTE: Int
-  guiCss_LONGEST_LENGTH_LT: Int
-  guiCss_LONGEST_LENGTH_LTE: Int
-  guiCss_SHORTEST_LENGTH_EQUAL: Int
-  guiCss_SHORTEST_LENGTH_GT: Int
-  guiCss_SHORTEST_LENGTH_GTE: Int
-  guiCss_SHORTEST_LENGTH_LT: Int
-  guiCss_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -8286,36 +8047,6 @@ input ElementParentNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
-  customCss_AVERAGE_LENGTH_EQUAL: Float
-  customCss_AVERAGE_LENGTH_GT: Float
-  customCss_AVERAGE_LENGTH_GTE: Float
-  customCss_AVERAGE_LENGTH_LT: Float
-  customCss_AVERAGE_LENGTH_LTE: Float
-  customCss_LONGEST_LENGTH_EQUAL: Int
-  customCss_LONGEST_LENGTH_GT: Int
-  customCss_LONGEST_LENGTH_GTE: Int
-  customCss_LONGEST_LENGTH_LT: Int
-  customCss_LONGEST_LENGTH_LTE: Int
-  customCss_SHORTEST_LENGTH_EQUAL: Int
-  customCss_SHORTEST_LENGTH_GT: Int
-  customCss_SHORTEST_LENGTH_GTE: Int
-  customCss_SHORTEST_LENGTH_LT: Int
-  customCss_SHORTEST_LENGTH_LTE: Int
-  guiCss_AVERAGE_LENGTH_EQUAL: Float
-  guiCss_AVERAGE_LENGTH_GT: Float
-  guiCss_AVERAGE_LENGTH_GTE: Float
-  guiCss_AVERAGE_LENGTH_LT: Float
-  guiCss_AVERAGE_LENGTH_LTE: Float
-  guiCss_LONGEST_LENGTH_EQUAL: Int
-  guiCss_LONGEST_LENGTH_GT: Int
-  guiCss_LONGEST_LENGTH_GTE: Int
-  guiCss_LONGEST_LENGTH_LT: Int
-  guiCss_LONGEST_LENGTH_LTE: Int
-  guiCss_SHORTEST_LENGTH_EQUAL: Int
-  guiCss_SHORTEST_LENGTH_GT: Int
-  guiCss_SHORTEST_LENGTH_GTE: Int
-  guiCss_SHORTEST_LENGTH_LT: Int
-  guiCss_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -8602,36 +8333,6 @@ input ElementPrevSiblingNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
-  customCss_AVERAGE_LENGTH_EQUAL: Float
-  customCss_AVERAGE_LENGTH_GT: Float
-  customCss_AVERAGE_LENGTH_GTE: Float
-  customCss_AVERAGE_LENGTH_LT: Float
-  customCss_AVERAGE_LENGTH_LTE: Float
-  customCss_LONGEST_LENGTH_EQUAL: Int
-  customCss_LONGEST_LENGTH_GT: Int
-  customCss_LONGEST_LENGTH_GTE: Int
-  customCss_LONGEST_LENGTH_LT: Int
-  customCss_LONGEST_LENGTH_LTE: Int
-  customCss_SHORTEST_LENGTH_EQUAL: Int
-  customCss_SHORTEST_LENGTH_GT: Int
-  customCss_SHORTEST_LENGTH_GTE: Int
-  customCss_SHORTEST_LENGTH_LT: Int
-  customCss_SHORTEST_LENGTH_LTE: Int
-  guiCss_AVERAGE_LENGTH_EQUAL: Float
-  guiCss_AVERAGE_LENGTH_GT: Float
-  guiCss_AVERAGE_LENGTH_GTE: Float
-  guiCss_AVERAGE_LENGTH_LT: Float
-  guiCss_AVERAGE_LENGTH_LTE: Float
-  guiCss_LONGEST_LENGTH_EQUAL: Int
-  guiCss_LONGEST_LENGTH_GT: Int
-  guiCss_LONGEST_LENGTH_GTE: Int
-  guiCss_LONGEST_LENGTH_LT: Int
-  guiCss_LONGEST_LENGTH_LTE: Int
-  guiCss_SHORTEST_LENGTH_EQUAL: Int
-  guiCss_SHORTEST_LENGTH_GT: Int
-  guiCss_SHORTEST_LENGTH_GTE: Int
-  guiCss_SHORTEST_LENGTH_LT: Int
-  guiCss_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -11482,36 +11183,6 @@ input HookElementNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
-  customCss_AVERAGE_LENGTH_EQUAL: Float
-  customCss_AVERAGE_LENGTH_GT: Float
-  customCss_AVERAGE_LENGTH_GTE: Float
-  customCss_AVERAGE_LENGTH_LT: Float
-  customCss_AVERAGE_LENGTH_LTE: Float
-  customCss_LONGEST_LENGTH_EQUAL: Int
-  customCss_LONGEST_LENGTH_GT: Int
-  customCss_LONGEST_LENGTH_GTE: Int
-  customCss_LONGEST_LENGTH_LT: Int
-  customCss_LONGEST_LENGTH_LTE: Int
-  customCss_SHORTEST_LENGTH_EQUAL: Int
-  customCss_SHORTEST_LENGTH_GT: Int
-  customCss_SHORTEST_LENGTH_GTE: Int
-  customCss_SHORTEST_LENGTH_LT: Int
-  customCss_SHORTEST_LENGTH_LTE: Int
-  guiCss_AVERAGE_LENGTH_EQUAL: Float
-  guiCss_AVERAGE_LENGTH_GT: Float
-  guiCss_AVERAGE_LENGTH_GTE: Float
-  guiCss_AVERAGE_LENGTH_LT: Float
-  guiCss_AVERAGE_LENGTH_LTE: Float
-  guiCss_LONGEST_LENGTH_EQUAL: Int
-  guiCss_LONGEST_LENGTH_GT: Int
-  guiCss_LONGEST_LENGTH_GTE: Int
-  guiCss_LONGEST_LENGTH_LT: Int
-  guiCss_LONGEST_LENGTH_LTE: Int
-  guiCss_SHORTEST_LENGTH_EQUAL: Int
-  guiCss_SHORTEST_LENGTH_GT: Int
-  guiCss_SHORTEST_LENGTH_GTE: Int
-  guiCss_SHORTEST_LENGTH_LT: Int
-  guiCss_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -13932,36 +13603,6 @@ input PagePageContentContainerNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
-  customCss_AVERAGE_LENGTH_EQUAL: Float
-  customCss_AVERAGE_LENGTH_GT: Float
-  customCss_AVERAGE_LENGTH_GTE: Float
-  customCss_AVERAGE_LENGTH_LT: Float
-  customCss_AVERAGE_LENGTH_LTE: Float
-  customCss_LONGEST_LENGTH_EQUAL: Int
-  customCss_LONGEST_LENGTH_GT: Int
-  customCss_LONGEST_LENGTH_GTE: Int
-  customCss_LONGEST_LENGTH_LT: Int
-  customCss_LONGEST_LENGTH_LTE: Int
-  customCss_SHORTEST_LENGTH_EQUAL: Int
-  customCss_SHORTEST_LENGTH_GT: Int
-  customCss_SHORTEST_LENGTH_GTE: Int
-  customCss_SHORTEST_LENGTH_LT: Int
-  customCss_SHORTEST_LENGTH_LTE: Int
-  guiCss_AVERAGE_LENGTH_EQUAL: Float
-  guiCss_AVERAGE_LENGTH_GT: Float
-  guiCss_AVERAGE_LENGTH_GTE: Float
-  guiCss_AVERAGE_LENGTH_LT: Float
-  guiCss_AVERAGE_LENGTH_LTE: Float
-  guiCss_LONGEST_LENGTH_EQUAL: Int
-  guiCss_LONGEST_LENGTH_GT: Int
-  guiCss_LONGEST_LENGTH_GTE: Int
-  guiCss_LONGEST_LENGTH_LT: Int
-  guiCss_LONGEST_LENGTH_LTE: Int
-  guiCss_SHORTEST_LENGTH_EQUAL: Int
-  guiCss_SHORTEST_LENGTH_GT: Int
-  guiCss_SHORTEST_LENGTH_GTE: Int
-  guiCss_SHORTEST_LENGTH_LT: Int
-  guiCss_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -14137,36 +13778,6 @@ input PageRootElementNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
-  customCss_AVERAGE_LENGTH_EQUAL: Float
-  customCss_AVERAGE_LENGTH_GT: Float
-  customCss_AVERAGE_LENGTH_GTE: Float
-  customCss_AVERAGE_LENGTH_LT: Float
-  customCss_AVERAGE_LENGTH_LTE: Float
-  customCss_LONGEST_LENGTH_EQUAL: Int
-  customCss_LONGEST_LENGTH_GT: Int
-  customCss_LONGEST_LENGTH_GTE: Int
-  customCss_LONGEST_LENGTH_LT: Int
-  customCss_LONGEST_LENGTH_LTE: Int
-  customCss_SHORTEST_LENGTH_EQUAL: Int
-  customCss_SHORTEST_LENGTH_GT: Int
-  customCss_SHORTEST_LENGTH_GTE: Int
-  customCss_SHORTEST_LENGTH_LT: Int
-  customCss_SHORTEST_LENGTH_LTE: Int
-  guiCss_AVERAGE_LENGTH_EQUAL: Float
-  guiCss_AVERAGE_LENGTH_GT: Float
-  guiCss_AVERAGE_LENGTH_GTE: Float
-  guiCss_AVERAGE_LENGTH_LT: Float
-  guiCss_AVERAGE_LENGTH_LTE: Float
-  guiCss_LONGEST_LENGTH_EQUAL: Int
-  guiCss_LONGEST_LENGTH_GT: Int
-  guiCss_LONGEST_LENGTH_GTE: Int
-  guiCss_LONGEST_LENGTH_LT: Int
-  guiCss_LONGEST_LENGTH_LTE: Int
-  guiCss_SHORTEST_LENGTH_EQUAL: Int
-  guiCss_SHORTEST_LENGTH_GT: Int
-  guiCss_SHORTEST_LENGTH_GTE: Int
-  guiCss_SHORTEST_LENGTH_LT: Int
-  guiCss_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float
@@ -19775,36 +19386,6 @@ input UserElementsNodeAggregationWhereInput {
   childMapperPropKey_SHORTEST_LENGTH_GTE: Int
   childMapperPropKey_SHORTEST_LENGTH_LT: Int
   childMapperPropKey_SHORTEST_LENGTH_LTE: Int
-  customCss_AVERAGE_LENGTH_EQUAL: Float
-  customCss_AVERAGE_LENGTH_GT: Float
-  customCss_AVERAGE_LENGTH_GTE: Float
-  customCss_AVERAGE_LENGTH_LT: Float
-  customCss_AVERAGE_LENGTH_LTE: Float
-  customCss_LONGEST_LENGTH_EQUAL: Int
-  customCss_LONGEST_LENGTH_GT: Int
-  customCss_LONGEST_LENGTH_GTE: Int
-  customCss_LONGEST_LENGTH_LT: Int
-  customCss_LONGEST_LENGTH_LTE: Int
-  customCss_SHORTEST_LENGTH_EQUAL: Int
-  customCss_SHORTEST_LENGTH_GT: Int
-  customCss_SHORTEST_LENGTH_GTE: Int
-  customCss_SHORTEST_LENGTH_LT: Int
-  customCss_SHORTEST_LENGTH_LTE: Int
-  guiCss_AVERAGE_LENGTH_EQUAL: Float
-  guiCss_AVERAGE_LENGTH_GT: Float
-  guiCss_AVERAGE_LENGTH_GTE: Float
-  guiCss_AVERAGE_LENGTH_LT: Float
-  guiCss_AVERAGE_LENGTH_LTE: Float
-  guiCss_LONGEST_LENGTH_EQUAL: Int
-  guiCss_LONGEST_LENGTH_GT: Int
-  guiCss_LONGEST_LENGTH_GTE: Int
-  guiCss_LONGEST_LENGTH_LT: Int
-  guiCss_LONGEST_LENGTH_LTE: Int
-  guiCss_SHORTEST_LENGTH_EQUAL: Int
-  guiCss_SHORTEST_LENGTH_GT: Int
-  guiCss_SHORTEST_LENGTH_GTE: Int
-  guiCss_SHORTEST_LENGTH_LT: Int
-  guiCss_SHORTEST_LENGTH_LTE: Int
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL: Float
   renderForEachPropKey_AVERAGE_LENGTH_GT: Float
   renderForEachPropKey_AVERAGE_LENGTH_GTE: Float

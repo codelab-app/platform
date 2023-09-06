@@ -657,36 +657,6 @@ export type ApiActionElementNodeAggregationWhereInput = {
   childMapperPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
   >
@@ -4293,36 +4263,6 @@ export type BaseActionElementNodeAggregationWhereInput = {
   childMapperPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
   >
@@ -4945,36 +4885,6 @@ export type CodeActionElementNodeAggregationWhereInput = {
   childMapperPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
   >
@@ -5758,36 +5668,6 @@ export type ComponentChildrenContainerElementNodeAggregationWhereInput = {
   childMapperPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
   >
@@ -6276,36 +6156,6 @@ export type ComponentRootElementNodeAggregationWhereInput = {
   childMapperPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
   >
@@ -7104,6 +6954,7 @@ export type Element = {
   renderIfExpression?: Maybe<Scalars['String']['output']>
   renderType?: Maybe<RenderType>
   slug: Scalars['String']['output']
+  style?: Maybe<Scalars['String']['output']>
 }
 
 export type ElementChildMapperComponentArgs = {
@@ -7599,36 +7450,6 @@ export type ElementChildMapperPreviousSiblingNodeAggregationWhereInput = {
   childMapperPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
   >
@@ -8027,36 +7848,6 @@ export type ElementFirstChildNodeAggregationWhereInput = {
   childMapperPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
   >
@@ -8238,36 +8029,6 @@ export type ElementNextSiblingNodeAggregationWhereInput = {
   childMapperPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
   >
@@ -8722,36 +8483,6 @@ export type ElementParentNodeAggregationWhereInput = {
   childMapperPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
   >
@@ -9055,36 +8786,6 @@ export type ElementPrevSiblingNodeAggregationWhereInput = {
   childMapperPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
   >
@@ -12064,36 +11765,6 @@ export type HookElementNodeAggregationWhereInput = {
   childMapperPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
   >
@@ -14800,36 +14471,6 @@ export type PagePageContentContainerNodeAggregationWhereInput = {
   childMapperPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
   >
@@ -15018,36 +14659,6 @@ export type PageRootElementNodeAggregationWhereInput = {
   childMapperPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
   >
@@ -21540,36 +21151,6 @@ export type UserElementsNodeAggregationWhereInput = {
   childMapperPropKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   childMapperPropKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   renderForEachPropKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<
     Scalars['Float']['input']
   >
@@ -22345,8 +21926,7 @@ export type ElementFragment = {
   __typename: 'Element'
   id: string
   name: string
-  customCss?: string | null
-  guiCss?: string | null
+  style?: string | null
   childMapperPropKey?: string | null
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
