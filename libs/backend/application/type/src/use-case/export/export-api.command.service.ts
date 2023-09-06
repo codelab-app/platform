@@ -1,4 +1,4 @@
-import type { IApiOutputDto } from '@codelab/backend/abstract/core'
+import { IApiOutputDto } from '@codelab/backend/abstract/core'
 import {
   FieldRepository,
   InterfaceTypeRepository,
@@ -8,6 +8,7 @@ import type {
   IInterfaceTypeDTO,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
+import { Typebox } from '@codelab/shared/abstract/types'
 import { Span } from '@codelab/shared/infra/otel'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
@@ -35,9 +36,12 @@ export class ExportApiHandler
     /**
      * (1) Get itself
      */
-    const interfaceType = await this.interfaceTypeRepository.findOne({
-      id: api.id,
-    })
+    const interfaceType = await this.interfaceTypeRepository.findOne(
+      {
+        id: api.id,
+      },
+      IApiOutputDto,
+    )
 
     if (!interfaceType) {
       throw new Error('InterfaceType not found')
@@ -68,7 +72,7 @@ export class ExportApiHandler
     })
 
     return {
-      api: interfaceType,
+      ...interfaceType,
       fields,
       types: [interfaceType, ...nestedTypes],
     }

@@ -11,6 +11,7 @@ import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IDomainDTO } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
+import { ValidationService } from 'backend/infra/adapter/typebox'
 
 @Injectable()
 export class DomainRepository extends AbstractRepository<
@@ -22,8 +23,9 @@ export class DomainRepository extends AbstractRepository<
   constructor(
     private ogmService: OgmService,
     protected traceService: TraceService,
+    protected validationService: ValidationService,
   ) {
-    super(traceService)
+    super(traceService, validationService)
   }
 
   protected async _find({

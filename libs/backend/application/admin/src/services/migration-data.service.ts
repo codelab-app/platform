@@ -26,7 +26,6 @@ export class MigrationDataService implements IBaseDataPaths {
    */
   set basePaths(basePath: string) {
     this.baseDataPaths = resolveWorkspaceRoot(basePath)
-    console.log(basePath, this.baseDataPaths)
   }
 
   /**

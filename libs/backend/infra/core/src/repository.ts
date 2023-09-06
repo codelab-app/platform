@@ -1,8 +1,10 @@
 import type { IRepository } from '@codelab/backend/abstract/types'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
-import type { IEntity } from '@codelab/shared/abstract/types'
+import { type IEntity, Typebox } from '@codelab/shared/abstract/types'
 import { flattenWithPrefix, withActiveSpan } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
+import type { TAnySchema } from '@sinclair/typebox'
+import { ValidationService } from 'backend/infra/adapter/typebox'
 
 @Injectable()
 export abstract class AbstractRepository<
@@ -18,11 +20,23 @@ export abstract class AbstractRepository<
 
   // private ttl = 60000
 
-  constructor(protected traceService: TraceService) {
+  constructor(
+    protected traceService: TraceService,
+    protected validationService: ValidationService,
+  ) {
     // this.cacheService = CacheService.getInstance(CacheInstance.Backend)
   }
 
-  async findOne(where: Where): Promise<ModelData | undefined> {
+  /**
+   *
+   * @param where
+   * @param schema optional schema to validate the return data
+   * @returns
+   */
+  async findOne(
+    where: Where,
+    schema?: TAnySchema,
+  ): Promise<ModelData | undefined> {
     // Don't use decorator since it doesn't give us the right name
     return withActiveSpan(
       `${this.constructor.name}.findOne`,
@@ -51,6 +65,10 @@ export abstract class AbstractRepository<
         // await this.cacheService.setOne(this.constructor.name, where, result)
 
         span.setAttributes(flattenWithPrefix(result))
+
+        if (schema) {
+          return this.validationService.validateAndClean(schema, result)
+        }
 
         return result
       },

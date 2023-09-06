@@ -1,0 +1,57 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "da922fc7-e7c2-4d29-9ad3-911071f4180e",
+    "fields": [],
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "id": "da922fc7-e7c2-4d29-9ad3-911071f4180e",
+        "kind": "InterfaceType",
+        "name": "AntDesignPopover API",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "fields": []
+      }
+    ]
+  },
+  "atom": {
+    "id": "5efa7968-126d-40a2-ba03-4305a376e0fe",
+    "name": "AntDesignPopover",
+    "type": "AntDesignPopover",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "da922fc7-e7c2-4d29-9ad3-911071f4180e",
+      "kind": "InterfaceType",
+      "name": "AntDesignPopover API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      },
+      "fields": []
+    },
+    "icon": "Popover",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "tags": [
+      {
+        "id": "aa3e5009-7524-479b-9316-537df0b276e4",
+        "name": "Popover",
+        "parent": {
+          "id": "7765f016-04de-4cf7-9ab5-c7920cad0531",
+          "name": "Data Display"
+        },
+        "children": [],
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
+  }
+}

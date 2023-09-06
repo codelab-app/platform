@@ -17,6 +17,7 @@ import {
 } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
+import { ValidationService } from 'backend/infra/adapter/typebox'
 import type { Node } from 'neo4j-driver'
 
 @Injectable()
@@ -30,8 +31,9 @@ export class ElementRepository extends AbstractRepository<
     private ogmService: OgmService,
     private neo4jService: Neo4jService,
     protected traceService: TraceService,
+    protected validationService: ValidationService,
   ) {
-    super(traceService)
+    super(traceService, validationService)
   }
 
   protected async _find({

@@ -18,7 +18,7 @@ export class ImportApiHandler
 
   async execute(command: ImportApiCommand) {
     const {
-      apiOutput: { api, fields, types },
+      apiOutput: { fields, types, ...api },
       owner,
     } = command
 

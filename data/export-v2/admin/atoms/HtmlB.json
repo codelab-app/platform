@@ -1,0 +1,57 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "f4a45d99-b106-49ac-95c9-7a195bb90caa",
+    "fields": [],
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "id": "f4a45d99-b106-49ac-95c9-7a195bb90caa",
+        "kind": "InterfaceType",
+        "name": "HtmlB API",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "fields": []
+      }
+    ]
+  },
+  "atom": {
+    "id": "c4a5b673-840e-4c56-8adf-96429f3f4aa9",
+    "name": "HtmlB",
+    "type": "HtmlB",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "f4a45d99-b106-49ac-95c9-7a195bb90caa",
+      "kind": "InterfaceType",
+      "name": "HtmlB API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      },
+      "fields": []
+    },
+    "icon": null,
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "tags": [
+      {
+        "id": "60e75858-ad31-456b-a1d9-e8685fee2bc4",
+        "name": "HtmlB",
+        "parent": {
+          "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
+          "name": "Phrasing"
+        },
+        "children": [],
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
+  }
+}

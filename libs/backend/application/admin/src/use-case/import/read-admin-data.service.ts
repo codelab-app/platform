@@ -7,6 +7,7 @@ import {
 } from '@codelab/backend/abstract/core'
 import { Typebox } from '@codelab/shared/abstract/types'
 import { Injectable, Scope } from '@nestjs/common'
+import { ValidationService } from 'backend/infra/adapter/typebox'
 import { findUpSync } from 'find-up'
 import fs from 'fs'
 import path, { dirname } from 'path'
@@ -17,7 +18,10 @@ import { MigrationDataService } from '../../services/migration-data.service'
   scope: Scope.TRANSIENT,
 })
 export class ReadAdminDataService implements IBaseDataPaths, IAdminOutputDto {
-  constructor(private migrationDataService: MigrationDataService) {}
+  constructor(
+    private migrationDataService: MigrationDataService,
+    private validationService: ValidationService,
+  ) {}
 
   /**
    * process.cwd() doesn't work since run-commands may set app dir as cwd
@@ -43,7 +47,7 @@ export class ReadAdminDataService implements IBaseDataPaths, IAdminOutputDto {
     )
 
     return types.map((type: unknown) =>
-      Typebox.ValidateAndClean(ITypeOutputDto, type),
+      this.validationService.validateAndClean(ITypeOutputDto, type),
     )
   }
 
@@ -59,7 +63,11 @@ export class ReadAdminDataService implements IBaseDataPaths, IAdminOutputDto {
       )
 
       const atomExport = JSON.parse(content.toString())
-      const atom = Typebox.ValidateAndClean(IAtomOutputDto, atomExport)
+
+      const atom = this.validationService.validateAndClean(
+        IAtomOutputDto,
+        atomExport,
+      )
 
       atoms.push(atom)
 
@@ -84,7 +92,10 @@ export class ReadAdminDataService implements IBaseDataPaths, IAdminOutputDto {
 
       const component = JSON.parse(content)
 
-      return Typebox.ValidateAndClean(IComponentOutputDto, component)
+      return this.validationService.validateAndClean(
+        IComponentOutputDto,
+        component,
+      )
     })
   }
 
@@ -98,7 +109,7 @@ export class ReadAdminDataService implements IBaseDataPaths, IAdminOutputDto {
     )
 
     return tags.map((tag: unknown) =>
-      Typebox.ValidateAndClean(ITagOutputDto, tag),
+      this.validationService.validateAndClean(ITagOutputDto, tag),
     )
   }
 }

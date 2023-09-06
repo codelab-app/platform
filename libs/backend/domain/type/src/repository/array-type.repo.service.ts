@@ -16,6 +16,7 @@ import {
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
+import { ValidationService } from 'backend/infra/adapter/typebox'
 
 @Injectable()
 export class ArrayTypeRepository extends AbstractRepository<
@@ -27,8 +28,9 @@ export class ArrayTypeRepository extends AbstractRepository<
   constructor(
     private ogmService: OgmService,
     protected traceService: TraceService,
+    protected validationService: ValidationService,
   ) {
-    super(traceService)
+    super(traceService, validationService)
   }
 
   async _find({

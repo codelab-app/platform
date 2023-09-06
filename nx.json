@@ -99,7 +99,10 @@
         "linter": "eslint"
       },
       "library": {
-        "linter": "eslint"
+        "linter": "eslint",
+        "setParserOptionsProject": true,
+        "strict": true,
+        "tags": "scope:backend"
       }
     },
     "@nx/next": {

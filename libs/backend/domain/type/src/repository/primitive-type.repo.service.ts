@@ -13,6 +13,7 @@ import type { IPrimitiveTypeDTO } from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
+import { ValidationService } from 'backend/infra/adapter/typebox'
 
 @Injectable()
 export class PrimitiveTypeRepository extends AbstractRepository<
@@ -24,8 +25,9 @@ export class PrimitiveTypeRepository extends AbstractRepository<
   constructor(
     private ogmService: OgmService,
     protected traceService: TraceService,
+    protected validationService: ValidationService,
   ) {
-    super(traceService)
+    super(traceService, validationService)
   }
 
   protected async _find({

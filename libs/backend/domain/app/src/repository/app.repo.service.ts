@@ -17,6 +17,7 @@ import {
 } from '@codelab/shared/domain/mapper'
 import { createUniqueName } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
+import { ValidationService } from 'backend/infra/adapter/typebox'
 
 @Injectable()
 export class AppRepository extends AbstractRepository<
@@ -28,8 +29,9 @@ export class AppRepository extends AbstractRepository<
   constructor(
     private ogmService: OgmService,
     protected traceService: TraceService,
+    protected validationService: ValidationService,
   ) {
-    super(traceService)
+    super(traceService, validationService)
   }
 
   protected async _find({

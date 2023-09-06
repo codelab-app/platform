@@ -1,0 +1,135 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1",
+    "fields": [],
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1",
+        "kind": "InterfaceType",
+        "name": "AntDesignCardGrid API",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "fields": [
+          {
+            "id": "2ae2acdb-b7ee-489f-844f-d0e724b9c278",
+            "key": "hoverable",
+            "name": "Hoverable",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+              "kind": "PrimitiveType",
+              "name": "Boolean"
+            },
+            "api": {
+              "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1"
+            }
+          },
+          {
+            "id": "6e2cf76d-6bf8-4279-8406-2ae25387f7a5",
+            "key": "className",
+            "name": "Class Name",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "api": {
+              "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "atom": {
+    "id": "b07be954-6da1-4ef3-b2fa-ac2bae541a7e",
+    "name": "AntDesignCardGrid",
+    "type": "AntDesignCardGrid",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1",
+      "kind": "InterfaceType",
+      "name": "AntDesignCardGrid API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      },
+      "fields": [
+        {
+          "id": "2ae2acdb-b7ee-489f-844f-d0e724b9c278",
+          "key": "hoverable",
+          "name": "Hoverable",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1"
+          }
+        },
+        {
+          "id": "6e2cf76d-6bf8-4279-8406-2ae25387f7a5",
+          "key": "className",
+          "name": "Class Name",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "api": {
+            "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1"
+          }
+        }
+      ]
+    },
+    "icon": "Card",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "tags": [
+      {
+        "id": "70f2f0df-0905-4f21-846b-d3984e650469",
+        "name": "Card.Grid",
+        "parent": {
+          "id": "169331a2-19af-4404-981c-d44c03fef081",
+          "name": "Card"
+        },
+        "children": [],
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
+  }
+}

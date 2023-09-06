@@ -9563,10 +9563,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sinclair/typebox@npm:0.31.12":
-  version: 0.31.12
-  resolution: "@sinclair/typebox@npm:0.31.12"
-  checksum: 7859ff26b4ad0cd5ef355d8db8af36d436c757792ffc37f5c4e97b853dc8063f8783783ad873cc3fd0b17b203e53c889903016b242cb46fc6a055c3b1959fc2b
+"@sinclair/typebox@npm:0.31.14":
+  version: 0.31.14
+  resolution: "@sinclair/typebox@npm:0.31.14"
+  checksum: 4a7e5a05f8023e3c28ddbb5cabb49336d177ddbf435fcc2950d778b3aa4900d6125bb82052007c855e085f1a8999d016fd7a0331ca1598319f6781014c0d5fa5
   languageName: node
   linkType: hard
 
@@ -16853,7 +16853,7 @@ __metadata:
     "@react-hook/size": 2.1.2
     "@react-hook/window-size": 3.0.7
     "@react-hookz/web": 22.0.0
-    "@sinclair/typebox": 0.31.12
+    "@sinclair/typebox": 0.31.14
     "@storybook/addon-essentials": 7.3.2
     "@storybook/core-common": 7.0.7
     "@storybook/core-server": 7.3.2

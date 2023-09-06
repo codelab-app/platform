@@ -1,0 +1,135 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "66e725c3-61a0-45f9-86af-309c3b57d050",
+    "fields": [],
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "id": "66e725c3-61a0-45f9-86af-309c3b57d050",
+        "kind": "InterfaceType",
+        "name": "AntDesignSegmented API",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "fields": [
+          {
+            "id": "00513776-b92f-4b00-aa6b-17112b6c0865",
+            "key": "title",
+            "name": "Title",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "f42b7423-0f13-4ed0-ae50-4d3a977976ff",
+              "kind": "EnumType",
+              "name": "AntDesignSegmented Title Enum"
+            },
+            "api": {
+              "id": "66e725c3-61a0-45f9-86af-309c3b57d050"
+            }
+          },
+          {
+            "id": "a70e96bf-b37e-4de2-804f-5b897c8502f5",
+            "key": "content",
+            "name": "Content",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "ef40f68d-131c-4b58-b296-57e40a6fd452",
+              "kind": "EnumType",
+              "name": "AntDesignSegmented Content Enum"
+            },
+            "api": {
+              "id": "66e725c3-61a0-45f9-86af-309c3b57d050"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "atom": {
+    "id": "f3c0b4bc-c42c-4406-b74b-d9ed36bab387",
+    "name": "AntDesignSegmented",
+    "type": "AntDesignSegmented",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "66e725c3-61a0-45f9-86af-309c3b57d050",
+      "kind": "InterfaceType",
+      "name": "AntDesignSegmented API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      },
+      "fields": [
+        {
+          "id": "00513776-b92f-4b00-aa6b-17112b6c0865",
+          "key": "title",
+          "name": "Title",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "f42b7423-0f13-4ed0-ae50-4d3a977976ff",
+            "kind": "EnumType",
+            "name": "AntDesignSegmented Title Enum"
+          },
+          "api": {
+            "id": "66e725c3-61a0-45f9-86af-309c3b57d050"
+          }
+        },
+        {
+          "id": "a70e96bf-b37e-4de2-804f-5b897c8502f5",
+          "key": "content",
+          "name": "Content",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "ef40f68d-131c-4b58-b296-57e40a6fd452",
+            "kind": "EnumType",
+            "name": "AntDesignSegmented Content Enum"
+          },
+          "api": {
+            "id": "66e725c3-61a0-45f9-86af-309c3b57d050"
+          }
+        }
+      ]
+    },
+    "icon": "Segmented",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "tags": [
+      {
+        "id": "4302db27-3bda-4735-b91f-26e55541fc3a",
+        "name": "Segmented",
+        "parent": {
+          "id": "7765f016-04de-4cf7-9ab5-c7920cad0531",
+          "name": "Data Display"
+        },
+        "children": [],
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
+  }
+}

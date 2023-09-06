@@ -13,6 +13,7 @@ import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IStoreDTO } from '@codelab/shared/abstract/core'
 import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
+import { ValidationService } from 'backend/infra/adapter/typebox'
 
 @Injectable()
 export class StoreRepository extends AbstractRepository<
@@ -24,8 +25,9 @@ export class StoreRepository extends AbstractRepository<
   constructor(
     private ogmService: OgmService,
     protected override traceService: TraceService,
+    protected override validationService: ValidationService,
   ) {
-    super(traceService)
+    super(traceService, validationService)
   }
 
   protected async _find({

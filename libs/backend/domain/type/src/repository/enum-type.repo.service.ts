@@ -17,6 +17,7 @@ import type {
 } from '@codelab/shared/abstract/core'
 import { connectAuth0Owner, whereNodeId } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
+import { ValidationService } from 'backend/infra/adapter/typebox'
 
 @Injectable()
 export class EnumTypeRepository extends AbstractRepository<
@@ -28,8 +29,9 @@ export class EnumTypeRepository extends AbstractRepository<
   constructor(
     private ogmService: OgmService,
     protected traceService: TraceService,
+    protected validationService: ValidationService,
   ) {
-    super(traceService)
+    super(traceService, validationService)
   }
 
   protected async _find({

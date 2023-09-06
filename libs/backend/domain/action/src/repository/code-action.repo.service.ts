@@ -12,6 +12,7 @@ import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { ICodeActionDTO } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
+import { ValidationService } from 'backend/infra/adapter/typebox'
 
 @Injectable()
 export class CodeActionRepository extends AbstractRepository<
@@ -23,8 +24,9 @@ export class CodeActionRepository extends AbstractRepository<
   constructor(
     private ogmService: OgmService,
     protected traceService: TraceService,
+    protected validationService: ValidationService,
   ) {
-    super(traceService)
+    super(traceService, validationService)
   }
 
   protected async _find({

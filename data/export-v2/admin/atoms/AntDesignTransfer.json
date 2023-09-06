@@ -1,0 +1,57 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "8bfa2153-401c-4919-a393-8390ab6c3d0e",
+    "fields": [],
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "id": "8bfa2153-401c-4919-a393-8390ab6c3d0e",
+        "kind": "InterfaceType",
+        "name": "AntDesignTransfer API",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "fields": []
+      }
+    ]
+  },
+  "atom": {
+    "id": "3bec0258-169c-480b-87d7-2065d57d04f7",
+    "name": "AntDesignTransfer",
+    "type": "AntDesignTransfer",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "8bfa2153-401c-4919-a393-8390ab6c3d0e",
+      "kind": "InterfaceType",
+      "name": "AntDesignTransfer API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      },
+      "fields": []
+    },
+    "icon": "Transfer",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "tags": [
+      {
+        "id": "2996caca-fe3a-40d1-b9fc-f5d5aa571d06",
+        "name": "Transfer",
+        "parent": {
+          "id": "79e9ccd1-a5fa-44b9-b728-16e3c79365c8",
+          "name": "Data Entry"
+        },
+        "children": [],
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
+  }
+}

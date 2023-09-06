@@ -1,0 +1,84 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "26df5c3d-7110-4c31-876c-db8291a2726d",
+    "fields": [],
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "id": "26df5c3d-7110-4c31-876c-db8291a2726d",
+        "kind": "InterfaceType",
+        "name": "NextLink  API",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "fields": [
+          {
+            "id": "bc728be2-0ad4-4fd2-baeb-d5437091d575",
+            "key": "href",
+            "name": "Href",
+            "description": null,
+            "validationRules": "{\"general\":{\"nullable\":false}}",
+            "defaultValues": "",
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "api": {
+              "id": "26df5c3d-7110-4c31-876c-db8291a2726d"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "atom": {
+    "id": "ae02dc9a-6849-4df0-9d45-823fb3a5d064",
+    "name": "NextLink",
+    "type": "NextLink",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "26df5c3d-7110-4c31-876c-db8291a2726d",
+      "kind": "InterfaceType",
+      "name": "NextLink  API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      },
+      "fields": [
+        {
+          "id": "bc728be2-0ad4-4fd2-baeb-d5437091d575",
+          "key": "href",
+          "name": "Href",
+          "description": null,
+          "validationRules": "{\"general\":{\"nullable\":false}}",
+          "defaultValues": "",
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "api": {
+            "id": "26df5c3d-7110-4c31-876c-db8291a2726d"
+          }
+        }
+      ]
+    },
+    "icon": null,
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "tags": [],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
+  }
+}

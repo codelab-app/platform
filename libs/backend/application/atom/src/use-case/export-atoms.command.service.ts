@@ -2,17 +2,17 @@ import {
   type AtomWhere,
   SortDirection,
 } from '@codelab/backend/abstract/codegen'
-import type {
-  IApiOutputDto,
-  IAtomOutputDto,
-} from '@codelab/backend/abstract/core'
+import type { IApiOutputDto } from '@codelab/backend/abstract/core'
+import { IAtomOutputDto } from '@codelab/backend/abstract/core'
 import { ExportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { type IAtomDTO } from '@codelab/shared/abstract/core'
+import { Typebox } from '@codelab/shared/abstract/types'
 import { Span } from '@codelab/shared/infra/otel'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
+import { ValidationService } from 'backend/infra/adapter/typebox'
 
 export class ExportAtomsCommand {
   constructor(readonly where?: AtomWhere) {}
@@ -26,6 +26,7 @@ export class ExportAtomsHandler
     private readonly atomRepository: AtomRepository,
     private commandBus: CommandBus,
     private traceService: TraceService,
+    private validationService: ValidationService,
   ) {}
 
   @Span()
@@ -40,9 +41,7 @@ export class ExportAtomsHandler
       // Sort nested properties, since we can't do this with OGM
       .map((atom) => ({
         ...atom,
-        api: {
-          ...atom.api,
-        },
+        api: atom.api,
         suggestedChildren: atom.suggestedChildren.sort((a, b) =>
           a.name.localeCompare(b.name),
         ),
@@ -52,7 +51,16 @@ export class ExportAtomsHandler
         })),
       }))
 
-    return Promise.all(atoms.map(async (atom) => await this.exportAtom(atom)))
+    return Promise.all(
+      atoms.map(async (atom) => {
+        const exportAtom = await this.exportAtom(atom)
+
+        return this.validationService.validateAndClean(
+          IAtomOutputDto,
+          exportAtom,
+        )
+      }),
+    )
   }
 
   @Span()

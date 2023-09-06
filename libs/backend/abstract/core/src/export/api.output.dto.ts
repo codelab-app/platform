@@ -8,10 +8,12 @@ import { ITypeOutputDto } from './type.output.dto'
  *
  * The root api is ordered firs t
  */
-export const IApiOutputDto = Type.Object({
-  api: IInterfaceTypeEntity,
-  fields: Type.Array(IFieldDTO),
-  types: Type.Array(ITypeOutputDto),
-})
+export const IApiOutputDto = Type.Composite([
+  IInterfaceTypeEntity,
+  Type.Object({
+    fields: Type.Array(IFieldDTO),
+    types: Type.Array(ITypeOutputDto),
+  }),
+])
 
 export type IApiOutputDto = Static<typeof IApiOutputDto>

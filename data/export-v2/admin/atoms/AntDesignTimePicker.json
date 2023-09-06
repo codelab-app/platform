@@ -1,0 +1,57 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "6aaf019e-79cc-49f2-8951-da0db9394ed8",
+    "fields": [],
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "id": "6aaf019e-79cc-49f2-8951-da0db9394ed8",
+        "kind": "InterfaceType",
+        "name": "AntDesignTimePicker API",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "fields": []
+      }
+    ]
+  },
+  "atom": {
+    "id": "402a5a2c-e3cd-46b9-b177-3c19f0cc2fc1",
+    "name": "AntDesignTimePicker",
+    "type": "AntDesignTimePicker",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "6aaf019e-79cc-49f2-8951-da0db9394ed8",
+      "kind": "InterfaceType",
+      "name": "AntDesignTimePicker API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      },
+      "fields": []
+    },
+    "icon": "TimePicker",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "tags": [
+      {
+        "id": "acdc2cd7-9fe3-4ad6-b7c0-fc8eb8d94e12",
+        "name": "TimePicker",
+        "parent": {
+          "id": "79e9ccd1-a5fa-44b9-b728-16e3c79365c8",
+          "name": "Data Entry"
+        },
+        "children": [],
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
+  }
+}

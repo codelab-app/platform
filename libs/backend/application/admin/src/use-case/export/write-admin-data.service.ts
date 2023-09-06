@@ -38,7 +38,7 @@ export class WriteAdminDataService {
       )
 
       const stringData = formatToPrettifiedJson({
-        ...api,
+        api,
         atom,
       })
 

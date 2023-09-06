@@ -1,0 +1,613 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "d8d412dd-2611-4132-8234-e7ea8667c919",
+    "fields": [],
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "id": "d8d412dd-2611-4132-8234-e7ea8667c919",
+        "kind": "InterfaceType",
+        "name": "Google Fonts API",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "fields": [
+          {
+            "id": "88221841-2720-4d04-a2b0-8a9e28cbc1a9",
+            "key": "fonts",
+            "name": null,
+            "description": null,
+            "validationRules": "{}",
+            "defaultValues": "[]",
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "ArrayType",
+              "id": "896be646-32e8-4046-9fe0-0f25a60714f7",
+              "kind": "ArrayType",
+              "name": "Google Fonts Option Array"
+            },
+            "api": {
+              "id": "d8d412dd-2611-4132-8234-e7ea8667c919"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "component": {
+    "id": "417cba0d-a781-485d-82d5-cb3672efe555",
+    "name": "Google Fonts",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "rootElement": {
+      "id": "562984ba-3c4a-41df-8375-21dbc750915c",
+      "name": "Google Fonts",
+      "customCss": null,
+      "guiCss": null,
+      "parentComponent": {
+        "id": "417cba0d-a781-485d-82d5-cb3672efe555",
+        "name": "Google Fonts"
+      },
+      "renderComponentType": null,
+      "renderType": {
+        "id": "47bcdf5e-f669-4d11-9815-9309b7322498",
+        "kind": "Atom"
+      },
+      "parent": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "firstChild": null,
+      "childMapperPreviousSibling": null,
+      "props": {
+        "id": "135c4280-aa76-4026-bb9b-92c1ac363bf1",
+        "data": "{\"data-component-id\":\"4k-uUYE7rhaDUCucj_eePHqZ\",\"rel\":\"stylesheet\",\"href\":\"{{function run() {\\n  const { fonts } = props\\n  if (!fonts?.length) {\\n    return '#'\\n  }\\n\\n  const createFontLink = (fontDetails) => {\\n    const fontMap = new Map()\\n  \\n    for (let i = 0; i < fontDetails.length; i++) {\\n      const family = fontDetails[i].family\\n      const weight = fontDetails[i].weight\\n  \\n      if (fontMap.has(family)) {\\n        if (!fontMap.get(family).includes(weight)) {\\n          fontMap.get(family).push(weight)\\n        }\\n      } else {\\n        fontMap.set(family, [weight ?? 400])\\n      }\\n    }\\n  \\n    const fontParams = []\\n    fontMap.forEach((weights, family) => {\\n      const urlFamily = family.replace(/\\\\s/g, '+')\\n      // Apparently the weights should be sorted so that it's considered valid. \\n      // Otherwise a 400 bad request error is returned\\n      const urlWeights = weights.map(Number).sort((a, b) => a - b).join(';')\\n      fontParams.push(`${urlFamily}:wght@${urlWeights}`)\\n    })\\n  \\n    const href = `https://fonts.googleapis.com/css2?family=${fontParams.join('&family=')}&display=swap`\\n  \\n    return href\\n  }\\n\\n  try {\\n    return createFontLink(fonts)\\n  } catch (error) {\\n    console.error(error)\\n  }\\n  return '#'\\n}()\\n}}\"}"
+      },
+      "renderForEachPropKey": null,
+      "childMapperPropKey": null,
+      "childMapperComponent": null,
+      "renderIfExpression": null,
+      "preRenderAction": null,
+      "postRenderAction": null,
+      "_compoundRefKey": null,
+      "refKey": null,
+      "renderAtomType": {
+        "id": "47bcdf5e-f669-4d11-9815-9309b7322498",
+        "name": "HtmlLink",
+        "type": "HtmlLink",
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "60a143e3-0f88-4455-8175-a09d35ae3913",
+          "kind": "InterfaceType",
+          "name": "HtmlLink API",
+          "owner": {
+            "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+          },
+          "fields": [
+            {
+              "id": "98a1cc5a-10ae-4907-b825-25c21290d145",
+              "key": "type",
+              "name": "Type",
+              "description": null,
+              "validationRules": null,
+              "defaultValues": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              }
+            },
+            {
+              "id": "80e29df4-e01d-4316-9346-e3f1c21bf806",
+              "key": "sizes",
+              "name": "Sizes",
+              "description": null,
+              "validationRules": null,
+              "defaultValues": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              }
+            },
+            {
+              "id": "4818c921-ad3a-4eda-bf97-158d9da86d85",
+              "key": "rel",
+              "name": "Rel",
+              "description": null,
+              "validationRules": null,
+              "defaultValues": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              }
+            },
+            {
+              "id": "22221951-0725-49d2-b432-8b24e03352ba",
+              "key": "referrerpolicy",
+              "name": "Referrerpolicy",
+              "description": null,
+              "validationRules": null,
+              "defaultValues": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "EnumType",
+                "id": "48531888-cfd0-4386-b4e3-5cfb85f5dc26",
+                "kind": "EnumType",
+                "name": "HtmlLink Referrerpolicy Enum"
+              },
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              }
+            },
+            {
+              "id": "60c8806d-56ff-429a-89ed-2f777031ac28",
+              "key": "media",
+              "name": "Media",
+              "description": null,
+              "validationRules": null,
+              "defaultValues": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              }
+            },
+            {
+              "id": "176b99e5-f8eb-49a4-a388-c08c8038c6fc",
+              "key": "integrity",
+              "name": "Integrity",
+              "description": null,
+              "validationRules": null,
+              "defaultValues": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              }
+            },
+            {
+              "id": "df57332d-8b01-4316-9f99-6c8f83075251",
+              "key": "hreflang",
+              "name": "Hreflang",
+              "description": null,
+              "validationRules": null,
+              "defaultValues": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              }
+            },
+            {
+              "id": "23e09a78-6b10-4b2b-8847-fbc7e1fc2a0b",
+              "key": "href",
+              "name": "Href",
+              "description": null,
+              "validationRules": null,
+              "defaultValues": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              }
+            },
+            {
+              "id": "b9b4eafa-ae9a-4c76-93ad-8d45df4940f0",
+              "key": "crossorigin",
+              "name": "Crossorigin",
+              "description": null,
+              "validationRules": null,
+              "defaultValues": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "EnumType",
+                "id": "1d557d56-c90c-481f-b17c-e80252360d65",
+                "kind": "EnumType",
+                "name": "HtmlLink Crossorigin Enum"
+              },
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              }
+            }
+          ]
+        },
+        "icon": null,
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "tags": [
+          {
+            "id": "579b099c-95ff-481b-9154-3d00840c2b94",
+            "name": "HtmlLink",
+            "parent": {
+              "id": "81adcc2f-67a1-4bd9-a0f5-e763effa69b5",
+              "name": "Metadata"
+            },
+            "children": [],
+            "owner": {
+              "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+            }
+          }
+        ],
+        "suggestedChildren": [],
+        "requiredParents": [],
+        "externalCssSource": null,
+        "externalJsSource": null,
+        "externalSourceType": null
+      }
+    },
+    "props": {
+      "id": "7e8d336a-65b3-47cd-9a44-2bb446155210",
+      "data": "{\"fonts\":[]}"
+    },
+    "store": {
+      "id": "ee6cb6a6-fadd-4e24-85eb-477f33bee868",
+      "name": "Google Fonts Store",
+      "api": {
+        "__typename": "InterfaceType",
+        "id": "369777a3-7afb-4059-be35-71d145fed48d",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Store API",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "fields": []
+      },
+      "actions": []
+    },
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "d8d412dd-2611-4132-8234-e7ea8667c919",
+      "kind": "InterfaceType",
+      "name": "Google Fonts API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      },
+      "fields": [
+        {
+          "id": "88221841-2720-4d04-a2b0-8a9e28cbc1a9",
+          "key": "fonts",
+          "name": null,
+          "description": null,
+          "validationRules": "{}",
+          "defaultValues": "[]",
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ArrayType",
+            "id": "896be646-32e8-4046-9fe0-0f25a60714f7",
+            "kind": "ArrayType",
+            "name": "Google Fonts Option Array"
+          },
+          "api": {
+            "id": "d8d412dd-2611-4132-8234-e7ea8667c919"
+          }
+        }
+      ]
+    },
+    "childrenContainerElement": {
+      "id": "562984ba-3c4a-41df-8375-21dbc750915c"
+    },
+    "keyGenerator": null
+  },
+  "descendantElements": [
+    {
+      "id": "562984ba-3c4a-41df-8375-21dbc750915c",
+      "name": "Google Fonts",
+      "customCss": null,
+      "guiCss": null,
+      "parentComponent": {
+        "id": "417cba0d-a781-485d-82d5-cb3672efe555",
+        "name": "Google Fonts"
+      },
+      "renderComponentType": null,
+      "renderType": {
+        "id": "47bcdf5e-f669-4d11-9815-9309b7322498",
+        "kind": "Atom"
+      },
+      "parent": null,
+      "prevSibling": null,
+      "nextSibling": null,
+      "firstChild": null,
+      "childMapperPreviousSibling": null,
+      "props": {
+        "id": "135c4280-aa76-4026-bb9b-92c1ac363bf1",
+        "data": "{\"data-component-id\":\"4k-uUYE7rhaDUCucj_eePHqZ\",\"rel\":\"stylesheet\",\"href\":\"{{function run() {\\n  const { fonts } = props\\n  if (!fonts?.length) {\\n    return '#'\\n  }\\n\\n  const createFontLink = (fontDetails) => {\\n    const fontMap = new Map()\\n  \\n    for (let i = 0; i < fontDetails.length; i++) {\\n      const family = fontDetails[i].family\\n      const weight = fontDetails[i].weight\\n  \\n      if (fontMap.has(family)) {\\n        if (!fontMap.get(family).includes(weight)) {\\n          fontMap.get(family).push(weight)\\n        }\\n      } else {\\n        fontMap.set(family, [weight ?? 400])\\n      }\\n    }\\n  \\n    const fontParams = []\\n    fontMap.forEach((weights, family) => {\\n      const urlFamily = family.replace(/\\\\s/g, '+')\\n      // Apparently the weights should be sorted so that it's considered valid. \\n      // Otherwise a 400 bad request error is returned\\n      const urlWeights = weights.map(Number).sort((a, b) => a - b).join(';')\\n      fontParams.push(`${urlFamily}:wght@${urlWeights}`)\\n    })\\n  \\n    const href = `https://fonts.googleapis.com/css2?family=${fontParams.join('&family=')}&display=swap`\\n  \\n    return href\\n  }\\n\\n  try {\\n    return createFontLink(fonts)\\n  } catch (error) {\\n    console.error(error)\\n  }\\n  return '#'\\n}()\\n}}\"}"
+      },
+      "renderForEachPropKey": null,
+      "childMapperPropKey": null,
+      "childMapperComponent": null,
+      "renderIfExpression": null,
+      "preRenderAction": null,
+      "postRenderAction": null,
+      "_compoundRefKey": null,
+      "refKey": null,
+      "renderAtomType": {
+        "id": "47bcdf5e-f669-4d11-9815-9309b7322498",
+        "name": "HtmlLink",
+        "type": "HtmlLink",
+        "api": {
+          "__typename": "InterfaceType",
+          "id": "60a143e3-0f88-4455-8175-a09d35ae3913",
+          "kind": "InterfaceType",
+          "name": "HtmlLink API",
+          "owner": {
+            "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+          },
+          "fields": [
+            {
+              "id": "98a1cc5a-10ae-4907-b825-25c21290d145",
+              "key": "type",
+              "name": "Type",
+              "description": null,
+              "validationRules": null,
+              "defaultValues": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              }
+            },
+            {
+              "id": "80e29df4-e01d-4316-9346-e3f1c21bf806",
+              "key": "sizes",
+              "name": "Sizes",
+              "description": null,
+              "validationRules": null,
+              "defaultValues": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              }
+            },
+            {
+              "id": "4818c921-ad3a-4eda-bf97-158d9da86d85",
+              "key": "rel",
+              "name": "Rel",
+              "description": null,
+              "validationRules": null,
+              "defaultValues": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              }
+            },
+            {
+              "id": "22221951-0725-49d2-b432-8b24e03352ba",
+              "key": "referrerpolicy",
+              "name": "Referrerpolicy",
+              "description": null,
+              "validationRules": null,
+              "defaultValues": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "EnumType",
+                "id": "48531888-cfd0-4386-b4e3-5cfb85f5dc26",
+                "kind": "EnumType",
+                "name": "HtmlLink Referrerpolicy Enum"
+              },
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              }
+            },
+            {
+              "id": "60c8806d-56ff-429a-89ed-2f777031ac28",
+              "key": "media",
+              "name": "Media",
+              "description": null,
+              "validationRules": null,
+              "defaultValues": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              }
+            },
+            {
+              "id": "176b99e5-f8eb-49a4-a388-c08c8038c6fc",
+              "key": "integrity",
+              "name": "Integrity",
+              "description": null,
+              "validationRules": null,
+              "defaultValues": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              }
+            },
+            {
+              "id": "df57332d-8b01-4316-9f99-6c8f83075251",
+              "key": "hreflang",
+              "name": "Hreflang",
+              "description": null,
+              "validationRules": null,
+              "defaultValues": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              }
+            },
+            {
+              "id": "23e09a78-6b10-4b2b-8847-fbc7e1fc2a0b",
+              "key": "href",
+              "name": "Href",
+              "description": null,
+              "validationRules": null,
+              "defaultValues": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "PrimitiveType",
+                "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+                "kind": "PrimitiveType",
+                "name": "String"
+              },
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              }
+            },
+            {
+              "id": "b9b4eafa-ae9a-4c76-93ad-8d45df4940f0",
+              "key": "crossorigin",
+              "name": "Crossorigin",
+              "description": null,
+              "validationRules": null,
+              "defaultValues": null,
+              "prevSibling": null,
+              "nextSibling": null,
+              "fieldType": {
+                "__typename": "EnumType",
+                "id": "1d557d56-c90c-481f-b17c-e80252360d65",
+                "kind": "EnumType",
+                "name": "HtmlLink Crossorigin Enum"
+              },
+              "api": {
+                "id": "60a143e3-0f88-4455-8175-a09d35ae3913"
+              }
+            }
+          ]
+        },
+        "icon": null,
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "tags": [
+          {
+            "id": "579b099c-95ff-481b-9154-3d00840c2b94",
+            "name": "HtmlLink",
+            "parent": {
+              "id": "81adcc2f-67a1-4bd9-a0f5-e763effa69b5",
+              "name": "Metadata"
+            },
+            "children": [],
+            "owner": {
+              "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+            }
+          }
+        ],
+        "suggestedChildren": [],
+        "requiredParents": [],
+        "externalCssSource": null,
+        "externalJsSource": null,
+        "externalSourceType": null
+      }
+    }
+  ],
+  "store": {
+    "actions": [],
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "369777a3-7afb-4059-be35-71d145fed48d",
+      "kind": "InterfaceType",
+      "name": "Google Fonts Store API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      },
+      "fields": []
+    },
+    "store": {
+      "id": "ee6cb6a6-fadd-4e24-85eb-477f33bee868",
+      "name": "Google Fonts Store",
+      "api": {
+        "__typename": "InterfaceType",
+        "id": "369777a3-7afb-4059-be35-71d145fed48d",
+        "kind": "InterfaceType",
+        "name": "Google Fonts Store API",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "fields": []
+      },
+      "actions": []
+    }
+  }
+}

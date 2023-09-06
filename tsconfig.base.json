@@ -63,6 +63,9 @@
       "@codelab/backend/application/migration": [
         "libs/backend/application/migration/src/index.ts"
       ],
+      "@codelab/backend/application/page": [
+        "libs/backend/application/page/src/index.ts"
+      ],
       "@codelab/backend/application/resource": [
         "libs/backend/application/resource/src/index.ts"
       ],
@@ -259,8 +262,8 @@
         "libs/testing/cypress/nextjs-auth0/src/index.ts"
       ],
       "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
-      "@codelab/backend/application/page": [
-        "libs/backend/application/page/src/index.ts"
+      "backend/infra/adapter/typebox": [
+        "libs/backend/infra/adapter/typebox/src/index.ts"
       ]
     }
   },

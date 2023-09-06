@@ -99,7 +99,7 @@
     "@react-hook/size": "2.1.2",
     "@react-hook/window-size": "3.0.7",
     "@react-hookz/web": "22.0.0",
-    "@sinclair/typebox": "0.31.12",
+    "@sinclair/typebox": "0.31.14",
     "@storybook/core-server": "7.3.2",
     "@sotaproject/strikethrough": "^1.0.1",
     "@supabase/supabase-js": "2.1.1",

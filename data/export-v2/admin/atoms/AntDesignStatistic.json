@@ -1,0 +1,57 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "b6d252c2-a601-40a8-a877-2e02de442239",
+    "fields": [],
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "id": "b6d252c2-a601-40a8-a877-2e02de442239",
+        "kind": "InterfaceType",
+        "name": "AntDesignStatistic API",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "fields": []
+      }
+    ]
+  },
+  "atom": {
+    "id": "2d95149c-6c51-4870-a209-97672e56ed21",
+    "name": "AntDesignStatistic",
+    "type": "AntDesignStatistic",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "b6d252c2-a601-40a8-a877-2e02de442239",
+      "kind": "InterfaceType",
+      "name": "AntDesignStatistic API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      },
+      "fields": []
+    },
+    "icon": "Statistic",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "tags": [
+      {
+        "id": "ae740409-10a9-462d-a590-8f0849082e49",
+        "name": "Statistic",
+        "parent": {
+          "id": "7765f016-04de-4cf7-9ab5-c7920cad0531",
+          "name": "Data Display"
+        },
+        "children": [],
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
+  }
+}

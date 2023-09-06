@@ -18,6 +18,7 @@ import {
   type ITypeDTO,
   type ITypeEntity,
 } from '@codelab/shared/abstract/core'
+import { Typebox } from '@codelab/shared/abstract/types'
 import {
   connectAuth0Owner,
   connectNodeId,
@@ -25,6 +26,8 @@ import {
 } from '@codelab/shared/domain/mapper'
 import { Span } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
+import { type TAnySchema } from '@sinclair/typebox'
+import { ValidationService } from 'backend/infra/adapter/typebox'
 
 @Injectable()
 export class InterfaceTypeRepository extends AbstractRepository<
@@ -37,18 +40,30 @@ export class InterfaceTypeRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     private neo4jService: Neo4jService,
+    protected validationService: ValidationService,
   ) {
-    super(traceService)
+    super(traceService, validationService)
   }
 
   @Span()
-  async getDependentTypes({ id }: ITypeEntity): Promise<Array<ITypeDTO>> {
+  async getDependentTypes(
+    { id }: ITypeEntity,
+    schema?: TAnySchema,
+  ): Promise<Array<ITypeDTO>> {
     return this.neo4jService.withReadTransaction(async (txn) => {
       const { records } = await txn.run(getDependentTypes, { id })
 
       this.traceService.addAttributes({ id, records })
 
-      return records[0]?.get(0) ?? []
+      const types = records[0]?.get(0) ?? []
+
+      if (schema) {
+        for (const type of types) {
+          return this.validationService.validateAndClean(schema, type)
+        }
+      }
+
+      return types
     })
   }
 

@@ -1,0 +1,667 @@
+{
+  "api": {
+    "__typename": "InterfaceType",
+    "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389",
+    "fields": [],
+    "types": [
+      {
+        "__typename": "InterfaceType",
+        "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389",
+        "kind": "InterfaceType",
+        "name": "AntDesignConfigProvider API",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "fields": [
+          {
+            "id": "7e09ba1f-5e68-45f8-88ad-132ea44ff2dd",
+            "key": "virtual",
+            "name": "Virtual",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+              "kind": "PrimitiveType",
+              "name": "Boolean"
+            },
+            "api": {
+              "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+            }
+          },
+          {
+            "id": "d3155ee0-2400-4ba4-9b99-8c28da9feff5",
+            "key": "space",
+            "name": "Space",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "InterfaceType",
+              "id": "4b9cb637-d6dc-4a58-ab84-24cfe3c3d106",
+              "kind": "InterfaceType",
+              "name": "AntDesignConfigProvider Space API"
+            },
+            "api": {
+              "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+            }
+          },
+          {
+            "id": "37381a73-4bf9-42f8-b1bc-af56ce6781d5",
+            "key": "renderEmpty",
+            "name": "Render Empty",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "ReactNodeType",
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+              "kind": "ReactNodeType",
+              "name": "ReactNodeType"
+            },
+            "api": {
+              "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+            }
+          },
+          {
+            "id": "10d73057-cd8d-47a2-8095-5528c60ccc0e",
+            "key": "prefixCls",
+            "name": "Prefix Cls",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "api": {
+              "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+            }
+          },
+          {
+            "id": "5f97a0b1-ad67-4523-9ea9-a61dd91d0c1b",
+            "key": "pageHeader",
+            "name": "Page Header",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "InterfaceType",
+              "id": "816374c1-3cdd-45ef-bb13-c2e84e88df51",
+              "kind": "InterfaceType",
+              "name": "AntDesignConfigProvider PageHeader API"
+            },
+            "api": {
+              "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+            }
+          },
+          {
+            "id": "c71d3938-2fb8-4f35-ad28-f536eae04e89",
+            "key": "input",
+            "name": "Input",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "InterfaceType",
+              "id": "1f11c9dd-7e48-4beb-8d59-f54b8d11e0ac",
+              "kind": "InterfaceType",
+              "name": "AntDesignConfigProvider Input API"
+            },
+            "api": {
+              "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+            }
+          },
+          {
+            "id": "8ca0c04a-4e7e-4250-9320-ce0ec7820d01",
+            "key": "iconPrefixCls",
+            "name": "Icon Prefix Cls",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
+            "api": {
+              "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+            }
+          },
+          {
+            "id": "051da31f-8f00-4dbb-ab90-81deb184bcf0",
+            "key": "getTargetContainer",
+            "name": "Get Target Container",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "ReactNodeType",
+              "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+              "kind": "ReactNodeType",
+              "name": "ReactNodeType"
+            },
+            "api": {
+              "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+            }
+          },
+          {
+            "id": "1cec6eab-f6a0-441f-b36c-48c28f7b9762",
+            "key": "getPopupContainer",
+            "name": "Get Popup Container",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "ActionType",
+              "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+              "kind": "ActionType",
+              "name": "ActionType"
+            },
+            "api": {
+              "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+            }
+          },
+          {
+            "id": "0b4ec360-96a0-4d81-919b-5b868e5202e4",
+            "key": "form",
+            "name": "Form",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "InterfaceType",
+              "id": "3bc1a470-3cc4-45e4-bc86-bc11f21b967e",
+              "kind": "InterfaceType",
+              "name": "AntDesignConfigProvider Form API"
+            },
+            "api": {
+              "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+            }
+          },
+          {
+            "id": "9ef85c93-7f3d-4395-93fd-ac776e835eab",
+            "key": "dropdownMatchSelectWidth",
+            "name": "Dropdown Match Select Width",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "31740207-6a13-45a7-a01d-a1568fe47cab",
+              "kind": "EnumType",
+              "name": "AntDesignConfigProvider Dropdown Match Select Width Enum"
+            },
+            "api": {
+              "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+            }
+          },
+          {
+            "id": "df0d31b4-7f6e-411f-892b-9310786ec47a",
+            "key": "direction",
+            "name": "Direction",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "d97a748e-5bc5-483d-93cf-214a1424eaad",
+              "kind": "EnumType",
+              "name": "AntDesignConfigProvider Direction Enum"
+            },
+            "api": {
+              "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+            }
+          },
+          {
+            "id": "bd2d7dad-5bcb-4b18-8fe4-e7d546f7c23b",
+            "key": "csp",
+            "name": "Csp",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "InterfaceType",
+              "id": "aca546b6-3200-47c7-a142-61bf75ea48ba",
+              "kind": "InterfaceType",
+              "name": "AntDesignConfigProvider Csp API"
+            },
+            "api": {
+              "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+            }
+          },
+          {
+            "id": "c892b1b4-6b4a-49be-9215-cf4c905f57d8",
+            "key": "componentSize",
+            "name": "Component Size",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "EnumType",
+              "id": "287f973a-0c8c-462c-8c02-cb7361b3d506",
+              "kind": "EnumType",
+              "name": "AntDesignConfigProvider Component Size Enum"
+            },
+            "api": {
+              "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+            }
+          },
+          {
+            "id": "4ee46454-2ff1-40e3-a41d-b62044581f4d",
+            "key": "componentDisabled",
+            "name": "Component Disabled",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+              "kind": "PrimitiveType",
+              "name": "Boolean"
+            },
+            "api": {
+              "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+            }
+          },
+          {
+            "id": "5b6f7eef-dff5-4721-ac64-92f3ef39e495",
+            "key": "autoInsertSpaceInButton",
+            "name": "Auto Insert Space In Button",
+            "description": null,
+            "validationRules": null,
+            "defaultValues": null,
+            "prevSibling": null,
+            "nextSibling": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+              "kind": "PrimitiveType",
+              "name": "Boolean"
+            },
+            "api": {
+              "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "atom": {
+    "id": "273fca5a-5268-45e6-a1f1-bf27176857cb",
+    "name": "AntDesignConfigProvider",
+    "type": "AntDesignConfigProvider",
+    "api": {
+      "__typename": "InterfaceType",
+      "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389",
+      "kind": "InterfaceType",
+      "name": "AntDesignConfigProvider API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      },
+      "fields": [
+        {
+          "id": "7e09ba1f-5e68-45f8-88ad-132ea44ff2dd",
+          "key": "virtual",
+          "name": "Virtual",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+          }
+        },
+        {
+          "id": "d3155ee0-2400-4ba4-9b99-8c28da9feff5",
+          "key": "space",
+          "name": "Space",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "InterfaceType",
+            "id": "4b9cb637-d6dc-4a58-ab84-24cfe3c3d106",
+            "kind": "InterfaceType",
+            "name": "AntDesignConfigProvider Space API"
+          },
+          "api": {
+            "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+          }
+        },
+        {
+          "id": "37381a73-4bf9-42f8-b1bc-af56ce6781d5",
+          "key": "renderEmpty",
+          "name": "Render Empty",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          },
+          "api": {
+            "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+          }
+        },
+        {
+          "id": "10d73057-cd8d-47a2-8095-5528c60ccc0e",
+          "key": "prefixCls",
+          "name": "Prefix Cls",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "api": {
+            "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+          }
+        },
+        {
+          "id": "5f97a0b1-ad67-4523-9ea9-a61dd91d0c1b",
+          "key": "pageHeader",
+          "name": "Page Header",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "InterfaceType",
+            "id": "816374c1-3cdd-45ef-bb13-c2e84e88df51",
+            "kind": "InterfaceType",
+            "name": "AntDesignConfigProvider PageHeader API"
+          },
+          "api": {
+            "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+          }
+        },
+        {
+          "id": "c71d3938-2fb8-4f35-ad28-f536eae04e89",
+          "key": "input",
+          "name": "Input",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "InterfaceType",
+            "id": "1f11c9dd-7e48-4beb-8d59-f54b8d11e0ac",
+            "kind": "InterfaceType",
+            "name": "AntDesignConfigProvider Input API"
+          },
+          "api": {
+            "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+          }
+        },
+        {
+          "id": "8ca0c04a-4e7e-4250-9320-ce0ec7820d01",
+          "key": "iconPrefixCls",
+          "name": "Icon Prefix Cls",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
+          "api": {
+            "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+          }
+        },
+        {
+          "id": "051da31f-8f00-4dbb-ab90-81deb184bcf0",
+          "key": "getTargetContainer",
+          "name": "Get Target Container",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ReactNodeType",
+            "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
+            "kind": "ReactNodeType",
+            "name": "ReactNodeType"
+          },
+          "api": {
+            "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+          }
+        },
+        {
+          "id": "1cec6eab-f6a0-441f-b36c-48c28f7b9762",
+          "key": "getPopupContainer",
+          "name": "Get Popup Container",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "ActionType",
+            "id": "90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f",
+            "kind": "ActionType",
+            "name": "ActionType"
+          },
+          "api": {
+            "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+          }
+        },
+        {
+          "id": "0b4ec360-96a0-4d81-919b-5b868e5202e4",
+          "key": "form",
+          "name": "Form",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "InterfaceType",
+            "id": "3bc1a470-3cc4-45e4-bc86-bc11f21b967e",
+            "kind": "InterfaceType",
+            "name": "AntDesignConfigProvider Form API"
+          },
+          "api": {
+            "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+          }
+        },
+        {
+          "id": "9ef85c93-7f3d-4395-93fd-ac776e835eab",
+          "key": "dropdownMatchSelectWidth",
+          "name": "Dropdown Match Select Width",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "31740207-6a13-45a7-a01d-a1568fe47cab",
+            "kind": "EnumType",
+            "name": "AntDesignConfigProvider Dropdown Match Select Width Enum"
+          },
+          "api": {
+            "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+          }
+        },
+        {
+          "id": "df0d31b4-7f6e-411f-892b-9310786ec47a",
+          "key": "direction",
+          "name": "Direction",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "d97a748e-5bc5-483d-93cf-214a1424eaad",
+            "kind": "EnumType",
+            "name": "AntDesignConfigProvider Direction Enum"
+          },
+          "api": {
+            "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+          }
+        },
+        {
+          "id": "bd2d7dad-5bcb-4b18-8fe4-e7d546f7c23b",
+          "key": "csp",
+          "name": "Csp",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "InterfaceType",
+            "id": "aca546b6-3200-47c7-a142-61bf75ea48ba",
+            "kind": "InterfaceType",
+            "name": "AntDesignConfigProvider Csp API"
+          },
+          "api": {
+            "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+          }
+        },
+        {
+          "id": "c892b1b4-6b4a-49be-9215-cf4c905f57d8",
+          "key": "componentSize",
+          "name": "Component Size",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "EnumType",
+            "id": "287f973a-0c8c-462c-8c02-cb7361b3d506",
+            "kind": "EnumType",
+            "name": "AntDesignConfigProvider Component Size Enum"
+          },
+          "api": {
+            "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+          }
+        },
+        {
+          "id": "4ee46454-2ff1-40e3-a41d-b62044581f4d",
+          "key": "componentDisabled",
+          "name": "Component Disabled",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+          }
+        },
+        {
+          "id": "5b6f7eef-dff5-4721-ac64-92f3ef39e495",
+          "key": "autoInsertSpaceInButton",
+          "name": "Auto Insert Space In Button",
+          "description": null,
+          "validationRules": null,
+          "defaultValues": null,
+          "prevSibling": null,
+          "nextSibling": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
+            "kind": "PrimitiveType",
+            "name": "Boolean"
+          },
+          "api": {
+            "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389"
+          }
+        }
+      ]
+    },
+    "icon": "ConfigProvider",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
+    "tags": [
+      {
+        "id": "53c577e8-797e-4103-b795-c848621a91f1",
+        "name": "ConfigProvider",
+        "parent": {
+          "id": "407ec15d-9af7-4520-90e9-ce22bc80b698",
+          "name": "Other"
+        },
+        "children": [],
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        }
+      }
+    ],
+    "suggestedChildren": [],
+    "requiredParents": [],
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null
+  }
+}
