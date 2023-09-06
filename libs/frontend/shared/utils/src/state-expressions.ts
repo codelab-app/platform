@@ -123,25 +123,7 @@ const getByExpression = (key: string, context: IEvaluationContext) => {
     return evaluateExpression(key, context)
   }
 
-  return evaluateExpressions(key, context)
-}
-
-/**
- * Used for texts having multiple expressions, or not starting with "{{" and ending with "}}"
- * e.g. code actions with expressions
- */
-export const evaluateExpressions = (
-  text: string,
-  context: IEvaluationContext,
-) => {
-  if (!hasStateExpression(text)) {
-    return text
-  }
-
-  /**
-   * return string value for : [text1]? {{expression1}} [text2]? {{expression2}}...
-   */
-  return text.replace(STATE_PATH_TEMPLATE_REGEX, (value) =>
+  return key.replace(STATE_PATH_TEMPLATE_REGEX, (value) =>
     evaluateExpression(value, context),
   )
 }
