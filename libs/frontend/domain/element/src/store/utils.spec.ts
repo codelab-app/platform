@@ -1,8 +1,5 @@
 import { parseCssStringIntoObject } from './utils'
 
-/**
- * Should render a prop value of ReactNode
- */
 describe('parseCssStringIntoObject', () => {
   it('should parse css string with nested blocks', () => {
     const unformattedCssWithNestedRules = `

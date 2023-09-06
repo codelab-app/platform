@@ -1,23 +1,46 @@
 {
-  "name": "frontend-domain-element",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/frontend/domain/element/src",
+  "name": "frontend-domain-element",
   "projectType": "library",
+  "sourceRoot": "libs/frontend/domain/element/src",
+  "tags": ["scope:frontend", "layer:domain"],
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["libs/frontend/domain/element/**/*.ts"]
-      },
-      "outputs": ["{options.outputFile}"],
       "configurations": {
         "ci": {
           "format": "junit",
           "outputFile": "tmp/reports/lint/frontend-domain-element.xml",
           "quiet": true
         }
-      }
+      },
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/frontend/domain/element/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test:unit": {
+      "configurations": {
+        "ci": {},
+        "dev": {
+          "reporters": ["default"]
+        },
+        "test": {
+          "reporters": ["default"]
+        }
+      },
+      "defaultConfiguration": "dev",
+      "executor": "@nx/jest:jest",
+      "options": {
+        "color": true,
+        "jestConfig": "libs/frontend/domain/element/jest.config.ts",
+        "memoryLimit": 8192,
+        "parallel": 3,
+        "passWithNoTests": true,
+        "runInBand": true,
+        "testPathPattern": ["[^i].spec.ts"]
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/frontend/domain/element"]
     }
-  },
-  "tags": ["scope:frontend", "layer:domain"]
+  }
 }

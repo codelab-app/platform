@@ -30,155 +30,99 @@ export const jsonStringToCss = (json: string | null | undefined) => {
 }
 
 /**
- * @param cssString user-defined css string
- * @returns new string without trailing spaces and new lines
+ * Normalize the css string by removing new lines and compressing spaces
  */
-const replaceNewLineAndSpaces = (cssString: string) => {
-  cssString = cssString.trim()
-  cssString = cssString.replace(/\n/g, ' ')
-  cssString = cssString.replace(/\s+/g, ' ')
-
-  return cssString
-}
+const normalizeCssString = (cssString: string): string =>
+  cssString.trim().replace(/\n/g, ' ').replace(/\s+/g, ' ')
 
 /**
- * @param cssString user-defined css string
- * @param startIndex starting index of the css string where to look for rule key
- * @returns rule "key", like "color" or "margin-top", and the index of the last character of the key
+ * finds key in css string, which could be a css rule (e.g. "color" or "margin-top")
+ * or a nested selector (e.g. "span::hover" or "*::after")
  */
-const getStyleKey = (cssString: string, startIndex: number) => {
-  let index = startIndex
-  let key = ''
-  let stopSymbol = ''
+const extractStyleKey = (cssString: string, startIndex: number) => {
+  let endIndex = startIndex
 
-  while (index < cssString.length) {
-    const char = cssString[index++]
+  while (endIndex < cssString.length) {
+    const char = cssString[endIndex++]
 
     if (char === ':') {
-      let index2 = index + 1
-      let shouldStop = false
+      const indexOfBracket = cssString.indexOf('{', endIndex)
+      const indexOfColon = cssString.indexOf(';', endIndex)
 
-      while (index2 < cssString.length) {
-        const char2 = cssString[index2++]
-
-        if (char2 === '{') {
-          shouldStop = false
-          break
-        }
-
-        if (char2 === ';') {
-          shouldStop = true
-          break
-        }
-      }
-
-      if (shouldStop) {
-        stopSymbol = char
+      if (
+        indexOfColon !== -1 &&
+        (indexOfColon < indexOfBracket || indexOfBracket === -1)
+      ) {
         break
       }
     }
 
     if (char === '{') {
-      stopSymbol = char
       break
     }
-
-    key += char
   }
 
-  key = key.trim()
-
-  return { endIndex: index - 1, key, stopSymbol }
-}
-
-const getStyleValue = (
-  str: string,
-  startIndex: number,
-  keyStopSymbol: string,
-) => {
-  let index = startIndex
-  let value = ''
-  const stopSymbol = keyStopSymbol === '{' ? '}' : ';'
-
-  while (index < str.length) {
-    const char = str[index++]
-
-    if (char === stopSymbol) {
-      break
-    }
-
-    value += char
-  }
-
-  value = value.trim()
-
-  return { endIndex: index - 1, value }
+  return { endIndex, key: cssString.substring(startIndex, endIndex - 1).trim() }
 }
 
 /**
- * @param str user-defined css string
- * @param startIndex starting index of the css string where to look for the end of the block
- * @returns index of the last character of the block
+ * finds value in css string, which could be a css rule value (e.g. "50px" or "orange")
+ * or a nested block of rules that needs to be parsed recursively (e.g. "p: { color: orange; }")
  */
-const findEndOfBlockIndex = (str: string, startIndex: number) => {
-  const stack = []
+const extractStyleValue = (cssString: string, startIndex: number) => {
+  if (cssString[startIndex - 1] === '{') {
+    const endOfBlockIndex = findEndOfBlockIndex(cssString, startIndex)
+    const nestedBlockStr = cssString.substring(startIndex + 1, endOfBlockIndex)
+    const value = parseCssStringIntoObject(nestedBlockStr)
 
-  for (let i = startIndex; i < str.length; i++) {
-    const char = str[i]
+    return { endIndex: endOfBlockIndex + 1, value }
+  } else {
+    const endIndex = Math.max(cssString.indexOf(';', startIndex), startIndex)
+    const value = cssString.substring(startIndex, endIndex).trim()
 
-    if (char === '{') {
-      stack.push(char)
-      continue
+    return { endIndex: endIndex + 1, value }
+  }
+}
+
+/**
+ * finds the closing bracket index of a nested block of rules
+ * fot the string "p: { color: orange; }" it would return 19, index of "}"
+ */
+const findEndOfBlockIndex = (cssString: string, startIndex: number): number => {
+  let depth = 1
+
+  for (let i = startIndex + 1; i < cssString.length; i++) {
+    if (cssString[i] === '{') {
+      depth++
+    } else if (cssString[i] === '}') {
+      depth--
     }
 
-    if (char === '}') {
-      stack.pop()
-
-      if (stack.length === 0) {
-        return i
-      }
+    if (depth === 0) {
+      return i
     }
   }
 
-  return str.length
+  return cssString.length
 }
 
 /**
  * @param cssString user-defined css string
  * @returns parsed css object based on any given css string
  */
-export const parseCssStringIntoObject = (cssString: string) => {
-  const trimmedCssString = replaceNewLineAndSpaces(cssString)
-  const result = {} as Record<string, unknown>
+export const parseCssStringIntoObject = (
+  cssString: string,
+): Record<string, unknown> => {
+  const normalizedCss = normalizeCssString(cssString)
+  const result: Record<string, unknown> = {}
   let index = 0
 
-  while (index < trimmedCssString.length) {
-    const { endIndex, key, stopSymbol } = getStyleKey(trimmedCssString, index)
+  while (index < normalizedCss.length) {
+    const keyInfo = extractStyleKey(normalizedCss, index)
+    const valueInfo = extractStyleValue(normalizedCss, keyInfo.endIndex)
 
-    if (stopSymbol === '{') {
-      const endOfBlockIndex = findEndOfBlockIndex(trimmedCssString, index)
-
-      index = endOfBlockIndex + 1
-
-      const nestedBlockStr = trimmedCssString.substring(
-        endIndex + 1,
-        endOfBlockIndex,
-      )
-
-      const value = parseCssStringIntoObject(nestedBlockStr)
-
-      result[key] = value
-    } else {
-      const { endIndex: endIndex2, value } = getStyleValue(
-        trimmedCssString,
-        endIndex + 1,
-        stopSymbol,
-      )
-
-      index = endIndex2 + 1
-
-      result[key] = value
-    }
+    result[keyInfo.key] = valueInfo.value
+    index = valueInfo.endIndex
   }
 
   return result
