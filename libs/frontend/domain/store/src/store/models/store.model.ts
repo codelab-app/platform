@@ -21,10 +21,10 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO, IStoreDTO } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
-import { mergeProps, propSafeStringify } from '@codelab/shared/utils'
+import { propSafeStringify } from '@codelab/shared/utils'
 import keys from 'lodash/keys'
 import merge from 'lodash/merge'
-import { autorun, computed, makeAutoObservable, observable, set } from 'mobx'
+import { autorun, computed, observable, set } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { v4 } from 'uuid'
@@ -121,31 +121,37 @@ export class Store
   private cachedState: Nullable<object> = null
 
   @computed
+  get actionRunners() {
+    const renderer = this.renderService.activeRenderer?.current
+
+    const actionRunners = this.actions
+      .map(({ current: action }) => {
+        const actionId = getRunnerId(this.id, action.id)
+        const actionRunner = renderer?.actionRunners.get(actionId)
+        const fallback = () => console.error(`fail to call ${action.name}`)
+        const runner = actionRunner?.runner || fallback
+
+        return { [action.name]: runner }
+      })
+      .reduce(merge, {})
+
+    Object.keys(actionRunners).forEach((actionName) => {
+      actionRunners[actionName] = actionRunners[actionName].bind({
+        actions: actionRunners,
+        state: this.cachedState,
+      })
+    })
+
+    return actionRunners
+  }
+
+  @computed
   get state() {
     if (this.cachedState) {
       return this.cachedState
     }
 
-    const renderer = this.renderService.activeRenderer?.current
-
-    this.cachedState = makeAutoObservable(
-      mergeProps(
-        this.api.maybeCurrent?.defaultValues ?? {},
-        this.actions
-          .map(({ current: action }) => {
-            const actionId = getRunnerId(this.id, action.id)
-            const actionRunner = renderer?.actionRunners.get(actionId)
-            const fallback = () => console.error(`fail to call ${action.name}`)
-            const runner = actionRunner?.runner || fallback
-
-            return { [action.name]: runner }
-          })
-          .reduce(merge, {}),
-      ),
-      {},
-      // bind actions to state
-      { autoBind: true },
-    )
+    this.cachedState = observable(this.api.maybeCurrent?.defaultValues ?? {})
 
     return this.cachedState
   }

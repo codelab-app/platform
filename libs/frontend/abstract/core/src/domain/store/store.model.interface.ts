@@ -18,6 +18,7 @@ import type { IInterfaceType } from '../type'
 export interface IStore
   extends IModel<StoreCreateInput, StoreUpdateInput, StoreDeleteInput>,
     ICacheService<IStoreDTO, IStore> {
+  actionRunners: Record<string, (...args: Array<unknown>) => void>
   actions: Array<Ref<IAction>>
   actionsTree: Array<IActionsTreeDataNode>
   api: Ref<IInterfaceType>

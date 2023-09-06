@@ -307,15 +307,17 @@ export class Element
     const component = this.parentComponent?.current
 
     return {
+      actions: this.store.current.actionRunners,
       componentProps: component?.runtimeProp?.componentEvaluatedProps || {},
       // pass empty object because props can't evaluated by itself
       props: {},
       refs: this.store.current.refs,
       rendererType: this.renderService.activeRenderer?.current.rendererType,
+      rootActions: this.providerStore?.current.actionRunners ?? {},
       rootRefs: this.providerStore?.current.refs || {},
       rootState: this.providerStore?.current.state || {},
       state: this.store.current.state,
-      url: this.urlProps || {},
+      url: this.urlProps ?? {},
     }
   }
 

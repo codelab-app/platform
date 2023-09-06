@@ -61,7 +61,7 @@ export class ExpressionTransformer
       // is used in a ReactNodeType value e.g. {{props.name}}
       if (
         !get(error, 'message', '').match(
-          /(\bprops|state)\s+is\s+not\s+defined\b/,
+          /(\bprops|componentProps|state)\s+is\s+not\s+defined\b/,
         )
       ) {
         console.log('expression', expression)

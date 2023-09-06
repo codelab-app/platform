@@ -11,7 +11,6 @@ import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { getRunner } from '../action-runner.model'
-import { shouldRenderElement } from '../utils'
 import { renderComponentWithStyles } from './get-styled-components'
 import { extractValidProps, getReactComponent } from './wrapper.utils'
 
@@ -56,12 +55,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
     renderer.logRendered(element, renderOutput)
 
-    // TODO: re-work on implementation for the draggable elements and allowable children on the droppable elements.
-    // Render the elements normally for now since the DnD is currently not properly working and
-    // causing unnecessary re-renders when hovering over the builder screen section
-    const children = shouldRenderElement(element, renderOutput.props)
-      ? renderer.renderChildren(renderOutput)
-      : undefined
+    const children = renderer.renderChildren(renderOutput)
 
     if (renderOutput.props) {
       if (

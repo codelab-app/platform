@@ -48,10 +48,13 @@ export interface RenderingMetadata {
 }
 
 export interface IEvaluationContext {
+  actions: IPropData
+  args?: Array<unknown>
   componentProps: IPropData
   props: IPropData
   refs: IPropData
   rendererType?: RendererType
+  rootActions: IPropData
   rootRefs: IPropData
   rootState: IPropData
   state: IPropData
