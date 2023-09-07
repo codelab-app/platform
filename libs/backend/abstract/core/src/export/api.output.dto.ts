@@ -1,4 +1,9 @@
-import { IFieldDTO, IInterfaceTypeEntity } from '@codelab/shared/abstract/core'
+import {
+  IFieldDTO,
+  IInterfaceTypeDTO,
+  IInterfaceTypeEntity,
+} from '@codelab/shared/abstract/core'
+import { Typebox } from '@codelab/shared/infra/validation'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { ITypeOutputDto } from './type.output.dto'
@@ -9,7 +14,7 @@ import { ITypeOutputDto } from './type.output.dto'
  * The root api is ordered first
  */
 export const IApiOutputDto = Type.Composite([
-  IInterfaceTypeEntity,
+  Typebox.OmitOwner(IInterfaceTypeDTO),
   Type.Object(
     {
       fields: Type.Array(IFieldDTO),

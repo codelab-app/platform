@@ -23,7 +23,7 @@ export class ValidationService {
     anySchema: T,
     values: unknown,
   ): Static<T> => {
-    const validator = new StandardValidator(anySchema)
+    const validator = new Typebox.NestedValidator(anySchema)
 
     try {
       /**
@@ -39,6 +39,8 @@ export class ValidationService {
 
       return validator.validateAndCleanCopy(values as Readonly<unknown>)
     } catch (error) {
+      console.error(error)
+
       const validationException = error as ValidationException
 
       /**

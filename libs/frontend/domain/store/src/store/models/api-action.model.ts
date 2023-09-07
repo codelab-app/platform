@@ -34,12 +34,12 @@ const create = ({
 }: IApiActionDTO) =>
   new ApiAction({
     config: propRef(config.id),
-    errorAction: errorAction.id ? actionRef(errorAction.id) : null,
+    errorAction: errorAction?.id ? actionRef(errorAction.id) : null,
     id,
     name,
     resource: resourceRef(resource.id),
     store: storeRef(store.id),
-    successAction: successAction.id ? actionRef(successAction.id) : null,
+    successAction: successAction?.id ? actionRef(successAction.id) : null,
     type: IActionKind.ApiAction,
   })
 

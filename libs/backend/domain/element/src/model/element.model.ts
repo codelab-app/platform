@@ -1,5 +1,5 @@
 import type {
-  ICreateIElementDTO,
+  ICreateElementDTO,
   IElementDTO,
   RenderType,
 } from '@codelab/shared/abstract/core'
@@ -44,7 +44,7 @@ export class Element implements IElementDTO {
 
   closestContainerNode: IEntity
 
-  constructor({ closestContainerNode, id, name, props }: ICreateIElementDTO) {
+  constructor({ closestContainerNode, id, name, props }: ICreateElementDTO) {
     this.id = id
     this.name = name
     this.props = props

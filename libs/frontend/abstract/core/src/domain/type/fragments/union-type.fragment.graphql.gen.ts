@@ -30,11 +30,6 @@ export type UnionTypeFragment = {
     | { id: string; kind: Types.TypeKind; name: string }
     | { id: string; kind: Types.TypeKind; name: string }
     | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
-    | { id: string; kind: Types.TypeKind; name: string }
   >
 } & BaseType_UnionType_Fragment
 

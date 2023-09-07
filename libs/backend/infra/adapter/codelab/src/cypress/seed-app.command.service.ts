@@ -21,6 +21,7 @@ import {
   providerPageData,
 } from '@codelab/shared/data/test'
 import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
+import { v4 } from 'uuid'
 
 export class SeedAppCommand implements IAuth0Owner {
   constructor(public owner: IAuth0User) {}

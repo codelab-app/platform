@@ -9,6 +9,13 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/testing/cypress/command/**/*.ts"]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/testing-cypress-command.xml",
+          "quiet": true
+        }
       }
     }
   },

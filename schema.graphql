@@ -228,14 +228,9 @@ input AnyActionWhere {
 
 union AnyType =
     ActionType
-  | AppType
   | ArrayType
-  | CodeMirrorType
-  | ElementType
   | EnumType
   | InterfaceType
-  | LambdaType
-  | PageType
   | PrimitiveType
   | ReactNodeType
   | RenderPropType
@@ -243,14 +238,9 @@ union AnyType =
 
 input AnyTypeWhere {
   ActionType: ActionTypeWhere
-  AppType: AppTypeWhere
   ArrayType: ArrayTypeWhere
-  CodeMirrorType: CodeMirrorTypeWhere
-  ElementType: ElementTypeWhere
   EnumType: EnumTypeWhere
   InterfaceType: InterfaceTypeWhere
-  LambdaType: LambdaTypeWhere
-  PageType: PageTypeWhere
   PrimitiveType: PrimitiveTypeWhere
   ReactNodeType: ReactNodeTypeWhere
   RenderPropType: RenderPropTypeWhere
@@ -1708,14 +1698,6 @@ input AppTypeConnectOrCreateInput {
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
-input AppTypeConnectOrCreateWhere {
-  node: AppTypeUniqueWhere!
-}
-
-input AppTypeConnectWhere {
-  node: AppTypeWhere!
-}
-
 input AppTypeCreateInput {
   id: ID!
   kind: TypeKind! = AppType
@@ -1734,12 +1716,6 @@ input AppTypeDisconnectInput {
 type AppTypeEdge {
   cursor: String!
   node: AppType!
-}
-
-input AppTypeOnCreateInput {
-  id: ID!
-  kind: TypeKind! = AppType
-  name: String!
 }
 
 input AppTypeOptions {
@@ -1826,10 +1802,6 @@ input AppTypeSort {
   id: SortDirection
   kind: SortDirection
   name: SortDirection
-}
-
-input AppTypeUniqueWhere {
-  id: ID
 }
 
 input AppTypeUpdateInput {
@@ -4962,14 +4934,6 @@ input CodeMirrorTypeConnectOrCreateInput {
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
-input CodeMirrorTypeConnectOrCreateWhere {
-  node: CodeMirrorTypeUniqueWhere!
-}
-
-input CodeMirrorTypeConnectWhere {
-  node: CodeMirrorTypeWhere!
-}
-
 input CodeMirrorTypeCreateInput {
   id: ID!
   kind: TypeKind! = CodeMirrorType
@@ -4989,13 +4953,6 @@ input CodeMirrorTypeDisconnectInput {
 type CodeMirrorTypeEdge {
   cursor: String!
   node: CodeMirrorType!
-}
-
-input CodeMirrorTypeOnCreateInput {
-  id: ID!
-  kind: TypeKind! = CodeMirrorType
-  language: CodeMirrorLanguage!
-  name: String!
 }
 
 input CodeMirrorTypeOptions {
@@ -5083,10 +5040,6 @@ input CodeMirrorTypeSort {
   kind: SortDirection
   language: SortDirection
   name: SortDirection
-}
-
-input CodeMirrorTypeUniqueWhere {
-  id: ID
 }
 
 input CodeMirrorTypeUpdateInput {
@@ -8878,14 +8831,6 @@ input ElementTypeConnectOrCreateInput {
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
-input ElementTypeConnectOrCreateWhere {
-  node: ElementTypeUniqueWhere!
-}
-
-input ElementTypeConnectWhere {
-  node: ElementTypeWhere!
-}
-
 input ElementTypeCreateInput {
   elementKind: ElementTypeKind!
   id: ID!
@@ -8912,13 +8857,6 @@ enum ElementTypeKind {
   ChildrenOnly
   DescendantsOnly
   ExcludeDescendantsElements
-}
-
-input ElementTypeOnCreateInput {
-  elementKind: ElementTypeKind!
-  id: ID!
-  kind: TypeKind! = ElementType
-  name: String!
 }
 
 input ElementTypeOptions {
@@ -9006,10 +8944,6 @@ input ElementTypeSort {
   id: SortDirection
   kind: SortDirection
   name: SortDirection
-}
-
-input ElementTypeUniqueWhere {
-  id: ID
 }
 
 input ElementTypeUpdateInput {
@@ -12610,14 +12544,6 @@ input LambdaTypeConnectOrCreateInput {
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
-input LambdaTypeConnectOrCreateWhere {
-  node: LambdaTypeUniqueWhere!
-}
-
-input LambdaTypeConnectWhere {
-  node: LambdaTypeWhere!
-}
-
 input LambdaTypeCreateInput {
   id: ID!
   kind: TypeKind! = LambdaType
@@ -12636,12 +12562,6 @@ input LambdaTypeDisconnectInput {
 type LambdaTypeEdge {
   cursor: String!
   node: LambdaType!
-}
-
-input LambdaTypeOnCreateInput {
-  id: ID!
-  kind: TypeKind! = LambdaType
-  name: String!
 }
 
 input LambdaTypeOptions {
@@ -12728,10 +12648,6 @@ input LambdaTypeSort {
   id: SortDirection
   kind: SortDirection
   name: SortDirection
-}
-
-input LambdaTypeUniqueWhere {
-  id: ID
 }
 
 input LambdaTypeUpdateInput {
@@ -12935,7 +12851,6 @@ type Mutation {
     where: UnionTypeWhere
   ): DeleteInfo!
   deleteUsers(delete: UserDeleteInput, where: UserWhere): DeleteInfo!
-  resetDatabase: ResetDatabaseMutationResponse
   updateActionTypes(
     connect: ActionTypeConnectInput
     connectOrCreate: ActionTypeConnectOrCreateInput
@@ -14007,14 +13922,6 @@ input PageTypeConnectOrCreateInput {
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
-input PageTypeConnectOrCreateWhere {
-  node: PageTypeUniqueWhere!
-}
-
-input PageTypeConnectWhere {
-  node: PageTypeWhere!
-}
-
 input PageTypeCreateInput {
   id: ID!
   kind: TypeKind! = PageType
@@ -14033,12 +13940,6 @@ input PageTypeDisconnectInput {
 type PageTypeEdge {
   cursor: String!
   node: PageType!
-}
-
-input PageTypeOnCreateInput {
-  id: ID!
-  kind: TypeKind! = PageType
-  name: String!
 }
 
 input PageTypeOptions {
@@ -14125,10 +14026,6 @@ input PageTypeSort {
   id: SortDirection
   kind: SortDirection
   name: SortDirection
-}
-
-input PageTypeUniqueWhere {
-  id: ID
 }
 
 input PageTypeUpdateInput {
@@ -15318,10 +15215,6 @@ type RenderType {
 enum RenderTypeKind {
   Atom
   Component
-}
-
-type ResetDatabaseMutationResponse {
-  success: Boolean
 }
 
 type Resource implements WithOwner {
@@ -17636,61 +17529,6 @@ input UnionTypeTypesOfUnionTypeActionTypeUpdateFieldInput {
   where: UnionTypeTypesOfUnionTypeActionTypeConnectionWhere
 }
 
-input UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput {
-  connect: [AppTypeConnectInput!]
-  where: AppTypeConnectWhere
-}
-
-input UnionTypeTypesOfUnionTypeAppTypeConnectOrCreateFieldInput {
-  onCreate: UnionTypeTypesOfUnionTypeAppTypeConnectOrCreateFieldInputOnCreate!
-  where: AppTypeConnectOrCreateWhere!
-}
-
-input UnionTypeTypesOfUnionTypeAppTypeConnectOrCreateFieldInputOnCreate {
-  node: AppTypeOnCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypeAppTypeConnectionWhere {
-  AND: [UnionTypeTypesOfUnionTypeAppTypeConnectionWhere!]
-  NOT: UnionTypeTypesOfUnionTypeAppTypeConnectionWhere
-  OR: [UnionTypeTypesOfUnionTypeAppTypeConnectionWhere!]
-  node: AppTypeWhere
-}
-
-input UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput {
-  node: AppTypeCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypeAppTypeDeleteFieldInput {
-  delete: AppTypeDeleteInput
-  where: UnionTypeTypesOfUnionTypeAppTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeAppTypeDisconnectFieldInput {
-  disconnect: AppTypeDisconnectInput
-  where: UnionTypeTypesOfUnionTypeAppTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeAppTypeFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeAppTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput!]
-}
-
-input UnionTypeTypesOfUnionTypeAppTypeUpdateConnectionInput {
-  node: AppTypeUpdateInput
-}
-
-input UnionTypeTypesOfUnionTypeAppTypeUpdateFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeAppTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput!]
-  delete: [UnionTypeTypesOfUnionTypeAppTypeDeleteFieldInput!]
-  disconnect: [UnionTypeTypesOfUnionTypeAppTypeDisconnectFieldInput!]
-  update: UnionTypeTypesOfUnionTypeAppTypeUpdateConnectionInput
-  where: UnionTypeTypesOfUnionTypeAppTypeConnectionWhere
-}
-
 input UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput {
   connect: [ArrayTypeConnectInput!]
   where: ArrayTypeConnectWhere
@@ -17746,71 +17584,11 @@ input UnionTypeTypesOfUnionTypeArrayTypeUpdateFieldInput {
   where: UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere
 }
 
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectFieldInput {
-  connect: [CodeMirrorTypeConnectInput!]
-  where: CodeMirrorTypeConnectWhere
-}
-
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectOrCreateFieldInput {
-  onCreate: UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectOrCreateFieldInputOnCreate!
-  where: CodeMirrorTypeConnectOrCreateWhere!
-}
-
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectOrCreateFieldInputOnCreate {
-  node: CodeMirrorTypeOnCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere {
-  AND: [UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere!]
-  NOT: UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere
-  OR: [UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere!]
-  node: CodeMirrorTypeWhere
-}
-
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput {
-  node: CodeMirrorTypeCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeDeleteFieldInput {
-  delete: CodeMirrorTypeDeleteInput
-  where: UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeDisconnectFieldInput {
-  disconnect: CodeMirrorTypeDisconnectInput
-  where: UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput!]
-}
-
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateConnectionInput {
-  node: CodeMirrorTypeUpdateInput
-}
-
-input UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput!]
-  delete: [UnionTypeTypesOfUnionTypeCodeMirrorTypeDeleteFieldInput!]
-  disconnect: [UnionTypeTypesOfUnionTypeCodeMirrorTypeDisconnectFieldInput!]
-  update: UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateConnectionInput
-  where: UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere
-}
-
 input UnionTypeTypesOfUnionTypeConnectInput {
   ActionType: [UnionTypeTypesOfUnionTypeActionTypeConnectFieldInput!]
-  AppType: [UnionTypeTypesOfUnionTypeAppTypeConnectFieldInput!]
   ArrayType: [UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput!]
-  CodeMirrorType: [UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectFieldInput!]
-  ElementType: [UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput!]
   EnumType: [UnionTypeTypesOfUnionTypeEnumTypeConnectFieldInput!]
   InterfaceType: [UnionTypeTypesOfUnionTypeInterfaceTypeConnectFieldInput!]
-  LambdaType: [UnionTypeTypesOfUnionTypeLambdaTypeConnectFieldInput!]
-  PageType: [UnionTypeTypesOfUnionTypePageTypeConnectFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeConnectFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeConnectFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectFieldInput!]
@@ -17819,14 +17597,9 @@ input UnionTypeTypesOfUnionTypeConnectInput {
 
 input UnionTypeTypesOfUnionTypeConnectOrCreateInput {
   ActionType: [UnionTypeTypesOfUnionTypeActionTypeConnectOrCreateFieldInput!]
-  AppType: [UnionTypeTypesOfUnionTypeAppTypeConnectOrCreateFieldInput!]
   ArrayType: [UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInput!]
-  CodeMirrorType: [UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectOrCreateFieldInput!]
-  ElementType: [UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInput!]
   EnumType: [UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInput!]
   InterfaceType: [UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInput!]
-  LambdaType: [UnionTypeTypesOfUnionTypeLambdaTypeConnectOrCreateFieldInput!]
-  PageType: [UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeConnectOrCreateFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeConnectOrCreateFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInput!]
@@ -17841,14 +17614,9 @@ type UnionTypeTypesOfUnionTypeConnection {
 
 input UnionTypeTypesOfUnionTypeConnectionWhere {
   ActionType: UnionTypeTypesOfUnionTypeActionTypeConnectionWhere
-  AppType: UnionTypeTypesOfUnionTypeAppTypeConnectionWhere
   ArrayType: UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere
-  CodeMirrorType: UnionTypeTypesOfUnionTypeCodeMirrorTypeConnectionWhere
-  ElementType: UnionTypeTypesOfUnionTypeElementTypeConnectionWhere
   EnumType: UnionTypeTypesOfUnionTypeEnumTypeConnectionWhere
   InterfaceType: UnionTypeTypesOfUnionTypeInterfaceTypeConnectionWhere
-  LambdaType: UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere
-  PageType: UnionTypeTypesOfUnionTypePageTypeConnectionWhere
   PrimitiveType: UnionTypeTypesOfUnionTypePrimitiveTypeConnectionWhere
   ReactNodeType: UnionTypeTypesOfUnionTypeReactNodeTypeConnectionWhere
   RenderPropType: UnionTypeTypesOfUnionTypeRenderPropTypeConnectionWhere
@@ -17857,14 +17625,9 @@ input UnionTypeTypesOfUnionTypeConnectionWhere {
 
 input UnionTypeTypesOfUnionTypeCreateFieldInput {
   ActionType: [UnionTypeTypesOfUnionTypeActionTypeCreateFieldInput!]
-  AppType: [UnionTypeTypesOfUnionTypeAppTypeCreateFieldInput!]
   ArrayType: [UnionTypeTypesOfUnionTypeArrayTypeCreateFieldInput!]
-  CodeMirrorType: [UnionTypeTypesOfUnionTypeCodeMirrorTypeCreateFieldInput!]
-  ElementType: [UnionTypeTypesOfUnionTypeElementTypeCreateFieldInput!]
   EnumType: [UnionTypeTypesOfUnionTypeEnumTypeCreateFieldInput!]
   InterfaceType: [UnionTypeTypesOfUnionTypeInterfaceTypeCreateFieldInput!]
-  LambdaType: [UnionTypeTypesOfUnionTypeLambdaTypeCreateFieldInput!]
-  PageType: [UnionTypeTypesOfUnionTypePageTypeCreateFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeCreateFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeCreateFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeCreateFieldInput!]
@@ -17873,14 +17636,9 @@ input UnionTypeTypesOfUnionTypeCreateFieldInput {
 
 input UnionTypeTypesOfUnionTypeCreateInput {
   ActionType: UnionTypeTypesOfUnionTypeActionTypeFieldInput
-  AppType: UnionTypeTypesOfUnionTypeAppTypeFieldInput
   ArrayType: UnionTypeTypesOfUnionTypeArrayTypeFieldInput
-  CodeMirrorType: UnionTypeTypesOfUnionTypeCodeMirrorTypeFieldInput
-  ElementType: UnionTypeTypesOfUnionTypeElementTypeFieldInput
   EnumType: UnionTypeTypesOfUnionTypeEnumTypeFieldInput
   InterfaceType: UnionTypeTypesOfUnionTypeInterfaceTypeFieldInput
-  LambdaType: UnionTypeTypesOfUnionTypeLambdaTypeFieldInput
-  PageType: UnionTypeTypesOfUnionTypePageTypeFieldInput
   PrimitiveType: UnionTypeTypesOfUnionTypePrimitiveTypeFieldInput
   ReactNodeType: UnionTypeTypesOfUnionTypeReactNodeTypeFieldInput
   RenderPropType: UnionTypeTypesOfUnionTypeRenderPropTypeFieldInput
@@ -17889,14 +17647,9 @@ input UnionTypeTypesOfUnionTypeCreateInput {
 
 input UnionTypeTypesOfUnionTypeDeleteInput {
   ActionType: [UnionTypeTypesOfUnionTypeActionTypeDeleteFieldInput!]
-  AppType: [UnionTypeTypesOfUnionTypeAppTypeDeleteFieldInput!]
   ArrayType: [UnionTypeTypesOfUnionTypeArrayTypeDeleteFieldInput!]
-  CodeMirrorType: [UnionTypeTypesOfUnionTypeCodeMirrorTypeDeleteFieldInput!]
-  ElementType: [UnionTypeTypesOfUnionTypeElementTypeDeleteFieldInput!]
   EnumType: [UnionTypeTypesOfUnionTypeEnumTypeDeleteFieldInput!]
   InterfaceType: [UnionTypeTypesOfUnionTypeInterfaceTypeDeleteFieldInput!]
-  LambdaType: [UnionTypeTypesOfUnionTypeLambdaTypeDeleteFieldInput!]
-  PageType: [UnionTypeTypesOfUnionTypePageTypeDeleteFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeDeleteFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeDeleteFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeDeleteFieldInput!]
@@ -17905,73 +17658,13 @@ input UnionTypeTypesOfUnionTypeDeleteInput {
 
 input UnionTypeTypesOfUnionTypeDisconnectInput {
   ActionType: [UnionTypeTypesOfUnionTypeActionTypeDisconnectFieldInput!]
-  AppType: [UnionTypeTypesOfUnionTypeAppTypeDisconnectFieldInput!]
   ArrayType: [UnionTypeTypesOfUnionTypeArrayTypeDisconnectFieldInput!]
-  CodeMirrorType: [UnionTypeTypesOfUnionTypeCodeMirrorTypeDisconnectFieldInput!]
-  ElementType: [UnionTypeTypesOfUnionTypeElementTypeDisconnectFieldInput!]
   EnumType: [UnionTypeTypesOfUnionTypeEnumTypeDisconnectFieldInput!]
   InterfaceType: [UnionTypeTypesOfUnionTypeInterfaceTypeDisconnectFieldInput!]
-  LambdaType: [UnionTypeTypesOfUnionTypeLambdaTypeDisconnectFieldInput!]
-  PageType: [UnionTypeTypesOfUnionTypePageTypeDisconnectFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeDisconnectFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeDisconnectFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeDisconnectFieldInput!]
   UnionType: [UnionTypeTypesOfUnionTypeUnionTypeDisconnectFieldInput!]
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput {
-  connect: [ElementTypeConnectInput!]
-  where: ElementTypeConnectWhere
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInput {
-  onCreate: UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInputOnCreate!
-  where: ElementTypeConnectOrCreateWhere!
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInputOnCreate {
-  node: ElementTypeOnCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeConnectionWhere {
-  AND: [UnionTypeTypesOfUnionTypeElementTypeConnectionWhere!]
-  NOT: UnionTypeTypesOfUnionTypeElementTypeConnectionWhere
-  OR: [UnionTypeTypesOfUnionTypeElementTypeConnectionWhere!]
-  node: ElementTypeWhere
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeCreateFieldInput {
-  node: ElementTypeCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeDeleteFieldInput {
-  delete: ElementTypeDeleteInput
-  where: UnionTypeTypesOfUnionTypeElementTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeDisconnectFieldInput {
-  disconnect: ElementTypeDisconnectInput
-  where: UnionTypeTypesOfUnionTypeElementTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeElementTypeCreateFieldInput!]
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeUpdateConnectionInput {
-  node: ElementTypeUpdateInput
-}
-
-input UnionTypeTypesOfUnionTypeElementTypeUpdateFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeElementTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeElementTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeElementTypeCreateFieldInput!]
-  delete: [UnionTypeTypesOfUnionTypeElementTypeDeleteFieldInput!]
-  disconnect: [UnionTypeTypesOfUnionTypeElementTypeDisconnectFieldInput!]
-  update: UnionTypeTypesOfUnionTypeElementTypeUpdateConnectionInput
-  where: UnionTypeTypesOfUnionTypeElementTypeConnectionWhere
 }
 
 input UnionTypeTypesOfUnionTypeEnumTypeConnectFieldInput {
@@ -18082,116 +17775,6 @@ input UnionTypeTypesOfUnionTypeInterfaceTypeUpdateFieldInput {
   disconnect: [UnionTypeTypesOfUnionTypeInterfaceTypeDisconnectFieldInput!]
   update: UnionTypeTypesOfUnionTypeInterfaceTypeUpdateConnectionInput
   where: UnionTypeTypesOfUnionTypeInterfaceTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeConnectFieldInput {
-  connect: [LambdaTypeConnectInput!]
-  where: LambdaTypeConnectWhere
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeConnectOrCreateFieldInput {
-  onCreate: UnionTypeTypesOfUnionTypeLambdaTypeConnectOrCreateFieldInputOnCreate!
-  where: LambdaTypeConnectOrCreateWhere!
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeConnectOrCreateFieldInputOnCreate {
-  node: LambdaTypeOnCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere {
-  AND: [UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere!]
-  NOT: UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere
-  OR: [UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere!]
-  node: LambdaTypeWhere
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeCreateFieldInput {
-  node: LambdaTypeCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeDeleteFieldInput {
-  delete: LambdaTypeDeleteInput
-  where: UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeDisconnectFieldInput {
-  disconnect: LambdaTypeDisconnectInput
-  where: UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeLambdaTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeLambdaTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeLambdaTypeCreateFieldInput!]
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeUpdateConnectionInput {
-  node: LambdaTypeUpdateInput
-}
-
-input UnionTypeTypesOfUnionTypeLambdaTypeUpdateFieldInput {
-  connect: [UnionTypeTypesOfUnionTypeLambdaTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeLambdaTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypeLambdaTypeCreateFieldInput!]
-  delete: [UnionTypeTypesOfUnionTypeLambdaTypeDeleteFieldInput!]
-  disconnect: [UnionTypeTypesOfUnionTypeLambdaTypeDisconnectFieldInput!]
-  update: UnionTypeTypesOfUnionTypeLambdaTypeUpdateConnectionInput
-  where: UnionTypeTypesOfUnionTypeLambdaTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypePageTypeConnectFieldInput {
-  connect: [PageTypeConnectInput!]
-  where: PageTypeConnectWhere
-}
-
-input UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInput {
-  onCreate: UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInputOnCreate!
-  where: PageTypeConnectOrCreateWhere!
-}
-
-input UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInputOnCreate {
-  node: PageTypeOnCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypePageTypeConnectionWhere {
-  AND: [UnionTypeTypesOfUnionTypePageTypeConnectionWhere!]
-  NOT: UnionTypeTypesOfUnionTypePageTypeConnectionWhere
-  OR: [UnionTypeTypesOfUnionTypePageTypeConnectionWhere!]
-  node: PageTypeWhere
-}
-
-input UnionTypeTypesOfUnionTypePageTypeCreateFieldInput {
-  node: PageTypeCreateInput!
-}
-
-input UnionTypeTypesOfUnionTypePageTypeDeleteFieldInput {
-  delete: PageTypeDeleteInput
-  where: UnionTypeTypesOfUnionTypePageTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypePageTypeDisconnectFieldInput {
-  disconnect: PageTypeDisconnectInput
-  where: UnionTypeTypesOfUnionTypePageTypeConnectionWhere
-}
-
-input UnionTypeTypesOfUnionTypePageTypeFieldInput {
-  connect: [UnionTypeTypesOfUnionTypePageTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypePageTypeCreateFieldInput!]
-}
-
-input UnionTypeTypesOfUnionTypePageTypeUpdateConnectionInput {
-  node: PageTypeUpdateInput
-}
-
-input UnionTypeTypesOfUnionTypePageTypeUpdateFieldInput {
-  connect: [UnionTypeTypesOfUnionTypePageTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypePageTypeConnectOrCreateFieldInput!]
-  create: [UnionTypeTypesOfUnionTypePageTypeCreateFieldInput!]
-  delete: [UnionTypeTypesOfUnionTypePageTypeDeleteFieldInput!]
-  disconnect: [UnionTypeTypesOfUnionTypePageTypeDisconnectFieldInput!]
-  update: UnionTypeTypesOfUnionTypePageTypeUpdateConnectionInput
-  where: UnionTypeTypesOfUnionTypePageTypeConnectionWhere
 }
 
 input UnionTypeTypesOfUnionTypePrimitiveTypeConnectFieldInput {
@@ -18421,14 +18004,9 @@ input UnionTypeTypesOfUnionTypeUnionTypeUpdateFieldInput {
 
 input UnionTypeTypesOfUnionTypeUpdateInput {
   ActionType: [UnionTypeTypesOfUnionTypeActionTypeUpdateFieldInput!]
-  AppType: [UnionTypeTypesOfUnionTypeAppTypeUpdateFieldInput!]
   ArrayType: [UnionTypeTypesOfUnionTypeArrayTypeUpdateFieldInput!]
-  CodeMirrorType: [UnionTypeTypesOfUnionTypeCodeMirrorTypeUpdateFieldInput!]
-  ElementType: [UnionTypeTypesOfUnionTypeElementTypeUpdateFieldInput!]
   EnumType: [UnionTypeTypesOfUnionTypeEnumTypeUpdateFieldInput!]
   InterfaceType: [UnionTypeTypesOfUnionTypeInterfaceTypeUpdateFieldInput!]
-  LambdaType: [UnionTypeTypesOfUnionTypeLambdaTypeUpdateFieldInput!]
-  PageType: [UnionTypeTypesOfUnionTypePageTypeUpdateFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeUpdateFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeUpdateFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeUpdateFieldInput!]

@@ -140,6 +140,9 @@
       "@codelab/backend/infra/adapter/shell": [
         "libs/backend/infra/adapter/shell/src/index.ts"
       ],
+      "@codelab/backend/infra/adapter/typebox": [
+        "libs/backend/infra/adapter/typebox/src/index.ts"
+      ],
       "@codelab/backend/infra/adapter/vercel": [
         "libs/backend/infra/adapter/vercel/src/index.ts"
       ],
@@ -248,6 +251,9 @@
         "libs/shared/infra/logging/src/index.ts"
       ],
       "@codelab/shared/infra/otel": ["libs/shared/infra/otel/src/index.ts"],
+      "@codelab/shared/infra/validation": [
+        "libs/shared/infra/validation/src/index.ts"
+      ],
       "@codelab/shared/utils": ["libs/shared/utils/src/index.ts"],
       "@codelab/testing/cypress/antd": [
         "libs/testing/cypress/antd/src/index.ts"
@@ -261,15 +267,9 @@
       "@codelab/testing/cypress/nextjs-auth0": [
         "libs/testing/cypress/nextjs-auth0/src/index.ts"
       ],
-      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
-      "@codelab/backend/infra/adapter/typebox": [
-        "libs/backend/infra/adapter/typebox/src/index.ts"
-      ],
-      "@codelab/shared/infra/validation": [
-        "libs/shared/infra/validation/src/index.ts"
-      ]
+      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp", "dist"],
+  "exclude": ["node_modules", "tmp", "dist", "cypress.*.config.ts"],
   "include": []
 }

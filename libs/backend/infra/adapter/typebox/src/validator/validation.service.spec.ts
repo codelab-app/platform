@@ -1,3 +1,4 @@
+import { IAtomOutputDto } from '@codelab/backend/abstract/core'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { IAtomDTO } from '@codelab/shared/abstract/core'
 import { Typebox } from '@codelab/shared/infra/validation'
@@ -5,6 +6,7 @@ import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
 import type { TSchema } from '@sinclair/typebox'
 import { TString } from '@sinclair/typebox'
+import affixJson from 'data/export-v2/admin/atoms/AntDesignAffix.json'
 import { ValidationService } from './validation.service'
 
 describe('ValidationService', () => {
@@ -31,11 +33,14 @@ describe('ValidationService', () => {
 
   describe('validateAndClean', () => {
     it('should validate and clean the input correctly', () => {
-      const schema: TSchema = IAtomDTO
-      const input = {}
-      const result = validationService.validateAndClean(schema, input)
+      const result = validationService.validateAndClean(
+        IAtomOutputDto,
+        affixJson,
+      )
 
-      expect(result).equal(input)
+      console.log(affixJson, result)
+
+      expect(result).toEqual(affixJson)
     })
 
     // it('should throw an error for invalid input', () => {

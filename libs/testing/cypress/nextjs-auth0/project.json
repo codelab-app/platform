@@ -9,6 +9,13 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["libs/testing/cypress/nextjs-auth0/**/*.ts"]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/testing-cypress-nextjs-auth0.xml",
+          "quiet": true
+        }
       }
     }
   },

@@ -34,6 +34,11 @@ export const IElementDTO = Type.Object({
  */
 export type IElementDTO = Static<typeof IElementDTO>
 
-export interface ICreateIElementDTO extends IElementDTO {
-  closestContainerNode: IEntity
-}
+export const ICreateElementDTO = Type.Composite([
+  IElementDTO,
+  Type.Object({
+    closestContainerNode: IEntity,
+  }),
+])
+
+export type ICreateElementDTO = Static<typeof ICreateElementDTO>

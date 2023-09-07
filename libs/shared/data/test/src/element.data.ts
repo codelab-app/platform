@@ -1,8 +1,5 @@
 import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
-import type {
-  ICreateIElementDTO,
-  IPropDTO,
-} from '@codelab/shared/abstract/core'
+import type { ICreateElementDTO, IPropDTO } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { v4 } from 'uuid'
 
@@ -16,7 +13,7 @@ export const providerElementPropsData: IPropDTO = {
 
 export const providerElementData = (
   closestContainerNode: IEntity,
-): ICreateIElementDTO => ({
+): ICreateElementDTO => ({
   closestContainerNode,
   id: v4(),
   name: ROOT_ELEMENT_NAME,
@@ -33,7 +30,7 @@ export const notFoundElementPropsData: IPropDTO = {
 
 export const notFoundElementData = (
   closestContainerNode: IEntity,
-): ICreateIElementDTO => ({
+): ICreateElementDTO => ({
   closestContainerNode,
   id: v4(),
   name: ROOT_ELEMENT_NAME,
@@ -50,7 +47,7 @@ export const internalServerErrorPropsData: IPropDTO = {
 
 export const internalServerErrorElementData = (
   closestContainerNode: IEntity,
-): ICreateIElementDTO => ({
+): ICreateElementDTO => ({
   closestContainerNode,
   id: v4(),
   name: ROOT_ELEMENT_NAME,

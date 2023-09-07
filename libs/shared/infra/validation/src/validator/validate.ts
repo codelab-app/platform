@@ -1,7 +1,7 @@
 import type { TAnySchema, TObject, TUnion } from '@sinclair/typebox'
 import { DiscriminatedUnionValidator } from 'typebox-validators/discriminated'
 import { StandardValidator } from 'typebox-validators/standard'
-import { isUnionSchema } from './schema/is-union'
+import { isUnionSchema } from '../schema/is-union'
 
 export const validateAndClean = <T extends TAnySchema>(
   schema: T,

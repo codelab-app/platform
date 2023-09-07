@@ -99,7 +99,6 @@
             "ignore": ["css"]
           }
         ],
-        "jest/expect-expect": "off",
         /* Those font rules are broken in nw15. Lint will result internal error inside of rule's implementation */
         "@next/next/google-font-display": "off",
         "@next/next/google-font-preconnect": "off",

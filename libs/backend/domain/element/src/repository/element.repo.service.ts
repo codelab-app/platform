@@ -13,10 +13,12 @@ import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
+  type ICreateElementDTO,
   type IElementDTO,
-  IRenderTypeKind,
 } from '@codelab/shared/abstract/core'
+import { IRenderTypeKind } from '@codelab/shared/abstract/core'
 import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
+import { createUniqueName } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import type { Node } from 'neo4j-driver'
 
@@ -55,13 +57,14 @@ export class ElementRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _add(elements: Array<IElementDTO>) {
+  protected async _add(elements: Array<ICreateElementDTO>) {
     return (
       await (
         await this.ogmService.Element
       ).create({
         input: elements.map(
           ({
+            closestContainerNode,
             customCss,
             firstChild,
             guiCss,
@@ -78,6 +81,7 @@ export class ElementRepository extends AbstractRepository<
             renderIfExpression,
             renderType,
           }) => ({
+            _compoundName: createUniqueName(name, closestContainerNode.id),
             customCss,
             firstChild: connectNodeId(firstChild?.id),
             guiCss,
@@ -107,7 +111,7 @@ export class ElementRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { id, name, props }: IElementDTO,
+    { closestContainerNode, id, name, props }: ICreateElementDTO,
     where: ElementWhere,
   ) {
     return (
@@ -115,8 +119,8 @@ export class ElementRepository extends AbstractRepository<
         await this.ogmService.Element
       ).update({
         update: {
+          _compoundName: createUniqueName(name, closestContainerNode.id),
           id,
-          name,
           props: reconnectNodeId(props.id),
         },
         where,
