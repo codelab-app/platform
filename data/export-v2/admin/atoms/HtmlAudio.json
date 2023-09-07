@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "0f186445-2b42-455b-a96e-b5f6f69a4c50",
+    "kind": "InterfaceType",
+    "name": "HtmlAudio API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "0f186445-2b42-455b-a96e-b5f6f69a4c50",
         "kind": "InterfaceType",
         "name": "HtmlAudio API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "4fcb5eaf-6e5b-448e-82e1-2e52d9e5cb70",
@@ -132,9 +131,9 @@
     ]
   },
   "atom": {
-    "id": "fe3645f9-d754-4122-b662-730cb3d61029",
-    "name": "HtmlAudio",
-    "type": "HtmlAudio",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "0f186445-2b42-455b-a96e-b5f6f69a4c50",
@@ -260,10 +259,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": null,
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "fe3645f9-d754-4122-b662-730cb3d61029",
+    "name": "HtmlAudio",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "6e6cbbaa-aeb4-43db-a49e-a30f18dc11aa",
@@ -278,10 +281,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "HtmlAudio"
   }
 }

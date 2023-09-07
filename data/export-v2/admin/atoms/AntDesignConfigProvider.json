@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389",
+    "kind": "InterfaceType",
+    "name": "AntDesignConfigProvider API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389",
         "kind": "InterfaceType",
         "name": "AntDesignConfigProvider API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "7e09ba1f-5e68-45f8-88ad-132ea44ff2dd",
@@ -322,9 +321,9 @@
     ]
   },
   "atom": {
-    "id": "273fca5a-5268-45e6-a1f1-bf27176857cb",
-    "name": "AntDesignConfigProvider",
-    "type": "AntDesignConfigProvider",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "d9dadd2e-d3be-4742-944c-2b15fcea3389",
@@ -640,10 +639,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "ConfigProvider",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "273fca5a-5268-45e6-a1f1-bf27176857cb",
+    "name": "AntDesignConfigProvider",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "53c577e8-797e-4103-b795-c848621a91f1",
@@ -658,10 +661,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignConfigProvider"
   }
 }

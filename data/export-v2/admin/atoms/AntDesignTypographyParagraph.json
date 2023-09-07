@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "60b68237-1d5a-41a3-b9e0-781310162570",
+    "kind": "InterfaceType",
+    "name": "AntDesignTypographyParagraph API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "60b68237-1d5a-41a3-b9e0-781310162570",
         "kind": "InterfaceType",
         "name": "AntDesignTypographyParagraph API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "1687f600-d588-4c8a-8de2-d6edba328db4",
@@ -246,9 +245,9 @@
     ]
   },
   "atom": {
-    "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
-    "name": "AntDesignTypographyParagraph",
-    "type": "AntDesignTypographyParagraph",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "60b68237-1d5a-41a3-b9e0-781310162570",
@@ -488,10 +487,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Typography",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
+    "name": "AntDesignTypographyParagraph",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "ef6d9776-5e4a-403a-80b4-d4722aaffec9",
@@ -506,10 +509,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignTypographyParagraph"
   }
 }

@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "6141188c-5930-47c6-8405-e8e72b37c121",
+    "kind": "InterfaceType",
+    "name": "AntDesignDatePicker API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "6141188c-5930-47c6-8405-e8e72b37c121",
         "kind": "InterfaceType",
         "name": "AntDesignDatePicker API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "dec9340a-d38d-43cf-835e-543c44a00ab5",
@@ -189,9 +188,9 @@
     ]
   },
   "atom": {
-    "id": "63c904ec-bf4c-45b5-b3bd-41f660c735f4",
-    "name": "AntDesignDatePicker",
-    "type": "AntDesignDatePicker",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "6141188c-5930-47c6-8405-e8e72b37c121",
@@ -374,10 +373,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "DatePicker",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "63c904ec-bf4c-45b5-b3bd-41f660c735f4",
+    "name": "AntDesignDatePicker",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "ca591e61-9820-4aab-a739-486f54df21ba",
@@ -392,10 +395,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignDatePicker"
   }
 }

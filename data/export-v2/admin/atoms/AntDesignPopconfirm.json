@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5",
+    "kind": "InterfaceType",
+    "name": "AntDesignPopconfirm API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5",
         "kind": "InterfaceType",
         "name": "AntDesignPopconfirm API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "0be76646-5f9e-4179-85b1-f7a2f20d44c4",
@@ -189,9 +188,9 @@
     ]
   },
   "atom": {
-    "id": "44482590-d873-4832-87da-d65760ddfeae",
-    "name": "AntDesignPopconfirm",
-    "type": "AntDesignPopconfirm",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "7cbaf0aa-8e90-4dde-bc03-c42be06109e5",
@@ -374,10 +373,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Popconfirm",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "44482590-d873-4832-87da-d65760ddfeae",
+    "name": "AntDesignPopconfirm",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "1f2dd657-723b-4538-b727-dae50ec48652",
@@ -392,10 +395,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignPopconfirm"
   }
 }

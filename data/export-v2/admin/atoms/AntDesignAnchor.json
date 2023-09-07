@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "053013bf-82ba-4ee7-b9cf-fe7c21f8b484",
+    "kind": "InterfaceType",
+    "name": "AntDesignAnchor API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "053013bf-82ba-4ee7-b9cf-fe7c21f8b484",
         "kind": "InterfaceType",
         "name": "AntDesignAnchor API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "7585a51c-707d-4b83-87b3-e439e9fe2514",
@@ -189,9 +188,9 @@
     ]
   },
   "atom": {
-    "id": "1fba53cd-e7a0-4a94-abd7-d92f5de5a9b6",
-    "name": "AntDesignAnchor",
-    "type": "AntDesignAnchor",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "053013bf-82ba-4ee7-b9cf-fe7c21f8b484",
@@ -374,10 +373,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Anchor",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "1fba53cd-e7a0-4a94-abd7-d92f5de5a9b6",
+    "name": "AntDesignAnchor",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "f087f4f7-5346-4cac-bb65-2e0dcc7a9a85",
@@ -397,10 +400,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignAnchor"
   }
 }

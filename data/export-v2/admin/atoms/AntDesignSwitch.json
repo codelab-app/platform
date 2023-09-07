@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "4115d3e6-2d9d-4d15-9225-4da1797fc0a6",
+    "kind": "InterfaceType",
+    "name": "AntDesignSwitch API",
     "fields": [],
     "types": [
       {
@@ -9,17 +11,14 @@
         "id": "4115d3e6-2d9d-4d15-9225-4da1797fc0a6",
         "kind": "InterfaceType",
         "name": "AntDesignSwitch API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": []
       }
     ]
   },
   "atom": {
-    "id": "e16d7e37-2fae-4b04-9644-3c8a62dd14e8",
-    "name": "AntDesignSwitch",
-    "type": "AntDesignSwitch",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "4115d3e6-2d9d-4d15-9225-4da1797fc0a6",
@@ -30,10 +29,14 @@
       },
       "fields": []
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Switch",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "e16d7e37-2fae-4b04-9644-3c8a62dd14e8",
+    "name": "AntDesignSwitch",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "f4c04567-b357-416e-bfd7-aef77bf1444f",
@@ -48,10 +51,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignSwitch"
   }
 }

@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "3d670d8f-5d72-465a-af26-46048c0a29bd",
+    "kind": "InterfaceType",
+    "name": "AntDesignTree API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "3d670d8f-5d72-465a-af26-46048c0a29bd",
         "kind": "InterfaceType",
         "name": "AntDesignTree API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "cd18434a-b953-43ee-87d2-7c3bd4a0f30a",
@@ -645,9 +644,9 @@
     ]
   },
   "atom": {
-    "id": "2a670dfd-fd55-44f2-95bc-3f3c5bb5bc7c",
-    "name": "AntDesignTree",
-    "type": "AntDesignTree",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "3d670d8f-5d72-465a-af26-46048c0a29bd",
@@ -1286,10 +1285,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Tree",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "2a670dfd-fd55-44f2-95bc-3f3c5bb5bc7c",
+    "name": "AntDesignTree",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "26c75a15-4776-46a1-9146-f5b5b3a87959",
@@ -1304,10 +1307,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignTree"
   }
 }

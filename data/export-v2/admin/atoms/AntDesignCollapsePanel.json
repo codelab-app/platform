@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "cb4c78ce-76a0-4070-8170-75a514f35bda",
+    "kind": "InterfaceType",
+    "name": "AntDesignCollapsePanel API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "cb4c78ce-76a0-4070-8170-75a514f35bda",
         "kind": "InterfaceType",
         "name": "AntDesignCollapsePanel API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "79a3732e-c78e-4ffe-9538-dae34085044b",
@@ -132,9 +131,9 @@
     ]
   },
   "atom": {
-    "id": "1ee9aecd-c477-4167-909a-d96c9b6122cd",
-    "name": "AntDesignCollapsePanel",
-    "type": "AntDesignCollapsePanel",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "cb4c78ce-76a0-4070-8170-75a514f35bda",
@@ -260,10 +259,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Collapse",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "1ee9aecd-c477-4167-909a-d96c9b6122cd",
+    "name": "AntDesignCollapsePanel",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "f2dd16bb-73c6-41f2-b2c7-b35a321eaba2",
@@ -278,10 +281,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignCollapsePanel"
   }
 }

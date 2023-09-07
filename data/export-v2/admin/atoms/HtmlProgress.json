@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "383b2571-d1eb-43cd-9e69-af1aff9000b4",
+    "kind": "InterfaceType",
+    "name": "HtmlProgress API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "383b2571-d1eb-43cd-9e69-af1aff9000b4",
         "kind": "InterfaceType",
         "name": "HtmlProgress API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "d9750b90-c565-405f-9c57-378d27d03d10",
@@ -56,9 +55,9 @@
     ]
   },
   "atom": {
-    "id": "c096e4dc-19c9-40a2-b482-bd332bd86fc0",
-    "name": "HtmlProgress",
-    "type": "HtmlProgress",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "383b2571-d1eb-43cd-9e69-af1aff9000b4",
@@ -108,10 +107,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": null,
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "c096e4dc-19c9-40a2-b482-bd332bd86fc0",
+    "name": "HtmlProgress",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "5ba120ae-7660-44d1-8d92-37f6a7d2a075",
@@ -126,10 +129,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "HtmlProgress"
   }
 }

@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "bbe82fed-f4c4-4cc1-ac66-0dcdc9d83d2f",
+    "kind": "InterfaceType",
+    "name": "HtmlBlockquote API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "bbe82fed-f4c4-4cc1-ac66-0dcdc9d83d2f",
         "kind": "InterfaceType",
         "name": "HtmlBlockquote API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "ef84c17b-fb1b-45c1-93e2-bb6fad79e278",
@@ -37,9 +36,9 @@
     ]
   },
   "atom": {
-    "id": "c0322351-8b41-4ca8-9f55-64cb938dd70f",
-    "name": "HtmlBlockquote",
-    "type": "HtmlBlockquote",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "bbe82fed-f4c4-4cc1-ac66-0dcdc9d83d2f",
@@ -70,10 +69,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": null,
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "c0322351-8b41-4ca8-9f55-64cb938dd70f",
+    "name": "HtmlBlockquote",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "945cacfa-4869-47c5-8748-20dadc6d512c",
@@ -88,10 +91,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "HtmlBlockquote"
   }
 }

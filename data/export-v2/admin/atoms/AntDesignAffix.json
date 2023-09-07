@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "f41f997d-a854-42fe-9b77-a98ea48fb94e",
+    "kind": "InterfaceType",
+    "name": "AntDesignAffix API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "f41f997d-a854-42fe-9b77-a98ea48fb94e",
         "kind": "InterfaceType",
         "name": "AntDesignAffix API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "02746390-9b61-4728-8ffb-b085b8442b09",
@@ -94,9 +93,9 @@
     ]
   },
   "atom": {
-    "id": "727acbf6-7b57-478a-923b-e522fcca298d",
-    "name": "AntDesignAffix",
-    "type": "AntDesignAffix",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "f41f997d-a854-42fe-9b77-a98ea48fb94e",
@@ -184,10 +183,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Affix",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "727acbf6-7b57-478a-923b-e522fcca298d",
+    "name": "AntDesignAffix",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "7979ce4c-a47a-42d1-95ff-0e7913f98981",
@@ -202,10 +205,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignAffix"
   }
 }

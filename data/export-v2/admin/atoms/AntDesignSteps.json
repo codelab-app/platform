@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "0ecfb984-557f-45ec-ad14-836808b85d9a",
+    "kind": "InterfaceType",
+    "name": "AntDesignSteps API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "0ecfb984-557f-45ec-ad14-836808b85d9a",
         "kind": "InterfaceType",
         "name": "AntDesignSteps API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "4ebd447c-2a2a-48b2-93dc-c51714153d31",
@@ -265,9 +264,9 @@
     ]
   },
   "atom": {
-    "id": "b483b120-c425-4230-add0-187ab337ecdb",
-    "name": "AntDesignSteps",
-    "type": "AntDesignSteps",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "0ecfb984-557f-45ec-ad14-836808b85d9a",
@@ -526,10 +525,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Steps",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "b483b120-c425-4230-add0-187ab337ecdb",
+    "name": "AntDesignSteps",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "b53e39d1-e88c-476b-b302-903704a9091b",
@@ -549,10 +552,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignSteps"
   }
 }

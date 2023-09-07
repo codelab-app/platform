@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "3592f3b9-e762-41e8-8a05-047ef1a99f0f",
+    "kind": "InterfaceType",
+    "name": "AntDesignPagination API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "3592f3b9-e762-41e8-8a05-047ef1a99f0f",
         "kind": "InterfaceType",
         "name": "AntDesignPagination API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "6f29af7d-1c46-4cd4-8542-3233587c19fa",
@@ -360,9 +359,9 @@
     ]
   },
   "atom": {
-    "id": "de85c8e8-4236-4633-9f40-ce0f763bf122",
-    "name": "AntDesignPagination",
-    "type": "AntDesignPagination",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "3592f3b9-e762-41e8-8a05-047ef1a99f0f",
@@ -716,10 +715,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Pagination",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "de85c8e8-4236-4633-9f40-ce0f763bf122",
+    "name": "AntDesignPagination",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "17e7948f-47b2-440c-bda5-33f0c8050797",
@@ -734,10 +737,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignPagination"
   }
 }

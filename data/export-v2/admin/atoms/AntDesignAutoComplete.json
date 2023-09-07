@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "832a516f-46fc-46ce-814b-d641cc51b302",
+    "kind": "InterfaceType",
+    "name": "AntDesignAutoComplete API",
     "fields": [],
     "types": [
       {
@@ -9,17 +11,14 @@
         "id": "832a516f-46fc-46ce-814b-d641cc51b302",
         "kind": "InterfaceType",
         "name": "AntDesignAutoComplete API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": []
       }
     ]
   },
   "atom": {
-    "id": "8ec79857-b3ea-4092-ae82-3de6665adfab",
-    "name": "AntDesignAutoComplete",
-    "type": "AntDesignAutoComplete",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "832a516f-46fc-46ce-814b-d641cc51b302",
@@ -30,10 +29,14 @@
       },
       "fields": []
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "AutoComplete",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "8ec79857-b3ea-4092-ae82-3de6665adfab",
+    "name": "AntDesignAutoComplete",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "a0d6489b-0703-4e4f-8319-98147b38ebcd",
@@ -48,10 +51,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignAutoComplete"
   }
 }

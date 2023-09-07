@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "66e725c3-61a0-45f9-86af-309c3b57d050",
+    "kind": "InterfaceType",
+    "name": "AntDesignSegmented API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "66e725c3-61a0-45f9-86af-309c3b57d050",
         "kind": "InterfaceType",
         "name": "AntDesignSegmented API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "00513776-b92f-4b00-aa6b-17112b6c0865",
@@ -56,9 +55,9 @@
     ]
   },
   "atom": {
-    "id": "f3c0b4bc-c42c-4406-b74b-d9ed36bab387",
-    "name": "AntDesignSegmented",
-    "type": "AntDesignSegmented",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "66e725c3-61a0-45f9-86af-309c3b57d050",
@@ -108,10 +107,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Segmented",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "f3c0b4bc-c42c-4406-b74b-d9ed36bab387",
+    "name": "AntDesignSegmented",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "4302db27-3bda-4735-b91f-26e55541fc3a",
@@ -126,10 +129,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignSegmented"
   }
 }

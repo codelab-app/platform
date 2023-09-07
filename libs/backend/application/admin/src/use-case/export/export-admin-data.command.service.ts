@@ -1,3 +1,4 @@
+import { SortDirection } from '@codelab/backend/abstract/codegen'
 import type {
   IAdminOutputDto,
   IAtomOutputDto,
@@ -5,10 +6,14 @@ import type {
   ITagOutputDto,
   ITypeOutputDto,
 } from '@codelab/backend/abstract/core'
-import { ExportAtomsCommand } from '@codelab/backend/application/atom'
+import {
+  AtomApplicationService,
+  ExportAtomCommand,
+} from '@codelab/backend/application/atom'
 import { ExportComponentsCommand } from '@codelab/backend/application/component'
 import { ExportTagsCommand } from '@codelab/backend/application/tag'
 import { ExportSystemTypesCommand } from '@codelab/backend/application/type'
+import { AtomRepository } from '@codelab/backend/domain/atom'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { IRole } from '@codelab/shared/abstract/core'
 import { flattenWithPrefix, Span } from '@codelab/shared/infra/otel'
@@ -34,6 +39,7 @@ export class ExportAdminDataHandler
     private writeAdminDataService: WriteAdminDataService,
     private commandBus: CommandBus,
     private traceService: TraceService,
+    private atomApplicationService: AtomApplicationService,
   ) {}
 
   @Span()
@@ -55,10 +61,7 @@ export class ExportAdminDataHandler
 
     span.addEvent('SystemTypes', flattenWithPrefix(systemTypes))
 
-    const atoms = await this.commandBus.execute<
-      ExportAtomsCommand,
-      Array<IAtomOutputDto>
-    >(new ExportAtomsCommand())
+    const atoms = await this.exportAtoms()
 
     const tags = await this.commandBus.execute<
       ExportTagsCommand,
@@ -87,9 +90,17 @@ export class ExportAdminDataHandler
   }
 
   async exportAtoms() {
-    const atoms = await this.commandBus.execute<
-      ExportAtomsCommand,
-      Array<IAtomOutputDto>
-    >(new ExportAtomsCommand())
+    const atoms = await this.atomApplicationService.fetchAllAtoms()
+
+    const data = await Promise.all(
+      atoms.map(
+        async (atom) =>
+          await this.commandBus.execute<ExportAtomCommand, IAtomOutputDto>(
+            new ExportAtomCommand({ id: atom.id }),
+          ),
+      ),
+    )
+
+    return data
   }
 }

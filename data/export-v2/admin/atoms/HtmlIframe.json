@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "87cfffb4-e32f-4f0b-a2cd-21507b1b3d87",
+    "kind": "InterfaceType",
+    "name": "HtmlIframe API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "87cfffb4-e32f-4f0b-a2cd-21507b1b3d87",
         "kind": "InterfaceType",
         "name": "HtmlIframe API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "9d356282-ad63-4feb-8ca0-f72e68e39c2c",
@@ -208,9 +207,9 @@
     ]
   },
   "atom": {
-    "id": "a25fab4c-8b77-4d75-965c-d8e8e5f149fe",
-    "name": "HtmlIframe",
-    "type": "HtmlIframe",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "87cfffb4-e32f-4f0b-a2cd-21507b1b3d87",
@@ -412,10 +411,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": null,
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "a25fab4c-8b77-4d75-965c-d8e8e5f149fe",
+    "name": "HtmlIframe",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "f62000bb-4cbb-4c39-abf7-4b361c6944f3",
@@ -430,10 +433,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "HtmlIframe"
   }
 }

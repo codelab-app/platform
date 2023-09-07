@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "89575638-f572-4b86-8c36-2d433c9dc602",
+    "kind": "InterfaceType",
+    "name": "AntDesignListItemMeta API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "89575638-f572-4b86-8c36-2d433c9dc602",
         "kind": "InterfaceType",
         "name": "AntDesignListItemMeta API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "87d38aa7-1b33-4252-9f91-b11e680e0f13",
@@ -75,9 +74,9 @@
     ]
   },
   "atom": {
-    "id": "b77de7ef-5f4e-4886-bd11-44ec92cfc690",
-    "name": "AntDesignListItemMeta",
-    "type": "AntDesignListItemMeta",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "89575638-f572-4b86-8c36-2d433c9dc602",
@@ -146,10 +145,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "List",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "b77de7ef-5f4e-4886-bd11-44ec92cfc690",
+    "name": "AntDesignListItemMeta",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "b7c0f897-e8dd-45df-b55f-1e67945736e3",
@@ -164,10 +167,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignListItemMeta"
   }
 }

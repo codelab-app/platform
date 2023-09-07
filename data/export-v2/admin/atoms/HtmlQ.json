@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "c68bf011-37ba-4e92-8dc3-4c188b5d4ed9",
+    "kind": "InterfaceType",
+    "name": "HtmlQ API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "c68bf011-37ba-4e92-8dc3-4c188b5d4ed9",
         "kind": "InterfaceType",
         "name": "HtmlQ API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "89a8932b-e423-4b48-949c-6966cbcc4ec9",
@@ -37,9 +36,9 @@
     ]
   },
   "atom": {
-    "id": "d5b07621-b322-4e44-977f-41d67cd366c6",
-    "name": "HtmlQ",
-    "type": "HtmlQ",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "c68bf011-37ba-4e92-8dc3-4c188b5d4ed9",
@@ -70,10 +69,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": null,
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "d5b07621-b322-4e44-977f-41d67cd366c6",
+    "name": "HtmlQ",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "4743e35e-5011-43cf-a8df-25205530923c",
@@ -88,10 +91,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "HtmlQ"
   }
 }

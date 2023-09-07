@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "b97d5258-936f-4396-81d4-c3acefe05cd1",
+    "kind": "InterfaceType",
+    "name": "AntDesignAvatar API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "b97d5258-936f-4396-81d4-c3acefe05cd1",
         "kind": "InterfaceType",
         "name": "AntDesignAvatar API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "b1130477-919b-4bba-98cf-2d50f8b7cf6c",
@@ -208,9 +207,9 @@
     ]
   },
   "atom": {
-    "id": "ff6a8cfe-af3e-4e03-a51b-70455f976edb",
-    "name": "AntDesignAvatar",
-    "type": "AntDesignAvatar",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "b97d5258-936f-4396-81d4-c3acefe05cd1",
@@ -412,10 +411,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Avatar",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "ff6a8cfe-af3e-4e03-a51b-70455f976edb",
+    "name": "AntDesignAvatar",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "48009d3a-aebc-404f-a298-442eeab9fd6e",
@@ -430,10 +433,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignAvatar"
   }
 }

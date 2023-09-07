@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "5bae1642-a40f-45e5-b928-3787e996a4d2",
+    "kind": "InterfaceType",
+    "name": "HtmlBdo API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "5bae1642-a40f-45e5-b928-3787e996a4d2",
         "kind": "InterfaceType",
         "name": "HtmlBdo API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "3c7480d8-906b-4fbd-be2e-a7a16de26bc4",
@@ -37,9 +36,9 @@
     ]
   },
   "atom": {
-    "id": "31bb6cd5-7280-4e18-9fe7-0a446addf984",
-    "name": "HtmlBdo",
-    "type": "HtmlBdo",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "5bae1642-a40f-45e5-b928-3787e996a4d2",
@@ -70,10 +69,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": null,
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "31bb6cd5-7280-4e18-9fe7-0a446addf984",
+    "name": "HtmlBdo",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "4328dbef-3804-4ec1-980a-aea611c4e6a0",
@@ -88,10 +91,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "HtmlBdo"
   }
 }

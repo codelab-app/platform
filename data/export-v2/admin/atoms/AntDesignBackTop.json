@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "122f1ef8-96c8-4338-8c7c-012f5f83de8a",
+    "kind": "InterfaceType",
+    "name": "AntDesignBackTop API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "122f1ef8-96c8-4338-8c7c-012f5f83de8a",
         "kind": "InterfaceType",
         "name": "AntDesignBackTop API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "22f25dff-0d51-4a96-8c40-c64afc5d4c74",
@@ -75,9 +74,9 @@
     ]
   },
   "atom": {
-    "id": "1c2bdcb6-2e1c-4509-8478-46660aeb6905",
-    "name": "AntDesignBackTop",
-    "type": "AntDesignBackTop",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "122f1ef8-96c8-4338-8c7c-012f5f83de8a",
@@ -146,10 +145,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "BackTop",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "1c2bdcb6-2e1c-4509-8478-46660aeb6905",
+    "name": "AntDesignBackTop",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "49214355-5eb3-4dc5-b7e2-a15f6a278ded",
@@ -164,10 +167,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignBackTop"
   }
 }

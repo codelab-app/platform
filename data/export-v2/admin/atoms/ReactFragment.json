@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "fa48ccfa-41b8-4784-8315-943509665e98",
+    "kind": "InterfaceType",
+    "name": "ReactFragment API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "fa48ccfa-41b8-4784-8315-943509665e98",
         "kind": "InterfaceType",
         "name": "ReactFragment API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "0fbba6d7-8224-40e9-86a9-1d5d25b3730f",
@@ -37,9 +36,9 @@
     ]
   },
   "atom": {
-    "id": "4a9dd961-501b-4246-8770-48fee5dc5852",
-    "name": "ReactFragment",
-    "type": "ReactFragment",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "fa48ccfa-41b8-4784-8315-943509665e98",
@@ -70,10 +69,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": null,
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "4a9dd961-501b-4246-8770-48fee5dc5852",
+    "name": "ReactFragment",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "14de3027-6031-40eb-8c35-64e615905f8f",
@@ -85,10 +88,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "ReactFragment"
   }
 }

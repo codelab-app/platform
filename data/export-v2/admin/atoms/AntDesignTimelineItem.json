@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "d3c9f40f-daee-49b2-a353-d830774b59c2",
+    "kind": "InterfaceType",
+    "name": "AntDesignTimelineItem API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "d3c9f40f-daee-49b2-a353-d830774b59c2",
         "kind": "InterfaceType",
         "name": "AntDesignTimelineItem API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "14ca81a0-2486-40db-893d-7b09e8e4839b",
@@ -94,9 +93,9 @@
     ]
   },
   "atom": {
-    "id": "a7f9f7fa-06ca-44f6-8244-e81e2467048d",
-    "name": "AntDesignTimelineItem",
-    "type": "AntDesignTimelineItem",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "d3c9f40f-daee-49b2-a353-d830774b59c2",
@@ -184,10 +183,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Timeline",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "a7f9f7fa-06ca-44f6-8244-e81e2467048d",
+    "name": "AntDesignTimelineItem",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "7fa10b4d-b446-4b39-9c94-c919631dd872",
@@ -202,10 +205,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignTimelineItem"
   }
 }

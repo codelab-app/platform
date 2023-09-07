@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "5bfc79a7-076a-45ac-b49b-9af417dd859e",
+    "kind": "InterfaceType",
+    "name": "AntDesignModal API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "5bfc79a7-076a-45ac-b49b-9af417dd859e",
         "kind": "InterfaceType",
         "name": "AntDesignModal API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "399e93d0-612b-4add-85b6-620f2b82ae4e",
@@ -189,9 +188,9 @@
     ]
   },
   "atom": {
-    "id": "6fb3bee2-868f-4366-aed7-2f3fa7170bc6",
-    "name": "AntDesignModal",
-    "type": "AntDesignModal",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "5bfc79a7-076a-45ac-b49b-9af417dd859e",
@@ -374,10 +373,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Modal",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "6fb3bee2-868f-4366-aed7-2f3fa7170bc6",
+    "name": "AntDesignModal",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "61c80dd9-8b93-47a4-aa79-5f4687bfc87a",
@@ -392,10 +395,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignModal"
   }
 }

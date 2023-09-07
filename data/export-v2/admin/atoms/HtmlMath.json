@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "9c7c8ba8-1995-4854-ad5d-c8cc0c23f260",
+    "kind": "InterfaceType",
+    "name": "HtmlMath API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "9c7c8ba8-1995-4854-ad5d-c8cc0c23f260",
         "kind": "InterfaceType",
         "name": "HtmlMath API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "37d85426-dfda-4e52-945d-76ba4e4a1a3d",
@@ -56,9 +55,9 @@
     ]
   },
   "atom": {
-    "id": "5f80e0f2-063a-4bb5-ab72-7c67c902fbbc",
-    "name": "HtmlMath",
-    "type": "HtmlMath",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "9c7c8ba8-1995-4854-ad5d-c8cc0c23f260",
@@ -108,10 +107,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": null,
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "5f80e0f2-063a-4bb5-ab72-7c67c902fbbc",
+    "name": "HtmlMath",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "2501c292-0d90-4a80-9592-65ac1161447d",
@@ -126,10 +129,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "HtmlMath"
   }
 }

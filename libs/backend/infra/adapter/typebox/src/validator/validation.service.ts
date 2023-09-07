@@ -1,7 +1,13 @@
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { Typebox } from '@codelab/shared/infra/validation'
 import { Injectable } from '@nestjs/common'
-import type { TAnySchema, TObject, TUnion } from '@sinclair/typebox'
+import type {
+  Static,
+  TAnySchema,
+  TObject,
+  TSchema,
+  TUnion,
+} from '@sinclair/typebox'
 import type { ValidationException } from 'typebox-validators'
 import { DiscriminatedUnionValidator } from 'typebox-validators/discriminated'
 import { StandardValidator } from 'typebox-validators/standard'
@@ -13,7 +19,10 @@ export class ValidationService {
   /**
    * Removes unrecognized properties from the validated data
    */
-  validateAndClean = <T extends TAnySchema>(anySchema: T, values: unknown) => {
+  validateAndClean = <T extends TAnySchema>(
+    anySchema: T,
+    values: unknown,
+  ): Static<T> => {
     const validator = new StandardValidator(anySchema)
 
     try {

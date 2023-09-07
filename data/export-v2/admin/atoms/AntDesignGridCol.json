@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "9b51f29c-f35c-4cae-b9ed-e1c5a9aa7137",
+    "kind": "InterfaceType",
+    "name": "AntDesignGridCol API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "9b51f29c-f35c-4cae-b9ed-e1c5a9aa7137",
         "kind": "InterfaceType",
         "name": "AntDesignGridCol API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "15c19aba-c18a-47b8-9f49-eb1aea903f25",
@@ -246,9 +245,9 @@
     ]
   },
   "atom": {
-    "id": "e924ef41-c50c-47b5-bb33-5cb9210578e2",
-    "name": "AntDesignGridCol",
-    "type": "AntDesignGridCol",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "9b51f29c-f35c-4cae-b9ed-e1c5a9aa7137",
@@ -488,10 +487,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Grid",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "e924ef41-c50c-47b5-bb33-5cb9210578e2",
+    "name": "AntDesignGridCol",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "0866f0f3-dcd1-4f8f-9bf7-5526fb3359c3",
@@ -506,10 +509,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignGridCol"
   }
 }

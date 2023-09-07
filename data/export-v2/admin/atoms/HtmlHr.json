@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "27893cfc-d7ec-4417-924a-2e4a3632f19e",
+    "kind": "InterfaceType",
+    "name": "HtmlHr API",
     "fields": [],
     "types": [
       {
@@ -9,17 +11,14 @@
         "id": "27893cfc-d7ec-4417-924a-2e4a3632f19e",
         "kind": "InterfaceType",
         "name": "HtmlHr API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": []
       }
     ]
   },
   "atom": {
-    "id": "f4be2a3a-1f2c-4270-894a-51c5a19084b5",
-    "name": "HtmlHr",
-    "type": "HtmlHr",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "27893cfc-d7ec-4417-924a-2e4a3632f19e",
@@ -30,10 +29,14 @@
       },
       "fields": []
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": null,
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "f4be2a3a-1f2c-4270-894a-51c5a19084b5",
+    "name": "HtmlHr",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "ce323fd1-e2fe-4648-8772-aeae37ea1104",
@@ -48,10 +51,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "HtmlHr"
   }
 }

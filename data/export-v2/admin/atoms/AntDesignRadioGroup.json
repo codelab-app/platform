@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed",
+    "kind": "InterfaceType",
+    "name": "AntDesignRadioGroup API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed",
         "kind": "InterfaceType",
         "name": "AntDesignRadioGroup API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "ae78f58b-56a2-4a47-9ab1-247301bb1c8b",
@@ -170,9 +169,9 @@
     ]
   },
   "atom": {
-    "id": "76a44443-b519-4e3c-9529-c34309999fee",
-    "name": "AntDesignRadioGroup",
-    "type": "AntDesignRadioGroup",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "28c2db4a-6563-4d81-a447-c81b6d2176ed",
@@ -336,10 +335,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Radio",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "76a44443-b519-4e3c-9529-c34309999fee",
+    "name": "AntDesignRadioGroup",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "f22443ff-e508-49d4-b6ca-c8ed576f3049",
@@ -354,10 +357,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignRadioGroup"
   }
 }

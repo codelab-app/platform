@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "90e6b775-ef89-49af-b1cc-f76547911e75",
+    "kind": "InterfaceType",
+    "name": "HtmlMap API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "90e6b775-ef89-49af-b1cc-f76547911e75",
         "kind": "InterfaceType",
         "name": "HtmlMap API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "f9d19ceb-4a3e-43a4-878a-f8827c96aee2",
@@ -37,9 +36,9 @@
     ]
   },
   "atom": {
-    "id": "ebad6e06-ce65-4d18-9802-7cd9fd68bf58",
-    "name": "HtmlMap",
-    "type": "HtmlMap",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "90e6b775-ef89-49af-b1cc-f76547911e75",
@@ -70,10 +69,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": null,
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "ebad6e06-ce65-4d18-9802-7cd9fd68bf58",
+    "name": "HtmlMap",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "6f434b99-8734-4f00-883d-5c5d42c02178",
@@ -88,10 +91,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "HtmlMap"
   }
 }

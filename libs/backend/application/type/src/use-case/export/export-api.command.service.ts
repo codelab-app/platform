@@ -1,14 +1,12 @@
-import { IApiOutputDto } from '@codelab/backend/abstract/core'
+import type { IApiOutputDto } from '@codelab/backend/abstract/core'
 import {
   FieldRepository,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
-import type {
-  IApiEntity,
-  IInterfaceTypeDTO,
-} from '@codelab/shared/abstract/core'
-import { ITypeKind } from '@codelab/shared/abstract/core'
+import type { IApiEntity } from '@codelab/shared/abstract/core'
+import { IInterfaceTypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import { Span } from '@codelab/shared/infra/otel'
+import { Typebox } from '@codelab/shared/infra/validation'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
@@ -39,7 +37,7 @@ export class ExportApiHandler
       {
         id: api.id,
       },
-      IApiOutputDto,
+      Typebox.OmitOwner(IInterfaceTypeDTO),
     )
 
     if (!interfaceType) {
@@ -76,51 +74,4 @@ export class ExportApiHandler
       types: [interfaceType, ...nestedTypes],
     }
   }
-
-  /**
-   * Recursively get all nested interfaces through fields. We do this since searching for more than 1 connection in GraphQL is O(n)
-   */
-  // async getNestedTypes({
-  //   __typename,
-  //   id,
-  // }: ITypeEntity): Promise<ITypeOutputDto> {
-  //   if (__typename === ITypeKind.InterfaceType) {
-  //     const interfaceType = await this.interfaceTypeRepository.findOne({ id })
-
-  //     if (!interfaceType) {
-  //       throw new Error('Missing interfaceType')
-  //     }
-
-  //     const fieldTypes = interfaceType.fields.map((field) => field.fieldType)
-
-  //     const types: Array<ITypeOutputDto> = await Promise.all(
-  //       fieldTypes.map((fieldType) => this.getNestedTypes(fieldType)),
-  //     )
-
-  //     const typesExport: ITypeOutputDto = {
-  //       fields: [
-  //         ...interfaceType.fields,
-  //         ...types.map((result) => result.fields).flat(),
-  //       ],
-  //       types: [interfaceType, ...types.map((result) => result.types).flat()],
-  //     }
-
-  //     return typesExport
-  //   }
-
-  //   if (__typename === ITypeKind.ArrayType) {
-  //     const arrayType = await this.arrayTypeRepository.findOne({ id })
-
-  //     if (!arrayType) {
-  //       throw new Error('Missing ArrayType')
-  //     }
-
-  //     const itemType = arrayType.itemType
-  //     const results = await this.getNestedTypes(itemType)
-
-  //     return { fields: results.fields, types: [...results.types, arrayType] }
-  //   }
-
-  //   return { fields: [], types: [] }
-  // }
 }

@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "4e19521a-2513-4517-9079-fe6d81562b22",
+    "kind": "InterfaceType",
+    "name": "HtmlNoscript API",
     "fields": [],
     "types": [
       {
@@ -9,17 +11,14 @@
         "id": "4e19521a-2513-4517-9079-fe6d81562b22",
         "kind": "InterfaceType",
         "name": "HtmlNoscript API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": []
       }
     ]
   },
   "atom": {
-    "id": "55dae9c2-c079-40a4-a506-3d5ed0804f87",
-    "name": "HtmlNoscript",
-    "type": "HtmlNoscript",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "4e19521a-2513-4517-9079-fe6d81562b22",
@@ -30,10 +29,14 @@
       },
       "fields": []
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": null,
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "55dae9c2-c079-40a4-a506-3d5ed0804f87",
+    "name": "HtmlNoscript",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "a17a4c7d-f870-4e15-84ee-6ca3fb8acb02",
@@ -48,10 +51,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "HtmlNoscript"
   }
 }

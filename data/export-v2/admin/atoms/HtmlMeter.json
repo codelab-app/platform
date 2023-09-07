@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "d7943ca3-8c2d-4bff-97a6-be0eef4c9994",
+    "kind": "InterfaceType",
+    "name": "HtmlMeter API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "d7943ca3-8c2d-4bff-97a6-be0eef4c9994",
         "kind": "InterfaceType",
         "name": "HtmlMeter API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "f721a8c4-41e6-49ae-81bb-2628a1053fae",
@@ -151,9 +150,9 @@
     ]
   },
   "atom": {
-    "id": "12637258-148d-423c-97b1-665f2c9f160c",
-    "name": "HtmlMeter",
-    "type": "HtmlMeter",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "d7943ca3-8c2d-4bff-97a6-be0eef4c9994",
@@ -298,10 +297,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": null,
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "12637258-148d-423c-97b1-665f2c9f160c",
+    "name": "HtmlMeter",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "002d8a12-929b-480f-a74e-09ffe9b8318a",
@@ -316,10 +319,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "HtmlMeter"
   }
 }

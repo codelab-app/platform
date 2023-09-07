@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "acb61314-5cf0-414d-bb14-8d1843f449f7",
+    "kind": "InterfaceType",
+    "name": "AntDesignSpace API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "acb61314-5cf0-414d-bb14-8d1843f449f7",
         "kind": "InterfaceType",
         "name": "AntDesignSpace API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "9afc689e-e02a-439c-abe2-83103826c444",
@@ -113,9 +112,9 @@
     ]
   },
   "atom": {
-    "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
-    "name": "AntDesignSpace",
-    "type": "AntDesignSpace",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "acb61314-5cf0-414d-bb14-8d1843f449f7",
@@ -222,10 +221,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Space",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
+    "name": "AntDesignSpace",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "892978e2-7061-4a88-82f4-fd64e78cf4f9",
@@ -240,10 +243,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignSpace"
   }
 }

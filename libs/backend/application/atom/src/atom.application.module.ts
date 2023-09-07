@@ -2,11 +2,12 @@ import { AtomDomainModule } from '@codelab/backend/domain/atom'
 import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
-import { ExportAtomsHandler, ImportAtomHandler } from './use-case'
+import { AtomApplicationService } from './services/atom.application.service'
+import { ExportAtomHandler, ImportAtomHandler } from './use-case'
 
 @Module({
-  exports: [ExportAtomsHandler, ImportAtomHandler],
+  exports: [ExportAtomHandler, ImportAtomHandler, AtomApplicationService],
   imports: [CqrsModule, AtomDomainModule, ValidationModule],
-  providers: [ExportAtomsHandler, ImportAtomHandler],
+  providers: [ExportAtomHandler, ImportAtomHandler, AtomApplicationService],
 })
 export class AtomApplicationModule {}

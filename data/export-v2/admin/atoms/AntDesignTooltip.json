@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "7d422c57-5bd3-4c5c-9d2a-002fd36b5645",
+    "kind": "InterfaceType",
+    "name": "AntDesignTooltip API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "7d422c57-5bd3-4c5c-9d2a-002fd36b5645",
         "kind": "InterfaceType",
         "name": "AntDesignTooltip API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "bb476036-bc40-4bf7-8a70-c1a765eceede",
@@ -284,9 +283,9 @@
     ]
   },
   "atom": {
-    "id": "14c2068d-a917-4d30-828a-6474d2b22c86",
-    "name": "AntDesignTooltip",
-    "type": "AntDesignTooltip",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "7d422c57-5bd3-4c5c-9d2a-002fd36b5645",
@@ -564,10 +563,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Tooltip",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "14c2068d-a917-4d30-828a-6474d2b22c86",
+    "name": "AntDesignTooltip",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "a9ceb7a3-e3f0-46d9-8c57-a373c9623d91",
@@ -582,10 +585,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignTooltip"
   }
 }

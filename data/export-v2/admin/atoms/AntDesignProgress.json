@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "24b04548-5d23-45b9-be23-d81c78841a99",
+    "kind": "InterfaceType",
+    "name": "AntDesignProgress API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "24b04548-5d23-45b9-be23-d81c78841a99",
         "kind": "InterfaceType",
         "name": "AntDesignProgress API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "461696aa-60b1-4eb3-acd4-51fd34dc9073",
@@ -75,9 +74,9 @@
     ]
   },
   "atom": {
-    "id": "fb646109-1082-4558-9ecc-b1792377f781",
-    "name": "AntDesignProgress",
-    "type": "AntDesignProgress",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "24b04548-5d23-45b9-be23-d81c78841a99",
@@ -146,10 +145,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Progress",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "fb646109-1082-4558-9ecc-b1792377f781",
+    "name": "AntDesignProgress",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "2b83cd3c-7ba9-4ec3-981e-33749a5fa3dc",
@@ -164,10 +167,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignProgress"
   }
 }

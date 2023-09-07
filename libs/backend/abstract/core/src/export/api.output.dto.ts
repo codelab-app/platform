@@ -13,7 +13,7 @@ export const IApiOutputDto = Type.Composite([
   Type.Object(
     {
       fields: Type.Array(IFieldDTO),
-      types: Type.Optional(Type.Array(ITypeOutputDto)),
+      types: Type.Array(ITypeOutputDto),
     },
     {
       default: {

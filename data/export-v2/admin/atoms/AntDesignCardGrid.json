@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1",
+    "kind": "InterfaceType",
+    "name": "AntDesignCardGrid API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1",
         "kind": "InterfaceType",
         "name": "AntDesignCardGrid API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "2ae2acdb-b7ee-489f-844f-d0e724b9c278",
@@ -56,9 +55,9 @@
     ]
   },
   "atom": {
-    "id": "b07be954-6da1-4ef3-b2fa-ac2bae541a7e",
-    "name": "AntDesignCardGrid",
-    "type": "AntDesignCardGrid",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "1b3a9fcf-af61-40c3-92a9-6d1f445ff3d1",
@@ -108,10 +107,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Card",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "b07be954-6da1-4ef3-b2fa-ac2bae541a7e",
+    "name": "AntDesignCardGrid",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "70f2f0df-0905-4f21-846b-d3984e650469",
@@ -126,10 +129,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignCardGrid"
   }
 }

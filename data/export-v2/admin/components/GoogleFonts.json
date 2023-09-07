@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "d8d412dd-2611-4132-8234-e7ea8667c919",
+    "kind": "InterfaceType",
+    "name": "Google Fonts API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "d8d412dd-2611-4132-8234-e7ea8667c919",
         "kind": "InterfaceType",
         "name": "Google Fonts API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "88221841-2720-4d04-a2b0-8a9e28cbc1a9",

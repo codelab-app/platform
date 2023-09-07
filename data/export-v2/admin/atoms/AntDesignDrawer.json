@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520",
+    "kind": "InterfaceType",
+    "name": "AntDesignDrawer API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520",
         "kind": "InterfaceType",
         "name": "AntDesignDrawer API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "998e7e01-6284-4549-8f72-fe25aa604a2d",
@@ -436,9 +435,9 @@
     ]
   },
   "atom": {
-    "id": "fd5d7747-12a7-4861-8215-eef991e8144e",
-    "name": "AntDesignDrawer",
-    "type": "AntDesignDrawer",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "cdc365e0-ec57-46ac-a5db-bc38ea7bd520",
@@ -868,10 +867,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Drawer",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "fd5d7747-12a7-4861-8215-eef991e8144e",
+    "name": "AntDesignDrawer",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "8119e0cb-bde8-45cd-9ee4-7ff429377b3b",
@@ -886,10 +889,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignDrawer"
   }
 }

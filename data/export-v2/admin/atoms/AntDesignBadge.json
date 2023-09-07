@@ -2,6 +2,8 @@
   "api": {
     "__typename": "InterfaceType",
     "id": "735a218b-2ae3-48ed-b598-d6c6cc835bef",
+    "kind": "InterfaceType",
+    "name": "AntDesignBadge API",
     "fields": [],
     "types": [
       {
@@ -9,9 +11,6 @@
         "id": "735a218b-2ae3-48ed-b598-d6c6cc835bef",
         "kind": "InterfaceType",
         "name": "AntDesignBadge API",
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-        },
         "fields": [
           {
             "id": "d522bd2f-5ae0-4be7-af08-a9f28b9bacf9",
@@ -189,9 +188,9 @@
     ]
   },
   "atom": {
-    "id": "f9c8570f-f3f1-4b79-8b26-2de0f5fa6d76",
-    "name": "AntDesignBadge",
-    "type": "AntDesignBadge",
+    "owner": {
+      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+    },
     "api": {
       "__typename": "InterfaceType",
       "id": "735a218b-2ae3-48ed-b598-d6c6cc835bef",
@@ -374,10 +373,14 @@
         }
       ]
     },
+    "externalCssSource": null,
+    "externalJsSource": null,
+    "externalSourceType": null,
     "icon": "Badge",
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
+    "id": "f9c8570f-f3f1-4b79-8b26-2de0f5fa6d76",
+    "name": "AntDesignBadge",
+    "requiredParents": [],
+    "suggestedChildren": [],
     "tags": [
       {
         "id": "61071b68-922e-486d-8e4d-a29fe1c07976",
@@ -392,10 +395,6 @@
         }
       }
     ],
-    "suggestedChildren": [],
-    "requiredParents": [],
-    "externalCssSource": null,
-    "externalJsSource": null,
-    "externalSourceType": null
+    "type": "AntDesignBadge"
   }
 }
