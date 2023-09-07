@@ -202,7 +202,9 @@ describe('Running API action and setting state on element pre-render', () => {
     cy.waitForApiCalls()
 
     cy.openPreview()
-    cy.get('#render-root').contains(`response from api - null`).should('exist')
+    cy.get('#render-root')
+      .contains(`response from api - undefined`)
+      .should('exist')
     cy.openBuilder()
 
     // set pre-render action
@@ -215,19 +217,16 @@ describe('Running API action and setting state on element pre-render', () => {
     })
 
     cy.waitForApiCalls()
-    cy.openPreview()
-    // it executes after setting the pre-render action
-    // this makes sure that the form got saved
-    cy.get('#render-root')
-      .contains(`response from api - ${mockResponse}`)
-      .should('exist')
+    // needs to wait for the success action to run, which happens after the API call
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(500)
   })
 
   it('should run the api action in the pre-render upon reload of the page', () => {
+    cy.openPreview()
     cy.intercept(`${resourceUrl}${urlGetSegment}`, mockResponse)
     cy.reload()
 
-    cy.openPreview()
     cy.get('#render-root')
       .contains(`response from api - ${mockResponse}`)
       .should('exist')

@@ -21,7 +21,7 @@ describe('Element Child Mapper', () => {
   const actionTypeId = '90b255f4-6ba9-4e2c-a44b-af43ff0b9a7f'
   const resourceName = 'Fetch Data'
   const resourceUrl = 'http://some-api.com/api'
-  const urlGetSegment = '/data/{{props.id}}'
+  const urlGetSegment = '/data/{{componentProps.id}}'
   const apiGetActionName = 'On Fetch Data'
   const mockGetResponse = 'the response'
   const COMPONENT_NAME = 'Button Component'
@@ -158,8 +158,8 @@ describe('Element Child Mapper', () => {
   })
 
   it('should add button to the component and set the api action on the onClick', () => {
-    cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).click()
-    cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).within(() => {
+    cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
+    cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).within(() => {
       cy.getToolbarItem('Add Child').click()
     })
 
@@ -196,7 +196,7 @@ describe('Element Child Mapper', () => {
       timeout: 10000,
     })
 
-    cy.typeIntoTextEditor('Name of data - {{ props.name }}')
+    cy.typeIntoTextEditor('Name of data - {{ componentProps.name }}')
 
     cy.openPreview()
     cy.get('#render-root').contains('Name of data - undefined').should('exist')
@@ -250,7 +250,7 @@ describe('Element Child Mapper', () => {
     })
   })
 
-  it('should call the api action with the props.id of each child mapper instances when the button is clicked', () => {
+  it('should call the api action with the componentProps.id of each child mapper instances when the button is clicked', () => {
     for (const data of childMapperData) {
       cy.intercept('GET', `${resourceUrl}/data/${data.id}`, mockGetResponse).as(
         `getData-${data.id}`,

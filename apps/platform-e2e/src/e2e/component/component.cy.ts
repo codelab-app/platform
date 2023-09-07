@@ -4,7 +4,7 @@ import { slugify } from '@codelab/shared/utils'
 import { FIELD_TYPE } from '../../support/antd/form'
 import { loginSession } from '../../support/nextjs-auth0/commands/login'
 
-const COMPONENT_NAME = 'New Component'
+const COMPONENT_NAME = 'Component Name'
 const COMPONENT_INSTANCE_NAME = 'Component Instance'
 const COMPONENT_PROP_NAME = 'component_prop'
 const COMPONENT_PROP_VALUE = 'component_prop_value'
@@ -76,7 +76,9 @@ describe('Component CRUD', () => {
 
     it('should be able to define property on component', () => {
       cy.getSider().getButton({ icon: 'edit' }).click()
-      cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).should('be.visible')
+      cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).should(
+        'be.visible',
+      )
       cy.getSpinner().should('not.exist')
       cy.get(`.ant-tabs [aria-label="setting"]`).click()
       cy.get('.ant-tabs-tabpane-active').contains(/Add/).click()
@@ -107,8 +109,8 @@ describe('Component CRUD', () => {
        * More Info: https://docs.cypress.io/guides/references/migration-guide#-should
        * */
       cy.wrap(componentChildren).each((child: ComponentChildData) => {
-        cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).click()
-        cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).within(() => {
+        cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
+        cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).within(() => {
           cy.getToolbarItem('Add Child').click()
         })
 
@@ -244,8 +246,6 @@ describe('Component CRUD', () => {
       cy.getCuiPopover('Create Element').within(() => {
         cy.getToolbarItem('Create').click()
       })
-
-      cy.waitForApiCalls()
 
       cy.findByTestId('create-element-form').should('not.exist', {
         timeout: 10000,

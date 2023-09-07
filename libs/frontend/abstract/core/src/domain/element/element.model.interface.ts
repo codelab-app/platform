@@ -128,7 +128,7 @@ export interface IElement
   attachAsNextSibling(sibling: IElement): void
   attachAsPrevSibling(sibling: IElement): void
   attachToParentAsFirstChild(parentElement: IElement): void
-  clone(): IElement
+  clone(cloneIndex?: number): IElement
   connectPrevToNextSibling(): void
   deleteFromGuiCss(propNames: Array<string>): void
   detachAsFirstChild(): void

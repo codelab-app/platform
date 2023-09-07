@@ -81,7 +81,7 @@
             },
             {
               "id": "41628eb8-ae08-46c5-a17c-056d88bf5612",
-              "name": "Html P",
+              "name": "Html P1",
               "customCss": null,
               "guiCss": null,
               "parentComponent": null,
@@ -155,7 +155,7 @@
             },
             {
               "id": "f33ae04a-33fd-4cf0-a2b7-d6946b5c390d",
-              "name": "Html P1",
+              "name": "Html P2",
               "customCss": null,
               "guiCss": null,
               "parentComponent": null,
@@ -374,7 +374,7 @@
             },
             {
               "id": "834a8264-5ed0-47f4-bc0d-1d9037ac2ca2",
-              "name": "Html P2",
+              "name": "Html P3",
               "customCss": null,
               "guiCss": null,
               "parentComponent": null,
@@ -746,7 +746,7 @@
             },
             {
               "id": "e66f0cd8-aa78-4822-a492-84a612a824b6",
-              "name": "Html P",
+              "name": "Html P4",
               "customCss": null,
               "guiCss": null,
               "parentComponent": null,
@@ -894,7 +894,7 @@
             },
             {
               "id": "064f98ba-4b44-4b6a-813d-6102d3d7cb97",
-              "name": "Html P",
+              "name": "Html P5",
               "customCss": null,
               "guiCss": null,
               "parentComponent": null,
@@ -1038,7 +1038,7 @@
             },
             {
               "id": "3586c7b0-6dab-4b72-804d-0c380031d0a4",
-              "name": "Ant Design Button",
+              "name": "Ant Design Button 2",
               "customCss": null,
               "guiCss": null,
               "parentComponent": null,
@@ -1073,7 +1073,7 @@
             },
             {
               "id": "e2f146cb-7125-40f2-a3fb-899e3e872a79",
-              "name": "Html P",
+              "name": "Html P6",
               "customCss": null,
               "guiCss": null,
               "parentComponent": null,
@@ -1793,7 +1793,7 @@
             },
             {
               "id": "569070dd-e8d8-400a-8675-a46cfb97ccde",
-              "name": "Html P",
+              "name": "Html P7",
               "customCss": null,
               "guiCss": null,
               "parentComponent": null,
@@ -1936,7 +1936,7 @@
             },
             {
               "id": "5491e869-770e-4910-ac86-be5146725324",
-              "name": "Ant Design Button",
+              "name": "Ant Design Button 3",
               "customCss": null,
               "guiCss": null,
               "parentComponent": null,
@@ -2151,7 +2151,7 @@
             },
             {
               "id": "db2fb542-b970-434c-86b1-17f2b64bbcf2",
-              "name": "Html P",
+              "name": "Html P8",
               "customCss": null,
               "guiCss": null,
               "parentComponent": null,
@@ -2721,7 +2721,7 @@
             },
             {
               "id": "9c17aa86-ce8c-4e51-84f3-0b3c72d065ec",
-              "name": "Ant Design Button",
+              "name": "Ant Design Button 4",
               "customCss": null,
               "guiCss": null,
               "parentComponent": null,
@@ -3298,36 +3298,6 @@
       "name": "AntDesignSteps Items",
       "itemType": {
         "id": "c83e828d-c476-4921-84b4-014147462750",
-        "kind": "InterfaceType"
-      }
-    },
-    {
-      "__typename": "ArrayType",
-      "id": "7ff12265-555b-4499-99f0-aa968543c922",
-      "kind": "ArrayType",
-      "name": "Cart",
-      "itemType": {
-        "id": "fa6ea7fe-c809-4b23-b1ee-f0406ee6de7f",
-        "kind": "InterfaceType"
-      }
-    },
-    {
-      "__typename": "ArrayType",
-      "id": "896be646-32e8-4046-9fe0-0f25a60714f7",
-      "kind": "ArrayType",
-      "name": "Google Fonts Option Array",
-      "itemType": {
-        "id": "12c8df17-1186-491a-87be-ddeba08c6583",
-        "kind": "UnionType"
-      }
-    },
-    {
-      "__typename": "ArrayType",
-      "id": "0f7d154d-4043-479b-8d51-b952d62b6b22",
-      "kind": "ArrayType",
-      "name": "GoogleFonts",
-      "itemType": {
-        "id": "c34c7009-d623-4832-891b-885a2f95152e",
         "kind": "InterfaceType"
       }
     },

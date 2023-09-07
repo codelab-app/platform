@@ -2,7 +2,6 @@ import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
-import { FIELD_TYPE } from '../../support/antd/form'
 import { loginSession } from '../../support/nextjs-auth0/commands/login'
 
 const ELEMENT_CONTAINER = 'Container'
@@ -79,40 +78,6 @@ describe('Elements CRUD', () => {
   describe('create', () => {
     it('should be able to create elements', () => {
       cy.createElementTree(elements)
-    })
-
-    it.skip('should be able to view props', () => {
-      cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').first().click()
-
-      cy.findByTestId('create-element-form')
-        .findByLabelText('Name')
-        .type(ELEMENT_TEXT_1)
-
-      cy.findByTestId('create-element-form').setFormFieldValue({
-        label: 'Parent element',
-        type: FIELD_TYPE.SELECT,
-        value: ROOT_ELEMENT_NAME,
-      })
-
-      cy.findByTestId('create-element-form').setFormFieldValue({
-        label: 'Atom',
-        type: FIELD_TYPE.SELECT,
-        value: IAtomType.AntDesignTypographyText,
-      })
-
-      cy.findByTestId('create-element-form')
-        .getButton({ label: 'Create Element' })
-        .click()
-      cy.findByTestId('create-element-form').should('not.exist', {
-        timeout: 10000,
-      })
-
-      cy.contains(/Text.*/).click()
-
-      cy.get(`[aria-label="setting"]`).click()
-
-      cy.findByText('Custom Text').should('exist')
-      cy.findByText(/Edit.*API/).should('exist')
     })
   })
 

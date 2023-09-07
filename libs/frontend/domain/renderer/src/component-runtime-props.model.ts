@@ -56,9 +56,11 @@ export class ComponentRuntimeProps
   @computed
   get evaluatedProps() {
     return evaluateObject(this.renderedTypedProps, {
+      actions: {},
       componentProps: {},
       props: {},
       refs: this.node.store.current.refs,
+      rootActions: {},
       rootRefs: {},
       rootState: {},
       state: this.node.store.current.state,
@@ -69,9 +71,11 @@ export class ComponentRuntimeProps
   @computed
   get evaluatedPropsBeforeRender() {
     return evaluateObject(this.props, {
+      actions: {},
       componentProps: {},
       props: {},
       refs: this.node.store.current.refs,
+      rootActions: {},
       rootRefs: {},
       rootState: {},
       state: this.node.store.current.state,

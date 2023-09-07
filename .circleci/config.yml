@@ -96,6 +96,9 @@ commands:
             - node-modules-{{ checksum "yarn.lock" }}
             - nvm-cache-{{ checksum ".nvmrc" }}
           name: Restore NPM Cache
+      - run:
+          command: npx nx reset
+          name: Nx Reset
       - setup-env
   setup-env:
     description: Setup Env

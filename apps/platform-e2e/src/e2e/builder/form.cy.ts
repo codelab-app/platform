@@ -196,7 +196,8 @@ describe('Testing the Form atom', () => {
     cy.setFormFieldValue({
       label: 'Body',
       type: FIELD_TYPE.CODE_MIRROR,
-      value: '{{JSON.stringify(refs.formRef.current.getFieldsValue())}}',
+      value:
+        "{{JSON.stringify(refs['element-form'].current.getFieldsValue())}}",
     })
 
     cy.setFormFieldValue({
