@@ -1,73 +1,70 @@
 {
   "api": {
     "__typename": "InterfaceType",
+    "fields": [],
     "id": "54f8f62a-ba92-4641-8c72-326473c84ff8",
     "kind": "InterfaceType",
     "name": "HtmlAbbr API",
-    "fields": [],
     "types": [
       {
         "__typename": "InterfaceType",
-        "id": "54f8f62a-ba92-4641-8c72-326473c84ff8",
-        "kind": "InterfaceType",
-        "name": "HtmlAbbr API",
         "fields": [
           {
-            "id": "83f0e7d1-315b-4b4a-9428-c49c56133879",
-            "key": "title",
-            "name": "Title",
-            "description": null,
-            "validationRules": null,
+            "api": {
+              "id": "54f8f62a-ba92-4641-8c72-326473c84ff8"
+            },
             "defaultValues": null,
-            "prevSibling": null,
-            "nextSibling": null,
+            "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
               "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
               "kind": "PrimitiveType",
               "name": "String"
             },
-            "api": {
-              "id": "54f8f62a-ba92-4641-8c72-326473c84ff8"
-            }
+            "id": "83f0e7d1-315b-4b4a-9428-c49c56133879",
+            "key": "title",
+            "name": "Title",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
           }
-        ]
+        ],
+        "id": "54f8f62a-ba92-4641-8c72-326473c84ff8",
+        "kind": "InterfaceType",
+        "name": "HtmlAbbr API"
       }
     ]
   },
   "atom": {
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "api": {
       "__typename": "InterfaceType",
-      "id": "54f8f62a-ba92-4641-8c72-326473c84ff8",
-      "kind": "InterfaceType",
-      "name": "HtmlAbbr API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      },
       "fields": [
         {
-          "id": "83f0e7d1-315b-4b4a-9428-c49c56133879",
-          "key": "title",
-          "name": "Title",
-          "description": null,
-          "validationRules": null,
+          "api": {
+            "id": "54f8f62a-ba92-4641-8c72-326473c84ff8"
+          },
           "defaultValues": null,
-          "prevSibling": null,
-          "nextSibling": null,
+          "description": null,
           "fieldType": {
             "__typename": "PrimitiveType",
             "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
             "kind": "PrimitiveType",
             "name": "String"
           },
-          "api": {
-            "id": "54f8f62a-ba92-4641-8c72-326473c84ff8"
-          }
+          "id": "83f0e7d1-315b-4b4a-9428-c49c56133879",
+          "key": "title",
+          "name": "Title",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
         }
-      ]
+      ],
+      "id": "54f8f62a-ba92-4641-8c72-326473c84ff8",
+      "kind": "InterfaceType",
+      "name": "HtmlAbbr API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      }
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -79,15 +76,15 @@
     "suggestedChildren": [],
     "tags": [
       {
+        "children": [],
         "id": "cc33816f-62c8-445f-a6e9-e86577c846b0",
         "name": "HtmlAbbr",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
         "parent": {
           "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
           "name": "Phrasing"
-        },
-        "children": [],
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
         }
       }
     ],

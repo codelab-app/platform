@@ -67,6 +67,8 @@ export abstract class AbstractRepository<
         this.traceService.addJsonAttributes('results', results)
 
         if (schema) {
+          console.log('using schema')
+
           return this.validationService.validateAndClean(schema, results)
         }
 

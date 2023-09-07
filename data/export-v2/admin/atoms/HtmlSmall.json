@@ -1,33 +1,30 @@
 {
   "api": {
     "__typename": "InterfaceType",
+    "fields": [],
     "id": "b0b77ee3-6274-4f9f-be7e-9b3c21563c4d",
     "kind": "InterfaceType",
     "name": "HtmlSmall API",
-    "fields": [],
     "types": [
       {
         "__typename": "InterfaceType",
+        "fields": [],
         "id": "b0b77ee3-6274-4f9f-be7e-9b3c21563c4d",
         "kind": "InterfaceType",
-        "name": "HtmlSmall API",
-        "fields": []
+        "name": "HtmlSmall API"
       }
     ]
   },
   "atom": {
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "api": {
       "__typename": "InterfaceType",
+      "fields": [],
       "id": "b0b77ee3-6274-4f9f-be7e-9b3c21563c4d",
       "kind": "InterfaceType",
       "name": "HtmlSmall API",
       "owner": {
         "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      },
-      "fields": []
+      }
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -39,15 +36,15 @@
     "suggestedChildren": [],
     "tags": [
       {
+        "children": [],
         "id": "d7fbc0a6-2433-42a8-9249-b8491e7144d6",
         "name": "HtmlSmall",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
         "parent": {
           "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
           "name": "Phrasing"
-        },
-        "children": [],
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
         }
       }
     ],

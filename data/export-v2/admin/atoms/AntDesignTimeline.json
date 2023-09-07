@@ -1,187 +1,184 @@
 {
   "api": {
     "__typename": "InterfaceType",
+    "fields": [],
     "id": "2f893321-31f8-406e-a2e8-d8f8de54a216",
     "kind": "InterfaceType",
     "name": "AntDesignTimeline API",
-    "fields": [],
     "types": [
       {
         "__typename": "InterfaceType",
-        "id": "2f893321-31f8-406e-a2e8-d8f8de54a216",
-        "kind": "InterfaceType",
-        "name": "AntDesignTimeline API",
         "fields": [
           {
-            "id": "958f5ec1-4808-4e44-9674-dcc15db1cbaf",
-            "key": "reverse",
-            "name": "Reverse",
-            "description": null,
-            "validationRules": null,
+            "api": {
+              "id": "2f893321-31f8-406e-a2e8-d8f8de54a216"
+            },
             "defaultValues": null,
-            "prevSibling": null,
-            "nextSibling": null,
+            "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
               "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
               "kind": "PrimitiveType",
               "name": "Boolean"
             },
-            "api": {
-              "id": "2f893321-31f8-406e-a2e8-d8f8de54a216"
-            }
+            "id": "958f5ec1-4808-4e44-9674-dcc15db1cbaf",
+            "key": "reverse",
+            "name": "Reverse",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
           },
           {
-            "id": "736c760a-5515-4523-8d15-eb6a44865079",
-            "key": "pendingDot",
-            "name": "Pending Dot",
-            "description": null,
-            "validationRules": null,
+            "api": {
+              "id": "2f893321-31f8-406e-a2e8-d8f8de54a216"
+            },
             "defaultValues": null,
-            "prevSibling": null,
-            "nextSibling": null,
+            "description": null,
             "fieldType": {
               "__typename": "ReactNodeType",
               "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
               "kind": "ReactNodeType",
               "name": "ReactNodeType"
             },
-            "api": {
-              "id": "2f893321-31f8-406e-a2e8-d8f8de54a216"
-            }
+            "id": "736c760a-5515-4523-8d15-eb6a44865079",
+            "key": "pendingDot",
+            "name": "Pending Dot",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
           },
           {
-            "id": "b799bcd9-909d-4f4e-b1b7-1cc10da49bd3",
-            "key": "pending",
-            "name": "Pending",
-            "description": null,
-            "validationRules": null,
+            "api": {
+              "id": "2f893321-31f8-406e-a2e8-d8f8de54a216"
+            },
             "defaultValues": null,
-            "prevSibling": null,
-            "nextSibling": null,
+            "description": null,
             "fieldType": {
               "__typename": "EnumType",
               "id": "2c825612-d574-444c-8de9-8b500f7915b4",
               "kind": "EnumType",
               "name": "AntDesignTimeline Pending Enum"
             },
-            "api": {
-              "id": "2f893321-31f8-406e-a2e8-d8f8de54a216"
-            }
+            "id": "b799bcd9-909d-4f4e-b1b7-1cc10da49bd3",
+            "key": "pending",
+            "name": "Pending",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
           },
           {
-            "id": "72d9bbd2-382f-4273-801a-6814bdf73400",
-            "key": "mode",
-            "name": "Mode",
-            "description": null,
-            "validationRules": null,
+            "api": {
+              "id": "2f893321-31f8-406e-a2e8-d8f8de54a216"
+            },
             "defaultValues": null,
-            "prevSibling": null,
-            "nextSibling": null,
+            "description": null,
             "fieldType": {
               "__typename": "EnumType",
               "id": "c336644b-5cc5-4232-9789-5c0df4564324",
               "kind": "EnumType",
               "name": "AntDesignTimeline Mode Enum"
             },
-            "api": {
-              "id": "2f893321-31f8-406e-a2e8-d8f8de54a216"
-            }
+            "id": "72d9bbd2-382f-4273-801a-6814bdf73400",
+            "key": "mode",
+            "name": "Mode",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
           }
-        ]
+        ],
+        "id": "2f893321-31f8-406e-a2e8-d8f8de54a216",
+        "kind": "InterfaceType",
+        "name": "AntDesignTimeline API"
       }
     ]
   },
   "atom": {
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "api": {
       "__typename": "InterfaceType",
-      "id": "2f893321-31f8-406e-a2e8-d8f8de54a216",
-      "kind": "InterfaceType",
-      "name": "AntDesignTimeline API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      },
       "fields": [
         {
-          "id": "958f5ec1-4808-4e44-9674-dcc15db1cbaf",
-          "key": "reverse",
-          "name": "Reverse",
-          "description": null,
-          "validationRules": null,
+          "api": {
+            "id": "2f893321-31f8-406e-a2e8-d8f8de54a216"
+          },
           "defaultValues": null,
-          "prevSibling": null,
-          "nextSibling": null,
+          "description": null,
           "fieldType": {
             "__typename": "PrimitiveType",
             "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
             "kind": "PrimitiveType",
             "name": "Boolean"
           },
-          "api": {
-            "id": "2f893321-31f8-406e-a2e8-d8f8de54a216"
-          }
+          "id": "958f5ec1-4808-4e44-9674-dcc15db1cbaf",
+          "key": "reverse",
+          "name": "Reverse",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
         },
         {
-          "id": "736c760a-5515-4523-8d15-eb6a44865079",
-          "key": "pendingDot",
-          "name": "Pending Dot",
-          "description": null,
-          "validationRules": null,
+          "api": {
+            "id": "2f893321-31f8-406e-a2e8-d8f8de54a216"
+          },
           "defaultValues": null,
-          "prevSibling": null,
-          "nextSibling": null,
+          "description": null,
           "fieldType": {
             "__typename": "ReactNodeType",
             "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
             "kind": "ReactNodeType",
             "name": "ReactNodeType"
           },
-          "api": {
-            "id": "2f893321-31f8-406e-a2e8-d8f8de54a216"
-          }
+          "id": "736c760a-5515-4523-8d15-eb6a44865079",
+          "key": "pendingDot",
+          "name": "Pending Dot",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
         },
         {
-          "id": "b799bcd9-909d-4f4e-b1b7-1cc10da49bd3",
-          "key": "pending",
-          "name": "Pending",
-          "description": null,
-          "validationRules": null,
+          "api": {
+            "id": "2f893321-31f8-406e-a2e8-d8f8de54a216"
+          },
           "defaultValues": null,
-          "prevSibling": null,
-          "nextSibling": null,
+          "description": null,
           "fieldType": {
             "__typename": "EnumType",
             "id": "2c825612-d574-444c-8de9-8b500f7915b4",
             "kind": "EnumType",
             "name": "AntDesignTimeline Pending Enum"
           },
-          "api": {
-            "id": "2f893321-31f8-406e-a2e8-d8f8de54a216"
-          }
+          "id": "b799bcd9-909d-4f4e-b1b7-1cc10da49bd3",
+          "key": "pending",
+          "name": "Pending",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
         },
         {
-          "id": "72d9bbd2-382f-4273-801a-6814bdf73400",
-          "key": "mode",
-          "name": "Mode",
-          "description": null,
-          "validationRules": null,
+          "api": {
+            "id": "2f893321-31f8-406e-a2e8-d8f8de54a216"
+          },
           "defaultValues": null,
-          "prevSibling": null,
-          "nextSibling": null,
+          "description": null,
           "fieldType": {
             "__typename": "EnumType",
             "id": "c336644b-5cc5-4232-9789-5c0df4564324",
             "kind": "EnumType",
             "name": "AntDesignTimeline Mode Enum"
           },
-          "api": {
-            "id": "2f893321-31f8-406e-a2e8-d8f8de54a216"
-          }
+          "id": "72d9bbd2-382f-4273-801a-6814bdf73400",
+          "key": "mode",
+          "name": "Mode",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
         }
-      ]
+      ],
+      "id": "2f893321-31f8-406e-a2e8-d8f8de54a216",
+      "kind": "InterfaceType",
+      "name": "AntDesignTimeline API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      }
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -193,20 +190,20 @@
     "suggestedChildren": [],
     "tags": [
       {
-        "id": "4089db47-bdae-4dba-acf2-3cc08543028c",
-        "name": "Timeline",
-        "parent": {
-          "id": "7765f016-04de-4cf7-9ab5-c7920cad0531",
-          "name": "Data Display"
-        },
         "children": [
           {
             "id": "7fa10b4d-b446-4b39-9c94-c919631dd872",
             "name": "Timeline.Item"
           }
         ],
+        "id": "4089db47-bdae-4dba-acf2-3cc08543028c",
+        "name": "Timeline",
         "owner": {
           "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
+        "parent": {
+          "id": "7765f016-04de-4cf7-9ab5-c7920cad0531",
+          "name": "Data Display"
         }
       }
     ],

@@ -1,33 +1,30 @@
 {
   "api": {
     "__typename": "InterfaceType",
+    "fields": [],
     "id": "f7b97a73-0f4a-424c-b2ec-d92a88b6ad66",
     "kind": "InterfaceType",
     "name": "HtmlTitle API",
-    "fields": [],
     "types": [
       {
         "__typename": "InterfaceType",
+        "fields": [],
         "id": "f7b97a73-0f4a-424c-b2ec-d92a88b6ad66",
         "kind": "InterfaceType",
-        "name": "HtmlTitle API",
-        "fields": []
+        "name": "HtmlTitle API"
       }
     ]
   },
   "atom": {
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "api": {
       "__typename": "InterfaceType",
+      "fields": [],
       "id": "f7b97a73-0f4a-424c-b2ec-d92a88b6ad66",
       "kind": "InterfaceType",
       "name": "HtmlTitle API",
       "owner": {
         "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      },
-      "fields": []
+      }
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -39,15 +36,15 @@
     "suggestedChildren": [],
     "tags": [
       {
+        "children": [],
         "id": "25d2bde7-99f2-44f7-8ed0-6ec638f61c46",
         "name": "HtmlTitle",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
         "parent": {
           "id": "81adcc2f-67a1-4bd9-a0f5-e763effa69b5",
           "name": "Metadata"
-        },
-        "children": [],
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
         }
       }
     ],

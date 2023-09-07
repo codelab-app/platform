@@ -1,33 +1,30 @@
 {
   "api": {
     "__typename": "InterfaceType",
+    "fields": [],
     "id": "893a88f0-5ec1-42b0-a18a-faf0993651ea",
     "kind": "InterfaceType",
     "name": "HtmlAside API",
-    "fields": [],
     "types": [
       {
         "__typename": "InterfaceType",
+        "fields": [],
         "id": "893a88f0-5ec1-42b0-a18a-faf0993651ea",
         "kind": "InterfaceType",
-        "name": "HtmlAside API",
-        "fields": []
+        "name": "HtmlAside API"
       }
     ]
   },
   "atom": {
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "api": {
       "__typename": "InterfaceType",
+      "fields": [],
       "id": "893a88f0-5ec1-42b0-a18a-faf0993651ea",
       "kind": "InterfaceType",
       "name": "HtmlAside API",
       "owner": {
         "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      },
-      "fields": []
+      }
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -39,15 +36,15 @@
     "suggestedChildren": [],
     "tags": [
       {
+        "children": [],
         "id": "4eb31c42-ebbc-40c5-9cd7-26a4c9626d4e",
         "name": "HtmlAside",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
         "parent": {
           "id": "7770d516-4052-4392-abf5-6fba7be6950d",
           "name": "Sectioning"
-        },
-        "children": [],
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
         }
       }
     ],

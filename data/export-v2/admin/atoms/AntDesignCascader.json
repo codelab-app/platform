@@ -1,33 +1,30 @@
 {
   "api": {
     "__typename": "InterfaceType",
+    "fields": [],
     "id": "c071bfa1-1011-404d-b34b-613193953c4e",
     "kind": "InterfaceType",
     "name": "AntDesignCascader API",
-    "fields": [],
     "types": [
       {
         "__typename": "InterfaceType",
+        "fields": [],
         "id": "c071bfa1-1011-404d-b34b-613193953c4e",
         "kind": "InterfaceType",
-        "name": "AntDesignCascader API",
-        "fields": []
+        "name": "AntDesignCascader API"
       }
     ]
   },
   "atom": {
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "api": {
       "__typename": "InterfaceType",
+      "fields": [],
       "id": "c071bfa1-1011-404d-b34b-613193953c4e",
       "kind": "InterfaceType",
       "name": "AntDesignCascader API",
       "owner": {
         "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      },
-      "fields": []
+      }
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -39,15 +36,15 @@
     "suggestedChildren": [],
     "tags": [
       {
+        "children": [],
         "id": "d4d24bbf-629d-436f-8a01-40f5de066206",
         "name": "Cascader",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
         "parent": {
           "id": "79e9ccd1-a5fa-44b9-b728-16e3c79365c8",
           "name": "Data Entry"
-        },
-        "children": [],
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
         }
       }
     ],

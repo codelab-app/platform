@@ -1,33 +1,30 @@
 {
   "api": {
     "__typename": "InterfaceType",
+    "fields": [],
     "id": "3ee230ee-e03a-47b7-be69-99fe80b4aea7",
     "kind": "InterfaceType",
     "name": "AntDesignFormErrorList API",
-    "fields": [],
     "types": [
       {
         "__typename": "InterfaceType",
+        "fields": [],
         "id": "3ee230ee-e03a-47b7-be69-99fe80b4aea7",
         "kind": "InterfaceType",
-        "name": "AntDesignFormErrorList API",
-        "fields": []
+        "name": "AntDesignFormErrorList API"
       }
     ]
   },
   "atom": {
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "api": {
       "__typename": "InterfaceType",
+      "fields": [],
       "id": "3ee230ee-e03a-47b7-be69-99fe80b4aea7",
       "kind": "InterfaceType",
       "name": "AntDesignFormErrorList API",
       "owner": {
         "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      },
-      "fields": []
+      }
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -39,15 +36,15 @@
     "suggestedChildren": [],
     "tags": [
       {
+        "children": [],
         "id": "49671811-194b-447e-a3a3-906cc02025d1",
         "name": "Form.ErrorList",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
         "parent": {
           "id": "0750e154-7c8c-4f84-9501-ba0aafc960a4",
           "name": "Form"
-        },
-        "children": [],
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
         }
       }
     ],

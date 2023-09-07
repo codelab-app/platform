@@ -1,33 +1,30 @@
 {
   "api": {
     "__typename": "InterfaceType",
+    "fields": [],
     "id": "1dcc8d52-3879-4a3d-a4b0-4ce1456b47bf",
     "kind": "InterfaceType",
     "name": "AntDesignMessage API",
-    "fields": [],
     "types": [
       {
         "__typename": "InterfaceType",
+        "fields": [],
         "id": "1dcc8d52-3879-4a3d-a4b0-4ce1456b47bf",
         "kind": "InterfaceType",
-        "name": "AntDesignMessage API",
-        "fields": []
+        "name": "AntDesignMessage API"
       }
     ]
   },
   "atom": {
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "api": {
       "__typename": "InterfaceType",
+      "fields": [],
       "id": "1dcc8d52-3879-4a3d-a4b0-4ce1456b47bf",
       "kind": "InterfaceType",
       "name": "AntDesignMessage API",
       "owner": {
         "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      },
-      "fields": []
+      }
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -39,15 +36,15 @@
     "suggestedChildren": [],
     "tags": [
       {
+        "children": [],
         "id": "f202957d-80bd-40e2-beef-03b9c4578b11",
         "name": "Message",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
         "parent": {
           "id": "15329905-a687-4f75-939c-1cec559e9ba4",
           "name": "Feedback"
-        },
-        "children": [],
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
         }
       }
     ],

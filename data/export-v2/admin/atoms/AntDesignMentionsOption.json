@@ -1,111 +1,108 @@
 {
   "api": {
     "__typename": "InterfaceType",
+    "fields": [],
     "id": "eea515d6-4fbe-42cc-8946-63ccd1553999",
     "kind": "InterfaceType",
     "name": "AntDesignMentionsOption API",
-    "fields": [],
     "types": [
       {
         "__typename": "InterfaceType",
-        "id": "eea515d6-4fbe-42cc-8946-63ccd1553999",
-        "kind": "InterfaceType",
-        "name": "AntDesignMentionsOption API",
         "fields": [
           {
-            "id": "b23fc773-f869-428a-9b1c-61d503d40f92",
-            "key": "value",
-            "name": "Value",
-            "description": null,
-            "validationRules": null,
+            "api": {
+              "id": "eea515d6-4fbe-42cc-8946-63ccd1553999"
+            },
             "defaultValues": null,
-            "prevSibling": null,
-            "nextSibling": null,
+            "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
               "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
               "kind": "PrimitiveType",
               "name": "String"
             },
-            "api": {
-              "id": "eea515d6-4fbe-42cc-8946-63ccd1553999"
-            }
+            "id": "b23fc773-f869-428a-9b1c-61d503d40f92",
+            "key": "value",
+            "name": "Value",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
           },
           {
-            "id": "69c4c923-48d6-49d1-b7a4-1e3c210b2294",
-            "key": "children",
-            "name": "Children",
-            "description": null,
-            "validationRules": null,
+            "api": {
+              "id": "eea515d6-4fbe-42cc-8946-63ccd1553999"
+            },
             "defaultValues": null,
-            "prevSibling": null,
-            "nextSibling": null,
+            "description": null,
             "fieldType": {
               "__typename": "ReactNodeType",
               "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
               "kind": "ReactNodeType",
               "name": "ReactNodeType"
             },
-            "api": {
-              "id": "eea515d6-4fbe-42cc-8946-63ccd1553999"
-            }
+            "id": "69c4c923-48d6-49d1-b7a4-1e3c210b2294",
+            "key": "children",
+            "name": "Children",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
           }
-        ]
+        ],
+        "id": "eea515d6-4fbe-42cc-8946-63ccd1553999",
+        "kind": "InterfaceType",
+        "name": "AntDesignMentionsOption API"
       }
     ]
   },
   "atom": {
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "api": {
       "__typename": "InterfaceType",
-      "id": "eea515d6-4fbe-42cc-8946-63ccd1553999",
-      "kind": "InterfaceType",
-      "name": "AntDesignMentionsOption API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      },
       "fields": [
         {
-          "id": "b23fc773-f869-428a-9b1c-61d503d40f92",
-          "key": "value",
-          "name": "Value",
-          "description": null,
-          "validationRules": null,
+          "api": {
+            "id": "eea515d6-4fbe-42cc-8946-63ccd1553999"
+          },
           "defaultValues": null,
-          "prevSibling": null,
-          "nextSibling": null,
+          "description": null,
           "fieldType": {
             "__typename": "PrimitiveType",
             "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
             "kind": "PrimitiveType",
             "name": "String"
           },
-          "api": {
-            "id": "eea515d6-4fbe-42cc-8946-63ccd1553999"
-          }
+          "id": "b23fc773-f869-428a-9b1c-61d503d40f92",
+          "key": "value",
+          "name": "Value",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
         },
         {
-          "id": "69c4c923-48d6-49d1-b7a4-1e3c210b2294",
-          "key": "children",
-          "name": "Children",
-          "description": null,
-          "validationRules": null,
+          "api": {
+            "id": "eea515d6-4fbe-42cc-8946-63ccd1553999"
+          },
           "defaultValues": null,
-          "prevSibling": null,
-          "nextSibling": null,
+          "description": null,
           "fieldType": {
             "__typename": "ReactNodeType",
             "id": "7333edde-f8f5-4d3c-a595-01b5585b37da",
             "kind": "ReactNodeType",
             "name": "ReactNodeType"
           },
-          "api": {
-            "id": "eea515d6-4fbe-42cc-8946-63ccd1553999"
-          }
+          "id": "69c4c923-48d6-49d1-b7a4-1e3c210b2294",
+          "key": "children",
+          "name": "Children",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
         }
-      ]
+      ],
+      "id": "eea515d6-4fbe-42cc-8946-63ccd1553999",
+      "kind": "InterfaceType",
+      "name": "AntDesignMentionsOption API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      }
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -117,15 +114,15 @@
     "suggestedChildren": [],
     "tags": [
       {
+        "children": [],
         "id": "35e6db28-21ee-4e77-8493-eb65ee672bdf",
         "name": "Mentions.Option",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
         "parent": {
           "id": "0e9969cb-f7ac-426c-a67c-e766c5b65c92",
           "name": "Mentions"
-        },
-        "children": [],
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
         }
       }
     ],

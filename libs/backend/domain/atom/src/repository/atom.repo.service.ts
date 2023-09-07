@@ -43,29 +43,13 @@ export class AtomRepository extends AbstractRepository<
     where?: AtomWhere
     options?: AtomOptions
   }) {
-    return (
-      (
-        await (
-          await this.ogmService.Atom
-        ).find({
-          options,
-          selectionSet: atomSelectionSet,
-          where,
-        })
-      )
-        // Sort nested properties, since we can't do this with OGM
-        .map((atom) => ({
-          ...atom,
-          api: atom.api,
-          suggestedChildren: atom.suggestedChildren.sort((a, b) =>
-            a.name.localeCompare(b.name),
-          ),
-          tags: atom.tags.map((tag) => ({
-            ...tag,
-            children: tag.children.sort((a, b) => a.name.localeCompare(b.name)),
-          })),
-        }))
-    )
+    return await (
+      await this.ogmService.Atom
+    ).find({
+      options,
+      selectionSet: atomSelectionSet,
+      where,
+    })
   }
 
   /**

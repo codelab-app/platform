@@ -1,111 +1,108 @@
 {
   "api": {
     "__typename": "InterfaceType",
+    "fields": [],
     "id": "767dce93-c843-4c0d-8311-4c2916e7879a",
     "kind": "InterfaceType",
     "name": "HtmlCanvas API",
-    "fields": [],
     "types": [
       {
         "__typename": "InterfaceType",
-        "id": "767dce93-c843-4c0d-8311-4c2916e7879a",
-        "kind": "InterfaceType",
-        "name": "HtmlCanvas API",
         "fields": [
           {
+            "api": {
+              "id": "767dce93-c843-4c0d-8311-4c2916e7879a"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+              "kind": "PrimitiveType",
+              "name": "Integer"
+            },
             "id": "cdf69c90-d9aa-4a01-a6fe-ec6cb3864e06",
             "key": "width",
             "name": "Width",
-            "description": null,
-            "validationRules": null,
-            "defaultValues": null,
-            "prevSibling": null,
             "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "767dce93-c843-4c0d-8311-4c2916e7879a"
+            },
+            "defaultValues": null,
+            "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
               "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
               "kind": "PrimitiveType",
               "name": "Integer"
             },
-            "api": {
-              "id": "767dce93-c843-4c0d-8311-4c2916e7879a"
-            }
-          },
-          {
             "id": "9acba60e-4f37-4af0-b308-1d04fb771390",
             "key": "height",
             "name": "Height",
-            "description": null,
-            "validationRules": null,
-            "defaultValues": null,
-            "prevSibling": null,
             "nextSibling": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
-              "kind": "PrimitiveType",
-              "name": "Integer"
-            },
-            "api": {
-              "id": "767dce93-c843-4c0d-8311-4c2916e7879a"
-            }
+            "prevSibling": null,
+            "validationRules": null
           }
-        ]
+        ],
+        "id": "767dce93-c843-4c0d-8311-4c2916e7879a",
+        "kind": "InterfaceType",
+        "name": "HtmlCanvas API"
       }
     ]
   },
   "atom": {
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "api": {
       "__typename": "InterfaceType",
+      "fields": [
+        {
+          "api": {
+            "id": "767dce93-c843-4c0d-8311-4c2916e7879a"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+            "kind": "PrimitiveType",
+            "name": "Integer"
+          },
+          "id": "cdf69c90-d9aa-4a01-a6fe-ec6cb3864e06",
+          "key": "width",
+          "name": "Width",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "767dce93-c843-4c0d-8311-4c2916e7879a"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
+            "kind": "PrimitiveType",
+            "name": "Integer"
+          },
+          "id": "9acba60e-4f37-4af0-b308-1d04fb771390",
+          "key": "height",
+          "name": "Height",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        }
+      ],
       "id": "767dce93-c843-4c0d-8311-4c2916e7879a",
       "kind": "InterfaceType",
       "name": "HtmlCanvas API",
       "owner": {
         "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      },
-      "fields": [
-        {
-          "id": "cdf69c90-d9aa-4a01-a6fe-ec6cb3864e06",
-          "key": "width",
-          "name": "Width",
-          "description": null,
-          "validationRules": null,
-          "defaultValues": null,
-          "prevSibling": null,
-          "nextSibling": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
-            "kind": "PrimitiveType",
-            "name": "Integer"
-          },
-          "api": {
-            "id": "767dce93-c843-4c0d-8311-4c2916e7879a"
-          }
-        },
-        {
-          "id": "9acba60e-4f37-4af0-b308-1d04fb771390",
-          "key": "height",
-          "name": "Height",
-          "description": null,
-          "validationRules": null,
-          "defaultValues": null,
-          "prevSibling": null,
-          "nextSibling": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "90f20c4d-97ca-4dd4-bf14-9da3b2f721ec",
-            "kind": "PrimitiveType",
-            "name": "Integer"
-          },
-          "api": {
-            "id": "767dce93-c843-4c0d-8311-4c2916e7879a"
-          }
-        }
-      ]
+      }
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -117,15 +114,15 @@
     "suggestedChildren": [],
     "tags": [
       {
+        "children": [],
         "id": "735e0085-2178-406f-9699-d1d2fbecaa5a",
         "name": "HtmlCanvas",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
         "parent": {
           "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
           "name": "Phrasing"
-        },
-        "children": [],
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
         }
       }
     ],

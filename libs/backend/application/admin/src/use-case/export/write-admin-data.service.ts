@@ -5,6 +5,7 @@ import {
   writeFileSyncWithDirs,
 } from '@codelab/backend/shared/util'
 import { Span } from '@codelab/shared/infra/otel'
+import { deepSortKeys } from '@codelab/shared/utils'
 import { Injectable, Scope } from '@nestjs/common'
 import path from 'path'
 import { MigrationDataService } from '../../services/migration-data.service'
@@ -21,12 +22,14 @@ export class WriteAdminDataService {
    */
   @Span()
   saveData(data: IAdminOutputDto) {
-    this.writeAtomsData(data.atoms)
-    this.writeTagsData(data.tags)
-    this.writeSystemTypesData(data.systemTypes)
-    this.writeComponentsData(data.components)
+    const { atoms, components, systemTypes, tags } = deepSortKeys(data)
 
-    return data
+    this.writeAtomsData(atoms)
+    this.writeTagsData(tags)
+    this.writeSystemTypesData(systemTypes)
+    this.writeComponentsData(components)
+
+    return { atoms, components, systemTypes, tags }
   }
 
   @Span()

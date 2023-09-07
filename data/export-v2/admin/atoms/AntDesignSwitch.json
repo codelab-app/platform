@@ -1,33 +1,30 @@
 {
   "api": {
     "__typename": "InterfaceType",
+    "fields": [],
     "id": "4115d3e6-2d9d-4d15-9225-4da1797fc0a6",
     "kind": "InterfaceType",
     "name": "AntDesignSwitch API",
-    "fields": [],
     "types": [
       {
         "__typename": "InterfaceType",
+        "fields": [],
         "id": "4115d3e6-2d9d-4d15-9225-4da1797fc0a6",
         "kind": "InterfaceType",
-        "name": "AntDesignSwitch API",
-        "fields": []
+        "name": "AntDesignSwitch API"
       }
     ]
   },
   "atom": {
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "api": {
       "__typename": "InterfaceType",
+      "fields": [],
       "id": "4115d3e6-2d9d-4d15-9225-4da1797fc0a6",
       "kind": "InterfaceType",
       "name": "AntDesignSwitch API",
       "owner": {
         "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      },
-      "fields": []
+      }
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -39,15 +36,15 @@
     "suggestedChildren": [],
     "tags": [
       {
+        "children": [],
         "id": "f4c04567-b357-416e-bfd7-aef77bf1444f",
         "name": "Switch",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
         "parent": {
           "id": "79e9ccd1-a5fa-44b9-b728-16e3c79365c8",
           "name": "Data Entry"
-        },
-        "children": [],
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
         }
       }
     ],

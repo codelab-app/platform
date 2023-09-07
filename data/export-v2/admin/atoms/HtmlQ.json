@@ -1,73 +1,70 @@
 {
   "api": {
     "__typename": "InterfaceType",
+    "fields": [],
     "id": "c68bf011-37ba-4e92-8dc3-4c188b5d4ed9",
     "kind": "InterfaceType",
     "name": "HtmlQ API",
-    "fields": [],
     "types": [
       {
         "__typename": "InterfaceType",
-        "id": "c68bf011-37ba-4e92-8dc3-4c188b5d4ed9",
-        "kind": "InterfaceType",
-        "name": "HtmlQ API",
         "fields": [
           {
-            "id": "89a8932b-e423-4b48-949c-6966cbcc4ec9",
-            "key": "cite",
-            "name": "Cite",
-            "description": null,
-            "validationRules": null,
+            "api": {
+              "id": "c68bf011-37ba-4e92-8dc3-4c188b5d4ed9"
+            },
             "defaultValues": null,
-            "prevSibling": null,
-            "nextSibling": null,
+            "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
               "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
               "kind": "PrimitiveType",
               "name": "String"
             },
-            "api": {
-              "id": "c68bf011-37ba-4e92-8dc3-4c188b5d4ed9"
-            }
+            "id": "89a8932b-e423-4b48-949c-6966cbcc4ec9",
+            "key": "cite",
+            "name": "Cite",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
           }
-        ]
+        ],
+        "id": "c68bf011-37ba-4e92-8dc3-4c188b5d4ed9",
+        "kind": "InterfaceType",
+        "name": "HtmlQ API"
       }
     ]
   },
   "atom": {
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "api": {
       "__typename": "InterfaceType",
-      "id": "c68bf011-37ba-4e92-8dc3-4c188b5d4ed9",
-      "kind": "InterfaceType",
-      "name": "HtmlQ API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      },
       "fields": [
         {
-          "id": "89a8932b-e423-4b48-949c-6966cbcc4ec9",
-          "key": "cite",
-          "name": "Cite",
-          "description": null,
-          "validationRules": null,
+          "api": {
+            "id": "c68bf011-37ba-4e92-8dc3-4c188b5d4ed9"
+          },
           "defaultValues": null,
-          "prevSibling": null,
-          "nextSibling": null,
+          "description": null,
           "fieldType": {
             "__typename": "PrimitiveType",
             "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
             "kind": "PrimitiveType",
             "name": "String"
           },
-          "api": {
-            "id": "c68bf011-37ba-4e92-8dc3-4c188b5d4ed9"
-          }
+          "id": "89a8932b-e423-4b48-949c-6966cbcc4ec9",
+          "key": "cite",
+          "name": "Cite",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
         }
-      ]
+      ],
+      "id": "c68bf011-37ba-4e92-8dc3-4c188b5d4ed9",
+      "kind": "InterfaceType",
+      "name": "HtmlQ API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      }
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -79,15 +76,15 @@
     "suggestedChildren": [],
     "tags": [
       {
+        "children": [],
         "id": "4743e35e-5011-43cf-a8df-25205530923c",
         "name": "HtmlQ",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
         "parent": {
           "id": "5250999f-1e3c-4576-8a90-820c4fd56a5e",
           "name": "Phrasing"
-        },
-        "children": [],
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
         }
       }
     ],

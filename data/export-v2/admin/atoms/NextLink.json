@@ -1,73 +1,70 @@
 {
   "api": {
     "__typename": "InterfaceType",
+    "fields": [],
     "id": "26df5c3d-7110-4c31-876c-db8291a2726d",
     "kind": "InterfaceType",
     "name": "NextLink  API",
-    "fields": [],
     "types": [
       {
         "__typename": "InterfaceType",
-        "id": "26df5c3d-7110-4c31-876c-db8291a2726d",
-        "kind": "InterfaceType",
-        "name": "NextLink  API",
         "fields": [
           {
-            "id": "bc728be2-0ad4-4fd2-baeb-d5437091d575",
-            "key": "href",
-            "name": "Href",
-            "description": null,
-            "validationRules": "{\"general\":{\"nullable\":false}}",
+            "api": {
+              "id": "26df5c3d-7110-4c31-876c-db8291a2726d"
+            },
             "defaultValues": "",
-            "prevSibling": null,
-            "nextSibling": null,
+            "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
               "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
               "kind": "PrimitiveType",
               "name": "String"
             },
-            "api": {
-              "id": "26df5c3d-7110-4c31-876c-db8291a2726d"
-            }
+            "id": "bc728be2-0ad4-4fd2-baeb-d5437091d575",
+            "key": "href",
+            "name": "Href",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": "{\"general\":{\"nullable\":false}}"
           }
-        ]
+        ],
+        "id": "26df5c3d-7110-4c31-876c-db8291a2726d",
+        "kind": "InterfaceType",
+        "name": "NextLink  API"
       }
     ]
   },
   "atom": {
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "api": {
       "__typename": "InterfaceType",
-      "id": "26df5c3d-7110-4c31-876c-db8291a2726d",
-      "kind": "InterfaceType",
-      "name": "NextLink  API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      },
       "fields": [
         {
-          "id": "bc728be2-0ad4-4fd2-baeb-d5437091d575",
-          "key": "href",
-          "name": "Href",
-          "description": null,
-          "validationRules": "{\"general\":{\"nullable\":false}}",
+          "api": {
+            "id": "26df5c3d-7110-4c31-876c-db8291a2726d"
+          },
           "defaultValues": "",
-          "prevSibling": null,
-          "nextSibling": null,
+          "description": null,
           "fieldType": {
             "__typename": "PrimitiveType",
             "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
             "kind": "PrimitiveType",
             "name": "String"
           },
-          "api": {
-            "id": "26df5c3d-7110-4c31-876c-db8291a2726d"
-          }
+          "id": "bc728be2-0ad4-4fd2-baeb-d5437091d575",
+          "key": "href",
+          "name": "Href",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": "{\"general\":{\"nullable\":false}}"
         }
-      ]
+      ],
+      "id": "26df5c3d-7110-4c31-876c-db8291a2726d",
+      "kind": "InterfaceType",
+      "name": "NextLink  API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      }
     },
     "externalCssSource": null,
     "externalJsSource": null,

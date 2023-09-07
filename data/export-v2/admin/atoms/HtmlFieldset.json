@@ -1,149 +1,146 @@
 {
   "api": {
     "__typename": "InterfaceType",
+    "fields": [],
     "id": "d49537aa-9daa-4d26-9f31-2eddd0b41817",
     "kind": "InterfaceType",
     "name": "HtmlFieldset API",
-    "fields": [],
     "types": [
       {
         "__typename": "InterfaceType",
-        "id": "d49537aa-9daa-4d26-9f31-2eddd0b41817",
-        "kind": "InterfaceType",
-        "name": "HtmlFieldset API",
         "fields": [
           {
+            "api": {
+              "id": "d49537aa-9daa-4d26-9f31-2eddd0b41817"
+            },
+            "defaultValues": null,
+            "description": null,
+            "fieldType": {
+              "__typename": "PrimitiveType",
+              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+              "kind": "PrimitiveType",
+              "name": "String"
+            },
             "id": "4f7bef07-4b20-4bef-b345-ba0f30ff07b0",
             "key": "name",
             "name": "Name",
-            "description": null,
-            "validationRules": null,
-            "defaultValues": null,
-            "prevSibling": null,
             "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
+          },
+          {
+            "api": {
+              "id": "d49537aa-9daa-4d26-9f31-2eddd0b41817"
+            },
+            "defaultValues": null,
+            "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
               "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
               "kind": "PrimitiveType",
               "name": "String"
             },
-            "api": {
-              "id": "d49537aa-9daa-4d26-9f31-2eddd0b41817"
-            }
-          },
-          {
             "id": "1debb6bc-baf2-4ff7-9ca3-af22f0dc7adf",
             "key": "form",
             "name": "Form",
-            "description": null,
-            "validationRules": null,
-            "defaultValues": null,
-            "prevSibling": null,
             "nextSibling": null,
-            "fieldType": {
-              "__typename": "PrimitiveType",
-              "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-              "kind": "PrimitiveType",
-              "name": "String"
-            },
-            "api": {
-              "id": "d49537aa-9daa-4d26-9f31-2eddd0b41817"
-            }
+            "prevSibling": null,
+            "validationRules": null
           },
           {
-            "id": "35e6cb59-1e54-4eec-9b7f-7433a1b84ead",
-            "key": "disabled",
-            "name": "Disabled",
-            "description": null,
-            "validationRules": null,
+            "api": {
+              "id": "d49537aa-9daa-4d26-9f31-2eddd0b41817"
+            },
             "defaultValues": null,
-            "prevSibling": null,
-            "nextSibling": null,
+            "description": null,
             "fieldType": {
               "__typename": "PrimitiveType",
               "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
               "kind": "PrimitiveType",
               "name": "Boolean"
             },
-            "api": {
-              "id": "d49537aa-9daa-4d26-9f31-2eddd0b41817"
-            }
+            "id": "35e6cb59-1e54-4eec-9b7f-7433a1b84ead",
+            "key": "disabled",
+            "name": "Disabled",
+            "nextSibling": null,
+            "prevSibling": null,
+            "validationRules": null
           }
-        ]
+        ],
+        "id": "d49537aa-9daa-4d26-9f31-2eddd0b41817",
+        "kind": "InterfaceType",
+        "name": "HtmlFieldset API"
       }
     ]
   },
   "atom": {
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "api": {
       "__typename": "InterfaceType",
-      "id": "d49537aa-9daa-4d26-9f31-2eddd0b41817",
-      "kind": "InterfaceType",
-      "name": "HtmlFieldset API",
-      "owner": {
-        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      },
       "fields": [
         {
+          "api": {
+            "id": "d49537aa-9daa-4d26-9f31-2eddd0b41817"
+          },
+          "defaultValues": null,
+          "description": null,
+          "fieldType": {
+            "__typename": "PrimitiveType",
+            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
+            "kind": "PrimitiveType",
+            "name": "String"
+          },
           "id": "4f7bef07-4b20-4bef-b345-ba0f30ff07b0",
           "key": "name",
           "name": "Name",
-          "description": null,
-          "validationRules": null,
-          "defaultValues": null,
-          "prevSibling": null,
           "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
+        },
+        {
+          "api": {
+            "id": "d49537aa-9daa-4d26-9f31-2eddd0b41817"
+          },
+          "defaultValues": null,
+          "description": null,
           "fieldType": {
             "__typename": "PrimitiveType",
             "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
             "kind": "PrimitiveType",
             "name": "String"
           },
-          "api": {
-            "id": "d49537aa-9daa-4d26-9f31-2eddd0b41817"
-          }
-        },
-        {
           "id": "1debb6bc-baf2-4ff7-9ca3-af22f0dc7adf",
           "key": "form",
           "name": "Form",
-          "description": null,
-          "validationRules": null,
-          "defaultValues": null,
-          "prevSibling": null,
           "nextSibling": null,
-          "fieldType": {
-            "__typename": "PrimitiveType",
-            "id": "3a0d0fc6-c51e-4f05-85b4-cde709fe5625",
-            "kind": "PrimitiveType",
-            "name": "String"
-          },
-          "api": {
-            "id": "d49537aa-9daa-4d26-9f31-2eddd0b41817"
-          }
+          "prevSibling": null,
+          "validationRules": null
         },
         {
-          "id": "35e6cb59-1e54-4eec-9b7f-7433a1b84ead",
-          "key": "disabled",
-          "name": "Disabled",
-          "description": null,
-          "validationRules": null,
+          "api": {
+            "id": "d49537aa-9daa-4d26-9f31-2eddd0b41817"
+          },
           "defaultValues": null,
-          "prevSibling": null,
-          "nextSibling": null,
+          "description": null,
           "fieldType": {
             "__typename": "PrimitiveType",
             "id": "44c7df30-5f72-45ca-a3d1-d08f21ad34ba",
             "kind": "PrimitiveType",
             "name": "Boolean"
           },
-          "api": {
-            "id": "d49537aa-9daa-4d26-9f31-2eddd0b41817"
-          }
+          "id": "35e6cb59-1e54-4eec-9b7f-7433a1b84ead",
+          "key": "disabled",
+          "name": "Disabled",
+          "nextSibling": null,
+          "prevSibling": null,
+          "validationRules": null
         }
-      ]
+      ],
+      "id": "d49537aa-9daa-4d26-9f31-2eddd0b41817",
+      "kind": "InterfaceType",
+      "name": "HtmlFieldset API",
+      "owner": {
+        "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+      }
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -155,15 +152,15 @@
     "suggestedChildren": [],
     "tags": [
       {
+        "children": [],
         "id": "ead40cbe-c56c-4187-bef5-633ce8aae266",
         "name": "HtmlFieldset",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
         "parent": {
           "id": "b3c5db6d-1853-458c-9388-1b8ddaf89250",
           "name": "Flow"
-        },
-        "children": [],
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
         }
       }
     ],

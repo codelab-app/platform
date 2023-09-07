@@ -1,33 +1,30 @@
 {
   "api": {
     "__typename": "InterfaceType",
+    "fields": [],
     "id": "ba48453e-cd8a-4e49-80e0-0972933ceca8",
     "kind": "InterfaceType",
     "name": "AntDesignInputNumber API",
-    "fields": [],
     "types": [
       {
         "__typename": "InterfaceType",
+        "fields": [],
         "id": "ba48453e-cd8a-4e49-80e0-0972933ceca8",
         "kind": "InterfaceType",
-        "name": "AntDesignInputNumber API",
-        "fields": []
+        "name": "AntDesignInputNumber API"
       }
     ]
   },
   "atom": {
-    "owner": {
-      "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-    },
     "api": {
       "__typename": "InterfaceType",
+      "fields": [],
       "id": "ba48453e-cd8a-4e49-80e0-0972933ceca8",
       "kind": "InterfaceType",
       "name": "AntDesignInputNumber API",
       "owner": {
         "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
-      },
-      "fields": []
+      }
     },
     "externalCssSource": null,
     "externalJsSource": null,
@@ -39,15 +36,15 @@
     "suggestedChildren": [],
     "tags": [
       {
+        "children": [],
         "id": "68f3a3f3-785e-4c6d-a705-849a8a2f81ff",
         "name": "InputNumber",
+        "owner": {
+          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
+        },
         "parent": {
           "id": "79e9ccd1-a5fa-44b9-b728-16e3c79365c8",
           "name": "Data Entry"
-        },
-        "children": [],
-        "owner": {
-          "auth0Id": "0147b1b3-03b2-469a-b94e-c7fe3239edda"
         }
       }
     ],

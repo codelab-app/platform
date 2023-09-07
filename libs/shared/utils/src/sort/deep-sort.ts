@@ -1,3 +1,4 @@
+import flow from 'lodash/flow'
 import fromPairs from 'lodash/fromPairs'
 import isArray from 'lodash/isArray'
 import isObject from 'lodash/isObject'
@@ -9,9 +10,14 @@ export const deepSortKeys = <T>(obj: T): T => {
   if (isArray(obj)) {
     return obj.map(deepSortKeys) as T
   } else if (isObject(obj)) {
-    return fromPairs(sortBy(toPairs(obj), 0))
-      .mapValues(deepSortKeys)
-      .value()
+    const sortAndMap = flow([
+      toPairs,
+      (pairs) => sortBy(pairs, 0),
+      fromPairs,
+      (sortedObj) => mapValues(sortedObj, deepSortKeys),
+    ])
+
+    return sortAndMap(obj) as T
   }
 
   return obj
