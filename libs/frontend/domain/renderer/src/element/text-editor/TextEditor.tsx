@@ -16,6 +16,17 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
   const [editor, setEditor] = React.useState<EditorJS | null>(null)
   const holder = `${elementId}-editor`
 
+  // To allow typing in the text editor for anchor elements
+  // need to prevent the default behavior of the anchor element
+  // otherwise it will trigger navigation when clicked
+  useEffect(() => {
+    void editor?.isReady.then(() => {
+      if (!readOnly) {
+        preventDefaultOnAnchor()
+      }
+    })
+  }, [editor?.isReady, readOnly])
+
   const onChange = (output: OutputData) => {
     const element = elementService.element(elementId)
     const props = element.props.current
@@ -39,6 +50,16 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
       return {
         blocks: [{ data: { text: data }, type: 'paragraph' }],
       }
+    }
+  }
+
+  const preventDefaultOnAnchor = () => {
+    const el = document.getElementById(holder)
+
+    if (el && el.parentElement instanceof HTMLAnchorElement) {
+      el.parentElement.addEventListener('click', (event) =>
+        event.preventDefault(),
+      )
     }
   }
 
