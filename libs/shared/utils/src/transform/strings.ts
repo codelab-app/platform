@@ -53,6 +53,6 @@ export const camelCaseToKebabCase = (input?: string) => {
  * @param input
  */
 export const camelCaseToKebabCaseOnlyKeys = (input?: string) =>
-  input?.replace(/(\w+)(?=:)/g, (match) =>
+  input?.replace(/(\w+)(\s*)(?=:)/g, (match) =>
     match.replace(/[A-Z]/g, (char) => `-${char.toLowerCase()}`),
   )
