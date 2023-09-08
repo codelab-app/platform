@@ -1,9 +1,11 @@
 import { useScroll, useScrollIntoView } from '@codelab/frontend/shared/utils'
 import { useDebouncedEffect } from '@react-hookz/web'
 import type { CSSProperties } from 'react'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import useResizeObserver from 'use-resize-observer/polyfilled'
 import type { OverlayProps } from './overlay.interface'
+
+const TOOLBAR_HEIGHT = 20
 
 export const ClickOverlay = ({
   content,
@@ -43,39 +45,44 @@ export const ClickOverlay = ({
     180,
   )
 
-  const style: CSSProperties = {
-    border: '1px solid rgb(7, 62, 78)',
-    bottom: `${rect.bottom}px`,
-    height: `${rect.height}px`,
-    left: `${rect.left - containerRect.left}px`,
-    pointerEvents: 'none',
-    position: 'fixed',
-    right: `${rect.right}px`,
-    top: `${rect.top - containerRect.top}px`,
-    width: `${rect.width}px`,
-    zIndex: 2,
-  }
+  const rootStyle: CSSProperties = useMemo(
+    () => ({
+      border: '1px solid rgb(7, 62, 78)',
+      bottom: `${rect.bottom}px`,
+      height: `${rect.height}px`,
+      left: `${rect.left - containerRect.left}px`,
+      pointerEvents: 'none',
+      position: 'fixed',
+      right: `${rect.right}px`,
+      top: `${rect.top - containerRect.top}px`,
+      width: `${rect.width}px`,
+      zIndex: 2,
+    }),
+    [containerRect, rect],
+  )
 
-  const isToolbarVisible = rect.top - containerRect.top > 0
+  const isToolbarVisible = rect.top - containerRect.top > TOOLBAR_HEIGHT
+
+  const toolbarStyle: CSSProperties = useMemo(() => {
+    // align toolbar top if there is enough screen space,
+    // otherwise align toolbar under the element
+    const styleName = isToolbarVisible ? 'bottom' : 'top'
+
+    return {
+      backgroundColor: 'rgb(7, 62, 78)',
+      color: 'rgb(255, 255, 255)',
+      fontSize: '0.8rem',
+      marginLeft: '-2px',
+      padding: '0.1rem 0.3rem 0.1rem 0.3rem',
+      pointerEvents: 'auto',
+      position: 'absolute',
+      [styleName]: '100%',
+    }
+  }, [isToolbarVisible])
 
   return (
-    <div style={style}>
-      {content && (
-        <div
-          style={{
-            backgroundColor: 'rgb(7, 62, 78)',
-            bottom: isToolbarVisible ? '100%' : '',
-            color: 'rgb(255, 255, 255)',
-            fontSize: '0.8rem',
-            marginLeft: '-2px',
-            padding: '0.1rem 0.3rem 0.1rem 0.3rem',
-            pointerEvents: 'auto',
-            position: 'absolute',
-          }}
-        >
-          {content}
-        </div>
-      )}
+    <div style={rootStyle}>
+      {content && <div style={toolbarStyle}>{content}</div>}
     </div>
   )
 }
