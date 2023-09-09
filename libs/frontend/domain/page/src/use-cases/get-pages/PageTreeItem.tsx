@@ -39,7 +39,7 @@ export const PageTreeItem = observer(
       primaryTitle,
     },
   }: PageTreeItemProps) => {
-    const { pageService, userService } = useStore()
+    const { domainService, pageService, userService } = useStore()
     const { popover } = useCui()
     const [rebuildButtonLoading, setRebuildButtonLoading] = useState(false)
     const router = useRouter()
@@ -75,15 +75,23 @@ export const PageTreeItem = observer(
         icon: rebuildButtonLoading ? <LoadingOutlined /> : <ToolOutlined />,
         key: 'build',
         onClick: async () => {
-          const pageDomain = domains.find(
+          let pageDomains = domains.filter(
             (domain) => domain.app.id === page.app.id,
           )
 
-          if (pageDomain?.name) {
-            setRebuildButtonLoading(true)
-            await regeneratePages([page.url], pageDomain.name)
-            setRebuildButtonLoading(false)
+          if (!pageDomains.length) {
+            pageDomains = await domainService.getAll({
+              app: { id: page.app.id },
+            })
           }
+
+          setRebuildButtonLoading(true)
+
+          for (const pageDomain of pageDomains) {
+            await regeneratePages([page.url], pageDomain.name)
+          }
+
+          setRebuildButtonLoading(false)
         },
         title: 'Build',
       },
