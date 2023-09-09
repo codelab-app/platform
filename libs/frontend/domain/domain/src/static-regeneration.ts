@@ -6,8 +6,9 @@ import { getEnv } from '@codelab/shared/config'
 export const regeneratePages = (pages: Array<string>, domain: string) => {
   const baseUrl = getEnv().endpoint.nextPublicPlatformHost
   const pagesParam = pages.join(',')
+  const protocol = baseUrl.startsWith('http') ? '' : 'https://'
 
   return fetch(
-    `https://${baseUrl}/api/regenerate?domain=${domain}&pages=${pagesParam}`,
+    `${protocol}${baseUrl}/api/regenerate?domain=${domain}&pages=${pagesParam}`,
   )
 }
