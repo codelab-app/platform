@@ -127,6 +127,7 @@
     "csv-parser": "3.0.0",
     "diff": "^5.1.0",
     "dir-compare": "^4.2.0",
+    "editorjs-text-color-plugin": "^2.0.4",
     "env-var": "7.4.1",
     "find-up": "^6.3.0",
     "flat": "^5.0.2",

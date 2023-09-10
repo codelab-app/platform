@@ -13,6 +13,9 @@ export const IInterfaceTypeDTO = Type.Composite([
 
 export type IInterfaceTypeDTO = Static<typeof IInterfaceTypeDTO>
 
+/**
+ * Entity
+ */
 export const IInterfaceTypeEntity = IDiscriminatedEntity(
   `${ITypeKind.InterfaceType}`,
 )

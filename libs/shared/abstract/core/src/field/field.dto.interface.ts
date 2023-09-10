@@ -2,12 +2,13 @@ import { IEntity } from '@codelab/shared/abstract/types'
 import { Typebox } from '@codelab/shared/infra/validation'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import { IInterfaceTypeEntity, ITypeEntity } from '../type'
 
 export const IFieldDTO = Type.Object({
-  api: IEntity,
+  api: IInterfaceTypeEntity,
   defaultValues: Typebox.Nullish(Type.String()),
   description: Typebox.Nullish(Type.String()),
-  fieldType: IEntity,
+  fieldType: ITypeEntity,
   id: Type.String(),
   key: Type.String(),
   name: Typebox.Nullish(Type.String()),

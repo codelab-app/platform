@@ -6,10 +6,15 @@ import { PropDomainModule } from '@codelab/backend/domain/prop'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
-import { ExportComponentsHandler, ImportComponentsHandler } from './use-case'
+import { ComponentApplicationService } from './service/component.application.service'
+import { ExportComponentHandler, ImportComponentsHandler } from './use-case'
 
 @Module({
-  exports: [ExportComponentsHandler, ImportComponentsHandler],
+  exports: [
+    ExportComponentHandler,
+    ImportComponentsHandler,
+    ComponentApplicationService,
+  ],
   imports: [
     CqrsModule,
     ComponentDomainModule,
@@ -19,6 +24,10 @@ import { ExportComponentsHandler, ImportComponentsHandler } from './use-case'
     TypeApplicationModule,
     PropDomainModule,
   ],
-  providers: [ExportComponentsHandler, ImportComponentsHandler],
+  providers: [
+    ExportComponentHandler,
+    ImportComponentsHandler,
+    ComponentApplicationService,
+  ],
 })
 export class ComponentApplicationModule {}

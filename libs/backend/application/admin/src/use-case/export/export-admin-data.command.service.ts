@@ -10,7 +10,10 @@ import {
   AtomApplicationService,
   ExportAtomCommand,
 } from '@codelab/backend/application/atom'
-import { ExportComponentsCommand } from '@codelab/backend/application/component'
+import {
+  ComponentApplicationService,
+  ExportComponentCommand,
+} from '@codelab/backend/application/component'
 import { ExportTagsCommand } from '@codelab/backend/application/tag'
 import { ExportSystemTypesCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
@@ -40,6 +43,7 @@ export class ExportAdminDataHandler
     private commandBus: CommandBus,
     private traceService: TraceService,
     private atomApplicationService: AtomApplicationService,
+    private componentApplicationService: ComponentApplicationService,
   ) {}
 
   @Span()
@@ -61,23 +65,15 @@ export class ExportAdminDataHandler
 
     span.addEvent('SystemTypes', flattenWithPrefix(systemTypes))
 
-    const atoms = await this.exportAtoms()
+    const atoms = await this.atomApplicationService.exportAtomsForAdmin()
 
     const tags = await this.commandBus.execute<
       ExportTagsCommand,
       Array<ITagOutputDto>
     >(new ExportTagsCommand())
 
-    const components = await this.commandBus.execute<
-      ExportComponentsCommand,
-      Array<IComponentOutputDto>
-    >(
-      new ExportComponentsCommand({
-        owner: {
-          roles_INCLUDES: IRole.Admin,
-        },
-      }),
-    )
+    const components =
+      await this.componentApplicationService.exportComponentsForAdmin()
 
     const data = {
       atoms,
@@ -87,20 +83,5 @@ export class ExportAdminDataHandler
     }
 
     return this.writeAdminDataService.saveData(data)
-  }
-
-  async exportAtoms() {
-    const atoms = await this.atomApplicationService.fetchAllAtoms()
-
-    const data = await Promise.all(
-      atoms.map(
-        async (atom) =>
-          await this.commandBus.execute<ExportAtomCommand, IAtomOutputDto>(
-            new ExportAtomCommand({ id: atom.id }),
-          ),
-      ),
-    )
-
-    return data
   }
 }

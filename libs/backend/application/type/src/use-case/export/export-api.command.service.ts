@@ -3,15 +3,19 @@ import {
   FieldRepository,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
-import type { IApiEntity } from '@codelab/shared/abstract/core'
-import { IInterfaceTypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import type { IInterfaceTypeEntity } from '@codelab/shared/abstract/core'
+import {
+  IFieldDTO,
+  IInterfaceTypeDTO,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import { Span } from '@codelab/shared/infra/otel'
 import { Typebox } from '@codelab/shared/infra/validation'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
 export class ExportApiCommand {
-  constructor(public api: IApiEntity) {}
+  constructor(public api: IInterfaceTypeEntity) {}
 }
 
 /**
@@ -44,34 +48,37 @@ export class ExportApiHandler
       throw new Error('InterfaceType not found')
     }
 
+    const fields = await this.fieldRepository.find(
+      {
+        where: { id_IN: interfaceType.fields.map(({ id }) => id) },
+      },
+      IFieldDTO,
+    )
+
     /**
      * (2) Get all dependent types first
      */
-    const nestedTypes = await this.interfaceTypeRepository.getDependentTypes(
+    const dependentTypes = await this.interfaceTypeRepository.getDependentTypes(
       api,
     )
 
-    const interfaceTypes = nestedTypes.filter(
+    const dependentInterfaceTypes = dependentTypes.filter(
       (type): type is IInterfaceTypeDTO =>
         type.__typename === `${ITypeKind.InterfaceType}`,
     )
 
-    const fieldIds = interfaceTypes.reduce(
-      (accFieldIds, { id }) => ({
-        ...accFieldIds,
-        id,
-      }),
-      [] as Array<string>,
-    )
-
-    const fields = await this.fieldRepository.find({
-      where: { id_IN: fieldIds },
+    const dependentFields = await this.fieldRepository.find({
+      where: {
+        id_IN: dependentInterfaceTypes.map(
+          (dependentInterfaceType) => dependentInterfaceType.id,
+        ),
+      },
     })
 
     return {
       ...interfaceType,
-      fields,
-      types: [interfaceType, ...nestedTypes],
+      fields: [...fields, ...dependentFields],
+      types: dependentTypes,
     }
   }
 }

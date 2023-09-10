@@ -16971,6 +16971,7 @@ __metadata:
     diff: ^5.1.0
     dir-compare: ^4.2.0
     dotenv: 15.0.0
+    editorjs-text-color-plugin: ^2.0.4
     env-cmd: 10.1.0
     env-var: 7.4.1
     esbuild: ^0.17.19
@@ -19584,6 +19585,13 @@ __metadata:
   version: 1.0.0
   resolution: "editor@npm:1.0.0"
   checksum: 41fb75f605f92e4f3dba3da594300928e66f93a8e60e1d5734c85e8597554d7af37ef823e1ae4aca6b40c72ae7fabfdc0f3ef31b0daa1bd945f8cb7b6380009f
+  languageName: node
+  linkType: hard
+
+"editorjs-text-color-plugin@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "editorjs-text-color-plugin@npm:2.0.4"
+  checksum: 730fc3e4de8f4137473d9f93cd722c77f63e9705906c4c98911122fe79f8c8324a99921736e4fa130f7fc64a9da79289ecd90a3905aa3347b24abeefb464bce4
   languageName: node
   linkType: hard
 

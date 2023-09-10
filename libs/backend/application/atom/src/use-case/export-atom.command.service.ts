@@ -42,8 +42,6 @@ export class ExportAtomHandler
       throw new Error('Atom not found')
     }
 
-    console.log(atom)
-
     // this.traceService.getSpan()!.setAttributes({ atom: atom.name })
 
     const api = await this.commandBus.execute<ExportApiCommand, IApiOutputDto>(
