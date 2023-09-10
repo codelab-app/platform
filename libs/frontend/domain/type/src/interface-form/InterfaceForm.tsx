@@ -34,6 +34,7 @@ export const InterfaceForm = observer(
     return (
       <Form
         autosave={autosave}
+        data-testid="interface-form"
         model={model}
         onChange={onChange}
         onSubmit={handleFormSubmit<TData, TResponse>(

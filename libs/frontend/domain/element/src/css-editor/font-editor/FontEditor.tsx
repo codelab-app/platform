@@ -80,7 +80,7 @@ export const FontEditor = observer(
         <Row>
           <span>Family</span>
           <Select
-            className="w-full"
+            className="font-editor__family w-full"
             onChange={onFamilyChanged}
             options={makeFamilyOptions()}
             value={selectedFont.family}
@@ -89,7 +89,7 @@ export const FontEditor = observer(
         <Row>
           <span>Weight</span>
           <Select
-            className="w-full"
+            className="font-editor__weight w-full"
             onChange={onWeightChanged}
             options={weightOptions}
             value={selectedFont.weight}
