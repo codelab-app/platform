@@ -4,7 +4,7 @@ import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { type IEntity } from '@codelab/shared/abstract/types'
 import { flattenWithPrefix, withActiveSpan } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
-import type { TAnySchema } from '@sinclair/typebox'
+import type { Static, TAnySchema, TSchema } from '@sinclair/typebox'
 
 @Injectable()
 export abstract class AbstractRepository<
@@ -12,20 +12,12 @@ export abstract class AbstractRepository<
   ModelData extends object,
   Where extends { id?: string | null },
   Options,
-> implements IRepository<Model, ModelData, Where>
+> implements IRepository<Model, ModelData, Where, Options>
 {
-  // private cacheService: CacheService
-
-  // private enableCache = false
-
-  // private ttl = 60000
-
   constructor(
     protected traceService: TraceService,
     protected validationService: ValidationService,
-  ) {
-    // this.cacheService = CacheService.getInstance(CacheInstance.Backend)
-  }
+  ) {}
 
   /**
    *
@@ -33,48 +25,42 @@ export abstract class AbstractRepository<
    * @param schema optional schema to validate the return data
    * @returns
    */
-  async findOne(
+  async findOne<T extends TAnySchema>(
     where: Where,
-    schema?: TAnySchema,
-  ): Promise<ModelData | undefined> {
+    schema?: T,
+  ): Promise<ModelData | Static<T> | undefined> {
     // Don't use decorator since it doesn't give us the right name
-    return withActiveSpan(
-      `${this.constructor.name}.findOne`,
-      async (span) => {
-        this.traceService.addJsonAttributes('where', where)
+    return withActiveSpan(`${this.constructor.name}.findOne`, async (span) => {
+      this.traceService.addJsonAttributes('where', where)
 
-        // if (!this.enableCache) {
-        //   return (await this.find({ where }))[0]
-        // }
+      // So overload works
+      const results = schema
+        ? (await this.find({ where }, schema))[0]
+        : (await this.find({ where }))[0]
 
-        // const cachedValue = await this.cacheService.getOne<ModelData>(
-        //   this.constructor.name,
-        //   where,
-        // )
+      if (!results) {
+        return undefined
+      }
 
-        // if (cachedValue !== null) {
-        //   return cachedValue
-        // }
+      this.traceService.addJsonAttributes('results', results)
 
-        const results = (await this.find({ where }, schema))[0]
+      if (schema) {
+        return this.validationService.validateAndClean(schema, results)
+      }
 
-        if (!results) {
-          return undefined
-        }
-
-        // await this.cacheService.setOne(this.constructor.name, where, result)
-
-        this.traceService.addJsonAttributes('results', results)
-
-        if (schema) {
-          return this.validationService.validateAndClean(schema, results)
-        }
-
-        return results
-      },
-      // context.active(),
-    )
+      return results
+    })
   }
+
+  find(args: { where?: Where; options?: Options }): Promise<Array<ModelData>>
+
+  find<T extends TAnySchema>(
+    args: {
+      where?: Where
+      options?: Options
+    },
+    schema: T,
+  ): Promise<Array<Static<T>>>
 
   /**
    *
@@ -82,7 +68,7 @@ export abstract class AbstractRepository<
    * @param schema This is the singular form of the schema
    * @returns
    */
-  async find(
+  async find<T extends TAnySchema>(
     {
       options,
       where,
@@ -90,42 +76,25 @@ export abstract class AbstractRepository<
       where?: Where
       options?: Options
     } = {},
-    schema?: TAnySchema,
-  ): Promise<Array<ModelData>> {
-    return withActiveSpan(
-      `${this.constructor.name}.find`,
-      async (span) => {
-        this.traceService.addJsonAttributes('where', where)
+    schema?: T,
+  ): Promise<Array<ModelData> | Array<Static<T>>> {
+    return withActiveSpan(`${this.constructor.name}.find`, async (span) => {
+      this.traceService.addJsonAttributes('where', where)
 
-        // if (!this.enableCache) {
-        //   return await this._find({ options, where })
-        // }
+      const results = await this._find({ options, where })
 
-        // const cachedValue = await this.cacheService.getMany<ModelData>(
-        //   this.constructor.name,
-        //   where,
-        // )
+      this.traceService.addJsonAttributes('results', results)
 
-        // if (cachedValue !== null) {
-        //   return cachedValue
-        // }
+      if (schema) {
+        const data = results.map((result) => {
+          return this.validationService.validateAndClean(schema, result)
+        })
 
-        const results = await this._find({ options, where })
+        return data
+      }
 
-        this.traceService.addJsonAttributes('results', results)
-
-        if (schema) {
-          return results.map((result) => {
-            return this.validationService.validateAndClean(schema, result)
-          })
-        }
-
-        // await this.cacheService.setMany(this.constructor.name, where, results)
-
-        return results
-      },
-      // context.active(),
-    )
+      return results
+    })
   }
 
   protected abstract _find({
@@ -141,7 +110,6 @@ export abstract class AbstractRepository<
     const attributes = flattenWithPrefix(data[0] ?? {}, 'data')
     span?.setAttributes(attributes)
 
-    // await this.cacheService.clearCache(this.constructor.name)
     return this._add(data)
   }
 
@@ -153,30 +121,20 @@ export abstract class AbstractRepository<
    * Say we created some DTO data that is keyed by name, but with a generated ID. After finding existing record and performing update, we will actually update the ID as we ll.
    */
   async update(data: Model, where?: Where): Promise<ModelData> {
-    return withActiveSpan(
-      `${this.constructor.name}.update`,
-      async (span) => {
-        const dataAttributes = flattenWithPrefix(data, 'data')
-        const whereAttributes = flattenWithPrefix(data, 'where')
-        span.setAttributes(dataAttributes)
-        span.setAttributes(whereAttributes)
+    return withActiveSpan(`${this.constructor.name}.update`, async (span) => {
+      const dataAttributes = flattenWithPrefix(data, 'data')
+      const whereAttributes = flattenWithPrefix(data, 'where')
+      span.setAttributes(dataAttributes)
+      span.setAttributes(whereAttributes)
 
-        // await CacheService.getInstance(CacheInstance.Backend).clearAllCache()
-        // await CacheService.getInstance(CacheInstance.Backend).clearCache(
-        //   this.constructor.name,
-        //   where,
-        // )
+      const model = await this._update(data, where)
 
-        const model = await this._update(data, where)
+      if (!model) {
+        throw new Error('Model not updated')
+      }
 
-        if (!model) {
-          throw new Error('Model not updated')
-        }
-
-        return model
-      },
-      // context.active(),
-    )
+      return model
+    })
   }
 
   protected abstract _update(

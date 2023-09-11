@@ -26,7 +26,7 @@ import {
 } from '@codelab/shared/domain/mapper'
 import { Span } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
-import { type TAnySchema } from '@sinclair/typebox'
+import type { Static, TAny, TAnySchema } from '@sinclair/typebox'
 
 @Injectable()
 export class InterfaceTypeRepository extends AbstractRepository<
@@ -45,10 +45,10 @@ export class InterfaceTypeRepository extends AbstractRepository<
   }
 
   @Span()
-  async getDependentTypes(
+  async getDependentTypes<T extends TAnySchema>(
     { id }: ITypeEntity,
-    schema?: TAnySchema,
-  ): Promise<Array<ITypeDTO>> {
+    schema?: T,
+  ): Promise<Array<Static<T>>> {
     return this.neo4jService.withReadTransaction(async (txn) => {
       const { records } = await txn.run(getDependentTypes, { id })
 
@@ -127,39 +127,4 @@ export class InterfaceTypeRepository extends AbstractRepository<
       })
     ).interfaceTypes[0]
   }
-
-  private mapCreateFields(
-    fields: Array<IFieldDTO>,
-  ): InterfaceTypeFieldsFieldInput {
-    return {
-      create: fields.map(
-        ({ api, fieldType, nextSibling, prevSibling, ...field }) => ({
-          node: {
-            ...field,
-            fieldType: connectNodeId(fieldType.id),
-            nextSibling: connectNodeId(nextSibling?.id),
-            prevSibling: connectNodeId(prevSibling?.id),
-          },
-        }),
-      ),
-    }
-  }
-
-  /**
-   * Don't update fields in interface. If done here, would have to assume the fields exist or not.
-   *
-   * Different logic exists for field update or creation here
-   */
-  // private mapUpdateFields(
-  //   fields: Array<IField>,
-  // ): InterfaceTypeFieldsUpdateFieldInput {
-  //   return {
-  //     create: fields.map(({ api, fieldType, ...field }) => ({
-  //       node: {
-  //         ...field,
-  //         fieldType: connectNode(fieldType.id),
-  //       },
-  //     })),
-  //   }
-  // }
 }

@@ -1,11 +1,21 @@
 import { SortDirection } from '@codelab/backend/abstract/codegen'
-import type { ITypeOutputDto } from '@codelab/backend/abstract/core'
+import {
+  IPrimitiveTypeOutputDto,
+  type ITypeOutputDto,
+  TypeOutput,
+} from '@codelab/backend/abstract/core'
 import {
   ActionTypeRepository,
   PrimitiveTypeRepository,
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
 } from '@codelab/backend/domain/type'
+import {
+  IActionTypeDTO,
+  IPrimitiveTypeDTO,
+  IReactNodeTypeDTO,
+  IRenderPropTypeDTO,
+} from '@codelab/shared/abstract/core'
 import { Span } from '@codelab/shared/infra/otel'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
@@ -43,41 +53,53 @@ export class ExportSystemTypesHandler
     /**
      * Export all primitive types
      */
-    const primitiveTypes = await this.primitiveTypeRepository.find({
-      options: {
-        sort: [{ name: SortDirection.Asc }],
+    const primitiveTypes = await this.primitiveTypeRepository.find(
+      {
+        options: {
+          sort: [{ name: SortDirection.Asc }],
+        },
       },
-    })
+      IPrimitiveTypeOutputDto,
+    )
 
     /**
      * React Node Type
      */
     // Only 1 here
-    const reactNodeTypes = await this.reactNodeTypeRepository.find({
-      options: {
-        sort: [{ name: SortDirection.Asc }],
+    const reactNodeTypes = await this.reactNodeTypeRepository.find(
+      {
+        options: {
+          sort: [{ name: SortDirection.Asc }],
+        },
       },
-    })
+      TypeOutput(IReactNodeTypeDTO),
+    )
 
     /**
      * Render Props Type
      */
     // Only 1 here
-    const renderPropTypes = await this.renderPropTypeRepository.find({
-      options: {
-        sort: [{ name: SortDirection.Asc }],
+    const renderPropTypes = await this.renderPropTypeRepository.find(
+      {
+        options: {
+          sort: [{ name: SortDirection.Asc }],
+        },
       },
-    })
+      TypeOutput(IRenderPropTypeDTO),
+    )
 
     /**
      * ActionType
      */
 
-    const actionTypes = await this.actionTypeRepository.find({
-      options: {
-        sort: [{ name: SortDirection.Asc }],
+    const actionTypes = await this.actionTypeRepository.find(
+      {
+        options: {
+          sort: [{ name: SortDirection.Asc }],
+        },
       },
-    })
+      TypeOutput(IActionTypeDTO),
+    )
 
     /**
      * Here we create the interface dependency tree order

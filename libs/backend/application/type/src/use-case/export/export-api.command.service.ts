@@ -1,4 +1,5 @@
 import type { IApiOutputDto } from '@codelab/backend/abstract/core'
+import { ITypeOutputDto } from '@codelab/backend/abstract/core'
 import {
   FieldRepository,
   InterfaceTypeRepository,
@@ -60,11 +61,11 @@ export class ExportApiHandler
      */
     const dependentTypes = await this.interfaceTypeRepository.getDependentTypes(
       api,
+      ITypeOutputDto,
     )
 
     const dependentInterfaceTypes = dependentTypes.filter(
-      (type): type is IInterfaceTypeDTO =>
-        type.__typename === `${ITypeKind.InterfaceType}`,
+      (type) => type.__typename === `${ITypeKind.InterfaceType}`,
     )
 
     const dependentFields = await this.fieldRepository.find({
