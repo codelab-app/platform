@@ -13,6 +13,7 @@ import {
   getRunnerId,
   isAtomInstance,
   pageRef,
+  RendererType,
   typeRef,
 } from '@codelab/frontend/abstract/core'
 import type {
@@ -139,7 +140,7 @@ export class Store
     Object.keys(actionRunners).forEach((actionName) => {
       actionRunners[actionName] = actionRunners[actionName].bind({
         actions: actionRunners,
-        state: this.cachedState,
+        state: this.state,
       })
     })
 
@@ -148,7 +149,13 @@ export class Store
 
   @computed
   get state() {
-    if (this.cachedState) {
+    const { rendererType } = this.renderService.activeRenderer?.current ?? {}
+
+    const isPreviewOrProduction =
+      rendererType === RendererType.Preview ||
+      rendererType === RendererType.Production
+
+    if (isPreviewOrProduction && this.cachedState) {
       return this.cachedState
     }
 
