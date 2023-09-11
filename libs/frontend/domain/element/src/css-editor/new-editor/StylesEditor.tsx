@@ -1,13 +1,11 @@
 import { CaretRightOutlined } from '@ant-design/icons'
 import { Collapse } from 'antd'
 import React from 'react'
-import { DisplayEditor } from './DisplayEditor'
+import { DisplayEditor } from './display/DisplayEditor'
 
 const { Panel } = Collapse
 
 export const StylesEditor = () => {
-  const [display, setDisplay] = React.useState('flex')
-
   return (
     <Collapse
       bordered={false}
@@ -17,7 +15,7 @@ export const StylesEditor = () => {
       )}
     >
       <Panel header="Layout" key="1">
-        <DisplayEditor onChange={setDisplay} value={display} />
+        <DisplayEditor />
       </Panel>
       <Panel header="Font" key="2"></Panel>
       <Panel header="Background" key="3"></Panel>

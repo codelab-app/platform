@@ -5,7 +5,9 @@ import {
   OneToOneOutlined,
   PicCenterOutlined,
 } from '@ant-design/icons'
-import { Col, Row, Segmented } from 'antd'
+import { useState } from 'react'
+import { SegmentedSelect } from '../components/SegmentedSelect'
+import { DisplayFlexOptions } from './DisplayFlexOptions'
 
 const displayOptions = [
   {
@@ -39,18 +41,19 @@ interface DisplayEditorProps {
   onChange?(value: string): void
 }
 
-export const DisplayEditor = ({ onChange, value }: DisplayEditorProps) => {
+// TODO: Rotate icons based on direction
+export const DisplayEditor = () => {
+  const [display, setDisplay] = useState('flex')
+
   return (
-    <Row align="middle" justify="space-between" wrap={false}>
-      <Col>Display</Col>
-      <Col>
-        <Segmented
-          block={true}
-          onChange={(selected) => onChange?.(selected.toString())}
-          options={[...displayOptions]}
-          value={value}
-        />
-      </Col>
-    </Row>
+    <>
+      <SegmentedSelect
+        label="Display"
+        onChange={setDisplay}
+        options={displayOptions}
+        value={display}
+      />
+      {display === 'flex' && <DisplayFlexOptions />}
+    </>
   )
 }
