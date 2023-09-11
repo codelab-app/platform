@@ -165,8 +165,6 @@ export const typeSchema = gql`
       )
   }
 
-
-
   """
   Represents an object type with multiple fields
   """

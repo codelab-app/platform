@@ -24,7 +24,5 @@ export const getPlatformListener = async () => {
     throw new Error('Missing NextApiHandler')
   }
 
-  console.log(listener)
-
   return listener
 }

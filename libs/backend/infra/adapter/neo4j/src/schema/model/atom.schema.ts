@@ -1,12 +1,12 @@
 import { gql } from '@apollo/client'
 import { __AtomType } from '@codelab/shared/abstract/core'
 
-const atomTypeSchema = `enum AtomType {
+const atomTypeEnum = `enum AtomType {
   ${Object.values(__AtomType).join('\n')}
 }`
 
 export const atomSchema = gql`
-  ${atomTypeSchema}
+  ${atomTypeEnum}
 
   type Atom implements WithOwner {
     id: ID! @unique

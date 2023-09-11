@@ -1,0 +1,1 @@
+directive @unique(constraintName: String) on FIELD_DEFINITION

@@ -6,9 +6,9 @@ const rolesPath = escapeDotPathKeys(`${JWT_CLAIMS}.roles`)
 
 export const userSchema = gql`
   # https://neo4j.com/docs/graphql/current/authentication-and-authorization/configuration/
-  # type JWT @jwt {
-  #   roles: [String!]! @jwtClaim(path: "${rolesPath}")
-  # }
+  type JWT @jwt {
+    roles: [String!]! @jwtClaim(path: "${rolesPath}")
+  }
 
   enum Role {
     User

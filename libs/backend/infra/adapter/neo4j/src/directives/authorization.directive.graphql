@@ -1,0 +1,6 @@
+scalar JSON
+
+directive @authorization(
+  filter: [String]
+  validate: [JSON]
+) on OBJECT | FIELD_DEFINITION

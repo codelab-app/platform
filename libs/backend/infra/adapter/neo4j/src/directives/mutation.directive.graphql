@@ -1,0 +1,9 @@
+enum MutationFields {
+  CREATE
+  UPDATE
+  DELETE
+}
+
+directive @mutation(
+  operations: [MutationFields!]! = [CREATE, UPDATE, DELETE]
+) on OBJECT | SCHEMA
