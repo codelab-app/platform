@@ -49,7 +49,7 @@ export const typeSchema = gql`
   }
 
   type GetBaseTypesReturn {
-    items: [BaseType!]!
+    items: [IBaseType!]!
     totalCount: Int!
   }
 
@@ -86,7 +86,8 @@ export const typeSchema = gql`
   }
 
   # for defining returning data only
-  type BaseType implements IBaseType @exclude(operations: [CREATE, READ, UPDATE, DELETE]) {
+  # Don't use implement, or else will be used as part of union for the interface
+  type BaseType @exclude(operations: [CREATE, READ, UPDATE, DELETE]) {
     id: ID!
     kind: TypeKind!
     name: String! @unique
@@ -95,23 +96,23 @@ export const typeSchema = gql`
 
   # https://github.com/neo4j/graphql/issues/1105
   extend interface IBaseType
-  @auth(
-    rules: [
-      {
-        operations: [UPDATE, CREATE, DELETE]
-        roles: ["User"]
-        where: { owner: { auth0Id: "$jwt.sub" } }
-        bind: { owner: { auth0Id: "$jwt.sub" } }
-      }
-      {
+    @auth(
+      rules: [
+        {
           operations: [UPDATE, CREATE, DELETE]
-          roles: ["Admin"]
-          # Admin can access all types, so no need for where
-          # where: { owner: { auth0Id: "$jwt.sub" } }
+          roles: ["User"]
+          where: { owner: { auth0Id: "$jwt.sub" } }
           bind: { owner: { auth0Id: "$jwt.sub" } }
-      }
-    ]
-  )
+        }
+        {
+            operations: [UPDATE, CREATE, DELETE]
+            roles: ["Admin"]
+            # Admin can access all types, so no need for where
+            # where: { owner: { auth0Id: "$jwt.sub" } }
+            bind: { owner: { auth0Id: "$jwt.sub" } }
+        }
+      ]
+    )
 
   interface WithDescendants {
     descendantTypesIds: [ID!]!

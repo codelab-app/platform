@@ -19,6 +19,13 @@ export abstract class AbstractRepository<
     protected validationService: ValidationService,
   ) {}
 
+  async findOne(where: Where): Promise<ModelData | undefined>
+
+  async findOne<T extends TAnySchema>(
+    where: Where,
+    schema?: T,
+  ): Promise<Static<T> | undefined>
+
   /**
    *
    * @param where
@@ -52,7 +59,7 @@ export abstract class AbstractRepository<
     })
   }
 
-  find(args: { where?: Where; options?: Options }): Promise<Array<ModelData>>
+  find(args?: { where?: Where; options?: Options }): Promise<Array<ModelData>>
 
   find<T extends TAnySchema>(
     args: {

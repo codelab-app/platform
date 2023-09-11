@@ -1,3 +1,5 @@
+import type { CypressElement } from '@codelab/testing/cypress/command'
+import { wrapSubject } from '@codelab/testing/cypress/command'
 import type { Label } from '../types'
 
 interface ButtonSelector {
