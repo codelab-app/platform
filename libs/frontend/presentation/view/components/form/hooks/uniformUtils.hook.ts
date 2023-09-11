@@ -92,9 +92,11 @@ export const createValidator = (schema: Schema, state: IPropData = {}) => {
   return (model: Record<string, unknown>) => {
     // replace expressions with values to pass validation
     const evaluatedModel = evaluateObject(model, {
+      actions: {},
       componentProps: {},
       props: {},
       refs: {},
+      rootActions: {},
       rootRefs: {},
       rootState: {},
       state,

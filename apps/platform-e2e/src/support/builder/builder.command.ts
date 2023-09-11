@@ -73,7 +73,13 @@ export const createElementTree = (elements: Array<ElementData>) => {
       cy.getToolbarItem('Create').click()
     })
 
-    cy.findByText(name).should('exist').click()
+    cy.findByTestId('create-element-form').should('not.exist', {
+      timeout: 10000,
+    })
+    // editorjs fails internally without this, maybe some kind of initialisation
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(500)
+    cy.getCuiSidebar('Explorer').findByText(name).should('exist').click()
   })
 }
 

@@ -59,6 +59,7 @@ import {
   createUniqueName,
   slugify,
 } from '@codelab/shared/utils'
+import isNil from 'lodash/isNil'
 import { computed } from 'mobx'
 import {
   clone,
@@ -739,12 +740,15 @@ export class Element
   }
 
   @modelAction
-  clone() {
+  clone(cloneIndex?: number) {
     const clonedElement: IElement = clone<IElement>(this, {
       generateNewIds: true,
     })
 
     // FIXME: add atom and props
+    clonedElement.setName(
+      `${this.name}${isNil(cloneIndex) ? '' : ` ${cloneIndex}`}`,
+    )
     clonedElement.setSourceElement(elementRef(this.id))
 
     // store elements in elementService

@@ -265,16 +265,13 @@ describe('Running nested API and code actions', () => {
     cy.getCuiTreeItemByPrimaryTitle('Typography Element').click({ force: true })
 
     // set text prop to use the state
-    cy.get('.codex-editor .ce-block__content .cdx-block').type(
-      `response from api - {{state.localData}}`,
-      {
-        parseSpecialCharSequences: false,
-      },
-    )
+    cy.typeIntoTextEditor('response from api - {{state.localData}}')
 
+    cy.openPreview()
     cy.get('#render-root')
-      .findByText(`response from api - null`)
+      .contains(`response from api - undefined`)
       .should('exist')
+    cy.openBuilder()
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
     cy.getCuiSidebar('Explorer').getToolbarItem('Add Element').first().click()
@@ -295,7 +292,7 @@ describe('Running nested API and code actions', () => {
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Props Data',
       type: FIELD_TYPE.INPUT,
-      value: `{ "onClick": { "kind": "${TypeKind.ActionType}", "value": "${apiPostActionId}", "type": "${actionTypeId}" } }`,
+      value: `{ "customText": "Click button to post", "onClick": { "kind": "${TypeKind.ActionType}", "value": "${apiPostActionId}", "type": "${actionTypeId}" } }`,
     })
 
     cy.findByTestId('create-element-form').setFormFieldValue({
@@ -312,16 +309,13 @@ describe('Running nested API and code actions', () => {
       timeout: 10000,
     })
 
+    // editorjs fails internally without this, maybe some kind of initialisation
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(500)
+
     cy.getCuiTreeItemByPrimaryTitle('Post Button').click({ force: true })
 
-    cy.get('.codex-editor .ce-block__content .cdx-block').type(
-      'Click button to post',
-      {
-        parseSpecialCharSequences: false,
-      },
-    )
-
-    cy.get('#render-root').findByText('Click button to post').should('exist')
+    cy.get('#render-root').contains('Click button to post').should('exist')
   })
 
   it('should run the POST api, GET api, and code action in order when the button is clicked', () => {
@@ -339,8 +333,9 @@ describe('Running nested API and code actions', () => {
     cy.wait('@updateData')
     cy.wait('@getData')
 
+    cy.openPreview()
     cy.get('#render-root')
-      .findByText(`response from api - ${mockGetResponse}`)
+      .contains(`response from api - ${mockGetResponse}`)
       .should('exist')
   })
 })

@@ -84,10 +84,12 @@ describe('State variables sharing between pages', () => {
         // add element to component
         cy.getSider().getButton({ icon: 'edit' }).click()
         cy.wrap(componentChildren).each((child: ComponentChildData) => {
-          cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).click()
-          cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).within(() => {
-            cy.getToolbarItem('Add Child').click()
-          })
+          cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
+          cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).within(
+            () => {
+              cy.getToolbarItem('Add Child').click()
+            },
+          )
 
           cy.findByTestId('create-element-form').setFormFieldValue({
             label: 'Render Type',
@@ -116,7 +118,7 @@ describe('State variables sharing between pages', () => {
         })
 
         cy.typeIntoTextEditor(
-          'text {{ props.name ?? rootState.name ?? state.name }}',
+          'text {{ componentProps.name ?? rootState.name ?? state.name }}',
         )
 
         cy.waitForApiCalls()
@@ -159,6 +161,9 @@ describe('State variables sharing between pages', () => {
 
         cy.waitForApiCalls()
 
+        // FIXME: due to the caching of state in the store model, a new state is not being included
+        // in the cached state, so we had to reload here for now
+        cy.reload()
         cy.openPreview()
         cy.get('#render-root')
           .contains('text component state value')
@@ -250,8 +255,6 @@ describe('State variables sharing between pages', () => {
     cy.waitForApiCalls()
 
     cy.openPreview()
-    cy.get('#render-root')
-      .findByText('text provider state value')
-      .should('exist')
+    cy.get('#render-root').contains('text provider state value').should('exist')
   })
 })

@@ -65,10 +65,12 @@ describe('Element Child Mapper', () => {
         // add element to component
         cy.getSider().getButton({ icon: 'edit' }).click()
         cy.wrap(componentChildren).each((child: ComponentChildData) => {
-          cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).click()
-          cy.getCuiTreeItemByPrimaryTitle(COMPONENT_NAME).within(() => {
-            cy.getToolbarItem('Add Child').click()
-          })
+          cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).click()
+          cy.getCuiTreeItemByPrimaryTitle(`${COMPONENT_NAME} Root`).within(
+            () => {
+              cy.getToolbarItem('Add Child').click()
+            },
+          )
 
           cy.findByTestId('create-element-form').setFormFieldValue({
             label: 'Render Type',
@@ -96,7 +98,7 @@ describe('Element Child Mapper', () => {
           cy.getCuiTreeItemByPrimaryTitle(child.name).click({ force: true })
         })
 
-        cy.typeIntoTextEditor('text {{ props.name }}')
+        cy.typeIntoTextEditor('text {{ componentProps.name }}')
 
         cy.waitForApiCalls()
 
@@ -166,10 +168,10 @@ describe('Element Child Mapper', () => {
       .contains('Child 2')
       .should('exist')
     cy.get('.ant-tree-treenode-draggable:nth-child(4)')
-      .contains(`${COMPONENT_NAME} 0`)
+      .contains(`${COMPONENT_NAME} Root 0`)
       .should('exist')
     cy.get('.ant-tree-treenode-draggable:nth-child(5)')
-      .contains(`${COMPONENT_NAME} 1`)
+      .contains(`${COMPONENT_NAME} Root 1`)
       .should('exist')
     cy.get('.ant-tree-treenode-draggable:nth-child(6)')
       .contains('Child 1')
@@ -210,10 +212,10 @@ describe('Element Child Mapper', () => {
       .findByText('Child 1')
       .should('exist')
     cy.get('.ant-tree-treenode-draggable:nth-child(5)')
-      .findByText(`${COMPONENT_NAME} 0`)
+      .findByText(`${COMPONENT_NAME} Root 0`)
       .should('exist')
     cy.get('.ant-tree-treenode-draggable:nth-child(6)')
-      .findByText(`${COMPONENT_NAME} 1`)
+      .findByText(`${COMPONENT_NAME} Root 1`)
       .should('exist')
   })
 
