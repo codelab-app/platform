@@ -112,7 +112,6 @@ export abstract class AbstractRepository<
 
         const results = await this._find({ options, where })
 
-
         this.traceService.addJsonAttributes('results', results)
 
         if (schema) {

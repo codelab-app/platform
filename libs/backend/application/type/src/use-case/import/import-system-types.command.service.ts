@@ -1,5 +1,6 @@
 import { TypeFactory } from '@codelab/backend/domain/type'
 import type { IAuth0User, ITypeDTO } from '@codelab/shared/abstract/core'
+import { Span } from '@codelab/shared/infra/otel'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
@@ -13,6 +14,7 @@ export class ImportSystemTypesHandler
 {
   constructor(private readonly typeFactory: TypeFactory) {}
 
+  @Span()
   async execute(command: ImportSystemTypesCommand) {
     const { owner, types } = command
 

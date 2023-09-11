@@ -2,7 +2,7 @@ import {
   CurrentUser,
   DatabaseService,
 } from '@codelab/backend/application/service'
-import { ExportDto, IUserDTO } from '@codelab/shared/abstract/core'
+import { ExportDto, ImportDto, IUserDTO } from '@codelab/shared/abstract/core'
 import { Body, Controller, Post } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { ExportAdminDataCommand } from './use-case/export/export-admin-data.command.service'
@@ -45,10 +45,12 @@ export class AdminController {
 
   @Post('import')
   async import(
-    // @Body() { includeAdminData, includeUserData }: ImportDto,
+    @Body() { adminDataPath }: ImportDto,
     @CurrentUser() user: IUserDTO,
   ) {
-    await this.commandBus.execute(new ImportAdminDataCommand(user))
+    await this.commandBus.execute(
+      new ImportAdminDataCommand(user, adminDataPath),
+    )
     // if (includeUserData) {
     //   const json = fs.readFileSync(file.path, 'utf8')
     //   const userData = JSON.parse(json)

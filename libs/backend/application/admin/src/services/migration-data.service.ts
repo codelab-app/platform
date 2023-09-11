@@ -1,13 +1,10 @@
+import { resolveWorkspaceRoot } from '@codelab/backend/shared/util'
 import { Injectable, Scope } from '@nestjs/common'
-import { findUpSync } from 'find-up'
-import path, { dirname } from 'path'
+import path from 'path'
 
 export interface IBaseDataPaths {
   baseDataPaths?: string | undefined
 }
-
-const resolveWorkspaceRoot = (basePath: string) =>
-  path.resolve(dirname(findUpSync('package.json')!), basePath)
 
 /**
  * This service holds all the paths for our migration data

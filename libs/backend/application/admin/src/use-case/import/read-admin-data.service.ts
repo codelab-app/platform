@@ -6,6 +6,7 @@ import {
   ITypeOutputDto,
 } from '@codelab/backend/abstract/core'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
+import { resolveWorkspaceRoot } from '@codelab/backend/shared/util'
 import { Injectable, Scope } from '@nestjs/common'
 import { findUpSync } from 'find-up'
 import fs from 'fs'
@@ -17,32 +18,17 @@ import { MigrationDataService } from '../../services/migration-data.service'
 @Injectable({
   scope: Scope.TRANSIENT,
 })
-export class ReadAdminDataService implements IBaseDataPaths, IAdminOutputDto {
+export class ReadAdminDataService implements IAdminOutputDto {
   constructor(
-    private migrationDataService: MigrationDataService,
+    public migrationDataService: MigrationDataService,
     private validationService: ValidationService,
   ) {}
-
-  /**
-   * process.cwd() doesn't work since run-commands may set app dir as cwd
-   */
-  baseDataPaths = path.resolve(
-    dirname(findUpSync('package.json')!),
-    './data/export',
-  )
-
-  /**
-   * Allows override by setting at runtime
-   */
-  set basePaths(basePath: string) {
-    this.baseDataPaths = basePath
-  }
 
   /**
    * Data
    */
   get systemTypes() {
-    const { types } = JSON.parse(
+    const types = JSON.parse(
       fs.readFileSync(this.migrationDataService.systemTypesFilePath, 'utf8'),
     )
 

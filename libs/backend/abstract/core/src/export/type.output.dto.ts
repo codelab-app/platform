@@ -14,23 +14,40 @@ import {
   IUnionTypeDTO,
 } from '@codelab/shared/abstract/core'
 import { Typebox } from '@codelab/shared/infra/validation'
-import type { Static } from '@sinclair/typebox'
+import type { Static, TAnySchema, TObject } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 
-export const ITypeOutputDto = Type.Union([
-  Typebox.OmitOwner(IActionTypeDTO),
-  Typebox.OmitOwner(IAppTypeDTO),
-  Typebox.OmitOwner(IArrayTypeDTO),
-  Typebox.OmitOwner(ICodeMirrorTypeDTO),
-  Typebox.OmitOwner(IElementTypeDTO),
-  Typebox.OmitOwner(IEnumTypeDTO),
-  Typebox.OmitOwner(IInterfaceTypeDTO),
-  Typebox.OmitOwner(ILambdaTypeDTO),
-  Typebox.OmitOwner(IPageTypeDTO),
-  Typebox.OmitOwner(IPrimitiveTypeDTO),
-  Typebox.OmitOwner(IReactNodeTypeDTO),
-  Typebox.OmitOwner(IRenderPropTypeDTO),
-  Typebox.OmitOwner(IUnionTypeDTO),
-])
+/**
+ * For output need to
+ *
+ * 1) override with required __typename
+ * 2) remove owner
+ */
+export const TypeOutput = <T extends TObject>(schema: T) =>
+  Type.Composite([
+    Type.Omit(schema, ['owner', '__typename']),
+    Type.Required(Type.Pick(schema, ['__typename'])),
+  ])
+
+export const ITypeOutputDto = Type.Union(
+  [
+    TypeOutput(IActionTypeDTO),
+    TypeOutput(IAppTypeDTO),
+    TypeOutput(IArrayTypeDTO),
+    TypeOutput(ICodeMirrorTypeDTO),
+    TypeOutput(IElementTypeDTO),
+    TypeOutput(IEnumTypeDTO),
+    TypeOutput(IInterfaceTypeDTO),
+    TypeOutput(ILambdaTypeDTO),
+    TypeOutput(IPageTypeDTO),
+    TypeOutput(IPrimitiveTypeDTO),
+    TypeOutput(IReactNodeTypeDTO),
+    TypeOutput(IRenderPropTypeDTO),
+    TypeOutput(IUnionTypeDTO),
+  ],
+  {
+    discriminantKey: '__typename',
+  },
+)
 
 export type ITypeOutputDto = Static<typeof ITypeOutputDto>

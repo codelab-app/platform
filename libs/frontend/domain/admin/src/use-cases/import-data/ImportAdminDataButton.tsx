@@ -4,15 +4,13 @@ import { Button, message } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 
-export const ImportDataButton = observer(() => {
+export const ImportAdminDataButton = observer(() => {
   const { adminService } = useStore()
 
   return (
     <Button
       icon={<ImportOutlined />}
-      onClick={() =>
-        adminService.importData().then(() => message.success('Import success!'))
-      }
+      onClick={() => adminService.importDataModal.open()}
     >
       Import Data
     </Button>

@@ -270,6 +270,6 @@
       "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp", "dist", "cypress.*.config.ts"],
+  "exclude": ["node_modules", "tmp", "dist"],
   "include": []
 }

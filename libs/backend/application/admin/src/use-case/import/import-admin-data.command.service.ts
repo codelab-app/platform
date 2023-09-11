@@ -33,7 +33,12 @@ export class ImportAdminDataHandler
 
   @Span()
   async execute(command: ImportAdminDataCommand) {
-    const { owner } = command
+    const { baseDataPaths, owner } = command
+
+    if (baseDataPaths) {
+      this.readAdminDataService.migrationDataService.basePaths = baseDataPaths
+    }
+
     /**
      * System types must be seeded first, so other types can reference it
      */

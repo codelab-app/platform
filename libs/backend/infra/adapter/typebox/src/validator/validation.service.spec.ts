@@ -1,17 +1,24 @@
-import { IAtomOutputDto } from '@codelab/backend/abstract/core'
+import {
+  IAtomOutputDto,
+  ITypeOutputDto,
+  TypeOutput,
+} from '@codelab/backend/abstract/core'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
-import { IAtomDTO } from '@codelab/shared/abstract/core'
+import {
+  IActionTypeDTO,
+  IAtomDTO,
+  IPrimitiveTypeDTO,
+} from '@codelab/shared/abstract/core'
 import { Typebox } from '@codelab/shared/infra/validation'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
 import type { TSchema } from '@sinclair/typebox'
-import { TString } from '@sinclair/typebox'
+import { TString, Type } from '@sinclair/typebox'
 import affixJson from 'data/export-v2/admin/atoms/AntDesignAffix.json'
 import { ValidationService } from './validation.service'
 
 describe('ValidationService', () => {
   let validationService: ValidationService
-  let traceService: TraceService
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -28,7 +35,6 @@ describe('ValidationService', () => {
     }).compile()
 
     validationService = module.get<ValidationService>(ValidationService)
-    traceService = module.get<TraceService>(TraceService)
   })
 
   describe('validateAndClean', () => {
@@ -38,16 +44,67 @@ describe('ValidationService', () => {
         affixJson,
       )
 
-      console.log(affixJson, result)
-
       expect(result).toEqual(affixJson)
     })
 
-    // it('should throw an error for invalid input', () => {
-    //   const schema: TSchema = TString()
-    //   const input = 123 // This is a number, should be a string
+    it('should throw an error for invalid input', () => {
+      const schema: TSchema = Type.String()
+      const input = 123
 
-    //   expect(() => validationService.validateAndClean(schema, input)).toThrow()
-    // })
+      expect(() => validationService.validateAndClean(schema, input)).toThrow()
+    })
+  })
+
+  describe('union validation', () => {
+    const schema = Type.Union([
+      Type.Object({
+        kind: Type.Literal('string'),
+        val: Type.String(),
+      }),
+      Type.Object({
+        kind: Type.Literal('integer'),
+        units: Type.Optional(Type.String()),
+        val: Type.Integer(),
+      }),
+    ])
+
+    it('should validate a union', () => {
+      const data = {
+        kind: 'string',
+        val: 'some data',
+      }
+
+      expect(() =>
+        validationService.validateAndClean(schema, data),
+      ).not.toThrow()
+    })
+
+    it('should throw a union', () => {
+      const data = {
+        kind: 'string',
+        val: 2,
+      }
+
+      expect(() => validationService.validateAndClean(schema, data)).toThrow()
+    })
+
+    it('should work on type output', () => {
+      const data = {
+        __typename: 'PrimitiveType',
+        id: '44c7df30-5f72-45ca-a3d1-d08f21ad34ba',
+        kind: 'PrimitiveType',
+        name: 'Boolean',
+        primitiveKind: 'Boolean',
+      }
+
+      const UnionSchema = Type.Union(
+        [TypeOutput(IPrimitiveTypeDTO), TypeOutput(IActionTypeDTO)],
+        { discriminantKey: '__typename' },
+      )
+
+      expect(() =>
+        validationService.validateAndClean(UnionSchema, data),
+      ).not.toThrow()
+    })
   })
 })

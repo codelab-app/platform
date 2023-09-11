@@ -3,6 +3,7 @@ import { Nullish } from './types/nullish'
 import { OmitOwner } from './types/omit-owner'
 import { NestedValidator } from './validator/nested-validator'
 import { validateAndClean } from './validator/validate'
+import { values } from './values/default-values'
 
 const Typebox = {
   isUnionSchema,
@@ -10,6 +11,7 @@ const Typebox = {
   Nullish,
   OmitOwner,
   ValidateAndClean: validateAndClean,
+  Values: values,
 }
 
 export { Typebox }

@@ -75,7 +75,7 @@ const AppsPageHeader = observer(() => {
 })
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
-  const { appService } = useStore()
+  const { appService, userService } = useStore()
   const { user } = useUser()
 
   const [{ status }, loadApp] = useAsync((owner: IAuth0User) =>
@@ -90,12 +90,14 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
     // in development need to execute this each time page is loaded,
     // since useUser always returns valid Auth0 user even when it does not exist in neo4j db yet
     if (
-      user &&
+      user?.sub &&
       getEnv().endpoint.isLocal &&
       !getEnv().node.isTest &&
       !getEnv().node.isCi
     ) {
-      void fetch('/api/upsert-user')
+      void userService.saveUser({
+        auth0Id: user.sub,
+      })
     }
   }, [user, loadApp])
 

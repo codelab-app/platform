@@ -5,7 +5,7 @@ import {
 } from '@codelab/frontend/abstract/core'
 import { httpClient } from '@codelab/frontend/config'
 import { ModalService } from '@codelab/frontend/shared/utils'
-import type { ExportDto } from '@codelab/shared/abstract/core'
+import type { ExportDto, ImportDto } from '@codelab/shared/abstract/core'
 import { computed } from 'mobx'
 import {
   _async,
@@ -21,6 +21,7 @@ import {
 export class AdminService
   extends Model({
     exportDataModal: prop(() => new ModalService({})),
+    importDataModal: prop(() => new ModalService({})),
   })
   implements IAdminService
 {
@@ -36,8 +37,8 @@ export class AdminService
   })
 
   @modelFlow
-  importData = _async(function* (this: AdminService) {
-    return yield* _await(httpClient.post('/admin/import'))
+  importData = _async(function* (this: AdminService, data: ImportDto) {
+    return yield* _await(httpClient.post('/admin/import', data))
   })
 
   @computed

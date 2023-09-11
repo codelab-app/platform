@@ -1,31 +1,36 @@
 import { useStore } from '@codelab/frontend/presentation/container'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
-import { ExportDto, exportDtoDefault } from '@codelab/shared/abstract/core'
+import type { ExportDto } from '@codelab/shared/abstract/core'
+import {
+  exportDtoDefault,
+  ImportDto,
+  importDtoDefault,
+} from '@codelab/shared/abstract/core'
 import { Type } from '@sinclair/typebox'
 import { Value } from '@sinclair/typebox/value'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'
 
-export const ExportAdminDataModal = observer(() => {
+export const ImportAdminDataModal = observer(() => {
   const { adminService } = useStore()
-  const closeModal = () => adminService.exportDataModal.close()
+  const closeModal = () => adminService.importDataModal.close()
 
   return (
     <ModalForm.Modal
-      okText="Export Admin Data"
+      okText="Import Admin Data"
       onCancel={closeModal}
-      open={adminService.exportDataModal.isOpen}
+      open={adminService.importDataModal.isOpen}
     >
       <ModalForm.Form<ExportDto>
-        model={exportDtoDefault}
-        onSubmit={(data) => adminService.exportData(data)}
+        model={importDtoDefault}
+        onSubmit={(data) => adminService.importData(data)}
         onSubmitError={createFormErrorNotificationHandler({
-          title: 'Error while exporting data',
+          title: 'Error while importing data',
         })}
         onSubmitSuccess={closeModal}
-        schema={ExportDto}
+        schema={ImportDto}
       >
         <AutoFields />
       </ModalForm.Form>

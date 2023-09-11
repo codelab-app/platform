@@ -1,4 +1,5 @@
 import type { IUser, IUserService } from '@codelab/frontend/abstract/core'
+import { httpClient } from '@codelab/frontend/config'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type { IUserDTO } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
@@ -28,26 +29,6 @@ const init = (data?: IUserDTO) => {
   const userService = new UserService({
     user,
   })
-
-  // onChildAttachedTo(
-  //   () => userService,
-  //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  //   (child: any) => {
-  //     /**
-  //      * Once the user model is attached, we want to replace the id with the db id.
-  //      *
-  //      * User.id is initially set with auth0Id, so needs to be replaced
-  //      */
-  //     if (modelTypeKey in child && child[modelTypeKey] === '@codelab/User') {
-  //       void userService.getOne({ auth0Id: user.auth0Id }).then((userData) => {
-  //         if (userData) {
-  //           console.log('set user data id')
-  //           userService.user?.setId(userData.id)
-  //         }
-  //       })
-  //     }
-  //   },
-  // )
 
   return userService
 }
@@ -82,6 +63,11 @@ export class UserService
     } = yield* _await(userApi.GetUsers({ where }))
 
     return user
+  })
+
+  @modelFlow
+  saveUser = _async(function* (this: UserService, data: IUserDTO) {
+    return yield* _await(httpClient.post('/user/save', data))
   })
 
   static init = init

@@ -1,5 +1,6 @@
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { Typebox } from '@codelab/shared/infra/validation'
+import { cLog } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import type {
   Static,
@@ -34,12 +35,16 @@ export class ValidationService {
           anySchema as TUnion<Array<TObject>>,
         )
 
-        discriminatedValidator.validateAndClean(values)
+        return discriminatedValidator.validateAndCleanCopy(
+          values as Readonly<unknown>,
+        )
       }
 
       return validator.validateAndCleanCopy(values as Readonly<unknown>)
     } catch (error) {
-      console.error(error)
+      // console.log(error, values)
+
+      cLog(error as object)
 
       const validationException = error as ValidationException
 
