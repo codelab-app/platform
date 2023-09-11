@@ -199,7 +199,6 @@ export type ActionTypeSort = {
 }
 
 export type ActionTypeUniqueWhere = {
-  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -430,7 +429,7 @@ export type ApiActionConfigAggregateInput = {
 }
 
 export type ApiActionConfigConnectFieldInput = {
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<PropConnectWhere>
 }
@@ -533,14 +532,8 @@ export type ApiActionConnectInput = {
 export type ApiActionConnectOrCreateInput = {
   config?: InputMaybe<ApiActionConfigConnectOrCreateFieldInput>
   element?: InputMaybe<BaseActionElementConnectOrCreateFieldInput>
-  errorAction?: InputMaybe<ApiActionErrorActionConnectOrCreateInput>
   resource?: InputMaybe<ApiActionResourceConnectOrCreateFieldInput>
   store?: InputMaybe<BaseActionStoreConnectOrCreateFieldInput>
-  successAction?: InputMaybe<ApiActionSuccessActionConnectOrCreateInput>
-}
-
-export type ApiActionConnectOrCreateWhere = {
-  node: ApiActionUniqueWhere
 }
 
 export type ApiActionConnectWhere = {
@@ -711,15 +704,6 @@ export type ApiActionErrorActionApiActionConnectFieldInput = {
   where?: InputMaybe<ApiActionConnectWhere>
 }
 
-export type ApiActionErrorActionApiActionConnectOrCreateFieldInput = {
-  onCreate: ApiActionErrorActionApiActionConnectOrCreateFieldInputOnCreate
-  where: ApiActionConnectOrCreateWhere
-}
-
-export type ApiActionErrorActionApiActionConnectOrCreateFieldInputOnCreate = {
-  node: ApiActionOnCreateInput
-}
-
 export type ApiActionErrorActionApiActionConnectionWhere = {
   AND?: InputMaybe<Array<ApiActionErrorActionApiActionConnectionWhere>>
   NOT?: InputMaybe<ApiActionErrorActionApiActionConnectionWhere>
@@ -743,7 +727,6 @@ export type ApiActionErrorActionApiActionDisconnectFieldInput = {
 
 export type ApiActionErrorActionApiActionFieldInput = {
   connect?: InputMaybe<ApiActionErrorActionApiActionConnectFieldInput>
-  connectOrCreate?: InputMaybe<ApiActionErrorActionApiActionConnectOrCreateFieldInput>
   create?: InputMaybe<ApiActionErrorActionApiActionCreateFieldInput>
 }
 
@@ -753,7 +736,6 @@ export type ApiActionErrorActionApiActionUpdateConnectionInput = {
 
 export type ApiActionErrorActionApiActionUpdateFieldInput = {
   connect?: InputMaybe<ApiActionErrorActionApiActionConnectFieldInput>
-  connectOrCreate?: InputMaybe<ApiActionErrorActionApiActionConnectOrCreateFieldInput>
   create?: InputMaybe<ApiActionErrorActionApiActionCreateFieldInput>
   delete?: InputMaybe<ApiActionErrorActionApiActionDeleteFieldInput>
   disconnect?: InputMaybe<ApiActionErrorActionApiActionDisconnectFieldInput>
@@ -764,15 +746,6 @@ export type ApiActionErrorActionApiActionUpdateFieldInput = {
 export type ApiActionErrorActionCodeActionConnectFieldInput = {
   connect?: InputMaybe<CodeActionConnectInput>
   where?: InputMaybe<CodeActionConnectWhere>
-}
-
-export type ApiActionErrorActionCodeActionConnectOrCreateFieldInput = {
-  onCreate: ApiActionErrorActionCodeActionConnectOrCreateFieldInputOnCreate
-  where: CodeActionConnectOrCreateWhere
-}
-
-export type ApiActionErrorActionCodeActionConnectOrCreateFieldInputOnCreate = {
-  node: CodeActionOnCreateInput
 }
 
 export type ApiActionErrorActionCodeActionConnectionWhere = {
@@ -798,7 +771,6 @@ export type ApiActionErrorActionCodeActionDisconnectFieldInput = {
 
 export type ApiActionErrorActionCodeActionFieldInput = {
   connect?: InputMaybe<ApiActionErrorActionCodeActionConnectFieldInput>
-  connectOrCreate?: InputMaybe<ApiActionErrorActionCodeActionConnectOrCreateFieldInput>
   create?: InputMaybe<ApiActionErrorActionCodeActionCreateFieldInput>
 }
 
@@ -808,7 +780,6 @@ export type ApiActionErrorActionCodeActionUpdateConnectionInput = {
 
 export type ApiActionErrorActionCodeActionUpdateFieldInput = {
   connect?: InputMaybe<ApiActionErrorActionCodeActionConnectFieldInput>
-  connectOrCreate?: InputMaybe<ApiActionErrorActionCodeActionConnectOrCreateFieldInput>
   create?: InputMaybe<ApiActionErrorActionCodeActionCreateFieldInput>
   delete?: InputMaybe<ApiActionErrorActionCodeActionDeleteFieldInput>
   disconnect?: InputMaybe<ApiActionErrorActionCodeActionDisconnectFieldInput>
@@ -819,11 +790,6 @@ export type ApiActionErrorActionCodeActionUpdateFieldInput = {
 export type ApiActionErrorActionConnectInput = {
   ApiAction?: InputMaybe<ApiActionErrorActionApiActionConnectFieldInput>
   CodeAction?: InputMaybe<ApiActionErrorActionCodeActionConnectFieldInput>
-}
-
-export type ApiActionErrorActionConnectOrCreateInput = {
-  ApiAction?: InputMaybe<ApiActionErrorActionApiActionConnectOrCreateFieldInput>
-  CodeAction?: InputMaybe<ApiActionErrorActionCodeActionConnectOrCreateFieldInput>
 }
 
 export type ApiActionErrorActionConnection = {
@@ -869,12 +835,6 @@ export type ApiActionErrorActionUpdateInput = {
   CodeAction?: InputMaybe<ApiActionErrorActionCodeActionUpdateFieldInput>
 }
 
-export type ApiActionOnCreateInput = {
-  id: Scalars['ID']['input']
-  name: Scalars['String']['input']
-  type?: ActionKind
-}
-
 export type ApiActionOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
@@ -917,7 +877,7 @@ export type ApiActionResourceAggregateInput = {
 
 export type ApiActionResourceConnectFieldInput = {
   connect?: InputMaybe<ResourceConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ResourceConnectWhere>
 }
@@ -1079,15 +1039,6 @@ export type ApiActionSuccessActionApiActionConnectFieldInput = {
   where?: InputMaybe<ApiActionConnectWhere>
 }
 
-export type ApiActionSuccessActionApiActionConnectOrCreateFieldInput = {
-  onCreate: ApiActionSuccessActionApiActionConnectOrCreateFieldInputOnCreate
-  where: ApiActionConnectOrCreateWhere
-}
-
-export type ApiActionSuccessActionApiActionConnectOrCreateFieldInputOnCreate = {
-  node: ApiActionOnCreateInput
-}
-
 export type ApiActionSuccessActionApiActionConnectionWhere = {
   AND?: InputMaybe<Array<ApiActionSuccessActionApiActionConnectionWhere>>
   NOT?: InputMaybe<ApiActionSuccessActionApiActionConnectionWhere>
@@ -1111,7 +1062,6 @@ export type ApiActionSuccessActionApiActionDisconnectFieldInput = {
 
 export type ApiActionSuccessActionApiActionFieldInput = {
   connect?: InputMaybe<ApiActionSuccessActionApiActionConnectFieldInput>
-  connectOrCreate?: InputMaybe<ApiActionSuccessActionApiActionConnectOrCreateFieldInput>
   create?: InputMaybe<ApiActionSuccessActionApiActionCreateFieldInput>
 }
 
@@ -1121,7 +1071,6 @@ export type ApiActionSuccessActionApiActionUpdateConnectionInput = {
 
 export type ApiActionSuccessActionApiActionUpdateFieldInput = {
   connect?: InputMaybe<ApiActionSuccessActionApiActionConnectFieldInput>
-  connectOrCreate?: InputMaybe<ApiActionSuccessActionApiActionConnectOrCreateFieldInput>
   create?: InputMaybe<ApiActionSuccessActionApiActionCreateFieldInput>
   delete?: InputMaybe<ApiActionSuccessActionApiActionDeleteFieldInput>
   disconnect?: InputMaybe<ApiActionSuccessActionApiActionDisconnectFieldInput>
@@ -1133,16 +1082,6 @@ export type ApiActionSuccessActionCodeActionConnectFieldInput = {
   connect?: InputMaybe<CodeActionConnectInput>
   where?: InputMaybe<CodeActionConnectWhere>
 }
-
-export type ApiActionSuccessActionCodeActionConnectOrCreateFieldInput = {
-  onCreate: ApiActionSuccessActionCodeActionConnectOrCreateFieldInputOnCreate
-  where: CodeActionConnectOrCreateWhere
-}
-
-export type ApiActionSuccessActionCodeActionConnectOrCreateFieldInputOnCreate =
-  {
-    node: CodeActionOnCreateInput
-  }
 
 export type ApiActionSuccessActionCodeActionConnectionWhere = {
   AND?: InputMaybe<Array<ApiActionSuccessActionCodeActionConnectionWhere>>
@@ -1167,7 +1106,6 @@ export type ApiActionSuccessActionCodeActionDisconnectFieldInput = {
 
 export type ApiActionSuccessActionCodeActionFieldInput = {
   connect?: InputMaybe<ApiActionSuccessActionCodeActionConnectFieldInput>
-  connectOrCreate?: InputMaybe<ApiActionSuccessActionCodeActionConnectOrCreateFieldInput>
   create?: InputMaybe<ApiActionSuccessActionCodeActionCreateFieldInput>
 }
 
@@ -1177,7 +1115,6 @@ export type ApiActionSuccessActionCodeActionUpdateConnectionInput = {
 
 export type ApiActionSuccessActionCodeActionUpdateFieldInput = {
   connect?: InputMaybe<ApiActionSuccessActionCodeActionConnectFieldInput>
-  connectOrCreate?: InputMaybe<ApiActionSuccessActionCodeActionConnectOrCreateFieldInput>
   create?: InputMaybe<ApiActionSuccessActionCodeActionCreateFieldInput>
   delete?: InputMaybe<ApiActionSuccessActionCodeActionDeleteFieldInput>
   disconnect?: InputMaybe<ApiActionSuccessActionCodeActionDisconnectFieldInput>
@@ -1188,11 +1125,6 @@ export type ApiActionSuccessActionCodeActionUpdateFieldInput = {
 export type ApiActionSuccessActionConnectInput = {
   ApiAction?: InputMaybe<ApiActionSuccessActionApiActionConnectFieldInput>
   CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionConnectFieldInput>
-}
-
-export type ApiActionSuccessActionConnectOrCreateInput = {
-  ApiAction?: InputMaybe<ApiActionSuccessActionApiActionConnectOrCreateFieldInput>
-  CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionConnectOrCreateFieldInput>
 }
 
 export type ApiActionSuccessActionConnection = {
@@ -1236,10 +1168,6 @@ export type ApiActionSuccessActionRelationship = {
 export type ApiActionSuccessActionUpdateInput = {
   ApiAction?: InputMaybe<ApiActionSuccessActionApiActionUpdateFieldInput>
   CodeAction?: InputMaybe<ApiActionSuccessActionCodeActionUpdateFieldInput>
-}
-
-export type ApiActionUniqueWhere = {
-  id?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type ApiActionUpdateInput = {
@@ -1451,7 +1379,7 @@ export type AppDomainsAggregateInput = {
 
 export type AppDomainsConnectFieldInput = {
   connect?: InputMaybe<Array<DomainConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<DomainConnectWhere>
 }
@@ -1652,7 +1580,7 @@ export type AppPagesAggregateInput = {
 
 export type AppPagesConnectFieldInput = {
   connect?: InputMaybe<Array<PageConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<PageConnectWhere>
 }
@@ -2187,10 +2115,6 @@ export type ArrayTypeConnectOrCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
 }
 
-export type ArrayTypeConnectOrCreateWhere = {
-  node: ArrayTypeUniqueWhere
-}
-
 export type ArrayTypeConnectWhere = {
   node: ArrayTypeWhere
 }
@@ -2252,7 +2176,7 @@ export type ArrayTypeFieldRefsAggregateInput = {
 
 export type ArrayTypeFieldRefsConnectFieldInput = {
   connect?: InputMaybe<Array<FieldConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<FieldConnectWhere>
 }
@@ -2455,12 +2379,6 @@ export type ArrayTypeItemTypeUpdateFieldInput = {
   where?: InputMaybe<ArrayTypeItemTypeConnectionWhere>
 }
 
-export type ArrayTypeOnCreateInput = {
-  id: Scalars['ID']['input']
-  kind?: TypeKind
-  name: Scalars['String']['input']
-}
-
 export type ArrayTypeOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
@@ -2542,10 +2460,6 @@ export type ArrayTypeSort = {
   id?: InputMaybe<SortDirection>
   kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
-}
-
-export type ArrayTypeUniqueWhere = {
-  id?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type ArrayTypeUpdateInput = {
@@ -2767,18 +2681,9 @@ export type AtomApiAggregateInput = {
 
 export type AtomApiConnectFieldInput = {
   connect?: InputMaybe<InterfaceTypeConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<InterfaceTypeConnectWhere>
-}
-
-export type AtomApiConnectOrCreateFieldInput = {
-  onCreate: AtomApiConnectOrCreateFieldInputOnCreate
-  where: InterfaceTypeConnectOrCreateWhere
-}
-
-export type AtomApiConnectOrCreateFieldInputOnCreate = {
-  node: InterfaceTypeOnCreateInput
 }
 
 export type AtomApiConnection = {
@@ -2815,7 +2720,6 @@ export type AtomApiDisconnectFieldInput = {
 
 export type AtomApiFieldInput = {
   connect?: InputMaybe<AtomApiConnectFieldInput>
-  connectOrCreate?: InputMaybe<AtomApiConnectOrCreateFieldInput>
   create?: InputMaybe<AtomApiCreateFieldInput>
 }
 
@@ -2852,7 +2756,6 @@ export type AtomApiUpdateConnectionInput = {
 
 export type AtomApiUpdateFieldInput = {
   connect?: InputMaybe<AtomApiConnectFieldInput>
-  connectOrCreate?: InputMaybe<AtomApiConnectOrCreateFieldInput>
   create?: InputMaybe<AtomApiCreateFieldInput>
   delete?: InputMaybe<AtomApiDeleteFieldInput>
   disconnect?: InputMaybe<AtomApiDisconnectFieldInput>
@@ -2901,7 +2804,6 @@ export type AtomConnectInput = {
 }
 
 export type AtomConnectOrCreateInput = {
-  api?: InputMaybe<AtomApiConnectOrCreateFieldInput>
   owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   requiredParents?: InputMaybe<
     Array<AtomRequiredParentsConnectOrCreateFieldInput>
@@ -3073,7 +2975,7 @@ export type AtomRequiredParentsAggregateInput = {
 
 export type AtomRequiredParentsConnectFieldInput = {
   connect?: InputMaybe<Array<AtomConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<AtomConnectWhere>
 }
@@ -3257,7 +3159,7 @@ export type AtomSuggestedChildrenAggregateInput = {
 
 export type AtomSuggestedChildrenConnectFieldInput = {
   connect?: InputMaybe<Array<AtomConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<AtomConnectWhere>
 }
@@ -3442,7 +3344,7 @@ export type AtomTagsAggregateInput = {
 
 export type AtomTagsConnectFieldInput = {
   connect?: InputMaybe<Array<TagConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<TagConnectWhere>
 }
@@ -4147,7 +4049,7 @@ export type BaseActionElementAggregateInput = {
 
 export type BaseActionElementConnectFieldInput = {
   connect?: InputMaybe<ElementConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
 }
@@ -4367,7 +4269,7 @@ export type BaseActionStoreAggregateInput = {
 
 export type BaseActionStoreConnectFieldInput = {
   connect?: InputMaybe<StoreConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<StoreConnectWhere>
 }
@@ -4571,10 +4473,6 @@ export type CodeActionConnectOrCreateInput = {
   store?: InputMaybe<BaseActionStoreConnectOrCreateFieldInput>
 }
 
-export type CodeActionConnectOrCreateWhere = {
-  node: CodeActionUniqueWhere
-}
-
 export type CodeActionConnectWhere = {
   node: CodeActionWhere
 }
@@ -4727,13 +4625,6 @@ export type CodeActionElementNodeAggregationWhereInput = {
   style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
-export type CodeActionOnCreateInput = {
-  code: Scalars['String']['input']
-  id: Scalars['ID']['input']
-  name: Scalars['String']['input']
-  type?: ActionKind
-}
-
 export type CodeActionOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
@@ -4797,10 +4688,6 @@ export type CodeActionStoreStoreNodeAggregateSelection = {
   __typename?: 'CodeActionStoreStoreNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   name: StringAggregateSelectionNonNullable
-}
-
-export type CodeActionUniqueWhere = {
-  id?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type CodeActionUpdateInput = {
@@ -5232,18 +5119,9 @@ export type ComponentApiAggregateInput = {
 
 export type ComponentApiConnectFieldInput = {
   connect?: InputMaybe<InterfaceTypeConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<InterfaceTypeConnectWhere>
-}
-
-export type ComponentApiConnectOrCreateFieldInput = {
-  onCreate: ComponentApiConnectOrCreateFieldInputOnCreate
-  where: InterfaceTypeConnectOrCreateWhere
-}
-
-export type ComponentApiConnectOrCreateFieldInputOnCreate = {
-  node: InterfaceTypeOnCreateInput
 }
 
 export type ComponentApiConnection = {
@@ -5280,7 +5158,6 @@ export type ComponentApiDisconnectFieldInput = {
 
 export type ComponentApiFieldInput = {
   connect?: InputMaybe<ComponentApiConnectFieldInput>
-  connectOrCreate?: InputMaybe<ComponentApiConnectOrCreateFieldInput>
   create?: InputMaybe<ComponentApiCreateFieldInput>
 }
 
@@ -5317,7 +5194,6 @@ export type ComponentApiUpdateConnectionInput = {
 
 export type ComponentApiUpdateFieldInput = {
   connect?: InputMaybe<ComponentApiConnectFieldInput>
-  connectOrCreate?: InputMaybe<ComponentApiConnectOrCreateFieldInput>
   create?: InputMaybe<ComponentApiCreateFieldInput>
   delete?: InputMaybe<ComponentApiDeleteFieldInput>
   disconnect?: InputMaybe<ComponentApiDisconnectFieldInput>
@@ -5339,7 +5215,7 @@ export type ComponentChildrenContainerElementAggregateInput = {
 
 export type ComponentChildrenContainerElementConnectFieldInput = {
   connect?: InputMaybe<ElementConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
 }
@@ -5521,7 +5397,6 @@ export type ComponentConnectInput = {
 }
 
 export type ComponentConnectOrCreateInput = {
-  api?: InputMaybe<ComponentApiConnectOrCreateFieldInput>
   childrenContainerElement?: InputMaybe<ComponentChildrenContainerElementConnectOrCreateFieldInput>
   owner?: InputMaybe<WithOwnerOwnerConnectOrCreateFieldInput>
   props?: InputMaybe<ComponentPropsConnectOrCreateFieldInput>
@@ -5718,7 +5593,7 @@ export type ComponentPropsAggregateInput = {
 }
 
 export type ComponentPropsConnectFieldInput = {
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<PropConnectWhere>
 }
@@ -5832,7 +5707,7 @@ export type ComponentRootElementAggregateInput = {
 
 export type ComponentRootElementConnectFieldInput = {
   connect?: InputMaybe<ElementConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
 }
@@ -6020,7 +5895,7 @@ export type ComponentStoreAggregateInput = {
 
 export type ComponentStoreConnectFieldInput = {
   connect?: InputMaybe<StoreConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<StoreConnectWhere>
 }
@@ -6320,6 +6195,7 @@ export type CreateHooksMutationResponse = {
 
 export type CreateInfo = {
   __typename?: 'CreateInfo'
+  /** @deprecated This field has been deprecated because bookmarks are now handled by the driver. */
   bookmark?: Maybe<Scalars['String']['output']>
   nodesCreated: Scalars['Int']['output']
   relationshipsCreated: Scalars['Int']['output']
@@ -6411,6 +6287,7 @@ export type CreateUsersMutationResponse = {
 
 export type DeleteInfo = {
   __typename?: 'DeleteInfo'
+  /** @deprecated This field has been deprecated because bookmarks are now handled by the driver. */
   bookmark?: Maybe<Scalars['String']['output']>
   nodesDeleted: Scalars['Int']['output']
   relationshipsDeleted: Scalars['Int']['output']
@@ -6479,7 +6356,7 @@ export type DomainAppAppNodeAggregateSelection = {
 
 export type DomainAppConnectFieldInput = {
   connect?: InputMaybe<AppConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<AppConnectWhere>
 }
@@ -6999,7 +6876,7 @@ export type ElementChildMapperComponentAggregateInput = {
 
 export type ElementChildMapperComponentConnectFieldInput = {
   connect?: InputMaybe<ComponentConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ComponentConnectWhere>
 }
@@ -7121,7 +6998,7 @@ export type ElementChildMapperPreviousSiblingAggregateInput = {
 
 export type ElementChildMapperPreviousSiblingConnectFieldInput = {
   connect?: InputMaybe<ElementConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
 }
@@ -7524,7 +7401,7 @@ export type ElementFirstChildAggregateInput = {
 
 export type ElementFirstChildConnectFieldInput = {
   connect?: InputMaybe<ElementConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
 }
@@ -7705,7 +7582,7 @@ export type ElementNextSiblingAggregateInput = {
 
 export type ElementNextSiblingConnectFieldInput = {
   connect?: InputMaybe<ElementConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
 }
@@ -7902,7 +7779,7 @@ export type ElementPageAggregateInput = {
 
 export type ElementPageConnectFieldInput = {
   connect?: InputMaybe<PageConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<PageConnectWhere>
 }
@@ -8049,7 +7926,7 @@ export type ElementParentComponentAggregateInput = {
 
 export type ElementParentComponentConnectFieldInput = {
   connect?: InputMaybe<ComponentConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ComponentConnectWhere>
 }
@@ -8159,7 +8036,7 @@ export type ElementParentComponentUpdateFieldInput = {
 
 export type ElementParentConnectFieldInput = {
   connect?: InputMaybe<ElementConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
 }
@@ -8462,7 +8339,7 @@ export type ElementPrevSiblingAggregateInput = {
 
 export type ElementPrevSiblingConnectFieldInput = {
   connect?: InputMaybe<ElementConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
 }
@@ -8654,7 +8531,7 @@ export type ElementPropsAggregateInput = {
 }
 
 export type ElementPropsConnectFieldInput = {
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<PropConnectWhere>
 }
@@ -8775,7 +8652,7 @@ export type ElementRenderAtomTypeAggregateInput = {
 
 export type ElementRenderAtomTypeConnectFieldInput = {
   connect?: InputMaybe<AtomConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<AtomConnectWhere>
 }
@@ -8944,7 +8821,7 @@ export type ElementRenderComponentTypeAggregateInput = {
 
 export type ElementRenderComponentTypeConnectFieldInput = {
   connect?: InputMaybe<ComponentConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ComponentConnectWhere>
 }
@@ -9599,7 +9476,7 @@ export type EnumTypeAllowedValuesAggregateInput = {
 
 export type EnumTypeAllowedValuesConnectFieldInput = {
   connect?: InputMaybe<Array<EnumTypeValueConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<EnumTypeValueConnectWhere>
 }
@@ -9706,10 +9583,6 @@ export type EnumTypeConnectOrCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
 }
 
-export type EnumTypeConnectOrCreateWhere = {
-  node: EnumTypeUniqueWhere
-}
-
 export type EnumTypeConnectWhere = {
   node: EnumTypeWhere
 }
@@ -9784,7 +9657,7 @@ export type EnumTypeFieldRefsAggregateInput = {
 
 export type EnumTypeFieldRefsConnectFieldInput = {
   connect?: InputMaybe<Array<FieldConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<FieldConnectWhere>
 }
@@ -9926,12 +9799,6 @@ export type EnumTypeFieldRefsUpdateFieldInput = {
   where?: InputMaybe<EnumTypeFieldRefsConnectionWhere>
 }
 
-export type EnumTypeOnCreateInput = {
-  id: Scalars['ID']['input']
-  kind?: TypeKind
-  name: Scalars['String']['input']
-}
-
 export type EnumTypeOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
@@ -10015,10 +9882,6 @@ export type EnumTypeSort = {
   name?: InputMaybe<SortDirection>
 }
 
-export type EnumTypeUniqueWhere = {
-  id?: InputMaybe<Scalars['ID']['input']>
-}
-
 export type EnumTypeUpdateInput = {
   allowedValues?: InputMaybe<Array<EnumTypeAllowedValuesUpdateFieldInput>>
   fieldRefs?: InputMaybe<Array<EnumTypeFieldRefsUpdateFieldInput>>
@@ -10082,10 +9945,6 @@ export type EnumTypeValueConnectInput = {
   enumType?: InputMaybe<EnumTypeValueEnumTypeConnectFieldInput>
 }
 
-export type EnumTypeValueConnectOrCreateInput = {
-  enumType?: InputMaybe<EnumTypeValueEnumTypeConnectOrCreateFieldInput>
-}
-
 export type EnumTypeValueConnectWhere = {
   node: EnumTypeValueWhere
 }
@@ -10125,18 +9984,9 @@ export type EnumTypeValueEnumTypeAggregateInput = {
 
 export type EnumTypeValueEnumTypeConnectFieldInput = {
   connect?: InputMaybe<EnumTypeConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<EnumTypeConnectWhere>
-}
-
-export type EnumTypeValueEnumTypeConnectOrCreateFieldInput = {
-  onCreate: EnumTypeValueEnumTypeConnectOrCreateFieldInputOnCreate
-  where: EnumTypeConnectOrCreateWhere
-}
-
-export type EnumTypeValueEnumTypeConnectOrCreateFieldInputOnCreate = {
-  node: EnumTypeOnCreateInput
 }
 
 export type EnumTypeValueEnumTypeConnection = {
@@ -10185,7 +10035,6 @@ export type EnumTypeValueEnumTypeEnumTypeNodeAggregateSelection = {
 
 export type EnumTypeValueEnumTypeFieldInput = {
   connect?: InputMaybe<EnumTypeValueEnumTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<EnumTypeValueEnumTypeConnectOrCreateFieldInput>
   create?: InputMaybe<EnumTypeValueEnumTypeCreateFieldInput>
 }
 
@@ -10222,7 +10071,6 @@ export type EnumTypeValueEnumTypeUpdateConnectionInput = {
 
 export type EnumTypeValueEnumTypeUpdateFieldInput = {
   connect?: InputMaybe<EnumTypeValueEnumTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<EnumTypeValueEnumTypeConnectOrCreateFieldInput>
   create?: InputMaybe<EnumTypeValueEnumTypeCreateFieldInput>
   delete?: InputMaybe<EnumTypeValueEnumTypeDeleteFieldInput>
   disconnect?: InputMaybe<EnumTypeValueEnumTypeDisconnectFieldInput>
@@ -10474,18 +10322,9 @@ export type FieldApiAggregateInput = {
 
 export type FieldApiConnectFieldInput = {
   connect?: InputMaybe<InterfaceTypeConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<InterfaceTypeConnectWhere>
-}
-
-export type FieldApiConnectOrCreateFieldInput = {
-  onCreate: FieldApiConnectOrCreateFieldInputOnCreate
-  where: InterfaceTypeConnectOrCreateWhere
-}
-
-export type FieldApiConnectOrCreateFieldInputOnCreate = {
-  node: InterfaceTypeOnCreateInput
 }
 
 export type FieldApiConnection = {
@@ -10522,7 +10361,6 @@ export type FieldApiDisconnectFieldInput = {
 
 export type FieldApiFieldInput = {
   connect?: InputMaybe<FieldApiConnectFieldInput>
-  connectOrCreate?: InputMaybe<FieldApiConnectOrCreateFieldInput>
   create?: InputMaybe<FieldApiCreateFieldInput>
 }
 
@@ -10559,7 +10397,6 @@ export type FieldApiUpdateConnectionInput = {
 
 export type FieldApiUpdateFieldInput = {
   connect?: InputMaybe<FieldApiConnectFieldInput>
-  connectOrCreate?: InputMaybe<FieldApiConnectOrCreateFieldInput>
   create?: InputMaybe<FieldApiCreateFieldInput>
   delete?: InputMaybe<FieldApiDeleteFieldInput>
   disconnect?: InputMaybe<FieldApiDisconnectFieldInput>
@@ -10572,10 +10409,6 @@ export type FieldConnectInput = {
   fieldType?: InputMaybe<FieldFieldTypeConnectFieldInput>
   nextSibling?: InputMaybe<FieldNextSiblingConnectFieldInput>
   prevSibling?: InputMaybe<FieldPrevSiblingConnectFieldInput>
-}
-
-export type FieldConnectOrCreateInput = {
-  api?: InputMaybe<FieldApiConnectOrCreateFieldInput>
 }
 
 export type FieldConnectWhere = {
@@ -10734,7 +10567,7 @@ export type FieldNextSiblingAggregateInput = {
 
 export type FieldNextSiblingConnectFieldInput = {
   connect?: InputMaybe<FieldConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<FieldConnectWhere>
 }
@@ -10897,7 +10730,7 @@ export type FieldPrevSiblingAggregateInput = {
 
 export type FieldPrevSiblingConnectFieldInput = {
   connect?: InputMaybe<FieldConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<FieldConnectWhere>
 }
@@ -11269,7 +11102,7 @@ export type HookConfigAggregateInput = {
 }
 
 export type HookConfigConnectFieldInput = {
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<PropConnectWhere>
 }
@@ -11406,7 +11239,7 @@ export type HookElementAggregateInput = {
 
 export type HookElementConnectFieldInput = {
   connect?: InputMaybe<ElementConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
 }
@@ -11814,7 +11647,7 @@ export type IBaseTypeOwnerAggregateInput = {
 
 export type IBaseTypeOwnerConnectFieldInput = {
   connect?: InputMaybe<UserConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<UserConnectWhere>
 }
@@ -12119,7 +11952,7 @@ export type InterfaceTypeApiOfAtomsAggregateInput = {
 
 export type InterfaceTypeApiOfAtomsConnectFieldInput = {
   connect?: InputMaybe<Array<AtomConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<AtomConnectWhere>
 }
@@ -12308,10 +12141,6 @@ export type InterfaceTypeConnectOrCreateInput = {
   owner?: InputMaybe<IBaseTypeOwnerConnectOrCreateFieldInput>
 }
 
-export type InterfaceTypeConnectOrCreateWhere = {
-  node: InterfaceTypeUniqueWhere
-}
-
 export type InterfaceTypeConnectWhere = {
   node: InterfaceTypeWhere
 }
@@ -12392,7 +12221,7 @@ export type InterfaceTypeFieldRefsAggregateInput = {
 
 export type InterfaceTypeFieldRefsConnectFieldInput = {
   connect?: InputMaybe<Array<FieldConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<FieldConnectWhere>
 }
@@ -12548,7 +12377,7 @@ export type InterfaceTypeFieldsAggregateInput = {
 
 export type InterfaceTypeFieldsConnectFieldInput = {
   connect?: InputMaybe<Array<FieldConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<FieldConnectWhere>
 }
@@ -12690,12 +12519,6 @@ export type InterfaceTypeFieldsUpdateFieldInput = {
   where?: InputMaybe<InterfaceTypeFieldsConnectionWhere>
 }
 
-export type InterfaceTypeOnCreateInput = {
-  id: Scalars['ID']['input']
-  kind?: TypeKind
-  name: Scalars['String']['input']
-}
-
 export type InterfaceTypeOptions = {
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
@@ -12778,10 +12601,6 @@ export type InterfaceTypeSort = {
   id?: InputMaybe<SortDirection>
   kind?: InputMaybe<SortDirection>
   name?: InputMaybe<SortDirection>
-}
-
-export type InterfaceTypeUniqueWhere = {
-  id?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type InterfaceTypeUpdateInput = {
@@ -13186,6 +13005,7 @@ export type Mutation = {
   updateTags: UpdateTagsMutationResponse
   updateTypeReferences: UpdateTypeReferencesMutationResponse
   updateUnionTypes: UpdateUnionTypesMutationResponse
+  updateUsers: UpdateUsersMutationResponse
 }
 
 export type MutationCreateActionTypesArgs = {
@@ -13586,7 +13406,6 @@ export type MutationUpdateElementsArgs = {
 
 export type MutationUpdateEnumTypeValuesArgs = {
   connect?: InputMaybe<EnumTypeValueConnectInput>
-  connectOrCreate?: InputMaybe<EnumTypeValueConnectOrCreateInput>
   create?: InputMaybe<EnumTypeValueRelationInput>
   delete?: InputMaybe<EnumTypeValueDeleteInput>
   disconnect?: InputMaybe<EnumTypeValueDisconnectInput>
@@ -13606,7 +13425,6 @@ export type MutationUpdateEnumTypesArgs = {
 
 export type MutationUpdateFieldsArgs = {
   connect?: InputMaybe<FieldConnectInput>
-  connectOrCreate?: InputMaybe<FieldConnectOrCreateInput>
   create?: InputMaybe<FieldRelationInput>
   delete?: InputMaybe<FieldDeleteInput>
   disconnect?: InputMaybe<FieldDisconnectInput>
@@ -13749,6 +13567,16 @@ export type MutationUpdateUnionTypesArgs = {
   where?: InputMaybe<UnionTypeWhere>
 }
 
+export type MutationUpdateUsersArgs = {
+  connect?: InputMaybe<UserConnectInput>
+  connectOrCreate?: InputMaybe<UserConnectOrCreateInput>
+  create?: InputMaybe<UserRelationInput>
+  delete?: InputMaybe<UserDeleteInput>
+  disconnect?: InputMaybe<UserDisconnectInput>
+  update?: InputMaybe<UserUpdateInput>
+  where?: InputMaybe<UserWhere>
+}
+
 export type Page = {
   __typename?: 'Page'
   _compoundName: Scalars['String']['output']
@@ -13881,7 +13709,7 @@ export type PageAppAppNodeAggregateSelection = {
 
 export type PageAppConnectFieldInput = {
   connect?: InputMaybe<AppConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<AppConnectWhere>
 }
@@ -14103,7 +13931,7 @@ export type PagePageContentContainerAggregateInput = {
 
 export type PagePageContentContainerConnectFieldInput = {
   connect?: InputMaybe<ElementConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
 }
@@ -14291,7 +14119,7 @@ export type PageRootElementAggregateInput = {
 
 export type PageRootElementConnectFieldInput = {
   connect?: InputMaybe<ElementConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
 }
@@ -14480,7 +14308,7 @@ export type PageStoreAggregateInput = {
 
 export type PageStoreConnectFieldInput = {
   connect?: InputMaybe<StoreConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<StoreConnectWhere>
 }
@@ -15032,7 +14860,6 @@ export type PrimitiveTypeSort = {
 }
 
 export type PrimitiveTypeUniqueWhere = {
-  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
   primitiveKind?: InputMaybe<PrimitiveTypeKind>
 }
@@ -15996,7 +15823,6 @@ export type ReactNodeTypeSort = {
 }
 
 export type ReactNodeTypeUniqueWhere = {
-  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -16257,7 +16083,6 @@ export type RenderPropTypeSort = {
 }
 
 export type RenderPropTypeUniqueWhere = {
-  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -16395,7 +16220,7 @@ export type ResourceConfigAggregateInput = {
 }
 
 export type ResourceConfigConnectFieldInput = {
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<PropConnectWhere>
 }
@@ -16800,15 +16625,6 @@ export type StoreActionsApiActionConnectFieldInput = {
   where?: InputMaybe<ApiActionConnectWhere>
 }
 
-export type StoreActionsApiActionConnectOrCreateFieldInput = {
-  onCreate: StoreActionsApiActionConnectOrCreateFieldInputOnCreate
-  where: ApiActionConnectOrCreateWhere
-}
-
-export type StoreActionsApiActionConnectOrCreateFieldInputOnCreate = {
-  node: ApiActionOnCreateInput
-}
-
 export type StoreActionsApiActionConnectionWhere = {
   AND?: InputMaybe<Array<StoreActionsApiActionConnectionWhere>>
   NOT?: InputMaybe<StoreActionsApiActionConnectionWhere>
@@ -16832,9 +16648,6 @@ export type StoreActionsApiActionDisconnectFieldInput = {
 
 export type StoreActionsApiActionFieldInput = {
   connect?: InputMaybe<Array<StoreActionsApiActionConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<StoreActionsApiActionConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<StoreActionsApiActionCreateFieldInput>>
 }
 
@@ -16844,9 +16657,6 @@ export type StoreActionsApiActionUpdateConnectionInput = {
 
 export type StoreActionsApiActionUpdateFieldInput = {
   connect?: InputMaybe<Array<StoreActionsApiActionConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<StoreActionsApiActionConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<StoreActionsApiActionCreateFieldInput>>
   delete?: InputMaybe<Array<StoreActionsApiActionDeleteFieldInput>>
   disconnect?: InputMaybe<Array<StoreActionsApiActionDisconnectFieldInput>>
@@ -16857,15 +16667,6 @@ export type StoreActionsApiActionUpdateFieldInput = {
 export type StoreActionsCodeActionConnectFieldInput = {
   connect?: InputMaybe<Array<CodeActionConnectInput>>
   where?: InputMaybe<CodeActionConnectWhere>
-}
-
-export type StoreActionsCodeActionConnectOrCreateFieldInput = {
-  onCreate: StoreActionsCodeActionConnectOrCreateFieldInputOnCreate
-  where: CodeActionConnectOrCreateWhere
-}
-
-export type StoreActionsCodeActionConnectOrCreateFieldInputOnCreate = {
-  node: CodeActionOnCreateInput
 }
 
 export type StoreActionsCodeActionConnectionWhere = {
@@ -16891,9 +16692,6 @@ export type StoreActionsCodeActionDisconnectFieldInput = {
 
 export type StoreActionsCodeActionFieldInput = {
   connect?: InputMaybe<Array<StoreActionsCodeActionConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<StoreActionsCodeActionConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<StoreActionsCodeActionCreateFieldInput>>
 }
 
@@ -16903,9 +16701,6 @@ export type StoreActionsCodeActionUpdateConnectionInput = {
 
 export type StoreActionsCodeActionUpdateFieldInput = {
   connect?: InputMaybe<Array<StoreActionsCodeActionConnectFieldInput>>
-  connectOrCreate?: InputMaybe<
-    Array<StoreActionsCodeActionConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<StoreActionsCodeActionCreateFieldInput>>
   delete?: InputMaybe<Array<StoreActionsCodeActionDeleteFieldInput>>
   disconnect?: InputMaybe<Array<StoreActionsCodeActionDisconnectFieldInput>>
@@ -16916,13 +16711,6 @@ export type StoreActionsCodeActionUpdateFieldInput = {
 export type StoreActionsConnectInput = {
   ApiAction?: InputMaybe<Array<StoreActionsApiActionConnectFieldInput>>
   CodeAction?: InputMaybe<Array<StoreActionsCodeActionConnectFieldInput>>
-}
-
-export type StoreActionsConnectOrCreateInput = {
-  ApiAction?: InputMaybe<Array<StoreActionsApiActionConnectOrCreateFieldInput>>
-  CodeAction?: InputMaybe<
-    Array<StoreActionsCodeActionConnectOrCreateFieldInput>
-  >
 }
 
 export type StoreActionsConnection = {
@@ -16989,18 +16777,9 @@ export type StoreApiAggregateInput = {
 
 export type StoreApiConnectFieldInput = {
   connect?: InputMaybe<InterfaceTypeConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<InterfaceTypeConnectWhere>
-}
-
-export type StoreApiConnectOrCreateFieldInput = {
-  onCreate: StoreApiConnectOrCreateFieldInputOnCreate
-  where: InterfaceTypeConnectOrCreateWhere
-}
-
-export type StoreApiConnectOrCreateFieldInputOnCreate = {
-  node: InterfaceTypeOnCreateInput
 }
 
 export type StoreApiConnection = {
@@ -17037,7 +16816,6 @@ export type StoreApiDisconnectFieldInput = {
 
 export type StoreApiFieldInput = {
   connect?: InputMaybe<StoreApiConnectFieldInput>
-  connectOrCreate?: InputMaybe<StoreApiConnectOrCreateFieldInput>
   create?: InputMaybe<StoreApiCreateFieldInput>
 }
 
@@ -17074,7 +16852,6 @@ export type StoreApiUpdateConnectionInput = {
 
 export type StoreApiUpdateFieldInput = {
   connect?: InputMaybe<StoreApiConnectFieldInput>
-  connectOrCreate?: InputMaybe<StoreApiConnectOrCreateFieldInput>
   create?: InputMaybe<StoreApiCreateFieldInput>
   delete?: InputMaybe<StoreApiDeleteFieldInput>
   disconnect?: InputMaybe<StoreApiDisconnectFieldInput>
@@ -17109,7 +16886,7 @@ export type StoreComponentComponentNodeAggregateSelection = {
 
 export type StoreComponentConnectFieldInput = {
   connect?: InputMaybe<ComponentConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ComponentConnectWhere>
 }
@@ -17225,8 +17002,6 @@ export type StoreConnectInput = {
 }
 
 export type StoreConnectOrCreateInput = {
-  actions?: InputMaybe<StoreActionsConnectOrCreateInput>
-  api?: InputMaybe<StoreApiConnectOrCreateFieldInput>
   component?: InputMaybe<StoreComponentConnectOrCreateFieldInput>
   page?: InputMaybe<StorePageConnectOrCreateFieldInput>
 }
@@ -17306,7 +17081,7 @@ export type StorePageAggregateInput = {
 
 export type StorePageConnectFieldInput = {
   connect?: InputMaybe<PageConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<PageConnectWhere>
 }
@@ -17646,7 +17421,7 @@ export type TagAtomsAggregateInput = {
 
 export type TagAtomsConnectFieldInput = {
   connect?: InputMaybe<Array<AtomConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<AtomConnectWhere>
 }
@@ -17815,7 +17590,7 @@ export type TagChildrenAggregateInput = {
 
 export type TagChildrenConnectFieldInput = {
   connect?: InputMaybe<Array<TagConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<TagConnectWhere>
 }
@@ -17985,7 +17760,7 @@ export type TagOwnerAggregateInput = {
 
 export type TagOwnerConnectFieldInput = {
   connect?: InputMaybe<UserConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<UserConnectWhere>
 }
@@ -18122,7 +17897,7 @@ export type TagParentAggregateInput = {
 
 export type TagParentConnectFieldInput = {
   connect?: InputMaybe<TagConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<TagConnectWhere>
 }
@@ -18701,16 +18476,6 @@ export type UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput = {
   where?: InputMaybe<ArrayTypeConnectWhere>
 }
 
-export type UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInput = {
-  onCreate: UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInputOnCreate
-  where: ArrayTypeConnectOrCreateWhere
-}
-
-export type UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInputOnCreate =
-  {
-    node: ArrayTypeOnCreateInput
-  }
-
 export type UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere = {
   AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere>>
   NOT?: InputMaybe<UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere>
@@ -18736,9 +18501,6 @@ export type UnionTypeTypesOfUnionTypeArrayTypeFieldInput = {
   connect?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput>
   >
-  connectOrCreate?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeCreateFieldInput>>
 }
 
@@ -18749,9 +18511,6 @@ export type UnionTypeTypesOfUnionTypeArrayTypeUpdateConnectionInput = {
 export type UnionTypeTypesOfUnionTypeArrayTypeUpdateFieldInput = {
   connect?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput>
-  >
-  connectOrCreate?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInput>
   >
   create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeCreateFieldInput>>
   delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeArrayTypeDeleteFieldInput>>
@@ -18792,15 +18551,6 @@ export type UnionTypeTypesOfUnionTypeConnectInput = {
 export type UnionTypeTypesOfUnionTypeConnectOrCreateInput = {
   ActionType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeActionTypeConnectOrCreateFieldInput>
-  >
-  ArrayType?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInput>
-  >
-  EnumType?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInput>
-  >
-  InterfaceType?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInput>
   >
   PrimitiveType?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypePrimitiveTypeConnectOrCreateFieldInput>
@@ -18931,16 +18681,6 @@ export type UnionTypeTypesOfUnionTypeEnumTypeConnectFieldInput = {
   where?: InputMaybe<EnumTypeConnectWhere>
 }
 
-export type UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInput = {
-  onCreate: UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInputOnCreate
-  where: EnumTypeConnectOrCreateWhere
-}
-
-export type UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInputOnCreate =
-  {
-    node: EnumTypeOnCreateInput
-  }
-
 export type UnionTypeTypesOfUnionTypeEnumTypeConnectionWhere = {
   AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeConnectionWhere>>
   NOT?: InputMaybe<UnionTypeTypesOfUnionTypeEnumTypeConnectionWhere>
@@ -18966,9 +18706,6 @@ export type UnionTypeTypesOfUnionTypeEnumTypeFieldInput = {
   connect?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeEnumTypeConnectFieldInput>
   >
-  connectOrCreate?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeCreateFieldInput>>
 }
 
@@ -18979,9 +18716,6 @@ export type UnionTypeTypesOfUnionTypeEnumTypeUpdateConnectionInput = {
 export type UnionTypeTypesOfUnionTypeEnumTypeUpdateFieldInput = {
   connect?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeEnumTypeConnectFieldInput>
-  >
-  connectOrCreate?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInput>
   >
   create?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeCreateFieldInput>>
   delete?: InputMaybe<Array<UnionTypeTypesOfUnionTypeEnumTypeDeleteFieldInput>>
@@ -18996,16 +18730,6 @@ export type UnionTypeTypesOfUnionTypeInterfaceTypeConnectFieldInput = {
   connect?: InputMaybe<Array<InterfaceTypeConnectInput>>
   where?: InputMaybe<InterfaceTypeConnectWhere>
 }
-
-export type UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInput = {
-  onCreate: UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInputOnCreate
-  where: InterfaceTypeConnectOrCreateWhere
-}
-
-export type UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInputOnCreate =
-  {
-    node: InterfaceTypeOnCreateInput
-  }
 
 export type UnionTypeTypesOfUnionTypeInterfaceTypeConnectionWhere = {
   AND?: InputMaybe<Array<UnionTypeTypesOfUnionTypeInterfaceTypeConnectionWhere>>
@@ -19032,9 +18756,6 @@ export type UnionTypeTypesOfUnionTypeInterfaceTypeFieldInput = {
   connect?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeInterfaceTypeConnectFieldInput>
   >
-  connectOrCreate?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInput>
-  >
   create?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeInterfaceTypeCreateFieldInput>
   >
@@ -19047,9 +18768,6 @@ export type UnionTypeTypesOfUnionTypeInterfaceTypeUpdateConnectionInput = {
 export type UnionTypeTypesOfUnionTypeInterfaceTypeUpdateFieldInput = {
   connect?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeInterfaceTypeConnectFieldInput>
-  >
-  connectOrCreate?: InputMaybe<
-    Array<UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInput>
   >
   create?: InputMaybe<
     Array<UnionTypeTypesOfUnionTypeInterfaceTypeCreateFieldInput>
@@ -19382,7 +19100,6 @@ export type UnionTypeTypesOfUnionTypeUpdateInput = {
 }
 
 export type UnionTypeUniqueWhere = {
-  id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
 }
 
@@ -19551,6 +19268,7 @@ export type UpdateHooksMutationResponse = {
 
 export type UpdateInfo = {
   __typename?: 'UpdateInfo'
+  /** @deprecated This field has been deprecated because bookmarks are now handled by the driver. */
   bookmark?: Maybe<Scalars['String']['output']>
   nodesCreated: Scalars['Int']['output']
   nodesDeleted: Scalars['Int']['output']
@@ -19634,6 +19352,12 @@ export type UpdateUnionTypesMutationResponse = {
   __typename?: 'UpdateUnionTypesMutationResponse'
   info: UpdateInfo
   unionTypes: Array<UnionType>
+}
+
+export type UpdateUsersMutationResponse = {
+  __typename?: 'UpdateUsersMutationResponse'
+  info: UpdateInfo
+  users: Array<User>
 }
 
 export type User = {
@@ -19806,7 +19530,7 @@ export type UserAppsAggregateInput = {
 
 export type UserAppsConnectFieldInput = {
   connect?: InputMaybe<Array<AppConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<AppConnectWhere>
 }
@@ -19929,7 +19653,7 @@ export type UserAtomsAggregateInput = {
 
 export type UserAtomsConnectFieldInput = {
   connect?: InputMaybe<Array<AtomConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<AtomConnectWhere>
 }
@@ -20111,7 +19835,7 @@ export type UserComponentsAggregateInput = {
 
 export type UserComponentsConnectFieldInput = {
   connect?: InputMaybe<Array<ComponentConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ComponentConnectWhere>
 }
@@ -20228,6 +19952,14 @@ export type UserConnectInput = {
   types?: InputMaybe<Array<UserTypesConnectFieldInput>>
 }
 
+export type UserConnectOrCreateInput = {
+  apps?: InputMaybe<Array<UserAppsConnectOrCreateFieldInput>>
+  atoms?: InputMaybe<Array<UserAtomsConnectOrCreateFieldInput>>
+  components?: InputMaybe<Array<UserComponentsConnectOrCreateFieldInput>>
+  elements?: InputMaybe<Array<UserElementsConnectOrCreateFieldInput>>
+  tags?: InputMaybe<Array<UserTagsConnectOrCreateFieldInput>>
+}
+
 export type UserConnectOrCreateWhere = {
   node: UserUniqueWhere
 }
@@ -20304,7 +20036,7 @@ export type UserElementsAggregateInput = {
 
 export type UserElementsConnectFieldInput = {
   connect?: InputMaybe<Array<ElementConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<ElementConnectWhere>
 }
@@ -20486,6 +20218,15 @@ export type UserOptions = {
   sort?: InputMaybe<Array<UserSort>>
 }
 
+export type UserRelationInput = {
+  apps?: InputMaybe<Array<UserAppsCreateFieldInput>>
+  atoms?: InputMaybe<Array<UserAtomsCreateFieldInput>>
+  components?: InputMaybe<Array<UserComponentsCreateFieldInput>>
+  elements?: InputMaybe<Array<UserElementsCreateFieldInput>>
+  tags?: InputMaybe<Array<UserTagsCreateFieldInput>>
+  types?: InputMaybe<Array<UserTypesCreateFieldInput>>
+}
+
 /** Fields to sort Users by. The order in which sorts are applied is not guaranteed when specifying many fields in one UserSort object. */
 export type UserSort = {
   auth0Id?: InputMaybe<SortDirection>
@@ -20520,7 +20261,7 @@ export type UserTagsAggregateInput = {
 
 export type UserTagsConnectFieldInput = {
   connect?: InputMaybe<Array<TagConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<TagConnectWhere>
 }
@@ -20847,7 +20588,7 @@ export type WithOwner = {
 
 export type WithOwnerOwnerConnectFieldInput = {
   connect?: InputMaybe<UserConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
+  /** Whether or not to overwrite any matching relationship with the new properties. */
   overwrite?: Scalars['Boolean']['input']
   where?: InputMaybe<UserConnectWhere>
 }

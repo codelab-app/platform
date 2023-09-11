@@ -166,7 +166,6 @@ input ActionTypeSort {
 }
 
 input ActionTypeUniqueWhere {
-  id: ID
   name: String
 }
 
@@ -367,7 +366,7 @@ input ApiActionConfigAggregateInput {
 
 input ApiActionConfigConnectFieldInput {
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: PropConnectWhere
@@ -469,14 +468,8 @@ input ApiActionConnectInput {
 input ApiActionConnectOrCreateInput {
   config: ApiActionConfigConnectOrCreateFieldInput
   element: BaseActionElementConnectOrCreateFieldInput
-  errorAction: ApiActionErrorActionConnectOrCreateInput
   resource: ApiActionResourceConnectOrCreateFieldInput
   store: BaseActionStoreConnectOrCreateFieldInput
-  successAction: ApiActionSuccessActionConnectOrCreateInput
-}
-
-input ApiActionConnectOrCreateWhere {
-  node: ApiActionUniqueWhere!
 }
 
 input ApiActionConnectWhere {
@@ -630,15 +623,6 @@ input ApiActionErrorActionApiActionConnectFieldInput {
   where: ApiActionConnectWhere
 }
 
-input ApiActionErrorActionApiActionConnectOrCreateFieldInput {
-  onCreate: ApiActionErrorActionApiActionConnectOrCreateFieldInputOnCreate!
-  where: ApiActionConnectOrCreateWhere!
-}
-
-input ApiActionErrorActionApiActionConnectOrCreateFieldInputOnCreate {
-  node: ApiActionOnCreateInput!
-}
-
 input ApiActionErrorActionApiActionConnectionWhere {
   AND: [ApiActionErrorActionApiActionConnectionWhere!]
   NOT: ApiActionErrorActionApiActionConnectionWhere
@@ -662,7 +646,6 @@ input ApiActionErrorActionApiActionDisconnectFieldInput {
 
 input ApiActionErrorActionApiActionFieldInput {
   connect: ApiActionErrorActionApiActionConnectFieldInput
-  connectOrCreate: ApiActionErrorActionApiActionConnectOrCreateFieldInput
   create: ApiActionErrorActionApiActionCreateFieldInput
 }
 
@@ -672,7 +655,6 @@ input ApiActionErrorActionApiActionUpdateConnectionInput {
 
 input ApiActionErrorActionApiActionUpdateFieldInput {
   connect: ApiActionErrorActionApiActionConnectFieldInput
-  connectOrCreate: ApiActionErrorActionApiActionConnectOrCreateFieldInput
   create: ApiActionErrorActionApiActionCreateFieldInput
   delete: ApiActionErrorActionApiActionDeleteFieldInput
   disconnect: ApiActionErrorActionApiActionDisconnectFieldInput
@@ -683,15 +665,6 @@ input ApiActionErrorActionApiActionUpdateFieldInput {
 input ApiActionErrorActionCodeActionConnectFieldInput {
   connect: CodeActionConnectInput
   where: CodeActionConnectWhere
-}
-
-input ApiActionErrorActionCodeActionConnectOrCreateFieldInput {
-  onCreate: ApiActionErrorActionCodeActionConnectOrCreateFieldInputOnCreate!
-  where: CodeActionConnectOrCreateWhere!
-}
-
-input ApiActionErrorActionCodeActionConnectOrCreateFieldInputOnCreate {
-  node: CodeActionOnCreateInput!
 }
 
 input ApiActionErrorActionCodeActionConnectionWhere {
@@ -717,7 +690,6 @@ input ApiActionErrorActionCodeActionDisconnectFieldInput {
 
 input ApiActionErrorActionCodeActionFieldInput {
   connect: ApiActionErrorActionCodeActionConnectFieldInput
-  connectOrCreate: ApiActionErrorActionCodeActionConnectOrCreateFieldInput
   create: ApiActionErrorActionCodeActionCreateFieldInput
 }
 
@@ -727,7 +699,6 @@ input ApiActionErrorActionCodeActionUpdateConnectionInput {
 
 input ApiActionErrorActionCodeActionUpdateFieldInput {
   connect: ApiActionErrorActionCodeActionConnectFieldInput
-  connectOrCreate: ApiActionErrorActionCodeActionConnectOrCreateFieldInput
   create: ApiActionErrorActionCodeActionCreateFieldInput
   delete: ApiActionErrorActionCodeActionDeleteFieldInput
   disconnect: ApiActionErrorActionCodeActionDisconnectFieldInput
@@ -738,11 +709,6 @@ input ApiActionErrorActionCodeActionUpdateFieldInput {
 input ApiActionErrorActionConnectInput {
   ApiAction: ApiActionErrorActionApiActionConnectFieldInput
   CodeAction: ApiActionErrorActionCodeActionConnectFieldInput
-}
-
-input ApiActionErrorActionConnectOrCreateInput {
-  ApiAction: ApiActionErrorActionApiActionConnectOrCreateFieldInput
-  CodeAction: ApiActionErrorActionCodeActionConnectOrCreateFieldInput
 }
 
 type ApiActionErrorActionConnection {
@@ -784,12 +750,6 @@ type ApiActionErrorActionRelationship {
 input ApiActionErrorActionUpdateInput {
   ApiAction: ApiActionErrorActionApiActionUpdateFieldInput
   CodeAction: ApiActionErrorActionCodeActionUpdateFieldInput
-}
-
-input ApiActionOnCreateInput {
-  id: ID!
-  name: String!
-  type: ActionKind! = ApiAction
 }
 
 input ApiActionOptions {
@@ -837,7 +797,7 @@ input ApiActionResourceConnectFieldInput {
   connect: ResourceConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ResourceConnectWhere
@@ -996,15 +956,6 @@ input ApiActionSuccessActionApiActionConnectFieldInput {
   where: ApiActionConnectWhere
 }
 
-input ApiActionSuccessActionApiActionConnectOrCreateFieldInput {
-  onCreate: ApiActionSuccessActionApiActionConnectOrCreateFieldInputOnCreate!
-  where: ApiActionConnectOrCreateWhere!
-}
-
-input ApiActionSuccessActionApiActionConnectOrCreateFieldInputOnCreate {
-  node: ApiActionOnCreateInput!
-}
-
 input ApiActionSuccessActionApiActionConnectionWhere {
   AND: [ApiActionSuccessActionApiActionConnectionWhere!]
   NOT: ApiActionSuccessActionApiActionConnectionWhere
@@ -1028,7 +979,6 @@ input ApiActionSuccessActionApiActionDisconnectFieldInput {
 
 input ApiActionSuccessActionApiActionFieldInput {
   connect: ApiActionSuccessActionApiActionConnectFieldInput
-  connectOrCreate: ApiActionSuccessActionApiActionConnectOrCreateFieldInput
   create: ApiActionSuccessActionApiActionCreateFieldInput
 }
 
@@ -1038,7 +988,6 @@ input ApiActionSuccessActionApiActionUpdateConnectionInput {
 
 input ApiActionSuccessActionApiActionUpdateFieldInput {
   connect: ApiActionSuccessActionApiActionConnectFieldInput
-  connectOrCreate: ApiActionSuccessActionApiActionConnectOrCreateFieldInput
   create: ApiActionSuccessActionApiActionCreateFieldInput
   delete: ApiActionSuccessActionApiActionDeleteFieldInput
   disconnect: ApiActionSuccessActionApiActionDisconnectFieldInput
@@ -1049,15 +998,6 @@ input ApiActionSuccessActionApiActionUpdateFieldInput {
 input ApiActionSuccessActionCodeActionConnectFieldInput {
   connect: CodeActionConnectInput
   where: CodeActionConnectWhere
-}
-
-input ApiActionSuccessActionCodeActionConnectOrCreateFieldInput {
-  onCreate: ApiActionSuccessActionCodeActionConnectOrCreateFieldInputOnCreate!
-  where: CodeActionConnectOrCreateWhere!
-}
-
-input ApiActionSuccessActionCodeActionConnectOrCreateFieldInputOnCreate {
-  node: CodeActionOnCreateInput!
 }
 
 input ApiActionSuccessActionCodeActionConnectionWhere {
@@ -1083,7 +1023,6 @@ input ApiActionSuccessActionCodeActionDisconnectFieldInput {
 
 input ApiActionSuccessActionCodeActionFieldInput {
   connect: ApiActionSuccessActionCodeActionConnectFieldInput
-  connectOrCreate: ApiActionSuccessActionCodeActionConnectOrCreateFieldInput
   create: ApiActionSuccessActionCodeActionCreateFieldInput
 }
 
@@ -1093,7 +1032,6 @@ input ApiActionSuccessActionCodeActionUpdateConnectionInput {
 
 input ApiActionSuccessActionCodeActionUpdateFieldInput {
   connect: ApiActionSuccessActionCodeActionConnectFieldInput
-  connectOrCreate: ApiActionSuccessActionCodeActionConnectOrCreateFieldInput
   create: ApiActionSuccessActionCodeActionCreateFieldInput
   delete: ApiActionSuccessActionCodeActionDeleteFieldInput
   disconnect: ApiActionSuccessActionCodeActionDisconnectFieldInput
@@ -1104,11 +1042,6 @@ input ApiActionSuccessActionCodeActionUpdateFieldInput {
 input ApiActionSuccessActionConnectInput {
   ApiAction: ApiActionSuccessActionApiActionConnectFieldInput
   CodeAction: ApiActionSuccessActionCodeActionConnectFieldInput
-}
-
-input ApiActionSuccessActionConnectOrCreateInput {
-  ApiAction: ApiActionSuccessActionApiActionConnectOrCreateFieldInput
-  CodeAction: ApiActionSuccessActionCodeActionConnectOrCreateFieldInput
 }
 
 type ApiActionSuccessActionConnection {
@@ -1150,10 +1083,6 @@ type ApiActionSuccessActionRelationship {
 input ApiActionSuccessActionUpdateInput {
   ApiAction: ApiActionSuccessActionApiActionUpdateFieldInput
   CodeAction: ApiActionSuccessActionCodeActionUpdateFieldInput
-}
-
-input ApiActionUniqueWhere {
-  id: ID
 }
 
 input ApiActionUpdateInput {
@@ -1340,7 +1269,7 @@ input AppDomainsConnectFieldInput {
   connect: [DomainConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: DomainConnectWhere
@@ -1542,7 +1471,7 @@ input AppPagesConnectFieldInput {
   connect: [PageConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: PageConnectWhere
@@ -2056,10 +1985,6 @@ input ArrayTypeConnectOrCreateInput {
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
-input ArrayTypeConnectOrCreateWhere {
-  node: ArrayTypeUniqueWhere!
-}
-
 input ArrayTypeConnectWhere {
   node: ArrayTypeWhere!
 }
@@ -2120,7 +2045,7 @@ input ArrayTypeFieldRefsConnectFieldInput {
   connect: [FieldConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: FieldConnectWhere
@@ -2320,12 +2245,6 @@ input ArrayTypeItemTypeUpdateFieldInput {
   where: ArrayTypeItemTypeConnectionWhere
 }
 
-input ArrayTypeOnCreateInput {
-  id: ID!
-  kind: TypeKind! = ArrayType
-  name: String!
-}
-
 input ArrayTypeOptions {
   limit: Int
   offset: Int
@@ -2412,10 +2331,6 @@ input ArrayTypeSort {
   id: SortDirection
   kind: SortDirection
   name: SortDirection
-}
-
-input ArrayTypeUniqueWhere {
-  id: ID
 }
 
 input ArrayTypeUpdateInput {
@@ -2620,19 +2535,10 @@ input AtomApiConnectFieldInput {
   connect: InterfaceTypeConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: InterfaceTypeConnectWhere
-}
-
-input AtomApiConnectOrCreateFieldInput {
-  onCreate: AtomApiConnectOrCreateFieldInputOnCreate!
-  where: InterfaceTypeConnectOrCreateWhere!
-}
-
-input AtomApiConnectOrCreateFieldInputOnCreate {
-  node: InterfaceTypeOnCreateInput!
 }
 
 type AtomApiConnection {
@@ -2668,7 +2574,6 @@ input AtomApiDisconnectFieldInput {
 
 input AtomApiFieldInput {
   connect: AtomApiConnectFieldInput
-  connectOrCreate: AtomApiConnectOrCreateFieldInput
   create: AtomApiCreateFieldInput
 }
 
@@ -2704,7 +2609,6 @@ input AtomApiUpdateConnectionInput {
 
 input AtomApiUpdateFieldInput {
   connect: AtomApiConnectFieldInput
-  connectOrCreate: AtomApiConnectOrCreateFieldInput
   create: AtomApiCreateFieldInput
   delete: AtomApiDeleteFieldInput
   disconnect: AtomApiDisconnectFieldInput
@@ -2749,7 +2653,6 @@ input AtomConnectInput {
 }
 
 input AtomConnectOrCreateInput {
-  api: AtomApiConnectOrCreateFieldInput
   owner: WithOwnerOwnerConnectOrCreateFieldInput
   requiredParents: [AtomRequiredParentsConnectOrCreateFieldInput!]
   suggestedChildren: [AtomSuggestedChildrenConnectOrCreateFieldInput!]
@@ -2917,7 +2820,7 @@ input AtomRequiredParentsConnectFieldInput {
   connect: [AtomConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: AtomConnectWhere
@@ -3098,7 +3001,7 @@ input AtomSuggestedChildrenConnectFieldInput {
   connect: [AtomConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: AtomConnectWhere
@@ -3276,7 +3179,7 @@ input AtomTagsConnectFieldInput {
   connect: [TagConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: TagConnectWhere
@@ -4037,7 +3940,7 @@ input BaseActionElementConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -4249,7 +4152,7 @@ input BaseActionStoreConnectFieldInput {
   connect: StoreConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: StoreConnectWhere
@@ -4440,10 +4343,6 @@ input CodeActionConnectOrCreateInput {
   store: BaseActionStoreConnectOrCreateFieldInput
 }
 
-input CodeActionConnectOrCreateWhere {
-  node: CodeActionUniqueWhere!
-}
-
 input CodeActionConnectWhere {
   node: CodeActionWhere!
 }
@@ -4579,13 +4478,6 @@ input CodeActionElementNodeAggregationWhereInput {
   style_SHORTEST_LENGTH_LTE: Int
 }
 
-input CodeActionOnCreateInput {
-  code: String!
-  id: ID!
-  name: String!
-  type: ActionKind! = CodeAction
-}
-
 input CodeActionOptions {
   limit: Int
   offset: Int
@@ -4652,10 +4544,6 @@ type CodeActionStoreStoreAggregationSelection {
 type CodeActionStoreStoreNodeAggregateSelection {
   id: IDAggregateSelectionNonNullable!
   name: StringAggregateSelectionNonNullable!
-}
-
-input CodeActionUniqueWhere {
-  id: ID
 }
 
 input CodeActionUpdateInput {
@@ -5030,19 +4918,10 @@ input ComponentApiConnectFieldInput {
   connect: InterfaceTypeConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: InterfaceTypeConnectWhere
-}
-
-input ComponentApiConnectOrCreateFieldInput {
-  onCreate: ComponentApiConnectOrCreateFieldInputOnCreate!
-  where: InterfaceTypeConnectOrCreateWhere!
-}
-
-input ComponentApiConnectOrCreateFieldInputOnCreate {
-  node: InterfaceTypeOnCreateInput!
 }
 
 type ComponentApiConnection {
@@ -5078,7 +4957,6 @@ input ComponentApiDisconnectFieldInput {
 
 input ComponentApiFieldInput {
   connect: ComponentApiConnectFieldInput
-  connectOrCreate: ComponentApiConnectOrCreateFieldInput
   create: ComponentApiCreateFieldInput
 }
 
@@ -5114,7 +4992,6 @@ input ComponentApiUpdateConnectionInput {
 
 input ComponentApiUpdateFieldInput {
   connect: ComponentApiConnectFieldInput
-  connectOrCreate: ComponentApiConnectOrCreateFieldInput
   create: ComponentApiCreateFieldInput
   delete: ComponentApiDeleteFieldInput
   disconnect: ComponentApiDisconnectFieldInput
@@ -5138,7 +5015,7 @@ input ComponentChildrenContainerElementConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -5300,7 +5177,6 @@ input ComponentConnectInput {
 }
 
 input ComponentConnectOrCreateInput {
-  api: ComponentApiConnectOrCreateFieldInput
   childrenContainerElement: ComponentChildrenContainerElementConnectOrCreateFieldInput
   owner: WithOwnerOwnerConnectOrCreateFieldInput
   props: ComponentPropsConnectOrCreateFieldInput
@@ -5492,7 +5368,7 @@ input ComponentPropsAggregateInput {
 
 input ComponentPropsConnectFieldInput {
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: PropConnectWhere
@@ -5607,7 +5483,7 @@ input ComponentRootElementConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -5784,7 +5660,7 @@ input ComponentStoreConnectFieldInput {
   connect: StoreConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: StoreConnectWhere
@@ -6061,6 +5937,9 @@ type CreateHooksMutationResponse {
 
 type CreateInfo {
   bookmark: String
+    @deprecated(
+      reason: "This field has been deprecated because bookmarks are now handled by the driver."
+    )
   nodesCreated: Int!
   relationshipsCreated: Int!
 }
@@ -6137,6 +6016,9 @@ type CreateUsersMutationResponse {
 
 type DeleteInfo {
   bookmark: String
+    @deprecated(
+      reason: "This field has been deprecated because bookmarks are now handled by the driver."
+    )
   nodesDeleted: Int!
   relationshipsDeleted: Int!
 }
@@ -6192,7 +6074,7 @@ input DomainAppConnectFieldInput {
   connect: AppConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: AppConnectWhere
@@ -6630,7 +6512,7 @@ input ElementChildMapperComponentConnectFieldInput {
   connect: ComponentConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ComponentConnectWhere
@@ -6753,7 +6635,7 @@ input ElementChildMapperPreviousSiblingConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -7121,7 +7003,7 @@ input ElementFirstChildConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -7289,7 +7171,7 @@ input ElementNextSiblingConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -7476,7 +7358,7 @@ input ElementPageConnectFieldInput {
   connect: PageConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: PageConnectWhere
@@ -7622,7 +7504,7 @@ input ElementParentComponentConnectFieldInput {
   connect: ComponentConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ComponentConnectWhere
@@ -7733,7 +7615,7 @@ input ElementParentConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -8019,7 +7901,7 @@ input ElementPrevSiblingConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -8195,7 +8077,7 @@ input ElementPropsAggregateInput {
 
 input ElementPropsConnectFieldInput {
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: PropConnectWhere
@@ -8317,7 +8199,7 @@ input ElementRenderAtomTypeConnectFieldInput {
   connect: AtomConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: AtomConnectWhere
@@ -8485,7 +8367,7 @@ input ElementRenderComponentTypeConnectFieldInput {
   connect: ComponentConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ComponentConnectWhere
@@ -9028,7 +8910,7 @@ input EnumTypeAllowedValuesConnectFieldInput {
   connect: [EnumTypeValueConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: EnumTypeValueConnectWhere
@@ -9134,10 +9016,6 @@ input EnumTypeConnectOrCreateInput {
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
-input EnumTypeConnectOrCreateWhere {
-  node: EnumTypeUniqueWhere!
-}
-
 input EnumTypeConnectWhere {
   node: EnumTypeWhere!
 }
@@ -9209,7 +9087,7 @@ input EnumTypeFieldRefsConnectFieldInput {
   connect: [FieldConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: FieldConnectWhere
@@ -9350,12 +9228,6 @@ input EnumTypeFieldRefsUpdateFieldInput {
   where: EnumTypeFieldRefsConnectionWhere
 }
 
-input EnumTypeOnCreateInput {
-  id: ID!
-  kind: TypeKind! = EnumType
-  name: String!
-}
-
 input EnumTypeOptions {
   limit: Int
   offset: Int
@@ -9444,10 +9316,6 @@ input EnumTypeSort {
   name: SortDirection
 }
 
-input EnumTypeUniqueWhere {
-  id: ID
-}
-
 input EnumTypeUpdateInput {
   allowedValues: [EnumTypeAllowedValuesUpdateFieldInput!]
   fieldRefs: [EnumTypeFieldRefsUpdateFieldInput!]
@@ -9501,10 +9369,6 @@ input EnumTypeValueConnectInput {
   enumType: EnumTypeValueEnumTypeConnectFieldInput
 }
 
-input EnumTypeValueConnectOrCreateInput {
-  enumType: EnumTypeValueEnumTypeConnectOrCreateFieldInput
-}
-
 input EnumTypeValueConnectWhere {
   node: EnumTypeValueWhere!
 }
@@ -9545,19 +9409,10 @@ input EnumTypeValueEnumTypeConnectFieldInput {
   connect: EnumTypeConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: EnumTypeConnectWhere
-}
-
-input EnumTypeValueEnumTypeConnectOrCreateFieldInput {
-  onCreate: EnumTypeValueEnumTypeConnectOrCreateFieldInputOnCreate!
-  where: EnumTypeConnectOrCreateWhere!
-}
-
-input EnumTypeValueEnumTypeConnectOrCreateFieldInputOnCreate {
-  node: EnumTypeOnCreateInput!
 }
 
 type EnumTypeValueEnumTypeConnection {
@@ -9603,7 +9458,6 @@ type EnumTypeValueEnumTypeEnumTypeNodeAggregateSelection {
 
 input EnumTypeValueEnumTypeFieldInput {
   connect: EnumTypeValueEnumTypeConnectFieldInput
-  connectOrCreate: EnumTypeValueEnumTypeConnectOrCreateFieldInput
   create: EnumTypeValueEnumTypeCreateFieldInput
 }
 
@@ -9639,7 +9493,6 @@ input EnumTypeValueEnumTypeUpdateConnectionInput {
 
 input EnumTypeValueEnumTypeUpdateFieldInput {
   connect: EnumTypeValueEnumTypeConnectFieldInput
-  connectOrCreate: EnumTypeValueEnumTypeConnectOrCreateFieldInput
   create: EnumTypeValueEnumTypeCreateFieldInput
   delete: EnumTypeValueEnumTypeDeleteFieldInput
   disconnect: EnumTypeValueEnumTypeDisconnectFieldInput
@@ -9920,19 +9773,10 @@ input FieldApiConnectFieldInput {
   connect: InterfaceTypeConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: InterfaceTypeConnectWhere
-}
-
-input FieldApiConnectOrCreateFieldInput {
-  onCreate: FieldApiConnectOrCreateFieldInputOnCreate!
-  where: InterfaceTypeConnectOrCreateWhere!
-}
-
-input FieldApiConnectOrCreateFieldInputOnCreate {
-  node: InterfaceTypeOnCreateInput!
 }
 
 type FieldApiConnection {
@@ -9968,7 +9812,6 @@ input FieldApiDisconnectFieldInput {
 
 input FieldApiFieldInput {
   connect: FieldApiConnectFieldInput
-  connectOrCreate: FieldApiConnectOrCreateFieldInput
   create: FieldApiCreateFieldInput
 }
 
@@ -10004,7 +9847,6 @@ input FieldApiUpdateConnectionInput {
 
 input FieldApiUpdateFieldInput {
   connect: FieldApiConnectFieldInput
-  connectOrCreate: FieldApiConnectOrCreateFieldInput
   create: FieldApiCreateFieldInput
   delete: FieldApiDeleteFieldInput
   disconnect: FieldApiDisconnectFieldInput
@@ -10017,10 +9859,6 @@ input FieldConnectInput {
   fieldType: FieldFieldTypeConnectFieldInput
   nextSibling: FieldNextSiblingConnectFieldInput
   prevSibling: FieldPrevSiblingConnectFieldInput
-}
-
-input FieldConnectOrCreateInput {
-  api: FieldApiConnectOrCreateFieldInput
 }
 
 input FieldConnectWhere {
@@ -10172,7 +10010,7 @@ input FieldNextSiblingConnectFieldInput {
   connect: FieldConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: FieldConnectWhere
@@ -10339,7 +10177,7 @@ input FieldPrevSiblingConnectFieldInput {
   connect: FieldConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: FieldConnectWhere
@@ -10699,7 +10537,7 @@ input HookConfigAggregateInput {
 
 input HookConfigConnectFieldInput {
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: PropConnectWhere
@@ -10836,7 +10674,7 @@ input HookElementConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -11226,7 +11064,7 @@ input IBaseTypeOwnerConnectFieldInput {
   connect: UserConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: UserConnectWhere
@@ -11491,7 +11329,7 @@ input InterfaceTypeApiOfAtomsConnectFieldInput {
   connect: [AtomConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: AtomConnectWhere
@@ -11669,10 +11507,6 @@ input InterfaceTypeConnectOrCreateInput {
   owner: IBaseTypeOwnerConnectOrCreateFieldInput
 }
 
-input InterfaceTypeConnectOrCreateWhere {
-  node: InterfaceTypeUniqueWhere!
-}
-
 input InterfaceTypeConnectWhere {
   node: InterfaceTypeWhere!
 }
@@ -11750,7 +11584,7 @@ input InterfaceTypeFieldRefsConnectFieldInput {
   connect: [FieldConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: FieldConnectWhere
@@ -11907,7 +11741,7 @@ input InterfaceTypeFieldsConnectFieldInput {
   connect: [FieldConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: FieldConnectWhere
@@ -12048,12 +11882,6 @@ input InterfaceTypeFieldsUpdateFieldInput {
   where: InterfaceTypeFieldsConnectionWhere
 }
 
-input InterfaceTypeOnCreateInput {
-  id: ID!
-  kind: TypeKind! = InterfaceType
-  name: String!
-}
-
 input InterfaceTypeOptions {
   limit: Int
   offset: Int
@@ -12141,10 +11969,6 @@ input InterfaceTypeSort {
   id: SortDirection
   kind: SortDirection
   name: SortDirection
-}
-
-input InterfaceTypeUniqueWhere {
-  id: ID
 }
 
 input InterfaceTypeUpdateInput {
@@ -12774,7 +12598,6 @@ type Mutation {
   ): UpdateElementsMutationResponse!
   updateEnumTypeValues(
     connect: EnumTypeValueConnectInput
-    connectOrCreate: EnumTypeValueConnectOrCreateInput
     create: EnumTypeValueRelationInput
     delete: EnumTypeValueDeleteInput
     disconnect: EnumTypeValueDisconnectInput
@@ -12792,7 +12615,6 @@ type Mutation {
   ): UpdateEnumTypesMutationResponse!
   updateFields(
     connect: FieldConnectInput
-    connectOrCreate: FieldConnectOrCreateInput
     create: FieldRelationInput
     delete: FieldDeleteInput
     disconnect: FieldDisconnectInput
@@ -12919,6 +12741,15 @@ type Mutation {
     update: UnionTypeUpdateInput
     where: UnionTypeWhere
   ): UpdateUnionTypesMutationResponse!
+  updateUsers(
+    connect: UserConnectInput
+    connectOrCreate: UserConnectOrCreateInput
+    create: UserRelationInput
+    delete: UserDeleteInput
+    disconnect: UserDisconnectInput
+    update: UserUpdateInput
+    where: UserWhere
+  ): UpdateUsersMutationResponse!
 }
 
 type Page {
@@ -13023,7 +12854,7 @@ input PageAppConnectFieldInput {
   connect: AppConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: AppConnectWhere
@@ -13245,7 +13076,7 @@ input PagePageContentContainerConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -13420,7 +13251,7 @@ input PageRootElementConnectFieldInput {
   connect: ElementConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -13598,7 +13429,7 @@ input PageStoreConnectFieldInput {
   connect: StoreConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: StoreConnectWhere
@@ -14125,7 +13956,6 @@ input PrimitiveTypeSort {
 }
 
 input PrimitiveTypeUniqueWhere {
-  id: ID
   name: String
   primitiveKind: PrimitiveTypeKind
 }
@@ -14750,7 +14580,6 @@ input ReactNodeTypeSort {
 }
 
 input ReactNodeTypeUniqueWhere {
-  id: ID
   name: String
 }
 
@@ -14967,7 +14796,6 @@ input RenderPropTypeSort {
 }
 
 input RenderPropTypeUniqueWhere {
-  id: ID
   name: String
 }
 
@@ -15084,7 +14912,7 @@ input ResourceConfigAggregateInput {
 
 input ResourceConfigConnectFieldInput {
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: PropConnectWhere
@@ -15465,15 +15293,6 @@ input StoreActionsApiActionConnectFieldInput {
   where: ApiActionConnectWhere
 }
 
-input StoreActionsApiActionConnectOrCreateFieldInput {
-  onCreate: StoreActionsApiActionConnectOrCreateFieldInputOnCreate!
-  where: ApiActionConnectOrCreateWhere!
-}
-
-input StoreActionsApiActionConnectOrCreateFieldInputOnCreate {
-  node: ApiActionOnCreateInput!
-}
-
 input StoreActionsApiActionConnectionWhere {
   AND: [StoreActionsApiActionConnectionWhere!]
   NOT: StoreActionsApiActionConnectionWhere
@@ -15497,7 +15316,6 @@ input StoreActionsApiActionDisconnectFieldInput {
 
 input StoreActionsApiActionFieldInput {
   connect: [StoreActionsApiActionConnectFieldInput!]
-  connectOrCreate: [StoreActionsApiActionConnectOrCreateFieldInput!]
   create: [StoreActionsApiActionCreateFieldInput!]
 }
 
@@ -15507,7 +15325,6 @@ input StoreActionsApiActionUpdateConnectionInput {
 
 input StoreActionsApiActionUpdateFieldInput {
   connect: [StoreActionsApiActionConnectFieldInput!]
-  connectOrCreate: [StoreActionsApiActionConnectOrCreateFieldInput!]
   create: [StoreActionsApiActionCreateFieldInput!]
   delete: [StoreActionsApiActionDeleteFieldInput!]
   disconnect: [StoreActionsApiActionDisconnectFieldInput!]
@@ -15518,15 +15335,6 @@ input StoreActionsApiActionUpdateFieldInput {
 input StoreActionsCodeActionConnectFieldInput {
   connect: [CodeActionConnectInput!]
   where: CodeActionConnectWhere
-}
-
-input StoreActionsCodeActionConnectOrCreateFieldInput {
-  onCreate: StoreActionsCodeActionConnectOrCreateFieldInputOnCreate!
-  where: CodeActionConnectOrCreateWhere!
-}
-
-input StoreActionsCodeActionConnectOrCreateFieldInputOnCreate {
-  node: CodeActionOnCreateInput!
 }
 
 input StoreActionsCodeActionConnectionWhere {
@@ -15552,7 +15360,6 @@ input StoreActionsCodeActionDisconnectFieldInput {
 
 input StoreActionsCodeActionFieldInput {
   connect: [StoreActionsCodeActionConnectFieldInput!]
-  connectOrCreate: [StoreActionsCodeActionConnectOrCreateFieldInput!]
   create: [StoreActionsCodeActionCreateFieldInput!]
 }
 
@@ -15562,7 +15369,6 @@ input StoreActionsCodeActionUpdateConnectionInput {
 
 input StoreActionsCodeActionUpdateFieldInput {
   connect: [StoreActionsCodeActionConnectFieldInput!]
-  connectOrCreate: [StoreActionsCodeActionConnectOrCreateFieldInput!]
   create: [StoreActionsCodeActionCreateFieldInput!]
   delete: [StoreActionsCodeActionDeleteFieldInput!]
   disconnect: [StoreActionsCodeActionDisconnectFieldInput!]
@@ -15573,11 +15379,6 @@ input StoreActionsCodeActionUpdateFieldInput {
 input StoreActionsConnectInput {
   ApiAction: [StoreActionsApiActionConnectFieldInput!]
   CodeAction: [StoreActionsCodeActionConnectFieldInput!]
-}
-
-input StoreActionsConnectOrCreateInput {
-  ApiAction: [StoreActionsApiActionConnectOrCreateFieldInput!]
-  CodeAction: [StoreActionsCodeActionConnectOrCreateFieldInput!]
 }
 
 type StoreActionsConnection {
@@ -15643,19 +15444,10 @@ input StoreApiConnectFieldInput {
   connect: InterfaceTypeConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: InterfaceTypeConnectWhere
-}
-
-input StoreApiConnectOrCreateFieldInput {
-  onCreate: StoreApiConnectOrCreateFieldInputOnCreate!
-  where: InterfaceTypeConnectOrCreateWhere!
-}
-
-input StoreApiConnectOrCreateFieldInputOnCreate {
-  node: InterfaceTypeOnCreateInput!
 }
 
 type StoreApiConnection {
@@ -15691,7 +15483,6 @@ input StoreApiDisconnectFieldInput {
 
 input StoreApiFieldInput {
   connect: StoreApiConnectFieldInput
-  connectOrCreate: StoreApiConnectOrCreateFieldInput
   create: StoreApiCreateFieldInput
 }
 
@@ -15727,7 +15518,6 @@ input StoreApiUpdateConnectionInput {
 
 input StoreApiUpdateFieldInput {
   connect: StoreApiConnectFieldInput
-  connectOrCreate: StoreApiConnectOrCreateFieldInput
   create: StoreApiCreateFieldInput
   delete: StoreApiDeleteFieldInput
   disconnect: StoreApiDisconnectFieldInput
@@ -15762,7 +15552,7 @@ input StoreComponentConnectFieldInput {
   connect: ComponentConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ComponentConnectWhere
@@ -15877,8 +15667,6 @@ input StoreConnectInput {
 }
 
 input StoreConnectOrCreateInput {
-  actions: StoreActionsConnectOrCreateInput
-  api: StoreApiConnectOrCreateFieldInput
   component: StoreComponentConnectOrCreateFieldInput
   page: StorePageConnectOrCreateFieldInput
 }
@@ -15960,7 +15748,7 @@ input StorePageConnectFieldInput {
   connect: PageConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: PageConnectWhere
@@ -16274,7 +16062,7 @@ input TagAtomsConnectFieldInput {
   connect: [AtomConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: AtomConnectWhere
@@ -16442,7 +16230,7 @@ input TagChildrenConnectFieldInput {
   connect: [TagConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: TagConnectWhere
@@ -16615,7 +16403,7 @@ input TagOwnerConnectFieldInput {
   connect: UserConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: UserConnectWhere
@@ -16753,7 +16541,7 @@ input TagParentConnectFieldInput {
   connect: TagConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: TagConnectWhere
@@ -17347,15 +17135,6 @@ input UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput {
   where: ArrayTypeConnectWhere
 }
 
-input UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInput {
-  onCreate: UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInputOnCreate!
-  where: ArrayTypeConnectOrCreateWhere!
-}
-
-input UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInputOnCreate {
-  node: ArrayTypeOnCreateInput!
-}
-
 input UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere {
   AND: [UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere!]
   NOT: UnionTypeTypesOfUnionTypeArrayTypeConnectionWhere
@@ -17379,7 +17158,6 @@ input UnionTypeTypesOfUnionTypeArrayTypeDisconnectFieldInput {
 
 input UnionTypeTypesOfUnionTypeArrayTypeFieldInput {
   connect: [UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInput!]
   create: [UnionTypeTypesOfUnionTypeArrayTypeCreateFieldInput!]
 }
 
@@ -17389,7 +17167,6 @@ input UnionTypeTypesOfUnionTypeArrayTypeUpdateConnectionInput {
 
 input UnionTypeTypesOfUnionTypeArrayTypeUpdateFieldInput {
   connect: [UnionTypeTypesOfUnionTypeArrayTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInput!]
   create: [UnionTypeTypesOfUnionTypeArrayTypeCreateFieldInput!]
   delete: [UnionTypeTypesOfUnionTypeArrayTypeDeleteFieldInput!]
   disconnect: [UnionTypeTypesOfUnionTypeArrayTypeDisconnectFieldInput!]
@@ -17410,9 +17187,6 @@ input UnionTypeTypesOfUnionTypeConnectInput {
 
 input UnionTypeTypesOfUnionTypeConnectOrCreateInput {
   ActionType: [UnionTypeTypesOfUnionTypeActionTypeConnectOrCreateFieldInput!]
-  ArrayType: [UnionTypeTypesOfUnionTypeArrayTypeConnectOrCreateFieldInput!]
-  EnumType: [UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInput!]
-  InterfaceType: [UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInput!]
   PrimitiveType: [UnionTypeTypesOfUnionTypePrimitiveTypeConnectOrCreateFieldInput!]
   ReactNodeType: [UnionTypeTypesOfUnionTypeReactNodeTypeConnectOrCreateFieldInput!]
   RenderPropType: [UnionTypeTypesOfUnionTypeRenderPropTypeConnectOrCreateFieldInput!]
@@ -17485,15 +17259,6 @@ input UnionTypeTypesOfUnionTypeEnumTypeConnectFieldInput {
   where: EnumTypeConnectWhere
 }
 
-input UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInput {
-  onCreate: UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInputOnCreate!
-  where: EnumTypeConnectOrCreateWhere!
-}
-
-input UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInputOnCreate {
-  node: EnumTypeOnCreateInput!
-}
-
 input UnionTypeTypesOfUnionTypeEnumTypeConnectionWhere {
   AND: [UnionTypeTypesOfUnionTypeEnumTypeConnectionWhere!]
   NOT: UnionTypeTypesOfUnionTypeEnumTypeConnectionWhere
@@ -17517,7 +17282,6 @@ input UnionTypeTypesOfUnionTypeEnumTypeDisconnectFieldInput {
 
 input UnionTypeTypesOfUnionTypeEnumTypeFieldInput {
   connect: [UnionTypeTypesOfUnionTypeEnumTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInput!]
   create: [UnionTypeTypesOfUnionTypeEnumTypeCreateFieldInput!]
 }
 
@@ -17527,7 +17291,6 @@ input UnionTypeTypesOfUnionTypeEnumTypeUpdateConnectionInput {
 
 input UnionTypeTypesOfUnionTypeEnumTypeUpdateFieldInput {
   connect: [UnionTypeTypesOfUnionTypeEnumTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeEnumTypeConnectOrCreateFieldInput!]
   create: [UnionTypeTypesOfUnionTypeEnumTypeCreateFieldInput!]
   delete: [UnionTypeTypesOfUnionTypeEnumTypeDeleteFieldInput!]
   disconnect: [UnionTypeTypesOfUnionTypeEnumTypeDisconnectFieldInput!]
@@ -17538,15 +17301,6 @@ input UnionTypeTypesOfUnionTypeEnumTypeUpdateFieldInput {
 input UnionTypeTypesOfUnionTypeInterfaceTypeConnectFieldInput {
   connect: [InterfaceTypeConnectInput!]
   where: InterfaceTypeConnectWhere
-}
-
-input UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInput {
-  onCreate: UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInputOnCreate!
-  where: InterfaceTypeConnectOrCreateWhere!
-}
-
-input UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInputOnCreate {
-  node: InterfaceTypeOnCreateInput!
 }
 
 input UnionTypeTypesOfUnionTypeInterfaceTypeConnectionWhere {
@@ -17572,7 +17326,6 @@ input UnionTypeTypesOfUnionTypeInterfaceTypeDisconnectFieldInput {
 
 input UnionTypeTypesOfUnionTypeInterfaceTypeFieldInput {
   connect: [UnionTypeTypesOfUnionTypeInterfaceTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInput!]
   create: [UnionTypeTypesOfUnionTypeInterfaceTypeCreateFieldInput!]
 }
 
@@ -17582,7 +17335,6 @@ input UnionTypeTypesOfUnionTypeInterfaceTypeUpdateConnectionInput {
 
 input UnionTypeTypesOfUnionTypeInterfaceTypeUpdateFieldInput {
   connect: [UnionTypeTypesOfUnionTypeInterfaceTypeConnectFieldInput!]
-  connectOrCreate: [UnionTypeTypesOfUnionTypeInterfaceTypeConnectOrCreateFieldInput!]
   create: [UnionTypeTypesOfUnionTypeInterfaceTypeCreateFieldInput!]
   delete: [UnionTypeTypesOfUnionTypeInterfaceTypeDeleteFieldInput!]
   disconnect: [UnionTypeTypesOfUnionTypeInterfaceTypeDisconnectFieldInput!]
@@ -17827,7 +17579,6 @@ input UnionTypeTypesOfUnionTypeUpdateInput {
 }
 
 input UnionTypeUniqueWhere {
-  id: ID
   name: String
 }
 
@@ -17988,6 +17739,9 @@ type UpdateHooksMutationResponse {
 
 type UpdateInfo {
   bookmark: String
+    @deprecated(
+      reason: "This field has been deprecated because bookmarks are now handled by the driver."
+    )
   nodesCreated: Int!
   nodesDeleted: Int!
   relationshipsCreated: Int!
@@ -18057,6 +17811,11 @@ type UpdateTypeReferencesMutationResponse {
 type UpdateUnionTypesMutationResponse {
   info: UpdateInfo!
   unionTypes: [UnionType!]!
+}
+
+type UpdateUsersMutationResponse {
+  info: UpdateInfo!
+  users: [User!]!
 }
 
 type User {
@@ -18185,7 +17944,7 @@ input UserAppsConnectFieldInput {
   connect: [AppConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: AppConnectWhere
@@ -18307,7 +18066,7 @@ input UserAtomsConnectFieldInput {
   connect: [AtomConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: AtomConnectWhere
@@ -18486,7 +18245,7 @@ input UserComponentsConnectFieldInput {
   connect: [ComponentConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ComponentConnectWhere
@@ -18602,6 +18361,14 @@ input UserConnectInput {
   types: [UserTypesConnectFieldInput!]
 }
 
+input UserConnectOrCreateInput {
+  apps: [UserAppsConnectOrCreateFieldInput!]
+  atoms: [UserAtomsConnectOrCreateFieldInput!]
+  components: [UserComponentsConnectOrCreateFieldInput!]
+  elements: [UserElementsConnectOrCreateFieldInput!]
+  tags: [UserTagsConnectOrCreateFieldInput!]
+}
+
 input UserConnectOrCreateWhere {
   node: UserUniqueWhere!
 }
@@ -18677,7 +18444,7 @@ input UserElementsConnectFieldInput {
   connect: [ElementConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: ElementConnectWhere
@@ -18847,6 +18614,15 @@ input UserOptions {
   sort: [UserSort!]
 }
 
+input UserRelationInput {
+  apps: [UserAppsCreateFieldInput!]
+  atoms: [UserAtomsCreateFieldInput!]
+  components: [UserComponentsCreateFieldInput!]
+  elements: [UserElementsCreateFieldInput!]
+  tags: [UserTagsCreateFieldInput!]
+  types: [UserTypesCreateFieldInput!]
+}
+
 """
 Fields to sort Users by. The order in which sorts are applied is not guaranteed when specifying many fields in one UserSort object.
 """
@@ -18883,7 +18659,7 @@ input UserTagsConnectFieldInput {
   connect: [TagConnectInput!]
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: TagConnectWhere
@@ -19338,7 +19114,7 @@ input WithOwnerOwnerConnectFieldInput {
   connect: UserConnectInput
 
   """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
+  Whether or not to overwrite any matching relationship with the new properties.
   """
   overwrite: Boolean! = true
   where: UserConnectWhere
