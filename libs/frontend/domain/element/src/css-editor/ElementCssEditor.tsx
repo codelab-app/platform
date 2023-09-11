@@ -1,4 +1,3 @@
-import { CaretRightOutlined } from '@ant-design/icons'
 import type {
   CssMap,
   IElementModel,
@@ -12,13 +11,8 @@ import { observer } from 'mobx-react-lite'
 import React, { useCallback, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Element } from '../store'
-import { BackgroundEditor } from './css-background-editor/BackgroundEditor'
-import { BordersEditor } from './css-borders-editor/BordersEditor'
-import { EffectsEditor } from './css-effects-editor/EffectsEditor'
-import { LayoutEditor } from './css-layout-editor'
-import { ShadowsEditor } from './css-shadows-editor'
-import { FontEditor } from './font-editor'
 import { InheritedStyles } from './inherited-styles/InheritedStyles'
+import { StylesEditor } from './new-editor/StylesEditor'
 
 const { Panel } = Collapse
 const autosaveTimeout = 1000
@@ -106,32 +100,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
           />
         </Col>
         <Col span={24}>
-          <Collapse
-            bordered={false}
-            defaultActiveKey={['1']}
-            expandIcon={({ isActive }) => (
-              <CaretRightOutlined rotate={isActive ? 90 : 0} />
-            )}
-          >
-            <Panel header="Layout" key="1">
-              <LayoutEditor element={element} guiCssObj={guiCssObj} />
-            </Panel>
-            <Panel header="Font" key="2">
-              <FontEditor element={element} guiCssObj={guiCssObj} />
-            </Panel>
-            <Panel header="Background" key="3">
-              <BackgroundEditor element={element} guiCssObj={guiCssObj} />
-            </Panel>
-            <Panel header="Effects" key="4">
-              <EffectsEditor element={element} guiCssObj={guiCssObj} />
-            </Panel>
-            <Panel header="Borders" key="5">
-              <BordersEditor element={element} guiCssObj={guiCssObj} />
-            </Panel>
-            <Panel header="Shadows" key="6">
-              <ShadowsEditor element={element} guiCssObj={guiCssObj} />
-            </Panel>
-          </Collapse>
+          <StylesEditor />
         </Col>
       </Row>
     )
