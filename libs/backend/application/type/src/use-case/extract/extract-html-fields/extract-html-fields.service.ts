@@ -88,6 +88,8 @@ export class ExtractHtmlFieldsService
     }
 
     const fieldTypeDTO = await this.htmlTypeAdapterService.execute({
+      atom,
+      field,
       type: field.type,
     })
 
@@ -95,13 +97,9 @@ export class ExtractHtmlFieldsService
       return undefined
     }
 
-    const type = await this.typeFactory.save(
-      {
-        ...fieldTypeDTO,
-        owner: this.owner,
-      },
-      { name: fieldTypeDTO.name },
-    )
+    const type = await this.typeFactory.save(fieldTypeDTO, {
+      name: fieldTypeDTO.name,
+    })
 
     return Field.create({
       api: { id: atom.api.id },

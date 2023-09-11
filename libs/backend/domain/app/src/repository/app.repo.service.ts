@@ -3,6 +3,7 @@ import type {
   AppOptions,
   AppWhere,
 } from '@codelab/backend/abstract/codegen'
+import { AuthService } from '@codelab/backend/application/service'
 import {
   appSelectionSet,
   OgmService,
@@ -30,6 +31,7 @@ export class AppRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
+    private authService: AuthService,
   ) {
     super(traceService, validationService)
   }
@@ -58,23 +60,29 @@ export class AppRepository extends AbstractRepository<
       await (
         await this.ogmService.App
       ).create({
-        input: apps.map(({ id, name, owner, pages }) => ({
-          _compoundName: createUniqueName(name, owner.auth0Id),
+        input: apps.map(({ id, name, pages }) => ({
+          _compoundName: createUniqueName(
+            name,
+            this.authService.currentUser.auth0Id,
+          ),
           id,
-          owner: connectAuth0Owner(owner),
+          owner: connectAuth0Owner(this.authService.currentUser),
           pages: connectNodeIds(pages?.map((page) => page.id)),
         })),
       })
     ).apps
   }
 
-  protected async _update({ name, owner, pages }: IAppDTO, where: AppWhere) {
+  protected async _update({ name, pages }: IAppDTO, where: AppWhere) {
     return (
       await (
         await this.ogmService.App
       ).update({
         update: {
-          _compoundName: createUniqueName(name, owner.auth0Id),
+          _compoundName: createUniqueName(
+            name,
+            this.authService.currentUser.auth0Id,
+          ),
           pages: reconnectNodeIds(pages?.map((page) => page.id)).map(
             (input) => ({
               ...input,

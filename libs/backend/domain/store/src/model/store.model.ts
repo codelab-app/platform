@@ -19,13 +19,12 @@ export class Store implements IStoreDTO {
     this.name = name
   }
 
-  static create(owner: IAuth0User, name: string) {
+  static create(name: string) {
     const api = new InterfaceType({
       fields: [] as Array<IEntity>,
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: `${name} API`,
-      owner,
     })
 
     return new Store({

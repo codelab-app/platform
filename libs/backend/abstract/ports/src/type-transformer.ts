@@ -7,6 +7,7 @@ import type {
   RenderPropType,
   UnionType,
 } from '@codelab/backend/abstract/codegen'
+import type { IAtomDTO, IFieldDTO } from '@codelab/shared/abstract/core'
 
 /**
  * Allows transformation of any framework types to the core types
@@ -25,13 +26,21 @@ export interface ITypeTransformer {
   renderPropType(type: string): Promise<RenderPropType>
 
   isEnumType(type: string): boolean
-  enumType(type: string): Promise<EnumType>
+  enumType(
+    type: string,
+    atom: Pick<IAtomDTO, 'name'>,
+    field: Pick<IFieldDTO, 'key'>,
+  ): Promise<EnumType>
 
   isArrayType(type: string): boolean
   // arrayType(type: string): Promise<ArrayType>
 
   isUnionType(type: string): boolean
-  unionType(type: string): Promise<UnionType>
+  unionType(
+    type: string,
+    atom: Pick<IAtomDTO, 'name'>,
+    field: Pick<IFieldDTO, 'key'>,
+  ): Promise<UnionType>
 
   isBooleanType(type: string): boolean
   booleanType(type: string): Promise<PrimitiveType>

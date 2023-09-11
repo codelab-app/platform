@@ -9,10 +9,7 @@ import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportComponentsCommand {
-  constructor(
-    public readonly componentExport: IComponentOutputDto,
-    public readonly owner: IAuth0User,
-  ) {}
+  constructor(public readonly componentExport: IComponentOutputDto) {}
 }
 
 @CommandHandler(ImportComponentsCommand)
@@ -29,23 +26,20 @@ export class ImportComponentsHandler
   async execute(command: ImportComponentsCommand) {
     const {
       componentExport: { api, component, descendantElements, store },
-      owner,
     } = command
 
     await this.propRepository.save(component.props)
 
     await this.commandBus.execute<ImportStoreCommand>(
-      new ImportStoreCommand(store, owner),
+      new ImportStoreCommand(store),
     )
 
-    await this.commandBus.execute<ImportApiCommand>(
-      new ImportApiCommand(api, owner),
-    )
+    await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
 
     for await (const element of descendantElements) {
       await this.elementRepository.save(element)
     }
 
-    await this.componentRepository.save({ ...component, owner })
+    await this.componentRepository.save(component)
   }
 }

@@ -1,5 +1,9 @@
 import type { AntDesignField } from '@codelab/backend/abstract/core'
-import { CurrentUser, UseCase } from '@codelab/backend/application/service'
+import {
+  AuthService,
+  CurrentUser,
+  UseCase,
+} from '@codelab/backend/application/service'
 import {
   Field,
   FieldRepository,
@@ -33,7 +37,7 @@ export class ExtractAntDesignFieldsService extends UseCase<
     private fieldRepository: FieldRepository,
     private typeFactory: TypeFactory,
     private antTypeAdapterService: AntdTypeAdapterService,
-    @CurrentUser() private owner: IAuth0User,
+    private authService: AuthService,
   ) {
     super()
   }
@@ -96,6 +100,8 @@ export class ExtractAntDesignFieldsService extends UseCase<
     }
 
     const fieldTypeDTO = await this.antTypeAdapterService.execute({
+      atom,
+      field: { key: field.property },
       type: field.type,
     })
 
@@ -103,13 +109,9 @@ export class ExtractAntDesignFieldsService extends UseCase<
       return undefined
     }
 
-    const type = await this.typeFactory.save(
-      {
-        ...fieldTypeDTO,
-        owner: this.owner,
-      },
-      { name: fieldTypeDTO.name },
-    )
+    const type = await this.typeFactory.save(fieldTypeDTO, {
+      name: fieldTypeDTO.name,
+    })
 
     return Field.create({
       api: { id: atom.api.id },

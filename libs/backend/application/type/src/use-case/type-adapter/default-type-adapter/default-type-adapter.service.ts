@@ -5,7 +5,7 @@ import type {
 } from '@codelab/backend/abstract/codegen'
 import type { IType } from '@codelab/backend/abstract/core'
 import type { ITypeTransformer } from '@codelab/backend/abstract/ports'
-import { AuthUseCase } from '@codelab/backend/application/service'
+import { UseCase } from '@codelab/backend/application/service'
 import {
   ActionTypeRepository,
   EnumType,
@@ -35,13 +35,12 @@ import {
 } from '../../../parser'
 
 interface Request {
-  type: string
-}
-
-interface Props {
   atom: Pick<IAtomDTO, 'name'>
   field: Pick<IFieldDTO, 'key'>
-  owner: IAuth0User
+  /**
+   * Type of the field from framework
+   */
+  type: string
 }
 
 /**
@@ -52,13 +51,9 @@ interface Props {
  */
 @Injectable()
 export class DefaultTypeAdapterService
-  extends AuthUseCase<Request, IType | undefined>
+  extends UseCase<Request, IType | undefined>
   implements ITypeTransformer
 {
-  atom: Pick<IAtomDTO, 'name'>
-
-  field: Pick<IFieldDTO, 'key'>
-
   reactNodeTypeRegex = /(([:|=>] (ReactNode|HTMLElement))|ReactNode)/
 
   renderPropTypeRegexes = [arrowFnReturnReactNode, es5FnReturnReactNode]
@@ -85,20 +80,18 @@ export class DefaultTypeAdapterService
   actionTypeRegex = /(^function\(.*?\))|((\(.*?\)) => \w)/
 
   constructor(
-    { atom, field, owner }: Props,
     private primitiveTypeRepository: PrimitiveTypeRepository,
     private actionTypeRepository: ActionTypeRepository,
     private reactNodeTypeRepository: ReactNodeTypeRepository,
     private renderPropTypeRepository: RenderPropTypeRepository,
     private typeFactory: TypeFactory,
   ) {
-    super(owner)
-
-    this.atom = atom
-    this.field = field
+    super()
   }
 
-  async _execute({ type }: Request) {
+  async _execute(request: Request) {
+    const { atom, field, type } = request
+
     const typeChecks = [
       {
         check: this.isEnumType.bind(this),
@@ -168,7 +161,7 @@ export class DefaultTypeAdapterService
       )
     }
 
-    return await matchingTypeChecks[0]?.transform(type)
+    return await matchingTypeChecks[0]?.transform(type, atom, field)
   }
 
   isNumberType(type: string) {
@@ -249,16 +242,19 @@ export class DefaultTypeAdapterService
     )
   }
 
-  async interfaceType() {
+  async interfaceType(
+    type: string,
+    atom: Pick<IAtomDTO, 'name'>,
+    field: Pick<IFieldDTO, 'key'>,
+  ) {
     const interfaceType: IInterfaceTypeDTO = {
       __typename: ITypeKind.InterfaceType,
       fields: [],
       id: v4(),
       kind: ITypeKind.InterfaceType,
-      name: InterfaceType.getApiName(this.atom, {
-        key: this.field.key,
+      name: InterfaceType.getApiName(atom, {
+        key: field.key,
       }),
-      owner: this.owner,
     }
 
     return await this.typeFactory.save<IInterfaceType>(interfaceType)
@@ -296,13 +292,19 @@ export class DefaultTypeAdapterService
     )
   }
 
-  async unionType(type: string) {
+  async unionType(
+    type: string,
+    atom: Pick<IAtomDTO, 'name'>,
+    field: Pick<IFieldDTO, 'key'>,
+  ) {
     const typesOfUnionType = parseSeparators({ type })
 
     const mappedTypesOfUnionType = (
       await Promise.all(
         typesOfUnionType.map(async (typeOfUnionType) => {
           return await this.execute({
+            atom,
+            field,
             type: typeOfUnionType,
           })
         }),
@@ -314,10 +316,7 @@ export class DefaultTypeAdapterService
     // Create nested types
     await Promise.all(
       mappedTypesOfUnionType.map(async ({ ...typeOfUnionType }) => {
-        return await this.typeFactory.save({
-          ...typeOfUnionType,
-          owner: this.owner,
-        })
+        return await this.typeFactory.save(typeOfUnionType)
       }),
     )
 
@@ -325,10 +324,7 @@ export class DefaultTypeAdapterService
       __typename: ITypeKind.UnionType,
       id: v4(),
       kind: ITypeKind.UnionType,
-      name: UnionType.compositeName(this.atom, {
-        key: this.field.key,
-      }),
-      owner: this.owner,
+      name: UnionType.compositeName(atom, field),
       // These need to exist already
       typesOfUnionType: mappedTypesOfUnionType,
     }
@@ -336,7 +332,11 @@ export class DefaultTypeAdapterService
     return await this.typeFactory.save<IUnionType>(unionType)
   }
 
-  async enumType(type: string) {
+  async enumType(
+    type: string,
+    atom: Pick<IAtomDTO, 'name'>,
+    field: Pick<IFieldDTO, 'key'>,
+  ) {
     const values = parseSeparators({ type })
 
     const enumType: IEnumTypeDTO = {
@@ -348,10 +348,7 @@ export class DefaultTypeAdapterService
       })),
       id: v4(),
       kind: ITypeKind.EnumType,
-      name: EnumType.compositeName(this.atom, {
-        key: this.field.key,
-      }),
-      owner: this.owner,
+      name: EnumType.compositeName(atom, field),
     }
 
     return await this.typeFactory.save<IEnumType>(enumType)

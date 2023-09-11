@@ -4,9 +4,7 @@ import type { IAuth0Owner, IAuth0User } from '@codelab/shared/abstract/core'
 import { createTypesData } from '@codelab/shared/data/test'
 import { CommandHandler } from '@nestjs/cqrs'
 
-export class SeedTypeCommand implements IAuth0Owner {
-  constructor(public owner: IAuth0User) {}
-}
+export class SeedTypeCommand {}
 
 /**
  * Used as endpoint for creating Cypress data
@@ -15,9 +13,8 @@ export class SeedTypeCommand implements IAuth0Owner {
 export class SeedTypeHandler {
   constructor(private typeFactory: TypeFactory) {}
 
-  async execute(command: SeedTypeCommand) {
-    const { owner } = command
-    const typesData = createTypesData(owner)
+  async execute() {
+    const typesData = createTypesData()
 
     /**
      * Create the types

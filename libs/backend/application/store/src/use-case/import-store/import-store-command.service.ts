@@ -8,7 +8,7 @@ import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportStoreCommand {
-  constructor(public storeExport: IStoreOutputDto, public owner: IAuth0User) {}
+  constructor(public storeExport: IStoreOutputDto) {}
 }
 
 @CommandHandler(ImportStoreCommand)
@@ -22,7 +22,6 @@ export class ImportStoreHandler implements ICommandHandler<ImportStoreCommand> {
 
   async execute(command: ImportStoreCommand) {
     const {
-      owner,
       storeExport: { actions, api, store },
     } = command
 
@@ -32,8 +31,6 @@ export class ImportStoreHandler implements ICommandHandler<ImportStoreCommand> {
       await this.actionFactory.save(action)
     }
 
-    await this.commandBus.execute<ImportApiCommand>(
-      new ImportApiCommand(api, owner),
-    )
+    await this.commandBus.execute<ImportApiCommand>(new ImportApiCommand(api))
   }
 }

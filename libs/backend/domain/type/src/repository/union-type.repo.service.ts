@@ -3,6 +3,7 @@ import type {
   UnionTypeOptions,
   UnionTypeWhere,
 } from '@codelab/backend/abstract/codegen'
+import { AuthService } from '@codelab/backend/application/service'
 import {
   exportUnionTypeSelectionSet,
   OgmService,
@@ -10,7 +11,11 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type { IBaseTypeDTO, IUnionTypeDTO } from '@codelab/shared/abstract/core'
+import type {
+  IBaseTypeDTO,
+  ITypeEntity,
+  IUnionTypeDTO,
+} from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
   connectAuth0Owner,
@@ -20,14 +25,14 @@ import {
 import { Injectable } from '@nestjs/common'
 
 const filterTypeIds = (
-  typesOfUnionType: Array<Omit<IBaseTypeDTO, 'owner'>>,
+  typesOfUnionType: Array<ITypeEntity>,
   kind: ITypeKind,
 ): Array<string> =>
-  typesOfUnionType.filter((_type) => _type.kind === kind).map(({ id }) => id)
+  typesOfUnionType
+    .filter((_type) => _type.__typename === kind)
+    .map(({ id }) => id)
 
-const getFilteredTypes = (
-  typesOfUnionType: Array<Omit<IBaseTypeDTO, 'owner'>>,
-) => ({
+const getFilteredTypes = (typesOfUnionType: Array<ITypeEntity>) => ({
   arrayTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.ArrayType),
   enumTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.EnumType),
   interfaceTypeIds: filterTypeIds(typesOfUnionType, ITypeKind.InterfaceType),
@@ -47,6 +52,7 @@ export class UnionTypeRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
+    private authService: AuthService,
   ) {
     super(traceService, validationService)
   }
@@ -73,7 +79,7 @@ export class UnionTypeRepository extends AbstractRepository<
         await this.ogmService.UnionType
       ).create({
         input: unionTypes.map(
-          ({ __typename, id, kind, name, owner, typesOfUnionType }) => {
+          ({ __typename, id, kind, name, typesOfUnionType }) => {
             const {
               arrayTypeIds,
               enumTypeIds,
@@ -87,7 +93,7 @@ export class UnionTypeRepository extends AbstractRepository<
               id,
               kind,
               name,
-              owner: connectAuth0Owner(owner),
+              owner: connectAuth0Owner(this.authService.currentUser),
               typesOfUnionType: {
                 ArrayType: connectNodeIds(arrayTypeIds),
                 EnumType: connectNodeIds(enumTypeIds),

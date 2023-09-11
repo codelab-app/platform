@@ -1,6 +1,6 @@
 import type { IAtomRecords, TagNode } from '@codelab/backend/abstract/core'
 import { SeedAtomsService } from '@codelab/backend/application/atom'
-import { AuthUseCase } from '@codelab/backend/application/service'
+import { UseCase } from '@codelab/backend/application/service'
 import { SeedTagsService } from '@codelab/backend/application/tag'
 import {
   SeedEmptyApiService,
@@ -31,7 +31,7 @@ interface FrameworkData {
  * It contains atoms, api's, tags
  */
 @Injectable()
-export class SeedFrameworkService extends AuthUseCase<FrameworkData, void> {
+export class SeedFrameworkService extends UseCase<FrameworkData, void> {
   constructor(
     private readonly typeSeederService: TypeSeederService,
     private readonly seedTagsService: SeedTagsService,
@@ -39,7 +39,7 @@ export class SeedFrameworkService extends AuthUseCase<FrameworkData, void> {
     protected readonly owner: IAuth0User,
     private seedAtomsService: SeedAtomsService,
   ) {
-    super(owner)
+    super()
   }
 
   async _execute(data: FrameworkData) {
@@ -65,9 +65,9 @@ export class SeedFrameworkService extends AuthUseCase<FrameworkData, void> {
   }
 
   private seedSystemTypes() {
-    const types = Object.values(systemTypesData(this.owner))
+    const types = Object.values(systemTypesData())
 
-    return this.typeSeederService.seedTypes(types, this.owner)
+    return this.typeSeederService.seedTypes(types)
   }
 
   private async seedAtoms(atoms: FrameworkData['atoms']) {

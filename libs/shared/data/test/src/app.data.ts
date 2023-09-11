@@ -9,13 +9,12 @@ import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { v4 } from 'uuid'
 
-export const storeApiData = (owner: IAuth0User): IInterfaceTypeDTO => ({
+export const storeApiData = (): IInterfaceTypeDTO => ({
   __typename: `${ITypeKind.InterfaceType}`,
   fields: [],
   id: v4(),
   kind: ITypeKind.InterfaceType,
   name: `Test Store API`,
-  owner,
 })
 
 export const storeData = (api: IEntity): IStoreDTO => ({
@@ -24,10 +23,9 @@ export const storeData = (api: IEntity): IStoreDTO => ({
   name: 'Test Store',
 })
 
-export const appData = (owner: IAuth0User): IAppDTO => ({
+export const appData = (): IAppDTO => ({
   id: v4(),
   name: 'Codelab App',
-  owner,
 })
 
 export const buttonElementData: Pick<ICreateElementData, 'id' | 'name'> = {

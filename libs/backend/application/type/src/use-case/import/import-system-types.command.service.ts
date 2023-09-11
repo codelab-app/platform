@@ -5,7 +5,7 @@ import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
 export class ImportSystemTypesCommand {
-  constructor(public types: Array<ITypeDTO>, public owner: IAuth0User) {}
+  constructor(public types: Array<ITypeDTO>) {}
 }
 
 @CommandHandler(ImportSystemTypesCommand)
@@ -15,14 +15,12 @@ export class ImportSystemTypesHandler
   constructor(private readonly typeFactory: TypeFactory) {}
 
   @Span()
-  async execute(command: ImportSystemTypesCommand) {
-    const { owner, types } = command
-
+  async execute({ types }: ImportSystemTypesCommand) {
     /**
      * Must do sequentially due to type dependency
      */
     for (const type of types) {
-      await this.typeFactory.save({ ...type, owner })
+      await this.typeFactory.save(type)
     }
   }
 }

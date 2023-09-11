@@ -17,9 +17,7 @@ export class ExportTagsHandler
   constructor(private readonly tagRepository: TagRepository) {}
 
   @Span()
-  async execute(command: ExportTagsCommand) {
-    const { where } = command
-
+  async execute({ where }: ExportTagsCommand) {
     return (
       (
         await this.tagRepository.find({

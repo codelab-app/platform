@@ -3,6 +3,7 @@ import type {
   TagOptions,
   TagWhere,
 } from '@codelab/backend/abstract/codegen'
+import { AuthService } from '@codelab/backend/application/service'
 import {
   OgmService,
   tagSelectionSet,
@@ -29,6 +30,7 @@ export class TagRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
+    private authService: AuthService,
   ) {
     super(traceService, validationService)
   }
@@ -57,10 +59,10 @@ export class TagRepository extends AbstractRepository<
       await (
         await this.ogmService.Tag
       ).create({
-        input: tags.map(({ children, descendants, owner, parent, ...tag }) => ({
+        input: tags.map(({ children, descendants, parent, ...tag }) => ({
           ...tag,
           children: connectNodeIds(children?.map((child) => child.id)),
-          owner: connectAuth0Owner(owner),
+          owner: connectAuth0Owner(this.authService.currentUser),
           // parent: connectNodeId(parent?.id),
         })),
       })
@@ -68,7 +70,7 @@ export class TagRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { children, descendants, id, owner, parent, ...tag }: ITagDTO,
+    { children, descendants, id, parent, ...tag }: ITagDTO,
     where: TagWhere,
   ) {
     // Get existing tag so we know what to connect/disconnect

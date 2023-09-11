@@ -38,9 +38,7 @@ export class ExportComponentHandler
   ) {}
 
   @Span()
-  async execute(command: ExportComponentCommand) {
-    const { componentId } = command
-
+  async execute({ componentId }: ExportComponentCommand) {
     const component = throwIfUndefined(
       await this.componentRepository.findOne({
         id: componentId,

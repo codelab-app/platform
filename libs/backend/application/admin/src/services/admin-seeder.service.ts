@@ -2,7 +2,6 @@ import {
   ExtractAntDesignFieldsService,
   ExtractHtmlFieldsService,
 } from '@codelab/backend/application/type'
-import { UserService } from '@codelab/backend/application/user'
 import { antdTagTree, htmlTagTree } from '@codelab/backend/data/seed'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
 import { antdAtomData, htmlAtomData } from '@codelab/shared/data/seed'
@@ -12,7 +11,6 @@ import { SeedFrameworkService } from '../use-case'
 @Injectable()
 export class AdminSeederService {
   constructor(
-    private readonly userService: UserService,
     private readonly extractAntDesignFieldService: ExtractAntDesignFieldsService,
     private readonly extractHtmlFieldsService: ExtractHtmlFieldsService,
     private readonly seedFrameworkService: SeedFrameworkService,

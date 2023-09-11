@@ -15,7 +15,7 @@ import type { IBaseDataPaths } from '../../services/migration-data.service'
 import { ReadAdminDataService } from './read-admin-data.service'
 
 export class ImportAdminDataCommand implements IBaseDataPaths {
-  constructor(public owner: IAuth0User, public baseDataPaths?: string) {}
+  constructor(public baseDataPaths?: string) {}
 }
 
 /**
@@ -32,9 +32,7 @@ export class ImportAdminDataHandler
   ) {}
 
   @Span()
-  async execute(command: ImportAdminDataCommand) {
-    const { baseDataPaths, owner } = command
-
+  async execute({ baseDataPaths }: ImportAdminDataCommand) {
     if (baseDataPaths) {
       this.readAdminDataService.migrationDataService.basePaths = baseDataPaths
     }
@@ -42,58 +40,56 @@ export class ImportAdminDataHandler
     /**
      * System types must be seeded first, so other types can reference it
      */
-    await this.importSystemTypes(owner)
+    await this.importSystemTypes()
 
-    await this.importTags(owner)
+    await this.importTags()
 
-    await this.importAtoms(owner)
+    await this.importAtoms()
 
     // await this.importComponents(owner)
   }
 
-  private async importComponents(owner: IAuth0User) {
+  private async importComponents() {
     for (const component of this.readAdminDataService.components) {
-      await this.commandBus.execute(
-        new ImportComponentsCommand(component, owner),
-      )
+      await this.commandBus.execute(new ImportComponentsCommand(component))
     }
   }
 
   @Span()
-  private async importTags(owner: IAuth0User) {
+  private async importTags() {
     const { tags } = this.readAdminDataService
 
     return this.commandBus.execute<ImportTagsCommand, void>(
-      new ImportTagsCommand(tags, owner),
+      new ImportTagsCommand(tags),
     )
   }
 
   @Span()
-  private async importSystemTypes(owner: IAuth0User) {
+  private async importSystemTypes() {
     const types = this.readAdminDataService.systemTypes
 
     return this.commandBus.execute<ImportSystemTypesCommand>(
-      new ImportSystemTypesCommand(types, owner),
+      new ImportSystemTypesCommand(types),
     )
   }
 
-  private async importAtoms(owner: IAuth0User) {
+  private async importAtoms() {
     for (const atomData of this.readAdminDataService.atoms) {
       // const attributes = pick(atomData.atom, ['name'])
       // this.traceService.getSpan()?.setAttributes(attributes)
       await withActiveSpan(`${atomData.atom.name}`, () =>
-        this.importAtom(atomData, owner),
+        this.importAtom(atomData),
       )
     }
   }
 
   @Span()
-  private async importAtom(atomOutput: IAtomOutputDto, owner: IAuth0User) {
+  private async importAtom(atomOutput: IAtomOutputDto) {
     const span = this.traceService.getSpan()
     span?.setAttributes(flattenWithPrefix(atomOutput))
 
     await this.commandBus.execute<ImportAtomCommand>(
-      new ImportAtomCommand(atomOutput, owner),
+      new ImportAtomCommand(atomOutput),
     )
   }
 }

@@ -1,4 +1,5 @@
 import { ExportAppsCommand } from '@codelab/backend/application/app'
+import { AuthService } from '@codelab/backend/application/service'
 import { UserRepository } from '@codelab/backend/domain/user'
 import type { IAuth0User } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
@@ -23,9 +24,7 @@ const keyComparator = (a: { key: string }, b: { key: string }) =>
 //   return exportData
 // }
 
-export class ExportUserDataCommand {
-  constructor(public owner: IAuth0User) {}
-}
+export class ExportUserDataCommand {}
 
 @CommandHandler(ExportUserDataCommand)
 export class ExportUserDataHandler
@@ -34,14 +33,17 @@ export class ExportUserDataHandler
   constructor(
     private readonly commandBus: CommandBus,
     private readonly userRepository: UserRepository,
+    private authService: AuthService,
   ) {}
 
-  async execute(command: ExportUserDataCommand) {
-    const { owner } = command
+  async execute() {
     /**
      * Get all apps of user
      */
-    const user = await this.userRepository.findOne(owner)
+    const user = await this.userRepository.findOne({
+      auth0Id: this.authService.currentUser.auth0Id,
+    })
+
     const appIds = user?.apps.map((app) => app.id)
 
     await this.commandBus.execute(new ExportAppsCommand({ id_IN: appIds }))

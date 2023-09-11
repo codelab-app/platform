@@ -4,6 +4,7 @@ import type {
   InterfaceTypeOptions,
   InterfaceTypeWhere,
 } from '@codelab/backend/abstract/codegen'
+import { AuthService } from '@codelab/backend/application/service'
 import {
   getDependentTypes,
   interfaceTypeSelectionSet,
@@ -40,6 +41,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
     protected traceService: TraceService,
     private neo4jService: Neo4jService,
     protected validationService: ValidationService,
+    private authService: AuthService,
   ) {
     super(traceService, validationService)
   }
@@ -93,11 +95,11 @@ export class InterfaceTypeRepository extends AbstractRepository<
         await this.ogmService.InterfaceType
       ).create({
         input: interfaceTypes.map(
-          ({ __typename, fields, owner, ...interfaceType }) => ({
+          ({ __typename, fields, ...interfaceType }) => ({
             ...interfaceType,
             // fields: this.mapCreateFields(fields),
             fields: connectNodeIds(fields.map(({ id }) => id)),
-            owner: connectAuth0Owner(owner),
+            owner: connectAuth0Owner(this.authService.currentUser),
           }),
         ),
         selectionSet: `{ interfaceTypes ${interfaceTypeSelectionSet} }`,
@@ -111,7 +113,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
    * Scenario: Say a field was deleted, then we run a seeder, we would have to create for the deleted field
    */
   protected async _update(
-    { __typename, fields, id, name, owner, ...data }: IInterfaceTypeDTO,
+    { __typename, fields, id, name, ...data }: IInterfaceTypeDTO,
     where: InterfaceTypeWhere,
   ) {
     return (

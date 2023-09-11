@@ -24,9 +24,7 @@ export class ExportPageHandler
     private readonly commandBus: CommandBus,
   ) {}
 
-  async execute(command: ExportPageCommand) {
-    const { where } = command
-
+  async execute({ where }: ExportPageCommand) {
     const pages = await this.pageRepository.find({
       where: { app: { id: where.id } },
     })

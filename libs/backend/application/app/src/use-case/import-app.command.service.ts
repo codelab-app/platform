@@ -24,18 +24,17 @@ export class ImportAppHandler implements ICommandHandler<ImportAppCommand> {
   async execute(command: ImportAppCommand) {
     const {
       appExport: { app, components, domains, pages },
-      owner,
     } = command
 
     for (const page of pages) {
       await this.commandBus.execute<ImportPageCommand>(
-        new ImportPageCommand(page, owner),
+        new ImportPageCommand(page),
       )
     }
 
     for (const component of components) {
       await this.commandBus.execute<ImportComponentsCommand>(
-        new ImportComponentsCommand(component, owner),
+        new ImportComponentsCommand(component),
       )
     }
 
@@ -43,7 +42,7 @@ export class ImportAppHandler implements ICommandHandler<ImportAppCommand> {
       await this.domainRepository.save(domain)
     }
 
-    await this.appRepository.add([{ ...app, owner }])
+    await this.appRepository.add([app])
 
     return app
   }

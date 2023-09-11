@@ -37,9 +37,6 @@ export class Atom implements IAtomDTO {
 
   suggestedChildren: Array<IEntity>
 
-  // Assuming this is a string, add validators as per actual type
-  owner: IAuth0User
-
   static create(data: IAtomDTO): Atom {
     const atom = new Atom(data)
     const errors = validateSync(atom)
@@ -63,7 +60,6 @@ export class Atom implements IAtomDTO {
     icon,
     id,
     name,
-    owner,
     requiredParents = [],
     suggestedChildren = [],
     tags = [],
@@ -80,6 +76,5 @@ export class Atom implements IAtomDTO {
     this.tags = tags
     this.requiredParents = requiredParents
     this.suggestedChildren = suggestedChildren
-    this.owner = owner
   }
 }

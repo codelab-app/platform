@@ -47,11 +47,10 @@ export class ExportAdminDataHandler
   ) {}
 
   @Span()
-  async execute(command: ExportAdminDataCommand) {
-    const { baseDataPaths } = command
+  async execute({ baseDataPaths }: ExportAdminDataCommand) {
     const span = this.traceService.getSpan()!
 
-    span.setAttributes(flattenWithPrefix(command))
+    span.setAttributes(flattenWithPrefix({ baseDataPaths }))
 
     if (baseDataPaths) {
       span.addEvent('Add baseDataPath')

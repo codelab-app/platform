@@ -63,7 +63,6 @@ export class AtomRepository extends AbstractRepository<
         input: atoms.map(
           ({
             api,
-            owner,
             requiredParents = [],
             suggestedChildren = [],
             tags,
@@ -71,7 +70,6 @@ export class AtomRepository extends AbstractRepository<
           }) => ({
             ...atom,
             api: connectNodeId(api.id),
-            owner: connectAuth0Owner(owner),
             requiredParents: connectNodeIds(
               requiredParents.map((parent) => parent.id),
             ),
@@ -89,7 +87,6 @@ export class AtomRepository extends AbstractRepository<
     {
       api,
       id,
-      owner,
       requiredParents = [],
       suggestedChildren = [],
       tags,

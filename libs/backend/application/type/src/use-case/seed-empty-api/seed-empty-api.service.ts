@@ -50,7 +50,6 @@ export class SeedEmptyApiService extends UseCase<Array<IAtomType>, void> {
         await this.interfaceTypeRepository.save({
           fields: [],
           ...interfaceType,
-          owner: this.owner,
         })
       }),
     )

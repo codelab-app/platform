@@ -8,7 +8,7 @@ import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 
 export class ImportPageCommand {
-  constructor(public pageExport: IPageOutputDto, public owner: IAuth0User) {}
+  constructor(public pageExport: IPageOutputDto) {}
 }
 
 @CommandHandler(ImportPageCommand)
@@ -22,7 +22,6 @@ export class ImportPageHandler implements ICommandHandler<ImportPageCommand> {
 
   async execute(command: ImportPageCommand) {
     const {
-      owner,
       pageExport: { elements, page, store },
     } = command
 
@@ -31,7 +30,7 @@ export class ImportPageHandler implements ICommandHandler<ImportPageCommand> {
     }
 
     await this.commandBus.execute<ImportStoreCommand>(
-      new ImportStoreCommand(store, owner),
+      new ImportStoreCommand(store),
     )
 
     await this.pageRepository.save(page)

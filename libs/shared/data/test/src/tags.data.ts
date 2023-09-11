@@ -70,13 +70,12 @@ const partialTagData: Array<PartialTagDTO> = [
   },
 ]
 
-export const createTagsData = (owner: IAuth0User): Array<ITagDTO> =>
+export const createTagsData = (): Array<ITagDTO> =>
   partialTagData
     // add missing pieces
     .map(({ children, id, name, parent }) => ({
       children: children ?? [],
       id: id ?? v4(),
       name,
-      owner,
       parent,
     }))

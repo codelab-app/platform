@@ -12,8 +12,7 @@ export class ExportStoreCommand {
 export class ExportStoreHandler implements ICommandHandler<ExportStoreCommand> {
   constructor(private storeRepository: StoreRepository) {}
 
-  async execute(command: ExportStoreCommand) {
-    const { where } = command
+  async execute({ where }: ExportStoreCommand) {
     const store = await this.storeRepository.findOne(where)
 
     if (!store) {

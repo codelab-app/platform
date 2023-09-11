@@ -6,7 +6,7 @@ import { IDomainOutputDto } from './domain.output.dto'
 import { IPageOutputDto } from './page.output.dto'
 
 export const IAppOutputDto = Type.Object({
-  app: Type.Omit(IAppDTO, ['owner']),
+  app: IAppDTO,
   components: Type.Array(IComponentOutputDto),
   domains: Type.Array(IDomainOutputDto),
   pages: Type.Array(IPageOutputDto),

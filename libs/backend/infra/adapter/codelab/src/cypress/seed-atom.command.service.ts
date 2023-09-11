@@ -1,4 +1,5 @@
 /* eslint-disable @nx/enforce-module-boundaries */
+import { AuthService } from '@codelab/backend/application/service'
 import { Atom, AtomRepository } from '@codelab/backend/domain/atom'
 import {
   InterfaceType,
@@ -9,9 +10,7 @@ import { createAtomsApiData, createAtomsData } from '@codelab/shared/data/test'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
-export class SeedAtomCommand implements IAuth0Owner {
-  constructor(public owner: IAuth0User) {}
-}
+export class SeedAtomCommand {}
 
 @CommandHandler(SeedAtomCommand)
 export class SeedAtomHandler implements ICommandHandler<SeedAtomCommand, void> {
@@ -20,9 +19,8 @@ export class SeedAtomHandler implements ICommandHandler<SeedAtomCommand, void> {
     private interfaceTypeRepository: InterfaceTypeRepository,
   ) {}
 
-  async execute(command: SeedAtomCommand) {
-    const { owner } = command
-    const atomsData = createAtomsData(owner)
+  async execute() {
+    const atomsData = createAtomsData()
     const apiData = createAtomsApiData(atomsData)
 
     /**

@@ -23,14 +23,13 @@ const atomTypes = [
   IAtomType.NextLink,
 ]
 
-export const createAtomsData = (owner: IAuth0User): Array<IAtomDTO> =>
+export const createAtomsData = (): Array<IAtomDTO> =>
   atomTypes.map((atomType) => ({
     api: {
       id: v4(),
     },
     id: v4(),
     name: atomType,
-    owner,
     requiredParents: [],
     suggestedChildren: [],
     tags: [],
@@ -50,6 +49,5 @@ export const createAtomsApiData = (
       id: atom.api.id,
       kind: ITypeKind.InterfaceType,
       name: `${atom.name} API`,
-      owner: atom.owner,
     }
   })

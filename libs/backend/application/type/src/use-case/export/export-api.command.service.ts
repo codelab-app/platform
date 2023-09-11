@@ -32,9 +32,7 @@ export class ExportApiHandler
   ) {}
 
   @Span()
-  async execute(command: ExportApiCommand): Promise<IApiOutputDto> {
-    const { api } = command
-
+  async execute({ api }: ExportApiCommand): Promise<IApiOutputDto> {
     /**
      * (1) Get itself
      */

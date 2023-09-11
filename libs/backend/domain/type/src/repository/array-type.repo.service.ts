@@ -3,6 +3,7 @@ import type {
   ArrayTypeOptions,
   ArrayTypeWhere,
 } from '@codelab/backend/abstract/codegen'
+import { AuthService } from '@codelab/backend/application/service'
 import {
   exportArrayTypeSelectionSet,
   OgmService,
@@ -29,6 +30,7 @@ export class ArrayTypeRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
+    private authService: AuthService,
   ) {
     super(traceService, validationService)
   }
@@ -54,20 +56,18 @@ export class ArrayTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.ArrayType
       ).create({
-        input: primitiveTypes.map(
-          ({ __typename, itemType, owner, ...type }) => ({
-            ...type,
-            itemType: connectNodeId(itemType?.id),
-            owner: connectAuth0Owner(owner),
-          }),
-        ),
+        input: primitiveTypes.map(({ __typename, itemType, ...type }) => ({
+          ...type,
+          itemType: connectNodeId(itemType?.id),
+          owner: connectAuth0Owner(this.authService.currentUser),
+        })),
         selectionSet: `{ arrayTypes ${exportArrayTypeSelectionSet} }`,
       })
     ).arrayTypes
   }
 
   protected async _update(
-    { __typename, id, itemType, name, owner, ...primitiveType }: IArrayTypeDTO,
+    { __typename, id, itemType, name, ...primitiveType }: IArrayTypeDTO,
     where: ArrayTypeWhere,
   ) {
     return (

@@ -5,6 +5,7 @@ import type {
   EnumTypeOptions,
   EnumTypeWhere,
 } from '@codelab/backend/abstract/codegen'
+import { AuthService } from '@codelab/backend/application/service'
 import {
   exportEnumTypeSelectionSet,
   OgmService,
@@ -30,6 +31,7 @@ export class EnumTypeRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
+    private authService: AuthService,
   ) {
     super(traceService, validationService)
   }
@@ -55,20 +57,18 @@ export class EnumTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.EnumType
       ).create({
-        input: enumTypes.map(
-          ({ __typename, allowedValues, owner, ...enumType }) => ({
-            ...enumType,
-            allowedValues: this.mapCreateEnumTypeValues(allowedValues),
-            owner: connectAuth0Owner(owner),
-          }),
-        ),
+        input: enumTypes.map(({ __typename, allowedValues, ...enumType }) => ({
+          ...enumType,
+          allowedValues: this.mapCreateEnumTypeValues(allowedValues),
+          owner: connectAuth0Owner(this.authService.currentUser),
+        })),
         selectionSet: `{ enumTypes ${exportEnumTypeSelectionSet} }`,
       })
     ).enumTypes
   }
 
   protected async _update(
-    { __typename, allowedValues, id, name, owner, ...enumType }: IEnumTypeDTO,
+    { __typename, allowedValues, id, name, ...enumType }: IEnumTypeDTO,
     where: EnumTypeWhere,
   ) {
     return (

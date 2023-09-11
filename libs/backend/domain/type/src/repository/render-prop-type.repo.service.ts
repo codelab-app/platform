@@ -3,6 +3,7 @@ import type {
   RenderPropTypeOptions,
   RenderPropTypeWhere,
 } from '@codelab/backend/abstract/codegen'
+import { AuthService } from '@codelab/backend/application/service'
 import {
   exportRenderPropTypeSelectionSet,
   OgmService,
@@ -25,6 +26,7 @@ export class RenderPropTypeRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
+    private authService: AuthService,
   ) {
     super(traceService, validationService)
   }
@@ -50,19 +52,17 @@ export class RenderPropTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.RenderPropType
       ).create({
-        input: renderPropTypes.map(
-          ({ __typename, owner, ...renderPropType }) => ({
-            ...renderPropType,
-            owner: connectAuth0Owner(owner),
-          }),
-        ),
+        input: renderPropTypes.map(({ __typename, ...renderPropType }) => ({
+          ...renderPropType,
+          owner: connectAuth0Owner(this.authService.currentUser),
+        })),
         selectionSet: `{ renderPropTypes ${exportRenderPropTypeSelectionSet} }`,
       })
     ).renderPropTypes
   }
 
   protected async _update(
-    { __typename, id, name, owner }: IRenderPropTypeDTO,
+    { __typename, id, name }: IRenderPropTypeDTO,
     where: RenderPropTypeWhere,
   ) {
     return (

@@ -11,27 +11,23 @@ import { SeedTypeCommand } from './seed-type.command.service'
 export class CypressController {
   constructor(private commandBus: CommandBus) {}
 
-  @Get('/') test() {
-    return 'Working'
-  }
-
   @Post('app')
-  seedApp(@CurrentUser() owner: IAuth0User) {
-    return this.commandBus.execute(new SeedAppCommand(owner))
+  seedApp() {
+    return this.commandBus.execute(new SeedAppCommand())
   }
 
   @Post('atom')
-  seedAtom(@CurrentUser() owner: IAuth0User) {
-    return this.commandBus.execute(new SeedAtomCommand(owner))
+  seedAtom() {
+    return this.commandBus.execute(new SeedAtomCommand())
   }
 
   @Post('tag')
-  seedTag(@CurrentUser() owner: IAuth0User) {
-    return this.commandBus.execute(new SeedTagCommand(owner))
+  seedTag() {
+    return this.commandBus.execute(new SeedTagCommand())
   }
 
   @Post('type')
-  seedType(@CurrentUser() owner: IAuth0User) {
-    return this.commandBus.execute(new SeedTypeCommand(owner))
+  seedType() {
+    return this.commandBus.execute(new SeedTypeCommand())
   }
 }

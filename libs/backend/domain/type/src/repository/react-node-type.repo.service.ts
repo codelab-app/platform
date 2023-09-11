@@ -3,6 +3,7 @@ import type {
   ReactNodeTypeOptions,
   ReactNodeTypeWhere,
 } from '@codelab/backend/abstract/codegen'
+import { AuthService } from '@codelab/backend/application/service'
 import {
   exportReactNodeTypeSelectionSet,
   OgmService,
@@ -25,6 +26,7 @@ export class ReactNodeTypeRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
+    private authService: AuthService,
   ) {
     super(traceService, validationService)
   }
@@ -50,19 +52,17 @@ export class ReactNodeTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.ReactNodeType
       ).create({
-        input: reactNodeTypes.map(
-          ({ __typename, owner, ...reactNodeType }) => ({
-            ...reactNodeType,
-            owner: connectAuth0Owner(owner),
-          }),
-        ),
+        input: reactNodeTypes.map(({ __typename, ...reactNodeType }) => ({
+          ...reactNodeType,
+          owner: connectAuth0Owner(this.authService.currentUser),
+        })),
         selectionSet: `{ reactNodeTypes ${exportReactNodeTypeSelectionSet} }`,
       })
     ).reactNodeTypes
   }
 
   protected async _update(
-    { __typename, id, name, owner }: IReactNodeTypeDTO,
+    { __typename, id, name }: IReactNodeTypeDTO,
     where: ReactNodeTypeWhere,
   ) {
     return (

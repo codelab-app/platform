@@ -1,4 +1,5 @@
 import {
+  AuthService,
   CurrentUser,
   DatabaseService,
 } from '@codelab/backend/application/service'
@@ -20,7 +21,7 @@ export class AdminController {
   ) {}
 
   @Post('export')
-  async export(@Body() exportDto: ExportDto, @CurrentUser() user: IUserDTO) {
+  async export(@Body() exportDto: ExportDto) {
     const { adminDataPath } = exportDto
 
     await this.commandBus.execute(new ExportAdminDataCommand(adminDataPath))
@@ -44,13 +45,8 @@ export class AdminController {
   }
 
   @Post('import')
-  async import(
-    @Body() { adminDataPath }: ImportDto,
-    @CurrentUser() user: IUserDTO,
-  ) {
-    await this.commandBus.execute(
-      new ImportAdminDataCommand(user, adminDataPath),
-    )
+  async import(@Body() { adminDataPath }: ImportDto) {
+    await this.commandBus.execute(new ImportAdminDataCommand(adminDataPath))
     // if (includeUserData) {
     //   const json = fs.readFileSync(file.path, 'utf8')
     //   const userData = JSON.parse(json)

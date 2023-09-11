@@ -3,6 +3,7 @@ import type {
   ActionTypeOptions,
   ActionTypeWhere,
 } from '@codelab/backend/abstract/codegen'
+import { AuthService } from '@codelab/backend/application/service'
 import {
   exportActionTypeSelectionSet,
   OgmService,
@@ -25,6 +26,7 @@ export class ActionTypeRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
+    private authService: AuthService,
   ) {
     super(traceService, validationService)
   }
@@ -50,9 +52,9 @@ export class ActionTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.ActionType
       ).create({
-        input: actionTypes.map(({ __typename, owner, ...actionType }) => ({
+        input: actionTypes.map(({ __typename, ...actionType }) => ({
           ...actionType,
-          owner: connectAuth0Owner(owner),
+          owner: connectAuth0Owner(this.authService.currentUser),
         })),
         selectionSet: `{ actionTypes ${exportActionTypeSelectionSet} }`,
       })
@@ -60,7 +62,7 @@ export class ActionTypeRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { __typename, id, name, owner, ...actionType }: IActionTypeDTO,
+    { __typename, id, name, ...actionType }: IActionTypeDTO,
     where: ActionTypeWhere,
   ) {
     return (

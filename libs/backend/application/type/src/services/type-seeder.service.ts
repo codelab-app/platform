@@ -25,11 +25,10 @@ export class TypeSeederService {
     }
   }
 
-  async seedTypes(types: Array<ITypeDTO>, owner: IAuth0User) {
+  async seedTypes(types: Array<ITypeDTO>) {
     await Promise.all(
       Object.values(types).map(
-        async (type) =>
-          await this.typeFactory.save({ ...type, owner }, { name: type.name }),
+        async (type) => await this.typeFactory.save(type, { name: type.name }),
       ),
     )
   }

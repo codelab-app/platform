@@ -1,4 +1,5 @@
 /* eslint-disable @nx/enforce-module-boundaries */
+import { AuthService } from '@codelab/backend/application/service'
 import { App, AppRepository } from '@codelab/backend/domain/app'
 import { Element, ElementRepository } from '@codelab/backend/domain/element'
 import { Page, PageRepository } from '@codelab/backend/domain/page'
@@ -23,9 +24,7 @@ import {
 import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import { v4 } from 'uuid'
 
-export class SeedAppCommand implements IAuth0Owner {
-  constructor(public owner: IAuth0User) {}
-}
+export class SeedAppCommand {}
 
 /**
  * Used as endpoint for creating Cypress data
@@ -39,10 +38,11 @@ export class SeedAppHandler implements ICommandHandler<SeedAppCommand, void> {
     private readonly elementRepository: ElementRepository,
     private readonly storeRepository: StoreRepository,
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
+    private authService: AuthService,
   ) {}
 
-  async execute(command: SeedAppCommand) {
-    const { owner } = command
+  async execute() {
+    const owner = this.authService.currentUser
     /**
      * Create props
      */
@@ -88,7 +88,7 @@ export class SeedAppHandler implements ICommandHandler<SeedAppCommand, void> {
     /**
      * Create app
      */
-    const app = new App(appData(owner))
+    const app = new App(appData())
 
     await this.appRepository.add([app])
 
@@ -96,11 +96,10 @@ export class SeedAppHandler implements ICommandHandler<SeedAppCommand, void> {
      * Create pages
      */
 
-    const providerPageStore = Store.create(owner, IPageKindName.Provider)
-    const notFoundPageStore = Store.create(owner, IPageKindName.NotFound)
+    const providerPageStore = Store.create(IPageKindName.Provider)
+    const notFoundPageStore = Store.create(IPageKindName.NotFound)
 
     const internalServerErrorPageStore = Store.create(
-      owner,
       IPageKindName.InternalServerError,
     )
 

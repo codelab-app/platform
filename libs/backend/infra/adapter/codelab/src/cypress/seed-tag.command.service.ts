@@ -5,9 +5,7 @@ import { createTagsData } from '@codelab/shared/data/test'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
-export class SeedTagCommand implements IAuth0Owner {
-  constructor(public owner: IAuth0User) {}
-}
+export class SeedTagCommand {}
 
 /**
  * Used as endpoint for creating Cypress data
@@ -16,9 +14,8 @@ export class SeedTagCommand implements IAuth0Owner {
 export class SeedTagHandler implements ICommandHandler<SeedTagCommand, void> {
   constructor(private readonly tagRepository: TagRepository) {}
 
-  async execute(command: SeedTagCommand) {
-    const { owner } = command
-    const tagsData = createTagsData(owner)
+  async execute() {
+    const tagsData = createTagsData()
 
     /**
      * Create the types

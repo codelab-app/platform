@@ -7,7 +7,6 @@ export const ICreateAtomData = Type.Pick(IAtomDTO, [
   'externalCssSource',
   'externalJsSource',
   'externalSourceType',
-  'owner',
   'id',
   'name',
   'requiredParents',
@@ -18,6 +17,6 @@ export const ICreateAtomData = Type.Pick(IAtomDTO, [
 
 export type ICreateAtomData = Static<typeof ICreateAtomData>
 
-export type IUpdateAtomData = Omit<ICreateAtomData, 'owner'>
+export type IUpdateAtomData = ICreateAtomData
 
 export type IRenderAtomDTO = RenderAtomFragment

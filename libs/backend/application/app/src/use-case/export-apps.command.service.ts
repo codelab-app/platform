@@ -18,8 +18,7 @@ export class ExportAppsHandler
     private commandBus: CommandBus,
   ) {}
 
-  async execute(command: ExportAppsCommand) {
-    const { where } = command
+  async execute({ where }: ExportAppsCommand) {
     const apps = await this.appRepository.find({ where })
 
     return apps.reduce(async (appsData, app) => {

@@ -3,6 +3,8 @@ import type {
   IAtomDTO,
   IAuth0User,
   IFieldDTO,
+  ITypeDTO,
+  ITypeEntity,
   IUnionTypeDTO,
 } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
@@ -12,7 +14,7 @@ import { BaseType } from './base-type.model'
 export class UnionType extends BaseType implements IUnionTypeDTO {
   declare __typename: `${ITypeKind.UnionType}`
 
-  typesOfUnionType: Array<IAnyBaseType>
+  typesOfUnionType: Array<ITypeEntity>
 
   constructor({ id, name, typesOfUnionType }: IUnionTypeDTO) {
     super({ id, kind: ITypeKind.UnionType, name })
