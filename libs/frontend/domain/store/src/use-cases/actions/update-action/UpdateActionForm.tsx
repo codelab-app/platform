@@ -103,9 +103,16 @@ export const UpdateActionForm = observer(
               name="resourceId"
               resourceService={resourceService}
             />
-            {/** TODO: Exclude current action */}
-            <AutoField component={SelectAction} name="successActionId" />
-            <AutoField component={SelectAction} name="errorActionId" />
+            <AutoField
+              component={SelectAction}
+              name="successActionId"
+              updatedAction={{ id: actionToUpdate.id }}
+            />
+            <AutoField
+              component={SelectAction}
+              name="errorActionId"
+              updatedAction={{ id: actionToUpdate.id }}
+            />
 
             {/** GraphQL Config Form */}
             <DisplayIfField<IUpdateActionData>
