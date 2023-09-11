@@ -8,18 +8,22 @@ export class CuiPopoverStore implements IPopoverStore {
 
   constructor() {
     makeAutoObservable(this)
-
-    Router.events.on('routeChangeStart', () => this.close())
   }
+
+  private closeOnRouteChange = () => this.close()
 
   @action
   open(id: string) {
     this.openPopoverId = id
+
+    Router.events.on('routeChangeStart', this.closeOnRouteChange)
   }
 
   @action
   close() {
     this.openPopoverId = undefined
+
+    Router.events.off('routeChangeStart', this.closeOnRouteChange)
   }
 
   @computed
