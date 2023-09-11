@@ -1,5 +1,6 @@
 import type { IModalService } from '@codelab/frontend/abstract/core'
 import { Model, model, modelAction, prop } from 'mobx-keystone'
+import { Router } from 'next/router'
 
 @model('@codelab/ModalService')
 export class ModalService<
@@ -15,6 +16,8 @@ export class ModalService<
   }))<TMetadata>
   implements IModalService<TMetadata>
 {
+  private closeOnRouteChange = () => this.close()
+
   @modelAction
   open(...args: TMetadata extends undefined ? [] : [TMetadata]) {
     this.isOpen = true
@@ -22,11 +25,15 @@ export class ModalService<
     if (args.length > 0) {
       this.metadata = args[0] ?? null
     }
+
+    Router.events.on('routeChangeStart', this.closeOnRouteChange)
   }
 
   @modelAction
   close() {
     this.isOpen = false
     this.metadata = null
+
+    Router.events.off('routeChangeStart', this.closeOnRouteChange)
   }
 }

@@ -9,7 +9,6 @@ type CuiPopoverToolbarItemProps = Omit<ToolbarItem, 'icon'> & {
 
 export const CuiPopoverToolbarItem = ({
   icon,
-  key,
   label,
   onClick,
   title,
@@ -24,7 +23,7 @@ export const CuiPopoverToolbarItem = ({
       data-cy={`codelabui-toolbar-item-${title}`}
       onClick={onClick}
     >
-      <Tooltip key={key} title={title}>
+      <Tooltip title={title}>
         <div
           className={`
           flex
