@@ -46,3 +46,13 @@ export const getNameFromSlug = (slug?: string) => {
 export const camelCaseToKebabCase = (input?: string) => {
   return input?.replace(/([A-Z])/g, '-$1').toLowerCase()
 }
+
+/**
+ * Convert camelCase to kebab-case, but only for keys, not values
+ * Example: "fontFamily: 'Gloria Hallelujah'" => "font-family: 'Gloria Hallelujah'"
+ * @param input
+ */
+export const camelCaseToKebabCaseOnlyKeys = (input?: string) =>
+  input?.replace(/(\w+)(\s*)(?=:)/g, (match) =>
+    match.replace(/[A-Z]/g, (char) => `-${char.toLowerCase()}`),
+  )
