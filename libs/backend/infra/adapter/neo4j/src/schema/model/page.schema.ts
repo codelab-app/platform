@@ -9,11 +9,11 @@ export const pageSchema = gql`
   ${pageKindSchema}
 
   type Page {
-    id: ID! @id(autogenerate: false)
+    id: ID! @unique
     # appId-name format to make it unique across apps
     _compoundName: String! @unique
-    name: String! @customResolver(requires: ["id", "_compoundName"])
-    slug: String! @customResolver(requires: ["id", "_compoundName"])
+    name: String! @customResolver(requires: "id _compoundName")
+    slug: String! @customResolver(requires: "id _compoundName")
     # The root of the elementTree
     rootElement: Element!
       @relationship(type: "ROOT_PAGE_ELEMENT", direction: OUT)
@@ -30,16 +30,8 @@ export const pageSchema = gql`
     url: String!
   }
 
-  extend type Page
-    @auth(
-      rules: [
-        {
-          operations: [CREATE, UPDATE, DELETE]
-          roles: ["User"]
-          where: { app: { owner: { auth0Id: "$jwt.sub" } } }
-          allow: { app: { owner: { auth0Id: "$jwt.sub" } } }
-        }
-        { operations: [CREATE, UPDATE, DELETE], roles: ["Admin"] }
-      ]
-    )
+  # extend type Page
+  #   @authorization(
+  #     validate: [{ where: { owner: { node: { id: "$jwt.sub" } } } }]
+  #   )
 `

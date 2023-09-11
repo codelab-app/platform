@@ -1,5 +1,4 @@
 import { AtomType } from '@codelab/shared/abstract/codegen'
-import { Type } from '@sinclair/typebox'
 
 /**
  * We create the enum here then import into Neo4j graphql schema so we can get linting

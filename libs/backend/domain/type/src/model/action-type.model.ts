@@ -1,4 +1,4 @@
-import type { IActionTypeDTO, IAuth0User } from '@codelab/shared/abstract/core'
+import type { IActionTypeDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { BaseType } from './base-type.model'
 

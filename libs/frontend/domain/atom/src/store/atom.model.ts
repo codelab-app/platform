@@ -9,15 +9,10 @@ import {
   AtomCreateInput,
   AtomUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type {
-  IAtomDTO,
-  IAtomType,
-  IAuth0User,
-} from '@codelab/shared/abstract/core'
+import type { IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import {
-  connectAuth0Owner,
   connectNodeId,
   connectNodeIds,
   reconnectNodeIds,
@@ -36,7 +31,6 @@ const create = ({
   icon,
   id,
   name,
-  owner,
   requiredParents,
   suggestedChildren,
   tags,
@@ -50,7 +44,6 @@ const create = ({
     icon,
     id,
     name,
-    owner,
     requiredParents: requiredParents?.map((child) => atomRef(child.id)),
     suggestedChildren: suggestedChildren?.map((child) => atomRef(child.id)),
     tags: tags?.map((tag) => tagRef(tag.id)),
@@ -68,7 +61,6 @@ export class Atom
     icon: prop<string | null | undefined>(null),
     id: idProp,
     name: prop<string>(),
-    owner: prop<IAuth0User>(),
     requiredParents: prop<Array<Ref<IAtom>>>(() => []),
     suggestedChildren: prop<Array<Ref<IAtom>>>(() => []),
     tags: prop<Array<Ref<ITag>>>(() => []),
@@ -125,7 +117,6 @@ export class Atom
             id: v4(),
             kind: ITypeKind.InterfaceType,
             name: `${this.name}  API`,
-            owner: connectAuth0Owner(this.owner),
           },
         },
       },
@@ -134,7 +125,6 @@ export class Atom
       externalSourceType: this.externalSourceType,
       id: this.id,
       name: this.name,
-      owner: connectAuth0Owner(this.owner),
       tags: connectNodeIds(this.tags.map((tag) => tag.current.id)),
       type: this.type,
     }
@@ -149,7 +139,6 @@ export class Atom
       externalSourceType: this.externalSourceType,
       id: this.id,
       name: this.name,
-      owner: connectAuth0Owner(this.owner),
       requiredParents: reconnectNodeIds(
         this.requiredParents.map((parent) => parent.current.id),
       ),

@@ -4,7 +4,6 @@ import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { IAtomType } from './atom-type.enum'
 import { ITypeKind } from './type-kind.enum'
-import { IAuth0Owner } from './user.interface'
 
 export const IAtomDTO = Type.Object({
   api: IDiscriminatedEntity(`${ITypeKind.InterfaceType}`),

@@ -2,13 +2,7 @@ import { useStore } from '@codelab/frontend/presentation/container'
 import { ModalForm } from '@codelab/frontend/presentation/view'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
 import type { ExportDto } from '@codelab/shared/abstract/core'
-import {
-  exportDtoDefault,
-  ImportDto,
-  importDtoDefault,
-} from '@codelab/shared/abstract/core'
-import { Type } from '@sinclair/typebox'
-import { Value } from '@sinclair/typebox/value'
+import { ImportDto, importDtoDefault } from '@codelab/shared/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { AutoFields } from 'uniforms-antd'

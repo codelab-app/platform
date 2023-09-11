@@ -29,7 +29,7 @@ export const CreateTypeForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateTypeFormProps) => {
-    const { typeService, userService } = useStore()
+    const { typeService } = useStore()
     const closeForm = () => typeService.createForm.close()
 
     const onSubmit = async (data: ICreateTypeData) => {
@@ -52,7 +52,6 @@ export const CreateTypeForm = observer(
       <Form<ICreateTypeData>
         model={{
           id: v4(),
-          owner: { auth0Id: userService.user.auth0Id },
         }}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

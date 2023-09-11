@@ -1,6 +1,5 @@
 /* eslint-disable @nx/enforce-module-boundaries */
 import { TypeFactory } from '@codelab/backend/domain/type'
-import type { IAuth0Owner, IAuth0User } from '@codelab/shared/abstract/core'
 import { createTypesData } from '@codelab/shared/data/test'
 import { CommandHandler } from '@nestjs/cqrs'
 

@@ -3,7 +3,6 @@ import { ImportApiCommand } from '@codelab/backend/application/type'
 import { ActionFactory } from '@codelab/backend/domain/action'
 import { StoreRepository } from '@codelab/backend/domain/store'
 import { FieldRepository } from '@codelab/backend/domain/type'
-import type { IAuth0User } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 

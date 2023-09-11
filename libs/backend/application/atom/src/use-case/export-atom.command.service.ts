@@ -1,7 +1,4 @@
-import {
-  type AtomWhere,
-  SortDirection,
-} from '@codelab/backend/abstract/codegen'
+import { type AtomWhere } from '@codelab/backend/abstract/codegen'
 import type { IApiOutputDto } from '@codelab/backend/abstract/core'
 import { IAtomOutputDto } from '@codelab/backend/abstract/core'
 import { ExportApiCommand } from '@codelab/backend/application/type'

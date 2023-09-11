@@ -4,21 +4,15 @@ import type {
   ResourceCreateInput,
   ResourceUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type {
-  IAuth0User,
-  IResourceDTO,
-  IResourceType,
-} from '@codelab/shared/abstract/core'
-import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
+import type { IResourceDTO, IResourceType } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-const create = ({ config, id, name, owner, type }: IResourceDTO) =>
+const create = ({ config, id, name, type }: IResourceDTO) =>
   new Resource({
     config: propRef(config.id),
     id,
     name,
-    owner,
     type,
   })
 
@@ -28,7 +22,6 @@ export class Resource
     config: prop<Ref<IProp>>(),
     id: idProp,
     name: prop<string>(),
-    owner: prop<IAuth0User>(),
     type: prop<IResourceType>(),
   }))
   implements IResource
@@ -44,7 +37,6 @@ export class Resource
       },
       id: this.id,
       name: this.name,
-      owner: connectAuth0Owner(this.owner),
       type: this.type,
     }
   }

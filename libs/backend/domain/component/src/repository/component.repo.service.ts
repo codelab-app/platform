@@ -11,7 +11,7 @@ import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IComponentDTO } from '@codelab/shared/abstract/core'
-import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -57,7 +57,6 @@ export class ComponentRepository extends AbstractRepository<
             id,
             keyGenerator,
             name,
-            owner,
             props,
             rootElement,
             store,
@@ -69,7 +68,6 @@ export class ComponentRepository extends AbstractRepository<
             id,
             keyGenerator,
             name,
-            owner: connectAuth0Owner(owner),
             props: connectNodeId(props.id),
             rootElement: connectNodeId(rootElement.id),
             store: connectNodeId(store.id),
@@ -86,7 +84,6 @@ export class ComponentRepository extends AbstractRepository<
       id,
       keyGenerator,
       name,
-      owner,
       props,
       rootElement,
       store,
@@ -103,7 +100,6 @@ export class ComponentRepository extends AbstractRepository<
           id,
           keyGenerator,
           name,
-          owner: connectAuth0Owner(owner),
           props: connectNodeId(props.id),
           rootElement: connectNodeId(rootElement.id),
           store: connectNodeId(store.id),

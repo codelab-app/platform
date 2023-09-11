@@ -1,6 +1,4 @@
-import { CurrentUser } from '@codelab/backend/application/service'
-import { type IAuth0User } from '@codelab/shared/abstract/core'
-import { Controller, Get, Post } from '@nestjs/common'
+import { Controller, Post } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { SeedAppCommand } from './seed-app.command.service'
 import { SeedAtomCommand } from './seed-atom.command.service'

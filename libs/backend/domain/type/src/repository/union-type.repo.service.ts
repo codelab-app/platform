@@ -11,11 +11,7 @@ import {
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
-import type {
-  IBaseTypeDTO,
-  ITypeEntity,
-  IUnionTypeDTO,
-} from '@codelab/shared/abstract/core'
+import type { ITypeEntity, IUnionTypeDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
   connectAuth0Owner,

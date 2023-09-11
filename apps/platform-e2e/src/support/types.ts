@@ -1,8 +1,5 @@
 import type { CypressCodelabUICommands } from '@codelab/testing/cypress/codelab'
-import type {
-  CypressDatabaseCommands,
-  CypressGraphQLCommands,
-} from '@codelab/testing/cypress/command'
+import type { CypressDatabaseCommands } from '@codelab/testing/cypress/command'
 import type { CypressNextjsAuth0Commands } from '@codelab/testing/cypress/nextjs-auth0'
 import type { CypressBuilderCommands } from './builder'
 import type { CypressUICommands } from './entities'

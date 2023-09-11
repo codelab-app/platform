@@ -1,5 +1,5 @@
 import type { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
-import type { IAuth0Owner, IComponentDTO } from '@codelab/shared/abstract/core'
+import type { IComponentDTO } from '@codelab/shared/abstract/core'
 import type {
   IEntity,
   Maybe,
@@ -16,7 +16,6 @@ import type { IInterfaceType } from '../type'
 
 export interface IComponent
   extends ICacheService<IComponentDTO, IComponent>,
-    IAuth0Owner,
     IElementTree {
   api: Ref<IInterfaceType>
   childrenContainerElement: Ref<IElement>

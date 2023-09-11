@@ -1,8 +1,4 @@
-import {
-  IFieldDTO,
-  IInterfaceTypeDTO,
-  IInterfaceTypeEntity,
-} from '@codelab/shared/abstract/core'
+import { IFieldDTO, IInterfaceTypeDTO } from '@codelab/shared/abstract/core'
 import { Typebox } from '@codelab/shared/infra/validation'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'

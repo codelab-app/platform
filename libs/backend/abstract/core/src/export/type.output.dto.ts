@@ -13,8 +13,7 @@ import {
   IRenderPropTypeDTO,
   IUnionTypeDTO,
 } from '@codelab/shared/abstract/core'
-import { Typebox } from '@codelab/shared/infra/validation'
-import type { Static, TAnySchema, TObject } from '@sinclair/typebox'
+import type { Static, TObject } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 
 /**

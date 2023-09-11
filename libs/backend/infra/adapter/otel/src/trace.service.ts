@@ -1,9 +1,7 @@
 import { flattenWithPrefix, TRACER_NAME } from '@codelab/shared/infra/otel'
-import { cLog } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
-import type { Attributes, AttributeValue, Span } from '@opentelemetry/api'
+import type { AttributeValue, Span } from '@opentelemetry/api'
 import { context, trace } from '@opentelemetry/api'
-import { clearObserving } from 'mobx/dist/internal'
 
 @Injectable()
 export class TraceService {

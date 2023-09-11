@@ -1,25 +1,27 @@
 import type { IApp, IDomain, IPage } from '@codelab/frontend/abstract/core'
-import { domainRef, pageRef } from '@codelab/frontend/abstract/core'
+import {
+  domainRef,
+  getUserService,
+  pageRef,
+} from '@codelab/frontend/abstract/core'
 import type {
   AppCreateInput,
   AppDeleteInput,
   AppUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAppDTO, IAuth0User } from '@codelab/shared/abstract/core'
+import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { createUniqueName, slugify } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-const create = ({ domains, id, name, owner, pages }: IAppDTO) => {
+const create = ({ domains, id, name, pages }: IAppDTO) => {
   const app = new App({
     domains: domains?.map((domain) => domainRef(domain.id)),
     id,
     name,
-    owner,
     pages: pages?.map((page) => pageRef(page.id)),
   })
 
@@ -32,15 +34,18 @@ export class App
     domains: prop<Array<Ref<IDomain>>>(() => []),
     id: idProp,
     name: prop<string>().withSetter(),
-    owner: prop<IAuth0User>(),
     pages: prop<Array<Ref<IPage>>>(() => []),
-    // slug: prop<string>().withSetter(),
   })
   implements IApp
 {
   @computed
   get slug() {
     return slugify(this.name)
+  }
+
+  @computed
+  private get userService() {
+    return getUserService(this)
   }
 
   @modelAction
@@ -105,9 +110,8 @@ export class App
 
   toCreateInput(): AppCreateInput {
     return {
-      _compoundName: createUniqueName(this.name, this.owner.auth0Id),
+      _compoundName: createUniqueName(this.name, this.userService.auth0Id),
       id: this.id,
-      owner: connectAuth0Owner(this.owner),
       pages: {
         create: this.pages.map((page) => ({
           node: page.current.toCreateInput(),
@@ -118,7 +122,7 @@ export class App
 
   toUpdateInput(): AppUpdateInput {
     return {
-      _compoundName: createUniqueName(this.name, this.owner.auth0Id),
+      _compoundName: createUniqueName(this.name, this.userService.auth0Id),
     }
   }
 

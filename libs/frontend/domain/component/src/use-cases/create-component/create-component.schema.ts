@@ -11,7 +11,6 @@ import type { JSONSchemaType } from 'ajv'
 export const createComponentSchema: JSONSchemaType<ICreateComponentData> = {
   properties: {
     ...idSchema(),
-    ...ownerSchema,
     name: {
       type: 'string',
       autoFocus: true,
@@ -27,7 +26,7 @@ export const createComponentSchema: JSONSchemaType<ICreateComponentData> = {
       },
     },
   },
-  required: ['name', 'owner', 'id'],
+  required: ['name', 'id'],
   title: 'Create Component Input',
   type: 'object',
 }

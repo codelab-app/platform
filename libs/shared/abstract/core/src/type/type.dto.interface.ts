@@ -1,7 +1,5 @@
-import { IDiscriminatedEntity } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { ITypeKind } from '../type-kind.enum'
 import { IActionTypeDTO } from './action-type.dto.interface'
 import { IAppTypeDTO } from './app-type.dto.interface'
 import { IArrayTypeDTO } from './array-type.dto.interface'
@@ -36,24 +34,3 @@ export const ITypeDTO = Type.Union(
 )
 
 export type ITypeDTO = Static<typeof ITypeDTO>
-
-/**
- * Entity
- */
-export const ITypeEntity = Type.Union([
-  IDiscriminatedEntity(`${ITypeKind.ActionType}`),
-  IDiscriminatedEntity(`${ITypeKind.AppType}`),
-  IDiscriminatedEntity(`${ITypeKind.ArrayType}`),
-  IDiscriminatedEntity(`${ITypeKind.CodeMirrorType}`),
-  IDiscriminatedEntity(`${ITypeKind.ElementType}`),
-  IDiscriminatedEntity(`${ITypeKind.EnumType}`),
-  IDiscriminatedEntity(`${ITypeKind.InterfaceType}`),
-  IDiscriminatedEntity(`${ITypeKind.LambdaType}`),
-  IDiscriminatedEntity(`${ITypeKind.PageType}`),
-  IDiscriminatedEntity(`${ITypeKind.PrimitiveType}`),
-  IDiscriminatedEntity(`${ITypeKind.ReactNodeType}`),
-  IDiscriminatedEntity(`${ITypeKind.RenderPropType}`),
-  IDiscriminatedEntity(`${ITypeKind.UnionType}`),
-])
-
-export type ITypeEntity = Static<typeof ITypeEntity>

@@ -900,7 +900,7 @@ export class ElementService
     // 2. create the component first before detaching the element from the element tree,
     // this way in case if component creation fails, we avoid data loss
     const createdComponent = yield* _await(
-      this.componentService.create({ id: v4(), name, owner }),
+      this.componentService.create({ id: v4(), name }),
     )
 
     yield* _await(this.cloneElementStore(element, createdComponent))

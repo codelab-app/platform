@@ -1,4 +1,3 @@
-import type { IAuth0User } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 

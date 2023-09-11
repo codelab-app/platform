@@ -11,7 +11,6 @@ import {
   ITypeKind,
 } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
-import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
@@ -51,13 +50,11 @@ const createName = (name: string) => {
 
 const createApiNode = ({
   name,
-  owner,
-}: Pick<IApp, 'name' | 'owner'>): InterfaceTypeCreateInput => {
+}: Pick<IApp, 'name'>): InterfaceTypeCreateInput => {
   return {
     id: v4(),
     kind: ITypeKind.InterfaceType,
     name: `${name} Store API`,
-    owner: connectAuth0Owner(owner),
   }
 }
 

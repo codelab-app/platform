@@ -1,11 +1,6 @@
-import type {
-  ComponentUniqueWhere,
-  ComponentWhere,
-} from '@codelab/backend/abstract/codegen'
 import type { IComponentOutputDto } from '@codelab/backend/abstract/core'
 import { ComponentRepository } from '@codelab/backend/domain/component'
-import { ElementRepository } from '@codelab/backend/domain/element'
-import { type IAuth0User, IRole } from '@codelab/shared/abstract/core'
+import { IRole } from '@codelab/shared/abstract/core'
 import { Span } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'

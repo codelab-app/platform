@@ -1,5 +1,5 @@
 import { TagRepository } from '@codelab/backend/domain/tag'
-import type { IAuth0User, ITagDTO } from '@codelab/shared/abstract/core'
+import type { ITagDTO } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 

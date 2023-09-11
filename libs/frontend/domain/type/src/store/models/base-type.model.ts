@@ -3,12 +3,7 @@ import type {
   ICreateTypeInput,
   IUpdateTypeVars,
 } from '@codelab/frontend/abstract/core'
-import type {
-  IAuth0User,
-  IBaseTypeDTO,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
-import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
+import type { IBaseTypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
 export const createBaseType = <T extends ITypeKind>(typeKind: T) => {

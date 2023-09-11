@@ -1,6 +1,5 @@
 import type {
   InterfaceType,
-  InterfaceTypeFieldsFieldInput,
   InterfaceTypeOptions,
   InterfaceTypeWhere,
 } from '@codelab/backend/abstract/codegen'
@@ -15,19 +14,16 @@ import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
-  type IFieldDTO,
   type IInterfaceTypeDTO,
-  type ITypeDTO,
   type ITypeEntity,
 } from '@codelab/shared/abstract/core'
 import {
   connectAuth0Owner,
-  connectNodeId,
   connectNodeIds,
 } from '@codelab/shared/domain/mapper'
 import { Span } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
-import type { Static, TAny, TAnySchema } from '@sinclair/typebox'
+import type { Static, TAnySchema } from '@sinclair/typebox'
 
 @Injectable()
 export class InterfaceTypeRepository extends AbstractRepository<

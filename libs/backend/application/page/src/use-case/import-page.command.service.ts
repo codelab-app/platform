@@ -3,7 +3,6 @@ import { ImportStoreCommand } from '@codelab/backend/application/store'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { PageRepository } from '@codelab/backend/domain/page'
 import { FieldRepository } from '@codelab/backend/domain/type'
-import type { IAuth0User } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 

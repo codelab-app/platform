@@ -17,7 +17,7 @@ import type { ICreatePageData, IUpdatePageData } from './page.dto.interface'
 import type { IPage } from './page.model.interface'
 import type { IPageRepository } from './page.repo.interface'
 
-export type IPageAppFragment = Pick<IApp, 'id' | 'name' | 'owner'>
+export type IPageAppFragment = Pick<IApp, 'id' | 'name'>
 
 export interface IPageFactory {
   addSystemPages(app: IPageAppFragment): Array<IPage>

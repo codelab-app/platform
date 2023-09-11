@@ -7,7 +7,6 @@ import { Prop, PropRepository } from '@codelab/backend/domain/prop'
 import { Store, StoreRepository } from '@codelab/backend/domain/store'
 import type { InterfaceType } from '@codelab/backend/domain/type'
 import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
-import type { IAuth0Owner, IAuth0User } from '@codelab/shared/abstract/core'
 import { IPageKindName } from '@codelab/shared/abstract/core'
 import {
   appData,

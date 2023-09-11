@@ -1,7 +1,6 @@
 import type { ICreateElementData } from '@codelab/frontend/abstract/core'
 import type {
   IAppDTO,
-  IAuth0User,
   IInterfaceTypeDTO,
   IStoreDTO,
 } from '@codelab/shared/abstract/core'

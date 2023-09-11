@@ -1,6 +1,5 @@
 import type {
   IAtomDTO,
-  IAuth0User,
   IEnumTypeDTO,
   IEnumTypeValueDTO,
   IFieldDTO,

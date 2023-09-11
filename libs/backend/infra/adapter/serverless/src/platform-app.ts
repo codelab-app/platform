@@ -4,24 +4,27 @@ import { NestFactory } from '@nestjs/core'
 import type { Server } from 'http'
 import type { NextApiHandler } from 'next'
 
-let platformApp: INestApplication | undefined
+let app: INestApplication | undefined
 
 export const getPlatformListener = async () => {
-  if (!platformApp) {
-    platformApp = await NestFactory.create(PlatformServerlessModule, {
+  if (!app) {
+    app = await NestFactory.create(PlatformServerlessModule, {
       // bodyParser: false,
     })
     // This must match the nextjs api path
-    platformApp.setGlobalPrefix('api/graphql')
-    await platformApp.init()
+    app.setGlobalPrefix('api/graphql')
+
+    await app.init()
   }
 
-  const server: Server = platformApp.getHttpServer()
+  const server: Server = app.getHttpServer()
   const [listener] = server.listeners('request') as Array<NextApiHandler>
 
   if (!listener) {
     throw new Error('Missing NextApiHandler')
   }
+
+  console.log(listener)
 
   return listener
 }

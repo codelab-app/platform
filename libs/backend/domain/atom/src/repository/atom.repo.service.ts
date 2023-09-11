@@ -12,7 +12,6 @@ import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IAtomDTO } from '@codelab/shared/abstract/core'
 import {
-  connectAuth0Owner,
   connectNodeId,
   connectNodeIds,
   reconnectNodeId,

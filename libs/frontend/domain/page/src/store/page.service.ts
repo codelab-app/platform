@@ -147,7 +147,7 @@ export class PageService
   @transaction
   create = _async(function* (
     this: PageService,
-    { app, id, name, owner, url }: ICreatePageData,
+    { app, id, name, url }: ICreatePageData,
   ) {
     const rootElementProps = this.propService.add({
       data: '{}',
@@ -171,7 +171,6 @@ export class PageService
       name: InterfaceType.createName(
         `${appModel?.name}(${userName}) ${name} Store`,
       ),
-      owner: owner,
     })
 
     const store = this.storeService.add({

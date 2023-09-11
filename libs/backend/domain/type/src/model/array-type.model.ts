@@ -1,4 +1,4 @@
-import type { IArrayTypeDTO, IAuth0User } from '@codelab/shared/abstract/core'
+import type { IArrayTypeDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { BaseType } from './base-type.model'

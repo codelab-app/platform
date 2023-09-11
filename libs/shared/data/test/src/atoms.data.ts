@@ -1,8 +1,4 @@
-import type {
-  IAtomDTO,
-  IAuth0User,
-  IInterfaceTypeDTO,
-} from '@codelab/shared/abstract/core'
+import type { IAtomDTO, IInterfaceTypeDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 

@@ -1,7 +1,6 @@
 import { ExportAppsCommand } from '@codelab/backend/application/app'
 import { AuthService } from '@codelab/backend/application/service'
 import { UserRepository } from '@codelab/backend/domain/user'
-import type { IAuth0User } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 

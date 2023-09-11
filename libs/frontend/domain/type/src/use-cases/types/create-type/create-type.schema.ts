@@ -1,9 +1,5 @@
 import type { ICreateTypeData } from '@codelab/frontend/abstract/core'
-import {
-  idSchema,
-  nonEmptyString,
-  ownerSchema,
-} from '@codelab/frontend/presentation/view'
+import { idSchema, nonEmptyString } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
 import {
   IElementTypeKind,
@@ -20,7 +16,6 @@ import { TypeSelect } from '../../../shared'
  */
 export const createTypeSchema: JSONSchemaType<ICreateTypeData> = {
   properties: {
-    ...ownerSchema,
     ...idSchema(),
     allowedValues: {
       items: {
@@ -78,7 +73,7 @@ export const createTypeSchema: JSONSchemaType<ICreateTypeData> = {
       uniforms: { component: TypeSelect, isUnionTypeInput: true },
     },
   },
-  required: ['kind', 'name', 'owner'],
+  required: ['kind', 'name'],
   title: 'Create Type Input',
   type: 'object',
 }

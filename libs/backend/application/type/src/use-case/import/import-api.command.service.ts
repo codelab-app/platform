@@ -1,6 +1,5 @@
 import type { IApiOutputDto } from '@codelab/backend/abstract/core'
 import { FieldRepository, TypeFactory } from '@codelab/backend/domain/type'
-import type { IAuth0User } from '@codelab/shared/abstract/core'
 import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ImportApiCommand {

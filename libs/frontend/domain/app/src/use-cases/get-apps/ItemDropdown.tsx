@@ -41,12 +41,10 @@ export const ItemDropdown = observer<ItemMenuProps>(({ app, domains }) => {
   const onBuildClick = () => appService.buildModal.open(appRef(app.id))
   const router = useRouter()
 
-  const appOwner = userService.usersList.find(
-    (user) => user.auth0Id === app.owner.auth0Id,
-  )
-
   const goToDomainsPage = () =>
-    router.push(`${router.pathname}/${appOwner?.username}/${app.slug}/domains`)
+    router.push(
+      `${router.pathname}/${userService.user.username}/${app.slug}/domains`,
+    )
 
   const menuItems: MenuProps['items'] = [
     {

@@ -1,8 +1,4 @@
-import type {
-  IAuth0Owner,
-  IBaseTypeDTO,
-  ITypeKind,
-} from '@codelab/shared/abstract/core'
+import type { IBaseTypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
 import type { ICacheService } from '../../../service'
 import type { IModel } from '../../model.interface'
 import type { IActionType } from './action-type.interface'

@@ -28,7 +28,7 @@ export const CreateAtomForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateAtomFormProps) => {
-    const { atomService, tagService, userService } = useStore()
+    const { atomService, tagService } = useStore()
     const closeForm = () => atomService.createForm.close()
 
     const onSubmit = async (data: ICreateAtomData) => {
@@ -49,7 +49,6 @@ export const CreateAtomForm = observer(
       <Form<ICreateAtomData>
         model={{
           id: v4(),
-          owner: { auth0Id: userService.user.auth0Id },
         }}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}

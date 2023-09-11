@@ -1,19 +1,13 @@
-import {
-  IAtomOutputDto,
-  ITypeOutputDto,
-  TypeOutput,
-} from '@codelab/backend/abstract/core'
+import { IAtomOutputDto, TypeOutput } from '@codelab/backend/abstract/core'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import {
   IActionTypeDTO,
-  IAtomDTO,
   IPrimitiveTypeDTO,
 } from '@codelab/shared/abstract/core'
-import { Typebox } from '@codelab/shared/infra/validation'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'
 import type { TSchema } from '@sinclair/typebox'
-import { TString, Type } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
 import affixJson from 'data/export-v2/admin/atoms/AntDesignAffix.json'
 import { ValidationService } from './validation.service'
 

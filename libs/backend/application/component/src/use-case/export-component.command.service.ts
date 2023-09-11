@@ -1,7 +1,3 @@
-import {
-  type ComponentWhere,
-  SortDirection,
-} from '@codelab/backend/abstract/codegen'
 import type {
   IApiOutputDto,
   IComponentOutputDto,

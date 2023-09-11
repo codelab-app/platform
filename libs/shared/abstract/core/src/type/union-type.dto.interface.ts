@@ -1,9 +1,8 @@
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { ITypeKind } from '../type-kind.enum'
-import { IAnyBaseType } from './any-type.dto.interface'
+import { ITypeEntity } from './any-type.dto.interface'
 import { IBaseTypeDTO } from './base-type.dto.interface'
-import { ITypeEntity } from './type.dto.interface'
 
 export const IUnionTypeDTO = Type.Composite([
   IBaseTypeDTO(Type.Literal(`${ITypeKind.UnionType}`)),

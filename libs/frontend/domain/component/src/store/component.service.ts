@@ -162,13 +162,12 @@ export class ComponentService
   @transaction
   create = _async(function* (
     this: ComponentService,
-    { id, keyGenerator, name, owner }: ICreateComponentData,
+    { id, keyGenerator, name }: ICreateComponentData,
   ) {
     const storeApi = this.typeService.addInterface({
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: InterfaceType.createName(`${name} Store`),
-      owner: owner,
     })
 
     const store = this.storeService.add({
@@ -190,7 +189,6 @@ export class ComponentService
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: InterfaceType.createName(name),
-      owner,
     })
 
     const componentProps = this.propService.add({
@@ -204,7 +202,6 @@ export class ComponentService
       id,
       keyGenerator,
       name,
-      owner,
       props: componentProps,
       rootElement,
       store,

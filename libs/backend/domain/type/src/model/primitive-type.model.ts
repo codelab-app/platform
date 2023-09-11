@@ -1,5 +1,4 @@
 import type {
-  IAuth0User,
   IPrimitiveTypeDTO,
   IPrimitiveTypeKind,
 } from '@codelab/shared/abstract/core'

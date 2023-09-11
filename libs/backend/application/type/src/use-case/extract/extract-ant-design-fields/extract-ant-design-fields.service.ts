@@ -1,19 +1,11 @@
 import type { AntDesignField } from '@codelab/backend/abstract/core'
-import {
-  AuthService,
-  CurrentUser,
-  UseCase,
-} from '@codelab/backend/application/service'
+import { AuthService, UseCase } from '@codelab/backend/application/service'
 import {
   Field,
   FieldRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import {
-  type IAtomDTO,
-  type IAuth0User,
-  type IFieldDTO,
-} from '@codelab/shared/abstract/core'
+import { type IAtomDTO, type IFieldDTO } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import find from 'lodash/find'

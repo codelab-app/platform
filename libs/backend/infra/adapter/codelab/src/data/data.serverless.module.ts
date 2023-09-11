@@ -5,7 +5,6 @@ import { neo4jConfig, OgmModule } from '@codelab/backend/infra/adapter/neo4j'
 import { OtelModule } from '@codelab/backend/infra/adapter/otel'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { DevtoolsModule } from '@nestjs/devtools-integration'
 import { endpointConfig } from '../platform/endpoint.config'
 import { DemoModule } from './demo'
 

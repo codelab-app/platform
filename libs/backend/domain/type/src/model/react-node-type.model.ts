@@ -1,7 +1,4 @@
-import type {
-  IAuth0User,
-  IReactNodeTypeDTO,
-} from '@codelab/shared/abstract/core'
+import type { IReactNodeTypeDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { BaseType } from './base-type.model'
 

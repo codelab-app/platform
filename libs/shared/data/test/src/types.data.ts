@@ -1,4 +1,4 @@
-import type { IAuth0User, ITypeDTO } from '@codelab/shared/abstract/core'
+import type { ITypeDTO } from '@codelab/shared/abstract/core'
 import { IPrimitiveTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import { v4 } from 'uuid'
 

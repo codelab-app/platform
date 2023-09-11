@@ -5,7 +5,6 @@ import {
   neo4jConfig,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { ApolloDriver } from '@nestjs/apollo'
-import { BullModule } from '@nestjs/bull'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
@@ -34,15 +33,6 @@ export interface GqlContext {
     //   port: 4000,
     // }),
     CodelabLoggerModule,
-    BullModule.forRoot({
-      redis: {
-        host: 'localhost',
-        port: 6379,
-      },
-    }),
-    BullModule.registerQueue({
-      name: 'import-admin-data',
-    }),
     ConfigModule.forRoot({
       ignoreEnvVars: true,
       isGlobal: true,

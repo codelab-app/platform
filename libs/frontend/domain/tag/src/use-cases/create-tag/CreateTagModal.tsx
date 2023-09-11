@@ -9,7 +9,7 @@ import { v4 } from 'uuid'
 import { createTagSchema } from './create.tag.schema'
 
 export const CreateTagModal = observer(() => {
-  const { tagService, userService } = useStore()
+  const { tagService } = useStore()
   const isOpen = tagService.createModal.isOpen
 
   const onSubmit = (input: ICreateTagData) => {
@@ -28,7 +28,6 @@ export const CreateTagModal = observer(() => {
       <ModalForm.Form
         model={{
           id: v4(),
-          owner: { auth0Id: userService.user.auth0Id },
           parent: { id: defaultOption.value.toString() },
         }}
         onSubmit={onSubmit}

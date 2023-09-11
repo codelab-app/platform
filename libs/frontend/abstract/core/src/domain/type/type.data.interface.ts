@@ -1,5 +1,4 @@
 import type {
-  IAuth0Owner,
   ICodeMirrorLanguage,
   IElementTypeKind,
   IEnumTypeValueDTO,
@@ -11,7 +10,7 @@ import type {
  *
  * For the backend, we'll create a type for each sub-type.
  */
-export interface ICreateTypeData extends IAuth0Owner {
+export interface ICreateTypeData {
   allowedValues?: Array<IEnumTypeValueDTO>
   arrayTypeId?: string
   elementKind?: IElementTypeKind

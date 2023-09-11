@@ -9,16 +9,18 @@ export const elementSchema = gql`
   ${renderTypeKindSchema}
 
   # Create this to match frontend
-  type RenderType @exclude {
+  type RenderType
+    @query(read: false, aggregate: false)
+    @mutation(operations: []) {
     id: ID!
     kind: RenderTypeKind!
   }
 
   type Element {
-    id: ID! @id(autogenerate: false)
+    id: ID! @unique
     _compoundName: String! @unique
-    name: String! @customResolver(requires: ["id", "_compoundName"])
-    slug: String! @customResolver(requires: ["id", "_compoundName"])
+    name: String! @customResolver(requires: "id _compoundName")
+    slug: String! @customResolver(requires: "id _compoundName")
     nextSibling: Element @relationship(type: "NODE_SIBLING", direction: IN)
     prevSibling: Element @relationship(type: "NODE_SIBLING", direction: OUT)
     firstChild: Element @relationship(type: "TREE_FIRST_CHILD", direction: IN)

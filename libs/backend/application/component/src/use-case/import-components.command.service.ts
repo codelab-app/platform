@@ -4,7 +4,6 @@ import { ImportApiCommand } from '@codelab/backend/application/type'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { PropRepository } from '@codelab/backend/domain/prop'
-import type { IAuth0User } from '@codelab/shared/abstract/core'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
 

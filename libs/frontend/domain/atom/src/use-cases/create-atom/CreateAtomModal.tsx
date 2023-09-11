@@ -10,7 +10,7 @@ import { v4 } from 'uuid'
 import { createAtomSchema } from './create-atom.schema'
 
 export const CreateAtomModal = observer(() => {
-  const { atomService, tagService, userService } = useStore()
+  const { atomService, tagService } = useStore()
   const closeModal = () => atomService.createModal.close()
 
   const onSubmit = async (data: ICreateAtomData) =>
@@ -31,7 +31,6 @@ export const CreateAtomModal = observer(() => {
       <ModalForm.Form<ICreateAtomData>
         model={{
           id: v4(),
-          owner: { auth0Id: userService.user.auth0Id },
         }}
         onSubmit={onSubmit}
         onSubmitError={onSubmitError}

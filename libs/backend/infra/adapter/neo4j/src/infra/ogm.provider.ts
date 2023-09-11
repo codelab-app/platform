@@ -12,10 +12,17 @@ export const OgmProvider: Provider = {
   provide: OGM_PROVIDER,
   useFactory: async (driver: Driver, pureResolvers: IResolvers) => {
     const ogm = new OGM({
-      config: {
-        enableRegex: true,
-      },
       driver,
+      features: {
+        filters: {
+          ID: {
+            MATCHES: true,
+          },
+          String: {
+            MATCHES: true,
+          },
+        },
+      },
       resolvers: pureResolvers,
       typeDefs,
     })

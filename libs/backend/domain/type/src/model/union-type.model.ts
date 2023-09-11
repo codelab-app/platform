@@ -1,9 +1,6 @@
 import type {
-  IAnyBaseType,
   IAtomDTO,
-  IAuth0User,
   IFieldDTO,
-  ITypeDTO,
   ITypeEntity,
   IUnionTypeDTO,
 } from '@codelab/shared/abstract/core'

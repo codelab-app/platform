@@ -1,7 +1,6 @@
 import { IAtomOutputDto } from '@codelab/backend/abstract/core'
 import { ImportApiCommand } from '@codelab/backend/application/type'
 import { AtomRepository } from '@codelab/backend/domain/atom'
-import { IAuth0User } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'

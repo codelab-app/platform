@@ -19,10 +19,10 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/core'
 import { ComponentCreateInput } from '@codelab/shared/abstract/codegen'
-import type { IAuth0User, IComponentDTO } from '@codelab/shared/abstract/core'
+import type { IComponentDTO } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import { Maybe } from '@codelab/shared/abstract/types'
-import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
+import { connectNodeId } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { clone, ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -33,7 +33,6 @@ const create = ({
   id,
   keyGenerator,
   name,
-  owner,
   props,
   rootElement,
   store,
@@ -45,7 +44,6 @@ const create = ({
     instanceElement: null,
     keyGenerator,
     name,
-    owner,
     props: propRef(props.id),
     rootElement: elementRef(rootElement.id),
     store: storeRef(store.id),
@@ -62,13 +60,9 @@ export class Component
     // a function to extract component key from input
     keyGenerator: prop<Nullish<string>>().withSetter(),
     name: prop<string>().withSetter(),
-    owner: prop<IAuth0User>(),
-
     props: prop<Ref<IProp>>().withSetter(),
-
     // if this is a duplicate, trace source component id else null
     sourceComponent: prop<Nullable<IEntity>>(null).withSetter(),
-
     store: prop<Ref<IStore>>().withSetter(),
   })
   implements IComponent
@@ -94,7 +88,6 @@ export class Component
     childrenContainerElement,
     keyGenerator,
     name,
-    owner,
     props,
     rootElement,
   }: Partial<IComponentDTO>) {
@@ -104,7 +97,6 @@ export class Component
     this.rootElement = rootElement?.id
       ? elementRef(rootElement.id)
       : this.rootElement
-    this.owner = owner ?? this.owner
     this.api = apiRef
     this.props = props?.id ? propRef(props.id) : this.props
     this.keyGenerator = keyGenerator ?? this.keyGenerator
@@ -234,7 +226,6 @@ export class Component
       id: this.id,
       keyGenerator: this.keyGenerator,
       name: this.name,
-      owner: connectAuth0Owner(this.owner),
       props: { create: { node: this.props.current.toCreateInput() } },
       rootElement: {
         create: { node: this.rootElement.current.toCreateInput() },

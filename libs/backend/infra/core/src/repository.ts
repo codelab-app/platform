@@ -4,7 +4,7 @@ import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { type IEntity } from '@codelab/shared/abstract/types'
 import { flattenWithPrefix, withActiveSpan } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
-import type { Static, TAnySchema, TSchema } from '@sinclair/typebox'
+import type { Static, TAnySchema } from '@sinclair/typebox'
 
 @Injectable()
 export abstract class AbstractRepository<

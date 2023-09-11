@@ -58,14 +58,14 @@ export const typeSchema = gql`
     Does a recursive check to see if the parent type (parentTypeId) contains the descendant type (descendantTypeId) at any level of nesting. Useful for checking for recursion
     """
     isTypeDescendantOf(parentTypeId: ID!, descendantTypeId: ID!): Boolean
-      @cypher(statement: """${isTypeDescendantOf}""")
+      @cypher(statement: """${isTypeDescendantOf} AS isDescendant""", columnName: "isDescendant")
 
     """
     Returns a list of all Type and Atom entities that reference the type with the given id
     This could be different types of relationships like Atom-Api, ArrayType-itemType, InterfaceType-field, UnionType-unionTypeChild
     """
     getTypeReferences(typeId: ID!): [TypeReference!]
-      @cypher(statement: """${getTypeReferences}""")
+      @cypher(statement: """${getTypeReferences} AS typeReferences""", columnName: "typeReferences")
 
     baseTypes(
       options: GetBaseTypesOptions
@@ -73,8 +73,8 @@ export const typeSchema = gql`
   }
 
   interface IBaseType {
-    id: ID! @id(autogenerate: false)
-    kind: TypeKind! @readonly
+    id: ID!
+    kind: TypeKind! @settable(onUpdate: false)
     name: String!
     # fields: [Field!]! @relationship(type: "FIELD_TYPE", direction: OUT)
     # we don't need an @auth here, because the User's @auth already declares rules for connect/disconnect
@@ -87,28 +87,28 @@ export const typeSchema = gql`
 
 
   # https://github.com/neo4j/graphql/issues/1105
-  extend interface IBaseType
-    @auth(
-      rules: [
-        {
-          operations: [UPDATE, CREATE, DELETE]
-          roles: ["User"]
-          where: { owner: { auth0Id: "$jwt.sub" } }
-          bind: { owner: { auth0Id: "$jwt.sub" } }
-        }
-        {
-            operations: [UPDATE, CREATE, DELETE]
-            roles: ["Admin"]
-            # Admin can access all types, so no need for where
-            # where: { owner: { auth0Id: "$jwt.sub" } }
-            bind: { owner: { auth0Id: "$jwt.sub" } }
-        }
-      ]
-    )
+  # extend interface IBaseType
+  #   @auth(
+  #     rules: [
+  #       {
+  #         operations: [UPDATE, CREATE, DELETE]
+  #         roles: ["User"]
+  #         where: { owner: { auth0Id: "$jwt.sub" } }
+  #         bind: { owner: { auth0Id: "$jwt.sub" } }
+  #       }
+  #       {
+  #           operations: [UPDATE, CREATE, DELETE]
+  #           roles: ["Admin"]
+  #           # Admin can access all types, so no need for where
+  #           # where: { owner: { auth0Id: "$jwt.sub" } }
+  #           bind: { owner: { auth0Id: "$jwt.sub" } }
+  #       }
+  #     ]
+  #   )
 
   interface WithDescendants {
     descendantTypesIds: [ID!]!
-        @cypher(statement: """${getTypeDescendants}""")
+        @cypher(statement: """${getTypeDescendants} AS typeDescendants""", columnName: "typeDescendants")
   }
 
   """

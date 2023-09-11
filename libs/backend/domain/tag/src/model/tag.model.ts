@@ -1,4 +1,4 @@
-import type { IAuth0User, ITagDTO } from '@codelab/shared/abstract/core'
+import type { ITagDTO } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 
 export class Tag implements ITagDTO {

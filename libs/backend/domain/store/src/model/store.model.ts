@@ -1,5 +1,5 @@
 import { InterfaceType } from '@codelab/backend/domain/type'
-import type { IAuth0User, IStoreDTO } from '@codelab/shared/abstract/core'
+import type { IStoreDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { v4 } from 'uuid'

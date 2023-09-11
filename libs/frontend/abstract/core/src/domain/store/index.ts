@@ -1,4 +1,3 @@
-export * from './store.data.interface'
 export * from './store.model.interface'
 export * from './store.ref'
 export * from './store.repo.interface'

@@ -1,5 +1,4 @@
 export * from './cypher'
-export * from './directive'
 export * from './graphql-schema.module'
 export * from './infra'
 export * from './neo4j.config'

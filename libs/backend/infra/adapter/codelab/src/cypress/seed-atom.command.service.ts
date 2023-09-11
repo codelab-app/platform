@@ -1,11 +1,9 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-import { AuthService } from '@codelab/backend/application/service'
 import { Atom, AtomRepository } from '@codelab/backend/domain/atom'
 import {
   InterfaceType,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
-import type { IAuth0Owner, IAuth0User } from '@codelab/shared/abstract/core'
 import { createAtomsApiData, createAtomsData } from '@codelab/shared/data/test'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'

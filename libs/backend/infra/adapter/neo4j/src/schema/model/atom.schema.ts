@@ -9,7 +9,7 @@ export const atomSchema = gql`
   ${atomTypeSchema}
 
   type Atom implements WithOwner {
-    id: ID! @id(autogenerate: false)
+    id: ID! @unique
     owner: User!
     type: AtomType!
     name: String! @unique
@@ -26,19 +26,7 @@ export const atomSchema = gql`
   }
 
   extend type Atom
-    @auth(
-      rules: [
-        {
-          operations: [UPDATE, CREATE, DELETE]
-          roles: ["User"]
-          where: { owner: { auth0Id: "$jwt.sub" } }
-          bind: { owner: { auth0Id: "$jwt.sub" } }
-        }
-        {
-          operations: [UPDATE, CREATE, DELETE]
-          roles: ["Admin"]
-          bind: { owner: { auth0Id: "$jwt.sub" } }
-        }
-      ]
+    @authorization(
+      validate: [{ where: { node: { owner: { id: "$jwt.sub" } } } }]
     )
 `

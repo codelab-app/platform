@@ -12,7 +12,6 @@ import {
 } from '@codelab/backend/domain/type'
 import {
   IActionTypeDTO,
-  IPrimitiveTypeDTO,
   IReactNodeTypeDTO,
   IRenderPropTypeDTO,
 } from '@codelab/shared/abstract/core'

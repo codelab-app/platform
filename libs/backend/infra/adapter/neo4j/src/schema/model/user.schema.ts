@@ -1,6 +1,15 @@
 import { gql } from '@apollo/client'
+import { escapeDotPathKeys } from '@codelab/backend/shared/util'
+import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
+
+const rolesPath = escapeDotPathKeys(`${JWT_CLAIMS}.roles`)
 
 export const userSchema = gql`
+  # https://neo4j.com/docs/graphql/current/authentication-and-authorization/configuration/
+  # type JWT @jwt {
+  #   roles: [String!]! @jwtClaim(path: "${rolesPath}")
+  # }
+
   enum Role {
     User
     Admin
@@ -10,8 +19,8 @@ export const userSchema = gql`
     owner: User! @relationship(type: "OWNED_BY", direction: OUT)
   }
 
-  type User @exclude(operations: [UPDATE]) {
-    id: ID! @id(autogenerate: false)
+  type User {
+    id: ID! @unique
     auth0Id: String! @unique
     email: String!
     username: String! @unique
@@ -25,22 +34,4 @@ export const userSchema = gql`
     roles: [Role!]
     tags: [Tag!]! @relationship(type: "OWNED_BY", direction: IN)
   }
-
-  #  extend type User
-  #    @auth(
-  #      rules: [
-  #        {
-  #          operations: [CREATE, UPDATE]
-  #          roles: ["User"]
-  #          where: { auth0Id: "$jwt.sub" }
-  #          bind: { auth0Id: "$jwt.sub" }
-  #        }
-  #        {
-  #          operations: [UPDATE, CREATE, DELETE]
-  #          roles: ["Admin"]
-  #          #          where: { auth0Id: "$jwt.sub" }
-  #          #          bind: { auth0Id: "$jwt.sub" }
-  #        }
-  #      ]
-  #    )
 `

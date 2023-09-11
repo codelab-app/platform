@@ -1,17 +1,7 @@
-import type {
-  IAtomDTO,
-  IAtomType,
-  IAuth0User,
-} from '@codelab/shared/abstract/core'
+import type { IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
 import { type IEntity } from '@codelab/shared/abstract/types'
 import type { ValidationError } from 'class-validator'
-import {
-  IsArray,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  validateSync,
-} from 'class-validator'
+import { validateSync } from 'class-validator'
 
 export class Atom implements IAtomDTO {
   icon?: string | null | undefined

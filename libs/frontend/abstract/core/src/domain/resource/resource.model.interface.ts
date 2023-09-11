@@ -2,11 +2,7 @@ import type {
   ResourceCreateInput,
   ResourceUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type {
-  IAuth0Owner,
-  IResourceDTO,
-  IResourceType,
-} from '@codelab/shared/abstract/core'
+import type { IResourceDTO, IResourceType } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IModel } from '../model.interface'
@@ -17,8 +13,7 @@ export interface IResource
       IModel<ResourceCreateInput, ResourceUpdateInput, void>,
       'toDeleteInput'
     >,
-    ICacheService<IResourceDTO, IResource>,
-    IAuth0Owner {
+    ICacheService<IResourceDTO, IResource> {
   // TODO: should add typing to prop
   config: Ref<IProp>
   id: string

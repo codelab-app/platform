@@ -2,16 +2,9 @@ import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { Typebox } from '@codelab/shared/infra/validation'
 import { cLog } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
-import type {
-  Static,
-  TAnySchema,
-  TObject,
-  TSchema,
-  TUnion,
-} from '@sinclair/typebox'
+import type { Static, TAnySchema, TObject, TUnion } from '@sinclair/typebox'
 import type { ValidationException } from 'typebox-validators'
 import { DiscriminatedUnionValidator } from 'typebox-validators/discriminated'
-import { StandardValidator } from 'typebox-validators/standard'
 
 @Injectable()
 export class ValidationService {

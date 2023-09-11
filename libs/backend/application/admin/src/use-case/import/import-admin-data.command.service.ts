@@ -4,7 +4,6 @@ import { ImportComponentsCommand } from '@codelab/backend/application/component'
 import { ImportTagsCommand } from '@codelab/backend/application/tag'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
-import { type IAuth0User } from '@codelab/shared/abstract/core'
 import {
   flattenWithPrefix,
   Span,

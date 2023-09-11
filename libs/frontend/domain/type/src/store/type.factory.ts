@@ -153,10 +153,6 @@ export class TypeFactory {
           ...data,
           __typename: data.kind,
           fields: [],
-          owner: {
-            auth0Id: data.owner.auth0Id,
-            id: data.owner.auth0Id,
-          },
         } as IInterfaceTypeDTO
 
       case ITypeKind.ArrayType:

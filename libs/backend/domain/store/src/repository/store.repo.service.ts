@@ -1,6 +1,5 @@
 import type {
   Store,
-  StoreModel,
   StoreOptions,
   StoreWhere,
 } from '@codelab/backend/abstract/codegen'

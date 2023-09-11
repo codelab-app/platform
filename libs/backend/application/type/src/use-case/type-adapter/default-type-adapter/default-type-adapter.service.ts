@@ -19,7 +19,6 @@ import {
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type {
   IAtomDTO,
-  IAuth0User,
   IEnumTypeDTO,
   IFieldDTO,
   IInterfaceTypeDTO,

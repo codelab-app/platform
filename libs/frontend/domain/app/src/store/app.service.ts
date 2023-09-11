@@ -249,7 +249,7 @@ export class AppService
   })
 
   @modelAction
-  add({ domains, id, name, owner, pages }: IAppDTO) {
+  add({ domains, id, name, pages }: IAppDTO) {
     domains?.forEach((domain) => this.domainService.add(domain as IDomainDTO))
 
     let app = this.apps.get(id)
@@ -258,7 +258,6 @@ export class AppService
       app.writeCache({
         domains,
         name,
-        owner,
         pages,
       })
     } else {
@@ -266,7 +265,6 @@ export class AppService
         domains,
         id,
         name,
-        owner,
         pages,
       })
     }
@@ -278,20 +276,15 @@ export class AppService
 
   @modelFlow
   @transaction
-  create = _async(function* (
-    this: AppService,
-    { id, name, owner }: ICreateAppData,
-  ) {
+  create = _async(function* (this: AppService, { id, name }: ICreateAppData) {
     const pages = this.pageService.pageFactory.addSystemPages({
       id,
       name,
-      owner,
     })
 
     const app = this.add({
       id,
       name,
-      owner,
       pages,
     })
 

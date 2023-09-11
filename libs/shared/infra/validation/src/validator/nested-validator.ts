@@ -1,12 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { type Static, type TSchema, Type } from '@sinclair/typebox'
-import type { ValueError } from '@sinclair/typebox/errors'
-import { Value } from '@sinclair/typebox/value'
-import {
-  AbstractStandardValidator,
-  StandardValidator,
-} from 'typebox-validators'
-import { createErrorsIterable } from 'typebox-validators/lib/error-utils'
+import { type Static, type TSchema } from '@sinclair/typebox'
+import { StandardValidator } from 'typebox-validators'
 
 /**
  * The standard validator only checks the top level object properties

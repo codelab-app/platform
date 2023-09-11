@@ -26,7 +26,7 @@ export const CreateTagForm = observer(
     showFormControl = true,
     submitRef,
   }: CreateTagFormProps) => {
-    const { tagService, userService } = useStore()
+    const { tagService } = useStore()
 
     const onSubmit = (input: ICreateTagData) => {
       void tagService.create(input)
@@ -44,7 +44,6 @@ export const CreateTagForm = observer(
       <Form<ICreateTagData>
         model={{
           id: v4(),
-          owner: { auth0Id: userService.user.auth0Id },
           parent: { id: defaultOption.value.toString() },
         }}
         onSubmit={onSubmit}

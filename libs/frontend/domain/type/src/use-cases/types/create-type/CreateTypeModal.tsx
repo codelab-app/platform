@@ -12,7 +12,7 @@ import { createTypeSchema } from './create-type.schema'
 import { DisplayIfKind } from './DisplayIfKind'
 
 export const CreateTypeModal = observer(() => {
-  const { typeService, userService } = useStore()
+  const { typeService } = useStore()
   const isOpen = typeService.createModal.isOpen
   const closeModal = () => typeService.createModal.close()
 
@@ -39,7 +39,6 @@ export const CreateTypeModal = observer(() => {
       <ModalForm.Form<ICreateTypeData>
         model={{
           id: v4(),
-          owner: { auth0Id: userService.user.auth0Id },
         }}
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({

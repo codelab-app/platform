@@ -1,3 +1,4 @@
+export * from './escape-dot-paths'
 export * from './file/directory-compare'
 export * from './file/resolve-workspace-root'
 export * from './file/save-formatted-file'

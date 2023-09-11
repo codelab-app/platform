@@ -1,7 +1,4 @@
-import type {
-  IAuth0User,
-  IRenderPropTypeDTO,
-} from '@codelab/shared/abstract/core'
+import type { IRenderPropTypeDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import { BaseType } from './base-type.model'
 

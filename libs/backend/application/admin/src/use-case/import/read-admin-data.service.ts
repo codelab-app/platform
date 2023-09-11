@@ -6,13 +6,9 @@ import {
   ITypeOutputDto,
 } from '@codelab/backend/abstract/core'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
-import { resolveWorkspaceRoot } from '@codelab/backend/shared/util'
 import { Injectable, Scope } from '@nestjs/common'
-import { findUpSync } from 'find-up'
 import fs from 'fs'
-import { IAtom } from 'mobx'
-import path, { dirname } from 'path'
-import type { IBaseDataPaths } from '../../services/migration-data.service'
+import path from 'path'
 import { MigrationDataService } from '../../services/migration-data.service'
 
 @Injectable({

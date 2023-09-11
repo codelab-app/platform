@@ -6,7 +6,7 @@ import {
 } from '@codelab/backend/shared/util'
 import { Span } from '@codelab/shared/infra/otel'
 import { deepSortKeys } from '@codelab/shared/utils'
-import { Injectable, Scope } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import path from 'path'
 import { MigrationDataService } from '../../services/migration-data.service'
 

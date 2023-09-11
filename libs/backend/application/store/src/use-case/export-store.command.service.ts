@@ -1,6 +1,5 @@
 import type { StoreWhere } from '@codelab/backend/abstract/codegen'
 import { StoreRepository } from '@codelab/backend/domain/store'
-import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 

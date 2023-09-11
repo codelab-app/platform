@@ -133,7 +133,6 @@ export class AtomService
     icon,
     id,
     name,
-    owner,
     requiredParents,
     suggestedChildren,
     type,
@@ -149,7 +148,6 @@ export class AtomService
       icon,
       id,
       name,
-      owner,
       requiredParents,
       suggestedChildren,
       tags: [],
@@ -264,7 +262,6 @@ export class AtomService
       externalSourceType,
       id,
       name,
-      owner,
       tags = [],
       type,
     }: ICreateAtomData,
@@ -273,7 +270,6 @@ export class AtomService
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: `${name} API`,
-      owner,
     })
 
     const atom = this.add({
@@ -283,7 +279,6 @@ export class AtomService
       externalSourceType,
       id,
       name,
-      owner,
       tags,
       type,
     })
