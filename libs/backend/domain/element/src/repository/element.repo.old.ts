@@ -49,8 +49,6 @@ export const importElementInitial = async (
             element.childMapperPreviousSibling?.id,
           ),
           childMapperPropKey: element.childMapperPropKey,
-          customCss: element.customCss,
-          guiCss: element.guiCss,
           id: element.id,
           postRenderAction: connectNodeId(element.postRenderAction?.id),
           preRenderAction: connectNodeId(element.preRenderAction?.id),
@@ -75,6 +73,7 @@ export const importElementInitial = async (
             : undefined,
           renderForEachPropKey: element.renderForEachPropKey,
           renderIfExpression: element.renderIfExpression,
+          style: element.style,
         },
       ],
     })

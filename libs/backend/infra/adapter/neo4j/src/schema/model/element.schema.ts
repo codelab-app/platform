@@ -30,12 +30,10 @@ export const elementSchema = gql`
     # element is the rootElement for this component
     parentComponent: Component
       @relationship(type: "COMPONENT_ROOT", direction: IN)
-    # Used for the css the user types it manually using the integrated code editor. This is
-    # a pure css string.
-    customCss: String
-    # Used for the css set by the styling UI. This is a stringified json object of the form:
-    # {[prop: string]: string}, where the prop is a css property and the value is its value.
-    guiCss: String
+    # Used for the css set by the styling UI and manually. This is a stringified json object
+    # that contains styles for different screen size breakpoints.
+    # See interface for more details: IElementStyle
+    style: String
     childMapperPropKey: String
     childMapperComponent: Component
       @relationship(type: "CHILD_MAPPER_COMPONENT", direction: OUT)

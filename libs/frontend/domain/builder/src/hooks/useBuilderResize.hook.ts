@@ -6,7 +6,7 @@ import type { MotionProps, MotionValue, PanInfo } from 'framer-motion'
 import { useMotionValue } from 'framer-motion'
 import { useCallback, useEffect, useState } from 'react'
 
-type UseBuilderDragInput = Pick<IBuilderService, 'setCurrentBuilderWidth'> & {
+type UseBuilderDragInput = Pick<IBuilderService, 'setSelectedBuilderWidth'> & {
   selectedWidth: BuilderWidth
   width?: BuilderWidth
 }
@@ -50,7 +50,7 @@ const clampSet = (
 
 export const useBuilderResize = ({
   selectedWidth,
-  setCurrentBuilderWidth,
+  setSelectedBuilderWidth,
   width,
 }: UseBuilderDragInput): UseBuilderResize => {
   const [isDragging, setIsDragging] = useState(false)
@@ -61,10 +61,10 @@ export const useBuilderResize = ({
       clampSet(mWidth, info.delta.x, selectedWidth)
 
       const roundedWidth = Math.round(mWidth.get())
-      setCurrentBuilderWidth({ ...selectedWidth, default: roundedWidth })
+      setSelectedBuilderWidth({ ...selectedWidth, default: roundedWidth })
     },
 
-    [mWidth, selectedWidth, setCurrentBuilderWidth],
+    [mWidth, selectedWidth, setSelectedBuilderWidth],
   )
 
   useEffect(() => {
@@ -72,10 +72,10 @@ export const useBuilderResize = ({
       return
     }
 
-    setCurrentBuilderWidth(selectedWidth)
+    setSelectedBuilderWidth(selectedWidth)
 
     return mWidth.set(selectedWidth.default)
-  }, [selectedWidth, mWidth, setCurrentBuilderWidth])
+  }, [selectedWidth, mWidth, setSelectedBuilderWidth])
 
   const commonDragProps: Partial<DragHandleProps> = {
     dragConstraints: { bottom: 0, left: 0, right: 0, top: 0 },

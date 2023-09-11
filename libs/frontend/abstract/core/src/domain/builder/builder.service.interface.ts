@@ -5,7 +5,11 @@ import type { IComponent } from '../component'
 import type { IElement, IElementTree } from '../element'
 import type { IPageNodeRef } from '../page'
 import type { RendererTab } from '../render'
-import type { BuilderDragData, BuilderWidth } from './builder.interface'
+import type {
+  BuilderDragData,
+  BuilderWidth,
+  BuilderWidthBreakPoint,
+} from './builder.interface'
 // TBC: | IComponent
 export type IBuilderComponent = IAtom & {
   // tag: Ref<ITag>
@@ -23,17 +27,11 @@ export interface IBuilderService {
   builderContainerWidth: number
   componentTagNames: Array<string>
   componentsGroupedByCategory: Record<string, Array<IBuilderComponent>>
-  /**
-   * The difference between current and selected builderWidth is that
-   * - currentBuilderWidth is changed by useBuilderResize
-   * - selectedBuilderWidth is changed by PageDetailHeader and
-   * is being listened to by useBuilderResize
-   */
-  currentBuilderWidth: BuilderWidth
   currentDragData: Nullable<Frozen<BuilderDragData>>
   expandedComponentTreeNodeIds: Array<string>
   expandedPageElementTreeNodeIds: Array<string>
   hoveredNode: Nullable<IPageNodeRef>
+  selectedBuilderBreakpoint: BuilderWidthBreakPoint
   selectedBuilderWidth: BuilderWidth
   selectedNode: Nullable<IPageNodeRef>
 
@@ -41,11 +39,11 @@ export interface IBuilderService {
   selectElementNode(node: Nullable<IElement>): void
   setActiveTab(tab: RendererTab): void
   setBuilderContainerWidth(width: number): void
-  setCurrentBuilderWidth(width: Nullable<BuilderWidth>): void
   setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void
   setExpandedComponentTreeNodeIds(expandedNodeIds: Array<string>): void
   setExpandedPageElementTreeNodeIds(expandedNodeIds: Array<string>): void
   setHoveredNode(element: Nullable<IPageNodeRef>): void
+  setSelectedBuilderBreakpoint(width: Nullable<BuilderWidthBreakPoint>): void
   setSelectedBuilderWidth(width: Nullable<BuilderWidth>): void
   setSelectedNode(node: Nullable<IPageNodeRef>): void
 }

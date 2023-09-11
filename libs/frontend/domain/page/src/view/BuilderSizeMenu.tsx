@@ -11,7 +11,7 @@ import { useStore } from '@codelab/frontend/presentation/container'
 import { Divider, InputNumber, Menu, Space } from 'antd'
 import type { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { observer } from 'mobx-react-lite'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 
 export type MenuItemProps = ItemType & {
   hide?: boolean
@@ -37,14 +37,12 @@ const menuItemCommonStyle = {
 
 export const BuilderSizeMenu = observer(() => {
   const { builderService } = useStore()
-
-  const [selectedWidthBreakpoint, setSelectedWidthBreakpoint] = useState(
-    BuilderWidthBreakPoint.Desktop,
-  )
+  const selectedWidthBreakpoint = builderService.selectedBuilderBreakpoint
+  const selectedBuilderWidth = builderService.selectedBuilderWidth
 
   const handleBreakpointSelected = useCallback(
     (breakpoint: BuilderWidthBreakPoint) => {
-      setSelectedWidthBreakpoint(breakpoint)
+      builderService.setSelectedBuilderBreakpoint(breakpoint)
       builderService.setSelectedBuilderWidth(
         defaultBuilderWidthBreakPoints[breakpoint],
       )

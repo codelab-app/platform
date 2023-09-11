@@ -8,9 +8,7 @@ export interface IElementDTO {
   childMapperComponent?: Nullable<IEntity>
   childMapperPreviousSibling?: Nullable<IEntity>
   childMapperPropKey?: Nullable<string>
-  customCss?: Nullable<string>
   firstChild?: Nullable<IEntity>
-  guiCss?: Nullable<string>
   id: string
   name: string
   nextSibling?: Nullable<IEntity>
@@ -24,6 +22,7 @@ export interface IElementDTO {
   renderForEachPropKey?: Nullable<string>
   renderIfExpression?: Nullable<string>
   renderType?: Nullable<RenderType>
+  style?: Nullable<string>
 }
 
 export interface ICreateIElementDTO extends IElementDTO {

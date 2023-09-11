@@ -710,8 +710,6 @@ export class ElementService
         ? { id: element.childMapperPreviousSibling.id }
         : null,
       childMapperPropKey: element.childMapperPropKey,
-      customCss: element.customCss,
-      guiCss: element.guiCss,
       id: v4(),
       name: duplicateName,
       props,
@@ -725,6 +723,7 @@ export class ElementService
               : RenderTypeKind.Atom,
           }
         : null,
+      style: element.style,
     }
 
     const elementCloneModel = this.add(cloneElementDto)

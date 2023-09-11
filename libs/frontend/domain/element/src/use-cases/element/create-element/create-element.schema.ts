@@ -11,11 +11,7 @@ export const createElementSchema: JSONSchemaType<
 > = {
   properties: {
     ...idSchema,
-    customCss: {
-      nullable: true,
-      type: 'string',
-    },
-    guiCss: {
+    style: {
       nullable: true,
       type: 'string',
     },

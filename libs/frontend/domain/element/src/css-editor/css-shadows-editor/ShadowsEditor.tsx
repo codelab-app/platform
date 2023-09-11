@@ -17,24 +17,15 @@ export const ShadowsEditor = observer(
     return (
       <Collapse
         bordered={false}
-        className="site-collapse-custom-collapse"
         defaultActiveKey={['1']}
         expandIcon={({ isActive }) => (
           <CaretRightOutlined rotate={isActive ? 90 : 0} />
         )}
       >
-        <Panel
-          className="site-collapse-custom-panel"
-          header="BoxShadow"
-          key="1"
-        >
+        <Panel header="BoxShadow" key="1">
           <BoxShadow element={element} guiCssObj={guiCssObj} />
         </Panel>
-        <Panel
-          className="site-collapse-custom-panel"
-          header="TextShadow"
-          key="2"
-        >
+        <Panel header="TextShadow" key="2">
           <TextShadow element={element} guiCssObj={guiCssObj} />
         </Panel>
       </Collapse>

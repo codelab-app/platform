@@ -104,8 +104,7 @@ export const CreateElementForm = observer(
         <AutoFields
           omitFields={[
             'parentElement',
-            'customCss',
-            'guiCss',
+            'style',
             'propsData',
             'prevSibling',
             'preRenderAction',

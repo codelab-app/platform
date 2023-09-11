@@ -44,13 +44,16 @@ export const Builder = observer(() => {
   }
 
   const rootStyle = useMemo(
-    () =>
-      isOver
+    () => ({
+      container: 'root / inline-size',
+      width: `${selectedBuilderWidth.default}px`,
+      ...(isOver
         ? makeDropIndicatorStyle(DragPosition.Inside, {
             backgroundColor: 'rgba(0, 255, 255, 0.2)',
           })
-        : {},
-    [isOver],
+        : {}),
+    }),
+    [isOver, selectedBuilderWidth.default],
   )
 
   useEffect(() => {
@@ -71,13 +74,6 @@ export const Builder = observer(() => {
     return () => resizeObserver.disconnect()
   }, [])
 
-  const builderStyle = useMemo(() => {
-    return {
-      container: 'root / inline-size',
-      width: `${selectedBuilderWidth.default}px`,
-    }
-  }, [selectedBuilderWidth.default])
-
   if (!elementTree || !renderer) {
     return null
   }
@@ -88,7 +84,6 @@ export const Builder = observer(() => {
         <StyledBuilderResizeContainer
           id={BUILDER_CONTAINER_ID}
           key={elementTree.id}
-          style={builderStyle}
         >
           <Renderer ref={setNodeRef} renderer={renderer} style={rootStyle} />
           <BuilderClickOverlay

@@ -13,6 +13,7 @@ import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
 import type { IElementTreeViewDataNode } from '../../ui'
 import type { IAction } from '../action'
+import type { BuilderWidthBreakPoint } from '../builder'
 import type { IComponent } from '../component'
 import type { IHook } from '../hook'
 import type { IModel } from '../model.interface'
@@ -59,6 +60,20 @@ export interface IEvaluationContext {
   rootState: IPropData
   state: IPropData
   url: IPropData
+}
+
+export interface IBreakpointStyle {
+  cssString?: string
+  guiString?: string
+}
+
+export type IElementStyle = Record<
+  BuilderWidthBreakPoint,
+  IBreakpointStyle | undefined
+>
+
+export interface ElementCssRules {
+  [key: string]: ElementCssRules | string
 }
 
 export interface IElement
@@ -121,6 +136,27 @@ export interface IElement
   sourceElement: Nullable<IEntity>
   // store attached to closestContainerNode
   store: Ref<IStore>
+  /**
+   * stringified object, see @IElementStyle interface
+   * to see what is the shape of parsed object
+   */
+  style?: Nullable<string>
+  /**
+   * html-ready string that includes styles for all breakpoints
+   * for production - uses media queries to apply styles
+   * for development - uses container queries, for better UX
+   */
+  styleStringWithBreakpoints: string
+  /**
+   * styles that are inherited from other breakpoints,
+   * for example, if we have a style for mobile, it will be inherited
+   * for desktop, and this prop will display the inherited styles
+   * when we edit the desktop breakpoint
+   */
+  stylesInheritedFromOtherBreakpoints: {
+    currentStyles: ElementCssRules
+    inheritedStyles: ElementCssRules
+  }
   treeViewNode: IElementTreeViewDataNode
   urlProps?: IPropData
 

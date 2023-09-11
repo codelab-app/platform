@@ -20,25 +20,24 @@ export const LayoutEditor = observer(
     return (
       <Collapse
         bordered={false}
-        className="site-collapse-custom-collapse"
         defaultActiveKey={['1']}
         expandIcon={({ isActive }) => (
           <CaretRightOutlined rotate={isActive ? 90 : 0} />
         )}
       >
-        <Panel className="site-collapse-custom-panel" header="Display" key="1">
+        <Panel header="Display" key="1">
           <DisplayEditor element={element} guiCssObj={guiCssObj} />
         </Panel>
-        <Panel className="site-collapse-custom-panel" header="Margins" key="2">
+        <Panel header="Margins" key="2">
           <MarginsEditor element={element} guiCssObj={guiCssObj} />
         </Panel>
-        <Panel className="site-collapse-custom-panel" header="Padding" key="3">
+        <Panel header="Padding" key="3">
           <PaddingEditor element={element} guiCssObj={guiCssObj} />
         </Panel>
-        <Panel className="site-collapse-custom-panel" header="Size" key="4">
+        <Panel header="Size" key="4">
           <SizeEditor element={element} guiCssObj={guiCssObj} />
         </Panel>
-        <Panel className="site-collapse-custom-panel" header="Position" key="5">
+        <Panel header="Position" key="5">
           <PositionEditor element={element} guiCssObj={guiCssObj} />
         </Panel>
       </Collapse>

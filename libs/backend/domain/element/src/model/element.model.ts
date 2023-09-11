@@ -12,11 +12,9 @@ export class Element implements IElementDTO {
 
   childMapperPropKey?: Nullable<string> | undefined
 
-  customCss?: Nullable<string> | undefined
+  style?: Nullable<string> | undefined
 
   firstChild?: IEntity | null | undefined
-
-  guiCss?: Nullable<string> | undefined
 
   id: string
 

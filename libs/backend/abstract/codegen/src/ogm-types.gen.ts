@@ -2289,8 +2289,7 @@ export type ApiActionElementElementNodeAggregateSelection = {
   __typename?: 'ApiActionElementElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -3218,8 +3217,7 @@ export type CodeActionElementElementNodeAggregateSelection = {
   __typename?: 'CodeActionElementElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -3501,8 +3499,7 @@ export type ComponentElementChildrenContainerElementNodeAggregateSelection = {
   __typename?: 'ComponentElementChildrenContainerElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -3518,8 +3515,7 @@ export type ComponentElementRootElementNodeAggregateSelection = {
   __typename?: 'ComponentElementRootElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -3957,8 +3953,7 @@ export type Element = {
   __typename?: 'Element'
   id: Scalars['ID']
   _compoundName: Scalars['String']
-  customCss?: Maybe<Scalars['String']>
-  guiCss?: Maybe<Scalars['String']>
+  style?: Maybe<Scalars['String']>
   childMapperPropKey?: Maybe<Scalars['String']>
   renderForEachPropKey?: Maybe<Scalars['String']>
   renderIfExpression?: Maybe<Scalars['String']>
@@ -4247,8 +4242,7 @@ export type ElementAggregateSelection = {
   count: Scalars['Int']
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -4351,8 +4345,7 @@ export type ElementElementChildMapperPreviousSiblingNodeAggregateSelection = {
   __typename?: 'ElementElementChildMapperPreviousSiblingNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -4368,8 +4361,7 @@ export type ElementElementFirstChildNodeAggregateSelection = {
   __typename?: 'ElementElementFirstChildNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -4385,8 +4377,7 @@ export type ElementElementNextSiblingNodeAggregateSelection = {
   __typename?: 'ElementElementNextSiblingNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -4402,8 +4393,7 @@ export type ElementElementParentNodeAggregateSelection = {
   __typename?: 'ElementElementParentNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -4419,8 +4409,7 @@ export type ElementElementPrevSiblingNodeAggregateSelection = {
   __typename?: 'ElementElementPrevSiblingNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -5322,8 +5311,7 @@ export type HookElementElementNodeAggregateSelection = {
   __typename?: 'HookElementElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -5826,8 +5814,7 @@ export type PageElementPageContentContainerNodeAggregateSelection = {
   __typename?: 'PageElementPageContentContainerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -5843,8 +5830,7 @@ export type PageElementRootElementNodeAggregateSelection = {
   __typename?: 'PageElementRootElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -7493,8 +7479,7 @@ export type UserElementElementsNodeAggregateSelection = {
   __typename?: 'UserElementElementsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
   _compoundName: StringAggregateSelectionNonNullable
-  customCss: StringAggregateSelectionNullable
-  guiCss: StringAggregateSelectionNullable
+  style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
@@ -8204,115 +8189,60 @@ export type ApiActionElementNodeAggregationWhereInput = {
   _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_EQUAL?: InputMaybe<Scalars['String']>
+  style_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GT?: InputMaybe<Scalars['Int']>
+  style_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GTE?: InputMaybe<Scalars['Int']>
+  style_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LT?: InputMaybe<Scalars['Int']>
+  style_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LTE?: InputMaybe<Scalars['Int']>
+  style_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -12483,115 +12413,60 @@ export type BaseActionElementNodeAggregationWhereInput = {
   _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_EQUAL?: InputMaybe<Scalars['String']>
+  style_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GT?: InputMaybe<Scalars['Int']>
+  style_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GTE?: InputMaybe<Scalars['Int']>
+  style_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LT?: InputMaybe<Scalars['Int']>
+  style_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LTE?: InputMaybe<Scalars['Int']>
+  style_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -13423,115 +13298,60 @@ export type CodeActionElementNodeAggregationWhereInput = {
   _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_EQUAL?: InputMaybe<Scalars['String']>
+  style_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GT?: InputMaybe<Scalars['Int']>
+  style_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GTE?: InputMaybe<Scalars['Int']>
+  style_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LT?: InputMaybe<Scalars['Int']>
+  style_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LTE?: InputMaybe<Scalars['Int']>
+  style_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -14460,115 +14280,60 @@ export type ComponentChildrenContainerElementNodeAggregationWhereInput = {
   _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_EQUAL?: InputMaybe<Scalars['String']>
+  style_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GT?: InputMaybe<Scalars['Int']>
+  style_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GTE?: InputMaybe<Scalars['Int']>
+  style_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LT?: InputMaybe<Scalars['Int']>
+  style_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LTE?: InputMaybe<Scalars['Int']>
+  style_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -15271,115 +15036,60 @@ export type ComponentRootElementNodeAggregationWhereInput = {
   _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_EQUAL?: InputMaybe<Scalars['String']>
+  style_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GT?: InputMaybe<Scalars['Int']>
+  style_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GTE?: InputMaybe<Scalars['Int']>
+  style_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LT?: InputMaybe<Scalars['Int']>
+  style_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LTE?: InputMaybe<Scalars['Int']>
+  style_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -16442,115 +16152,60 @@ export type ElementChildMapperPreviousSiblingNodeAggregationWhereInput = {
   _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_EQUAL?: InputMaybe<Scalars['String']>
+  style_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GT?: InputMaybe<Scalars['Int']>
+  style_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GTE?: InputMaybe<Scalars['Int']>
+  style_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LT?: InputMaybe<Scalars['Int']>
+  style_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LTE?: InputMaybe<Scalars['Int']>
+  style_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -16773,8 +16428,7 @@ export type ElementConnectWhere = {
 export type ElementCreateInput = {
   id: Scalars['ID']
   _compoundName: Scalars['String']
-  customCss?: InputMaybe<Scalars['String']>
-  guiCss?: InputMaybe<Scalars['String']>
+  style?: InputMaybe<Scalars['String']>
   childMapperPropKey?: InputMaybe<Scalars['String']>
   renderForEachPropKey?: InputMaybe<Scalars['String']>
   renderIfExpression?: InputMaybe<Scalars['String']>
@@ -16948,115 +16602,60 @@ export type ElementFirstChildNodeAggregationWhereInput = {
   _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_EQUAL?: InputMaybe<Scalars['String']>
+  style_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GT?: InputMaybe<Scalars['Int']>
+  style_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GTE?: InputMaybe<Scalars['Int']>
+  style_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LT?: InputMaybe<Scalars['Int']>
+  style_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LTE?: InputMaybe<Scalars['Int']>
+  style_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -17361,115 +16960,60 @@ export type ElementNextSiblingNodeAggregationWhereInput = {
   _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_EQUAL?: InputMaybe<Scalars['String']>
+  style_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GT?: InputMaybe<Scalars['Int']>
+  style_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GTE?: InputMaybe<Scalars['Int']>
+  style_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LT?: InputMaybe<Scalars['Int']>
+  style_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LTE?: InputMaybe<Scalars['Int']>
+  style_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -17654,8 +17198,7 @@ export type ElementNextSiblingUpdateFieldInput = {
 export type ElementOnCreateInput = {
   id: Scalars['ID']
   _compoundName: Scalars['String']
-  customCss?: InputMaybe<Scalars['String']>
-  guiCss?: InputMaybe<Scalars['String']>
+  style?: InputMaybe<Scalars['String']>
   childMapperPropKey?: InputMaybe<Scalars['String']>
   renderForEachPropKey?: InputMaybe<Scalars['String']>
   renderIfExpression?: InputMaybe<Scalars['String']>
@@ -18177,115 +17720,60 @@ export type ElementParentNodeAggregationWhereInput = {
   _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_EQUAL?: InputMaybe<Scalars['String']>
+  style_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GT?: InputMaybe<Scalars['Int']>
+  style_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GTE?: InputMaybe<Scalars['Int']>
+  style_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LT?: InputMaybe<Scalars['Int']>
+  style_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LTE?: InputMaybe<Scalars['Int']>
+  style_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -18690,115 +18178,60 @@ export type ElementPrevSiblingNodeAggregationWhereInput = {
   _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_EQUAL?: InputMaybe<Scalars['String']>
+  style_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GT?: InputMaybe<Scalars['Int']>
+  style_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GTE?: InputMaybe<Scalars['Int']>
+  style_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LT?: InputMaybe<Scalars['Int']>
+  style_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LTE?: InputMaybe<Scalars['Int']>
+  style_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -19686,8 +19119,7 @@ export type ElementRenderComponentTypeUpdateFieldInput = {
 export type ElementSort = {
   id?: InputMaybe<SortDirection>
   _compoundName?: InputMaybe<SortDirection>
-  customCss?: InputMaybe<SortDirection>
-  guiCss?: InputMaybe<SortDirection>
+  style?: InputMaybe<SortDirection>
   childMapperPropKey?: InputMaybe<SortDirection>
   renderForEachPropKey?: InputMaybe<SortDirection>
   renderIfExpression?: InputMaybe<SortDirection>
@@ -20011,8 +19443,7 @@ export type ElementUniqueWhere = {
 export type ElementUpdateInput = {
   id?: InputMaybe<Scalars['ID']>
   _compoundName?: InputMaybe<Scalars['String']>
-  customCss?: InputMaybe<Scalars['String']>
-  guiCss?: InputMaybe<Scalars['String']>
+  style?: InputMaybe<Scalars['String']>
   childMapperPropKey?: InputMaybe<Scalars['String']>
   renderForEachPropKey?: InputMaybe<Scalars['String']>
   renderIfExpression?: InputMaybe<Scalars['String']>
@@ -20067,38 +19498,22 @@ export type ElementWhere = {
   _compoundName_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   _compoundName_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  customCss?: InputMaybe<Scalars['String']>
+  style?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  customCss_NOT?: InputMaybe<Scalars['String']>
-  customCss_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  style_NOT?: InputMaybe<Scalars['String']>
+  style_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  customCss_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  customCss_MATCHES?: InputMaybe<Scalars['String']>
-  customCss_CONTAINS?: InputMaybe<Scalars['String']>
-  customCss_STARTS_WITH?: InputMaybe<Scalars['String']>
-  customCss_ENDS_WITH?: InputMaybe<Scalars['String']>
+  style_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
+  style_MATCHES?: InputMaybe<Scalars['String']>
+  style_CONTAINS?: InputMaybe<Scalars['String']>
+  style_STARTS_WITH?: InputMaybe<Scalars['String']>
+  style_ENDS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  customCss_NOT_CONTAINS?: InputMaybe<Scalars['String']>
+  style_NOT_CONTAINS?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  customCss_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
+  style_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  customCss_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
-  guiCss?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  guiCss_NOT?: InputMaybe<Scalars['String']>
-  guiCss_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  guiCss_NOT_IN?: InputMaybe<Array<InputMaybe<Scalars['String']>>>
-  guiCss_MATCHES?: InputMaybe<Scalars['String']>
-  guiCss_CONTAINS?: InputMaybe<Scalars['String']>
-  guiCss_STARTS_WITH?: InputMaybe<Scalars['String']>
-  guiCss_ENDS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  guiCss_NOT_CONTAINS?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  guiCss_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
-  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  guiCss_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  style_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
   childMapperPropKey?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   childMapperPropKey_NOT?: InputMaybe<Scalars['String']>
@@ -22750,115 +22165,60 @@ export type HookElementNodeAggregationWhereInput = {
   _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_EQUAL?: InputMaybe<Scalars['String']>
+  style_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GT?: InputMaybe<Scalars['Int']>
+  style_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GTE?: InputMaybe<Scalars['Int']>
+  style_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LT?: InputMaybe<Scalars['Int']>
+  style_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LTE?: InputMaybe<Scalars['Int']>
+  style_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -25614,115 +24974,60 @@ export type PagePageContentContainerNodeAggregationWhereInput = {
   _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_EQUAL?: InputMaybe<Scalars['String']>
+  style_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GT?: InputMaybe<Scalars['Int']>
+  style_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GTE?: InputMaybe<Scalars['Int']>
+  style_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LT?: InputMaybe<Scalars['Int']>
+  style_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LTE?: InputMaybe<Scalars['Int']>
+  style_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -26034,115 +25339,60 @@ export type PageRootElementNodeAggregationWhereInput = {
   _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_EQUAL?: InputMaybe<Scalars['String']>
+  style_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GT?: InputMaybe<Scalars['Int']>
+  style_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GTE?: InputMaybe<Scalars['Int']>
+  style_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LT?: InputMaybe<Scalars['Int']>
+  style_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LTE?: InputMaybe<Scalars['Int']>
+  style_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -32750,115 +32000,60 @@ export type UserElementsNodeAggregationWhereInput = {
   _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_EQUAL?: InputMaybe<Scalars['String']>
+  style_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GT?: InputMaybe<Scalars['Int']>
+  style_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_GTE?: InputMaybe<Scalars['Int']>
+  style_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LT?: InputMaybe<Scalars['Int']>
+  style_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LT?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LT?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  customCss_LTE?: InputMaybe<Scalars['Int']>
+  style_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
+  style_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
+  style_LONGEST_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  customCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  customCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  customCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  customCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_EQUAL?: InputMaybe<Scalars['String']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_GTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LT?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LT?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']>
-  /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  guiCss_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_AVERAGE_LTE?: InputMaybe<Scalars['Float']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_LONGEST_LTE?: InputMaybe<Scalars['Int']>
-  /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  guiCss_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
-  guiCss_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
-  guiCss_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LTE?: InputMaybe<Scalars['Int']>
+  style_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']>
+  style_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
+  style_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   childMapperPropKey_EQUAL?: InputMaybe<Scalars['String']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -35371,8 +34566,7 @@ export interface ElementAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
   _compoundName?: StringAggregateInputNonNullable
-  customCss?: StringAggregateInputNullable
-  guiCss?: StringAggregateInputNullable
+  style?: StringAggregateInputNullable
   childMapperPropKey?: StringAggregateInputNullable
   renderForEachPropKey?: StringAggregateInputNullable
   renderIfExpression?: StringAggregateInputNullable

@@ -1,4 +1,5 @@
 import type {
+  ElementCssRules,
   IAction,
   IAtom,
   IComponent,
@@ -14,20 +15,25 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   actionRef,
+  BuilderWidthBreakPoint,
   componentRef,
   CssMap,
   DATA_ELEMENT_ID,
+  defaultBuilderWidthBreakPoints,
   elementRef,
+  getBuilderService,
   getComponentService,
   getElementService,
   getRenderService,
   IElement,
+  IElementStyle,
   IElementTreeViewDataNode,
   IEvaluationContext,
   isAtomInstance,
   isComponentInstance,
   pageRef,
   propRef,
+  RendererType,
 } from '@codelab/frontend/abstract/core'
 import { getPropService } from '@codelab/frontend/domain/prop'
 import { schemaTransformer } from '@codelab/frontend/domain/type'
@@ -63,15 +69,17 @@ import {
   prop,
   Ref,
 } from 'mobx-keystone'
-import { getRenderType } from './utils'
+import {
+  getRenderType,
+  jsonStringToCss,
+  parseCssStringIntoObject,
+} from './utils'
 
 const create = ({
   childMapperComponent,
   childMapperPreviousSibling,
   childMapperPropKey,
-  customCss,
   firstChild,
-  guiCss,
   id,
   name,
   nextSibling,
@@ -85,6 +93,7 @@ const create = ({
   renderForEachPropKey,
   renderIfExpression,
   renderType,
+  style,
 }: IElementDTO) => {
   const elementRenderType = getRenderType(renderType)
 
@@ -98,9 +107,7 @@ const create = ({
       ? elementRef(childMapperPreviousSibling.id)
       : null,
     childMapperPropKey,
-    customCss,
     firstChild: firstChild?.id ? elementRef(firstChild.id) : undefined,
-    guiCss,
     id,
     name,
     nextSibling: nextSibling?.id ? elementRef(nextSibling.id) : undefined,
@@ -119,6 +126,7 @@ const create = ({
     renderIfExpression,
     renderingMetadata: null,
     renderType: elementRenderType,
+    style,
   })
 }
 
@@ -134,9 +142,7 @@ export class Element
     childMapperPreviousSibling:
       prop<Nullable<Ref<IElement>>>(null).withSetter(),
     childMapperPropKey: prop<Nullable<string>>(null).withSetter(),
-    customCss: prop<Nullable<string>>(null).withSetter(),
     firstChild: prop<Nullable<Ref<IElement>>>(null).withSetter(),
-    guiCss: prop<Nullable<string>>(null),
     // Marks the element as an instance of a specific component
     // renderComponentType: prop<Nullable<Ref<IComponent>>>(null).withSetter(),
     hooks: prop<Array<IHook>>(() => []),
@@ -158,6 +164,7 @@ export class Element
     renderType: prop<IElementRenderType | null>(null).withSetter(),
     // if this is a duplicate, trace source element id else null
     sourceElement: prop<Nullable<IEntity>>(null).withSetter(),
+    style: prop<Nullable<string>>(null).withSetter(),
   })
   implements IElement
 {
@@ -179,6 +186,11 @@ export class Element
   @computed
   get propService() {
     return getPropService(this)
+  }
+
+  @computed
+  get builderService() {
+    return getBuilderService(this)
   }
 
   @computed
@@ -327,20 +339,125 @@ export class Element
     }
   }
 
+  get breakpointsByPrecedence() {
+    const breakpoints = [
+      BuilderWidthBreakPoint.MobilePortrait,
+      BuilderWidthBreakPoint.MobileLandscape,
+      BuilderWidthBreakPoint.Tablet,
+      BuilderWidthBreakPoint.Desktop,
+    ]
+
+    return breakpoints
+  }
+
   @computed
   get slug(): string {
     return slugify(this.name)
   }
 
+  get styleStringWithBreakpoints(): string {
+    const parsedCss = this.styleParsed
+    const activeRenderer = this.renderService.activeRenderer?.current
+    const rendererType = activeRenderer?.rendererType
+    const isProduction = rendererType === RendererType.Production
+    const mediaQueryString = isProduction ? '@media' : '@container root'
+    const breakpointStyles = []
+
+    for (const breakpoint of this.breakpointsByPrecedence) {
+      const breakpointStyle = parsedCss[breakpoint as BuilderWidthBreakPoint]
+
+      const breakpointWidth =
+        defaultBuilderWidthBreakPoints[breakpoint as BuilderWidthBreakPoint]
+
+      const lowerBound =
+        breakpoint === BuilderWidthBreakPoint.MobilePortrait
+          ? 0
+          : breakpointWidth.min
+
+      if (breakpointStyle) {
+        breakpointStyles.push(
+          `${mediaQueryString} (width >= ${lowerBound}px) {
+            ${breakpointStyle.cssString ?? ''}
+            ${jsonStringToCss(breakpointStyle.guiString ?? '{}')}
+          }`,
+        )
+      }
+    }
+
+    return breakpointStyles.join('\n')
+  }
+
+  @computed
+  get stylesInheritedFromOtherBreakpoints() {
+    const currentBreakpoint = this.builderService.selectedBuilderBreakpoint
+    const parsedStyle = this.styleParsed
+    let inheritedStyles = {} as ElementCssRules
+
+    for (const breakpoint of this.breakpointsByPrecedence) {
+      if (breakpoint === currentBreakpoint) {
+        break
+      }
+
+      const { cssString, guiString } = parsedStyle[breakpoint] ?? {}
+      const cssObject = parseCssStringIntoObject(cssString ?? '')
+      const guiObject = JSON.parse(guiString ?? '{}')
+
+      inheritedStyles = { ...inheritedStyles, ...cssObject, ...guiObject }
+    }
+
+    const { cssString, guiString } = parsedStyle[currentBreakpoint] ?? {}
+    const cssObject = parseCssStringIntoObject(cssString ?? '')
+    const guiObject = JSON.parse(guiString ?? '{}')
+    const currentStyles = { ...cssObject, ...guiObject }
+
+    return { currentStyles, inheritedStyles }
+  }
+
+  @computed
+  get customCss() {
+    const breakpoint = this.builderService.selectedBuilderBreakpoint
+    const { cssString } = this.styleParsed[breakpoint] ?? {}
+
+    return cssString
+  }
+
+  @computed
+  get guiCss() {
+    const breakpoint = this.builderService.selectedBuilderBreakpoint
+    const { guiString } = this.styleParsed[breakpoint] ?? {}
+
+    return guiString
+  }
+
+  @computed
+  get styleParsed(): IElementStyle {
+    return JSON.parse(this.style || '{}')
+  }
+
+  @modelAction
+  setCustomCss(cssString: string) {
+    const breakpoint = this.builderService.selectedBuilderBreakpoint
+    const styleObject = this.styleParsed
+    styleObject[breakpoint] = { ...styleObject[breakpoint], cssString }
+    this.style = JSON.stringify(styleObject)
+  }
+
   @modelAction
   appendToGuiCss(css: CssMap) {
+    const breakpoint = this.builderService.selectedBuilderBreakpoint
+    const styleObject = this.styleParsed
     const curGuiCss = JSON.parse(this.guiCss || '{}')
     const newGuiCss = { ...curGuiCss, ...css }
-    this.guiCss = JSON.stringify(newGuiCss)
+    const guiString = JSON.stringify(newGuiCss)
+
+    styleObject[breakpoint] = { ...styleObject[breakpoint], guiString }
+    this.style = JSON.stringify(styleObject)
   }
 
   @modelAction
   deleteFromGuiCss(propNames: Array<string>) {
+    const breakpoint = this.builderService.selectedBuilderBreakpoint
+    const styleObject = this.styleParsed
     const curGuiCss = JSON.parse(this.guiCss || '{}')
     propNames.forEach((propName) => {
       if (curGuiCss[propName]) {
@@ -349,7 +466,9 @@ export class Element
       }
     })
 
-    this.guiCss = JSON.stringify(curGuiCss)
+    const guiString = JSON.stringify(curGuiCss)
+    styleObject[breakpoint] = { ...styleObject[breakpoint], guiString }
+    this.style = JSON.stringify(styleObject)
   }
 
   @modelAction
@@ -549,8 +668,6 @@ export class Element
 
     return {
       _compoundName: createUniqueName(this.name, this.closestContainerNode.id),
-      customCss: this.customCss,
-      guiCss: this.guiCss,
       id: this.id,
       props: {
         create: {
@@ -559,6 +676,7 @@ export class Element
       },
       renderAtomType,
       renderComponentType,
+      style: this.style,
     }
   }
 
@@ -595,14 +713,13 @@ export class Element
       childMapperComponent,
       childMapperPreviousSibling,
       childMapperPropKey: this.childMapperPropKey,
-      customCss: this.customCss,
-      guiCss: this.guiCss,
       postRenderAction,
       preRenderAction,
       renderAtomType,
       renderComponentType,
       renderForEachPropKey: this.renderForEachPropKey,
       renderIfExpression: this.renderIfExpression,
+      style: this.style,
     }
   }
 
@@ -747,14 +864,11 @@ export class Element
   }
 
   @modelAction
-  @modelAction
   writeCache({
     childMapperComponent,
     childMapperPreviousSibling,
     childMapperPropKey,
-    customCss,
     firstChild,
-    guiCss,
     name,
     nextSibling,
     parent,
@@ -766,12 +880,12 @@ export class Element
     renderForEachPropKey,
     renderIfExpression,
     renderType,
+    style,
   }: Partial<IElementDTO>) {
     const elementRenderType = getRenderType(renderType)
 
     this.name = name ?? this.name
-    this.customCss = customCss ?? this.customCss
-    this.guiCss = guiCss ?? this.guiCss
+    this.style = style ?? this.style
     this.renderIfExpression = renderIfExpression ?? null
     this.renderForEachPropKey = renderForEachPropKey ?? null
     this.renderType = elementRenderType ?? null

@@ -46,7 +46,7 @@ export const defaultBuilderWidthBreakPoints: Record<
   BuilderWidth
 > = {
   [BuilderWidthBreakPoint.MobilePortrait]: {
-    default: 320,
+    default: 360,
     max: 479,
     min: 240,
   },

@@ -5,8 +5,7 @@ const baseElementSelectionSet = `
   id
   name
   _compoundName
-  customCss
-  guiCss
+  style
   parentComponent {
     id
     name

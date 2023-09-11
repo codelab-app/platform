@@ -2,8 +2,7 @@ fragment Element on Element {
   __typename
   id
   name
-  customCss
-  guiCss
+  style
   page {
     id
   }
@@ -60,8 +59,7 @@ fragment ProductionElement on Element {
   __typename
   id
   name
-  customCss
-  guiCss
+  style
   page {
     id
   }

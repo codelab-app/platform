@@ -7,6 +7,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import {
   BuilderWidth,
+  BuilderWidthBreakPoint,
   componentRef,
   defaultBuilderWidthBreakPoints,
   elementRef,
@@ -30,15 +31,15 @@ export class BuilderService
   extends Model({
     activeTab: prop<RendererTab>(RendererTab.Page).withSetter(),
     builderContainerWidth: prop<number>(0).withSetter(),
-    currentBuilderWidth: prop<BuilderWidth>(
-      () => defaultBuilderWidthBreakPoints.desktop,
-    ),
     currentDragData: prop<Nullable<Frozen<BuilderDragData>>>(null).withSetter(),
     expandedComponentTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     expandedPageElementTreeNodeIds: prop<Array<string>>(() => []).withSetter(),
     hoveredNode: prop<Nullable<IPageNodeRef>>(null).withSetter(),
+    selectedBuilderBreakpoint: prop<BuilderWidthBreakPoint>(
+      () => BuilderWidthBreakPoint.MobilePortrait,
+    ).withSetter(),
     selectedBuilderWidth: prop<BuilderWidth>(
-      () => defaultBuilderWidthBreakPoints.desktop,
+      () => defaultBuilderWidthBreakPoints['mobile-portrait'],
     ),
     /**
      * select a node would add it to expand list
@@ -196,13 +197,6 @@ export class BuilderService
     }
 
     return undefined
-  }
-
-  @modelAction
-  setCurrentBuilderWidth(width: BuilderWidth) {
-    this.currentBuilderWidth.default = width.default
-    this.currentBuilderWidth.min = width.min
-    this.currentBuilderWidth.max = width.max
   }
 
   @modelAction
