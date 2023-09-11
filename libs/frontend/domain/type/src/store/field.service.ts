@@ -9,6 +9,7 @@ import type { FieldFragment } from '@codelab/shared/abstract/codegen'
 import { IFieldDTO } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import compact from 'lodash/compact'
+import isUndefined from 'lodash/isUndefined'
 import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
 import {
@@ -270,6 +271,17 @@ export class FieldService
     }
   }
 
+  private static mapDataToDTO(fieldData: ICreateFieldData) {
+    return {
+      ...fieldData,
+      api: { id: fieldData.interfaceTypeId },
+      defaultValues: !isUndefined(fieldData.defaultValues)
+        ? JSON.stringify(fieldData.defaultValues)
+        : null,
+      fieldType: { id: fieldData.fieldType },
+      validationRules: fieldData.validationRules
+        ? JSON.stringify(fieldData.validationRules)
+        : null,
   @modelAction
   private attachFieldAsNextSibling(
     this: FieldService,
