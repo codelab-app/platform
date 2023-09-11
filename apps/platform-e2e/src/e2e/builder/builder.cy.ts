@@ -2,7 +2,6 @@ import { ROOT_ELEMENT_NAME } from '@codelab/frontend/abstract/core'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IAtomType, IPageKindName } from '@codelab/shared/abstract/core'
 import { slugify } from '@codelab/shared/utils'
-import { FIELD_TYPE } from '@codelab/testing/cypress/antd'
 import { loginSession } from '@codelab/testing/cypress/nextjs-auth0'
 
 const ELEMENT_CONTAINER = 'Container'

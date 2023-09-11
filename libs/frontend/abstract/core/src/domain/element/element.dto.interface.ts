@@ -18,11 +18,7 @@ export interface ICreateElementData {
 
 export type IUpdateElementData = Pick<
   ICreateElementData,
-  | 'name'
-  | 'postRenderAction'
-  | 'preRenderAction'
-  | 'renderType'
-  | 'style'
+  'name' | 'postRenderAction' | 'preRenderAction' | 'renderType' | 'style'
 > &
   Pick<ICreateElementData, 'id'> & {
     childMapperComponent?: Nullish<IEntity>

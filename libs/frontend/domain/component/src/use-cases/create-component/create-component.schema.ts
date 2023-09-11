@@ -2,7 +2,6 @@ import type { ICreateComponentData } from '@codelab/frontend/abstract/core'
 import {
   CodeMirrorField,
   idSchema,
-  ownerSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
 import { CodeMirrorLanguage } from '@codelab/shared/abstract/codegen'
