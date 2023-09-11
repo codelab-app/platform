@@ -1,4 +1,5 @@
 import { action, computed, makeAutoObservable, observable } from 'mobx'
+import { Router } from 'next/router'
 import type { IPopoverStore } from './cui-popover.store.interface'
 
 export class CuiPopoverStore implements IPopoverStore {
@@ -7,6 +8,8 @@ export class CuiPopoverStore implements IPopoverStore {
 
   constructor() {
     makeAutoObservable(this)
+
+    Router.events.on('routeChangeStart', () => this.close())
   }
 
   @action
