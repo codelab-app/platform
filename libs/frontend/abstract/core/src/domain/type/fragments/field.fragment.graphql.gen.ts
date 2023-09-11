@@ -26,7 +26,6 @@ export type FieldFragment = {
         kind: Types.TypeKind
         name: string
       }
-    | { __typename: 'BaseType'; id: string; kind: Types.TypeKind; name: string }
     | {
         __typename: 'CodeMirrorType'
         id: string

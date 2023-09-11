@@ -11,20 +11,12 @@ import capitalize from 'voca/capitalize'
 import { BaseType } from './base-type.model'
 
 export class InterfaceType extends BaseType implements IInterfaceTypeDTO {
-  declare id: string
-
-  declare name: string
-
-  declare kind: ITypeKind.InterfaceType
-
   declare __typename: `${ITypeKind.InterfaceType}`
-
-  declare owner: IAuth0User
 
   declare fields: Array<IEntity>
 
-  constructor({ fields = [], id, name, owner }: IInterfaceTypeDTO) {
-    super({ id, kind: ITypeKind.InterfaceType, name, owner })
+  constructor({ fields = [], id, name }: IInterfaceTypeDTO) {
+    super({ id, kind: ITypeKind.InterfaceType, name })
 
     this.fields = fields
   }
@@ -45,7 +37,6 @@ export class InterfaceType extends BaseType implements IInterfaceTypeDTO {
       id: v4(),
       kind: ITypeKind.InterfaceType,
       name: InterfaceType.getApiName({ name }),
-      owner,
     })
   }
 }

@@ -155,7 +155,6 @@ export class TypeFactory {
           fields: [],
           owner: {
             auth0Id: data.owner.auth0Id,
-            // TODO: This assumption might be wrong, check it out!
             id: data.owner.auth0Id,
           },
         } as IInterfaceTypeDTO

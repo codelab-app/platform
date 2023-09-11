@@ -11,13 +11,10 @@ export abstract class BaseType implements IBaseTypeDTO {
 
   kind: ITypeKind
 
-  owner: IAuth0User
-
-  constructor({ id, kind, name, owner }: IBaseTypeDTO) {
+  constructor({ id, kind, name }: IBaseTypeDTO) {
     this.id = id
     this.name = name
     this.kind = kind
-    this.owner = owner
   }
 
   assertCreateFailed<Model>(data: Array<Model>) {

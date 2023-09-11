@@ -13,6 +13,6 @@ export abstract class AuthUseCase<
   }
 }
 
-export abstract class AuthService {
+export abstract class IAuthService {
   constructor(readonly owner: IAuth0User) {}
 }

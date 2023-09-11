@@ -3,6 +3,7 @@ import type {
   PrimitiveTypeOptions,
   PrimitiveTypeWhere,
 } from '@codelab/backend/abstract/codegen'
+import { AuthService, CurrentUser } from '@codelab/backend/application/service'
 import {
   exportPrimitiveTypeSelectionSet,
   OgmService,
@@ -11,6 +12,7 @@ import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IPrimitiveTypeDTO } from '@codelab/shared/abstract/core'
+import { IAuth0User, IUserDTO } from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
 import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
@@ -26,6 +28,7 @@ export class PrimitiveTypeRepository extends AbstractRepository<
     private ogmService: OgmService,
     protected traceService: TraceService,
     protected validationService: ValidationService,
+    protected authService: AuthService,
   ) {
     super(traceService, validationService)
   }
@@ -51,9 +54,9 @@ export class PrimitiveTypeRepository extends AbstractRepository<
       await (
         await this.ogmService.PrimitiveType
       ).create({
-        input: primitiveTypes.map(({ __typename, owner, ...type }) => ({
+        input: primitiveTypes.map(({ __typename, ...type }) => ({
           ...type,
-          owner: connectAuth0Owner(owner),
+          owner: connectAuth0Owner(this.authService.currentUser),
         })),
         selectionSet: `{ primitiveTypes ${exportPrimitiveTypeSelectionSet} }`,
       })
@@ -61,7 +64,7 @@ export class PrimitiveTypeRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { __typename, id, name, owner, primitiveKind }: IPrimitiveTypeDTO,
+    { __typename, id, name, primitiveKind }: IPrimitiveTypeDTO,
     where: BaseTypeUniqueWhere,
   ) {
     return (

@@ -53,7 +53,6 @@ export const DeleteTypeModal = observer(() => {
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while deleting type',
-          type: 'error',
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}

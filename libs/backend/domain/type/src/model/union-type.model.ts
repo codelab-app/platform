@@ -10,20 +10,12 @@ import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { BaseType } from './base-type.model'
 
 export class UnionType extends BaseType implements IUnionTypeDTO {
-  declare id: string
-
-  declare name: string
-
-  declare kind: ITypeKind.UnionType
-
   declare __typename: `${ITypeKind.UnionType}`
-
-  declare owner: IAuth0User
 
   typesOfUnionType: Array<IAnyBaseType>
 
-  constructor({ id, name, owner, typesOfUnionType }: IUnionTypeDTO) {
-    super({ id, kind: ITypeKind.UnionType, name, owner })
+  constructor({ id, name, typesOfUnionType }: IUnionTypeDTO) {
+    super({ id, kind: ITypeKind.UnionType, name })
 
     this.typesOfUnionType = typesOfUnionType
   }

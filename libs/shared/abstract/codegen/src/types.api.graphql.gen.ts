@@ -4496,195 +4496,6 @@ export type BaseActionWhere = {
   type_IN?: InputMaybe<Array<ActionKind>>
 }
 
-export type BaseType = IBaseType & {
-  __typename?: 'BaseType'
-  id: Scalars['ID']['output']
-  kind: TypeKind
-  name: Scalars['String']['output']
-  owner: User
-  ownerAggregate?: Maybe<BaseTypeUserOwnerAggregationSelection>
-  ownerConnection: IBaseTypeOwnerConnection
-}
-
-export type BaseTypeOwnerArgs = {
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  options?: InputMaybe<UserOptions>
-  where?: InputMaybe<UserWhere>
-}
-
-export type BaseTypeOwnerAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  where?: InputMaybe<UserWhere>
-}
-
-export type BaseTypeOwnerConnectionArgs = {
-  after?: InputMaybe<Scalars['String']['input']>
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  first?: InputMaybe<Scalars['Int']['input']>
-  sort?: InputMaybe<Array<IBaseTypeOwnerConnectionSort>>
-  where?: InputMaybe<IBaseTypeOwnerConnectionWhere>
-}
-
-export type BaseTypeConnectInput = {
-  owner?: InputMaybe<IBaseTypeOwnerConnectFieldInput>
-}
-
-export type BaseTypeConnectOrCreateWhere = {
-  node: BaseTypeUniqueWhere
-}
-
-export type BaseTypeConnectWhere = {
-  node: BaseTypeWhere
-}
-
-export type BaseTypeCreateInput = {
-  id: Scalars['ID']['input']
-  kind: TypeKind
-  name: Scalars['String']['input']
-  owner?: InputMaybe<IBaseTypeOwnerFieldInput>
-}
-
-export type BaseTypeDeleteInput = {
-  owner?: InputMaybe<IBaseTypeOwnerDeleteFieldInput>
-}
-
-export type BaseTypeDisconnectInput = {
-  owner?: InputMaybe<IBaseTypeOwnerDisconnectFieldInput>
-}
-
-export type BaseTypeOnCreateInput = {
-  id: Scalars['ID']['input']
-  kind: TypeKind
-  name: Scalars['String']['input']
-}
-
-export type BaseTypeOptions = {
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  /** Specify one or more BaseTypeSort objects to sort BaseTypes by. The sorts will be applied in the order in which they are arranged in the array. */
-  sort?: InputMaybe<Array<BaseTypeSort>>
-}
-
-export type BaseTypeOwnerAggregateInput = {
-  AND?: InputMaybe<Array<BaseTypeOwnerAggregateInput>>
-  NOT?: InputMaybe<BaseTypeOwnerAggregateInput>
-  OR?: InputMaybe<Array<BaseTypeOwnerAggregateInput>>
-  count?: InputMaybe<Scalars['Int']['input']>
-  count_GT?: InputMaybe<Scalars['Int']['input']>
-  count_GTE?: InputMaybe<Scalars['Int']['input']>
-  count_LT?: InputMaybe<Scalars['Int']['input']>
-  count_LTE?: InputMaybe<Scalars['Int']['input']>
-  node?: InputMaybe<BaseTypeOwnerNodeAggregationWhereInput>
-}
-
-export type BaseTypeOwnerNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<BaseTypeOwnerNodeAggregationWhereInput>>
-  NOT?: InputMaybe<BaseTypeOwnerNodeAggregationWhereInput>
-  OR?: InputMaybe<Array<BaseTypeOwnerNodeAggregationWhereInput>>
-  auth0Id_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  auth0Id_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  auth0Id_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  auth0Id_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  auth0Id_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  auth0Id_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  auth0Id_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  auth0Id_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  auth0Id_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  auth0Id_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  auth0Id_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  auth0Id_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  auth0Id_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  auth0Id_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  auth0Id_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  email_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  email_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  email_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  email_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  email_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  email_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  email_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  email_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  email_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  email_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  email_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  email_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  email_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  email_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  email_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  username_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  username_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  username_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  username_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  username_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  username_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  username_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  username_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  username_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  username_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  username_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  username_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  username_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  username_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  username_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-}
-
-/** Fields to sort BaseTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one BaseTypeSort object. */
-export type BaseTypeSort = {
-  id?: InputMaybe<SortDirection>
-  kind?: InputMaybe<SortDirection>
-  name?: InputMaybe<SortDirection>
-}
-
-export type BaseTypeUniqueWhere = {
-  id?: InputMaybe<Scalars['ID']['input']>
-  name?: InputMaybe<Scalars['String']['input']>
-}
-
-export type BaseTypeUpdateInput = {
-  id?: InputMaybe<Scalars['ID']['input']>
-  name?: InputMaybe<Scalars['String']['input']>
-  owner?: InputMaybe<IBaseTypeOwnerUpdateFieldInput>
-}
-
-export type BaseTypeUserOwnerAggregationSelection = {
-  __typename?: 'BaseTypeUserOwnerAggregationSelection'
-  count: Scalars['Int']['output']
-  node?: Maybe<BaseTypeUserOwnerNodeAggregateSelection>
-}
-
-export type BaseTypeUserOwnerNodeAggregateSelection = {
-  __typename?: 'BaseTypeUserOwnerNodeAggregateSelection'
-  auth0Id: StringAggregateSelectionNonNullable
-  email: StringAggregateSelectionNonNullable
-  id: IdAggregateSelectionNonNullable
-  username: StringAggregateSelectionNonNullable
-}
-
-export type BaseTypeWhere = {
-  AND?: InputMaybe<Array<BaseTypeWhere>>
-  NOT?: InputMaybe<BaseTypeWhere>
-  OR?: InputMaybe<Array<BaseTypeWhere>>
-  id?: InputMaybe<Scalars['ID']['input']>
-  id_CONTAINS?: InputMaybe<Scalars['ID']['input']>
-  id_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
-  id_IN?: InputMaybe<Array<Scalars['ID']['input']>>
-  id_MATCHES?: InputMaybe<Scalars['String']['input']>
-  id_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
-  kind?: InputMaybe<TypeKind>
-  kind_IN?: InputMaybe<Array<TypeKind>>
-  name?: InputMaybe<Scalars['String']['input']>
-  name_CONTAINS?: InputMaybe<Scalars['String']['input']>
-  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
-  name_IN?: InputMaybe<Array<Scalars['String']['input']>>
-  name_MATCHES?: InputMaybe<Scalars['String']['input']>
-  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
-  owner?: InputMaybe<UserWhere>
-  ownerAggregate?: InputMaybe<BaseTypeOwnerAggregateInput>
-  ownerConnection?: InputMaybe<IBaseTypeOwnerConnectionWhere>
-  ownerConnection_NOT?: InputMaybe<IBaseTypeOwnerConnectionWhere>
-  owner_NOT?: InputMaybe<UserWhere>
-}
-
 export type BaseTypesWhere = {
   name?: InputMaybe<Scalars['String']['input']>
 }
@@ -11332,7 +11143,7 @@ export type GetBaseTypesOptions = {
 
 export type GetBaseTypesReturn = {
   __typename?: 'GetBaseTypesReturn'
-  items: Array<BaseType>
+  items: Array<IBaseType>
   totalCount: Scalars['Int']['output']
 }
 
@@ -11880,7 +11691,6 @@ export type IBaseTypeCreateInput = {
   ActionType?: InputMaybe<ActionTypeCreateInput>
   AppType?: InputMaybe<AppTypeCreateInput>
   ArrayType?: InputMaybe<ArrayTypeCreateInput>
-  BaseType?: InputMaybe<BaseTypeCreateInput>
   CodeMirrorType?: InputMaybe<CodeMirrorTypeCreateInput>
   ElementType?: InputMaybe<ElementTypeCreateInput>
   EnumType?: InputMaybe<EnumTypeCreateInput>
@@ -11907,7 +11717,6 @@ export type IBaseTypeImplementationsConnectInput = {
   ActionType?: InputMaybe<Array<ActionTypeConnectInput>>
   AppType?: InputMaybe<Array<AppTypeConnectInput>>
   ArrayType?: InputMaybe<Array<ArrayTypeConnectInput>>
-  BaseType?: InputMaybe<Array<BaseTypeConnectInput>>
   CodeMirrorType?: InputMaybe<Array<CodeMirrorTypeConnectInput>>
   ElementType?: InputMaybe<Array<ElementTypeConnectInput>>
   EnumType?: InputMaybe<Array<EnumTypeConnectInput>>
@@ -11924,7 +11733,6 @@ export type IBaseTypeImplementationsDeleteInput = {
   ActionType?: InputMaybe<Array<ActionTypeDeleteInput>>
   AppType?: InputMaybe<Array<AppTypeDeleteInput>>
   ArrayType?: InputMaybe<Array<ArrayTypeDeleteInput>>
-  BaseType?: InputMaybe<Array<BaseTypeDeleteInput>>
   CodeMirrorType?: InputMaybe<Array<CodeMirrorTypeDeleteInput>>
   ElementType?: InputMaybe<Array<ElementTypeDeleteInput>>
   EnumType?: InputMaybe<Array<EnumTypeDeleteInput>>
@@ -11941,7 +11749,6 @@ export type IBaseTypeImplementationsDisconnectInput = {
   ActionType?: InputMaybe<Array<ActionTypeDisconnectInput>>
   AppType?: InputMaybe<Array<AppTypeDisconnectInput>>
   ArrayType?: InputMaybe<Array<ArrayTypeDisconnectInput>>
-  BaseType?: InputMaybe<Array<BaseTypeDisconnectInput>>
   CodeMirrorType?: InputMaybe<Array<CodeMirrorTypeDisconnectInput>>
   ElementType?: InputMaybe<Array<ElementTypeDisconnectInput>>
   EnumType?: InputMaybe<Array<EnumTypeDisconnectInput>>
@@ -11958,7 +11765,6 @@ export type IBaseTypeImplementationsUpdateInput = {
   ActionType?: InputMaybe<ActionTypeUpdateInput>
   AppType?: InputMaybe<AppTypeUpdateInput>
   ArrayType?: InputMaybe<ArrayTypeUpdateInput>
-  BaseType?: InputMaybe<BaseTypeUpdateInput>
   CodeMirrorType?: InputMaybe<CodeMirrorTypeUpdateInput>
   ElementType?: InputMaybe<ElementTypeUpdateInput>
   EnumType?: InputMaybe<EnumTypeUpdateInput>
@@ -11975,7 +11781,6 @@ export type IBaseTypeImplementationsWhere = {
   ActionType?: InputMaybe<ActionTypeWhere>
   AppType?: InputMaybe<AppTypeWhere>
   ArrayType?: InputMaybe<ArrayTypeWhere>
-  BaseType?: InputMaybe<BaseTypeWhere>
   CodeMirrorType?: InputMaybe<CodeMirrorTypeWhere>
   ElementType?: InputMaybe<ElementTypeWhere>
   EnumType?: InputMaybe<EnumTypeWhere>
@@ -19852,8 +19657,7 @@ export type User = {
   tags: Array<Tag>
   tagsAggregate?: Maybe<UserTagTagsAggregationSelection>
   tagsConnection: UserTagsConnection
-  types: Array<BaseType>
-  typesAggregate?: Maybe<UserBaseTypeTypesAggregationSelection>
+  types: Array<IBaseType>
   typesConnection: UserTypesConnection
   username: Scalars['String']['output']
 }
@@ -19955,13 +19759,8 @@ export type UserTagsConnectionArgs = {
 
 export type UserTypesArgs = {
   directed?: InputMaybe<Scalars['Boolean']['input']>
-  options?: InputMaybe<BaseTypeOptions>
-  where?: InputMaybe<BaseTypeWhere>
-}
-
-export type UserTypesAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  where?: InputMaybe<BaseTypeWhere>
+  options?: InputMaybe<IBaseTypeOptions>
+  where?: InputMaybe<IBaseTypeWhere>
 }
 
 export type UserTypesConnectionArgs = {
@@ -20283,18 +20082,6 @@ export type UserAtomsUpdateFieldInput = {
   disconnect?: InputMaybe<Array<UserAtomsDisconnectFieldInput>>
   update?: InputMaybe<UserAtomsUpdateConnectionInput>
   where?: InputMaybe<UserAtomsConnectionWhere>
-}
-
-export type UserBaseTypeTypesAggregationSelection = {
-  __typename?: 'UserBaseTypeTypesAggregationSelection'
-  count: Scalars['Int']['output']
-  node?: Maybe<UserBaseTypeTypesNodeAggregateSelection>
-}
-
-export type UserBaseTypeTypesNodeAggregateSelection = {
-  __typename?: 'UserBaseTypeTypesNodeAggregateSelection'
-  id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNonNullable
 }
 
 export type UserComponentComponentsAggregationSelection = {
@@ -20826,32 +20613,9 @@ export type UserTagsUpdateFieldInput = {
   where?: InputMaybe<UserTagsConnectionWhere>
 }
 
-export type UserTypesAggregateInput = {
-  AND?: InputMaybe<Array<UserTypesAggregateInput>>
-  NOT?: InputMaybe<UserTypesAggregateInput>
-  OR?: InputMaybe<Array<UserTypesAggregateInput>>
-  count?: InputMaybe<Scalars['Int']['input']>
-  count_GT?: InputMaybe<Scalars['Int']['input']>
-  count_GTE?: InputMaybe<Scalars['Int']['input']>
-  count_LT?: InputMaybe<Scalars['Int']['input']>
-  count_LTE?: InputMaybe<Scalars['Int']['input']>
-  node?: InputMaybe<UserTypesNodeAggregationWhereInput>
-}
-
 export type UserTypesConnectFieldInput = {
-  connect?: InputMaybe<Array<BaseTypeConnectInput>>
-  /** Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0. */
-  overwrite?: Scalars['Boolean']['input']
-  where?: InputMaybe<BaseTypeConnectWhere>
-}
-
-export type UserTypesConnectOrCreateFieldInput = {
-  onCreate: UserTypesConnectOrCreateFieldInputOnCreate
-  where: BaseTypeConnectOrCreateWhere
-}
-
-export type UserTypesConnectOrCreateFieldInputOnCreate = {
-  node: BaseTypeOnCreateInput
+  connect?: InputMaybe<IBaseTypeConnectInput>
+  where?: InputMaybe<IBaseTypeConnectWhere>
 }
 
 export type UserTypesConnection = {
@@ -20862,70 +20626,47 @@ export type UserTypesConnection = {
 }
 
 export type UserTypesConnectionSort = {
-  node?: InputMaybe<BaseTypeSort>
+  node?: InputMaybe<IBaseTypeSort>
 }
 
 export type UserTypesConnectionWhere = {
   AND?: InputMaybe<Array<UserTypesConnectionWhere>>
   NOT?: InputMaybe<UserTypesConnectionWhere>
   OR?: InputMaybe<Array<UserTypesConnectionWhere>>
-  node?: InputMaybe<BaseTypeWhere>
+  node?: InputMaybe<IBaseTypeWhere>
 }
 
 export type UserTypesCreateFieldInput = {
-  node: BaseTypeCreateInput
+  node: IBaseTypeCreateInput
 }
 
 export type UserTypesDeleteFieldInput = {
-  delete?: InputMaybe<BaseTypeDeleteInput>
+  delete?: InputMaybe<IBaseTypeDeleteInput>
   where?: InputMaybe<UserTypesConnectionWhere>
 }
 
 export type UserTypesDisconnectFieldInput = {
-  disconnect?: InputMaybe<BaseTypeDisconnectInput>
+  disconnect?: InputMaybe<IBaseTypeDisconnectInput>
   where?: InputMaybe<UserTypesConnectionWhere>
 }
 
 export type UserTypesFieldInput = {
   connect?: InputMaybe<Array<UserTypesConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<UserTypesConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<UserTypesCreateFieldInput>>
-}
-
-export type UserTypesNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<UserTypesNodeAggregationWhereInput>>
-  NOT?: InputMaybe<UserTypesNodeAggregationWhereInput>
-  OR?: InputMaybe<Array<UserTypesNodeAggregationWhereInput>>
-  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type UserTypesRelationship = {
   __typename?: 'UserTypesRelationship'
   cursor: Scalars['String']['output']
-  node: BaseType
+  node: IBaseType
 }
 
 export type UserTypesUpdateConnectionInput = {
-  node?: InputMaybe<BaseTypeUpdateInput>
+  node?: InputMaybe<IBaseTypeUpdateInput>
 }
 
 export type UserTypesUpdateFieldInput = {
   connect?: InputMaybe<Array<UserTypesConnectFieldInput>>
-  connectOrCreate?: InputMaybe<Array<UserTypesConnectOrCreateFieldInput>>
   create?: InputMaybe<Array<UserTypesCreateFieldInput>>
   delete?: InputMaybe<Array<UserTypesDeleteFieldInput>>
   disconnect?: InputMaybe<Array<UserTypesDisconnectFieldInput>>
@@ -21062,7 +20803,6 @@ export type UserWhere = {
   tags_SINGLE?: InputMaybe<TagWhere>
   /** Return Users where some of the related Tags match this filter */
   tags_SOME?: InputMaybe<TagWhere>
-  typesAggregate?: InputMaybe<UserTypesAggregateInput>
   /** Return Users where all of the related UserTypesConnections match this filter */
   typesConnection_ALL?: InputMaybe<UserTypesConnectionWhere>
   /** Return Users where none of the related UserTypesConnections match this filter */
@@ -21071,14 +20811,6 @@ export type UserWhere = {
   typesConnection_SINGLE?: InputMaybe<UserTypesConnectionWhere>
   /** Return Users where some of the related UserTypesConnections match this filter */
   typesConnection_SOME?: InputMaybe<UserTypesConnectionWhere>
-  /** Return Users where all of the related BaseTypes match this filter */
-  types_ALL?: InputMaybe<BaseTypeWhere>
-  /** Return Users where none of the related BaseTypes match this filter */
-  types_NONE?: InputMaybe<BaseTypeWhere>
-  /** Return Users where one of the related BaseTypes match this filter */
-  types_SINGLE?: InputMaybe<BaseTypeWhere>
-  /** Return Users where some of the related BaseTypes match this filter */
-  types_SOME?: InputMaybe<BaseTypeWhere>
   username?: InputMaybe<Scalars['String']['input']>
   username_CONTAINS?: InputMaybe<Scalars['String']['input']>
   username_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
@@ -21579,7 +21311,6 @@ export type ArrayTypeFragment = {
     | { __typename?: 'ActionType'; id: string; name: string; kind: TypeKind }
     | { __typename?: 'AppType'; id: string; name: string; kind: TypeKind }
     | { __typename?: 'ArrayType'; id: string; name: string; kind: TypeKind }
-    | { __typename?: 'BaseType'; id: string; name: string; kind: TypeKind }
     | {
         __typename?: 'CodeMirrorType'
         id: string
@@ -21618,13 +21349,6 @@ type BaseType_AppType_Fragment = {
 
 type BaseType_ArrayType_Fragment = {
   __typename: 'ArrayType'
-  kind: TypeKind
-  id: string
-  name: string
-}
-
-type BaseType_BaseType_Fragment = {
-  __typename: 'BaseType'
   kind: TypeKind
   id: string
   name: string
@@ -21704,7 +21428,6 @@ export type BaseTypeFragment =
   | BaseType_ActionType_Fragment
   | BaseType_AppType_Fragment
   | BaseType_ArrayType_Fragment
-  | BaseType_BaseType_Fragment
   | BaseType_CodeMirrorType_Fragment
   | BaseType_ElementType_Fragment
   | BaseType_EnumType_Fragment
@@ -21752,7 +21475,6 @@ export type FieldFragment = {
     | { __typename: 'ActionType'; id: string; kind: TypeKind; name: string }
     | { __typename: 'AppType'; id: string; kind: TypeKind; name: string }
     | { __typename: 'ArrayType'; id: string; kind: TypeKind; name: string }
-    | { __typename: 'BaseType'; id: string; kind: TypeKind; name: string }
     | { __typename: 'CodeMirrorType'; id: string; kind: TypeKind; name: string }
     | { __typename: 'ElementType'; id: string; kind: TypeKind; name: string }
     | { __typename: 'EnumType'; id: string; kind: TypeKind; name: string }
@@ -21800,8 +21522,6 @@ type Type_AppType_Fragment = { __typename?: 'AppType' } & AppTypeFragment
 
 type Type_ArrayType_Fragment = { __typename?: 'ArrayType' } & ArrayTypeFragment
 
-type Type_BaseType_Fragment = { __typename?: 'BaseType' }
-
 type Type_CodeMirrorType_Fragment = {
   __typename?: 'CodeMirrorType'
 } & CodeMirrorTypeFragment
@@ -21840,7 +21560,6 @@ export type TypeFragment =
   | Type_ActionType_Fragment
   | Type_AppType_Fragment
   | Type_ArrayType_Fragment
-  | Type_BaseType_Fragment
   | Type_CodeMirrorType_Fragment
   | Type_ElementType_Fragment
   | Type_EnumType_Fragment
@@ -22907,7 +22626,21 @@ export type GetBaseTypesQuery = {
   baseTypes: {
     __typename?: 'GetBaseTypesReturn'
     totalCount: number
-    items: Array<{ __typename?: 'BaseType' } & BaseType_BaseType_Fragment>
+    items: Array<
+      | ({ __typename?: 'ActionType' } & BaseType_ActionType_Fragment)
+      | ({ __typename?: 'AppType' } & BaseType_AppType_Fragment)
+      | ({ __typename?: 'ArrayType' } & BaseType_ArrayType_Fragment)
+      | ({ __typename?: 'CodeMirrorType' } & BaseType_CodeMirrorType_Fragment)
+      | ({ __typename?: 'ElementType' } & BaseType_ElementType_Fragment)
+      | ({ __typename?: 'EnumType' } & BaseType_EnumType_Fragment)
+      | ({ __typename?: 'InterfaceType' } & BaseType_InterfaceType_Fragment)
+      | ({ __typename?: 'LambdaType' } & BaseType_LambdaType_Fragment)
+      | ({ __typename?: 'PageType' } & BaseType_PageType_Fragment)
+      | ({ __typename?: 'PrimitiveType' } & BaseType_PrimitiveType_Fragment)
+      | ({ __typename?: 'ReactNodeType' } & BaseType_ReactNodeType_Fragment)
+      | ({ __typename?: 'RenderPropType' } & BaseType_RenderPropType_Fragment)
+      | ({ __typename?: 'UnionType' } & BaseType_UnionType_Fragment)
+    >
   }
 }
 
@@ -23100,12 +22833,46 @@ export type GetTypeOptionsQuery = {
   __typename?: 'Query'
   baseTypes: {
     __typename?: 'GetBaseTypesReturn'
-    items: Array<{
-      __typename?: 'BaseType'
-      id: string
-      name: string
-      kind: TypeKind
-    }>
+    items: Array<
+      | { __typename?: 'ActionType'; id: string; name: string; kind: TypeKind }
+      | { __typename?: 'AppType'; id: string; name: string; kind: TypeKind }
+      | { __typename?: 'ArrayType'; id: string; name: string; kind: TypeKind }
+      | {
+          __typename?: 'CodeMirrorType'
+          id: string
+          name: string
+          kind: TypeKind
+        }
+      | { __typename?: 'ElementType'; id: string; name: string; kind: TypeKind }
+      | { __typename?: 'EnumType'; id: string; name: string; kind: TypeKind }
+      | {
+          __typename?: 'InterfaceType'
+          id: string
+          name: string
+          kind: TypeKind
+        }
+      | { __typename?: 'LambdaType'; id: string; name: string; kind: TypeKind }
+      | { __typename?: 'PageType'; id: string; name: string; kind: TypeKind }
+      | {
+          __typename?: 'PrimitiveType'
+          id: string
+          name: string
+          kind: TypeKind
+        }
+      | {
+          __typename?: 'ReactNodeType'
+          id: string
+          name: string
+          kind: TypeKind
+        }
+      | {
+          __typename?: 'RenderPropType'
+          id: string
+          name: string
+          kind: TypeKind
+        }
+      | { __typename?: 'UnionType'; id: string; name: string; kind: TypeKind }
+    >
   }
 }
 

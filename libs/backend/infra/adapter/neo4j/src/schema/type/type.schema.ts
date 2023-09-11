@@ -85,14 +85,6 @@ export const typeSchema = gql`
       )
   }
 
-  # for defining returning data only
-  # Don't use implement, or else will be used as part of union for the interface
-  type BaseType @exclude(operations: [CREATE, READ, UPDATE, DELETE]) {
-    id: ID!
-    kind: TypeKind!
-    name: String! @unique
-    owner: User!
-  }
 
   # https://github.com/neo4j/graphql/issues/1105
   extend interface IBaseType

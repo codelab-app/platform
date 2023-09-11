@@ -31,7 +31,6 @@ const create = ({
   id,
   kind,
   name,
-  owner,
 }: IInterfaceTypeDTO): InterfaceType => {
   assertIsTypeKind(kind, ITypeKind.InterfaceType)
 
@@ -39,7 +38,6 @@ const create = ({
     id,
     kind,
     name,
-    owner,
   })
 
   interfaceType.writeFieldCache(fields)

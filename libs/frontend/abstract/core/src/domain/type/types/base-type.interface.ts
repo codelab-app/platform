@@ -21,8 +21,7 @@ import type { IUnionType } from './union-type.interface'
 
 export interface IBaseType<DTO extends IBaseTypeDTO, CreateInput, UpdateInput>
   extends Omit<IModel<CreateInput, UpdateInput, void>, 'toDeleteInput'>,
-    ICacheService<DTO, IBaseType<DTO, CreateInput, UpdateInput>>,
-    IAuth0Owner {
+    ICacheService<DTO, IBaseType<DTO, CreateInput, UpdateInput>> {
   id: string
   kind: ITypeKind
   name: string

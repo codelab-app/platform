@@ -100,7 +100,6 @@ export class TypeService
     const interfaceType = new InterfaceType({
       id: data.id,
       name: data.name,
-      owner: data.owner,
     })
 
     this.types.set(interfaceType.id, interfaceType)
@@ -134,7 +133,7 @@ export class TypeService
       (types.interfaceTypes || []).flatMap((fragment) => fragment.fields),
     )
 
-    const loadedTypes = flatTypes.map(({ owner, ...fragment }) =>
+    const loadedTypes = flatTypes.map((fragment) =>
       TypeFactory.create(fragment),
     )
 

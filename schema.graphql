@@ -4377,187 +4377,6 @@ input BaseActionWhere {
   type_IN: [ActionKind!]
 }
 
-type BaseType implements IBaseType {
-  id: ID!
-  kind: TypeKind!
-  name: String!
-  owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
-  ownerAggregate(
-    directed: Boolean = true
-    where: UserWhere
-  ): BaseTypeUserOwnerAggregationSelection
-  ownerConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [IBaseTypeOwnerConnectionSort!]
-    where: IBaseTypeOwnerConnectionWhere
-  ): IBaseTypeOwnerConnection!
-}
-
-input BaseTypeConnectInput {
-  owner: IBaseTypeOwnerConnectFieldInput
-}
-
-input BaseTypeConnectOrCreateWhere {
-  node: BaseTypeUniqueWhere!
-}
-
-input BaseTypeConnectWhere {
-  node: BaseTypeWhere!
-}
-
-input BaseTypeCreateInput {
-  id: ID!
-  kind: TypeKind!
-  name: String!
-  owner: IBaseTypeOwnerFieldInput
-}
-
-input BaseTypeDeleteInput {
-  owner: IBaseTypeOwnerDeleteFieldInput
-}
-
-input BaseTypeDisconnectInput {
-  owner: IBaseTypeOwnerDisconnectFieldInput
-}
-
-input BaseTypeOnCreateInput {
-  id: ID!
-  kind: TypeKind!
-  name: String!
-}
-
-input BaseTypeOptions {
-  limit: Int
-  offset: Int
-
-  """
-  Specify one or more BaseTypeSort objects to sort BaseTypes by. The sorts will be applied in the order in which they are arranged in the array.
-  """
-  sort: [BaseTypeSort!]
-}
-
-input BaseTypeOwnerAggregateInput {
-  AND: [BaseTypeOwnerAggregateInput!]
-  NOT: BaseTypeOwnerAggregateInput
-  OR: [BaseTypeOwnerAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: BaseTypeOwnerNodeAggregationWhereInput
-}
-
-input BaseTypeOwnerNodeAggregationWhereInput {
-  AND: [BaseTypeOwnerNodeAggregationWhereInput!]
-  NOT: BaseTypeOwnerNodeAggregationWhereInput
-  OR: [BaseTypeOwnerNodeAggregationWhereInput!]
-  auth0Id_AVERAGE_LENGTH_EQUAL: Float
-  auth0Id_AVERAGE_LENGTH_GT: Float
-  auth0Id_AVERAGE_LENGTH_GTE: Float
-  auth0Id_AVERAGE_LENGTH_LT: Float
-  auth0Id_AVERAGE_LENGTH_LTE: Float
-  auth0Id_LONGEST_LENGTH_EQUAL: Int
-  auth0Id_LONGEST_LENGTH_GT: Int
-  auth0Id_LONGEST_LENGTH_GTE: Int
-  auth0Id_LONGEST_LENGTH_LT: Int
-  auth0Id_LONGEST_LENGTH_LTE: Int
-  auth0Id_SHORTEST_LENGTH_EQUAL: Int
-  auth0Id_SHORTEST_LENGTH_GT: Int
-  auth0Id_SHORTEST_LENGTH_GTE: Int
-  auth0Id_SHORTEST_LENGTH_LT: Int
-  auth0Id_SHORTEST_LENGTH_LTE: Int
-  email_AVERAGE_LENGTH_EQUAL: Float
-  email_AVERAGE_LENGTH_GT: Float
-  email_AVERAGE_LENGTH_GTE: Float
-  email_AVERAGE_LENGTH_LT: Float
-  email_AVERAGE_LENGTH_LTE: Float
-  email_LONGEST_LENGTH_EQUAL: Int
-  email_LONGEST_LENGTH_GT: Int
-  email_LONGEST_LENGTH_GTE: Int
-  email_LONGEST_LENGTH_LT: Int
-  email_LONGEST_LENGTH_LTE: Int
-  email_SHORTEST_LENGTH_EQUAL: Int
-  email_SHORTEST_LENGTH_GT: Int
-  email_SHORTEST_LENGTH_GTE: Int
-  email_SHORTEST_LENGTH_LT: Int
-  email_SHORTEST_LENGTH_LTE: Int
-  username_AVERAGE_LENGTH_EQUAL: Float
-  username_AVERAGE_LENGTH_GT: Float
-  username_AVERAGE_LENGTH_GTE: Float
-  username_AVERAGE_LENGTH_LT: Float
-  username_AVERAGE_LENGTH_LTE: Float
-  username_LONGEST_LENGTH_EQUAL: Int
-  username_LONGEST_LENGTH_GT: Int
-  username_LONGEST_LENGTH_GTE: Int
-  username_LONGEST_LENGTH_LT: Int
-  username_LONGEST_LENGTH_LTE: Int
-  username_SHORTEST_LENGTH_EQUAL: Int
-  username_SHORTEST_LENGTH_GT: Int
-  username_SHORTEST_LENGTH_GTE: Int
-  username_SHORTEST_LENGTH_LT: Int
-  username_SHORTEST_LENGTH_LTE: Int
-}
-
-"""
-Fields to sort BaseTypes by. The order in which sorts are applied is not guaranteed when specifying many fields in one BaseTypeSort object.
-"""
-input BaseTypeSort {
-  id: SortDirection
-  kind: SortDirection
-  name: SortDirection
-}
-
-input BaseTypeUniqueWhere {
-  id: ID
-  name: String
-}
-
-input BaseTypeUpdateInput {
-  id: ID
-  name: String
-  owner: IBaseTypeOwnerUpdateFieldInput
-}
-
-type BaseTypeUserOwnerAggregationSelection {
-  count: Int!
-  node: BaseTypeUserOwnerNodeAggregateSelection
-}
-
-type BaseTypeUserOwnerNodeAggregateSelection {
-  auth0Id: StringAggregateSelectionNonNullable!
-  email: StringAggregateSelectionNonNullable!
-  id: IDAggregateSelectionNonNullable!
-  username: StringAggregateSelectionNonNullable!
-}
-
-input BaseTypeWhere {
-  AND: [BaseTypeWhere!]
-  NOT: BaseTypeWhere
-  OR: [BaseTypeWhere!]
-  id: ID
-  id_CONTAINS: ID
-  id_ENDS_WITH: ID
-  id_IN: [ID!]
-  id_MATCHES: String
-  id_STARTS_WITH: ID
-  kind: TypeKind
-  kind_IN: [TypeKind!]
-  name: String
-  name_CONTAINS: String
-  name_ENDS_WITH: String
-  name_IN: [String!]
-  name_MATCHES: String
-  name_STARTS_WITH: String
-  owner: UserWhere
-  ownerAggregate: BaseTypeOwnerAggregateInput
-  ownerConnection: IBaseTypeOwnerConnectionWhere
-  ownerConnection_NOT: IBaseTypeOwnerConnectionWhere
-  owner_NOT: UserWhere
-}
-
 input BaseTypesWhere {
   name: String
 }
@@ -10765,7 +10584,7 @@ input GetBaseTypesOptions {
 }
 
 type GetBaseTypesReturn {
-  items: [BaseType!]!
+  items: [IBaseType!]!
   totalCount: Int!
 }
 
@@ -11279,7 +11098,6 @@ input IBaseTypeCreateInput {
   ActionType: ActionTypeCreateInput
   AppType: AppTypeCreateInput
   ArrayType: ArrayTypeCreateInput
-  BaseType: BaseTypeCreateInput
   CodeMirrorType: CodeMirrorTypeCreateInput
   ElementType: ElementTypeCreateInput
   EnumType: EnumTypeCreateInput
@@ -11306,7 +11124,6 @@ input IBaseTypeImplementationsConnectInput {
   ActionType: [ActionTypeConnectInput!]
   AppType: [AppTypeConnectInput!]
   ArrayType: [ArrayTypeConnectInput!]
-  BaseType: [BaseTypeConnectInput!]
   CodeMirrorType: [CodeMirrorTypeConnectInput!]
   ElementType: [ElementTypeConnectInput!]
   EnumType: [EnumTypeConnectInput!]
@@ -11323,7 +11140,6 @@ input IBaseTypeImplementationsDeleteInput {
   ActionType: [ActionTypeDeleteInput!]
   AppType: [AppTypeDeleteInput!]
   ArrayType: [ArrayTypeDeleteInput!]
-  BaseType: [BaseTypeDeleteInput!]
   CodeMirrorType: [CodeMirrorTypeDeleteInput!]
   ElementType: [ElementTypeDeleteInput!]
   EnumType: [EnumTypeDeleteInput!]
@@ -11340,7 +11156,6 @@ input IBaseTypeImplementationsDisconnectInput {
   ActionType: [ActionTypeDisconnectInput!]
   AppType: [AppTypeDisconnectInput!]
   ArrayType: [ArrayTypeDisconnectInput!]
-  BaseType: [BaseTypeDisconnectInput!]
   CodeMirrorType: [CodeMirrorTypeDisconnectInput!]
   ElementType: [ElementTypeDisconnectInput!]
   EnumType: [EnumTypeDisconnectInput!]
@@ -11357,7 +11172,6 @@ input IBaseTypeImplementationsUpdateInput {
   ActionType: ActionTypeUpdateInput
   AppType: AppTypeUpdateInput
   ArrayType: ArrayTypeUpdateInput
-  BaseType: BaseTypeUpdateInput
   CodeMirrorType: CodeMirrorTypeUpdateInput
   ElementType: ElementTypeUpdateInput
   EnumType: EnumTypeUpdateInput
@@ -11374,7 +11188,6 @@ input IBaseTypeImplementationsWhere {
   ActionType: ActionTypeWhere
   AppType: AppTypeWhere
   ArrayType: ArrayTypeWhere
-  BaseType: BaseTypeWhere
   CodeMirrorType: CodeMirrorTypeWhere
   ElementType: ElementTypeWhere
   EnumType: EnumTypeWhere
@@ -18325,13 +18138,9 @@ type User {
   ): UserTagsConnection!
   types(
     directed: Boolean = true
-    options: BaseTypeOptions
-    where: BaseTypeWhere
-  ): [BaseType!]!
-  typesAggregate(
-    directed: Boolean = true
-    where: BaseTypeWhere
-  ): UserBaseTypeTypesAggregationSelection
+    options: IBaseTypeOptions
+    where: IBaseTypeWhere
+  ): [IBaseType!]!
   typesConnection(
     after: String
     directed: Boolean = true
@@ -18648,16 +18457,6 @@ input UserAtomsUpdateFieldInput {
   disconnect: [UserAtomsDisconnectFieldInput!]
   update: UserAtomsUpdateConnectionInput
   where: UserAtomsConnectionWhere
-}
-
-type UserBaseTypeTypesAggregationSelection {
-  count: Int!
-  node: UserBaseTypeTypesNodeAggregateSelection
-}
-
-type UserBaseTypeTypesNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
 }
 
 type UserComponentComponentsAggregationSelection {
@@ -19176,35 +18975,9 @@ input UserTagsUpdateFieldInput {
   where: UserTagsConnectionWhere
 }
 
-input UserTypesAggregateInput {
-  AND: [UserTypesAggregateInput!]
-  NOT: UserTypesAggregateInput
-  OR: [UserTypesAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: UserTypesNodeAggregationWhereInput
-}
-
 input UserTypesConnectFieldInput {
-  connect: [BaseTypeConnectInput!]
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties. Will default to `false` in 4.0.0.
-  """
-  overwrite: Boolean! = true
-  where: BaseTypeConnectWhere
-}
-
-input UserTypesConnectOrCreateFieldInput {
-  onCreate: UserTypesConnectOrCreateFieldInputOnCreate!
-  where: BaseTypeConnectOrCreateWhere!
-}
-
-input UserTypesConnectOrCreateFieldInputOnCreate {
-  node: BaseTypeOnCreateInput!
+  connect: IBaseTypeConnectInput
+  where: IBaseTypeConnectWhere
 }
 
 type UserTypesConnection {
@@ -19214,69 +18987,46 @@ type UserTypesConnection {
 }
 
 input UserTypesConnectionSort {
-  node: BaseTypeSort
+  node: IBaseTypeSort
 }
 
 input UserTypesConnectionWhere {
   AND: [UserTypesConnectionWhere!]
   NOT: UserTypesConnectionWhere
   OR: [UserTypesConnectionWhere!]
-  node: BaseTypeWhere
+  node: IBaseTypeWhere
 }
 
 input UserTypesCreateFieldInput {
-  node: BaseTypeCreateInput!
+  node: IBaseTypeCreateInput!
 }
 
 input UserTypesDeleteFieldInput {
-  delete: BaseTypeDeleteInput
+  delete: IBaseTypeDeleteInput
   where: UserTypesConnectionWhere
 }
 
 input UserTypesDisconnectFieldInput {
-  disconnect: BaseTypeDisconnectInput
+  disconnect: IBaseTypeDisconnectInput
   where: UserTypesConnectionWhere
 }
 
 input UserTypesFieldInput {
   connect: [UserTypesConnectFieldInput!]
-  connectOrCreate: [UserTypesConnectOrCreateFieldInput!]
   create: [UserTypesCreateFieldInput!]
-}
-
-input UserTypesNodeAggregationWhereInput {
-  AND: [UserTypesNodeAggregationWhereInput!]
-  NOT: UserTypesNodeAggregationWhereInput
-  OR: [UserTypesNodeAggregationWhereInput!]
-  name_AVERAGE_LENGTH_EQUAL: Float
-  name_AVERAGE_LENGTH_GT: Float
-  name_AVERAGE_LENGTH_GTE: Float
-  name_AVERAGE_LENGTH_LT: Float
-  name_AVERAGE_LENGTH_LTE: Float
-  name_LONGEST_LENGTH_EQUAL: Int
-  name_LONGEST_LENGTH_GT: Int
-  name_LONGEST_LENGTH_GTE: Int
-  name_LONGEST_LENGTH_LT: Int
-  name_LONGEST_LENGTH_LTE: Int
-  name_SHORTEST_LENGTH_EQUAL: Int
-  name_SHORTEST_LENGTH_GT: Int
-  name_SHORTEST_LENGTH_GTE: Int
-  name_SHORTEST_LENGTH_LT: Int
-  name_SHORTEST_LENGTH_LTE: Int
 }
 
 type UserTypesRelationship {
   cursor: String!
-  node: BaseType!
+  node: IBaseType!
 }
 
 input UserTypesUpdateConnectionInput {
-  node: BaseTypeUpdateInput
+  node: IBaseTypeUpdateInput
 }
 
 input UserTypesUpdateFieldInput {
   connect: [UserTypesConnectFieldInput!]
-  connectOrCreate: [UserTypesConnectOrCreateFieldInput!]
   create: [UserTypesCreateFieldInput!]
   delete: [UserTypesDeleteFieldInput!]
   disconnect: [UserTypesDisconnectFieldInput!]
@@ -19533,7 +19283,6 @@ input UserWhere {
   Return Users where some of the related Tags match this filter
   """
   tags_SOME: TagWhere
-  typesAggregate: UserTypesAggregateInput
 
   """
   Return Users where all of the related UserTypesConnections match this filter
@@ -19554,26 +19303,6 @@ input UserWhere {
   Return Users where some of the related UserTypesConnections match this filter
   """
   typesConnection_SOME: UserTypesConnectionWhere
-
-  """
-  Return Users where all of the related BaseTypes match this filter
-  """
-  types_ALL: BaseTypeWhere
-
-  """
-  Return Users where none of the related BaseTypes match this filter
-  """
-  types_NONE: BaseTypeWhere
-
-  """
-  Return Users where one of the related BaseTypes match this filter
-  """
-  types_SINGLE: BaseTypeWhere
-
-  """
-  Return Users where some of the related BaseTypes match this filter
-  """
-  types_SOME: BaseTypeWhere
   username: String
   username_CONTAINS: String
   username_ENDS_WITH: String

@@ -4,20 +4,12 @@ import type { IEntity } from '@codelab/shared/abstract/types'
 import { BaseType } from './base-type.model'
 
 export class ArrayType extends BaseType implements IArrayTypeDTO {
-  declare id: string
-
-  declare name: string
-
-  declare kind: ITypeKind.ArrayType
-
   declare __typename: `${ITypeKind.ArrayType}`
 
-  declare owner: IAuth0User
+  itemType?: IEntity
 
-  declare itemType?: IEntity
-
-  constructor({ id, itemType, name, owner }: IArrayTypeDTO) {
-    super({ id, kind: ITypeKind.ArrayType, name, owner })
+  constructor({ id, itemType, name }: IArrayTypeDTO) {
+    super({ id, kind: ITypeKind.ArrayType, name })
 
     this.itemType = itemType
   }

@@ -31,7 +31,6 @@ export const DeleteFieldModal = observer(() => {
         }}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while deleting field',
-          type: 'error',
         })}
         onSubmitSuccess={closeModal}
         schema={emptyJsonSchema}

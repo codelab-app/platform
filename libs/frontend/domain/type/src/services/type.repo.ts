@@ -3,7 +3,7 @@ import type {
   IType,
   ITypeRepository,
 } from '@codelab/frontend/abstract/core'
-import type { BaseTypeWhere } from '@codelab/shared/abstract/codegen'
+import type { IBaseTypeWhere } from '@codelab/shared/abstract/codegen'
 import sortBy from 'lodash/sortBy'
 import { _async, _await, Model, model, modelFlow } from 'mobx-keystone'
 import {
@@ -35,7 +35,7 @@ export class TypeRepository extends Model({}) implements ITypeRepository {
   })
 
   @modelFlow
-  find = _async(function* (this: TypeRepository, where: BaseTypeWhere) {
+  find = _async(function* (this: TypeRepository, where: IBaseTypeWhere) {
     const ids = where.id_IN ?? undefined
     const types = yield* _await(getAllTypes(ids))
 

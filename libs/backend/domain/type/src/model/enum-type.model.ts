@@ -10,20 +10,12 @@ import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { BaseType } from './base-type.model'
 
 export class EnumType extends BaseType implements IEnumTypeDTO {
-  declare id: string
-
-  declare name: string
-
-  declare kind: ITypeKind.EnumType
-
   declare __typename: `${ITypeKind.EnumType}`
-
-  declare owner: IAuth0User
 
   allowedValues: Array<IEnumTypeValueDTO>
 
-  constructor({ allowedValues, id, name, owner }: IEnumTypeDTO) {
-    super({ id, kind: ITypeKind.EnumType, name, owner })
+  constructor({ allowedValues, id, name }: IEnumTypeDTO) {
+    super({ id, kind: ITypeKind.EnumType, name })
 
     this.allowedValues = allowedValues
   }

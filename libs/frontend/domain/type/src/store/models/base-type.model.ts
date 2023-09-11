@@ -18,7 +18,6 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
       id: idProp,
       kind: prop<T>(() => typeKind),
       name: prop<string>(),
-      owner: prop<IAuth0User>().withSetter(),
     })
     implements IBaseType<IBaseTypeDTO, ICreateTypeInput, IUpdateTypeVars>
   {
@@ -34,7 +33,6 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
         id: this.id,
         kind: this.kind,
         name: this.name,
-        owner: connectAuth0Owner(this.owner),
       }
     }
 

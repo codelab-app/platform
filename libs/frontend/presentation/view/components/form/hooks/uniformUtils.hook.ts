@@ -2,6 +2,7 @@ import type { IPropData } from '@codelab/frontend/abstract/core'
 import type { SubmitController } from '@codelab/frontend/abstract/types'
 import { evaluateObject } from '@codelab/frontend/shared/utils'
 import type { Maybe, Nullish } from '@codelab/shared/abstract/types'
+import type { TSchema } from '@sinclair/typebox'
 import type { JSONSchemaType, Schema } from 'ajv'
 import Ajv from 'ajv'
 import addFormats from 'ajv-formats'
@@ -110,6 +111,6 @@ export const createValidator = (schema: Schema, state: IPropData = {}) => {
 }
 
 export const createBridge = <T = unknown>(
-  schema: JSONSchemaType<T>,
+  schema: JSONSchemaType<T> | TSchema,
   state: IPropData = {},
 ) => new JSONSchemaBridge(schema, createValidator(schema, state))

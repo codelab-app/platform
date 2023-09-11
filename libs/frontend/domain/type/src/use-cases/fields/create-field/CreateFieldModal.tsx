@@ -78,7 +78,6 @@ export const CreateFieldModal = observer(() => {
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while creating field',
-          type: 'error',
         })}
         onSubmitSuccess={closeModal}
         schema={createFieldSchema}

@@ -24,13 +24,6 @@ export type BaseType_ArrayType_Fragment = {
   name: string
 }
 
-export type BaseType_BaseType_Fragment = {
-  __typename: 'BaseType'
-  kind: Types.TypeKind
-  id: string
-  name: string
-}
-
 export type BaseType_CodeMirrorType_Fragment = {
   __typename: 'CodeMirrorType'
   kind: Types.TypeKind
@@ -105,7 +98,6 @@ export type BaseTypeFragment =
   | BaseType_ActionType_Fragment
   | BaseType_AppType_Fragment
   | BaseType_ArrayType_Fragment
-  | BaseType_BaseType_Fragment
   | BaseType_CodeMirrorType_Fragment
   | BaseType_ElementType_Fragment
   | BaseType_EnumType_Fragment

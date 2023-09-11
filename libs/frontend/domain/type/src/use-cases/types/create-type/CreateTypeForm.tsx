@@ -57,7 +57,6 @@ export const CreateTypeForm = observer(
         onSubmit={onSubmit}
         onSubmitError={createFormErrorNotificationHandler({
           title: 'Error while creating type',
-          type: 'error',
         })}
         onSubmitSuccess={closeForm}
         schema={createTypeSchema}

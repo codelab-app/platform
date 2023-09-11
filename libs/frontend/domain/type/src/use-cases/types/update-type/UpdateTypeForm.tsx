@@ -60,7 +60,6 @@ export const UpdateTypeForm = observer(() => {
         ? typeToUpdate.language
         : undefined,
     name: typeToUpdate?.name,
-    owner: typeToUpdate?.owner,
     primitiveKind:
       typeToUpdate?.kind === ITypeKind.PrimitiveType
         ? typeToUpdate.primitiveKind
@@ -77,7 +76,6 @@ export const UpdateTypeForm = observer(() => {
       onSubmit={handleSubmit}
       onSubmitError={createFormErrorNotificationHandler({
         title: 'Error while updating type',
-        type: 'error',
       })}
       onSubmitSuccess={closeForm}
       schema={updateTypeSchema}

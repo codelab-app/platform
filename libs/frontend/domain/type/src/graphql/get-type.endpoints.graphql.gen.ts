@@ -4,7 +4,6 @@ import {
   BaseType_ActionType_Fragment,
   BaseType_AppType_Fragment,
   BaseType_ArrayType_Fragment,
-  BaseType_BaseType_Fragment,
   BaseType_CodeMirrorType_Fragment,
   BaseType_ElementType_Fragment,
   BaseType_EnumType_Fragment,
@@ -20,7 +19,6 @@ import {
   Type_ActionType_Fragment,
   Type_AppType_Fragment,
   Type_ArrayType_Fragment,
-  Type_BaseType_Fragment,
   Type_CodeMirrorType_Fragment,
   Type_ElementType_Fragment,
   Type_EnumType_Fragment,
@@ -44,7 +42,24 @@ export type GetBaseTypesQueryVariables = Types.Exact<{
 }>
 
 export type GetBaseTypesQuery = {
-  baseTypes: { totalCount: number; items: Array<BaseType_BaseType_Fragment> }
+  baseTypes: {
+    totalCount: number
+    items: Array<
+      | BaseType_ActionType_Fragment
+      | BaseType_AppType_Fragment
+      | BaseType_ArrayType_Fragment
+      | BaseType_CodeMirrorType_Fragment
+      | BaseType_ElementType_Fragment
+      | BaseType_EnumType_Fragment
+      | BaseType_InterfaceType_Fragment
+      | BaseType_LambdaType_Fragment
+      | BaseType_PageType_Fragment
+      | BaseType_PrimitiveType_Fragment
+      | BaseType_ReactNodeType_Fragment
+      | BaseType_RenderPropType_Fragment
+      | BaseType_UnionType_Fragment
+    >
+  }
 }
 
 export type GetTypesQueryVariables = Types.Exact<{
@@ -184,7 +199,21 @@ export type GetTypeOptionsQueryVariables = Types.Exact<{ [key: string]: never }>
 
 export type GetTypeOptionsQuery = {
   baseTypes: {
-    items: Array<{ id: string; name: string; kind: Types.TypeKind }>
+    items: Array<
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+      | { id: string; name: string; kind: Types.TypeKind }
+    >
   }
 }
 
