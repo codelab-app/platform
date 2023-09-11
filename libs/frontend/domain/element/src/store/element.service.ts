@@ -712,6 +712,10 @@ export class ElementService
       childMapperPropKey: element.childMapperPropKey,
       id: v4(),
       name: duplicateName,
+      page: element.page ? { id: element.page.id } : null,
+      parentComponent: element.parentComponent
+        ? { id: element.parentComponent.id }
+        : null,
       props,
       renderForEachPropKey: element.renderForEachPropKey,
       renderIfExpression: element.renderIfExpression,
