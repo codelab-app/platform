@@ -7,6 +7,9 @@ import type { Nullish } from '@codelab/shared/abstract/types'
 export const RenderOutput = {
   empty: (input: Pick<IRenderOutput, 'element' | 'props'>): IRenderOutput =>
     input,
+  notRenderable: (
+    input: Pick<IRenderOutput, 'element' | 'props'>,
+  ): IRenderOutput => ({ ...input, shouldRender: false }),
   overrideProps: (input: IRenderOutput, props: Nullish<IPropData>) => {
     return { ...input, props: mergeProps(input.props, props) }
   },
