@@ -5,10 +5,9 @@ import {
   VerticalAlignMiddleOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons'
-import { Col, Divider, Row } from 'antd'
+import { Col, Divider } from 'antd'
 import { useState } from 'react'
 import { SegmentedSelect } from '../components/SegmentedSelect'
-import { ValuePicker } from '../components/ValuePicker'
 
 const justifyOptions = [
   {
@@ -78,48 +77,39 @@ const wrapOptions = [
   },
 ]
 
-export const DisplayFlexOptions = () => {
+export const DisplayGridOptions = () => {
   const [direction, setDirection] = useState('row')
   const [justify, setJustify] = useState('flex-start')
   const [align, setAlign] = useState('flex-start')
   const [wrap, setWrap] = useState('nowrap')
 
+  // TODO: add Edit Grid option
   return (
     <Col className="space-y-2">
       <Divider className="my-2" />
-      <SegmentedSelect
-        label="Direction"
-        onChange={setDirection}
-        options={directionOptions}
-        value={direction}
-      />
-      <SegmentedSelect
-        label="Justify"
-        onChange={setJustify}
-        options={justifyOptions}
-        value={justify}
-      />
       <SegmentedSelect
         label="Align"
         onChange={setAlign}
         options={alignOptions}
         value={align}
       />
-      <Row align="middle" justify="space-between" wrap={false}>
-        <Col className="text-[12px]">Gap</Col>
-        <Col>
-          <Row className="space-x-1" wrap={false}>
-            <ValuePicker />
-            <ValuePicker />
-          </Row>
-        </Col>
-      </Row>
-      <Divider className="my-2" />
       <SegmentedSelect
-        label="Children"
-        onChange={setWrap}
-        options={wrapOptions}
-        value={wrap}
+        label=""
+        onChange={setJustify}
+        options={justifyOptions}
+        value={justify}
+      />
+      <SegmentedSelect
+        label="Distribute"
+        onChange={setAlign}
+        options={alignOptions}
+        value={align}
+      />
+      <SegmentedSelect
+        label=""
+        onChange={setJustify}
+        options={justifyOptions}
+        value={justify}
       />
     </Col>
   )

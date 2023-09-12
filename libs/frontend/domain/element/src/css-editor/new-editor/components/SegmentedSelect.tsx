@@ -11,14 +11,14 @@ interface SegmentedSelectProps {
 
 export const SegmentedSelect = ({
   disableAnimation = true,
-  label,
+  label = '',
   onChange,
   options,
   value,
 }: SegmentedSelectProps) => {
   return (
     <Row align="middle" justify="space-between" wrap={false}>
-      {label && <Col className="text-[12px]">{label}</Col>}
+      <Col className="text-[12px]">{label}</Col>
       <Col>
         <ConfigProvider
           theme={{

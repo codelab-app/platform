@@ -8,6 +8,7 @@ import {
 import { useState } from 'react'
 import { SegmentedSelect } from '../components/SegmentedSelect'
 import { DisplayFlexOptions } from './DisplayFlexOptions'
+import { DisplayGridOptions } from './DisplayGridOptions'
 
 const displayOptions = [
   {
@@ -54,6 +55,7 @@ export const DisplayEditor = () => {
         value={display}
       />
       {display === 'flex' && <DisplayFlexOptions />}
+      {display === 'grid' && <DisplayGridOptions />}
     </>
   )
 }
