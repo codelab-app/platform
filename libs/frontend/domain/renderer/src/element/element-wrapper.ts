@@ -1,16 +1,28 @@
 import type {
+  IBuilderService,
+  IComponent,
   IComponentType,
   IElementModel,
+  IPageNode,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
-import { isAtomInstance, RendererType } from '@codelab/frontend/abstract/core'
+import {
+  componentRef,
+  DATA_SELECTABLE,
+  elementRef,
+  isAtomInstance,
+  isComponentInstance,
+  RendererType,
+} from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
+import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { getRunner } from '../action-runner.model'
+import { getSelectablEvents } from './get-selectable-events'
 import { renderComponentWithStyles } from './get-styled-components'
 import { extractValidProps, getReactComponent } from './wrapper.utils'
 
@@ -49,7 +61,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       }
     }, [])
 
-    const { atomService } = useStore()
+    const { atomService, builderService } = useStore()
     // Render the element to an intermediate output
     const renderOutput = renderer.renderIntermediateElement(element)
 
@@ -74,8 +86,14 @@ export const ElementWrapper = observer<ElementWrapperProps>(
         : getReactComponent(renderOutput)
 
     const extractedProps = extractValidProps(ReactComponent, renderOutput)
+
+    const selectableEvents =
+      renderer.rendererType === RendererType.PageBuilder
+        ? getSelectablEvents(builderService, element)
+        : {}
+
     // leave ElementWrapper pass-through so refs are attached to correct element
-    const mergedProps = mergeProps(extractedProps, rest)
+    const mergedProps = mergeProps(extractedProps, rest, selectableEvents)
 
     const renderedElement = renderComponentWithStyles(
       ReactComponent,
