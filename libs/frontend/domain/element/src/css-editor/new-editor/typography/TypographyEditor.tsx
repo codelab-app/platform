@@ -8,9 +8,10 @@ import {
   StrikethroughOutlined,
   UnderlineOutlined,
 } from '@ant-design/icons'
-import { Col, ColorPicker, Row } from 'antd'
+import { Col, Row } from 'antd'
 import { useState } from 'react'
 import { LabeledSelect, SegmentedSelect, ValuePicker } from '../components'
+import { ColorPicker } from '../components/ColorPicker'
 
 const fontOptions = [
   { label: 'Arial', value: 'Arial' },
@@ -75,6 +76,7 @@ export const TypographyEditor = () => {
   const [align, setAlign] = useState('left')
   const [italicize, setItalicize] = useState('normal')
   const [decoration, setDecoration] = useState('none')
+  const [color, setColor] = useState('#000000')
 
   return (
     <Col className="space-y-2">
@@ -94,13 +96,14 @@ export const TypographyEditor = () => {
         <ValuePicker label="Size" />
         <ValuePicker label="Height" />
       </Row>
-      <Row align="middle" justify="space-between" wrap={false}>
-        <Col className="text-[12px]">Color</Col>
-        <ColorPicker
-          showText={(color) => <span>{color.toHexString()}</span>}
-          size="small"
-        />
-      </Row>
+      {/* <Row align="middle" justify="space-between" wrap={false}> */}
+      {/*  <Col className="text-[12px]">Color</Col> */}
+      {/*  <ColorPicker */}
+      {/*    showText={(color) => <span>{color.toHexString()}</span>} */}
+      {/*    size="small" */}
+      {/*  /> */}
+      {/* </Row> */}
+      <ColorPicker onChange={setColor} value={color} />
       <SegmentedSelect
         label="Align"
         onChange={setAlign}

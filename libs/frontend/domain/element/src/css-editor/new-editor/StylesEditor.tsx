@@ -1,6 +1,7 @@
 import { CaretRightOutlined } from '@ant-design/icons'
 import { Collapse } from 'antd'
 import React from 'react'
+import { BackgroundEditor } from './background'
 import { DisplayEditor } from './display/DisplayEditor'
 import { SizeEditor } from './size/SizeEditor'
 import { TypographyEditor } from './typography/TypographyEditor'
@@ -28,7 +29,9 @@ export const StylesEditor = () => {
       <Panel header="Typography" key="5">
         <TypographyEditor />
       </Panel>
-      <Panel header="Backgrounds" key="6"></Panel>
+      <Panel header="Backgrounds" key="6">
+        <BackgroundEditor />
+      </Panel>
       <Panel header="Borders" key="7"></Panel>
       <Panel header="Effects" key="8"></Panel>
     </Collapse>
