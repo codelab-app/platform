@@ -19,7 +19,8 @@ const selectAfter = (
     defaultValue={ValuePickerUnit.PX}
     dropdownStyle={{ width: 100 }}
     showArrow={false}
-    style={{ width: 60 }}
+    size="small"
+    style={{ width: 35 }}
   >
     <Option value={ValuePickerUnit.PX}>{ValuePickerUnit.PX}</Option>
     <Option value={ValuePickerUnit.PERCENT}>{ValuePickerUnit.PERCENT}</Option>
@@ -39,13 +40,19 @@ interface ValuePickerProps {
 
 export const ValuePicker = ({ label }: ValuePickerProps) => {
   return (
-    <Row align="middle" justify="space-between">
+    <Row
+      align="middle"
+      className="space-x-1"
+      justify="space-between"
+      wrap={false}
+    >
       {label && <Col className="text-[12px]">{label}</Col>}
       <InputNumber
         addonAfter={selectAfter}
         controls={false}
         defaultValue={0}
-        style={{ width: 110 }}
+        size="small"
+        style={{ width: 90 }}
       />
     </Row>
   )

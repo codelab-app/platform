@@ -3,6 +3,7 @@ import { Collapse } from 'antd'
 import React from 'react'
 import { DisplayEditor } from './display/DisplayEditor'
 import { SizeEditor } from './size/SizeEditor'
+import { TypographyEditor } from './typography/TypographyEditor'
 
 const { Panel } = Collapse
 
@@ -24,7 +25,9 @@ export const StylesEditor = () => {
         <SizeEditor />
       </Panel>
       <Panel header="Position" key="4"></Panel>
-      <Panel header="Typography" key="5"></Panel>
+      <Panel header="Typography" key="5">
+        <TypographyEditor />
+      </Panel>
       <Panel header="Backgrounds" key="6"></Panel>
       <Panel header="Borders" key="7"></Panel>
       <Panel header="Effects" key="8"></Panel>
