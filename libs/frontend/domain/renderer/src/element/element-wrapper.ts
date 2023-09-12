@@ -1,12 +1,22 @@
 import type {
+  IBuilderService,
+  IComponent,
   IComponentType,
   IElementModel,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
-import { isAtomInstance, RendererType } from '@codelab/frontend/abstract/core'
+import {
+  componentRef,
+  DATA_SELECTABLE,
+  elementRef,
+  isAtomInstance,
+  isComponentInstance,
+  RendererType,
+} from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
+import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
