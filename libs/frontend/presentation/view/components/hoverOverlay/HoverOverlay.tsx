@@ -1,39 +1,37 @@
-// import { isServer } from '@codelab/shared/utils'
-// import React from 'react'
-// import type { OverlayProps } from './overlay.interface'
-// import { OverlayToolbar } from './OverlayToolbar'
+import type { CSSProperties } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
+import type { HoverOverlayProps } from './overlay.interface'
 
-// export const HoverOverlay = ({
-//   content,
-//   getOverlayElement,
-//   nodeId,
-// }: OverlayProps) => {
-//   if (!nodeId || isServer) {
-//     return null
-//   }
+export const HoverOverlay = ({
+  element,
+  renderContainer,
+}: HoverOverlayProps) => {
+  const [containerRect, setContainerRect] = useState(() =>
+    renderContainer.getBoundingClientRect(),
+  )
 
-//   const element = getOverlayElement(nodeId)
+  const [rect, setRect] = useState(() => element.getBoundingClientRect())
 
-//   if (!element) {
-//     return null
-//   }
+  useEffect(() => {
+    setRect(element.getBoundingClientRect())
+    setContainerRect(renderContainer.getBoundingClientRect())
+  }, [element, renderContainer])
 
-//   return (
-//     <OverlayToolbar
-//       containerProps={{
-//         style: {
-//           border: '1px solid rgb(41, 205, 255)',
-//         },
-//       }}
-//       overlayElement={element}
-//       toolbarProps={{
-//         style: {
-//           background: 'rgb(41, 205, 255)',
-//           color: 'rgb(255, 255, 255)',
-//         },
-//       }}
-//     >
-//       <div>{content}</div>
-//     </OverlayToolbar>
-//   )
-// }
+  const rootStyle: CSSProperties = useMemo(
+    () => ({
+      border: '1px solid black',
+      bottom: `${rect.bottom}px`,
+      height: `${rect.height}px`,
+      left: `${rect.left - containerRect.left}px`,
+      pointerEvents: 'none',
+      position: 'fixed',
+      right: `${rect.right}px`,
+      top: `${rect.top - containerRect.top}px`,
+      width: `${rect.width}px`,
+      zIndex: 2,
+    }),
+    [containerRect, rect],
+  )
+
+  return <div style={rootStyle}></div>
+}
