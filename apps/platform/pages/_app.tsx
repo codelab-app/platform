@@ -13,7 +13,13 @@ import React, { useMemo } from 'react'
 require('reflect-metadata')
 
 const App = ({ Component, pageProps: { user } }: IAppProps<IPageProps>) => {
-  const store = user ? useMemo(() => initializeStore({ user }), []) : null
+  const store = useMemo(() => {
+    if (!user) {
+      return null
+    }
+
+    return initializeStore({ user })
+  }, [user])
 
   const { Layout = ({ children }) => <>{children}</> } =
     Component as CodelabPage<object, object, object>

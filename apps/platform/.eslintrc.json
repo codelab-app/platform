@@ -16,8 +16,7 @@
         "@next/next/no-html-link-for-pages": ["error", "apps/platform/pages"],
         "jsx-a11y/anchor-is-valid": "off",
         "react/jsx-no-useless-fragment": "off",
-        "react/display-name": "off",
-        "react-hooks/rules-of-hooks": "off"
+        "react/display-name": "off"
       }
     },
     {

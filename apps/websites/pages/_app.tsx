@@ -14,7 +14,15 @@ import { Analytics } from '@vercel/analytics/react'
 import React, { useMemo } from 'react'
 
 const App = ({ Component, pageProps }: IAppProps<IPageProps>) => {
-  const store = useMemo(() => initializeStore(pageProps), [])
+  const { user } = pageProps
+
+  const store = useMemo(() => {
+    if (!user) {
+      return null
+    }
+
+    return initializeStore({ user })
+  }, [user])
 
   return (
     <StoreProvider value={store}>
