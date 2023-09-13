@@ -32,6 +32,7 @@ export const SegmentedSelect = ({
           <Segmented
             onChange={(selected) => onChange?.(selected.toString())}
             options={options}
+            style={{ border: '1px solid #d9d9d9' }}
             value={value}
           />
         </ConfigProvider>
