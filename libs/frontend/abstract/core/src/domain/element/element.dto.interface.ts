@@ -45,8 +45,6 @@ export const IUpdateElementData = Type.Pick(IElementDTO, [
   'style',
 ])
 
-export type IUpdateElementData = Static<typeof IUpdateElementData>
-
 /**
  * Some properties have their own forms, the base form only uses a subset of fields
  */
