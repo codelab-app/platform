@@ -1,7 +1,6 @@
-import type { IAppRepository } from '@codelab/frontend/abstract/core'
-import { IApp } from '@codelab/frontend/abstract/core'
+import type { IApp, IAppRepository } from '@codelab/frontend/abstract/core'
 import { cachedWithTTL, clearCacheForKey } from '@codelab/frontend/shared/utils'
-import { AppOptions, AppWhere } from '@codelab/shared/abstract/codegen'
+import type { AppOptions, AppWhere } from '@codelab/shared/abstract/codegen'
 import { Model, model } from 'mobx-keystone'
 import { appApi } from '../store'
 
@@ -17,7 +16,7 @@ export class AppRepository extends Model({}) implements IAppRepository {
     return apps[0]!
   }
 
-  @clearCacheForKey('apps')
+  // @clearCacheForKey('apps')
   async update(app: IApp) {
     const {
       updateApps: { apps },
@@ -29,12 +28,22 @@ export class AppRepository extends Model({}) implements IAppRepository {
     return apps[0]!
   }
 
-  @cachedWithTTL('apps')
+  // @cachedWithTTL('apps')
   async find(where?: AppWhere, options?: AppOptions) {
     return await appApi.GetApps({ options, where })
   }
 
-  @clearCacheForKey('apps')
+  /**
+   * We only want to load the _app page to constructor the URL from the app list item to navigate to
+   */
+  async appsList(where?: AppWhere, options?: AppOptions) {
+    return await appApi.GetAppsList({
+      options,
+      where,
+    })
+  }
+
+  // @clearCacheForKey('apps')
   async delete(apps: Array<IApp>) {
     const {
       deleteApps: { nodesDeleted },

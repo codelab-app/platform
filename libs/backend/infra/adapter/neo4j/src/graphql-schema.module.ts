@@ -17,6 +17,7 @@ import { GRAPHQL_SCHEMA_PROVIDER, GraphQLSchemaProvider } from './schema'
     OgmResolverProvider,
     ElementResolverProvider,
     TagResolverProvider,
+    // Exports this
     GraphQLSchemaProvider,
   ],
 })

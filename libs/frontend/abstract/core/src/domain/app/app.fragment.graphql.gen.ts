@@ -1,7 +1,7 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
-import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import {
+  PagePreviewFragment,
   PageFragment,
   BuilderPageFragment,
   ProductionPageFragment,
@@ -10,8 +10,8 @@ import { DomainFragment } from '../domain/domain.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
-import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import {
+  PagePreviewFragmentDoc,
   PageFragmentDoc,
   BuilderPageFragmentDoc,
   ProductionPageFragmentDoc,
@@ -21,15 +21,14 @@ export type AppPreviewFragment = {
   id: string
   name: string
   slug: string
-  owner: OwnerFragment
-  pages: Array<{ id: string }>
+  owner: { auth0Id: string }
+  pages: Array<PagePreviewFragment>
 }
 
 export type AppFragment = {
   id: string
   name: string
   slug: string
-  owner: OwnerFragment
   pages: Array<PageFragment>
   domains: Array<DomainFragment>
 }
@@ -38,7 +37,6 @@ export type PageBuilderAppFragment = {
   id: string
   name: string
   slug: string
-  owner: OwnerFragment
   pages: Array<BuilderPageFragment>
 }
 
@@ -46,7 +44,6 @@ export type PageAppFragment = {
   id: string
   name: string
   slug: string
-  owner: OwnerFragment
   pages: Array<ProductionPageFragment>
 }
 
@@ -56,22 +53,19 @@ export const AppPreviewFragmentDoc = gql`
     name
     slug
     owner {
-      ...Owner
+      auth0Id
     }
-    pages {
-      id
+    pages(where: { kind: Provider }) {
+      ...PagePreview
     }
   }
-  ${OwnerFragmentDoc}
+  ${PagePreviewFragmentDoc}
 `
 export const AppFragmentDoc = gql`
   fragment App on App {
     id
     name
     slug
-    owner {
-      ...Owner
-    }
     pages {
       ...Page
     }
@@ -79,7 +73,6 @@ export const AppFragmentDoc = gql`
       ...Domain
     }
   }
-  ${OwnerFragmentDoc}
   ${PageFragmentDoc}
   ${DomainFragmentDoc}
 `
@@ -88,9 +81,6 @@ export const PageBuilderAppFragmentDoc = gql`
     id
     name
     slug
-    owner {
-      ...Owner
-    }
     pages(
       where: {
         OR: [
@@ -105,7 +95,6 @@ export const PageBuilderAppFragmentDoc = gql`
       ...BuilderPage
     }
   }
-  ${OwnerFragmentDoc}
   ${BuilderPageFragmentDoc}
 `
 export const PageAppFragmentDoc = gql`
@@ -113,14 +102,10 @@ export const PageAppFragmentDoc = gql`
     id
     name
     slug
-    owner {
-      ...Owner
-    }
     pages(where: { OR: [{ _compoundName: $pageName }, { kind: Provider }] }) {
       ...ProductionPage
     }
   }
-  ${OwnerFragmentDoc}
   ${ProductionPageFragmentDoc}
 `
 

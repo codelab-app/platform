@@ -79,7 +79,7 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   const { user } = useUser()
 
   const [{ status }, loadApp] = useAsync((owner: IAuth0User) =>
-    appService.loadAppsWithNestedPreviews({ owner }),
+    appService.loadAppsPreview({ owner }),
   )
 
   useEffect(() => {

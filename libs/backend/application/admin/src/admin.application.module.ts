@@ -1,6 +1,9 @@
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
 import { ComponentApplicationModule } from '@codelab/backend/application/component'
-import { DatabaseService } from '@codelab/backend/application/service'
+import {
+  AuthModule,
+  DatabaseService,
+} from '@codelab/backend/application/service'
 import { StoreApplicationModule } from '@codelab/backend/application/store'
 import { TagApplicationModule } from '@codelab/backend/application/tag'
 import { TypeApplicationModule } from '@codelab/backend/application/type'
@@ -22,6 +25,7 @@ import { ReadAdminDataService } from './use-case/import/read-admin-data.service'
     OtelModule,
     CqrsModule,
     ValidationModule,
+    AuthModule,
     /**
      * Application
      */

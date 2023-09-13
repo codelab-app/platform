@@ -54,7 +54,7 @@ export class AdminService
         .then(({ data }) => {
           const appId = data.apps[0]?.app.id
 
-          return this.appService.loadAppsWithNestedPreviews({ id: appId })
+          return this.appService.loadAppsPreview({ id: appId })
         }),
     )
   })

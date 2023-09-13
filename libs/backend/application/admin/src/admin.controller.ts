@@ -1,4 +1,7 @@
-import { DatabaseService } from '@codelab/backend/application/service'
+import {
+  AuthService,
+  DatabaseService,
+} from '@codelab/backend/application/service'
 import { ExportDto, ImportDto } from '@codelab/shared/abstract/core'
 import { Body, Controller, Post } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
@@ -14,6 +17,7 @@ export class AdminController {
   constructor(
     private readonly databaseService: DatabaseService,
     private readonly commandBus: CommandBus,
+    private authService: AuthService,
   ) {}
 
   @Post('export')

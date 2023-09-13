@@ -1,3 +1,20 @@
+fragment PagePreview on Page {
+  id
+  name
+  kind
+  url
+  # Required to compute slug
+  app {
+    id
+  }
+  rootElement {
+    id
+  }
+  store {
+    id
+  }
+}
+
 fragment Page on Page {
   id
   name

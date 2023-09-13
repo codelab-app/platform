@@ -37,14 +37,16 @@ export interface IAppService
   add(appDto: IAppDTO): IApp
   app(id: string): Maybe<IApp>
   getAppPages(appId: string, where: PageWhere): Promise<void>
-  getRenderedPageAndCommonAppData(
-    appId: string,
+  loadAppsPreview(where: AppWhere): Promise<Array<IApp>>
+  loadPages(data: IPageBuilderAppProps): void
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  loadDevelopmentPage(
+    appName: string,
     pageName: string,
-    initialData?:
+  ): Promise<IApp | undefined>
+  loadProductionPage(
+    initialData:
       | GetRenderedPageAndAppDataQuery
       | GetRenderedPageAndCommonAppDataQuery,
-    rendererType?: RendererType,
-  ): Promise<IApp | undefined>
-  loadAppsWithNestedPreviews(where: AppWhere): Promise<Array<IApp>>
-  loadPages(data: IPageBuilderAppProps): void
+  ): IApp | undefined
 }

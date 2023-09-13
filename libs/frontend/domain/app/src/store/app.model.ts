@@ -11,6 +11,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
+import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
 import { createUniqueName, slugify } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -112,6 +113,7 @@ export class App
     return {
       _compoundName: createUniqueName(this.name, this.userService.auth0Id),
       id: this.id,
+      owner: connectAuth0Owner(this.userService.user),
       pages: {
         create: this.pages.map((page) => ({
           node: page.current.toCreateInput(),

@@ -183,27 +183,29 @@ export class AppService
   }
 
   /**
-   * For nested properties, only show the preview
+   * This is used for the apps list preview
+   *
+   * 1) We require the first page to create a URL
    */
   @modelFlow
-  loadAppsWithNestedPreviews = _async(function* (
-    this: AppService,
-    where: AppWhere,
-  ) {
-    const { items: appsData } = yield* _await(this.appRepository.find(where))
+  loadAppsPreview = _async(function* (this: AppService, where: AppWhere) {
+    const { apps: appsData } = yield* _await(this.appRepository.appsList(where))
 
     const apps = appsData.map((appData) => {
       /**
        * Pages
        */
-      this.loadPages(appData)
-
-      /**
-       * Domains
-       */
-      appData.domains.forEach((domain) => {
-        this.domainService.add(domain)
+      appData.pages.forEach((page) => {
+        this.pageService.add(page)
       })
+      // this.loadPages(appData)
+
+      // /**
+      //  * Domains
+      //  */
+      // appData.domains.forEach((domain) => {
+      //   this.domainService.add(domain)
+      // })
 
       return this.add(appData)
     })
@@ -304,22 +306,14 @@ export class AppService
    */
   @modelFlow
   @transaction
-  getRenderedPageAndCommonAppData = _async(function* (
+  loadDevelopmentPage = _async(function* (
     this: AppService,
     appName: string,
     pageName: string,
-    // Production is pre-built with all required data, no need for network request
-    initialData?: GetRenderedPageAndCommonAppDataQuery,
-    rendererType?: RendererType,
   ) {
-    const apiFunction =
-      rendererType === RendererType.Production
-        ? pageApi.GetRenderedPageAndAppData
-        : pageApi.GetRenderedPageAndCommonAppData
-
-    const fetchedData = initialData
-      ? initialData
-      : yield* _await(apiFunction({ appName, pageName }))
+    const fetchedData = yield* _await(
+      pageApi.GetRenderedPageAndCommonAppData({ appName, pageName }),
+    )
 
     const {
       apps: [appData],
@@ -340,6 +334,27 @@ export class AppService
 
     return this.add(appData)
   })
+
+  /**
+   * This is the 'production' version of `loadBuilderPage`. Already has initial data, just needs to hydrate the models
+   */
+  @modelFlow
+  loadProductionPage = (initialData: GetRenderedPageAndCommonAppDataQuery) => {
+    const {
+      apps: [appData],
+      resources,
+    } = initialData
+
+    if (!appData) {
+      return undefined
+    }
+
+    this.loadPages({ pages: appData.pages as Array<BuilderPageFragment> })
+
+    this.resourceService.load(resources)
+
+    return this.add(appData)
+  }
 
   @modelFlow
   @transaction

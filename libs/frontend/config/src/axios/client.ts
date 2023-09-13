@@ -14,11 +14,12 @@ export const httpClient = axios.create({
 
 httpClient.interceptors.response.use(
   (response) => {
-    console.log(response)
+    // console.log(response)
 
     return response
   },
   (error) => {
+    console.error(error)
     throw new Error(error.response ? error.response.data : 'Network error')
   },
 )

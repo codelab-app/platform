@@ -5,7 +5,7 @@ import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/router'
 import { useStore } from '../providers'
 import { useCurrentApp, useCurrentComponent } from '../routerHooks'
-import { loadAllTypesForElements } from './useRenderedPage.hook'
+import { loadAllTypesForElements } from './utils'
 
 /**
  * Fetch related data for rendering component, and load them into store
@@ -25,7 +25,7 @@ export const useRenderedComponent = (rendererType: RendererType) => {
   const router = useRouter()
 
   return useAsync(async () => {
-    const [app] = await appService.loadAppsWithNestedPreviews({ _compoundName })
+    const [app] = await appService.loadAppsPreview({ _compoundName })
     const components = await componentService.getAll({ name: componentName })
     const component = components.find(({ name }) => name === componentName)
 

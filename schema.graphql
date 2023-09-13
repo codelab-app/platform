@@ -10640,6 +10640,7 @@ input HookConnectOrCreateInput {
 input HookCreateInput {
   config: HookConfigFieldInput
   element: HookElementFieldInput
+  id: ID!
   type: AtomType!
 }
 
@@ -10876,6 +10877,7 @@ input HookSort {
 input HookUpdateInput {
   config: HookConfigUpdateFieldInput
   element: HookElementUpdateFieldInput
+  id: ID
   type: AtomType
 }
 

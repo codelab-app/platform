@@ -28,3 +28,9 @@ query GetApps($options: AppOptions, $where: AppWhere) {
     ...App
   }
 }
+
+query GetAppsList($options: AppOptions, $where: AppWhere) {
+  apps(options: $options, where: $where) {
+    ...AppPreview
+  }
+}

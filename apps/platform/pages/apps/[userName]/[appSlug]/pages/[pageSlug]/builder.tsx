@@ -14,7 +14,7 @@ import {
 } from '@codelab/frontend/domain/page'
 import {
   useCurrentPage,
-  useRenderedPage,
+  useDevelopmentPage,
   useStore,
 } from '@codelab/frontend/presentation/container'
 import {
@@ -35,7 +35,7 @@ const PageBuilder: CodelabPage = observer(() => {
   const { pageService } = useStore()
   const { pageName } = useCurrentPage()
 
-  const [{ error, result }, loadCurrentPage] = useRenderedPage({
+  const [{ error, result }, loadCurrentPage] = useDevelopmentPage({
     rendererType: RendererType.PageBuilder,
   })
 

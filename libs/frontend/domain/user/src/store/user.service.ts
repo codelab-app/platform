@@ -1,7 +1,7 @@
 import type { IUser, IUserService } from '@codelab/frontend/abstract/core'
 import { httpClient } from '@codelab/frontend/config'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
-import type { IUserDTO } from '@codelab/shared/abstract/core'
+import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
 import {
@@ -17,20 +17,12 @@ import {
 import { userApi } from './user.api'
 import { User } from './user.model'
 
-const init = (data?: IUserDTO) => {
-  // SSR makes it such that user may be undefined
-  if (!data) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return new UserService({ user: {} as any })
-  }
+const init = (data: Auth0IdToken) => {
+  const user = User.fromSession(data)
 
-  const user = User.create(data)
-
-  const userService = new UserService({
+  return new UserService({
     user,
   })
-
-  return userService
 }
 
 @model('@codelab/UserService')

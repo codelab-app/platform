@@ -12,8 +12,9 @@ export const appSchema = gql`
     domains: [Domain!]! @relationship(type: "APP_DOMAIN", direction: IN)
   }
 
-  extend type App
-    @authorization(
-      validate: [{ where: { node: { owner: { id: "$jwt.sub" } } } }]
-    )
+  # extend type App
+  #   # @authentication
+  #   @authorization(
+  #     validate: [{ where: { node: { owner: { id: "$jwt.sub" } } } }]
+  #   )
 `

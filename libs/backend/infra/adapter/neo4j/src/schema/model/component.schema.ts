@@ -19,8 +19,8 @@ export const componentSchema = gql`
       @relationship(type: "CHILDREN_CONTAINER_ELEMENT", direction: OUT)
   }
 
-  extend type Component
-    @authorization(
-      validate: [{ where: { node: { owner: { id: "$jwt.sub" } } } }]
-    )
+  # extend type Component
+  #   @authorization(
+  #     validate: [{ where: { node: { owner: { id: "$jwt.sub" } } } }]
+  #   )
 `

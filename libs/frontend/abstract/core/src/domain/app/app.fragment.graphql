@@ -2,11 +2,13 @@ fragment AppPreview on App {
   id
   name
   slug
+  # Required to compute name
   owner {
-    ...Owner
+    auth0Id
   }
-  pages {
-    id
+  # Links the app preview to the provider page
+  pages(where: { kind: Provider }) {
+    ...PagePreview
   }
 }
 
@@ -14,9 +16,6 @@ fragment App on App {
   id
   name
   slug
-  owner {
-    ...Owner
-  }
   pages {
     ...Page
   }
@@ -29,9 +28,6 @@ fragment PageBuilderApp on App {
   id
   name
   slug
-  owner {
-    ...Owner
-  }
   pages(
     where: {
       OR: [
@@ -51,9 +47,6 @@ fragment PageApp on App {
   id
   name
   slug
-  owner {
-    ...Owner
-  }
   pages(where: { OR: [{ _compoundName: $pageName }, { kind: Provider }] }) {
     ...ProductionPage
   }

@@ -11206,6 +11206,7 @@ export type HookConnectOrCreateInput = {
 export type HookCreateInput = {
   config?: InputMaybe<HookConfigFieldInput>
   element?: InputMaybe<HookElementFieldInput>
+  id: Scalars['ID']['input']
   type: AtomType
 }
 
@@ -11455,6 +11456,7 @@ export type HookSort = {
 export type HookUpdateInput = {
   config?: InputMaybe<HookConfigUpdateFieldInput>
   element?: InputMaybe<HookElementUpdateFieldInput>
+  id?: InputMaybe<Scalars['ID']['input']>
   type?: InputMaybe<AtomType>
 }
 
@@ -20718,8 +20720,8 @@ export type AppPreviewFragment = {
   id: string
   name: string
   slug: string
-  owner: { __typename?: 'User' } & OwnerFragment
-  pages: Array<{ __typename?: 'Page'; id: string }>
+  owner: { __typename?: 'User'; auth0Id: string }
+  pages: Array<{ __typename?: 'Page' } & PagePreviewFragment>
 }
 
 export type AppFragment = {
@@ -20727,7 +20729,6 @@ export type AppFragment = {
   id: string
   name: string
   slug: string
-  owner: { __typename?: 'User' } & OwnerFragment
   pages: Array<{ __typename?: 'Page' } & PageFragment>
   domains: Array<{ __typename?: 'Domain' } & DomainFragment>
 }
@@ -20737,7 +20738,6 @@ export type PageBuilderAppFragment = {
   id: string
   name: string
   slug: string
-  owner: { __typename?: 'User' } & OwnerFragment
   pages: Array<{ __typename?: 'Page' } & BuilderPageFragment>
 }
 
@@ -20746,7 +20746,6 @@ export type PageAppFragment = {
   id: string
   name: string
   slug: string
-  owner: { __typename?: 'User' } & OwnerFragment
   pages: Array<{ __typename?: 'Page' } & ProductionPageFragment>
 }
 
@@ -20933,6 +20932,17 @@ export type HookFragment = {
   type: AtomType
   config: { __typename?: 'Prop' } & HookPropFragment
   element: { __typename?: 'Element'; id: string; name: string }
+}
+
+export type PagePreviewFragment = {
+  __typename?: 'Page'
+  id: string
+  name: string
+  kind: PageKind
+  url: string
+  app: { __typename?: 'App'; id: string }
+  rootElement: { __typename?: 'Element'; id: string }
+  store: { __typename?: 'Store'; id: string }
 }
 
 export type PageFragment = {
@@ -21387,6 +21397,16 @@ export type GetAppsQuery = {
   __typename?: 'Query'
   aggregate: { __typename?: 'AppAggregateSelection'; count: number }
   items: Array<{ __typename?: 'App' } & AppFragment>
+}
+
+export type GetAppsListQueryVariables = Exact<{
+  options?: InputMaybe<AppOptions>
+  where?: InputMaybe<AppWhere>
+}>
+
+export type GetAppsListQuery = {
+  __typename?: 'Query'
+  apps: Array<{ __typename?: 'App' } & AppPreviewFragment>
 }
 
 export type CreateAtomsMutationVariables = Exact<{

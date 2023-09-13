@@ -4,14 +4,13 @@ import { RendererType } from '@codelab/frontend/abstract/core'
 import type { ProductionWebsiteProps } from '@codelab/frontend/abstract/types'
 import { pageApi } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
-import { useRenderedPage } from '@codelab/frontend/presentation/container'
 import { useMountEffect } from '@react-hookz/web'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import React from 'react'
 
 const Index = (props: ProductionWebsiteProps) => {
-  const [{ result }, actions] = useRenderedPage({
+  const [{ result }, actions] = useProductionPage({
     productionProps: props,
     rendererType: RendererType.Production,
   })

@@ -5,7 +5,7 @@ import { PageDetailHeader } from '@codelab/frontend/domain/page'
 import { Renderer } from '@codelab/frontend/domain/renderer'
 import {
   useCurrentPage,
-  useRenderedPage,
+  useDevelopmentPage,
   useStore,
 } from '@codelab/frontend/presentation/container'
 import { DashboardTemplate } from '@codelab/frontend/presentation/view'
@@ -26,7 +26,7 @@ const PageRenderer: CodelabPage<IPageProps> = observer(() => {
   const router = useRouter()
   const { pageService } = useStore()
 
-  const [{ error, result, status }, actions] = useRenderedPage({
+  const [{ error, result, status }, actions] = useDevelopmentPage({
     rendererType: RendererType.Preview,
   })
 

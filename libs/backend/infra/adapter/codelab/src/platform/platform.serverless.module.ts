@@ -4,6 +4,7 @@ import {
   GraphQLSchemaModule,
   neo4jConfig,
 } from '@codelab/backend/infra/adapter/neo4j'
+import { RequestContextModule } from '@codelab/backend/infra/adapter/request-context'
 import { ApolloDriver } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
@@ -32,6 +33,7 @@ export interface GqlContext {
     //   http: process.env.NODE_ENV !== 'production',
     //   port: 4000,
     // }),
+    RequestContextModule,
     CodelabLoggerModule,
     ConfigModule.forRoot({
       ignoreEnvVars: true,
@@ -45,14 +47,17 @@ export interface GqlContext {
       useFactory: async (graphqlSchema: GraphQLSchema) => {
         return {
           // bodyParserConfig: false,
-          context: ({ payload, req, res }: GqlContext) =>
-            ({
+          context: ({ payload, req, res }: GqlContext) => {
+            // console.log(req['user'])
+
+            return {
               // connection,
               // driver,
               payload,
               req,
               res,
-            } as GqlContext),
+            } as GqlContext
+          },
           cors: false,
           debug: true,
           formatError: (error: GraphQLError) => {

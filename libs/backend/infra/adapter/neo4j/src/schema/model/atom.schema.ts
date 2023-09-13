@@ -25,8 +25,8 @@ export const atomSchema = gql`
       @relationship(type: "ALLOWED_CHILDREN", direction: OUT)
   }
 
-  extend type Atom
-    @authorization(
-      validate: [{ where: { node: { owner: { id: "$jwt.sub" } } } }]
-    )
+  # extend type Atom
+  #   @authorization(
+  #     validate: [{ where: { node: { owner: { id: "$jwt.sub" } } } }]
+  #   )
 `

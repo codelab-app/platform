@@ -267,7 +267,10 @@
       "@codelab/testing/cypress/nextjs-auth0": [
         "libs/testing/cypress/nextjs-auth0/src/index.ts"
       ],
-      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"]
+      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
+      "@codelab/backend/infra/adapter/request-context": [
+        "libs/backend/infra/adapter/request-context/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"],
