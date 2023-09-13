@@ -24,6 +24,7 @@ export class TerraformService implements CommandModule<unknown, unknown> {
           'terraform init',
           (argv) => argv,
           globalHandler(({ stage }) => {
+            // Use `tfswitch` to change to specific versions
             execCommand(`cd terraform/environments/${stage} && ./symlink.sh`)
             execCommand(`cd terraform/modules && ./symlink.sh`)
 

@@ -12,7 +12,9 @@ export const globalHandler = <T>(
   return async (args: ArgumentsCamelCase<T>) => {
     try {
       await handler(args)
-    } catch (error) {
+    } catch (error: unknown) {
+      console.log(error)
+      throw new Error('CLI failed')
       // Need this for finally to execute completely
     } finally {
       otelSDK

@@ -12,7 +12,7 @@
         "browser": "electron",
         "testingType": "e2e"
       },
-      "defaultConfiguration": "dev",
+      "defaultConfiguration": "test",
       "configurations": {
         "ci": {
           "baseUrl": "http://127.0.0.1:3000",
