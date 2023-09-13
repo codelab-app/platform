@@ -34,8 +34,7 @@ query GetDevelopmentPage($appName: String!, $pageName: String!) {
     ...PageBuilderApp
   }
   resources {
-    id
-    # ...Resource
+    ...Resource
   }
 }
 

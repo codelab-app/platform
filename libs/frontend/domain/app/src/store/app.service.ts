@@ -310,13 +310,9 @@ export class AppService
     appName: string,
     pageName: string,
   ) {
-    console.log('loadDevelopmentPage')
-
     const fetchedData = yield* _await(
       pageApi.GetDevelopmentPage({ appName, pageName }),
     )
-
-    console.log(fetchedData)
 
     const {
       apps: [appData],

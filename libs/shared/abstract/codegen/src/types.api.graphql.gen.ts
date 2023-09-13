@@ -17300,7 +17300,7 @@ export type Tag = {
   childrenConnection: TagChildrenConnection
   descendants: Array<Tag>
   id: Scalars['ID']['output']
-  isRoot?: Maybe<Scalars['Boolean']['output']>
+  isRoot: Scalars['Boolean']['output']
   name: Scalars['String']['output']
   owner: User
   ownerAggregate?: Maybe<TagUserOwnerAggregationSelection>
@@ -21037,7 +21037,7 @@ export type TagFragment = {
   __typename?: 'Tag'
   id: string
   name: string
-  isRoot?: boolean | null
+  isRoot: boolean
   parent?: { __typename?: 'Tag'; id: string } | null
   children: Array<{ __typename?: 'Tag'; id: string }>
   descendants: Array<{ __typename?: 'Tag'; id: string }>
@@ -21690,7 +21690,7 @@ export type GetDevelopmentPageQueryVariables = Exact<{
 export type GetDevelopmentPageQuery = {
   __typename?: 'Query'
   apps: Array<{ __typename?: 'App' } & PageBuilderAppFragment>
-  resources: Array<{ __typename?: 'Resource'; id: string }>
+  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
 }
 
 export type GetProductionPageQueryVariables = Exact<{

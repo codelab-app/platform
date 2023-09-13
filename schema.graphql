@@ -16000,7 +16000,7 @@ type Tag {
   ): TagChildrenConnection!
   descendants: [Tag!]!
   id: ID!
-  isRoot: Boolean
+  isRoot: Boolean!
   name: String!
   owner(directed: Boolean = true, options: UserOptions, where: UserWhere): User!
   ownerAggregate(

@@ -8,7 +8,7 @@ import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 export type TagFragment = {
   id: string
   name: string
-  isRoot?: boolean | null
+  isRoot: boolean
   parent?: { id: string } | null
   children: Array<{ id: string }>
   descendants: Array<{ id: string }>

@@ -62,7 +62,7 @@ export type GetDevelopmentPageQueryVariables = Types.Exact<{
 
 export type GetDevelopmentPageQuery = {
   apps: Array<PageBuilderAppFragment>
-  resources: Array<{ id: string }>
+  resources: Array<ResourceFragment>
 }
 
 export type GetProductionPageQueryVariables = Types.Exact<{
@@ -123,10 +123,11 @@ export const GetDevelopmentPageDocument = gql`
       ...PageBuilderApp
     }
     resources {
-      id
+      ...Resource
     }
   }
   ${PageBuilderAppFragmentDoc}
+  ${ResourceFragmentDoc}
 `
 export const GetProductionPageDocument = gql`
   query GetProductionPage($appName: String!, $pageName: String!) {
