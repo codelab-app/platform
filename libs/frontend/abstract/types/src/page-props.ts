@@ -1,4 +1,4 @@
-import type { GetRenderedPageAndAppDataQuery } from '@codelab/shared/abstract/codegen'
+import type { GetProductionPageQuery } from '@codelab/shared/abstract/codegen'
 
 /**
  * For production user websites we use slightly different flow:
@@ -9,5 +9,5 @@ import type { GetRenderedPageAndAppDataQuery } from '@codelab/shared/abstract/co
 export interface ProductionWebsiteProps {
   appName: string
   pageName: string
-  renderingData: GetRenderedPageAndAppDataQuery
+  renderingData: GetProductionPageQuery
 }

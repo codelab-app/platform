@@ -1,9 +1,11 @@
+#
+# app.id is required to compute name
+#
 fragment PagePreview on Page {
   id
   name
   kind
   url
-  # Required to compute slug
   app {
     id
   }

@@ -21,7 +21,7 @@ import {
   connectAuth0Owner,
   connectNodeIds,
 } from '@codelab/shared/domain/mapper'
-import { Span } from '@codelab/shared/infra/otel'
+import { Span } from '@codelab/backend/infra/adapter/otel'
 import { Injectable } from '@nestjs/common'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 

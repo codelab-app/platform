@@ -10,7 +10,7 @@ import {
   IInterfaceTypeDTO,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { Span } from '@codelab/shared/infra/otel'
+import { Span } from '@codelab/backend/infra/adapter/otel'
 import { Typebox } from '@codelab/shared/infra/validation'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'

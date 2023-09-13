@@ -6,7 +6,7 @@ export const tagSchema = gql`
     id: ID! @unique
     name: String! @unique
     # Could have multiple roots, just all different trees
-    isRoot: Boolean
+    isRoot: Boolean!
       @cypher(statement: """${tagIsRoot} AS tagIsRoot""", columnName: "tagIsRoot")
     parent: Tag @relationship(type: "CHILDREN", direction: IN)
     children: [Tag!]! @relationship(type: "CHILDREN", direction: OUT)

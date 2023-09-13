@@ -1,8 +1,11 @@
 import type { IRepository } from '@codelab/backend/abstract/types'
-import { TraceService } from '@codelab/backend/infra/adapter/otel'
+import {
+  TraceService,
+  withActiveSpan,
+} from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { type IEntity } from '@codelab/shared/abstract/types'
-import { flattenWithPrefix, withActiveSpan } from '@codelab/shared/infra/otel'
+import { flattenWithPrefix } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 

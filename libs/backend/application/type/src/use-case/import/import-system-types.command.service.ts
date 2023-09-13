@@ -1,6 +1,6 @@
 import { TypeFactory } from '@codelab/backend/domain/type'
 import type { ITypeDTO } from '@codelab/shared/abstract/core'
-import { Span } from '@codelab/shared/infra/otel'
+import { Span } from '@codelab/backend/infra/adapter/otel'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 

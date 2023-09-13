@@ -1,4 +1,3 @@
-import { TRACER_NAME } from '@codelab/shared/infra/otel'
 import { AsyncLocalStorageContextManager } from '@opentelemetry/context-async-hooks'
 import {
   CompositePropagator,
@@ -10,6 +9,7 @@ import { Resource } from '@opentelemetry/resources'
 import { NodeSDK } from '@opentelemetry/sdk-node'
 import { SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base'
 import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions'
+import { PLATFORM_API_TRACER_NAME } from './tracer'
 
 export const otelSDK = new NodeSDK({
   /**
@@ -24,7 +24,7 @@ export const otelSDK = new NodeSDK({
     // new GraphQLInstrumentation(),
   ],
   resource: new Resource({
-    [SemanticResourceAttributes.SERVICE_NAME]: TRACER_NAME,
+    [SemanticResourceAttributes.SERVICE_NAME]: PLATFORM_API_TRACER_NAME,
   }),
   // spanProcessor: new BatchSpanProcessor(new OTLPTraceExporter(), {
   //   // maxQueueSize: 4096,

@@ -7,13 +7,13 @@ import {
   systemTypesData,
   TypeSeederService,
 } from '@codelab/backend/application/type'
+import { withActiveSpan } from '@codelab/backend/infra/adapter/otel'
 import {
   type IAtomDTO,
   type IAtomType,
   type IAuth0User,
   type IFieldDTO,
 } from '@codelab/shared/abstract/core'
-import { withActiveSpan } from '@codelab/shared/infra/otel'
 import { Injectable } from '@nestjs/common'
 import { ObjectTyped } from 'object-typed'
 

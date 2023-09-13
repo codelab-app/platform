@@ -63,7 +63,7 @@ export const getStaticProps: GetStaticProps<ProductionWebsiteProps> = async (
     throw new Error(`Page with ${pageUrl} URL for "${domain}" domain Not found`)
   }
 
-  const renderingData = await pageApi.GetRenderedPageAndAppData({
+  const renderingData = await pageApi.GetProductionPage({
     appName: foundPage.app._compoundName,
     pageName: foundPage._compoundName,
   })

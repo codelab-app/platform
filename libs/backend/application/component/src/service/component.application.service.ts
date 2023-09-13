@@ -1,7 +1,7 @@
 import type { IComponentOutputDto } from '@codelab/backend/abstract/core'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { IRole } from '@codelab/shared/abstract/core'
-import { Span } from '@codelab/shared/infra/otel'
+import { Span } from '@codelab/backend/infra/adapter/otel'
 import { Injectable } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 import { ExportComponentCommand } from '../use-case'

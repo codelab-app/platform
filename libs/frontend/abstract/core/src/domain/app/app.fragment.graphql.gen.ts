@@ -29,6 +29,7 @@ export type AppFragment = {
   id: string
   name: string
   slug: string
+  owner: { auth0Id: string }
   pages: Array<PageFragment>
   domains: Array<DomainFragment>
 }
@@ -37,6 +38,7 @@ export type PageBuilderAppFragment = {
   id: string
   name: string
   slug: string
+  owner: { auth0Id: string }
   pages: Array<BuilderPageFragment>
 }
 
@@ -44,6 +46,7 @@ export type PageAppFragment = {
   id: string
   name: string
   slug: string
+  owner: { auth0Id: string }
   pages: Array<ProductionPageFragment>
 }
 
@@ -66,6 +69,9 @@ export const AppFragmentDoc = gql`
     id
     name
     slug
+    owner {
+      auth0Id
+    }
     pages {
       ...Page
     }
@@ -81,6 +87,9 @@ export const PageBuilderAppFragmentDoc = gql`
     id
     name
     slug
+    owner {
+      auth0Id
+    }
     pages(
       where: {
         OR: [
@@ -102,6 +111,9 @@ export const PageAppFragmentDoc = gql`
     id
     name
     slug
+    owner {
+      auth0Id
+    }
     pages(where: { OR: [{ _compoundName: $pageName }, { kind: Provider }] }) {
       ...ProductionPage
     }

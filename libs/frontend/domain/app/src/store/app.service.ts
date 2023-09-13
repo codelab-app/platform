@@ -9,7 +9,6 @@ import {
   getComponentService,
   getElementService,
   pageRef,
-  RendererType,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
 import { getDomainService } from '@codelab/frontend/domain/domain'
@@ -30,7 +29,7 @@ import {
 import type {
   AppWhere,
   BuilderPageFragment,
-  GetRenderedPageAndCommonAppDataQuery,
+  GetProductionPageQuery,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IDomainDTO } from '@codelab/shared/abstract/core'
@@ -311,9 +310,13 @@ export class AppService
     appName: string,
     pageName: string,
   ) {
+    console.log('loadDevelopmentPage')
+
     const fetchedData = yield* _await(
-      pageApi.GetRenderedPageAndCommonAppData({ appName, pageName }),
+      pageApi.GetDevelopmentPage({ appName, pageName }),
     )
+
+    console.log(fetchedData)
 
     const {
       apps: [appData],
@@ -339,7 +342,7 @@ export class AppService
    * This is the 'production' version of `loadBuilderPage`. Already has initial data, just needs to hydrate the models
    */
   @modelFlow
-  loadProductionPage = (initialData: GetRenderedPageAndCommonAppDataQuery) => {
+  loadProductionPage = (initialData: GetProductionPageQuery) => {
     const {
       apps: [appData],
       resources,

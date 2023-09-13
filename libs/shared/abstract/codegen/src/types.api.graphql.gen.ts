@@ -20729,6 +20729,7 @@ export type AppFragment = {
   id: string
   name: string
   slug: string
+  owner: { __typename?: 'User'; auth0Id: string }
   pages: Array<{ __typename?: 'Page' } & PageFragment>
   domains: Array<{ __typename?: 'Domain' } & DomainFragment>
 }
@@ -20738,6 +20739,7 @@ export type PageBuilderAppFragment = {
   id: string
   name: string
   slug: string
+  owner: { __typename?: 'User'; auth0Id: string }
   pages: Array<{ __typename?: 'Page' } & BuilderPageFragment>
 }
 
@@ -20746,6 +20748,7 @@ export type PageAppFragment = {
   id: string
   name: string
   slug: string
+  owner: { __typename?: 'User'; auth0Id: string }
   pages: Array<{ __typename?: 'Page' } & ProductionPageFragment>
 }
 
@@ -21003,7 +21006,6 @@ export type ResourceFragment = {
   name: string
   type: ResourceType
   config: { __typename?: 'Prop' } & PropFragment
-  owner: { __typename?: 'User'; id: string; auth0Id: string }
 }
 
 export type StoreFragment = {
@@ -21680,23 +21682,23 @@ export type GetPagesQuery = {
   items: Array<{ __typename?: 'Page' } & PageFragment>
 }
 
-export type GetRenderedPageAndCommonAppDataQueryVariables = Exact<{
+export type GetDevelopmentPageQueryVariables = Exact<{
   appName: Scalars['String']['input']
   pageName: Scalars['String']['input']
 }>
 
-export type GetRenderedPageAndCommonAppDataQuery = {
+export type GetDevelopmentPageQuery = {
   __typename?: 'Query'
   apps: Array<{ __typename?: 'App' } & PageBuilderAppFragment>
-  resources: Array<{ __typename?: 'Resource' } & ResourceFragment>
+  resources: Array<{ __typename?: 'Resource'; id: string }>
 }
 
-export type GetRenderedPageAndAppDataQueryVariables = Exact<{
+export type GetProductionPageQueryVariables = Exact<{
   appName: Scalars['String']['input']
   pageName: Scalars['String']['input']
 }>
 
-export type GetRenderedPageAndAppDataQuery = {
+export type GetProductionPageQuery = {
   __typename?: 'Query'
   apps: Array<{ __typename?: 'App' } & PageAppFragment>
   resources: Array<{ __typename?: 'Resource' } & ResourceFragment>

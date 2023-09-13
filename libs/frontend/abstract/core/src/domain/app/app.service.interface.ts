@@ -1,8 +1,7 @@
 import type {
   AppOptions,
   AppWhere,
-  GetRenderedPageAndAppDataQuery,
-  GetRenderedPageAndCommonAppDataQuery,
+  GetProductionPageQuery,
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
@@ -44,9 +43,5 @@ export interface IAppService
     appName: string,
     pageName: string,
   ): Promise<IApp | undefined>
-  loadProductionPage(
-    initialData:
-      | GetRenderedPageAndAppDataQuery
-      | GetRenderedPageAndCommonAppDataQuery,
-  ): IApp | undefined
+  loadProductionPage(initialData: GetProductionPageQuery): IApp | undefined
 }

@@ -5,8 +5,4 @@ fragment Resource on Resource {
   config {
     ...Prop
   }
-  owner {
-    id
-    auth0Id
-  }
 }

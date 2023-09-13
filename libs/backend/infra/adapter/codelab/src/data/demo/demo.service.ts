@@ -1,5 +1,7 @@
-import { TraceService } from '@codelab/backend/infra/adapter/otel'
-import { withActiveSpan } from '@codelab/shared/infra/otel'
+import {
+  TraceService,
+  withActiveSpan,
+} from '@codelab/backend/infra/adapter/otel'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()

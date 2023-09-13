@@ -134,6 +134,9 @@
       "@codelab/backend/infra/adapter/queue": [
         "libs/backend/infra/adapter/queue/src/index.ts"
       ],
+      "@codelab/backend/infra/adapter/request-context": [
+        "libs/backend/infra/adapter/request-context/src/index.ts"
+      ],
       "@codelab/backend/infra/adapter/serverless": [
         "libs/backend/infra/adapter/serverless/src/index.ts"
       ],
@@ -268,8 +271,8 @@
         "libs/testing/cypress/nextjs-auth0/src/index.ts"
       ],
       "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
-      "@codelab/backend/infra/adapter/request-context": [
-        "libs/backend/infra/adapter/request-context/src/index.ts"
+      "@codelab/frontend/infra/adapter/otel": [
+        "libs/frontend/infra/adapter/otel/src/index.ts"
       ]
     }
   },

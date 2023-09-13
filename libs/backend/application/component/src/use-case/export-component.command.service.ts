@@ -13,7 +13,7 @@ import {
 } from '@codelab/backend/domain/type'
 import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
-import { Span } from '@codelab/shared/infra/otel'
+import { Span } from '@codelab/backend/infra/adapter/otel'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ExportComponentCommand {

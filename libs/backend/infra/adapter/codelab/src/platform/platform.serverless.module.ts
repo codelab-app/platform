@@ -1,3 +1,4 @@
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default'
 import { CodelabLoggerModule } from '@codelab/backend/infra/adapter/logger'
 import {
   GRAPHQL_SCHEMA_PROVIDER,
@@ -5,11 +6,16 @@ import {
   neo4jConfig,
 } from '@codelab/backend/infra/adapter/neo4j'
 import { RequestContextModule } from '@codelab/backend/infra/adapter/request-context'
+import type { ApolloDriverConfig } from '@nestjs/apollo'
 import { ApolloDriver } from '@nestjs/apollo'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
-import type { GraphQLError, GraphQLSchema } from 'graphql'
+import type {
+  GraphQLError,
+  GraphQLFormattedError,
+  GraphQLSchema,
+} from 'graphql'
 import { endpointConfig } from './endpoint.config'
 
 export interface GqlContextPayload {
@@ -40,7 +46,7 @@ export interface GqlContext {
       isGlobal: true,
       load: [neo4jConfig, endpointConfig],
     }),
-    GraphQLModule.forRootAsync({
+    GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
       imports: [GraphQLSchemaModule],
       inject: [GRAPHQL_SCHEMA_PROVIDER],
@@ -60,10 +66,13 @@ export interface GqlContext {
           },
           cors: false,
           debug: true,
-          formatError: (error: GraphQLError) => {
-            console.log(error)
+          formatError: (
+            formattedError: GraphQLFormattedError,
+            error: unknown,
+          ) => {
+            console.log(formattedError)
 
-            return error
+            return formattedError
           },
           formatResponse: (response: unknown) => {
             console.log(response)
@@ -73,7 +82,8 @@ export interface GqlContext {
           // installSubscriptionHandlers: true,
           introspection: true,
           path: 'api/graphql',
-          playground: true,
+          playground: false,
+          plugins: [ApolloServerPluginLandingPageLocalDefault()],
           schema: graphqlSchema,
         }
       },

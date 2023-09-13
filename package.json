@@ -106,6 +106,7 @@
     "@uiw/react-codemirror": "4.11.6",
     "@vercel/analytics": "^1.0.1",
     "@vercel/kv": "^0.2.2",
+    "@vercel/otel": "^0.3.0",
     "adm-zip": "^0.5.10",
     "ajv": "8.12.0",
     "amqp-connection-manager": "^4.1.13",

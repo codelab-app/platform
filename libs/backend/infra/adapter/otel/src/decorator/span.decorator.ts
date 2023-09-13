@@ -6,11 +6,11 @@ import { toError } from '@codelab/shared/utils'
 import type { SpanOptions } from '@opentelemetry/api'
 import { context, SpanStatusCode, trace } from '@opentelemetry/api'
 import { setSpan } from '@opentelemetry/api/build/src/trace/context-utils'
-import { TRACER_NAME } from './tracer'
+import { PLATFORM_API_TRACER_NAME } from '../tracer'
 import { copyMetadataFromFunctionToFunction } from './utils'
 
 export function Span(name?: string, options: SpanOptions = {}) {
-  const tracer = trace.getTracer(TRACER_NAME)
+  const tracer = trace.getTracer(PLATFORM_API_TRACER_NAME)
 
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
     const originalMethod = descriptor.value

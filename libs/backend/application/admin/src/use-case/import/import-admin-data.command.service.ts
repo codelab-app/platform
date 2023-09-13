@@ -3,12 +3,12 @@ import { ImportAtomCommand } from '@codelab/backend/application/atom'
 import { ImportComponentsCommand } from '@codelab/backend/application/component'
 import { ImportTagsCommand } from '@codelab/backend/application/tag'
 import { ImportSystemTypesCommand } from '@codelab/backend/application/type'
-import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import {
-  flattenWithPrefix,
   Span,
+  TraceService,
   withActiveSpan,
-} from '@codelab/shared/infra/otel'
+} from '@codelab/backend/infra/adapter/otel'
+import { flattenWithPrefix } from '@codelab/shared/infra/otel'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import type { IBaseDataPaths } from '../../services/migration-data.service'
 import { ReadAdminDataService } from './read-admin-data.service'

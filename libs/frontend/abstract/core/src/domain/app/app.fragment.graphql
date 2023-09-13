@@ -1,3 +1,6 @@
+#
+# owner.auth0Id is required to compute name
+#
 fragment AppPreview on App {
   id
   name
@@ -16,6 +19,9 @@ fragment App on App {
   id
   name
   slug
+  owner {
+    auth0Id
+  }
   pages {
     ...Page
   }
@@ -28,6 +34,9 @@ fragment PageBuilderApp on App {
   id
   name
   slug
+  owner {
+    auth0Id
+  }
   pages(
     where: {
       OR: [
@@ -47,6 +56,9 @@ fragment PageApp on App {
   id
   name
   slug
+  owner {
+    auth0Id
+  }
   pages(where: { OR: [{ _compoundName: $pageName }, { kind: Provider }] }) {
     ...ProductionPage
   }

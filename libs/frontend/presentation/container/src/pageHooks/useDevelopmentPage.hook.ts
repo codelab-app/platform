@@ -1,6 +1,7 @@
 import type { RendererType } from '@codelab/frontend/abstract/core'
 import { rendererRef } from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
+import { withActiveSpan } from '@codelab/frontend/infra/adapter/otel'
 import { PageKind } from '@codelab/shared/abstract/codegen'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'

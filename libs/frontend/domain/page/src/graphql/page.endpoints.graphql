@@ -29,16 +29,17 @@ query GetPages($options: PageOptions, $where: PageWhere) {
   }
 }
 
-query GetRenderedPageAndCommonAppData($appName: String!, $pageName: String!) {
+query GetDevelopmentPage($appName: String!, $pageName: String!) {
   apps(where: { _compoundName: $appName }) {
     ...PageBuilderApp
   }
   resources {
-    ...Resource
+    id
+    # ...Resource
   }
 }
 
-query GetRenderedPageAndAppData($appName: String!, $pageName: String!) {
+query GetProductionPage($appName: String!, $pageName: String!) {
   apps(where: { _compoundName: $appName }) {
     ...PageApp
   }
