@@ -43,14 +43,12 @@ describe('Tag repository.', () => {
       ],
       id: parentTagId,
       name: parentTagName,
-      owner: { auth0Id: user.auth0Id },
     })
 
     const childTag = new Tag({
       children: [],
       id: childTagId,
       name: childTagName,
-      owner: { auth0Id: user.auth0Id },
       // parent: parentTag,
     })
 

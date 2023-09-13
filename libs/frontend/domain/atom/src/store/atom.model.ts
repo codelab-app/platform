@@ -3,7 +3,11 @@ import type {
   IInterfaceType,
   ITag,
 } from '@codelab/frontend/abstract/core'
-import { atomRef, typeRef } from '@codelab/frontend/abstract/core'
+import {
+  atomRef,
+  getUserService,
+  typeRef,
+} from '@codelab/frontend/abstract/core'
 import { tagRef } from '@codelab/frontend/domain/tag'
 import {
   AtomCreateInput,
@@ -13,6 +17,7 @@ import type { IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import {
+  connectAuth0Owner,
   connectNodeId,
   connectNodeIds,
   reconnectNodeIds,
@@ -76,6 +81,11 @@ export class Atom
     return customTextInjectionWhiteList.indexOf(this.type) > -1
   }
 
+  @computed
+  get userService() {
+    return getUserService(this)
+  }
+
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   @modelAction
   static create = create
@@ -116,7 +126,8 @@ export class Atom
           node: {
             id: v4(),
             kind: ITypeKind.InterfaceType,
-            name: `${this.name}  API`,
+            name: `${this.name} API`,
+            owner: connectAuth0Owner(this.userService.user),
           },
         },
       },
@@ -125,6 +136,7 @@ export class Atom
       externalSourceType: this.externalSourceType,
       id: this.id,
       name: this.name,
+      owner: connectAuth0Owner(this.userService.user),
       tags: connectNodeIds(this.tags.map((tag) => tag.current.id)),
       type: this.type,
     }
