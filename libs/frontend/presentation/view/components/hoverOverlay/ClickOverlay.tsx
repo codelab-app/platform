@@ -20,8 +20,6 @@ export const ClickOverlay = ({
   // - element css is updated, especially height, width, margin, padding
   // - element props is updated (some props may affect size and position when using 'auto')
 
-  useResizeObserver({ ref: element })
-
   const { height, width } = useResizeObserver({ ref: renderContainer })
   useScrollIntoView(element, renderContainer)
   useScroll()

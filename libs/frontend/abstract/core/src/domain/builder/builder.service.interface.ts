@@ -35,6 +35,7 @@ export interface IBuilderService {
   selectedBuilderWidth: BuilderWidth
   selectedNode: Nullable<IPageNodeRef>
 
+  hoverElementNode(node: Nullable<IElementModel>): void
   selectComponentNode(node: Nullable<IComponentModel>): void
   selectElementNode(node: Nullable<IElementModel>): void
   setActiveTab(tab: RendererTab): void

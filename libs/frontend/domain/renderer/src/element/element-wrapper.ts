@@ -1,28 +1,19 @@
 import type {
-  IBuilderService,
-  IComponent,
   IComponentType,
   IElementModel,
   IPageNode,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
-import {
-  componentRef,
-  DATA_SELECTABLE,
-  elementRef,
-  isAtomInstance,
-  isComponentInstance,
-  RendererType,
-} from '@codelab/frontend/abstract/core'
+import { isAtomInstance, RendererType } from '@codelab/frontend/abstract/core'
+import { useBuilderInteractionHandlers } from '@codelab/frontend/domain/builder'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { IAtomType } from '@codelab/shared/abstract/core'
 import { mergeProps } from '@codelab/shared/utils'
-import { getSnapshot } from 'mobx-keystone'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { getRunner } from '../action-runner.model'
-import { getSelectablEvents } from './get-selectable-events'
+import { getInteractionHandlers } from './get-interaction-handlers'
 import { renderComponentWithStyles } from './get-styled-components'
 import { extractValidProps, getReactComponent } from './wrapper.utils'
 
@@ -87,13 +78,13 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
     const extractedProps = extractValidProps(ReactComponent, renderOutput)
 
-    const selectableEvents =
+    const interactionHandlers =
       renderer.rendererType === RendererType.PageBuilder
-        ? getSelectablEvents(builderService, element)
+        ? getInteractionHandlers(builderService, element)
         : {}
 
     // leave ElementWrapper pass-through so refs are attached to correct element
-    const mergedProps = mergeProps(extractedProps, rest, selectableEvents)
+    const mergedProps = mergeProps(extractedProps, rest, interactionHandlers)
 
     const renderedElement = renderComponentWithStyles(
       ReactComponent,
