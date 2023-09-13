@@ -10,7 +10,7 @@ export const SpacingPopover = () => {
 
   return (
     <div>
-      <Row align="middle" justify="space-between">
+      <Row align="middle" justify="space-between" wrap={false}>
         <Col span={12}>
           <Slider
             max={300}

@@ -1,5 +1,6 @@
 import { Col, InputNumber, Row, Select } from 'antd'
 import { Option } from 'antd/lib/mentions'
+import type { ReactNode } from 'react'
 import React from 'react'
 
 export enum ValuePickerUnit {
@@ -36,11 +37,17 @@ const selectAfter = (
 
 interface ValuePickerProps {
   label?: string
-  value: number
+  prefix?: ReactNode
+  value?: number
   onChange?(value: number): void
 }
 
-export const ValuePicker = ({ label, onChange, value }: ValuePickerProps) => {
+export const ValuePicker = ({
+  label,
+  onChange,
+  prefix,
+  value,
+}: ValuePickerProps) => {
   return (
     <Row
       align="middle"
@@ -51,11 +58,12 @@ export const ValuePicker = ({ label, onChange, value }: ValuePickerProps) => {
       {label && <Col className="text-[12px]">{label}</Col>}
       <InputNumber
         addonAfter={selectAfter}
+        addonBefore={prefix}
         controls={false}
         defaultValue={0}
         onChange={(val) => onChange?.(val || 0)}
         size="small"
-        style={{ width: 90 }}
+        style={{ padding: 0, width: '100%' }}
         value={value}
       />
     </Row>

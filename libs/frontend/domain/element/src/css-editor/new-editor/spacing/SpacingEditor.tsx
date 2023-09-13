@@ -23,7 +23,7 @@ export const SpacingEditor = () => {
               style={{ gridArea: side }}
             >
               <Popover content={<SpacingPopover />} trigger="click">
-                <div>{side}</div>
+                <div className="text-gray-500">{0}</div>
               </Popover>
             </div>
           )
@@ -49,7 +49,7 @@ export const SpacingEditor = () => {
               style={{ gridArea: side }}
             >
               <Popover content={<SpacingPopover />} trigger="click">
-                <div>{side}</div>
+                <div className="text-gray-500">{0}</div>
               </Popover>
             </div>
           )

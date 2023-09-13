@@ -5,6 +5,7 @@ interface SegmentedSelectProps {
   disableAnimation?: boolean
   label?: string
   options: Array<SegmentedLabeledOption | SegmentedValue>
+  size?: 'large' | 'middle' | 'small'
   value: string
   onChange?(value: string): void
 }
@@ -14,6 +15,7 @@ export const SegmentedSelect = ({
   label = '',
   onChange,
   options,
+  size = 'middle',
   value,
 }: SegmentedSelectProps) => {
   return (
@@ -32,6 +34,7 @@ export const SegmentedSelect = ({
           <Segmented
             onChange={(selected) => onChange?.(selected.toString())}
             options={options}
+            size={size}
             style={{ border: '1px solid #d9d9d9' }}
             value={value}
           />
