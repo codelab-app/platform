@@ -4,6 +4,7 @@ import React from 'react'
 import { BackgroundEditor } from './background'
 import { DisplayEditor } from './display/DisplayEditor'
 import { SizeEditor } from './size/SizeEditor'
+import { SpacingEditor } from './spacing/SpacingEditor'
 import { TypographyEditor } from './typography/TypographyEditor'
 
 const { Panel } = Collapse
@@ -21,7 +22,9 @@ export const StylesEditor = () => {
       <Panel header="Layout" key="1">
         <DisplayEditor />
       </Panel>
-      <Panel header="Spacing" key="2"></Panel>
+      <Panel header="Spacing" key="2">
+        <SpacingEditor />
+      </Panel>
       <Panel header="Size" key="3">
         <SizeEditor />
       </Panel>

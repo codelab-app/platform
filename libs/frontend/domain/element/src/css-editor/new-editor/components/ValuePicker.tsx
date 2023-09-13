@@ -36,9 +36,11 @@ const selectAfter = (
 
 interface ValuePickerProps {
   label?: string
+  value: number
+  onChange?(value: number): void
 }
 
-export const ValuePicker = ({ label }: ValuePickerProps) => {
+export const ValuePicker = ({ label, onChange, value }: ValuePickerProps) => {
   return (
     <Row
       align="middle"
@@ -51,8 +53,10 @@ export const ValuePicker = ({ label }: ValuePickerProps) => {
         addonAfter={selectAfter}
         controls={false}
         defaultValue={0}
+        onChange={(val) => onChange?.(val || 0)}
         size="small"
         style={{ width: 90 }}
+        value={value}
       />
     </Row>
   )
