@@ -101,7 +101,7 @@ export const TestimonialSection = () => {
     appendDots: (dots) => (
       <>
         <div className={`${styles['slick-dots']} ${styles['slick-thumb']}`}>
-          {dots}
+          <>{dots}</>
         </div>
       </>
     ),

@@ -29,7 +29,6 @@
         "test": {
           "cypressConfig": "apps/platform-e2e/cypress.test.config.ts",
           "devServerTarget": "platform-e2e:serve:test",
-          "key": "1c9e57e3-168c-4b03-bced-fb7ce71f187e",
           "record": true
         }
       }
