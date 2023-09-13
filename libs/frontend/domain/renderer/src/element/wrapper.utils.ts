@@ -16,6 +16,10 @@ const TextEditor = dynamic(() => import('./text-editor/TextEditor'), {
   ssr: false,
 })
 
+const TextRenderer = dynamic(() => import('./text-editor/TextRenderer'), {
+  ssr: false,
+})
+
 /**
  * Fragments can only have the `key` prop
  *
@@ -62,6 +66,9 @@ export const createTextEditor = (
     readOnly,
   })
 }
+
+export const createTextRenderer = (customText: string) =>
+  React.createElement(TextRenderer, { data: customText })
 
 export const noWrapper = () => (children: ReactElement) => children
 
