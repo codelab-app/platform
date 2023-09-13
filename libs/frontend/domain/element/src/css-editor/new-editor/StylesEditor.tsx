@@ -1,14 +1,19 @@
 import { CaretRightOutlined } from '@ant-design/icons'
-import { Collapse } from 'antd'
+import { Collapse, Typography } from 'antd'
 import React from 'react'
 import { BackgroundEditor } from './background'
 import { BorderEditor } from './border'
 import { DisplayEditor } from './display/DisplayEditor'
+import { PositionEditor } from './position'
 import { SizeEditor } from './size/SizeEditor'
 import { SpacingEditor } from './spacing/SpacingEditor'
 import { TypographyEditor } from './typography/TypographyEditor'
 
 const { Panel } = Collapse
+
+const panelHeader = (title: string) => {
+  return <Typography className="text-[12px] font-semibold">{title}</Typography>
+}
 
 export const StylesEditor = () => {
   return (
@@ -20,26 +25,28 @@ export const StylesEditor = () => {
       )}
       size="small"
     >
-      <Panel header="Layout" key="1">
+      <Panel header={panelHeader('Layout')} key="1">
         <DisplayEditor />
       </Panel>
-      <Panel header="Spacing" key="2">
+      <Panel header={panelHeader('Spacing')} key="2">
         <SpacingEditor />
       </Panel>
-      <Panel header="Size" key="3">
+      <Panel header={panelHeader('Size')} key="3">
         <SizeEditor />
       </Panel>
-      <Panel header="Position" key="4"></Panel>
-      <Panel header="Typography" key="5">
+      <Panel header={panelHeader('Position')} key="4">
+        <PositionEditor />
+      </Panel>
+      <Panel header={panelHeader('Typography')} key="5">
         <TypographyEditor />
       </Panel>
-      <Panel header="Backgrounds" key="6">
+      <Panel header={panelHeader('Backgrounds')} key="6">
         <BackgroundEditor />
       </Panel>
-      <Panel header="Borders" key="7">
+      <Panel header={panelHeader('Borders')} key="7">
         <BorderEditor />
       </Panel>
-      <Panel header="Effects" key="8"></Panel>
+      <Panel header={panelHeader('Effects')} key="8"></Panel>
     </Collapse>
   )
 }

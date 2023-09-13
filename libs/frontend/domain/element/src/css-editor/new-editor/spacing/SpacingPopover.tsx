@@ -9,7 +9,7 @@ export const SpacingPopover = () => {
   const [inputValue, setInputValue] = useState(0)
 
   return (
-    <div>
+    <div className="space-y-2">
       <Row align="middle" justify="space-between" wrap={false}>
         <Col span={12}>
           <Slider

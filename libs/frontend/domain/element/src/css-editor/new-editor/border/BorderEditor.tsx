@@ -72,8 +72,8 @@ export const BorderEditor = () => {
             size="small"
             value={selectedStyle}
           />
-          <ValuePicker label="Width" />
-          <ColorPicker label="Color" />
+          <ValuePicker label="Width" size="small" />
+          <ColorPicker label="Color" size="small" />
         </Col>
       </Row>
       <Divider className="my-2 mt-3" />

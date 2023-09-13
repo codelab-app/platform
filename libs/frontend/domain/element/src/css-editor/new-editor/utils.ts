@@ -1,7 +1,7 @@
 export enum Side {
-  Top = 'top',
-  Right = 'right',
-  Bottom = 'bottom',
-  Left = 'left',
+  Top = 'n',
+  Right = 'e',
+  Bottom = 's',
+  Left = 'w',
   Center = 'center',
 }

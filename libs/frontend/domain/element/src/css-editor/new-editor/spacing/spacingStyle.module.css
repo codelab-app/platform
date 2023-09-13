@@ -11,9 +11,9 @@
   grid-template-columns: 36px 1fr 36px;
   grid-template-rows: 24px minmax(16px, 1fr) 24px;
   grid-template-areas:
-    ". top ."
-    "left . right"
-    ". bottom .";
+    ". n ."
+    "w . e"
+    ". s .";
 }
 
 .paddingContainer {
@@ -23,7 +23,7 @@
   width: 85%;
   height: 80px;
   grid-template-areas:
-    ". top ."
-    "left center right"
-    ". bottom .";
+    ". n ."
+    "w center e"
+    ". s .";
 }

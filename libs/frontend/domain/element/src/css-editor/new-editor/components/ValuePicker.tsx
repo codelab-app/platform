@@ -38,6 +38,7 @@ const selectAfter = (
 interface ValuePickerProps {
   label?: string
   prefix?: ReactNode
+  size?: 'large' | 'middle' | 'small'
   value?: number
   onChange?(value: number): void
 }
@@ -46,6 +47,7 @@ export const ValuePicker = ({
   label,
   onChange,
   prefix,
+  size,
   value,
 }: ValuePickerProps) => {
   return (
@@ -62,7 +64,7 @@ export const ValuePicker = ({
         controls={false}
         defaultValue={0}
         onChange={(val) => onChange?.(val || 0)}
-        size="small"
+        size={size}
         style={{ padding: 0, width: '100%' }}
         value={value}
       />

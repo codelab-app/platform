@@ -2,6 +2,7 @@ import { Col, ColorPicker as AntdColorPicker, Row } from 'antd'
 
 interface ColorPickerProps {
   label?: string
+  size?: 'large' | 'middle' | 'small'
   value?: string
   onChange?(value: string): void
 }
@@ -9,6 +10,7 @@ interface ColorPickerProps {
 export const ColorPicker = ({
   label = 'Color',
   onChange,
+  size,
   value,
 }: ColorPickerProps) => {
   return (
@@ -17,7 +19,7 @@ export const ColorPicker = ({
       <AntdColorPicker
         onChange={(color) => onChange?.(color.toHexString())}
         showText={(color) => <span>{color.toHexString()}</span>}
-        size="small"
+        size={size}
         value={value}
       />
     </Row>

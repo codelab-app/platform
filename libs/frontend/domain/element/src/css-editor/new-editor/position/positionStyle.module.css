@@ -1,0 +1,11 @@
+.positionContainer {
+  grid-area: 3 / 3 / span 3 / span 3;
+  grid-template-columns: 36px 1fr 36px;
+  grid-template-rows: 24px minmax(16px, 1fr) 24px;
+  width: 85%;
+  height: 80px;
+  grid-template-areas:
+    ". n ."
+    "w center e"
+    ". s .";
+}
