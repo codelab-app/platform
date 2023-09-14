@@ -9,7 +9,7 @@ import { SegmentedSelect } from '../components'
 import { useStyle } from '../style.hook'
 import { DisplayFlexOptions } from './DisplayFlexOptions'
 import { DisplayGridOptions } from './DisplayGridOptions'
-import { DefaultDisplayProperties, DisplayProperties } from './properties'
+import { DefaultDisplayProperties, DisplayProperty } from './properties'
 
 const displayOptions = [
   {
@@ -48,21 +48,21 @@ export const DisplayEditor = () => {
   const { getCurrentStyle, setStyle } = useStyle()
 
   const showFlexOptions =
-    getCurrentStyle(DefaultDisplayProperties[DisplayProperties.Display]) ===
+    getCurrentStyle(DefaultDisplayProperties[DisplayProperty.Display]) ===
     'flex'
 
   const showGridOptions =
-    getCurrentStyle(DefaultDisplayProperties[DisplayProperties.Display]) ===
+    getCurrentStyle(DefaultDisplayProperties[DisplayProperty.Display]) ===
     'grid'
 
   return (
     <>
       <SegmentedSelect
         label="Display"
-        onChange={(value) => setStyle(DisplayProperties.Display, value)}
+        onChange={(value) => setStyle(DisplayProperty.Display, value)}
         options={displayOptions}
         value={getCurrentStyle(
-          DefaultDisplayProperties[DisplayProperties.Display],
+          DefaultDisplayProperties[DisplayProperty.Display],
         )}
       />
       {showFlexOptions && <DisplayFlexOptions />}

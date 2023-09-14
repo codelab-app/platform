@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { useState } from 'react'
 import { LabeledSelect } from '../components'
 import { SpacingPopover } from '../spacing/SpacingPopover'
-import { Side } from '../utils'
+import { getCursorForSide, Side } from '../utils'
 import classes from './positionStyle.module.css'
 
 const positionOptions = [
@@ -41,7 +41,7 @@ export const PositionEditor = () => {
               return (
                 <div
                   className="flex items-center justify-center self-center"
-                  style={{ cursor: `${side}-resize`, gridArea: side }}
+                  style={{ cursor: getCursorForSide(side), gridArea: side }}
                 >
                   <Popover content={<SpacingPopover />} trigger="click">
                     <div className="text-gray-500">{0}</div>

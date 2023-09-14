@@ -1,35 +1,47 @@
 import { Popover } from 'antd'
 import clsx from 'clsx'
 import React from 'react'
-import { Side } from '../utils'
+import { useStyle } from '../style.hook'
+import {
+  CssUnit,
+  getCursorForSide,
+  getCursorForSideReversed,
+  parseCssValue,
+  Side,
+} from '../utils'
 import { SpacingPopover } from './SpacingPopover'
 import classes from './spacingStyle.module.css'
 
 const sides = [Side.Top, Side.Right, Side.Bottom, Side.Left]
 
-// Since padding is inwards, we need to reverse the cursor
-const getPaddingSideCursor = (side: Side) => {
-  switch (side) {
-    case Side.Top:
-      return 's-resize'
-    case Side.Right:
-      return 'w-resize'
-    case Side.Bottom:
-      return 'n-resize'
+export const SpacingEditor = () => {
+  const { getCurrentStyle, setStyle } = useStyle()
+
+  const PopoverContent = (side: Side, key = 'padding') => {
+    const value = getCurrentStyle({
+      defaultValue: '0px',
+      key: `${key}-${side}`,
+    })
+
+    const { unit, value: cssValue } = parseCssValue(value)
+
+    return (
+      <Popover
+        content={
+          <SpacingPopover
+            onChange={(val) => setStyle(`${key}-${side}`, val)}
+            value={value}
+          />
+        }
+        trigger="click"
+      >
+        <div className="text-[12px] text-gray-500">{`${cssValue}${
+          unit !== CssUnit.PX ? unit : ''
+        }`}</div>
+      </Popover>
+    )
   }
 
-  return 'e-resize'
-}
-
-const PopoverContent = () => {
-  return (
-    <Popover content={<SpacingPopover />} trigger="click">
-      <div className="text-gray-500">{0}</div>
-    </Popover>
-  )
-}
-
-export const SpacingEditor = () => {
   return (
     <div className={clsx(classes.container, 'relative grid w-full')}>
       <div
@@ -46,9 +58,24 @@ export const SpacingEditor = () => {
             <div
               className="flex items-center justify-center self-center"
               key={side}
-              style={{ cursor: `${side}-resize`, gridArea: side }}
+              style={{ cursor: getCursorForSide(side), gridArea: side }}
             >
-              <PopoverContent />
+              {/* <Popover */}
+              {/*  content={ */}
+              {/*    <SpacingPopover */}
+              {/*      onChange={(val) => setStyle(`margin-${side}`, val)} */}
+              {/*      value={getCurrentStyle({ */}
+              {/*        defaultValue: '0px', */}
+              {/*        key: `margin-${side}`, */}
+              {/*      })} */}
+              {/*    /> */}
+              {/*  } */}
+              {/*  trigger="click" */}
+              {/* > */}
+              {/*  <div className="text-gray-500">{0}</div> */}
+              {/* </Popover> */}
+
+              {PopoverContent(side, 'margin')}
             </div>
           )
         })}
@@ -71,9 +98,24 @@ export const SpacingEditor = () => {
             <div
               className="flex items-center justify-center self-center"
               key={side}
-              style={{ cursor: getPaddingSideCursor(side), gridArea: side }}
+              // Since padding is inwards, we need to reverse the cursor
+              style={{ cursor: getCursorForSideReversed(side), gridArea: side }}
             >
-              <PopoverContent />
+              {/* <Popover */}
+              {/*  content={ */}
+              {/*    <SpacingPopover */}
+              {/*      onChange={(val) => setStyle(`padding-${side}`, val)} */}
+              {/*      value={getCurrentStyle({ */}
+              {/*        defaultValue: '0px', */}
+              {/*        key: `padding-${side}`, */}
+              {/*      })} */}
+              {/*    /> */}
+              {/*  } */}
+              {/*  trigger="click" */}
+              {/* > */}
+              {/*  <div className="text-gray-500">{0}</div> */}
+              {/* </Popover> */}
+              {PopoverContent(side, 'padding')}
             </div>
           )
         })}

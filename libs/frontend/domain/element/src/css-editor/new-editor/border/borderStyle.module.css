@@ -7,7 +7,7 @@
   width: 100%;
   height: 90px;
   grid-template-areas:
-    ". n ."
-    "w center e"
-    ". s .";
+    ". top ."
+    "left center right"
+    ". bottom .";
 }

@@ -8,7 +8,7 @@ import {
 import { Col, Divider } from 'antd'
 import { SegmentedSelect } from '../components/SegmentedSelect'
 import { useStyle } from '../style.hook'
-import { DefaultDisplayProperties, DisplayProperties } from './properties'
+import { DefaultDisplayProperties, DisplayProperty } from './properties'
 
 const justifyOptions = [
   {
@@ -87,34 +87,34 @@ export const DisplayGridOptions = () => {
       <Divider className="my-2" />
       <SegmentedSelect
         label="Align"
-        onChange={(val) => setStyle(DisplayProperties.AlignItems, val)}
+        onChange={(val) => setStyle(DisplayProperty.AlignItems, val)}
         options={alignOptions}
         value={getCurrentStyle(
-          DefaultDisplayProperties[DisplayProperties.AlignItems],
+          DefaultDisplayProperties[DisplayProperty.AlignItems],
         )}
       />
       <SegmentedSelect
         label=""
-        onChange={(val) => setStyle(DisplayProperties.JustifyItems, val)}
+        onChange={(val) => setStyle(DisplayProperty.JustifyItems, val)}
         options={justifyOptions}
         value={getCurrentStyle(
-          DefaultDisplayProperties[DisplayProperties.JustifyItems],
+          DefaultDisplayProperties[DisplayProperty.JustifyItems],
         )}
       />
       <SegmentedSelect
         label="Distribute"
-        onChange={(val) => setStyle(DisplayProperties.AlignContent, val)}
+        onChange={(val) => setStyle(DisplayProperty.AlignContent, val)}
         options={alignOptions}
         value={getCurrentStyle(
-          DefaultDisplayProperties[DisplayProperties.AlignContent],
+          DefaultDisplayProperties[DisplayProperty.AlignContent],
         )}
       />
       <SegmentedSelect
         label=""
-        onChange={(val) => setStyle(DisplayProperties.JustifyContent, val)}
+        onChange={(val) => setStyle(DisplayProperty.JustifyContent, val)}
         options={justifyOptions}
         value={getCurrentStyle(
-          DefaultDisplayProperties[DisplayProperties.JustifyContent],
+          DefaultDisplayProperties[DisplayProperty.JustifyContent],
         )}
       />
     </Col>

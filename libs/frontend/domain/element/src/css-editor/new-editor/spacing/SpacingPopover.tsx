@@ -1,6 +1,5 @@
 import { Col, Row, Slider } from 'antd'
 import clsx from 'clsx'
-import { useEffect, useState } from 'react'
 import { ValuePicker } from '../components'
 import { combineCssValue, parseCssValue } from '../utils'
 
@@ -13,13 +12,6 @@ interface SpacingPopoverProps {
 
 export const SpacingPopover = ({ onChange, value }: SpacingPopoverProps) => {
   const { unit, value: currentValue } = parseCssValue(value ?? '0px')
-  const [inputValue, setInputValue] = useState(currentValue)
-
-  useEffect(() => {
-    if (onChange) {
-      onChange(combineCssValue({ unit: unit, value: inputValue }))
-    }
-  }, [inputValue])
 
   return (
     <div className="space-y-2">
@@ -47,9 +39,9 @@ export const SpacingPopover = ({ onChange, value }: SpacingPopoverProps) => {
               },
             )}
             key={idx}
-            onClick={() => {
-              setInputValue(Number(val))
-            }}
+            onClick={() =>
+              onChange?.(combineCssValue({ unit, value: Number(val) }))
+            }
           >
             {val}
           </div>

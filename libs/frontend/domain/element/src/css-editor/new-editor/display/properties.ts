@@ -3,7 +3,7 @@ export interface Property {
   name: string
 }
 
-export enum DisplayProperties {
+export enum DisplayProperty {
   Display = 'display',
   FlexDirection = 'flex-direction',
   FlexWrap = 'flex-wrap',
@@ -16,27 +16,27 @@ export enum DisplayProperties {
 }
 
 export const DefaultDisplayProperties = {
-  [DisplayProperties.AlignItems]: {
+  [DisplayProperty.AlignItems]: {
     defaultValue: 'stretch',
     key: 'align-items',
   },
-  [DisplayProperties.ColumnGap]: { defaultValue: '0px', key: 'column-gap' },
-  [DisplayProperties.Display]: { defaultValue: 'flex', key: 'display' },
-  [DisplayProperties.FlexDirection]: {
+  [DisplayProperty.ColumnGap]: { defaultValue: '0px', key: 'column-gap' },
+  [DisplayProperty.Display]: { defaultValue: 'flex', key: 'display' },
+  [DisplayProperty.FlexDirection]: {
     defaultValue: 'row',
     key: 'flex-direction',
   },
-  [DisplayProperties.FlexWrap]: { defaultValue: 'nowrap', key: 'flex-wrap' },
-  [DisplayProperties.JustifyContent]: {
+  [DisplayProperty.FlexWrap]: { defaultValue: 'nowrap', key: 'flex-wrap' },
+  [DisplayProperty.JustifyContent]: {
     defaultValue: 'flex-start',
     key: 'justify-content',
   },
-  [DisplayProperties.RowGap]: { defaultValue: '0px', key: 'row-gap' },
-  [DisplayProperties.AlignContent]: {
+  [DisplayProperty.RowGap]: { defaultValue: '0px', key: 'row-gap' },
+  [DisplayProperty.AlignContent]: {
     defaultValue: 'stretch',
     key: 'align-content',
   },
-  [DisplayProperties.JustifyItems]: {
+  [DisplayProperty.JustifyItems]: {
     defaultValue: 'stretch',
     key: 'justify-items',
   },
