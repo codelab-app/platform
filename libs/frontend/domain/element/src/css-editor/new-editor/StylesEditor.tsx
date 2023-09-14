@@ -16,6 +16,8 @@ const panelHeader = (title: string) => {
 }
 
 export const StylesEditor = () => {
+  const className = '[&>*:first-child]:bg-gray-200 [&>*:first-child]:!py-1.5'
+
   return (
     <Collapse
       bordered={false}
@@ -25,28 +27,32 @@ export const StylesEditor = () => {
       )}
       size="small"
     >
-      <Panel header={panelHeader('Layout')} key="1">
+      <Panel className={className} header={panelHeader('Layout')} key="1">
         <DisplayEditor />
       </Panel>
-      <Panel header={panelHeader('Spacing')} key="2">
+      <Panel className={className} header={panelHeader('Spacing')} key="2">
         <SpacingEditor />
       </Panel>
-      <Panel header={panelHeader('Size')} key="3">
+      <Panel className={className} header={panelHeader('Size')} key="3">
         <SizeEditor />
       </Panel>
-      <Panel header={panelHeader('Position')} key="4">
+      <Panel className={className} header={panelHeader('Position')} key="4">
         <PositionEditor />
       </Panel>
-      <Panel header={panelHeader('Typography')} key="5">
+      <Panel className={className} header={panelHeader('Typography')} key="5">
         <TypographyEditor />
       </Panel>
-      <Panel header={panelHeader('Backgrounds')} key="6">
+      <Panel className={className} header={panelHeader('Backgrounds')} key="6">
         <BackgroundEditor />
       </Panel>
-      <Panel header={panelHeader('Borders')} key="7">
+      <Panel className={className} header={panelHeader('Borders')} key="7">
         <BorderEditor />
       </Panel>
-      <Panel header={panelHeader('Effects')} key="8"></Panel>
+      <Panel
+        className={className}
+        header={panelHeader('Effects')}
+        key="8"
+      ></Panel>
     </Collapse>
   )
 }
