@@ -35,6 +35,35 @@ export class ElementRuntimeProps
   static create = create
 
   @computed
+  get evaluatedProps() {
+    const { rendererType } = this.node.propsEvaluationContext
+
+    // Evaluate customText prop only in preview and production modes
+    if (
+      rendererType === RendererType.Preview ||
+      rendererType === RendererType.Production
+    ) {
+      return evaluateObject(
+        this.renderedTypedProps,
+        this.node.propsEvaluationContext,
+      )
+    }
+
+    const customTextProp =
+      this.nodeRef.current.props.current.values[CUSTOM_TEXT_PROP_KEY]
+
+    const props = omit(this.renderedTypedProps, [CUSTOM_TEXT_PROP_KEY])
+    const evaluated = evaluateObject(props, this.node.propsEvaluationContext)
+
+    return { ...evaluated, [CUSTOM_TEXT_PROP_KEY]: customTextProp }
+  }
+
+  @computed
+  get evaluatedPropsBeforeRender() {
+    return evaluateObject(this.props, this.node.propsEvaluationContext)
+  }
+
+  @computed
   get evaluatedChildMapperProp() {
     if (!this.node.childMapperPropKey) {
       return []
