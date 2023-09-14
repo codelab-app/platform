@@ -1,12 +1,25 @@
 import { Col, Row, Slider } from 'antd'
 import clsx from 'clsx'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ValuePicker } from '../components'
+import { combineCssValue, parseCssValue } from '../utils'
 
 const commonValues = ['auto', '0', '10', '20', '40', '60', '100', '140', '220']
 
-export const SpacingPopover = () => {
-  const [inputValue, setInputValue] = useState(0)
+interface SpacingPopoverProps {
+  value?: string
+  onChange?(value: string): void
+}
+
+export const SpacingPopover = ({ onChange, value }: SpacingPopoverProps) => {
+  const { unit, value: currentValue } = parseCssValue(value ?? '0px')
+  const [inputValue, setInputValue] = useState(currentValue)
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(combineCssValue({ unit: unit, value: inputValue }))
+    }
+  }, [inputValue])
 
   return (
     <div className="space-y-2">
@@ -15,11 +28,13 @@ export const SpacingPopover = () => {
           <Slider
             max={300}
             min={0}
-            onChange={setInputValue}
-            value={inputValue}
+            onChange={(val) =>
+              onChange?.(combineCssValue({ unit, value: val }))
+            }
+            value={currentValue}
           />
         </Col>
-        <ValuePicker onChange={setInputValue} value={inputValue} />
+        <ValuePicker currentValue={value} onChange={onChange} />
       </Row>
       <div className="grid w-full grid-cols-5 gap-1">
         {commonValues.map((val, idx) => (

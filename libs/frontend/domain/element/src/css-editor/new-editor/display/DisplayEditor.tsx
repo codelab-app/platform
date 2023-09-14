@@ -5,10 +5,11 @@ import {
   OneToOneOutlined,
   PicCenterOutlined,
 } from '@ant-design/icons'
-import { useState } from 'react'
-import { SegmentedSelect } from '../components/SegmentedSelect'
+import { SegmentedSelect } from '../components'
+import { useStyle } from '../style.hook'
 import { DisplayFlexOptions } from './DisplayFlexOptions'
 import { DisplayGridOptions } from './DisplayGridOptions'
+import { DefaultDisplayProperties, DisplayProperties } from './properties'
 
 const displayOptions = [
   {
@@ -44,18 +45,28 @@ interface DisplayEditorProps {
 
 // TODO: Rotate icons based on direction
 export const DisplayEditor = () => {
-  const [display, setDisplay] = useState('flex')
+  const { getCurrentStyle, setStyle } = useStyle()
+
+  const showFlexOptions =
+    getCurrentStyle(DefaultDisplayProperties[DisplayProperties.Display]) ===
+    'flex'
+
+  const showGridOptions =
+    getCurrentStyle(DefaultDisplayProperties[DisplayProperties.Display]) ===
+    'grid'
 
   return (
     <>
       <SegmentedSelect
         label="Display"
-        onChange={setDisplay}
+        onChange={(value) => setStyle(DisplayProperties.Display, value)}
         options={displayOptions}
-        value={display}
+        value={getCurrentStyle(
+          DefaultDisplayProperties[DisplayProperties.Display],
+        )}
       />
-      {display === 'flex' && <DisplayFlexOptions />}
-      {display === 'grid' && <DisplayGridOptions />}
+      {showFlexOptions && <DisplayFlexOptions />}
+      {showGridOptions && <DisplayGridOptions />}
     </>
   )
 }

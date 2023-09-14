@@ -6,9 +6,10 @@ import {
   VerticalAlignTopOutlined,
 } from '@ant-design/icons'
 import { Col, Divider, Row } from 'antd'
-import { useState } from 'react'
 import { SegmentedSelect } from '../components/SegmentedSelect'
 import { ValuePicker } from '../components/ValuePicker'
+import { useStyle } from '../style.hook'
+import { DefaultDisplayProperties, DisplayProperties } from './properties'
 
 const justifyOptions = [
   {
@@ -79,47 +80,62 @@ const wrapOptions = [
 ]
 
 export const DisplayFlexOptions = () => {
-  const [direction, setDirection] = useState('row')
-  const [justify, setJustify] = useState('flex-start')
-  const [align, setAlign] = useState('flex-start')
-  const [wrap, setWrap] = useState('nowrap')
+  const { getCurrentStyle, setStyle } = useStyle()
 
   return (
     <Col className="space-y-2">
       <Divider className="my-2" />
       <SegmentedSelect
         label="Direction"
-        onChange={setDirection}
+        onChange={(value) => setStyle(DisplayProperties.FlexDirection, value)}
         options={directionOptions}
-        value={direction}
+        value={getCurrentStyle(
+          DefaultDisplayProperties[DisplayProperties.FlexDirection],
+        )}
       />
       <SegmentedSelect
         label="Justify"
-        onChange={setJustify}
+        onChange={(value) => setStyle(DisplayProperties.JustifyContent, value)}
         options={justifyOptions}
-        value={justify}
+        value={getCurrentStyle(
+          DefaultDisplayProperties[DisplayProperties.JustifyContent],
+        )}
       />
       <SegmentedSelect
         label="Align"
-        onChange={setAlign}
+        onChange={(value) => setStyle(DisplayProperties.AlignItems, value)}
         options={alignOptions}
-        value={align}
+        value={getCurrentStyle(
+          DefaultDisplayProperties[DisplayProperties.AlignItems],
+        )}
       />
       <Row align="middle" justify="space-between" wrap={false}>
         <Col className="text-[12px]">Gap</Col>
         <Col>
           <Row className="space-x-1" wrap={false}>
-            <ValuePicker />
-            <ValuePicker />
+            <ValuePicker
+              currentValue={getCurrentStyle(
+                DefaultDisplayProperties[DisplayProperties.ColumnGap],
+              )}
+              onChange={(value) => setStyle(DisplayProperties.ColumnGap, value)}
+            />
+            <ValuePicker
+              currentValue={getCurrentStyle(
+                DefaultDisplayProperties[DisplayProperties.RowGap],
+              )}
+              onChange={(value) => setStyle(DisplayProperties.RowGap, value)}
+            />
           </Row>
         </Col>
       </Row>
       <Divider className="my-2" />
       <SegmentedSelect
         label="Children"
-        onChange={setWrap}
+        onChange={(value) => setStyle(DisplayProperties.FlexWrap, value)}
         options={wrapOptions}
-        value={wrap}
+        value={getCurrentStyle(
+          DefaultDisplayProperties[DisplayProperties.FlexWrap],
+        )}
       />
     </Col>
   )

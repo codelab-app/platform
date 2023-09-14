@@ -21,6 +21,14 @@ const getPaddingSideCursor = (side: Side) => {
   return 'e-resize'
 }
 
+const PopoverContent = () => {
+  return (
+    <Popover content={<SpacingPopover />} trigger="click">
+      <div className="text-gray-500">{0}</div>
+    </Popover>
+  )
+}
+
 export const SpacingEditor = () => {
   return (
     <div className={clsx(classes.container, 'relative grid w-full')}>
@@ -37,11 +45,10 @@ export const SpacingEditor = () => {
           return (
             <div
               className="flex items-center justify-center self-center"
+              key={side}
               style={{ cursor: `${side}-resize`, gridArea: side }}
             >
-              <Popover content={<SpacingPopover />} trigger="click">
-                <div className="text-gray-500">{0}</div>
-              </Popover>
+              <PopoverContent />
             </div>
           )
         })}
@@ -63,11 +70,10 @@ export const SpacingEditor = () => {
           return (
             <div
               className="flex items-center justify-center self-center"
+              key={side}
               style={{ cursor: getPaddingSideCursor(side), gridArea: side }}
             >
-              <Popover content={<SpacingPopover />} trigger="click">
-                <div className="text-gray-500">{0}</div>
-              </Popover>
+              <PopoverContent />
             </div>
           )
         })}

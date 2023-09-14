@@ -6,8 +6,9 @@ import {
   VerticalAlignTopOutlined,
 } from '@ant-design/icons'
 import { Col, Divider } from 'antd'
-import { useState } from 'react'
 import { SegmentedSelect } from '../components/SegmentedSelect'
+import { useStyle } from '../style.hook'
+import { DefaultDisplayProperties, DisplayProperties } from './properties'
 
 const justifyOptions = [
   {
@@ -78,10 +79,7 @@ const wrapOptions = [
 ]
 
 export const DisplayGridOptions = () => {
-  const [direction, setDirection] = useState('row')
-  const [justify, setJustify] = useState('flex-start')
-  const [align, setAlign] = useState('flex-start')
-  const [wrap, setWrap] = useState('nowrap')
+  const { getCurrentStyle, setStyle } = useStyle()
 
   // TODO: add Edit Grid option
   return (
@@ -89,27 +87,35 @@ export const DisplayGridOptions = () => {
       <Divider className="my-2" />
       <SegmentedSelect
         label="Align"
-        onChange={setAlign}
+        onChange={(val) => setStyle(DisplayProperties.AlignItems, val)}
         options={alignOptions}
-        value={align}
+        value={getCurrentStyle(
+          DefaultDisplayProperties[DisplayProperties.AlignItems],
+        )}
       />
       <SegmentedSelect
         label=""
-        onChange={setJustify}
+        onChange={(val) => setStyle(DisplayProperties.JustifyItems, val)}
         options={justifyOptions}
-        value={justify}
+        value={getCurrentStyle(
+          DefaultDisplayProperties[DisplayProperties.JustifyItems],
+        )}
       />
       <SegmentedSelect
         label="Distribute"
-        onChange={setAlign}
+        onChange={(val) => setStyle(DisplayProperties.AlignContent, val)}
         options={alignOptions}
-        value={align}
+        value={getCurrentStyle(
+          DefaultDisplayProperties[DisplayProperties.AlignContent],
+        )}
       />
       <SegmentedSelect
         label=""
-        onChange={setJustify}
+        onChange={(val) => setStyle(DisplayProperties.JustifyContent, val)}
         options={justifyOptions}
-        value={justify}
+        value={getCurrentStyle(
+          DefaultDisplayProperties[DisplayProperties.JustifyContent],
+        )}
       />
     </Col>
   )

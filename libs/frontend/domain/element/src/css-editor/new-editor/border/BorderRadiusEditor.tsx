@@ -49,7 +49,7 @@ export const BorderRadiusEditor = () => {
             <Col span={12}>
               <Slider max={300} min={0} onChange={undefined} value={0} />
             </Col>
-            <ValuePicker onChange={undefined} value={0} />
+            <ValuePicker onChange={undefined} />
           </Row>
         </Col>
       </Row>
