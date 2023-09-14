@@ -1,6 +1,6 @@
-import { useState } from 'react'
 import { LabeledSelect } from '../components'
 import { ColorPicker } from '../components/ColorPicker'
+import { useStyle } from '../style.hook'
 
 const clippingOptions = [
   { label: 'None', value: 'border-box' },
@@ -10,17 +10,25 @@ const clippingOptions = [
 ]
 
 export const BackgroundEditor = () => {
-  const [color, setColor] = useState('#fff')
-  const [clipping, setClipping] = useState('border-box')
+  const { getCurrentStyle, setStyle } = useStyle()
 
   return (
     <div className="space-y-2">
-      <ColorPicker onChange={setColor} value={color} />
+      <ColorPicker
+        onChange={(val) => setStyle('background-color', val)}
+        value={getCurrentStyle({
+          defaultValue: 'transparent',
+          key: 'background-color',
+        })}
+      />
       <LabeledSelect
         label="Clipping"
-        onChange={setClipping}
+        onChange={(val) => setStyle('background-clip', val)}
         options={clippingOptions}
-        value={clipping}
+        value={getCurrentStyle({
+          defaultValue: 'border-box',
+          key: 'background-clip',
+        })}
       />
     </div>
   )
