@@ -13,6 +13,8 @@ export const useStyle = () => {
   }) => {
     const { selectedNode } = builderService
 
+    console.log('defaultValue', defaultValue)
+
     if (!isElementRef(selectedNode)) {
       return defaultValue
     }

@@ -4,26 +4,15 @@ import {
   AlignRightOutlined,
   CloseOutlined,
   FontColorsOutlined,
-  ItalicOutlined,
   StrikethroughOutlined,
   UnderlineOutlined,
 } from '@ant-design/icons'
 import { Col, Row } from 'antd'
-import { useState } from 'react'
 import { LabeledSelect, SegmentedSelect, ValuePicker } from '../components'
 import { ColorPicker } from '../components/ColorPicker'
-
-const fontOptions = [
-  { label: 'Arial', value: 'Arial' },
-  { label: 'Helvetica', value: 'Helvetica' },
-  { label: 'Times New Roman', value: 'Times New Roman' },
-  { label: 'Times', value: 'Times' },
-  { label: 'Courier New', value: 'Courier New' },
-  { label: 'Courier', value: 'Courier' },
-  { label: 'Verdana', value: 'Verdana' },
-  { label: 'Georgia', value: 'Georgia' },
-  { label: 'Palatino', value: 'Palatino' },
-]
+import { useStyle } from '../style.hook'
+import { DefaultTypographyProperties, TypographyProperty } from './properties'
+import { extractFontDataFromUrl } from './typography.util'
 
 const weightOptions = [
   { label: '100 - Thin', value: '100' },
@@ -45,15 +34,6 @@ const alignOptions = [
   { icon: <AlignLeftOutlined />, value: 'justify' },
 ]
 
-const italicizeOptions = [
-  // TODO: revisit icons
-  { icon: <FontColorsOutlined />, value: 'normal' },
-  {
-    icon: <ItalicOutlined />,
-    value: 'italic',
-  },
-]
-
 const decorationOptions = [
   { icon: <CloseOutlined />, value: 'none' },
   {
@@ -70,57 +50,104 @@ const decorationOptions = [
   },
 ]
 
+const DEFAULT_FONT = 'Montserrat'
+
 export const TypographyEditor = () => {
-  const [font, setFont] = useState('Arial')
-  const [weight, setWeight] = useState('400')
-  const [align, setAlign] = useState('left')
-  const [italicize, setItalicize] = useState('normal')
-  const [decoration, setDecoration] = useState('none')
-  const [color, setColor] = useState('#000000')
+  const fonts = extractFontDataFromUrl()
+  const { getCurrentStyle, setStyle } = useStyle()
+
+  const makeFontOptions = () => {
+    const options = fonts.map((fontData) => {
+      return {
+        label: fontData.family,
+        value: `${fontData.family}`,
+      }
+    })
+
+    const hasDefault = options.some((option) => option.value === DEFAULT_FONT)
+
+    if (!hasDefault) {
+      options.unshift({ label: DEFAULT_FONT, value: DEFAULT_FONT })
+    }
+
+    return options
+  }
+
+  const makeWeightOptions = () => {
+    const value = getCurrentStyle(
+      DefaultTypographyProperties[TypographyProperty.Family],
+    )
+
+    // When the font family changes we need to make sure that the selected weight is still valid
+    const currentFont = fonts.find((font) => font.family === value)
+
+    return (
+      currentFont?.weights.map((weight) => {
+        return {
+          label:
+            weightOptions.find((option) => option.value === weight)?.label ??
+            weight,
+          value: weight,
+        }
+      }) ?? []
+    )
+  }
 
   return (
     <Col className="space-y-2">
       <LabeledSelect
         label="Font"
-        onChange={setFont}
-        options={fontOptions}
-        value={font}
+        onChange={(val) => setStyle(TypographyProperty.Family, val)}
+        options={makeFontOptions()}
+        value={getCurrentStyle(
+          DefaultTypographyProperties[TypographyProperty.Family],
+        )}
       />
       <LabeledSelect
         label="Weight"
-        onChange={setWeight}
-        options={weightOptions}
-        value={weight}
+        onChange={(val) => setStyle(TypographyProperty.Weight, val)}
+        options={makeWeightOptions()}
+        value={getCurrentStyle(
+          DefaultTypographyProperties[TypographyProperty.Weight],
+        )}
       />
       <Row align="middle" justify="space-between" wrap={false}>
-        <ValuePicker label="Size" />
-        <ValuePicker label="Height" />
+        <ValuePicker
+          currentValue={getCurrentStyle(
+            DefaultTypographyProperties[TypographyProperty.Size],
+          )}
+          label="Size"
+          onChange={(val) => setStyle(TypographyProperty.Size, val)}
+        />
+        <ValuePicker
+          currentValue={getCurrentStyle(
+            DefaultTypographyProperties[TypographyProperty.Height],
+          )}
+          label="Height"
+          onChange={(val) => setStyle(TypographyProperty.Height, val)}
+        />
       </Row>
-      {/* <Row align="middle" justify="space-between" wrap={false}> */}
-      {/*  <Col className="text-[12px]">Color</Col> */}
-      {/*  <ColorPicker */}
-      {/*    showText={(color) => <span>{color.toHexString()}</span>} */}
-      {/*    size="small" */}
-      {/*  /> */}
-      {/* </Row> */}
-      <ColorPicker onChange={setColor} value={color} />
-      <SegmentedSelect
-        label="Align"
-        onChange={setAlign}
-        options={alignOptions}
-        value={align}
+      <ColorPicker
+        onChange={(val) => setStyle(TypographyProperty.Color, val)}
+        value={getCurrentStyle(
+          DefaultTypographyProperties[TypographyProperty.Color],
+        )}
       />
       <SegmentedSelect
-        label="Italicize"
-        onChange={setItalicize}
-        options={italicizeOptions}
-        value={italicize}
+        label="Align"
+        onChange={(val) => setStyle(TypographyProperty.Align, val)}
+        options={alignOptions}
+        value={getCurrentStyle(
+          DefaultTypographyProperties[TypographyProperty.Align],
+        )}
       />
       <SegmentedSelect
         label="Decoration"
-        onChange={setDecoration}
+        onChange={(val) => setStyle(TypographyProperty.Decoration, val)}
         options={decorationOptions}
-        value={decoration}
+        value={getCurrentStyle(
+          DefaultTypographyProperties[TypographyProperty.Decoration],
+        )}
       />
     </Col>
   )

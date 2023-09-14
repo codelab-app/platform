@@ -44,6 +44,7 @@ export const BorderSidePicker = ({ onChange, side }: BorderSidePickerProps) => {
             <Radio.Button
               children={sideToIcon[borderSide]}
               className="flex items-center justify-center"
+              key={borderSide}
               style={{ borderRadius: 0, gridArea: borderSide }}
               value={borderSide}
             ></Radio.Button>
