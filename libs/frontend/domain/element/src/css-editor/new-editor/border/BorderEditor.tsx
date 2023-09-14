@@ -2,19 +2,18 @@ import {
   CloseOutlined,
   DashOutlined,
   MinusOutlined,
-  RadiusBottomleftOutlined,
-  RadiusBottomrightOutlined,
-  RadiusUpleftOutlined,
-  RadiusUprightOutlined,
   SmallDashOutlined,
 } from '@ant-design/icons'
 import { Col, Divider, Row } from 'antd'
 import React, { useState } from 'react'
 import { SegmentedSelect, ValuePicker } from '../components'
 import { ColorPicker } from '../components/ColorPicker'
+import { useStyle } from '../style.hook'
 import { Side } from '../utils'
 import { BorderRadiusEditor } from './BorderRadiusEditor'
 import { BorderSidePicker } from './BorderSidePicker'
+import type { BorderProperty } from './properties'
+import { DefaultBorderProperties } from './properties'
 
 const styleOptions = [
   {
@@ -35,28 +34,25 @@ const styleOptions = [
   },
 ]
 
-const radiusOptions = [
-  {
-    icon: <RadiusUpleftOutlined />,
-    value: 'border-top-right-radius',
-  },
-  {
-    icon: <RadiusUprightOutlined />,
-    value: 'border-top-left-radius',
-  },
-  {
-    icon: <RadiusBottomleftOutlined />,
-    value: 'border-bottom-right-radius',
-  },
-  {
-    icon: <RadiusBottomrightOutlined />,
-    value: 'border-bottom-left-radius',
-  },
-]
+const getSidePropertyName = (side: Side, property: string) => {
+  console.log(side, property)
+
+  let key = ''
+
+  if (side === Side.Center) {
+    key = `border-${property}`
+  } else {
+    key = `border-${side}-${property}`
+  }
+
+  return key as BorderProperty
+}
+
+const getDefaultValue = (name: BorderProperty) => DefaultBorderProperties[name]
 
 export const BorderEditor = () => {
-  const [selectedSide, setSelectedSide] = useState(Side.Top)
-  const [selectedStyle, setSelectedStyle] = useState('none')
+  const { getCurrentStyle, setStyle } = useStyle()
+  const [selectedSide, setSelectedSide] = useState(Side.Center)
 
   return (
     <Col>
@@ -67,13 +63,35 @@ export const BorderEditor = () => {
         <Col className="w-full space-y-2" span={14}>
           <SegmentedSelect
             label="Style"
-            onChange={setSelectedStyle}
+            onChange={(value) =>
+              setStyle(getSidePropertyName(selectedSide, 'style'), value)
+            }
             options={styleOptions}
             size="small"
-            value={selectedStyle}
+            value={getCurrentStyle(
+              getDefaultValue(getSidePropertyName(selectedSide, 'style')),
+            )}
           />
-          <ValuePicker label="Width" size="small" />
-          <ColorPicker label="Color" size="small" />
+          <ValuePicker
+            currentValue={getCurrentStyle(
+              getDefaultValue(getSidePropertyName(selectedSide, 'width')),
+            )}
+            label="Width"
+            onChange={(value) =>
+              setStyle(getSidePropertyName(selectedSide, 'width'), value)
+            }
+            size="small"
+          />
+          <ColorPicker
+            label="Color"
+            onChange={(value) =>
+              setStyle(getSidePropertyName(selectedSide, 'color'), value)
+            }
+            size="small"
+            value={getCurrentStyle(
+              getDefaultValue(getSidePropertyName(selectedSide, 'color')),
+            )}
+          />
         </Col>
       </Row>
       <Divider className="my-2 mt-3" />

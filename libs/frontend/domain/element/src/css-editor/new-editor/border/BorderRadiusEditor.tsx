@@ -6,9 +6,11 @@ import {
   RadiusUpleftOutlined,
   RadiusUprightOutlined,
 } from '@ant-design/icons'
-import { Col, Row, Slider } from 'antd'
+import { Col, Row } from 'antd'
 import React, { useState } from 'react'
 import { SegmentedSelect, ValuePicker } from '../components'
+import { useStyle } from '../style.hook'
+import { BorderProperty, DefaultBorderProperties } from './properties'
 
 const sideOptions = [
   {
@@ -23,6 +25,7 @@ const sideOptions = [
 ]
 
 export const BorderRadiusEditor = () => {
+  const { getCurrentStyle, setStyle } = useStyle()
   const [selectedSide, setSelectedSide] = useState('all')
 
   return (
@@ -45,23 +48,73 @@ export const BorderRadiusEditor = () => {
           </Row>
         </Col>
         <Col span={12}>
-          <Row align="middle" justify="space-between" wrap={false}>
-            <Col span={12}>
-              <Slider max={300} min={0} onChange={undefined} value={0} />
-            </Col>
-            <ValuePicker onChange={undefined} />
-          </Row>
+          {/* <Row align="middle" justify="space-between" wrap={false}> */}
+          {/*  <Col span={12}> */}
+          {/* <Slider */}
+          {/*  max={300} */}
+          {/*  min={0} */}
+          {/*  onChange={(value) => */}
+          {/*    setStyle(BorderProperty.Radius, `${value}px`) */}
+          {/*  } */}
+          {/*  value={ */}
+          {/*    parseCssValue( */}
+          {/*      getCurrentStyle( */}
+          {/*        DefaultBorderProperties[BorderProperty.Radius], */}
+          {/*      ), */}
+          {/*    ).value */}
+          {/*  } */}
+          {/*/ > */}
+          {/* </Col> */}
+          <ValuePicker
+            currentValue={getCurrentStyle(
+              DefaultBorderProperties[BorderProperty.Radius],
+            )}
+            onChange={(value) => setStyle(BorderProperty.Radius, value)}
+          />
+          {/* </Row> */}
         </Col>
       </Row>
       {selectedSide === 'side' && (
         <Col className="space-y-2">
           <Row align="middle" className="space-x-2" justify="end" wrap={false}>
-            <ValuePicker prefix={<RadiusUpleftOutlined />} />
-            <ValuePicker prefix={<RadiusUprightOutlined />} />
+            <ValuePicker
+              currentValue={getCurrentStyle(
+                DefaultBorderProperties[BorderProperty.TopLeftRadius],
+              )}
+              onChange={(value) =>
+                setStyle(BorderProperty.TopLeftRadius, value)
+              }
+              prefix={<RadiusUpleftOutlined />}
+            />
+            <ValuePicker
+              currentValue={getCurrentStyle(
+                DefaultBorderProperties[BorderProperty.TopRightRadius],
+              )}
+              onChange={(value) =>
+                setStyle(BorderProperty.TopRightRadius, value)
+              }
+              prefix={<RadiusUprightOutlined />}
+            />
           </Row>
           <Row align="middle" className="space-x-2" justify="end" wrap={false}>
-            <ValuePicker prefix={<RadiusBottomleftOutlined />} />
-            <ValuePicker prefix={<RadiusBottomrightOutlined />} />
+            <ValuePicker
+              currentValue={getCurrentStyle(
+                DefaultBorderProperties[BorderProperty.BottomLeftRadius],
+              )}
+              onChange={(value) =>
+                setStyle(BorderProperty.BottomLeftRadius, value)
+              }
+              prefix={<RadiusBottomleftOutlined />}
+            />
+            <ValuePicker
+              currentValue={getCurrentStyle(
+                DefaultBorderProperties[BorderProperty.BottomRightRadius],
+              )}
+              onChange={(value) =>
+                setStyle(BorderProperty.BottomRightRadius, value)
+              }
+              prefix={<RadiusBottomrightOutlined />}
+            />
           </Row>
         </Col>
       )}

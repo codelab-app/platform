@@ -13,8 +13,6 @@ export const useStyle = () => {
   }) => {
     const { selectedNode } = builderService
 
-    console.log('defaultValue', defaultValue)
-
     if (!isElementRef(selectedNode)) {
       return defaultValue
     }
@@ -22,17 +20,13 @@ export const useStyle = () => {
     const { guiCss } = selectedNode.current
 
     if (guiCss) {
-      console.log('guiCss', guiCss)
-
-      return JSON.parse(guiCss)[key]
+      return JSON.parse(guiCss)[key] ?? defaultValue
     }
 
     return defaultValue
   }
 
   const setStyle = (key: string, value: string) => {
-    console.log('setStyle', key, value)
-
     const { selectedNode } = builderService
 
     if (!isElementRef(selectedNode)) {

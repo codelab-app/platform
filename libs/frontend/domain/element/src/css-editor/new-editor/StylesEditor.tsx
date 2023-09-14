@@ -16,7 +16,7 @@ const panelHeader = (title: string) => {
 }
 
 export const StylesEditor = () => {
-  const className = '[&>*:first-child]:bg-gray-200 [&>*:first-child]:!py-1.5'
+  const className = '[&>*:first-child]:bg-gray-100 [&>*:first-child]:!py-1.5'
 
   return (
     <Collapse

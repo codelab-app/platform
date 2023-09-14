@@ -4,7 +4,6 @@ import {
   EyeOutlined,
 } from '@ant-design/icons'
 import { Col, Divider, Row } from 'antd'
-import { useState } from 'react'
 import { LabeledSelect, SegmentedSelect, ValuePicker } from '../components'
 import { useStyle } from '../style.hook'
 import { DefaultSizeProperties, SizeProperty } from './properties'
@@ -38,8 +37,6 @@ const fillOptions = [
 
 export const SizeEditor = () => {
   const { getCurrentStyle, setStyle } = useStyle()
-  const [overflow, setOverflow] = useState('visible')
-  const [fill, setFill] = useState('fill')
 
   return (
     <Col className="space-y-3">
