@@ -59,7 +59,7 @@ export const BuilderClickOverlay = observer<{
   }
 
   const content = (
-    <StyledOverlayContainer className="click-overlay-toolbar">
+    <StyledOverlayContainer>
       <StyledSpan>{selectedNode.current.name}</StyledSpan>
       <StyledOverlayButtonGroup>
         <Button
@@ -76,14 +76,25 @@ export const BuilderClickOverlay = observer<{
     </StyledOverlayContainer>
   )
 
+  const { closestParent, customCss, guiCss, nextSibling } = selectedNode.current
+  const breakpoint = builderService.selectedBuilderBreakpoint
+  const props = selectedNode.current.props.current.values
+  const parentId = closestParent?.id
+  const nextSiblingId = nextSibling?.id
+
+  const dependencies = [
+    guiCss,
+    customCss,
+    props,
+    nextSiblingId,
+    breakpoint,
+    parentId,
+  ]
+
   return createPortal(
     <ClickOverlay
       content={content}
-      dependencies={[
-        selectedNode.current.guiCss,
-        selectedNode.current.customCss,
-        selectedNode.current.props.current.values,
-      ]}
+      dependencies={dependencies}
       element={element}
       renderContainer={renderContainerRef.current}
     />,

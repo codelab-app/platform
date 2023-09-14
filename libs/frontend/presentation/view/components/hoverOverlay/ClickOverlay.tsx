@@ -19,6 +19,8 @@ export const ClickOverlay = ({
   // - the content is scrolled
   // - element css is updated, especially height, width, margin, padding
   // - element props is updated (some props may affect size and position when using 'auto')
+  // - element order is changed (or element parent is changed)
+  // - screen breakpoint is changed
 
   const { height, width } = useResizeObserver({ ref: renderContainer })
   useScrollIntoView(element, renderContainer)
