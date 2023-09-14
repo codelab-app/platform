@@ -5,9 +5,9 @@ import {
 } from '@ant-design/icons'
 import { Col, Divider, Row } from 'antd'
 import { useState } from 'react'
-import { LabeledSelect } from '../components/LabeledSelect'
-import { SegmentedSelect } from '../components/SegmentedSelect'
-import { ValuePicker } from '../components/ValuePicker'
+import { LabeledSelect, SegmentedSelect, ValuePicker } from '../components'
+import { useStyle } from '../style.hook'
+import { DefaultSizeProperties, SizeProperty } from './properties'
 
 const overFlowOptions = [
   {
@@ -37,6 +37,7 @@ const fillOptions = [
 ]
 
 export const SizeEditor = () => {
+  const { getCurrentStyle, setStyle } = useStyle()
   const [overflow, setOverflow] = useState('visible')
   const [fill, setFill] = useState('fill')
 
@@ -44,30 +45,66 @@ export const SizeEditor = () => {
     <Col className="space-y-3">
       <Col className="space-y-2">
         <Row justify="space-between" wrap={false}>
-          <ValuePicker label="Width" />
-          <ValuePicker label="Height" />
+          <ValuePicker
+            currentValue={getCurrentStyle(
+              DefaultSizeProperties[SizeProperty.Width],
+            )}
+            label="Width"
+            onChange={(value) => setStyle(SizeProperty.Width, value)}
+          />
+          <ValuePicker
+            currentValue={getCurrentStyle(
+              DefaultSizeProperties[SizeProperty.Height],
+            )}
+            label="Height"
+            onChange={(value) => setStyle(SizeProperty.Height, value)}
+          />
         </Row>
         <Row justify="space-between" wrap={false}>
-          <ValuePicker label="Min W" />
-          <ValuePicker label="Min H" />
+          <ValuePicker
+            currentValue={getCurrentStyle(
+              DefaultSizeProperties[SizeProperty.MinWidth],
+            )}
+            label="Min W"
+            onChange={(value) => setStyle(SizeProperty.MinWidth, value)}
+          />
+          <ValuePicker
+            currentValue={getCurrentStyle(
+              DefaultSizeProperties[SizeProperty.MinHeight],
+            )}
+            label="Min H"
+            onChange={(value) => setStyle(SizeProperty.MinHeight, value)}
+          />
         </Row>
         <Row justify="space-between" wrap={false}>
-          <ValuePicker label="Max W" />
-          <ValuePicker label="Max H" />
+          <ValuePicker
+            currentValue={getCurrentStyle(
+              DefaultSizeProperties[SizeProperty.MaxWidth],
+            )}
+            label="Max W"
+            onChange={(value) => setStyle(SizeProperty.MaxWidth, value)}
+          />
+          <ValuePicker
+            currentValue={getCurrentStyle(
+              DefaultSizeProperties[SizeProperty.MaxHeight],
+            )}
+            label="Max H"
+            onChange={(value) => setStyle(SizeProperty.MaxHeight, value)}
+          />
         </Row>
       </Col>
       <Divider className="my-2" />
       <SegmentedSelect
         label="Overflow"
-        onChange={setOverflow}
+        onChange={(val) => setStyle(SizeProperty.Overflow, val)}
         options={overFlowOptions}
-        value={overflow}
+        value={getCurrentStyle(DefaultSizeProperties[SizeProperty.Overflow])}
       />
       <LabeledSelect
         label="Fit"
-        onChange={setFill}
+        onChange={(val) => setStyle(SizeProperty.Fit, val)}
         options={fillOptions}
-        value={fill}
+        value={getCurrentStyle(DefaultSizeProperties[SizeProperty.Fit])}
       />
     </Col>
   )

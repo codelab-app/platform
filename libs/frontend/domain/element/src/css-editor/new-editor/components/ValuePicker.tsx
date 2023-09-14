@@ -8,7 +8,7 @@ import { CssUnit, parseCssValue } from '../utils'
 const selectAfter = (
   size: SizeType,
   onChange: (val: CssUnit) => void,
-  unit: CssUnit,
+  unit?: CssUnit,
 ) => (
   <Select
     defaultValue={CssUnit.PX}
