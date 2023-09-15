@@ -23,6 +23,12 @@
       "rules": {
         "@nx/nx-plugin-checks": "error"
       }
+    },
+    {
+      "files": ["*.graphql"],
+      "parserOptions": {
+        "schema": "../"
+      }
     }
   ]
 }

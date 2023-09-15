@@ -9,8 +9,15 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "libs/backend/infra/adapter/request-context/**/*.ts"
+          "libs/backend/infra/adapter/request-context/**/*.{ts,tsx,js,jsx,graphql}"
         ]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/backend-infra-adapter-request-context.xml",
+          "quiet": true
+        }
       }
     }
   },

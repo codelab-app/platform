@@ -11,7 +11,7 @@ export interface ElementHookSectionProps {
 }
 
 export const ElementHookSection = observer<ElementHookSectionProps>(
-  ({ elementId, typeService, atomService }) => {
+  ({ atomService, elementId, typeService }) => {
     return null
 
     // const element = useGetElementById(elementId)

@@ -24,7 +24,7 @@ interface BooleanProp {
 }
 
 interface NumberProp {
-  name: 'offsetX' | 'offsetY' | 'blurRadius'
+  name: 'blurRadius' | 'offsetX' | 'offsetY'
   type: 'input-number-with-unit'
   value: number
   units: Array<string>
@@ -46,36 +46,36 @@ interface TextShadowState {
 }
 
 const props: TextShadowState = {
-  textShadow: {
-    name: 'textShadow',
-    type: 'boolean',
-    value: false,
-  },
-  offsetX: {
-    name: 'offsetX',
-    type: 'input-number-with-unit',
-    units: ['px', 'em', 'rem', 'ch', 'vh', 'vw'],
-    unit: 'px',
-    value: 5,
-  },
-  offsetY: {
-    name: 'offsetY',
-    type: 'input-number-with-unit',
-    units: ['px', 'em', 'rem', 'ch', 'vh', 'vw'],
-    unit: 'px',
-    value: 5,
-  },
   blurRadius: {
     name: 'blurRadius',
     type: 'input-number-with-unit',
-    units: ['unset', 'px', 'em', 'rem', 'ch', 'vh', 'vw'],
     unit: 'unset',
+    units: ['unset', 'px', 'em', 'rem', 'ch', 'vh', 'vw'],
     value: 5,
   },
   color: {
     name: 'color',
     type: 'color-picker',
     value: '#000000',
+  },
+  offsetX: {
+    name: 'offsetX',
+    type: 'input-number-with-unit',
+    unit: 'px',
+    units: ['px', 'em', 'rem', 'ch', 'vh', 'vw'],
+    value: 5,
+  },
+  offsetY: {
+    name: 'offsetY',
+    type: 'input-number-with-unit',
+    unit: 'px',
+    units: ['px', 'em', 'rem', 'ch', 'vh', 'vw'],
+    value: 5,
+  },
+  textShadow: {
+    name: 'textShadow',
+    type: 'boolean',
+    value: false,
   },
 }
 
@@ -104,26 +104,26 @@ const parseTextShadow = (textShadow: Nullish<string>): TextShadowState => {
   const blurRadiusUnit = extractCssUnit(blurRadius ?? '')
 
   return {
-    textShadow: { ...props.textShadow, value: true },
-    offsetX: {
-      ...props.offsetX,
-      value: offsetXNumber ?? props.offsetX.value,
-      unit: offsetXUnit ?? props.offsetX.unit,
-    },
-    offsetY: {
-      ...props.offsetY,
-      value: offsetYNumber ?? props.offsetY.value,
-      unit: offsetYUnit ?? props.offsetY.unit,
-    },
     blurRadius: {
       ...props.blurRadius,
-      value: blurRadiusNumber ?? props.blurRadius.value,
       unit: blurRadiusUnit ?? props.blurRadius.unit,
+      value: blurRadiusNumber ?? props.blurRadius.value,
     },
     color: {
       ...props.color,
       value: color,
     },
+    offsetX: {
+      ...props.offsetX,
+      unit: offsetXUnit ?? props.offsetX.unit,
+      value: offsetXNumber ?? props.offsetX.value,
+    },
+    offsetY: {
+      ...props.offsetY,
+      unit: offsetYUnit ?? props.offsetY.unit,
+      value: offsetYNumber ?? props.offsetY.value,
+    },
+    textShadow: { ...props.textShadow, value: true },
   }
 }
 
@@ -183,8 +183,8 @@ export const TextShadow = observer(
                   ...textShadowState,
                   [property.name]: {
                     ...textShadowState[property.name],
-                    value,
                     unit,
+                    value,
                   },
                 })
               }

@@ -60,10 +60,7 @@
       "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/tools/workspace/**/*.ts",
-          "libs/tools/workspace/package.json",
-          "libs/tools/workspace/generators.json",
-          "libs/tools/workspace/executors.json"
+          "libs/tools/workspace/**/*.{ts,tsx,js,jsx,graphql}"
         ]
       },
       "outputs": ["{options.outputFile}"]

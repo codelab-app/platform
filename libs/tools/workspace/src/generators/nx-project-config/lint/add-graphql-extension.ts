@@ -1,23 +1,19 @@
 import type { ProjectConfiguration, Tree } from '@nx/devkit'
-import merge from 'lodash/merge'
+import set from 'lodash/set'
+import { join } from 'path'
 
-const addExtensionToGlob = (glob: string, extension: string): string => {
-  return glob.replace(/(\{.*\})/, `$1,${extension}`)
-}
-
+/**
+ * Add `.graphql` to lintFilePatterns
+ */
 export const addGraphqlExtension = (
   tree: Tree,
   projectConfig: ProjectConfiguration,
 ) => {
-  const lintFilePatterns = projectConfig.targets?.lint?.options.lintFilePatterns
+  console.log('Adding GraphQL extensions...')
 
-  merge(projectConfig, {
-    targets: {
-      lint: {
-        options: {
-          lintFilePatterns: addExtensionToGlob(lintFilePatterns, 'graphql'),
-        },
-      },
-    },
-  })
+  const lintFilePatterns = [
+    join(projectConfig.root, '/**/*.{ts,tsx,js,jsx,graphql}'),
+  ]
+
+  set(projectConfig, 'targets.lint.options.lintFilePatterns', lintFilePatterns)
 }

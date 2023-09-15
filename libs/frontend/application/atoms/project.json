@@ -9,7 +9,7 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "libs/frontend/application/atoms/**/*.{ts,tsx,js,jsx}"
+          "libs/frontend/application/atoms/**/*.{ts,tsx,js,jsx,graphql}"
         ]
       },
       "configurations": {

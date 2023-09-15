@@ -8,7 +8,16 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/backend/infra/adapter/auth0/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/backend/infra/adapter/auth0/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/backend-infra-adapter-auth0.xml",
+          "quiet": true
+        }
       }
     }
   },

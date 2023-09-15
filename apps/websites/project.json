@@ -56,7 +56,7 @@
     "lint": {
       "executor": "@nx/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/websites/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/websites/**/*.{ts,tsx,js,jsx,graphql}"]
       },
       "outputs": ["{options.outputFile}"],
       "configurations": {

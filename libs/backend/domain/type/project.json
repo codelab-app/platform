@@ -8,7 +8,9 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/backend/domain/type/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/backend/domain/type/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
       },
       "configurations": {
         "ci": {

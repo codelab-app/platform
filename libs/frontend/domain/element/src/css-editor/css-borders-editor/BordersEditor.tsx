@@ -23,8 +23,8 @@ const props = [
   },
   {
     name: 'borderBottomStyle',
-    type: 'select',
     options: ['unset', 'solid', 'dashed', 'dotted', 'double'],
+    type: 'select',
   },
   {
     name: 'borderBottomColor',
@@ -37,8 +37,8 @@ const props = [
   },
   {
     name: 'borderLeftStyle',
-    type: 'select',
     options: ['unset', 'solid', 'dashed', 'dotted', 'double'],
+    type: 'select',
   },
   {
     name: 'borderLeftColor',
@@ -51,8 +51,8 @@ const props = [
   },
   {
     name: 'borderRightStyle',
-    type: 'select',
     options: ['unset', 'solid', 'dashed', 'dotted', 'double'],
+    type: 'select',
   },
   {
     name: 'borderRightColor',
@@ -65,8 +65,8 @@ const props = [
   },
   {
     name: 'borderTopStyle',
-    type: 'select',
     options: ['unset', 'solid', 'dashed', 'dotted', 'double'],
+    type: 'select',
   },
   {
     name: 'borderTopColor',
@@ -98,7 +98,7 @@ export const BordersEditor = observer(
   ({ element, guiCssObj }: BordersEditorProps) => {
     return (
       <>
-        {props.map(({ name, type, options, units }) =>
+        {props.map(({ name, options, type, units }) =>
           type === 'select' ? (
             <CssPropValueSelector
               currentValue={guiCssObj[name] ?? 'unset'}

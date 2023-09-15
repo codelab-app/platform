@@ -625,9 +625,9 @@
       "parser": "@graphql-eslint/eslint-plugin",
       "plugins": ["@graphql-eslint"],
       "extends": ["plugin:@graphql-eslint/schema-all"],
-      "parserOptions": {
-        "schema": "./schema.graphql"
-      },
+      // "parserOptions": {
+      //   "schema": "./schema.graphql"
+      // },
       "rules": {
         "@graphql-eslint/known-type-names": "error"
       }

@@ -23,6 +23,12 @@
       "rules": {
         "@nx/dependency-checks": "error"
       }
+    },
+    {
+      "files": ["*.graphql"],
+      "parserOptions": {
+        "schema": "../"
+      }
     }
   ]
 }

@@ -116,6 +116,9 @@
       "@codelab/backend/domain/tag": ["libs/backend/domain/tag/src/index.ts"],
       "@codelab/backend/domain/type": ["libs/backend/domain/type/src/index.ts"],
       "@codelab/backend/domain/user": ["libs/backend/domain/user/src/index.ts"],
+      "@codelab/backend/infra/adapter/auth0": [
+        "libs/backend/infra/adapter/auth0/src/index.ts"
+      ],
       "@codelab/backend/infra/adapter/cli": [
         "libs/backend/infra/adapter/cli/src/index.ts"
       ],
@@ -276,10 +279,7 @@
       "@codelab/testing/cypress/nextjs-auth0": [
         "libs/testing/cypress/nextjs-auth0/src/index.ts"
       ],
-      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"],
-      "@codelab/backend/infra/adapter/auth0": [
-        "libs/backend/infra/adapter/auth0/src/index.ts"
-      ]
+      "@codelab/tools-workspace": ["libs/tools/workspace/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "dist"],

@@ -9,7 +9,7 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "libs/frontend/presentation/client/graphql/**/*.ts"
+          "libs/frontend/presentation/client/graphql/**/*.{ts,tsx,js,jsx,graphql}"
         ]
       },
       "configurations": {

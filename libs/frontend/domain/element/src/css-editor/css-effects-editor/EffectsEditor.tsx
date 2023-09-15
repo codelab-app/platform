@@ -11,11 +11,11 @@ interface EffectsEditorProps {
 
 const effects = [
   {
-    name: 'opacity',
-    min: 0,
-    max: 1,
-    step: 0.1,
     defaultValue: 1,
+    max: 1,
+    min: 0,
+    name: 'opacity',
+    step: 0.1,
   },
 ]
 

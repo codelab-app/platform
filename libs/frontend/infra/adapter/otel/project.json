@@ -8,7 +8,16 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/frontend/infra/adapter/otel/**/*.ts"]
+        "lintFilePatterns": [
+          "libs/frontend/infra/adapter/otel/**/*.{ts,tsx,js,jsx,graphql}"
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "format": "junit",
+          "outputFile": "tmp/reports/lint/frontend-infra-adapter-otel.xml",
+          "quiet": true
+        }
       }
     }
   },

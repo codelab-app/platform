@@ -2513,8 +2513,8 @@ __metadata:
 
 "@codelab/tools-workspace@file:./dist/libs/tools/workspace::locator=codelab%40workspace%3A.":
   version: 0.0.1
-  resolution: "@codelab/tools-workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=cb5504&locator=codelab%40workspace%3A."
-  checksum: 31a6d543adf716dc04f2b571f668fb7080639653a25cc47cbcbcb2905fdb191423de604671c64201e65e6aa230aff7ece2216edf873caf24dd8d5b281ffc8685
+  resolution: "@codelab/tools-workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=621ff2&locator=codelab%40workspace%3A."
+  checksum: d7028b3ce80ccbd064d106af7aa23ff6fd0c85a4d623d04f151ce7bc7f1172867316c08a74cecec30900a65b5aaa93115be88d891c4cd35d676a0fab0a0a0fa7
   languageName: node
   linkType: hard
 
@@ -4103,7 +4103,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-eslint/eslint-plugin@npm:^3.19.1":
+"@graphql-eslint/eslint-plugin@npm:^3.20.1":
   version: 3.20.1
   resolution: "@graphql-eslint/eslint-plugin@npm:3.20.1"
   dependencies:
@@ -17019,7 +17019,7 @@ __metadata:
     "@graphql-codegen/typescript-document-nodes": 4.0.0
     "@graphql-codegen/typescript-graphql-request": 5.0.0
     "@graphql-codegen/typescript-operations": 4.0.0
-    "@graphql-eslint/eslint-plugin": ^3.19.1
+    "@graphql-eslint/eslint-plugin": ^3.20.1
     "@graphql-tools/merge": 8.2.11
     "@graphql-tools/utils": 8.12.0
     "@hon2a/cypress-without": 1.1.8

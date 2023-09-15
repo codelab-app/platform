@@ -5,20 +5,20 @@ import { CssPropEditorItem } from './CssPropEditorItem'
 interface PropValueSelectorProps {
   name: string
   currentValue: string
-  onChange: (val: string) => void | undefined
+  onChange(val: string): undefined | void
   disabled?: boolean
   checked?: boolean
   enableCheckbox?: boolean
-  onCheck?: (checked: boolean) => void
+  onCheck?(checked: boolean): void
 }
 
 export const ColorPicker = ({
-  name,
-  currentValue,
-  onChange,
-  disabled,
   checked,
+  currentValue,
+  disabled,
   enableCheckbox,
+  name,
+  onChange,
   onCheck,
 }: PropValueSelectorProps) => {
   const [color, setColor] = useState<string>(currentValue)

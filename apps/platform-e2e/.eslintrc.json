@@ -11,13 +11,18 @@
       "rules": {
         "import/no-unresolved": "error",
         "import/named": "error",
-        // "jest/valid-expect": "off",
         "@typescript-eslint/no-explicit-any": "off"
       }
     },
     {
       "files": ["*.spec*.ts"],
       "rules": {}
+    },
+    {
+      "files": ["*.graphql"],
+      "parserOptions": {
+        "schema": "../"
+      }
     }
   ]
 }

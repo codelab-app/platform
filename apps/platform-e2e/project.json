@@ -71,7 +71,7 @@
     "lint": {
       "executor": "@nx/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/platform-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["apps/platform-e2e/**/*.{ts,tsx,js,jsx,graphql}"]
       },
       "outputs": ["{options.outputFile}"],
       "configurations": {
