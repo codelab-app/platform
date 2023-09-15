@@ -11,11 +11,11 @@ const selectAfter = (
   unit?: CssUnit,
 ) => (
   <Select
+    className="[&>*:first-child]:!px-0.5"
     defaultValue={CssUnit.PX}
-    dropdownStyle={{ width: 100 }}
     onChange={(val) => onChange(val)}
+    popupMatchSelectWidth={false}
     size={size}
-    style={{ width: 35 }}
     suffixIcon={null}
     value={unit}
   >
@@ -50,18 +50,13 @@ export const ValuePicker = ({
   const { unit, value } = parseCssValue(currentValue ?? '0px')
 
   return (
-    <Row
-      align="middle"
-      className="space-x-1"
-      justify="space-between"
-      wrap={false}
-    >
+    <Row align="middle" justify="space-between" wrap={false}>
       {label && (
         <Col className="whitespace-nowrap text-[12px]" span={8}>
           {label}
         </Col>
       )}
-      <Col>
+      <Col className="w-full">
         <InputNumber
           addonAfter={selectAfter(
             size,

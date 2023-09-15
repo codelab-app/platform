@@ -35,8 +35,6 @@ const styleOptions = [
 ]
 
 const getSidePropertyName = (side: Side, property: string) => {
-  console.log(side, property)
-
   let key = ''
 
   if (side === Side.Center) {

@@ -17,10 +17,11 @@ export const LabeledSelect = ({
 }: LabeledSelectProps) => {
   return (
     <Row align="middle" justify="space-between" wrap={false}>
-      <Col className="text-[12px]">{label}</Col>
-      <Col className="w-1/2">
+      <Col className="text-[12px]" span={8}>
+        {label}
+      </Col>
+      <Col className="w-full overflow-hidden">
         <Select
-          className="text-[12px]"
           onChange={onChange}
           options={options}
           size={size}

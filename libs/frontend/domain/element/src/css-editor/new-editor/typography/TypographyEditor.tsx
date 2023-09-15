@@ -7,7 +7,7 @@ import {
   StrikethroughOutlined,
   UnderlineOutlined,
 } from '@ant-design/icons'
-import { Col, Row } from 'antd'
+import { Col } from 'antd'
 import { LabeledSelect, SegmentedSelect, ValuePicker } from '../components'
 import { ColorPicker } from '../components/ColorPicker'
 import { useStyle } from '../style.hook'
@@ -111,22 +111,27 @@ export const TypographyEditor = () => {
           DefaultTypographyProperties[TypographyProperty.Weight],
         )}
       />
-      <Row align="middle" justify="space-between" wrap={false}>
-        <ValuePicker
-          currentValue={getCurrentStyle(
-            DefaultTypographyProperties[TypographyProperty.Size],
-          )}
-          label="Size"
-          onChange={(val) => setStyle(TypographyProperty.Size, val)}
-        />
-        <ValuePicker
-          currentValue={getCurrentStyle(
-            DefaultTypographyProperties[TypographyProperty.Height],
-          )}
-          label="Height"
-          onChange={(val) => setStyle(TypographyProperty.Height, val)}
-        />
-      </Row>
+      {/* <Row */}
+      {/*  align="middle" */}
+      {/*  className="space-x-2" */}
+      {/*  justify="space-between" */}
+      {/*  wrap={false} */}
+      {/* > */}
+      <ValuePicker
+        currentValue={getCurrentStyle(
+          DefaultTypographyProperties[TypographyProperty.Size],
+        )}
+        label="Size"
+        onChange={(val) => setStyle(TypographyProperty.Size, val)}
+      />
+      <ValuePicker
+        currentValue={getCurrentStyle(
+          DefaultTypographyProperties[TypographyProperty.Height],
+        )}
+        label="Height"
+        onChange={(val) => setStyle(TypographyProperty.Height, val)}
+      />
+      {/* </Row> */}
       <ColorPicker
         onChange={(val) => setStyle(TypographyProperty.Color, val)}
         value={getCurrentStyle(

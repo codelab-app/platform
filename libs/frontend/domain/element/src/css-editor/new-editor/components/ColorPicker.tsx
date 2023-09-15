@@ -15,13 +15,18 @@ export const ColorPicker = ({
 }: ColorPickerProps) => {
   return (
     <Row align="middle" justify="space-between" wrap={false}>
-      <Col className="text-[12px]">{label}</Col>
-      <AntdColorPicker
-        onChange={(color) => onChange?.(color.toHexString())}
-        showText={(color) => <span>{color.toHexString()}</span>}
-        size={size}
-        value={value}
-      />
+      <Col className="text-[12px]" span={8}>
+        {label}
+      </Col>
+      <Col className="w-full">
+        <AntdColorPicker
+          className="w-full justify-start"
+          onChange={(color) => onChange?.(color.toHexString())}
+          showText={(color) => <span>{color.toHexString()}</span>}
+          size={size}
+          value={value}
+        />
+      </Col>
     </Row>
   )
 }

@@ -110,7 +110,9 @@ export const DisplayFlexOptions = () => {
         )}
       />
       <Row align="middle" justify="space-between" wrap={false}>
-        <Col className="text-[12px]">Gap</Col>
+        <Col className="text-[12px]" span={9}>
+          Gap
+        </Col>
         <Col>
           <Row className="space-x-1" wrap={false}>
             <ValuePicker
