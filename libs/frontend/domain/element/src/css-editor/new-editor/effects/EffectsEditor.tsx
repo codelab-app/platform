@@ -7,6 +7,7 @@ import {
 import { Col } from 'antd'
 import { LabeledSelect, SegmentedSelect, ValuePicker } from '../components'
 import { useStyle } from '../style.hook'
+import { CssUnit } from '../utils'
 import { DefaultEffectProperties, EffectProperty } from './properties'
 
 const blendOptions = [
@@ -63,7 +64,10 @@ export const EffectsEditor = () => {
         currentValue={getCurrentStyle(
           DefaultEffectProperties[EffectProperty.Opacity],
         )}
+        fixedUnit={CssUnit.PERCENT}
         label="Opacity"
+        max={100}
+        min={0}
         onChange={(val) => setStyle(EffectProperty.Opacity, val)}
       />
       <SegmentedSelect label="Outline" options={outlineOptions} value="none" />

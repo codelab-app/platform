@@ -9,7 +9,7 @@ export const DefaultEffectProperties = {
     key: EffectProperty.Blend,
   },
   [EffectProperty.Opacity]: {
-    defaultValue: 1,
+    defaultValue: '100%',
     key: EffectProperty.Opacity,
   },
 }

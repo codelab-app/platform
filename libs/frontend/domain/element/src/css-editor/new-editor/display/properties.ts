@@ -21,7 +21,7 @@ export const DefaultDisplayProperties = {
     key: 'align-items',
   },
   [DisplayProperty.ColumnGap]: { defaultValue: '0px', key: 'column-gap' },
-  [DisplayProperty.Display]: { defaultValue: 'flex', key: 'display' },
+  [DisplayProperty.Display]: { defaultValue: 'block', key: 'display' },
   [DisplayProperty.FlexDirection]: {
     defaultValue: 'row',
     key: 'flex-direction',
