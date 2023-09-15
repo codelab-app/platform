@@ -615,23 +615,22 @@
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nx/javascript"],
       "rules": {}
-    }
+    },
     // {
     //   "files": ["*.ts"],
     //   "processor": "@graphql-eslint/graphql"
     // },
-    // {
-    //   "files": ["*.graphql"],
-    //   // "parser": "@graphql-eslint/eslint-plugin",
-    //   // "plugins": ["@graphql-eslint"],
-    //   "extends": ["plugin:@graphql-eslint/schema-all"],
-    //   // "parserOptions": {
-    //   //   "operations": "{apps,libs}/**/*.graphql",
-    //   //   "schema": "./schema.graphql"
-    //   // },
-    //   "rules": {
-    //     "@graphql-eslint/known-type-names": "error"
-    //   }
-    // }
+    {
+      "files": ["*.graphql"],
+      "parser": "@graphql-eslint/eslint-plugin",
+      "plugins": ["@graphql-eslint"],
+      "extends": ["plugin:@graphql-eslint/schema-all"],
+      "parserOptions": {
+        "schema": "./schema.graphql"
+      },
+      "rules": {
+        "@graphql-eslint/known-type-names": "error"
+      }
+    }
   ]
 }

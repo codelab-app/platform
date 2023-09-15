@@ -1,5 +1,5 @@
 import type { TagNode, TagNodeData } from '@codelab/backend/abstract/core'
-import { UseCase } from '@codelab/backend/application/service'
+import { UseCase } from '@codelab/backend/application/shared'
 import type { TagRepository } from '@codelab/backend/domain/tag'
 import { type ITagDTO } from '@codelab/shared/abstract/core'
 import type { CommandBus } from '@nestjs/cqrs'

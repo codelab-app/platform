@@ -1,4 +1,4 @@
-import { DatabaseService } from '@codelab/backend/application/service'
+import { DatabaseService } from '@codelab/backend/application/shared'
 import { User, UserRepository } from '@codelab/backend/domain/user'
 import { execCommand } from '@codelab/backend/infra/adapter/shell'
 import type { IUserDTO } from '@codelab/shared/abstract/core'

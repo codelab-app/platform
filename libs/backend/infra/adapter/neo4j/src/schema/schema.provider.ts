@@ -2,13 +2,21 @@ import { getEnv } from '@codelab/shared/config'
 import { mergeResolvers } from '@graphql-tools/merge'
 import type { IResolvers } from '@graphql-tools/utils'
 import { Neo4jGraphQL } from '@neo4j/graphql'
-import type { Provider } from '@nestjs/common'
+import type { Neo4jGraphQLCallback } from '@neo4j/graphql/dist/types'
+import type { FactoryProvider, Provider } from '@nestjs/common'
+import type { GraphQLSchema } from 'graphql'
 import type { Driver } from 'neo4j-driver'
 import { NEO4J_DRIVER_PROVIDER } from '../infra/neo4j.constant'
 import { PURE_RESOLVER_PROVIDER } from '../resolver'
 import { OGM_RESOLVER_PROVIDER } from '../resolver/ogm-resolver/ogm-resolver.constant'
 import { GRAPHQL_SCHEMA_PROVIDER } from './schema.constant'
 import { typeDefs } from './type-defs'
+
+const appCompoundName: Neo4jGraphQLCallback = async (parent, args, context) => {
+  console.log(parent, args, context)
+
+  return `${parent.name}`
+}
 
 /**
  * Your web app has a session (that’s the cookie) used to verify the user.
@@ -21,7 +29,7 @@ import { typeDefs } from './type-defs'
  *
  * https://community.auth0.com/t/authenticating-users-and-m2m-with-same-middleware/77369/5
  */
-export const GraphQLSchemaProvider: Provider = {
+export const GraphQLSchemaProvider: FactoryProvider<Promise<GraphQLSchema>> = {
   inject: [
     NEO4J_DRIVER_PROVIDER,
     PURE_RESOLVER_PROVIDER,
@@ -60,6 +68,11 @@ export const GraphQLSchemaProvider: Provider = {
             },
             String: {
               MATCHES: true,
+            },
+          },
+          populatedBy: {
+            callbacks: {
+              appCompoundName,
             },
           },
         },

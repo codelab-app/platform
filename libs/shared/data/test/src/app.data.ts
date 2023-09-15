@@ -1,6 +1,7 @@
 import type { ICreateElementData } from '@codelab/frontend/abstract/core'
 import type {
   IAppDTO,
+  IAuth0User,
   IInterfaceTypeDTO,
   IStoreDTO,
 } from '@codelab/shared/abstract/core'
@@ -22,9 +23,10 @@ export const storeData = (api: IEntity): IStoreDTO => ({
   name: 'Test Store',
 })
 
-export const appData = (): IAppDTO => ({
+export const appData = (owner: IAuth0User): IAppDTO => ({
   id: v4(),
   name: 'Codelab App',
+  owner,
 })
 
 export const buttonElementData: Pick<ICreateElementData, 'id' | 'name'> = {

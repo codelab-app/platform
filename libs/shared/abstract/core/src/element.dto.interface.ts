@@ -5,14 +5,12 @@ import { Type } from '@sinclair/typebox'
 import { RenderType } from './render-type'
 
 export const IElementDTO = Type.Object({
+  _compositeKey: Type.String(),
   childMapperComponent: Typebox.Nullish(IEntity),
   childMapperPreviousSibling: Typebox.Nullish(IEntity),
   childMapperPropKey: Typebox.Nullish(Type.String()),
-  customCss: Typebox.Nullish(Type.String()),
   firstChild: Typebox.Nullish(IEntity),
-  guiCss: Typebox.Nullish(Type.String()),
   id: Type.String(),
-  name: Type.String(),
   nextSibling: Typebox.Nullish(IEntity),
   page: Typebox.Nullish(IEntity),
   parent: Typebox.Nullish(IEntity),
@@ -35,7 +33,7 @@ export const IElementDTO = Type.Object({
 export type IElementDTO = Static<typeof IElementDTO>
 
 export const ICreateElementDTO = Type.Composite([
-  IElementDTO,
+  Type.Omit(IElementDTO, ['_compositeKey']),
   Type.Object({
     closestContainerNode: IEntity,
   }),

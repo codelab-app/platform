@@ -2,7 +2,7 @@ import { Neo4jService } from '@codelab/backend/infra/adapter/neo4j'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
-export class DatabaseService {
+export class AdminRepository {
   constructor(private readonly neo4jService: Neo4jService) {}
 
   async reset(close = false) {

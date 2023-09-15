@@ -24,7 +24,7 @@ import { DemoModule } from './demo'
     ConfigModule.forRoot({
       ignoreEnvVars: true,
       isGlobal: true,
-      load: [neo4jConfig, endpointConfig],
+      load: [endpointConfig],
     }),
   ],
 })

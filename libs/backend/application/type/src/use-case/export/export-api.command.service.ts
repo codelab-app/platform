@@ -4,13 +4,13 @@ import {
   FieldRepository,
   InterfaceTypeRepository,
 } from '@codelab/backend/domain/type'
+import { Span } from '@codelab/backend/infra/adapter/otel'
 import type { IInterfaceTypeEntity } from '@codelab/shared/abstract/core'
 import {
   IFieldDTO,
   IInterfaceTypeDTO,
   ITypeKind,
 } from '@codelab/shared/abstract/core'
-import { Span } from '@codelab/backend/infra/adapter/otel'
 import { Typebox } from '@codelab/shared/infra/validation'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'

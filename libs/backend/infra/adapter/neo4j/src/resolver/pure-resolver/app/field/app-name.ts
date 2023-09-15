@@ -6,13 +6,8 @@ import type { IFieldResolver } from '@graphql-tools/utils'
  *
  * We can compute name by replacing the ID
  */
-export const name: IFieldResolver<App, unknown> = (
-  app,
-  args,
-  context,
-  info,
-) => {
-  // console.log(args, context, info)
+export const name: IFieldResolver<App, unknown> = (app) => {
+  console.log(app)
 
-  return app._compoundName.replace(`${app.owner.auth0Id}-`, '')
+  return app._compositeKey.replace(`${app.owner.auth0Id}-`, '')
 }

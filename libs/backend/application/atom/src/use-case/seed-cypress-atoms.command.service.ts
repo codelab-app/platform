@@ -8,10 +8,12 @@ import { createAtomsApiData, createAtomsData } from '@codelab/shared/data/test'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
-export class SeedAtomCommand {}
+export class SeedCypressAtomsCommand {}
 
-@CommandHandler(SeedAtomCommand)
-export class SeedAtomHandler implements ICommandHandler<SeedAtomCommand, void> {
+@CommandHandler(SeedCypressAtomsCommand)
+export class SeedCypressAtomsHandler
+  implements ICommandHandler<SeedCypressAtomsCommand, void>
+{
   constructor(
     private atomRepository: AtomRepository,
     private interfaceTypeRepository: InterfaceTypeRepository,

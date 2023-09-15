@@ -3,7 +3,7 @@ import type {
   RenderPropTypeOptions,
   RenderPropTypeWhere,
 } from '@codelab/backend/abstract/codegen'
-import { AuthService } from '@codelab/backend/application/service'
+import { AuthService } from '@codelab/backend/application/shared'
 import {
   exportRenderPropTypeSelectionSet,
   OgmService,

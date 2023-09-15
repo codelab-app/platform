@@ -1,3 +1,3 @@
-# backend-application-service
+# backend-infra-adapter-auth0
 
 This library was generated with [Nx](https://nx.dev).

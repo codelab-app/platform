@@ -18,9 +18,9 @@ export const elementSchema = gql`
 
   type Element {
     id: ID! @unique
-    _compoundName: String! @unique
-    name: String! @customResolver(requires: "id _compoundName")
-    slug: String! @customResolver(requires: "id _compoundName")
+    _compositeKey: String! @unique
+    name: String! @customResolver(requires: "id _compositeKey")
+    slug: String! @customResolver(requires: "id _compositeKey")
     nextSibling: Element @relationship(type: "NODE_SIBLING", direction: IN)
     prevSibling: Element @relationship(type: "NODE_SIBLING", direction: OUT)
     firstChild: Element @relationship(type: "TREE_FIRST_CHILD", direction: IN)

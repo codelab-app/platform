@@ -1,5 +1,5 @@
 import type { AntDesignField } from '@codelab/backend/abstract/core'
-import { AuthService, UseCase } from '@codelab/backend/application/service'
+import { AuthService, UseCase } from '@codelab/backend/application/shared'
 import {
   Field,
   FieldRepository,

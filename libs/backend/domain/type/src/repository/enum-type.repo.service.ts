@@ -5,7 +5,7 @@ import type {
   EnumTypeOptions,
   EnumTypeWhere,
 } from '@codelab/backend/abstract/codegen'
-import { AuthService } from '@codelab/backend/application/service'
+import { AuthService } from '@codelab/backend/application/shared'
 import {
   exportEnumTypeSelectionSet,
   OgmService,

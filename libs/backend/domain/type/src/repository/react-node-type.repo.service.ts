@@ -3,7 +3,7 @@ import type {
   ReactNodeTypeOptions,
   ReactNodeTypeWhere,
 } from '@codelab/backend/abstract/codegen'
-import { AuthService } from '@codelab/backend/application/service'
+import { AuthService } from '@codelab/backend/application/shared'
 import {
   exportReactNodeTypeSelectionSet,
   OgmService,

@@ -1,13 +1,11 @@
 import { AtomApplicationModule } from '@codelab/backend/application/atom'
 import { ComponentApplicationModule } from '@codelab/backend/application/component'
-import {
-  AuthModule,
-  DatabaseService,
-} from '@codelab/backend/application/service'
+import { AuthModule } from '@codelab/backend/application/shared'
 import { StoreApplicationModule } from '@codelab/backend/application/store'
 import { TagApplicationModule } from '@codelab/backend/application/tag'
 import { TypeApplicationModule } from '@codelab/backend/application/type'
 import { UserApplicationModule } from '@codelab/backend/application/user'
+import { AdminDomainModule } from '@codelab/backend/domain/admin'
 import { OtelModule } from '@codelab/backend/infra/adapter/otel'
 import { ValidationModule } from '@codelab/backend/infra/adapter/typebox'
 import { Module } from '@nestjs/common'
@@ -22,13 +20,13 @@ import { ReadAdminDataService } from './use-case/import/read-admin-data.service'
 @Module({
   controllers: [AdminController],
   imports: [
-    OtelModule,
     CqrsModule,
     ValidationModule,
     AuthModule,
     /**
      * Application
      */
+    AdminDomainModule,
     AtomApplicationModule,
     StoreApplicationModule,
     TagApplicationModule,
@@ -37,7 +35,6 @@ import { ReadAdminDataService } from './use-case/import/read-admin-data.service'
     UserApplicationModule,
   ],
   providers: [
-    DatabaseService,
     ImportAdminDataHandler,
     ExportAdminDataHandler,
     MigrationDataService,

@@ -1,9 +1,9 @@
+import { SeedCypressAppCommand } from '@codelab/backend/application/app'
+import { SeedCypressAtomsCommand } from '@codelab/backend/application/atom'
+import { SeedCypressTagsCommand } from '@codelab/backend/application/tag'
+import { SeedCypressTypesCommand } from '@codelab/backend/application/type'
 import { Controller, Post } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
-import { SeedAppCommand } from './seed-app.command.service'
-import { SeedAtomCommand } from './seed-atom.command.service'
-import { SeedTagCommand } from './seed-tag.command.service'
-import { SeedTypeCommand } from './seed-type.command.service'
 
 @Controller('/')
 export class CypressController {
@@ -11,21 +11,23 @@ export class CypressController {
 
   @Post('app')
   seedApp() {
-    return this.commandBus.execute(new SeedAppCommand())
+    console.log('cypress app')
+
+    return this.commandBus.execute(new SeedCypressAppCommand())
   }
 
   @Post('atom')
   seedAtom() {
-    return this.commandBus.execute(new SeedAtomCommand())
+    return this.commandBus.execute(new SeedCypressAtomsCommand())
   }
 
   @Post('tag')
   seedTag() {
-    return this.commandBus.execute(new SeedTagCommand())
+    return this.commandBus.execute(new SeedCypressTagsCommand())
   }
 
   @Post('type')
   seedType() {
-    return this.commandBus.execute(new SeedTypeCommand())
+    return this.commandBus.execute(new SeedCypressTypesCommand())
   }
 }

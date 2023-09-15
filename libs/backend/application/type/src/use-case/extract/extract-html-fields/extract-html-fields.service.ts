@@ -1,6 +1,6 @@
 import type { HtmlField } from '@codelab/backend/abstract/core'
 import type { IUseCase } from '@codelab/backend/abstract/types'
-import { CurrentUser } from '@codelab/backend/application/service'
+import { CurrentUser } from '@codelab/backend/application/shared'
 import {
   Field,
   FieldRepository,

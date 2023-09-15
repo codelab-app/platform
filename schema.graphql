@@ -529,7 +529,7 @@ type ApiActionElementElementAggregationSelection {
 }
 
 type ApiActionElementElementNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  _compositeKey: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
@@ -541,21 +541,21 @@ input ApiActionElementNodeAggregationWhereInput {
   AND: [ApiActionElementNodeAggregationWhereInput!]
   NOT: ApiActionElementNodeAggregationWhereInput
   OR: [ApiActionElementNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  _compositeKey_AVERAGE_LENGTH_GT: Float
+  _compositeKey_AVERAGE_LENGTH_GTE: Float
+  _compositeKey_AVERAGE_LENGTH_LT: Float
+  _compositeKey_AVERAGE_LENGTH_LTE: Float
+  _compositeKey_LONGEST_LENGTH_EQUAL: Int
+  _compositeKey_LONGEST_LENGTH_GT: Int
+  _compositeKey_LONGEST_LENGTH_GTE: Int
+  _compositeKey_LONGEST_LENGTH_LT: Int
+  _compositeKey_LONGEST_LENGTH_LTE: Int
+  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  _compositeKey_SHORTEST_LENGTH_GT: Int
+  _compositeKey_SHORTEST_LENGTH_GTE: Int
+  _compositeKey_SHORTEST_LENGTH_LT: Int
+  _compositeKey_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -1147,7 +1147,7 @@ type ApiActionsConnection {
 }
 
 type App implements WithOwner {
-  _compoundName: String!
+  _compositeKey: String!
   domains(
     directed: Boolean = true
     options: DomainOptions
@@ -1198,7 +1198,7 @@ type App implements WithOwner {
 }
 
 type AppAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  _compositeKey: StringAggregateSelectionNonNullable!
   count: Int!
   id: IDAggregateSelectionNonNullable!
 }
@@ -1224,7 +1224,7 @@ input AppConnectWhere {
 }
 
 input AppCreateInput {
-  _compoundName: String!
+  _compositeKey: String!
   domains: AppDomainsFieldInput
   id: ID!
   owner: WithOwnerOwnerFieldInput
@@ -1367,7 +1367,7 @@ type AppEdge {
 }
 
 input AppOnCreateInput {
-  _compoundName: String!
+  _compositeKey: String!
   id: ID!
 }
 
@@ -1588,7 +1588,7 @@ input AppRelationInput {
 Fields to sort Apps by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppSort object.
 """
 input AppSort {
-  _compoundName: SortDirection
+  _compositeKey: SortDirection
   id: SortDirection
 }
 
@@ -1783,12 +1783,12 @@ type AppTypesConnection {
 }
 
 input AppUniqueWhere {
-  _compoundName: String
+  _compositeKey: String
   id: ID
 }
 
 input AppUpdateInput {
-  _compoundName: String
+  _compositeKey: String
   domains: [AppDomainsUpdateFieldInput!]
   id: ID
   owner: WithOwnerOwnerUpdateFieldInput
@@ -1811,12 +1811,12 @@ input AppWhere {
   AND: [AppWhere!]
   NOT: AppWhere
   OR: [AppWhere!]
-  _compoundName: String
-  _compoundName_CONTAINS: String
-  _compoundName_ENDS_WITH: String
-  _compoundName_IN: [String!]
-  _compoundName_MATCHES: String
-  _compoundName_STARTS_WITH: String
+  _compositeKey: String
+  _compositeKey_CONTAINS: String
+  _compositeKey_ENDS_WITH: String
+  _compositeKey_IN: [String!]
+  _compositeKey_MATCHES: String
+  _compositeKey_STARTS_WITH: String
   domainsAggregate: AppDomainsAggregateInput
 
   """
@@ -3996,21 +3996,21 @@ input BaseActionElementNodeAggregationWhereInput {
   AND: [BaseActionElementNodeAggregationWhereInput!]
   NOT: BaseActionElementNodeAggregationWhereInput
   OR: [BaseActionElementNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  _compositeKey_AVERAGE_LENGTH_GT: Float
+  _compositeKey_AVERAGE_LENGTH_GTE: Float
+  _compositeKey_AVERAGE_LENGTH_LT: Float
+  _compositeKey_AVERAGE_LENGTH_LTE: Float
+  _compositeKey_LONGEST_LENGTH_EQUAL: Int
+  _compositeKey_LONGEST_LENGTH_GT: Int
+  _compositeKey_LONGEST_LENGTH_GTE: Int
+  _compositeKey_LONGEST_LENGTH_LT: Int
+  _compositeKey_LONGEST_LENGTH_LTE: Int
+  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  _compositeKey_SHORTEST_LENGTH_GT: Int
+  _compositeKey_SHORTEST_LENGTH_GTE: Int
+  _compositeKey_SHORTEST_LENGTH_LT: Int
+  _compositeKey_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -4389,7 +4389,7 @@ type CodeActionElementElementAggregationSelection {
 }
 
 type CodeActionElementElementNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  _compositeKey: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
@@ -4401,21 +4401,21 @@ input CodeActionElementNodeAggregationWhereInput {
   AND: [CodeActionElementNodeAggregationWhereInput!]
   NOT: CodeActionElementNodeAggregationWhereInput
   OR: [CodeActionElementNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  _compositeKey_AVERAGE_LENGTH_GT: Float
+  _compositeKey_AVERAGE_LENGTH_GTE: Float
+  _compositeKey_AVERAGE_LENGTH_LT: Float
+  _compositeKey_AVERAGE_LENGTH_LTE: Float
+  _compositeKey_LONGEST_LENGTH_EQUAL: Int
+  _compositeKey_LONGEST_LENGTH_GT: Int
+  _compositeKey_LONGEST_LENGTH_GTE: Int
+  _compositeKey_LONGEST_LENGTH_LT: Int
+  _compositeKey_LONGEST_LENGTH_LTE: Int
+  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  _compositeKey_SHORTEST_LENGTH_GT: Int
+  _compositeKey_SHORTEST_LENGTH_GTE: Int
+  _compositeKey_SHORTEST_LENGTH_LT: Int
+  _compositeKey_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -5071,21 +5071,21 @@ input ComponentChildrenContainerElementNodeAggregationWhereInput {
   AND: [ComponentChildrenContainerElementNodeAggregationWhereInput!]
   NOT: ComponentChildrenContainerElementNodeAggregationWhereInput
   OR: [ComponentChildrenContainerElementNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  _compositeKey_AVERAGE_LENGTH_GT: Float
+  _compositeKey_AVERAGE_LENGTH_GTE: Float
+  _compositeKey_AVERAGE_LENGTH_LT: Float
+  _compositeKey_AVERAGE_LENGTH_LTE: Float
+  _compositeKey_LONGEST_LENGTH_EQUAL: Int
+  _compositeKey_LONGEST_LENGTH_GT: Int
+  _compositeKey_LONGEST_LENGTH_GTE: Int
+  _compositeKey_LONGEST_LENGTH_LT: Int
+  _compositeKey_LONGEST_LENGTH_LTE: Int
+  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  _compositeKey_SHORTEST_LENGTH_GT: Int
+  _compositeKey_SHORTEST_LENGTH_GTE: Int
+  _compositeKey_SHORTEST_LENGTH_LT: Int
+  _compositeKey_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -5233,7 +5233,7 @@ type ComponentElementChildrenContainerElementAggregationSelection {
 }
 
 type ComponentElementChildrenContainerElementNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  _compositeKey: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
@@ -5247,7 +5247,7 @@ type ComponentElementRootElementAggregationSelection {
 }
 
 type ComponentElementRootElementNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  _compositeKey: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
@@ -5539,21 +5539,21 @@ input ComponentRootElementNodeAggregationWhereInput {
   AND: [ComponentRootElementNodeAggregationWhereInput!]
   NOT: ComponentRootElementNodeAggregationWhereInput
   OR: [ComponentRootElementNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  _compositeKey_AVERAGE_LENGTH_GT: Float
+  _compositeKey_AVERAGE_LENGTH_GTE: Float
+  _compositeKey_AVERAGE_LENGTH_LT: Float
+  _compositeKey_AVERAGE_LENGTH_LTE: Float
+  _compositeKey_LONGEST_LENGTH_EQUAL: Int
+  _compositeKey_LONGEST_LENGTH_GT: Int
+  _compositeKey_LONGEST_LENGTH_GTE: Int
+  _compositeKey_LONGEST_LENGTH_LT: Int
+  _compositeKey_LONGEST_LENGTH_LTE: Int
+  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  _compositeKey_SHORTEST_LENGTH_GT: Int
+  _compositeKey_SHORTEST_LENGTH_GTE: Int
+  _compositeKey_SHORTEST_LENGTH_LT: Int
+  _compositeKey_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -6066,7 +6066,7 @@ type DomainAppAppAggregationSelection {
 }
 
 type DomainAppAppNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  _compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
 }
 
@@ -6130,21 +6130,21 @@ input DomainAppNodeAggregationWhereInput {
   AND: [DomainAppNodeAggregationWhereInput!]
   NOT: DomainAppNodeAggregationWhereInput
   OR: [DomainAppNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  _compositeKey_AVERAGE_LENGTH_GT: Float
+  _compositeKey_AVERAGE_LENGTH_GTE: Float
+  _compositeKey_AVERAGE_LENGTH_LT: Float
+  _compositeKey_AVERAGE_LENGTH_LTE: Float
+  _compositeKey_LONGEST_LENGTH_EQUAL: Int
+  _compositeKey_LONGEST_LENGTH_GT: Int
+  _compositeKey_LONGEST_LENGTH_GTE: Int
+  _compositeKey_LONGEST_LENGTH_LT: Int
+  _compositeKey_LONGEST_LENGTH_LTE: Int
+  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  _compositeKey_SHORTEST_LENGTH_GT: Int
+  _compositeKey_SHORTEST_LENGTH_GTE: Int
+  _compositeKey_SHORTEST_LENGTH_LT: Int
+  _compositeKey_SHORTEST_LENGTH_LTE: Int
 }
 
 type DomainAppRelationship {
@@ -6268,7 +6268,7 @@ type DomainsConnection {
 }
 
 type Element {
-  _compoundName: String!
+  _compositeKey: String!
   childMapperComponent(
     directed: Boolean = true
     options: ComponentOptions
@@ -6473,7 +6473,7 @@ type Element {
 }
 
 type ElementAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  _compositeKey: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
   count: Int!
   id: IDAggregateSelectionNonNullable!
@@ -6691,21 +6691,21 @@ input ElementChildMapperPreviousSiblingNodeAggregationWhereInput {
   AND: [ElementChildMapperPreviousSiblingNodeAggregationWhereInput!]
   NOT: ElementChildMapperPreviousSiblingNodeAggregationWhereInput
   OR: [ElementChildMapperPreviousSiblingNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  _compositeKey_AVERAGE_LENGTH_GT: Float
+  _compositeKey_AVERAGE_LENGTH_GTE: Float
+  _compositeKey_AVERAGE_LENGTH_LT: Float
+  _compositeKey_AVERAGE_LENGTH_LTE: Float
+  _compositeKey_LONGEST_LENGTH_EQUAL: Int
+  _compositeKey_LONGEST_LENGTH_GT: Int
+  _compositeKey_LONGEST_LENGTH_GTE: Int
+  _compositeKey_LONGEST_LENGTH_LT: Int
+  _compositeKey_LONGEST_LENGTH_LTE: Int
+  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  _compositeKey_SHORTEST_LENGTH_GT: Int
+  _compositeKey_SHORTEST_LENGTH_GTE: Int
+  _compositeKey_SHORTEST_LENGTH_LT: Int
+  _compositeKey_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -6859,7 +6859,7 @@ input ElementConnectWhere {
 }
 
 input ElementCreateInput {
-  _compoundName: String!
+  _compositeKey: String!
   childMapperComponent: ElementChildMapperComponentFieldInput
   childMapperPreviousSibling: ElementChildMapperPreviousSiblingFieldInput
   childMapperPropKey: String
@@ -6923,7 +6923,7 @@ type ElementElementChildMapperPreviousSiblingAggregationSelection {
 }
 
 type ElementElementChildMapperPreviousSiblingNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  _compositeKey: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
@@ -6937,7 +6937,7 @@ type ElementElementFirstChildAggregationSelection {
 }
 
 type ElementElementFirstChildNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  _compositeKey: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
@@ -6951,7 +6951,7 @@ type ElementElementNextSiblingAggregationSelection {
 }
 
 type ElementElementNextSiblingNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  _compositeKey: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
@@ -6965,7 +6965,7 @@ type ElementElementParentAggregationSelection {
 }
 
 type ElementElementParentNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  _compositeKey: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
@@ -6979,7 +6979,7 @@ type ElementElementPrevSiblingAggregationSelection {
 }
 
 type ElementElementPrevSiblingNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  _compositeKey: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
@@ -7059,21 +7059,21 @@ input ElementFirstChildNodeAggregationWhereInput {
   AND: [ElementFirstChildNodeAggregationWhereInput!]
   NOT: ElementFirstChildNodeAggregationWhereInput
   OR: [ElementFirstChildNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  _compositeKey_AVERAGE_LENGTH_GT: Float
+  _compositeKey_AVERAGE_LENGTH_GTE: Float
+  _compositeKey_AVERAGE_LENGTH_LT: Float
+  _compositeKey_AVERAGE_LENGTH_LTE: Float
+  _compositeKey_LONGEST_LENGTH_EQUAL: Int
+  _compositeKey_LONGEST_LENGTH_GT: Int
+  _compositeKey_LONGEST_LENGTH_GTE: Int
+  _compositeKey_LONGEST_LENGTH_LT: Int
+  _compositeKey_LONGEST_LENGTH_LTE: Int
+  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  _compositeKey_SHORTEST_LENGTH_GT: Int
+  _compositeKey_SHORTEST_LENGTH_GTE: Int
+  _compositeKey_SHORTEST_LENGTH_LT: Int
+  _compositeKey_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -7227,21 +7227,21 @@ input ElementNextSiblingNodeAggregationWhereInput {
   AND: [ElementNextSiblingNodeAggregationWhereInput!]
   NOT: ElementNextSiblingNodeAggregationWhereInput
   OR: [ElementNextSiblingNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  _compositeKey_AVERAGE_LENGTH_GT: Float
+  _compositeKey_AVERAGE_LENGTH_GTE: Float
+  _compositeKey_AVERAGE_LENGTH_LT: Float
+  _compositeKey_AVERAGE_LENGTH_LTE: Float
+  _compositeKey_LONGEST_LENGTH_EQUAL: Int
+  _compositeKey_LONGEST_LENGTH_GT: Int
+  _compositeKey_LONGEST_LENGTH_GTE: Int
+  _compositeKey_LONGEST_LENGTH_LT: Int
+  _compositeKey_LONGEST_LENGTH_LTE: Int
+  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  _compositeKey_SHORTEST_LENGTH_GT: Int
+  _compositeKey_SHORTEST_LENGTH_GTE: Int
+  _compositeKey_SHORTEST_LENGTH_LT: Int
+  _compositeKey_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -7324,7 +7324,7 @@ input ElementNextSiblingUpdateFieldInput {
 }
 
 input ElementOnCreateInput {
-  _compoundName: String!
+  _compositeKey: String!
   childMapperPropKey: String
   id: ID!
   renderForEachPropKey: String
@@ -7671,21 +7671,21 @@ input ElementParentNodeAggregationWhereInput {
   AND: [ElementParentNodeAggregationWhereInput!]
   NOT: ElementParentNodeAggregationWhereInput
   OR: [ElementParentNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  _compositeKey_AVERAGE_LENGTH_GT: Float
+  _compositeKey_AVERAGE_LENGTH_GTE: Float
+  _compositeKey_AVERAGE_LENGTH_LT: Float
+  _compositeKey_AVERAGE_LENGTH_LTE: Float
+  _compositeKey_LONGEST_LENGTH_EQUAL: Int
+  _compositeKey_LONGEST_LENGTH_GT: Int
+  _compositeKey_LONGEST_LENGTH_GTE: Int
+  _compositeKey_LONGEST_LENGTH_LT: Int
+  _compositeKey_LONGEST_LENGTH_LTE: Int
+  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  _compositeKey_SHORTEST_LENGTH_GT: Int
+  _compositeKey_SHORTEST_LENGTH_GTE: Int
+  _compositeKey_SHORTEST_LENGTH_LT: Int
+  _compositeKey_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -7957,21 +7957,21 @@ input ElementPrevSiblingNodeAggregationWhereInput {
   AND: [ElementPrevSiblingNodeAggregationWhereInput!]
   NOT: ElementPrevSiblingNodeAggregationWhereInput
   OR: [ElementPrevSiblingNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  _compositeKey_AVERAGE_LENGTH_GT: Float
+  _compositeKey_AVERAGE_LENGTH_GTE: Float
+  _compositeKey_AVERAGE_LENGTH_LT: Float
+  _compositeKey_AVERAGE_LENGTH_LTE: Float
+  _compositeKey_LONGEST_LENGTH_EQUAL: Int
+  _compositeKey_LONGEST_LENGTH_GT: Int
+  _compositeKey_LONGEST_LENGTH_GTE: Int
+  _compositeKey_LONGEST_LENGTH_LT: Int
+  _compositeKey_LONGEST_LENGTH_LTE: Int
+  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  _compositeKey_SHORTEST_LENGTH_GT: Int
+  _compositeKey_SHORTEST_LENGTH_GTE: Int
+  _compositeKey_SHORTEST_LENGTH_LT: Int
+  _compositeKey_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -8478,7 +8478,7 @@ input ElementRenderComponentTypeUpdateFieldInput {
 Fields to sort Elements by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementSort object.
 """
 input ElementSort {
-  _compoundName: SortDirection
+  _compositeKey: SortDirection
   childMapperPropKey: SortDirection
   id: SortDirection
   renderForEachPropKey: SortDirection
@@ -8700,12 +8700,12 @@ type ElementTypesConnection {
 }
 
 input ElementUniqueWhere {
-  _compoundName: String
+  _compositeKey: String
   id: ID
 }
 
 input ElementUpdateInput {
-  _compoundName: String
+  _compositeKey: String
   childMapperComponent: ElementChildMapperComponentUpdateFieldInput
   childMapperPreviousSibling: ElementChildMapperPreviousSiblingUpdateFieldInput
   childMapperPropKey: String
@@ -8730,12 +8730,12 @@ input ElementWhere {
   AND: [ElementWhere!]
   NOT: ElementWhere
   OR: [ElementWhere!]
-  _compoundName: String
-  _compoundName_CONTAINS: String
-  _compoundName_ENDS_WITH: String
-  _compoundName_IN: [String!]
-  _compoundName_MATCHES: String
-  _compoundName_STARTS_WITH: String
+  _compositeKey: String
+  _compositeKey_CONTAINS: String
+  _compositeKey_ENDS_WITH: String
+  _compositeKey_IN: [String!]
+  _compositeKey_MATCHES: String
+  _compositeKey_STARTS_WITH: String
   childMapperComponent: ComponentWhere
   childMapperComponentAggregate: ElementChildMapperComponentAggregateInput
   childMapperComponentConnection: ElementChildMapperComponentConnectionWhere
@@ -10727,7 +10727,7 @@ type HookElementElementAggregationSelection {
 }
 
 type HookElementElementNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  _compositeKey: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
@@ -10745,21 +10745,21 @@ input HookElementNodeAggregationWhereInput {
   AND: [HookElementNodeAggregationWhereInput!]
   NOT: HookElementNodeAggregationWhereInput
   OR: [HookElementNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  _compositeKey_AVERAGE_LENGTH_GT: Float
+  _compositeKey_AVERAGE_LENGTH_GTE: Float
+  _compositeKey_AVERAGE_LENGTH_LT: Float
+  _compositeKey_AVERAGE_LENGTH_LTE: Float
+  _compositeKey_LONGEST_LENGTH_EQUAL: Int
+  _compositeKey_LONGEST_LENGTH_GT: Int
+  _compositeKey_LONGEST_LENGTH_GTE: Int
+  _compositeKey_LONGEST_LENGTH_LT: Int
+  _compositeKey_LONGEST_LENGTH_LTE: Int
+  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  _compositeKey_SHORTEST_LENGTH_GT: Int
+  _compositeKey_SHORTEST_LENGTH_GTE: Int
+  _compositeKey_SHORTEST_LENGTH_LT: Int
+  _compositeKey_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -12848,7 +12848,7 @@ type PageAppAppAggregationSelection {
 }
 
 type PageAppAppNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  _compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
 }
 
@@ -12912,21 +12912,21 @@ input PageAppNodeAggregationWhereInput {
   AND: [PageAppNodeAggregationWhereInput!]
   NOT: PageAppNodeAggregationWhereInput
   OR: [PageAppNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  _compositeKey_AVERAGE_LENGTH_GT: Float
+  _compositeKey_AVERAGE_LENGTH_GTE: Float
+  _compositeKey_AVERAGE_LENGTH_LT: Float
+  _compositeKey_AVERAGE_LENGTH_LTE: Float
+  _compositeKey_LONGEST_LENGTH_EQUAL: Int
+  _compositeKey_LONGEST_LENGTH_GT: Int
+  _compositeKey_LONGEST_LENGTH_GTE: Int
+  _compositeKey_LONGEST_LENGTH_LT: Int
+  _compositeKey_LONGEST_LENGTH_LTE: Int
+  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  _compositeKey_SHORTEST_LENGTH_GT: Int
+  _compositeKey_SHORTEST_LENGTH_GTE: Int
+  _compositeKey_SHORTEST_LENGTH_LT: Int
+  _compositeKey_SHORTEST_LENGTH_LTE: Int
 }
 
 type PageAppRelationship {
@@ -13006,7 +13006,7 @@ type PageElementPageContentContainerAggregationSelection {
 }
 
 type PageElementPageContentContainerNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  _compositeKey: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
@@ -13020,7 +13020,7 @@ type PageElementRootElementAggregationSelection {
 }
 
 type PageElementRootElementNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  _compositeKey: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
@@ -13134,21 +13134,21 @@ input PagePageContentContainerNodeAggregationWhereInput {
   AND: [PagePageContentContainerNodeAggregationWhereInput!]
   NOT: PagePageContentContainerNodeAggregationWhereInput
   OR: [PagePageContentContainerNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  _compositeKey_AVERAGE_LENGTH_GT: Float
+  _compositeKey_AVERAGE_LENGTH_GTE: Float
+  _compositeKey_AVERAGE_LENGTH_LT: Float
+  _compositeKey_AVERAGE_LENGTH_LTE: Float
+  _compositeKey_LONGEST_LENGTH_EQUAL: Int
+  _compositeKey_LONGEST_LENGTH_GT: Int
+  _compositeKey_LONGEST_LENGTH_GTE: Int
+  _compositeKey_LONGEST_LENGTH_LT: Int
+  _compositeKey_LONGEST_LENGTH_LTE: Int
+  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  _compositeKey_SHORTEST_LENGTH_GT: Int
+  _compositeKey_SHORTEST_LENGTH_GTE: Int
+  _compositeKey_SHORTEST_LENGTH_LT: Int
+  _compositeKey_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -13309,21 +13309,21 @@ input PageRootElementNodeAggregationWhereInput {
   AND: [PageRootElementNodeAggregationWhereInput!]
   NOT: PageRootElementNodeAggregationWhereInput
   OR: [PageRootElementNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  _compositeKey_AVERAGE_LENGTH_GT: Float
+  _compositeKey_AVERAGE_LENGTH_GTE: Float
+  _compositeKey_AVERAGE_LENGTH_LT: Float
+  _compositeKey_AVERAGE_LENGTH_LTE: Float
+  _compositeKey_LONGEST_LENGTH_EQUAL: Int
+  _compositeKey_LONGEST_LENGTH_GT: Int
+  _compositeKey_LONGEST_LENGTH_GTE: Int
+  _compositeKey_LONGEST_LENGTH_LT: Int
+  _compositeKey_LONGEST_LENGTH_LTE: Int
+  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  _compositeKey_SHORTEST_LENGTH_GT: Int
+  _compositeKey_SHORTEST_LENGTH_GTE: Int
+  _compositeKey_SHORTEST_LENGTH_LT: Int
+  _compositeKey_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float
@@ -17926,7 +17926,7 @@ type UserAppAppsAggregationSelection {
 }
 
 type UserAppAppsNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  _compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
 }
 
@@ -18002,21 +18002,21 @@ input UserAppsNodeAggregationWhereInput {
   AND: [UserAppsNodeAggregationWhereInput!]
   NOT: UserAppsNodeAggregationWhereInput
   OR: [UserAppsNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  _compositeKey_AVERAGE_LENGTH_GT: Float
+  _compositeKey_AVERAGE_LENGTH_GTE: Float
+  _compositeKey_AVERAGE_LENGTH_LT: Float
+  _compositeKey_AVERAGE_LENGTH_LTE: Float
+  _compositeKey_LONGEST_LENGTH_EQUAL: Int
+  _compositeKey_LONGEST_LENGTH_GT: Int
+  _compositeKey_LONGEST_LENGTH_GTE: Int
+  _compositeKey_LONGEST_LENGTH_LT: Int
+  _compositeKey_LONGEST_LENGTH_LTE: Int
+  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  _compositeKey_SHORTEST_LENGTH_GT: Int
+  _compositeKey_SHORTEST_LENGTH_GTE: Int
+  _compositeKey_SHORTEST_LENGTH_LT: Int
+  _compositeKey_SHORTEST_LENGTH_LTE: Int
 }
 
 type UserAppsRelationship {
@@ -18422,7 +18422,7 @@ type UserElementElementsAggregationSelection {
 }
 
 type UserElementElementsNodeAggregateSelection {
-  _compoundName: StringAggregateSelectionNonNullable!
+  _compositeKey: StringAggregateSelectionNonNullable!
   childMapperPropKey: StringAggregateSelectionNullable!
   id: IDAggregateSelectionNonNullable!
   renderForEachPropKey: StringAggregateSelectionNullable!
@@ -18502,21 +18502,21 @@ input UserElementsNodeAggregationWhereInput {
   AND: [UserElementsNodeAggregationWhereInput!]
   NOT: UserElementsNodeAggregationWhereInput
   OR: [UserElementsNodeAggregationWhereInput!]
-  _compoundName_AVERAGE_LENGTH_EQUAL: Float
-  _compoundName_AVERAGE_LENGTH_GT: Float
-  _compoundName_AVERAGE_LENGTH_GTE: Float
-  _compoundName_AVERAGE_LENGTH_LT: Float
-  _compoundName_AVERAGE_LENGTH_LTE: Float
-  _compoundName_LONGEST_LENGTH_EQUAL: Int
-  _compoundName_LONGEST_LENGTH_GT: Int
-  _compoundName_LONGEST_LENGTH_GTE: Int
-  _compoundName_LONGEST_LENGTH_LT: Int
-  _compoundName_LONGEST_LENGTH_LTE: Int
-  _compoundName_SHORTEST_LENGTH_EQUAL: Int
-  _compoundName_SHORTEST_LENGTH_GT: Int
-  _compoundName_SHORTEST_LENGTH_GTE: Int
-  _compoundName_SHORTEST_LENGTH_LT: Int
-  _compoundName_SHORTEST_LENGTH_LTE: Int
+  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  _compositeKey_AVERAGE_LENGTH_GT: Float
+  _compositeKey_AVERAGE_LENGTH_GTE: Float
+  _compositeKey_AVERAGE_LENGTH_LT: Float
+  _compositeKey_AVERAGE_LENGTH_LTE: Float
+  _compositeKey_LONGEST_LENGTH_EQUAL: Int
+  _compositeKey_LONGEST_LENGTH_GT: Int
+  _compositeKey_LONGEST_LENGTH_GTE: Int
+  _compositeKey_LONGEST_LENGTH_LT: Int
+  _compositeKey_LONGEST_LENGTH_LTE: Int
+  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  _compositeKey_SHORTEST_LENGTH_GT: Int
+  _compositeKey_SHORTEST_LENGTH_GTE: Int
+  _compositeKey_SHORTEST_LENGTH_LT: Int
+  _compositeKey_SHORTEST_LENGTH_LTE: Int
   childMapperPropKey_AVERAGE_LENGTH_EQUAL: Float
   childMapperPropKey_AVERAGE_LENGTH_GT: Float
   childMapperPropKey_AVERAGE_LENGTH_GTE: Float

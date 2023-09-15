@@ -5,7 +5,7 @@ import type {
 } from '@codelab/backend/abstract/codegen'
 import type { IType } from '@codelab/backend/abstract/core'
 import type { ITypeTransformer } from '@codelab/backend/abstract/ports'
-import { UseCase } from '@codelab/backend/application/service'
+import { UseCase } from '@codelab/backend/application/shared'
 import {
   ActionTypeRepository,
   EnumType,

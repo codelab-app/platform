@@ -4,13 +4,15 @@ import { createTagsData } from '@codelab/shared/data/test'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 
-export class SeedTagCommand {}
+export class SeedCypressTagsCommand {}
 
 /**
  * Used as endpoint for creating Cypress data
  */
-@CommandHandler(SeedTagCommand)
-export class SeedTagHandler implements ICommandHandler<SeedTagCommand, void> {
+@CommandHandler(SeedCypressTagsCommand)
+export class SeedCypressTagsHandler
+  implements ICommandHandler<SeedCypressTagsCommand, void>
+{
   constructor(private readonly tagRepository: TagRepository) {}
 
   async execute() {

@@ -3,7 +3,7 @@ import type {
   ActionTypeOptions,
   ActionTypeWhere,
 } from '@codelab/backend/abstract/codegen'
-import { AuthService } from '@codelab/backend/application/service'
+import { AuthService } from '@codelab/backend/application/shared'
 import {
   exportActionTypeSelectionSet,
   OgmService,

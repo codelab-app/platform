@@ -1,6 +1,7 @@
 import { CypressServerlessModule } from '@codelab/backend/infra/adapter/codelab'
 import type { INestApplication } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import type { Server } from 'http'
 import type { NextApiHandler } from 'next'
 
@@ -13,6 +14,11 @@ export const getCypressListener = async () => {
     })
     // This must match the nextjs api path
     app.setGlobalPrefix('api/cypress')
+
+    const config = new DocumentBuilder().setTitle('Cypress API').build()
+    const document = SwaggerModule.createDocument(app, config)
+    SwaggerModule.setup('api/cypress', app, document)
+
     await app.init()
   }
 

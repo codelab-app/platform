@@ -1,7 +1,5 @@
-import {
-  AuthService,
-  DatabaseService,
-} from '@codelab/backend/application/service'
+import { AuthService } from '@codelab/backend/application/shared'
+import { AdminRepository } from '@codelab/backend/domain/admin'
 import { ExportDto, ImportDto } from '@codelab/shared/abstract/core'
 import { Body, Controller, Post } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
@@ -15,8 +13,8 @@ export class ResetDataDto {
 @Controller('admin')
 export class AdminController {
   constructor(
-    private readonly databaseService: DatabaseService,
     private readonly commandBus: CommandBus,
+    private readonly adminRepository: AdminRepository,
     private authService: AuthService,
   ) {}
 
@@ -37,7 +35,7 @@ export class AdminController {
 
   @Post('reset')
   async reset(@Body() resetDataDto: ResetDataDto) {
-    await this.databaseService.reset(resetDataDto.close)
+    await this.adminRepository.reset(resetDataDto.close)
 
     return {
       message: 'Admin data reset success',

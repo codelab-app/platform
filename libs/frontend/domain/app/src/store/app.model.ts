@@ -1,8 +1,14 @@
-import type { IApp, IDomain, IPage } from '@codelab/frontend/abstract/core'
+import type {
+  IApp,
+  IDomain,
+  IPage,
+  IUser,
+} from '@codelab/frontend/abstract/core'
 import {
   domainRef,
   getUserService,
   pageRef,
+  userRef,
 } from '@codelab/frontend/abstract/core'
 import type {
   AppCreateInput,
@@ -11,18 +17,23 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
-import { connectAuth0Owner, connectNodeId } from '@codelab/shared/domain/mapper'
+import {
+  appName,
+  connectAuth0Owner,
+  connectNodeId,
+} from '@codelab/shared/domain/mapper'
 import { createUniqueName, slugify } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-const create = ({ domains, id, name, pages }: IAppDTO) => {
+const create = ({ _compositeKey, domains, id, owner, pages }: IAppDTO) => {
   const app = new App({
+    _compositeKey,
     domains: domains?.map((domain) => domainRef(domain.id)),
     id,
-    name,
+    owner: userRef(owner.auth0Id),
     pages: pages?.map((page) => pageRef(page.id)),
   })
 
@@ -32,13 +43,19 @@ const create = ({ domains, id, name, pages }: IAppDTO) => {
 @model('@codelab/App')
 export class App
   extends Model({
+    _compositeKey: prop<string>().withSetter(),
     domains: prop<Array<Ref<IDomain>>>(() => []),
     id: idProp,
-    name: prop<string>().withSetter(),
+    owner: prop<Ref<IUser>>(),
     pages: prop<Array<Ref<IPage>>>(() => []),
   })
   implements IApp
 {
+  @computed
+  get name() {
+    return appName(this)
+  }
+
   @computed
   get slug() {
     return slugify(this.name)
@@ -111,7 +128,7 @@ export class App
 
   toCreateInput(): AppCreateInput {
     return {
-      _compoundName: createUniqueName(this.name, this.userService.auth0Id),
+      _compositeKey: createUniqueName(this.name, this.userService.auth0Id),
       id: this.id,
       owner: connectAuth0Owner(this.userService.user),
       pages: {
@@ -124,7 +141,7 @@ export class App
 
   toUpdateInput(): AppUpdateInput {
     return {
-      _compoundName: createUniqueName(this.name, this.userService.auth0Id),
+      _compositeKey: createUniqueName(this.name, this.userService.auth0Id),
     }
   }
 

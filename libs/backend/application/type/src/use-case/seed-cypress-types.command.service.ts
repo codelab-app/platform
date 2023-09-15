@@ -3,13 +3,13 @@ import { TypeFactory } from '@codelab/backend/domain/type'
 import { createTypesData } from '@codelab/shared/data/test'
 import { CommandHandler } from '@nestjs/cqrs'
 
-export class SeedTypeCommand {}
+export class SeedCypressTypesCommand {}
 
 /**
  * Used as endpoint for creating Cypress data
  */
-@CommandHandler(SeedTypeCommand)
-export class SeedTypeHandler {
+@CommandHandler(SeedCypressTypesCommand)
+export class SeedCypressTypesHandler {
   constructor(private typeFactory: TypeFactory) {}
 
   async execute() {

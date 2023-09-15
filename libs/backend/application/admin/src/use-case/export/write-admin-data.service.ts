@@ -1,10 +1,9 @@
 import { type IAdminOutputDto } from '@codelab/backend/abstract/core'
-import { TraceService } from '@codelab/backend/infra/adapter/otel'
+import { Span, TraceService } from '@codelab/backend/infra/adapter/otel'
 import {
   formatToPrettifiedJson,
   writeFileSyncWithDirs,
 } from '@codelab/backend/shared/util'
-import { Span } from '@codelab/backend/infra/adapter/otel'
 import { deepSortKeys } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import path from 'path'

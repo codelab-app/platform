@@ -3,7 +3,7 @@ import type {
   AppOptions,
   AppWhere,
 } from '@codelab/backend/abstract/codegen'
-import { AuthService } from '@codelab/backend/application/service'
+import { AuthService } from '@codelab/backend/application/shared'
 import {
   appSelectionSet,
   OgmService,
@@ -60,11 +60,8 @@ export class AppRepository extends AbstractRepository<
       await (
         await this.ogmService.App
       ).create({
-        input: apps.map(({ id, name, pages }) => ({
-          _compoundName: createUniqueName(
-            name,
-            this.authService.currentUser.auth0Id,
-          ),
+        input: apps.map(({ _compositeKey, id, pages }) => ({
+          _compositeKey,
           id,
           owner: connectAuth0Owner(this.authService.currentUser),
           pages: connectNodeIds(pages?.map((page) => page.id)),
@@ -73,16 +70,13 @@ export class AppRepository extends AbstractRepository<
     ).apps
   }
 
-  protected async _update({ name, pages }: IAppDTO, where: AppWhere) {
+  protected async _update({ _compositeKey, pages }: IAppDTO, where: AppWhere) {
     return (
       await (
         await this.ogmService.App
       ).update({
         update: {
-          _compoundName: createUniqueName(
-            name,
-            this.authService.currentUser.auth0Id,
-          ),
+          _compositeKey,
           pages: reconnectNodeIds(pages?.map((page) => page.id)).map(
             (input) => ({
               ...input,

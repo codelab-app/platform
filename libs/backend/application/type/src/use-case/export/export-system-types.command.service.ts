@@ -10,12 +10,12 @@ import {
   ReactNodeTypeRepository,
   RenderPropTypeRepository,
 } from '@codelab/backend/domain/type'
+import { Span } from '@codelab/backend/infra/adapter/otel'
 import {
   IActionTypeDTO,
   IReactNodeTypeDTO,
   IRenderPropTypeDTO,
 } from '@codelab/shared/abstract/core'
-import { Span } from '@codelab/backend/infra/adapter/otel'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandHandler } from '@nestjs/cqrs'
 

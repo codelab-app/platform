@@ -3,14 +3,14 @@ import type {
   InterfaceTypeOptions,
   InterfaceTypeWhere,
 } from '@codelab/backend/abstract/codegen'
-import { AuthService } from '@codelab/backend/application/service'
+import { AuthService } from '@codelab/backend/application/shared'
 import {
   getDependentTypes,
   interfaceTypeSelectionSet,
   Neo4jService,
   OgmService,
 } from '@codelab/backend/infra/adapter/neo4j'
-import { TraceService } from '@codelab/backend/infra/adapter/otel'
+import { Span, TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import {
@@ -21,7 +21,6 @@ import {
   connectAuth0Owner,
   connectNodeIds,
 } from '@codelab/shared/domain/mapper'
-import { Span } from '@codelab/backend/infra/adapter/otel'
 import { Injectable } from '@nestjs/common'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 

@@ -1,6 +1,6 @@
 import type { IAtomRecords, TagNode } from '@codelab/backend/abstract/core'
 import { SeedAtomsService } from '@codelab/backend/application/atom'
-import { UseCase } from '@codelab/backend/application/service'
+import { UseCase } from '@codelab/backend/application/shared'
 import { SeedTagsService } from '@codelab/backend/application/tag'
 import {
   SeedEmptyApiService,

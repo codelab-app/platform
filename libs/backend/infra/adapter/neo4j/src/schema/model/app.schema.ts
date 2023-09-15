@@ -5,9 +5,9 @@ export const appSchema = gql`
     id: ID! @unique
     owner: User!
     # auth0Id-name format to make it unique across user
-    _compoundName: String! @unique
-    name: String! @customResolver(requires: "id _compoundName")
-    slug: String! @customResolver(requires: "id _compoundName")
+    _compositeKey: String! @unique
+    name: String! @customResolver(requires: "owner { id } _compositeKey ")
+    slug: String! @customResolver(requires: "owner { id } _compositeKey")
     pages: [Page!]! @relationship(type: "PAGES", direction: OUT)
     domains: [Domain!]! @relationship(type: "APP_DOMAIN", direction: IN)
   }

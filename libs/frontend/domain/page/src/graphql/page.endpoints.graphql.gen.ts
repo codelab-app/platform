@@ -119,7 +119,7 @@ export const GetPagesDocument = gql`
 `
 export const GetDevelopmentPageDocument = gql`
   query GetDevelopmentPage($appName: String!, $pageName: String!) {
-    apps(where: { _compoundName: $appName }) {
+    apps(where: { _compositeKey: $appName }) {
       ...PageBuilderApp
     }
     resources {
@@ -131,7 +131,7 @@ export const GetDevelopmentPageDocument = gql`
 `
 export const GetProductionPageDocument = gql`
   query GetProductionPage($appName: String!, $pageName: String!) {
-    apps(where: { _compoundName: $appName }) {
+    apps(where: { _compositeKey: $appName }) {
       ...PageApp
     }
     resources {

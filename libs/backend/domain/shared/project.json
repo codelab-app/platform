@@ -1,0 +1,16 @@
+{
+  "name": "backend-domain-shared",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/backend/domain/shared/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/backend/domain/shared/**/*.ts"]
+      }
+    }
+  },
+  "tags": ["scope:backend"]
+}

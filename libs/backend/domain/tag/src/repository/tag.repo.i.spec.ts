@@ -1,4 +1,4 @@
-import { DatabaseService } from '@codelab/backend/application/service'
+import { DatabaseService } from '@codelab/backend/application/shared'
 import type { IUserDTO } from '@codelab/shared/abstract/core'
 import type { TestingModule } from '@nestjs/testing'
 import { Test } from '@nestjs/testing'

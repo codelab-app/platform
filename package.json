@@ -231,7 +231,7 @@
     "@graphql-codegen/typescript-document-nodes": "4.0.0",
     "@graphql-codegen/typescript-graphql-request": "5.0.0",
     "@graphql-codegen/typescript-operations": "4.0.0",
-    "@graphql-eslint/eslint-plugin": "^3.19.1",
+    "@graphql-eslint/eslint-plugin": "^3.20.1",
     "@hon2a/cypress-without": "1.1.8",
     "@ls-lint/ls-lint": "2.0.0",
     "@nestjs/cli": "^10.0.2",

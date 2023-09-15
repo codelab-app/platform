@@ -1,5 +1,4 @@
-/* eslint-disable @nx/enforce-module-boundaries */
-import { AuthService } from '@codelab/backend/application/service'
+import { AuthService } from '@codelab/backend/application/shared'
 import { App, AppRepository } from '@codelab/backend/domain/app'
 import { Element, ElementRepository } from '@codelab/backend/domain/element'
 import { Page, PageRepository } from '@codelab/backend/domain/page'
@@ -23,13 +22,15 @@ import {
 import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import { v4 } from 'uuid'
 
-export class SeedAppCommand {}
+export class SeedCypressAppCommand {}
 
 /**
  * Used as endpoint for creating Cypress data
  */
-@CommandHandler(SeedAppCommand)
-export class SeedAppHandler implements ICommandHandler<SeedAppCommand, void> {
+@CommandHandler(SeedCypressAppCommand)
+export class SeedCypressAppHandler
+  implements ICommandHandler<SeedCypressAppCommand, void>
+{
   constructor(
     private readonly appRepository: AppRepository,
     private readonly pageRepository: PageRepository,
@@ -41,7 +42,6 @@ export class SeedAppHandler implements ICommandHandler<SeedAppCommand, void> {
   ) {}
 
   async execute() {
-    const owner = this.authService.currentUser
     /**
      * Create props
      */
@@ -87,14 +87,13 @@ export class SeedAppHandler implements ICommandHandler<SeedAppCommand, void> {
     /**
      * Create app
      */
-    const app = new App(appData())
+    const app = new App(appData(this.authService.currentUser))
 
     await this.appRepository.add([app])
 
     /**
      * Create pages
      */
-
     const providerPageStore = Store.create(IPageKindName.Provider)
     const notFoundPageStore = Store.create(IPageKindName.NotFound)
 

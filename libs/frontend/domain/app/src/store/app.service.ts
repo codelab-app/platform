@@ -8,6 +8,7 @@ import type {
 import {
   getComponentService,
   getElementService,
+  getUserService,
   pageRef,
 } from '@codelab/frontend/abstract/core'
 import { getAtomService } from '@codelab/frontend/domain/atom'
@@ -98,6 +99,11 @@ export class AppService
   @computed
   private get actionService() {
     return getActionService(this)
+  }
+
+  @computed
+  private get userService() {
+    return getUserService(this)
   }
 
   @computed
@@ -250,22 +256,23 @@ export class AppService
   })
 
   @modelAction
-  add({ domains, id, name, pages }: IAppDTO) {
+  add({ _compositeKey, domains, id, owner, pages }: IAppDTO) {
     domains?.forEach((domain) => this.domainService.add(domain as IDomainDTO))
 
     let app = this.apps.get(id)
 
     if (app) {
       app.writeCache({
+        _compositeKey,
         domains,
-        name,
         pages,
       })
     } else {
       app = App.create({
+        _compositeKey,
         domains,
         id,
-        name,
+        owner,
         pages,
       })
     }
@@ -286,6 +293,7 @@ export class AppService
     const app = this.add({
       id,
       name,
+      owner: this.userService.user,
       pages,
     })
 

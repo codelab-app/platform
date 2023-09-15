@@ -1,14 +1,14 @@
 {
-  "name": "backend-application-service",
+  "name": "backend-application-shared",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/backend/application/service/src",
+  "sourceRoot": "libs/backend/application/shared/src",
   "projectType": "library",
   "targets": {
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/backend/application/service/**/*.ts"]
+        "lintFilePatterns": ["libs/backend/application/shared/**/*.ts"]
       },
       "configurations": {
         "ci": {

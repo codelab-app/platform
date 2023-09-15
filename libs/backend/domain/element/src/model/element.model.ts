@@ -18,7 +18,7 @@ export class Element implements IElementDTO {
 
   id: string
 
-  name: string
+  _compositeKey: string
 
   nextSibling?: IEntity | null | undefined
 
@@ -42,12 +42,9 @@ export class Element implements IElementDTO {
 
   renderType?: Nullable<RenderType> | undefined
 
-  closestContainerNode: IEntity
-
-  constructor({ closestContainerNode, id, name, props }: ICreateElementDTO) {
+  constructor({ _compositeKey, id, props }: IElementDTO) {
     this.id = id
-    this.name = name
     this.props = props
-    this.closestContainerNode = closestContainerNode
+    this._compositeKey = _compositeKey
   }
 }

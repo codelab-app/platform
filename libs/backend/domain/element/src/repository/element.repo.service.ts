@@ -57,19 +57,16 @@ export class ElementRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _add(elements: Array<ICreateElementDTO>) {
+  protected async _add(elements: Array<IElementDTO>) {
     return (
       await (
         await this.ogmService.Element
       ).create({
         input: elements.map(
           ({
-            closestContainerNode,
-            customCss,
+            _compositeKey,
             firstChild,
-            guiCss,
             id,
-            name,
             nextSibling,
             parent,
             postRenderAction,
@@ -80,13 +77,11 @@ export class ElementRepository extends AbstractRepository<
             renderForEachPropKey,
             renderIfExpression,
             renderType,
+            style,
           }) => ({
-            _compoundName: createUniqueName(name, closestContainerNode.id),
-            customCss,
+            _compositeKey,
             firstChild: connectNodeId(firstChild?.id),
-            guiCss,
             id,
-            name,
             nextSibling: connectNodeId(nextSibling?.id),
             parent: connectNodeId(parent?.id),
             postRenderAction: connectNodeId(postRenderAction?.id),
@@ -104,6 +99,7 @@ export class ElementRepository extends AbstractRepository<
                 : null,
             renderForEachPropKey,
             renderIfExpression,
+            style,
           }),
         ),
       })
@@ -111,7 +107,7 @@ export class ElementRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { closestContainerNode, id, name, props }: ICreateElementDTO,
+    { _compositeKey, id, props }: IElementDTO,
     where: ElementWhere,
   ) {
     return (
@@ -119,7 +115,7 @@ export class ElementRepository extends AbstractRepository<
         await this.ogmService.Element
       ).update({
         update: {
-          _compoundName: createUniqueName(name, closestContainerNode.id),
+          _compositeKey,
           id,
           props: reconnectNodeId(props.id),
         },
