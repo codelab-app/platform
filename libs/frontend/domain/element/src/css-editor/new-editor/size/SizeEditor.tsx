@@ -41,7 +41,7 @@ export const SizeEditor = () => {
   return (
     <Col className="space-y-3">
       <Col className="space-y-2">
-        <Row justify="space-between" wrap={false}>
+        <Row className="space-x-3" justify="space-between" wrap={false}>
           <ValuePicker
             currentValue={getCurrentStyle(
               DefaultSizeProperties[SizeProperty.Width],
@@ -57,7 +57,7 @@ export const SizeEditor = () => {
             onChange={(value) => setStyle(SizeProperty.Height, value)}
           />
         </Row>
-        <Row justify="space-between" wrap={false}>
+        <Row className="space-x-3" justify="space-between" wrap={false}>
           <ValuePicker
             currentValue={getCurrentStyle(
               DefaultSizeProperties[SizeProperty.MinWidth],
@@ -73,7 +73,7 @@ export const SizeEditor = () => {
             onChange={(value) => setStyle(SizeProperty.MinHeight, value)}
           />
         </Row>
-        <Row justify="space-between" wrap={false}>
+        <Row className="space-x-3" justify="space-between" wrap={false}>
           <ValuePicker
             currentValue={getCurrentStyle(
               DefaultSizeProperties[SizeProperty.MaxWidth],

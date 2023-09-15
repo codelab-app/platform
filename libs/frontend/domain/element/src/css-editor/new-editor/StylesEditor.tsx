@@ -3,11 +3,12 @@ import { Collapse, Typography } from 'antd'
 import React from 'react'
 import { BackgroundEditor } from './background'
 import { BorderEditor } from './border'
-import { DisplayEditor } from './display/DisplayEditor'
+import { DisplayEditor } from './display'
+import { EffectsEditor } from './effects'
 import { PositionEditor } from './position'
-import { SizeEditor } from './size/SizeEditor'
-import { SpacingEditor } from './spacing/SpacingEditor'
-import { TypographyEditor } from './typography/TypographyEditor'
+import { SizeEditor } from './size'
+import { SpacingEditor } from './spacing'
+import { TypographyEditor } from './typography'
 
 const { Panel } = Collapse
 
@@ -48,11 +49,9 @@ export const StylesEditor = () => {
       <Panel className={className} header={panelHeader('Borders')} key="7">
         <BorderEditor />
       </Panel>
-      <Panel
-        className={className}
-        header={panelHeader('Effects')}
-        key="8"
-      ></Panel>
+      <Panel className={className} header={panelHeader('Effects')} key="8">
+        <EffectsEditor />
+      </Panel>
     </Collapse>
   )
 }

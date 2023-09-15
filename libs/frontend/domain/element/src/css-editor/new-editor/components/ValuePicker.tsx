@@ -19,6 +19,7 @@ const selectAfter = (
     suffixIcon={null}
     value={unit}
   >
+    <Option value={CssUnit.Autio}>-</Option>
     <Option value={CssUnit.PX}>{CssUnit.PX}</Option>
     <Option value={CssUnit.PERCENT}>{CssUnit.PERCENT}</Option>
     <Option value={CssUnit.REM}>{CssUnit.REM}</Option>
@@ -55,21 +56,27 @@ export const ValuePicker = ({
       justify="space-between"
       wrap={false}
     >
-      {label && <Col className="text-[12px]">{label}</Col>}
-      <InputNumber
-        addonAfter={selectAfter(
-          size,
-          (selectedUnit) => onChange?.(`${value}${selectedUnit}`),
-          unit,
-        )}
-        addonBefore={prefix}
-        controls={false}
-        defaultValue={0}
-        onChange={(val) => onChange?.(`${val ?? 0}${unit}`)}
-        size={size}
-        style={{ padding: 0, width: '100%' }}
-        value={value}
-      />
+      {label && (
+        <Col className="whitespace-nowrap text-[12px]" span={8}>
+          {label}
+        </Col>
+      )}
+      <Col>
+        <InputNumber
+          addonAfter={selectAfter(
+            size,
+            (selectedUnit) => onChange?.(`${value}${selectedUnit}`),
+            unit,
+          )}
+          addonBefore={prefix}
+          controls={false}
+          defaultValue={0}
+          onChange={(val) => onChange?.(`${val ?? 0}${unit}`)}
+          size={size}
+          style={{ padding: 0, width: '100%' }}
+          value={value}
+        />
+      </Col>
     </Row>
   )
 }

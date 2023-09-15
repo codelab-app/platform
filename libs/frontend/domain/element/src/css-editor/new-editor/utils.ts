@@ -18,6 +18,7 @@ export enum CssUnit {
   CH = 'ch',
   SVW = 'svw',
   SVH = 'svh',
+  Autio = 'auto',
 }
 
 export interface CssValue {
