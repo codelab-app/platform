@@ -18,7 +18,7 @@ export enum CssUnit {
   CH = 'ch',
   SVW = 'svw',
   SVH = 'svh',
-  Autio = 'auto',
+  Auto = 'auto',
 }
 
 export interface CssValue {
@@ -45,12 +45,24 @@ export const parseCssValue = (value?: number | string): CssValue => {
     }
   }
 
-  const unit = value.replace(/[0-9]/g, '')
-  const number = parseFloat(value.replace(/[a-z]/g, ''))
+  if (value === 'auto') {
+    return {
+      unit: CssUnit.Auto,
+    }
+  }
+
+  const match = value.match(/^([\d.]+)([a-zA-Z%]+)$/)
+
+  if (match) {
+    return {
+      unit: match[2] as CssUnit,
+      value: parseFloat(match[1] ?? '0'),
+    }
+  }
 
   return {
-    unit: unit as CssUnit,
-    value: number,
+    unit: CssUnit.PX,
+    value: 0,
   }
 }
 

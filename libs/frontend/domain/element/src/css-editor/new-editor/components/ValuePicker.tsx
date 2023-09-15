@@ -1,6 +1,7 @@
 import { Col, InputNumber, Row, Select } from 'antd'
 import type { SizeType } from 'antd/lib/config-provider/SizeContext'
 import { Option } from 'antd/lib/mentions'
+import isNumber from 'lodash/isNumber'
 import type { ReactNode } from 'react'
 import React from 'react'
 import { CssUnit, parseCssValue } from '../utils'
@@ -23,7 +24,7 @@ const selectAfter = (
   >
     {!fixedUnit && (
       <>
-        <Option value={CssUnit.Autio}>-</Option>
+        <Option value={CssUnit.Auto}>-</Option>
         <Option value={CssUnit.PX}>{CssUnit.PX}</Option>
         <Option value={CssUnit.PERCENT}>{CssUnit.PERCENT}</Option>
         <Option value={CssUnit.REM}>{CssUnit.REM}</Option>
@@ -60,6 +61,21 @@ export const ValuePicker = ({
   size,
 }: ValuePickerProps) => {
   const { unit, value } = parseCssValue(currentValue ?? '0px')
+  const isAuto = unit === CssUnit.Auto
+
+  if (label === 'Min W') {
+    console.log('currentValue', currentValue, unit, value)
+  }
+
+  const onChanged = (selectedUnit?: CssUnit, val?: number | null) => {
+    if (isNumber(val)) {
+      if (selectedUnit === CssUnit.Auto) {
+        onChange?.(`${val}${CssUnit.PX}`)
+      } else {
+        onChange?.(`${val}${selectedUnit}`)
+      }
+    }
+  }
 
   return (
     <Row align="middle" justify="space-between" wrap={false}>
@@ -72,19 +88,19 @@ export const ValuePicker = ({
         <InputNumber
           addonAfter={selectAfter(
             size,
-            (selectedUnit) => onChange?.(`${value}${selectedUnit}`),
+            (selectedUnit) => onChanged(selectedUnit, value),
             unit,
             fixedUnit,
           )}
           addonBefore={prefix}
           className="w-full p-0"
           controls={false}
-          defaultValue={0}
           max={max}
           min={min}
-          onChange={(val) => onChange?.(`${val ?? 0}${unit}`)}
+          onChange={(val) => onChanged(unit, val)}
+          placeholder={isAuto ? 'Auto' : undefined}
           size={size}
-          value={value}
+          value={isAuto ? undefined : value}
         />
       </Col>
     </Row>
