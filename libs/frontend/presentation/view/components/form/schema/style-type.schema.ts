@@ -7,6 +7,8 @@ export const styleTypeSchema: PropertiesSchema<Pick<IApp, 'styling'>> = {
     type: 'string',
     defaultValue: StyleType.MobileFirst,
     allowedValues: [StyleType.MobileFirst, StyleType.DesktopFirst],
-    // nullable: true,
+    info: `This option has a dual impact: it both sets the default breakpoint and establishes the order of style precedence. 
+To illustrate, when you opt for "Mobile First," it designates the mobile breakpoint as the default setting. 
+Consequently, all larger breakpoints will inherit their styles from the mobile breakpoint`,
   },
 }
