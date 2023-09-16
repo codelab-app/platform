@@ -13,7 +13,7 @@ import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IArrayTypeDTO } from '@codelab/shared/abstract/core'
 import {
-  connectAuth0Owner,
+  connectOwner,
   connectNodeId,
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
@@ -59,7 +59,7 @@ export class ArrayTypeRepository extends AbstractRepository<
         input: primitiveTypes.map(({ __typename, itemType, ...type }) => ({
           ...type,
           itemType: connectNodeId(itemType?.id),
-          owner: connectAuth0Owner(this.authService.currentUser),
+          owner: connectOwner(this.authService.currentUser),
         })),
         selectionSet: `{ arrayTypes ${exportArrayTypeSelectionSet} }`,
       })

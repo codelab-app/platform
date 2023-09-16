@@ -14,14 +14,14 @@ export const IUserDTO = Type.Object({
 
 export type IUserDTO = Static<typeof IUserDTO>
 
-export const IAuth0User = Type.Object({
-  auth0Id: Type.String(),
+// export const IAuth0User = Type.Object({
+//   auth0Id: Type.String(),
+// })
+
+// export type IAuth0User = Static<typeof IAuth0User>
+
+export const IOwner = Type.Object({
+  owner: IEntity,
 })
 
-export type IAuth0User = Static<typeof IAuth0User>
-
-export const IAuth0Owner = Type.Object({
-  owner: IAuth0User,
-})
-
-export type IAuth0Owner = Static<typeof IAuth0Owner>
+export type IOwner = Static<typeof IOwner>

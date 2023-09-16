@@ -1234,7 +1234,7 @@ export type ApiActionsConnection = {
 
 export type App = WithOwner & {
   __typename?: 'App'
-  _compositeKey: Scalars['String']['output']
+  compositeKey: Scalars['String']['output']
   domains: Array<Domain>
   domainsAggregate?: Maybe<AppDomainDomainsAggregationSelection>
   domainsConnection: AppDomainsConnection
@@ -1308,7 +1308,7 @@ export type AppPagesConnectionArgs = {
 
 export type AppAggregateSelection = {
   __typename?: 'AppAggregateSelection'
-  _compositeKey: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
 }
@@ -1334,7 +1334,7 @@ export type AppConnectWhere = {
 }
 
 export type AppCreateInput = {
-  _compositeKey: Scalars['String']['input']
+  compositeKey: Scalars['String']['input']
   domains?: InputMaybe<AppDomainsFieldInput>
   id: Scalars['ID']['input']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
@@ -1479,7 +1479,7 @@ export type AppEdge = {
 }
 
 export type AppOnCreateInput = {
-  _compositeKey: Scalars['String']['input']
+  compositeKey: Scalars['String']['input']
   id: Scalars['ID']['input']
 }
 
@@ -1696,7 +1696,7 @@ export type AppRelationInput = {
 
 /** Fields to sort Apps by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppSort object. */
 export type AppSort = {
-  _compositeKey?: InputMaybe<SortDirection>
+  compositeKey?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
 }
 
@@ -1903,12 +1903,12 @@ export type AppTypesConnection = {
 }
 
 export type AppUniqueWhere = {
-  _compositeKey?: InputMaybe<Scalars['String']['input']>
+  compositeKey?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
 }
 
 export type AppUpdateInput = {
-  _compositeKey?: InputMaybe<Scalars['String']['input']>
+  compositeKey?: InputMaybe<Scalars['String']['input']>
   domains?: InputMaybe<Array<AppDomainsUpdateFieldInput>>
   id?: InputMaybe<Scalars['ID']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
@@ -1933,12 +1933,12 @@ export type AppWhere = {
   AND?: InputMaybe<Array<AppWhere>>
   NOT?: InputMaybe<AppWhere>
   OR?: InputMaybe<Array<AppWhere>>
-  _compositeKey?: InputMaybe<Scalars['String']['input']>
-  _compositeKey_CONTAINS?: InputMaybe<Scalars['String']['input']>
-  _compositeKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
-  _compositeKey_IN?: InputMaybe<Array<Scalars['String']['input']>>
-  _compositeKey_MATCHES?: InputMaybe<Scalars['String']['input']>
-  _compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  compositeKey?: InputMaybe<Scalars['String']['input']>
+  compositeKey_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  compositeKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  compositeKey_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  compositeKey_MATCHES?: InputMaybe<Scalars['String']['input']>
+  compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
   domainsAggregate?: InputMaybe<AppDomainsAggregateInput>
   /** Return Apps where all of the related AppDomainsConnections match this filter */
   domainsConnection_ALL?: InputMaybe<AppDomainsConnectionWhere>
@@ -6350,7 +6350,7 @@ export type DomainAppAppAggregationSelection = {
 
 export type DomainAppAppNodeAggregateSelection = {
   __typename?: 'DomainAppAppNodeAggregateSelection'
-  _compositeKey: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
 }
 
@@ -6412,21 +6412,21 @@ export type DomainAppNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<DomainAppNodeAggregationWhereInput>>
   NOT?: InputMaybe<DomainAppNodeAggregationWhereInput>
   OR?: InputMaybe<Array<DomainAppNodeAggregationWhereInput>>
-  _compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type DomainAppRelationship = {
@@ -13705,7 +13705,7 @@ export type PageAppAppAggregationSelection = {
 
 export type PageAppAppNodeAggregateSelection = {
   __typename?: 'PageAppAppNodeAggregateSelection'
-  _compositeKey: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
 }
 
@@ -13767,21 +13767,21 @@ export type PageAppNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<PageAppNodeAggregationWhereInput>>
   NOT?: InputMaybe<PageAppNodeAggregationWhereInput>
   OR?: InputMaybe<Array<PageAppNodeAggregationWhereInput>>
-  _compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type PageAppRelationship = {
@@ -19514,7 +19514,7 @@ export type UserAppAppsAggregationSelection = {
 
 export type UserAppAppsNodeAggregateSelection = {
   __typename?: 'UserAppAppsNodeAggregateSelection'
-  _compositeKey: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   id: IdAggregateSelectionNonNullable
 }
 
@@ -19588,21 +19588,21 @@ export type UserAppsNodeAggregationWhereInput = {
   AND?: InputMaybe<Array<UserAppsNodeAggregationWhereInput>>
   NOT?: InputMaybe<UserAppsNodeAggregationWhereInput>
   OR?: InputMaybe<Array<UserAppsNodeAggregationWhereInput>>
-  _compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
 }
 
 export type UserAppsRelationship = {
@@ -20720,6 +20720,7 @@ export type AppPreviewFragment = {
   id: string
   name: string
   slug: string
+  compositeKey: string
   owner: { __typename?: 'User'; auth0Id: string }
   pages: Array<{ __typename?: 'Page' } & PagePreviewFragment>
 }
@@ -20728,6 +20729,7 @@ export type AppFragment = {
   __typename?: 'App'
   id: string
   name: string
+  compositeKey: string
   slug: string
   owner: { __typename?: 'User'; auth0Id: string }
   pages: Array<{ __typename?: 'Page' } & PageFragment>
@@ -21343,7 +21345,7 @@ export type UnionTypeFragment = {
   >
 } & BaseType_UnionType_Fragment
 
-export type OwnerFragment = { __typename?: 'User'; auth0Id: string }
+export type OwnerFragment = { __typename?: 'User'; id: string }
 
 export type UserFragment = {
   __typename?: 'User'
@@ -21683,8 +21685,8 @@ export type GetPagesQuery = {
 }
 
 export type GetDevelopmentPageQueryVariables = Exact<{
-  appName: Scalars['String']['input']
-  pageName: Scalars['String']['input']
+  appCompositeKey: Scalars['String']['input']
+  pageCompositeKey: Scalars['String']['input']
 }>
 
 export type GetDevelopmentPageQuery = {
@@ -21694,8 +21696,8 @@ export type GetDevelopmentPageQuery = {
 }
 
 export type GetProductionPageQueryVariables = Exact<{
-  appName: Scalars['String']['input']
-  pageName: Scalars['String']['input']
+  appCompositeKey: Scalars['String']['input']
+  pageCompositeKey: Scalars['String']['input']
 }>
 
 export type GetProductionPageQuery = {

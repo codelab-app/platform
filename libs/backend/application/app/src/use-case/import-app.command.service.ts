@@ -3,13 +3,13 @@ import { ImportComponentsCommand } from '@codelab/backend/application/component'
 import { ImportPageCommand } from '@codelab/backend/application/page'
 import { AppRepository } from '@codelab/backend/domain/app'
 import { DomainRepository } from '@codelab/backend/domain/domain'
-import type { IAuth0User } from '@codelab/shared/abstract/core'
+import type { IOwner } from '@codelab/shared/abstract/core'
 import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 
 export class ImportAppCommand {
   constructor(
     public readonly appExport: IAppOutputDto,
-    public readonly owner: IAuth0User,
+    public readonly owner: IOwner,
   ) {}
 }
 

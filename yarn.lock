@@ -2513,8 +2513,8 @@ __metadata:
 
 "@codelab/tools-workspace@file:./dist/libs/tools/workspace::locator=codelab%40workspace%3A.":
   version: 0.0.1
-  resolution: "@codelab/tools-workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=621ff2&locator=codelab%40workspace%3A."
-  checksum: d7028b3ce80ccbd064d106af7aa23ff6fd0c85a4d623d04f151ce7bc7f1172867316c08a74cecec30900a65b5aaa93115be88d891c4cd35d676a0fab0a0a0fa7
+  resolution: "@codelab/tools-workspace@file:./dist/libs/tools/workspace#./dist/libs/tools/workspace::hash=65febb&locator=codelab%40workspace%3A."
+  checksum: 658ca0fccb3a30c531f442efb3231a5beea560216eaa5ddc4622ac9a50812dfecf61291e9e220a851a6f3b1d53a8e6c97a9f46e7b78a184f1444d2a45848cb3b
   languageName: node
   linkType: hard
 

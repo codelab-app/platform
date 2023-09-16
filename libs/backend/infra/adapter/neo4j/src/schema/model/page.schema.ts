@@ -11,9 +11,9 @@ export const pageSchema = gql`
   type Page {
     id: ID! @unique
     # appId-name format to make it unique across apps
-    _compoundName: String! @unique
-    name: String! @customResolver(requires: "id _compoundName")
-    slug: String! @customResolver(requires: "id _compoundName")
+    compositeKey: String! @unique
+    name: String! @customResolver(requires: "app { id } compositeKey")
+    slug: String! @customResolver(requires: "app { id } compositeKey")
     # The root of the elementTree
     rootElement: Element!
       @relationship(type: "ROOT_PAGE_ELEMENT", direction: OUT)

@@ -7,13 +7,13 @@ mutation CreatePages($input: [PageCreateInput!]!) {
 }
 
 mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {
-  deletePages(where: $where, delete: $delete) {
+  deletePages(delete: $delete, where: $where) {
     nodesDeleted
   }
 }
 
 mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {
-  updatePages(where: $where, update: $update) {
+  updatePages(update: $update, where: $where) {
     pages {
       id
     }
@@ -33,7 +33,10 @@ query GetDevelopmentPage(
   $appCompositeKey: String!
   $pageCompositeKey: String!
 ) {
-  apps(where: { _compositeKey: $appCompositeKey }) {
+  # apps(where: { compositeKey: $appCompositeKey }) {
+  #   ...PageBuilderApp
+  # }
+  apps {
     ...PageBuilderApp
   }
   resources {
@@ -42,7 +45,10 @@ query GetDevelopmentPage(
 }
 
 query GetProductionPage($appCompositeKey: String!, $pageCompositeKey: String!) {
-  apps(where: { _compositeKey: $appCompositeKey }) {
+  # apps(where: { compositeKey: $appCompositeKey }) {
+  #   ...PageApp
+  # }
+  apps {
     ...PageApp
   }
   resources {

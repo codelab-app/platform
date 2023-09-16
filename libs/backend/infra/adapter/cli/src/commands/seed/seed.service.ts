@@ -1,4 +1,3 @@
-import type { IAuth0User } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import type { Argv, CommandModule } from 'yargs'
 
@@ -20,7 +19,7 @@ export class SeedService implements CommandModule<unknown> {
         'Seed Ant Design framework',
         (_argv) => _argv,
         async ({ user }) => {
-          const owner = user as IAuth0User
+          const owner = user
           // await new AdminSeederService(owner).seedAntDesign()
         },
       )
@@ -29,7 +28,7 @@ export class SeedService implements CommandModule<unknown> {
         'Seed html',
         (_argv) => _argv,
         async ({ user }) => {
-          const owner = user as IAuth0User
+          const owner = user
 
           // await new AdminSeederService(owner).seedHtml()
         },

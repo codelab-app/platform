@@ -14,7 +14,7 @@ import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { ITypeEntity, IUnionTypeDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
-  connectAuth0Owner,
+  connectOwner,
   connectNodeIds,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
@@ -89,7 +89,7 @@ export class UnionTypeRepository extends AbstractRepository<
               id,
               kind,
               name,
-              owner: connectAuth0Owner(this.authService.currentUser),
+              owner: connectOwner(this.authService.currentUser),
               typesOfUnionType: {
                 ArrayType: connectNodeIds(arrayTypeIds),
                 EnumType: connectNodeIds(enumTypeIds),

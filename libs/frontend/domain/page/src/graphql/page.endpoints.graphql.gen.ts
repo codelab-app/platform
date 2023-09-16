@@ -56,8 +56,8 @@ export type GetPagesQuery = {
 }
 
 export type GetDevelopmentPageQueryVariables = Types.Exact<{
-  appName: Types.Scalars['String']['input']
-  pageName: Types.Scalars['String']['input']
+  appCompositeKey: Types.Scalars['String']['input']
+  pageCompositeKey: Types.Scalars['String']['input']
 }>
 
 export type GetDevelopmentPageQuery = {
@@ -66,8 +66,8 @@ export type GetDevelopmentPageQuery = {
 }
 
 export type GetProductionPageQueryVariables = Types.Exact<{
-  appName: Types.Scalars['String']['input']
-  pageName: Types.Scalars['String']['input']
+  appCompositeKey: Types.Scalars['String']['input']
+  pageCompositeKey: Types.Scalars['String']['input']
 }>
 
 export type GetProductionPageQuery = {
@@ -92,14 +92,14 @@ export const CreatePagesDocument = gql`
 `
 export const DeletePagesDocument = gql`
   mutation DeletePages($where: PageWhere, $delete: PageDeleteInput) {
-    deletePages(where: $where, delete: $delete) {
+    deletePages(delete: $delete, where: $where) {
       nodesDeleted
     }
   }
 `
 export const UpdatePagesDocument = gql`
   mutation UpdatePages($where: PageWhere, $update: PageUpdateInput) {
-    updatePages(where: $where, update: $update) {
+    updatePages(update: $update, where: $where) {
       pages {
         id
       }
@@ -118,8 +118,11 @@ export const GetPagesDocument = gql`
   ${PageFragmentDoc}
 `
 export const GetDevelopmentPageDocument = gql`
-  query GetDevelopmentPage($appName: String!, $pageName: String!) {
-    apps(where: { _compositeKey: $appName }) {
+  query GetDevelopmentPage(
+    $appCompositeKey: String!
+    $pageCompositeKey: String!
+  ) {
+    apps {
       ...PageBuilderApp
     }
     resources {
@@ -130,8 +133,11 @@ export const GetDevelopmentPageDocument = gql`
   ${ResourceFragmentDoc}
 `
 export const GetProductionPageDocument = gql`
-  query GetProductionPage($appName: String!, $pageName: String!) {
-    apps(where: { _compositeKey: $appName }) {
+  query GetProductionPage(
+    $appCompositeKey: String!
+    $pageCompositeKey: String!
+  ) {
+    apps {
       ...PageApp
     }
     resources {

@@ -13,7 +13,7 @@ import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import {
-  connectAuth0Owner,
+  connectOwner,
   connectNodeIds,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
@@ -60,23 +60,23 @@ export class AppRepository extends AbstractRepository<
       await (
         await this.ogmService.App
       ).create({
-        input: apps.map(({ _compositeKey, id, pages }) => ({
-          _compositeKey,
+        input: apps.map(({ compositeKey, id, pages }) => ({
+          compositeKey,
           id,
-          owner: connectAuth0Owner(this.authService.currentUser),
+          owner: connectOwner(this.authService.currentUser),
           pages: connectNodeIds(pages?.map((page) => page.id)),
         })),
       })
     ).apps
   }
 
-  protected async _update({ _compositeKey, pages }: IAppDTO, where: AppWhere) {
+  protected async _update({ compositeKey, pages }: IAppDTO, where: AppWhere) {
     return (
       await (
         await this.ogmService.App
       ).update({
         update: {
-          _compositeKey,
+          compositeKey,
           pages: reconnectNodeIds(pages?.map((page) => page.id)).map(
             (input) => ({
               ...input,

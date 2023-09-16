@@ -8,7 +8,7 @@ import { resourceSelectionSet } from '@codelab/backend/infra/adapter/neo4j'
 import type { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IResourceDTO } from '@codelab/shared/abstract/core'
-import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
+import { connectOwner } from '@codelab/shared/domain/mapper'
 
 export class ResourceRepository extends AbstractRepository<
   IResourceDTO,
@@ -47,7 +47,7 @@ export class ResourceRepository extends AbstractRepository<
         input: resources.map(({ id, name, owner, type }) => ({
           id,
           name,
-          owner: connectAuth0Owner(owner),
+          owner: connectOwner(owner),
           type,
         })),
       })

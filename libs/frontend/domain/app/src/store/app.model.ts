@@ -10,6 +10,7 @@ import {
   pageRef,
   userRef,
 } from '@codelab/frontend/abstract/core'
+import { useCurrentInterfaceId } from '@codelab/frontend/domain/type'
 import type {
   AppCreateInput,
   AppDeleteInput,
@@ -19,7 +20,7 @@ import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import {
   appName,
-  connectAuth0Owner,
+  connectOwner,
   connectNodeId,
 } from '@codelab/shared/domain/mapper'
 import { createUniqueName, slugify } from '@codelab/shared/utils'
@@ -28,9 +29,9 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-const create = ({ _compositeKey, domains, id, owner, pages }: IAppDTO) => {
+const create = ({ compositeKey, domains, id, owner, pages }: IAppDTO) => {
   const app = new App({
-    _compositeKey,
+    compositeKey,
     domains: domains?.map((domain) => domainRef(domain.id)),
     id,
     owner: userRef(owner.auth0Id),
@@ -43,7 +44,7 @@ const create = ({ _compositeKey, domains, id, owner, pages }: IAppDTO) => {
 @model('@codelab/App')
 export class App
   extends Model({
-    _compositeKey: prop<string>().withSetter(),
+    compositeKey: prop<string>().withSetter(),
     domains: prop<Array<Ref<IDomain>>>(() => []),
     id: idProp,
     owner: prop<Ref<IUser>>(),
@@ -73,13 +74,14 @@ export class App
    * For cache writing, we don't write dto for nested models. We only write the ref. The top most use case calling function is responsible for properly hydrating the data.
    */
   @modelAction
-  writeCache({ domains, id, name, pages }: Partial<IAppDTO>) {
+  writeCache({ compositeKey, domains, id, owner, pages }: Partial<IAppDTO>) {
     this.id = id ?? this.id
-    this.name = name ?? this.name
+    this.compositeKey = compositeKey ?? this.compositeKey
     this.pages = pages ? pages.map((page) => pageRef(page.id)) : this.pages
     this.domains = domains
       ? domains.map((domain) => domainRef(domain.id))
       : this.domains
+    this.owner = owner?.auth0Id ? userRef(owner.auth0Id) : this.owner
 
     return this
   }
@@ -130,7 +132,7 @@ export class App
     return {
       _compositeKey: createUniqueName(this.name, this.userService.auth0Id),
       id: this.id,
-      owner: connectAuth0Owner(this.userService.user),
+      owner: connectOwner(this.userService.user),
       pages: {
         create: this.pages.map((page) => ({
           node: page.current.toCreateInput(),

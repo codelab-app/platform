@@ -1,7 +1,7 @@
 enum MutationFields {
   CREATE
-  UPDATE
   DELETE
+  UPDATE
 }
 
 directive @mutation(

@@ -10,5 +10,5 @@ import type { IFieldResolver } from '@graphql-tools/utils'
 export const name: IFieldResolver<Element, unknown> = (element) => {
   const reg = new RegExp(`${uuidRegex.source}-`, 'gi')
 
-  return element._compoundName.replace(reg, '')
+  return element._compositeKey.replace(reg, '')
 }

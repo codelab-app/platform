@@ -12,7 +12,7 @@ import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IActionTypeDTO } from '@codelab/shared/abstract/core'
-import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
+import { connectOwner } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -54,7 +54,7 @@ export class ActionTypeRepository extends AbstractRepository<
       ).create({
         input: actionTypes.map(({ __typename, ...actionType }) => ({
           ...actionType,
-          owner: connectAuth0Owner(this.authService.currentUser),
+          owner: connectOwner(this.authService.currentUser),
         })),
         selectionSet: `{ actionTypes ${exportActionTypeSelectionSet} }`,
       })

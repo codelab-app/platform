@@ -21,10 +21,15 @@ export const addGraphqlEslintConfig = (
   const eslintJsonPath = join(projectConfig.root, '.eslintrc.json')
 
   const addGraphqlOverrides = (json: Linter.Config) => {
+    const relativeSchemaPath = join(
+      offsetFromRoot(projectConfig.root),
+      'schema.graphql',
+    )
+
     const graphqlConfig = {
       files: ['*.graphql'],
       parserOptions: {
-        schema: offsetFromRoot('schema.graphql'),
+        schema: relativeSchemaPath,
       },
     }
 

@@ -11,8 +11,8 @@ import { withActiveSpan } from '@codelab/backend/infra/adapter/otel'
 import {
   type IAtomDTO,
   type IAtomType,
-  type IAuth0User,
   type IFieldDTO,
+  IOwner,
 } from '@codelab/shared/abstract/core'
 import { Injectable } from '@nestjs/common'
 import { ObjectTyped } from 'object-typed'
@@ -36,7 +36,7 @@ export class SeedFrameworkService extends UseCase<FrameworkData, void> {
     private readonly typeSeederService: TypeSeederService,
     private readonly seedTagsService: SeedTagsService,
     private seedEmptyApiService: SeedEmptyApiService,
-    protected readonly owner: IAuth0User,
+    protected readonly owner: IOwner,
     private seedAtomsService: SeedAtomsService,
   ) {
     super()

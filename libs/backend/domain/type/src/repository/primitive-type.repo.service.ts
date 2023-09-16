@@ -13,7 +13,7 @@ import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IPrimitiveTypeDTO } from '@codelab/shared/abstract/core'
 import type { BaseTypeUniqueWhere } from '@codelab/shared/abstract/types'
-import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
+import { connectOwner } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -55,7 +55,7 @@ export class PrimitiveTypeRepository extends AbstractRepository<
       ).create({
         input: primitiveTypes.map(({ __typename, ...type }) => ({
           ...type,
-          owner: connectAuth0Owner(this.authService.currentUser),
+          owner: connectOwner(this.authService.currentUser),
         })),
         selectionSet: `{ primitiveTypes ${exportPrimitiveTypeSelectionSet} }`,
       })

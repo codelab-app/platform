@@ -1,19 +1,19 @@
 # Used for IDE linting only
 
 directive @relationship(
-  type: String!
-  queryDirection: RelationshipQueryDirection
-  direction: RelationshipDirection!
-  properties: String
-  nestedOperations: [RelationshipNestedOperations!]
   aggregate: Boolean
+  direction: RelationshipDirection!
+  nestedOperations: [RelationshipNestedOperations!]
+  properties: String
+  queryDirection: RelationshipQueryDirection
+  type: String!
 ) on FIELD_DEFINITION
 
 enum RelationshipQueryDirection {
-  IN
-  OUT
   BOTH
   DEFAULT_DIRECTED
+  IN
+  OUT
 }
 
 enum RelationshipDirection {
@@ -22,10 +22,10 @@ enum RelationshipDirection {
 }
 
 enum RelationshipNestedOperations {
-  CREATE
-  UPDATE
-  DELETE
   CONNECT
-  DISCONNECT
   CONNECT_OR_CREATE
+  CREATE
+  DELETE
+  DISCONNECT
+  UPDATE
 }

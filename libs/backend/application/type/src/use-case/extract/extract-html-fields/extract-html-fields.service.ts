@@ -1,16 +1,12 @@
 import type { HtmlField } from '@codelab/backend/abstract/core'
 import type { IUseCase } from '@codelab/backend/abstract/types'
-import { CurrentUser } from '@codelab/backend/application/shared'
+import { AuthService, CurrentUser } from '@codelab/backend/application/shared'
 import {
   Field,
   FieldRepository,
   TypeFactory,
 } from '@codelab/backend/domain/type'
-import {
-  type IAtomDTO,
-  type IAuth0User,
-  type IFieldDTO,
-} from '@codelab/shared/abstract/core'
+import { type IAtomDTO, type IFieldDTO } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import { readFileSync } from 'fs'
@@ -25,10 +21,10 @@ export class ExtractHtmlFieldsService
   implements IUseCase<Array<IAtomDTO>, Array<IFieldDTO>>
 {
   constructor(
-    @CurrentUser() private owner: IAuth0User,
     private typeFactory: TypeFactory,
     private htmlTypeAdapterService: HtmlTypeAdapterService,
     private readonly fieldRepository: FieldRepository,
+    private authService: AuthService,
   ) {}
 
   private htmlDataFolder = `${process.cwd()}/data/html/`

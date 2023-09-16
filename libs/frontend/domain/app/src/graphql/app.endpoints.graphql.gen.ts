@@ -59,7 +59,7 @@ export const CreateAppsDocument = gql`
 `
 export const UpdateAppsDocument = gql`
   mutation UpdateApps($where: AppWhere!, $update: AppUpdateInput!) {
-    updateApps(where: $where, update: $update) {
+    updateApps(update: $update, where: $where) {
       apps {
         id
       }
@@ -68,7 +68,7 @@ export const UpdateAppsDocument = gql`
 `
 export const DeleteAppsDocument = gql`
   mutation DeleteApps($where: AppWhere!, $delete: AppDeleteInput) {
-    deleteApps(where: $where, delete: $delete) {
+    deleteApps(delete: $delete, where: $where) {
       nodesDeleted
     }
   }

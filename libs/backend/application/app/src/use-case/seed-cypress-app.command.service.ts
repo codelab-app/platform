@@ -6,7 +6,7 @@ import { Prop, PropRepository } from '@codelab/backend/domain/prop'
 import { Store, StoreRepository } from '@codelab/backend/domain/store'
 import type { InterfaceType } from '@codelab/backend/domain/type'
 import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
-import { IPageKindName } from '@codelab/shared/abstract/core'
+import { IPageKindName, JWT_CLAIMS } from '@codelab/shared/abstract/core'
 import {
   appData,
   internalServerErrorElementData,

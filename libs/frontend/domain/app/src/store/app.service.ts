@@ -35,6 +35,7 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IDomainDTO } from '@codelab/shared/abstract/core'
 import { IAppDTO } from '@codelab/shared/abstract/core'
+import { appCompositeKey } from '@codelab/shared/domain/mapper'
 import flatMap from 'lodash/flatMap'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -269,7 +270,7 @@ export class AppService
       })
     } else {
       app = App.create({
-        _compositeKey,
+        compositeKey,
         domains,
         id,
         owner,
@@ -315,11 +316,11 @@ export class AppService
   @transaction
   loadDevelopmentPage = _async(function* (
     this: AppService,
-    appName: string,
-    pageName: string,
+    appCompositeKey: string,
+    pageCompositeKey: string,
   ) {
     const fetchedData = yield* _await(
-      pageApi.GetDevelopmentPage({ appName, pageName }),
+      pageApi.GetDevelopmentPage(appCompositeKey, pageCompositeKey),
     )
 
     const {

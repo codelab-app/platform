@@ -2,7 +2,7 @@ import type {
   ElementCreateInput,
   ElementUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAuth0User, IElementDTO } from '@codelab/shared/abstract/core'
+import type { IElementDTO } from '@codelab/shared/abstract/core'
 import type {
   IEntity,
   Maybe,
@@ -106,7 +106,7 @@ export interface IElement
   label: string
   name: string
   nextSibling?: Nullable<Ref<IElement>>
-  owner: Nullable<IAuth0User>
+  owner: Nullable<IEntity>
   // page that this element belongs to
   page: Nullable<Ref<IPage>>
   parent?: Nullable<Ref<IElement>>

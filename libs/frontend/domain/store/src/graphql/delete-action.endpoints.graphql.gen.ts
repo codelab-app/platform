@@ -26,7 +26,7 @@ export const DeleteCodeActionsDocument = gql`
     $where: CodeActionWhere!
     $delete: CodeActionDeleteInput
   ) {
-    deleteCodeActions(where: $where, delete: $delete) {
+    deleteCodeActions(delete: $delete, where: $where) {
       nodesDeleted
       relationshipsDeleted
     }
@@ -37,7 +37,7 @@ export const DeleteApiActionsDocument = gql`
     $where: ApiActionWhere!
     $delete: ApiActionDeleteInput
   ) {
-    deleteApiActions(where: $where, delete: $delete) {
+    deleteApiActions(delete: $delete, where: $where) {
       nodesDeleted
       relationshipsDeleted
     }

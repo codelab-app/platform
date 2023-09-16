@@ -1,6 +1,5 @@
 import type {
   IAtomDTO,
-  IAuth0User,
   IFieldDTO,
   IInterfaceTypeDTO,
 } from '@codelab/shared/abstract/core'
@@ -31,7 +30,7 @@ export class InterfaceType extends BaseType implements IInterfaceTypeDTO {
   /**
    * Make create data from atom name
    */
-  static createFromAtomName(name: string, owner: IAuth0User) {
+  static createFromAtomName(name: string, owner: IEntity) {
     return new InterfaceType({
       fields: [],
       id: v4(),

@@ -1147,7 +1147,7 @@ type ApiActionsConnection {
 }
 
 type App implements WithOwner {
-  _compositeKey: String!
+  compositeKey: String!
   domains(
     directed: Boolean = true
     options: DomainOptions
@@ -1198,7 +1198,7 @@ type App implements WithOwner {
 }
 
 type AppAggregateSelection {
-  _compositeKey: StringAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   count: Int!
   id: IDAggregateSelectionNonNullable!
 }
@@ -1224,7 +1224,7 @@ input AppConnectWhere {
 }
 
 input AppCreateInput {
-  _compositeKey: String!
+  compositeKey: String!
   domains: AppDomainsFieldInput
   id: ID!
   owner: WithOwnerOwnerFieldInput
@@ -1367,7 +1367,7 @@ type AppEdge {
 }
 
 input AppOnCreateInput {
-  _compositeKey: String!
+  compositeKey: String!
   id: ID!
 }
 
@@ -1588,7 +1588,7 @@ input AppRelationInput {
 Fields to sort Apps by. The order in which sorts are applied is not guaranteed when specifying many fields in one AppSort object.
 """
 input AppSort {
-  _compositeKey: SortDirection
+  compositeKey: SortDirection
   id: SortDirection
 }
 
@@ -1783,12 +1783,12 @@ type AppTypesConnection {
 }
 
 input AppUniqueWhere {
-  _compositeKey: String
+  compositeKey: String
   id: ID
 }
 
 input AppUpdateInput {
-  _compositeKey: String
+  compositeKey: String
   domains: [AppDomainsUpdateFieldInput!]
   id: ID
   owner: WithOwnerOwnerUpdateFieldInput
@@ -1811,12 +1811,12 @@ input AppWhere {
   AND: [AppWhere!]
   NOT: AppWhere
   OR: [AppWhere!]
-  _compositeKey: String
-  _compositeKey_CONTAINS: String
-  _compositeKey_ENDS_WITH: String
-  _compositeKey_IN: [String!]
-  _compositeKey_MATCHES: String
-  _compositeKey_STARTS_WITH: String
+  compositeKey: String
+  compositeKey_CONTAINS: String
+  compositeKey_ENDS_WITH: String
+  compositeKey_IN: [String!]
+  compositeKey_MATCHES: String
+  compositeKey_STARTS_WITH: String
   domainsAggregate: AppDomainsAggregateInput
 
   """
@@ -6066,7 +6066,7 @@ type DomainAppAppAggregationSelection {
 }
 
 type DomainAppAppNodeAggregateSelection {
-  _compositeKey: StringAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
 }
 
@@ -6130,21 +6130,21 @@ input DomainAppNodeAggregationWhereInput {
   AND: [DomainAppNodeAggregationWhereInput!]
   NOT: DomainAppNodeAggregationWhereInput
   OR: [DomainAppNodeAggregationWhereInput!]
-  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
-  _compositeKey_AVERAGE_LENGTH_GT: Float
-  _compositeKey_AVERAGE_LENGTH_GTE: Float
-  _compositeKey_AVERAGE_LENGTH_LT: Float
-  _compositeKey_AVERAGE_LENGTH_LTE: Float
-  _compositeKey_LONGEST_LENGTH_EQUAL: Int
-  _compositeKey_LONGEST_LENGTH_GT: Int
-  _compositeKey_LONGEST_LENGTH_GTE: Int
-  _compositeKey_LONGEST_LENGTH_LT: Int
-  _compositeKey_LONGEST_LENGTH_LTE: Int
-  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
-  _compositeKey_SHORTEST_LENGTH_GT: Int
-  _compositeKey_SHORTEST_LENGTH_GTE: Int
-  _compositeKey_SHORTEST_LENGTH_LT: Int
-  _compositeKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
 }
 
 type DomainAppRelationship {
@@ -12848,7 +12848,7 @@ type PageAppAppAggregationSelection {
 }
 
 type PageAppAppNodeAggregateSelection {
-  _compositeKey: StringAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
 }
 
@@ -12912,21 +12912,21 @@ input PageAppNodeAggregationWhereInput {
   AND: [PageAppNodeAggregationWhereInput!]
   NOT: PageAppNodeAggregationWhereInput
   OR: [PageAppNodeAggregationWhereInput!]
-  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
-  _compositeKey_AVERAGE_LENGTH_GT: Float
-  _compositeKey_AVERAGE_LENGTH_GTE: Float
-  _compositeKey_AVERAGE_LENGTH_LT: Float
-  _compositeKey_AVERAGE_LENGTH_LTE: Float
-  _compositeKey_LONGEST_LENGTH_EQUAL: Int
-  _compositeKey_LONGEST_LENGTH_GT: Int
-  _compositeKey_LONGEST_LENGTH_GTE: Int
-  _compositeKey_LONGEST_LENGTH_LT: Int
-  _compositeKey_LONGEST_LENGTH_LTE: Int
-  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
-  _compositeKey_SHORTEST_LENGTH_GT: Int
-  _compositeKey_SHORTEST_LENGTH_GTE: Int
-  _compositeKey_SHORTEST_LENGTH_LT: Int
-  _compositeKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
 }
 
 type PageAppRelationship {
@@ -17926,7 +17926,7 @@ type UserAppAppsAggregationSelection {
 }
 
 type UserAppAppsNodeAggregateSelection {
-  _compositeKey: StringAggregateSelectionNonNullable!
+  compositeKey: StringAggregateSelectionNonNullable!
   id: IDAggregateSelectionNonNullable!
 }
 
@@ -18002,21 +18002,21 @@ input UserAppsNodeAggregationWhereInput {
   AND: [UserAppsNodeAggregationWhereInput!]
   NOT: UserAppsNodeAggregationWhereInput
   OR: [UserAppsNodeAggregationWhereInput!]
-  _compositeKey_AVERAGE_LENGTH_EQUAL: Float
-  _compositeKey_AVERAGE_LENGTH_GT: Float
-  _compositeKey_AVERAGE_LENGTH_GTE: Float
-  _compositeKey_AVERAGE_LENGTH_LT: Float
-  _compositeKey_AVERAGE_LENGTH_LTE: Float
-  _compositeKey_LONGEST_LENGTH_EQUAL: Int
-  _compositeKey_LONGEST_LENGTH_GT: Int
-  _compositeKey_LONGEST_LENGTH_GTE: Int
-  _compositeKey_LONGEST_LENGTH_LT: Int
-  _compositeKey_LONGEST_LENGTH_LTE: Int
-  _compositeKey_SHORTEST_LENGTH_EQUAL: Int
-  _compositeKey_SHORTEST_LENGTH_GT: Int
-  _compositeKey_SHORTEST_LENGTH_GTE: Int
-  _compositeKey_SHORTEST_LENGTH_LT: Int
-  _compositeKey_SHORTEST_LENGTH_LTE: Int
+  compositeKey_AVERAGE_LENGTH_EQUAL: Float
+  compositeKey_AVERAGE_LENGTH_GT: Float
+  compositeKey_AVERAGE_LENGTH_GTE: Float
+  compositeKey_AVERAGE_LENGTH_LT: Float
+  compositeKey_AVERAGE_LENGTH_LTE: Float
+  compositeKey_LONGEST_LENGTH_EQUAL: Int
+  compositeKey_LONGEST_LENGTH_GT: Int
+  compositeKey_LONGEST_LENGTH_GTE: Int
+  compositeKey_LONGEST_LENGTH_LT: Int
+  compositeKey_LONGEST_LENGTH_LTE: Int
+  compositeKey_SHORTEST_LENGTH_EQUAL: Int
+  compositeKey_SHORTEST_LENGTH_GT: Int
+  compositeKey_SHORTEST_LENGTH_GTE: Int
+  compositeKey_SHORTEST_LENGTH_LT: Int
+  compositeKey_SHORTEST_LENGTH_LTE: Int
 }
 
 type UserAppsRelationship {

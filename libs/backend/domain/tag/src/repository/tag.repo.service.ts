@@ -13,7 +13,7 @@ import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { type ITagDTO } from '@codelab/shared/abstract/core'
 import {
-  connectAuth0Owner,
+  connectOwner,
   connectNodeIds,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
@@ -62,7 +62,7 @@ export class TagRepository extends AbstractRepository<
         input: tags.map(({ children, descendants, parent, ...tag }) => ({
           ...tag,
           children: connectNodeIds(children?.map((child) => child.id)),
-          owner: connectAuth0Owner(this.authService.currentUser),
+          owner: connectOwner(this.authService.currentUser),
           // parent: connectNodeId(parent?.id),
         })),
       })

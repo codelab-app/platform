@@ -10,6 +10,7 @@ export interface CodelabApiClaims {
    * When it comes from the Auth0 endpoint, the session data is encoded as string, not enum
    */
   roles: Array<keyof typeof IRole>
+  user_id: string
 }
 
 export const JWT_CLAIMS = `https://api.codelab.app/jwt/claims`

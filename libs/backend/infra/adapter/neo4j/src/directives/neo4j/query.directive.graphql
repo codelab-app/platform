@@ -1,4 +1,4 @@
 directive @query(
-  read: Boolean! = true
   aggregate: Boolean! = false
+  read: Boolean! = true
 ) on OBJECT | SCHEMA

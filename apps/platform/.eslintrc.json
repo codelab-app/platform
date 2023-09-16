@@ -42,7 +42,7 @@
     {
       "files": ["*.graphql"],
       "parserOptions": {
-        "schema": "../"
+        "schema": "../../schema.graphql"
       }
     }
   ],

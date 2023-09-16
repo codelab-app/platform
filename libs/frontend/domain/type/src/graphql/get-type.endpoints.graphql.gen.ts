@@ -290,7 +290,7 @@ export const GetPrimitiveTypesDocument = gql`
     $options: PrimitiveTypeOptions
     $where: PrimitiveTypeWhere
   ) {
-    types: primitiveTypes(where: $where, options: $options) {
+    types: primitiveTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -298,7 +298,7 @@ export const GetPrimitiveTypesDocument = gql`
 `
 export const GetArrayTypesDocument = gql`
   query GetArrayTypes($options: ArrayTypeOptions, $where: ArrayTypeWhere) {
-    types: arrayTypes(where: $where, options: $options) {
+    types: arrayTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -306,7 +306,7 @@ export const GetArrayTypesDocument = gql`
 `
 export const GetUnionTypesDocument = gql`
   query GetUnionTypes($options: UnionTypeOptions, $where: UnionTypeWhere) {
-    types: unionTypes(where: $where, options: $options) {
+    types: unionTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -317,7 +317,7 @@ export const GetInterfaceTypesDocument = gql`
     $options: InterfaceTypeOptions
     $where: InterfaceTypeWhere
   ) {
-    types: interfaceTypes(where: $where, options: $options) {
+    types: interfaceTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -328,7 +328,7 @@ export const GetElementTypesDocument = gql`
     $options: ElementTypeOptions
     $where: ElementTypeWhere
   ) {
-    types: elementTypes(where: $where, options: $options) {
+    types: elementTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -339,7 +339,7 @@ export const GetRenderPropTypesDocument = gql`
     $options: RenderPropTypeOptions
     $where: RenderPropTypeWhere
   ) {
-    types: renderPropTypes(where: $where, options: $options) {
+    types: renderPropTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -350,7 +350,7 @@ export const GetReactNodeTypesDocument = gql`
     $options: ReactNodeTypeOptions
     $where: ReactNodeTypeWhere
   ) {
-    types: reactNodeTypes(where: $where, options: $options) {
+    types: reactNodeTypes(options: $options, where: $where) {
       ...ReactNodeType
     }
   }
@@ -358,7 +358,7 @@ export const GetReactNodeTypesDocument = gql`
 `
 export const GetEnumTypesDocument = gql`
   query GetEnumTypes($options: EnumTypeOptions, $where: EnumTypeWhere) {
-    types: enumTypes(where: $where, options: $options) {
+    types: enumTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -366,7 +366,7 @@ export const GetEnumTypesDocument = gql`
 `
 export const GetLambdaTypesDocument = gql`
   query GetLambdaTypes($options: LambdaTypeOptions, $where: LambdaTypeWhere) {
-    types: lambdaTypes(where: $where, options: $options) {
+    types: lambdaTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -374,7 +374,7 @@ export const GetLambdaTypesDocument = gql`
 `
 export const GetPageTypesDocument = gql`
   query GetPageTypes($options: PageTypeOptions, $where: PageTypeWhere) {
-    types: pageTypes(where: $where, options: $options) {
+    types: pageTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -382,7 +382,7 @@ export const GetPageTypesDocument = gql`
 `
 export const GetAppTypesDocument = gql`
   query GetAppTypes($options: AppTypeOptions, $where: AppTypeWhere) {
-    types: appTypes(where: $where, options: $options) {
+    types: appTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -390,7 +390,7 @@ export const GetAppTypesDocument = gql`
 `
 export const GetActionTypesDocument = gql`
   query GetActionTypes($options: ActionTypeOptions, $where: ActionTypeWhere) {
-    types: actionTypes(where: $where, options: $options) {
+    types: actionTypes(options: $options, where: $where) {
       ...Type
     }
   }
@@ -401,7 +401,7 @@ export const GetCodeMirrorTypesDocument = gql`
     $options: CodeMirrorTypeOptions
     $where: CodeMirrorTypeWhere
   ) {
-    types: codeMirrorTypes(where: $where, options: $options) {
+    types: codeMirrorTypes(options: $options, where: $where) {
       ...Type
     }
   }

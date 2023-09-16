@@ -11,7 +11,7 @@ mutation CreateStores($input: [StoreCreateInput!]!) {
 }
 
 mutation DeleteStores($where: StoreWhere, $delete: StoreDeleteInput) {
-  deleteStores(where: $where, delete: $delete) {
+  deleteStores(delete: $delete, where: $where) {
     nodesDeleted
   }
 }
@@ -20,7 +20,7 @@ query GetStores($where: StoreWhere, $options: StoreOptions) {
   aggregate: storesAggregate(where: $where) {
     count
   }
-  items: stores(where: $where, options: $options) {
+  items: stores(options: $options, where: $where) {
     ...Store
   }
 }

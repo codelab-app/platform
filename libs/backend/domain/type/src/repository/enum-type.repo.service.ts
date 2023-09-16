@@ -17,7 +17,7 @@ import type {
   IEnumTypeDTO,
   IEnumTypeValueDTO,
 } from '@codelab/shared/abstract/core'
-import { connectAuth0Owner, whereNodeId } from '@codelab/shared/domain/mapper'
+import { connectOwner, whereNodeId } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -60,7 +60,7 @@ export class EnumTypeRepository extends AbstractRepository<
         input: enumTypes.map(({ __typename, allowedValues, ...enumType }) => ({
           ...enumType,
           allowedValues: this.mapCreateEnumTypeValues(allowedValues),
-          owner: connectAuth0Owner(this.authService.currentUser),
+          owner: connectOwner(this.authService.currentUser),
         })),
         selectionSet: `{ enumTypes ${exportEnumTypeSelectionSet} }`,
       })

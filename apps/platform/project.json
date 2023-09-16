@@ -1,7 +1,7 @@
 {
   "name": "platform",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/platform/src",
+  "sourceRoot": "apps/platform",
   "projectType": "application",
   "generators": {},
   "targets": {

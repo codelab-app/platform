@@ -21,6 +21,7 @@ export type AppPreviewFragment = {
   id: string
   name: string
   slug: string
+  compositeKey: string
   owner: { auth0Id: string }
   pages: Array<PagePreviewFragment>
 }
@@ -28,6 +29,7 @@ export type AppPreviewFragment = {
 export type AppFragment = {
   id: string
   name: string
+  compositeKey: string
   slug: string
   owner: { auth0Id: string }
   pages: Array<PageFragment>
@@ -55,6 +57,7 @@ export const AppPreviewFragmentDoc = gql`
     id
     name
     slug
+    compositeKey
     owner {
       auth0Id
     }
@@ -68,6 +71,7 @@ export const AppFragmentDoc = gql`
   fragment App on App {
     id
     name
+    compositeKey
     slug
     owner {
       auth0Id
@@ -93,7 +97,7 @@ export const PageBuilderAppFragmentDoc = gql`
     pages(
       where: {
         OR: [
-          { _compoundName: $pageName }
+          { _compoundName: $pageCompositeKey }
           { kind: Provider }
           { kind: NotFound }
           { kind: InternalServerError }
@@ -114,7 +118,9 @@ export const PageAppFragmentDoc = gql`
     owner {
       auth0Id
     }
-    pages(where: { OR: [{ _compoundName: $pageName }, { kind: Provider }] }) {
+    pages(
+      where: { OR: [{ _compoundName: $pageCompositeKey }, { kind: Provider }] }
+    ) {
       ...ProductionPage
     }
   }

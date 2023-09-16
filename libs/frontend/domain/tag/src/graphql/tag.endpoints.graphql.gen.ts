@@ -45,7 +45,7 @@ export const CreateTagsDocument = gql`
 `
 export const UpdateTagsDocument = gql`
   mutation UpdateTags($where: TagWhere!, $update: TagUpdateInput!) {
-    updateTags(where: $where, update: $update) {
+    updateTags(update: $update, where: $where) {
       tags {
         id
       }

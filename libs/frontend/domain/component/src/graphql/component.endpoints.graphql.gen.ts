@@ -55,7 +55,7 @@ export const DeleteComponentsDocument = gql`
     $where: ComponentWhere
     $delete: ComponentDeleteInput
   ) {
-    deleteComponents(where: $where, delete: $delete) {
+    deleteComponents(delete: $delete, where: $where) {
       nodesDeleted
     }
   }
@@ -65,7 +65,7 @@ export const UpdateComponentsDocument = gql`
     $where: ComponentWhere
     $update: ComponentUpdateInput
   ) {
-    updateComponents(where: $where, update: $update) {
+    updateComponents(update: $update, where: $where) {
       components {
         id
       }

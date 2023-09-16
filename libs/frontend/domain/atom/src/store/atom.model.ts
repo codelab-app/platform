@@ -17,7 +17,7 @@ import type { IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import {
-  connectAuth0Owner,
+  connectOwner,
   connectNodeId,
   connectNodeIds,
   reconnectNodeIds,
@@ -127,7 +127,7 @@ export class Atom
             id: v4(),
             kind: ITypeKind.InterfaceType,
             name: `${this.name} API`,
-            owner: connectAuth0Owner(this.userService.user),
+            owner: connectOwner(this.userService.user),
           },
         },
       },
@@ -136,7 +136,7 @@ export class Atom
       externalSourceType: this.externalSourceType,
       id: this.id,
       name: this.name,
-      owner: connectAuth0Owner(this.userService.user),
+      owner: connectOwner(this.userService.user),
       tags: connectNodeIds(this.tags.map((tag) => tag.current.id)),
       type: this.type,
     }

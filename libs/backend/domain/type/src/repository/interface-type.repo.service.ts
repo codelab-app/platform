@@ -17,10 +17,7 @@ import {
   type IInterfaceTypeDTO,
   type ITypeEntity,
 } from '@codelab/shared/abstract/core'
-import {
-  connectAuth0Owner,
-  connectNodeIds,
-} from '@codelab/shared/domain/mapper'
+import { connectOwner, connectNodeIds } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 
@@ -94,7 +91,7 @@ export class InterfaceTypeRepository extends AbstractRepository<
             ...interfaceType,
             // fields: this.mapCreateFields(fields),
             fields: connectNodeIds(fields.map(({ id }) => id)),
-            owner: connectAuth0Owner(this.authService.currentUser),
+            owner: connectOwner(this.authService.currentUser),
           }),
         ),
         selectionSet: `{ interfaceTypes ${interfaceTypeSelectionSet} }`,

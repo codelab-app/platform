@@ -1,5 +1,10 @@
 import { RequestContext } from '@codelab/backend/infra/adapter/request-context'
-import type { Auth0IdToken } from '@codelab/shared/abstract/core'
+import {
+  type Auth0IdToken,
+  type IOwner,
+  JWT_CLAIMS,
+} from '@codelab/shared/abstract/core'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import { Injectable } from '@nestjs/common'
 
 interface AuthenticatedRequest extends Request {
@@ -8,7 +13,7 @@ interface AuthenticatedRequest extends Request {
 
 @Injectable()
 export class AuthService {
-  get currentUser() {
+  get currentUser(): IEntity {
     const req = RequestContext.currentContext?.req as AuthenticatedRequest
     const user = req['user']
 
@@ -16,9 +21,10 @@ export class AuthService {
       throw new Error('Missing user in request')
     }
 
+    const userId = user[JWT_CLAIMS].user_id
+
     return {
-      ...user,
-      auth0Id: user.sub,
+      id: userId,
     }
   }
 }

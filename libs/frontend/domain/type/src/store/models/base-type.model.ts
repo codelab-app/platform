@@ -5,7 +5,7 @@ import {
   type IUpdateTypeVars,
 } from '@codelab/frontend/abstract/core'
 import type { IBaseTypeDTO, ITypeKind } from '@codelab/shared/abstract/core'
-import { connectAuth0Owner } from '@codelab/shared/domain/mapper'
+import { connectOwner } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
@@ -36,7 +36,7 @@ export const createBaseType = <T extends ITypeKind>(typeKind: T) => {
         id: this.id,
         kind: this.kind,
         name: this.name,
-        owner: connectAuth0Owner(this.userService.user),
+        owner: connectOwner(this.userService.user),
       }
     }
 

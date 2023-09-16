@@ -1,4 +1,4 @@
-import type { IAppDTO, IAuth0User } from '@codelab/shared/abstract/core'
+import type { IAppDTO } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 
 export class App implements IAppDTO {
@@ -6,15 +6,15 @@ export class App implements IAppDTO {
 
   id: string
 
-  name: string
+  compositeKey: string
 
   pages?: Array<IEntity> | undefined
 
-  owner: IAuth0User
+  owner: IEntity
 
-  constructor({ domains, id, name, owner, pages }: IAppDTO) {
+  constructor({ compositeKey, domains, id, owner, pages }: IAppDTO) {
     this.id = id
-    this.name = name
+    this.compositeKey = compositeKey
     this.domains = domains
     this.pages = pages
     this.owner = owner
