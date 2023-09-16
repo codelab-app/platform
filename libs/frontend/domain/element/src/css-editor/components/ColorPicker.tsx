@@ -3,12 +3,13 @@ import { useState } from 'react'
 import { CssPropEditorItem } from './CssPropEditorItem'
 
 interface PropValueSelectorProps {
-  name: string
-  currentValue: string
-  onChange(val: string): undefined | void
-  disabled?: boolean
   checked?: boolean
+  currentValue: string
+  disabled?: boolean
   enableCheckbox?: boolean
+  name: string
+
+  onChange(val: string): undefined | void
   onCheck?(checked: boolean): void
 }
 
@@ -33,9 +34,9 @@ export const ColorPicker = ({
       <Input
         defaultValue={color}
         disabled={disabled}
-        onChange={(e) => {
-          onChange(e.target.value)
-          setColor(e.target.value)
+        onChange={(event) => {
+          onChange(event.target.value)
+          setColor(event.target.value)
         }}
         type="color"
         value={disabled ? '#D1D1D1' : color}

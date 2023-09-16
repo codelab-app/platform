@@ -2,6 +2,6 @@
 Instructs @neo4j/graphql to generate this field for selectable fields.
 """
 directive @selectable(
-  onRead: Boolean! = true
   onAggregate: Boolean! = true
+  onRead: Boolean! = true
 ) on FIELD_DEFINITION

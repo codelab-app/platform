@@ -1,6 +1,6 @@
 import { Menu } from 'antd'
 
-export const makeMenu = (
+export const MakeMenu = (
   items: Array<string>,
   onClick: (val: string) => undefined | void,
 ) => {

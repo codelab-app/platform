@@ -10,7 +10,7 @@ export interface HooksListProps {
 export const HooksList = ({ element }: HooksListProps) => {
   return (
     <List
-      dataSource={element.hooks || []}
+      dataSource={element.hooks}
       renderItem={(hook) => <HooksListItem hook={hook} />}
     />
   )

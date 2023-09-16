@@ -13,8 +13,8 @@ import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import { type ITagDTO } from '@codelab/shared/abstract/core'
 import {
-  connectOwner,
   connectNodeIds,
+  connectOwner,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'

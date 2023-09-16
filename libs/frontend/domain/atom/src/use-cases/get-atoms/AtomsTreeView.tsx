@@ -1,4 +1,7 @@
-import type { IAtomModel, IAtomsTreeDataNode } from '@codelab/frontend/abstract/core'
+import type {
+  IAtomModel,
+  IAtomsTreeDataNode,
+} from '@codelab/frontend/abstract/core'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { CuiTree } from '@codelab/frontend/presentation//codelab-ui'
 import { useStore } from '@codelab/frontend/presentation/container'

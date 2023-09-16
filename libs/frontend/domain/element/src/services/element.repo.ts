@@ -40,7 +40,10 @@ export class ElementRepository extends Model({}) implements IElementRepository {
 
   // This seems to be faster when there are fewer fields attached when updating
   @modelFlow
-  updateNodes = _async(function* (this: ElementRepository, element: IElementModel) {
+  updateNodes = _async(function* (
+    this: ElementRepository,
+    element: IElementModel,
+  ) {
     const {
       updateElements: { elements },
     } = yield* _await(

@@ -16,7 +16,10 @@ export class ComponentRepository
   implements IComponentRepository
 {
   @modelFlow
-  add = _async(function* (this: ComponentRepository, component: IComponentModel) {
+  add = _async(function* (
+    this: ComponentRepository,
+    component: IComponentModel,
+  ) {
     const {
       createComponents: { components },
     } = yield* _await(
@@ -27,7 +30,10 @@ export class ComponentRepository
   })
 
   @modelFlow
-  update = _async(function* (this: ComponentRepository, component: IComponentModel) {
+  update = _async(function* (
+    this: ComponentRepository,
+    component: IComponentModel,
+  ) {
     const { childrenContainerElement, id, keyGenerator, name } = component
 
     const {

@@ -1,4 +1,7 @@
-import type { IAtomModel, IEntityFormService } from '@codelab/frontend/abstract/core'
+import type {
+  IAtomModel,
+  IEntityFormService,
+} from '@codelab/frontend/abstract/core'
 import { ModalService } from '@codelab/frontend/shared/utils'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
@@ -7,7 +10,10 @@ import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 
 @model('@codelab/AtomFormService')
 export class AtomFormService
-  extends ExtendedModel(modelClass<ModalService<Ref<IAtomModel>>>(ModalService), {})
+  extends ExtendedModel(
+    modelClass<ModalService<Ref<IAtomModel>>>(ModalService),
+    {},
+  )
   implements IEntityFormService<Ref<IAtomModel>, { atom: Maybe<IAtomModel> }>
 {
   @computed
@@ -22,7 +28,8 @@ export class AtomsFormService
     modelClass<ModalService<Array<Ref<IAtomModel>>>>(ModalService),
     {},
   )
-  implements IEntityFormService<Array<Ref<IAtomModel>>, { atoms: Array<IAtomModel> }>
+  implements
+    IEntityFormService<Array<Ref<IAtomModel>>, { atoms: Array<IAtomModel> }>
 {
   @computed
   get atoms() {

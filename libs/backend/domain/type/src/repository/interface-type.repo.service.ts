@@ -17,7 +17,7 @@ import {
   type IInterfaceTypeDTO,
   type ITypeEntity,
 } from '@codelab/shared/abstract/core'
-import { connectOwner, connectNodeIds } from '@codelab/shared/domain/mapper'
+import { connectNodeIds, connectOwner } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 import type { Static, TAnySchema } from '@sinclair/typebox'
 

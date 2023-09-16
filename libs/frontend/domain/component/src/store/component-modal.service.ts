@@ -15,7 +15,10 @@ export class ComponentModalService
     {},
   )
   implements
-    IEntityModalService<Ref<IComponentModel>, { component: Maybe<IComponentModel> }>
+    IEntityModalService<
+      Ref<IComponentModel>,
+      { component: Maybe<IComponentModel> }
+    >
 {
   @computed
   get component() {

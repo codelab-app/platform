@@ -1,4 +1,7 @@
-import type { IAtomModel, IComponentModel } from '@codelab/frontend/abstract/core'
+import type {
+  IAtomModel,
+  IComponentModel,
+} from '@codelab/frontend/abstract/core'
 import { atomRef, componentRef } from '@codelab/frontend/abstract/core'
 import type { IElementDTO } from '@codelab/shared/abstract/core'
 import { IRenderTypeKind } from '@codelab/shared/abstract/core'

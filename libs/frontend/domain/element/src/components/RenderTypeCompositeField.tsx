@@ -1,4 +1,7 @@
-import type { IAtomModel, ICreateElementData } from '@codelab/frontend/abstract/core'
+import type {
+  IAtomModel,
+  ICreateElementData,
+} from '@codelab/frontend/abstract/core'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/domain/type'
 import { DisplayIfField } from '@codelab/frontend/presentation/view'
 import { IRenderTypeKind } from '@codelab/shared/abstract/core'

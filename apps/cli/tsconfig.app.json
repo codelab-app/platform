@@ -3,12 +3,7 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "module": "ESNext",
-    "types": [
-      "node",
-      "cypher",
-      "@nx/react/typings/cssmodule.d.ts",
-      "@nx/react/typings/image.d.ts"
-    ],
+    "types": ["node", "cypher"],
     "emitDecoratorMetadata": true,
     "target": "es2021",
     "strictNullChecks": true,
@@ -18,5 +13,5 @@
     "noFallthroughCasesInSwitch": true
   },
   "exclude": ["jest.config.ts"],
-  "include": ["src/**/*.ts"]
+  "include": ["webpack.config.js", "src/**/*.ts"]
 }

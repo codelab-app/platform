@@ -39,7 +39,9 @@ export const isElementPageNodeRef = (
   return !isNil(node) && isRefOfType(node, elementRef)
 }
 
-export const isElementPageNode = (node: IPageNode | null): node is IElementModel => {
+export const isElementPageNode = (
+  node: IPageNode | null,
+): node is IElementModel => {
   return (
     !isNil(node) &&
     // `IComponent` is mobx model type

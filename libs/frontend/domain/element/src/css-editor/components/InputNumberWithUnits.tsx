@@ -1,6 +1,6 @@
 import { InputNumber } from 'antd'
 import { useCallback, useState } from 'react'
-import { makeAddonAfterNumber } from '../utils'
+import { MakeAddonAfterNumber } from '../utils'
 import { CssPropEditorItem } from './CssPropEditorItem'
 
 interface InputNumberWithUnitsProps {
@@ -41,7 +41,7 @@ export const InputNumberWithUnits = ({
 
   const selectAfter = useCallback(
     (unitList: Array<string>) =>
-      makeAddonAfterNumber(
+      MakeAddonAfterNumber(
         unitList.map((aUnit) => ({
           title: aUnit,
           value: aUnit,

@@ -26,9 +26,9 @@ interface BooleanProp {
 interface NumberProp {
   name: 'blurRadius' | 'offsetX' | 'offsetY' | 'spreadRadius'
   type: 'input-number-with-unit'
-  value: number
-  units: Array<string>
   unit: string
+  units: Array<string>
+  value: number
 }
 
 interface ColorPickerProp {
@@ -38,13 +38,13 @@ interface ColorPickerProp {
 }
 
 interface BoxShadowState {
+  blurRadius: NumberProp
   boxShadow: BooleanProp
+  color: ColorPickerProp
   inset: BooleanProp
   offsetX: NumberProp
   offsetY: NumberProp
-  blurRadius: NumberProp
   spreadRadius: NumberProp
-  color: ColorPickerProp
 }
 
 const props: BoxShadowState = {

@@ -61,7 +61,8 @@ export class ElementModalService
     modelClass<ModalService<Ref<IElementModel>>>(ModalService),
     {},
   )
-  implements IEntityModalService<Ref<IElementModel>, { element: IElementModel }>
+  implements
+    IEntityModalService<Ref<IElementModel>, { element: IElementModel }>
 {
   @computed
   get element() {

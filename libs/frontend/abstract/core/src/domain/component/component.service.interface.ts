@@ -20,9 +20,16 @@ import type { IComponentModel } from './component.model.interface'
 import type { IComponentRepository } from './component.repo.interface'
 
 export interface IComponentService
-  extends ICRUDService<IComponentModel, ICreateComponentData, IUpdateComponentData>,
+  extends ICRUDService<
+      IComponentModel,
+      ICreateComponentData,
+      IUpdateComponentData
+    >,
     IQueryService<IComponentModel, ComponentWhere, ComponentOptions>,
-    ICRUDModalService<Ref<IComponentModel>, { component: Maybe<IComponentModel> }>,
+    ICRUDModalService<
+      Ref<IComponentModel>,
+      { component: Maybe<IComponentModel> }
+    >,
     IPaginateable<IComponentModel, { name?: string }> {
   clonedComponents: ObjectMap<IComponentModel>
   componentList: Array<IComponentModel>

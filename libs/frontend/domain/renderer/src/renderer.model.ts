@@ -362,7 +362,10 @@ export class Renderer
     },
   )
 
-  logRendered = (element: IElementModel, rendered: ArrayOrSingle<IRenderOutput>) => {
+  logRendered = (
+    element: IElementModel,
+    rendered: ArrayOrSingle<IRenderOutput>,
+  ) => {
     if (this.debugMode) {
       console.dir({ element: element, rendered })
     }

@@ -232,7 +232,10 @@ export class ComponentService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: ComponentService, component: IComponentModel) {
+  delete = _async(function* (
+    this: ComponentService,
+    component: IComponentModel,
+  ) {
     const { id } = component
     const store = component.store.current
     const rootElement = component.rootElement.current

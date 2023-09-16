@@ -10,7 +10,10 @@ import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 
 @model('@codelab/AtomModalService')
 export class AtomModalService
-  extends ExtendedModel(modelClass<ModalService<Ref<IAtomModel>>>(ModalService), {})
+  extends ExtendedModel(
+    modelClass<ModalService<Ref<IAtomModel>>>(ModalService),
+    {},
+  )
   implements IEntityModalService<Ref<IAtomModel>, { atom: Maybe<IAtomModel> }>
 {
   @computed
@@ -25,7 +28,8 @@ export class AtomsModalService
     modelClass<ModalService<Array<Ref<IAtomModel>>>>(ModalService),
     {},
   )
-  implements IEntityModalService<Array<Ref<IAtomModel>>, { atoms: Array<IAtomModel> }>
+  implements
+    IEntityModalService<Array<Ref<IAtomModel>>, { atoms: Array<IAtomModel> }>
 {
   @computed
   get atoms() {

@@ -3,7 +3,6 @@
   "ignorePatterns": ["**/*"],
   "plugins": [
     "@nx",
-    "@typescript-eslint",
     "import",
     "unused-imports",
     "react",
@@ -625,9 +624,10 @@
       "parser": "@graphql-eslint/eslint-plugin",
       "plugins": ["@graphql-eslint"],
       "extends": ["plugin:@graphql-eslint/schema-all"],
-      // "parserOptions": {
-      //   "schema": "./schema.graphql"
-      // },
+      "parserOptions": {
+        // "skipGraphQLConfig": true
+        // "schema": "./schema.graphql"
+      },
       "rules": {
         "@graphql-eslint/known-type-names": "error"
       }

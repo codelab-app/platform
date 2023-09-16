@@ -21,7 +21,8 @@ import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 import { BaseRuntimeProps } from './base-runtime-props.model'
 
-const create = (nodeRef: Ref<IElementModel>) => new ElementRuntimeProps({ nodeRef })
+const create = (nodeRef: Ref<IElementModel>) =>
+  new ElementRuntimeProps({ nodeRef })
 
 @model('@codelab/ElementRuntimeProps')
 export class ElementRuntimeProps

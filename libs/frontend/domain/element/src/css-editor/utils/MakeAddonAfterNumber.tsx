@@ -6,7 +6,7 @@ interface Opt {
   value: string
 }
 
-export const makeAddonAfterNumber = (
+export const MakeAddonAfterNumber = (
   options: Array<Opt>,
   defaultValue: string,
   onChange: (val: string) => void,

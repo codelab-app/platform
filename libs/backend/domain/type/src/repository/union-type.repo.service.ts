@@ -14,8 +14,8 @@ import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { ITypeEntity, IUnionTypeDTO } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import {
-  connectOwner,
   connectNodeIds,
+  connectOwner,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'

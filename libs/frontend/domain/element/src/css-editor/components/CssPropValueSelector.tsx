@@ -3,7 +3,7 @@ import { Button, Dropdown } from 'antd'
 import { observer } from 'mobx-react-lite'
 import type { ReactElement, ReactNode } from 'react'
 import { useEffect, useState } from 'react'
-import { makeMenu } from '../utils'
+import { MakeMenu } from '../utils'
 import { CssPropEditorItem } from './CssPropEditorItem'
 
 interface PropValueSelectorProps {
@@ -16,11 +16,11 @@ interface PropValueSelectorProps {
 export const CssPropValueSelector = observer(
   ({ currentValue, name, onClick, options }: PropValueSelectorProps) => {
     const [overlay, setOverlay] = useState<ReactElement>(
-      makeMenu(options, onClick),
+      MakeMenu(options, onClick),
     )
 
     useEffect(() => {
-      setOverlay(makeMenu(options, onClick))
+      setOverlay(MakeMenu(options, onClick))
     }, [onClick, options])
 
     return (

@@ -20,9 +20,15 @@ import type { IAtomModel } from './atom.model.interface'
 import type { IAtomRepository } from './atom.repo.interface'
 
 export interface IAtomService
-  extends Omit<ICRUDService<IAtomModel, ICreateAtomData, IUpdateAtomData>, 'delete'>,
+  extends Omit<
+      ICRUDService<IAtomModel, ICreateAtomData, IUpdateAtomData>,
+      'delete'
+    >,
     IQueryService<IAtomModel, AtomWhere, AtomOptions>,
-    Omit<ICRUDModalService<Ref<IAtomModel>, { atom: Maybe<IAtomModel> }>, 'deleteModal'>,
+    Omit<
+      ICRUDModalService<Ref<IAtomModel>, { atom: Maybe<IAtomModel> }>,
+      'deleteModal'
+    >,
     ICRUDFormService<Ref<IAtomModel>, { atom: Maybe<IAtomModel> }>,
     IPaginateable<IAtomModel, { name?: string }> {
   atomRepository: IAtomRepository

@@ -30,5 +30,6 @@
     ],
     "https://json.schemastore.org/cirrus.json": "file:///Users/webber/Sites/Codelab/platform/.circleci/config/workflows/app-pr.yml"
   },
-  "eslint.validate": ["json"]
+  "eslint.validate": ["json"],
+  "graphql-config.load.configName": ".graphqlrc.ide"
 }

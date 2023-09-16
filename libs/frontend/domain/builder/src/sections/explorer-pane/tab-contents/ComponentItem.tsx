@@ -1,5 +1,8 @@
 import { DeleteOutlined, EditOutlined, ExportOutlined } from '@ant-design/icons'
-import type { IAtomModel, IComponentModel } from '@codelab/frontend/abstract/core'
+import type {
+  IAtomModel,
+  IComponentModel,
+} from '@codelab/frontend/abstract/core'
 import {
   BuilderDndType,
   isComponentModel,
