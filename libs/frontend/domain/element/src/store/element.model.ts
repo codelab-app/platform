@@ -21,6 +21,7 @@ import {
   DATA_ELEMENT_ID,
   defaultBuilderWidthBreakPoints,
   elementRef,
+  getAppService,
   getBuilderService,
   getComponentService,
   getElementService,
@@ -41,6 +42,7 @@ import { createValidator } from '@codelab/frontend/presentation/view'
 import {
   ElementCreateInput,
   ElementUpdateInput,
+  StyleType,
 } from '@codelab/shared/abstract/codegen'
 import {
   type IAuth0Owner,
@@ -195,6 +197,11 @@ export class Element
   }
 
   @computed
+  get appService() {
+    return getAppService(this)
+  }
+
+  @computed
   get closestRootElement(): IElement {
     return this.closestParent
       ? this.closestParent.closestRootElement
@@ -340,6 +347,13 @@ export class Element
     }
   }
 
+  get stylingType() {
+    const appId = this.page?.current.app.id
+    const app = appId ? this.appService.app(appId) : null
+
+    return app?.styling ?? StyleType.MobileFirst
+  }
+
   get breakpointsByPrecedence() {
     const breakpoints = [
       BuilderWidthBreakPoint.MobilePortrait,
@@ -347,6 +361,10 @@ export class Element
       BuilderWidthBreakPoint.Tablet,
       BuilderWidthBreakPoint.Desktop,
     ]
+
+    if (this.stylingType === StyleType.DesktopFirst) {
+      breakpoints.reverse()
+    }
 
     return breakpoints
   }
@@ -363,24 +381,31 @@ export class Element
     const isProduction = rendererType === RendererType.Production
     const mediaQueryString = isProduction ? '@media' : '@container root'
     const breakpointStyles = []
+    const mobileFirst = this.stylingType === StyleType.MobileFirst
+    const operator = mobileFirst ? '>=' : '<'
 
     for (const breakpoint of this.breakpointsByPrecedence) {
-      const breakpointStyle = parsedCss[breakpoint as BuilderWidthBreakPoint]
+      const breakpointStyle = parsedCss[breakpoint]
+      const { max, min } = defaultBuilderWidthBreakPoints[breakpoint]
+      const breakpointBoundary = mobileFirst ? min : max
 
-      const breakpointWidth =
-        defaultBuilderWidthBreakPoints[breakpoint as BuilderWidthBreakPoint]
+      if (!breakpointStyle?.cssString && !breakpointStyle?.guiString) {
+        continue
+      }
 
-      const lowerBound =
-        breakpoint === BuilderWidthBreakPoint.MobilePortrait
-          ? 0
-          : breakpointWidth.min
+      const isMainBreakpoint = breakpoint === this.breakpointsByPrecedence[0]
 
-      if (breakpointStyle) {
+      const elementStyle = `
+        ${breakpointStyle.cssString ?? ''}
+        ${jsonStringToCss(breakpointStyle.guiString ?? '{}')}
+      `
+
+      // no need to wrap with media query the default breakpoint
+      if (isMainBreakpoint) {
+        breakpointStyles.push(elementStyle)
+      } else {
         breakpointStyles.push(
-          `${mediaQueryString} (width >= ${lowerBound}px) {
-            ${breakpointStyle.cssString ?? ''}
-            ${jsonStringToCss(breakpointStyle.guiString ?? '{}')}
-          }`,
+          `${mediaQueryString} (width ${operator} ${breakpointBoundary}px) {${elementStyle}}`,
         )
       }
     }
