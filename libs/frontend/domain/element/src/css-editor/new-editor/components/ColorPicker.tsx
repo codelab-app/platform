@@ -20,8 +20,10 @@ export const ColorPicker = ({
       </Col>
       <Col className="w-full">
         <AntdColorPicker
+          allowClear={true}
           className="w-full justify-start"
           onChange={(color) => onChange?.(color.toHexString())}
+          onClear={() => onChange?.('transparent')}
           showText={(color) => <span>{color.toHexString()}</span>}
           size={size}
           value={value}

@@ -69,11 +69,14 @@ export const ValuePicker = ({
 
   const onChanged = (selectedUnit?: CssUnit, val?: number | null) => {
     if (isNumber(val)) {
+      // Unit was auto and now a value is entered
       if (selectedUnit === CssUnit.Auto) {
         onChange?.(`${val}${CssUnit.PX}`)
       } else {
         onChange?.(`${val}${selectedUnit}`)
       }
+    } else {
+      onChange?.(`${val}${selectedUnit}`)
     }
   }
 

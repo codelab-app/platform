@@ -65,7 +65,10 @@ export const PositionEditor = () => {
       {position !== 'static' && (
         <Row justify="end">
           <div
-            className={clsx(classes.positionContainer, 'grid bg-gray-200 p-1')}
+            className={clsx(
+              classes.positionContainer,
+              'grid w-1/2 bg-gray-200 p-1',
+            )}
           >
             <div
               className="flex items-center justify-center"

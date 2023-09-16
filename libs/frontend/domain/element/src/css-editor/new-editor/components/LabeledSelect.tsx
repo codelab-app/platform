@@ -24,6 +24,7 @@ export const LabeledSelect = ({
         <Select
           onChange={onChange}
           options={options}
+          popupMatchSelectWidth={false}
           size={size}
           style={{ width: '100%' }}
           value={value}

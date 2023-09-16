@@ -18,26 +18,36 @@ export const SpacingEditor = () => {
   const { getCurrentStyle, setStyle } = useStyle()
 
   const PopoverContent = (side: Side, key = 'padding') => {
-    const value = getCurrentStyle({
+    const currentCssValue = getCurrentStyle({
       defaultValue: '0px',
       key: `${key}-${side}`,
     })
 
-    const { unit, value: cssValue } = parseCssValue(value)
+    const { unit, value } = parseCssValue(currentCssValue)
+
+    const valueToShow = () => {
+      if (value === 0) {
+        return '0'
+      }
+
+      if (unit === 'auto') {
+        return 'auto'
+      }
+
+      return `${value}${unit !== CssUnit.PX ? unit : ''}`
+    }
 
     return (
       <Popover
         content={
           <SpacingPopover
             onChange={(val) => setStyle(`${key}-${side}`, val)}
-            value={value}
+            value={currentCssValue}
           />
         }
         trigger="click"
       >
-        <div className="text-[12px] text-gray-500">{`${cssValue}${
-          unit !== CssUnit.PX ? unit : ''
-        }`}</div>
+        <div className="text-[12px] text-gray-500">{valueToShow()}</div>
       </Popover>
     )
   }
@@ -60,21 +70,6 @@ export const SpacingEditor = () => {
               key={side}
               style={{ cursor: getCursorForSide(side), gridArea: side }}
             >
-              {/* <Popover */}
-              {/*  content={ */}
-              {/*    <SpacingPopover */}
-              {/*      onChange={(val) => setStyle(`margin-${side}`, val)} */}
-              {/*      value={getCurrentStyle({ */}
-              {/*        defaultValue: '0px', */}
-              {/*        key: `margin-${side}`, */}
-              {/*      })} */}
-              {/*    /> */}
-              {/*  } */}
-              {/*  trigger="click" */}
-              {/* > */}
-              {/*  <div className="text-gray-500">{0}</div> */}
-              {/* </Popover> */}
-
               {PopoverContent(side, 'margin')}
             </div>
           )
@@ -101,20 +96,6 @@ export const SpacingEditor = () => {
               // Since padding is inwards, we need to reverse the cursor
               style={{ cursor: getCursorForSideReversed(side), gridArea: side }}
             >
-              {/* <Popover */}
-              {/*  content={ */}
-              {/*    <SpacingPopover */}
-              {/*      onChange={(val) => setStyle(`padding-${side}`, val)} */}
-              {/*      value={getCurrentStyle({ */}
-              {/*        defaultValue: '0px', */}
-              {/*        key: `padding-${side}`, */}
-              {/*      })} */}
-              {/*    /> */}
-              {/*  } */}
-              {/*  trigger="click" */}
-              {/* > */}
-              {/*  <div className="text-gray-500">{0}</div> */}
-              {/* </Popover> */}
               {PopoverContent(side, 'padding')}
             </div>
           )

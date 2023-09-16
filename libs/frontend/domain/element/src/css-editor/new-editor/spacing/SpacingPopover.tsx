@@ -1,7 +1,7 @@
 import { Col, Row, Slider } from 'antd'
 import clsx from 'clsx'
 import { ValuePicker } from '../components'
-import { combineCssValue, parseCssValue } from '../utils'
+import { combineCssValue, CssUnit, parseCssValue } from '../utils'
 
 const commonValues = ['auto', '0', '10', '20', '40', '60', '100', '140', '220']
 
@@ -18,8 +18,6 @@ export const SpacingPopover = ({ onChange, value }: SpacingPopoverProps) => {
       <Row align="middle" justify="space-between" wrap={false}>
         <Col span={12}>
           <Slider
-            max={300}
-            min={0}
             onChange={(val) =>
               onChange?.(combineCssValue({ unit, value: val }))
             }
@@ -40,7 +38,7 @@ export const SpacingPopover = ({ onChange, value }: SpacingPopoverProps) => {
             )}
             key={idx}
             onClick={() =>
-              onChange?.(combineCssValue({ unit, value: Number(val) }))
+              onChange?.(val === 'auto' ? val : `${val}${CssUnit.PX}`)
             }
           >
             {val}
