@@ -230,10 +230,13 @@ export class AppService
 
   @modelFlow
   @transaction
-  update = _async(function* (this: AppService, { id, name }: IUpdateAppData) {
+  update = _async(function* (
+    this: AppService,
+    { id, name, styling }: IUpdateAppData,
+  ) {
     const app = this.apps.get(id)!
 
-    app.writeCache({ name })
+    app.writeCache({ name, styling })
 
     yield* _await(this.appRepository.update(app))
 

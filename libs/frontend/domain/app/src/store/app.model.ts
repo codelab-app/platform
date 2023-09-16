@@ -123,6 +123,7 @@ export class App
   toUpdateInput(): AppUpdateInput {
     return {
       _compoundName: createUniqueName(this.name, this.owner.auth0Id),
+      styling: this.styling,
     }
   }
 
