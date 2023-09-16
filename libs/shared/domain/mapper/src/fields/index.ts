@@ -1,2 +1,3 @@
-export * from './app-composite-key'
-export * from './app-name'
+export * from './app.properties'
+export * from './element.properties'
+export * from './page.properties'

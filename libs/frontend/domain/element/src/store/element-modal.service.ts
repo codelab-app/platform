@@ -1,7 +1,7 @@
 import type {
   CreateElementData,
   CreateElementProperties,
-  IElement,
+  IElementModel,
   IEntityModalService,
   UpdateElementProperties,
 } from '@codelab/frontend/abstract/core'
@@ -44,10 +44,10 @@ export class CreateElementModalService
 @model('@codelab/UpdateElementModalService')
 export class UpdateElementModalService
   extends ExtendedModel(
-    modelClass<ModalService<Ref<IElement>>>(ModalService),
+    modelClass<ModalService<Ref<IElementModel>>>(ModalService),
     {},
   )
-  implements IEntityModalService<Ref<IElement>, UpdateElementProperties>
+  implements IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
 {
   @computed
   get element() {
@@ -58,10 +58,10 @@ export class UpdateElementModalService
 @model('@codelab/ElementModalService')
 export class ElementModalService
   extends ExtendedModel(
-    modelClass<ModalService<Ref<IElement>>>(ModalService),
+    modelClass<ModalService<Ref<IElementModel>>>(ModalService),
     {},
   )
-  implements IEntityModalService<Ref<IElement>, { element: IElement }>
+  implements IEntityModalService<Ref<IElementModel>, { element: IElementModel }>
 {
   @computed
   get element() {

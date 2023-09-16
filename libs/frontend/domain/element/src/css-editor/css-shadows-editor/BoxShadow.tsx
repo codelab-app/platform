@@ -1,4 +1,4 @@
-import type { CssMap, IElement } from '@codelab/frontend/abstract/core'
+import type { CssMap, IElementModel } from '@codelab/frontend/abstract/core'
 import type { Nullish } from '@codelab/shared/abstract/types'
 import { observer } from 'mobx-react-lite'
 import { ObjectTyped } from 'object-typed'
@@ -13,7 +13,7 @@ import {
 } from '../utils'
 
 interface BoxShadowEditorProps {
-  element: IElement
+  element: IElementModel
   guiCssObj: CssMap
 }
 

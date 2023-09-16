@@ -1,7 +1,7 @@
 import type {
   ICreatePageData,
   IInterfaceType,
-  IPage,
+  IPageModel,
   IPageService,
   IUpdatePageData,
 } from '@codelab/frontend/abstract/core'
@@ -49,7 +49,7 @@ export class PageService
     deleteModal: prop(() => new PageModalService({})),
     pageFactory: prop(() => new PageFactory({})),
     pageRepository: prop(() => new PageRepository({})),
-    pages: prop(() => objectMap<IPage>()),
+    pages: prop(() => objectMap<IPageModel>()),
     updateForm: prop(() => new PageFormService({})),
     updateModal: prop(() => new PageModalService({})),
   })
@@ -205,7 +205,7 @@ export class PageService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: PageService, page: IPage) {
+  delete = _async(function* (this: PageService, page: IPageModel) {
     const { rootElement, store } = page
     const pageStore = store.current
 

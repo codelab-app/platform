@@ -1,28 +1,28 @@
 import isNil from 'lodash/isNil'
 import type { AnyModel, Ref } from 'mobx-keystone'
 import { detach, isRefOfType, modelTypeKey, rootRef } from 'mobx-keystone'
-import type { IComponent } from '../component'
+import type { IComponentModel } from '../component'
 import { componentRef } from '../component'
-import type { IElement } from '../element'
+import type { IElementModel } from '../element'
 import { elementRef } from '../element'
-import type { IPage } from './page.model.interface'
+import type { IPageModel } from './page.model.interface'
 
-export type IPageNodeRef = Ref<IComponent> | Ref<IElement>
+export type IPageNodeRef = Ref<IComponentModel> | Ref<IElementModel>
 
-export type IPageNode = IComponent | IElement
+export type IPageNode = IComponentModel | IElementModel
 
 /**
  * Used for determining the type of a page node
  */
 export const isComponentPageNodeRef = (
   node: IPageNodeRef | null,
-): node is Ref<IComponent> => {
+): node is Ref<IComponentModel> => {
   return !isNil(node) && isRefOfType(node, componentRef)
 }
 
 export const isComponentPageNode = (
   node: IPageNode | null,
-): node is IComponent => {
+): node is IComponentModel => {
   return (
     !isNil(node) &&
     // `IComponent` is mobx model type
@@ -35,11 +35,11 @@ export const isComponentPageNode = (
  */
 export const isElementPageNodeRef = (
   node: IPageNodeRef | null,
-): node is Ref<IElement> => {
+): node is Ref<IElementModel> => {
   return !isNil(node) && isRefOfType(node, elementRef)
 }
 
-export const isElementPageNode = (node: IPageNode | null): node is IElement => {
+export const isElementPageNode = (node: IPageNode | null): node is IElementModel => {
   return (
     !isNil(node) &&
     // `IComponent` is mobx model type
@@ -47,7 +47,7 @@ export const isElementPageNode = (node: IPageNode | null): node is IElement => {
   )
 }
 
-export const pageRef = rootRef<IPage>('@codelab/PageRef', {
+export const pageRef = rootRef<IPageModel>('@codelab/PageRef', {
   onResolvedValueChange: (ref, newPage, oldPage) => {
     if (oldPage && !newPage) {
       detach(ref)

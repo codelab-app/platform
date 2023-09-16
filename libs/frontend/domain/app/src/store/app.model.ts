@@ -1,7 +1,7 @@
 import type {
-  IApp,
-  IDomain,
-  IPage,
+  IAppModel,
+  IDomainModel,
+  IPageModel,
   IUser,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -19,22 +19,22 @@ import type {
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
 import {
-  appName,
-  connectOwner,
+  AppProperties,
   connectNodeId,
+  connectOwner,
 } from '@codelab/shared/domain/mapper'
-import { createUniqueName, slugify } from '@codelab/shared/utils'
+import { slugify } from '@codelab/shared/utils'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-const create = ({ compositeKey, domains, id, owner, pages }: IAppDTO) => {
+const create = ({ domains, id, name, owner, pages }: IAppDTO) => {
   const app = new App({
-    compositeKey,
     domains: domains?.map((domain) => domainRef(domain.id)),
     id,
-    owner: userRef(owner.auth0Id),
+    name,
+    owner: userRef(owner.id),
     pages: pages?.map((page) => pageRef(page.id)),
   })
 
@@ -44,19 +44,14 @@ const create = ({ compositeKey, domains, id, owner, pages }: IAppDTO) => {
 @model('@codelab/App')
 export class App
   extends Model({
-    compositeKey: prop<string>().withSetter(),
-    domains: prop<Array<Ref<IDomain>>>(() => []),
+    domains: prop<Array<Ref<IDomainModel>>>(() => []),
     id: idProp,
+    name: prop<string>(),
     owner: prop<Ref<IUser>>(),
-    pages: prop<Array<Ref<IPage>>>(() => []),
+    pages: prop<Array<Ref<IPageModel>>>(() => []),
   })
-  implements IApp
+  implements IAppModel
 {
-  @computed
-  get name() {
-    return appName(this)
-  }
-
   @computed
   get slug() {
     return slugify(this.name)
@@ -74,14 +69,14 @@ export class App
    * For cache writing, we don't write dto for nested models. We only write the ref. The top most use case calling function is responsible for properly hydrating the data.
    */
   @modelAction
-  writeCache({ compositeKey, domains, id, owner, pages }: Partial<IAppDTO>) {
+  writeCache({ domains, id, name, owner, pages }: Partial<IAppDTO>) {
     this.id = id ?? this.id
-    this.compositeKey = compositeKey ?? this.compositeKey
     this.pages = pages ? pages.map((page) => pageRef(page.id)) : this.pages
+    this.name = name ?? this.name
     this.domains = domains
       ? domains.map((domain) => domainRef(domain.id))
       : this.domains
-    this.owner = owner?.auth0Id ? userRef(owner.auth0Id) : this.owner
+    this.owner = owner?.id ? userRef(owner.id) : this.owner
 
     return this
   }
@@ -130,7 +125,10 @@ export class App
 
   toCreateInput(): AppCreateInput {
     return {
-      _compositeKey: createUniqueName(this.name, this.userService.auth0Id),
+      compositeKey: AppProperties.appCompositeKey(
+        this.name,
+        this.userService.user,
+      ),
       id: this.id,
       owner: connectOwner(this.userService.user),
       pages: {
@@ -143,7 +141,10 @@ export class App
 
   toUpdateInput(): AppUpdateInput {
     return {
-      _compositeKey: createUniqueName(this.name, this.userService.auth0Id),
+      compositeKey: AppProperties.appCompositeKey(
+        this.name,
+        this.userService.user,
+      ),
     }
   }
 

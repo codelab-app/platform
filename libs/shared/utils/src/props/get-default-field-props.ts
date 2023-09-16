@@ -1,6 +1,6 @@
 import type {
-  IAtom,
-  IComponent,
+  IAtomModel,
+  IComponentModel,
   IPropData,
 } from '@codelab/frontend/abstract/core'
 import isNil from 'lodash/isNil'
@@ -10,7 +10,7 @@ import isNil from 'lodash/isNil'
  * of an IComponent/IAtom with their defaultValues
  */
 export const getDefaultFieldProps = (
-  component: IAtom | IComponent | undefined,
+  component: IAtomModel | IComponentModel | undefined,
 ) => {
   if (!component?.api) {
     return {}

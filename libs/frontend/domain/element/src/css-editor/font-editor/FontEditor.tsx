@@ -1,4 +1,4 @@
-import type { CssMap, IElement } from '@codelab/frontend/abstract/core'
+import type { CssMap, IElementModel } from '@codelab/frontend/abstract/core'
 import { Row, Select } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
@@ -11,7 +11,7 @@ import {
 import { extractFontDataFromUrl } from './font-editor.util'
 
 interface FontEditorProps {
-  element: IElement
+  element: IElementModel
   guiCssObj: CssMap
 }
 

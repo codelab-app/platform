@@ -1,5 +1,5 @@
 import { ImportOutlined } from '@ant-design/icons'
-import type { IApp } from '@codelab/frontend/abstract/core'
+import type { IAppModel } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import {
   useErrorNotify,
@@ -23,7 +23,7 @@ export const ImportAppDialog = observer(() => {
   })
 
   const onSuccess = useSuccessNotify({
-    description: (event: Array<IApp>) => {
+    description: (event: Array<IAppModel>) => {
       return `${event.length} of apps imported`
     },
     title: 'App imported successfully',

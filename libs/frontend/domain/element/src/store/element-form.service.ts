@@ -1,7 +1,7 @@
 import type {
   CreateElementData,
   CreateElementProperties,
-  IElement,
+  IElementModel,
   IEntityFormService,
   UpdateElementProperties,
 } from '@codelab/frontend/abstract/core'
@@ -44,10 +44,10 @@ export class CreateElementFormService
 @model('@codelab/UpdateElementFormService')
 export class UpdateElementFormService
   extends ExtendedModel(
-    modelClass<InlineFormService<Ref<IElement>>>(InlineFormService),
+    modelClass<InlineFormService<Ref<IElementModel>>>(InlineFormService),
     {},
   )
-  implements IEntityFormService<Ref<IElement>, UpdateElementProperties>
+  implements IEntityFormService<Ref<IElementModel>, UpdateElementProperties>
 {
   @computed
   get element() {

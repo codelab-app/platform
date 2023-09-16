@@ -15,6 +15,7 @@ import {
 import {
   useCurrentPage,
   useDevelopmentPage,
+  usePageQuery,
   useStore,
 } from '@codelab/frontend/presentation/container'
 import {
@@ -33,7 +34,7 @@ import React, { useEffect, useMemo } from 'react'
 const PageBuilder: CodelabPage = observer(() => {
   const router = useRouter()
   const { pageService } = useStore()
-  const { pageName } = useCurrentPage()
+  const { pageName } = usePageQuery()
 
   const [{ error, result }, loadCurrentPage] = useDevelopmentPage({
     rendererType: RendererType.PageBuilder,

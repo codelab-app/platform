@@ -1,6 +1,6 @@
 import type {
   IComponentService,
-  IElement,
+  IElementModel,
   IPropData,
   ITypeService,
   TypedProp,
@@ -31,7 +31,7 @@ const getComponentIdsFromProp = (prop: IPropData): Array<string> =>
 /**
  * Get all component ids that could be an element or a render prop type
  */
-const getComponentIdsFromElements = (elements: Array<IElement>) =>
+const getComponentIdsFromElements = (elements: Array<IElementModel>) =>
   elements
     .reduce<Array<string>>((acc, element) => {
       // Component as an element
@@ -54,7 +54,7 @@ const getComponentIdsFromElements = (elements: Array<IElement>) =>
 /**
  * Get all api and field type ids from the elements
  */
-const getTypeIdsFromElements = (elements: Array<IElement>) => {
+const getTypeIdsFromElements = (elements: Array<IElementModel>) => {
   return elements.reduce<Array<string>>((acc, element) => {
     if (element.renderType?.current.api) {
       acc.push(element.renderType.current.api.id)
@@ -71,10 +71,10 @@ const getTypeIdsFromElements = (elements: Array<IElement>) => {
 export const loadAllTypesForElements = async (
   componentService: IComponentService,
   typeService: ITypeService,
-  roots: Array<IElement>,
+  roots: Array<IElementModel>,
   isProduction = false,
 ) => {
-  const loadedComponentElements: Array<IElement> = []
+  const loadedComponentElements: Array<IElementModel> = []
 
   const elements = [
     ...roots,

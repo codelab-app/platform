@@ -5,10 +5,9 @@ fragment AppPreview on App {
   id
   name
   slug
-  compositeKey
   # Required to compute name
   owner {
-    auth0Id
+    ...Owner
   }
   # Links the app preview to the provider page
   pages(where: { kind: Provider }) {
@@ -19,10 +18,9 @@ fragment AppPreview on App {
 fragment App on App {
   id
   name
-  compositeKey
   slug
   owner {
-    auth0Id
+    ...Owner
   }
   pages {
     ...Page
@@ -37,12 +35,12 @@ fragment PageBuilderApp on App {
   name
   slug
   owner {
-    auth0Id
+    ...Owner
   }
   pages(
     where: {
       OR: [
-        { _compoundName: $pageCompositeKey }
+        { compositeKey: $pageCompositeKey }
         { kind: Provider }
         { kind: NotFound }
         { kind: InternalServerError }
@@ -59,10 +57,10 @@ fragment PageApp on App {
   name
   slug
   owner {
-    auth0Id
+    ...Owner
   }
   pages(
-    where: { OR: [{ _compoundName: $pageCompositeKey }, { kind: Provider }] }
+    where: { OR: [{ compositeKey: $pageCompositeKey }, { kind: Provider }] }
   ) {
     ...ProductionPage
   }

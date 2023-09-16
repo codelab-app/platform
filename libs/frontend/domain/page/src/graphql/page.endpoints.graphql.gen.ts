@@ -122,7 +122,7 @@ export const GetDevelopmentPageDocument = gql`
     $appCompositeKey: String!
     $pageCompositeKey: String!
   ) {
-    apps {
+    apps(where: { compositeKey: $appCompositeKey }) {
       ...PageBuilderApp
     }
     resources {
@@ -137,7 +137,7 @@ export const GetProductionPageDocument = gql`
     $appCompositeKey: String!
     $pageCompositeKey: String!
   ) {
-    apps {
+    apps(where: { compositeKey: $appCompositeKey }) {
       ...PageApp
     }
     resources {

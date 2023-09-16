@@ -17,3 +17,12 @@ export const IPageDTO = Type.Object({
 })
 
 export type IPageDTO = Static<typeof IPageDTO>
+
+export const IPage = Type.Composite([
+  IPageDTO,
+  Type.Object({
+    slug: Type.String(),
+  }),
+])
+
+export type IPage = Static<typeof IPage>

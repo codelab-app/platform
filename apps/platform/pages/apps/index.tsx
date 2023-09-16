@@ -22,7 +22,9 @@ import {
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
 import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
-import type { IAuth0User } from '@codelab/shared/abstract/core'
+import type { Auth0IdToken } from '@codelab/shared/abstract/core'
+import { JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import type { IEntity } from '@codelab/shared/abstract/types'
 import { getEnv } from '@codelab/shared/config'
 import { useAsync } from '@react-hookz/web'
 import { Image, Spin } from 'antd'
@@ -78,13 +80,14 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   const { appService, userService } = useStore()
   const { user } = useUser()
 
-  const [{ status }, loadApp] = useAsync((owner: IAuth0User) =>
+  const [{ status }, loadApp] = useAsync((owner: IEntity) =>
     appService.loadAppsPreview({ owner }),
   )
 
   useEffect(() => {
-    if (user?.sub) {
-      void loadApp.execute({ auth0Id: user.sub })
+    if (user) {
+      const userToken = user as unknown as Auth0IdToken
+      void loadApp.execute({ id: userToken[JWT_CLAIMS].user_id })
     }
 
     // in development need to execute this each time page is loaded,

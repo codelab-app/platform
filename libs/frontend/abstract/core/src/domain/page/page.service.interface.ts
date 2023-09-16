@@ -12,29 +12,29 @@ import type {
   ICRUDService,
   IQueryService,
 } from '../../service'
-import type { IApp } from '../app'
+import type { IAppModel } from '../app'
 import type { ICreatePageData, IUpdatePageData } from './page.dto.interface'
-import type { IPage } from './page.model.interface'
+import type { IPageModel } from './page.model.interface'
 import type { IPageRepository } from './page.repo.interface'
 
-export type IPageAppFragment = Pick<IApp, 'id' | 'name'>
+export type IPageAppFragment = Pick<IAppModel, 'id' | 'name'>
 
 export interface IPageFactory {
-  addSystemPages(app: IPageAppFragment): Array<IPage>
+  addSystemPages(app: IPageAppFragment): Array<IPageModel>
 }
 
 export interface IPageService
-  extends ICRUDService<IPage, ICreatePageData, IUpdatePageData>,
-    IQueryService<IPage, PageWhere, PageOptions>,
-    ICRUDModalService<Ref<IPage>, { page: Maybe<IPage> }>,
-    ICRUDFormService<Ref<IPage>, { page: Maybe<IPage> }> {
+  extends ICRUDService<IPageModel, ICreatePageData, IUpdatePageData>,
+    IQueryService<IPageModel, PageWhere, PageOptions>,
+    ICRUDModalService<Ref<IPageModel>, { page: Maybe<IPageModel> }>,
+    ICRUDFormService<Ref<IPageModel>, { page: Maybe<IPageModel> }> {
   pageFactory: IPageFactory
   pageRepository: IPageRepository
-  pages: ObjectMap<IPage>
-  pagesList: Array<IPage>
+  pages: ObjectMap<IPageModel>
+  pagesList: Array<IPageModel>
 
-  add(pageDTO: IPageDTO): IPage
+  add(pageDTO: IPageDTO): IPageModel
   getRenderedPage(pageId: string): Promise<GetRenderedPageQuery>
-  page(id: string): Maybe<IPage>
-  pagesByApp(appId: string): Array<IPage>
+  page(id: string): Maybe<IPageModel>
+  pagesByApp(appId: string): Array<IPageModel>
 }

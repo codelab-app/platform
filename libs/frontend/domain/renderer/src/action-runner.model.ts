@@ -4,7 +4,7 @@ import type {
   IApiAction,
   IBaseResourceConfigData,
   ICodeAction,
-  IElement,
+  IElementModel,
   IEvaluationContext,
   IGraphQLActionConfig,
   IPropData,
@@ -95,7 +95,7 @@ export const getRunner = (
   }
 }
 
-const create = (rootElement: IElement) => {
+const create = (rootElement: IElementModel) => {
   const store = rootElement.store.current
   const component = rootElement.parentComponent?.current
   // more props will be added other then component
@@ -115,7 +115,7 @@ const create = (rootElement: IElement) => {
 export class ActionRunner
   extends Model(() => ({
     actionRef: prop<Ref<IAction>>(),
-    elementRef: prop<Ref<IElement>>(),
+    elementRef: prop<Ref<IElementModel>>(),
     id: prop<string>(),
   }))
   implements IActionRunner

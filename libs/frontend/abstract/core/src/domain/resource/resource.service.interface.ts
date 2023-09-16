@@ -16,7 +16,7 @@ import type {
   ICreateResourceData,
   IUpdateResourceData,
 } from './resource.dto.interface'
-import type { IResource, IResourceRef } from './resource.model.interface'
+import type { IResourceModel, IResourceRef } from './resource.model.interface'
 
 export interface CreateResourceData {
   type?: IResourceType
@@ -26,17 +26,24 @@ export interface CreateResourceProperties {
   type?: IResourceType
 }
 export interface IResourceService
-  extends ICRUDService<IResource, ICreateResourceData, IUpdateResourceData>,
-    IQueryService<IResource, ResourceWhere, ResourceOptions>,
+  extends ICRUDService<
+      IResourceModel,
+      ICreateResourceData,
+      IUpdateResourceData
+    >,
+    IQueryService<IResourceModel, ResourceWhere, ResourceOptions>,
     Omit<
-      ICRUDModalService<Ref<IResource>, { resource: Maybe<IResource> }>,
+      ICRUDModalService<
+        Ref<IResourceModel>,
+        { resource: Maybe<IResourceModel> }
+      >,
       'createModal'
     >,
-    ICRUDFormService<Ref<IResource>, { resource: Maybe<IResource> }> {
+    ICRUDFormService<Ref<IResourceModel>, { resource: Maybe<IResourceModel> }> {
   createModal: IEntityModalService<CreateResourceData, { type?: IResourceType }>
-  resourceList: Array<IResource>
+  resourceList: Array<IResourceModel>
 
-  add(resource: IResourceDTO): IResource
+  add(resource: IResourceDTO): IResourceModel
   load(resources: Array<IResourceDTO>): void
-  resource(resource: IResourceRef): Maybe<IResource>
+  resource(resource: IResourceRef): Maybe<IResourceModel>
 }

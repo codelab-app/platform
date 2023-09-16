@@ -1,5 +1,5 @@
 import type {
-  IElement,
+  IElementModel,
   IPropData,
   IRenderOutput,
   IRenderPipe,
@@ -16,7 +16,7 @@ export class NullRenderPipe
   extends ExtendedModel(BaseRenderPipe, {})
   implements IRenderPipe
 {
-  render(element: IElement, props: IPropData): IRenderOutput {
+  render(element: IElementModel, props: IPropData): IRenderOutput {
     if (this.renderer.debugMode) {
       console.info(`NullRenderPipe: rendering null`, { element: element.name })
     }

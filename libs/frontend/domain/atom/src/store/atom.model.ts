@@ -1,7 +1,7 @@
 import type {
-  IAtom,
+  IAtomModel,
   IInterfaceType,
-  ITag,
+  ITagModel,
 } from '@codelab/frontend/abstract/core'
 import {
   atomRef,
@@ -17,9 +17,9 @@ import type { IAtomDTO, IAtomType } from '@codelab/shared/abstract/core'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import {
-  connectOwner,
   connectNodeId,
   connectNodeIds,
+  connectOwner,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
 import { computed } from 'mobx'
@@ -66,12 +66,12 @@ export class Atom
     icon: prop<string | null | undefined>(null),
     id: idProp,
     name: prop<string>(),
-    requiredParents: prop<Array<Ref<IAtom>>>(() => []),
-    suggestedChildren: prop<Array<Ref<IAtom>>>(() => []),
-    tags: prop<Array<Ref<ITag>>>(() => []),
+    requiredParents: prop<Array<Ref<IAtomModel>>>(() => []),
+    suggestedChildren: prop<Array<Ref<IAtomModel>>>(() => []),
+    tags: prop<Array<Ref<ITagModel>>>(() => []),
     type: prop<IAtomType>(),
   })
-  implements IAtom
+  implements IAtomModel
 {
   /**
    * Determines whether the atom accepts children and text make sense for the type.

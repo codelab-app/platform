@@ -1,11 +1,11 @@
 import type {
-  IElement,
+  IElementModel,
   IPropDataByElementId,
 } from '@codelab/frontend/abstract/core'
 import { DATA_COMPONENT_ID } from '@codelab/frontend/abstract/core'
 
 export interface IsDraggableProps {
-  element: IElement
+  element: IElementModel
   globalPropsContext: IPropDataByElementId
   isBuilder: boolean
 }

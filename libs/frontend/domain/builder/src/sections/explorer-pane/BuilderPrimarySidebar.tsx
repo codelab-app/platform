@@ -60,7 +60,7 @@ export const BuilderPrimarySidebar = observer<{ isLoading?: boolean }>(
     } = useStore()
 
     const { popover } = useCui()
-    const { page } = useCurrentPage()
+    const page = useCurrentPage()
     const { component } = useCurrentComponent()
     const pageBuilderRenderer = page && renderService.renderers.get(page.id)
 

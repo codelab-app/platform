@@ -4,10 +4,10 @@ import type {
   DomainWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IRepository } from '../../service'
-import type { IDomain } from './domain.model.interface'
+import type { IDomainModel } from './domain.model.interface'
 
 export type IDomainRepository = IRepository<
-  IDomain,
+  IDomainModel,
   DomainFragment,
   DomainWhere,
   DomainOptions

@@ -1,4 +1,4 @@
-import type { IDomain } from '@codelab/frontend/abstract/core'
+import type { IDomainModel } from '@codelab/frontend/abstract/core'
 import type {
   VercelDomainConfig,
   VercelProjectDomain,
@@ -27,7 +27,7 @@ export class Domain
     name: prop<string>(),
     projectDomain: prop<Maybe<VercelProjectDomain>>(),
   })
-  implements IDomain
+  implements IDomainModel
 {
   static create = create
 

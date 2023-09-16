@@ -17,7 +17,7 @@ import {
   elementTreeRef,
   getRendererId,
   getRunnerId,
-  IElement,
+  IElementModel,
   IPageNodeRef,
   isAtomInstance,
   isElementPageNodeRef,
@@ -146,7 +146,7 @@ export class Renderer
   }
 
   @modelAction
-  addActionRunners(element: IElement) {
+  addActionRunners(element: IElementModel) {
     if (!element.isRoot) {
       return []
     }
@@ -194,7 +194,7 @@ export class Renderer
   /**
    * Renders a single Element using the provided RenderAdapter
    */
-  renderElement = (element: IElement): ReactElement => {
+  renderElement = (element: IElementModel): ReactElement => {
     const wrapperProps: ElementWrapperProps = {
       element,
       key: element.id,
@@ -227,7 +227,7 @@ export class Renderer
    * Renders a single element (without its children) to an intermediate RenderOutput
    *
    */
-  renderIntermediateElement = (element: IElement): IRenderOutput => {
+  renderIntermediateElement = (element: IElementModel): IRenderOutput => {
     this.addActionRunners(element)
 
     const runtimeProps = this.addRuntimeProps(elementRef(element.id))
@@ -235,7 +235,7 @@ export class Renderer
     return this.renderPipe.render(element, runtimeProps.evaluatedProps)
   }
 
-  getComponentInstanceChildren(element: IElement) {
+  getComponentInstanceChildren(element: IElementModel) {
     const parentComponent = element.parentComponent?.current
 
     const isContainer =
@@ -248,7 +248,7 @@ export class Renderer
     return parentComponent.instanceElement.current.children
   }
 
-  getChildMapperChildren(element: IElement) {
+  getChildMapperChildren(element: IElementModel) {
     const { childMapperComponent } = element
 
     if (!childMapperComponent) {
@@ -276,7 +276,7 @@ export class Renderer
     )
   }
 
-  getChildPageChildren(element: IElement) {
+  getChildPageChildren(element: IElementModel) {
     const providerTreeRoot = this.providerTree?.current.rootElement.current
     const providerPage = providerTreeRoot?.page?.current
     const pageContentContainer = providerPage?.pageContentContainer?.current
@@ -362,7 +362,7 @@ export class Renderer
     },
   )
 
-  logRendered = (element: IElement, rendered: ArrayOrSingle<IRenderOutput>) => {
+  logRendered = (element: IElementModel, rendered: ArrayOrSingle<IRenderOutput>) => {
     if (this.debugMode) {
       console.dir({ element: element, rendered })
     }

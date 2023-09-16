@@ -13,7 +13,7 @@ import type {
   ICreateElementData,
   IUpdateElementData,
 } from './element.dto.interface'
-import type { IElement } from './element.model.interface'
+import type { IElementModel } from './element.model.interface'
 import type { IElementRepository } from './element.repo.interface'
 import type { IElementTree } from './element-tree.interface.model'
 
@@ -27,60 +27,60 @@ export interface CreateElementData {
     value: string
   }>
   elementTree: Ref<IElementTree>
-  selectedElement?: Maybe<Ref<IElement>>
+  selectedElement?: Maybe<Ref<IElementModel>>
 }
 
 export interface CreateElementProperties {
   elementTree: IElementTree
-  parentElement: IElement
+  parentElement: IElementModel
 }
 
 export interface UpdateElementProperties {
-  element: IElement
+  element: IElementModel
 }
 
 export interface IElementService
   extends Omit<
-      ICRUDService<IElement, ICreateElementData, IUpdateElementData>,
+      ICRUDService<IElementModel, ICreateElementData, IUpdateElementData>,
       'delete'
     >,
     Omit<
-      ICRUDModalService<Ref<IElement>, { element?: IElement }>,
+      ICRUDModalService<Ref<IElementModel>, { element?: IElementModel }>,
       'createModal'
     >,
     Omit<
-      ICRUDFormService<Ref<IElement>, { element?: IElement }>,
+      ICRUDFormService<Ref<IElementModel>, { element?: IElementModel }>,
       'createForm'
     > {
-  clonedElements: ObjectMap<IElement>
+  clonedElements: ObjectMap<IElementModel>
   createForm: IEntityFormService<CreateElementData, CreateElementProperties>
   createModal: IEntityModalService<CreateElementData, CreateElementProperties>
   elementRepository: IElementRepository
-  elements: ObjectMap<IElement>
-  updateForm: IEntityModalService<Ref<IElement>, UpdateElementProperties>
-  updateModal: IEntityModalService<Ref<IElement>, UpdateElementProperties>
-  add(elementDTO: IElementDTO): IElement
+  elements: ObjectMap<IElementModel>
+  updateForm: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
+  updateModal: IEntityModalService<Ref<IElementModel>, UpdateElementProperties>
+  add(elementDTO: IElementDTO): IElementModel
   cloneElement(
-    target: IElement,
-    targetParent: IElement,
-  ): Promise<Array<IElement>>
+    target: IElementModel,
+    targetParent: IElementModel,
+  ): Promise<Array<IElementModel>>
   convertElementToComponent(
-    element: IElement,
+    element: IElementModel,
     owner: IEntity,
-  ): Promise<Maybe<IElement>>
+  ): Promise<Maybe<IElementModel>>
   // moveElement(
   //   targetElementId: IElementRef,
   //   moveData: MoveData,
   // ): Promise<IElement>
-  createElementAsFirstChild(data: ICreateElementData): Promise<IElement>
-  createElementAsNextSibling(data: ICreateElementData): Promise<IElement>
+  createElementAsFirstChild(data: ICreateElementData): Promise<IElementModel>
+  createElementAsNextSibling(data: ICreateElementData): Promise<IElementModel>
   delete(subRoot: IEntity): Promise<void>
-  element(id: string): IElement
+  element(id: string): IElementModel
   loadComponentTree(component: RenderedComponentFragment): {
-    hydratedElements: Array<IElement>
-    rootElement: IElement
+    hydratedElements: Array<IElementModel>
+    rootElement: IElementModel
   }
-  maybeElement(id: Maybe<string>): Maybe<IElement>
+  maybeElement(id: Maybe<string>): Maybe<IElementModel>
   moveElementAsFirstChild(props: {
     element: IEntity
     parentElement: IEntity

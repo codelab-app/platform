@@ -1,7 +1,7 @@
-import type { IResource } from '../domain'
+import type { IResourceModel } from '../domain'
 import type { ITreeDataNode } from './tree-data-node.interface'
 
 export type IResourcesTreeDataNode = ITreeDataNode<{
-  node: IResource
+  node: IResourceModel
   type: 'resource'
 }>

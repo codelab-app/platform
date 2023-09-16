@@ -6,7 +6,7 @@ import {
   PlusOutlined,
 } from '@ant-design/icons'
 import type {
-  IElement,
+  IElementModel,
   IElementTreeViewDataNode,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -27,7 +27,7 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 
 interface ElementTreeItemElementTitleProps {
-  element: IElement
+  element: IElementModel
   treeNode: IElementTreeViewDataNode
 }
 

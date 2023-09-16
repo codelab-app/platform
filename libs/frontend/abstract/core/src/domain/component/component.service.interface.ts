@@ -16,20 +16,20 @@ import type {
   ICreateComponentData,
   IUpdateComponentData,
 } from './component.dto.interface'
-import type { IComponent } from './component.model.interface'
+import type { IComponentModel } from './component.model.interface'
 import type { IComponentRepository } from './component.repo.interface'
 
 export interface IComponentService
-  extends ICRUDService<IComponent, ICreateComponentData, IUpdateComponentData>,
-    IQueryService<IComponent, ComponentWhere, ComponentOptions>,
-    ICRUDModalService<Ref<IComponent>, { component: Maybe<IComponent> }>,
-    IPaginateable<IComponent, { name?: string }> {
-  clonedComponents: ObjectMap<IComponent>
-  componentList: Array<IComponent>
+  extends ICRUDService<IComponentModel, ICreateComponentData, IUpdateComponentData>,
+    IQueryService<IComponentModel, ComponentWhere, ComponentOptions>,
+    ICRUDModalService<Ref<IComponentModel>, { component: Maybe<IComponentModel> }>,
+    IPaginateable<IComponentModel, { name?: string }> {
+  clonedComponents: ObjectMap<IComponentModel>
+  componentList: Array<IComponentModel>
   componentRepository: IComponentRepository
-  components: ObjectMap<IComponent>
+  components: ObjectMap<IComponentModel>
   createForm: IEntityFormService
 
-  add(componentDTO: IComponentDTO): IComponent
-  component(id: string): IComponent
+  add(componentDTO: IComponentDTO): IComponentModel
+  component(id: string): IComponentModel
 }

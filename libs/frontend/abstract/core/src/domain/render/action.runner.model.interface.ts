@@ -1,10 +1,10 @@
 import type { Ref } from 'mobx-keystone'
 import type { IAction } from '../action'
-import type { IElement } from '../element'
+import type { IElementModel } from '../element'
 
 export interface IActionRunner {
   actionRef: Ref<IAction>
-  elementRef: Ref<IElement>
+  elementRef: Ref<IElementModel>
   id: string
 
   runner(...args: Array<unknown>): void

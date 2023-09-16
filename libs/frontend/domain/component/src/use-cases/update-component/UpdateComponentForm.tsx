@@ -1,5 +1,5 @@
 import type {
-  IComponent,
+  IComponentModel,
   IUpdateComponentData,
 } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
@@ -13,7 +13,7 @@ import { updateComponentSchema } from './update-component.schema'
 /**
  * Used for meta pane
  */
-export const UpdateComponentForm = observer<{ component: IComponent }>(
+export const UpdateComponentForm = observer<{ component: IComponentModel }>(
   ({ component }) => {
     const { componentService } = useStore()
     const [key, setKey] = useState('')

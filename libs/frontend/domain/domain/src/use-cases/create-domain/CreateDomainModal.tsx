@@ -15,7 +15,7 @@ import { createDomainSchema } from './create-domain.schema'
 
 export const CreateDomainModal = observer(() => {
   const { domainService, userService } = useStore()
-  const { app } = useCurrentApp()
+  const app = useCurrentApp()
 
   const model = {
     app: { id: app?.id },

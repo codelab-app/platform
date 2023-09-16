@@ -3,7 +3,7 @@ import type { ObjectMap, Ref } from 'mobx-keystone'
 import type { ReactElement, ReactNode } from 'react'
 import type { ArrayOrSingle } from 'ts-essentials'
 import type { IExpressionTransformer } from '../builder'
-import type { IElement, IElementTree } from '../element'
+import type { IElementModel, IElementTree } from '../element'
 import type { IPageNode, IPageNodeRef } from '../page'
 import type { IActionRunner } from './action.runner.model.interface'
 import type { IRenderOutput } from './render.interface'
@@ -31,9 +31,9 @@ export interface IRenderer {
   urlSegments?: Record<string, string>
 
   addRuntimeProps(nodeRef: IPageNodeRef): IRuntimeProp<IPageNode>
-  logRendered(element: IElement, rendered: ArrayOrSingle<IRenderOutput>): void
+  logRendered(element: IElementModel, rendered: ArrayOrSingle<IRenderOutput>): void
   renderChildren(parentOutput: IRenderOutput): ArrayOrSingle<ReactNode>
-  renderElement(element: IElement): ReactElement
-  renderIntermediateElement(element: IElement): IRenderOutput
+  renderElement(element: IElementModel): ReactElement
+  renderIntermediateElement(element: IElementModel): IRenderOutput
   renderRoot(): ReactElement | null
 }

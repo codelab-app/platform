@@ -10,8 +10,8 @@ import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { ICacheService } from '../../service'
 import type { IModel } from '../model.interface'
 
-export interface IDomain
-  extends ICacheService<IDomainDTO, IDomain>,
+export interface IDomainModel
+  extends ICacheService<IDomainDTO, IDomainModel>,
     IModel<DomainCreateInput, DomainUpdateInput, DomainDeleteInput> {
   app: IEntity
   domainConfig: Maybe<VercelDomainConfig>

@@ -2,7 +2,7 @@ import type {
   IAction,
   IApiAction,
   IProp,
-  IResource,
+  IResourceModel,
 } from '@codelab/frontend/abstract/core'
 import {
   actionRef,
@@ -48,7 +48,7 @@ export class ApiAction
   extends ExtendedModel(createBaseAction(IActionKind.ApiAction), {
     config: prop<Ref<IProp>>(),
     errorAction: prop<Nullish<Ref<IAction>>>(),
-    resource: prop<Ref<IResource>>(),
+    resource: prop<Ref<IResourceModel>>(),
     source: prop<Nullable<Ref<IAction>>>(null),
     successAction: prop<Nullish<Ref<IAction>>>(),
   })

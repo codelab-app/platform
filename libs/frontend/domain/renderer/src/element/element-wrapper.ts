@@ -1,6 +1,6 @@
 import type {
   IComponentType,
-  IElement,
+  IElementModel,
   IRenderer,
 } from '@codelab/frontend/abstract/core'
 import { isAtomInstance, RendererType } from '@codelab/frontend/abstract/core'
@@ -15,7 +15,7 @@ import { renderComponentWithStyles } from './get-styled-components'
 import { extractValidProps, getReactComponent } from './wrapper.utils'
 
 export interface ElementWrapperProps {
-  element: IElement
+  element: IElementModel
   key: string
   /**
    * Props passed in from outside the component

@@ -16,7 +16,7 @@ export const UpdateDomainModal = observer(() => {
   const { domainService } = useStore()
   const domain = domainService.updateModal.domain
   const isOpen = domainService.updateModal.isOpen
-  const { app } = useCurrentApp()
+  const app = useCurrentApp()
 
   const onSubmit = (domainDTO: IUpdateDomainData) => {
     return domainService.update(domainDTO)

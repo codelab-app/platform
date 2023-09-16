@@ -12,6 +12,7 @@ import {
   CuiHeaderToolbar,
 } from '@codelab/frontend/presentation//codelab-ui'
 import {
+  useAppQuery,
   useCurrentApp,
   useStore,
 } from '@codelab/frontend/presentation/container'
@@ -21,6 +22,7 @@ import {
   DashboardTemplate,
 } from '@codelab/frontend/presentation/view'
 import { withPageAuthRedirect } from '@codelab/frontend/shared/utils'
+import { AppProperties } from '@codelab/shared/domain/mapper'
 import { useAsync, useMountEffect } from '@react-hookz/web'
 import { Image, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
@@ -29,7 +31,7 @@ import React from 'react'
 
 const DomainsPageHeader = observer(() => {
   const { domainService } = useStore()
-  const { appName } = useCurrentApp()
+  const { appName } = useAppQuery()
 
   return (
     <CuiHeader
@@ -64,12 +66,14 @@ const DomainsPageHeader = observer(() => {
 })
 
 const DomainsPage: CodelabPage<DashboardTemplateProps> = (props) => {
-  const { appService } = useStore()
-  const { _compoundName } = useCurrentApp()
+  const { appService, userService } = useStore()
+  const user = userService.user
+  const { appName } = useAppQuery()
 
   const [{ result, status }, getApp] = useAsync(() =>
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    appService.getAll({ _compoundName }),
+    appService.getAll({
+      compositeKey: AppProperties.appCompositeKey(appName, user),
+    }),
   )
 
   const app = result?.[0]

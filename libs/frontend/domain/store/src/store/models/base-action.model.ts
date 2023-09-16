@@ -1,6 +1,6 @@
 import type {
   IBaseAction,
-  IElement,
+  IElementModel,
   IStore,
 } from '@codelab/frontend/abstract/core'
 import type { IActionKind } from '@codelab/shared/abstract/core'
@@ -11,7 +11,7 @@ import { idProp, Model, prop } from 'mobx-keystone'
 export const createBaseAction = <T extends IActionKind>(type: T) =>
   class
     extends Model({
-      element: prop<Maybe<Ref<IElement>>>(),
+      element: prop<Maybe<Ref<IElementModel>>>(),
       id: idProp,
       name: prop<string>(),
       store: prop<Ref<IStore>>(),

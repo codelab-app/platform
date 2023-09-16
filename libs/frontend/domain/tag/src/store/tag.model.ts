@@ -1,4 +1,4 @@
-import type { ITag } from '@codelab/frontend/abstract/core'
+import type { ITagModel } from '@codelab/frontend/abstract/core'
 import { ITagsTreeDataNode } from '@codelab/frontend/abstract/core'
 import type {
   TagCreateInput,
@@ -32,14 +32,14 @@ const create = ({ children, descendants, id, isRoot, name }: ITagDTO) => {
 @model('@codelab/Tag')
 export class Tag
   extends Model({
-    children: prop<Array<Ref<ITag>>>(() => []),
-    descendants: prop<Array<Ref<ITag>>>(() => []),
+    children: prop<Array<Ref<ITagModel>>>(() => []),
+    descendants: prop<Array<Ref<ITagModel>>>(() => []),
     id: idProp,
     isRoot: prop<boolean>(false),
     name: prop<string>(),
-    parent: prop<Nullable<Ref<ITag>>>(null),
+    parent: prop<Nullable<Ref<ITagModel>>>(null),
   })
-  implements ITag
+  implements ITagModel
 {
   @computed
   get label() {
@@ -90,7 +90,7 @@ export class Tag
   }
 }
 
-export const tagRef = rootRef<ITag>('@codelab/TagRef', {
+export const tagRef = rootRef<ITagModel>('@codelab/TagRef', {
   onResolvedValueChange: (ref, newTag, oldTag) => {
     if (oldTag && !newTag) {
       detach(ref)

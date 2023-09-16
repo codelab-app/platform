@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined, ExportOutlined } from '@ant-design/icons'
-import type { IAtom, IComponent } from '@codelab/frontend/abstract/core'
+import type { IAtomModel, IComponentModel } from '@codelab/frontend/abstract/core'
 import {
   BuilderDndType,
   isComponentModel,
@@ -14,7 +14,7 @@ import React, { useMemo } from 'react'
 import { useCreateElementDraggable } from '../../../dnd/useCreateElementDraggable.hook'
 
 interface DraggableComponentItemProps {
-  component: IAtom | IComponent
+  component: IAtomModel | IComponentModel
   selected?: boolean
   onDelete?(id: string): void
   onEdit?(id: string): void
@@ -35,7 +35,7 @@ export const DraggableComponentItem = ({
       name: compoundCaseToTitleCase(component.name),
       renderType: {
         id: component.id,
-        kind: isComponentPageNode(component as IComponent)
+        kind: isComponentPageNode(component as IComponentModel)
           ? IRenderTypeKind.Component
           : IRenderTypeKind.Atom,
       },
@@ -80,7 +80,7 @@ export const DraggableComponentItem = ({
 
 interface ComponentItemProps {
   className?: string
-  component: IAtom | IComponent
+  component: IAtomModel | IComponentModel
   selected?: boolean
   onDelete?(id: string): void
   onEdit?(id: string): void

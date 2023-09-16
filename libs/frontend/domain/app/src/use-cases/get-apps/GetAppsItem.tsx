@@ -1,4 +1,4 @@
-import type { IApp, IDomain } from '@codelab/frontend/abstract/core'
+import type { IAppModel, IDomainModel } from '@codelab/frontend/abstract/core'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { Card } from 'antd'
@@ -9,8 +9,8 @@ import { DomainsList } from './DomainsList'
 import { ItemDropdown } from './ItemDropdown'
 
 export interface GetAppsItemProps {
-  app: IApp
-  domains?: Array<IDomain>
+  app: IAppModel
+  domains?: Array<IDomainModel>
 }
 
 export const GetAppsItem = observer<GetAppsItemProps>(({ app }) => {
@@ -22,7 +22,7 @@ export const GetAppsItem = observer<GetAppsItemProps>(({ app }) => {
       appSlug: app.slug,
       pageSlug: app.pages[0]?.current.slug,
       primarySidebarKey: ExplorerPaneType.PageList,
-      userName: userService.user.username,
+      userSlug: userService.user.username,
     },
   }
 

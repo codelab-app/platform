@@ -1,6 +1,6 @@
 import type {
   ICreateResourceData,
-  IResource,
+  IResourceModel,
   IResourceService,
   IUpdateResourceData,
 } from '@codelab/frontend/abstract/core'
@@ -33,7 +33,7 @@ export class ResourceService
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new ResourceModalService({})),
     resourceRepository: prop(() => new ResourceRepository({})),
-    resources: prop(() => objectMap<IResource>()),
+    resources: prop(() => objectMap<IResourceModel>()),
     updateForm: prop(() => new ResourceFormService({})),
     updateModal: prop(() => new ResourceModalService({})),
   })
@@ -123,7 +123,7 @@ export class ResourceService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: ResourceService, resource: IResource) {
+  delete = _async(function* (this: ResourceService, resource: IResourceModel) {
     const { id } = resource
 
     this.resources.delete(id)

@@ -2183,7 +2183,7 @@ export type ApiActionElementElementAggregationSelection = {
 export type ApiActionElementElementNodeAggregateSelection = {
   __typename?: 'ApiActionElementElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  _compositeKey: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
@@ -2393,7 +2393,7 @@ export type AppPagePagesAggregationSelection = {
 export type AppPagePagesNodeAggregateSelection = {
   __typename?: 'AppPagePagesNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  _compoundName: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   url: StringAggregateSelectionNonNullable
 }
 
@@ -3048,7 +3048,7 @@ export type CodeActionElementElementAggregationSelection = {
 export type CodeActionElementElementNodeAggregateSelection = {
   __typename?: 'CodeActionElementElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  _compositeKey: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
@@ -3330,7 +3330,7 @@ export type ComponentElementChildrenContainerElementAggregationSelection = {
 export type ComponentElementChildrenContainerElementNodeAggregateSelection = {
   __typename?: 'ComponentElementChildrenContainerElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  _compositeKey: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
@@ -3346,7 +3346,7 @@ export type ComponentElementRootElementAggregationSelection = {
 export type ComponentElementRootElementNodeAggregateSelection = {
   __typename?: 'ComponentElementRootElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  _compositeKey: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
@@ -3747,7 +3747,7 @@ export type DomainsConnection = {
 export type Element = {
   __typename?: 'Element'
   id: Scalars['ID']['output']
-  _compositeKey: Scalars['String']['output']
+  compositeKey: Scalars['String']['output']
   style?: Maybe<Scalars['String']['output']>
   childMapperPropKey?: Maybe<Scalars['String']['output']>
   renderForEachPropKey?: Maybe<Scalars['String']['output']>
@@ -4036,7 +4036,7 @@ export type ElementAggregateSelection = {
   __typename?: 'ElementAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
-  _compositeKey: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
@@ -4139,7 +4139,7 @@ export type ElementElementChildMapperPreviousSiblingAggregationSelection = {
 export type ElementElementChildMapperPreviousSiblingNodeAggregateSelection = {
   __typename?: 'ElementElementChildMapperPreviousSiblingNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  _compositeKey: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
@@ -4155,7 +4155,7 @@ export type ElementElementFirstChildAggregationSelection = {
 export type ElementElementFirstChildNodeAggregateSelection = {
   __typename?: 'ElementElementFirstChildNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  _compositeKey: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
@@ -4171,7 +4171,7 @@ export type ElementElementNextSiblingAggregationSelection = {
 export type ElementElementNextSiblingNodeAggregateSelection = {
   __typename?: 'ElementElementNextSiblingNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  _compositeKey: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
@@ -4187,7 +4187,7 @@ export type ElementElementParentAggregationSelection = {
 export type ElementElementParentNodeAggregateSelection = {
   __typename?: 'ElementElementParentNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  _compositeKey: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
@@ -4203,7 +4203,7 @@ export type ElementElementPrevSiblingAggregationSelection = {
 export type ElementElementPrevSiblingNodeAggregateSelection = {
   __typename?: 'ElementElementPrevSiblingNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  _compositeKey: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
@@ -4252,7 +4252,7 @@ export type ElementPagePageAggregationSelection = {
 export type ElementPagePageNodeAggregateSelection = {
   __typename?: 'ElementPagePageNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  _compoundName: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   url: StringAggregateSelectionNonNullable
 }
 
@@ -5105,7 +5105,7 @@ export type HookElementElementAggregationSelection = {
 export type HookElementElementNodeAggregateSelection = {
   __typename?: 'HookElementElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  _compositeKey: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
@@ -5465,7 +5465,7 @@ export type LambdaTypeUserOwnerNodeAggregateSelection = {
 export type Page = {
   __typename?: 'Page'
   id: Scalars['ID']['output']
-  _compoundName: Scalars['String']['output']
+  compositeKey: Scalars['String']['output']
   url: Scalars['String']['output']
   kind: PageKind
   name: Scalars['String']['output']
@@ -5564,7 +5564,7 @@ export type PageAggregateSelection = {
   __typename?: 'PageAggregateSelection'
   count: Scalars['Int']['output']
   id: IdAggregateSelectionNonNullable
-  _compoundName: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   url: StringAggregateSelectionNonNullable
 }
 
@@ -5608,7 +5608,7 @@ export type PageElementPageContentContainerAggregationSelection = {
 export type PageElementPageContentContainerNodeAggregateSelection = {
   __typename?: 'PageElementPageContentContainerNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  _compositeKey: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
@@ -5624,7 +5624,7 @@ export type PageElementRootElementAggregationSelection = {
 export type PageElementRootElementNodeAggregateSelection = {
   __typename?: 'PageElementRootElementNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  _compositeKey: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
@@ -6384,7 +6384,7 @@ export type StorePagePageAggregationSelection = {
 export type StorePagePageNodeAggregateSelection = {
   __typename?: 'StorePagePageNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  _compoundName: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   url: StringAggregateSelectionNonNullable
 }
 
@@ -7215,7 +7215,7 @@ export type UserElementElementsAggregationSelection = {
 export type UserElementElementsNodeAggregateSelection = {
   __typename?: 'UserElementElementsNodeAggregateSelection'
   id: IdAggregateSelectionNonNullable
-  _compositeKey: StringAggregateSelectionNonNullable
+  compositeKey: StringAggregateSelectionNonNullable
   style: StringAggregateSelectionNullable
   childMapperPropKey: StringAggregateSelectionNullable
   renderForEachPropKey: StringAggregateSelectionNullable
@@ -7859,60 +7859,60 @@ export type ApiActionElementNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
+  compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   style_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -9162,60 +9162,60 @@ export type AppPagesNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compoundName_EQUAL?: InputMaybe<Scalars['String']['input']>
+  compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compoundName_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compoundName_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compoundName_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compoundName_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compoundName_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compoundName_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compoundName_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compoundName_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   url_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -12004,60 +12004,60 @@ export type BaseActionElementNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
+  compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   style_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -12602,60 +12602,60 @@ export type CodeActionElementNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
+  compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   style_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -13557,60 +13557,60 @@ export type ComponentChildrenContainerElementNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
+  compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   style_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -14326,60 +14326,60 @@ export type ComponentRootElementNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
+  compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   style_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -15386,60 +15386,60 @@ export type ElementChildMapperPreviousSiblingNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
+  compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   style_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -15730,7 +15730,7 @@ export type ElementConnectWhere = {
 
 export type ElementCreateInput = {
   id: Scalars['ID']['input']
-  _compositeKey: Scalars['String']['input']
+  compositeKey: Scalars['String']['input']
   style?: InputMaybe<Scalars['String']['input']>
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
@@ -15850,60 +15850,60 @@ export type ElementFirstChildNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
+  compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   style_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -16222,60 +16222,60 @@ export type ElementNextSiblingNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
+  compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   style_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -16528,7 +16528,7 @@ export type ElementNextSiblingUpdateFieldInput = {
 
 export type ElementOnCreateInput = {
   id: Scalars['ID']['input']
-  _compositeKey: Scalars['String']['input']
+  compositeKey: Scalars['String']['input']
   style?: InputMaybe<Scalars['String']['input']>
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
@@ -16610,60 +16610,60 @@ export type ElementPageNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compoundName_EQUAL?: InputMaybe<Scalars['String']['input']>
+  compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compoundName_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compoundName_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compoundName_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compoundName_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compoundName_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compoundName_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compoundName_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compoundName_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   url_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -16996,60 +16996,60 @@ export type ElementParentNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
+  compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   style_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -17468,60 +17468,60 @@ export type ElementPrevSiblingNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
+  compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   style_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -18479,7 +18479,7 @@ export type ElementRenderComponentTypeUpdateFieldInput = {
 /** Fields to sort Elements by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementSort object. */
 export type ElementSort = {
   id?: InputMaybe<SortDirection>
-  _compositeKey?: InputMaybe<SortDirection>
+  compositeKey?: InputMaybe<SortDirection>
   style?: InputMaybe<SortDirection>
   childMapperPropKey?: InputMaybe<SortDirection>
   renderForEachPropKey?: InputMaybe<SortDirection>
@@ -18779,12 +18779,12 @@ export type ElementTypeWhere = {
 
 export type ElementUniqueWhere = {
   id?: InputMaybe<Scalars['ID']['input']>
-  _compositeKey?: InputMaybe<Scalars['String']['input']>
+  compositeKey?: InputMaybe<Scalars['String']['input']>
 }
 
 export type ElementUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
-  _compositeKey?: InputMaybe<Scalars['String']['input']>
+  compositeKey?: InputMaybe<Scalars['String']['input']>
   style?: InputMaybe<Scalars['String']['input']>
   childMapperPropKey?: InputMaybe<Scalars['String']['input']>
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
@@ -18824,22 +18824,22 @@ export type ElementWhere = {
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
-  _compositeKey?: InputMaybe<Scalars['String']['input']>
+  compositeKey?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  _compositeKey_NOT?: InputMaybe<Scalars['String']['input']>
-  _compositeKey_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  compositeKey_NOT?: InputMaybe<Scalars['String']['input']>
+  compositeKey_IN?: InputMaybe<Array<Scalars['String']['input']>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  _compositeKey_NOT_IN?: InputMaybe<Array<Scalars['String']['input']>>
-  _compositeKey_CONTAINS?: InputMaybe<Scalars['String']['input']>
-  _compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
-  _compositeKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
-  _compositeKey_MATCHES?: InputMaybe<Scalars['String']['input']>
+  compositeKey_NOT_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  compositeKey_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  compositeKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  compositeKey_MATCHES?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  _compositeKey_NOT_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  compositeKey_NOT_CONTAINS?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  _compositeKey_NOT_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  compositeKey_NOT_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  _compositeKey_NOT_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  compositeKey_NOT_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
   style?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   style_NOT?: InputMaybe<Scalars['String']['input']>
@@ -21431,60 +21431,60 @@ export type HookElementNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
+  compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   style_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -24114,7 +24114,7 @@ export type PageConnectWhere = {
 
 export type PageCreateInput = {
   id: Scalars['ID']['input']
-  _compoundName: Scalars['String']['input']
+  compositeKey: Scalars['String']['input']
   url: Scalars['String']['input']
   kind: PageKind
   rootElement?: InputMaybe<PageRootElementFieldInput>
@@ -24139,7 +24139,7 @@ export type PageDisconnectInput = {
 
 export type PageOnCreateInput = {
   id: Scalars['ID']['input']
-  _compoundName: Scalars['String']['input']
+  compositeKey: Scalars['String']['input']
   url: Scalars['String']['input']
   kind: PageKind
 }
@@ -24219,60 +24219,60 @@ export type PagePageContentContainerNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
+  compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   style_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -24598,60 +24598,60 @@ export type PageRootElementNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
+  compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   style_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -24905,7 +24905,7 @@ export type PageRootElementUpdateFieldInput = {
 /** Fields to sort Pages by. The order in which sorts are applied is not guaranteed when specifying many fields in one PageSort object. */
 export type PageSort = {
   id?: InputMaybe<SortDirection>
-  _compoundName?: InputMaybe<SortDirection>
+  compositeKey?: InputMaybe<SortDirection>
   url?: InputMaybe<SortDirection>
   kind?: InputMaybe<SortDirection>
 }
@@ -25332,12 +25332,12 @@ export type PageTypeWhere = {
 
 export type PageUniqueWhere = {
   id?: InputMaybe<Scalars['ID']['input']>
-  _compoundName?: InputMaybe<Scalars['String']['input']>
+  compositeKey?: InputMaybe<Scalars['String']['input']>
 }
 
 export type PageUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
-  _compoundName?: InputMaybe<Scalars['String']['input']>
+  compositeKey?: InputMaybe<Scalars['String']['input']>
   url?: InputMaybe<Scalars['String']['input']>
   kind?: InputMaybe<PageKind>
   rootElement?: InputMaybe<PageRootElementUpdateFieldInput>
@@ -25366,22 +25366,22 @@ export type PageWhere = {
   id_NOT_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   id_NOT_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>
-  _compoundName?: InputMaybe<Scalars['String']['input']>
+  compositeKey?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  _compoundName_NOT?: InputMaybe<Scalars['String']['input']>
-  _compoundName_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  compositeKey_NOT?: InputMaybe<Scalars['String']['input']>
+  compositeKey_IN?: InputMaybe<Array<Scalars['String']['input']>>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  _compoundName_NOT_IN?: InputMaybe<Array<Scalars['String']['input']>>
-  _compoundName_CONTAINS?: InputMaybe<Scalars['String']['input']>
-  _compoundName_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
-  _compoundName_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
-  _compoundName_MATCHES?: InputMaybe<Scalars['String']['input']>
+  compositeKey_NOT_IN?: InputMaybe<Array<Scalars['String']['input']>>
+  compositeKey_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  compositeKey_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  compositeKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  compositeKey_MATCHES?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  _compoundName_NOT_CONTAINS?: InputMaybe<Scalars['String']['input']>
+  compositeKey_NOT_CONTAINS?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  _compoundName_NOT_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
+  compositeKey_NOT_STARTS_WITH?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
-  _compoundName_NOT_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
+  compositeKey_NOT_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
   url?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   url_NOT?: InputMaybe<Scalars['String']['input']>
@@ -27488,60 +27488,60 @@ export type StorePageNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compoundName_EQUAL?: InputMaybe<Scalars['String']['input']>
+  compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compoundName_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compoundName_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compoundName_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compoundName_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compoundName_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compoundName_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compoundName_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compoundName_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compoundName_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compoundName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compoundName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   url_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -30670,60 +30670,60 @@ export type UserElementsNodeAggregationWhereInput = {
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   id_EQUAL?: InputMaybe<Scalars['ID']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
+  compositeKey_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
-  _compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_LONGEST_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
-  _compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  _compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  _compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
+  compositeKey_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
+  compositeKey_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
   /** @deprecated Aggregation filters that are not relying on an aggregating function will be deprecated. */
   style_EQUAL?: InputMaybe<Scalars['String']['input']>
   /** @deprecated Please use the explicit _LENGTH version for string aggregation. */
@@ -31813,7 +31813,7 @@ export interface StringAggregateInputNullable {
 export interface PageAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
-  _compoundName?: StringAggregateInputNonNullable
+  compositeKey?: StringAggregateInputNonNullable
   url?: StringAggregateInputNonNullable
 }
 
@@ -33090,7 +33090,7 @@ export interface IntAggregateInputNonNullable {
 export interface ElementAggregateSelectionInput {
   count?: boolean
   id?: IdAggregateInputNonNullable
-  _compositeKey?: StringAggregateInputNonNullable
+  compositeKey?: StringAggregateInputNonNullable
   style?: StringAggregateInputNullable
   childMapperPropKey?: StringAggregateInputNullable
   renderForEachPropKey?: StringAggregateInputNullable

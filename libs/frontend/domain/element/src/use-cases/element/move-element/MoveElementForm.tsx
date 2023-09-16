@@ -1,4 +1,4 @@
-import type { IElement, MoveData } from '@codelab/frontend/abstract/core'
+import type { IElementModel, MoveData } from '@codelab/frontend/abstract/core'
 import { SelectExcludeDescendantsElements } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { createFormErrorNotificationHandler } from '@codelab/frontend/shared/utils'
@@ -15,7 +15,7 @@ import {
 } from './utils'
 
 export interface MoveElementFormProps {
-  element: IElement
+  element: IElementModel
 }
 
 /** Not intended to be used in a modal */

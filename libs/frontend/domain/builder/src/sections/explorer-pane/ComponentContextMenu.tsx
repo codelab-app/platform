@@ -1,5 +1,5 @@
 import type {
-  IComponent,
+  IComponentModel,
   IComponentService,
 } from '@codelab/frontend/abstract/core'
 import { componentRef } from '@codelab/frontend/abstract/core'
@@ -15,7 +15,7 @@ import type { ContextMenuProps } from './ElementContextMenu'
 
 export type ComponentContextMenuProps = ContextMenuProps &
   Pick<IComponentService, 'deleteModal'> & {
-    component: IComponent
+    component: IComponentModel
   }
 
 export const ComponentContextMenu = observer<ComponentContextMenuProps>(

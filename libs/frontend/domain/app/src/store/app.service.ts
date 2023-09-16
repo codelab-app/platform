@@ -1,5 +1,5 @@
 import type {
-  IApp,
+  IAppModel,
   IAppService,
   ICreateAppData,
   IPageBuilderAppProps,
@@ -35,7 +35,6 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IDomainDTO } from '@codelab/shared/abstract/core'
 import { IAppDTO } from '@codelab/shared/abstract/core'
-import { appCompositeKey } from '@codelab/shared/domain/mapper'
 import flatMap from 'lodash/flatMap'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -58,7 +57,7 @@ import { AppModalService } from './app-modal.service'
 export class AppService
   extends Model({
     appRepository: prop(() => new AppRepository({})),
-    apps: prop(() => objectMap<IApp>()),
+    apps: prop(() => objectMap<IAppModel>()),
     buildModal: prop(() => new AppModalService({})),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new AppModalService({})),
@@ -257,22 +256,22 @@ export class AppService
   })
 
   @modelAction
-  add({ _compositeKey, domains, id, owner, pages }: IAppDTO) {
+  add({ domains, id, name, owner, pages }: IAppDTO) {
     domains?.forEach((domain) => this.domainService.add(domain as IDomainDTO))
 
     let app = this.apps.get(id)
 
     if (app) {
       app.writeCache({
-        _compositeKey,
         domains,
+        name,
         pages,
       })
     } else {
       app = App.create({
-        compositeKey,
         domains,
         id,
+        name,
         owner,
         pages,
       })
@@ -320,7 +319,7 @@ export class AppService
     pageCompositeKey: string,
   ) {
     const fetchedData = yield* _await(
-      pageApi.GetDevelopmentPage(appCompositeKey, pageCompositeKey),
+      pageApi.GetDevelopmentPage({ appCompositeKey, pageCompositeKey }),
     )
 
     const {
@@ -393,7 +392,7 @@ export class AppService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: AppService, app: IApp) {
+  delete = _async(function* (this: AppService, app: IAppModel) {
     /**
      * Optimistic update
      */

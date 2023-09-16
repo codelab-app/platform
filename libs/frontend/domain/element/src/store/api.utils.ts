@@ -1,7 +1,7 @@
 import type {
   IAtomService,
   IComponentService,
-  IElement,
+  IElementModel,
   IFieldDefaultValue,
   IInterfaceType,
 } from '@codelab/frontend/abstract/core'
@@ -17,7 +17,7 @@ import { isNil } from 'ramda'
 //
 
 export const makeUpdateElementInput = (
-  element: Pick<IElement, 'id'>,
+  element: Pick<IElementModel, 'id'>,
   input: ElementUpdateInput,
 ) => ({
   update: input,

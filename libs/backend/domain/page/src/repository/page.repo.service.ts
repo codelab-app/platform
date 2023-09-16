@@ -11,8 +11,11 @@ import { TraceService } from '@codelab/backend/infra/adapter/otel'
 import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IPageDTO } from '@codelab/shared/abstract/core'
-import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
-import { createUniqueName } from '@codelab/shared/utils'
+import {
+  connectNodeId,
+  PageProperties,
+  reconnectNodeId,
+} from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -65,8 +68,8 @@ export class PageRepository extends AbstractRepository<
             store,
             url,
           }) => ({
-            _compoundName: createUniqueName(name, app.id),
             app: connectNodeId(app.id),
+            compositeKey: PageProperties.pageCompositeKey(name, app),
             id,
             kind,
             pageContentContainer: connectNodeId(pageContentContainer?.id),
@@ -88,8 +91,8 @@ export class PageRepository extends AbstractRepository<
         await this.ogmService.Page
       ).update({
         update: {
-          _compoundName: createUniqueName(name, app.id),
           app: reconnectNodeId(app.id),
+          compositeKey: PageProperties.pageCompositeKey(name, app),
           pageContentContainer: reconnectNodeId(pageContentContainer?.id),
           rootElement: reconnectNodeId(rootElement.id),
           url,

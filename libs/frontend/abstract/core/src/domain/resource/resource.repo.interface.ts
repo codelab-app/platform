@@ -4,10 +4,10 @@ import type {
   ResourceWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IRepository } from '../../service'
-import type { IResource } from './resource.model.interface'
+import type { IResourceModel } from './resource.model.interface'
 
 export type IResourceRepository = IRepository<
-  IResource,
+  IResourceModel,
   ResourceFragment,
   ResourceWhere,
   ResourceOptions

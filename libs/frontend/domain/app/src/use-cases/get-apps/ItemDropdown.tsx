@@ -6,7 +6,7 @@ import {
   GlobalOutlined,
   ToolOutlined,
 } from '@ant-design/icons'
-import type { IApp, IDomain } from '@codelab/frontend/abstract/core'
+import type { IAppModel, IDomainModel } from '@codelab/frontend/abstract/core'
 import { appRef } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
 import type { MenuProps } from 'antd'
@@ -18,8 +18,8 @@ import type { CSSProperties } from 'react'
 import React from 'react'
 
 export interface ItemMenuProps {
-  app: IApp
-  domains?: Array<IDomain>
+  app: IAppModel
+  domains?: Array<IDomainModel>
 }
 
 const menuItemStyle: CSSProperties = {

@@ -1,5 +1,5 @@
 import type {
-  IElement,
+  IElementModel,
   IUpdateBaseElementData,
   IUpdateElementData,
 } from '@codelab/frontend/abstract/core'
@@ -23,7 +23,7 @@ import { getElementModel } from '../../../utils/get-element-model'
 import { updateElementSchema } from './update-element.schema'
 
 export interface UpdateElementFormProps {
-  element: IElement
+  element: IElementModel
 }
 
 /** Not intended to be used in a modal */

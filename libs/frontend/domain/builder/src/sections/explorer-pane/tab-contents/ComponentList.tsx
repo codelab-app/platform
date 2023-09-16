@@ -1,4 +1,4 @@
-import type { IAtom, IComponent } from '@codelab/frontend/abstract/core'
+import type { IAtomModel, IComponentModel } from '@codelab/frontend/abstract/core'
 import { ErrorBoundary } from '@codelab/frontend/presentation/view'
 import { Space } from 'antd'
 import Input from 'antd/lib/input'
@@ -12,7 +12,7 @@ import { DraggableComponentItem } from './ComponentItem'
 const { Search } = Input
 
 export const ComponentList = observer<{
-  components: Array<IAtom | IComponent>
+  components: Array<IAtomModel | IComponentModel>
   selectedIds?: Array<string>
   onDelete?(id: string): void
   onEdit?(id: string): void

@@ -1,8 +1,8 @@
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { Frozen, Ref } from 'mobx-keystone'
-import type { IAtom } from '../atom'
-import type { IComponent } from '../component'
-import type { IElement, IElementTree } from '../element'
+import type { IAtomModel } from '../atom'
+import type { IComponentModel } from '../component'
+import type { IElementModel, IElementTree } from '../element'
 import type { IPageNodeRef } from '../page'
 import type { RendererTab } from '../render'
 import type {
@@ -11,14 +11,14 @@ import type {
   BuilderWidthBreakPoint,
 } from './builder.interface'
 // TBC: | IComponent
-export type IBuilderComponent = IAtom & {
+export type IBuilderComponent = IAtomModel & {
   // tag: Ref<ITag>
 }
 export interface IBuilderService {
   /**
    * Computed from selectedNode, the selected node may or may not be a component, and there may be no selected node
    */
-  activeComponent: Nullable<Ref<IComponent>>
+  activeComponent: Nullable<Ref<IComponentModel>>
   activeElementTree: Maybe<IElementTree>
   /**
    * Tells us which tree we are selecting in the main pane
@@ -35,8 +35,8 @@ export interface IBuilderService {
   selectedBuilderWidth: BuilderWidth
   selectedNode: Nullable<IPageNodeRef>
 
-  selectComponentNode(node: Nullable<IComponent>): void
-  selectElementNode(node: Nullable<IElement>): void
+  selectComponentNode(node: Nullable<IComponentModel>): void
+  selectElementNode(node: Nullable<IElementModel>): void
   setActiveTab(tab: RendererTab): void
   setBuilderContainerWidth(width: number): void
   setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void

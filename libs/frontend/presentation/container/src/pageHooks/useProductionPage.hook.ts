@@ -1,6 +1,6 @@
 import type {
   IComponentService,
-  IElement,
+  IElementModel,
   IPropData,
   ITypeService,
   TypedProp,
@@ -25,7 +25,6 @@ import isString from 'lodash/isString'
 import values from 'lodash/values'
 import { useRouter } from 'next/router'
 import { useStore } from '../providers'
-import { useCurrentApp, useCurrentPage } from '../routerHooks'
 import { loadAllTypesForElements } from './utils'
 
 /**
@@ -41,15 +40,12 @@ export const useProductionPage = (productionProps: ProductionWebsiteProps) => {
     typeService,
   } = useStore()
 
-  const { _compoundName: compoundAppName } = useCurrentApp()
-  const { _compoundName: compoundPageName } = useCurrentPage()
   const pageName = productionProps.pageName
   const router = useRouter()
 
   return useAsync(async () => {
-    const app = await appService.loadDevelopmentPage(
-      compoundAppName,
-      compoundPageName,
+    const app = await appService.loadProductionPage(
+      productionProps.renderingData,
     )
 
     if (!app) {

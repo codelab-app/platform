@@ -30,7 +30,7 @@ export const CreatePageForm = observer(
     submitRef,
   }: CreatePageFormProps) => {
     const { pageService, userService } = useStore()
-    const { app } = useCurrentApp()
+    const app = useCurrentApp()
 
     const model = {
       app: { id: app?.id },

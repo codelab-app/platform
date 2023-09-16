@@ -1,5 +1,5 @@
 import type {
-  IElement,
+  IElementModel,
   IPropData,
   IRenderOutput,
   IRenderPipe,
@@ -15,7 +15,7 @@ export class ConditionalRenderPipe
   })
   implements IRenderPipe
 {
-  render(element: IElement, props: IPropData): IRenderOutput {
+  render(element: IElementModel, props: IPropData): IRenderOutput {
     if (shouldRenderElement(element, props)) {
       return this.next.render(element, props)
     }

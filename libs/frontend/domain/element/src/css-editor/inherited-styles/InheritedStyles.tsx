@@ -1,11 +1,11 @@
-import type { ElementCssRules, IElement } from '@codelab/frontend/abstract/core'
+import type { ElementCssRules, IElementModel } from '@codelab/frontend/abstract/core'
 import { Card, Typography } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import styled from 'styled-components'
 
 interface InheritedStylesProps {
-  element: IElement
+  element: IElementModel
 }
 
 interface RuleState {

@@ -1,4 +1,4 @@
-import type { CssMap, IElement } from '@codelab/frontend/abstract/core'
+import type { CssMap, IElementModel } from '@codelab/frontend/abstract/core'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { CssPropValueSelector } from '../components'
@@ -10,7 +10,7 @@ import {
 } from '../utils'
 
 interface PositionEditorProps {
-  element: IElement
+  element: IElementModel
   guiCssObj: CssMap
 }
 

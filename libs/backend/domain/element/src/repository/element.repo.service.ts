@@ -17,8 +17,11 @@ import {
   type IElementDTO,
 } from '@codelab/shared/abstract/core'
 import { IRenderTypeKind } from '@codelab/shared/abstract/core'
-import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
-import { createUniqueName } from '@codelab/shared/utils'
+import {
+  connectNodeId,
+  ElementProperties,
+  reconnectNodeId,
+} from '@codelab/shared/domain/mapper'
 import { Injectable } from '@nestjs/common'
 import type { Node } from 'neo4j-driver'
 
@@ -57,16 +60,17 @@ export class ElementRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _add(elements: Array<IElementDTO>) {
+  protected async _add(elements: Array<ICreateElementDTO>) {
     return (
       await (
         await this.ogmService.Element
       ).create({
         input: elements.map(
           ({
-            _compositeKey,
+            closestContainerNode,
             firstChild,
             id,
+            name,
             nextSibling,
             parent,
             postRenderAction,
@@ -79,7 +83,10 @@ export class ElementRepository extends AbstractRepository<
             renderType,
             style,
           }) => ({
-            _compositeKey,
+            compositeKey: ElementProperties.elementCompositeKey(
+              name,
+              closestContainerNode,
+            ),
             firstChild: connectNodeId(firstChild?.id),
             id,
             nextSibling: connectNodeId(nextSibling?.id),
@@ -107,7 +114,7 @@ export class ElementRepository extends AbstractRepository<
   }
 
   protected async _update(
-    { _compositeKey, id, props }: IElementDTO,
+    { closestContainerNode, id, name, props }: ICreateElementDTO,
     where: ElementWhere,
   ) {
     return (
@@ -115,7 +122,10 @@ export class ElementRepository extends AbstractRepository<
         await this.ogmService.Element
       ).update({
         update: {
-          _compositeKey,
+          compositeKey: ElementProperties.elementCompositeKey(
+            name,
+            closestContainerNode,
+          ),
           id,
           props: reconnectNodeId(props.id),
         },

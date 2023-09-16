@@ -1,5 +1,5 @@
 import type {
-  IComponent,
+  IComponentModel,
   IComponentRuntimeProp,
   IElementRuntimeProp,
 } from '@codelab/frontend/abstract/core'
@@ -22,13 +22,13 @@ import { BaseRuntimeProps } from './base-runtime-props.model'
  * evaluatedProps + instanceElementProps.evaluatedProps => componentEvaluatedProps
  */
 
-const create = (nodeRef: Ref<IComponent>) =>
+const create = (nodeRef: Ref<IComponentModel>) =>
   new ComponentRuntimeProps({ nodeRef })
 
 @model('@codelab/ComponentRuntimeProps')
 export class ComponentRuntimeProps
   extends ExtendedModel(
-    modelClass<BaseRuntimeProps<IComponent>>(BaseRuntimeProps),
+    modelClass<BaseRuntimeProps<IComponentModel>>(BaseRuntimeProps),
     {},
   )
   implements IComponentRuntimeProp

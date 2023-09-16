@@ -1,5 +1,5 @@
 import { CaretRightOutlined } from '@ant-design/icons'
-import type { CssMap, IElement } from '@codelab/frontend/abstract/core'
+import type { CssMap, IElementModel } from '@codelab/frontend/abstract/core'
 import { Collapse } from 'antd'
 import { observer } from 'mobx-react-lite'
 import { BoxShadow } from './BoxShadow'
@@ -8,7 +8,7 @@ import { TextShadow } from './TextShadow'
 const { Panel } = Collapse
 
 interface ShadowsEditorProps {
-  element: IElement
+  element: IElementModel
   guiCssObj: CssMap
 }
 

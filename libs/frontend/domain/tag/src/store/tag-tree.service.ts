@@ -1,10 +1,13 @@
-import type { ITag, ITagTreeService } from '@codelab/frontend/abstract/core'
+import type {
+  ITagModel,
+  ITagTreeService,
+} from '@codelab/frontend/abstract/core'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { Model, model, modelAction, objectMap, prop } from 'mobx-keystone'
 import { tagRef } from './tag.model'
 
-const init = (tags: Array<ITag>) => {
+const init = (tags: Array<ITagModel>) => {
   const tagTree = new TagTreeService({})
 
   tagTree.addRoots(tags)
@@ -18,14 +21,14 @@ export class TagTreeService
     /**
      * The list of nodes must be in order from leaf to root, since we'll need to create the children first for assigning children reference
      */
-    roots: prop(() => objectMap<Ref<ITag>>()),
+    roots: prop(() => objectMap<Ref<ITagModel>>()),
   })
   implements ITagTreeService
 {
   static init = init
 
   @modelAction
-  addRoots(tags: Array<ITag>) {
+  addRoots(tags: Array<ITagModel>) {
     tags.forEach((tag) => {
       if (tag.isRoot) {
         this.roots.set(tag.id, tagRef(tag.id))

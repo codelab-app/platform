@@ -6,6 +6,7 @@ import { Renderer } from '@codelab/frontend/domain/renderer'
 import {
   useCurrentPage,
   useDevelopmentPage,
+  usePageQuery,
   useStore,
 } from '@codelab/frontend/presentation/container'
 import { DashboardTemplate } from '@codelab/frontend/presentation/view'
@@ -30,7 +31,7 @@ const PageRenderer: CodelabPage<IPageProps> = observer(() => {
     rendererType: RendererType.Preview,
   })
 
-  const { pageName } = useCurrentPage()
+  const { pageName } = usePageQuery()
 
   const routeChangeHandler = React.useMemo(
     () => async (url: string) => {

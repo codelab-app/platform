@@ -33,10 +33,7 @@ query GetDevelopmentPage(
   $appCompositeKey: String!
   $pageCompositeKey: String!
 ) {
-  # apps(where: { compositeKey: $appCompositeKey }) {
-  #   ...PageBuilderApp
-  # }
-  apps {
+  apps(where: { compositeKey: $appCompositeKey }) {
     ...PageBuilderApp
   }
   resources {
@@ -45,10 +42,7 @@ query GetDevelopmentPage(
 }
 
 query GetProductionPage($appCompositeKey: String!, $pageCompositeKey: String!) {
-  # apps(where: { compositeKey: $appCompositeKey }) {
-  #   ...PageApp
-  # }
-  apps {
+  apps(where: { compositeKey: $appCompositeKey }) {
     ...PageApp
   }
   resources {

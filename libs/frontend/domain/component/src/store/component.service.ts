@@ -1,5 +1,5 @@
 import type {
-  IComponent,
+  IComponentModel,
   IComponentService,
   ICreateComponentData,
   IInterfaceType,
@@ -52,15 +52,15 @@ import { ComponentModalService } from './component-modal.service'
 export class ComponentService
   extends Model({
     allComponentsLoaded: prop(() => false),
-    clonedComponents: prop(() => objectMap<IComponent>()),
+    clonedComponents: prop(() => objectMap<IComponentModel>()),
     componentRepository: prop(() => new ComponentRepository({})),
-    components: prop(() => objectMap<IComponent>()),
+    components: prop(() => objectMap<IComponentModel>()),
     createForm: prop(() => new ComponentFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteModal: prop(() => new ComponentModalService({})),
     id: idProp,
     paginationService: prop(
-      () => new PaginationService<IComponent, { name?: string }>({}),
+      () => new PaginationService<IComponentModel, { name?: string }>({}),
     ),
     updateModal: prop(() => new ComponentModalService({})),
   })
@@ -232,7 +232,7 @@ export class ComponentService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: ComponentService, component: IComponent) {
+  delete = _async(function* (this: ComponentService, component: IComponentModel) {
     const { id } = component
     const store = component.store.current
     const rootElement = component.rootElement.current

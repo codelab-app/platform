@@ -1,5 +1,5 @@
 import type {
-  IElement,
+  IElementModel,
   IElementRepository,
 } from '@codelab/frontend/abstract/core'
 import type {
@@ -12,7 +12,7 @@ import { elementApi } from '../store'
 @model('@codelab/ElementRepository')
 export class ElementRepository extends Model({}) implements IElementRepository {
   @modelFlow
-  add = _async(function* (this: ElementRepository, element: IElement) {
+  add = _async(function* (this: ElementRepository, element: IElementModel) {
     const {
       createElements: { elements },
     } = yield* _await(
@@ -25,7 +25,7 @@ export class ElementRepository extends Model({}) implements IElementRepository {
   })
 
   @modelFlow
-  update = _async(function* (this: ElementRepository, element: IElement) {
+  update = _async(function* (this: ElementRepository, element: IElementModel) {
     const {
       updateElements: { elements },
     } = yield* _await(
@@ -40,7 +40,7 @@ export class ElementRepository extends Model({}) implements IElementRepository {
 
   // This seems to be faster when there are fewer fields attached when updating
   @modelFlow
-  updateNodes = _async(function* (this: ElementRepository, element: IElement) {
+  updateNodes = _async(function* (this: ElementRepository, element: IElementModel) {
     const {
       updateElements: { elements },
     } = yield* _await(
@@ -65,7 +65,7 @@ export class ElementRepository extends Model({}) implements IElementRepository {
   @modelFlow
   delete = _async(function* (
     this: ElementRepository,
-    elements: Array<IElement>,
+    elements: Array<IElementModel>,
   ) {
     const {
       deleteElements: { nodesDeleted },

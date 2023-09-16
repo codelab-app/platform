@@ -1,6 +1,6 @@
 import type {
   IEntityFormService,
-  IResource,
+  IResourceModel,
 } from '@codelab/frontend/abstract/core'
 import { InlineFormService } from '@codelab/frontend/shared/utils'
 import type { Maybe } from '@codelab/shared/abstract/types'
@@ -11,10 +11,14 @@ import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 @model('@codelab/ResourceFormService')
 export class ResourceFormService
   extends ExtendedModel(
-    modelClass<InlineFormService<Ref<IResource>>>(InlineFormService),
+    modelClass<InlineFormService<Ref<IResourceModel>>>(InlineFormService),
     {},
   )
-  implements IEntityFormService<Ref<IResource>, { resource: Maybe<IResource> }>
+  implements
+    IEntityFormService<
+      Ref<IResourceModel>,
+      { resource: Maybe<IResourceModel> }
+    >
 {
   @computed
   get resource() {

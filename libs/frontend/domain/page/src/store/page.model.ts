@@ -1,4 +1,8 @@
-import type { IElement, IPage, IStore } from '@codelab/frontend/abstract/core'
+import type {
+  IElementModel,
+  IPageModel,
+  IStore,
+} from '@codelab/frontend/abstract/core'
 import {
   elementRef,
   ElementTree,
@@ -11,8 +15,12 @@ import type {
 } from '@codelab/shared/abstract/codegen'
 import type { IPageDTO, IPageKind } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
-import { connectNodeId, reconnectNodeId } from '@codelab/shared/domain/mapper'
-import { createUniqueName, slugify } from '@codelab/shared/utils'
+import {
+  connectNodeId,
+  PageProperties,
+  reconnectNodeId,
+} from '@codelab/shared/domain/mapper'
+import { slugify } from '@codelab/shared/utils'
 import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { ExtendedModel, model, modelAction, prop } from 'mobx-keystone'
@@ -46,12 +54,12 @@ export class Page
   extends ExtendedModel(ElementTree, {
     app: prop<IEntity>(),
     kind: prop<IPageKind>(),
-    name: prop<string>().withSetter(),
-    pageContentContainer: prop<Maybe<Ref<IElement>>>(),
+    name: prop<string>(),
+    pageContentContainer: prop<Maybe<Ref<IElementModel>>>(),
     store: prop<Ref<IStore>>(),
     url: prop<string>(),
   })
-  implements IPage
+  implements IPageModel
 {
   @computed
   get slug() {
@@ -72,8 +80,8 @@ export class Page
 
   toCreateInput(): PageCreateInput {
     return {
-      _compoundName: createUniqueName(this.name, this.app.id),
       app: connectNodeId(this.app.id),
+      compositeKey: PageProperties.pageCompositeKey(this.name, this.app),
       id: this.id,
       kind: this.kind,
       pageContentContainer: connectNodeId(
@@ -95,8 +103,8 @@ export class Page
 
   toUpdateInput(): PageUpdateInput {
     return {
-      _compoundName: createUniqueName(this.name, this.app.id),
       app: connectNodeId(this.app.id),
+      compositeKey: PageProperties.pageCompositeKey(this.name, this.app),
       pageContentContainer: reconnectNodeId(
         this.pageContentContainer?.current.id,
       ),

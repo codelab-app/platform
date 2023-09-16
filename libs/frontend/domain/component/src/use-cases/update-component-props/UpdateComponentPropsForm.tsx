@@ -1,4 +1,4 @@
-import type { IComponent, IPropData } from '@codelab/frontend/abstract/core'
+import type { IComponentModel, IPropData } from '@codelab/frontend/abstract/core'
 import { AdminPropsPanel } from '@codelab/frontend/domain/admin'
 import { PropsForm } from '@codelab/frontend/domain/type'
 import { useStore } from '@codelab/frontend/presentation/container'
@@ -14,7 +14,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 
 export interface UpdateComponentPropsFormProps {
-  component: IComponent
+  component: IComponentModel
 }
 
 export const UpdateComponentPropsForm = observer<UpdateComponentPropsFormProps>(

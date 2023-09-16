@@ -4,10 +4,12 @@ import { PageType } from '@codelab/frontend/abstract/types'
 import { withActiveSpan } from '@codelab/frontend/infra/adapter/otel'
 import { PageKind } from '@codelab/shared/abstract/codegen'
 import type { Nullable } from '@codelab/shared/abstract/types'
+import { AppProperties, PageProperties } from '@codelab/shared/domain/mapper'
 import { useAsync } from '@react-hookz/web'
 import { useRouter } from 'next/router'
 import { useStore } from '../providers'
-import { useCurrentApp, useCurrentPage } from '../routerHooks'
+import { useAppQuery } from './useAppQuery.hook'
+import { usePageQuery } from './usePageQuery.hook'
 import { loadAllTypesForElements } from './utils'
 
 interface DevelopmentPageProps {
@@ -23,33 +25,31 @@ export const useDevelopmentPage = ({ rendererType }: DevelopmentPageProps) => {
     builderService,
     componentService,
     elementService,
+    pageService,
     renderService,
     typeService,
+    userService,
   } = useStore()
 
-  const { _compoundName: compoundAppName } = useCurrentApp()
-
-  const { _compoundName: compoundPageName, pageName: pageNameFromUrl } =
-    useCurrentPage()
-
-  const pageName = pageNameFromUrl
   const router = useRouter()
+  const user = userService.user
+  const { appName } = useAppQuery()
+  const { pageName } = usePageQuery()
+  const app = appService.appsList.find((_app) => _app.name === appName)
 
   return useAsync(async () => {
-    const app = await appService.loadDevelopmentPage(
-      compoundAppName,
-      compoundPageName,
-    )
-
     if (!app) {
       await router.push({ pathname: PageType.AppList, query: {} })
 
       return null
     }
 
-    const page = app.pages.find(
-      (_page) => _page.current.name === pageName,
-    )?.current
+    await appService.loadDevelopmentPage(
+      AppProperties.appCompositeKey(app.name, user),
+      PageProperties.pageCompositeKey(pageName, app),
+    )
+
+    const page = pageService.pagesList.find((_page) => _page.name === pageName)
 
     if (!page) {
       await router.push({ pathname: PageType.AppList, query: {} })

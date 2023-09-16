@@ -1,7 +1,7 @@
 import { CaretRightOutlined } from '@ant-design/icons'
 import type {
   CssMap,
-  IElement,
+  IElementModel,
   IElementService,
 } from '@codelab/frontend/abstract/core'
 import { CodeMirrorEditor } from '@codelab/frontend/presentation/view'
@@ -30,7 +30,7 @@ const Label = styled.span`
 `
 
 export interface ElementCssEditorInternalProps {
-  element: IElement
+  element: IElementModel
   elementService: IElementService
 }
 
@@ -51,7 +51,7 @@ export const ElementCssEditor = observer<ElementCssEditorInternalProps>(
     )
 
     const updateElementStyles = useCallback(
-      (updatedElement: IElement) => {
+      (updatedElement: IElementModel) => {
         const elementModel = getElementModel(updatedElement)
         const oldStyle = lastStateRef.current
         const { style } = updatedElement

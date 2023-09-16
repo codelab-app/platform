@@ -1,5 +1,6 @@
 import * as Types from '@codelab/shared/abstract/codegen'
 
+import { OwnerFragment } from '../user/owner.fragment.graphql.gen'
 import {
   PagePreviewFragment,
   PageFragment,
@@ -10,6 +11,7 @@ import { DomainFragment } from '../domain/domain.fragment.graphql.gen'
 import { GraphQLClient } from 'graphql-request'
 import { GraphQLClientRequestHeaders } from 'graphql-request/build/cjs/types'
 import { gql } from 'graphql-tag'
+import { OwnerFragmentDoc } from '../user/owner.fragment.graphql.gen'
 import {
   PagePreviewFragmentDoc,
   PageFragmentDoc,
@@ -21,17 +23,15 @@ export type AppPreviewFragment = {
   id: string
   name: string
   slug: string
-  compositeKey: string
-  owner: { auth0Id: string }
+  owner: OwnerFragment
   pages: Array<PagePreviewFragment>
 }
 
 export type AppFragment = {
   id: string
   name: string
-  compositeKey: string
   slug: string
-  owner: { auth0Id: string }
+  owner: OwnerFragment
   pages: Array<PageFragment>
   domains: Array<DomainFragment>
 }
@@ -40,7 +40,7 @@ export type PageBuilderAppFragment = {
   id: string
   name: string
   slug: string
-  owner: { auth0Id: string }
+  owner: OwnerFragment
   pages: Array<BuilderPageFragment>
 }
 
@@ -48,7 +48,7 @@ export type PageAppFragment = {
   id: string
   name: string
   slug: string
-  owner: { auth0Id: string }
+  owner: OwnerFragment
   pages: Array<ProductionPageFragment>
 }
 
@@ -57,24 +57,23 @@ export const AppPreviewFragmentDoc = gql`
     id
     name
     slug
-    compositeKey
     owner {
-      auth0Id
+      ...Owner
     }
     pages(where: { kind: Provider }) {
       ...PagePreview
     }
   }
+  ${OwnerFragmentDoc}
   ${PagePreviewFragmentDoc}
 `
 export const AppFragmentDoc = gql`
   fragment App on App {
     id
     name
-    compositeKey
     slug
     owner {
-      auth0Id
+      ...Owner
     }
     pages {
       ...Page
@@ -83,6 +82,7 @@ export const AppFragmentDoc = gql`
       ...Domain
     }
   }
+  ${OwnerFragmentDoc}
   ${PageFragmentDoc}
   ${DomainFragmentDoc}
 `
@@ -92,12 +92,12 @@ export const PageBuilderAppFragmentDoc = gql`
     name
     slug
     owner {
-      auth0Id
+      ...Owner
     }
     pages(
       where: {
         OR: [
-          { _compoundName: $pageCompositeKey }
+          { compositeKey: $pageCompositeKey }
           { kind: Provider }
           { kind: NotFound }
           { kind: InternalServerError }
@@ -108,6 +108,7 @@ export const PageBuilderAppFragmentDoc = gql`
       ...BuilderPage
     }
   }
+  ${OwnerFragmentDoc}
   ${BuilderPageFragmentDoc}
 `
 export const PageAppFragmentDoc = gql`
@@ -116,14 +117,15 @@ export const PageAppFragmentDoc = gql`
     name
     slug
     owner {
-      auth0Id
+      ...Owner
     }
     pages(
-      where: { OR: [{ _compoundName: $pageCompositeKey }, { kind: Provider }] }
+      where: { OR: [{ compositeKey: $pageCompositeKey }, { kind: Provider }] }
     ) {
       ...ProductionPage
     }
   }
+  ${OwnerFragmentDoc}
   ${ProductionPageFragmentDoc}
 `
 

@@ -1,4 +1,4 @@
-import type { IApp, IAppRepository } from '@codelab/frontend/abstract/core'
+import type { IAppModel, IAppRepository } from '@codelab/frontend/abstract/core'
 import { cachedWithTTL, clearCacheForKey } from '@codelab/frontend/shared/utils'
 import type { AppOptions, AppWhere } from '@codelab/shared/abstract/codegen'
 import { Model, model } from 'mobx-keystone'
@@ -6,7 +6,7 @@ import { appApi } from '../store'
 
 @model('@codelab/AppRepository')
 export class AppRepository extends Model({}) implements IAppRepository {
-  async add(app: IApp) {
+  async add(app: IAppModel) {
     const {
       createApps: { apps },
     } = await appApi.CreateApps({
@@ -17,7 +17,7 @@ export class AppRepository extends Model({}) implements IAppRepository {
   }
 
   // @clearCacheForKey('apps')
-  async update(app: IApp) {
+  async update(app: IAppModel) {
     const {
       updateApps: { apps },
     } = await appApi.UpdateApps({
@@ -44,7 +44,7 @@ export class AppRepository extends Model({}) implements IAppRepository {
   }
 
   // @clearCacheForKey('apps')
-  async delete(apps: Array<IApp>) {
+  async delete(apps: Array<IAppModel>) {
     const {
       deleteApps: { nodesDeleted },
     } = await appApi.DeleteApps({

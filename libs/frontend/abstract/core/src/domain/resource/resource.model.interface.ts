@@ -8,12 +8,12 @@ import type { ICacheService } from '../../service'
 import type { IModel } from '../model.interface'
 import type { IProp } from '../prop'
 
-export interface IResource
+export interface IResourceModel
   extends Omit<
       IModel<ResourceCreateInput, ResourceUpdateInput, void>,
       'toDeleteInput'
     >,
-    ICacheService<IResourceDTO, IResource> {
+    ICacheService<IResourceDTO, IResourceModel> {
   // TODO: should add typing to prop
   config: Ref<IProp>
   id: string

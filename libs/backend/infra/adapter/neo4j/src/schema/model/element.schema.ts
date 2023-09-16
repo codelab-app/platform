@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client'
 import { __RenderTypeKind } from '@codelab/shared/abstract/core'
+import { getClosestContainerNodeCypher } from '../../cypher'
 
 const renderTypeKindSchema = `enum RenderTypeKind {
   ${Object.values(__RenderTypeKind).join('\n')}
@@ -18,9 +19,9 @@ export const elementSchema = gql`
 
   type Element {
     id: ID! @unique
-    _compositeKey: String! @unique
-    name: String! @customResolver(requires: "id _compositeKey")
-    slug: String! @customResolver(requires: "id _compositeKey")
+    compositeKey: String! @unique
+    name: String! @customResolver(requires: "id compositeKey")
+    slug: String! @customResolver(requires: "id compositeKey")
     nextSibling: Element @relationship(type: "NODE_SIBLING", direction: IN)
     prevSibling: Element @relationship(type: "NODE_SIBLING", direction: OUT)
     firstChild: Element @relationship(type: "TREE_FIRST_CHILD", direction: IN)

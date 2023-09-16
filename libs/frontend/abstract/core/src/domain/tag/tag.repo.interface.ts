@@ -4,10 +4,10 @@ import type {
   TagWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IRepository } from '../../service'
-import type { ITag } from './tag.model.interface'
+import type { ITagModel } from './tag.model.interface'
 
 export type ITagRepository = IRepository<
-  ITag,
+  ITagModel,
   TagFragment,
   TagWhere,
   TagOptions

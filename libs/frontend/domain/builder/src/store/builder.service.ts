@@ -1,8 +1,8 @@
 import type {
   BuilderDragData,
   IBuilderService,
-  IComponent,
-  IElement,
+  IComponentModel,
+  IElementModel,
   IPageNodeRef,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -132,7 +132,7 @@ export class BuilderService
   }
 
   @modelAction
-  selectComponentNode(node: Nullable<IComponent>) {
+  selectComponentNode(node: Nullable<IComponentModel>) {
     if (!node) {
       return
     }
@@ -142,7 +142,7 @@ export class BuilderService
   }
 
   @modelAction
-  selectElementNode(node: Nullable<IElement>) {
+  selectElementNode(node: Nullable<IElementModel>) {
     if (!node) {
       return
     }

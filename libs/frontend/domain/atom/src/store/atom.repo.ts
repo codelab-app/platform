@@ -1,5 +1,5 @@
 import type { IAtomRepository } from '@codelab/frontend/abstract/core'
-import { filterNotHookType, IAtom } from '@codelab/frontend/abstract/core'
+import { filterNotHookType, IAtomModel } from '@codelab/frontend/abstract/core'
 import { cachedWithTTL, clearCacheForKey } from '@codelab/frontend/shared/utils'
 import { AtomOptions, AtomWhere } from '@codelab/shared/abstract/codegen'
 import sortBy from 'lodash/sortBy'
@@ -11,7 +11,7 @@ import { atomApi } from './atom.api'
 @model('@codelab/AtomRepository')
 export class AtomRepository extends Model({}) implements IAtomRepository {
   @clearCacheForKey('atoms')
-  async add(this: AtomRepository, atom: IAtom) {
+  async add(this: AtomRepository, atom: IAtomModel) {
     const {
       createAtoms: { atoms },
     } = await atomApi.CreateAtoms({ input: [atom.toCreateInput()] })
@@ -20,7 +20,7 @@ export class AtomRepository extends Model({}) implements IAtomRepository {
   }
 
   @clearCacheForKey('atoms')
-  async update(this: AtomRepository, atom: IAtom) {
+  async update(this: AtomRepository, atom: IAtomModel) {
     const {
       updateAtoms: { atoms },
     } = await atomApi.UpdateAtoms({
@@ -37,7 +37,7 @@ export class AtomRepository extends Model({}) implements IAtomRepository {
   }
 
   @clearCacheForKey('atoms')
-  async delete(this: AtomRepository, atoms: Array<IAtom>) {
+  async delete(this: AtomRepository, atoms: Array<IAtomModel>) {
     const {
       deleteAtoms: { nodesDeleted },
     } = await atomApi.DeleteAtoms({

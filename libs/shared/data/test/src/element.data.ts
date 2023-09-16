@@ -18,8 +18,9 @@ export const providerElementPropsData: IPropDTO = {
 export const providerElementData = (
   closestContainerNode: IEntity,
 ): IElementDTO => ({
-  _compositeKey: `${closestContainerNode}-${ROOT_ELEMENT_NAME}`,
+  closestContainerNode,
   id: v4(),
+  name: ROOT_ELEMENT_NAME,
   props: providerElementPropsData,
 })
 
@@ -34,8 +35,9 @@ export const notFoundElementPropsData: IPropDTO = {
 export const notFoundElementData = (
   closestContainerNode: IEntity,
 ): IElementDTO => ({
-  _compositeKey: `${closestContainerNode}-${ROOT_ELEMENT_NAME}`,
+  closestContainerNode,
   id: v4(),
+  name: ROOT_ELEMENT_NAME,
   props: notFoundElementPropsData,
 })
 
@@ -50,7 +52,8 @@ export const internalServerErrorPropsData: IPropDTO = {
 export const internalServerErrorElementData = (
   closestContainerNode: IEntity,
 ): IElementDTO => ({
-  _compositeKey: `${closestContainerNode}-${ROOT_ELEMENT_NAME}`,
+  closestContainerNode,
   id: v4(),
+  name: ROOT_ELEMENT_NAME,
   props: internalServerErrorPropsData,
 })

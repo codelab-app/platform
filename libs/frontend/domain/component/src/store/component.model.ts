@@ -1,6 +1,6 @@
 import type {
   IComponentRuntimeProp,
-  IElement,
+  IElementModel,
   IInterfaceType,
   IProp,
   IStore,
@@ -12,7 +12,7 @@ import {
   ElementTree,
   getComponentService,
   getRenderService,
-  IComponent,
+  IComponentModel,
   isComponentInstance,
   propRef,
   storeRef,
@@ -54,9 +54,9 @@ const create = ({
 export class Component
   extends ExtendedModel(ElementTree, {
     api: prop<Ref<IInterfaceType>>(),
-    childrenContainerElement: prop<Ref<IElement>>().withSetter(),
+    childrenContainerElement: prop<Ref<IElementModel>>().withSetter(),
     // element which this component is attached to.
-    instanceElement: prop<Nullable<Ref<IElement>>>(null).withSetter(),
+    instanceElement: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     // a function to extract component key from input
     keyGenerator: prop<Nullish<string>>().withSetter(),
     name: prop<string>().withSetter(),
@@ -65,7 +65,7 @@ export class Component
     sourceComponent: prop<Nullable<IEntity>>(null).withSetter(),
     store: prop<Ref<IStore>>().withSetter(),
   })
-  implements IComponent
+  implements IComponentModel
 {
   // This must be defined outside the class or weird things happen https://github.com/xaviergonz/mobx-keystone/issues/173
   static create = create
@@ -108,7 +108,7 @@ export class Component
   }
 
   @modelAction
-  private cloneTree(clonedComponent: IComponent, cloneIndex: number) {
+  private cloneTree(clonedComponent: IComponentModel, cloneIndex: number) {
     console.debug('ElementTreeService.cloneTree', this.elements)
 
     const elementMap: Map<string, string> = new Map()
@@ -192,7 +192,7 @@ export class Component
       return componentService.clonedComponents.get(key)!
     }
 
-    const clonedComponent: IComponent = clone<IComponent>(this)
+    const clonedComponent: IComponentModel = clone<IComponentModel>(this)
     componentService.clonedComponents.set(key, clonedComponent)
 
     const clonesList = [...componentService.clonedComponents.values()].filter(
@@ -241,7 +241,7 @@ export class Component
    */
   @computed
   get descendantComponents() {
-    const descendants = new Set<IComponent>()
+    const descendants = new Set<IComponentModel>()
 
     this.elements.forEach((element) => {
       if (isComponentInstance(element.renderType)) {

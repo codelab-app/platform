@@ -6,15 +6,15 @@ export class App implements IAppDTO {
 
   id: string
 
-  compositeKey: string
+  name: string
 
   pages?: Array<IEntity> | undefined
 
   owner: IEntity
 
-  constructor({ compositeKey, domains, id, owner, pages }: IAppDTO) {
+  constructor({ domains, id, name, owner, pages }: IAppDTO) {
     this.id = id
-    this.compositeKey = compositeKey
+    this.name = name
     this.domains = domains
     this.pages = pages
     this.owner = owner

@@ -1,6 +1,6 @@
 import type {
   ICreateDomainData,
-  IDomain,
+  IDomainModel,
   IDomainService,
   IUpdateDomainData,
 } from '@codelab/frontend/abstract/core'
@@ -84,7 +84,7 @@ export class DomainService
 
   @modelFlow
   @transaction
-  delete = _async(function* (this: DomainService, domain: IDomain) {
+  delete = _async(function* (this: DomainService, domain: IDomainModel) {
     const { id } = domain
 
     this.domains.delete(id)

@@ -1,5 +1,5 @@
 import type {
-  IApp,
+  IAppModel,
   IField,
   IInterfaceType,
 } from '@codelab/frontend/abstract/core'
@@ -50,7 +50,7 @@ const createName = (name: string) => {
 
 const createApiNode = ({
   name,
-}: Pick<IApp, 'name'>): InterfaceTypeCreateInput => {
+}: Pick<IAppModel, 'name'>): InterfaceTypeCreateInput => {
   return {
     id: v4(),
     kind: ITypeKind.InterfaceType,

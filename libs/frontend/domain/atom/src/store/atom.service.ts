@@ -1,5 +1,5 @@
 import type {
-  IAtom,
+  IAtomModel,
   IAtomService,
   IComponentType,
   ICreateAtomData,
@@ -43,7 +43,7 @@ import { AtomModalService, AtomsModalService } from './atom-modal.service'
 export class AtomService
   extends Model({
     atomRepository: prop(() => new AtomRepository({})),
-    atoms: prop(() => objectMap<IAtom>()),
+    atoms: prop(() => objectMap<IAtomModel>()),
     createForm: prop(() => new InlineFormService({})),
     createModal: prop(() => new ModalService({})),
     deleteManyModal: prop(() => new AtomsModalService({})),
@@ -51,7 +51,7 @@ export class AtomService
     loadedExternalCssSources: prop(() => arraySet<string>()),
     loadedExternalJsSources: prop(() => arraySet<string>()),
     paginationService: prop(
-      () => new PaginationService<IAtom, { name?: string }>({}),
+      () => new PaginationService<IAtomModel, { name?: string }>({}),
     ),
     updateForm: prop(() => new AtomFormService({})),
     updateModal: prop(() => new AtomModalService({})),
@@ -293,7 +293,7 @@ export class AtomService
   @modelFlow
   @transaction
   delete = _async(function* (this: IAtomService, ids: Array<string>) {
-    const atomsToDelete: Array<IAtom> = []
+    const atomsToDelete: Array<IAtomModel> = []
 
     ids.forEach((id) => {
       const atom = this.atoms.get(id)

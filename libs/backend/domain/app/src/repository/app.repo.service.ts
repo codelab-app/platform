@@ -13,11 +13,11 @@ import { ValidationService } from '@codelab/backend/infra/adapter/typebox'
 import { AbstractRepository } from '@codelab/backend/infra/core'
 import type { IAppDTO } from '@codelab/shared/abstract/core'
 import {
-  connectOwner,
+  AppProperties,
   connectNodeIds,
+  connectOwner,
   reconnectNodeIds,
 } from '@codelab/shared/domain/mapper'
-import { createUniqueName } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
@@ -60,8 +60,11 @@ export class AppRepository extends AbstractRepository<
       await (
         await this.ogmService.App
       ).create({
-        input: apps.map(({ compositeKey, id, pages }) => ({
-          compositeKey,
+        input: apps.map(({ id, name, pages }) => ({
+          compositeKey: AppProperties.appCompositeKey(
+            name,
+            this.authService.currentUser,
+          ),
           id,
           owner: connectOwner(this.authService.currentUser),
           pages: connectNodeIds(pages?.map((page) => page.id)),
@@ -70,13 +73,16 @@ export class AppRepository extends AbstractRepository<
     ).apps
   }
 
-  protected async _update({ compositeKey, pages }: IAppDTO, where: AppWhere) {
+  protected async _update({ name, pages }: IAppDTO, where: AppWhere) {
     return (
       await (
         await this.ogmService.App
       ).update({
         update: {
-          compositeKey,
+          compositeKey: AppProperties.appCompositeKey(
+            name,
+            this.authService.currentUser,
+          ),
           pages: reconnectNodeIds(pages?.map((page) => page.id)).map(
             (input) => ({
               ...input,

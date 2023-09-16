@@ -3,35 +3,35 @@ import type {
   AppDeleteInput,
   AppUpdateInput,
 } from '@codelab/shared/abstract/codegen'
-import type { IAppDTO, IAppModel } from '@codelab/shared/abstract/core'
+import type { IApp, IAppDTO } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../service'
-import type { IDomain } from '../domain'
-import type { IElement } from '../element'
+import type { IDomainModel } from '../domain'
+import type { IElementModel } from '../element'
 import type { IModel } from '../model.interface'
-import type { IPage } from '../page'
+import type { IPageModel } from '../page'
 import type { IPropData } from '../prop'
 
-export interface IApp
+export interface IAppModel
   extends IModel<AppCreateInput, AppUpdateInput, AppDeleteInput>,
-    ICacheService<IAppDTO, IApp>,
-    IAppModel {
-  domains: Array<Ref<IDomain>>
-  pageRootElements: Array<Ref<IElement>>
-  pages: Array<Ref<IPage>>
+    ICacheService<IAppDTO, IAppModel>,
+    IApp {
+  domains: Array<Ref<IDomainModel>>
+  pageRootElements: Array<Ref<IElementModel>>
+  pages: Array<Ref<IPageModel>>
   /**
    * The `_app.tsx` equivalent of pages
    */
-  providerPage: IPage
+  providerPage: IPageModel
   toJson: IPropData
 
-  page(id: string): IPage
+  page(id: string): IPageModel
 }
 
 export interface IBuilderApp {
-  app: IApp
-  page: IPage
+  app: IAppModel
+  page: IPageModel
 }
 
 export type IAppRef = string

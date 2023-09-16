@@ -1,7 +1,7 @@
 import type {
-  IComponent,
+  IComponentModel,
   ICreateElementData,
-  IElement,
+  IElementModel,
   IElementService,
   IPropData,
 } from '@codelab/frontend/abstract/core'
@@ -24,11 +24,7 @@ import {
   RenderedComponentFragment,
   RenderTypeKind,
 } from '@codelab/shared/abstract/codegen'
-import type {
-  IAuth0User,
-  IElementDTO,
-  RenderType,
-} from '@codelab/shared/abstract/core'
+import type { IElementDTO, RenderType } from '@codelab/shared/abstract/core'
 import { IRenderTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { mapDeep } from '@codelab/shared/utils'
@@ -71,7 +67,7 @@ import {
 @model('@codelab/ElementService')
 export class ElementService
   extends Model({
-    clonedElements: prop(() => objectMap<IElement>()),
+    clonedElements: prop(() => objectMap<IElementModel>()),
     createForm: prop(() => new CreateElementFormService({})),
     createModal: prop(() => new CreateElementModalService({})),
     deleteModal: prop(() => new ElementModalService({})),
@@ -82,7 +78,7 @@ export class ElementService
      * - Elements part of rootTree
      * - Elements that are detached
      */
-    elements: prop(() => objectMap<IElement>()),
+    elements: prop(() => objectMap<IElementModel>()),
     id: idProp,
     updateForm: prop(() => new UpdateElementFormService({})),
     updateModal: prop(() => new UpdateElementModalService({})),
@@ -130,7 +126,7 @@ export class ElementService
   }
 
   @modelAction
-  add = (elementDTO: IElementDTO): IElement => {
+  add = (elementDTO: IElementDTO): IElementModel => {
     let element = this.maybeElement(elementDTO.id)
 
     if (element) {
@@ -234,7 +230,7 @@ export class ElementService
    */
   @modelFlow
   @transaction
-  delete = _async(function* (this: ElementService, subRoot: IElement) {
+  delete = _async(function* (this: ElementService, subRoot: IElementModel) {
     console.debug('deleteElementSubgraph', subRoot)
 
     const subRootElement = this.element(subRoot.id)
@@ -542,8 +538,8 @@ export class ElementService
     targetElement,
   }: {
     dropPosition: number
-    element: IElement
-    targetElement: IElement
+    element: IElementModel
+    targetElement: IElementModel
   }) => {
     const oldConnectedNodeIds = this.detachElementFromElementTree(element.id)
     const insertAfterId = targetElement.children[dropPosition]?.id
@@ -576,8 +572,8 @@ export class ElementService
       targetElement,
     }: {
       dropPosition: number
-      component: IComponent
-      targetElement: IElement
+      component: IComponentModel
+      targetElement: IElementModel
     },
   ) {
     const elementTree = targetElement.closestContainerNode
@@ -689,7 +685,10 @@ export class ElementService
     yield* _await(this.updateAffectedElements(affectedNodeIds))
   })
 
-  private async recursiveDuplicate(element: IElement, parentElement: IElement) {
+  private async recursiveDuplicate(
+    element: IElementModel,
+    parentElement: IElementModel,
+  ) {
     const duplicateName = makeAutoIncrementedName(
       this.builderService.activeElementTree?.elements.map(({ name }) => name) ||
         [],
@@ -761,7 +760,7 @@ export class ElementService
       ),
     )
 
-    const oldToNewIdMap: Map<string, IElement> = children.reduce(
+    const oldToNewIdMap: Map<string, IElementModel> = children.reduce(
       (acc, curElementModel) => new Map([...acc, ...curElementModel]),
       new Map([[element.id, elementCloneModel]]),
     )
@@ -773,8 +772,8 @@ export class ElementService
   @transaction
   cloneElement = _async(function* (
     this: ElementService,
-    targetElement: IElement,
-    targetParent: IElement,
+    targetElement: IElementModel,
+    targetParent: IElementModel,
   ) {
     const oldToNewIdMap = yield* _await(
       this.recursiveDuplicate(targetElement, targetParent),
@@ -808,7 +807,10 @@ export class ElementService
    * @param element - The element to clone the actions and state fields from
    * @param component - The component to clone the actions and state fields to
    */
-  private async cloneElementStore(element: IElement, component: IComponent) {
+  private async cloneElementStore(
+    element: IElementModel,
+    component: IComponentModel,
+  ) {
     const elementStore = element.store.current
     const componentStore = component.store.current
     const componentStoreId = componentStore.api.current.id
@@ -884,8 +886,8 @@ export class ElementService
   @transaction
   convertElementToComponent = _async(function* (
     this: ElementService,
-    element: IElement,
-    owner: IAuth0User,
+    element: IElementModel,
+    owner: IElementDTO,
   ) {
     if (!element.closestParent) {
       throw new Error("Can't convert root element")

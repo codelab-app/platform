@@ -1,4 +1,7 @@
-import type { IEntityFormService, ITag } from '@codelab/frontend/abstract/core'
+import type {
+  IEntityFormService,
+  ITagModel,
+} from '@codelab/frontend/abstract/core'
 import { InlineFormService } from '@codelab/frontend/shared/utils'
 import type { Maybe } from '@codelab/shared/abstract/types'
 import { computed } from 'mobx'
@@ -8,10 +11,10 @@ import { ExtendedModel, model, modelClass } from 'mobx-keystone'
 @model('@codelab/TagFormService')
 export class TagFormService
   extends ExtendedModel(
-    modelClass<InlineFormService<Ref<ITag>>>(InlineFormService),
+    modelClass<InlineFormService<Ref<ITagModel>>>(InlineFormService),
     {},
   )
-  implements IEntityFormService<Ref<ITag>, { tag: Maybe<ITag> }>
+  implements IEntityFormService<Ref<ITagModel>, { tag: Maybe<ITagModel> }>
 {
   @computed
   get tag() {

@@ -1,6 +1,6 @@
 import { useUser } from '@auth0/nextjs-auth0/client'
 import type {
-  IElement,
+  IElementModel,
   IElementService,
   IElementTreeViewDataNode,
 } from '@codelab/frontend/abstract/core'
@@ -30,7 +30,7 @@ export type ElementContextMenuProps = ContextMenuProps &
     IElementService,
     'cloneElement' | 'convertElementToComponent' | 'createForm' | 'deleteModal'
   > & {
-    element: IElement
+    element: IElementModel
     treeNode?: IElementTreeViewDataNode
   }
 
@@ -87,7 +87,7 @@ export const ElementContextMenu = observer<
       }
 
       await convertElementToComponent(element, {
-        auth0Id: user.sub,
+        id: user.sub,
       })
     }
 

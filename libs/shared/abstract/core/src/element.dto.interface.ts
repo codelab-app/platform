@@ -5,12 +5,18 @@ import { Type } from '@sinclair/typebox'
 import { RenderType } from './render-type'
 
 export const IElementDTO = Type.Object({
-  _compositeKey: Type.String(),
   childMapperComponent: Typebox.Nullish(IEntity),
   childMapperPreviousSibling: Typebox.Nullish(IEntity),
   childMapperPropKey: Typebox.Nullish(Type.String()),
+  /**
+   * For frontend models we can compute from Mobx, but for backend we would need resolver to return data, since our element model is simpler there
+   *
+   * TODO: Don't really like optional here, but seems best solution for now
+   */
+  closestContainerNode: Type.Optional(IEntity),
   firstChild: Typebox.Nullish(IEntity),
   id: Type.String(),
+  name: Type.String(),
   nextSibling: Typebox.Nullish(IEntity),
   page: Typebox.Nullish(IEntity),
   parent: Typebox.Nullish(IEntity),
@@ -27,13 +33,10 @@ export const IElementDTO = Type.Object({
   style: Typebox.Nullish(Type.String()),
 })
 
-/**
- * This is the graphql fragment equivalent, used for hydrating object
- */
 export type IElementDTO = Static<typeof IElementDTO>
 
 export const ICreateElementDTO = Type.Composite([
-  Type.Omit(IElementDTO, ['_compositeKey']),
+  IElementDTO,
   Type.Object({
     closestContainerNode: IEntity,
   }),

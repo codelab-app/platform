@@ -9,21 +9,20 @@ export const IAppDTO = Type.Composite([
    */
   IOwner,
   Type.Object({
-    compositeKey: Type.String(),
     domains: Type.Optional(Type.Array(IEntity)),
     id: Type.String(),
+    name: Type.String(),
     pages: Type.Optional(Type.Array(IEntity)),
   }),
 ])
 
 export type IAppDTO = Static<typeof IAppDTO>
 
-export const IAppModel = Type.Composite([
-  Type.Omit(IAppDTO, ['compositeKey']),
+export const IApp = Type.Composite([
+  IAppDTO,
   Type.Object({
-    name: Type.String(),
     slug: Type.String(),
   }),
 ])
 
-export type IAppModel = Static<typeof IAppModel>
+export type IApp = Static<typeof IApp>

@@ -8,7 +8,7 @@ import type { Nullish } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'
 import type { ICacheService } from '../../../../service'
 import type { IProp } from '../../../prop'
-import type { IResource } from '../../../resource'
+import type { IResourceModel } from '../../../resource'
 import type { IAction } from '../../action.interface'
 import type { IBaseAction } from '../../base-action.interface'
 
@@ -17,7 +17,7 @@ export interface IApiAction
     ICacheService<IApiActionDTO, IApiAction> {
   config: Ref<IProp>
   errorAction?: Nullish<Ref<IAction>>
-  resource: Ref<IResource>
+  resource: Ref<IResourceModel>
   successAction?: Nullish<Ref<IAction>>
   type: IActionKind.ApiAction
 

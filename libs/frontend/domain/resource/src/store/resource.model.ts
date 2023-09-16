@@ -1,4 +1,4 @@
-import type { IProp, IResource } from '@codelab/frontend/abstract/core'
+import type { IProp, IResourceModel } from '@codelab/frontend/abstract/core'
 import { propRef } from '@codelab/frontend/abstract/core'
 import type {
   ResourceCreateInput,
@@ -24,7 +24,7 @@ export class Resource
     name: prop<string>(),
     type: prop<IResourceType>(),
   }))
-  implements IResource
+  implements IResourceModel
 {
   static create = create
 

@@ -1,4 +1,4 @@
-import type { IElement } from '@codelab/frontend/abstract/core'
+import type { IElementModel } from '@codelab/frontend/abstract/core'
 import {
   isAtomInstance,
   isComponentInstance,
@@ -6,7 +6,7 @@ import {
 import type { RenderType } from '@codelab/shared/abstract/core'
 import { IRenderTypeKind } from '@codelab/shared/abstract/core'
 
-export const getElementModel = (element: IElement) => {
+export const getElementModel = (element: IElementModel) => {
   let renderType: RenderType | null = null
 
   if (isAtomInstance(element.renderType)) {
