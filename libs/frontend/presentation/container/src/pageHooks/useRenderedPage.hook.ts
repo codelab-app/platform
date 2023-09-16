@@ -6,6 +6,8 @@ import type {
   TypedProp,
 } from '@codelab/frontend/abstract/core'
 import {
+  BuilderWidthBreakPoint,
+  defaultBuilderWidthBreakPoints,
   extractTypedPropValue,
   isComponentInstance,
   isTypedProp,
@@ -15,7 +17,7 @@ import {
 import type { ProductionWebsiteProps } from '@codelab/frontend/abstract/types'
 import { PageType } from '@codelab/frontend/abstract/types'
 import { hasStateExpression } from '@codelab/frontend/shared/utils'
-import { PageKind } from '@codelab/shared/abstract/codegen'
+import { PageKind, StyleType } from '@codelab/shared/abstract/codegen'
 import { ITypeKind } from '@codelab/shared/abstract/core'
 import type { Nullable } from '@codelab/shared/abstract/types'
 import { useAsync } from '@react-hookz/web'
@@ -24,6 +26,7 @@ import isObject from 'lodash/isObject'
 import isString from 'lodash/isString'
 import values from 'lodash/values'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import { useStore } from '../providers'
 import { useCurrentApp, useCurrentPage } from '../routerHooks'
 
@@ -57,13 +60,25 @@ export const useRenderedPage = ({
     typeService,
   } = useStore()
 
-  const { _compoundName: compoundAppName } = useCurrentApp()
+  const { _compoundName: compoundAppName, app: currentApp } = useCurrentApp()
 
   const { _compoundName: compoundPageName, pageName: pageNameFromUrl } =
     useCurrentPage()
 
   const pageName = productionProps?.pageName ?? pageNameFromUrl
   const router = useRouter()
+
+  useEffect(() => {
+    const breakpoint =
+      currentApp?.styling === StyleType.DesktopFirst
+        ? BuilderWidthBreakPoint.Desktop
+        : BuilderWidthBreakPoint.MobilePortrait
+
+    builderService.setSelectedBuilderBreakpoint(breakpoint)
+    builderService.setSelectedBuilderWidth(
+      defaultBuilderWidthBreakPoints[breakpoint],
+    )
+  }, [currentApp?.styling])
 
   return useAsync(async () => {
     const app = await appService.getRenderedPageAndCommonAppData(

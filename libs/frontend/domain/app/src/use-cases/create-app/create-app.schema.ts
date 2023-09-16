@@ -3,6 +3,7 @@ import {
   idSchema,
   nonEmptyString,
   ownerSchema,
+  styleTypeSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
 import type { JSONSchemaType } from 'ajv'
@@ -15,6 +16,7 @@ export const createAppSchema: JSONSchemaType<ICreateAppData> = {
       ...nonEmptyString,
       ...titleCaseValidation,
     },
+    ...styleTypeSchema,
     ...ownerSchema,
   },
   required: ['name', 'owner'],

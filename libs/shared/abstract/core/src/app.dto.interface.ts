@@ -1,3 +1,4 @@
+import type { StyleType } from '@codelab/shared/abstract/codegen'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import type { IOwner } from './user.interface'
 
@@ -6,4 +7,5 @@ export interface IAppDTO extends IOwner {
   id: string
   name: string
   pages?: Array<IEntity>
+  styling: StyleType
 }

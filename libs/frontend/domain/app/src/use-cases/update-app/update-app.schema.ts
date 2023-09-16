@@ -2,6 +2,7 @@ import type { IUpdateAppData } from '@codelab/frontend/abstract/core'
 import {
   idSchema,
   nonEmptyString,
+  styleTypeSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
 import type { JSONSchemaType } from 'ajv'
@@ -14,6 +15,7 @@ export const updateAppSchema: JSONSchemaType<IUpdateAppData> = {
       ...nonEmptyString,
       ...titleCaseValidation,
     },
+    ...styleTypeSchema,
   },
   required: ['name', 'id'],
   title: 'Edit App Input',

@@ -1276,6 +1276,7 @@ type App implements WithOwner {
     where: AppPagesConnectionWhere
   ): AppPagesConnection!
   slug: String!
+  styling: StyleType!
 }
 
 type AppAggregateSelection {
@@ -1310,6 +1311,7 @@ input AppCreateInput {
   id: ID!
   owner: WithOwnerOwnerFieldInput
   pages: AppPagesFieldInput
+  styling: StyleType! = MobileFirst
 }
 
 input AppDeleteInput {
@@ -1450,6 +1452,7 @@ type AppEdge {
 input AppOnCreateInput {
   _compoundName: String!
   id: ID!
+  styling: StyleType! = MobileFirst
 }
 
 input AppOptions {
@@ -1671,6 +1674,7 @@ Fields to sort Apps by. The order in which sorts are applied is not guaranteed w
 input AppSort {
   _compoundName: SortDirection
   id: SortDirection
+  styling: SortDirection
 }
 
 """
@@ -1892,6 +1896,7 @@ input AppUpdateInput {
   id: ID
   owner: WithOwnerOwnerUpdateFieldInput
   pages: [AppPagesUpdateFieldInput!]
+  styling: StyleType
 }
 
 type AppUserOwnerAggregationSelection {
@@ -2009,6 +2014,8 @@ input AppWhere {
   Return Apps where some of the related Pages match this filter
   """
   pages_SOME: PageWhere
+  styling: StyleType
+  styling_IN: [StyleType!]
 }
 
 type AppsConnection {
@@ -16467,6 +16474,11 @@ type StringAggregateSelectionNonNullable {
 type StringAggregateSelectionNullable {
   longest: String
   shortest: String
+}
+
+enum StyleType {
+  DesktopFirst
+  MobileFirst
 }
 
 type Tag {

@@ -1,6 +1,11 @@
 import { gql } from '@apollo/client'
 
 export const appSchema = gql`
+  enum StyleType {
+    MobileFirst
+    DesktopFirst
+  }
+
   type App implements WithOwner {
     id: ID! @id(autogenerate: false)
     owner: User!
@@ -8,6 +13,7 @@ export const appSchema = gql`
     _compoundName: String! @unique
     name: String! @customResolver(requires: ["id", "_compoundName"])
     slug: String! @customResolver(requires: ["id", "_compoundName"])
+    styling: StyleType! @default(value: MobileFirst)
     pages: [Page!]! @relationship(type: "PAGES", direction: OUT)
     domains: [Domain!]! @relationship(type: "APP_DOMAIN", direction: IN)
   }

@@ -249,7 +249,7 @@ export class AppService
   })
 
   @modelAction
-  add({ domains, id, name, owner, pages }: IAppDTO) {
+  add({ domains, id, name, owner, pages, styling }: IAppDTO) {
     domains?.forEach((domain) => this.domainService.add(domain as IDomainDTO))
 
     let app = this.apps.get(id)
@@ -268,6 +268,7 @@ export class AppService
         name,
         owner,
         pages,
+        styling,
       })
     }
 
@@ -280,7 +281,7 @@ export class AppService
   @transaction
   create = _async(function* (
     this: AppService,
-    { id, name, owner }: ICreateAppData,
+    { id, name, owner, styling }: ICreateAppData,
   ) {
     const pages = this.pageService.pageFactory.addSystemPages({
       id,
@@ -293,6 +294,7 @@ export class AppService
       name,
       owner,
       pages,
+      styling,
     })
 
     yield* _await(this.appRepository.add(app))

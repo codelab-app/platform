@@ -1,4 +1,5 @@
 import type { ICreateElementData } from '@codelab/frontend/abstract/core'
+import { StyleType } from '@codelab/shared/abstract/codegen'
 import type {
   IAppDTO,
   IAuth0Owner,
@@ -28,6 +29,7 @@ export const appData = (owner: IAuth0Owner): IAppDTO => ({
   id: v4(),
   name: 'Codelab App',
   owner,
+  styling: StyleType.MobileFirst,
 })
 
 export const buttonElementData: Pick<ICreateElementData, 'id' | 'name'> = {

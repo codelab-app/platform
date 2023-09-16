@@ -5,6 +5,7 @@ export const baseAppSelectionSet = `
   id
   name
   slug
+  styling
   domains {
     id
     name
@@ -21,5 +22,4 @@ export const appSelectionSet = `{
 
 export const exportAppSelectionSet = `{
   ${baseAppSelectionSet}
-
 }`

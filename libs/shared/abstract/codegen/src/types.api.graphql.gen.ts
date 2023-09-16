@@ -1329,6 +1329,7 @@ export type App = WithOwner & {
   pagesAggregate?: Maybe<AppPagePagesAggregationSelection>
   pagesConnection: AppPagesConnection
   slug: Scalars['String']['output']
+  styling: StyleType
 }
 
 export type AppDomainsArgs = {
@@ -1421,6 +1422,7 @@ export type AppCreateInput = {
   id: Scalars['ID']['input']
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   pages?: InputMaybe<AppPagesFieldInput>
+  styling?: StyleType
 }
 
 export type AppDeleteInput = {
@@ -1563,6 +1565,7 @@ export type AppEdge = {
 export type AppOnCreateInput = {
   _compoundName: Scalars['String']['input']
   id: Scalars['ID']['input']
+  styling?: StyleType
 }
 
 export type AppOptions = {
@@ -1780,6 +1783,7 @@ export type AppRelationInput = {
 export type AppSort = {
   _compoundName?: InputMaybe<SortDirection>
   id?: InputMaybe<SortDirection>
+  styling?: InputMaybe<SortDirection>
 }
 
 /** Allows picking a app from the list of apps */
@@ -2013,6 +2017,7 @@ export type AppUpdateInput = {
   id?: InputMaybe<Scalars['ID']['input']>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>
+  styling?: InputMaybe<StyleType>
 }
 
 export type AppUserOwnerAggregationSelection = {
@@ -2084,6 +2089,8 @@ export type AppWhere = {
   pages_SINGLE?: InputMaybe<PageWhere>
   /** Return Apps where some of the related Pages match this filter */
   pages_SOME?: InputMaybe<PageWhere>
+  styling?: InputMaybe<StyleType>
+  styling_IN?: InputMaybe<Array<StyleType>>
 }
 
 export type AppsConnection = {
@@ -17816,6 +17823,11 @@ export type StringAggregateSelectionNullable = {
   shortest?: Maybe<Scalars['String']['output']>
 }
 
+export enum StyleType {
+  DesktopFirst = 'DesktopFirst',
+  MobileFirst = 'MobileFirst',
+}
+
 export type Tag = {
   __typename?: 'Tag'
   atoms: Array<Atom>
@@ -21791,6 +21803,7 @@ export type AppPreviewFragment = {
   id: string
   name: string
   slug: string
+  styling: StyleType
   owner: { __typename?: 'User' } & OwnerFragment
   pages: Array<{ __typename?: 'Page'; id: string }>
 }
@@ -21800,6 +21813,7 @@ export type AppFragment = {
   id: string
   name: string
   slug: string
+  styling: StyleType
   owner: { __typename?: 'User' } & OwnerFragment
   pages: Array<{ __typename?: 'Page' } & PageFragment>
   domains: Array<{ __typename?: 'Domain' } & DomainFragment>
@@ -21810,6 +21824,7 @@ export type PageBuilderAppFragment = {
   id: string
   name: string
   slug: string
+  styling: StyleType
   owner: { __typename?: 'User' } & OwnerFragment
   pages: Array<{ __typename?: 'Page' } & BuilderPageFragment>
 }
@@ -21819,6 +21834,7 @@ export type PageAppFragment = {
   id: string
   name: string
   slug: string
+  styling: StyleType
   owner: { __typename?: 'User' } & OwnerFragment
   pages: Array<{ __typename?: 'Page' } & ProductionPageFragment>
 }

@@ -2,6 +2,7 @@ import type {
   AppCreateInput,
   AppDeleteInput,
   AppUpdateInput,
+  StyleType,
 } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO, IOwner } from '@codelab/shared/abstract/core'
 import type { Ref } from 'mobx-keystone'
@@ -26,6 +27,7 @@ export interface IApp
    */
   providerPage: IPage
   slug: string
+  styling: StyleType
   toJson: IPropData
 
   page(id: string): IPage

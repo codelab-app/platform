@@ -2,6 +2,7 @@ fragment AppPreview on App {
   id
   name
   slug
+  styling
   owner {
     ...Owner
   }
@@ -14,6 +15,7 @@ fragment App on App {
   id
   name
   slug
+  styling
   owner {
     ...Owner
   }
@@ -29,6 +31,7 @@ fragment PageBuilderApp on App {
   id
   name
   slug
+  styling
   owner {
     ...Owner
   }
@@ -51,6 +54,7 @@ fragment PageApp on App {
   id
   name
   slug
+  styling
   owner {
     ...Owner
   }

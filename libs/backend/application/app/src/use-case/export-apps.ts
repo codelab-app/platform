@@ -15,6 +15,7 @@ export const exportApps = async (where: AppWhere) => {
       name: app.name,
       pages: pagesData,
       slug: app.slug,
+      styling: app.styling,
     }
 
     return [...(await appsData), appExport]

@@ -1957,6 +1957,11 @@ export enum SortDirection {
   Desc = 'DESC',
 }
 
+export enum StyleType {
+  MobileFirst = 'MobileFirst',
+  DesktopFirst = 'DesktopFirst',
+}
+
 export enum TypeKind {
   PrimitiveType = 'PrimitiveType',
   EnumType = 'EnumType',
@@ -2381,6 +2386,7 @@ export type App = WithOwner & {
   __typename?: 'App'
   id: Scalars['ID']
   _compoundName: Scalars['String']
+  styling: StyleType
   name: Scalars['String']
   slug: Scalars['String']
   owner: User
@@ -9068,6 +9074,7 @@ export type AppConnectWhere = {
 export type AppCreateInput = {
   id: Scalars['ID']
   _compoundName: Scalars['String']
+  styling?: StyleType
   owner?: InputMaybe<WithOwnerOwnerFieldInput>
   pages?: InputMaybe<AppPagesFieldInput>
   domains?: InputMaybe<AppDomainsFieldInput>
@@ -9226,6 +9233,7 @@ export type AppDomainsUpdateFieldInput = {
 export type AppOnCreateInput = {
   id: Scalars['ID']
   _compoundName: Scalars['String']
+  styling?: StyleType
 }
 
 export type AppOptions = {
@@ -9623,6 +9631,7 @@ export type AppRelationInput = {
 export type AppSort = {
   id?: InputMaybe<SortDirection>
   _compoundName?: InputMaybe<SortDirection>
+  styling?: InputMaybe<SortDirection>
 }
 
 export type AppTypeConnectInput = {
@@ -9933,6 +9942,7 @@ export type AppUniqueWhere = {
 export type AppUpdateInput = {
   id?: InputMaybe<Scalars['ID']>
   _compoundName?: InputMaybe<Scalars['String']>
+  styling?: InputMaybe<StyleType>
   owner?: InputMaybe<WithOwnerOwnerUpdateFieldInput>
   pages?: InputMaybe<Array<AppPagesUpdateFieldInput>>
   domains?: InputMaybe<Array<AppDomainsUpdateFieldInput>>
@@ -9974,6 +9984,12 @@ export type AppWhere = {
   _compoundName_NOT_STARTS_WITH?: InputMaybe<Scalars['String']>
   /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
   _compoundName_NOT_ENDS_WITH?: InputMaybe<Scalars['String']>
+  styling?: InputMaybe<StyleType>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  styling_NOT?: InputMaybe<StyleType>
+  styling_IN?: InputMaybe<Array<StyleType>>
+  /** @deprecated Negation filters will be deprecated, use the NOT operator to achieve the same behavior */
+  styling_NOT_IN?: InputMaybe<Array<StyleType>>
   owner?: InputMaybe<UserWhere>
   owner_NOT?: InputMaybe<UserWhere>
   ownerAggregate?: InputMaybe<AppOwnerAggregateInput>

@@ -4,6 +4,7 @@ import type {
   AppCreateInput,
   AppDeleteInput,
   AppUpdateInput,
+  StyleType,
 } from '@codelab/shared/abstract/codegen'
 import type { IAppDTO, IAuth0Owner } from '@codelab/shared/abstract/core'
 import { IPageKind } from '@codelab/shared/abstract/core'
@@ -14,13 +15,14 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 
-const create = ({ domains, id, name, owner, pages }: IAppDTO) => {
+const create = ({ domains, id, name, owner, pages, styling }: IAppDTO) => {
   const app = new App({
     domains: domains?.map((domain) => domainRef(domain.id)),
     id,
     name,
     owner,
     pages: pages?.map((page) => pageRef(page.id)),
+    styling,
   })
 
   return app
@@ -34,6 +36,7 @@ export class App
     name: prop<string>().withSetter(),
     owner: prop<IAuth0Owner>(),
     pages: prop<Array<Ref<IPage>>>(() => []),
+    styling: prop<StyleType>().withSetter(),
     // slug: prop<string>().withSetter(),
   })
   implements IApp
@@ -50,13 +53,14 @@ export class App
    * For cache writing, we don't write dto for nested models. We only write the ref. The top most use case calling function is responsible for properly hydrating the data.
    */
   @modelAction
-  writeCache({ domains, id, name, pages }: Partial<IAppDTO>) {
+  writeCache({ domains, id, name, pages, styling }: Partial<IAppDTO>) {
     this.id = id ?? this.id
     this.name = name ?? this.name
     this.pages = pages ? pages.map((page) => pageRef(page.id)) : this.pages
     this.domains = domains
       ? domains.map((domain) => domainRef(domain.id))
       : this.domains
+    this.styling = styling ?? this.styling
 
     return this
   }

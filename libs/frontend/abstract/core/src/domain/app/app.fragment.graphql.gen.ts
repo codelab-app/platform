@@ -21,6 +21,7 @@ export type AppPreviewFragment = {
   id: string
   name: string
   slug: string
+  styling: Types.StyleType
   owner: OwnerFragment
   pages: Array<{ id: string }>
 }
@@ -29,6 +30,7 @@ export type AppFragment = {
   id: string
   name: string
   slug: string
+  styling: Types.StyleType
   owner: OwnerFragment
   pages: Array<PageFragment>
   domains: Array<DomainFragment>
@@ -38,6 +40,7 @@ export type PageBuilderAppFragment = {
   id: string
   name: string
   slug: string
+  styling: Types.StyleType
   owner: OwnerFragment
   pages: Array<BuilderPageFragment>
 }
@@ -46,6 +49,7 @@ export type PageAppFragment = {
   id: string
   name: string
   slug: string
+  styling: Types.StyleType
   owner: OwnerFragment
   pages: Array<ProductionPageFragment>
 }
@@ -55,6 +59,7 @@ export const AppPreviewFragmentDoc = gql`
     id
     name
     slug
+    styling
     owner {
       ...Owner
     }
@@ -69,6 +74,7 @@ export const AppFragmentDoc = gql`
     id
     name
     slug
+    styling
     owner {
       ...Owner
     }
@@ -88,6 +94,7 @@ export const PageBuilderAppFragmentDoc = gql`
     id
     name
     slug
+    styling
     owner {
       ...Owner
     }
@@ -113,6 +120,7 @@ export const PageAppFragmentDoc = gql`
     id
     name
     slug
+    styling
     owner {
       ...Owner
     }
