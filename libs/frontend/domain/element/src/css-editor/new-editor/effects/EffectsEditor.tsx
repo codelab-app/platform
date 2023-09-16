@@ -6,9 +6,9 @@ import {
 } from '@ant-design/icons'
 import { Col } from 'antd'
 import { LabeledSelect, SegmentedSelect, ValuePicker } from '../components'
+import { CssProperty } from '../css'
 import { useStyle } from '../style.hook'
 import { CssUnit } from '../utils'
-import { DefaultEffectProperties, EffectProperty } from './properties'
 
 const blendOptions = [
   { label: 'Normal', value: 'normal' },
@@ -56,19 +56,17 @@ export const EffectsEditor = () => {
     <Col className="space-y-2">
       <LabeledSelect
         label="Blending"
-        onChange={(val) => setStyle(EffectProperty.Blend, val)}
+        onChange={(val) => setStyle(CssProperty.MixBlendMode, val)}
         options={blendOptions}
-        value={getCurrentStyle(DefaultEffectProperties[EffectProperty.Blend])}
+        value={getCurrentStyle(CssProperty.MixBlendMode)}
       />
       <ValuePicker
-        currentValue={getCurrentStyle(
-          DefaultEffectProperties[EffectProperty.Opacity],
-        )}
+        currentValue={getCurrentStyle(CssProperty.Opacity)}
         fixedUnit={CssUnit.PERCENT}
         label="Opacity"
         max={100}
         min={0}
-        onChange={(val) => setStyle(EffectProperty.Opacity, val)}
+        onChange={(val) => setStyle(CssProperty.Opacity, val)}
       />
       <SegmentedSelect label="Outline" options={outlineOptions} value="none" />
     </Col>

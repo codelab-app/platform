@@ -6,9 +6,9 @@ import {
   VerticalAlignTopOutlined,
 } from '@ant-design/icons'
 import { Col, Divider } from 'antd'
-import { SegmentedSelect } from '../components/SegmentedSelect'
+import { SegmentedSelect } from '../components'
+import { CssProperty } from '../css'
 import { useStyle } from '../style.hook'
-import { DefaultDisplayProperties, DisplayProperty } from './properties'
 
 const justifyOptions = [
   {
@@ -56,28 +56,6 @@ const alignOptions = [
   },
 ]
 
-const directionOptions = [
-  {
-    label: 'Horizontal',
-    value: 'row',
-  },
-  {
-    label: 'Vertical',
-    value: 'column',
-  },
-]
-
-const wrapOptions = [
-  {
-    label: "Don't Wrap",
-    value: 'nowrap',
-  },
-  {
-    label: 'Wrap',
-    value: 'wrap',
-  },
-]
-
 export const DisplayGridOptions = () => {
   const { getCurrentStyle, setStyle } = useStyle()
 
@@ -87,35 +65,27 @@ export const DisplayGridOptions = () => {
       <Divider className="my-2" />
       <SegmentedSelect
         label="Align"
-        onChange={(val) => setStyle(DisplayProperty.AlignItems, val)}
+        onChange={(val) => setStyle(CssProperty.AlignItems, val)}
         options={alignOptions}
-        value={getCurrentStyle(
-          DefaultDisplayProperties[DisplayProperty.AlignItems],
-        )}
+        value={getCurrentStyle(CssProperty.AlignItems)}
       />
       <SegmentedSelect
         label=""
-        onChange={(val) => setStyle(DisplayProperty.JustifyItems, val)}
+        onChange={(val) => setStyle(CssProperty.JustifyItems, val)}
         options={justifyOptions}
-        value={getCurrentStyle(
-          DefaultDisplayProperties[DisplayProperty.JustifyItems],
-        )}
+        value={getCurrentStyle(CssProperty.JustifyItems)}
       />
       <SegmentedSelect
         label="Distribute"
-        onChange={(val) => setStyle(DisplayProperty.AlignContent, val)}
+        onChange={(val) => setStyle(CssProperty.AlignContent, val)}
         options={alignOptions}
-        value={getCurrentStyle(
-          DefaultDisplayProperties[DisplayProperty.AlignContent],
-        )}
+        value={getCurrentStyle(CssProperty.AlignContent)}
       />
       <SegmentedSelect
         label=""
-        onChange={(val) => setStyle(DisplayProperty.JustifyContent, val)}
+        onChange={(val) => setStyle(CssProperty.JustifyContent, val)}
         options={justifyOptions}
-        value={getCurrentStyle(
-          DefaultDisplayProperties[DisplayProperty.JustifyContent],
-        )}
+        value={getCurrentStyle(CssProperty.JustifyContent)}
       />
     </Col>
   )

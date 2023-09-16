@@ -8,12 +8,11 @@ import { Col, Divider, Row } from 'antd'
 import React, { useState } from 'react'
 import { SegmentedSelect, ValuePicker } from '../components'
 import { ColorPicker } from '../components/ColorPicker'
+import type { CssProperty } from '../css'
 import { useStyle } from '../style.hook'
 import { Side } from '../utils'
 import { BorderRadiusEditor } from './BorderRadiusEditor'
 import { BorderSidePicker } from './BorderSidePicker'
-import type { BorderProperty } from './properties'
-import { DefaultBorderProperties } from './properties'
 
 const styleOptions = [
   {
@@ -43,10 +42,8 @@ const getSidePropertyName = (side: Side, property: string) => {
     key = `border-${side}-${property}`
   }
 
-  return key as BorderProperty
+  return key as CssProperty
 }
-
-const getDefaultValue = (name: BorderProperty) => DefaultBorderProperties[name]
 
 export const BorderEditor = () => {
   const { getCurrentStyle, setStyle } = useStyle()
@@ -66,13 +63,11 @@ export const BorderEditor = () => {
             }
             options={styleOptions}
             size="small"
-            value={getCurrentStyle(
-              getDefaultValue(getSidePropertyName(selectedSide, 'style')),
-            )}
+            value={getCurrentStyle(getSidePropertyName(selectedSide, 'style'))}
           />
           <ValuePicker
             currentValue={getCurrentStyle(
-              getDefaultValue(getSidePropertyName(selectedSide, 'width')),
+              getSidePropertyName(selectedSide, 'width'),
             )}
             label="Width"
             onChange={(value) =>
@@ -86,9 +81,7 @@ export const BorderEditor = () => {
               setStyle(getSidePropertyName(selectedSide, 'color'), value)
             }
             size="small"
-            value={getCurrentStyle(
-              getDefaultValue(getSidePropertyName(selectedSide, 'color')),
-            )}
+            value={getCurrentStyle(getSidePropertyName(selectedSide, 'color'))}
           />
         </Col>
       </Row>

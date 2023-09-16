@@ -1,4 +1,5 @@
 import isNumber from 'lodash/isNumber'
+import { CssProperty } from './css'
 
 export enum Side {
   Top = 'top',
@@ -66,26 +67,26 @@ export const parseCssValue = (value?: number | string): CssValue => {
   }
 }
 
-export const getCursorForSide = (side: Side) => {
+export const getCursorForSide = (side: CssProperty) => {
   switch (side) {
-    case Side.Top:
+    case CssProperty.Top:
       return 'n-resize'
-    case Side.Right:
+    case CssProperty.Right:
       return 'e-resize'
-    case Side.Bottom:
+    case CssProperty.Bottom:
       return 's-resize'
   }
 
   return 'w-resize'
 }
 
-export const getCursorForSideReversed = (side: Side) => {
+export const getCursorForSideReversed = (side: CssProperty) => {
   switch (side) {
-    case Side.Top:
+    case CssProperty.Top:
       return 's-resize'
-    case Side.Right:
+    case CssProperty.Right:
       return 'w-resize'
-    case Side.Bottom:
+    case CssProperty.Bottom:
       return 'n-resize'
   }
 

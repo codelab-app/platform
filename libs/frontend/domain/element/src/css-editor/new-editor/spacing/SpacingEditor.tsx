@@ -1,28 +1,29 @@
 import { Popover } from 'antd'
 import clsx from 'clsx'
 import React from 'react'
+import { CssProperty } from '../css'
 import { useStyle } from '../style.hook'
 import {
   CssUnit,
   getCursorForSide,
   getCursorForSideReversed,
   parseCssValue,
-  Side,
 } from '../utils'
 import { SpacingPopover } from './SpacingPopover'
 import classes from './spacingStyle.module.css'
 
-const sides = [Side.Top, Side.Right, Side.Bottom, Side.Left]
+const sides = [
+  CssProperty.Top,
+  CssProperty.Right,
+  CssProperty.Bottom,
+  CssProperty.Left,
+]
 
 export const SpacingEditor = () => {
   const { getCurrentStyle, setStyle } = useStyle()
 
-  const PopoverContent = (side: Side, key = 'padding') => {
-    const currentCssValue = getCurrentStyle({
-      defaultValue: '0px',
-      key: `${key}-${side}`,
-    })
-
+  const PopoverContent = (side: CssProperty, key = 'padding') => {
+    const currentCssValue = getCurrentStyle(`${key}-${side}` as CssProperty)
     const { unit, value } = parseCssValue(currentCssValue)
 
     const valueToShow = () => {

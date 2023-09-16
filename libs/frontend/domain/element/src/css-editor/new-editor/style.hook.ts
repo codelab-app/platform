@@ -1,17 +1,14 @@
 import { isElementRef } from '@codelab/frontend/abstract/core'
 import { useStore } from '@codelab/frontend/presentation/container'
+import type { CssProperty } from './css'
+import { DefaultCssProperties } from './css'
 
 export const useStyle = () => {
   const { builderService } = useStore()
 
-  const getCurrentStyle = ({
-    defaultValue,
-    key,
-  }: {
-    key: string
-    defaultValue: number | string
-  }) => {
+  const getCurrentStyle = (property: CssProperty) => {
     const { selectedNode } = builderService
+    const defaultValue = DefaultCssProperties[property].defaultValue
 
     if (!isElementRef(selectedNode)) {
       return defaultValue
@@ -20,7 +17,7 @@ export const useStyle = () => {
     const { guiCss } = selectedNode.current
 
     if (guiCss) {
-      return JSON.parse(guiCss)[key] ?? defaultValue
+      return JSON.parse(guiCss)[property] ?? defaultValue
     }
 
     return defaultValue

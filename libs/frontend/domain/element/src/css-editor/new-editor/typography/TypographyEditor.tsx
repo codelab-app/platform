@@ -10,8 +10,8 @@ import {
 import { Col } from 'antd'
 import { LabeledSelect, SegmentedSelect, ValuePicker } from '../components'
 import { ColorPicker } from '../components/ColorPicker'
+import { CssProperty } from '../css'
 import { useStyle } from '../style.hook'
-import { DefaultTypographyProperties, TypographyProperty } from './properties'
 import { extractFontDataFromUrl } from './typography.util'
 
 const weightOptions = [
@@ -74,10 +74,7 @@ export const TypographyEditor = () => {
   }
 
   const makeWeightOptions = () => {
-    const value = getCurrentStyle(
-      DefaultTypographyProperties[TypographyProperty.Family],
-    )
-
+    const value = getCurrentStyle(CssProperty.FontFamily)
     // When the font family changes we need to make sure that the selected weight is still valid
     const currentFont = fonts.find((font) => font.family === value)
 
@@ -97,19 +94,15 @@ export const TypographyEditor = () => {
     <Col className="space-y-2">
       <LabeledSelect
         label="Font"
-        onChange={(val) => setStyle(TypographyProperty.Family, val)}
+        onChange={(val) => setStyle(CssProperty.FontFamily, val)}
         options={makeFontOptions()}
-        value={getCurrentStyle(
-          DefaultTypographyProperties[TypographyProperty.Family],
-        )}
+        value={getCurrentStyle(CssProperty.FontFamily)}
       />
       <LabeledSelect
         label="Weight"
-        onChange={(val) => setStyle(TypographyProperty.Weight, val)}
+        onChange={(val) => setStyle(CssProperty.FontWeight, val)}
         options={makeWeightOptions()}
-        value={getCurrentStyle(
-          DefaultTypographyProperties[TypographyProperty.Weight],
-        )}
+        value={getCurrentStyle(CssProperty.FontWeight)}
       />
       {/* <Row */}
       {/*  align="middle" */}
@@ -118,41 +111,31 @@ export const TypographyEditor = () => {
       {/*  wrap={false} */}
       {/* > */}
       <ValuePicker
-        currentValue={getCurrentStyle(
-          DefaultTypographyProperties[TypographyProperty.Size],
-        )}
+        currentValue={getCurrentStyle(CssProperty.FontSize)}
         label="Size"
-        onChange={(val) => setStyle(TypographyProperty.Size, val)}
+        onChange={(val) => setStyle(CssProperty.FontSize, val)}
       />
       <ValuePicker
-        currentValue={getCurrentStyle(
-          DefaultTypographyProperties[TypographyProperty.Height],
-        )}
+        currentValue={getCurrentStyle(CssProperty.LineHeight)}
         label="Height"
-        onChange={(val) => setStyle(TypographyProperty.Height, val)}
+        onChange={(val) => setStyle(CssProperty.LineHeight, val)}
       />
       {/* </Row> */}
       <ColorPicker
-        onChange={(val) => setStyle(TypographyProperty.Color, val)}
-        value={getCurrentStyle(
-          DefaultTypographyProperties[TypographyProperty.Color],
-        )}
+        onChange={(val) => setStyle(CssProperty.Color, val)}
+        value={getCurrentStyle(CssProperty.Color)}
       />
       <SegmentedSelect
         label="Align"
-        onChange={(val) => setStyle(TypographyProperty.Align, val)}
+        onChange={(val) => setStyle(CssProperty.TextAlign, val)}
         options={alignOptions}
-        value={getCurrentStyle(
-          DefaultTypographyProperties[TypographyProperty.Align],
-        )}
+        value={getCurrentStyle(CssProperty.TextAlign)}
       />
       <SegmentedSelect
         label="Decoration"
-        onChange={(val) => setStyle(TypographyProperty.Decoration, val)}
+        onChange={(val) => setStyle(CssProperty.TextDecoration, val)}
         options={decorationOptions}
-        value={getCurrentStyle(
-          DefaultTypographyProperties[TypographyProperty.Decoration],
-        )}
+        value={getCurrentStyle(CssProperty.TextDecoration)}
       />
     </Col>
   )

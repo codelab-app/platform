@@ -1,5 +1,6 @@
 import { LabeledSelect } from '../components'
 import { ColorPicker } from '../components/ColorPicker'
+import { CssProperty } from '../css'
 import { useStyle } from '../style.hook'
 
 const clippingOptions = [
@@ -16,19 +17,13 @@ export const BackgroundEditor = () => {
     <div className="space-y-2">
       <ColorPicker
         onChange={(val) => setStyle('background-color', val)}
-        value={getCurrentStyle({
-          defaultValue: 'transparent',
-          key: 'background-color',
-        })}
+        value={getCurrentStyle(CssProperty.BackgroundColor)}
       />
       <LabeledSelect
         label="Clipping"
         onChange={(val) => setStyle('background-clip', val)}
         options={clippingOptions}
-        value={getCurrentStyle({
-          defaultValue: 'border-box',
-          key: 'background-clip',
-        })}
+        value={getCurrentStyle(CssProperty.BackgroundClip)}
       />
     </div>
   )

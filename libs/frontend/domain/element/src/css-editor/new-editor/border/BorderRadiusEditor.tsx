@@ -9,8 +9,8 @@ import {
 import { Col, Row } from 'antd'
 import React, { useState } from 'react'
 import { SegmentedSelect, ValuePicker } from '../components'
+import { CssProperty } from '../css'
 import { useStyle } from '../style.hook'
-import { BorderProperty, DefaultBorderProperties } from './properties'
 
 const sideOptions = [
   {
@@ -66,10 +66,8 @@ export const BorderRadiusEditor = () => {
           {/*/ > */}
           {/* </Col> */}
           <ValuePicker
-            currentValue={getCurrentStyle(
-              DefaultBorderProperties[BorderProperty.Radius],
-            )}
-            onChange={(value) => setStyle(BorderProperty.Radius, value)}
+            currentValue={getCurrentStyle(CssProperty.BorderRadius)}
+            onChange={(value) => setStyle(CssProperty.BorderRadius, value)}
           />
           {/* </Row> */}
         </Col>
@@ -78,40 +76,34 @@ export const BorderRadiusEditor = () => {
         <Col className="space-y-2">
           <Row align="middle" className="space-x-2" justify="end" wrap={false}>
             <ValuePicker
-              currentValue={getCurrentStyle(
-                DefaultBorderProperties[BorderProperty.TopLeftRadius],
-              )}
+              currentValue={getCurrentStyle(CssProperty.BorderTopLeftRadius)}
               onChange={(value) =>
-                setStyle(BorderProperty.TopLeftRadius, value)
+                setStyle(CssProperty.BorderTopLeftRadius, value)
               }
               prefix={<RadiusUpleftOutlined />}
             />
             <ValuePicker
-              currentValue={getCurrentStyle(
-                DefaultBorderProperties[BorderProperty.TopRightRadius],
-              )}
+              currentValue={getCurrentStyle(CssProperty.BorderTopRightRadius)}
               onChange={(value) =>
-                setStyle(BorderProperty.TopRightRadius, value)
+                setStyle(CssProperty.BorderTopRightRadius, value)
               }
               prefix={<RadiusUprightOutlined />}
             />
           </Row>
           <Row align="middle" className="space-x-2" justify="end" wrap={false}>
             <ValuePicker
-              currentValue={getCurrentStyle(
-                DefaultBorderProperties[BorderProperty.BottomLeftRadius],
-              )}
+              currentValue={getCurrentStyle(CssProperty.BorderBottomLeftRadius)}
               onChange={(value) =>
-                setStyle(BorderProperty.BottomLeftRadius, value)
+                setStyle(CssProperty.BorderBottomLeftRadius, value)
               }
               prefix={<RadiusBottomleftOutlined />}
             />
             <ValuePicker
               currentValue={getCurrentStyle(
-                DefaultBorderProperties[BorderProperty.BottomRightRadius],
+                CssProperty.BorderBottomRightRadius,
               )}
               onChange={(value) =>
-                setStyle(BorderProperty.BottomRightRadius, value)
+                setStyle(CssProperty.BorderBottomRightRadius, value)
               }
               prefix={<RadiusBottomrightOutlined />}
             />
