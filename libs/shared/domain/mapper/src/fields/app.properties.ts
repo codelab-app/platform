@@ -11,8 +11,6 @@ interface AppData {
 
 export class AppProperties {
   static appNameFromCompositeKey = (app: DeepPick<App, AppData>) => {
-    console.log(app)
-
     return app.compositeKey.replace(`${app.owner.id}-`, '')
   }
 

@@ -1,4 +1,15 @@
-import { handleLogin } from '@auth0/nextjs-auth0'
-import { auth0Instance } from '@codelab/shared/infra/auth0'
+import { handleAuth, handleCallback, handleLogin } from '@auth0/nextjs-auth0'
 
-export default auth0Instance().handleAuth()
+export default handleAuth({
+  callback: async (req, res) => {
+    console.log(req, res)
+
+    try {
+      await handleCallback(req, res, {
+        // redirectUri: 'https://example.com',
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  },
+})
