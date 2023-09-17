@@ -1,26 +1,35 @@
 import { Col, ConfigProvider, Row, Segmented } from 'antd'
 import type { SegmentedLabeledOption, SegmentedValue } from 'antd/lib/segmented'
+import { ResetLabel } from './ResetLabel'
 
 interface SegmentedSelectProps {
+  canReset?: boolean
   disableAnimation?: boolean
   label?: string
   options: Array<SegmentedLabeledOption | SegmentedValue>
   size?: 'large' | 'middle' | 'small'
   value: string
   onChange?(value: string): void
+  onReset?(): void
 }
 
 export const SegmentedSelect = ({
+  canReset,
   disableAnimation = true,
   label = '',
   onChange,
+  onReset,
   options,
   size = 'middle',
   value,
 }: SegmentedSelectProps) => {
   return (
     <Row align="middle" justify="space-between" wrap={false}>
-      <Col className="text-[12px]">{label}</Col>
+      <Col>
+        {label && (
+          <ResetLabel canReset={canReset} label={label} onReset={onReset} />
+        )}
+      </Col>
       <Col>
         <ConfigProvider
           theme={{

@@ -16,12 +16,12 @@ export const BackgroundEditor = () => {
   return (
     <div className="space-y-2">
       <ColorPicker
-        onChange={(val) => setStyle('background-color', val)}
+        onChange={(val) => setStyle(CssProperty.BackgroundColor, val)}
         value={getCurrentStyle(CssProperty.BackgroundColor)}
       />
       <LabeledSelect
         label="Clipping"
-        onChange={(val) => setStyle('background-clip', val)}
+        onChange={(val) => setStyle(CssProperty.BackgroundClip, val)}
         options={clippingOptions}
         value={getCurrentStyle(CssProperty.BackgroundClip)}
       />

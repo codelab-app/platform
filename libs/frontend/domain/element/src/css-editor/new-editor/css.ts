@@ -211,15 +211,15 @@ export const DefaultCssProperties: Record<
     key: CssProperty.FlexWrap,
   },
   [CssProperty.FontFamily]: {
-    defaultValue: 'inherit',
+    defaultValue: 'Montserrat',
     key: CssProperty.FontFamily,
   },
   [CssProperty.FontSize]: {
-    defaultValue: 'inherit',
+    defaultValue: '16px',
     key: CssProperty.FontSize,
   },
   [CssProperty.FontWeight]: {
-    defaultValue: 'inherit',
+    defaultValue: '400',
     key: CssProperty.FontWeight,
   },
   [CssProperty.LineHeight]: {
@@ -243,19 +243,19 @@ export const DefaultCssProperties: Record<
     key: CssProperty.Left,
   },
   [CssProperty.MaxHeight]: {
-    defaultValue: 'none',
+    defaultValue: 'auto',
     key: CssProperty.MaxHeight,
   },
   [CssProperty.MaxWidth]: {
-    defaultValue: 'none',
+    defaultValue: 'auto',
     key: CssProperty.MaxWidth,
   },
   [CssProperty.MinHeight]: {
-    defaultValue: '0px',
+    defaultValue: 'auto',
     key: CssProperty.MinHeight,
   },
   [CssProperty.MinWidth]: {
-    defaultValue: '0px',
+    defaultValue: 'auto',
     key: CssProperty.MinWidth,
   },
   [CssProperty.MixBlendMode]: {

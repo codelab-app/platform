@@ -79,26 +79,32 @@ const wrapOptions = [
 ]
 
 export const DisplayFlexOptions = () => {
-  const { getCurrentStyle, setStyle } = useStyle()
+  const { canReset, getCurrentStyle, resetStyle, setStyle } = useStyle()
 
   return (
     <Col className="space-y-2">
       <Divider className="my-2" />
       <SegmentedSelect
+        canReset={canReset(CssProperty.FlexDirection)}
         label="Direction"
         onChange={(value) => setStyle(CssProperty.FlexDirection, value)}
+        onReset={() => resetStyle(CssProperty.FlexDirection)}
         options={directionOptions}
         value={getCurrentStyle(CssProperty.FlexDirection)}
       />
       <SegmentedSelect
+        canReset={canReset(CssProperty.JustifyContent)}
         label="Justify"
         onChange={(value) => setStyle(CssProperty.JustifyContent, value)}
+        onReset={() => resetStyle(CssProperty.JustifyContent)}
         options={justifyOptions}
         value={getCurrentStyle(CssProperty.JustifyContent)}
       />
       <SegmentedSelect
+        canReset={canReset(CssProperty.AlignItems)}
         label="Align"
         onChange={(value) => setStyle(CssProperty.AlignItems, value)}
+        onReset={() => resetStyle(CssProperty.AlignItems)}
         options={alignOptions}
         value={getCurrentStyle(CssProperty.AlignItems)}
       />
@@ -109,22 +115,24 @@ export const DisplayFlexOptions = () => {
         <Col>
           <Row className="space-x-1" wrap={false}>
             <ValuePicker
-              currentValue={getCurrentStyle(CssProperty.ColumnGap)}
+              currentValue={getCurrentStyle(CssProperty.RowGap)}
               label="Row"
-              onChange={(value) => setStyle(CssProperty.ColumnGap, value)}
+              onChange={(value) => setStyle(CssProperty.RowGap, value)}
             />
             <ValuePicker
-              currentValue={getCurrentStyle(CssProperty.RowGap)}
+              currentValue={getCurrentStyle(CssProperty.ColumnGap)}
               label="Col"
-              onChange={(value) => setStyle(CssProperty.RowGap, value)}
+              onChange={(value) => setStyle(CssProperty.ColumnGap, value)}
             />
           </Row>
         </Col>
       </Row>
       <Divider className="my-2" />
       <SegmentedSelect
+        canReset={canReset(CssProperty.FlexWrap)}
         label="Children"
         onChange={(value) => setStyle(CssProperty.FlexWrap, value)}
+        onReset={() => resetStyle(CssProperty.FlexWrap)}
         options={wrapOptions}
         value={getCurrentStyle(CssProperty.FlexWrap)}
       />

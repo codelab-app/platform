@@ -16,15 +16,14 @@ const selectAfter = (
     className="[&>*:first-child]:!px-0.5"
     defaultValue={fixedUnit ?? CssUnit.PX}
     disabled={Boolean(fixedUnit)}
-    onChange={(val) => onChange(val)}
+    onChange={(val) => onChange(val === '-' ? CssUnit.Auto : (val as CssUnit))}
     popupMatchSelectWidth={false}
     size={size}
     suffixIcon={null}
-    value={fixedUnit ?? unit}
+    value={fixedUnit ?? unit === CssUnit.Auto ? '-' : unit}
   >
     {!fixedUnit && (
       <>
-        <Option value={CssUnit.Auto}>-</Option>
         <Option value={CssUnit.PX}>{CssUnit.PX}</Option>
         <Option value={CssUnit.PERCENT}>{CssUnit.PERCENT}</Option>
         <Option value={CssUnit.REM}>{CssUnit.REM}</Option>
@@ -34,6 +33,7 @@ const selectAfter = (
         <Option value={CssUnit.CH}>{CssUnit.CH}</Option>
         <Option value={CssUnit.SVW}>{CssUnit.SVW}</Option>
         <Option value={CssUnit.SVH}>{CssUnit.SVH}</Option>
+        <Option value={CssUnit.Auto}>{CssUnit.Auto}</Option>
       </>
     )}
   </Select>
