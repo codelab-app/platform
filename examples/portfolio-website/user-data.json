@@ -3,13 +3,13 @@
     {
       "domains": [
         {
-          "id": "c0f5c759-ae65-4b04-876a-f75fac32b1f3",
-          "name": "codelab-demo.online",
+          "id": "b13b5b1c-bc99-4fae-9bd9-baa4eedf6117",
+          "name": "test-local.com",
           "app": { "id": "e95f416d-bd72-4b46-b6bb-a186740bd875" }
         },
         {
-          "id": "b13b5b1c-bc99-4fae-9bd9-baa4eedf6117",
-          "name": "test-local.com",
+          "id": "c0f5c759-ae65-4b04-876a-f75fac32b1f3",
+          "name": "codelab-demo.online",
           "app": { "id": "e95f416d-bd72-4b46-b6bb-a186740bd875" }
         }
       ],
@@ -1082,11 +1082,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "name": "AntDesignTypographyParagraph"
@@ -1116,11 +1113,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "f4be2a3a-1f2c-4270-894a-51c5a19084b5",
                 "name": "HtmlHr"
@@ -1153,11 +1147,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "name": "AntDesignTypographyParagraph"
@@ -1190,11 +1181,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
                 "name": "AntDesignButton"
@@ -1204,7 +1192,7 @@
               "id": "319c70a5-d071-4273-953c-0659aa2c067c",
               "name": "Ant Design Icon",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Ant Design Icon",
-              "customCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1224,11 +1212,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "7244a1cf-3ec7-43fb-a9b0-2d5f99b92f69",
                 "name": "AntDesignIcon"
@@ -1238,7 +1223,7 @@
               "id": "b3b9b4ff-c692-4851-bc20-a7f01b0d808c",
               "name": "Ant Design Typography Text",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Ant Design Typography Text",
-              "customCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1258,11 +1243,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
                 "name": "AntDesignTypographyText"
@@ -1384,11 +1366,8 @@
                 "name": "Blog Post"
               },
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
                 "name": "AntDesignSpace"
@@ -1432,7 +1411,7 @@
               "id": "0d693472-497b-4ba2-8713-ec04d13c338b",
               "name": "Blog Post",
               "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Blog Post",
-              "customCss": null,
+              "style": null,
               "parentComponent": {
                 "id": "89e5750c-c3a5-4dc1-970f-21accc0a6ec0",
                 "name": "Blog Post"
@@ -1455,11 +1434,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "ae02dc9a-6849-4df0-9d45-823fb3a5d064",
                 "name": "NextLink"
@@ -1489,11 +1465,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "name": "AntDesignTypographyParagraph"
@@ -1523,11 +1496,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "name": "AntDesignTypographyParagraph"
@@ -1560,11 +1530,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "name": "AntDesignTypographyParagraph"
@@ -1700,7 +1667,7 @@
               "id": "c43a1cea-51ff-4ede-b5ae-297aab3d627e",
               "name": "Post Title",
               "_compoundName": "14e09a14-62c3-4a5f-bec3-9b43747bb21d-Post Title",
-              "customCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "fd462921-8775-45cc-911e-8763ba7f756b",
@@ -1723,11 +1690,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             },
             {
@@ -1754,11 +1718,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "name": "AntDesignTypographyParagraph"
@@ -1825,11 +1786,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "name": "AntDesignTypographyParagraph"
@@ -1862,11 +1820,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
                 "name": "AntDesignSpin"
@@ -1954,7 +1909,6 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
               "_compoundRefKey": null,
@@ -1988,8 +1942,6 @@
               "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
                 "name": "AntDesignButton"
@@ -1999,7 +1951,7 @@
               "id": "fb148984-fba3-4412-85dc-1977429d5f49",
               "name": "Github Icon",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Github Icon",
-              "customCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2019,11 +1971,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "7244a1cf-3ec7-43fb-a9b0-2d5f99b92f69",
                 "name": "AntDesignIcon"
@@ -2053,11 +2002,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
                 "name": "AntDesignTypographyText"
@@ -2121,11 +2067,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "8d669da3-4198-494a-8018-851f6a802bf2",
                 "name": "AntDesignInput"
@@ -2189,11 +2132,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
                 "name": "AntDesignTypographyText"
@@ -2223,7 +2163,6 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
               "_compoundRefKey": null,
@@ -2331,11 +2270,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             },
             {
@@ -2362,11 +2298,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
                 "name": "AntDesignTypographyText"
@@ -2376,7 +2309,7 @@
               "id": "d19ad430-a7a1-49fd-a126-a2e8ad4491ab",
               "name": "Message",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Message",
-              "customCss": null,
+              "style": null,
               "parentComponent": {
                 "id": "f4161637-7ad0-47ec-acb3-d1705fef15c9",
                 "name": "Message"
@@ -2396,11 +2329,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             },
             {
@@ -2427,11 +2357,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
                 "name": "AntDesignTypographyText"
@@ -2464,11 +2391,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "name": "AntDesignTypographyParagraph"
@@ -2501,11 +2425,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
                 "name": "AntDesignSpin"
@@ -2539,7 +2460,7 @@
               "id": "1a0d8356-0567-4d5c-b2f0-b0b6cebcc716",
               "name": "Body",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Body",
-              "customCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": null,
@@ -2556,11 +2477,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             },
             {
@@ -2587,11 +2505,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "1fba53cd-e7a0-4a94-abd7-d92f5de5a9b6",
                 "name": "AntDesignAnchor"
@@ -2621,11 +2536,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "ff6a8cfe-af3e-4e03-a51b-70455f976edb",
                 "name": "AntDesignAvatar"
@@ -2635,7 +2547,7 @@
               "id": "49e4f8a1-83e8-49ba-80b1-6b7b137ac496",
               "name": "Github",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Github",
-              "customCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "af199668-2ed3-43df-b374-e567abc9e980",
@@ -2658,11 +2570,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             },
             {
@@ -2689,11 +2598,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
                 "name": "AntDesignTypographyText"
@@ -2703,7 +2609,7 @@
               "id": "fe8bb789-f1f3-43af-89b5-d2b06ec60a0b",
               "name": "Page Title",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Page Title",
-              "customCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "fd462921-8775-45cc-911e-8763ba7f756b",
@@ -2726,11 +2632,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             },
             {
@@ -2757,11 +2660,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
                 "name": "AntDesignSpace"
@@ -2791,11 +2691,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
                 "name": "AntDesignAnchorLink"
@@ -2805,7 +2702,7 @@
               "id": "e10df881-c3da-4602-9f05-36f40698ee0e",
               "name": "Blog",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Blog",
-              "customCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "af199668-2ed3-43df-b374-e567abc9e980",
@@ -2828,11 +2725,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             },
             {
@@ -2859,11 +2753,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "1fba53cd-e7a0-4a94-abd7-d92f5de5a9b6",
                 "name": "AntDesignAnchor"
@@ -2893,11 +2784,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
                 "name": "AntDesignTypographyText"
@@ -2927,11 +2815,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
                 "name": "AntDesignAnchorLink"
@@ -2941,7 +2826,7 @@
               "id": "f73aa818-db0b-4e79-ada9-5ea895544429",
               "name": "Intro",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Intro",
-              "customCss": "",
+              "style": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2961,11 +2846,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "4fa03cfc-d59c-4506-8fc0-bd17b75a1c19",
                 "name": "AntDesignTypographyText"
@@ -2975,7 +2857,7 @@
               "id": "9c191ad9-4933-4ccd-a219-115b13739899",
               "name": "Twitter",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Twitter",
-              "customCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "af199668-2ed3-43df-b374-e567abc9e980",
@@ -2998,11 +2880,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             },
             {
@@ -3046,7 +2925,7 @@
               "id": "25fabb88-c088-496f-aa18-5e21d1fee3b3",
               "name": "Social Link",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Social Link",
-              "customCss": null,
+              "style": null,
               "parentComponent": {
                 "id": "af199668-2ed3-43df-b374-e567abc9e980",
                 "name": "Social Link"
@@ -3066,11 +2945,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             },
             {
@@ -3097,11 +2973,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "7244a1cf-3ec7-43fb-a9b0-2d5f99b92f69",
                 "name": "AntDesignIcon"
@@ -3131,11 +3004,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "923654da-7d9d-49f4-84a7-9cfc12192c9c",
                 "name": "AntDesignAnchorLink"
@@ -3198,11 +3068,8 @@
         "childMapperPropKey": null,
         "childMapperComponent": null,
         "renderIfExpression": null,
-        "propTransformationJs": null,
         "preRenderAction": null,
         "postRenderAction": null,
-        "_compoundRefKey": null,
-        "refKey": null,
         "renderAtomType": {
           "id": "ae02dc9a-6849-4df0-9d45-823fb3a5d064",
           "name": "NextLink"
@@ -3308,11 +3175,8 @@
         "childMapperPropKey": null,
         "childMapperComponent": null,
         "renderIfExpression": null,
-        "propTransformationJs": null,
         "preRenderAction": null,
         "postRenderAction": null,
-        "_compoundRefKey": null,
-        "refKey": null,
         "renderAtomType": null
       },
       "props": {
@@ -3404,11 +3268,8 @@
         "childMapperPropKey": null,
         "childMapperComponent": null,
         "renderIfExpression": null,
-        "propTransformationJs": null,
         "preRenderAction": null,
         "postRenderAction": null,
-        "_compoundRefKey": null,
-        "refKey": null,
         "renderAtomType": {
           "id": "1fba53cd-e7a0-4a94-abd7-d92f5de5a9b6",
           "name": "AntDesignAnchor"
@@ -3468,11 +3329,8 @@
         "childMapperPropKey": null,
         "childMapperComponent": null,
         "renderIfExpression": null,
-        "propTransformationJs": null,
         "preRenderAction": null,
         "postRenderAction": null,
-        "_compoundRefKey": null,
-        "refKey": null,
         "renderAtomType": {
           "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
           "name": "AntDesignTypographyParagraph"
@@ -3553,11 +3411,8 @@
         "childMapperPropKey": null,
         "childMapperComponent": null,
         "renderIfExpression": null,
-        "propTransformationJs": null,
         "preRenderAction": null,
         "postRenderAction": null,
-        "_compoundRefKey": null,
-        "refKey": null,
         "renderAtomType": {
           "id": "0ba04937-91e3-4d3a-bfc3-ee0ce268faa6",
           "name": "AntDesignButton"
@@ -3663,11 +3518,8 @@
         "childMapperPropKey": null,
         "childMapperComponent": null,
         "renderIfExpression": null,
-        "propTransformationJs": null,
         "preRenderAction": null,
         "postRenderAction": null,
-        "_compoundRefKey": null,
-        "refKey": null,
         "renderAtomType": null
       },
       "props": { "id": "444ae484-00c1-488b-9d04-c1ae11c0f499", "data": "{}" },
@@ -3759,11 +3611,8 @@
         "childMapperPropKey": null,
         "childMapperComponent": null,
         "renderIfExpression": null,
-        "propTransformationJs": null,
         "preRenderAction": null,
         "postRenderAction": null,
-        "_compoundRefKey": null,
-        "refKey": null,
         "renderAtomType": {
           "id": "12d10c47-53ac-42c1-8531-5e3fac2f1260",
           "name": "AntDesignSpin"
