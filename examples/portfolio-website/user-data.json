@@ -22,8 +22,7 @@
               "id": "5be45b77-d327-49c6-8b8f-f21944af459c",
               "name": "Supabase Script",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Supabase Script",
-              "customCss": null,
-              "guiCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -43,11 +42,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "679463cd-20a7-4d78-a82b-b20a62ecd6d6",
                 "name": "HtmlScript"
@@ -57,8 +53,7 @@
               "id": "5220576a-6c35-4aa8-be58-3b02b707ab05",
               "name": "Main",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Main",
-              "customCss": "background-color: #111010;",
-              "guiCss": "{}",
+              "style": "{\"desktop\":{\"cssString\":\"background-color: #111010;\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -78,11 +73,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612",
                 "name": "AntDesignLayout"
@@ -92,8 +84,7 @@
               "id": "9f6997ce-e41e-4307-b372-d002f51da5a3",
               "name": "Sidebar Nav",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Sidebar Nav",
-              "customCss": null,
-              "guiCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "cc2ffc1f-5956-469a-af08-3621df67530b",
@@ -116,19 +107,15 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             },
             {
               "id": "2b2d037c-844c-4f98-b4d9-3aa2480c7c2a",
               "name": "Root",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Root",
-              "customCss": "min-height: 100vh;\n\n* {\n  font-size: 16px;\n  color: #e5e5e5 !important;\n}",
-              "guiCss": "{}",
+              "style": "{\"mobile-portrait\":{\"cssString\":\"\"},\"desktop\":{\"cssString\":\"min-height: 100vh;\\n\\n* {\\n  font-size: 16px;\\n  color: #e5e5e5 !important;\\n}\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -148,11 +135,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612",
                 "name": "AntDesignLayout"
@@ -162,8 +146,7 @@
               "id": "5e96e399-2a61-49ab-8365-3a74addd6d4a",
               "name": "Left Menu",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Left Menu",
-              "customCss": "background-color: #111010 !important;\n\n@container root (max-width: 600px) {\n  display: none;\n}",
-              "guiCss": "{}",
+              "style": "{\"desktop\":{\"cssString\":\"background-color: #111010 !important;\"},\"mobile-landscape\":{\"cssString\":\"\"},\"tablet\":{\"cssString\":\"display: none\"},\"mobile-portrait\":{\"cssString\":\"\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -183,11 +166,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "1bcde2f5-3695-4d4d-908a-5bd6957743ef",
                 "name": "AntDesignLayoutSider"
@@ -197,8 +177,7 @@
               "id": "199bcf59-a390-4593-98df-c161c29de60b",
               "name": "Body",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Body",
-              "customCss": "padding: 15vh 25% 0 25%;\nbackground-color: #111010;",
-              "guiCss": "{}",
+              "style": "{\"desktop\":{\"cssString\":\"padding: 15vh 25% 0 25%;\\nbackground-color: #111010;\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -218,11 +197,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "54aa52b4-d0db-4a4c-9cb6-08bc1dae8612",
                 "name": "AntDesignLayout"
@@ -232,8 +208,7 @@
               "id": "345b5920-1df9-4dc8-9da0-4f1c8c8de99e",
               "name": "Header",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Header",
-              "customCss": "background-color: #111010;\ndisplay: none;\n\n.ant-space-item {\n  width: 100%;\n}\n\n.ant-anchor {\n  display: flex;\n  justify-content: space-around;\n  margin-top: 12px;\n}\n\n@container root (max-width: 600px) {\n  display: block;\n}",
-              "guiCss": "{}",
+              "style": "{\"desktop\":{\"cssString\":\"background-color: #111010;\\ndisplay: none;\\n\\n.ant-space-item {\\n  width: 100%;\\n}\\n.ant-anchor {\\n  display: flex;\\n  justify-content: space-around;\\n  margin-top: 12px;\\n}\"},\"tablet\":{\"cssString\":\"display: block;\"},\"mobile-portrait\":{\"cssString\":\"\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -253,11 +228,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": "",
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
                 "name": "AntDesignSpace"
@@ -267,8 +239,7 @@
               "id": "b495dad3-d4b7-4ac8-aea4-68d21c04f1bf",
               "name": "Logo",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Logo",
-              "customCss": "padding-left: 16px;\n\nstrong {\n  font-size: 2rem;\n}",
-              "guiCss": null,
+              "style": "{\"desktop\":{\"cssString\":\"padding-left: 16px;\\n\\nstrong {\\n  font-size: 2rem;\\n}\"}}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -288,11 +259,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "name": "AntDesignTypographyParagraph"
@@ -302,8 +270,7 @@
               "id": "003c574e-6ff1-4b3f-a635-6e1e9e6870a4",
               "name": "Header Nav",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Header Nav",
-              "customCss": null,
-              "guiCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "cc2ffc1f-5956-469a-af08-3621df67530b",
@@ -326,19 +293,15 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             },
             {
               "id": "d6d9b4dd-f563-4b17-a6f7-5ad112d7c76e",
               "name": "Body2",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Body2",
-              "customCss": null,
-              "guiCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": null,
@@ -355,19 +318,15 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             },
             {
               "id": "112e8b92-fb22-4b20-a4f6-d92cfd76790d",
               "name": "Blog",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Blog",
-              "customCss": null,
-              "guiCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -387,11 +346,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "ae02dc9a-6849-4df0-9d45-823fb3a5d064",
                 "name": "NextLink"
@@ -400,9 +356,8 @@
             {
               "id": "bf6abfe6-6700-41b7-b208-aa59a442c709",
               "name": "Navigation",
-              "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Navigation",
-              "customCss": "p {\n  margin-left: 12px;\n  margin-bottom: 8px;\n  font-size: 16px;\n  color: #e5e5e5 !important;\n}",
-              "guiCss": null,
+              "_compoundName": "cc2ffc1f-5956-469a-af08-3621df67530b-Navigation",
+              "style": "{\"desktop\":{\"cssString\":\"p {\\n  margin-left: 12px;\\n  margin-bottom: 8px;\\n  font-size: 16px;\\n  color: #e5e5e5 !important;\\n}\"}}",
               "parentComponent": {
                 "id": "cc2ffc1f-5956-469a-af08-3621df67530b",
                 "name": "Navigation"
@@ -425,11 +380,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "1fba53cd-e7a0-4a94-abd7-d92f5de5a9b6",
                 "name": "AntDesignAnchor"
@@ -439,8 +391,7 @@
               "id": "fa5402fd-1e88-411e-baa6-2c435b94eede",
               "name": "Home",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Home",
-              "customCss": null,
-              "guiCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -460,11 +411,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "ae02dc9a-6849-4df0-9d45-823fb3a5d064",
                 "name": "NextLink"
@@ -474,8 +422,7 @@
               "id": "c5b65bf0-faca-4af1-9405-9bdbabaebf11",
               "name": "Guestbook",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-Guestbook",
-              "customCss": null,
-              "guiCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -495,11 +442,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "ae02dc9a-6849-4df0-9d45-823fb3a5d064",
                 "name": "NextLink"
@@ -509,8 +453,7 @@
               "id": "78ca3cab-6ab4-4078-850b-067ddd171bda",
               "name": "About",
               "_compoundName": "3572c095-5028-4b92-b025-505848a3f51b-About",
-              "customCss": null,
-              "guiCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -530,11 +473,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "ae02dc9a-6849-4df0-9d45-823fb3a5d064",
                 "name": "NextLink"
@@ -546,7 +486,7 @@
           "name": "_app",
           "rootElement": {
             "id": "d6d9b4dd-f563-4b17-a6f7-5ad112d7c76e",
-            "name": "Body"
+            "name": "Body2"
           },
           "store": {
             "id": "08dc07c7-9f3e-4e8b-8cbc-60c76a7a29f2",
@@ -667,7 +607,7 @@
                 "id": "1a80043e-6e72-4246-8a25-bf643e99b0fd",
                 "name": "loadDataFromSupabase",
                 "type": "CodeAction",
-                "code": "async function run() {\n  function formatDate(dateString) {\n    const date = new Date(dateString);\n    const monthNames = [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"];\n    const monthName = monthNames[date.getMonth()];\n    const day = date.getDate();\n    const year = date.getFullYear();\n\n    const currentDate = new Date();\n    const timeDifference = currentDate - date;\n    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));\n    const monthsDifference = Math.floor(daysDifference / 30);\n    const timeAgo = daysDifference > 30 ? `${monthsDifference}mo ago` : `${daysDifference}d ago`;\n\n    return `${monthName} ${day}, ${year} (${timeAgo})`;\n  }\n\n  if (!window.supabase) return;\n\n  if (!window.supabaseClient) {\n    const { createClient } = window.supabase;\n    const projectUrl = 'https://cicrfdknwobgyihmmvbe.supabase.co';\n    const projectPublickKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpY3JmZGtud29iZ3lpaG1tdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY1MzgwOTcsImV4cCI6MTk5MjExNDA5N30.DAU_bDvSXg_ya4V-6wk3B2VC5KtpsK4-sdRmHUkmkGo';\n    const supabaseClient = createClient(projectUrl, projectPublickKey);\n\n    window.supabaseClient = supabaseClient;\n  }\n  \n  if (!state.messages.length || !state.posts.length) {\n    const { data, error } = await window.supabaseClient.auth.getSession(); \n    const oAuthToken = data.session?.provider_token;\n    const messages = await window.supabaseClient.from('message').select();\n    const posts = await window.supabaseClient.from('posts').select();\n    const user = await window.supabaseClient.auth.getUser();\n    \n    state.user = user.data?.user?.user_metadata?.full_name;\n    state.token = oAuthToken;\n    state.messages = messages.data.reverse();\n    state.posts = posts.data.reverse().map(post => ({\n      ...post,\n      created_at: formatDate(post.created_at)\n    }));\n  }\n\n  if (!state.post) {\n    debugger\n    state.post = state.posts.find(post => post.id == url.postId);\n  }\n}"
+                "code": "async function run() {\n  function formatDate(dateString) {\n    const date = new Date(dateString);\n    const monthNames = [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"];\n    const monthName = monthNames[date.getMonth()];\n    const day = date.getDate();\n    const year = date.getFullYear();\n\n    const currentDate = new Date();\n    const timeDifference = currentDate - date;\n    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));\n    const monthsDifference = Math.floor(daysDifference / 30);\n    const timeAgo = daysDifference > 30 ? `${monthsDifference}mo ago` : `${daysDifference}d ago`;\n\n    return `${monthName} ${day}, ${year} (${timeAgo})`;\n  }\n\n  if (!window.supabase) return;\n\n  if (!window.supabaseClient) {\n    const { createClient } = window.supabase;\n    const projectUrl = 'https://cicrfdknwobgyihmmvbe.supabase.co';\n    const projectPublickKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpY3JmZGtud29iZ3lpaG1tdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzY1MzgwOTcsImV4cCI6MTk5MjExNDA5N30.DAU_bDvSXg_ya4V-6wk3B2VC5KtpsK4-sdRmHUkmkGo';\n    const supabaseClient = createClient(projectUrl, projectPublickKey);\n\n    window.supabaseClient = supabaseClient;\n  }\n  \n  if (!state.messages.length || !state.posts.length) {\n    const { data, error } = await window.supabaseClient.auth.getSession(); \n    const oAuthToken = data.session?.provider_token;\n    const messages = await window.supabaseClient.from('message').select();\n    const posts = await window.supabaseClient.from('posts').select();\n    const user = await window.supabaseClient.auth.getUser();\n    \n    state.user = user.data?.user?.user_metadata?.full_name;\n    state.token = oAuthToken;\n    state.messages = messages.data?.reverse();\n    state.posts = posts.data?.reverse().map(post => ({\n      ...post,\n      created_at: formatDate(post.created_at)\n    }));\n  }\n\n  if (!state.post) {\n    debugger\n    state.post = state.posts?.find(post => post.id == url.postId);\n  }\n}"
               },
               {
                 "__typename": "CodeAction",
@@ -711,8 +651,7 @@
               "id": "d89d88dc-34ff-4067-b370-65bc51252300",
               "name": "Body",
               "_compoundName": "947be0c9-bd08-4eeb-8a35-6af5000e4f18-Body",
-              "customCss": null,
-              "guiCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": null,
@@ -729,11 +668,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             }
           ],
@@ -764,8 +700,7 @@
               "id": "2e04cfb6-842b-420f-85bf-e4fb4d6f0c5a",
               "name": "Body",
               "_compoundName": "5c83ec4b-725f-402b-8139-8c943c40843c-Body",
-              "customCss": null,
-              "guiCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": null,
@@ -782,11 +717,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             }
           ],
@@ -818,7 +750,6 @@
               "name": "Page Title",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Page Title",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "fd462921-8775-45cc-911e-8763ba7f756b",
@@ -853,7 +784,6 @@
               "name": "Summary 1",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Summary 1",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -888,7 +818,6 @@
               "name": "Youtube Button Link",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Youtube Button Link",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "4133b79e-28a9-40e3-874e-4d628cc5032f",
@@ -923,7 +852,6 @@
               "name": "Buttons Container",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Buttons Container",
               "customCss": "margin-top: 1rem;\nmargin-bottom: 1rem;\n\n.ant-space-item {\n  width: 100%;\n}",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -943,11 +871,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "94785b15-1bfa-468c-ad8a-3063e0ca4891",
                 "name": "AntDesignSpace"
@@ -957,8 +882,7 @@
               "id": "478fd57b-05fd-45d5-aac8-fa046e49790a",
               "name": "Summary 2",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Summary 2",
-              "customCss": null,
-              "guiCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -978,11 +902,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "name": "AntDesignTypographyParagraph"
@@ -992,8 +913,7 @@
               "id": "8936cf25-c933-46f7-849f-bf30bde9405c",
               "name": "Summary 4",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Summary 4",
-              "customCss": null,
-              "guiCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1013,11 +933,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "name": "AntDesignTypographyParagraph"
@@ -1027,8 +944,7 @@
               "id": "e6b1588c-91aa-4ed6-b084-54d103252d45",
               "name": "Github Button Link",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Github Button Link",
-              "customCss": null,
-              "guiCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "4133b79e-28a9-40e3-874e-4d628cc5032f",
@@ -1051,19 +967,15 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             },
             {
               "id": "be7337c5-0dfe-421a-aec9-00e79aa988b8",
               "name": "Twitter Button Link",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Twitter Button Link",
-              "customCss": null,
-              "guiCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "4133b79e-28a9-40e3-874e-4d628cc5032f",
@@ -1086,19 +998,15 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             },
             {
               "id": "96088cc0-b6f2-4a74-89e2-44827846985d",
               "name": "Summary 3",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Summary 3",
-              "customCss": null,
-              "guiCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1118,11 +1026,8 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": {
                 "id": "fab34090-cc4d-49d9-a1ff-fc6a72781cc9",
                 "name": "AntDesignTypographyParagraph"
@@ -1132,8 +1037,7 @@
               "id": "b1ba1591-c439-4249-9228-952cede73674",
               "name": "Body",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Body",
-              "customCss": null,
-              "guiCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": null,
@@ -1150,19 +1054,15 @@
               "childMapperPropKey": null,
               "childMapperComponent": null,
               "renderIfExpression": null,
-              "propTransformationJs": null,
               "preRenderAction": null,
               "postRenderAction": null,
-              "_compoundRefKey": null,
-              "refKey": null,
               "renderAtomType": null
             },
             {
               "id": "bbd53f02-6966-4d64-8b63-a63ffc494f5d",
               "name": "Summary 5",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Summary 5",
-              "customCss": null,
-              "guiCss": null,
+              "style": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1197,7 +1097,6 @@
               "name": "Separator",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Separator",
               "customCss": "width: 100%;\nborder-top-width: 1px;\nborder-color: #404040;\nmargin-top: 1em;\nmargin-bottom: 2em;",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1232,7 +1131,6 @@
               "name": "Page Title2",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Page Title2",
               "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
-              "guiCss": "{}",
               "parentComponent": {
                 "id": "fd462921-8775-45cc-911e-8763ba7f756b",
                 "name": "Page Title"
@@ -1270,7 +1168,6 @@
               "name": "Social Button Link",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Social Button Link",
               "customCss": "height: 48px;\nwidth: 100%;\nbackground-color: transparent;\nalign-items: center;\ndisplay: flex;\njustify-content: center;",
-              "guiCss": null,
               "parentComponent": {
                 "id": "4133b79e-28a9-40e3-874e-4d628cc5032f",
                 "name": "Social Button Link"
@@ -1308,7 +1205,6 @@
               "name": "Ant Design Icon",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Ant Design Icon",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1343,7 +1239,6 @@
               "name": "Ant Design Typography Text",
               "_compoundName": "9c964ca7-3688-4b0c-9958-8277f176fb83-Ant Design Typography Text",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1402,7 +1297,6 @@
               "name": "Body",
               "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Body",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": null,
@@ -1434,7 +1328,6 @@
               "name": "Page Title",
               "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Page Title",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "fd462921-8775-45cc-911e-8763ba7f756b",
@@ -1469,7 +1362,6 @@
               "name": "Posts Container",
               "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Posts Container",
               "customCss": "margin-top: .1rem;",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1507,7 +1399,6 @@
               "name": "Posts Spinner",
               "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Posts Spinner",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
@@ -1542,7 +1433,6 @@
               "name": "Blog Post",
               "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Blog Post",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": {
                 "id": "89e5750c-c3a5-4dc1-970f-21accc0a6ec0",
                 "name": "Blog Post"
@@ -1580,7 +1470,6 @@
               "name": "Title",
               "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Title",
               "customCss": "margin-bottom: .1em !important;\n\np {\n  color: #f5f5f5 !important;\n}",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1615,7 +1504,6 @@
               "name": "Date Created",
               "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Date Created",
               "customCss": "p {\n  color: #a3a3a3 !important;\n  font-size: 14px;\n}",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1650,7 +1538,6 @@
               "name": "Page Title2",
               "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Page Title2",
               "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
-              "guiCss": "{}",
               "parentComponent": {
                 "id": "fd462921-8775-45cc-911e-8763ba7f756b",
                 "name": "Page Title"
@@ -1688,7 +1575,6 @@
               "name": "Spin",
               "_compoundName": "f3a4d506-6737-4857-a55f-5b03e72d49b0-Spin",
               "customCss": "margin-top: 2rem;\n\n.ant-spin-dot-item {\n  background-color: gray;\n}",
-              "guiCss": null,
               "parentComponent": {
                 "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
                 "name": "Spin"
@@ -1750,7 +1636,6 @@
               "name": "Create Date",
               "_compoundName": "14e09a14-62c3-4a5f-bec3-9b43747bb21d-Create Date",
               "customCss": "margin-top: -1rem;\n\np {\n  color: #a3a3a3 !important;\n}",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1785,7 +1670,6 @@
               "name": "Body",
               "_compoundName": "14e09a14-62c3-4a5f-bec3-9b43747bb21d-Body",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": null,
@@ -1817,7 +1701,6 @@
               "name": "Post Title",
               "_compoundName": "14e09a14-62c3-4a5f-bec3-9b43747bb21d-Post Title",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "fd462921-8775-45cc-911e-8763ba7f756b",
@@ -1852,7 +1735,6 @@
               "name": "Blog Content",
               "_compoundName": "14e09a14-62c3-4a5f-bec3-9b43747bb21d-Blog Content",
               "customCss": "margin-top: 1rem;",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -1887,7 +1769,6 @@
               "name": "Spinner",
               "_compoundName": "14e09a14-62c3-4a5f-bec3-9b43747bb21d-Spinner",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
@@ -1922,7 +1803,6 @@
               "name": "Page Title",
               "_compoundName": "14e09a14-62c3-4a5f-bec3-9b43747bb21d-Page Title",
               "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
-              "guiCss": "{}",
               "parentComponent": {
                 "id": "fd462921-8775-45cc-911e-8763ba7f756b",
                 "name": "Page Title"
@@ -1960,7 +1840,6 @@
               "name": "Spin",
               "_compoundName": "14e09a14-62c3-4a5f-bec3-9b43747bb21d-Spin",
               "customCss": "margin-top: 2rem;\n\n.ant-spin-dot-item {\n  background-color: gray;\n}",
-              "guiCss": null,
               "parentComponent": {
                 "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
                 "name": "Spin"
@@ -2022,7 +1901,6 @@
               "name": "Body",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Body",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": null,
@@ -2054,7 +1932,6 @@
               "name": "Page Title",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Page Title",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "fd462921-8775-45cc-911e-8763ba7f756b",
@@ -2089,7 +1966,6 @@
               "name": "Github Sign In",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Github Sign In",
               "customCss": "height: 42px;\nbackground-color: #262626;",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2124,7 +2000,6 @@
               "name": "Github Icon",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Github Icon",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2159,7 +2034,6 @@
               "name": "Github Label",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Github Label",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2194,7 +2068,6 @@
               "name": "Message Input Container",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Message Input Container",
               "customCss": "height: 42px;\n\n.ant-space-item:first-child {\n  flex-grow: 1;\n}",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2229,7 +2102,6 @@
               "name": "Message Input",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Message Input",
               "customCss": "height: 42px;\nbackground-color: #262626;",
-              "guiCss": "{}",
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2264,7 +2136,6 @@
               "name": "Logout Button",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Logout Button",
               "customCss": "height: 42px;\nbackground-color: #262626;",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2299,7 +2170,6 @@
               "name": "Logout Label",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Logout Label",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2334,7 +2204,6 @@
               "name": "Post Message Button",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Post Message Button",
               "customCss": "height: 42px;\nbackground-color: #262626;",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2369,7 +2238,6 @@
               "name": "Post Message Button Label",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Post Message Button Label",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2404,7 +2272,6 @@
               "name": "Container",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Container",
               "customCss": "margin-top: 2rem;",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2442,7 +2309,6 @@
               "name": "Spinner",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Spinner",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
@@ -2477,7 +2343,6 @@
               "name": "Text",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Text",
               "customCss": "display: inline-block;\n\np {\n  color: #a3a3a3 !important;\n}",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2512,7 +2377,6 @@
               "name": "Message",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Message",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": {
                 "id": "f4161637-7ad0-47ec-acb3-d1705fef15c9",
                 "name": "Message"
@@ -2544,7 +2408,6 @@
               "name": "Message2",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Message2",
               "customCss": "display: inline-block;\ncolor: #ececec !important;",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2579,7 +2442,6 @@
               "name": "Page Title2",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Page Title2",
               "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
-              "guiCss": "{}",
               "parentComponent": {
                 "id": "fd462921-8775-45cc-911e-8763ba7f756b",
                 "name": "Page Title"
@@ -2617,7 +2479,6 @@
               "name": "Spin",
               "_compoundName": "7c91ae4a-82d8-466b-84bb-43cbebdd7d71-Spin",
               "customCss": "margin-top: 2rem;\n\n.ant-spin-dot-item {\n  background-color: gray;\n}",
-              "guiCss": null,
               "parentComponent": {
                 "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
                 "name": "Spin"
@@ -2679,7 +2540,6 @@
               "name": "Body",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Body",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": null,
@@ -2708,7 +2568,6 @@
               "name": "Subscribe Container",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Subscribe Container",
               "customCss": ".ant-anchor {\n  display: flex;\n}\n\n.ant-anchor-link {\n  padding: 0 24px 0 0 !important;\n}\n\na {\n  color: #a3a3a3 !important;\n}",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2743,7 +2602,6 @@
               "name": "Avatar",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Avatar",
               "customCss": "width: 100px;\nheight: 100px;\nmargin-right: 24px;",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2778,7 +2636,6 @@
               "name": "Github",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Github",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "af199668-2ed3-43df-b374-e567abc9e980",
@@ -2813,7 +2670,6 @@
               "name": "About 2",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-About 2",
               "customCss": "margin-bottom: 32px;",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2848,7 +2704,6 @@
               "name": "Page Title",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Page Title",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "fd462921-8775-45cc-911e-8763ba7f756b",
@@ -2883,7 +2738,6 @@
               "name": "Stats Container",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Stats Container",
               "customCss": "margin-top: 32px;\nmargin-bottom: 32px;",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2918,7 +2772,6 @@
               "name": "Ant Design Anchor Link",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Ant Design Anchor Link",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -2953,7 +2806,6 @@
               "name": "Blog",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Blog",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "af199668-2ed3-43df-b374-e567abc9e980",
@@ -2988,7 +2840,6 @@
               "name": "Stats Links Container",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Stats Links Container",
               "customCss": "padding: 0;\n\n.ant-anchor > span {\n  display: block;\n}",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -3023,7 +2874,6 @@
               "name": "About 1",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-About 1",
               "customCss": "margin-bottom: 32px;",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -3058,7 +2908,6 @@
               "name": "Ant Design Anchor Link Duplicate",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Ant Design Anchor Link Duplicate",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -3093,7 +2942,6 @@
               "name": "Intro",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Intro",
               "customCss": "",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -3128,7 +2976,6 @@
               "name": "Twitter",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Twitter",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": {
                 "id": "af199668-2ed3-43df-b374-e567abc9e980",
@@ -3163,7 +3010,6 @@
               "name": "Page Title2",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Page Title2",
               "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
-              "guiCss": "{}",
               "parentComponent": {
                 "id": "fd462921-8775-45cc-911e-8763ba7f756b",
                 "name": "Page Title"
@@ -3201,7 +3047,6 @@
               "name": "Social Link",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Social Link",
               "customCss": null,
-              "guiCss": null,
               "parentComponent": {
                 "id": "af199668-2ed3-43df-b374-e567abc9e980",
                 "name": "Social Link"
@@ -3233,7 +3078,6 @@
               "name": "Icon",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Icon",
               "customCss": "svg {\n  width: 24px;\n  height: 24px;\n}",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -3268,7 +3112,6 @@
               "name": "Link",
               "_compoundName": "d9816eec-441a-4a8d-965e-3d3a8c60ccd1-Link",
               "customCss": "display: inline-block;\nline-height: 20px;\n\na {\n  color: #a3a3a3 !important;\n}",
-              "guiCss": null,
               "parentComponent": null,
               "renderComponentType": null,
               "renderType": {
@@ -3333,7 +3176,6 @@
         "id": "0d693472-497b-4ba2-8713-ec04d13c338b",
         "name": "Blog Post",
         "customCss": null,
-        "guiCss": null,
         "parentComponent": {
           "id": "89e5750c-c3a5-4dc1-970f-21accc0a6ec0",
           "name": "Blog Post"
@@ -3450,7 +3292,6 @@
         "id": "d19ad430-a7a1-49fd-a126-a2e8ad4491ab",
         "name": "Message",
         "customCss": null,
-        "guiCss": null,
         "parentComponent": {
           "id": "f4161637-7ad0-47ec-acb3-d1705fef15c9",
           "name": "Message"
@@ -3544,7 +3385,6 @@
         "id": "bf6abfe6-6700-41b7-b208-aa59a442c709",
         "name": "Navigation",
         "customCss": "p {\n  margin-left: 12px;\n  margin-bottom: 8px;\n  font-size: 16px;\n  color: #e5e5e5 !important;\n}",
-        "guiCss": null,
         "parentComponent": {
           "id": "cc2ffc1f-5956-469a-af08-3621df67530b",
           "name": "Navigation"
@@ -3606,7 +3446,6 @@
         "id": "808fbaec-4683-49a2-98b5-5d9deb9f02db",
         "name": "Page Title",
         "customCss": "p {\n  font-size: 1.875rem;\n  line-height: 2.25rem;\n  font-weight: 700;\n  color: #ffffff;\n}",
-        "guiCss": "{}",
         "parentComponent": {
           "id": "fd462921-8775-45cc-911e-8763ba7f756b",
           "name": "Page Title"
@@ -3692,7 +3531,6 @@
         "id": "4eb7f514-bba7-4faf-89e1-58538f4c4737",
         "name": "Social Button Link",
         "customCss": "height: 48px;\nwidth: 100%;\nbackground-color: transparent;\nalign-items: center;\ndisplay: flex;\njustify-content: center;",
-        "guiCss": null,
         "parentComponent": {
           "id": "4133b79e-28a9-40e3-874e-4d628cc5032f",
           "name": "Social Button Link"
@@ -3809,7 +3647,6 @@
         "id": "25fabb88-c088-496f-aa18-5e21d1fee3b3",
         "name": "Social Link",
         "customCss": null,
-        "guiCss": null,
         "parentComponent": {
           "id": "af199668-2ed3-43df-b374-e567abc9e980",
           "name": "Social Link"
@@ -3900,7 +3737,6 @@
         "id": "5f2c67fc-7d5d-471a-a3fc-2c4b50322ff2",
         "name": "Spin",
         "customCss": "margin-top: 2rem;\n\n.ant-spin-dot-item {\n  background-color: gray;\n}",
-        "guiCss": null,
         "parentComponent": {
           "id": "c133e491-6120-4f50-aebb-a9af78ce4da0",
           "name": "Spin"
