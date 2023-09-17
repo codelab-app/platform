@@ -5,9 +5,9 @@ export const useUserQuery = () => {
   const { query } = useRouter()
   const userSlug = query.userSlug as string
 
-  if (!userSlug) {
-    throw new Error('Missing userSlug')
-  }
+  // if (!userSlug) {
+  //   throw new Error('Missing userSlug')
+  // }
 
   return {
     userName: getNameFromSlug(userSlug),

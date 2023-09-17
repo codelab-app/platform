@@ -87,20 +87,19 @@ const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   useEffect(() => {
     if (user) {
       const userToken = user as unknown as Auth0IdToken
-      void loadApp.execute({ id: userToken[JWT_CLAIMS].user_id })
-    }
 
-    // in development need to execute this each time page is loaded,
-    // since useUser always returns valid Auth0 user even when it does not exist in neo4j db yet
-    if (
-      user?.sub &&
-      getEnv().endpoint.isLocal &&
-      !getEnv().node.isTest &&
-      !getEnv().node.isCi
-    ) {
-      void userService.saveUser({
-        auth0Id: user.sub,
-      })
+      // in development need to execute this each time page is loaded,
+      // since useUser always returns valid Auth0 user even when it does not exist in neo4j db yet
+      if (
+        user.sub &&
+        getEnv().endpoint.isLocal &&
+        !getEnv().node.isTest &&
+        !getEnv().node.isCi
+      ) {
+        void userService.saveUser(userToken)
+      }
+
+      void loadApp.execute({ id: userToken[JWT_CLAIMS].neo4j_user_id })
     }
   }, [user, loadApp])
 

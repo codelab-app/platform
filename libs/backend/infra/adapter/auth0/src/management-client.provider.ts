@@ -11,8 +11,8 @@ export const Auth0ManagementClientProvider: FactoryProvider<ManagementClient> =
     provide: AUTH0_MANAGEMENT_CLIENT_TOKEN,
     useFactory: (config: ConfigType<typeof auth0Config>) => {
       const client = new ManagementClient({
-        clientId: config.clientId,
-        clientSecret: config.clientSecret,
+        clientId: config.m2m.clientId,
+        clientSecret: config.m2m.clientSecret,
         domain: config.audience.hostname,
       })
 

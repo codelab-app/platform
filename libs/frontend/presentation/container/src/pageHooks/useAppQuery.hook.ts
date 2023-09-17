@@ -5,9 +5,9 @@ export const useAppQuery = () => {
   const { query } = useRouter()
   const appSlug = query.appSlug as string
 
-  if (!appSlug) {
-    throw new Error('Missing appSlug')
-  }
+  // if (!appSlug) {
+  //   throw new Error('Missing appSlug')
+  // }
 
   return {
     appName: getNameFromSlug(appSlug),

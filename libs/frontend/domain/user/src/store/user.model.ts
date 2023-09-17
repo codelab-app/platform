@@ -13,7 +13,7 @@ const fromSession = (user: Auth0IdToken) => {
   return new User({
     auth0Id: user.sub,
     email: user.email,
-    id: user.sub,
+    id: user[JWT_CLAIMS].neo4j_user_id,
     roles: user[JWT_CLAIMS].roles.map((role) => IRole[role]),
     username: user.nickname,
   })
@@ -29,7 +29,6 @@ export class User
   extends Model({
     auth0Id: prop<string>(),
     email: prop<string>(),
-    // We use auth0Id as the id here
     id: idProp.withSetter(),
     roles: prop<Array<IRole>>(() => []),
     username: prop<string>(),

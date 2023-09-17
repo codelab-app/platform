@@ -1,9 +1,15 @@
 import { CurrentUser } from '@codelab/backend/application/shared'
 import { UserRepository } from '@codelab/backend/domain/user'
 import { AUTH0_MANAGEMENT_CLIENT_TOKEN } from '@codelab/backend/infra/adapter/auth0'
-import { IUserDTO } from '@codelab/shared/abstract/core'
+import {
+  Auth0IdToken,
+  IRole,
+  IUserDTO,
+  JWT_CLAIMS,
+} from '@codelab/shared/abstract/core'
 import { Controller, Inject, Post } from '@nestjs/common'
 import { ManagementClient } from 'auth0'
+import { v4 } from 'uuid'
 
 @Controller('user')
 export class UserController {
@@ -12,22 +18,46 @@ export class UserController {
     @Inject(AUTH0_MANAGEMENT_CLIENT_TOKEN) private client: ManagementClient,
   ) {}
 
+  /**
+   *
+   * @param auth0IdToken data from Auth0 session
+   * @returns
+   */
   @Post('save')
-  async save(@CurrentUser() userDto: IUserDTO) {
-    const { auth0Id } = userDto
+  async save(auth0IdToken: Auth0IdToken) {
+    const { email, nickname: username, sub: auth0Id } = auth0IdToken
+    const neo4jId = auth0IdToken[JWT_CLAIMS].neo4j_user_id
+    const id = auth0IdToken[JWT_CLAIMS].neo4j_user_id ?? v4()
+    const roles = auth0IdToken[JWT_CLAIMS].roles
 
-    const user = await this.userRepository.save(userDto, {
-      auth0Id,
-    })
+    /**
+     * Means we haven't updated app_metadata yet
+     */
 
-    await this.client.updateUser(
-      { id: auth0Id },
+    const user = await this.userRepository.save(
       {
-        app_metadata: {
-          user_id: user.id,
-        },
+        auth0Id,
+        email,
+        id,
+        roles: roles.map((role) => IRole[role]),
+        username,
+      },
+      {
+        auth0Id,
       },
     )
+
+    /**
+     * If `neo4j_user_id` already exists in `app_metadata` in Auth0, we don't need to update it
+     */
+    if (neo4jId) {
+      await this.client.updateAppMetadata(
+        { id: auth0Id },
+        {
+          neo4j_user_id: user.id,
+        },
+      )
+    }
 
     return user
   }

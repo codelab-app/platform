@@ -8,9 +8,9 @@ export const usePageQuery = () => {
   const { query } = useRouter()
   const pageSlug = query.pageSlug as string
 
-  if (!pageSlug) {
-    throw new Error('Missing pageSlug')
-  }
+  // if (!pageSlug) {
+  //   throw new Error('Missing pageSlug')
+  // }
 
   return { pageName: getNameFromSlug(pageSlug), pageSlug }
 }

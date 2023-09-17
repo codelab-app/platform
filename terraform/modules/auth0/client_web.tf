@@ -16,7 +16,6 @@ resource "auth0_client" "web_client" {
     "${var.next_public_platform_host}",
   "https://*.vercel.app"]
   grant_types                = ["authorization_code", "implicit", "password", "refresh_token"]
-  token_endpoint_auth_method = "${terraform.workspace}" == "prod" ? "client_secret_post" : "none"
 
   jwt_configuration {
     # lifetime_in_seconds = var.jwt_lifetime_in_seconds
@@ -33,4 +32,10 @@ resource "auth0_client" "web_client" {
     infinite_token_lifetime      = false
     # idle_token_lifetime          = var.idle_token_lifetime
   }
+}
+
+resource "auth0_client_credentials" "web_client_credentials" {
+  client_id = auth0_client.web_client.id
+
+  authentication_method = "${terraform.workspace}" == "prod" ? "client_secret_post" : "none"
 }

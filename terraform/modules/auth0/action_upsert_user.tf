@@ -6,7 +6,7 @@ resource "auth0_action" "upsert_user" {
     version = "v3"
   }
 
-  runtime = "node16"
+  runtime = "node18"
   code    = <<-EOT
 
 const { gql, GraphQLClient } = require('graphql-request')
@@ -33,7 +33,7 @@ exports.onExecutePostLogin = async (event, api) => {
     data: {
       grant_type: 'client_credentials',
       client_id: '${auth0_client.machine_client.id}',
-      client_secret: '${auth0_client.machine_client.client_secret}',
+      client_secret: '${data.auth0_client.machine_client.client_secret}',
       audience: new URL('api/v2/', '${var.auth0_issuer_base_url}').toString()
     }
   }

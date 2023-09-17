@@ -6,7 +6,7 @@ resource "auth0_action" "assign_jwt_claims" {
     version = "v3"
   }
 
-  runtime = "node16"
+  runtime = "node18"
   code    = <<-EOT
     /**
       * Handler that will be called during the execution of a PostLogin flow.
@@ -17,8 +17,13 @@ resource "auth0_action" "assign_jwt_claims" {
     exports.onExecutePostLogin = async (event, api) => {
       if (event.authorization) {
         const namespace = 'https://api.codelab.app/jwt/claims';
+
+        const roles = event?.authorization?.roles ?? [];
+        const appMetadata = event?.user?.app_metadata ?? {};
+
         const claims = {
-          "roles": event?.authorization?.roles ?? []
+          roles,
+          neo4j_user_id: appMetadata.neo4j_user_id
         };
 
         api.idToken.setCustomClaim(namespace, claims);

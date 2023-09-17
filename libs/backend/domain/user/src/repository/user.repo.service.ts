@@ -49,21 +49,29 @@ export class UserRepository extends AbstractRepository<
       await (
         await this.ogmService.User
       ).create({
-        input: users.map(({ apps, ...user }) => ({
-          ...user,
+        input: users.map(({ apps, auth0Id, email, id, roles, username }) => ({
+          auth0Id,
+          email,
+          id,
+          roles,
+          username,
         })),
       })
     ).users
   }
 
-  protected async _update({ apps, id, ...user }: IUserDTO, where: UserWhere) {
+  protected async _update(
+    { apps, auth0Id, email, id, roles, username }: IUserDTO,
+    where: UserWhere,
+  ) {
     return (
       await (
         await this.ogmService.User
       ).update({
         update: {
-          ...user,
-          // apps: apps.map((app) => connectNodeId(app.id)),
+          email,
+          roles,
+          username,
         },
         where,
       })
