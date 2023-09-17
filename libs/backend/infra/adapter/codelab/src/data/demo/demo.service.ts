@@ -13,8 +13,6 @@ export class DemoService {
   async execute() {
     const span = this.traceService.getSpan()
 
-    console.log(span)
-
     span?.end()
 
     for (const arr of this.arrs) {

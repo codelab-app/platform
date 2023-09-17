@@ -1,4 +1,3 @@
-import { auth0Instance } from '@codelab/shared/infra/auth0'
 import type { NextApiHandler } from 'next'
 
 export const authMiddleware: NextApiHandler = async (req, res) => {
