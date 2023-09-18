@@ -1,3 +1,4 @@
+import './editorjs.overrides.css'
 import { useStore } from '@codelab/frontend/presentation/container'
 import { getDefaultFieldProps } from '@codelab/shared/utils'
 import type { OutputData } from '@editorjs/editorjs'

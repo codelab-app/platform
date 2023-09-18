@@ -337,8 +337,9 @@ export class Renderer
           element.renderType.current.allowCustomTextInjection
 
         if (shouldInjectText) {
-          // TODO: what to do for production?
-          const readOnly = this.rendererType === RendererType.Preview
+          const readOnly =
+            this.rendererType === RendererType.Preview ||
+            this.rendererType === RendererType.Production
 
           return createTextEditor(injectedText, element.id, readOnly)
         }
