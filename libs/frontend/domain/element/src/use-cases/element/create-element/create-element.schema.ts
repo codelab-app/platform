@@ -3,7 +3,7 @@ import {
   idSchema,
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
-import { IRenderTypeKind } from '@codelab/shared/abstract/core'
+import { ElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 export const createElementSchema: JSONSchemaType<
@@ -79,7 +79,7 @@ export const createElementSchema: JSONSchemaType<
           type: 'string',
         },
         kind: {
-          enum: Object.values(IRenderTypeKind),
+          enum: Object.values(ElementRenderTypeKind),
           label: 'Render Type',
           type: 'string',
         },

@@ -17,6 +17,7 @@ const atomTypes = [
   IAtomType.AntDesignRadioGroup,
   IAtomType.AntDesignSelect,
   IAtomType.NextLink,
+  IAtomType.ReactFragment,
 ]
 
 export const createAtomsData = (): Array<IAtomDTO> =>

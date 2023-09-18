@@ -4,7 +4,7 @@ import type {
 } from '@codelab/frontend/abstract/core'
 import { SelectAtom, SelectComponent } from '@codelab/frontend/domain/type'
 import { DisplayIfField } from '@codelab/frontend/presentation/view'
-import { IRenderTypeKind } from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { GuaranteedProps } from 'uniforms'
 import { connectField } from 'uniforms'
 import { SelectField } from 'uniforms-antd'
@@ -29,18 +29,18 @@ const RenderTypeFields = ({
       options={[
         {
           label: 'Atom',
-          value: IRenderTypeKind.Atom,
+          value: IElementRenderTypeKind.Atom,
         },
         {
           label: 'Component',
-          value: IRenderTypeKind.Component,
+          value: IElementRenderTypeKind.Component,
         },
       ]}
       required={false}
     />
     <DisplayIfField<ICreateElementData>
       condition={(context) =>
-        context.model.renderType?.kind === IRenderTypeKind.Atom
+        context.model.renderType?.kind === IElementRenderTypeKind.Atom
       }
     >
       {/**
@@ -51,7 +51,7 @@ const RenderTypeFields = ({
     </DisplayIfField>
     <DisplayIfField<ICreateElementData>
       condition={(context) =>
-        context.model.renderType?.kind === IRenderTypeKind.Component
+        context.model.renderType?.kind === IElementRenderTypeKind.Component
       }
     >
       <SelectComponent error={error} label="Component" name="id" />

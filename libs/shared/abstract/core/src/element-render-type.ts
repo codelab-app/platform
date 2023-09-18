@@ -1,24 +1,24 @@
-import { RenderTypeKind } from '@codelab/shared/abstract/codegen'
+import { ElementRenderTypeKind } from '@codelab/shared/abstract/codegen'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 
 /**
  *  @deprecated We have to use the copy from codegen, otherwise they don't match up
  */
-export enum __RenderTypeKind {
+export enum __ElementRenderTypeKind {
   Atom = 'Atom',
   Component = 'Component',
 }
 
-export { RenderTypeKind as IRenderTypeKind }
+export { ElementRenderTypeKind as IElementRenderTypeKind }
 
 export const IComponentID = Type.String()
 
 export const IAtomID = Type.String()
 
-export const RenderType = Type.Object({
+export const ElementRenderType = Type.Object({
   id: Type.Union([IAtomID, IComponentID]),
-  kind: Type.Enum(RenderTypeKind),
+  kind: Type.Enum(ElementRenderTypeKind),
 })
 
-export type RenderType = Static<typeof RenderType>
+export type ElementRenderType = Static<typeof ElementRenderType>

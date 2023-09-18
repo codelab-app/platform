@@ -5,7 +5,7 @@ import {
   titleCaseValidation,
 } from '@codelab/frontend/presentation/view'
 import { ElementTypeKind } from '@codelab/shared/abstract/codegen'
-import { IRenderTypeKind } from '@codelab/shared/abstract/core'
+import { ElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { JSONSchemaType } from 'ajv'
 
 export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
@@ -78,7 +78,7 @@ export const updateElementSchema: JSONSchemaType<IUpdateBaseElementData> = {
           type: 'string',
         },
         kind: {
-          enum: Object.values(IRenderTypeKind),
+          enum: Object.values(ElementRenderTypeKind),
           label: 'Render Type',
           type: 'string',
         },

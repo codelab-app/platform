@@ -24,7 +24,7 @@ export type ElementFragment = {
   page?: { id: string } | null
   renderComponentType?: { id: string } | null
   renderAtomType?: AtomFragment | null
-  renderType?: { id: string; kind: Types.RenderTypeKind } | null
+  renderType?: { id: string; kind: Types.ElementRenderTypeKind } | null
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
   parentComponent?: { id: string } | null
@@ -54,7 +54,7 @@ export type ProductionElementFragment = {
   page?: { id: string } | null
   renderComponentType?: { id: string } | null
   renderAtomType?: ProductionAtomFragment | null
-  renderType?: { id: string; kind: Types.RenderTypeKind } | null
+  renderType?: { id: string; kind: Types.ElementRenderTypeKind } | null
   prevSibling?: { id: string } | null
   nextSibling?: { id: string } | null
   parentComponent?: { id: string } | null

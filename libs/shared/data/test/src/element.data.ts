@@ -3,6 +3,7 @@ import type {
   ICreateElementDTO,
   IElementDTO,
   IPropDTO,
+  ElementRenderType,
 } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { v4 } from 'uuid'
@@ -17,11 +18,13 @@ export const providerElementPropsData: IPropDTO = {
 
 export const providerElementData = (
   closestContainerNode: IEntity,
+  renderType: RenderType,
 ): IElementDTO => ({
   closestContainerNode,
   id: v4(),
   name: ROOT_ELEMENT_NAME,
   props: providerElementPropsData,
+  renderType,
 })
 
 /**
@@ -34,11 +37,13 @@ export const notFoundElementPropsData: IPropDTO = {
 
 export const notFoundElementData = (
   closestContainerNode: IEntity,
+  renderType: RenderType,
 ): IElementDTO => ({
   closestContainerNode,
   id: v4(),
   name: ROOT_ELEMENT_NAME,
   props: notFoundElementPropsData,
+  renderType,
 })
 
 /**
@@ -51,9 +56,11 @@ export const internalServerErrorPropsData: IPropDTO = {
 
 export const internalServerErrorElementData = (
   closestContainerNode: IEntity,
+  renderType: RenderType,
 ): IElementDTO => ({
   closestContainerNode,
   id: v4(),
   name: ROOT_ELEMENT_NAME,
   props: internalServerErrorPropsData,
+  renderType,
 })

@@ -16,7 +16,6 @@ import {
   type ICreateElementDTO,
   type IElementDTO,
 } from '@codelab/shared/abstract/core'
-import { IRenderTypeKind } from '@codelab/shared/abstract/core'
 import {
   connectNodeId,
   ElementProperties,
@@ -73,7 +72,7 @@ export class ElementRepository extends AbstractRepository<
             id,
             name,
             nextSibling,
-            parent,
+            parentElement,
             postRenderAction,
             preRenderAction,
             prevSibling,
@@ -90,19 +89,11 @@ export class ElementRepository extends AbstractRepository<
             firstChild: connectNodeId(firstChild?.id),
             id,
             nextSibling: connectNodeId(nextSibling?.id),
-            parent: connectNodeId(parent?.id),
+            parent: connectNodeId(parentElement?.id),
             postRenderAction: connectNodeId(postRenderAction?.id),
             preRenderAction: connectNodeId(preRenderAction?.id),
             prevSibling: connectNodeId(prevSibling?.id),
             props: connectNodeId(props.id),
-            renderAtomType:
-              renderType?.kind === IRenderTypeKind.Atom
-                ? connectNodeId(renderType.id)
-                : undefined,
-            renderComponentType:
-              renderType?.kind === IRenderTypeKind.Component
-                ? connectNodeId(renderType.id)
-                : undefined,
             renderForEachPropKey,
             renderIfExpression,
             style,

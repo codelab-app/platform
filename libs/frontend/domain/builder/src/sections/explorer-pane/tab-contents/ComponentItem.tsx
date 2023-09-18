@@ -8,7 +8,7 @@ import {
   isComponentModel,
   isComponentPageNode,
 } from '@codelab/frontend/abstract/core'
-import { IRenderTypeKind } from '@codelab/shared/abstract/core'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { compoundCaseToTitleCase } from '@codelab/shared/utils'
 import { Button, Card } from 'antd'
 import Tooltip from 'antd/lib/tooltip'
@@ -39,8 +39,8 @@ export const DraggableComponentItem = ({
       renderType: {
         id: component.id,
         kind: isComponentPageNode(component as IComponentModel)
-          ? IRenderTypeKind.Component
-          : IRenderTypeKind.Atom,
+          ? IElementRenderTypeKind.Component
+          : IElementRenderTypeKind.Atom,
       },
     }
   }, [component])

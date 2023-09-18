@@ -1,21 +1,16 @@
 import { gql } from '@apollo/client'
-import { __RenderTypeKind } from '@codelab/shared/abstract/core'
+import { __ElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { getClosestContainerNodeCypher } from '../../cypher'
 
 const renderTypeKindSchema = `enum RenderTypeKind {
-  ${Object.values(__RenderTypeKind).join('\n')}
+  ${Object.values(__ElementRenderTypeKind).join('\n')}
 }`
 
 export const elementSchema = gql`
   ${renderTypeKindSchema}
 
-  # Create this to match frontend
-  type RenderType
-    @query(read: false, aggregate: false)
-    @mutation(operations: []) {
-    id: ID!
-    kind: RenderTypeKind!
-  }
+  union ElementRenderType = Atom | Component
+  union ContainerNode = Page | Component
 
   type Element {
     id: ID! @unique
@@ -50,14 +45,13 @@ export const elementSchema = gql`
     postRenderAction: BaseAction
       @relationship(type: "POST_RENDER_ELEMENT_ACTION", direction: OUT)
 
-    # Type of element to render, could be either a component or atom
-    renderType: RenderType
-    renderComponentType: Component
-      @relationship(type: "RENDER_COMPONENT_TYPE", direction: OUT)
-
-    renderAtomType: Atom @relationship(type: "RENDER_ATOM_TYPE", direction: OUT)
+    renderType: ElementRenderType!
+    # renderComponentType: Component
+    #   @relationship(type: "RENDER_COMPONENT_TYPE", direction: OUT)
+    # renderAtomType: Atom @relationship(type: "RENDER_ATOM_TYPE", direction: OUT)
 
     # This is a custom field resolver
     descendantElements: [Element!]!
+    closestContainerNode: ContainerNode!
   }
 `

@@ -24,10 +24,13 @@ import { getFieldService, getTypeService } from '@codelab/frontend/domain/type'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import {
   RenderedComponentFragment,
-  RenderTypeKind,
+  ElementRenderTypeKind,
 } from '@codelab/shared/abstract/codegen'
-import type { IElementDTO, RenderType } from '@codelab/shared/abstract/core'
-import { IRenderTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import type {
+  IElementDTO,
+  ElementRenderType,
+} from '@codelab/shared/abstract/core'
+import { ElementRenderTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { mapDeep } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
@@ -177,7 +180,7 @@ export class ElementService
     let renderTypeApi: Ref<IInterfaceType>
 
     switch (renderType.kind) {
-      case IRenderTypeKind.Atom: {
+      case ElementRenderTypeKind.Atom: {
         const atomRenderTypeRef = throwIfUndefined(
           await this.atomService.getOne(renderType.id),
         )
@@ -186,7 +189,7 @@ export class ElementService
         break
       }
 
-      case IRenderTypeKind.Component: {
+      case ElementRenderTypeKind.Component: {
         const componentRenderTypeRef = throwIfUndefined(
           await this.componentService.getOne(renderType.id),
         )
@@ -213,18 +216,13 @@ export class ElementService
     )
 
     const elementProps = this.propService.add({
-      data: data.props?.data ?? makeDefaultProps(renderTypeApi?.current),
+      data: data.props.data ?? makeDefaultProps(renderTypeApi?.current),
       id: v4(),
     })
 
     const element = this.add({
       ...data,
-      closestContainerNode: {
-        id: data.parentElement.id,
-      },
       // initial link to resolve closestContainerNode
-      parent: data.parentElement,
-      prevSibling: data.prevSibling,
       props: elementProps,
     })
 
@@ -653,7 +651,7 @@ export class ElementService
 
     const renderType: RenderType = {
       id: component.id,
-      kind: IRenderTypeKind.Component,
+      kind: ElementRenderTypeKind.Component,
     }
 
     const parentElement = { id: targetElement.id }
@@ -768,8 +766,8 @@ export class ElementService
         ? {
             id: element.renderType.id,
             kind: isComponentInstance(element.renderType)
-              ? RenderTypeKind.Component
-              : RenderTypeKind.Atom,
+              ? ElementRenderTypeKind.Component
+              : ElementRenderTypeKind.Atom,
           }
         : null,
       style: element.style,
@@ -971,7 +969,10 @@ export class ElementService
 
     // 5. create a new element as an instance of the component
     const componentId = createdComponent.id
-    const renderType = { id: componentId, kind: IRenderTypeKind.Component }
+    const renderType = {
+      id: componentId,
+      kind: ElementRenderTypeKind.Component,
+    }
     const instanceElement = { id: v4(), name, parentElement, renderType }
 
     const createdElement = yield* _await(

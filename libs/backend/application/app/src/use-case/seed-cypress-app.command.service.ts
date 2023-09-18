@@ -1,15 +1,24 @@
+import type { Atom as IAtom } from '@codelab/backend/abstract/codegen'
+import { SeedCypressAtomsCommand } from '@codelab/backend/application/atom'
 import { AuthService } from '@codelab/backend/application/shared'
 import { App, AppRepository } from '@codelab/backend/domain/app'
+import { AtomRepository } from '@codelab/backend/domain/atom'
 import { Element, ElementRepository } from '@codelab/backend/domain/element'
 import { Page, PageRepository } from '@codelab/backend/domain/page'
 import { Prop, PropRepository } from '@codelab/backend/domain/prop'
 import { Store, StoreRepository } from '@codelab/backend/domain/store'
 import type { InterfaceType } from '@codelab/backend/domain/type'
 import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
+import { ElementRenderTypeKind } from '@codelab/shared/abstract/codegen'
 import type { IApp } from '@codelab/shared/abstract/core'
-import { IPageKindName, JWT_CLAIMS } from '@codelab/shared/abstract/core'
+import {
+  IAtomType,
+  IPageKindName,
+  JWT_CLAIMS,
+} from '@codelab/shared/abstract/core'
 import {
   appData,
+  createAtomsData,
   internalServerErrorElementData,
   internalServerErrorPageData,
   internalServerErrorPropsData,
@@ -20,7 +29,7 @@ import {
   providerElementPropsData,
   providerPageData,
 } from '@codelab/shared/data/test'
-import { CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
+import { CommandBus, CommandHandler, type ICommandHandler } from '@nestjs/cqrs'
 import { v4 } from 'uuid'
 
 export class SeedCypressAppCommand {}
@@ -37,6 +46,8 @@ export class SeedCypressAppHandler
     private readonly pageRepository: PageRepository,
     private readonly propRepository: PropRepository,
     private readonly elementRepository: ElementRepository,
+    private readonly atomRepository: AtomRepository,
+    private commandBus: CommandBus,
     private readonly storeRepository: StoreRepository,
     private readonly interfaceTypeRepository: InterfaceTypeRepository,
     private authService: AuthService,
@@ -64,19 +75,54 @@ export class SeedCypressAppHandler
     const internalServerPageId = v4()
 
     /**
+     * Create atoms for renderType
+     */
+    const atoms = await this.commandBus.execute<
+      SeedCypressAtomsCommand,
+      Array<IAtom>
+    >(new SeedCypressAtomsCommand())
+
+    const atomReactFragment = atoms.find(
+      (atom) => atom.type === IAtomType.ReactFragment,
+    )
+
+    if (!atomReactFragment) {
+      throw new Error('Missing react fragment')
+    }
+
+    /**
      * Create elements
      */
-
     const providerElement = new Element(
-      providerElementData({ id: providerPageId }),
+      providerElementData(
+        {
+          id: providerPageId,
+        },
+        {
+          id: atomReactFragment.id,
+          kind: ElementRenderTypeKind.Atom,
+        },
+      ),
     )
 
     const notFoundElement = new Element(
-      notFoundElementData({ id: notFoundPageId }),
+      notFoundElementData(
+        { id: notFoundPageId },
+        {
+          id: atomReactFragment.id,
+          kind: ElementRenderTypeKind.Atom,
+        },
+      ),
     )
 
     const internalServerErrorElement = new Element(
-      internalServerErrorElementData({ id: internalServerPageId }),
+      internalServerErrorElementData(
+        { id: internalServerPageId },
+        {
+          id: atomReactFragment.id,
+          kind: ElementRenderTypeKind.Atom,
+        },
+      ),
     )
 
     await this.elementRepository.add([

@@ -81,7 +81,8 @@ export interface IElementModel
       IModel<ElementCreateInput, ElementUpdateInput, void>,
       'toDeleteInput'
     >,
-    ICacheService<IElementDTO, IElementModel> {
+    ICacheService<IElementDTO, IElementModel>,
+    Pick<IElementDTO, 'name'> {
   ancestorError: Nullish<RenderingError>
   atomName: string
   childMapperComponent?: Nullable<Ref<IComponentModel>>
@@ -104,7 +105,6 @@ export interface IElementModel
   id: string
   isRoot: boolean
   label: string
-  name: string
   nextSibling?: Nullable<Ref<IElementModel>>
   owner: Nullable<IEntity>
   // page that this element belongs to

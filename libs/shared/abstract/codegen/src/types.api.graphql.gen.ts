@@ -16143,10 +16143,10 @@ export type RenderPropTypesConnection = {
 export type RenderType = {
   __typename?: 'RenderType'
   id: Scalars['ID']['output']
-  kind: RenderTypeKind
+  kind: ElementRenderTypeKind
 }
 
-export enum RenderTypeKind {
+export enum ElementRenderTypeKind {
   Atom = 'Atom',
   Component = 'Component',
 }
@@ -20865,7 +20865,7 @@ export type ElementFragment = {
   renderType?: {
     __typename?: 'RenderType'
     id: string
-    kind: RenderTypeKind
+    kind: ElementRenderTypeKind
   } | null
   prevSibling?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null
@@ -20903,7 +20903,7 @@ export type ProductionElementFragment = {
   renderType?: {
     __typename?: 'RenderType'
     id: string
-    kind: RenderTypeKind
+    kind: ElementRenderTypeKind
   } | null
   prevSibling?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null

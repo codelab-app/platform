@@ -1,7 +1,7 @@
 import {
   IElementDTO,
-  type IPropDTO,
-  type RenderType,
+  IPropDTO,
+  type ElementRenderType,
 } from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
@@ -17,9 +17,10 @@ export const ICreateElementData = Type.Composite([
     'prevSibling',
     'renderType',
     'style',
+    'closestContainerNode',
   ]),
   Type.Object({
-    props: Type.Optional(Type.String()),
+    props: Type.Pick(IPropDTO, ['data']),
   }),
 ])
 
