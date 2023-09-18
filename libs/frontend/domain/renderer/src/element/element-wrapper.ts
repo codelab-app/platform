@@ -12,6 +12,7 @@ import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { getRunner } from '../action-runner.model'
 import { useSelectionHandlers } from '../utils'
+import { useBuilderDragDropHandlers } from '../utils'
 import { renderComponentWithStyles } from './get-styled-components'
 import { extractValidProps, getReactComponent } from './wrapper.utils'
 
@@ -50,7 +51,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       }
     }, [])
 
-    const { atomService, builderService } = useStore()
+    const { atomService, builderService, elementService } = useStore()
     // Render the element to an intermediate output
     const renderOutput = renderer.renderIntermediateElement(element)
 
@@ -83,8 +84,20 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       renderer.rendererType,
     )
 
+    const dragDropHandlers = useBuilderDragDropHandlers(
+      builderService,
+      elementService,
+      element,
+      renderer.rendererType,
+    )
+
     // leave ElementWrapper pass-through so refs are attached to correct element
-    const mergedProps = mergeProps(extractedProps, rest, selectionHandlers)
+    const mergedProps = mergeProps(
+      extractedProps,
+      rest,
+      selectionHandlers,
+      dragDropHandlers,
+    )
 
     const renderedElement = renderComponentWithStyles(
       ReactComponent,

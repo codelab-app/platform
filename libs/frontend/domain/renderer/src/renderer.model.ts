@@ -52,7 +52,7 @@ import {
   renderPipeFactory,
 } from './renderPipes/render-pipe.factory'
 import { typedPropTransformersFactory } from './typedPropTransformers'
-import { shouldRenderElement } from './utils'
+import { shouldInjectText, shouldRenderElement } from './utils'
 
 /**
  * Handles the logic of rendering treeElements. Takes in an optional appTree
@@ -175,6 +175,7 @@ export class Renderer
 
         if (shouldInjectText) {
           const readOnly =
+           !element.isTextContentEditable ||
             this.rendererType === RendererType.Preview ||
             this.rendererType === RendererType.Production
 

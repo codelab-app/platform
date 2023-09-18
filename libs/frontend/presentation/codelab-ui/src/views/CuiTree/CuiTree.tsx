@@ -1,3 +1,4 @@
+import { createTransparentDragImage } from '@codelab/frontend/shared/utils'
 import { Tree } from 'antd'
 import type { DirectoryTreeProps, EventDataNode } from 'antd/es/tree'
 import classNames from 'classnames'
@@ -151,6 +152,10 @@ export const CuiTree = observer(
                   : false
               }
               expandedKeys={cuiTreeStore.expandedKeys}
+              onDragStart={(info) => {
+                const transparentDragImage = createTransparentDragImage()
+                info.event.dataTransfer.setDragImage(transparentDragImage, 5, 5)
+              }}
               onExpand={handleExpand}
               onMouseEnter={(info) => {
                 const target = info.event.target as Element

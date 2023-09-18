@@ -60,6 +60,10 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
           'inlineCode',
         ],
         onChange: async (api) => {
+          if (api.readOnly.isEnabled) {
+            return
+          }
+
           const outputData = await api.saver.save()
           await onChange(outputData)
         },
@@ -77,7 +81,35 @@ const TextEditor = ({ data, elementId, readOnly }: Props) => {
     }
   }, [editor])
 
+  useEffect(() => {
+    const toggleReadonly = async () => {
+      if (editor) {
+        await editor.readOnly.toggle(readOnly)
+        selectAllTextInTheElement(elementId)
+      }
+    }
+
+    void toggleReadonly()
+  }, [readOnly])
+
   return <div id={holder} />
 }
 
 export default memo(TextEditor)
+
+const selectAllTextInTheElement = (elementId: string) => {
+  const editableElement = document.querySelector(
+    `[data-element-id="${elementId}"] [contenteditable="true"]`,
+  )
+
+  if (!editableElement) {
+    return
+  }
+
+  const range = document.createRange()
+  range.selectNodeContents(editableElement)
+
+  const selection = window.getSelection()
+  selection?.removeAllRanges()
+  selection?.addRange(range)
+}

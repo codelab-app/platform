@@ -14,6 +14,14 @@ import type {
 export type IBuilderComponent = IAtomModel & {
   // tag: Ref<ITag>
 }
+
+export type IDropPosition = 'bottom' | 'inside' | 'left' | 'right' | 'top'
+
+export interface IDragDropData {
+  dropPosition: IDropPosition
+  node: Nullable<IPageNodeRef>
+}
+
 export interface IBuilderService {
   /**
    * Computed from selectedNode, the selected node may or may not be a component, and there may be no selected node
@@ -28,6 +36,7 @@ export interface IBuilderService {
   componentTagNames: Array<string>
   componentsGroupedByCategory: Record<string, Array<IBuilderComponent>>
   currentDragData: Nullable<Frozen<BuilderDragData>>
+  dragDropData: Nullable<IDragDropData>
   expandedComponentTreeNodeIds: Array<string>
   expandedPageElementTreeNodeIds: Array<string>
   hoveredNode: Nullable<IPageNodeRef>
@@ -38,9 +47,14 @@ export interface IBuilderService {
   hoverElementNode(node: Nullable<IElementModel>): void
   selectComponentNode(node: Nullable<IComponentModel>): void
   selectElementNode(node: Nullable<IElementModel>): void
+  dragOverElementNode(
+    node: Nullable<IElementModel>,
+    dropPosition: 'bottom' | 'inside' | 'left' | 'right' | 'top',
+  ): void
   setActiveTab(tab: RendererTab): void
   setBuilderContainerWidth(width: number): void
   setCurrentDragData(data: Nullable<Frozen<BuilderDragData>>): void
+  setDragDropData(data: IDragDropData): void
   setExpandedComponentTreeNodeIds(expandedNodeIds: Array<string>): void
   setExpandedPageElementTreeNodeIds(expandedNodeIds: Array<string>): void
   setHoveredNode(element: Nullable<IPageNodeRef>): void
