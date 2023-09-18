@@ -1,16 +1,24 @@
-import { Col, Row, Slider } from 'antd'
+import { UndoOutlined } from '@ant-design/icons'
+import { Button, Col, Row, Slider } from 'antd'
 import clsx from 'clsx'
 import { ValuePicker } from '../components'
-import { combineCssValue, CssUnit, parseCssValue } from '../utils'
+import { CssUnit, parseCssValue } from '../utils'
 
 const commonValues = ['auto', '0', '10', '20', '40', '60', '100', '140', '220']
 
 interface SpacingPopoverProps {
+  canReset?: boolean
   value?: string
   onChange?(value: string): void
+  onReset?(): void
 }
 
-export const SpacingPopover = ({ onChange, value }: SpacingPopoverProps) => {
+export const SpacingPopover = ({
+  canReset,
+  onChange,
+  onReset,
+  value,
+}: SpacingPopoverProps) => {
   const { unit, value: currentValue } = parseCssValue(value ?? '0px')
 
   return (
@@ -19,7 +27,7 @@ export const SpacingPopover = ({ onChange, value }: SpacingPopoverProps) => {
         <Col span={12}>
           <Slider
             onChange={(val) =>
-              onChange?.(combineCssValue({ unit, value: val }))
+              onChange?.(`${val}${unit === CssUnit.Auto ? CssUnit.PX : unit}`)
             }
             value={currentValue}
           />
@@ -45,6 +53,27 @@ export const SpacingPopover = ({ onChange, value }: SpacingPopoverProps) => {
           </div>
         ))}
       </div>
+
+      {canReset && (
+        <>
+          <Button
+            className="w-full flex-row justify-start"
+            icon={<UndoOutlined />}
+            onClick={() => {
+              onReset?.()
+            }}
+          >
+            Reset
+          </Button>
+          <div
+            style={{
+              color: 'rgb(171, 171, 171)',
+            }}
+          >
+            Resetting will revert to the initial value.
+          </div>
+        </>
+      )}
     </div>
   )
 }

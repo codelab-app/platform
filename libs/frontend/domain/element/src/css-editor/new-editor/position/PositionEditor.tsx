@@ -1,6 +1,5 @@
 import { Popover, Row } from 'antd'
 import clsx from 'clsx'
-import { useState } from 'react'
 import { LabeledSelect } from '../components'
 import { CssProperty } from '../css'
 import { SpacingPopover } from '../spacing/SpacingPopover'
@@ -23,45 +22,54 @@ const sides = [
 ]
 
 export const PositionEditor = () => {
-  const { getCurrentStyle, setStyle } = useStyle()
+  const { canReset, getCurrentStyle, resetStyle, setStyle } = useStyle()
 
   const PopoverContent = (side: CssProperty) => {
     const value = getCurrentStyle(side)
     const { unit, value: cssValue } = parseCssValue(value)
 
+    const getCurrentText = () => {
+      if (unit === CssUnit.Auto) {
+        return 'auto'
+      }
+
+      if (unit === CssUnit.PX) {
+        return cssValue
+      }
+
+      return `${cssValue}${unit}`
+    }
+
     return (
       <Popover
         content={
           <SpacingPopover
+            canReset={canReset(side)}
             onChange={(val) => setStyle(side, val)}
+            onReset={() => resetStyle(side)}
             value={value}
           />
         }
         trigger="click"
       >
-        <div className="text-[12px] text-gray-500">{`${cssValue}${
-          unit !== CssUnit.PX ? unit : ''
-        }`}</div>
+        <div className="text-[12px] text-gray-500">{getCurrentText()}</div>
       </Popover>
     )
   }
 
-  const [position, setPosition] = useState(
-    getCurrentStyle(CssProperty.Position),
-  )
-
   return (
     <div className="space-y-2">
       <LabeledSelect
+        canReset={canReset(CssProperty.Position)}
         label="Position"
         onChange={(val) => {
-          setPosition(val)
-          setStyle('position', val)
+          setStyle(CssProperty.Position, val)
         }}
+        onReset={() => resetStyle(CssProperty.Position)}
         options={positionOptions}
-        value={position}
+        value={getCurrentStyle(CssProperty.Position)}
       />
-      {position !== 'static' && (
+      {getCurrentStyle(CssProperty.Position) !== 'static' && (
         <Row justify="end">
           <div
             className={clsx(

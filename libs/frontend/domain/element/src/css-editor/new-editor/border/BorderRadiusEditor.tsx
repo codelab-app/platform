@@ -37,8 +37,8 @@ export const BorderRadiusEditor = () => {
         wrap={false}
       >
         <Col span={10}>
-          <Row justify="space-between" wrap={false}>
-            <Col>Radius</Col>
+          <Row align="middle" justify="space-between" wrap={false}>
+            <Col className="text-[12px]">Radius</Col>
             <SegmentedSelect
               onChange={setSelectedSide}
               options={sideOptions}

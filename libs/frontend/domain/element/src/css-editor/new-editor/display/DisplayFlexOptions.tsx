@@ -115,14 +115,18 @@ export const DisplayFlexOptions = () => {
         <Col>
           <Row className="space-x-1" wrap={false}>
             <ValuePicker
+              canReset={canReset(CssProperty.RowGap)}
               currentValue={getCurrentStyle(CssProperty.RowGap)}
               label="Row"
               onChange={(value) => setStyle(CssProperty.RowGap, value)}
+              onReset={() => resetStyle(CssProperty.RowGap)}
             />
             <ValuePicker
+              canReset={canReset(CssProperty.ColumnGap)}
               currentValue={getCurrentStyle(CssProperty.ColumnGap)}
               label="Col"
               onChange={(value) => setStyle(CssProperty.ColumnGap, value)}
+              onReset={() => resetStyle(CssProperty.ColumnGap)}
             />
           </Row>
         </Col>

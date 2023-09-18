@@ -5,7 +5,9 @@ import isNumber from 'lodash/isNumber'
 import type { ReactNode } from 'react'
 import React from 'react'
 import { CssUnit, parseCssValue } from '../utils'
+import { ResetLabel } from './ResetLabel'
 
+// TODO: revisit auto and '-'
 const selectAfter = (
   size: SizeType,
   onChange: (val: CssUnit) => void,
@@ -20,7 +22,7 @@ const selectAfter = (
     popupMatchSelectWidth={false}
     size={size}
     suffixIcon={null}
-    value={fixedUnit ?? unit === CssUnit.Auto ? '-' : unit}
+    value={fixedUnit ? fixedUnit : unit === CssUnit.Auto ? '-' : unit}
   >
     {!fixedUnit && (
       <>
@@ -40,6 +42,7 @@ const selectAfter = (
 )
 
 interface ValuePickerProps {
+  canReset?: boolean
   currentValue?: string
   fixedUnit?: CssUnit
   label?: string
@@ -48,24 +51,23 @@ interface ValuePickerProps {
   prefix?: ReactNode
   size?: SizeType
   onChange?(value: string): void
+  onReset?(): unknown
 }
 
 export const ValuePicker = ({
+  canReset,
   currentValue,
   fixedUnit,
   label,
   max,
   min,
   onChange,
+  onReset,
   prefix,
   size,
 }: ValuePickerProps) => {
   const { unit, value } = parseCssValue(currentValue ?? '0px')
   const isAuto = unit === CssUnit.Auto
-
-  if (label === 'Min W') {
-    console.log('currentValue', currentValue, unit, value)
-  }
 
   const onChanged = (selectedUnit?: CssUnit, val?: number | null) => {
     if (isNumber(val)) {
@@ -83,8 +85,8 @@ export const ValuePicker = ({
   return (
     <Row align="middle" justify="space-between" wrap={false}>
       {label && (
-        <Col className="whitespace-nowrap text-[12px]" span={8}>
-          {label}
+        <Col span={8}>
+          <ResetLabel canReset={canReset} label={label} onReset={onReset} />
         </Col>
       )}
       <Col className="w-full">

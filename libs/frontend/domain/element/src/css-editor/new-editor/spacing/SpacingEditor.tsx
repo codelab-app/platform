@@ -20,10 +20,11 @@ const sides = [
 ]
 
 export const SpacingEditor = () => {
-  const { getCurrentStyle, setStyle } = useStyle()
+  const { canReset, getCurrentStyle, resetStyle, setStyle } = useStyle()
 
   const PopoverContent = (side: CssProperty, key = 'padding') => {
-    const currentCssValue = getCurrentStyle(`${key}-${side}` as CssProperty)
+    const cssPropName = `${key}-${side}` as CssProperty
+    const currentCssValue = getCurrentStyle(cssPropName)
     const { unit, value } = parseCssValue(currentCssValue)
 
     const valueToShow = () => {
@@ -42,13 +43,21 @@ export const SpacingEditor = () => {
       <Popover
         content={
           <SpacingPopover
-            onChange={(val) => setStyle(`${key}-${side}`, val)}
+            canReset={canReset(cssPropName)}
+            onChange={(val) => setStyle(cssPropName, val)}
+            onReset={() => resetStyle(cssPropName)}
             value={currentCssValue}
           />
         }
         trigger="click"
       >
-        <div className="text-[12px] text-gray-500">{valueToShow()}</div>
+        <div
+          className={`cursor-default whitespace-nowrap rounded-[2px] p-[2px] text-[11px] text-gray-500 ${
+            canReset(cssPropName) ? 'bg-sky-100 hover:bg-sky-200' : ''
+          }`}
+        >
+          {valueToShow()}
+        </div>
       </Popover>
     )
   }
@@ -67,7 +76,7 @@ export const SpacingEditor = () => {
         {sides.map((side) => {
           return (
             <div
-              className="flex items-center justify-center self-center"
+              className="flex h-full w-full items-center justify-center self-center"
               key={side}
               style={{ cursor: getCursorForSide(side), gridArea: side }}
             >

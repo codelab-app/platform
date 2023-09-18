@@ -1,6 +1,5 @@
 import { UndoOutlined } from '@ant-design/icons'
 import { Button, Col, Popover } from 'antd'
-import { useState } from 'react'
 
 interface ResetLabelProps {
   canReset?: boolean
@@ -9,7 +8,11 @@ interface ResetLabelProps {
 }
 
 export const ResetLabel = ({ canReset, label, onReset }: ResetLabelProps) => {
-  const [open, setOpen] = useState(false)
+  if (!canReset) {
+    return (
+      <span className="whitespace-nowrap p-[2px] text-[11px]">{label}</span>
+    )
+  }
 
   return (
     <Popover
@@ -20,7 +23,6 @@ export const ResetLabel = ({ canReset, label, onReset }: ResetLabelProps) => {
             className="w-full flex-row justify-start"
             icon={<UndoOutlined />}
             onClick={() => {
-              setOpen(false)
               onReset?.()
             }}
           >
@@ -35,15 +37,9 @@ export const ResetLabel = ({ canReset, label, onReset }: ResetLabelProps) => {
           </div>
         </Col>
       }
-      open={open}
       trigger="click"
     >
-      <span
-        className={`p-[2px] ${
-          canReset ? 'rounded-[2px] bg-sky-100 hover:bg-sky-200' : ''
-        }`}
-        onClick={() => setOpen(true)}
-      >
+      <span className="whitespace-nowrap rounded-[2px] bg-sky-100 p-[2px] text-[11px] hover:bg-sky-200">
         {label}
       </span>
     </Popover>

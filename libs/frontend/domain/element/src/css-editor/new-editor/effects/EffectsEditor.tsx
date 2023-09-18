@@ -50,23 +50,27 @@ const outlineOptions = [
 
 // TODO: add more options
 export const EffectsEditor = () => {
-  const { getCurrentStyle, setStyle } = useStyle()
+  const { canReset, getCurrentStyle, resetStyle, setStyle } = useStyle()
 
   return (
     <Col className="space-y-2">
       <LabeledSelect
+        canReset={canReset(CssProperty.MixBlendMode)}
         label="Blending"
         onChange={(val) => setStyle(CssProperty.MixBlendMode, val)}
+        onReset={() => resetStyle(CssProperty.MixBlendMode)}
         options={blendOptions}
         value={getCurrentStyle(CssProperty.MixBlendMode)}
       />
       <ValuePicker
+        canReset={canReset(CssProperty.Opacity)}
         currentValue={getCurrentStyle(CssProperty.Opacity)}
         fixedUnit={CssUnit.PERCENT}
         label="Opacity"
         max={100}
         min={0}
         onChange={(val) => setStyle(CssProperty.Opacity, val)}
+        onReset={() => resetStyle(CssProperty.Opacity)}
       />
       <SegmentedSelect label="Outline" options={outlineOptions} value="none" />
     </Col>

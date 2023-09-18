@@ -11,7 +11,7 @@ const clippingOptions = [
 ]
 
 export const BackgroundEditor = () => {
-  const { getCurrentStyle, setStyle } = useStyle()
+  const { canReset, getCurrentStyle, resetStyle, setStyle } = useStyle()
 
   return (
     <div className="space-y-2">
@@ -20,8 +20,10 @@ export const BackgroundEditor = () => {
         value={getCurrentStyle(CssProperty.BackgroundColor)}
       />
       <LabeledSelect
+        canReset={canReset(CssProperty.BackgroundClip)}
         label="Clipping"
         onChange={(val) => setStyle(CssProperty.BackgroundClip, val)}
+        onReset={() => resetStyle(CssProperty.BackgroundClip)}
         options={clippingOptions}
         value={getCurrentStyle(CssProperty.BackgroundClip)}
       />
