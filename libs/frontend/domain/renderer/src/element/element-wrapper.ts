@@ -11,8 +11,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { getRunner } from '../action-runner.model'
-import { useSelectionHandlers } from '../utils'
-import { useBuilderDragDropHandlers } from '../utils'
+import { useDragDropHandlers, useSelectionHandlers } from '../utils'
 import { renderComponentWithStyles } from './get-styled-components'
 import { extractValidProps, getReactComponent } from './wrapper.utils'
 
@@ -84,7 +83,7 @@ export const ElementWrapper = observer<ElementWrapperProps>(
       renderer.rendererType,
     )
 
-    const dragDropHandlers = useBuilderDragDropHandlers(
+    const dragDropHandlers = useDragDropHandlers(
       builderService,
       elementService,
       element,

@@ -12,7 +12,7 @@ import { queryRenderedElementById } from './query-rendered-element-by-id'
 
 let dropElement: IElement | null
 let dragElement: IElement | null
-let dropPosition: IDropPosition
+let dropPosition: IDropPosition | 'forbidden'
 
 export const useDragDropHandlers = (
   builderService: IBuilderService,
@@ -62,6 +62,8 @@ export const useDragDropHandlers = (
         isDescendantOfCurrentlyDraggedElement(event.target as HTMLElement)
       ) {
         // we don't allow an element to be dropped on itself or its descendant
+        dropPosition = 'forbidden'
+
         return
       }
 
@@ -85,6 +87,11 @@ export const useDragDropHandlers = (
       target.classList.remove('currently-dragged')
       target.style.opacity = '1'
       builderService.dragOverElementNode(null, 'inside')
+
+      if (dropPosition === 'forbidden') {
+        // we don't allow an element to be dropped on itself or its descendant
+        return
+      }
 
       if (dropPosition === 'right' || dropPosition === 'bottom') {
         void elementService.moveElementAsNextSibling({
