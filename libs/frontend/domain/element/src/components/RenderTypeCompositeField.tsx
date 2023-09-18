@@ -22,7 +22,9 @@ const RenderTypeFields = ({
       onChange={(value) => {
         // when the type changes, the selected atom or component has to be
         // removed since they share the same field name `renderType.id`
-        onChange(value ? { kind: value } : null)
+        if (value) {
+          onChange({ kind: value })
+        }
       }}
       options={[
         {

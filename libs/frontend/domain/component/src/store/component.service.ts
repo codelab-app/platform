@@ -179,6 +179,9 @@ export class ComponentService
     const rootElementProps = this.propService.add({ data: '{}', id: v4() })
 
     const rootElement = this.elementService.add({
+      closestContainerNode: {
+        id,
+      },
       id: v4(),
       name: `${name} Root`,
       parentComponent: { id },
@@ -270,6 +273,8 @@ export class ComponentService
     }
 
     const componentModels = components.map((component) => {
+      const { id } = component
+
       this.storeService.load([component.store])
       this.propService.add(component.props)
       this.typeService.loadTypes({ interfaceTypes: [component.api] })
@@ -297,7 +302,10 @@ export class ComponentService
           this.atomService.add(elementData.renderAtomType)
         }
 
-        this.elementService.add(elementData)
+        this.elementService.add({
+          ...elementData,
+          closestContainerNode: { id },
+        })
       })
 
       return this.add(component)

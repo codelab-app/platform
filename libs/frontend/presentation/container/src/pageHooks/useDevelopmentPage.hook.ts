@@ -37,6 +37,8 @@ export const useDevelopmentPage = ({ rendererType }: DevelopmentPageProps) => {
   const { pageName } = usePageQuery()
   const app = appService.appsList.find((_app) => _app.name === appName)
 
+  console.log(appName, pageName, app)
+
   return useAsync(async () => {
     if (!app) {
       await router.push({ pathname: PageType.AppList, query: {} })

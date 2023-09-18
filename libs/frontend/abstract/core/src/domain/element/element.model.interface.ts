@@ -109,9 +109,9 @@ export interface IElementModel
   owner: Nullable<IEntity>
   // page that this element belongs to
   page: Nullable<Ref<IPageModel>>
-  parent?: Nullable<Ref<IElementModel>>
   // component that this element belongs to
   parentComponent?: Nullable<Ref<IComponentModel>>
+  parentElement?: Nullable<Ref<IElementModel>>
   postRenderAction?: Nullable<Ref<IAction>>
   preRenderAction?: Nullable<Ref<IAction>>
   prevSibling?: Nullable<Ref<IElementModel>>
@@ -175,8 +175,8 @@ export interface IElementModel
   setNextSibling(nextSibling: Ref<IElementModel>): void
   setOrderInParent(order: number | null): void
   setPage(page: Ref<IPageModel>): void
-  setParent(parent: Ref<IElementModel>): void
   setParentComponent(component: Ref<IComponentModel>): void
+  setParentElement(parent: Ref<IElementModel>): void
   setPrevSibling(prevSibling: Ref<IElementModel>): void
   setProps(props: Nullable<Ref<IProp>>): void
   setRenderForEachPropKey(key: string): void

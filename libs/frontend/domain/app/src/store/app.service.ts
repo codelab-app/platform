@@ -147,44 +147,39 @@ export class AppService
   loadPages = ({ pages }: IPageBuilderAppProps) => {
     sortPagesByKindAndName(pages)
 
-    const allElements = [
-      ...flatMap(pages, ({ rootElement }) => [
-        rootElement,
-        ...rootElement.descendantElements,
-      ]),
-    ]
+    const allElements = flatMap(pages, (page) => {
+      const { id, rootElement } = page
 
-    allElements.forEach((elementData) => {
-      this.propService.add(elementData.props)
+      this.pageService.add(page)
 
-      /**
-       * Element comes with `component` or `atom` data that we need to load as well
-       */
-      if (elementData.renderAtomType?.id) {
-        this.atomService.add(elementData.renderAtomType)
-      }
+      const elements = [rootElement, ...rootElement.descendantElements]
 
-      if (elementData.renderAtomType?.tags) {
-        elementData.renderAtomType.tags.forEach((tag) =>
-          this.tagService.add(tag),
-        )
-      }
+      elements.forEach((elementData) => {
+        this.propService.add(elementData.props)
 
-      if (elementData.renderAtomType?.api) {
-        this.typeService.loadTypes({
-          interfaceTypes: [elementData.renderAtomType.api],
+        /**
+         * Element comes with `component` or `atom` data that we need to load as well
+         */
+        if (elementData.renderAtomType?.id) {
+          this.typeService.loadTypes({
+            interfaceTypes: [elementData.renderAtomType.api],
+          })
+
+          elementData.renderAtomType.tags.forEach((tag) =>
+            this.tagService.add(tag),
+          )
+
+          this.atomService.add(elementData.renderAtomType)
+        }
+
+        this.elementService.add({
+          ...elementData,
+          closestContainerNode: { id },
         })
-      }
-
-      this.elementService.add(elementData)
+      })
     })
 
-    pages.forEach((pageData) => {
-      this.pageService.add(pageData)
-
-      // store must be attached after page
-      this.storeService.load([pageData.store])
-    })
+    return allElements
   }
 
   /**

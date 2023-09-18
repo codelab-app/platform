@@ -3,6 +3,7 @@ import type {
   ICreateElementData,
   IElementModel,
   IElementService,
+  IInterfaceType,
   IPropData,
 } from '@codelab/frontend/abstract/core'
 import {
@@ -20,6 +21,7 @@ import {
   getStoreService,
 } from '@codelab/frontend/domain/store'
 import { getFieldService, getTypeService } from '@codelab/frontend/domain/type'
+import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import {
   RenderedComponentFragment,
   RenderTypeKind,
@@ -31,6 +33,7 @@ import { mapDeep } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
 import uniq from 'lodash/uniq'
 import { computed } from 'mobx'
+import type { Ref } from 'mobx-keystone'
 import {
   _async,
   _await,
@@ -46,7 +49,7 @@ import {
 import { v4 } from 'uuid'
 import { ElementRepository } from '../services/element.repo'
 import { makeAutoIncrementedName } from '../utils'
-import { getRenderTypeApi, makeDefaultProps } from './api.utils'
+import { makeDefaultProps } from './api.utils'
 import { Element } from './element.model'
 import {
   CreateElementFormService,
@@ -126,6 +129,11 @@ export class ElementService
   }
 
   @modelAction
+  loadElement = (element: IElementDTO) => {
+    //
+  }
+
+  @modelAction
   add = (elementDTO: IElementDTO): IElementModel => {
     let element = this.maybeElement(elementDTO.id)
 
@@ -149,17 +157,9 @@ export class ElementService
   @transaction
   private loadRenderTypeInterface = _async(function* (
     this: ElementService,
-    data: ICreateElementData,
+    renderType: RenderType,
   ) {
-    const renderTypeApi =
-      data.renderType &&
-      (yield* _await(
-        getRenderTypeApi({
-          atomService: this.atomService,
-          componentService: this.componentService,
-          renderType: data.renderType,
-        }),
-      ))
+    const renderTypeApi = yield* _await(this.getRenderTypeApi(renderType))
 
     if (renderTypeApi) {
       // If the new element is an atom or component that is not used yet anywhere
@@ -170,13 +170,47 @@ export class ElementService
     return renderTypeApi
   })
 
+  @modelFlow
+  getRenderTypeApi = async (renderType: RenderType) => {
+    // When creating a new element, we need the interface type fields
+    // and we use it to create a props with default values for the created element
+    let renderTypeApi: Ref<IInterfaceType>
+
+    switch (renderType.kind) {
+      case IRenderTypeKind.Atom: {
+        const atomRenderTypeRef = throwIfUndefined(
+          await this.atomService.getOne(renderType.id),
+        )
+
+        renderTypeApi = atomRenderTypeRef.api
+        break
+      }
+
+      case IRenderTypeKind.Component: {
+        const componentRenderTypeRef = throwIfUndefined(
+          await this.componentService.getOne(renderType.id),
+        )
+
+        renderTypeApi = componentRenderTypeRef.api
+        break
+      }
+
+      default:
+        throw new Error('Missing renderType')
+    }
+
+    return renderTypeApi
+  }
+
   /**
    * We need a separate create function for element trees
    */
   @modelFlow
   @transaction
   create = _async(function* (this: ElementService, data: ICreateElementData) {
-    const renderTypeApi = yield* _await(this.loadRenderTypeInterface(data))
+    const renderTypeApi = yield* _await(
+      this.loadRenderTypeInterface(data.renderType),
+    )
 
     const elementProps = this.propService.add({
       data: data.props?.data ?? makeDefaultProps(renderTypeApi?.current),
@@ -185,6 +219,9 @@ export class ElementService
 
     const element = this.add({
       ...data,
+      closestContainerNode: {
+        id: data.parentElement.id,
+      },
       // initial link to resolve closestContainerNode
       parent: data.parentElement,
       prevSibling: data.prevSibling,
@@ -199,11 +236,11 @@ export class ElementService
   @modelFlow
   @transaction
   update = _async(function* (this: ElementService, data: IUpdateElementData) {
-    yield* _await(this.loadRenderTypeInterface(data))
+    yield* _await(this.loadRenderTypeInterface(data.renderType))
 
     const { id, ...elementData } = data
     const element = this.element(id)
-    const { id: newRenderTypeId } = elementData.renderType ?? {}
+    const { id: newRenderTypeId } = elementData.renderType
     const { id: oldRenderTypeId } = element.renderType ?? {}
 
     if (newRenderTypeId !== oldRenderTypeId) {
@@ -293,7 +330,15 @@ export class ElementService
       ...component.rootElement.descendantElements,
     ]
 
-    const hydratedElements = elements.map((element) => this.add(element))
+    const hydratedElements = elements.map((element) =>
+      this.add({
+        ...element,
+        closestContainerNode: {
+          id: component.id,
+        },
+      }),
+    )
+
     const rootElement = this.element(component.rootElement.id)
 
     return { hydratedElements, rootElement }
@@ -333,8 +378,8 @@ export class ElementService
       element.nextSibling?.current.id,
     ]
 
-    if (element.parent?.current.firstChild?.id === element.id) {
-      affectedNodeIds.push(element.parent.current.id)
+    if (element.parentElement?.current.firstChild?.id === element.id) {
+      affectedNodeIds.push(element.parentElement.current.id)
     }
 
     element.detachFromParent()
@@ -475,7 +520,7 @@ export class ElementService
   ) {
     console.debug('createElementAsFirstChild', data)
 
-    if (!data.parentElement?.id) {
+    if (!data.parentElement.id) {
       throw new Error("Parent element id doesn't exist")
     }
 
@@ -491,7 +536,7 @@ export class ElementService
     })
 
     const parentElementClone = [...this.clonedElements.values()].find(
-      ({ sourceElement }) => sourceElement?.id === data.parentElement?.id,
+      ({ sourceElement }) => sourceElement?.id === data.parentElement.id,
     )
 
     if (parentElementClone) {
@@ -709,6 +754,7 @@ export class ElementService
         ? { id: element.childMapperPreviousSibling.id }
         : null,
       childMapperPropKey: element.childMapperPropKey,
+      closestContainerNode: element.closestContainerNode,
       id: v4(),
       name: duplicateName,
       page: element.page ? { id: element.page.id } : null,

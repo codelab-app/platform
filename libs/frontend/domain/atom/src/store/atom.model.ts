@@ -42,7 +42,7 @@ const create = ({
   type,
 }: IAtomDTO) => {
   return new Atom({
-    api: api.id ? typeRef<IInterfaceType>(api.id) : undefined,
+    api: typeRef<IInterfaceType>(api.id),
     externalCssSource,
     externalJsSource,
     externalSourceType,
@@ -59,7 +59,7 @@ const create = ({
 @model('@codelab/Atom')
 export class Atom
   extends Model({
-    api: prop<Nullable<Ref<IInterfaceType>>>(null),
+    api: prop<Ref<IInterfaceType>>(),
     externalCssSource: prop<string | null | undefined>(),
     externalJsSource: prop<string | null | undefined>(),
     externalSourceType: prop<string | null | undefined>(),
@@ -147,7 +147,7 @@ export class Atom
   @modelAction
   toUpdateInput(): AtomUpdateInput {
     return {
-      api: this.api?.id ? connectNodeId(this.api.id) : undefined,
+      api: this.api.id ? connectNodeId(this.api.id) : undefined,
       externalCssSource: this.externalCssSource,
       externalJsSource: this.externalJsSource,
       externalSourceType: this.externalSourceType,

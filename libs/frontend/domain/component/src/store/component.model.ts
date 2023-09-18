@@ -143,11 +143,11 @@ export class Component
       : null
 
     elements.forEach((element) => {
-      const { firstChild, nextSibling, parent, prevSibling } = element
+      const { firstChild, nextSibling, parentElement, prevSibling } = element
 
-      if (parent) {
-        const parentId = elementMap.get(parent.current.id)
-        element.setParent(elementRef(parentId!))
+      if (parentElement) {
+        const parentId = elementMap.get(parentElement.current.id)
+        element.setParentElement(elementRef(parentId!))
       }
 
       if (firstChild) {

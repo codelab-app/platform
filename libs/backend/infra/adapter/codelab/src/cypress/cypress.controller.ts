@@ -2,16 +2,25 @@ import { SeedCypressAppCommand } from '@codelab/backend/application/app'
 import { SeedCypressAtomsCommand } from '@codelab/backend/application/atom'
 import { SeedCypressTagsCommand } from '@codelab/backend/application/tag'
 import { SeedCypressTypesCommand } from '@codelab/backend/application/type'
-import { Controller, Post } from '@nestjs/common'
+import type { IApp } from '@codelab/shared/abstract/core'
+import {
+  ClassSerializerInterceptor,
+  Controller,
+  Post,
+  UseInterceptors,
+} from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 
 @Controller()
 export class CypressController {
   constructor(private commandBus: CommandBus) {}
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post('app')
   seedApp() {
-    return this.commandBus.execute(new SeedCypressAppCommand())
+    return this.commandBus.execute<SeedCypressAppCommand, IApp>(
+      new SeedCypressAppCommand(),
+    )
   }
 
   @Post('atom')

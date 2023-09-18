@@ -1,3 +1,4 @@
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType, PageType } from '@codelab/frontend/abstract/types'
@@ -23,7 +24,6 @@ import {
   SkeletonWrapper,
 } from '@codelab/frontend/presentation/view'
 import { builderRouteChangeHandler } from '@codelab/frontend/shared/utils'
-import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { useUnmountEffect, useUpdateEffect } from '@react-hookz/web'
 import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'

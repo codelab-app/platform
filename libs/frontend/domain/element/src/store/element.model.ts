@@ -78,8 +78,8 @@ const create = ({
   name,
   nextSibling,
   page,
-  parent,
   parentComponent,
+  parentElement,
   postRenderAction,
   preRenderAction,
   prevSibling,
@@ -107,7 +107,7 @@ const create = ({
     nextSibling: nextSibling?.id ? elementRef(nextSibling.id) : undefined,
 
     // parent of first child
-    parent: parent?.id ? elementRef(parent.id) : undefined,
+    parentElement: parentElement?.id ? elementRef(parentElement.id) : undefined,
     postRenderAction: postRenderAction?.id
       ? actionRef(postRenderAction.id)
       : undefined,
@@ -146,7 +146,7 @@ export class Element
     orderInParent: prop<Nullable<number>>(null).withSetter(),
     owner: prop<Nullable<IEntity>>(null),
     // Data used for tree initializing, before our Element model is ready
-    parent: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
+    parentElement: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
     postRenderAction: prop<Nullable<Ref<IAction>>>(null).withSetter(),
     preRenderAction: prop<Nullable<Ref<IAction>>>(null).withSetter(),
     prevSibling: prop<Nullable<Ref<IElementModel>>>(null).withSetter(),
@@ -275,7 +275,7 @@ export class Element
    */
   @computed
   get closestParent(): IElementModel | null {
-    const parent = this.parent
+    const parent = this.parentElement
 
     if (parent) {
       return parent.current
@@ -284,7 +284,7 @@ export class Element
     let traveledNode = this.prevSibling?.maybeCurrent
 
     while (traveledNode) {
-      const currentParent = traveledNode.parent
+      const currentParent = traveledNode.parentElement
 
       if (currentParent) {
         return currentParent.current
@@ -484,7 +484,7 @@ export class Element
 
   @computed
   get propsHaveErrors() {
-    if (!this.renderType?.current.api?.current) {
+    if (!this.renderType?.current.api.current) {
       return false
     }
 
@@ -735,7 +735,7 @@ export class Element
       ),
       firstChild: reconnectNodeId(this.firstChild?.id),
       nextSibling: reconnectNodeId(this.nextSibling?.id),
-      parent: reconnectNodeId(this.parent?.id),
+      parent: reconnectNodeId(this.parentElement?.id),
       prevSibling: reconnectNodeId(this.prevSibling?.id),
     }
   }
@@ -792,7 +792,7 @@ export class Element
    */
   @modelAction
   detachFromParent() {
-    if (!this.parent) {
+    if (!this.parentElement) {
       return
     }
 
@@ -801,20 +801,24 @@ export class Element
      */
     if (this.nextSibling) {
       // Connect parent to nextSibling
-      this.parent.current.firstChild = elementRef(this.nextSibling.current)
+      this.parentElement.current.firstChild = elementRef(
+        this.nextSibling.current,
+      )
 
       // Connect nextSibling to parent
-      this.nextSibling.current.setParent(elementRef(this.parent.id))
+      this.nextSibling.current.setParentElement(
+        elementRef(this.parentElement.id),
+      )
     } else {
-      this.parent.current.firstChild = null
+      this.parentElement.current.firstChild = null
     }
 
-    this.parent = null
+    this.parentElement = null
   }
 
   @modelAction
   detachAsFirstChild() {
-    this.parent = null
+    this.parentElement = null
   }
 
   /**
@@ -833,7 +837,7 @@ export class Element
   @modelAction
   attachToParentAsFirstChild(parentElement: IElementModel) {
     parentElement.firstChild?.current.detachAsFirstChild()
-    this.parent = elementRef(parentElement)
+    this.parentElement = elementRef(parentElement)
     parentElement.firstChild = elementRef(this.id)
   }
 
@@ -876,8 +880,8 @@ export class Element
     firstChild,
     name,
     nextSibling,
-    parent,
     parentComponent,
+    parentElement,
     postRenderAction,
     preRenderAction,
     prevSibling,
@@ -896,7 +900,9 @@ export class Element
     this.renderType = elementRenderType ?? null
     this.props = props?.id ? propRef(props.id) : this.props
     this.childMapperPropKey = childMapperPropKey ?? null
-    this.parent = parent?.id ? elementRef(parent.id) : this.parent
+    this.parentElement = parentElement?.id
+      ? elementRef(parentElement.id)
+      : this.parentElement
     this.nextSibling = nextSibling?.id
       ? elementRef(nextSibling.id)
       : this.nextSibling

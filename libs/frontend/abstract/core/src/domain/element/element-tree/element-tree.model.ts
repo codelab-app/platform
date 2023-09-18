@@ -80,7 +80,7 @@ export class ElementTree
 
     while (currentElement) {
       path.push(currentElement.id)
-      currentElement = currentElement.parent?.current
+      currentElement = currentElement.parentElement?.current
     }
 
     return path.reverse()

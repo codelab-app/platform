@@ -1,46 +1,47 @@
-import type { IPropDTO, RenderType } from '@codelab/shared/abstract/core'
+import {
+  IElementDTO,
+  type IPropDTO,
+  type RenderType,
+} from '@codelab/shared/abstract/core'
 import type { IEntity, Nullable, Nullish } from '@codelab/shared/abstract/types'
+import type { Static } from '@sinclair/typebox'
+import { Type } from '@sinclair/typebox'
 
-export interface ICreateElementData {
-  id: string
-  name: string
-  parentElement?: Nullable<IEntity>
-  postRenderAction?: Nullable<IEntity>
-  preRenderAction?: Nullable<IEntity>
-  prevSibling?: Nullable<IEntity>
-  props?: Nullable<Pick<IPropDTO, 'data'>>
-  /**
-   * We should connect to `atom` or `component` in future
-   */
-  renderType?: Nullable<RenderType>
-  style?: Nullable<string>
-}
+export const ICreateElementData = Type.Composite([
+  Type.Pick(IElementDTO, [
+    'id',
+    'name',
+    'parentElement',
+    'postRenderAction',
+    'preRenderAction',
+    'prevSibling',
+    'renderType',
+    'style',
+  ]),
+  Type.Object({
+    props: Type.Optional(Type.String()),
+  }),
+])
 
-export type IUpdateElementData = Pick<
-  ICreateElementData,
-  'name' | 'postRenderAction' | 'preRenderAction' | 'renderType' | 'style'
-> &
-  Pick<ICreateElementData, 'id'> & {
-    childMapperComponent?: Nullish<IEntity>
-    childMapperPreviousSibling?: Nullish<IEntity>
-    childMapperPropKey?: Nullish<string>
-    renderForEachPropKey?: Nullable<string>
-    renderIfExpression?: Nullable<string>
-  }
+export type ICreateElementData = Static<typeof ICreateElementData>
+
+export const IUpdateElementData = Type.Pick(IElementDTO, [
+  'childMapperComponent',
+  'childMapperPreviousSibling',
+  'childMapperPropKey',
+  'id',
+  'name',
+  'postRenderAction',
+  'preRenderAction',
+  'renderForEachPropKey',
+  'renderIfExpression',
+  'renderType',
+  'style',
+])
+
+export type IUpdateElementData = Static<typeof IUpdateElementData>
 
 /**
  * Some properties have their own forms, the base form only uses a subset of fields
  */
-export type IUpdateBaseElementData = Pick<
-  IUpdateElementData,
-  | 'childMapperComponent'
-  | 'childMapperPreviousSibling'
-  | 'childMapperPropKey'
-  | 'id'
-  | 'name'
-  | 'postRenderAction'
-  | 'preRenderAction'
-  | 'renderForEachPropKey'
-  | 'renderIfExpression'
-  | 'renderType'
->
+export type IUpdateBaseElementData = Omit<IUpdateElementData, 'style'>

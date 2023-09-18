@@ -15,12 +15,7 @@ export interface IAtomModel
   extends ICacheService<IAtomDTO, IAtomModel>,
     Omit<IModel<AtomCreateInput, AtomUpdateInput, void>, 'toDeleteInput'> {
   allowCustomTextInjection: boolean
-  /**
-   * We don't need Ref here, only need id to filter the select options. Making it Ref requires dependency resolution that makes it more difficult.
-   *
-   * We store preview data here so we can more easily display the tags in the atoms table
-   */
-  api?: Nullable<Ref<IInterfaceType>>
+  api: Ref<IInterfaceType>
   externalCssSource?: string | null
   externalJsSource?: string | null
   externalSourceType?: string | null
