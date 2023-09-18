@@ -109,7 +109,7 @@ export const DisplayFlexOptions = () => {
         value={getCurrentStyle(CssProperty.AlignItems)}
       />
       <Row align="middle" justify="space-between" wrap={false}>
-        <Col className="text-[12px]" span={6}>
+        <Col className="text-[11px]" span={6}>
           Gap
         </Col>
         <Col>

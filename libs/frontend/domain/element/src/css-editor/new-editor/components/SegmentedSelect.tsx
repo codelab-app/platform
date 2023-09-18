@@ -41,7 +41,7 @@ export const SegmentedSelect = ({
           }}
         >
           <Segmented
-            className="text-[12px]"
+            className="text-[11px]"
             onChange={(selected) => onChange?.(selected.toString())}
             options={options}
             size={size}

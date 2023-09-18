@@ -29,11 +29,11 @@ export const LabeledSelect = ({
       </Col>
       <Col className="w-full overflow-hidden">
         <Select
+          className="w-full"
           onChange={onChange}
           options={options}
           popupMatchSelectWidth={false}
           size={size}
-          style={{ width: '100%' }}
           value={value}
         />
       </Col>

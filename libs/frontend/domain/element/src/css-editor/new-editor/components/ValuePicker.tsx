@@ -7,6 +7,19 @@ import React from 'react'
 import { CssUnit, parseCssValue } from '../utils'
 import { ResetLabel } from './ResetLabel'
 
+const units = [
+  CssUnit.PX,
+  CssUnit.PERCENT,
+  CssUnit.REM,
+  CssUnit.EM,
+  CssUnit.VW,
+  CssUnit.VH,
+  CssUnit.CH,
+  CssUnit.SVW,
+  CssUnit.SVH,
+  CssUnit.Auto,
+]
+
 // TODO: revisit auto and '-'
 const selectAfter = (
   size: SizeType,
@@ -15,7 +28,7 @@ const selectAfter = (
   fixedUnit?: CssUnit,
 ) => (
   <Select
-    className="[&>*:first-child]:!px-0.5"
+    className="[&>*:first-child]:!px-0.5 [&>*:first-child]:!text-[11px]"
     defaultValue={fixedUnit ?? CssUnit.PX}
     disabled={Boolean(fixedUnit)}
     onChange={(val) => onChange(val === '-' ? CssUnit.Auto : (val as CssUnit))}
@@ -26,16 +39,36 @@ const selectAfter = (
   >
     {!fixedUnit && (
       <>
-        <Option value={CssUnit.PX}>{CssUnit.PX}</Option>
-        <Option value={CssUnit.PERCENT}>{CssUnit.PERCENT}</Option>
-        <Option value={CssUnit.REM}>{CssUnit.REM}</Option>
-        <Option value={CssUnit.EM}>{CssUnit.EM}</Option>
-        <Option value={CssUnit.VW}>{CssUnit.VW}</Option>
-        <Option value={CssUnit.VH}>{CssUnit.VH}</Option>
-        <Option value={CssUnit.CH}>{CssUnit.CH}</Option>
-        <Option value={CssUnit.SVW}>{CssUnit.SVW}</Option>
-        <Option value={CssUnit.SVH}>{CssUnit.SVH}</Option>
-        <Option value={CssUnit.Auto}>{CssUnit.Auto}</Option>
+        <Option className="!text-[11px]" value={CssUnit.PX}>
+          {CssUnit.PX}
+        </Option>
+        <Option className="!text-[11px]" value={CssUnit.PERCENT}>
+          {CssUnit.PERCENT}
+        </Option>
+        <Option className="!text-[11px]" value={CssUnit.REM}>
+          {CssUnit.REM}
+        </Option>
+        <Option className="!text-[11px]" value={CssUnit.EM}>
+          {CssUnit.EM}
+        </Option>
+        <Option className="!text-[11px]" value={CssUnit.VW}>
+          {CssUnit.VW}
+        </Option>
+        <Option className="!text-[11px]" value={CssUnit.VH}>
+          {CssUnit.VH}
+        </Option>
+        <Option className="!text-[11px]" value={CssUnit.CH}>
+          {CssUnit.CH}
+        </Option>
+        <Option className="!text-[11px]" value={CssUnit.SVW}>
+          {CssUnit.SVW}
+        </Option>
+        <Option className="!text-[11px]" value={CssUnit.SVH}>
+          {CssUnit.SVH}
+        </Option>
+        <Option className="!text-[11px]" value={CssUnit.Auto}>
+          {CssUnit.Auto}
+        </Option>
       </>
     )}
   </Select>

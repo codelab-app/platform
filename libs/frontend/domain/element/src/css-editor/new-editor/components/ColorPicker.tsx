@@ -15,7 +15,7 @@ export const ColorPicker = ({
 }: ColorPickerProps) => {
   return (
     <Row align="middle" justify="space-between" wrap={false}>
-      <Col className="text-[12px]" span={8}>
+      <Col className="text-[11px]" span={8}>
         {label}
       </Col>
       <Col className="w-full">
