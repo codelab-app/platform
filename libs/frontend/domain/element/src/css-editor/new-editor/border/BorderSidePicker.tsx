@@ -23,10 +23,15 @@ const sides = [Side.Top, Side.Bottom, Side.Left, Side.Right, Side.Center]
 
 interface BorderSidePickerProps {
   side: Side
+  canResetSide?(side: Side): boolean
   onChange(side: Side): void
 }
 
-export const BorderSidePicker = ({ onChange, side }: BorderSidePickerProps) => {
+export const BorderSidePicker = ({
+  canResetSide,
+  onChange,
+  side,
+}: BorderSidePickerProps) => {
   return (
     <Radio.Group
       onChange={(val) => onChange(val.target.value)}
@@ -43,7 +48,9 @@ export const BorderSidePicker = ({ onChange, side }: BorderSidePickerProps) => {
           return (
             <Radio.Button
               children={sideToIcon[borderSide]}
-              className="flex items-center justify-center"
+              className={`flex items-center justify-center ${
+                canResetSide?.(borderSide) ? 'bg-sky-100 hover:bg-sky-200' : ''
+              }`}
               key={borderSide}
               style={{ borderRadius: 0, gridArea: borderSide }}
               value={borderSide}

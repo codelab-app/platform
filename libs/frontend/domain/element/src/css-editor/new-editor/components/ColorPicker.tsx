@@ -1,22 +1,27 @@
 import { Col, ColorPicker as AntdColorPicker, Row } from 'antd'
+import { ResetLabel } from './ResetLabel'
 
 interface ColorPickerProps {
+  canReset?: boolean
   label?: string
   size?: 'large' | 'middle' | 'small'
   value?: string
   onChange?(value: string): void
+  onReset?(): unknown
 }
 
 export const ColorPicker = ({
+  canReset,
   label = 'Color',
   onChange,
+  onReset,
   size,
   value,
 }: ColorPickerProps) => {
   return (
     <Row align="middle" justify="space-between" wrap={false}>
-      <Col className="text-[11px]" span={8}>
-        {label}
+      <Col span={8}>
+        <ResetLabel canReset={canReset} label={label} onReset={onReset} />
       </Col>
       <Col className="w-full">
         <AntdColorPicker

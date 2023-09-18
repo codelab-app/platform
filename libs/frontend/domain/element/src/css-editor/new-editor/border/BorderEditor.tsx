@@ -46,26 +46,43 @@ const getSidePropertyName = (side: Side, property: string) => {
 }
 
 export const BorderEditor = () => {
-  const { getCurrentStyle, setStyle } = useStyle()
+  const { canReset, getCurrentStyle, resetStyle, setStyle } = useStyle()
   const [selectedSide, setSelectedSide] = useState(Side.Center)
+
+  const isSideModified = (side: Side) => {
+    return (
+      canReset(getSidePropertyName(side, 'style')) ||
+      canReset(getSidePropertyName(side, 'width')) ||
+      canReset(getSidePropertyName(side, 'color'))
+    )
+  }
 
   return (
     <Col>
       <Row justify="space-between" wrap={false}>
         <Col span={8}>
-          <BorderSidePicker onChange={setSelectedSide} side={selectedSide} />
+          <BorderSidePicker
+            canResetSide={isSideModified}
+            onChange={setSelectedSide}
+            side={selectedSide}
+          />
         </Col>
         <Col className="w-full space-y-2" span={14}>
           <SegmentedSelect
+            canReset={canReset(getSidePropertyName(selectedSide, 'style'))}
             label="Style"
             onChange={(value) =>
               setStyle(getSidePropertyName(selectedSide, 'style'), value)
+            }
+            onReset={() =>
+              resetStyle(getSidePropertyName(selectedSide, 'style'))
             }
             options={styleOptions}
             size="small"
             value={getCurrentStyle(getSidePropertyName(selectedSide, 'style'))}
           />
           <ValuePicker
+            canReset={canReset(getSidePropertyName(selectedSide, 'width'))}
             currentValue={getCurrentStyle(
               getSidePropertyName(selectedSide, 'width'),
             )}
@@ -73,12 +90,19 @@ export const BorderEditor = () => {
             onChange={(value) =>
               setStyle(getSidePropertyName(selectedSide, 'width'), value)
             }
+            onReset={() =>
+              resetStyle(getSidePropertyName(selectedSide, 'width'))
+            }
             size="small"
           />
           <ColorPicker
+            canReset={canReset(getSidePropertyName(selectedSide, 'color'))}
             label="Color"
             onChange={(value) =>
               setStyle(getSidePropertyName(selectedSide, 'color'), value)
+            }
+            onReset={() =>
+              resetStyle(getSidePropertyName(selectedSide, 'color'))
             }
             size="small"
             value={getCurrentStyle(getSidePropertyName(selectedSide, 'color'))}

@@ -16,7 +16,9 @@ export const BackgroundEditor = () => {
   return (
     <div className="space-y-2">
       <ColorPicker
+        canReset={canReset(CssProperty.BackgroundColor)}
         onChange={(val) => setStyle(CssProperty.BackgroundColor, val)}
+        onReset={() => resetStyle(CssProperty.BackgroundColor)}
         value={getCurrentStyle(CssProperty.BackgroundColor)}
       />
       <LabeledSelect
