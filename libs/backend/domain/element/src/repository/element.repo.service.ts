@@ -22,6 +22,7 @@ import {
   ElementProperties,
   reconnectNodeId,
 } from '@codelab/shared/domain/mapper'
+import { cLog } from '@codelab/shared/utils'
 import { Injectable } from '@nestjs/common'
 import type { Node } from 'neo4j-driver'
 
@@ -77,7 +78,6 @@ export class ElementRepository extends AbstractRepository<
             preRenderAction,
             prevSibling,
             props,
-            propTransformationJs,
             renderForEachPropKey,
             renderIfExpression,
             renderType,
@@ -95,15 +95,14 @@ export class ElementRepository extends AbstractRepository<
             preRenderAction: connectNodeId(preRenderAction?.id),
             prevSibling: connectNodeId(prevSibling?.id),
             props: connectNodeId(props.id),
-            propTransformationJs,
             renderAtomType:
               renderType?.kind === IRenderTypeKind.Atom
                 ? connectNodeId(renderType.id)
-                : null,
+                : undefined,
             renderComponentType:
               renderType?.kind === IRenderTypeKind.Component
                 ? connectNodeId(renderType.id)
-                : null,
+                : undefined,
             renderForEachPropKey,
             renderIfExpression,
             style,

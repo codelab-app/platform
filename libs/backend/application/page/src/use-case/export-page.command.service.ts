@@ -45,9 +45,11 @@ export class ExportPageHandler
   }
 
   private async getPageData(page: Page) {
-    const elements = await this.elementRepository.getElementWithDescendants(
-      page.rootElement.id,
-    )
+    const elements = (
+      await this.elementRepository.getElementWithDescendants(
+        page.rootElement.id,
+      )
+    ).map((element) => ({ ...element, closestContainerNode: { id: page.id } }))
 
     const componentIds = flatMap(elements, (element) => [
       element.parentComponent?.id,
@@ -60,9 +62,10 @@ export class ExportPageHandler
       where: { id_IN: componentIds },
     })
 
-    for (const { rootElement } of components) {
-      const componentDescendants =
+    for (const { id, rootElement } of components) {
+      const componentDescendants = (
         await this.elementRepository.getElementWithDescendants(rootElement.id)
+      ).map((element) => ({ ...element, closestContainerNode: { id } }))
 
       elements.push(...componentDescendants)
     }

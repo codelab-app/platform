@@ -1,8 +1,8 @@
 module "circleci" {
   source = "../../modules/circleci"
 
-  next_public_platform_host = var.NEXT_PUBLIC_PLATFORM_HOST
-  next_public_platform_api_host         = var.NEXT_PUBLIC_PLATFORM_API_HOST
+  next_public_platform_host     = var.NEXT_PUBLIC_PLATFORM_HOST
+  next_public_platform_api_host = var.NEXT_PUBLIC_PLATFORM_API_HOST
 
   auth0_issuer_base_url  = var.AUTH0_ISSUER_BASE_URL
   auth0_domain           = var.AUTH0_DOMAIN

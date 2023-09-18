@@ -1,5 +1,5 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-import { auth0Instance } from '@codelab/shared/infra/auth0'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import type { NextApiHandler } from 'next'
 
 const importAdminData: NextApiHandler = async (req, res) => {

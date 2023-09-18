@@ -169,28 +169,6 @@ export class TaskService implements CommandModule<unknown, unknown> {
         },
       )
       .command(
-        Tasks.E2e,
-        'Run e2e tests',
-        (argv) => argv,
-        ({ stage }) => {
-          if (stage === Stage.Dev) {
-            execCommand(
-              `${NX_TEST} run platform-e2e:e2e:test --watch true --exit false`,
-            )
-          }
-
-          if (stage === Stage.Test) {
-            execCommand(`${NX_TEST} run platform-e2e:e2e:test --verbose`)
-          }
-
-          if (stage === Stage.CI) {
-            // Using `affected` here causes CircleCI parallel specs to not work
-            // execCommand(`npx nx affected --target=e2e -c ci`)
-            execCommand(`npx nx run platform-e2e:e2e:ci --verbose`)
-          }
-        },
-      )
-      .command(
         Tasks.Lint,
         'Lint projects',
         (argv) => argv,

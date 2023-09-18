@@ -42,12 +42,12 @@ export class Element implements IElementDTO {
 
   renderType?: Nullable<RenderType> | undefined
 
-  // closestContainerNode: IEntity
+  closestContainerNode: IEntity
 
   constructor({ closestContainerNode, id, name, props }: IElementDTO) {
     this.id = id
     this.props = props
-    // this.closestContainerNode = closestContainerNode
+    this.closestContainerNode = closestContainerNode
     this.name = name
   }
 }

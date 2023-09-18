@@ -8,7 +8,7 @@ export const execCommand = (command: string) => {
     const shell = process.env['CI'] ? true : false
 
     execa.commandSync(command, {
-      // shell: true,
+      // shell,
       shell: true,
       stdio: 'inherit',
     })

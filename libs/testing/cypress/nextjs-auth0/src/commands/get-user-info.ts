@@ -1,14 +1,14 @@
+import type { Auth0IdToken } from '@codelab/shared/abstract/core'
 import { webAuth } from '../utils/auth'
 
 export const getUserInfo = (accessToken: string) => {
-  return new Cypress.Promise((resolve, reject) => {
+  return new Promise<Auth0IdToken>((resolve, reject) => {
     webAuth.client.userInfo(accessToken, (err: unknown, user: unknown) => {
       if (err) {
-        console.error(err)
         reject(err)
       }
 
-      resolve(user)
+      resolve(user as Auth0IdToken)
     })
   })
 }

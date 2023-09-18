@@ -16,6 +16,14 @@ export class ElementProperties {
     return element.compositeKey.replace(reg, '')
   }
 
+  static elementSlugFromCompositeKey = (
+    element: DeepPick<Element, ElementData>,
+  ) => {
+    const reg = new RegExp(`${uuidRegex.source}-`, 'gi')
+
+    return element.compositeKey.replace(reg, '')
+  }
+
   static elementCompositeKey = (
     elementName: string,
     closestContainerNode: IEntity,

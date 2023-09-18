@@ -9,11 +9,9 @@ export const IElementDTO = Type.Object({
   childMapperPreviousSibling: Typebox.Nullish(IEntity),
   childMapperPropKey: Typebox.Nullish(Type.String()),
   /**
-   * For frontend models we can compute from Mobx, but for backend we would need resolver to return data, since our element model is simpler there
-   *
-   * TODO: Don't really like optional here, but seems best solution for now
+   * For frontend models we can compute from Mobx, but for backend we would map the data in
    */
-  closestContainerNode: Type.Optional(IEntity),
+  closestContainerNode: IEntity,
   firstChild: Typebox.Nullish(IEntity),
   id: Type.String(),
   name: Type.String(),
@@ -25,7 +23,6 @@ export const IElementDTO = Type.Object({
   preRenderAction: Typebox.Nullish(IEntity),
   prevSibling: Typebox.Nullish(IEntity),
   props: IEntity,
-  propTransformationJs: Typebox.Nullish(Type.String()),
   refKey: Typebox.Nullish(Type.String()),
   renderForEachPropKey: Typebox.Nullish(Type.String()),
   renderIfExpression: Typebox.Nullish(Type.String()),

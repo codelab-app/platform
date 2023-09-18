@@ -6,7 +6,7 @@ resource "auth0_action" "upsert_user" {
     version = "v3"
   }
 
-  runtime = "node18"
+  runtime = "node18-actions"
   code    = <<-EOT
 
 const { gql, GraphQLClient } = require('graphql-request')

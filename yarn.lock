@@ -12167,7 +12167,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/auth0-js@npm:^9.14.7":
+"@types/auth0-js@npm:^9.21.0":
   version: 9.21.0
   resolution: "@types/auth0-js@npm:9.21.0"
   checksum: 4af3f5b124153b4e7fcbefa9a6becbf41807236f1feae61c38a97385010ad32efeb1a379fa99d1d3c89abe1ce61a6dc90754720b28ad0674a2d09d5cfa89a2c9
@@ -15234,7 +15234,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"auth0-js@npm:^9.19.0, auth0-js@npm:^9.21.0":
+"auth0-js@npm:^9.19.0, auth0-js@npm:^9.22.1":
   version: 9.22.1
   resolution: "auth0-js@npm:9.22.1"
   dependencies:
@@ -17098,7 +17098,7 @@ __metadata:
     "@testing-library/user-event": 14.4.3
     "@types/adm-zip": ^0.5.0
     "@types/auth0": 3.3.2
-    "@types/auth0-js": ^9.14.7
+    "@types/auth0-js": ^9.21.0
     "@types/aws-lambda": ^8.10.116
     "@types/buble": ^0.20.1
     "@types/concurrently": 6.4.0
@@ -17155,7 +17155,7 @@ __metadata:
     animate.css: 4.1.1
     antd: 5.4.2
     auth0: 3.4.0
-    auth0-js: ^9.21.0
+    auth0-js: ^9.22.1
     autoprefixer: 10.4.14
     aws-lambda: ^1.0.7
     axios: ^1.5.0

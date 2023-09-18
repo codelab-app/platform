@@ -21,7 +21,7 @@ export class AuthService {
       throw new Error('Missing user in request')
     }
 
-    const userId = user[JWT_CLAIMS].user_id
+    const userId = user[JWT_CLAIMS].neo4j_user_id
 
     return {
       id: userId,

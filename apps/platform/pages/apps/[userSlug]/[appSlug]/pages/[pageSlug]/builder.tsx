@@ -23,7 +23,7 @@ import {
   SkeletonWrapper,
 } from '@codelab/frontend/presentation/view'
 import { builderRouteChangeHandler } from '@codelab/frontend/shared/utils'
-import { auth0Instance } from '@codelab/shared/infra/auth0'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { useUnmountEffect, useUpdateEffect } from '@react-hookz/web'
 import isNil from 'lodash/isNil'
 import { observer } from 'mobx-react-lite'
@@ -113,7 +113,7 @@ const PageBuilder: CodelabPage = observer(() => {
   )
 })
 
-export const getServerSideProps = auth0Instance().withPageAuthRequired({})
+export const getServerSideProps = withPageAuthRequired({})
 
 PageBuilder.Layout = observer(({ children }) => {
   return <BuilderContext>{children()}</BuilderContext>

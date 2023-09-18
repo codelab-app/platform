@@ -10,7 +10,9 @@ before(() => {
 
   loginSession()
 
-  cy.request<IAppDTO>('/api/cypress/app').then((res) => {
+  cy.request<IAppDTO>('POST', '/api/cypress/app').then((res) => {
+    console.log(res.body)
+
     const app = res.body
     cy.visit(
       `/apps/cypress/${slugify(

@@ -5,14 +5,12 @@ import { SeedCypressTypesCommand } from '@codelab/backend/application/type'
 import { Controller, Post } from '@nestjs/common'
 import { CommandBus } from '@nestjs/cqrs'
 
-@Controller('/')
+@Controller()
 export class CypressController {
   constructor(private commandBus: CommandBus) {}
 
   @Post('app')
   seedApp() {
-    console.log('cypress app')
-
     return this.commandBus.execute(new SeedCypressAppCommand())
   }
 

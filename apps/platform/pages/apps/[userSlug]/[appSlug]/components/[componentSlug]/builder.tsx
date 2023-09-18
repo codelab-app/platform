@@ -1,3 +1,4 @@
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { ExplorerPaneType } from '@codelab/frontend/abstract/types'
@@ -20,7 +21,6 @@ import {
   DashboardTemplate,
   SkeletonWrapper,
 } from '@codelab/frontend/presentation/view'
-import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { useEffect, useMemo } from 'react'
@@ -76,7 +76,7 @@ const ComponentBuilder: CodelabPage = observer(() => {
   )
 })
 
-export const getServerSideProps = auth0Instance().withPageAuthRequired({})
+export const getServerSideProps = withPageAuthRequired({})
 
 ComponentBuilder.Layout = observer(({ children }) => {
   return <BuilderContext>{children()}</BuilderContext>

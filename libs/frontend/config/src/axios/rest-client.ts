@@ -1,7 +1,7 @@
 import { getEnv } from '@codelab/shared/config'
 import axios from 'axios'
 
-export const httpClient = axios.create({
+export const restClient = axios.create({
   baseURL: new URL(
     'api/data',
     getEnv().endpoint.nextPublicPlatformHost,
@@ -12,7 +12,7 @@ export const httpClient = axios.create({
   },
 })
 
-httpClient.interceptors.response.use(
+restClient.interceptors.response.use(
   (response) => {
     // console.log(response)
 

@@ -29,7 +29,9 @@
         "test": {
           "cypressConfig": "apps/platform-e2e/cypress.test.config.ts",
           "devServerTarget": "platform-e2e:serve:test",
-          "record": false
+          "record": false,
+          "watch": true,
+          "exit": false
         }
       }
     },

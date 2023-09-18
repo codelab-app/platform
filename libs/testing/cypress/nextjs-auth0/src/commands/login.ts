@@ -7,13 +7,11 @@ interface LoginCredentials {
 
 export const loginSession = () => {
   cy.session(
-    ['auth0-session'],
+    ['auth0-session-10'],
     () => {
-      login()
-      // Needs to visit the page where the user data will get upserted
-      // so that there will be no forbidden errors when doing mutations
-      // because the roles are needed
-      cy.request({ method: 'POST', url: '/api/data/user/save' })
+      login().then((user) => {
+        cy.request({ body: user, method: 'POST', url: '/api/data/user/save' })
+      })
     },
     {
       cacheAcrossSpecs: true,
@@ -31,10 +29,10 @@ export const login = ({
   /* https://github.com/auth0/nextjs-auth0/blob/master/src/handlers/login.ts#L70 */
 
   try {
-    cy.getUserTokens({ password, username }).then((response: any) => {
+    return cy.getUserTokens({ password, username }).then((response: any) => {
       const { accessToken, expiresIn, idToken, scope } = response
 
-      cy.getUserInfo(accessToken).then((user) => {
+      return cy.getUserInfo(accessToken).then((user) => {
         /* https://github.com/auth0/nextjs-auth0/blob/master/src/handlers/callback.ts#L44 */
         /* https://github.com/auth0/nextjs-auth0/blob/master/src/handlers/callback.ts#L47 */
         /* https://github.com/auth0/nextjs-auth0/blob/master/src/session/cookie-store/index.ts#L57 */
@@ -53,9 +51,12 @@ export const login = ({
         cy.task('encrypt', payload).then((encryptedSession) => {
           cy._setAuth0Cookie(encryptedSession as string)
         })
+
+        return Promise.resolve(user)
       })
     })
   } catch (error) {
-    // throw new Error(error);
+    console.error(error)
+    throw new Error()
   }
 }

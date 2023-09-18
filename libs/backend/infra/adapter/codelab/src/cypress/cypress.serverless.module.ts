@@ -15,6 +15,7 @@ import { TagDomainModule } from '@codelab/backend/domain/tag'
 import { TypeDomainModule } from '@codelab/backend/domain/type'
 import { Neo4jModule, OgmModule } from '@codelab/backend/infra/adapter/neo4j'
 import { OtelModule } from '@codelab/backend/infra/adapter/otel'
+import { RequestContextModule } from '@codelab/backend/infra/adapter/request-context'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { CypressController } from './cypress.controller'
@@ -30,6 +31,7 @@ import { CypressController } from './cypress.controller'
      * Others
      */
     CqrsModule,
+    RequestContextModule,
     /**
      * Domain
      */

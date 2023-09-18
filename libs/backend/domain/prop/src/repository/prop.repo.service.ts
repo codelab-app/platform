@@ -47,12 +47,12 @@ export class PropRepository extends AbstractRepository<
   /**
    * We only deal with connecting/disconnecting relationships, actual items should exist already
    */
-  protected async _add(apps: Array<IPropDTO>) {
+  protected async _add(props: Array<IPropDTO>) {
     return (
       await (
         await this.ogmService.Prop
       ).create({
-        input: apps.map(({ data = '', id }) => ({
+        input: props.map(({ data = '', id }) => ({
           data,
           id,
         })),

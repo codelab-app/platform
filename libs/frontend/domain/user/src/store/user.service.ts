@@ -1,5 +1,5 @@
 import type { IUser, IUserService } from '@codelab/frontend/abstract/core'
-import { httpClient } from '@codelab/frontend/config'
+import { restClient } from '@codelab/frontend/config'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
 import type { Auth0IdToken, IUserDTO } from '@codelab/shared/abstract/core'
 import type { UserWhere } from '@codelab/shared/abstract/types'
@@ -58,8 +58,8 @@ export class UserService
   })
 
   @modelFlow
-  saveUser = _async(function* (this: UserService, data: IUserDTO) {
-    return yield* _await(httpClient.post('/user/save', data))
+  saveUser = _async(function* (this: UserService, data: Auth0IdToken) {
+    return yield* _await(restClient.post('/user/save', data))
   })
 
   static init = init

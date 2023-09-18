@@ -8,7 +8,7 @@ const defaultCredentials = {
 export const getUserTokens = (credentials = defaultCredentials) => {
   const { password, username } = credentials
 
-  return new Cypress.Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     webAuth.client.loginWithDefaultDirectory(
       {
         audience: Cypress.env('auth0Audience'),

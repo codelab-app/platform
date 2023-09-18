@@ -1,3 +1,4 @@
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { RendererType } from '@codelab/frontend/abstract/core'
 import type { CodelabPage } from '@codelab/frontend/abstract/types'
 import { BuilderContext } from '@codelab/frontend/domain/builder'
@@ -9,7 +10,6 @@ import {
 } from '@codelab/frontend/presentation/container'
 import { DashboardTemplate } from '@codelab/frontend/presentation/view'
 import { extractErrorMessage } from '@codelab/frontend/shared/utils'
-import { auth0Instance } from '@codelab/shared/infra/auth0'
 import { Alert, Spin } from 'antd'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
@@ -40,7 +40,7 @@ const ComponentRenderer: CodelabPage = observer(() => {
   )
 })
 
-export const getServerSideProps = auth0Instance().withPageAuthRequired({})
+export const getServerSideProps = withPageAuthRequired({})
 
 ComponentRenderer.Layout = observer(({ children }) => {
   return <BuilderContext>{children()}</BuilderContext>

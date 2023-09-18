@@ -78,29 +78,14 @@ const AppsPageHeader = observer(() => {
 
 const AppsPage: CodelabPage<DashboardTemplateProps> = (props) => {
   const { appService, userService } = useStore()
-  const { user } = useUser()
+  const user = userService.user
 
   const [{ status }, loadApp] = useAsync((owner: IEntity) =>
     appService.loadAppsPreview({ owner }),
   )
 
   useEffect(() => {
-    if (user) {
-      const userToken = user as unknown as Auth0IdToken
-
-      // in development need to execute this each time page is loaded,
-      // since useUser always returns valid Auth0 user even when it does not exist in neo4j db yet
-      if (
-        user.sub &&
-        getEnv().endpoint.isLocal &&
-        !getEnv().node.isTest &&
-        !getEnv().node.isCi
-      ) {
-        void userService.saveUser(userToken)
-      }
-
-      void loadApp.execute({ id: userToken[JWT_CLAIMS].neo4j_user_id })
-    }
+    void loadApp.execute({ id: user.id })
   }, [user, loadApp])
 
   return (
