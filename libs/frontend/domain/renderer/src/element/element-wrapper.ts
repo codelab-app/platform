@@ -12,7 +12,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import { getRunner } from '../action-runner.model'
-import { getInteractionHandlers } from './get-interaction-handlers'
+import { useSelectionHandlers } from '../utils'
 import { renderComponentWithStyles } from './get-styled-components'
 import { extractValidProps, getReactComponent } from './wrapper.utils'
 
@@ -77,13 +77,14 @@ export const ElementWrapper = observer<ElementWrapperProps>(
 
     const extractedProps = extractValidProps(ReactComponent, renderOutput)
 
-    const interactionHandlers =
-      renderer.rendererType === RendererType.PageBuilder
-        ? getInteractionHandlers(builderService, element)
-        : {}
+    const selectionHandlers = useSelectionHandlers(
+      builderService,
+      element,
+      renderer.rendererType,
+    )
 
     // leave ElementWrapper pass-through so refs are attached to correct element
-    const mergedProps = mergeProps(extractedProps, rest, interactionHandlers)
+    const mergedProps = mergeProps(extractedProps, rest, selectionHandlers)
 
     const renderedElement = renderComponentWithStyles(
       ReactComponent,
