@@ -1,7 +1,7 @@
 import type { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
 import type {
   IElementDTO,
-  ElementRenderType,
+  IElementRenderType,
 } from '@codelab/shared/abstract/core'
 import type { IEntity, Maybe } from '@codelab/shared/abstract/types'
 import type { ObjectMap, Ref } from 'mobx-keystone'
@@ -80,7 +80,7 @@ export interface IElementService
   createElementAsNextSibling(data: ICreateElementData): Promise<IElementModel>
   delete(subRoot: IEntity): Promise<void>
   element(id: string): IElementModel
-  getRenderTypeApi(renderType: RenderType): Promise<Ref<IInterfaceType>>
+  getRenderTypeApi(renderType: IElementRenderType): Promise<Ref<IInterfaceType>>
   loadComponentTree(component: RenderedComponentFragment): {
     hydratedElements: Array<IElementModel>
     rootElement: IElementModel

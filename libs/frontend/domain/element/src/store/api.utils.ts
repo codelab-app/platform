@@ -6,7 +6,7 @@ import type {
   IInterfaceType,
 } from '@codelab/frontend/abstract/core'
 import type { ElementUpdateInput } from '@codelab/shared/abstract/codegen'
-import type { ElementRenderType } from '@codelab/shared/abstract/core'
+import type { IElementRenderType } from '@codelab/shared/abstract/core'
 import { ElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import type { Maybe, Nullable } from '@codelab/shared/abstract/types'
 import type { Ref } from 'mobx-keystone'

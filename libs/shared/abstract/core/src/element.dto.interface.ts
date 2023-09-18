@@ -2,7 +2,7 @@ import { IEntity } from '@codelab/shared/abstract/types'
 import { Typebox } from '@codelab/shared/infra/validation'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
-import { ElementRenderType } from './element-render-type'
+import { IElementRenderType } from './element-render-type'
 
 export const IElementDTO = Type.Object({
   childMapperComponent: Typebox.Nullish(IEntity),
@@ -26,7 +26,7 @@ export const IElementDTO = Type.Object({
   refKey: Typebox.Nullish(Type.String()),
   renderForEachPropKey: Typebox.Nullish(Type.String()),
   renderIfExpression: Typebox.Nullish(Type.String()),
-  renderType: ElementRenderType,
+  renderType: IElementRenderType,
   style: Typebox.Nullish(Type.String()),
 })
 

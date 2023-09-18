@@ -22,7 +22,11 @@ import type {
   ComponentOptions,
   ComponentWhere,
 } from '@codelab/shared/abstract/codegen'
-import { IComponentDTO, ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  IComponentDTO,
+  IElementRenderTypeKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import flatMap from 'lodash/flatMap'
 import isEmpty from 'lodash/isEmpty'
 import uniq from 'lodash/uniq'
@@ -186,6 +190,10 @@ export class ComponentService
       name: `${name} Root`,
       parentComponent: { id },
       props: rootElementProps,
+      renderType: {
+        __typename: IElementRenderTypeKind.Component,
+        id,
+      },
     })
 
     const api = this.typeService.addInterface({
@@ -289,17 +297,16 @@ export class ComponentService
 
         /**
          * Element comes with `component` or `atom` data that we need to load as well
+         * TODO: Need to handle component case, refactor reuse
          */
-        if (elementData.renderAtomType?.id) {
+        if (elementData.renderType.__typename === IElementRenderTypeKind.Atom) {
           this.typeService.loadTypes({
-            interfaceTypes: [elementData.renderAtomType.api],
+            interfaceTypes: [elementData.renderType.api],
           })
 
-          elementData.renderAtomType.tags.forEach((tag) =>
-            this.tagService.add(tag),
-          )
+          elementData.renderType.tags.forEach((tag) => this.tagService.add(tag))
 
-          this.atomService.add(elementData.renderAtomType)
+          this.atomService.add(elementData.renderType)
         }
 
         this.elementService.add({

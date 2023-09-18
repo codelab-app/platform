@@ -1,24 +1,25 @@
-import { ElementRenderTypeKind } from '@codelab/shared/abstract/codegen'
+import type { Atom, Component } from '@codelab/backend/abstract/codegen'
+import {
+  IDiscriminatedEntity,
+  IMaybeDiscriminatedEntity,
+} from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
+import { IAtomDTO } from './atom.dto.interface'
+import { IComponentDTO } from './component.dto.interface'
 
-/**
- *  @deprecated We have to use the copy from codegen, otherwise they don't match up
- */
-export enum __ElementRenderTypeKind {
+export enum IElementRenderTypeKind {
   Atom = 'Atom',
   Component = 'Component',
 }
-
-export { ElementRenderTypeKind as IElementRenderTypeKind }
 
 export const IComponentID = Type.String()
 
 export const IAtomID = Type.String()
 
-export const ElementRenderType = Type.Object({
-  id: Type.Union([IAtomID, IComponentID]),
-  kind: Type.Enum(ElementRenderTypeKind),
-})
+export const IElementRenderType = Type.Union([
+  IDiscriminatedEntity(`${IElementRenderTypeKind.Atom}`),
+  IDiscriminatedEntity(`${IElementRenderTypeKind.Component}`),
+])
 
-export type ElementRenderType = Static<typeof ElementRenderType>
+export type IElementRenderType = Static<typeof IElementRenderType>

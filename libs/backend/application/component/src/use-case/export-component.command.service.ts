@@ -40,14 +40,10 @@ export class ExportComponentHandler
       }),
     )
 
-    const descendantElements: Array<IElementOutputDto> = (
+    const descendantElements: Array<IElementOutputDto> =
       await this.elementRepository.getElementWithDescendants(
         component.rootElement.id,
       )
-    ).map((element) => ({
-      ...element,
-      closestContainerNode: { id: componentId },
-    }))
 
     const api = await this.commandBus.execute<ExportApiCommand, IApiOutputDto>(
       new ExportApiCommand(component.api),

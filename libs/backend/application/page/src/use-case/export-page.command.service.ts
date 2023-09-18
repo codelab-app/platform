@@ -4,6 +4,7 @@ import { ExportStoreCommand } from '@codelab/backend/application/store'
 import { ComponentRepository } from '@codelab/backend/domain/component'
 import { ElementRepository } from '@codelab/backend/domain/element'
 import { PageRepository } from '@codelab/backend/domain/page'
+import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { uuidRegex } from '@codelab/shared/utils'
 import type { ICommandHandler } from '@nestjs/cqrs'
 import { CommandBus, CommandHandler } from '@nestjs/cqrs'
@@ -53,7 +54,9 @@ export class ExportPageHandler
 
     const componentIds = flatMap(elements, (element) => [
       element.parentComponent?.id,
-      element.renderComponentType?.id,
+      element.renderType.__typename === IElementRenderTypeKind.Component
+        ? element.renderType.id
+        : null,
       element.childMapperComponent?.id,
       ...(element.props.data.match(uuidRegex) || []),
     ]).filter((element): element is string => Boolean(element))

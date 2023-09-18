@@ -34,7 +34,7 @@ import type {
   PageWhere,
 } from '@codelab/shared/abstract/codegen'
 import type { IDomainDTO } from '@codelab/shared/abstract/core'
-import { IAppDTO } from '@codelab/shared/abstract/core'
+import { IAppDTO, IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import flatMap from 'lodash/flatMap'
 import merge from 'lodash/merge'
 import { computed } from 'mobx'
@@ -159,17 +159,17 @@ export class AppService
 
         /**
          * Element comes with `component` or `atom` data that we need to load as well
+         *
+         * TODO: Need to handle component case
          */
-        if (elementData.renderAtomType?.id) {
+        if (elementData.renderType.__typename === IElementRenderTypeKind.Atom) {
           this.typeService.loadTypes({
-            interfaceTypes: [elementData.renderAtomType.api],
+            interfaceTypes: [elementData.renderType.api],
           })
 
-          elementData.renderAtomType.tags.forEach((tag) =>
-            this.tagService.add(tag),
-          )
+          elementData.renderType.tags.forEach((tag) => this.tagService.add(tag))
 
-          this.atomService.add(elementData.renderAtomType)
+          this.atomService.add(elementData.renderType)
         }
 
         this.elementService.add({

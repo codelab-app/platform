@@ -3655,6 +3655,7 @@ input AtomUniqueWhere {
   externalSourceType: String
   id: ID
   name: String
+  type: AtomType
 }
 
 input AtomUpdateInput {
@@ -5850,6 +5851,8 @@ type ComponentsConnection {
   totalCount: Int!
 }
 
+union ContainerNode = Component | Page
+
 type CreateActionTypesMutationResponse {
   actionTypes: [ActionType!]!
   info: CreateInfo!
@@ -6301,6 +6304,7 @@ type Element {
     where: ElementChildMapperPreviousSiblingConnectionWhere
   ): ElementChildMapperPreviousSiblingConnection!
   childMapperPropKey: String
+  closestContainerNode: ContainerNode!
   compositeKey: String!
   descendantElements: [Element!]!
   firstChild(
@@ -6433,41 +6437,9 @@ type Element {
     sort: [ElementPropsConnectionSort!]
     where: ElementPropsConnectionWhere
   ): ElementPropsConnection!
-  renderAtomType(
-    directed: Boolean = true
-    options: AtomOptions
-    where: AtomWhere
-  ): Atom
-  renderAtomTypeAggregate(
-    directed: Boolean = true
-    where: AtomWhere
-  ): ElementAtomRenderAtomTypeAggregationSelection
-  renderAtomTypeConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [ElementRenderAtomTypeConnectionSort!]
-    where: ElementRenderAtomTypeConnectionWhere
-  ): ElementRenderAtomTypeConnection!
-  renderComponentType(
-    directed: Boolean = true
-    options: ComponentOptions
-    where: ComponentWhere
-  ): Component
-  renderComponentTypeAggregate(
-    directed: Boolean = true
-    where: ComponentWhere
-  ): ElementComponentRenderComponentTypeAggregationSelection
-  renderComponentTypeConnection(
-    after: String
-    directed: Boolean = true
-    first: Int
-    sort: [ElementRenderComponentTypeConnectionSort!]
-    where: ElementRenderComponentTypeConnectionWhere
-  ): ElementRenderComponentTypeConnection!
   renderForEachPropKey: String
   renderIfExpression: String
-  renderType: RenderType
+  renderType: ElementRenderType!
   slug: String!
   style: String
 }
@@ -6480,20 +6452,6 @@ type ElementAggregateSelection {
   renderForEachPropKey: StringAggregateSelectionNullable!
   renderIfExpression: StringAggregateSelectionNullable!
   style: StringAggregateSelectionNullable!
-}
-
-type ElementAtomRenderAtomTypeAggregationSelection {
-  count: Int!
-  node: ElementAtomRenderAtomTypeNodeAggregateSelection
-}
-
-type ElementAtomRenderAtomTypeNodeAggregateSelection {
-  externalCssSource: StringAggregateSelectionNullable!
-  externalJsSource: StringAggregateSelectionNullable!
-  externalSourceType: StringAggregateSelectionNullable!
-  icon: StringAggregateSelectionNullable!
-  id: IDAggregateSelectionNonNullable!
-  name: StringAggregateSelectionNonNullable!
 }
 
 input ElementChildMapperComponentAggregateInput {
@@ -6809,17 +6767,6 @@ type ElementComponentParentComponentNodeAggregateSelection {
   name: StringAggregateSelectionNonNullable!
 }
 
-type ElementComponentRenderComponentTypeAggregationSelection {
-  count: Int!
-  node: ElementComponentRenderComponentTypeNodeAggregateSelection
-}
-
-type ElementComponentRenderComponentTypeNodeAggregateSelection {
-  id: IDAggregateSelectionNonNullable!
-  keyGenerator: StringAggregateSelectionNullable!
-  name: StringAggregateSelectionNonNullable!
-}
-
 input ElementConnectInput {
   childMapperComponent: ElementChildMapperComponentConnectFieldInput
   childMapperPreviousSibling: ElementChildMapperPreviousSiblingConnectFieldInput
@@ -6832,8 +6779,6 @@ input ElementConnectInput {
   preRenderAction: ElementPreRenderActionConnectFieldInput
   prevSibling: ElementPrevSiblingConnectFieldInput
   props: ElementPropsConnectFieldInput
-  renderAtomType: ElementRenderAtomTypeConnectFieldInput
-  renderComponentType: ElementRenderComponentTypeConnectFieldInput
 }
 
 input ElementConnectOrCreateInput {
@@ -6846,8 +6791,6 @@ input ElementConnectOrCreateInput {
   parentComponent: ElementParentComponentConnectOrCreateFieldInput
   prevSibling: ElementPrevSiblingConnectOrCreateFieldInput
   props: ElementPropsConnectOrCreateFieldInput
-  renderAtomType: ElementRenderAtomTypeConnectOrCreateFieldInput
-  renderComponentType: ElementRenderComponentTypeConnectOrCreateFieldInput
 }
 
 input ElementConnectOrCreateWhere {
@@ -6873,8 +6816,6 @@ input ElementCreateInput {
   preRenderAction: ElementPreRenderActionFieldInput
   prevSibling: ElementPrevSiblingFieldInput
   props: ElementPropsFieldInput
-  renderAtomType: ElementRenderAtomTypeFieldInput
-  renderComponentType: ElementRenderComponentTypeFieldInput
   renderForEachPropKey: String
   renderIfExpression: String
   style: String
@@ -6892,8 +6833,6 @@ input ElementDeleteInput {
   preRenderAction: ElementPreRenderActionDeleteFieldInput
   prevSibling: ElementPrevSiblingDeleteFieldInput
   props: ElementPropsDeleteFieldInput
-  renderAtomType: ElementRenderAtomTypeDeleteFieldInput
-  renderComponentType: ElementRenderComponentTypeDeleteFieldInput
 }
 
 input ElementDisconnectInput {
@@ -6908,8 +6847,6 @@ input ElementDisconnectInput {
   preRenderAction: ElementPreRenderActionDisconnectFieldInput
   prevSibling: ElementPrevSiblingDisconnectFieldInput
   props: ElementPropsDisconnectFieldInput
-  renderAtomType: ElementRenderAtomTypeDisconnectFieldInput
-  renderComponentType: ElementRenderComponentTypeDisconnectFieldInput
 }
 
 type ElementEdge {
@@ -8179,300 +8116,9 @@ input ElementRelationInput {
   preRenderAction: ElementPreRenderActionCreateFieldInput
   prevSibling: ElementPrevSiblingCreateFieldInput
   props: ElementPropsCreateFieldInput
-  renderAtomType: ElementRenderAtomTypeCreateFieldInput
-  renderComponentType: ElementRenderComponentTypeCreateFieldInput
 }
 
-input ElementRenderAtomTypeAggregateInput {
-  AND: [ElementRenderAtomTypeAggregateInput!]
-  NOT: ElementRenderAtomTypeAggregateInput
-  OR: [ElementRenderAtomTypeAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ElementRenderAtomTypeNodeAggregationWhereInput
-}
-
-input ElementRenderAtomTypeConnectFieldInput {
-  connect: AtomConnectInput
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties.
-  """
-  overwrite: Boolean! = true
-  where: AtomConnectWhere
-}
-
-input ElementRenderAtomTypeConnectOrCreateFieldInput {
-  onCreate: ElementRenderAtomTypeConnectOrCreateFieldInputOnCreate!
-  where: AtomConnectOrCreateWhere!
-}
-
-input ElementRenderAtomTypeConnectOrCreateFieldInputOnCreate {
-  node: AtomOnCreateInput!
-}
-
-type ElementRenderAtomTypeConnection {
-  edges: [ElementRenderAtomTypeRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ElementRenderAtomTypeConnectionSort {
-  node: AtomSort
-}
-
-input ElementRenderAtomTypeConnectionWhere {
-  AND: [ElementRenderAtomTypeConnectionWhere!]
-  NOT: ElementRenderAtomTypeConnectionWhere
-  OR: [ElementRenderAtomTypeConnectionWhere!]
-  node: AtomWhere
-}
-
-input ElementRenderAtomTypeCreateFieldInput {
-  node: AtomCreateInput!
-}
-
-input ElementRenderAtomTypeDeleteFieldInput {
-  delete: AtomDeleteInput
-  where: ElementRenderAtomTypeConnectionWhere
-}
-
-input ElementRenderAtomTypeDisconnectFieldInput {
-  disconnect: AtomDisconnectInput
-  where: ElementRenderAtomTypeConnectionWhere
-}
-
-input ElementRenderAtomTypeFieldInput {
-  connect: ElementRenderAtomTypeConnectFieldInput
-  connectOrCreate: ElementRenderAtomTypeConnectOrCreateFieldInput
-  create: ElementRenderAtomTypeCreateFieldInput
-}
-
-input ElementRenderAtomTypeNodeAggregationWhereInput {
-  AND: [ElementRenderAtomTypeNodeAggregationWhereInput!]
-  NOT: ElementRenderAtomTypeNodeAggregationWhereInput
-  OR: [ElementRenderAtomTypeNodeAggregationWhereInput!]
-  externalCssSource_AVERAGE_LENGTH_EQUAL: Float
-  externalCssSource_AVERAGE_LENGTH_GT: Float
-  externalCssSource_AVERAGE_LENGTH_GTE: Float
-  externalCssSource_AVERAGE_LENGTH_LT: Float
-  externalCssSource_AVERAGE_LENGTH_LTE: Float
-  externalCssSource_LONGEST_LENGTH_EQUAL: Int
-  externalCssSource_LONGEST_LENGTH_GT: Int
-  externalCssSource_LONGEST_LENGTH_GTE: Int
-  externalCssSource_LONGEST_LENGTH_LT: Int
-  externalCssSource_LONGEST_LENGTH_LTE: Int
-  externalCssSource_SHORTEST_LENGTH_EQUAL: Int
-  externalCssSource_SHORTEST_LENGTH_GT: Int
-  externalCssSource_SHORTEST_LENGTH_GTE: Int
-  externalCssSource_SHORTEST_LENGTH_LT: Int
-  externalCssSource_SHORTEST_LENGTH_LTE: Int
-  externalJsSource_AVERAGE_LENGTH_EQUAL: Float
-  externalJsSource_AVERAGE_LENGTH_GT: Float
-  externalJsSource_AVERAGE_LENGTH_GTE: Float
-  externalJsSource_AVERAGE_LENGTH_LT: Float
-  externalJsSource_AVERAGE_LENGTH_LTE: Float
-  externalJsSource_LONGEST_LENGTH_EQUAL: Int
-  externalJsSource_LONGEST_LENGTH_GT: Int
-  externalJsSource_LONGEST_LENGTH_GTE: Int
-  externalJsSource_LONGEST_LENGTH_LT: Int
-  externalJsSource_LONGEST_LENGTH_LTE: Int
-  externalJsSource_SHORTEST_LENGTH_EQUAL: Int
-  externalJsSource_SHORTEST_LENGTH_GT: Int
-  externalJsSource_SHORTEST_LENGTH_GTE: Int
-  externalJsSource_SHORTEST_LENGTH_LT: Int
-  externalJsSource_SHORTEST_LENGTH_LTE: Int
-  externalSourceType_AVERAGE_LENGTH_EQUAL: Float
-  externalSourceType_AVERAGE_LENGTH_GT: Float
-  externalSourceType_AVERAGE_LENGTH_GTE: Float
-  externalSourceType_AVERAGE_LENGTH_LT: Float
-  externalSourceType_AVERAGE_LENGTH_LTE: Float
-  externalSourceType_LONGEST_LENGTH_EQUAL: Int
-  externalSourceType_LONGEST_LENGTH_GT: Int
-  externalSourceType_LONGEST_LENGTH_GTE: Int
-  externalSourceType_LONGEST_LENGTH_LT: Int
-  externalSourceType_LONGEST_LENGTH_LTE: Int
-  externalSourceType_SHORTEST_LENGTH_EQUAL: Int
-  externalSourceType_SHORTEST_LENGTH_GT: Int
-  externalSourceType_SHORTEST_LENGTH_GTE: Int
-  externalSourceType_SHORTEST_LENGTH_LT: Int
-  externalSourceType_SHORTEST_LENGTH_LTE: Int
-  icon_AVERAGE_LENGTH_EQUAL: Float
-  icon_AVERAGE_LENGTH_GT: Float
-  icon_AVERAGE_LENGTH_GTE: Float
-  icon_AVERAGE_LENGTH_LT: Float
-  icon_AVERAGE_LENGTH_LTE: Float
-  icon_LONGEST_LENGTH_EQUAL: Int
-  icon_LONGEST_LENGTH_GT: Int
-  icon_LONGEST_LENGTH_GTE: Int
-  icon_LONGEST_LENGTH_LT: Int
-  icon_LONGEST_LENGTH_LTE: Int
-  icon_SHORTEST_LENGTH_EQUAL: Int
-  icon_SHORTEST_LENGTH_GT: Int
-  icon_SHORTEST_LENGTH_GTE: Int
-  icon_SHORTEST_LENGTH_LT: Int
-  icon_SHORTEST_LENGTH_LTE: Int
-  name_AVERAGE_LENGTH_EQUAL: Float
-  name_AVERAGE_LENGTH_GT: Float
-  name_AVERAGE_LENGTH_GTE: Float
-  name_AVERAGE_LENGTH_LT: Float
-  name_AVERAGE_LENGTH_LTE: Float
-  name_LONGEST_LENGTH_EQUAL: Int
-  name_LONGEST_LENGTH_GT: Int
-  name_LONGEST_LENGTH_GTE: Int
-  name_LONGEST_LENGTH_LT: Int
-  name_LONGEST_LENGTH_LTE: Int
-  name_SHORTEST_LENGTH_EQUAL: Int
-  name_SHORTEST_LENGTH_GT: Int
-  name_SHORTEST_LENGTH_GTE: Int
-  name_SHORTEST_LENGTH_LT: Int
-  name_SHORTEST_LENGTH_LTE: Int
-}
-
-type ElementRenderAtomTypeRelationship {
-  cursor: String!
-  node: Atom!
-}
-
-input ElementRenderAtomTypeUpdateConnectionInput {
-  node: AtomUpdateInput
-}
-
-input ElementRenderAtomTypeUpdateFieldInput {
-  connect: ElementRenderAtomTypeConnectFieldInput
-  connectOrCreate: ElementRenderAtomTypeConnectOrCreateFieldInput
-  create: ElementRenderAtomTypeCreateFieldInput
-  delete: ElementRenderAtomTypeDeleteFieldInput
-  disconnect: ElementRenderAtomTypeDisconnectFieldInput
-  update: ElementRenderAtomTypeUpdateConnectionInput
-  where: ElementRenderAtomTypeConnectionWhere
-}
-
-input ElementRenderComponentTypeAggregateInput {
-  AND: [ElementRenderComponentTypeAggregateInput!]
-  NOT: ElementRenderComponentTypeAggregateInput
-  OR: [ElementRenderComponentTypeAggregateInput!]
-  count: Int
-  count_GT: Int
-  count_GTE: Int
-  count_LT: Int
-  count_LTE: Int
-  node: ElementRenderComponentTypeNodeAggregationWhereInput
-}
-
-input ElementRenderComponentTypeConnectFieldInput {
-  connect: ComponentConnectInput
-
-  """
-  Whether or not to overwrite any matching relationship with the new properties.
-  """
-  overwrite: Boolean! = true
-  where: ComponentConnectWhere
-}
-
-input ElementRenderComponentTypeConnectOrCreateFieldInput {
-  onCreate: ElementRenderComponentTypeConnectOrCreateFieldInputOnCreate!
-  where: ComponentConnectOrCreateWhere!
-}
-
-input ElementRenderComponentTypeConnectOrCreateFieldInputOnCreate {
-  node: ComponentOnCreateInput!
-}
-
-type ElementRenderComponentTypeConnection {
-  edges: [ElementRenderComponentTypeRelationship!]!
-  pageInfo: PageInfo!
-  totalCount: Int!
-}
-
-input ElementRenderComponentTypeConnectionSort {
-  node: ComponentSort
-}
-
-input ElementRenderComponentTypeConnectionWhere {
-  AND: [ElementRenderComponentTypeConnectionWhere!]
-  NOT: ElementRenderComponentTypeConnectionWhere
-  OR: [ElementRenderComponentTypeConnectionWhere!]
-  node: ComponentWhere
-}
-
-input ElementRenderComponentTypeCreateFieldInput {
-  node: ComponentCreateInput!
-}
-
-input ElementRenderComponentTypeDeleteFieldInput {
-  delete: ComponentDeleteInput
-  where: ElementRenderComponentTypeConnectionWhere
-}
-
-input ElementRenderComponentTypeDisconnectFieldInput {
-  disconnect: ComponentDisconnectInput
-  where: ElementRenderComponentTypeConnectionWhere
-}
-
-input ElementRenderComponentTypeFieldInput {
-  connect: ElementRenderComponentTypeConnectFieldInput
-  connectOrCreate: ElementRenderComponentTypeConnectOrCreateFieldInput
-  create: ElementRenderComponentTypeCreateFieldInput
-}
-
-input ElementRenderComponentTypeNodeAggregationWhereInput {
-  AND: [ElementRenderComponentTypeNodeAggregationWhereInput!]
-  NOT: ElementRenderComponentTypeNodeAggregationWhereInput
-  OR: [ElementRenderComponentTypeNodeAggregationWhereInput!]
-  keyGenerator_AVERAGE_LENGTH_EQUAL: Float
-  keyGenerator_AVERAGE_LENGTH_GT: Float
-  keyGenerator_AVERAGE_LENGTH_GTE: Float
-  keyGenerator_AVERAGE_LENGTH_LT: Float
-  keyGenerator_AVERAGE_LENGTH_LTE: Float
-  keyGenerator_LONGEST_LENGTH_EQUAL: Int
-  keyGenerator_LONGEST_LENGTH_GT: Int
-  keyGenerator_LONGEST_LENGTH_GTE: Int
-  keyGenerator_LONGEST_LENGTH_LT: Int
-  keyGenerator_LONGEST_LENGTH_LTE: Int
-  keyGenerator_SHORTEST_LENGTH_EQUAL: Int
-  keyGenerator_SHORTEST_LENGTH_GT: Int
-  keyGenerator_SHORTEST_LENGTH_GTE: Int
-  keyGenerator_SHORTEST_LENGTH_LT: Int
-  keyGenerator_SHORTEST_LENGTH_LTE: Int
-  name_AVERAGE_LENGTH_EQUAL: Float
-  name_AVERAGE_LENGTH_GT: Float
-  name_AVERAGE_LENGTH_GTE: Float
-  name_AVERAGE_LENGTH_LT: Float
-  name_AVERAGE_LENGTH_LTE: Float
-  name_LONGEST_LENGTH_EQUAL: Int
-  name_LONGEST_LENGTH_GT: Int
-  name_LONGEST_LENGTH_GTE: Int
-  name_LONGEST_LENGTH_LT: Int
-  name_LONGEST_LENGTH_LTE: Int
-  name_SHORTEST_LENGTH_EQUAL: Int
-  name_SHORTEST_LENGTH_GT: Int
-  name_SHORTEST_LENGTH_GTE: Int
-  name_SHORTEST_LENGTH_LT: Int
-  name_SHORTEST_LENGTH_LTE: Int
-}
-
-type ElementRenderComponentTypeRelationship {
-  cursor: String!
-  node: Component!
-}
-
-input ElementRenderComponentTypeUpdateConnectionInput {
-  node: ComponentUpdateInput
-}
-
-input ElementRenderComponentTypeUpdateFieldInput {
-  connect: ElementRenderComponentTypeConnectFieldInput
-  connectOrCreate: ElementRenderComponentTypeConnectOrCreateFieldInput
-  create: ElementRenderComponentTypeCreateFieldInput
-  delete: ElementRenderComponentTypeDeleteFieldInput
-  disconnect: ElementRenderComponentTypeDisconnectFieldInput
-  update: ElementRenderComponentTypeUpdateConnectionInput
-  where: ElementRenderComponentTypeConnectionWhere
-}
+union ElementRenderType = Atom | Component
 
 """
 Fields to sort Elements by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementSort object.
@@ -8719,8 +8365,6 @@ input ElementUpdateInput {
   preRenderAction: ElementPreRenderActionUpdateFieldInput
   prevSibling: ElementPrevSiblingUpdateFieldInput
   props: ElementPropsUpdateFieldInput
-  renderAtomType: ElementRenderAtomTypeUpdateFieldInput
-  renderComponentType: ElementRenderComponentTypeUpdateFieldInput
   renderForEachPropKey: String
   renderIfExpression: String
   style: String
@@ -8797,16 +8441,6 @@ input ElementWhere {
   propsConnection: ElementPropsConnectionWhere
   propsConnection_NOT: ElementPropsConnectionWhere
   props_NOT: PropWhere
-  renderAtomType: AtomWhere
-  renderAtomTypeAggregate: ElementRenderAtomTypeAggregateInput
-  renderAtomTypeConnection: ElementRenderAtomTypeConnectionWhere
-  renderAtomTypeConnection_NOT: ElementRenderAtomTypeConnectionWhere
-  renderAtomType_NOT: AtomWhere
-  renderComponentType: ComponentWhere
-  renderComponentTypeAggregate: ElementRenderComponentTypeAggregateInput
-  renderComponentTypeConnection: ElementRenderComponentTypeConnectionWhere
-  renderComponentTypeConnection_NOT: ElementRenderComponentTypeConnectionWhere
-  renderComponentType_NOT: ComponentWhere
   renderForEachPropKey: String
   renderForEachPropKey_CONTAINS: String
   renderForEachPropKey_ENDS_WITH: String
@@ -14848,16 +14482,6 @@ type RenderPropTypesConnection {
   edges: [RenderPropTypeEdge!]!
   pageInfo: PageInfo!
   totalCount: Int!
-}
-
-type RenderType {
-  id: ID!
-  kind: RenderTypeKind!
-}
-
-enum RenderTypeKind {
-  Atom
-  Component
 }
 
 type Resource implements WithOwner {

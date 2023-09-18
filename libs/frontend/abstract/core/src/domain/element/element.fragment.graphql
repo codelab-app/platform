@@ -6,16 +6,15 @@ fragment Element on Element {
   page {
     id
   }
-  renderComponentType {
-    id
-  }
-  renderAtomType {
-    ...Atom
-    # ...RenderAtom
-  }
   renderType {
-    id
-    kind
+    ... on Atom {
+      __typename
+      ...Atom
+    }
+    ... on Component {
+      __typename
+      id
+    }
   }
   prevSibling {
     id
@@ -63,16 +62,15 @@ fragment ProductionElement on Element {
   page {
     id
   }
-  renderComponentType {
-    id
-  }
-  renderAtomType {
-    ...ProductionAtom
-    # ...RenderAtom
-  }
   renderType {
-    id
-    kind
+    ... on Atom {
+      __typename
+      ...ProductionAtom
+    }
+    ... on Component {
+      __typename
+      id
+    }
   }
   prevSibling {
     id

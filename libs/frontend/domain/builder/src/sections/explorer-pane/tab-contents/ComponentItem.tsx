@@ -37,10 +37,11 @@ export const DraggableComponentItem = ({
     return {
       name: compoundCaseToTitleCase(component.name),
       renderType: {
-        id: component.id,
-        kind: isComponentPageNode(component as IComponentModel)
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        __typename: isComponentPageNode(component as IComponentModel)
           ? IElementRenderTypeKind.Component
           : IElementRenderTypeKind.Atom,
+        id: component.id,
       },
     }
   }, [component])

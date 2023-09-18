@@ -1,14 +1,7 @@
 import { gql } from '@apollo/client'
-import { __ElementRenderTypeKind } from '@codelab/shared/abstract/core'
 import { getClosestContainerNodeCypher } from '../../cypher'
 
-const renderTypeKindSchema = `enum RenderTypeKind {
-  ${Object.values(__ElementRenderTypeKind).join('\n')}
-}`
-
 export const elementSchema = gql`
-  ${renderTypeKindSchema}
-
   union ElementRenderType = Atom | Component
   union ContainerNode = Page | Component
 

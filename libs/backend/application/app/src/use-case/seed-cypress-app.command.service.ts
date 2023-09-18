@@ -9,10 +9,10 @@ import { Prop, PropRepository } from '@codelab/backend/domain/prop'
 import { Store, StoreRepository } from '@codelab/backend/domain/store'
 import type { InterfaceType } from '@codelab/backend/domain/type'
 import { InterfaceTypeRepository } from '@codelab/backend/domain/type'
-import { ElementRenderTypeKind } from '@codelab/shared/abstract/codegen'
 import type { IApp } from '@codelab/shared/abstract/core'
 import {
   IAtomType,
+  IElementRenderTypeKind,
   IPageKindName,
   JWT_CLAIMS,
 } from '@codelab/shared/abstract/core'
@@ -99,8 +99,8 @@ export class SeedCypressAppHandler
           id: providerPageId,
         },
         {
+          __typename: IElementRenderTypeKind.Atom,
           id: atomReactFragment.id,
-          kind: ElementRenderTypeKind.Atom,
         },
       ),
     )
@@ -109,8 +109,8 @@ export class SeedCypressAppHandler
       notFoundElementData(
         { id: notFoundPageId },
         {
+          __typename: IElementRenderTypeKind.Atom,
           id: atomReactFragment.id,
-          kind: ElementRenderTypeKind.Atom,
         },
       ),
     )
@@ -119,8 +119,8 @@ export class SeedCypressAppHandler
       internalServerErrorElementData(
         { id: internalServerPageId },
         {
+          __typename: IElementRenderTypeKind.Atom,
           id: atomReactFragment.id,
-          kind: ElementRenderTypeKind.Atom,
         },
       ),
     )

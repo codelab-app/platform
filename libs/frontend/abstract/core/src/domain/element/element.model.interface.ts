@@ -123,7 +123,7 @@ export interface IElementModel
   providerStore?: Ref<IStore>
   renderForEachPropKey: Nullable<string>
   renderIfExpression: Nullable<string>
-  renderType: IElementRenderType | null
+  renderType: IElementRenderType
   // atom: Nullable<Ref<IAtom>>
   // renderComponentType: Nullable<Ref<IComponent>>
   renderingMetadata: Nullable<RenderingMetadata>

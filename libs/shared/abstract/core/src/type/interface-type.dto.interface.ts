@@ -1,4 +1,7 @@
-import { IDiscriminatedEntity, IEntity } from '@codelab/shared/abstract/types'
+import {
+  IMaybeDiscriminatedEntity,
+  IEntity,
+} from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { ITypeKind } from '../type-kind.enum'
@@ -16,7 +19,7 @@ export type IInterfaceTypeDTO = Static<typeof IInterfaceTypeDTO>
 /**
  * Entity
  */
-export const IInterfaceTypeEntity = IDiscriminatedEntity(
+export const IInterfaceTypeEntity = IMaybeDiscriminatedEntity(
   `${ITypeKind.InterfaceType}`,
 )
 

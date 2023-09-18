@@ -22,15 +22,15 @@ import {
 } from '@codelab/frontend/domain/store'
 import { getFieldService, getTypeService } from '@codelab/frontend/domain/type'
 import { throwIfUndefined } from '@codelab/frontend/shared/utils'
-import {
-  RenderedComponentFragment,
-  ElementRenderTypeKind,
-} from '@codelab/shared/abstract/codegen'
+import { RenderedComponentFragment } from '@codelab/shared/abstract/codegen'
 import type {
   IElementDTO,
-  ElementRenderType,
+  IElementRenderType,
 } from '@codelab/shared/abstract/core'
-import { ElementRenderTypeKind, ITypeKind } from '@codelab/shared/abstract/core'
+import {
+  IElementRenderTypeKind,
+  ITypeKind,
+} from '@codelab/shared/abstract/core'
 import type { IEntity } from '@codelab/shared/abstract/types'
 import { mapDeep } from '@codelab/shared/utils'
 import compact from 'lodash/compact'
@@ -160,9 +160,11 @@ export class ElementService
   @transaction
   private loadRenderTypeInterface = _async(function* (
     this: ElementService,
-    renderType: RenderType,
+    elementRenderType: IElementRenderType,
   ) {
-    const renderTypeApi = yield* _await(this.getRenderTypeApi(renderType))
+    const renderTypeApi = yield* _await(
+      this.getRenderTypeApi(elementRenderType),
+    )
 
     if (renderTypeApi) {
       // If the new element is an atom or component that is not used yet anywhere
@@ -174,13 +176,13 @@ export class ElementService
   })
 
   @modelFlow
-  getRenderTypeApi = async (renderType: RenderType) => {
+  getRenderTypeApi = async (renderType: IElementRenderType) => {
     // When creating a new element, we need the interface type fields
     // and we use it to create a props with default values for the created element
     let renderTypeApi: Ref<IInterfaceType>
 
-    switch (renderType.kind) {
-      case ElementRenderTypeKind.Atom: {
+    switch (renderType.__typename) {
+      case IElementRenderTypeKind.Atom: {
         const atomRenderTypeRef = throwIfUndefined(
           await this.atomService.getOne(renderType.id),
         )
@@ -189,7 +191,7 @@ export class ElementService
         break
       }
 
-      case ElementRenderTypeKind.Component: {
+      case IElementRenderTypeKind.Component: {
         const componentRenderTypeRef = throwIfUndefined(
           await this.componentService.getOne(renderType.id),
         )
@@ -216,7 +218,7 @@ export class ElementService
     )
 
     const elementProps = this.propService.add({
-      data: data.props.data ?? makeDefaultProps(renderTypeApi?.current),
+      data: data.props?.data ?? makeDefaultProps(renderTypeApi?.current),
       id: v4(),
     })
 
@@ -518,7 +520,7 @@ export class ElementService
   ) {
     console.debug('createElementAsFirstChild', data)
 
-    if (!data.parentElement.id) {
+    if (!data.parentElement?.id) {
       throw new Error("Parent element id doesn't exist")
     }
 
@@ -534,7 +536,7 @@ export class ElementService
     })
 
     const parentElementClone = [...this.clonedElements.values()].find(
-      ({ sourceElement }) => sourceElement?.id === data.parentElement.id,
+      ({ sourceElement }) => sourceElement?.id === data.parentElement?.id,
     )
 
     if (parentElementClone) {
@@ -648,19 +650,19 @@ export class ElementService
       : ''
 
     const name = `${component.name}${componentInstanceCounter}`
-
-    const renderType: RenderType = {
-      id: component.id,
-      kind: ElementRenderTypeKind.Component,
-    }
-
     const parentElement = { id: targetElement.id }
 
     const data: ICreateElementData = {
+      closestContainerNode: {
+        id: component.id,
+      },
       id: v4(),
       name,
       parentElement,
-      renderType,
+      renderType: {
+        __typename: IElementRenderTypeKind.Component,
+        id: component.id,
+      },
     }
 
     const element = yield* _await(this.create(data))
@@ -762,14 +764,7 @@ export class ElementService
       props,
       renderForEachPropKey: element.renderForEachPropKey,
       renderIfExpression: element.renderIfExpression,
-      renderType: element.renderType
-        ? {
-            id: element.renderType.id,
-            kind: isComponentInstance(element.renderType)
-              ? ElementRenderTypeKind.Component
-              : ElementRenderTypeKind.Atom,
-          }
-        : null,
+      renderType: element.renderType,
       style: element.style,
     }
 
@@ -937,7 +932,12 @@ export class ElementService
       throw new Error("Can't convert root element")
     }
 
-    const { closestParent: parentElement, name, prevSibling } = element
+    const {
+      closestContainerNode,
+      closestParent: parentElement,
+      name,
+      prevSibling,
+    } = element
 
     // 1. deselect active element to avoid script errors if the selected element
     // is a child of the element we are converting or the element itself
@@ -969,11 +969,19 @@ export class ElementService
 
     // 5. create a new element as an instance of the component
     const componentId = createdComponent.id
+
     const renderType = {
+      __typename: IElementRenderTypeKind.Component,
       id: componentId,
-      kind: ElementRenderTypeKind.Component,
     }
-    const instanceElement = { id: v4(), name, parentElement, renderType }
+
+    const instanceElement = {
+      closestContainerNode,
+      id: v4(),
+      name,
+      parentElement,
+      renderType,
+    }
 
     const createdElement = yield* _await(
       prevSibling

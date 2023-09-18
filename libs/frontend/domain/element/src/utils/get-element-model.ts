@@ -3,7 +3,7 @@ import {
   isAtomInstance,
   isComponentInstance,
 } from '@codelab/frontend/abstract/core'
-import type { ElementRenderType } from '@codelab/shared/abstract/core'
+import type { IElementRenderType } from '@codelab/shared/abstract/core'
 import { IElementRenderTypeKind } from '@codelab/shared/abstract/core'
 
 export const getElementModel = (element: IElementModel) => {

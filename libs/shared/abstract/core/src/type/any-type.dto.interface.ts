@@ -1,4 +1,4 @@
-import { IDiscriminatedEntity } from '@codelab/shared/abstract/types'
+import { IMaybeDiscriminatedEntity } from '@codelab/shared/abstract/types'
 import type { Static } from '@sinclair/typebox'
 import { Type } from '@sinclair/typebox'
 import { ITypeKind } from '../type-kind.enum'
@@ -35,19 +35,19 @@ export type IAnyBaseType = Static<typeof IAnyBaseType>
  * Entity
  */
 export const ITypeEntity = Type.Union([
-  IDiscriminatedEntity(`${ITypeKind.ActionType}`),
-  IDiscriminatedEntity(`${ITypeKind.AppType}`),
-  IDiscriminatedEntity(`${ITypeKind.ArrayType}`),
-  IDiscriminatedEntity(`${ITypeKind.CodeMirrorType}`),
-  IDiscriminatedEntity(`${ITypeKind.ElementType}`),
-  IDiscriminatedEntity(`${ITypeKind.EnumType}`),
-  IDiscriminatedEntity(`${ITypeKind.InterfaceType}`),
-  IDiscriminatedEntity(`${ITypeKind.LambdaType}`),
-  IDiscriminatedEntity(`${ITypeKind.PageType}`),
-  IDiscriminatedEntity(`${ITypeKind.PrimitiveType}`),
-  IDiscriminatedEntity(`${ITypeKind.ReactNodeType}`),
-  IDiscriminatedEntity(`${ITypeKind.RenderPropType}`),
-  IDiscriminatedEntity(`${ITypeKind.UnionType}`),
+  IMaybeDiscriminatedEntity(`${ITypeKind.ActionType}`),
+  IMaybeDiscriminatedEntity(`${ITypeKind.AppType}`),
+  IMaybeDiscriminatedEntity(`${ITypeKind.ArrayType}`),
+  IMaybeDiscriminatedEntity(`${ITypeKind.CodeMirrorType}`),
+  IMaybeDiscriminatedEntity(`${ITypeKind.ElementType}`),
+  IMaybeDiscriminatedEntity(`${ITypeKind.EnumType}`),
+  IMaybeDiscriminatedEntity(`${ITypeKind.InterfaceType}`),
+  IMaybeDiscriminatedEntity(`${ITypeKind.LambdaType}`),
+  IMaybeDiscriminatedEntity(`${ITypeKind.PageType}`),
+  IMaybeDiscriminatedEntity(`${ITypeKind.PrimitiveType}`),
+  IMaybeDiscriminatedEntity(`${ITypeKind.ReactNodeType}`),
+  IMaybeDiscriminatedEntity(`${ITypeKind.RenderPropType}`),
+  IMaybeDiscriminatedEntity(`${ITypeKind.UnionType}`),
 ])
 
 export type ITypeEntity = Static<typeof ITypeEntity>

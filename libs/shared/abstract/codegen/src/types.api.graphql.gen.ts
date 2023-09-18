@@ -3821,6 +3821,7 @@ export type AtomUniqueWhere = {
   externalSourceType?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['ID']['input']>
   name?: InputMaybe<Scalars['String']['input']>
+  type?: InputMaybe<AtomType>
 }
 
 export type AtomUpdateInput = {
@@ -6091,6 +6092,8 @@ export type ComponentsConnection = {
   totalCount: Scalars['Int']['output']
 }
 
+export type ContainerNode = Component | Page
+
 export type CreateActionTypesMutationResponse = {
   __typename?: 'CreateActionTypesMutationResponse'
   actionTypes: Array<ActionType>
@@ -6556,6 +6559,7 @@ export type Element = {
   childMapperPreviousSiblingAggregate?: Maybe<ElementElementChildMapperPreviousSiblingAggregationSelection>
   childMapperPreviousSiblingConnection: ElementChildMapperPreviousSiblingConnection
   childMapperPropKey?: Maybe<Scalars['String']['output']>
+  closestContainerNode: ContainerNode
   compositeKey: Scalars['String']['output']
   descendantElements: Array<Element>
   firstChild?: Maybe<Element>
@@ -6585,15 +6589,9 @@ export type Element = {
   props: Prop
   propsAggregate?: Maybe<ElementPropPropsAggregationSelection>
   propsConnection: ElementPropsConnection
-  renderAtomType?: Maybe<Atom>
-  renderAtomTypeAggregate?: Maybe<ElementAtomRenderAtomTypeAggregationSelection>
-  renderAtomTypeConnection: ElementRenderAtomTypeConnection
-  renderComponentType?: Maybe<Component>
-  renderComponentTypeAggregate?: Maybe<ElementComponentRenderComponentTypeAggregationSelection>
-  renderComponentTypeConnection: ElementRenderComponentTypeConnection
   renderForEachPropKey?: Maybe<Scalars['String']['output']>
   renderIfExpression?: Maybe<Scalars['String']['output']>
-  renderType?: Maybe<RenderType>
+  renderType: ElementRenderType
   slug: Scalars['String']['output']
   style?: Maybe<Scalars['String']['output']>
 }
@@ -6797,44 +6795,6 @@ export type ElementPropsConnectionArgs = {
   where?: InputMaybe<ElementPropsConnectionWhere>
 }
 
-export type ElementRenderAtomTypeArgs = {
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  options?: InputMaybe<AtomOptions>
-  where?: InputMaybe<AtomWhere>
-}
-
-export type ElementRenderAtomTypeAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  where?: InputMaybe<AtomWhere>
-}
-
-export type ElementRenderAtomTypeConnectionArgs = {
-  after?: InputMaybe<Scalars['String']['input']>
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  first?: InputMaybe<Scalars['Int']['input']>
-  sort?: InputMaybe<Array<ElementRenderAtomTypeConnectionSort>>
-  where?: InputMaybe<ElementRenderAtomTypeConnectionWhere>
-}
-
-export type ElementRenderComponentTypeArgs = {
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  options?: InputMaybe<ComponentOptions>
-  where?: InputMaybe<ComponentWhere>
-}
-
-export type ElementRenderComponentTypeAggregateArgs = {
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  where?: InputMaybe<ComponentWhere>
-}
-
-export type ElementRenderComponentTypeConnectionArgs = {
-  after?: InputMaybe<Scalars['String']['input']>
-  directed?: InputMaybe<Scalars['Boolean']['input']>
-  first?: InputMaybe<Scalars['Int']['input']>
-  sort?: InputMaybe<Array<ElementRenderComponentTypeConnectionSort>>
-  where?: InputMaybe<ElementRenderComponentTypeConnectionWhere>
-}
-
 export type ElementAggregateSelection = {
   __typename?: 'ElementAggregateSelection'
   childMapperPropKey: StringAggregateSelectionNullable
@@ -6844,22 +6804,6 @@ export type ElementAggregateSelection = {
   renderForEachPropKey: StringAggregateSelectionNullable
   renderIfExpression: StringAggregateSelectionNullable
   style: StringAggregateSelectionNullable
-}
-
-export type ElementAtomRenderAtomTypeAggregationSelection = {
-  __typename?: 'ElementAtomRenderAtomTypeAggregationSelection'
-  count: Scalars['Int']['output']
-  node?: Maybe<ElementAtomRenderAtomTypeNodeAggregateSelection>
-}
-
-export type ElementAtomRenderAtomTypeNodeAggregateSelection = {
-  __typename?: 'ElementAtomRenderAtomTypeNodeAggregateSelection'
-  externalCssSource: StringAggregateSelectionNullable
-  externalJsSource: StringAggregateSelectionNullable
-  externalSourceType: StringAggregateSelectionNullable
-  icon: StringAggregateSelectionNullable
-  id: IdAggregateSelectionNonNullable
-  name: StringAggregateSelectionNonNullable
 }
 
 export type ElementChildMapperComponentAggregateInput = {
@@ -7196,19 +7140,6 @@ export type ElementComponentParentComponentNodeAggregateSelection = {
   name: StringAggregateSelectionNonNullable
 }
 
-export type ElementComponentRenderComponentTypeAggregationSelection = {
-  __typename?: 'ElementComponentRenderComponentTypeAggregationSelection'
-  count: Scalars['Int']['output']
-  node?: Maybe<ElementComponentRenderComponentTypeNodeAggregateSelection>
-}
-
-export type ElementComponentRenderComponentTypeNodeAggregateSelection = {
-  __typename?: 'ElementComponentRenderComponentTypeNodeAggregateSelection'
-  id: IdAggregateSelectionNonNullable
-  keyGenerator: StringAggregateSelectionNullable
-  name: StringAggregateSelectionNonNullable
-}
-
 export type ElementConnectInput = {
   childMapperComponent?: InputMaybe<ElementChildMapperComponentConnectFieldInput>
   childMapperPreviousSibling?: InputMaybe<ElementChildMapperPreviousSiblingConnectFieldInput>
@@ -7221,8 +7152,6 @@ export type ElementConnectInput = {
   preRenderAction?: InputMaybe<ElementPreRenderActionConnectFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingConnectFieldInput>
   props?: InputMaybe<ElementPropsConnectFieldInput>
-  renderAtomType?: InputMaybe<ElementRenderAtomTypeConnectFieldInput>
-  renderComponentType?: InputMaybe<ElementRenderComponentTypeConnectFieldInput>
 }
 
 export type ElementConnectOrCreateInput = {
@@ -7235,8 +7164,6 @@ export type ElementConnectOrCreateInput = {
   parentComponent?: InputMaybe<ElementParentComponentConnectOrCreateFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingConnectOrCreateFieldInput>
   props?: InputMaybe<ElementPropsConnectOrCreateFieldInput>
-  renderAtomType?: InputMaybe<ElementRenderAtomTypeConnectOrCreateFieldInput>
-  renderComponentType?: InputMaybe<ElementRenderComponentTypeConnectOrCreateFieldInput>
 }
 
 export type ElementConnectOrCreateWhere = {
@@ -7262,8 +7189,6 @@ export type ElementCreateInput = {
   preRenderAction?: InputMaybe<ElementPreRenderActionFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingFieldInput>
   props?: InputMaybe<ElementPropsFieldInput>
-  renderAtomType?: InputMaybe<ElementRenderAtomTypeFieldInput>
-  renderComponentType?: InputMaybe<ElementRenderComponentTypeFieldInput>
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
   renderIfExpression?: InputMaybe<Scalars['String']['input']>
   style?: InputMaybe<Scalars['String']['input']>
@@ -7281,8 +7206,6 @@ export type ElementDeleteInput = {
   preRenderAction?: InputMaybe<ElementPreRenderActionDeleteFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingDeleteFieldInput>
   props?: InputMaybe<ElementPropsDeleteFieldInput>
-  renderAtomType?: InputMaybe<ElementRenderAtomTypeDeleteFieldInput>
-  renderComponentType?: InputMaybe<ElementRenderComponentTypeDeleteFieldInput>
 }
 
 export type ElementDisconnectInput = {
@@ -7297,8 +7220,6 @@ export type ElementDisconnectInput = {
   preRenderAction?: InputMaybe<ElementPreRenderActionDisconnectFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingDisconnectFieldInput>
   props?: InputMaybe<ElementPropsDisconnectFieldInput>
-  renderAtomType?: InputMaybe<ElementRenderAtomTypeDisconnectFieldInput>
-  renderComponentType?: InputMaybe<ElementRenderComponentTypeDisconnectFieldInput>
 }
 
 export type ElementEdge = {
@@ -8634,300 +8555,9 @@ export type ElementRelationInput = {
   preRenderAction?: InputMaybe<ElementPreRenderActionCreateFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingCreateFieldInput>
   props?: InputMaybe<ElementPropsCreateFieldInput>
-  renderAtomType?: InputMaybe<ElementRenderAtomTypeCreateFieldInput>
-  renderComponentType?: InputMaybe<ElementRenderComponentTypeCreateFieldInput>
 }
 
-export type ElementRenderAtomTypeAggregateInput = {
-  AND?: InputMaybe<Array<ElementRenderAtomTypeAggregateInput>>
-  NOT?: InputMaybe<ElementRenderAtomTypeAggregateInput>
-  OR?: InputMaybe<Array<ElementRenderAtomTypeAggregateInput>>
-  count?: InputMaybe<Scalars['Int']['input']>
-  count_GT?: InputMaybe<Scalars['Int']['input']>
-  count_GTE?: InputMaybe<Scalars['Int']['input']>
-  count_LT?: InputMaybe<Scalars['Int']['input']>
-  count_LTE?: InputMaybe<Scalars['Int']['input']>
-  node?: InputMaybe<ElementRenderAtomTypeNodeAggregationWhereInput>
-}
-
-export type ElementRenderAtomTypeConnectFieldInput = {
-  connect?: InputMaybe<AtomConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. */
-  overwrite?: Scalars['Boolean']['input']
-  where?: InputMaybe<AtomConnectWhere>
-}
-
-export type ElementRenderAtomTypeConnectOrCreateFieldInput = {
-  onCreate: ElementRenderAtomTypeConnectOrCreateFieldInputOnCreate
-  where: AtomConnectOrCreateWhere
-}
-
-export type ElementRenderAtomTypeConnectOrCreateFieldInputOnCreate = {
-  node: AtomOnCreateInput
-}
-
-export type ElementRenderAtomTypeConnection = {
-  __typename?: 'ElementRenderAtomTypeConnection'
-  edges: Array<ElementRenderAtomTypeRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']['output']
-}
-
-export type ElementRenderAtomTypeConnectionSort = {
-  node?: InputMaybe<AtomSort>
-}
-
-export type ElementRenderAtomTypeConnectionWhere = {
-  AND?: InputMaybe<Array<ElementRenderAtomTypeConnectionWhere>>
-  NOT?: InputMaybe<ElementRenderAtomTypeConnectionWhere>
-  OR?: InputMaybe<Array<ElementRenderAtomTypeConnectionWhere>>
-  node?: InputMaybe<AtomWhere>
-}
-
-export type ElementRenderAtomTypeCreateFieldInput = {
-  node: AtomCreateInput
-}
-
-export type ElementRenderAtomTypeDeleteFieldInput = {
-  delete?: InputMaybe<AtomDeleteInput>
-  where?: InputMaybe<ElementRenderAtomTypeConnectionWhere>
-}
-
-export type ElementRenderAtomTypeDisconnectFieldInput = {
-  disconnect?: InputMaybe<AtomDisconnectInput>
-  where?: InputMaybe<ElementRenderAtomTypeConnectionWhere>
-}
-
-export type ElementRenderAtomTypeFieldInput = {
-  connect?: InputMaybe<ElementRenderAtomTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementRenderAtomTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ElementRenderAtomTypeCreateFieldInput>
-}
-
-export type ElementRenderAtomTypeNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ElementRenderAtomTypeNodeAggregationWhereInput>>
-  NOT?: InputMaybe<ElementRenderAtomTypeNodeAggregationWhereInput>
-  OR?: InputMaybe<Array<ElementRenderAtomTypeNodeAggregationWhereInput>>
-  externalCssSource_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  externalCssSource_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  externalCssSource_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  externalCssSource_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  externalCssSource_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  externalCssSource_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  externalCssSource_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  externalCssSource_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  externalCssSource_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  externalCssSource_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  externalCssSource_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  externalCssSource_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  externalCssSource_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  externalCssSource_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  externalCssSource_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  externalJsSource_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  externalJsSource_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  externalJsSource_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  externalJsSource_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  externalJsSource_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  externalJsSource_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  externalJsSource_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  externalJsSource_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  externalJsSource_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  externalJsSource_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  externalJsSource_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  externalJsSource_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  externalJsSource_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  externalJsSource_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  externalJsSource_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  externalSourceType_AVERAGE_LENGTH_EQUAL?: InputMaybe<
-    Scalars['Float']['input']
-  >
-  externalSourceType_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  externalSourceType_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  externalSourceType_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  externalSourceType_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  externalSourceType_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  externalSourceType_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  externalSourceType_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  externalSourceType_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  externalSourceType_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  externalSourceType_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  externalSourceType_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  externalSourceType_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  externalSourceType_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  externalSourceType_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  icon_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  icon_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  icon_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  icon_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  icon_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  icon_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  icon_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  icon_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  icon_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  icon_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  icon_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  icon_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  icon_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  icon_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  icon_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-}
-
-export type ElementRenderAtomTypeRelationship = {
-  __typename?: 'ElementRenderAtomTypeRelationship'
-  cursor: Scalars['String']['output']
-  node: Atom
-}
-
-export type ElementRenderAtomTypeUpdateConnectionInput = {
-  node?: InputMaybe<AtomUpdateInput>
-}
-
-export type ElementRenderAtomTypeUpdateFieldInput = {
-  connect?: InputMaybe<ElementRenderAtomTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementRenderAtomTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ElementRenderAtomTypeCreateFieldInput>
-  delete?: InputMaybe<ElementRenderAtomTypeDeleteFieldInput>
-  disconnect?: InputMaybe<ElementRenderAtomTypeDisconnectFieldInput>
-  update?: InputMaybe<ElementRenderAtomTypeUpdateConnectionInput>
-  where?: InputMaybe<ElementRenderAtomTypeConnectionWhere>
-}
-
-export type ElementRenderComponentTypeAggregateInput = {
-  AND?: InputMaybe<Array<ElementRenderComponentTypeAggregateInput>>
-  NOT?: InputMaybe<ElementRenderComponentTypeAggregateInput>
-  OR?: InputMaybe<Array<ElementRenderComponentTypeAggregateInput>>
-  count?: InputMaybe<Scalars['Int']['input']>
-  count_GT?: InputMaybe<Scalars['Int']['input']>
-  count_GTE?: InputMaybe<Scalars['Int']['input']>
-  count_LT?: InputMaybe<Scalars['Int']['input']>
-  count_LTE?: InputMaybe<Scalars['Int']['input']>
-  node?: InputMaybe<ElementRenderComponentTypeNodeAggregationWhereInput>
-}
-
-export type ElementRenderComponentTypeConnectFieldInput = {
-  connect?: InputMaybe<ComponentConnectInput>
-  /** Whether or not to overwrite any matching relationship with the new properties. */
-  overwrite?: Scalars['Boolean']['input']
-  where?: InputMaybe<ComponentConnectWhere>
-}
-
-export type ElementRenderComponentTypeConnectOrCreateFieldInput = {
-  onCreate: ElementRenderComponentTypeConnectOrCreateFieldInputOnCreate
-  where: ComponentConnectOrCreateWhere
-}
-
-export type ElementRenderComponentTypeConnectOrCreateFieldInputOnCreate = {
-  node: ComponentOnCreateInput
-}
-
-export type ElementRenderComponentTypeConnection = {
-  __typename?: 'ElementRenderComponentTypeConnection'
-  edges: Array<ElementRenderComponentTypeRelationship>
-  pageInfo: PageInfo
-  totalCount: Scalars['Int']['output']
-}
-
-export type ElementRenderComponentTypeConnectionSort = {
-  node?: InputMaybe<ComponentSort>
-}
-
-export type ElementRenderComponentTypeConnectionWhere = {
-  AND?: InputMaybe<Array<ElementRenderComponentTypeConnectionWhere>>
-  NOT?: InputMaybe<ElementRenderComponentTypeConnectionWhere>
-  OR?: InputMaybe<Array<ElementRenderComponentTypeConnectionWhere>>
-  node?: InputMaybe<ComponentWhere>
-}
-
-export type ElementRenderComponentTypeCreateFieldInput = {
-  node: ComponentCreateInput
-}
-
-export type ElementRenderComponentTypeDeleteFieldInput = {
-  delete?: InputMaybe<ComponentDeleteInput>
-  where?: InputMaybe<ElementRenderComponentTypeConnectionWhere>
-}
-
-export type ElementRenderComponentTypeDisconnectFieldInput = {
-  disconnect?: InputMaybe<ComponentDisconnectInput>
-  where?: InputMaybe<ElementRenderComponentTypeConnectionWhere>
-}
-
-export type ElementRenderComponentTypeFieldInput = {
-  connect?: InputMaybe<ElementRenderComponentTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementRenderComponentTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ElementRenderComponentTypeCreateFieldInput>
-}
-
-export type ElementRenderComponentTypeNodeAggregationWhereInput = {
-  AND?: InputMaybe<Array<ElementRenderComponentTypeNodeAggregationWhereInput>>
-  NOT?: InputMaybe<ElementRenderComponentTypeNodeAggregationWhereInput>
-  OR?: InputMaybe<Array<ElementRenderComponentTypeNodeAggregationWhereInput>>
-  keyGenerator_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  keyGenerator_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  keyGenerator_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>
-  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>
-  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>
-  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>
-}
-
-export type ElementRenderComponentTypeRelationship = {
-  __typename?: 'ElementRenderComponentTypeRelationship'
-  cursor: Scalars['String']['output']
-  node: Component
-}
-
-export type ElementRenderComponentTypeUpdateConnectionInput = {
-  node?: InputMaybe<ComponentUpdateInput>
-}
-
-export type ElementRenderComponentTypeUpdateFieldInput = {
-  connect?: InputMaybe<ElementRenderComponentTypeConnectFieldInput>
-  connectOrCreate?: InputMaybe<ElementRenderComponentTypeConnectOrCreateFieldInput>
-  create?: InputMaybe<ElementRenderComponentTypeCreateFieldInput>
-  delete?: InputMaybe<ElementRenderComponentTypeDeleteFieldInput>
-  disconnect?: InputMaybe<ElementRenderComponentTypeDisconnectFieldInput>
-  update?: InputMaybe<ElementRenderComponentTypeUpdateConnectionInput>
-  where?: InputMaybe<ElementRenderComponentTypeConnectionWhere>
-}
+export type ElementRenderType = Atom | Component
 
 /** Fields to sort Elements by. The order in which sorts are applied is not guaranteed when specifying many fields in one ElementSort object. */
 export type ElementSort = {
@@ -9211,8 +8841,6 @@ export type ElementUpdateInput = {
   preRenderAction?: InputMaybe<ElementPreRenderActionUpdateFieldInput>
   prevSibling?: InputMaybe<ElementPrevSiblingUpdateFieldInput>
   props?: InputMaybe<ElementPropsUpdateFieldInput>
-  renderAtomType?: InputMaybe<ElementRenderAtomTypeUpdateFieldInput>
-  renderComponentType?: InputMaybe<ElementRenderComponentTypeUpdateFieldInput>
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
   renderIfExpression?: InputMaybe<Scalars['String']['input']>
   style?: InputMaybe<Scalars['String']['input']>
@@ -9291,16 +8919,6 @@ export type ElementWhere = {
   propsConnection?: InputMaybe<ElementPropsConnectionWhere>
   propsConnection_NOT?: InputMaybe<ElementPropsConnectionWhere>
   props_NOT?: InputMaybe<PropWhere>
-  renderAtomType?: InputMaybe<AtomWhere>
-  renderAtomTypeAggregate?: InputMaybe<ElementRenderAtomTypeAggregateInput>
-  renderAtomTypeConnection?: InputMaybe<ElementRenderAtomTypeConnectionWhere>
-  renderAtomTypeConnection_NOT?: InputMaybe<ElementRenderAtomTypeConnectionWhere>
-  renderAtomType_NOT?: InputMaybe<AtomWhere>
-  renderComponentType?: InputMaybe<ComponentWhere>
-  renderComponentTypeAggregate?: InputMaybe<ElementRenderComponentTypeAggregateInput>
-  renderComponentTypeConnection?: InputMaybe<ElementRenderComponentTypeConnectionWhere>
-  renderComponentTypeConnection_NOT?: InputMaybe<ElementRenderComponentTypeConnectionWhere>
-  renderComponentType_NOT?: InputMaybe<ComponentWhere>
   renderForEachPropKey?: InputMaybe<Scalars['String']['input']>
   renderForEachPropKey_CONTAINS?: InputMaybe<Scalars['String']['input']>
   renderForEachPropKey_ENDS_WITH?: InputMaybe<Scalars['String']['input']>
@@ -16140,17 +15758,6 @@ export type RenderPropTypesConnection = {
   totalCount: Scalars['Int']['output']
 }
 
-export type RenderType = {
-  __typename?: 'RenderType'
-  id: Scalars['ID']['output']
-  kind: ElementRenderTypeKind
-}
-
-export enum ElementRenderTypeKind {
-  Atom = 'Atom',
-  Component = 'Component',
-}
-
 export type Resource = WithOwner & {
   __typename?: 'Resource'
   config: Prop
@@ -20860,13 +20467,9 @@ export type ElementFragment = {
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   page?: { __typename?: 'Page'; id: string } | null
-  renderComponentType?: { __typename?: 'Component'; id: string } | null
-  renderAtomType?: ({ __typename?: 'Atom' } & AtomFragment) | null
-  renderType?: {
-    __typename?: 'RenderType'
-    id: string
-    kind: ElementRenderTypeKind
-  } | null
+  renderType:
+    | ({ __typename: 'Atom' } & AtomFragment)
+    | { __typename: 'Component'; id: string }
   prevSibling?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null
   parentComponent?: { __typename?: 'Component'; id: string } | null
@@ -20898,13 +20501,9 @@ export type ProductionElementFragment = {
   renderForEachPropKey?: string | null
   renderIfExpression?: string | null
   page?: { __typename?: 'Page'; id: string } | null
-  renderComponentType?: { __typename?: 'Component'; id: string } | null
-  renderAtomType?: ({ __typename?: 'Atom' } & ProductionAtomFragment) | null
-  renderType?: {
-    __typename?: 'RenderType'
-    id: string
-    kind: ElementRenderTypeKind
-  } | null
+  renderType:
+    | ({ __typename: 'Atom' } & ProductionAtomFragment)
+    | { __typename: 'Component'; id: string }
   prevSibling?: { __typename?: 'Element'; id: string } | null
   nextSibling?: { __typename?: 'Element'; id: string } | null
   parentComponent?: { __typename?: 'Component'; id: string } | null

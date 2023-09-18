@@ -4,7 +4,10 @@ import { useDroppable } from '@dnd-kit/core'
 
 export const useCreateElementDroppable = (
   { id }: IEntity,
-  input: Omit<ICreateElementData, 'id' | 'name' | 'renderType'>,
+  input: Omit<
+    ICreateElementData,
+    'closestContainerNode' | 'id' | 'name' | 'renderType'
+  >,
 ) => {
   return useDroppable({
     data: {
