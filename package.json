@@ -209,8 +209,7 @@
     "voca": "1.4.0",
     "wait-on": "6.0.1",
     "winston": "3.8.2",
-    "yargs": "17.7.2",
-    "zlib": "1.0.5"
+    "yargs": "17.7.2"
   },
   "devDependencies": {
     "@codelab/tools-workspace": "file:./dist/libs/tools/workspace",

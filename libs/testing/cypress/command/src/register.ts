@@ -1,3 +1,4 @@
+import type { CypressApiCommands } from './api/api.register'
 import type { CypressCommand } from './command.interface'
 import type { CypressDatabaseCommands } from './database/database.register'
 import type { CypressSelectorsCommands } from './deprecated'
@@ -9,6 +10,7 @@ declare global {
   namespace Cypress {
     interface Chainable<Subject>
       extends CypressSelectorsCommands,
+        CypressApiCommands,
         CypressUserCommands,
         CypressGraphQLCommands,
         CypressDatabaseCommands {}
