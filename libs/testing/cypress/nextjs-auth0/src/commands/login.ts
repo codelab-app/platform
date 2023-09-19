@@ -12,7 +12,7 @@ export const loginSession = () => {
       login()
     },
     {
-      cacheAcrossSpecs: true,
+      cacheAcrossSpecs: false,
       validate: () => {
         // cy.get('@upsertUser.all').should('not.have.length', 0)
       },
