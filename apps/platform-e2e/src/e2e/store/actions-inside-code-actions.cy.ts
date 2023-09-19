@@ -33,6 +33,16 @@ describe('Running actions inside code action with arguments', () => {
   before(() => {
     loginSession()
     cy.resetDatabaseExceptForUserAndAtom()
+    cy.request('/api/data/type/seed-cypress-type')
+
+    cy.request('/api/data/atom/seed-cypress-atom')
+      .then(() => cy.request<IAppDTO>('/api/data/app/seed-cypress-app'))
+      .then((apps) => {
+        app = apps.body
+      })
+  })
+
+  it('should create the resouce that will be used for the api actions', () => {
     cy.visit('/resources')
     cy.getSpinner().should('not.exist')
 
@@ -53,30 +63,23 @@ describe('Running actions inside code action with arguments', () => {
     })
 
     cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
-
-    cy.request('/api/data/type/seed-cypress-type')
-
-    cy.request('/api/data/atom/seed-cypress-atom')
-      .then(() => cy.request<IAppDTO>('/api/data/app/seed-cypress-app'))
-      .then((apps) => {
-        app = apps.body
-        cy.visit(
-          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-            IPageKindName.Provider,
-          )}/builder`,
-        )
-        cy.getSpinner().should('not.exist')
-
-        // select root now so we can update its child later
-        // there is an issue with tree interaction
-        // Increased timeout since builder may take longer to load
-        cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
-          .should('be.visible')
-          .click({ force: true })
-      })
   })
 
   it('should create states', () => {
+    cy.visit(
+      `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+        IPageKindName.Provider,
+      )}/builder`,
+    )
+    cy.getSpinner().should('not.exist')
+
+    // select root now so we can update its child later
+    // there is an issue with tree interaction
+    // Increased timeout since builder may take longer to load
+    cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
+      .should('be.visible')
+      .click({ force: true })
+
     cy.getCuiSidebarViewHeader('State').click()
     cy.getHeaderToolbarItem('Add Field').click()
 
@@ -179,9 +182,11 @@ describe('Running actions inside code action with arguments', () => {
       value: '{"firstArg": "{{args[0]}}", "secondArg": {{args[1]}}}',
     })
 
+    cy.intercept('POST', `api/graphql`).as('createAction1')
     cy.getCuiPopover('Create Action').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getToolbarItem('Create').click({ force: true })
     })
+    cy.wait('@createAction1')
 
     // first code action
     cy.getHeaderToolbarItem('Add Action').click()
@@ -204,19 +209,14 @@ describe('Running actions inside code action with arguments', () => {
       value: `function run(firstArg, secondArg) { state['${stateKey1}'] = firstArg; state['${stateKey2}'] = secondArg; }`,
     })
 
+    cy.intercept('POST', `api/graphql`).as('createAction2')
     cy.getCuiPopover('Create Action').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getToolbarItem('Create').click({ force: true })
     })
+    cy.wait('@createAction2')
 
     // second code action
     cy.getHeaderToolbarItem('Add Action').click()
-
-    cy.getCuiSidebarViewContent('Actions')
-      .get('input[name="id"]')
-      .invoke('val')
-      .then((id) => {
-        codeActionId = id as string
-      })
 
     cy.setFormFieldValue({
       label: 'Name',
@@ -236,8 +236,14 @@ describe('Running actions inside code action with arguments', () => {
       value: `function run() { actions['${codeActionName1}']('hey', 123); actions['${apiActionName}']('yo', 456); }`,
     })
 
+    cy.intercept('POST', `api/graphql`).as('createAction3')
     cy.getCuiPopover('Create Action').within(() => {
-      cy.getToolbarItem('Create').click()
+      cy.getToolbarItem('Create').click({ force: true })
+    })
+
+    cy.wait('@createAction3').then(({ response }) => {
+      codeActionId = response?.body.data.createCodeActions.codeActions[0]
+        .id as string
     })
   })
 
@@ -263,6 +269,10 @@ describe('Running actions inside code action with arguments', () => {
       value: `{ "${CUSTOM_TEXT_PROP_KEY}": "${stateKey1} - {{state['${stateKey1}']}}, ${stateKey2} - {{state['${stateKey2}']}}" }`,
     })
 
+    // need to wait for the code to put the autocomputed name before typing
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
+
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Name',
       type: FIELD_TYPE.INPUT,
@@ -276,6 +286,10 @@ describe('Running actions inside code action with arguments', () => {
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
     })
+
+    // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(2000)
 
     cy.get('#render-root')
       .findByText(
@@ -305,23 +319,28 @@ describe('Running actions inside code action with arguments', () => {
       value: `{ "${CUSTOM_TEXT_PROP_KEY}": "Click button to run actions", "onClick": { "kind": "${TypeKind.ActionType}", "value": "${codeActionId}", "type": "${actionTypeId}" } }`,
     })
 
+    // need to wait for the code to put the autocomputed name before typing
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Name',
       type: FIELD_TYPE.INPUT,
       value: 'Action Button',
     })
 
+    cy.intercept('POST', `api/graphql`).as('createElement')
     cy.getCuiPopover('Create Element').within(() => {
       cy.getToolbarItem('Create').click()
     })
+    cy.wait('@createElement')
 
     cy.findByTestId('create-element-form').should('not.exist', {
       timeout: 10000,
     })
 
-    cy.get('#render-root')
-      .findByText('Click button to run actions')
-      .should('exist')
+    // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(2000)
   })
 
   it('should run the code action that calls another call action and an API action with arguments when the button is clicked', () => {
@@ -329,9 +348,7 @@ describe('Running actions inside code action with arguments', () => {
       statusCode: 200,
     }).as('apiAction')
 
-    cy.get('#render-root')
-      .findByText('Click button to run actions')
-      .click({ force: true })
+    cy.get('#render-root').findByText('Click button to run actions').click()
 
     cy.wait('@apiAction')
     cy.get('@apiAction').should(({ request }: any) => {

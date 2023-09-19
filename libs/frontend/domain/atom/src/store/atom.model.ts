@@ -9,6 +9,7 @@ import {
   typeRef,
 } from '@codelab/frontend/abstract/core'
 import { tagRef } from '@codelab/frontend/domain/tag'
+import { customTextInjectionWhiteList } from '@codelab/frontend/shared/utils'
 import {
   AtomCreateInput,
   AtomUpdateInput,
@@ -29,7 +30,6 @@ import { computed } from 'mobx'
 import type { Ref } from 'mobx-keystone'
 import { idProp, Model, model, modelAction, prop } from 'mobx-keystone'
 import { v4 } from 'uuid'
-import { customTextInjectionWhiteList } from './custom-text-injection-whitelist'
 
 const create = ({
   api,

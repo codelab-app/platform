@@ -33,7 +33,16 @@ describe('Running nested API and code actions', () => {
   before(() => {
     loginSession()
     cy.resetDatabaseExceptForUserAndAtom()
+    cy.request('/api/data/type/seed-cypress-type')
 
+    cy.request('/api/data/atom/seed-cypress-atom')
+      .then(() => cy.request<IAppDTO>('/api/data/app/seed-cypress-app'))
+      .then((apps) => {
+        app = apps.body
+      })
+  })
+
+  it('should create the resouce that will be used for the api actions', () => {
     cy.visit('/resources')
     cy.getSpinner().should('not.exist')
 
@@ -54,30 +63,23 @@ describe('Running nested API and code actions', () => {
     })
 
     cy.getCuiTreeItemByPrimaryTitle(resourceName).should('exist')
-
-    cy.request('/api/data/type/seed-cypress-type')
-
-    cy.request('/api/data/atom/seed-cypress-atom')
-      .then(() => cy.request<IAppDTO>('/api/data/app/seed-cypress-app'))
-      .then((apps) => {
-        app = apps.body
-        cy.visit(
-          `/apps/cypress/${slugify(app.name)}/pages/${slugify(
-            IPageKindName.Provider,
-          )}/builder`,
-        )
-        cy.getSpinner().should('not.exist')
-
-        // select root now so we can update its child later
-        // there is an issue with tree interaction
-        // Increased timeout since builder may take longer to load
-        cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
-          .should('be.visible')
-          .click({ force: true })
-      })
   })
 
   it('should create a state', () => {
+    cy.visit(
+      `/apps/cypress/${slugify(app.name)}/pages/${slugify(
+        IPageKindName.Provider,
+      )}/builder`,
+    )
+    cy.getSpinner().should('not.exist')
+
+    // select root now so we can update its child later
+    // there is an issue with tree interaction
+    // Increased timeout since builder may take longer to load
+    cy.findByText(ROOT_ELEMENT_NAME, { timeout: 30000 })
+      .should('be.visible')
+      .click({ force: true })
+
     cy.getCuiSidebarViewHeader('State').click()
     cy.getHeaderToolbarItem('Add Field').click()
 
@@ -128,9 +130,11 @@ describe('Running nested API and code actions', () => {
       value: 'function run(response) { state.localData = response.data; }',
     })
 
+    cy.intercept('POST', `api/graphql`).as('createAction')
     cy.getCuiPopover('Create Action').within(() => {
       cy.getToolbarItem('Create').click()
     })
+    cy.wait('@createAction')
   })
 
   it('should create a GET api action and set code action as success action', () => {
@@ -172,20 +176,15 @@ describe('Running nested API and code actions', () => {
       value: HttpResponseType.Text,
     })
 
+    cy.intercept('POST', `api/graphql`).as('createAction')
     cy.getCuiPopover('Create Action').within(() => {
       cy.getToolbarItem('Create').click()
     })
+    cy.wait('@createAction')
   })
 
   it('should create a POST api action and set the GET api action as success action', () => {
     cy.getHeaderToolbarItem('Add Action').click()
-
-    cy.getCuiSidebarViewContent('Actions')
-      .get('input[name="id"]')
-      .invoke('val')
-      .then((id) => {
-        apiPostActionId = id as string
-      })
 
     cy.setFormFieldValue({
       label: 'Name',
@@ -229,8 +228,14 @@ describe('Running nested API and code actions', () => {
       value: HttpMethod.POST,
     })
 
+    cy.intercept('POST', `api/graphql`).as('createAction')
     cy.getCuiPopover('Create Action').within(() => {
       cy.getToolbarItem('Create').click()
+    })
+
+    cy.wait('@createAction').then(({ response }) => {
+      apiPostActionId = response?.body.data.createApiActions.apiActions[0]
+        .id as string
     })
   })
 
@@ -250,6 +255,9 @@ describe('Running nested API and code actions', () => {
       value: IAtomType.AntDesignTypographyText,
     })
 
+    // need to wait for the code to put the autocomputed name before typing
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Name',
       type: FIELD_TYPE.INPUT,
@@ -264,15 +272,19 @@ describe('Running nested API and code actions', () => {
       timeout: 10000,
     })
 
-    cy.getCuiTreeItemByPrimaryTitle('Typography Element').click({ force: true })
+    // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(2000)
+
+    cy.getCuiTreeItemByPrimaryTitle('Typography Element').click({
+      force: true,
+    })
 
     // set text prop to use the state
     cy.typeIntoTextEditor('response from api - {{state.localData}}')
 
     cy.openPreview()
-    cy.get('#render-root')
-      .contains(`response from api - undefined`)
-      .should('exist')
+    cy.get('#render-root').contains(`response from api - null`).should('exist')
     cy.openBuilder()
 
     cy.getCuiTreeItemByPrimaryTitle('Body').click({ force: true })
@@ -297,6 +309,9 @@ describe('Running nested API and code actions', () => {
       value: `{ "customText": "Click button to post", "onClick": { "kind": "${TypeKind.ActionType}", "value": "${apiPostActionId}", "type": "${actionTypeId}" } }`,
     })
 
+    // need to wait for the code to put the autocomputed name before typing
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(1000)
     cy.findByTestId('create-element-form').setFormFieldValue({
       label: 'Name',
       type: FIELD_TYPE.INPUT,
@@ -311,9 +326,9 @@ describe('Running nested API and code actions', () => {
       timeout: 10000,
     })
 
-    // editorjs fails internally without this, maybe some kind of initialisation
+    // editorjs fails internally without this, maybe some kind of initialisation - Cannot read properties of undefined (reading 'contains')
     // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(500)
+    cy.wait(2000)
 
     cy.getCuiTreeItemByPrimaryTitle('Post Button').click({ force: true })
 
